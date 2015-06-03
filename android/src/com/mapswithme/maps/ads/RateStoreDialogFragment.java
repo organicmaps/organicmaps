@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -27,7 +27,7 @@ import com.mapswithme.util.statistics.Statistics;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 
-public class RateStoreDialogFragment extends DialogFragment implements View.OnClickListener
+public class RateStoreDialogFragment extends BaseMwmDialogFragment implements View.OnClickListener
 {
   private float mRating;
 

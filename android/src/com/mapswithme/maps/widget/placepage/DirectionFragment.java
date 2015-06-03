@@ -34,7 +34,7 @@ public class DirectionFragment extends DialogFragment implements LocationHelper.
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    setStyle(DialogFragment.STYLE_NORMAL, R.style.MwmMain_Dialog_DialogFragment_Fullscreen);
+    setStyle(DialogFragment.STYLE_NORMAL, R.style.MwmMain_DialogFragment_Fullscreen_SemiTransparent);
   }
 
   @Override

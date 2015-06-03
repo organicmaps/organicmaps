@@ -3,8 +3,9 @@
     android:id="@+id/rl__bookmark_details"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:clipChildren="false"
+    android:paddingBottom="@dimen/margin_medium"
     android:visibility="invisible">
 
   <View
@@ -102,24 +103,43 @@
         android:src="@drawable/color_picker_red_on"/>
   </RelativeLayout>
 
-  <com.mapswithme.maps.widget.CustomTextInputLayout
-      android:id="@+id/layout__bookmark_notes"
+  <TextView
+      android:id="@+id/tv__bookmark_notes"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/ll__group"
+      android:layout_marginBottom="@dimen/margin_small"
       android:layout_marginTop="@dimen/margin_medium"
-      android:layout_toRightOf="@id/iv__bookmark">
+      android:layout_toRightOf="@id/iv__bookmark"
+      android:clickable="true"
+      android:lineSpacingMultiplier="1.67"
+      android:text="@string/description"
+      android:textAppearance="@style/MwmTextAppearance.Caption"/>
 
-    <EditText
-        android:id="@+id/et__bookmark_notes"
-        style="@style/MwmWidget.PlacePage.EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/description"
-        android:inputType="textMultiLine"
-        android:textCursorDrawable="@null"
-        android:textSize="@dimen/place_page_subtitle"/>
+  <WebView
+      android:id="@+id/wv__description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/tv__bookmark_notes"
+      android:layout_below="@id/tv__bookmark_notes"/>
 
-  </com.mapswithme.maps.widget.CustomTextInputLayout>
+  <Button
+      android:id="@+id/btn__edit_html_bookmark"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_below="@id/wv__description"
+      android:layout_marginRight="@dimen/margin_medium"
+      android:background="?attr/selectableItemBackground"
+      android:text="@string/edit"
+      android:textAppearance="@style/MwmTextAppearance.Button"/>
+
+  <TextView
+      android:id="@+id/tv__description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/tv__bookmark_notes"
+      android:layout_below="@id/tv__bookmark_notes"
+      android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
 </RelativeLayout>

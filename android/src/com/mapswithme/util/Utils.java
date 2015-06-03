@@ -1,6 +1,5 @@
 package com.mapswithme.util;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
@@ -13,8 +12,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -30,22 +27,12 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 public class Utils
 {
   private static final String TAG = "Utils";
 
   private Utils() {}
-
-  public static String firstNotEmpty(String... args)
-  {
-    for (int i = 0; i < args.length; i++)
-      if (!TextUtils.isEmpty(args[i]))
-        return args[i];
-
-    throw new NoSuchElementException("All argument are empty");
-  }
 
   public static void closeStream(Closeable stream)
   {
@@ -65,7 +52,6 @@ public class Utils
   {
     return "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
   }
-
 
   public static boolean hasAnyGoogleStoreInstalled()
   {
@@ -179,17 +165,6 @@ public class Utils
     return "[" + joined + "]";
   }
 
-  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-  public static MenuItem addMenuCompat(Menu menu, int id, int order, int titleResId, int iconResId)
-  {
-    final MenuItem mItem = menu.add(Menu.NONE, id, order, titleResId);
-    mItem.setIcon(iconResId);
-    if (apiEqualOrGreaterThan(11))
-      mItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-    return mItem;
-  }
-
   public static Object[] asObjectArray(Object... args)
   {
     return args;
@@ -216,7 +191,6 @@ public class Utils
     if (intent != null)
       activity.startActivity(intent);
   }
-
 
   public static boolean isIntentAvailable(Intent intent)
   {

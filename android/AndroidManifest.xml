@@ -166,7 +166,7 @@
 
     <activity
         android:name="com.mapswithme.maps.MWMActivity"
-        android:label="@string/app_name"
+        android:theme="@style/MwmTheme.Map"
         android:launchMode="singleTask">
     </activity>
 
@@ -180,7 +180,6 @@
         android:name=".search.SearchActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/search_map"
-        android:theme="@style/MwmTheme.Search"
         android:windowSoftInputMode="stateVisible|adjustResize">
     </activity>
 

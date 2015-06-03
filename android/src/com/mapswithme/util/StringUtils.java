@@ -44,9 +44,9 @@ public class StringUtils
   public static String joinSkipEmpty(String delim, Object[] arr)
   {
     String res = null;
-    for (int i = 0; i < arr.length; ++i)
+    for (Object item : arr)
     {
-      String s = (arr[i] != null) ? arr[i].toString() : null;
+      String s = (item != null) ? item.toString() : null;
       if (s != null && s.length() > 0)
         res = (res == null) ? s : res + delim + s;
     }

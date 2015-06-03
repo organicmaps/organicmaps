@@ -68,7 +68,9 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
         {
-          BookmarkManager.INSTANCE.getCategoryById(position).setVisibility(isChecked);
+          final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(position);
+          if (category != null)
+            category.setVisibility(isChecked);
         }
       });
     }

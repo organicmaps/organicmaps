@@ -14,9 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +22,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,6 +51,7 @@ import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.ShareAction;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
@@ -90,7 +91,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
-  private EditText mEtBookmarkNotes;
+  private TextView mTvNotes;
+  private WebView mWvDescription;
+  private TextView mTvDescription;
+  private Button mBtnEditHtmlDescription;
   private TextView mTvBookmarkGroup;
   // Place page buttons
   private LinearLayout mLlApiBack;
@@ -186,10 +190,16 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     }
 
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
-    mEtBookmarkNotes = (EditText) mPpDetails.findViewById(R.id.et__bookmark_notes);
+    mTvNotes = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_notes);
+    mTvNotes.setOnClickListener(this);
 
     mTvBookmarkGroup = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_group);
     mTvBookmarkGroup.setOnClickListener(this);
+    mWvDescription = (WebView) mPpDetails.findViewById(R.id.wv__description);
+    mTvDescription = (TextView) mPpDetails.findViewById(R.id.tv__description);
+    mTvDescription.setOnClickListener(this);
+    mBtnEditHtmlDescription = (Button) mPpDetails.findViewById(R.id.btn__edit_html_bookmark);
+    mBtnEditHtmlDescription.setOnClickListener(this);
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
     mLlApiBack = (LinearLayout) ppButtons.findViewById(R.id.rl__api_back);
@@ -253,34 +263,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     return mMapObject;
   }
 
-  public void setMapObject(MapObject mo)
+  public void setMapObject(MapObject mapObject)
   {
-    if (!hasMapObject(mo))
-    {
-      if (mMapObject instanceof Bookmark)
-        storeBookmarkDetails(mo);
-
-      mMapObject = mo;
-      refreshViews();
-    }
-  }
-
-  private void storeBookmarkDetails(MapObject newMapObject)
-  {
-    // no need to store current bookmark if the same is set
-    if (newMapObject instanceof Bookmark && LocationUtils.areLatLonEqual(newMapObject, mMapObject))
+    if (hasMapObject(mapObject))
       return;
 
-    final Bookmark bookmark = (Bookmark) mMapObject;
-    final String name = mEtBookmarkName.getText().toString();
-    final String oldName = bookmark.getName();
-    final String notes = Html.toHtml(mEtBookmarkNotes.getText());
-    final String oldNotes = bookmark.getBookmarkDescription();
-    if (!oldNotes.equals(notes))
-      Statistics.INSTANCE.trackDescriptionChanged();
-
-    if (!name.equals(oldName) || !oldNotes.equals(notes))
-      bookmark.setParams(name, null, notes);
+    mMapObject = mapObject;
+    refreshViews();
   }
 
   public boolean hasMapObject(MapObject mo)
@@ -336,12 +325,23 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     {
       final Bookmark bookmark = (Bookmark) mMapObject;
       mEtBookmarkName.setText(bookmark.getName());
-      final String notes = bookmark.getBookmarkDescription();
-      mEtBookmarkNotes.setText(Html.fromHtml(notes));
-      mEtBookmarkNotes.setMovementMethod(LinkMovementMethod.getInstance());
       mTvBookmarkGroup.setText(bookmark.getCategoryName(getContext()));
       mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
       mIvBookmark.setImageResource(R.drawable.ic_bookmark_on);
+      final String notes = bookmark.getBookmarkDescription();
+      if (notes.isEmpty())
+        UiUtils.hide(mWvDescription, mBtnEditHtmlDescription, mTvDescription);
+      else if (notes.charAt(0) == '<') // we just check first symbol and try to display html if its tag opening
+      {
+        mWvDescription.loadData(notes, "text/html; charset=utf-8", null);
+        UiUtils.show(mWvDescription, mBtnEditHtmlDescription);
+        UiUtils.hide(mTvDescription);
+      }
+      else
+      {
+        UiUtils.hide(mWvDescription, mBtnEditHtmlDescription);
+        UiUtils.setTextAndShow(mTvDescription, notes);
+      }
     }
     else
       mIvBookmark.setImageResource(R.drawable.ic_bookmark_off);
@@ -459,8 +459,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     {
       mTvDistance.setVisibility(View.VISIBLE);
       final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(
-              mMapObject.getLat(), mMapObject.getLon(),
-              l.getLatitude(), l.getLongitude(), 0.0);
+          mMapObject.getLat(), mMapObject.getLon(),
+          l.getLatitude(), l.getLongitude(), 0.0);
       mTvDistance.setText(distanceAndAzimuth.getDistance());
     }
     else
@@ -638,7 +638,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       getContext().startActivity(intent);
       break;
     case R.id.tv__bookmark_group:
-      storeBookmarkDetails(null);
       selectBookmarkSet();
       break;
     case R.id.av__direction:
@@ -649,6 +648,27 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       intent = new Intent(Intent.ACTION_SENDTO);
       intent.setData(Utils.buildMailUri(mTvEmail.getText().toString(), "", ""));
       getContext().startActivity(intent);
+      break;
+    case R.id.tv__bookmark_notes:
+    case R.id.tv__description:
+    case R.id.btn__edit_html_bookmark:
+      final Bundle args = new Bundle();
+      final Bookmark bookmark = (Bookmark) mMapObject;
+      args.putString(EditDescriptionFragment.EXTRA_DESCRIPTION, bookmark.getBookmarkDescription());
+      final EditDescriptionFragment fragment = (EditDescriptionFragment) Fragment.instantiate(getContext(), EditDescriptionFragment.class.getName(), args);
+      fragment.setArguments(args);
+      fragment.setSaveDescriptionListener(new EditDescriptionFragment.OnDescriptionSaveListener()
+      {
+        @Override
+        public void onSave(String description)
+        {
+          bookmark.setParams(bookmark.getName(), null, description);
+          final Bookmark updatedBookmark = BookmarkManager.INSTANCE.getBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId());
+          setMapObject(updatedBookmark);
+          Statistics.INSTANCE.trackDescriptionChanged();
+        }
+      });
+      fragment.show(((FragmentActivity) getContext()).getSupportFragmentManager(), null);
       break;
     default:
       break;
