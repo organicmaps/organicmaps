@@ -6,7 +6,6 @@
 #include "map/country_tree.hpp"
 #include "map/feature_vec_model.hpp"
 #include "map/mwm_url.hpp"
-#include "map/pin_click_manager.hpp"
 #include "map/routing_session.hpp"
 #include "map/track.hpp"
 
@@ -119,7 +118,6 @@ protected:
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
 
   BookmarkManager m_bmManager;
-  PinClickManager m_balloonManager;
 
   void ClearAllCaches();
 
@@ -237,12 +235,18 @@ public:
   BookmarkManager & GetBookmarkManager() { return m_bmManager; }
 
   void ActivateUserMark(UserMark const * mark, bool needAnim);
+  void DiactivateUserMark();
   PoiMarkPoint * GetAddressMark(m2::PointD const & globalPoint) const;
+
+  using TActivateCallbackFn = function<void (unique_ptr<UserMarkCopy> mark)>;
+  void SetUserMarkActivationListener(TActivateCallbackFn const & fn) { m_activateUserMarkFn = fn; }
 
 private:
   void OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature);
   UserMark const * OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature);
   //@}
+
+  TActivateCallbackFn m_activateUserMarkFn;
 
 public:
 
@@ -408,8 +412,6 @@ public:
 
   StringsBundle const & GetStringsBundle();
 
-  PinClickManager & GetBalloonManager() { return m_balloonManager; }
-
   /// [in] lat, lon - last known location
   /// [out] lat, lon - predicted location
   static void PredictLocation(double & lat, double & lon, double accuracy,
@@ -426,11 +428,6 @@ public:
 
 private:
   url_scheme::ParsedMapApi m_ParsedMapApi;
-  void SetViewPortASync(m2::RectD const & rect);
-
-  void UpdateSelectedMyPosition(m2::PointD const & pt);
-  void DisconnectMyPositionUpdate();
-  int m_locationChangedSlotID;
 
 public:
   //@}

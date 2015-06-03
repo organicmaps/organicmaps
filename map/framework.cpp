@@ -181,10 +181,8 @@ void Framework::StopLocationFollow()
 }
 
 Framework::Framework()
-  : m_bmManager(*this),
-    m_balloonManager(*this),
-    m_fixedSearchResults(0),
-    m_locationChangedSlotID(-1)
+  : m_bmManager(*this)
+  , m_fixedSearchResults(0)
 {
   m_activeMaps.reset(new ActiveMapsLayout(*this));
   m_globalCntTree = storage::CountryTree(m_activeMaps);
@@ -545,7 +543,6 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
 
   CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, mark->GetPivot(), scale, true));
   ActivateUserMark(mark, true);
-  m_balloonManager.OnShowMark(mark);
 }
 
 void Framework::ShowTrack(Track const & track)
@@ -1172,7 +1169,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(center));
   mark->SetInfo(info);
 
-  m_balloonManager.OnShowMark(mark);
+  ActivateUserMark(mark, false);
 }
 
 size_t Framework::ShowAllSearchResults(search::Results const & results)
@@ -1420,7 +1417,7 @@ bool Framework::ShowMapForURL(string const & url)
   ResultT result = FAILED;
 
   // always hide current balloon here
-  m_balloonManager.Hide();
+  DiactivateUserMark();
 
   using namespace url_scheme;
   using namespace strings;
@@ -1482,43 +1479,23 @@ bool Framework::ShowMapForURL(string const & url)
       {
         LOG(LINFO, ("Show API mark:", static_cast<ApiMarkPoint const *>(apiMark)->GetName()));
 
-        m_balloonManager.OnShowMark(apiMark);
+        ActivateUserMark(apiMark, false);
       }
       else
       {
         PoiMarkPoint * mark = GetAddressMark(point);
         if (!name.empty())
           mark->SetName(name);
-        m_balloonManager.OnShowMark(mark);
+        ActivateUserMark(mark, false);
       }
     }
     else
-    {
-      m_balloonManager.RemovePin();
-      m_balloonManager.Dismiss();
-    }
+      DiactivateUserMark();
 
     return true;
   }
   else
     return false;
-}
-
-void Framework::UpdateSelectedMyPosition(m2::PointD const & pt)
-{
-  MyPositionMarkPoint * myPositionMark = UserMarkContainer::UserMarkForMyPostion();
-  myPositionMark->SetPtOrg(pt);
-  ActivateUserMark(myPositionMark, false);
-}
-
-void Framework::DisconnectMyPositionUpdate()
-{
-  if (m_locationChangedSlotID != -1)
-  {
-    ///@TODO UVR
-    //GetLocationState()->RemovePositionChangedListener(m_locationChangedSlotID);
-    m_locationChangedSlotID = -1;
-  }
 }
 
 bool Framework::GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo & info, feature::Metadata & metadata) const
@@ -1649,7 +1626,24 @@ PoiMarkPoint * Framework::GetAddressMark(m2::PointD const & globalPoint) const
 
 void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
 {
-  m_balloonManager.OnShowMark(mark);
+  static UserMark const * activeMark = nullptr;
+  if (m_activateUserMarkFn)
+  {
+    bool hasActive = activeMark != nullptr;
+    activeMark = mark;
+    if (mark)
+      m_activateUserMarkFn(mark->Copy());
+    else
+    {
+      if (hasActive)
+        m_activateUserMarkFn(nullptr);
+    }
+  }
+}
+
+void Framework::DiactivateUserMark()
+{
+  ActivateUserMark(nullptr, true);
 }
 
 void Framework::OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature)

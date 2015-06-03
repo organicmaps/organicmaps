@@ -78,11 +78,6 @@ bool IsLocationEmulation(QMouseEvent * e)
     QObject::connect(this, SIGNAL(heightChanged(int)), this, SLOT(sizeChanged(int)));
     QObject::connect(this, SIGNAL(widthChanged(int)), this,  SLOT(sizeChanged(int)));
 
-    // Initialize with some stubs for test.
-    PinClickManager & manager = GetBalloonManager();
-    manager.ConnectUserMarkListener([](unique_ptr<UserMarkCopy>) {});
-    manager.ConnectDismissListener(&DummyDismiss);
-
     m_framework->SetRouteBuildingListener([] (routing::IRouter::ResultCode, vector<storage::TIndex> const &)
     {
     });

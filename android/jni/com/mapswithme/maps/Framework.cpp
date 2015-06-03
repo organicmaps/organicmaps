@@ -395,7 +395,7 @@ bool Framework::ShowMapForURL(string const & url)
 
 void Framework::DeactivatePopup()
 {
-  GetPinClickManager().RemovePin();
+  m_work.DiactivateUserMark();
 }
 
 string Framework::GetOutdatedCountriesString()
@@ -697,12 +697,25 @@ extern "C"
     env->CallVoidMethod(*obj.get(), methodId, lat, lon);
   }
 
+  // Dismiss information box
+  void CallOnDismissListener(shared_ptr<jobject> obj)
+  {
+    JNIEnv * env = jni::GetEnv();
+    static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(), "onDismiss", "()V");
+    ASSERT(methodId, ());
+    env->CallVoidMethod(*obj.get(), methodId);
+  }
+
   void CallOnUserMarkActivated(shared_ptr<jobject> obj, unique_ptr<UserMarkCopy> markCopy)
   {
+    if (markCopy == nullptr)
+    {
+      CallOnDismissListener(obj);
+      return;
+    }
+
     ::Framework * fm = frm();
     UserMark const * mark = markCopy->GetUserMark();
-    fm->ActivateUserMark(mark);
-
     switch (mark->GetMarkType())
     {
     case UserMark::Type::API:
@@ -748,15 +761,6 @@ extern "C"
       // Ignore clicks to debug marks.
       break;
     }
-  }
-
-  // Dismiss information box
-  void CallOnDismissListener(shared_ptr<jobject> obj)
-  {
-    JNIEnv * env = jni::GetEnv();
-    static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(), "onDismiss", "()V");
-    ASSERT(methodId, ());
-    env->CallVoidMethod(*obj.get(), methodId);
   }
 
   void CallRoutingListener(shared_ptr<jobject> obj, int errorCode, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
@@ -819,17 +823,13 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeSetBalloonListener(JNIEnv * env, jclass clazz, jobject l)
   {
-    PinClickManager & manager = g_framework->GetPinClickManager();
-    shared_ptr<jobject> obj = jni::make_global_ref(l);
-
-    manager.ConnectUserMarkListener(bind(&CallOnUserMarkActivated, obj, _1));
-    manager.ConnectDismissListener(bind(&CallOnDismissListener, obj));
+    frm()->SetUserMarkActivationListener(bind(&CallOnUserMarkActivated, jni::make_global_ref(l), _1));
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeRemoveBalloonListener(JNIEnv * env, jobject thiz)
   {
-    g_framework->GetPinClickManager().ClearListeners();
+    frm()->SetUserMarkActivationListener(::Framework::TActivateCallbackFn());
   }
 
   JNIEXPORT jstring JNICALL
@@ -1184,15 +1184,6 @@ extern "C"
     g_framework->InjectMetadata(env, klass, mapObject, poiMark);
 
     return mapObject;
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeActivateUserMark(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
-  {
-    ::Framework * fr = frm();
-    m2::PointD pxPoint = fr->GtoP(MercatorBounds::FromLatLon(lat, lon));
-    UserMark const * mark = fr->GetUserMark(pxPoint, true);
-    fr->GetBalloonManager().OnShowMark(mark);
   }
 
   JNIEXPORT jstring JNICALL

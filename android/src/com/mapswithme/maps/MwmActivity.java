@@ -199,28 +199,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationState.INSTANCE.invalidatePosition();
   }
 
-  private void checkUserMarkActivation()
-  {
-    final Intent intent = getIntent();
-    if (intent != null && intent.hasExtra(EXTRA_SCREENSHOTS_TASK))
-    {
-      final String value = intent.getStringExtra(EXTRA_SCREENSHOTS_TASK);
-      if (value.equals(SCREENSHOTS_TASK_PPP))
-      {
-        final double lat = Double.parseDouble(intent.getStringExtra(EXTRA_LAT));
-        final double lon = Double.parseDouble(intent.getStringExtra(EXTRA_LON));
-        mFadeView.getHandler().postDelayed(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            Framework.nativeActivateUserMark(lat, lon);
-          }
-        }, 1000);
-      }
-    }
-  }
-
   @Override
   public void onRenderingInitialized()
   {
