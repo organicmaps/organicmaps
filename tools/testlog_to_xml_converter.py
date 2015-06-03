@@ -19,17 +19,23 @@ import xml.etree.ElementTree as ElementTree
 class TestInfo:
 
 
-    def __init__(self, test_name):
+    def __init__(self):
+        self.test_name = None
+        self.test_comment = None
+        self.test_result = None
+        self.test_duration = 0.0
+
+    def set_name(self, test_name):
+        self.obj_is_valid = True
         self.test_suite, name = test_name.split("::", 1)
         
         self.test_suite = self.test_suite[0: -4]
         name = name.replace("::", ".")
         
         self.test_name = name
-        self.test_comment = None
-        self.test_result = None
-        self.test_duration = 0.0
-
+        
+    def is_valid(self):
+        return self.obj_is_valid
 
 
     def append_comment(self, comment):
@@ -75,32 +81,32 @@ class Parser:
             test_info = None
 
             for line in f.readlines():
+                
+                if test_info == None:
+                    test_info = TestInfo()
+                
                 line = line.rstrip().decode('utf-8')
 
                 if line.startswith("Running"):
-                    test_info = TestInfo(line[len("Running "):])
+                    test_info.set_name(line[len("Running "):])
                     
                 elif line.startswith("Test took"):
-                    if test_info is not None:
-                        test_info.set_duration(line[len("Test took "):-3])
+                    test_info.set_duration(line[len("Test took "):-3])
+                    if test_info.is_valid():
                         self.root.append(test_info.xml())
 
-                        test_info = None
+                    test_info = None
 
                 elif line == "OK" or line.startswith("FAILED"):
-                    if test_info is not None:
-                        test_info.test_result = line
-                        if line.startswith("FAILED"):
-                            test_info.append_comment(line[len("FAILED"):])
+                    test_info.test_result = line
+                    if line.startswith("FAILED"):
+                        test_info.append_comment(line[len("FAILED"):])
 
                 else:
-                    if test_info is not None:
-                        test_info.append_comment(line)
+                    test_info.append_comment(line)
                         
 
     def write_xml_file(self):
-        print(">>> Self xml file: {xml_file}".format(xml_file=self.xml_file))
-
         ElementTree.ElementTree(self.root).write(self.xml_file, encoding="UTF-8", xml_declaration=True)
                         
                         
@@ -157,7 +163,7 @@ def main():
     parser.parse_log_file()
     parser.write_xml_file()
 
-    print("Finished writing the xUnit-style xml file")
+    print("\nFinished writing the xUnit-style xml file\n")
 
 
 if __name__ == '__main__':

@@ -35,6 +35,12 @@ skiplist = []
 runlist = []
 logfile = "testlog.log"
 
+TO_RUN = "to_run"
+SKIP = "skip"
+NOT_FOUND = "not_found"
+FAILED = "failed"
+PASSED = "passed"
+
 PORT = 34568
 
 def print_pretty(result, tests):
@@ -70,6 +76,12 @@ Example
 
 
 def set_global_vars():
+    
+    global skiplist
+    global logfile
+    global runlist
+    global workspace_path
+    
     try:
         opts, args = getopt.getopt(sys.argv[1:], "he:f:o:i:",
                                    ["help", "exclude=", "include=", "folder=", "output="])
@@ -83,21 +95,15 @@ def set_global_vars():
             usage()
             sys.exit()
         if option in ("-o", "--output"):
-            global logfile
             logfile = argument
         elif option in ("-e", "--exclude"):
-            exclude_tests = argument.split(",")
-            for exclude_test in exclude_tests:
-                global skiplist
-                skiplist.append(exclude_test)
+            skiplist = list(set(argument.split(",")))
         elif option in ("-i", "--include"):
-            print("-i option found, -e option will be ignored!")
+            print("\n-i option found, -e option will be ignored!")
             include_tests = argument.split(",")
             for include_test in include_tests:
-                global runlist
                 runlist.append(include_test)
         elif option in ("-f", "--folder"):
-            global workspace_path
             workspace_path = argument
         else:
             assert False, "unhandled option"
@@ -115,40 +121,45 @@ def stop_server():
         print("Failed to stop the server...")
 
 
-def run_tests():
-    tests_path = "{workspace_path}".format(workspace_path=workspace_path)
+def categorize_tests():
+    global skiplist
+
+    tests_to_run = []
+    local_skiplist = []
+    not_found = []
+    
+    test_files_in_dir = filter(lambda x: x.endswith("_tests"), listdir(workspace_path))
+
+    on_disk = lambda x: x in test_files_in_dir
+    not_on_disk = lambda x : not on_disk(x)
+
+    if len(runlist) == 0:
+        local_skiplist = filter(on_disk, skiplist)
+        not_found = filter(not_on_disk, local_skiplist)
+        tests_to_run = filter(lambda x: x not in local_skiplist, test_files_in_dir)
+    else:
+        tests_to_run = filter(on_disk, runlist)
+        not_found = filter(not_on_disk, tests_to_run)
+
+    return {TO_RUN:tests_to_run, SKIP:local_skiplist, NOT_FOUND:not_found}        
+        
+
+def run_tests(tests_to_run):
 
     failed = []
     passed = []
-    skipped = []
-    not_found = list(runlist)
-    
-    if len(runlist) != 0:
-        global skiplist
-        skiplist = [] 
 
     server = None
-    for file in listdir(tests_path):
-
-        if not file.endswith("_tests"):
-            continue
-        if file in skiplist:
-            skipped.append(skiplist.pop(skiplist.index(file)))
-            continue
-
-        if len(runlist) > 0 and (file not in runlist):
-            continue
-        
-        if len(not_found) > 0:
-            not_found.pop(not_found.index(file))
+    
+    for file in tests_to_run:
 
         if file == "platform_tests":
             start_server()
         
         process = subprocess.Popen("{tests_path}/{file} 2>> {logfile}".
-                                   format(tests_path=tests_path, file=file, logfile=logfile),
-            shell=True,
-            stdout=subprocess.PIPE)
+                                   format(tests_path=workspace_path, file=file, logfile=logfile),
+                                   shell=True,
+                                   stdout=subprocess.PIPE)
 
         process.wait()
 
@@ -159,10 +170,8 @@ def run_tests():
             failed.append(file)
         else:
             passed.append(file)
-            
-    not_found.extend(skiplist)
 
-    return {"failed": failed, "passed": passed, "skipped": skipped, "not_found": not_found}
+    return {FAILED: failed, PASSED: passed}
 
 
 def rm_log_file():
@@ -176,12 +185,14 @@ def main():
     set_global_vars()
     rm_log_file()
 
-    results = run_tests()
+    categorized_tests = categorize_tests()
 
-    print_pretty("failed", results["failed"])
-    print_pretty("skipped", results["skipped"])
-    print_pretty("passed", results["passed"])
-    print_pretty("not found", results["not_found"])
+    results = run_tests(categorized_tests[TO_RUN])
+
+    print_pretty("failed", results[FAILED])
+    print_pretty("skipped", categorized_tests[SKIP])
+    print_pretty("passed", results[PASSED])
+    print_pretty("not found", categorized_tests[NOT_FOUND])
 
 
 if (__name__ == "__main__"):
