@@ -87,6 +87,8 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 
 @property (nonatomic) ForceRoutingStateChange forceRoutingStateChange;
+@property (nonatomic) BOOL disableStandbyOnLocationStateMode;
+@property (nonatomic) BOOL disableStandbyOnRouteFollowing;
 
 @end
 
@@ -223,8 +225,8 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   {
     case location::State::UnknownPosition:
     {
+      self.disableStandbyOnLocationStateMode = NO;
       [[MapsAppDelegate theApp].m_locationManager stop:self];
-      
       PlacePageView * placePage = self.containerView.placePage;
       [[MapsAppDelegate theApp].m_locationManager stop:placePage];
       if ([placePage isMyPosition])
@@ -234,12 +236,16 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
       break;
     }
     case location::State::PendingPosition:
+      self.disableStandbyOnLocationStateMode = NO;
       [[MapsAppDelegate theApp].m_locationManager start:self];
       [[NSNotificationCenter defaultCenter] postNotificationName:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
       break;
     case location::State::NotFollow:
+      self.disableStandbyOnLocationStateMode = NO;
+      break;
     case location::State::Follow:
     case location::State::RotateAndFollow:
+      self.disableStandbyOnLocationStateMode = YES;
       break;
   }
 }
@@ -931,6 +937,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   [routeView setState:RouteViewStateTurnInstructions animated:YES];
   self.controlsManager.zoomHidden = NO;
   GetFramework().FollowRoute();
+  self.disableStandbyOnRouteFollowing = YES;
   [RouteState save];
 }
 
@@ -949,6 +956,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   GetFramework().CloseRouting();
   [self.controlsManager resetZoomButtonsVisibility];
   [self.routeView setState:RouteViewStateHidden animated:YES];
+  self.disableStandbyOnRouteFollowing = NO;
   [RouteState remove];
 }
 
@@ -1251,6 +1259,28 @@ NSInteger compareAddress(id l, id r, void * context)
 {
   _restoreRouteDestination = restoreRouteDestination;
   self.forceRoutingStateChange = ForceRoutingStateChangeRestoreRoute;
+}
+
+- (void)setDisableStandbyOnLocationStateMode:(BOOL)disableStandbyOnLocationStateMode
+{
+  if (_disableStandbyOnLocationStateMode == disableStandbyOnLocationStateMode)
+    return;
+  _disableStandbyOnLocationStateMode = disableStandbyOnLocationStateMode;
+  if (disableStandbyOnLocationStateMode)
+    [[MapsAppDelegate theApp] disableStandby];
+  else
+    [[MapsAppDelegate theApp] enableStandby];
+}
+
+- (void)setDisableStandbyOnRouteFollowing:(BOOL)disableStandbyOnRouteFollowing
+{
+  if (_disableStandbyOnRouteFollowing == disableStandbyOnRouteFollowing)
+    return;
+  _disableStandbyOnRouteFollowing = disableStandbyOnRouteFollowing;
+  if (disableStandbyOnRouteFollowing)
+    [[MapsAppDelegate theApp] disableStandby];
+  else
+    [[MapsAppDelegate theApp] enableStandby];
 }
 
 @end

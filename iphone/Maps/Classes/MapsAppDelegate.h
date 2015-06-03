@@ -23,6 +23,9 @@
 
 + (MapsAppDelegate *)theApp;
 
+- (void)enableStandby;
+- (void)disableStandby;
+
 - (void)disableDownloadIndicator;
 - (void)enableDownloadIndicator;
 

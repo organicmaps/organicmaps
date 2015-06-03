@@ -70,6 +70,12 @@ void InitLocalizedStrings()
   f.AddString("routing_failed_internal_error", [L(@"routing_failed_internal_error") UTF8String]);
 }
 
+@interface MapsAppDelegate ()
+
+@property (nonatomic) NSInteger standbyCounter;
+
+@end
+
 @implementation MapsAppDelegate
 {
   NSString * m_geoURL;
@@ -184,6 +190,8 @@ void InitLocalizedStrings()
   [self customizeAppearance];
 
   [self initMyTrackerService];
+  
+  self.standbyCounter = 0;
 
   if ([application respondsToSelector:@selector(setMinimumBackgroundFetchInterval:)])
     [application setMinimumBackgroundFetchInterval:(6 * 60 * 60)];
@@ -207,8 +215,6 @@ void InitLocalizedStrings()
   }
   [[NSUserDefaults standardUserDefaults] synchronize];
   
-  application.idleTimerDisabled = YES;
-
   Framework & f = GetFramework();
   application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
   f.GetLocationState()->InvalidatePosition();
@@ -510,6 +516,24 @@ void InitLocalizedStrings()
     self.m_mapViewController.restoreRouteDestination = state.endPoint;
   else
     [RouteState remove];
+}
+
+#pragma mark - Standby
+
+- (void)enableStandby
+{
+  self.standbyCounter--;
+}
+
+- (void)disableStandby
+{
+  self.standbyCounter++;
+}
+
+- (void)setStandbyCounter:(NSInteger)standbyCounter
+{
+  _standbyCounter = MAX(0, standbyCounter);
+  [UIApplication sharedApplication].idleTimerDisabled = (_standbyCounter != 0);
 }
 
 #pragma mark - Alert logic
