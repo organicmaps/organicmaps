@@ -100,9 +100,7 @@ def set_global_vars():
             skiplist = list(set(argument.split(",")))
         elif option in ("-i", "--include"):
             print("\n-i option found, -e option will be ignored!")
-            include_tests = argument.split(",")
-            for include_test in include_tests:
-                runlist.append(include_test)
+            runlist = argument.split(",")
         elif option in ("-f", "--folder"):
             workspace_path = argument
         else:
