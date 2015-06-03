@@ -4,10 +4,10 @@
 @addr_z16: #7f7f8f;
 @aero_terminal: #2b376b;
 @aerodrome: #272331;
-@aeroway: #2b2342;
-@airport_name: #ffa41d;
+@aeroway: #242423;
+@airport_name: #a0a0a0;
 @alpine_hiking: #990;
-@beach: #1133aa;
+@beach: #25231D;
 @border: #621;
 @border_country_z4: #661;
 @border_country_z5: #721;
@@ -22,7 +22,7 @@
 @country_name_z8: #4f4f5f;
 @cycleway: #6f436f;
 @cycleway_z14: #6f436f;
-@dark_gray_20: #a0a0a0;
+@dark_gray_20: #505050;
 @dark_gray_40: #909090;
 @disused_rail: #0d0d0d;
 @farm: #2B2D25;
@@ -74,12 +74,12 @@
 @hw_trunk_primary_casing: #45321B;
 @industrial: #1C1D18;
 @lake_name: #af8f2f;
-@landfill: #16228d;
+@landfill: #25231D;
 @light_gray: #5f5f5f;
 @light_rail: #481919;
 @light_rail_z12: #6f2f6f;
-@light_rail_z14: #f6a6f6;
-@light_rail_z15: #f0b3f0;
+@light_rail_z14: #6f2f6f;
+@light_rail_z15: #6f2f6f;
 @light_yellow: #1C1D18;
 @military: #25231D;
 @monorail_line: #737;
@@ -131,7 +131,7 @@
 @uk_trunk: #9d9;
 @village_fill: #222536;
 @vineyard: #2e152e;
-@water_name: #3F80A0;
+@water_name: #326680;
 @waterfall_name: yellow;
 @waterway_lock: #070707;
 @waterway_weir: #ffffbb;
