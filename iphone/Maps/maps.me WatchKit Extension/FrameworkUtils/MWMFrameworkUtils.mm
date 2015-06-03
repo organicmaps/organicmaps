@@ -105,8 +105,11 @@ extern NSString * const kSearchResultPointKey;
 + (void)searchAroundCurrentLocation:(NSString *)query callback:(void(^)(NSMutableArray *result))reply
 {
   [MWMFrameworkUtils prepareFramework];
+
+  // Agreed to set 10km as search radius for Watch.
   search::SearchParams params;
-  params.SetSearchRadius(10000.0);
+  params.SetSearchRadiusMeters(10000.0);
+
   CLLocationCoordinate2D coordinate = [MWMWatchLocationTracker sharedLocationTracker].currentCoordinate;
   params.SetPosition(coordinate.latitude, coordinate.longitude);
   params.m_query = query.UTF8String;

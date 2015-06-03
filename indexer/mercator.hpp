@@ -70,7 +70,7 @@ struct MercatorBounds
     return lon;
   }
 
-  static long double constexpr degreeInMetres = 360.0 / 40008245;
+  static double constexpr degreeInMetres = 360.0 / 40008245;
 
   /// @name Get rect for center point (lon, lat) and dimensions in metres.
   //@{

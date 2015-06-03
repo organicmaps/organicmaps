@@ -147,17 +147,22 @@ void Query::SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & vi
     // Check if we can skip this cache query.
     if (m_viewport[idx].IsValid())
     {
+      // Threshold to compare for equal or inner rects.
+      // It doesn't influence on result cached features because it's smaller
+      // than minimal cell size in geometry index (i'm almost sure :)).
+      double constexpr epsMeters = 10.0;
+
       if (forceUpdate)
       {
-        // skip if rects are equal with 10 meters tolerance
-        if (IsEqualMercator(m_viewport[idx], viewport, 10.0))
+        // skip if rects are equal
+        if (IsEqualMercator(m_viewport[idx], viewport, epsMeters))
           return;
       }
       else
       {
-        // skip if new viewport is inside the old one
+        // skip if the new viewport is inside the old one (no need to recache)
         m2::RectD r(m_viewport[idx]);
-        constexpr long double eps = 5.0 * MercatorBounds::degreeInMetres;
+        double constexpr eps = epsMeters * MercatorBounds::degreeInMetres;
         r.Inflate(eps, eps);
 
         if (r.IsRectInside(viewport))
@@ -325,7 +330,8 @@ void Query::Init(bool viewportSearch)
   else
   {
     m_queuesCount = QUEUES_COUNT;
-    m_results[0] = QueueT(PRE_RESULTS_COUNT, QueueCompareT(g_arrCompare1[0]));
+    m_results[DISTANCE_TO_PIVOT] =
+        QueueT(PRE_RESULTS_COUNT, QueueCompareT(g_arrCompare1[DISTANCE_TO_PIVOT]));
   }
 }
 

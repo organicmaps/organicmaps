@@ -44,7 +44,7 @@ namespace search
       return (m_searchRadiusM > 0 && IsValidPosition());
     }
 
-    void SetSearchRadius(double radiusM) { m_searchRadiusM = radiusM; }
+    void SetSearchRadiusMeters(double radiusM) { m_searchRadiusM = radiusM; }
     bool GetSearchRect(m2::RectD & rect) const;
 
     /// @param[in] locale can be "fr", "en-US", "ru_RU" etc.

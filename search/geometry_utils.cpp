@@ -24,9 +24,11 @@ bool IsEqualMercator(m2::RectD const & r1, m2::RectD const & r2, double epsMeter
 
 bool GetInflatedViewport(m2::RectD & viewport)
 {
-  double const level = scales::GetScaleLevelD(viewport);
+  double level = scales::GetScaleLevelD(viewport);
   if (level < 11.5)
     return false;
+  if (level > 16.5)
+    level = 16.5;
 
   viewport = scales::GetRectForLevel(level - 1.5, viewport.Center());
   return true;
@@ -37,4 +39,4 @@ int GetQueryIndexScale(m2::RectD const & viewport)
   return scales::GetScaleLevel(viewport) + 7;
 }
 
-}
+} // namespace search

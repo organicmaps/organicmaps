@@ -274,13 +274,21 @@ private:
   typedef CompareT<impl::PreResult1> QueueCompareT;
   typedef my::limited_priority_queue<impl::PreResult1, QueueCompareT> QueueT;
 
+  /// @name Intermediate result queues sorted by different criterias.
+  //@{
 public:
   enum { QUEUES_COUNT = 2 };
 private:
-  // 0 - LessDistance
-  // 1 - LessRank
+  // The values order should be the same as in
+  // g_arrCompare1, g_arrCompare2 function arrays.
+  enum
+  {
+    DISTANCE_TO_PIVOT,    // LessDistance
+    FEATURE_RANK          // LessRank
+  };
   QueueT m_results[QUEUES_COUNT];
   size_t m_queuesCount;
+  //@}
 };
 
 }  // namespace search

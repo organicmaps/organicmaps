@@ -271,7 +271,7 @@ class SecondPassParser : public BaseOSMParser
     m2::PointD m_pt;
     uint32_t m_type;
 
-    static constexpr long double THRESHOLD_M = 5000.0;
+    static constexpr double THRESHOLD_M = 5000.0;
 
     bool IsPoint() const { return (m_ft.GetGeomType() == feature::GEOM_POINT); }
 
