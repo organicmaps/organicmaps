@@ -53,7 +53,7 @@ UNIT_TEST(TestAdjacencyMatrix)
     auto ins = context.GetIngoingIterators();
     auto outs = context.GetOutgoingIterators();
     context.SetAdjacencyCost(ins.first, outs.first, 5);
-    context.SetAdjacencyCost(ins.first+1, outs.first, 9);
+    context.SetAdjacencyCost(ins.first + 1, outs.first, 9);
   }
 
   vector<char> buffer;
@@ -67,7 +67,8 @@ UNIT_TEST(TestAdjacencyMatrix)
   auto outs = newContext.GetOutgoingIterators();
   TEST_EQUAL(newContext.GetAdjacencyCost(ins.first, outs.first), 5, ());
   TEST_EQUAL(newContext.GetAdjacencyCost(ins.first + 1, outs.first), 9, ());
-  TEST_EQUAL(newContext.GetAdjacencyCost(ins.first + 2, outs.first), routing::INVALID_CONTEXT_EDGE_WEIGHT, ("Default cost"));
+  TEST_EQUAL(newContext.GetAdjacencyCost(ins.first + 2, outs.first),
+             routing::INVALID_CONTEXT_EDGE_WEIGHT, ("Default cost"));
 }
 
 }

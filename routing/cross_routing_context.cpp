@@ -110,7 +110,8 @@ pair<OutgoingEdgeIteratorT, OutgoingEdgeIteratorT> CrossRoutingContextReader::Ge
   return make_pair(m_outgoingNodes.cbegin(), m_outgoingNodes.cend());
 }
 
-WritedEdgeWeightT CrossRoutingContextReader::GetAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const
+WritedEdgeWeightT CrossRoutingContextReader::GetAdjacencyCost(IngoingEdgeIteratorT ingoing,
+                                                              OutgoingEdgeIteratorT outgoing) const
 {
   if (!mp_reader)
     return INVALID_CONTEXT_EDGE_WEIGHT;
@@ -159,7 +160,8 @@ void CrossRoutingContextWriter::AddIngoingNode(size_t const nodeId, m2::PointD c
   m_ingoingNodes.push_back(IngoingCrossNode(nodeId, point));
 }
 
-void CrossRoutingContextWriter::AddOutgoingNode(size_t const nodeId, string const & targetMwm, m2::PointD const & point)
+void CrossRoutingContextWriter::AddOutgoingNode(size_t const nodeId, string const & targetMwm,
+                                                m2::PointD const & point)
 {
   auto it = find(m_neighborMwmList.begin(), m_neighborMwmList.end(), targetMwm);
   if (it == m_neighborMwmList.end())
@@ -172,7 +174,9 @@ void CrossRoutingContextWriter::ReserveAdjacencyMatrix()
   m_adjacencyMatrix.resize(m_ingoingNodes.size() * m_outgoingNodes.size(), INVALID_CONTEXT_EDGE_WEIGHT);
 }
 
-void CrossRoutingContextWriter::SetAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoin, WritedEdgeWeightT value)
+void CrossRoutingContextWriter::SetAdjacencyCost(IngoingEdgeIteratorT ingoing,
+                                                 OutgoingEdgeIteratorT outgoin,
+                                                 WritedEdgeWeightT value)
 {
   m_adjacencyMatrix[GetIndexInAdjMatrix(ingoing, outgoin)] = value;
 }

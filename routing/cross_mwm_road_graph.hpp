@@ -30,6 +30,7 @@ struct CrossNode
   CrossNode() : node(INVALID_NODE_ID), point(m2::PointD::Zero()) {}
 
   inline bool IsValid() const { return node != INVALID_NODE_ID; }
+
   inline bool operator==(CrossNode const & a) const
   {
     return node == a.node && mwmName == a.mwmName;
@@ -97,11 +98,12 @@ private:
   friend class Graph<BorderCross, CrossWeightedEdge, CrossMwmGraph>;
 
   BorderCross FindNextMwmNode(OutgoingCrossNode const & startNode,
-                             TRoutingMappingPtr const & currentMapping) const;
+                              TRoutingMappingPtr const & currentMapping) const;
 
   // Graph<BorderCross, CrossWeightedEdge, CrossMwmGraph> implementation:
   void GetOutgoingEdgesListImpl(BorderCross const & v, vector<CrossWeightedEdge> & adj) const;
-  void GetIngoingEdgesListImpl(BorderCross const & /* v */, vector<CrossWeightedEdge> & /* adj */) const
+  void GetIngoingEdgesListImpl(BorderCross const & /* v */,
+                               vector<CrossWeightedEdge> & /* adj */) const
   {
     NOTIMPLEMENTED();
   }

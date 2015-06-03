@@ -393,8 +393,9 @@ bool AlmostEqualULPs(m2::Point<T> const & p1, m2::Point<T> const & p2, unsigned 
 
 }
 
-//hash function for unordered map realisation.
-namespace boost{
+// hash function for unordered map realisation.
+namespace boost
+{
 template <>
 struct hash<m2::PointD>
 {

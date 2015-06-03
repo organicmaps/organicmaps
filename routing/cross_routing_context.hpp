@@ -64,7 +64,8 @@ public:
 
   pair<OutgoingEdgeIteratorT, OutgoingEdgeIteratorT> GetOutgoingIterators() const;
 
-  WritedEdgeWeightT GetAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const;
+  WritedEdgeWeightT GetAdjacencyCost(IngoingEdgeIteratorT ingoing,
+                                     OutgoingEdgeIteratorT outgoing) const;
 };
 
 /// Helper class to generate cross context section in mwm.routing file
@@ -86,7 +87,8 @@ public:
 
   void ReserveAdjacencyMatrix();
 
-  void SetAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoin, WritedEdgeWeightT value);
+  void SetAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoin,
+                        WritedEdgeWeightT value);
 
   pair<IngoingEdgeIteratorT, IngoingEdgeIteratorT> GetIngoingIterators() const;
 

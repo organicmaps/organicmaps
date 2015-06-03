@@ -61,7 +61,17 @@ public:
                                  RawRoutingResult & rawRoutingResult);
 
 protected:
-  IRouter::ResultCode FindPhantomNodes(string const & mapName, m2::PointD const & point,
+  /*!
+   * \brief FindPhantomNodes finds OSRM graph nodes by point and graph name.
+   * \param mapName Name of the map without data file extension.
+   * \param point Point in lon/lat coordinates.
+   * \param direction Movement direction vector in planar coordinates.
+   * \param res Result graph nodes.
+   * \param maxCount Maximum count of graph nodes in the result vector.
+   * \param mapping Reference to routing indexes.
+   * \return NoError if there are any nodes in res. RouteNotFound otherwise.
+   */
+  IRouter::ResultCode FindPhantomNodes(m2::PointD const & point,
                                        m2::PointD const & direction, TFeatureGraphNodeVec & res,
                                        size_t maxCount, TRoutingMappingPtr const & mapping);
 

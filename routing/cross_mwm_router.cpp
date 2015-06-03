@@ -25,7 +25,7 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
   }
 
   my::HighResTimer timer(true);
-  TAlgorithm::Result const result =m_algo.FindPath(startPos, finalPos, route, onVisitedVertex);
+  TAlgorithm::Result const result = m_algo.FindPath(startPos, finalPos, route, onVisitedVertex);
   LOG(LINFO, ("Duration of the cross MWM path finding", timer.ElapsedNano()));
   switch (result)
   {

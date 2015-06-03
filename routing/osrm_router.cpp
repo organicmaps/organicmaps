@@ -39,7 +39,6 @@
 
 namespace routing
 {
-
 size_t constexpr kMaxNodeCandidatesCount = 10;
 double constexpr kFeatureFindingRectSideRadiusMeters = 1000.0;
 double constexpr kTimeOverhead = 1.;
@@ -376,10 +375,11 @@ public:
 
       CalculateOffsets(node);
     }
-    res.erase(remove_if(res.begin(),
-                        res.end(),
-                        [](FeatureGraphNode const & f) {return f.mwmName.empty();}),
-              res.end());
+    res.erase(remove_if(res.begin(), res.end(), [](FeatureGraphNode const & f)
+                        {
+                          return f.mwmName.empty();
+                        }),
+                        res.end());
   }
 };
 
@@ -527,7 +527,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   TFeatureGraphNodeVec startTask;
 
   {
-    ResultCode const code = FindPhantomNodes(startMapping->GetName(), startPoint, startDirection,
+    ResultCode const code = FindPhantomNodes(startPoint, startDirection,
                                              startTask, kMaxNodeCandidatesCount, startMapping);
     if (code != NoError)
       return code;
@@ -536,7 +536,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     if (finalPoint != m_CachedTargetPoint)
     {
       ResultCode const code =
-          FindPhantomNodes(targetMapping->GetName(), finalPoint, m2::PointD::Zero(),
+          FindPhantomNodes(finalPoint, m2::PointD::Zero(),
                            m_CachedTargetTask, kMaxNodeCandidatesCount, targetMapping);
       if (code != NoError)
         return code;
@@ -876,7 +876,8 @@ void OsrmRouter::GetPossibleTurns(NodeID node, m2::PointD const & p1, m2::PointD
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     m2::PointD const p2 = ft.GetPoint(seg.m_pointStart < seg.m_pointEnd ? seg.m_pointStart + 1 : seg.m_pointStart - 1);
-    ASSERT_LESS(MercatorBounds::DistanceOnEarth(p, ft.GetPoint(seg.m_pointStart)), kFeaturesNearTurnM, ());
+    ASSERT_LESS(MercatorBounds::DistanceOnEarth(p, ft.GetPoint(seg.m_pointStart)),
+                kFeaturesNearTurnM, ());
 
     double const a = my::RadToDeg(ang::TwoVectorsAngle(p, p1, p2));
 
@@ -951,7 +952,9 @@ void OsrmRouter::GetTurnDirection(RawPathData const & node1, RawPathData const &
   ft1.ParseGeometry(FeatureType::BEST_GEOMETRY);
   ft2.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-  ASSERT_LESS(MercatorBounds::DistanceOnEarth(ft1.GetPoint(seg1.m_pointEnd), ft2.GetPoint(seg2.m_pointStart)), kFeaturesNearTurnM, ());
+  ASSERT_LESS(MercatorBounds::DistanceOnEarth(ft1.GetPoint(seg1.m_pointEnd),
+                                              ft2.GetPoint(seg2.m_pointStart)),
+              kFeaturesNearTurnM, ());
 
   m2::PointD const p = ft1.GetPoint(seg1.m_pointEnd);
   m2::PointD const p1 = GetPointForTurnAngle(seg1, ft1, p,
@@ -1046,20 +1049,22 @@ void OsrmRouter::GetTurnDirection(RawPathData const & node1, RawPathData const &
     turn.m_turn = turns::TurnDirection::UTurn;
 }
 
-IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & mapName, m2::PointD const & point, m2::PointD const & direction,
-                                                 TFeatureGraphNodeVec & res, size_t maxCount, TRoutingMappingPtr const & mapping)
+IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
+                                                 m2::PointD const & direction,
+                                                 TFeatureGraphNodeVec & res, size_t maxCount,
+                                                 TRoutingMappingPtr const & mapping)
 {
   Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction);
   getter.SetPoint(point);
 
-  m_pIndex->ForEachInRectForMWM(
-      getter, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kFeatureFindingRectSideRadiusMeters),
-      scales::GetUpperScale(), mapping->GetMwmId());
+  m_pIndex->ForEachInRectForMWM(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(
+                                            point, kFeatureFindingRectSideRadiusMeters),
+                                scales::GetUpperScale(), mapping->GetMwmId());
 
   if (!getter.HasCandidates())
-    return StartPointNotFound;
+    return RouteNotFound;
 
-  getter.MakeResult(res, maxCount, mapName);
+  getter.MakeResult(res, maxCount, mapping->GetName());
   return NoError;
 }
 

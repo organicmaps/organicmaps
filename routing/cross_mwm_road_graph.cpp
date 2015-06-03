@@ -96,11 +96,11 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
 }
 
 BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
-                                          TRoutingMappingPtr const & currentMapping) const
+                                           TRoutingMappingPtr const & currentMapping) const
 {
   m2::PointD const & startPoint = startNode.m_point;
 
-  //Check cached crosses.
+  // Check cached crosses.
   auto const it = m_cachedNextNodes.find(startPoint);
   if (it != m_cachedNextNodes.end())
   {
@@ -123,9 +123,9 @@ BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
         kMwmCrossingNodeEqualityRadiusMeters)
     {
       BorderCross const cross(CrossNode(startNode.m_nodeId, currentMapping->GetName(),
-                                   MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
+                                        MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
                               CrossNode(i->m_nodeId, nextMwm,
-                                   MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));
+                                        MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));
       m_cachedNextNodes.insert(make_pair(startPoint, cross));
       return cross;
     }
