@@ -48,19 +48,22 @@ DeferredTask::DeferredTask(TTask const & task, milliseconds ms) : m_started(fals
 
 DeferredTask::~DeferredTask()
 {
-  ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
+  CheckContext();
+
   m_thread.Cancel();
 }
 
 bool DeferredTask::WasStarted() const
 {
-  ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
+  CheckContext();
+
   return m_started;
 }
 
 void DeferredTask::Cancel()
 {
-  ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
+  CheckContext();
+
   threads::IRoutine * routine = m_thread.GetRoutine();
   CHECK(routine, ());
   routine->Cancel();
@@ -68,6 +71,14 @@ void DeferredTask::Cancel()
 
 void DeferredTask::WaitForCompletion()
 {
-  ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
+  CheckContext();
+
   m_thread.Join();
+}
+
+void DeferredTask::CheckContext() const
+{
+#if defined(DEBUG) && defined(OMIM_OS_ANDROID)
+  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+#endif
 }

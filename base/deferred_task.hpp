@@ -3,7 +3,10 @@
 #include "base/condition.hpp"
 #include "base/macros.hpp"
 #include "base/thread.hpp"
+
+#ifndef OMIM_OS_ANDROID
 #include "base/thread_checker.hpp"
+#endif
 
 #include "std/chrono.hpp"
 #include "std/condition_variable.hpp"
@@ -53,9 +56,13 @@ private:
   /// is used by routine that will be executed on m_thread.
   atomic<bool> m_started;
   threads::Thread m_thread;
-#ifdef DEBUG
+
+#if defined(DEBUG) && defined(OMIM_OS_ANDROID)
+  // This checker is not valid on Android.
+  // UI thread (NV thread) can change it's handle value during app lifecycle.
   ThreadChecker m_threadChecker;
 #endif
+  void CheckContext() const;
 
   DISALLOW_COPY_AND_MOVE(DeferredTask);
 };
