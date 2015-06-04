@@ -14,9 +14,9 @@
 #include "drape_frontend/tile_tree.hpp"
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/render_group.hpp"
-#include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/user_event_stream.hpp"
+#include "drape_frontend/my_position_controller.hpp"
 
 #include "drape_gui/layer_render.hpp"
 
@@ -42,6 +42,8 @@ namespace dp
 
 namespace df
 {
+
+class SelectionShape;
 
 struct TapInfo
 {
@@ -125,6 +127,7 @@ protected:
 private:
   void OnResize(ScreenBase const & screen);
   void RenderScene(ScreenBase const & modelView);
+  void RenderSingleGroup(ScreenBase const & modelView, ref_ptr<RenderGroup> group);
   void RefreshProjection();
   void RefreshModelView(ScreenBase const & screen);
   ScreenBase const & UpdateScene(bool & modelViewChanged);
@@ -191,6 +194,7 @@ private:
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   drape_ptr<MyPositionController> m_myPositionController;
+  drape_ptr<SelectionShape> m_selectionShape;
 
   drape_ptr<dp::OverlayTree> m_overlayTree;
 

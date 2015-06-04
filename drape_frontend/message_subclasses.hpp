@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape_frontend/my_position.hpp"
+#include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/message.hpp"
 #include "drape_frontend/viewport.hpp"
 #include "drape_frontend/tile_utils.hpp"
@@ -274,16 +275,19 @@ private:
 class MyPositionShapeMessage : public Message
 {
 public:
-  MyPositionShapeMessage(drape_ptr<MyPosition> && shape)
+  MyPositionShapeMessage(drape_ptr<MyPosition> && shape, drape_ptr<SelectionShape> && selection)
     : m_shape(move(shape))
+    , m_selection(move(selection))
   {}
 
   Type GetType() const override { return Message::MyPositionShape; }
 
   drape_ptr<MyPosition> && AcceptShape() { return move(m_shape); }
+  drape_ptr<SelectionShape> AcceptSelection() { return move(m_selection); }
 
 private:
   drape_ptr<MyPosition> m_shape;
+  drape_ptr<SelectionShape> m_selection;
 };
 
 class StopRenderingMessage : public Message
@@ -412,6 +416,33 @@ public:
 private:
   m2::PointD m_pt;
   FeatureID & m_featureID;
+};
+
+class SelectObjectMessage : public Message
+{
+public:
+  struct DismissTag {};
+  SelectObjectMessage(DismissTag)
+    : m_isDismiss(true)
+  {
+  }
+
+  SelectObjectMessage(SelectionShape::ESelectedObject selectedObject, m2::PointD const & glbPoint)
+    : m_selected(selectedObject)
+    , m_glbPoint(glbPoint)
+    , m_isDismiss(false)
+  {
+  }
+
+  Type GetType() const override { return SelectObject; }
+  m2::PointD const & GetPosition() const { return m_glbPoint; }
+  SelectionShape::ESelectedObject GetSelectedObject() const { return m_selected; }
+  bool IsDismiss() const { return m_isDismiss; }
+
+private:
+  SelectionShape::ESelectedObject m_selected;
+  m2::PointD m_glbPoint;
+  bool m_isDismiss;
 };
 
 } // namespace df

@@ -193,7 +193,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
 
   case Message::MyPositionShape:
-    m_myPositionController->SetRenderShape(ref_ptr<MyPositionShapeMessage>(message)->AcceptShape());
+    {
+      ref_ptr<MyPositionShapeMessage> msg = message;
+      m_myPositionController->SetRenderShape(msg->AcceptShape());
+      m_selectionShape = msg->AcceptSelection();
+    }
     break;
 
   case Message::ChangeMyPostitionMode:
@@ -238,6 +242,24 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FindVisiblePOIMessage> msg = message;
       msg->SetFeatureID(GetVisiblePOI(m_userEventStream.GetCurrentScreen().GtoP(msg->GetPoint())));
+      break;
+    }
+
+  case Message::SelectObject:
+    {
+      ref_ptr<SelectObjectMessage> msg = message;
+      ASSERT(m_selectionShape != nullptr, ());
+      if (msg->IsDismiss())
+      {
+        m_selectionShape->Hide();
+      }
+      else
+      {
+        m_selectionShape->SetPosition(msg->GetPosition());
+        m_selectionShape->SetSelectedObject(msg->GetSelectedObject());
+        m_selectionShape->Hide();
+        m_selectionShape->Show();
+      }
       break;
     }
 
@@ -425,30 +447,45 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   GLFunctions::glClear();
 
   dp::GLState::DepthLayer prevLayer = dp::GLState::GeometryLayer;
-  for (drape_ptr<RenderGroup> const & group : m_renderGroups)
+  size_t currentRenderGroup = 0;
+  for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
   {
-    group->UpdateAnimation();
+    drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
+
     dp::GLState const & state = group->GetState();
     dp::GLState::DepthLayer layer = state.GetDepthLayer();
     if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
-    {
-      GLFunctions::glClearDepth();
-      m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
-    }
+      break;
 
     prevLayer = layer;
-    ASSERT_LESS_OR_EQUAL(prevLayer, layer, ());
-
-    ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
-    program->Bind();
-    ApplyUniforms(m_generalUniforms, program);
-    ApplyUniforms(group->GetUniforms(), program);
-    ApplyState(state, program);
-
-    group->Render(modelView);
+    RenderSingleGroup(modelView, make_ref(group));
   }
 
   GLFunctions::glClearDepth();
+  if (m_selectionShape != nullptr)
+  {
+    SelectionShape::ESelectedObject selectedObject = m_selectionShape->GetSelectedObject();
+    if (selectedObject == SelectionShape::OBJECT_MY_POSITION)
+    {
+      ASSERT(m_myPositionController->IsModeHasPosition(), ());
+      m_selectionShape->SetPosition(m_myPositionController->Position());
+      m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+    }
+    else if (selectedObject == SelectionShape::OBJECT_POI)
+      m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+  }
+
+  m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+
+  for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
+  {
+    drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
+    RenderSingleGroup(modelView, make_ref(group));
+  }
+
+  GLFunctions::glClearDepth();
+  if (m_selectionShape != nullptr && m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK)
+    m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   for (drape_ptr<UserMarkRenderGroup> const & group : m_userMarkRenderGroups)
   {
@@ -473,6 +510,20 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 #ifdef DRAW_INFO
   AfterDrawFrame();
 #endif
+}
+
+void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<RenderGroup> group)
+{
+  group->UpdateAnimation();
+  dp::GLState const & state = group->GetState();
+
+  ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+  program->Bind();
+  ApplyUniforms(m_generalUniforms, program);
+  ApplyUniforms(group->GetUniforms(), program);
+  ApplyState(state, program);
+
+  group->Render(modelView);
 }
 
 void FrontendRenderer::RefreshProjection()
@@ -702,6 +753,7 @@ void FrontendRenderer::ReleaseResources()
   m_userMarkRenderGroups.clear();
   m_guiRenderer.reset();
   m_myPositionController.reset();
+  m_selectionShape.release();
 
   m_gpuProgramManager.reset();
 }

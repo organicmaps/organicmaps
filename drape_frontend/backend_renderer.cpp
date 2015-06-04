@@ -213,10 +213,10 @@ void BackendRenderer::InitGLDependentResource()
 
   m_texMng->Init(params);
 
-  drape_ptr<MyPosition> position = make_unique_dp<MyPosition>(m_texMng);
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<MyPositionShapeMessage>(move(position)),
-                            MessagePriority::High);
+  drape_ptr<MyPositionShapeMessage> msg = make_unique_dp<MyPositionShapeMessage>(make_unique_dp<MyPosition>(m_texMng),
+                                                                                 make_unique_dp<SelectionShape>(m_texMng));
+
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(msg), MessagePriority::High);
 }
 
 void BackendRenderer::FlushGeometry(drape_ptr<Message> && message)

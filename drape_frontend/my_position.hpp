@@ -1,10 +1,13 @@
 #pragma once
 
+#include "render_node.hpp"
+
 #include "drape/vertex_array_buffer.hpp"
 #include "drape/glstate.hpp"
 #include "drape/gpu_program_manager.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
+#include "drape/batcher.hpp"
 
 #include "geometry/screenbase.hpp"
 
@@ -31,20 +34,6 @@ private:
   void CachePointPosition(ref_ptr<dp::TextureManager> mng);
 
 private:
-  struct RenderNode
-  {
-    RenderNode(dp::GLState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer)
-      : m_state(state)
-      , m_buffer(move(buffer))
-      , m_isBuilded(false)
-    {
-    }
-
-    dp::GLState m_state;
-    drape_ptr<dp::VertexArrayBuffer> m_buffer;
-    bool m_isBuilded;
-  };
-
   enum EMyPositionPart
   {
     // don't change order and values

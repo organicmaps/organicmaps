@@ -1,6 +1,5 @@
 #include "my_position.hpp"
 
-#include "drape/batcher.hpp"
 #include "drape/depth_constants.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
@@ -215,19 +214,7 @@ void MyPosition::RenderPart(ref_ptr<dp::GpuProgramManager> mng,
 {
   TPart const & accuracy = m_parts[part];
   RenderNode & node = m_nodes[accuracy.second];
-
-  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(node.m_state.GetProgramIndex());
-  prg->Bind();
-  if (!node.m_isBuilded)
-  {
-    node.m_buffer->Build(prg);
-    node.m_isBuilded = true;
-  }
-
-  dp::ApplyUniforms(uniforms, prg);
-  dp::ApplyState(node.m_state, prg);
-
-  node.m_buffer->RenderRange(accuracy.first);
+  node.Render(mng, uniforms, accuracy.first);
 }
 
 }

@@ -6,7 +6,7 @@ ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
-DEFINES += DRAW_INFO
+#DEFINES += DRAW_INFO
 
 SOURCES += \
     animation/base_interpolator.cpp \
@@ -52,6 +52,9 @@ SOURCES += \
     user_marks_provider.cpp \
     viewport.cpp \
     visual_params.cpp \
+    selection_shape.cpp \
+    animation/show_hide_animation.cpp \
+    render_node.cpp
 
 HEADERS += \
     animation/base_interpolator.hpp \
@@ -102,3 +105,6 @@ HEADERS += \
     user_marks_provider.hpp \
     viewport.hpp \
     visual_params.hpp \
+    selection_shape.hpp \
+    animation/show_hide_animation.hpp \
+    render_node.hpp

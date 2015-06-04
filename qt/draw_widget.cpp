@@ -78,6 +78,10 @@ bool IsLocationEmulation(QMouseEvent * e)
     QObject::connect(this, SIGNAL(heightChanged(int)), this, SLOT(sizeChanged(int)));
     QObject::connect(this, SIGNAL(widthChanged(int)), this,  SLOT(sizeChanged(int)));
 
+    m_framework->SetUserMarkActivationListener([](unique_ptr<UserMarkCopy> mark)
+    {
+    });
+
     m_framework->SetRouteBuildingListener([] (routing::IRouter::ResultCode, vector<storage::TIndex> const &)
     {
     });

@@ -3,6 +3,7 @@
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
+#include "drape_frontend/selection_shape.hpp"
 
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
@@ -89,6 +90,8 @@ public:
   void SetUserPositionListener(TUserPositionChangedFn const & fn);
 
   FeatureID GetVisiblePOI(m2::PointD const & glbPoint);
+  void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt);
+  void DeselectObject();
 
 private:
   void AddUserEvent(UserEvent const & e);

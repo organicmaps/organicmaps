@@ -283,4 +283,18 @@ FeatureID DrapeEngine::GetVisiblePOI(m2::PointD const & glbPoint)
   return result;
 }
 
+void DrapeEngine::SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SelectObjectMessage>(obj, pt),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::DeselectObject()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SelectObjectMessage>(SelectObjectMessage::DismissTag()),
+                                  MessagePriority::High);
+}
+
 } // namespace df

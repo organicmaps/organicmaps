@@ -29,7 +29,8 @@ public:
     ChangeMyPostitionMode,
     CompassInfo,
     GpsInfo,
-    FindVisiblePOI
+    FindVisiblePOI,
+    SelectObject
   };
 
   virtual ~Message() {}
