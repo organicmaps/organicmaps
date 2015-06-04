@@ -8,15 +8,16 @@
   #include "std/numeric.hpp"
 #endif
 
+#include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/base_renderer.hpp"
+#include "drape_frontend/my_position_controller.hpp"
+#include "drape_frontend/navigator.hpp"
+#include "drape_frontend/render_group.hpp"
+#include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/tile_info.hpp"
 #include "drape_frontend/tile_tree.hpp"
-#include "drape_frontend/backend_renderer.hpp"
-#include "drape_frontend/render_group.hpp"
-#include "drape_frontend/navigator.hpp"
 #include "drape_frontend/user_event_stream.hpp"
-#include "drape_frontend/my_position_controller.hpp"
 
 #include "drape_gui/layer_render.hpp"
 
@@ -195,6 +196,7 @@ private:
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   drape_ptr<MyPositionController> m_myPositionController;
   drape_ptr<SelectionShape> m_selectionShape;
+  drape_ptr<RouteRenderer> m_routeRenderer;
 
   drape_ptr<dp::OverlayTree> m_overlayTree;
 

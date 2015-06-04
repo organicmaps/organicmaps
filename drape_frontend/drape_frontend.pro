@@ -25,6 +25,7 @@ SOURCES += \
     engine_context.cpp \
     frontend_renderer.cpp \
     line_shape.cpp \
+    line_shape_helper.cpp \
     map_data_provider.cpp \
     memory_feature_index.cpp \
     message_acceptor.cpp \
@@ -39,6 +40,9 @@ SOURCES += \
     read_mwm_task.cpp \
     render_group.cpp \
     render_node.cpp \
+    route_builder.cpp \
+    route_renderer.cpp \
+    route_shape.cpp \
     rule_drawer.cpp \
     selection_shape.cpp \
     stylist.cpp \
@@ -75,6 +79,7 @@ HEADERS += \
     frontend_renderer.hpp \
     intrusive_vector.hpp \
     line_shape.hpp \
+    line_shape_helper.hpp \
     map_data_provider.hpp \
     map_shape.hpp \
     memory_feature_index.hpp \
@@ -92,6 +97,9 @@ HEADERS += \
     read_mwm_task.hpp \
     render_group.hpp \
     render_node.hpp \
+    route_builder.hpp \
+    route_renderer.hpp \
+    route_shape.hpp \
     rule_drawer.hpp \
     selection_shape.hpp \
     shape_view_params.hpp \

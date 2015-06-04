@@ -8,6 +8,7 @@
 #include "drape_frontend/text_shape.hpp"
 #include "drape_frontend/path_text_shape.hpp"
 #include "drape_frontend/path_symbol_shape.hpp"
+#include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/area_shape.hpp"
 #include "drape_frontend/circle_shape.hpp"
 #include "drape_frontend/poi_symbol_shape.hpp"
@@ -444,6 +445,8 @@ void TestingEngine::timerEvent(QTimerEvent * e)
 void TestingEngine::DrawImpl()
 {
   m_generalUniforms.SetFloatValue("u_opacity", 1.0f);
+  m_generalUniforms.SetFloatValue("u_color", 0.0f, 0.0f, 1.0f, 0.7f);
+  m_generalUniforms.SetFloatValue("u_halfWidth", 5.0f);
 
   dp::Batcher::TFlushFn flushFn = bind(&df::TestingEngine::OnFlushData, this, _1, _2);
   m_batcher->StartSession(flushFn);
@@ -519,6 +522,21 @@ void TestingEngine::DrawImpl()
     lvp.m_cap = dp::RoundCap;
     lvp.m_color = dp::Color::Black();
     LineShape(spl1, lvp).Draw(make_ref(m_batcher), make_ref(m_textures));
+  }
+
+  {
+    vector<m2::PointD> path1;
+    path1.push_back(m2::PointD(80.277071f, 37.9271164f));
+    path1.push_back(m2::PointD(80.277071f, 35.9271164f));
+    path1.push_back(m2::PointD(86.277071f, 35.9271164f));
+    path1.push_back(m2::PointD(86.277071f, 30.9271164f));
+    path1.push_back(m2::PointD(88.277071f, 32.9271164f));
+    path1.push_back(m2::PointD(89.277071f, 39.9271164f));
+    m2::PolylineD pln(path1);
+
+    CommonViewParams rvp;
+    rvp.m_depth = 95.0f;
+    RouteShape(pln, rvp).Draw(make_ref(m_batcher));
   }
 
   {

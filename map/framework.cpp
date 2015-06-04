@@ -1807,56 +1807,60 @@ void Framework::UpdateSavedDataVersion()
 
 void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, uint32_t timeoutSec)
 {
-  //ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
+  ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
+  ASSERT(m_drapeEngine != nullptr, ());
 
-  //shared_ptr<State> const & state = GetLocationState();
-  //if (!state->IsModeHasPosition())
-  //{
-  //  CallRouteBuilded(IRouter::NoCurrentPosition, vector<storage::TIndex>(),
-  //                   vector<storage::TIndex>());
-  //  return;
-  //}
+  m2::PointD myPosition(MercatorBounds::LonToX(37.537866403232542), MercatorBounds::LatToY(55.796739740505075));
 
-  //if (IsRoutingActive())
-  //  CloseRouting();
+  /*m2::PointD myPosition;
+  bool const hasPosition = m_drapeEngine->GetMyPosition(myPosition);
+  if (!hasPosition)
+  {
+    CallRouteBuilded(IRouter::NoCurrentPosition, vector<storage::TIndex>());
+    return;
+  }*/
 
-  //SetLastUsedRouter(m_currentRouterType);
+  if (IsRoutingActive())
+    CloseRouting();
 
-  //auto readyCallback = [this](Route const & route, IRouter::ResultCode code)
-  //{
-  //  ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute_ReadyCallback"));
+  SetLastUsedRouter(m_currentRouterType);
 
-  //  vector<storage::TIndex> absentCountries;
-  //  vector<storage::TIndex> absentRoutingIndexes;
-  //  if (code == IRouter::NoError)
-  //  {
-  //    InsertRoute(route);
-  //    GetLocationState()->RouteBuilded();
-  //    ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
-  //  }
-  //  else
-  //  {
-  //    for (string const & name : route.GetAbsentCountries())
-  //    {
-  //      storage::TIndex fileIndex = m_storage.FindIndexByFile(name);
-  //      if (m_storage.GetLatestLocalFile(fileIndex) && code != IRouter::FileTooOld)
-  //        absentRoutingIndexes.push_back(fileIndex);
-  //      else
-  //        absentCountries.push_back(fileIndex);
-  //    }
+  m_routingSession.BuildRoute(myPosition, destination,
+                              [this] (Route const & route, IRouter::ResultCode code)
+  {
+    ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute_ReadyCallback"));
+    vector<storage::TIndex> absentFiles;
+    vector<storage::TIndex> absentRoutingIndexes;
+    if (code == IRouter::NoError)
+    {
+      InsertRoute(route);
+      m_drapeEngine->SetModelViewRect(route.GetPoly().GetLimitRect(), true, -1, true);
+    }
+    else
+    {
+      for (string const & name : route.GetAbsentCountries())
+      {
+          storage::TIndex fileIndex = m_storage.FindIndexByFile(name);
+          if (m_storage.GetLatestLocalFile(fileIndex))
+            absentRoutingIndexes.push_back(fileIndex);
+          else
+            absentCountries.push_back(fileIndex);
+        }
 
-  //    if (code != IRouter::NeedMoreMaps)
-  //      RemoveRoute();
-  //  }
-  //  CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
-  //};
+        if (code != IRouter::NeedMoreMaps)
+          RemoveRoute();
 
-  //m_routingSession.BuildRoute(state->Position(), destination,
-  //                            [readyCallback](Route const & route, IRouter::ResultCode code)
-  //                            {
-  //                              GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
-  //                            },
-  //                            m_progressCallback, timeoutSec);
+      RemoveRoute();
+    }
+    CallRouteBuilded(code, absentFiles);
+  });
+}
+
+void Framework::FollowRoute()
+{
+  /// Устанавливает начальный зум - высчитывание ректа ->DE
+  ///@TODO UVR
+  //GetLocationState()->StartRouteFollow();
 }
 
 void Framework::SetRouter(RouterType type)
@@ -1950,6 +1954,12 @@ void Framework::InsertRoute(Route const & route)
     return;
   }
 
+  ASSERT(m_drapeEngine != nullptr, ());
+  m_drapeEngine->AddRoute(route.GetPoly(), dp::Color(110, 180, 240, 200));
+
+  //float const visScale = df::VisualParams::Instance().GetVisualScale();
+
+  //RouteTrack track(route.GetPoly());
   // @TODO UVR
   //vector<double> turns;
   //if (m_currentRouterType == RouterType::Vehicle)

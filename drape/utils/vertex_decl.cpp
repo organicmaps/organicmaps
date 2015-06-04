@@ -12,6 +12,7 @@ enum VertexType
   TextStatic,
   TextDynamic,
   Line,
+  Route,
   TypeCount
 };
 
@@ -146,13 +147,37 @@ dp::BindingInfo LineBindingInit()
   return info;
 }
 
+dp::BindingInfo RouteBindingInit()
+{
+  STATIC_ASSERT(sizeof(RouteVertex) == sizeof(RouteVertex::TPosition) +
+                                       sizeof(RouteVertex::TNormal));
+  dp::BindingInfo info(2);
+
+  dp::BindingDecl & posDecl = info.GetBindingDecl(0);
+  posDecl.m_attributeName = "a_position";
+  posDecl.m_componentCount = glsl::GetComponentCount<RouteVertex::TPosition>();
+  posDecl.m_componentType = gl_const::GLFloatType;
+  posDecl.m_offset = 0;
+  posDecl.m_stride = sizeof(RouteVertex);
+
+  dp::BindingDecl & normalDecl = info.GetBindingDecl(1);
+  normalDecl.m_attributeName = "a_normal";
+  normalDecl.m_componentCount = glsl::GetComponentCount<RouteVertex::TNormal>();
+  normalDecl.m_componentType = gl_const::GLFloatType;
+  normalDecl.m_offset = posDecl.m_offset + sizeof(RouteVertex::TPosition);
+  normalDecl.m_stride = posDecl.m_stride;
+
+  return info;
+}
+
 BindingNode g_bindingNodes[TypeCount];
 TInitFunction g_initFunctions[TypeCount] =
 {
   &SolidTexturingBindingInit,
   &TextStaticBindingInit,
   &TextDynamicBindingInit,
-  &LineBindingInit
+  &LineBindingInit,
+  &RouteBindingInit
 };
 
 dp::BindingInfo const & GetBinding(VertexType type)
@@ -251,6 +276,21 @@ LineVertex::LineVertex(TPosition const & position, TNormal const & normal,
 dp::BindingInfo const & LineVertex::GetBindingInfo()
 {
   return GetBinding(Line);
+}
+
+RouteVertex::RouteVertex()
+  : m_position(0.0, 0.0, 0.0)
+  , m_normal(0.0, 0.0)
+{}
+
+RouteVertex::RouteVertex(TPosition const & position, TNormal const & normal)
+  : m_position(position)
+  , m_normal(normal)
+{}
+
+dp::BindingInfo const & RouteVertex::GetBindingInfo()
+{
+  return GetBinding(Route);
 }
 
 } //namespace gpu

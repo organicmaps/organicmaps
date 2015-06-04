@@ -73,4 +73,15 @@ struct LineVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
+struct RouteVertex : BaseVertex
+{
+  RouteVertex();
+  RouteVertex(TPosition const & position, TNormal const & normal);
+
+  TPosition m_position;
+  TNormal m_normal;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
 } // namespace gpu

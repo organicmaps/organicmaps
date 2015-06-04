@@ -21,6 +21,7 @@ namespace df
 class Message;
 class BatchersPool;
 class ReadManager;
+class RouteBuilder;
 
 class BackendRenderer : public BaseRenderer
 {
@@ -51,6 +52,7 @@ private:
   MapDataProvider m_model;
   drape_ptr<BatchersPool> m_batchersPool;
   drape_ptr<ReadManager> m_readManager;
+  drape_ptr<RouteBuilder> m_routeBuilder;
   gui::LayerCacher m_guiCacher;
 
   /////////////////////////////////////////

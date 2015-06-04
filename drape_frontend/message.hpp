@@ -31,6 +31,9 @@ public:
     GpsInfo,
     FindVisiblePOI,
     SelectObject
+    GetMyPosition,
+    AddRoute,
+    FlushRoute
   };
 
   virtual ~Message() {}

@@ -49,6 +49,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_tapEventInfoFn(params.m_tapEventFn)
   , m_userPositionChangedFn(params.m_positionChangedFn)
   , m_tileTree(new TileTree())
+  , m_routeRenderer(new RouteRenderer())
 {
 #ifdef DRAW_INFO
   m_tpf = 0,0;
@@ -263,6 +264,22 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::GetMyPosition:
+    {
+      ref_ptr<GetMyPositionMessage> msg = message;
+      msg->SetMyPosition(m_myPositionController->IsModeHasPosition(), m_myPositionController->Position());
+      break;
+    }
+
+  case Message::FlushRoute:
+    {
+      ref_ptr<FlushRouteMessage> msg = message;
+      dp::GLState const & state = msg->GetState();
+      drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
+      m_routeRenderer->AddRoute(state, move(bucket), msg->GetColor(), make_ref(m_gpuProgramManager));
+      break;
+    }
+
   default:
     ASSERT(false, ());
   }
@@ -467,9 +484,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     SelectionShape::ESelectedObject selectedObject = m_selectionShape->GetSelectedObject();
     if (selectedObject == SelectionShape::OBJECT_MY_POSITION)
     {
-      ASSERT(m_myPositionController->IsModeHasPosition(), ());
-      m_selectionShape->SetPosition(m_myPositionController->Position());
-      m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+      GLFunctions::glClearDepth();
+      m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+      m_routeRenderer->Render(GetCurrentZoomLevel(), make_ref(m_gpuProgramManager), m_generalUniforms);
     }
     else if (selectedObject == SelectionShape::OBJECT_POI)
       m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
@@ -496,6 +513,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   }
 
   GLFunctions::glClearDepth();
+
   if (m_guiRenderer != nullptr)
     m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
 
@@ -746,6 +764,7 @@ void FrontendRenderer::ReleaseResources()
   m_guiRenderer.reset();
   m_myPositionController.reset();
   m_selectionShape.release();
+  m_routeRenderer.reset();
 
   m_gpuProgramManager.reset();
 }

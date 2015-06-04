@@ -1,8 +1,10 @@
 #include "drape_frontend/backend_renderer.hpp"
+
 #include "drape_frontend/batchers_pool.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/read_manager.hpp"
+#include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -33,6 +35,14 @@ BackendRenderer::BackendRenderer(Params const & params)
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<GuiRecacheMessage>(elements),
                               MessagePriority::High);
+  });
+
+  m_routeBuilder = make_unique_dp<RouteBuilder>([this](dp::GLState const & state,
+                                                drape_ptr<dp::RenderBucket> && bucket, dp::Color const & color)
+  {
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                              make_unique_dp<FlushRouteMessage>(state, move(bucket), color),
+                              MessagePriority::Normal);
   });
 
   StartThread();
@@ -93,8 +103,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
   case Message::GuiRecache:
-    RecacheGui(static_cast<ref_ptr<GuiRecacheMessage>>(message)->GetElements());
-    break;
+    {
+      RecacheGui(static_cast<ref_ptr<GuiRecacheMessage>>(message)->GetElements());
+      break;
+    }
   case Message::TileReadStarted:
     {
       m_batchersPool->ReserveBatcher(static_cast<ref_ptr<BaseTileMessage>>(message)->GetKey());
@@ -158,6 +170,12 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
           helper.SetCountryInfo(info);
         }
       }
+      break;
+    }
+  case Message::AddRoute:
+    {
+      ref_ptr<AddRouteMessage> msg = message;
+      m_routeBuilder->Build(msg->GetRoutePolyline(), msg->GetColor());
       break;
     }
   case Message::StopRendering:

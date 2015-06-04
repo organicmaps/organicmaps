@@ -297,4 +297,23 @@ void DrapeEngine::DeselectObject()
                                   MessagePriority::High);
 }
 
+bool DrapeEngine::GetMyPosition(m2::PointD & myPosition)
+{
+  bool hasPosition = false;
+  BaseBlockingMessage::Blocker blocker;
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<GetMyPositionMessage>(blocker, hasPosition, myPosition),
+                                  MessagePriority::High);
+
+  blocker.Wait();
+  return hasPosition;
+}
+
+void DrapeEngine::AddRoute(m2::PolylineD const & routePolyline, dp::Color const & color)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<AddRouteMessage>(routePolyline, color),
+                                  MessagePriority::Normal);
+}
+
 } // namespace df

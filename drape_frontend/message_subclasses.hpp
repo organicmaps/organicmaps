@@ -7,6 +7,7 @@
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 
+#include "geometry/polyline2d.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
@@ -444,5 +445,68 @@ private:
   m2::PointD m_glbPoint;
   bool m_isDismiss;
 };
+
+class GetMyPositionMessage : public BaseBlockingMessage
+{
+public:
+  GetMyPositionMessage(Blocker & blocker, bool & hasPosition, m2::PointD & myPosition)
+    : BaseBlockingMessage(blocker)
+    , m_myPosition(myPosition)
+    , m_hasPosition(hasPosition)
+  {}
+
+  Type GetType() const override { return GetMyPosition; }
+
+  void SetMyPosition(bool hasPosition, m2::PointD const & myPosition)
+  {
+    m_hasPosition = hasPosition;
+    m_myPosition = myPosition;
+  }
+
+private:
+  m2::PointD & m_myPosition;
+  bool & m_hasPosition;
+};
+
+class AddRouteMessage : public Message
+{
+public:
+  AddRouteMessage(m2::PolylineD const & routePolyline, dp::Color const & color)
+    : m_routePolyline(routePolyline)
+    , m_color(color)
+  {}
+
+  Type GetType() const override { return Message::AddRoute; }
+
+  m2::PolylineD const & GetRoutePolyline() { return m_routePolyline; }
+  dp::Color const & GetColor() const { return m_color; }
+
+private:
+  m2::PolylineD m_routePolyline;
+  dp::Color m_color;
+};
+
+class FlushRouteMessage : public Message
+{
+public:
+  FlushRouteMessage(dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer,
+                    dp::Color const & color)
+    : m_state(state)
+    , m_buffer(move(buffer))
+    , m_color(color)
+  {}
+
+  Type GetType() const override { return Message::FlushRoute; }
+
+  dp::GLState const & GetState() const { return m_state; }
+  drape_ptr<dp::RenderBucket> && AcceptBuffer() { return move(m_buffer); }
+  dp::Color const & GetColor() const { return m_color; }
+
+private:
+  dp::GLState m_state;
+  drape_ptr<dp::RenderBucket> m_buffer;
+  dp::Color m_color;
+};
+
 
 } // namespace df

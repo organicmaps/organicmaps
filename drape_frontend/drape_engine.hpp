@@ -10,6 +10,7 @@
 
 #include "platform/location.hpp"
 
+#include "geometry/polyline2d.hpp"
 #include "geometry/screenbase.hpp"
 
 #include "base/strings_bundle.hpp"
@@ -92,6 +93,9 @@ public:
   FeatureID GetVisiblePOI(m2::PointD const & glbPoint);
   void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt);
   void DeselectObject();
+  bool GetMyPosition(m2::PointD & myPosition);
+
+  void AddRoute(m2::PolylineD const & routePolyline, dp::Color const & color);
 
 private:
   void AddUserEvent(UserEvent const & e);
