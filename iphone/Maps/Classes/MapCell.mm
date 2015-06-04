@@ -1,4 +1,4 @@
-
+#import "Common.h"
 #import "MapCell.h"
 #import "UIKitCategories.h"
 
@@ -173,7 +173,7 @@
   self.separatorBottom.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleTopMargin;
 
   // On iOS6 and lower table view looks different, we won't show separators there.
-  if (isIOSVersionLessThan(@"7.0"))
+  if (isIOSVersionLessThan(7))
     self.separatorTop.alpha  = self.separator.alpha = self.separatorBottom.alpha = 0.0;
 }
 

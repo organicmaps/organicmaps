@@ -1,5 +1,6 @@
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
+#import "Common.h"
 #import "Statistics.h"
 #import "UIKitCategories.h"
 

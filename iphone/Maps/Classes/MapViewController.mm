@@ -1,21 +1,23 @@
-#import "MapViewController.h"
-#import "MapsAppDelegate.h"
-#import "EAGLView.h"
-#import "UIKitCategories.h"
-#import "UIViewController+Navigation.h"
-#import "ShareActionSheet.h"
 #import "AppInfo.h"
-#import "ContainerView.h"
-#import "SelectSetVC.h"
 #import "BookmarkDescriptionVC.h"
 #import "BookmarkNameVC.h"
-#import "RouteView.h"
-#import "Reachability.h"
+#import "Common.h"
+#import "ContainerView.h"
+#import "EAGLView.h"
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMMapViewControlsManager.h"
+#import "Reachability.h"
+#import "RouteState.h"
+#import "RouteView.h"
+#import "SelectSetVC.h"
+#import "ShareActionSheet.h"
+#import "UIKitCategories.h"
+#import "UIViewController+Navigation.h"
+
 #import "../../../3party/Alohalytics/src/alohalytics_objc.h"
 #import "../../Common/CustomAlertView.h"
-#import "RouteState.h"
 
 #include "Framework.h"
 #include "RenderContext.hpp"
@@ -747,7 +749,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
           {
             NSString * title;
             NSString * message;
-            if (isIOSVersionLessThan(@"7"))
+            if (isIOSVersionLessThan(7))
               message = L(@"routing_disclaimer");
             else
               title = L(@"routing_disclaimer");
@@ -861,7 +863,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 {
   if (!_apiBar)
   {
-    UIImage * image = isIOSVersionLessThan(@"7") ? [UIImage imageNamed:@"ApiBarBackground6"] : [UIImage imageNamed:@"ApiBarBackground7"];
+    UIImage * image = isIOSVersionLessThan(7) ? [UIImage imageNamed:@"ApiBarBackground6"] : [UIImage imageNamed:@"ApiBarBackground7"];
     _apiBar = [[UIImageView alloc] initWithImage:[image resizableImageWithCapInsets:UIEdgeInsetsZero]];
     _apiBar.width = self.view.width;
     _apiBar.userInteractionEnabled = YES;

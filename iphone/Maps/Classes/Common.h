@@ -53,3 +53,8 @@ static inline BOOL isIOSVersionLessThan(NSString * version)
 {
   return firstVersionIsLessThanSecond([UIDevice currentDevice].systemVersion, version);
 }
+
+static inline BOOL isIOSVersionLessThan(NSUInteger version)
+{
+  return isIOSVersionLessThan([NSString stringWithFormat:@"%@", @(version)]);
+}

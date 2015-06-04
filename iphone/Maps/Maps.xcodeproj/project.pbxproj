@@ -92,18 +92,18 @@
 		6C24A3B31AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */; };
 		6C47C8BF1AD6C47E000C52C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
 		6C47C8C51AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C47C8C41AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm */; };
-		6C93FAEC1AD8063900A2C4AE /* MWMWatchNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.m */; };
-		6C93FAED1AD8063900A2C4AE /* MWMWatchNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.m */; };
+		6C93FAEC1AD8063900A2C4AE /* MWMWatchNotification.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */; };
+		6C93FAED1AD8063900A2C4AE /* MWMWatchNotification.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */; };
 		6CFBB8771AD84E1C009845A3 /* MWMFinishInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFBB8761AD84E1C009845A3 /* MWMFinishInterfaceController.m */; };
 		974386DD19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
-		9747278418338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */; };
+		9747278418338F0C006B7CB7 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */; };
 		974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */; };
 		97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97508422199522D300A7457D /* SettingsAndMoreVC.mm */; };
 		9769D6EF1912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
 		976D86EC19C8697700C920EF /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86EB19C8697700C920EF /* ProgressView.m */; };
 		976D86F119C877E600C920EF /* MapCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F019C877E600C920EF /* MapCell.mm */; };
-		976D86F519CB21BD00C920EF /* RouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F419CB21BD00C920EF /* RouteView.m */; };
+		976D86F519CB21BD00C920EF /* RouteView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F419CB21BD00C920EF /* RouteView.mm */; };
 		97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
 		97719D491843B6F700BDD815 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D471843B6F200BDD815 /* Security.framework */; };
 		97719D4B1843B86700BDD815 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97719D4A1843B86700BDD815 /* Main_iPad.storyboard */; };
@@ -391,7 +391,7 @@
 		6C47C8C71AD6C825000C52C1 /* MWMNoMapInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoMapInterfaceController.h; sourceTree = "<group>"; };
 		6C47C8C81AD6C825000C52C1 /* MWMNoMapInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoMapInterfaceController.mm; sourceTree = "<group>"; };
 		6C93FAEA1AD8063900A2C4AE /* MWMWatchNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWatchNotification.h; sourceTree = "<group>"; };
-		6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMWatchNotification.m; sourceTree = "<group>"; };
+		6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWatchNotification.mm; sourceTree = "<group>"; };
 		6CFBB8751AD84E1C009845A3 /* MWMFinishInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFinishInterfaceController.h; sourceTree = "<group>"; };
 		6CFBB8761AD84E1C009845A3 /* MWMFinishInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMFinishInterfaceController.m; sourceTree = "<group>"; };
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -404,7 +404,7 @@
 		9747264118323080006B7CB7 /* UIKitCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIKitCategories.m; path = Categories/UIKitCategories.m; sourceTree = "<group>"; };
 		9747264218323080006B7CB7 /* UIKitCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIKitCategories.h; path = Categories/UIKitCategories.h; sourceTree = "<group>"; };
 		9747278218338F0C006B7CB7 /* UIViewController+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+Navigation.h"; path = "Classes/UIViewController+Navigation.h"; sourceTree = "<group>"; };
-		9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+Navigation.m"; path = "Classes/UIViewController+Navigation.m"; sourceTree = "<group>"; };
+		9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "UIViewController+Navigation.mm"; path = "Classes/UIViewController+Navigation.mm"; sourceTree = "<group>"; };
 		974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocalNotificationManager.mm; sourceTree = "<group>"; };
 		974D041C1977DE430081D0A7 /* LocalNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalNotificationManager.h; sourceTree = "<group>"; };
 		97508421199522D300A7457D /* SettingsAndMoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsAndMoreVC.h; sourceTree = "<group>"; };
@@ -416,7 +416,7 @@
 		976D86EF19C877E600C920EF /* MapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapCell.h; path = Classes/MapCell.h; sourceTree = "<group>"; };
 		976D86F019C877E600C920EF /* MapCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MapCell.mm; path = Classes/MapCell.mm; sourceTree = "<group>"; };
 		976D86F319CB21BD00C920EF /* RouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteView.h; sourceTree = "<group>"; };
-		976D86F419CB21BD00C920EF /* RouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteView.m; sourceTree = "<group>"; };
+		976D86F419CB21BD00C920EF /* RouteView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RouteView.mm; sourceTree = "<group>"; };
 		97719D441843B6DC00BDD815 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		97719D471843B6F200BDD815 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		97719D4A1843B86700BDD815 /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
@@ -1076,7 +1076,7 @@
 				B08AA8D81A26299A00810B1C /* TimeUtils.h */,
 				B08AA8D91A26299A00810B1C /* TimeUtils.m */,
 				9747278218338F0C006B7CB7 /* UIViewController+Navigation.h */,
-				9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */,
+				9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */,
 				F6DBF9B41AA8779300F2EC2C /* CALayer+RuntimeAttributes.h */,
 				F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.m */,
 				F62404F91AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.h */,
@@ -1204,7 +1204,7 @@
 			isa = PBXGroup;
 			children = (
 				976D86F319CB21BD00C920EF /* RouteView.h */,
-				976D86F419CB21BD00C920EF /* RouteView.m */,
+				976D86F419CB21BD00C920EF /* RouteView.mm */,
 				B0E1FCDD1A2343BC00A8E08B /* NextTurnPhoneView.h */,
 				B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */,
 				B0E1FCDA1A23399E00A8E08B /* RouteOverallInfoView.h */,
@@ -1280,7 +1280,7 @@
 				6C24A3B01AD7D65500A47B99 /* MWMWatchEventInfo.h */,
 				6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */,
 				6C93FAEA1AD8063900A2C4AE /* MWMWatchNotification.h */,
-				6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.m */,
+				6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */,
 			);
 			path = WatchEventHandler;
 			sourceTree = "<group>";
@@ -1882,7 +1882,7 @@
 				978D4A251996B0EC00D72CA7 /* CommunityVC.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
 				978D4A291996C17300D72CA7 /* RichTextVC.m in Sources */,
-				9747278418338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */,
+				9747278418338F0C006B7CB7 /* UIViewController+Navigation.mm in Sources */,
 				F6BC1E521ACBF98600EF0360 /* MWMFacebookAlert.mm in Sources */,
 				97908B30196591F7003DD7C6 /* SearchShowOnMapCell.m in Sources */,
 				F64F199D1AB81A00006EAF7E /* MWMDefaultAlert.mm in Sources */,
@@ -1899,7 +1899,7 @@
 				34F209691B18BCEE005744D6 /* MWMLocationButtonStatusLabel.m in Sources */,
 				A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */,
 				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
-				6C93FAEC1AD8063900A2C4AE /* MWMWatchNotification.m in Sources */,
+				6C93FAEC1AD8063900A2C4AE /* MWMWatchNotification.mm in Sources */,
 				F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m in Sources */,
 				97D092B5190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */,
 				34BC72291B0DECAE0012A34B /* MWMZoomButtons.mm in Sources */,
@@ -1925,7 +1925,7 @@
 				97908B2C19658767003DD7C6 /* SearchCategoryCell.m in Sources */,
 				9778E9A5191A86D800AD850A /* SelectedColorView.m in Sources */,
 				B08AA8DA1A26299A00810B1C /* TimeUtils.m in Sources */,
-				976D86F519CB21BD00C920EF /* RouteView.m in Sources */,
+				976D86F519CB21BD00C920EF /* RouteView.mm in Sources */,
 				FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */,
 				97A8000C18B21363000C07A2 /* SearchView.mm in Sources */,
 				FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */,
@@ -1984,7 +1984,7 @@
 				343F26301AEFDB1A00388A6D /* Framework.cpp in Sources */,
 				34A743001AE5468200CE15EB /* storage.cpp in Sources */,
 				34A742FE1AE5461A00CE15EB /* index.cpp in Sources */,
-				6C93FAED1AD8063900A2C4AE /* MWMWatchNotification.m in Sources */,
+				6C93FAED1AD8063900A2C4AE /* MWMWatchNotification.mm in Sources */,
 				345C31711AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m in Sources */,
 				6CFBB8771AD84E1C009845A3 /* MWMFinishInterfaceController.m in Sources */,
 				6C24A3AD1AD7CA1000A47B99 /* MWMNoMapInterfaceController.mm in Sources */,

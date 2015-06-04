@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <Foundation/NSThread.h>
+#import "Common.h"
 
 #include "../../platform/file_logging.hpp"
 #include "../../platform/platform.hpp"

@@ -1,9 +1,10 @@
-
-#import "RouteView.h"
-#import "UIKitCategories.h"
-#import "TimeUtils.h"
-#import "RouteOverallInfoView.h"
+#import "Common.h"
 #import "NextTurnPhoneView.h"
+#import "RouteOverallInfoView.h"
+#import "RouteView.h"
+#import "TimeUtils.h"
+#import "UIKitCategories.h"
+
 #import "../../3party/Alohalytics/src/alohalytics_objc.h"
 
 extern NSString * const kAlohalyticsTapEventKey;
@@ -190,7 +191,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (CGFloat)viewMinY
 {
-  return isIOSVersionLessThan(@"7") ? -20 : 0;
+  return isIOSVersionLessThan(7) ? -20 : 0;
 }
 
 - (UIView *)phoneIdiomView

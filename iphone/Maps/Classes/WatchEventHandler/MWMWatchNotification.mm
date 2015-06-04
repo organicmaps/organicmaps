@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMWatchNotification.h"
 #import "Common.h"
+#import "MWMWatchNotification.h"
 
 #include <CoreFoundation/CoreFoundation.h>
 

@@ -1,14 +1,14 @@
-
-#import "LocalNotificationManager.h"
-#import "MapsAppDelegate.h"
-#import "Framework.h"
 #import "AppInfo.h"
+#import "Common.h"
+#import "Framework.h"
+#import "LocalNotificationInfoProvider.h"
+#import "LocalNotificationManager.h"
 #import "LocationManager.h"
+#import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "Statistics.h"
-#import "UIKitCategories.h"
 #import "TimeUtils.h"
-#import "LocalNotificationInfoProvider.h"
+#import "UIKitCategories.h"
 
 #include "../../../storage/storage_defines.hpp"
 
@@ -106,7 +106,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
     UIImage * shareImage = [UIImage imageNamed:notificationInfo[@"NotifiicationShareImage"]];
     LocalNotificationInfoProvider * infoProvider = [[LocalNotificationInfoProvider alloc] initWithDictionary:notificationInfo];
 
-    if (isIOSVersionLessThan(@"6.0"))
+    if (isIOSVersionLessThan(6))
     {
       UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
       pasteboard.URL = link;
@@ -122,7 +122,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
       
       UIActivityViewController * activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
       NSMutableArray * excludedActivityTypes = [@[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll] mutableCopy];
-      if (!isIOSVersionLessThan(@"7.0"))
+      if (!isIOSVersionLessThan(7))
         [excludedActivityTypes addObject:UIActivityTypeAirDrop];
       activityVC.excludedActivityTypes = excludedActivityTypes;
       UIWindow * window = [[UIApplication sharedApplication].windows firstObject];

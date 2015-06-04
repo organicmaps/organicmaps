@@ -1,24 +1,25 @@
+#import "AppInfo.h"
+#import "Common.h"
+#import "LocalNotificationManager.h"
+#import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
-#import "Preferences.h"
-#import "LocationManager.h"
-#import "Statistics.h"
-#import "UIKitCategories.h"
-#import "AppInfo.h"
-#import "LocalNotificationManager.h"
-#import "MWMAlertViewController.h"
-#import "Reachability.h"
-#import "MWMWatchEventInfo.h"
-#import "Common.h"
-#import "RouteState.h"
-
-#include <sys/xattr.h>
-
 #import "MRMyTracker.h"
 #import "MRTrackerParams.h"
+#import "MWMAlertViewController.h"
+#import "MWMWatchEventInfo.h"
+#import "Preferences.h"
+#import "Reachability.h"
+#import "RouteState.h"
+#import "Statistics.h"
+#import "UIKitCategories.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
+#include <sys/xattr.h>
 
 #include "storage/storage_defines.hpp"
 
@@ -27,8 +28,6 @@
 #include "platform/settings.hpp"
 #include "platform/platform_ios.hpp"
 #include "platform/preferred_languages.hpp"
-
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 extern NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 // Alert keys.
@@ -219,7 +218,7 @@ void InitLocalizedStrings()
   application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
   f.GetLocationState()->InvalidatePosition();
   
-  if (isIOSVersionLessThan(@"7"))
+  if (isIOSVersionLessThan(7))
     return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 
   return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
@@ -307,7 +306,7 @@ void InitLocalizedStrings()
   m_mwmURL = nil;
   m_fileURL = nil;
 
-  if (!isIOSVersionLessThan(@"7"))
+  if (!isIOSVersionLessThan(7))
     [FBSDKAppEvents activateApp];
   
   [self restoreRouteState];
@@ -354,7 +353,7 @@ void InitLocalizedStrings()
   attributes[UITextAttributeTextShadowColor] = [UIColor clearColor];
   [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setTintColor:[UIColor colorWithColorCode:@"15c584"]];
 
-  if (!isIOSVersionLessThan(@"7"))
+  if (!isIOSVersionLessThan(7))
   {
     [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
 
@@ -382,7 +381,7 @@ void InitLocalizedStrings()
   if ([self checkLaunchURL:url])
     return YES;
 
-  if (isIOSVersionLessThan(@"7"))
+  if (isIOSVersionLessThan(7))
     return NO;
   
   return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
@@ -482,7 +481,7 @@ void InitLocalizedStrings()
 
 - (void)trackWatchUser
 {
-  if (isIOSVersionLessThan(@"8"))
+  if (isIOSVersionLessThan(8))
     return;
 
   NSUserDefaults *standartDefaults = [NSUserDefaults standardUserDefaults];
@@ -569,7 +568,7 @@ void InitLocalizedStrings()
 
 - (void)showFacebookAlert
 {
-  if (isIOSVersionLessThan(@"7") || !Reachability.reachabilityForInternetConnection.isReachable)
+  if (isIOSVersionLessThan(7) || !Reachability.reachabilityForInternetConnection.isReachable)
     return;
   
   UIViewController *topViewController = [(UINavigationController*)m_window.rootViewController visibleViewController];

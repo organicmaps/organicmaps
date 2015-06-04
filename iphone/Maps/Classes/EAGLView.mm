@@ -1,9 +1,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/EAGLDrawable.h>
+#import "Common.h"
+#import "EAGLView.h"
 
 #import "../Categories/UIKitCategories.h"
-
-#import "EAGLView.h"
 
 #include "Framework.h"
 
@@ -201,7 +201,7 @@
 - (double)correctContentScale
 {
   UIScreen * uiScreen = [UIScreen mainScreen];
-  if (isIOSVersionLessThan(@"8"))
+  if (isIOSVersionLessThan(8))
     return uiScreen.scale;
   else
     return uiScreen.nativeScale;

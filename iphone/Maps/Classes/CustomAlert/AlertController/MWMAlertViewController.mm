@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "MWMAlertViewController.h"
 #import "MWMDownloadTransitMapAlert.h"
-#import "Common.h"
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
@@ -33,7 +33,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 {
   [super viewDidLoad];
   // Need only for iOS 5.
-  if (isIOSVersionLessThan(@"6"))
+  if (isIOSVersionLessThan(6))
     self.tap.delegate = self;
 }
 

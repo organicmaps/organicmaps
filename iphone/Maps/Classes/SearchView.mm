@@ -1,17 +1,17 @@
-
-#import "SearchView.h"
-#import "UIKitCategories.h"
+#import "Common.h"
+#import "LocationManager.h"
+#import "LocationManager.h"
 #import "MapsAppDelegate.h"
-#import "LocationManager.h"
-#import "Statistics.h"
 #import "MapViewController.h"
-#import "LocationManager.h"
-#import "ToastView.h"
-#import "SearchSuggestCell.h"
+#import "MWMMapViewControlsManager.h"
+#import "SearchCategoryCell.h"
 #import "SearchResultCell.h"
 #import "SearchShowOnMapCell.h"
-#import "SearchCategoryCell.h"
-#import "MWMMapViewControlsManager.h"
+#import "SearchSuggestCell.h"
+#import "SearchView.h"
+#import "Statistics.h"
+#import "ToastView.h"
+#import "UIKitCategories.h"
 
 #include "Framework.h"
 
@@ -502,12 +502,12 @@ static void onSearchResultCallback(search::Results const & results)
 
 - (CGFloat)defaultSearchBarMinY
 {
-  return isIOSVersionLessThan(@"7") ? 3 : 20;
+  return isIOSVersionLessThan(7) ? 3 : 20;
 }
 
 - (CGFloat)defaultTopBackgroundHeight
 {
-  return isIOSVersionLessThan(@"7") ? 44 : 64;
+  return isIOSVersionLessThan(7) ? 44 : 64;
 }
 
 - (BOOL)iPhoneInLandscape

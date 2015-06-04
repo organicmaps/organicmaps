@@ -1,6 +1,6 @@
-
-#import "UIViewController+Navigation.h"
+#import "Common.h"
 #import "UIKitCategories.h"
+#import "UIViewController+Navigation.h"
 
 @implementation UIViewController (Navigation)
 
@@ -11,7 +11,7 @@
   [backButton setImage:[UIImage imageNamed:@"NavigationBarBackButton"] forState:UIControlStateNormal];
 
   UIBarButtonItem * space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-  space.width = isIOSVersionLessThan(@"7") ? -8 : -16;
+  space.width = isIOSVersionLessThan(7) ? -8 : -16;
   UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:backButton];
   self.navigationItem.leftBarButtonItems = @[space, item];
 }

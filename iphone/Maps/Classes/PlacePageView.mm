@@ -1,15 +1,17 @@
-#import "PlacePageView.h"
+#import "BookmarksRootVC.h"
+#import "ColorPickerView.h"
+#import "Common.h"
+#import "ContextViews.h"
+#import "Framework.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
-#import "BookmarksRootVC.h"
-#import "Framework.h"
-#import "ContextViews.h"
-#import "PlacePageInfoCell.h"
-#import "PlacePageEditCell.h"
-#import "PlacePageShareCell.h"
 #import "PlacePageBookmarkDescriptionCell.h"
-#import "ColorPickerView.h"
+#import "PlacePageEditCell.h"
+#import "PlacePageInfoCell.h"
+#import "PlacePageShareCell.h"
+#import "PlacePageView.h"
 #import "Statistics.h"
+
 #import "../../3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "../../base/string_utils.hpp"
@@ -472,7 +474,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (CGFloat)viewMinY
 {
-  return self.statusBarIncluded ? (isIOSVersionLessThan(@"7") ? -20 : 0) : -20;
+  return self.statusBarIncluded ? (isIOSVersionLessThan(7) ? -20 : 0) : -20;
 }
 
 - (CGFloat)arrowMinYForHeaderWithHeight:(CGFloat)headerHeight
@@ -1183,7 +1185,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    if (isIOSVersionLessThan(@"6"))
+    if (isIOSVersionLessThan(6))
     {
       UIView * touchView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _headerView.width - 64, _headerView.height)];
       [_headerView addSubview:touchView];
