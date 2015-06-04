@@ -115,6 +115,40 @@ elif [ "$1" == "mwm" ]; then
       rmdir "$POLY_DIR"
     fi
   fi
+elif [ "$1" == "online" ]; then
+  PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
+  OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
+  [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
+  # The patch increases number of nodes for osmconvert to avoid overflow crash
+  [ ! -x "$OSMCTOOLS/osmconvert" ] && wget -q -O - http://m.m.i24.cc/osmconvert.c | sed 's/60004/600004/' | cc -x c - -lz -O3 -o "$OSMCTOOLS/osmconvert"
+
+  export OSMCTOOLS
+  export PLANET
+  export INTDIR
+  "$OSMCTOOLS/osmconvert" "$PLANET" --hash-memory=2000 --out-pbf -o="$INTDIR/planet.pbf"
+
+  OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
+  OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OSRM_PATH/build}"
+  [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
+
+  OSRM_THREADS=${OSRM_THREADS:-15}
+  OSRM_MEMORY=${OSRM_MEMORY:-50}
+  EXTRACT_CFG="$INTDIR/extractor.ini"
+  PREPARE_CFG="$INTDIR/contractor.ini"
+  echo "threads = $OSRM_THREADS" > "$EXTRACT_CFG"
+  echo "memory = $OSRM_MEMORY" > "$PREPARE_CFG"
+  echo "threads = $OSRM_THREADS" >> "$PREPARE_CFG"
+  PROFILE="${PROFILE:-$OSRM_PATH/profiles/car.lua}"
+  [ $# -gt 1 ] && PROFILE="$2"
+  [ ! -r "$PROFILE" ] && fail "Lua profile $PROFILE is not found"
+
+  export STXXLCFG="$HOME/.stxxl"
+  PBF="$INTDIR/planet.pbf"
+  OSRM_FILE="$INTDIR/planet.osrm"
+  rm -f "$OSRM_FILE"
+  "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF"
+  rm -f "$PBF"
+  "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE"
 else
   fail "Incorrect parameter: $1"
 fi

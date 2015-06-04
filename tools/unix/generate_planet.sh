@@ -12,6 +12,7 @@ usage() {
   echo -e "-U\tDownload planet when it is missing"
   echo -e "-w\tGenerate World and WorldCoasts"
   echo -e "-r\tGenerate routing files"
+  echo -e "-o\tGenerate online routing files"
   echo -e "-a\tEquivalent to -uwr"
   echo -e "-c\tClean last pass results if there was an error, and start anew"
   echo -e "-v\tPrint all commands executed"
@@ -65,7 +66,7 @@ OPT_WORLD=
 OPT_UPDATE=
 OPT_DOWNLOAD=
 OPT_ROUTING=
-while getopts ":cuUwravh" opt; do
+while getopts ":couUwravh" opt; do
   case $opt in
     c)
       OPT_CLEAN=1
@@ -82,6 +83,9 @@ while getopts ":cuUwravh" opt; do
       ;;
     r)
       OPT_ROUTING=1
+      ;;
+    o)
+      OPT_ONLINE_ROUTING=1
       ;;
     a)
       OPT_WORLD=1
@@ -267,6 +271,11 @@ if [ -n "$OPT_ROUTING" ]; then
       ( bash "$ROUTING_SCRIPT" prepare >> "$ROUTING_LOG" 2>&1 ) &
     fi
   fi
+fi
+
+if [ -n "$OPT_ONLINE_ROUTING" ]; then
+  putmode "start_online_routing(): Generating OSRM files for osrm-routed server."
+  bash "$ROUTING_SCRIPT" online >> "$ROUTING_LOG" 2>&1
 fi
 
 if [ "$MODE" == "inter" ]; then
