@@ -53,5 +53,7 @@ public class StringUtils
     return res;
   }
 
+  public static native boolean isHtml(String text);
+
   private StringUtils() {}
 }

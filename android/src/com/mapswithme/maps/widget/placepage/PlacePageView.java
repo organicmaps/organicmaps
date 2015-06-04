@@ -51,6 +51,7 @@ import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.ShareAction;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -331,7 +332,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       final String notes = bookmark.getBookmarkDescription();
       if (notes.isEmpty())
         UiUtils.hide(mWvDescription, mBtnEditHtmlDescription, mTvDescription);
-      else if (notes.charAt(0) == '<') // we just check first symbol and try to display html if its tag opening
+      else if (StringUtils.isHtml(notes))
       {
         mWvDescription.loadData(notes, "text/html; charset=utf-8", null);
         UiUtils.show(mWvDescription, mBtnEditHtmlDescription);
