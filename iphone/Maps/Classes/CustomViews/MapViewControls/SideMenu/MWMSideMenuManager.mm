@@ -6,19 +6,20 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMSideMenuManager.h"
-#import "MWMSideMenuDelegate.h"
-#import "MWMSideMenuButton.h"
-#import "MWMSideMenuView.h"
 #import "BookmarksRootVC.h"
 #import "CountryTreeVC.h"
-#import "SettingsAndMoreVC.h"
-#import "MapsAppDelegate.h"
-#import "LocationManager.h"
-#import "ShareActionSheet.h"
-#import "MapViewController.h"
-#import "MWMMapViewControlsManager.h"
 #import "Framework.h"
+#import "LocationManager.h"
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
+#import "MWMMapViewControlsCommon.h"
+#import "MWMMapViewControlsManager.h"
+#import "MWMSideMenuButton.h"
+#import "MWMSideMenuDelegate.h"
+#import "MWMSideMenuManager.h"
+#import "MWMSideMenuView.h"
+#import "SettingsAndMoreVC.h"
+#import "ShareActionSheet.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -31,7 +32,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 @interface MWMSideMenuManager() <MWMSideMenuInformationDisplayProtocol>
 
 @property (weak, nonatomic) MapViewController * controller;
-@property (weak, nonatomic) UIView * parentView;
 @property (nonatomic) IBOutlet MWMSideMenuButton * menuButton;
 @property (nonatomic) IBOutlet MWMSideMenuView * sideMenu;
 
@@ -39,12 +39,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @implementation MWMSideMenuManager
 
-- (instancetype)initWithParentView:(UIView *)parentView andController:(MapViewController *)controller
+- (instancetype)initWithParentController:(MapViewController *)controller
 {
   self = [super init];
   if (self)
   {
-    self.parentView = parentView;
     self.controller = controller;
     [[NSBundle mainBundle] loadNibNamed:kMWMSideMenuViewsNibName owner:self options:nil];
     self.menuButton.delegate = self;
@@ -103,7 +102,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   double const gY = MercatorBounds::LatToY(coord.latitude);
   ShareInfo * const info = [[ShareInfo alloc] initWithText:nil gX:gX gY:gY myPosition:YES];
   self.controller.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self.controller];
-  UIView const * const parentView = self.parentView;
+  UIView const * const parentView = self.controller.view;
   [self.controller.shareActionSheet showFromRect:CGRectMake(parentView.midX, parentView.height - 40.0, 0.0, 0.0)];
 }
 
@@ -142,6 +141,21 @@ extern NSString * const kAlohalyticsTapEventKey;
   });
 }
 
+- (void)replaceView:(UIView *)viewOut withView:(UIView *)viewIn
+{
+  if (viewIn.superview == viewIn)
+    return;
+  [self.controller.view insertSubview:viewIn aboveSubview:viewOut];
+  [UIView animateWithDuration:framesDuration(3) animations:^
+  {
+    viewOut.alpha = 0.0;
+  }
+  completion:^(BOOL finished)
+  {
+    [viewOut removeFromSuperview];
+  }];
+}
+
 #pragma mark - Properties
 
 - (void)setState:(MWMSideMenuState)state
@@ -151,16 +165,17 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     case MWMSideMenuStateActive:
       [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"menu"];
-      [self.sideMenu addSelfToView:self.parentView];
-      [self.menuButton removeFromSuperview];
+      [self replaceView:self.menuButton withView:self.sideMenu];
+      [self.sideMenu setup];
       break;
     case MWMSideMenuStateInactive:
-      [self.menuButton addSelfToView:self.parentView];
-      [self.sideMenu removeFromSuperviewAnimated];
+      [self replaceView:self.sideMenu withView:self.menuButton];
+      [self.menuButton setup];
+      self.menuButton.hidden = NO;
       break;
     case MWMSideMenuStateHidden:
-      [self.menuButton addSelfHiddenToView:self.parentView];
-      [self.sideMenu removeFromSuperview];
+      [self replaceView:self.sideMenu withView:self.menuButton];
+      self.menuButton.hidden = YES;
       break;
   }
 }

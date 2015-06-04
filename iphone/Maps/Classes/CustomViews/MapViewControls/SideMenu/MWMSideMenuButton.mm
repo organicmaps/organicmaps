@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMSideMenuButton.h"
 #import "MWMMapViewControlsCommon.h"
+#import "MWMSideMenuButton.h"
 #import "UIKitCategories.h"
 
 @interface MWMSideMenuButton()
@@ -49,22 +49,6 @@
   animationIV.animationRepeatCount = 1;
   [animationIV startAnimating];
   [self setNeedsLayout];
-}
-
-- (void)addSelfToView:(UIView *)parentView
-{
-  self.hidden = NO;
-  if (self.superview == parentView)
-    return;
-  [parentView addSubview:self];
-  [self setup];
-}
-
-- (void)addSelfHiddenToView:(UIView *)parentView
-{
-  super.hidden = YES;
-  [parentView addSubview:self];
-  [self setup];
 }
 
 - (void)layoutSubviews

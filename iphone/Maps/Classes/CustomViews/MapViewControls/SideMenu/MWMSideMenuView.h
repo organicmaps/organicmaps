@@ -18,7 +18,6 @@
 - (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame is not available")));
 - (instancetype)init __attribute__((unavailable("init is not available")));
 
-- (void)addSelfToView:(UIView *)parentView;
-- (void)removeFromSuperviewAnimated;
+- (void)setup;
 
 @end

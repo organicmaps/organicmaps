@@ -93,7 +93,6 @@
                                                  @(location::State::Follow).stringValue : @"follow",
                                                  @(location::State::RotateAndFollow).stringValue : @"followandrotate"};
   NSString const * const changeAnimation = [NSString stringWithFormat:@"%@_to_%@_", stateMap[@(beginState).stringValue], stateMap[@(endState).stringValue]];
-  NSLog(@"changeAnimation: %@", changeAnimation);
   static NSUInteger const animationImagesCount = 6;
   NSMutableArray * const animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   for (NSUInteger i = 0; i < animationImagesCount; ++i)

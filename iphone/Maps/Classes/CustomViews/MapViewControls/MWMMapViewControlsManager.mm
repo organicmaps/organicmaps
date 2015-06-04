@@ -6,22 +6,19 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "MapViewController.h"
+#import "MWMLocationButton.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMSideMenuManager.h"
 #import "MWMZoomButtons.h"
-#import "MWMLocationButton.h"
-#import "MWMMapViewControlsWrapper.h"
-#import "MapViewController.h"
 
 #include "Framework.h"
 
 @interface MWMMapViewControlsManager()
 
-@property (nonatomic) MWMSideMenuManager * menuManager;
 @property (nonatomic) MWMZoomButtons * zoomButtons;
 @property (nonatomic) MWMLocationButton * locationButton;
-
-@property (nonatomic) MWMMapViewControlsWrapper * viewWrapper;
+@property (nonatomic) MWMSideMenuManager * menuManager;
 
 @end
 
@@ -34,12 +31,9 @@
   self = [super init];
   if (!self)
     return nil;
-  self.viewWrapper = [[MWMMapViewControlsWrapper alloc] initWithParentView:controller.view];
-  if (!self.viewWrapper)
-    return nil;
-  self.menuManager = [[MWMSideMenuManager alloc] initWithParentView:self.viewWrapper andController:controller];
-  self.zoomButtons = [[MWMZoomButtons alloc] initWithParentView:self.viewWrapper];
-  self.locationButton = [[MWMLocationButton alloc] initWithParentView:self.viewWrapper];
+  self.zoomButtons = [[MWMZoomButtons alloc] initWithParentView:controller.view];
+  self.locationButton = [[MWMLocationButton alloc] initWithParentView:controller.view];
+  self.menuManager = [[MWMSideMenuManager alloc] initWithParentController:controller];
   self.hidden = NO;
   self.zoomHidden = NO;
   self.menuHidden = NO;

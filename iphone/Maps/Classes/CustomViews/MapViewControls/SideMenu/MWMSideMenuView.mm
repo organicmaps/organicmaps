@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "MWMMapViewControlsCommon.h"
 #import "MWMSideMenuView.h"
 #import "UIKitCategories.h"
-#import "MWMMapViewControlsCommon.h"
 
 static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
 
@@ -80,26 +80,6 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
   [self updateMenuBackground];
   [self updateMenuUI];
   [self setNeedsLayout];
-}
-
-- (void)addSelfToView:(UIView *)parentView
-{
-  if (self.superview == parentView)
-    return;
-  [parentView addSubview:self];
-  [self setup];
-}
-
-- (void)removeFromSuperviewAnimated
-{
-  [UIView animateWithDuration:framesDuration(3) animations:^
-  {
-    self.alpha = 0.0;
-  }
-  completion:^(BOOL finished)
-  {
-    [super removeFromSuperview];
-  }];
 }
 
 - (CGFloat)offsetBetweenButtons
