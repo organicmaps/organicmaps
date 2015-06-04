@@ -5,6 +5,8 @@
 -dontwarn ru.mail.**
 # flurry
 -dontwarn com.flurry.**
+# support library bug
+-dontwarn android.support.**
 
 -dontoptimize
 -keepattributes **
