@@ -28,7 +28,6 @@
 #include <string>
 #include <vector>
 
-
 template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
 {
     class GetByPoint
@@ -176,11 +175,12 @@ public:
        
         osrm::for_each_pair(phantom_node_pair_list, build_phantom_pairs);
 
-        m_searchEngine->alternative_path(raw_route.segment_end_coordinates.front(), raw_route);
-
+        vector<bool> uturns;
+        m_searchEngine->shortest_path(raw_route.segment_end_coordinates, uturns, raw_route);
         if (INVALID_EDGE_WEIGHT == raw_route.shortest_path_length)
         {
             SimpleLogger().Write(logDEBUG) << "Error occurred, single path not found";
+            return 400;
         }
         // Get mwm names
         vector<pair<string, m2::PointD>> usedMwms;
