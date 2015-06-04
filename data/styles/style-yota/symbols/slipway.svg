@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" baseProfile="full" width="37.28" id="slipway" viewBox="0 0 50 50" fill="blue" stroke="none" height="37.28">
+   <svg:g transform="translate(0,2.5)">
+            <svg:path d="M 45,33 L 45,45 L 2,45 C 2,45 45,33 45,33 z M 0,35 L 43,22 L 43,26 C 43,26 37,32 26,36 C 15,40 0,35 0,35 z M 3,32 C 3,32 13,0 13,0 L 22,26 L 3,32 z M 16,0 L 42,20 L 25,25 L 16,0 z "/>
+          </svg:g>
+</svg>
