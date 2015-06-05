@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white">
 
-  <include layout="@layout/toolbar_elevated"/>
+  <include
+      android:id="@+id/toolbar_layout"
+      layout="@layout/toolbar_elevated"/>
 
   <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:background="@android:color/white"
-      android:padding="@dimen/margin_medium">
+      android:layout_height="wrap_content"
+      android:layout_below="@id/toolbar_layout"
+      android:paddingLeft="@dimen/margin_medium"
+      android:paddingRight="@dimen/margin_medium">
 
     <EditText
         android:id="@+id/et__description"
@@ -23,4 +25,5 @@
 
   </FrameLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

@@ -38,6 +38,7 @@
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowIsFloating">false</item>
     <item name="colorPrimary">@color/base_green</item>
+    <item name="android:windowBackground">@android:color/white</item>
     <item name="clickableBackground">?attr/selectableItemBackground</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
