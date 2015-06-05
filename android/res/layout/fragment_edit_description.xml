@@ -20,10 +20,10 @@
         style="@style/MwmWidget.PlacePage.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:hint="Your descriptions (text or html)"
+        android:includeFontPadding="false"
         android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
   </FrameLayout>
-
 
 </RelativeLayout>

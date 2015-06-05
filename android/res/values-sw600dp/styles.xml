@@ -9,4 +9,14 @@
     <item name="android:background">@drawable/ic_bg_pp</item>
   </style>
 
+  <style name="MwmWidget.ListView" parent="android:Widget.ListView">
+    <item name="android:fadingEdge">none</item>
+    <item name="android:divider">@color/base_black_divider</item>
+    <item name="android:background">@android:color/white</item>
+    <item name="android:dividerHeight">1px</item>
+    <item name="android:animationCache">false</item>
+    <item name="android:scrollingCache">false</item>
+    <item name="android:cacheColorHint">@android:color/transparent</item>
+  </style>
+
 </resources>

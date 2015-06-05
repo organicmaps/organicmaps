@@ -20,6 +20,7 @@
 
   <style name="MwmTheme.Map">
     <item name="android:colorPrimaryDark">@android:color/black</item>
+    <item name="android:windowBackground">@null</item>
   </style>
 
   <style name="MwmTheme.Light">
@@ -37,8 +38,8 @@
   <style name="MwmMain.DialogFragment.Fullscreen" parent="Theme.AppCompat">
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowIsFloating">false</item>
-    <item name="colorPrimary">@color/base_green</item>
     <item name="android:windowBackground">@android:color/white</item>
+    <item name="colorPrimary">@color/base_green</item>
     <item name="clickableBackground">?attr/selectableItemBackground</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
@@ -78,7 +79,6 @@
 
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
-    <item name="android:lineSpacingMultiplier">1.43</item>
     <item name="android:textColor">@color/text_place_page</item>
     <item name="android:textCursorDrawable">@null</item>
   </style>
@@ -98,8 +98,8 @@
   <style name="MwmWidget.ListView" parent="android:Widget.ListView">
     <item name="android:fadingEdge">none</item>
     <item name="android:divider">@color/base_black_divider</item>
+    <item name="android:background">@null</item>
     <item name="android:dividerHeight">1px</item>
-    <item name="android:background">@android:color/white</item>
     <item name="android:animationCache">false</item>
     <item name="android:scrollingCache">false</item>
     <item name="android:cacheColorHint">@android:color/transparent</item>
