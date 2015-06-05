@@ -47,7 +47,6 @@
 #define CELL2FEATURE_SORTED_EXT ".c2f.sorted"
 #define CELL2FEATURE_TMP_EXT ".c2f.tmp"
 
-
 #define COUNTRIES_FILE  "countries.txt"
 
 #define WORLD_FILE_NAME "World"
@@ -61,9 +60,6 @@
 #define PACKED_POLYGONS_INFO_TAG "info"
 
 #define EXTERNAL_RESOURCES_FILE "external_resources.txt"
-
-#define DRAWING_RULES_LIGHT_BIN_FILE "drules_proto.bin"
-#define DRAWING_RULES_DARK_BIN_FILE "drules_proto_dark.bin"
 
 /// How many langs we're supporting on indexing stage
 #define MAX_SUPPORTED_LANGUAGES 64

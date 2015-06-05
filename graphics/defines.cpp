@@ -77,11 +77,6 @@ namespace graphics
     density = static_cast<EDensity>(FindFirstBySecond(s_density, name, EqualStrings()));
   }
 
-  string const resourcePath(string const & name, EDensity d)
-  {
-    return my::JoinFoldersToPath(string("resources-") + convert(d), name);
-  }
-
   double visualScale(EDensity density)
   {
     static double const vs [6] = { 0.75, 1, 1.5, 2, 3, 2.4 };

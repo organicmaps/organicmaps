@@ -18,6 +18,8 @@
 #include "base/logging.hpp"
 #include "base/exception.hpp"
 
+#include "indexer/map_style_reader.hpp"
+
 namespace graphics
 {
   typedef gl::Texture<DATA_TRAITS, true> TDynamicTexture;
@@ -269,7 +271,7 @@ namespace
   {
     try
     {
-      ReaderPtr<Reader> reader(GetPlatform().GetReader(resourcePath(skinFileName, density)));
+      ReaderPtr<Reader> reader(GetStyleReader().GetResourceReader(skinFileName, density));
       reader.ReadAsString(m_skinBuffer);
 
       size_t i = m_skinBuffer.find("file=\"", 0);

@@ -26,11 +26,12 @@
 #include "search/result.hpp"
 
 #include "indexer/categories_holder.hpp"
+#include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "indexer/mwm_version.hpp"
 #include "indexer/scales.hpp"
-#include "indexer/classificator_loader.hpp"
 
 /// @todo Probably it's better to join this functionality.
 //@{
@@ -1654,13 +1655,13 @@ void Framework::CreateDrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextF
 
 void Framework::SetMapStyle(MapStyle mapStyle)
 {
-  drule::SetCurrentMapStyle(mapStyle);
+  GetStyleReader().SetCurrentStyle(mapStyle);
   drule::LoadRules();
 }
 
 MapStyle Framework::GetMapStyle() const
 {
-  return drule::GetCurrentMapStyle();
+  return GetStyleReader().GetCurrentStyle();
 }
 
 void Framework::SetupMeasurementSystem()

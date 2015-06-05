@@ -11,6 +11,7 @@
 #include "coding/parse_xml.hpp"
 
 #include "indexer/drawing_rules.hpp"
+#include "indexer/map_style_reader.hpp"
 
 #include "base/logging.hpp"
 
@@ -167,12 +168,12 @@ SoftwareRenderer::SoftwareRenderer(graphics::GlyphCache::Params const & glyphCac
     m_symbolsIndex[symbolName] = rect;
   });
 
-  ReaderSource<ReaderPtr<Reader>> source(ReaderPtr<Reader>(pl.GetReader(resourcePath("basic.skn", density))));
+  ReaderSource<ReaderPtr<Reader>> source(ReaderPtr<Reader>(GetStyleReader().GetResourceReader("basic.skn", density)));
   if (!ParseXML(source, loader))
     LOG(LERROR, ("Error parsing skin"));
 
   ASSERT(!textureFileName.empty(), ());
-  ReaderPtr<Reader> texReader(pl.GetReader(resourcePath(textureFileName, density)));
+  ReaderPtr<Reader> texReader(GetStyleReader().GetResourceReader(textureFileName, density));
   vector<uint8_t> textureData;
   LodePNG::loadFile(textureData, texReader);
   VERIFY(LodePNG::decode(m_symbolsSkin, m_skinWidth, m_skinHeight, textureData) == 0, ());

@@ -34,6 +34,7 @@ SOURCES += \
     geometry_serialization.cpp \
     index.cpp \
     index_builder.cpp \
+    map_style_reader.cpp \
     mercator.cpp \
     mwm_set.cpp \
     mwm_version.cpp \
@@ -80,6 +81,7 @@ HEADERS += \
     interval_index_builder.hpp \
     interval_index_iface.hpp \
     map_style.hpp \
+    map_style_reader.hpp \
     mercator.hpp \
     mwm_set.hpp \
     mwm_version.hpp \

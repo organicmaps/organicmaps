@@ -23,9 +23,6 @@ namespace graphics
   /// get density from name
   void convert(char const * name, EDensity & density);
 
-  /// get resource name for specified density
-  string const resourcePath(string const & name, EDensity density);
-
   /// get scaling koefficient for specified density
   double visualScale(EDensity density);
 

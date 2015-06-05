@@ -2,7 +2,7 @@
 
 #include "graphics/opengl/data_traits.hpp"
 
-#include "platform/platform.hpp"
+#include "indexer/map_style_reader.hpp"
 
 #include "coding/lodepng_io.hpp"
 
@@ -12,7 +12,7 @@ namespace graphics
 {
   m2::PointU const GetDimensions(string const & resName, EDensity density)
   {
-    ReaderPtr<Reader> reader = GetPlatform().GetReader(resourcePath(resName, density));
+    ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(resName, density);
     gil::point2<ptrdiff_t> size = gil::lodepng_read_dimensions(reader);
     return m2::PointU(size.x, size.y);
   }
@@ -27,8 +27,6 @@ namespace graphics
       m_resourceName(name),
       m_size(0, 0)
   {
-    string resName = graphics::resourcePath(name, density);
-
     try
     {
       m_size = GetDimensions(name, density);
@@ -39,7 +37,7 @@ namespace graphics
                   (DATA_TRAITS::pixel_t*)&m_data[0],
                   m_size.x * sizeof(DATA_TRAITS::pixel_t));
 
-      ReaderPtr<Reader> reader = GetPlatform().GetReader(resName);
+      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(name, density);
 
       gil::lodepng_read_and_convert_view(reader, v, DATA_TRAITS::color_converter());
     }

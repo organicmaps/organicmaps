@@ -1,8 +1,6 @@
 #pragma once
 #include "indexer/drawing_rule_def.hpp"
 
-#include "indexer/map_style.hpp"
-
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
 
@@ -106,7 +104,4 @@ namespace drule
   RulesHolder & rules();
 
   void LoadRules();
-
-  MapStyle GetCurrentMapStyle();
-  void SetCurrentMapStyle(MapStyle mapStyle);
 }

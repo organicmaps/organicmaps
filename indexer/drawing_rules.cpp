@@ -4,6 +4,7 @@
 #include "indexer/scales.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/drules_include.hpp"
+#include "indexer/map_style_reader.hpp"
 
 #include "defines.hpp"
 
@@ -11,7 +12,6 @@
 #include "std/iterator_facade.hpp"
 
 #include "platform/platform.hpp"
-#include "platform/settings.hpp"
 
 #include "base/logging.hpp"
 
@@ -20,8 +20,6 @@
 namespace
 {
   uint32_t const DEFAULT_BG_COLOR = 0xEEEEDD;
-
-  char const * const MAP_STYLE_KEY = "MapStyleKey";
 }
 
 namespace drule {
@@ -396,20 +394,6 @@ namespace
 
     return backgroundColor;
   }
-
-  string GetRulesFile(MapStyle mapStyle)
-  {
-    switch (mapStyle)
-    {
-    case MapStyleLight:
-      return DRAWING_RULES_LIGHT_BIN_FILE;
-    case MapStyleDark:
-      return DRAWING_RULES_DARK_BIN_FILE;
-    default:
-      LOG(LWARNING, ("Unknown map style, use light instead"));
-      return DRAWING_RULES_LIGHT_BIN_FILE;
-    }
-  }
 }
 
 void RulesHolder::LoadFromBinaryProto(string const & s)
@@ -427,25 +411,10 @@ void RulesHolder::LoadFromBinaryProto(string const & s)
 
 void LoadRules()
 {
-  string const rulesFile = GetRulesFile(GetCurrentMapStyle());
-
   string buffer;
-  ModelReaderPtr(GetPlatform().GetReader(rulesFile)).ReadAsString(buffer);
+  GetStyleReader().GetDrawingRulesReader().ReadAsString(buffer);
 
   rules().LoadFromBinaryProto(buffer);
-}
-
-MapStyle GetCurrentMapStyle()
-{
-  int mapStyle;
-  if (!Settings::Get(MAP_STYLE_KEY, mapStyle))
-    mapStyle = MapStyleLight;
-  return static_cast<MapStyle>(mapStyle);
-}
-
-void SetCurrentMapStyle(MapStyle mapStyle)
-{
-  Settings::Set(MAP_STYLE_KEY, static_cast<int>(mapStyle));
 }
 
 }
