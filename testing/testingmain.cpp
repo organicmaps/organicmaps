@@ -133,7 +133,7 @@ int main(int argc, char * argv[])
     g_bLastTestOK = true;
 
     uint64_t const elapsed = timer.ElapsedNano();
-    LOG(LINFO, ("Test took", elapsed / 1000000, "ms"));
+    LOG(LINFO, ("Test took", elapsed / 1000000, "ms\n"));
   }
 
   if (numFailedTests == 0)
