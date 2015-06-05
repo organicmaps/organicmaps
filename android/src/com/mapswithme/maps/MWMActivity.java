@@ -142,9 +142,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private boolean mStorageAvailable = false;
   private boolean mStorageWritable = true;
   // Buttons
-  private static final long BUTTONS_ANIM_DURATION = 100;
-  private static final long BUTTONS_ANIM_DURATION_LONG = 110;
-  private static final long BUTTON_ANIM_DELAY = 50;
+  private static final long BUTTONS_ANIM_DURATION = 80;
+  private static final long BUTTONS_ANIM_DURATION_LONG = 88;
+  private static final long BUTTON_ANIM_DELAY = 40;
   private ViewGroup mBottomButtons;
   private ImageView mBtnBookmarks;
   private ImageView mBtnSearch;
@@ -165,6 +165,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private AnimationDrawable mAnimMenu;
   private AnimationDrawable mAnimMenuReversed;
+  private AnimatorSet mButtonsAnimation;
 
   private FadeView mFadeView;
 
@@ -744,6 +745,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private void hideBottomButtons()
   {
     UiUtils.hide(mLlBookmarks, mLlDownloader, mLlSettings, mLlShare, mLlSearch);
+    if (mButtonsAnimation != null && mButtonsAnimation.isRunning())
+      mButtonsAnimation.end();
     mBtnMenu.setVisibility(View.VISIBLE);
   }
 
@@ -1303,28 +1306,18 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void slideBottomButtonsIn()
   {
-    final AnimatorSet animatorSet = new AnimatorSet();
+    mBtnMenu.setVisibility(View.GONE);
+    mButtonsAnimation = new AnimatorSet();
     mLlSearch.setVisibility(View.VISIBLE);
-    animatorSet.play(generateMenuAnimator(mLlShare, mBtnShare, mTvShare, mBtnShare.getWidth()));
-    animatorSet.play(generateMenuAnimator(mLlSettings, mBtnSettings, mTvSettings, mBtnSettings.getWidth())).after(BUTTON_ANIM_DELAY);
-    animatorSet.play(generateMenuAnimator(mLlDownloader, mBtnDownloader, mTvDownloader, mBtnDownloader.getWidth())).after(BUTTON_ANIM_DELAY * 2);
-    animatorSet.play(generateMenuAnimator(mLlBookmarks, mBtnBookmarks, mTvBookmarks, mBtnBookmarks.getWidth())).after(BUTTON_ANIM_DELAY * 3);
-    animatorSet.addListener(new UiUtils.SimpleNineoldAnimationListener()
-    {
-      @Override
-      public void onAnimationEnd(Animator animation)
-      {
-        mBtnMenu.setVisibility(View.GONE);
-      }
-    });
-    animatorSet.start();
+    mButtonsAnimation.play(generateMenuAnimator(mLlShare, mBtnShare, mTvShare, mBtnShare.getWidth()));
+    mButtonsAnimation.play(generateMenuAnimator(mLlSettings, mBtnSettings, mTvSettings, mBtnSettings.getWidth())).after(BUTTON_ANIM_DELAY);
+    mButtonsAnimation.play(generateMenuAnimator(mLlDownloader, mBtnDownloader, mTvDownloader, mBtnDownloader.getWidth())).after(BUTTON_ANIM_DELAY * 2);
+    mButtonsAnimation.play(generateMenuAnimator(mLlBookmarks, mBtnBookmarks, mTvBookmarks, mBtnBookmarks.getWidth())).after(BUTTON_ANIM_DELAY * 3);
+    mButtonsAnimation.start();
   }
 
-  private void slideSlideButtonsOut()
+  private void slideBottomButtonsOut()
   {
-    mBtnMenu.setVisibility(View.VISIBLE);
-    mBtnMenu.bringToFront();
-
     hideBottomButtons();
   }
 
@@ -1480,11 +1473,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
       mBtnMenu.setImageDrawable(mAnimMenuReversed);
       mAnimMenuReversed.start();
-      slideSlideButtonsOut();
+      slideBottomButtonsOut();
     }
     else
     {
-      mBtnMenu.setImageDrawable(mAnimMenu);
+      mBtnSearch.setImageDrawable(mAnimMenu);
       mAnimMenu.start();
       slideBottomButtonsIn();
     }

@@ -136,6 +136,6 @@
       android:layout_alignParentBottom="true"
       android:layout_alignParentRight="true"
       android:contentDescription="@string/menu_search"
-      android:src="@drawable/anim_menu"/>
+      android:src="@drawable/btn_green_menu"/>
 
 </RelativeLayout>
