@@ -167,6 +167,9 @@ void Framework::OnUserPositionChanged(m2::PointD const & position)
 {
   MyPositionMarkPoint * myPostition = UserMarkContainer::UserMarkForMyPostion();
   myPostition->SetPtOrg(position);
+
+  if (IsRoutingActive())
+    m_routingSession.SetUserCurrentPosition(position);
 }
 
 void Framework::CallDrapeFunction(TDrapeFunction const & fn)
@@ -1810,20 +1813,21 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
   ASSERT(m_drapeEngine != nullptr, ());
 
-  m2::PointD myPosition(MercatorBounds::LonToX(37.537866403232542), MercatorBounds::LatToY(55.796739740505075));
+  //m2::PointD myPosition(MercatorBounds::LonToX(37.537866403232542), MercatorBounds::LatToY(55.796739740505075));
 
-  /*m2::PointD myPosition;
+  m2::PointD myPosition;
   bool const hasPosition = m_drapeEngine->GetMyPosition(myPosition);
   if (!hasPosition)
   {
     CallRouteBuilded(IRouter::NoCurrentPosition, vector<storage::TIndex>());
     return;
-  }*/
+  }
 
   if (IsRoutingActive())
     CloseRouting();
 
   SetLastUsedRouter(m_currentRouterType);
+  m_routingSession.SetUserCurrentPosition(myPosition);
 
   m_routingSession.BuildRoute(myPosition, destination,
                               [this] (Route const & route, IRouter::ResultCode code)
@@ -1854,7 +1858,7 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
         if (code != IRouter::NeedMoreMaps)
           RemoveRoute();
 
-      RemoveRoute();
+      RemoveRoute(true /* deactivateFollowing */);
     }
     CallRouteBuilded(code, absentFiles);
   });
@@ -1862,9 +1866,11 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
 
 void Framework::FollowRoute()
 {
-  /// Устанавливает начальный зум - высчитывание ректа ->DE
-  ///@TODO UVR
-  //GetLocationState()->StartRouteFollow();
+  ASSERT(m_drapeEngine != nullptr, ());
+  m_drapeEngine->FollowRoute();
+
+  m2::PointD const & position = m_routingSession.GetUserCurrentPosition();
+  m_drapeEngine->SetModelViewCenter(position, scales::GetNavigationScale(), true);
 }
 
 void Framework::SetRouter(RouterType type)
@@ -1914,11 +1920,11 @@ void Framework::SetRouterImpl(RouterType type)
   m_currentRouterType = type;
 }
 
-void Framework::RemoveRoute()
+void Framework::RemoveRoute(bool deactivateFollowing)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("RemoveRoute"));
   ASSERT(m_drapeEngine != nullptr, ());
-  m_drapeEngine->RemoveRoute();
+  m_drapeEngine->RemoveRoute(deactivateFollowing);
 }
 
 bool Framework::DisableFollowMode()
@@ -1940,7 +1946,7 @@ void Framework::CloseRouting()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("CloseRouting"));
   m_routingSession.Reset();
-  RemoveRoute();
+  RemoveRoute(true /* deactivateFollowing */);
 }
 
 void Framework::InsertRoute(Route const & route)
@@ -1957,7 +1963,7 @@ void Framework::InsertRoute(Route const & route)
   m_drapeEngine->AddRoute(route.GetPoly(), dp::Color(110, 180, 240, 200));
 
 
-  // TODO(@kuznetsov): Some of this stuff we need
+  // TODO(@kuznetsov): Maybe we need some of this stuff
   //track.SetName(route.GetName());
 
   //RouteTrack track(route.GetPoly());
@@ -1987,18 +1993,18 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   if (!IsRoutingActive())
     return;
 
-  ///@TODO UVR
-  //m2::PointD const & position = GetLocationState()->Position();
-  //if (m_routingSession.OnLocationPositionChanged(position, info) == RoutingSession::RouteNeedRebuild)
-  //{
-  //  auto readyCallback = [this](Route const & route, IRouter::ResultCode code)
-  //  {
-  //    if (code == IRouter::NoError)
-  //      GetPlatform().RunOnGuiThread(bind(&Framework::InsertRoute, this, route));
-  //  };
-
-  //  m_routingSession.RebuildRoute(position, readyCallback, m_progressCallback, 0 /* timeoutSec */);
-  //}
+  if (m_routingSession.OnLocationPositionChanged(info) == RoutingSession::RouteNeedRebuild)
+  {
+    m2::PointD const & position = m_routingSession.GetUserCurrentPosition();
+    m_routingSession.RebuildRoute(position, [this] (Route const & route, IRouter::ResultCode code)
+    {
+      if (code == IRouter::NoError)
+      {
+        RemoveRoute(false /* deactivateFollowing */);
+        InsertRoute(route);
+      }
+    });
+  }
 }
 
 void Framework::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo,

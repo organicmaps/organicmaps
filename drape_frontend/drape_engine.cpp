@@ -316,10 +316,17 @@ void DrapeEngine::AddRoute(m2::PolylineD const & routePolyline, dp::Color const 
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::RemoveRoute()
+void DrapeEngine::RemoveRoute(bool deactivateFollowing)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<RemoveRouteMessage>(),
+                                  make_unique_dp<RemoveRouteMessage>(deactivateFollowing),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::FollowRoute()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<FollowRouteMessage>(),
                                   MessagePriority::Normal);
 }
 

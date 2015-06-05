@@ -56,6 +56,9 @@ public:
 
   void SetFixedZoom();
 
+  void ActivateRouting();
+  void DeactivateRouting();
+
   void StopLocationFollow();
   void StopCompassFollow();
   void NextMode();

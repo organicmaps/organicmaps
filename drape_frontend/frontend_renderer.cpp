@@ -277,14 +277,22 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       dp::GLState const & state = msg->GetState();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
       m_routeRenderer->AddRoute(state, move(bucket), msg->GetColor(), make_ref(m_gpuProgramManager));
+      m_myPositionController->ActivateRouting();
       break;
     }
   case Message::RemoveRoute:
     {
+      ref_ptr<RemoveRouteMessage> msg = message;
       m_routeRenderer->RemoveAllRoutes();
+      if (msg->NeedDeactivateFollowing())
+        m_myPositionController->DeactivateRouting();
       break;
     }
-
+  case Message::FollowRoute:
+    {
+      m_myPositionController->NextMode();
+      break;
+    }
   default:
     ASSERT(false, ());
   }

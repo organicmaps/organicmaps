@@ -180,10 +180,12 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::RemoveRoute:
     {
+      ref_ptr<RemoveRouteMessage> msg = message;
+
       // we have to resend the message to FR, because it guaranties that
       // RemoveRouteMessage will be precessed after FlushRouteMessage
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<RemoveRouteMessage>(),
+                                make_unique_dp<RemoveRouteMessage>(msg->NeedDeactivateFollowing()),
                                 MessagePriority::Normal);
       break;
     }

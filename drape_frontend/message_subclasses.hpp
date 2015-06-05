@@ -489,8 +489,24 @@ private:
 class RemoveRouteMessage : public Message
 {
 public:
-  RemoveRouteMessage(){}
+  RemoveRouteMessage(bool deactivateFollowing)
+    : m_deactivateFollowing(deactivateFollowing)
+  {}
+
   Type GetType() const override { return Message::RemoveRoute; }
+
+  bool NeedDeactivateFollowing() const { return m_deactivateFollowing; }
+
+private:
+  bool m_deactivateFollowing;
+};
+
+class FollowRouteMessage : public Message
+{
+public:
+  FollowRouteMessage(){}
+
+  Type GetType() const override { return Message::FollowRoute; }
 };
 
 class FlushRouteMessage : public Message

@@ -497,7 +497,8 @@ public:
 
 private:
   void SetRouterImpl(routing::RouterType type);
-  void RemoveRoute();
+  void RemoveRoute(bool deactivateFollowing);
+
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
   void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo,

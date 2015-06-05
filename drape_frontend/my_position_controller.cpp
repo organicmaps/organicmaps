@@ -434,4 +434,16 @@ m2::PointD MyPositionController::GetCurrentPixelBinding() const
   return m2::PointD::Zero();
 }
 
+void MyPositionController::ActivateRouting()
+{
+  if (!IsInRouting())
+    SetModeInfo(SetModeBit(m_modeInfo, RoutingSessionBit));
+}
+
+void MyPositionController::DeactivateRouting()
+{
+  if (IsInRouting())
+    SetModeInfo(ResetModeBit(m_modeInfo, RoutingSessionBit));
+}
+
 }
