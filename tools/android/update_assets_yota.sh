@@ -13,6 +13,7 @@ DST=../../android/YoPme/assets
 
 
 rm -rf $DST/drules_proto.bin
+rm -rf $DST/drules_proto_dark.bin
 ln -s $SRC/drules_proto-bw.bin $DST/drules_proto.bin
 
 rm -rf $DST/resources-ldpi
@@ -31,6 +32,7 @@ DST=../../android/YoPme2/assets
 
 
 rm -rf $DST/drules_proto.bin
+rm -rf $DST/drules_proto_dark.bin
 ln -s $SRC/drules_proto-bw.bin $DST/drules_proto.bin
 
 rm -rf $DST/resources-ldpi
