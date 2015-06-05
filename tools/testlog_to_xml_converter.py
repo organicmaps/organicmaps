@@ -49,11 +49,16 @@ class TestInfo:
         local_comment = ""
         if self.test_comment is not None:
             local_comment = self.test_comment
-        return "{suite}::{name}: {comment} -> {result}\n".format(suite=self.test_suite, name=self.test_name, comment=local_comment, result=self.test_result)
+        return "{suite}::{name}: {comment} -> {result}\n".format(suite=self.test_suite,
+                                                                 name=self.test_name,
+                                                                 comment=local_comment,
+                                                                 result=self.test_result)
 
 
     def xml(self):
-        d = ElementTree.Element("testcase", {"name":self.test_name, "classname":self.test_suite, "time":str(self.test_duration)})
+        d = ElementTree.Element("testcase", {"name":self.test_name,
+                                             "classname":self.test_suite,
+                                             "time":str(self.test_duration)})
         if self.test_comment is not None:
             b = ElementTree.SubElement(d, "system-err")
             b.text = self.test_comment
@@ -107,7 +112,7 @@ class Parser:
                         
 
     def write_xml_file(self):
-        ElementTree.ElementTree(self.root).write(self.xml_file, encoding="UTF-8", xml_declaration=True)
+        ElementTree.ElementTree(self.root).write(self.xml_file, encoding="UTF-8")
                         
                         
 def usage():
