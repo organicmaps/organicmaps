@@ -1,6 +1,6 @@
 <!DOCTYPE skin>
 <skin>
- <page height="512" width="512" file="symbols.png">
+ <page height="512" file="symbols.png" width="512">
   <symbolStyle name="route_to" id="1">
    <resourceStyle x="0" y="0" height="105" width="105"/>
   </symbolStyle>
