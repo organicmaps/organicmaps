@@ -566,6 +566,7 @@ public:
   //@{
   bool IsRoutingActive() const { return m_routingSession.IsActive(); }
   bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
+  bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }
   void BuildRoute(m2::PointD const & destination);
   typedef function<void (routing::IRouter::ResultCode, vector<storage::TIndex> const &)> TRouteBuildingCallback;
   void SetRouteBuildingListener(TRouteBuildingCallback const & callback) { m_routingCallback = callback; }
