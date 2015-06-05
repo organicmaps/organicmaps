@@ -236,6 +236,19 @@ class PostHandler(BaseHTTPRequestHandler):
         self.wfile.write("pong")
 
 
+    def message_for_47kb_file(self):
+        message = []
+        for i in range(0, BIG_FILE_SIZE + 1):
+            message.append(chr(i / 256))
+            message.append(chr(i % 256))
+
+#            print("{}{}\n".format(i/256, i%256))
+
+        return "".join(message)
+            
+        
+        
+
     def test1(self):
         message = "Test1"
         message = self.trim_message(message)
@@ -263,7 +276,9 @@ class PostHandler(BaseHTTPRequestHandler):
     def test_47_kb(self):
         self.send_response(self.response_code)
         length = BIG_FILE_SIZE
-        if self.byterange is not None:
+        if self.byterange is None:
+            self.byterange = (0, BIG_FILE_SIZE)
+        else:
             length = min([length, self.byterange[1] - self.byterange[0] + 1])
             
 #         print ("The length of message to return is: {0}".format(length))
@@ -272,9 +287,15 @@ class PostHandler(BaseHTTPRequestHandler):
         if self.byterange is not None:
             self.send_header("Content-Range", "bytes {start}-{end}/{out_of}".format(start=self.byterange[0], end=self.byterange[1], out_of=BIG_FILE_SIZE))
         self.end_headers()
-        for i in range(0, length + 1):
+
+        message = self.message_for_47kb_file()
+
+        if message is None:
+            print("The message is none for some reason")
+        self.wfile.write(self.message_for_47kb_file()[self.byterange[0]: self.byterange[1] + 1])
+#        for i in range(0, length + 1):
 #             try:
-            self.wfile.write(chr(i%256))
+#            self.wfile.write(chr(i%256))
 #             except IOError, e:
 #                 if e.errno == errno.EPIPE:
 #                     print("This is indeed a broken pipe")
