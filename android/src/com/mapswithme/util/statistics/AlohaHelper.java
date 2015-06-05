@@ -54,4 +54,7 @@ public class AlohaHelper
   public static final String ROUTING_GO_CLOSE = "routeGoClose";
   // search
   public static final String SEARCH_CANCEL = "searchCancel";
+  // installation of Parse
+  public static final String PARSE_INSTALLATION_ID = "Android_Parse_Installation_Id";
+  public static final String PARSE_DEVICE_TOKEN = "Android_Parse_Device_Token";
 }

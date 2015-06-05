@@ -14,7 +14,10 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
+import com.parse.Parse;
+import com.parse.ParseInstallation;
 
 import java.io.File;
 
@@ -122,6 +125,8 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
     // init BookmarkManager (automatically loads bookmarks)
     BookmarkManager.INSTANCE.getIcons();
+
+    initParse();
   }
 
   public String getApkPath()
@@ -202,6 +207,18 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   public native String nativeGetString(String name, String defaultValue);
 
   public native void nativeSetString(String name, String value);
+
+  /*
+   * init Parse SDK
+   */
+  private void initParse()
+  {
+    Parse.initialize(this, "***REMOVED***", "***REMOVED***");
+    ParseInstallation.getCurrentInstallation().saveInBackground();
+
+    org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_INSTALLATION_ID, ParseInstallation.getCurrentInstallation().getInstallationId());
+    org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_DEVICE_TOKEN, ParseInstallation.getCurrentInstallation().getString("deviceToken"));
+  }
 
   public void initStats()
   {

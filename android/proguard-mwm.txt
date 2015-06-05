@@ -7,6 +7,10 @@
 -dontwarn com.flurry.**
 # support library bug
 -dontwarn android.support.**
+# parse
+-dontwarn com.squareup.okhttp.**
+-dontwarn okio.**
+-dontwarn com.facebook.**
 
 -dontoptimize
 -keepattributes **

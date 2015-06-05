@@ -30,6 +30,8 @@ dependencies {
   // 3-party
   compile 'com.nineoldandroids:library:2.4.0'
   compile 'com.facebook.android:facebook-android-sdk:4.2.0'
+  // for Parse SDK
+  compile 'com.parse.bolts:bolts-android:1.+'
   compile fileTree(dir: '3rd_party', include: '*.jar')
 }
 

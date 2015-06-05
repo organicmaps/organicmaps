@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto"
     android:sharedUserId="com.mapswithme"
-    android:sharedUserLabel="@string/shared_user_label">
+    android:sharedUserLabel="@string/shared_user_label" xmlns:tools="http://schemas.android.com/tools">
 
   <uses-sdk
       android:minSdkVersion="9"/>
@@ -48,6 +48,7 @@
 
   <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE"/>
 
+  <!-- -->
   <supports-screens
       android:largeScreens="true"
       android:xlargeScreens="true"/>
@@ -71,6 +72,10 @@
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
         android:value="@string/fb_app_id"/>
+
+    <meta-data
+        android:name="com.parse.push.notification_icon"
+        android:resource="@drawable/ic_notification"/>
 
     <activity
         android:name="com.mapswithme.maps.DownloadResourcesActivity"
@@ -279,6 +284,35 @@
         android:exported="true">
       <intent-filter>
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+      </intent-filter>
+    </receiver>
+
+    <!-- Parse -->
+    <service android:name="com.parse.PushService"/>
+
+    <receiver android:name="com.parse.ParseBroadcastReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <action android:name="android.intent.action.USER_PRESENT"/>
+      </intent-filter>
+    </receiver>
+    <receiver
+        android:name="com.parse.ParsePushBroadcastReceiver"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="com.parse.push.intent.RECEIVE"/>
+        <action android:name="com.parse.push.intent.DELETE"/>
+        <action android:name="com.parse.push.intent.OPEN"/>
+      </intent-filter>
+    </receiver>
+    <receiver
+        android:name="com.parse.GcmBroadcastReceiver"
+        android:permission="com.google.android.c2dm.permission.SEND">
+      <intent-filter>
+        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+        <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+
+        <category android:name="${applicationId}"/>
       </intent-filter>
     </receiver>
   </application>
