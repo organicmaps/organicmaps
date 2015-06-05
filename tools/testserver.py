@@ -48,7 +48,7 @@ from scipy.stats.stats import trim_mean
 
 
 PORT = 34568
-LIFESPAN = 180.0  # timeout for the self destruction timer - how much time 
+LIFESPAN = 18000.0  # timeout for the self destruction timer - how much time 
                   # passes between the last request and the server killing 
                   # itself
 PING_TIMEOUT = 5  # Nubmer of seconds to wait for ping response
@@ -274,7 +274,7 @@ class PostHandler(BaseHTTPRequestHandler):
         self.end_headers()
         for i in range(0, length + 1):
 #             try:
-            self.wfile.write(255)
+            self.wfile.write(chr(i%256))
 #             except IOError, e:
 #                 if e.errno == errno.EPIPE:
 #                     print("This is indeed a broken pipe")
