@@ -62,6 +62,9 @@ public:
         : m_descriptorString("mapsme"), m_facade(facade),
           m_reader(baseDir + '/' + PACKED_POLYGONS_FILE)
     {
+#ifndef MT_STRUCTURES
+        SimpleLogger().Write(logWARNING) << "Multitreaded storage was not set on compile time!!! Do not use osrm-routed in several threads."
+#endif
         if (!osrm::LoadNodeDataFromFile(nodeDataFile, m_nodeData))
         {
           SimpleLogger().Write(logDEBUG) << "Can't load node data";

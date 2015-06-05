@@ -150,6 +150,11 @@ if(CMAKE_BUILD_TYPE MATCHES Release)
   endif()
 endif()
 
+if (UNIX)
+    message("Multithreaded OSRM structures build!")
+    add_definitions(-DMT_STRUCTURES) # Unlocks multithreaded structs are not availible on mobile devices.
+endif()
+
 # Configuring compilers
 if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
   # using Clang

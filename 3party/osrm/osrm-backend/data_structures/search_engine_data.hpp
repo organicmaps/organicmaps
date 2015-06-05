@@ -28,7 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef SEARCH_ENGINE_DATA_HPP
 #define SEARCH_ENGINE_DATA_HPP
 
-#ifdef LINUX
+// Unlock multithread local storage for online osrm engine.
+#ifdef MT_STRUCTURES
 #include <boost/thread/tss.hpp>
 #else
 #include <boost/scoped_ptr.hpp>
@@ -46,7 +47,7 @@ struct HeapData
 struct SearchEngineData
 {
     using QueryHeap = BinaryHeap<NodeID, NodeID, int, HeapData, UnorderedMapStorage<NodeID, int>>;
-#ifdef LINUX
+#ifdef MT_STRUCTURES
     using SearchEngineHeapPtr = boost::thread_specific_ptr<QueryHeap>;
 #else
     using SearchEngineHeapPtr = boost::scoped_ptr<QueryHeap>;
