@@ -160,8 +160,8 @@ namespace integration
   {
     double const delta = expectedRouteLength * relativeError;
     double const routeLength = route.GetDistance();
-    TEST_LESS_OR_EQUAL(routeLength - delta, expectedRouteLength, ());
-    TEST_GREATER_OR_EQUAL(routeLength + delta, expectedRouteLength, ());
+    TEST_LESS_OR_EQUAL(routeLength - delta, expectedRouteLength, ("Route length test failed. Expected:", expectedRouteLength, "have:", routeLength));
+    TEST_GREATER_OR_EQUAL(routeLength + delta, expectedRouteLength, ("Route length test failed. Expected:", expectedRouteLength, "have:", routeLength));
   }
 
   void CalculateRouteAndTestRouteLength(OsrmRouterComponents const & routerComponents,
