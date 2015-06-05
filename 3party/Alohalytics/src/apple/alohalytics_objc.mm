@@ -317,13 +317,14 @@ static UIBackgroundTaskIdentifier sBackgroundTaskId = UIBackgroundTaskInvalid;
   NSUserDefaults * userDataBase = [NSUserDefaults standardUserDefaults];
   NSString * installedVersion = [userDataBase objectForKey:@"AlohalyticsInstalledVersion"];
   bool forceUpload = false;
+  NSBundle * bundle = [NSBundle mainBundle];
   if (installationId.second && isFirstLaunch && installedVersion == nil) {
-    NSString * version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString * version = [[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     // Documents folder modification time can be interpreted as a "first app launch time" or an approx. "app install time".
     // App bundle modification time can be interpreted as an "app update time".
     instance.LogEvent("$install", {{"CFBundleShortVersionString", [version UTF8String]},
         {"documentsTimestampMillis", PathTimestampMillis([NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject])},
-        {"bundleTimestampMillis", PathTimestampMillis([[NSBundle mainBundle] executablePath])}});
+        {"bundleTimestampMillis", PathTimestampMillis([bundle executablePath])}});
     [userDataBase setValue:version forKey:@"AlohalyticsInstalledVersion"];
     [userDataBase synchronize];
 #if (TARGET_OS_IPHONE > 0)
@@ -333,11 +334,11 @@ static UIBackgroundTaskIdentifier sBackgroundTaskId = UIBackgroundTaskInvalid;
 #endif  // TARGET_OS_IPHONE
     forceUpload = true;
   } else {
-    NSString * version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString * version = [[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     if (installedVersion == nil || ![installedVersion isEqualToString:version]) {
       instance.LogEvent("$update", {{"CFBundleShortVersionString", [version UTF8String]},
           {"documentsTimestampMillis", PathTimestampMillis([NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject])},
-          {"bundleTimestampMillis", PathTimestampMillis([[NSBundle mainBundle] executablePath])}});
+          {"bundleTimestampMillis", PathTimestampMillis([bundle executablePath])}});
       [userDataBase setValue:version forKey:@"AlohalyticsInstalledVersion"];
       [userDataBase synchronize];
 #if (TARGET_OS_IPHONE > 0)
