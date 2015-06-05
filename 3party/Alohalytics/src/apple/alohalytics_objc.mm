@@ -154,7 +154,9 @@ static void LogSystemInformation() {
   } else if (device.userInterfaceIdiom == UIUserInterfaceIdiomUnspecified) {
     userInterfaceIdiom = "unspecified";
   }
-  alohalytics::TStringMap info = {{"deviceName", ToStdString(device.name)},
+  alohalytics::TStringMap info = {
+    {"bundleIdentifier", ToStdString([[NSBundle mainBundle] bundleIdentifier])},
+    {"deviceName", ToStdString(device.name)},
     {"deviceSystemName", ToStdString(device.systemName)},
     {"deviceSystemVersion", ToStdString(device.systemVersion)},
     {"deviceModel", ToStdString(device.model)},
