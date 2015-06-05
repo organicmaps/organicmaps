@@ -24,11 +24,13 @@ struct RouteGraphics
 class RouteRenderer final
 {
 public:
-  void Render(int currentZoomLevel, ref_ptr<dp::GpuProgramManager> mng,
+  void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
   void AddRoute(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
                 dp::Color const & color, ref_ptr<dp::GpuProgramManager> mng);
+
+  void RemoveAllRoutes();
 
 private:
   vector<RouteGraphics> m_routes;

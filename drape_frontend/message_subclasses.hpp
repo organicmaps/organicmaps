@@ -486,6 +486,13 @@ private:
   dp::Color m_color;
 };
 
+class RemoveRouteMessage : public Message
+{
+public:
+  RemoveRouteMessage(){}
+  Type GetType() const override { return Message::RemoveRoute; }
+};
+
 class FlushRouteMessage : public Message
 {
 public:

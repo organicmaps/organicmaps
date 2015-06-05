@@ -178,6 +178,15 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_routeBuilder->Build(msg->GetRoutePolyline(), msg->GetColor());
       break;
     }
+  case Message::RemoveRoute:
+    {
+      // we have to resend the message to FR, because it guaranties that
+      // RemoveRouteMessage will be precessed after FlushRouteMessage
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<RemoveRouteMessage>(),
+                                MessagePriority::Normal);
+      break;
+    }
   case Message::StopRendering:
     {
       ProcessStopRenderingMessage();

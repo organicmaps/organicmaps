@@ -1829,12 +1829,16 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
                               [this] (Route const & route, IRouter::ResultCode code)
   {
     ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute_ReadyCallback"));
+    double const routeScale = 1.2;
+
     vector<storage::TIndex> absentFiles;
     vector<storage::TIndex> absentRoutingIndexes;
     if (code == IRouter::NoError)
     {
       InsertRoute(route);
-      m_drapeEngine->SetModelViewRect(route.GetPoly().GetLimitRect(), true, -1, true);
+      m2::RectD routeRect = route.GetPoly().GetLimitRect();
+      routeRect.Scale(routeScale);
+      m_drapeEngine->SetModelViewRect(routeRect, true, -1, true);
     }
     else
     {
@@ -1913,10 +1917,8 @@ void Framework::SetRouterImpl(RouterType type)
 void Framework::RemoveRoute()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("RemoveRoute"));
-
-  UserMarkControllerGuard g(m_bmManager, UserMarkType::DEBUG_MARK);
-  g.m_controller.Clear();
-  m_bmManager.ResetRouteTrack();
+  ASSERT(m_drapeEngine != nullptr, ());
+  m_drapeEngine->RemoveRoute();
 }
 
 bool Framework::DisableFollowMode()
@@ -1937,9 +1939,6 @@ void Framework::FollowRoute()
 void Framework::CloseRouting()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("CloseRouting"));
-
-  ///@TODO UVR
-  //GetLocationState()->StopRoutingMode();
   m_routingSession.Reset();
   RemoveRoute();
 }
@@ -1957,33 +1956,30 @@ void Framework::InsertRoute(Route const & route)
   ASSERT(m_drapeEngine != nullptr, ());
   m_drapeEngine->AddRoute(route.GetPoly(), dp::Color(110, 180, 240, 200));
 
-  //float const visScale = df::VisualParams::Instance().GetVisualScale();
+
+  // TODO(@kuznetsov): Some of this stuff we need
+  //track.SetName(route.GetName());
 
   //RouteTrack track(route.GetPoly());
-  // @TODO UVR
-  //vector<double> turns;
-  //if (m_currentRouterType == RouterType::Vehicle)
-  //{
-  //  turns::TTurnsGeom const & turnsGeom = route.GetTurnsGeometry();
-  //  if (!turnsGeom.empty())
-  //  {
-  //    turns.reserve(turnsGeom.size());
-  //    for (size_t i = 0; i < turnsGeom.size(); i++)
-  //      turns.push_back(turnsGeom[i].m_mercatorDistance);
-  //  }
-  //}
+  //track.SetName(route.GetName());
+  //track.SetTurnsGeometry(route.GetTurnsGeometry());
 
   /// @todo Consider a style parameter for the route color.
   //graphics::Color routeColor;
   //if (m_currentRouterType == RouterType::Pedestrian)
-  //  routeColor = graphics::Color(5, 105, 175, 204);
+  //  routeColor = graphics::Color(5, 105, 175, 255);
   //else
-  //  routeColor = graphics::Color(30, 150, 240, 204);
+  //  routeColor = graphics::Color(110, 180, 240, 255);
 
-  //m_bmManager.SetRouteTrack(route.GetPoly(), turns, routeColor);
+  //Track::TrackOutline outlines[]
+  //{
+  //  { 10.0f * visScale, routeColor }
+  //};
+
+  //track.AddOutline(outlines, ARRAY_SIZE(outlines));
+  //track.AddClosingSymbol(false, "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
 
   //m_informationDisplay.ResetRouteMatchingInfo();
-  //Invalidate();
 }
 
 void Framework::CheckLocationForRouting(GpsInfo const & info)

@@ -279,6 +279,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_routeRenderer->AddRoute(state, move(bucket), msg->GetColor(), make_ref(m_gpuProgramManager));
       break;
     }
+  case Message::RemoveRoute:
+    {
+      m_routeRenderer->RemoveAllRoutes();
+      break;
+    }
 
   default:
     ASSERT(false, ());
@@ -486,7 +491,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     {
       GLFunctions::glClearDepth();
       m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
-      m_routeRenderer->Render(GetCurrentZoomLevel(), make_ref(m_gpuProgramManager), m_generalUniforms);
+      m_routeRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
     }
     else if (selectedObject == SelectionShape::OBJECT_POI)
       m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);

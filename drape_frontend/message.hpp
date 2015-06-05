@@ -33,6 +33,7 @@ public:
     SelectObject
     GetMyPosition,
     AddRoute,
+    RemoveRoute,
     FlushRoute
   };
 

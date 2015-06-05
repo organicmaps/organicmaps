@@ -3,7 +3,6 @@
 #include "map/bookmark.hpp"
 #include "map/route_track.hpp"
 #include "map/user_mark_container.hpp"
-#include "map/route_track.hpp"
 
 #include "std/function.hpp"
 #include "std/unique_ptr.hpp"
@@ -71,13 +70,6 @@ public:
   bool UserMarksIsVisible(UserMarkType type) const;
   UserMarksController & UserMarksRequestController(UserMarkType type);
   void UserMarksReleaseController(UserMarksController & controller);
-
-  void SetRouteTrack(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                     graphics::Color const & color);
-  void ResetRouteTrack();
-  void UpdateRouteDistanceFromBegin(double distance);
-  void SetRouteStartPoint(m2::PointD const & pt, bool isValid);
-  void SetRouteFinishPoint(m2::PointD const & pt, bool isValid);
 
 private:
   UserMarkContainer const * FindUserMarksContainer(UserMarkType type) const;

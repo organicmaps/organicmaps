@@ -316,4 +316,11 @@ void DrapeEngine::AddRoute(m2::PolylineD const & routePolyline, dp::Color const 
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::RemoveRoute()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<RemoveRouteMessage>(),
+                                  MessagePriority::Normal);
+}
+
 } // namespace df

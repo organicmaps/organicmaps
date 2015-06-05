@@ -232,16 +232,6 @@ void BookmarkManager::UserMarksReleaseController(UserMarksController & controlle
   FindUserMarksContainer(controller.GetType())->ReleaseController();
 }
 
-void BookmarkManager::SetRouteTrack(unique_ptr<RouteTrack> && track)
-{
-  m_routeTrack = move(track);
-}
-
-void BookmarkManager::ResetRouteTrack()
-{
-  m_routeTrack.reset();
-}
-
 UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkType type) const
 {
   auto const iter = find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(), [&type](UserMarkContainer const * cont)

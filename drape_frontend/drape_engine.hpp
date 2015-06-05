@@ -96,6 +96,7 @@ public:
   bool GetMyPosition(m2::PointD & myPosition);
 
   void AddRoute(m2::PolylineD const & routePolyline, dp::Color const & color);
+  void RemoveRoute();
 
 private:
   void AddUserEvent(UserEvent const & e);

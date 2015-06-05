@@ -3,10 +3,25 @@
 #include "drape/glsl_func.hpp"
 #include "drape/utils/projection.hpp"
 
+#include "indexer/scales.hpp"
+
 #include "base/logging.hpp"
 
 namespace df
 {
+
+namespace
+{
+
+float const halfWidthInPixel[] =
+{
+  // 1   2     3     4     5     6     7     8     9     10
+  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 2.0f, 2.0f, 2.0f,
+  //11   12    13    14    15     16    17      18     19
+  2.0f, 2.5f, 3.5f, 5.0f, 7.5f, 10.0f, 14.0f, 18.0f, 36.0f,
+};
+
+}
 
 RouteGraphics::RouteGraphics(dp::GLState const & state,
                              drape_ptr<dp::VertexArrayBuffer> && buffer,
@@ -16,11 +31,18 @@ RouteGraphics::RouteGraphics(dp::GLState const & state,
   , m_color(color)
 {}
 
-void RouteRenderer::Render(int currentZoomLevel, ref_ptr<dp::GpuProgramManager> mng,
+void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                            dp::UniformValuesStorage const & commonUniforms)
 {
-  // TODO(@kuznetsov): calculate pixel width by zoom level
-  float halfWidth = 30.0f;
+  // half width calculation
+  float halfWidth = 0.0;
+  double const zoomLevel = my::clamp(fabs(log(screen.GetScale()) / log(2.0)), 1.0, scales::UPPER_STYLE_SCALE);
+  int const index = static_cast<int>(zoomLevel) - 1;
+  float const lerpCoef = static_cast<float>(zoomLevel - static_cast<int>(zoomLevel));
+  if (index < scales::UPPER_STYLE_SCALE - 1)
+    halfWidth = halfWidthInPixel[index] + lerpCoef * (halfWidthInPixel[index + 1] - halfWidthInPixel[index]);
+  else
+    halfWidth = halfWidthInPixel[index];
 
   for (RouteGraphics & route : m_routes)
   {
@@ -51,4 +73,10 @@ void RouteRenderer::AddRoute(dp::GLState const & state, drape_ptr<dp::RenderBuck
   route.m_buffer->Build(mng->GetProgram(route.m_state.GetProgramIndex()));
 }
 
+void RouteRenderer::RemoveAllRoutes()
+{
+  m_routes.clear();
+}
+
 } // namespace df
+
