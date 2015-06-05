@@ -217,8 +217,7 @@ void InitLocalizedStrings()
   else
   {
     [self incrementSessionCount];
-    [self shouldShowRateAlert];
-    [self shouldShowFacebookAlert];
+    [self showAlertIfRequired];
   }
   [[NSUserDefaults standardUserDefaults] synchronize];
   
@@ -572,6 +571,14 @@ void InitLocalizedStrings()
   }
 }
 
+- (void)showAlertIfRequired
+{
+  if ([self shouldShowRateAlert])
+    [self performSelector:@selector(showRateAlert) withObject:self afterDelay:30.0];
+  else if ([self shouldShowFacebookAlert])
+    [self performSelector:@selector(showFacebookAlert) withObject:self afterDelay:30.0];
+}
+
 #pragma mark - Facebook
 
 - (void)showFacebookAlert
@@ -585,33 +592,36 @@ void InitLocalizedStrings()
   [[NSUserDefaults standardUserDefaults] setObject:NSDate.date forKey:kUDLastShareRequstDate];
 }
 
-- (void)shouldShowFacebookAlert
+- (BOOL)shouldShowFacebookAlert
 {
   NSUInteger const kMaximumSessionCountForShowingShareAlert = 50;
-  NSUserDefaults *standartDefaults = [NSUserDefaults standardUserDefaults];
-  BOOL alreadyShared = [standartDefaults boolForKey:kUDAlreadySharedKey];
-  if (alreadyShared)
-    return;
+  NSUserDefaults const * const standartDefaults = [NSUserDefaults standardUserDefaults];
+  if ([standartDefaults boolForKey:kUDAlreadySharedKey])
+    return NO;
   
-  NSUInteger sessionCount = [standartDefaults integerForKey:kUDSessionsCountKey];
+  NSUInteger const sessionCount = [standartDefaults integerForKey:kUDSessionsCountKey];
   if (sessionCount > kMaximumSessionCountForShowingShareAlert)
-    return;
+    return NO;
   
-  NSDate *lastShareRequestDate = [standartDefaults objectForKey:kUDLastShareRequstDate];
-  NSUInteger daysFromLastShareRequest = [self.class daysBetweenNowAndDate:lastShareRequestDate];
+  NSDate * const lastShareRequestDate = [standartDefaults objectForKey:kUDLastShareRequstDate];
+  NSUInteger const daysFromLastShareRequest = [MapsAppDelegate daysBetweenNowAndDate:lastShareRequestDate];
   if (lastShareRequestDate != nil && daysFromLastShareRequest == 0)
-    return;
+    return NO;
   
-  if (!self.userIsNew)
+  if (sessionCount == 30 || sessionCount == kMaximumSessionCountForShowingShareAlert)
+    return YES;
+  
+  if (self.userIsNew)
   {
-    if (sessionCount == 5 || sessionCount == 30 || sessionCount == kMaximumSessionCountForShowingShareAlert)
-      [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showFacebookAlert) userInfo:nil repeats:NO];
+    if (sessionCount == 12)
+      return YES;
   }
   else
   {
-    if (sessionCount == 10 || sessionCount == 30 || sessionCount == kMaximumSessionCountForShowingShareAlert)
-      [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showFacebookAlert) userInfo:nil repeats:NO];
+    if (sessionCount == 5)
+      return YES;
   }
+  return NO;
 }
 
 #pragma mark - Rate
@@ -627,36 +637,36 @@ void InitLocalizedStrings()
   [[NSUserDefaults standardUserDefaults] setObject:NSDate.date forKey:kUDLastRateRequestDate];
 }
 
-- (void)shouldShowRateAlert
+- (BOOL)shouldShowRateAlert
 {
   NSUInteger const kMaximumSessionCountForShowingAlert = 21;
-  NSUserDefaults *standartDefaults = [NSUserDefaults standardUserDefaults];
-  BOOL alreadyRated = [standartDefaults boolForKey:kUDAlreadyRatedKey];
-  if (alreadyRated)
-    return;
+  NSUserDefaults const * const standartDefaults = [NSUserDefaults standardUserDefaults];
+  if ([standartDefaults boolForKey:kUDAlreadyRatedKey])
+    return NO;
   
-  NSUInteger sessionCount = [standartDefaults integerForKey:kUDSessionsCountKey];
+  NSUInteger const sessionCount = [standartDefaults integerForKey:kUDSessionsCountKey];
   if (sessionCount > kMaximumSessionCountForShowingAlert)
-    return;
+    return NO;
   
-  NSDate *lastRateRequestDate = [standartDefaults objectForKey:kUDLastRateRequestDate];
-  NSUInteger daysFromLastRateRequest = [self.class daysBetweenNowAndDate:lastRateRequestDate];
+  NSDate * const lastRateRequestDate = [standartDefaults objectForKey:kUDLastRateRequestDate];
+  NSUInteger const daysFromLastRateRequest = [MapsAppDelegate daysBetweenNowAndDate:lastRateRequestDate];
   // Do not show more than one alert per day.
   if (lastRateRequestDate != nil && daysFromLastRateRequest == 0)
-    return;
+    return NO;
   
-  if (!self.userIsNew)
-  {
-    // User just got updated. Show alert, if it first session or if 90 days spent.
-    if (daysFromLastRateRequest >= 90 || daysFromLastRateRequest == 0)
-      [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showRateAlert) userInfo:nil repeats:NO];
-  }
-  else
+  if (self.userIsNew)
   {
     // It's new user.
     if (sessionCount == 3 || sessionCount == 10 || sessionCount == kMaximumSessionCountForShowingAlert)
-      [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showRateAlert) userInfo:nil repeats:NO];
+      return YES;
   }
+  else
+  {
+    // User just got updated. Show alert, if it first session or if 90 days spent.
+    if (daysFromLastRateRequest >= 90 || daysFromLastRateRequest == 0)
+      return YES;
+  }
+  return NO;
 }
 
 - (BOOL)userIsNew
