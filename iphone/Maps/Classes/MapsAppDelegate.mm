@@ -41,6 +41,8 @@ static NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
 static NSString * const kNewWatchUserEventKey = @"NewWatchUser";
 static NSString * const kOldWatchUserEventKey = @"OldWatchUser";
 static NSString * const kUDWatchEventAlreadyTracked = @"WatchEventAlreadyTracked";
+static NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
+static NSString * const kIOSIDFA = @"IFA";
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
@@ -134,7 +136,12 @@ void InitLocalizedStrings()
 {
   PFInstallation * const currentInstallation = [PFInstallation currentInstallation];
   [currentInstallation setDeviceTokenFromData:deviceToken];
+  NSUUID const * const advertisingId = [AppInfo sharedInfo].advertisingId;
+  if (advertisingId)
+    [currentInstallation setObject:advertisingId.UUIDString forKey:kIOSIDFA];
   [currentInstallation saveInBackground];
+
+  [Alohalytics logEvent:kPushDeviceTokenLogEvent withValue:currentInstallation.deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
@@ -165,8 +172,9 @@ void InitLocalizedStrings()
   [self trackWatchUser];
 
   [AppInfo sharedInfo]; // we call it to init -firstLaunchDate
-  if ([AppInfo sharedInfo].advertisingId)
-    [[Statistics instance] logEvent:@"Device Info" withParameters:@{@"IFA" : [AppInfo sharedInfo].advertisingId, @"Country" : [AppInfo sharedInfo].countryCode}];
+  NSUUID const * const advertisingId = [AppInfo sharedInfo].advertisingId;
+  if (advertisingId)
+    [[Statistics instance] logEvent:@"Device Info" withParameters:@{kIOSIDFA : advertisingId, @"Country" : [AppInfo sharedInfo].countryCode}];
 
   InitLocalizedStrings();
   
