@@ -296,6 +296,9 @@ static UIBackgroundTaskIdentifier sBackgroundTaskId = UIBackgroundTaskInvalid;
   // Initialize User Agent later, as it takes significant time at startup.
   dispatch_async(dispatch_get_main_queue(), ^(void) {
     gBrowserUserAgent = [[[UIWebView alloc] initWithFrame:CGRectZero] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    if (gBrowserUserAgent) {
+      Stats::Instance().LogEvent("$browserUserAgent", ToStdString(gBrowserUserAgent));
+    }
   });
   // Subscribe to basic app lifecycle events.
   sBackgroundThreadQueue = ::dispatch_queue_create([serverUrl UTF8String], DISPATCH_QUEUE_SERIAL);
