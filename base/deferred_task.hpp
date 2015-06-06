@@ -4,14 +4,22 @@
 #include "base/macros.hpp"
 #include "base/thread.hpp"
 
-#ifndef OMIM_OS_ANDROID
-#include "base/thread_checker.hpp"
-#endif
-
 #include "std/chrono.hpp"
 #include "std/condition_variable.hpp"
 #include "std/function.hpp"
 #include "std/unique_ptr.hpp"
+
+
+#if defined(DEBUG) && !defined(OMIM_OS_ANDROID)
+// This checker is not valid on Android.
+// UI thread (NV thread) can change it's handle value during app lifecycle.
+#define USE_THREAD_CHECKER
+#endif
+
+#ifdef USE_THREAD_CHECKER
+#include "base/thread_checker.hpp"
+#endif
+
 
 // This class is used to call a function after waiting for a specified
 // amount of time.  The function is called in a separate thread.  This
@@ -57,9 +65,7 @@ private:
   atomic<bool> m_started;
   threads::Thread m_thread;
 
-#if defined(DEBUG) && defined(OMIM_OS_ANDROID)
-  // This checker is not valid on Android.
-  // UI thread (NV thread) can change it's handle value during app lifecycle.
+#ifdef USE_THREAD_CHECKER
   ThreadChecker m_threadChecker;
 #endif
   void CheckContext() const;

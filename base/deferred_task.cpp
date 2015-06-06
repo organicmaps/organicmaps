@@ -78,7 +78,7 @@ void DeferredTask::WaitForCompletion()
 
 void DeferredTask::CheckContext() const
 {
-#if defined(DEBUG) && defined(OMIM_OS_ANDROID)
+#ifdef USE_THREAD_CHECKER
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
 #endif
 }
