@@ -17,13 +17,6 @@ namespace search { struct AddressInfo; }
 
 @interface MapViewController : ViewController <LocationObserver, UIAlertViewDelegate, UIPopoverControllerDelegate>
 {
-  enum Action
-	{
-		NOTHING,
-		DRAGGING,
-		SCALING
-	} m_CurrentAction;
-
 	bool m_isSticking;
 	size_t m_StickyThreshold;
 	m2::PointD m_Pt1, m_Pt2;

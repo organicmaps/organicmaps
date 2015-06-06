@@ -34,7 +34,6 @@
 #include "../../../platform/platform.hpp"
 #include "../../../platform/settings.hpp"
 
-
 #define ALERT_VIEW_ROUTING_DISCLAIMER 7
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
@@ -44,6 +43,13 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   ForceRoutingStateChangeNone,
   ForceRoutingStateChangeRestoreRoute,
   ForceRoutingStateChangeStartFollowing
+};
+
+typedef NS_ENUM(NSUInteger, UserTouchesAction)
+{
+  UserTouchesActionNone,
+  UserTouchesActionDrag,
+  UserTouchesActionScale
 };
 
 @interface NSValueWrapper : NSObject
@@ -64,11 +70,9 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 
 -(id)initWithValue:(NSValue *)value
 {
-  if (self = [super init])
-  {
+  self = [super init];
+  if (self)
     m_innerValue = value;
-  }
-  
   return self;
 }
 
@@ -92,6 +96,8 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 @property (nonatomic) BOOL disableStandbyOnLocationStateMode;
 @property (nonatomic) BOOL disableStandbyOnRouteFollowing;
 
+@property (nonatomic) UserTouchesAction userTouchesAction;
+
 @end
 
 @implementation MapViewController
@@ -113,9 +119,8 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
                                                  otherButtonTitles:nil];
       [alert show];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
+      break;
     }
-    break;
-
     case location::ENotSupported:
     {
       UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
@@ -125,9 +130,8 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
                                                  otherButtonTitles:nil];
       [alert show];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
+      break;
     }
-    break;
-
     default:
       break;
   }
@@ -146,7 +150,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 
     [self showPopover];
     [self updateRoutingInfo];
-    
+
     if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
       [self restoreRoute];
   }
@@ -174,10 +178,9 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
         turnTypeValue = @(res.m_exitNum);
       else if (res.m_turn != routing::turns::TurnDirection::StayOnRoundAbout)
         turnTypeValue = nil;
-      if (turnTypeValue) {
+      if (turnTypeValue)
         [routeInfo setObject:turnTypeValue forKey:@"turnTypeValue"];
-      }
-      
+
       [self.routeView updateWithInfo:routeInfo];
     }
   }
@@ -311,7 +314,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 
 - (void)updatePointsFromEvent:(UIEvent *)event
 {
-	NSSet * allTouches = [event allTouches];
+  NSSet * allTouches = [event allTouches];
 
   UIView * v = self.view;
   CGFloat const scaleFactor = v.contentScaleFactor;
@@ -321,14 +324,12 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   {
     case 0:
       break;
-
     case 1:
     {
       CGPoint const pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:v];
       m_Pt1 = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
       break;
     }
-
     default:
     {
       NSArray * sortedTouches = [[allTouches allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
@@ -340,23 +341,6 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
       break;
     }
   }
-}
-
-- (void)stopCurrentAction
-{
-	switch (m_CurrentAction)
-	{
-		case NOTHING:
-			break;
-		case DRAGGING:
-			GetFramework().StopDrag(DragEvent(m_Pt1.x, m_Pt1.y));
-			break;
-		case SCALING:
-			GetFramework().StopScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
-			break;
-	}
-
-	m_CurrentAction = NOTHING;
 }
 
 -(void)preformLongTapSelector:(NSValue *)object
@@ -381,44 +365,36 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-//  [NSValue valueWithCGPoint:[theTouch locationInView:self.view]]
+  //  [NSValue valueWithCGPoint:[theTouch locationInView:self.view]]
   // To cancel single tap timer
   UITouch * theTouch = (UITouch *)[touches anyObject];
   if (theTouch.tapCount > 1)
     [self cancelSingleTap];
 
-	[self updatePointsFromEvent:event];
+  [self updatePointsFromEvent:event];
 
   Framework & f = GetFramework();
 
-	if ([[event allTouches] count] == 1)
-	{
+  if ([event allTouches].count == 1)
+  {
     if (f.GetGuiController()->OnTapStarted(m_Pt1))
       return;
-
-		f.StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
-		m_CurrentAction = DRAGGING;
 
     // Start long-tap timer
     [self preformLongTapSelector:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]]];
     // Temporary solution to filter long touch
     m_touchDownPoint = m_Pt1;
-	}
-	else
-	{
-		f.StartScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
-		m_CurrentAction = SCALING;
-	}
+  }
 
-	m_isSticking = true;
+  m_isSticking = true;
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
   m2::PointD const TempPt1 = m_Pt1;
-	m2::PointD const TempPt2 = m_Pt2;
+  m2::PointD const TempPt2 = m_Pt2;
 
-	[self updatePointsFromEvent:event];
+  [self updatePointsFromEvent:event];
 
   // Cancel long-touch timer
   if (!m_touchDownPoint.EqualDxDy(m_Pt1, 9))
@@ -429,49 +405,53 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   if (f.GetGuiController()->OnTapMoved(m_Pt1))
     return;
 
-	if (m_isSticking)
-	{
-		if ((TempPt1.Length(m_Pt1) > m_StickyThreshold) || (TempPt2.Length(m_Pt2) > m_StickyThreshold))
+  if (m_isSticking)
+  {
+    if ((TempPt1.Length(m_Pt1) > m_StickyThreshold) || (TempPt2.Length(m_Pt2) > m_StickyThreshold))
     {
-			m_isSticking = false;
+      m_isSticking = false;
     }
-		else
-		{
-			// Still stickying. Restoring old points and return.
-			m_Pt1 = TempPt1;
-			m_Pt2 = TempPt2;
-			return;
-		}
-	}
-
-	switch (m_CurrentAction)
-	{
-    case DRAGGING:
-      f.DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
-      //		needRedraw = true;
-      break;
-    case SCALING:
-      if ([[event allTouches] count] < 2)
-        [self stopCurrentAction];
-      else
-      {
-        f.DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
-        //			needRedraw = true;
-      }
-      break;
-    case NOTHING:
+    else
+    {
+      // Still stickying. Restoring old points and return.
+      m_Pt1 = TempPt1;
+      m_Pt2 = TempPt2;
       return;
-	}
+    }
+  }
+
+  NSUInteger const touchesCount = [event allTouches].count;
+  switch (self.userTouchesAction)
+  {
+    case UserTouchesActionNone:
+      if (touchesCount == 1)
+        self.userTouchesAction = UserTouchesActionDrag;
+      else
+        self.userTouchesAction = UserTouchesActionScale;
+      break;
+    case UserTouchesActionDrag:
+      if (touchesCount == 1)
+        f.DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+      else
+        self.userTouchesAction = UserTouchesActionNone;
+      break;
+    case UserTouchesActionScale:
+      if (touchesCount == 2)
+        f.DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+      else
+        self.userTouchesAction = UserTouchesActionNone;
+      break;
+  }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
   [self updatePointsFromEvent:event];
-  [self stopCurrentAction];
+  self.userTouchesAction = UserTouchesActionNone;
 
   UITouch * theTouch = (UITouch *)[touches anyObject];
   NSUInteger const tapCount = theTouch.tapCount;
-  NSUInteger const touchesCount = [[event allTouches] count];
+  NSUInteger const touchesCount = [event allTouches].count;
 
   Framework & f = GetFramework();
 
@@ -494,7 +474,9 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
         [self performSingleTapSelector: [NSValue valueWithCGPoint:[theTouch locationInView:self.view]]];
     }
     else if (tapCount == 2 && m_isSticking)
+    {
       f.ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
+    }
   }
 
   if (touchesCount == 2 && tapCount == 1 && m_isSticking)
@@ -515,7 +497,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   [self cancelSingleTap];
 
   [self updatePointsFromEvent:event];
-  [self stopCurrentAction];
+  self.userTouchesAction = UserTouchesActionNone;
 }
 
 #pragma mark - ViewController lifecycle
@@ -528,7 +510,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 
 - (BOOL)shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation)interfaceOrientation
 {
-	return YES; // We support all orientations
+  return YES; // We support all orientations
 }
 
 - (void)didRotateFromInterfaceOrientation: (UIInterfaceOrientation)fromInterfaceOrientation
@@ -539,7 +521,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 
 - (void)didReceiveMemoryWarning
 {
-	GetFramework().MemoryWarning();
+  GetFramework().MemoryWarning();
   [super didReceiveMemoryWarning];
 }
 
@@ -584,9 +566,9 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   [super viewDidLoad];
 
   self.view.clipsToBounds = YES;
-  
+
   [self.view addSubview:self.routeViewWrapper];
-  
+
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
 
   [self.view addSubview:self.searchView];
@@ -617,7 +599,9 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
   if (self.apiMode)
+  {
     return UIStatusBarStyleLightContent;
+  }
   else
   {
     UIStatusBarStyle style = UIStatusBarStyleDefault;
@@ -648,7 +632,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
     typedef void (*PlacePageDismissedFnT)(id, SEL);
 
     PinClickManager & manager = f.GetBalloonManager();
-    
+
     SEL userMarkSelector = @selector(onUserMarkClicked:);
     UserMarkActivatedFnT userMarkFn = (UserMarkActivatedFnT)[self methodForSelector:userMarkSelector];
     manager.ConnectUserMarkListener(bind(userMarkFn, self, userMarkSelector, _1));
@@ -662,17 +646,16 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
     LocationStateModeFnT locationStateModeFn = (LocationStateModeFnT)[self methodForSelector:locationStateModeSelector];
 
     f.GetLocationState()->AddStateModeListener(bind(locationStateModeFn, self, locationStateModeSelector, _1));
-    
+
     m_predictor = [[LocationPredictor alloc] initWithObserver:self];
 
     m_StickyThreshold = 10;
 
-    m_CurrentAction = NOTHING;
-
     EAGLView * v = (EAGLView *)self.view;
     [v initRenderPolicy];
-    
+
     self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+    self.userTouchesAction = UserTouchesActionNone;
 
     // restore previous screen position
     if (!f.LoadState())
@@ -680,12 +663,14 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 
     f.Invalidate();
     f.LoadBookmarks();
-    
+
     f.GetCountryStatusDisplay()->SetDownloadCountryListener([](storage::TIndex const & idx, int opt)
     {
       ActiveMapsLayout & layout = GetFramework().GetCountryTree().GetActiveMapLayout();
       if (opt == -1)
+      {
         layout.RetryDownloading(idx);
+      }
       else
       {
         LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
@@ -693,7 +678,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
         TMapOptions options = static_cast<TMapOptions>(opt);
         if(options & TMapOptions::ECarRouting)
           sizeToDownload += sizes.second;
-        
+
         NSString * name = [NSString stringWithUTF8String:layout.GetCountryName(idx).c_str()];
         Reachability * reachability = [Reachability reachabilityForInternetConnection];
         if ([reachability isReachable])
@@ -701,7 +686,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
           if ([reachability isReachableViaWWAN] && sizeToDownload > 50 * 1024 * 1024)
           {
             NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
-            
+
             CustomAlertView * alertView = [[CustomAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"use_cellular_data"), nil];
             alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)
             {
@@ -717,15 +702,15 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
           [[[CustomAlertView alloc] initWithTitle:L(@"no_internet_connection_detected") message:L(@"use_wifi_recommendation_text") delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
           return;
         }
-        
+
         layout.DownloadMap(idx, static_cast<TMapOptions>(opt));
       }
     });
-    
+
     f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries)
     {
       [self.containerView.placePage showBuildingRoutingActivity:NO];
-      
+
       switch (code)
       {
         case routing::IRouter::ResultCode::NoError:
@@ -735,14 +720,14 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
           [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
           [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
           [self performAfterDelay:0.3 block:^
-          {
-            if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
-              [self routeViewDidStartFollowing:self.routeView];
-            else
-              [self.routeView setState:RouteViewStateInfo animated:YES];
-            [self updateRoutingInfo];
-          }];
-          
+           {
+             if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
+               [self routeViewDidStartFollowing:self.routeView];
+             else
+               [self.routeView setState:RouteViewStateInfo animated:YES];
+             [self updateRoutingInfo];
+           }];
+
           bool isDisclaimerApproved = false;
           (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
           if (!isDisclaimerApproved)
@@ -759,16 +744,13 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
           }
           break;
         }
-          
         case routing::IRouter::RouteFileNotExist:
         case routing::IRouter::RouteNotFound:
         case routing::IRouter::InconsistentMWMandRoute:
           [self presentDownloaderAlert:code countries:absentCountries];
           break;
-          
         case routing::IRouter::Cancelled:
           break;
-          
         default:
           [self presentDefaultAlert:code];
           break;
@@ -799,16 +781,21 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   [[[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
 }
 
-- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const&)countries {
-  if (countries.size()) {
+- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const&)countries
+{
+  if (countries.size())
+  {
     MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
     [alert presentDownloaderAlertWithCountryIndex:countries[0]];
-  } else {
+  }
+  else
+  {
     [self presentDefaultAlert:type];
   }
 }
 
-- (void)presentDefaultAlert:(routing::IRouter::ResultCode)type {
+- (void)presentDefaultAlert:(routing::IRouter::ResultCode)type
+{
   MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
   [alert presentAlert:type];
 }
@@ -1052,23 +1039,15 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   switch (alertView.tag)
   {
     case ALERT_VIEW_ROUTING_DISCLAIMER:
-    {
       if (buttonIndex == alertView.cancelButtonIndex)
-      {
         [self dismissRouting];
-      }
       else
-      {
         Settings::Set("IsDisclaimerApproved", true);
-      }
       break;
-    }
-    
     default:
       break;
   }
 }
-
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -1078,18 +1057,21 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
       [self setNeedsStatusBarAppearanceUpdate];
     switch (self.containerView.placePage.state)
     {
-    case PlacePageStateHidden:
+      case PlacePageStateHidden:
       {
         if (self.searchView.state == SearchViewStateAlpha)
           [self.searchView setState:SearchViewStateResults animated:YES withCallback:NO];
 
         GetFramework().GetBalloonManager().RemovePin();
 
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.3 animations:^
+        {
           if (GetFramework().IsRoutingActive())
           {
             if (self.searchView.state == SearchViewStateResults)
+            {
               [self observeValueForKeyPath:@"state" ofObject:self.searchView change:nil context:nil];
+            }
             else
             {
               self.routeView.alpha = 1;
@@ -1099,7 +1081,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
         }];
         break;
       }
-    case PlacePageStatePreview:
+      case PlacePageStatePreview:
       {
         if (self.searchView.state == SearchViewStateResults)
           [self.searchView setState:SearchViewStateAlpha animated:YES withCallback:NO];
@@ -1124,22 +1106,22 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
             framework.SetViewportCenterAnimated(framework.GetViewportCenter() + offset);
           }
         }
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^
+        {
           if (GetFramework().IsRoutingActive())
-          {
             self.routeView.alpha = 1;
-          }
-        } completion:^(BOOL finished) {}];
-
+        }
+        completion:nil];
         break;
       }
-    case PlacePageStateOpened:
+      case PlacePageStateOpened:
       {
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.3 animations:^
+        {
           self.routeView.alpha = 0;
         }];
+        break;
       }
-      break;
     }
   }
   else if (object == self.searchView && [keyPath isEqualToString:@"state"])
@@ -1153,14 +1135,16 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
     }
     else if (self.searchView.state == SearchViewStateResults)
     {
-      [UIView animateWithDuration:0.3 animations:^{
+      [UIView animateWithDuration:0.3 animations:^
+      {
         if (GetFramework().IsRoutingActive())
           self.routeViewWrapper.minY = self.searchView.searchBar.maxY - 20;
       }];
     }
     else if (self.searchView.state == SearchViewStateHidden)
     {
-      [UIView animateWithDuration:0.3 animations:^{
+      [UIView animateWithDuration:0.3 animations:^
+      {
         if (GetFramework().IsRoutingActive())
           self.routeViewWrapper.minY = 0;
       }];
@@ -1176,11 +1160,13 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   {
     [self.view addSubview:self.apiBar];
     self.apiBar.maxY = 0;
-    [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
+    {
       self.apiBar.minY = 0;
       self.containerView.frame = CGRectMake(0, self.apiBar.maxY, self.view.width, self.view.height - self.apiBar.maxY);
       self.routeViewWrapper.minY = self.apiBar.maxY;
-    } completion:nil];
+    }
+    completion:nil];
 
     [self.view insertSubview:self.searchView aboveSubview:self.apiBar];
     self.containerView.placePage.statusBarIncluded = NO;
@@ -1189,11 +1175,14 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   }
   else
   {
-    [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
+    {
       self.apiBar.maxY = 0;
       self.containerView.frame = self.view.bounds;
       self.routeViewWrapper.minY = self.apiBar.maxY;
-    } completion:^(BOOL finished) {
+    }
+    completion:^(BOOL finished)
+    {
       [self.apiBar removeFromSuperview];
     }];
 
@@ -1229,7 +1218,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 
 NSInteger compareAddress(id l, id r, void * context)
 {
-	return l < r;
+  return l < r;
 }
 
 - (void)invalidate
@@ -1292,6 +1281,29 @@ NSInteger compareAddress(id l, id r, void * context)
     [[MapsAppDelegate theApp] disableStandby];
   else
     [[MapsAppDelegate theApp] enableStandby];
+}
+
+- (void)setUserTouchesAction:(UserTouchesAction)userTouchesAction
+{
+  if (_userTouchesAction == userTouchesAction)
+    return;
+  Framework & f = GetFramework();
+  switch (userTouchesAction)
+  {
+    case UserTouchesActionNone:
+      if (_userTouchesAction == UserTouchesActionDrag)
+        f.StopDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+      else if (_userTouchesAction == UserTouchesActionScale)
+        f.StopScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+      break;
+    case UserTouchesActionDrag:
+      f.StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+      break;
+    case UserTouchesActionScale:
+      f.StartScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+      break;
+  }
+  _userTouchesAction = userTouchesAction;
 }
 
 @end
