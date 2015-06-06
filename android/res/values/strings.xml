@@ -705,6 +705,4 @@
 	<string name="download_failed">download has failed</string>
 	<!-- get the map -->
 	<string name="get_the_map">Get the map</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">Location positioning mode: off</string>
 </resources>

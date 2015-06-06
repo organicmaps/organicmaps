@@ -682,6 +682,4 @@
 	<string name="download_failed">download is afgebroken</string>
 	<!-- get the map -->
 	<string name="get_the_map">Krijg kaart</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">Modus locatie positioneren: uit</string>
 </resources>

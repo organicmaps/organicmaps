@@ -695,6 +695,4 @@
 	<string name="download_failed">Sťahovanie zlyhalo</string>
 	<!-- get the map -->
 	<string name="get_the_map">Stiahnuť mapu</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">Režim zacieľovania polohy: vypnutý</string>
 </resources>

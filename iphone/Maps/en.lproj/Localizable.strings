@@ -1074,6 +1074,3 @@
 
 /* get the map */
 "get_the_map" = "Get the map";
-
-/* location mode off */
-"location_mode_off" = "Location positioning mode: off";

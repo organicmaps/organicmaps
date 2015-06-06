@@ -696,6 +696,4 @@
 	<string name="download_failed">indirme işlemi başarısız oldu</string>
 	<!-- get the map -->
 	<string name="get_the_map">Harita alın</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">Konum ayarlama modu: kapalı</string>
 </resources>

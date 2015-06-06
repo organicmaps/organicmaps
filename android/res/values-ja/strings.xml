@@ -689,6 +689,4 @@
 	<string name="download_failed">のダウンロードが失敗しました</string>
 	<!-- get the map -->
 	<string name="get_the_map">地図を入手</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">位置測位モード：オフ</string>
 </resources>

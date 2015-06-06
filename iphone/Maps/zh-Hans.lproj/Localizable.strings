@@ -1074,6 +1074,3 @@
 
 /* get the map */
 "get_the_map" = "获取地图";
-
-/* location mode off */
-"location_mode_off" = "位置定位模式：关";

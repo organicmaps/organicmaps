@@ -1074,6 +1074,3 @@
 
 /* get the map */
 "get_the_map" = "Stiahnuť mapu";
-
-/* location mode off */
-"location_mode_off" = "Režim zacieľovania polohy: vypnutý";

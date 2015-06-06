@@ -697,6 +697,4 @@
 	<string name="download_failed">Не вдалося завантажити</string>
 	<!-- get the map -->
 	<string name="get_the_map">Отримати карту</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">Режим \&quot;Місце розташування\&quot;: викл</string>
 </resources>

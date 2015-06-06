@@ -689,6 +689,4 @@
 	<string name="download_failed">descarga falhou</string>
 	<!-- get the map -->
 	<string name="get_the_map">Obter mapa</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">Localização do modo de posicionamento: desligado</string>
 </resources>

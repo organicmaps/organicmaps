@@ -687,6 +687,4 @@
 	<string name="download_failed">herunterladen fehlgeschlagen</string>
 	<!-- get the map -->
 	<string name="get_the_map">Karte abrufen</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">Standortpositionierungsmodus: Aus</string>
 </resources>

@@ -696,6 +696,4 @@
 	<string name="download_failed">下载失败</string>
 	<!-- get the map -->
 	<string name="get_the_map">获取地图</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">位置定位模式：关</string>
 </resources>

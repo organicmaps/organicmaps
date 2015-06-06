@@ -699,6 +699,4 @@
 	<string name="download_failed">Stahování selhalo</string>
 	<!-- get the map -->
 	<string name="get_the_map">Získejte mapu</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">Režim zjišťování pozice: vypnut</string>
 </resources>

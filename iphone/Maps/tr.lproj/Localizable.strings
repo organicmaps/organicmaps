@@ -1074,6 +1074,3 @@
 
 /* get the map */
 "get_the_map" = "Harita alın";
-
-/* location mode off */
-"location_mode_off" = "Konum ayarlama modu: kapalı";

@@ -680,6 +680,4 @@
 	<string name="download_failed">다운로드가 실패했습니다</string>
 	<!-- get the map -->
 	<string name="get_the_map">지도 가져오기</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">위치 지정 모드: 끄기</string>
 </resources>

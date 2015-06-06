@@ -1074,6 +1074,3 @@
 
 /* get the map */
 "get_the_map" = "지도 가져오기";
-
-/* location mode off */
-"location_mode_off" = "위치 지정 모드: 끄기";

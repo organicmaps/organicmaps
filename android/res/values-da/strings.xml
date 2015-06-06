@@ -692,6 +692,4 @@
 	<string name="download_failed">download mislykkedes</string>
 	<!-- get the map -->
 	<string name="get_the_map">Få kort</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">Positionsbestemmelses-tilstand: Fra</string>
 </resources>

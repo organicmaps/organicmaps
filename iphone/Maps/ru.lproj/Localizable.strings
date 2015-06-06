@@ -1074,6 +1074,3 @@
 
 /* get the map */
 "get_the_map" = "Загрузить карту";
-
-/* location mode off */
-"location_mode_off" = "Режим определения местоположения: выкл";

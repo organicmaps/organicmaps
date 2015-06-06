@@ -1074,6 +1074,3 @@
 
 /* get the map */
 "get_the_map" = "Hämta karta";
-
-/* location mode off */
-"location_mode_off" = "Platspositioneringsläge: av";

@@ -678,6 +678,4 @@
 	<string name="download_failed">下載失敗</string>
 	<!-- get the map -->
 	<string name="get_the_map">獲取地圖</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">位置定位模式：關</string>
 </resources>

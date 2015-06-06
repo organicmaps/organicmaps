@@ -1074,6 +1074,3 @@
 
 /* get the map */
 "get_the_map" = "Pobierz mapę";
-
-/* location mode off */
-"location_mode_off" = "Tryb umiejscawiania lokalizacji: wył.";

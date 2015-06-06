@@ -703,6 +703,4 @@
 	<string name="download_failed">échec lors du téléchargement</string>
 	<!-- get the map -->
 	<string name="get_the_map">Téléchargez des cartes</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">Mode positionnement de l\&#39;emplacement: désactivé</string>
 </resources>

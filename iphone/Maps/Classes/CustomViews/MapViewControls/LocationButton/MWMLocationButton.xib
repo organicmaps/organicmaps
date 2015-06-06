@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMLocationButton">
             <connections>
                 <outlet property="button" destination="5qS-Qi-k1g" id="YgC-Eq-sz4"/>
-                <outlet property="statusLabel" destination="MnZ-WC-gT0" id="XF3-8D-jWV"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -27,21 +26,6 @@
             </connections>
             <point key="canvasLocation" x="267.5" y="254"/>
         </button>
-        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GPS отключен" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" id="MnZ-WC-gT0" customClass="MWMLocationButtonStatusLabel">
-            <rect key="frame" x="0.0" y="0.0" width="105" height="21"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
-            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            <nil key="highlightedColor"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="location_mode_off"/>
-                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                    <integer key="value" value="4"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="474.5" y="271.5"/>
-        </label>
     </objects>
     <resources>
         <image name="btn_white_target_off_1" width="56" height="56"/>

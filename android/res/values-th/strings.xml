@@ -694,6 +694,4 @@
 	<string name="download_failed">การดาวน์โหลด  ล้มเหลว</string>
 	<!-- get the map -->
 	<string name="get_the_map">รับแผนที่</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">โหมดการวางตำแหน่งที่ตั้ง: ปิด</string>
 </resources>

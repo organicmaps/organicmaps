@@ -1074,6 +1074,3 @@
 
 /* get the map */
 "get_the_map" = "Karte abrufen";
-
-/* location mode off */
-"location_mode_off" = "Standortpositionierungsmodus: Aus";

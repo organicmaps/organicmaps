@@ -1074,6 +1074,3 @@
 
 /* get the map */
 "get_the_map" = "Scarica la mappa";
-
-/* location mode off */
-"location_mode_off" = "Modalità posizionamento luogo: off";

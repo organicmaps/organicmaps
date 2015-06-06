@@ -689,6 +689,4 @@
 	<string name="download_failed">Il trasferimento di non è riuscito</string>
 	<!-- get the map -->
 	<string name="get_the_map">Scarica la mappa</string>
-	<!-- location mode off -->
-	<string name="location_mode_off">Modalità posizionamento luogo: off</string>
 </resources>
