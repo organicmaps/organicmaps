@@ -351,8 +351,10 @@ if [ "$MODE" == "resources" ]; then
     EXT_RES="$TARGET/external_resources.txt"
     echo -n > "$EXT_RES"
     for file in "$TARGET"/World*.mwm "$TARGET"/*.ttf; do
-      # This line works only on Linux. OSX equivalent: stat -f "%N %z"
-      stat -c "%n %s" "$file" | sed 's#^.*/##' >> "$EXT_RES"
+      if [[ "$file" != *roboto* ]]; then
+        # This line works only on Linux. OSX equivalent: stat -f "%N %z"
+        stat -c "%n %s" "$file" | sed 's#^.*/##' >> "$EXT_RES"
+      fi
     done
     chmod 0666 "$EXT_RES"
   fi
