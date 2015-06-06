@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
 public class EditDescriptionFragment extends BaseMwmDialogFragment
@@ -49,6 +51,14 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
     super.onViewCreated(view, savedInstanceState);
 
     String description = getArguments().getString(EXTRA_DESCRIPTION);
+
+    if (StringUtils.isHtml(description))
+    {
+      final String descriptionNoSimpleTags = StringUtils.removeEditTextHtmlTags(description);
+      if (!StringUtils.isHtml(descriptionNoSimpleTags))
+        description = Html.fromHtml(description).toString();
+    }
+
     mEtDescription = (EditText) view.findViewById(R.id.et__description);
     mEtDescription.setText(description);
     initToolbar(view);

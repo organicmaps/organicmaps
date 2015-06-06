@@ -663,10 +663,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         @Override
         public void onSave(String description)
         {
-          bookmark.setParams(bookmark.getName(), null, description);
-          final Bookmark updatedBookmark = BookmarkManager.INSTANCE.getBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId());
-          setMapObject(updatedBookmark);
-          Statistics.INSTANCE.trackDescriptionChanged();
+          updateDescription(bookmark, description);
         }
       });
       fragment.show(((FragmentActivity) getContext()).getSupportFragmentManager(), null);
@@ -674,6 +671,14 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     default:
       break;
     }
+  }
+
+  private void updateDescription(Bookmark bookmark, String description)
+  {
+    bookmark.setParams(bookmark.getName(), null, description);
+    final Bookmark updatedBookmark = BookmarkManager.INSTANCE.getBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId());
+    setMapObject(updatedBookmark);
+    Statistics.INSTANCE.trackDescriptionChanged();
   }
 
   private void toggleIsBookmark()

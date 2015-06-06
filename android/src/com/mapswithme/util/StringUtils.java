@@ -55,5 +55,18 @@ public class StringUtils
 
   public static native boolean isHtml(String text);
 
+  /**
+   * Removes html tags, generated from edittext content after it's transformed to html.
+   * In version 4.3.1 we converted descriptions, entered by users, to html automatically. Later html conversion was cancelled, but those converted descriptions should be converted back to
+   * plain text, that's why that ugly util is introduced.
+   * @param text source text
+   * @return result text
+   */
+  public static String removeEditTextHtmlTags(String text)
+
+  {
+    return text.replaceAll("</p>", "").replaceAll("<br>", "").replaceAll("<p dir=\"ltr\">", "");
+  }
+
   private StringUtils() {}
 }
