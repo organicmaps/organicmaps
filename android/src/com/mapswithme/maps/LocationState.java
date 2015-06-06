@@ -14,12 +14,23 @@ public enum LocationState
   public static final int FOLLOW = 0x3;
   public static final int ROTATE_AND_FOLLOW = 0x4;
 
+  public static final int SLOT_UNDEFINED = -1;
+
   public native void switchToNextMode();
 
   public native int getLocationStateMode();
 
+  /*
+   * Adds listener
+   * @param l
+   * @return slotId of added listener
+   */
   public native int addLocationStateModeListener(Object l);
 
+  /**
+   * Removes listener with slotId
+   * @param slotID slotId of listener to remove
+   */
   public native void removeLocationStateModeListener(int slotID);
 
   public native void turnOff();

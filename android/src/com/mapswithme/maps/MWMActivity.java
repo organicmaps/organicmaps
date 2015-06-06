@@ -137,7 +137,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private TextView mTvTurnDistance;
 
   private boolean mNeedCheckUpdate = true;
-  private int mLocationStateModeListenerId = -1;
+  private int mLocationStateModeListenerId = LocationState.SLOT_UNDEFINED;
   // Initialized to invalid combination to force update on the first check
   private boolean mStorageAvailable = false;
   private boolean mStorageWritable = true;

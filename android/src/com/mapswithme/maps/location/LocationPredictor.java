@@ -18,7 +18,7 @@ public class LocationPredictor
   private Location mLastLocation;
   private boolean mGeneratePredictions;
   private int mPredictionCount;
-  private int mConnectionSlot;
+  private int mConnectionSlot = LocationState.SLOT_UNDEFINED;
 
   public LocationPredictor(Handler handler, LocationHelper.LocationListener listener)
   {
