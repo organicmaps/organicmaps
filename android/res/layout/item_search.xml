@@ -30,6 +30,7 @@
         android:id="@+id/tv__search_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_tiny"
         android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
     <TextView
@@ -51,6 +52,7 @@
         android:id="@+id/tv_search_item_type"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/margin_tiny"
         android:layout_weight="1"
         android:gravity="top"
         android:textAppearance="@style/MwmTextAppearance.Body3"/>
