@@ -15,9 +15,20 @@ public class DownloadActivity extends BaseMwmFragmentActivity
   {
     super.onCreate(savedInstanceState);
 
+    final String fragmentClassName = DownloadFragment.class.getName();
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    DownloadFragment downloadFragment = (DownloadFragment) Fragment.instantiate(this, DownloadFragment.class.getName(), getIntent().getExtras());
-    transaction.replace(android.R.id.content, downloadFragment, "fragment");
+    DownloadFragment downloadFragment = (DownloadFragment) Fragment.instantiate(this, fragmentClassName, getIntent().getExtras());
+    transaction.replace(android.R.id.content, downloadFragment, fragmentClassName);
     transaction.commit();
+  }
+
+  @Override
+  public void onBackPressed()
+  {
+    DownloadFragment fragment = (DownloadFragment) getSupportFragmentManager().findFragmentByTag(DownloadFragment.class.getName());
+    if (fragment != null && fragment.onBackPressed())
+      return;
+
+    super.onBackPressed();
   }
 }

@@ -1,11 +1,14 @@
 package com.mapswithme.maps.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.util.UiUtils;
 
 public abstract class BaseMwmListFragment extends ListFragment
@@ -26,7 +29,7 @@ public abstract class BaseMwmListFragment extends ListFragment
         @Override
         public void onClick(View v)
         {
-          getActivity().onBackPressed();
+          navigateUpToParent();
         }
       });
     }
@@ -49,5 +52,14 @@ public abstract class BaseMwmListFragment extends ListFragment
   {
     super.onPause();
     org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
+  }
+
+  public void navigateUpToParent()
+  {
+    final Activity activity = getActivity();
+    if (activity instanceof CustomNavigateUpListener)
+      ((CustomNavigateUpListener) activity).customOnNavigateUp();
+    else
+      NavUtils.navigateUpFromSameTask(activity);
   }
 }

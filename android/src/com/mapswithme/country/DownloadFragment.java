@@ -1,8 +1,8 @@
 package com.mapswithme.country;
 
-import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +10,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.util.UiUtils;
 
 public class DownloadFragment extends BaseMwmListFragment implements View.OnClickListener, ActiveCountryTree.ActiveCountryListener, OnBackPressListener
 {
@@ -53,17 +51,9 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
 
   private void initToolbar()
   {
-    UiUtils.showHomeUpButton(getToolbar());
-    getToolbar().setTitle(getString(R.string.maps));
-    getToolbar().setNavigationOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        onBackPressed();
-      }
-    });
-    mTvUpdateAll = (TextView) getToolbar().findViewById(R.id.tv__update_all);
+    final Toolbar toolbar = getToolbar();
+    toolbar.setTitle(getString(R.string.maps));
+    mTvUpdateAll = (TextView) toolbar.findViewById(R.id.tv__update_all);
     mTvUpdateAll.setOnClickListener(this);
     mTvUpdateAll.setVisibility(View.GONE);
   }
@@ -75,7 +65,6 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
 
     ActiveCountryTree.removeListener(mListenerSlotId);
   }
-
 
   private BaseDownloadAdapter getDownloadAdapter()
   {
@@ -116,10 +105,8 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
       return true;
     }
     else
-    {
-      getActivity().getSupportFragmentManager().popBackStack();
-      startActivity(new Intent(getActivity(), MWMActivity.class));
-    }
+      navigateUpToParent();
+
     return false;
   }
 

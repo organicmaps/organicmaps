@@ -250,9 +250,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   {
     ActiveCountryTree.showOnMap(getGroupByAbsPosition(position), getPositionInGroup(position));
     resetCountryListener();
-    // TODO think about refactoring.
-    mFragment.onBackPressed();
-    mFragment.onBackPressed();
+    mFragment.navigateUpToParent();
   }
 
   @Override

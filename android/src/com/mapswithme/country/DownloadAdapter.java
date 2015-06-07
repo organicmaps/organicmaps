@@ -43,8 +43,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   {
     CountryTree.showLeafOnMap(position);
     resetCountryListener();
-    mFragment.onBackPressed();
-    mFragment.onBackPressed();
+    mFragment.navigateUpToParent();
   }
 
   protected void expandGroup(int position)

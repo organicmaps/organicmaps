@@ -47,6 +47,7 @@ import com.mapswithme.country.DownloadFragment;
 import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.MapStorage.Index;
+import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
@@ -92,7 +93,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MWMActivity extends BaseMwmFragmentActivity
     implements LocationHelper.LocationListener, OnBalloonListener, View.OnTouchListener, BasePlacePageAnimationController.OnVisibilityChangedListener,
-    OnClickListener, Framework.RoutingListener, MapFragment.MapRenderingListener
+    OnClickListener, Framework.RoutingListener, MapFragment.MapRenderingListener, CustomNavigateUpListener
 {
   public static final String EXTRA_TASK = "map_task";
   private final static String TAG = "MWMActivity";
@@ -1696,6 +1697,16 @@ public class MWMActivity extends BaseMwmFragmentActivity
         }
       }
     });
+  }
+
+  @Override
+  public void customOnNavigateUp()
+  {
+    if (popFragment())
+    {
+      InputUtils.hideKeyboard(mBottomButtons);
+      mFadeView.fadeOut();
+    }
   }
 
   public interface MapTask extends Serializable

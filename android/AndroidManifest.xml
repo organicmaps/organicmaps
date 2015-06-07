@@ -2,6 +2,7 @@
 <manifest
     package="com.mapswithme.maps"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto"
     android:sharedUserId="com.mapswithme"
     android:sharedUserLabel="@string/shared_user_label">
@@ -56,7 +57,8 @@
       android:allowBackup="true"
       android:icon="@drawable/ic_launcher"
       android:label="@string/app_name"
-      android:theme="@style/MwmTheme">
+      android:theme="@style/MwmTheme"
+      tools:ignore="UnusedAttribute">
 
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
@@ -166,33 +168,53 @@
 
     <activity
         android:name="com.mapswithme.maps.MWMActivity"
-        android:theme="@style/MwmTheme.Map"
-        android:launchMode="singleTask">
+        android:launchMode="singleTask"
+        android:theme="@style/MwmTheme.Map">
     </activity>
 
     <activity
         android:name="com.mapswithme.country.DownloadActivity"
         android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/download_maps">
+        android:label="@string/download_maps"
+        android:parentActivityName="com.mapswithme.maps.MWMActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MWMActivity"/>
     </activity>
 
     <activity
-        android:name=".search.SearchActivity"
+        android:name="com.mapswithme.maps.search.SearchActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/search_map"
+        android:parentActivityName="com.mapswithme.maps.MWMActivity"
         android:windowSoftInputMode="stateVisible|adjustResize">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MWMActivity"/>
     </activity>
 
     <activity
         android:name="com.mapswithme.maps.settings.SettingsActivity"
         android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/settings_and_more">
+        android:label="@string/settings_and_more"
+        android:parentActivityName="com.mapswithme.maps.MWMActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MWMActivity"/>
     </activity>
 
     <activity
         android:name="com.mapswithme.maps.settings.StoragePathActivity"
         android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/maps_storage">
+        android:label="@string/maps_storage"
+        android:parentActivityName="com.mapswithme.maps.MWMActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MWMActivity"/>
     </activity>
 
     <activity
@@ -206,13 +228,23 @@
     <activity
         android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/bookmarks">
+        android:label="@string/bookmarks"
+        android:parentActivityName="com.mapswithme.maps.MWMActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.MWMActivity"/>
     </activity>
 
     <activity
         android:name="com.mapswithme.maps.bookmarks.BookmarkListActivity"
         android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/bookmarks">
+        android:label="@string/bookmarks"
+        android:parentActivityName="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"/>
     </activity>
 
     <activity android:name="com.facebook.LoginActivity"/>
@@ -240,7 +272,6 @@
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
       </intent-filter>
     </receiver>
-
   </application>
 
 </manifest>
