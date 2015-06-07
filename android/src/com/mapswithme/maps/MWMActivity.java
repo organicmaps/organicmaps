@@ -31,8 +31,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.OvershootInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -1310,10 +1309,19 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mBtnMenu.setVisibility(View.GONE);
     mButtonsAnimation = new AnimatorSet();
     mLlSearch.setVisibility(View.VISIBLE);
-    mButtonsAnimation.play(generateMenuAnimator(mLlShare, mBtnShare, mTvShare, mBtnShare.getWidth()));
-    mButtonsAnimation.play(generateMenuAnimator(mLlSettings, mBtnSettings, mTvSettings, mBtnSettings.getWidth())).after(BUTTON_ANIM_DELAY);
-    mButtonsAnimation.play(generateMenuAnimator(mLlDownloader, mBtnDownloader, mTvDownloader, mBtnDownloader.getWidth())).after(BUTTON_ANIM_DELAY * 2);
-    mButtonsAnimation.play(generateMenuAnimator(mLlBookmarks, mBtnBookmarks, mTvBookmarks, mBtnBookmarks.getWidth())).after(BUTTON_ANIM_DELAY * 3);
+    final float baseY = ViewCompat.getY(mLlSearch);
+    mButtonsAnimation.play(generateMenuAnimator(mLlShare, baseY - ViewCompat.getY(mLlShare)));
+    mButtonsAnimation.play(generateMenuAnimator(mLlSettings, baseY - ViewCompat.getY(mLlSettings))).after(BUTTON_ANIM_DELAY);
+    mButtonsAnimation.play(generateMenuAnimator(mLlDownloader, baseY - ViewCompat.getY(mLlDownloader))).after(BUTTON_ANIM_DELAY * 2);
+    mButtonsAnimation.play(generateMenuAnimator(mLlBookmarks, baseY - ViewCompat.getY(mLlBookmarks))).after(BUTTON_ANIM_DELAY * 3);
+    mButtonsAnimation.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        mBtnMenu.setVisibility(View.GONE);
+      }
+    });
     mButtonsAnimation.start();
   }
 
@@ -1322,33 +1330,27 @@ public class MWMActivity extends BaseMwmFragmentActivity
     hideBottomButtons();
   }
 
-  private Animator generateMenuAnimator(@NonNull final View layout, @NonNull final View button, @NonNull final View textView, final float width)
+  private Animator generateMenuAnimator(@NonNull final View layout, final float translationY)
   {
     final AnimatorSet result = new AnimatorSet();
-    ValueAnimator animator = ObjectAnimator.ofFloat(button, "translationX", width, 0);
+    ValueAnimator animator = ObjectAnimator.ofFloat(layout, "translationY", translationY, 0);
     animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
     {
       @Override
       public void onAnimationStart(Animator animation)
       {
         layout.setVisibility(View.VISIBLE);
-        ViewCompat.setAlpha(button, 0);
-        ViewCompat.setAlpha(textView, 0);
+        ViewCompat.setAlpha(layout, 0);
       }
     });
-    animator.setInterpolator(new OvershootInterpolator());
+    animator.setInterpolator(new LinearInterpolator());
     animator.setDuration(BUTTONS_ANIM_DURATION);
     result.play(animator);
 
-    animator = ObjectAnimator.ofFloat(button, "alpha", 0, 1);
+    animator = ObjectAnimator.ofFloat(layout, "alpha", 0, 1);
     animator.setDuration(BUTTONS_ANIM_DURATION_LONG);
     animator.setInterpolator(new AccelerateInterpolator());
     result.play(animator);
-
-    animator = ObjectAnimator.ofFloat(textView, "alpha", 0, 1);
-    animator.setDuration(BUTTONS_ANIM_DURATION / 2);
-    animator.setInterpolator(new DecelerateInterpolator());
-    result.play(animator).after(BUTTONS_ANIM_DURATION / 2);
 
     return result;
   }
