@@ -1,6 +1,5 @@
 WorldCoasts.mwm 4784096
 World.mwm 22615386 
-00_roboto_regular.ttf 158604
 01_dejavusans.ttf 633604
 02_wqy-microhei.ttf 5177387
 03_jomolhari-id-a3d.ttf 1817160
