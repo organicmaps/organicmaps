@@ -20,37 +20,37 @@ public class SearchAdapter extends BaseAdapter
       R.string.food,
       R.string.hotel,
       R.string.tourism,
+      R.string.wifi,
       R.string.transport,
       R.string.fuel,
+      R.string.parking,
       R.string.shop,
-      R.string.entertainment,
       R.string.atm,
       R.string.bank,
-      R.string.parking,
-      R.string.toilet,
-      R.string.pharmacy,
+      R.string.entertainment,
       R.string.hospital,
-      R.string.post,
+      R.string.pharmacy,
       R.string.police,
-      R.string.wifi
+      R.string.toilet,
+      R.string.post
   };
   private static final int mIcons[] = {
       R.drawable.ic_food,
       R.drawable.ic_hotel,
       R.drawable.ic_tourism,
+      R.drawable.ic_wifi,
       R.drawable.ic_transport,
       R.drawable.ic_gas,
+      R.drawable.ic_parking,
       R.drawable.ic_shop,
-      R.drawable.ic_entertainment,
       R.drawable.ic_atm,
       R.drawable.ic_bank,
-      R.drawable.ic_parking,
-      R.drawable.ic_toilet,
-      R.drawable.ic_pharmacy,
+      R.drawable.ic_entertainment,
       R.drawable.ic_hospital,
-      R.drawable.ic_post,
+      R.drawable.ic_pharmacy,
       R.drawable.ic_police,
-      R.drawable.ic_wifi
+      R.drawable.ic_toilet,
+      R.drawable.ic_post
   };
 
   private static final int CATEGORY_TYPE = 0;
