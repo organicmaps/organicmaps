@@ -724,6 +724,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
       mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT));
       mPlacePage.setState(State.PREVIEW);
+      if (mPlacePage.getMapObject() instanceof MapObject.MyPosition)
+        mRlStartRouting.setVisibility(View.GONE);
     }
 
     if (savedInstanceState.getBoolean(STATE_BUTTONS_OPENED))
