@@ -109,7 +109,7 @@ uint32_t Route::GetTime() const
   }
 
   TimesT::const_iterator it = upper_bound(m_times.begin(), m_times.end(), m_current.m_ind,
-                                         [](size_t v, Route::TimeItemT const & item) { return v < item.first; });
+                                         [](size_t v, Route::TTimeItem const & item) { return v < item.first; });
 
   if (it == m_times.end())
     return 0;

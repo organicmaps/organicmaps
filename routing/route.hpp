@@ -58,8 +58,8 @@ class Route
 public:
   typedef vector<TurnItem> TurnsT;
 
-  typedef pair<uint32_t, double> TimeItemT;
-  typedef vector<TimeItemT> TimesT;
+  typedef pair<uint32_t, double> TTimeItem;
+  typedef vector<TTimeItem> TimesT;
 
   explicit Route(string const & router) : m_router(router) {}
 

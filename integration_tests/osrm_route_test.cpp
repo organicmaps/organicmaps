@@ -143,7 +143,7 @@ namespace
     OsrmRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, OsrmRouter::NoError, ());
 
-    integration::TestRouteTime(route, 20237.);
+    integration::TestRouteTime(route, 17450.);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
@@ -155,6 +155,6 @@ namespace
     OsrmRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, OsrmRouter::NoError, ());
 
-    integration::TestRouteTime(route, 1092.);
+    integration::TestRouteTime(route, 910.);
   }
 }  // namespace

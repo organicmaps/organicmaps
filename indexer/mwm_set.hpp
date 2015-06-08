@@ -147,7 +147,7 @@ public:
     MwmId m_mwmId;
     TMwmValueBasePtr m_value;
 
-    NONCOPYABLE(MwmLock);
+    DISALLOW_COPY(MwmLock);
   };
 
   /// Registers a new map.

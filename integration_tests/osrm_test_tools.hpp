@@ -56,16 +56,16 @@ namespace integration
   /// Testing route length.
   /// It is used for checking if routes have expected(sample) length.
   /// A created route will pass the test iff
-  /// expectedRouteLength - expectedRouteLength * relativeError  <= route->GetDistance()
-  /// && expectedRouteLength + expectedRouteLength * relativeError >= route->GetDistance()
-  void TestRouteLength(Route const & route, double expectedRouteLength,
+  /// expectedRouteMeters - expectedRouteMeters * relativeError  <= route->GetDistance()
+  /// && expectedRouteMeters + expectedRouteMeters * relativeError >= route->GetDistance()
+  void TestRouteLength(Route const & route, double expectedRouteMeters,
                        double relativeError = 0.01);
-  void TestRouteTime(Route const & route, double expectedRouteTimeSeconds,
+  void TestRouteTime(Route const & route, double expectedRouteSeconds,
                      double relativeError = 0.01);
   void CalculateRouteAndTestRouteLength(OsrmRouterComponents const & routerComponents,
                                         m2::PointD const & startPoint,
                                         m2::PointD const & startDirection,
-                                        m2::PointD const & finalPoint, double expectedRouteLength,
+                                        m2::PointD const & finalPoint, double expectedRouteMeters,
                                         double relativeError = 0.07);
 
   class TestTurn

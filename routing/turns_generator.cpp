@@ -9,6 +9,8 @@
 
 #include "geometry/angles.hpp"
 
+#include "base/macros.hpp"
+
 #include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
 
 #include "std/numeric.hpp"
@@ -23,16 +25,36 @@ double const kFeaturesNearTurnMeters = 3.0;
 
 typedef vector<double> TGeomTurnCandidate;
 
+double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2)
+{
+  return math::pi - ang::TwoVectorsAngle(p, p1, p2);
+}
+
+/*!
+ * \brief The TurnCandidate struct contains information about possible ways from a junction.
+ */
 struct TurnCandidate
 {
+  /*!
+   * angle is an angle in degrees between the current edge and the edge of the candidate.
+   * The current edge is an edge which belongs the route and located before the junction.
+   * angle belongs to the range [0; 360];
+   */
   double angle;
+  /*!
+   * node is a possible node (a possilbe way) from the juction.
+   */
   NodeID node;
 
   TurnCandidate(double a, NodeID n) : angle(a), node(n) {}
 };
 typedef vector<TurnCandidate> TTurnCandidates;
 
-class Point2Geometry : private noncopyable
+/*!
+ * \brief The Point2Geometry class is responsable for looking for all adjacent to junctionPoint
+ * road network edges. Including the current edge.
+ */
+class Point2Geometry
 {
   m2::PointD m_junctionPoint, m_ingoingPoint;
   TGeomTurnCandidate & m_candidates;
@@ -53,6 +75,8 @@ public:
     size_t const count = ft.GetPointsCount();
     ASSERT_GREATER(count, 1, ());
 
+    // @TODO(vbykoianko) instead of checking all the feature points probably
+    // it's enough just to check the start and the finish of the feature.
     for (size_t i = 0; i < count; ++i)
     {
       if (MercatorBounds::DistanceOnEarth(m_junctionPoint, ft.GetPoint(i)) <
@@ -60,14 +84,16 @@ public:
       {
         if (i > 0)
           m_candidates.push_back(my::RadToDeg(
-              ang::TwoVectorsAngle(m_junctionPoint, m_ingoingPoint, ft.GetPoint(i - 1))));
+              PiMinusTwoVectorsAngle(m_junctionPoint, m_ingoingPoint, ft.GetPoint(i - 1))));
         if (i < count - 1)
           m_candidates.push_back(my::RadToDeg(
-              ang::TwoVectorsAngle(m_junctionPoint, m_ingoingPoint, ft.GetPoint(i + 1))));
+              PiMinusTwoVectorsAngle(m_junctionPoint, m_ingoingPoint, ft.GetPoint(i + 1))));
         return;
       }
     }
   }
+
+  DISALLOW_COPY_AND_MOVE(Point2Geometry);
 };
 
 size_t GetFirstSegmentPointIndex(pair<size_t, size_t> const & p) { return p.first; }
@@ -88,7 +114,7 @@ ftypes::HighwayClass GetOutgoingHighwayClass(NodeID outgoingNode,
   OsrmMappingTypes::FtSeg const seg =
       GetSegment(outgoingNode, routingMapping, GetFirstSegmentPointIndex);
   if (!seg.IsValid())
-    return ftypes::HighwayClass::None;
+    return ftypes::HighwayClass::Error;
   Index::FeaturesLoaderGuard loader(index, routingMapping.GetMwmId());
   FeatureType ft;
   loader.GetFeature(seg.m_fid, ft);
@@ -101,19 +127,19 @@ ftypes::HighwayClass GetOutgoingHighwayClass(NodeID outgoingNode,
  * - and the other possible turns lead to small roads;
  * - and the turn is GoStraight or TurnSlight*.
  */
-bool HighwayClassFilter(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass outgoingClass,
+bool KeepTurnByHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass outgoingClass,
                         NodeID outgoingNode, TurnDirection turn,
                         TTurnCandidates const & possibleTurns,
                         RoutingMapping const & routingMapping, Index const & index)
 {
   if (!IsGoStraightOrSlightTurn(turn))
-    return true;  /// The road significantly changes its direction here. So this turn shall be kept.
+    return true;  // The road significantly changes its direction here. So this turn shall be kept.
 
-  /// There's only one exit from this junction. NodeID of the exit is outgoingNode.
+  // There's only one exit from this junction. NodeID of the exit is outgoingNode.
   if (possibleTurns.size() == 1)
     return true;
 
-  ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::None;
+  ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::Error;
   for (auto const & t : possibleTurns)
   {
     if (t.node == outgoingNode)
@@ -123,7 +149,7 @@ bool HighwayClassFilter(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass 
     if (static_cast<int>(highwayClass) > static_cast<int>(maxClassForPossibleTurns))
       maxClassForPossibleTurns = highwayClass;
   }
-  if (maxClassForPossibleTurns == ftypes::HighwayClass::None)
+  if (maxClassForPossibleTurns == ftypes::HighwayClass::Error)
   {
     ASSERT(false, ("One of possible turns follows along an undefined HighwayClass."));
     return true;
@@ -131,17 +157,17 @@ bool HighwayClassFilter(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass 
 
   ftypes::HighwayClass const minClassForTheRoute = static_cast<ftypes::HighwayClass>(
       min(static_cast<int>(ingoingClass), static_cast<int>(outgoingClass)));
-  if (minClassForTheRoute == ftypes::HighwayClass::None)
+  if (minClassForTheRoute == ftypes::HighwayClass::Error)
   {
     ASSERT(false, ("The route contains undefined HighwayClass."));
     return false;
   }
 
-  int const maxHighwayClassDiffToKeepTheTurn = 2;
+  int const kMaxHighwayClassDiffToKeepTheTurn = 2;
   if (static_cast<int>(maxClassForPossibleTurns) - static_cast<int>(minClassForTheRoute) >=
-      maxHighwayClassDiffToKeepTheTurn)
+      kMaxHighwayClassDiffToKeepTheTurn)
   {
-    /// The turn shall be removed if the route goes near small roads without changing the direction.
+    // The turn shall be removed if the route goes near small roads without changing the direction.
     return false;
   }
   return true;
@@ -151,9 +177,9 @@ bool FixupLaneSet(TurnDirection turn, vector<SingleLaneInfo> & lanes,
                   function<bool(LaneWay l, TurnDirection t)> checker)
 {
   bool isLaneConformed = false;
-  /// There are two nested loops below. (There is a for-loop in checker.)
-  /// But the number of calls of the body of inner one (in checker) is relatively small.
-  /// Less than 10 in most cases.
+  // There are two nested loops below. (There is a for-loop in checker.)
+  // But the number of calls of the body of inner one (in checker) is relatively small.
+  // Less than 10 in most cases.
   for (auto & singleLane : lanes)
   {
     for (LaneWay laneWay : singleLane.m_lane)
@@ -170,50 +196,51 @@ bool FixupLaneSet(TurnDirection turn, vector<SingleLaneInfo> & lanes,
 }
 
 /*!
- * \brief Converts a turn angle (double) into a turn direction (TurnDirection).
+ * \brief Converts a turn angle into a turn direction.
  * \note upperBounds is a table of pairs: an angle and a direction.
  * upperBounds shall be sorted by the first parameter (angle) from small angles to big angles.
  * These angles should be measured in degrees and should belong to the range [0; 360].
  * The second paramer (angle) shall be greater than or equal to zero and is measured in degrees.
  */
-TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & upperBounds,
+TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & lowerBounds,
                                    double angle)
 {
-  ASSERT_GREATER_OR_EQUAL(angle, 0., (angle));
-  ASSERT_LESS_OR_EQUAL(angle, 360., (angle));
-  ASSERT_GREATER(upperBounds.size(), 0, ());
-  ASSERT(is_sorted(upperBounds.cbegin(), upperBounds.cend(),
+  ASSERT_GREATER_OR_EQUAL(angle, -180., (angle));
+  ASSERT_LESS_OR_EQUAL(angle, 180., (angle));
+  ASSERT_GREATER(lowerBounds.size(), 0, ());
+  ASSERT(is_sorted(lowerBounds.cbegin(), lowerBounds.cend(),
              [](pair<double, TurnDirection> const & p1, pair<double, TurnDirection> const & p2)
          {
-           return p1.first < p2.first;
+           return p1.first > p2.first;
          }), ());
 
-  for (auto const & upper : upperBounds)
+  for (auto const & lower : lowerBounds)
   {
-    if (angle <= upper.first)
-      return upper.second;
+    if (angle >= lower.first)
+      return lower.second;
   }
 
   ASSERT(false, ("The angle is not covered by the table. angle = ", angle));
   return TurnDirection::NoTurn;
 }
 
-m2::PointD GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg, FeatureType const & ft,
-                                m2::PointD const & turnPnt,
-                                size_t (*GetPndInd)(const size_t, const size_t, const size_t))
+m2::PointD GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & segment, FeatureType const & ft,
+                                m2::PointD const & turnPoint,
+                                size_t (*GetPointIndex)(const size_t, const size_t, const size_t))
 {
   size_t const kMaxPointsCount = 7;
-  double const kMaxDistMeters = 300.f;
+  double const kMaxDistMeters = 300.;
   double curDist = 0.f;
-  m2::PointD pnt = turnPnt, nextPnt;
+  m2::PointD pnt = turnPoint;
+  m2::PointD nextPnt;
 
-  size_t const segDist = abs(seg.m_pointEnd - seg.m_pointStart);
-  ASSERT_LESS(segDist, ft.GetPointsCount(), ());
-  size_t const usedFtPntNum = min(kMaxPointsCount, segDist);
+  size_t const numSegPoints = abs(segment.m_pointEnd - segment.m_pointStart);
+  ASSERT_LESS(numSegPoints, ft.GetPointsCount(), ());
+  size_t const usedFtPntNum = min(kMaxPointsCount, numSegPoints);
 
   for (size_t i = 1; i <= usedFtPntNum; ++i)
   {
-    nextPnt = ft.GetPoint(GetPndInd(seg.m_pointStart, seg.m_pointEnd, i));
+    nextPnt = ft.GetPoint(GetPointIndex(segment.m_pointStart, segment.m_pointEnd, i));
     curDist += MercatorBounds::DistanceOnEarth(pnt, nextPnt);
     if (curDist > kMaxDistMeters)
       return nextPnt;
@@ -336,7 +363,7 @@ void GetPossibleTurns(Index const & index, NodeID node, m2::PointD const & ingoi
     ASSERT_LESS(MercatorBounds::DistanceOnEarth(junctionPoint, ft.GetPoint(seg.m_pointStart)),
                 kFeaturesNearTurnMeters, ());
 
-    double const a = my::RadToDeg(ang::TwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+    double const a = my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
 
     candidates.emplace_back(a, trg);
   }
@@ -374,8 +401,6 @@ TurnInfo::TurnInfo(RoutingMapping & routeMapping, NodeID ingoingNodeID, NodeID o
   m_ingoingSegment = GetSegment(m_ingoingNodeID, m_routeMapping, GetLastSegmentPointIndex);
   m_outgoingSegment = GetSegment(m_outgoingNodeID, m_routeMapping, GetFirstSegmentPointIndex);
 }
-
-TurnInfo::~TurnInfo() {}
 
 bool TurnInfo::IsSegmentsValid() const
 {
@@ -432,11 +457,11 @@ void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT cons
                            TurnsGeomT & turnsGeom)
 {
   size_t const kNumPoints = points.size();
-  /// "Pivot point" is a point of bifurcation (a point of a turn).
-  /// kNumPointsBeforePivot is number of points before the pivot point.
+  // "Pivot point" is a point of bifurcation (a point of a turn).
+  // kNumPointsBeforePivot is number of points before the pivot point.
   uint32_t const kNumPointsBeforePivot = 10;
-  /// kNumPointsAfterPivot is a number of points follows by the pivot point.
-  /// kNumPointsAfterPivot is greater because there are half body and the arrow after the pivot point
+  // kNumPointsAfterPivot is a number of points follows by the pivot point.
+  // kNumPointsAfterPivot is greater because there are half body and the arrow after the pivot point
   uint32_t constexpr kNumPointsAfterPivot = kNumPointsBeforePivot + 10;
 
   for (TurnItem const & t : turnsDir)
@@ -462,13 +487,13 @@ void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT cons
 void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
 {
   double const kMergeDistMeters = 30.0;
-  /// For turns that are not EnterRoundAbout exitNum is always equal to zero.
-  /// If a turn is EnterRoundAbout exitNum is a number of turns between two points:
-  /// (1) the route enters to the roundabout;
-  /// (2) the route leaves the roundabout;
+  // For turns that are not EnterRoundAbout exitNum is always equal to zero.
+  // If a turn is EnterRoundAbout exitNum is a number of turns between two points:
+  // (1) the route enters to the roundabout;
+  // (2) the route leaves the roundabout;
   uint32_t exitNum = 0;
-  /// If a roundabout is worked up the roundabout value points to the turn
-  /// of the enter to the roundabout. If not, roundabout is equal to nullptr.
+  // If a roundabout is worked up the roundabout value points to the turn
+  // of the enter to the roundabout. If not, roundabout is equal to nullptr.
   TurnItem * roundabout = nullptr;
 
   auto routeDistanceMeters = [&points](uint32_t start, uint32_t end)
@@ -506,10 +531,10 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
       exitNum = 0;
     }
 
-    /// Merging turns which are closed to each other under some circumstance.
-    /// distance(turnsDir[idx - 1].m_index, turnsDir[idx].m_index) < kMergeDistMeters
-    /// means the distance in meters between the former turn (idx - 1)
-    /// and the current turn (idx).
+    // Merging turns which are closed to each other under some circumstance.
+    // distance(turnsDir[idx - 1].m_index, turnsDir[idx].m_index) < kMergeDistMeters
+    // means the distance in meters between the former turn (idx - 1)
+    // and the current turn (idx).
     if (idx > 0 && IsStayOnRoad(turnsDir[idx - 1].m_turn) &&
         IsLeftOrRightTurn(turnsDir[idx].m_turn) &&
         routeDistanceMeters(turnsDir[idx - 1].m_index, turnsDir[idx].m_index) < kMergeDistMeters)
@@ -518,17 +543,16 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
       continue;
     }
 
-    /// @todo(vbykoianko) The sieve below is made for filtering unnecessary turns on Moscow's MKAD
-    /// and roads like it. It's a quick fix but it's possible to do better.
-    /// The better solution is to remove all "slight" turns if the route goes form one not-link road
-    /// to another not-link road and other possible turns are links. But it's not possible to
-    /// implement it quickly. To do that you need to calculate FeatureType for most possible turns.
-    /// But it is already made once in  HighwayClassFilter(GetOutgoingHighwayClass).
-    /// So it's a good idea to keep FeatureType for outgoing turns in TTurnCandidates
-    /// (if they have been calculated). For the time being I decided to postpone the implementation
-    /// of the feature but it is worth implementing it in the future.
-    /// of the feature but it worth implementing it in the future.
-    /// To implement the new sieve (the better solution) use TurnInfo structure.
+    // @todo(vbykoianko) The sieve below is made for filtering unnecessary turns on Moscow's MKAD
+    // and roads like it. It's a quick fix but it's possible to do better.
+    // The better solution is to remove all "slight" turns if the route goes form one not-link road
+    // to another not-link road and other possible turns are links. But it's not possible to
+    // implement it quickly. To do that you need to calculate FeatureType for most possible turns.
+    // But it is already made once in  KeepTurnByHighwayClass(GetOutgoingHighwayClass).
+    // So it's a good idea to keep FeatureType for outgoing turns in TTurnCandidates
+    // (if they have been calculated). For the time being I decided to postpone the implementation
+    // of the feature but it is worth implementing it in the future.
+    // To implement the new sieve (the better solution) use TurnInfo structure.
     if (!t.m_keepAnyway && IsGoStraightOrSlightTurn(t.m_turn) && !t.m_sourceName.empty() &&
         strings::AlmostEqual(t.m_sourceName, t.m_targetName, 2 /* mismatched symbols count */))
     {
@@ -550,12 +574,12 @@ void SelectRecommendedLanes(Route::TurnsT & turnsDir)
     if (lanes.empty())
       continue;
     TurnDirection const turn = t.m_turn;
-    /// Checking if threre are elements in lanes which correspond with the turn exactly.
-    /// If so fixing up all the elements in lanes which correspond with the turn.
+    // Checking if threre are elements in lanes which correspond with the turn exactly.
+    // If so fixing up all the elements in lanes which correspond with the turn.
     if (FixupLaneSet(turn, lanes, &IsLaneWayConformedTurnDirection))
       continue;
-    /// If not checking if there are elements in lanes which corresponds with the turn
-    /// approximately. If so fixing up all these elements.
+    // If not checking if there are elements in lanes which corresponds with the turn
+    // approximately. If so fixing up all these elements.
     FixupLaneSet(turn, lanes, &IsLaneWayConformedTurnDirectionApproximately);
   }
 }
@@ -608,38 +632,35 @@ TurnDirection InvertDirection(TurnDirection dir)
 
 TurnDirection MostRightDirection(const double angle)
 {
-  static vector<pair<double, TurnDirection>> const kUpperBounds = {
-      {23., TurnDirection::NoTurn},
-      {67., TurnDirection::TurnSharpRight},
-      {140., TurnDirection::TurnRight},
-      {195., TurnDirection::TurnSlightRight},
-      {205., TurnDirection::GoStraight},
-      {240., TurnDirection::TurnSlightLeft},
-      {336., TurnDirection::TurnLeft},
-      {360., TurnDirection::NoTurn}};
+  static vector<pair<double, TurnDirection>> const kLowerBounds = {
+      {157., TurnDirection::TurnSharpRight},
+      {40., TurnDirection::TurnRight},
+      {-10., TurnDirection::TurnSlightRight},
+      {-20., TurnDirection::GoStraight},
+      {-60., TurnDirection::TurnSlightLeft},
+      {-157., TurnDirection::TurnLeft},
+      {-180., TurnDirection::TurnSharpLeft}};
 
-  return FindDirectionByAngle(kUpperBounds, angle);
+  return FindDirectionByAngle(kLowerBounds, angle);
 }
 
 TurnDirection MostLeftDirection(const double angle)
 {
-  return InvertDirection(MostRightDirection(360. - angle));
+  return InvertDirection(MostRightDirection(-angle));
 }
 
 TurnDirection IntermediateDirection(const double angle)
 {
-  static vector<pair<double, TurnDirection>> const kUpperBounds = {
-      {23., TurnDirection::NoTurn},
-      {67., TurnDirection::TurnSharpRight},
-      {130., TurnDirection::TurnRight},
-      {170., TurnDirection::TurnSlightRight},
-      {190., TurnDirection::GoStraight},
-      {230., TurnDirection::TurnSlightLeft},
-      {292., TurnDirection::TurnLeft},
-      {336., TurnDirection::TurnSharpLeft},
-      {360., TurnDirection::NoTurn}};
+  static vector<pair<double, TurnDirection>> const kLowerBounds = {
+      {157., TurnDirection::TurnSharpRight},
+      {50., TurnDirection::TurnRight},
+      {10., TurnDirection::TurnSlightRight},
+      {-10., TurnDirection::GoStraight},
+      {-50., TurnDirection::TurnSlightLeft},
+      {-157., TurnDirection::TurnLeft},
+      {-180., TurnDirection::TurnSharpLeft}};
 
-  return FindDirectionByAngle(kUpperBounds, angle);
+  return FindDirectionByAngle(kLowerBounds, angle);
 }
 
 void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
@@ -647,7 +668,7 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
   if (!turnInfo.IsSegmentsValid())
     return;
 
-  /// ingoingFeature and outgoingFeature can be used only within the scope.
+  // ingoingFeature and outgoingFeature can be used only within the scope.
   FeatureType ingoingFeature, outgoingFeature;
   Index::FeaturesLoaderGuard ingoingLoader(index, turnInfo.m_routeMapping.GetMwmId());
   Index::FeaturesLoaderGuard outgoingLoader(index, turnInfo.m_routeMapping.GetMwmId());
@@ -675,7 +696,7 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
       {
         return end > start ? start + i : start - i;
       });
-  double const a = my::RadToDeg(ang::TwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+  double const a = my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
 
   m2::PointD const ingoingPointOneSegment = ingoingFeature.GetPoint(
       turnInfo.m_ingoingSegment.m_pointStart < turnInfo.m_ingoingSegment.m_pointEnd
@@ -693,9 +714,9 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
     return;
 
   if (nodes.front().node == turnInfo.m_outgoingNodeID)
-    turn.m_turn = MostRightDirection(a);
-  else if (nodes.back().node == turnInfo.m_outgoingNodeID)
     turn.m_turn = MostLeftDirection(a);
+  else if (nodes.back().node == turnInfo.m_outgoingNodeID)
+    turn.m_turn = MostRightDirection(a);
   else
     turn.m_turn = IntermediateDirection(a);
 
@@ -712,9 +733,9 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
   turn.m_keepAnyway = (!ftypes::IsLinkChecker::Instance()(ingoingFeature) &&
                        ftypes::IsLinkChecker::Instance()(outgoingFeature));
 
-  // get names
-  string name1, name2;
   {
+    string name1, name2;
+
     ingoingFeature.GetName(FeatureType::DEFAULT_LANG, turn.m_sourceName);
     outgoingFeature.GetName(FeatureType::DEFAULT_LANG, turn.m_targetName);
 
@@ -725,7 +746,7 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
   turnInfo.m_ingoingHighwayClass = ftypes::GetHighwayClass(ingoingFeature);
   turnInfo.m_outgoingHighwayClass = ftypes::GetHighwayClass(outgoingFeature);
   if (!turn.m_keepAnyway &&
-      !HighwayClassFilter(turnInfo.m_ingoingHighwayClass, turnInfo.m_outgoingHighwayClass,
+      !KeepTurnByHighwayClass(turnInfo.m_ingoingHighwayClass, turnInfo.m_outgoingHighwayClass,
                           turnInfo.m_outgoingNodeID, turn.m_turn, nodes, turnInfo.m_routeMapping, index))
   {
     turn.m_turn = TurnDirection::NoTurn;
@@ -733,11 +754,11 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
   }
 
   bool const isGoStraightOrSlightTurn = IsGoStraightOrSlightTurn(IntermediateDirection(
-      my::RadToDeg(ang::TwoVectorsAngle(junctionPoint, ingoingPointOneSegment, outgoingPoint))));
-  /// The code below is resposible for cases when there is only one way to leave the junction.
-  /// Such junction has to be kept as a turn when:
-  /// * it's not a slight turn and it has ingoing edges (one or more);
-  /// * it's an entrance to a roundabout;
+      my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPointOneSegment, outgoingPoint))));
+  // The code below is resposible for cases when there is only one way to leave the junction.
+  // Such junction has to be kept as a turn when:
+  // * it's not a slight turn and it has ingoing edges (one or more);
+  // * it's an entrance to a roundabout;
   if (!hasMultiTurns && (isGoStraightOrSlightTurn ||
                          NumberOfIngoingAndOutgoingSegments(junctionPoint, ingoingPointOneSegment,
                                                             turnInfo.m_routeMapping, index) <= 2) &&
@@ -755,7 +776,7 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
     return;
   }
 
-  /// @todo(vbykoianko) Checking if it's a uturn or not shall be moved to FindDirectionByAngle.
+  // @todo(vbykoianko) Checking if it's a uturn or not shall be moved to FindDirectionByAngle.
   if (turn.m_turn == TurnDirection::NoTurn)
     turn.m_turn = TurnDirection::UTurn;
 }

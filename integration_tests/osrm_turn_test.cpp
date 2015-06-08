@@ -43,19 +43,19 @@ UNIT_TEST(RussiaMoscowSalameiNerisUturnTurnTest)
   integration::TestTurnCount(route, 4);
   integration::GetNthTurn(route, 0)
       .TestValid()
-      .TestPoint({37.388482521388539, 67.633382734905041}, 5.)
+      .TestPoint({37.388482521388539, 67.633382734905041}, 20.)
       .TestDirection(TurnDirection::TurnSlightRight);
   integration::GetNthTurn(route, 1)
       .TestValid()
-      .TestPoint({37.387117276989784, 67.633369323859881})
+      .TestPoint({37.387117276989784, 67.633369323859881}, 20.)
       .TestDirection(TurnDirection::TurnLeft);
   integration::GetNthTurn(route, 2)
       .TestValid()
-      .TestPoint({37.387380133475205, 67.632781920081243})
+      .TestPoint({37.387380133475205, 67.632781920081243}, 20.)
       .TestDirection(TurnDirection::TurnLeft);
   integration::GetNthTurn(route, 3)
       .TestValid()
-      .TestPoint({37.390526364673121, 67.633106467374461})
+      .TestPoint({37.390526364673121, 67.633106467374461}, 20.)
       .TestDirection(TurnDirection::TurnRight);
 
   integration::TestRouteLength(route, 1637.);

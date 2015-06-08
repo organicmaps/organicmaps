@@ -49,7 +49,6 @@ struct TurnInfo
   ftypes::HighwayClass m_outgoingHighwayClass;
 
   TurnInfo(RoutingMapping & routeMapping, NodeID ingoingNodeID, NodeID outgoingNodeID);
-  ~TurnInfo();
 
   bool IsSegmentsValid() const;
 };
@@ -85,7 +84,11 @@ bool CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRo
  */
 TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
                                      bool isMultiTurnJunction);
-
+/*!
+ * \brief GetTurnDirection makes a primary decision about turns on the route.
+ * \param turnInfo is used for cashing some information while turn calculation.
+ * \param turn is used for keeping the result of turn calculation.
+ */
 void GetTurnDirection(Index const & index, turns::TurnInfo & turnInfo, TurnItem & turn);
 
 }  // namespace routing

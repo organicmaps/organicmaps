@@ -74,9 +74,12 @@ UNIT_TEST(ShortestDistance)
   TEST_ALMOST_EQUAL_ULPS(ang::GetShortestDistance(math::pi + 1, 0), math::pi - 1, ());
 }
 
-UNIT_TEST(TwoVectorsAngle){
-  TEST_ALMOST_EQUAL_ULPS(ang::TwoVectorsAngle(m2::Point<double>({0, 0}),
-                                         m2::Point<double>({0, 1}), m2::Point<double>(1, 0)), 3 * math::pi2, ());
-  TEST_ALMOST_EQUAL_ULPS(ang::TwoVectorsAngle(m2::Point<double>({1, 1}),
-                                         m2::Point<double>({2, 2}), m2::Point<double>(1, 2)), math::pi4, ());
+UNIT_TEST(TwoVectorsAngle)
+{
+  TEST_ALMOST_EQUAL_ULPS(ang::TwoVectorsAngle(m2::Point<double>(0, 0)  /* p */,
+                                              m2::Point<double>(0, 1)  /* p1 */,
+                                              m2::Point<double>(1, 0)) /* p2 */, 3 * math::pi2, ());
+  TEST_ALMOST_EQUAL_ULPS(ang::TwoVectorsAngle(m2::Point<double>(1, 1)  /* p */,
+                                              m2::Point<double>(2, 2)  /* p1 */,
+                                              m2::Point<double>(1, 2)) /* p2 */, math::pi4, ());
 }

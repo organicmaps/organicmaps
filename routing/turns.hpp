@@ -46,7 +46,7 @@ enum class TurnDirection
 
   StartAtEndOfStreet,
   ReachedYourDestination,
-  Count  /// This value is used for internals only.
+  Count  /**< This value is used for internals only. */
 };
 
 string DebugPrint(TurnDirection const l);
@@ -67,7 +67,7 @@ enum class LaneWay
   SlightRight,
   Right,
   SharpRight,
-  Count  /// This value is used for internals only.
+  Count  /**< This value is used for internals only. */
 };
 
 string DebugPrint(LaneWay const l);

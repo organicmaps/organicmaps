@@ -34,12 +34,10 @@ typedef OsrmDataFacade<QueryEdge::EdgeData> TDataFacade;
 typedef vector<FeatureGraphNode> TFeatureGraphNodeVec;
 
 
-
 class OsrmRouter : public IRouter
 {
 public:
   typedef vector<double> GeomTurnCandidateT;
-  typedef vector<size_t> NodeIdVectorT;
 
   OsrmRouter(Index const * index, TCountryFileFn const & fn, TRoutingVisualizerFn routingVisualization = nullptr);
 

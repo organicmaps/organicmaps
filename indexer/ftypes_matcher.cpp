@@ -308,8 +308,10 @@ string DebugPrint(HighwayClass const cls)
   out << "[ ";
   switch (cls)
   {
-    case HighwayClass::None:
-      out << "None";
+    case HighwayClass::Undefined:
+      out << "Undefined";
+    case HighwayClass::Error:
+      out << "Error";
     case HighwayClass::Trunk:
       out << "Trunk";
     case HighwayClass::Primary:
@@ -362,7 +364,7 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types)
     }
   }
 
-  return HighwayClass::None;
+  return HighwayClass::Error;
 }
 
 HighwayClass GetHighwayClass(FeatureType const & ft)

@@ -40,7 +40,6 @@ namespace routing
 {
 size_t constexpr kMaxNodeCandidatesCount = 10;
 double constexpr kFeatureFindingRectSideRadiusMeters = 1000.0;
-double constexpr kFeaturesNearTurnM = 3.0;
 
 // TODO (ldragunov) Switch all RawRouteData and incapsulate to own omim types.
 using RawRouteData = InternalRouteResult;
@@ -80,41 +79,7 @@ private:
   OnlineCrossFetcher m_fetcher;
 };
 
-class Point2Geometry : private noncopyable
-{
-  m2::PointD m_p, m_p1;
-  OsrmRouter::GeomTurnCandidateT & m_candidates;
-public:
-  Point2Geometry(m2::PointD const & p, m2::PointD const & p1,
-                 OsrmRouter::GeomTurnCandidateT & candidates)
-    : m_p(p), m_p1(p1), m_candidates(candidates)
-  {
-  }
-
-  void operator() (FeatureType const & ft)
-  {
-    static CarModel const carModel;
-    if (ft.GetFeatureType() != feature::GEOM_LINE || !carModel.IsRoad(ft))
-      return;
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    size_t const count = ft.GetPointsCount();
-    ASSERT_GREATER(count, 1, ());
-
-    for (size_t i = 0; i < count; ++i)
-    {
-      if (MercatorBounds::DistanceOnEarth(m_p, ft.GetPoint(i)) < kFeaturesNearTurnM)
-      {
-        if (i > 0)
-          m_candidates.push_back(my::RadToDeg(ang::TwoVectorsAngle(m_p, m_p1, ft.GetPoint(i - 1))));
-        if (i < count - 1)
-          m_candidates.push_back(my::RadToDeg(ang::TwoVectorsAngle(m_p, m_p1, ft.GetPoint(i + 1))));
-        return;
-      }
-    }
-  }
-};
-
-class Point2PhantomNode : private noncopyable
+class Point2PhantomNode
 {
   struct Candidate
   {
@@ -196,16 +161,16 @@ public:
     loader.GetFeature(s.m_fid, ft);
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-    double dist = 0.0;
-    size_t n = max(s.m_pointEnd, s.m_pointStart);
+    double distMeters = 0.0;
+    size_t const n = max(s.m_pointEnd, s.m_pointStart);
     size_t i = min(s.m_pointStart, s.m_pointEnd) + 1;
     do
     {
-      dist += MercatorBounds::DistanceOnEarth(ft.GetPoint(i - 1), ft.GetPoint(i));
+      distMeters += MercatorBounds::DistanceOnEarth(ft.GetPoint(i - 1), ft.GetPoint(i));
       ++i;
     } while (i <= n);
 
-    return dist;
+    return distMeters;
   }
 
   void CalculateOffset(OsrmMappingTypes::FtSeg const & seg, m2::PointD const & segPt, NodeID & nodeId, int & offset, bool forward) const
@@ -379,6 +344,7 @@ public:
                         }),
                         res.end());
   }
+  DISALLOW_COPY(Point2PhantomNode);
 };
 } // namespace
 
@@ -527,8 +493,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   {
     if (finalPoint != m_CachedTargetPoint)
     {
-      ResultCode const code = FindPhantomNodes(finalPoint, m2::PointD::Zero(),
-          m_CachedTargetTask, kMaxNodeCandidatesCount, targetMapping);
+      ResultCode const code =
+          FindPhantomNodes(finalPoint, m2::PointD::Zero(),
+                           m_CachedTargetTask, kMaxNodeCandidatesCount, targetMapping);
       if (code != NoError)
         return code;
       m_CachedTargetPoint = finalPoint;
@@ -604,6 +571,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
                                                  TFeatureGraphNodeVec & res, size_t maxCount,
                                                  TRoutingMappingPtr const & mapping)
 {
+  ASSERT(mapping, ());
   Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction);
   getter.SetPoint(point);
 
@@ -637,18 +605,17 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
   TSeg const & segBegin = routingResult.sourceEdge.segment;
   TSeg const & segEnd = routingResult.targetEdge.segment;
 
-  double estimateTime = 0;
+  double estimatedTime = 0;
 
   LOG(LDEBUG, ("Shortest path length:", routingResult.shortestPathLength));
 
   //! @todo: Improve last segment time calculation
   CarModel carModel;
-#ifdef _DEBUG
+#ifdef DEBUG
   size_t lastIdx = 0;
 #endif
 
   for (auto const & segment : routingResult.unpackedPathSegments)
-  //for (auto i : osrm::irange<size_t>(0, routingResult.m_routePath.unpacked_path_segments.size()))
   {
     INTERRUPT_WHEN_CANCELLED();
 
@@ -663,32 +630,29 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
         TurnItem t;
         t.m_index = points.size() - 1;
 
-        turns::TurnInfo turnInfo(*mapping,
-                                 segment[j - 1].node,
-                                 segment[j].node);
+        turns::TurnInfo turnInfo(*mapping, segment[j - 1].node, segment[j].node);
         turns::GetTurnDirection(*m_pIndex, turnInfo, t);
 
         // ETA information.
         // Osrm multiples seconds to 10, so we need to divide it back.
         double const nodeTimeSeconds = path_data.segmentWeight / 10.0;
 
-#ifdef _DEBUG
-        double dist = 0.0;
-        for (size_t l = lastIdx + 1; l < points.size(); ++l)
-          dist += MercatorBounds::DistanceOnEarth(points[l - 1], points[l]);
-        LOG(LDEBUG, ("Speed:", 3.6 * dist / nodeTimeSeconds, "kmph; Dist:", dist, "Time:",
+#ifdef DEBUG
+        double distMeters = 0.0;
+        for (size_t k = lastIdx + 1; k < points.size(); ++k)
+          distMeters += MercatorBounds::DistanceOnEarth(points[k - 1], points[k]);
+        LOG(LDEBUG, ("Speed:", 3.6 * distMeters / nodeTimeSeconds, "kmph; Dist:", distMeters, "Time:",
                      nodeTimeSeconds, "s", lastIdx, "e", points.size()));
         lastIdx = points.size();
 #endif
-        estimateTime += nodeTimeSeconds;
-        times.push_back(Route::TimeItemT(points.size(), estimateTime));
+        estimatedTime += nodeTimeSeconds;
+        times.push_back(Route::TTimeItem(points.size(), estimatedTime));
 
         //  Lane information.
         if (t.m_turn != turns::TurnDirection::NoTurn)
         {
-          t.m_lanes =
-              turns::GetLanesInfo(segment[j - 1].node,
-                                  *mapping, turns::GetLastSegmentPointIndex, *m_pIndex);
+          t.m_lanes = turns::GetLanesInfo(segment[j - 1].node,
+                                          *mapping, turns::GetLastSegmentPointIndex, *m_pIndex);
           turnsDir.push_back(move(t));
         }
       }
@@ -749,7 +713,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
           {
             points.push_back(ft.GetPoint(idx));
             if (needTime && idx > startIdx)
-              estimateTime += MercatorBounds::DistanceOnEarth(ft.GetPoint(idx - 1), ft.GetPoint(idx)) / carModel.GetSpeed(ft);
+              estimatedTime += MercatorBounds::DistanceOnEarth(ft.GetPoint(idx - 1), ft.GetPoint(idx)) / carModel.GetSpeed(ft);
           }
         }
         else
@@ -757,7 +721,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
           for (auto idx = startIdx; idx > endIdx; --idx)
           {
             if (needTime)
-              estimateTime += MercatorBounds::DistanceOnEarth(ft.GetPoint(idx - 1), ft.GetPoint(idx)) / carModel.GetSpeed(ft);
+              estimatedTime += MercatorBounds::DistanceOnEarth(ft.GetPoint(idx - 1), ft.GetPoint(idx)) / carModel.GetSpeed(ft);
             points.push_back(ft.GetPoint(idx));
           }
           points.push_back(ft.GetPoint(endIdx));
@@ -774,14 +738,14 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
   if (routingResult.targetEdge.segment.IsValid())
     points.back() = routingResult.targetEdge.segmentPoint;
 
-  times.push_back(Route::TimeItemT(points.size() - 1, estimateTime));
+  times.push_back(Route::TTimeItem(points.size() - 1, estimatedTime));
   if (routingResult.targetEdge.segment.IsValid())
     turnsDir.push_back(TurnItem(points.size() - 1, turns::TurnDirection::ReachedYourDestination));
   turns::FixupTurns(points, turnsDir);
 
   turns::CalculateTurnGeometry(points, turnsDir, turnsGeom);
 
-#ifdef _DEBUG
+#ifdef DEBUG
   for (auto t : turnsDir)
   {
     LOG(LDEBUG, (turns::GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-", t.m_targetName, "exit:", t.m_exitNum));
@@ -789,7 +753,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
 
   size_t last = 0;
   double lastTime = 0;
-  for (Route::TimeItemT t : times)
+  for (Route::TTimeItem t : times)
   {
     double dist = 0;
     for (size_t i = last + 1; i <= t.first; ++i)
@@ -802,7 +766,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
     lastTime = t.second;
   }
 #endif
-  LOG(LDEBUG, ("Estimate time:", estimateTime, "s"));
+  LOG(LDEBUG, ("Estimated time:", estimatedTime, "s"));
   return OsrmRouter::NoError;
 }
 }  // namespace routing

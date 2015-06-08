@@ -140,5 +140,5 @@ UNIT_TEST(GetHighwayClassTest)
 
   feature::TypesHolder types3;
   types3(c.GetTypeByPath({"highway"}));
-  TEST_EQUAL(ftypes::GetHighwayClass(types3), ftypes::HighwayClass::None, ());
+  TEST_EQUAL(ftypes::GetHighwayClass(types3), ftypes::HighwayClass::Error, ());
 }

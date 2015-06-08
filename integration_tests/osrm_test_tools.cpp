@@ -155,34 +155,34 @@ namespace integration
     TEST_EQUAL(route.GetTurnsGeometry().size(), expectedTurnCount, ());
   }
 
-  void TestRouteLength(Route const & route, double expectedRouteLength,
+  void TestRouteLength(Route const & route, double expectedRouteMeters,
                        double relativeError)
   {
-    double const delta = expectedRouteLength * relativeError;
+    double const delta = expectedRouteMeters * relativeError;
     double const routeLength = route.GetDistance();
-    TEST_LESS_OR_EQUAL(routeLength - delta, expectedRouteLength, ("Route length test failed. Expected:", expectedRouteLength, "have:", routeLength));
-    TEST_GREATER_OR_EQUAL(routeLength + delta, expectedRouteLength, ("Route length test failed. Expected:", expectedRouteLength, "have:", routeLength));
+    TEST_LESS_OR_EQUAL(routeLength - delta, expectedRouteMeters, ("Route length test failed. Expected:", expectedRouteMeters, "have:", routeLength));
+    TEST_GREATER_OR_EQUAL(routeLength + delta, expectedRouteMeters, ("Route length test failed. Expected:", expectedRouteMeters, "have:", routeLength));
   }
 
-  void TestRouteTime(Route const & route, double expectedRouteTimeSeconds, double relativeError)
+  void TestRouteTime(Route const & route, double expectedRouteSeconds, double relativeError)
   {
-    double const delta = expectedRouteTimeSeconds * relativeError;
+    double const delta = expectedRouteSeconds * relativeError;
     double const routeTime = route.GetAllTime();
-    TEST_LESS_OR_EQUAL(routeTime - delta, expectedRouteTimeSeconds, ());
-    TEST_GREATER_OR_EQUAL(routeTime + delta, expectedRouteTimeSeconds, ());
+    TEST_LESS_OR_EQUAL(routeTime - delta, expectedRouteSeconds, ());
+    TEST_GREATER_OR_EQUAL(routeTime + delta, expectedRouteSeconds, ());
   }
 
   void CalculateRouteAndTestRouteLength(OsrmRouterComponents const & routerComponents,
                                         m2::PointD const & startPoint,
                                         m2::PointD const & startDirection,
-                                        m2::PointD const & finalPoint, double expectedRouteLength,
+                                        m2::PointD const & finalPoint, double expectedRouteMeters,
                                         double relativeError)
   {
     TRouteResult routeResult =
         CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
     OsrmRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, OsrmRouter::NoError, ());
-    TestRouteLength(*routeResult.first, expectedRouteLength, relativeError);
+    TestRouteLength(*routeResult.first, expectedRouteMeters, relativeError);
   }
 
   const TestTurn & TestTurn::TestValid() const

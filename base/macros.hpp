@@ -13,11 +13,21 @@ namespace my
 // Number of elements in array. Compilation error if the type passed is not an array.
 #define ARRAY_SIZE(X) sizeof(::my::impl::ArraySize(X))
 
-// Make class noncopyable.
-#define NONCOPYABLE(class_name)                              \
+#define DISALLOW_COPY(className)                             \
 private:                                                     \
-  class_name const & operator=(class_name const &) = delete; \
-  class_name(class_name const &) = delete
+  className(className const &) = delete;                     \
+  className & operator=(className const &) = delete
+
+
+#define DISALLOW_MOVE(className)                             \
+private:                                                     \
+  className(className &&) = delete;                          \
+  className & operator=(className &&) = delete
+
+#define DISALLOW_COPY_AND_MOVE(className)                    \
+  DISALLOW_COPY(className);                                  \
+  DISALLOW_MOVE(className)
+
 /////////////////////////////////////////////////////////////
 
 #define TO_STRING_IMPL(x) #x
@@ -65,13 +75,6 @@ namespace my
 #define UINT32_HI(x) (static_cast<uint16_t>(x >> 16))
 #define UINT64_LO(x) (static_cast<uint32_t>(x & 0xFFFFFFFF))
 #define UINT64_HI(x) (static_cast<uint32_t>(x >> 32))
-
-#define DISALLOW_COPY_AND_MOVE(className)            \
-private:                                             \
-  className(const className &) = delete;             \
-  className(className &&) = delete;                  \
-  className & operator=(const className &) = delete; \
-  className & operator=(className &&) = delete;
 
 #define NOTIMPLEMENTED() ASSERT(false, ("Function", __func__, "is not implemented!"));
 
