@@ -48,7 +48,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     [[NSBundle mainBundle] loadNibNamed:kMWMSideMenuViewsNibName owner:self options:nil];
     self.menuButton.delegate = self;
     self.sideMenu.delegate = self;
-    self.sideMenu.outOfDateCount = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
     [self addCloseMenuWithTap];
     self.state = MWMSideMenuStateInactive;
   }
@@ -160,11 +159,14 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)setState:(MWMSideMenuState)state
 {
+  if (_state == state)
+    return;
   _state = state;
   switch (state)
   {
     case MWMSideMenuStateActive:
       [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"menu"];
+      self.sideMenu.outOfDateCount = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
       [self replaceView:self.menuButton withView:self.sideMenu];
       [self.sideMenu setup];
       break;
