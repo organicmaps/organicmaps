@@ -391,7 +391,7 @@ size_t GetLastSegmentPointIndex(pair<size_t, size_t> const & p)
 } // namespace
 
 OsrmRouter::OsrmRouter(Index const * index, TCountryFileFn const & fn,
-                       RoutingVisualizerFn routingVisualization)
+                       TRoutingVisualizerFn routingVisualization)
     : m_pIndex(index), m_indexManager(fn, index), m_routingVisualization(routingVisualization)
 {
 }
@@ -586,8 +586,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   {
     LOG(LINFO, ("Multiple mwm routing case"));
     TCheckedPath finalPath;
+    my::Cancellable const & cancellable = *this;
     ResultCode code = CalculateCrossMwmPath(startTask, m_CachedTargetTask, m_indexManager,
-                                            m_routingVisualization, finalPath);
+                                            cancellable, m_routingVisualization, finalPath);
     timer.Reset();
 
     // 5. Make generate answer

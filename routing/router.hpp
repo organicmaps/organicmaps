@@ -59,6 +59,6 @@ public:
                                     m2::PointD const & finalPoint, Route & route) = 0;
 };
 
-typedef function<void(m2::PointD const &)> RoutingVisualizerFn;
+typedef function<void(m2::PointD const &)> TRoutingVisualizerFn;
 
 }  // namespace routing

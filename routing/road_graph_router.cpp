@@ -26,14 +26,34 @@ namespace
 // an obstacle.  Using only the closest feature minimizes (but not
 // eliminates) this risk.
 size_t const MAX_ROAD_CANDIDATES = 1;
+
 double const kMwmCrossingNodeEqualityRadiusMeters = 100.0;
-} // namespace
+
+IRouter::ResultCode Convert(IRoutingAlgorithm::Result value)
+{
+  switch (value)
+  {
+  case IRoutingAlgorithm::Result::OK: return IRouter::ResultCode::NoError;
+  case IRoutingAlgorithm::Result::NoPath: return IRouter::ResultCode::RouteNotFound;
+  case IRoutingAlgorithm::Result::Cancelled: return IRouter::ResultCode::Cancelled;
+  }
+  ASSERT(false, ("Unexpected IRoutingAlgorithm::Result value:", value));
+  return IRouter::ResultCode::RouteNotFound;
+}
+}  // namespace
 
 RoadGraphRouter::~RoadGraphRouter() {}
 
-RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel,
-                                 TMwmFileByPointFn const & fn)
-    : m_vehicleModel(move(vehicleModel)), m_pIndex(pIndex), m_countryFileFn(fn)
+RoadGraphRouter::RoadGraphRouter(string const & name,
+                                 Index const & index,
+                                 unique_ptr<IVehicleModel> && vehicleModel,
+                                 unique_ptr<IRoutingAlgorithm> && algorithm,
+                                 TMwmFileByPointFn const & countryFileFn)
+    : m_name(name)
+    , m_index(index)
+    , m_vehicleModel(move(vehicleModel))
+    , m_algorithm(move(algorithm))
+    , m_countryFileFn(countryFileFn)
 {
 }
 
@@ -47,7 +67,7 @@ void RoadGraphRouter::GetClosestEdges(m2::PointD const & pt, vector<pair<Edge, m
       finder.AddInformationSource(ft.GetID().m_offset);
   };
 
-  m_pIndex->ForEachInRect(
+  m_index.ForEachInRect(
       f, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, kMwmCrossingNodeEqualityRadiusMeters),
       FeaturesRoadGraph::GetStreetReadScale());
 
@@ -72,13 +92,13 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   if (m_countryFileFn(startPoint) != mwmName)
     return PointsInDifferentMWM;
 
-  MwmSet::MwmLock const mwmLock = const_cast<Index &>(*m_pIndex).GetMwmLockByFileName(mwmName);
+  MwmSet::MwmLock const mwmLock = const_cast<Index&>(m_index).GetMwmLockByFileName(mwmName);
   if (!mwmLock.IsLocked())
     return RouteFileNotExist;
   
   MwmSet::MwmId const mwmID = mwmLock.GetId();
   if (!IsMyMWM(mwmID))
-    m_roadGraph.reset(new FeaturesRoadGraph(m_vehicleModel.get(), m_pIndex, mwmID));
+    m_roadGraph.reset(new FeaturesRoadGraph(*m_vehicleModel.get(), m_index, mwmID));
   
   vector<pair<Edge, m2::PointD>> finalVicinity;
   GetClosestEdges(finalPoint, finalVicinity);
@@ -100,19 +120,38 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   m_roadGraph->AddFakeEdges(finalPos, finalVicinity);
 
   vector<Junction> routePos;
-  ResultCode const resultCode = CalculateRoute(startPos, finalPos, routePos);
+  IRoutingAlgorithm::Result const resultCode = m_algorithm->CalculateRoute(*m_roadGraph, startPos, finalPos, routePos);
 
   m_roadGraph->ResetFakes();
 
-  if (IRouter::NoError == resultCode)
+  if (resultCode == IRoutingAlgorithm::Result::OK)
   {
-    ASSERT(routePos.back() == finalPos, ());
-    ASSERT(routePos.front() == startPos, ());
-
+    ASSERT_EQUAL(routePos.front(), startPos, ());
+    ASSERT_EQUAL(routePos.back(), finalPos, ());
     m_roadGraph->ReconstructPath(routePos, route);
   }
 
-  return resultCode;
+  return Convert(resultCode);
+}
+
+unique_ptr<IRouter> CreatePedestrianAStarRouter(Index const & index,
+                                                TMwmFileByPointFn const & countryFileFn,
+                                                TRoutingVisualizerFn const & visualizerFn)
+{
+  unique_ptr<IVehicleModel> vehicleModel(new PedestrianModel());
+  unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm(visualizerFn));
+  unique_ptr<IRouter> router(new RoadGraphRouter("astar-pedestrian", index, move(vehicleModel), move(algorithm), countryFileFn));
+  return router;
+}
+
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index const & index,
+                                                             TMwmFileByPointFn const & countryFileFn,
+                                                             TRoutingVisualizerFn const & visualizerFn)
+{
+  unique_ptr<IVehicleModel> vehicleModel(new PedestrianModel());
+  unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm(visualizerFn));
+  unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-pedestrian", index, move(vehicleModel), move(algorithm), countryFileFn));
+  return router;
 }
 
 }  // namespace routing

@@ -18,23 +18,8 @@ namespace routing
 
 namespace
 {
+
 double constexpr KMPH2MPS = 1000.0 / (60 * 60);
-
-inline double CalcDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
-{
-  return MercatorBounds::DistanceOnEarth(p1, p2);
-}
-
-inline double TimeBetweenSec(m2::PointD const & p1, m2::PointD const & p2, double speedMPS)
-{
-  ASSERT(speedMPS > 0.0, ());
-  return CalcDistanceMeters(p1, p2) / speedMPS;
-}
-
-inline double TimeBetweenSec(Junction const & j1, Junction const & j2, double speedMPS)
-{
-  return TimeBetweenSec(j1.GetPoint(), j2.GetPoint(), speedMPS);
-}
 
 inline bool PointsAlmostEqualAbs(const m2::PointD & pt1, const m2::PointD & pt2)
 {
@@ -214,7 +199,7 @@ void IRoadGraph::CrossEdgesLoader::operator()(uint32_t featureId, RoadInfo const
 
 // IRoadGraph ------------------------------------------------------------------
 
-void IRoadGraph::ReconstructPath(TJunctionVector const & positions, Route & route)
+void IRoadGraph::ReconstructPath(TJunctionVector const & positions, Route & route) const
 {
   CHECK(!positions.empty(), ("Can't reconstruct path from an empty list of positions."));
 
@@ -239,7 +224,7 @@ void IRoadGraph::ReconstructPath(TJunctionVector const & positions, Route & rout
 
     path.push_back(curPoint);
 
-    double const lengthM = CalcDistanceMeters(prevPoint, curPoint);
+    double const lengthM = MercatorBounds::DistanceOnEarth(prevPoint, curPoint);
     trackTimeSec += lengthM / speedMPS;
     prevPoint = curPoint;
   }
@@ -265,7 +250,7 @@ void IRoadGraph::ReconstructPath(TJunctionVector const & positions, Route & rout
   route.SetSectionTimes(times);
 }
 
-void IRoadGraph::GetOutgoingEdges(Junction const & junction, TEdgeVector & edges)
+void IRoadGraph::GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
   auto const itr = m_outgoingEdges.find(junction);
   if (itr != m_outgoingEdges.end())
@@ -279,7 +264,7 @@ void IRoadGraph::GetOutgoingEdges(Junction const & junction, TEdgeVector & edges
   }
 }
 
-void IRoadGraph::GetIngoingEdges(Junction const & junction, TEdgeVector & edges)
+void IRoadGraph::GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
   size_t const wasSize = edges.size();
 
@@ -290,7 +275,7 @@ void IRoadGraph::GetIngoingEdges(Junction const & junction, TEdgeVector & edges)
     edges[i] = edges[i].GetReverseEdge();
 }
 
-void IRoadGraph::GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges)
+void IRoadGraph::GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
   m2::PointD const cross = junction.GetPoint();
   CrossEdgesLoader loader(cross, edges);
@@ -450,62 +435,11 @@ bool IRoadGraph::HasBeenSplitToFakes(Edge const & edge, vector<Edge> & fakeEdges
   return true;
 }
 
-// RoadGraph -------------------------------------------------------------------
-
-RoadGraph::RoadGraph(IRoadGraph & roadGraph) : m_roadGraph(roadGraph) {}
-
-double RoadGraph::GetSpeedMPS(Edge const & e) const
+double IRoadGraph::GetSpeedKMPH(Edge const & edge) const
 {
-  double const speedKMPH = (e.IsFake() ? m_roadGraph.GetMaxSpeedKMPH() : m_roadGraph.GetSpeedKMPH(e.GetFeatureId()));
-  ASSERT(speedKMPH <= m_roadGraph.GetMaxSpeedKMPH(), ());
-
-  return speedKMPH * KMPH2MPS;
-}
-
-void RoadGraph::GetOutgoingEdgesListImpl(Junction const & v, vector<WeightedEdge> & adj) const
-{
-  IRoadGraph::TEdgeVector edges;
-  m_roadGraph.GetOutgoingEdges(v, edges);
-
-  adj.clear();
-  adj.reserve(edges.size());
-
-  for (auto const & e : edges)
-  {
-    double const speedMPS = GetSpeedMPS(e);
-    if (speedMPS <= 0.0)
-      continue;
-
-    ASSERT_EQUAL(v, e.GetStartJunction(), ());
-
-    adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
-  }
-}
-
-void RoadGraph::GetIngoingEdgesListImpl(Junction const & v, vector<WeightedEdge> & adj) const
-{
-  IRoadGraph::TEdgeVector edges;
-  m_roadGraph.GetIngoingEdges(v, edges);
-
-  adj.clear();
-  adj.reserve(edges.size());
-
-  for (auto const & e : edges)
-  {
-    double const speedMPS = GetSpeedMPS(e);
-    if (speedMPS <= 0.0)
-      continue;
-
-    ASSERT_EQUAL(v, e.GetEndJunction(), ());
-
-    adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
-  }
-}
-
-double RoadGraph::HeuristicCostEstimateImpl(Junction const & v, Junction const & w) const
-{
-  double const speedMPS = m_roadGraph.GetMaxSpeedKMPH() * KMPH2MPS;
-  return TimeBetweenSec(v, w, speedMPS);
+  double const speedKMPH = (edge.IsFake() ? GetMaxSpeedKMPH() : GetSpeedKMPH(edge.GetFeatureId()));
+  ASSERT(speedKMPH <= GetMaxSpeedKMPH(), ());
+  return speedKMPH;
 }
 
 }  // namespace routing

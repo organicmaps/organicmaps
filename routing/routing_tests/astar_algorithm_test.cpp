@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
-#include "routing/base/graph.hpp"
 #include "std/map.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -22,19 +21,19 @@ struct Edge
   double w;
 };
 
-class UndirectedGraph : public Graph<unsigned, Edge, UndirectedGraph>
+class UndirectedGraph
 {
 public:
+  using TVertexType = unsigned;
+  using TEdgeType = Edge;
+
   void AddEdge(unsigned u, unsigned v, unsigned w)
   {
     m_adjs[u].push_back(Edge(v, w));
     m_adjs[v].push_back(Edge(u, w));
   }
 
-private:
-  friend class Graph<unsigned, Edge, UndirectedGraph>;
-
-  void GetAdjacencyListImpl(unsigned v, vector<Edge> & adj) const
+  void GetAdjacencyList(unsigned v, vector<Edge> & adj) const
   {
     adj.clear();
     auto const it = m_adjs.find(v);
@@ -42,18 +41,19 @@ private:
       adj = it->second;
   }
 
-  void GetIngoingEdgesListImpl(unsigned v, vector<Edge> & adj) const
+  void GetIngoingEdgesList(unsigned v, vector<Edge> & adj) const
   {
-    GetAdjacencyListImpl(v, adj);
+    GetAdjacencyList(v, adj);
   }
 
-  void GetOutgoingEdgesListImpl(unsigned v, vector<Edge> & adj) const
+  void GetOutgoingEdgesList(unsigned v, vector<Edge> & adj) const
   {
-    GetAdjacencyListImpl(v, adj);
+    GetAdjacencyList(v, adj);
   }
 
-  double HeuristicCostEstimateImpl(unsigned v, unsigned w) const { return 0; }
+  double HeuristicCostEstimate(unsigned v, unsigned w) const { return 0; }
 
+private:
   map<unsigned, vector<Edge>> m_adjs;
 };
 
@@ -62,13 +62,13 @@ void TestAStar(UndirectedGraph const & graph, vector<unsigned> const & expectedR
   using TAlgorithm = AStarAlgorithm<UndirectedGraph>;
 
   TAlgorithm algo;
-  algo.SetGraph(graph);
+
   vector<unsigned> actualRoute;
-  TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPath(0u, 4u, actualRoute), ());
+  TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPath(graph, 0u, 4u, actualRoute), ());
   TEST_EQUAL(expectedRoute, actualRoute, ());
 
   actualRoute.clear();
-  TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPathBidirectional(0u, 4u, actualRoute), ());
+  TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPathBidirectional(graph, 0u, 4u, actualRoute), ());
   TEST_EQUAL(expectedRoute, actualRoute, ());
 }
 

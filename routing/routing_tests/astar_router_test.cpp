@@ -2,7 +2,7 @@
 
 #include "routing/routing_tests/road_graph_builder.hpp"
 
-#include "routing/astar_router.hpp"
+#include "routing/routing_algorithm.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/route.hpp"
 
@@ -17,26 +17,22 @@ using namespace routing_test;
 namespace
 {
 
+using TRoutingAlgorithm = AStarBidirectionalRoutingAlgorithm;
+
 void TestAStarRouterMock(Junction const & startPos, Junction const & finalPos,
                          m2::PolylineD const & expected)
 {
   classificator::Load();
 
-  AStarRouter router([](m2::PointD const & /*point*/)
-                     {
-                       return "Dummy_map.mwm";
-                     });
-  {
-    unique_ptr<RoadGraphMockSource> graph(new RoadGraphMockSource());
-    InitRoadGraphMockSourceWithTest2(*graph);
-    router.SetRoadGraph(move(graph));
-  }
+  RoadGraphMockSource graph;
+  InitRoadGraphMockSourceWithTest2(graph);
 
-  vector<Junction> result;
-  TEST_EQUAL(IRouter::NoError, router.CalculateRoute(startPos, finalPos, result), ());
+  vector<Junction> path;
+  TRoutingAlgorithm algorithm;
+  TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
 
-  Route route(router.GetName());
-  router.GetGraph()->ReconstructPath(result, route);
+  Route route("");
+  graph.ReconstructPath(path, route);
   TEST_EQUAL(expected, route.GetPoly(), ());
 }
 
@@ -80,33 +76,25 @@ UNIT_TEST(AStarRouter_SimpleGraph_RouteIsFound)
 {
   classificator::Load();
 
-  AStarRouter router([](m2::PointD const & /*point*/)
-                     {
-                       return "Dummy_map.mwm";
-                     });
-  {
-    unique_ptr<RoadGraphMockSource> graph(new RoadGraphMockSource());
+  RoadGraphMockSource graph;
+  AddRoad(graph, {m2::PointD(0, 0), m2::PointD(40, 0)}); // feature 0
+  AddRoad(graph, {m2::PointD(40, 0), m2::PointD(40, 30)}); // feature 1
+  AddRoad(graph, {m2::PointD(40, 30), m2::PointD(40, 100)}); // feature 2
+  AddRoad(graph, {m2::PointD(40, 100), m2::PointD(0, 60)}); // feature 3
+  AddRoad(graph, {m2::PointD(0, 60), m2::PointD(0, 30)}); // feature 4
+  AddRoad(graph, {m2::PointD(0, 30), m2::PointD(0, 0)}); // feature 5
 
-    AddRoad(*graph, {m2::PointD(0, 0), m2::PointD(40, 0)}); // feature 0
-    AddRoad(*graph, {m2::PointD(40, 0), m2::PointD(40, 30)}); // feature 1
-    AddRoad(*graph, {m2::PointD(40, 30), m2::PointD(40, 100)}); // feature 2
-    AddRoad(*graph, {m2::PointD(40, 100), m2::PointD(0, 60)}); // feature 3
-    AddRoad(*graph, {m2::PointD(0, 60), m2::PointD(0, 30)}); // feature 4
-    AddRoad(*graph, {m2::PointD(0, 30), m2::PointD(0, 0)}); // feature 5
-
-    router.SetRoadGraph(move(graph));
-  }
-
-  Junction const start = m2::PointD(0, 0);
-  Junction const finish = m2::PointD(40, 100);
+  Junction const startPos = m2::PointD(0, 0);
+  Junction const finalPos = m2::PointD(40, 100);
 
   m2::PolylineD const expected = {m2::PointD(0, 0), m2::PointD(0, 30), m2::PointD(0, 60), m2::PointD(40, 100)};
 
-  vector<Junction> result;
-  TEST_EQUAL(IRouter::NoError, router.CalculateRoute(start, finish, result), ());
+  vector<Junction> path;
+  TRoutingAlgorithm algorithm;
+  TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
 
-  Route route(router.GetName());
-  router.GetGraph()->ReconstructPath(result, route);
+  Route route("");
+  graph.ReconstructPath(path, route);
   TEST_EQUAL(expected, route.GetPoly(), ());
 }
 
@@ -114,9 +102,9 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
 {
   classificator::Load();
 
-  unique_ptr<RoadGraphMockSource> graph(new RoadGraphMockSource());
+  RoadGraphMockSource graph;
 
-  double const speedKMPH = graph->GetMaxSpeedKMPH();
+  double const speedKMPH = graph.GetMaxSpeedKMPH();
 
   // Roads in the first connected component.
   vector<IRoadGraph::RoadInfo> const roadInfo_1 =
@@ -139,16 +127,12 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
   vector<uint32_t> const featureId_2 = { 4, 5, 6, 7 }; // featureIDs in the second connected component
 
   for (auto const & ri : roadInfo_1)
-    graph->AddRoad(IRoadGraph::RoadInfo(ri));
+    graph.AddRoad(IRoadGraph::RoadInfo(ri));
 
   for (auto const & ri : roadInfo_2)
-    graph->AddRoad(IRoadGraph::RoadInfo(ri));
+    graph.AddRoad(IRoadGraph::RoadInfo(ri));
 
-  AStarRouter router([](m2::PointD const & /*point*/)
-                     {
-                       return "Dummy_map.mwm";
-                     });
-  router.SetRoadGraph(move(graph));
+  TRoutingAlgorithm algorithm;
 
   // In this test we check that there is no any route between pairs from different connected components,
   // but there are routes between points in one connected component.
@@ -156,39 +140,39 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
   // Check if there is no any route between points in different connected components.
   for (size_t i = 0; i < roadInfo_1.size(); ++i)
   {
-    Junction const start(roadInfo_1[i].m_points[0]);
+    Junction const startPos(roadInfo_1[i].m_points[0]);
     for (size_t j = 0; j < roadInfo_2.size(); ++j)
     {
-      Junction const finish(roadInfo_2[j].m_points[0]);
-      vector<Junction> route;
-      TEST_EQUAL(IRouter::RouteNotFound, router.CalculateRoute(start, finish, route), ());
-      TEST_EQUAL(IRouter::RouteNotFound, router.CalculateRoute(finish, start, route), ());
+      Junction const finalPos(roadInfo_2[j].m_points[0]);
+      vector<Junction> path;
+      TEST_EQUAL(TRoutingAlgorithm::Result::NoPath, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
+      TEST_EQUAL(TRoutingAlgorithm::Result::NoPath, algorithm.CalculateRoute(graph, finalPos, startPos, path), ());
     }
   }
 
   // Check if there is route between points in the first connected component.
   for (size_t i = 0; i < roadInfo_1.size(); ++i)
   {
-    Junction const start(roadInfo_1[i].m_points[0]);
+    Junction const startPos(roadInfo_1[i].m_points[0]);
     for (size_t j = i + 1; j < roadInfo_1.size(); ++j)
     {
-      Junction const finish(roadInfo_1[j].m_points[0]);
-      vector<Junction> route;
-      TEST_EQUAL(IRouter::NoError, router.CalculateRoute(start, finish, route), ());
-      TEST_EQUAL(IRouter::NoError, router.CalculateRoute(finish, start, route), ());
+      Junction const finalPos(roadInfo_1[j].m_points[0]);
+      vector<Junction> path;
+      TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
+      TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, finalPos, startPos, path), ());
     }
   }
 
   // Check if there is route between points in the second connected component.
   for (size_t i = 0; i < roadInfo_2.size(); ++i)
   {
-    Junction const start(roadInfo_2[i].m_points[0]);
+    Junction const startPos(roadInfo_2[i].m_points[0]);
     for (size_t j = i + 1; j < roadInfo_2.size(); ++j)
     {
-      Junction const finish(roadInfo_2[j].m_points[0]);
-      vector<Junction> route;
-      TEST_EQUAL(IRouter::NoError, router.CalculateRoute(start, finish, route), ());
-      TEST_EQUAL(IRouter::NoError, router.CalculateRoute(finish, start, route), ());
+      Junction const finalPos(roadInfo_2[j].m_points[0]);
+      vector<Junction> path;
+      TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
+      TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, finalPos, startPos, path), ());
     }
   }
 }
@@ -197,89 +181,69 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad1)
 {
   classificator::Load();
 
-  AStarRouter router([](m2::PointD const & /*point*/)
-                     {
-                       return "Dummy_map.mwm";
-                     });
-  {
-    unique_ptr<RoadGraphMockSource> graph(new RoadGraphMockSource());
+  RoadGraphMockSource graph;
 
-    AddRoad(*graph, 5.0, {m2::PointD(2,1), m2::PointD(2,2), m2::PointD(2,3)});
-    AddRoad(*graph, 5.0, {m2::PointD(10,1), m2::PointD(10,2), m2::PointD(10,3)});
+  AddRoad(graph, 5.0, {m2::PointD(2,1), m2::PointD(2,2), m2::PointD(2,3)});
+  AddRoad(graph, 5.0, {m2::PointD(10,1), m2::PointD(10,2), m2::PointD(10,3)});
 
-    AddRoad(*graph, 5.0, {m2::PointD(2,3), m2::PointD(4,3), m2::PointD(6,3), m2::PointD(8,3), m2::PointD(10,3)});
-    AddRoad(*graph, 3.0, {m2::PointD(2,2), m2::PointD(6,2), m2::PointD(10,2)});
-    AddRoad(*graph, 4.0, {m2::PointD(2,1), m2::PointD(10,1)});
+  AddRoad(graph, 5.0, {m2::PointD(2,3), m2::PointD(4,3), m2::PointD(6,3), m2::PointD(8,3), m2::PointD(10,3)});
+  AddRoad(graph, 3.0, {m2::PointD(2,2), m2::PointD(6,2), m2::PointD(10,2)});
+  AddRoad(graph, 4.0, {m2::PointD(2,1), m2::PointD(10,1)});
 
-    router.SetRoadGraph(move(graph));
-  }
 
   // path1 = 1/5 + 8/5 + 1/5 = 2
   // path2 = 8/3 = 2.666(6)
   // path3 = 1/5 + 8/4 + 1/5 = 2.4
 
-  vector<Junction> route;
-  TEST_EQUAL(IRouter::NoError, router.CalculateRoute(m2::PointD(2,2), m2::PointD(10,2), route), ());
-  TEST_EQUAL(route, vector<Junction>({m2::PointD(2,2), m2::PointD(2,3), m2::PointD(4,3), m2::PointD(6,3),
-                                      m2::PointD(8,3), m2::PointD(10,3), m2::PointD(10,2)}), ());
+  vector<Junction> path;
+  TRoutingAlgorithm algorithm;
+  TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, m2::PointD(2,2), m2::PointD(10,2), path), ());
+  TEST_EQUAL(path, vector<Junction>({m2::PointD(2,2), m2::PointD(2,3), m2::PointD(4,3), m2::PointD(6,3),
+                                     m2::PointD(8,3), m2::PointD(10,3), m2::PointD(10,2)}), ());
 }
 
 UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad2)
 {
   classificator::Load();
 
-  AStarRouter router([](m2::PointD const & /*point*/)
-                     {
-                       return "Dummy_map.mwm";
-                     });
-  {
-    unique_ptr<RoadGraphMockSource> graph(new RoadGraphMockSource());
+  RoadGraphMockSource graph;
 
-    AddRoad(*graph, 5.0, {m2::PointD(2,1), m2::PointD(2,2), m2::PointD(2,3)});
-    AddRoad(*graph, 5.0, {m2::PointD(10,1), m2::PointD(10,2), m2::PointD(10,3)});
+  AddRoad(graph, 5.0, {m2::PointD(2,1), m2::PointD(2,2), m2::PointD(2,3)});
+  AddRoad(graph, 5.0, {m2::PointD(10,1), m2::PointD(10,2), m2::PointD(10,3)});
 
-    AddRoad(*graph, 5.0, {m2::PointD(2,3), m2::PointD(4,3), m2::PointD(6,3), m2::PointD(8,3), m2::PointD(10,3)});
-    AddRoad(*graph, 4.1, {m2::PointD(2,2), m2::PointD(6,2), m2::PointD(10,2)});
-    AddRoad(*graph, 4.4, {m2::PointD(2,1), m2::PointD(10,1)});
-
-    router.SetRoadGraph(move(graph));
-  }
+  AddRoad(graph, 5.0, {m2::PointD(2,3), m2::PointD(4,3), m2::PointD(6,3), m2::PointD(8,3), m2::PointD(10,3)});
+  AddRoad(graph, 4.1, {m2::PointD(2,2), m2::PointD(6,2), m2::PointD(10,2)});
+  AddRoad(graph, 4.4, {m2::PointD(2,1), m2::PointD(10,1)});
 
   // path1 = 1/5 + 8/5 + 1/5 = 2
   // path2 = 8/4.1 = 1.95
   // path3 = 1/5 + 8/4.4 + 1/5 = 2.2
 
-  vector<Junction> route;
-  TEST_EQUAL(IRouter::NoError, router.CalculateRoute(m2::PointD(2,2), m2::PointD(10,2), route), ());
-  TEST_EQUAL(route, vector<Junction>({m2::PointD(2,2), m2::PointD(6,2), m2::PointD(10,2)}), ());
+  vector<Junction> path;
+  TRoutingAlgorithm algorithm;
+  TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, m2::PointD(2,2), m2::PointD(10,2), path), ());
+  TEST_EQUAL(path, vector<Junction>({m2::PointD(2,2), m2::PointD(6,2), m2::PointD(10,2)}), ());
 }
 
 UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
 {
   classificator::Load();
 
-  AStarRouter router([](m2::PointD const & /*point*/)
-                     {
-                       return "Dummy_map.mwm";
-                     });
-  {
-    unique_ptr<RoadGraphMockSource> graph(new RoadGraphMockSource());
+  RoadGraphMockSource graph;
 
-    AddRoad(*graph, 5.0, {m2::PointD(2,1), m2::PointD(2,2), m2::PointD(2,3)});
-    AddRoad(*graph, 5.0, {m2::PointD(10,1), m2::PointD(10,2), m2::PointD(10,3)});
+  AddRoad(graph, 5.0, {m2::PointD(2,1), m2::PointD(2,2), m2::PointD(2,3)});
+  AddRoad(graph, 5.0, {m2::PointD(10,1), m2::PointD(10,2), m2::PointD(10,3)});
 
-    AddRoad(*graph, 4.8, {m2::PointD(2,3), m2::PointD(4,3), m2::PointD(6,3), m2::PointD(8,3), m2::PointD(10,3)});
-    AddRoad(*graph, 3.9, {m2::PointD(2,2), m2::PointD(6,2), m2::PointD(10,2)});
-    AddRoad(*graph, 4.9, {m2::PointD(2,1), m2::PointD(10,1)});
-
-    router.SetRoadGraph(move(graph));
-  }
+  AddRoad(graph, 4.8, {m2::PointD(2,3), m2::PointD(4,3), m2::PointD(6,3), m2::PointD(8,3), m2::PointD(10,3)});
+  AddRoad(graph, 3.9, {m2::PointD(2,2), m2::PointD(6,2), m2::PointD(10,2)});
+  AddRoad(graph, 4.9, {m2::PointD(2,1), m2::PointD(10,1)});
 
   // path1 = 1/5 + 8/4.8 + 1/5 = 2.04
   // path2 = 8/3.9 = 2.05
   // path3 = 1/5 + 8/4.9 + 1/5 = 2.03
 
-  vector<Junction> route;
-  TEST_EQUAL(IRouter::NoError, router.CalculateRoute(m2::PointD(2,2), m2::PointD(10,2), route), ());
-  TEST_EQUAL(route, vector<Junction>({m2::PointD(2,2), m2::PointD(2,1), m2::PointD(10,1), m2::PointD(10,2)}), ());
+  vector<Junction> path;
+  TRoutingAlgorithm algorithm;
+  TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, m2::PointD(2,2), m2::PointD(10,2), path), ());
+  TEST_EQUAL(path, vector<Junction>({m2::PointD(2,2), m2::PointD(2,1), m2::PointD(10,1), m2::PointD(10,2)}), ());
 }

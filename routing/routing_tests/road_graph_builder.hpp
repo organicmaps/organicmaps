@@ -13,11 +13,11 @@ public:
   inline size_t GetRoadCount() const { return m_roads.size(); }
 
   // routing::IRoadGraph overrides:
-  RoadInfo GetRoadInfo(uint32_t featureId) override;
-  double GetSpeedKMPH(uint32_t featureId) override;
-  double GetMaxSpeedKMPH() override;
+  RoadInfo GetRoadInfo(uint32_t featureId) const override;
+  double GetSpeedKMPH(uint32_t featureId) const override;
+  double GetMaxSpeedKMPH() const override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
-                                    CrossEdgesLoader & edgeLoader) override;
+                                    CrossEdgesLoader & edgeLoader) const override;
 
 private:
   vector<RoadInfo> m_roads;

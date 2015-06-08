@@ -2,8 +2,6 @@
 
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
-#include "base/logging.hpp"
-#include "routing/base/graph.hpp"
 #include "std/algorithm.hpp"
 #include "std/functional.hpp"
 #include "std/iostream.hpp"
@@ -15,17 +13,12 @@ namespace routing
 {
 
 template <typename TGraph>
-class AStarAlgorithm : public my::Cancellable
+class AStarAlgorithm
 {
 public:
   using TGraphType = TGraph;
   using TVertexType = typename TGraphType::TVertexType;
   using TEdgeType = typename TGraphType::TEdgeType;
-
-  static uint32_t const kCancelledPollPeriod;
-  static uint32_t const kQueueSwitchPeriod;
-  static uint32_t const kVisitedVerticesPeriod;
-  static double const kEpsilon;
 
   enum class Result
   {
@@ -51,21 +44,33 @@ public:
     return os;
   }
 
-  AStarAlgorithm() : m_graph(nullptr) {}
+  using TOnVisitedVertexCallback = std::function<void(TVertexType const &)>;
 
-  using OnVisitedVertexCallback = std::function<void(TVertexType const&)>;
-
-  Result FindPath(TVertexType const & startVertex, TVertexType const & finalVertex,
+  Result FindPath(TGraphType const & graph,
+                  TVertexType const & startVertex, TVertexType const & finalVertex,
                   vector<TVertexType> & path,
-                  OnVisitedVertexCallback onVisitedVertexCallback = nullptr) const;
+                  my::Cancellable const & cancellable = my::Cancellable(),
+                  TOnVisitedVertexCallback onVisitedVertexCallback = nullptr) const;
 
-  Result FindPathBidirectional(TVertexType const & startVertex, TVertexType const & finalVertex,
+  Result FindPathBidirectional(TGraphType const & graph,
+                               TVertexType const & startVertex, TVertexType const & finalVertex,
                                vector<TVertexType> & path,
-                               OnVisitedVertexCallback onVisitedVertexCallback = nullptr) const;
-
-  void SetGraph(TGraph const & graph) { m_graph = &graph; }
+                               my::Cancellable const & cancellable = my::Cancellable(),
+                               TOnVisitedVertexCallback onVisitedVertexCallback = nullptr) const;
 
 private:
+  // Periodicy of checking is cancellable cancelled.
+  static uint32_t constexpr kCancelledPollPeriod = 128;
+
+  // Periodicy of switching a wave of bidirectional algorithm.
+  static uint32_t constexpr kQueueSwitchPeriod = 128;
+
+  // Periodicy of calling callback about visited vertice.
+  static uint32_t constexpr kVisitedVerticesPeriod = 4;
+
+  // Precision of comparison weights.
+  static double constexpr kEpsilon = 1e-6;
+
   // State is what is going to be put in the priority queue. See the
   // comment for FindPath for more information.
   struct State
@@ -147,25 +152,7 @@ private:
                                            map<TVertexType, TVertexType> const & parentV,
                                            map<TVertexType, TVertexType> const & parentW,
                                            vector<TVertexType> & path);
-
-  TGraphType const * m_graph;
 };
-
-// static
-template <typename TGraph>
-uint32_t const AStarAlgorithm<TGraph>::kCancelledPollPeriod = 128;
-
-// static
-template <typename TGraph>
-uint32_t const AStarAlgorithm<TGraph>::kQueueSwitchPeriod = 128;
-
-// static
-template <typename TGraph>
-uint32_t const AStarAlgorithm<TGraph>::kVisitedVerticesPeriod = 4;
-
-// static
-template <typename TGraph>
-double const AStarAlgorithm<TGraph>::kEpsilon = 1e-6;
 
 // This implementation is based on the view that the A* algorithm
 // is equivalent to Dijkstra's algorithm that is run on a reweighted
@@ -176,17 +163,15 @@ double const AStarAlgorithm<TGraph>::kEpsilon = 1e-6;
 // heuristic that people use in A*.
 // Refer to this paper for more information:
 // http://research.microsoft.com/pubs/154937/soda05.pdf
-//
-// The vertices of the graph are of type RoadPos.
-// The edges of the graph are of type PossibleTurn.
+
 template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
+    TGraphType const & graph,
     TVertexType const & startVertex, TVertexType const & finalVertex,
     vector<TVertexType> & path,
-    OnVisitedVertexCallback onVisitedVertexCallback) const
+    my::Cancellable const & cancellable,
+    TOnVisitedVertexCallback onVisitedVertexCallback) const
 {
-  ASSERT(m_graph, ());
-
   if (nullptr == onVisitedVertexCallback)
     onVisitedVertexCallback = [](TVertexType const &){};
 
@@ -204,7 +189,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
   {
     ++steps;
 
-    if (steps % kCancelledPollPeriod == 0 && IsCancelled())
+    if (steps % kCancelledPollPeriod == 0 && cancellable.IsCancelled())
       return Result::Cancelled;
 
     State const stateV = queue.top();
@@ -222,7 +207,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
       return Result::OK;
     }
 
-    m_graph->GetOutgoingEdgesList(stateV.vertex, adj);
+    graph.GetOutgoingEdgesList(stateV.vertex, adj);
     for (auto const & edge : adj)
     {
       State stateW(edge.GetTarget(), 0.0);
@@ -230,8 +215,8 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
         continue;
 
       double const len = edge.GetWeight();
-      double const piV = m_graph->HeuristicCostEstimate(stateV.vertex, finalVertex);
-      double const piW = m_graph->HeuristicCostEstimate(stateW.vertex, finalVertex);
+      double const piV = graph.HeuristicCostEstimate(stateV.vertex, finalVertex);
+      double const piW = graph.HeuristicCostEstimate(stateW.vertex, finalVertex);
       double const reducedLen = len + piW - piV;
 
       CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
@@ -253,17 +238,17 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
 
 template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirectional(
+    TGraphType const & graph,
     TVertexType const & startVertex, TVertexType const & finalVertex,
     vector<TVertexType> & path,
-    OnVisitedVertexCallback onVisitedVertexCallback) const
+    my::Cancellable const & cancellable,
+    TOnVisitedVertexCallback onVisitedVertexCallback) const
 {
-  ASSERT(m_graph, ());
-
   if (nullptr == onVisitedVertexCallback)
     onVisitedVertexCallback = [](TVertexType const &){};
 
-  BidirectionalStepContext forward(true /* forward */, startVertex, finalVertex, *m_graph);
-  BidirectionalStepContext backward(false /* forward */, startVertex, finalVertex, *m_graph);
+  BidirectionalStepContext forward(true /* forward */, startVertex, finalVertex, graph);
+  BidirectionalStepContext backward(false /* forward */, startVertex, finalVertex, graph);
 
   bool foundAnyPath = false;
   double bestPathLength = 0.0;
@@ -291,7 +276,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
   {
     ++steps;
 
-    if (steps % kCancelledPollPeriod == 0 && IsCancelled())
+    if (steps % kCancelledPollPeriod == 0 && cancellable.IsCancelled())
       return Result::Cancelled;
 
     if (steps % kQueueSwitchPeriod == 0)

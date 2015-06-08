@@ -13,7 +13,6 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
                $$ROOT_DIR/3party/osrm/osrm-backend/third_party
 
 SOURCES += \
-    astar_router.cpp \
     async_router.cpp \
     cross_mwm_road_graph.cpp \
     cross_mwm_router.cpp \
@@ -28,16 +27,15 @@ SOURCES += \
     road_graph.cpp \
     road_graph_router.cpp \
     route.cpp \
+    routing_algorithm.cpp \
     routing_mapping.cpp \
     turns.cpp \
     turns_generator.cpp \
     vehicle_model.cpp \
 
 HEADERS += \
-    astar_router.hpp \
     async_router.hpp \
     base/astar_algorithm.hpp \
-    base/graph.hpp \
     cross_mwm_road_graph.hpp \
     cross_mwm_router.hpp \
     cross_routing_context.hpp \
@@ -53,6 +51,7 @@ HEADERS += \
     road_graph_router.hpp \
     route.hpp \
     router.hpp \
+    routing_algorithm.hpp \
     routing_mapping.h \
     turns.hpp \
     turns_generator.hpp \

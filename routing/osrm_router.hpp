@@ -40,7 +40,7 @@ class OsrmRouter : public IRouter
 public:
   typedef vector<double> GeomTurnCandidateT;
 
-  OsrmRouter(Index const * index, TCountryFileFn const & fn, RoutingVisualizerFn routingVisualization = nullptr);
+  OsrmRouter(Index const * index, TCountryFileFn const & fn, TRoutingVisualizerFn routingVisualization = nullptr);
 
   virtual string GetName() const;
 
@@ -140,6 +140,6 @@ private:
   m2::PointD m_CachedTargetPoint;
 
   RoutingIndexManager m_indexManager;
-  RoutingVisualizerFn m_routingVisualization;
+  TRoutingVisualizerFn m_routingVisualization;
 };
 }  // namespace routing

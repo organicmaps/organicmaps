@@ -22,25 +22,25 @@ void RoadGraphMockSource::AddRoad(RoadInfo && ri)
   m_roads.push_back(move(ri));
 }
 
-IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(uint32_t featureId)
+IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(uint32_t featureId) const
 {
   CHECK_LESS(featureId, m_roads.size(), ("Invalid feature id."));
   return m_roads[featureId];
 }
 
-double RoadGraphMockSource::GetSpeedKMPH(uint32_t featureId)
+double RoadGraphMockSource::GetSpeedKMPH(uint32_t featureId) const
 {
   CHECK_LESS(featureId, m_roads.size(), ("Invalid feature id."));
   return m_roads[featureId].m_speedKMPH;
 }
 
-double RoadGraphMockSource::GetMaxSpeedKMPH()
+double RoadGraphMockSource::GetMaxSpeedKMPH() const
 {
   return MAX_SPEED_KMPH;
 }
 
 void RoadGraphMockSource::ForEachFeatureClosestToCross(m2::PointD const & /* cross */,
-                                                       CrossEdgesLoader & edgesLoader)
+                                                       CrossEdgesLoader & edgesLoader) const
 {
   for (size_t roadId = 0; roadId < m_roads.size(); ++roadId)
     edgesLoader(roadId, m_roads[roadId]);

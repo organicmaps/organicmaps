@@ -3,9 +3,9 @@
 #include "indexer/index.hpp"
 #include "indexer/classificator_loader.hpp"
 
-#include "routing/astar_router.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/nearest_edge_finder.hpp"
+#include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/vehicle_model.hpp"
 
@@ -33,10 +33,15 @@ m2::PointD GetPointOnEdge(routing::Edge & e, double posAlong)
   return e.GetStartJunction().GetPoint() + d * posAlong;
 }
 
-void GetNearestEdges(Index & index, routing::IRoadGraph & graph, routing::IVehicleModel const & vehicleModel,
-                     m2::PointD const & pt, vector<pair<routing::Edge, m2::PointD>> & edges)
+void GetNearestPedestrianEdges(Index & index, m2::PointD const & pt, vector<pair<routing::Edge, m2::PointD>> & edges)
 {
-  routing::NearestEdgeFinder finder(pt, graph);
+  MwmSet::MwmId const id = index.GetMwmIdByFileName(MAP_FILE);
+  TEST(id.IsAlive(), ());
+
+  routing::PedestrianModel const vehicleModel;
+  routing::FeaturesRoadGraph roadGraph(vehicleModel, index, id);
+
+  routing::NearestEdgeFinder finder(pt, roadGraph);
 
   auto const f = [&finder, &vehicleModel](FeatureType & ft)
   {
@@ -51,9 +56,9 @@ void GetNearestEdges(Index & index, routing::IRoadGraph & graph, routing::IVehic
   finder.MakeResult(edges, 1 /* maxCount */);
 }
 
-void TestTwoPoints(routing::IRouter & router, m2::PointD const & startPos, m2::PointD const & finalPos)
+void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::PointD const & finalPos, routing::Route & foundRoute)
 {
-  LOG(LINFO, ("Calculating routing..."));
+  LOG(LINFO, ("Calculating routing ...", router.GetName()));
   routing::Route route("");
   my::Timer timer;
   routing::IRouter::ResultCode const resultCode = router.CalculateRoute(startPos, m2::PointD::Zero() /* startDirection */,
@@ -63,6 +68,25 @@ void TestTwoPoints(routing::IRouter & router, m2::PointD const & startPos, m2::P
   LOG(LINFO, ("Route polyline size:", route.GetPoly().GetSize()));
   LOG(LINFO, ("Route distance, meters:", route.GetDistance()));
   LOG(LINFO, ("Elapsed, seconds:", elapsedSec));
+  foundRoute.Swap(route);
+}
+
+void TestRouters(Index const & index, m2::PointD const & startPos, m2::PointD const & finalPos)
+{
+  auto const countryFileFn = [](m2::PointD const & /* point */){ return MAP_FILE; };
+
+  // find route by A*-bidirectional algorithm
+  routing::Route routeFoundByAstarBidirectional("");
+  unique_ptr<routing::IRouter> router = routing::CreatePedestrianAStarBidirectionalRouter(index, countryFileFn, nullptr);
+  TestRouter(*router, startPos, finalPos, routeFoundByAstarBidirectional);
+
+  // find route by A* algorithm
+  routing::Route routeFoundByAstar("");
+  router = routing::CreatePedestrianAStarRouter(index, countryFileFn, nullptr);
+  TestRouter(*router, startPos, finalPos, routeFoundByAstar);
+
+  double constexpr kEpsilon = 1e-6;
+  TEST(my::AlmostEqualAbs(routeFoundByAstar.GetDistance(), routeFoundByAstarBidirectional.GetDistance(), kEpsilon), ());
 }
 
 void TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & finalPos)
@@ -72,25 +96,19 @@ void TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & fina
   Index index;
   UNUSED_VALUE(index.RegisterMap(MAP_FILE));
   TEST(index.IsLoaded(MAP_NAME), ());
-  MwmSet::MwmId const id = index.GetMwmIdByFileName(MAP_FILE);
-  TEST(id.IsAlive(), ());
-
-  routing::PedestrianModel const vehicleModel;
-  routing::FeaturesRoadGraph roadGraph(&vehicleModel, &index, id);
 
   vector<pair<routing::Edge, m2::PointD>> startEdges;
-  GetNearestEdges(index, roadGraph, vehicleModel, startPos, startEdges);
+  GetNearestPedestrianEdges(index, startPos, startEdges);
   TEST(!startEdges.empty(), ());
 
   vector<pair<routing::Edge, m2::PointD>> finalEdges;
-  GetNearestEdges(index, roadGraph, vehicleModel, finalPos, finalEdges);
+  GetNearestPedestrianEdges(index, finalPos, finalEdges);
   TEST(!finalEdges.empty(), ());
 
   m2::PointD const startPosOnFeature = GetPointOnEdge(startEdges.front().first, 0.0 /* the start point of the feature */ );
   m2::PointD const finalPosOnFeature = GetPointOnEdge(finalEdges.front().first, 1.0 /* the end point of the feature */ );
 
-  routing::AStarRouter router([](m2::PointD const & /* point */) { return MAP_FILE; }, &index);
-  TestTwoPoints(router, startPosOnFeature, finalPosOnFeature);
+  TestRouters(index, startPosOnFeature, finalPosOnFeature);
 }
 
 void TestTwoPoints(m2::PointD const & startPos, m2::PointD const & finalPos)
@@ -100,11 +118,11 @@ void TestTwoPoints(m2::PointD const & startPos, m2::PointD const & finalPos)
   Index index;
   UNUSED_VALUE(index.RegisterMap(MAP_FILE));
   TEST(index.IsLoaded(MAP_NAME), ());
+
   MwmSet::MwmId const id = index.GetMwmIdByFileName(MAP_FILE);
   TEST(id.IsAlive(), ());
 
-  routing::AStarRouter router([](m2::PointD const & /* point */) { return MAP_FILE; }, &index);
-  TestTwoPoints(router, startPos, finalPos);
+  TestRouters(index, startPos, finalPos);
 }
 
 }  // namespace
@@ -137,7 +155,7 @@ UNIT_TEST(PedestrianRouting_UK_Long4)
 
 UNIT_TEST(PedestrianRouting_UK_Long5)
 {
-  TestTwoPointsOnFeature(m2::PointD(0.11332, 60.57062),
+  TestTwoPointsOnFeature(m2::PointD(0.11646, 60.57330),
                          m2::PointD(0.05767, 59.93019));
 }
 
@@ -382,3 +400,4 @@ UNIT_TEST(PedestrianRouting_UK_Test31)
   TestTwoPoints(m2::PointD(-2.28078, 63.66735),
                 m2::PointD(-2.25378, 63.62744));
 }
+

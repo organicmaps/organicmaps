@@ -18,9 +18,10 @@
 
 #include "defines.hpp"
 
-#include "routing/astar_router.hpp"
 #include "routing/osrm_router.hpp"
+#include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
+#include "routing/routing_algorithm.hpp"
 
 #include "search/search_engine.hpp"
 #include "search/result.hpp"
@@ -2216,7 +2217,7 @@ void Framework::BuildRoute(m2::PointD const & destination)
 void Framework::SetRouter(RouterType type)
 {
 #ifdef DEBUG
-  RoutingVisualizerFn const routingVisualizerFn = [this](m2::PointD const & pt)
+  TRoutingVisualizerFn const routingVisualizerFn = [this](m2::PointD const & pt)
   {
     GetPlatform().RunOnGuiThread([this,pt]()
     {
@@ -2225,7 +2226,7 @@ void Framework::SetRouter(RouterType type)
     });
   };
 #else
-  RoutingVisualizerFn const routingVisualizerFn = nullptr;
+  TRoutingVisualizerFn const routingVisualizerFn = nullptr;
 #endif
 
   auto const routingStatisticsFn = [](map<string, string> const & statistics)
@@ -2240,7 +2241,7 @@ void Framework::SetRouter(RouterType type)
     {
       return GetSearchEngine()->GetCountryFile(pt) + DATA_FILE_EXTENSION;
     };
-    router.reset(new AStarRouter(countryFileFn, &m_model.GetIndex(), routingVisualizerFn));
+    router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), countryFileFn, routingVisualizerFn);
   }
   else
   {

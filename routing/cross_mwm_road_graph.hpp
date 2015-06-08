@@ -8,7 +8,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include "base/graph.hpp"
 #include "base/macros.hpp"
 
 #include "std/unordered_map.hpp"
@@ -85,30 +84,30 @@ private:
   double weight;
 };
 
-/// A graph used for cross mwm routing.
-class CrossMwmGraph : public Graph<BorderCross, CrossWeightedEdge, CrossMwmGraph>
+/// A graph used for cross mwm routing in an astar algorithms.
+class CrossMwmGraph
 {
 public:
+  using TVertexType = BorderCross;
+  using TEdgeType = CrossWeightedEdge;
+
   explicit CrossMwmGraph(RoutingIndexManager & indexManager) : m_indexManager(indexManager) {}
+
+  void GetOutgoingEdgesList(BorderCross const & v, vector<CrossWeightedEdge> & adj) const;
+  void GetIngoingEdgesList(BorderCross const & /* v */,
+                           vector<CrossWeightedEdge> & /* adj */) const
+  {
+    NOTIMPLEMENTED();
+  }
+
+  double HeuristicCostEstimate(BorderCross const & v, BorderCross const & w) const;
 
   IRouter::ResultCode SetStartNode(CrossNode const & startNode);
   IRouter::ResultCode SetFinalNode(CrossNode const & finalNode);
 
 private:
-  friend class Graph<BorderCross, CrossWeightedEdge, CrossMwmGraph>;
-
   BorderCross FindNextMwmNode(OutgoingCrossNode const & startNode,
                               TRoutingMappingPtr const & currentMapping) const;
-
-  // Graph<BorderCross, CrossWeightedEdge, CrossMwmGraph> implementation:
-  void GetOutgoingEdgesListImpl(BorderCross const & v, vector<CrossWeightedEdge> & adj) const;
-  void GetIngoingEdgesListImpl(BorderCross const & /* v */,
-                               vector<CrossWeightedEdge> & /* adj */) const
-  {
-    NOTIMPLEMENTED();
-  }
-
-  double HeuristicCostEstimateImpl(BorderCross const & v, BorderCross const & w) const;
 
   map<CrossNode, vector<CrossWeightedEdge> > m_virtualEdges;
   mutable RoutingIndexManager m_indexManager;

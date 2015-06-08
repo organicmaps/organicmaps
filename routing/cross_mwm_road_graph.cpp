@@ -133,8 +133,8 @@ BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
   return BorderCross();
 }
 
-void CrossMwmGraph::GetOutgoingEdgesListImpl(BorderCross const & v,
-                                             vector<CrossWeightedEdge> & adj) const
+void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
+                                         vector<CrossWeightedEdge> & adj) const
 {
   // Check for virtual edges.
   adj.clear();
@@ -176,10 +176,10 @@ void CrossMwmGraph::GetOutgoingEdgesListImpl(BorderCross const & v,
   }
 }
 
-double CrossMwmGraph::HeuristicCostEstimateImpl(BorderCross const & v, BorderCross const & w) const
+double CrossMwmGraph::HeuristicCostEstimate(BorderCross const & v, BorderCross const & w) const
 {
   // Simple travel time heuristic works worse than simple Dijkstra's algorithm, represented by
-  // always 0 heyristics estimation.
+  // always 0 heuristics estimation.
   return 0;
 }
 

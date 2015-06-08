@@ -1,7 +1,5 @@
 #pragma once
 
-#include "routing/base/graph.hpp"
-
 #include "geometry/point2d.hpp"
 
 #include "base/string_utils.hpp"
@@ -121,13 +119,13 @@ public:
   virtual ~IRoadGraph() = default;
 
   /// Construct route by road positions (doesn't include first and last section).
-  void ReconstructPath(TJunctionVector const & junctions, Route & route);
+  void ReconstructPath(TJunctionVector const & junctions, Route & route) const;
 
   /// Finds all nearest outgoing edges, that route to the junction.
-  void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges);
+  void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const;
 
   /// Finds all nearest ingoing edges, that route to the junction.
-  void GetIngoingEdges(Junction const & junction, TEdgeVector & edges);
+  void GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const;
 
   /// Removes all fake turns and vertices from the graph.
   void ResetFakes();
@@ -137,61 +135,30 @@ public:
   void AddFakeEdges(Junction const & junction, vector<pair<Edge, m2::PointD>> const & vicinities);
 
   /// Returns RoadInfo for a road corresponding to featureId.
-  virtual RoadInfo GetRoadInfo(uint32_t featureId) = 0;
+  virtual RoadInfo GetRoadInfo(uint32_t featureId) const = 0;
 
   /// Returns speed in KM/H for a road corresponding to featureId.
-  virtual double GetSpeedKMPH(uint32_t featureId) = 0;
+  virtual double GetSpeedKMPH(uint32_t featureId) const = 0;
+
+  /// Returns speed in KM/H for a road corresponding to edge.
+  double GetSpeedKMPH(Edge const & edge) const;
 
   /// Returns max speed in KM/H
-  virtual double GetMaxSpeedKMPH() = 0;
+  virtual double GetMaxSpeedKMPH() const = 0;
 
   /// Calls edgesLoader on each feature which is close to cross.
   virtual void ForEachFeatureClosestToCross(m2::PointD const & cross,
-                                            CrossEdgesLoader & edgesLoader) = 0;
+                                            CrossEdgesLoader & edgesLoader) const = 0;
 
 private:
   /// Finds all outgoing regular (non-fake) edges for junction.
-  void GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges);
+  void GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges) const;
 
   /// Determines if the edge has been split by fake edges and if yes returns these fake edges.
   bool HasBeenSplitToFakes(Edge const & edge, vector<Edge> & fakeEdges) const;
 
   // Map of outgoing edges for junction
   map<Junction, TEdgeVector> m_outgoingEdges;
-};
-
-/// A class which represents an weighted edge used by RoadGraph.
-struct WeightedEdge
-{
-  WeightedEdge(Junction const & target, double weight) : target(target), weight(weight) {}
-
-  inline Junction const & GetTarget() const { return target; }
-
-  inline double GetWeight() const { return weight; }
-
-  Junction const target;
-  double const weight;
-};
-
-/// A wrapper around IGraph, which makes it possible to use IRoadGraph
-/// with routing algorithms.
-class RoadGraph : public Graph<Junction, WeightedEdge, RoadGraph>
-{
-public:
-  RoadGraph(IRoadGraph & roadGraph);
-
-private:
-  friend class Graph<Junction, WeightedEdge, RoadGraph>;
-
-  // Returns speed in M/S for specified edge
-  double GetSpeedMPS(Edge const & edge) const;
-
-  // Graph<Junction, WeightedEdge, RoadGraph> implementation:
-  void GetOutgoingEdgesListImpl(Junction const & v, vector<WeightedEdge> & adj) const;
-  void GetIngoingEdgesListImpl(Junction const & v, vector<WeightedEdge> & adj) const;
-  double HeuristicCostEstimateImpl(Junction const & v, Junction const & w) const;
-
-  IRoadGraph & m_roadGraph;
 };
 
 }  // namespace routing
