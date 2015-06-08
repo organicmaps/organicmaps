@@ -217,4 +217,15 @@ glsl::vec2 GetNormal(LineSegment const & segment, bool isLeft, ENormalType norma
                   segment.m_rightWidthScalar[index].x  * segment.m_rightNormals[index];
 }
 
+float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startPoint,
+                          glsl::vec2 const & endPoint)
+{
+  glsl::vec2 const v1 = endPoint - startPoint;
+  glsl::vec2 const v2 = newPoint - startPoint;
+  float const squareLen = glsl::dot(v1, v1);
+  float const proj = glsl::dot(v1, v2) / squareLen;
+  return sqrt(squareLen) * my::clamp(proj, 0.0f, 1.0f);
+}
+
 } // namespace df
+

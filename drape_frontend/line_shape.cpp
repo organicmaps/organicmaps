@@ -66,16 +66,6 @@ namespace
     float m_maskLength = 0.0f;
     bool m_isSolid = true;
   };
-
-  float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startPoint,
-                            glsl::vec2 const & endPoint)
-  {
-    glsl::vec2 const v1 = endPoint - startPoint;
-    glsl::vec2 const v2 = newPoint - startPoint;
-    float const squareLen = glsl::dot(v1, v1);
-    float const proj = glsl::dot(v1, v2) / squareLen;
-    return sqrt(squareLen) * my::clamp(proj, 0.0f, 1.0f);
-  }
 }
 
 LineShape::LineShape(m2::SharedSpline const & spline,

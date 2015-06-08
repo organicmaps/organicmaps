@@ -150,8 +150,9 @@ dp::BindingInfo LineBindingInit()
 dp::BindingInfo RouteBindingInit()
 {
   STATIC_ASSERT(sizeof(RouteVertex) == sizeof(RouteVertex::TPosition) +
-                                       sizeof(RouteVertex::TNormal));
-  dp::BindingInfo info(2);
+                                       sizeof(RouteVertex::TNormal) +
+                                       sizeof(RouteVertex::TLength));
+  dp::BindingInfo info(3);
 
   dp::BindingDecl & posDecl = info.GetBindingDecl(0);
   posDecl.m_attributeName = "a_position";
@@ -166,6 +167,13 @@ dp::BindingInfo RouteBindingInit()
   normalDecl.m_componentType = gl_const::GLFloatType;
   normalDecl.m_offset = posDecl.m_offset + sizeof(RouteVertex::TPosition);
   normalDecl.m_stride = posDecl.m_stride;
+
+  dp::BindingDecl & lengthDecl = info.GetBindingDecl(2);
+  lengthDecl.m_attributeName = "a_length";
+  lengthDecl.m_componentCount = glsl::GetComponentCount<RouteVertex::TLength>();
+  lengthDecl.m_componentType = gl_const::GLFloatType;
+  lengthDecl.m_offset = normalDecl.m_offset + sizeof(RouteVertex::TNormal);
+  lengthDecl.m_stride = posDecl.m_stride;
 
   return info;
 }
@@ -281,11 +289,13 @@ dp::BindingInfo const & LineVertex::GetBindingInfo()
 RouteVertex::RouteVertex()
   : m_position(0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0)
+  , m_length(0.0, 0.0)
 {}
 
-RouteVertex::RouteVertex(TPosition const & position, TNormal const & normal)
+RouteVertex::RouteVertex(TPosition const & position, TNormal const & normal, TLength const & length)
   : m_position(position)
   , m_normal(normal)
+  , m_length(length)
 {}
 
 dp::BindingInfo const & RouteVertex::GetBindingInfo()

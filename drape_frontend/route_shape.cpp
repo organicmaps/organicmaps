@@ -33,14 +33,15 @@ void RouteShape::Draw(ref_ptr<dp::Batcher> batcher) const
   vector<m2::PointD> const & path = m_polyline.GetPoints();
   ASSERT(path.size() > 1, ());
 
-  auto const generateTriangles = [&](glsl::vec3 const & pivot, vector<glsl::vec2> const & normals)
+  auto const generateTriangles = [&](glsl::vec3 const & pivot, vector<glsl::vec2> const & normals,
+                                     glsl::vec2 const & length)
   {
     size_t const trianglesCount = normals.size() / 3;
     for (int j = 0; j < trianglesCount; j++)
     {
-      joinsGeometry.push_back(RV(pivot, normals[3 * j]));
-      joinsGeometry.push_back(RV(pivot, normals[3 * j + 1]));
-      joinsGeometry.push_back(RV(pivot, normals[3 * j + 2]));
+      joinsGeometry.push_back(RV(pivot, normals[3 * j], length));
+      joinsGeometry.push_back(RV(pivot, normals[3 * j + 1], length));
+      joinsGeometry.push_back(RV(pivot, normals[3 * j + 2], length));
     }
   };
 
@@ -50,6 +51,7 @@ void RouteShape::Draw(ref_ptr<dp::Batcher> batcher) const
   ConstructLineSegments(path, segments);
 
   // build geometry
+  float length = 0;
   for (size_t i = 0; i < segments.size(); i++)
   {
     UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
@@ -59,15 +61,27 @@ void RouteShape::Draw(ref_ptr<dp::Batcher> batcher) const
     glsl::vec3 const startPivot = glsl::vec3(segments[i].m_points[StartPoint], m_params.m_depth);
     glsl::vec3 const endPivot = glsl::vec3(segments[i].m_points[EndPoint], m_params.m_depth);
 
-    geometry.push_back(RV(startPivot, glsl::vec2(0, 0)));
-    geometry.push_back(RV(startPivot, GetNormal(segments[i], true /* isLeft */, StartNormal)));
-    geometry.push_back(RV(endPivot, glsl::vec2(0, 0)));
-    geometry.push_back(RV(endPivot, GetNormal(segments[i], true /* isLeft */, EndNormal)));
+    float const endLength = length + glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
 
-    geometry.push_back(RV(startPivot, GetNormal(segments[i], false /* isLeft */, StartNormal)));
-    geometry.push_back(RV(startPivot, glsl::vec2(0, 0)));
-    geometry.push_back(RV(endPivot, GetNormal(segments[i], false /* isLeft */, EndNormal)));
-    geometry.push_back(RV(endPivot, glsl::vec2(0, 0)));
+    glsl::vec2 const leftNormalStart = GetNormal(segments[i], true /* isLeft */, StartNormal);
+    glsl::vec2 const rightNormalStart = GetNormal(segments[i], false /* isLeft */, StartNormal);
+    glsl::vec2 const leftNormalEnd = GetNormal(segments[i], true /* isLeft */, EndNormal);
+    glsl::vec2 const rightNormalEnd = GetNormal(segments[i], false /* isLeft */, EndNormal);
+
+    float const projLeftStart = -segments[i].m_leftWidthScalar[StartPoint].y;
+    float const projLeftEnd = segments[i].m_leftWidthScalar[EndPoint].y;
+    float const projRightStart = -segments[i].m_rightWidthScalar[StartPoint].y;
+    float const projRightEnd = segments[i].m_rightWidthScalar[EndPoint].y;
+
+    geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec2(length, 0)));
+    geometry.push_back(RV(startPivot, leftNormalStart, glsl::vec2(length, projLeftStart)));
+    geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec2(endLength, 0)));
+    geometry.push_back(RV(endPivot, leftNormalEnd, glsl::vec2(endLength, projLeftEnd)));
+
+    geometry.push_back(RV(startPivot, rightNormalStart, glsl::vec2(length, projRightStart)));
+    geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec2(length, 0)));
+    geometry.push_back(RV(endPivot, rightNormalEnd, glsl::vec2(endLength, projRightEnd)));
+    geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec2(endLength, 0)));
 
     // generate joins
     if (i < segments.size() - 1)
@@ -84,7 +98,7 @@ void RouteShape::Draw(ref_ptr<dp::Batcher> batcher) const
       normals.reserve(24);
       GenerateJoinNormals(dp::RoundJoin, n1, n2, 1.0f, segments[i].m_hasLeftJoin[EndPoint], widthScalar, normals);
 
-      generateTriangles(glsl::vec3(segments[i].m_points[EndPoint], m_params.m_depth), normals);
+      generateTriangles(glsl::vec3(segments[i].m_points[EndPoint], m_params.m_depth), normals, glsl::vec2(endLength, 0));
     }
 
     // generate caps
@@ -96,7 +110,7 @@ void RouteShape::Draw(ref_ptr<dp::Batcher> batcher) const
                          segments[i].m_rightNormals[StartPoint], -segments[i].m_tangent,
                          1.0f, true /* isStart */, normals);
 
-      generateTriangles(glsl::vec3(segments[i].m_points[StartPoint], m_params.m_depth), normals);
+      generateTriangles(glsl::vec3(segments[i].m_points[StartPoint], m_params.m_depth), normals, glsl::vec2(length, 0));
     }
 
     if (i == segments.size() - 1)
@@ -107,8 +121,10 @@ void RouteShape::Draw(ref_ptr<dp::Batcher> batcher) const
                          segments[i].m_rightNormals[EndPoint], segments[i].m_tangent,
                          1.0f, false /* isStart */, normals);
 
-      generateTriangles(glsl::vec3(segments[i].m_points[EndPoint], m_params.m_depth), normals);
+      generateTriangles(glsl::vec3(segments[i].m_points[EndPoint], m_params.m_depth), normals, glsl::vec2(endLength, 0));
     }
+
+    length = endLength;
   }
 
   dp::GLState state(gpu::ROUTE_PROGRAM, dp::GLState::GeometryLayer);

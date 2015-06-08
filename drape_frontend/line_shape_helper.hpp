@@ -54,4 +54,7 @@ void GenerateCapNormals(dp::LineCap capType, glsl::vec2 const & normal1, glsl::v
 
 glsl::vec2 GetNormal(LineSegment const & segment, bool isLeft, ENormalType normalType);
 
+float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startPoint, glsl::vec2 const & endPoint);
+
 } // namespace df
+
