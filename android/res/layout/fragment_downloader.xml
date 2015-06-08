@@ -14,13 +14,12 @@
         android:id="@+id/tv__update_all"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:layout_gravity="right"
         android:gravity="center_vertical"
-        android:paddingRight="@dimen/margin_small"
+        android:padding="@dimen/margin_small"
         android:text="@string/downloader_update_all"
-        android:textAllCaps="true"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"/>
+        android:textAppearance="@style/MwmTextAppearance.Toolbar.Button"/>
   </android.support.v7.widget.Toolbar>
 
   <FrameLayout

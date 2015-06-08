@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
@@ -62,14 +62,13 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
   private void initToolbar(View view)
   {
     Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-    toolbar.inflateMenu(R.menu.menu_edit_description);
-    toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener()
+    final TextView textView = (TextView) toolbar.findViewById(R.id.tv__save);
+    textView.setOnClickListener(new View.OnClickListener()
     {
       @Override
-      public boolean onMenuItemClick(MenuItem item)
+      public void onClick(View v)
       {
         saveDescription();
-        return false;
       }
     });
     UiUtils.showHomeUpButton(toolbar);

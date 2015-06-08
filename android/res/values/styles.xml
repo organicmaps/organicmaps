@@ -232,6 +232,10 @@
     <item name="android:textAllCaps">true</item>
   </style>
 
+  <style name="MwmTextAppearance.Toolbar.Button" parent="MwmTextAppearance.Body1.Light">
+    <item name="android:textAllCaps">true</item>
+  </style>
+
   <!-- Text appearance -->
 
 </resources>

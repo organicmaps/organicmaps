@@ -17,13 +17,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical|right"
-        android:background="?attr/clickableBackground"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         android:gravity="center_vertical"
-        android:paddingRight="@dimen/margin_small"
+        android:padding="@dimen/margin_small"
         android:text="@string/downloader_update_all"
-        android:textAllCaps="true"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"/>
+        android:textAppearance="@style/MwmTextAppearance.Toolbar.Button"/>
   </android.support.v7.widget.Toolbar>
 
   <FrameLayout
