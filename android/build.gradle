@@ -29,7 +29,7 @@ dependencies {
   compile 'com.google.android.gms:play-services-plus:7.3.0'
   // 3-party
   compile 'com.nineoldandroids:library:2.4.0'
-  compile 'com.facebook.android:facebook-android-sdk:4.1.2'
+  compile 'com.facebook.android:facebook-android-sdk:4.2.0'
   compile fileTree(dir: '3rd_party', include: '*.jar')
 }
 

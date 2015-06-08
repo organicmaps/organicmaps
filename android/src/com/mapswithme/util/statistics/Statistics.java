@@ -8,6 +8,7 @@ import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.MathUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
@@ -297,6 +298,8 @@ public enum Statistics
 
       if (doCollectStatistics())
         collectOneTimeStatistics();
+
+      FbUtil.activate(activity);
     }
   }
 
@@ -326,6 +329,8 @@ public enum Statistics
     {
       for (StatisticsEngine engine : mStatisticsEngines)
         engine.onEndActivity(activity);
+
+      FbUtil.deactivate(activity);
     }
   }
 

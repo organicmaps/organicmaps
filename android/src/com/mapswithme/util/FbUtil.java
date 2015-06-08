@@ -2,22 +2,21 @@ package com.mapswithme.util;
 
 import android.content.Context;
 
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
-import com.mapswithme.util.statistics.Statistics;
+import com.facebook.appevents.AppEventsLogger;
 
 
 public class FbUtil
 {
-  public static Logger mLogger = SimpleLogger.get("MWM_FB");
+  private static final String TAG = FbUtil.class.getName();
 
   public static void activate(Context context)
   {
-    if (!Statistics.INSTANCE.isStatisticsEnabled())
-      return;
+    AppEventsLogger.activateApp(context);
+  }
 
-    mLogger.d("ACTIVATING");
-//    AppEventsLogger.activateApp(context, context.getString(R.string.fb_app_id));
+  public static void deactivate(Context context)
+  {
+    AppEventsLogger.deactivateApp(context);
   }
 
   private FbUtil() {}

@@ -510,9 +510,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     setContentView(R.layout.activity_map);
     initViews();
 
-    // Log app start events - successful installation means that user has passed DownloadResourcesActivity
-    MWMApplication.get().onMwmCreate(this);
-
     // Do not turn off the screen while benchmarking
     if (MWMApplication.get().nativeIsBenchmarking())
       getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

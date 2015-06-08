@@ -1,6 +1,5 @@
 package com.mapswithme.maps;
 
-import android.app.Activity;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -13,7 +12,6 @@ import com.mapswithme.country.CountryItem;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.Constants;
-import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
@@ -204,11 +202,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   public native String nativeGetString(String name, String defaultValue);
 
   public native void nativeSetString(String name, String value);
-
-  public void onMwmCreate(Activity activity)
-  {
-    FbUtil.activate(activity);
-  }
 
   public void initStats()
   {
