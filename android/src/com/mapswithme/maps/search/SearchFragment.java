@@ -233,6 +233,7 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     LocationHelper.INSTANCE.addLocationListener(this);
 
     setSearchQuery(getLastQuery());
+    mEtSearchQuery.requestFocus();
   }
 
   @Override
