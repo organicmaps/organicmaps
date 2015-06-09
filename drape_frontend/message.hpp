@@ -30,7 +30,7 @@ public:
     CompassInfo,
     GpsInfo,
     FindVisiblePOI,
-    SelectObject
+    SelectObject,
     GetMyPosition,
     AddRoute,
     RemoveRoute,

@@ -501,14 +501,15 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     SelectionShape::ESelectedObject selectedObject = m_selectionShape->GetSelectedObject();
     if (selectedObject == SelectionShape::OBJECT_MY_POSITION)
     {
-      GLFunctions::glClearDepth();
-      m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
-      m_routeRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+      ASSERT(m_myPositionController->IsModeHasPosition(), ());
+      m_selectionShape->SetPosition(m_myPositionController->Position());
+      m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
     }
     else if (selectedObject == SelectionShape::OBJECT_POI)
       m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
   }
 
+  m_routeRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
   m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
