@@ -37,7 +37,7 @@ if [ "$1" == "pbf" ]; then
   PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
   OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
   [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
-  # The patch increases number of nodes for osmconvert to avoid overflow crash
+  # The patch increases number of nodes for osmconvert to avoid overflow crash.
   [ ! -x "$OSMCTOOLS/osmconvert" ] && wget -q -O - http://m.m.i24.cc/osmconvert.c | sed 's/60004/600004/' | cc -x c - -lz -O3 -o "$OSMCTOOLS/osmconvert"
 
   TMPBORDERS="$INTDIR/tmpborders"
@@ -115,17 +115,16 @@ elif [ "$1" == "mwm" ]; then
       rmdir "$POLY_DIR"
     fi
   fi
+
 elif [ "$1" == "online" ]; then
   PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
   OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
   [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
-  # The patch increases number of nodes for osmconvert to avoid overflow crash
+  # The patch increases number of nodes for osmconvert to avoid overflow crash.
   [ ! -x "$OSMCTOOLS/osmconvert" ] && wget -q -O - http://m.m.i24.cc/osmconvert.c | sed 's/60004/600004/' | cc -x c - -lz -O3 -o "$OSMCTOOLS/osmconvert"
 
-  export OSMCTOOLS
-  export PLANET
-  export INTDIR
-  "$OSMCTOOLS/osmconvert" "$PLANET" --hash-memory=2000 --out-pbf -o="$INTDIR/planet.pbf"
+  PBF="$INTDIR/planet.pbf"
+  "$OSMCTOOLS/osmconvert" "$PLANET" --hash-memory=2000 --out-pbf -o="$PBF"
 
   OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
   OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OSRM_PATH/build}"
@@ -143,7 +142,6 @@ elif [ "$1" == "online" ]; then
   [ ! -r "$PROFILE" ] && fail "Lua profile $PROFILE is not found"
 
   export STXXLCFG="$HOME/.stxxl"
-  PBF="$INTDIR/planet.pbf"
   OSRM_FILE="$INTDIR/planet.osrm"
   rm -f "$OSRM_FILE"
   "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF"

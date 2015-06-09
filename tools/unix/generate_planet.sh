@@ -66,6 +66,7 @@ OPT_WORLD=
 OPT_UPDATE=
 OPT_DOWNLOAD=
 OPT_ROUTING=
+OPT_ONLINE_ROUTING=
 while getopts ":couUwravh" opt; do
   case $opt in
     c)
@@ -274,7 +275,7 @@ if [ -n "$OPT_ROUTING" ]; then
 fi
 
 if [ -n "$OPT_ONLINE_ROUTING" ]; then
-  putmode "start_online_routing(): Generating OSRM files for osrm-routed server."
+  putmode "Step RO: Generating OSRM files for osrm-routed server."
   bash "$ROUTING_SCRIPT" online >> "$ROUTING_LOG" 2>&1
 fi
 
