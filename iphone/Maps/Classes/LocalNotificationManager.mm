@@ -10,7 +10,7 @@
 #import "TimeUtils.h"
 #import "UIKitCategories.h"
 
-#include "../../../storage/storage_defines.hpp"
+#include "storage/storage_defines.hpp"
 
 #define DOWNLOAD_MAP_ACTION_NAME @"DownloadMapAction"
 
@@ -326,6 +326,9 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
   [self.timer invalidate];
+  NSString * flurryEventName = @"'Download Map' Notification Didn't Schedule";
+  UIBackgroundFetchResult result = UIBackgroundFetchResultNoData;
+
   BOOL const inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
   BOOL const onWiFi = [[AppInfo sharedInfo].reachability isReachableViaWiFi];
   if (inBackground && onWiFi)
@@ -349,15 +352,14 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
         
         UIApplication * application = [UIApplication sharedApplication];
         [application presentLocalNotificationNow:notification];
-        [[Statistics instance] logEvent:@"'Download Map' Notification Scheduled"];
-        
-        self.downloadMapCompletionHandler(UIBackgroundFetchResultNewData);
-        return;
+
+        flurryEventName = @"'Download Map' Notification Scheduled";
+        result = UIBackgroundFetchResultNewData;
       }
     }
   }
-  [[Statistics instance] logEvent:@"'Download Map' Notification Didn't Schedule" withParameters:@{@"WiFi" : @(onWiFi)}];
-  self.downloadMapCompletionHandler(UIBackgroundFetchResultFailed);
+  [[Statistics instance] logEvent:flurryEventName withParameters:@{@"WiFi" : @(onWiFi)}];
+  self.downloadMapCompletionHandler(result);
 }
 
 @end
