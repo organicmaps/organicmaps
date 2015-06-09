@@ -1,5 +1,5 @@
 # OSRM urls for load testing by siege
-BASE=http://osrm.online.dev.server/viaroute?
+BASE=http://osrm.online.server/mapsme?
 PARAMS=alt=false&instructions=false
 $(BASE)loc=45.49059,17.132289&loc=52.121676,18.263881&$(PARAMS)
 $(BASE)loc=70.061371,27.751488&loc=38.341656,16.083984&$(PARAMS)

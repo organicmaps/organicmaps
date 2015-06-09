@@ -82,6 +82,14 @@ private:
 
 class Point2PhantomNode
 {
+
+public:
+  Point2PhantomNode(OsrmFtSegMapping const & mapping, Index const * pIndex,
+                    m2::PointD const & direction)
+      : m_direction(direction), m_mapping(mapping), m_pIndex(pIndex)
+  {
+  }
+
   struct Candidate
   {
     double m_dist;
@@ -92,18 +100,27 @@ class Point2PhantomNode
     Candidate() : m_dist(numeric_limits<double>::max()), m_fid(OsrmMappingTypes::FtSeg::INVALID_FID) {}
   };
 
-  m2::PointD m_point;
-  m2::PointD const m_direction;
-  OsrmFtSegMapping const & m_mapping;
-  buffer_vector<Candidate, 128> m_candidates;
-  MwmSet::MwmId m_mwmId;
-  Index const * m_pIndex;
-
-public:
-  Point2PhantomNode(OsrmFtSegMapping const & mapping, Index const * pIndex,
-                    m2::PointD const & direction)
-      : m_direction(direction), m_mapping(mapping), m_pIndex(pIndex)
+  static void FindMappedSegment(FeatureType const & ft, m2::PointD const & point, Candidate & res)
   {
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
+    size_t const count = ft.GetPointsCount();
+    ASSERT_GREATER(count, 1, ());
+    for (size_t i = 1; i < count; ++i)
+    {
+      m2::ProjectionToSection<m2::PointD> segProj;
+      segProj.SetBounds(ft.GetPoint(i - 1), ft.GetPoint(i));
+
+      m2::PointD const pt = segProj(point);
+      double const d = point.SquareLength(pt);
+      if (d < res.m_dist)
+      {
+        res.m_dist = d;
+        res.m_fid = ft.GetID().m_offset;
+        res.m_segIdx = i - 1;
+        res.m_point = pt;
+      }
+    }
   }
 
   void SetPoint(m2::PointD const & pt)
@@ -124,30 +141,11 @@ public:
 
     Candidate res;
 
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+    FindMappedSegment(ft, m_point, res);
 
-    size_t const count = ft.GetPointsCount();
-    ASSERT_GREATER(count, 1, ());
-    for (size_t i = 1; i < count; ++i)
-    {
-      /// @todo Probably, we need to get exact projection distance in meters.
-      m2::ProjectionToSection<m2::PointD> segProj;
-      segProj.SetBounds(ft.GetPoint(i - 1), ft.GetPoint(i));
-
-      m2::PointD const pt = segProj(m_point);
-      double const d = m_point.SquareLength(pt);
-      if (d < res.m_dist)
-      {
-        res.m_dist = d;
-        res.m_fid = ft.GetID().m_offset;
-        res.m_segIdx = i - 1;
-        res.m_point = pt;
-
-        if (!m_mwmId.IsAlive())
-          m_mwmId = ft.GetID().m_mwmId;
-        ASSERT_EQUAL(m_mwmId, ft.GetID().m_mwmId, ());
-      }
-    }
+    if (!m_mwmId.IsAlive())
+      m_mwmId = ft.GetID().m_mwmId;
+    ASSERT_EQUAL(m_mwmId, ft.GetID().m_mwmId, ());
 
     if (res.m_fid != OsrmMappingTypes::FtSeg::INVALID_FID)
       m_candidates.push_back(res);
@@ -346,6 +344,14 @@ public:
                         res.end());
   }
 
+private:
+  m2::PointD m_point;
+  m2::PointD const m_direction;
+  OsrmFtSegMapping const & m_mapping;
+  buffer_vector<Candidate, 128> m_candidates;
+  MwmSet::MwmId m_mwmId;
+  Index const * m_pIndex;
+
   DISALLOW_COPY(Point2PhantomNode);
 };
 } // namespace
@@ -382,6 +388,95 @@ bool OsrmRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source,
   return false;
 }
 
+void CalculateProperNode(TRoutingMappingPtr & mapping, FeatureGraphNode & graphNode,
+                         Index const * pIndex, bool forward)
+{
+  if (graphNode.segment.IsValid())
+    return;
+
+  size_t nodeId;
+  if (forward)
+    nodeId = graphNode.node.forward_node_id;
+  else
+    nodeId = graphNode.node.reverse_node_id;
+  if (nodeId == INVALID_NODE_ID)
+  {
+    ASSERT(false, ("Can't determine node id."));
+    return;
+  }
+
+  mapping->LoadCrossContext();
+  MappingGuard guard(mapping);
+  UNUSED_VALUE(guard);
+
+  m2::PointD point = m2::PointD::Zero();
+  if (forward)
+  {
+    auto inIters = mapping->m_crossContext.GetIngoingIterators();
+    for (auto iter = inIters.first; iter != inIters.second; ++iter)
+    {
+      if (iter->m_nodeId != nodeId)
+        continue;
+      point = iter->m_point;
+      break;
+    }
+  }
+  else
+  {
+    auto outIters = mapping->m_crossContext.GetOutgoingIterators();
+    for (auto iter = outIters.first; iter != outIters.second; ++iter)
+    {
+      if (iter->m_nodeId != nodeId)
+        continue;
+      point = iter->m_point;
+      break;
+    }
+  }
+
+  if (point.IsAlmostZero())
+  {
+    ASSERT(false, ("A point of intersection with the border not found;"));
+    return;
+  }
+
+  graphNode.segmentPoint = MercatorBounds::FromLatLon(point.y, point.x);
+
+  Point2PhantomNode::Candidate best;
+
+  auto range = mapping->m_segMapping.GetSegmentsRange(nodeId);
+  for (size_t i = range.first; i < range.second; ++i)
+  {
+    OsrmMappingTypes::FtSeg s;
+    mapping->m_segMapping.GetSegmentByIndex(i, s);
+    if (!s.IsValid())
+      continue;
+    FeatureType ft;
+    Index::FeaturesLoaderGuard loader(*pIndex, mapping->GetMwmId());
+    loader.GetFeature(s.m_fid, ft);
+    Point2PhantomNode::Candidate mappedSeg;
+    Point2PhantomNode::FindMappedSegment(ft, graphNode.segmentPoint, mappedSeg);
+    OsrmMappingTypes::FtSeg seg;
+    seg.m_fid = mappedSeg.m_fid;
+    seg.m_pointStart = mappedSeg.m_segIdx;
+    seg.m_pointEnd = mappedSeg.m_segIdx + 1;
+    if (!s.IsIntersect(seg))
+      continue;
+
+    if (mappedSeg.m_dist < best.m_dist)
+      best = mappedSeg;
+  }
+
+  if (best.m_fid == OsrmMappingTypes::FtSeg::INVALID_FID )
+  {
+    ASSERT(false, ("Best geometry not found."));
+    return;
+  }
+
+  graphNode.segment.m_fid = best.m_fid;
+  graphNode.segment.m_pointStart = best.m_segIdx;
+  graphNode.segment.m_pointEnd = best.m_segIdx + 1;
+}
+
 // TODO (ldragunov) move this function to cross mwm router
 // TODO (ldragunov) process case when the start and the finish points are placed on the same edge.
 OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const & path,
@@ -391,7 +486,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
   Route::TTimes Times;
   vector<m2::PointD> Points;
   turns::TTurnsGeom TurnsGeom;
-  for (RoutePathCross const & cross: path)
+  for (RoutePathCross cross: path)
   {
     ASSERT_EQUAL(cross.startNode.mwmName, cross.finalNode.mwmName, ());
     RawRoutingResult routingResult;
@@ -399,6 +494,8 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     ASSERT(mwmMapping->IsValid(), ());
     MappingGuard mwmMappingGuard(mwmMapping);
     UNUSED_VALUE(mwmMappingGuard);
+    CalculateProperNode(mwmMapping, cross.startNode, m_pIndex, true);
+    CalculateProperNode(mwmMapping, cross.finalNode, m_pIndex, false);
     if (!FindSingleRoute(cross.startNode, cross.finalNode, mwmMapping->m_dataFacade, routingResult))
       return OsrmRouter::RouteNotFound;
 
@@ -408,7 +505,6 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     vector<m2::PointD> mwmPoints;
     turns::TTurnsGeom mwmTurnsGeom;
     MakeTurnAnnotation(routingResult, mwmMapping, mwmPoints, mwmTurnsDir, mwmTimes, mwmTurnsGeom);
-
     // And connect it to result route
     for (auto turn : mwmTurnsDir)
     {
@@ -558,12 +654,12 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     // 5. Make generate answer
     if (code == NoError)
     {
-      // Manually free all cross context allocations before geometry unpacking
+      auto code = MakeRouteFromCrossesPath(finalPath, route);
+      // Manually free all cross context allocations before geometry unpacking.
       m_indexManager.ForEachMapping([](pair<string, TRoutingMappingPtr> const & indexPair)
                                     {
                                       indexPair.second->FreeCrossContext();
                                     });
-      auto code = MakeRouteFromCrossesPath(finalPath, route);
       LOG(LINFO, ("Make final route", timer.ElapsedNano()));
       timer.Reset();
       return code;
