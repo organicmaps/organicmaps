@@ -209,6 +209,7 @@ void BackendRenderer::ReleaseResources()
 
   m_readManager.reset();
   m_batchersPool.reset();
+  m_routeBuilder.reset();
 
   m_texMng->Release();
 }

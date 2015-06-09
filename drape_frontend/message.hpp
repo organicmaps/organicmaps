@@ -34,7 +34,6 @@ public:
     GetMyPosition,
     AddRoute,
     RemoveRoute,
-    FollowRoute,
     FlushRoute
   };
 

@@ -128,13 +128,10 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   location::RouteMatchingInfo routeMatchingInfo;
   CheckLocationForRouting(rInfo);
 
-  bool hasDistanceFromBegin = false;
-  double distanceFromBegin = 0.0;
-  MatchLocationToRoute(rInfo, routeMatchingInfo, hasDistanceFromBegin, distanceFromBegin);
+  MatchLocationToRoute(rInfo, routeMatchingInfo);
 
   CallDrapeFunction(bind(&df::DrapeEngine::SetGpsInfo, _1, rInfo,
-                         m_routingSession.IsNavigable(), routeMatchingInfo,
-                         hasDistanceFromBegin, distanceFromBegin));
+                         m_routingSession.IsNavigable(), routeMatchingInfo));
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -1868,7 +1865,7 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
 void Framework::FollowRoute()
 {
   ASSERT(m_drapeEngine != nullptr, ());
-  m_drapeEngine->FollowRoute();
+  m_drapeEngine->MyPositionNextMode();
 
   m2::PointD const & position = m_routingSession.GetUserCurrentPosition();
   m_drapeEngine->SetModelViewCenter(position, scales::GetNavigationScale(), true);
@@ -2013,13 +2010,12 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   }
 }
 
-void Framework::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo,
-                                     bool & hasDistanceFromBegin, double & distanceFromBegin) const
+void Framework::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const
 {
   if (!IsRoutingActive())
     return;
+
   m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
-  hasDistanceFromBegin = m_routingSession.GetMercatorDistanceFromBegin(distanceFromBegin);
 }
 
 void Framework::CallRouteBuilded(IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutingFiles)

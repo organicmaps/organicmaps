@@ -237,8 +237,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<GpsInfoMessage> msg = message;
       m_myPositionController->OnLocationUpdate(msg->GetInfo(), msg->IsNavigable());
 
-      if (msg->HasDistanceFromBegin())
-        m_routeRenderer->UpdateDistanceFromBegin(msg->GetDistanceFromBegin());
+      location::RouteMatchingInfo const & info = msg->GetRouteInfo();
+      if (info.HasDistanceFromBegin())
+        m_routeRenderer->UpdateDistanceFromBegin(info.GetDistanceFromBegin());
 
       break;
     }
@@ -280,21 +281,16 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<FlushRouteMessage> msg = message;
       dp::GLState const & state = msg->GetState();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
-      m_routeRenderer->AddRoute(state, move(bucket), msg->GetColor(), make_ref(m_gpuProgramManager));
+      m_routeRenderer->AddRouteRenderBucket(state, move(bucket), msg->GetColor(), make_ref(m_gpuProgramManager));
       m_myPositionController->ActivateRouting();
       break;
     }
   case Message::RemoveRoute:
     {
       ref_ptr<RemoveRouteMessage> msg = message;
-      m_routeRenderer->RemoveAllRoutes();
+      m_routeRenderer->Clear();
       if (msg->NeedDeactivateFollowing())
         m_myPositionController->DeactivateRouting();
-      break;
-    }
-  case Message::FollowRoute:
-    {
-      m_myPositionController->NextMode();
       break;
     }
   default:

@@ -221,11 +221,10 @@ void DrapeEngine::SetCompassInfo(location::CompassInfo const & info)
                                   MessagePriority::High);
 }
 
-void DrapeEngine::SetGpsInfo(location::GpsInfo const & info, bool isNavigable, const location::RouteMatchingInfo & routeInfo,
-                             bool hasDistanceFromBegin, double distanceFromBegin)
+void DrapeEngine::SetGpsInfo(location::GpsInfo const & info, bool isNavigable, const location::RouteMatchingInfo & routeInfo)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<GpsInfoMessage>(info, isNavigable, routeInfo, hasDistanceFromBegin, distanceFromBegin),
+                                  make_unique_dp<GpsInfoMessage>(info, isNavigable, routeInfo),
                                   MessagePriority::High);
 }
 
@@ -321,13 +320,6 @@ void DrapeEngine::RemoveRoute(bool deactivateFollowing)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<RemoveRouteMessage>(deactivateFollowing),
-                                  MessagePriority::Normal);
-}
-
-void DrapeEngine::FollowRoute()
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<FollowRouteMessage>(),
                                   MessagePriority::Normal);
 }
 

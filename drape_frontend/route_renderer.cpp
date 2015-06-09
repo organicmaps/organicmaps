@@ -41,36 +41,38 @@ void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
   // half width calculation
   float halfWidth = 0.0;
   double const zoomLevel = my::clamp(fabs(log(screen.GetScale()) / log(2.0)), 1.0, scales::UPPER_STYLE_SCALE);
-  int const index = static_cast<int>(zoomLevel) - 1;
-  float const lerpCoef = static_cast<float>(zoomLevel - static_cast<int>(zoomLevel));
+  double const truncedZoom = trunc(zoomLevel);
+  int const index = truncedZoom - 1.0;
+  float const lerpCoef = zoomLevel - truncedZoom;
+
   if (index < scales::UPPER_STYLE_SCALE - 1)
     halfWidth = halfWidthInPixel[index] + lerpCoef * (halfWidthInPixel[index + 1] - halfWidthInPixel[index]);
   else
     halfWidth = halfWidthInPixel[index];
 
-  for (RouteGraphics & route : m_routes)
+  for (RouteGraphics & graphics : m_routeGraphics)
   {
     dp::UniformValuesStorage uniformStorage;
-    glsl::vec4 color = glsl::ToVec4(route.m_color);
+    glsl::vec4 color = glsl::ToVec4(graphics.m_color);
     uniformStorage.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
     uniformStorage.SetFloatValue("u_halfWidth", halfWidth, halfWidth * screen.GetScale());
     uniformStorage.SetFloatValue("u_clipLength", m_distanceFromBegin);
 
-    ref_ptr<dp::GpuProgram> prg = mng->GetProgram(route.m_state.GetProgramIndex());
+    ref_ptr<dp::GpuProgram> prg = mng->GetProgram(graphics.m_state.GetProgramIndex());
     prg->Bind();
-    dp::ApplyState(route.m_state, prg);
+    dp::ApplyState(graphics.m_state, prg);
     dp::ApplyUniforms(commonUniforms, prg);
     dp::ApplyUniforms(uniformStorage, prg);
 
-    route.m_buffer->Render();
+    graphics.m_buffer->Render();
   }
 }
 
-void RouteRenderer::AddRoute(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
-                             dp::Color const & color, ref_ptr<dp::GpuProgramManager> mng)
+void RouteRenderer::AddRouteRenderBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
+                                         dp::Color const & color, ref_ptr<dp::GpuProgramManager> mng)
 {
-  m_routes.push_back(RouteGraphics());
-  RouteGraphics & route = m_routes.back();
+  m_routeGraphics.push_back(RouteGraphics());
+  RouteGraphics & route = m_routeGraphics.back();
 
   route.m_state = state;
   route.m_color = color;
@@ -78,9 +80,9 @@ void RouteRenderer::AddRoute(dp::GLState const & state, drape_ptr<dp::RenderBuck
   route.m_buffer->Build(mng->GetProgram(route.m_state.GetProgramIndex()));
 }
 
-void RouteRenderer::RemoveAllRoutes()
+void RouteRenderer::Clear()
 {
-  m_routes.clear();
+  m_routeGraphics.clear();
 }
 
 void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)

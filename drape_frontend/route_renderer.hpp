@@ -31,15 +31,15 @@ public:
   void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
-  void AddRoute(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
-                dp::Color const & color, ref_ptr<dp::GpuProgramManager> mng);
+  void AddRouteRenderBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
+                            dp::Color const & color, ref_ptr<dp::GpuProgramManager> mng);
 
-  void RemoveAllRoutes();
+  void Clear();
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
 
 private:
-  vector<RouteGraphics> m_routes;
+  vector<RouteGraphics> m_routeGraphics;
   double m_distanceFromBegin;
 };
 

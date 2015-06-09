@@ -443,7 +443,15 @@ void MyPositionController::ActivateRouting()
 void MyPositionController::DeactivateRouting()
 {
   if (IsInRouting())
+  {
     SetModeInfo(ResetModeBit(m_modeInfo, RoutingSessionBit));
+
+    location::EMyPositionMode currentMode = GetMode();
+    if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
+      SetModeInfo(ChangeMode(m_modeInfo, location::MODE_FOLLOW));
+
+    ChangeModelView(0.0);
+  }
 }
 
 }

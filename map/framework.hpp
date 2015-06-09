@@ -504,9 +504,7 @@ private:
   void CallRouteBuilded(routing::IRouter::ResultCode code,
                         vector<storage::TIndex> const & absentCountries,
                         vector<storage::TIndex> const & absentRoutingFiles);
-  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo,
-                            bool & hasDistanceFromBegin, double & distanceFromBegin) const;
-
+  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo) const;
   string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
 
   TRouteBuildingCallback m_routingCallback;

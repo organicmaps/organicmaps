@@ -78,8 +78,7 @@ public:
 
   void SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded);
   void SetCompassInfo(location::CompassInfo const & info);
-  void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo,
-                  bool hasDistanceFromBegin, double distanceFromBegin);
+  void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo);
   void MyPositionNextMode();
   void CancelMyPosition();
   void StopLocationFollow();
@@ -98,7 +97,6 @@ public:
 
   void AddRoute(m2::PolylineD const & routePolyline, dp::Color const & color);
   void RemoveRoute(bool deactivateFollowing);
-  void FollowRoute();
 
 private:
   void AddUserEvent(UserEvent const & e);
