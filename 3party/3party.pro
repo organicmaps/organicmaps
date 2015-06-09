@@ -14,6 +14,5 @@ SUBDIRS += opening_hours \
   SUBDIRS += gflags   \
              sgitess  \
              qjsonrpc \
-             o5mreader\
              gmock    \
 }
