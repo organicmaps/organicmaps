@@ -14,22 +14,22 @@ enum class EPlaceState
   CloseSoon
 };
 
-ostream & operator<<(ostream & s, EPlaceState state)
+inline string DebugPrint(EPlaceState state)
 {
   switch (state)
   {
     case EPlaceState::Open:
-      return s << "Open";
+      return "EPlaceState::Open";
     case EPlaceState::OpenSoon:
-      return s << "Open soon";
+      return "EPlaceState::OpenSoon";
     case EPlaceState::Closed:
-      return s << "Closed";
+      return "EPlaceState::Closed";
     case EPlaceState::CloseSoon:
-      return s << "Close soon";
+      return "EPlaceState::CloseSoon";
   }
 }
 
-EPlaceState PlaceStateCheck(string const & openingHours, time_t timestamp)
+inline EPlaceState PlaceStateCheck(string const & openingHours, time_t timestamp)
 {
   OSMTimeRange oh(openingHours);
   auto future = system_clock::from_time_t(timestamp);

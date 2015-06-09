@@ -4,7 +4,7 @@
 
 using namespace osm;
 
-UNIT_TEST(OpenSoon)
+UNIT_TEST(WorkingTime_OpenSoon)
 {
   // 1-jan-2000 08:50
   std::tm when = {};
@@ -19,7 +19,7 @@ UNIT_TEST(OpenSoon)
   TEST_EQUAL(PlaceStateCheck("09:00-21:00", now), EPlaceState::OpenSoon, ());
 }
 
-UNIT_TEST(CloseSoon)
+UNIT_TEST(WorkingTime_CloseSoon)
 {
   // 1-jan-2000 20:50
   std::tm when = {};
@@ -33,7 +33,7 @@ UNIT_TEST(CloseSoon)
   TEST_EQUAL(PlaceStateCheck("09:00-21:00", now), EPlaceState::CloseSoon, ());
 }
 
-UNIT_TEST(Open)
+UNIT_TEST(WorkingTime_Open)
 {
   // 1-jan-2000 13:50
   std::tm when = {};
@@ -47,7 +47,7 @@ UNIT_TEST(Open)
   TEST_EQUAL(PlaceStateCheck("09:00-21:00", now), EPlaceState::Open, ());
 }
 
-UNIT_TEST(Closed)
+UNIT_TEST(WorkingTime_Closed)
 {
   // 1-jan-2000 06:50
   std::tm when = {};
