@@ -589,8 +589,8 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     {
       final String url = intent.getData().toString();
       Log.i(TAG, "Query = " + url);
-
       mMapTaskToForward = new OpenUrlTask(url);
+      org.alohalytics.Statistics.logEvent("GeoIntentProcessor::processIntent", url);
       return true;
     }
   }
@@ -608,8 +608,8 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     {
       final String url = intent.getData().toString();
       Log.i(TAG, "URL = " + url);
-
       mMapTaskToForward = new OpenUrlTask(url);
+      org.alohalytics.Statistics.logEvent("Ge0IntentProcessor::processIntent", url);
       return true;
     }
   }
@@ -637,6 +637,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
       final String ge0Url = "ge0:/" + data.getPath();
       mMapTaskToForward = new OpenUrlTask(ge0Url);
+      org.alohalytics.Statistics.logEvent("HttpGe0IntentProcessor::processIntent", ge0Url);
       return true;
     }
   }
@@ -656,6 +657,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     public boolean processIntent(final Intent intent)
     {
       final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
+      org.alohalytics.Statistics.logEvent("MapsWithMeIntentProcessor::processIntent", apiUrl == null ? "null" : apiUrl);
       if (apiUrl != null)
       {
         Framework.cleanSearchLayerOnMap();
@@ -687,8 +689,8 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     {
       final String url = intent.getData().toString();
       Log.i(TAG, "URL = " + url);
-
       mMapTaskToForward = new OpenUrlTask(url);
+      org.alohalytics.Statistics.logEvent("GoogleMapsIntentProcessor::processIntent", url);
       return true;
     }
   }
@@ -709,6 +711,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       if (autoDownload)
         Statistics.INSTANCE.trackDownloadCountryNotificationClicked();
       mMapTaskToForward = new MWMActivity.ShowCountryTask(index, autoDownload);
+      org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::processIntent", new String[]{"autoDownload", String.valueOf(autoDownload)}, LocationHelper.INSTANCE.getLastLocation());
       return true;
     }
   }
@@ -724,6 +727,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     @Override
     public boolean processIntent(Intent intent)
     {
+      org.alohalytics.Statistics.logEvent("UpdateCountryProcessor::processIntent");
       mMapTaskToForward = new MWMActivity.UpdateCountryTask();
       return true;
     }
