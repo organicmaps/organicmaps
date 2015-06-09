@@ -14,6 +14,7 @@ SOURCES += \
     animation/interpolations.cpp \
     animation/model_view_animation.cpp \
     animation/opacity_animation.cpp \
+    animation/show_hide_animation.cpp \
     apply_feature_functors.cpp \
     area_shape.cpp \
     backend_renderer.cpp \
@@ -37,7 +38,9 @@ SOURCES += \
     read_manager.cpp \
     read_mwm_task.cpp \
     render_group.cpp \
+    render_node.cpp \
     rule_drawer.cpp \
+    selection_shape.cpp \
     stylist.cpp \
     text_layout.cpp \
     text_shape.cpp \
@@ -52,9 +55,6 @@ SOURCES += \
     user_marks_provider.cpp \
     viewport.cpp \
     visual_params.cpp \
-    selection_shape.cpp \
-    animation/show_hide_animation.cpp \
-    render_node.cpp
 
 HEADERS += \
     animation/base_interpolator.hpp \
@@ -62,6 +62,8 @@ HEADERS += \
     animation/interpolations.hpp \
     animation/model_view_animation.hpp \
     animation/opacity_animation.hpp \
+    animation/show_hide_animation.hpp \
+    animation/value_mapping.hpp \
     apply_feature_functors.hpp \
     area_shape.hpp \
     backend_renderer.hpp \
@@ -89,7 +91,9 @@ HEADERS += \
     read_manager.hpp \
     read_mwm_task.hpp \
     render_group.hpp \
+    render_node.hpp \
     rule_drawer.hpp \
+    selection_shape.hpp \
     shape_view_params.hpp \
     stylist.hpp \
     text_layout.hpp \
@@ -105,6 +109,3 @@ HEADERS += \
     user_marks_provider.hpp \
     viewport.hpp \
     visual_params.hpp \
-    selection_shape.hpp \
-    animation/show_hide_animation.hpp \
-    render_node.hpp
