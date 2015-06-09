@@ -59,11 +59,12 @@ public class Statistics {
     setupCPP(HttpTransport.class, serverUrl, storagePath, id.first);
 
     // Calculate some basic statistics about installations/updates/launches.
-    String versionName = "";
+    String versionName = "", packageName = "";
     long installTime = 0, updateTime = 0;
     try {
       final android.content.pm.PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
       if (packageInfo != null) {
+        packageName = packageInfo.packageName;
         versionName = packageInfo.versionName;
         installTime = packageInfo.firstInstallTime;
         updateTime = packageInfo.lastUpdateTime;
@@ -81,13 +82,13 @@ public class Statistics {
     }
     // Is it a real new install?
     if (id.second && installTime == updateTime) {
-      logEvent("$install", new String[]{"version", versionName,
+      logEvent("$install", new String[]{"package", packageName, "version", versionName,
           "millisEpochInstalled", String.valueOf(installTime)}, lastKnownLocation);
       // Collect device info once on start.
       SystemInfo.getDeviceInfoAsync(context);
       prefs.edit().putLong(PREF_APP_UPDATE_TIME, updateTime).apply();
     } else if (updateTime != installTime && updateTime != prefs.getLong(PREF_APP_UPDATE_TIME, 0)) {
-      logEvent("$update", new String[]{"version", versionName,
+      logEvent("$update", new String[]{"package", packageName, "version", versionName,
           "millisEpochUpdated", String.valueOf(updateTime), "millisEpochInstalled", String.valueOf(installTime)},
           lastKnownLocation);
       // Also collect device info on update.
