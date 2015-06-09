@@ -14,10 +14,10 @@
 
 #include "storage/storage_defines.hpp"
 
-#define DOWNLOAD_MAP_ACTION_NAME @"DownloadMapAction"
+static NSString * kDownloadMapActionName = @"DownloadMapAction";
 
-#define FLAGS_KEY @"DownloadMapNotificationFlags"
-#define SHOW_INTERVAL (3 * 30 * 24 * 60 * 60) // three months
+static NSString * kFlagsKey = @"DownloadMapNotificationFlags";
+static constexpr const double kRepeatedNotificationIntervalInSeconds = 3 * 30 * 24 * 60 * 60; // three months
 
 NSString * const LocalNotificationManagerSpecialNotificationInfoKey = @"LocalNotificationManagerSpecialNotificationInfoKey";
 NSString * const LocalNotificationManagerNumberOfViewsPrefix = @"LocalNotificationManagerNumberOfViewsPrefix";
@@ -55,7 +55,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 - (void)processNotification:(UILocalNotification *)notification onLaunch:(BOOL)onLaunch
 {
   NSDictionary * userInfo = [notification userInfo];
-  if ([userInfo[@"Action"] isEqualToString:DOWNLOAD_MAP_ACTION_NAME])
+  if ([userInfo[@"Action"] isEqualToString:kDownloadMapActionName])
   {
     [[Statistics instance] logEvent:@"'Download Map' Notification Clicked"];
     [[MapsAppDelegate theApp].m_mapViewController.navigationController popToRootViewControllerAnimated:NO];
@@ -261,22 +261,22 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 
 - (void)markNotificationShowingForIndex:(TIndex)index
 {
-  NSMutableDictionary * flags = [[[NSUserDefaults standardUserDefaults] objectForKey:FLAGS_KEY] mutableCopy];
+  NSMutableDictionary * flags = [[[NSUserDefaults standardUserDefaults] objectForKey:kFlagsKey] mutableCopy];
   if (!flags)
     flags = [[NSMutableDictionary alloc] init];
   
   flags[[self flagStringForIndex:index]] = [NSDate date];
   
   NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-  [userDefaults setObject:flags forKey:FLAGS_KEY];
+  [userDefaults setObject:flags forKey:kFlagsKey];
   [userDefaults synchronize];
 }
 
 - (BOOL)shouldShowNotificationForIndex:(TIndex)index
 {
-  NSDictionary * flags = [[NSUserDefaults standardUserDefaults] objectForKey:FLAGS_KEY];
+  NSDictionary * flags = [[NSUserDefaults standardUserDefaults] objectForKey:kFlagsKey];
   NSDate * lastShowDate = flags[[self flagStringForIndex:index]];
-  return !lastShowDate || [[NSDate date] timeIntervalSinceDate:lastShowDate] > SHOW_INTERVAL;
+  return !lastShowDate || [[NSDate date] timeIntervalSinceDate:lastShowDate] > kRepeatedNotificationIntervalInSeconds;
 }
 
 - (void)timerSelector:(id)sender
@@ -352,7 +352,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
         notification.alertAction = L(@"download");
         notification.alertBody = L(@"download_map_notification");
         notification.soundName = UILocalNotificationDefaultSoundName;
-        notification.userInfo = @{@"Action" : DOWNLOAD_MAP_ACTION_NAME, @"Group" : @(index.m_group), @"Country" : @(index.m_country), @"Region" : @(index.m_region)};
+        notification.userInfo = @{@"Action" : kDownloadMapActionName, @"Group" : @(index.m_group), @"Country" : @(index.m_country), @"Region" : @(index.m_region)};
         
         UIApplication * application = [UIApplication sharedApplication];
         [application presentLocalNotificationNow:notification];
