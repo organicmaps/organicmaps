@@ -31,7 +31,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 @property (nonatomic) CLLocationManager * locationManager;
 @property (nonatomic) TIndex countryIndex;
 @property (nonatomic, copy) CompletionHandler downloadMapCompletionHandler;
-@property (nonatomic) NSTimer * timer;
+@property (nonatomic, weak) NSTimer * timer;
 
 @end
 
