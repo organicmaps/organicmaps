@@ -267,6 +267,21 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
   m_route.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
+bool RoutingSession::GetMercatorDistanceFromBegin(double & distance) const
+{
+  if (m_state != State::OnRoute)
+  {
+    distance = 0.0;
+    return false;
+  }
+
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
+  distance = m_route.GetMercatorDistanceFromBegin();
+  return true;
+}
+
 void RoutingSession::SetRoutingSettings(RoutingSettings const & routingSettings)
 {
   threads::MutexGuard guard(m_routeSessionMutex);

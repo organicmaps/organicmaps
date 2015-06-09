@@ -595,7 +595,8 @@ private:
   void RemoveRoute();
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
-  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo) const;
+  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo,
+                            bool & hasDistanceFromBegin, double & distanceFromBegin) const;
   void CallRouteBuilded(routing::IRouter::ResultCode code,
                         vector<storage::TIndex> const & absentCountries,
                         vector<storage::TIndex> const & absentRoutingFiles);

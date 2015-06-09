@@ -82,6 +82,8 @@ public:
   void MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
 
+  bool GetMercatorDistanceFromBegin(double & distance) const;
+
   void ActivateAdditionalFeatures() {}
 
   void SetRoutingSettings(RoutingSettings const & routingSettings);

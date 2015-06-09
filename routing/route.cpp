@@ -65,6 +65,20 @@ double Route::GetCurrentDistanceToEndMeters() const
           MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
 }
 
+double Route::GetMercatorDistanceFromBegin() const
+{
+  double distance = 0.0;
+  if (m_current.IsValid())
+  {
+    for (size_t i = 1; i <= m_current.m_ind; i++)
+      distance += m_poly.GetPoint(i).Length(m_poly.GetPoint(i - 1));
+
+    distance += m_poly.GetPoint(m_current.m_ind).Length(m_current.m_pt);
+  }
+
+  return distance;
+}
+
 uint32_t Route::GetTotalTimeSec() const
 {
   return m_times.empty() ? 0 : m_times.back().second;

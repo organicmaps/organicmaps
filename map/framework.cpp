@@ -136,7 +136,9 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
 #endif
   location::RouteMatchingInfo routeMatchingInfo;
   CheckLocationForRouting(rInfo);
-  MatchLocationToRoute(rInfo, routeMatchingInfo);
+  bool hasDistanceFromBegin = false;
+  double distanceFromBegin = 0.0;
+  MatchLocationToRoute(rInfo, routeMatchingInfo, hasDistanceFromBegin, distanceFromBegin);
 
   shared_ptr<State> const & state = GetLocationState();
   state->OnLocationUpdate(rInfo, m_routingSession.IsNavigable(), routeMatchingInfo);
@@ -2268,11 +2270,13 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   }
 }
 
-void Framework::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const
+void Framework::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo,
+                                     bool & hasDistanceFromBegin, double & distanceFromBegin) const
 {
   if (!IsRoutingActive())
     return;
   m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
+  hasDistanceFromBegin = m_routingSession.GetMercatorDistanceFromBegin(distanceFromBegin);
 }
 
 void Framework::CallRouteBuilded(IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutingFiles)
