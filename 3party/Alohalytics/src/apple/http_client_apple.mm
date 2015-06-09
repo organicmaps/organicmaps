@@ -76,6 +76,9 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     }
     if (!body_data_.empty()) {
       request.HTTPBody = [NSData dataWithBytes:body_data_.data() length:body_data_.size()];
+      if (debug_mode_) {
+        ALOG("Uploading buffer of size", body_data_.size(), "bytes");
+      }
     } else if (!body_file_.empty()) {
       NSError * err = nil;
       NSString * path = [NSString stringWithUTF8String:body_file_.c_str()];
@@ -89,6 +92,9 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
       }
       request.HTTPBodyStream = [NSInputStream inputStreamWithFileAtPath:path];
       [request setValue:[NSString stringWithFormat:@"%llu", file_size] forHTTPHeaderField:@"Content-Length"];
+      if (debug_mode_) {
+        ALOG("Uploading file", body_file_, file_size, "bytes");
+      }
     }
 
     NSHTTPURLResponse * response = nil;
