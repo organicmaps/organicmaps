@@ -13,8 +13,15 @@ SOURCES += $$ROOT_DIR/3party/Alohalytics/src/cpp/alohalytics.cc \
 
 HEADERS += $$ROOT_DIR/3party/Alohalytics/src/alohalytics.h \
            $$ROOT_DIR/3party/Alohalytics/src/event_base.h \
+           $$ROOT_DIR/3party/Alohalytics/src/file_manager.h \
            $$ROOT_DIR/3party/Alohalytics/src/http_client.h \
            $$ROOT_DIR/3party/Alohalytics/src/logger.h \
+
+win* {
+  SOURCES += $$ROOT_DIR/3party/Alohalytics/src/windows/file_manager_windows_impl.cc
+} else {
+  SOURCES += $$ROOT_DIR/3party/Alohalytics/src/posix/file_manager_posix_impl.cc
+}
 
 macx-*|iphone* {
   HEADERS += $$ROOT_DIR/3party/Alohalytics/src/alohalytics_objc.h

@@ -67,17 +67,9 @@ int main(int argc, char * argv[])
 
   QApplication a(argc, argv);
 
-  // Initialize platform-dependent code.
-  Platform & pl = GetPlatform();
-  // Initialize statistics engine.
-  string const statisticsDir = pl.WritableDir() + "stats/";
-  QDir().mkpath(statisticsDir.c_str());
 #ifdef DEBUG
   alohalytics::Stats::Instance().SetDebugMode(true);
 #endif
-  alohalytics::Stats::Instance().SetClientId("D:" + pl.UniqueClientId())
-      .SetStoragePath(statisticsDir)
-      .SetServerUrl("http://stats.alohalytics.org/dev");
 
   // checking default measurement system.
   Settings::Units u;

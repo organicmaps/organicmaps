@@ -52,6 +52,7 @@
 // See https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/iPhoneOSKeys.html for more details.
 -(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+  // TODO(AlexZ): This method should be synchronous.
   [Alohalytics forceUpload];
   completionHandler(UIBackgroundFetchResultNewData);
 }

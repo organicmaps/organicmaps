@@ -62,7 +62,7 @@ public class SystemInfo {
       public void run() {
         collectIds(context);
         collectDeviceDetails(context);
-        // Force statistics uploading as if user immediately uninstalls the app we won't even know about installation.
+        // Force statistics uploading because if user immediately uninstalls the app we won't even know about installation.
         Statistics.forceUpload();
       }
     }).start();

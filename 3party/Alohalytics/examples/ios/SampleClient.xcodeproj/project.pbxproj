@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6B4A80811A9C9D9800A02435 /* alohalytics.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6B4A80801A9C9D9800A02435 /* alohalytics.cc */; };
 		6B4A80821A9C9D9800A02435 /* alohalytics.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6B4A80801A9C9D9800A02435 /* alohalytics.cc */; };
+		6B8A73871B25F6E50085EFE6 /* file_manager_posix_impl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A73861B25F6E50085EFE6 /* file_manager_posix_impl.cc */; };
+		6B8A73891B260D600085EFE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B8A73881B260D600085EFE6 /* SystemConfiguration.framework */; };
 		6BB30D5A1A8E5F8600BAE535 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD1AAFC1A8E5AD8000CB093 /* libz.dylib */; };
 		6BD1AAF31A8E571A000CB093 /* alohalytics_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BD1AAF11A8E571A000CB093 /* alohalytics_objc.mm */; };
 		6BD1AAF41A8E571A000CB093 /* alohalytics_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BD1AAF11A8E571A000CB093 /* alohalytics_objc.mm */; };
@@ -42,6 +44,8 @@
 		6B4A80851A9C9DB100A02435 /* http_client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = http_client.h; path = ../../../src/http_client.h; sourceTree = "<group>"; };
 		6B4A80861A9C9DB100A02435 /* location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = location.h; path = ../../../src/location.h; sourceTree = "<group>"; };
 		6B4A80871A9C9DB100A02435 /* logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = logger.h; path = ../../../src/logger.h; sourceTree = "<group>"; };
+		6B8A73861B25F6E50085EFE6 /* file_manager_posix_impl.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_manager_posix_impl.cc; path = ../../../src/posix/file_manager_posix_impl.cc; sourceTree = "<group>"; };
+		6B8A73881B260D600085EFE6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6BD1AAE71A8E53EC000CB093 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6BD1AAF11A8E571A000CB093 /* alohalytics_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = alohalytics_objc.mm; path = ../../../src/apple/alohalytics_objc.mm; sourceTree = "<group>"; };
 		6BD1AAF21A8E571A000CB093 /* http_client_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = http_client_apple.mm; path = ../../../src/apple/http_client_apple.mm; sourceTree = "<group>"; };
@@ -69,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BDB7FDC1AA4884B0036C3CB /* AdSupport.framework in Frameworks */,
+				6B8A73891B260D600085EFE6 /* SystemConfiguration.framework in Frameworks */,
 				6BD1AAFD1A8E5AD8000CB093 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,15 +93,16 @@
 			isa = PBXGroup;
 			children = (
 				6B4A80831A9C9DB100A02435 /* alohalytics.h */,
-				6B4A80841A9C9DB100A02435 /* event_base.h */,
-				6B4A80851A9C9DB100A02435 /* http_client.h */,
-				6B4A80861A9C9DB100A02435 /* location.h */,
-				6B4A80871A9C9DB100A02435 /* logger.h */,
 				6B4A80801A9C9D9800A02435 /* alohalytics.cc */,
-				6BD1AAFE1A8E5AF7000CB093 /* gzip_wrapper.h */,
 				6BD1AAF71A8E57B1000CB093 /* alohalytics_objc.h */,
 				6BD1AAF11A8E571A000CB093 /* alohalytics_objc.mm */,
+				6B4A80841A9C9DB100A02435 /* event_base.h */,
+				6B8A73861B25F6E50085EFE6 /* file_manager_posix_impl.cc */,
+				6BD1AAFE1A8E5AF7000CB093 /* gzip_wrapper.h */,
+				6B4A80851A9C9DB100A02435 /* http_client.h */,
 				6BD1AAF21A8E571A000CB093 /* http_client_apple.mm */,
+				6B4A80861A9C9DB100A02435 /* location.h */,
+				6B4A80871A9C9DB100A02435 /* logger.h */,
 			);
 			name = Alohalytics;
 			sourceTree = "<group>";
@@ -104,6 +110,7 @@
 		6BDEF0481A3CF2D100054FAC = {
 			isa = PBXGroup;
 			children = (
+				6B8A73881B260D600085EFE6 /* SystemConfiguration.framework */,
 				6BDEF0531A3CF2D100054FAC /* SampleClient */,
 				6BDEF06D1A3CF2D100054FAC /* SampleClientTests */,
 				6BDEF0521A3CF2D100054FAC /* Products */,
@@ -268,6 +275,7 @@
 				6B4A80811A9C9D9800A02435 /* alohalytics.cc in Sources */,
 				6BDEF05A1A3CF2D100054FAC /* AppDelegate.m in Sources */,
 				6BDEF0571A3CF2D100054FAC /* main.m in Sources */,
+				6B8A73871B25F6E50085EFE6 /* file_manager_posix_impl.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

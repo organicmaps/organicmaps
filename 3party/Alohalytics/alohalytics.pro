@@ -7,10 +7,12 @@ SOURCES += examples/cpp/example.cc \
 
 HEADERS += src/alohalytics.h \
            src/event_base.h \
-           src/http_client.h \
+           src/file_manager.h \
            src/gzip_wrapper.h \
-           src/logger.h \
+           src/http_client.h \
            src/location.h \
+           src/logger.h \
+           src/messages_queue.h \
 
 QMAKE_LFLAGS *= -lz
 
@@ -21,6 +23,10 @@ macx-* {
 
   QMAKE_OBJECTIVE_CFLAGS *= -fobjc-arc
   QMAKE_LFLAGS *=  -framework Foundation
+}
+
+macx-*|linux-* {
+  SOURCES += src/posix/file_manager_posix_impl.cc
 }
 
 linux-* {

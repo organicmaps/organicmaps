@@ -28,8 +28,7 @@
 #define ALOHALYTICS_SERVER
 #include "../../src/event_base.h"
 #include "../../src/gzip_wrapper.h"
-
-#include "../../src/Bricks/file/file.h"
+#include "../../src/file_manager.h"
 
 #include <iostream>
 #include <iomanip>
@@ -42,7 +41,7 @@ int main(int argc, char ** argv) {
     return -1;
   }
   try {
-    const std::string ungzipped = alohalytics::Gunzip(bricks::ReadFileAsString(argv[1]));
+    const std::string ungzipped = alohalytics::Gunzip(alohalytics::FileManager::ReadFileAsString(argv[1]));
     std::istringstream in_stream(ungzipped);
     cereal::BinaryInputArchive in_archive(in_stream);
     std::unique_ptr<AlohalyticsBaseEvent> ptr;

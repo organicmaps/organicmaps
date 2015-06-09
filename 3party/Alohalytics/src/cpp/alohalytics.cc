@@ -28,13 +28,16 @@
 #endif
 
 #include <cassert>
+#include <cstdio>  // remove
 
 #include "../alohalytics.h"
+#include "../event_base.h"
+#include "../file_manager.h"
+#include "../gzip_wrapper.h"
 #include "../http_client.h"
 #include "../logger.h"
-#include "../event_base.h"
-#include "../gzip_wrapper.h"
 
+// TODO(AlexZ): Refactor out cereal library - it's too heavy overkill for us.
 #include "../cereal/include/archives/binary.hpp"
 #include "../cereal/include/types/string.hpp"
 #include "../cereal/include/types/map.hpp"
@@ -46,6 +49,8 @@
 
 namespace alohalytics {
 
+static constexpr const char * kAlohalyticsHTTPContentType = "application/alohalytics-binary-blob";
+
 // Used for cereal smart-pointers polymorphic serialization.
 struct NoOpDeleter {
   template <typename T>
@@ -53,110 +58,45 @@ struct NoOpDeleter {
 };
 
 // Use alohalytics::Stats::Instance() to access statistics engine.
-Stats::Stats() : message_queue_(*this) {}
+Stats::Stats()
+    : messages_queue_(
+          std::bind(&Stats::GzipAndArchiveFileInTheQueue, this, std::placeholders::_1, std::placeholders::_2)) {}
 
-bool Stats::UploadBuffer(const std::string & url, std::string && buffer, bool debug_mode) {
-  assert(!url.empty());
-  HTTPClientPlatformWrapper request(url);
-  request.set_debug_mode(debug_mode);
-
-  try {
-    // TODO(AlexZ): Refactor FileStorageQueue to automatically append ID and gzip files, so we don't need
-    // temporary memory buffer any more and files take less space.
-    request.set_body_data(alohalytics::Gzip(buffer), "application/alohalytics-binary-blob", "POST", "gzip");
-    return request.RunHTTPRequest() && 200 == request.error_code() && !request.was_redirected();
-  } catch (const std::exception & ex) {
-    if (debug_mode) {
-      ALOG("Exception while trying to UploadBuffer", ex.what());
-    }
-  }
-  return false;
-}
-
-// Processes messages passed from UI in message queue's own thread.
-// TODO(AlexZ): Refactor message queue to make this method private.
-void Stats::OnMessage(const MQMessage & message, size_t dropped_events) {
-  if (dropped_events) {
-    LOG_IF_DEBUG("Warning:", dropped_events, "events were dropped from the queue.");
-  }
-
-  if (message.ForceUpload()) {
-    if (upload_url_.empty()) {
-      LOG_IF_DEBUG("Warning: Can't upload in-memory events because upload url has not been set.");
-      return;
-    }
-    LOG_IF_DEBUG("Forcing statistics uploading.");
-    if (file_storage_queue_) {
-      // Upload all data, including 'current' file.
-      file_storage_queue_->ForceProcessing(true);
-    } else {
-      std::string buffer = unique_client_id_event_;
-      // TODO(AlexZ): thread-safety?
-      TMemoryContainer copy;
-      copy.swap(memory_storage_);
-      for (const auto & evt : copy) {
-        buffer.append(evt);
-      }
-      LOG_IF_DEBUG("Forcing in-memory statistics uploading.");
-      if (!UploadBuffer(upload_url_, std::move(buffer), debug_mode_)) {
-        // If failed, merge events we tried to upload with possible new ones.
-        memory_storage_.splice(memory_storage_.end(), std::move(copy));
-        LOG_IF_DEBUG("Failed to upload in-memory statistics.");
-      }
-    }
-  } else {
-    if (file_storage_queue_) {
-      file_storage_queue_->PushMessage(message.GetMessage());
-    } else {
-      auto & container = memory_storage_;
-      container.push_back(message.GetMessage());
-      constexpr size_t kMaxEventsInMemory = 2048;
-      if (container.size() > kMaxEventsInMemory) {
-        container.pop_front();
-        LOG_IF_DEBUG("Warning: maximum numbers of events in memory (", kMaxEventsInMemory,
-                     ") was reached and the oldest one was dropped.");
-      }
-    }
-  }
-}
-
-// Called by file storage engine to upload file with collected data.
-// Should return true if upload has been successful.
-// TODO(AlexZ): Refactor FSQ to make this method private.
-bool Stats::OnFileReady(const std::string & full_path_to_file) {
-  if (upload_url_.empty()) {
-    LOG_IF_DEBUG("Warning: upload server url was not set and file", full_path_to_file, "was not uploaded.");
-    return false;
-  }
+void Stats::GzipAndArchiveFileInTheQueue(const std::string & in_file, const std::string & out_archive) {
   if (unique_client_id_event_.empty()) {
-    LOG_IF_DEBUG("Warning: unique client ID is not set so statistics was not uploaded.");
-    return false;
-  }
-  // TODO(AlexZ): Refactor to use crossplatform and safe/non-throwing version.
-  const uint64_t file_size = bricks::FileSystem::GetFileSize(full_path_to_file);
-  if (0 == file_size) {
-    LOG_IF_DEBUG("ERROR: Trying to upload file of size 0?", full_path_to_file);
-    return false;
-  }
-
-  LOG_IF_DEBUG("Trying to upload statistics file", full_path_to_file, "to", upload_url_);
-
-  // Append unique installation id in the beginning of each file sent to the server.
-  // It can be empty so all stats data will become anonymous.
-  // TODO(AlexZ): Refactor fsq to silently add it in the beginning of each file
-  // and to avoid not-enough-memory situation for bigger files.
-  std::ifstream fi(full_path_to_file, std::ifstream::in | std::ifstream::binary);
-  std::string buffer(unique_client_id_event_);
-  const size_t id_size = unique_client_id_event_.size();
-  buffer.resize(id_size + static_cast<std::string::size_type>(file_size));
-  fi.read(&buffer[id_size], static_cast<std::streamsize>(file_size));
-  if (fi.good()) {
-    fi.close();
-    return UploadBuffer(upload_url_, std::move(buffer), debug_mode_);
+    LOG_IF_DEBUG("Warning: unique client id is not set in GzipAndArchiveFileInTheQueue.")
   } else {
-    LOG_IF_DEBUG("Can't load file with size", file_size, "into memory");
+    LOG_IF_DEBUG("Archiving", in_file, "to", out_archive);
   }
-  return false;
+  // Append unique installation id in the beginning of each archived file.
+  // If it is empty then all stats data will become completely anonymous.
+  try {
+    std::string buffer(unique_client_id_event_);
+    {
+      std::ifstream fi;
+      fi.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+      fi.open(in_file, std::ifstream::in | std::ifstream::binary);
+      const size_t id_size = unique_client_id_event_.size();
+      const int64_t file_size = FileManager::GetFileSize(in_file);
+      buffer.resize(id_size + static_cast<std::string::size_type>(file_size));
+      fi.read(&buffer[id_size], static_cast<std::streamsize>(file_size));
+    }
+    {
+      std::ofstream fo;
+      fo.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+      fo.open(out_archive, std::ofstream::out | std::ofstream::binary | std::ofstream::trunc);
+      const std::string gzipped_buffer = Gzip(buffer);
+      buffer.resize(0);
+      fo.write(gzipped_buffer.data(), gzipped_buffer.size());
+    }
+  } catch (const std::exception & ex) {
+    LOG_IF_DEBUG("CRITICAL ERROR: Exception in GzipAndArchiveFileInTheQueue:", ex.what());
+    LOG_IF_DEBUG("Collected data in", in_file, "will be lost.")
+  }
+  const int result = std::remove(in_file.c_str());
+  if (0 != result) {
+    LOG_IF_DEBUG("std::remove", in_file, "has failed with error", result);
+  }
 }
 
 Stats & Stats::Instance() {
@@ -171,46 +111,24 @@ Stats & Stats::SetDebugMode(bool enable) {
   return *this;
 }
 
-// If not set, collected data will never be uploaded.
 Stats & Stats::SetServerUrl(const std::string & url_to_upload_statistics_to) {
   upload_url_ = url_to_upload_statistics_to;
   LOG_IF_DEBUG("Set upload url:", url_to_upload_statistics_to);
   return *this;
 }
 
-// If not set, data will be stored in memory only.
 Stats & Stats::SetStoragePath(const std::string & full_path_to_storage_with_a_slash_at_the_end) {
   LOG_IF_DEBUG("Set storage path:", full_path_to_storage_with_a_slash_at_the_end);
-  auto & fsq = file_storage_queue_;
-  fsq.reset(nullptr);
-  if (!full_path_to_storage_with_a_slash_at_the_end.empty()) {
-    fsq.reset(new TFileStorageQueue(*this, full_path_to_storage_with_a_slash_at_the_end));
-    if (debug_mode_) {
-      const TFileStorageQueue::Status status = fsq->GetQueueStatus();
-      LOG_IF_DEBUG("Active file size:", status.appended_file_size);
-      const size_t count = status.finalized.queue.size();
-      if (count) {
-        LOG_IF_DEBUG(count, "files with total size of", status.finalized.total_size, "bytes are waiting for upload.");
-      }
-    }
-    const size_t memory_events_count = memory_storage_.size();
-    if (memory_events_count) {
-      LOG_IF_DEBUG("Save", memory_events_count, "in-memory events into the file storage.");
-      for (const auto & msg : memory_storage_) {
-        fsq->PushMessage(msg);
-      }
-      memory_storage_.clear();
-    }
-  }
+  messages_queue_.SetStorageDirectory(full_path_to_storage_with_a_slash_at_the_end);
   return *this;
 }
 
-// If not set, data will be uploaded without any unique id.
 Stats & Stats::SetClientId(const std::string & unique_client_id) {
   LOG_IF_DEBUG("Set unique client id:", unique_client_id);
   if (unique_client_id.empty()) {
     unique_client_id_event_.clear();
   } else {
+    // Pre-calculation for special ID event.
     AlohalyticsIdEvent event;
     event.id = unique_client_id;
     std::ostringstream sstream;
@@ -220,20 +138,20 @@ Stats & Stats::SetClientId(const std::string & unique_client_id) {
   return *this;
 }
 
-static inline void LogEventImpl(AlohalyticsBaseEvent const & event, MessageQueue<Stats, MQMessage> & mmq) {
+static inline void LogEventImpl(AlohalyticsBaseEvent const & event, MessagesQueue & messages_queue) {
   std::ostringstream sstream;
   {
     // unique_ptr is used to correctly serialize polymorphic types.
     cereal::BinaryOutputArchive(sstream) << std::unique_ptr<AlohalyticsBaseEvent const, NoOpDeleter>(&event);
   }
-  mmq.PushMessage(std::move(sstream.str()));
+  messages_queue.PushMessage(sstream.str());
 }
 
 void Stats::LogEvent(std::string const & event_name) {
   LOG_IF_DEBUG("LogEvent:", event_name);
   AlohalyticsKeyEvent event;
   event.key = event_name;
-  LogEventImpl(event, message_queue_);
+  LogEventImpl(event, messages_queue_);
 }
 
 void Stats::LogEvent(std::string const & event_name, Location const & location) {
@@ -241,7 +159,7 @@ void Stats::LogEvent(std::string const & event_name, Location const & location) 
   AlohalyticsKeyLocationEvent event;
   event.key = event_name;
   event.location = location;
-  LogEventImpl(event, message_queue_);
+  LogEventImpl(event, messages_queue_);
 }
 
 void Stats::LogEvent(std::string const & event_name, std::string const & event_value) {
@@ -249,7 +167,7 @@ void Stats::LogEvent(std::string const & event_name, std::string const & event_v
   AlohalyticsKeyValueEvent event;
   event.key = event_name;
   event.value = event_value;
-  LogEventImpl(event, message_queue_);
+  LogEventImpl(event, messages_queue_);
 }
 
 void Stats::LogEvent(std::string const & event_name, std::string const & event_value, Location const & location) {
@@ -258,7 +176,7 @@ void Stats::LogEvent(std::string const & event_name, std::string const & event_v
   event.key = event_name;
   event.value = event_value;
   event.location = location;
-  LogEventImpl(event, message_queue_);
+  LogEventImpl(event, messages_queue_);
 }
 
 void Stats::LogEvent(std::string const & event_name, TStringMap const & value_pairs) {
@@ -266,7 +184,7 @@ void Stats::LogEvent(std::string const & event_name, TStringMap const & value_pa
   AlohalyticsKeyPairsEvent event;
   event.key = event_name;
   event.pairs = value_pairs;
-  LogEventImpl(event, message_queue_);
+  LogEventImpl(event, messages_queue_);
 }
 
 void Stats::LogEvent(std::string const & event_name, TStringMap const & value_pairs, Location const & location) {
@@ -275,11 +193,10 @@ void Stats::LogEvent(std::string const & event_name, TStringMap const & value_pa
   event.key = event_name;
   event.pairs = value_pairs;
   event.location = location;
-  LogEventImpl(event, message_queue_);
+  LogEventImpl(event, messages_queue_);
 }
 
-// Forcedly tries to upload all stored data to the server.
-void Stats::Upload() {
+void Stats::Upload(TFileProcessingFinishedCallback upload_finished_callback) {
   if (upload_url_.empty()) {
     LOG_IF_DEBUG("Warning: upload server url has not been set, nothing was uploaded.");
     return;
@@ -288,7 +205,28 @@ void Stats::Upload() {
     LOG_IF_DEBUG("Warning: unique client ID has not been set, nothing was uploaded.");
     return;
   }
-  message_queue_.PushMessage(MQMessage(true /* force upload */));
+  LOG_IF_DEBUG("Trying to upload collected statistics...");
+  messages_queue_.ProcessArchivedFiles(
+      std::bind(&Stats::UploadFileImpl, this, std::placeholders::_1, std::placeholders::_2), upload_finished_callback);
+}
+
+bool Stats::UploadFileImpl(bool file_name_in_content, const std::string & content) {
+  // This code should never be called if upload_url_ was not set.
+  assert(!upload_url_.empty());
+  HTTPClientPlatformWrapper request(upload_url_);
+  request.set_debug_mode(debug_mode_);
+
+  try {
+    if (file_name_in_content) {
+      request.set_body_file(content, kAlohalyticsHTTPContentType, "POST", "gzip");
+    } else {
+      request.set_body_data(alohalytics::Gzip(content), kAlohalyticsHTTPContentType, "POST", "gzip");
+    }
+    return request.RunHTTPRequest() && 200 == request.error_code() && !request.was_redirected();
+  } catch (const std::exception & ex) {
+    LOG_IF_DEBUG("Exception in UploadFileImpl:", ex.what());
+  }
+  return false;
 }
 
 }  // namespace alohalytics

@@ -25,9 +25,8 @@
 #ifndef ALOHALYTICS_H
 #define ALOHALYTICS_H
 
-#include "message_queue.h"
-#include "FileStorageQueue/fsq.h"
 #include "location.h"
+#include "messages_queue.h"
 
 #include <string>
 #include <map>
@@ -38,52 +37,30 @@ namespace alohalytics {
 
 typedef std::map<std::string, std::string> TStringMap;
 
-class MQMessage {
-  std::string message_;
-  bool force_upload_;
-
- public:
-  MQMessage(std::string && msg) : message_(std::move(msg)), force_upload_(false) {}
-  explicit MQMessage(bool force_upload = false) : force_upload_(force_upload) {}
-  // True for special empty message which should force stats uploading.
-  bool ForceUpload() const { return force_upload_; }
-  std::string const & GetMessage() const { return message_; }
-};
-
 class Stats final {
   std::string upload_url_;
   // Stores already serialized and ready-to-append event with unique client id.
   // NOTE: Statistics will not be uploaded if unique client id was not set.
   std::string unique_client_id_event_;
-  MessageQueue<Stats, MQMessage> message_queue_;
-  typedef fsq::FSQ<fsq::Config<Stats>> TFileStorageQueue;
-  // TODO(AlexZ): Refactor storage queue so it can store messages in memory if no file directory was set.
-  std::unique_ptr<TFileStorageQueue> file_storage_queue_;
-  // Used to store events if no storage path was set.
-  // Flushes all data to file storage and is not used any more if storage path was set.
-  typedef std::list<std::string> TMemoryContainer;
-  TMemoryContainer memory_storage_;
+  MessagesQueue messages_queue_;
   bool debug_mode_ = false;
 
   // Use alohalytics::Stats::Instance() to access statistics engine.
   Stats();
 
-  static bool UploadBuffer(const std::string & url, std::string && buffer, bool debug_mode);
+  // static bool UploadBuffer(const std::string & url, std::string && buffer, bool debug_mode);
+  // Should return false on upload error.
+  bool UploadFileImpl(bool file_name_in_content, const std::string & content);
+
+  // Called by the queue when file size limit was hit or immediately before file is sent to a server.
+  void GzipAndArchiveFileInTheQueue(const std::string & in_file, const std::string & out_archive);
 
  public:
-  // Processes messages passed from UI in message queue's own thread.
-  // TODO(AlexZ): Refactor message queue to make this method private.
-  void OnMessage(const MQMessage & message, size_t dropped_events);
-
-  // Called by file storage engine to upload file with collected data.
-  // Should return true if upload has been successful.
-  // TODO(AlexZ): Refactor FSQ to make this method private.
-  bool OnFileReady(const std::string & full_path_to_file);
-
   static Stats & Instance();
 
   // Easier integration if enabled.
   Stats & SetDebugMode(bool enable);
+  bool DebugMode() const { return debug_mode_; }
 
   // If not set, collected data will never be uploaded.
   Stats & SetServerUrl(const std::string & url_to_upload_statistics_to);
@@ -91,7 +68,8 @@ class Stats final {
   // If not set, data will be stored in memory only.
   Stats & SetStoragePath(const std::string & full_path_to_storage_with_a_slash_at_the_end);
 
-  // If not set, data will be uploaded without any unique id.
+  // If not set, data will never be uploaded.
+  // TODO(AlexZ): Should we allow anonymous statistics uploading?
   Stats & SetClientId(const std::string & unique_client_id);
 
   void LogEvent(std::string const & event_name);
@@ -103,8 +81,8 @@ class Stats final {
   void LogEvent(std::string const & event_name, TStringMap const & value_pairs);
   void LogEvent(std::string const & event_name, TStringMap const & value_pairs, Location const & location);
 
-  // Forcedly tries to upload all stored data to the server.
-  void Upload();
+  // Uploads all previously collected data to the server.
+  void Upload(TFileProcessingFinishedCallback upload_finished_callback = TFileProcessingFinishedCallback());
 };
 
 inline void LogEvent(std::string const & event_name) { Stats::Instance().LogEvent(event_name); }
