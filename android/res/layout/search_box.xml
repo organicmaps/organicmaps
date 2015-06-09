@@ -17,6 +17,7 @@
       android:layout_gravity="center_vertical"
       android:layout_weight="1"
       android:background="@null"
+      android:textCursorDrawable="@drawable/cursor_drawable"
       android:hint="@string/search"
       android:imeOptions="actionSearch|flagNoExtractUi"
       android:inputType="text"
