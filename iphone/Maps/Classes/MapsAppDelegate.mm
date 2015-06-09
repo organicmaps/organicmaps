@@ -233,6 +233,10 @@ void InitLocalizedStrings()
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+  // At the moment, we need to perform 2 asynchronous background tasks simultaneously:
+  // 1. Check if map for current location is already downloaded, and if not - notify user to download it.
+  // 2. Try to send collected statistics (if any) to our server.
+  [Alohalytics forceUpload];
   [[LocalNotificationManager sharedManager] showDownloadMapNotificationIfNeeded:completionHandler];
 }
 
