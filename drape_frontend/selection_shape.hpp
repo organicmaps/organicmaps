@@ -1,6 +1,7 @@
 #pragma once
 
 #include "animation/show_hide_animation.hpp"
+#include "animation/value_mapping.hpp"
 #include "render_node.hpp"
 
 #include "geometry/point2d.hpp"
@@ -49,7 +50,7 @@ private:
   ESelectedObject m_selectedObject;
 
   drape_ptr<RenderNode> m_renderNode;
-  double const m_selectionRadius;
+  ValueMapping<float> m_mapping;
 };
 
 } // namespace df

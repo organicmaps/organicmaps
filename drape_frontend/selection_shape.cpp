@@ -55,7 +55,6 @@ dp::BindingInfo GetBindingInfo()
 SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointD::Zero())
   , m_animation(false, 0.25)
-  , m_selectionRadius(15.0f * VisualParams::Instance().GetVisualScale())
 {
   int const TriangleCount = 40;
   int const VertexCount = 3 * TriangleCount;
@@ -96,6 +95,11 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
 
     batcher.InsertTriangleList(state, make_ref(&provider), nullptr);
   }
+
+  double r = 15.0f * VisualParams::Instance().GetVisualScale();
+  m_mapping.AddRangePoint(0.6, 1.3 * r);
+  m_mapping.AddRangePoint(0.85, 0.8 * r);
+  m_mapping.AddRangePoint(1.0, r);
 }
 
 void SelectionShape::SetPosition(m2::PointD const & position)
@@ -116,13 +120,15 @@ void SelectionShape::Hide()
 void SelectionShape::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                             dp::UniformValuesStorage const & commonUniforms)
 {
+  UNUSED_VALUE(screen);
   ShowHideAnimation::EState state = m_animation.GetState();
   if (state == ShowHideAnimation::STATE_VISIBLE ||
       state == ShowHideAnimation::STATE_SHOW_DIRECTION)
   {
     dp::UniformValuesStorage uniforms = commonUniforms;
     uniforms.SetFloatValue("u_position", m_position.x, m_position.y, 0.0);
-    uniforms.SetFloatValue("u_accuracy", GetCurrentRadius());
+    uniforms.SetFloatValue("u_accuracy", m_mapping.GetValue(m_animation.GetT()));
+    uniforms.SetFloatValue("u_opacity", 1.0f);
     m_renderNode->Render(mng, uniforms);
   }
 }
@@ -135,32 +141,6 @@ void SelectionShape::SetSelectedObject(SelectionShape::ESelectedObject obj)
 SelectionShape::ESelectedObject SelectionShape::GetSelectedObject() const
 {
   return m_selectedObject;
-}
-
-double SelectionShape::GetCurrentRadius() const
-{
-  static double const firstT = 0.6;
-  static double const secondT = 0.85;
-  static double const thirdT = 1.0;
-  static double const dfsT = secondT - firstT;
-  static double const dstT = thirdT - secondT;
-
-  static double const firstRadius = 1.3 * m_selectionRadius;
-  static double const secondRadius = 0.8 * m_selectionRadius;
-  static double const dfsRadius = secondRadius - firstRadius;
-  static double const dstRadius = m_selectionRadius - secondRadius;
-
-  double t = m_animation.GetT();
-  if (m_animation.IsFinished())
-    return m_selectionRadius * t;
-
-  if (t < firstT)
-    return firstRadius * (t / firstT);
-
-  if (t < secondT)
-    return firstRadius + dfsRadius * (t - firstT) / dfsT;
-
-  return secondRadius + dstRadius * (t - secondT)/ dstT;
 }
 
 } // namespace df
