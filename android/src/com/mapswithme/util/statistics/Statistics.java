@@ -73,6 +73,8 @@ public enum Statistics
     public static final String APP_ACTIVATED = "Application activated.";
     public static final String PLUS_DIALOG_LATER = "GPlus dialog cancelled.";
     public static final String RATE_DIALOG_LATER = "GPlay dialog cancelled.";
+    public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
+    public static final String FACEBOOK_INVITE_INVITED = "GPlay dialog cancelled.";
     public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
     public static final String PREINSTALL_ACTIVATED = "Preinstalled application activated.";
   }

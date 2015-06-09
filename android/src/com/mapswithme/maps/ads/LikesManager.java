@@ -4,22 +4,68 @@ import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
 
 import java.lang.ref.WeakReference;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LikesManager
 {
-  public static final Integer[] GPLAY_NEW_USERS = new Integer[]{3, 10, 21};
-  public static final Integer[] GPLUS_NEW_USERS = new Integer[]{11, 30, 50};
-  public static final Integer[] GPLAY_OLD_USERS = new Integer[]{1, 10, 21};
-  public static final Integer[] GPLUS_OLD_USERS = new Integer[]{4, 24, 44};
+  /*
+   Maps type of like dialog to the dialog, performing like.
+   */
+  private enum LikeType
+  {
+    GPLAY_NEW_USERS(RateStoreDialogFragment.class),
+    GPLAY_OLD_USERS(RateStoreDialogFragment.class),
+    GPLUS_NEW_USERS(GooglePlusDialogFragment.class),
+    GPLUS_OLD_USERS(GooglePlusDialogFragment.class),
+    FACEBOOK_INVITE_NEW_USERS(FacebookInvitesDialogFragment.class),
+    FACEBOOK_INVITES_OLD_USERS(FacebookInvitesDialogFragment.class);
+
+    public final Class<? extends DialogFragment> clazz;
+
+    LikeType(Class<? extends DialogFragment> clazz)
+    {
+      this.clazz = clazz;
+    }
+  }
+
+  /*
+   Maps number of session to LikeType
+   */
+  private static Map<Integer, LikeType> mOldUsersMapping = new HashMap<>();
+  private static Map<Integer, LikeType> mNewUsersMapping = new HashMap<>();
+
+  static
+  {
+    mOldUsersMapping.put(1, LikeType.GPLAY_OLD_USERS);
+    mOldUsersMapping.put(4, LikeType.GPLUS_OLD_USERS);
+    mOldUsersMapping.put(6, LikeType.FACEBOOK_INVITES_OLD_USERS);
+    mOldUsersMapping.put(10, LikeType.GPLAY_OLD_USERS);
+    mOldUsersMapping.put(21, LikeType.GPLAY_OLD_USERS);
+    mOldUsersMapping.put(24, LikeType.GPLUS_OLD_USERS);
+    mOldUsersMapping.put(30, LikeType.FACEBOOK_INVITES_OLD_USERS);
+    mOldUsersMapping.put(44, LikeType.GPLUS_OLD_USERS);
+    mOldUsersMapping.put(50, LikeType.FACEBOOK_INVITES_OLD_USERS);
+
+    mNewUsersMapping.put(3, LikeType.GPLAY_NEW_USERS);
+    mNewUsersMapping.put(9, LikeType.FACEBOOK_INVITE_NEW_USERS);
+    mNewUsersMapping.put(10, LikeType.GPLAY_NEW_USERS);
+    mNewUsersMapping.put(11, LikeType.GPLUS_NEW_USERS);
+    mNewUsersMapping.put(21, LikeType.GPLAY_NEW_USERS);
+    mNewUsersMapping.put(30, LikeType.GPLUS_NEW_USERS);
+    mNewUsersMapping.put(35, LikeType.FACEBOOK_INVITE_NEW_USERS);
+    mNewUsersMapping.put(50, LikeType.GPLUS_NEW_USERS);
+    mNewUsersMapping.put(55, LikeType.FACEBOOK_INVITE_NEW_USERS);
+  }
 
   private static final long DIALOG_DELAY_MILLIS = 30000;
 
-  private final boolean mIsNewUser;
+  private final boolean mIsNewUser = MWMApplication.get().getFirstInstallVersion() == BuildConfig.VERSION_CODE;
   private final int mSessionNum;
 
   private Handler mHandler;
@@ -34,40 +80,29 @@ public class LikesManager
     mHandler = new Handler(activity.getMainLooper());
     mActivityRef = new WeakReference<>(activity);
 
-    mIsNewUser = MWMApplication.get().getFirstInstallVersion() >= 422;
     mSessionNum = MWMApplication.get().getSessionsNumber();
   }
 
-  public void showLikeDialogs()
+  public void showLikeDialogForCurrentSession()
   {
     if (!ConnectionState.isConnected())
       return;
 
-    if (mIsNewUser)
-    {
-      if (Arrays.asList(GPLAY_NEW_USERS).contains(mSessionNum))
-        displayLikeDialog(RateStoreDialogFragment.class);
-      else if (Arrays.asList(GPLUS_NEW_USERS).contains(mSessionNum))
-        displayLikeDialog(GooglePlusDialogFragment.class);
-    }
-    else
-    {
-      if (Arrays.asList(GPLAY_OLD_USERS).contains(mSessionNum))
-        displayLikeDialog(RateStoreDialogFragment.class);
-      else if (Arrays.asList(GPLUS_OLD_USERS).contains(mSessionNum))
-        displayLikeDialog(GooglePlusDialogFragment.class);
-    }
+    final LikeType type = mIsNewUser ? mNewUsersMapping.get(mSessionNum) : mOldUsersMapping.get(mSessionNum);
+    if (type != null)
+      displayLikeDialog(type.clazz);
   }
 
   private void displayLikeDialog(final Class<? extends DialogFragment> dialogFragmentClass)
   {
-    if (isSessionRated() || isRatingApplied(dialogFragmentClass))
+    if (isSessionRated(mSessionNum) || isRatingApplied(dialogFragmentClass))
       return;
-    setSessionRated();
+    setSessionRated(mSessionNum);
 
     mHandler.removeCallbacks(mLikeRunnable);
     mLikeRunnable = new Runnable()
     {
+      @SuppressWarnings("TryWithIdenticalCatches")
       @Override
       public void run()
       {
@@ -92,19 +127,19 @@ public class LikesManager
     mHandler.postDelayed(mLikeRunnable, DIALOG_DELAY_MILLIS);
   }
 
-  public void cancelLikeDialogs()
+  public void cancelLikeDialog()
   {
     mHandler.removeCallbacks(mLikeRunnable);
   }
 
-  public boolean isSessionRated()
+  public static boolean isSessionRated(int sessionNum)
   {
-    return MWMApplication.get().nativeGetInt(LAST_RATED_SESSION, 0) >= mSessionNum;
+    return MWMApplication.get().nativeGetInt(LAST_RATED_SESSION, 0) >= sessionNum;
   }
 
-  public void setSessionRated()
+  public static void setSessionRated(int sessionNum)
   {
-    MWMApplication.get().nativeSetInt(LAST_RATED_SESSION, mSessionNum);
+    MWMApplication.get().nativeSetInt(LAST_RATED_SESSION, sessionNum);
   }
 
   public static boolean isRatingApplied(final Class<? extends DialogFragment> dialogFragmentClass)

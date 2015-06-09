@@ -1,0 +1,86 @@
+package com.mapswithme.maps.ads;
+
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+
+import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.widget.AppInviteDialog;
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
+
+public class FacebookInvitesDialogFragment extends BaseMwmDialogFragment
+{
+  private static final String INVITE_APP_URL = "https://fb.me/958251974218933";
+  private static final String INVITE_IMAGE = "http://maps.me/images/fb_app_invite_banner.png";
+
+  private static final String TAG = FacebookInvitesDialogFragment.class.getSimpleName();
+  private boolean mHasInvited;
+
+  @NonNull
+  @Override
+  public Dialog onCreateDialog(Bundle savedInstanceState)
+  {
+    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    final LayoutInflater inflater = getActivity().getLayoutInflater();
+
+    final View root = inflater.inflate(R.layout.fragment_app_invites_dialog, null);
+    builder.
+        setView(root).
+        setNegativeButton(R.string.remind_me_later, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.FACEBOOK_INVITE_LATER);
+          }
+        }).
+        setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            mHasInvited = true;
+            showAppInviteDialog();
+            Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.FACEBOOK_INVITE_INVITED);
+          }
+        });
+
+    return builder.create();
+  }
+
+  @Override
+  public void onResume()
+  {
+    super.onResume();
+    if (mHasInvited)
+      dismiss();
+  }
+
+  @Override
+  public void onCancel(DialogInterface dialog)
+  {
+    super.onCancel(dialog);
+    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.FACEBOOK_INVITE_LATER);
+  }
+
+  private void showAppInviteDialog()
+  {
+    AppInviteContent content = new AppInviteContent.Builder()
+        .setApplinkUrl(INVITE_APP_URL)
+        .setPreviewImageUrl(INVITE_IMAGE)
+        .build();
+    if (AppInviteDialog.canShow())
+      AppInviteDialog.show(this, content);
+    else
+    {
+      UiUtils.showAlertDialog(getActivity(), R.string.email_error_title);
+      dismiss();
+    }
+  }
+}

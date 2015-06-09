@@ -196,6 +196,11 @@
     <item name="android:textColor">@color/text_dark</item>
   </style>
 
+  <style name="MwmTextAppearance.Title.Light">
+    <item name="android:textSize">@dimen/text_size_title</item>
+    <item name="android:textColor">@color/text_light</item>
+  </style>
+
   <style name="MwmTextAppearance.Body1">
     <item name="android:textSize">@dimen/text_size_body_1</item>
     <item name="android:textColor">@color/text_dark</item>

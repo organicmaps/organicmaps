@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/base_green"
+      android:gravity="center_horizontal"
+      android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium_and_half"
+        android:contentDescription="@null"
+        android:src="@drawable/img_smile"/>
+
+    <TextView
+        android:id="@+id/tv__title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_medium_and_half"
+        android:layout_marginRight="@dimen/margin_medium_and_half"
+        android:text="@string/rating_do_like_maps"
+        android:textAppearance="@style/MwmTextAppearance.Title.Light"
+        android:textStyle="bold"/>
+  </LinearLayout>
+
+  <TextView
+      android:id="@+id/tv__subtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_medium_and_half"
+      android:layout_marginLeft="@dimen/margin_medium_and_half"
+      android:layout_marginRight="@dimen/margin_medium_and_half"
+      android:layout_marginTop="@dimen/margin_medium"
+      android:text="@string/rating_tap_star"
+      android:textAppearance="@style/MwmTextAppearance.Body2"/>
+
+</LinearLayout>

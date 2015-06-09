@@ -1002,7 +1002,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
     SearchController.getInstance().onResume();
     mPlacePage.onResume();
-    mLikesManager.showLikeDialogs();
+    mLikesManager.showLikeDialogForCurrentSession();
   }
 
   @Override
@@ -1012,7 +1012,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     stopWatchingExternalStorage();
     stopWatchingCompassStatusUpdate();
     super.onPause();
-    mLikesManager.cancelLikeDialogs();
+    mLikesManager.cancelLikeDialog();
   }
 
   private void updateExternalStorageState()
