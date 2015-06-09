@@ -279,7 +279,8 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 
 - (void)timerSelector:(id)sender
 {
-  // we have not got time to get location
+  // Location still was not received but it's time to finish up so system will not kill us.
+  [self.locationManager stopUpdatingLocation];
   self.downloadMapCompletionHandler(UIBackgroundFetchResultFailed);
 }
 
@@ -326,6 +327,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
   [self.timer invalidate];
+  [self.locationManager stopUpdatingLocation];
   NSString * flurryEventName = @"'Download Map' Notification Didn't Schedule";
   UIBackgroundFetchResult result = UIBackgroundFetchResultNoData;
 
