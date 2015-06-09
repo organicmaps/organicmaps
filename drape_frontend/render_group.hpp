@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape_frontend/animation/opacity_animation.hpp"
+#include "drape_frontend/animation/value_mapping.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
 #include "drape/pointers.hpp"
@@ -28,16 +29,12 @@ public:
   TileKey const & GetTileKey() const { return m_tileKey; }
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
 
-  double GetOpacity() const;
-  void UpdateAnimation();
-  bool IsAnimating() const;
-
-  void Disappear();
+  virtual void UpdateAnimation();
+  virtual void Render(ScreenBase const & /*screen*/) {}
 
 protected:
   dp::GLState m_state;
   dp::UniformValuesStorage m_uniforms;
-  unique_ptr<OpacityAnimation> m_disappearAnimation;
 
 private:
   TileKey m_tileKey;
@@ -52,7 +49,7 @@ public:
 
   void Update(ScreenBase const & modelView);
   void CollectOverlay(ref_ptr<dp::OverlayTree> tree);
-  void Render(ScreenBase const & screen);
+  void Render(ScreenBase const & screen) override;
 
   void PrepareForAdd(size_t countForAdd);
   void AddBucket(drape_ptr<dp::RenderBucket> && bucket);
@@ -63,8 +60,14 @@ public:
 
   bool IsLess(RenderGroup const & other) const;
 
+  void UpdateAnimation() override;
+  double GetOpacity() const;
+  bool IsAnimating() const;
+  void Disappear();
+
 private:
   vector<drape_ptr<dp::RenderBucket> > m_renderBuckets;
+  unique_ptr<OpacityAnimation> m_disappearAnimation;
 
   mutable bool m_pendingOnDelete;
 
@@ -87,10 +90,13 @@ public:
                       drape_ptr<dp::RenderBucket> && bucket);
   ~UserMarkRenderGroup();
 
-  void Render(ScreenBase const & screen);
+  void UpdateAnimation() override;
+  void Render(ScreenBase const & screen) override;
 
 private:
   drape_ptr<dp::RenderBucket> m_renderBucket;
+  unique_ptr<OpacityAnimation> m_animation;
+  ValueMapping<float> m_mapping;
 };
 
 } // namespace df

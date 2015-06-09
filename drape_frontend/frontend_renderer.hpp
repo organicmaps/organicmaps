@@ -127,7 +127,7 @@ protected:
 private:
   void OnResize(ScreenBase const & screen);
   void RenderScene(ScreenBase const & modelView);
-  void RenderSingleGroup(ScreenBase const & modelView, ref_ptr<RenderGroup> group);
+  void RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group);
   void RefreshProjection();
   void RefreshModelView(ScreenBase const & screen);
   ScreenBase const & UpdateScene(bool & modelViewChanged);

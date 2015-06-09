@@ -73,6 +73,50 @@ void AlignVertical(float halfHeight, dp::Anchor anchor,
   AlignFormingNormals([&halfHeight]{ return glsl::vec2(0.0f, -halfHeight); }, anchor, dp::Top, dp::Bottom, up, down);
 }
 
+template <typename TFieldType, typename TVertexType>
+uint8_t FillDecl(size_t index, string const & attrName, dp::BindingInfo & info, uint8_t offset)
+{
+  dp::BindingDecl & decl = info.GetBindingDecl(index);
+  decl.m_attributeName = attrName;
+  decl.m_componentCount = glsl::GetComponentCount<TFieldType>();
+  decl.m_componentType = gl_const::GLFloatType;
+  decl.m_offset = offset;
+  decl.m_stride = sizeof(TVertexType);
+
+  return sizeof(TFieldType);
+}
+
+struct UserPointVertex : gpu::BaseVertex
+{
+  UserPointVertex() = default;
+  UserPointVertex(TPosition const & pos, TNormal const & normal, TTexCoord const & texCoord, bool isAnim)
+    : m_position(pos)
+    , m_normal(normal)
+    , m_texCoord(texCoord)
+    , m_isAnim(isAnim ? 1.0 : -1.0)
+  {
+  }
+
+  static dp::BindingInfo GetBinding()
+  {
+    dp::BindingInfo info(4);
+    uint8_t offset = 0;
+    offset += FillDecl<TPosition, UserPointVertex>(0, "a_position", info, offset);
+    offset += FillDecl<TNormal, UserPointVertex>(1, "a_normal", info, offset);
+    offset += FillDecl<TTexCoord, UserPointVertex>(2, "a_colorTexCoords", info, offset);
+    offset += FillDecl<bool, UserPointVertex>(3, "a_animate", info, offset);
+
+    return info;
+  }
+
+  TPosition m_position;
+  TNormal m_normal;
+  TTexCoord m_texCoord;
+  float m_isAnim;
+};
+
+using UPV = UserPointVertex;
+
 void CacheUserPoints(UserMarksProvider const * provider,
                      ref_ptr<dp::Batcher> batcher,
                      ref_ptr<dp::TextureManager> textures)
@@ -83,7 +127,7 @@ void CacheUserPoints(UserMarksProvider const * provider,
 
   uint32_t vertexCount = dp::Batcher::VertexPerQuad * markCount; // 4 vertex per quad
 
-  buffer_vector<gpu::SolidTexturingVertex, 1024> buffer;
+  buffer_vector<UPV, 1024> buffer;
   buffer.reserve(vertexCount);
 
   vector<UserPointMark const *> marks;
@@ -105,22 +149,23 @@ void CacheUserPoints(UserMarksProvider const * provider,
     m2::PointF pxSize = region.GetPixelSize();
     dp::Anchor anchor = pointMark->GetAnchor();
     glsl::vec3 pos = glsl::vec3(glsl::ToVec2(pointMark->GetPivot()), pointMark->GetDepth() + 10 * (markCount - i));
+    bool runAnim = pointMark->RunCreationAnim();
 
     glsl::vec2 left, right, up, down;
     AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
     AlignVertical(pxSize.y * 0.5f, anchor, up, down);
 
-    buffer.push_back(gpu::SolidTexturingVertex(pos, left + down, glsl::ToVec2(texRect.LeftTop())));
-    buffer.push_back(gpu::SolidTexturingVertex(pos, left + up, glsl::ToVec2(texRect.LeftBottom())));
-    buffer.push_back(gpu::SolidTexturingVertex(pos, right + down, glsl::ToVec2(texRect.RightTop())));
-    buffer.push_back(gpu::SolidTexturingVertex(pos, right + up, glsl::ToVec2(texRect.RightBottom())));
+    buffer.emplace_back(pos, left + down, glsl::ToVec2(texRect.LeftTop()), runAnim);
+    buffer.emplace_back(pos, left + up, glsl::ToVec2(texRect.LeftBottom()), runAnim);
+    buffer.emplace_back(pos, right + down, glsl::ToVec2(texRect.RightTop()), runAnim);
+    buffer.emplace_back(pos, right + up, glsl::ToVec2(texRect.RightBottom()), runAnim);
   }
 
-  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::UserMarkLayer);
+  dp::GLState state(gpu::BOOKMARK_PROGRAM, dp::GLState::UserMarkLayer);
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider attribProvider(1, buffer.size());
-  attribProvider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(buffer.data()));
+  attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
 
   batcher->InsertListOfStrip(state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
 }

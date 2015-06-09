@@ -39,6 +39,11 @@ float UserMark::GetDepth() const
   return GetContainer()->GetPointDepth();
 }
 
+bool UserMark::RunCreationAnim() const
+{
+  return false;
+}
+
 UserMarkContainer const * UserMark::GetContainer() const
 {
   ASSERT(m_container != nullptr, ());

@@ -83,6 +83,7 @@ public:
 
   Type GetMarkType() const override;
   void FillLogEvent(TEventContainer & details) const override;
+  bool RunCreationAnim() const override;
 
   string const & GetName() const;
   void SetName(string const & name);
@@ -110,6 +111,7 @@ public:
 
 private:
   BookmarkData m_data;
+  mutable bool m_runCreationAnim;
 };
 
 class BookmarkCategory : public UserMarkContainer

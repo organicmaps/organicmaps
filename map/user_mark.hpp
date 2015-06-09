@@ -41,6 +41,7 @@ public:
   m2::PointD const & GetPivot() const override;
   dp::Anchor GetAnchor() const override;
   float GetDepth() const override;
+  bool RunCreationAnim() const override;
   ///////////////////////////////////////////////////////
 
   UserMarkContainer const * GetContainer() const;

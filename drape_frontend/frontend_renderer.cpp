@@ -492,15 +492,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     ASSERT(group.get() != nullptr, ());
     group->UpdateAnimation();
     if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
-    {
-      dp::GLState const & state = group->GetState();
-      ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
-      program->Bind();
-      ApplyUniforms(m_generalUniforms, program);
-      ApplyUniforms(group->GetUniforms(), program);
-      ApplyState(state, program);
-      group->Render(modelView);
-    }
+      RenderSingleGroup(modelView, make_ref(group));
   }
 
   GLFunctions::glClearDepth();
@@ -512,7 +504,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 #endif
 }
 
-void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<RenderGroup> group)
+void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group)
 {
   group->UpdateAnimation();
   dp::GLState const & state = group->GetState();

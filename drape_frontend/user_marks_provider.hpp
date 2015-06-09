@@ -19,6 +19,7 @@ public:
   virtual string GetSymbolName() const  = 0;
   virtual dp::Anchor GetAnchor() const = 0;
   virtual float GetDepth() const = 0;
+  virtual bool RunCreationAnim() const = 0;
 };
 
 class UserLineMark

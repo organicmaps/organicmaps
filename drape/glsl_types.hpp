@@ -64,11 +64,16 @@ inline vec4 ToVec4(dp::Color const & color)
                     double(color.GetAlfa()) / 255);
 }
 
+template<typename T, class = typename enable_if<is_integral<T>::value || is_floating_point<T>::value>::type>
+inline uint8_t GetArithmeticComponentCount()
+{
+  return 1;
+}
+
 template <typename T>
 inline uint8_t GetComponentCount()
 {
-  ASSERT(false, ());
-  return 0;
+  return GetArithmeticComponentCount<T>();
 }
 
 template <>

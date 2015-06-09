@@ -6,3 +6,4 @@ RULER_PROGRAM ruler_vertex_shader.vsh texturing_fragment_shader.fsh
 ACCURACY_PROGRAM position_accuracy_shader.vsh texturing_fragment_shader.fsh
 MY_POSITION_PROGRAM my_position_shader.vsh texturing_fragment_shader.fsh
 BUTTON_PROGRAM button_vertex_shader.vsh button_fragment_shader.fsh
+BOOKMARK_PROGRAM user_mark.vsh texturing_fragment_shader.fsh
