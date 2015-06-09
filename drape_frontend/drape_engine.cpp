@@ -221,10 +221,11 @@ void DrapeEngine::SetCompassInfo(location::CompassInfo const & info)
                                   MessagePriority::High);
 }
 
-void DrapeEngine::SetGpsInfo(location::GpsInfo const & info, bool isNavigable, const location::RouteMatchingInfo & routeInfo)
+void DrapeEngine::SetGpsInfo(location::GpsInfo const & info, bool isNavigable, const location::RouteMatchingInfo & routeInfo,
+                             bool hasDistanceFromBegin, double distanceFromBegin)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<GpsInfoMessage>(info, isNavigable, routeInfo),
+                                  make_unique_dp<GpsInfoMessage>(info, isNavigable, routeInfo, hasDistanceFromBegin, distanceFromBegin),
                                   MessagePriority::High);
 }
 

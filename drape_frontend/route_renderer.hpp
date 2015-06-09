@@ -7,6 +7,8 @@
 #include "drape/pointers.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
+#include "platform/location.hpp"
+
 namespace df
 {
 
@@ -24,6 +26,8 @@ struct RouteGraphics
 class RouteRenderer final
 {
 public:
+  RouteRenderer();
+
   void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
@@ -32,8 +36,11 @@ public:
 
   void RemoveAllRoutes();
 
+  void UpdateDistanceFromBegin(double distanceFromBegin);
+
 private:
   vector<RouteGraphics> m_routes;
+  double m_distanceFromBegin;
 };
 
 } // namespace df

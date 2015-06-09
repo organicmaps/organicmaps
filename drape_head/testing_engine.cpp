@@ -448,7 +448,7 @@ void TestingEngine::DrawImpl()
   m_generalUniforms.SetFloatValue("u_color", 0.0f, 0.0f, 1.0f, 0.7f);
   m_generalUniforms.SetFloatValue("u_halfWidth", 15.0f, 15.0f * m_modelView.GetScale());
 
-  m_generalUniforms.SetFloatValue("u_clipLength", 8.4f);
+  m_generalUniforms.SetFloatValue("u_clipLength", 8.0f);
 
   dp::Batcher::TFlushFn flushFn = bind(&df::TestingEngine::OnFlushData, this, _1, _2);
   m_batcher->StartSession(flushFn);

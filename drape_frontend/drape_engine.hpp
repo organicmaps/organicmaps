@@ -78,7 +78,8 @@ public:
 
   void SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded);
   void SetCompassInfo(location::CompassInfo const & info);
-  void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo);
+  void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo,
+                  bool hasDistanceFromBegin, double distanceFromBegin);
   void MyPositionNextMode();
   void CancelMyPosition();
   void StopLocationFollow();

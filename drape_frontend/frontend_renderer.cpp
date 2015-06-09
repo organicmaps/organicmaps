@@ -236,6 +236,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<GpsInfoMessage> msg = message;
       m_myPositionController->OnLocationUpdate(msg->GetInfo(), msg->IsNavigable());
+
+      if (msg->HasDistanceFromBegin())
+        m_routeRenderer->UpdateDistanceFromBegin(msg->GetDistanceFromBegin());
+
       break;
     }
 

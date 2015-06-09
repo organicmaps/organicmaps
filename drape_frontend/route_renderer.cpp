@@ -31,6 +31,10 @@ RouteGraphics::RouteGraphics(dp::GLState const & state,
   , m_color(color)
 {}
 
+RouteRenderer::RouteRenderer()
+  : m_distanceFromBegin(0.0)
+{}
+
 void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                            dp::UniformValuesStorage const & commonUniforms)
 {
@@ -49,7 +53,8 @@ void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
     dp::UniformValuesStorage uniformStorage;
     glsl::vec4 color = glsl::ToVec4(route.m_color);
     uniformStorage.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
-    uniformStorage.SetFloatValue("u_halfWidth", halfWidth);
+    uniformStorage.SetFloatValue("u_halfWidth", halfWidth, halfWidth * screen.GetScale());
+    uniformStorage.SetFloatValue("u_clipLength", m_distanceFromBegin);
 
     ref_ptr<dp::GpuProgram> prg = mng->GetProgram(route.m_state.GetProgramIndex());
     prg->Bind();
@@ -76,6 +81,11 @@ void RouteRenderer::AddRoute(dp::GLState const & state, drape_ptr<dp::RenderBuck
 void RouteRenderer::RemoveAllRoutes()
 {
   m_routes.clear();
+}
+
+void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)
+{
+   m_distanceFromBegin = distanceFromBegin;
 }
 
 } // namespace df

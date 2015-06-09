@@ -338,21 +338,29 @@ private:
 class GpsInfoMessage : public Message
 {
 public:
-  GpsInfoMessage(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo)
+  GpsInfoMessage(location::GpsInfo const & info, bool isNavigable,
+                 location::RouteMatchingInfo const & routeInfo,
+                 bool hasDistanceFromBegin, double distanceFromBegin)
     : m_info(info)
     , m_isNavigable(isNavigable)
     , m_routeInfo(routeInfo)
+    , m_hasDistanceFromBegin(hasDistanceFromBegin)
+    , m_distanceFromBegin(distanceFromBegin)
   {}
 
   Type GetType() const override { return Message::GpsInfo; }
   location::GpsInfo const & GetInfo() const { return m_info; }
   bool IsNavigable() const { return m_isNavigable; }
   location::RouteMatchingInfo const & GetRouteInfo() const { return m_routeInfo; }
+  bool HasDistanceFromBegin() const { return m_hasDistanceFromBegin; }
+  double GetDistanceFromBegin() const { return m_distanceFromBegin; }
 
 private:
   location::GpsInfo const m_info;
   bool const m_isNavigable;
   location::RouteMatchingInfo const m_routeInfo;
+  bool const m_hasDistanceFromBegin;
+  double const m_distanceFromBegin;
 };
 
 class BaseBlockingMessage : public Message
