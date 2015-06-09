@@ -15,7 +15,7 @@
 #define DOWNLOAD_MAP_ACTION_NAME @"DownloadMapAction"
 
 #define FLAGS_KEY @"DownloadMapNotificationFlags"
-#define SHOW_INTERVAL (6 * 30 * 24 * 60 * 60) // six months
+#define SHOW_INTERVAL (3 * 30 * 24 * 60 * 60) // three months
 
 NSString * const LocalNotificationManagerSpecialNotificationInfoKey = @"LocalNotificationManagerSpecialNotificationInfoKey";
 NSString * const LocalNotificationManagerNumberOfViewsPrefix = @"LocalNotificationManagerNumberOfViewsPrefix";
@@ -250,7 +250,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 - (void)showDownloadMapNotificationIfNeeded:(void (^)(UIBackgroundFetchResult))completionHandler
 {
   self.downloadMapCompletionHandler = completionHandler;
-  self.timer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(timerSelector:) userInfo:nil repeats:NO];
+  self.timer = [NSTimer scheduledTimerWithTimeInterval:25 target:self selector:@selector(timerSelector:) userInfo:nil repeats:NO];
   if ([CLLocationManager locationServicesEnabled])
     [self.locationManager startUpdatingLocation];
   else
