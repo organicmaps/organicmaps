@@ -14,6 +14,8 @@
 		670D04BF1B0BA92D0013A7AC /* file_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670D04B51B0BA9050013A7AC /* file_data.cpp */; };
 		670D04C01B0BA92D0013A7AC /* file_data.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670D04B61B0BA9050013A7AC /* file_data.hpp */; };
 		670D04C11B0BA92D0013A7AC /* xmlparser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670D04B71B0BA9050013A7AC /* xmlparser.hpp */; };
+		674A29C61B26F828001A525C /* png_memory_encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D1C81A1AE541C300A239E3 /* png_memory_encoder.cpp */; };
+		674A29C91B26F93F001A525C /* png_memory_encoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67D1C81B1AE541C300A239E3 /* png_memory_encoder.hpp */; };
 		675342801A3F588C00A0A8C3 /* arithmetic_codec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675342291A3F588B00A0A8C3 /* arithmetic_codec.cpp */; };
 		675342811A3F588C00A0A8C3 /* arithmetic_codec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753422A1A3F588B00A0A8C3 /* arithmetic_codec.hpp */; };
 		675342821A3F588C00A0A8C3 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753422B1A3F588B00A0A8C3 /* base64.cpp */; };
@@ -254,8 +256,6 @@
 			children = (
 				670D04B21B0BA9050013A7AC /* internal */,
 				670D04B81B0BA9050013A7AC /* timsort */,
-				67D1C81A1AE541C300A239E3 /* png_memory_encoder.cpp */,
-				67D1C81B1AE541C300A239E3 /* png_memory_encoder.hpp */,
 				675342291A3F588B00A0A8C3 /* arithmetic_codec.cpp */,
 				6753422A1A3F588B00A0A8C3 /* arithmetic_codec.hpp */,
 				6753422B1A3F588B00A0A8C3 /* base64.cpp */,
@@ -307,6 +307,8 @@
 				6753425A1A3F588B00A0A8C3 /* multilang_utf8_string.cpp */,
 				6753425B1A3F588B00A0A8C3 /* multilang_utf8_string.hpp */,
 				6753425C1A3F588B00A0A8C3 /* parse_xml.hpp */,
+				67D1C81A1AE541C300A239E3 /* png_memory_encoder.cpp */,
+				67D1C81B1AE541C300A239E3 /* png_memory_encoder.hpp */,
 				6753425D1A3F588B00A0A8C3 /* polymorph_reader.hpp */,
 				6753425E1A3F588B00A0A8C3 /* read_write_utils.hpp */,
 				6753425F1A3F588B00A0A8C3 /* reader_cache.hpp */,
@@ -403,6 +405,7 @@
 				675342A01A3F588C00A0A8C3 /* file_reader.hpp in Headers */,
 				675342C71A3F588C00A0A8C3 /* url_encode.hpp in Headers */,
 				675342BE1A3F588C00A0A8C3 /* sha2.hpp in Headers */,
+				674A29C91B26F93F001A525C /* png_memory_encoder.hpp in Headers */,
 				675342A21A3F588C00A0A8C3 /* file_writer_stream.hpp in Headers */,
 				675342AA1A3F588C00A0A8C3 /* lodepng_io.hpp in Headers */,
 				675342BC1A3F588C00A0A8C3 /* reader.hpp in Headers */,
@@ -496,6 +499,7 @@
 				675342A71A3F588C00A0A8C3 /* hex.cpp in Sources */,
 				675342A31A3F588C00A0A8C3 /* file_writer.cpp in Sources */,
 				670D04BF1B0BA92D0013A7AC /* file_data.cpp in Sources */,
+				674A29C61B26F828001A525C /* png_memory_encoder.cpp in Sources */,
 				675342CC1A3F588C00A0A8C3 /* varint_vector.cpp in Sources */,
 				675342BD1A3F588C00A0A8C3 /* sha2.cpp in Sources */,
 				675342801A3F588C00A0A8C3 /* arithmetic_codec.cpp in Sources */,

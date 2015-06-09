@@ -84,6 +84,9 @@
       location = "container:platform/platform.xcodeproj">
    </FileRef>
    <FileRef
+      location = "container:render/render.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:routing/routing.xcodeproj">
    </FileRef>
    <FileRef
