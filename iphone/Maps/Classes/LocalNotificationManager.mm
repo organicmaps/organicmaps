@@ -10,6 +10,8 @@
 #import "TimeUtils.h"
 #import "UIKitCategories.h"
 
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
 #include "storage/storage_defines.hpp"
 
 #define DOWNLOAD_MAP_ACTION_NAME @"DownloadMapAction"
@@ -355,6 +357,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
         UIApplication * application = [UIApplication sharedApplication];
         [application presentLocalNotificationNow:notification];
 
+        [Alohalytics logEvent:@"suggestedToDownloadMissingMapForCurrentLocation" atLocation:lastLocation];
         flurryEventName = @"'Download Map' Notification Scheduled";
         result = UIBackgroundFetchResultNewData;
       }
