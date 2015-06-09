@@ -26,16 +26,16 @@ SOFTWARE.
 
 namespace {
 
-static JavaVM* g_jvm = 0;
+static JavaVM * g_jvm = 0;
 
 }  // namespace
 
 // Exported for access from C++ code.
 // If you have your own JNI_OnLoad then you can skip this source and implement your own GetJVM()
-extern JavaVM* GetJVM() { return g_jvm; }
+extern JavaVM * GetJVM() { return g_jvm; }
 
 extern "C" {
-JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void*) {
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM * vm, void *) {
   g_jvm = vm;
   return JNI_VERSION_1_6;
 }

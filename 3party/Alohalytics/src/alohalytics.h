@@ -41,8 +41,9 @@ typedef std::map<std::string, std::string> TStringMap;
 class MQMessage {
   std::string message_;
   bool force_upload_;
-public:
-  MQMessage(std::string&& msg) : message_(std::move(msg)), force_upload_(false) {}
+
+ public:
+  MQMessage(std::string && msg) : message_(std::move(msg)), force_upload_(false) {}
   explicit MQMessage(bool force_upload = false) : force_upload_(force_upload) {}
   // True for special empty message which should force stats uploading.
   bool ForceUpload() const { return force_upload_; }
@@ -67,61 +68,61 @@ class Stats final {
   // Use alohalytics::Stats::Instance() to access statistics engine.
   Stats();
 
-  static bool UploadBuffer(const std::string& url, std::string&& buffer, bool debug_mode);
+  static bool UploadBuffer(const std::string & url, std::string && buffer, bool debug_mode);
 
  public:
   // Processes messages passed from UI in message queue's own thread.
   // TODO(AlexZ): Refactor message queue to make this method private.
-  void OnMessage(const MQMessage& message, size_t dropped_events);
+  void OnMessage(const MQMessage & message, size_t dropped_events);
 
   // Called by file storage engine to upload file with collected data.
   // Should return true if upload has been successful.
   // TODO(AlexZ): Refactor FSQ to make this method private.
-  bool OnFileReady(const std::string& full_path_to_file);
+  bool OnFileReady(const std::string & full_path_to_file);
 
-  static Stats& Instance();
+  static Stats & Instance();
 
   // Easier integration if enabled.
-  Stats& SetDebugMode(bool enable);
+  Stats & SetDebugMode(bool enable);
 
   // If not set, collected data will never be uploaded.
-  Stats& SetServerUrl(const std::string& url_to_upload_statistics_to);
+  Stats & SetServerUrl(const std::string & url_to_upload_statistics_to);
 
   // If not set, data will be stored in memory only.
-  Stats& SetStoragePath(const std::string& full_path_to_storage_with_a_slash_at_the_end);
+  Stats & SetStoragePath(const std::string & full_path_to_storage_with_a_slash_at_the_end);
 
   // If not set, data will be uploaded without any unique id.
-  Stats& SetClientId(const std::string& unique_client_id);
+  Stats & SetClientId(const std::string & unique_client_id);
 
-  void LogEvent(std::string const& event_name);
-  void LogEvent(std::string const& event_name, Location const& location);
+  void LogEvent(std::string const & event_name);
+  void LogEvent(std::string const & event_name, Location const & location);
 
-  void LogEvent(std::string const& event_name, std::string const& event_value);
-  void LogEvent(std::string const& event_name, std::string const& event_value, Location const& location);
+  void LogEvent(std::string const & event_name, std::string const & event_value);
+  void LogEvent(std::string const & event_name, std::string const & event_value, Location const & location);
 
-  void LogEvent(std::string const& event_name, TStringMap const& value_pairs);
-  void LogEvent(std::string const& event_name, TStringMap const& value_pairs, Location const& location);
+  void LogEvent(std::string const & event_name, TStringMap const & value_pairs);
+  void LogEvent(std::string const & event_name, TStringMap const & value_pairs, Location const & location);
 
   // Forcedly tries to upload all stored data to the server.
   void Upload();
 };
 
-inline void LogEvent(std::string const& event_name) { Stats::Instance().LogEvent(event_name); }
-inline void LogEvent(std::string const& event_name, Location const& location) {
+inline void LogEvent(std::string const & event_name) { Stats::Instance().LogEvent(event_name); }
+inline void LogEvent(std::string const & event_name, Location const & location) {
   Stats::Instance().LogEvent(event_name, location);
 }
 
-inline void LogEvent(std::string const& event_name, std::string const& event_value) {
+inline void LogEvent(std::string const & event_name, std::string const & event_value) {
   Stats::Instance().LogEvent(event_name, event_value);
 }
-inline void LogEvent(std::string const& event_name, std::string const& event_value, Location const& location) {
+inline void LogEvent(std::string const & event_name, std::string const & event_value, Location const & location) {
   Stats::Instance().LogEvent(event_name, event_value, location);
 }
 
-inline void LogEvent(std::string const& event_name, TStringMap const& value_pairs) {
+inline void LogEvent(std::string const & event_name, TStringMap const & value_pairs) {
   Stats::Instance().LogEvent(event_name, value_pairs);
 }
-inline void LogEvent(std::string const& event_name, TStringMap const& value_pairs, Location const& location) {
+inline void LogEvent(std::string const & event_name, TStringMap const & value_pairs, Location const & location) {
   Stats::Instance().LogEvent(event_name, value_pairs, location);
 }
 

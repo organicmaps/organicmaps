@@ -37,26 +37,26 @@ using std::unique_ptr;
 using namespace alohalytics;
 
 // Implemented in jni_main.cc, you can use your own impl if necessary.
-extern JavaVM* GetJVM();
+extern JavaVM * GetJVM();
 
 namespace {
 
 static constexpr double kDefaultAndroidVerticalAccuracy = 0.0;
 
 template <typename POINTER, typename DELETER>
-unique_ptr<POINTER, DELETER> MakePointerScopeGuard(POINTER* x, DELETER t) {
+unique_ptr<POINTER, DELETER> MakePointerScopeGuard(POINTER * x, DELETER t) {
   return unique_ptr<POINTER, DELETER>(x, t);
 }
 
 template <typename F>
 class ScopeGuard final {
   F f_;
-  ScopeGuard(const ScopeGuard&) = delete;
-  void operator=(const ScopeGuard&) = delete;
+  ScopeGuard(const ScopeGuard &) = delete;
+  void operator=(const ScopeGuard &) = delete;
 
  public:
-  explicit ScopeGuard(const F& f) : f_(f) {}
-  ScopeGuard(ScopeGuard&& other) : f_(std::forward<F>(other.f_)) {}
+  explicit ScopeGuard(const F & f) : f_(f) {}
+  ScopeGuard(ScopeGuard && other) : f_(std::forward<F>(other.f_)) {}
   ~ScopeGuard() { f_(); }
 };
 
@@ -72,10 +72,10 @@ static jclass g_httpParamsClass = 0;
 static jmethodID g_httpParamsConstructor = 0;
 
 // JNI helper, returns empty string if str == 0.
-string ToStdString(JNIEnv* env, jstring str) {
+string ToStdString(JNIEnv * env, jstring str) {
   string result;
   if (str) {
-    char const* utfBuffer = env->GetStringUTFChars(str, 0);
+    char const * utfBuffer = env->GetStringUTFChars(str, 0);
     if (utfBuffer) {
       result = utfBuffer;
       env->ReleaseStringUTFChars(str, utfBuffer);
@@ -85,7 +85,7 @@ string ToStdString(JNIEnv* env, jstring str) {
 }
 
 // keyValuePairs can be null!
-TStringMap FillMapHelper(JNIEnv* env, jobjectArray keyValuePairs) {
+TStringMap FillMapHelper(JNIEnv * env, jobjectArray keyValuePairs) {
   TStringMap map;
   if (keyValuePairs) {
     const jsize count = env->GetArrayLength(keyValuePairs);
@@ -110,38 +110,37 @@ TStringMap FillMapHelper(JNIEnv* env, jobjectArray keyValuePairs) {
 
 extern "C" {
 JNIEXPORT void JNICALL
-    Java_org_alohalytics_Statistics_logEvent__Ljava_lang_String_2(JNIEnv* env, jclass, jstring eventName) {
+Java_org_alohalytics_Statistics_logEvent__Ljava_lang_String_2(JNIEnv * env, jclass, jstring eventName) {
   LogEvent(ToStdString(env, eventName));
 }
 
 JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_logEvent__Ljava_lang_String_2Ljava_lang_String_2(
-    JNIEnv* env, jclass, jstring eventName, jstring eventValue) {
+    JNIEnv * env, jclass, jstring eventName, jstring eventValue) {
   LogEvent(ToStdString(env, eventName), ToStdString(env, eventValue));
 }
 
 JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_logEvent__Ljava_lang_String_2_3Ljava_lang_String_2(
-    JNIEnv* env, jclass, jstring eventName, jobjectArray keyValuePairs) {
+    JNIEnv * env, jclass, jstring eventName, jobjectArray keyValuePairs) {
   LogEvent(ToStdString(env, eventName), FillMapHelper(env, keyValuePairs));
 }
 
-JNIEXPORT void JNICALL
-    Java_org_alohalytics_Statistics_logEvent__Ljava_lang_String_2_3Ljava_lang_String_2ZJDDFZDZFZFB(
-        JNIEnv* env,
-        jclass,
-        jstring eventName,
-        jobjectArray keyValuePairs,
-        jboolean hasLatLon,
-        jlong timestamp,
-        jdouble lat,
-        jdouble lon,
-        jfloat accuracy,
-        jboolean hasAltitude,
-        jdouble altitude,
-        jboolean hasBearing,
-        jfloat bearing,
-        jboolean hasSpeed,
-        jfloat speed,
-        jbyte source) {
+JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_logEvent__Ljava_lang_String_2_3Ljava_lang_String_2ZJDDFZDZFZFB(
+    JNIEnv * env,
+    jclass,
+    jstring eventName,
+    jobjectArray keyValuePairs,
+    jboolean hasLatLon,
+    jlong timestamp,
+    jdouble lat,
+    jdouble lon,
+    jfloat accuracy,
+    jboolean hasAltitude,
+    jdouble altitude,
+    jboolean hasBearing,
+    jfloat bearing,
+    jboolean hasSpeed,
+    jfloat speed,
+    jbyte source) {
   alohalytics::Location l;
   if (hasLatLon) {
     l.SetLatLon(timestamp, lat, lon, accuracy);
@@ -173,17 +172,12 @@ JNIEXPORT void JNICALL
     return;                    \
   }
 
-JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_setupCPP(JNIEnv* env,
-                                                                jclass,
-                                                                jclass httpTransportClass,
-                                                                jstring serverUrl,
-                                                                jstring storagePath,
-                                                                jstring installationId) {
+JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_setupCPP(
+    JNIEnv * env, jclass, jclass httpTransportClass, jstring serverUrl, jstring storagePath, jstring installationId) {
   g_httpTransportClass = static_cast<jclass>(env->NewGlobalRef(httpTransportClass));
   RETURN_ON_EXCEPTION
-  g_httpTransportClass_run =
-      env->GetStaticMethodID(g_httpTransportClass, "run",
-                             "(Lorg/alohalytics/HttpTransport$Params;)Lorg/alohalytics/HttpTransport$Params;");
+  g_httpTransportClass_run = env->GetStaticMethodID(
+      g_httpTransportClass, "run", "(Lorg/alohalytics/HttpTransport$Params;)Lorg/alohalytics/HttpTransport$Params;");
   RETURN_ON_EXCEPTION
   g_httpParamsClass = env->FindClass("org/alohalytics/HttpTransport$Params");
   RETURN_ON_EXCEPTION
@@ -199,13 +193,11 @@ JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_setupCPP(JNIEnv* env,
       .SetStoragePath(ToStdString(env, storagePath));
 }
 
-JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_debugCPP(JNIEnv* env, jclass, jboolean enableDebug) {
+JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_debugCPP(JNIEnv * env, jclass, jboolean enableDebug) {
   Stats::Instance().SetDebugMode(enableDebug);
 }
 
-JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_forceUpload(JNIEnv* env, jclass) {
-  Stats::Instance().Upload();
-}
+JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_forceUpload(JNIEnv * env, jclass) { Stats::Instance().Upload(); }
 
 }  // extern "C"
 
@@ -216,14 +208,14 @@ namespace alohalytics {
 
 bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   // Attaching multiple times from the same thread is a no-op, which only gets good env for us.
-  JNIEnv* env;
+  JNIEnv * env;
   if (JNI_OK !=
       ::GetJVM()->AttachCurrentThread(
 #ifdef ANDROID
           &env,
 #else
           // Non-Android JAVA requires void** here.
-          reinterpret_cast<void**>(&env),
+          reinterpret_cast<void **>(&env),
 #endif
           nullptr)) {
     ALOG("ERROR while trying to attach JNI thread");
@@ -240,8 +232,8 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   const auto jniUrl = MakePointerScopeGuard(env->NewStringUTF(url_requested_.c_str()), deleteLocalRef);
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
-  const auto httpParamsObject = MakePointerScopeGuard(
-      env->NewObject(g_httpParamsClass, g_httpParamsConstructor, jniUrl.get()), deleteLocalRef);
+  const auto httpParamsObject =
+      MakePointerScopeGuard(env->NewObject(g_httpParamsClass, g_httpParamsConstructor, jniUrl.get()), deleteLocalRef);
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
   // Cache it on the first call.
@@ -251,7 +243,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
     env->SetByteArrayRegion(jniPostData.get(), 0, body_data_.size(),
-                            reinterpret_cast<const jbyte*>(body_data_.data()));
+                            reinterpret_cast<const jbyte *>(body_data_.data()));
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
     env->SetObjectField(httpParamsObject.get(), dataField, jniPostData.get());
@@ -259,8 +251,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   }
 
   assert(!http_method_.empty());
-  const static jfieldID httpMethodField =
-      env->GetFieldID(g_httpParamsClass, "httpMethod", "Ljava/lang/String;");
+  const static jfieldID httpMethodField = env->GetFieldID(g_httpParamsClass, "httpMethod", "Ljava/lang/String;");
   {
     const auto jniHttpMethod = MakePointerScopeGuard(env->NewStringUTF(http_method_.c_str()), deleteLocalRef);
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
@@ -269,8 +260,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   }
 
-  const static jfieldID contentTypeField =
-      env->GetFieldID(g_httpParamsClass, "contentType", "Ljava/lang/String;");
+  const static jfieldID contentTypeField = env->GetFieldID(g_httpParamsClass, "contentType", "Ljava/lang/String;");
   if (!content_type_.empty()) {
     const auto jniContentType = MakePointerScopeGuard(env->NewStringUTF(content_type_.c_str()), deleteLocalRef);
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
@@ -282,8 +272,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   const static jfieldID contentEncodingField =
       env->GetFieldID(g_httpParamsClass, "contentEncoding", "Ljava/lang/String;");
   if (!content_encoding_.empty()) {
-    const auto jniContentEncoding =
-        MakePointerScopeGuard(env->NewStringUTF(content_encoding_.c_str()), deleteLocalRef);
+    const auto jniContentEncoding = MakePointerScopeGuard(env->NewStringUTF(content_encoding_.c_str()), deleteLocalRef);
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
     env->SetObjectField(httpParamsObject.get(), contentEncodingField, jniContentEncoding.get());
@@ -291,8 +280,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   }
 
   if (!user_agent_.empty()) {
-    const static jfieldID userAgentField =
-        env->GetFieldID(g_httpParamsClass, "userAgent", "Ljava/lang/String;");
+    const static jfieldID userAgentField = env->GetFieldID(g_httpParamsClass, "userAgent", "Ljava/lang/String;");
 
     const auto jniUserAgent = MakePointerScopeGuard(env->NewStringUTF(user_agent_.c_str()), deleteLocalRef);
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
@@ -316,8 +304,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     const static jfieldID outputFilePathField =
         env->GetFieldID(g_httpParamsClass, "outputFilePath", "Ljava/lang/String;");
 
-    const auto jniOutputFilePath =
-        MakePointerScopeGuard(env->NewStringUTF(received_file_.c_str()), deleteLocalRef);
+    const auto jniOutputFilePath = MakePointerScopeGuard(env->NewStringUTF(received_file_.c_str()), deleteLocalRef);
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
     env->SetObjectField(httpParamsObject.get(), outputFilePathField, jniOutputFilePath.get());
@@ -328,8 +315,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     const static jfieldID basicAuthUserField =
         env->GetFieldID(g_httpParamsClass, "basicAuthUser", "Ljava/lang/String;");
 
-    const auto jniBasicAuthUser =
-        MakePointerScopeGuard(env->NewStringUTF(basic_auth_user_.c_str()), deleteLocalRef);
+    const auto jniBasicAuthUser = MakePointerScopeGuard(env->NewStringUTF(basic_auth_user_.c_str()), deleteLocalRef);
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
     env->SetObjectField(httpParamsObject.get(), basicAuthUserField, jniBasicAuthUser.get());
@@ -368,26 +354,25 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   error_code_ = env->GetIntField(response, httpResponseCodeField);
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
-  const static jfieldID receivedUrlField =
-      env->GetFieldID(g_httpParamsClass, "receivedUrl", "Ljava/lang/String;");
-  const auto jniReceivedUrl = MakePointerScopeGuard(
-      static_cast<jstring>(env->GetObjectField(response, receivedUrlField)), deleteLocalRef);
+  const static jfieldID receivedUrlField = env->GetFieldID(g_httpParamsClass, "receivedUrl", "Ljava/lang/String;");
+  const auto jniReceivedUrl =
+      MakePointerScopeGuard(static_cast<jstring>(env->GetObjectField(response, receivedUrlField)), deleteLocalRef);
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   if (jniReceivedUrl) {
     url_received_ = std::move(ToStdString(env, jniReceivedUrl.get()));
   }
 
   // contentTypeField is already cached above.
-  const auto jniContentType = MakePointerScopeGuard(
-      static_cast<jstring>(env->GetObjectField(response, contentTypeField)), deleteLocalRef);
+  const auto jniContentType =
+      MakePointerScopeGuard(static_cast<jstring>(env->GetObjectField(response, contentTypeField)), deleteLocalRef);
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   if (jniContentType) {
     content_type_received_ = std::move(ToStdString(env, jniContentType.get()));
   }
 
   // contentEncodingField is already cached above.
-  const auto jniContentEncoding = MakePointerScopeGuard(
-      static_cast<jstring>(env->GetObjectField(response, contentEncodingField)), deleteLocalRef);
+  const auto jniContentEncoding =
+      MakePointerScopeGuard(static_cast<jstring>(env->GetObjectField(response, contentEncodingField)), deleteLocalRef);
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   if (jniContentEncoding) {
     content_encoding_received_ = std::move(ToStdString(env, jniContentEncoding.get()));
@@ -398,9 +383,9 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
       MakePointerScopeGuard(static_cast<jbyteArray>(env->GetObjectField(response, dataField)), deleteLocalRef);
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   if (jniData) {
-    jbyte* buffer = env->GetByteArrayElements(jniData.get(), nullptr);
+    jbyte * buffer = env->GetByteArrayElements(jniData.get(), nullptr);
     if (buffer) {
-      server_response_.assign(reinterpret_cast<const char*>(buffer), env->GetArrayLength(jniData.get()));
+      server_response_.assign(reinterpret_cast<const char *>(buffer), env->GetArrayLength(jniData.get()));
       env->ReleaseByteArrayElements(jniData.get(), buffer, JNI_ABORT);
     }
   }

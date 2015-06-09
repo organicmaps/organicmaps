@@ -34,19 +34,19 @@ static constexpr size_t kGzipBufferSize = 32768;
 
 struct GzipErrorException : public std::exception {
   std::string msg_;
-  GzipErrorException(int err, const char* msg) {
+  GzipErrorException(int err, const char * msg) {
     msg_ = std::string("ERROR ") + std::to_string(err) + " while gzipping with zlib. " + (msg ? msg : "");
   }
-  virtual char const* what() const noexcept { return msg_.c_str(); }
+  virtual char const * what() const noexcept { return msg_.c_str(); }
 };
 
 // Throws GzipErrorException on any gzip processing error.
-inline std::string Gzip(const std::string& data_to_compress) {
+inline std::string Gzip(const std::string & data_to_compress) {
   z_stream z;
   std::memset(&z, 0, sizeof(z));
   int res = ::deflateInit2(&z, Z_BEST_COMPRESSION, Z_DEFLATED, 15 + 16, 8, Z_DEFAULT_STRATEGY);
   if (Z_OK == res) {
-    z.next_in = const_cast<Bytef*>(reinterpret_cast<const Bytef*>(data_to_compress.data()));
+    z.next_in = const_cast<Bytef *>(reinterpret_cast<const Bytef *>(data_to_compress.data()));
     // TODO(AlexZ): Check situation when uInt is < than size of the data to compress.
     z.avail_in = static_cast<uInt>(data_to_compress.size());
     std::string compressed;
@@ -57,7 +57,7 @@ inline std::string Gzip(const std::string& data_to_compress) {
       z.avail_out = static_cast<uInt>(buffer.size());
       res = ::deflate(&z, Z_FINISH);
       if (compressed.size() < z.total_out) {
-        compressed.append(reinterpret_cast<const char*>(buffer.data()), z.total_out - compressed.size());
+        compressed.append(reinterpret_cast<const char *>(buffer.data()), z.total_out - compressed.size());
       }
     } while (Z_OK == res);
     ::deflateEnd(&z);
@@ -70,19 +70,19 @@ inline std::string Gzip(const std::string& data_to_compress) {
 
 struct GunzipErrorException : public std::exception {
   std::string msg_;
-  GunzipErrorException(int err, const char* msg) {
+  GunzipErrorException(int err, const char * msg) {
     msg_ = std::string("ERROR ") + std::to_string(err) + " while gunzipping with zlib. " + (msg ? msg : "");
   }
-  virtual char const* what() const noexcept { return msg_.c_str(); }
+  virtual char const * what() const noexcept { return msg_.c_str(); }
 };
 
 // Throws GunzipErrorException on any gunzip processing error.
-inline std::string Gunzip(const std::string& data_to_decompress) {
+inline std::string Gunzip(const std::string & data_to_decompress) {
   z_stream z;
   std::memset(&z, 0, sizeof(z));
   int res = ::inflateInit2(&z, 16 + MAX_WBITS);
   if (Z_OK == res) {
-    z.next_in = const_cast<Bytef*>(reinterpret_cast<const Bytef*>(data_to_decompress.data()));
+    z.next_in = const_cast<Bytef *>(reinterpret_cast<const Bytef *>(data_to_decompress.data()));
     z.avail_in = static_cast<uInt>(data_to_decompress.size());
     std::string decompressed;
     std::vector<Bytef> buffer;
@@ -92,7 +92,7 @@ inline std::string Gunzip(const std::string& data_to_decompress) {
       z.avail_out = static_cast<uInt>(buffer.size());
       res = ::inflate(&z, Z_NO_FLUSH);
       if (decompressed.size() < z.total_out) {
-        decompressed.append(reinterpret_cast<char const*>(buffer.data()), z.total_out - decompressed.size());
+        decompressed.append(reinterpret_cast<char const *>(buffer.data()), z.total_out - decompressed.size());
       }
     } while (Z_OK == res);
     ::inflateEnd(&z);

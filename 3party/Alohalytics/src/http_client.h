@@ -56,30 +56,30 @@ class HTTPClientPlatformWrapper {
   std::string basic_auth_password_;
   bool debug_mode_ = false;
 
-  HTTPClientPlatformWrapper(const HTTPClientPlatformWrapper&) = delete;
-  HTTPClientPlatformWrapper(HTTPClientPlatformWrapper&&) = delete;
-  HTTPClientPlatformWrapper& operator=(const HTTPClientPlatformWrapper&) = delete;
+  HTTPClientPlatformWrapper(const HTTPClientPlatformWrapper &) = delete;
+  HTTPClientPlatformWrapper(HTTPClientPlatformWrapper &&) = delete;
+  HTTPClientPlatformWrapper & operator=(const HTTPClientPlatformWrapper &) = delete;
 
  public:
   HTTPClientPlatformWrapper() = default;
-  HTTPClientPlatformWrapper(const std::string& url) : url_requested_(url) {}
-  HTTPClientPlatformWrapper& set_debug_mode(bool debug_mode) {
+  HTTPClientPlatformWrapper(const std::string & url) : url_requested_(url) {}
+  HTTPClientPlatformWrapper & set_debug_mode(bool debug_mode) {
     debug_mode_ = debug_mode;
     return *this;
   }
-  HTTPClientPlatformWrapper& set_url_requested(const std::string& url) {
+  HTTPClientPlatformWrapper & set_url_requested(const std::string & url) {
     url_requested_ = url;
     return *this;
   }
-  HTTPClientPlatformWrapper& set_http_method(const std::string& method) {
+  HTTPClientPlatformWrapper & set_http_method(const std::string & method) {
     http_method_ = method;
     return *this;
   }
   // This method is mutually exclusive with set_body_data().
-  HTTPClientPlatformWrapper& set_body_file(const std::string& body_file,
-                                           const std::string& content_type,
-                                           const std::string& http_method = "POST",
-                                           const std::string& content_encoding = "") {
+  HTTPClientPlatformWrapper & set_body_file(const std::string & body_file,
+                                            const std::string & content_type,
+                                            const std::string & http_method = "POST",
+                                            const std::string & content_encoding = "") {
     body_file_ = body_file;
     body_data_.clear();
     content_type_ = content_type;
@@ -88,19 +88,19 @@ class HTTPClientPlatformWrapper {
     return *this;
   }
   // If set, stores server reply in file specified.
-  HTTPClientPlatformWrapper& set_received_file(const std::string& received_file) {
+  HTTPClientPlatformWrapper & set_received_file(const std::string & received_file) {
     received_file_ = received_file;
     return *this;
   }
-  HTTPClientPlatformWrapper& set_user_agent(const std::string& user_agent) {
+  HTTPClientPlatformWrapper & set_user_agent(const std::string & user_agent) {
     user_agent_ = user_agent;
     return *this;
   }
   // This method is mutually exclusive with set_body_file().
-  HTTPClientPlatformWrapper& set_body_data(const std::string& body_data,
-                                           const std::string& content_type,
-                                           const std::string& http_method = "POST",
-                                           const std::string& content_encoding = "") {
+  HTTPClientPlatformWrapper & set_body_data(const std::string & body_data,
+                                            const std::string & content_type,
+                                            const std::string & http_method = "POST",
+                                            const std::string & content_encoding = "") {
     body_data_ = body_data;
     body_file_.clear();
     content_type_ = content_type;
@@ -110,10 +110,10 @@ class HTTPClientPlatformWrapper {
   }
   // Move version to avoid string copying.
   // This method is mutually exclusive with set_body_file().
-  HTTPClientPlatformWrapper& set_body_data(std::string&& body_data,
-                                           const std::string& content_type,
-                                           const std::string& http_method = "POST",
-                                           const std::string& content_encoding = "") {
+  HTTPClientPlatformWrapper & set_body_data(std::string && body_data,
+                                            const std::string & content_type,
+                                            const std::string & http_method = "POST",
+                                            const std::string & content_encoding = "") {
     body_data_ = std::move(body_data);
     body_file_.clear();
     content_type_ = content_type;
@@ -122,7 +122,7 @@ class HTTPClientPlatformWrapper {
     return *this;
   }
   // HTTP Basic Auth.
-  HTTPClientPlatformWrapper& set_user_and_password(const std::string& user, const std::string& password) {
+  HTTPClientPlatformWrapper & set_user_and_password(const std::string & user, const std::string & password) {
     basic_auth_user_ = user;
     basic_auth_password_ = password;
     return *this;
@@ -133,14 +133,14 @@ class HTTPClientPlatformWrapper {
   // @note Implementations should transparently support all needed HTTP redirects
   bool RunHTTPRequest();
 
-  std::string const& url_requested() const { return url_requested_; }
+  std::string const & url_requested() const { return url_requested_; }
   // @returns empty string in the case of error
-  std::string const& url_received() const { return url_received_; }
+  std::string const & url_received() const { return url_received_; }
   bool was_redirected() const { return url_requested_ != url_received_; }
   // Mix of HTTP errors (in case of successful connection) and system-dependent error codes,
   // in the simplest success case use 'if (200 == client.error_code())' // 200 means OK in HTTP
   int error_code() const { return error_code_; }
-  std::string const& server_response() const { return server_response_; }
+  std::string const & server_response() const { return server_response_; }
 
 };  // class HTTPClientPlatformWrapper
 

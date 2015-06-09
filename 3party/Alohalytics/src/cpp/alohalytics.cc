@@ -49,13 +49,13 @@ namespace alohalytics {
 // Used for cereal smart-pointers polymorphic serialization.
 struct NoOpDeleter {
   template <typename T>
-  void operator()(T*) {}
+  void operator()(T *) {}
 };
 
 // Use alohalytics::Stats::Instance() to access statistics engine.
 Stats::Stats() : message_queue_(*this) {}
 
-bool Stats::UploadBuffer(const std::string& url, std::string&& buffer, bool debug_mode) {
+bool Stats::UploadBuffer(const std::string & url, std::string && buffer, bool debug_mode) {
   assert(!url.empty());
   HTTPClientPlatformWrapper request(url);
   request.set_debug_mode(debug_mode);
@@ -65,7 +65,7 @@ bool Stats::UploadBuffer(const std::string& url, std::string&& buffer, bool debu
     // temporary memory buffer any more and files take less space.
     request.set_body_data(alohalytics::Gzip(buffer), "application/alohalytics-binary-blob", "POST", "gzip");
     return request.RunHTTPRequest() && 200 == request.error_code() && !request.was_redirected();
-  } catch (const std::exception& ex) {
+  } catch (const std::exception & ex) {
     if (debug_mode) {
       ALOG("Exception while trying to UploadBuffer", ex.what());
     }
@@ -75,7 +75,7 @@ bool Stats::UploadBuffer(const std::string& url, std::string&& buffer, bool debu
 
 // Processes messages passed from UI in message queue's own thread.
 // TODO(AlexZ): Refactor message queue to make this method private.
-void Stats::OnMessage(const MQMessage& message, size_t dropped_events) {
+void Stats::OnMessage(const MQMessage & message, size_t dropped_events) {
   if (dropped_events) {
     LOG_IF_DEBUG("Warning:", dropped_events, "events were dropped from the queue.");
   }
@@ -94,7 +94,7 @@ void Stats::OnMessage(const MQMessage& message, size_t dropped_events) {
       // TODO(AlexZ): thread-safety?
       TMemoryContainer copy;
       copy.swap(memory_storage_);
-      for (const auto& evt : copy) {
+      for (const auto & evt : copy) {
         buffer.append(evt);
       }
       LOG_IF_DEBUG("Forcing in-memory statistics uploading.");
@@ -108,7 +108,7 @@ void Stats::OnMessage(const MQMessage& message, size_t dropped_events) {
     if (file_storage_queue_) {
       file_storage_queue_->PushMessage(message.GetMessage());
     } else {
-      auto& container = memory_storage_;
+      auto & container = memory_storage_;
       container.push_back(message.GetMessage());
       constexpr size_t kMaxEventsInMemory = 2048;
       if (container.size() > kMaxEventsInMemory) {
@@ -123,7 +123,7 @@ void Stats::OnMessage(const MQMessage& message, size_t dropped_events) {
 // Called by file storage engine to upload file with collected data.
 // Should return true if upload has been successful.
 // TODO(AlexZ): Refactor FSQ to make this method private.
-bool Stats::OnFileReady(const std::string& full_path_to_file) {
+bool Stats::OnFileReady(const std::string & full_path_to_file) {
   if (upload_url_.empty()) {
     LOG_IF_DEBUG("Warning: upload server url was not set and file", full_path_to_file, "was not uploaded.");
     return false;
@@ -159,29 +159,29 @@ bool Stats::OnFileReady(const std::string& full_path_to_file) {
   return false;
 }
 
-Stats& Stats::Instance() {
+Stats & Stats::Instance() {
   static Stats alohalytics;
   return alohalytics;
 }
 
 // Easier integration if enabled.
-Stats& Stats::SetDebugMode(bool enable) {
+Stats & Stats::SetDebugMode(bool enable) {
   debug_mode_ = enable;
   LOG_IF_DEBUG("Enabled debug mode.");
   return *this;
 }
 
 // If not set, collected data will never be uploaded.
-Stats& Stats::SetServerUrl(const std::string& url_to_upload_statistics_to) {
+Stats & Stats::SetServerUrl(const std::string & url_to_upload_statistics_to) {
   upload_url_ = url_to_upload_statistics_to;
   LOG_IF_DEBUG("Set upload url:", url_to_upload_statistics_to);
   return *this;
 }
 
 // If not set, data will be stored in memory only.
-Stats& Stats::SetStoragePath(const std::string& full_path_to_storage_with_a_slash_at_the_end) {
+Stats & Stats::SetStoragePath(const std::string & full_path_to_storage_with_a_slash_at_the_end) {
   LOG_IF_DEBUG("Set storage path:", full_path_to_storage_with_a_slash_at_the_end);
-  auto& fsq = file_storage_queue_;
+  auto & fsq = file_storage_queue_;
   fsq.reset(nullptr);
   if (!full_path_to_storage_with_a_slash_at_the_end.empty()) {
     fsq.reset(new TFileStorageQueue(*this, full_path_to_storage_with_a_slash_at_the_end));
@@ -190,14 +190,13 @@ Stats& Stats::SetStoragePath(const std::string& full_path_to_storage_with_a_slas
       LOG_IF_DEBUG("Active file size:", status.appended_file_size);
       const size_t count = status.finalized.queue.size();
       if (count) {
-        LOG_IF_DEBUG(count, "files with total size of", status.finalized.total_size,
-                     "bytes are waiting for upload.");
+        LOG_IF_DEBUG(count, "files with total size of", status.finalized.total_size, "bytes are waiting for upload.");
       }
     }
     const size_t memory_events_count = memory_storage_.size();
     if (memory_events_count) {
       LOG_IF_DEBUG("Save", memory_events_count, "in-memory events into the file storage.");
-      for (const auto& msg : memory_storage_) {
+      for (const auto & msg : memory_storage_) {
         fsq->PushMessage(msg);
       }
       memory_storage_.clear();
@@ -207,7 +206,7 @@ Stats& Stats::SetStoragePath(const std::string& full_path_to_storage_with_a_slas
 }
 
 // If not set, data will be uploaded without any unique id.
-Stats& Stats::SetClientId(const std::string& unique_client_id) {
+Stats & Stats::SetClientId(const std::string & unique_client_id) {
   LOG_IF_DEBUG("Set unique client id:", unique_client_id);
   if (unique_client_id.empty()) {
     unique_client_id_event_.clear();
@@ -221,7 +220,7 @@ Stats& Stats::SetClientId(const std::string& unique_client_id) {
   return *this;
 }
 
-static inline void LogEventImpl(AlohalyticsBaseEvent const& event, MessageQueue<Stats, MQMessage>& mmq) {
+static inline void LogEventImpl(AlohalyticsBaseEvent const & event, MessageQueue<Stats, MQMessage> & mmq) {
   std::ostringstream sstream;
   {
     // unique_ptr is used to correctly serialize polymorphic types.
@@ -230,14 +229,14 @@ static inline void LogEventImpl(AlohalyticsBaseEvent const& event, MessageQueue<
   mmq.PushMessage(std::move(sstream.str()));
 }
 
-void Stats::LogEvent(std::string const& event_name) {
+void Stats::LogEvent(std::string const & event_name) {
   LOG_IF_DEBUG("LogEvent:", event_name);
   AlohalyticsKeyEvent event;
   event.key = event_name;
   LogEventImpl(event, message_queue_);
 }
 
-void Stats::LogEvent(std::string const& event_name, Location const& location) {
+void Stats::LogEvent(std::string const & event_name, Location const & location) {
   LOG_IF_DEBUG("LogEvent:", event_name, location.ToDebugString());
   AlohalyticsKeyLocationEvent event;
   event.key = event_name;
@@ -245,7 +244,7 @@ void Stats::LogEvent(std::string const& event_name, Location const& location) {
   LogEventImpl(event, message_queue_);
 }
 
-void Stats::LogEvent(std::string const& event_name, std::string const& event_value) {
+void Stats::LogEvent(std::string const & event_name, std::string const & event_value) {
   LOG_IF_DEBUG("LogEvent:", event_name, "=", event_value);
   AlohalyticsKeyValueEvent event;
   event.key = event_name;
@@ -253,7 +252,7 @@ void Stats::LogEvent(std::string const& event_name, std::string const& event_val
   LogEventImpl(event, message_queue_);
 }
 
-void Stats::LogEvent(std::string const& event_name, std::string const& event_value, Location const& location) {
+void Stats::LogEvent(std::string const & event_name, std::string const & event_value, Location const & location) {
   LOG_IF_DEBUG("LogEvent:", event_name, "=", event_value, location.ToDebugString());
   AlohalyticsKeyValueLocationEvent event;
   event.key = event_name;
@@ -262,7 +261,7 @@ void Stats::LogEvent(std::string const& event_name, std::string const& event_val
   LogEventImpl(event, message_queue_);
 }
 
-void Stats::LogEvent(std::string const& event_name, TStringMap const& value_pairs) {
+void Stats::LogEvent(std::string const & event_name, TStringMap const & value_pairs) {
   LOG_IF_DEBUG("LogEvent:", event_name, "=", value_pairs);
   AlohalyticsKeyPairsEvent event;
   event.key = event_name;
@@ -270,7 +269,7 @@ void Stats::LogEvent(std::string const& event_name, TStringMap const& value_pair
   LogEventImpl(event, message_queue_);
 }
 
-void Stats::LogEvent(std::string const& event_name, TStringMap const& value_pairs, Location const& location) {
+void Stats::LogEvent(std::string const & event_name, TStringMap const & value_pairs, Location const & location) {
   LOG_IF_DEBUG("LogEvent:", event_name, "=", value_pairs, location.ToDebugString());
   AlohalyticsKeyPairsLocationEvent event;
   event.key = event_name;

@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
 
 namespace dflags {
 
-inline void TerminateExecution(const int code, const std::string& message) {
+inline void TerminateExecution(const int code, const std::string & message) {
   std::cerr << message << std::endl;
   std::exit(code);
 }
@@ -76,7 +76,7 @@ inline void TerminateExecution(const int code, const std::string& message) {
 class FlagRegistererBase {
  public:
   virtual ~FlagRegistererBase() {}
-  virtual void ParseValue(const std::string& name, const std::string& value) const = 0;
+  virtual void ParseValue(const std::string & name, const std::string & value) const = 0;
   virtual std::string TypeAsString() const = 0;
   virtual std::string DefaultValueAsString() const = 0;
   virtual std::string DescriptionAsString() const = 0;
@@ -85,24 +85,24 @@ class FlagRegistererBase {
 class FlagsRegistererSingleton {
  public:
   virtual ~FlagsRegistererSingleton() {}
-  virtual void RegisterFlag(const std::string& name, FlagRegistererBase* impl) = 0;
-  virtual void ParseFlags(int& argc, char**& argv) = 0;
-  virtual void PrintHelpAndExit(const std::map<std::string, FlagRegistererBase*>& flags) const {
+  virtual void RegisterFlag(const std::string & name, FlagRegistererBase * impl) = 0;
+  virtual void ParseFlags(int & argc, char **& argv) = 0;
+  virtual void PrintHelpAndExit(const std::map<std::string, FlagRegistererBase *> & flags) const {
     PrintHelp(flags, HelpPrinterOStream());
     std::exit(HelpPrinterReturnCode());
   }
 
  protected:
-  virtual void PrintHelp(const std::map<std::string, FlagRegistererBase*>& flags, std::ostream& os) const {
+  virtual void PrintHelp(const std::map<std::string, FlagRegistererBase *> & flags, std::ostream & os) const {
     os << flags.size() << " flags registered.\n";
     for (const auto cit : flags) {
-      os << "\t--" << cit.first << " , " << cit.second->TypeAsString() << "\n\t\t"
-         << cit.second->DescriptionAsString() << "\n\t\t"
+      os << "\t--" << cit.first << " , " << cit.second->TypeAsString() << "\n\t\t" << cit.second->DescriptionAsString()
+         << "\n\t\t"
          << "Default value: " << cit.second->DefaultValueAsString() << '\n';
     }
   }
   // LCOV_EXCL_START -- exclude the following lines from unit test line coverage report.
-  virtual std::ostream& HelpPrinterOStream() const { return std::cout; }
+  virtual std::ostream & HelpPrinterOStream() const { return std::cout; }
   virtual int HelpPrinterReturnCode() const { return 0; }
   // LCOV_EXCL_STOP -- exclude the above lines from unit test line coverage report.
 };
@@ -111,9 +111,9 @@ class FlagsManager {
  public:
   class DefaultRegisterer : public FlagsRegistererSingleton {
    public:
-    void RegisterFlag(const std::string& name, FlagRegistererBase* impl) override { flags_[name] = impl; }
+    void RegisterFlag(const std::string & name, FlagRegistererBase * impl) override { flags_[name] = impl; }
 
-    void ParseFlags(int& argc, char**& argv) override {
+    void ParseFlags(int & argc, char **& argv) override {
       if (parse_flags_called_) {
         TerminateExecution(-1, "ParseDFlags() is called more than once.");
       }
@@ -122,26 +122,24 @@ class FlagsManager {
 
       for (int i = 1; i < argc; ++i) {
         if (argv[i][0] == '-') {
-          const char* flag = argv[i];
+          const char * flag = argv[i];
           size_t dashes_count = 0;
           while (*flag == '-') {
             ++flag;
             ++dashes_count;
             if (dashes_count > 2) {
-              TerminateExecution(-1,
-                                 std::string() + "Parameter: '" + argv[i] + "' has too many dashes in front.");
+              TerminateExecution(-1, std::string() + "Parameter: '" + argv[i] + "' has too many dashes in front.");
             }
           }
-          const char* equals_sign = strstr(flag, "=");
-          const std::pair<std::string, const char*> key_value =
+          const char * equals_sign = strstr(flag, "=");
+          const std::pair<std::string, const char *> key_value =
               equals_sign ? std::make_pair(std::string(flag, equals_sign), equals_sign + 1)
                           : (++i, std::make_pair(flag, argv[i]));
           if (key_value.first == "help") {
             UserRequestedHelp();
           } else {
             if (i == argc) {
-              TerminateExecution(
-                  -1, std::string() + "Flag: '" + key_value.first + "' is not provided with the value.");
+              TerminateExecution(-1, std::string() + "Flag: '" + key_value.first + "' is not provided with the value.");
             }
             const auto cit = flags_.find(key_value.first);
             if (cit == flags_.end()) {
@@ -164,45 +162,44 @@ class FlagsManager {
       Singleton().PrintHelpAndExit(flags_);
     }  // LCOV_EXCL_LINE -- exclude this line from unit test line coverage report.
 
-    std::map<std::string, FlagRegistererBase*> flags_;
+    std::map<std::string, FlagRegistererBase *> flags_;
     bool parse_flags_called_ = false;
-    std::vector<char*> argv_;
+    std::vector<char *> argv_;
   };
 
   class ScopedSingletonInjector {
    public:
-    explicit ScopedSingletonInjector(FlagsRegistererSingleton* ptr)
+    explicit ScopedSingletonInjector(FlagsRegistererSingleton * ptr)
         : current_ptr_(MockableSingletonGetterAndSetter()) {
       MockableSingletonGetterAndSetter(ptr);
     }
     ~ScopedSingletonInjector() { MockableSingletonGetterAndSetter(current_ptr_); }
-    explicit ScopedSingletonInjector(FlagsRegistererSingleton& ref) : ScopedSingletonInjector(&ref) {}
+    explicit ScopedSingletonInjector(FlagsRegistererSingleton & ref) : ScopedSingletonInjector(&ref) {}
 
    private:
-    FlagsRegistererSingleton* current_ptr_;
+    FlagsRegistererSingleton * current_ptr_;
   };
 
-  static FlagsRegistererSingleton* MockableSingletonGetterAndSetter(
-      FlagsRegistererSingleton* inject_ptr = nullptr) {
+  static FlagsRegistererSingleton * MockableSingletonGetterAndSetter(FlagsRegistererSingleton * inject_ptr = nullptr) {
     static DefaultRegisterer singleton;
-    static FlagsRegistererSingleton* ptr = &singleton;
+    static FlagsRegistererSingleton * ptr = &singleton;
     if (inject_ptr) {
       ptr = inject_ptr;
     }
     return ptr;
   }
 
-  static FlagsRegistererSingleton& Singleton() { return *MockableSingletonGetterAndSetter(); }
+  static FlagsRegistererSingleton & Singleton() { return *MockableSingletonGetterAndSetter(); }
 
-  static void RegisterFlag(const std::string& name, FlagRegistererBase* impl) {
+  static void RegisterFlag(const std::string & name, FlagRegistererBase * impl) {
     Singleton().RegisterFlag(name, impl);
   }
 
-  static void ParseFlags(int& argc, char**& argv) { Singleton().ParseFlags(argc, argv); }
+  static void ParseFlags(int & argc, char **& argv) { Singleton().ParseFlags(argc, argv); }
 };
 
 template <typename T>
-bool FromStringSupportingStringAndBool(const std::string& from, T& to) {
+bool FromStringSupportingStringAndBool(const std::string & from, T & to) {
   std::istringstream is(from);
   // Workaronud for a bug in `clang++ -std=c++11` on Mac, clang++ --version `LLVM version 6.0 (clang-600.0.56)`.
   // See: http://www.quora.com/Does-Macs-clang++-have-a-bug-with-return-type-of-templated-functions
@@ -210,13 +207,13 @@ bool FromStringSupportingStringAndBool(const std::string& from, T& to) {
 }
 
 template <>
-bool FromStringSupportingStringAndBool(const std::string& from, std::string& to) {
+bool FromStringSupportingStringAndBool(const std::string & from, std::string & to) {
   to = from;
   return true;
 }
 
 template <>
-bool FromStringSupportingStringAndBool(const std::string& from, bool& to) {
+bool FromStringSupportingStringAndBool(const std::string & from, bool & to) {
   if (from == "0" || from == "false" || from == "False" || from == "no" || from == "No") {
     to = false;
     return true;
@@ -246,16 +243,16 @@ inline std::string ToStringSupportingStringAndBool(bool b) {
 template <typename FLAG_TYPE>
 class FlagRegisterer : public FlagRegistererBase {
  public:
-  FlagRegisterer(FLAG_TYPE& ref,
-                 const std::string& name,
-                 const std::string& type,
+  FlagRegisterer(FLAG_TYPE & ref,
+                 const std::string & name,
+                 const std::string & type,
                  const FLAG_TYPE default_value,
-                 const std::string& description)
+                 const std::string & description)
       : ref_(ref), name_(name), type_(type), default_value_(default_value), description_(description) {
     FlagsManager::RegisterFlag(name, this);
   }
 
-  virtual void ParseValue(const std::string& name, const std::string& value) const override {
+  virtual void ParseValue(const std::string & name, const std::string & value) const override {
     if (!FromStringSupportingStringAndBool(value, ref_)) {
       TerminateExecution(-1, std::string("Can not parse '") + value + "' for flag '" + name + "'.");
     }
@@ -263,24 +260,21 @@ class FlagRegisterer : public FlagRegistererBase {
 
   virtual std::string TypeAsString() const override { return type_; }
 
-  virtual std::string DefaultValueAsString() const override {
-    return ToStringSupportingStringAndBool(default_value_);
-  }
+  virtual std::string DefaultValueAsString() const override { return ToStringSupportingStringAndBool(default_value_); }
 
   virtual std::string DescriptionAsString() const override { return description_; }
 
  private:
-  FLAG_TYPE& ref_;
+  FLAG_TYPE & ref_;
   const std::string name_;
   const std::string type_;
   const FLAG_TYPE default_value_;
   const std::string description_;
 };
 
-#define DEFINE_flag(type, name, default_value, description)                                             \
-  type FLAGS_##name = default_value;                                                                    \
-  ::dflags::FlagRegisterer<type> REGISTERER_##name(std::ref(FLAGS_##name), #name, #type, default_value, \
-                                                   description)
+#define DEFINE_flag(type, name, default_value, description) \
+  type FLAGS_##name = default_value;                        \
+  ::dflags::FlagRegisterer<type> REGISTERER_##name(std::ref(FLAGS_##name), #name, #type, default_value, description)
 
 #define DEFINE_int8(name, default_value, description) DEFINE_flag(int8_t, name, default_value, description)
 #define DEFINE_uint8(name, default_value, description) DEFINE_flag(uint8_t, name, default_value, description)
@@ -292,21 +286,20 @@ class FlagRegisterer : public FlagRegistererBase {
 #define DEFINE_uint64(name, default_value, description) DEFINE_flag(uint64_t, name, default_value, description)
 #define DEFINE_float(name, default_value, description) DEFINE_flag(float, name, default_value, description)
 #define DEFINE_double(name, default_value, description) DEFINE_flag(double, name, default_value, description)
-#define DEFINE_string(name, default_value, description) \
-  DEFINE_flag(std::string, name, default_value, description)
+#define DEFINE_string(name, default_value, description) DEFINE_flag(std::string, name, default_value, description)
 #define DEFINE_bool(name, default_value, description) DEFINE_flag(bool, name, default_value, description)
 
 }  // namespace dflags
 
-inline void ParseDFlags(int* argc, char*** argv) { ::dflags::FlagsManager::ParseFlags(*argc, *argv); }
+inline void ParseDFlags(int * argc, char *** argv) { ::dflags::FlagsManager::ParseFlags(*argc, *argv); }
 
 namespace fake_google {
 struct UnambiguousGoogleFriendlyIntPointerWrapper {
-  int* p;
-  inline UnambiguousGoogleFriendlyIntPointerWrapper(int* p) : p(p) {}
-  inline operator int*() { return p; }
+  int * p;
+  inline UnambiguousGoogleFriendlyIntPointerWrapper(int * p) : p(p) {}
+  inline operator int *() { return p; }
 };
-inline bool ParseCommandLineFlags(UnambiguousGoogleFriendlyIntPointerWrapper argc, char*** argv, bool = true) {
+inline bool ParseCommandLineFlags(UnambiguousGoogleFriendlyIntPointerWrapper argc, char *** argv, bool = true) {
   ParseDFlags(argc, argv);
   return true;
 }

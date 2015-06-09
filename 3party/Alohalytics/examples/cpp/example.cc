@@ -49,10 +49,10 @@ DEFINE_bool(location, true, "Simulates event with a location.");
 using namespace std;
 using alohalytics::Stats;
 
-int main(int argc, char** argv) {
+int main(int argc, char ** argv) {
   ParseDFlags(&argc, &argv);
 
-  Stats& stats = Stats::Instance();
+  Stats & stats = Stats::Instance();
 
   if (FLAGS_debug) {
     stats.SetDebugMode(true);
@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
   if (!FLAGS_event.empty()) {
     if (!FLAGS_values.empty()) {
       string values = FLAGS_values;
-      for (auto& c : values) {
+      for (auto & c : values) {
         if (c == '=' || c == ',') {
           c = ' ';
         }

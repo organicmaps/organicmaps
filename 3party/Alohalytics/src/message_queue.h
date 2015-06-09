@@ -47,7 +47,7 @@ class MessageQueue final {
   typedef CONSUMER T_CONSUMER;
 
   // The only constructor requires the refence to the instance of the consumer of entries.
-  explicit MessageQueue(T_CONSUMER& consumer, size_t buffer_size = DEFAULT_BUFFER_SIZE)
+  explicit MessageQueue(T_CONSUMER & consumer, size_t buffer_size = DEFAULT_BUFFER_SIZE)
       : consumer_(consumer),
         circular_buffer_size_(buffer_size),
         circular_buffer_(circular_buffer_size_),
@@ -66,25 +66,25 @@ class MessageQueue final {
   // Adds an message to the buffer.
   // Supports both copy and move semantics.
   // THREAD SAFE. Blocks the calling thread for as short period of time as possible.
-  void PushMessage(const T_MESSAGE& message) {
+  void PushMessage(const T_MESSAGE & message) {
     const size_t index = PushEventAllocate();
     circular_buffer_[index].message_body = message;
     PushEventCommit(index);
   }
-  void PushMessage(T_MESSAGE&& message) {
+  void PushMessage(T_MESSAGE && message) {
     const size_t index = PushEventAllocate();
     circular_buffer_[index].message_body = std::move(message);
     PushEventCommit(index);
   }
 
  private:
-  MessageQueue(const MessageQueue&) = delete;
-  MessageQueue(MessageQueue&&) = delete;
-  void operator=(const MessageQueue&) = delete;
-  void operator=(MessageQueue&&) = delete;
+  MessageQueue(const MessageQueue &) = delete;
+  MessageQueue(MessageQueue &&) = delete;
+  void operator=(const MessageQueue &) = delete;
+  void operator=(MessageQueue &&) = delete;
 
   // Increment the index respecting the circular nature of the buffer.
-  void Increment(size_t& i) const { i = (i + 1) % circular_buffer_size_; }
+  void Increment(size_t & i) const { i = (i + 1) % circular_buffer_size_; }
 
   // The thread which extracts fully populated events from the tail of the buffer and exports them.
   void ConsumerThread() {
@@ -156,7 +156,7 @@ class MessageQueue final {
   }
 
   // The instance of the consuming side of the FIFO buffer.
-  T_CONSUMER& consumer_;
+  T_CONSUMER & consumer_;
 
   // The capacity of the circular buffer for intermediate events.
   // Events beyond it will be dropped.

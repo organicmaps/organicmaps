@@ -54,8 +54,8 @@ struct AlohalyticsBaseEvent {
   }
 
   static uint64_t CurrentTimestamp() {
-    return std::chrono::duration_cast<std::chrono::milliseconds>(
-               std::chrono::system_clock::now().time_since_epoch()).count();
+    return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())
+        .count();
   }
 
 // To avoid unnecessary calls on a server side
@@ -64,7 +64,7 @@ struct AlohalyticsBaseEvent {
 #endif
 
   template <class Archive>
-  void serialize(Archive& ar) {
+  void serialize(Archive & ar) {
     ar(CEREAL_NVP(timestamp));
   }
 
@@ -81,7 +81,7 @@ struct AlohalyticsIdEvent : public AlohalyticsBaseEvent {
   virtual std::string ToString() const { return AlohalyticsBaseEvent::ToString() + " ID: " + id; }
 
   template <class Archive>
-  void serialize(Archive& ar) {
+  void serialize(Archive & ar) {
     AlohalyticsBaseEvent::serialize(ar);
     ar(CEREAL_NVP(id));
   }
@@ -95,7 +95,7 @@ struct AlohalyticsKeyEvent : public AlohalyticsBaseEvent {
   virtual std::string ToString() const { return AlohalyticsBaseEvent::ToString() + " " + key; }
 
   template <class Archive>
-  void serialize(Archive& ar) {
+  void serialize(Archive & ar) {
     AlohalyticsBaseEvent::serialize(ar);
     ar(CEREAL_NVP(key));
   }
@@ -109,7 +109,7 @@ struct AlohalyticsKeyValueEvent : public AlohalyticsKeyEvent {
   virtual std::string ToString() const { return AlohalyticsKeyEvent::ToString() + " = " + value; }
 
   template <class Archive>
-  void serialize(Archive& ar) {
+  void serialize(Archive & ar) {
     AlohalyticsKeyEvent::serialize(ar);
     ar(CEREAL_NVP(value));
   }
@@ -123,7 +123,7 @@ struct AlohalyticsKeyPairsEvent : public AlohalyticsKeyEvent {
   virtual std::string ToString() const {
     std::ostringstream stream;
     stream << AlohalyticsKeyEvent::ToString() << " [ ";
-    for (const auto& pair : pairs) {
+    for (const auto & pair : pairs) {
       stream << pair.first << '=' << pair.second << ' ';
     }
     stream << ']';
@@ -131,7 +131,7 @@ struct AlohalyticsKeyPairsEvent : public AlohalyticsKeyEvent {
   }
 
   template <class Archive>
-  void serialize(Archive& ar) {
+  void serialize(Archive & ar) {
     AlohalyticsKeyEvent::serialize(ar);
     ar(CEREAL_NVP(pairs));
   }
@@ -142,12 +142,10 @@ CEREAL_REGISTER_TYPE_WITH_NAME(AlohalyticsKeyPairsEvent, "p")
 struct AlohalyticsKeyLocationEvent : public AlohalyticsKeyEvent {
   alohalytics::Location location;
 
-  virtual std::string ToString() const {
-    return AlohalyticsKeyEvent::ToString() + ' ' + location.ToDebugString();
-  }
+  virtual std::string ToString() const { return AlohalyticsKeyEvent::ToString() + ' ' + location.ToDebugString(); }
 
   template <class Archive>
-  void serialize(Archive& ar) {
+  void serialize(Archive & ar) {
     AlohalyticsKeyEvent::serialize(ar);
     ar(CEREAL_NVP(location));
   }
@@ -158,12 +156,10 @@ CEREAL_REGISTER_TYPE_WITH_NAME(AlohalyticsKeyLocationEvent, "kl")
 struct AlohalyticsKeyValueLocationEvent : public AlohalyticsKeyValueEvent {
   alohalytics::Location location;
 
-  virtual std::string ToString() const {
-    return AlohalyticsKeyValueEvent::ToString() + ' ' + location.ToDebugString();
-  }
+  virtual std::string ToString() const { return AlohalyticsKeyValueEvent::ToString() + ' ' + location.ToDebugString(); }
 
   template <class Archive>
-  void serialize(Archive& ar) {
+  void serialize(Archive & ar) {
     AlohalyticsKeyValueEvent::serialize(ar);
     ar(CEREAL_NVP(location));
   }
@@ -174,12 +170,10 @@ CEREAL_REGISTER_TYPE_WITH_NAME(AlohalyticsKeyValueLocationEvent, "vl")
 struct AlohalyticsKeyPairsLocationEvent : public AlohalyticsKeyPairsEvent {
   alohalytics::Location location;
 
-  virtual std::string ToString() const {
-    return AlohalyticsKeyPairsEvent::ToString() + ' ' + location.ToDebugString();
-  }
+  virtual std::string ToString() const { return AlohalyticsKeyPairsEvent::ToString() + ' ' + location.ToDebugString(); }
 
   template <class Archive>
-  void serialize(Archive& ar) {
+  void serialize(Archive & ar) {
     AlohalyticsKeyPairsEvent::serialize(ar);
     ar(CEREAL_NVP(location));
   }

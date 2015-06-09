@@ -36,7 +36,7 @@
 #include <typeinfo>
 #include <fstream>
 
-int main(int argc, char** argv) {
+int main(int argc, char ** argv) {
   if (argc < 2) {
     std::cout << "Usage: " << argv[0] << " <gzipped_cereal_file>" << std::endl;
     return -1;
@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
       in_archive(ptr);
       std::cout << ptr->ToString() << std::endl;
     }
-  } catch (const std::exception& ex) {
+  } catch (const std::exception & ex) {
     std::cerr << "Exception: " << ex.what() << " in file " << argv[1] << std::endl;
     return -1;
   }

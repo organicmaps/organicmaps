@@ -1,3 +1,8 @@
 BasedOnStyle: Google
-ColumnLimit: 112          # Calibrated by Dima&Alex for GitHub-based code reviews in 2014.
-BinPackParameters: false  # Allow either all parameters on one line or one parameter per line, no packing.
+ColumnLimit: 120 # Fits GitHub pull-request review width.
+BinPackParameters: false  # Allow either all method's parameters on one line or one parameter per line, no packing.
+
+Language: Cpp
+# Force pointers to the type for C++.
+DerivePointerAlignment: false
+PointerAlignment: Middle

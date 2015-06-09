@@ -37,7 +37,7 @@
 
 // Pretty-printing for std::pair.
 template <typename T, typename U>
-std::ostream& operator<<(std::ostream& out, const std::pair<T, U>& p) {
+std::ostream & operator<<(std::ostream & out, const std::pair<T, U> & p) {
   out << p.first << "=" << p.second;
   return out;
 }
@@ -50,7 +50,7 @@ class Logger {
  public:
   Logger() {}
 
-  Logger(const char* file, int line) { out_ << file << ':' << line << ": "; }
+  Logger(const char * file, int line) { out_ << file << ':' << line << ": "; }
 
   ~Logger() {
 #if defined(__OBJC__)
@@ -63,7 +63,7 @@ class Logger {
   }
 
   template <typename T, typename... ARGS>
-  void Log(const T& arg1, const ARGS&... others) {
+  void Log(const T & arg1, const ARGS &... others) {
     Log(arg1);
     out_ << ' ';
     Log(others...);
@@ -72,12 +72,12 @@ class Logger {
   void Log() {}
 
   template <typename T>
-  void Log(const T& t) {
+  void Log(const T & t) {
     out_ << t;
   }
 
   // String specialization to avoid printing every character as a container's element.
-  void Log(const std::string& t) {
+  void Log(const std::string & t) {
     if (t.empty()) {
       out_ << "<EMPTY_STRING>";
     } else {
@@ -87,11 +87,11 @@ class Logger {
 
   // Pretty-printing for containers.
   template <template <typename, typename...> class ContainerType, typename ValueType, typename... Args>
-  void Log(const ContainerType<ValueType, Args...>& c) {
+  void Log(const ContainerType<ValueType, Args...> & c) {
     out_ << '{';
     size_t index = 0;
     const size_t count = c.size();
-    for (const auto& v : c) {
+    for (const auto & v : c) {
       out_ << v;
       if (++index != count) {
         out_ << ',';
