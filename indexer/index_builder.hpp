@@ -3,14 +3,11 @@
 #include "indexer/data_header.hpp"
 #include "indexer/scale_index_builder.hpp"
 
-
 namespace indexer
 {
-  template <class FeaturesVectorT, typename WriterT>
-  void BuildIndex(feature::DataHeader const & header,
-                  FeaturesVectorT const & featuresVector,
-                  WriterT & writer,
-                  string const & tmpFilePrefix)
+template <class FeaturesVectorT, typename WriterT>
+void BuildIndex(feature::DataHeader const & header, FeaturesVectorT const & featuresVector,
+                WriterT & writer, string const & tmpFilePrefix)
   {
     LOG(LINFO, ("Building scale index."));
     uint64_t indexSize;

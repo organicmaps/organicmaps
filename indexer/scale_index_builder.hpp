@@ -22,10 +22,8 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
-
 namespace covering
 {
-
 class CellFeaturePair
 {
 public:
@@ -78,7 +76,8 @@ template <class SorterT>
 class FeatureCoverer
 {
 public:
-  FeatureCoverer(feature::DataHeader const & header, SorterT & sorter, vector<uint32_t> & featuresInBucket, vector<uint32_t> & cellsInBucket)
+  FeatureCoverer(feature::DataHeader const & header, SorterT & sorter,
+                 vector<uint32_t> & featuresInBucket, vector<uint32_t> & cellsInBucket)
       : m_header(header),
         m_bucketsCount(header.GetLastScale() + 1),
         m_Sorter(sorter),
@@ -89,7 +88,7 @@ public:
     m_featuresInBucket.resize(m_bucketsCount);
     m_cellsInBucket.resize(m_bucketsCount);
   }
- 
+
   template <class TFeature>
   void operator() (TFeature const & f, uint32_t offset) const
   {
@@ -129,7 +128,7 @@ private:
       ++m_scalesIdx;
       needReset = true;
     }
-      
+
     if (needReset)
       f.ResetGeometry();
 
@@ -147,13 +146,13 @@ private:
       // the feature's geometry except for the type and the LimitRect.
       minScale = feature::GetMinDrawableScale(f);
     }
-    
+
     if (minScale == scale)
     {
       skip = false;
       return true;
     }
-    
+
     if (minScale < scale && skip)
     {
       skip = false;
@@ -197,10 +196,8 @@ private:
 };
 
 template <class FeaturesVectorT, class WriterT>
-inline void IndexScales(feature::DataHeader const & header,
-                        FeaturesVectorT const & featuresVector,
-                        WriterT & writer,
-                        string const & tmpFilePrefix)
+inline void IndexScales(feature::DataHeader const & header, FeaturesVectorT const & featuresVector,
+                        WriterT & writer, string const & tmpFilePrefix)
 {
   // TODO: Make scale bucketing dynamic.
 
@@ -215,19 +212,22 @@ inline void IndexScales(feature::DataHeader const & header,
 
     typedef FileSorter<CellFeatureBucketTuple, WriterFunctor<FileWriter> > SorterType;
     WriterFunctor<FileWriter> out(cellsToFeaturesAllBucketsWriter);
-    SorterType sorter(1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2FEATURE_TMP_EXT, out); 
+    SorterType sorter(1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2FEATURE_TMP_EXT, out);
     vector<uint32_t> featuresInBucket(bucketsCount);
     vector<uint32_t> cellsInBucket(bucketsCount);
-    featuresVector.ForEachOffset(FeatureCoverer<SorterType>(header, sorter, featuresInBucket, cellsInBucket));
+    featuresVector.ForEachOffset(
+        FeatureCoverer<SorterType>(header, sorter, featuresInBucket, cellsInBucket));
     sorter.SortAndFinish();
-    
+
     for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
     {
       uint32_t numCells = cellsInBucket[bucket];
       uint32_t numFeatures = featuresInBucket[bucket];
       LOG(LINFO, ("Building scale index for bucket:", bucket));
-      double const cellsPerFeature = numFeatures == 0 ? 0.0 : static_cast<double>(numCells) / static_cast<double>(numFeatures);
-      LOG(LINFO, ("Features:", numFeatures, "cells:", numCells, "cells per feature:", cellsPerFeature));
+      double const cellsPerFeature =
+          numFeatures == 0 ? 0.0 : static_cast<double>(numCells) / static_cast<double>(numFeatures);
+      LOG(LINFO,
+          ("Features:", numFeatures, "cells:", numCells, "cells per feature:", cellsPerFeature));
     }
   }
 
@@ -256,14 +256,15 @@ inline void IndexScales(feature::DataHeader const & header,
       DDVector<CellFeaturePair, FileReader, uint64_t> cellsToFeatures(reader);
       SubWriter<WriterT> subWriter(writer);
       LOG(LINFO, ("Building interval index for bucket:", bucket));
-      BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter, RectId::DEPTH_LEVELS * 2 + 1);
+      BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter,
+                         RectId::DEPTH_LEVELS * 2 + 1);
     }
     recordWriter.FinishRecord();
   }
 
   // todo(@pimenov). There was an old todo here that said there were
   // features (coastlines) that have been indexed despite being invisible at the last scale.
-  // This should be impossible but it is better to re-check it.
+  // This should be impossible but it is better to recheck it.
 
   LOG(LINFO, ("All scale indexes done."));
 }

@@ -32,9 +32,7 @@ UNIT_TEST(BuildIndexTest)
     FeaturesVector featuresVector(originalContainer, header);
 
     MemWriter<vector<char> > serialWriter(serialIndex);
-    indexer::BuildIndex(header,
-                        featuresVector, serialWriter,
-                        "build_index_test");
+    indexer::BuildIndex(header, featuresVector, serialWriter, "build_index_test");
   }
 
   // Create a new mwm file.
