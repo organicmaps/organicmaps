@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
@@ -63,14 +61,14 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
       convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_bookmark_category, parent, false);
       final ViewHolder holder = new ViewHolder(convertView);
       convertView.setTag(holder);
-      holder.visibilityCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
+      holder.visibilityCheckBox.setOnClickListener(new View.OnClickListener()
       {
         @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+        public void onClick(View v)
         {
           final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(position);
           if (category != null)
-            category.setVisibility(isChecked);
+            category.setVisibility(holder.visibilityCheckBox.isChecked());
         }
       });
     }
