@@ -6625,7 +6625,7 @@
     zh-Hans = 点击g+向您的朋友们告知这款应用。
     zh-Hant = 點擊g+向您的朋友們告知這款應用。
     it = Clicca su g+ per far conoscere l'app ai tuoi amici.
-    ar = اضغط على g+ لتخبر أصدقاءك عن التطبيق.         
+    ar = اضغط على g+ لتخبر أصدقاءك عن التطبيق.
 
   [routing_download_maps_along]
     tags = android, ios
@@ -6691,7 +6691,7 @@
     zh-Hant = 獲取地圖
     it = Scarica la mappa
     ar = Scarica la mappa
-    no = Skaff kart                                       
+    no = Skaff kart
 
   [routing_download_map_and_routing]
     tags = android, ios
@@ -6790,7 +6790,7 @@
     zh-Hant = 更多數據，從您的位置創建路線。
     it = dati aggiuntivi richiesti per creare i percorsi dalla tua posizione.
     ar = dati aggiuntivi richiesti per creare i percorsi dalla tua posizione.
-    no = Tilleggsinformasjon som er nødvendig for å opprette ruter fra ditt ståsted..                                                                                        
+    no = Tilleggsinformasjon som er nødvendig for å opprette ruter fra ditt ståsted.
 
   [routing_requires_all_map]
     tags = android, ios
