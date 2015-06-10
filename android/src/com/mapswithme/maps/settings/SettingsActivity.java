@@ -37,6 +37,8 @@ import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
+import ru.mail.mrgservice.MRGService;
+
 public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener, Preference.OnPreferenceChangeListener
 {
   public final static String ZOOM_BUTTON_ENABLED = "ZoomButtonsEnabled";
@@ -135,6 +137,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     super.onStart();
 
     Statistics.INSTANCE.startActivity(this);
+    MRGService.instance().onStart(this);
   }
 
   @Override
@@ -143,6 +146,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     super.onStop();
 
     Statistics.INSTANCE.stopActivity(this);
+    MRGService.instance().onStop(this);
   }
 
   @Override

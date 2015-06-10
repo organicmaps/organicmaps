@@ -277,6 +277,23 @@
         android:exported="false">
     </service>
 
+    <!-- needed for MRGS -->
+    <receiver
+        android:name="ru.mail.mrgservice.MRGSBroadcastReceiver"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER"/>
+      </intent-filter>
+    </receiver>
+
+    <receiver android:name="ru.mail.mrgservice.MRGSPackageRemoveReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+        <data android:scheme="package"/>
+      </intent-filter>
+    </receiver>
+    <receiver android:name="ru.mail.mrgservice.MRGSNotificationDeleteReceiver"/>
+
     <!-- Used to automatically upload Alohalytics statistics using WiFi. -->
     <receiver
         android:name="org.alohalytics.ConnectivityChangedReceiver"
