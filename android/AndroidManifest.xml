@@ -286,6 +286,8 @@
       </intent-filter>
     </receiver>
 
+    <service android:name="ru.mail.android.mytracker.campaign.CampaignService"/>
+
     <receiver android:name="ru.mail.mrgservice.MRGSPackageRemoveReceiver">
       <intent-filter>
         <action android:name="android.intent.action.PACKAGE_REMOVED"/>
