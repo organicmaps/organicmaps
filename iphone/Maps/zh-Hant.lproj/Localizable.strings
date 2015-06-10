@@ -1074,3 +1074,5 @@
 
 /* get the map */
 "get_the_map" = "獲取地圖";
+
+"save" = "保存";

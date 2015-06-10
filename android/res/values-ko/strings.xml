@@ -680,4 +680,5 @@
 	<string name="download_failed">다운로드가 실패했습니다</string>
 	<!-- get the map -->
 	<string name="get_the_map">지도 가져오기</string>
+	<string name="save">저장</string>
 </resources>

@@ -703,4 +703,5 @@
 	<string name="download_failed">Не удалось загрузить</string>
 	<!-- get the map -->
 	<string name="get_the_map">Загрузить карту</string>
+	<string name="save">сохранить</string>
 </resources>

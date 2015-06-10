@@ -1074,3 +1074,5 @@
 
 /* get the map */
 "get_the_map" = "지도 가져오기";
+
+"save" = "저장";

@@ -703,4 +703,5 @@
 	<string name="download_failed">échec lors du téléchargement</string>
 	<!-- get the map -->
 	<string name="get_the_map">Téléchargez des cartes</string>
+	<string name="save">sauvegarder</string>
 </resources>

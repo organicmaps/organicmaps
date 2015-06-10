@@ -689,4 +689,5 @@
 	<string name="download_failed">のダウンロードが失敗しました</string>
 	<!-- get the map -->
 	<string name="get_the_map">地図を入手</string>
+	<string name="save">保存</string>
 </resources>

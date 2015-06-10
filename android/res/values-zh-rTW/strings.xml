@@ -678,4 +678,5 @@
 	<string name="download_failed">下載失敗</string>
 	<!-- get the map -->
 	<string name="get_the_map">獲取地圖</string>
+	<string name="save">保存</string>
 </resources>

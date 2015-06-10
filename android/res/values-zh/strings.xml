@@ -696,4 +696,5 @@
 	<string name="download_failed">下载失败</string>
 	<!-- get the map -->
 	<string name="get_the_map">获取地图</string>
+	<string name="save">保存</string>
 </resources>

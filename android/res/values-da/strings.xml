@@ -692,4 +692,5 @@
 	<string name="download_failed">download mislykkedes</string>
 	<!-- get the map -->
 	<string name="get_the_map">Få kort</string>
+	<string name="save">gem</string>
 </resources>

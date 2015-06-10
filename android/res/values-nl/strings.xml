@@ -682,4 +682,5 @@
 	<string name="download_failed">download is afgebroken</string>
 	<!-- get the map -->
 	<string name="get_the_map">Krijg kaart</string>
+	<string name="save">opslaan</string>
 </resources>

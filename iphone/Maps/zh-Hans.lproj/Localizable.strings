@@ -1074,3 +1074,5 @@
 
 /* get the map */
 "get_the_map" = "获取地图";
+
+"save" = "保存";

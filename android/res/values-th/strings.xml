@@ -694,4 +694,5 @@
 	<string name="download_failed">การดาวน์โหลด  ล้มเหลว</string>
 	<!-- get the map -->
 	<string name="get_the_map">รับแผนที่</string>
+	<string name="save">บันทึก</string>
 </resources>

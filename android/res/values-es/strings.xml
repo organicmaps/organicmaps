@@ -683,4 +683,5 @@
 	<string name="download_failed">la descarga ha fallado</string>
 	<!-- get the map -->
 	<string name="get_the_map">Obtén el mapa</string>
+	<string name="save">guardar</string>
 </resources>

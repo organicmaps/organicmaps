@@ -695,4 +695,5 @@
 	<string name="download_failed">Sťahovanie zlyhalo</string>
 	<!-- get the map -->
 	<string name="get_the_map">Stiahnuť mapu</string>
+	<string name="save">uložiť</string>
 </resources>
