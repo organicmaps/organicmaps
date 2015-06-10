@@ -19,6 +19,7 @@
 #include "base/scope_guard.hpp"
 
 #include "std/string.hpp"
+#include "std/type_traits.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -27,7 +28,7 @@ namespace covering
 class CellFeaturePair
 {
 public:
-  CellFeaturePair() {}
+  CellFeaturePair() = default;
   CellFeaturePair(uint64_t cell, uint32_t feature)
     : m_CellLo(UINT64_LO(cell)), m_CellHi(UINT64_HI(cell)), m_Feature(feature) {}
 
@@ -49,12 +50,15 @@ private:
   uint32_t m_Feature;
 };
 STATIC_ASSERT(sizeof(CellFeaturePair) == 12);
+STATIC_ASSERT(is_trivially_copyable<CellFeaturePair>::value);
 
 class CellFeatureBucketTuple
 {
 public:
-  CellFeatureBucketTuple() {}
-  CellFeatureBucketTuple(CellFeaturePair p, uint32_t bucket) : m_pair(p), m_bucket(bucket) {}
+  CellFeatureBucketTuple() = default;
+  CellFeatureBucketTuple(CellFeaturePair const & p, uint32_t bucket) : m_pair(p), m_bucket(bucket)
+  {
+  }
 
   bool operator<(CellFeatureBucketTuple const & rhs) const
   {
@@ -63,7 +67,7 @@ public:
     return m_pair < rhs.m_pair;
   }
 
-  CellFeaturePair GetCellFeaturePair() const { return m_pair; }
+  CellFeaturePair const & GetCellFeaturePair() const { return m_pair; }
   uint32_t GetBucket() const { return m_bucket; }
 
 private:
@@ -71,6 +75,7 @@ private:
   uint32_t m_bucket;
 };
 STATIC_ASSERT(sizeof(CellFeatureBucketTuple) == 16);
+STATIC_ASSERT(is_trivially_copyable<CellFeatureBucketTuple>::value);
 
 template <class SorterT>
 class FeatureCoverer
@@ -79,8 +84,9 @@ public:
   FeatureCoverer(feature::DataHeader const & header, SorterT & sorter,
                  vector<uint32_t> & featuresInBucket, vector<uint32_t> & cellsInBucket)
       : m_header(header),
+        m_scalesIdx(0),
         m_bucketsCount(header.GetLastScale() + 1),
-        m_Sorter(sorter),
+        m_sorter(sorter),
         m_codingDepth(covering::GetCodingDepth(header.GetLastScale())),
         m_featuresInBucket(featuresInBucket),
         m_cellsInBucket(cellsInBucket)
@@ -101,15 +107,15 @@ public:
       // This is not immediately obvious and in fact there was an idea to map
       // a bucket to a contiguous range of scales.
       // todo(@pimenov): We probably should remove scale_index.hpp altogether.
-      if (FeatureShouldBeIndexed(f, offset, bucket, skip, minScale))
-      {
-        vector<int64_t> const cells = covering::CoverFeature(f, m_codingDepth, 250);
-        for (int64_t cell : cells)
-          m_Sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, offset), bucket));
+      if (!FeatureShouldBeIndexed(f, offset, bucket, skip, minScale))
+        continue;
 
-        m_featuresInBucket[bucket] += 1;
-        m_cellsInBucket[bucket] += cells.size();
-      }
+      vector<int64_t> const cells = covering::CoverFeature(f, m_codingDepth, 250);
+      for (int64_t cell : cells)
+        m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, offset), bucket));
+
+      m_featuresInBucket[bucket] += 1;
+      m_cellsInBucket[bucket] += cells.size();
     }
   }
 
@@ -172,7 +178,7 @@ private:
   mutable size_t m_scalesIdx;
 
   uint32_t m_bucketsCount;
-  SorterT & m_Sorter;
+  SorterT & m_sorter;
   int m_codingDepth;
   vector<uint32_t> & m_featuresInBucket;
   vector<uint32_t> & m_cellsInBucket;
@@ -195,9 +201,9 @@ private:
   SinkT & m_Sink;
 };
 
-template <class FeaturesVectorT, class WriterT>
-inline void IndexScales(feature::DataHeader const & header, FeaturesVectorT const & featuresVector,
-                        WriterT & writer, string const & tmpFilePrefix)
+template <class TFeaturesVector, class TWriter>
+void IndexScales(feature::DataHeader const & header, TFeaturesVector const & featuresVector,
+                 TWriter & writer, string const & tmpFilePrefix)
 {
   // TODO: Make scale bucketing dynamic.
 
@@ -210,19 +216,19 @@ inline void IndexScales(feature::DataHeader const & header, FeaturesVectorT cons
   {
     FileWriter cellsToFeaturesAllBucketsWriter(cells2featureAllBucketsFile);
 
-    typedef FileSorter<CellFeatureBucketTuple, WriterFunctor<FileWriter> > SorterType;
+    typedef FileSorter<CellFeatureBucketTuple, WriterFunctor<FileWriter> > TSorter;
     WriterFunctor<FileWriter> out(cellsToFeaturesAllBucketsWriter);
-    SorterType sorter(1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2FEATURE_TMP_EXT, out);
+    TSorter sorter(1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2FEATURE_TMP_EXT, out);
     vector<uint32_t> featuresInBucket(bucketsCount);
     vector<uint32_t> cellsInBucket(bucketsCount);
     featuresVector.ForEachOffset(
-        FeatureCoverer<SorterType>(header, sorter, featuresInBucket, cellsInBucket));
+        FeatureCoverer<TSorter>(header, sorter, featuresInBucket, cellsInBucket));
     sorter.SortAndFinish();
 
     for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
     {
-      uint32_t numCells = cellsInBucket[bucket];
-      uint32_t numFeatures = featuresInBucket[bucket];
+      uint32_t const numCells = cellsInBucket[bucket];
+      uint32_t const numFeatures = featuresInBucket[bucket];
       LOG(LINFO, ("Building scale index for bucket:", bucket));
       double const cellsPerFeature =
           numFeatures == 0 ? 0.0 : static_cast<double>(numCells) / static_cast<double>(numFeatures);
@@ -234,7 +240,7 @@ inline void IndexScales(feature::DataHeader const & header, FeaturesVectorT cons
   FileReader reader(cells2featureAllBucketsFile);
   DDVector<CellFeatureBucketTuple, FileReader, uint64_t> cellsToFeaturesAllBuckets(reader);
 
-  VarSerialVectorWriter<WriterT> recordWriter(writer, bucketsCount);
+  VarSerialVectorWriter<TWriter> recordWriter(writer, bucketsCount);
   auto it = cellsToFeaturesAllBuckets.begin();
 
   for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
@@ -254,7 +260,7 @@ inline void IndexScales(feature::DataHeader const & header, FeaturesVectorT cons
     {
       FileReader reader(cells2featureFile);
       DDVector<CellFeaturePair, FileReader, uint64_t> cellsToFeatures(reader);
-      SubWriter<WriterT> subWriter(writer);
+      SubWriter<TWriter> subWriter(writer);
       LOG(LINFO, ("Building interval index for bucket:", bucket));
       BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter,
                          RectId::DEPTH_LEVELS * 2 + 1);
