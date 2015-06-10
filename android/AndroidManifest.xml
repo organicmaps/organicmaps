@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto"
     android:sharedUserId="com.mapswithme"
-    android:sharedUserLabel="@string/shared_user_label" xmlns:tools="http://schemas.android.com/tools">
+    android:sharedUserLabel="@string/shared_user_label">
 
   <uses-sdk
       android:minSdkVersion="9"/>
