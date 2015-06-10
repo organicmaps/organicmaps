@@ -48,7 +48,6 @@ class Stats final {
   // Use alohalytics::Stats::Instance() to access statistics engine.
   Stats();
 
-  // static bool UploadBuffer(const std::string & url, std::string && buffer, bool debug_mode);
   // Should return false on upload error.
   bool UploadFileImpl(bool file_name_in_content, const std::string & content);
 

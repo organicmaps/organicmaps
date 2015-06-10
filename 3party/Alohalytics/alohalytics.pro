@@ -29,6 +29,10 @@ macx-*|linux-* {
   SOURCES += src/posix/file_manager_posix_impl.cc
 }
 
+win* {
+  SOURCES += src/windows/file_manager_windows_impl.cc
+}
+
 linux-* {
   SOURCES += src/posix/http_client_curl.cc
 }

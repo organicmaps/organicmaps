@@ -289,6 +289,8 @@ static void OnUploadFinished(alohalytics::ProcessingResult result) {
 
 // Quick check if device has any active connection.
 // Does not guarantee actual reachability of any host.
+// Inspired by Apple's Reachability example:
+// https://developer.apple.com/library/ios/samplecode/Reachability/Introduction/Intro.html
 bool IsConnectionActive() {
   struct sockaddr_in zero;
   bzero(&zero, sizeof(zero));

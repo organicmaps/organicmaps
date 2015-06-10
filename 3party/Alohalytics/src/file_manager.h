@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *******************************************************************************/
 
-#ifndef FILE_MANAGER_HPP
-#define FILE_MANAGER_HPP
+#ifndef FILE_MANAGER_H
+#define FILE_MANAGER_H
 
 #include <string>
 #include <functional>
@@ -52,7 +52,7 @@ struct FileManager {
     if (file_path.empty()) {
       return std::string();
     }
-    std::string::size_type slash = file_path.find_last_of(kDirectorySeparator);
+    const std::string::size_type slash = file_path.find_last_of(kDirectorySeparator);
     if (slash == std::string::npos) {
       return std::string(".");
     }
@@ -86,9 +86,10 @@ struct FileManager {
   static void ForEachFileInDir(std::string directory, std::function<bool(const std::string & full_path)> lambda);
 
   // Returns negative value on error and if full_path_to_file is a directory.
+  // TODO(AlexZ): Should consider approach with exceptions and uint64_t return type.
   static int64_t GetFileSize(const std::string & full_path_to_file);
 };
 
 }  // namespace alohalytics
 
-#endif  // FILE_MANAGER_HPP
+#endif  // FILE_MANAGER_H

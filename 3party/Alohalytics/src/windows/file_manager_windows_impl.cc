@@ -42,7 +42,7 @@ struct ScopedCloseFindFileHandle {
 }  // namespace
 
 void FileManager::ForEachFileInDir(std::string directory, std::function<bool(const std::string & full_path)> lambda) {
-  // Silently ignore invalid directories.
+  // Silently ignore invalid (empty) directories.
   if (directory.empty()) {
     return;
   }

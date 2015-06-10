@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *******************************************************************************/
 
-#ifndef MESSAGES_QUEUE_HPP
-#define MESSAGES_QUEUE_HPP
+#ifndef MESSAGES_QUEUE_H
+#define MESSAGES_QUEUE_H
 
 #include <condition_variable>  // condition_variable
 #include <cstdio>              // rename, remove
@@ -53,7 +53,7 @@ typedef std::function<void(ProcessingResult)> TFileProcessingFinishedCallback;
 constexpr char kCurrentFileName[] = "alohalytics_messages";
 constexpr char kArchivedFilesExtension[] = ".archived";
 
-class MessagesQueue {
+class MessagesQueue final {
  public:
   // Size limit (before gzip) when we archive "current" file and create a new
   // one for appending.
@@ -67,7 +67,7 @@ class MessagesQueue {
     std::rename(original_file.c_str(), out_archive.c_str());
   }
 
-  //
+  // Pass custom processing function here, e.g. append IDs, gzip everything before archiving file etc.
   MessagesQueue(TFileArchiver file_archiver = &ArchiveFileByRenamingIt) : file_archiver_(file_archiver) {}
 
   ~MessagesQueue() {
@@ -136,7 +136,7 @@ class MessagesQueue {
   void StoreMessages(std::string const & messages_buffer) {
     if (current_file_) {
       *current_file_ << messages_buffer << std::flush;
-      if (current_file_->tellp() > kMaxFileSizeInBytes) {
+      if (current_file_->tellp() >= kMaxFileSizeInBytes) {
         ArchiveCurrentFile();
       }
     } else {
@@ -209,7 +209,7 @@ class MessagesQueue {
       if (full_path_to_file.find(kArchivedFilesExtension) == std::string::npos) {
         return true;
       }
-      if (processor(true /* file path */, full_path_to_file)) {
+      if (processor(true /* true here means that second parameter is file path */, full_path_to_file)) {
         result = ProcessingResult::EProcessedSuccessfully;
         // Also delete successfully processed archive.
         std::remove(full_path_to_file.c_str());
@@ -256,7 +256,7 @@ class MessagesQueue {
   typedef std::function<void()> TCommand;
   std::list<TCommand> commands_queue_;
 
-  bool worker_thread_should_exit_ = false;
+  volatile bool worker_thread_should_exit_ = false;
   std::mutex mutex_;
   std::condition_variable condition_variable_;
   // Only WorkerThread accesses this variable.
@@ -268,4 +268,4 @@ class MessagesQueue {
 
 }  // namespace alohalytics
 
-#endif  // MESSAGES_QUEUE_HPP
+#endif  // MESSAGES_QUEUE_H
