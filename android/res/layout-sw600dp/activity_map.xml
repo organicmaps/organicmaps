@@ -10,6 +10,13 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
 
+  <include
+      android:id="@+id/toolbar_search"
+      layout="@layout/toolbar_with_search"
+      android:layout_width="@dimen/panel_width"
+      android:layout_height="?attr/actionBarSize"
+      android:layout_margin="@dimen/margin_medium"/>
+
   <FrameLayout
       android:id="@+id/fl__routing"
       android:layout_width="@dimen/panel_width"
@@ -43,13 +50,6 @@
       android:id="@+id/fragment_container"
       android:layout_width="@dimen/panel_width"
       android:layout_height="match_parent"
-      android:layout_margin="@dimen/margin_medium"/>
-
-  <include
-      android:id="@+id/toolbar_search"
-      layout="@layout/toolbar_with_search"
-      android:layout_width="@dimen/panel_width"
-      android:layout_height="?attr/actionBarSize"
       android:layout_margin="@dimen/margin_medium"/>
 
   <include
