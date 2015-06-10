@@ -288,6 +288,20 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
   return false;
 }
 
+bool IsDrawableForIndexClassifOnly(FeatureBase const & f, int level)
+{
+  Classificator const & c = classif();
+
+  TypesHolder const types(f);
+
+  IsDrawableChecker doCheck(level);
+  for (uint32_t t : types)
+    if (c.ProcessObjects(t, doCheck))
+      return true;
+
+  return false;
+}
+
 namespace
 {
   class IsNonDrawableType
@@ -333,6 +347,18 @@ int GetMinDrawableScale(FeatureBase const & f)
 
   for (int level = 0; level <= upBound; ++level)
     if (IsDrawableForIndex(f, level))
+      return level;
+
+  ASSERT(false, ("Feature is never visible."));
+  return -1;
+}
+
+int GetMinDrawableScaleClassifOnly(FeatureBase const & f)
+{
+  int const upBound = scales::GetUpperStyleScale();
+
+  for (int level = 0; level <= upBound; ++level)
+    if (IsDrawableForIndexClassifOnly(f, level))
       return level;
 
   ASSERT(false, ("Feature is never visible."));

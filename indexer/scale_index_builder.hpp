@@ -100,13 +100,17 @@ public:
   {
     uint32_t minScale = 0;
     m_scalesIdx = 0;
-    for (uint32_t bucket = 0; bucket < m_bucketsCount; ++bucket)
+    uint32_t minScaleClassif = feature::GetMinDrawableScaleClassifOnly(f);
+    // The classificator won't allow this feature to be drawable for smaller
+    // scales so the first buckets can be safely skipped.
+    for (uint32_t bucket = minScaleClassif; bucket < m_bucketsCount; ++bucket)
     {
       // There is a one-to-one correspondence between buckets and scales.
       // This is not immediately obvious and in fact there was an idea to map
       // a bucket to a contiguous range of scales.
       // todo(@pimenov): We probably should remove scale_index.hpp altogether.
-      if (!FeatureShouldBeIndexed(f, offset, bucket, minScale))
+      if (!FeatureShouldBeIndexed(f, offset, bucket, bucket == minScaleClassif /* needReset */,
+                                  minScale))
         continue;
 
       vector<int64_t> const cells = covering::CoverFeature(f, m_codingDepth, 250);
@@ -121,14 +125,15 @@ public:
   }
 
 private:
-  // Every feature should be indexed at most once: for the smallest possible scale where
-  // its geometry is non-empty, where it is visible and where the classificator allows.
+  // Every feature should be indexed at most once, namely for the smallest possible scale where
+  //   -- its geometry is non-empty;
+  //   -- it is visible;
+  //   -- the classificator allows.
   // If the feature is invisible at all scales, do not index it.
   template <class TFeature>
-  bool FeatureShouldBeIndexed(TFeature const & f, uint32_t offset, uint32_t scale,
+  bool FeatureShouldBeIndexed(TFeature const & f, uint32_t offset, uint32_t scale, bool needReset,
                               uint32_t & minScale) const
   {
-    bool needReset = (scale == 0);
     while (m_scalesIdx < m_header.GetScalesCount() && m_header.GetScale(m_scalesIdx) < scale)
     {
       ++m_scalesIdx;

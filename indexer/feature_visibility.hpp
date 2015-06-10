@@ -19,6 +19,7 @@ namespace feature
 
   bool IsDrawableAny(uint32_t type);
   bool IsDrawableForIndex(FeatureBase const & f, int level);
+  bool IsDrawableForIndexClassifOnly(FeatureBase const & f, int level);
 
   /// For FEATURE_TYPE_AREA need to have at least one area-filling type.
   bool IsDrawableLike(vector<uint32_t> const & types, EGeomType ft);
@@ -27,6 +28,8 @@ namespace feature
   //@}
 
   int GetMinDrawableScale(FeatureBase const & f);
+
+  int GetMinDrawableScaleClassifOnly(FeatureBase const & f);
 
   /// @return [-1, -1] if range is not drawable
   //@{
