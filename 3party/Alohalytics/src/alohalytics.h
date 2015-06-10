@@ -53,6 +53,10 @@ class Stats final {
   bool UploadFileImpl(bool file_name_in_content, const std::string & content);
 
   // Called by the queue when file size limit was hit or immediately before file is sent to a server.
+  // in_file will be:
+  // - Gzipped.
+  // - Saved as out_archive for easier post-processing (e.g. uploading).
+  // - Deleted.
   void GzipAndArchiveFileInTheQueue(const std::string & in_file, const std::string & out_archive);
 
  public:

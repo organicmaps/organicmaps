@@ -63,9 +63,9 @@ void FileManager::ForEachFileInDir(std::string directory, std::function<bool(con
 
 int64_t FileManager::GetFileSize(const std::string & full_path_to_file) {
   struct stat st;
-  if (::stat(full_path_to_file.c_str(), &st) || S_ISDIR(st.st_mode)) {
-    return -1;
+  if (0 == ::stat(full_path_to_file.c_str(), &st) && S_ISREG(st.st_mode)) {
+    return static_cast<int64_t>(st.st_size);
   }
-  return static_cast<int64_t>(st.st_size);
+  return -1;
 }
 }  // namespace alohalytics

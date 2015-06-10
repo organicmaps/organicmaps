@@ -56,7 +56,7 @@ class ScopeGuard final {
 
  public:
   explicit ScopeGuard(const F & f) : f_(f) {}
-  ScopeGuard(ScopeGuard && other) : f_(std::forward<F>(other.f_)) {}
+  ScopeGuard(ScopeGuard && other) : f_(std::move(other.f_)) {}
   ~ScopeGuard() { f_(); }
 };
 

@@ -28,6 +28,7 @@
 #endif
 
 #include <cassert>
+#include <cerrno>
 #include <cstdio>  // remove
 
 #include "../alohalytics.h"
@@ -95,7 +96,7 @@ void Stats::GzipAndArchiveFileInTheQueue(const std::string & in_file, const std:
   }
   const int result = std::remove(in_file.c_str());
   if (0 != result) {
-    LOG_IF_DEBUG("std::remove", in_file, "has failed with error", result);
+    LOG_IF_DEBUG("std::remove", in_file, "has failed with error", result, "and errno", errno);
   }
 }
 

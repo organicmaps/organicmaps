@@ -146,16 +146,15 @@ class MessagesQueue {
 
   void ProcessInitializeStorageCommand(const std::string & directory) {
     current_file_.reset(nullptr);
-    std::ofstream * new_current_file =
-        new std::ofstream(directory + kCurrentFileName, std::ios_base::app | std::ios_base::binary);
+    std::unique_ptr<std::ofstream> new_current_file(
+        new std::ofstream(directory + kCurrentFileName, std::ios_base::app | std::ios_base::binary));
     if (new_current_file->fail()) {
       // If file can't be created, fall back to the in-memory storage.
       storage_directory_.clear();
-      // TODO(AlexZ): DebugLog it!
-      delete new_current_file;
+      // TODO(AlexZ): DebugLog this bad situation!
     } else {
       storage_directory_ = directory;
-      current_file_.reset(new_current_file);
+      current_file_ = std::move(new_current_file);
       // Also check if there are any messages in the memory storage, and save them
       // to file.
       if (!messages_storage_.empty()) {
