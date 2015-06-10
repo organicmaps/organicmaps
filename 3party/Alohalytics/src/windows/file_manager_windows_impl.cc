@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *******************************************************************************/
 
-// Windows implementations for FileManager
+// Windows implementations for FileManager.
 #include <windows.h>
 #include <direct.h>
 #include <stdio.h>
@@ -47,8 +47,7 @@ void FileManager::ForEachFileInDir(std::string directory, std::function<bool(con
     return;
   }
   AppendDirectorySlash(directory);
-  // TODO(AlexZ): Do we need to use *W functions (and wstrings) for files
-  // processing?
+  // TODO(AlexZ): Do we need to use *W functions (and wstrings) for files processing?
   WIN32_FIND_DATAA find_data;
   HANDLE handle = ::FindFirstFileA((directory + "*.*").c_str(), &find_data);
   if (handle == INVALID_HANDLE_VALUE) {

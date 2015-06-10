@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *******************************************************************************/
 
-// POSIX implementations for FileManager
+// POSIX implementations for FileManager.
 #include "../file_manager.h"
 
 #include <dirent.h>

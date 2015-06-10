@@ -371,8 +371,7 @@ void Test_MessagesQueue_SwitchFromInMemoryToFile_and_OfflineEmulation() {
         second_archived_file = full_file_path;
         archive2_processed = true;
       }
-      return true;  // Archives should be deleted by queue after successful
-                    // processing.
+      return true;  // Archives should be deleted by queue after successful processing.
     }, std::bind(&FinishedCallback, std::placeholders::_1, std::ref(finish_task)));
     TEST_EQUAL(ProcessingResult::EProcessedSuccessfully, finish_task.get());
     TEST_EQUAL(true, archive1_processed);
@@ -419,8 +418,7 @@ void Test_MessagesQueue_CreateArchiveOnSizeLimitHit() {
 
 void Test_MessagesQueue_HighLoadAndIntegrity() {
   // TODO(AlexZ): This test can be improved by generating really a lot of data
-  // so many archives will be created. But it will make everything much more
-  // complex now.
+  // so many archives will be created. But it will make everything much more complex now.
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
   ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
@@ -435,8 +433,7 @@ void Test_MessagesQueue_HighLoadAndIntegrity() {
     char c = dis(gen);
     total_size += static_cast<size_t>(c);
     if (i == kMaxThreads / 2) {
-      // At first, messages go into the in-memory queue. Then we initialize
-      // files storage.
+      // At first, messages go into the in-memory queue. Then we initialize files storage.
       q.SetStorageDirectory(tmpdir);
     }
     std::thread worker([&generator, c]() { generator(c); });

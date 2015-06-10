@@ -87,7 +87,7 @@ void Stats::GzipAndArchiveFileInTheQueue(const std::string & in_file, const std:
       fo.exceptions(std::ifstream::failbit | std::ifstream::badbit);
       fo.open(out_archive, std::ofstream::out | std::ofstream::binary | std::ofstream::trunc);
       const std::string gzipped_buffer = Gzip(buffer);
-      std::string().swap(buffer); // Free memory.
+      std::string().swap(buffer);  // Free memory.
       fo.write(gzipped_buffer.data(), gzipped_buffer.size());
     }
   } catch (const std::exception & ex) {
