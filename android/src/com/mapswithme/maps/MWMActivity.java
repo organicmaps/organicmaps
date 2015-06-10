@@ -996,13 +996,18 @@ public class MWMActivity extends BaseMwmFragmentActivity
     invalidateLocationState();
     startWatchingExternalStorage();
 
-    UiUtils.showIf(MWMApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true),
-        findViewById(R.id.map_button_plus),
-        findViewById(R.id.map_button_minus));
+    refreshZoomButtonsVisibility();
 
     SearchController.getInstance().onResume();
     mPlacePage.onResume();
     mLikesManager.showLikeDialogForCurrentSession();
+  }
+
+  private void refreshZoomButtonsVisibility()
+  {
+    UiUtils.showIf(MWMApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true) ||
+            Framework.nativeIsRoutingActive(),
+        mBtnZoomIn, mBtnZoomOut);
   }
 
   @Override
@@ -1565,6 +1570,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mRlStartRouting.setVisibility(View.VISIBLE);
 
     Framework.nativeCloseRouting();
+    refreshZoomButtonsVisibility();
   }
 
   private void switchNextLocationState()
@@ -1625,6 +1631,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
+        refreshZoomButtonsVisibility();
         if (resultCode == RoutingResultCodes.NO_ERROR)
         {
           mRlTurnByTurnBox.setVisibility(View.GONE);
