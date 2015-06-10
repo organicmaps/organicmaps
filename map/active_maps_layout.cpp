@@ -7,6 +7,19 @@
 namespace storage
 {
 
+bool ActiveMapsLayout::Item::IsEqual(TIndex const & index) const
+{
+  return (find(m_index.begin(), m_index.end(), index) != m_index.end());
+}
+
+bool ActiveMapsLayout::Item::IsEqual(Item const & item) const
+{
+  for (TIndex const & i : m_index)
+    if (item.IsEqual(i))
+      return true;
+  return false;
+}
+
 ActiveMapsLayout::ActiveMapsLayout(Framework & framework)
   : m_framework(framework)
 {
@@ -30,14 +43,14 @@ void ActiveMapsLayout::Init(vector<string> const & maps)
   Storage & storage = GetStorage();
   for (auto const & file : maps)
   {
-    TIndex const index = storage.FindIndexByFile(Storage::MapWithoutExt(file));
-    if (index.IsValid())
+    vector<TIndex> arr = storage.FindAllIndexesByFile(Storage::MapWithoutExt(file));
+    if (!arr.empty())
     {
       TStatus status;
       TMapOptions options;
-      storage.CountryStatusEx(index, status, options);
+      storage.CountryStatusEx(arr[0], status, options);
       if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
-        m_items.push_back({ index, status, options, options });
+        m_items.push_back({ arr, status, options, options });
     }
     else
       LOG(LWARNING, ("Can't find map index for", file));
@@ -48,7 +61,7 @@ void ActiveMapsLayout::Init(vector<string> const & maps)
     if (lhs.m_status != rhs.m_status)
       return lhs.m_status > rhs.m_status;
     else
-      return storage.CountryName(lhs.m_index) < storage.CountryName(rhs.m_index);
+      return storage.CountryName(lhs.Index()) < storage.CountryName(rhs.Index());
   };
 
   sort(m_items.begin(), m_items.end(), comparatorFn);
@@ -77,7 +90,7 @@ size_t ActiveMapsLayout::GetSizeToUpdateAllInBytes() const
   {
     Item const & item = m_items[i];
     if (item.m_status != TStatus::EInQueue && item.m_status != TStatus::EDownloading)
-      result += GetStorage().CountryByIndex(item.m_index).GetFile().GetRemoteSize(item.m_options);
+      result += GetStorage().CountryByIndex(item.Index()).GetFile().GetRemoteSize(item.m_options);
   }
 
   return result;
@@ -95,7 +108,7 @@ void ActiveMapsLayout::UpdateAll()
   }
 
   for (Item const & item : toDownload)
-    DownloadMap(item.m_index, item.m_options);
+    DownloadMap(item.Index(), item.m_options);
 }
 
 void ActiveMapsLayout::CancelAll()
@@ -105,7 +118,7 @@ void ActiveMapsLayout::CancelAll()
   for (Item const & item : m_items)
   {
     if (item.m_status == TStatus::EInQueue || item.m_status == TStatus::EDownloading)
-      downloading.push_back(item.m_index);
+      downloading.push_back(item.Index());
   }
 
   Storage & st = m_framework.Storage();
@@ -154,7 +167,7 @@ bool ActiveMapsLayout::IsEmpty() const
 
 string const & ActiveMapsLayout::GetCountryName(TGroup const & group, int position) const
 {
-  return GetCountryName(GetItemInGroup(group, position).m_index);
+  return GetCountryName(GetItemInGroup(group, position).Index());
 }
 
 string const & ActiveMapsLayout::GetCountryName(TIndex const & index) const
@@ -196,7 +209,7 @@ TMapOptions ActiveMapsLayout::GetCountryOptions(TIndex const & index) const
 LocalAndRemoteSizeT const ActiveMapsLayout::GetDownloadableCountrySize(TGroup const & group, int position) const
 {
   Item const & item = GetItemInGroup(group, position);
-  return GetStorage().CountrySizeInBytes(item.m_index, item.m_downloadRequest);
+  return GetStorage().CountrySizeInBytes(item.Index(), item.m_downloadRequest);
 }
 
 LocalAndRemoteSizeT const ActiveMapsLayout::GetDownloadableCountrySize(TIndex const & index) const
@@ -209,7 +222,7 @@ LocalAndRemoteSizeT const ActiveMapsLayout::GetDownloadableCountrySize(TIndex co
 LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TGroup const & group, int position,
                                                            TMapOptions const & options) const
 {
-  return GetCountrySize(GetItemInGroup(group, position).m_index, options);
+  return GetCountrySize(GetItemInGroup(group, position).Index(), options);
 }
 
 LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TIndex const & index, TMapOptions const & options) const
@@ -219,7 +232,7 @@ LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TIndex const & index,
 
 LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TGroup const & group, int position) const
 {
-  return GetRemoteCountrySizes(GetItemInGroup(group, position).m_index);
+  return GetRemoteCountrySizes(GetItemInGroup(group, position).Index());
 }
 
 LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TIndex const & index) const
@@ -251,7 +264,9 @@ void ActiveMapsLayout::DownloadMap(TIndex const & index, TMapOptions const & opt
   }
   else
   {
-    int position = InsertInGroup(TGroup::ENewMap, { index, TStatus::ENotDownloaded, validOptions, validOptions });
+    Storage const & s = GetStorage();
+    vector<TIndex> arr = s.FindAllIndexesByFile(s.CountryFileNameWithoutExt(index));
+    int position = InsertInGroup(TGroup::ENewMap, { arr, TStatus::ENotDownloaded, validOptions, validOptions });
     NotifyInsertion(TGroup::ENewMap, position);
   }
 
@@ -262,7 +277,7 @@ void ActiveMapsLayout::DownloadMap(TGroup const & group, int position, TMapOptio
 {
   Item & item = GetItemInGroup(group, position);
   item.m_downloadRequest = ValidOptionsForDownload(options);
-  m_framework.DownloadCountry(item.m_index, item.m_downloadRequest);
+  m_framework.DownloadCountry(item.Index(), item.m_downloadRequest);
 }
 
 void ActiveMapsLayout::DeleteMap(TIndex const & index, const TMapOptions & options)
@@ -275,7 +290,7 @@ void ActiveMapsLayout::DeleteMap(TIndex const & index, const TMapOptions & optio
 
 void ActiveMapsLayout::DeleteMap(TGroup const & group, int position, TMapOptions const & options)
 {
-  TIndex indexCopy = GetItemInGroup(group, position).m_index;
+  TIndex indexCopy = GetItemInGroup(group, position).Index();
   m_framework.DeleteCountry(indexCopy, ValidOptionsForDelete(options));
 }
 
@@ -283,19 +298,19 @@ void ActiveMapsLayout::RetryDownloading(TGroup const & group, int position)
 {
   Item const & item = GetItemInGroup(group, position);
   ASSERT(item.m_options != item.m_downloadRequest, ());
-  m_framework.DownloadCountry(item.m_index, item.m_downloadRequest);
+  m_framework.DownloadCountry(item.Index(), item.m_downloadRequest);
 }
 
 void ActiveMapsLayout::RetryDownloading(TIndex const & index)
 {
   Item * item = FindItem(index);
   ASSERT(item != nullptr, ());
-  m_framework.DownloadCountry(item->m_index, item->m_downloadRequest);
+  m_framework.DownloadCountry(item->Index(), item->m_downloadRequest);
 }
 
 TIndex const & ActiveMapsLayout::GetCoreIndex(TGroup const & group, int position) const
 {
-  return GetItemInGroup(group, position).m_index;
+  return GetItemInGroup(group, position).Index();
 }
 
 string const ActiveMapsLayout::GetFormatedCountryName(TIndex const & index) const
@@ -321,13 +336,13 @@ bool ActiveMapsLayout::IsDownloadingActive() const
 void ActiveMapsLayout::CancelDownloading(TGroup const & group, int position)
 {
   Item & item = GetItemInGroup(group, position);
-  GetStorage().DeleteFromDownloader(item.m_index);
+  GetStorage().DeleteFromDownloader(item.Index());
   item.m_downloadRequest = item.m_options;
 }
 
 void ActiveMapsLayout::ShowMap(TGroup const & group, int position)
 {
-  ShowMap(GetItemInGroup(group, position).m_index);
+  ShowMap(GetItemInGroup(group, position).Index());
 }
 
 void ActiveMapsLayout::ShowMap(TIndex const & index)
@@ -472,9 +487,9 @@ int ActiveMapsLayout::GetStartIndexInGroup(TGroup const & group) const
 
 ActiveMapsLayout::Item * ActiveMapsLayout::FindItem(TIndex const & index)
 {
-  vector<Item>::iterator iter = find_if(m_items.begin(), m_items.end(), [&index] (Item const & item)
+  auto iter = find_if(m_items.begin(), m_items.end(), [&index] (Item const & item)
   {
-    return item.m_index == index;
+    return item.IsEqual(index);
   });
 
   if (iter == m_items.end())
@@ -485,9 +500,9 @@ ActiveMapsLayout::Item * ActiveMapsLayout::FindItem(TIndex const & index)
 
 ActiveMapsLayout::Item const * ActiveMapsLayout::FindItem(TIndex const & index) const
 {
-  vector<Item>::const_iterator iter = find_if(m_items.begin(), m_items.end(), [&index] (Item const & item)
+  auto iter = find_if(m_items.begin(), m_items.end(), [&index] (Item const & item)
   {
-    return item.m_index == index;
+    return item.IsEqual(index);
   });
 
   if (iter == m_items.end())
@@ -500,7 +515,7 @@ bool ActiveMapsLayout::GetGroupAndPositionByIndex(TIndex const & index, TGroup &
 {
   auto it = find_if(m_items.begin(), m_items.end(), [&index] (Item const & item)
   {
-    return item.m_index == index;
+    return item.IsEqual(index);
   });
 
   if (it == m_items.end())
@@ -557,12 +572,12 @@ int ActiveMapsLayout::InsertInGroup(TGroup const & group, Item const & item)
   Storage & st = m_framework.Storage();
   sort(startSort, endSort, [&] (Item const & lhs, Item const & rhs)
   {
-    return st.CountryName(lhs.m_index) < st.CountryName(rhs.m_index);
+    return st.CountryName(lhs.Index()) < st.CountryName(rhs.Index());
   });
 
   TItemIter newPosIter = find_if(startSort, endSort, [&item] (Item const & it)
   {
-    return it.m_index == item.m_index;
+    return it.IsEqual(item);
   });
 
   ASSERT(m_split.first <= m_items.size(), ());

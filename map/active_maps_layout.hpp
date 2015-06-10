@@ -3,6 +3,8 @@
 #include "storage/storage_defines.hpp"
 #include "storage/index.hpp"
 
+#include "base/buffer_vector.hpp"
+
 #include "std/string.hpp"
 #include "std/vector.hpp"
 #include "std/map.hpp"
@@ -96,14 +98,27 @@ private:
 
   void ShowMap(TIndex const & index);
 
-private:
   void StatusChangedCallback(TIndex const & index);
   void ProgressChangedCallback(TIndex const & index, LocalAndRemoteSizeT const & sizes);
 
-private:
-  struct Item
+  class Item
   {
-    TIndex m_index;
+    buffer_vector<TIndex, 1> m_index;
+  public:
+    template <class TCont> Item(TCont const & cont,
+                                TStatus status,
+                                TMapOptions options,
+                                TMapOptions downloadRequest)
+      : m_index(cont.begin(), cont.end()), m_status(status),
+        m_options(options), m_downloadRequest(downloadRequest)
+    {
+      ASSERT(!m_index.empty(), ());
+    }
+
+    bool IsEqual(TIndex const & index) const;
+    bool IsEqual(Item const & item) const;
+    TIndex const & Index() const { return m_index[0]; }
+
     TStatus m_status;
     TMapOptions m_options;
     TMapOptions m_downloadRequest;
@@ -116,7 +131,6 @@ private:
   Item const * FindItem(TIndex const & index) const;
   bool GetGroupAndPositionByIndex(TIndex const & index, TGroup & group, int & position);
 
-private:
   int InsertInGroup(TGroup const & group, Item const & item);
   void DeleteFromGroup(TGroup const & group, int position);
   int MoveItemToGroup(TGroup const & group, int position, TGroup const & newGroup);
