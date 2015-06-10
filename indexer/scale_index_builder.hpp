@@ -99,7 +99,6 @@ public:
   void operator() (TFeature const & f, uint32_t offset) const
   {
     uint32_t minScale = 0;
-    bool skip = false;
     m_scalesIdx = 0;
     for (uint32_t bucket = 0; bucket < m_bucketsCount; ++bucket)
     {
@@ -107,7 +106,7 @@ public:
       // This is not immediately obvious and in fact there was an idea to map
       // a bucket to a contiguous range of scales.
       // todo(@pimenov): We probably should remove scale_index.hpp altogether.
-      if (!FeatureShouldBeIndexed(f, offset, bucket, skip, minScale))
+      if (!FeatureShouldBeIndexed(f, offset, bucket, minScale))
         continue;
 
       vector<int64_t> const cells = covering::CoverFeature(f, m_codingDepth, 250);
@@ -116,18 +115,19 @@ public:
 
       m_featuresInBucket[bucket] += 1;
       m_cellsInBucket[bucket] += cells.size();
+
+      break;
     }
   }
 
 private:
+  // Every feature should be indexed at most once: for the smallest possible scale where
+  // its geometry is non-empty, where it is visible and where the classificator allows.
+  // If the feature is invisible at all scales, do not index it.
   template <class TFeature>
-  bool FeatureShouldBeIndexed(TFeature const & f, uint32_t offset, uint32_t scale, bool & skip,
+  bool FeatureShouldBeIndexed(TFeature const & f, uint32_t offset, uint32_t scale,
                               uint32_t & minScale) const
   {
-    // Do index features for the first visible interval only once.
-    // If the feature was skipped as empty for the suitable interval,
-    // it should be indexed in the next interval where geometry is not empty.
-
     bool needReset = (scale == 0);
     while (m_scalesIdx < m_header.GetScalesCount() && m_header.GetScale(m_scalesIdx) < scale)
     {
@@ -140,31 +140,19 @@ private:
 
     // This function invokes geometry reading for the needed scale.
     if (f.IsEmptyGeometry(scale))
-    {
-      skip = true;
       return false;
-    }
 
     if (needReset)
     {
       // This function assumes that geometry rect for the needed scale is already initialized.
       // Note: it works with FeatureBase so in fact it does not use the information about
       // the feature's geometry except for the type and the LimitRect.
+      // minScale should be recalculated only after a reset and only if the geometry
+      // is non-empty.
       minScale = feature::GetMinDrawableScale(f);
     }
 
-    if (minScale == scale)
-    {
-      skip = false;
-      return true;
-    }
-
-    if (minScale < scale && skip)
-    {
-      skip = false;
-      return true;
-    }
-    return false;
+    return minScale <= scale;
   }
 
   // We do not need to parse a feature's geometry for every bucket.
