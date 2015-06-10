@@ -126,8 +126,6 @@ typedef NS_ENUM(NSUInteger, CellType)
 
 @implementation SearchView
 
-__weak SearchView * selfPointer;
-
 - (id)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
@@ -145,8 +143,6 @@ __weak SearchView * selfPointer;
 
   [self setState:SearchViewStateHidden animated:NO withCallback:NO];
   [self addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-
-  selfPointer = self;
 
   if ([self.tableView respondsToSelector:@selector(registerClass:forCellReuseIdentifier:)])
   {
@@ -317,7 +313,16 @@ static BOOL keyboardLoaded = NO;
 - (void)updateSearchParametersWithForce:(BOOL)force outParams:(search::SearchParams &)sp andQuery:(NSString *)newQuery
 {
   sp.m_query = [[newQuery precomposedStringWithCompatibilityMapping] UTF8String];
-  sp.m_callback = bind(&onSearchResultCallback, _1);
+  sp.m_callback = ^(search::Results const & results)
+  {
+    if (self.state == SearchViewStateHidden)
+      return;
+    SearchResultsWrapper * wrapper = [[SearchResultsWrapper alloc] initWithResults:results];
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+      [self frameworkDidAddSearchResult:wrapper];
+    });
+  };
   sp.SetInputLocale([GetKeyboardInputLanguage() UTF8String]);
   sp.SetForceSearch(force == YES);
 }
@@ -332,12 +337,6 @@ static BOOL keyboardLoaded = NO;
   if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
     sp.SetPosition(lat, lon);
   GetFramework().Search(sp);
-}
-
-static void onSearchResultCallback(search::Results const & results)
-{
-  SearchResultsWrapper * wrapper = [[SearchResultsWrapper alloc] initWithResults:results];
-  [selfPointer performSelectorOnMainThread:@selector(frameworkDidAddSearchResult:) withObject:wrapper waitUntilDone:NO];
 }
 
 - (void)frameworkDidAddSearchResult:(SearchResultsWrapper *)wrapper
