@@ -813,13 +813,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       public boolean onMenuItemClick(MenuItem item)
       {
         final int id = item.getItemId();
-        if (id >= 0 && id < 1)
-        {
-          final Context ctx = getContext();
-          Utils.copyTextToClipboard(ctx, items.get(id));
-          Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, items.get(id)));
-          AlohaHelper.logClick(AlohaHelper.PP_METADATA_COPY + ":" + tagStr);
-        }
+        final Context ctx = getContext();
+        Utils.copyTextToClipboard(ctx, items.get(id));
+        Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, items.get(id)));
+        AlohaHelper.logClick(AlohaHelper.PP_METADATA_COPY + ":" + tagStr);
         return true;
       }
     });
