@@ -119,6 +119,8 @@ namespace storage
 
     Country const & CountryByIndex(TIndex const & index) const;
     TIndex FindIndexByFile(string const & name) const;
+    /// @todo Temporary function to gel all associated indexes for the country file name.
+    /// Will be removed in future after refactoring.
     vector<TIndex> FindAllIndexesByFile(string const & name) const;
     void GetGroupAndCountry(TIndex const & index, string & group, string & country) const;
 

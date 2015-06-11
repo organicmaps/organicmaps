@@ -9,12 +9,12 @@ namespace storage
 
 bool ActiveMapsLayout::Item::IsEqual(TIndex const & index) const
 {
-  return (find(m_index.begin(), m_index.end(), index) != m_index.end());
+  return (find(m_indexes.begin(), m_indexes.end(), index) != m_indexes.end());
 }
 
 bool ActiveMapsLayout::Item::IsEqual(Item const & item) const
 {
-  for (TIndex const & i : m_index)
+  for (TIndex const & i : m_indexes)
     if (item.IsEqual(i))
       return true;
   return false;

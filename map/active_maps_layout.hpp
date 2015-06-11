@@ -103,21 +103,28 @@ private:
 
   class Item
   {
-    buffer_vector<TIndex, 1> m_index;
+    /// Usually, this vector has size = 1 and sometimes = 2.
+    buffer_vector<TIndex, 1> m_indexes;
+
   public:
     template <class TCont> Item(TCont const & cont,
                                 TStatus status,
                                 TMapOptions options,
                                 TMapOptions downloadRequest)
-      : m_index(cont.begin(), cont.end()), m_status(status),
+      : m_indexes(cont.begin(), cont.end()), m_status(status),
         m_options(options), m_downloadRequest(downloadRequest)
     {
-      ASSERT(!m_index.empty(), ());
+      ASSERT(!m_indexes.empty(), ());
     }
 
+    /// Use this functions to compare Items by input TIndex.
+    //@{
     bool IsEqual(TIndex const & index) const;
     bool IsEqual(Item const & item) const;
-    TIndex const & Index() const { return m_index[0]; }
+    //@}
+
+    /// Get any key TIndex for the correspondent Item.
+    TIndex const & Index() const { return m_indexes[0]; }
 
     TStatus m_status;
     TMapOptions m_options;
