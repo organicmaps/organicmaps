@@ -6,6 +6,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -353,15 +354,29 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
         if (!isAdded())
           return;
 
-        if (isCurrentResult(resultId))
-          displaySearchProgress(false);
-
         if (!doShowCategories())
         {
           mAdapter.updateData(count, resultId);
           // scroll list view to the top
           setSelection(0);
         }
+      }
+    });
+  }
+
+  // Called from native code
+  @SuppressWarnings("unused")
+  public void endData()
+  {
+    getActivity().runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        if (!isAdded())
+          return;
+
+        displaySearchProgress(false);
       }
     });
   }

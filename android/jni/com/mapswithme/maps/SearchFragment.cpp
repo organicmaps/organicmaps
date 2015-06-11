@@ -29,10 +29,18 @@ class SearchAdapter
 
   void OnResults(search::Results const & res, int queryID)
   {
+    if (m_fragment == 0)
+    {
+      // In case when fragment is destroyed, but search thread passed any results.
+      return;
+    }
+
+    JNIEnv * env = jni::GetEnv();
+
     if (res.IsEndMarker())
     {
-      /// @todo Process end markers for Android in future.
-      /// It's not so necessary now because we store search ID's.
+      jmethodID const methodId = jni::GetJavaMethodID(env, m_fragment, "endData", "()V");
+      env->CallVoidMethod(m_fragment, methodId);
       return;
     }
 
@@ -40,12 +48,6 @@ class SearchAdapter
     // from java didnt cause deadlocks. so MutexGuard creation & usage should be wrapped by braces.
     {
       threads::MutexGuard guard(m_updateMutex);
-
-      if (m_fragment == 0)
-      {
-        // In case when fragment is destroyed, but search thread passed any results.
-        return;
-      }
 
       // store current results
       m_storeResults = res;
@@ -62,9 +64,6 @@ class SearchAdapter
         m_storeID = queryID;
       }
     }
-
-    // get new environment pointer here because of different thread
-    JNIEnv * env = jni::GetEnv();
 
     // post message to update ListView in UI thread
     jmethodID const id = jni::GetJavaMethodID(env, m_fragment, "updateData", "(II)V");
