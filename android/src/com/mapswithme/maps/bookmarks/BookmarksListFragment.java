@@ -147,7 +147,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
       if (type == BookmarkListAdapter.TYPE_BOOKMARK)
       {
         final MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.pin_sets_context_menu, menu);
+        inflater.inflate(R.menu.menu_bookmarks, menu);
 
         for (final ShareAction action : ShareAction.ACTIONS.values())
         {

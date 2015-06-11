@@ -81,6 +81,9 @@
     <item name="android:imeOptions">actionDone</item>
     <item name="android:textColor">@color/text_place_page</item>
     <item name="android:textCursorDrawable">@null</item>
+    <item name="android:textColorHint">@color/text_dark_hint</item>
+    <item name="android:textSize">@dimen/text_size_body_1</item>
+    <item name="android:fontFamily">@string/robotoRegular</item>
   </style>
 
   <style name="MwmWidget.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">

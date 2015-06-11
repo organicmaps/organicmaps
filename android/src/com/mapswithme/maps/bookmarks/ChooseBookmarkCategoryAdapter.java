@@ -11,7 +11,10 @@ import com.mapswithme.maps.R;
 
 public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapter
 {
-  private int mCheckedPosition = -1;
+  private int mCheckedPosition;
+
+  public static final int VIEW_TYPE_CATEGORY = 0;
+  public static final int VIEW_TYPE_ADD_NEW = 1;
 
   public ChooseBookmarkCategoryAdapter(Context context, int pos)
   {
@@ -20,21 +23,45 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
   }
 
   @Override
+  public int getViewTypeCount()
+  {
+    return super.getViewTypeCount() + 1;
+  }
+
+  @Override
+  public int getCount()
+  {
+    return super.getCount() + 1;
+  }
+
+  @Override
+  public int getItemViewType(int position)
+  {
+    return position == getCount() - 1 ? VIEW_TYPE_ADD_NEW : VIEW_TYPE_CATEGORY;
+  }
+
+  @Override
   public View getView(int position, View convertView, ViewGroup parent)
   {
+    final int viewType = getItemViewType(position);
     if (convertView == null)
     {
-      convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_set_chooser, parent, false);
-
-      convertView.setTag(new SingleChoiceHolder((TextView) convertView.findViewById(R.id.sci_set_name),
-          (RadioButton) convertView.findViewById(R.id.sci_checkbox)));
+      if (viewType == VIEW_TYPE_CATEGORY)
+      {
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_bookmark_set_chooser, parent, false);
+        convertView.setTag(new SingleChoiceHolder(convertView));
+      }
+      else
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_bookmark_set_create, parent, false);
     }
 
-    final SingleChoiceHolder holder = (SingleChoiceHolder) convertView.getTag();
-    boolean checked = mCheckedPosition == position;
-    holder.name.setText(getItem(position).getName());
-    holder.name.setTextAppearance(getContext(), checked ? android.R.style.TextAppearance_Large : android.R.style.TextAppearance_Medium);
-    holder.checked.setChecked(checked);
+    if (viewType == VIEW_TYPE_CATEGORY)
+    {
+      final SingleChoiceHolder holder = (SingleChoiceHolder) convertView.getTag();
+      boolean checked = mCheckedPosition == position;
+      holder.name.setText(getItem(position).getName());
+      holder.checked.setChecked(checked);
+    }
 
     return convertView;
   }
@@ -44,10 +71,10 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
     TextView name;
     RadioButton checked;
 
-    public SingleChoiceHolder(TextView name, RadioButton checked)
+    public SingleChoiceHolder(View convertView)
     {
-      this.name = name;
-      this.checked = checked;
+      name = (TextView) convertView.findViewById(R.id.tv__set_name);
+      checked = (RadioButton) convertView.findViewById(R.id.rb__selected);
     }
   }
 

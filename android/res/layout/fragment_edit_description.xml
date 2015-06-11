@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/edit_description_hint"
         android:includeFontPadding="false"
-        android:textAppearance="@style/MwmTextAppearance.Body1"/>
+        android:inputType="textMultiLine"/>
 
   </FrameLayout>
 
