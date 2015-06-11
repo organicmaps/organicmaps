@@ -530,10 +530,11 @@ class FlushRouteMessage : public Message
 {
 public:
   FlushRouteMessage(dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer,
-                    dp::Color const & color)
+                    dp::Color const & color, m2::RectF const & arrowTextureRect)
     : m_state(state)
     , m_buffer(move(buffer))
     , m_color(color)
+    , m_arrowTextureRect(arrowTextureRect)
   {}
 
   Type GetType() const override { return Message::FlushRoute; }
@@ -541,11 +542,13 @@ public:
   dp::GLState const & GetState() const { return m_state; }
   drape_ptr<dp::RenderBucket> && AcceptBuffer() { return move(m_buffer); }
   dp::Color const & GetColor() const { return m_color; }
+  m2::RectF const & GetArrowTextureRect() const { return m_arrowTextureRect; }
 
 private:
   dp::GLState m_state;
   drape_ptr<dp::RenderBucket> m_buffer;
   dp::Color m_color;
+  m2::RectF m_arrowTextureRect;
 };
 
 

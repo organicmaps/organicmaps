@@ -65,5 +65,7 @@ private:
 
 void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program);
 void ApplyState(GLState state, ref_ptr<GpuProgram> program);
+void ApplyTextures(GLState state, ref_ptr<GpuProgram> program);
+void ApplyBlending(GLState state, ref_ptr<GpuProgram> program);
 
 } // namespace dp

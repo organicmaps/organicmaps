@@ -280,7 +280,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<FlushRouteMessage> msg = message;
       dp::GLState const & state = msg->GetState();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
-      m_routeRenderer->AddRouteRenderBucket(state, move(bucket), msg->GetColor(), make_ref(m_gpuProgramManager));
+      m_routeRenderer->AddRouteRenderBucket(state, move(bucket), msg->GetColor(), msg->GetArrowTextureRect(),
+                                            make_ref(m_gpuProgramManager));
       m_myPositionController->ActivateRouting();
       break;
     }

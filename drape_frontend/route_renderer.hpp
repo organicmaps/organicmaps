@@ -23,6 +23,15 @@ struct RouteGraphics
   dp::Color m_color;
 };
 
+struct ArrowBorders
+{
+  double m_startDistance = 0;
+  double m_endDistance = 0;
+  float m_startTexCoord = 0;
+  float m_endTexCoord = 1;
+  int m_groupIndex = 0;
+};
+
 class RouteRenderer final
 {
 public:
@@ -32,15 +41,21 @@ public:
               dp::UniformValuesStorage const & commonUniforms);
 
   void AddRouteRenderBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
-                            dp::Color const & color, ref_ptr<dp::GpuProgramManager> mng);
+                            dp::Color const & color, m2::RectF const & arrowTextureRect,
+                            ref_ptr<dp::GpuProgramManager> mng);
 
   void Clear();
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
 
 private:
+  void CalculateArrowBorders(double arrowLength, double scale,
+                             float arrowTextureWidth, vector<ArrowBorders> & borders);
+
   vector<RouteGraphics> m_routeGraphics;
   double m_distanceFromBegin;
+  m2::RectF m_arrowTextureRect;
+  vector<double> m_turnPoints;
 };
 
 } // namespace df

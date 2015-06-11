@@ -35,11 +35,11 @@ BackendRenderer::BackendRenderer(Params const & params)
                               MessagePriority::High);
   });
 
-  m_routeBuilder = make_unique_dp<RouteBuilder>([this](dp::GLState const & state,
-                                                drape_ptr<dp::RenderBucket> && bucket, dp::Color const & color)
+  m_routeBuilder = make_unique_dp<RouteBuilder>([this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
+                                                dp::Color const & color, m2::RectF const & arrowTextureRect)
   {
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<FlushRouteMessage>(state, move(bucket), color),
+                              make_unique_dp<FlushRouteMessage>(state, move(bucket), color, arrowTextureRect),
                               MessagePriority::Normal);
   });
 
@@ -186,7 +186,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::AddRoute:
     {
       ref_ptr<AddRouteMessage> msg = message;
-      m_routeBuilder->Build(msg->GetRoutePolyline(), msg->GetColor());
+      m_routeBuilder->Build(msg->GetRoutePolyline(), msg->GetColor(), m_texMng);
       break;
     }
   case Message::RemoveRoute:

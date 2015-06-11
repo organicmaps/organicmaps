@@ -14,9 +14,12 @@ public:
   RouteShape(m2::PolylineD const & polyline,
              CommonViewParams const & params);
 
-  void Draw(ref_ptr<dp::Batcher> batcher) const;
+  m2::RectF GetArrowTextureRect(ref_ptr<dp::TextureManager> textures) const;
+
+  void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const;
 
 private:
+
   CommonViewParams m_params;
   m2::PolylineD m_polyline;
 };

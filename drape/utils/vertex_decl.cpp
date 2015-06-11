@@ -289,7 +289,7 @@ dp::BindingInfo const & LineVertex::GetBindingInfo()
 RouteVertex::RouteVertex()
   : m_position(0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0)
-  , m_length(0.0, 0.0)
+  , m_length(0.0, 0.0, 0.0)
 {}
 
 RouteVertex::RouteVertex(TPosition const & position, TNormal const & normal, TLength const & length)

@@ -93,7 +93,7 @@ void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> pr
   uniforms.ForeachValue(bind(&ApplyUniformValue, _1, program));
 }
 
-void ApplyState(GLState state, ref_ptr<GpuProgram> program)
+void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)
 {
   ref_ptr<Texture> tex = state.GetColorTexture();
   if (tex != nullptr)
@@ -112,7 +112,17 @@ void ApplyState(GLState state, ref_ptr<GpuProgram> program)
     tex->Bind();
     GLFunctions::glUniformValuei(maskTexLoc, 1);
   }
+}
+
+void ApplyBlending(GLState state, ref_ptr<GpuProgram> program)
+{
   state.GetBlending().Apply();
+}
+
+void ApplyState(GLState state, ref_ptr<GpuProgram> program)
+{
+  ApplyTextures(state, program);
+  ApplyBlending(state, program);
 }
 
 }

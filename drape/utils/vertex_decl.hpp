@@ -75,7 +75,7 @@ struct LineVertex : BaseVertex
 
 struct RouteVertex : BaseVertex
 {
-  typedef glsl::vec2 TLength;
+  typedef glsl::vec3 TLength;
 
   RouteVertex();
   RouteVertex(TPosition const & position, TNormal const & normal, TLength const & length);

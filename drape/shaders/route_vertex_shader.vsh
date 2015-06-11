@@ -1,19 +1,19 @@
 attribute vec3 a_position;
 attribute vec2 a_normal;
-attribute vec2 a_length;
+attribute vec3 a_length;
 
 uniform mat4 modelView;
 uniform mat4 projection;
 
 uniform vec2 u_halfWidth;
 
-varying float v_length;
+varying vec2 v_length;
 
 void main(void)
 {
   float normalLen = length(a_normal);
   vec2 transformedAxisPos = (vec4(a_position.xy, 0.0, 1.0) * modelView).xy;
-  float len = a_length.x;
+  vec2 len = vec2(a_length.x, a_length.z);
   if (u_halfWidth.x != 0.0 && normalLen != 0.0)
   {
     vec2 norm = a_normal * u_halfWidth.x;
@@ -24,7 +24,7 @@ void main(void)
     transformedAxisPos = transformedAxisPos + normalize(shiftPos - transformedAxisPos) * actualHalfWidth;
 
     if (u_halfWidth.y != 0.0)
-      len = a_length.x + a_length.y * u_halfWidth.y;
+      len = vec2(a_length.x + a_length.y * u_halfWidth.y, a_length.z);
   }
 
   v_length = len;
