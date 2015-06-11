@@ -681,4 +681,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">지도 가져오기</string>
 	<string name="save">저장</string>
+	<string name="edit_description_hint">설명(텍스트 또는 HTML)</string>
 </resources>

@@ -36,7 +36,7 @@
         style="@style/MwmWidget.PlacePage.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your descriptions (text or html)"
+        android:hint="@string/edit_description_hint"
         android:includeFontPadding="false"
         android:textAppearance="@style/MwmTextAppearance.Body1"/>
 

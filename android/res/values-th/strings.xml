@@ -695,4 +695,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">รับแผนที่</string>
 	<string name="save">บันทึก</string>
+	<string name="edit_description_hint">คำอธิบายของคุณ (ข้อความหรือ html)</string>
 </resources>

@@ -1076,3 +1076,5 @@
 "get_the_map" = "احصل على الخريطة";
 
 "save" = "حفظ";
+
+"edit_description_hint" = "أوصافك (نصّ أو html)";

@@ -1076,3 +1076,5 @@
 "get_the_map" = "Téléchargez des cartes";
 
 "save" = "sauvegarder";
+
+"edit_description_hint" = "Vos descriptions (version texte ou html)";

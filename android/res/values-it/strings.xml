@@ -690,4 +690,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">Scarica la mappa</string>
 	<string name="save">salva</string>
+	<string name="edit_description_hint">Le tue descrizioni (formato testo o html)</string>
 </resources>

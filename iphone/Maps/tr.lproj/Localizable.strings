@@ -1076,3 +1076,5 @@
 "get_the_map" = "Harita alın";
 
 "save" = "kaydet";
+
+"edit_description_hint" = "Açıklamalarınız (metin veya html)";

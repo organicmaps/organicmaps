@@ -693,4 +693,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">Hämta karta</string>
 	<string name="save">spara</string>
+	<string name="edit_description_hint">Dina beskrivningar (text eller html)</string>
 </resources>

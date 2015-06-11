@@ -706,4 +706,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">Get the map</string>
 	<string name="save">save</string>
+	<string name="edit_description_hint">Your descriptions (text or html)</string>
 </resources>

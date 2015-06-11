@@ -697,4 +697,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">احصل على الخريطة</string>
 	<string name="save">حفظ</string>
+	<string name="edit_description_hint">أوصافك (نصّ أو html)</string>
 </resources>

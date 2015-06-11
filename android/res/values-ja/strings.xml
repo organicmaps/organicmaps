@@ -690,4 +690,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">地図を入手</string>
 	<string name="save">保存</string>
+	<string name="edit_description_hint">説明（テキストまたはHTML）</string>
 </resources>

@@ -679,4 +679,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">獲取地圖</string>
 	<string name="save">保存</string>
+	<string name="edit_description_hint">您的描述（文本或html）</string>
 </resources>

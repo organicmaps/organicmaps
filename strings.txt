@@ -10189,6 +10189,7 @@
     sv = Hämta karta
 
   [save]
+    tags = android, ios
     en = save
     ru = сохранить
     uk = зберегти
@@ -10215,3 +10216,32 @@
     zh-Hans = 保存
     zh-Hant = 保存
     it = salva
+
+  [edit_description_hint]
+    tags = android, ios
+    en = Your descriptions (text or html)
+    ru = Ваше описание (текст или html)
+    uk = Ваше описання (текст або html)
+    vi = Mô tả của bạn (chữ hoặc html)
+    tr = Açıklamalarınız (metin veya html)
+    th = คำอธิบายของคุณ (ข้อความหรือ html)
+    es = Tus descripciones (texto o html)
+    sv = Dina beskrivningar (text eller html)
+    sk = Váš popis (text alebo html)
+    pt = Suas descrições (texto ou html)
+    pl = Twoje opisy (tekst lub html)
+    ko = 설명(텍스트 또는 HTML)
+    in = Deskripsi Anda (teks atau html)
+    ja = 説明（テキストまたはHTML）
+    hu = Az ön leírásai (sima szöveg vagy html)
+    ar = أوصافك (نصّ أو html)
+    de = Ihre Beschreibungen (Text oder HTML)
+    fr = Vos descriptions (version texte ou html)
+    nl = Uw omschrijvingen (tekst of html)
+    fi = Kuvauksesi (teksti tai html)
+    da = Dine beskrivelser (tekst eller html)
+    cs = Váš popis (HTML nebo text)
+    zh-Hans = 您的描述（文本或html）
+    zh-Hant = 您的描述（文本或html）
+    it = Le tue descrizioni (formato testo o html)
+    no = Dine beskrivelser (tekst eller html)

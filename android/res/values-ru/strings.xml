@@ -704,4 +704,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">Загрузить карту</string>
 	<string name="save">сохранить</string>
+	<string name="edit_description_hint">Ваше описание (текст или html)</string>
 </resources>

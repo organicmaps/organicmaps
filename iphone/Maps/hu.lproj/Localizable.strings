@@ -1076,3 +1076,5 @@
 "get_the_map" = "Térkép megszerzése";
 
 "save" = "simpan";
+
+"edit_description_hint" = "Az ön leírásai (sima szöveg vagy html)";

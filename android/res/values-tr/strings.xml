@@ -697,4 +697,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">Harita alın</string>
 	<string name="save">kaydet</string>
+	<string name="edit_description_hint">Açıklamalarınız (metin veya html)</string>
 </resources>

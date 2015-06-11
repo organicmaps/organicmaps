@@ -698,4 +698,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">Отримати карту</string>
 	<string name="save">зберегти</string>
+	<string name="edit_description_hint">Ваше описання (текст або html)</string>
 </resources>

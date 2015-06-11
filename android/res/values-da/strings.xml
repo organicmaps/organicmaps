@@ -693,4 +693,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">Få kort</string>
 	<string name="save">gem</string>
+	<string name="edit_description_hint">Dine beskrivelser (tekst eller html)</string>
 </resources>

@@ -1076,3 +1076,5 @@
 "get_the_map" = "지도 가져오기";
 
 "save" = "저장";
+
+"edit_description_hint" = "설명(텍스트 또는 HTML)";

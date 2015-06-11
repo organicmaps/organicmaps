@@ -1076,3 +1076,5 @@
 "get_the_map" = "Karte abrufen";
 
 "save" = "speichern";
+
+"edit_description_hint" = "Ihre Beschreibungen (Text oder HTML)";

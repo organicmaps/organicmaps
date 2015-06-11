@@ -700,4 +700,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">Získejte mapu</string>
 	<string name="save">uložit</string>
+	<string name="edit_description_hint">Váš popis (HTML nebo text)</string>
 </resources>
