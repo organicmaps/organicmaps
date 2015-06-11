@@ -44,6 +44,7 @@ inline strings::UniString NormalizeAndSimplifyString(string const & s)
   NormalizeInplace(uniString);
   return uniString;
 
+  /// @todo Restore this logic to distinguish и-й in future.
   /*
   // Just after lower casing is a correct place to avoid normalization for specific chars.
   static auto const isSpecificChar = [](UniChar c) -> bool

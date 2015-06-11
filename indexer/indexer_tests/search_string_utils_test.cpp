@@ -10,12 +10,24 @@ UNIT_TEST(FeatureTypeToString)
 
 UNIT_TEST(NormalizeAndSimplifyStringWithOurTambourines)
 {
+  // This test is dependent from strings::NormalizeAndSimplifyString implementation.
+  // TODO: Fix it when logic with и-й will change.
+
+  /*
   string const arr[] = {"ÜbërÅłłęšß", "uberallesss", // Basic test case.
                         "Iiİı", "iiii",              // Famous turkish "I" letter bug.
                         "ЙЁйёШКИЙй", "йейешкийй",    // Better handling of Russian й letter.
                         "ØøÆæŒœ", "ooaeaeoeoe",
                         "バス", "ハス"
                        };
+  */
+  string const arr[] = {"ÜbërÅłłęšß", "uberallesss", // Basic test case.
+                        "Iiİı", "iiii",              // Famous turkish "I" letter bug.
+                        "ЙЁйёШКИЙй", "иеиешкиии",    // Better handling of Russian й letter.
+                        "ØøÆæŒœ", "ooaeaeoeoe",
+                        "バス", "ハス"
+                       };
+
   for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)
     TEST_EQUAL(arr[i + 1], strings::ToUtf8(search::NormalizeAndSimplifyString(arr[i])), (i));
 }
