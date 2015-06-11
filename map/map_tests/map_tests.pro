@@ -9,6 +9,10 @@ ROOT_DIR = ../..
 DEPENDENCIES = map render gui routing search storage graphics indexer platform anim geometry coding base \
                freetype fribidi expat protobuf tomcrypt jansson osrm stats_client zlib succinct
 
+!linux* {
+  DEPENDENCIES *= opening_hours
+}
+
 drape {
   DEPENDENCIES *= drape_frontend drape
 }
@@ -38,7 +42,5 @@ SOURCES += \
   tracks_tests.cpp  \
 
 !linux* {
-SOURCES += working_time_tests.cpp \
-
-DEPENDENCIES *= opening_hours
+  SOURCES += working_time_tests.cpp \
 }
