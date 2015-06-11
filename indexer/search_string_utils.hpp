@@ -39,7 +39,12 @@ inline strings::UniString NormalizeAndSimplifyString(string const & s)
       break;
     }
   }
+
   MakeLowerCaseInplace(uniString);
+  NormalizeInplace(uniString);
+  return uniString;
+
+  /*
   // Just after lower casing is a correct place to avoid normalization for specific chars.
   static auto const isSpecificChar = [](UniChar c) -> bool
   {
@@ -60,6 +65,7 @@ inline strings::UniString NormalizeAndSimplifyString(string const & s)
     i = j + 1;
   }
   return result;
+  */
 }
 
 template <class DelimsT, typename F>
