@@ -53,6 +53,14 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   {
     final Toolbar toolbar = getToolbar();
     toolbar.setTitle(getString(R.string.maps));
+    toolbar.setNavigationOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        onBackPressed();
+      }
+    });
     mTvUpdateAll = (TextView) toolbar.findViewById(R.id.tv__update_all);
     mTvUpdateAll.setOnClickListener(this);
     mTvUpdateAll.setVisibility(View.GONE);

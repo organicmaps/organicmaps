@@ -23,13 +23,6 @@ public class SearchActivity extends BaseMwmFragmentActivity
     transaction.commit();
   }
 
-  public static void startForSearch(Context context, String query, int scope)
-  {
-    final Intent i = new Intent(context, SearchActivity.class);
-    i.putExtra(EXTRA_QUERY, query);
-    context.startActivity(i);
-  }
-
   public static void startForSearch(Context context, String query)
   {
     final Intent i = new Intent(context, SearchActivity.class);

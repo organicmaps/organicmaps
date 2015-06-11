@@ -79,7 +79,7 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
         @Override
         public void run()
         {
-          SearchActivity.startForSearch(target, mQuery, mScope);
+          // TODO finish search task
         }
       }, 1500);
 
