@@ -1316,9 +1316,34 @@ public class MWMActivity extends BaseMwmFragmentActivity
     if (previewIntersectsBottomMenu())
       mBottomButtons.setVisibility(isVisible ? View.GONE : View.VISIBLE);
     if (previewIntersectsZoomButtons())
-    {
-      // TODO hide zoom buttons?
-    }
+      UiUtils.hide(mBtnZoomIn, mBtnZoomOut);
+    else
+      refreshZoomButtonsVisibility();
+  }
+
+  private boolean previewIntersectsBottomMenu()
+  {
+    return !(UiUtils.isBigTablet() || (UiUtils.isSmallTablet() && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE));
+  }
+
+  private boolean previewIntersectsZoomButtons()
+  {
+    return !(UiUtils.isBigTablet() || UiUtils.isSmallTablet());
+  }
+
+  @Override
+  public void onPlacePageVisibilityChanged(boolean isVisible)
+  {
+    AlohaHelper.logClick(AlohaHelper.PP_OPEN);
+    if (placePageIntersectsZoomButtons())
+      UiUtils.hide(mBtnZoomIn, mBtnZoomOut);
+    else
+      refreshZoomButtonsVisibility();
+  }
+
+  private boolean placePageIntersectsZoomButtons()
+  {
+    return !(UiUtils.isBigTablet() || (UiUtils.isSmallTablet() && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE));
   }
 
   private void slideBottomButtonsIn()
@@ -1370,31 +1395,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     result.play(animator);
 
     return result;
-  }
-
-  private boolean previewIntersectsBottomMenu()
-  {
-    return !(UiUtils.isBigTablet() || (UiUtils.isSmallTablet() && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE));
-  }
-
-  private boolean previewIntersectsZoomButtons()
-  {
-    return !(UiUtils.isBigTablet() || UiUtils.isSmallTablet());
-  }
-
-  @Override
-  public void onPlacePageVisibilityChanged(boolean isVisible)
-  {
-    AlohaHelper.logClick(AlohaHelper.PP_OPEN);
-    if (placePageIntersectsZoomButtons())
-    {
-      // TODO hide zoom buttons?
-    }
-  }
-
-  private boolean placePageIntersectsZoomButtons()
-  {
-    return !(UiUtils.isBigTablet() || (UiUtils.isSmallTablet() && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE));
   }
 
   @Override
