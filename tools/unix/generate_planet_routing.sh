@@ -77,9 +77,10 @@ elif [ "$1" == "prepare" ]; then
   export STXXLCFG="$HOME/.stxxl"
   for PBF in "$INTDIR"/*.pbf; do
     OSRM_FILE="${PBF%.*}.osrm"
+    RESTRICTIONS_FILE="$OSRM_FILE.restrictions"
     rm -f "$OSRM_FILE"
     "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF"
-    "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE"
+    "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE" -r "$RESTRICTIONS_FILE"
     "$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM_FILE"
     if [ -s "$OSRM_FILE" ]; then
       [ -n "$KEEP_INTDIR" ] && rm -f "$PBF"
@@ -143,10 +144,16 @@ elif [ "$1" == "online" ]; then
 
   export STXXLCFG="$HOME/.stxxl"
   OSRM_FILE="$INTDIR/planet.osrm"
+  RESTRICTIONS_FILE="$OSRM_FILE.restrictions"
   rm -f "$OSRM_FILE"
   "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF"
-  rm -f "$PBF"
-  "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE"
+  "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE" -r "$RESTRICTIONS_FILE"
+  if [ -s "$OSRM_FILE" ]; then
+     [ -n "$KEEP_INTDIR" ] && rm -f "$PBF"
+  else
+      echo "Failed to create $OSRM_FILE"
+  fi
+
 else
   fail "Incorrect parameter: $1"
 fi
