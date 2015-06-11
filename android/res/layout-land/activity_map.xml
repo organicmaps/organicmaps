@@ -11,6 +11,10 @@
       android:layout_height="match_parent"/>
 
   <include
+      android:id="@+id/navigation_buttons"
+      layout="@layout/map_navigation_buttons"/>
+
+  <include
       android:id="@+id/toolbar_search"
       layout="@layout/toolbar_with_search"
       android:layout_width="match_parent"
@@ -25,10 +29,6 @@
     <include layout="@layout/map_routing_full"/>
 
   </FrameLayout>
-
-  <include
-      android:id="@+id/navigation_buttons"
-      layout="@layout/map_navigation_buttons"/>
 
   <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
