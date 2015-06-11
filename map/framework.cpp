@@ -511,6 +511,7 @@ void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
 
 void Framework::RegisterAllMaps()
 {
+  ASSERT(!Storage().IsDownloadInProgress(), ());
   //ASSERT(m_model.IsEmpty(), ());
 
   int minVersion = numeric_limits<int>::max();
