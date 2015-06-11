@@ -308,6 +308,7 @@ if [ "$MODE" == "mwm" ]; then
   done
 
   if [ -n "$OPT_WORLD" ]; then
+    wait # For generator_tool --output=World
     log "TIMEMARK" "Generate world search index"
     "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$GENERATOR_LOG"
   fi
@@ -361,5 +362,6 @@ if [ "$MODE" == "resources" ]; then
 fi
 
 # Cleaning up temporary directories
-rm -r "$INTDIR"
+# rm -r "$INTDIR"
+rm "$STATUS_FILE" "$OSRM_FLAG"
 log "STATUS" "Done"
