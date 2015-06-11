@@ -57,6 +57,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.data.RouterTypes;
 import com.mapswithme.maps.data.RoutingResultCodes;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
@@ -997,10 +998,19 @@ public class MWMActivity extends BaseMwmFragmentActivity
     startWatchingExternalStorage();
 
     refreshZoomButtonsVisibility();
+    refreshRouterIcon();
 
     SearchController.getInstance().onResume();
     mPlacePage.onResume();
     mLikesManager.showLikeDialogForCurrentSession();
+  }
+
+  private void refreshRouterIcon()
+  {
+    if (RouterTypes.getRouterType().equals(RouterTypes.ROUTER_VEHICLE))
+      mIvStartRouting.setImageResource(R.drawable.ic_route);
+    else
+      mIvStartRouting.setImageResource(R.drawable.ic_walk);
   }
 
   private void refreshZoomButtonsVisibility()
@@ -1714,6 +1724,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
       InputUtils.hideKeyboard(mBottomButtons);
       mFadeView.fadeOut();
+      refreshRouterIcon();
     }
   }
 

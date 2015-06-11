@@ -23,6 +23,7 @@ import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.data.RouterTypes;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
@@ -109,28 +110,6 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     return mEtSearchQuery.getText().toString();
   }
 
-  // TODO: This code only for demonstration purposes and will be removed soon
-  private boolean tryChangeMapStyleCmd(String str)
-  {
-    // Hook for shell command on change map style
-    final boolean isDark = str.equals("mapstyle:dark");
-    final boolean isLight = isDark ? false : str.equals("mapstyle:light");
-
-    if (!isDark && !isLight)
-      return false;
-
-    // close Search panel
-    mEtSearchQuery.setText(null);
-    InputUtils.hideKeyboard(mEtSearchQuery);
-    getActivity().onBackPressed();
-
-    // change map style for the Map activity
-    final int mapStyle = isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_LIGHT;
-    MWMActivity.setMapStyle(getActivity(), mapStyle);
-
-    return true;
-  }
-
   private void setUpView(ViewGroup root)
   {
     mBtnVoice = root.findViewById(R.id.search_voice_input);
@@ -146,7 +125,8 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
       public void afterTextChanged(Editable s)
       {
         // TODO: This code only for demonstration purposes and will be removed soon
-        if (tryChangeMapStyleCmd(s.toString()))
+        if (tryChangeMapStyle(s.toString()) ||
+            tryChangeRouter(s.toString()))
           return;
 
         if (runSearch() == STATUS_QUERY_EMPTY)
@@ -220,6 +200,48 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
 
     listView.addHeaderView(getActivity().getLayoutInflater().inflate(R.layout.header_default, listView, false), null, false);
   }
+
+
+  // FIXME: This code only for demonstration purposes and will be removed soon
+  private boolean tryChangeMapStyle(String str)
+  {
+    // Hook for shell command on change map style
+    final boolean isDark = str.equals("mapstyle:dark");
+    final boolean isLight = isDark ? false : str.equals("mapstyle:light");
+
+    if (!isDark && !isLight)
+      return false;
+
+    // close Search panel
+    mEtSearchQuery.setText(null);
+    InputUtils.hideKeyboard(mEtSearchQuery);
+    getActivity().onBackPressed();
+
+    // change map style for the Map activity
+    final int mapStyle = isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_LIGHT;
+    MWMActivity.setMapStyle(getActivity(), mapStyle);
+
+    return true;
+  }
+
+  private boolean tryChangeRouter(String query)
+  {
+    final boolean pedestrian = query.equals("pedestrian:on");
+    final boolean wehicle = query.equals("pedestrian:off");
+
+    if (!pedestrian && !wehicle)
+      return false;
+
+    mEtSearchQuery.setText(null);
+    InputUtils.hideKeyboard(mEtSearchQuery);
+    getActivity().onBackPressed();
+
+    RouterTypes.saveRouterType(pedestrian ? RouterTypes.ROUTER_PEDESTRIAN : RouterTypes.ROUTER_VEHICLE);
+
+    return false;
+  }
+  // FIXME: This code only for demonstration purposes and will be removed soon
+
 
   @Override
   public void onResume()
