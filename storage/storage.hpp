@@ -54,6 +54,11 @@ namespace storage
     };
 
     typedef list<QueuedCountry> TQueue;
+    /// @todo. It appeared that our application uses m_queue from different threads
+    /// without any synchronization. To reproduce it just download a map "from the map"
+    /// on Android. (CountryStatus is called from a different thread.)
+    /// It's necessary to check if we can call all the methods from a single thread using RunOnUIThread.
+    /// If not, at least use a syncronization object.
     TQueue m_queue;
 
     /// stores countries which download has failed recently

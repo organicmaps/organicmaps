@@ -139,9 +139,12 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private boolean mNeedCheckUpdate = true;
   private int mLocationStateModeListenerId = LocationState.SLOT_UNDEFINED;
-  // Initialized to invalid combination to force update on the first check
-  private boolean mStorageAvailable = false;
-  private boolean mStorageWritable = true;
+  // These flags are initialized to the invalid combination to force update on the first check
+  // after launching.
+  // These flags are static because the MWMActivity is recreated while screen orientation changing
+  // but they shall not be reinitialized on screen orientation changing.
+  private static boolean mStorageAvailable = false;
+  private static boolean mStorageWritable = true;
   // Buttons
   private static final long BUTTONS_ANIM_DURATION = 80;
   private static final long BUTTONS_ANIM_DURATION_LONG = 88;
