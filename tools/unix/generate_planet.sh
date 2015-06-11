@@ -119,6 +119,7 @@ MERGE_COASTS_DELAY_SEC=2400
 NODE_STORAGE=${NODE_STORAGE:-${NS:-mem}}
 ASYNC_PBF=${ASYNC_PBF-}
 NUM_PROCESSES=${NUM_PROCESSES:-$(expr $(nproc || echo 8) - 1)}
+KEEP_INTDIR=${KEEP_INTDIR-1}
 
 STATUS_FILE="$INTDIR/status"
 OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
@@ -162,6 +163,7 @@ export OSRM_FLAG
 export PLANET
 export OSMCTOOLS
 export NUM_PROCESSES
+export KEEP_INTDIR
 export REGIONS= # Routing script might expect something in this variable
 export BORDERS_PATH="$TARGET/borders" # Also for the routing script
 
@@ -244,7 +246,7 @@ if [ "$MODE" == "coast" ]; then
   done
   # make a working copy of generated coastlines file
   [ -n "$OPT_WORLD" ] && cp "$INTCOASTSDIR/WorldCoasts.mwm.tmp" "$INTDIR"
-  rm -r "$INTCOASTSDIR"
+  [ -n "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
   MODE=inter
 fi
 
@@ -362,6 +364,6 @@ if [ "$MODE" == "resources" ]; then
 fi
 
 # Cleaning up temporary directories
-# rm -r "$INTDIR"
 rm "$STATUS_FILE" "$OSRM_FLAG"
+[ -n "$KEEP_INTDIR" ] && rm -r "$INTDIR"
 log "STATUS" "Done"

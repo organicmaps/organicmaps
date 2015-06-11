@@ -28,6 +28,7 @@ TARGET="${TARGET:-$OMIM_PATH/data}"
 INTDIR="${INTDIR:-$TARGET/intermediate_data}"
 mkdir -p "$INTDIR"
 NUM_PROCESSES=${NUM_PROCESSES:-8}
+KEEP_INTDIR=${KEEP_INTDIR-}
 OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
 echo "[$(date +%Y/%m/%d\ %H:%M:%S)] $0 $1"
 
@@ -81,7 +82,7 @@ elif [ "$1" == "prepare" ]; then
     "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE"
     "$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM_FILE"
     if [ -s "$OSRM_FILE" ]; then
-      rm -f "$PBF"
+      [ -n "$KEEP_INTDIR" ] && rm -f "$PBF"
       ONE_OSRM_READY=1
     else
       echo "Failed to create $OSRM_FILE"
