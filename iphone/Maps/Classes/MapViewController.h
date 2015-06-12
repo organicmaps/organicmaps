@@ -20,8 +20,6 @@ namespace search { struct AddressInfo; }
   LocationPredictor * m_predictor;
 }
 
-- (void)setupMeasurementSystem;
-
 // called when app is terminated by system
 - (void)onTerminate;
 - (void)onEnterForeground;

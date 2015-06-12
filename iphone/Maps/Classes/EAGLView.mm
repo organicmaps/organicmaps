@@ -8,12 +8,19 @@
 #include "indexer/classificator_loader.hpp"
 #import "../Platform/opengl/iosOGLContextFactory.h"
 
+#include "drape_gui/skin.hpp"
+
 #include "platform/platform.hpp"
 
 #include "std/bind.hpp"
 #include "std/limits.hpp"
+#include "std/unique_ptr.hpp"
+
 
 @implementation EAGLView
+{
+  unique_ptr<gui::Skin> m_skin;
+}
 
 namespace
 {
@@ -105,7 +112,22 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
   NSLog(@"EAGLView initRenderPolicy Started");
 
   CGRect frameRect = [UIScreen mainScreen].applicationFrame;
-  GetFramework().CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_factory), self.contentScaleFactor, frameRect.size.width, frameRect.size.height);
+  Framework::DrapeCreationParams p;
+  p.m_surfaceWidth = frameRect.size.width;
+  p.m_surfaceHeight = frameRect.size.height;
+  p.m_visualScale = self.contentScaleFactor;
+
+  /// @TODO (iOS developers) remove this stuff and create real logic for init and layout core widgets
+  m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), p.m_visualScale));
+  m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);
+  m_skin->ForEach([&p](gui::EWidget widget, gui::Position const & pos)
+  {
+    p.m_widgetsInitInfo[widget] = pos;
+  });
+
+  p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABLE] = gui::Position(dp::LeftBottom);
+
+  GetFramework().CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_factory), move(p));
 
   NSLog(@"EAGLView initRenderPolicy Ended");
 }
@@ -130,7 +152,23 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
 
 - (void)onSize:(int)width withHeight:(int)height
 {
-  GetFramework().OnSize(width * self.contentScaleFactor, height * self.contentScaleFactor);
+  int w = width * self.contentScaleFactor;
+  int h = height * self.contentScaleFactor;
+  GetFramework().OnSize(w, h);
+
+  /// @TODO (iOS developers) remove this stuff and create real logic for layout core widgets
+  if (m_skin)
+  {
+    m_skin->Resize(w, h);
+
+    gui::TWidgetsLayoutInfo layout;
+    m_skin->ForEach([&layout](gui::EWidget w, gui::Position const & pos)
+    {
+      layout[w] = pos.m_pixelPivot;
+    });
+
+    GetFramework().SetWidgetLayout(move(layout));
+  }
 }
 
 - (double)correctContentScale

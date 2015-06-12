@@ -813,13 +813,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [self.searchView downloadProgress:normProgress countryName:countryName];
 }
 
-#pragma mark - Public methods
-
-- (void)setupMeasurementSystem
-{
-  GetFramework().SetupMeasurementSystem();
-}
-
 #pragma mark - Private methods
 
 NSInteger compareAddress(id l, id r, void * context)
