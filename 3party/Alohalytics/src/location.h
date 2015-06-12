@@ -265,7 +265,8 @@ class Location {
  private:
   template <typename T>
   static inline void AppendToStringAsBinary(std::string & str, const T & value, size_t bytes = sizeof(T)) {
-    static_assert(std::is_trivially_copyable<T>::value, "This type is not supported.");
+    // TODO(AlexZ): Uncomment when gcc and clang will correctly support is_trivially_copyable.
+    //static_assert(std::is_trivially_copyable<T>::value, "This type is not supported.");
     str.append(reinterpret_cast<const char *>(&value), bytes);
   }
 };
