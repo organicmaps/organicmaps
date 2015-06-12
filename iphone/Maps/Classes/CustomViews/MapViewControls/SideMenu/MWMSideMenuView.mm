@@ -10,8 +10,6 @@
 #import "MWMSideMenuView.h"
 #import "UIKitCategories.h"
 
-static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
-
 @interface MWMSideMenuView()
 
 @property (weak, nonatomic, readwrite) IBOutlet UIView * dimBackground;
@@ -50,8 +48,8 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  self.buttons = @[self.bookmarksButton, self.downloadMapsButton, self.settingsButton, self.shareLocationButton, self.searchButton];
-  self.labels = @[self.bookmarksLabel, self.downloadMapsLabel, self.settingsLabel, self.shareLocationLabel, self.searchLabel];
+  self.buttons = @[self.shareLocationButton, self.settingsButton, self.downloadMapsButton, self.bookmarksButton, self.searchButton];
+  self.labels = @[self.shareLocationLabel, self.settingsLabel, self.downloadMapsLabel, self.bookmarksLabel, self.searchLabel];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -109,25 +107,38 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
   CGPoint buttonCenter = CGPointMake(boundsSize.width - buttonCenterOffsetToBounds, boundsSize.height - buttonCenterOffsetToBounds);
   
   self.searchButton.center = buttonCenter;
-  self.searchLabel.center = buttonCenter;
-  buttonCenter.y -= offsetBetweenButtons;
-  self.shareLocationButton.center = buttonCenter;
-  self.shareLocationLabel.center = buttonCenter;
-  buttonCenter.y -= offsetBetweenButtons;
-  self.settingsButton.center = buttonCenter;
-  self.settingsLabel.center = buttonCenter;
-  buttonCenter.y -= offsetBetweenButtons;
-  self.downloadMapsButton.center = buttonCenter;
-  self.downloadMapsLabel.center = buttonCenter;
   buttonCenter.y -= offsetBetweenButtons;
   self.bookmarksButton.center = buttonCenter;
-  self.bookmarksLabel.center = buttonCenter;
+  buttonCenter.y -= offsetBetweenButtons;
+  self.downloadMapsButton.center = buttonCenter;
+  buttonCenter.y -= offsetBetweenButtons;
+  self.settingsButton.center = buttonCenter;
+  buttonCenter.y -= offsetBetweenButtons;
+  self.shareLocationButton.center = buttonCenter;
 
+  self.searchLabel.height = self.searchButton.height;
+  self.bookmarksLabel.height = self.bookmarksButton.height;
+  self.downloadMapsLabel.height = self.downloadMapsButton.height;
+  self.settingsLabel.height = self.settingsButton.height;
+  self.shareLocationLabel.height = self.shareLocationButton.height;
+  
+  [self.shareLocationLabel sizeToFit];
+  [self.settingsLabel sizeToFit];
+  [self.downloadMapsLabel sizeToFit];
+  [self.bookmarksLabel sizeToFit];
+  [self.searchLabel sizeToFit];
+  
   CGFloat const labelWidth = 0.5 * boundsSize.width;
-  self.shareLocationLabel.width = labelWidth;
-  self.settingsLabel.width = labelWidth;
-  self.downloadMapsLabel.width = labelWidth;
-  self.bookmarksLabel.width = labelWidth;
+  self.shareLocationLabel.width = MIN(labelWidth, self.shareLocationLabel.width);
+  self.settingsLabel.width = MIN(labelWidth, self.settingsLabel.width);
+  self.downloadMapsLabel.width = MIN(labelWidth, self.downloadMapsLabel.width);
+  self.bookmarksLabel.width = MIN(labelWidth, self.bookmarksLabel.width);
+  
+  self.searchLabel.midY = self.searchButton.midY;
+  self.bookmarksLabel.midY = self.bookmarksButton.midY;
+  self.downloadMapsLabel.midY = self.downloadMapsButton.midY;
+  self.settingsLabel.midY = self.settingsButton.midY;
+  self.shareLocationLabel.midY = self.shareLocationButton.midY;
 
   CGFloat const rightBound = self.shareLocationButton.minX - offsetLabelToButton;
   self.shareLocationLabel.maxX = rightBound;
