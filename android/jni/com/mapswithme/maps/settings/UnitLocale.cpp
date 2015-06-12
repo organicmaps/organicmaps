@@ -10,7 +10,6 @@ extern "C"
   {
     Settings::Units const u = static_cast<Settings::Units>(units);
     Settings::Set("Units", u);
-    g_framework->SetupMeasurementSystem();
   }
 
   JNIEXPORT jint JNICALL

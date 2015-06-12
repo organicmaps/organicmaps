@@ -6,6 +6,8 @@
 
 #include "search/result.hpp"
 
+#include "drape_gui/skin.hpp"
+
 #include "drape/pointers.hpp"
 #include "drape/oglcontextfactory.hpp"
 
@@ -31,6 +33,8 @@ namespace android
   private:
     drape_ptr<dp::ThreadSafeFactory> m_contextFactory;
     ::Framework m_work;
+
+    unique_ptr<gui::Skin> m_skin;
 
     typedef shared_ptr<jobject> TJobject;
 
@@ -103,8 +107,6 @@ namespace android
 
     void LoadState();
     void SaveState();
-
-    void SetupMeasurementSystem();
 
     void AddLocalMaps();
     void RemoveLocalMaps();

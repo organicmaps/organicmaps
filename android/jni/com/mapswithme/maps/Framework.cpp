@@ -146,9 +146,24 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
     return false;
 
   float visualScale = GetBestDensity(densityDpi);
-  m_work.CreateDrapeEngine(make_ref(m_contextFactory), visualScale, factory->GetWidth(), factory->GetHeight());
+  ::Framework::DrapeCreationParams p;
+  p.m_surfaceWidth = factory->GetWidth();
+  p.m_surfaceHeight = factory->GetHeight();
+  p.m_visualScale = visualScale;
+
+  /// @TODO (iOS developers) remove this stuff and create real logic for init and layout core widgets
+  m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), visualScale));
+  m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);
+  m_skin->ForEach([&p](gui::EWidget widget, gui::Position const & pos)
+  {
+    p.m_widgetsInitInfo[widget] = pos;
+  });
+
+  p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABLE] = gui::Position(dp::LeftBottom);
+  m_work.CreateDrapeEngine(make_ref(m_contextFactory), move(p));
   m_work.EnterForeground();
   LoadState();
+
   m_work.LoadBookmarks();
   m_work.SetMyPositionModeListener(bind(&Framework::MyPositionModeChanged, this, _1));
 
@@ -165,6 +180,20 @@ void Framework::Resize(int w, int h)
 {
   m_contextFactory->CastFactory<AndroidOGLContextFactory>()->UpdateSurfaceSize();
   m_work.OnSize(w, h);
+
+  /// @TODO (iOS developers) remove this stuff and create real logic for layout core widgets
+  if (m_skin)
+  {
+    m_skin->Resize(w, h);
+
+    gui::TWidgetsLayoutInfo layout;
+    m_skin->ForEach([&layout](gui::EWidget w, gui::Position const & pos)
+    {
+      layout[w] = pos.m_pixelPivot;
+    });
+
+    m_work.SetWidgetLayout(move(layout));
+  }
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)
@@ -316,11 +345,6 @@ void Framework::LoadState()
 void Framework::SaveState()
 {
   m_work.SaveState();
-}
-
-void Framework::SetupMeasurementSystem()
-{
-  m_work.SetupMeasurementSystem();
 }
 
 void Framework::AddLocalMaps()
