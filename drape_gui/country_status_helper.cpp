@@ -110,7 +110,7 @@ void CountryStatusHelper::SetState(ECountryState state)
 {
   m_state = state;
   FillControlsForState();
-  DrapeGui::Instance().EmitRecacheSignal(Skin::CountryStatus);
+  DrapeGui::Instance().EmitRecacheCountryStatusSignal();
 }
 
 CountryStatusHelper::ECountryState CountryStatusHelper::GetState() const

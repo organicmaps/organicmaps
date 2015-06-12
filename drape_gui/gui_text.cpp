@@ -112,8 +112,8 @@ StaticLabel::LabelResult::LabelResult() : m_state(gpu::TEXT_PROGRAM, dp::GLState
 char const * StaticLabel::DefaultDelim = "\n";
 
 void StaticLabel::CacheStaticText(string const & text, char const * delim,
-                             dp::Anchor anchor, dp::FontDecl const & font,
-                             ref_ptr<dp::TextureManager> mng, LabelResult & result)
+                                  dp::Anchor anchor, dp::FontDecl const & font,
+                                  ref_ptr<dp::TextureManager> mng, LabelResult & result)
 {
   ASSERT(!text.empty(), ());
 
@@ -213,9 +213,11 @@ void StaticLabel::CacheStaticText(string const & text, char const * delim,
   else if (anchor & dp::Bottom)
     yOffset = 0.0f;
 
+  float maxLineLength = 0.0;
   size_t startIndex = 0;
   for (size_t i = 0; i < ranges.size(); ++i)
   {
+    maxLineLength = max(lineLengths[i], maxLineLength);
     float xOffset = -lineLengths[i] / 2.0f;
     if (anchor & dp::Left)
       xOffset = 0;
@@ -345,6 +347,18 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
     result.m_buffer[i + 3].m_position.z = depth;
     depth += 10.0f;
   }
+
+  uint32_t maxGlyphWidth = 0.0;
+  uint32_t maxGlyphHeight = 0.0;
+  for (auto node : m_alphabet)
+  {
+    dp::TextureManager::GlyphRegion const & reg = node.second;
+    m2::PointU pixelSize = reg.GetPixelSize();
+    maxGlyphWidth = max(maxGlyphWidth, pixelSize.x);
+    maxGlyphHeight = max(maxGlyphHeight, pixelSize.y);
+  }
+
+  result.m_maxPixelSize = m2::PointF(m_maxLength * maxGlyphWidth, maxGlyphHeight);
 }
 
 void MutableLabel::SetText(LabelResult & result, string text) const
@@ -481,8 +495,8 @@ void MutableLabelHandle::SetContent(string const & content)
   }
 }
 
-void MutableLabelDrawer::Draw(Params const & params, ref_ptr<dp::TextureManager> mng,
-                              dp::Batcher::TFlushFn const & flushFn)
+m2::PointF MutableLabelDrawer::Draw(Params const & params, ref_ptr<dp::TextureManager> mng,
+                                    dp::Batcher::TFlushFn const & flushFn)
 {
   uint32_t vertexCount = dp::Batcher::VertexPerQuad * params.m_maxLength;
   uint32_t indexCount = dp::Batcher::IndexPerQuad * params.m_maxLength;
@@ -517,6 +531,8 @@ void MutableLabelDrawer::Draw(Params const & params, ref_ptr<dp::TextureManager>
     batcher.InsertListOfStrip(staticData.m_state, make_ref(&provider),
                               move(handle), dp::Batcher::VertexPerQuad);
   }
+
+  return staticData.m_maxPixelSize;
 }
 
 }

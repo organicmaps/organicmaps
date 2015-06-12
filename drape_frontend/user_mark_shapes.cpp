@@ -73,19 +73,6 @@ void AlignVertical(float halfHeight, dp::Anchor anchor,
   AlignFormingNormals([&halfHeight]{ return glsl::vec2(0.0f, -halfHeight); }, anchor, dp::Top, dp::Bottom, up, down);
 }
 
-template <typename TFieldType, typename TVertexType>
-uint8_t FillDecl(size_t index, string const & attrName, dp::BindingInfo & info, uint8_t offset)
-{
-  dp::BindingDecl & decl = info.GetBindingDecl(index);
-  decl.m_attributeName = attrName;
-  decl.m_componentCount = glsl::GetComponentCount<TFieldType>();
-  decl.m_componentType = gl_const::GLFloatType;
-  decl.m_offset = offset;
-  decl.m_stride = sizeof(TVertexType);
-
-  return sizeof(TFieldType);
-}
-
 struct UserPointVertex : gpu::BaseVertex
 {
   UserPointVertex() = default;
@@ -101,10 +88,10 @@ struct UserPointVertex : gpu::BaseVertex
   {
     dp::BindingInfo info(4);
     uint8_t offset = 0;
-    offset += FillDecl<TPosition, UserPointVertex>(0, "a_position", info, offset);
-    offset += FillDecl<TNormal, UserPointVertex>(1, "a_normal", info, offset);
-    offset += FillDecl<TTexCoord, UserPointVertex>(2, "a_colorTexCoords", info, offset);
-    offset += FillDecl<bool, UserPointVertex>(3, "a_animate", info, offset);
+    offset += dp::FillDecl<TPosition, UserPointVertex>(0, "a_position", info, offset);
+    offset += dp::FillDecl<TNormal, UserPointVertex>(1, "a_normal", info, offset);
+    offset += dp::FillDecl<TTexCoord, UserPointVertex>(2, "a_colorTexCoords", info, offset);
+    offset += dp::FillDecl<bool, UserPointVertex>(3, "a_animate", info, offset);
 
     return info;
   }

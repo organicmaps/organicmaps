@@ -35,16 +35,4 @@
       <offset x="0" y="30"/>
     </landscape>
   </copyright>
-  <country_status>
-    <portrait>
-      <anchor vertical="center" horizontal="center"/>
-      <relative vertical="center" horizontal="center"/>
-      <offset x="0" y="0"/>
-    </portrait>
-    <landscape>
-      <anchor vertical="center" horizontal="center"/>
-      <relative vertical="center" horizontal="center"/>
-      <offset x="0" y="0"/>
-    </landscape>
-  </country_status>
 </root>

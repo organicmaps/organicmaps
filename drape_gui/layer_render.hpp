@@ -29,6 +29,7 @@ public:
   void Build(ref_ptr<dp::GpuProgramManager> mng);
   void Render(ref_ptr<dp::GpuProgramManager> mng, ScreenBase const & screen);
   void Merge(ref_ptr<LayerRenderer> other);
+  void SetLayout(gui::TWidgetsLayoutInfo const & info);
 
   bool OnTouchDown(m2::RectD const & touchArea);
   void OnTouchUp(m2::RectD const & touchArea);
@@ -38,10 +39,10 @@ private:
   void DestroyRenderers();
 
   friend class LayerCacher;
-  void AddShapeRenderer(Skin::ElementName name, drape_ptr<ShapeRenderer> && shape);
+  void AddShapeRenderer(EWidget widget, drape_ptr<ShapeRenderer> && shape);
 
 private:
-  typedef map<Skin::ElementName, drape_ptr<ShapeRenderer> > TRenderers;
+  typedef map<EWidget, drape_ptr<ShapeRenderer> > TRenderers;
   TRenderers m_renderers;
 
   ref_ptr<gui::Handle> m_activeOverlay;
@@ -50,17 +51,16 @@ private:
 class LayerCacher
 {
 public:
-  LayerCacher(string const & deviceType);
-
-  void Resize(int w, int h);
-  /// @param names - can be combinations of single flags, or equal AllElements
-  drape_ptr<LayerRenderer> Recache(Skin::ElementName names, ref_ptr<dp::TextureManager> textures);
-
-private:
-  Position GetPos(Skin::ElementName name);
+  drape_ptr<LayerRenderer> RecacheWidgets(TWidgetsInitInfo const & initInfo,
+                                          TWidgetsSizeInfo & sizeInfo,
+                                          ref_ptr<dp::TextureManager> textures);
+  drape_ptr<LayerRenderer> RecacheCountryStatus(ref_ptr<dp::TextureManager> texMng);
 
 private:
-  unique_ptr<Skin> m_skin;
+  m2::PointF CacheCompass(Position const & position, ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  m2::PointF CacheRuler(Position const & position, ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  m2::PointF CacheCopyright(Position const & position, ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  m2::PointF CacheScaleLabel(Position const & position, ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
 };
 
 }

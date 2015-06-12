@@ -1,5 +1,4 @@
 #include "skin.hpp"
-#include "drape_gui.hpp"
 
 #include "platform/platform.hpp"
 #include "coding/parse_xml.hpp"
@@ -118,7 +117,7 @@ private:
 class SkinLoader
 {
 public:
-  explicit SkinLoader(map<Skin::ElementName, pair<PositionResolver, PositionResolver> > & skin)
+  explicit SkinLoader(map<EWidget, pair<PositionResolver, PositionResolver> > & skin)
     : m_skin(skin) {}
 
   bool Push(string const & element)
@@ -130,13 +129,11 @@ public:
 
       m_inElement = true;
       if (element == "ruler")
-        m_currentElement = Skin::ElementName::Ruler;
+        m_currentElement = WIDGET_RULER;
       else if (element == "compass")
-        m_currentElement = Skin::ElementName::Compass;
+        m_currentElement = WIDGET_COMPASS;
       else if (element == "copyright")
-        m_currentElement = Skin::ElementName::Copyright;
-      else if (element == "country_status")
-        m_currentElement = Skin::ElementName::CountryStatus;
+        m_currentElement = WIDGET_COPYRIGHT;
       else
         ASSERT(false, ());
     }
@@ -196,10 +193,10 @@ private:
   bool m_inConfiguration = false;
   bool m_inElement = false;
 
-  Skin::ElementName m_currentElement = Skin::ElementName::Ruler;
+  EWidget m_currentElement = WIDGET_RULER;
   ResolverParser m_parser;
 
-  map<Skin::ElementName, pair<PositionResolver, PositionResolver> > & m_skin;
+  map<EWidget, pair<PositionResolver, PositionResolver> > & m_skin;
 };
 
 }
@@ -247,7 +244,8 @@ void PositionResolver::SetOffsetY(float y)
   m_offset.y = y;
 }
 
-Skin::Skin(ReaderPtr<Reader> const & reader)
+Skin::Skin(ReaderPtr<Reader> const & reader, float visualScale)
+  : m_visualScale(visualScale)
 {
   SkinLoader loader(m_resolvers);
   ReaderSource<ReaderPtr<Reader> > source(reader);
@@ -255,13 +253,13 @@ Skin::Skin(ReaderPtr<Reader> const & reader)
     LOG(LERROR, ("Error parsing gui skin"));
 }
 
-Position Skin::ResolvePosition(ElementName name)
+Position Skin::ResolvePosition(EWidget name)
 {
   // check that name have only one bit
   ASSERT((static_cast<int>(name) & (static_cast<int>(name) - 1)) == 0, ());
   TResolversPair const & resolvers = m_resolvers[name];
   PositionResolver const & resolver = (m_displayWidth < m_displayHeight) ? resolvers.first : resolvers.second;
-  return resolver.Resolve(m_displayWidth, m_displayHeight, DrapeGui::Instance().GetScaleFactor());
+  return resolver.Resolve(m_displayWidth, m_displayHeight, m_visualScale);
 }
 
 void Skin::Resize(int w, int h)

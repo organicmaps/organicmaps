@@ -109,7 +109,7 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::UpdateAfterSettingsChanged()
   {
-    m_framework->SetupMeasurementSystem();
+    m_framework->EnterForeground();
   }
 
   void DrawWidget::LoadState()
@@ -170,8 +170,21 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::CreateEngine()
   {
-    m_framework->CreateDrapeEngine(make_ref(m_contextFactory), m_ratio,
-                                   m_ratio * width(), m_ratio * height());
+    Framework::DrapeCreationParams p;
+    p.m_surfaceWidth = m_ratio * width();
+    p.m_surfaceHeight = m_ratio * height();
+    p.m_visualScale = m_ratio;
+
+    m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), m_ratio));
+    m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);
+    m_skin->ForEach([&p](gui::EWidget widget, gui::Position const & pos)
+    {
+      p.m_widgetsInitInfo[widget] = pos;
+    });
+
+    p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABLE] = gui::Position(dp::LeftBottom);
+
+    m_framework->CreateDrapeEngine(make_ref(m_contextFactory), move(p));
     m_framework->AddViewportListener(bind(&DrawWidget::OnViewportChanged, this, _1));
   }
 
@@ -315,7 +328,21 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::sizeChanged(int)
   {
-    m_framework->OnSize(m_ratio * width(), m_ratio * height());
+    float w = m_ratio * width();
+    float h = m_ratio * height();
+    m_framework->OnSize(w, h);
+    if (m_skin)
+    {
+      m_skin->Resize(w, h);
+
+      gui::TWidgetsLayoutInfo layout;
+      m_skin->ForEach([&layout](gui::EWidget w, gui::Position const & pos)
+      {
+        layout[w] = pos.m_pixelPivot;
+      });
+
+      m_framework->SetWidgetLayout(move(layout));
+    }
   }
 
   void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)

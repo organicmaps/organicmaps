@@ -12,7 +12,8 @@ public:
     : Shape(position)
   {}
 
-  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex, TTapHandler const & tapHandler) const;
+  drape_ptr<ShapeRenderer> Draw(m2::PointF & compassSize, ref_ptr<dp::TextureManager> tex,
+                                TTapHandler const & tapHandler) const;
 };
 
 }

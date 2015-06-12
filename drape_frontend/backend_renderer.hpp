@@ -46,7 +46,8 @@ protected:
   unique_ptr<threads::IRoutine> CreateRoutine() override;
 
 private:
-  void RecacheGui(gui::Skin::ElementName elements);
+  void RecacheGui(gui::TWidgetsInitInfo const  & initInfo, gui::TWidgetsSizeInfo & sizeInfo);
+  void RecacheCountryStatus();
 
 private:
   MapDataProvider m_model;

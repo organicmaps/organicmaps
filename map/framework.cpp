@@ -1305,7 +1305,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
   return (d < 25000.0);
 }
 
-void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, float vs, int w, int h)
+void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params)
 {
   using TReadIDsFn = df::MapDataProvider::TReadIDsFn;
   using TReadFeaturesFn = df::MapDataProvider::TReadFeaturesFn;
@@ -1347,19 +1347,20 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
-                            df::Viewport(0, 0, w, h),
+                            df::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
                             df::MapDataProvider(idReadFn, featureReadFn, updateCountryIndex, isCountryLoadedFn,
                                                 downloadMapFn, downloadMapRoutingFn, downloadRetryFn),
-                            vs);
+                            params.m_visualScale,
+                            move(params.m_widgetsInitInfo));
 
-  m_drapeEngine = make_unique_dp<df::DrapeEngine>(p);
+  m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
   {
     m_currentMovelView = screen;
   });
   m_drapeEngine->SetTapEventInfoListener(bind(&Framework::OnTapEvent, this, _1, _2, _3, _4));
   m_drapeEngine->SetUserPositionListener(bind(&Framework::OnUserPositionChanged, this, _1));
-  OnSize(w, h);
+  OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
@@ -1395,11 +1396,18 @@ void Framework::SetupMeasurementSystem()
   Settings::Get("Units", units);
 
   m_routingSession.SetTurnNotificationsUnits(units);
+}
 
+void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
+{
+  ASSERT(m_drapeEngine != nullptr, ());
+  m_drapeEngine->SetWidgetLayout(move(layout));
+}
 
-  //m_informationDisplay.measurementSystemChanged();
-  ///@TODO UVR
-  //Invalidate();
+gui::TWidgetsSizeInfo const & Framework::GetWidgetSizes()
+{
+  ASSERT(m_drapeEngine != nullptr, ());
+  return m_drapeEngine->GetWidgetSizes();
 }
 
 string Framework::GetCountryCode(m2::PointD const & pt) const

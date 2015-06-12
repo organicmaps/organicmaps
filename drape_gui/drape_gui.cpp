@@ -13,7 +13,7 @@ struct DrapeGui::Impl
   DrapeGui::TGeneralizationLevelFn m_gnLvlFn;
   DrapeGui::TLocalizeStringFn m_localizeFn;
 
-  DrapeGui::TRecacheSlot m_recacheSlot;
+  DrapeGui::TRecacheCountryStatusSlot m_recacheSlot;
 
   RulerHelper m_rulerHelper;
   CountryStatusHelper m_countryHelper;
@@ -55,6 +55,11 @@ void DrapeGui::Destroy()
   m_impl.reset();
 }
 
+void DrapeGui::SetSurfaceSize(m2::PointF const & size)
+{
+  m_surfaceSize = size;
+}
+
 void DrapeGui::SetLocalizator(const DrapeGui::TLocalizeStringFn & fn)
 {
   ASSERT(m_impl != nullptr, ());
@@ -73,22 +78,22 @@ int DrapeGui::GetGeneralization(ScreenBase const & screen)
   return m_impl->m_gnLvlFn(screen);
 }
 
-void DrapeGui::SetRecacheSlot(DrapeGui::TRecacheSlot const  & fn)
+void DrapeGui::SetRecacheCountryStatusSlot(TRecacheCountryStatusSlot const  & fn)
 {
   ASSERT(m_impl != nullptr, ());
   m_impl->m_recacheSlot = fn;
 }
 
-void DrapeGui::EmitRecacheSignal(Skin::ElementName elements)
+void DrapeGui::EmitRecacheCountryStatusSignal()
 {
   ASSERT(m_impl != nullptr, ());
   if (m_impl->m_recacheSlot)
-    m_impl->m_recacheSlot(elements);
+    m_impl->m_recacheSlot();
 }
 
-void DrapeGui::ClearRecacheSlot()
+void DrapeGui::ClearRecacheCountryStatusSlot()
 {
-  SetRecacheSlot(TRecacheSlot());
+  SetRecacheCountryStatusSlot(TRecacheCountryStatusSlot());
 }
 
 string DrapeGui::GetLocalizedString(string const & stringID) const

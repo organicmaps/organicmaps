@@ -34,7 +34,7 @@ string const LocationStateMode = "LastLocationStateMode";
 
 }
 
-DrapeEngine::DrapeEngine(Params const & params)
+DrapeEngine::DrapeEngine(Params && params)
   : m_viewport(params.m_viewport)
 {
   VisualParams::Init(params.m_vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
@@ -51,6 +51,7 @@ DrapeEngine::DrapeEngine(Params const & params)
   gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
   guiSubsystem.Init(scaleFn, gnLvlFn);
   guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, params.m_stringsBundle.get(), _1));
+  guiSubsystem.SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
   ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_TYPE_MAP, params.m_model.GetDownloadMapHandler());
   ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING, params.m_model.GetDownloadMapRoutingHandler());
@@ -77,6 +78,11 @@ DrapeEngine::DrapeEngine(Params const & params)
   BackendRenderer::Params brParams(frParams.m_commutator, frParams.m_oglContextFactory,
                                    frParams.m_texMng, params.m_model);
   m_backend = make_unique_dp<BackendRenderer>(brParams);
+
+  GuiRecacheMessage::Blocker blocker;
+  drape_ptr<GuiRecacheMessage> message( new GuiRecacheMessage(blocker, move(params.m_info), m_widgetSizes));
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(message), MessagePriority::High);
+  blocker.Wait();
 }
 
 DrapeEngine::~DrapeEngine()
@@ -92,8 +98,12 @@ DrapeEngine::~DrapeEngine()
 
 void DrapeEngine::Resize(int w, int h)
 {
-  m_viewport.SetViewport(0, 0, w, h);
-  AddUserEvent(ResizeEvent(w, h));
+  if (m_viewport.GetHeight() != h || m_viewport.GetWidth() != w)
+  {
+    gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
+    m_viewport.SetViewport(0, 0, w, h);
+    AddUserEvent(ResizeEvent(w, h));
+  }
 }
 
 void DrapeEngine::AddTouchEvent(TouchEvent const & event)
@@ -321,6 +331,18 @@ void DrapeEngine::RemoveRoute(bool deactivateFollowing)
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<RemoveRouteMessage>(deactivateFollowing),
                                   MessagePriority::Normal);
+}
+
+void DrapeEngine::SetWidgetLayout(gui::TWidgetsLayoutInfo && info)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<GuiLayerLayoutMessage>(move(info)),
+                                  MessagePriority::Normal);
+}
+
+gui::TWidgetsSizeInfo const & DrapeEngine::GetWidgetSizes()
+{
+  return m_widgetSizes;
 }
 
 } // namespace df

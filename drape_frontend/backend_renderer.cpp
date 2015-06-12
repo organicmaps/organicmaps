@@ -28,12 +28,11 @@ BackendRenderer::BackendRenderer(Params const & params)
   , m_model(params.m_model)
   , m_batchersPool(make_unique_dp<BatchersPool>(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)))
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model))
-  , m_guiCacher("default")
 {
-  gui::DrapeGui::Instance().SetRecacheSlot([this](gui::Skin::ElementName elements)
+  gui::DrapeGui::Instance().SetRecacheCountryStatusSlot([this]()
   {
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<GuiRecacheMessage>(elements),
+                              make_unique_dp<CountryStatusRecacheMessage>(),
                               MessagePriority::High);
   });
 
@@ -50,7 +49,7 @@ BackendRenderer::BackendRenderer(Params const & params)
 
 BackendRenderer::~BackendRenderer()
 {
-  gui::DrapeGui::Instance().ClearRecacheSlot();
+  gui::DrapeGui::Instance().ClearRecacheCountryStatusSlot();
   StopThread();
 }
 
@@ -59,9 +58,16 @@ unique_ptr<threads::IRoutine> BackendRenderer::CreateRoutine()
   return make_unique<Routine>(*this);
 }
 
-void BackendRenderer::RecacheGui(gui::Skin::ElementName elements)
+void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, gui::TWidgetsSizeInfo & sizeInfo)
 {
-  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.Recache(elements, m_texMng);
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheWidgets(initInfo, sizeInfo, m_texMng);
+  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer));
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::High);
+}
+
+void BackendRenderer::RecacheCountryStatus()
+{
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheCountryStatus(m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer));
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::High);
 }
@@ -88,23 +94,29 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       break;
     }
-  case Message::Resize:
-    {
-      ref_ptr<ResizeMessage> msg = message;
-      df::Viewport const & v = msg->GetViewport();
-      m_guiCacher.Resize(v.GetWidth(), v.GetHeight());
-      RecacheGui(gui::Skin::AllElements);
-      break;
-    }
   case Message::InvalidateReadManagerRect:
     {
       ref_ptr<InvalidateReadManagerRectMessage> msg = message;
       m_readManager->Invalidate(msg->GetTilesForInvalidate());
       break;
     }
+  case Message::CountryStatusRecache:
+    {
+      RecacheCountryStatus();
+      break;
+    }
   case Message::GuiRecache:
     {
-      RecacheGui(static_cast<ref_ptr<GuiRecacheMessage>>(message)->GetElements());
+      ref_ptr<GuiRecacheMessage> msg = message;
+      RecacheGui(msg->GetInitInfo(), msg->GetSizeInfoMap());
+      break;
+    }
+  case Message::GuiLayerLayout:
+    {
+      ref_ptr<GuiLayerLayoutMessage> msg = message;
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<GuiLayerLayoutMessage>(msg->AcceptLayoutInfo()),
+                                MessagePriority::Normal);
       break;
     }
   case Message::TileReadStarted:

@@ -32,7 +32,7 @@ public:
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const override;
 
   m2::PointF GetSize() const { return m_size; }
-  void SetPivot(glsl::vec2 const & pivot) { m_pivot = pivot; }
+  virtual void SetPivot(glsl::vec2 const & pivot) { m_pivot = pivot; }
 
 protected:
   dp::UniformValuesStorage m_uniforms;
@@ -88,6 +88,8 @@ public:
   void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng);
   void AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
   void AddShapeControl(ShapeControl && control);
+
+  void SetPivot(m2::PointF const & pivot);
 
   ref_ptr<Handle> ProcessTapEvent(m2::RectD const & touchArea);
 

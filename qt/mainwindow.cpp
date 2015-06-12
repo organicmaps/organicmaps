@@ -386,7 +386,7 @@ void MainWindow::OnPreferences()
   PreferencesDialog dlg(this);
   dlg.exec();
 
-  m_pDrawWidget->GetFramework().SetupMeasurementSystem();
+  m_pDrawWidget->GetFramework().EnterForeground();
 }
 
 #ifndef NO_DOWNLOADER

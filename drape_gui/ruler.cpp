@@ -33,26 +33,10 @@ struct RulerVertex
 dp::BindingInfo GetBindingInfo()
 {
   dp::BindingInfo info(3);
-  dp::BindingDecl & posDecl = info.GetBindingDecl(0);
-  posDecl.m_attributeName = "a_position";
-  posDecl.m_componentCount = 2;
-  posDecl.m_componentType = gl_const::GLFloatType;
-  posDecl.m_offset = 0;
-  posDecl.m_stride = sizeof(RulerVertex);
-
-  dp::BindingDecl & normalDecl = info.GetBindingDecl(1);
-  normalDecl.m_attributeName = "a_normal";
-  normalDecl.m_componentCount = 2;
-  normalDecl.m_componentType = gl_const::GLFloatType;
-  normalDecl.m_offset = sizeof(glsl::vec2);
-  normalDecl.m_stride = posDecl.m_stride;
-
-  dp::BindingDecl & texDecl = info.GetBindingDecl(2);
-  texDecl.m_attributeName = "a_colorTexCoords";
-  texDecl.m_componentCount = 2;
-  texDecl.m_componentType = gl_const::GLFloatType;
-  texDecl.m_offset = 2 * sizeof(glsl::vec2);
-  texDecl.m_stride = posDecl.m_stride;
+  uint8_t offset = 0;
+  offset += dp::FillDecl<glsl::vec2, RulerVertex>(0, "a_position", info, offset);
+  offset += dp::FillDecl<glsl::vec2, RulerVertex>(1, "a_normal", info, offset);
+  offset += dp::FillDecl<glsl::vec2, RulerVertex>(2, "a_colorTexCoords", info, offset);
 
   return info;
 }
@@ -74,6 +58,7 @@ public:
     {
       m_size = m2::PointF(helper.GetRulerPixelLength(), 2 * helper.GetRulerHalfHeight());
       m_uniforms.SetFloatValue("u_length", helper.GetRulerPixelLength());
+      m_uniforms.SetFloatValue("u_position", m_pivot.x, m_pivot.y);
     }
   }
 };
@@ -101,33 +86,40 @@ public:
     TBase::Update(screen);
   }
 
+  void SetPivot(glsl::vec2 const & pivot) override
+  {
+    RulerHelper & helper = DrapeGui::GetRulerHelper();
+    TBase::SetPivot(pivot + glsl::vec2(0.0, helper.GetVerticalTextOffset() - helper.GetRulerHalfHeight()));
+  }
+
 private:
   bool m_firstUpdate;
 };
 
 }
 
-drape_ptr<ShapeRenderer> Ruler::Draw(ref_ptr<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> Ruler::Draw(m2::PointF & size, ref_ptr<dp::TextureManager> tex) const
 {
   ShapeControl control;
-  DrawRuler(control, tex);
-  DrawText(control, tex);
+  size = m2::PointF::Zero();
+  DrawRuler(size, control, tex);
+  DrawText(size, control, tex);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   renderer->AddShapeControl(move(control));
   return renderer;
 }
 
-void Ruler::DrawRuler(ShapeControl & control, ref_ptr<dp::TextureManager> tex) const
+void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::TextureManager> tex) const
 {
   buffer_vector<RulerVertex, 4> data;
 
   dp::TextureManager::ColorRegion reg;
   tex->GetColorRegion(DrapeGui::GetGuiTextFont().m_color, reg);
 
-  glsl::vec2 pivot = glsl::ToVec2(m_position.m_pixelPivot);
   glsl::vec2 texCoord = glsl::ToVec2(reg.GetTexRect().Center());
   float h = DrapeGui::GetRulerHelper().GetRulerHalfHeight();
+  size += m2::PointF(DrapeGui::GetRulerHelper().GetMaxRulerPixelLength(), 2.0 * h);
 
   glsl::vec2 normals[] =
   {
@@ -141,10 +133,10 @@ void Ruler::DrawRuler(ShapeControl & control, ref_ptr<dp::TextureManager> tex) c
   else if (anchor & dp::Right)
     normals[1] = glsl::vec2(0.0, 0.0);
 
-  data.push_back(RulerVertex(pivot + glsl::vec2(0.0, h), normals[0], texCoord));
-  data.push_back(RulerVertex(pivot + glsl::vec2(0.0, -h), normals[0], texCoord));
-  data.push_back(RulerVertex(pivot + glsl::vec2(0.0, h), normals[1], texCoord));
-  data.push_back(RulerVertex(pivot + glsl::vec2(0.0, -h), normals[1], texCoord));
+  data.push_back(RulerVertex(glsl::vec2(0.0, h), normals[0], texCoord));
+  data.push_back(RulerVertex(glsl::vec2(0.0, -h), normals[0], texCoord));
+  data.push_back(RulerVertex(glsl::vec2(0.0, h), normals[1], texCoord));
+  data.push_back(RulerVertex(glsl::vec2(0.0, -h), normals[1], texCoord));
 
   dp::GLState state(gpu::RULER_PROGRAM, dp::GLState::Gui);
   state.SetColorTexture(reg.GetTexture());
@@ -160,7 +152,7 @@ void Ruler::DrawRuler(ShapeControl & control, ref_ptr<dp::TextureManager> tex) c
   }
 }
 
-void Ruler::DrawText(ShapeControl & control, ref_ptr<dp::TextureManager> tex) const
+void Ruler::DrawText(m2::PointF & size, ShapeControl & control, ref_ptr<dp::TextureManager> tex) const
 {
   string alphabet;
   size_t maxTextLength;
@@ -179,7 +171,8 @@ void Ruler::DrawText(ShapeControl & control, ref_ptr<dp::TextureManager> tex) co
     return make_unique_dp<RulerTextHandle>(anchor, pivot);
   };
 
-  MutableLabelDrawer::Draw(params, tex, bind(&ShapeControl::AddShape, &control, _1, _2));
+  m2::PointF textSize = MutableLabelDrawer::Draw(params, tex, bind(&ShapeControl::AddShape, &control, _1, _2));
+  size.y += (textSize.y + abs(helper.GetVerticalTextOffset()));
 }
 
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape/glfunctions.hpp"
+#include "drape/glsl_types.hpp"
 
 #include "std/string.hpp"
 #include "std/shared_array.hpp"
@@ -40,5 +41,18 @@ protected:
   shared_array<BindingDecl> m_bindings;
   uint16_t m_info;
 };
+
+template <typename TFieldType, typename TVertexType>
+uint8_t FillDecl(size_t index, string const & attrName, dp::BindingInfo & info, uint8_t offset)
+{
+  dp::BindingDecl & decl = info.GetBindingDecl(index);
+  decl.m_attributeName = attrName;
+  decl.m_componentCount = glsl::GetComponentCount<TFieldType>();
+  decl.m_componentType = gl_const::GLFloatType;
+  decl.m_offset = offset;
+  decl.m_stride = sizeof(TVertexType);
+
+  return sizeof(TFieldType);
+}
 
 } // namespace dp

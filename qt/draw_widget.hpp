@@ -5,6 +5,7 @@
 #include "map/framework.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
+#include "drape_gui/skin.hpp"
 
 #include "std/unique_ptr.hpp"
 
@@ -99,5 +100,7 @@ namespace qt
     bool m_emulatingLocation;
 
     void InitRenderPolicy();
+
+    unique_ptr<gui::Skin> m_skin;
   };
 }

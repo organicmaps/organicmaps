@@ -37,12 +37,14 @@ public:
            ref_ptr<StringsBundle> stringBundle,
            Viewport const & viewport,
            MapDataProvider const & model,
-           double vs)
+           double vs,
+           gui::TWidgetsInitInfo && info)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
       , m_model(model)
       , m_vs(vs)
+      , m_info(move(info))
     {
     }
 
@@ -51,9 +53,10 @@ public:
     Viewport m_viewport;
     MapDataProvider m_model;
     double m_vs;
+    gui::TWidgetsInitInfo m_info;
   };
 
-  DrapeEngine(Params const & params);
+  DrapeEngine(Params && params);
   ~DrapeEngine();
 
   void Resize(int w, int h);
@@ -98,6 +101,9 @@ public:
   void AddRoute(m2::PolylineD const & routePolyline, dp::Color const & color);
   void RemoveRoute(bool deactivateFollowing);
 
+  void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
+  gui::TWidgetsSizeInfo const & GetWidgetSizes();
+
 private:
   void AddUserEvent(UserEvent const & e);
   void ModelViewChanged(ScreenBase const & screen);
@@ -121,6 +127,8 @@ private:
   location::TMyPositionModeChanged m_myPositionModeChanged;
   TTapEventInfoFn m_tapListener;
   TUserPositionChangedFn m_userPositionChangedFn;
+
+  gui::TWidgetsSizeInfo m_widgetSizes;
 };
 
 } // namespace df

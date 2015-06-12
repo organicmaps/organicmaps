@@ -56,7 +56,7 @@ CopyrightLabel::CopyrightLabel(Position const & position)
 {
 }
 
-drape_ptr<ShapeRenderer> CopyrightLabel::Draw(ref_ptr<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> CopyrightLabel::Draw(m2::PointF & size, ref_ptr<dp::TextureManager> tex) const
 {
   StaticLabel::LabelResult result;
   StaticLabel::CacheStaticText("Map data © OpenStreetMap", "", m_position.m_anchor,
@@ -70,7 +70,7 @@ drape_ptr<ShapeRenderer> CopyrightLabel::Draw(ref_ptr<dp::TextureManager> tex) c
   ASSERT(vertexCount % dp::Batcher::VertexPerQuad == 0, ());
   size_t indexCount = dp::Batcher::IndexPerQuad * vertexCount / dp::Batcher::VertexPerQuad;
 
-  m2::PointF size(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
+  size = m2::PointF(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CopyrightHandle>(m_position.m_anchor, m_position.m_pixelPivot, size);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();

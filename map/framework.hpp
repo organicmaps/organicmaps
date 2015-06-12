@@ -11,6 +11,9 @@
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/user_event_stream.hpp"
+
+#include "drape_gui/skin.hpp"
+
 #include "drape/oglcontextfactory.hpp"
 
 #include "indexer/data_header.hpp"
@@ -264,16 +267,26 @@ private:
   //@}
 
 public:
-  void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, float vs, int w, int h);
+  struct DrapeCreationParams
+  {
+    float m_visualScale;
+    int m_surfaceWidth;
+    int m_surfaceHeight;
+
+    gui::TWidgetsInitInfo m_widgetsInitInfo;
+  };
+
+  void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);
   ref_ptr<df::DrapeEngine> GetDrapeEngine();
   void DestroyDrapeEngine();
 
   void SetMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
 
-  void PrepareToShutdown();
+  void SetWidgetLayout(gui::TWidgetsLayoutInfo && layout);
+  const gui::TWidgetsSizeInfo & GetWidgetSizes();
 
-  void SetupMeasurementSystem();
+  void PrepareToShutdown();
 
 private:
   void InitCountryInfoGetter();

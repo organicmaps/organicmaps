@@ -149,6 +149,11 @@ float RulerHelper::GetRulerPixelLength() const
   return m_pixelLength;
 }
 
+float RulerHelper::GetMaxRulerPixelLength() const
+{
+  return MinPixelWidth * 3.0 / 2.0;
+}
+
 int RulerHelper::GetVerticalTextOffset() const
 {
   return -5 * DrapeGui::Instance().GetScaleFactor();

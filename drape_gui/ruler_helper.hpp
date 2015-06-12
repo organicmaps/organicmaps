@@ -17,6 +17,7 @@ public:
 
   float GetRulerHalfHeight() const;
   float GetRulerPixelLength() const;
+  float GetMaxRulerPixelLength() const;
   int GetVerticalTextOffset() const;
   bool IsTextDirty() const;
   string const & GetRulerText() const;

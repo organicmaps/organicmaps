@@ -118,6 +118,15 @@ void ShapeRenderer::AddShapeControl(ShapeControl && control)
   m_shapes.push_back(move(control));
 }
 
+void ShapeRenderer::SetPivot(m2::PointF const & pivot)
+{
+  for (ShapeControl & control : m_shapes)
+  {
+    for (ShapeControl::ShapeInfo & info : control.m_shapesInfo)
+      info.m_handle->SetPivot(glsl::ToVec2(pivot));
+  }
+}
+
 void ShapeRenderer::ForEachShapeControl(TShapeControlEditFn const & fn)
 {
   for_each(m_shapes.begin(), m_shapes.end(), fn);

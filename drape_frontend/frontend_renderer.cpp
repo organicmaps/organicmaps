@@ -187,6 +187,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::GuiLayerLayout:
+    {
+      ASSERT(m_guiRenderer != nullptr, ());
+      m_guiRenderer->SetLayout(ref_ptr<GuiLayerLayoutMessage>(message)->GetLayoutInfo());
+      break;
+    }
+
   case Message::StopRendering:
     {
       ProcessStopRenderingMessage();
@@ -309,10 +316,6 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   m_myPositionController->SetPixelRect(screen.PixelRect());
   m_contextFactory->getDrawContext()->resize(m_viewport.GetWidth(), m_viewport.GetHeight());
   RefreshProjection();
-
-  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                            make_unique_dp<ResizeMessage>(m_viewport),
-                            MessagePriority::High);
 }
 
 void FrontendRenderer::AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,

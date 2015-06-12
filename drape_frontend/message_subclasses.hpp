@@ -30,6 +30,47 @@
 namespace df
 {
 
+class BaseBlockingMessage : public Message
+{
+public:
+  struct Blocker
+  {
+    void Wait()
+    {
+      unique_lock<mutex> lock(m_lock);
+      m_signal.wait(lock, [this]{return !m_blocked;} );
+    }
+
+  private:
+    friend class BaseBlockingMessage;
+
+    void Signal()
+    {
+      lock_guard<mutex> lock(m_lock);
+      m_blocked = false;
+      m_signal.notify_one();
+    }
+
+  private:
+    mutex m_lock;
+    condition_variable m_signal;
+    bool m_blocked = true;
+  };
+
+  BaseBlockingMessage(Blocker & blocker)
+    : m_blocker(blocker)
+  {
+  }
+
+  ~BaseBlockingMessage()
+  {
+    m_blocker.Signal();
+  }
+
+private:
+  Blocker & m_blocker;
+};
+
 class BaseTileMessage : public Message
 {
 public:
@@ -93,20 +134,6 @@ public:
 private:
   dp::GLState m_state;
   drape_ptr<dp::RenderBucket> m_buffer;
-};
-
-class ResizeMessage : public Message
-{
-public:
-  ResizeMessage(Viewport const & viewport)
-    : m_viewport(viewport) {}
-
-  Type GetType() const override { return Message::Resize; }
-
-  Viewport const & GetViewport() const { return m_viewport; }
-
-private:
-  Viewport m_viewport;
 };
 
 class InvalidateRectMessage : public Message
@@ -237,19 +264,40 @@ private:
   drape_ptr<gui::LayerRenderer> m_renderer;
 };
 
-class GuiRecacheMessage : public Message
+class GuiRecacheMessage : public BaseBlockingMessage
 {
 public:
-  GuiRecacheMessage(gui::Skin::ElementName elements)
-    : m_elements(elements)
+  GuiRecacheMessage(Blocker & blocker, gui::TWidgetsInitInfo && initInfo, gui::TWidgetsSizeInfo & resultInfo)
+    : BaseBlockingMessage(blocker)
+    , m_initInfo(move(initInfo))
+    , m_sizeInfo(resultInfo)
   {
   }
 
   Type GetType() const override { return Message::GuiRecache;}
-  gui::Skin::ElementName GetElements() const { return m_elements; }
+  gui::TWidgetsInitInfo const & GetInitInfo() const { return m_initInfo; }
+  gui::TWidgetsSizeInfo & GetSizeInfoMap() const { return m_sizeInfo; }
 
 private:
-  gui::Skin::ElementName m_elements;
+  gui::TWidgetsInitInfo m_initInfo;
+  gui::TWidgetsSizeInfo & m_sizeInfo;
+};
+
+class GuiLayerLayoutMessage : public Message
+{
+public:
+  GuiLayerLayoutMessage(gui::TWidgetsLayoutInfo && info)
+    : m_layoutInfo(move(info))
+  {
+  }
+
+  Type GetType() const override { return GuiLayerLayout; }
+
+  gui::TWidgetsLayoutInfo const & GetLayoutInfo() const { return m_layoutInfo; }
+  gui::TWidgetsLayoutInfo AcceptLayoutInfo() { return move(m_layoutInfo); }
+
+private:
+  gui::TWidgetsLayoutInfo m_layoutInfo;
 };
 
 class CountryInfoUpdateMessage : public Message
@@ -271,6 +319,13 @@ private:
   gui::CountryInfo m_countryInfo;
   bool m_isCurrentCountry;
   bool m_isCountryLoaded;
+};
+
+class CountryStatusRecacheMessage : public Message
+{
+public:
+  CountryStatusRecacheMessage() {}
+  Type GetType() const override { return Message::CountryStatusRecache ;}
 };
 
 class MyPositionShapeMessage : public Message
@@ -354,47 +409,6 @@ private:
   location::GpsInfo const m_info;
   bool const m_isNavigable;
   location::RouteMatchingInfo const m_routeInfo;
-};
-
-class BaseBlockingMessage : public Message
-{
-public:
-  struct Blocker
-  {
-    void Wait()
-    {
-      unique_lock<mutex> lock(m_lock);
-      m_signal.wait(lock, [this]{return !m_blocked;} );
-    }
-
-  private:
-    friend class BaseBlockingMessage;
-
-    void Signal()
-    {
-      lock_guard<mutex> lock(m_lock);
-      m_blocked = false;
-      m_signal.notify_one();
-    }
-
-  private:
-    mutex m_lock;
-    condition_variable m_signal;
-    bool m_blocked = true;
-  };
-
-  BaseBlockingMessage(Blocker & blocker)
-    : m_blocker(blocker)
-  {
-  }
-
-  ~BaseBlockingMessage()
-  {
-    m_blocker.Signal();
-  }
-
-private:
-  Blocker & m_blocker;
 };
 
 class FindVisiblePOIMessage : public BaseBlockingMessage

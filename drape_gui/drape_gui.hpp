@@ -11,6 +11,7 @@
 
 #include "std/function.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/atomic.hpp"
 
 class ScreenBase;
 
@@ -23,7 +24,7 @@ class CountryStatusHelper;
 class DrapeGui
 {
 public:
-  using TRecacheSlot = function<void (Skin::ElementName)>;
+  using TRecacheCountryStatusSlot = function<void ()>;
   using TScaleFactorFn = function<double ()>;
   using TGeneralizationLevelFn = function<int (ScreenBase const &)>;
   using TLocalizeStringFn = function<string (string const &)>;
@@ -37,14 +38,16 @@ public:
   void Init(TScaleFactorFn const & scaleFn, TGeneralizationLevelFn const & gnLvlFn);
   void SetLocalizator(TLocalizeStringFn const & fn);
   void Destroy();
+  void SetSurfaceSize(m2::PointF const & size);
+  m2::PointF GetSurfaceSize() const { return m_surfaceSize; }
 
   double GetScaleFactor();
   int GetGeneralization(ScreenBase const & screen);
   string GetLocalizedString(string const & stringID) const;
 
-  void SetRecacheSlot(TRecacheSlot const & fn);
-  void EmitRecacheSignal(Skin::ElementName elements);
-  void ClearRecacheSlot();
+  void SetRecacheCountryStatusSlot(TRecacheCountryStatusSlot const & fn);
+  void EmitRecacheCountryStatusSignal();
+  void ClearRecacheCountryStatusSlot();
 
   bool IsCopyrightActive() const { return m_isCopyrightActive; }
   void DeactivateCopyright() { m_isCopyrightActive = false; }
@@ -66,6 +69,7 @@ private:
 
   Shape::TTapHandler m_onCompassTappedHandler;
   CountryStatus::TButtonHandlers m_buttonHandlers;
+  atomic<m2::PointF> m_surfaceSize;
 };
 
 }

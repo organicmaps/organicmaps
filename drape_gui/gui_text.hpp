@@ -49,9 +49,10 @@ public:
     m2::RectF m_boundRect;
   };
 
+  /// return pixelSize of text
   static void CacheStaticText(string const & text, char const * delim,
-                              dp::Anchor anchor, dp::FontDecl const & font,
-                              ref_ptr<dp::TextureManager> mng, LabelResult & result);
+                                    dp::Anchor anchor, dp::FontDecl const & font,
+                                    ref_ptr<dp::TextureManager> mng, LabelResult & result);
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -106,6 +107,7 @@ public:
 
     dp::GLState m_state;
     buffer_vector<StaticVertex, 128> m_buffer;
+    m2::PointF m_maxPixelSize;
   };
 
   struct LabelResult
@@ -173,7 +175,8 @@ public:
     THandleCreator m_handleCreator;
   };
 
-  static void Draw(Params const & params, ref_ptr<dp::TextureManager> mng,
-                   dp::Batcher::TFlushFn const & flushFn);
+  /// return maximum pixel size
+  static m2::PointF Draw(Params const & params, ref_ptr<dp::TextureManager> mng,
+                         dp::Batcher::TFlushFn const & flushFn);
 };
 }
