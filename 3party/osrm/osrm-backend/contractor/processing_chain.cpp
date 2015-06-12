@@ -343,10 +343,11 @@ bool Prepare::ParseArguments(int argc, char *argv[])
         "Path to a configuration file.");
 
     // declare a group of options that will be allowed both on command line and in config file
+    std::string string_restrictions_path;
     boost::program_options::options_description config_options("Configuration");
     config_options.add_options()(
         "restrictions,r",
-        boost::program_options::value<boost::filesystem::path>(&restrictions_path),
+        boost::program_options::value<std::string>(&string_restrictions_path),
         "Restrictions file in .osrm.restrictions format")(
         "profile,p", boost::program_options::value<boost::filesystem::path>(&profile_path)
                          ->default_value("profile.lua"),
@@ -408,6 +409,9 @@ bool Prepare::ParseArguments(int argc, char *argv[])
 
     boost::program_options::notify(option_variables);
 
+    input_path = boost::filesystem::path(string_input_path);
+    restrictions_path = boost::filesystem::path(string_restrictions_path);
+
     if (!option_variables.count("restrictions"))
     {
         restrictions_path = std::string(input_path.string() + ".restrictions");
@@ -419,7 +423,6 @@ bool Prepare::ParseArguments(int argc, char *argv[])
         return false;
     }
 
-    input_path = boost::filesystem::path(string_input_path);
     return true;
 }
 
