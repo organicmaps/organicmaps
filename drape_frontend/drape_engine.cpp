@@ -83,6 +83,8 @@ DrapeEngine::DrapeEngine(Params && params)
   drape_ptr<GuiRecacheMessage> message( new GuiRecacheMessage(blocker, move(params.m_info), m_widgetSizes));
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(message), MessagePriority::High);
   blocker.Wait();
+
+  ResizeImpl(m_viewport.GetWidth(), m_viewport.GetHeight());
 }
 
 DrapeEngine::~DrapeEngine()
@@ -99,11 +101,7 @@ DrapeEngine::~DrapeEngine()
 void DrapeEngine::Resize(int w, int h)
 {
   if (m_viewport.GetHeight() != h || m_viewport.GetWidth() != w)
-  {
-    gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
-    m_viewport.SetViewport(0, 0, w, h);
-    AddUserEvent(ResizeEvent(w, h));
-  }
+    ResizeImpl(w, h);
 }
 
 void DrapeEngine::AddTouchEvent(TouchEvent const & event)
@@ -215,6 +213,13 @@ void DrapeEngine::UserPositionChanged(m2::PointD const & position)
     if (m_userPositionChangedFn)
       m_userPositionChangedFn(position);
   });
+}
+
+void DrapeEngine::ResizeImpl(int w, int h)
+{
+  gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
+  m_viewport.SetViewport(0, 0, w, h);
+  AddUserEvent(ResizeEvent(w, h));
 }
 
 void DrapeEngine::SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded)

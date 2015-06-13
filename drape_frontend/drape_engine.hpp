@@ -113,6 +113,8 @@ private:
   void TapEvent(m2::PointD const & pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature);
   void UserPositionChanged(m2::PointD const & position);
 
+  void ResizeImpl(int w, int h);
+
 private:
   drape_ptr<FrontendRenderer> m_frontend;
   drape_ptr<BackendRenderer> m_backend;
