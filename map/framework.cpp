@@ -1838,6 +1838,7 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
                               search::AddressInfo & info, feature::FeatureMetadata & metadata) const
 {
 #ifndef USE_DRAPE
+  ASSERT(m_renderPolicy, ());
   graphics::OverlayElement::UserInfo ui;
 
   {
