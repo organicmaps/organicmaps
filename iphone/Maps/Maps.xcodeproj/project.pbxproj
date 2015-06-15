@@ -84,6 +84,10 @@
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
 		4A00DBDF1AB704C400113624 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
+		4A7D89C51B2EBF3B00AC843E /* resources-6plus_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C11B2EBF3B00AC843E /* resources-6plus_dark */; };
+		4A7D89C61B2EBF3B00AC843E /* resources-mdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C21B2EBF3B00AC843E /* resources-mdpi_dark */; };
+		4A7D89C71B2EBF3B00AC843E /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */; };
+		4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */; };
 		6B8A738A1B2616E90085EFE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */; };
 		6C24A3AD1AD7CA1000A47B99 /* MWMNoMapInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C47C8C81AD6C825000C52C1 /* MWMNoMapInterfaceController.mm */; };
@@ -378,6 +382,10 @@
 		46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
+		4A7D89C11B2EBF3B00AC843E /* resources-6plus_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus_dark"; path = "../../data/resources-6plus_dark"; sourceTree = "<group>"; };
+		4A7D89C21B2EBF3B00AC843E /* resources-mdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi_dark"; path = "../../data/resources-mdpi_dark"; sourceTree = "<group>"; };
+		4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi_dark"; path = "../../data/resources-xhdpi_dark"; sourceTree = "<group>"; };
+		4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi_dark"; path = "../../data/resources-xxhdpi_dark"; sourceTree = "<group>"; };
 		6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.0.0.a; path = Statistics/libFlurry_6.0.0.a; sourceTree = "<group>"; };
 		6C24A3B01AD7D65500A47B99 /* MWMWatchEventInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWatchEventInfo.h; sourceTree = "<group>"; };
 		6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWatchEventInfo.mm; sourceTree = "<group>"; };
@@ -1417,6 +1425,10 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4A7D89C11B2EBF3B00AC843E /* resources-6plus_dark */,
+				4A7D89C21B2EBF3B00AC843E /* resources-mdpi_dark */,
+				4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */,
+				4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */,
 				45159BF81B0CA2D5009BFA85 /* resources-6plus */,
 				4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */,
 				97A5967E19B9CD47007A963F /* copyright.html */,
@@ -1721,6 +1733,7 @@
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
 				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,
 				EEA61602134C496A003A9827 /* 02_wqy-microhei.ttf in Resources */,
+				4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */,
 				34BC722B1B0DECAE0012A34B /* MWMZoomButtonsView.xib in Resources */,
 				EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */,
 				EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */,
@@ -1730,6 +1743,7 @@
 				FAAFD697139D9BE2000AE70C /* categories.txt in Resources */,
 				FA64D9A913F975AD00350ECF /* types.txt in Resources */,
 				97FC99DC19C1A2CD00C1CF98 /* resources-mdpi in Resources */,
+				4A7D89C71B2EBF3B00AC843E /* resources-xhdpi_dark in Resources */,
 				34BC72281B0DECAE0012A34B /* MWMSideMenuViews.xib in Resources */,
 				97FC99DE19C1A2CD00C1CF98 /* resources-xhdpi in Resources */,
 				97D40C0A184D031900A1D572 /* Images.xcassets in Resources */,
@@ -1740,6 +1754,7 @@
 				F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */,
 				97A5967F19B9CD47007A963F /* copyright.html in Resources */,
 				978F9247183B6671000D6C7C /* Main_iPhone.storyboard in Resources */,
+				4A7D89C51B2EBF3B00AC843E /* resources-6plus_dark in Resources */,
 				FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */,
 				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
@@ -1763,6 +1778,7 @@
 				F7E7BA291672328F00B4492E /* food@2x.png in Resources */,
 				F7E7BA2A1672328F00B4492E /* fuel.png in Resources */,
 				F7E7BA2B1672328F00B4492E /* fuel@2x.png in Resources */,
+				4A7D89C61B2EBF3B00AC843E /* resources-mdpi_dark in Resources */,
 				F6BC1E541ACBF9AB00EF0360 /* MWMFacebookAlert.xib in Resources */,
 				F7E7BA2C1672328F00B4492E /* hospital.png in Resources */,
 				F7E7BA2D1672328F00B4492E /* hospital@2x.png in Resources */,
