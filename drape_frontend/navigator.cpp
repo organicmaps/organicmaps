@@ -53,14 +53,15 @@ void Navigator::SetFromRect(m2::AnyRectD const & r)
 {
   m2::RectD const & worldR = df::GetWorldRect();
 
-  m_Screen.SetFromRect(r);
-  m_Screen = ScaleInto(m_Screen, worldR);
+  ScreenBase tmp = m_Screen;
+
+  tmp.SetFromRect(r);
+  tmp = ScaleInto(tmp, worldR);
+  if (CheckMaxScale(tmp))
+    m_Screen = tmp;
 
   if (!m_InAction)
-  {
-    m_StartScreen.SetFromRect(r);
-    m_StartScreen = ScaleInto(m_StartScreen, worldR);
-  }
+    m_StartScreen = tmp;
 }
 
 void Navigator::CenterViewport(m2::PointD const & p)
