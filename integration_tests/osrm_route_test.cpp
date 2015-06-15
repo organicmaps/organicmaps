@@ -8,6 +8,25 @@ using namespace routing;
 
 namespace
 {
+  // Restrictions tests. Check restrictions generation, if there are any errors.
+  UNIT_TEST(RestrictionTestNeatBaumanAndTTK)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+          integration::GetAllMaps(),
+          MercatorBounds::FromLatLon(55.77399, 37.68468), {0., 0.},
+          MercatorBounds::FromLatLon(55.77198, 37.68782), 900.);
+  }
+
+  UNIT_TEST(RestrictionTestNearMetroShodnenskaya)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+          integration::GetAllMaps(),
+          MercatorBounds::FromLatLon(55.85043, 37.43824), {0., 0.},
+          MercatorBounds::FromLatLon(55.85191, 37.43910), 510.
+          );
+  }
+
+  // Cross mwm tests.
   UNIT_TEST(RussiaMoscowLenigradskiy39GerPanfilovtsev22RouteTest)
   {
     integration::CalculateRouteAndTestRouteLength(integration::GetAllMaps(),
