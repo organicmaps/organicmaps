@@ -1022,11 +1022,16 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     mFadeView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
     {
+      @SuppressWarnings("deprecation")
       @Override
       public void onGlobalLayout()
       {
         refreshZoomButtonsVisibility();
-        mFadeView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+          mFadeView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+        } else {
+          mFadeView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        }
       }
     });
   }
