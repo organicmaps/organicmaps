@@ -30,12 +30,16 @@
 #define FTSEG_MAPPING_BACKWARD_INDEX_BITS_EXT ".bftsegbits"
 #define FEATURES_OFFSETS_TABLE_FILE_EXT ".offsets"
 
-//Secret word to unlock experimental features in production builds
+// Secret word to unlock experimental features in production builds.
 #define ROUTING_SECRET_UNLOCKING_WORD "?pedestrian"
 #define ROUTING_SECRET_LOCKING_WORD "?vehicle"
 
-// TODO (@ldragunov) change to production server address when we will have one.
+// Switch to a development osrm server for online checking of the absent contries.
+#ifdef DEV_OSRM_SERVER
 #define OSRM_ONLINE_SERVER_URL "http://osrm.online.dev.server"
+#else
+#define OSRM_ONLINE_SERVER_URL "http://osrm.online.server"
+#endif
 
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume3"
