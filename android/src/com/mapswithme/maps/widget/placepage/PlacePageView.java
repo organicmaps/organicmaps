@@ -261,6 +261,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   public MapObject getMapObject()
   {
+    saveBookmarkNameIfUpdated();
     return mMapObject;
   }
 
@@ -269,6 +270,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (hasMapObject(mapObject))
       return;
 
+    saveBookmarkNameIfUpdated();
     mMapObject = mapObject;
     refreshViews();
   }
@@ -585,12 +587,23 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     }
   }
 
+  private void saveBookmarkNameIfUpdated()
+  {
+    if (mMapObject == null || !(mMapObject instanceof Bookmark))
+      return;
+
+    final Bookmark bookmark = (Bookmark) mMapObject;
+    final String name = mEtBookmarkName.getText().toString();
+    bookmark.setParams(name, null, bookmark.getBookmarkDescription());
+  }
+
   @Override
   public void onClick(View v)
   {
     switch (v.getId())
     {
     case R.id.iv__bookmark_color:
+      saveBookmarkNameIfUpdated();
       selectBookmarkColor();
       break;
     case R.id.rl__bookmark:
@@ -639,6 +652,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       getContext().startActivity(intent);
       break;
     case R.id.tv__bookmark_group:
+      saveBookmarkNameIfUpdated();
       selectBookmarkSet();
       break;
     case R.id.av__direction:
