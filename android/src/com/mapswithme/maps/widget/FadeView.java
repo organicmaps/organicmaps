@@ -25,7 +25,7 @@ public class FadeView extends FrameLayout
     public void onAnimationEnd(Animator animation)
     {
       setVisibility(View.GONE);
-      if (mFadeListener != null)
+      if (mFadeListener != null && mDoNotify)
         mFadeListener.onFadeOut();
     }
   };
@@ -34,10 +34,11 @@ public class FadeView extends FrameLayout
     @Override
     public void onAnimationEnd(Animator animation)
     {
-      if (mFadeListener != null)
+      if (mFadeListener != null && mDoNotify)
         mFadeListener.onFadeIn();
     }
   };
+  private boolean mDoNotify;
 
   public interface FadeListener
   {
@@ -68,16 +69,26 @@ public class FadeView extends FrameLayout
     mFadeListener = listener;
   }
 
-  public void fadeIn()
+  /**
+   * Fades out view and notifies on animation end, if requested
+   * @param notify whether we want notification
+   */
+  public void fadeIn(boolean notify)
   {
+    mDoNotify = notify;
     setVisibility(View.VISIBLE);
     mFadeInAnimation = ObjectAnimator.ofFloat(this, PROPERTY_ALPHA, 0f, FADE_ALPHA_VALUE);
     mFadeInAnimation.addListener(mFadeInListener);
     mFadeInAnimation.start();
   }
 
-  public void fadeOut()
+  /**
+   * Fades out view and notifies on animation end, if requested
+   * @param notify whether we want notification
+   */
+  public void fadeOut(boolean notify)
   {
+    mDoNotify = notify;
     mFadeOutAnimation = ObjectAnimator.ofFloat(this, PROPERTY_ALPHA, FADE_ALPHA_VALUE, 0f);
     mFadeOutAnimation.addListener(mFadeOutListener);
     mFadeOutAnimation.start();
@@ -97,7 +108,7 @@ public class FadeView extends FrameLayout
   public boolean onTouchEvent(@NonNull MotionEvent event)
   {
     if (event.getAction() == MotionEvent.ACTION_DOWN)
-      fadeOut();
+      fadeOut(true);
 
     return true;
   }

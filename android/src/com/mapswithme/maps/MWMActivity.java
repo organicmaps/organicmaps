@@ -499,7 +499,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       transaction.add(R.id.fragment_container, fragment, fragment.getClass().getName());
       transaction.addToBackStack(null).commit();
 
-      mFadeView.fadeIn();
+      mFadeView.fadeIn(false);
     }
     else
     {
@@ -735,7 +735,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
     if (savedInstanceState.getBoolean(STATE_BUTTONS_OPENED))
     {
-      mFadeView.fadeIn();
+      mFadeView.fadeIn(false);
       showBottomButtons();
     }
     else
@@ -1143,8 +1143,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
     }
     else if (areBottomButtonsVisible())
     {
-      mFadeView.fadeOut();
       toggleMenuButtons();
+      mFadeView.fadeOut(false);
     }
     else if (canFragmentInterceptBackPress())
       // TODO close menu & fragments accordingly
@@ -1152,7 +1152,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     else if (popFragment())
     {
       InputUtils.hideKeyboard(mBottomButtons);
-      mFadeView.fadeOut();
+      mFadeView.fadeOut(false);
     }
     else
       super.onBackPressed();
@@ -1295,7 +1295,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       mIvStartRouting.setVisibility(View.VISIBLE);
       mPbRoutingProgress.setVisibility(View.GONE);
       if (popFragment() && isMapFaded())
-        mFadeView.fadeOut();
+        mFadeView.fadeOut(false);
     }
   }
 
@@ -1474,7 +1474,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       break;
     case R.id.btn__open_menu:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_MENU);
-      mFadeView.fadeIn();
+      mFadeView.fadeIn(false);
       toggleMenuButtons();
       break;
     case R.id.btn__search:
@@ -1635,6 +1635,10 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     if (keyCode == KeyEvent.KEYCODE_MENU)
     {
+      if (areBottomButtonsVisible())
+        mFadeView.fadeOut(false);
+      else
+        mFadeView.fadeIn(false);
       toggleMenuButtons();
       return true;
     }
@@ -1752,7 +1756,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     if (popFragment())
     {
       InputUtils.hideKeyboard(mBottomButtons);
-      mFadeView.fadeOut();
+      mFadeView.fadeOut(false);
       refreshRouterIcon();
     }
   }
