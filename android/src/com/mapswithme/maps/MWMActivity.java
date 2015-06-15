@@ -1382,10 +1382,10 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mButtonsAnimation = new AnimatorSet();
     mLlSearch.setVisibility(View.VISIBLE);
     final float baseY = ViewCompat.getY(mLlSearch);
-    mButtonsAnimation.play(generateMenuAnimator(mLlShare, baseY - ViewCompat.getY(mLlShare)));
-    mButtonsAnimation.play(generateMenuAnimator(mLlSettings, baseY - ViewCompat.getY(mLlSettings))).after(BUTTON_ANIM_DELAY);
-    mButtonsAnimation.play(generateMenuAnimator(mLlDownloader, baseY - ViewCompat.getY(mLlDownloader))).after(BUTTON_ANIM_DELAY * 2);
-    mButtonsAnimation.play(generateMenuAnimator(mLlBookmarks, baseY - ViewCompat.getY(mLlBookmarks))).after(BUTTON_ANIM_DELAY * 3);
+    mButtonsAnimation.play(generateMenuAnimator(mLlBookmarks, baseY - ViewCompat.getY(mLlBookmarks)));
+    mButtonsAnimation.play(generateMenuAnimator(mLlDownloader, baseY - ViewCompat.getY(mLlDownloader))).after(BUTTON_ANIM_DELAY);
+    mButtonsAnimation.play(generateMenuAnimator(mLlSettings, baseY - ViewCompat.getY(mLlSettings))).after(BUTTON_ANIM_DELAY * 2);
+    mButtonsAnimation.play(generateMenuAnimator(mLlShare, baseY - ViewCompat.getY(mLlShare))).after(BUTTON_ANIM_DELAY * 3);
     mButtonsAnimation.addListener(new UiUtils.SimpleNineoldAnimationListener()
     {
       @Override
