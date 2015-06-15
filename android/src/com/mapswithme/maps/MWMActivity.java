@@ -30,6 +30,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
@@ -174,6 +175,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private FadeView mFadeView;
 
   private ViewGroup mNavigationButtons;
+  private View mToolbarSearch;
   private ImageButton mBtnZoomIn;
   private ImageButton mBtnZoomOut;
 
@@ -655,6 +657,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mBtnZoomOut.setOnClickListener(this);
     mBtnLocation = (ImageButton) mNavigationButtons.findViewById(R.id.btn__myposition);
     mBtnLocation.setOnClickListener(this);
+
+    mToolbarSearch = findViewById(R.id.toolbar_search);
   }
 
   private void initPlacePage()
@@ -999,13 +1003,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
     listenLocationStateModeUpdates();
     invalidateLocationState();
     startWatchingExternalStorage();
-
-    refreshZoomButtonsVisibility();
     refreshRouterIcon();
-
     SearchController.getInstance().onResume();
     mPlacePage.onResume();
     mLikesManager.showLikeDialogForCurrentSession();
+    refreshZoomButtonsAfterLayout();
   }
 
   private void refreshRouterIcon()
@@ -1016,10 +1018,25 @@ public class MWMActivity extends BaseMwmFragmentActivity
       mIvStartRouting.setImageResource(R.drawable.ic_walk);
   }
 
+  private void refreshZoomButtonsAfterLayout()
+  {
+    mFadeView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+    {
+      @Override
+      public void onGlobalLayout()
+      {
+        refreshZoomButtonsVisibility();
+        mFadeView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+      }
+    });
+  }
+
   private void refreshZoomButtonsVisibility()
   {
-    UiUtils.showIf(MWMApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true) ||
-            Framework.nativeIsRoutingActive(),
+    final boolean showZoomSetting = MWMApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true) || Framework.nativeIsRoutingActive();
+    UiUtils.showIf(showZoomSetting &&
+            !UiUtils.areViewsIntersecting(mToolbarSearch, mBtnZoomIn) &&
+            !UiUtils.areViewsIntersecting(mRlRoutingBox, mBtnZoomIn),
         mBtnZoomIn, mBtnZoomOut);
   }
 
@@ -1308,17 +1325,20 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
-    if (!isVisible)
+    if (isVisible)
+    {
+      if (previewIntersectsBottomMenu())
+        mBottomButtons.setVisibility(View.GONE);
+      if (previewIntersectsZoomButtons())
+        UiUtils.hide(mBtnZoomIn, mBtnZoomOut);
+    }
+    else
     {
       Framework.deactivatePopup();
       mPlacePage.setMapObject(null);
-    }
-    if (previewIntersectsBottomMenu())
-      mBottomButtons.setVisibility(isVisible ? View.GONE : View.VISIBLE);
-    if (previewIntersectsZoomButtons())
-      UiUtils.hide(mBtnZoomIn, mBtnZoomOut);
-    else
       refreshZoomButtonsVisibility();
+      mBottomButtons.setVisibility(View.VISIBLE);
+    }
   }
 
   private boolean previewIntersectsBottomMenu()
@@ -1334,11 +1354,16 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageVisibilityChanged(boolean isVisible)
   {
-    AlohaHelper.logClick(AlohaHelper.PP_OPEN);
-    if (placePageIntersectsZoomButtons())
-      UiUtils.hide(mBtnZoomIn, mBtnZoomOut);
+    if (isVisible)
+    {
+      AlohaHelper.logClick(AlohaHelper.PP_OPEN);
+      if (placePageIntersectsZoomButtons())
+        UiUtils.hide(mBtnZoomIn, mBtnZoomOut);
+      else
+        refreshZoomButtonsVisibility();
+    }
     else
-      refreshZoomButtonsVisibility();
+      AlohaHelper.logClick(AlohaHelper.PP_CLOSE);
   }
 
   private boolean placePageIntersectsZoomButtons()
@@ -1644,7 +1669,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
-        refreshZoomButtonsVisibility();
         if (resultCode == RoutingResultCodes.NO_ERROR)
         {
           mRlTurnByTurnBox.setVisibility(View.GONE);
@@ -1716,6 +1740,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
           }
           builder.create().show();
         }
+
+        refreshZoomButtonsVisibility();
       }
     });
   }

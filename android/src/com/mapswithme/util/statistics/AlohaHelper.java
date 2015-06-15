@@ -41,6 +41,7 @@ public class AlohaHelper
   public static final String MENU_SHARE = "share@";
   // place page
   public static final String PP_OPEN = "ppOpen";
+  public static final String PP_CLOSE = "ppClose";
   public static final String PP_SHARE = "ppShare";
   public static final String PP_BOOKMARK = "ppBookmark";
   public static final String PP_ROUTE = "ppRoute";

@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -321,6 +322,39 @@ public final class UiUtils
   public static boolean isBigTablet()
   {
     return MWMApplication.get().getResources().getBoolean(R.bool.isBigTablet);
+  }
+
+  /**
+   * View's default getHitRect() had a bug and would not apply transforms properly.
+   * More details : http://stackoverflow.com/questions/17750116/strange-view-gethitrect-behaviour
+   * @param v view
+   * @param rect rect
+   */
+  public static void getHitRect(View v, Rect rect)
+  {
+    rect.left = (int) com.nineoldandroids.view.ViewHelper.getX(v);
+    rect.top = (int) com.nineoldandroids.view.ViewHelper.getY(v);
+    rect.right = rect.left + v.getWidth();
+    rect.bottom = rect.top + v.getHeight();
+  }
+
+  /**
+   * Tests, whether views intercects each other in parent coordinates.
+   * @param firstView base view
+   * @param secondView covering view
+   * @return intersects or not
+   */
+  public static boolean areViewsIntersecting(View firstView, View secondView)
+  {
+    if (firstView.getVisibility() == View.GONE)
+      return false;
+
+    final Rect baseRect = new Rect();
+    final Rect testRect = new Rect();
+    UiUtils.getHitRect(firstView, baseRect);
+    UiUtils.getHitRect(secondView, testRect);
+
+    return baseRect.intersect(testRect);
   }
 
   // utility class
