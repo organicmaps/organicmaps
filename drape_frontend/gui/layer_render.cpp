@@ -7,6 +7,8 @@
 #include "ruler.hpp"
 #include "ruler_helper.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "drape/batcher.hpp"
 #include "drape/render_bucket.hpp"
 
@@ -30,7 +32,8 @@ void LayerRenderer::Build(ref_ptr<dp::GpuProgramManager> mng)
 
 void LayerRenderer::Render(ref_ptr<dp::GpuProgramManager> mng, ScreenBase const & screen)
 {
-  DrapeGui::Instance().GetRulerHelper().Update(screen);
+  DrapeGui::GetRulerHelper().ResetTextDirtyFlag();
+  DrapeGui::GetRulerHelper().Update(screen);
   for (TRenderers::value_type & r : m_renderers)
     r.second->Render(screen, mng);
 }
@@ -127,14 +130,14 @@ public:
 
   void Update(ScreenBase const & screen) override
   {
-    int newScale = DrapeGui::Instance().GetGeneralization(screen);
+    int newScale = df::GetDrawTileScale(screen);
     if (m_scale != newScale)
     {
       m_scale = newScale;
       SetContent("Scale : " + strings::to_string(m_scale));
     }
 
-    float vs = DrapeGui::Instance().GetScaleFactor();
+    float vs = df::VisualParams::Instance().GetVisualScale();
     m2::PointF offset(10.0f * vs, 30.0f * vs);
 
     SetPivot(glsl::ToVec2(m2::PointF(screen.PixelRect().LeftBottom()) + offset));

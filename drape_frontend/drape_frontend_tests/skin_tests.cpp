@@ -1,8 +1,7 @@
 #include "base/SRC_FIRST.hpp"
 #include "testing/testing.hpp"
 
-#include "drape_gui/skin.hpp"
-#include "drape_gui/drape_gui.hpp"
+#include "drape_frontend/gui/skin.hpp"
 
 UNIT_TEST(ParseDefaultSkinTest)
 {

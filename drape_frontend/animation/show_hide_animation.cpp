@@ -2,6 +2,8 @@
 
 #include "base_interpolator.hpp"
 
+#include "base/math.hpp"
+
 namespace df
 {
 
@@ -48,18 +50,32 @@ ShowHideAnimation::~ShowHideAnimation()
 
 void ShowHideAnimation::Show()
 {
+  EState state = GetState();
+  if (state == STATE_INVISIBLE || state == STATE_HIDE_DIRECTION)
+  {
+    m_state = STATE_VISIBLE;
+    m_interpolator.reset();
+  }
+}
+
+void ShowHideAnimation::ShowAnim()
+{
   RefreshInterpolator({ STATE_VISIBLE, STATE_SHOW_DIRECTION }, 1.0);
 }
 
 void ShowHideAnimation::Hide()
 {
-  //RefreshInterpolator({ STATE_INVISIBLE, STATE_HIDE_DIRECTION }, 0.0);
   EState state = GetState();
   if (state == STATE_VISIBLE || state == STATE_SHOW_DIRECTION)
   {
     m_state = STATE_INVISIBLE;
     m_interpolator.reset();
   }
+}
+
+void ShowHideAnimation::HideAnim()
+{
+  RefreshInterpolator({ STATE_INVISIBLE, STATE_HIDE_DIRECTION }, 0.0);
 }
 
 ShowHideAnimation::EState ShowHideAnimation::GetState() const
@@ -91,7 +107,7 @@ void ShowHideAnimation::RefreshInterpolator(array<EState, 2> validStates, double
 
   double start = GetT();
   double end = endValue;
-  double duration = (end - start) * m_fullDuration;
+  double duration = fabs(end - start) * m_fullDuration;
   m_interpolator.reset(new ShowHideInterpolator(m_state, start, end, duration));
 }
 

@@ -175,6 +175,7 @@ public:
   ScreenBase const & GetCurrentScreen() const;
 
   m2::AnyRectD GetTargetRect() const;
+  bool IsInUserAction() const;
 
   void SetListener(ref_ptr<Listener> listener) { m_listener = listener; }
 

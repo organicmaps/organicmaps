@@ -1,5 +1,6 @@
 #include "gui_text.hpp"
-#include "drape_gui.hpp"
+
+#include "drape_frontend/visual_params.hpp"
 
 #include "base/string_utils.hpp"
 #include "base/stl_add.hpp"
@@ -153,7 +154,7 @@ void StaticLabel::CacheStaticText(string const & text, char const * delim,
   glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
   glsl::vec2 outlineTex = glsl::ToVec2(outline.GetTexRect().Center());
 
-  float textRatio = font.m_size * DrapeGui::Instance().GetScaleFactor() / BASE_GLYPH_HEIGHT;
+  float textRatio = font.m_size * df::VisualParams::Instance().GetVisualScale() / BASE_GLYPH_HEIGHT;
 
   buffer_vector<float, 4> lineLengths;
   lineLengths.reserve(buffers.size());
@@ -322,7 +323,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
 {
   SetMaxLength(params.m_maxLength);
   result.m_state.SetMaskTexture(SetAlphabet(params.m_alphabet, mng));
-  m_textRatio = params.m_font.m_size * DrapeGui::Instance().GetScaleFactor() / BASE_GLYPH_HEIGHT;
+  m_textRatio = params.m_font.m_size * df::VisualParams::Instance().GetVisualScale() / BASE_GLYPH_HEIGHT;
 
   dp::TextureManager::ColorRegion color;
   dp::TextureManager::ColorRegion outlineColor;
@@ -436,7 +437,7 @@ m2::PointF MutableLabel::GetAvarageSize() const
   return m2::PointF(w, h);
 }
 
-MutableLabelHandle::MutableLabelHandle(dp::Anchor anchor, const m2::PointF & pivot)
+MutableLabelHandle::MutableLabelHandle(dp::Anchor anchor, m2::PointF const & pivot)
     : TBase(anchor, pivot, m2::PointF::Zero())
     , m_textView(make_unique_dp<MutableLabel>(anchor))
 {

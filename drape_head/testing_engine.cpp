@@ -3,6 +3,8 @@
 #include "coding/file_reader.hpp"
 #include "platform/platform.hpp"
 
+#include "drape_frontend/gui/gui_text.hpp"
+
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/text_shape.hpp"
@@ -12,9 +14,6 @@
 #include "drape_frontend/area_shape.hpp"
 #include "drape_frontend/circle_shape.hpp"
 #include "drape_frontend/poi_symbol_shape.hpp"
-
-#include "drape_gui/drape_gui.hpp"
-#include "drape_gui/gui_text.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/glsl_types.hpp"
@@ -335,18 +334,6 @@ TestingEngine::TestingEngine(ref_ptr<dp::OGLContextFactory> oglcontextfactory,
 {
   m_contextFactory->getDrawContext()->makeCurrent();
   df::VisualParams::Init(vs, df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
-
-  gui::DrapeGui::TScaleFactorFn scaleFn = []()
-  {
-    return df::VisualParams::Instance().GetVisualScale();
-  };
-
-  gui::DrapeGui::TGeneralizationLevelFn genLvlFn = [](ScreenBase const & screen)
-  {
-    return df::GetDrawTileScale(screen);
-  };
-
-  gui::DrapeGui::Instance().Init(scaleFn, genLvlFn);
 
   GLFunctions::Init();
 

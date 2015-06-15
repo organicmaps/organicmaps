@@ -1,5 +1,9 @@
 #pragma once
 
+#include "drape_frontend/gui/country_status_helper.hpp"
+#include "drape_frontend/gui/layer_render.hpp"
+#include "drape_frontend/gui/skin.hpp"
+
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/message.hpp"
@@ -10,10 +14,6 @@
 #include "geometry/polyline2d.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
-
-#include "drape_gui/country_status_helper.hpp"
-#include "drape_gui/layer_render.hpp"
-#include "drape_gui/skin.hpp"
 
 #include "drape/glstate.hpp"
 #include "drape/pointers.hpp"

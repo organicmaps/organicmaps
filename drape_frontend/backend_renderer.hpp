@@ -1,10 +1,11 @@
 #pragma once
 
+#include "drape_frontend/gui/layer_render.hpp"
+
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/map_data_provider.hpp"
 #include "drape_frontend/viewport.hpp"
 
-#include "drape_gui/layer_render.hpp"
 #include "drape/pointers.hpp"
 
 namespace dp

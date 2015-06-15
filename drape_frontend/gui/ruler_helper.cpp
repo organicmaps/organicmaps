@@ -1,5 +1,7 @@
-#include "drape_gui/ruler_helper.hpp"
-#include "drape_gui/drape_gui.hpp"
+#include "drape_frontend/gui/ruler_helper.hpp"
+#include "drape_frontend/gui/drape_gui.hpp"
+
+#include "drape_frontend/visual_params.hpp"
 
 #include "platform/settings.hpp"
 #include "platform/measurement_utils.hpp"
@@ -97,19 +99,22 @@ double identity(double val)
   return val;
 }
 
+int const VISIBLE_RULER_BOTTOM_SCALE = 5;
+
 }
 
 RulerHelper::RulerHelper()
   : m_pixelLength(0.0)
   , m_rangeIndex(InvalidUnitValue)
   , m_isTextDirty(false)
+  , m_dirtyTextRequested(false)
 {
 }
 
 void RulerHelper::Update(ScreenBase const & screen)
 {
   m2::PointD pivot = screen.PixelRect().Center();
-  int const minPxWidth = my::rounds(MinPixelWidth * DrapeGui::Instance().GetScaleFactor());
+  int const minPxWidth = my::rounds(MinPixelWidth * df::VisualParams::Instance().GetVisualScale());
   m2::PointD pt1 = screen.PtoG(pivot);
   m2::PointD pt0 = screen.PtoG(pivot - m2::PointD(minPxWidth, 0));
 
@@ -131,17 +136,26 @@ void RulerHelper::Update(ScreenBase const & screen)
 
     m_pixelLength = my::rounds(pivot.Length(screen.GtoP(pt0)));
   }
+
+  int drawScale = df::GetDrawTileScale(screen);
+  if (m_currentDrawScale < VISIBLE_RULER_BOTTOM_SCALE &&
+      drawScale >= VISIBLE_RULER_BOTTOM_SCALE)
+  {
+    SetTextDirty();
+  }
+
+  m_currentDrawScale = drawScale;
 }
 
 bool RulerHelper::IsVisible(ScreenBase const & screen) const
 {
   DrapeGui & gui = DrapeGui::Instance();
-  return !gui.IsCopyrightActive() && gui.GetGeneralization(screen) > 4;
+  return !gui.IsCopyrightActive() && df::GetDrawTileScale(screen) >= VISIBLE_RULER_BOTTOM_SCALE;
 }
 
 float RulerHelper::GetRulerHalfHeight() const
 {
-  return 2 * DrapeGui::Instance().GetScaleFactor();
+  return 2 * df::VisualParams::Instance().GetVisualScale();
 }
 
 float RulerHelper::GetRulerPixelLength() const
@@ -156,7 +170,7 @@ float RulerHelper::GetMaxRulerPixelLength() const
 
 int RulerHelper::GetVerticalTextOffset() const
 {
-  return -5 * DrapeGui::Instance().GetScaleFactor();
+  return -5 * df::VisualParams::Instance().GetVisualScale();
 }
 
 bool RulerHelper::IsTextDirty() const
@@ -166,8 +180,14 @@ bool RulerHelper::IsTextDirty() const
 
 string const & RulerHelper::GetRulerText() const
 {
-  m_isTextDirty = false;
+  m_dirtyTextRequested = true;
   return m_rulerText;
+}
+
+void RulerHelper::ResetTextDirtyFlag()
+{
+  if (m_dirtyTextRequested)
+    m_isTextDirty = false;
 }
 
 void RulerHelper::GetTextInitInfo(string & alphabet, size_t & size) const
@@ -251,8 +271,15 @@ double RulerHelper::CalcMetresDiff(double value)
     }
 
   if (m_rangeIndex != prevUnitRange)
-    m_isTextDirty = true;
+    SetTextDirty();
+
   return result;
+}
+
+void RulerHelper::SetTextDirty()
+{
+  m_dirtyTextRequested = false;
+  m_isTextDirty = true;
 }
 
 }

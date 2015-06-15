@@ -3,6 +3,8 @@
 #include "ruler.hpp"
 #include "ruler_helper.hpp"
 
+#include "drape_frontend/animation/show_hide_animation.hpp"
+
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/shader_def.hpp"
@@ -41,35 +43,96 @@ dp::BindingInfo GetBindingInfo()
   return info;
 }
 
-class RulerHandle : public Handle
+template<typename TBase>
+class BaseRulerHandle : public TBase
 {
 public:
-  RulerHandle(dp::Anchor anchor, m2::PointF const & pivot)
-      : Handle(anchor, pivot, m2::PointF::Zero())
+  BaseRulerHandle(dp::Anchor anchor, m2::PointF const & pivot, bool isAppearing)
+    : TBase(anchor, pivot)
+    , m_isAppearing(isAppearing)
+    , m_isVisibleAtEnd(true)
+    , m_animation(false, 0.4)
   {
-    SetIsVisible(true);
   }
 
-  void Update(ScreenBase const & screen) override
+  void Update(ScreenBase const & screen)
   {
     RulerHelper & helper = DrapeGui::GetRulerHelper();
-    SetIsVisible(helper.IsVisible(screen));
+
+    TBase::SetIsVisible(true);
+    bool isVisible = helper.IsVisible(screen);
+    if (!isVisible)
+    {
+      m_animation.HideAnim();
+      m_isVisibleAtEnd = false;
+    }
+    else
+    {
+      if (helper.IsTextDirty())
+      {
+        m_isAppearing = !m_isAppearing;
+        if (m_isAppearing)
+        {
+          m_animation.ShowAnim();
+          m_isVisibleAtEnd = true;
+        }
+        else
+        {
+          m_animation.HideAnim();
+          m_isVisibleAtEnd = false;
+        }
+      }
+    }
+
+    TBase::Update(screen);
+    UpdateImpl(screen, helper);
+
+    if (m_animation.IsFinished())
+      TBase::SetIsVisible(m_isVisibleAtEnd);
+  }
+
+protected:
+  virtual void UpdateImpl(ScreenBase const & /*screen*/, RulerHelper const & /*helper*/) {}
+
+  bool IsAppearing() const { return m_isAppearing; }
+  float GetOpacity() const { return m_animation.GetT(); }
+
+private:
+  bool m_isAppearing;
+  bool m_isVisibleAtEnd;
+  df::ShowHideAnimation m_animation;
+};
+
+class RulerHandle : public BaseRulerHandle<Handle>
+{
+  using TBase = BaseRulerHandle<Handle>;
+public:
+  RulerHandle(dp::Anchor anchor, m2::PointF const & pivot, bool appearing)
+    : BaseRulerHandle(anchor, pivot, appearing)
+  {
+  }
+
+private:
+  void UpdateImpl(ScreenBase const & screen, RulerHelper const & helper) override
+  {
     if (IsVisible())
     {
       m_size = m2::PointF(helper.GetRulerPixelLength(), 2 * helper.GetRulerHalfHeight());
-      m_uniforms.SetFloatValue("u_length", helper.GetRulerPixelLength());
+      if (IsAppearing())
+        m_uniforms.SetFloatValue("u_length", helper.GetRulerPixelLength());
       m_uniforms.SetFloatValue("u_position", m_pivot.x, m_pivot.y);
+      m_uniforms.SetFloatValue("u_opacity", GetOpacity());
     }
   }
 };
 
-class RulerTextHandle : public MutableLabelHandle
+class RulerTextHandle : public BaseRulerHandle<MutableLabelHandle>
 {
-  typedef MutableLabelHandle TBase;
+  using TBase = BaseRulerHandle<MutableLabelHandle>;
 
 public:
-  RulerTextHandle(dp::Anchor anchor, m2::PointF const & pivot)
-    : MutableLabelHandle(anchor, pivot)
+  RulerTextHandle(dp::Anchor anchor, m2::PointF const & pivot, bool isAppearing)
+    : TBase(anchor, pivot, isAppearing)
     , m_firstUpdate(true)
   {
   }
@@ -77,7 +140,7 @@ public:
   void Update(ScreenBase const & screen) override
   {
     SetIsVisible(DrapeGui::GetRulerHelper().IsVisible(screen));
-    if ((IsVisible() && DrapeGui::GetRulerHelper().IsTextDirty()) || m_firstUpdate)
+    if (IsVisible() && (DrapeGui::GetRulerHelper().IsTextDirty() || m_firstUpdate))
     {
       SetContent(DrapeGui::GetRulerHelper().GetRulerText());
       m_firstUpdate = false;
@@ -92,6 +155,13 @@ public:
     TBase::SetPivot(pivot + glsl::vec2(0.0, helper.GetVerticalTextOffset() - helper.GetRulerHalfHeight()));
   }
 
+protected:
+  void UpdateImpl(ScreenBase const & /*screen*/, RulerHelper const & /*helper*/) override
+  {
+    if (IsVisible())
+      m_uniforms.SetFloatValue("u_opacity", GetOpacity());
+  }
+
 private:
   bool m_firstUpdate;
 };
@@ -102,15 +172,17 @@ drape_ptr<ShapeRenderer> Ruler::Draw(m2::PointF & size, ref_ptr<dp::TextureManag
 {
   ShapeControl control;
   size = m2::PointF::Zero();
-  DrawRuler(size, control, tex);
-  DrawText(size, control, tex);
+  DrawRuler(size, control, tex, true);
+  DrawRuler(size, control, tex, false);
+  DrawText(size, control, tex, true);
+  DrawText(size, control, tex, false);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   renderer->AddShapeControl(move(control));
   return renderer;
 }
 
-void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::TextureManager> tex) const
+void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::TextureManager> tex, bool isAppearing) const
 {
   buffer_vector<RulerVertex, 4> data;
 
@@ -148,11 +220,11 @@ void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Tex
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
     dp::SessionGuard guard(batcher, bind(&ShapeControl::AddShape, &control, _1, _2));
     batcher.InsertTriangleStrip(state, make_ref(&provider),
-                                make_unique_dp<RulerHandle>(m_position.m_anchor, m_position.m_pixelPivot));
+                                make_unique_dp<RulerHandle>(m_position.m_anchor, m_position.m_pixelPivot, isAppearing));
   }
 }
 
-void Ruler::DrawText(m2::PointF & size, ShapeControl & control, ref_ptr<dp::TextureManager> tex) const
+void Ruler::DrawText(m2::PointF & size, ShapeControl & control, ref_ptr<dp::TextureManager> tex, bool isAppearing) const
 {
   string alphabet;
   size_t maxTextLength;
@@ -166,9 +238,9 @@ void Ruler::DrawText(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Text
   params.m_maxLength = maxTextLength;
   params.m_font = DrapeGui::GetGuiTextFont();
   params.m_pivot = m_position.m_pixelPivot + m2::PointF(0.0, helper.GetVerticalTextOffset());
-  params.m_handleCreator = [](dp::Anchor anchor, m2::PointF const & pivot)
+  params.m_handleCreator = [isAppearing](dp::Anchor anchor, m2::PointF const & pivot)
   {
-    return make_unique_dp<RulerTextHandle>(anchor, pivot);
+    return make_unique_dp<RulerTextHandle>(anchor, pivot, isAppearing);
   };
 
   m2::PointF textSize = MutableLabelDrawer::Draw(params, tex, bind(&ShapeControl::AddShape, &control, _1, _2));

@@ -12,13 +12,16 @@ Handle::Handle(dp::Anchor anchor, const m2::PointF & pivot, const m2::PointF & s
 {
 }
 
-void Handle::Update(const ScreenBase & screen)
+void Handle::Update(ScreenBase const & screen)
 {
   using namespace glsl;
 
   if (IsVisible())
+  {
     m_uniforms.SetMatrix4x4Value("modelView",
                                  value_ptr(transpose(translate(mat4(), vec3(m_pivot, 0.0)))));
+    m_uniforms.SetFloatValue("u_opacity", 1.0);
+  }
 }
 
 bool Handle::IndexesRequired() const
@@ -80,7 +83,6 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
 
   dp::UniformValuesStorage uniformStorage;
   uniformStorage.SetMatrix4x4Value("projection", m.data());
-  uniformStorage.SetFloatValue("u_opacity", 1.0);
 
   ForEachShapeInfo(
       [&uniformStorage, &screen, mng](ShapeControl::ShapeInfo & info) mutable

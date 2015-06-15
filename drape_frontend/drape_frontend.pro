@@ -6,6 +6,7 @@ ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
+INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 #DEFINES += DRAW_INFO
 
 SOURCES += \
@@ -15,6 +16,18 @@ SOURCES += \
     animation/model_view_animation.cpp \
     animation/opacity_animation.cpp \
     animation/show_hide_animation.cpp \
+    gui/button.cpp \
+    gui/compass.cpp \
+    gui/copyright_label.cpp \
+    gui/country_status.cpp \
+    gui/country_status_helper.cpp \
+    gui/drape_gui.cpp \
+    gui/gui_text.cpp \
+    gui/layer_render.cpp \
+    gui/ruler.cpp \
+    gui/ruler_helper.cpp \
+    gui/shape.cpp \
+    gui/skin.cpp \
     apply_feature_functors.cpp \
     area_shape.cpp \
     backend_renderer.cpp \
@@ -68,6 +81,18 @@ HEADERS += \
     animation/opacity_animation.hpp \
     animation/show_hide_animation.hpp \
     animation/value_mapping.hpp \
+    gui/button.hpp \
+    gui/compass.hpp \
+    gui/copyright_label.hpp \
+    gui/country_status.hpp \
+    gui/country_status_helper.hpp \
+    gui/drape_gui.hpp \
+    gui/gui_text.hpp \
+    gui/layer_render.hpp \
+    gui/ruler.hpp \
+    gui/ruler_helper.hpp \
+    gui/shape.hpp \
+    gui/skin.hpp \
     apply_feature_functors.hpp \
     area_shape.hpp \
     backend_renderer.hpp \

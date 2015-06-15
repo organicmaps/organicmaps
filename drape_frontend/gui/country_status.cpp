@@ -3,6 +3,8 @@
 #include "drape_gui.hpp"
 #include "gui_text.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "drape/batcher.hpp"
 #include "drape/glsl_func.hpp"
 
@@ -169,6 +171,8 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
         Button::THandleCreator buttonHandleCreator = bind(&CreateButtonHandle, state, buttonHandler, _1, _2);
         Button::THandleCreator labelHandleCreator = bind(&CreateLabelHandle, state, _1, _2);
 
+        float visualScale = df::VisualParams::Instance().GetVisualScale();
+
         ShapeControl shapeControl;
         Button::Params params;
         params.m_anchor = m_position.m_anchor;
@@ -176,8 +180,8 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
         params.m_labelFont = dp::FontDecl(dp::Color::White(), 16);
         params.m_minWidth = 300;
         params.m_maxWidth = 600;
-        params.m_margin = 5.0f * DrapeGui::Instance().GetScaleFactor();
-        params.m_facet = 8.0f * DrapeGui::Instance().GetScaleFactor();
+        params.m_margin = 5.0f * visualScale;
+        params.m_facet = 8.0f * visualScale;
         params.m_bodyHandleCreator = buttonHandleCreator;
         params.m_labelHandleCreator = labelHandleCreator;
 

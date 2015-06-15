@@ -13,6 +13,7 @@ class OpacityAnimation : public BaseInterpolator
 
 public:
   OpacityAnimation(double duration, double startOpacity, double endOpacity);
+  OpacityAnimation(double duration, double delay, double startOpacity, double endOpacity);
 
   void Advance(double elapsedSeconds) override;
   double GetOpacity() const { return m_opacity; }

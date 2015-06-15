@@ -1,5 +1,8 @@
 #include "storage_bridge.hpp"
 
+#include "base/assert.hpp"
+#include "base/macros.hpp"
+
 using namespace storage;
 
 StorageBridge::StorageBridge(shared_ptr<storage::ActiveMapsLayout> activeMaps, TOnChangedHandler const & handler)

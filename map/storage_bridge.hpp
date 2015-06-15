@@ -2,10 +2,10 @@
 
 #include "active_maps_layout.hpp"
 
-#include "drape_gui/drape_gui.hpp"
-
 #include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
+
+#include "std/shared_ptr.hpp"
 
 class StorageBridge : public storage::ActiveMapsLayout::ActiveMapsListener
 {

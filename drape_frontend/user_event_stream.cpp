@@ -547,4 +547,9 @@ void UserEventStream::CancelFilter(Touch const & t)
     m_listener->OnSingleTouchFiltrate(t.m_location, TouchEvent::TOUCH_CANCEL);
 }
 
+bool UserEventStream::IsInUserAction() const
+{
+  return m_state == STATE_DRAG || m_state == STATE_SCALE;
+}
+
 }

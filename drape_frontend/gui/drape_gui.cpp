@@ -2,6 +2,8 @@
 #include "drape_gui.hpp"
 #include "ruler_helper.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "base/assert.hpp"
 
 namespace gui
@@ -9,15 +11,17 @@ namespace gui
 
 struct DrapeGui::Impl
 {
-  DrapeGui::TScaleFactorFn m_scaleFn;
-  DrapeGui::TGeneralizationLevelFn m_gnLvlFn;
   DrapeGui::TLocalizeStringFn m_localizeFn;
-
   DrapeGui::TRecacheCountryStatusSlot m_recacheSlot;
 
   RulerHelper m_rulerHelper;
   CountryStatusHelper m_countryHelper;
 };
+
+DrapeGui::DrapeGui()
+  : m_impl(new Impl())
+{
+}
 
 DrapeGui & DrapeGui::Instance()
 {
@@ -37,16 +41,9 @@ CountryStatusHelper & DrapeGui::GetCountryStatusHelper()
 
 dp::FontDecl const & DrapeGui::GetGuiTextFont()
 {
-  static dp::FontDecl font(dp::Color(0x4D, 0x4D, 0x4D, 0xDD), 7 * DrapeGui::Instance().GetScaleFactor());
+  static dp::FontDecl font(dp::Color(0x4D, 0x4D, 0x4D, 0xDD),
+                           7 * df::VisualParams::Instance().GetVisualScale());
   return font;
-}
-
-void DrapeGui::Init(TScaleFactorFn const & scaleFn, TGeneralizationLevelFn const & gnLvlFn)
-{
-  ASSERT(m_impl == nullptr, ());
-  m_impl.reset(new DrapeGui::Impl());
-  m_impl->m_scaleFn = scaleFn;
-  m_impl->m_gnLvlFn = gnLvlFn;
 }
 
 void DrapeGui::Destroy()
@@ -64,18 +61,6 @@ void DrapeGui::SetLocalizator(const DrapeGui::TLocalizeStringFn & fn)
 {
   ASSERT(m_impl != nullptr, ());
   m_impl->m_localizeFn = fn;
-}
-
-double DrapeGui::GetScaleFactor()
-{
-  ASSERT(m_impl != nullptr, ());
-  return m_impl->m_scaleFn();
-}
-
-int DrapeGui::GetGeneralization(ScreenBase const & screen)
-{
-  ASSERT(m_impl != nullptr, ());
-  return m_impl->m_gnLvlFn(screen);
 }
 
 void DrapeGui::SetRecacheCountryStatusSlot(TRecacheCountryStatusSlot const  & fn)

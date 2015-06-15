@@ -1,4 +1,7 @@
 #include "compass.hpp"
+#include "drape_gui.hpp"
+
+#include "drape_frontend/animation/show_hide_animation.hpp"
 
 #include "drape/glsl_types.hpp"
 #include "drape/glsl_func.hpp"
@@ -25,11 +28,15 @@ namespace
 
   class CompassHandle : public TappableHandle
   {
+    using TBase = TappableHandle;
+
   public:
     CompassHandle(m2::PointF const & pivot, m2::PointF const & size, Shape::TTapHandler const & tapHandler)
       : TappableHandle(dp::Center, pivot, size)
       , m_tapHandler(tapHandler)
-    {}
+      , m_animation(false, 0.25)
+    {
+    }
 
     void OnTap() override
     {
@@ -40,20 +47,38 @@ namespace
     void Update(ScreenBase const & screen) override
     {
       float angle = ang::AngleIn2PI(screen.GetAngle());
-      if (angle < my::DegToRad(5.0) || angle > my::DegToRad(355.0))
-        SetIsVisible(false);
-      else
+
+      bool isVisiblePrev = IsVisible();
+      bool isVisibleAngle = angle > my::DegToRad(5.0) && angle < my::DegToRad(355.0);
+
+      bool isVisible = isVisibleAngle || (isVisiblePrev && DrapeGui::Instance().IsInUserAction());
+
+      if (isVisible)
       {
+        m_animation.ShowAnim();
         SetIsVisible(true);
+      }
+      else
+        m_animation.HideAnim();
+
+      if (IsVisible())
+      {
+        TBase::Update(screen);
+
         glsl::mat4 r = glsl::rotate(glsl::mat4(), angle, glsl::vec3(0.0, 0.0, 1.0));
         glsl::mat4 m = glsl::translate(glsl::mat4(), glsl::vec3(m_pivot, 0.0));
         m = glsl::transpose(m * r);
         m_uniforms.SetMatrix4x4Value("modelView", glsl::value_ptr(m));
+        m_uniforms.SetFloatValue("u_opacity", m_animation.GetT());
       }
+
+      if (m_animation.IsFinished())
+        SetIsVisible(isVisible);
     }
 
   private:
     Shape::TTapHandler m_tapHandler;
+    df::ShowHideAnimation m_animation;
   };
 }
 

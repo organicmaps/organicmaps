@@ -2,8 +2,8 @@
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "drape_gui/country_status_helper.hpp"
-#include "drape_gui/drape_gui.hpp"
+#include "drape_frontend/gui/country_status_helper.hpp"
+#include "drape_frontend/gui/drape_gui.hpp"
 
 #include "drape/texture_manager.hpp"
 
@@ -39,17 +39,7 @@ DrapeEngine::DrapeEngine(Params && params)
 {
   VisualParams::Init(params.m_vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
-  gui::DrapeGui::TScaleFactorFn scaleFn = []
-  {
-    return VisualParams::Instance().GetVisualScale();
-  };
-  gui::DrapeGui::TGeneralizationLevelFn gnLvlFn = [](ScreenBase const & screen)
-  {
-    return GetDrawTileScale(screen);
-  };
-
   gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
-  guiSubsystem.Init(scaleFn, gnLvlFn);
   guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, params.m_stringsBundle.get(), _1));
   guiSubsystem.SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
 

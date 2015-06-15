@@ -17,6 +17,8 @@
 #include "search/search_engine.hpp"
 #include "search/search_query_factory.hpp"
 
+#include "drape_frontend/gui/country_status_helper.hpp"
+
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/categories_holder.hpp"

@@ -8,6 +8,8 @@
   #include "std/numeric.hpp"
 #endif
 
+#include "drape_frontend/gui/layer_render.hpp"
+
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/my_position_controller.hpp"
@@ -18,8 +20,6 @@
 #include "drape_frontend/tile_info.hpp"
 #include "drape_frontend/tile_tree.hpp"
 #include "drape_frontend/user_event_stream.hpp"
-
-#include "drape_gui/layer_render.hpp"
 
 #include "drape/pointers.hpp"
 #include "drape/glstate.hpp"

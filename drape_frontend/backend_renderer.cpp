@@ -1,5 +1,6 @@
-#include "drape_frontend/backend_renderer.hpp"
+#include "drape_frontend/gui/drape_gui.hpp"
 
+#include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/batchers_pool.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/message_subclasses.hpp"
@@ -7,8 +8,6 @@
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
-
-#include "drape_gui/drape_gui.hpp"
 
 #include "indexer/scales.hpp"
 

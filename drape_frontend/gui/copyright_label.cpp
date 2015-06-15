@@ -3,6 +3,9 @@
 #include "gui_text.hpp"
 #include "ruler_helper.hpp"
 
+#include "drape_frontend/animation/opacity_animation.hpp"
+#include "drape_frontend/animation/value_mapping.hpp"
+
 #include "base/timer.hpp"
 
 #include "std/bind.hpp"
@@ -13,6 +16,7 @@ namespace gui
 namespace
 {
   double const COPYRIGHT_VISIBLE_TIME = 3.0f;
+  double const COPYRIGHT_HIDE_DURATION = 0.25f;
 
   class CopyrightHandle : public Handle
   {
@@ -20,8 +24,6 @@ namespace
   public:
     CopyrightHandle(dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size)
       : TBase(anchor, pivot, size)
-      , m_timer(false)
-      , m_firstRender(true)
     {
       SetIsVisible(true);
     }
@@ -31,23 +33,21 @@ namespace
       if (!IsVisible())
         return;
 
-      if (m_firstRender == true)
-      {
-        m_firstRender = false;
-        m_timer.Reset();
-      }
-      else if (m_timer.ElapsedSeconds() > COPYRIGHT_VISIBLE_TIME)
+      TBase::Update(screen);
+
+      if (m_animation == nullptr)
+        m_animation.reset(new df::OpacityAnimation(COPYRIGHT_HIDE_DURATION, COPYRIGHT_VISIBLE_TIME, 1.0f, 0.0f));
+      else if (m_animation->IsFinished())
       {
         DrapeGui::Instance().DeactivateCopyright();
         SetIsVisible(false);
       }
 
-      TBase::Update(screen);
+      m_uniforms.SetFloatValue("u_opacity", m_animation->GetOpacity());
     }
 
   private:
-    my::Timer m_timer;
-    bool m_firstRender;
+    drape_ptr<df::OpacityAnimation> m_animation;
   };
 }
 

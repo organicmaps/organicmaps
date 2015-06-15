@@ -25,8 +25,6 @@ class DrapeGui
 {
 public:
   using TRecacheCountryStatusSlot = function<void ()>;
-  using TScaleFactorFn = function<double ()>;
-  using TGeneralizationLevelFn = function<int (ScreenBase const &)>;
   using TLocalizeStringFn = function<string (string const &)>;
 
   static DrapeGui & Instance();
@@ -35,19 +33,19 @@ public:
 
   static dp::FontDecl const & GetGuiTextFont();
 
-  void Init(TScaleFactorFn const & scaleFn, TGeneralizationLevelFn const & gnLvlFn);
   void SetLocalizator(TLocalizeStringFn const & fn);
   void Destroy();
   void SetSurfaceSize(m2::PointF const & size);
   m2::PointF GetSurfaceSize() const { return m_surfaceSize; }
 
-  double GetScaleFactor();
-  int GetGeneralization(ScreenBase const & screen);
   string GetLocalizedString(string const & stringID) const;
 
   void SetRecacheCountryStatusSlot(TRecacheCountryStatusSlot const & fn);
   void EmitRecacheCountryStatusSignal();
   void ClearRecacheCountryStatusSlot();
+
+  bool IsInUserAction() const { return m_inUserAction; }
+  void SetInUserAction(bool isInUserAction) { m_inUserAction = isInUserAction; }
 
   bool IsCopyrightActive() const { return m_isCopyrightActive; }
   void DeactivateCopyright() { m_isCopyrightActive = false; }
@@ -59,6 +57,8 @@ public:
   void CallOnButtonPressedHandler(CountryStatusHelper::EButtonType buttonType);
 
 private:
+  DrapeGui();
+
   RulerHelper & GetRulerHelperImpl();
   CountryStatusHelper & GetCountryStatusHelperImpl();
 
@@ -70,6 +70,7 @@ private:
   Shape::TTapHandler m_onCompassTappedHandler;
   CountryStatus::TButtonHandlers m_buttonHandlers;
   atomic<m2::PointF> m_surfaceSize;
+  bool m_inUserAction = false;
 };
 
 }

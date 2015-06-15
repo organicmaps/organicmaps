@@ -109,7 +109,7 @@ void SelectionShape::SetPosition(m2::PointD const & position)
 
 void SelectionShape::Show()
 {
-  m_animation.Show();
+  m_animation.ShowAnim();
 }
 
 void SelectionShape::Hide()

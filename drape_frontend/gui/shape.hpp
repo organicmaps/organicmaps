@@ -16,7 +16,7 @@ namespace gui
 class Handle : public dp::OverlayHandle
 {
 public:
-  Handle(dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size);
+  Handle(dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size = m2::PointF::Zero());
 
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
 

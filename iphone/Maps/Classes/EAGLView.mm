@@ -8,7 +8,7 @@
 #include "indexer/classificator_loader.hpp"
 #import "../Platform/opengl/iosOGLContextFactory.h"
 
-#include "drape_gui/skin.hpp"
+#include "drape_frontend/gui/skin.hpp"
 
 #include "platform/platform.hpp"
 

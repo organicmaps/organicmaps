@@ -4,8 +4,9 @@
 
 #include "map/framework.hpp"
 
+#include "drape_frontend/gui/skin.hpp"
+
 #include "drape_frontend/drape_engine.hpp"
-#include "drape_gui/skin.hpp"
 
 #include "std/unique_ptr.hpp"
 

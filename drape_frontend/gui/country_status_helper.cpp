@@ -1,6 +1,8 @@
 #include "country_status_helper.hpp"
 #include "drape_gui.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 #include "base/string_format.hpp"
@@ -132,7 +134,7 @@ CountryStatusHelper::Control const & CountryStatusHelper::GetControl(size_t inde
 
 float CountryStatusHelper::GetControlMargin()
 {
-  return 5.0f * DrapeGui::Instance().GetScaleFactor();
+  return 5.0f * df::VisualParams::Instance().GetVisualScale();
 }
 
 void CountryStatusHelper::GetProgressInfo(string & alphabet, size_t & maxLength)

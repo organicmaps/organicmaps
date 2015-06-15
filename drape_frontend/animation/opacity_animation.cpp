@@ -5,7 +5,12 @@ namespace df
 {
 
 OpacityAnimation::OpacityAnimation(double duration, double startOpacity, double endOpacity)
-  : BaseInterpolator(duration)
+  : OpacityAnimation(duration, 0.0, startOpacity, endOpacity)
+{
+}
+
+OpacityAnimation::OpacityAnimation(double duration, double delay, double startOpacity, double endOpacity)
+  : BaseInterpolator(duration, delay)
   , m_startOpacity(startOpacity)
   , m_endOpacity(endOpacity)
   , m_opacity(startOpacity)

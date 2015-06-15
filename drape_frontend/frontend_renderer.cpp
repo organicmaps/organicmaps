@@ -1,10 +1,9 @@
 #include "drape_frontend/animation/interpolation_holder.hpp"
+#include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
-
-#include "drape_gui/drape_gui.hpp"
 
 #include "drape/utils/glyph_usage_tracker.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
@@ -837,6 +836,7 @@ ScreenBase const & FrontendRenderer::UpdateScene(bool & modelViewChanged)
 {
   bool viewportChanged;
   ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged);
+  gui::DrapeGui::Instance().SetInUserAction(m_userEventStream.IsInUserAction());
   if (viewportChanged)
     OnResize(modelView);
 

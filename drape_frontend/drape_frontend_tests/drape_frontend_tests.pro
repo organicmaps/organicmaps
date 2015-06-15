@@ -22,6 +22,7 @@ SOURCES += \
   memory_feature_index_tests.cpp \
   navigator_test.cpp \
   object_pool_tests.cpp \
+  skin_tests.cpp \
   tile_tree_tests.cpp \
   tile_utils_tests.cpp \
   user_event_stream_tests.cpp \

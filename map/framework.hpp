@@ -9,10 +9,9 @@
 #include "map/routing_session.hpp"
 #include "map/track.hpp"
 
+#include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/user_event_stream.hpp"
-
-#include "drape_gui/skin.hpp"
 
 #include "drape/oglcontextfactory.hpp"
 
