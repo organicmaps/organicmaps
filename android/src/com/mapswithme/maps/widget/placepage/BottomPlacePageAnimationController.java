@@ -224,8 +224,8 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     ValueAnimator animator;
     final float detailsFullHeight = mDetails.getChildAt(0).getHeight();
     final float detailsScreenHeight = mDetails.getHeight();
-    final float bookmarkHeight = mBookmarkDetails.getHeight();
-    final float bookmarkScreenHeight = bookmarkHeight - (detailsFullHeight - detailsScreenHeight);
+    final float bookmarkFullHeight = mBookmarkDetails.getHeight();
+    final float bookmarkScreenHeight = bookmarkFullHeight - (detailsFullHeight - detailsScreenHeight);
 
     if (currentState == State.PREVIEW)
       animator = ValueAnimator.ofFloat(detailsScreenHeight, bookmarkScreenHeight);
@@ -245,8 +245,8 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
           refreshToolbarVisibility();
           mIsPreviewVisible = mIsPlacePageVisible = true;
           notifyVisibilityListener();
-          if (currentState == State.BOOKMARK)
-            mBookmarkDetails.setVisibility(View.INVISIBLE);
+          mDetails.scrollTo(0, 0);
+          mBookmarkDetails.setVisibility(View.INVISIBLE);
         }
       }
     });
