@@ -151,7 +151,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   p.m_surfaceHeight = factory->GetHeight();
   p.m_visualScale = visualScale;
 
-  /// @TODO (iOS developers) remove this stuff and create real logic for init and layout core widgets
+  /// @TODO (android developers) remove this stuff and create real logic for init and layout core widgets
   m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), visualScale));
   m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);
   m_skin->ForEach([&p](gui::EWidget widget, gui::Position const & pos)
@@ -181,7 +181,7 @@ void Framework::Resize(int w, int h)
   m_contextFactory->CastFactory<AndroidOGLContextFactory>()->UpdateSurfaceSize();
   m_work.OnSize(w, h);
 
-  /// @TODO (iOS developers) remove this stuff and create real logic for layout core widgets
+  /// @TODO (android developers) remove this stuff and create real logic for layout core widgets
   if (m_skin)
   {
     m_skin->Resize(w, h);
