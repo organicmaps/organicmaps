@@ -13,7 +13,7 @@ public enum MapStorage
   public static final int GROUP = -2;
   public static final int COUNTRY = -1;
 
-  /// This constants should be equal with storage/storage.hpp, storage::TStatus
+  // This constants should be equal with storage/storage_defines.hpp, storage::TStatus
   public static final int ON_DISK = 0;
   public static final int NOT_DOWNLOADED = 1;
   public static final int DOWNLOAD_FAILED = 2;
@@ -28,9 +28,9 @@ public enum MapStorage
    */
   public interface Listener
   {
-    public void onCountryStatusChanged(Index idx);
+    void onCountryStatusChanged(Index idx);
 
-    public void onCountryProgress(Index idx, long current, long total);
+    void onCountryProgress(Index idx, long current, long total);
   }
 
   public static class Index implements Serializable
@@ -53,11 +53,6 @@ public enum MapStorage
       mGroup = group;
       mCountry = country;
       mRegion = region;
-    }
-
-    public boolean isEqual(Index idx)
-    {
-      return (mGroup == idx.mGroup && mCountry == idx.mCountry && mRegion == idx.mRegion);
     }
 
     @Override
@@ -116,10 +111,10 @@ public enum MapStorage
 
   private void runDownloadCountries(Index[] indexes)
   {
-    for (int i = 0; i < indexes.length; ++i)
+    for (Index index : indexes)
     {
-      if (indexes[i] != null)
-        Framework.downloadCountry(indexes[i]);
+      if (index != null)
+        Framework.downloadCountry(index);
     }
   }
 

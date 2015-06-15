@@ -231,7 +231,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     LocationHelper.INSTANCE.removeLocationListener(this);
     // Enable automatic turning screen off while app is idle
-    Utils.automaticIdleScreen(true, getWindow());
+    Utils.keepScreenOn(false, getWindow());
     mLocationPredictor.pause();
   }
 
@@ -239,7 +239,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     LocationHelper.INSTANCE.addLocationListener(this);
     // Do not turn off the screen while displaying position
-    Utils.automaticIdleScreen(false, getWindow());
+    Utils.keepScreenOn(true, getWindow());
     mLocationPredictor.resume();
   }
 

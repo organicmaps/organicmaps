@@ -68,14 +68,19 @@ public class Utils
     return false;
   }
 
-  // if enabled, screen will be turned off automatically by the system
-  // if disabled, screen will be always turn on
-  public static void automaticIdleScreen(boolean enable, Window w)
+  /**
+   * Enable to keep screen on
+   * Disable to let system turn it off automatically
+   *
+   * @param enable
+   * @param w
+   */
+  public static void keepScreenOn(boolean enable, Window w)
   {
     if (enable)
-      w.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    else
       w.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    else
+      w.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
 
   public static float getAttributeDimension(Activity activity, int attr)

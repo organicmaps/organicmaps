@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.util.Utils;
 
 public class DownloadFragment extends BaseMwmListFragment implements View.OnClickListener, ActiveCountryTree.ActiveCountryListener, OnBackPressListener
 {
@@ -232,11 +233,14 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
   {
     if (isAdded())
+    {
       updateToolbar();
+      Utils.keepScreenOn(ActiveCountryTree.isDownloadingActive(), getActivity().getWindow());
+    }
   }
 
   @Override
-  public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition) { }
+  public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition) {}
 
   @Override
   public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions)
