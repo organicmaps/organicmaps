@@ -1655,7 +1655,7 @@ void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
       else if (type == UserMark::Type::POI)
         object = df::SelectionShape::OBJECT_POI;
 
-      CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, object, pt));
+      CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, object, pt, needAnim));
     }
     else
     {

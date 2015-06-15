@@ -24,6 +24,7 @@ class SelectionShape
 public:
   enum ESelectedObject
   {
+    OBJECT_EMPTY,
     OBJECT_POI,
     OBJECT_USER_MARK,
     OBJECT_MY_POSITION
@@ -31,14 +32,13 @@ public:
 
   SelectionShape(ref_ptr<dp::TextureManager> mng);
 
-  void SetPosition(m2::PointD const & position);
-  void Show();
+  void SetPosition(m2::PointD const & position) { m_position = position; }
+  void Show(ESelectedObject obj, m2::PointD const & position, bool isAnimate);
   void Hide();
   void Render(ScreenBase const & screen,
               ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
-  void SetSelectedObject(ESelectedObject obj);
   ESelectedObject GetSelectedObject() const;
 
 private:

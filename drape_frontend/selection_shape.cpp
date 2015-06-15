@@ -55,6 +55,7 @@ dp::BindingInfo GetBindingInfo()
 SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointD::Zero())
   , m_animation(false, 0.25)
+  , m_selectedObject(OBJECT_EMPTY)
 {
   int const TriangleCount = 40;
   int const VertexCount = 3 * TriangleCount;
@@ -102,19 +103,21 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
   m_mapping.AddRangePoint(1.0, r);
 }
 
-void SelectionShape::SetPosition(m2::PointD const & position)
+void SelectionShape::Show(ESelectedObject obj, m2::PointD const & position, bool isAnimate)
 {
+  m_animation.Hide();
   m_position = position;
-}
-
-void SelectionShape::Show()
-{
-  m_animation.ShowAnimated();
+  m_selectedObject = obj;
+  if (isAnimate)
+    m_animation.ShowAnimated();
+  else
+    m_animation.Show();
 }
 
 void SelectionShape::Hide()
 {
   m_animation.Hide();
+  m_selectedObject = OBJECT_EMPTY;
 }
 
 void SelectionShape::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
@@ -131,11 +134,6 @@ void SelectionShape::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMan
     uniforms.SetFloatValue("u_opacity", 1.0f);
     m_renderNode->Render(mng, uniforms);
   }
-}
-
-void SelectionShape::SetSelectedObject(SelectionShape::ESelectedObject obj)
-{
-  m_selectedObject = obj;
 }
 
 SelectionShape::ESelectedObject SelectionShape::GetSelectedObject() const

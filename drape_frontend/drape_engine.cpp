@@ -288,10 +288,10 @@ FeatureID DrapeEngine::GetVisiblePOI(m2::PointD const & glbPoint)
   return result;
 }
 
-void DrapeEngine::SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt)
+void DrapeEngine::SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt, bool isAnim)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<SelectObjectMessage>(obj, pt),
+                                  make_unique_dp<SelectObjectMessage>(obj, pt, isAnim),
                                   MessagePriority::High);
 }
 
