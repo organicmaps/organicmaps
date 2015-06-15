@@ -8,6 +8,7 @@
 #include "geometry/distance_on_sphere.hpp"
 
 #include "base/assert.hpp"
+#include "base/math.hpp"
 
 #include "std/limits.hpp"
 #include "std/sstream.hpp"
@@ -35,17 +36,49 @@ inline double TimeBetweenSec(Junction const & j1, Junction const & j2, double sp
   return TimeBetweenSec(j1.GetPoint(), j2.GetPoint(), speedMPS);
 }
 
-inline bool PointsAlmostEqualULPs(const m2::PointD & pt1, const m2::PointD & pt2)
+inline bool PointsAlmostEqualAbs(const m2::PointD & pt1, const m2::PointD & pt2)
 {
-  double constexpr EPSILON = 1e-6;
-  if ((pt2.x < (pt1.x - EPSILON)) || (pt2.x > (pt1.x + EPSILON)))
-    return false;
-  if ((pt2.y < (pt1.y - EPSILON)) || (pt2.y > (pt1.y + EPSILON)))
-    return false;
-  return true;
+  double constexpr kEpsilon = 1e-6;
+  return my::AlmostEqualAbs(pt1.x, pt2.x, kEpsilon) && my::AlmostEqualAbs(pt1.y, pt2.y, kEpsilon);
 }
 
-} // namespace
+vector<Edge>::const_iterator FindEdgeContainingPoint(vector<Edge> const & edges, m2::PointD const & pt)
+{
+  // A           P               B
+  // o-----------x---------------o
+
+  auto const liesOnEdgeFn = [&pt](Edge const & e)
+  {
+    // Point P lies on edge AB if:
+    // - P corresponds to edge's start point A or edge's end point B
+    // - angle between PA and PB is 180 degrees
+
+    m2::PointD const v1 = e.GetStartJunction().GetPoint() - pt;
+    m2::PointD const v2 = e.GetEndJunction().GetPoint() - pt;
+    if (PointsAlmostEqualAbs(v1, m2::PointD::Zero()) || PointsAlmostEqualAbs(v2, m2::PointD::Zero()))
+    {
+      // Point p corresponds to the start or the end of the edge.
+      return true;
+    }
+
+    // If an angle between two vectors is 180 degrees then dot product is negative and cross product is 0.
+    if (m2::DotProduct(v1, v2) < 0.0)
+    {
+        double constexpr kEpsilon = 1e-9;
+        if (my::AlmostEqualAbs(m2::CrossProduct(v1, v2), 0.0, kEpsilon))
+        {
+            // Point p lies on edge.
+            return true;
+        }
+    }
+
+    return false;
+  };
+
+  return find_if(edges.begin(), edges.end(), liesOnEdgeFn);
+}
+
+}  // namespace
 
 // Junction --------------------------------------------------------------------
 
@@ -156,7 +189,7 @@ void IRoadGraph::CrossEdgesLoader::operator()(uint32_t featureId, RoadInfo const
   {
     m2::PointD const & p = roadInfo.m_points[i];
 
-    if (!PointsAlmostEqualULPs(m_cross, p))
+    if (!PointsAlmostEqualAbs(m_cross, p))
       continue;
 
     if (i > 0)
@@ -279,10 +312,10 @@ void IRoadGraph::AddFakeEdges(Junction const & junction, vector<pair<Edge, m2::P
     if (p == closestEdge.GetStartJunction() || p == closestEdge.GetEndJunction())
     {
       // The point is mapped on the start junction of the edge or on the end junction of the edge:
-      //        o M                         o M
-      //        ^                           ^
-      //        |                           |
-      //        |                           |
+      //        o M                                          o M
+      //        ^                                            ^
+      //        |                                            |
+      //        |                                            |
       //  (P) A o--------------->o B  or  A o--------------->o B (P)  (the feature is A->B)
       // Here AB is a feature, M is a junction, which is projected to A (where P is projection),
       // P is the closest junction of the feature to the junction M.
@@ -298,20 +331,54 @@ void IRoadGraph::AddFakeEdges(Junction const & junction, vector<pair<Edge, m2::P
     }
     else
     {
-      // The point is mapped in the middle of the feature:
+      Edge edgeToSplit = closestEdge;
+
+      vector<Edge> splittingToFakeEdges;
+      if (HasBeenSplitToFakes(closestEdge, splittingToFakeEdges))
+      {
+        // Edge AB has already been split by some point Q and this point P
+        // should split AB one more time
+        //            o M
+        //            ^
+        //            |
+        //            |
+        // A o<-------x--------------x------------->o B
+        //            P              Q
+
+        auto const itr = FindEdgeContainingPoint(splittingToFakeEdges, p.GetPoint());
+        CHECK(itr != splittingToFakeEdges.end(), ());
+
+        edgeToSplit = *itr;
+      }
+      else
+      {
+        // The point P is mapped in the middle of the feature AB
+
+        TEdgeVector & edgesA = m_outgoingEdges[edgeToSplit.GetStartJunction()];
+        if (edgesA.empty())
+          GetRegularOutgoingEdges(edgeToSplit.GetStartJunction(), edgesA);
+
+        TEdgeVector & edgesB = m_outgoingEdges[edgeToSplit.GetEndJunction()];
+        if (edgesB.empty())
+          GetRegularOutgoingEdges(edgeToSplit.GetEndJunction(), edgesB);
+      }
+
       //            o M
       //            ^
       //            |
       //            |
-      // A o<-------x------->o B  (the feature is A->B)
+      // A o<-------x------->o B
       //            P
-      // Here AB is a feature, M is a junction and P is a projection of M on AB,
-      // Edge AB has been splitted to two fake edges AP and PB (similarly BA edge has been splitted to two
+      // Here AB is the edge to split, M is a junction and P is the projection of M on AB,
+
+      // Edge AB is split into two fake edges AP and PB (similarly BA edge has been split into two
       // fake edges BP and PA). In the result graph edges AB and BA are redundant, therefore edges AB and BA are
       // replaced by fake edges AP + PB and BP + PA.
 
-      Edge const pa(closestEdge.GetFeatureId(), false, closestEdge.GetSegId(), p, closestEdge.GetStartJunction());
-      Edge const pb(closestEdge.GetFeatureId(), true, closestEdge.GetSegId(), p, closestEdge.GetEndJunction());
+      Edge const ab = edgeToSplit;
+
+      Edge const pa(ab.GetFeatureId(), false /* forward */, ab.GetSegId(), p, ab.GetStartJunction());
+      Edge const pb(ab.GetFeatureId(), true /* forward */, ab.GetSegId(), p, ab.GetEndJunction());
       Edge const pm = Edge::MakeFake(p, junction);
 
       // Add outgoing edges to point P.
@@ -323,30 +390,19 @@ void IRoadGraph::AddFakeEdges(Junction const & junction, vector<pair<Edge, m2::P
       // Add outgoing edges for point M.
       m_outgoingEdges[junction].push_back(pm.GetReverseEdge());
 
-      // Add outgoing edges for point A. AB edge will be replaced by AP edge.
+      // Replace AB edge with AP edge.
       TEdgeVector & edgesA = m_outgoingEdges[pa.GetEndJunction()];
-      GetRegularOutgoingEdges(pa.GetEndJunction(), edgesA);
       Edge const ap = pa.GetReverseEdge();
       edgesA.erase(remove_if(edgesA.begin(), edgesA.end(), [&](Edge const & e) { return e.SameRoadSegmentAndDirection(ap); }), edgesA.end());
       edgesA.push_back(ap);
 
-      // Add outgoing edges for point B. BA edge will be replaced by BP edge.
+      // Replace BA edge with BP edge.
       TEdgeVector & edgesB = m_outgoingEdges[pb.GetEndJunction()];
-      GetRegularOutgoingEdges(pb.GetEndJunction(), edgesB);
       Edge const bp = pb.GetReverseEdge();
       edgesB.erase(remove_if(edgesB.begin(), edgesB.end(), [&](Edge const & e) { return e.SameRoadSegmentAndDirection(bp); }), edgesB.end());
       edgesB.push_back(bp);
     }
   }
-
-  /// @todo There's case here when Start and Finish points are projected to the same segment of the feature.
-  /// Then, feature can be split into 3 pieces.
-  //            o M            o N
-  //            ^              ^
-  //            | fe           |
-  //            |              |
-  // A o<-------x--------------x------------->o B
-  // Here AB is feature, M and N are junction, which is projected to A or to B.
 
   // m_outgoingEdges may contain duplicates. Remove them.
   for (auto & m : m_outgoingEdges)
@@ -355,6 +411,43 @@ void IRoadGraph::AddFakeEdges(Junction const & junction, vector<pair<Edge, m2::P
     sort(edges.begin(), edges.end());
     edges.erase(unique(edges.begin(), edges.end()), edges.end());
   }
+}
+
+bool IRoadGraph::HasBeenSplitToFakes(Edge const & edge, vector<Edge> & fakeEdges) const
+{
+  vector<Edge> tmp;
+
+  if (m_outgoingEdges.find(edge.GetStartJunction()) == m_outgoingEdges.end() ||
+      m_outgoingEdges.find(edge.GetEndJunction()) == m_outgoingEdges.end())
+    return false;
+
+  auto i = m_outgoingEdges.end();
+  Junction junction = edge.GetStartJunction();
+  while (m_outgoingEdges.end() != (i = m_outgoingEdges.find(junction)))
+  {
+    auto const & edges = i->second;
+
+    auto const j = find_if(edges.begin(), edges.end(), [&edge](Edge const & e) { return e.SameRoadSegmentAndDirection(edge); });
+    if (j == edges.end())
+    {
+      ASSERT(fakeEdges.empty(), ());
+      return false;
+    }
+
+    tmp.push_back(*j);
+
+    junction = j->GetEndJunction();
+    if (junction == edge.GetEndJunction())
+      break;
+  }
+  if (i == m_outgoingEdges.end())
+    return false;
+
+  if (tmp.empty())
+    return false;
+
+  fakeEdges.swap(tmp);
+  return true;
 }
 
 // RoadGraph -------------------------------------------------------------------

@@ -132,7 +132,7 @@ public:
   /// Removes all fake turns and vertices from the graph.
   void ResetFakes();
 
-  /// Adds fake turns from fake position rp to real vicinity
+  /// Adds fake edges from fake position rp to real vicinity
   /// positions.
   void AddFakeEdges(Junction const & junction, vector<pair<Edge, m2::PointD>> const & vicinities);
 
@@ -152,6 +152,9 @@ public:
 private:
   /// Finds all outgoing regular (non-fake) edges for junction.
   void GetRegularOutgoingEdges(Junction const & junction, TEdgeVector & edges);
+
+  /// Determines if the edge has been split by fake edges and if yes returns these fake edges.
+  bool HasBeenSplitToFakes(Edge const & edge, vector<Edge> & fakeEdges) const;
 
   // Map of outgoing edges for junction
   map<Junction, TEdgeVector> m_outgoingEdges;
