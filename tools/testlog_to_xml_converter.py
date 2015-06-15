@@ -20,6 +20,7 @@ class TestInfo:
 
 
     def __init__(self):
+        self.obj_is_valid = False
         self.test_name = None
         self.test_comment = None
         self.test_result = None
