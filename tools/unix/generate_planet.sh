@@ -233,10 +233,8 @@ if [ "$MODE" == "coast" ]; then
       log "TIMEMARK" "Generate coastlines"
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
         --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$GENERATOR_LOG"
-      EXIT_CODE=$?
-      [ -n "$EXIT_ON_ERROR" ] && set -e
 
-      if [ $EXIT_CODE != 0 ]; then
+      if [ $? != 0 ]; then
         log "TIMEMARK" "Coastline merge failed"
         if [ -n "$OPT_UPDATE" ]; then
           date -u
@@ -247,6 +245,7 @@ if [ "$MODE" == "coast" ]; then
           fail
         fi
       fi
+      [ -n "$EXIT_ON_ERROR" ] && set -e
     fi
   done
   # make a working copy of generated coastlines file
@@ -289,6 +288,8 @@ fi
 
 if [ "$MODE" == "features" ]; then
   putmode "Step 4: Generating features of everything into $TARGET"
+  # Checking for coastlines, can't build proper mwms without them
+  [ ! -s "$INTDIR/WorldCoasts.mwm.tmp" ] && fail "Please prepare coastlines"
   # 2nd pass - paralleled in the code
   PARAMS_SPLIT="-split_by_polygons -generate_features"
   [ -n "$OPT_WORLD" ] && PARAMS_SPLIT="$PARAMS_SPLIT -generate_world -emit_coasts"
@@ -360,20 +361,27 @@ if [ "$MODE" == "resources" ]; then
 
   if [ -n "$OPT_WORLD" ]; then
     # Update external resources
+    [ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
     [ -z "$(ls "$TARGET" | grep \.ttf)" ] && cp "$DATA_PATH"/*.ttf "$TARGET"
     EXT_RES="$TARGET/external_resources.txt"
     echo -n > "$EXT_RES"
+    UNAME="$(uname)"
     for file in "$TARGET"/World*.mwm "$TARGET"/*.ttf; do
       if [[ "$file" != *roboto* ]]; then
-        # This line works only on Linux. OSX equivalent: stat -f "%N %z"
-        stat -c "%n %s" "$file" | sed 's#^.*/##' >> "$EXT_RES"
+        if [ "$UNAME" == "Darwin" ]; then
+          stat -f "%N %z" "$file" | sed 's#^.*/##' >> "$EXT_RES"
+        else
+          stat -c "%n %s" "$file" | sed 's#^.*/##' >> "$EXT_RES"
+        fi
       fi
     done
     chmod 0666 "$EXT_RES"
+    [ -n "$EXIT_ON_ERROR" ] && set -e
   fi
 fi
 
 # Cleaning up temporary directories
 rm "$STATUS_FILE" "$OSRM_FLAG"
+[ -n "$KEEP_INTDIR" ] && rm "$TARGET"/*.mwm.osm2ft
 [ -n "$KEEP_INTDIR" ] && rm -r "$INTDIR"
 log "STATUS" "Done"
