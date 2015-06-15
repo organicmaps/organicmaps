@@ -9,7 +9,6 @@
 #include "drape/glstate.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/texture_manager.hpp"
-#include "drape/utils/vertex_decl.hpp"
 
 #include "base/logging.hpp"
 
@@ -18,9 +17,6 @@ namespace df
 
 namespace
 {
-  using RV = gpu::RouteVertex;
-  using TGeometryBuffer = buffer_vector<gpu::RouteVertex, 128>;
-
   float const LEFT_SIDE = 1.0;
   float const CENTER = 0.0;
   float const RIGHT_SIDE = -1.0;
@@ -34,6 +30,7 @@ namespace
 RouteShape::RouteShape(m2::PolylineD const & polyline, CommonViewParams const & params)
   : m_params(params)
   , m_polyline(polyline)
+  , m_length(0)
 {}
 
 m2::RectF RouteShape::GetArrowTextureRect(ref_ptr<dp::TextureManager> textures) const
@@ -43,20 +40,15 @@ m2::RectF RouteShape::GetArrowTextureRect(ref_ptr<dp::TextureManager> textures) 
   return region.GetTexRect();
 }
 
-void RouteShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
+void RouteShape::PrepareGeometry()
 {
-  TGeometryBuffer geometry;
-  TGeometryBuffer joinsGeometry;
   vector<m2::PointD> const & path = m_polyline.GetPoints();
   ASSERT(path.size() > 1, ());
-
-  dp::TextureManager::SymbolRegion region;
-  GetArrowTextureRegion(textures, region);
 
   auto const generateTriangles = [&](glsl::vec3 const & pivot, vector<glsl::vec2> const & normals,
                                      glsl::vec2 const & length, bool isLeft)
   {
-    const float eps = 1e-5;
+    float const eps = 1e-5;
     size_t const trianglesCount = normals.size() / 3;
     float const side = isLeft ? LEFT_SIDE : RIGHT_SIDE;
     for (int j = 0; j < trianglesCount; j++)
@@ -65,9 +57,9 @@ void RouteShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> 
       glsl::vec3 const len2 = glsl::vec3(length.x, length.y, glsl::length(normals[3 * j + 1]) < eps ? CENTER : side);
       glsl::vec3 const len3 = glsl::vec3(length.x, length.y, glsl::length(normals[3 * j + 2]) < eps ? CENTER : side);
 
-      joinsGeometry.push_back(RV(pivot, normals[3 * j], len1));
-      joinsGeometry.push_back(RV(pivot, normals[3 * j + 1], len2));
-      joinsGeometry.push_back(RV(pivot, normals[3 * j + 2], len3));
+      m_joinsGeometry.push_back(RV(pivot, normals[3 * j], len1));
+      m_joinsGeometry.push_back(RV(pivot, normals[3 * j + 1], len2));
+      m_joinsGeometry.push_back(RV(pivot, normals[3 * j + 2], len3));
     }
   };
 
@@ -99,15 +91,15 @@ void RouteShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> 
     float const projRightStart = -segments[i].m_rightWidthScalar[StartPoint].y;
     float const projRightEnd = segments[i].m_rightWidthScalar[EndPoint].y;
 
-    geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec3(length, 0, CENTER)));
-    geometry.push_back(RV(startPivot, leftNormalStart, glsl::vec3(length, projLeftStart, LEFT_SIDE)));
-    geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec3(endLength, 0, CENTER)));
-    geometry.push_back(RV(endPivot, leftNormalEnd, glsl::vec3(endLength, projLeftEnd, LEFT_SIDE)));
+    m_geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec3(length, 0, CENTER)));
+    m_geometry.push_back(RV(startPivot, leftNormalStart, glsl::vec3(length, projLeftStart, LEFT_SIDE)));
+    m_geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec3(endLength, 0, CENTER)));
+    m_geometry.push_back(RV(endPivot, leftNormalEnd, glsl::vec3(endLength, projLeftEnd, LEFT_SIDE)));
 
-    geometry.push_back(RV(startPivot, rightNormalStart, glsl::vec3(length, projRightStart, RIGHT_SIDE)));
-    geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec3(length, 0, CENTER)));
-    geometry.push_back(RV(endPivot, rightNormalEnd, glsl::vec3(endLength, projRightEnd, RIGHT_SIDE)));
-    geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec3(endLength, 0, CENTER)));
+    m_geometry.push_back(RV(startPivot, rightNormalStart, glsl::vec3(length, projRightStart, RIGHT_SIDE)));
+    m_geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec3(length, 0, CENTER)));
+    m_geometry.push_back(RV(endPivot, rightNormalEnd, glsl::vec3(endLength, projRightEnd, RIGHT_SIDE)));
+    m_geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec3(endLength, 0, CENTER)));
 
     // generate joins
     if (i < segments.size() - 1)
@@ -156,16 +148,49 @@ void RouteShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> 
     length = endLength;
   }
 
+  m_length = length;
+
+  // calculate joins bounds
+  float const eps = 1e-5;
+  double len = 0;
+  for (size_t i = 0; i < segments.size() - 1; i++)
+  {
+    len += glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
+
+    RouteJoinBounds bounds;
+    bounds.m_start = min(segments[i].m_leftWidthScalar[EndPoint].y,
+                         segments[i].m_rightWidthScalar[EndPoint].y);
+    bounds.m_end = max(-segments[i + 1].m_leftWidthScalar[StartPoint].y,
+                       -segments[i + 1].m_rightWidthScalar[StartPoint].y);
+
+    if (fabs(bounds.m_end - bounds.m_start) < eps)
+      continue;
+
+    bounds.m_offset = len;
+    m_joinsBounds.push_back(bounds);
+  }
+}
+
+void RouteShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures)
+{
+  ASSERT(!m_geometry.empty(), ());
+
+  dp::TextureManager::SymbolRegion region;
+  GetArrowTextureRegion(textures, region);
+
   dp::GLState state(gpu::ROUTE_PROGRAM, dp::GLState::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
 
-  dp::AttributeProvider provider(1, geometry.size());
-  provider.InitStream(0, gpu::RouteVertex::GetBindingInfo(), make_ref(geometry.data()));
+  dp::AttributeProvider provider(1, m_geometry.size());
+  provider.InitStream(0, gpu::RouteVertex::GetBindingInfo(), make_ref(m_geometry.data()));
   batcher->InsertListOfStrip(state, make_ref(&provider), 4);
 
-  dp::AttributeProvider joinsProvider(1, joinsGeometry.size());
-  joinsProvider.InitStream(0, gpu::RouteVertex::GetBindingInfo(), make_ref(joinsGeometry.data()));
-  batcher->InsertTriangleList(state, make_ref(&joinsProvider));
+  if (!m_joinsGeometry.empty())
+  {
+    dp::AttributeProvider joinsProvider(1, m_joinsGeometry.size());
+    joinsProvider.InitStream(0, gpu::RouteVertex::GetBindingInfo(), make_ref(m_joinsGeometry.data()));
+    batcher->InsertTriangleList(state, make_ref(&joinsProvider));
+  }
 }
 
 } // namespace df

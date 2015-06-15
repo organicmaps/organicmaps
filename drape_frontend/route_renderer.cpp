@@ -25,8 +25,57 @@ float const halfWidthInPixel[] =
 int const arrowPartsCount = 3;
 double const arrowHeightFactor = 96.0 / 36.0;
 double const arrowAspect = 400.0 / 192.0;
-double const arrowTailSize = 32.0 / 400.0;
-double const arrowHeadSize = 144.0 / 400.0;
+double const arrowTailSize = 20.0 / 400.0;
+double const arrowHeadSize = 124.0 / 400.0;
+
+struct RouteSegment
+{
+  double m_start = 0;
+  double m_end = 0;
+  bool m_isAvailable = false;
+
+  RouteSegment(double start, double end, bool isAvailable)
+    : m_start(start)
+    , m_end(end)
+    , m_isAvailable(isAvailable)
+  {}
+};
+
+int FindNearestAvailableSegment(bool isTail, double start, double end, vector<RouteSegment> const & segments)
+{
+  // check if distance is inside unavailable segment
+  int startIndex = -1;
+  int endIndex = -1;
+  for (size_t i = 0; i < segments.size(); i++)
+  {
+    if (!segments[i].m_isAvailable && start >= segments[i].m_start && start <= segments[i].m_end)
+      startIndex = i;
+
+    if (!segments[i].m_isAvailable && end >= segments[i].m_start && end <= segments[i].m_end)
+      endIndex = i;
+  }
+
+  // find nearest available segment if necessary
+  int index = max(startIndex, endIndex);
+  if (index != -1)
+  {
+    double const len = end - start;
+    if (isTail)
+    {
+      for (int i = index; i >= 0; i--)
+        if (segments[i].m_isAvailable && len <= (segments[i].m_end - segments[i].m_start))
+          return (int)i;
+    }
+    else
+    {
+      for (int i = index; i < (int)segments.size(); i++)
+        if (segments[i].m_isAvailable && len <= (segments[i].m_end - segments[i].m_start))
+          return (int)i;
+    }
+  }
+
+  return -1;
+}
 
 }
 
@@ -73,18 +122,23 @@ void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
 
     graphics.m_buffer->Render();
 
-    // TEST
+    // arrows rendering
     double arrowHalfWidth = halfWidth * arrowHeightFactor;
     uniformStorage.SetFloatValue("u_halfWidth", arrowHalfWidth, arrowHalfWidth * screen.GetScale());
-    uniformStorage.SetFloatValue("u_textureRect", m_arrowTextureRect.minX(), m_arrowTextureRect.minY(),
-                                 m_arrowTextureRect.maxX(), m_arrowTextureRect.maxY());
+    uniformStorage.SetFloatValue("u_textureRect", m_routeData.m_arrowTextureRect.minX(),
+                                 m_routeData.m_arrowTextureRect.minY(),
+                                 m_routeData.m_arrowTextureRect.maxX(),
+                                 m_routeData.m_arrowTextureRect.maxY());
 
-
-
-    m_turnPoints = { 0.0091, 0.0102 };
-    float const textureWidth = 2.0 * arrowHalfWidth * arrowAspect;
+    m_turnPoints = { 0.0091, 0.0109 };
+    double const textureWidth = 2.0 * arrowHalfWidth * arrowAspect;
     vector<ArrowBorders> arrowBorders;
-    CalculateArrowBorders(0.001, screen.GetScale(), textureWidth, arrowBorders);
+    CalculateArrowBorders(0.001, screen.GetScale(), textureWidth, arrowHalfWidth * screen.GetScale(), arrowBorders);
+
+    ref_ptr<dp::GpuProgram> prgArrow = mng->GetProgram(gpu::ROUTE_ARROW_PROGRAM);
+    prgArrow->Bind();
+    dp::ApplyState(graphics.m_state, prgArrow);
+    dp::ApplyUniforms(commonUniforms, prgArrow);
 
     size_t const elementsCount = 16;
     vector<float> borders(elementsCount, 0.0);
@@ -111,10 +165,6 @@ void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
         index = 0;
         uniformStorage.SetMatrix4x4Value("u_arrowBorders", borders.data());
 
-        ref_ptr<dp::GpuProgram> prgArrow = mng->GetProgram(gpu::ROUTE_ARROW_PROGRAM);
-        prgArrow->Bind();
-        dp::ApplyState(graphics.m_state, prgArrow);
-        dp::ApplyUniforms(commonUniforms, prgArrow);
         dp::ApplyUniforms(uniformStorage, prgArrow);
         graphics.m_buffer->Render();
       }
@@ -123,18 +173,17 @@ void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
 }
 
 void RouteRenderer::AddRouteRenderBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
-                                         dp::Color const & color,  m2::RectF const & arrowTextureRect,
-                                         ref_ptr<dp::GpuProgramManager> mng)
+                                         RouteData const & routeData, ref_ptr<dp::GpuProgramManager> mng)
 {
+  m_routeData = routeData;
+
   m_routeGraphics.push_back(RouteGraphics());
   RouteGraphics & route = m_routeGraphics.back();
 
   route.m_state = state;
-  route.m_color = color;
+  route.m_color = m_routeData.m_color;
   route.m_buffer = bucket->MoveBuffer();
   route.m_buffer->Build(mng->GetProgram(route.m_state.GetProgramIndex()));
-
-  m_arrowTextureRect = arrowTextureRect;
 }
 
 void RouteRenderer::Clear()
@@ -147,25 +196,10 @@ void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)
   m_distanceFromBegin = distanceFromBegin;
 }
 
-void RouteRenderer::CalculateArrowBorders(double arrowLength, double scale,
-                                          float arrowTextureWidth, vector<ArrowBorders> & borders)
+void RouteRenderer::MergeAndClipBorders(vector<ArrowBorders> & borders, double scale, double arrowTextureWidth)
 {
-  if (m_turnPoints.empty())
+  if (borders.empty())
     return;
-
-  double const halfLen = 0.5 * arrowLength;
-
-  borders.reserve(m_turnPoints.size() * arrowPartsCount);
-
-  // initial filling
-  for (size_t i = 0; i < m_turnPoints.size(); i++)
-  {
-    ArrowBorders arrowBorders;
-    arrowBorders.m_groupIndex = (int)i;
-    arrowBorders.m_startDistance = m_turnPoints[i] - halfLen;
-    arrowBorders.m_endDistance = m_turnPoints[i] + halfLen;
-    borders.push_back(arrowBorders);
-  }
 
   // mark groups
   for (size_t i = 0; i < borders.size() - 1; i++)
@@ -203,22 +237,99 @@ void RouteRenderer::CalculateArrowBorders(double arrowLength, double scale,
       return distanceInPixels < (arrowHeadSize + arrowTailSize) * arrowTextureWidth;
   });
   borders.erase(iter, borders.end());
+}
+
+void RouteRenderer::ApplyJoinsBounds(double arrowTextureWidth, double joinsBoundsScalar, double glbTailLength,
+                                     double glbHeadLength, double scale, vector<ArrowBorders> & borders)
+{
+  vector<RouteSegment> segments;
+  segments.reserve(2 * m_routeData.m_joinsBounds.size() + 1);
+
+  // construct route's segments
+  segments.emplace_back(0.0, 0.0, true /* m_isAvailable */);
+  for (size_t i = 0; i < m_routeData.m_joinsBounds.size(); i++)
+  {
+    double const start = m_routeData.m_joinsBounds[i].m_offset +
+                         m_routeData.m_joinsBounds[i].m_start * joinsBoundsScalar;
+    double const end = m_routeData.m_joinsBounds[i].m_offset +
+                       m_routeData.m_joinsBounds[i].m_end * joinsBoundsScalar;
+
+    segments.back().m_end = start;
+    segments.emplace_back(start, end, false /* m_isAvailable */);
+
+    segments.emplace_back(end, 0.0, true /* m_isAvailable */);
+  }
+  segments.back().m_end = m_routeData.m_length;
+
+  // shift tail and head of arrow if necessary
+  bool needMerge = false;
+  for (size_t i = 0; i < borders.size(); i++)
+  {
+    int tailIndex = FindNearestAvailableSegment(true /* isTail */, borders[i].m_startDistance,
+                                                borders[i].m_startDistance + glbTailLength, segments);
+    if (tailIndex != -1)
+    {
+      borders[i].m_startDistance = segments[tailIndex].m_end - glbTailLength;
+      needMerge = true;
+    }
+
+    int headIndex = FindNearestAvailableSegment(false /* isTail */, borders[i].m_endDistance - glbHeadLength,
+                                                borders[i].m_endDistance, segments);
+    if (headIndex != -1)
+    {
+      borders[i].m_endDistance = segments[headIndex].m_start + glbHeadLength;
+      needMerge = true;
+    }
+  }
+
+  // merge intersected borders
+  if (needMerge)
+    MergeAndClipBorders(borders, scale, arrowTextureWidth);
+}
+
+void RouteRenderer::CalculateArrowBorders(double arrowLength, double scale, double arrowTextureWidth,
+                                          double joinsBoundsScalar, vector<ArrowBorders> & borders)
+{
+  if (m_turnPoints.empty())
+    return;
+
+  double const halfLen = 0.5 * arrowLength;
+  double const glbTextureWidth = arrowTextureWidth * scale;
+  double const glbTailLength = arrowTailSize * glbTextureWidth;
+  double const glbHeadLength = arrowHeadSize * glbTextureWidth;
+
+  borders.reserve(m_turnPoints.size() * arrowPartsCount);
+
+  // initial filling
+  for (size_t i = 0; i < m_turnPoints.size(); i++)
+  {
+    ArrowBorders arrowBorders;
+    arrowBorders.m_groupIndex = (int)i;
+    arrowBorders.m_startDistance = m_turnPoints[i] - halfLen;
+    arrowBorders.m_endDistance = m_turnPoints[i] + halfLen;
+    borders.push_back(arrowBorders);
+  }
+
+  // merge intersected borders and clip them
+  MergeAndClipBorders(borders, scale, arrowTextureWidth);
+
+  // apply joins bounds to prevent draw arrow's head and tail on a join
+  ApplyJoinsBounds(arrowTextureWidth, joinsBoundsScalar, glbTailLength,
+                   glbHeadLength, scale, borders);
 
   // divide to parts of arrow
   size_t const bordersSize = borders.size();
-
-  double const glbTextureWidth = arrowTextureWidth * scale;
   for (size_t i = 0; i < bordersSize; i++)
   {
     float const startDistance = borders[i].m_startDistance;
     float const endDistance = borders[i].m_endDistance;
 
-    borders[i].m_endDistance = startDistance + arrowTailSize * glbTextureWidth;
+    borders[i].m_endDistance = startDistance + glbTailLength;
     borders[i].m_startTexCoord = 0.0;
     borders[i].m_endTexCoord = arrowTailSize;
 
     ArrowBorders arrowHead;
-    arrowHead.m_startDistance = endDistance - arrowHeadSize * glbTextureWidth;
+    arrowHead.m_startDistance = endDistance - glbHeadLength;
     arrowHead.m_endDistance = endDistance;
     arrowHead.m_startTexCoord = 1.0 - arrowHeadSize;
     arrowHead.m_endTexCoord = 1.0;
@@ -230,20 +341,6 @@ void RouteRenderer::CalculateArrowBorders(double arrowLength, double scale,
     arrowBody.m_startTexCoord = borders[i].m_endTexCoord;
     arrowBody.m_endTexCoord = arrowHead.m_startTexCoord;
     borders.push_back(arrowBody);
-
-    /*for (int j = 1; j <= arrowPartsCount; j++)
-    {
-      ArrowBorders arrowBorders;
-      arrowBorders.m_startDistance = startDistance + arrowTextureParts[j - 1] * len;
-      arrowBorders.m_endDistance = startDistance + arrowTextureParts[j] * len;
-      arrowBorders.m_startTexCoord = arrowTextureParts[j - 1];
-      arrowBorders.m_endTexCoord = arrowTextureParts[j];
-
-      if (j == 1)
-        borders[i] = arrowBorders;
-      else
-        borders.push_back(arrowBorders);
-    }*/
   }
 }
 

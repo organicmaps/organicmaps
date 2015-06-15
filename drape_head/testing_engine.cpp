@@ -525,7 +525,9 @@ void TestingEngine::DrawImpl()
 
     CommonViewParams rvp;
     rvp.m_depth = 95.0f;
-    RouteShape(pln, rvp).Draw(make_ref(m_batcher), make_ref(m_textures));
+    RouteShape shape(pln, rvp);
+    shape.PrepareGeometry();
+    shape.Draw(make_ref(m_batcher), make_ref(m_textures));
   }
 
   {

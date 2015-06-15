@@ -19,11 +19,18 @@ void RouteBuilder::Build(m2::PolylineD const & routePolyline, dp::Color const & 
 
   RouteShape shape(routePolyline, params);
   m2::RectF textureRect = shape.GetArrowTextureRect(textures);
+  shape.PrepareGeometry();
 
-  auto flushRoute = [this, &color, &textureRect](dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket)
+  RouteData routeData;
+  routeData.m_color = color;
+  routeData.m_arrowTextureRect = textureRect;
+  routeData.m_joinsBounds = shape.GetJoinsBounds();
+  routeData.m_length = shape.GetLength();
+
+  auto flushRoute = [this, &routeData](dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket)
   {
     if (m_flushRouteFn != nullptr)
-      m_flushRouteFn(state, move(bucket), color, textureRect);
+      m_flushRouteFn(state, move(bucket), routeData);
   };
 
   m_batcher->StartSession(flushRoute);

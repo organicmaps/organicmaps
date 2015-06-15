@@ -4,6 +4,7 @@
 #include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/gui/skin.hpp"
 
+#include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/message.hpp"
@@ -530,25 +531,22 @@ class FlushRouteMessage : public Message
 {
 public:
   FlushRouteMessage(dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer,
-                    dp::Color const & color, m2::RectF const & arrowTextureRect)
+                    RouteData const & routeData)
     : m_state(state)
     , m_buffer(move(buffer))
-    , m_color(color)
-    , m_arrowTextureRect(arrowTextureRect)
+    , m_routeData(routeData)
   {}
 
   Type GetType() const override { return Message::FlushRoute; }
 
   dp::GLState const & GetState() const { return m_state; }
   drape_ptr<dp::RenderBucket> && AcceptBuffer() { return move(m_buffer); }
-  dp::Color const & GetColor() const { return m_color; }
-  m2::RectF const & GetArrowTextureRect() const { return m_arrowTextureRect; }
+  RouteData const & GetRouteData() const { return m_routeData; }
 
 private:
   dp::GLState m_state;
   drape_ptr<dp::RenderBucket> m_buffer;
-  dp::Color m_color;
-  m2::RectF m_arrowTextureRect;
+  RouteData m_routeData;
 };
 
 

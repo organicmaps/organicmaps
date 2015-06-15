@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape_frontend/route_builder.hpp"
+
 #include "drape/batcher.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/glstate.hpp"
@@ -41,20 +43,23 @@ public:
               dp::UniformValuesStorage const & commonUniforms);
 
   void AddRouteRenderBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
-                            dp::Color const & color, m2::RectF const & arrowTextureRect,
-                            ref_ptr<dp::GpuProgramManager> mng);
+                            RouteData const & routeData, ref_ptr<dp::GpuProgramManager> mng);
 
   void Clear();
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
 
 private:
-  void CalculateArrowBorders(double arrowLength, double scale,
-                             float arrowTextureWidth, vector<ArrowBorders> & borders);
+  void CalculateArrowBorders(double arrowLength, double scale, double arrowTextureWidth,
+                             double joinsBoundsScalar, vector<ArrowBorders> & borders);
+  void MergeAndClipBorders(vector<ArrowBorders> & borders, double scale, double arrowTextureWidth);
+
+  void ApplyJoinsBounds(double arrowTextureWidth, double joinsBoundsScalar, double glbTailLength,
+                        double glbHeadLength, double scale, vector<ArrowBorders> & borders);
 
   vector<RouteGraphics> m_routeGraphics;
   double m_distanceFromBegin;
-  m2::RectF m_arrowTextureRect;
+  RouteData m_routeData;
   vector<double> m_turnPoints;
 };
 

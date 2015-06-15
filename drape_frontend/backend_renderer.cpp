@@ -36,10 +36,10 @@ BackendRenderer::BackendRenderer(Params const & params)
   });
 
   m_routeBuilder = make_unique_dp<RouteBuilder>([this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
-                                                dp::Color const & color, m2::RectF const & arrowTextureRect)
+                                                RouteData const & routeData)
   {
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<FlushRouteMessage>(state, move(bucket), color, arrowTextureRect),
+                              make_unique_dp<FlushRouteMessage>(state, move(bucket), routeData),
                               MessagePriority::Normal);
   });
 
