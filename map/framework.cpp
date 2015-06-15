@@ -512,7 +512,8 @@ void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
 
 void Framework::RegisterAllMaps()
 {
-  ASSERT(!Storage().IsDownloadInProgress(), ());
+  ASSERT(!Storage().IsDownloadInProgress(),
+         ("Registering maps while map downloading leads to removing downloading maps from ActiveMapsListener::m_items."));
   //ASSERT(m_model.IsEmpty(), ());
 
   int minVersion = numeric_limits<int>::max();
