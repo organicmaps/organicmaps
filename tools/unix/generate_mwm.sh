@@ -108,7 +108,7 @@ elif [ "$MODE" == "routing" ]; then
   fi
   "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF" || fail
   rm "$PBF"
-  "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM" || fail
+  "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM" -r "$OSRM.restrictions" || fail
   "$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM" || fail
   if [ -n "${BORDERS_PATH-}" -a ! -d "$TARGET/borders" ]; then
     [ ! -e "$BORDERS_PATH/$BASE_NAME.poly" ] && fail "You should have a polygon for processed file: $BORDERS_PATH/$BASE_NAME.poly"
