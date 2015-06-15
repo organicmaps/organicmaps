@@ -698,4 +698,6 @@
 	<string name="get_the_map">احصل على الخريطة</string>
 	<string name="save">حفظ</string>
 	<string name="edit_description_hint">أوصافك (نصّ أو html)</string>
+	<string name="new_group">مجموعة جديدة</string>
+	<string name="create">إنشاء</string>
 </resources>

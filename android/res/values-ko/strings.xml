@@ -682,4 +682,6 @@
 	<string name="get_the_map">지도 가져오기</string>
 	<string name="save">저장</string>
 	<string name="edit_description_hint">설명(텍스트 또는 HTML)</string>
+	<string name="new_group">새 그룹</string>
+	<string name="create">만들기기</string>
 </resources>

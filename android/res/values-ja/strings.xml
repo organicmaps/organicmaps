@@ -691,4 +691,6 @@
 	<string name="get_the_map">地図を入手</string>
 	<string name="save">保存</string>
 	<string name="edit_description_hint">説明（テキストまたはHTML）</string>
+	<string name="new_group">新規グループ</string>
+	<string name="create">作成</string>
 </resources>

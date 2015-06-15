@@ -685,4 +685,6 @@
 	<string name="get_the_map">Obtén el mapa</string>
 	<string name="save">guardar</string>
 	<string name="edit_description_hint">Tus descripciones (texto o html)</string>
+	<string name="new_group">nuevo grupo</string>
+	<string name="create">crear</string>
 </resources>

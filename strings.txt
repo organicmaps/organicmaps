@@ -10200,6 +10200,7 @@
     sv = spara
     sk = uložiť
     pt = salvar
+    ro = Salvare
     pl = zapisz
     ko = 저장
     in = simpan
@@ -10216,6 +10217,7 @@
     zh-Hans = 保存
     zh-Hant = 保存
     it = salva
+    no = lagre
 
   [edit_description_hint]
     tags = android, ios
@@ -10245,3 +10247,67 @@
     zh-Hant = 您的描述（文本或html）
     it = Le tue descrizioni (formato testo o html)
     no = Dine beskrivelser (tekst eller html)
+
+  [new_group]
+    tags = android, ios
+    en = new group
+    ru = новая группа
+    uk = нова група
+    vi = nhóm mới
+    tr = yeni grup
+    th = กลุ่มใหม่
+    es = nuevo grupo
+    sv = ny grupp
+    sk = nová skupina
+    pt = novo grupo
+    ro = grup nou
+    pl = nowa grupa
+    ko = 새 그룹
+    in = grup baru
+    ja = 新規グループ
+    hu = új csoport
+    el = νέα ομάδα
+    ar = مجموعة جديدة
+    de = Neue Gruppe
+    fr = nouveau groupe
+    nl = nieuwe groep
+    fi = uusi ryhmä
+    da = ny gruppe
+    cs = Nová skupina
+    zh-Hans = 新组
+    zh-Hant = 新組
+    it = nuovo gruppo
+    no = ny gruppe
+
+  [create]
+    tags = android, ios
+    en = create
+    ru = создать
+    uk = створити
+    vi = tạo
+    tr = oluştur
+    th = สร้าง
+    es = crear
+    sv = skapa
+    sk = vytvoriť
+    pt = criar
+    ro = creează
+    pl = utwórz
+    ko = 만들기기
+    in = buat
+    ja = 作成
+    hu = létrehoz
+    el = δημιουργήστε
+    ar = إنشاء
+    de = erstellen
+    fr = créer
+    nl = aanmaken
+    fi = luo
+    da = skabe
+    cs = vytvořit
+    zh-Hans = 创建
+    zh-Hant = 創建
+    it = crea
+
+
+

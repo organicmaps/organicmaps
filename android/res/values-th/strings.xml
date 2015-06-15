@@ -696,4 +696,6 @@
 	<string name="get_the_map">รับแผนที่</string>
 	<string name="save">บันทึก</string>
 	<string name="edit_description_hint">คำอธิบายของคุณ (ข้อความหรือ html)</string>
+	<string name="new_group">กลุ่มใหม่</string>
+	<string name="create">สร้าง</string>
 </resources>

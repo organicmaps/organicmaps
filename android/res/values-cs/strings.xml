@@ -701,4 +701,6 @@
 	<string name="get_the_map">Získejte mapu</string>
 	<string name="save">uložit</string>
 	<string name="edit_description_hint">Váš popis (HTML nebo text)</string>
+	<string name="new_group">Nová skupina</string>
+	<string name="create">vytvořit</string>
 </resources>

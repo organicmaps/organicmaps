@@ -1078,3 +1078,7 @@
 "save" = "保存";
 
 "edit_description_hint" = "説明（テキストまたはHTML）";
+
+"new_group" = "新規グループ";
+
+"create" = "作成";

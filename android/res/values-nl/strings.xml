@@ -684,4 +684,6 @@
 	<string name="get_the_map">Krijg kaart</string>
 	<string name="save">opslaan</string>
 	<string name="edit_description_hint">Uw omschrijvingen (tekst of html)</string>
+	<string name="new_group">nieuwe groep</string>
+	<string name="create">aanmaken</string>
 </resources>

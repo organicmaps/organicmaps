@@ -1078,3 +1078,7 @@
 "save" = "guardar";
 
 "edit_description_hint" = "Tus descripciones (texto o html)";
+
+"new_group" = "nuevo grupo";
+
+"create" = "crear";

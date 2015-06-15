@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ListView;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -56,7 +57,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmListFragment implemen
   private void showCreateCategoryDialog()
   {
     final Bundle args = new Bundle();
-    args.putString(EditTextDialogFragment.EXTRA_TITLE, "New group");
+    args.putString(EditTextDialogFragment.EXTRA_TITLE, getString(R.string.new_group));
     final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(getActivity(), EditTextDialogFragment.class.getName());
     fragment.setOnTextSaveListener(this);
     fragment.setArguments(args);

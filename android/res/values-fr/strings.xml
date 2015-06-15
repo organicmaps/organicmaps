@@ -705,4 +705,6 @@
 	<string name="get_the_map">Téléchargez des cartes</string>
 	<string name="save">sauvegarder</string>
 	<string name="edit_description_hint">Vos descriptions (version texte ou html)</string>
+	<string name="new_group">nouveau groupe</string>
+	<string name="create">créer</string>
 </resources>

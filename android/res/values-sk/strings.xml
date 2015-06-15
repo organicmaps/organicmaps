@@ -697,4 +697,6 @@
 	<string name="get_the_map">Stiahnuť mapu</string>
 	<string name="save">uložiť</string>
 	<string name="edit_description_hint">Váš popis (text alebo html)</string>
+	<string name="new_group">nová skupina</string>
+	<string name="create">vytvoriť</string>
 </resources>
