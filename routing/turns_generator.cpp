@@ -508,17 +508,15 @@ vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingM
   return lanes;
 }
 
-double CalculateMercatorDistanceAlongRoute(uint32_t startPoint, uint32_t endPoint, vector<m2::PointD> const & points)
+double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t endPointIndex,
+                                          vector<m2::PointD> const & points)
 {
-  ASSERT_LESS_OR_EQUAL(endPoint, points.size(), ());
-  ASSERT_LESS_OR_EQUAL(startPoint, endPoint, ());
-
-  if (startPoint == endPoint)
-    return 0.;
+  ASSERT_LESS(endPointIndex, points.size(), ());
+  ASSERT_LESS_OR_EQUAL(startPointIndex, endPointIndex, ());
 
   double mercatorDistanceBetweenTurns = 0;
-  for (uint32_t i = startPoint + 1; i != endPoint; ++i)
-    mercatorDistanceBetweenTurns += points[i - 1].Length(points[i]);
+  for (uint32_t i = startPointIndex; i != endPointIndex; ++i)
+    mercatorDistanceBetweenTurns += points[i].Length(points[i + 1]);
 
   return mercatorDistanceBetweenTurns;
 }
@@ -538,30 +536,28 @@ void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TTurns cons
   double mercatorDistance = 0;
 
   auto const turnsDirEnd = turnsDir.end();
-  for (auto i = turnsDir.begin(); i != turnsDirEnd; ++i)
+  for (auto currentTurn = turnsDir.begin(); currentTurn != turnsDirEnd; ++currentTurn)
   {
-    TurnItem const & currentTurn = *i;
-    ASSERT_LESS(currentTurn.m_index, kNumPoints, ());
+    ASSERT_LESS(currentTurn->m_index, kNumPoints, ());
 
     uint32_t formerTurnIndex = 0;
-    if (i != turnsDir.begin())
-      formerTurnIndex = (i - 1)->m_index;
+    if (currentTurn != turnsDir.begin())
+      formerTurnIndex = (currentTurn - 1)->m_index;
 
     double const mercatorDistanceBetweenTurns =
-        CalculateMercatorDistanceAlongRoute(formerTurnIndex,  currentTurn.m_index, points);
+        CalculateMercatorDistanceAlongPath(formerTurnIndex,  currentTurn->m_index, points);
     mercatorDistance += mercatorDistanceBetweenTurns;
 
-    if (currentTurn.m_index == 0 || currentTurn.m_index == (kNumPoints - 1))
+    if (currentTurn->m_index == 0 || currentTurn->m_index == (kNumPoints - 1))
       continue;
 
-    uint32_t const fromIndex = (currentTurn.m_index <= kNumPointsBeforePivot) ?
-          0 : currentTurn.m_index - kNumPointsBeforePivot;
-    uint32_t const nextPossibleIndex = currentTurn.m_index + kNumPointsAfterPivot;
-    uint32_t const toIndex = (nextPossibleIndex >= kNumPoints) ? kNumPoints : nextPossibleIndex;
+    uint32_t const fromIndex = (currentTurn->m_index <= kNumPointsBeforePivot) ?
+          0 : currentTurn->m_index - kNumPointsBeforePivot;
+    uint32_t const nextPossibleIndex = currentTurn->m_index + kNumPointsAfterPivot;
+    uint32_t const toIndex = min(static_cast<uint32_t>(kNumPoints), nextPossibleIndex);
+    uint32_t const turnIndex = min(currentTurn->m_index, kNumPointsBeforePivot);
 
-    uint32_t const turnIndex = min(currentTurn.m_index, kNumPointsBeforePivot);
-
-    turnsGeom.emplace_back(currentTurn.m_index, turnIndex, mercatorDistance, points.begin() + fromIndex,
+    turnsGeom.emplace_back(currentTurn->m_index, turnIndex, mercatorDistance, points.begin() + fromIndex,
                            points.begin() + toIndex);
   }
   return;

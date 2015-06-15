@@ -522,6 +522,13 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
       }
     }
     Points.insert(Points.end(), mwmPoints.begin(), mwmPoints.end());
+
+    if (!TurnsGeom.empty())
+    {
+      double const mercatorLength = TurnsGeom.back().m_mercatorDistance;
+      for (auto & turnGeom : mwmTurnsGeom)
+        turnGeom.m_mercatorDistance += mercatorLength;
+    }
     TurnsGeom.insert(TurnsGeom.end(), mwmTurnsGeom.begin(), mwmTurnsGeom.end());
   }
 

@@ -58,7 +58,8 @@ struct TurnInfo
 size_t GetLastSegmentPointIndex(pair<size_t, size_t> const & p);
 vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingMapping,
                                     TGetIndexFunction GetIndex, Index const & index);
-                                    
+
+// Returns the distance in meractor units for the path of points for the range [startPointIndex, endPointIndex].
 double CalculateMercatorDistanceAlongRoute(uint32_t startPoint,
                                            uint32_t endPoint, vector<m2::PointD> const & points);
 

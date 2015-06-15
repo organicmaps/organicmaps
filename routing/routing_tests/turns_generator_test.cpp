@@ -378,8 +378,9 @@ UNIT_TEST(TestCalculateMercatorDistanceAlongRoute)
 {
   vector<m2::PointD> const points = {{0., 0.}, {0., 1.}, {0., 1.}, {1., 1.}};
 
-  TEST_EQUAL(CalculateMercatorDistanceAlongRoute(0, points.size(), points), 2., ());
-  TEST_EQUAL(CalculateMercatorDistanceAlongRoute(1, 1, points), 0., ());
-  TEST_EQUAL(CalculateMercatorDistanceAlongRoute(1, 2, points), 0., ());
+  TEST_EQUAL(CalculateMercatorDistanceAlongPath(0, points.size() - 1, points), 2., ());
+  TEST_EQUAL(CalculateMercatorDistanceAlongPath(1, 1, points), 0., ());
+  TEST_EQUAL(CalculateMercatorDistanceAlongPath(1, 2, points), 0., ());
+  TEST_EQUAL(CalculateMercatorDistanceAlongPath(0, 1, points), 1., ());
 }
 }  // namespace

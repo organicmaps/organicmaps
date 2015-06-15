@@ -50,11 +50,6 @@ namespace routing
 {
 namespace turns
 {
-bool TurnGeom::operator==(TurnGeom const & other) const
-{
-  return m_indexInRoute == other.m_indexInRoute && m_turnIndex == other.m_turnIndex
-      && m_mercatorDistance == other.m_mercatorDistance && m_points == other.m_points;
-}
 
 bool SingleLaneInfo::operator==(SingleLaneInfo const & other) const
 {
