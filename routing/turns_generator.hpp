@@ -58,6 +58,9 @@ struct TurnInfo
 size_t GetLastSegmentPointIndex(pair<size_t, size_t> const & p);
 vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingMapping,
                                     TGetIndexFunction GetIndex, Index const & index);
+                                    
+double CalculateMercatorDistanceAlongRoute(uint32_t startPoint,
+                                           uint32_t endPoint, vector<m2::PointD> const & points);
 
 /*!
  * \brief Returns geometry for all the turns. It means that for every turn CalculateTurnGeometry

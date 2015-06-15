@@ -508,6 +508,21 @@ vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingM
   return lanes;
 }
 
+double CalculateMercatorDistanceAlongRoute(uint32_t startPoint, uint32_t endPoint, vector<m2::PointD> const & points)
+{
+  ASSERT_LESS_OR_EQUAL(endPoint, points.size(), ());
+  ASSERT_LESS_OR_EQUAL(startPoint, endPoint, ());
+
+  if (startPoint == endPoint)
+    return 0.;
+
+  double mercatorDistanceBetweenTurns = 0;
+  for (uint32_t i = startPoint + 1; i != endPoint; ++i)
+    mercatorDistanceBetweenTurns += points[i - 1].Length(points[i]);
+
+  return mercatorDistanceBetweenTurns;
+}
+
 void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TTurns const & turnsDir,
                            TTurnsGeom & turnsGeom)
 {
@@ -519,21 +534,34 @@ void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TTurns cons
   // kNumPointsAfterPivot is greater because there are half body and the arrow after the pivot point
   uint32_t constexpr kNumPointsAfterPivot = kNumPointsBeforePivot + 10;
 
-  for (TurnItem const & t : turnsDir)
+  /// mercatorDistance is a distance in mercator units from the start of the route.
+  double mercatorDistance = 0;
+
+  auto const turnsDirEnd = turnsDir.end();
+  for (auto i = turnsDir.begin(); i != turnsDirEnd; ++i)
   {
-    ASSERT_LESS(t.m_index, kNumPoints, ());
-    if (t.m_index == 0 || t.m_index == (kNumPoints - 1))
+    TurnItem const & currentTurn = *i;
+    ASSERT_LESS(currentTurn.m_index, kNumPoints, ());
+
+    uint32_t formerTurnIndex = 0;
+    if (i != turnsDir.begin())
+      formerTurnIndex = (i - 1)->m_index;
+
+    double const mercatorDistanceBetweenTurns =
+        CalculateMercatorDistanceAlongRoute(formerTurnIndex,  currentTurn.m_index, points);
+    mercatorDistance += mercatorDistanceBetweenTurns;
+
+    if (currentTurn.m_index == 0 || currentTurn.m_index == (kNumPoints - 1))
       continue;
 
-    uint32_t const fromIndex = (t.m_index <= kNumPointsBeforePivot) ? 0 : t.m_index - kNumPointsBeforePivot;
-    uint32_t toIndex = 0;
-    if (t.m_index + kNumPointsAfterPivot >= kNumPoints || t.m_index + kNumPointsAfterPivot < t.m_index)
-      toIndex = kNumPoints;
-    else
-      toIndex = t.m_index + kNumPointsAfterPivot;
+    uint32_t const fromIndex = (currentTurn.m_index <= kNumPointsBeforePivot) ?
+          0 : currentTurn.m_index - kNumPointsBeforePivot;
+    uint32_t const nextPossibleIndex = currentTurn.m_index + kNumPointsAfterPivot;
+    uint32_t const toIndex = (nextPossibleIndex >= kNumPoints) ? kNumPoints : nextPossibleIndex;
 
-    uint32_t const turnIndex = min(t.m_index, kNumPointsBeforePivot);
-    turnsGeom.emplace_back(t.m_index, turnIndex, points.begin() + fromIndex,
+    uint32_t const turnIndex = min(currentTurn.m_index, kNumPointsBeforePivot);
+
+    turnsGeom.emplace_back(currentTurn.m_index, turnIndex, mercatorDistance, points.begin() + fromIndex,
                            points.begin() + toIndex);
   }
   return;

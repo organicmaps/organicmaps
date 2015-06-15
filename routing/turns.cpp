@@ -53,7 +53,7 @@ namespace turns
 bool TurnGeom::operator==(TurnGeom const & other) const
 {
   return m_indexInRoute == other.m_indexInRoute && m_turnIndex == other.m_turnIndex
-    && m_points == other.m_points;
+      && m_mercatorDistance == other.m_mercatorDistance && m_points == other.m_points;
 }
 
 bool SingleLaneInfo::operator==(SingleLaneInfo const & other) const
@@ -222,7 +222,9 @@ string DebugPrint(TurnGeom const & turnGeom)
 {
   stringstream out;
   out << "[ TurnGeom: m_indexInRoute = " << turnGeom.m_indexInRoute
-      << ", m_turnIndex = " << turnGeom.m_turnIndex << " ]" << endl;
+      << ", m_turnIndex = " << turnGeom.m_turnIndex
+      << ", m_mercatorDistance = " << turnGeom.m_mercatorDistance
+      << " ]" << endl;
   return out.str();
 }
 

@@ -91,9 +91,10 @@ string DebugPrint(LaneWay const l);
 
 struct TurnGeom
 {
-  TurnGeom(uint32_t indexInRoute, uint32_t turnIndex,
-           vector<m2::PointD>::const_iterator b, vector<m2::PointD>::const_iterator e) :
-    m_indexInRoute(indexInRoute), m_turnIndex(turnIndex), m_points(b, e)
+  TurnGeom(uint32_t indexInRoute, uint32_t turnIndex, double mercatorDistance,
+           vector<m2::PointD>::const_iterator b, vector<m2::PointD>::const_iterator e)
+    : m_indexInRoute(indexInRoute), m_turnIndex(turnIndex),
+      m_mercatorDistance(mercatorDistance), m_points(b, e)
   {
   }
 
@@ -101,6 +102,7 @@ struct TurnGeom
 
   uint32_t m_indexInRoute;
   uint32_t m_turnIndex;
+  double m_mercatorDistance;
   vector<m2::PointD> m_points;
 };
 
