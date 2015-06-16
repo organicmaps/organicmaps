@@ -707,7 +707,7 @@ void State::EndAnimation()
   }
 }
 
-void State::SetModeInfo(uint16_t modeInfo)
+void State::SetModeInfo(uint16_t modeInfo, bool callListeners)
 {
   Mode const newMode = ExcludeAllBits(modeInfo);
   Mode const oldMode = GetMode();
@@ -715,7 +715,10 @@ void State::SetModeInfo(uint16_t modeInfo)
   if (newMode != oldMode)
   {
     Settings::Set(LocationStateMode, static_cast<int>(GetMode()));
-    CallStateModeListeners();
+
+    if (callListeners)
+      CallStateModeListeners();
+
     AnimateStateTransition(oldMode, newMode);
     invalidate();
   }
@@ -751,13 +754,13 @@ void State::StopCompassFollowing()
   SetModeInfo(ChangeMode(m_modeInfo, Follow));
 }
 
-void State::StopLocationFollow()
+void State::StopLocationFollow(bool callListeners)
 {
-  Mode currentMode = GetMode();
+  Mode const currentMode = GetMode();
   if (currentMode > NotFollow)
   {
     StopAllAnimations();
-    SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
+    SetModeInfo(ChangeMode(m_modeInfo, NotFollow), callListeners);
   }
   else if (currentMode == PendingPosition)
   {
@@ -775,20 +778,23 @@ void State::DragStarted()
 {
   m_dragModeInfo = m_modeInfo;
   m_afterPendingMode = Follow;
-  StopLocationFollow();
+  StopLocationFollow(false);
 }
 
 void State::DragEnded()
 {
-  // reset GPS centering mode if we have dragged far from current location
-  ScreenBase const & s = GetModelView();
-  m2::PointD const defaultPxBinding = GetModeDefaultPixelBinding(ExcludeAllBits(m_dragModeInfo));
-  m2::PointD const pxPosition = s.GtoP(Position());
-
-  if (ExcludeAllBits(m_dragModeInfo) > NotFollow &&
-      defaultPxBinding.Length(pxPosition) < s.GetMinPixelRectSize() / 5.0)
+  Mode const currentMode = ExcludeAllBits(m_dragModeInfo);
+  if (currentMode > NotFollow)
   {
-    SetModeInfo(m_dragModeInfo);
+    // reset GPS centering mode if we have dragged far from the current location
+    ScreenBase const & s = GetModelView();
+    m2::PointD const defaultPxBinding = GetModeDefaultPixelBinding(currentMode);
+    m2::PointD const pxPosition = s.GtoP(Position());
+
+    if (defaultPxBinding.Length(pxPosition) < s.GetMinPixelRectSize() / 5.0)
+      SetModeInfo(m_dragModeInfo, false);
+    else
+      CallStateModeListeners();
   }
 
   m_dragModeInfo = 0;

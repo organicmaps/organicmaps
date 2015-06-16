@@ -99,7 +99,7 @@ namespace location
     void InvalidatePosition();
     void TurnOff();
     void StopCompassFollowing();
-    void StopLocationFollow();
+    void StopLocationFollow(bool callListeners = true);
     void SetFixedZoom();
 
     /// @name User input notification block
@@ -164,7 +164,7 @@ namespace location
     m2::PointD const GetModeDefaultPixelBinding(Mode mode) const;
     m2::PointD const GetRaFModeDefaultPxBind() const;
 
-    void SetModeInfo(uint16_t modeInfo);
+    void SetModeInfo(uint16_t modeInfo, bool callListeners = true);
 
     void StopAllAnimations();
 
