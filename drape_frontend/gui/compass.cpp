@@ -29,6 +29,8 @@ namespace
   class CompassHandle : public TappableHandle
   {
     using TBase = TappableHandle;
+    double const VisibleStartAngle = my::DegToRad(5.0);
+    double const VisibleEndAngle = my::DegToRad(355.0);
 
   public:
     CompassHandle(m2::PointF const & pivot, m2::PointF const & size, Shape::TTapHandler const & tapHandler)
@@ -49,17 +51,17 @@ namespace
       float angle = ang::AngleIn2PI(screen.GetAngle());
 
       bool isVisiblePrev = IsVisible();
-      bool isVisibleAngle = angle > my::DegToRad(5.0) && angle < my::DegToRad(355.0);
+      bool isVisibleAngle = angle > VisibleStartAngle && angle < VisibleEndAngle;
 
       bool isVisible = isVisibleAngle || (isVisiblePrev && DrapeGui::Instance().IsInUserAction());
 
       if (isVisible)
       {
-        m_animation.ShowAnim();
+        m_animation.ShowAnimated();
         SetIsVisible(true);
       }
       else
-        m_animation.HideAnim();
+        m_animation.HideAnimated();
 
       if (IsVisible())
       {

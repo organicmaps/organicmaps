@@ -58,7 +58,7 @@ void ShowHideAnimation::Show()
   }
 }
 
-void ShowHideAnimation::ShowAnim()
+void ShowHideAnimation::ShowAnimated()
 {
   RefreshInterpolator({ STATE_VISIBLE, STATE_SHOW_DIRECTION }, 1.0);
 }
@@ -73,7 +73,7 @@ void ShowHideAnimation::Hide()
   }
 }
 
-void ShowHideAnimation::HideAnim()
+void ShowHideAnimation::HideAnimated()
 {
   RefreshInterpolator({ STATE_INVISIBLE, STATE_HIDE_DIRECTION }, 0.0);
 }

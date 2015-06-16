@@ -63,7 +63,7 @@ public:
     bool isVisible = helper.IsVisible(screen);
     if (!isVisible)
     {
-      m_animation.HideAnim();
+      m_animation.HideAnimated();
       m_isVisibleAtEnd = false;
     }
     else
@@ -73,12 +73,12 @@ public:
         m_isAppearing = !m_isAppearing;
         if (m_isAppearing)
         {
-          m_animation.ShowAnim();
+          m_animation.ShowAnimated();
           m_isVisibleAtEnd = true;
         }
         else
         {
-          m_animation.HideAnim();
+          m_animation.HideAnimated();
           m_isVisibleAtEnd = false;
         }
       }

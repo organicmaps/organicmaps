@@ -22,9 +22,9 @@ public:
   ~ShowHideAnimation();
 
   void Show();
-  void ShowAnim();
+  void ShowAnimated();
   void Hide();
-  void HideAnim();
+  void HideAnimated();
   EState GetState() const;
   double GetT() const;
   bool IsFinished() const;
