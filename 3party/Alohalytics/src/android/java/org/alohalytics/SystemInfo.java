@@ -63,7 +63,17 @@ public class SystemInfo {
         collectIds(context);
         collectDeviceDetails(context);
         // Force statistics uploading because if user immediately uninstalls the app we won't even know about installation.
-        Statistics.forceUpload();
+        // But do it only if we are already connected to any network.
+        try {
+          final ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+          final NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+          if (networkInfo != null && networkInfo.isConnected()) {
+            Statistics.forceUpload();
+          }
+        }
+        catch(Exception ex) {
+          handleException(ex);
+        }
       }
     }).start();
   }
