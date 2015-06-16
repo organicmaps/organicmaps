@@ -125,12 +125,15 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
       public void afterTextChanged(Editable s)
       {
         // TODO: This code only for demonstration purposes and will be removed soon
-        if (tryChangeMapStyle(s.toString()) ||
-            tryChangeRouter(s.toString()))
+        if (tryChangeMapStyle(s.toString()))
           return;
 
         if (runSearch() == STATUS_QUERY_EMPTY)
           showCategories();
+
+        // TODO: This code only for demonstration purposes and will be removed soon
+        if (tryChangeRouter(s.toString()))
+          return;
 
         if (s.length() == 0)
         {
@@ -227,9 +230,9 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
   private boolean tryChangeRouter(String query)
   {
     final boolean pedestrian = query.equals("?pedestrian");
-    final boolean wehicle = query.equals("?vehicle");
+    final boolean vehicle = query.equals("?vehicle");
 
-    if (!pedestrian && !wehicle)
+    if (!pedestrian && !vehicle)
       return false;
 
     mEtSearchQuery.setText(null);
@@ -241,7 +244,6 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     return false;
   }
   // FIXME: This code only for demonstration purposes and will be removed soon
-
 
   @Override
   public void onResume()
