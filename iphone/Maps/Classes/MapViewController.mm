@@ -955,7 +955,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)searchViewWillEnterState:(SearchViewState)state
 {
-  self.controlsManager.hidden = (state != SearchViewStateHidden);
+  self.controlsManager.hidden = (state == SearchViewStateFullscreen);
 }
 
 #pragma mark - PlacePageViewDelegate
