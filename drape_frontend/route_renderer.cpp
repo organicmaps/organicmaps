@@ -28,7 +28,7 @@ int const arrowPartsCount = 3;
 double const arrowHeightFactor = 96.0 / 36.0;
 double const arrowAspect = 400.0 / 192.0;
 double const arrowTailSize = 20.0 / 400.0;
-double const arrowHeadSize = 120.0 / 400.0;
+double const arrowHeadSize = 124.0 / 400.0;
 
 struct RouteSegment
 {
