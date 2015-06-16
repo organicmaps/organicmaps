@@ -35,7 +35,7 @@ bool AlmostEqualULPs(TFloat x, TFloat y, unsigned int maxULPs = 256)
   // default NaN won't compare as equal to anything.
   ASSERT_LESS(maxULPs, 4 * 1024 * 1024, ());
 
-  int const bits = 8 * sizeof(TFloat);
+  int const bits = CHAR_BIT * sizeof(TFloat);
   typedef typename boost::int_t<bits>::exact IntType;
   typedef typename boost::uint_t<bits>::exact UIntType;
 
