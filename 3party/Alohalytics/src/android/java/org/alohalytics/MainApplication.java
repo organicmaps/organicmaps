@@ -28,6 +28,7 @@ import android.app.Application;
 
 public class MainApplication extends Application {
   static {
+    // C++ core should be initialized in the Application, not Activity, to be usable from broadcast receivers.
     System.loadLibrary("alohalytics");
   }
 }
