@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014, Oracle and/or its affiliates.
+// Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
@@ -19,6 +19,7 @@
 #include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/algorithms/detail/check_iterator_range.hpp>
+#include <boost/geometry/algorithms/detail/is_simple/failure_policy.hpp>
 #include <boost/geometry/algorithms/detail/is_valid/has_duplicates.hpp>
 
 #include <boost/geometry/algorithms/dispatch/is_simple.hpp>
@@ -38,11 +39,12 @@ struct is_simple_ring
 {
     static inline bool apply(Ring const& ring)
     {
+        simplicity_failure_policy policy;
         return
             !detail::is_valid::has_duplicates
                 <
                     Ring, geometry::closure<Ring>::value
-                >::apply(ring);
+                >::apply(ring, policy);
     }
 };
 

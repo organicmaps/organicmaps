@@ -22,6 +22,7 @@
 #include <boost/array.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/mpl/vector_c.hpp>
 #include <boost/range.hpp>
 
 #include <boost/geometry/core/access.hpp>
@@ -54,6 +55,7 @@
 #include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 #include <boost/geometry/algorithms/detail/partition.hpp>
 #include <boost/geometry/algorithms/detail/recalculate.hpp>
+#include <boost/geometry/algorithms/detail/sections/section_box_policies.hpp>
 
 #include <boost/geometry/algorithms/detail/overlay/get_turn_info.hpp>
 #include <boost/geometry/algorithms/detail/overlay/get_turn_info_ll.hpp>
@@ -62,8 +64,7 @@
 
 #include <boost/geometry/algorithms/detail/sections/range_by_section.hpp>
 #include <boost/geometry/algorithms/detail/sections/sectionalize.hpp>
-
-#include <boost/geometry/algorithms/expand.hpp>
+#include <boost/geometry/algorithms/detail/sections/section_functions.hpp>
 
 #ifdef BOOST_GEOMETRY_DEBUG_INTERSECTION
 #  include <sstream>
@@ -229,7 +230,7 @@ public :
         // section 2:    [--------------]
         // section 1: |----|---|---|---|---|
         for (prev1 = it1++, next1++;
-            it1 != end1 && ! exceeding<0>(dir1, *prev1, sec2.bounding_box, robust_policy);
+            it1 != end1 && ! detail::section::exceeding<0>(dir1, *prev1, sec2.bounding_box, robust_policy);
             ++prev1, ++it1, ++index1, ++next1, ++ndi1)
         {
             ever_circling_iterator<range1_iterator> nd_next1(
@@ -247,7 +248,7 @@ public :
             next2++;
 
             for (prev2 = it2++, next2++;
-                it2 != end2 && ! exceeding<0>(dir2, *prev2, sec1.bounding_box, robust_policy);
+                it2 != end2 && ! detail::section::exceeding<0>(dir2, *prev2, sec1.bounding_box, robust_policy);
                 ++prev2, ++it2, ++index2, ++next2, ++ndi2)
             {
                 bool skip = same_source;
@@ -278,13 +279,12 @@ public :
                     typedef typename boost::range_value<Turns>::type turn_info;
 
                     turn_info ti;
-                    ti.operations[0].seg_id = segment_identifier(source_id1,
-                                        sec1.ring_id.multi_index, sec1.ring_id.ring_index, index1),
-                    ti.operations[1].seg_id = segment_identifier(source_id2,
-                                        sec2.ring_id.multi_index, sec2.ring_id.ring_index, index2),
-
-                    ti.operations[0].other_id = ti.operations[1].seg_id;
-                    ti.operations[1].other_id = ti.operations[0].seg_id;
+                    ti.operations[0].seg_id
+                        = segment_identifier(source_id1, sec1.ring_id.multi_index,
+                                             sec1.ring_id.ring_index, index1);
+                    ti.operations[1].seg_id
+                        = segment_identifier(source_id2, sec2.ring_id.multi_index,
+                                             sec2.ring_id.ring_index, index2);
 
                     std::size_t const size_before = boost::size(turns);
 
@@ -300,8 +300,8 @@ public :
                     if (InterruptPolicy::enabled)
                     {
                         if (interrupt_policy.apply(
-                            std::make_pair(boost::begin(turns) + size_before,
-                                boost::end(turns))))
+                                std::make_pair(range::pos(turns, size_before),
+                                               boost::end(turns))))
                         {
                             return false;
                         }
@@ -318,25 +318,6 @@ private :
     typedef typename geometry::point_type<Geometry2>::type point2_type;
     typedef typename model::referring_segment<point1_type const> segment1_type;
     typedef typename model::referring_segment<point2_type const> segment2_type;
-
-
-    template <size_t Dim, typename Point, typename Box, typename RobustPolicy>
-    static inline bool preceding(int dir, Point const& point, Box const& box, RobustPolicy const& robust_policy)
-    {
-        typename robust_point_type<Point, RobustPolicy>::type robust_point;
-        geometry::recalculate(robust_point, point, robust_policy);
-        return (dir == 1  && get<Dim>(robust_point) < get<min_corner, Dim>(box))
-            || (dir == -1 && get<Dim>(robust_point) > get<max_corner, Dim>(box));
-    }
-
-    template <size_t Dim, typename Point, typename Box, typename RobustPolicy>
-    static inline bool exceeding(int dir, Point const& point, Box const& box, RobustPolicy const& robust_policy)
-    {
-        typename robust_point_type<Point, RobustPolicy>::type robust_point;
-        geometry::recalculate(robust_point, point, robust_policy);
-        return (dir == 1  && get<Dim>(robust_point) > get<max_corner, Dim>(box))
-            || (dir == -1 && get<Dim>(robust_point) < get<min_corner, Dim>(box));
-    }
 
     template <typename Iterator, typename RangeIterator, typename Section, typename RobustPolicy>
     static inline void advance_to_non_duplicate_next(Iterator& next,
@@ -388,29 +369,11 @@ private :
         // Mimic section-iterator:
         // Skip to point such that section interects other box
         prev = it++;
-        for(; it != end && preceding<0>(dir, *it, other_bounding_box, robust_policy);
+        for(; it != end && detail::section::preceding<0>(dir, *it, other_bounding_box, robust_policy);
             prev = it++, index++, ndi++)
         {}
         // Go back one step because we want to start completely preceding
         it = prev;
-    }
-};
-
-struct get_section_box
-{
-    template <typename Box, typename InputItem>
-    static inline void apply(Box& total, InputItem const& item)
-    {
-        geometry::expand(total, item.bounding_box);
-    }
-};
-
-struct ovelaps_section_box
-{
-    template <typename Box, typename InputItem>
-    static inline bool apply(Box const& box, InputItem const& item)
-    {
-        return ! detail::disjoint::disjoint_box_box(box, item.bounding_box);
     }
 };
 
@@ -497,12 +460,15 @@ public:
                     point_type, RobustPolicy
                 >::type
             > box_type;
-        typedef typename geometry::sections<box_type, 2> sections_type;
+        typedef geometry::sections<box_type, 2> sections_type;
 
         sections_type sec1, sec2;
+        typedef boost::mpl::vector_c<std::size_t, 0, 1> dimensions;
 
-        geometry::sectionalize<Reverse1>(geometry1, robust_policy, true, sec1, 0);
-        geometry::sectionalize<Reverse2>(geometry2, robust_policy, true, sec2, 1);
+        geometry::sectionalize<Reverse1, dimensions>(geometry1, robust_policy,
+                sec1, 0);
+        geometry::sectionalize<Reverse2, dimensions>(geometry2, robust_policy,
+                sec2, 1);
 
         // ... and then partition them, intersecting overlapping sections in visitor method
         section_visitor
@@ -514,7 +480,9 @@ public:
 
         geometry::partition
             <
-                box_type, get_section_box, ovelaps_section_box
+                box_type,
+                detail::section::get_section_box,
+                detail::section::overlaps_section_box
             >::apply(sec1, sec2, visitor);
     }
 };
@@ -557,7 +525,8 @@ struct get_turns_cs
                 RobustPolicy const& robust_policy,
                 Turns& turns,
                 InterruptPolicy& interrupt_policy,
-                int multi_index = -1, int ring_index = -1)
+                signed_index_type multi_index = -1,
+                signed_index_type ring_index = -1)
     {
         if ( boost::size(range) <= 1)
         {
@@ -570,7 +539,8 @@ struct get_turns_cs
         cview_type cview(range);
         view_type view(cview);
 
-        typename boost::range_size<view_type>::type segments_count1 = boost::size(view) - 1;
+        typedef typename boost::range_size<view_type>::type size_type;
+        size_type segments_count1 = boost::size(view) - 1;
 
         iterator_type it = boost::begin(view);
 
@@ -583,7 +553,7 @@ struct get_turns_cs
 
         //char previous_side[2] = {0, 0};
 
-        int index = 0;
+        signed_index_type index = 0;
 
         for (iterator_type prev = it++;
             it != boost::end(view);
@@ -622,7 +592,7 @@ struct get_turns_cs
                         bp[0], bp[1], bp[2], bp[3],
                         // NOTE: some dummy values could be passed below since this would be called only for Polygons and Boxes
                         index == 0,
-                        unsigned(index) == segments_count1,
+                        size_type(index) == segments_count1,
                         robust_policy,
                         turns, interrupt_policy);
                 // Future performance enhancement:
@@ -678,8 +648,6 @@ private:
 
         turn_info ti;
         ti.operations[0].seg_id = seg_id;
-        ti.operations[0].other_id = ti.operations[1].seg_id;
-        ti.operations[1].other_id = seg_id;
 
         ti.operations[1].seg_id = segment_identifier(source_id2, -1, -1, 0);
         TurnPolicy::apply(rp0, rp1, rp2, bp0, bp1, bp2,
@@ -729,7 +697,7 @@ struct get_turns_polygon_cs
             int source_id2, Box const& box,
             RobustPolicy const& robust_policy,
             Turns& turns, InterruptPolicy& interrupt_policy,
-            int multi_index = -1)
+            signed_index_type multi_index = -1)
     {
         typedef typename geometry::ring_type<Polygon>::type ring_type;
 
@@ -747,7 +715,7 @@ struct get_turns_polygon_cs
                 turns, interrupt_policy,
                 multi_index, -1);
 
-        int i = 0;
+        signed_index_type i = 0;
 
         typename interior_return_type<Polygon const>::type
             rings = interior_rings(polygon);
@@ -786,7 +754,7 @@ struct get_turns_multi_polygon_cs
                 Multi const
             >::type iterator_type;
 
-        int i = 0;
+        signed_index_type i = 0;
         for (iterator_type it = boost::begin(multi);
              it != boost::end(multi);
              ++it, ++i)

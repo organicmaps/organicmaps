@@ -14,7 +14,10 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_SINGLE_GEOMETRY_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_SINGLE_GEOMETRY_HPP
 
+#include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_base_of.hpp>
+
+#include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/util/range.hpp>
 
@@ -44,18 +47,14 @@ struct single_geometry
 template <typename Geometry>
 struct single_geometry<Geometry, true>
 {
-    typedef typename boost::mpl::if_c
-        <
-            boost::is_const<Geometry>::value,
-            typename boost::range_value<Geometry>::type const&,
-            typename boost::range_value<Geometry>::type
-        >::type return_type;
+    typedef typename boost::range_reference<Geometry>::type return_type;
 
     template <typename Id>
     static inline return_type apply(Geometry & g, Id const& id)
     {
-        BOOST_ASSERT(id.multi_index >= 0);
-        return range::at(g, id.multi_index);
+        BOOST_GEOMETRY_ASSERT(id.multi_index >= 0);
+        typedef typename boost::range_size<Geometry>::type size_type;
+        return range::at(g, static_cast<size_type>(id.multi_index));
     }
 };
 

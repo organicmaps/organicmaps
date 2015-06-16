@@ -23,9 +23,9 @@
 
 #include <boost/geometry/core/point_type.hpp>
 
-#include <boost/geometry/algorithms/within.hpp>
+#include <boost/geometry/algorithms/covered_by.hpp>
 #include <boost/geometry/algorithms/detail/for_each_range.hpp>
-#include <boost/geometry/algorithms/point_on_surface.hpp>
+#include <boost/geometry/algorithms/detail/point_on_border.hpp>
 
 #include <boost/geometry/algorithms/detail/disjoint/linear_linear.hpp>
 
@@ -42,21 +42,21 @@ namespace detail { namespace disjoint
 template<typename Geometry>
 struct check_each_ring_for_within
 {
-    bool has_within;
+    bool not_disjoint;
     Geometry const& m_geometry;
 
     inline check_each_ring_for_within(Geometry const& g)
-        : has_within(false)
+        : not_disjoint(false)
         , m_geometry(g)
     {}
 
     template <typename Range>
     inline void apply(Range const& range)
     {
-        if ( geometry::within(geometry::return_point_on_surface(range), m_geometry) )
-        {
-            has_within = true;
-        }
+        typename point_type<Range>::type pt;
+        not_disjoint = not_disjoint
+                || ( geometry::point_on_border(pt, range)
+                  && geometry::covered_by(pt, m_geometry) );
     }
 };
 
@@ -68,7 +68,7 @@ inline bool rings_containing(FirstGeometry const& geometry1,
 {
     check_each_ring_for_within<FirstGeometry> checker(geometry1);
     geometry::detail::for_each_range(geometry2, checker);
-    return checker.has_within;
+    return checker.not_disjoint;
 }
 
 
@@ -87,8 +87,8 @@ struct general_areal
         // If there is no intersection of segments, they might located
         // inside each other
 
-        // We check that using a point on the surface, and see if that is inside
-        // the other geometry. And vice versa.
+        // We check that using a point on the border (external boundary),
+        // and see if that is contained in the other geometry. And vice versa.
 
         if ( rings_containing(geometry1, geometry2)
           || rings_containing(geometry2, geometry1) )

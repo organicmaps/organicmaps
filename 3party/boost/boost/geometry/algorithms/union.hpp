@@ -179,68 +179,6 @@ struct union_insert
 namespace detail { namespace union_
 {
 
-template
-<
-    typename GeometryOut,
-    typename Geometry1, typename Geometry2,
-    typename RobustPolicy,
-    typename OutputIterator,
-    typename Strategy
->
-inline OutputIterator insert(Geometry1 const& geometry1,
-            Geometry2 const& geometry2,
-            RobustPolicy const& robust_policy,
-            OutputIterator out,
-            Strategy const& strategy)
-{
-    return dispatch::union_insert
-           <
-               Geometry1, Geometry2, GeometryOut
-           >::apply(geometry1, geometry2, robust_policy, out, strategy);
-}
-
-/*!
-\brief_calc2{union} \brief_strategy
-\ingroup union
-\details \details_calc2{union_insert, spatial set theoretic union}
-    \brief_strategy. details_insert{union}
-\tparam GeometryOut output geometry type, must be specified
-\tparam Geometry1 \tparam_geometry
-\tparam Geometry2 \tparam_geometry
-\tparam OutputIterator output iterator
-\tparam Strategy \tparam_strategy_overlay
-\param geometry1 \param_geometry
-\param geometry2 \param_geometry
-\param out \param_out{union}
-\param strategy \param_strategy{union}
-\return \return_out
-
-\qbk{distinguish,with strategy}
-*/
-template
-<
-    typename GeometryOut,
-    typename Geometry1,
-    typename Geometry2,
-    typename OutputIterator,
-    typename Strategy
->
-inline OutputIterator union_insert(Geometry1 const& geometry1,
-            Geometry2 const& geometry2,
-            OutputIterator out,
-            Strategy const& strategy)
-{
-    concept::check<Geometry1 const>();
-    concept::check<Geometry2 const>();
-    concept::check<GeometryOut>();
-
-    typedef typename Strategy::rescale_policy_type rescale_policy_type;
-    rescale_policy_type robust_policy
-            = geometry::get_rescale_policy<rescale_policy_type>(geometry1, geometry2);
-
-    return detail::union_::insert<GeometryOut>(geometry1, geometry2, robust_policy, out, strategy);
-}
-
 /*!
 \brief_calc2{union}
 \ingroup union
@@ -285,7 +223,13 @@ inline OutputIterator union_insert(Geometry1 const& geometry1,
             rescale_policy_type
         > strategy;
 
-    return union_insert<GeometryOut>(geometry1, geometry2, out, strategy());
+    rescale_policy_type robust_policy
+            = geometry::get_rescale_policy<rescale_policy_type>(geometry1, geometry2);
+
+    return dispatch::union_insert
+           <
+               Geometry1, Geometry2, GeometryOut
+           >::apply(geometry1, geometry2, robust_policy, out, strategy());
 }
 
 

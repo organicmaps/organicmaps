@@ -26,6 +26,10 @@
 #include <boost/numeric/conversion/cast.hpp>
 #include <boost/type_traits.hpp>
 
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
+
 #include <boost/geometry/algorithms/detail/assign_box_corners.hpp>
 #include <boost/geometry/algorithms/detail/assign_indexed_point.hpp>
 #include <boost/geometry/algorithms/detail/assign_values.hpp>
@@ -40,8 +44,6 @@
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 #include <boost/geometry/util/for_each_coordinate.hpp>
-
-#include <boost/variant/variant_fwd.hpp>
 
 namespace boost { namespace geometry
 {
@@ -224,28 +226,27 @@ template <typename Geometry1, typename Geometry2>
 struct assign
 {
     static inline void
-    apply(
-            Geometry1& geometry1,
-            const Geometry2& geometry2)
+    apply(Geometry1& geometry1, const Geometry2& geometry2)
     {
         concept::check<Geometry1>();
         concept::check<Geometry2 const>();
         concept::check_concepts_and_equal_dimensions<Geometry1, Geometry2 const>();
             
-        bool const same_point_order =
-            point_order<Geometry1>::value == point_order<Geometry2>::value;
-        bool const same_closure =
-            closure<Geometry1>::value == closure<Geometry2>::value;
-            
+        static bool const same_point_order
+            = point_order<Geometry1>::value == point_order<Geometry2>::value;
         BOOST_MPL_ASSERT_MSG
         (
-                same_point_order, ASSIGN_IS_NOT_SUPPORTED_FOR_DIFFERENT_POINT_ORDER
-                , (types<Geometry1, Geometry2>)
+            (same_point_order),
+            ASSIGN_IS_NOT_SUPPORTED_FOR_DIFFERENT_POINT_ORDER,
+            (types<Geometry1, Geometry2>)
         );
+        static bool const same_closure
+            = closure<Geometry1>::value == closure<Geometry2>::value;
         BOOST_MPL_ASSERT_MSG
         (
-                same_closure, ASSIGN_IS_NOT_SUPPORTED_FOR_DIFFERENT_CLOSURE
-                , (types<Geometry1, Geometry2>)
+            (same_closure),
+            ASSIGN_IS_NOT_SUPPORTED_FOR_DIFFERENT_CLOSURE,
+            (types<Geometry1, Geometry2>)
         );
             
         dispatch::convert<Geometry2, Geometry1>::apply(geometry2, geometry1);
@@ -317,8 +318,8 @@ struct assign<Geometry1, variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
 };
     
     
-template <BOOST_VARIANT_ENUM_PARAMS(typename A), BOOST_VARIANT_ENUM_PARAMS(typename B)>
-struct assign<variant<BOOST_VARIANT_ENUM_PARAMS(A)>, variant<BOOST_VARIANT_ENUM_PARAMS(B)> >
+template <BOOST_VARIANT_ENUM_PARAMS(typename T1), BOOST_VARIANT_ENUM_PARAMS(typename T2)>
+struct assign<variant<BOOST_VARIANT_ENUM_PARAMS(T1)>, variant<BOOST_VARIANT_ENUM_PARAMS(T2)> >
 {
     struct visitor: static_visitor<void>
     {
@@ -337,8 +338,8 @@ struct assign<variant<BOOST_VARIANT_ENUM_PARAMS(A)>, variant<BOOST_VARIANT_ENUM_
     };
         
     static inline void
-    apply(variant<BOOST_VARIANT_ENUM_PARAMS(A)>& geometry1,
-          variant<BOOST_VARIANT_ENUM_PARAMS(B)> const& geometry2)
+    apply(variant<BOOST_VARIANT_ENUM_PARAMS(T1)>& geometry1,
+          variant<BOOST_VARIANT_ENUM_PARAMS(T2)> const& geometry2)
     {
         return apply_visitor(visitor(), geometry1, geometry2);
     }

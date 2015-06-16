@@ -3,6 +3,7 @@
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -22,6 +23,11 @@
 #include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/geometries/concepts/polygon_concept.hpp>
 
+#include <boost/config.hpp>
+#ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
+#include <initializer_list>
+#endif
+
 namespace boost { namespace geometry
 {
 
@@ -34,6 +40,7 @@ namespace model
         e.g. Hawaii
 \ingroup geometries
 
+\qbk{[include reference/geometries/multi_polygon.qbk]}
 \qbk{before.synopsis,
 [heading Model of]
 [link geometry.reference.concepts.concept_multi_polygon MultiPolygon Concept]
@@ -48,6 +55,39 @@ template
 class multi_polygon : public Container<Polygon, Allocator<Polygon> >
 {
     BOOST_CONCEPT_ASSERT( (concept::Polygon<Polygon>) );
+
+#ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
+
+    // default constructor and base_type definitions are required only
+    // if the constructor taking std::initializer_list is defined
+
+    typedef Container<Polygon, Allocator<Polygon> > base_type;
+
+public:
+    /// \constructor_default{multi_polygon}
+    multi_polygon()
+        : base_type()
+    {}
+
+    /// \constructor_initializer_list{multi_polygon}
+    inline multi_polygon(std::initializer_list<Polygon> l)
+        : base_type(l.begin(), l.end())
+    {}
+
+// Commented out for now in order to support Boost.Assign
+// Without this assignment operator first the object should be created
+//   from initializer list, then it shoudl be moved.
+//// Without this workaround in MSVC the assignment operator is ambiguous
+//#ifndef BOOST_MSVC
+//    /// \assignment_initializer_list{multi_polygon}
+//    inline multi_polygon & operator=(std::initializer_list<Polygon> l)
+//    {
+//        base_type::assign(l.begin(), l.end());
+//        return *this;
+//    }
+//#endif
+
+#endif
 };
 
 

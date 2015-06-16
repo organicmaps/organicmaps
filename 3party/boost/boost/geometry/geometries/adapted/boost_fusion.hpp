@@ -1,7 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2011-2012 Akira Takahashi
-// Copyright (c) 2011-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2011-2015 Akira Takahashi
+// Copyright (c) 2011-2015 Barend Gehrels, Amsterdam, the Netherlands.
+
+// This file was modified by Oracle on 2015.
+// Modifications copyright (c) 2015, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -13,23 +18,24 @@
 
 #include <cstddef>
 
+#include <boost/core/enable_if.hpp>
+
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/fusion/include/size.hpp>
 #include <boost/fusion/include/tag_of.hpp>
 #include <boost/fusion/include/front.hpp>
 #include <boost/fusion/include/at.hpp>
-#include <boost/utility/enable_if.hpp>
-
 #include <boost/fusion/mpl.hpp>
-#include <boost/mpl/front.hpp>
+
+#include <boost/mpl/and.hpp>
 #include <boost/mpl/count_if.hpp>
+#include <boost/mpl/front.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/pop_front.hpp>
 #include <boost/mpl/size.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/front.hpp>
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/coordinate_dimension.hpp>
@@ -65,7 +71,7 @@ struct is_coordinate_size : boost::mpl::bool_<
 
 template<typename Sequence>
 struct is_fusion_sequence
-    : mpl::and_<boost::fusion::traits::is_sequence<Sequence>,
+    : boost::mpl::and_<boost::fusion::traits::is_sequence<Sequence>,
                 fusion_adapt_detail::is_coordinate_size<Sequence>,
                 fusion_adapt_detail::all_same<Sequence> >
 {};

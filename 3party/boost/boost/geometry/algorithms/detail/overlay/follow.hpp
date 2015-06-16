@@ -163,7 +163,7 @@ struct action_selector<overlay_intersection, RemoveSpikes>
     static inline void enter(LineStringOut& current_piece,
                 LineString const& ,
                 segment_identifier& segment_id,
-                int , Point const& point,
+                signed_index_type , Point const& point,
                 Operation const& operation,
                 RobustPolicy const& ,
                 OutputIterator& )
@@ -186,7 +186,7 @@ struct action_selector<overlay_intersection, RemoveSpikes>
     static inline void leave(LineStringOut& current_piece,
                 LineString const& linestring,
                 segment_identifier& segment_id,
-                int index, Point const& point,
+                signed_index_type index, Point const& point,
                 Operation const& ,
                 RobustPolicy const& robust_policy,
                 OutputIterator& out)
@@ -217,7 +217,7 @@ struct action_selector<overlay_intersection, RemoveSpikes>
     static inline void isolated_point(LineStringOut&,
                 LineString const&,
                 segment_identifier&,
-                int, Point const& point,
+                signed_index_type, Point const& point,
                 Operation const& , OutputIterator& out)
     {
         LineStringOut isolated_point_ls;
@@ -268,7 +268,7 @@ struct action_selector<overlay_difference, RemoveSpikes>
     static inline void enter(LineStringOut& current_piece,
                 LineString const& linestring,
                 segment_identifier& segment_id,
-                int index, Point const& point,
+                signed_index_type index, Point const& point,
                 Operation const& operation,
                 RobustPolicy const& robust_policy,
                 OutputIterator& out)
@@ -289,7 +289,7 @@ struct action_selector<overlay_difference, RemoveSpikes>
     static inline void leave(LineStringOut& current_piece,
                 LineString const& linestring,
                 segment_identifier& segment_id,
-                int index, Point const& point,
+                signed_index_type index, Point const& point,
                 Operation const& operation,
                 RobustPolicy const& robust_policy,
                 OutputIterator& out)
@@ -309,7 +309,7 @@ struct action_selector<overlay_difference, RemoveSpikes>
     static inline void isolated_point(LineStringOut&,
                 LineString const&,
                 segment_identifier&,
-                int, Point const&,
+                signed_index_type, Point const&,
                 Operation const&, OutputIterator&)
     {
     }
@@ -494,8 +494,10 @@ public :
             detail::copy_segments::copy_segments_linestring
                 <
                     false, RemoveSpikes
-                >::apply(linestring, current_segment_id,
-                         boost::size(linestring) - 1, robust_policy,
+                >::apply(linestring,
+                         current_segment_id,
+                         static_cast<signed_index_type>(boost::size(linestring) - 1),
+                         robust_policy,
                          current_piece);
         }
 

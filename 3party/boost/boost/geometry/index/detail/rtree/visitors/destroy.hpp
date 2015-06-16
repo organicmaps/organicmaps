@@ -2,7 +2,7 @@
 //
 // R-tree destroying visitor implementation
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -51,8 +51,9 @@ public:
         rtree::destroy_node<Allocators, internal_node>::apply(m_allocators, node_to_destroy);
     }
 
-    inline void operator()(leaf & BOOST_GEOMETRY_INDEX_ASSERT_UNUSED_PARAM(l))
+    inline void operator()(leaf & l)
     {
+        boost::ignore_unused(l);
         BOOST_GEOMETRY_INDEX_ASSERT(&l == &rtree::get<leaf>(*m_current_node), "invalid pointers");
 
         rtree::destroy_node<Allocators, leaf>::apply(m_allocators, m_current_node);

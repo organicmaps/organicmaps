@@ -17,7 +17,6 @@
 
 
 #include <boost/numeric/conversion/cast.hpp>
-#include <boost/range.hpp>
 
 #include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 
@@ -28,7 +27,7 @@
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 #include <boost/geometry/util/math.hpp>
-
+#include <boost/geometry/util/range.hpp>
 
 
 namespace boost { namespace geometry
@@ -159,7 +158,7 @@ struct range_collect_vectors
         if ( collected_count > 1 )
         {
             typedef typename boost::range_iterator<Collection>::type c_iterator;
-            c_iterator first = collection.begin() + c_old_size;
+            c_iterator first = range::pos(collection, c_old_size);
 
             if ( first->same_direction(collection.back()) )
             {

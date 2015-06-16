@@ -2,7 +2,7 @@
 //
 // varray details
 //
-// Copyright (c) 2012-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2012-2015 Adam Wulkiewicz, Lodz, Poland.
 // Copyright (c) 2011-2013 Andrew Hundt.
 //
 // Use, modification and distribution is subject to the Boost Software License,
@@ -39,8 +39,12 @@
 #include <boost/detail/no_exceptions_support.hpp>
 #include <boost/config.hpp>
 #include <boost/move/move.hpp>
-#include <boost/utility/addressof.hpp>
+#include <boost/core/addressof.hpp>
 #include <boost/iterator/iterator_traits.hpp>
+
+#if defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
+#include <boost/move/detail/fwd_macros.hpp>
+#endif
 
 // TODO - move vectors iterators optimization to the other, optional file instead of checking defines?
 
@@ -618,22 +622,22 @@ void construct(DisableTrivialInit const&,
 // !BOOST_NO_CXX11_RVALUE_REFERENCES -> P0 && p0
 // which means that version with one parameter may take V const& v
 
-#define BOOST_PP_LOCAL_MACRO(n)                                                                     \
-template <typename DisableTrivialInit, typename I, typename P BOOST_PP_ENUM_TRAILING_PARAMS(n, typename P) >  \
+#define BOOST_GEOMETRY_INDEX_DETAIL_VARRAY_DETAIL_CONSTRUCT(N)                                      \
+template <typename DisableTrivialInit, typename I, typename P BOOST_MOVE_I##N BOOST_MOVE_CLASS##N > \
 inline                                                                                              \
 void construct(DisableTrivialInit const&,                                                           \
                I pos,                                                                               \
-               BOOST_CONTAINER_PP_PARAM(P, p)                                                       \
-               BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_PARAM_LIST, _))                         \
+               BOOST_FWD_REF(P) p                                                                   \
+               BOOST_MOVE_I##N BOOST_MOVE_UREF##N)                                                  \
 {                                                                                                   \
     typedef typename boost::iterator_value<I>::type V;                                              \
     new                                                                                             \
     (static_cast<void*>(boost::addressof(*pos)))                                                    \
-    V(p, BOOST_PP_ENUM(n, BOOST_CONTAINER_PP_PARAM_FORWARD, _));                   /*may throw*/    \
+    V(boost::forward<P>(p) BOOST_MOVE_I##N BOOST_MOVE_FWD##N);                    /*may throw*/    \
 }                                                                                                   \
-//
-#define BOOST_PP_LOCAL_LIMITS (1, BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS)
-#include BOOST_PP_LOCAL_ITERATE()
+
+BOOST_MOVE_ITERATE_1TO9(BOOST_GEOMETRY_INDEX_DETAIL_VARRAY_DETAIL_CONSTRUCT)
+#undef BOOST_GEOMETRY_INDEX_DETAIL_VARRAY_DETAIL_CONSTRUCT
 
 #endif // !BOOST_NO_CXX11_VARIADIC_TEMPLATES
 #endif // !BOOST_CONTAINER_VARRAY_DISABLE_EMPLACE

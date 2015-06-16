@@ -12,11 +12,7 @@
 
 #include <cstddef>
 
-
-#include <boost/assert.hpp>
 #include <boost/range.hpp>
-
-
 
 #include <boost/geometry/algorithms/detail/ring_identifier.hpp>
 

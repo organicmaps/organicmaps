@@ -86,7 +86,7 @@ struct interior_return_type<polygon_tag, Polygon>
 {
     typedef typename boost::remove_const<Polygon>::type nc_polygon_type;
 
-    typedef typename mpl::if_
+    typedef typename boost::mpl::if_
         <
             boost::is_const<Polygon>,
             typename traits::interior_const_type<nc_polygon_type>::type,

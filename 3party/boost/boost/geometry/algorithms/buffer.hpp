@@ -17,12 +17,16 @@
 #include <cstddef>
 
 #include <boost/numeric/conversion/cast.hpp>
-#include <boost/variant/static_visitor.hpp>
+
+#include <boost/range.hpp>
+
 #include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
 #include <boost/variant/variant_fwd.hpp>
 
 #include <boost/geometry/algorithms/clear.hpp>
 #include <boost/geometry/algorithms/envelope.hpp>
+#include <boost/geometry/algorithms/is_empty.hpp>
 #include <boost/geometry/algorithms/not_implemented.hpp>
 #include <boost/geometry/arithmetic/arithmetic.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
@@ -259,6 +263,12 @@ inline void buffer(GeometryIn const& geometry_in,
     typedef typename rescale_policy_type<point_type>::type rescale_policy_type;
 
     geometry_out.clear();
+
+    if (geometry::is_empty(geometry_in))
+    {
+        // Then output geometry is kept empty as well
+        return;
+    }
 
     model::box<point_type> box;
     envelope(geometry_in, box);

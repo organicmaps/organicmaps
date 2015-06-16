@@ -1,8 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
+// Copyright (c) 2007-2015 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
+
+// This file was modified by Oracle on 2015.
+// Modifications copyright (c) 2015, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -17,6 +22,7 @@
 
 
 #include <boost/mpl/assert.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/geometry/core/tags.hpp>
 
 
@@ -87,7 +93,7 @@ template <> struct tag_to_term<multi_point_tag>             { typedef info::MULT
 template <> struct tag_to_term<multi_linestring_tag>        { typedef info::MULTI_LINESTRING type; };
 template <> struct tag_to_term<multi_polygon_tag>           { typedef info::MULTI_POLYGON type; };
 template <> struct tag_to_term<geometry_collection_tag>     { typedef info::GEOMETRY_COLLECTION type; };
-template <int D> struct tag_to_term<mpl::int_<D> >  { typedef info::DIMENSION<D> type; };
+template <int D> struct tag_to_term<boost::mpl::int_<D> >   { typedef info::DIMENSION<D> type; };
 
 
 }
@@ -103,9 +109,18 @@ struct not_implemented
     : nyi::not_implemented_tag,
       nyi::not_implemented_error
       <
-          typename mpl::identity<typename nyi::tag_to_term<Term1>::type>::type,
-          typename mpl::identity<typename nyi::tag_to_term<Term2>::type>::type,
-          typename mpl::identity<typename nyi::tag_to_term<Term3>::type>::type
+          typename boost::mpl::identity
+              <
+                  typename nyi::tag_to_term<Term1>::type
+              >::type,
+          typename boost::mpl::identity
+              <
+                  typename nyi::tag_to_term<Term2>::type
+              >::type,
+          typename boost::mpl::identity
+              <
+                  typename nyi::tag_to_term<Term3>::type
+              >::type
       >
 {};
 

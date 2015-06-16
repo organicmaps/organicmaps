@@ -1,14 +1,15 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
-// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2007-2015 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
+// Copyright (c) 2014-2015 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2014.
-// Modifications copyright (c) 2014 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014, 2015.
+// Modifications copyright (c) 2014-2015 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -25,6 +26,10 @@
 #include <vector>
 
 #include <boost/range.hpp>
+
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/coordinate_dimension.hpp>
@@ -46,12 +51,11 @@
 #include <boost/geometry/util/select_most_precise.hpp>
 
 #include <boost/geometry/algorithms/detail/equals/collect_vectors.hpp>
-#include <boost/geometry/algorithms/detail/relate/relate.hpp>
+#include <boost/geometry/algorithms/relate.hpp>
+#include <boost/geometry/algorithms/detail/relate/relate_impl.hpp>
 
 #include <boost/geometry/views/detail/indexed_point_view.hpp>
 
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
 
 namespace boost { namespace geometry
 {
@@ -178,9 +182,9 @@ struct equals_by_collection
 
 template<typename Geometry1, typename Geometry2>
 struct equals_by_relate
-    : detail::relate::relate_base
+    : detail::relate::relate_impl
         <
-            detail::relate::static_mask_equals_type,
+            detail::de9im::static_mask_equals_type,
             Geometry1,
             Geometry2
         >
@@ -234,8 +238,6 @@ template <typename P1, typename P2, std::size_t DimensionCount, bool Reverse>
 struct equals<P1, P2, point_tag, point_tag, DimensionCount, Reverse>
     : geometry::detail::not_
         <
-            P1,
-            P2,
             detail::disjoint::point_point<P1, P2, 0, DimensionCount>
         >
 {};

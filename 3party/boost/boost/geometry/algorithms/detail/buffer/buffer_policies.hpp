@@ -9,6 +9,7 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_BUFFER_BUFFER_POLICIES_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_BUFFER_BUFFER_POLICIES_HPP
 
+#define BOOST_GEOMETRY_BUFFER_USE_SIDE_OF_INTERSECTION
 
 #include <cstddef>
 
@@ -35,7 +36,7 @@ namespace detail { namespace buffer
 
 enum intersection_location_type
 {
-    location_ok, inside_buffer, inside_original
+    location_ok, inside_buffer, location_discard
 };
 
 class backtrack_for_buffer
@@ -81,8 +82,8 @@ template <typename Point, typename SegmentRatio>
 struct buffer_turn_operation
     : public detail::overlay::traversal_turn_operation<Point, SegmentRatio>
 {
-    int piece_index;
-    int index_in_robust_ring;
+    signed_size_type piece_index;
+    signed_size_type index_in_robust_ring;
 
     inline buffer_turn_operation()
         : piece_index(-1)
@@ -103,7 +104,7 @@ struct buffer_turn_info
     typedef Point point_type;
     typedef RobustPoint robust_point_type;
 
-    int turn_index; // TODO: this might go if partition can operate on non-const input
+    std::size_t turn_index; // TODO: this might go if partition can operate on non-const input
 
     RobustPoint robust_point;
 #if defined(BOOST_GEOMETRY_BUFFER_ENLARGED_CLUSTERS)
@@ -120,21 +121,43 @@ struct buffer_turn_info
         return robust_point;
     }
 
-
     intersection_location_type location;
 
-    int count_within;
-    int count_on_offsetted;
-    int count_on_helper;
-    int count_on_occupied;
-    int count_on_multi;
+#if defined(BOOST_GEOMETRY_BUFFER_USE_SIDE_OF_INTERSECTION)
+    robust_point_type rob_pi, rob_pj, rob_qi, rob_qj;
+#endif
+
+    std::size_t count_within;
+
+    bool within_original;
+    std::size_t count_on_original_boundary;
+    signed_size_type count_in_original; // increased by +1 for in ext.ring, -1 for int.ring
+
+    std::size_t count_on_offsetted;
+    std::size_t count_on_helper;
+#if ! defined(BOOST_GEOMETRY_BUFFER_USE_SIDE_OF_INTERSECTION)
+    std::size_t count_within_near_offsetted;
+#endif
+
+    bool remove_on_multi;
+
+    // Obsolete:
+    std::size_t count_on_occupied;
+    std::size_t count_on_multi;
 
     inline buffer_turn_info()
-        : turn_index(-1)
+        : turn_index(0)
         , location(location_ok)
         , count_within(0)
+        , within_original(false)
+        , count_on_original_boundary(0)
+        , count_in_original(0)
         , count_on_offsetted(0)
         , count_on_helper(0)
+#if ! defined(BOOST_GEOMETRY_BUFFER_USE_SIDE_OF_INTERSECTION)
+        , count_within_near_offsetted(0)
+#endif
+        , remove_on_multi(false)
         , count_on_occupied(0)
         , count_on_multi(0)
     {}

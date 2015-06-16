@@ -28,60 +28,56 @@ namespace detail { namespace rtree {
 
 namespace quadratic {
 
-template <typename Elements, typename Parameters, typename Translator, typename Box>
-struct pick_seeds
+template <typename Box, typename Elements, typename Parameters, typename Translator>
+inline void pick_seeds(Elements const& elements,
+                       Parameters const& parameters,
+                       Translator const& tr,
+                       size_t & seed1,
+                       size_t & seed2)
 {
     typedef typename Elements::value_type element_type;
     typedef typename rtree::element_indexable_type<element_type, Translator>::type indexable_type;
-    typedef typename coordinate_type<indexable_type>::type coordinate_type;
     typedef Box box_type;
     typedef typename index::detail::default_content_result<box_type>::type content_type;
     typedef index::detail::bounded_view<indexable_type, box_type> bounded_indexable_view;
 
-    static inline void apply(Elements const& elements,
-                             Parameters const& parameters,
-                             Translator const& tr,
-                             size_t & seed1,
-                             size_t & seed2)
+    const size_t elements_count = parameters.get_max_elements() + 1;
+    BOOST_GEOMETRY_INDEX_ASSERT(elements.size() == elements_count, "wrong number of elements");
+    BOOST_GEOMETRY_INDEX_ASSERT(2 <= elements_count, "unexpected number of elements");
+
+    content_type greatest_free_content = 0;
+    seed1 = 0;
+    seed2 = 1;
+
+    for ( size_t i = 0 ; i < elements_count - 1 ; ++i )
     {
-        const size_t elements_count = parameters.get_max_elements() + 1;
-        BOOST_GEOMETRY_INDEX_ASSERT(elements.size() == elements_count, "wrong number of elements");
-        BOOST_GEOMETRY_INDEX_ASSERT(2 <= elements_count, "unexpected number of elements");
-
-        content_type greatest_free_content = 0;
-        seed1 = 0;
-        seed2 = 1;
-
-        for ( size_t i = 0 ; i < elements_count - 1 ; ++i )
+        for ( size_t j = i + 1 ; j < elements_count ; ++j )
         {
-            for ( size_t j = i + 1 ; j < elements_count ; ++j )
-            {
-                indexable_type const& ind1 = rtree::element_indexable(elements[i], tr);
-                indexable_type const& ind2 = rtree::element_indexable(elements[j], tr);
+            indexable_type const& ind1 = rtree::element_indexable(elements[i], tr);
+            indexable_type const& ind2 = rtree::element_indexable(elements[j], tr);
 
-                box_type enlarged_box;
-                //geometry::convert(ind1, enlarged_box);
-                detail::bounds(ind1, enlarged_box);
-                geometry::expand(enlarged_box, ind2);
+            box_type enlarged_box;
+            //geometry::convert(ind1, enlarged_box);
+            detail::bounds(ind1, enlarged_box);
+            geometry::expand(enlarged_box, ind2);
 
-                bounded_indexable_view bounded_ind1(ind1);
-                bounded_indexable_view bounded_ind2(ind2);
-                content_type free_content = ( index::detail::content(enlarged_box)
-                                                - index::detail::content(bounded_ind1) )
-                                                    - index::detail::content(bounded_ind2);
+            bounded_indexable_view bounded_ind1(ind1);
+            bounded_indexable_view bounded_ind2(ind2);
+            content_type free_content = ( index::detail::content(enlarged_box)
+                                            - index::detail::content(bounded_ind1) )
+                                                - index::detail::content(bounded_ind2);
                 
-                if ( greatest_free_content < free_content )
-                {
-                    greatest_free_content = free_content;
-                    seed1 = i;
-                    seed2 = j;
-                }
+            if ( greatest_free_content < free_content )
+            {
+                greatest_free_content = free_content;
+                seed1 = i;
+                seed2 = j;
             }
         }
-
-        ::boost::ignore_unused_variable_warning(parameters);
     }
-};
+
+    ::boost::ignore_unused_variable_warning(parameters);
+}
 
 } // namespace quadratic
 
@@ -114,20 +110,17 @@ struct redistribute_elements<Value, Options, Translator, Box, Allocators, quadra
         
         BOOST_GEOMETRY_INDEX_ASSERT(elements1.size() == parameters.get_max_elements() + 1, "unexpected elements number");
 
-        // copy original elements
-        // TODO: use container_from_elements_type for std::allocator
-        elements_type elements_copy(elements1);                                                             // MAY THROW, STRONG (alloc, copy)
-        elements_type elements_backup(elements1);                                                           // MAY THROW, STRONG (alloc, copy)
+        // copy original elements - use in-memory storage (std::allocator)
+        // TODO: move if noexcept
+        typedef typename rtree::container_from_elements_type<elements_type, element_type>::type
+            container_type;
+        container_type elements_copy(elements1.begin(), elements1.end());                                   // MAY THROW, STRONG (alloc, copy)
+        container_type elements_backup(elements1.begin(), elements1.end());                                 // MAY THROW, STRONG (alloc, copy)
         
         // calculate initial seeds
         size_t seed1 = 0;
         size_t seed2 = 0;
-        quadratic::pick_seeds<
-            elements_type,
-            parameters_type,
-            Translator,
-            Box
-        >::apply(elements_copy, parameters, translator, seed1, seed2);
+        quadratic::pick_seeds<Box>(elements_copy, parameters, translator, seed1, seed2);
 
         // prepare nodes' elements containers
         elements1.clear();
@@ -170,7 +163,7 @@ struct redistribute_elements<Value, Options, Translator, Box, Allocators, quadra
             // redistribute the rest of the elements
             while ( !elements_copy.empty() )
             {
-                typename elements_type::reverse_iterator el_it = elements_copy.rbegin();
+                typename container_type::reverse_iterator el_it = elements_copy.rbegin();
                 bool insert_into_group1 = false;
 
                 size_t elements1_count = elements1.size();
@@ -227,7 +220,7 @@ struct redistribute_elements<Value, Options, Translator, Box, Allocators, quadra
                 }
 
                 BOOST_GEOMETRY_INDEX_ASSERT(!elements_copy.empty(), "expected more elements");
-                typename elements_type::iterator el_it_base = el_it.base();
+                typename container_type::iterator el_it_base = el_it.base();
                 rtree::move_from_back(elements_copy, --el_it_base);                                         // MAY THROW, STRONG (copy)
                 elements_copy.pop_back();
 

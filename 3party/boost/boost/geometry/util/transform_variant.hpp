@@ -1,8 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2015 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
+
+// This file was modified by Oracle on 2015.
+// Modifications copyright (c) 2015, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -31,7 +36,7 @@ namespace boost { namespace geometry
     \ingroup utility
     \par Example
     \code
-        typedef mpl::vector<int, float, long> types;
+        typedef boost::mpl::vector<int, float, long> types;
         typedef transform_variant<types, add_pointer<_> > transformed;
         typedef variant<int*, float*, long*> result;
         BOOST_MPL_ASSERT(( equal<result, transformed> ));
@@ -40,7 +45,7 @@ namespace boost { namespace geometry
 template <typename Sequence, typename Op, typename In = boost::mpl::na>
 struct transform_variant:
     make_variant_over<
-        typename mpl::transform<
+        typename boost::mpl::transform<
             Sequence,
             Op,
             In
@@ -65,7 +70,7 @@ struct transform_variant:
 template <BOOST_VARIANT_ENUM_PARAMS(typename T), typename Op>
 struct transform_variant<variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Op, boost::mpl::na> :
     make_variant_over<
-        typename mpl::transform<
+        typename boost::mpl::transform<
             typename variant<BOOST_VARIANT_ENUM_PARAMS(T)>::types,
             Op
         >::type

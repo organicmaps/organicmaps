@@ -1,6 +1,11 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2012-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2012-2015 Barend Gehrels, Amsterdam, the Netherlands.
+
+// This file was modified by Oracle on 2015.
+// Modifications copyright (c) 2015, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -9,7 +14,8 @@
 #ifndef BOOST_GEOMETRY_STRATEGIES_CARTESIAN_BUFFER_JOIN_ROUND_HPP
 #define BOOST_GEOMETRY_STRATEGIES_CARTESIAN_BUFFER_JOIN_ROUND_HPP
 
-#include <boost/assert.hpp>
+#include <algorithm>
+
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/policies/compare.hpp>
 #include <boost/geometry/strategies/buffer.hpp>
@@ -69,34 +75,37 @@ private :
                 DistanceType const& buffer_distance,
                 RangeOut& range_out) const
     {
-        PromotedType dx1 = get<0>(perp1) - get<0>(vertex);
-        PromotedType dy1 = get<1>(perp1) - get<1>(vertex);
-        PromotedType dx2 = get<0>(perp2) - get<0>(vertex);
-        PromotedType dy2 = get<1>(perp2) - get<1>(vertex);
+        PromotedType const dx1 = get<0>(perp1) - get<0>(vertex);
+        PromotedType const dy1 = get<1>(perp1) - get<1>(vertex);
+        PromotedType const dx2 = get<0>(perp2) - get<0>(vertex);
+        PromotedType const dy2 = get<1>(perp2) - get<1>(vertex);
 
-        BOOST_ASSERT(buffer_distance != 0);
-
-        dx1 /= buffer_distance;
-        dy1 /= buffer_distance;
-        dx2 /= buffer_distance;
-        dy2 /= buffer_distance;
-
-        PromotedType angle_diff = acos(dx1 * dx2 + dy1 * dy2);
-
-        PromotedType two = 2.0;
-        PromotedType steps = m_points_per_circle;
-        int n = boost::numeric_cast<int>(steps * angle_diff
-                    / (two * geometry::math::pi<PromotedType>()));
-
-        if (n <= 1)
-        {
-            return;
-        }
+        PromotedType const two_pi = geometry::math::two_pi<PromotedType>();
 
         PromotedType const angle1 = atan2(dy1, dx1);
-        PromotedType diff = angle_diff / PromotedType(n);
+        PromotedType angle2 = atan2(dy2, dx2);
+        while (angle2 > angle1)
+        {
+            angle2 -= two_pi;
+        }
+        PromotedType const angle_diff = angle1 - angle2;
+
+        // Divide the angle into an integer amount of steps to make it
+        // visually correct also for a low number of points / circle
+
+        // If a full circle is divided into 3 parts (e.g. angle is 125),
+        // the one point in between must still be generated
+        // The calculation below:
+        // - generates 1 point  in between for an angle of 125 based on 3 points
+        // - generates 0 points in between for an angle of 90  based on 4 points
+
+        int const n = (std::max)(static_cast<int>(
+            ceil(m_points_per_circle * angle_diff / two_pi)), 1);
+
+        PromotedType const diff = angle_diff / static_cast<PromotedType>(n);
         PromotedType a = angle1 - diff;
 
+        // Walk to n - 1 to avoid generating the last point
         for (int i = 0; i < n - 1; i++, a -= diff)
         {
             Point p;

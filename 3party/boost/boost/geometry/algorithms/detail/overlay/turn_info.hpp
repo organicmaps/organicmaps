@@ -59,7 +59,6 @@ struct turn_operation
 {
     operation_type operation;
     segment_identifier seg_id;
-    segment_identifier other_id;
     SegmentRatio fraction;
 
     inline turn_operation()

@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014, Oracle and/or its affiliates.
+// Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
@@ -11,6 +11,7 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_IS_VALID_MULTIPOLYGON_HPP
 
 #include <deque>
+#include <vector>
 
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/range.hpp>
@@ -22,9 +23,13 @@
 
 #include <boost/geometry/util/range.hpp>
 
+#include <boost/geometry/geometries/box.hpp>
+
+#include <boost/geometry/algorithms/validity_failure_type.hpp>
 #include <boost/geometry/algorithms/within.hpp>
 
 #include <boost/geometry/algorithms/detail/check_iterator_range.hpp>
+#include <boost/geometry/algorithms/detail/partition.hpp>
 
 #include <boost/geometry/algorithms/detail/is_valid/has_valid_self_turns.hpp>
 #include <boost/geometry/algorithms/detail/is_valid/is_acceptable_turn.hpp>
@@ -45,12 +50,11 @@ namespace detail { namespace is_valid
 {
 
 
-template <typename MultiPolygon, bool AllowDuplicates>
+template <typename MultiPolygon, bool AllowEmptyMultiGeometries>
 class is_valid_multipolygon
     : is_valid_polygon
         <
             typename boost::range_value<MultiPolygon>::type,
-            AllowDuplicates,
             true // check only the validity of rings
         >
 {
@@ -58,48 +62,61 @@ private:
     typedef is_valid_polygon
         <
             typename boost::range_value<MultiPolygon>::type,
-            AllowDuplicates,
             true
         > base;
 
 
 
-    template <typename PolygonIterator, typename TurnIterator>
+    template
+    <
+        typename PolygonIterator,
+        typename TurnIterator,
+        typename VisitPolicy
+    >
     static inline
     bool are_polygon_interiors_disjoint(PolygonIterator polygons_first,
                                         PolygonIterator polygons_beyond,
                                         TurnIterator turns_first,
-                                        TurnIterator turns_beyond)
+                                        TurnIterator turns_beyond,
+                                        VisitPolicy& visitor)
     {
-        std::set<int> multi_indices;
+        // collect all polygons that have turns
+        std::set<signed_index_type> multi_indices;
         for (TurnIterator tit = turns_first; tit != turns_beyond; ++tit)
         {
             multi_indices.insert(tit->operations[0].seg_id.multi_index);
-            multi_indices.insert(tit->operations[0].other_id.multi_index);
+            multi_indices.insert(tit->operations[1].seg_id.multi_index);
         }
 
-        int multi_index = 0;
-        for (PolygonIterator it1 = polygons_first; it1 != polygons_beyond;
-             ++it1, ++multi_index)
+        // put polygon iterators without turns in a vector
+        std::vector<PolygonIterator> polygon_iterators;
+        signed_index_type multi_index = 0;
+        for (PolygonIterator it = polygons_first; it != polygons_beyond;
+             ++it, ++multi_index)
         {
-            if ( multi_indices.find(multi_index) != multi_indices.end() )
+            if (multi_indices.find(multi_index) == multi_indices.end())
             {
-                continue;
-            }
-
-            for (PolygonIterator it2 = polygons_first;
-                 it2 != polygons_beyond; ++it2)
-            {
-                if ( it1 != it2
-                     &&
-                     geometry::within(range::front(exterior_ring(*it1)), *it2)
-                     )
-                {
-                    return false;
-                }
+                polygon_iterators.push_back(it);
             }
         }
-        return true;
+
+        typename base::item_visitor_type item_visitor;
+
+        geometry::partition
+            <
+                geometry::model::box<typename point_type<MultiPolygon>::type>,
+                typename base::expand_box,
+                typename base::overlaps_box
+            >::apply(polygon_iterators, item_visitor);
+
+        if (item_visitor.items_overlap)
+        {
+            return visitor.template apply<failure_intersecting_interiors>();
+        }
+        else
+        {
+            return visitor.template apply<no_failure>();
+        }
     }
 
 
@@ -107,7 +124,7 @@ private:
     class has_multi_index
     {
     public:
-        has_multi_index(int multi_index)
+        has_multi_index(signed_index_type multi_index)
             : m_multi_index(multi_index)
         {}
 
@@ -115,11 +132,11 @@ private:
         inline bool operator()(Turn const& turn) const
         {
             return turn.operations[0].seg_id.multi_index == m_multi_index
-                && turn.operations[0].other_id.multi_index == m_multi_index;
+                && turn.operations[1].seg_id.multi_index == m_multi_index;
         }
 
     private:
-        int const m_multi_index;
+        signed_index_type const m_multi_index;
     };
 
 
@@ -127,13 +144,19 @@ private:
     template <typename Predicate>
     struct has_property_per_polygon
     {
-        template <typename PolygonIterator, typename TurnIterator>
+        template
+        <
+            typename PolygonIterator,
+            typename TurnIterator,
+            typename VisitPolicy
+        >
         static inline bool apply(PolygonIterator polygons_first,
                                  PolygonIterator polygons_beyond,
                                  TurnIterator turns_first,
-                                 TurnIterator turns_beyond)
+                                 TurnIterator turns_beyond,
+                                 VisitPolicy& visitor)
         {
-            int multi_index = 0;
+            signed_index_type multi_index = 0;
             for (PolygonIterator it = polygons_first; it != polygons_beyond;
                  ++it, ++multi_index)
             {
@@ -152,9 +175,10 @@ private:
                                                              turns_beyond,
                                                              turns_beyond);
 
-                if ( !Predicate::apply(*it,
+                if (! Predicate::apply(*it,
                                        filtered_turns_first,
-                                       filtered_turns_beyond) )
+                                       filtered_turns_beyond,
+                                       visitor))
                 {
                     return false;
                 }
@@ -165,49 +189,82 @@ private:
 
 
 
-    template <typename PolygonIterator, typename TurnIterator>
+    template
+    <
+        typename PolygonIterator,
+        typename TurnIterator,
+        typename VisitPolicy
+    >
     static inline bool have_holes_inside(PolygonIterator polygons_first,
                                          PolygonIterator polygons_beyond,
                                          TurnIterator turns_first,
-                                         TurnIterator turns_beyond)
+                                         TurnIterator turns_beyond,
+                                         VisitPolicy& visitor)
     {
         return has_property_per_polygon
             <
                 typename base::has_holes_inside
             >::apply(polygons_first, polygons_beyond,
-                     turns_first, turns_beyond);
+                     turns_first, turns_beyond, visitor);
     }
 
 
 
-    template <typename PolygonIterator, typename TurnIterator>
+    template
+    <
+        typename PolygonIterator,
+        typename TurnIterator,
+        typename VisitPolicy
+    >
     static inline bool have_connected_interior(PolygonIterator polygons_first,
                                                PolygonIterator polygons_beyond,
                                                TurnIterator turns_first,
-                                               TurnIterator turns_beyond)
+                                               TurnIterator turns_beyond,
+                                               VisitPolicy& visitor)
     {
         return has_property_per_polygon
             <
                 typename base::has_connected_interior
             >::apply(polygons_first, polygons_beyond,
-                     turns_first, turns_beyond);
+                     turns_first, turns_beyond, visitor);
     }
 
 
+    template <typename VisitPolicy>
+    struct per_polygon
+    {
+        per_polygon(VisitPolicy& policy) : m_policy(policy) {}
+
+        template <typename Polygon>
+        inline bool apply(Polygon const& polygon) const
+        {
+            return base::apply(polygon, m_policy);
+        }
+
+        VisitPolicy& m_policy;
+    };
 public:
-    static inline bool apply(MultiPolygon const& multipolygon)
+    template <typename VisitPolicy>
+    static inline bool apply(MultiPolygon const& multipolygon,
+                             VisitPolicy& visitor)
     {
         typedef debug_validity_phase<MultiPolygon> debug_phase;
+
+        if (AllowEmptyMultiGeometries && boost::empty(multipolygon))
+        {
+            return visitor.template apply<no_failure>();
+        }
 
         // check validity of all polygons ring
         debug_phase::apply(1);
 
-        if ( !detail::check_iterator_range
+        if (! detail::check_iterator_range
                   <
-                      base,
-                      false // do not allow empty multi-polygons
+                      per_polygon<VisitPolicy>,
+                      false // do not check for empty multipolygon (done above)
                   >::apply(boost::begin(multipolygon),
-                           boost::end(multipolygon)) )
+                           boost::end(multipolygon),
+                           per_polygon<VisitPolicy>(visitor)))
         {
             return false;
         }
@@ -219,10 +276,11 @@ public:
         typedef has_valid_self_turns<MultiPolygon> has_valid_turns;
 
         std::deque<typename has_valid_turns::turn_type> turns;
-        bool has_invalid_turns = !has_valid_turns::apply(multipolygon, turns);
+        bool has_invalid_turns =
+            ! has_valid_turns::apply(multipolygon, turns, visitor);
         debug_print_turns(turns.begin(), turns.end());
 
-        if ( has_invalid_turns )
+        if (has_invalid_turns)
         {
             return false;
         }
@@ -232,10 +290,11 @@ public:
         // exterior and not one inside the other
         debug_phase::apply(3);
 
-        if ( !have_holes_inside(boost::begin(multipolygon),
+        if (! have_holes_inside(boost::begin(multipolygon),
                                 boost::end(multipolygon),
                                 turns.begin(),
-                                turns.end()) )
+                                turns.end(),
+                                visitor))
         {
             return false;
         }
@@ -244,10 +303,11 @@ public:
         // check that each polygon's interior is connected
         debug_phase::apply(4);
 
-        if ( !have_connected_interior(boost::begin(multipolygon),
+        if (! have_connected_interior(boost::begin(multipolygon),
                                       boost::end(multipolygon),
                                       turns.begin(),
-                                      turns.end()) )
+                                      turns.end(),
+                                      visitor))
         {
             return false;
         }
@@ -258,7 +318,8 @@ public:
         return are_polygon_interiors_disjoint(boost::begin(multipolygon),
                                               boost::end(multipolygon),
                                               turns.begin(),
-                                              turns.end());
+                                              turns.end(),
+                                              visitor);
     }
 };
 
@@ -277,9 +338,14 @@ namespace dispatch
 // that the MultiPolygon is also valid.
 //
 // Reference (for validity of MultiPolygons): OGC 06-103r4 (6.1.14)
-template <typename MultiPolygon, bool AllowSpikes, bool AllowDuplicates>
-struct is_valid<MultiPolygon, multi_polygon_tag, AllowSpikes, AllowDuplicates>
-    : detail::is_valid::is_valid_multipolygon<MultiPolygon, AllowDuplicates>
+template <typename MultiPolygon, bool AllowEmptyMultiGeometries>
+struct is_valid
+    <
+        MultiPolygon, multi_polygon_tag, AllowEmptyMultiGeometries
+    > : detail::is_valid::is_valid_multipolygon
+        <
+            MultiPolygon, AllowEmptyMultiGeometries
+        >
 {};
 
 

@@ -150,7 +150,7 @@ public :
         }
     }
 
-    void resize(std::size_t new_size)
+    void resize(std::size_t /*new_size*/)
     {
         if (m_do_hole)
         {

@@ -4,6 +4,11 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -28,8 +33,19 @@ namespace boost { namespace geometry
         of two geometries
     \ingroup utility
  */
-template <typename T1, typename T2>
+template <typename T1, typename T2 = void, typename T3 = void>
 struct select_coordinate_type
+{
+    typedef typename select_most_precise
+        <
+            typename coordinate_type<T1>::type,
+            typename coordinate_type<T2>::type,
+            typename coordinate_type<T3>::type
+        >::type type;
+};
+
+template <typename T1, typename T2>
+struct select_coordinate_type<T1, T2, void>
 {
     typedef typename select_most_precise
         <
@@ -38,6 +54,14 @@ struct select_coordinate_type
         >::type type;
 };
 
+template <typename T1>
+struct select_coordinate_type<T1, void, void>
+{
+    typedef typename select_most_precise
+        <
+            typename coordinate_type<T1>::type
+        >::type type;
+};
 
 }} // namespace boost::geometry
 

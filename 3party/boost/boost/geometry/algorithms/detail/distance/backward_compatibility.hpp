@@ -20,8 +20,6 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_DISTANCE_BACKWARD_COMPATIBILITY_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_DISTANCE_BACKWARD_COMPATIBILITY_HPP
 
-#include <utility>
-
 #include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/point_type.hpp>
 #include <boost/geometry/core/tags.hpp>
@@ -35,8 +33,7 @@
 
 #include <boost/geometry/algorithms/detail/distance/default_strategies.hpp>
 #include <boost/geometry/algorithms/detail/distance/point_to_geometry.hpp>
-#include <boost/geometry/algorithms/detail/distance/single_to_multi.hpp>
-#include <boost/geometry/algorithms/detail/distance/multi_to_multi.hpp>
+#include <boost/geometry/algorithms/detail/distance/multipoint_to_geometry.hpp>
 
 
 namespace boost { namespace geometry
@@ -106,7 +103,10 @@ struct distance
 >
 {
 
-    static inline typename return_type<Strategy, Point, typename point_type<Linestring>::type>::type
+    static inline typename strategy::distance::services::return_type
+        <
+            Strategy, Point, typename point_type<Linestring>::type
+        >::type
     apply(Point const& point,
           Linestring const& linestring,
           Strategy const&)
@@ -151,15 +151,12 @@ struct distance
                 Strategy
             >::type ps_strategy_type;
 
-        std::pair<return_type, bool>
-            dc = detail::distance::point_to_ring
+        return detail::distance::point_to_ring
             <
                 Point, Ring,
                 geometry::closure<Ring>::value,
                 ps_strategy_type
             >::apply(point, ring, ps_strategy_type());
-
-        return dc.second ? return_type(0) : dc.first;
     }
 };
 
@@ -179,8 +176,8 @@ struct distance
         >::type return_type;
 
     static inline return_type apply(Point const& point,
-            Polygon const& polygon,
-            Strategy const&)
+                                    Polygon const& polygon,
+                                    Strategy const&)
     {
         typedef typename detail::distance::default_ps_strategy
             <
@@ -189,23 +186,17 @@ struct distance
                 Strategy
             >::type ps_strategy_type;
 
-        std::pair<return_type, bool>
-            dc = detail::distance::point_to_polygon
+        return detail::distance::point_to_polygon
             <
-                Point, Polygon,
+                Point,
+                Polygon,
                 geometry::closure<Polygon>::value,
                 ps_strategy_type
             >::apply(point, polygon, ps_strategy_type());
-
-        return dc.second ? return_type(0) : dc.first;
     }
 };
 
 
-
-
-namespace splitted_dispatch
-{
 
 
 template
@@ -215,11 +206,11 @@ template
     typename MultiGeometryTag,
     typename Strategy
 >
-struct distance_single_to_multi
+struct distance
     <
         Point, MultiGeometry, Strategy,
         point_tag, MultiGeometryTag,
-        strategy_tag_distance_point_point
+        strategy_tag_distance_point_point, false
     >
 {
     typedef typename strategy::distance::services::return_type
@@ -238,11 +229,11 @@ struct distance_single_to_multi
                 Strategy
             >::type ps_strategy_type;
     
-        return distance_single_to_multi
+        return distance
             <
                 Point, MultiGeometry, ps_strategy_type,
                 point_tag, MultiGeometryTag,
-                strategy_tag_distance_point_segment
+                strategy_tag_distance_point_segment, false
             >::apply(point, multigeometry, ps_strategy_type());
     }
 };
@@ -255,11 +246,11 @@ template
     typename GeometryTag,
     typename Strategy
 >
-struct distance_single_to_multi
+struct distance
     <
         Geometry, MultiPoint, Strategy,
         GeometryTag, multi_point_tag,
-        strategy_tag_distance_point_point
+        strategy_tag_distance_point_point, false
     >
 {
     typedef typename strategy::distance::services::return_type
@@ -280,11 +271,11 @@ struct distance_single_to_multi
                 Strategy
             >::type ps_strategy_type;
     
-        return distance_single_to_multi
+        return distance
             <
                 Geometry, MultiPoint, ps_strategy_type,
                 GeometryTag, multi_point_tag,
-                strategy_tag_distance_point_segment
+                strategy_tag_distance_point_segment, false
             >::apply(geometry, multipoint, ps_strategy_type());
     }
 };
@@ -297,11 +288,11 @@ template
     typename MultiGeometryTag,
     typename Strategy
 >
-struct distance_multi_to_multi
+struct distance
     <
         MultiPoint, MultiGeometry, Strategy,
         multi_point_tag, MultiGeometryTag,
-        strategy_tag_distance_point_point
+        strategy_tag_distance_point_point, false
     >
 {
     typedef typename strategy::distance::services::return_type
@@ -322,17 +313,14 @@ struct distance_multi_to_multi
                 Strategy
             >::type ps_strategy_type;
     
-        return distance_multi_to_multi
+        return distance
             <
                 MultiPoint, MultiGeometry, ps_strategy_type,
                 multi_point_tag, MultiGeometryTag,
-                strategy_tag_distance_point_segment
+                strategy_tag_distance_point_segment, false
             >::apply(multipoint, multigeometry, ps_strategy_type());
     }
 };
-
-
-} // namespace splitted_dispatch
 
 
 } // namespace dispatch

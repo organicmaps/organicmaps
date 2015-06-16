@@ -18,7 +18,9 @@
 
 #include <boost/geometry/algorithms/detail/assign_indexed_point.hpp>
 #include <boost/geometry/core/access.hpp>
+#include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/strategies/side_info.hpp>
+#include <boost/geometry/util/promote_integral.hpp>
 #include <boost/geometry/util/select_calculation_type.hpp>
 #include <boost/geometry/util/select_most_precise.hpp>
 #include <boost/geometry/util/math.hpp>
@@ -59,13 +61,25 @@ struct segments_intersection_points
         // Up to now, division was postponed. Here we divide using numerator/
         // denominator. In case of integer this results in an integer
         // division.
-        BOOST_ASSERT(ratio.denominator() != 0);
-        set<0>(point, boost::numeric_cast<coordinate_type>(
-                get<0, 0>(segment)
-                    + ratio.numerator() * dx / ratio.denominator()));
-        set<1>(point, boost::numeric_cast<coordinate_type>(
-                get<0, 1>(segment)
-                    + ratio.numerator() * dy / ratio.denominator()));
+        BOOST_GEOMETRY_ASSERT(ratio.denominator() != 0);
+
+        typedef typename promote_integral<coordinate_type>::type promoted_type;
+
+        promoted_type const numerator
+            = boost::numeric_cast<promoted_type>(ratio.numerator());
+        promoted_type const denominator
+            = boost::numeric_cast<promoted_type>(ratio.denominator());
+        promoted_type const dx_promoted = boost::numeric_cast<promoted_type>(dx);
+        promoted_type const dy_promoted = boost::numeric_cast<promoted_type>(dy);
+
+        set<0>(point, get<0, 0>(segment) + boost::numeric_cast
+            <
+                coordinate_type
+            >(numerator * dx_promoted / denominator));
+        set<1>(point, get<0, 1>(segment) + boost::numeric_cast
+            <
+                coordinate_type
+            >(numerator * dy_promoted / denominator));
     }
 
 
@@ -100,19 +114,20 @@ struct segments_intersection_points
 
     template <typename Segment1, typename Segment2, typename Ratio>
     static inline return_type segments_collinear(
-        Segment1 const& a, Segment2 const& b,
+        Segment1 const& a, Segment2 const& b, bool /*opposite*/,
+        int a1_wrt_b, int a2_wrt_b, int b1_wrt_a, int b2_wrt_a,
         Ratio const& ra_from_wrt_b, Ratio const& ra_to_wrt_b,
         Ratio const& rb_from_wrt_a, Ratio const& rb_to_wrt_a)
     {
         return_type result;
-        int index = 0, count_a = 0, count_b = 0;
+        unsigned int index = 0, count_a = 0, count_b = 0;
         Ratio on_a[2];
 
         // The conditions "index < 2" are necessary for non-robust handling,
         // if index would be 2 this indicate an (currently uncatched) error
 
         // IMPORTANT: the order of conditions is different as in direction.hpp
-        if (ra_from_wrt_b.on_segment()
+        if (a1_wrt_b >= 1 && a1_wrt_b <= 3 // ra_from_wrt_b.on_segment()
             && index < 2)
         {
             //     a1--------->a2
@@ -126,7 +141,7 @@ struct segments_intersection_points
             index++;
             count_a++;
         }
-        if (rb_from_wrt_a.in_segment()
+        if (b1_wrt_a == 2 //rb_from_wrt_a.in_segment()
             && index < 2)
         {
             // We take the first intersection point of B
@@ -143,7 +158,7 @@ struct segments_intersection_points
             count_b++;
         }
 
-        if (ra_to_wrt_b.on_segment()
+        if (a2_wrt_b >= 1 && a2_wrt_b <= 3 //ra_to_wrt_b.on_segment()
             && index < 2)
         {
             // Similarly, second IP (here a2)
@@ -155,7 +170,7 @@ struct segments_intersection_points
             index++;
             count_a++;
         }
-        if (rb_to_wrt_a.in_segment()
+        if (b2_wrt_a == 2 // rb_to_wrt_a.in_segment()
             && index < 2)
         {
             detail::assign_point_from_index<1>(b, result.intersections[index]);

@@ -89,7 +89,8 @@ inline void move_along_vector(PointType& point, PointType const& extreme, Coordi
 
     CoordinateType const base_diff = base_value - geometry::get<Dimension>(extreme);
 
-    multiply_value(vector, base_diff / diff);
+    multiply_value(vector, base_diff);
+    divide_value(vector, diff);
 
     // The real move:
     point = extreme;
@@ -236,8 +237,9 @@ struct extreme_points_on_ring
             coordinate_type const other_coordinate = geometry::get<1 - Dimension>(*right);
             if (coordinate > min_value && other_coordinate > other_min && other_coordinate < other_max)
             {
-                int const first_side = side_strategy::apply(*right, extremes.front(), *(extremes.begin() + 1));
-                int const last_side = side_strategy::apply(*right, *(extremes.rbegin() + 1), extremes.back());
+                int const factor = geometry::point_order<Ring>::value == geometry::clockwise ? 1 : -1;
+                int const first_side = side_strategy::apply(*right, extremes.front(), *(extremes.begin() + 1)) * factor;
+                int const last_side = side_strategy::apply(*right, *(extremes.rbegin() + 1), extremes.back()) * factor;
 
                 // If not lying left from any of the extemes side
                 if (first_side != 1 && last_side != 1)
@@ -280,7 +282,8 @@ struct extreme_points_on_ring
     template <typename Iterator>
     static inline bool right_turn(Ring const& ring, Iterator it)
     {
-        int const index = std::distance(boost::begin(ring), it);
+        typename std::iterator_traits<Iterator>::difference_type const index
+            = std::distance(boost::begin(ring), it);
         geometry::ever_circling_range_iterator<Ring const> left(ring);
         geometry::ever_circling_range_iterator<Ring const> right(ring);
         left += index;
@@ -291,8 +294,9 @@ struct extreme_points_on_ring
             return false;
         }
 
-        int const first_side = side_strategy::apply(*(right - 1), *right, *left);
-        int const last_side = side_strategy::apply(*left, *(left + 1), *right);
+        int const factor = geometry::point_order<Ring>::value == geometry::clockwise ? 1 : -1;
+        int const first_side = side_strategy::apply(*(right - 1), *right, *left) * factor;
+        int const last_side = side_strategy::apply(*left, *(left + 1), *right) * factor;
 
 //std::cout << "Candidate at " << geometry::wkt(*it) << " first=" << first_side << " last=" << last_side << std::endl;
 
@@ -328,7 +332,8 @@ struct extreme_points_on_ring
             return false;
         }
 
-        int const index = std::distance(boost::begin(ring), max_it);
+        typename std::iterator_traits<range_iterator>::difference_type const
+            index = std::distance(boost::begin(ring), max_it);
 //std::cout << "Extreme point lies at " << index << " having " << geometry::wkt(*max_it) << std::endl;
 
         geometry::ever_circling_range_iterator<Ring const> left(ring);

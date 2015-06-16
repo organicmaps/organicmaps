@@ -20,7 +20,6 @@ namespace detail {
 template <size_t MaxElements>
 struct default_min_elements_s
 {
-    // TODO - assert MaxElements <= (std::numeric_limits<size_t>::max)()/3
     static const size_t raw_value = (MaxElements * 3) / 10;
     static const size_t value = 1 <= raw_value ? raw_value : 1;
 };
@@ -34,7 +33,6 @@ inline size_t default_min_elements_d_calc(size_t max_elements, size_t min_elemen
 {
     if ( default_min_elements_d() == min_elements )
     {
-        // TODO - assert MaxElements <= (std::numeric_limits<size_t>::max)()/3
         size_t raw_value = (max_elements * 3) / 10;
         return 1 <= raw_value ? raw_value : 1;
     }
@@ -45,7 +43,6 @@ inline size_t default_min_elements_d_calc(size_t max_elements, size_t min_elemen
 template <size_t MaxElements>
 struct default_rstar_reinserted_elements_s
 {
-    // TODO - assert MaxElements <= (std::numeric_limits<size_t>::max)()/3
     static const size_t value = (MaxElements * 3) / 10;
 };
 
@@ -58,7 +55,6 @@ inline size_t default_rstar_reinserted_elements_d_calc(size_t max_elements, size
 {
     if ( default_rstar_reinserted_elements_d() == reinserted_elements )
     {
-        // TODO - assert MaxElements <= (std::numeric_limits<size_t>::max)()/3
         return (max_elements * 3) / 10;
     }
     
@@ -74,8 +70,7 @@ inline size_t default_rstar_reinserted_elements_d_calc(size_t max_elements, size
 \tparam MinElements     Minimum number of elements in nodes. Default: 0.3*Max.
 */
 template <size_t MaxElements,
-          size_t MinElements = detail::default_min_elements_s<MaxElements>::value
->
+          size_t MinElements = detail::default_min_elements_s<MaxElements>::value>
 struct linear
 {
     BOOST_MPL_ASSERT_MSG((0 < MinElements && 2*MinElements <= MaxElements+1),

@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014, Oracle and/or its affiliates.
+// Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
@@ -9,6 +9,8 @@
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_IS_VALID_RING_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_IS_VALID_RING_HPP
+
+#include <deque>
 
 #include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/cs.hpp>
@@ -19,15 +21,21 @@
 
 #include <boost/geometry/algorithms/equals.hpp>
 
-#include <boost/geometry/views/reversible_view.hpp>
 #include <boost/geometry/views/closeable_view.hpp>
 
 #include <boost/geometry/algorithms/area.hpp>
 #include <boost/geometry/algorithms/intersects.hpp>
+#include <boost/geometry/algorithms/validity_failure_type.hpp>
+#include <boost/geometry/algorithms/detail/num_distinct_consecutive_points.hpp>
 #include <boost/geometry/algorithms/detail/is_valid/has_spikes.hpp>
 #include <boost/geometry/algorithms/detail/is_valid/has_duplicates.hpp>
+#include <boost/geometry/algorithms/detail/is_valid/has_valid_self_turns.hpp>
 
 #include <boost/geometry/strategies/area.hpp>
+
+#ifdef BOOST_GEOMETRY_TEST_DEBUG
+#include <boost/geometry/io/dsv/write.hpp>
+#endif
 
 namespace boost { namespace geometry
 {
@@ -42,18 +50,27 @@ namespace detail { namespace is_valid
 template <typename Ring, closure_selector Closure /* open */>
 struct is_topologically_closed
 {
-    static inline bool apply(Ring const&)
+    template <typename VisitPolicy>
+    static inline bool apply(Ring const&, VisitPolicy& visitor)
     {
-        return true;
+        return visitor.template apply<no_failure>();
     }
 };
 
 template <typename Ring>
 struct is_topologically_closed<Ring, closed>
 {
-    static inline bool apply(Ring const& ring)
+    template <typename VisitPolicy>
+    static inline bool apply(Ring const& ring, VisitPolicy& visitor)
     {
-        return geometry::equals(range::front(ring), range::back(ring));
+        if (geometry::equals(range::front(ring), range::back(ring)))
+        {
+            return visitor.template apply<no_failure>();
+        }
+        else
+        {
+            return visitor.template apply<failure_not_closed>();
+        }
     }
 };
 
@@ -92,7 +109,8 @@ struct is_properly_oriented
 
     typedef typename default_area_result<Ring>::type area_result_type;
 
-    static inline bool apply(Ring const& ring)
+    template <typename VisitPolicy>
+    static inline bool apply(Ring const& ring, VisitPolicy& visitor)
     {
         typename ring_area_predicate
             <
@@ -101,7 +119,14 @@ struct is_properly_oriented
 
         // Check area
         area_result_type const zero = area_result_type();
-        return predicate(ring_area_type::apply(ring, strategy_type()), zero);
+        if (predicate(ring_area_type::apply(ring, strategy_type()), zero))
+        {
+            return visitor.template apply<no_failure>();
+        }
+        else
+        {
+            return visitor.template apply<failure_wrong_orientation>();
+        }
     }
 };
 
@@ -110,41 +135,60 @@ struct is_properly_oriented
 template
 <
     typename Ring,
-    bool AllowDuplicates,
     bool CheckSelfIntersections = true,
     bool IsInteriorRing = false
 >
 struct is_valid_ring
 {
-    static inline bool apply(Ring const& ring)
+    template <typename VisitPolicy>
+    static inline bool apply(Ring const& ring, VisitPolicy& visitor)
     {
         // return invalid if any of the following condition holds:
         // (a) the ring's size is below the minimal one
-        // (b) the ring is not topologically closed
-        // (c) the ring has spikes
-        // (d) the ring has duplicate points (if AllowDuplicates is false)
-        // (e) the boundary of the ring has self-intersections
-        // (f) the order of the points is inconsistent with the defined order
+        // (b) the ring consists of at most two distinct points
+        // (c) the ring is not topologically closed
+        // (d) the ring has spikes
+        // (e) the ring has duplicate points (if AllowDuplicates is false)
+        // (f) the boundary of the ring has self-intersections
+        // (g) the order of the points is inconsistent with the defined order
         //
         // Note: no need to check if the area is zero. If this is the
         // case, then the ring must have at least two spikes, which is
         // checked by condition (c).
 
         closure_selector const closure = geometry::closure<Ring>::value;
+        typedef typename closeable_view<Ring const, closure>::type view_type;
+
+        if (boost::size(ring)
+            < core_detail::closure::minimum_ring_size<closure>::value)
+        {
+            return visitor.template apply<failure_few_points>();
+        }
+
+        view_type const view(ring);
+        if (detail::num_distinct_consecutive_points
+                <
+                    view_type, 4u, true,
+                    not_equal_to<typename point_type<Ring>::type>
+                >::apply(view)
+            < 4u)
+        {
+            return
+                visitor.template apply<failure_wrong_topological_dimension>();
+        }
 
         return
-            ( boost::size(ring)
-              >= core_detail::closure::minimum_ring_size<closure>::value )
-            && is_topologically_closed<Ring, closure>::apply(ring) 
-            && (AllowDuplicates || !has_duplicates<Ring, closure>::apply(ring))
-            && !has_spikes<Ring, closure>::apply(ring)
-            && !(CheckSelfIntersections && geometry::intersects(ring))
-            && is_properly_oriented<Ring, IsInteriorRing>::apply(ring);
+            is_topologically_closed<Ring, closure>::apply(ring, visitor)
+            && ! has_duplicates<Ring, closure>::apply(ring, visitor)
+            && ! has_spikes<Ring, closure>::apply(ring, visitor)
+            && (! CheckSelfIntersections
+                || has_valid_self_turns<Ring>::apply(ring, visitor))
+            && is_properly_oriented<Ring, IsInteriorRing>::apply(ring, visitor);
     }
 };
 
 
-}} // namespace dispatch
+}} // namespace detail::is_valid
 #endif // DOXYGEN_NO_DETAIL
 
 
@@ -158,9 +202,11 @@ namespace dispatch
 // 6.1.7.1, for the definition of LinearRing)
 //
 // Reference (for polygon validity): OGC 06-103r4 (6.1.11.1)
-template <typename Ring, bool AllowSpikes, bool AllowDuplicates>
-struct is_valid<Ring, ring_tag, AllowSpikes, AllowDuplicates>
-    : detail::is_valid::is_valid_ring<Ring, AllowDuplicates>
+template <typename Ring, bool AllowEmptyMultiGeometries>
+struct is_valid
+    <
+        Ring, ring_tag, AllowEmptyMultiGeometries
+    > : detail::is_valid::is_valid_ring<Ring>
 {};
 
 

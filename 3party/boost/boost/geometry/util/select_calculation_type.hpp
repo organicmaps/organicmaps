@@ -4,6 +4,11 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -45,6 +50,28 @@ struct select_calculation_type
                 <
                     Geometry1,
                     Geometry2
+                >::type,
+            CalculationType
+        >::type type;
+};
+
+// alternative version supporting more than 2 Geometries
+
+template <typename CalculationType,
+          typename Geometry1,
+          typename Geometry2 = void,
+          typename Geometry3 = void>
+struct select_calculation_type_alt
+{
+    typedef typename
+        boost::mpl::if_
+        <
+            boost::is_void<CalculationType>,
+            typename select_coordinate_type
+                <
+                    Geometry1,
+                    Geometry2,
+                    Geometry3
                 >::type,
             CalculationType
         >::type type;

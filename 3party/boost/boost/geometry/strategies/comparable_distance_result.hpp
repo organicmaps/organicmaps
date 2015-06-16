@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014, Oracle and/or its affiliates.
+// Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
@@ -91,9 +91,9 @@ struct comparable_distance_result
     // A set of all variant type combinations that are compatible and
     // implemented
     typedef typename util::combine_if<
-        typename mpl::vector1<Geometry1>,
+        typename boost::mpl::vector1<Geometry1>,
         typename boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>::types,
-        mpl::always<mpl::true_>
+        boost::mpl::always<boost::mpl::true_>
     >::type possible_input_types;
 
     // The (possibly variant) result type resulting from these combinations
@@ -101,11 +101,11 @@ struct comparable_distance_result
         typename transform_variant<
             possible_input_types,
             resolve_strategy::comparable_distance_result<
-                mpl::first<mpl::_>,
-                mpl::second<mpl::_>,
+                boost::mpl::first<boost::mpl::_>,
+                boost::mpl::second<boost::mpl::_>,
                 Strategy
             >,
-            mpl::back_inserter<mpl::vector0<> >
+            boost::mpl::back_inserter<boost::mpl::vector0<> >
         >::type
     >::type type;
 };
@@ -144,7 +144,7 @@ struct comparable_distance_result
         <
             typename boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>::types,
             typename boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>::types,
-            mpl::always<mpl::true_>
+            boost::mpl::always<boost::mpl::true_>
         >::type possible_input_types;
 
     // The (possibly variant) result type resulting from these combinations
@@ -152,11 +152,11 @@ struct comparable_distance_result
         typename transform_variant<
             possible_input_types,
             resolve_strategy::comparable_distance_result<
-                mpl::first<mpl::_>,
-                mpl::second<mpl::_>,
+                boost::mpl::first<boost::mpl::_>,
+                boost::mpl::second<boost::mpl::_>,
                 Strategy
             >,
-            mpl::back_inserter<mpl::vector0<> >
+            boost::mpl::back_inserter<boost::mpl::vector0<> >
         >::type
     >::type type;
 };

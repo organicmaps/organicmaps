@@ -1,8 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2015 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
+
+// This file was modified by Oracle on 2015.
+// Modifications copyright (c) 2015 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -15,6 +20,9 @@
 #define BOOST_GEOMETRY_STRATEGIES_CARTESIAN_CENTROID_BASHEIN_DETMER_HPP
 
 
+#include <cstddef>
+
+#include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 #include <boost/type_traits.hpp>
@@ -143,7 +151,7 @@ private :
     class sums
     {
         friend class bashein_detmer;
-        int count;
+        std::size_t count;
         calculation_type sum_a2;
         calculation_type sum_x;
         calculation_type sum_y;
@@ -199,11 +207,18 @@ public :
                     Point
                 >::type coordinate_type;
 
-            set<0>(centroid,
-                boost::numeric_cast<coordinate_type>(state.sum_x / a3));
-            set<1>(centroid,
-                boost::numeric_cast<coordinate_type>(state.sum_y / a3));
-            return true;
+            // Prevent NaN centroid coordinates
+            if (boost::math::isfinite(a3))
+            {
+                // NOTE: above calculation_type is checked, not the centroid coordinate_type
+                // which means that the centroid can still be filled with INF
+                // if e.g. calculation_type is double and centroid contains floats
+                set<0>(centroid,
+                    boost::numeric_cast<coordinate_type>(state.sum_x / a3));
+                set<1>(centroid,
+                    boost::numeric_cast<coordinate_type>(state.sum_y / a3));
+                return true;
+            }
         }
 
         return false;

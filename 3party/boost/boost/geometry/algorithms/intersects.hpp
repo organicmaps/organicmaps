@@ -1,8 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
+
+// This file was modified by Oracle on 2013-2014.
+// Modifications copyright (c) 2013-2014, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -21,8 +26,8 @@
 #include <boost/geometry/algorithms/detail/overlay/self_turn_points.hpp>
 #include <boost/geometry/algorithms/disjoint.hpp>
 
+#include <boost/geometry/policies/robustness/no_rescale_policy.hpp>
 #include <boost/geometry/policies/robustness/segment_ratio_type.hpp>
-#include <boost/geometry/policies/robustness/get_rescale_policy.hpp>
 
 
 namespace boost { namespace geometry
@@ -47,8 +52,7 @@ inline bool intersects(Geometry const& geometry)
     concept::check<Geometry const>();
 
     typedef typename geometry::point_type<Geometry>::type point_type;
-    typedef typename rescale_policy_type<point_type>::type
-        rescale_policy_type;
+    typedef detail::no_rescale_policy rescale_policy_type;
 
     typedef detail::overlay::turn_info
         <
@@ -63,8 +67,7 @@ inline bool intersects(Geometry const& geometry)
             detail::overlay::assign_null_policy
         > turn_policy;
 
-    rescale_policy_type robust_policy
-        = geometry::get_rescale_policy<rescale_policy_type>(geometry);
+    rescale_policy_type robust_policy;
 
     detail::disjoint::disjoint_interrupt_policy policy;
     detail::self_get_turn_points::get_turns

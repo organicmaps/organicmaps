@@ -9,7 +9,7 @@
 #ifndef BOOST_GEOMETRY_STRATEGIES_CARTESIAN_BUFFER_JOIN_MITER_HPP
 #define BOOST_GEOMETRY_STRATEGIES_CARTESIAN_BUFFER_JOIN_MITER_HPP
 
-#include <boost/assert.hpp>
+#include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/policies/compare.hpp>
 #include <boost/geometry/util/math.hpp>
@@ -35,6 +35,8 @@ namespace strategy { namespace buffer
     their length. The miter is not changed to a bevel form (as done in some
     other software), it is just adapted to the specified miter_limit but keeps
     its miter form.
+    If the buffer distance is 5.0, and the miter limit is 2.0, generated points
+    will be located at a distance of at most 10.0 (2*5) units.
     This strategy is only applicable for Cartesian coordinate systems.
 
 \qbk{
@@ -97,7 +99,7 @@ public:
 
         if (distance > max_distance)
         {
-            BOOST_ASSERT(distance != 0.0);
+            BOOST_GEOMETRY_ASSERT(distance != 0.0);
 
             promoted_type const proportion = max_distance / distance;
             set<0>(p, get<0>(vertex) + dx * proportion);

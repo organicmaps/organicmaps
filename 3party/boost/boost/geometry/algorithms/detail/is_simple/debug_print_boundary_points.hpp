@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014, Oracle and/or its affiliates.
+// Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
@@ -18,6 +18,8 @@
 #include <boost/range.hpp>
 
 #include <boost/geometry/core/point_type.hpp>
+#include <boost/geometry/core/tag.hpp>
+#include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/util/range.hpp>
 
@@ -26,7 +28,8 @@
 #include <boost/geometry/policies/compare.hpp>
 
 #include <boost/geometry/algorithms/equals.hpp>
-#endif
+#include <boost/geometry/algorithms/not_implemented.hpp>
+#endif // BOOST_GEOMETRY_TEST_DEBUG
 
 
 namespace boost { namespace geometry
@@ -37,39 +40,67 @@ namespace detail { namespace is_simple
 
 
 #ifdef BOOST_GEOMETRY_TEST_DEBUG
-template <typename MultiLinestring>
-inline void debug_print_boundary_points(MultiLinestring const& multilinestring)
+template <typename Linear, typename Tag = typename tag<Linear>::type>
+struct debug_boundary_points_printer
+    : not_implemented<Linear>
+{};
+
+template <typename Linestring>
+struct debug_boundary_points_printer<Linestring, linestring_tag>
 {
-    typedef typename point_type<MultiLinestring>::type point_type;
-    typedef std::vector<point_type> point_vector;
-
-    point_vector boundary_points;
-    for (typename boost::range_iterator<MultiLinestring const>::type it
-             = boost::begin(multilinestring);
-         it != boost::end(multilinestring); ++it)
+    static inline void apply(Linestring const& linestring)
     {
-        if ( boost::size(*it) > 1
-             && !geometry::equals(range::front(*it), range::back(*it)) )
+        std::cout << "boundary points: ";
+        std::cout << " " << geometry::dsv(range::front(linestring));
+        std::cout << " " << geometry::dsv(range::back(linestring));
+        std::cout << std::endl << std::endl;
+    }
+};
+
+template <typename MultiLinestring>
+struct debug_boundary_points_printer<MultiLinestring, multi_linestring_tag>
+{
+    static inline void apply(MultiLinestring const& multilinestring)
+    {
+        typedef typename point_type<MultiLinestring>::type point_type;
+        typedef std::vector<point_type> point_vector;
+
+        point_vector boundary_points;
+        for (typename boost::range_iterator<MultiLinestring const>::type it
+                 = boost::begin(multilinestring);
+             it != boost::end(multilinestring); ++it)
         {
-            boundary_points.push_back( range::front(*it) );
-            boundary_points.push_back( range::back(*it) );
+            if ( boost::size(*it) > 1
+                 && !geometry::equals(range::front(*it), range::back(*it)) )
+            {
+                boundary_points.push_back( range::front(*it) );
+                boundary_points.push_back( range::back(*it) );
+            }
         }
-    }
 
-    std::sort(boundary_points.begin(), boundary_points.end(),
-              geometry::less<point_type>());
+        std::sort(boundary_points.begin(), boundary_points.end(),
+                  geometry::less<point_type>());
 
-    std::cout << "boundary points: ";
-    for (typename point_vector::const_iterator pit = boundary_points.begin();
-         pit != boundary_points.end(); ++pit)
-    {
-        std::cout << " " << geometry::dsv(*pit);
+        std::cout << "boundary points: ";
+        for (typename point_vector::const_iterator
+                 pit = boundary_points.begin();
+             pit != boundary_points.end(); ++pit)
+        {
+            std::cout << " " << geometry::dsv(*pit);
+        }
+        std::cout << std::endl << std::endl;
     }
-    std::cout << std::endl << std::endl;
+};
+
+
+template <typename Linear>
+inline void debug_print_boundary_points(Linear const& linear)
+{
+    debug_boundary_points_printer<Linear>::apply(linear);
 }
 #else
-template <typename MultiLinestring>
-inline void debug_print_boundary_points(MultiLinestring const&)
+template <typename Linear>
+inline void debug_print_boundary_points(Linear const&)
 {
 }
 #endif // BOOST_GEOMETRY_TEST_DEBUG

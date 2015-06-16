@@ -4,10 +4,11 @@
 // Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2014.
-// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014, 2015.
+// Modifications copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -22,6 +23,7 @@
 #include <iterator>
 
 #include <boost/concept_check.hpp>
+#include <boost/core/ignore_unused.hpp>
 #include <boost/range.hpp>
 
 #include <boost/mpl/fold.hpp>
@@ -69,6 +71,7 @@ struct segment_length
     static inline typename default_length_result<Segment>::type apply(
             Segment const& segment, Strategy const& strategy)
     {
+        boost::ignore_unused(strategy);
         typedef typename point_type<Segment>::type point_type;
         point_type p1, p2;
         geometry::detail::assign_point_from_index<0>(segment, p1);
@@ -92,7 +95,7 @@ struct range_length
     static inline return_type apply(
             Range const& range, Strategy const& strategy)
     {
-        boost::ignore_unused_variable_warning(strategy);
+        boost::ignore_unused(strategy);
         typedef typename closeable_view<Range const, Closure>::type view_type;
         typedef typename boost::range_iterator
             <

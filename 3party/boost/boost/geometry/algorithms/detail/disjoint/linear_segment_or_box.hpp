@@ -32,6 +32,7 @@
 
 #include <boost/geometry/views/closeable_view.hpp>
 
+#include <boost/geometry/algorithms/detail/disjoint/multirange_geometry.hpp>
 #include <boost/geometry/algorithms/dispatch/disjoint.hpp>
 
 
@@ -42,34 +43,6 @@ namespace boost { namespace geometry
 #ifndef DOXYGEN_NO_DETAIL
 namespace detail { namespace disjoint
 {
-
-
-template <typename MultiRange, typename SegmentOrBox>
-struct disjoint_multirange_segment_or_box
-{
-    static inline
-    bool apply(MultiRange const& multirange, SegmentOrBox const& segment_or_box)
-    {
-        typedef typename boost::range_iterator
-            <
-                MultiRange const
-            >::type const_iterator;
-
-        for (const_iterator it = boost::begin(multirange);
-             it != boost::end(multirange); ++it)
-        {
-            if ( !dispatch::disjoint
-                     <
-                         typename boost::range_value<MultiRange>::type,
-                         SegmentOrBox
-                     >::apply(*it, segment_or_box) )
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-};
 
 
 template
@@ -160,7 +133,7 @@ template <typename MultiLinestring, typename SegmentOrBox>
 struct disjoint_linear_segment_or_box
     <
         MultiLinestring, SegmentOrBox, multi_linestring_tag
-    > : disjoint_multirange_segment_or_box<MultiLinestring, SegmentOrBox>
+    > : multirange_constant_size_geometry<MultiLinestring, SegmentOrBox>
 {};
 
 

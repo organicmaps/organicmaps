@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014, Oracle and/or its affiliates.
+// Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
@@ -72,6 +72,16 @@ template <typename Geometry, typename Tag = typename tag<Geometry>::type>
 struct is_acceptable_turn
 {};
 
+template <typename Ring>
+struct is_acceptable_turn<Ring, ring_tag>
+{
+    template <typename Turn>
+    static inline bool apply(Turn const&)
+    {
+        return false;
+    }
+};
+
 template <typename Polygon>
 class is_acceptable_turn<Polygon, polygon_tag>
 {
@@ -94,7 +104,7 @@ public:
         using namespace detail::overlay;
 
         if ( turn.operations[0].seg_id.ring_index
-             == turn.operations[0].other_id.ring_index )
+             == turn.operations[1].seg_id.ring_index )
         {
             return false;
         }
@@ -122,7 +132,7 @@ public:
         using namespace detail::overlay;
 
         if ( turn.operations[0].seg_id.multi_index
-             == turn.operations[0].other_id.multi_index )
+             == turn.operations[1].seg_id.multi_index )
         {
             return base::apply(turn);
         }

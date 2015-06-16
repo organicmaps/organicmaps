@@ -24,6 +24,15 @@ struct equals
     }
 };
 
+template <typename Geometry, typename Tag>
+struct equals<Geometry *, Tag>
+{
+    inline static bool apply(const Geometry * g1, const Geometry * g2)
+    {
+        return g1 == g2;
+    }
+};
+
 template <typename T>
 struct equals<T, void>
 {

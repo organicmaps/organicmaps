@@ -33,7 +33,7 @@ struct check_iterator_range
     {
         for (InputIterator it = first; it != beyond; ++it)
         {
-            if ( !Predicate::apply(*it) )
+            if (! Predicate::apply(*it))
             {
                 return false;
             }
@@ -54,7 +54,7 @@ struct check_iterator_range
 
         for (InputIterator it = first; it != beyond; ++it)
         {
-            if ( !predicate.apply(*it) )
+            if (! predicate.apply(*it))
             {
                 return false;
             }

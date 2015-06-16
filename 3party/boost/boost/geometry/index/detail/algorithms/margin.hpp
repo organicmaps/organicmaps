@@ -2,7 +2,7 @@
 //
 // n-dimensional box's margin value (hypersurface), 2d perimeter, 3d surface, etc...
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -25,7 +25,9 @@ struct default_margin_result
     >::type type;
 };
 
-//template <typename Box, size_t CurrentDimension, size_t EdgeDimension>
+//template <typename Box,
+//          std::size_t CurrentDimension,
+//          std::size_t EdgeDimension = dimension<Box>::value>
 //struct margin_for_each_edge
 //{
 //    BOOST_STATIC_ASSERT(0 < CurrentDimension);
@@ -38,7 +40,7 @@ struct default_margin_result
 //    }
 //};
 //
-//template <typename Box, size_t CurrentDimension>
+//template <typename Box, std::size_t CurrentDimension>
 //struct margin_for_each_edge<Box, CurrentDimension, CurrentDimension>
 //{
 //    BOOST_STATIC_ASSERT(0 < CurrentDimension);
@@ -49,7 +51,7 @@ struct default_margin_result
 //    }
 //};
 //
-//template <typename Box, size_t CurrentDimension>
+//template <typename Box, std::size_t CurrentDimension>
 //struct margin_for_each_edge<Box, CurrentDimension, 1>
 //{
 //    BOOST_STATIC_ASSERT(0 < CurrentDimension);
@@ -69,16 +71,16 @@ struct default_margin_result
 //    }
 //};
 //
-//template <typename Box, size_t CurrentDimension>
+//template <typename Box,
+//          std::size_t CurrentDimension = dimension<Box>::value>
 //struct margin_for_each_dimension
 //{
 //    BOOST_STATIC_ASSERT(0 < CurrentDimension);
-//    BOOST_STATIC_ASSERT(CurrentDimension <= detail::traits::dimension<Box>::value);
 //
 //    static inline typename default_margin_result<Box>::type apply(Box const& b)
 //    {
 //        return margin_for_each_dimension<Box, CurrentDimension - 1>::apply(b) +
-//            margin_for_each_edge<Box, CurrentDimension, detail::traits::dimension<Box>::value>::apply(b);
+//            margin_for_each_edge<Box, CurrentDimension>::apply(b);
 //    }
 //};
 //
@@ -87,7 +89,7 @@ struct default_margin_result
 //{
 //    static inline typename default_margin_result<Box>::type apply(Box const& b)
 //    {
-//        return margin_for_each_edge<Box, 1, detail::traits::dimension<Box>::value>::apply(b);
+//        return margin_for_each_edge<Box, 1>::apply(b);
 //    }
 //};
 
@@ -95,11 +97,11 @@ struct default_margin_result
 // Now it's sum of edges lengths
 // maybe margin_for_each_dimension should be used to get more or less hypersurface?
 
-template <typename Box, size_t CurrentDimension>
+template <typename Box,
+          std::size_t CurrentDimension = dimension<Box>::value>
 struct simple_margin_for_each_dimension
 {
     BOOST_STATIC_ASSERT(0 < CurrentDimension);
-    //BOOST_STATIC_ASSERT(CurrentDimension <= dimension<Box>::value);
 
     static inline typename default_margin_result<Box>::type apply(Box const& b)
     {
@@ -140,8 +142,8 @@ struct comparable_margin<Box, box_tag>
 
     static inline result_type apply(Box const& g)
     {
-        //return detail::margin_for_each_dimension<Box, dimension<Box>::value>::apply(g);
-        return detail::simple_margin_for_each_dimension<Box, dimension<Box>::value>::apply(g);
+        //return detail::margin_for_each_dimension<Box>::apply(g);
+        return detail::simple_margin_for_each_dimension<Box>::apply(g);
     }
 };
 
@@ -159,7 +161,7 @@ typename default_margin_result<Geometry>::type comparable_margin(Geometry const&
 //template <typename Box>
 //typename default_margin_result<Box>::type margin(Box const& b)
 //{
-//    return 2 * detail::margin_for_each_dimension<Box, dimension<Box>::value>::apply(b);
+//    return 2 * detail::margin_for_each_dimension<Box>::apply(b);
 //}
 
 }}}} // namespace boost::geometry::index::detail

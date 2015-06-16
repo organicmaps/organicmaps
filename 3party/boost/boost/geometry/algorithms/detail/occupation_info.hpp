@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <boost/range.hpp>
 
+#include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/coordinate_type.hpp>
 #include <boost/geometry/core/point_type.hpp>
 
@@ -38,6 +39,7 @@ struct angle_info
     segment_identifier seg_id;
     int turn_index;
     int operation_index;
+    std::size_t cluster_index;
     Point intersection_point;
     Point point; // either incoming or outgoing point
     bool incoming;
@@ -55,15 +57,8 @@ class occupation_info
 {
 public :
     typedef std::vector<AngleInfo> collection_type;
-    typedef std::vector
-        <
-            detail::left_turns::turn_angle_info<typename AngleInfo::point_type>
-        > turn_vector_type;
 
-    collection_type angles; // each turn splitted in incoming/outgoing vectors
-    turn_vector_type turns;
     int count;
-
 
     inline occupation_info()
         : count(0)
@@ -95,45 +90,47 @@ public :
         {
             info.point = incoming_point;
             info.incoming = true;
-            angles.push_back(info);
+            m_angles.push_back(info);
         }
         {
             info.point = outgoing_point;
             info.incoming = false;
-            angles.push_back(info);
+            m_angles.push_back(info);
         }
-        detail::left_turns::turn_angle_info<typename AngleInfo::point_type> turn(seg_id, incoming_point, outgoing_point);
-        turn.turn_index = turn_index;
-        turns.push_back(turn);
     }
 
-    template <typename RobustPoint>
-    inline void get_left_turns(RobustPoint const& origin,
-                    std::vector<detail::left_turns::left_turn>& turns_to_keep)
+    template <typename RobustPoint, typename Turns>
+    inline void get_left_turns(RobustPoint const& origin, Turns& turns)
     {
         // Sort on angle
-        std::sort(angles.begin(), angles.end(),
+        std::sort(m_angles.begin(), m_angles.end(),
                 detail::left_turns::angle_less<typename AngleInfo::point_type>(origin));
 
+        // Group same-angled elements
+        std::size_t cluster_size = detail::left_turns::assign_cluster_indices(m_angles, origin);
         // Block all turns on the right side of any turn
-        detail::left_turns::block_turns_on_right_sides(turns, angles);
-
-        detail::left_turns::get_left_turns(angles, origin, turns_to_keep);
+        detail::left_turns::block_turns(m_angles, cluster_size);
+        detail::left_turns::get_left_turns(m_angles, turns);
     }
 
+#if defined(BOOST_GEOMETRY_BUFFER_ENLARGED_CLUSTERS)
     template <typename RobustPoint>
     inline bool has_rounding_issues(RobustPoint const& origin) const
     {
         return detail::left_turns::has_rounding_issues(angles, origin);
     }
+#endif
+
+private :
+    collection_type m_angles; // each turn splitted in incoming/outgoing vectors
 };
 
 template<typename Pieces>
 inline void move_index(Pieces const& pieces, int& index, int& piece_index, int direction)
 {
-    BOOST_ASSERT(direction == 1 || direction == -1);
-    BOOST_ASSERT(piece_index >= 0 && piece_index < static_cast<int>(boost::size(pieces)) );
-    BOOST_ASSERT(index >= 0 && index < static_cast<int>(boost::size(pieces[piece_index].robust_ring)));
+    BOOST_GEOMETRY_ASSERT(direction == 1 || direction == -1);
+    BOOST_GEOMETRY_ASSERT(piece_index >= 0 && piece_index < static_cast<int>(boost::size(pieces)) );
+    BOOST_GEOMETRY_ASSERT(index >= 0 && index < static_cast<int>(boost::size(pieces[piece_index].robust_ring)));
 
     index += direction;
     if (direction == -1 && index < 0)
@@ -169,7 +166,6 @@ inline void add_incoming_and_outgoing_angles(
                 RobustPoint const& intersection_point, // rescaled
                 Turn const& turn,
                 Pieces const& pieces, // using rescaled offsets of it
-                int turn_index,
                 int operation_index,
                 segment_identifier seg_id,
                 Info& info)
@@ -191,7 +187,7 @@ inline void add_incoming_and_outgoing_angles(
     }
 
     info.add(direction_points[0], direction_points[1], intersection_point,
-        turn_index, operation_index, real_seg_id);
+        turn.turn_index, operation_index, real_seg_id);
 }
 
 

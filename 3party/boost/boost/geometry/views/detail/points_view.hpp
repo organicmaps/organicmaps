@@ -36,6 +36,7 @@ class points_view
     // to have it lightweight). Probably there is already an
     // equivalent of this within Boost. If so, TODO: use that one.
     // This used to be "box_iterator" and "segment_iterator".
+    // ALTERNATIVE: use boost:array and its iterators
     struct points_iterator
         : public boost::iterator_facade
             <
@@ -105,7 +106,7 @@ class points_view
         }
 
         Point const* m_points;
-        int m_index;
+        difference_type m_index;
     };
 
 public :

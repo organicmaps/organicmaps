@@ -2,7 +2,7 @@
 //
 // R-tree spatial query visitor implementation
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -94,10 +94,18 @@ public:
 
     static const unsigned predicates_len = index::detail::predicates_length<Predicates>::value;
 
+    inline spatial_query_incremental()
+        : m_translator(NULL)
+//        , m_pred()
+        , m_values(NULL)
+        , m_current()
+    {}
+
     inline spatial_query_incremental(Translator const& t, Predicates const& p)
         : m_translator(::boost::addressof(t))
         , m_pred(p)
-        , m_values(0)
+        , m_values(NULL)
+        , m_current()
     {}
 
     inline void operator()(internal_node const& n)
@@ -116,7 +124,7 @@ public:
 
     const_reference dereference() const
     {
-        BOOST_ASSERT_MSG(m_values, "not dereferencable");
+        BOOST_GEOMETRY_INDEX_ASSERT(m_values, "not dereferencable");
         return *m_current;
     }
 

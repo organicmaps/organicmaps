@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014, Oracle and/or its affiliates.
+// Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
@@ -13,15 +13,22 @@
 #include <algorithm>
 
 #include <boost/range.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 #include <boost/geometry/core/point_type.hpp>
+#include <boost/geometry/core/tag.hpp>
+#include <boost/geometry/core/tags.hpp>
+
+#include <boost/geometry/policies/is_valid/default_policy.hpp>
 
 #include <boost/geometry/util/range.hpp>
 
 #include <boost/geometry/views/closeable_view.hpp>
 
 #include <boost/geometry/algorithms/equals.hpp>
+#include <boost/geometry/algorithms/validity_failure_type.hpp>
 #include <boost/geometry/algorithms/detail/point_is_spike_or_equal.hpp>
+#include <boost/geometry/io/dsv/write.hpp>
 
 
 namespace boost { namespace geometry
@@ -60,7 +67,7 @@ struct not_equal_to
     template <typename OtherPoint>
     inline bool operator()(OtherPoint const& other) const
     {
-        return !geometry::equals(other, m_point);
+        return ! geometry::equals(other, m_point);
     }
 };
 
@@ -69,12 +76,16 @@ struct not_equal_to
 template <typename Range, closure_selector Closure>
 struct has_spikes
 {
-    static inline bool apply(Range const& range)
+    template <typename VisitPolicy>
+    static inline bool apply(Range const& range, VisitPolicy& visitor)
     {
         typedef not_equal_to<typename point_type<Range>::type> not_equal;
 
         typedef typename closeable_view<Range const, Closure>::type view_type;
         typedef typename boost::range_iterator<view_type const>::type iterator; 
+
+        bool const is_linear
+            = boost::is_same<typename tag<Range>::type, linestring_tag>::value;
 
         view_type const view(range);
 
@@ -85,7 +96,7 @@ struct has_spikes
         {
             // the range has only one distinct point, so it
             // cannot have a spike
-            return false;
+            return ! visitor.template apply<no_failure>();
         }
 
         iterator next = std::find_if(cur, boost::end(view), not_equal(*cur));
@@ -93,7 +104,7 @@ struct has_spikes
         {
             // the range has only two distinct points, so it
             // cannot have a spike
-            return false;
+            return ! visitor.template apply<no_failure>();
         }
 
         while ( next != boost::end(view) )
@@ -102,7 +113,8 @@ struct has_spikes
                                                            *next,
                                                            *cur) )
             {
-                return true;
+                return
+                    ! visitor.template apply<failure_spikes>(is_linear, *cur);
             }
             prev = cur;
             cur = next;
@@ -120,10 +132,18 @@ struct has_spikes
                                             not_equal(range::back(view)));
             iterator next =
                 std::find_if(cur, boost::end(view), not_equal(*cur));
-            return detail::point_is_spike_or_equal(*prev, *next, *cur);
+            if (detail::point_is_spike_or_equal(*prev, *next, *cur))
+            {
+                return
+                    ! visitor.template apply<failure_spikes>(is_linear, *cur);
+            }
+            else
+            {
+                return ! visitor.template apply<no_failure>();
+            }
         }
 
-        return false;
+        return ! visitor.template apply<no_failure>();
     }
 };
 

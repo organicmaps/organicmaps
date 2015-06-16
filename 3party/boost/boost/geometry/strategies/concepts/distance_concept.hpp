@@ -1,8 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
+
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -19,6 +24,8 @@
 
 #include <boost/concept_check.hpp>
 #include <boost/core/ignore_unused.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 #include <boost/geometry/util/parameter_type_of.hpp>
 
@@ -26,13 +33,15 @@
 #include <boost/geometry/geometries/segment.hpp>
 #include <boost/geometry/geometries/point.hpp>
 
+#include <boost/geometry/strategies/tags.hpp>
+
 
 namespace boost { namespace geometry { namespace concept
 {
 
 
 /*!
-    \brief Checks strategy for point-segment-distance
+    \brief Checks strategy for point-point or point-box or box-box distance
     \ingroup distance
 */
 template <typename Strategy, typename Point1, typename Point2>
@@ -57,7 +66,7 @@ private :
                     ApplyMethod, 1
                 >::type ptype2;
 
-            // 2) must define meta-function return_type
+            // 2) must define meta-function "return_type"
             typedef typename strategy::distance::services::return_type
                 <
                     Strategy, ptype1, ptype2
@@ -74,6 +83,16 @@ private :
                 <
                     Strategy
                 >::type tag;
+
+            static const bool is_correct_strategy_tag =
+                boost::is_same<tag, strategy_tag_distance_point_point>::value
+                || boost::is_same<tag, strategy_tag_distance_point_box>::value
+                || boost::is_same<tag, strategy_tag_distance_box_box>::value;
+
+            BOOST_MPL_ASSERT_MSG
+                ((is_correct_strategy_tag),
+                 INCORRECT_STRATEGY_TAG,
+                 (types<tag>));
 
             // 5) must implement apply with arguments
             Strategy* str = 0;
@@ -111,7 +130,7 @@ public :
 
 
 /*!
-    \brief Checks strategy for point-segment-distance
+    \brief Checks strategy for point-segment distance
     \ingroup strategy_concepts
 */
 template <typename Strategy, typename Point, typename PointOfSegment>
@@ -125,6 +144,7 @@ private :
         template <typename ApplyMethod>
         static void apply(ApplyMethod)
         {
+            // 1) inspect and define both arguments of apply
             typedef typename parameter_type_of
                 <
                     ApplyMethod, 0
@@ -135,10 +155,28 @@ private :
                     ApplyMethod, 1
                 >::type sptype;
 
-            // must define meta-function return_type
-            typedef typename strategy::distance::services::return_type<Strategy, ptype, sptype>::type rtype;
+            namespace services = strategy::distance::services;
+            // 2) must define meta-function "tag"
+            typedef typename services::tag<Strategy>::type tag;
 
+            BOOST_MPL_ASSERT_MSG
+                ((boost::is_same
+                      <
+                          tag, strategy_tag_distance_point_segment
+                      >::value),
+                 INCORRECT_STRATEGY_TAG,
+                 (types<tag>));
 
+            // 3) must define meta-function "return_type"
+            typedef typename services::return_type
+                <
+                    Strategy, ptype, sptype
+                >::type rtype;
+
+            // 4) must define meta-function "comparable_type"
+            typedef typename services::comparable_type<Strategy>::type ctype;
+
+            // 5) must implement apply with arguments
             Strategy *str = 0;
             ptype *p = 0;
             sptype *sp1 = 0;
@@ -146,8 +184,16 @@ private :
 
             rtype r = str->apply(*p, *sp1, *sp2);
 
-            boost::ignore_unused_variable_warning(str);
-            boost::ignore_unused_variable_warning(r);
+            // 6) must define (meta-)struct "get_comparable" with apply
+            ctype cstrategy = services::get_comparable<Strategy>::apply(*str);
+
+            // 7) must define (meta-)struct "result_from_distance" with apply
+            r = services::result_from_distance
+                <
+                    Strategy, ptype, sptype
+                >::apply(*str, rtype(1.0));
+
+            boost::ignore_unused(str, r, cstrategy);
         }
     };
 

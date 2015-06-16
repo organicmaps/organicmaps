@@ -70,8 +70,21 @@ struct point_box<Point, Box, DimensionCount, DimensionCount>
     }
 };
 
+/*!
+    \brief Internal utility function to detect if point/box are disjoint
+ */
+template <typename Point, typename Box>
+inline bool disjoint_point_box(Point const& point, Box const& box)
+{
+    return detail::disjoint::point_box
+        <
+            Point, Box,
+            0, dimension<Point>::type::value
+        >::apply(point, box);
+}
 
-}} // namespace detail::equals
+
+}} // namespace detail::disjoint
 #endif // DOXYGEN_NO_DETAIL
 
 

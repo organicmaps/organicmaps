@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014, Oracle and/or its affiliates.
+// Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
@@ -14,6 +14,7 @@
 
 #include <boost/geometry/core/tags.hpp>
 
+#include <boost/geometry/algorithms/validity_failure_type.hpp>
 #include <boost/geometry/algorithms/dispatch/is_valid.hpp>
 
 
@@ -30,9 +31,10 @@ namespace dispatch
 template <typename Point>
 struct is_valid<Point, point_tag>
 {
-    static inline bool apply(Point const&)
+    template <typename VisitPolicy>
+    static inline bool apply(Point const&, VisitPolicy& visitor)
     {
-        return true;
+        return visitor.template apply<no_failure>();
     }
 };
 
@@ -42,12 +44,24 @@ struct is_valid<Point, point_tag>
 // (have identical coordinate values in X and Y)
 //
 // Reference: OGC 06-103r4 (6.1.5)
-template <typename MultiPoint>
-struct is_valid<MultiPoint, multi_point_tag>
+template <typename MultiPoint, bool AllowEmptyMultiGeometries>
+struct is_valid<MultiPoint, multi_point_tag, AllowEmptyMultiGeometries>
 {
-    static inline bool apply(MultiPoint const& multipoint)
+    template <typename VisitPolicy>
+    static inline bool apply(MultiPoint const& multipoint,
+                             VisitPolicy& visitor)
     {
-        return boost::size(multipoint) > 0;
+        if (AllowEmptyMultiGeometries || boost::size(multipoint) > 0)
+        {
+            // we allow empty multi-geometries, so an empty multipoint
+            // is considered valid
+            return visitor.template apply<no_failure>();
+        }
+        else
+        {
+            // we do not allow an empty multipoint
+            return visitor.template apply<failure_few_points>();
+        }
     }
 };
 

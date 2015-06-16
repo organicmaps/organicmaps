@@ -26,8 +26,8 @@ inline typename default_content_result<Box>::type intersection_content(Box const
     if ( geometry::intersects(box1, box2) )
     {
         Box box_intersection;
-        geometry::intersection(box1, box2, box_intersection);
-        return detail::content(box_intersection);
+        if ( geometry::intersection(box1, box2, box_intersection) )
+            return detail::content(box_intersection);
     }
     return 0;
 }

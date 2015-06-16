@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014, Oracle and/or its affiliates.
+// Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
@@ -144,11 +144,10 @@ protected:
             typename Info,
             typename Point1,
             typename Point2,
-            typename IntersectionInfo,
-            typename DirInfo
+            typename IntersectionInfo
         >
         static inline void apply(Info& , Point1 const& , Point2 const& ,
-                                 IntersectionInfo const& , DirInfo const& )
+                                 IntersectionInfo const& )
         {
         }
     };

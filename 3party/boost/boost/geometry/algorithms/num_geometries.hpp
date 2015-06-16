@@ -1,8 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
+
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -19,6 +24,10 @@
 
 #include <boost/range.hpp>
 
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
+
 #include <boost/geometry/algorithms/not_implemented.hpp>
 
 #include <boost/geometry/core/tag.hpp>
@@ -26,6 +35,8 @@
 #include <boost/geometry/core/tag_cast.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
+
+#include <boost/geometry/algorithms/detail/counting.hpp>
 
 
 namespace boost { namespace geometry
@@ -53,12 +64,8 @@ struct num_geometries: not_implemented<Tag>
 
 template <typename Geometry>
 struct num_geometries<Geometry, single_tag>
-{
-    static inline std::size_t apply(Geometry const&)
-    {
-        return 1;
-    }
-};
+    : detail::counting::other_count<1>
+{};
 
 
 template <typename MultiGeometry>
@@ -72,7 +79,43 @@ struct num_geometries<MultiGeometry, multi_tag>
 
 
 } // namespace dispatch
-#endif
+#endif // DOXYGEN_NO_DISPATCH
+
+
+namespace resolve_variant
+{
+
+template <typename Geometry>
+struct num_geometries
+{
+    static inline std::size_t apply(Geometry const& geometry)
+    {
+        concept::check<Geometry const>();
+
+        return dispatch::num_geometries<Geometry>::apply(geometry);
+    }
+};
+
+template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+struct num_geometries<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
+{
+    struct visitor: boost::static_visitor<std::size_t>
+    {
+        template <typename Geometry>
+        inline std::size_t operator()(Geometry const& geometry) const
+        {
+            return num_geometries<Geometry>::apply(geometry);
+        }
+    };
+
+    static inline std::size_t
+    apply(boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry)
+    {
+        return boost::apply_visitor(visitor(), geometry);
+    }
+};
+
+} // namespace resolve_variant
 
 
 /*!
@@ -88,9 +131,7 @@ struct num_geometries<MultiGeometry, multi_tag>
 template <typename Geometry>
 inline std::size_t num_geometries(Geometry const& geometry)
 {
-    concept::check<Geometry const>();
-
-    return dispatch::num_geometries<Geometry>::apply(geometry);
+    return resolve_variant::num_geometries<Geometry>::apply(geometry);
 }
 
 

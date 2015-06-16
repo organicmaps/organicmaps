@@ -68,7 +68,11 @@ private :
 
         inline void apply(point_type* points) const
         {
-            detail::assign_box_corners_oriented<!Clockwise>(m_box, points);
+            // assign_box_corners_oriented requires a range
+            // an alternative for this workaround would be to pass a range here,
+            // e.g. use boost::array in points_view instead of c-array
+            std::pair<point_type*, point_type*> rng = std::make_pair(points, points + 5);
+            detail::assign_box_corners_oriented<!Clockwise>(m_box, rng);
             points[4] = points[0];
         }
     private :

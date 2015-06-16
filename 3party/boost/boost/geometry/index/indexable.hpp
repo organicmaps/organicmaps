@@ -29,7 +29,11 @@ template <typename Indexable>
 struct is_indexable
 {
     static const bool value =
-        is_indexable_impl<Indexable, typename geometry::traits::tag<Indexable>::type>::value;
+        is_indexable_impl
+            <
+                Indexable,
+                typename geometry::tag<Indexable>::type
+            >::value;
 };
 
 /*!

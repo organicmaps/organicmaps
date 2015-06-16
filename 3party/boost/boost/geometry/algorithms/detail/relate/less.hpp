@@ -14,6 +14,10 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_RELATE_LESS_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_RELATE_LESS_HPP
 
+#include <boost/geometry/core/coordinate_dimension.hpp>
+#include <boost/geometry/core/coordinate_type.hpp>
+#include <boost/geometry/util/math.hpp>
+
 namespace boost { namespace geometry
 {
 

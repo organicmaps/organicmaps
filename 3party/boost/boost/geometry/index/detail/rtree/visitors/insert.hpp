@@ -2,7 +2,7 @@
 //
 // R-tree inserting visitor implementation
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2015 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -115,7 +115,7 @@ protected:
     typedef typename rtree::internal_node<Value, parameters_type, Box, Allocators, typename Options::node_tag>::type internal_node;
     typedef typename rtree::leaf<Value, parameters_type, Box, Allocators, typename Options::node_tag>::type leaf;
 
-    typedef rtree::node_auto_ptr<Value, Options, Translator, Box, Allocators> node_auto_ptr;
+    typedef rtree::subtree_destroyer<Value, Options, Translator, Box, Allocators> subtree_destroyer;
 
 public:
     typedef index::detail::varray<
@@ -133,8 +133,8 @@ public:
     {
         // TODO - consider creating nodes always with sufficient memory allocated
 
-        // create additional node, use auto ptr for automatic destruction on exception
-        node_auto_ptr second_node(rtree::create_node<Allocators, Node>::apply(allocators), allocators);     // MAY THROW, STRONG (N: alloc)
+        // create additional node, use auto destroyer for automatic destruction on exception
+        subtree_destroyer second_node(rtree::create_node<Allocators, Node>::apply(allocators), allocators);     // MAY THROW, STRONG (N: alloc)
         // create reference to the newly created node
         Node & n2 = rtree::get<Node>(*second_node);
 
@@ -178,17 +178,20 @@ public:
 
 namespace visitors { namespace detail {
 
-template <typename InternalNode, typename InternalNodePtr>
+template <typename InternalNode, typename InternalNodePtr, typename SizeType>
 struct insert_traverse_data
 {
     typedef typename rtree::elements_type<InternalNode>::type elements_type;
     typedef typename elements_type::value_type element_type;
+    typedef typename elements_type::size_type elements_size_type;
+    typedef SizeType size_type;
 
     insert_traverse_data()
         : parent(0), current_child_index(0), current_level(0)
     {}
 
-    void move_to_next_level(InternalNodePtr new_parent, size_t new_child_index)
+    void move_to_next_level(InternalNodePtr new_parent,
+                            elements_size_type new_child_index)
     {
         parent = new_parent;
         current_child_index = new_child_index;
@@ -213,8 +216,8 @@ struct insert_traverse_data
     }
 
     InternalNodePtr parent;
-    size_t current_child_index;
-    size_t current_level;
+    elements_size_type current_child_index;
+    size_type current_level;
 };
 
 // Default insert visitor
@@ -229,19 +232,20 @@ protected:
     typedef typename rtree::internal_node<Value, parameters_type, Box, Allocators, typename Options::node_tag>::type internal_node;
     typedef typename rtree::leaf<Value, parameters_type, Box, Allocators, typename Options::node_tag>::type leaf;
 
-    typedef rtree::node_auto_ptr<Value, Options, Translator, Box, Allocators> node_auto_ptr;
+    typedef rtree::subtree_destroyer<Value, Options, Translator, Box, Allocators> subtree_destroyer;
     typedef typename Allocators::node_pointer node_pointer;
+    typedef typename Allocators::size_type size_type;
 
     //typedef typename Allocators::internal_node_pointer internal_node_pointer;
     typedef internal_node * internal_node_pointer;
 
     inline insert(node_pointer & root,
-                  size_t & leafs_level,
+                  size_type & leafs_level,
                   Element const& element,
                   parameters_type const& parameters,
                   Translator const& translator,
                   Allocators & allocators,
-                  size_t relative_level = 0
+                  size_type relative_level = 0
     )
         : m_element(element)
         , m_parameters(parameters)
@@ -298,7 +302,8 @@ protected:
     inline void traverse_apply_visitor(Visitor & visitor, internal_node &n, size_t choosen_node_index)
     {
         // save previous traverse inputs and set new ones
-        insert_traverse_data<internal_node, internal_node_pointer> backup_traverse_data = m_traverse_data;
+        insert_traverse_data<internal_node, internal_node_pointer, size_type>
+            backup_traverse_data = m_traverse_data;
 
         // calculate new traverse inputs
         m_traverse_data.move_to_next_level(&n, choosen_node_index);
@@ -335,7 +340,7 @@ protected:
         // Implement template <node_tag> struct node_element_type or something like that
 
         // for exception safety
-        node_auto_ptr additional_node_ptr(additional_nodes[0].second, m_allocators);
+        subtree_destroyer additional_node_ptr(additional_nodes[0].second, m_allocators);
 
         // node is not the root - just add the new node
         if ( !m_traverse_data.current_is_root() )
@@ -351,7 +356,7 @@ protected:
             BOOST_GEOMETRY_INDEX_ASSERT(&n == &rtree::get<Node>(*m_root_node), "node should be the root");
 
             // create new root and add nodes
-            node_auto_ptr new_root(rtree::create_node<Allocators, internal_node>::apply(m_allocators), m_allocators); // MAY THROW, STRONG (N:alloc)
+            subtree_destroyer new_root(rtree::create_node<Allocators, internal_node>::apply(m_allocators), m_allocators); // MAY THROW, STRONG (N:alloc)
 
             BOOST_TRY
             {
@@ -360,7 +365,7 @@ protected:
             }
             BOOST_CATCH(...)
             {
-                // clear new root to not delete in the ~node_auto_ptr() potentially stored old root node
+                // clear new root to not delete in the ~subtree_destroyer() potentially stored old root node
                 rtree::elements(rtree::get<internal_node>(*new_root)).clear();
                 BOOST_RETHROW                                                                                           // RETHROW
             }
@@ -380,14 +385,14 @@ protected:
     Element const& m_element;
     parameters_type const& m_parameters;
     Translator const& m_translator;
-    const size_t m_relative_level;
-    const size_t m_level;
+    size_type const m_relative_level;
+    size_type const m_level;
 
     node_pointer & m_root_node;
-    size_t & m_leafs_level;
+    size_type & m_leafs_level;
 
     // traversing input parameters
-    insert_traverse_data<internal_node, internal_node_pointer> m_traverse_data;
+    insert_traverse_data<internal_node, internal_node_pointer, size_type> m_traverse_data;
 
     Allocators & m_allocators;
 };
@@ -414,14 +419,15 @@ public:
 
     typedef typename Options::parameters_type parameters_type;
     typedef typename base::node_pointer node_pointer;
+    typedef typename base::size_type size_type;
 
     inline insert(node_pointer & root,
-                  size_t & leafs_level,
+                  size_type & leafs_level,
                   Element const& element,
                   parameters_type const& parameters,
                   Translator const& translator,
                   Allocators & allocators,
-                  size_t relative_level = 0
+                  size_type relative_level = 0
     )
         : base(root, leafs_level, element, parameters, translator, allocators, relative_level)
     {}
@@ -478,14 +484,15 @@ public:
 
     typedef typename Options::parameters_type parameters_type;
     typedef typename base::node_pointer node_pointer;
+    typedef typename base::size_type size_type;
 
     inline insert(node_pointer & root,
-                  size_t & leafs_level,
+                  size_type & leafs_level,
                   Value const& value,
                   parameters_type const& parameters,
                   Translator const& translator,
                   Allocators & allocators,
-                  size_t relative_level = 0
+                  size_type relative_level = 0
     )
         : base(root, leafs_level, value, parameters, translator, allocators, relative_level)
     {}

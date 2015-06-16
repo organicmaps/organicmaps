@@ -50,8 +50,8 @@ struct debug_validity_phase<Polygon, polygon_tag>
             std::cout << "computing and analyzing turns..." << std::endl;
             break;
         case 4:
-            std::cout << "checking if holes are inside the exterior ring..."
-                      << std::endl;
+            std::cout << "checking if interior rings are inside "
+                      << "the exterior ring..." << std::endl;
             break;
         case 5:
             std::cout << "checking connectivity of interior..." << std::endl;

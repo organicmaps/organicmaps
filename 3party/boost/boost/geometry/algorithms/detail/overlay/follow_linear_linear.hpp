@@ -14,9 +14,9 @@
 #include <algorithm>
 #include <iterator>
 
-#include <boost/assert.hpp>
 #include <boost/range.hpp>
 
+#include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
 
@@ -34,6 +34,23 @@
 
 namespace boost { namespace geometry
 {
+
+#if ! defined(BOOST_GEOMETRY_OVERLAY_NO_THROW)
+class inconsistent_turns_exception : public geometry::exception
+{
+public:
+
+    inline inconsistent_turns_exception() {}
+
+    virtual ~inconsistent_turns_exception() throw()
+    {}
+
+    virtual char const* what() const throw()
+    {
+        return "Boost.Geometry Inconsistent Turns exception";
+    }
+};
+#endif
 
 
 #ifndef DOXYGEN_NO_DETAIL
@@ -125,7 +142,7 @@ static inline bool is_isolated_point(Turn const& turn,
 
     if ( turn.method == method_none )
     {
-        BOOST_ASSERT( operation.operation == operation_continue );
+        BOOST_GEOMETRY_ASSERT( operation.operation == operation_continue );
         return true;
     }
 
@@ -263,8 +280,10 @@ protected:
             detail::copy_segments::copy_segments_linestring
                 <
                     false, false // do not reverse; do not remove spikes
-                >::apply(linestring, current_segment_id,
-                         boost::size(linestring) - 1, robust_policy,
+                >::apply(linestring,
+                         current_segment_id,
+                         static_cast<signed_index_type>(boost::size(linestring) - 1),
+                         robust_policy,
                          current_piece);
         }
 
@@ -302,7 +321,14 @@ public:
                                oit);
         }
 
-        BOOST_ASSERT( enter_count == 0 );
+#if ! defined(BOOST_GEOMETRY_OVERLAY_NO_THROW)
+        if (enter_count != 0)
+        {
+            throw inconsistent_turns_exception();
+        }
+#else
+        BOOST_GEOMETRY_ASSERT(enter_count == 0);
+#endif
 
         return process_end(entered, linestring,
                            current_segment_id, current_piece,
@@ -378,7 +404,7 @@ protected:
     };
 
     template <typename TurnIterator>
-    static inline int get_multi_index(TurnIterator it)
+    static inline signed_index_type get_multi_index(TurnIterator it)
     {
         return boost::begin(it->operations)->seg_id.multi_index;
     }
@@ -386,10 +412,10 @@ protected:
     class has_other_multi_id
     {
     private:
-        int m_multi_id;
+        signed_index_type m_multi_id;
 
     public:
-        has_other_multi_id(int multi_id)
+        has_other_multi_id(signed_index_type multi_id)
             : m_multi_id(multi_id) {}
 
         template <typename Turn>
@@ -407,7 +433,7 @@ public:
           TurnIterator first, TurnIterator beyond,
           OutputIterator oit)
     {
-        BOOST_ASSERT( first != beyond );
+        BOOST_GEOMETRY_ASSERT( first != beyond );
 
         typedef copy_linestrings_in_range
             <
@@ -420,7 +446,7 @@ public:
         // Iterate through all intersection points (they are
         // ordered along the each linestring)
 
-        int current_multi_id = get_multi_index(first);
+        signed_index_type current_multi_id = get_multi_index(first);
 
         oit = copy_linestrings::apply(ls_first,
                                       ls_first + current_multi_id,
@@ -437,7 +463,7 @@ public:
             oit = Base::apply(*(ls_first + current_multi_id),
                               linear, per_ls_current, per_ls_next, oit);
 
-            int next_multi_id(-1);
+            signed_index_type next_multi_id(-1);
             linestring_iterator ls_next = ls_beyond;
             if ( per_ls_next != beyond )
             {

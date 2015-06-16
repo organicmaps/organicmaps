@@ -1,13 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
-// Copyright (c) 2013-2014 Adam Wulkiewicz, Lodz, Poland.
-// Copyright (c) 2014 Samuel Debionne, Grenoble, France.
+// Copyright (c) 2007-2015 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
+// Copyright (c) 2013-2015 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2014-2015 Samuel Debionne, Grenoble, France.
 
-// This file was modified by Oracle on 2014.
-// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014, 2015.
+// Modifications copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
@@ -100,14 +100,14 @@ struct distance_result
     // A set of all variant type combinations that are compatible and
     // implemented
     typedef typename util::combine_if<
-        typename mpl::vector1<Geometry1>,
+        typename boost::mpl::vector1<Geometry1>,
         typename boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>::types,
         // Here we want should remove most of the combinations that
         // are not valid, mostly to limit the size of the resulting MPL set.
         // But is_implementedn is not ready for prime time
         //
-        // util::is_implemented2<mpl::_1, mpl::_2, dispatch::distance<mpl::_1, mpl::_2> >
-        mpl::always<mpl::true_>
+        // util::is_implemented2<boost::mpl::_1, boost::mpl::_2, dispatch::distance<boost::mpl::_1, boost::mpl::_2> >
+        boost::mpl::always<boost::mpl::true_>
     >::type possible_input_types;
 
     // The (possibly variant) result type resulting from these combinations
@@ -115,11 +115,11 @@ struct distance_result
         typename transform_variant<
             possible_input_types,
             resolve_strategy::distance_result<
-                mpl::first<mpl::_>,
-                mpl::second<mpl::_>,
+                boost::mpl::first<boost::mpl::_>,
+                boost::mpl::second<boost::mpl::_>,
                 Strategy
             >,
-            mpl::back_inserter<mpl::vector0<> >
+            boost::mpl::back_inserter<boost::mpl::vector0<> >
         >::type
     >::type type;
 };
@@ -163,8 +163,8 @@ struct distance_result
             // resulting MPL vector.
             // But is_implemented is not ready for prime time
             //
-            // util::is_implemented2<mpl::_1, mpl::_2, dispatch::distance<mpl::_1, mpl::_2> >
-            mpl::always<mpl::true_>
+            // util::is_implemented2<boost::mpl::_1, boost::mpl::_2, dispatch::distance<boost::mpl::_1, boost::mpl::_2> >
+            boost::mpl::always<boost::mpl::true_>
         >::type possible_input_types;
 
     // The (possibly variant) result type resulting from these combinations
@@ -172,11 +172,11 @@ struct distance_result
         typename transform_variant<
             possible_input_types,
             resolve_strategy::distance_result<
-                mpl::first<mpl::_>,
-                mpl::second<mpl::_>,
+                boost::mpl::first<boost::mpl::_>,
+                boost::mpl::second<boost::mpl::_>,
                 Strategy
             >,
-            mpl::back_inserter<mpl::vector0<> >
+            boost::mpl::back_inserter<boost::mpl::vector0<> >
         >::type
     >::type type;
 };

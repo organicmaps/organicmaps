@@ -47,7 +47,7 @@ public:
         boost::ignore_unused_variable_warning(pt);
 #ifdef BOOST_GEOMETRY_DEBUG_RELATE_BOUNDARY_CHECKER
         // may give false positives for INT
-        BOOST_ASSERT( (BoundaryQuery == boundary_front || BoundaryQuery == boundary_any)
+        BOOST_GEOMETRY_ASSERT( (BoundaryQuery == boundary_front || BoundaryQuery == boundary_any)
                    && detail::equals::equals_point_point(pt, range::front(geometry))
                    || (BoundaryQuery == boundary_back || BoundaryQuery == boundary_any)
                    && detail::equals::equals_point_point(pt, range::back(geometry)) );

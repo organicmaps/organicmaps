@@ -95,10 +95,7 @@ struct default_strategy<Pointlike, Box, pointlike_tag, box_tag, false>
           <
               point_tag, box_tag,
               typename point_type<Pointlike>::type,
-              typename point_type<Box>::type,
-              cartesian_tag,
-              cartesian_tag,
-              void
+              typename point_type<Box>::type
           >
 {};
 
@@ -109,10 +106,7 @@ struct default_strategy<Box1, Box2, box_tag, box_tag, false>
           <
               box_tag, box_tag,
               typename point_type<Box1>::type,
-              typename point_type<Box2>::type,
-              cartesian_tag,
-              cartesian_tag,
-              void
+              typename point_type<Box2>::type
           >
 {};
 

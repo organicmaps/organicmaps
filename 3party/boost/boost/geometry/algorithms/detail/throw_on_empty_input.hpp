@@ -1,8 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2015 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
+
+// This file was modified by Oracle on 2015.
+// Modifications copyright (c) 2015, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -12,7 +17,7 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_THROW_ON_EMPTY_INPUT_HPP
 
 #include <boost/geometry/core/exception.hpp>
-#include <boost/geometry/algorithms/num_points.hpp>
+#include <boost/geometry/algorithms/is_empty.hpp>
 
 // BSG 2012-02-06: we use this currently only for distance.
 // For other scalar results area,length,perimeter it is commented on purpose.
@@ -23,6 +28,10 @@
 
 // So decided that at least for Boost 1.49 this is commented for
 // scalar results, except distance.
+
+#if defined(BOOST_GEOMETRY_EMPTY_INPUT_NO_THROW)
+#include <boost/core/ignore_unused.hpp>
+#endif
 
 namespace boost { namespace geometry
 {
@@ -35,10 +44,12 @@ template <typename Geometry>
 inline void throw_on_empty_input(Geometry const& geometry)
 {
 #if ! defined(BOOST_GEOMETRY_EMPTY_INPUT_NO_THROW)
-    if (geometry::num_points(geometry) == 0)
+    if (geometry::is_empty(geometry))
     {
         throw empty_input_exception();
     }
+#else
+    boost::ignore_unused(geometry);
 #endif
 }
 

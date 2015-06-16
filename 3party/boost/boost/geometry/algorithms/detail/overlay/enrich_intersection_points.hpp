@@ -22,14 +22,13 @@
 #  define BOOST_GEOMETRY_DEBUG_IDENTIFIER
 #endif
 
-#include <boost/assert.hpp>
 #include <boost/range.hpp>
 
 #include <boost/geometry/algorithms/detail/ring_identifier.hpp>
 #include <boost/geometry/algorithms/detail/overlay/copy_segment_point.hpp>
-#include <boost/geometry/algorithms/detail/overlay/get_relative_order.hpp>
 #include <boost/geometry/algorithms/detail/overlay/handle_tangencies.hpp>
 #include <boost/geometry/policies/robustness/robust_type.hpp>
+#include <boost/geometry/strategies/side.hpp>
 #ifdef BOOST_GEOMETRY_DEBUG_ENRICH
 #  include <boost/geometry/algorithms/detail/overlay/check_enrich.hpp>
 #endif
@@ -48,17 +47,23 @@ struct indexed_turn_operation
 {
     typedef TurnOperation type;
 
-    int index;
-    int operation_index;
+    std::size_t turn_index;
+    std::size_t operation_index;
     bool discarded;
-    TurnOperation subject;
+    // use pointers to avoid copies, const& is not possible because of usage in vector
+    segment_identifier const* other_seg_id; // segment id of other segment of intersection of two segments
+    TurnOperation const* subject;
 
-    inline indexed_turn_operation(int i, int oi, TurnOperation const& s)
-        : index(i)
+    inline indexed_turn_operation(std::size_t ti, std::size_t oi,
+                TurnOperation const& sub,
+                segment_identifier const& oid)
+        : turn_index(ti)
         , operation_index(oi)
         , discarded(false)
-        , subject(s)
+        , other_seg_id(&oid)
+        , subject(boost::addressof(sub))
     {}
+
 };
 
 template <typename IndexedTurnOperation>
@@ -107,51 +112,53 @@ private :
     mutable bool* m_clustered;
 
     typedef typename geometry::point_type<Geometry1>::type point_type;
-    typedef typename geometry::robust_point_type
-    <
-        point_type,
-        RobustPolicy
-    >::type robust_point_type;
 
-    // TODO: this function is shared with handle_tangencies
-    // The one in handle_tangencies will go as soon as we have
-    // reliable "cluster_info" (using occupation_map, get_left_turns)
-    inline void get_situation_map(Indexed const& left, Indexed const& right,
-                              robust_point_type& pi_rob, robust_point_type& pj_rob,
-                              robust_point_type& ri_rob, robust_point_type& rj_rob,
-                              robust_point_type& si_rob, robust_point_type& sj_rob) const
+    inline bool default_order(Indexed const& left, Indexed const& right) const
     {
-        point_type pi, pj, ri, rj, si, sj;
-
-        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
-            left.subject.seg_id,
-            pi, pj);
-        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
-            left.subject.other_id,
-            ri, rj);
-        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
-            right.subject.other_id,
-            si, sj);
-
-        geometry::recalculate(pi_rob, pi, m_robust_policy);
-        geometry::recalculate(pj_rob, pj, m_robust_policy);
-        geometry::recalculate(ri_rob, ri, m_robust_policy);
-        geometry::recalculate(rj_rob, rj, m_robust_policy);
-        geometry::recalculate(si_rob, si, m_robust_policy);
-        geometry::recalculate(sj_rob, sj, m_robust_policy);
+        // We've nothing to sort on. Take the indexes
+        return left.turn_index < right.turn_index;
     }
 
     inline bool consider_relative_order(Indexed const& left,
                     Indexed const& right) const
     {
-        robust_point_type pi, pj, ri, rj, si, sj;
-        get_situation_map(left, right, pi, pj, ri, rj, si, sj);
-        int const order = get_relative_order
+        point_type pi, pj, ri, rj, si, sj;
+
+        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
+            left.subject->seg_id,
+            pi, pj);
+        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
+            *left.other_seg_id,
+            ri, rj);
+        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
+            *right.other_seg_id,
+            si, sj);
+
+        typedef typename strategy::side::services::default_strategy
             <
-                robust_point_type
-            >::apply(pi, pj, ri, rj, si, sj);
-        //debug("r/o", order == -1);
-        return order == -1;
+                typename cs_tag<point_type>::type
+            >::type strategy;
+
+        int const side_rj_p = strategy::apply(pi, pj, rj);
+        int const side_sj_p = strategy::apply(pi, pj, sj);
+
+        // Put the one turning left (1; right == -1) as last
+        if (side_rj_p != side_sj_p)
+        {
+            return side_rj_p < side_sj_p;
+        }
+
+        int const side_sj_r = strategy::apply(ri, rj, sj);
+        int const side_rj_s = strategy::apply(si, sj, rj);
+
+        // If they both turn left: the most left as last
+        // If they both turn right: this is not relevant, but take also here most left
+        if (side_rj_s != side_sj_r)
+        {
+            return side_rj_s < side_sj_r;
+        }
+
+        return default_order(left, right);
     }
 
 public :
@@ -160,33 +167,32 @@ public :
     // but to the "indexed_turn_operation"
     inline bool operator()(Indexed const& left, Indexed const& right) const
     {
-        segment_identifier const& sl = left.subject.seg_id;
-        segment_identifier const& sr = right.subject.seg_id;
-
-        if (sl == sr)
+        if (! (left.subject->seg_id == right.subject->seg_id))
         {
-            // Both left and right are located on the SAME segment.
-            if (left.subject.fraction == right.subject.fraction)
-            {
-                // First check "real" intersection (crosses)
-                // -> distance zero due to precision, solve it by sorting
-                // TODO: reconsider this. Using integer maths, this will
-                // ALWAYS return 0 because either fractions are different, or
-                // the (currently calculated) relative-order is identical
-                if (m_turn_points[left.index].method == method_crosses
-                    && m_turn_points[right.index].method == method_crosses)
-                {
-                    return consider_relative_order(left, right);
-                }
-
-                // If that is not the case, cluster it later on.
-                // Indicate that this is necessary.
-                *m_clustered = true;
-            }
+            return left.subject->seg_id < right.subject->seg_id;
         }
-        return sl == sr
-            ? left.subject.fraction < right.subject.fraction
-            : sl < sr;
+
+        // Both left and right are located on the SAME segment.
+
+        if (! (left.subject->fraction == right.subject->fraction))
+        {
+            return left.subject->fraction < right.subject->fraction;
+        }
+
+
+        // First check "real" intersection (crosses)
+        // -> distance zero due to precision, solve it by sorting
+        if (m_turn_points[left.turn_index].method == method_crosses
+            && m_turn_points[right.turn_index].method == method_crosses)
+        {
+            return consider_relative_order(left, right);
+        }
+
+        // If that is not the case, cluster it later on.
+        // Indicate that this is necessary.
+        *m_clustered = true;
+
+        return default_order(left, right);
     }
 };
 
@@ -200,13 +206,13 @@ inline void update_discarded(Turns& turn_points, Operations& operations)
          it != boost::end(operations);
          ++it)
     {
-        if (turn_points[it->index].discarded)
+        if (turn_points[it->turn_index].discarded)
         {
             it->discarded = true;
         }
         else if (it->discarded)
         {
-            turn_points[it->index].discarded = true;
+            turn_points[it->turn_index].discarded = true;
         }
     }
 }
@@ -262,14 +268,14 @@ inline void enrich_sort(Container& operations,
             it != boost::end(operations);
             prev = it++)
         {
-            operations_type& prev_op = turn_points[prev->index]
+            operations_type& prev_op = turn_points[prev->turn_index]
                 .operations[prev->operation_index];
-            operations_type& op = turn_points[it->index]
+            operations_type& op = turn_points[it->turn_index]
                 .operations[it->operation_index];
 
             if (prev_op.seg_id == op.seg_id
-                && (turn_points[prev->index].method != method_crosses
-                    || turn_points[it->index].method != method_crosses)
+                && (turn_points[prev->turn_index].method != method_crosses
+                    || turn_points[it->turn_index].method != method_crosses)
                 && prev_op.fraction == op.fraction)
             {
                 if (begin_cluster == boost::end(operations))
@@ -346,19 +352,19 @@ inline void enrich_assign(Container& operations,
              prev = it++)
         {
             operations_type& prev_op
-                    = turn_points[prev->index].operations[prev->operation_index];
+                    = turn_points[prev->turn_index].operations[prev->operation_index];
             operations_type& op
-                    = turn_points[it->index].operations[it->operation_index];
+                    = turn_points[it->turn_index].operations[it->operation_index];
 
             prev_op.enriched.travels_to_ip_index
-                    = it->index;
+                    = static_cast<int>(it->turn_index);
             prev_op.enriched.travels_to_vertex_index
-                    = it->subject.seg_id.segment_index;
+                    = it->subject->seg_id.segment_index;
 
             if (! first
                 && prev_op.seg_id.segment_index == op.seg_id.segment_index)
             {
-                prev_op.enriched.next_ip_index = it->index;
+                prev_op.enriched.next_ip_index = static_cast<int>(it->turn_index);
             }
             first = false;
         }
@@ -371,16 +377,16 @@ inline void enrich_assign(Container& operations,
              it != boost::end(operations);
              ++it)
         {
-            operations_type& op = turn_points[it->index]
+            operations_type& op = turn_points[it->turn_index]
                 .operations[it->operation_index];
 
-            std::cout << it->index
-                << " meth: " << method_char(turn_points[it->index].method)
+            std::cout << it->turn_index
+                << " meth: " << method_char(turn_points[it->turn_index].method)
                 << " seg: " << op.seg_id
                 << " dst: " << op.fraction // needs define
-                << " op: " << operation_char(turn_points[it->index].operations[0].operation)
-                << operation_char(turn_points[it->index].operations[1].operation)
-                << " dsc: " << (turn_points[it->index].discarded ? "T" : "F")
+                << " op: " << operation_char(turn_points[it->turn_index].operations[0].operation)
+                << operation_char(turn_points[it->turn_index].operations[1].operation)
+                << " dsc: " << (turn_points[it->turn_index].discarded ? "T" : "F")
                 << " ->vtx " << op.enriched.travels_to_vertex_index
                 << " ->ip " << op.enriched.travels_to_ip_index
                 << " ->nxt ip " << op.enriched.next_ip_index
@@ -401,7 +407,7 @@ inline void create_map(TurnPoints const& turn_points, MappedVector& mapped_vecto
     typedef typename boost::range_value<TurnPoints>::type turn_point_type;
     typedef typename turn_point_type::container_type container_type;
 
-    int index = 0;
+    std::size_t index = 0;
     for (typename boost::range_iterator<TurnPoints const>::type
             it = boost::begin(turn_points);
          it != boost::end(turn_points);
@@ -410,7 +416,7 @@ inline void create_map(TurnPoints const& turn_points, MappedVector& mapped_vecto
         // Add operations on this ring, but skip discarded ones
         if (! it->discarded)
         {
-            int op_index = 0;
+            std::size_t op_index = 0;
             for (typename boost::range_iterator<container_type const>::type
                     op_it = boost::begin(it->operations);
                 op_it != boost::end(it->operations);
@@ -428,7 +434,8 @@ inline void create_map(TurnPoints const& turn_points, MappedVector& mapped_vecto
                     );
                 mapped_vector[ring_id].push_back
                     (
-                        IndexedType(index, op_index, *op_it)
+                        IndexedType(index, op_index, *op_it,
+                            it->operations[1 - op_index].seg_id)
                     );
             }
         }

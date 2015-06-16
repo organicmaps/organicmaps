@@ -1,6 +1,6 @@
 // Boost.Geometry Index
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2015 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -9,22 +9,11 @@
 #ifndef BOOST_GEOMETRY_INDEX_DETAIL_ASSERT_HPP
 #define BOOST_GEOMETRY_INDEX_DETAIL_ASSERT_HPP
 
-#include <boost/assert.hpp>
+#include <boost/geometry/core/assert.hpp>
+
+#undef BOOST_GEOMETRY_INDEX_ASSERT
 
 #define BOOST_GEOMETRY_INDEX_ASSERT(CONDITION, TEXT_MSG) \
-    BOOST_ASSERT_MSG(CONDITION, TEXT_MSG)
-
-// TODO - change it to something like:
-// BOOST_ASSERT((CONDITION) && (TEXT_MSG))
-
-#if defined(BOOST_DISABLE_ASSERTS) || defined(NDEBUG)
-
-#define BOOST_GEOMETRY_INDEX_ASSERT_UNUSED_PARAM(PARAM)
-
-#else
-
-#define BOOST_GEOMETRY_INDEX_ASSERT_UNUSED_PARAM(PARAM) PARAM
-
-#endif
+    BOOST_GEOMETRY_ASSERT_MSG(CONDITION, TEXT_MSG)
 
 #endif // BOOST_GEOMETRY_INDEX_DETAIL_ASSERT_HPP

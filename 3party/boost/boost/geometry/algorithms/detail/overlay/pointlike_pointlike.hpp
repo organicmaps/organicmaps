@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014, Oracle and/or its affiliates.
+// Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
@@ -14,9 +14,9 @@
 #include <algorithm>
 #include <vector>
 
-#include <boost/assert.hpp>
 #include <boost/range.hpp>
 
+#include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/point_type.hpp>
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
@@ -182,7 +182,7 @@ struct multipoint_point_point
                                        OutputIterator oit,
                                        Strategy const&)
     {
-        BOOST_ASSERT( OverlayType == overlay_difference );
+        BOOST_GEOMETRY_ASSERT( OverlayType == overlay_difference );
 
         for (typename boost::range_iterator<MultiPoint const>::type
                  it = boost::begin(multipoint);
@@ -264,7 +264,7 @@ struct multipoint_multipoint_point
                 >::apply(multipoint2, multipoint1, robust_policy, oit, strategy);
         }
 
-        std::vector<typename point_type<MultiPoint2>::type>
+        std::vector<typename boost::range_value<MultiPoint2>::type>
             points2(boost::begin(multipoint2), boost::end(multipoint2));
 
         std::sort(points2.begin(), points2.end(), detail::relate::less());

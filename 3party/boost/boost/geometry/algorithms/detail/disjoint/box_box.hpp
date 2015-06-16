@@ -74,7 +74,7 @@ struct box_box<Box1, Box2, DimensionCount, DimensionCount>
 
 
 /*!
-    \brief Internal utility function to detect of boxes are disjoint
+    \brief Internal utility function to detect if boxes are disjoint
     \note Is used from other algorithms, declared separately
         to avoid circular references
  */

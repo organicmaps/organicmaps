@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2012-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2012-2015 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -14,10 +14,13 @@
 
 #include <boost/range.hpp>
 
+#include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/coordinate_type.hpp>
 #include <boost/geometry/core/point_type.hpp>
 
 #include <boost/geometry/strategies/buffer.hpp>
+
+#include <boost/geometry/algorithms/within.hpp>
 
 #include <boost/geometry/algorithms/detail/overlay/copy_segments.hpp>
 #include <boost/geometry/algorithms/detail/overlay/copy_segment_point.hpp>
@@ -25,8 +28,6 @@
 #include <boost/geometry/algorithms/detail/overlay/get_ring.hpp>
 #include <boost/geometry/algorithms/detail/overlay/traversal_info.hpp>
 #include <boost/geometry/algorithms/detail/overlay/turn_info.hpp>
-
-#include <boost/geometry/multi/algorithms/within.hpp>
 
 
 namespace boost { namespace geometry
@@ -43,12 +44,16 @@ struct buffered_ring_collection_tag : polygonal_tag, multi_tag
 template <typename Ring>
 struct buffered_ring : public Ring
 {
+    bool has_concave;
     bool has_accepted_intersections;
     bool has_discarded_intersections;
+    bool is_untouched_outside_original;
 
     inline buffered_ring()
-        : has_accepted_intersections(false)
+        : has_concave(false)
+        , has_accepted_intersections(false)
         , has_discarded_intersections(false)
+        , is_untouched_outside_original(false)
     {}
 
     inline bool discarded() const
@@ -221,7 +226,7 @@ struct get_ring<detail::buffer::buffered_ring_collection_tag>
                 ring_identifier const& id,
                 MultiGeometry const& multi_ring)
     {
-        BOOST_ASSERT
+        BOOST_GEOMETRY_ASSERT
             (
                 id.multi_index >= 0
                 && id.multi_index < int(boost::size(multi_ring))

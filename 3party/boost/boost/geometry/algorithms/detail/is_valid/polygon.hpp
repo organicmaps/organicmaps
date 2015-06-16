@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014, Oracle and/or its affiliates.
+// Copyright (c) 2014-2015, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
@@ -16,22 +16,32 @@
 #include <deque>
 #include <iterator>
 #include <set>
+#include <vector>
 
-#include <boost/assert.hpp>
 #include <boost/range.hpp>
 
+#include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/ring_type.hpp>
 #include <boost/geometry/core/tags.hpp>
 
+#include <boost/geometry/util/condition.hpp>
 #include <boost/geometry/util/range.hpp>
 
+#include <boost/geometry/geometries/box.hpp>
+
+#include <boost/geometry/iterators/point_iterator.hpp>
+
 #include <boost/geometry/algorithms/covered_by.hpp>
+#include <boost/geometry/algorithms/disjoint.hpp>
+#include <boost/geometry/algorithms/expand.hpp>
 #include <boost/geometry/algorithms/num_interior_rings.hpp>
+#include <boost/geometry/algorithms/validity_failure_type.hpp>
 #include <boost/geometry/algorithms/within.hpp>
 
 #include <boost/geometry/algorithms/detail/check_iterator_range.hpp>
+#include <boost/geometry/algorithms/detail/partition.hpp>
 
 #include <boost/geometry/algorithms/detail/is_valid/complement_graph.hpp>
 #include <boost/geometry/algorithms/detail/is_valid/has_valid_self_turns.hpp>
@@ -54,51 +64,58 @@ namespace detail { namespace is_valid
 {
 
 
-template
-<
-    typename Polygon,
-    bool AllowDuplicates,
-    bool CheckRingValidityOnly = false
->
+template <typename Polygon, bool CheckRingValidityOnly = false>
 class is_valid_polygon
 {
 protected:
     typedef debug_validity_phase<Polygon> debug_phase;
 
+    template <typename VisitPolicy>
+    struct per_ring
+    {
+        per_ring(VisitPolicy& policy) : m_policy(policy) {}
 
+        template <typename Ring>
+        inline bool apply(Ring const& ring) const
+        {
+            return detail::is_valid::is_valid_ring
+                <
+                    Ring, false, true
+                >::apply(ring, m_policy);
+        }
 
-    template <typename InteriorRings>
-    static bool has_valid_interior_rings(InteriorRings const& interior_rings)
+        VisitPolicy& m_policy;
+    };
+
+    template <typename InteriorRings, typename VisitPolicy>
+    static bool has_valid_interior_rings(InteriorRings const& interior_rings,
+                                         VisitPolicy& visitor)
     {
         return
             detail::check_iterator_range
                 <
-                    detail::is_valid::is_valid_ring
-                        <
-                            typename boost::range_value<InteriorRings>::type,
-                            AllowDuplicates,
-                            false, // do not check self-intersections
-                            true // indicate that the ring is interior
-                        >
+                    per_ring<VisitPolicy>,
+                    true // allow for empty interior ring range
                 >::apply(boost::begin(interior_rings),
-                         boost::end(interior_rings));
+                         boost::end(interior_rings),
+                         per_ring<VisitPolicy>(visitor));
     }
 
     struct has_valid_rings
     {
-        static inline bool apply(Polygon const& polygon)
+        template <typename VisitPolicy>
+        static inline bool apply(Polygon const& polygon, VisitPolicy& visitor)
         {
             typedef typename ring_type<Polygon>::type ring_type;
 
             // check validity of exterior ring
             debug_phase::apply(1);
 
-            if ( !detail::is_valid::is_valid_ring
+            if (! detail::is_valid::is_valid_ring
                      <
                          ring_type,
-                         AllowDuplicates,
                          false // do not check self intersections
-                     >::apply(exterior_ring(polygon)) )
+                     >::apply(exterior_ring(polygon), visitor))
             {
                 return false;
             }
@@ -106,52 +123,95 @@ protected:
             // check validity of interior rings
             debug_phase::apply(2);
 
-            return has_valid_interior_rings(geometry::interior_rings(polygon));
+            return has_valid_interior_rings(geometry::interior_rings(polygon),
+                                            visitor);
         }
     };
 
 
+    // structs for partition -- start
+    struct expand_box
+    {
+        template <typename Box, typename Iterator>
+        static inline void apply(Box& total, Iterator const& it)
+        {
+            geometry::expand(total, geometry::return_envelope<Box>(*it));
+        }
+
+    };
+
+    struct overlaps_box
+    {
+        template <typename Box, typename Iterator>
+        static inline bool apply(Box const& box, Iterator const& it)
+        {
+            return ! geometry::disjoint(*it, box);
+        }
+    };
+
+
+    struct item_visitor_type
+    {
+        bool items_overlap;
+
+        item_visitor_type() : items_overlap(false) {}
+
+        template <typename Item1, typename Item2>
+        inline void apply(Item1 const& item1, Item2 const& item2)
+        {
+            if (! items_overlap
+                && (geometry::within(*points_begin(*item1), *item2)
+                    || geometry::within(*points_begin(*item2), *item1))
+                )
+            {
+                items_overlap = true;
+            }
+        }
+    };
+    // structs for partition -- end
 
 
     template
     <
         typename RingIterator,
         typename ExteriorRing,
-        typename TurnIterator
+        typename TurnIterator,
+        typename VisitPolicy
     >
     static inline bool are_holes_inside(RingIterator rings_first,
                                         RingIterator rings_beyond,
                                         ExteriorRing const& exterior_ring,
                                         TurnIterator turns_first,
-                                        TurnIterator turns_beyond)
+                                        TurnIterator turns_beyond,
+                                        VisitPolicy& visitor)
     {
         // collect the interior ring indices that have turns with the
         // exterior ring
-        std::set<int> ring_indices;
+        std::set<signed_index_type> ring_indices;
         for (TurnIterator tit = turns_first; tit != turns_beyond; ++tit)
         {
-            if ( tit->operations[0].seg_id.ring_index == -1 )
+            if (tit->operations[0].seg_id.ring_index == -1)
             {
-                BOOST_ASSERT( tit->operations[0].other_id.ring_index != -1 );
-                ring_indices.insert(tit->operations[0].other_id.ring_index);
+                BOOST_GEOMETRY_ASSERT(tit->operations[1].seg_id.ring_index != -1);
+                ring_indices.insert(tit->operations[1].seg_id.ring_index);
             }
-            else if ( tit->operations[0].other_id.ring_index == -1 )
+            else if (tit->operations[1].seg_id.ring_index == -1)
             {
-                BOOST_ASSERT( tit->operations[0].seg_id.ring_index != -1 );
+                BOOST_GEOMETRY_ASSERT(tit->operations[0].seg_id.ring_index != -1);
                 ring_indices.insert(tit->operations[0].seg_id.ring_index);
             }
         }
 
-        int ring_index = 0;
+        signed_index_type ring_index = 0;
         for (RingIterator it = rings_first; it != rings_beyond;
              ++it, ++ring_index)
         {
             // do not examine interior rings that have turns with the
             // exterior ring
-            if (  ring_indices.find(ring_index) == ring_indices.end()
-                  && !geometry::covered_by(range::front(*it), exterior_ring) )
+            if (ring_indices.find(ring_index) == ring_indices.end()
+                && ! geometry::covered_by(range::front(*it), exterior_ring))
             {
-                return false;
+                return visitor.template apply<failure_interior_rings_outside>();
             }
         }
 
@@ -159,58 +219,76 @@ protected:
         for (TurnIterator tit = turns_first; tit != turns_beyond; ++tit)
         {
             ring_indices.insert(tit->operations[0].seg_id.ring_index);
-            ring_indices.insert(tit->operations[0].other_id.ring_index);
+            ring_indices.insert(tit->operations[1].seg_id.ring_index);
         }
 
+        // put iterators for interior rings without turns in a vector
+        std::vector<RingIterator> ring_iterators;
         ring_index = 0;
-        for (RingIterator it1 = rings_first; it1 != rings_beyond;
-             ++it1, ++ring_index)
+        for (RingIterator it = rings_first; it != rings_beyond;
+             ++it, ++ring_index)
         {
-            // do not examine rings that are associated with turns
-            if ( ring_indices.find(ring_index) == ring_indices.end() )
+            if (ring_indices.find(ring_index) == ring_indices.end())
             {
-                for (RingIterator it2 = rings_first; it2 != rings_beyond; ++it2)
-                {
-                    if ( it1 != it2
-                         && geometry::within(range::front(*it1), *it2) )
-                    {
-                        return false;
-                    }
-                }
+                ring_iterators.push_back(it);
             }
         }
-        return true;
+
+        // call partition to check is interior rings are disjoint from
+        // each other
+        item_visitor_type item_visitor;
+
+        geometry::partition
+            <
+                geometry::model::box<typename point_type<Polygon>::type>,
+                expand_box,
+                overlaps_box
+            >::apply(ring_iterators, item_visitor);
+
+        if (item_visitor.items_overlap)
+        {
+            return visitor.template apply<failure_nested_interior_rings>();
+        }
+        else
+        {
+            return visitor.template apply<no_failure>();
+        }
     }
 
     template
     <
         typename InteriorRings,
         typename ExteriorRing,
-        typename TurnIterator
+        typename TurnIterator,
+        typename VisitPolicy
     >
     static inline bool are_holes_inside(InteriorRings const& interior_rings,
                                         ExteriorRing const& exterior_ring,
                                         TurnIterator first,
-                                        TurnIterator beyond)
+                                        TurnIterator beyond,
+                                        VisitPolicy& visitor)
     {
         return are_holes_inside(boost::begin(interior_rings),
                                 boost::end(interior_rings),
                                 exterior_ring,
                                 first,
-                                beyond);
+                                beyond,
+                                visitor);
     }
 
     struct has_holes_inside
     {    
-        template <typename TurnIterator>
+        template <typename TurnIterator, typename VisitPolicy>
         static inline bool apply(Polygon const& polygon,
                                  TurnIterator first,
-                                 TurnIterator beyond)
+                                 TurnIterator beyond,
+                                 VisitPolicy& visitor)
         {
             return are_holes_inside(geometry::interior_rings(polygon),
                                     geometry::exterior_ring(polygon),
                                     first,
-                                    beyond);
+                                    beyond,
+                                    visitor);
         }
     };
 
@@ -219,10 +297,11 @@ protected:
 
     struct has_connected_interior
     {
-        template <typename TurnIterator>
+        template <typename TurnIterator, typename VisitPolicy>
         static inline bool apply(Polygon const& polygon,
                                  TurnIterator first,
-                                 TurnIterator beyond)
+                                 TurnIterator beyond,
+                                 VisitPolicy& visitor)
         {
             typedef typename std::iterator_traits
                 <
@@ -236,7 +315,7 @@ protected:
                 typename graph::vertex_handle v1 = g.add_vertex
                     ( tit->operations[0].seg_id.ring_index + 1 );
                 typename graph::vertex_handle v2 = g.add_vertex
-                    ( tit->operations[0].other_id.ring_index + 1 );
+                    ( tit->operations[1].seg_id.ring_index + 1 );
                 typename graph::vertex_handle vip = g.add_vertex(tit->point);
 
                 g.add_edge(v1, vip);
@@ -245,19 +324,27 @@ protected:
 
             debug_print_complement_graph(std::cout, g);
 
-            return !g.has_cycles();
+            if (g.has_cycles())
+            {
+                return visitor.template apply<failure_disconnected_interior>();
+            }
+            else
+            {
+                return visitor.template apply<no_failure>();
+            }
         }
     };
 
 public:
-    static inline bool apply(Polygon const& polygon)
+    template <typename VisitPolicy>
+    static inline bool apply(Polygon const& polygon, VisitPolicy& visitor)
     {
-        if ( !has_valid_rings::apply(polygon) )
+        if (! has_valid_rings::apply(polygon, visitor))
         {
             return false;
         }
 
-        if ( CheckRingValidityOnly )
+        if (BOOST_GEOMETRY_CONDITION(CheckRingValidityOnly))
         {
             return true;
         }
@@ -268,10 +355,11 @@ public:
         typedef has_valid_self_turns<Polygon> has_valid_turns;
 
         std::deque<typename has_valid_turns::turn_type> turns;
-        bool has_invalid_turns = !has_valid_turns::apply(polygon, turns);
+        bool has_invalid_turns
+            = ! has_valid_turns::apply(polygon, turns, visitor);
         debug_print_turns(turns.begin(), turns.end());
 
-        if ( has_invalid_turns )
+        if (has_invalid_turns)
         {
             return false;
         }
@@ -279,7 +367,9 @@ public:
         // check if all interior rings are inside the exterior ring
         debug_phase::apply(4);
 
-        if ( !has_holes_inside::apply(polygon, turns.begin(), turns.end()) )
+        if (! has_holes_inside::apply(polygon,
+                                      turns.begin(), turns.end(),
+                                      visitor))
         {
             return false;
         }
@@ -289,7 +379,8 @@ public:
 
         return has_connected_interior::apply(polygon,
                                              turns.begin(),
-                                             turns.end());
+                                             turns.end(),
+                                             visitor);
     }
 };
 
@@ -307,9 +398,11 @@ namespace dispatch
 // A Polygon is always a simple geometric object provided that it is valid.
 //
 // Reference (for validity of Polygons): OGC 06-103r4 (6.1.11.1)
-template <typename Polygon, bool AllowSpikes, bool AllowDuplicates>
-struct is_valid<Polygon, polygon_tag, AllowSpikes, AllowDuplicates>
-    : detail::is_valid::is_valid_polygon<Polygon, AllowDuplicates>
+template <typename Polygon, bool AllowEmptyMultiGeometries>
+struct is_valid
+    <
+        Polygon, polygon_tag, AllowEmptyMultiGeometries
+    > : detail::is_valid::is_valid_polygon<Polygon>
 {};
 
 

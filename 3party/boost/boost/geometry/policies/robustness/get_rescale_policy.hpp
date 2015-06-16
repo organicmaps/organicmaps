@@ -1,9 +1,14 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2014 Bruno Lalande, Paris, France.
-// Copyright (c) 2014 Mateusz Loskot, London, UK.
-// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2014-2015 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2014-2015 Bruno Lalande, Paris, France.
+// Copyright (c) 2014-2015 Mateusz Loskot, London, UK.
+// Copyright (c) 2014-2015 Adam Wulkiewicz, Lodz, Poland.
+
+// This file was modified by Oracle on 2015.
+// Modifications copyright (c) 2015, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -18,6 +23,7 @@
 #include <boost/type_traits.hpp>
 #include <boost/mpl/assert.hpp>
 
+#include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/tag_cast.hpp>
 
 #include <boost/geometry/algorithms/envelope.hpp>
@@ -41,6 +47,40 @@ namespace boost { namespace geometry
 namespace detail { namespace get_rescale_policy
 {
 
+template
+<
+    typename Box,
+    typename Point,
+    typename RobustPoint,
+    typename Factor
+>
+inline void scale_box_to_integer_range(Box const& box,
+                                       Point& min_point,
+                                       RobustPoint& min_robust_point,
+                                       Factor& factor)
+{
+    // Scale box to integer-range
+    typedef typename promote_floating_point
+        <
+            typename geometry::coordinate_type<Point>::type
+        >::type num_type;
+    num_type const diff = boost::numeric_cast<num_type>(detail::get_max_size(box));
+    num_type const range = 10000000.0; // Define a large range to get precise integer coordinates
+    num_type const half = 0.5;
+    factor = math::equals(diff, num_type()) || diff >= range ? 1
+        : boost::numeric_cast<num_type>(
+            boost::numeric_cast<boost::long_long_type>(half + range / diff));
+
+    BOOST_GEOMETRY_ASSERT(factor >= 1);
+
+    // Assign input/output minimal points
+    detail::assign_point_from_index<0>(box, min_point);
+    num_type const two = 2;
+    boost::long_long_type const min_coordinate
+        = boost::numeric_cast<boost::long_long_type>(-range / two);
+    assign_values(min_robust_point, min_coordinate, min_coordinate);
+}
+
 template <typename Point, typename RobustPoint, typename Geometry, typename Factor>
 static inline void init_rescale_policy(Geometry const& geometry,
         Point& min_point,
@@ -50,24 +90,7 @@ static inline void init_rescale_policy(Geometry const& geometry,
     // Get bounding boxes
     model::box<Point> env = geometry::return_envelope<model::box<Point> >(geometry);
 
-    // Scale this to integer-range
-    typedef typename promote_floating_point
-        <
-            typename geometry::coordinate_type<Point>::type
-        >::type num_type;
-    num_type const diff = boost::numeric_cast<num_type>(detail::get_max_size(env));
-    num_type const range = 10000000.0; // Define a large range to get precise integer coordinates
-    num_type const half = 0.5;
-    factor = math::equals(diff, num_type()) ? 1
-        : boost::numeric_cast<num_type>(
-            boost::numeric_cast<boost::long_long_type>(half + range / diff));
-
-    // Assign input/output minimal points
-    detail::assign_point_from_index<0>(env, min_point);
-    num_type const two = 2;
-    boost::long_long_type const min_coordinate
-        = boost::numeric_cast<boost::long_long_type>(-range / two);
-    assign_values(min_robust_point, min_coordinate, min_coordinate);
+    scale_box_to_integer_range(env, min_point, min_robust_point, factor);
 }
 
 template <typename Point, typename RobustPoint, typename Geometry1, typename Geometry2, typename Factor>
@@ -82,25 +105,7 @@ static inline void init_rescale_policy(Geometry1 const& geometry1,
     model::box<Point> env2 = geometry::return_envelope<model::box<Point> >(geometry2);
     geometry::expand(env, env2);
 
-    // TODO: merge this with implementation above
-    // Scale this to integer-range
-    typedef typename promote_floating_point
-        <
-            typename geometry::coordinate_type<Point>::type
-        >::type num_type;
-    num_type const diff = boost::numeric_cast<num_type>(detail::get_max_size(env));
-    num_type const range = 10000000.0; // Define a large range to get precise integer coordinates
-    num_type const half = 0.5;
-    factor = math::equals(diff, num_type()) ? 1
-        : boost::numeric_cast<num_type>(
-            boost::numeric_cast<boost::long_long_type>(half + range / diff));
-
-    // Assign input/output minimal points
-    detail::assign_point_from_index<0>(env, min_point);
-    num_type const two = 2;
-    boost::long_long_type const min_coordinate
-        = boost::numeric_cast<boost::long_long_type>(-range / two);
-    assign_values(min_robust_point, min_coordinate, min_coordinate);
+    scale_box_to_integer_range(env, min_point, min_robust_point, factor);
 }
 
 

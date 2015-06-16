@@ -19,6 +19,8 @@
 #define BOOST_GEOMETRY_STRATEGY_AGNOSTIC_POINT_IN_POLY_WINDING_HPP
 
 
+#include <boost/core/ignore_unused.hpp>
+
 #include <boost/geometry/util/math.hpp>
 #include <boost/geometry/util/select_calculation_type.hpp>
 
@@ -71,7 +73,7 @@ struct winding_side_equal
         PointOfSegment ss1, ss2;
         set<1-D>(ss1, get<1-D>(se));
         set<1-D>(ss2, get<1-D>(se));
-        if ( count > 0 ) // UP
+        if (count > 0) // UP
         {
             set<D>(ss1, 0);
             set<D>(ss2, 1);
@@ -101,6 +103,81 @@ struct winding_side_equal<cartesian_tag>
                     // assuming count is equal to 1 or -1
                     count : // ( count > 0 ? 1 : -1) :
                     -count; // ( count > 0 ? -1 : 1) ;
+    }
+};
+
+
+template <typename CSTag>
+struct winding_side_between
+{
+    typedef typename strategy::side::services::default_strategy
+        <
+            CSTag
+        >::type strategy_side_type;
+
+    template <size_t D, typename Point, typename PointOfSegment>
+    static inline int apply(Point const& point,
+                            PointOfSegment const& s1, PointOfSegment const& s2,
+                            int count)
+    {
+        // Create a vertical segment intersecting the original segment's endpoint
+        // equal to the point, with the derived direction (UP/DOWN).
+        // Set only the 2 first coordinates, the other ones are ignored
+        PointOfSegment ss1, ss2;
+        set<1-D>(ss1, get<1-D>(s1));
+        set<1-D>(ss2, get<1-D>(s1));
+
+        if (count > 0) // UP
+        {
+            set<D>(ss1, 0);
+            set<D>(ss2, 1);
+        }
+        else // DOWN
+        {
+            set<D>(ss1, 1);
+            set<D>(ss2, 0);
+        }
+
+        int const seg_side = strategy_side_type::apply(ss1, ss2, s2);
+
+        if (seg_side != 0) // segment not vertical
+        {
+            if (strategy_side_type::apply(ss1, ss2, point) == -seg_side) // point on the opposite side than s2
+            {
+                return -seg_side;
+            }
+            else
+            {
+                set<1-D>(ss1, get<1-D>(s2));
+                set<1-D>(ss2, get<1-D>(s2));
+
+                if (strategy_side_type::apply(ss1, ss2, point) == seg_side) // point behind s2
+                {
+                    return seg_side;
+                }
+            }
+        }
+
+        // segment is vertical or point is between p1 and p2
+        return strategy_side_type::apply(s1, s2, point);
+    }
+};
+
+// The specialization for cartesian
+template <>
+struct winding_side_between<cartesian_tag>
+{
+    typedef strategy::side::services::default_strategy
+        <
+            cartesian_tag
+        >::type strategy_side_type;
+
+    template <size_t D, typename Point, typename PointOfSegment>
+    static inline int apply(Point const& point,
+                            PointOfSegment const& s1, PointOfSegment const& s2,
+                            int /*count*/)
+    {
+        return strategy_side_type::apply(s1, s2, point);
     }
 };
 
@@ -221,6 +298,8 @@ public :
                 PointOfSegment const& s1, PointOfSegment const& s2,
                 counter& state)
     {
+        typedef typename cs_tag<Point>::type cs_t;
+
         bool eq1 = false;
         bool eq2 = false;
         boost::ignore_unused(eq2);
@@ -229,14 +308,15 @@ public :
         if (count != 0)
         {
             int side = 0;
-            if ( count == 1 || count == -1 )
+            if (count == 1 || count == -1)
             {
-                side = winding_side_equal<typename cs_tag<Point>::type>
+                side = winding_side_equal<cs_t>
                             ::template apply<1>(point, eq1 ? s1 : s2, count);
             }
-            else
+            else // count == 2 || count == -2
             {
-                side = strategy_side_type::apply(s1, s2, point);
+                side = winding_side_between<cs_t>
+                            ::template apply<1>(point, s1, s2, count);
             }
             
             if (side == 0)

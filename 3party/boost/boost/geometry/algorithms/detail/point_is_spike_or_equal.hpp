@@ -17,6 +17,7 @@
 #include <boost/geometry/algorithms/detail/recalculate.hpp>
 #include <boost/geometry/policies/robustness/robust_point_type.hpp>
 #include <boost/geometry/strategies/side.hpp>
+#include <boost/geometry/util/condition.hpp>
 #include <boost/geometry/util/math.hpp>
 
 namespace boost { namespace geometry
@@ -91,7 +92,7 @@ static inline bool point_is_spike_or_equal(Point1 const& last_point,
         return true;
     }
 
-    if (! RobustPolicy::enabled)
+    if (BOOST_GEOMETRY_CONDITION(! RobustPolicy::enabled))
     {
         return false;
     }

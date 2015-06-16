@@ -98,11 +98,10 @@ struct assign_disjoint_policy
         typename Info,
         typename Point1,
         typename Point2,
-        typename IntersectionInfo,
-        typename DirInfo
+        typename IntersectionInfo
     >
     static inline void apply(Info& , Point1 const& , Point2 const&,
-                IntersectionInfo const&, DirInfo const&)
+                IntersectionInfo const&)
     {}
 };
 
@@ -115,28 +114,42 @@ struct disjoint_linear
     {
         typedef typename geometry::point_type<Geometry1>::type point_type;
         typedef detail::no_rescale_policy rescale_policy_type;
+        typedef typename geometry::segment_ratio_type
+            <
+                point_type, rescale_policy_type
+            >::type segment_ratio_type;
         typedef overlay::turn_info
-        <
-            point_type,
-            typename segment_ratio_type<point_type, rescale_policy_type>::type
-        > turn_info;
-        std::deque<turn_info> turns;
+            <
+                point_type,
+                segment_ratio_type,
+                typename detail::get_turns::turn_operation_type
+                        <
+                            Geometry1, Geometry2, segment_ratio_type
+                        >::type
+            > turn_info_type;
 
-        static const bool reverse1 = overlay::do_reverse<geometry::point_order<Geometry1>::value>::value; // should be false
-        static const bool reverse2 = overlay::do_reverse<geometry::point_order<Geometry2>::value>::value; // should be false
+        std::deque<turn_info_type> turns;
 
         // Specify two policies:
         // 1) Stop at any intersection
         // 2) In assignment, include also degenerate points (which are normally skipped)
-        disjoint_interrupt_policy policy;
-        rescale_policy_type robust_policy;
-        geometry::get_turns
+        disjoint_interrupt_policy interrupt_policy;
+        dispatch::get_turns
             <
-                reverse1, reverse2,
-                assign_disjoint_policy
-            >(geometry1, geometry2, robust_policy, turns, policy);
+                typename geometry::tag<Geometry1>::type,
+                typename geometry::tag<Geometry2>::type,
+                Geometry1,
+                Geometry2,
+                overlay::do_reverse<geometry::point_order<Geometry1>::value>::value, // should be false
+                overlay::do_reverse<geometry::point_order<Geometry2>::value>::value, // should be false
+                detail::get_turns::get_turn_info_type
+                    <
+                        Geometry1, Geometry2, assign_disjoint_policy
+                    >
+            >::apply(0, geometry1, 1, geometry2,
+                     rescale_policy_type(), turns, interrupt_policy);
 
-        return !policy.has_intersections;
+        return !interrupt_policy.has_intersections;
     }
 };
 

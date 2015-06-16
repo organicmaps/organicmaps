@@ -2,8 +2,8 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2013, 2014.
-// Modifications copyright (c) 2013-2014 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015.
+// Modifications copyright (c) 2013-2015 Oracle and/or its affiliates.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -14,12 +14,21 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_RELATE_LINEAR_LINEAR_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_RELATE_LINEAR_LINEAR_HPP
 
+#include <algorithm>
+
+#include <boost/core/ignore_unused.hpp>
+#include <boost/range/size.hpp>
+
+#include <boost/geometry/core/assert.hpp>
+
+#include <boost/geometry/util/condition.hpp>
 #include <boost/geometry/util/range.hpp>
 
 #include <boost/geometry/algorithms/detail/sub_range.hpp>
 #include <boost/geometry/algorithms/detail/single_geometry.hpp>
 
 #include <boost/geometry/algorithms/detail/relate/point_geometry.hpp>
+#include <boost/geometry/algorithms/detail/relate/result.hpp>
 #include <boost/geometry/algorithms/detail/relate/turns.hpp>
 #include <boost/geometry/algorithms/detail/relate/boundary_checker.hpp>
 #include <boost/geometry/algorithms/detail/relate/follow_helpers.hpp>
@@ -115,7 +124,7 @@ struct linear_linear
     {
         // The result should be FFFFFFFFF
         relate::set<exterior, exterior, result_dimension<Geometry1>::value>(result);// FFFFFFFFd, d in [1,9] or T
-        if ( result.interrupt )
+        if ( BOOST_GEOMETRY_CONDITION( result.interrupt ) )
             return;
 
         // get and analyse turns
@@ -131,19 +140,19 @@ struct linear_linear
                 detail::get_turns::get_turn_info_type<Geometry1, Geometry2, turns::assign_policy<true> >
             >::apply(turns, geometry1, geometry2, interrupt_policy);
 
-        if ( result.interrupt )
+        if ( BOOST_GEOMETRY_CONDITION( result.interrupt ) )
             return;
 
         boundary_checker<Geometry1> boundary_checker1(geometry1);
         disjoint_linestring_pred<Result, boundary_checker<Geometry1>, false> pred1(result, boundary_checker1);
         for_each_disjoint_geometry_if<0, Geometry1>::apply(turns.begin(), turns.end(), geometry1, pred1);
-        if ( result.interrupt )
+        if ( BOOST_GEOMETRY_CONDITION( result.interrupt ) )
             return;
 
         boundary_checker<Geometry2> boundary_checker2(geometry2);
         disjoint_linestring_pred<Result, boundary_checker<Geometry2>, true> pred2(result, boundary_checker2);
         for_each_disjoint_geometry_if<1, Geometry2>::apply(turns.begin(), turns.end(), geometry2, pred2);
-        if ( result.interrupt )
+        if ( BOOST_GEOMETRY_CONDITION( result.interrupt ) )
             return;
         
         if ( turns.empty() )
@@ -159,7 +168,7 @@ struct linear_linear
           || may_update<boundary, boundary, '0'>(result)
           || may_update<boundary, exterior, '0'>(result) )
         {
-            typedef turns::less<0, turns::less_op_linear_linear> less;
+            typedef turns::less<0, turns::less_op_linear_linear<0> > less;
             std::sort(turns.begin(), turns.end(), less());
 
             turns_analyser<turn_type, 0> analyser;
@@ -169,7 +178,7 @@ struct linear_linear
                               boundary_checker1, boundary_checker2);
         }
 
-        if ( result.interrupt )
+        if ( BOOST_GEOMETRY_CONDITION( result.interrupt ) )
             return;
         
         if ( may_update<interior, interior, '1', true>(result)
@@ -179,7 +188,7 @@ struct linear_linear
           || may_update<boundary, boundary, '0', true>(result)
           || may_update<boundary, exterior, '0', true>(result) )
         {
-            typedef turns::less<1, turns::less_op_linear_linear> less;
+            typedef turns::less<1, turns::less_op_linear_linear<1> > less;
             std::sort(turns.begin(), turns.end(), less());
 
             turns_analyser<turn_type, 1> analyser;
@@ -248,6 +257,7 @@ struct linear_linear
             : m_previous_turn_ptr(NULL)
             , m_previous_operation(overlay::operation_none)
             , m_degenerated_turn_ptr(NULL)
+            , m_collinear_spike_exit(false)
         {}
 
         template <typename Result,
@@ -381,7 +391,8 @@ struct linear_linear
                     // if we didn't enter in the past, we were outside
                     if ( was_outside
                       && ! fake_enter_detected
-                      && it->operations[op_id].position != overlay::position_front )
+                      && it->operations[op_id].position != overlay::position_front
+                      && ! m_collinear_spike_exit )
                     {
                         update<interior, exterior, '1', transpose_result>(res);
 
@@ -400,6 +411,8 @@ struct linear_linear
                         }
                     }
                 }
+
+                m_collinear_spike_exit = false;
             }
             // u/i, u/u, u/x, x/i, x/u, x/x
             else if ( op == overlay::operation_union || op == overlay::operation_blocked )
@@ -416,6 +429,11 @@ struct linear_linear
                 if ( !was_outside && is_collinear )
                 {
                     m_exit_watcher.exit(*it, false);
+                    // if the position is not set to back it must be a spike
+                    if ( it->operations[op_id].position != overlay::position_back )
+                    {
+                        m_collinear_spike_exit = true;
+                    }
                 }
 
                 bool const op_blocked = op == overlay::operation_blocked;
@@ -454,6 +472,7 @@ struct linear_linear
                     // if we are truly outside
                     if ( was_outside
                       && it->operations[op_id].position != overlay::position_front
+                      && ! m_collinear_spike_exit
                       /*&& !is_collinear*/ )
                     {
                         update<interior, exterior, '1', transpose_result>(res);
@@ -524,6 +543,7 @@ struct linear_linear
                           && ( !this_b || op_blocked )
                           && was_outside
                           && it->operations[op_id].position != overlay::position_front
+                          && ! m_collinear_spike_exit
                           /*&& !is_collinear*/ )
                         {
                             bool const front_b = is_endpoint_on_boundary<boundary_front>(
@@ -561,7 +581,8 @@ struct linear_linear
                    BoundaryChecker const& boundary_checker,
                    OtherBoundaryChecker const& /*other_boundary_checker*/)
         {
-            //BOOST_ASSERT( first != last );
+            boost::ignore_unused(first, last);
+            //BOOST_GEOMETRY_ASSERT( first != last );
 
             // here, the possible exit is the real one
             // we know that we entered and now we exit
@@ -571,7 +592,7 @@ struct linear_linear
             {
                 update<interior, exterior, '1', transpose_result>(res);
 
-                BOOST_ASSERT(first != last);
+                BOOST_GEOMETRY_ASSERT(first != last);
 
                 const TurnInfo * turn_ptr = NULL;
                 if ( m_degenerated_turn_ptr )
@@ -583,7 +604,7 @@ struct linear_linear
                 {
                     segment_identifier const& prev_seg_id = turn_ptr->operations[op_id].seg_id;
 
-                    //BOOST_ASSERT(!boost::empty(sub_range(geometry, prev_seg_id)));
+                    //BOOST_GEOMETRY_ASSERT(!boost::empty(sub_range(geometry, prev_seg_id)));
                     bool const prev_back_b = is_endpoint_on_boundary<boundary_back>(
                                                 range::back(sub_range(geometry, prev_seg_id)),
                                                 boundary_checker);
@@ -604,6 +625,10 @@ struct linear_linear
             m_previous_turn_ptr = NULL;
             m_previous_operation = overlay::operation_none;
             m_degenerated_turn_ptr = NULL;
+
+            // actually if this is set to true here there is some error
+            // in get_turns_ll or relate_ll, an assert could be checked here
+            m_collinear_spike_exit = false;
         }
 
         template <typename Result,
@@ -623,7 +648,7 @@ struct linear_linear
             typename detail::single_geometry_return_type<Geometry const>::type
                 ls1_ref = detail::single_geometry(geometry, turn.operations[op_id].seg_id);
             typename detail::single_geometry_return_type<OtherGeometry const>::type
-                ls2_ref = detail::single_geometry(other_geometry, turn.operations[op_id].other_id);
+                ls2_ref = detail::single_geometry(other_geometry, turn.operations[other_op_id].seg_id);
 
             // only one of those should be true:
 
@@ -669,7 +694,7 @@ struct linear_linear
 
                     if ( first_in_range )
                     {
-                        //BOOST_ASSERT(!boost::empty(ls1_ref));
+                        //BOOST_GEOMETRY_ASSERT(!boost::empty(ls1_ref));
                         bool const front_b = is_endpoint_on_boundary<boundary_front>(
                                                 range::front(ls1_ref), boundary_checker);
                         if ( front_b )
@@ -698,7 +723,7 @@ struct linear_linear
 
                     if ( first_in_range )
                     {
-                        //BOOST_ASSERT(!boost::empty(ls1_ref));
+                        //BOOST_GEOMETRY_ASSERT(!boost::empty(ls1_ref));
                         bool const front_b = is_endpoint_on_boundary<boundary_front>(
                                                 range::front(ls1_ref), boundary_checker);
                         if ( front_b )
@@ -721,6 +746,7 @@ struct linear_linear
         const TurnInfo * m_previous_turn_ptr;
         overlay::operation_type m_previous_operation;
         const TurnInfo * m_degenerated_turn_ptr;
+        bool m_collinear_spike_exit;
     };
 
     template <typename Result,
@@ -747,7 +773,7 @@ struct linear_linear
                            geometry, other_geometry,
                            boundary_checker, other_boundary_checker);
 
-            if ( res.interrupt )
+            if ( BOOST_GEOMETRY_CONDITION( res.interrupt ) )
                 return;
         }
 

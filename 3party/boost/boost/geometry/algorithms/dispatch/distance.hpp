@@ -22,7 +22,9 @@
 
 
 #include <boost/geometry/core/reverse_dispatch.hpp>
+#include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tag_cast.hpp>
+#include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/strategies/distance.hpp>
 #include <boost/geometry/algorithms/not_implemented.hpp>
 
@@ -36,22 +38,37 @@ namespace dispatch
 {
 
 
-using strategy::distance::services::return_type;
-
-
 template
 <
     typename Geometry1, typename Geometry2,
-    typename Strategy = typename detail::distance::default_strategy<Geometry1, Geometry2>::type,
-    typename Tag1 = typename tag_cast<typename tag<Geometry1>::type, multi_tag>::type,
-    typename Tag2 = typename tag_cast<typename tag<Geometry2>::type, multi_tag>::type,
-    typename StrategyTag = typename strategy::distance::services::tag<Strategy>::type,
+    typename Strategy = typename detail::distance::default_strategy
+        <
+            Geometry1, Geometry2
+        >::type,
+    typename Tag1 = typename tag_cast
+        <
+            typename tag<Geometry1>::type,
+            segment_tag,
+            box_tag,
+            linear_tag,
+            areal_tag
+        >::type,
+    typename Tag2 = typename tag_cast
+        <
+            typename tag<Geometry2>::type,
+            segment_tag,
+            box_tag,
+            linear_tag,
+            areal_tag
+        >::type,
+    typename StrategyTag = typename strategy::distance::services::tag
+        <
+            Strategy
+        >::type,
     bool Reverse = reverse_dispatch<Geometry1, Geometry2>::type::value
 >
 struct distance: not_implemented<Tag1, Tag2>
 {};
-
-
 
 
 

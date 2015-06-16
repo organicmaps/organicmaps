@@ -3,6 +3,7 @@
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -22,6 +23,10 @@
 #include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/geometries/concepts/point_concept.hpp>
 
+#include <boost/config.hpp>
+#ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
+#include <initializer_list>
+#endif
 
 namespace boost { namespace geometry
 {
@@ -38,6 +43,8 @@ namespace model
 \tparam Allocator \tparam_allocator
 \details Multipoint can be used to group points belonging to each other,
         e.g. a constellation, or the result set of an intersection
+
+\qbk{[include reference/geometries/multi_point.qbk]}
 \qbk{before.synopsis,
 [heading Model of]
 [link geometry.reference.concepts.concept_multi_point MultiPoint Concept]
@@ -66,6 +73,28 @@ public :
     inline multi_point(Iterator begin, Iterator end)
         : base_type(begin, end)
     {}
+
+#ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
+
+    /// \constructor_initializer_list{multi_point}
+    inline multi_point(std::initializer_list<Point> l)
+        : base_type(l.begin(), l.end())
+    {}
+
+// Commented out for now in order to support Boost.Assign
+// Without this assignment operator first the object should be created
+//   from initializer list, then it shoudl be moved.
+//// Without this workaround in MSVC the assignment operator is ambiguous
+//#ifndef BOOST_MSVC
+//    /// \assignment_initializer_list{multi_point}
+//    inline multi_point & operator=(std::initializer_list<Point> l)
+//    {
+//        base_type::assign(l.begin(), l.end());
+//        return *this;
+//    }
+//#endif
+
+#endif
 };
 
 } // namespace model

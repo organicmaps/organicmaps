@@ -47,13 +47,22 @@ struct segments_tupled
 
     template <typename Segment1, typename Segment2, typename Ratio>
     static inline return_type segments_collinear(
-        Segment1 const& segment1, Segment2 const& segment2,
-        Ratio const& ra1, Ratio const& ra2, Ratio const& rb1, Ratio const& rb2)
+                    Segment1 const& segment1, Segment2 const& segment2,
+                    bool opposite,
+                    int pa1, int pa2, int pb1, int pb2,
+                    Ratio const& ra1, Ratio const& ra2,
+                    Ratio const& rb1, Ratio const& rb2)
     {
         return boost::make_tuple
             (
-                Policy1::segments_collinear(segment1, segment2, ra1, ra2, rb1, rb2),
-                Policy2::segments_collinear(segment1, segment2, ra1, ra2, rb1, rb2)
+                Policy1::segments_collinear(segment1, segment2,
+                                            opposite,
+                                            pa1, pa2, pb1, pb2,
+                                            ra1, ra2, rb1, rb2),
+                Policy2::segments_collinear(segment1, segment2,
+                                            opposite,
+                                            pa1, pa2, pb1, pb2,
+                                            ra1, ra2, rb1, rb2)
             );
     }
 

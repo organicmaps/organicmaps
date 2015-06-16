@@ -19,7 +19,7 @@
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 #include <boost/geometry/algorithms/detail/assign_values.hpp>
-
+#include <boost/geometry/util/range.hpp>
 
 
 namespace boost { namespace geometry
@@ -80,12 +80,16 @@ inline void assign_box_corners_oriented(Box const& box, Range& corners)
     if (Reverse)
     {
         // make counterclockwise ll,lr,ur,ul
-        assign_box_corners(box, corners[0], corners[1], corners[3], corners[2]);
+        assign_box_corners(box,
+                           range::at(corners, 0), range::at(corners, 1),
+                           range::at(corners, 3), range::at(corners, 2));
     }
     else
     {
         // make clockwise ll,ul,ur,lr
-        assign_box_corners(box, corners[0], corners[3], corners[1], corners[2]);
+        assign_box_corners(box,
+                           range::at(corners, 0), range::at(corners, 3),
+                           range::at(corners, 1), range::at(corners, 2));
     }
 }
 #if defined(_MSC_VER)

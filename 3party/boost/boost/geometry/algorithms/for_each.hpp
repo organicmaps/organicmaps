@@ -1,9 +1,14 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
 // Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
+
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -24,6 +29,7 @@
 
 #include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 #include <boost/geometry/algorithms/not_implemented.hpp>
+#include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/point_type.hpp>
@@ -35,6 +41,8 @@
 #include <boost/geometry/geometries/segment.hpp>
 
 #include <boost/geometry/util/add_const_if_c.hpp>
+#include <boost/geometry/util/range.hpp>
+
 
 namespace boost { namespace geometry
 {
@@ -86,7 +94,8 @@ struct fe_range_per_point
 };
 
 
-struct fe_range_per_segment
+template <closure_selector Closure>
+struct fe_range_per_segment_with_closure
 {
     template <typename Range, typename Functor>
     static inline void apply(Range& range, Functor& f)
@@ -96,8 +105,8 @@ struct fe_range_per_segment
                 is_const<Range>::value,
                 typename point_type<Range>::type
             >::type point_type;
-        typedef typename boost::range_iterator<Range>::type
-            iterator_type;
+
+        typedef typename boost::range_iterator<Range>::type iterator_type;
 
         iterator_type it = boost::begin(range);
         iterator_type previous = it++;
@@ -107,6 +116,41 @@ struct fe_range_per_segment
             f(s);
             previous = it++;
         }
+    }
+};
+
+
+template <>
+struct fe_range_per_segment_with_closure<open>
+{
+    template <typename Range, typename Functor>
+    static inline void apply(Range& range, Functor& f)
+    {    
+        fe_range_per_segment_with_closure<closed>::apply(range, f);
+
+        model::referring_segment
+            <
+                typename add_const_if_c
+                    <
+                        is_const<Range>::value,
+                        typename point_type<Range>::type
+                    >::type
+            > s(range::back(range), range::front(range));
+
+        f(s);
+    }
+};
+
+
+struct fe_range_per_segment
+{
+    template <typename Range, typename Functor>
+    static inline void apply(Range& range, Functor& f)
+    {
+        fe_range_per_segment_with_closure
+            <
+                closure<Range>::value
+            >::apply(range, f);
     }
 };
 

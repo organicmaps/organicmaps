@@ -2,7 +2,7 @@
 //
 // n-dimensional content (hypervolume) - 2d area, 3d volume, ...
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -24,11 +24,11 @@ struct default_content_result
 
 namespace dispatch {
 
-template <typename Box, size_t CurrentDimension>
+template <typename Box,
+          std::size_t CurrentDimension = dimension<Box>::value>
 struct content_box
 {
     BOOST_STATIC_ASSERT(0 < CurrentDimension);
-    //BOOST_STATIC_ASSERT(CurrentDimension <= traits::dimension<Box>::value);
 
     static inline typename detail::default_content_result<Box>::type apply(Box const& b)
     {
@@ -66,7 +66,7 @@ struct content<Indexable, box_tag>
 {
     static typename default_content_result<Indexable>::type apply(Indexable const& b)
     {
-        return dispatch::content_box<Indexable, dimension<Indexable>::value>::apply(b);
+        return dispatch::content_box<Indexable>::apply(b);
     }
 };
 
@@ -75,9 +75,11 @@ struct content<Indexable, box_tag>
 template <typename Indexable>
 typename default_content_result<Indexable>::type content(Indexable const& b)
 {
-    return dispatch::content<Indexable,
-                             typename tag<Indexable>::type
-                            >::apply(b);
+    return dispatch::content
+            <
+                Indexable,
+                typename tag<Indexable>::type
+            >::apply(b);
 }
 
 }}}} // namespace boost::geometry::index::detail

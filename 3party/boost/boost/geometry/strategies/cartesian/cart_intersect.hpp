@@ -1,7 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2013-2014 Adam Wulkiewicz, Lodz, Poland.
+
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -194,7 +200,11 @@ struct relate_cartesian_segments
                 get<1>(robust_b1) - get<1>(robust_a1),
                 robust_db0, robust_db);
 
-            if (robust_da0 == 0)
+            math::detail::equals_factor_policy<robust_coordinate_type>
+                policy(robust_dx_a, robust_dy_a, robust_dx_b, robust_dy_b);
+            robust_coordinate_type const zero = 0;
+            if (math::detail::equals_by_policy(robust_da0, zero, policy)
+             || math::detail::equals_by_policy(robust_db0, zero, policy))
             {
                 // If this is the case, no rescaling is done for FP precision.
                 // We set it to collinear, but it indicates a robustness issue.
@@ -211,25 +221,31 @@ struct relate_cartesian_segments
 
         if (collinear)
         {
-            bool const collinear_use_first
-                    = geometry::math::abs(robust_dx_a) + geometry::math::abs(robust_dx_b)
-                    >= geometry::math::abs(robust_dy_a) + geometry::math::abs(robust_dy_b);
+            std::pair<bool, bool> const collinear_use_first
+                    = is_x_more_significant(geometry::math::abs(robust_dx_a),
+                                            geometry::math::abs(robust_dy_a),
+                                            geometry::math::abs(robust_dx_b),
+                                            geometry::math::abs(robust_dy_b),
+                                            a_is_point, b_is_point);
 
-            // Degenerate cases: segments of single point, lying on other segment, are not disjoint
-            // This situation is collinear too
+            if (collinear_use_first.second)
+            {
+                // Degenerate cases: segments of single point, lying on other segment, are not disjoint
+                // This situation is collinear too
 
-            if (collinear_use_first)
-            {
-                return relate_collinear<0, ratio_type>(a, b,
-                        robust_a1, robust_a2, robust_b1, robust_b2,
-                        a_is_point, b_is_point);
-            }
-            else
-            {
-                // Y direction contains larger segments (maybe dx is zero)
-                return relate_collinear<1, ratio_type>(a, b,
-                        robust_a1, robust_a2, robust_b1, robust_b2,
-                        a_is_point, b_is_point);
+                if (collinear_use_first.first)
+                {
+                    return relate_collinear<0, ratio_type>(a, b,
+                            robust_a1, robust_a2, robust_b1, robust_b2,
+                            a_is_point, b_is_point);
+                }
+                else
+                {
+                    // Y direction contains larger segments (maybe dx is zero)
+                    return relate_collinear<1, ratio_type>(a, b,
+                            robust_a1, robust_a2, robust_b1, robust_b2,
+                            a_is_point, b_is_point);
+                }
             }
         }
 
@@ -237,6 +253,40 @@ struct relate_cartesian_segments
     }
 
 private:
+    // first is true if x is more significant
+    // second is true if the more significant difference is not 0
+    template <typename RobustCoordinateType>
+    static inline std::pair<bool, bool>
+        is_x_more_significant(RobustCoordinateType const& abs_robust_dx_a,
+                              RobustCoordinateType const& abs_robust_dy_a,
+                              RobustCoordinateType const& abs_robust_dx_b,
+                              RobustCoordinateType const& abs_robust_dy_b,
+                              bool const a_is_point,
+                              bool const b_is_point)
+    {
+        //BOOST_GEOMETRY_ASSERT_MSG(!(a_is_point && b_is_point), "both segments shouldn't be degenerated");
+
+        // for degenerated segments the second is always true because this function
+        // shouldn't be called if both segments were degenerated
+
+        if (a_is_point)
+        {
+            return std::make_pair(abs_robust_dx_b >= abs_robust_dy_b, true);
+        }
+        else if (b_is_point)
+        {
+            return std::make_pair(abs_robust_dx_a >= abs_robust_dy_a, true);
+        }
+        else
+        {
+            RobustCoordinateType const min_dx = (std::min)(abs_robust_dx_a, abs_robust_dx_b);
+            RobustCoordinateType const min_dy = (std::min)(abs_robust_dy_a, abs_robust_dy_b);
+            return min_dx == min_dy ?
+                    std::make_pair(true, min_dx > RobustCoordinateType(0)) :
+                    std::make_pair(min_dx > min_dy, true);
+        }
+    }
+
     template
     <
         std::size_t Dimension,
@@ -319,17 +369,58 @@ private:
         RobustType const length_a = oa_2 - oa_1; // no abs, see above
         RobustType const length_b = ob_2 - ob_1;
 
-        RatioType const ra_from(oa_1 - ob_1, length_b);
-        RatioType const ra_to(oa_2 - ob_1, length_b);
-        RatioType const rb_from(ob_1 - oa_1, length_a);
-        RatioType const rb_to(ob_2 - oa_1, length_a);
+        RatioType ra_from(oa_1 - ob_1, length_b);
+        RatioType ra_to(oa_2 - ob_1, length_b);
+        RatioType rb_from(ob_1 - oa_1, length_a);
+        RatioType rb_to(ob_2 - oa_1, length_a);
 
-        if ((ra_from.left() && ra_to.left()) || (ra_from.right() && ra_to.right()))
+        // use absolute measure to detect endpoints intersection
+        // NOTE: it'd be possible to calculate bx_wrt_a using ax_wrt_b values
+        int const a1_wrt_b = position_value(oa_1, ob_1, ob_2);
+        int const a2_wrt_b = position_value(oa_2, ob_1, ob_2);
+        int const b1_wrt_a = position_value(ob_1, oa_1, oa_2);
+        int const b2_wrt_a = position_value(ob_2, oa_1, oa_2);
+        
+        // fix the ratios if necessary
+        // CONSIDER: fixing ratios also in other cases, if they're inconsistent
+        // e.g. if ratio == 1 or 0 (so IP at the endpoint)
+        // but position value indicates that the IP is in the middle of the segment
+        // because one of the segments is very long
+        // In such case the ratios could be moved into the middle direction
+        // by some small value (e.g. EPS+1ULP)
+        if (a1_wrt_b == 1)
+        {
+            ra_from.assign(0, 1);
+            rb_from.assign(0, 1);
+        }
+        else if (a1_wrt_b == 3)
+        {
+            ra_from.assign(1, 1);
+            rb_to.assign(0, 1);
+        } 
+
+        if (a2_wrt_b == 1)
+        {
+            ra_to.assign(0, 1);
+            rb_from.assign(1, 1);
+        }
+        else if (a2_wrt_b == 3)
+        {
+            ra_to.assign(1, 1);
+            rb_to.assign(1, 1);
+        }
+
+        if ((a1_wrt_b < 1 && a2_wrt_b < 1) || (a1_wrt_b > 3 && a2_wrt_b > 3))
+        //if ((ra_from.left() && ra_to.left()) || (ra_from.right() && ra_to.right()))
         {
             return Policy::disjoint();
         }
 
-        return Policy::segments_collinear(a, b, ra_from, ra_to, rb_from, rb_to);
+        bool const opposite = math::sign(length_a) != math::sign(length_b);
+
+        return Policy::segments_collinear(a, b, opposite,
+                                          a1_wrt_b, a2_wrt_b, b1_wrt_a, b2_wrt_a,
+                                          ra_from, ra_to, rb_from, rb_to);
     }
 
     /// Relate segments where one is degenerate
@@ -351,7 +442,31 @@ private:
         //              b1/b2      (4..4)
         // Ratio: (4-2)/(6-2)
         RatioType const ratio(d - s1, s2 - s1);
+
+        if (!ratio.on_segment())
+        {
+            return Policy::disjoint();
+        }
+
         return Policy::one_degenerate(degenerate_segment, ratio, a_degenerate);
+    }
+
+    template <typename ProjCoord1, typename ProjCoord2>
+    static inline int position_value(ProjCoord1 const& ca1,
+                                     ProjCoord2 const& cb1,
+                                     ProjCoord2 const& cb2)
+    {
+        // S1x  0   1    2     3   4
+        // S2       |---------->
+        return math::equals(ca1, cb1) ? 1
+             : math::equals(ca1, cb2) ? 3
+             : cb1 < cb2 ?
+                ( ca1 < cb1 ? 0
+                : ca1 > cb2 ? 4
+                : 2 )
+              : ( ca1 > cb1 ? 0
+                : ca1 < cb2 ? 4
+                : 2 );
     }
 };
 

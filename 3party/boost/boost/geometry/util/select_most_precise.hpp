@@ -4,6 +4,11 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -113,8 +118,18 @@ struct select_floating_point<false, true, T1, T2>
     \note If both types are non-fundamental, the result is indeterminate and
         currently the first one is chosen.
 */
-template <typename T1, typename T2>
+template <typename T1, typename T2 = void, typename T3 = void>
 struct select_most_precise
+{
+    typedef typename select_most_precise
+        <
+            typename select_most_precise<T1, T2>::type,
+            T3
+        >::type type;
+};
+
+template <typename T1, typename T2>
+struct select_most_precise<T1, T2, void>
 {
     static const bool second_larger = sizeof(T2) > sizeof(T1);
     static const bool one_not_fundamental = !
@@ -155,7 +170,11 @@ struct select_most_precise
         >::type type;
 };
 
-
+template <typename T1>
+struct select_most_precise<T1, void, void>
+{
+    typedef T1 type;
+};
 
 }} // namespace boost::geometry
 

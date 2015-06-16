@@ -10,7 +10,6 @@
 #ifndef BOOST_GEOMETRY_ITERATORS_CONCATENATE_ITERATOR_HPP
 #define BOOST_GEOMETRY_ITERATORS_CONCATENATE_ITERATOR_HPP
 
-#include <boost/assert.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/iterator.hpp>
@@ -23,13 +22,20 @@ namespace boost { namespace geometry
 
 
 
-template <typename Iterator1, typename Iterator2, typename Value>
+template
+<
+    typename Iterator1,
+    typename Iterator2,
+    typename Value,
+    typename Reference = Value&
+>
 class concatenate_iterator
     : public boost::iterator_facade
         <
-            concatenate_iterator<Iterator1, Iterator2, Value>,
+            concatenate_iterator<Iterator1, Iterator2, Value, Reference>,
             Value,
-            boost::bidirectional_traversal_tag
+            boost::bidirectional_traversal_tag,
+            Reference
         >
 {
 private:
@@ -54,9 +60,20 @@ public:
         : m_it1(end1), m_end1(end1), m_begin2(begin2), m_it2(end2)
     {}
 
-    template <typename OtherIt1, typename OtherIt2, typename OtherValue>
-    concatenate_iterator
-    (concatenate_iterator<OtherIt1, OtherIt2, OtherValue> const& other)
+    template
+    <
+        typename OtherIt1,
+        typename OtherIt2,
+        typename OtherValue,
+        typename OtherReference
+    >
+    concatenate_iterator(concatenate_iterator
+                         <
+                             OtherIt1,
+                             OtherIt2,
+                             OtherValue,
+                             OtherReference
+                         > const& other)
         : m_it1(other.m_it1)
         , m_end1(other.m_end1)
         , m_begin2(other.m_begin2)
@@ -71,32 +88,13 @@ public:
                              (types<OtherIt1, OtherIt2>));
     }
 
-    template <typename OtherIt1, typename OtherIt2, typename OtherValue>
-    concatenate_iterator
-    operator=(concatenate_iterator<OtherIt1, OtherIt2, OtherValue> const& other)
-    {
-        static const bool are_conv
-            = boost::is_convertible<OtherIt1, Iterator1>::value
-           && boost::is_convertible<OtherIt2, Iterator2>::value;
-
-        BOOST_MPL_ASSERT_MSG((are_conv),
-                             NOT_CONVERTIBLE,
-                             (types<OtherIt1, OtherIt2>));
-
-        m_it1 = other.m_it1;
-        m_end1 = other.m_end1;
-        m_begin2 = other.m_begin2;
-        m_it2 = other.m_it2;
-        return *this;
-    }
-
 private:
     friend class boost::iterator_core_access;
 
-    template <typename It1, typename It2, typename V>
+    template <typename It1, typename It2, typename V, typename R>
     friend class concatenate_iterator;
 
-    inline Value& dereference() const
+    inline Reference dereference() const
     {
         if ( m_it1 == m_end1 )
         {
@@ -105,12 +103,19 @@ private:
         return *m_it1;
     }
 
-    template <typename OtherIt1, typename OtherIt2, typename OtherValue>
+    template
+    <
+        typename OtherIt1,
+        typename OtherIt2,
+        typename OtherValue,
+        typename OtherReference
+    >
     inline bool equal(concatenate_iterator
                       <
                           OtherIt1,
                           OtherIt2,
-                          OtherValue
+                          OtherValue,
+                          OtherReference
                       > const& other) const
     {
         return m_it1 == other.m_it1 && m_it2 == other.m_it2;

@@ -39,7 +39,7 @@ private:
         {
             return geometry::equals(t1.point, t2.point)
                 && t1.operations[0].seg_id == t2.operations[0].seg_id
-                && t1.operations[0].other_id == t2.operations[0].other_id;
+                && t1.operations[1].seg_id == t2.operations[1].seg_id;
         }
     };
 

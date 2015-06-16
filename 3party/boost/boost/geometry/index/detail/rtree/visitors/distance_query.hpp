@@ -2,7 +2,7 @@
 //
 // R-tree distance (knn, path, etc. ) query visitor implementation
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -187,6 +187,33 @@ public:
 
             rtree::apply_visitor(*this, *(it->second));
         }
+
+        // ALTERNATIVE VERSION - use heap instead of sorted container
+        // It seems to be faster for greater MaxElements and slower otherwise
+        // CONSIDER: using one global container/heap for active branches
+        //           instead of a sorted container per level
+        //           This would also change the way how branches are traversed!
+        //           The same may be applied to the iterative version which btw suffers
+        //           from the copying of the whole containers on resize of the ABLs container
+
+        //// make a heap
+        //std::make_heap(active_branch_list.begin(), active_branch_list.end(), abl_greater);
+
+        //// recursively visit nodes
+        //while ( !active_branch_list.empty() )
+        //{
+        //    //if current node is further than furthest neighbor, the rest of nodes also will be further
+        //    if ( m_result.has_enough_neighbors()
+        //      && is_node_prunable(m_result.greatest_comparable_distance(), active_branch_list.front().first) )
+        //    {
+        //        break;
+        //    }
+
+        //    rtree::apply_visitor(*this, *(active_branch_list.front().second));
+
+        //    std::pop_heap(active_branch_list.begin(), active_branch_list.end(), abl_greater);
+        //    active_branch_list.pop_back();
+        //}
     }
 
     inline void operator()(leaf const& n)
@@ -225,6 +252,13 @@ private:
     {
         return p1.first < p2.first;
     }
+
+    //static inline bool abl_greater(
+    //    std::pair<node_distance_type, typename Allocators::node_pointer> const& p1,
+    //    std::pair<node_distance_type, typename Allocators::node_pointer> const& p2)
+    //{
+    //    return p1.first > p2.first;
+    //}
 
     template <typename Distance>
     static inline bool is_node_prunable(Distance const& greatest_dist, node_distance_type const& d)
@@ -303,6 +337,13 @@ public:
     };
     typedef std::vector<internal_stack_element> internal_stack_type;
 
+    inline distance_query_incremental()
+        : m_translator(NULL)
+//        , m_pred()
+        , current_neighbor((std::numeric_limits<size_type>::max)())
+//        , next_closest_node_distance((std::numeric_limits<node_distance_type>::max)())
+    {}
+
     inline distance_query_incremental(Translator const& translator, Predicates const& pred)
         : m_translator(::boost::addressof(translator))
         , m_pred(pred)
@@ -310,7 +351,7 @@ public:
 
         , next_closest_node_distance((std::numeric_limits<node_distance_type>::max)())
     {
-        BOOST_ASSERT_MSG(0 < max_count(), "k must be greather than 0");
+        BOOST_GEOMETRY_INDEX_ASSERT(0 < max_count(), "k must be greather than 0");
     }
 
     const_reference dereference() const
@@ -365,7 +406,7 @@ public:
                 }
 
                 // if node is further than the furthest neighbour, following nodes also will be further
-                BOOST_ASSERT_MSG(neighbors.size() <= max_count(), "unexpected neighbours count");
+                BOOST_GEOMETRY_INDEX_ASSERT(neighbors.size() <= max_count(), "unexpected neighbours count");
                 if ( max_count() <= neighbors.size() &&
                      is_node_prunable(neighbors.back().first, branches[current_branch].first) )
                 {
@@ -392,10 +433,11 @@ public:
 
     friend bool operator==(distance_query_incremental const& l, distance_query_incremental const& r)
     {
-        BOOST_ASSERT_MSG(l.current_neighbor != r.current_neighbor ||
-                         (std::numeric_limits<size_type>::max)() == l.current_neighbor ||
-                         l.neighbors[l.current_neighbor].second == r.neighbors[r.current_neighbor].second,
-                         "not corresponding iterators");
+        BOOST_GEOMETRY_INDEX_ASSERT(l.current_neighbor != r.current_neighbor ||
+                                    (std::numeric_limits<size_type>::max)() == l.current_neighbor ||
+                                    (std::numeric_limits<size_type>::max)() == r.current_neighbor ||
+                                    l.neighbors[l.current_neighbor].second == r.neighbors[r.current_neighbor].second,
+                                    "not corresponding iterators");
         return l.current_neighbor == r.current_neighbor;
     }
 

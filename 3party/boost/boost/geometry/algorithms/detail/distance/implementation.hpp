@@ -22,17 +22,14 @@
 
 // the implementation details
 #include <boost/geometry/algorithms/detail/distance/point_to_geometry.hpp>
-#include <boost/geometry/algorithms/detail/distance/range_to_segment_or_box.hpp>
-#include <boost/geometry/algorithms/detail/distance/segment_to_box.hpp>
-#include <boost/geometry/algorithms/detail/distance/polygon_to_segment_or_box.hpp>
-#include <boost/geometry/algorithms/detail/distance/box_to_box.hpp>
-#include <boost/geometry/algorithms/detail/distance/single_to_multi.hpp>
-#include <boost/geometry/algorithms/detail/distance/multi_to_multi.hpp>
-#include <boost/geometry/algorithms/detail/distance/multipoint_to_range.hpp>
-#include <boost/geometry/algorithms/detail/distance/geometry_to_geometry_rtree.hpp>
+#include <boost/geometry/algorithms/detail/distance/multipoint_to_geometry.hpp>
+#include <boost/geometry/algorithms/detail/distance/linear_to_linear.hpp>
+#include <boost/geometry/algorithms/detail/distance/linear_or_areal_to_areal.hpp>
+#include <boost/geometry/algorithms/detail/distance/geometry_to_segment_or_box.hpp>
 #include <boost/geometry/algorithms/detail/distance/segment_to_segment.hpp>
+#include <boost/geometry/algorithms/detail/distance/segment_to_box.hpp>
+#include <boost/geometry/algorithms/detail/distance/box_to_box.hpp>
 
 #include <boost/geometry/algorithms/detail/distance/backward_compatibility.hpp>
-
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_DETAIL_DISTANCE_IMPLEMENTATION_HPP

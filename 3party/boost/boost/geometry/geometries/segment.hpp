@@ -35,14 +35,32 @@ namespace model
  by two distinct end points, and contains every point on the line between its end points.
 \note There is also a point-referring-segment, class referring_segment,
    containing point references, where points are NOT copied
+
+\qbk{[include reference/geometries/segment.qbk]}
+\qbk{before.synopsis,
+[heading Model of]
+[link geometry.reference.concepts.concept_segment Segment Concept]
+}
 */
 template<typename Point>
 class segment : public std::pair<Point, Point>
 {
+    BOOST_CONCEPT_ASSERT( (concept::Point<Point>) );
+
 public :
+
+#ifndef BOOST_NO_CXX11_DEFAULTED_FUNCTIONS
+    /// \constructor_default_no_init
+    segment() = default;
+#else
+    /// \constructor_default_no_init
     inline segment()
     {}
+#endif
 
+    /*!
+        \brief Constructor taking the first and the second point
+    */
     inline segment(Point const& p1, Point const& p2)
     {
         this->first = p1;
@@ -83,6 +101,9 @@ public:
     point_type& first;
     point_type& second;
 
+    /*!
+        \brief Constructor taking the first and the second point
+    */
     inline referring_segment(point_type& p1, point_type& p2)
         : first(p1)
         , second(p2)

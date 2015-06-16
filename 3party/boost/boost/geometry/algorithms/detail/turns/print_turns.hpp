@@ -10,9 +10,9 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_TURNS_PRINT_TURNS_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_TURNS_PRINT_TURNS_HPP
 
+#include <algorithm>
 #include <iostream>
 
-#include <boost/foreach.hpp>
 #include <boost/range.hpp>
 
 #include <boost/geometry/algorithms/detail/overlay/traversal_info.hpp>
@@ -27,21 +27,16 @@ namespace boost { namespace geometry
 namespace detail { namespace turns
 {
 
-
-
-template <typename Geometry1, typename Geometry2, typename Turns>
-static inline void print_turns(Geometry1 const& g1,
-                               Geometry2 const& g2,
-                               Turns const& turns)
+struct turn_printer
 {
-    typedef typename boost::range_value<Turns>::type turn_info;
+    turn_printer(std::ostream & os)
+        : index(0)
+        , out(os)
+    {}
 
-    std::cout << geometry::wkt(g1) << std::endl;
-    std::cout << geometry::wkt(g2) << std::endl;
-    int index = 0;
-    BOOST_FOREACH(turn_info const& turn, turns)
+    template <typename Turn>
+    void operator()(Turn const& turn)
     {
-        std::ostream& out = std::cout;
         out << index
             << ": " << geometry::method_char(turn.method);
 
@@ -62,10 +57,6 @@ static inline void print_turns(Geometry1 const& g1,
             << ", m: " << turn.operations[0].seg_id.multi_index
             << ", r: " << turn.operations[0].seg_id.ring_index
             << ", s: " << turn.operations[0].seg_id.segment_index << ", ";
-        out << "other: " << turn.operations[0].other_id.source_index
-            << ", m: " << turn.operations[0].other_id.multi_index
-            << ", r: " << turn.operations[0].other_id.ring_index
-            << ", s: " << turn.operations[0].other_id.segment_index;
         out << ", fr: " << fraction[0];
         out << ", col?: " << turn.operations[0].is_collinear;
         out << ' ' << geometry::dsv(turn.point) << ' ';
@@ -80,17 +71,27 @@ static inline void print_turns(Geometry1 const& g1,
             << ", m: " << turn.operations[1].seg_id.multi_index
             << ", r: " << turn.operations[1].seg_id.ring_index
             << ", s: " << turn.operations[1].seg_id.segment_index << ", ";
-        out << "other: " << turn.operations[1].other_id.source_index
-            << ", m: " << turn.operations[1].other_id.multi_index
-            << ", r: " << turn.operations[1].other_id.ring_index
-            << ", s: " << turn.operations[1].other_id.segment_index;
         out << ", fr: " << fraction[1];
         out << ", col?: " << turn.operations[1].is_collinear;
         out << ' ' << geometry::dsv(turn.point) << ' ';
 
         ++index;
-        std::cout << std::endl;
+        out << std::endl;
     }
+
+    int index;
+    std::ostream & out;
+};
+
+template <typename Geometry1, typename Geometry2, typename Turns>
+static inline void print_turns(Geometry1 const& g1,
+                               Geometry2 const& g2,
+                               Turns const& turns)
+{
+    std::cout << geometry::wkt(g1) << std::endl;
+    std::cout << geometry::wkt(g2) << std::endl;
+
+    std::for_each(boost::begin(turns), boost::end(turns), turn_printer(std::cout));
 }
 
 

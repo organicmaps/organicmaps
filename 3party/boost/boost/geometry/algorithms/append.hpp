@@ -8,6 +8,7 @@
 // Modifications copyright (c) 2014, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -20,6 +21,12 @@
 #define BOOST_GEOMETRY_ALGORITHMS_APPEND_HPP
 
 
+#include <boost/range.hpp>
+
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
+
 #include <boost/geometry/algorithms/num_interior_rings.hpp>
 #include <boost/geometry/algorithms/detail/convert_point_to_point.hpp>
 #include <boost/geometry/core/access.hpp>
@@ -28,9 +35,7 @@
 #include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
 #include <boost/geometry/geometries/variant.hpp>
-#include <boost/range.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <boost/geometry/util/range.hpp>
 
 
 namespace boost { namespace geometry
@@ -98,7 +103,7 @@ struct point_to_polygon
         else if (ring_index < int(num_interior_rings(polygon)))
         {
             append_point<ring_type, Point>::apply(
-                        interior_rings(polygon)[ring_index], point);
+                        range::at(interior_rings(polygon), ring_index), point);
         }
     }
 };
@@ -120,7 +125,7 @@ struct range_to_polygon
         else if (ring_index < int(num_interior_rings(polygon)))
         {
             append_range<ring_type, Range>::apply(
-                        interior_rings(polygon)[ring_index], range);
+                        range::at(interior_rings(polygon), ring_index), range);
         }
     }
 };
@@ -198,6 +203,71 @@ template <typename Geometry, typename RangeOrPoint>
 struct append<Geometry, RangeOrPoint, point_tag>
     : splitted_dispatch::append_point<typename tag<Geometry>::type, Geometry, RangeOrPoint>
 {};
+
+} // namespace dispatch
+#endif // DOXYGEN_NO_DISPATCH
+
+#ifndef DOXYGEN_NO_DETAIL
+namespace detail { namespace append
+{
+
+template <typename MultiGeometry, typename RangeOrPoint>
+struct append_to_multigeometry
+{
+    static inline void apply(MultiGeometry& multigeometry,
+                             RangeOrPoint const& range_or_point,
+                             int ring_index, int multi_index)
+    {
+
+        dispatch::append
+            <
+                typename boost::range_value<MultiGeometry>::type,
+                RangeOrPoint
+            >::apply(range::at(multigeometry, multi_index), range_or_point, ring_index);
+    }
+};
+
+}} // namespace detail::append
+#endif // DOXYGEN_NO_DETAIL
+
+#ifndef DOXYGEN_NO_DISPATCH
+namespace dispatch
+{
+
+namespace splitted_dispatch
+{
+
+template <typename Geometry, typename Point>
+struct append_point<multi_point_tag, Geometry, Point>
+    : detail::append::append_point<Geometry, Point>
+{};
+
+template <typename Geometry, typename Range>
+struct append_range<multi_point_tag, Geometry, Range>
+    : detail::append::append_range<Geometry, Range>
+{};
+
+template <typename MultiGeometry, typename RangeOrPoint>
+struct append_point<multi_linestring_tag, MultiGeometry, RangeOrPoint>
+    : detail::append::append_to_multigeometry<MultiGeometry, RangeOrPoint>
+{};
+
+template <typename MultiGeometry, typename RangeOrPoint>
+struct append_range<multi_linestring_tag, MultiGeometry, RangeOrPoint>
+    : detail::append::append_to_multigeometry<MultiGeometry, RangeOrPoint>
+{};
+
+template <typename MultiGeometry, typename RangeOrPoint>
+struct append_point<multi_polygon_tag, MultiGeometry, RangeOrPoint>
+    : detail::append::append_to_multigeometry<MultiGeometry, RangeOrPoint>
+{};
+
+template <typename MultiGeometry, typename RangeOrPoint>
+struct append_range<multi_polygon_tag, MultiGeometry, RangeOrPoint>
+    : detail::append::append_to_multigeometry<MultiGeometry, RangeOrPoint>
+{};
+
+} // namespace splitted_dispatch
 
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH

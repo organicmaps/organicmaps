@@ -2,17 +2,21 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2013, 2014.
-// Modifications copyright (c) 2013-2014 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015.
+// Modifications copyright (c) 2013-2015 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
-
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_GET_TURN_INFO_LA_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_GET_TURN_INFO_LA_HPP
+
+#include <boost/geometry/core/assert.hpp>
+
+#include <boost/geometry/util/condition.hpp>
 
 #include <boost/geometry/algorithms/detail/overlay/get_turn_info.hpp>
 #include <boost/geometry/algorithms/detail/overlay/get_turn_info_for_endpoint.hpp>
@@ -28,6 +32,8 @@ namespace detail { namespace overlay {
 template<typename AssignPolicy>
 struct get_turn_info_linear_areal
 {
+    // Currently only Linear spikes are handled
+    // Areal spikes are ignored
     static const bool handle_spikes = true;
 
     template
@@ -122,7 +128,7 @@ struct get_turn_info_linear_areal
                     calculate_spike_operation(tp.operations[0].operation,
                                               inters, is_p_last);
                     
-                    AssignPolicy::apply(tp, pi, qi, inters.i_info(), inters.d_info());
+                    AssignPolicy::apply(tp, pi, qi, inters);
 
                     *out++ = tp;
                 }
@@ -135,7 +141,7 @@ struct get_turn_info_linear_areal
 
                 replace_operations_i(tp.operations[0].operation, tp.operations[1].operation);
 
-                AssignPolicy::apply(tp, pi, qi, inters.i_info(), inters.d_info());
+                AssignPolicy::apply(tp, pi, qi, inters);
                 *out++ = tp;
             }
             break;
@@ -220,9 +226,9 @@ struct get_turn_info_linear_areal
                                                     inters, is_p_last);
 
 // TODO: move this into the append_xxx and call for each turn?
-                    AssignPolicy::apply(tp, pi, qi, inters.i_info(), inters.d_info());
+                    AssignPolicy::apply(tp, pi, qi, inters);
 
-                    if ( ! handle_spikes
+                    if ( ! BOOST_GEOMETRY_CONDITION(handle_spikes)
                       || ignore_spike
                       || ! append_opposite_spikes<append_touches>( // for 'i' or 'c' i???
                                 tp, inters, is_p_last, is_q_last, out) )
@@ -256,10 +262,10 @@ struct get_turn_info_linear_areal
                         transformer(tp);
                     
 // TODO: move this into the append_xxx and call for each turn?
-                        AssignPolicy::apply(tp, pi, qi, inters.i_info(), inters.d_info());
+                        AssignPolicy::apply(tp, pi, qi, inters);
                         
                         // conditionally handle spikes
-                        if ( ! handle_spikes
+                        if ( ! BOOST_GEOMETRY_CONDITION(handle_spikes)
                           || ! append_collinear_spikes(tp, inters, is_p_last, is_q_last,
                                                        method_touch, append_equal, out) )
                         {
@@ -273,7 +279,7 @@ struct get_turn_info_linear_areal
                                 TurnInfo,
                                 AssignPolicy
                             >::apply(pi, qi,
-                                     tp, out, inters.i_info(), inters.d_info());
+                                     tp, out, inters);
                     }
                 }
             }
@@ -319,10 +325,10 @@ struct get_turn_info_linear_areal
                         transformer(tp);
 
 // TODO: move this into the append_xxx and call for each turn?
-                        AssignPolicy::apply(tp, pi, qi, inters.i_info(), inters.d_info());
+                        AssignPolicy::apply(tp, pi, qi, inters);
                         
                         // conditionally handle spikes
-                        if ( ! handle_spikes
+                        if ( ! BOOST_GEOMETRY_CONDITION(handle_spikes)
                           || ! append_collinear_spikes(tp, inters, is_p_last, is_q_last,
                                                        method_replace, version, out) )
                         {
@@ -336,7 +342,7 @@ struct get_turn_info_linear_areal
                         turn_transformer_ec<false> transformer(method_touch_interior);
 
                         // conditionally handle spikes
-                        if ( handle_spikes )
+                        if ( BOOST_GEOMETRY_CONDITION(handle_spikes) )
                         {
                             append_opposite_spikes<append_collinear_opposite>(
                                     tp, inters, is_p_last, is_q_last, out);
@@ -351,8 +357,9 @@ struct get_turn_info_linear_areal
                                 TurnInfo,
                                 AssignPolicy
                             >::apply(pi, pj, pk, qi, qj, qk,
-                                tp, out, inters.i_info(), inters.d_info(),
-                                inters.sides(), transformer);
+                                tp, out, inters,
+                                inters.sides(), transformer,
+                                !is_p_last, true); // qk is always valid
                     }
                 }
             }
@@ -360,7 +367,7 @@ struct get_turn_info_linear_areal
             case '0' :
             {
                 // degenerate points
-                if (AssignPolicy::include_degenerate)
+                if ( BOOST_GEOMETRY_CONDITION(AssignPolicy::include_degenerate) )
                 {
                     only_convert::apply(tp, inters.i_info());
 
@@ -376,7 +383,7 @@ struct get_turn_info_linear_areal
                     }
                     // tp.operations[1].position = position_middle;
 
-                    AssignPolicy::apply(tp, pi, qi, inters.i_info(), inters.d_info());
+                    AssignPolicy::apply(tp, pi, qi, inters);
                     *out++ = tp;
                 }
             }
@@ -408,20 +415,37 @@ struct get_turn_info_linear_areal
 
         if ( is_p_spike )
         {
-            bool going_in = false, going_out = false;
-                
             int const pk_q1 = inters.sides().pk_wrt_q1();
-            int const pk_q2 = inters.sides().pk_wrt_q2();
+            
+            bool going_in = pk_q1 < 0; // Pk on the right
+            bool going_out = pk_q1 > 0; // Pk on the left
 
-            if ( inters.sides().qk_wrt_q1() <= 0 ) // Q turning R or C
+            int const qk_q1 = inters.sides().qk_wrt_q1();
+
+            // special cases
+            if ( qk_q1 < 0 ) // Q turning R
             { 
-                going_in = pk_q1 < 0 && pk_q2 < 0; // Pk on the right of both
-                going_out = pk_q1 > 0 || pk_q2 > 0; // Pk on the left of one of them
+                // spike on the edge point
+                // if it's already known that the spike is going out this musn't be checked
+                if ( ! going_out
+                  && equals::equals_point_point(inters.rpj(), inters.rqj()) )
+                {
+                    int const pk_q2 = inters.sides().pk_wrt_q2();
+                    going_in = pk_q1 < 0 && pk_q2 < 0; // Pk on the right of both
+                    going_out = pk_q1 > 0 || pk_q2 > 0; // Pk on the left of one of them
+                }
             }
-            else
+            else if ( qk_q1 > 0 ) // Q turning L
             {
-                going_in = pk_q1 < 0 || pk_q2 < 0; // Pk on the right of one of them
-                going_out = pk_q1 > 0 && pk_q2 > 0; // Pk on the left of both
+                // spike on the edge point
+                // if it's already known that the spike is going in this musn't be checked
+                if ( ! going_in
+                  && equals::equals_point_point(inters.rpj(), inters.rqj()) )
+                {
+                    int const pk_q2 = inters.sides().pk_wrt_q2();
+                    going_in = pk_q1 < 0 || pk_q2 < 0; // Pk on the right of one of them
+                    going_out = pk_q1 > 0 && pk_q2 > 0; // Pk on the left of both
+                }
             }
 
             if ( going_in )
@@ -461,10 +485,16 @@ struct get_turn_info_linear_areal
                        && inters.is_spike_p();
 
         // TODO: throw an exception for spike in Areal?
-        /*bool is_q_spike = tp.operations[1].operation == spike_op
-                       && ! is_q_last
-                       && inters.is_spike_q();*/
+        /*bool is_q_spike = tp.operations[1].operation == operation_continue
+                       && inters.is_spike_q();
 
+        // both are collinear spikes on the same IP, we can just follow both
+        if ( is_p_spike && is_q_spike )
+        {
+            return false;
+        }
+        // spike on Linear - it's turning back on the boundary of Areal
+        else*/
         if ( is_p_spike )
         {
             tp.method = method;
@@ -477,7 +507,18 @@ struct get_turn_info_linear_areal
 
             return true;
         }
-        
+        // spike on Areal - Linear is going outside
+        /*else if ( is_q_spike )
+        {
+            tp.method = method;
+            tp.operations[0].operation = operation_union;
+            tp.operations[1].operation = operation_continue;
+            *out++ = tp;
+            *out++ = tp;
+
+            return true;
+        }*/
+
         return false;
     }
 
@@ -492,48 +533,71 @@ struct get_turn_info_linear_areal
                                               bool is_p_last, bool /*is_q_last*/,
                                               OutIt out)
     {
-        bool is_p_spike = ( Version == append_touches ?
+        static const bool is_version_touches = (Version == append_touches);
+
+        bool is_p_spike = ( is_version_touches ?
                             ( tp.operations[0].operation == operation_continue
                            || tp.operations[0].operation == operation_intersection ) : // i ???
                             true )
                        && ! is_p_last
                        && inters.is_spike_p();
+        
         // TODO: throw an exception for spike in Areal?
-        /*bool is_q_spike = ( Version == append_touches ?
-                            ( tp.operations[1].operation == operation_continue
-                           || tp.operations[1].operation == operation_intersection ) :
-                            true )
-                       && ! is_q_last
-                       && inters.is_spike_q();*/
+        /*bool is_q_spike = ( ( Version == append_touches
+                           && tp.operations[1].operation == operation_continue )
+                         || ( Version == append_collinear_opposite
+                           && tp.operations[1].operation == operation_none ) )
+                       && inters.is_spike_q();
 
-        if ( is_p_spike && ( Version == append_touches || inters.d_info().arrival[0] == 1 ) )
+        if ( is_p_spike && is_q_spike )
         {
-            if ( Version == append_touches )
+            // u/u or nothing?
+            return false;
+        }
+        else*/
+        if ( is_p_spike )
+        {
+            if ( BOOST_GEOMETRY_CONDITION(is_version_touches)
+              || inters.d_info().arrival[0] == 1 )
             {
-                tp.operations[0].is_collinear = true;
-                //tp.operations[1].is_collinear = false;
-                tp.method = method_touch;
-            }
-            else
-            {
-                tp.operations[0].is_collinear = true;
-                //tp.operations[1].is_collinear = false;
-                
-                BOOST_ASSERT(inters.i_info().count > 1);
-                base_turn_handler::assign_point(tp, method_touch_interior, inters.i_info(), 1);
+                if ( BOOST_GEOMETRY_CONDITION(is_version_touches) )
+                {
+                    tp.operations[0].is_collinear = true;
+                    //tp.operations[1].is_collinear = false;
+                    tp.method = method_touch;
+                }
+                else
+                {
+                    tp.operations[0].is_collinear = true;
+                    //tp.operations[1].is_collinear = false;
 
-                AssignPolicy::apply(tp, inters.pi(), inters.qi(), inters.i_info(), inters.d_info());
-            }
+                    BOOST_GEOMETRY_ASSERT(inters.i_info().count > 1);
+                    base_turn_handler::assign_point(tp, method_touch_interior, inters.i_info(), 1);
 
-            tp.operations[0].operation = operation_blocked;
+                    AssignPolicy::apply(tp, inters.pi(), inters.qi(), inters);
+                }
+
+                tp.operations[0].operation = operation_blocked;
+                tp.operations[1].operation = operation_continue; // boundary
+                *out++ = tp;
+                tp.operations[0].operation = operation_continue; // boundary
+                //tp.operations[1].operation = operation_continue; // boundary
+                *out++ = tp;
+
+                return true;
+            }
+        }
+        /*else if ( is_q_spike )
+        {
+            tp.operations[0].is_collinear = true;
+            tp.method = is_version_touches ? method_touch : method_touch_interior;
+            tp.operations[0].operation = operation_continue;
             tp.operations[1].operation = operation_continue; // boundary
             *out++ = tp;
-            tp.operations[0].operation = operation_continue; // boundary
-            //tp.operations[1].operation = operation_continue; // boundary
             *out++ = tp;
 
             return true;
-        }
+        }*/
 
         return false;
     }
@@ -587,7 +651,7 @@ struct get_turn_info_linear_areal
             operation_type & op1 = turn.operations[1].operation;
 
             // NOTE: probably only if methods are WRT IPs, not segments!
-            if ( IsFront
+            if ( BOOST_GEOMETRY_CONDITION(IsFront)
               || op0 == operation_intersection || op0 == operation_union
               || op1 == operation_intersection || op1 == operation_union )
             {
@@ -652,10 +716,6 @@ struct get_turn_info_linear_areal
         if ( ip_count == 0 )
             return false;
 
-        const int segment_index0 = tp_model.operations[0].seg_id.segment_index;
-        const int segment_index1 = tp_model.operations[1].seg_id.segment_index;
-        BOOST_ASSERT(segment_index0 >= 0 && segment_index1 >= 0);
-
         if ( !is_p_first && !is_p_last )
             return false;
 
@@ -670,7 +730,9 @@ struct get_turn_info_linear_areal
         // ANALYSE AND ASSIGN FIRST
 
         // IP on the first point of Linear Geometry
-        if ( EnableFirst && is_p_first && ip0.is_pi && !ip0.is_qi ) // !q0i prevents duplication
+        bool was_first_point_handled = false;
+        if ( BOOST_GEOMETRY_CONDITION(EnableFirst)
+          && is_p_first && ip0.is_pi && !ip0.is_qi ) // !q0i prevents duplication
         {
             TurnInfo tp = tp_model;
             tp.operations[0].position = position_front;
@@ -739,14 +801,16 @@ struct get_turn_info_linear_areal
             // here is_p_first_ip == true
             tp.operations[0].is_collinear = false;
 
-            AssignPolicy::apply(tp, pi, qi, inters.i_info(), inters.d_info());
+            AssignPolicy::apply(tp, pi, qi, inters);
             *out++ = tp;
+
+            was_first_point_handled = true;
         }
 
         // ANALYSE AND ASSIGN LAST
 
         // IP on the last point of Linear Geometry
-        if ( EnableLast
+        if ( BOOST_GEOMETRY_CONDITION(EnableLast)
           && is_p_last
           && ( ip_count > 1 ? (ip1.is_pj && !ip1.is_qi) : (ip0.is_pj && !ip0.is_qi) ) ) // prevents duplication
         {
@@ -754,7 +818,7 @@ struct get_turn_info_linear_areal
             
             if ( inters.i_info().count > 1 )
             {
-                //BOOST_ASSERT( result.template get<1>().dir_a == 0 && result.template get<1>().dir_b == 0 );
+                //BOOST_GEOMETRY_ASSERT( result.template get<1>().dir_a == 0 && result.template get<1>().dir_b == 0 );
                 tp.operations[0].is_collinear = true;
                 tp.operations[1].operation = opposite ? operation_continue : operation_union;
             }
@@ -787,13 +851,14 @@ struct get_turn_info_linear_areal
             
             // equals<> or collinear<> will assign the second point,
             // we'd like to assign the first one
-            int ip_index = ip_count > 1 ? 1 : 0;
+            unsigned int ip_index = ip_count > 1 ? 1 : 0;
             base_turn_handler::assign_point(tp, tp.method, inters.i_info(), ip_index);
 
-            AssignPolicy::apply(tp, pi, qi, inters.i_info(), inters.d_info());
+            AssignPolicy::apply(tp, pi, qi, inters);
             *out++ = tp;
 
-            return true;
+            // don't ignore the first IP if the segment is opposite
+            return !( opposite && ip_count > 1 ) || was_first_point_handled;
         }
 
         // don't ignore anything for now

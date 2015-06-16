@@ -1,32 +1,36 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2015 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2013, 2014.
-// Modifications copyright (c) 2013, 2014 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015.
+// Modifications copyright (c) 2013-2015 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
-
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_RELATE_RESULT_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_RELATE_RESULT_HPP
 
-#include <boost/tuple/tuple.hpp>
+#include <cstddef>
 
-#include <boost/mpl/is_sequence.hpp>
-#include <boost/mpl/begin.hpp>
-#include <boost/mpl/end.hpp>
-#include <boost/mpl/next.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/mpl/at.hpp>
-#include <boost/mpl/vector_c.hpp>
+#include <boost/mpl/begin.hpp>
+#include <boost/mpl/deref.hpp>
+#include <boost/mpl/end.hpp>
+#include <boost/mpl/is_sequence.hpp>
+#include <boost/mpl/next.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
-#include <boost/geometry/core/topological_dimension.hpp>
-
-// TEMP - move this header to geometry/detail
-#include <boost/geometry/index/detail/tuples.hpp>
+#include <boost/geometry/core/assert.hpp>
+#include <boost/geometry/core/coordinate_dimension.hpp>
+#include <boost/geometry/core/exception.hpp>
+#include <boost/geometry/util/condition.hpp>
 
 namespace boost { namespace geometry {
 
@@ -41,43 +45,65 @@ enum field { interior = 0, boundary = 1, exterior = 2 };
 // but for safety reasons (STATIC_ASSERT) we should check if parameter D is valid and set() doesn't do that
 // so some additional function could be added, e.g. set_dim()
 
+// --------------- MATRIX ----------------
+
 // matrix
 
-// TODO add height?
-
-template <std::size_t Width>
+template <std::size_t Height, std::size_t Width = Height>
 class matrix
 {
-    BOOST_STATIC_ASSERT(Width == 2 || Width == 3);
-
 public:
+    typedef char value_type;
+    typedef std::size_t size_type;
+    typedef const char * const_iterator;
+    typedef const_iterator iterator;
 
-    static const std::size_t size = Width * Width;
+    static const std::size_t static_width = Width;
+    static const std::size_t static_height = Height;
+    static const std::size_t static_size = Width * Height;
     
     inline matrix()
     {
-        ::memset(m_array, 'F', size);
+        ::memset(m_array, 'F', static_size);
     }
 
     template <field F1, field F2>
     inline char get() const
     {
-        static const bool in_bounds = F1 * Width + F2 < size;
-        return get_dispatch<F1, F2>(integral_constant<bool, in_bounds>());
+        BOOST_STATIC_ASSERT(F1 < Height && F2 < Width);
+        static const std::size_t index = F1 * Width + F2;
+        BOOST_STATIC_ASSERT(index < static_size);
+        return m_array[index];
     }
 
     template <field F1, field F2, char V>
     inline void set()
     {
-        static const bool in_bounds = F1 * Width + F2 < size;
-        set_dispatch<F1, F2, V>(integral_constant<bool, in_bounds>());
+        BOOST_STATIC_ASSERT(F1 < Height && F2 < Width);
+        static const std::size_t index = F1 * Width + F2;
+        BOOST_STATIC_ASSERT(index < static_size);
+        m_array[index] = V;
     }
 
-    template <field F1, field F2, char D>
-    inline void update()
+    inline char operator[](std::size_t index) const
     {
-        static const bool in_bounds = F1 * Width + F2 < size;
-        update_dispatch<F1, F2, D>(integral_constant<bool, in_bounds>());
+        BOOST_GEOMETRY_ASSERT(index < static_size);
+        return m_array[index];
+    }
+
+    inline const_iterator begin() const
+    {
+        return m_array;
+    }
+
+    inline const_iterator end() const
+    {
+        return m_array + static_size;
+    }
+
+    inline static std::size_t size()
+    {
+        return static_size;
     }
     
     inline const char * data() const
@@ -85,23 +111,81 @@ public:
         return m_array;
     }
 
-private:
-    template <field F1, field F2>
-    inline char get_dispatch(integral_constant<bool, true>) const
+    inline std::string str() const
     {
-        return m_array[F1 * Width + F2];
+        return std::string(m_array, static_size);
     }
-    template <field F1, field F2>
-    inline char get_dispatch(integral_constant<bool, false>) const
+
+private:
+    char m_array[static_size];
+};
+
+// matrix_handler
+
+template <typename Matrix>
+class matrix_handler
+{
+public:
+    typedef Matrix result_type;
+
+    static const bool interrupt = false;
+
+    matrix_handler()
+    {}
+
+    matrix_handler(Matrix const&)
+    {}
+
+    result_type const& result() const
     {
-        return 'F';
+        return m_matrix;
+    }
+
+    result_type const& matrix() const
+    {
+        return m_matrix;
+    }
+
+    result_type & matrix()
+    {
+        return m_matrix;
+    }
+
+    template <field F1, field F2, char D>
+    inline bool may_update() const
+    {
+        BOOST_STATIC_ASSERT('0' <= D && D <= '9');
+
+        char const c = m_matrix.template get<F1, F2>();
+        return D > c || c > '9';
     }
 
     template <field F1, field F2, char V>
+    inline void set()
+    {
+        static const bool in_bounds = F1 < Matrix::static_height
+                                   && F2 < Matrix::static_width;
+        typedef boost::integral_constant<bool, in_bounds> in_bounds_t;
+        set_dispatch<F1, F2, V>(in_bounds_t());
+    }
+
+    template <field F1, field F2, char D>
+    inline void update()
+    {
+        static const bool in_bounds = F1 < Matrix::static_height
+                                   && F2 < Matrix::static_width;
+        typedef boost::integral_constant<bool, in_bounds> in_bounds_t;
+        update_dispatch<F1, F2, D>(in_bounds_t());
+    }
+
+private:
+    template <field F1, field F2, char V>
     inline void set_dispatch(integral_constant<bool, true>)
     {
+        static const std::size_t index = F1 * Matrix::static_width + F2;
+        BOOST_STATIC_ASSERT(index < Matrix::static_size);
         BOOST_STATIC_ASSERT(('0' <= V && V <= '9') || V == 'T' || V == 'F');
-        m_array[F1 * Width + F2] = V;
+        m_matrix.template set<F1, F2, V>();
     }
     template <field F1, field F2, char V>
     inline void set_dispatch(integral_constant<bool, false>)
@@ -110,110 +194,86 @@ private:
     template <field F1, field F2, char D>
     inline void update_dispatch(integral_constant<bool, true>)
     {
+        static const std::size_t index = F1 * Matrix::static_width + F2;
+        BOOST_STATIC_ASSERT(index < Matrix::static_size);
         BOOST_STATIC_ASSERT('0' <= D && D <= '9');
-        char c = m_array[F1 * Width + F2];
+        char const c = m_matrix.template get<F1, F2>();
         if ( D > c || c > '9')
-            m_array[F1 * Width + F2] = D;
+            m_matrix.template set<F1, F2, D>();
     }
     template <field F1, field F2, char D>
     inline void update_dispatch(integral_constant<bool, false>)
     {}
 
-    char m_array[size];
+    Matrix m_matrix;
 };
 
-// TODO add EnableDimensions parameter?
+// --------------- RUN-TIME MASK ----------------
 
-struct matrix9 {};
-//struct matrix4 {};
+// run-time mask
 
-// matrix_width
-
-template <typename MatrixOrMask>
-struct matrix_width
-    : not_implemented<MatrixOrMask>
-{};
-
-template <>
-struct matrix_width<matrix9>
-{
-    static const std::size_t value = 3;
-};
-
-// matrix_handler
-
-template <typename Matrix>
-class matrix_handler
-    : private matrix<matrix_width<Matrix>::value>
-{
-    typedef matrix<matrix_width<Matrix>::value> base_t;
-
-public:
-    typedef std::string result_type;
-
-    static const bool interrupt = false;
-
-    matrix_handler(Matrix const&)
-    {}
-
-    result_type result() const
-    {
-        return std::string(this->data(),
-                           this->data() + base_t::size);
-    }
-
-    template <field F1, field F2, char D>
-    inline bool may_update() const
-    {
-        BOOST_STATIC_ASSERT('0' <= D && D <= '9');
-
-        char const c = static_cast<base_t const&>(*this).template get<F1, F2>();
-        return D > c || c > '9';
-    }
-
-    //template <field F1, field F2>
-    //inline char get() const
-    //{
-    //    return static_cast<base_t const&>(*this).template get<F1, F2>();
-    //}
-
-    template <field F1, field F2, char V>
-    inline void set()
-    {
-        static_cast<base_t&>(*this).template set<F1, F2, V>();
-    }
-
-    template <field F1, field F2, char D>
-    inline void update()
-    {
-        static_cast<base_t&>(*this).template update<F1, F2, D>();
-    }
-};
-
-// RUN-TIME MASKS
-
-// mask9
-
-class mask9
+template <std::size_t Height, std::size_t Width = Height>
+class mask
 {
 public:
-    static const std::size_t width = 3; // TEMP
+    static const std::size_t static_width = Width;
+    static const std::size_t static_height = Height;
+    static const std::size_t static_size = Width * Height;
 
-    inline mask9(std::string const& de9im_mask)
+    inline mask(const char * s)
     {
-        // TODO: throw an exception here?
-        BOOST_ASSERT(de9im_mask.size() == 9);
-        ::memcpy(m_mask, de9im_mask.c_str(), 9);
+        char * it = m_array;
+        char * const last = m_array + static_size;
+        for ( ; it != last && *s != '\0' ; ++it, ++s )
+        {
+            char c = *s;
+            check_char(c);
+            *it = c;
+        }
+        if ( it != last )
+        {
+            ::memset(it, '*', last - it);
+        }
+    }
+
+    inline mask(const char * s, std::size_t count)
+    {
+        if ( count > static_size )
+        {
+            count = static_size;
+        }
+        if ( count > 0 )
+        {
+            std::for_each(s, s + count, check_char);
+            ::memcpy(m_array, s, count);
+        }
+        if ( count < static_size )
+        {
+            ::memset(m_array + count, '*', static_size - count);
+        }
     }
 
     template <field F1, field F2>
     inline char get() const
     {
-        return m_mask[F1 * 3 + F2];
+        BOOST_STATIC_ASSERT(F1 < Height && F2 < Width);
+        static const std::size_t index = F1 * Width + F2;
+        BOOST_STATIC_ASSERT(index < static_size);
+        return m_array[index];
     }
 
 private:
-    char m_mask[9];
+    static inline void check_char(char c)
+    {
+        bool const is_valid = c == '*' || c == 'T' || c == 'F'
+                         || ( c >= '0' && c <= '9' );
+        if ( !is_valid )
+        {
+            throw geometry::invalid_input_exception();
+        }
+    }
+
+    char m_array[static_size];
 };
 
 // interrupt()
@@ -235,17 +295,17 @@ struct interrupt_dispatch<Mask, true>
     static inline bool apply(Mask const& mask)
     {
         char m = mask.template get<F1, F2>();
-        return check<V>(m);            
+        return check_element<V>(m);
     }
 
     template <char V>
-    static inline bool check(char m)
+    static inline bool check_element(char m)
     {
-        if ( V >= '0' && V <= '9' )
+        if ( BOOST_GEOMETRY_CONDITION(V >= '0' && V <= '9') )
         {
             return m == 'F' || ( m < V && m >= '0' && m <= '9' );
         }
-        else if ( V == 'T' )
+        else if ( BOOST_GEOMETRY_CONDITION(V == 'T') )
         {
             return m == 'F';
         }
@@ -276,18 +336,18 @@ struct interrupt_dispatch_tuple<Masks, N, N>
     }
 };
 
-template <typename T0, typename T1, typename T2, typename T3, typename T4,
-          typename T5, typename T6, typename T7, typename T8, typename T9>
-struct interrupt_dispatch<boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>, true>
-{
-    typedef boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> mask_type;
+//template <typename T0, typename T1, typename T2, typename T3, typename T4,
+//          typename T5, typename T6, typename T7, typename T8, typename T9>
+//struct interrupt_dispatch<boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>, true>
+//{
+//    typedef boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> mask_type;
 
-    template <field F1, field F2, char V>
-    static inline bool apply(mask_type const& mask)
-    {
-        return interrupt_dispatch_tuple<mask_type>::template apply<F1, F2, V>(mask);
-    }
-};
+//    template <field F1, field F2, char V>
+//    static inline bool apply(mask_type const& mask)
+//    {
+//        return interrupt_dispatch_tuple<mask_type>::template apply<F1, F2, V>(mask);
+//    }
+//};
 
 template <typename Head, typename Tail>
 struct interrupt_dispatch<boost::tuples::cons<Head, Tail>, true>
@@ -362,18 +422,18 @@ struct may_update_dispatch_tuple<Masks, N, N>
     }
 };
 
-template <typename T0, typename T1, typename T2, typename T3, typename T4,
-          typename T5, typename T6, typename T7, typename T8, typename T9>
-struct may_update_dispatch< boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> >
-{
-    typedef boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> mask_type;
+//template <typename T0, typename T1, typename T2, typename T3, typename T4,
+//          typename T5, typename T6, typename T7, typename T8, typename T9>
+//struct may_update_dispatch< boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> >
+//{
+//    typedef boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> mask_type;
 
-    template <field F1, field F2, char D, typename Matrix>
-    static inline bool apply(mask_type const& mask, Matrix const& matrix)
-    {
-        return may_update_dispatch_tuple<mask_type>::template apply<F1, F2, D>(mask, matrix);
-    }
-};
+//    template <field F1, field F2, char D, typename Matrix>
+//    static inline bool apply(mask_type const& mask, Matrix const& matrix)
+//    {
+//        return may_update_dispatch_tuple<mask_type>::template apply<F1, F2, D>(mask, matrix);
+//    }
+//};
 
 template <typename Head, typename Tail>
 struct may_update_dispatch< boost::tuples::cons<Head, Tail> >
@@ -394,7 +454,7 @@ inline bool may_update(Mask const& mask, Matrix const& matrix)
                 ::template apply<F1, F2, D>(mask, matrix);
 }
 
-// check()
+// check_matrix()
 
 template <typename Mask>
 struct check_dispatch
@@ -459,18 +519,18 @@ struct check_dispatch_tuple<Masks, N, N>
     }
 };
 
-template <typename T0, typename T1, typename T2, typename T3, typename T4,
-          typename T5, typename T6, typename T7, typename T8, typename T9>
-struct check_dispatch< boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> >
-{
-    typedef boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> mask_type;
+//template <typename T0, typename T1, typename T2, typename T3, typename T4,
+//          typename T5, typename T6, typename T7, typename T8, typename T9>
+//struct check_dispatch< boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> >
+//{
+//    typedef boost::tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> mask_type;
 
-    template <typename Matrix>
-    static inline bool apply(mask_type const& mask, Matrix const& matrix)
-    {
-        return check_dispatch_tuple<mask_type>::apply(mask, matrix);
-    }
-};
+//    template <typename Matrix>
+//    static inline bool apply(mask_type const& mask, Matrix const& matrix)
+//    {
+//        return check_dispatch_tuple<mask_type>::apply(mask, matrix);
+//    }
+//};
 
 template <typename Head, typename Tail>
 struct check_dispatch< boost::tuples::cons<Head, Tail> >
@@ -485,17 +545,17 @@ struct check_dispatch< boost::tuples::cons<Head, Tail> >
 };
 
 template <typename Mask, typename Matrix>
-inline bool check(Mask const& mask, Matrix const& matrix)
+inline bool check_matrix(Mask const& mask, Matrix const& matrix)
 {
     return check_dispatch<Mask>::apply(mask, matrix);
 }
 
 // matrix_width
 
-template <>
-struct matrix_width<mask9>
+template <typename MatrixOrMask>
+struct matrix_width
 {
-    static const std::size_t value = 3;
+    static const std::size_t value = MatrixOrMask::static_width;
 };
 
 template <typename Tuple,
@@ -525,20 +585,30 @@ struct matrix_width< boost::tuples::cons<Head, Tail> >
         value = matrix_width_tuple< boost::tuples::cons<Head, Tail> >::value;
 };
 
-// matrix_handler
+// mask_handler
 
 template <typename Mask, bool Interrupt>
 class mask_handler
-    : private matrix<matrix_width<Mask>::value>
+    : private matrix_handler
+        <
+            relate::matrix<matrix_width<Mask>::value>
+        >
 {
-    typedef matrix<matrix_width<Mask>::value> base_t;
+    typedef matrix_handler
+        <
+            relate::matrix<matrix_width<Mask>::value>
+        > base_t;
 
 public:
     typedef bool result_type;
 
     bool interrupt;
 
-    inline mask_handler(Mask const& m)
+    inline mask_handler()
+        : interrupt(false)
+    {}
+
+    inline explicit mask_handler(Mask const& m)
         : interrupt(false)
         , m_mask(m)
     {}
@@ -546,22 +616,16 @@ public:
     result_type result() const
     {
         return !interrupt
-            && check(m_mask, static_cast<base_t const&>(*this));
+            && check_matrix(m_mask, base_t::matrix());
     }
 
     template <field F1, field F2, char D>
     inline bool may_update() const
     {
         return detail::relate::may_update<F1, F2, D>(
-                    m_mask, static_cast<base_t const&>(*this)
+                    m_mask, base_t::matrix()
                );
     }
-
-    //template <field F1, field F2>
-    //inline char get() const
-    //{
-    //    return static_cast<base_t const&>(*this).template get<F1, F2>();
-    //}
 
     template <field F1, field F2, char V>
     inline void set()
@@ -593,29 +657,65 @@ private:
     Mask const& m_mask;
 };
 
-// STATIC MASKS
+// --------------- COMPILE-TIME MASK ----------------
+
+// static_check_characters
+template
+<
+    typename Seq,
+    typename First = typename boost::mpl::begin<Seq>::type,
+    typename Last = typename boost::mpl::end<Seq>::type
+>
+struct static_check_characters
+    : static_check_characters
+        <
+            Seq,
+            typename boost::mpl::next<First>::type
+        >
+{
+    typedef typename boost::mpl::deref<First>::type type;
+    static const char value = type::value;
+    static const bool is_valid = (value >= '0' && value <= '9')
+                               || value == 'T' || value == 'F' || value == '*';
+    BOOST_MPL_ASSERT_MSG((is_valid),
+                         INVALID_STATIC_MASK_CHARACTER,
+                         (type));
+};
+
+template <typename Seq, typename Last>
+struct static_check_characters<Seq, Last, Last>
+{};
 
 // static_mask
 
-template <char II, char IB, char IE,
-          char BI, char BB, char BE,
-          char EI, char EB, char EE>
-class static_mask
+template
+<
+    typename Seq,
+    std::size_t Height,
+    std::size_t Width = Height
+>
+struct static_mask
 {
-    typedef boost::mpl::vector_c
-                <
-                    char, II, IB, IE, BI, BB, BE, EI, EB, EE
-                > vector_type;
+    static const std::size_t static_width = Width;
+    static const std::size_t static_height = Height;
+    static const std::size_t static_size = Width * Height;
 
-public:
-    template <field F1, field F2>
-    struct get
+    BOOST_STATIC_ASSERT(
+        std::size_t(boost::mpl::size<Seq>::type::value) == static_size);
+    
+    template <detail::relate::field F1, detail::relate::field F2>
+    struct static_get
     {
-        BOOST_STATIC_ASSERT(F1 * 3 + F2 < boost::mpl::size<vector_type>::value);
+        BOOST_STATIC_ASSERT(std::size_t(F1) < static_height);
+        BOOST_STATIC_ASSERT(std::size_t(F2) < static_width);
 
         static const char value
-            = boost::mpl::at_c<vector_type, F1 * 3 + F2>::type::value;
+            = boost::mpl::at_c<Seq, F1 * static_width + F2>::type::value;
     };
+
+private:
+    // check static_mask characters
+    enum { mask_check = sizeof(static_check_characters<Seq>) };
 };
 
 // static_should_handle_element
@@ -623,7 +723,7 @@ public:
 template <typename StaticMask, field F1, field F2, bool IsSequence>
 struct static_should_handle_element_dispatch
 {
-    static const char mask_el = StaticMask::template get<F1, F2>::value;
+    static const char mask_el = StaticMask::template static_get<F1, F2>::value;
     static const bool value = mask_el == 'F'
                            || mask_el == 'T'
                            || ( mask_el >= '0' && mask_el <= '9' );
@@ -690,7 +790,7 @@ struct static_interrupt_dispatch
 template <typename StaticMask, char V, field F1, field F2, bool IsSequence>
 struct static_interrupt_dispatch<StaticMask, V, F1, F2, true, IsSequence>
 {
-    static const char mask_el = StaticMask::template get<F1, F2>::value;
+    static const char mask_el = StaticMask::template static_get<F1, F2>::value;
 
     static const bool value
         = ( V >= '0' && V <= '9' ) ? 
@@ -755,7 +855,7 @@ struct static_interrupt
 template <typename StaticMask, char D, field F1, field F2, bool IsSequence>
 struct static_may_update_dispatch
 {
-    static const char mask_el = StaticMask::template get<F1, F2>::value;
+    static const char mask_el = StaticMask::template static_get<F1, F2>::value;
     static const int version
                         = mask_el == 'F' ? 0
                         : mask_el == 'T' ? 1
@@ -859,7 +959,7 @@ struct static_may_update
     }
 };
 
-// static_check
+// static_check_matrix
 
 template <typename StaticMask, bool IsSequence>
 struct static_check_dispatch
@@ -881,7 +981,7 @@ struct static_check_dispatch
     template <field F1, field F2>
     struct per_one
     {
-        static const char mask_el = StaticMask::template get<F1, F2>::value;
+        static const char mask_el = StaticMask::template static_get<F1, F2>::value;
         static const int version
                             = mask_el == 'F' ? 0
                             : mask_el == 'T' ? 1
@@ -964,7 +1064,7 @@ struct static_check_dispatch<StaticMask, true>
 };
 
 template <typename StaticMask>
-struct static_check
+struct static_check_matrix
 {
     template <typename Matrix>
     static inline bool apply(Matrix const& matrix)
@@ -981,31 +1081,34 @@ struct static_check
 
 template <typename StaticMask, bool Interrupt>
 class static_mask_handler
-    : private matrix<3>
+    : private matrix_handler< matrix<3> >
 {
-    typedef matrix<3> base_t;
+    typedef matrix_handler< relate::matrix<3> > base_type;
 
 public:
     typedef bool result_type;
 
     bool interrupt;
 
-    inline static_mask_handler(StaticMask const& /*dummy*/)
+    inline static_mask_handler()
+        : interrupt(false)
+    {}
+
+    inline explicit static_mask_handler(StaticMask const& /*dummy*/)
         : interrupt(false)
     {}
 
     result_type result() const
     {
         return (!Interrupt || !interrupt)
-            && static_check<StaticMask>::
-                    apply(static_cast<base_t const&>(*this));
+            && static_check_matrix<StaticMask>::apply(base_type::matrix());
     }
 
     template <field F1, field F2, char D>
     inline bool may_update() const
     {
         return static_may_update<StaticMask, D, F1, F2>::
-                    apply(static_cast<base_t const&>(*this));
+                    apply(base_type::matrix());
     }
 
     template <field F1, field F2>
@@ -1013,12 +1116,6 @@ public:
     {
         return static_should_handle_element<StaticMask, F1, F2>::value;
     }
-
-    //template <field F1, field F2>
-    //inline char get() const
-    //{
-    //    return base_t::template get<F1, F2>();
-    //}
 
     template <field F1, field F2, char V>
     inline void set()
@@ -1055,7 +1152,7 @@ private:
     template <field F1, field F2, char V>
     inline void set_dispatch(integral_constant<int, 1>)
     {
-        base_t::template set<F1, F2, V>();
+        base_type::template set<F1, F2, V>();
     }
     // else
     template <field F1, field F2, char V>
@@ -1072,7 +1169,7 @@ private:
     template <field F1, field F2, char V>
     inline void update_dispatch(integral_constant<int, 1>)
     {
-        base_t::template update<F1, F2, V>();
+        base_type::template update<F1, F2, V>();
     }
     // else
     template <field F1, field F2, char V>
@@ -1080,165 +1177,9 @@ private:
     {}
 };
 
-// OPERATORS
+// --------------- UTIL FUNCTIONS ----------------
 
-template <typename Mask1, typename Mask2> inline
-boost::tuples::cons<
-    Mask1,
-    boost::tuples::cons<Mask2, boost::tuples::null_type>
->
-operator||(Mask1 const& m1, Mask2 const& m2)
-{
-    namespace bt = boost::tuples;
-
-    return
-    bt::cons< Mask1, bt::cons<Mask2, bt::null_type> >
-        ( m1, bt::cons<Mask2, bt::null_type>(m2, bt::null_type()) );
-}
-
-template <typename Head, typename Tail, typename Mask> inline
-typename index::detail::tuples::push_back<
-    boost::tuples::cons<Head, Tail>, Mask
->::type
-operator||(boost::tuples::cons<Head, Tail> const& t, Mask const& m)
-{
-    namespace bt = boost::tuples;
-
-    return
-    index::detail::tuples::push_back<
-        bt::cons<Head, Tail>, Mask
-    >::apply(t, m);
-}
-
-// PREDEFINED MASKS
-
-// TODO:
-// 1. specialize for simplified masks if available
-// e.g. for TOUCHES use 1 mask for A/A
-// 2. Think about dimensions > 2 e.g. should TOUCHES be true
-// if the interior of the Areal overlaps the boundary of the Volumetric
-// like it's true for Linear/Areal
-
-// EQUALS
-template <typename Geometry1, typename Geometry2>
-struct static_mask_equals_type
-{
-    typedef static_mask<'T', '*', 'F', '*', '*', 'F', 'F', 'F', '*'> type; // wikipedia
-    //typedef static_mask<'T', 'F', 'F', 'F', 'T', 'F', 'F', 'F', 'T'> type; // OGC
-};
-
-// DISJOINT
-typedef static_mask<'F', 'F', '*', 'F', 'F', '*', '*', '*', '*'> static_mask_disjoint;
-
-// TOUCHES - NOT P/P
-template <typename Geometry1,
-          typename Geometry2,
-          std::size_t Dim1 = topological_dimension<Geometry1>::value,
-          std::size_t Dim2 = topological_dimension<Geometry2>::value>
-struct static_mask_touches_impl
-{
-    typedef boost::mpl::vector<
-                static_mask<'F', 'T', '*', '*', '*', '*', '*', '*', '*'>,
-                static_mask<'F', '*', '*', 'T', '*', '*', '*', '*', '*'>,
-                static_mask<'F', '*', '*', '*', 'T', '*', '*', '*', '*'>
-        > type;
-};
-// According to OGC, doesn't apply to P/P
-// Using the above mask the result would be always false
-template <typename Geometry1, typename Geometry2>
-struct static_mask_touches_impl<Geometry1, Geometry2, 0, 0>
-    : not_implemented<typename geometry::tag<Geometry1>::type,
-                      typename geometry::tag<Geometry2>::type>
-{};
-
-template <typename Geometry1, typename Geometry2>
-struct static_mask_touches_type
-    : static_mask_touches_impl<Geometry1, Geometry2>
-{};
-
-// WITHIN
-typedef static_mask<'T', '*', 'F', '*', '*', 'F', '*', '*', '*'> static_mask_within;
-
-// COVERED_BY (non OGC)
-typedef boost::mpl::vector<
-            static_mask<'T', '*', 'F', '*', '*', 'F', '*', '*', '*'>,
-            static_mask<'*', 'T', 'F', '*', '*', 'F', '*', '*', '*'>,
-            static_mask<'*', '*', 'F', 'T', '*', 'F', '*', '*', '*'>,
-            static_mask<'*', '*', 'F', '*', 'T', 'F', '*', '*', '*'>
-        > static_mask_covered_by;
-
-// CROSSES
-// dim(G1) < dim(G2) - P/L P/A L/A
-template <typename Geometry1,
-          typename Geometry2,
-          std::size_t Dim1 = topological_dimension<Geometry1>::value,
-          std::size_t Dim2 = topological_dimension<Geometry2>::value,
-          bool D1LessD2 = (Dim1 < Dim2)
->
-struct static_mask_crosses_impl
-{
-    typedef static_mask<'T', '*', 'T', '*', '*', '*', '*', '*', '*'> type;
-};
-// TODO: I'm not sure if this one below should be available!
-// dim(G1) > dim(G2) - L/P A/P A/L
-template <typename Geometry1, typename Geometry2,
-          std::size_t Dim1, std::size_t Dim2
->
-struct static_mask_crosses_impl<Geometry1, Geometry2, Dim1, Dim2, false>
-{
-    typedef static_mask<'T', '*', '*', '*', '*', '*', 'T', '*', '*'> type;
-};
-// dim(G1) == dim(G2) - P/P A/A
-template <typename Geometry1, typename Geometry2,
-          std::size_t Dim
->
-struct static_mask_crosses_impl<Geometry1, Geometry2, Dim, Dim, false>
-    : not_implemented<typename geometry::tag<Geometry1>::type,
-                      typename geometry::tag<Geometry2>::type>
-{};
-// dim(G1) == 1 && dim(G2) == 1 - L/L
-template <typename Geometry1, typename Geometry2>
-struct static_mask_crosses_impl<Geometry1, Geometry2, 1, 1, false>
-{
-    typedef static_mask<'0', '*', '*', '*', '*', '*', '*', '*', '*'> type;
-};
-
-template <typename Geometry1, typename Geometry2>
-struct static_mask_crosses_type
-    : static_mask_crosses_impl<Geometry1, Geometry2>
-{};
-
-// OVERLAPS
-
-// dim(G1) != dim(G2) - NOT P/P, L/L, A/A
-template <typename Geometry1,
-          typename Geometry2,
-          std::size_t Dim1 = topological_dimension<Geometry1>::value,
-          std::size_t Dim2 = topological_dimension<Geometry2>::value
->
-struct static_mask_overlaps_impl
-    : not_implemented<typename geometry::tag<Geometry1>::type,
-                      typename geometry::tag<Geometry2>::type>
-{};
-// dim(G1) == D && dim(G2) == D - P/P A/A
-template <typename Geometry1, typename Geometry2, std::size_t Dim>
-struct static_mask_overlaps_impl<Geometry1, Geometry2, Dim, Dim>
-{
-    typedef static_mask<'T', '*', 'T', '*', '*', '*', 'T', '*', '*'> type;
-};
-// dim(G1) == 1 && dim(G2) == 1 - L/L
-template <typename Geometry1, typename Geometry2>
-struct static_mask_overlaps_impl<Geometry1, Geometry2, 1, 1>
-{
-    typedef static_mask<'1', '*', 'T', '*', '*', '*', 'T', '*', '*'> type;
-};
-
-template <typename Geometry1, typename Geometry2>
-struct static_mask_overlaps_type
-    : static_mask_overlaps_impl<Geometry1, Geometry2>
-{};
-
-// RESULTS/HANDLERS UTILS
+// set
 
 template <field F1, field F2, char V, typename Result>
 inline void set(Result & res)
@@ -1272,33 +1213,7 @@ inline void set(Result & res)
     set_dispatch<F1, F2, V, Transpose>::apply(res);
 }
 
-template <char V, typename Result>
-inline void set(Result & res)
-{
-    res.template set<interior, interior, V>();
-    res.template set<interior, boundary, V>();
-    res.template set<interior, exterior, V>();
-    res.template set<boundary, interior, V>();
-    res.template set<boundary, boundary, V>();
-    res.template set<boundary, exterior, V>();
-    res.template set<exterior, interior, V>();
-    res.template set<exterior, boundary, V>();
-    res.template set<exterior, exterior, V>();
-}
-
-template <char II, char IB, char IE, char BI, char BB, char BE, char EI, char EB, char EE, typename Result>
-inline void set(Result & res)
-{
-    res.template set<interior, interior, II>();
-    res.template set<interior, boundary, IB>();
-    res.template set<interior, exterior, IE>();
-    res.template set<boundary, interior, BI>();
-    res.template set<boundary, boundary, BB>();
-    res.template set<boundary, exterior, BE>();
-    res.template set<exterior, interior, EI>();
-    res.template set<exterior, boundary, EB>();
-    res.template set<exterior, exterior, EE>();
-}
+// update
 
 template <field F1, field F2, char D, typename Result>
 inline void update(Result & res)
@@ -1332,6 +1247,8 @@ inline void update(Result & res)
     update_result_dispatch<F1, F2, D, Transpose>::apply(res);
 }
 
+// may_update
+
 template <field F1, field F2, char D, typename Result>
 inline bool may_update(Result const& res)
 {
@@ -1364,13 +1281,7 @@ inline bool may_update(Result const& res)
     return may_update_result_dispatch<F1, F2, D, Transpose>::apply(res);
 }
 
-template <typename Result, char II, char IB, char IE, char BI, char BB, char BE, char EI, char EB, char EE>
-inline Result return_result()
-{
-    Result res;
-    set<II, IB, IE, BI, BB, BE, EI, EB, EE>(res);
-    return res;
-}
+// result_dimension
 
 template <typename Geometry>
 struct result_dimension

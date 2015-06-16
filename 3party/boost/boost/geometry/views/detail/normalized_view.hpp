@@ -28,6 +28,7 @@
 #include <boost/geometry/views/detail/range_type.hpp>
 #include <boost/geometry/views/reversible_view.hpp>
 #include <boost/geometry/views/closeable_view.hpp>
+#include <boost/geometry/util/order_as_direction.hpp>
 
 namespace boost { namespace geometry {
 

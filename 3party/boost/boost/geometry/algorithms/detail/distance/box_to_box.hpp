@@ -10,6 +10,8 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_DISTANCE_BOX_TO_BOX_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_DISTANCE_BOX_TO_BOX_HPP
 
+#include <boost/core/ignore_unused.hpp>
+
 #include <boost/geometry/core/point_type.hpp>
 #include <boost/geometry/core/tags.hpp>
 
@@ -42,7 +44,7 @@ struct distance
         >::type
     apply(Box1 const& box1, Box2 const& box2, Strategy const& strategy)
     {
-        boost::ignore_unused_variable_warning(strategy);
+        boost::ignore_unused(strategy);
         return strategy.apply(box1, box2);
     }
 };

@@ -1,6 +1,11 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2012-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2012-2015 Barend Gehrels, Amsterdam, the Netherlands.
+
+// This file was modified by Oracle on 2015.
+// Modifications copyright (c) 2015, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -62,8 +67,7 @@ private :
                 DistanceType const& buffer_distance,
                 RangeOut& range_out) const
     {
-        PromotedType const two = 2.0;
-        PromotedType const two_pi = two * geometry::math::pi<PromotedType>();
+        PromotedType const two_pi = geometry::math::two_pi<PromotedType>();
 
         std::size_t point_buffer_count = m_points_per_circle;
 
@@ -95,8 +99,9 @@ public :
 
     //! \brief Constructs the strategy
     //! \param points_per_circle points which would be used for a full circle
+    //! (if points_per_circle is smaller than 4, it is internally set to 4)
     explicit inline end_round(std::size_t points_per_circle = 90)
-        : m_points_per_circle(points_per_circle)
+        : m_points_per_circle((points_per_circle < 4u) ? 4u : points_per_circle)
     {}
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -106,7 +111,7 @@ public :
     inline void apply(Point const& penultimate_point,
                 Point const& perp_left_point,
                 Point const& ultimate_point,
-                Point const& ,
+                Point const& perp_right_point,
                 buffer_side_selector side,
                 DistanceStrategy const& distance,
                 RangeOut& range_out) const
@@ -141,6 +146,13 @@ public :
             set<0>(shifted_point, get<0>(ultimate_point) + dist_half_diff * cos(alpha));
             set<1>(shifted_point, get<1>(ultimate_point) + dist_half_diff * sin(alpha));
             generate_points(shifted_point, alpha, (dist_left + dist_right) / two, range_out);
+        }
+
+        if (m_points_per_circle % 2 == 1)
+        {
+            // For a half circle, if the number of points is not even,
+            // we should insert the end point too, to generate a full cap
+            range_out.push_back(perp_right_point);
         }
     }
 

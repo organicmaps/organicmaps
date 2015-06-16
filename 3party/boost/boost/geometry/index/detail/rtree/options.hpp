@@ -2,7 +2,7 @@
 //
 // R-tree options, algorithms, parameters
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -35,10 +35,10 @@ struct quadratic_tag {};
 struct rstar_tag {};
 
 // NodeTag
-struct node_d_mem_dynamic_tag {};
-struct node_d_mem_static_tag {};
-struct node_s_mem_dynamic_tag {};
-struct node_s_mem_static_tag {};
+struct node_variant_dynamic_tag {};
+struct node_variant_static_tag {};
+//struct node_weak_dynamic_tag {};
+//struct node_weak_static_tag {};
 
 template <typename Parameters, typename InsertTag, typename ChooseNextNodeTag, typename SplitTag, typename RedistributeTag, typename NodeTag>
 struct options
@@ -66,7 +66,7 @@ struct options_type< index::linear<MaxElements, MinElements> >
         choose_by_content_diff_tag,
         split_default_tag,
         linear_tag,
-        node_s_mem_static_tag
+        node_variant_static_tag
     > type;
 };
 
@@ -79,7 +79,7 @@ struct options_type< index::quadratic<MaxElements, MinElements> >
         choose_by_content_diff_tag,
         split_default_tag,
         quadratic_tag,
-        node_s_mem_static_tag
+        node_variant_static_tag
     > type;
 };
 
@@ -92,7 +92,7 @@ struct options_type< index::rstar<MaxElements, MinElements, OverlapCostThreshold
         choose_by_overlap_diff_tag,
         split_default_tag,
         rstar_tag,
-        node_s_mem_static_tag
+        node_variant_static_tag
     > type;
 };
 
@@ -105,7 +105,7 @@ struct options_type< index::rstar<MaxElements, MinElements, OverlapCostThreshold
 //        choose_by_content_diff_tag, // change it?
 //        split_kmeans_tag,
 //        int, // dummy tag - not used for now
-//        node_s_mem_static_tag
+//        node_variant_static_tag
 //    > type;
 //};
 
@@ -118,7 +118,7 @@ struct options_type< index::dynamic_linear >
         choose_by_content_diff_tag,
         split_default_tag,
         linear_tag,
-        node_s_mem_dynamic_tag
+        node_variant_dynamic_tag
     > type;
 };
 
@@ -131,7 +131,7 @@ struct options_type< index::dynamic_quadratic >
         choose_by_content_diff_tag,
         split_default_tag,
         quadratic_tag,
-        node_s_mem_dynamic_tag
+        node_variant_dynamic_tag
     > type;
 };
 
@@ -144,7 +144,7 @@ struct options_type< index::dynamic_rstar >
         choose_by_overlap_diff_tag,
         split_default_tag,
         rstar_tag,
-        node_s_mem_dynamic_tag
+        node_variant_dynamic_tag
     > type;
 };
 
