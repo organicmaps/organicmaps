@@ -6,6 +6,8 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
+namespace platform
+{
 // This class represents a path to disk files corresponding to some
 // country region.
 class LocalCountryFile
@@ -71,3 +73,4 @@ private:
 };
 
 string DebugPrint(LocalCountryFile const & file);
+}  // namespace platform

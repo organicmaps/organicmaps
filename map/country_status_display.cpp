@@ -449,7 +449,7 @@ void CountryStatusDisplay::OnButtonClicked(gui::Element const * button)
 
   TMapOptions options = TMapOptions::EMap;
   if (button == m_secondaryButton.get())
-    options |= TMapOptions::ECarRouting;
+    options = SetOptions(options, TMapOptions::ECarRouting);
 
   ASSERT(m_downloadCallback, ());
   int opt = static_cast<int>(options);

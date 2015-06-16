@@ -3,6 +3,8 @@
 #include "storage/storage_defines.hpp"
 #include "storage/index.hpp"
 
+#include "platform/country_defines.hpp"
+
 #include "base/buffer_vector.hpp"
 
 #include "std/string.hpp"

@@ -13,6 +13,11 @@ namespace my
   /// Get file name from full path.
   void GetNameFromFullPath(string & name);
 
+  /// Returns all but last components of the path. After dropping the last
+  /// component, all trailing slashes are removed, unless the result is a
+  /// root directory. If the argument is a single component, returns ".".
+  string GetDirectory(string const & path);
+
   /// Get folder separator for specific platform
   string GetNativeSeparator();
 

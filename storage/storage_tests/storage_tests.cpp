@@ -190,9 +190,9 @@ void OnCountryDownloaded(string const & mapFileName, TMapOptions files)
   string const localMapFile = my::JoinFoldersToPath(platform.WritableDir(), mapFileName);
   string const localRoutingFile = localMapFile + ROUTING_FILE_EXTENSION;
 
-  if (files & TMapOptions::EMap)
+  if (HasOptions(files, TMapOptions::EMap))
     CHECK(my::RenameFileX(localMapFile + READY_FILE_EXTENSION, localMapFile), ());
-  if (files & TMapOptions::ECarRouting)
+  if (HasOptions(files, TMapOptions::ECarRouting))
     CHECK(my::RenameFileX(localRoutingFile + READY_FILE_EXTENSION, localRoutingFile), ());
 }
 

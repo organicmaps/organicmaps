@@ -647,13 +647,13 @@ void ActiveMapsLayout::NotifyOptionsChanged(TGroup const & group, int position,
 
 TMapOptions ActiveMapsLayout::ValidOptionsForDownload(TMapOptions const & options)
 {
-  return options | TMapOptions::EMap;
+  return SetOptions(options, TMapOptions::EMap);
 }
 
 TMapOptions ActiveMapsLayout::ValidOptionsForDelete(TMapOptions const & options)
 {
-  if (options & TMapOptions::EMap)
-    return options | TMapOptions::ECarRouting;
+  if (HasOptions(options, TMapOptions::EMap))
+    return SetOptions(options, TMapOptions::ECarRouting);
   return options;
 }
 

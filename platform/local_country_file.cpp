@@ -8,6 +8,8 @@
 
 #include "std/sstream.hpp"
 
+namespace platform
+{
 LocalCountryFile::LocalCountryFile()
     : m_version(0), m_files(TMapOptions::ENothing), m_mapSize(0), m_routingSize()
 {
@@ -32,21 +34,23 @@ void LocalCountryFile::SyncWithDisk()
 
   Platform & platform = GetPlatform();
 
-  string const mapPath = GetPath(TMapOptions::EMapOnly);
-  if (platform.GetFileSizeByName(mapPath, m_mapSize))
-    m_files = m_files | TMapOptions::EMapOnly;
+  if (platform.GetFileSizeByName(GetPath(TMapOptions::EMap), m_mapSize))
+    m_files = SetOptions(m_files, TMapOptions::EMap);
 
   string const routingPath = GetPath(TMapOptions::ECarRouting);
   if (platform.GetFileSizeByName(routingPath, m_routingSize))
-    m_files = m_files | TMapOptions::ECarRouting;
+    m_files = SetOptions(m_files, TMapOptions::ECarRouting);
 }
 
 void LocalCountryFile::DeleteFromDisk()
 {
-  for (TMapOptions file : {TMapOptions::EMapOnly, TMapOptions::ECarRouting})
+  for (TMapOptions file : {TMapOptions::EMap, TMapOptions::ECarRouting})
   {
     if (OnDisk(file))
-      my::DeleteFileX(GetPath(file));
+    {
+      bool const deleted = my::DeleteFileX(GetPath(file));
+      ASSERT(deleted, (file, "from", *this, "wasn't deleted from disk."));
+    }
   }
 }
 
@@ -58,9 +62,9 @@ string LocalCountryFile::GetPath(TMapOptions file) const
 uint32_t LocalCountryFile::GetSize(TMapOptions filesMask) const
 {
   uint64_t size64 = 0;
-  if (filesMask & TMapOptions::EMapOnly)
+  if (HasOptions(filesMask, TMapOptions::EMap))
     size64 += m_mapSize;
-  if (filesMask & TMapOptions::ECarRouting)
+  if (HasOptions(filesMask, TMapOptions::ECarRouting))
     size64 += m_routingSize;
   uint32_t const size32 = static_cast<uint32_t>(size64);
   ASSERT_EQUAL(size32, size64, ());
@@ -73,12 +77,17 @@ bool LocalCountryFile::operator<(LocalCountryFile const & rhs) const
     return m_countryFile < rhs.m_countryFile;
   if (m_version != rhs.m_version)
     return m_version < rhs.m_version;
-  return m_files < rhs.m_files;
+  if (m_directory != rhs.m_directory)
+    return m_directory < rhs.m_directory;
+  if (m_files != rhs.m_files)
+    return m_files < rhs.m_files;
+  return false;
 }
 
 bool LocalCountryFile::operator==(LocalCountryFile const & rhs) const
 {
-  return m_countryFile == rhs.m_countryFile && m_version == rhs.m_version && m_files == rhs.m_files;
+  return m_directory == rhs.m_directory && m_countryFile == rhs.m_countryFile &&
+         m_version == rhs.m_version && m_files == rhs.m_files;
 }
 
 // static
@@ -97,3 +106,4 @@ string DebugPrint(LocalCountryFile const & file)
      << file.m_version << ", " << DebugPrint(file.m_files) << "]";
   return os.str();
 }
+}  // namespace platform

@@ -1,9 +1,7 @@
 #include "coding/file_name_utils.hpp"
 
-
 namespace my
 {
-
 void GetNameWithoutExt(string & name)
 {
   string::size_type const i = name.rfind('.');
@@ -22,6 +20,19 @@ void GetNameFromFullPath(string & name)
   string::size_type const i = name.find_last_of("/\\");
   if (i != string::npos)
     name = name.substr(i+1);
+}
+
+string GetDirectory(string const & name)
+{
+  string const sep = GetNativeSeparator();
+  size_t const sepSize = sep.size();
+
+  string::size_type i = name.rfind(sep);
+  if (i == string::npos)
+    return ".";
+  while (i > sepSize && (name.substr(i - sepSize, sepSize) == sep))
+    i -= sepSize;
+  return i == 0 ? sep : name.substr(0, i);
 }
 
 string GetNativeSeparator()
@@ -63,5 +74,4 @@ string JoinFoldersToPath(const vector<string> & folders, const string & file)
     result += file;
     return result;
 }
-
-}
+}  // namespace my

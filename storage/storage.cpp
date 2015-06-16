@@ -62,8 +62,8 @@ namespace storage
     // Don't queue files with 0-size on server (empty or absent).
     // Downloader has lots of assertions about it.  If car routing was
     // requested for downloading, try to download it first.
-    if ((m_init & TMapOptions::ECarRouting) &&
-        (m_pFile->GetRemoteSize(TMapOptions::ECarRouting) > 0))
+    if (HasOptions(m_init, TMapOptions::ECarRouting) &&
+        m_pFile->GetRemoteSize(TMapOptions::ECarRouting) > 0)
     {
       m_current = TMapOptions::ECarRouting;
     }
@@ -78,10 +78,10 @@ namespace storage
     TMapOptions const arr[] = { TMapOptions::EMap, TMapOptions::ECarRouting };
     for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     {
-      if (opt & arr[i] && !(m_init & arr[i]))
+      if (HasOptions(opt, arr[i]) && !HasOptions(m_init, arr[i]))
       {
-        m_init |= arr[i];
-        m_left |= arr[i];
+        m_init = SetOptions(m_init, arr[i]);
+        m_left = SetOptions(m_left, arr[i]);
       }
     }
   }
@@ -114,9 +114,9 @@ namespace storage
       ASSERT(m_pFile->GetFileSize(TMapOptions::ECarRouting) == 0, ());
 #endif
 
-    if (m_init & TMapOptions::ECarRouting)
+    if (HasOptions(m_init, TMapOptions::ECarRouting))
     {
-      ASSERT(m_init & TMapOptions::EMap, ());
+      ASSERT(HasOptions(m_init, TMapOptions::EMap), ());
 
       if (currentStatus == TStatus::EOnDisk)
       {
@@ -141,7 +141,7 @@ namespace storage
     TMapOptions const arr[] = { TMapOptions::EMap, TMapOptions::ECarRouting };
     for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     {
-      if (m_init & arr[i])
+      if (HasOptions(m_init, arr[i]))
       {
         res.first += m_pFile->GetFileSize(arr[i]);
         res.second += m_pFile->GetRemoteSize(arr[i]);
@@ -157,7 +157,7 @@ namespace storage
     TMapOptions const arr[] = { TMapOptions::EMap, TMapOptions::ECarRouting };
     for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     {
-      if (m_init & arr[i])
+      if (HasOptions(m_init, arr[i]))
         res += m_pFile->GetRemoteSize(arr[i]);
     }
 
@@ -311,7 +311,7 @@ namespace storage
       string const fName = QueuedCountry(*this, index, TMapOptions::ECarRouting).GetFileName();
       Platform const & pl = GetPlatform();
       if (pl.IsFileExistsByFullPath(pl.WritablePathForFile(fName)))
-        options |= TMapOptions::ECarRouting;
+        options = SetOptions(options, TMapOptions::ECarRouting);
     }
   }
 
@@ -474,6 +474,7 @@ namespace storage
       string optionName;
       switch (cnt.GetInitOptions())
       {
+      case TMapOptions::ENothing: optionName = "Nothing"; break;
       case TMapOptions::EMap: optionName = "Map"; break;
       case TMapOptions::ECarRouting: optionName = "CarRouting"; break;
       case TMapOptions::EMapWithCarRouting: optionName = "MapWithCarRouting"; break;

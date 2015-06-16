@@ -676,7 +676,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
         LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
         uint64_t sizeToDownload = sizes.first;
         TMapOptions options = static_cast<TMapOptions>(opt);
-        if(options & TMapOptions::ECarRouting)
+        if(HasOptions(options, TMapOptions::ECarRouting))
           sizeToDownload += sizes.second;
 
         NSString * name = [NSString stringWithUTF8String:layout.GetCountryName(idx).c_str()];

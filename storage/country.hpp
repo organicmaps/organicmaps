@@ -4,6 +4,8 @@
 #include "storage/simple_tree.hpp"
 #include "storage/country_decl.hpp"
 
+#include "platform/country_defines.hpp"
+
 #include "defines.hpp"
 
 #include "geometry/rect2d.hpp"

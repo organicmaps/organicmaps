@@ -135,7 +135,7 @@ extern NSString * const MapsStatusChangedNotification;
   return [NSString stringWithUTF8String:self.tree.GetChildName(self.selectedPosition).c_str()];
 }
 
-- (uint64_t)selectedMapSizeWithOptions:(storage::TMapOptions)options
+- (uint64_t)selectedMapSizeWithOptions:(TMapOptions)options
 {
   return self.tree.GetLeafSize(self.selectedPosition, options).second;
 }

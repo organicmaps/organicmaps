@@ -128,7 +128,7 @@ extern NSString * const MapsStatusChangedNotification;
   return [NSString stringWithUTF8String:self.mapsLayout.GetCountryName(self.selectedGroup, self.selectedPosition).c_str()];
 }
 
-- (uint64_t)selectedMapSizeWithOptions:(storage::TMapOptions)options
+- (uint64_t)selectedMapSizeWithOptions:(TMapOptions)options
 {
   return self.mapsLayout.GetCountrySize(self.selectedGroup, self.selectedPosition, options).second;
 }

@@ -41,13 +41,15 @@ uint32_t CountryFile::GetRemoteSize(TMapOptions opt) const
 {
   switch (opt)
   {
-  case TMapOptions::EMap: return m_mapSize;
-  case TMapOptions::ECarRouting: return m_routingSize;
-  case TMapOptions::EMapWithCarRouting : return m_mapSize + m_routingSize;
+    case TMapOptions::ENothing:
+      return 0;
+    case TMapOptions::EMap:
+      return m_mapSize;
+    case TMapOptions::ECarRouting:
+      return m_routingSize;
+    case TMapOptions::EMapWithCarRouting:
+      return m_mapSize + m_routingSize;
   }
-
-  ASSERT(false, ());
-  return 0;
 }
 
 /*

@@ -12,6 +12,6 @@ namespace storage_utils
   storage::CountryTree & GetTree();
 
   storage::ActiveMapsLayout::TGroup ToGroup(int group);
-  storage::TMapOptions ToOptions(int options);
+  TMapOptions ToOptions(int options);
   jlongArray ToArray(JNIEnv * env, storage::LocalAndRemoteSizeT const & sizes);
 }

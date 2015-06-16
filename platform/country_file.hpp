@@ -3,9 +3,11 @@
 #include "platform/country_defines.hpp"
 #include "std/string.hpp"
 
+namespace platform
+{
 // This class represents a country file name and sizes of
 // corresponding map files on a server, which should correspond to an
-// entry in counties.txt file. Also, this class can be used to
+// entry in countries.txt file. Also, this class can be used to
 // represent a hand-made-country name. Instances of this class don't
 // represent paths to disk files.
 class CountryFile
@@ -34,3 +36,4 @@ private:
 };
 
 string DebugPrint(CountryFile const & file);
+}  // namespace platform

@@ -3,7 +3,7 @@
 #include "map/active_maps_layout.hpp"
 
 #include "gui/element.hpp"
-#include "storage/storage_defines.hpp"
+#include "platform/country_defines.hpp"
 
 #ifdef OMIM_OS_ANDROID
   #include "../base/mutex.hpp"
@@ -70,7 +70,9 @@ private:
   virtual void CountryStatusChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
                                     storage::TStatus const & oldStatus, storage::TStatus const & newStatus);
   virtual void CountryOptionsChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
-                                     storage::TMapOptions const & oldOpt, storage::TMapOptions const & newOpt){}
+                                     TMapOptions const & oldOpt, TMapOptions const & newOpt)
+  {
+  }
   virtual void DownloadingProgressUpdate(storage::ActiveMapsLayout::TGroup const & group, int position,
                                          storage::LocalAndRemoteSizeT const & progress);
 

@@ -59,6 +59,8 @@ int Platform::VideoMemoryLimit() const
 
 Platform::EError Platform::MkDir(string const & dirName) const
 {
+  if (QDir().exists(dirName.c_str()))
+    return Platform::ERR_FILE_ALREADY_EXISTS;
   if(!QDir().mkdir(dirName.c_str()))
   {
     LOG(LWARNING, ("Can't create directory: ", dirName));

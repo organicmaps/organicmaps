@@ -1,7 +1,5 @@
 #pragma once
 
-#include "3party/enum_flags.hpp"
-
 #include "std/stdint.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
@@ -22,14 +20,6 @@ namespace storage
   };
 
   string DebugPrint(TStatus status);
-
-  ENUM_FLAGS(TMapOptions)
-  enum class TMapOptions
-  {
-    EMap = 0x1,
-    ECarRouting = 0x2,
-    EMapWithCarRouting = 0x3
-  };
 
   typedef pair<uint64_t, uint64_t> LocalAndRemoteSizeT;
 }

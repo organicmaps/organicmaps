@@ -6,6 +6,8 @@
 
 #include "../../../../../search/result.hpp"
 
+#include "../../../../../platform/country_defines.hpp"
+
 #include "../../../../../geometry/avg_vector.hpp"
 
 #include "../../../../../base/deferred_task.hpp"
@@ -174,8 +176,9 @@ namespace android
                                      storage::ActiveMapsLayout::TGroup const & newGroup, int newPosition);
     virtual void CountryStatusChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
                                       storage::TStatus const & oldStatus, storage::TStatus const & newStatus);
-    virtual void CountryOptionsChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
-                                       storage::TMapOptions const & oldOpt, storage::TMapOptions const & newOpt);
+    virtual void CountryOptionsChanged(storage::ActiveMapsLayout::TGroup const & group,
+                                       int position, TMapOptions const & oldOpt,
+                                       TMapOptions const & newOpt);
     virtual void DownloadingProgressUpdate(storage::ActiveMapsLayout::TGroup const & group, int position,
                                            storage::LocalAndRemoteSizeT const & progress);
   };

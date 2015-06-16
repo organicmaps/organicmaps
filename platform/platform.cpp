@@ -20,6 +20,8 @@ Platform::EError Platform::ErrnoToError()
       return ERR_ACCESS_FAILED;
     case ENOTEMPTY:
       return ERR_DIRECTORY_NOT_EMPTY;
+    case EEXIST:
+      return ERR_FILE_ALREADY_EXISTS;
     default:
       return ERR_UNKNOWN;
   }

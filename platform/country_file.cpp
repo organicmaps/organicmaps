@@ -4,6 +4,8 @@
 #include "base/assert.hpp"
 #include "std/sstream.hpp"
 
+namespace platform
+{
 CountryFile::CountryFile() : m_mapSize(0), m_routingSize(0) {}
 
 CountryFile::CountryFile(string const & name) : m_name(name), m_mapSize(0), m_routingSize(0) {}
@@ -14,7 +16,7 @@ string CountryFile::GetNameWithExt(TMapOptions file) const
 {
   switch (file)
   {
-    case TMapOptions::EMapOnly:
+    case TMapOptions::EMap:
       return m_name + DATA_FILE_EXTENSION;
     case TMapOptions::ECarRouting:
       return m_name + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION;
@@ -33,9 +35,9 @@ void CountryFile::SetRemoteSizes(uint32_t mapSize, uint32_t routingSize)
 uint32_t CountryFile::GetRemoteSize(TMapOptions filesMask) const
 {
   uint32_t size = 0;
-  if (filesMask & TMapOptions::EMapOnly)
+  if (HasOptions(filesMask, TMapOptions::EMap))
     size += m_mapSize;
-  if (filesMask & TMapOptions::ECarRouting)
+  if (HasOptions(filesMask, TMapOptions::ECarRouting))
     size += m_routingSize;
   return size;
 }
@@ -46,3 +48,4 @@ string DebugPrint(CountryFile const & file)
   os << "CountryFile [" << file.m_name << "]";
   return os.str();
 }
+}  // namespace platform
