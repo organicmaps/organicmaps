@@ -168,12 +168,12 @@ SoftwareRenderer::SoftwareRenderer(graphics::GlyphCache::Params const & glyphCac
     m_symbolsIndex[symbolName] = rect;
   });
 
-  ReaderSource<ReaderPtr<Reader>> source(ReaderPtr<Reader>(GetStyleReader().GetResourceReader("basic.skn", density)));
+  ReaderSource<ReaderPtr<Reader>> source(ReaderPtr<Reader>(GetStyleReader().GetResourceReader("basic.skn", convert(density))));
   if (!ParseXML(source, loader))
     LOG(LERROR, ("Error parsing skin"));
 
   ASSERT(!textureFileName.empty(), ());
-  ReaderPtr<Reader> texReader(GetStyleReader().GetResourceReader(textureFileName, density));
+  ReaderPtr<Reader> texReader(GetStyleReader().GetResourceReader(textureFileName, convert(density)));
   vector<uint8_t> textureData;
   LodePNG::loadFile(textureData, texReader);
   VERIFY(LodePNG::decode(m_symbolsSkin, m_skinWidth, m_skinHeight, textureData) == 0, ());

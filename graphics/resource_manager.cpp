@@ -271,7 +271,7 @@ namespace
   {
     try
     {
-      ReaderPtr<Reader> reader(GetStyleReader().GetResourceReader(skinFileName, density));
+      ReaderPtr<Reader> reader(GetStyleReader().GetResourceReader(skinFileName, convert(density)));
       reader.ReadAsString(m_skinBuffer);
 
       size_t i = m_skinBuffer.find("file=\"", 0);

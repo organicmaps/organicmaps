@@ -68,7 +68,7 @@ namespace graphics
       Texture(string const & fileName, EDensity density) : BaseTexture(GetDimensions(fileName, density))
       {
         typename Traits::image_t image(width(), height());
-        ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(fileName, density);
+        ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(fileName, convert(density));
         gil::lodepng_read_and_convert_image(reader, image, typename Traits::color_converter());
         upload(&gil::view(image)(0, 0));
       }
@@ -194,7 +194,7 @@ namespace graphics
     {
       lock();
       view_t v = view(width(), height());
-      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(fileName, density);
+      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(fileName, convert(density));
       gil::lodepng_read_and_convert_view(reader, v, typename Traits::color_converter());
       upload(&v(0, 0));
       unlock();

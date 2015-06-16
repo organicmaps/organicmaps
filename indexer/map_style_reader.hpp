@@ -2,8 +2,6 @@
 
 #include "coding/reader.hpp"
 
-#include "graphics/defines.hpp"
-
 #include "map_style.hpp"
 
 class StyleReader
@@ -14,7 +12,7 @@ public:
 
   ReaderPtr<Reader> GetDrawingRulesReader();
 
-  ReaderPtr<Reader> GetResourceReader(string const & file, graphics::EDensity density);
+  ReaderPtr<Reader> GetResourceReader(string const & file, string const & density);
 };
 
 extern StyleReader & GetStyleReader();

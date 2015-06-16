@@ -28,17 +28,6 @@ string GetDrawingRulesFile(MapStyle mapStyle)
   }
 }
 
-string GetDensitySuffix(graphics::EDensity density)
-{
-  char const * const str = graphics::convert(density);
-  if (nullptr == str)
-  {
-    LOG(LERROR, ("Unknown density", density));
-    return string();
-  }
-  return str;
-}
-
 string GetStyleSuffix(MapStyle mapStyle)
 {
   switch (mapStyle)
@@ -74,9 +63,9 @@ ReaderPtr<Reader> StyleReader::GetDrawingRulesReader()
   return GetPlatform().GetReader(rulesFile);
 }
 
-ReaderPtr<Reader> StyleReader::GetResourceReader(string const & file, graphics::EDensity density)
+ReaderPtr<Reader> StyleReader::GetResourceReader(string const & file, string const & density)
 {
-  string const resourceDir = string("resources-") + GetDensitySuffix(density) + GetStyleSuffix(GetCurrentStyle());
+  string const resourceDir = string("resources-") + density + GetStyleSuffix(GetCurrentStyle());
   return GetPlatform().GetReader(my::JoinFoldersToPath(resourceDir, file));
 }
 
