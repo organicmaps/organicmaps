@@ -58,6 +58,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmListFragment implemen
   {
     final Bundle args = new Bundle();
     args.putString(EditTextDialogFragment.EXTRA_TITLE, getString(R.string.new_group));
+    args.putString(EditTextDialogFragment.EXTRA_POSITIVE_BUTTON, getString(R.string.ok));
     final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(getActivity(), EditTextDialogFragment.class.getName());
     fragment.setOnTextSaveListener(this);
     fragment.setArguments(args);
