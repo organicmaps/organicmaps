@@ -30,7 +30,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-/** To upload statistics on WiFi connected events, you should add to your <application> in AndroidManifest.xml:
+/** To upload statistics when device is connected to network, you should add to your <application> in AndroidManifest.xml:
 <receiver
   android:name="org.alohalytics.ConnectivityChangedReceiver"
   android:enabled="true"
@@ -44,14 +44,12 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(Context context, Intent intent) {
     final NetworkInfo networkInfo = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
-    if (networkInfo != null
-        && networkInfo.getType() == ConnectivityManager.TYPE_WIFI
-        && networkInfo.isConnected()) {
-      onWiFiConnected();
+    if (networkInfo != null && networkInfo.isConnected()) {
+      onNetworkConnected();
     }
   }
 
-  public void onWiFiConnected() {
+  public void onNetworkConnected() {
     org.alohalytics.Statistics.forceUpload();
   }
 }

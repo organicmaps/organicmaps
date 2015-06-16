@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
 
-        <!-- OPTIONAL to automatically upload statistics when connected to WiFi. -->
+        <!-- REQUIRED to automatically upload statistics when user has any connection. -->
         <receiver
             android:name="org.alohalytics.ConnectivityChangedReceiver"
             android:enabled="true"
