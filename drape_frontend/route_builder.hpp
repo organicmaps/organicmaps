@@ -28,7 +28,8 @@ struct RouteData
 class RouteBuilder
 {
 public:
-  using TFlushRouteFn = function<void(dp::GLState const &, drape_ptr<dp::RenderBucket> &&, RouteData const &)>;
+  using TFlushRouteFn = function<void(dp::GLState const &, drape_ptr<dp::RenderBucket> &&, RouteData const &,
+                                      dp::GLState const &, drape_ptr<dp::RenderBucket> &&)>;
 
   RouteBuilder(TFlushRouteFn const & flushRouteFn);
 

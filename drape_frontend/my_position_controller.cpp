@@ -249,7 +249,7 @@ void MyPositionController::SetModeListener(location::TMyPositionModeChanged cons
   CallModeListener(m_modeInfo);
 }
 
-void MyPositionController::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                                   dp::UniformValuesStorage const  & commonUniforms)
 {
   location::EMyPositionMode currentMode = GetMode();
@@ -265,7 +265,13 @@ void MyPositionController::Render(ScreenBase const & screen, ref_ptr<dp::GpuProg
     m_shape->SetAzimuth(m_drawDirection);
     m_shape->SetIsValidAzimuth(IsRotationActive());
     m_shape->SetAccuracy(m_errorRadius);
-    m_shape->Render(screen, mng, commonUniforms);
+    m_shape->SetRoutingMode(IsInRouting());
+
+    if ((renderMode & RenderAccuracy) != 0)
+      m_shape->RenderAccuracy(screen, mng, commonUniforms);
+
+    if ((renderMode & RenderMyPosition) != 0)
+      m_shape->RenderMyPosition(screen, mng, commonUniforms);
   }
 }
 

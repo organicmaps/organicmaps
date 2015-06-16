@@ -20,7 +20,7 @@ void RouteBuilder::Build(m2::PolylineD const & routePolyline,  vector<double> co
 
   RouteShape shape(routePolyline, params);
   m2::RectF textureRect = shape.GetArrowTextureRect(textures);
-  shape.PrepareGeometry();
+  shape.PrepareGeometry(textures);
 
   RouteData routeData;
   routeData.m_color = color;
@@ -29,10 +29,14 @@ void RouteBuilder::Build(m2::PolylineD const & routePolyline,  vector<double> co
   routeData.m_length = shape.GetLength();
   routeData.m_turns = turns;
 
-  auto flushRoute = [this, &routeData](dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket)
+  dp::GLState eorState = shape.GetEndOfRouteState();
+  drape_ptr<dp::RenderBucket> eorBucket = shape.MoveEndOfRouteRenderBucket();
+
+  auto flushRoute = [this, &routeData, &eorState, &eorBucket](dp::GLState const & state,
+      drape_ptr<dp::RenderBucket> && bucket)
   {
     if (m_flushRouteFn != nullptr)
-      m_flushRouteFn(state, move(bucket), routeData);
+      m_flushRouteFn(state, move(bucket), routeData, eorState, move(eorBucket));
   };
 
   m_batcher->StartSession(flushRoute);

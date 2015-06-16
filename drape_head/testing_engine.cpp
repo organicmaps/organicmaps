@@ -514,23 +514,6 @@ void TestingEngine::DrawImpl()
   }
 
   {
-    vector<m2::PointD> path1;
-    path1.push_back(m2::PointD(80.277071f, 37.9271164f));
-    path1.push_back(m2::PointD(80.277071f, 35.9271164f));
-    path1.push_back(m2::PointD(86.277071f, 35.9271164f));
-    path1.push_back(m2::PointD(86.277071f, 30.9271164f));
-    path1.push_back(m2::PointD(88.277071f, 32.9271164f));
-    path1.push_back(m2::PointD(89.277071f, 39.9271164f));
-    m2::PolylineD pln(path1);
-
-    CommonViewParams rvp;
-    rvp.m_depth = 95.0f;
-    RouteShape shape(pln, rvp);
-    shape.PrepareGeometry();
-    shape.Draw(make_ref(m_batcher), make_ref(m_textures));
-  }
-
-  {
     vector<m2::PointF> trg{ m2::PointD(110.0f, 30.0f), m2::PointD(112.0f, 30.0f), m2::PointD(112.0f, 28.0f),
                             m2::PointD(110.0f, 30.0f), m2::PointD(112.0f, 28.0f), m2::PointD(110.0f, 28.0f) };
     AreaViewParams p;

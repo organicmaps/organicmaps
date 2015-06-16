@@ -281,6 +281,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       dp::GLState const & state = msg->GetState();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
       m_routeRenderer->AddRouteRenderBucket(state, move(bucket), msg->GetRouteData(), make_ref(m_gpuProgramManager));
+
+      dp::GLState const & eorState = msg->GetEndOfRouteState();
+      drape_ptr<dp::RenderBucket> eorBucket = msg->AcceptEndOfRouteBuffer();
+      if (eorBucket != nullptr)
+      {
+        m_routeRenderer->AddEndOfRouteRenderBucket(eorState, move(eorBucket), make_ref(m_gpuProgramManager));
+      }
+
       m_myPositionController->ActivateRouting();
       break;
     }
@@ -500,7 +508,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
       m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
   }
 
-  m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+  m_myPositionController->Render(MyPositionController::RenderAccuracy,
+                                 modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
   {
@@ -522,6 +531,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   GLFunctions::glClearDepth();
   m_routeRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+  m_myPositionController->Render(MyPositionController::RenderMyPosition,
+                                 modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   GLFunctions::glClearDepth();
 

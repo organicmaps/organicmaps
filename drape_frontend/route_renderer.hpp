@@ -45,6 +45,9 @@ public:
   void AddRouteRenderBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
                             RouteData const & routeData, ref_ptr<dp::GpuProgramManager> mng);
 
+  void AddEndOfRouteRenderBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
+                                 ref_ptr<dp::GpuProgramManager> mng);
+
   void Clear();
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
@@ -62,6 +65,9 @@ private:
   vector<RouteGraphics> m_routeGraphics;
   double m_distanceFromBegin;
   RouteData m_routeData;
+
+  dp::GLState m_endOfRouteState;
+  drape_ptr<dp::VertexArrayBuffer> m_endOfRouteBuffer;
 };
 
 } // namespace df

@@ -32,6 +32,12 @@ public:
     virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero) = 0;
   };
 
+  // Render bits
+  // {
+  static uint32_t const RenderAccuracy = 0x1;
+  static uint32_t const RenderMyPosition = 0x2;
+  // }
+
   MyPositionController(location::EMyPositionMode initMode);
 
   void SetPixelRect(m2::RectD const & pixelRect);
@@ -70,7 +76,7 @@ public:
 
   void SetModeListener(location::TMyPositionModeChanged const & fn);
 
-  void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+  void Render(uint32_t renderMode, ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
 private:

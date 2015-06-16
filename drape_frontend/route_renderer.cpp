@@ -131,6 +131,7 @@ RouteGraphics::RouteGraphics(dp::GLState const & state,
 
 RouteRenderer::RouteRenderer()
   : m_distanceFromBegin(0.0)
+  , m_endOfRouteState(0, dp::GLState::OverlayLayer)
 {}
 
 void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
@@ -167,6 +168,18 @@ void RouteRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
     // arrows rendering
     if (truncedZoom >= arrowAppearingZoomLevel)
       RenderArrow(graphics, halfWidth, screen, mng, commonUniforms);
+  }
+
+  // render end of route
+  if (m_endOfRouteBuffer != nullptr)
+  {
+    dp::UniformValuesStorage uniforms = commonUniforms;
+    uniforms.SetFloatValue("u_opacity", 1.0);
+    ref_ptr<dp::GpuProgram> eorProgram = mng->GetProgram(m_endOfRouteState.GetProgramIndex());
+    eorProgram->Bind();
+    dp::ApplyState(m_endOfRouteState, eorProgram);
+    dp::ApplyUniforms(uniforms, eorProgram);
+    m_endOfRouteBuffer->Render();
   }
 }
 
@@ -240,9 +253,18 @@ void RouteRenderer::AddRouteRenderBucket(dp::GLState const & state, drape_ptr<dp
   route.m_buffer->Build(mng->GetProgram(route.m_state.GetProgramIndex()));
 }
 
+void RouteRenderer::AddEndOfRouteRenderBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
+                                              ref_ptr<dp::GpuProgramManager> mng)
+{
+  m_endOfRouteState = state;
+  m_endOfRouteBuffer = bucket->MoveBuffer();
+  m_endOfRouteBuffer->Build(mng->GetProgram(m_endOfRouteState.GetProgramIndex()));
+}
+
 void RouteRenderer::Clear()
 {
   m_routeGraphics.clear();
+  m_endOfRouteBuffer.reset();
 }
 
 void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)
@@ -314,6 +336,10 @@ void RouteRenderer::CalculateArrowBorders(double arrowLength, double scale, doub
     arrowBorders.m_groupIndex = (int)i;
     arrowBorders.m_startDistance = max(0.0, m_routeData.m_turns[i] - halfLen * 0.8);
     arrowBorders.m_endDistance = min(m_routeData.m_length, m_routeData.m_turns[i] + halfLen * 1.2);
+
+    if (arrowBorders.m_startDistance < m_distanceFromBegin)
+      continue;
+
     borders.push_back(arrowBorders);
   }
 

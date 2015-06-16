@@ -6,7 +6,6 @@
 #include "drape/batcher.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/glstate.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/texture_manager.hpp"
 
@@ -31,6 +30,7 @@ RouteShape::RouteShape(m2::PolylineD const & polyline, CommonViewParams const & 
   : m_params(params)
   , m_polyline(polyline)
   , m_length(0)
+  , m_endOfRouteState(0, dp::GLState::OverlayLayer)
 {}
 
 m2::RectF RouteShape::GetArrowTextureRect(ref_ptr<dp::TextureManager> textures) const
@@ -40,7 +40,7 @@ m2::RectF RouteShape::GetArrowTextureRect(ref_ptr<dp::TextureManager> textures) 
   return region.GetTexRect();
 }
 
-void RouteShape::PrepareGeometry()
+void RouteShape::PrepareGeometry(ref_ptr<dp::TextureManager> textures)
 {
   vector<m2::PointD> const & path = m_polyline.GetPoints();
   ASSERT(path.size() > 1, ());
@@ -168,6 +168,45 @@ void RouteShape::PrepareGeometry()
 
     bounds.m_offset = len;
     m_joinsBounds.push_back(bounds);
+  }
+
+  CacheEndOfRouteSign(textures);
+}
+
+void RouteShape::CacheEndOfRouteSign(ref_ptr<dp::TextureManager> mng)
+{
+  dp::TextureManager::SymbolRegion symbol;
+  mng->GetSymbolRegion("route_to", symbol);
+
+  m2::RectF const & texRect = symbol.GetTexRect();
+  m2::PointF halfSize = m2::PointF(symbol.GetPixelSize()) * 0.5f;
+
+  glsl::vec2 const pos = glsl::ToVec2(m_polyline.Back());
+  glsl::vec3 const pivot = glsl::vec3(pos.x, pos.y, m_params.m_depth);
+  gpu::SolidTexturingVertex data[4]=
+  {
+    { pivot, glsl::vec2(-halfSize.x,  halfSize.y), glsl::ToVec2(texRect.LeftTop()) },
+    { pivot, glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom()) },
+    { pivot, glsl::vec2( halfSize.x,  halfSize.y), glsl::ToVec2(texRect.RightTop()) },
+    { pivot, glsl::vec2( halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()) }
+  };
+
+  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetColorTexture(symbol.GetTexture());
+
+  {
+    dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
+    dp::SessionGuard guard(batcher, [this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
+    {
+      m_endOfRouteRenderBucket = move(b);
+      m_endOfRouteState = state;
+    });
+
+    dp::AttributeProvider provider(1 /*stream count*/, dp::Batcher::VertexPerQuad);
+    provider.InitStream(0 /*stream index*/, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(data));
+
+    dp::IndicesRange indices = batcher.InsertTriangleStrip(state, make_ref(&provider), nullptr);
+    ASSERT(indices.IsValid(), ());
   }
 }
 

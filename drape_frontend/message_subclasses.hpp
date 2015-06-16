@@ -534,10 +534,13 @@ class FlushRouteMessage : public Message
 {
 public:
   FlushRouteMessage(dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer,
-                    RouteData const & routeData)
+                    RouteData const & routeData, dp::GLState const & endOfRouteState,
+                    drape_ptr<dp::RenderBucket> && endOfRouteBuffer)
     : m_state(state)
     , m_buffer(move(buffer))
     , m_routeData(routeData)
+    , m_endOfRouteState(endOfRouteState)
+    , m_endOfRouteBuffer(move(endOfRouteBuffer))
   {}
 
   Type GetType() const override { return Message::FlushRoute; }
@@ -546,10 +549,15 @@ public:
   drape_ptr<dp::RenderBucket> && AcceptBuffer() { return move(m_buffer); }
   RouteData const & GetRouteData() const { return m_routeData; }
 
+  dp::GLState const & GetEndOfRouteState() const { return m_endOfRouteState; }
+  drape_ptr<dp::RenderBucket> && AcceptEndOfRouteBuffer() { return move(m_endOfRouteBuffer); }
+
 private:
   dp::GLState m_state;
   drape_ptr<dp::RenderBucket> m_buffer;
   RouteData m_routeData;
+  dp::GLState m_endOfRouteState;
+  drape_ptr<dp::RenderBucket> m_endOfRouteBuffer;
 };
 
 
