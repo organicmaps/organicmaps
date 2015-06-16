@@ -19,8 +19,7 @@ set -u
 
 if [ $# -lt 1 ]; then
   echo ''
-  echo "Usage: $0 \<file.o5m/bz2\>"
-  echo "To build routing: $0 \<file.o5m/bz2\> \<profile.lua\>"
+  echo "Usage: $0 \<file.o5m/bz2\> [\<routing_profile.lua\>]"
   echo ''
   exit 0
 fi
@@ -40,12 +39,6 @@ OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 DATA_PATH="$OMIM_PATH/data/"
 [ ! -r "${DATA_PATH}types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
 
-if [ $# -gt 1 ]; then
-  MODE=routing
-else
-  MODE=mwm
-fi
-
 source find_generator_tool.sh
 
 if [ "$(uname)" == "Darwin" ]; then
@@ -55,22 +48,21 @@ else
 fi
 trap "rm -rf \"${INTDIR}\"" EXIT SIGINT SIGTERM
 
-if [ "$MODE" == "mwm" ]; then
-  # Create MWM file
-  INTDIR_FLAG="--intermediate_data_path=$INTDIR/ --node_storage=map"
-  GENERATE_EVERYTHING='--generate_features=true --generate_geometry=true --generate_index=true --generate_search_index=true'
-  if [ "$SOURCE_TYPE" == "o5m" ]; then
-    INTDIR_FLAG="$INTDIR_FLAG --osm_file_type=o5m --osm_file_name=$SOURCE_FILE"
-    $GENERATOR_TOOL $INTDIR_FLAG --preprocess=true || fail "Preprocessing failed"
-    $GENERATOR_TOOL $INTDIR_FLAG --data_path="$TARGET" --user_resource_path="$DATA_PATH" $GENERATE_EVERYTHING --output="$BASE_NAME"
-  elif [ "$SOURCE_TYPE" == "bz2" ]; then
-    bzcat "$SOURCE_FILE" | $GENERATOR_TOOL $INTDIR_FLAG --preprocess=true || fail "Preprocessing failed"
-    bzcat "$SOURCE_FILE" | $GENERATOR_TOOL $INTDIR_FLAG --data_path="$TARGET" --user_resource_path="$DATA_PATH" $GENERATE_EVERYTHING --output="$BASE_NAME"
-  else
-    fail "Unsupported source type: $SOURCE_TYPE"
-  fi
+# Create MWM file
+INTDIR_FLAG="--intermediate_data_path=$INTDIR/ --node_storage=map"
+GENERATE_EVERYTHING='--generate_features=true --generate_geometry=true --generate_index=true --generate_search_index=true'
+if [ "$SOURCE_TYPE" == "o5m" ]; then
+  INTDIR_FLAG="$INTDIR_FLAG --osm_file_type=o5m --osm_file_name=$SOURCE_FILE"
+  $GENERATOR_TOOL $INTDIR_FLAG --preprocess=true || fail "Preprocessing failed"
+  $GENERATOR_TOOL $INTDIR_FLAG --data_path="$TARGET" --user_resource_path="$DATA_PATH" $GENERATE_EVERYTHING --output="$BASE_NAME"
+elif [ "$SOURCE_TYPE" == "bz2" ]; then
+  bzcat "$SOURCE_FILE" | $GENERATOR_TOOL $INTDIR_FLAG --preprocess=true || fail "Preprocessing failed"
+  bzcat "$SOURCE_FILE" | $GENERATOR_TOOL $INTDIR_FLAG --data_path="$TARGET" --user_resource_path="$DATA_PATH" $GENERATE_EVERYTHING --output="$BASE_NAME"
+else
+  fail "Unsupported source type: $SOURCE_TYPE"
+fi
 
-elif [ "$MODE" == "routing" ]; then
+if [ $# -gt 1 ]; then
   # Create .mwm.routing file
   OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
   OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OSRM_PATH/build}"
@@ -117,6 +109,8 @@ elif [ "$MODE" == "routing" ]; then
     cp "$BORDERS_PATH"/*.poly "$TARGET/borders/"
   fi
   $GENERATOR_TOOL --make_routing=true ${CROSS_MWM-} --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$BASE_NAME"
-  rm -f "$TARGET/$BASE_NAME.mwm.osm2ft"
   [ -n "${CROSS_MWM-}" ] && rm -r "$TARGET/borders"
 fi
+
+# This file is needed only for routing generation
+rm -f "$TARGET/$BASE_NAME.mwm.osm2ft"
