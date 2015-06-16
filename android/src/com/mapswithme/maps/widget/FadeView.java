@@ -1,6 +1,7 @@
 package com.mapswithme.maps.widget;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -25,6 +26,9 @@ public class FadeView extends FrameLayout
     public void onAnimationEnd(Animator animation)
     {
       setVisibility(View.GONE);
+      // IMPORTANT views after alpha animations with 'setFillAfter' on 2.3 can't become GONE, until clearAnimation is called.
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        clearAnimation();
       if (mFadeListener != null && mDoNotify)
         mFadeListener.onFadeOut();
     }

@@ -752,6 +752,15 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private void hideBottomButtons()
   {
     UiUtils.hide(mLlBookmarks, mLlDownloader, mLlSettings, mLlShare, mLlSearch);
+    // IMPORTANT views after alpha animations with 'setFillAfter' on 2.3 can't become GONE, until clearAnimation is called.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+    {
+      mLlSearch.clearAnimation();
+      mLlBookmarks.clearAnimation();
+      mLlDownloader.clearAnimation();
+      mLlShare.clearAnimation();
+      mLlSettings.clearAnimation();
+    }
     if (mButtonsAnimation != null && mButtonsAnimation.isRunning())
       mButtonsAnimation.end();
     mBtnMenu.setVisibility(View.VISIBLE);
