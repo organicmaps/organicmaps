@@ -141,6 +141,13 @@ static std::string RectToString(CGRect const & rect) {
 
 // Logs some basic device's info.
 static void LogSystemInformation() {
+  // Initialize User Agent later, as it takes significant time at startup.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    gBrowserUserAgent = [[[UIWebView alloc] initWithFrame:CGRectZero] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    if (gBrowserUserAgent) {
+      Stats::Instance().LogEvent("$browserUserAgent", ToStdString(gBrowserUserAgent));
+    }
+  });
   UIDevice * device = [UIDevice currentDevice];
   UIScreen * screen = [UIScreen mainScreen];
   std::string preferredLanguages;
@@ -348,13 +355,6 @@ bool IsConnectionActive() {
   serverUrl = [serverUrl stringByAppendingFormat:@"/mac/%@/%@", bundleIdentifier, version];
 #endif
 #if (TARGET_OS_IPHONE > 0)
-  // Initialize User Agent later, as it takes significant time at startup.
-  dispatch_async(dispatch_get_main_queue(), ^{
-    gBrowserUserAgent = [[[UIWebView alloc] initWithFrame:CGRectZero] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    if (gBrowserUserAgent) {
-      Stats::Instance().LogEvent("$browserUserAgent", ToStdString(gBrowserUserAgent));
-    }
-  });
   NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
   Class cls = [Alohalytics class];
   [nc addObserver:cls selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
