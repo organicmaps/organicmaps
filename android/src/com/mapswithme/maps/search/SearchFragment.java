@@ -6,7 +6,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -227,8 +226,8 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
 
   private boolean tryChangeRouter(String query)
   {
-    final boolean pedestrian = query.equals("pedestrian:on");
-    final boolean wehicle = query.equals("pedestrian:off");
+    final boolean pedestrian = query.equals("?pedestrian");
+    final boolean wehicle = query.equals("?vehicle");
 
     if (!pedestrian && !wehicle)
       return false;
