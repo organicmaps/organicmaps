@@ -20,6 +20,8 @@
 
 #include "Framework.h"
 
+static NSString * const kPlacePageViewDragKeyPath = @"center";
+
 typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 {
   MWMiPhonePortraitPlacePageStateClosed,
@@ -36,6 +38,27 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 @end
 
 @implementation MWMiPhonePortraitPlacePage
+
+- (instancetype)initWithManager:(MWMPlacePageViewManager *)manager
+{
+  self = [super initWithManager:manager];
+  if (self)
+  {
+    [self.extendedPlacePageView addObserver:self forKeyPath:kPlacePageViewDragKeyPath options:NSKeyValueObservingOptionNew context:nullptr];
+  }
+  return self;
+}
+
+- (void)dealloc
+{
+  [self.extendedPlacePageView removeObserver:self forKeyPath:kPlacePageViewDragKeyPath];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+  if ([self.extendedPlacePageView isEqual:object] && [keyPath isEqualToString:kPlacePageViewDragKeyPath])
+    [self.manager dragPlacePage:self.extendedPlacePageView.origin];
+}
 
 - (void)configure
 {
@@ -92,18 +115,17 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   BOOL const isLandscape = size.width > size.height;
   CGFloat const width = isLandscape ? size.height : size.width;
   CGFloat const height = isLandscape ? size.width : size.height;
-  static CGFloat const kPlacePageBottomOffset = 30.;
+  static CGFloat const kPlacePageBottomOffset = 31.;
   switch (state)
   {
     case MWMiPhonePortraitPlacePageStateClosed:
-//      GetFramework().GetBalloonManager().RemovePin();
       self.targetPoint = CGPointMake(self.extendedPlacePageView.width / 2., self.extendedPlacePageView.height * 2.);
       break;
 
     case MWMiPhonePortraitPlacePageStatePreview:
     {
       CGFloat const typeHeight = self.basePlacePageView.typeLabel.text.length > 0 ? self.basePlacePageView.typeLabel.height : self.basePlacePageView.typeDescriptionView.height;
-      CGFloat const h = height - (self.basePlacePageView.titleLabel.height + kPlacePageBottomOffset + typeHeight + self.actionBar.height + 1);
+      CGFloat const h = height - (self.basePlacePageView.titleLabel.height + kPlacePageBottomOffset + typeHeight + self.actionBar.height);
       self.targetPoint = CGPointMake(width / 2., height + h);
 
       [MWMPlacePageNavigationBar dismissNavigationBar];
@@ -113,7 +135,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     case MWMiPhonePortraitPlacePageStateOpen:
     {
       CGFloat const typeHeight = self.basePlacePageView.typeLabel.text.length > 0 ? self.basePlacePageView.typeLabel.height : self.basePlacePageView.typeDescriptionView.height;
-      CGFloat const h = height - (self.basePlacePageView.titleLabel.height + kPlacePageBottomOffset + typeHeight + [(UITableView *)self.basePlacePageView.featureTable height] + self.actionBar.height + 1 + self.keyboardHeight);
+      CGFloat const h = height - (self.basePlacePageView.titleLabel.height + kPlacePageBottomOffset + typeHeight + [(UITableView *)self.basePlacePageView.featureTable height] + self.actionBar.height + self.keyboardHeight);
       self.targetPoint = CGPointMake(width / 2., height + h);
 
       if (self.targetPoint.y <= height)

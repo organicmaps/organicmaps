@@ -53,6 +53,7 @@ extern CGFloat const kBookmarkCellHeight = 135.;
 {
   MWMPlacePageEntity const * entity = self.entity;
   MWMPlacePageEntityType type = entity.type;
+  self.directionArrow.autoresizingMask = UIViewAutoresizingNone;
 
   if (type == MWMPlacePageEntityTypeBookmark)
   {
@@ -92,7 +93,6 @@ static CGFloat const titleBottomOffset = 2.;
   [super layoutSubviews];
   MWMPlacePageEntity const * entity = self.entity;
   MWMPlacePageEntityType const type = entity.type;
-  
   CGSize const size = [UIScreen mainScreen].bounds.size;
   CGFloat const maximumWidth = 360.;
   placePageWidth = size.width > size.height ? (size.height > maximumWidth ? maximumWidth : size.height) : size.width;
@@ -116,9 +116,6 @@ static CGFloat const titleBottomOffset = 2.;
   CGFloat const typeHeight = self.typeLabel.text.length > 0 ? self.typeLabel.height : self.typeDescriptionView.height;
   self.featureTable.minY = typeMinY + typeHeight + typeBottomOffset;
   self.separatorView.minY = self.featureTable.minY - 1;
-//  self.directionArrow.center = CGPointMake(self.directionArrow.center.x, self.titleLabel.center.y);
-//  self.distanceLabel.center = CGPointMake(self.distanceLabel.center.x, self.titleLabel.center.y);
-//  self.directionButton.center = CGPointMake(self.directionArrow.center.x, self.directionArrow.center.y);
   self.featureTable.height = self.featureTable.contentSize.height;
   self.featureTable.contentOffset = CGPointZero;
   self.height = typeBottomOffset + titleBottomOffset + typeHeight + self.titleLabel.height + self.typeLabel.height + self.featureTable.height;

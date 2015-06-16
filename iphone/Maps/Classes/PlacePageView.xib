@@ -27,7 +27,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view autoresizesSubviews="NO" contentMode="scaleToFill" id="8RI-YR-2UD" customClass="MWMBasePlacePageView">
+                <view contentMode="scaleToFill" id="8RI-YR-2UD" customClass="MWMBasePlacePageView">
                     <rect key="frame" x="0.0" y="22" width="320" height="468"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>

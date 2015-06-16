@@ -6,19 +6,20 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMPlacePageViewManager.h"
+#import "Common.h"
+#import "LocationManager.h"
+#import "MapsAppDelegate.h"
 #import "MWMBasePlacePageView.h"
-#import "UIKitCategories.h"
-#import "MWMPlacePageEntity.h"
-#import "MWMPlacePage.h"
+#import "MWMiPadPlacePage.h"
 #import "MWMiPhoneLandscapePlacePage.h"
 #import "MWMiPhonePortraitPlacePage.h"
-#import "MWMiPadPlacePage.h"
+#import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
-#import "MapsAppDelegate.h"
-#import "LocationManager.h"
+#import "MWMPlacePageEntity.h"
+#import "MWMPlacePageViewDragDelegate.h"
+#import "MWMPlacePageViewManager.h"
 #import "ShareActionSheet.h"
-#import "Common.h"
+#import "UIKitCategories.h"
 
 #include "Framework.h"
 
@@ -33,9 +34,9 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   shared_ptr<UserMark const *> m_userMark;
 }
 
-@property (weak, nonatomic) UIViewController *ownerViewController;
-@property (nonatomic, readwrite) MWMPlacePageEntity *entity;
-@property (nonatomic) MWMPlacePage *placePage;
+@property (weak, nonatomic) UIViewController<MWMPlacePageViewDragDelegate> * ownerViewController;
+@property (nonatomic, readwrite) MWMPlacePageEntity * entity;
+@property (nonatomic) MWMPlacePage * placePage;
 @property (nonatomic) MWMPlacePageManagerState state;
 @property (nonatomic) ShareActionSheet * actionSheet;
 
@@ -43,7 +44,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 @implementation MWMPlacePageViewManager
 
-- (instancetype)initWithViewController:(UIViewController *)viewController
+- (instancetype)initWithViewController:(UIViewController<MWMPlacePageViewDragDelegate> *)viewController
 {
   self = [super init];
   if (self)
@@ -183,6 +184,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   [self.entity synchronize];
   [self.placePage reloadBookmark];
+}
+
+- (void)dragPlacePage:(CGPoint)point
+{
+  [self.ownerViewController dragPlacePage:point];
 }
 
 - (void)startMonitoringLocation:(NSNotification *)notification

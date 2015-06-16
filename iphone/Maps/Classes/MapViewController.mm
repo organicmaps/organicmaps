@@ -5,13 +5,14 @@
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMPlacePageViewDragDelegate.h"
+#import "MWMPlacePageViewManager.h"
 #import "Reachability.h"
 #import "RouteState.h"
 #import "RouteView.h"
 #import "ShareActionSheet.h"
 #import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"
-#import "MWMPlacePageViewManager.h"
 
 #import "../../../3party/Alohalytics/src/alohalytics_objc.h"
 #import "../../Common/CustomAlertView.h"
@@ -80,7 +81,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 @end
 
-@interface MapViewController () <RouteViewDelegate, SearchViewDelegate>
+@interface MapViewController () <RouteViewDelegate, SearchViewDelegate, MWMPlacePageViewDragDelegate>
 
 @property (nonatomic) UIView * routeViewWrapper;
 @property (nonatomic) RouteView * routeView;
@@ -92,7 +93,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 @property (nonatomic) BOOL disableStandbyOnLocationStateMode;
 @property (nonatomic) BOOL disableStandbyOnRouteFollowing;
 
-@property (nonatomic) MWMPlacePageViewManager *placePageManager;
+@property (nonatomic) MWMPlacePageViewManager * placePageManager;
 
 @property (nonatomic) UserTouchesAction userTouchesAction;
 
@@ -235,7 +236,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     case location::State::PendingPosition:
       self.disableStandbyOnLocationStateMode = NO;
       [[MapsAppDelegate theApp].m_locationManager start:self];
-      self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:self];
       break;
     case location::State::NotFollow:
       self.disableStandbyOnLocationStateMode = NO;
@@ -264,9 +264,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)onUserMarkClicked:(unique_ptr<UserMarkCopy>)mark
 {
-  if (!self.placePageManager)
-    self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:self];
-
   [self.placePageManager showPlacePageWithUserMark:std::move(mark)];
 }
 
@@ -935,6 +932,13 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   }
 }
 
+#pragma mark - MWMPlacePageViewDragDelegate
+
+- (void)dragPlacePage:(CGPoint)point
+{
+  [self.controlsManager setBottomBound:point.y];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
   if (object == self.searchView && [keyPath isEqualToString:@"state"])
@@ -1108,6 +1112,13 @@ NSInteger compareAddress(id l, id r, void * context)
       break;
   }
   _userTouchesAction = userTouchesAction;
+}
+
+- (MWMPlacePageViewManager *)placePageManager
+{
+  if (!_placePageManager)
+    _placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:self];
+  return _placePageManager;
 }
 
 @end

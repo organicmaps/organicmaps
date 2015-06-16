@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel * typeLabel;
 @property (weak, nonatomic) IBOutlet UILabel * distanceLabel;
-@property (nonatomic) IBOutlet UIImageView * directionArrow;
+@property (weak, nonatomic) IBOutlet UIImageView * directionArrow;
 @property (weak, nonatomic) IBOutlet UITableView * featureTable;
 @property (weak, nonatomic) IBOutlet UIView * separatorView;
 @property (weak, nonatomic) IBOutlet UIButton * directionButton;
@@ -26,6 +26,5 @@
 - (void)addBookmark;
 - (void)removeBookmark;
 - (void)reloadBookmarkCell;
-- (void)layoutDistanceLabel;
 
 @end

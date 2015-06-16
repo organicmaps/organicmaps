@@ -47,19 +47,9 @@ extern NSString * const kBookmarkCellWebViewDidFinishLoadContetnNotification = @
 
 - (void)keyboardWillShown:(NSNotification *)aNotification
 {
-
   NSDictionary const * info = [aNotification userInfo];
   CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
   [self.placePage willStartEditingBookmarkTitle:kbSize.height];
-  
-//  UIEdgeInsets const contentInsets = UIEdgeInsetsMake(0., 0., kbSize.height, 0.);
-//  self.ownerTableView.contentInset = contentInsets;
-//  self.ownerTableView.scrollIndicatorInsets = contentInsets;
-//
-//  CGRect aRect = self.ownerTableView.superview.frame;
-//  aRect.size.height -= kbSize.height;
-//  if (!CGRectContainsPoint(aRect, self.title.frame.origin))
-//    [self.ownerTableView scrollRectToVisible:aRect animated:YES];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *)aNotification
@@ -67,9 +57,6 @@ extern NSString * const kBookmarkCellWebViewDidFinishLoadContetnNotification = @
   NSDictionary const * info = [aNotification userInfo];
   CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
   [self.placePage willFinishEditingBookmarkTitle:kbSize.height];
-//  UIEdgeInsets const contentInsets = UIEdgeInsetsZero;
-//  self.ownerTableView.contentInset = contentInsets;
-//  self.ownerTableView.scrollIndicatorInsets = contentInsets;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField

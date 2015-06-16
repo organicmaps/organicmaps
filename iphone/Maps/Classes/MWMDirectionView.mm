@@ -13,20 +13,6 @@
 static NSString * const kDirectionViewNibName = @"MWMDirectionView";
 static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
 
-@interface MWMImageView : UIImageView
-
-@end
-
-@implementation MWMImageView
-
-- (void)setFrame:(CGRect)frame
-{
-  [super setFrame:frame];
-
-}
-
-@end
-
 @interface MWMDirectionView ()
 
 @property (weak, nonatomic) UIViewController * ownerController;
@@ -117,11 +103,9 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
       self.directionArrow.center = CGPointMake(xOffset, self.typeLabel.maxY + arrowOffset + kDirectionArrowSide / 2.);
       self.distanceLabel.origin = CGPointMake(xOffset - self.distanceLabel.width / 2., self.directionArrow.maxY + arrowOffset);
       self.distanceLabel.textAlignment = NSTextAlignmentCenter;
-
       break;
     }
     case UIInterfaceOrientationUnknown:
-
       break;
   }
 }

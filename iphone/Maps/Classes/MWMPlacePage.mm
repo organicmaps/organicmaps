@@ -114,13 +114,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)setDistance:(NSString *)distance
 {
-  NSString const * currentString = self.basePlacePageView.distanceLabel.text;
-  if ([currentString isEqualToString:distance])
-    return;
-
   self.basePlacePageView.distanceLabel.text = distance;
   self.basePlacePageView.directionView.distanceLabel.text = distance;
-  [self.basePlacePageView layoutDistanceLabel];
 }
 
 - (void)changeBookmarkCategory

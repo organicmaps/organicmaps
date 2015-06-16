@@ -12,31 +12,6 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 
-@interface MWMTableView : UITableView
-
-@end
-
-@implementation MWMTableView
-
-//- (void)setContentInset:(UIEdgeInsets)contentInset
-//{
-//// Workaround on apple "feature" with navigationController (see NavigationController.mm, line 22).
-//  return;
-//  [super setContentInset:UIEdgeInsetsZero];
-//}
-////
-//- (void)setContentOffset:(CGPoint)contentOffset
-//{
-//// Workaround on apple "feature" with navigationController (see NavigationController.mm, line 22).
-//  [super setContentOffset:CGPointZero];
-//}
-////
-//- (void)setScrollEnabled:(BOOL)scrollEnabled
-//{
-//  [super setScrollEnabled:YES];
-//}
-@end
-
 extern NSArray * const kBookmarkColorsVariant;
 
 static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
@@ -114,7 +89,6 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
       CGFloat const externalHeight = self.navigationController.navigationBar.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
       CGFloat const actualHeight = defaultHeight > (height - externalHeight) ? height : defaultHeight;
       self.tableView.frame = CGRectMake(0., topOffset, width, actualHeight);
-//      self.tableView.contentInset = UIEdgeInsetsZero;
       break;
     }
 
@@ -127,7 +101,6 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
       CGFloat const currentHeight = height - navBarHeight;
       CGFloat const actualHeight = currentHeight > defaultHeight ? defaultHeight : currentHeight;
       self.tableView.frame = CGRectMake(0., navBarHeight, width, actualHeight);
-//      self.tableView.contentInset = UIEdgeInsetsZero;
       break;
     }
   }

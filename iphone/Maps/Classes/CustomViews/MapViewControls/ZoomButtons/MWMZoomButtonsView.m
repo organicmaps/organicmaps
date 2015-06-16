@@ -55,10 +55,10 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
 
 - (void)layoutYPosition:(BOOL)defaultPosition
 {
+  self.maxY = self.superview.height - kZoomViewOffsetToFrameBound;
   if (self.bottomBound > 0.0)
-    self.maxY = self.bottomBound - kZoomViewOffsetToBottomBound;
-  else
-    self.maxY = self.superview.height - kZoomViewOffsetToFrameBound;
+    self.maxY = MIN(self.maxY, self.bottomBound - kZoomViewOffsetToBottomBound);
+
   self.minY = MAX(self.minY, defaultPosition ? kZoomViewOffsetToTopBoundDefault : kZoomViewOffsetToTopBoundMoved);
 }
 
