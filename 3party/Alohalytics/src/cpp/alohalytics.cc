@@ -223,7 +223,9 @@ bool Stats::UploadFileImpl(bool file_name_in_content, const std::string & conten
     } else {
       request.set_body_data(alohalytics::Gzip(content), kAlohalyticsHTTPContentType, "POST", "gzip");
     }
-    return request.RunHTTPRequest() && 200 == request.error_code() && !request.was_redirected();
+    const bool uploadSucceeded = request.RunHTTPRequest() && 200 == request.error_code() && !request.was_redirected();
+    LOG_IF_DEBUG("RunHTTPRequest has returned code", request.error_code(), request.was_redirected() ? "and request was redirected." : "");
+    return uploadSucceeded;
   } catch (const std::exception & ex) {
     LOG_IF_DEBUG("Exception in UploadFileImpl:", ex.what());
   }
