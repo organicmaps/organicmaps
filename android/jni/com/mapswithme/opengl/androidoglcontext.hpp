@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../drape/oglcontext.hpp"
+#include "drape/oglcontext.hpp"
 
 #include <GLES2/gl2.h>
 #include <EGL/egl.h>
@@ -11,12 +11,13 @@ namespace android
 class AndroidOGLContext : public dp::OGLContext
 {
 public:
-  AndroidOGLContext(EGLDisplay display, EGLSurface surface, EGLConfig config, AndroidOGLContext * contextToShareWith);
+  AndroidOGLContext(EGLDisplay display, EGLSurface surface, EGLConfig config, AndroidOGLContext * contextToShareWith, bool csaaUsed);
   ~AndroidOGLContext();
 
-  virtual void makeCurrent();
-  virtual void present();
-  virtual void setDefaultFramebuffer();
+  void makeCurrent() override;
+  void present() override;
+  void setDefaultFramebuffer() override;
+  int additionClearFlags();
 
 private:
   // {@ Owned by Context
@@ -27,6 +28,8 @@ private:
   EGLSurface m_surface;
   EGLDisplay m_display;
   // @}
+
+  bool m_csaaUsed; //CSAA = Coverage Sample Anti Aliasing
 };
 
 } // namespace android

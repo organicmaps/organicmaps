@@ -26,6 +26,7 @@ public:
 
 private:
   bool QuerySurfaceSize();
+  EGLint * GetSupportedAttributes();
 
 private:
   bool createWindowSurface();
@@ -45,6 +46,7 @@ private:
   int m_surfaceHeight;
 
   bool m_valid;
+  bool m_useCSAA;
 };
 
 } // namespace android
