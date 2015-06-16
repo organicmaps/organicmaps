@@ -224,7 +224,6 @@ android {
       jniDebuggable true           // Enable jni debug build
       zipAlignEnabled true
       android.sourceSets.debug.setRoot('flavors/debug')
-      buildConfigField 'String', 'STATISTICS_URL', propStatisticsDevelopmentUrl
     }
 
     release {
@@ -239,7 +238,6 @@ android {
       versionNameSuffix '-beta'
       signingConfig signingConfigs.mapswithme
       android.sourceSets.beta.setRoot('flavors/beta')
-      buildConfigField 'String', 'STATISTICS_URL', propStatisticsDevelopmentUrl
     }
   }
 

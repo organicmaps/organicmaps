@@ -154,18 +154,14 @@ void InitLocalizedStrings()
   // Initialize Alohalytics statistics engine.
 #ifndef OMIM_PRODUCTION
   [Alohalytics setDebugMode:YES];
-  NSString * serverUrl = @"http://localhost:8080/dev";
-#else
-  NSString * serverUrl = @"http://localhost:8080/4";
 #endif
+  [Alohalytics setup:@"http://localhost:8080" andFirstLaunch:[MapsAppDelegate isFirstAppLaunch] withLaunchOptions:launchOptions];
   
   NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
   if (url != nil)
     [self checkLaunchURL:url];
   
   [HttpThread setDownloadIndicatorProtocol:[MapsAppDelegate theApp]];
-
-  [Alohalytics setup:serverUrl andFirstLaunch:[MapsAppDelegate isFirstAppLaunch] withLaunchOptions:launchOptions];
 
   [[Statistics instance] startSessionWithLaunchOptions:launchOptions];
 

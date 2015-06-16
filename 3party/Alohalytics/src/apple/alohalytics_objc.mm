@@ -333,9 +333,23 @@ bool IsConnectionActive() {
 }
 
 + (void)setup:(NSString *)serverUrl andFirstLaunch:(BOOL)isFirstLaunch withLaunchOptions:(NSDictionary *)options {
+  const NSBundle * bundle = [NSBundle mainBundle];
+  NSString * bundleIdentifier = [bundle bundleIdentifier];
+  NSString * version = [[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+  // Remove trailing slash in the url if it's present.
+  const NSInteger indexOfLastChar = serverUrl.length - 1;
+  if ([serverUrl characterAtIndex:indexOfLastChar] == '/') {
+    serverUrl = [serverUrl substringToIndex:indexOfLastChar];
+  }
+  // Final serverUrl is modified to $(serverUrl)/[ios|mac]/your.bundle.id/app.version
+#if (TARGET_OS_IPHONE > 0)
+  serverUrl = [serverUrl stringByAppendingFormat:@"/ios/%@/%@", bundleIdentifier, version];
+#else
+  serverUrl = [serverUrl stringByAppendingFormat:@"/mac/%@/%@", bundleIdentifier, version];
+#endif
 #if (TARGET_OS_IPHONE > 0)
   // Initialize User Agent later, as it takes significant time at startup.
-  dispatch_async(dispatch_get_main_queue(), ^(void) {
+  dispatch_async(dispatch_get_main_queue(), ^{
     gBrowserUserAgent = [[[UIWebView alloc] initWithFrame:CGRectZero] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
     if (gBrowserUserAgent) {
       Stats::Instance().LogEvent("$browserUserAgent", ToStdString(gBrowserUserAgent));
@@ -358,9 +372,7 @@ bool IsConnectionActive() {
   // Calculate some basic statistics about installations/updates/launches.
   NSUserDefaults * userDataBase = [NSUserDefaults standardUserDefaults];
   NSString * installedVersion = [userDataBase objectForKey:@"AlohalyticsInstalledVersion"];
-  NSBundle * bundle = [NSBundle mainBundle];
   if (installationId.second && isFirstLaunch && installedVersion == nil) {
-    NSString * version = [[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     // Documents folder modification time can be interpreted as a "first app launch time" or an approx. "app install time".
     // App bundle modification time can be interpreted as an "app update time".
     instance.LogEvent("$install", {{"CFBundleShortVersionString", [version UTF8String]},
@@ -374,7 +386,6 @@ bool IsConnectionActive() {
     static_cast<void>(options);  // Unused variable warning fix.
 #endif  // TARGET_OS_IPHONE
   } else {
-    NSString * version = [[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     if (installedVersion == nil || ![installedVersion isEqualToString:version]) {
       instance.LogEvent("$update", {{"CFBundleShortVersionString", [version UTF8String]},
           {"documentsTimestampMillis", PathTimestampMillis([NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject])},
