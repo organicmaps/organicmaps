@@ -50,7 +50,7 @@
 
 + (UIColor *)navigationBarColor
 {
-  return [UIColor colorWithColorCode:@"15c783"];
+  return [UIColor colorWithColorCode:@"1F9952"];
 }
 
 @end

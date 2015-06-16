@@ -31,14 +31,7 @@ extern NSArray * const kBookmarkColorsVariant;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
   [super setSelected:selected animated:animated];
-  NSMutableString * curentImageMutableString = self.currentImageName.mutableCopy;
-
-  if (selected)
-    [curentImageMutableString appendString:@"-on"];
-  else
-    [curentImageMutableString appendString:@"-off"];
-
-  [self.colorButton setImage:[UIImage imageNamed:curentImageMutableString] forState:UIControlStateNormal];
+  [self.colorButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@%@", self.currentImageName, selected ? @"-on" : @"-off"]] forState:UIControlStateNormal];
   self.approveImageView.hidden = !selected;
 }
 

@@ -80,7 +80,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="directionButtonTap:" destination="8RI-YR-2UD" eventType="touchUpInside" id="cAw-3M-BpH"/>
+                                <action selector="directionButtonTap" destination="8RI-YR-2UD" eventType="touchUpInside" id="dw3-kq-Pxp"/>
                             </connections>
                         </button>
                     </subviews>

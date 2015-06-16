@@ -31,7 +31,7 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self.ownerNavigationController setNavigationBarHidden:NO];
+  [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
   self.title = L(@"bookmark_color");
   [self.tableView registerNib:[UINib nibWithNibName:kBookmarkColorCellIdentifier bundle:nil] forCellReuseIdentifier:kBookmarkColorCellIdentifier];
 }
@@ -42,38 +42,32 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   [self configureTableViewForOrientation:self.interfaceOrientation];
   [self.tableView reloadData];
 
-  if (!self.ownerNavigationController)
+  if (!self.iPadOwnerNavigationController)
     return;
 
-  self.realPlacePageHeight = self.ownerNavigationController.view.height;
+  self.realPlacePageHeight = self.iPadOwnerNavigationController.view.height;
   CGFloat const bottomOffset = 88.;
-  self.ownerNavigationController.view.height = self.tableView.height + bottomOffset;
+  self.iPadOwnerNavigationController.view.height = self.tableView.height + bottomOffset;
   UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
   UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
-  [backButton addTarget:self action:@selector(backTap:) forControlEvents:UIControlEventTouchUpInside];
+  [backButton addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
   [backButton setImage:backImage forState:UIControlStateNormal];
   UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
   [self.navigationItem setLeftBarButtonItem:leftButton];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-  [super viewDidAppear:animated];
-}
-
-- (void)backTap:(id)sender
+- (void)backTap
 {
   [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)configureTableViewForOrientation:(UIInterfaceOrientation)orientation
 {
-  if (self.ownerNavigationController)
+  if (self.iPadOwnerNavigationController)
     return;
 
   CGFloat const defaultHeight = 352.;
-  CGSize size = self.navigationController.view.bounds.size;
-  CGFloat width, height;
+  CGSize const size = self.navigationController.view.bounds.size;
 
   switch (orientation)
   {
@@ -84,8 +78,8 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
     case UIInterfaceOrientationPortrait:
     {
       CGFloat const topOffset = 88.;
-      width = size.width < size.height ? size.width : size.height;
-      height = size.width > size.height ? size.width : size.height;
+      CGFloat const width = size.width < size.height ? size.width : size.height;
+      CGFloat const height = size.width > size.height ? size.width : size.height;
       CGFloat const externalHeight = self.navigationController.navigationBar.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
       CGFloat const actualHeight = defaultHeight > (height - externalHeight) ? height : defaultHeight;
       self.tableView.frame = CGRectMake(0., topOffset, width, actualHeight);
@@ -96,8 +90,8 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
     case UIInterfaceOrientationLandscapeRight:
     {
       CGFloat const navBarHeight = self.navigationController.navigationBar.height;
-      width = size.width > size.height ? size.width : size.height;
-      height = size.width < size.height ? size.width : size.height;
+      CGFloat const width = size.width > size.height ? size.width : size.height;
+      CGFloat const height = size.width < size.height ? size.width : size.height;
       CGFloat const currentHeight = height - navBarHeight;
       CGFloat const actualHeight = currentHeight > defaultHeight ? defaultHeight : currentHeight;
       self.tableView.frame = CGRectMake(0., navBarHeight, width, actualHeight);
@@ -121,12 +115,11 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   [super viewWillDisappear:animated];
   [self.placePageManager reloadBookmark];
 
-  if (!self.ownerNavigationController)
+  if (!self.iPadOwnerNavigationController)
     return;
 
-  self.ownerNavigationController.navigationBar.hidden = YES;
-  [self.ownerNavigationController setNavigationBarHidden:YES];
-  self.ownerNavigationController.view.height = self.realPlacePageHeight;
+  [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
+  self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
 }
 
 @end

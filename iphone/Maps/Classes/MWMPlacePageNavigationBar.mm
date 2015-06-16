@@ -15,18 +15,16 @@
 #import <objc/runtime.h>
 
 static NSString * const kPlacePageNavigationBarNibName = @"PlacePageNavigationBar";
-static int kNavigationBarKey;
+static CGFloat const kNavigationBarHeight = 64.;
 
-static CGFloat const kHeight = 64.;
-
-static CGPoint const openCenter(CGFloat xPosition)
+static inline CGPoint const openCenter(CGFloat xPosition)
 {
-  return CGPointMake(xPosition, kHeight / 2.);
+  return CGPointMake(xPosition, kNavigationBarHeight / 2.);
 }
 
-static CGPoint const dismissCenter(CGFloat xPosition)
+static inline CGPoint const dismissCenter(CGFloat xPosition)
 {
-  return CGPointMake(xPosition, - kHeight / 2.);
+  return CGPointMake(xPosition, - kNavigationBarHeight / 2.);
 }
 
 @interface MWMPlacePageNavigationBar ()
@@ -41,24 +39,23 @@ static CGPoint const dismissCenter(CGFloat xPosition)
 + (void)remove
 {
   UIScreen * screen = [UIScreen mainScreen];
-  MWMPlacePageNavigationBar * navBar = objc_getAssociatedObject(screen, &kNavigationBarKey);
+  MWMPlacePageNavigationBar * navBar = objc_getAssociatedObject(screen, @selector(navigationBarWithPlacePage:));
   if (!navBar)
     return;
 
   [navBar removeFromSuperview];
-  objc_setAssociatedObject(screen, &kNavigationBarKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  objc_setAssociatedObject(screen, @selector(navigationBarWithPlacePage:), nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 + (void)showNavigationBarForPlacePage:(MWMiPhonePortraitPlacePage *)placePage
 {
   UIView const * superview = placePage.manager.ownerViewController.view;
-
   UIScreen * screen = [UIScreen mainScreen];
-  MWMPlacePageNavigationBar * navBar = objc_getAssociatedObject(screen, &kNavigationBarKey);
+  MWMPlacePageNavigationBar * navBar = objc_getAssociatedObject(screen, @selector(navigationBarWithPlacePage:));
   if (!navBar)
   {
     navBar = [self navigationBarWithPlacePage:placePage];
-    objc_setAssociatedObject(screen, &kNavigationBarKey, navBar, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(screen, @selector(navigationBarWithPlacePage:), navBar, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [superview addSubview:navBar];
   }
 
@@ -71,8 +68,7 @@ static CGPoint const dismissCenter(CGFloat xPosition)
 + (void)dismissNavigationBar
 {
   UIScreen * screen = [UIScreen mainScreen];
-  MWMPlacePageNavigationBar * navBar = objc_getAssociatedObject(screen, &kNavigationBarKey);
-
+  MWMPlacePageNavigationBar * navBar = objc_getAssociatedObject(screen, @selector(navigationBarWithPlacePage:));
   if (!navBar)
     return;
 
@@ -118,9 +114,13 @@ static CGPoint const dismissCenter(CGFloat xPosition)
 - (void)layoutSubviews
 {
   if (self)
-    self.origin = CGPointMake(0., 0.);
+    self.origin = CGPointZero;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event { }
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+// Prevent super call to stop event propagation
+// [super touchesBegan:touches withEvent:event];
+}
 
 @end

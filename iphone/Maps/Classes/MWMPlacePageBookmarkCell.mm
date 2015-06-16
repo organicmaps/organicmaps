@@ -49,21 +49,24 @@ extern NSString * const kBookmarkCellWebViewDidFinishLoadContetnNotification = @
 {
   NSDictionary const * info = [aNotification userInfo];
   CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-  [self.placePage willStartEditingBookmarkTitle:kbSize.height];
+  if ([self.title isEditing])
+    [self.placePage willStartEditingBookmarkTitle:kbSize.height];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *)aNotification
 {
   NSDictionary const * info = [aNotification userInfo];
   CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-  [self.placePage willFinishEditingBookmarkTitle:kbSize.height];
+  if ([self.title isEditing])
+    [self.placePage willFinishEditingBookmarkTitle:kbSize.height];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
   MWMPlacePageEntity * entity = self.placePage.manager.entity;
-  entity.bookmarkTitle = textField.text;
+  entity.bookmarkTitle = textField.text.length > 0 ? textField.text : self.placePage.manager.entity.title;
   [entity synchronize];
+  [textField resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
@@ -82,17 +85,17 @@ extern NSString * const kBookmarkCellWebViewDidFinishLoadContetnNotification = @
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (IBAction)colorPickerButtonTap:(id)sender
+- (IBAction)colorPickerButtonTap
 {
   [self.placePage changeBookmarkColor];
 }
 
-- (IBAction)categoryButtonTap:(id)sender
+- (IBAction)categoryButtonTap
 {
   [self.placePage changeBookmarkCategory];
 }
 
-- (IBAction)editTap:(id)sender
+- (IBAction)editTap
 {
   [self.placePage changeBookmarkDescription];
 }

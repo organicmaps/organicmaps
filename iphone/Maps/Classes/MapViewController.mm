@@ -563,6 +563,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [super viewDidLoad];
   self.view.clipsToBounds = YES;
   [self.view addSubview:self.routeViewWrapper];
+  self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:self];
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   [self.view addSubview:self.searchView];
 }
@@ -606,11 +607,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     [self setNeedsStatusBarAppearanceUpdate];
   else
     [UIApplication sharedApplication].statusBarStyle = [self preferredStatusBarStyle];
-}
-
-- (BOOL)prefersStatusBarHidden
-{
-  return NO;
 }
 
 - (id)initWithCoder:(NSCoder *)coder
@@ -943,8 +939,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
   if (object == self.searchView && [keyPath isEqualToString:@"state"])
   {
-    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-      [self setNeedsStatusBarAppearanceUpdate];
+    [self updateStatusBarStyle];
     if (self.searchView.state == SearchViewStateFullscreen)
     {
       GetFramework().ActivateUserMark(NULL);
@@ -1112,13 +1107,6 @@ NSInteger compareAddress(id l, id r, void * context)
       break;
   }
   _userTouchesAction = userTouchesAction;
-}
-
-- (MWMPlacePageViewManager *)placePageManager
-{
-  if (!_placePageManager)
-    _placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:self];
-  return _placePageManager;
 }
 
 @end

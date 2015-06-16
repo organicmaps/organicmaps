@@ -9,8 +9,6 @@
 #import "MWMAnimator.h"
 #import <objc/runtime.h>
 
-static int kScreenAnimationKey;
-
 @interface MWMAnimator ()
 
 @property (nonatomic) CADisplayLink * displayLink;
@@ -25,13 +23,12 @@ static int kScreenAnimationKey;
   if (!screen)
     screen = [UIScreen mainScreen];
 
-  MWMAnimator * animator = objc_getAssociatedObject(screen, &kScreenAnimationKey);
+  MWMAnimator * animator = objc_getAssociatedObject(screen, _cmd);
   if (!animator)
   {
     animator = [[self alloc] initWithScreen:screen];
-    objc_setAssociatedObject(screen, &kScreenAnimationKey, animator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(screen, _cmd, animator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
   }
-
   return animator;
 }
 
@@ -50,7 +47,7 @@ static int kScreenAnimationKey;
 
 - (void)animationTick:(CADisplayLink *)displayLink
 {
-  CFTimeInterval dt = displayLink.duration;
+  CFTimeInterval const dt = displayLink.duration;
   for (id<Animation> a in self.animations.copy)
   {
     BOOL finished = NO;

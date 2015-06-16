@@ -59,7 +59,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)show
 {
-  [self doesNotRecognizeSelector:_cmd];
+  // Should override this method if you want to show place page with custom animation.
 }
 
 - (void)dismiss
@@ -101,21 +101,14 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.actionBar dismissActivityIndicatior];
 }
 
-- (void)setArrowAngle:(CGFloat)angle
+- (void)setDirectionArrowTransform:(CGAffineTransform)transform
 {
-  CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
-
-  self.basePlacePageView.directionArrow.transform = CGAffineTransformIdentity;
   self.basePlacePageView.directionArrow.transform = transform;
-
-  self.basePlacePageView.directionView.directionArrow.transform = CGAffineTransformIdentity;
-  self.basePlacePageView.directionView.directionArrow.transform = transform;
 }
 
 - (void)setDistance:(NSString *)distance
 {
   self.basePlacePageView.distanceLabel.text = distance;
-  self.basePlacePageView.directionView.distanceLabel.text = distance;
 }
 
 - (void)changeBookmarkCategory
@@ -143,16 +136,24 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.basePlacePageView reloadBookmarkCell];
 }
 
-- (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight { }
+- (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight
+{
+// This method should be empty if your target is iPad.
+}
 
-- (void)willFinishEditingBookmarkTitle:(CGFloat)keyboardHeight { }
+- (void)willFinishEditingBookmarkTitle:(CGFloat)keyboardHeight
+{
+// This method should be empty if your target is iPad.
+}
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender
 {
-  if ([sender.view isKindOfClass:[UIControl class]])
-    [(UIControl *)sender.view sendActionsForControlEvents:UIControlEventTouchUpInside];
+// This method should be ovverriden if you want to process custom tap.
 }
 
-- (IBAction)didPan:(UIPanGestureRecognizer *)sender { }
+- (IBAction)didPan:(UIPanGestureRecognizer *)sender
+{
+  // This method should be ovverriden if you want to process custom pan.
+}
 
 @end

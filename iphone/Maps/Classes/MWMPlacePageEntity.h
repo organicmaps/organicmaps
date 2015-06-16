@@ -12,6 +12,18 @@
 
 #include "map/user_mark.hpp"
 
+typedef NS_ENUM (NSUInteger, MWMPlacePageMetadataType)
+{
+  MWMPlacePageMetadataTypePostcode,
+  MWMPlacePageMetadataTypePhoneNumber,
+  MWMPlacePageMetadataTypeWebsite,
+  MWMPlacePageMetadataTypeURL,
+  MWMPlacePageMetadataTypeEmail,
+  MWMPlacePageMetadataTypeOpenHours,
+  MWMPlacePageMetadataTypeCoordinate,
+  MWMPlacePageMetadataTypeBookmark
+};
+
 typedef NS_ENUM (NSUInteger, MWMPlacePageEntityType)
 {
   MWMPlacePageEntityTypeRegular,
@@ -27,8 +39,6 @@ typedef NS_ENUM (NSUInteger, MWMPlacePageEntityType)
 
 @property (copy, nonatomic) NSString * title;
 @property (copy, nonatomic) NSString * category;
-@property (copy, nonatomic) NSDictionary * metadata;
-
 @property (copy, nonatomic) NSString * bookmarkTitle;
 @property (copy, nonatomic) NSString * bookmarkCategory;
 @property (copy, nonatomic) NSString * bookmarkDescription;
@@ -42,6 +52,11 @@ typedef NS_ENUM (NSUInteger, MWMPlacePageEntityType)
 @property (nonatomic) BookmarkAndCategory bac;
 @property (nonatomic) m2::PointD point;
 @property (weak, nonatomic) MWMPlacePageViewManager * manager;
+
+- (NSArray *)metadataTypes;
+- (NSArray *)metadataValues;
+- (void)insertBookmarkInTypes;
+- (void)removeBookmarkFromTypes;
 
 - (instancetype)initWithUserMark:(UserMark const *)mark;
 - (void)synchronize;

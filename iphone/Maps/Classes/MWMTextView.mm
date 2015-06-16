@@ -13,7 +13,7 @@ static CGFloat const kDefaultTextLeftInset = 5.;
 
 @interface MWMTextView ()
 
-@property (nonatomic) UILabel *placeholderView;
+@property (nonatomic) UILabel * placeholderView;
 
 @end
 
@@ -126,7 +126,8 @@ static CGFloat const kDefaultTextLeftInset = 5.;
 
 - (void)updatePlaceholderVisibility
 {
-  if (self.text.length == 0) {
+  if (!self.text.length)
+  {
     [self addSubview:self.placeholderView];
     [self sendSubviewToBack:self.placeholderView];
   }

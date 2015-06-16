@@ -157,7 +157,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     anchorImageName = [@"bg_placepage_tablet_normal_" stringByAppendingString:widthNumber.stringValue];
 
   self.anchorImageView.image = [UIImage imageNamed:anchorImageName];
-
 }
 
 #pragma mark - Actions
@@ -209,6 +208,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 
     case MWMiPhonePortraitPlacePageStateOpen:
       self.state = MWMiPhonePortraitPlacePageStatePreview;
+      [self.manager.ownerViewController.view endEditing:YES];
       break;
   }
   [self startAnimatingPlacePage:self initialVelocity:self.springAnimation.velocity];

@@ -20,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIView * separatorView;
 @property (weak, nonatomic) IBOutlet UIButton * directionButton;
 @property (nonatomic) UIView * typeDescriptionView;
-@property (nonatomic) MWMDirectionView * directionView;
 
 - (void)configureWithEntity:(MWMPlacePageEntity *)entity;
 - (void)addBookmark;

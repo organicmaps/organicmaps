@@ -28,7 +28,6 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
   view.ownerController = viewController;
   view.directionArrow.size = CGSizeMake(kDirectionArrowSide, kDirectionArrowSide);
   view.directionArrow.image = [UIImage imageNamed:IPAD ? @"direction_big" : @"direction_mini"];
-  [(MapsAppDelegate *)[UIApplication sharedApplication].delegate disableStandby];
   [view configure];
   return view;
 }
@@ -36,19 +35,23 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
 - (void)configure
 {
   NSString * const kFontName = @"HelveticaNeue";
-  UIFont * titleFont = IPAD ? [UIFont fontWithName:kFontName size:52.] : [UIFont fontWithName:kFontName size:32.];
-  UIFont * typeFont = IPAD ? [UIFont fontWithName:kFontName size:24.] : [UIFont fontWithName:kFontName size:16.];
+  self.titleLabel.font = self.distanceLabel.font = IPAD ? [UIFont fontWithName:kFontName size:52.] : [UIFont fontWithName:kFontName size:32.];
+  self.typeLabel.font = IPAD ? [UIFont fontWithName:kFontName size:24.] : [UIFont fontWithName:kFontName size:16.];
 
-  self.titleLabel.font = titleFont;
-  self.distanceLabel.font = titleFont;
-  self.typeLabel.font = typeFont;
-
-  UIViewAutoresizing mask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-  self.autoresizingMask = mask;
-  self.contentView.autoresizingMask = mask;
+  self.autoresizingMask = self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   self.directionArrow.autoresizingMask = UIViewAutoresizingNone;
   self.frame = self.ownerController.view.frame;
-  [[[[UIApplication sharedApplication] delegate] window] addSubview:self];
+  UIView * window = [UIApplication sharedApplication].delegate.window;
+  [self addToView:window];
+}
+
+- (void)addToView:(UIView *)view
+{
+  if ([view.subviews containsObject:self])
+    return;
+
+  [view addSubview:self];
+  [(MapsAppDelegate *)[UIApplication sharedApplication].delegate disableStandby];
 }
 
 - (void)layoutSubviews
@@ -64,14 +67,13 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
     {
       CGFloat const defaultWidth = size.width - 3. * minimumBorderOffset - kDirectionArrowSide;
       [self resizeLabelsWithWidth:defaultWidth];
-
       CGFloat const titleOffset = 8.;
       CGFloat const typeOffset = 24.;
       CGFloat const contentViewHeight = size.height - 2. * minimumBorderOffset;
       CGFloat const contentViewOffset = (size.width - self.titleLabel.width - minimumBorderOffset - self.directionArrow.width) / 2.;
       CGFloat const contentViewWidth = self.titleLabel.width + minimumBorderOffset + self.directionArrow.width;
       self.contentView.frame = CGRectMake(contentViewOffset, minimumBorderOffset, contentViewWidth, contentViewHeight);
-      self.directionArrow.center = CGPointMake(0., self.contentView.height / 2.);
+      self.directionArrow.center = CGPointMake(kDirectionArrowSide / 2., self.contentView.height / 2.);
       CGFloat const directionArrowOffsetX = self.directionArrow.maxX + minimumBorderOffset;
       CGFloat const actualLabelsBlockHeight = self.titleLabel.height + titleOffset + self.typeLabel.height + typeOffset + self.distanceLabel.height;
       CGFloat const labelsBlockTopOffset = (contentViewHeight - actualLabelsBlockHeight) / 2.;
@@ -88,7 +90,6 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
     {
       CGFloat const defaultWidth = size.width - 2. * minimumBorderOffset;
       [self resizeLabelsWithWidth:defaultWidth];
-
       CGFloat const titleOffset = IPAD ? 12. : 8.;
       CGFloat const arrowOffset = IPAD ? 80. : 40.;
       CGFloat const contentViewActualHeight = self.titleLabel.height + titleOffset + self.typeLabel.height + 2. * arrowOffset + kDirectionArrowSide + self.distanceLabel.height;
@@ -112,15 +113,18 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
 
 - (void)resizeLabelsWithWidth:(CGFloat)width
 {
-  self.titleLabel.width = width;
-  self.typeLabel.width = width;
-  self.distanceLabel.width = width;
+  self.titleLabel.width = self.typeLabel.width = self.distanceLabel.width = width;
   [self.titleLabel sizeToFit];
   [self.typeLabel sizeToFit];
   [self.distanceLabel sizeToFit];
 }
 
-- (IBAction)tap:(UITapGestureRecognizer *)sender
+- (void)setDirectionArrowTransform:(CGAffineTransform)transform
+{
+  self.directionArrow.transform = transform;
+}
+
+- (IBAction)tap
 {
   [self removeFromSuperview];
 }

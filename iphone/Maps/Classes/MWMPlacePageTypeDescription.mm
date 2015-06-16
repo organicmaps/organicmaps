@@ -9,9 +9,13 @@
 #import "MWMPlacePageTypeDescription.h"
 #import "UIKitCategories.h"
 
+static NSString * const kPlacePageDescriptionViewNibName = @"MWMPlacePageDescriptionView";
+
 @interface MWMPlacePageELEDescription : UIView
 
 @property (weak, nonatomic) IBOutlet UILabel * heightLabel;
+
+- (void)configureWithHeight:(NSUInteger)height;
 
 @end
 
@@ -21,27 +25,21 @@
 
 @end
 
-static NSString * const kPlacePageDescriptionViewNibName = @"MWMPlacePageDescriptionView";
-
 @implementation MWMPlacePageTypeDescription
 
-- (instancetype)initWithPlacePageEntity:(MWMPlacePageEntity const *)entity
+- (instancetype)initWithPlacePageEntity:(MWMPlacePageEntity *)entity
 {
   self = [super init];
   if (self)
   {
     [[NSBundle mainBundle] loadNibNamed:kPlacePageDescriptionViewNibName owner:self options:nil];
     if (entity.type == MWMPlacePageEntityTypeEle)
-      self.eleDescription.heightLabel.text = [NSString stringWithFormat:@"%@", @(entity.typeDescriptionValue)];
+      [self.eleDescription configureWithHeight:entity.typeDescriptionValue];
     else
       [self.hotelDescription configureWithStarsCount:entity.typeDescriptionValue];
   }
   return self;
 }
-
-@end
-
-@implementation MWMPlacePageELEDescription
 
 @end
 
@@ -59,3 +57,13 @@ static NSString * const kPlacePageDescriptionViewNibName = @"MWMPlacePageDescrip
 }
 
 @end
+
+@implementation MWMPlacePageELEDescription
+
+- (void)configureWithHeight:(NSUInteger)height
+{
+  self.heightLabel.text = [NSString stringWithFormat:@"%@", @(height)];
+}
+
+@end
+

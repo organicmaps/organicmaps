@@ -16,6 +16,6 @@
 @property (strong, nonatomic) IBOutlet MWMPlacePageELEDescription * eleDescription;
 @property (strong, nonatomic) IBOutlet MWMPlacePageHotelDescription * hotelDescription;
 
-- (instancetype)initWithPlacePageEntity:(MWMPlacePageEntity const *)entity;
+- (instancetype)initWithPlacePageEntity:(MWMPlacePageEntity *)entity;
 
 @end

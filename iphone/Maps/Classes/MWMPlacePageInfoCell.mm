@@ -21,16 +21,44 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
 @property (weak, nonatomic, readwrite) IBOutlet id textContainer;
 
 @property (weak, nonatomic) IBOutlet UIButton * upperButton;
-@property (copy, nonatomic) NSString * type;
+@property (nonatomic) MWMPlacePageMetadataType type;
 
 @end
 
 @implementation MWMPlacePageInfoCell
 
-- (void)configureWithIconTitle:(NSString *)title info:(NSString *)info
+- (void)configureWithType:(MWMPlacePageMetadataType)type info:(NSString *)info;
 {
-  self.type = title;
-  [self.imageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"ic_%@", title]]];
+  NSMutableString * imageName = [@"ic_" mutableCopy];
+  switch (type)
+  {
+    case MWMPlacePageMetadataTypeURL:
+    case MWMPlacePageMetadataTypeWebsite:
+      [imageName appendString:@"Website"];
+      break;
+    case MWMPlacePageMetadataTypeEmail:
+      [imageName appendString:@"Email"];
+      break;
+    case MWMPlacePageMetadataTypePhoneNumber:
+      [imageName appendString:@"PhoneNumber"];
+      break;
+    case MWMPlacePageMetadataTypeCoordinate:
+      [imageName appendString:@"Coordinate"];
+      break;
+    case MWMPlacePageMetadataTypePostcode:
+      [imageName appendString:@"Postcode"];
+      break;
+    case MWMPlacePageMetadataTypeOpenHours:
+      [imageName appendString:@"OpenHours"];
+      break;
+    case MWMPlacePageMetadataTypeBookmark:
+      NSAssert(false, @"Incorrect type!");
+      break;
+  }
+  
+  UIImage * image = [UIImage imageNamed:imageName];
+  self.type = type;
+  [self.imageView setImage:image];
 
   if ([self.textContainer isKindOfClass:[UITextView class]])
     [self.textContainer setAttributedText:[[NSAttributedString alloc] initWithString:info attributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:16.]}]];
@@ -38,7 +66,7 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
     [self.textContainer setText:info];
 
   UILongPressGestureRecognizer * longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
-  longTap.minimumPressDuration = 0.3f;
+  longTap.minimumPressDuration = 0.3;
   [self.upperButton addGestureRecognizer:longTap];
 }
 
@@ -47,19 +75,17 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
   return YES;
 }
 
-- (IBAction)cellTap:(id)sender
+- (IBAction)cellTap
 {
-  if ([self.type isEqualToString:@"Coordinate"])
-  {
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    BOOL const isLatLonAsDMA = [defaults boolForKey:kUserDefaultsLatLonAsDMSKey];
-    m2::PointD const point = self.currentEntity.point;
+  if (self.type != MWMPlacePageMetadataTypeCoordinate)
+    return;
 
-    isLatLonAsDMA ? [self.textContainer setText:[NSString stringWithUTF8String:MeasurementUtils::FormatLatLon(point.x, point.y).c_str()]] : [self.textContainer setText:[NSString stringWithUTF8String:MeasurementUtils::FormatLatLonAsDMS(point.x, point.y, 2).c_str()]];
-
-    [defaults setBool:!isLatLonAsDMA forKey:kUserDefaultsLatLonAsDMSKey];
-    [defaults synchronize];
-  }
+  NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+  BOOL const showLatLonAsDMS = [defaults boolForKey:kUserDefaultsLatLonAsDMSKey];
+  m2::PointD const point = self.currentEntity.point;
+  [self.textContainer setText:[NSString stringWithUTF8String:(showLatLonAsDMS ? MeasurementUtils::FormatLatLon(point.x, point.y).c_str() : MeasurementUtils::FormatLatLonAsDMS(point.x, point.y, 2).c_str())]];
+  [defaults setBool:!showLatLonAsDMS forKey:kUserDefaultsLatLonAsDMSKey];
+  [defaults synchronize];
 }
 
 - (void)longTap:(UILongPressGestureRecognizer *)sender
@@ -67,8 +93,7 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
   UIMenuController * menuController = [UIMenuController sharedMenuController];
   if (menuController.isMenuVisible)
     return;
-
-  CGPoint tapPoint = [sender locationInView:sender.view.superview];
+  CGPoint const tapPoint = [sender locationInView:sender.view.superview];
   UIView * targetView = [self.textContainer isKindOfClass:[UITextView class]] ? sender.view : self.textContainer;
   [menuController setTargetRect:CGRectMake(tapPoint.x, targetView.minY, 0., 0.) inView:sender.view.superview];
   [menuController setMenuVisible:YES animated:YES];

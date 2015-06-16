@@ -14,7 +14,6 @@
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageViewManager.h"
-#import "MWMDirectionView.h"
 #import "MWMPlacePageTypeDescription.h"
 #import <CoreLocation/CoreLocation.h>
 
@@ -51,8 +50,8 @@ extern CGFloat const kBookmarkCellHeight = 135.;
 
 - (void)configure
 {
-  MWMPlacePageEntity const * entity = self.entity;
-  MWMPlacePageEntityType type = entity.type;
+  MWMPlacePageEntity * entity = self.entity;
+  MWMPlacePageEntityType const type = entity.type;
   self.directionArrow.autoresizingMask = UIViewAutoresizingNone;
 
   if (type == MWMPlacePageEntityTypeBookmark)
@@ -80,80 +79,83 @@ extern CGFloat const kBookmarkCellHeight = 135.;
   [self layoutSubviews];
 }
 
-static CGFloat placePageWidth;
 static CGFloat const kPlacePageTitleKoefficient = 0.6375f;
-static CGFloat const leftOffset = 16.;
-static CGFloat const directionArrowSide = 32.;
-static CGFloat const offsetFromTitleToDistance = 12.;
-static CGFloat const offsetFromDistanceToArrow = 8.;
-static CGFloat const titleBottomOffset = 2.;
+static CGFloat const kLeftOffset = 16.;
+static CGFloat const kDirectionArrowSide = 32.;
+static CGFloat const kOffsetFromTitleToDistance = 12.;
+static CGFloat const kOffsetFromDistanceToArrow = 8.;
+static CGFloat const kTitleBottomOffset = 2.;
 
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  MWMPlacePageEntity const * entity = self.entity;
+  MWMPlacePageEntity * entity = self.entity;
   MWMPlacePageEntityType const type = entity.type;
   CGSize const size = [UIScreen mainScreen].bounds.size;
   CGFloat const maximumWidth = 360.;
-  placePageWidth = size.width > size.height ? (size.height > maximumWidth ? maximumWidth : size.height) : size.width;
+  CGFloat const placePageWidth = size.width > size.height ? (size.height > maximumWidth ? maximumWidth : size.height) : size.width;
   CGFloat const maximumTitleWidth = kPlacePageTitleKoefficient * placePageWidth;
-  CGFloat topOffset = (self.typeLabel.text.length > 0 || type == MWMPlacePageEntityTypeEle || type == MWMPlacePageEntityTypeHotel) ? 0 : 4.;
+  BOOL const isExtendedType = type == MWMPlacePageEntityTypeEle || type == MWMPlacePageEntityTypeHotel;
+  CGFloat const topOffset = (self.typeLabel.text.length > 0 || isExtendedType) ? 0 : 4.;
   CGFloat const typeBottomOffset = 10.;
   self.width = placePageWidth;
   self.titleLabel.width = maximumTitleWidth;
   [self.titleLabel sizeToFit];
   self.typeLabel.width = maximumTitleWidth;
   [self.typeLabel sizeToFit];
-  CGFloat const typeMinY = self.titleLabel.maxY + titleBottomOffset;
+  CGFloat const typeMinY = self.titleLabel.maxY + kTitleBottomOffset;
 
-  self.titleLabel.origin = CGPointMake(leftOffset, topOffset);
-  self.typeLabel.origin = CGPointMake(leftOffset, typeMinY);
+  self.titleLabel.origin = CGPointMake(kLeftOffset, topOffset);
+  self.typeLabel.origin = CGPointMake(kLeftOffset, typeMinY);
 
-  [self layoutDistanceLabel];
-  if (type == MWMPlacePageEntityTypeEle || type == MWMPlacePageEntityTypeHotel)
+  [self layoutDistanceLabelWithPlacePageWidth:placePageWidth];
+  if (isExtendedType)
     [self layoutTypeDescription];
 
   CGFloat const typeHeight = self.typeLabel.text.length > 0 ? self.typeLabel.height : self.typeDescriptionView.height;
   self.featureTable.minY = typeMinY + typeHeight + typeBottomOffset;
   self.separatorView.minY = self.featureTable.minY - 1;
   self.featureTable.height = self.featureTable.contentSize.height;
-  self.featureTable.contentOffset = CGPointZero;
-  self.height = typeBottomOffset + titleBottomOffset + typeHeight + self.titleLabel.height + self.typeLabel.height + self.featureTable.height;
+  self.height = typeBottomOffset + kTitleBottomOffset + typeHeight + self.titleLabel.height + self.typeLabel.height + self.featureTable.height;
 }
 
 - (void)layoutTypeDescription
 {
-  MWMPlacePageEntity const * entity = self.entity;
-  CGFloat const typeMinY = self.titleLabel.maxY + titleBottomOffset;
+  MWMPlacePageEntity * entity = self.entity;
+  CGFloat const typeMinY = self.titleLabel.maxY + kTitleBottomOffset;
   [self.typeDescriptionView removeFromSuperview];
   self.typeDescriptionView = nil;
   MWMPlacePageTypeDescription * typeDescription = [[MWMPlacePageTypeDescription alloc] initWithPlacePageEntity:entity];
   self.typeDescriptionView = entity.type == MWMPlacePageEntityTypeHotel ? (UIView *)typeDescription.hotelDescription : (UIView *)typeDescription.eleDescription;
   self.typeDescriptionView.autoresizingMask = UIViewAutoresizingNone;
   BOOL const typeLabelIsNotEmpty = self.typeLabel.text.length > 0;
-  CGFloat const minX = typeLabelIsNotEmpty ? self.typeLabel.minX + self.typeLabel.width + 2 *titleBottomOffset : leftOffset;
+  CGFloat const minX = typeLabelIsNotEmpty ? self.typeLabel.minX + self.typeLabel.width + 2 * kTitleBottomOffset : kLeftOffset;
   CGFloat const minY = typeLabelIsNotEmpty ? self.typeLabel.center.y - self.typeDescriptionView.height / 2. - 1.: typeMinY;
   [self addSubview:self.typeDescriptionView];
   self.typeDescriptionView.origin = CGPointMake(minX, minY);
 }
 
-- (void)layoutDistanceLabel
+- (void)layoutDistanceLabelWithPlacePageWidth:(CGFloat)placePageWidth
 {
   CGFloat const maximumTitleWidth = kPlacePageTitleKoefficient * placePageWidth;
-  CGFloat const distanceLabelWidthPositionLeft = placePageWidth - maximumTitleWidth - directionArrowSide - 2 * leftOffset - offsetFromDistanceToArrow - offsetFromTitleToDistance;
+  CGFloat const distanceLabelWidthPositionLeft = placePageWidth - maximumTitleWidth - kDirectionArrowSide - 2 * kLeftOffset - kOffsetFromDistanceToArrow - kOffsetFromTitleToDistance;
   self.distanceLabel.width = distanceLabelWidthPositionLeft;
   [self.distanceLabel sizeToFit];
   CGFloat const titleCenterY = self.titleLabel.center.y;
-  CGFloat const directionArrowMinX = placePageWidth - leftOffset - directionArrowSide;
-  CGFloat const distanceLabelMinX = directionArrowMinX - self.distanceLabel.width - offsetFromDistanceToArrow;
+  CGFloat const directionArrowMinX = placePageWidth - kLeftOffset - kDirectionArrowSide;
+  CGFloat const distanceLabelMinX = directionArrowMinX - self.distanceLabel.width - kOffsetFromDistanceToArrow;
   CGFloat const distanceLabelMinY = titleCenterY - self.distanceLabel.height / 2.;
-  CGFloat const directionArrowMinY = titleCenterY - directionArrowSide / 2.;
+  CGFloat const directionArrowMinY = titleCenterY - kDirectionArrowSide / 2.;
   self.distanceLabel.origin = CGPointMake(distanceLabelMinX, distanceLabelMinY);
-  self.directionArrow.center = CGPointMake(directionArrowMinX + directionArrowSide / 2., directionArrowMinY + directionArrowSide / 2.);
+  self.directionArrow.center = CGPointMake(directionArrowMinX + kDirectionArrowSide / 2., directionArrowMinY + kDirectionArrowSide / 2.);
   self.directionButton.origin = self.directionArrow.origin;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event { }
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+// Prevent super call to stop event propagation
+// [super touchesBegan:touches withEvent:event];
+}
 
 - (void)addBookmark
 {
@@ -161,50 +163,26 @@ static CGFloat const titleBottomOffset = 2.;
   self.typeDescriptionView = nil;
   self.typeLabel.text = self.entity.bookmarkCategory;
   [self.typeLabel sizeToFit];
-  NSUInteger const count = [self.entity.metadata[@"keys"] count];
-  [self.entity.metadata[@"keys"] insertObject:@"Bookmark" atIndex:count];
+  [self.entity insertBookmarkInTypes];
   [self configure];
 }
 
 - (void)removeBookmark
 {
-  [self.entity.metadata[@"keys"] removeObject:@"Bookmark"];
+  [self.entity removeBookmarkFromTypes];
   [self configure];
 }
 
 - (void)reloadBookmarkCell
 {
-  NSUInteger const count = [self.entity.metadata[@"keys"] count];
+  NSUInteger const count = self.entity.metadataTypes.count;
   NSIndexPath * index = [NSIndexPath indexPathForRow:count - 1 inSection:0];
   [self.featureTable reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (IBAction)directionButtonTap:(id)sender
+- (IBAction)directionButtonTap
 {
-  self.directionView = [MWMDirectionView directionViewForViewController:self.ownerPlacePage.manager.ownerViewController];
-  self.directionView.titleLabel.text = self.titleLabel.text;
-  self.directionView.typeLabel.text = self.typeLabel.text;
-  self.directionView.distanceLabel.text = self.distanceLabel.text;
-}
-
-- (MWMDirectionView *)directionView
-{
-  if (_directionView)
-    return _directionView;
-
-  UIView * window = [[[UIApplication sharedApplication] delegate] window];
-  __block MWMDirectionView * view = nil;
-
-  [window.subviews enumerateObjectsUsingBlock:^(id subview, NSUInteger idx, BOOL *stop)
-  {
-    if ([subview isKindOfClass:[MWMDirectionView class]])
-    {
-      view = subview;
-      *stop = YES;
-    }
-  }];
-
-  return view;
+  [self.ownerPlacePage.manager showDirectionViewWithTitle:self.titleLabel.text type:self.typeLabel.text];
 }
 
 @end
@@ -213,36 +191,36 @@ static CGFloat const titleBottomOffset = 2.;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString * const currentKey = self.entity.metadata[@"keys"][indexPath.row];
-
-  if ([currentKey isEqualToString:@"Bookmark"])
+  NSNumber * const currentType = self.entity.metadataTypes[indexPath.row];
+  if (currentType.integerValue == MWMPlacePageMetadataTypeBookmark)
     return kBookmarkCellHeight;
-  CGFloat const kDefaultCellHeight = 44.;
+
+  CGFloat const defaultCellHeight = 44.;
   CGFloat const defaultWidth = tableView.width;
   CGFloat const leftOffset = 40.;
   CGFloat const rightOffset = 22.;
   UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0., 0., defaultWidth - leftOffset - rightOffset, 10.)];
   label.numberOfLines = 0;
-  label.text = self.entity.metadata[@"values"][indexPath.row];
+  label.text = self.entity.metadataValues[indexPath.row];
   [label sizeToFit];
   CGFloat const defaultCellOffset = 26.;
-  return MAX(label.height + defaultCellOffset, kDefaultCellHeight);
+  return MAX(label.height + defaultCellOffset, defaultCellHeight);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return [self.entity.metadata[@"keys"] count];
+  return self.entity.metadataTypes.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString * const currentKey = self.entity.metadata[@"keys"][indexPath.row];
-
-  if ([currentKey isEqualToString:@"Bookmark"])
+  MWMPlacePageMetadataType currentType = (MWMPlacePageMetadataType)[self.entity.metadataTypes[indexPath.row] integerValue];
+  
+  if (currentType == MWMPlacePageMetadataTypeBookmark)
   {
     MWMPlacePageBookmarkCell * cell = (MWMPlacePageBookmarkCell *)[tableView dequeueReusableCellWithIdentifier:kPlacePageBookmarkCellIdentifier];
 
-    if (cell == nil)
+    if (!cell)
       cell = [[MWMPlacePageBookmarkCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kPlacePageBookmarkCellIdentifier];
 
     cell.ownerTableView = tableView;
@@ -251,15 +229,16 @@ static CGFloat const titleBottomOffset = 2.;
     return cell;
   }
 
-  NSString * const kCellIdentifier = ([currentKey isEqualToString:@"PhoneNumber"] ||[currentKey isEqualToString:@"Email"] || [currentKey isEqualToString:@"Website"]) ? kPlacePageLinkCellIdentifier : kPlacePageInfoCellIdentifier;
+  BOOL const isLinkTypeCell = (currentType == MWMPlacePageMetadataTypePhoneNumber || currentType == MWMPlacePageMetadataTypeEmail || currentType == MWMPlacePageMetadataTypeWebsite || currentType == MWMPlacePageMetadataTypeURL);
+  NSString * const cellIdentifier =  isLinkTypeCell ? kPlacePageLinkCellIdentifier : kPlacePageInfoCellIdentifier;
 
-  MWMPlacePageInfoCell * cell = (MWMPlacePageInfoCell *)[tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+  MWMPlacePageInfoCell * cell = (MWMPlacePageInfoCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
-  if (cell == nil)
-    cell = [[MWMPlacePageInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellIdentifier];
+  if (!cell)
+    cell = [[MWMPlacePageInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
 
   cell.currentEntity = self.entity;
-  [cell configureWithIconTitle:currentKey info:self.entity.metadata[@"values"][indexPath.row]];
+  [cell configureWithType:currentType info:self.entity.metadataValues[indexPath.row]];
   return cell;
 }
 

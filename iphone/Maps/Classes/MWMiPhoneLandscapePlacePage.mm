@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   if ([view.subviews containsObject:self.extendedPlacePageView] && self.state != MWMiPhoneLandscapePlacePageStateClosed)
     return;
   
-  self.extendedPlacePageView.frame = CGRectMake(0., 0, offset, height);
+  self.extendedPlacePageView.frame = CGRectMake(0., 0., offset, height);
   
   self.anchorImageView.backgroundColor = [UIColor whiteColor];
   self.anchorImageView.image = nil;
@@ -62,12 +62,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)show
 {
   self.state = MWMiPhoneLandscapePlacePageStateOpen;
-}
-
-- (void)addBookmark
-{
-  [super addBookmark];
-
 }
 
 - (void)setState:(MWMiPhoneLandscapePlacePageState)state
@@ -109,7 +103,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   if (sender.state == UIGestureRecognizerStateEnded)
   {
     CGPoint velocity = [sender velocityInView:self.extendedPlacePageView.superview];
-    velocity.y = 20.;
+    velocity.y = 5.;
     self.state = velocity.x < 0. ? MWMiPhoneLandscapePlacePageStateClosed : MWMiPhoneLandscapePlacePageStateOpen;
     [self startAnimatingPlacePage:self initialVelocity:velocity];
     if (self.state == MWMiPhoneLandscapePlacePageStateClosed)

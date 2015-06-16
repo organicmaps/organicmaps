@@ -18,7 +18,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="shareTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="MEA-aQ-UTU"/>
+                        <action selector="shareTap" destination="iN0-l3-epB" eventType="touchUpInside" id="PGT-Ie-Gmr"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="66j-hn-azO">
@@ -27,7 +27,7 @@
                     <state key="normal" title="" image="ic_bookmark_off"/>
                     <state key="selected" image="ic_bookmark_on"/>
                     <connections>
-                        <action selector="bookmarkTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="9DU-IP-Xms"/>
+                        <action selector="bookmarkTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="sTn-J9-JAv"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Hy-ie-rSK">
@@ -72,7 +72,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="routeTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="MNc-Va-OZm"/>
+                        <action selector="routeTap" destination="iN0-l3-epB" eventType="touchUpInside" id="mAp-BH-2qW"/>
                     </connections>
                 </button>
             </subviews>

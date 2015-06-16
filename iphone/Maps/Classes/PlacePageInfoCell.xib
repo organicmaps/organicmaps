@@ -39,7 +39,7 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
-                            <action selector="cellTap:" destination="VAd-kw-ZEC" eventType="touchUpInside" id="ztB-CS-FOm"/>
+                            <action selector="cellTap" destination="VAd-kw-ZEC" eventType="touchUpInside" id="eLw-l7-FXA"/>
                         </connections>
                     </button>
                 </subviews>

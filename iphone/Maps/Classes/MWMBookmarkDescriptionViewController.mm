@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   BookmarkDescriptionStateEditHTML
 };
 
-@interface MWMBookmarkDescriptionViewController ()
+@interface MWMBookmarkDescriptionViewController () <UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView * textView;
 @property (weak, nonatomic) IBOutlet UIWebView * webView;
@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self.ownerNavigationController setNavigationBarHidden:NO];
+  [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
   self.navigationItem.title = L(@"description");
   MWMPlacePageEntity const * entity = self.manager.entity;
 
@@ -62,23 +62,22 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  if (!self.ownerNavigationController)
+  if (!self.iPadOwnerNavigationController)
     return;
 
-  self.realPlacePageHeight = self.ownerNavigationController.view.height;
+  self.realPlacePageHeight = self.iPadOwnerNavigationController.view.height;
   CGFloat const bottomOffset = 88.;
-  self.ownerNavigationController.view.height = self.textView.height + bottomOffset;
+  self.iPadOwnerNavigationController.view.height = self.textView.height + bottomOffset;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
-  if (!self.ownerNavigationController)
-  return;
+  if (!self.iPadOwnerNavigationController)
+    return;
 
-  self.ownerNavigationController.navigationBar.hidden = YES;
-  [self.ownerNavigationController setNavigationBarHidden:YES];
-  self.ownerNavigationController.view.height = self.realPlacePageHeight;
+  [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
+  self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
 }
 
 - (void)setState:(BookmarkDescriptionState)state
@@ -89,16 +88,11 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   {
     case BookmarkDescriptionStateEditText:
     case BookmarkDescriptionStateEditHTML:
-
       [self setupForEditingWithText:description];
-      [self configureNavigationBarForEditing];
-
       break;
 
     case BookmarkDescriptionStateViewHTML:
-
       [self setupForViewWithText:description];
-      [self configureNavigationBarForView];
       break;
   }
   _state = state;
@@ -115,6 +109,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   {
     self.textView.text = text;
   }];
+  [self configureNavigationBarForEditing];
 }
 
 - (void)setupForViewWithText:(NSString *)text
@@ -128,19 +123,20 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   {
     [self.webView loadHTMLString:text baseURL:nil];
   }];
+  [self configureNavigationBarForView];
 }
 
 - (void)configureNavigationBarForEditing
 {
-  self.leftButton = [[UIBarButtonItem alloc] initWithTitle:L(@"cancel") style:UIBarButtonItemStylePlain target:self action:@selector(cancelTap:)];
-  self.rightButton = [[UIBarButtonItem alloc] initWithTitle:L(@"done") style:UIBarButtonItemStylePlain target:self action:@selector(doneTap:)];
+  self.leftButton = [[UIBarButtonItem alloc] initWithTitle:L(@"cancel") style:UIBarButtonItemStylePlain target:self action:@selector(cancelTap)];
+  self.rightButton = [[UIBarButtonItem alloc] initWithTitle:L(@"done") style:UIBarButtonItemStylePlain target:self action:@selector(doneTap)];
   [self setupButtons];
 }
 
 - (void)configureNavigationBarForView
 {
-  self.leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavigationBarBackButton"] style:UIBarButtonItemStylePlain target:self action:@selector(backTap:)];
-  self.rightButton = [[UIBarButtonItem alloc] initWithTitle:L(@"edit") style:UIBarButtonItemStylePlain target:self action:@selector(editTap:)];
+  self.leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavigationBarBackButton"] style:UIBarButtonItemStylePlain target:self action:@selector(backTap)];
+  self.rightButton = [[UIBarButtonItem alloc] initWithTitle:L(@"edit") style:UIBarButtonItemStylePlain target:self action:@selector(editTap)];
   [self setupButtons];
 }
 
@@ -150,7 +146,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   [self.navigationItem setRightBarButtonItem:self.rightButton];
 }
 
-- (void)cancelTap:(id)sender
+- (void)cancelTap
 {
   if (self.manager.entity.isHTMLDescription)
     self.state = BookmarkDescriptionStateViewHTML;
@@ -158,7 +154,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)doneTap:(id)sender
+- (void)doneTap
 {
   MWMPlacePageEntity * entity = self.manager.entity;
   entity.bookmarkDescription = self.textView.text;
@@ -171,14 +167,24 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)backTap:(id)sender
+- (void)backTap
 {
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)editTap:(id)sender
+- (void)editTap
 {
   self.state = BookmarkDescriptionStateEditHTML;
+}
+
+- (BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
+{
+  if (inType == UIWebViewNavigationTypeLinkClicked)
+  {
+    [[UIApplication sharedApplication] openURL:[inRequest URL]];
+    return NO;
+  }
+  return YES;
 }
 
 @end

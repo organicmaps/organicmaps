@@ -34,6 +34,9 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="kcw-1c-sOr"/>
+                    </connections>
                 </webView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

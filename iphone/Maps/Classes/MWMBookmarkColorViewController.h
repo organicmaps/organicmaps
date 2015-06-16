@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
 
 @class MWMPlacePageViewManager;
 
-@interface MWMBookmarkColorViewController : UIViewController
+@interface MWMBookmarkColorViewController : ViewController
 
 @property (weak, nonatomic) MWMPlacePageViewManager * placePageManager;
-@property (weak, nonatomic) UINavigationController * ownerNavigationController;
+@property (weak, nonatomic) UINavigationController * iPadOwnerNavigationController;
 
 @end

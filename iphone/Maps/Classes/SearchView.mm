@@ -116,7 +116,7 @@ typedef NS_ENUM(NSUInteger, CellType)
 @interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver>
 
 @property (nonatomic) UITableView * tableView;
-@property (nonatomic) SolidTouchImageView * topBackgroundView;
+@property (nonatomic) SolidTouchView * topBackgroundView;
 @property (nonatomic) UILabel * emptyResultLabel;
 
 @property (nonatomic) SearchResultsWrapper * wrapper;
@@ -752,15 +752,12 @@ static BOOL keyboardLoaded = NO;
   return _tableView;
 }
 
-- (SolidTouchImageView *)topBackgroundView
+- (SolidTouchView *)topBackgroundView
 {
   if (!_topBackgroundView)
   {
-    _topBackgroundView = [[SolidTouchImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0)];
-    if ([UIImage instancesRespondToSelector:@selector(resizableImageWithCapInsets:resizingMode:)]) // iOS 6 and higher
-      _topBackgroundView.image = [[UIImage imageNamed:@"SearchViewTopBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0) resizingMode:UIImageResizingModeStretch];
-    else // iOS 5 
-      _topBackgroundView.image = [[UIImage imageNamed:@"SearchViewTopBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0)];
+    _topBackgroundView = [[SolidTouchView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0)];
+    _topBackgroundView.backgroundColor = [UIColor colorWithColorCode:@"1F9952"];
     _topBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _topBackgroundView.userInteractionEnabled = YES;
   }

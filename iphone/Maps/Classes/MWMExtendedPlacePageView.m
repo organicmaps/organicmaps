@@ -15,7 +15,6 @@
   self = [super initWithCoder:aDecoder];
   if (self)
     self.autoresizingMask = UIViewAutoresizingNone;
-
   return self;
 }
 

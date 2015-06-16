@@ -40,7 +40,7 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
-                            <action selector="categoryButtonTap:" destination="riP-j7-sc5" eventType="touchUpInside" id="x6i-Vq-hMR"/>
+                            <action selector="categoryButtonTap" destination="riP-j7-sc5" eventType="touchUpInside" id="MSi-Yf-pko"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rer-vk-fBj">
@@ -53,7 +53,7 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
-                            <action selector="editTap:" destination="riP-j7-sc5" eventType="touchUpInside" id="IPm-fW-P5Z"/>
+                            <action selector="editTap" destination="riP-j7-sc5" eventType="touchUpInside" id="anV-lp-0Gq"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="07N-gj-Msx">
@@ -63,7 +63,7 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
-                            <action selector="colorPickerButtonTap:" destination="riP-j7-sc5" eventType="touchUpInside" id="02I-jl-a67"/>
+                            <action selector="colorPickerButtonTap" destination="riP-j7-sc5" eventType="touchUpInside" id="DlV-JE-4MA"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dpw-Z7-JkD">

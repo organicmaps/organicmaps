@@ -16,11 +16,13 @@
 #import "UIViewController+Navigation.h"
 #import "MWMBookmarkDescriptionViewController.h"
 
-@interface MWMNavigationController : UINavigationController
+extern CGFloat kBookmarkCellHeight;
+
+@interface MWMiPadNavigationController : UINavigationController
 
 @end
 
-@implementation MWMNavigationController
+@implementation MWMiPadNavigationController
 
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController
 {
@@ -40,11 +42,11 @@
 
 @end
 
-@interface MWMPlacePageViewController : UIViewController
+@interface MWMiPadPlacePageViewController : UIViewController
 
 @end
 
-@implementation MWMPlacePageViewController
+@implementation MWMiPadPlacePageViewController
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -55,12 +57,10 @@
 
 @end
 
-extern CGFloat kBookmarkCellHeight;
-
 @interface MWMiPadPlacePage ()
 
-@property (strong, nonatomic) MWMNavigationController * navigationController;
-@property (strong, nonatomic) MWMPlacePageViewController * viewController;
+@property (strong, nonatomic) MWMiPadNavigationController * navigationController;
+@property (strong, nonatomic) MWMiPadPlacePageViewController * viewController;
 
 @end
 
@@ -69,38 +69,33 @@ extern CGFloat kBookmarkCellHeight;
 - (void)configure
 {
   [super configure];
-  UIView const * view = self.manager.ownerViewController.view;
-
-  self.viewController = [[MWMPlacePageViewController alloc] init];
+  self.viewController = [[MWMiPadPlacePageViewController alloc] init];
   [self.navigationController.view removeFromSuperview];
   [self.navigationController removeFromParentViewController];
-  self.navigationController = [[MWMNavigationController alloc] initWithRootViewController:self.viewController];
+  self.navigationController = [[MWMiPadNavigationController alloc] initWithRootViewController:self.viewController];
 
-
+  UIView const * view = self.manager.ownerViewController.view;
   CGFloat const topOffset = 36.;
   CGFloat const leftOffset = 12.;
   CGFloat const defaultWidth = 360.;
+  CGFloat const actionBarHeight = 58.;
+  CGFloat const defaultHeight = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight;
 
-  CGFloat const kActionBarHeight = 58.;
-
-  CGFloat const defaultHeight = self.basePlacePageView.height + self.anchorImageView.height + kActionBarHeight;
   [self.manager.ownerViewController addChildViewController:self.navigationController];
-
+  
   self.navigationController.view.frame = CGRectMake(leftOffset, topOffset, defaultWidth, defaultHeight);
   self.viewController.view.frame = CGRectMake(leftOffset, topOffset, defaultWidth, defaultHeight);
-
+  
   self.extendedPlacePageView.frame = CGRectMake(0., 0., defaultWidth, defaultHeight - 1);
   self.anchorImageView.image = nil;
   self.anchorImageView.backgroundColor = [UIColor whiteColor];
-
+  
   self.actionBar.width = defaultWidth;
-  self.actionBar.origin = CGPointMake(0., defaultHeight - kActionBarHeight - 1);
+  self.actionBar.origin = CGPointMake(0., defaultHeight - actionBarHeight - 1);
   [self.viewController.view addSubview:self.extendedPlacePageView];
   [self.viewController.view addSubview:self.actionBar];
   [view addSubview:self.navigationController.view];
 }
-
-- (void)show { }
 
 - (void)dismiss
 {
@@ -130,7 +125,7 @@ extern CGFloat kBookmarkCellHeight;
 - (void)changeBookmarkColor
 {
   MWMBookmarkColorViewController * controller = [[MWMBookmarkColorViewController alloc] initWithNibName:[MWMBookmarkColorViewController className] bundle:nil];
-  controller.ownerNavigationController = self.navigationController;
+  controller.iPadOwnerNavigationController = self.navigationController;
   controller.placePageManager = self.manager;
   controller.view.frame = self.viewController.view.frame;
   [self.viewController.navigationController pushViewController:controller animated:YES];
@@ -139,7 +134,7 @@ extern CGFloat kBookmarkCellHeight;
 - (void)changeBookmarkCategory
 {
   SelectSetVC * controller = [[SelectSetVC alloc] initWithPlacePageManager:self.manager];
-  controller.ownerNavigationController = self.navigationController;
+  controller.iPadOwnerNavigationController = self.navigationController;
   controller.view.frame = self.viewController.view.frame;
   [self.viewController.navigationController pushViewController:controller animated:YES];
 }
@@ -147,7 +142,7 @@ extern CGFloat kBookmarkCellHeight;
 - (void)changeBookmarkDescription
 {
   MWMBookmarkDescriptionViewController * controller = [[MWMBookmarkDescriptionViewController alloc] initWithPlacePageManager:self.manager];
-  controller.ownerNavigationController = self.navigationController;
+  controller.iPadOwnerNavigationController = self.navigationController;
   [self.viewController.navigationController pushViewController:controller animated:YES];
 }
 

@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet MWMBasePlacePageView * basePlacePageView;
 @property (weak, nonatomic) IBOutlet UIView * extendedPlacePageView;
-@property (weak, nonatomic) IBOutlet UIImageView *anchorImageView;
+@property (weak, nonatomic) IBOutlet UIImageView * anchorImageView;
 @property (weak, nonatomic, readonly) MWMPlacePageViewManager * manager;
 @property (nonatomic) MWMPlacePageActionBar * actionBar;
 
@@ -38,7 +38,7 @@
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender;
 
-- (void)setArrowAngle:(CGFloat)angle;
+- (void)setDirectionArrowTransform:(CGAffineTransform)transform;
 - (void)setDistance:(NSString *)distance;
 
 - (instancetype)init __attribute__((unavailable("init is unavailable, call initWithManager: instead")));

@@ -8,6 +8,6 @@
 
 - (instancetype)initWithPlacePageManager:(MWMPlacePageViewManager *)manager;
 
-@property (weak, nonatomic) UINavigationController * ownerNavigationController;
+@property (weak, nonatomic) UINavigationController * iPadOwnerNavigationController;
 
 @end

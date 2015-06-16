@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIView * contentView;
 
 + (MWMDirectionView *)directionViewForViewController:(UIViewController *)viewController;
+- (void)setDirectionArrowTransform:(CGAffineTransform)transform;
 
 @end

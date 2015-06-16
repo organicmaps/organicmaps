@@ -24,7 +24,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   self = [super initWithNibName:kAlertControllerNibIdentifier bundle:nil];
   if (self)
     self.ownerViewController = viewController;
-
   return self;
 }
 

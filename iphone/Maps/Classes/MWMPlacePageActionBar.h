@@ -12,8 +12,8 @@
 
 @interface MWMPlacePageActionBar : UIView
 
-@property (weak, nonatomic, readonly) IBOutlet UIButton * bookmarkButton;
-@property (weak, nonatomic, readonly) IBOutlet UIButton * routeButton;
+@property (weak, nonatomic) IBOutlet UIButton * bookmarkButton;
+@property (weak, nonatomic) IBOutlet UIButton * routeButton;
 
 + (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage;
 - (void)configureForMyPosition:(BOOL)isMyPosition;

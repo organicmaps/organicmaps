@@ -24,8 +24,6 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 @property (weak, nonatomic) MWMPlacePage * placePage;
 
-@property (weak, nonatomic, readwrite) IBOutlet UIButton * routeButton;
-@property (weak, nonatomic, readwrite) IBOutlet UIButton * bookmarkButton;
 @property (weak, nonatomic) IBOutlet UIButton * shareButton;
 @property (weak, nonatomic) IBOutlet UILabel * routeLabel;
 @property (weak, nonatomic) IBOutlet UILabel * bookmarkLabel;
@@ -99,12 +97,12 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   self.bookmarkLabel.center = CGPointMake(self.bookmarkButton.center.x, self.bookmarkLabel.center.y);
 }
 
-- (IBAction)shareTap:(id)sender
+- (IBAction)shareTap
 {
   [self.placePage share];
 }
 
-- (IBAction)routeTap:(id)sender
+- (IBAction)routeTap
 {
   [self.placePage route];
   [self startActivityIndicator];
@@ -126,6 +124,10 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   self.indicatior = nil;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event { }
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+// Prevent super call to stop event propagation
+// [super touchesBegan:touches withEvent:event];
+}
 
 @end

@@ -20,6 +20,8 @@
 #import "MWMPlacePageViewManager.h"
 #import "ShareActionSheet.h"
 #import "UIKitCategories.h"
+#import "MWMDirectionView.h"
+#import "MWMPlacePageNavigationBar.h"
 
 #include "Framework.h"
 
@@ -31,7 +33,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 @interface MWMPlacePageViewManager () <LocationObserver>
 {
-  shared_ptr<UserMark const *> m_userMark;
+  unique_ptr<UserMarkCopy> m_userMark;
 }
 
 @property (weak, nonatomic) UIViewController<MWMPlacePageViewDragDelegate> * ownerViewController;
@@ -39,6 +41,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 @property (nonatomic) MWMPlacePage * placePage;
 @property (nonatomic) MWMPlacePageManagerState state;
 @property (nonatomic) ShareActionSheet * actionSheet;
+@property (nonatomic) MWMDirectionView * directionView;
 
 @end
 
@@ -60,18 +63,17 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   self.state = MWMPlacePageManagerStateClosed;
   [self.placePage dismiss];
   GetFramework().GetBalloonManager().RemovePin();
+  m_userMark = nullptr;
   self.entity = nil;
 }
 
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
 {
-  if (userMark != nullptr)
-    m_userMark = make_shared<UserMark const *>(userMark->GetUserMark());
-
+  NSAssert(userMark, @"userMark cannot be nil");
+  m_userMark = std::move(userMark);
   [[MapsAppDelegate theApp].m_locationManager start:self];
-  self.entity = [[MWMPlacePageEntity alloc] initWithUserMark:*m_userMark];
+  self.entity = [[MWMPlacePageEntity alloc] initWithUserMark:m_userMark->GetUserMark()];
   self.state = MWMPlacePageManagerStateOpen;
-  
   if (IPAD)
     [self presentPlacePageForiPad];
   else
@@ -87,7 +89,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [self presentPlacePageForiPhoneWithOrientation:orientation];
 }
 
-- (void)presentPlacePageForiPad {
+- (void)presentPlacePageForiPad
+{
   [self.placePage dismiss];
   self.placePage = [[MWMiPadPlacePage alloc] initWithManager:self];
   [self.placePage configure];
@@ -103,35 +106,30 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   {
     case UIInterfaceOrientationLandscapeLeft:
     case UIInterfaceOrientationLandscapeRight:
-      
       if (![self.placePage isKindOfClass:[MWMiPhoneLandscapePlacePage class]])
         self.placePage = [[MWMiPhoneLandscapePlacePage alloc] initWithManager:self];
 
       [self.placePage configure];
       [self.placePage show];
-
       break;
       
     case UIInterfaceOrientationPortrait:
     case UIInterfaceOrientationPortraitUpsideDown:
-      
       if (![self.placePage isKindOfClass:[MWMiPhonePortraitPlacePage class]])
         self.placePage = [[MWMiPhonePortraitPlacePage alloc] initWithManager:self];
 
       [self.placePage configure];
       [self.placePage show];
-
       break;
       
     case UIInterfaceOrientationUnknown:
-      
       break;
   }
 }
 
 - (void)buildRoute
 {
-  GetFramework().BuildRoute((*m_userMark)->GetOrg());
+  GetFramework().BuildRoute(m_userMark->GetUserMark()->GetOrg());
 }
 
 - (void)stopBuildingRoute
@@ -153,25 +151,28 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   Framework & f = GetFramework();
   BookmarkData data = BookmarkData(self.entity.title.UTF8String, f.LastEditedBMType());
   size_t const categoryIndex = f.LastEditedBMCategory();
-  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, (*m_userMark)->GetOrg(), data);
+  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, m_userMark->GetUserMark()->GetOrg(), data);
   self.entity.bac = make_pair(categoryIndex, bookmarkIndex);
   self.entity.type = MWMPlacePageEntityTypeBookmark;
   BookmarkCategory const * category = f.GetBmCategory(categoryIndex);
-  m_userMark = make_shared<UserMark const *>(category->GetBookmark(bookmarkIndex));
-  f.ActivateUserMark(*m_userMark);
+  Bookmark const * bookmark = category->GetBookmark(bookmarkIndex);
+  unique_ptr<UserMarkCopy> userMarkCopy(new UserMarkCopy(bookmark, false));
+  m_userMark = std::move(userMarkCopy);
+  f.ActivateUserMark(bookmark);
   f.Invalidate();
 }
 
 - (void)removeBookmark
 {
   Framework & f = GetFramework();
-  UserMark const * mark = *m_userMark;
+  UserMark const * mark = m_userMark->GetUserMark();
   BookmarkAndCategory bookmarkAndCategory = f.FindBookmark(mark);
   self.entity.type = MWMPlacePageEntityTypeRegular;
   BookmarkCategory * category = f.GetBmCategory(bookmarkAndCategory.first);
-  PoiMarkPoint const * m = f.GetAddressMark(mark->GetOrg());
-  m_userMark = make_shared<UserMark const *>(m);
-  f.ActivateUserMark(*m_userMark);
+  PoiMarkPoint const * poi = f.GetAddressMark(mark->GetOrg());
+  unique_ptr<UserMarkCopy> userMarkCopy(new UserMarkCopy(poi, false));
+  m_userMark = std::move(userMarkCopy);
+  f.ActivateUserMark(poi);
   if (category)
   {
     category->DeleteBookmark(bookmarkAndCategory.second);
@@ -203,45 +204,47 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  if (m_userMark == nullptr)
+  if (!m_userMark)
     return;
-  
-  [self.placePage setDistance:self.distance];
+  NSString * distance = [self distance];
+  self.directionView.distanceLabel.text = distance;
+  [self.placePage setDistance:distance];
 }
 - (NSString *)distance
 {
   CLLocation const * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
-
   if (!location)
     return @"";
 
-  double const userLatitude = location.coordinate.latitude;
-  double const userLongitude = location.coordinate.longitude;
   double azimut = -1;
   double north = -1;
-
   [[MapsAppDelegate theApp].m_locationManager getNorthRad:north];
-
   string distance;
-  GetFramework().GetDistanceAndAzimut((*m_userMark)->GetOrg(), userLatitude, userLongitude, north, distance, azimut);
+  GetFramework().GetDistanceAndAzimut(m_userMark->GetUserMark()->GetOrg(), location.coordinate.latitude, location.coordinate.longitude, north, distance, azimut);
   return [NSString stringWithUTF8String:distance.c_str()];
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
-  if (m_userMark == nullptr)
+  if (!m_userMark)
     return;
 
   double lat, lon;
 
-  if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
-    [self.placePage setArrowAngle:ang::AngleTo(MercatorBounds::FromLatLon(lat, lon), (*m_userMark)->GetOrg()) + info.m_bearing];
-
+  if (![[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
+    return;
+  
+  CGFloat angle = ang::AngleTo(MercatorBounds::FromLatLon(lat, lon), m_userMark->GetUserMark()->GetOrg()) + info.m_bearing;
+  CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
+  [self.placePage setDirectionArrowTransform:transform];
+  [self.directionView setDirectionArrowTransform:transform];
 }
 
-- (void)dealloc
+- (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  self.directionView = [MWMDirectionView directionViewForViewController:self.ownerViewController];
+  self.directionView.titleLabel.text = title;
+  self.directionView.typeLabel.text = type;
 }
 
 @end

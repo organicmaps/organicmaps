@@ -29,28 +29,28 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self.ownerNavigationController setNavigationBarHidden:NO];
+  [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  if (!self.ownerNavigationController)
+  if (!self.iPadOwnerNavigationController)
     return;
-  self.realPlacePageHeight = self.ownerNavigationController.view.height;
+  self.realPlacePageHeight = self.iPadOwnerNavigationController.view.height;
   CGFloat const bottomOffset = 88.;
-  self.ownerNavigationController.view.height = self.tableView.height + bottomOffset;
+  self.iPadOwnerNavigationController.view.height = self.tableView.height + bottomOffset;
   UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
   UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
-  [backButton addTarget:self action:@selector(backTap:) forControlEvents:UIControlEventTouchUpInside];
+  [backButton addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
   [backButton setImage:backImage forState:UIControlStateNormal];
   UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
   [self.navigationItem setLeftBarButtonItem:leftButton];
 }
 
-- (void)backTap:(id)sender
+- (void)backTap
 {
-  [self.ownerNavigationController popViewControllerAnimated:YES];
+  [self.iPadOwnerNavigationController popViewControllerAnimated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -90,7 +90,7 @@
     if (cat)
       cell.textLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
 
-    BookmarkAndCategory bac = self.manager.entity.bac;
+    BookmarkAndCategory const bac = self.manager.entity.bac;
 
     if (bac.first == indexPath.row)
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -111,12 +111,12 @@
 - (void)moveBookmarkToSetWithIndex:(int)setIndex
 {
   MWMPlacePageEntity * entity = self.manager.entity;
-  BookmarkAndCategory bac = entity.bac;
+  BookmarkAndCategory bac;
   bac.second = static_cast<int>(GetFramework().MoveBookmark(entity.bac.second, entity.bac.first, setIndex));
   bac.first = setIndex;
   entity.bac = bac;
 
-  BookmarkCategory * category = GetFramework().GetBookmarkManager().GetBmCategory(bac.first);
+  BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bac.first);
   entity.bookmarkCategory = [NSString stringWithUTF8String:category->GetName().c_str()];
 }
 
@@ -142,14 +142,11 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
-  [self.manager reloadBookmark];
-
-  if (!self.ownerNavigationController)
+  if (!self.iPadOwnerNavigationController)
     return;
 
-  self.ownerNavigationController.navigationBar.hidden = YES;
-  [self.ownerNavigationController setNavigationBarHidden:YES];
-  self.ownerNavigationController.view.height = self.realPlacePageHeight;
+  [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
+  self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
 }
 
 @end

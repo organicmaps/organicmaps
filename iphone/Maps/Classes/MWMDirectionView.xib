@@ -29,7 +29,7 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="400 М" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="izl-Ei-GSs">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="izl-Ei-GSs">
                             <rect key="frame" x="50" y="297" width="140" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
@@ -58,7 +58,7 @@
         </view>
         <tapGestureRecognizer id="lOu-cy-wFh">
             <connections>
-                <action selector="tap:" destination="hge-yy-9dK" id="sVQ-u6-g3l"/>
+                <action selector="tap" destination="hge-yy-9dK" id="uEi-g2-I4S"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

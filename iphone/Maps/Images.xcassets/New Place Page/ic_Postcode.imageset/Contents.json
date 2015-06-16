@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "nav_bar_color-1.png"
+      "filename" : "ic_Postcode.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "nav_bar_color@2x-1.png"
+      "filename" : "ic_Postcode@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "nav_bar_color@3x-1.png"
+      "filename" : "ic_Postcode@3x.png"
     }
   ],
   "info" : {

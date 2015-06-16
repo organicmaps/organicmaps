@@ -358,26 +358,25 @@ void InitLocalizedStrings()
   NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];
   attributes[UITextAttributeTextColor] = [UIColor whiteColor];
   attributes[UITextAttributeTextShadowColor] = [UIColor clearColor];
-//  1F9952
 
+  Class const navigationControllerClass = [NavigationController class];
   if (!isIOSVersionLessThan(7))
   {
-    [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setBarTintColor:[UIColor colorWithColorCode:@"1F9952"]];
-
+    [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setBarTintColor:[UIColor colorWithColorCode:@"0e8639"]];
     attributes[UITextAttributeFont] = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
   }
   else
   {
-    [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setTintColor:[UIColor colorWithColorCode:@"15c584"]];
-    [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground7"] forBarMetrics:UIBarMetricsCompactPrompt];
+    [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setTintColor:[UIColor colorWithColorCode:@"15c584"]];
+    [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground7"] forBarMetrics:UIBarMetricsCompactPrompt];
   }
 
   if ([UINavigationBar instancesRespondToSelector:@selector(setShadowImage:)])
-    [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setShadowImage:[[UIImage alloc] init]];
+    [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setShadowImage:[[UIImage alloc] init]];
 
-  [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setTitleTextAttributes:attributes];
+  [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setTitleTextAttributes:attributes];
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification

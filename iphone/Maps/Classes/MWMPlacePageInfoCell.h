@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class MWMPlacePageEntity;
+#import "MWMPlacePageEntity.h"
 
 @interface MWMPlacePageInfoCell : UITableViewCell
 
-- (void)configureWithIconTitle:(NSString *)title info:(NSString *)info;
+- (void)configureWithType:(MWMPlacePageMetadataType)type info:(NSString *)info;
 
 @property (weak, nonatomic, readonly) IBOutlet UIImageView * icon;
 @property (weak, nonatomic, readonly) IBOutlet id textContainer;

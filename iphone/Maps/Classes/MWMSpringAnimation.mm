@@ -7,32 +7,13 @@
 //
 
 #import "MWMSpringAnimation.h"
-
-static inline CGPoint CGPointSubtract(CGPoint p1, CGPoint p2)
-{
-  return CGPointMake(p1.x - p2.x, p1.y - p2.y);
-}
-
-static inline CGPoint CGPointAdd(CGPoint p1, CGPoint p2)
-{
-  return CGPointMake(p1.x + p2.x, p1.y + p2.y);
-}
-
-static inline CGPoint CGPointMultiply(CGPoint point, CGFloat multiplier)
-{
-  return CGPointMake(point.x * multiplier, point.y * multiplier);
-}
-
-static inline CGFloat CGPointLength(CGPoint point)
-{
-  return (CGFloat)sqrt(point.x * point.x + point.y * point.y);
-}
+#import "UIKitCategories.h"
 
 @interface MWMSpringAnimation ()
 
 @property (nonatomic) CGPoint velocity;
 @property (nonatomic) CGPoint targetPoint;
-@property (nonatomic) UIView *view;
+@property (nonatomic) UIView * view;
 
 @end
 
@@ -57,8 +38,8 @@ static inline CGFloat CGPointLength(CGPoint point)
 
 - (void)animationTick:(CFTimeInterval)dt finished:(BOOL *)finished
 {
-  static CGFloat const frictionConstant = 25.;
-  static CGFloat const springConstant = 300.;
+  CGFloat const frictionConstant = 25.;
+  CGFloat const springConstant = 300.;
 
   // friction force = velocity * friction constant
   CGPoint const frictionForce = CGPointMultiply(self.velocity, frictionConstant);
