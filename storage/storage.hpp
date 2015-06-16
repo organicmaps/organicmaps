@@ -98,13 +98,20 @@ namespace storage
 
     void ReportProgress(TIndex const & index, pair<int64_t, int64_t> const & p);
 
-    /// @name
-    //@{
+    /// Called on the main thread by MapFilesDownloader when list of
+    /// suitable servers is received.
     void OnServerListDownloaded(vector<string> const & urls);
+
+    /// Called on the main thread by MapFilesDownloader when
+    /// downloading of a map file succeeds/fails.
     void OnMapDownloadFinished(bool success, MapFilesDownloader::TProgress const & progress);
+
+    /// Periodically called on the main thread by MapFilesDownloader
+    /// during the downloading process.
     void OnMapDownloadProgress(MapFilesDownloader::TProgress const & progress);
+
+    /// Initiates downloading of the next file from the queue.
     void DownloadNextFile(QueuedCountry const & cnt);
-    //@}
 
   public:
     Storage();

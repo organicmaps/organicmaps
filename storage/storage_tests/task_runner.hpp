@@ -14,19 +14,19 @@ namespace storage
 // message loop where B is run.
 //
 // *NOTE*, this class is not thread-safe.
-class MessageLoop
+class TaskRunner
 {
- public:
+public:
   using TTask = function<void()>;
 
-  ~MessageLoop();
+  ~TaskRunner();
 
   void Run();
   void PostTask(TTask const & task);
 
- private:
+private:
   queue<TTask> m_tasks;
 
   ThreadChecker m_checker;
 };
-}  // namespace
+}  // namespace storage

@@ -1,15 +1,12 @@
-#include "storage/storage_tests/message_loop.hpp"
+#include "storage/storage_tests/task_runner.hpp"
 
 #include "base/assert.hpp"
 
 namespace storage
 {
-MessageLoop::~MessageLoop()
-{
-  CHECK(m_checker.CalledOnOriginalThread(), ());
-}
+TaskRunner::~TaskRunner() { CHECK(m_checker.CalledOnOriginalThread(), ()); }
 
-void MessageLoop::Run()
+void TaskRunner::Run()
 {
   CHECK(m_checker.CalledOnOriginalThread(), ());
   while (!m_tasks.empty())
@@ -20,7 +17,7 @@ void MessageLoop::Run()
   }
 }
 
-void MessageLoop::PostTask(TTask const & task)
+void TaskRunner::PostTask(TTask const & task)
 {
   CHECK(m_checker.CalledOnOriginalThread(), ());
   m_tasks.push(task);

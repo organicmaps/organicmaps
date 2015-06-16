@@ -19,13 +19,13 @@ QT *= core
 
 HEADERS += \
   fake_map_files_downloader.hpp \
-  message_loop.hpp \
+  task_runner.hpp \
 
 
 SOURCES += \
   ../../testing/testingmain.cpp \
   country_info_test.cpp \
   fake_map_files_downloader.cpp \
-  message_loop.cpp \
   simple_tree_test.cpp \
   storage_tests.cpp \
+  task_runner.cpp \

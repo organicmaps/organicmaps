@@ -174,7 +174,6 @@ namespace storage
     return m_pFile->GetFileWithExt(TMapOptions::EMap);
   }
 
-
   Storage::Storage() : m_downloader(new HttpMapFilesDownloader()), m_currentSlotId(0)
   {
     LoadCountriesFile(false);
