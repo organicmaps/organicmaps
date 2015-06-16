@@ -5,8 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -34,15 +32,12 @@ import com.mapswithme.util.ShareAction;
 public class BookmarksListFragment extends BaseMwmListFragment
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
-  private static final int ID_SEND_BY_EMAIL = 0x01;
   private static final int MENU_DELETE_TRACK = 0x42;
 
   private BookmarkCategory mCategory;
   private int mCategoryIndex;
   private int mSelectedPosition;
   private BookmarkListAdapter mAdapter;
-
-  private ActionBar mActionBar;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -67,11 +62,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
     setListAdapter(mAdapter);
     registerForContextMenu(getListView());
     setHasOptionsMenu(true);
-    if (getActivity() instanceof AppCompatActivity)
-    {
-      mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-      mActionBar.setTitle(mCategory.getName());
-    }
+    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mCategory.getName());
   }
 
   @Override
@@ -95,14 +86,6 @@ public class BookmarksListFragment extends BaseMwmListFragment
   {
     mAdapter = new BookmarkListAdapter(getActivity(), mCategory);
     mAdapter.startLocationUpdate();
-  }
-
-  private void assignCategoryParams()
-  {
-    // TODO add dialog to edit category name
-//    final String name = mSetName.getText().toString();
-//    if (!name.equals(mCategory.getName()))
-//      BookmarkManager.INSTANCE.setCategoryName(mCategory, name);
   }
 
   @Override
@@ -231,13 +214,13 @@ public class BookmarksListFragment extends BaseMwmListFragment
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
   {
-    // TODO add options menu
+    inflater.inflate(R.menu.option_menu_bookmarks, menu);
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
-    if (item.getItemId() == ID_SEND_BY_EMAIL)
+    if (item.getItemId() == R.id.set_share)
     {
       sendBookmarkMail();
       return true;

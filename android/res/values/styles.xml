@@ -11,8 +11,6 @@
     <item name="colorControlNormal">@color/text_dark_hint</item>
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
-    <item name="android:contentInsetStart">150dp</item>
-    <item name="android:contentInsetLeft">150dp</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:windowBackground">@android:color/white</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
