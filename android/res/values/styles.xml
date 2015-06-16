@@ -8,6 +8,7 @@
     <item name="colorPrimary">@color/base_green</item>
     <item name="colorPrimaryDark">@color/base_green_darker</item>
     <item name="clickableBackground">?attr/selectableItemBackground</item>
+    <item name="colorControlNormal">@color/text_dark_hint</item>
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="android:contentInsetStart">150dp</item>
@@ -36,11 +37,15 @@
   </style>
 
   <style name="MwmMain.DialogFragment.Fullscreen" parent="Theme.AppCompat">
+    <item name="colorPrimary">@color/base_green</item>
+    <item name="colorPrimaryDark">@color/base_green_darker</item>
+    <item name="clickableBackground">?attr/selectableItemBackground</item>
+    <item name="colorControlNormal">@color/text_dark_hint</item>
+    <item name="colorAccent">?attr/colorPrimary</item>
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowIsFloating">false</item>
     <item name="android:windowBackground">@android:color/white</item>
-    <item name="colorPrimary">@color/base_green</item>
-    <item name="clickableBackground">?attr/selectableItemBackground</item>
+    <item name="android:textColorHint">@color/text_dark_hint</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
@@ -80,8 +85,8 @@
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
     <item name="android:textColor">@color/text_place_page</item>
-    <item name="android:textCursorDrawable">@null</item>
     <item name="android:textColorHint">@color/text_dark_hint</item>
+    <item name="android:textCursorDrawable">@null</item>
     <item name="android:textSize">@dimen/text_size_body_1</item>
     <item name="android:fontFamily">@string/robotoRegular</item>
   </style>
@@ -242,6 +247,10 @@
 
   <style name="MwmTextAppearance.Toolbar.Button" parent="MwmTextAppearance.Body1.Light">
     <item name="android:textAllCaps">true</item>
+  </style>
+
+  <style name="MwmTextAppearance.Hint.InputLayout" parent="TextAppearance.AppCompat">
+    <item name="android:textColorHint">?attr/colorAccent</item>
   </style>
 
   <!-- Text appearance -->

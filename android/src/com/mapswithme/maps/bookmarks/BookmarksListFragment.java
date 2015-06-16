@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,8 +27,8 @@ import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.bookmarks.data.Track;
+import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.util.ShareAction;
 
 public class BookmarksListFragment extends BaseMwmListFragment
@@ -73,21 +75,13 @@ public class BookmarksListFragment extends BaseMwmListFragment
   }
 
   @Override
-  public void onStart()
-  {
-    super.onStart();
-
-    mAdapter.notifyDataSetChanged();
-  }
-
-  @Override
   public void onResume()
   {
     super.onResume();
 
     mAdapter.startLocationUpdate();
+    mAdapter.notifyDataSetChanged();
   }
-
 
   @Override
   public void onPause()
@@ -175,7 +169,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
 
     if (itemId == R.id.set_edit)
     {
-      startPinActivity(mCategory.getId(), ((Bookmark) obj).getBookmarkId());
+      editBookmark(mCategory.getId(), ((Bookmark) obj).getBookmarkId());
     }
     else if (itemId == R.id.set_delete)
     {
@@ -196,10 +190,14 @@ public class BookmarksListFragment extends BaseMwmListFragment
     return super.onContextItemSelected(item);
   }
 
-  private void startPinActivity(int cat, int bmk)
+  private void editBookmark(int cat, int bmk)
   {
-    startActivity(new Intent(getActivity(), ChooseBookmarkCategoryActivity.class)
-        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK, new ParcelablePoint(cat, bmk)));
+    final Bundle args = new Bundle();
+    args.putInt(EditBookmarkFragment.EXTRA_CATEGORY_ID, cat);
+    args.putInt(EditBookmarkFragment.EXTRA_BOOKMARK_ID, bmk);
+    final EditBookmarkFragment fragment = (EditBookmarkFragment) Fragment.instantiate(getActivity(), EditBookmarkFragment.class.getName(), args);
+    fragment.setArguments(args);
+    fragment.show(getActivity().getSupportFragmentManager(), null);
   }
 
   private void sendBookmarkMail()

@@ -12,6 +12,7 @@
   <dimen name="margin_medium_and_half">24dp</dimen>
   <dimen name="margin_large">32dp</dimen>
   <dimen name="margin_large_and_half">48dp</dimen>
+  <dimen name="margin_extra_large">64dp</dimen>
 
   <dimen name="neg_margin_micro">-2dp</dimen>
   <dimen name="neg_margin_tiny">-4dp</dimen>
@@ -65,6 +66,7 @@
   <dimen name="margin_direction_around_center">20dp</dimen>
 
   <dimen name="height_item_oneline">56dp</dimen>
+  <dimen name="height_item_edit_bookmark">72dp</dimen>
   <dimen name="margin_bottom_zoom_buttons">250dp</dimen>
 
   <!-- map widgets -->

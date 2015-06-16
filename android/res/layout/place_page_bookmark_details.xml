@@ -10,23 +10,15 @@
 
   <View
       android:layout_width="match_parent"
-      android:layout_height="1px"
+      android:layout_height="1dp"
       android:background="?attr/dividerHorizontal"/>
-
-  <ImageView
-      android:id="@+id/iv__bookmark"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_large"
-      android:layout_marginTop="@dimen/margin_medium"
-      android:src="@drawable/ic_text_bookmark"/>
 
   <com.mapswithme.maps.widget.CustomTextInputLayout
       android:id="@+id/layout__bookmark_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignTop="@id/iv__bookmark"
-      android:layout_toRightOf="@id/iv__bookmark">
+      android:layout_marginBottom="@dimen/margin_small"
+      android:layout_marginTop="@dimen/margin_medium">
 
     <EditText
         android:id="@+id/et__bookmark_name"
@@ -40,20 +32,13 @@
 
   </com.mapswithme.maps.widget.CustomTextInputLayout>
 
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="1px"
-      android:layout_below="@id/layout__bookmark_name"
-      android:layout_marginTop="@dimen/margin_small"
-      android:background="?attr/dividerHorizontal"/>
-
   <TextView
       android:id="@+id/tv__bookmark_group_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/layout__bookmark_name"
       android:layout_below="@id/layout__bookmark_name"
       android:layout_marginTop="@dimen/margin_medium_and_half"
-      android:layout_toRightOf="@id/iv__bookmark"
       android:lineSpacingMultiplier="1.67"
       android:text="@string/set"
       android:textColor="@color/text_place_page_subtitle"
@@ -63,8 +48,8 @@
       android:id="@+id/ll__group"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/layout__bookmark_name"
       android:layout_below="@id/tv__bookmark_group_title"
-      android:layout_toRightOf="@id/iv__bookmark"
       android:clipChildren="false"
       android:orientation="horizontal">
 
@@ -85,7 +70,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:layout_below="@id/tv__bookmark_group"
         android:layout_marginTop="@dimen/margin_tiny"
         android:layout_toLeftOf="@+id/iv__bookmark_color"
@@ -107,10 +92,10 @@
       android:id="@+id/tv__bookmark_notes"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/layout__bookmark_name"
       android:layout_below="@id/ll__group"
       android:layout_marginBottom="@dimen/margin_small"
       android:layout_marginTop="@dimen/margin_medium"
-      android:layout_toRightOf="@id/iv__bookmark"
       android:clickable="true"
       android:lineSpacingMultiplier="1.67"
       android:text="@string/description"
