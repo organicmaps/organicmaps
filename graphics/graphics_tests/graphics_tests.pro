@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = qt_tstfrm map indexer graphics platform geometry coding base expat freetype fribidi protobuf tomcrypt
+DEPENDENCIES = qt_tstfrm map graphics indexer platform geometry coding base expat freetype fribidi protobuf tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
