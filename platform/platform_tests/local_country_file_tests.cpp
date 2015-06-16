@@ -7,6 +7,7 @@
 
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 
 #include "base/scope_guard.hpp"
 
@@ -26,24 +27,30 @@ bool Contains(vector<T> const & v, T const & t)
   return find(v.begin(), v.end(), t) != v.end();
 }
 
+// Scoped test directory in a writable dir.
 class ScopedTestDir
 {
 public:
-  ScopedTestDir(string const & path) : m_path(path), m_reset(false)
+  /// Creates test dir in a writable directory.
+  /// @param path Path for a testing directory, should be relative to writable-dir.
+  ScopedTestDir(string const & relativePath)
+      : m_fullPath(my::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath)),
+        m_relativePath(relativePath),
+        m_reset(false)
   {
     Platform & platform = GetPlatform();
-    Platform::EError ret = platform.MkDir(m_path);
+    Platform::EError ret = platform.MkDir(GetFullPath());
     switch (ret)
     {
       case Platform::ERR_OK:
         break;
       case Platform::ERR_FILE_ALREADY_EXISTS:
         Platform::EFileType type;
-        TEST_EQUAL(Platform::ERR_OK, Platform::GetFileType(m_path, type), ());
+        TEST_EQUAL(Platform::ERR_OK, Platform::GetFileType(GetFullPath(), type), ());
         TEST_EQUAL(Platform::FILE_TYPE_DIRECTORY, type, ());
         break;
       default:
-        CHECK(false, ("Can't create directory:", m_path, "error:", ret));
+        CHECK(false, ("Can't create directory:", GetFullPath(), "error:", ret));
         break;
     }
   }
@@ -53,43 +60,99 @@ public:
     if (m_reset)
       return;
 
-    Platform::EError ret = Platform::RmDir(m_path);
+    Platform::EError ret = Platform::RmDir(GetFullPath());
     switch (ret)
     {
       case Platform::ERR_OK:
         break;
       case Platform::ERR_FILE_DOES_NOT_EXIST:
-        LOG(LWARNING, (m_path, "was deleted before destruction of ScopedTestDir."));
+        LOG(LWARNING, (GetFullPath(), "was deleted before destruction of ScopedTestDir."));
         break;
       case Platform::ERR_DIRECTORY_NOT_EMPTY:
-        LOG(LWARNING, ("There are files in", m_path));
+        LOG(LWARNING, ("There are files in", GetFullPath()));
         break;
       default:
-        LOG(LWARNING, ("Platform::RmDir() error:", ret));
+        LOG(LWARNING, ("Platform::RmDir() error for", GetFullPath(), ":", ret));
         break;
     }
   }
 
   inline void Reset() { m_reset = true; }
 
-  inline string const GetPath() const { return m_path; }
+  inline string const & GetFullPath() const { return m_fullPath; }
+
+  inline string const & GetRelativePath() const { return m_relativePath; }
+
+  bool Exists() const { return GetPlatform().IsFileExistsByFullPath(GetFullPath()); }
 
 private:
-  string const m_path;
+  string const m_fullPath;
+  string const m_relativePath;
   bool m_reset;
 
   DISALLOW_COPY_AND_MOVE(ScopedTestDir);
 };
 
-void CreateTestFile(string const & testFile, string const & contents)
+class ScopedTestFile
 {
+public:
+  ScopedTestFile(string const & relativePath, string const & contents)
+      : m_fullPath(my::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath)), m_reset(false)
   {
-    FileWriter writer(testFile);
-    writer.Write(contents.data(), contents.size());
+    {
+      FileWriter writer(GetFullPath());
+      writer.Write(contents.data(), contents.size());
+    }
+    TEST(Exists(), ("Can't create test file", GetFullPath()));
   }
-  TEST(Platform::IsFileExistsByFullPath(testFile), ("Can't create test file", testFile));
+
+  ScopedTestFile(ScopedTestDir const & dir, CountryFile const & countryFile, TMapOptions file,
+                 string const & contents)
+      : ScopedTestFile(
+            my::JoinFoldersToPath(dir.GetRelativePath(), countryFile.GetNameWithExt(file)),
+            contents)
+  {
+  }
+
+  ~ScopedTestFile()
+  {
+    if (m_reset)
+      return;
+    if (!Exists())
+    {
+      LOG(LWARNING, ("File", GetFullPath(), "was deleted before dtor of ScopedTestFile."));
+      return;
+    }
+    if (!my::DeleteFileX(GetFullPath()))
+      LOG(LWARNING, ("Can't remove test file:", GetFullPath()));
+  }
+
+  inline string const & GetFullPath() const { return m_fullPath; }
+
+  inline void Reset() { m_reset = true; }
+
+  bool Exists() const { return GetPlatform().IsFileExistsByFullPath(GetFullPath()); }
+
+private:
+  string const m_fullPath;
+  bool m_reset;
+
+  DISALLOW_COPY_AND_MOVE(ScopedTestFile);
+};
+
+string DebugPrint(ScopedTestDir const & dir)
+{
+  ostringstream os;
+  os << "ScopedTestDir [" << dir.GetFullPath() << "]";
+  return os.str();
 }
 
+string DebugPrint(ScopedTestFile const & file)
+{
+  ostringstream os;
+  os << "ScopedTestFile [" << file.GetFullPath() << "]";
+  return os.str();
+}
 }  // namespace
 
 // Checks that all unsigned numbers less than 10 ^ 18 can be parsed as
@@ -160,17 +223,12 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
   CountryFile countryFile("TestCountry");
   countryFile.SetRemoteSizes(1 /* mapSize */, 2 /* routingSize */);
 
-  string const testMapFile =
-      my::JoinFoldersToPath(platform.WritableDir(), countryFile.GetNameWithExt(TMapOptions::EMap));
-  string const testRoutingFile = my::JoinFoldersToPath(
-      platform.WritableDir(), countryFile.GetNameWithExt(TMapOptions::ECarRouting));
-
   LocalCountryFile localFile(platform.WritableDir(), countryFile, 0 /* version */);
   TEST(!localFile.OnDisk(TMapOptions::EMap), ());
   TEST(!localFile.OnDisk(TMapOptions::ECarRouting), ());
   TEST(!localFile.OnDisk(TMapOptions::EMapWithCarRouting), ());
 
-  CreateTestFile(testMapFile, "map");
+  ScopedTestFile testMapFile(countryFile.GetNameWithExt(TMapOptions::EMap), "map");
 
   localFile.SyncWithDisk();
   TEST(localFile.OnDisk(TMapOptions::EMap), ());
@@ -178,7 +236,7 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
   TEST(!localFile.OnDisk(TMapOptions::EMapWithCarRouting), ());
   TEST_EQUAL(3, localFile.GetSize(TMapOptions::EMap), ());
 
-  CreateTestFile(testRoutingFile, "routing");
+  ScopedTestFile testRoutingFile(countryFile.GetNameWithExt(TMapOptions::ECarRouting), "routing");
 
   localFile.SyncWithDisk();
   TEST(localFile.OnDisk(TMapOptions::EMap), ());
@@ -188,14 +246,15 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
   TEST_EQUAL(7, localFile.GetSize(TMapOptions::ECarRouting), ());
   TEST_EQUAL(10, localFile.GetSize(TMapOptions::EMapWithCarRouting), ());
 
-  localFile.DeleteFromDisk();
-  TEST(!platform.IsFileExistsByFullPath(testMapFile),
-       ("Map file", testMapFile, "wasn't deleted by LocalCountryFile."));
-  TEST(!platform.IsFileExistsByFullPath(testRoutingFile),
-       ("Routing file", testRoutingFile, "wasn't deleted by LocalCountryFile."));
+  localFile.DeleteFromDisk(TMapOptions::EMapWithCarRouting);
+  TEST(!testMapFile.Exists(), (testMapFile, "wasn't deleted by LocalCountryFile."));
+  testMapFile.Reset();
+
+  TEST(!testRoutingFile.Exists(), (testRoutingFile, "wasn't deleted by LocalCountryFile."));
+  testRoutingFile.Reset();
 }
 
-UNIT_TEST(LocalCountryFile_DirectoryCleanup)
+UNIT_TEST(LocalCountryFile_CleanupMapFiles)
 {
   Platform & platform = GetPlatform();
   string const mapsDir = platform.WritableDir();
@@ -204,19 +263,19 @@ UNIT_TEST(LocalCountryFile_DirectoryCleanup)
   CountryFile brazilFile("Brazil");
   CountryFile irelandFile("Ireland");
 
-  ScopedTestDir testDir1(my::JoinFoldersToPath(mapsDir, "1"));
-  LocalCountryFile japanLocalFile(testDir1.GetPath(), japanFile, 1 /* version */);
-  CreateTestFile(japanLocalFile.GetPath(TMapOptions::EMap), "Japan");
+  ScopedTestDir testDir1("1");
+  LocalCountryFile japanLocalFile(testDir1.GetFullPath(), japanFile, 1 /* version */);
+  ScopedTestFile japanMapFile(testDir1, japanFile, TMapOptions::EMap, "Japan");
 
-  ScopedTestDir testDir2(my::JoinFoldersToPath(mapsDir, "2"));
-  LocalCountryFile brazilLocalFile(testDir2.GetPath(), brazilFile, 2 /* version */);
-  CreateTestFile(brazilLocalFile.GetPath(TMapOptions::EMap), "Brazil");
+  ScopedTestDir testDir2("2");
+  LocalCountryFile brazilLocalFile(testDir2.GetFullPath(), brazilFile, 2 /* version */);
+  ScopedTestFile brazilMapFile(testDir2, brazilFile, TMapOptions::EMap, "Brazil");
+  LocalCountryFile irelandLocalFile(testDir2.GetFullPath(), irelandFile, 2 /* version */);
+  ScopedTestFile irelandMapFile(testDir2, irelandFile, TMapOptions::EMap, "Ireland");
 
-  ScopedTestDir testDir3(my::JoinFoldersToPath(mapsDir, "3"));
+  ScopedTestDir testDir3("3");
 
-  LocalCountryFile irelandLocalFile(testDir2.GetPath(), irelandFile, 2 /* version */);
-  CreateTestFile(irelandLocalFile.GetPath(TMapOptions::EMap), "Ireland");
-
+  // Check that FindAllLocalMaps()
   vector<LocalCountryFile> localFiles;
   FindAllLocalMaps(localFiles);
   TEST(Contains(localFiles, japanLocalFile), (japanLocalFile));
@@ -227,18 +286,45 @@ UNIT_TEST(LocalCountryFile_DirectoryCleanup)
 
   japanLocalFile.SyncWithDisk();
   TEST_EQUAL(TMapOptions::ENothing, japanLocalFile.GetFiles(), ());
-  TEST(!Platform::IsFileExistsByFullPath(testDir1.GetPath()), ("Empty directory wasn't removed."));
+  TEST(!testDir1.Exists(), ("Empty directory", testDir1, "wasn't removed."));
   testDir1.Reset();
+  TEST(!japanMapFile.Exists(), (japanMapFile));
+  japanMapFile.Reset();
 
   brazilLocalFile.SyncWithDisk();
   TEST_EQUAL(TMapOptions::ENothing, brazilLocalFile.GetFiles(), ());
+  TEST(!brazilMapFile.Exists(), (brazilMapFile));
+  brazilMapFile.Reset();
 
   irelandLocalFile.SyncWithDisk();
   TEST_EQUAL(TMapOptions::EMap, irelandLocalFile.GetFiles(), ());
-  irelandLocalFile.DeleteFromDisk();
+  irelandLocalFile.DeleteFromDisk(TMapOptions::EMap);
+  TEST(!irelandMapFile.Exists(), (irelandMapFile));
+  irelandMapFile.Reset();
 
-  TEST(!Platform::IsFileExistsByFullPath(testDir3.GetPath()), ("Empty directory wasn't removed."));
+  TEST(!testDir3.Exists(), ("Empty directory", testDir3, "wasn't removed."));
   testDir3.Reset();
+}
+
+UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
+{
+  ScopedTestFile toBeDeleted[] = {{"Ireland.mwm.ready", "Ireland"},
+                                  {"Netherlands.mwm.routing.downloading2", "Netherlands"},
+                                  {"Germany.mwm.ready3", "Germany"},
+                                  {"UK_England.mwm.resume4", "UK"}};
+  ScopedTestFile toBeKept[] = {
+      {"Italy.mwm", "Italy"}, {"Spain.mwm", "Spain map"}, {"Spain.mwm.routing", "Spain routing"}};
+
+  CleanupMapsDirectory();
+
+  for (ScopedTestFile & file : toBeDeleted)
+  {
+    TEST(!file.Exists(), (file));
+    file.Reset();
+  }
+
+  for (ScopedTestFile & file : toBeKept)
+    TEST(file.Exists(), (file));
 }
 
 // Creates test-dir and following files:
@@ -253,37 +339,24 @@ UNIT_TEST(LocalCountryFile_DirectoryLookup)
   CountryFile const irelandFile("Ireland");
   CountryFile const netherlandsFile("Netherlands");
 
-  Platform & platform = GetPlatform();
+  ScopedTestDir testDir("test-dir");
 
-  ScopedTestDir testDir(my::JoinFoldersToPath(platform.WritableDir(), "test-dir"));
-
-  string const testIrelandMapFile =
-      my::JoinFoldersToPath(testDir.GetPath(), irelandFile.GetNameWithExt(TMapOptions::EMap));
-  CreateTestFile(testIrelandMapFile, "Ireland-map");
-  MY_SCOPE_GUARD(removeTestIrelandMapFile, bind(&FileWriter::DeleteFileX, testIrelandMapFile));
-
-  string const testNetherlandsMapFile =
-      my::JoinFoldersToPath(testDir.GetPath(), netherlandsFile.GetNameWithExt(TMapOptions::EMap));
-  CreateTestFile(testNetherlandsMapFile, "Netherlands-map");
-  MY_SCOPE_GUARD(removeTestNetherlandsMapFile,
-                 bind(&FileWriter::DeleteFileX, testNetherlandsMapFile));
-
-  string const testNetherlandsRoutingFile = my::JoinFoldersToPath(
-      testDir.GetPath(), netherlandsFile.GetNameWithExt(TMapOptions::ECarRouting));
-  CreateTestFile(testNetherlandsRoutingFile, "Netherlands-routing");
-  MY_SCOPE_GUARD(removeTestNetherlandsRoutingFile,
-                 bind(&FileWriter::DeleteFileX, testNetherlandsRoutingFile));
+  ScopedTestFile testIrelandMapFile(testDir, irelandFile, TMapOptions::EMap, "Ireland-map");
+  ScopedTestFile testNetherlandsMapFile(testDir, netherlandsFile, TMapOptions::EMap,
+                                        "Netherlands-map");
+  ScopedTestFile testNetherlandsRoutingFile(testDir, netherlandsFile, TMapOptions::ECarRouting,
+                                            "Netherlands-routing");
 
   vector<LocalCountryFile> localFiles;
-  FindAllLocalMapsInDirectory(testDir.GetPath(), 150309, localFiles);
+  FindAllLocalMapsInDirectory(testDir.GetFullPath(), 150309, localFiles);
   sort(localFiles.begin(), localFiles.end());
   for (LocalCountryFile & localFile : localFiles)
     localFile.SyncWithDisk();
 
-  LocalCountryFile expectedIrelandFile(testDir.GetPath(), irelandFile, 150309);
+  LocalCountryFile expectedIrelandFile(testDir.GetFullPath(), irelandFile, 150309);
   expectedIrelandFile.m_files = TMapOptions::EMap;
 
-  LocalCountryFile expectedNetherlandsFile(testDir.GetPath(), netherlandsFile, 150309);
+  LocalCountryFile expectedNetherlandsFile(testDir.GetFullPath(), netherlandsFile, 150309);
   expectedNetherlandsFile.m_files = TMapOptions::EMapWithCarRouting;
 
   vector<LocalCountryFile> expectedLocalFiles = {expectedIrelandFile, expectedNetherlandsFile};
@@ -301,12 +374,8 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
 
   Platform & platform = GetPlatform();
 
-  ScopedTestDir testDir(my::JoinFoldersToPath(platform.WritableDir(), "010101"));
-
-  string const testItalyMapFile =
-      my::JoinFoldersToPath(testDir.GetPath(), italyFile.GetNameWithExt(TMapOptions::EMap));
-  CreateTestFile(testItalyMapFile, "Italy-map");
-  MY_SCOPE_GUARD(remoteTestItalyMapFile, bind(&FileWriter::DeleteFileX, testItalyMapFile));
+  ScopedTestDir testDir("010101");
+  ScopedTestFile testItalyMapFile(testDir, italyFile, TMapOptions::EMap, "Italy-map");
 
   vector<LocalCountryFile> localFiles;
   FindAllLocalMaps(localFiles);
@@ -320,7 +389,7 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
                                            CountryFile(WORLD_COASTS_FILE_NAME), 0 /* version */);
   TEST_EQUAL(1, localFilesSet.count(expectedWorldCoastsFile), ());
 
-  LocalCountryFile expectedItalyFile(testDir.GetPath(), italyFile, 10101);
+  LocalCountryFile expectedItalyFile(testDir.GetFullPath(), italyFile, 10101);
   TEST_EQUAL(1, localFilesSet.count(expectedItalyFile), ());
 }
 
@@ -335,17 +404,17 @@ UNIT_TEST(LocalCountryFile_PreparePlaceForCountryFiles)
   TEST(italyLocalFile.get(), ());
   TEST_EQUAL(expectedItalyFile, *italyLocalFile, ());
 
-  ScopedTestDir directoryForV1(my::JoinFoldersToPath(platform.WritableDir(), "1"));
+  ScopedTestDir directoryForV1("1");
 
   CountryFile germanyFile("Germany");
-  LocalCountryFile expectedGermanyFile(directoryForV1.GetPath(), germanyFile, 1 /* version */);
+  LocalCountryFile expectedGermanyFile(directoryForV1.GetFullPath(), germanyFile, 1 /* version */);
   shared_ptr<LocalCountryFile> germanyLocalFile =
       PreparePlaceForCountryFiles(germanyFile, 1 /* version */);
   TEST(germanyLocalFile.get(), ());
   TEST_EQUAL(expectedGermanyFile, *germanyLocalFile, ());
 
   CountryFile franceFile("France");
-  LocalCountryFile expectedFranceFile(directoryForV1.GetPath(), franceFile, 1 /* version */);
+  LocalCountryFile expectedFranceFile(directoryForV1.GetFullPath(), franceFile, 1 /* version */);
   shared_ptr<LocalCountryFile> franceLocalFile =
       PreparePlaceForCountryFiles(franceFile, 1 /* version */);
   TEST(franceLocalFile.get(), ());

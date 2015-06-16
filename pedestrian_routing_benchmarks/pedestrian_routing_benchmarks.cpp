@@ -17,11 +17,13 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
+using platform::CountryFile;
+using platform::LocalCountryFile;
+
 namespace
 {
 
 string const MAP_NAME = "UK_England";
-string const MAP_FILE = MAP_NAME + DATA_FILE_EXTENSION;
 
 // Since for test purposes we compare routes lengths to check algorithms consistency,
 // we should use simplified pedestrian model, where all available edges have max speed
@@ -128,8 +130,13 @@ void TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & fina
   classificator::Load();
 
   Index index;
-  UNUSED_VALUE(index.RegisterMap(MAP_FILE));
-  TEST(index.IsLoaded(MAP_NAME), ());
+
+  CountryFile countryFile(MAP_NAME);
+  LocalCountryFile localFile = LocalCountryFile::MakeForTesting(MAP_NAME);
+  UNUSED_VALUE(index.RegisterMap(localFile));
+  TEST(index.IsLoaded(countryFile), ());
+  MwmSet::MwmId const id = index.GetMwmIdByCountryFile(countryFile);
+  TEST(id.IsAlive(), ());
 
   vector<pair<routing::Edge, m2::PointD>> startEdges;
   GetNearestPedestrianEdges(index, startPos, startEdges);
@@ -149,11 +156,13 @@ void TestTwoPoints(m2::PointD const & startPos, m2::PointD const & finalPos)
 {
   classificator::Load();
 
-  Index index;
-  UNUSED_VALUE(index.RegisterMap(MAP_FILE));
-  TEST(index.IsLoaded(MAP_NAME), ());
+  CountryFile countryFile(MAP_NAME);
+  LocalCountryFile localFile = LocalCountryFile::MakeForTesting(MAP_NAME);
 
-  MwmSet::MwmId const id = index.GetMwmIdByFileName(MAP_FILE);
+  Index index;
+  UNUSED_VALUE(index.RegisterMap(localFile));
+  TEST(index.IsLoaded(countryFile), ());
+  MwmSet::MwmId const id = index.GetMwmIdByCountryFile(countryFile);
   TEST(id.IsAlive(), ());
 
   TestRouters(index, startPos, finalPos);

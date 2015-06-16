@@ -18,6 +18,7 @@ class FakeMapFilesDownloader : public MapFilesDownloader
 {
 public:
   FakeMapFilesDownloader(TaskRunner & taskRunner);
+
   virtual ~FakeMapFilesDownloader();
 
   // MapFilesDownloader overrides:

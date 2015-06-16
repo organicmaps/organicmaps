@@ -18,6 +18,7 @@ HEADERS += \
   http_map_files_downloader.hpp \
   index.hpp \
   map_files_downloader.hpp \
+  queued_country.hpp \
   simple_tree.hpp \
   storage.hpp \
   storage_defines.hpp \
@@ -28,5 +29,6 @@ SOURCES += \
   country_info.cpp \
   http_map_files_downloader.cpp \
   index.cpp \
+  queued_country.cpp \
   storage.cpp \
   storage_defines.cpp \

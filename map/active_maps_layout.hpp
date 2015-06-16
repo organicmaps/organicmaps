@@ -1,7 +1,9 @@
 #pragma once
 
-#include "storage/storage_defines.hpp"
 #include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
+
+#include "platform/country_file.hpp"
 
 #include "platform/country_defines.hpp"
 
@@ -95,7 +97,7 @@ private:
   Storage const & GetStorage() const;
   Storage & GetStorage();
 
-  void Init(vector<string> const & maps);
+  void Init(vector<platform::CountryFile> const & files);
   void Clear();
 
   void ShowMap(TIndex const & index);

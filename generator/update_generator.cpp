@@ -43,10 +43,10 @@ namespace update
     string m_dataDir;
     Platform::FilesList & m_files;
 
-    uint64_t GetFileSize(CountryFile const & cnt, TMapOptions opt) const
+    uint64_t GetFileSize(platform::CountryFile const & cnt, TMapOptions opt) const
     {
       uint64_t sz = 0;
-      string const fName = cnt.GetFileWithExt(opt);
+      string const fName = cnt.GetNameWithExt(opt);
       if (!GetPlatform().GetFileSizeByFullPath(m_dataDir + fName, sz))
       {
         LOG(opt == TMapOptions::EMap ? LCRITICAL : LWARNING, ("File was not found:", fName));
@@ -74,14 +74,14 @@ namespace update
     {
       for (size_t i = 0; i < c.Value().m_files.size(); ++i)
       {
-        CountryFile & cnt = c.Value().m_files[i];
+        platform::CountryFile & cnt = c.Value().m_files[i];
 
         ++m_processedFiles;
 
-        cnt.AssignSizes(GetFileSize(cnt, TMapOptions::EMap),
-                        GetFileSize(cnt, TMapOptions::ECarRouting));
+        cnt.SetRemoteSizes(GetFileSize(cnt, TMapOptions::EMap),
+                           GetFileSize(cnt, TMapOptions::ECarRouting));
 
-        string const fName = cnt.GetFileWithoutExt() + DATA_FILE_EXTENSION;
+        string const fName = cnt.GetNameWithExt(TMapOptions::EMap);
         auto found = find(m_files.begin(), m_files.end(), fName);
         if (found != m_files.end())
           m_files.erase(found);

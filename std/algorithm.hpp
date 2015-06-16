@@ -6,6 +6,7 @@
 
 #include <algorithm>
 
+using std::all_of;
 using std::binary_search;
 using std::equal;
 using std::find;

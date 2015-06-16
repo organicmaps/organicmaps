@@ -13,9 +13,14 @@
 
 #include "std/bind.hpp"
 
+using platform::CountryFile;
+using platform::LocalCountryFile;
 
 namespace model
 {
+FeaturesFetcher::FeaturesFetcher() { m_multiIndex.AddObserver(*this); }
+
+FeaturesFetcher::~FeaturesFetcher() { m_multiIndex.RemoveObserver(*this); }
 
 // While reading any files (classificator or mwm), there are 2 types of possible exceptions:
 // Reader::Exception, FileAbsentException.
@@ -33,71 +38,47 @@ void FeaturesFetcher::InitClassificator()
   }
 }
 
-pair<MwmSet::MwmLock, bool> FeaturesFetcher::RegisterMap(string const & file)
+pair<MwmSet::MwmLock, bool> FeaturesFetcher::RegisterMap(LocalCountryFile const & localFile)
 {
+  string const countryFileName = localFile.GetCountryFile().GetNameWithoutExt();
   try
   {
-    pair<MwmSet::MwmLock, bool> p = m_multiIndex.RegisterMap(file);
-    if (!p.second)
+    pair<MwmSet::MwmLock, bool> result = m_multiIndex.RegisterMap(localFile);
+    if (!result.second)
     {
-      LOG(LWARNING,
-          ("Can't add map", file, "Probably it's already added or has newer data version."));
-      return p;
+      LOG(LWARNING, ("Can't add map", countryFileName,
+                     "Probably it's already added or has newer data version."));
+      return result;
     }
-    MwmSet::MwmLock & lock = p.first;
+    MwmSet::MwmLock & lock = result.first;
     ASSERT(lock.IsLocked(), ("Mwm lock invariant violation."));
     m_rect.Add(lock.GetInfo()->m_limitRect);
-    return p;
+    return result;
   }
   catch (RootException const & e)
   {
-    LOG(LERROR, ("IO error while adding ", file, " map. ", e.what()));
+    LOG(LERROR, ("IO error while adding ", countryFileName, " map. ", e.what()));
     return make_pair(MwmSet::MwmLock(), false);
   }
 }
 
-void FeaturesFetcher::DeregisterMap(string const & file) { m_multiIndex.Deregister(file); }
+bool FeaturesFetcher::DeregisterMap(CountryFile const & countryFile)
+{
+  return m_multiIndex.Deregister(countryFile);
+}
 
 void FeaturesFetcher::DeregisterAllMaps() { m_multiIndex.DeregisterAll(); }
-
-bool FeaturesFetcher::DeleteMap(string const & file)
-{
-  return m_multiIndex.DeleteMap(file);
-}
-
-pair<MwmSet::MwmLock, Index::UpdateStatus> FeaturesFetcher::UpdateMap(string const & file)
-{
-  return m_multiIndex.UpdateMap(file);
-}
-
-//void FeaturesFetcher::Clean()
-//{
-//  m_rect.MakeEmpty();
-//  // TODO: m_multiIndex.Clear(); - is it needed?
-//}
 
 void FeaturesFetcher::ClearCaches()
 {
   m_multiIndex.ClearCache();
 }
 
-/*
-bool FeaturesFetcher::IsLoaded(m2::PointD const & pt) const
+void FeaturesFetcher::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 {
-  vector<MwmInfo> info;
-  m_multiIndex.GetMwmInfo(info);
-
-  for (size_t i = 0; i < info.size(); ++i)
-    if (info[i].IsExist() &&
-        info[i].GetType() == MwmInfo::COUNTRY &&
-        info[i].m_limitRect.IsPointInside(pt))
-    {
-      return true;
-    }
-
-  return false;
+  if (m_onMapDeregistered)
+    m_onMapDeregistered(localFile);
 }
-*/
 
 m2::RectD FeaturesFetcher::GetWorldRect() const
 {

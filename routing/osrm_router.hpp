@@ -28,18 +28,17 @@ namespace routing
 struct RoutePathCross;
 using TCheckedPath = vector<RoutePathCross>;
 
-typedef OsrmDataFacade<QueryEdge::EdgeData> TDataFacade;
-
 /// All edges available for start route while routing
 typedef vector<FeatureGraphNode> TFeatureGraphNodeVec;
-
 
 class OsrmRouter : public IRouter
 {
 public:
   typedef vector<double> GeomTurnCandidateT;
 
-  OsrmRouter(Index const * index, TCountryFileFn const & fn, TRoutingVisualizerFn routingVisualization = nullptr);
+  OsrmRouter(Index const * index, TCountryFileFn const & countryFileFn,
+             TCountryLocalFileFn const & countryLocalFileFn,
+             RoutingVisualizerFn routingVisualization = nullptr);
 
   virtual string GetName() const;
 

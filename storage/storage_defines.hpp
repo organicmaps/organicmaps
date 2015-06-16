@@ -22,4 +22,4 @@ namespace storage
   string DebugPrint(TStatus status);
 
   typedef pair<uint64_t, uint64_t> LocalAndRemoteSizeT;
-}
+  }  // namespace storage

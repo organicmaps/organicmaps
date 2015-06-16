@@ -8,6 +8,8 @@
 
 #include "routing/osrm_router.hpp"
 
+#include "platform/local_country_file.hpp"
+
 /*
  * These tests are developed to simplify routing integration tests writing.
  * You can use the interface bellow however you want but there are some hints.
@@ -46,7 +48,7 @@ namespace integration
                          OsrmRouterComponents & routerComponents);
 
   OsrmRouterComponents & GetAllMaps();
-  shared_ptr<OsrmRouterComponents> LoadMaps(vector<string> const & mapNames);
+  shared_ptr<OsrmRouterComponents> LoadMaps(vector<platform::LocalCountryFile> const & localFiles);
   TRouteResult CalculateRoute(OsrmRouterComponents const & routerComponents,
                               m2::PointD const & startPoint, m2::PointD const & startDirection,
                               m2::PointD const & finalPoint);

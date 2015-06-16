@@ -6,6 +6,8 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include "platform/country_file.hpp"
+#include "platform/local_country_file.hpp"
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
@@ -16,6 +18,11 @@
 #include "std/bind.hpp"
 #include "std/string.hpp"
 
+using platform::CountryFile;
+using platform::LocalCountryFile;
+
+namespace
+{
 void CheckedDeleteFile(string const & file)
 {
   if (Platform::IsFileExistsByFullPath(file))
@@ -25,57 +32,60 @@ void CheckedDeleteFile(string const & file)
 class Observer : public Index::Observer
 {
 public:
-  Observer(string const & file)
-      : m_file(file),
-        m_map_registered_calls(0),
-        m_map_update_is_ready_calls(0),
-        m_map_updated_calls(0),
-        m_map_deleted_calls(0)
+  Observer() : m_numRegisteredCalls(0), m_numDeregisteredCalls(0) {}
+
+  ~Observer() { CheckExpectations(); }
+
+  void ExpectRegisteredMap(platform::LocalCountryFile const & localFile)
   {
+    m_expectedRegisteredMaps.push_back(localFile);
+  }
+
+  void ExpectDeregisteredMap(platform::LocalCountryFile const & localFile)
+  {
+    m_expectedDeregisteredMaps.push_back(localFile);
+  }
+
+  void CheckExpectations()
+  {
+    CHECK_EQUAL(m_numRegisteredCalls, m_expectedRegisteredMaps.size(), ());
+    CHECK_EQUAL(m_numDeregisteredCalls, m_expectedDeregisteredMaps.size(), ());
   }
 
   // Index::Observer overrides:
-  void OnMapRegistered(string const & file) override
+  void OnMapRegistered(platform::LocalCountryFile const & localFile) override
   {
-    CHECK_EQUAL(m_file, file, ());
-    ++m_map_registered_calls;
+    CHECK_LESS(m_numRegisteredCalls, m_expectedRegisteredMaps.size(),
+               ("Unexpected OnMapRegistered() call (", m_numRegisteredCalls, "): ", localFile));
+    CHECK_EQUAL(m_expectedRegisteredMaps[m_numRegisteredCalls], localFile, (m_numRegisteredCalls));
+    ++m_numRegisteredCalls;
   }
 
-  void OnMapUpdateIsReady(string const & file) override
+  void OnMapDeregistered(platform::LocalCountryFile const & localFile) override
   {
-    CHECK_EQUAL(m_file, file, ());
-    ++m_map_update_is_ready_calls;
+    CHECK_LESS(m_numDeregisteredCalls, m_expectedDeregisteredMaps.size(),
+               ("Unexpected OnMapDeregistered() call (", m_numDeregisteredCalls, "): ", localFile));
+    CHECK_EQUAL(m_expectedDeregisteredMaps[m_numDeregisteredCalls], localFile,
+                (m_numDeregisteredCalls));
+    ++m_numDeregisteredCalls;
   }
 
-  void OnMapUpdated(string const & file) override
-  {
-    CHECK_EQUAL(m_file, file, ());
-    ++m_map_updated_calls;
-  }
-
-  void OnMapDeleted(string const & file) override
-  {
-    CHECK_EQUAL(m_file, file, ());
-    ++m_map_deleted_calls;
-  }
-
-  int map_registered_calls() const { return m_map_registered_calls; }
-  int map_update_is_ready_calls() const { return m_map_update_is_ready_calls; }
-  int map_updated_calls() const { return m_map_updated_calls; }
-  int map_deleted_calls() const { return m_map_deleted_calls; }
+  inline size_t MapRegisteredCalls() const { return m_numRegisteredCalls; }
+  inline size_t MapDeregisteredCalls() const { return m_numDeregisteredCalls; }
 
 private:
-  string const m_file;
-  int m_map_registered_calls;
-  int m_map_update_is_ready_calls;
-  int m_map_updated_calls;
-  int m_map_deleted_calls;
+  size_t m_numRegisteredCalls;
+  size_t m_numDeregisteredCalls;
+
+  vector<LocalCountryFile> m_expectedRegisteredMaps;
+  vector<LocalCountryFile> m_expectedDeregisteredMaps;
 };
+}  // namespace
 
 UNIT_TEST(Index_Parse)
 {
   Index index;
-  UNUSED_VALUE(index.RegisterMap("minsk-pass" DATA_FILE_EXTENSION));
+  UNUSED_VALUE(index.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass")));
 
   // Make sure that index is actually parsed.
   NoopFunctor fn;
@@ -84,65 +94,68 @@ UNIT_TEST(Index_Parse)
 
 UNIT_TEST(Index_MwmStatusNotifications)
 {
-  string const resourcesDir = GetPlatform().ResourcesDir();
-  string const sourceMapName = "minsk-pass" DATA_FILE_EXTENSION;
-  string const sourceMapPath = my::JoinFoldersToPath(resourcesDir, sourceMapName);
-  string const testMapName = "minsk-pass-copy" DATA_FILE_EXTENSION;
-  string const testMapPath = my::JoinFoldersToPath(resourcesDir, testMapName);
-  string const testMapUpdatePath = testMapPath + READY_FILE_EXTENSION;
+  Platform & platform = GetPlatform();
+  string const mapsDir = GetPlatform().WritableDir();
+  CountryFile const countryFile("minsk-pass");
 
-  TEST(my::CopyFileX(sourceMapPath, testMapPath), ());
-  MY_SCOPE_GUARD(testMapGuard, bind(&CheckedDeleteFile, testMapPath));
+  // These two classes point to the same file, but will be considered
+  // by Index as distinct files because versions are artificially set
+  // to different numbers.
+  LocalCountryFile const localFileV1(mapsDir, countryFile, 1 /* version */);
+  LocalCountryFile const localFileV2(mapsDir, countryFile, 2 /* version */);
 
   Index index;
-  Observer observer(testMapName);
+  Observer observer;
   index.AddObserver(observer);
 
-  TEST_EQUAL(0, observer.map_registered_calls(), ());
+  TEST_EQUAL(0, observer.MapRegisteredCalls(), ());
+
+  MwmSet::MwmId localFileV1Id;
 
   // Checks that observers are triggered after map registration.
   {
-    pair<MwmSet::MwmLock, bool> const p = index.RegisterMap(testMapName);
+    observer.ExpectRegisteredMap(localFileV1);
+    pair<MwmSet::MwmLock, bool> const p = index.RegisterMap(localFileV1);
     TEST(p.first.IsLocked(), ());
     TEST(p.second, ());
-    TEST_EQUAL(1, observer.map_registered_calls(), ());
+    observer.CheckExpectations();
+    localFileV1Id = p.first.GetId();
   }
 
-  // Checks that map can't registered twice and observers aren't
-  // triggered.
+  // Checks that map can't registered twice.
   {
-    pair<MwmSet::MwmLock, bool> const p = index.RegisterMap(testMapName);
+    pair<MwmSet::MwmLock, bool> const p = index.RegisterMap(localFileV1);
     TEST(p.first.IsLocked(), ());
     TEST(!p.second, ());
-    TEST_EQUAL(1, observer.map_registered_calls(), ());
+    observer.CheckExpectations();
+    TEST_EQUAL(localFileV1Id, p.first.GetId(), ());
   }
 
-  TEST(my::CopyFileX(testMapPath, testMapUpdatePath), ());
-  MY_SCOPE_GUARD(testMapUpdateGuard, bind(&CheckedDeleteFile, testMapUpdatePath));
-
-  // Checks that observers are notified when map is deleted.
+  // Checks that observers are notified when map is updated.
+  MwmSet::MwmId localFileV2Id;
   {
-    TEST_EQUAL(0, observer.map_update_is_ready_calls(), ());
-    TEST_EQUAL(0, observer.map_updated_calls(), ());
-    pair<MwmSet::MwmLock, Index::UpdateStatus> const p = index.UpdateMap(testMapName);
+    observer.ExpectRegisteredMap(localFileV2);
+    observer.ExpectDeregisteredMap(localFileV1);
+    pair<MwmSet::MwmLock, bool> const p = index.RegisterMap(localFileV2);
     TEST(p.first.IsLocked(), ());
-    TEST_EQUAL(Index::UPDATE_STATUS_OK, p.second, ());
-    TEST_EQUAL(1, observer.map_update_is_ready_calls(), ());
-    TEST_EQUAL(1, observer.map_updated_calls(), ());
+    TEST(p.second, ());
+    observer.CheckExpectations();
+    localFileV2Id = p.first.GetId();
+    TEST_NOT_EQUAL(localFileV1Id, localFileV2Id, ());
   }
 
-  // Tries to delete map in presence of active lock. Map should be
-  // marked "to be removed" but can't be deleted.
+  // Tries to deregister a map in presence of an active lock. Map
+  // should be marked "to be removed" but can't be deregistered. After
+  // leaving the inner block the map should be deregistered.
   {
-    MwmSet::MwmLock const lock = index.GetMwmLockByFileName(testMapName);
+    MwmSet::MwmLock const lock = index.GetMwmLockByCountryFile(countryFile);
     TEST(lock.IsLocked(), ());
 
-    TEST(!index.DeleteMap(testMapName), ());
-    TEST_EQUAL(0, observer.map_deleted_calls(), ());
+    TEST(!index.DeregisterMap(countryFile), ());
+    observer.CheckExpectations();
+
+    observer.ExpectDeregisteredMap(localFileV2);
   }
-
-  // Checks that observers are notified when all locks are destroyed.
-  TEST_EQUAL(1, observer.map_deleted_calls(), ());
-
+  observer.CheckExpectations();
   index.RemoveObserver(observer);
 }

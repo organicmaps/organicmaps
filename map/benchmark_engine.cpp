@@ -133,8 +133,12 @@ void BenchmarkEngine::PrepareMaps()
   // add only maps needed for benchmarks
   MapsCollector collector;
   ForEachBenchmarkRecord(collector);
-  for_each(collector.m_maps.begin(), collector.m_maps.end(),
-           bind(&Framework::RegisterMap, m_framework, _1));
+  string const directory = GetPlatform().WritableDir();
+  for (string const & map : collector.m_maps)
+  {
+    LOG(LINFO, ("Looking for:", map));
+    m_framework->RegisterMap(platform::LocalCountryFile::MakeForTesting(map));
+  }
 }
 
 BenchmarkEngine::BenchmarkEngine(Framework * fw)

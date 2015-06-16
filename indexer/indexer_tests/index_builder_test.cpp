@@ -56,7 +56,7 @@ UNIT_TEST(BuildIndexTest)
   {
     // Check that index actually works.
     Index index;
-    UNUSED_VALUE(index.Register(fileName));
+    UNUSED_VALUE(index.Register(platform::LocalCountryFile::MakeForTesting("build_index_test")));
 
     // Make sure that index is actually parsed.
     NoopFunctor fn;

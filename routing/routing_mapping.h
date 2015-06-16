@@ -11,10 +11,17 @@
 #include "std/algorithm.hpp"
 #include "std/unordered_map.hpp"
 
+namespace platform
+{
+class CountryFile;
+class LocalCountryFile;
+}
+
 namespace routing
 {
 using TDataFacade = OsrmDataFacade<QueryEdge::EdgeData>;
 using TCountryFileFn = function<string(m2::PointD const &)>;
+using TCountryLocalFileFn = function<shared_ptr<platform::LocalCountryFile>(string const &)>;
 
 /// Datamapping and facade for single MWM and MWM.routing file
 struct RoutingMapping
@@ -24,7 +31,7 @@ struct RoutingMapping
   CrossRoutingContextReader m_crossContext;
 
   ///@param fName: mwm file path
-  RoutingMapping(string const & fName, Index const * pIndex);
+  RoutingMapping(platform::LocalCountryFile const & localFile, Index const * pIndex);
 
   ~RoutingMapping();
 
@@ -44,15 +51,21 @@ struct RoutingMapping
 
   IRouter::ResultCode GetError() const {return m_error;}
 
-  string const & GetName() const { return m_baseName; }
+  string const & GetName() const { return m_countryFileName; }
 
   Index::MwmId const & GetMwmId() const { return m_mwmId; }
 
+  // static
+  static shared_ptr<RoutingMapping> MakeInvalid(platform::CountryFile const & countryFile);
+
 private:
+  // Ctor for invalid mappings.
+  RoutingMapping(platform::CountryFile const & countryFile);
+
   size_t m_mapCounter;
   size_t m_facadeCounter;
   bool m_crossContextLoaded;
-  string m_baseName;
+  string m_countryFileName;
   FilesMappingContainer m_container;
   Index::MwmId m_mwmId;
   bool m_isValid;
@@ -86,8 +99,9 @@ public:
 class RoutingIndexManager
 {
 public:
-  RoutingIndexManager(TCountryFileFn const & fn, Index const * index)
-      : m_countryFn(fn), m_index(index)
+  RoutingIndexManager(TCountryFileFn const & countryFileFn,
+                      TCountryLocalFileFn const & countryLocalFileFn, Index const * index)
+      : m_countryFileFn(countryFileFn), m_countryLocalFileFn(countryLocalFileFn), m_index(index)
   {
     ASSERT(index, ());
   }
@@ -105,9 +119,10 @@ public:
   void Clear() { m_mapping.clear(); }
 
 private:
-  TCountryFileFn m_countryFn;
-  Index const * m_index;
+  TCountryFileFn m_countryFileFn;
+  TCountryLocalFileFn m_countryLocalFileFn;
   unordered_map<string, TRoutingMappingPtr> m_mapping;
+  Index const * m_index;
 };
 
 }  // namespace routing

@@ -20,8 +20,15 @@ Platform::Platform()
 
 namespace
 {
-
-enum SourceT { EXTERNAL_RESOURCE, RESOURCE, WRITABLE_PATH, SETTINGS_PATH, FULL_PATH };
+enum SourceT
+{
+  EXTERNAL_RESOURCE,
+  RESOURCE,
+  WRITABLE_PATH,
+  SETTINGS_PATH,
+  FULL_PATH,
+  SOURCE_COUNT
+};
 
 bool IsResource(string const & file, string const & ext)
 {
@@ -40,7 +47,8 @@ bool IsResource(string const & file, string const & ext)
   return true;
 }
 
-size_t GetSearchSources(string const & file, string const & searchScope, SourceT (&arr)[4])
+size_t GetSearchSources(string const & file, string const & searchScope,
+                        SourceT (&arr)[SOURCE_COUNT])
 {
   size_t ret = 0;
 
@@ -88,7 +96,7 @@ ModelReader * Platform::GetReader(string const & file, string const & searchScop
   uint32_t const logPageSize = (ext == DATA_FILE_EXTENSION) ? READER_CHUNK_LOG_SIZE : 10;
   uint32_t const logPageCount = (ext == DATA_FILE_EXTENSION) ? READER_CHUNK_LOG_COUNT : 4;
 
-  SourceT sources[4];
+  SourceT sources[SOURCE_COUNT];
   size_t n = 0;
 
   if (searchScope.empty())
@@ -172,6 +180,7 @@ ModelReader * Platform::GetReader(string const & file, string const & searchScop
     }
   }
 
+  LOG(LERROR, ("Can't get reader for:", file));
   MYTHROW(FileAbsentException, ("File not found", file));
   return 0;
 }
@@ -238,8 +247,9 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
     size = ReaderPtr<Reader>(GetReader(fileName)).Size();
     return true;
   }
-  catch (RootException const &)
+  catch (RootException const & ex)
   {
+    LOG(LWARNING, ("Can't get file size for:", fileName));
     return false;
   }
 }
@@ -249,7 +259,7 @@ Platform::EError Platform::MkDir(string const & dirName) const
   if (mkdir(dirName.c_str(), 0755))
   {
     LOG(LWARNING, ("Can't create directory: ", dirName));
-    return Platform::ERR_UNKNOWN;
+    return ErrnoToError();
   }
   return Platform::ERR_OK;
 }
