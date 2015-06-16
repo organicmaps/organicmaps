@@ -21,19 +21,21 @@ template <typename T> inline T Abs(T x)
 // maxULPs - number of closest floating point values that are considered equal.
 // Infinity is treated as almost equal to the largest possible floating point values.
 // NaN produces undefined result.
-// See http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm for details.
-template <typename FloatT> bool AlmostEqualULPs(FloatT x, FloatT y, unsigned int maxULPs = 256)
+// See https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
+// for details.
+template <typename TFloat>
+bool AlmostEqualULPs(TFloat x, TFloat y, unsigned int maxULPs = 256)
 {
-  STATIC_ASSERT(is_floating_point<FloatT>::value);
-  STATIC_ASSERT(numeric_limits<FloatT>::is_iec559);
-  STATIC_ASSERT(!numeric_limits<FloatT>::is_exact);
-  STATIC_ASSERT(!numeric_limits<FloatT>::is_integer);
+  STATIC_ASSERT(is_floating_point<TFloat>::value);
+  STATIC_ASSERT(numeric_limits<TFloat>::is_iec559);
+  STATIC_ASSERT(!numeric_limits<TFloat>::is_exact);
+  STATIC_ASSERT(!numeric_limits<TFloat>::is_integer);
 
   // Make sure maxUlps is non-negative and small enough that the
-  // default NAN won't compare as equal to anything.
+  // default NaN won't compare as equal to anything.
   ASSERT_LESS(maxULPs, 4 * 1024 * 1024, ());
 
-  int const bits = 8 * sizeof(FloatT);
+  int const bits = 8 * sizeof(TFloat);
   typedef typename boost::int_t<bits>::exact IntType;
   typedef typename boost::uint_t<bits>::exact UIntType;
 
@@ -49,7 +51,27 @@ template <typename FloatT> bool AlmostEqualULPs(FloatT x, FloatT y, unsigned int
 
   UIntType const diff = Abs(xInt - yInt);
 
-  return (diff <= maxULPs);
+  return diff <= maxULPs;
+}
+
+// Returns true if x and y are equal up to the absolute difference eps.
+// Does not produce a sensible result if any of the arguments is NaN or infinity.
+// The default value for eps is deliberately not provided: the intended usage
+// is for the client to choose the precision according to the problem domain,
+// explicitly define the precision constant and call this function.
+template <typename TFloat>
+inline bool AlmostEqualAbs(TFloat x, TFloat y, TFloat eps)
+{
+  return fabs(x - y) < eps;
+}
+
+// Returns true if x and y are equal up to the relative difference eps.
+// Does not produce a sensible result if any of the arguments is NaN, infinity or zero.
+// The same considerations as in AlmostEqualAbs apply.
+template <typename TFloat>
+inline bool AlmostEqualRel(TFloat x, TFloat y, TFloat eps)
+{
+  return fabs(x - y) < eps * max(fabs(x), fabs(y));
 }
 
 template <typename TFloat> inline TFloat DegToRad(TFloat deg)

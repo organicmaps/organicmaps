@@ -64,6 +64,22 @@ UNIT_TEST(AlmostEqualULPs_Smoke)
   TEST(!my::AlmostEqualULPs(0.0, eps), ());
 }
 
+UNIT_TEST(AlmostEqual_Smoke)
+{
+  double const small = 1e-18;
+  double const eps = 1e-10;
+
+  TEST(my::AlmostEqualAbs(0.0, 0.0 + small, eps), ());
+  TEST(!my::AlmostEqualRel(0.0, 0.0 + small, eps), ());
+  TEST(!my::AlmostEqualULPs(0.0, 0.0 + small), ());
+
+  TEST(my::AlmostEqualAbs(1.0, 1.0 + small, eps), ());
+  TEST(my::AlmostEqualRel(1.0, 1.0 + small, eps), ());
+  TEST(my::AlmostEqualULPs(1.0, 1.0 + small), ());
+
+  TEST(my::AlmostEqualRel(123456789.0, 123456780.0, 1e-7), ());
+}
+
 namespace
 {
 
