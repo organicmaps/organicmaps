@@ -117,5 +117,6 @@ elif [ "$MODE" == "routing" ]; then
     cp "$BORDERS_PATH"/*.poly "$TARGET/borders/"
   fi
   $GENERATOR_TOOL --make_routing=true ${CROSS_MWM-} --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$BASE_NAME"
+  rm -f "$TARGET/$BASE_NAME.mwm.osm2ft"
   [ -n "${CROSS_MWM-}" ] && rm -r "$TARGET/borders"
 fi

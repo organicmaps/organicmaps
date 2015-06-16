@@ -382,6 +382,6 @@ fi
 
 # Cleaning up temporary directories
 rm "$STATUS_FILE" "$OSRM_FLAG"
-[ -n "$KEEP_INTDIR" ] && rm "$TARGET"/*.mwm.osm2ft
+mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
 [ -n "$KEEP_INTDIR" ] && rm -r "$INTDIR"
 log "STATUS" "Done"
