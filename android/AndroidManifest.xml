@@ -273,14 +273,24 @@
         android:exported="false">
     </service>
 
-    <!-- needed for MRGS -->
+    <!-- our custom receiver, that will call MRGS & Aloha handlers -->
     <receiver
-        android:name="ru.mail.mrgservice.MRGSBroadcastReceiver"
+        android:name="com.mapswithme.util.MultipleTrackerReferrerReceiver"
         android:exported="true">
       <intent-filter>
         <action android:name="com.android.vending.INSTALL_REFERRER"/>
       </intent-filter>
     </receiver>
+
+    <!-- needed for MRGS
+         WARNING : it's actually commented, cause that receiver is called from our custom receiver MultipleTrackerReferrerReceiver registered above-->
+    <!--<receiver-->
+        <!--android:name="ru.mail.mrgservice.MRGSBroadcastReceiver"-->
+        <!--android:exported="true">-->
+      <!--<intent-filter>-->
+        <!--<action android:name="com.android.vending.INSTALL_REFERRER"/>-->
+      <!--</intent-filter>-->
+    <!--</receiver>-->
 
     <service android:name="ru.mail.android.mytracker.campaign.CampaignService"/>
 

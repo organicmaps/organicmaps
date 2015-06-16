@@ -58,4 +58,6 @@ public class AlohaHelper
   // installation of Parse
   public static final String PARSE_INSTALLATION_ID = "Android_Parse_Installation_Id";
   public static final String PARSE_DEVICE_TOKEN = "Android_Parse_Device_Token";
+  // installation
+  public static final String GPLAY_INSTALL_REFERRER = "$googlePlayInstallReferrer";
 }
