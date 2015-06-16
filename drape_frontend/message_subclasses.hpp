@@ -497,8 +497,9 @@ private:
 class AddRouteMessage : public Message
 {
 public:
-  AddRouteMessage(m2::PolylineD const & routePolyline, dp::Color const & color)
+  AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns, dp::Color const & color)
     : m_routePolyline(routePolyline)
+    , m_turns(turns)
     , m_color(color)
   {}
 
@@ -506,10 +507,12 @@ public:
 
   m2::PolylineD const & GetRoutePolyline() { return m_routePolyline; }
   dp::Color const & GetColor() const { return m_color; }
+  vector<double> const & GetTurns() const { return m_turns; }
 
 private:
   m2::PolylineD m_routePolyline;
   dp::Color m_color;
+  vector<double> m_turns;
 };
 
 class RemoveRouteMessage : public Message

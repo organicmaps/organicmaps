@@ -98,7 +98,7 @@ public:
   void DeselectObject();
   bool GetMyPosition(m2::PointD & myPosition);
 
-  void AddRoute(m2::PolylineD const & routePolyline, dp::Color const & color);
+  void AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns, dp::Color const & color);
   void RemoveRoute(bool deactivateFollowing);
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);

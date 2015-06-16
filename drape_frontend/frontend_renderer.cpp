@@ -500,7 +500,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
       m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
   }
 
-  m_routeRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
   m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
@@ -520,6 +519,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
       RenderSingleGroup(modelView, make_ref(group));
   }
+
+  GLFunctions::glClearDepth();
+  m_routeRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
   GLFunctions::glClearDepth();
 

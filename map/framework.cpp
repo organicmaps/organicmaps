@@ -1960,6 +1960,7 @@ void Framework::CloseRouting()
 void Framework::InsertRoute(Route const & route)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("InsertRoute"));
+  ASSERT(m_drapeEngine != nullptr, ());
 
   if (route.GetPoly().GetSize() < 2)
   {
@@ -1967,9 +1968,15 @@ void Framework::InsertRoute(Route const & route)
     return;
   }
 
-  ASSERT(m_drapeEngine != nullptr, ());
-  m_drapeEngine->AddRoute(route.GetPoly(), dp::Color(110, 180, 240, 200));
-
+  vector<double> turns;
+  turns::TurnsGeomT const & turnsGeom = route.GetTurnsGeometry();
+  if (!turnsGeom.empty())
+  {
+    turns.reserve(turnsGeom.size());
+    for (size_t i = 0; i < turnsGeom.size(); i++)
+      turns.push_back(turnsGeom[i].m_mercatorDistance);
+  }
+  m_drapeEngine->AddRoute(route.GetPoly(), turns, dp::Color(110, 180, 240, 160));
 
   // TODO(@kuznetsov): Maybe we need some of this stuff
   //track.SetName(route.GetName());

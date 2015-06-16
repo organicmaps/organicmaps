@@ -22,6 +22,7 @@ struct RouteData
   m2::RectF m_arrowTextureRect;
   vector<RouteJoinBounds> m_joinsBounds;
   double m_length;
+  vector<double> m_turns;
 };
 
 class RouteBuilder
@@ -31,7 +32,8 @@ public:
 
   RouteBuilder(TFlushRouteFn const & flushRouteFn);
 
-  void Build(m2::PolylineD const & routePolyline, dp::Color const & color, ref_ptr<dp::TextureManager> textures);
+  void Build(m2::PolylineD const & routePolyline, vector<double> const & turns,
+             dp::Color const & color, ref_ptr<dp::TextureManager> textures);
 
 private:
   TFlushRouteFn m_flushRouteFn;

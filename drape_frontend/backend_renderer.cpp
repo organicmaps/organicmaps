@@ -186,7 +186,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::AddRoute:
     {
       ref_ptr<AddRouteMessage> msg = message;
-      m_routeBuilder->Build(msg->GetRoutePolyline(), msg->GetColor(), m_texMng);
+      m_routeBuilder->Build(msg->GetRoutePolyline(), msg->GetTurns(), msg->GetColor(), m_texMng);
       break;
     }
   case Message::RemoveRoute:

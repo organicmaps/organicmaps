@@ -12,7 +12,8 @@ RouteBuilder::RouteBuilder(RouteBuilder::TFlushRouteFn const & flushRouteFn)
   , m_batcher(make_unique_dp<dp::Batcher>(ESTIMATE_BUFFER_SIZE, ESTIMATE_BUFFER_SIZE))
 {}
 
-void RouteBuilder::Build(m2::PolylineD const & routePolyline, dp::Color const & color, ref_ptr<dp::TextureManager> textures)
+void RouteBuilder::Build(m2::PolylineD const & routePolyline,  vector<double> const & turns,
+                         dp::Color const & color, ref_ptr<dp::TextureManager> textures)
 {
   CommonViewParams params;
   params.m_depth = 0.0f;
@@ -26,6 +27,7 @@ void RouteBuilder::Build(m2::PolylineD const & routePolyline, dp::Color const & 
   routeData.m_arrowTextureRect = textureRect;
   routeData.m_joinsBounds = shape.GetJoinsBounds();
   routeData.m_length = shape.GetLength();
+  routeData.m_turns = turns;
 
   auto flushRoute = [this, &routeData](dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket)
   {

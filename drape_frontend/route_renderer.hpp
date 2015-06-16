@@ -52,15 +52,16 @@ public:
 private:
   void CalculateArrowBorders(double arrowLength, double scale, double arrowTextureWidth,
                              double joinsBoundsScalar, vector<ArrowBorders> & borders);
-  void MergeAndClipBorders(vector<ArrowBorders> & borders, double scale, double arrowTextureWidth);
 
   void ApplyJoinsBounds(double arrowTextureWidth, double joinsBoundsScalar, double glbTailLength,
                         double glbHeadLength, double scale, vector<ArrowBorders> & borders);
 
+  void RenderArrow(RouteGraphics const & graphics, float halfWidth, ScreenBase const & screen,
+                   ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & commonUniforms);
+
   vector<RouteGraphics> m_routeGraphics;
   double m_distanceFromBegin;
   RouteData m_routeData;
-  vector<double> m_turnPoints;
 };
 
 } // namespace df
