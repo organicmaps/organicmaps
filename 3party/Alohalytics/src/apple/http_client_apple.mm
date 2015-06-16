@@ -44,16 +44,17 @@ extern NSString * gBrowserUserAgent;
 #include "../http_client.h"
 #include "../logger.h"
 
-#define TIMEOUT_IN_SECONDS 30.0
-
 namespace alohalytics {
+
+// If we try to upload our data from the background fetch handler on iOS, we have ~30 seconds to do that gracefully.
+static const double kTimeoutInSeconds = 24.0;
 
 bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   @autoreleasepool {
 
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:
         [NSURL URLWithString:[NSString stringWithUTF8String:url_requested_.c_str()]]
-        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
+        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:kTimeoutInSeconds];
 
     request.HTTPMethod = [NSString stringWithUTF8String:http_method_.c_str()];
     if (!content_type_.empty()) {
