@@ -61,16 +61,6 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
       convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_bookmark_category, parent, false);
       final ViewHolder holder = new ViewHolder(convertView);
       convertView.setTag(holder);
-      holder.visibilityCheckBox.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(position);
-          if (category != null)
-            category.setVisibility(holder.visibilityCheckBox.isChecked());
-        }
-      });
     }
 
     final ViewHolder holder = (ViewHolder) convertView.getTag();
@@ -78,6 +68,17 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     holder.name.setText(set.getName());
     holder.size.setText(String.valueOf(set.getSize()));
     holder.visibilityCheckBox.setChecked(set.isVisible());
+    holder.visibilityCheckBox.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(position);
+        if (category != null)
+          category.setVisibility(holder.visibilityCheckBox.isChecked());
+      }
+    });
+
 
     return convertView;
   }
