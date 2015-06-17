@@ -165,9 +165,8 @@ void OsrmFtSegMapping::DumpSegmentByNode(TOsrmNodeId nodeId) const
 
 void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) const
 {
-  auto addResFn = [&] (uint64_t seg, size_t idx, bool forward)
+  auto addResFn = [&] (uint64_t seg, TOsrmNodeId nodeId, bool forward)
   {
-    TOsrmNodeId const nodeId = GetNodeId(idx);
     auto it = res.insert({ seg, { forward ? nodeId : INVALID_NODE_ID,
                                   forward ? INVALID_NODE_ID : nodeId } });
     if (it.second)
@@ -207,7 +206,7 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) cons
         {
           if (seg.m_pointStart >= s.m_pointStart && seg.m_pointEnd <= s.m_pointEnd)
           {
-            if (addResFn(seg.Store(), i, true))
+            if (addResFn(seg.Store(), nodeId, true))
             {
               break;
             }
@@ -217,7 +216,7 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) cons
         {
           if (seg.m_pointStart >= s.m_pointEnd && seg.m_pointEnd <= s.m_pointStart)
           {
-            if (addResFn(seg.Store(), i, false))
+            if (addResFn(seg.Store(), nodeId, false))
             {
               break;
             }
@@ -413,6 +412,7 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_
   vector<bool> inIndex(m_table->size(), false);
   m_nodeIds.reserve(temporaryBackwardIndex.size());
 
+  size_t removedNodes = 0;
   for (size_t i = 0; i < m_table->size(); ++i)
   {
     uint32_t fid = m_table->GetFeatureOffset(i);
@@ -421,8 +421,18 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_
     {
       inIndex[i] = true;
       m_nodeIds.emplace_back(move(it->second));
+
+      // Remove duplicates nodes emmited by equal choises on a generation route step.
+      TNodesList & nodesList = m_nodeIds.back();
+      size_t const foundNodes = nodesList.size();
+      sort(nodesList.begin(), nodesList.end());
+      auto const endIt = unique(nodesList.begin(), nodesList.end());
+      nodesList.erase(endIt, nodesList.end());
+      removedNodes += foundNodes - nodesList.size();
     }
   }
+
+  LOG(LINFO, ("Backward index constructor removes", removedNodes, "duplicates."));
 
   // Pack and save index
   succinct::rs_bit_vector(inIndex).swap(m_rankIndex);

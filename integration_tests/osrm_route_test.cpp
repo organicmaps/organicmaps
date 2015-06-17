@@ -26,6 +26,14 @@ namespace
           );
   }
 
+  // Strange asserts near Cupertino test
+  UNIT_TEST(CaliforniaCupertionFindPhantomAssetText)
+  {
+    integration::CalculateRouteAndTestRouteLength(integration::GetAllMaps(),
+                                                  {-122.03448, 40.29689}, {0., 0.},
+                                                  {-122.03469, 40.29741}, 6548.);
+  }
+
   // Cross mwm tests.
   UNIT_TEST(RussiaMoscowLenigradskiy39GerPanfilovtsev22RouteTest)
   {
