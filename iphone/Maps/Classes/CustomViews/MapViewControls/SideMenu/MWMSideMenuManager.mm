@@ -162,6 +162,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (_state == state)
     return;
   _state = state;
+  [self.controller updateStatusBarStyle];
   switch (state)
   {
     case MWMSideMenuStateActive:

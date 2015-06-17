@@ -36,7 +36,7 @@
   self.menuManager = [[MWMSideMenuManager alloc] initWithParentController:controller];
   self.hidden = NO;
   self.zoomHidden = NO;
-  self.menuHidden = NO;
+  self.menuState = MWMSideMenuStateInactive;
   return self;
 }
 
@@ -71,7 +71,7 @@
     return;
   _hidden = hidden;
   self.zoomHidden = _zoomHidden;
-  self.menuHidden = _menuHidden;
+  self.menuState = self.menuManager.state;
   self.locationHidden = _locationHidden;
   GetFramework().SetFullScreenMode(hidden);
 }
@@ -82,10 +82,14 @@
   self.zoomButtons.hidden = self.hidden || zoomHidden;
 }
 
-- (void)setMenuHidden:(BOOL)menuHidden
+- (void)setMenuState:(MWMSideMenuState)menuState
 {
-  _menuHidden = menuHidden;
-  self.menuManager.state = (self.hidden || menuHidden) ? MWMSideMenuStateHidden : MWMSideMenuStateInactive;
+  self.menuManager.state = self.hidden ? MWMSideMenuStateHidden : menuState;
+}
+
+- (MWMSideMenuState)menuState
+{
+  return self.menuManager.state;
 }
 
 - (void)setLocationHidden:(BOOL)locationHidden

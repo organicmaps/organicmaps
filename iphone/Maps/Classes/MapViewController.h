@@ -40,6 +40,8 @@ namespace search { struct AddressInfo; }
 
 - (void)setMapStyle:(MapStyle)mapStyle;
 
+- (void)updateStatusBarStyle;
+
 @property (nonatomic) UIPopoverController * popoverVC;
 @property (nonatomic, readonly) BOOL apiMode;
 @property (nonatomic) SearchView * searchView;

@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "MWMSideMenuManager.h"
+
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, MWMMapViewControlsButton)
@@ -21,7 +23,7 @@ typedef NS_ENUM(NSUInteger, MWMMapViewControlsButton)
 
 @property (nonatomic) BOOL hidden;
 @property (nonatomic) BOOL zoomHidden;
-@property (nonatomic) BOOL menuHidden;
+@property (nonatomic) MWMSideMenuState menuState;
 @property (nonatomic) BOOL locationHidden;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));

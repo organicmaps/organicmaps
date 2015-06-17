@@ -605,12 +605,20 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   else
   {
     UIStatusBarStyle style = UIStatusBarStyleDefault;
-    if (self.searchView.state != SearchViewStateHidden)
+    if (self.searchView.state != SearchViewStateHidden || self.controlsManager.menuState == MWMSideMenuStateActive)
       style = UIStatusBarStyleLightContent;
     if (self.containerView.placePage.state != PlacePageStateHidden)
       style = UIStatusBarStyleDefault;
     return style;
   }
+}
+
+- (void)updateStatusBarStyle
+{
+  if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+    [self setNeedsStatusBarAppearanceUpdate];
+  else
+    [UIApplication sharedApplication].statusBarStyle = [self preferredStatusBarStyle];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -1053,8 +1061,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
   if (object == self.containerView.placePage && [keyPath isEqualToString:@"state"])
   {
-    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-      [self setNeedsStatusBarAppearanceUpdate];
+    [self updateStatusBarStyle];
     switch (self.containerView.placePage.state)
     {
       case PlacePageStateHidden:
@@ -1126,8 +1133,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   }
   else if (object == self.searchView && [keyPath isEqualToString:@"state"])
   {
-    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-      [self setNeedsStatusBarAppearanceUpdate];
+    [self updateStatusBarStyle];
     if (self.searchView.state == SearchViewStateFullscreen)
     {
       GetFramework().ActivateUserMark(NULL);
@@ -1196,8 +1202,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
   _apiMode = apiMode;
 
-  if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-    [self setNeedsStatusBarAppearanceUpdate];
+  [self updateStatusBarStyle];
 }
 
 - (void)cleanUserMarks
