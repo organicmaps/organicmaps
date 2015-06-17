@@ -39,9 +39,8 @@ void RouteBuilder::Build(m2::PolylineD const & routePolyline,  vector<double> co
       m_flushRouteFn(state, move(bucket), routeData, eorState, move(eorBucket));
   };
 
-  m_batcher->StartSession(flushRoute);
+  dp::SessionGuard guard(*m_batcher, flushRoute);
   shape.Draw(make_ref(m_batcher), textures);
-  m_batcher->EndSession();
 }
 
 } // namespace df

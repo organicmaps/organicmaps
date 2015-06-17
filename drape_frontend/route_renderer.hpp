@@ -34,6 +34,19 @@ struct ArrowBorders
   int m_groupIndex = 0;
 };
 
+struct RouteSegment
+{
+  double m_start = 0;
+  double m_end = 0;
+  bool m_isAvailable = false;
+
+  RouteSegment(double start, double end, bool isAvailable)
+    : m_start(start)
+    , m_end(end)
+    , m_isAvailable(isAvailable)
+  {}
+};
+
 class RouteRenderer final
 {
 public:
@@ -53,14 +66,11 @@ public:
   void UpdateDistanceFromBegin(double distanceFromBegin);
 
 private:
-  void CalculateArrowBorders(double arrowLength, double scale, double arrowTextureWidth,
-                             double joinsBoundsScalar, vector<ArrowBorders> & borders);
+  void CalculateArrowBorders(double arrowLength, double scale, double arrowTextureWidth, double joinsBoundsScalar);
 
-  void ApplyJoinsBounds(double arrowTextureWidth, double joinsBoundsScalar, double glbTailLength,
-                        double glbHeadLength, double scale, vector<ArrowBorders> & borders);
+  void ApplyJoinsBounds(double joinsBoundsScalar, double glbHeadLength);
 
-  void RenderArrow(RouteGraphics const & graphics, float halfWidth, ScreenBase const & screen,
-                   ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & commonUniforms);
+  void RenderArrow(ref_ptr<dp::GpuProgram> prg, RouteGraphics const & graphics, float halfWidth, ScreenBase const & screen);
 
   vector<RouteGraphics> m_routeGraphics;
   double m_distanceFromBegin;
@@ -68,6 +78,9 @@ private:
 
   dp::GLState m_endOfRouteState;
   drape_ptr<dp::VertexArrayBuffer> m_endOfRouteBuffer;
+
+  vector<ArrowBorders> m_arrowBorders;
+  vector<RouteSegment> m_routeSegments;
 };
 
 } // namespace df

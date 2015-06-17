@@ -529,15 +529,16 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
       RenderSingleGroup(modelView, make_ref(group));
   }
 
-  GLFunctions::glClearDepth();
+  GLFunctions::glDisable(gl_const::GLDepthTest);
+
   m_routeRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
   m_myPositionController->Render(MyPositionController::RenderMyPosition,
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-  GLFunctions::glClearDepth();
-
   if (m_guiRenderer != nullptr)
     m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
+
+  GLFunctions::glEnable(gl_const::GLDepthTest);
 
 #ifdef DRAW_INFO
   AfterDrawFrame();

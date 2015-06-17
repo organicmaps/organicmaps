@@ -33,10 +33,11 @@ public:
   };
 
   // Render bits
-  // {
-  static uint32_t const RenderAccuracy = 0x1;
-  static uint32_t const RenderMyPosition = 0x2;
-  // }
+  enum RenderMode
+  {
+    RenderAccuracy = 0x1,
+    RenderMyPosition = 0x2
+  };
 
   MyPositionController(location::EMyPositionMode initMode);
 

@@ -19,7 +19,7 @@ namespace df
 namespace
 {
   using LV = gpu::LineVertex;
-  using TGeometryBuffer = buffer_vector<gpu::LineVertex, 128>;
+  using TGeometryBuffer = buffer_vector<gpu::LineVertex, 256>;
 
   class TextureCoordGenerator
   {
@@ -235,9 +235,12 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   provider.InitStream(0, gpu::LineVertex::GetBindingInfo(), make_ref(geometry.data()));
   batcher->InsertListOfStrip(state, make_ref(&provider), 4);
 
-  dp::AttributeProvider joinsProvider(1, joinsGeometry.size());
-  joinsProvider.InitStream(0, gpu::LineVertex::GetBindingInfo(), make_ref(joinsGeometry.data()));
-  batcher->InsertTriangleList(state, make_ref(&joinsProvider));
+  if (!joinsGeometry.empty())
+  {
+    dp::AttributeProvider joinsProvider(1, joinsGeometry.size());
+    joinsProvider.InitStream(0, gpu::LineVertex::GetBindingInfo(), make_ref(joinsGeometry.data()));
+    batcher->InsertTriangleList(state, make_ref(&joinsProvider));
+  }
 }
 
 } // namespace df
