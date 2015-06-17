@@ -6,7 +6,7 @@ namespace
 {
 inline bool IsValidEdgeWeight(EdgeWeight const & w) { return w != INVALID_EDGE_WEIGHT; }
 
-double constexpr kMwmCrossingNodeEqualityRadiusMeters = 1000.0;
+double constexpr kMwmCrossingNodeEqualityRadiusMeters = 5.0;
 }
 
 namespace routing
