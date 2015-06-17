@@ -5,8 +5,9 @@ uniform float u_clipLength;
 
 void main(void)
 {
+  vec4 color = u_color;
   if (v_length.x < u_clipLength)
-    discard;
+    color.a = 0.0;
 
-  gl_FragColor = u_color;
+  gl_FragColor = color;
 }
