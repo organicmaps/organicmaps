@@ -147,9 +147,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private static boolean mStorageAvailable = false;
   private static boolean mStorageWritable = true;
   // Buttons
-  private static final long BUTTONS_ANIM_DURATION = 80;
-  private static final long BUTTONS_ANIM_DURATION_LONG = 88;
-  private static final long BUTTON_ANIM_DELAY = 40;
+  private static final long BUTTONS_ANIM_DURATION = 30;
+  private static final long BUTTONS_ANIM_DURATION_LONG = 35;
   private ViewGroup mBottomButtons;
   private ImageView mBtnBookmarks;
   private ImageView mBtnSearch;
@@ -1385,9 +1384,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mLlSearch.setVisibility(View.VISIBLE);
     final float baseY = ViewCompat.getY(mLlSearch);
     mButtonsAnimation.play(generateMenuAnimator(mLlBookmarks, baseY - ViewCompat.getY(mLlBookmarks)));
-    mButtonsAnimation.play(generateMenuAnimator(mLlDownloader, baseY - ViewCompat.getY(mLlDownloader))).after(BUTTON_ANIM_DELAY);
-    mButtonsAnimation.play(generateMenuAnimator(mLlSettings, baseY - ViewCompat.getY(mLlSettings))).after(BUTTON_ANIM_DELAY * 2);
-    mButtonsAnimation.play(generateMenuAnimator(mLlShare, baseY - ViewCompat.getY(mLlShare))).after(BUTTON_ANIM_DELAY * 3);
+    mButtonsAnimation.play(generateMenuAnimator(mLlDownloader, baseY - ViewCompat.getY(mLlDownloader)));
+    mButtonsAnimation.play(generateMenuAnimator(mLlSettings, baseY - ViewCompat.getY(mLlSettings)));
+    mButtonsAnimation.play(generateMenuAnimator(mLlShare, baseY - ViewCompat.getY(mLlShare)));
     mButtonsAnimation.addListener(new UiUtils.SimpleNineoldAnimationListener()
     {
       @Override
@@ -1406,6 +1405,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private Animator generateMenuAnimator(@NonNull final View layout, final float translationY)
   {
+    final float durationMultiplier = translationY / layout.getHeight();
     final AnimatorSet result = new AnimatorSet();
     ValueAnimator animator = ObjectAnimator.ofFloat(layout, "translationY", translationY, 0);
     animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
@@ -1418,11 +1418,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
       }
     });
     animator.setInterpolator(new LinearInterpolator());
-    animator.setDuration(BUTTONS_ANIM_DURATION);
+    animator.setDuration((long) (BUTTONS_ANIM_DURATION * durationMultiplier));
     result.play(animator);
 
     animator = ObjectAnimator.ofFloat(layout, "alpha", 0, 1);
-    animator.setDuration(BUTTONS_ANIM_DURATION_LONG);
+    animator.setDuration((long) (BUTTONS_ANIM_DURATION_LONG * durationMultiplier));
     animator.setInterpolator(new AccelerateInterpolator());
     result.play(animator);
 
