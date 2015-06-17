@@ -159,10 +159,9 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
 
     SendStatistics(startPoint, startDirection, finalPoint, code, elapsedSec);
   }
-  catch (Reader::Exception const & e)
+  catch (RootException const & e)
   {
-    LOG(LERROR,
-        ("Routing index is absent or incorrect. Error while loading routing index:", e.Msg()));
+    LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
     code = IRouter::InternalError;
 
     SendStatistics(startPoint, startDirection, finalPoint, e.Msg());
