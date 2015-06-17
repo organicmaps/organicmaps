@@ -260,6 +260,11 @@ if [ -n "$OPT_ROUTING" ]; then
     log "start_routing(): OSRM files have been already created, no need to repeat"
   else
     putmode "Step R: Starting OSRM files generation"
+    # If *.mwm.osm2ft were moved to INTDIR, let's put them back
+    [ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
+    [ -z "$(ls "$TARGET" | grep \.mwm\.osm2ft)" -a -n "$(ls "$INTDIR" | grep \.mwm\.osm2ft)" ] && mv "$INTDIR/*.mwm.osm2ft" "$TARGET"
+    [ -n "$EXIT_ON_ERROR" ] && set -e
+
     if [ -n "$ASYNC_PBF" ]; then
       (
         bash "$ROUTING_SCRIPT" pbf >> "$ROUTING_LOG" 2>&1
