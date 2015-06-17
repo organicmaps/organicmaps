@@ -77,11 +77,11 @@ private:
 STATIC_ASSERT(sizeof(CellFeatureBucketTuple) == 16);
 STATIC_ASSERT(is_trivially_copyable<CellFeatureBucketTuple>::value);
 
-template <class SorterT>
+template <class TSorter>
 class FeatureCoverer
 {
 public:
-  FeatureCoverer(feature::DataHeader const & header, SorterT & sorter,
+  FeatureCoverer(feature::DataHeader const & header, TSorter & sorter,
                  vector<uint32_t> & featuresInBucket, vector<uint32_t> & cellsInBucket)
       : m_header(header),
         m_scalesIdx(0),
@@ -98,20 +98,21 @@ public:
   template <class TFeature>
   void operator() (TFeature const & f, uint32_t offset) const
   {
-    uint32_t minScale = 0;
     m_scalesIdx = 0;
     uint32_t minScaleClassif = feature::GetMinDrawableScaleClassifOnly(f);
     // The classificator won't allow this feature to be drawable for smaller
     // scales so the first buckets can be safely skipped.
+    // todo(@pimenov) Parallelizing this loop may be helpful.
     for (uint32_t bucket = minScaleClassif; bucket < m_bucketsCount; ++bucket)
     {
       // There is a one-to-one correspondence between buckets and scales.
       // This is not immediately obvious and in fact there was an idea to map
       // a bucket to a contiguous range of scales.
       // todo(@pimenov): We probably should remove scale_index.hpp altogether.
-      if (!FeatureShouldBeIndexed(f, offset, bucket, bucket == minScaleClassif /* needReset */,
-                                  minScale))
+      if (!FeatureShouldBeIndexed(f, offset, bucket, bucket == minScaleClassif /* needReset */))
+      {
         continue;
+      }
 
       vector<int64_t> const cells = covering::CoverFeature(f, m_codingDepth, 250);
       for (int64_t cell : cells)
@@ -128,11 +129,11 @@ private:
   // Every feature should be indexed at most once, namely for the smallest possible scale where
   //   -- its geometry is non-empty;
   //   -- it is visible;
-  //   -- the classificator allows.
+  //   -- it is allowed by the classificator.
   // If the feature is invisible at all scales, do not index it.
   template <class TFeature>
-  bool FeatureShouldBeIndexed(TFeature const & f, uint32_t offset, uint32_t scale, bool needReset,
-                              uint32_t & minScale) const
+  bool FeatureShouldBeIndexed(TFeature const & f, uint32_t offset, uint32_t scale,
+                              bool needReset) const
   {
     while (m_scalesIdx < m_header.GetScalesCount() && m_header.GetScale(m_scalesIdx) < scale)
     {
@@ -147,17 +148,10 @@ private:
     if (f.IsEmptyGeometry(scale))
       return false;
 
-    if (needReset)
-    {
-      // This function assumes that geometry rect for the needed scale is already initialized.
-      // Note: it works with FeatureBase so in fact it does not use the information about
-      // the feature's geometry except for the type and the LimitRect.
-      // minScale should be recalculated only after a reset and only if the geometry
-      // is non-empty.
-      minScale = feature::GetMinDrawableScale(f);
-    }
-
-    return minScale <= scale;
+    // This function assumes that geometry rect for the needed scale is already initialized.
+    // Note: it works with FeatureBase so in fact it does not use the information about
+    // the feature's geometry except for the type and the LimitRect.
+    return feature::IsDrawableForIndexGeometryOnly(f, scale);
   }
 
   // We do not need to parse a feature's geometry for every bucket.
@@ -171,7 +165,7 @@ private:
   mutable size_t m_scalesIdx;
 
   uint32_t m_bucketsCount;
-  SorterT & m_sorter;
+  TSorter & m_sorter;
   int m_codingDepth;
   vector<uint32_t> & m_featuresInBucket;
   vector<uint32_t> & m_cellsInBucket;
@@ -200,16 +194,16 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
 {
   // TODO: Make scale bucketing dynamic.
 
-  int bucketsCount = header.GetLastScale() + 1;
+  uint32_t const bucketsCount = header.GetLastScale() + 1;
 
-  string const cells2featureAllBucketsFile =
+  string const cellsToFeatureAllBucketsFile =
       tmpFilePrefix + CELL2FEATURE_SORTED_EXT + ".allbuckets";
-  MY_SCOPE_GUARD(cells2featureAllBucketsFileGuard,
-                 bind(&FileWriter::DeleteFileX, cells2featureAllBucketsFile));
+  MY_SCOPE_GUARD(cellsToFeatureAllBucketsFileGuard,
+                 bind(&FileWriter::DeleteFileX, cellsToFeatureAllBucketsFile));
   {
-    FileWriter cellsToFeaturesAllBucketsWriter(cells2featureAllBucketsFile);
+    FileWriter cellsToFeaturesAllBucketsWriter(cellsToFeatureAllBucketsFile);
 
-    typedef FileSorter<CellFeatureBucketTuple, WriterFunctor<FileWriter> > TSorter;
+    using TSorter = FileSorter<CellFeatureBucketTuple, WriterFunctor<FileWriter>>;
     WriterFunctor<FileWriter> out(cellsToFeaturesAllBucketsWriter);
     TSorter sorter(1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2FEATURE_TMP_EXT, out);
     vector<uint32_t> featuresInBucket(bucketsCount);
@@ -222,15 +216,14 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
     {
       uint32_t const numCells = cellsInBucket[bucket];
       uint32_t const numFeatures = featuresInBucket[bucket];
-      LOG(LINFO, ("Building scale index for bucket:", bucket));
       double const cellsPerFeature =
           numFeatures == 0 ? 0.0 : static_cast<double>(numCells) / static_cast<double>(numFeatures);
-      LOG(LINFO,
-          ("Features:", numFeatures, "cells:", numCells, "cells per feature:", cellsPerFeature));
+      LOG(LINFO, ("Scale index for bucket", bucket, ": Features:", numFeatures, "cells:", numCells,
+                  "cells per feature:", cellsPerFeature));
     }
   }
 
-  FileReader reader(cells2featureAllBucketsFile);
+  FileReader reader(cellsToFeatureAllBucketsFile);
   DDVector<CellFeatureBucketTuple, FileReader, uint64_t> cellsToFeaturesAllBuckets(reader);
 
   VarSerialVectorWriter<TWriter> recordWriter(writer, bucketsCount);
@@ -238,10 +231,10 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
 
   for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
   {
-    string const cells2featureFile = tmpFilePrefix + CELL2FEATURE_SORTED_EXT;
-    MY_SCOPE_GUARD(cells2featureFileGuard, bind(&FileWriter::DeleteFileX, cells2featureFile));
+    string const cellsToFeatureFile = tmpFilePrefix + CELL2FEATURE_SORTED_EXT;
+    MY_SCOPE_GUARD(cellsToFeatureFileGuard, bind(&FileWriter::DeleteFileX, cellsToFeatureFile));
     {
-      FileWriter cellsToFeaturesWriter(cells2featureFile);
+      FileWriter cellsToFeaturesWriter(cellsToFeatureFile);
       WriterFunctor<FileWriter> out(cellsToFeaturesWriter);
       while (it < cellsToFeaturesAllBuckets.end() && it->GetBucket() == bucket)
       {
@@ -251,7 +244,7 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
     }
 
     {
-      FileReader reader(cells2featureFile);
+      FileReader reader(cellsToFeatureFile);
       DDVector<CellFeaturePair, FileReader, uint64_t> cellsToFeatures(reader);
       SubWriter<TWriter> subWriter(writer);
       LOG(LINFO, ("Building interval index for bucket:", bucket));

@@ -272,20 +272,20 @@ bool IsDrawableLike(vector<uint32_t> const & types, EGeomType ft)
 
 bool IsDrawableForIndex(FeatureBase const & f, int level)
 {
+  return IsDrawableForIndexGeometryOnly(f, level) && IsDrawableForIndexClassifOnly(f, level);
+}
+
+bool IsDrawableForIndexGeometryOnly(FeatureBase const & f, int level)
+{
   Classificator const & c = classif();
 
   TypesHolder const types(f);
 
-  if (types.GetGeoType() == GEOM_AREA && !types.Has(c.GetCoastType()))
-    if (!scales::IsGoodForLevel(level, f.GetLimitRect()))
+  if (types.GetGeoType() == GEOM_AREA && !types.Has(c.GetCoastType()) &&
+      !scales::IsGoodForLevel(level, f.GetLimitRect()))
       return false;
 
-  IsDrawableChecker doCheck(level);
-  for (uint32_t t : types)
-    if (c.ProcessObjects(t, doCheck))
-      return true;
-
-  return false;
+  return true;
 }
 
 bool IsDrawableForIndexClassifOnly(FeatureBase const & f, int level)

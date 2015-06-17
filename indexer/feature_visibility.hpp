@@ -19,7 +19,13 @@ namespace feature
 
   bool IsDrawableAny(uint32_t type);
   bool IsDrawableForIndex(FeatureBase const & f, int level);
+
+  // The separation into ClassifOnly and GeometryOnly versions is needed to speed up
+  // the geometrical index (see indexer/scale_index_builder.hpp).
+  // Technically, the GeometryOnly version uses the classificator, but it only does
+  // so when checking against coastlines.
   bool IsDrawableForIndexClassifOnly(FeatureBase const & f, int level);
+  bool IsDrawableForIndexGeometryOnly(FeatureBase const & f, int level);
 
   /// For FEATURE_TYPE_AREA need to have at least one area-filling type.
   bool IsDrawableLike(vector<uint32_t> const & types, EGeomType ft);
@@ -28,7 +34,6 @@ namespace feature
   //@}
 
   int GetMinDrawableScale(FeatureBase const & f);
-
   int GetMinDrawableScaleClassifOnly(FeatureBase const & f);
 
   /// @return [-1, -1] if range is not drawable
