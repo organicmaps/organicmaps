@@ -753,14 +753,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     UiUtils.hide(mLlBookmarks, mLlDownloader, mLlSettings, mLlShare, mLlSearch);
     // IMPORTANT views after alpha animations with 'setFillAfter' on 2.3 can't become GONE, until clearAnimation is called.
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-    {
-      mLlSearch.clearAnimation();
-      mLlBookmarks.clearAnimation();
-      mLlDownloader.clearAnimation();
-      mLlShare.clearAnimation();
-      mLlSettings.clearAnimation();
-    }
+    UiUtils.hideAfterAlphaAnimation(mLlSearch, mLlBookmarks, mLlDownloader, mLlSettings, mLlShare);
     if (mButtonsAnimation != null && mButtonsAnimation.isRunning())
       mButtonsAnimation.end();
     mBtnMenu.setVisibility(View.VISIBLE);
@@ -1446,21 +1439,21 @@ public class MWMActivity extends BaseMwmFragmentActivity
       AlohaHelper.logClick(AlohaHelper.MENU_SHARE);
       shareMyLocation();
       hideBottomButtons();
-      mFadeView.setVisibility(View.GONE);
+      UiUtils.hideAfterAlphaAnimation(mFadeView);
       break;
     case R.id.btn__settings:
     case R.id.ll__settings:
       AlohaHelper.logClick(AlohaHelper.MENU_SETTINGS);
       startActivity(new Intent(this, SettingsActivity.class));
       hideBottomButtons();
-      mFadeView.setVisibility(View.GONE);
+      UiUtils.hideAfterAlphaAnimation(mFadeView);
       break;
     case R.id.btn__download_maps:
     case R.id.ll__download_maps:
       AlohaHelper.logClick(AlohaHelper.MENU_DOWNLOADER);
       showDownloader(false);
       hideBottomButtons();
-      mFadeView.setVisibility(View.GONE);
+      UiUtils.hideAfterAlphaAnimation(mFadeView);
       break;
     case R.id.rl__route:
       AlohaHelper.logClick(AlohaHelper.PP_ROUTE);
@@ -1496,14 +1489,14 @@ public class MWMActivity extends BaseMwmFragmentActivity
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_SEARCH);
       showSearchIfUpdated();
       hideBottomButtons();
-      mFadeView.setVisibility(View.GONE);
+      UiUtils.hideAfterAlphaAnimation(mFadeView);
       break;
     case R.id.btn__bookmarks:
     case R.id.ll__bookmarks:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_BOOKMARKS);
       showBookmarks();
       hideBottomButtons();
-      mFadeView.setVisibility(View.GONE);
+      UiUtils.hideAfterAlphaAnimation(mFadeView);
       break;
     case R.id.btn__myposition:
       switchNextLocationState();

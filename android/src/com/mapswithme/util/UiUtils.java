@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -59,6 +60,19 @@ public final class UiUtils
       show(views);
     else
       hide(views);
+  }
+
+  /*
+    Views after alpha animations with 'setFillAfter' on 2.3 can't become GONE, until clearAnimation is called.
+   */
+  public static void hideAfterAlphaAnimation(View... views)
+  {
+    for (final View view : views)
+    {
+      hide(view);
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        view.clearAnimation();
+    }
   }
 
   public static Drawable drawCircle(int color, int sizeResId, Resources res)
