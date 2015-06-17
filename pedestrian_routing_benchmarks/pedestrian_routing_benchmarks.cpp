@@ -71,7 +71,7 @@ m2::PointD GetPointOnEdge(routing::Edge & e, double posAlong)
 
 void GetNearestPedestrianEdges(Index & index, m2::PointD const & pt, vector<pair<routing::Edge, m2::PointD>> & edges)
 {
-  MwmSet::MwmId const id = index.GetMwmIdByFileName(MAP_FILE);
+  MwmSet::MwmId const id = index.GetMwmIdByCountryFile(CountryFile(MAP_NAME));
   TEST(id.IsAlive(), ());
 
   routing::PedestrianModel const vehicleModel;
@@ -109,7 +109,7 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::Poin
 
 void TestRouters(Index const & index, m2::PointD const & startPos, m2::PointD const & finalPos)
 {
-  auto const countryFileFn = [](m2::PointD const & /* point */){ return MAP_FILE; };
+  auto const countryFileFn = [](m2::PointD const & /* point */) { return MAP_NAME; };
 
   // find route by A*-bidirectional algorithm
   routing::Route routeFoundByAstarBidirectional("");
@@ -129,10 +129,10 @@ void TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & fina
 {
   classificator::Load();
 
-  Index index;
-
   CountryFile countryFile(MAP_NAME);
   LocalCountryFile localFile = LocalCountryFile::MakeForTesting(MAP_NAME);
+
+  Index index;
   UNUSED_VALUE(index.RegisterMap(localFile));
   TEST(index.IsLoaded(countryFile), ());
   MwmSet::MwmId const id = index.GetMwmIdByCountryFile(countryFile);
@@ -146,8 +146,10 @@ void TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & fina
   GetNearestPedestrianEdges(index, finalPos, finalEdges);
   TEST(!finalEdges.empty(), ());
 
-  m2::PointD const startPosOnFeature = GetPointOnEdge(startEdges.front().first, 0.0 /* the start point of the feature */ );
-  m2::PointD const finalPosOnFeature = GetPointOnEdge(finalEdges.front().first, 1.0 /* the end point of the feature */ );
+  m2::PointD const startPosOnFeature =
+      GetPointOnEdge(startEdges.front().first, 0.0 /* the start point of the feature */);
+  m2::PointD const finalPosOnFeature =
+      GetPointOnEdge(finalEdges.front().first, 1.0 /* the end point of the feature */);
 
   TestRouters(index, startPosOnFeature, finalPosOnFeature);
 }

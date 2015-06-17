@@ -48,9 +48,9 @@ class FeaturesFetcher : public Index::Observer
     /// Registers a new map.
     ///
     /// \return A pair of an MwmLock and a flag. There are three cases:
-    ///         * the map is newer than the newset registered - returns
+    ///         * the map is newer than the newest registered - returns
     ///           active lock and set flag
-    ///         * the map is older than the newset registered - returns inactive lock and
+    ///         * the map is older than the newest registered - returns inactive lock and
     ///           unset flag.
     ///         * the version of the map equals to the version of the newest registered -
     ///           returns active lock and unset flag.

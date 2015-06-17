@@ -169,16 +169,17 @@ CountriesContainerT const & NodeFromIndex(CountriesContainerT const & root, TInd
   // complex logic to avoid [] out_of_bounds exceptions
   if (index.m_group == TIndex::INVALID || index.m_group >= static_cast<int>(root.SiblingsCount()))
     return root;
-  else
+  if (index.m_country == TIndex::INVALID ||
+      index.m_country >= static_cast<int>(root[index.m_group].SiblingsCount()))
   {
-    if (index.m_country == TIndex::INVALID ||
-        index.m_country >= static_cast<int>(root[index.m_group].SiblingsCount()))
-      return root[index.m_group];
-    if (index.m_region == TIndex::INVALID ||
-        index.m_region >= static_cast<int>(root[index.m_group][index.m_country].SiblingsCount()))
-      return root[index.m_group][index.m_country];
-    return root[index.m_group][index.m_country][index.m_region];
+    return root[index.m_group];
   }
+  if (index.m_region == TIndex::INVALID ||
+      index.m_region >= static_cast<int>(root[index.m_group][index.m_country].SiblingsCount()))
+  {
+    return root[index.m_group][index.m_country];
+  }
+  return root[index.m_group][index.m_country][index.m_region];
 }
 
 Country const & Storage::CountryByIndex(TIndex const & index) const
@@ -265,7 +266,7 @@ shared_ptr<LocalCountryFile> Storage::GetLatestLocalFile(TIndex const & index) c
 
 TStatus Storage::CountryStatus(TIndex const & index) const
 {
-  // first, check if we already downloading this country or have in in the queue
+  // Check if we already downloading this country or have it in the queue
   if (IsCountryInQueue(index))
   {
     if (IsCountryFirstInQueue(index))
@@ -274,7 +275,7 @@ TStatus Storage::CountryStatus(TIndex const & index) const
       return TStatus::EInQueue;
   }
 
-  // second, check if this country has failed while downloading
+  // Check if this country has failed while downloading.
   if (m_failedCountries.count(index) > 0)
     return TStatus::EDownloadFailed;
 
@@ -770,7 +771,7 @@ shared_ptr<LocalCountryFile> Storage::GetLocalFile(TIndex const & index, int64_t
 
 void Storage::RegisterCountryFiles(shared_ptr<LocalCountryFile> localFile)
 {
-  ASSERT(localFile.get(), ());
+  CHECK(localFile.get(), ());
   localFile->SyncWithDisk();
 
   TIndex const index = FindIndexByFile(localFile->GetCountryFile().GetNameWithoutExt());
@@ -784,7 +785,7 @@ void Storage::RegisterCountryFiles(shared_ptr<LocalCountryFile> localFile)
 void Storage::RegisterCountryFiles(TIndex const & index, string const & directory, int64_t version)
 {
   shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, version);
-  if (localFile.get() != nullptr)
+  if (localFile)
     return;
 
   CountryFile const & countryFile = GetCountryFile(index);
@@ -848,7 +849,7 @@ bool Storage::DeleteCountryFilesFromDownloader(TIndex const & index, TMapOptions
 
 void Storage::KickDownloaderAfterDeletionOfCountryFiles(TIndex const & index)
 {
-  // Do nothing when there're no counties to download or when downloader is busy.
+  // Do nothing when there're no countries to download or when downloader is busy.
   if (m_queue.empty() || !m_downloader->IsIdle())
     return;
   if (IsCountryFirstInQueue(index))

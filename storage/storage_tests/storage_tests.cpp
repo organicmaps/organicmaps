@@ -48,22 +48,22 @@ public:
     m_slot = m_storage.Subscribe(
         bind(&CountryDownloaderChecker::OnCountryStatusChanged, this, _1),
         bind(&CountryDownloaderChecker::OnCountryDownloadingProgress, this, _1, _2));
-    CHECK(m_index.IsValid(), (m_countryFile));
-    CHECK(!m_transitionList.empty(), (m_countryFile));
+    TEST(m_index.IsValid(), (m_countryFile));
+    TEST(!m_transitionList.empty(), (m_countryFile));
   }
 
   void StartDownload()
   {
-    CHECK_EQUAL(0, m_currStatus, (m_countryFile));
-    CHECK_LESS(m_currStatus, m_transitionList.size(), (m_countryFile));
-    CHECK_EQUAL(m_transitionList[m_currStatus], m_storage.CountryStatusEx(m_index),
+    TEST_EQUAL(0, m_currStatus, (m_countryFile));
+    TEST_LESS(m_currStatus, m_transitionList.size(), (m_countryFile));
+    TEST_EQUAL(m_transitionList[m_currStatus], m_storage.CountryStatusEx(m_index),
                 (m_countryFile));
     m_storage.DownloadCountry(m_index, m_files);
   }
 
   virtual ~CountryDownloaderChecker()
   {
-    CHECK_EQUAL(m_currStatus + 1, m_transitionList.size(), (m_countryFile));
+    TEST_EQUAL(m_currStatus + 1, m_transitionList.size(), (m_countryFile));
     m_storage.Unsubscribe(m_slot);
   }
 
@@ -76,8 +76,8 @@ private:
     TStatus const nextStatus = m_storage.CountryStatusEx(m_index);
     LOG(LINFO, (m_countryFile, "status transition: from", m_transitionList[m_currStatus], "to",
                 nextStatus));
-    CHECK_LESS(m_currStatus + 1, m_transitionList.size(), (m_countryFile));
-    CHECK_EQUAL(nextStatus, m_transitionList[m_currStatus + 1], (m_countryFile));
+    TEST_LESS(m_currStatus + 1, m_transitionList.size(), (m_countryFile));
+    TEST_EQUAL(nextStatus, m_transitionList[m_currStatus + 1], (m_countryFile));
     ++m_currStatus;
     if (m_transitionList[m_currStatus] == TStatus::EDownloading)
     {
@@ -93,12 +93,12 @@ private:
 
     LOG(LINFO, (m_countryFile, "downloading progress:", progress));
 
-    CHECK_GREATER(progress.first, m_bytesDownloaded, (m_countryFile));
+    TEST_GREATER(progress.first, m_bytesDownloaded, (m_countryFile));
     m_bytesDownloaded = progress.first;
-    CHECK_LESS_OR_EQUAL(m_bytesDownloaded, m_totalBytesToDownload, (m_countryFile));
+    TEST_LESS_OR_EQUAL(m_bytesDownloaded, m_totalBytesToDownload, (m_countryFile));
 
     LocalAndRemoteSizeT localAndRemoteSize = m_storage.CountrySizeInBytes(m_index, m_files);
-    CHECK_EQUAL(m_totalBytesToDownload, localAndRemoteSize.second, (m_countryFile));
+    TEST_EQUAL(m_totalBytesToDownload, localAndRemoteSize.second, (m_countryFile));
   }
 
   Storage & m_storage;
@@ -167,15 +167,15 @@ shared_ptr<LocalCountryFile> CreateDummyMapFile(CountryFile const & countryFile,
 {
   shared_ptr<LocalCountryFile> localFile =
       platform::PreparePlaceForCountryFiles(countryFile, version);
-  CHECK(localFile.get(), ("Can't prepare place for", countryFile, "(version ", version, ")"));
+  TEST(localFile.get(), ("Can't prepare place for", countryFile, "(version ", version, ")"));
   {
     string const zeroes(size, '\0');
     FileWriter writer(localFile->GetPath(TMapOptions::EMap));
     writer.Write(zeroes.data(), zeroes.size());
   }
   localFile->SyncWithDisk();
-  CHECK_EQUAL(TMapOptions::EMap, localFile->GetFiles(), ());
-  CHECK_EQUAL(size, localFile->GetSize(TMapOptions::EMap), ());
+  TEST_EQUAL(TMapOptions::EMap, localFile->GetFiles(), ());
+  TEST_EQUAL(size, localFile->GetSize(TMapOptions::EMap), ());
   return localFile;
 }
 

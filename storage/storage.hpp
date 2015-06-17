@@ -38,7 +38,7 @@ class Storage
   /// RunOnUIThread.  If not, at least use a syncronization object.
   TQueue m_queue;
 
-  /// stores countries which download has failed recently
+  /// stores countries whose download has failed recently
   typedef set<TIndex> TCountriesSet;
   TCountriesSet m_failedCountries;
 

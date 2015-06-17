@@ -3,9 +3,8 @@
 #include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "platform/country_file.hpp"
-
 #include "platform/country_defines.hpp"
+#include "platform/country_file.hpp"
 
 #include "base/buffer_vector.hpp"
 

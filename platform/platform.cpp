@@ -153,6 +153,5 @@ string Platform::GetIndexFileName(string const & mwmName, string const & extensi
 ModelReader * Platform::GetCountryReader(platform::LocalCountryFile const & file,
                                          TMapOptions options) const
 {
-  LOG(LINFO, ("Getting country reader for:", file, options));
   return GetReader(file.GetPath(options), "f");
 }

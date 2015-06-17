@@ -35,8 +35,8 @@ public:
   enum Status
   {
     STATUS_REGISTERED,            ///< Mwm is registered and up to date.
-    STATUS_MARKED_TO_DEREGISTER,  ///< Mwm is marked to be deregistered as soon as possible
-    STATUS_DEREGISTERED,          ///< Mwm is deregistered
+    STATUS_MARKED_TO_DEREGISTER,  ///< Mwm is marked to be deregistered as soon as possible.
+    STATUS_DEREGISTERED,          ///< Mwm is deregistered.
   };
 
   MwmInfo();
@@ -156,9 +156,9 @@ public:
   /// Registers a new map.
   ///
   /// \return A pair of an MwmLock and a flag. There are three cases:
-  ///         * the map is newer than the newset registered - returns
-  ///           active lock and set flag
-  ///         * the map is older than the newset registered - returns inactive lock and
+  ///         * the map is newer than the newest registered - returns
+  ///           active lock and set flag.
+  ///         * the map is older than the newest registered - returns inactive lock and
   ///           unset flag.
   ///         * the version of the map equals to the version of the newest registered -
   ///           returns active lock and unset flag.

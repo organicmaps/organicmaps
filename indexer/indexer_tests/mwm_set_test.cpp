@@ -10,6 +10,8 @@
 using platform::CountryFile;
 using platform::LocalCountryFile;
 
+using TMwmsInfo = unordered_map<string, shared_ptr<MwmInfo>>;
+
 namespace
 {
 class MwmValue : public MwmSet::MwmValueBase
@@ -38,7 +40,7 @@ public:
   ~TestMwmSet() { Cleanup(); }
 };
 
-void GetMwmsInfo(MwmSet const & mwmSet, unordered_map<string, shared_ptr<MwmInfo>> & mwmsInfo)
+void GetMwmsInfo(MwmSet const & mwmSet, TMwmsInfo & mwmsInfo)
 {
   vector<shared_ptr<MwmInfo>> mwmsInfoList;
   mwmSet.GetMwmsInfo(mwmsInfoList);
@@ -48,8 +50,7 @@ void GetMwmsInfo(MwmSet const & mwmSet, unordered_map<string, shared_ptr<MwmInfo
     mwmsInfo[info->GetCountryName()] = info;
 }
 
-void TestFilesPresence(unordered_map<string, shared_ptr<MwmInfo>> const & mwmsInfo,
-                       initializer_list<string> const & expectedNames)
+void TestFilesPresence(TMwmsInfo const & mwmsInfo, initializer_list<string> const & expectedNames)
 {
   TEST_EQUAL(expectedNames.size(), mwmsInfo.size(), ());
   for (string const & countryFileName : expectedNames)
@@ -61,7 +62,7 @@ void TestFilesPresence(unordered_map<string, shared_ptr<MwmInfo>> const & mwmsIn
 UNIT_TEST(MwmSetSmokeTest)
 {
   TestMwmSet mwmSet;
-  unordered_map<string, shared_ptr<MwmInfo>> mwmsInfo;
+  TMwmsInfo mwmsInfo;
 
   UNUSED_VALUE(mwmSet.Register(LocalCountryFile::MakeForTesting("0")));
   UNUSED_VALUE(mwmSet.Register(LocalCountryFile::MakeForTesting("1")));

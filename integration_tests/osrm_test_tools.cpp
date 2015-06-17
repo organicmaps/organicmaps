@@ -37,8 +37,7 @@ namespace
 
 namespace integration
 {
-shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(
-    vector<LocalCountryFile> const & localFiles)
+  shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile> const & localFiles)
   {
     size_t const maxOpenFileNumber = 1024;
     ChangeMaxNumberOfOpenFiles(maxOpenFileNumber);
@@ -47,11 +46,10 @@ shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(
 
     for (LocalCountryFile const & localFile : localFiles)
     {
-      LOG(LINFO, ("Registering mwm:", localFile.GetPath(TMapOptions::EMap)));
       pair<MwmSet::MwmLock, bool> result = featuresFetcher->RegisterMap(localFile);
       if (!result.second)
       {
-        ASSERT(false, ());
+        ASSERT(false, ("Can't register", localFile));
         return nullptr;
       }
     }

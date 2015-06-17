@@ -133,7 +133,6 @@ void BenchmarkEngine::PrepareMaps()
   // add only maps needed for benchmarks
   MapsCollector collector;
   ForEachBenchmarkRecord(collector);
-  string const directory = GetPlatform().WritableDir();
   for (string const & map : collector.m_maps)
   {
     LOG(LINFO, ("Looking for:", map));

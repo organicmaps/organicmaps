@@ -227,7 +227,10 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   classificator::Load();
 
   CountryFile countryFile(countryName);
+
+  // Correct mwm version doesn't matter here - we just need access to mwm files via Index.
   LocalCountryFile localFile(baseDir, countryFile, 0 /* version */);
+  localFile.SyncWithDisk();
   Index index;
   pair<MwmSet::MwmLock, bool> const p = index.Register(localFile);
   if (!p.second)

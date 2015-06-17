@@ -38,7 +38,7 @@ public:
 
   OsrmRouter(Index const * index, TCountryFileFn const & countryFileFn,
              TCountryLocalFileFn const & countryLocalFileFn,
-             RoutingVisualizerFn routingVisualization = nullptr);
+             TRoutingVisualizerFn routingVisualization = nullptr);
 
   virtual string GetName() const;
 

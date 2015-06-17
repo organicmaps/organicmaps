@@ -558,7 +558,7 @@ namespace android
 
   void Framework::GetMapsWithoutSearch(vector<string> & out) const
   {
-    ASSERT ( out.empty(), () );
+    ASSERT(out.empty(), ());
 
     ::Platform const & pl = GetPlatform();
 
@@ -569,20 +569,21 @@ namespace android
     {
       CountryFile const countryFile = localFile.GetCountryFile();
       // skip World and WorldCoast
-      if (countryFile.GetNameWithoutExt() != WORLD_FILE_NAME &&
-          countryFile.GetNameWithoutExt() != WORLD_COASTS_FILE_NAME)
+      if (countryFile.GetNameWithoutExt() == WORLD_FILE_NAME ||
+          countryFile.GetNameWithoutExt() == WORLD_COASTS_FILE_NAME)
       {
-        try
-        {
-          FilesContainerR cont(pl.GetCountryReader(localFile, TMapOptions::EMap));
-          if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
-            out.push_back(countryFile.GetNameWithoutExt());
-        }
-        catch (RootException const & ex)
-        {
-          // sdcard can contain dummy _*.mwm files. Supress this errors.
-          LOG(LWARNING, ("Bad mwm file:", countryFile.GetNameWithoutExt(), "Error:", ex.Msg()));
-        }
+        continue;
+      }
+      try
+      {
+        FilesContainerR cont(pl.GetCountryReader(localFile, TMapOptions::EMap));
+        if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
+          out.push_back(countryFile.GetNameWithoutExt());
+      }
+      catch (RootException const & ex)
+      {
+        // sdcard can contain dummy _*.mwm files. Suppress these errors.
+        LOG(LWARNING, ("Bad mwm file:", countryFile.GetNameWithoutExt(), "Error:", ex.Msg()));
       }
     }
   }

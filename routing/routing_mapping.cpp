@@ -143,7 +143,7 @@ TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & mapName)
 {
   shared_ptr<platform::LocalCountryFile> localFile = m_countryLocalFileFn(mapName);
   // Return invalid mapping when file does not exist.
-  if (!localFile.get())
+  if (!localFile)
     return RoutingMapping::MakeInvalid(platform::CountryFile(mapName));
 
   // Check if we have already loaded this file.

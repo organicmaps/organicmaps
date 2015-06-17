@@ -372,9 +372,11 @@ void Framework::DeleteCountry(storage::TIndex const & index, TMapOptions opt)
       {
         InvalidateRect(GetCountryBounds(countryFile.GetNameWithoutExt()), true /* doForceUpdate */);
       }
-    }
+      // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmLocks. Thus,
+      // it won' be needed to reset it after maps update.
       m_routingSession.Reset();
       return;
+    }
     case TMapOptions::ECarRouting:
       m_routingSession.Reset();
       m_storage.DeleteCountry(index, opt);
@@ -421,6 +423,8 @@ void Framework::ShowCountry(TIndex const & index)
 
 void Framework::UpdateAfterDownload(LocalCountryFile const & localFile)
 {
+  // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmLocks. Thus,
+  // it won' be needed to reset it after maps update.
   m_routingSession.Reset();
 
   if (!HasOptions(localFile.GetFiles(), TMapOptions::EMap))
@@ -455,7 +459,7 @@ void Framework::RegisterAllMaps()
   for (CountryFile const & countryFile : maps)
   {
     shared_ptr<LocalCountryFile> localFile = m_storage.GetLatestLocalFile(countryFile);
-    if (!localFile.get())
+    if (!localFile)
       continue;
     pair<MwmSet::MwmLock, bool> const p = RegisterMap(*localFile);
     if (!p.second)

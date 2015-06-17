@@ -18,9 +18,15 @@ using platform::LocalCountryFile;
 
 namespace model
 {
-FeaturesFetcher::FeaturesFetcher() { m_multiIndex.AddObserver(*this); }
+FeaturesFetcher::FeaturesFetcher()
+{
+  m_multiIndex.AddObserver(*this);
+}
 
-FeaturesFetcher::~FeaturesFetcher() { m_multiIndex.RemoveObserver(*this); }
+FeaturesFetcher::~FeaturesFetcher()
+{
+  m_multiIndex.RemoveObserver(*this);
+}
 
 // While reading any files (classificator or mwm), there are 2 types of possible exceptions:
 // Reader::Exception, FileAbsentException.

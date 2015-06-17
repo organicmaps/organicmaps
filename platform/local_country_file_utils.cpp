@@ -189,6 +189,7 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & cou
       return make_shared<LocalCountryFile>(directory, countryFile, version);
     }
     default:
+      LOG(LERROR, ("Can't prepare place for", countryFile, "(", version, ") :", ret));
       return shared_ptr<LocalCountryFile>();
   }
 }

@@ -95,8 +95,6 @@ pair<MwmSet::MwmLock, bool> MwmSet::Register(LocalCountryFile const & localFile)
   lock_guard<mutex> lock(m_lock);
 
   CountryFile const & countryFile = localFile.GetCountryFile();
-  string const name = countryFile.GetNameWithoutExt();
-
   MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
   if (!id.IsAlive())
     return RegisterImpl(localFile);
@@ -110,6 +108,7 @@ pair<MwmSet::MwmLock, bool> MwmSet::Register(LocalCountryFile const & localFile)
     return RegisterImpl(localFile);
   }
 
+  string const name = countryFile.GetNameWithoutExt();
   // Update the status of the mwm with the same version.
   if (info->GetVersion() == localFile.GetVersion())
   {
@@ -144,12 +143,11 @@ bool MwmSet::DeregisterImpl(MwmId const & id)
   if (!id.IsAlive())
     return false;
   shared_ptr<MwmInfo> const & info = id.GetInfo();
-  string const name = info->GetCountryName();
 
   if (info->m_lockCount == 0)
   {
     info->SetStatus(MwmInfo::STATUS_DEREGISTERED);
-    vector<shared_ptr<MwmInfo>> & infos = m_info[name];
+    vector<shared_ptr<MwmInfo>> & infos = m_info[info->GetCountryName()];
     infos.erase(remove(infos.begin(), infos.end(), info), infos.end());
     OnMwmDeregistered(info->GetLocalFile());
     return true;
@@ -253,10 +251,10 @@ void MwmSet::UnlockValueImpl(MwmId const & id, TMwmValueBasePtr p)
     return;
 
   shared_ptr<MwmInfo> const & info = id.GetInfo();
-  CHECK_GREATER(info->m_lockCount, 0, ());
+  ASSERT_GREATER(info->m_lockCount, 0, ());
   --info->m_lockCount;
   if (info->m_lockCount == 0 && info->GetStatus() == MwmInfo::STATUS_MARKED_TO_DEREGISTER)
-    CHECK(DeregisterImpl(id), ());
+    VERIFY(DeregisterImpl(id), ());
 
   if (info->IsUpToDate())
   {

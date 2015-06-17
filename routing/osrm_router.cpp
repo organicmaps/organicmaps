@@ -352,7 +352,7 @@ public:
 
 OsrmRouter::OsrmRouter(Index const * index, TCountryFileFn const & countryFileFn,
                        TCountryLocalFileFn const & countryLocalFileFn,
-                       RoutingVisualizerFn routingVisualization)
+                       TRoutingVisualizerFn routingVisualization)
     : m_pIndex(index),
       m_indexManager(countryFileFn, countryLocalFileFn, index),
       m_routingVisualization(routingVisualization)
