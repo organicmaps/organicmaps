@@ -35,6 +35,7 @@ BASE_NAME="$(basename "$SOURCE_FILE")"
 BASE_NAME="${BASE_NAME%%.*}"
 TARGET="${TARGET:-$(dirname "$SOURCE_FILE")}"
 [ ! -d "$TARGET" ] && fail "$TARGET should be a writable folder"
+TBORDERS="$TARGET/borders"
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 DATA_PATH="$OMIM_PATH/data/"
 [ ! -r "${DATA_PATH}types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
@@ -51,6 +52,19 @@ trap "rm -rf \"${INTDIR}\"" EXIT SIGINT SIGTERM
 # Create MWM file
 INTDIR_FLAG="--intermediate_data_path=$INTDIR/ --node_storage=map"
 GENERATE_EVERYTHING='--generate_features=true --generate_geometry=true --generate_index=true --generate_search_index=true'
+COASTS="${COASTS-WorldCoasts.mwm.tmp}"
+if [ -f "$COASTS" ]; then
+  if [ ! -f "$TBORDERS/$BASE_NAME.poly" ]; then
+    BORDER="${BORDER:-${BORDERS_PATH:-.}/$BASE_NAME.poly}"
+    [ ! -f "$BORDER" ] && fail "Please specify polygon file in BORDER for coastline generation"
+    [ ! -d "$TBORDERS" ] && CLEAN_BORDERS=1 && mkdir "$TBORDERS"
+    CLEAN_POLY=1
+    cp "$BORDER" "$TBORDERS/$BASE_NAME.poly"
+  fi
+  cp "$COASTS" "$INTDIR"
+  [ ! -f "$TARGET/WorldCoasts.mwm.tmp" ] && CLEAN_COASTS_TMP=1
+  GENERATE_EVERYTHING="$GENERATE_EVERYTHING --emit_coasts=true --split_by_polygons=true"
+fi
 if [ "$SOURCE_TYPE" == "o5m" ]; then
   INTDIR_FLAG="$INTDIR_FLAG --osm_file_type=o5m --osm_file_name=$SOURCE_FILE"
   $GENERATOR_TOOL $INTDIR_FLAG --preprocess=true || fail "Preprocessing failed"
@@ -61,6 +75,10 @@ elif [ "$SOURCE_TYPE" == "bz2" ]; then
 else
   fail "Unsupported source type: $SOURCE_TYPE"
 fi
+
+[ -n "${CLEAN_COASTS_TMP-}" ] && rm "$TARGET/WorldCoasts.mwm.tmp"
+[ -n "${CLEAN_POLY-}" ] && rm "$TBORDERS/$BASE_NAME.poly"
+[ -n "${CLEAN_BORDERS-}" ] && rm -r "$TBORDERS"
 
 if [ $# -gt 1 ]; then
   # Create .mwm.routing file
@@ -105,11 +123,11 @@ if [ $# -gt 1 ]; then
   if [ -n "${BORDERS_PATH-}" -a ! -d "$TARGET/borders" ]; then
     [ ! -e "$BORDERS_PATH/$BASE_NAME.poly" ] && fail "You should have a polygon for processed file: $BORDERS_PATH/$BASE_NAME.poly"
     CROSS_MWM="--make_cross_section"
-    mkdir "$TARGET/borders"
-    cp "$BORDERS_PATH"/*.poly "$TARGET/borders/"
+    mkdir "$TBORDERS"
+    cp "$BORDERS_PATH"/*.poly "$TBORDERS"
   fi
   $GENERATOR_TOOL --make_routing=true ${CROSS_MWM-} --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$BASE_NAME"
-  [ -n "${CROSS_MWM-}" ] && rm -r "$TARGET/borders"
+  [ -n "${CROSS_MWM-}" ] && rm -r "$TBORDERS"
 fi
 
 # This file is needed only for routing generation

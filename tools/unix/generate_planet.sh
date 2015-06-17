@@ -289,10 +289,10 @@ fi
 if [ "$MODE" == "features" ]; then
   putmode "Step 4: Generating features of everything into $TARGET"
   # Checking for coastlines, can't build proper mwms without them
-  [ ! -s "$INTDIR/WorldCoasts.mwm.tmp" ] && fail "Please prepare coastlines"
+  [ ! -s "$INTDIR/WorldCoasts.mwm.tmp" ] && fail "Please prepare coastlines and put WorldCoasts.mwm.tmp to $INTDIR"
   # 2nd pass - paralleled in the code
-  PARAMS_SPLIT="-split_by_polygons -generate_features"
-  [ -n "$OPT_WORLD" ] && PARAMS_SPLIT="$PARAMS_SPLIT -generate_world -emit_coasts"
+  PARAMS_SPLIT="-split_by_polygons -generate_features -emit_coasts"
+  [ -n "$OPT_WORLD" ] && PARAMS_SPLIT="$PARAMS_SPLIT -generate_world"
   [ -n "$OPT_WORLD" -a "$NODE_STORAGE" == "map" ] && log "WARNING: generating world files with NODE_STORAGE=map may lead to an out of memory error. Try NODE_STORAGE=mem if it fails."
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
     --data_path="$TARGET" --user_resource_path="$DATA_PATH/" $PARAMS_SPLIT 2>> "$GENERATOR_LOG"
