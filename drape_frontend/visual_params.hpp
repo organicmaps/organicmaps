@@ -26,6 +26,7 @@ public:
 
   /// How many pixels around touch point are used to get bookmark or POI in consideration of visual scale
   uint32_t GetTouchRectRadius() const;
+  double GetDragThreshold() const;
 
 private:
   int m_tileSize;

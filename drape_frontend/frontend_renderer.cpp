@@ -41,6 +41,7 @@ const double VSyncInterval = 0.014;
 FrontendRenderer::FrontendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
+  , m_routeRenderer(new RouteRenderer())
   , m_overlayTree(new dp::OverlayTree())
   , m_viewport(params.m_viewport)
   , m_userEventStream(params.m_isCountryLoadedFn)
@@ -48,7 +49,6 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_tapEventInfoFn(params.m_tapEventFn)
   , m_userPositionChangedFn(params.m_positionChangedFn)
   , m_tileTree(new TileTree())
-  , m_routeRenderer(new RouteRenderer())
 {
 #ifdef DRAW_INFO
   m_tpf = 0,0;
@@ -606,9 +606,14 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
   m_tapEventInfoFn(pt, isLongTap, isMyPosition, GetVisiblePOI(selectRect));
 }
 
+void FrontendRenderer::OnDoubleTap(m2::PointD const & pt)
+{
+  m_userEventStream.AddEvent(ScaleEvent(2.0 /*scale factor*/, pt, true /*animated*/));
+}
+
 bool FrontendRenderer::OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type)
 {
-  float const rectHalfSize = 5 * df::VisualParams::Instance().GetVisualScale();
+  float const rectHalfSize = df::VisualParams::Instance().GetTouchRectRadius();
   m2::RectD r(-rectHalfSize, -rectHalfSize, rectHalfSize, rectHalfSize);
   r.SetCenter(pt);
 

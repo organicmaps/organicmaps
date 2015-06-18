@@ -158,6 +158,7 @@ public:
     virtual ~Listener() {}
 
     virtual void OnTap(m2::PointD const & pt, bool isLong) = 0;
+    virtual void OnDoubleTap(m2::PointD const & pt) = 0;
     virtual bool OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type) = 0;
     virtual void OnDragStarted() = 0;
     virtual void OnDragEnded(m2::PointD const & distance) = 0;
@@ -224,7 +225,9 @@ private:
   void EndScale(Touch const & t1, Touch const & t2);
 
   void BeginTapDetector();
+  void DetectShortTap(Touch const & touch);
   void DetectLongTap(Touch const & touch);
+  bool DetectDoubleTap(Touch const & touch);
   void EndTapDetector(Touch const & touch);
   void CancelTapDetector();
 
@@ -245,6 +248,7 @@ private:
     STATE_EMPTY,
     STATE_FILTER,
     STATE_TAP_DETECTION,
+    STATE_WAIT_DOUBLE_TAP,
     STATE_DRAG,
     STATE_SCALE
   } m_state;

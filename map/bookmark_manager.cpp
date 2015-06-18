@@ -17,7 +17,6 @@
 
 BookmarkManager::BookmarkManager(Framework & f)
   : m_framework(f)
-  , m_lastScale(1.0)
 {
   m_userMarkLayers.reserve(3);
   ///@TODO UVR

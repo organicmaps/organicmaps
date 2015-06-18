@@ -103,6 +103,11 @@ uint32_t VisualParams::GetTouchRectRadius() const
   return 20 * GetVisualScale();
 }
 
+double VisualParams::GetDragThreshold() const
+{
+  return 10.0 * GetVisualScale();
+}
+
 VisualParams::VisualParams()
   : m_tileSize(0)
   , m_visualScale(0.0)

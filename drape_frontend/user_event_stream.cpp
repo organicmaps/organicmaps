@@ -16,6 +16,7 @@ namespace df
 namespace
 {
 
+uint64_t const DOUBLE_TAP_PAUSE = 250;
 uint64_t const LONG_TOUCH_MS = 1000;
 
 } // namespace
@@ -120,8 +121,13 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       m_animation.reset();
   }
 
-  if (m_state == STATE_TAP_DETECTION && m_validTouchesCount == 1)
-    DetectLongTap(m_touches[0]);
+  if (m_validTouchesCount == 1)
+  {
+    if (m_state == STATE_WAIT_DOUBLE_TAP)
+      DetectShortTap(m_touches[0]);
+    else if (m_state == STATE_TAP_DETECTION)
+      DetectLongTap(m_touches[0]);
+  }
 
   return m_navigator.Screen();
 }
@@ -237,11 +243,19 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
 
   if (touchCount == 1)
   {
-    ASSERT(m_state == STATE_EMPTY, ());
-    if (!TryBeginFilter(touches[0]))
-      BeginTapDetector();
-    else
-      isMapTouch = false;
+    if (!DetectDoubleTap(touches[0]))
+    {
+      if (m_state == STATE_EMPTY)
+      {
+        if (!TryBeginFilter(touches[0]))
+        {
+          BeginTapDetector();
+          m_startDragOrg = touches[0].m_location;
+        }
+        else
+          isMapTouch = false;
+      }
+    }
   }
   else if (touchCount == 2)
   {
@@ -253,13 +267,13 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
       CancelFilter(touches[0]);
       break;
     case STATE_TAP_DETECTION:
+    case STATE_WAIT_DOUBLE_TAP:
       CancelTapDetector();
       break;
     case STATE_DRAG:
       EndDrag(touches[0]);
       break;
     default:
-      ASSERT(false, ());
       break;
     }
 
@@ -289,7 +303,8 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
     break;
   case STATE_TAP_DETECTION:
     ASSERT(touchCount == 1, ());
-    CancelTapDetector();
+    if (m_startDragOrg.SquareLength(touches[0].m_location) > VisualParams::Instance().GetDragThreshold())
+      CancelTapDetector();
     break;
   case STATE_DRAG:
     ASSERT(touchCount == 1, ());
@@ -300,6 +315,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
     Scale(touches[0], touches[1]);
     break;
   default:
+    ASSERT(false, ());
     break;
   }
 
@@ -314,6 +330,8 @@ bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
   switch (m_state)
   {
   case STATE_EMPTY:
+  case STATE_WAIT_DOUBLE_TAP:
+    isMapTouch = false;
     break;
   case STATE_FILTER:
     ASSERT(touchCount == 1, ());
@@ -333,6 +351,7 @@ bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
     EndScale(touches[0], touches[1]);
     break;
   default:
+    ASSERT(false, ());
     break;
   }
   UpdateTouches(touches, touchCount);
@@ -346,7 +365,8 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
   switch (m_state)
   {
   case STATE_EMPTY:
-    // Can be if long tap detected
+    isMapTouch = false;
+    // Can be if long tap or double tap detected
     break;
   case STATE_FILTER:
     ASSERT(touchCount == 1, ());
@@ -366,6 +386,7 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
     EndScale(touches[0], touches[1]);
     break;
   default:
+    ASSERT(false, ());
     break;
   }
 
@@ -488,6 +509,16 @@ void UserEventStream::BeginTapDetector()
   m_touchTimer.Reset();
 }
 
+void UserEventStream::DetectShortTap(Touch const & touch)
+{
+  if (m_touchTimer.ElapsedMillis() > DOUBLE_TAP_PAUSE)
+  {
+    m_state = STATE_EMPTY;
+    if (m_listener)
+      m_listener->OnTap(touch.m_location, false);
+  }
+}
+
 void UserEventStream::DetectLongTap(Touch const & touch)
 {
   ASSERT(m_state == STATE_TAP_DETECTION, ());
@@ -500,19 +531,29 @@ void UserEventStream::DetectLongTap(Touch const & touch)
   }
 }
 
+bool UserEventStream::DetectDoubleTap(Touch const & touch)
+{
+  if (m_state != STATE_WAIT_DOUBLE_TAP || m_touchTimer.ElapsedMillis() > DOUBLE_TAP_PAUSE)
+    return false;
+
+  m_state = STATE_EMPTY;
+  if (m_listener)
+    m_listener->OnDoubleTap(touch.m_location);
+
+  return true;
+}
+
 void UserEventStream::EndTapDetector(Touch const & touch)
 {
   TEST_CALL(SHORT_TAP_DETECTED);
   ASSERT(m_state == STATE_TAP_DETECTION, ());
-  m_state = STATE_EMPTY;
-  if (m_listener)
-    m_listener->OnTap(touch.m_location, false);
+  m_state = STATE_WAIT_DOUBLE_TAP;
 }
 
 void UserEventStream::CancelTapDetector()
 {
   TEST_CALL(CANCEL_TAP_DETECTOR);
-  ASSERT(m_state == STATE_TAP_DETECTION, ());
+  ASSERT(m_state == STATE_TAP_DETECTION || m_state == STATE_WAIT_DOUBLE_TAP, ());
   m_state = STATE_EMPTY;
 }
 

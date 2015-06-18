@@ -20,9 +20,6 @@ class BookmarkManager : private noncopyable
   Framework & m_framework;
 
   vector<UserMarkContainer *> m_userMarkLayers;
-
-  mutable double m_lastScale;
-
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
 
   void SaveState() const;

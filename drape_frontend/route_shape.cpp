@@ -27,9 +27,9 @@ namespace
 }
 
 RouteShape::RouteShape(m2::PolylineD const & polyline, CommonViewParams const & params)
-  : m_params(params)
+  : m_length(0)
+  , m_params(params)
   , m_polyline(polyline)
-  , m_length(0)
   , m_endOfRouteState(0, dp::GLState::OverlayLayer)
 {}
 

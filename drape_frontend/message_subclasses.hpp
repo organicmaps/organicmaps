@@ -499,8 +499,8 @@ class AddRouteMessage : public Message
 public:
   AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns, dp::Color const & color)
     : m_routePolyline(routePolyline)
-    , m_turns(turns)
     , m_color(color)
+    , m_turns(turns)
   {}
 
   Type GetType() const override { return Message::AddRoute; }
