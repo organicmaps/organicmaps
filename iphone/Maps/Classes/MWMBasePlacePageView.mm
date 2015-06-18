@@ -109,6 +109,7 @@ static CGFloat const kTitleBottomOffset = 2.;
   self.typeLabel.origin = CGPointMake(kLeftOffset, typeMinY);
 
   [self layoutDistanceLabelWithPlacePageWidth:placePageWidth];
+  [self.typeDescriptionView removeFromSuperview];
   if (isExtendedType)
     [self layoutTypeDescription];
 
@@ -123,15 +124,15 @@ static CGFloat const kTitleBottomOffset = 2.;
 {
   MWMPlacePageEntity * entity = self.entity;
   CGFloat const typeMinY = self.titleLabel.maxY + kTitleBottomOffset;
-  [self.typeDescriptionView removeFromSuperview];
-  self.typeDescriptionView = nil;
   MWMPlacePageTypeDescription * typeDescription = [[MWMPlacePageTypeDescription alloc] initWithPlacePageEntity:entity];
   self.typeDescriptionView = entity.type == MWMPlacePageEntityTypeHotel ? (UIView *)typeDescription.hotelDescription : (UIView *)typeDescription.eleDescription;
   self.typeDescriptionView.autoresizingMask = UIViewAutoresizingNone;
   BOOL const typeLabelIsNotEmpty = self.typeLabel.text.length > 0;
   CGFloat const minX = typeLabelIsNotEmpty ? self.typeLabel.minX + self.typeLabel.width + 2 * kTitleBottomOffset : kLeftOffset;
   CGFloat const minY = typeLabelIsNotEmpty ? self.typeLabel.center.y - self.typeDescriptionView.height / 2. - 1.: typeMinY;
-  [self addSubview:self.typeDescriptionView];
+  if (![self.subviews containsObject:self.typeDescriptionView])
+    [self addSubview:self.typeDescriptionView];
+
   self.typeDescriptionView.origin = CGPointMake(minX, minY);
 }
 
