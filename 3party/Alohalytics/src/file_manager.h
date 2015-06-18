@@ -31,6 +31,13 @@ SOFTWARE.
 
 namespace alohalytics {
 
+// Useful helper.
+struct ScopedRemoveFile {
+  std::string file_;
+  ScopedRemoveFile(const std::string & file) : file_(file) {}
+  ~ScopedRemoveFile() { std::remove(file_.c_str()); }
+};
+
 // Functions are wrapped into the class for convenience.
 struct FileManager {
   // Initialized separately for each platform.

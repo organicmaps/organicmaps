@@ -46,13 +46,8 @@ SOFTWARE.
     }                                                                                                           \
   }
 
-struct ScopedRemoveFile {
-  std::string file_;
-  ScopedRemoveFile(const std::string & file) : file_(file) {}
-  ~ScopedRemoveFile() { std::remove(file_.c_str()); }
-};
-
 using alohalytics::FileManager;
+using alohalytics::ScopedRemoveFile;
 
 // Generates unique temporary file name or empty string on error.
 static std::string GenerateTemporaryFileName() {
