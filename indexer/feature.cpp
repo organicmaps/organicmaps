@@ -142,9 +142,12 @@ void FeatureType::ParseMetadata() const
   if (m_bMetadataParsed) return;
 
   m_pLoader->ParseMetadata();
+
+  if (HasInternet())
+    m_metadata.Add(Metadata::FMD_INTERNET, "wlan");
+
   m_bMetadataParsed = true;
 }
-
 
 
 namespace
@@ -353,6 +356,8 @@ string FeatureType::GetRoadNumber() const
 
 bool FeatureType::HasInternet() const
 {
+  ParseTypes();
+
   bool res = false;
 
   ForEachType([&res](uint32_t type)
