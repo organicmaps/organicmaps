@@ -65,13 +65,15 @@
 
 #pragma mark - Properties
 
+@synthesize menuState = _menuState;
+
 - (void)setHidden:(BOOL)hidden
 {
   if (_hidden == hidden)
     return;
   _hidden = hidden;
   self.zoomHidden = _zoomHidden;
-  self.menuState = self.menuManager.state;
+  self.menuState = _menuState;
   self.locationHidden = _locationHidden;
   GetFramework().SetFullScreenMode(hidden);
 }
@@ -84,12 +86,15 @@
 
 - (void)setMenuState:(MWMSideMenuState)menuState
 {
+  _menuState = menuState;
   self.menuManager.state = self.hidden ? MWMSideMenuStateHidden : menuState;
 }
 
 - (MWMSideMenuState)menuState
 {
-  return self.menuManager.state;
+  if (self.menuManager.state == MWMSideMenuStateActive)
+    return MWMSideMenuStateActive;
+  return _menuState;
 }
 
 - (void)setLocationHidden:(BOOL)locationHidden

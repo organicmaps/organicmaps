@@ -46,6 +46,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     self.controller = controller;
     [[NSBundle mainBundle] loadNibNamed:kMWMSideMenuViewsNibName owner:self options:nil];
+    [self.controller.view addSubview:self.menuButton];
+    [self.menuButton setup];
     self.menuButton.delegate = self;
     self.sideMenu.delegate = self;
     [self addCloseMenuWithTap];
@@ -140,18 +142,32 @@ extern NSString * const kAlohalyticsTapEventKey;
   });
 }
 
-- (void)replaceView:(UIView *)viewOut withView:(UIView *)viewIn
+- (void)showMenu
 {
-  if (viewIn.superview == viewIn)
-    return;
-  [self.controller.view insertSubview:viewIn aboveSubview:viewOut];
+  self.menuButton.alpha = 1.0;
+  self.sideMenu.alpha = 0.0;
+  [self.controller.view addSubview:self.sideMenu];
   [UIView animateWithDuration:framesDuration(3) animations:^
   {
-    viewOut.alpha = 0.0;
+    self.menuButton.alpha = 0.0;
+    self.sideMenu.alpha = 1.0;
   }
   completion:^(BOOL finished)
   {
-    [viewOut removeFromSuperview];
+    [self.menuButton setHidden:YES animated:NO];
+  }];
+}
+
+- (void)hideMenu
+{
+  [UIView animateWithDuration:framesDuration(3) animations:^
+  {
+    self.menuButton.alpha = 1.0;
+    self.sideMenu.alpha = 0.0;
+  }
+  completion:^(BOOL finished)
+  {
+    [self.sideMenu removeFromSuperview];
   }];
 }
 
@@ -161,26 +177,31 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (_state == state)
     return;
-  _state = state;
-  [self.controller updateStatusBarStyle];
   switch (state)
   {
     case MWMSideMenuStateActive:
       [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"menu"];
       self.sideMenu.outOfDateCount = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
-      [self replaceView:self.menuButton withView:self.sideMenu];
+      [self showMenu];
       [self.sideMenu setup];
       break;
     case MWMSideMenuStateInactive:
-      [self replaceView:self.sideMenu withView:self.menuButton];
-      [self.menuButton setup];
-      self.menuButton.hidden = NO;
+      if (_state == MWMSideMenuStateActive)
+      {
+        [self.menuButton setHidden:NO animated:NO];
+        [self hideMenu];
+      }
+      else
+      {
+        [self.menuButton setHidden:NO animated:YES];
+      }
       break;
     case MWMSideMenuStateHidden:
-      [self replaceView:self.sideMenu withView:self.menuButton];
-      self.menuButton.hidden = YES;
+      [self.menuButton setHidden:YES animated:YES];
       break;
   }
+  _state = state;
+  [self.controller updateStatusBarStyle];
 }
 
 @end

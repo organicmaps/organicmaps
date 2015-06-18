@@ -17,5 +17,6 @@
 - (instancetype)init __attribute__((unavailable("init is not available")));
 
 - (void)setup;
+- (void)setHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end
