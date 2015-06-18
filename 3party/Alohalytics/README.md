@@ -14,7 +14,7 @@ iOS
 ======
 Minimum supported iOS version is 5.1.
 
-If you target iOS 5.1, then add an optional AddSupport.framework to your binary to access IDFA (for iOS 6+ you can add it as 'required').
+If you target iOS 5.1, then add an optional 'AdSupport.framework' to your binary to access IDFA (for iOS 6+ you can add it as 'required').
 
 If your app uses background fetch, you can use ```[Alohalytics forceUpload];``` from ```application:performFetchWithCompletionHandler``` in your app delegate to improve events delivery.
 
@@ -48,6 +48,11 @@ Built-in logged events
 - $androidDeviceInfo
 
 
+Other platforms
+======
+Mac OS X should work perfectly. Linux has (untested) HTTP transport support via curl. Windows does not have native HTTP transport support.
+C++ core requires C++11 compiler support.
+
 nginx server setup example
 ======
 ```
@@ -59,7 +64,7 @@ http {
     # To hide nginx version.
     server_tokens off;
 
-    # Location starts with /aloha- prefix to filter out some random web requests.
+    # Location starts with os version prefix to filter out some random web requests.
     location ~ ^/(ios|android|mac)/(.+)/(.+) {
       # Store for later use.
       set $OS $1;
