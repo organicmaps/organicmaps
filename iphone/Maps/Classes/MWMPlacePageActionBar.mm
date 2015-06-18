@@ -82,8 +82,7 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   {
     CGSize const size = [[UIScreen mainScreen] bounds].size;
     CGFloat const maximumWidth = 360.;
-    CGFloat const screenWidth = size.width > size.height ? (size.height > maximumWidth ? maximumWidth : size.height) : size.width;
-
+    CGFloat const screenWidth = MIN(size.height, maximumWidth);
     self.bookmarkButton.center = CGPointMake(3. * screenWidth / 4., self.bookmarkButton.center.y);
     self.shareButton.center = CGPointMake(screenWidth / 4., self.bookmarkButton.center.y);
   }

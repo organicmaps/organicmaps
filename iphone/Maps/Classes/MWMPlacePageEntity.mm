@@ -46,36 +46,28 @@ typedef feature::FeatureMetadata::EMetadataType TMetadataType;
   mark->GetLatLon(x, y);
   self.point = m2::PointD(x, y);
 
-  typedef UserMark::Type t;
+  typedef UserMark::Type Type;
   switch (type)
   {
-    case t::API:
+    case Type::API:
     {
       ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>(mark);
       [self configureForApi:apiMark];
       break;
     }
-    case t::SEARCH:
-    {
-      SearchMarkPoint const * searchMark = static_cast<SearchMarkPoint const *>(mark);
-      [self configureForPOI:searchMark];
+    case Type::DEBUG_MARK:
       break;
-    }
-    case t::DEBUG_MARK:
-      break;
-    case t::MY_POSITION:
+    case Type::MY_POSITION:
     {
       MyPositionMarkPoint const * myPositionMark = static_cast<MyPositionMarkPoint const *>(mark);
       [self configureForMyPosition:myPositionMark];
       break;
     }
-    case t::POI:
-    {
-      PoiMarkPoint const * poiMark = static_cast<PoiMarkPoint const *>(mark);
-      [self configureForPOI:poiMark];
+    case Type::SEARCH:
+    case Type::POI:
+      [self configureForPOI:static_cast<SearchMarkPoint const *>(mark)];
       break;
-    }
-    case t::BOOKMARK:
+    case Type::BOOKMARK:
       [self configureForBookmark:mark];
       break;
   }
@@ -88,7 +80,7 @@ typedef feature::FeatureMetadata::EMetadataType TMetadataType;
   self.bac = f.FindBookmark(bookmark);
   self.type = MWMPlacePageEntityTypeBookmark;
   BookmarkCategory * category = f.GetBmCategory(self.bac.first);
-  BookmarkData data = static_cast<Bookmark const *>(bookmark)->GetData();
+  BookmarkData const & data = static_cast<Bookmark const *>(bookmark)->GetData();
   m2::PointD const & point = bookmark->GetOrg();
   feature::FeatureMetadata metadata;
   search::AddressInfo info;
@@ -279,25 +271,25 @@ typedef feature::FeatureMetadata::EMetadataType TMetadataType;
 
 - (NSString *)bookmarkCategory
 {
-  if (_bookmarkCategory == nil)
+  if (!_bookmarkCategory)
   {
     Framework & f = GetFramework();
     BookmarkCategory * category = f.GetBmCategory(f.LastEditedBMCategory());
-    return [NSString stringWithUTF8String:category->GetName().c_str()];
+    _bookmarkCategory = [NSString stringWithUTF8String:category->GetName().c_str()];
   }
   return _bookmarkCategory;
 }
 
 - (NSString *)bookmarkDescription
 {
-  if (_bookmarkDescription == nil)
+  if (!_bookmarkDescription)
     _bookmarkDescription = @"";
   return _bookmarkDescription;
 }
 
 - (NSString *)bookmarkColor
 {
-  if (_bookmarkColor == nil)
+  if (!_bookmarkColor)
   {
     Framework & f = GetFramework();
     string type = f.LastEditedBMType();
@@ -308,7 +300,7 @@ typedef feature::FeatureMetadata::EMetadataType TMetadataType;
 
 - (NSString *)bookmarkTitle
 {
-  if (_bookmarkTitle == nil)
+  if (!_bookmarkTitle)
     _bookmarkTitle = self.title;
   return _bookmarkTitle;
 }

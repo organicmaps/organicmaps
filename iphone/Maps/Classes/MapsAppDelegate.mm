@@ -362,6 +362,7 @@ void InitLocalizedStrings()
   Class const navigationControllerClass = [NavigationController class];
   if (!isIOSVersionLessThan(7))
   {
+    [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setTranslucent:NO];
     [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
     [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setBarTintColor:[UIColor colorWithColorCode:@"0e8639"]];

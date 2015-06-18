@@ -116,7 +116,7 @@ extern CGFloat kBookmarkCellHeight;
 - (void)removeBookmark
 {
   [super removeBookmark];
-  self.navigationController.view.height += kBookmarkCellHeight;
+  self.navigationController.view.height -= kBookmarkCellHeight;
   self.viewController.view.height -= kBookmarkCellHeight;
   self.extendedPlacePageView.height -= kBookmarkCellHeight;
   self.actionBar.minY -= kBookmarkCellHeight;

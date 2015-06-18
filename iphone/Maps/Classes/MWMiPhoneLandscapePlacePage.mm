@@ -39,8 +39,8 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   [super configure];
 
   CGSize const size = UIScreen.mainScreen.bounds.size;
-  CGFloat const height = size.width > size.height ? size.height : size.width;
-  CGFloat const offset = height > kMaximumPlacePageWidth ? kMaximumPlacePageWidth : height;
+  CGFloat const height = MIN(size.width, size.height);
+  CGFloat const offset = MIN(height, kMaximumPlacePageWidth);
 
   UIView const * view = self.manager.ownerViewController.view;
   if ([view.subviews containsObject:self.extendedPlacePageView] && self.state != MWMiPhoneLandscapePlacePageStateClosed)
@@ -67,8 +67,8 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)setState:(MWMiPhoneLandscapePlacePageState)state
 {
   CGSize const size = UIScreen.mainScreen.bounds.size;
-  CGFloat const height = size.width > size.height ? size.height : size.width;
-  CGFloat const offset = height > kMaximumPlacePageWidth ? kMaximumPlacePageWidth : height;
+  CGFloat const height = MIN(size.width, size.height);
+  CGFloat const offset = MIN(height, kMaximumPlacePageWidth);
 
   switch (state)
   {
@@ -91,8 +91,8 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 {
   CGPoint const point = [sender translationInView:self.extendedPlacePageView.superview];
   CGSize const size = UIScreen.mainScreen.bounds.size;
-  CGFloat const height = size.width > size.height ? size.height : size.width;
-  CGFloat const offset = height > kMaximumPlacePageWidth ? kMaximumPlacePageWidth : height;
+  CGFloat const height = MIN(size.width, size.height);
+  CGFloat const offset = MAX(height, kMaximumPlacePageWidth);
   CGFloat const x = self.extendedPlacePageView.center.x + point.x;
 
   if (x > offset / 2.)

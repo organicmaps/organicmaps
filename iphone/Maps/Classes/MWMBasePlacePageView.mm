@@ -79,7 +79,7 @@ extern CGFloat const kBookmarkCellHeight = 135.;
   [self layoutSubviews];
 }
 
-static CGFloat const kPlacePageTitleKoefficient = 0.6375f;
+static CGFloat const kPlacePageTitleKoefficient = 0.6375;
 static CGFloat const kLeftOffset = 16.;
 static CGFloat const kDirectionArrowSide = 32.;
 static CGFloat const kOffsetFromTitleToDistance = 12.;

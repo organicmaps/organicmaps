@@ -68,6 +68,7 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 
   CGFloat const defaultHeight = 352.;
   CGSize const size = self.navigationController.view.bounds.size;
+  CGFloat const topOffset = 24.;
 
   switch (orientation)
   {
@@ -77,9 +78,8 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
     case UIInterfaceOrientationPortraitUpsideDown:
     case UIInterfaceOrientationPortrait:
     {
-      CGFloat const topOffset = 88.;
-      CGFloat const width = size.width < size.height ? size.width : size.height;
-      CGFloat const height = size.width > size.height ? size.width : size.height;
+      CGFloat const width = MIN(size.width, size.height);
+      CGFloat const height = MAX(size.width, size.height);
       CGFloat const externalHeight = self.navigationController.navigationBar.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
       CGFloat const actualHeight = defaultHeight > (height - externalHeight) ? height : defaultHeight;
       self.tableView.frame = CGRectMake(0., topOffset, width, actualHeight);
@@ -89,12 +89,12 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
     case UIInterfaceOrientationLandscapeLeft:
     case UIInterfaceOrientationLandscapeRight:
     {
-      CGFloat const navBarHeight = self.navigationController.navigationBar.height;
-      CGFloat const width = size.width > size.height ? size.width : size.height;
-      CGFloat const height = size.width < size.height ? size.width : size.height;
-      CGFloat const currentHeight = height - navBarHeight;
+      CGFloat const navBarHeight = self.navigationController.navigationBar.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+      CGFloat const width = MAX(size.width, size.height);
+      CGFloat const height = MIN(size.width, size.height);
+      CGFloat const currentHeight = height - navBarHeight - 2 * topOffset;
       CGFloat const actualHeight = currentHeight > defaultHeight ? defaultHeight : currentHeight;
-      self.tableView.frame = CGRectMake(0., navBarHeight, width, actualHeight);
+      self.tableView.frame = CGRectMake(0., topOffset, width, actualHeight);
       break;
     }
   }

@@ -156,8 +156,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   self.entity.type = MWMPlacePageEntityTypeBookmark;
   BookmarkCategory const * category = f.GetBmCategory(categoryIndex);
   Bookmark const * bookmark = category->GetBookmark(bookmarkIndex);
-  unique_ptr<UserMarkCopy> userMarkCopy(new UserMarkCopy(bookmark, false));
-  m_userMark = std::move(userMarkCopy);
+  m_userMark.reset(new UserMarkCopy(bookmark, false));
   f.ActivateUserMark(bookmark);
   f.Invalidate();
 }
@@ -170,8 +169,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   self.entity.type = MWMPlacePageEntityTypeRegular;
   BookmarkCategory * category = f.GetBmCategory(bookmarkAndCategory.first);
   PoiMarkPoint const * poi = f.GetAddressMark(mark->GetOrg());
-  unique_ptr<UserMarkCopy> userMarkCopy(new UserMarkCopy(poi, false));
-  m_userMark = std::move(userMarkCopy);
+  m_userMark.reset(new UserMarkCopy(poi, false));
   f.ActivateUserMark(poi);
   if (category)
   {

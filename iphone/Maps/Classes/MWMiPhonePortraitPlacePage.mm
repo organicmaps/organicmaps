@@ -68,8 +68,8 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     return;
 
   CGSize const size = UIScreen.mainScreen.bounds.size;
-  CGFloat const width = size.width > size.height ? size.height : size.width;
-  CGFloat const height = size.width > size.height ? size.width : size.height;
+  CGFloat const width = MIN(size.width, size.height);
+  CGFloat const height = MAX(size.width, size.height);
   self.extendedPlacePageView.frame = CGRectMake(0., height, width, 2 * height);
   [view addSubview:self.extendedPlacePageView];
   self.actionBar.width = width;
