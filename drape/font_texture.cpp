@@ -9,6 +9,7 @@
 #include "base/string_utils.hpp"
 #include "base/stl_add.hpp"
 
+#include "std/chrono.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 #include "std/map.hpp"
@@ -76,14 +77,91 @@ m2::RectF GlyphPacker::MapTextureCoords(const m2::RectU & pixelRect) const
 
 bool GlyphPacker::IsFull() const { return m_isFull; }
 
+GlyphGenerator::GlyphGenerator(ref_ptr<GlyphManager> mng, TCompletionHandler const & completionHandler)
+  : m_mng(mng)
+  , m_completionHandler(completionHandler)
+  , m_isRunning(true)
+  , m_isSuspended(false)
+  , m_thread(&GlyphGenerator::Routine, this)
+{
+  ASSERT(m_completionHandler != nullptr, ());
+}
+
+GlyphGenerator::~GlyphGenerator()
+{
+  m_isRunning = false;
+  {
+    lock_guard<mutex> lock(m_queueLock);
+    WakeUp();
+  }
+  m_thread.join();
+  m_completionHandler = nullptr;
+}
+
+void GlyphGenerator::WaitForGlyph()
+{
+  unique_lock<mutex> lock(m_queueLock);
+  if (m_queue.empty())
+  {
+    m_isSuspended = true;
+    m_condition.wait(lock, [this] { return !m_queue.empty() || !m_isRunning; });
+    m_isSuspended = false;
+  }
+}
+
+void GlyphGenerator::WakeUp()
+{
+  if (m_isSuspended)
+  {
+    m_isSuspended = false;
+    m_condition.notify_one();
+  }
+}
+
+bool GlyphGenerator::IsSuspended() const
+{
+  lock_guard<mutex> lock(m_queueLock);
+  return m_isSuspended;
+}
+
+void GlyphGenerator::Routine(GlyphGenerator * generator)
+{
+  while(generator->m_isRunning)
+  {
+    generator->WaitForGlyph();
+
+    // generate glyphs
+    list<GlyphGenerationData> queue;
+    {
+      lock_guard<mutex> lock(generator->m_queueLock);
+      queue.swap(generator->m_queue);
+    }
+
+    for (GlyphGenerationData & data : queue)
+    {
+      GlyphManager::Glyph glyph = generator->m_mng->GenerateGlyph(data.m_glyph);
+      data.m_glyph.m_image.Destroy();
+      generator->m_completionHandler(data.m_rect, glyph);
+    }
+  }
+}
+
+void GlyphGenerator::GenerateGlyph(m2::RectU const & rect, GlyphManager::Glyph const & glyph)
+{
+  lock_guard<mutex> lock(m_queueLock);
+  m_queue.emplace_back(rect, glyph);
+  WakeUp();
+}
+
 GlyphIndex::GlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng)
   : m_packer(size)
   , m_mng(mng)
-{
-}
+  , m_generator(new GlyphGenerator(mng, bind(&GlyphIndex::OnGlyphGenerationCompletion, this, _1, _2)))
+{}
 
 GlyphIndex::~GlyphIndex()
 {
+  m_generator.reset();
   {
     threads::MutexGuard g(m_lock);
     for_each(m_pendingNodes.begin(), m_pendingNodes.end(), [](TPendingNode & node)
@@ -112,14 +190,25 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
     return nullptr;
   }
 
-  {
-    threads::MutexGuard g(m_lock);
-    m_pendingNodes.emplace_back(r, glyph);
-  }
+  m_generator->GenerateGlyph(r, glyph);
 
   auto res = m_index.emplace(uniChar, GlyphInfo(m_packer.MapTextureCoords(r), glyph.m_metrics));
   ASSERT(res.second, ());
   return make_ref(&res.first->second);
+}
+
+bool GlyphIndex::HasAsyncRoutines() const
+{
+  return !m_generator->IsSuspended();
+}
+
+void GlyphIndex::OnGlyphGenerationCompletion(m2::RectU const & rect, GlyphManager::Glyph const & glyph)
+{
+  if (glyph.m_image.m_data == nullptr)
+    return;
+
+  threads::MutexGuard g(m_lock);
+  m_pendingNodes.emplace_back(rect, glyph);
 }
 
 void GlyphIndex::UploadResources(ref_ptr<Texture> texture)

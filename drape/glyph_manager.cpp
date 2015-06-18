@@ -172,45 +172,71 @@ public:
 
     FT_Bitmap bitmap = m_fontFace->glyph->bitmap;
 
+    float const scale = 1.0f / SDF_SCALE_FACTOR;
+
     SharedBufferManager::shared_buffer_ptr_t data;
-    size_t bufferSize = 0;
-    int imgWidth = bitmap.width;
-    int imgHeigh = bitmap.rows;
+    int imageWidth = bitmap.width;
+    int imageHeight = bitmap.rows;
     if (bitmap.buffer != nullptr)
     {
       SdfImage img(bitmap.rows, bitmap.pitch, bitmap.buffer, SDF_BORDER);
-      img.GenerateSDF(1.0f / (float)SDF_SCALE_FACTOR);
+      imageWidth = img.GetWidth() * scale;
+      imageHeight = img.GetHeight() * scale;
 
-      imgWidth = img.GetWidth();
-      imgHeigh = img.GetHeight();
-
-      size_t byteSize = imgWidth * imgHeigh;
-      bufferSize = my::NextPowOf2(byteSize);
+      size_t bufferSize = bitmap.rows * bitmap.pitch;
       data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
-
-      img.GetData(*data);
+      memcpy(&(*data)[0], bitmap.buffer, bufferSize);
     }
 
     GlyphManager::Glyph result;
     result.m_image = GlyphManager::GlyphImage
     {
-      imgWidth,
-      imgHeigh,
+      imageWidth, imageHeight,
+      bitmap.rows, bitmap.pitch,
       data
     };
 
     result.m_metrics = GlyphManager::GlyphMetrics
     {
-      static_cast<float>(glyph->advance.x >> 16) / SDF_SCALE_FACTOR,
-      static_cast<float>(glyph->advance.y >> 16) / SDF_SCALE_FACTOR,
-      static_cast<float>(bbox.xMin) / SDF_SCALE_FACTOR,
-      static_cast<float>(bbox.yMin) / SDF_SCALE_FACTOR,
+      static_cast<float>(glyph->advance.x >> 16) * scale,
+      static_cast<float>(glyph->advance.y >> 16)  * scale,
+      static_cast<float>(bbox.xMin) * scale,
+      static_cast<float>(bbox.yMin) * scale,
       true
     };
 
     FT_Done_Glyph(glyph);
 
     return result;
+  }
+
+  GlyphManager::Glyph GenerateGlyph(GlyphManager::Glyph const & glyph) const
+  {
+    if (glyph.m_image.m_data != nullptr)
+    {
+      GlyphManager::Glyph resultGlyph;
+      resultGlyph.m_metrics = glyph.m_metrics;
+      resultGlyph.m_fontIndex = glyph.m_fontIndex;
+
+      SdfImage img(glyph.m_image.m_bitmapRows, glyph.m_image.m_bitmapPitch,
+                   glyph.m_image.m_data->data(), SDF_BORDER);
+
+      img.GenerateSDF(1.0f / (float)SDF_SCALE_FACTOR);
+
+      ASSERT(img.GetWidth() == glyph.m_image.m_width, ());
+      ASSERT(img.GetHeight() == glyph.m_image.m_height, ());
+
+      size_t bufferSize = my::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
+      resultGlyph.m_image.m_width = glyph.m_image.m_width;
+      resultGlyph.m_image.m_height = glyph.m_image.m_height;
+      resultGlyph.m_image.m_bitmapRows = 0;
+      resultGlyph.m_image.m_bitmapPitch = 0;
+      resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
+
+      img.GetData(*resultGlyph.m_image.m_data);
+      return resultGlyph;
+    }
+    return glyph;
   }
 
   void GetCharcodes(vector<FT_ULong> & charcodes)
@@ -467,13 +493,25 @@ GlyphManager::Glyph GlyphManager::GetGlyph(strings::UniChar unicodePoint)
       ASSERT_LESS(fontIndex, m_impl->m_fonts.size(), ());
       Font const & f = m_impl->m_fonts[fontIndex];
       if (f.HasGlyph(unicodePoint))
-        return f.GetGlyph(unicodePoint, m_impl->m_baseGlyphHeight);
+      {
+        Glyph glyph = f.GetGlyph(unicodePoint, m_impl->m_baseGlyphHeight);
+        glyph.m_fontIndex = fontIndex;
+        return glyph;
+      }
     }
 
     fontIndex = block.GetFontOffset(fontIndex);
   } while(fontIndex != -1);
 
   return GetInvalidGlyph();
+}
+
+GlyphManager::Glyph GlyphManager::GenerateGlyph(Glyph const & glyph) const
+{
+  ASSERT(glyph.m_fontIndex != -1, ());
+  ASSERT_LESS(glyph.m_fontIndex, m_impl->m_fonts.size(), ());
+  Font const & f = m_impl->m_fonts[glyph.m_fontIndex];
+  return f.GenerateGlyph(glyph);
 }
 
 void GlyphManager::ForEachUnicodeBlock(GlyphManager::TUniBlockCallback const & fn) const
@@ -492,6 +530,7 @@ GlyphManager::Glyph GlyphManager::GetInvalidGlyph() const
     ASSERT(!m_impl->m_fonts.empty(), ());
     s_glyph = m_impl->m_fonts[0].GetGlyph(0x9, m_impl->m_baseGlyphHeight);
     s_glyph.m_metrics.m_isValid = false;
+    s_glyph.m_fontIndex = 0;
     s_inited = true;
   }
 

@@ -97,6 +97,7 @@ UNIT_TEST(UploadingGlyphs)
   index.MapResource(GlyphKey(0x58));
   index.MapResource(GlyphKey(0x59));
   index.MapResource(GlyphKey(0x61));
+  while(index.HasAsyncRoutines());
 
   DummyTexture tex;
   tex.Create(64, 64, dp::ALPHA, nullptr);
@@ -109,6 +110,8 @@ UNIT_TEST(UploadingGlyphs)
   index.MapResource(GlyphKey(0x65));
   index.MapResource(GlyphKey(0x400));
   index.MapResource(GlyphKey(0x401));
+  while(index.HasAsyncRoutines());
+
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage))
                                                 .WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(make_ref(&tex));

@@ -5,9 +5,13 @@
 #include "drape/glyph_manager.hpp"
 #include "drape/dynamic_texture.hpp"
 
+#include "std/atomic.hpp"
+#include "std/condition_variable.hpp"
+#include "std/list.hpp"
 #include "std/map.hpp"
 #include "std/vector.hpp"
 #include "std/string.hpp"
+#include "std/thread.hpp"
 
 namespace dp
 {
@@ -47,14 +51,50 @@ public:
   GlyphInfo(m2::RectF const & texRect, GlyphManager::GlyphMetrics const & metrics)
     : TBase(texRect)
     , m_metrics(metrics)
-  {
-  }
+  {}
 
   virtual Texture::ResourceType GetType() const { return Texture::Glyph; }
   GlyphManager::GlyphMetrics const & GetMetrics() const { return m_metrics; }
 
 private:
   GlyphManager::GlyphMetrics m_metrics;
+};
+
+class GlyphGenerator
+{
+public:
+  using TCompletionHandler = function<void(m2::RectU const &, GlyphManager::Glyph const &)>;
+  struct GlyphGenerationData
+  {
+    m2::RectU m_rect;
+    GlyphManager::Glyph m_glyph;
+    GlyphGenerationData(m2::RectU const & rect, GlyphManager::Glyph const & glyph)
+      : m_rect(rect), m_glyph(glyph)
+    {}
+  };
+
+  GlyphGenerator(ref_ptr<GlyphManager> mng, TCompletionHandler const & completionHandler);
+  ~GlyphGenerator();
+
+  void GenerateGlyph(m2::RectU const & rect, GlyphManager::Glyph const & glyph);
+
+  bool IsSuspended() const;
+
+private:
+  static void Routine(GlyphGenerator * generator);
+  void WakeUp();
+  void WaitForGlyph();
+
+  ref_ptr<GlyphManager> m_mng;
+  TCompletionHandler m_completionHandler;
+
+  list<GlyphGenerationData> m_queue;
+  mutable mutex m_queueLock;
+
+  atomic<bool> m_isRunning;
+  condition_variable m_condition;
+  bool m_isSuspended;
+  thread m_thread;
 };
 
 class GlyphIndex
@@ -70,9 +110,14 @@ public:
   glConst GetMinFilter() const { return gl_const::GLLinear; }
   glConst GetMagFilter() const { return gl_const::GLLinear; }
 
+  bool HasAsyncRoutines() const;
+
+  void OnGlyphGenerationCompletion(m2::RectU const & rect, GlyphManager::Glyph const & glyph);
+
 private:
   GlyphPacker m_packer;
   ref_ptr<GlyphManager> m_mng;
+  unique_ptr<GlyphGenerator> m_generator;
 
   typedef map<strings::UniChar, GlyphInfo> TResourceMapping;
   typedef pair<m2::RectU, GlyphManager::Glyph> TPendingNode;
@@ -101,6 +146,11 @@ public:
   }
 
   ~FontTexture() { TBase::Reset(); }
+
+  bool HasAsyncRoutines() const override
+  {
+    return m_index.HasAsyncRoutines();
+  }
 
 private:
   GlyphIndex m_index;

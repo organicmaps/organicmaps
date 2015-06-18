@@ -89,7 +89,7 @@ public:
   /// On some devices OpenGL driver can't resolve situation when we upload on texture from one thread
   /// and use this texture to render on other thread. By this we move UpdateDynamicTextures call into render thread
   /// If you implement some kind of dynamic texture, you must synchronyze UploadData and index creation operations
-  void UpdateDynamicTextures();
+  bool UpdateDynamicTextures();
 
 private:
   struct GlyphGroup
@@ -194,6 +194,16 @@ private:
     for (auto & g : groups)
       if (g.m_texture != nullptr)
         g.m_texture->UpdateState();
+  }
+
+  template<typename TGlyphGroups>
+  bool HasAsyncRoutines(TGlyphGroups & groups)
+  {
+    for (auto & g : groups)
+      if (g.m_texture != nullptr && g.m_texture->HasAsyncRoutines())
+        return true;
+
+    return false;
   }
 
   static constexpr size_t GetInvalidGlyphGroup();

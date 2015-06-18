@@ -138,16 +138,20 @@ void TextureManager::Release()
   m_glyphTextures.clear();
 }
 
-void TextureManager::UpdateDynamicTextures()
+bool TextureManager::UpdateDynamicTextures()
 {
-  if (m_nothingToUpload.test_and_set())
-    return;
+  bool const asyncRoutines = HasAsyncRoutines(m_glyphGroups) || HasAsyncRoutines(m_hybridGlyphGroups);
+
+  if (!asyncRoutines && m_nothingToUpload.test_and_set())
+    return false;
 
   m_colorTexture->UpdateState();
   m_stipplePenTexture->UpdateState();
 
   UpdateGlyphTextures(m_glyphGroups);
   UpdateGlyphTextures(m_hybridGlyphGroups);
+
+  return true;
 }
 
 ref_ptr<Texture> TextureManager::AllocateGlyphTexture()

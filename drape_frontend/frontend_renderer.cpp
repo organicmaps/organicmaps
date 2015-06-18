@@ -740,12 +740,12 @@ void FrontendRenderer::Routine::Do()
   while (!IsCancelled())
   {
     context->setDefaultFramebuffer();
-    m_renderer.m_texMng->UpdateDynamicTextures();
+    bool const hasAsyncRoutines = m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
     bool const animActive = InterpolationHolder::Instance().Advance(frameTime);
     modelView = m_renderer.UpdateScene(viewChanged);
 
-    if (!viewChanged && m_renderer.IsQueueEmpty() && !animActive)
+    if (!viewChanged && m_renderer.IsQueueEmpty() && !animActive && !hasAsyncRoutines)
       ++inactiveFrameCount;
     else
       inactiveFrameCount = 0;

@@ -57,6 +57,7 @@ public:
 
   virtual ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) = 0;
   virtual void UpdateState() {}
+  virtual bool HasAsyncRoutines() const { return false; }
 
   TextureFormat GetFormat() const;
   uint32_t GetWidth() const;

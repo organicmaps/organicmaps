@@ -44,11 +44,18 @@ public:
 
     void Destroy()
     {
-      SharedBufferManager::instance().freeSharedBuffer(m_data->size(), m_data);
+      if (m_data != nullptr)
+      {
+        SharedBufferManager::instance().freeSharedBuffer(m_data->size(), m_data);
+        m_data = nullptr;
+      }
     }
 
     int m_width;
     int m_height;
+
+    int m_bitmapRows;
+    int m_bitmapPitch;
 
     SharedBufferManager::shared_buffer_ptr_t m_data;
   };
@@ -57,12 +64,14 @@ public:
   {
     GlyphMetrics m_metrics;
     GlyphImage m_image;
+    int m_fontIndex;
   };
 
   GlyphManager(Params const & params);
   ~GlyphManager();
 
   Glyph GetGlyph(strings::UniChar unicodePoints);
+  Glyph GenerateGlyph(Glyph const & glyph) const;
 
   typedef function<void (strings::UniChar start, strings::UniChar end)> TUniBlockCallback;
   void ForEachUnicodeBlock(TUniBlockCallback const & fn) const;
