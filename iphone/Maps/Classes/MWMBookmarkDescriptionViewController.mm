@@ -58,6 +58,15 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     self.state = BookmarkDescriptionStateViewHTML;
   else
     self.state = BookmarkDescriptionStateEditText;
+  if (self.iPadOwnerNavigationController)
+    return;
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillShown:)
+                                               name:UIKeyboardWillShowNotification object:nil];
+
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillBeHidden:)
+                                               name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -176,6 +185,31 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 {
   self.state = BookmarkDescriptionStateEditHTML;
 }
+
+#pragma mark - Notifications
+
+- (void)keyboardWillShown:(NSNotification *)aNotification
+{
+  NSDictionary * info = [aNotification userInfo];
+  CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+  CGFloat const externalHeight = self.navigationController.navigationBar.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+  self.textView.height -= (kbSize.height - externalHeight);
+}
+
+- (void)keyboardWillBeHidden:(NSNotification *)aNotification
+{
+  NSDictionary * info = [aNotification userInfo];
+  CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+  CGFloat const externalHeight = self.navigationController.navigationBar.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+  self.textView.height += (kbSize.height - externalHeight);
+}
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
 {
