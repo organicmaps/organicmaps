@@ -197,9 +197,9 @@ private:
   }
 
   template<typename TGlyphGroups>
-  bool HasAsyncRoutines(TGlyphGroups & groups)
+  bool HasAsyncRoutines(TGlyphGroups const & groups) const
   {
-    for (auto & g : groups)
+    for (auto const & g : groups)
       if (g.m_texture != nullptr && g.m_texture->HasAsyncRoutines())
         return true;
 

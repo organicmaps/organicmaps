@@ -508,7 +508,7 @@ GlyphManager::Glyph GlyphManager::GetGlyph(strings::UniChar unicodePoint)
 
 GlyphManager::Glyph GlyphManager::GenerateGlyph(Glyph const & glyph) const
 {
-  ASSERT(glyph.m_fontIndex != -1, ());
+  ASSERT_NOT_EQUAL(glyph.m_fontIndex, -1, ());
   ASSERT_LESS(glyph.m_fontIndex, m_impl->m_fonts.size(), ());
   Font const & f = m_impl->m_fonts[glyph.m_fontIndex];
   return f.GenerateGlyph(glyph);

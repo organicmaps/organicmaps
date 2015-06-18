@@ -90,32 +90,18 @@ GlyphGenerator::GlyphGenerator(ref_ptr<GlyphManager> mng, TCompletionHandler con
 GlyphGenerator::~GlyphGenerator()
 {
   m_isRunning = false;
-  {
-    lock_guard<mutex> lock(m_queueLock);
-    WakeUp();
-  }
+  m_condition.notify_one();
   m_thread.join();
   m_completionHandler = nullptr;
 }
 
-void GlyphGenerator::WaitForGlyph()
+void GlyphGenerator::WaitForGlyph(list<GlyphGenerationData> & queue)
 {
   unique_lock<mutex> lock(m_queueLock);
-  if (m_queue.empty())
-  {
-    m_isSuspended = true;
-    m_condition.wait(lock, [this] { return !m_queue.empty() || !m_isRunning; });
-    m_isSuspended = false;
-  }
-}
-
-void GlyphGenerator::WakeUp()
-{
-  if (m_isSuspended)
-  {
-    m_isSuspended = false;
-    m_condition.notify_one();
-  }
+  m_isSuspended = true;
+  m_condition.wait(lock, [this] { return !m_queue.empty() || !m_isRunning; });
+  m_isSuspended = false;
+  queue.swap(m_queue);
 }
 
 bool GlyphGenerator::IsSuspended() const
@@ -126,17 +112,13 @@ bool GlyphGenerator::IsSuspended() const
 
 void GlyphGenerator::Routine(GlyphGenerator * generator)
 {
-  while(generator->m_isRunning)
+  ASSERT(generator != nullptr, ());
+  while (generator->m_isRunning)
   {
-    generator->WaitForGlyph();
+    list<GlyphGenerationData> queue;
+    generator->WaitForGlyph(queue);
 
     // generate glyphs
-    list<GlyphGenerationData> queue;
-    {
-      lock_guard<mutex> lock(generator->m_queueLock);
-      queue.swap(generator->m_queue);
-    }
-
     for (GlyphGenerationData & data : queue)
     {
       GlyphManager::Glyph glyph = generator->m_mng->GenerateGlyph(data.m_glyph);
@@ -150,7 +132,7 @@ void GlyphGenerator::GenerateGlyph(m2::RectU const & rect, GlyphManager::Glyph c
 {
   lock_guard<mutex> lock(m_queueLock);
   m_queue.emplace_back(rect, glyph);
-  WakeUp();
+  m_condition.notify_one();
 }
 
 GlyphIndex::GlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng)
@@ -204,7 +186,7 @@ bool GlyphIndex::HasAsyncRoutines() const
 
 void GlyphIndex::OnGlyphGenerationCompletion(m2::RectU const & rect, GlyphManager::Glyph const & glyph)
 {
-  if (glyph.m_image.m_data == nullptr)
+  if (!glyph.m_image.m_data)
     return;
 
   threads::MutexGuard g(m_lock);

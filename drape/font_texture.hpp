@@ -64,10 +64,12 @@ class GlyphGenerator
 {
 public:
   using TCompletionHandler = function<void(m2::RectU const &, GlyphManager::Glyph const &)>;
+
   struct GlyphGenerationData
   {
     m2::RectU m_rect;
     GlyphManager::Glyph m_glyph;
+
     GlyphGenerationData(m2::RectU const & rect, GlyphManager::Glyph const & glyph)
       : m_rect(rect), m_glyph(glyph)
     {}
@@ -82,8 +84,7 @@ public:
 
 private:
   static void Routine(GlyphGenerator * generator);
-  void WakeUp();
-  void WaitForGlyph();
+  void WaitForGlyph(list<GlyphGenerationData> & queue);
 
   ref_ptr<GlyphManager> m_mng;
   TCompletionHandler m_completionHandler;
@@ -112,9 +113,9 @@ public:
 
   bool HasAsyncRoutines() const;
 
+private:
   void OnGlyphGenerationCompletion(m2::RectU const & rect, GlyphManager::Glyph const & glyph);
 
-private:
   GlyphPacker m_packer;
   ref_ptr<GlyphManager> m_mng;
   unique_ptr<GlyphGenerator> m_generator;
