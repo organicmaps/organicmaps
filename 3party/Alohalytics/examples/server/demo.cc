@@ -42,8 +42,11 @@ struct Processor {
               << std::endl;
   }
   void operator()(const AlohalyticsIdEvent & event) { std::cout << event.ToString() << std::endl; }
+  void operator()(const AlohalyticsIdServerEvent & event) { std::cout << event.ToString() << std::endl; }
   void operator()(const AlohalyticsKeyEvent & event) { std::cout << event.ToString() << std::endl; }
+  void operator()(const AlohalyticsKeyLocationEvent & event) { std::cout << event.ToString() << std::endl; }
   void operator()(const AlohalyticsKeyValueEvent & event) { std::cout << event.ToString() << std::endl; }
+  void operator()(const AlohalyticsKeyValueLocationEvent & event) { std::cout << event.ToString() << std::endl; }
   void operator()(const AlohalyticsKeyPairsEvent & event) { std::cout << event.ToString() << std::endl; }
   void operator()(const AlohalyticsKeyPairsLocationEvent & event) { std::cout << event.ToString() << std::endl; }
 };
@@ -56,7 +59,8 @@ int main(int, char **) {
       std::unique_ptr<AlohalyticsBaseEvent> ptr;
       ar(ptr);
       bricks::rtti::RuntimeDispatcher<AlohalyticsBaseEvent, AlohalyticsKeyPairsLocationEvent, AlohalyticsKeyPairsEvent,
-                                      AlohalyticsIdEvent, AlohalyticsKeyValueEvent,
+                                      AlohalyticsIdServerEvent, AlohalyticsIdEvent, AlohalyticsKeyValueLocationEvent,
+                                      AlohalyticsKeyValueEvent, AlohalyticsKeyLocationEvent,
                                       AlohalyticsKeyEvent>::DispatchCall(*ptr, processor);
     }
   } catch (const cereal::Exception &) {
