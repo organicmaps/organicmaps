@@ -198,6 +198,7 @@ extern NSString * const kAlohalyticsTapEventKey;
       break;
     case MWMSideMenuStateHidden:
       [self.menuButton setHidden:YES animated:YES];
+      [self hideMenu];
       break;
   }
   _state = state;
