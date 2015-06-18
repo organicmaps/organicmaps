@@ -579,8 +579,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [self.view addSubview:self.searchView];
 
   [self.view addSubview:self.containerView];
-
-  [self showRoutingFeatureDialog];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -776,18 +774,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 }
 
 #pragma mark - ShowDialog callback
-
-- (void)showRoutingFeatureDialog
-{
-  int const outOfDateCount = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
-  bool isFirstRoutingRun = true;
-  (void)Settings::Get("IsFirstRoutingRun", isFirstRoutingRun);
-  if (isFirstRoutingRun && outOfDateCount > 0)
-  {
-    [[[UIAlertView alloc] initWithTitle:L(@"routing_update_maps") message:nil delegate:self cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
-    Settings::Set("IsFirstRoutingRun", false);
-  }
-}
 
 - (void)showDialogWithMessageID:(string const &)message
 {
