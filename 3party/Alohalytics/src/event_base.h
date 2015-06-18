@@ -90,6 +90,28 @@ struct AlohalyticsIdEvent : public AlohalyticsBaseEvent {
 };
 CEREAL_REGISTER_TYPE_WITH_NAME(AlohalyticsIdEvent, "i")
 
+#ifdef ALOHALYTICS_SERVER
+// Special event to store additional server-only information which can be useful for analysis.
+struct AlohalyticsIdServerEvent : public AlohalyticsIdEvent {
+  uint64_t server_timestamp;
+  std::string ip;
+  std::string user_agent;
+  std::string uri;
+
+  virtual std::string ToString() const {
+    return AlohalyticsIdEvent::ToString() + " SRV:" + TimestampToString(server_timestamp) + " IP:" + ip + " UA:" +
+           user_agent + " URI:" + uri;
+  }
+
+  template <class Archive>
+  void serialize(Archive & ar) {
+    AlohalyticsIdEvent::serialize(ar);
+    ar(CEREAL_NVP(server_timestamp), CEREAL_NVP(ip), CEREAL_NVP(user_agent), CEREAL_NVP(uri));
+  }
+};
+CEREAL_REGISTER_TYPE_WITH_NAME(AlohalyticsIdServerEvent, "is")
+#endif
+
 // Simple event with a string name (key) only.
 struct AlohalyticsKeyEvent : public AlohalyticsBaseEvent {
   std::string key;
