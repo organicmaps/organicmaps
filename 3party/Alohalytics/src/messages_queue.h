@@ -100,7 +100,8 @@ class MessagesQueue final {
   // Processing stops if processor returns false.
   // Optional callback is called when all files are processed.
   // Executed on the WorkerThread.
-  void ProcessArchivedFiles(TArchivedFileProcessor processor, TFileProcessingFinishedCallback callback) {
+  void ProcessArchivedFiles(TArchivedFileProcessor processor,
+                            TFileProcessingFinishedCallback callback = TFileProcessingFinishedCallback()) {
     std::lock_guard<std::mutex> lock(mutex_);
     commands_queue_.push_back(std::bind(&MessagesQueue::ProcessArchivedFilesCommand, this, processor, callback));
     condition_variable_.notify_all();
