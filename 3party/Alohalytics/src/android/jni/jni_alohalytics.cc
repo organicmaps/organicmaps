@@ -109,8 +109,9 @@ TStringMap FillMapHelper(JNIEnv * env, jobjectArray keyValuePairs) {
 }  // namespace
 
 extern "C" {
-JNIEXPORT void JNICALL
-Java_org_alohalytics_Statistics_logEvent__Ljava_lang_String_2(JNIEnv * env, jclass, jstring eventName) {
+JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_logEvent__Ljava_lang_String_2(JNIEnv * env,
+                                                                                     jclass,
+                                                                                     jstring eventName) {
   LogEvent(ToStdString(env, eventName));
 }
 
