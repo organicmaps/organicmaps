@@ -805,12 +805,10 @@ namespace android
     static jmethodID const addId = env->GetMethodID(clazz, "addMetadata", "(ILjava/lang/String;)V");
     ASSERT ( addId, () );
 
-    vector<feature::Metadata::EType> const metaTypes = metadata.GetPresentTypes();
-    for (size_t i = 0; i < metaTypes.size(); i++)
+    for (feature::Metadata::EType t : metadata.GetPresentTypes())
     {
-      feature::Metadata::EType metaType = static_cast<feature::Metadata::EType>(metaTypes[i]);
-      jstring metaString = jni::ToJavaString(env, metadata.Get(metaType));
-      env->CallVoidMethod(mapObject, addId, metaType, metaString);
+      jstring metaString = jni::ToJavaString(env, metadata.Get(t));
+      env->CallVoidMethod(mapObject, addId, t, metaString);
       // TODO use unique_ptrs for autoallocation of local refs
       env->DeleteLocalRef(metaString);
     }
@@ -847,8 +845,7 @@ pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature
   for (size_t i = 0; i < metaTypes.size(); i++)
   {
     arr[i] = metaTypes[i];
-    feature::Metadata::EType metaType = static_cast<feature::Metadata::EType>(metaTypes[i]);
-    jstring metaString = jni::ToJavaString(env, metadata.Get(metaType));
+    jstring metaString = jni::ToJavaString(env, metadata.Get(metaTypes[i]));
     env->SetObjectArrayElement(j_metaValues, i, metaString);
     env->DeleteLocalRef(metaString);
   }

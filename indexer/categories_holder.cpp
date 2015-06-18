@@ -233,7 +233,7 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     string lower = locale;
     strings::AsciiToLower(lower);
 
-    for (auto s : {"hant", "tw", "hk", "mo"})
+    for (char const * s : {"hant", "tw", "hk", "mo"})
       if (lower.find(s) != string::npos)
         return 12; // Traditional Chinese
 

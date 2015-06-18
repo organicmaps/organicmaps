@@ -8,14 +8,16 @@
 #include "std/limits.hpp"
 #include "std/algorithm.hpp"
 #include "std/vector.hpp"
+#include "std/static_assert.hpp"
+
 
 namespace feature
 {
   class Metadata
   {
-    map<uint8_t, string> m_metadata;
-
   public:
+    /// @note! Do not change values here.
+    /// Add new types to the end of list, before FMD_COUNT.
     enum EType
     {
       FMD_CUISINE = 1,
@@ -32,8 +34,11 @@ namespace feature
       FMD_TURN_LANES_FORWARD = 12,
       FMD_TURN_LANES_BACKWARD = 13,
       FMD_EMAIL = 14,
-      FMD_POSTCODE = 15
+      FMD_POSTCODE = 15,
+      FMD_COUNT
     };
+
+    STATIC_ASSERT(FMD_COUNT <= 255);
 
     bool Add(EType type, string const & s)
     {
@@ -54,8 +59,10 @@ namespace feature
     vector<EType> GetPresentTypes() const
     {
       vector<EType> types;
-      for (auto item : m_metadata)
-        types.push_back(static_cast<EType>(item.first));
+      types.reserve(m_metadata.size());
+
+      for (auto const & item : m_metadata)
+        types.push_back(item.first);
 
       return types;
     }
@@ -70,11 +77,12 @@ namespace feature
 
     template <class ArchiveT> void SerializeToMWM(ArchiveT & ar) const
     {
-      for (auto const & e: m_metadata)
+      for (auto const & e : m_metadata)
       {
-        uint8_t last_key_mark = (&e == &(*m_metadata.crbegin())) << 7; /// set high bit (0x80) if it last element
-        uint8_t elem[2] = {static_cast<uint8_t>(e.first | last_key_mark),
-                           static_cast<uint8_t>(min(e.second.size(), (size_t)numeric_limits<uint8_t>::max()))};
+        // set high bit if it's the last element
+        uint8_t const mark = (&e == &(*m_metadata.crbegin()) ? 0x80 : 0);
+        uint8_t elem[2] = {static_cast<uint8_t>(e.first | mark),
+                           static_cast<uint8_t>(min(e.second.size(), (size_t)kMaxStringLength))};
         ar.Write(elem, sizeof(elem));
         ar.Write(e.second.data(), elem[1]);
       }
@@ -83,12 +91,12 @@ namespace feature
     template <class ArchiveT> void DeserializeFromMWM(ArchiveT & ar)
     {
       uint8_t header[2] = {0};
-      char buffer[uint8_t(-1)] = {0};
+      char buffer[kMaxStringLength] = {0};
       do
       {
         ar.Read(header, sizeof(header));
         ar.Read(buffer, header[1]);
-        m_metadata[static_cast<uint8_t>(header[0] & 0x7F)].assign(buffer, header[1]);
+        m_metadata[ToType(header[0] & 0x7F)].assign(buffer, header[1]);
       } while (!(header[0] & 0x80));
     }
 
@@ -96,26 +104,35 @@ namespace feature
     {
       uint8_t const sz = m_metadata.size();
       WriteToSink(ar, sz);
-      if (sz)
+      for (auto const & it : m_metadata)
       {
-        for (auto const & it : m_metadata)
-        {
-          WriteToSink(ar, static_cast<uint8_t>(it.first));
-          utils::WriteString(ar, it.second);
-        }
+        WriteToSink(ar, static_cast<uint8_t>(it.first));
+        utils::WriteString(ar, it.second);
       }
     }
 
     template <class ArchiveT> void Deserialize(ArchiveT & ar)
     {
       uint8_t const sz = ReadPrimitiveFromSource<uint8_t>(ar);
+      ASSERT_LESS_OR_EQUAL(sz, FMD_COUNT, ());
+
       for (size_t i = 0; i < sz; ++i)
       {
-        uint8_t const key = ReadPrimitiveFromSource<uint8_t>(ar);
+        EType const key = ToType(ReadPrimitiveFromSource<uint8_t>(ar));
         string value;
         utils::ReadString(ar, value);
         m_metadata.insert(make_pair(key, value));
       }
     }
+
+  private:
+    static EType ToType(uint8_t key)
+    {
+      ASSERT(key > 0 && key < FMD_COUNT, (key));
+      return static_cast<EType>(key);
+    }
+
+    enum { kMaxStringLength = 255 };
+    map<EType, string> m_metadata;
   };
 }
