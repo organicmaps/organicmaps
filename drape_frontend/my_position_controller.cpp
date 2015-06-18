@@ -443,7 +443,10 @@ m2::PointD MyPositionController::GetCurrentPixelBinding() const
 void MyPositionController::ActivateRouting()
 {
   if (!IsInRouting())
-    SetModeInfo(SetModeBit(m_modeInfo, RoutingSessionBit));
+  {
+    ASSERT(IsModeHasPosition(), ());
+    SetModeInfo(ChangeMode(SetModeBit(m_modeInfo, RoutingSessionBit), location::MODE_NOT_FOLLOW));
+  }
 }
 
 void MyPositionController::DeactivateRouting()

@@ -1841,7 +1841,7 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
                               [this] (Route const & route, IRouter::ResultCode code)
   {
     ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute_ReadyCallback"));
-    double const routeScale = 1.2;
+    double const routeScale = 1.5;
 
     vector<storage::TIndex> absentFiles;
     vector<storage::TIndex> absentRoutingIndexes;
