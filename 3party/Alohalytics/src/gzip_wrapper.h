@@ -21,6 +21,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *******************************************************************************/
+#ifndef GZIP_WRAPPER_H
+#define GZIP_WRAPPER_H
+
 #include <cstring>  // std::memset
 #include <string>
 #include <vector>
@@ -104,3 +107,4 @@ inline std::string Gunzip(const std::string & data_to_decompress) {
 }
 
 }  // namespace alohalytics
+#endif  // GZIP_WRAPPER_H
