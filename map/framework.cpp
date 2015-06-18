@@ -1847,9 +1847,11 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
     vector<storage::TIndex> absentRoutingIndexes;
     if (code == IRouter::NoError)
     {
+      double constexpr kRouteScaleMultiplierToShowWholeRoute = 1.5;
+
       InsertRoute(route);
       m2::RectD routeRect = route.GetPoly().GetLimitRect();
-      routeRect.Scale(routeScale);
+      routeRect.Scale(kRouteScaleMultiplierToShowWholeRoute);
       m_drapeEngine->SetModelViewRect(routeRect, true, -1, true);
     }
     else
