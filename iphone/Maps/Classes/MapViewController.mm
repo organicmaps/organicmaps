@@ -379,11 +379,16 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   {
     if (f.GetGuiController()->OnTapStarted(m_Pt1))
       return;
+    self.userTouchesAction = UserTouchesActionDrag;
 
     // Start long-tap timer
     [self preformLongTapSelector:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]]];
     // Temporary solution to filter long touch
     m_touchDownPoint = m_Pt1;
+  }
+  else
+  {
+    self.userTouchesAction = UserTouchesActionScale;
   }
 
   m_isSticking = true;
