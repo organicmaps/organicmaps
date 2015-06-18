@@ -555,6 +555,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
   [self invalidate];
 }
 
@@ -582,8 +583,14 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)viewWillDisappear:(BOOL)animated
 {
   GetFramework().SetUpdatesEnabled(false);
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 
   [super viewWillDisappear:animated];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+  [self willRotateToInterfaceOrientation:self.interfaceOrientation duration:0.];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
