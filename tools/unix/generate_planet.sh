@@ -250,7 +250,7 @@ if [ "$MODE" == "coast" ]; then
   done
   # make a working copy of generated coastlines file
   [ -n "$OPT_WORLD" ] && cp "$INTCOASTSDIR/WorldCoasts.mwm.tmp" "$INTDIR"
-  [ -n "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
+  [ -z "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
   MODE=inter
 fi
 
@@ -388,5 +388,5 @@ fi
 # Cleaning up temporary directories
 rm "$STATUS_FILE" "$OSRM_FLAG"
 mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
-[ -n "$KEEP_INTDIR" ] && rm -r "$INTDIR"
+[ -z "$KEEP_INTDIR" ] && rm -r "$INTDIR"
 log "STATUS" "Done"

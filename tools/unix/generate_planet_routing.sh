@@ -83,7 +83,7 @@ elif [ "$1" == "prepare" ]; then
     "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE" -r "$RESTRICTIONS_FILE"
     "$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM_FILE"
     if [ -s "$OSRM_FILE" ]; then
-      [ -n "$KEEP_INTDIR" ] && rm -f "$PBF"
+      [ -z "$KEEP_INTDIR" ] && rm -f "$PBF"
       ONE_OSRM_READY=1
     else
       echo "Failed to create $OSRM_FILE"
@@ -149,7 +149,7 @@ elif [ "$1" == "online" ]; then
   "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF"
   "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE" -r "$RESTRICTIONS_FILE"
   if [ -s "$OSRM_FILE" ]; then
-     [ -n "$KEEP_INTDIR" ] && rm -f "$PBF"
+     [ -z "$KEEP_INTDIR" ] && rm -f "$PBF"
   else
       echo "Failed to create $OSRM_FILE"
   fi
