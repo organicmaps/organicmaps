@@ -200,7 +200,7 @@ void Test_GetFileSize() {
 
 // ******************* Message Queue tests ******************
 
-using alohalytics::MessagesQueue;
+using alohalytics::HundredKilobytesFileQueue;
 using alohalytics::ProcessingResult;
 
 bool EndsWith(const std::string & str, const std::string & suffix) {
@@ -278,7 +278,7 @@ static void FinishedCallback(ProcessingResult result, FinishTask & finish_task) 
 
 void Test_MessagesQueue_InMemory_Empty() {
   bool processor_was_called = false;
-  MessagesQueue q;
+  HundredKilobytesFileQueue q;
   FinishTask finish_task;
   q.ProcessArchivedFiles([&processor_was_called](bool, const std::string &) {
     processor_was_called = true;  // This code should not be executed.
@@ -289,7 +289,7 @@ void Test_MessagesQueue_InMemory_Empty() {
 }
 
 void Test_MessagesQueue_InMemory_SuccessfulProcessing() {
-  MessagesQueue q;
+  HundredKilobytesFileQueue q;
   q.PushMessage(kTestMessage);
   std::thread worker([&q]() { q.PushMessage(kTestWorkerMessage); });
   worker.join();
@@ -306,7 +306,7 @@ void Test_MessagesQueue_InMemory_SuccessfulProcessing() {
 }
 
 void Test_MessagesQueue_InMemory_FailedProcessing() {
-  MessagesQueue q;
+  HundredKilobytesFileQueue q;
   q.PushMessage(kTestMessage);
   bool processor_was_called = false;
   FinishTask finish_task;
@@ -324,7 +324,7 @@ void Test_MessagesQueue_SwitchFromInMemoryToFile_and_OfflineEmulation() {
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
   ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
-  MessagesQueue q;
+  HundredKilobytesFileQueue q;
   std::string archived_file, second_archived_file;
   {
     q.PushMessage(kTestMessage);    // This one goes into the memory storage.
@@ -385,7 +385,7 @@ void Test_MessagesQueue_CreateArchiveOnSizeLimitHit() {
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
   ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
-  MessagesQueue q;
+  HundredKilobytesFileQueue q;
   q.SetStorageDirectory(tmpdir);
 
   // Generate messages with total size enough for triggering archiving.
@@ -398,7 +398,8 @@ void Test_MessagesQueue_CreateArchiveOnSizeLimitHit() {
     }
     size += generated_size;
   };
-  static const std::ofstream::pos_type number_of_bytes_to_generate = q.kMaxFileSizeInBytes / 2 + 100;
+  static const std::ofstream::pos_type number_of_bytes_to_generate =
+      HundredKilobytesFileQueue::kMaxFileSizeInBytes / 2 + 100;
   std::thread worker([&generator]() { generator(kTestWorkerMessage, number_of_bytes_to_generate); });
   generator(kTestMessage, number_of_bytes_to_generate);
   worker.join();
@@ -422,7 +423,7 @@ void Test_MessagesQueue_HighLoadAndIntegrity() {
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
   ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
-  MessagesQueue q;
+  HundredKilobytesFileQueue q;
   const int kMaxThreads = 300;
   std::mt19937 gen(std::mt19937::default_seed);
   std::uniform_int_distribution<> dis('A', 'Z');

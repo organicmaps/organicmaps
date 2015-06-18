@@ -30,6 +30,7 @@ SOFTWARE.
 #include <ctime>               // time, gmtime
 #include <fstream>             // ofstream
 #include <functional>          // bind, function
+#include <limits>              // numeric_limits
 #include <list>                // list
 #include <memory>              // unique_ptr
 #include <mutex>               // mutex
@@ -52,12 +53,12 @@ typedef std::function<void(ProcessingResult)> TFileProcessingFinishedCallback;
 constexpr char kCurrentFileName[] = "alohalytics_messages";
 constexpr char kArchivedFilesExtension[] = ".archived";
 
+// TMaxFileSizeInBytes is a size limit (before gzip) when we archive "current" file and create a new one for appending.
+// Optimal size is the one which (gzipped) can be POSTed to the server as one HTTP request.
+template <std::streamoff TMaxFileSizeInBytes>
 class MessagesQueue final {
  public:
-  // Size limit (before gzip) when we archive "current" file and create a new one for appending.
-  // Optimal size is the one which (gzipped) can be POSTed to the server as one HTTP request.
-  const std::ofstream::pos_type kMaxFileSizeInBytes = 100 * 1024;
-
+  static constexpr std::streamoff kMaxFileSizeInBytes = TMaxFileSizeInBytes;
   // Default archiving simply renames original file without any additional processing.
   static void ArchiveFileByRenamingIt(const std::string & original_file, const std::string & out_archive) {
     // TODO(AlexZ): Debug log if rename has failed.
@@ -251,6 +252,10 @@ class MessagesQueue final {
   // Should be the last member of the class to initialize after all other members.
   std::thread worker_thread_ = std::thread(&MessagesQueue::WorkerThread, this);
 };
+
+typedef MessagesQueue<1024 * 100> HundredKilobytesFileQueue;
+// TODO(AlexZ): Remove unnecessary file size checks from this specialization.
+typedef MessagesQueue<std::numeric_limits<std::streamoff>::max()> UnlimitedFileQueue;
 
 }  // namespace alohalytics
 

@@ -42,7 +42,7 @@ class Stats final {
   // Stores already serialized and ready-to-append event with unique client id.
   // NOTE: Statistics will not be uploaded if unique client id was not set.
   std::string unique_client_id_event_;
-  MessagesQueue messages_queue_;
+  HundredKilobytesFileQueue messages_queue_;
   bool debug_mode_ = false;
 
   // Use alohalytics::Stats::Instance() to access statistics engine.

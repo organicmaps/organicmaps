@@ -139,7 +139,7 @@ Stats & Stats::SetClientId(const std::string & unique_client_id) {
   return *this;
 }
 
-static inline void LogEventImpl(AlohalyticsBaseEvent const & event, MessagesQueue & messages_queue) {
+static inline void LogEventImpl(AlohalyticsBaseEvent const & event, HundredKilobytesFileQueue & messages_queue) {
   std::ostringstream sstream;
   {
     // unique_ptr is used to correctly serialize polymorphic types.
