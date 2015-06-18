@@ -271,7 +271,7 @@ void LoaderCurrent::ParseMetadata()
       m_pF->GetMetadata().DeserializeFromMWM(reader);
     }
   }
-  catch(Reader::OpenException & e)
+  catch (Reader::OpenException const &)
   {
     // now ignore exception because not all mwm have needed sections
   }

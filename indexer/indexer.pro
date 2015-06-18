@@ -67,6 +67,7 @@ HEADERS += \
     feature_impl.hpp \
     feature_loader.hpp \
     feature_loader_base.hpp \
+    feature_meta.hpp \
     feature_processor.hpp \
     feature_utils.hpp \
     feature_visibility.hpp \

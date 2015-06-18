@@ -423,8 +423,8 @@ private:
   void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
 
 public:
-  bool GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, search::AddressInfo & info, feature::FeatureMetadata & metadata) const;
-  void FindClosestPOIMetadata(m2::PointD const & pt, feature::FeatureMetadata & metadata) const;
+  bool GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, search::AddressInfo & info, feature::Metadata & metadata) const;
+  void FindClosestPOIMetadata(m2::PointD const & pt, feature::Metadata & metadata) const;
 
 #ifndef USE_DRAPE
   virtual void BeginPaint(shared_ptr<PaintEvent> const & e);

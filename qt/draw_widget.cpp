@@ -462,7 +462,7 @@ namespace qt
       // Get POI under cursor or nearest address by point.
       m2::PointD dummy;
       search::AddressInfo info;
-      feature::FeatureMetadata metadata;
+      feature::Metadata metadata;
       if (m_framework->GetVisiblePOI(pt, dummy, info, metadata))
         add_string(menu, "POI");
       else

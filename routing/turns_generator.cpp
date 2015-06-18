@@ -88,27 +88,25 @@ vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingM
     FeatureType ft1;
     Index::FeaturesLoaderGuard loader1(index, routingMapping.GetMwmId());
     loader1.GetFeature(seg1.m_fid, ft1);
+
+    using namespace feature;
     ft1.ParseMetadata();
+    Metadata const & md = ft1.GetMetadata();
 
     if (ftypes::IsOneWayChecker::Instance()(ft1))
     {
-      string const turnLanes = ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES);
-      ParseLanes(turnLanes, lanes);
+      ParseLanes(md.Get(Metadata::FMD_TURN_LANES), lanes);
       return lanes;
     }
     // two way roads
     if (seg1.m_pointStart < seg1.m_pointEnd)
     {
       // forward direction
-      string const turnLanesForward =
-          ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES_FORWARD);
-      ParseLanes(turnLanesForward, lanes);
+      ParseLanes(md.Get(Metadata::FMD_TURN_LANES_FORWARD), lanes);
       return lanes;
     }
     // backward direction
-    string const turnLanesBackward =
-        ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES_BACKWARD);
-    ParseLanes(turnLanesBackward, lanes);
+    ParseLanes(md.Get(Metadata::FMD_TURN_LANES_BACKWARD), lanes);
     return lanes;
   }
   return lanes;

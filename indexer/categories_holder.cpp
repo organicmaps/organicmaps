@@ -192,17 +192,13 @@ bool CategoriesHolder::IsTypeExist(uint32_t type) const
   return range.first != range.second;
 }
 
-namespace
-{
-struct Mapping
-{
-  char const * m_name;
-  int8_t m_code;
-};
-} // namespace
-
 int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
 {
+  struct Mapping
+  {
+    char const * m_name;
+    int8_t m_code;
+  };
   static const Mapping mapping[] = {
     {"en", 1 },
     {"ru", 2 },
@@ -237,11 +233,9 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     string lower = locale;
     strings::AsciiToLower(lower);
 
-    if (lower.find("hant") != string::npos
-        || lower.find("tw") != string::npos
-        || lower.find("hk") != string::npos
-        || lower.find("mo") != string::npos)
-      return 12; // Traditional Chinese
+    for (auto s : {"hant", "tw", "hk", "mo"})
+      if (lower.find(s) != string::npos)
+        return 12; // Traditional Chinese
 
     return 17; // Simplified Chinese by default for all other cases
   }

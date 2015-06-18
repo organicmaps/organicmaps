@@ -263,8 +263,8 @@ public:
   string GetRoadNumber() const;
   bool HasInternet() const;
 
-  inline feature::FeatureMetadata const & GetMetadata() const { return m_metadata; }
-  inline feature::FeatureMetadata & GetMetadata() { return m_metadata; }
+  inline feature::Metadata const & GetMetadata() const { return m_metadata; }
+  inline feature::Metadata & GetMetadata() { return m_metadata; }
 
   double GetDistance(m2::PointD const & pt, int scale) const;
 
@@ -320,7 +320,7 @@ private:
 
   typedef buffer_vector<m2::PointD, static_buffer> points_t;
   mutable points_t m_points, m_triangles;
-  mutable feature::FeatureMetadata m_metadata;
+  mutable feature::Metadata m_metadata;
 
   mutable bool m_bHeader2Parsed, m_bPointsParsed, m_bTrianglesParsed, m_bMetadataParsed;
 

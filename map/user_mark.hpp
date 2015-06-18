@@ -1,13 +1,15 @@
 #pragma once
 
-#include "geometry/point2d.hpp"
+#include "search/result.hpp"
 
 #include "indexer/feature.hpp"
 
-#include "search/result.hpp"
+#include "geometry/point2d.hpp"
 
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/utility.hpp"
+
 
 class UserMarkContainer;
 class PaintOverlayEvent;
@@ -177,8 +179,8 @@ public:
   search::AddressInfo const & GetInfo() const { return m_info; }
   void SetInfo(search::AddressInfo const & info) { m_info = info; }
 
-  feature::FeatureMetadata const & GetMetadata() const { return m_metadata; }
-  void SetMetadata(feature::FeatureMetadata const & metadata) { m_metadata = metadata; }
+  feature::Metadata const & GetMetadata() const { return m_metadata; }
+  void SetMetadata(feature::Metadata && metadata) { m_metadata = move(metadata); }
 
   unique_ptr<UserMarkCopy> Copy() const override
   {
@@ -197,7 +199,7 @@ public:
 
 protected:
   search::AddressInfo m_info;
-  feature::FeatureMetadata m_metadata;
+  feature::Metadata m_metadata;
 };
 
 class PoiMarkPoint : public SearchMarkPoint

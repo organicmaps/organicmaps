@@ -799,16 +799,16 @@ namespace android
   // Fills mapobject's metadata from UserMark
   void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, UserMark const * userMark)
   {
-    feature::FeatureMetadata metadata;
+    feature::Metadata metadata;
     frm()->FindClosestPOIMetadata(userMark->GetOrg(), metadata);
 
     static jmethodID const addId = env->GetMethodID(clazz, "addMetadata", "(ILjava/lang/String;)V");
     ASSERT ( addId, () );
 
-    const vector<feature::FeatureMetadata::EMetadataType> metaTypes = metadata.GetPresentTypes();
+    vector<feature::Metadata::EType> const metaTypes = metadata.GetPresentTypes();
     for (size_t i = 0; i < metaTypes.size(); i++)
     {
-      feature::FeatureMetadata::EMetadataType metaType = static_cast<feature::FeatureMetadata::EMetadataType>(metaTypes[i]);
+      feature::Metadata::EType metaType = static_cast<feature::Metadata::EType>(metaTypes[i]);
       jstring metaString = jni::ToJavaString(env, metadata.Get(metaType));
       env->CallVoidMethod(mapObject, addId, metaType, metaString);
       // TODO use unique_ptrs for autoallocation of local refs
@@ -835,9 +835,9 @@ T const * CastMark(UserMark const * data)
 
 namespace
 {
-pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature::FeatureMetadata const & metadata)
+pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature::Metadata const & metadata)
 {
-  const vector<feature::FeatureMetadata::EMetadataType> metaTypes = metadata.GetPresentTypes();
+  vector<feature::Metadata::EType> const metaTypes = metadata.GetPresentTypes();
   // FIXME arrays, allocated through New<Type>Array should be deleted manually in the method.
   // refactor that to delete refs locally or pass arrays from outside context
   const jintArray j_metaTypes = env->NewIntArray(metadata.Size());
@@ -847,7 +847,7 @@ pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature
   for (size_t i = 0; i < metaTypes.size(); i++)
   {
     arr[i] = metaTypes[i];
-    feature::FeatureMetadata::EMetadataType metaType = static_cast<feature::FeatureMetadata::EMetadataType>(metaTypes[i]);
+    feature::Metadata::EType metaType = static_cast<feature::Metadata::EType>(metaTypes[i]);
     jstring metaString = jni::ToJavaString(env, metadata.Get(metaType));
     env->SetObjectArrayElement(j_metaValues, i, metaString);
     env->DeleteLocalRef(metaString);
@@ -881,7 +881,7 @@ extern "C"
 
   // Additional layer
   void CallOnAdditionalLayerActivatedListener(shared_ptr<jobject> obj, m2::PointD const & globalPoint,
-      search::AddressInfo const & addrInfo, feature::FeatureMetadata const & metadata)
+      search::AddressInfo const & addrInfo, feature::Metadata const & metadata)
   {
     JNIEnv * env = jni::GetEnv();
 
@@ -906,7 +906,7 @@ extern "C"
 
   // POI
   void CallOnPoiActivatedListener(shared_ptr<jobject> obj, m2::PointD const & globalPoint,
-      search::AddressInfo const & addrInfo, feature::FeatureMetadata const & metadata)
+      search::AddressInfo const & addrInfo, feature::Metadata const & metadata)
   {
     JNIEnv * env = jni::GetEnv();
 
@@ -979,7 +979,7 @@ extern "C"
     case UserMark::Type::SEARCH:
       {
         SearchMarkPoint const * searchMark = CastMark<SearchMarkPoint>(mark);
-        feature::FeatureMetadata metadata;
+        feature::Metadata metadata;
         fm->FindClosestPOIMetadata(mark->GetOrg(), metadata);
         CallOnAdditionalLayerActivatedListener(obj, searchMark->GetOrg(), searchMark->GetInfo(), metadata);
         break;

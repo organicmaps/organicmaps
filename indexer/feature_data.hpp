@@ -202,7 +202,7 @@ class FeatureParams : public FeatureParamsBase
   /// We use it now only for search unit tests
   string m_street;
 
-  feature::FeatureMetadata m_metadata;
+  feature::Metadata m_metadata;
 
 public:
 
@@ -261,8 +261,8 @@ public:
 
   uint8_t GetHeader() const;
 
-  feature::FeatureMetadata const & GetMetadata() const { return m_metadata; }
-  feature::FeatureMetadata & GetMetadata() { return m_metadata; }
+  feature::Metadata const & GetMetadata() const { return m_metadata; }
+  feature::Metadata & GetMetadata() { return m_metadata; }
 
   template <class SinkT> void Write(SinkT & sink, bool needStoreMetadata = true) const
   {

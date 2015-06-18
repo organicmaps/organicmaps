@@ -11,13 +11,13 @@
 
 namespace feature
 {
-  class FeatureMetadata
+  class Metadata
   {
-    typedef map<uint8_t, string> MetadataT;
-    MetadataT m_metadata;
+    map<uint8_t, string> m_metadata;
 
   public:
-    enum EMetadataType {
+    enum EType
+    {
       FMD_CUISINE = 1,
       FMD_OPEN_HOURS = 2,
       FMD_PHONE_NUMBER = 3,
@@ -35,35 +35,32 @@ namespace feature
       FMD_POSTCODE = 15
     };
 
-    bool Add(EMetadataType type, string const & s)
+    bool Add(EType type, string const & s)
     {
-      if (m_metadata[type].empty())
-      {
-        m_metadata[type] = s;
-      }
+      string & val = m_metadata[type];
+      if (val.empty())
+        val = s;
       else
-      {
-        m_metadata[type] = m_metadata[type] + ", " + s;
-      }
+        val = val + ", " + s;
       return true;
     }
 
-    string Get(EMetadataType type) const
+    string Get(EType type) const
     {
       auto it = m_metadata.find(type);
       return (it == m_metadata.end()) ? string() : it->second;
     }
 
-    vector<EMetadataType> GetPresentTypes() const
+    vector<EType> GetPresentTypes() const
     {
-      vector<EMetadataType> types;
-      for (auto item: m_metadata)
-        types.push_back(static_cast<EMetadataType>(item.first));
+      vector<EType> types;
+      for (auto item : m_metadata)
+        types.push_back(static_cast<EType>(item.first));
 
       return types;
     }
 
-    void Drop(EMetadataType type)
+    void Drop(EType type)
     {
       m_metadata.erase(type);
     }
@@ -76,11 +73,13 @@ namespace feature
       for (auto const & e: m_metadata)
       {
         uint8_t last_key_mark = (&e == &(*m_metadata.crbegin())) << 7; /// set high bit (0x80) if it last element
-        uint8_t elem[2] = {static_cast<uint8_t>(e.first | last_key_mark), static_cast<uint8_t>(min(e.second.size(), (size_t)numeric_limits<uint8_t>::max()))};
+        uint8_t elem[2] = {static_cast<uint8_t>(e.first | last_key_mark),
+                           static_cast<uint8_t>(min(e.second.size(), (size_t)numeric_limits<uint8_t>::max()))};
         ar.Write(elem, sizeof(elem));
         ar.Write(e.second.data(), elem[1]);
       }
     }
+
     template <class ArchiveT> void DeserializeFromMWM(ArchiveT & ar)
     {
       uint8_t header[2] = {0};
@@ -95,11 +94,11 @@ namespace feature
 
     template <class ArchiveT> void Serialize(ArchiveT & ar) const
     {
-      uint8_t const metadata_size = m_metadata.size();
-      WriteToSink(ar, metadata_size);
-      if (metadata_size)
+      uint8_t const sz = m_metadata.size();
+      WriteToSink(ar, sz);
+      if (sz)
       {
-        for(auto & it: m_metadata)
+        for (auto const & it : m_metadata)
         {
           WriteToSink(ar, static_cast<uint8_t>(it.first));
           utils::WriteString(ar, it.second);
@@ -109,15 +108,14 @@ namespace feature
 
     template <class ArchiveT> void Deserialize(ArchiveT & ar)
     {
-      uint8_t const metadata_size = ReadPrimitiveFromSource<uint8_t>(ar);
-      for (size_t i=0; i < metadata_size; ++i)
+      uint8_t const sz = ReadPrimitiveFromSource<uint8_t>(ar);
+      for (size_t i = 0; i < sz; ++i)
       {
         uint8_t const key = ReadPrimitiveFromSource<uint8_t>(ar);
         string value;
         utils::ReadString(ar, value);
         m_metadata.insert(make_pair(key, value));
       }
-
     }
   };
 }

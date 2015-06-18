@@ -23,87 +23,89 @@ public:
 
   bool operator() (string const & k, string const & v)
   {
-
     if (v.empty())
       return false;
+
+    using namespace feature;
+    Metadata & md = m_params.GetMetadata();
 
     if (k == "cuisine")
     {
       string const & value = ValidateAndFormat_cuisine(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_CUISINE, value);
+        md.Add(Metadata::FMD_CUISINE, value);
     }
     else if (k == "phone" || k == "contact:phone")
     {
       string const & value = ValidateAndFormat_phone(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_PHONE_NUMBER, value);
+        md.Add(Metadata::FMD_PHONE_NUMBER, value);
     }
     else if (k == "stars")
     {
       string const & value = ValidateAndFormat_stars(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_STARS, value);
+        md.Add(Metadata::FMD_STARS, value);
     }
     else if (k == "addr:postcode")
     {
       string const & value = ValidateAndFormat_postcode(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_POSTCODE, value);
+        md.Add(Metadata::FMD_POSTCODE, value);
     }
     else if (k == "url")
     {
       string const & value = ValidateAndFormat_url(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_URL, value);
+        md.Add(Metadata::FMD_URL, value);
     }
     else if (k == "website" || k == "contact:website")
     {
       string const & value = ValidateAndFormat_url(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_WEBSITE, value);
+        md.Add(Metadata::FMD_WEBSITE, value);
     }
     else if (k == "operator")
     {
       string const & value = ValidateAndFormat_operator(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_OPERATOR, value);
+        md.Add(Metadata::FMD_OPERATOR, value);
     }
     else if (k == "opening_hours")
     {
       string const & value = ValidateAndFormat_opening_hours(v);
       if (!value.empty())
-      m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_OPEN_HOURS, value);
+        md.Add(Metadata::FMD_OPEN_HOURS, value);
     }
     else if (k == "ele")
     {
       string const & value = ValidateAndFormat_ele(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_ELE, value);
+        md.Add(Metadata::FMD_ELE, value);
     }
     else if (k == "turn:lanes")
     {
       string const & value = ValidateAndFormat_turn_lanes(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_TURN_LANES, value);
+        md.Add(Metadata::FMD_TURN_LANES, value);
     }
     else if (k == "turn:lanes:forward")
     {
       string const & value = ValidateAndFormat_turn_lanes_forward(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_TURN_LANES_FORWARD, value);
+        md.Add(Metadata::FMD_TURN_LANES_FORWARD, value);
     }
     else if (k == "turn:lanes:backward")
     {
       string const & value = ValidateAndFormat_turn_lanes_backward(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_TURN_LANES_BACKWARD, value);
+        md.Add(Metadata::FMD_TURN_LANES_BACKWARD, value);
     }
     else if (k == "email" || k == "contact:email")
     {
       string const & value = ValidateAndFormat_email(v);
       if (!value.empty())
-        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_EMAIL, value);
+        md.Add(Metadata::FMD_EMAIL, value);
     }
     return false;
   }

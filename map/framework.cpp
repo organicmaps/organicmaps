@@ -1838,7 +1838,7 @@ OEPointerT GetClosestToPivot(list<OEPointerT> const & l, m2::PointD const & pxPo
 #endif // USE_DRAPE
 
 bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
-                              search::AddressInfo & info, feature::FeatureMetadata & metadata) const
+                              search::AddressInfo & info, feature::Metadata & metadata) const
 {
 #ifndef USE_DRAPE
   ASSERT(m_renderPolicy, ());
@@ -1922,7 +1922,7 @@ public:
     }
   }
 
-  void LoadMetadata(model::FeaturesFetcher const & model, feature::FeatureMetadata & metadata) const
+  void LoadMetadata(model::FeaturesFetcher const & model, feature::Metadata & metadata) const
   {
     if (!m_id.IsValid())
       return;
@@ -1939,7 +1939,7 @@ public:
 
 }
 
-void Framework::FindClosestPOIMetadata(m2::PointD const & pt, feature::FeatureMetadata & metadata) const
+void Framework::FindClosestPOIMetadata(m2::PointD const & pt, feature::Metadata & metadata) const
 {
   m2::RectD rect(pt, pt);
   double const inf = MercatorBounds::GetCellID2PointAbsEpsilon();
@@ -2010,10 +2010,12 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
 {
   // The main idea is to calculate POI rank based on the frequency users are clicking them.
   UserMark const * mark = GetUserMarkWithoutLogging(pxPoint, isLongPress);
+
   alohalytics::TStringMap details {{"isLongPress", isLongPress ? "1" : "0"}};
   if (mark)
     mark->FillLogEvent(details);
   alohalytics::Stats::Instance().LogEvent("$GetUserMark", details);
+
   return mark;
 }
 
@@ -2051,7 +2053,7 @@ UserMark const * Framework::GetUserMarkWithoutLogging(m2::PointD const & pxPoint
     bool needMark = false;
     m2::PointD pxPivot;
     search::AddressInfo info;
-    feature::FeatureMetadata metadata;
+    feature::Metadata metadata;
     if (GetVisiblePOI(pxPoint, pxPivot, info, metadata))
       needMark = true;
     else if (isLongPress)
@@ -2066,7 +2068,7 @@ UserMark const * Framework::GetUserMarkWithoutLogging(m2::PointD const & pxPoint
       PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
       poiMark->SetPtOrg(m_navigator.PtoG(pxPivot));
       poiMark->SetInfo(info);
-      poiMark->SetMetadata(metadata);
+      poiMark->SetMetadata(move(metadata));
       mark = poiMark;
     }
   }
