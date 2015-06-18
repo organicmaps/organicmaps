@@ -43,23 +43,25 @@
 struct AlohalyticsBaseEvent {
   uint64_t timestamp;
 
-  virtual std::string ToString() const {
-    const time_t timet = static_cast<const time_t>(timestamp / 1000);
+  static std::string TimestampToString(uint64_t ts) {
+    const time_t timet = static_cast<const time_t>(ts / 1000);
     char buf[100];
-    if (::strftime(buf, 100, "%e-%b-%Y %H:%M:%S", ::gmtime(&timet))) {
+    if (::strftime(buf, sizeof(buf), "%e-%b-%Y %H:%M:%S", ::gmtime(&timet))) {
       return buf;
     } else {
       return "INVALID_TIME";
     }
   }
 
+  virtual std::string ToString() const { return TimestampToString(timestamp); }
+
   static uint64_t CurrentTimestamp() {
     return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())
         .count();
   }
 
-// To avoid unnecessary calls on a server side
 #ifndef ALOHALYTICS_SERVER
+  // We need automatic timestamping on a client-side only.
   AlohalyticsBaseEvent() : timestamp(CurrentTimestamp()) {}
 #endif
 
