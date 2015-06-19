@@ -374,11 +374,11 @@ namespace
       , m_d(numeric_limits<double>::max())
       , m_mark(NULL) {}
 
-    void operator()(UserMarkContainer const * container)
+    void operator() (UserMarkContainer const * container)
     {
-      m2::AnyRectD const & rect = m_rectHolder.GetTouchArea(container->GetType());
+      m2::AnyRectD const & rect = m_rectHolder(container->GetType());
       UserMark const * findedMark = container->FindMarkInRect(rect, m_d);
-      if (findedMark != NULL)
+      if (findedMark)
         m_mark = findedMark;
     }
 
@@ -389,36 +389,17 @@ namespace
     double m_d;
     UserMark const * m_mark;
   };
-
-  class SimpleTouchRectHolder : public BookmarkManager::TouchRectHolder
-  {
-  public:
-    SimpleTouchRectHolder(m2::AnyRectD const & rect)
-      : m_rect(rect)
-    {
-    }
-
-    m2::AnyRectD const & GetTouchArea(UserMarkContainer::Type type) const
-    {
-      UNUSED_VALUE(type);
-      return m_rect;
-    }
-
-  private:
-    m2::AnyRectD const & m_rect;
-  };
 }
 
 UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
 {
-  SimpleTouchRectHolder holder(rect);
-  return FindNearestUserMark(holder);
+  return FindNearestUserMark([&rect](UserMarkContainer::Type) -> m2::AnyRectD const & { return rect; });
 }
 
-UserMark const * BookmarkManager::FindNearestUserMark(TouchRectHolder & holder) const
+UserMark const * BookmarkManager::FindNearestUserMark(TouchRectHolder const & holder) const
 {
   BestUserMarkFinder finder(holder);
-  for_each(m_categories.begin(), m_categories.end(), bind(&BestUserMarkFinder::operator(), &finder, _1));
+  for_each(m_categories.begin(), m_categories.end(), bind(ref(finder), _1));
   finder(FindUserMarksContainer(UserMarkContainer::API_MARK));
   finder(FindUserMarksContainer(UserMarkContainer::SEARCH_MARK));
 

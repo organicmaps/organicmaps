@@ -1978,34 +1978,6 @@ bool Framework::HasActiveUserMark() const
   return m_bmManager.UserMarkHasActive();
 }
 
-namespace
-{
-  class MainTouchRectHolder : public BookmarkManager::TouchRectHolder
-  {
-  public:
-    MainTouchRectHolder(m2::AnyRectD const & defaultRect, m2::AnyRectD const & bmRect)
-      : m_defRect(defaultRect)
-      , m_bmRect(bmRect)
-    {
-    }
-
-    m2::AnyRectD const & GetTouchArea(UserMarkContainer::Type type) const
-    {
-      switch (type)
-      {
-      case UserMarkContainer::BOOKMARK_MARK:
-        return m_bmRect;
-      default:
-        return m_defRect;
-      }
-    }
-
-  private:
-    m2::AnyRectD const & m_defRect;
-    m2::AnyRectD const & m_bmRect;
-  };
-}
-
 UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongPress)
 {
   // The main idea is to calculate POI rank based on the frequency users are clicking them.
@@ -2045,8 +2017,12 @@ UserMark const * Framework::GetUserMarkWithoutLogging(m2::PointD const & pxPoint
   double const pxWidth  =  TOUCH_PIXEL_RADIUS * GetVisualScale();
   double const pxHeight = (TOUCH_PIXEL_RADIUS + BM_TOUCH_PIXEL_INCREASE) * GetVisualScale();
   m_navigator.GetTouchRect(pxPoint + m2::PointD(0, BM_TOUCH_PIXEL_INCREASE), pxWidth, pxHeight, bmSearchRect);
-  MainTouchRectHolder holder(rect, bmSearchRect);
-  UserMark const * mark = m_bmManager.FindNearestUserMark(holder);
+
+  UserMark const * mark = m_bmManager.FindNearestUserMark(
+        [&rect, &bmSearchRect](UserMarkContainer::Type type) -> m2::AnyRectD const &
+        {
+          return (type == UserMarkContainer::BOOKMARK_MARK ? bmSearchRect : rect);
+        });
 
   if (mark == NULL)
   {

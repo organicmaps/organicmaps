@@ -5,6 +5,8 @@
 #include "map/route_track.hpp"
 
 #include "std/unique_ptr.hpp"
+#include "std/function.hpp"
+
 
 class Framework;
 class PaintEvent;
@@ -66,14 +68,11 @@ public:
   void ActivateMark(UserMark const * mark, bool needAnim);
   bool UserMarkHasActive() const;
   bool IsUserMarkActive(UserMark const * container) const;
-  class TouchRectHolder
-  {
-  public:
-    virtual m2::AnyRectD const & GetTouchArea(UserMarkContainer::Type type) const = 0;
-  };
+
+  typedef function<m2::AnyRectD const & (UserMarkContainer::Type)> TouchRectHolder;
 
   UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
-  UserMark const * FindNearestUserMark(TouchRectHolder & holder) const;
+  UserMark const * FindNearestUserMark(TouchRectHolder const & holder) const;
 
   /// Additional layer methods
   void UserMarksSetVisible(UserMarkContainer::Type type, bool isVisible);
