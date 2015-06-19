@@ -75,9 +75,10 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   self.entity = [[MWMPlacePageEntity alloc] initWithUserMark:m_userMark->GetUserMark()];
   self.state = MWMPlacePageManagerStateOpen;
   if (IPAD)
-    [self presentPlacePageForiPad];
+    [self setPlacePageForiPad];
   else
-    [self presentPlacePageForiPhoneWithOrientation:self.ownerViewController.interfaceOrientation];
+    [self setPlacePageForiPhoneWithOrientation:self.ownerViewController.interfaceOrientation];
+  [self configPlacePage];
 }
 
 - (void)layoutPlacePageToOrientation:(UIInterfaceOrientation)orientation
@@ -86,18 +87,24 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     return;
 
   [self.placePage dismiss];
-  [self presentPlacePageForiPhoneWithOrientation:orientation];
+  [self setPlacePageForiPhoneWithOrientation:orientation];
+  [self configPlacePage];
 }
 
-- (void)presentPlacePageForiPad
+- (void)configPlacePage
+{
+  [self.placePage configure];
+  [self.placePage show];
+  [self updateDistance];
+}
+
+- (void)setPlacePageForiPad
 {
   [self.placePage dismiss];
   self.placePage = [[MWMiPadPlacePage alloc] initWithManager:self];
-  [self.placePage configure];
-  [self.placePage show];
 }
 
-- (void)presentPlacePageForiPhoneWithOrientation:(UIInterfaceOrientation)orientation
+- (void)setPlacePageForiPhoneWithOrientation:(UIInterfaceOrientation)orientation
 {
   if (self.state == MWMPlacePageManagerStateClosed)
     return;
@@ -108,20 +115,14 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     case UIInterfaceOrientationLandscapeRight:
       if (![self.placePage isKindOfClass:[MWMiPhoneLandscapePlacePage class]])
         self.placePage = [[MWMiPhoneLandscapePlacePage alloc] initWithManager:self];
-
-      [self.placePage configure];
-      [self.placePage show];
       break;
-      
+
     case UIInterfaceOrientationPortrait:
     case UIInterfaceOrientationPortraitUpsideDown:
       if (![self.placePage isKindOfClass:[MWMiPhonePortraitPlacePage class]])
         self.placePage = [[MWMiPhonePortraitPlacePage alloc] initWithManager:self];
-
-      [self.placePage configure];
-      [self.placePage show];
       break;
-      
+
     case UIInterfaceOrientationUnknown:
       break;
   }
@@ -202,37 +203,39 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  if (!m_userMark)
-    return;
+  [self updateDistance];
+}
+
+- (void)updateDistance
+{
   NSString * distance = [self distance];
   self.directionView.distanceLabel.text = distance;
   [self.placePage setDistance:distance];
 }
+
 - (NSString *)distance
 {
-  CLLocation const * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
-  if (!location)
+  CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
+  if (!location || !m_userMark)
     return @"";
 
   double azimut = -1;
   double north = -1;
   [[MapsAppDelegate theApp].m_locationManager getNorthRad:north];
   string distance;
-  GetFramework().GetDistanceAndAzimut(m_userMark->GetUserMark()->GetOrg(), location.coordinate.latitude, location.coordinate.longitude, north, distance, azimut);
+  CLLocationCoordinate2D const coord = location.coordinate;
+  GetFramework().GetDistanceAndAzimut(m_userMark->GetUserMark()->GetOrg(), coord.latitude, coord.longitude, north, distance, azimut);
   return [NSString stringWithUTF8String:distance.c_str()];
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
-  if (!m_userMark)
+  CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
+  if (!location || !m_userMark)
     return;
 
-  double lat, lon;
-
-  if (![[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
-    return;
-  
-  CGFloat angle = ang::AngleTo(MercatorBounds::FromLatLon(lat, lon), m_userMark->GetUserMark()->GetOrg()) + info.m_bearing;
+  CLLocationCoordinate2D const coord = location.coordinate;
+  CGFloat angle = ang::AngleTo(MercatorBounds::FromLatLon(coord.latitude, coord.longitude), m_userMark->GetUserMark()->GetOrg()) + info.m_bearing;
   CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
   [self.placePage setDirectionArrowTransform:transform];
   [self.directionView setDirectionArrowTransform:transform];
@@ -243,6 +246,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   self.directionView = [MWMDirectionView directionViewForViewController:self.ownerViewController];
   self.directionView.titleLabel.text = title;
   self.directionView.typeLabel.text = type;
+  [self updateDistance];
 }
 
 @end
