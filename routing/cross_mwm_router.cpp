@@ -101,6 +101,11 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   if (!route.empty())
   {
     route.front().startNode = startGraphNode;
+
+    // Stop point lays on out edge, and we have no virtual edge to unpack.
+    if (route.back().startNode.mwmName != finalGraphNode.mwmName)
+      route.emplace_back(RoutePathCross(tempRoad.back().toNode.node, tempRoad.back().toNode.node, tempRoad.back().toNode.mwmName));
+
     route.back().finalNode = finalGraphNode;
     return IRouter::NoError;
   }
