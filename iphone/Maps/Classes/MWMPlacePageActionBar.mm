@@ -47,7 +47,7 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 - (IBAction)bookmarkTap:(UIButton *)sender
 {
   sender.selected = !sender.selected;
-  NSMutableString *eventName = @"ppBookmarkButtonTap".mutableCopy;
+  NSMutableString * eventName = @"ppBookmarkButtonTap".mutableCopy;
   if (sender.selected)
   {
     [self.placePage addBookmark];
@@ -70,14 +70,12 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 - (void)layoutSubviews
 {
-  BOOL isMyPosition = self.placePage.manager.entity.type == MWMPlacePageEntityTypeMyPosition;
-
+  BOOL const isMyPosition = self.placePage.manager.entity.type == MWMPlacePageEntityTypeMyPosition;
   if (GetFramework().IsRouteBuilding())
     [self startActivityIndicator];
 
   CGPoint const center = self.center;
   CGFloat const leftOffset = 18.;
-
   if (isMyPosition)
   {
     CGSize const size = [[UIScreen mainScreen] bounds].size;

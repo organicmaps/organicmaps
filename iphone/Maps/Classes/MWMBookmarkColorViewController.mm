@@ -20,6 +20,7 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
 @property (nonatomic) CGFloat realPlacePageHeight;
+@property (nonatomic) BOOL colorWasChanged;
 
 @end
 
@@ -34,6 +35,7 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
   self.title = L(@"bookmark_color");
   [self.tableView registerNib:[UINib nibWithNibName:kBookmarkColorCellIdentifier bundle:nil] forCellReuseIdentifier:kBookmarkColorCellIdentifier];
+  self.colorWasChanged = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -113,7 +115,8 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
-  [self.placePageManager reloadBookmark];
+  if (self.colorWasChanged)
+    [self.placePageManager reloadBookmark];
 
   if (!self.iPadOwnerNavigationController)
     return;
@@ -148,6 +151,7 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  self.colorWasChanged = YES;
   self.placePageManager.entity.bookmarkColor = kBookmarkColorsVariant[indexPath.row];
 }
 
