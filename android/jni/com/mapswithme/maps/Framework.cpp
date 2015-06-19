@@ -214,16 +214,26 @@ namespace android
     if (m_work.GetMapStyle() == mapStyle)
       return;
 
-    // drop old render policy
-    m_work.SetRenderPolicy(nullptr);
+    bool const hasRenderPolicy = (nullptr != m_work.GetRenderPolicy());
 
-    m_work.SetMapStyle(mapStyle);
+    if (hasRenderPolicy)
+    {
+      // Drop old render policy.
+      m_work.SetRenderPolicy(nullptr);
 
-    // construct new render policy
-    if (!InitRenderPolicyImpl(m_densityDpi, m_screenWidth, m_screenHeight))
-      return;
+      m_work.SetMapStyle(mapStyle);
 
-    m_work.SetUpdatesEnabled(true);
+      // Construct new render policy.
+      if (!InitRenderPolicyImpl(m_densityDpi, m_screenWidth, m_screenHeight))
+        return;
+
+      m_work.SetUpdatesEnabled(true);
+    }
+    else
+    {
+      // Just set the flag, a new render policy will be initialized with this flag.
+      m_work.SetMapStyle(mapStyle);
+    }
   }
 
   Storage & Framework::Storage()
