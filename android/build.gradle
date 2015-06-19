@@ -171,6 +171,15 @@ android {
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
+
+    nineApp {
+      applicationId 'com.mapswithme.maps.pro'
+      versionName = android.defaultConfig.versionName + '-9app'
+      buildConfigField 'String', 'REVIEW_URL', '"http://maps.me/"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
+      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
+      android.sourceSets.nineApp.assets.srcDirs = ['flavors/mwm-ttf-assets']
+    }
   }
 
   // TODO: Fix a lot of lint errors in our code
