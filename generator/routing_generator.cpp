@@ -171,6 +171,7 @@ void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutin
   for (auto i = out.first; i != out.second; ++i)
     targets.emplace_back(i->m_nodeId, false /* isStartNode */, mwmRoutingPath);
 
+  LOG(LINFO, ("Cross section has", sources.size(), "incomes and ", targets.size(), "outcomes."));
   vector<EdgeWeight> costs;
   FindWeightsMatrix(sources, targets, facade, costs);
   auto res = costs.begin();
