@@ -39,9 +39,10 @@ typedef std::map<std::string, std::string> TStringMap;
 
 class Stats final {
   std::string upload_url_;
-  // Stores already serialized and ready-to-append event with unique client id.
+  // Unique client id is inserted as a special event in the beginning of every archived file before gzipping it.
+  // In current implementation it is used to distinguish between different users in the events stream on the server.
   // NOTE: Statistics will not be uploaded if unique client id was not set.
-  std::string unique_client_id_event_;
+  std::string unique_client_id_;
   HundredKilobytesFileQueue messages_queue_;
   bool debug_mode_ = false;
 

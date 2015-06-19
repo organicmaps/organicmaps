@@ -58,20 +58,30 @@ Stats::Stats()
           std::bind(&Stats::GzipAndArchiveFileInTheQueue, this, std::placeholders::_1, std::placeholders::_2)) {}
 
 void Stats::GzipAndArchiveFileInTheQueue(const std::string & in_file, const std::string & out_archive) {
-  if (unique_client_id_event_.empty()) {
-    LOG_IF_DEBUG("Warning: unique client id is not set in GzipAndArchiveFileInTheQueue.")
+  std::string encoded_unique_client_id;
+  if (unique_client_id_.empty()) {
+    LOG_IF_DEBUG(
+        "Warning: unique client id was not set in GzipAndArchiveFileInTheQueue,"
+        "statistics will be completely anonymous and hard to process on the server.");
   } else {
-    LOG_IF_DEBUG("Archiving", in_file, "to", out_archive);
+    // Pre-calculation for special ID event.
+    // We do it for every archived file to have a fresh timestamp.
+    AlohalyticsIdEvent event;
+    event.id = unique_client_id_;
+    std::ostringstream ostream;
+    { cereal::BinaryOutputArchive(ostream) << std::unique_ptr<AlohalyticsBaseEvent, NoOpDeleter>(&event); }
+    encoded_unique_client_id = ostream.str();
   }
+  LOG_IF_DEBUG("Archiving", in_file, "to", out_archive);
   // Append unique installation id in the beginning of each archived file.
-  // If it is empty then all stats data will become completely anonymous.
+
   try {
-    std::string buffer(unique_client_id_event_);
+    std::string buffer(encoded_unique_client_id);
     {
       std::ifstream fi;
       fi.exceptions(std::ifstream::failbit | std::ifstream::badbit);
       fi.open(in_file, std::ifstream::in | std::ifstream::binary);
-      const size_t data_offset = unique_client_id_event_.size();
+      const size_t data_offset = encoded_unique_client_id.size();
       const int64_t file_size = FileManager::GetFileSize(in_file);
       buffer.resize(data_offset + static_cast<std::string::size_type>(file_size));
       fi.read(&buffer[data_offset], static_cast<std::streamsize>(file_size));
@@ -86,11 +96,11 @@ void Stats::GzipAndArchiveFileInTheQueue(const std::string & in_file, const std:
     }
   } catch (const std::exception & ex) {
     LOG_IF_DEBUG("CRITICAL ERROR: Exception in GzipAndArchiveFileInTheQueue:", ex.what());
-    LOG_IF_DEBUG("Collected data in", in_file, "will be lost.")
+    LOG_IF_DEBUG("All data collected in", in_file, "will be lost.");
   }
   const int result = std::remove(in_file.c_str());
   if (0 != result) {
-    LOG_IF_DEBUG("std::remove", in_file, "has failed with error", result, "and errno", errno);
+    LOG_IF_DEBUG("CRITICAL ERROR: std::remove", in_file, "has failed with error", result, "and errno", errno);
   }
 }
 
@@ -120,16 +130,7 @@ Stats & Stats::SetStoragePath(const std::string & full_path_to_storage_with_a_sl
 
 Stats & Stats::SetClientId(const std::string & unique_client_id) {
   LOG_IF_DEBUG("Set unique client id:", unique_client_id);
-  if (unique_client_id.empty()) {
-    unique_client_id_event_.clear();
-  } else {
-    // Pre-calculation for special ID event.
-    AlohalyticsIdEvent event;
-    event.id = unique_client_id;
-    std::ostringstream sstream;
-    { cereal::BinaryOutputArchive(sstream) << std::unique_ptr<AlohalyticsBaseEvent, NoOpDeleter>(&event); }
-    unique_client_id_event_ = sstream.str();
-  }
+  unique_client_id_ = unique_client_id;
   return *this;
 }
 
@@ -200,7 +201,7 @@ void Stats::Upload(TFileProcessingFinishedCallback upload_finished_callback) {
     LOG_IF_DEBUG("Warning: unique client ID has not been set, nothing was uploaded.");
     return;
   }
-  LOG_IF_DEBUG("Trying to upload collected statistics...");
+  LOG_IF_DEBUG("Trying to upload collected statistics to", upload_url_);
   messages_queue_.ProcessArchivedFiles(
       std::bind(&Stats::UploadFileImpl, this, std::placeholders::_1, std::placeholders::_2), upload_finished_callback);
 }
