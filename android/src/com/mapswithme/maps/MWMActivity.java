@@ -1188,13 +1188,15 @@ public class MWMActivity extends BaseMwmFragmentActivity
       return false;
 
     Fragment fragment = manager.findFragmentByTag(SearchFragment.class.getName());
-    if (fragment != null)
+    // TODO we cant pop fragment, if it isn't resumed, cause of 'at android.support.v4.app.FragmentManagerImpl.checkStateLoss(FragmentManager.java:1375)'
+    // consider other possibilities here
+    if (fragment != null && fragment.isResumed())
     {
       manager.popBackStack();
       return true;
     }
     fragment = manager.findFragmentByTag(DownloadFragment.class.getName());
-    if (fragment != null)
+    if (fragment != null && fragment.isResumed())
     {
       manager.popBackStack();
       return true;
