@@ -74,27 +74,25 @@ extern CGFloat kBookmarkCellHeight;
   [self.navigationController removeFromParentViewController];
   self.navigationController = [[MWMiPadNavigationController alloc] initWithRootViewController:self.viewController];
 
-  UIView const * view = self.manager.ownerViewController.view;
+  UIView * view = self.manager.ownerViewController.view;
   CGFloat const topOffset = 36.;
   CGFloat const leftOffset = 12.;
   CGFloat const defaultWidth = 360.;
-  CGFloat const actionBarHeight = 58.;
-  CGFloat const defaultHeight = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight;
+  CGFloat const actionBarHeight = self.actionBar.height;
+  CGFloat const height = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
 
+  self.navigationController.view.frame = CGRectMake(leftOffset, topOffset, defaultWidth, height);
+  self.viewController.view.frame = self.navigationController.view.frame;
   [self.manager.ownerViewController addChildViewController:self.navigationController];
-  
-  self.navigationController.view.frame = CGRectMake(leftOffset, topOffset, defaultWidth, defaultHeight);
-  self.viewController.view.frame = CGRectMake(leftOffset, topOffset, defaultWidth, defaultHeight);
-  
-  self.extendedPlacePageView.frame = CGRectMake(0., 0., defaultWidth, defaultHeight - 1);
+  [view addSubview:self.navigationController.view];
+  [self.viewController.view addSubview:self.extendedPlacePageView];
+  self.extendedPlacePageView.size = self.navigationController.view.size;
+  [self.viewController.view addSubview:self.extendedPlacePageView];
+  self.extendedPlacePageView.origin = CGPointZero;
   self.anchorImageView.image = nil;
   self.anchorImageView.backgroundColor = [UIColor whiteColor];
-  
-  self.actionBar.width = defaultWidth;
-  self.actionBar.origin = CGPointMake(0., defaultHeight - actionBarHeight - 1);
-  [self.viewController.view addSubview:self.extendedPlacePageView];
-  [self.viewController.view addSubview:self.actionBar];
-  [view addSubview:self.navigationController.view];
+  [self.extendedPlacePageView addSubview:self.actionBar];
+  self.actionBar.frame = CGRectMake(0., self.extendedPlacePageView.maxY - actionBarHeight, defaultWidth, actionBarHeight);
 }
 
 - (void)dismiss

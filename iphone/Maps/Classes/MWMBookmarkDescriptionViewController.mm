@@ -60,6 +60,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     self.state = BookmarkDescriptionStateEditText;
   if (self.iPadOwnerNavigationController)
     return;
+
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(keyboardWillShown:)
                                                name:UIKeyboardWillShowNotification object:nil];

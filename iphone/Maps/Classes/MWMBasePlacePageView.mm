@@ -91,9 +91,9 @@ static CGFloat const kTitleBottomOffset = 2.;
   [super layoutSubviews];
   MWMPlacePageEntity * entity = self.entity;
   MWMPlacePageEntityType const type = entity.type;
-  CGSize const size = [UIScreen mainScreen].bounds.size;
   CGFloat const maximumWidth = 360.;
-  CGFloat const placePageWidth = size.width > size.height ? (size.height > maximumWidth ? maximumWidth : size.height) : size.width;
+  CGSize const size = [UIScreen mainScreen].bounds.size;
+  CGFloat const placePageWidth = IPAD ? maximumWidth : size.width > size.height ? MIN(maximumWidth, size.height) : size.width;
   CGFloat const maximumTitleWidth = kPlacePageTitleKoefficient * placePageWidth;
   BOOL const isExtendedType = type == MWMPlacePageEntityTypeEle || type == MWMPlacePageEntityTypeHotel;
   CGFloat const topOffset = (self.typeLabel.text.length > 0 || isExtendedType) ? 0 : 4.;
@@ -117,7 +117,7 @@ static CGFloat const kTitleBottomOffset = 2.;
   self.featureTable.minY = typeMinY + typeHeight + typeBottomOffset;
   self.separatorView.minY = self.featureTable.minY - 1;
   self.featureTable.height = self.featureTable.contentSize.height;
-  self.height = typeBottomOffset + kTitleBottomOffset + typeHeight + self.titleLabel.height + self.typeLabel.height + self.featureTable.height;
+  self.height = typeBottomOffset + kTitleBottomOffset + self.titleLabel.height + self.typeLabel.height + self.featureTable.height;
 }
 
 - (void)layoutTypeDescription
