@@ -319,23 +319,23 @@ void Test_MessagesQueue_SwitchFromInMemoryToFile_and_OfflineEmulation() {
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
   ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
-  HundredKilobytesFileQueue q;
   std::string archived_file, second_archived_file;
   {
-    q.PushMessage(kTestMessage);    // This one goes into the memory storage.
-    q.SetStorageDirectory(tmpdir);  // Here message shoud move from memory into the file.
-    std::thread worker([&q]() { q.PushMessage(kTestWorkerMessage); });
-    worker.join();
-
-    // Wait until messages will be stored into the file.
-    // NOTE: THIS IS NOT A PRODUCTION-READY PRACTICE! NEVER USE IT IN PRODUCTION!
-    // Here it is used for tests simplification only.
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    {
+      HundredKilobytesFileQueue q;
+      q.PushMessage(kTestMessage);    // This one goes into the memory storage.
+      q.SetStorageDirectory(tmpdir);  // Here message shoud move from memory into the file.
+      std::thread worker([&q]() { q.PushMessage(kTestWorkerMessage); });
+      worker.join();
+      // After calling queue's destructor, all messages should be gracefully stored in the file.
+    }
     TEST_EQUAL(kTestMessage + kTestWorkerMessage,
                FileManager::ReadFileAsString(tmpdir + alohalytics::kCurrentFileName));
 
     bool processor_was_called = false;
     FinishTask finish_task;
+    HundredKilobytesFileQueue q;
+    q.SetStorageDirectory(tmpdir);
     q.ProcessArchivedFiles([&processor_was_called, &archived_file](bool is_file, const std::string & full_file_path) {
       TEST_EQUAL(true, is_file);
       TEST_EQUAL(kTestMessage + kTestWorkerMessage, FileManager::ReadFileAsString(full_file_path));
@@ -351,8 +351,9 @@ void Test_MessagesQueue_SwitchFromInMemoryToFile_and_OfflineEmulation() {
   }
 
   // Create second archive in the queue after ProcessArchivedFiles() call.
+  HundredKilobytesFileQueue q;
+  q.SetStorageDirectory(tmpdir);
   q.PushMessage(kTestMessage);
-
   {
     bool archive1_processed = false, archive2_processed = false;
     FinishTask finish_task;
