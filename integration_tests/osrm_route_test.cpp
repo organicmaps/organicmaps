@@ -27,7 +27,7 @@ namespace
   }
 
   // Strange asserts near Cupertino test
-  UNIT_TEST(CaliforniaCupertionFindPhantomAssetText)
+  UNIT_TEST(CaliforniaCupertinoFindPhantomAssertTest)
   {
     integration::CalculateRouteAndTestRouteLength(integration::GetAllMaps(),
                                                   {-122.03448, 40.29689}, {0., 0.},

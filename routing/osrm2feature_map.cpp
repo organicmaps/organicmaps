@@ -426,13 +426,12 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_
       TNodesList & nodesList = m_nodeIds.back();
       size_t const foundNodes = nodesList.size();
       sort(nodesList.begin(), nodesList.end());
-      auto const endIt = unique(nodesList.begin(), nodesList.end());
-      nodesList.erase(endIt, nodesList.end());
+      nodesList.erase(unique(nodesList.begin(), nodesList.end()), nodesList.end());
       removedNodes += foundNodes - nodesList.size();
     }
   }
 
-  LOG(LINFO, ("Backward index constructor removes", removedNodes, "duplicates."));
+  LOG(LDEBUG, ("Backward index constructor removed", removedNodes, "duplicates."));
 
   // Pack and save index
   succinct::rs_bit_vector(inIndex).swap(m_rankIndex);
