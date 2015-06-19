@@ -113,4 +113,12 @@ private:
   mutable RoutingIndexManager m_indexManager;
   mutable unordered_map<m2::PointD, BorderCross, m2::PointD::Hash> m_cachedNextNodes;
 };
+
+// Helper functions.
+/// Convertor from CrossMwmGraph to cross mwm route task.
+void  ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
+                                 FeatureGraphNode const & startGraphNode,
+                                 FeatureGraphNode const & finalGraphNode,
+                                 TCheckedPath & route);
+
 }  // namespace routing

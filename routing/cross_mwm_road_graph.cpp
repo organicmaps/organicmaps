@@ -1,4 +1,5 @@
 #include "cross_mwm_road_graph.hpp"
+#include "cross_mwm_router.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 
@@ -181,6 +182,33 @@ double CrossMwmGraph::HeuristicCostEstimate(BorderCross const & v, BorderCross c
   // Simple travel time heuristic works worse than simple Dijkstra's algorithm, represented by
   // always 0 heuristics estimation.
   return 0;
+}
+
+void ConvertToSingleRouterTasks(vector<BorderCross> const  & graphCrosses,
+                                FeatureGraphNode const & startGraphNode,
+                                FeatureGraphNode const & finalGraphNode,
+                                TCheckedPath & route)
+{
+  route.clear();
+  for (size_t i = 0; i < graphCrosses.size() - 1; ++i)
+  {
+    route.emplace_back(graphCrosses[i].toNode.node, graphCrosses[i + 1].fromNode.node,
+        graphCrosses[i].toNode.mwmName);
+  }
+
+  if (!route.empty())
+  {
+    //Start virtual node always will be becase they are not compaired in A* algo.
+    route.front().startNode = startGraphNode;
+
+    // Stop point lays on out edge, and we have no virtual edge to unpack.
+    if (route.back().startNode.mwmName != finalGraphNode.mwmName)
+      route.emplace_back(RoutePathCross(graphCrosses.back().toNode.node,
+                                        graphCrosses.back().toNode.node,
+                                        graphCrosses.back().toNode.mwmName));
+
+    route.back().finalNode = finalGraphNode;
+  }
 }
 
 }  // namespace routing

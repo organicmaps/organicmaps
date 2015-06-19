@@ -1,12 +1,67 @@
 #include "testing/testing.hpp"
 
 #include "routing/cross_routing_context.hpp"
+#include "routing/cross_mwm_road_graph.hpp"
+#include "routing/cross_mwm_router.hpp"
+
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
+using namespace routing;
 
 namespace
 {
+// Graph to convertions.
+UNIT_TEST(TestCrossRouteConverter)
+{
+  vector<BorderCross> graphCrosses;
+  CrossNode a(1, "aMap", {0,0}), b(2, "aMap", {2, 2});
+  CrossNode c(3, "bMap", {3,3}), d(3, "bMap", {4, 4});
+  graphCrosses.emplace_back(BorderCross(a, b));
+  graphCrosses.emplace_back(BorderCross(b, c));
+  graphCrosses.emplace_back(BorderCross(c, d));
+  FeatureGraphNode startGraphNode;
+  startGraphNode.node.forward_node_id = 5;
+  startGraphNode.mwmName = "aMap";
+  FeatureGraphNode finalGraphNode;
+  finalGraphNode.node.reverse_node_id = 6;
+  finalGraphNode.mwmName = "bMap";
+  TCheckedPath route;
+  ConvertToSingleRouterTasks(graphCrosses, startGraphNode, finalGraphNode, route);
+  TEST_EQUAL(route.size(), 2, ("We have 2 maps aMap and bMap."));
+  for (auto const & r : route)
+    TEST_EQUAL(r.startNode.mwmName, r.finalNode.mwmName, ());
+  TEST_EQUAL(route.front().startNode.node, startGraphNode.node,
+             ("Start node must be replaced by origin."));
+  TEST_EQUAL(route.back().finalNode.node, finalGraphNode.node,
+             ("End node must be replaced by origin."));
+}
+
+UNIT_TEST(TestCrossRouteConverterEdgeCase)
+{
+  vector<BorderCross> graphCrosses;
+  CrossNode a(1, "aMap", {0,0}), b(2, "aMap", {2, 2});
+  CrossNode c(3, "bMap", {3,3});
+  graphCrosses.emplace_back(BorderCross(a, b));
+  graphCrosses.emplace_back(BorderCross(b, c));
+  FeatureGraphNode startGraphNode;
+  startGraphNode.node.forward_node_id = 5;
+  startGraphNode.mwmName = "aMap";
+  FeatureGraphNode finalGraphNode;
+  finalGraphNode.node.reverse_node_id = 6;
+  finalGraphNode.mwmName = "bMap";
+  TCheckedPath route;
+  ConvertToSingleRouterTasks(graphCrosses, startGraphNode, finalGraphNode, route);
+  TEST_EQUAL(route.size(), 2, ("We have 2 maps aMap and bMap."));
+  for (auto const & r : route)
+    TEST_EQUAL(r.startNode.mwmName, r.finalNode.mwmName, ());
+  TEST_EQUAL(route.front().startNode.node, startGraphNode.node,
+             ("Start node must be replaced by origin."));
+  TEST_EQUAL(route.back().finalNode.node, finalGraphNode.node,
+             ("End node must be replaced by origin."));
+}
+
+// Cross routing context tests.
 UNIT_TEST(TestContextSerialization)
 {
   routing::CrossRoutingContextWriter context;

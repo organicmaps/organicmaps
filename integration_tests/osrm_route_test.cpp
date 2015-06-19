@@ -83,10 +83,26 @@ namespace
         {18.54269, -36.09501}, 17873000.);
   }*/
 
+  UNIT_TEST(MoroccoToSahrawiCrossMwmTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+          integration::GetAllMaps(), MercatorBounds::FromLatLon(27.15587, -13.23059), {0., 0.},
+          MercatorBounds::FromLatLon(27.94049, -12.88800), 100864);
+    integration::CalculateRouteAndTestRouteLength(
+          integration::GetAllMaps(), MercatorBounds::FromLatLon(27.94049, -12.88800), {0., 0.},
+          MercatorBounds::FromLatLon(27.15587, -13.23059), 100864);
+  }
+
+  UNIT_TEST(ArbatBaliCrimeanForwardCrossMwmTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetAllMaps(), MercatorBounds::FromLatLon(46.152324, 34.804955), {0., 0.},
+        MercatorBounds::FromLatLon(45.35697, 35.369712), 105000.);
+  }
+
   // TODO In these two tests below the following ASSERT is reproduced
   // ASSERT_LESS(node_index, m_nodeIds.size(), ()); in OsrmFtSegBackwardIndex::GetNodeIdByFid()
   // It should be fixed.
-
   //  UNIT_TEST(ArbatBaliCrimeanForwardCrossMwmTest)
   //  {
   //    integration::CalculateRouteAndTestRouteLength(

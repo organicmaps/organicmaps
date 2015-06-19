@@ -92,24 +92,12 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
     return code;
 
   // Final path conversion to output type.
-  for (size_t i = 0; i < tempRoad.size() - 1; ++i)
-  {
-    route.emplace_back(tempRoad[i].toNode.node, tempRoad[i + 1].fromNode.node,
-                       tempRoad[i].toNode.mwmName);
-  }
+  ConvertToSingleRouterTasks(tempRoad, startGraphNode, finalGraphNode, route);
 
-  if (!route.empty())
-  {
-    route.front().startNode = startGraphNode;
+  if (route.empty())
+    return IRouter::RouteNotFound;
 
-    // Stop point lays on out edge, and we have no virtual edge to unpack.
-    if (route.back().startNode.mwmName != finalGraphNode.mwmName)
-      route.emplace_back(RoutePathCross(tempRoad.back().toNode.node, tempRoad.back().toNode.node, tempRoad.back().toNode.mwmName));
-
-    route.back().finalNode = finalGraphNode;
-    return IRouter::NoError;
-  }
-  return IRouter::RouteNotFound;
+  return IRouter::NoError;
 }
 
 }  // namespace routing
