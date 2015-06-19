@@ -197,10 +197,6 @@ void Stats::Upload(TFileProcessingFinishedCallback upload_finished_callback) {
     LOG_IF_DEBUG("Warning: upload server url has not been set, nothing was uploaded.");
     return;
   }
-  if (unique_client_id_event_.empty()) {
-    LOG_IF_DEBUG("Warning: unique client ID has not been set, nothing was uploaded.");
-    return;
-  }
   LOG_IF_DEBUG("Trying to upload collected statistics to", upload_url_);
   messages_queue_.ProcessArchivedFiles(
       std::bind(&Stats::UploadFileImpl, this, std::placeholders::_1, std::placeholders::_2), upload_finished_callback);
