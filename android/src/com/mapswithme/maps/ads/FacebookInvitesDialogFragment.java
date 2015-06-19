@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.facebook.FacebookSdk;
 import com.facebook.share.model.AppInviteContent;
 import com.facebook.share.widget.AppInviteDialog;
 import com.mapswithme.maps.R;
@@ -71,6 +72,7 @@ public class FacebookInvitesDialogFragment extends BaseMwmDialogFragment
 
   private void showAppInviteDialog()
   {
+    FacebookSdk.sdkInitialize(getActivity());
     AppInviteContent content = new AppInviteContent.Builder()
         .setApplinkUrl(INVITE_APP_URL)
         .setPreviewImageUrl(INVITE_IMAGE)
