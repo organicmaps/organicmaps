@@ -352,7 +352,7 @@ namespace
         }
       }
 
-      p->ForEachObject(bind<void>(ref(*this), _1));
+      p->ForEachObject(ref(*this));
 
       m_names.pop_back();
     }
@@ -404,7 +404,7 @@ void RulesHolder::LoadFromBinaryProto(string const & s)
 
   CHECK ( doSet.m_cont.ParseFromString(s), ("Error in proto loading!") );
 
-  classif().GetMutableRoot()->ForEachObject(bind<void>(ref(doSet), _1));
+  classif().GetMutableRoot()->ForEachObject(ref(doSet));
 
   m_bgColor = GetBackgroundColor(doSet.m_cont);
 }

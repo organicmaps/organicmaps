@@ -165,7 +165,7 @@ void Overlay::selectOverlayElements(m2::RectD const & rect, list<shared_ptr<Over
 void Overlay::replaceOverlayElement(shared_ptr<OverlayElement> const & oe)
 {
   DoPreciseIntersect fn(oe);
-  m_tree.ForEachInRect(fn.GetSearchRect(), bind<void>(ref(fn), _1));
+  m_tree.ForEachInRect(fn.GetSearchRect(), ref(fn));
 
   if (fn.IsIntersect())
     m_tree.ReplaceAllInRect(oe, &betterOverlayElement);

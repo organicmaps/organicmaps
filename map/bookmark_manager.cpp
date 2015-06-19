@@ -377,9 +377,9 @@ namespace
     void operator() (UserMarkContainer const * container)
     {
       m2::AnyRectD const & rect = m_rectHolder(container->GetType());
-      UserMark const * findedMark = container->FindMarkInRect(rect, m_d);
-      if (findedMark)
-        m_mark = findedMark;
+      UserMark const * p = container->FindMarkInRect(rect, m_d);
+      if (p)
+        m_mark = p;
     }
 
     UserMark const * GetFindedMark() const { return m_mark; }
@@ -399,7 +399,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect)
 UserMark const * BookmarkManager::FindNearestUserMark(TouchRectHolder const & holder) const
 {
   BestUserMarkFinder finder(holder);
-  for_each(m_categories.begin(), m_categories.end(), bind(ref(finder), _1));
+  for_each(m_categories.begin(), m_categories.end(), ref(finder));
   finder(FindUserMarksContainer(UserMarkContainer::API_MARK));
   finder(FindUserMarksContainer(UserMarkContainer::SEARCH_MARK));
 

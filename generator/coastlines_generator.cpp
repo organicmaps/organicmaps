@@ -203,7 +203,7 @@ namespace
         m_points.clear();
         m_points.reserve(m_res[i].Size() + 1);
 
-        m_res[i].ForEachPoint(bind<void>(ref(*this), _1));
+        m_res[i].ForEachPoint(ref(*this));
 
         fb.AddPolygon(m_points);
       }

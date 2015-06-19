@@ -22,7 +22,7 @@ namespace feature
     header.Load(container.GetReader(HEADER_FILE_TAG));
 
     FeaturesVector featureSource(container, header);
-    featureSource.ForEachOffset(bind<void>(ref(toDo), _1, _2));
+    featureSource.ForEachOffset(ref(toDo));
   }
 
   template <class ToDo>

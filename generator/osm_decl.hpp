@@ -53,15 +53,15 @@ struct WayElement
 
   template <class ToDo> void ForEachPoint(ToDo & toDo) const
   {
-    for_each(nodes.begin(), nodes.end(), bind<void>(ref(toDo), _1));
+    for_each(nodes.begin(), nodes.end(), ref(toDo));
   }
 
   template <class ToDo> void ForEachPointOrdered(uint64_t start, ToDo & toDo)
   {
     if (start == nodes.front())
-      for_each(nodes.begin(), nodes.end(), bind<void>(ref(toDo), _1));
+      for_each(nodes.begin(), nodes.end(), ref(toDo));
     else
-      for_each(nodes.rbegin(), nodes.rend(), bind<void>(ref(toDo), _1));
+      for_each(nodes.rbegin(), nodes.rend(), ref(toDo));
   }
 };
 

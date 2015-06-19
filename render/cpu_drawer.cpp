@@ -147,7 +147,7 @@ public:
   void replaceOverlayElement(CPUDrawer::OverlayWrapper const * oe)
   {
     DoPreciseIntersect fn(oe);
-    m_tree.ForEachInRect(OverlayWrapperTraits::LimitRect(oe), bind<void>(ref(fn), _1));
+    m_tree.ForEachInRect(OverlayWrapperTraits::LimitRect(oe), ref(fn));
 
     if (fn.IsIntersect())
     {

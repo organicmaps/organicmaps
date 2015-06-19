@@ -170,7 +170,7 @@ namespace url_scheme
 
     LatLonParser parser(info);
     parser(string(), uri.GetPath());
-    uri.ForEachKeyValue(bind<void>(ref(parser), _1, _2));
+    uri.ForEachKeyValue(ref(parser));
 
     if (!parser.IsValid())
       info.Reset();

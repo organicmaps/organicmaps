@@ -79,7 +79,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model,
     for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
 
     RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), m_key, context);
-    model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
+    model.ReadFeatures(ref(drawer), featuresToRead);
   }
 }
 
