@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMActivity;
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -82,7 +83,11 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
 
     final Bundle args = getArguments();
     if (args != null)
-      setSearchQuery(args.getString(SearchActivity.EXTRA_QUERY));
+    {
+      final String query = args.getString(SearchActivity.EXTRA_QUERY);
+      if (query != null)
+        setSearchQuery(query);
+    }
   }
 
   private void initAdapter()
@@ -124,6 +129,9 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
       @Override
       public void afterTextChanged(Editable s)
       {
+        if (!isAdded())
+          return;
+
         // TODO: This code only for demonstration purposes and will be removed soon
         if (tryChangeMapStyle(s.toString()))
           return;
@@ -398,7 +406,7 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     }
 
     final int id = mQueryId + QUERY_STEP;
-    if (nativeRunSearch(query, Language.getKeyboardInput(getActivity()), mLat, mLon, mFlags, id))
+    if (nativeRunSearch(query, Language.getKeyboardInput(MWMApplication.get()), mLat, mLon, mFlags, id))
     {
       mQueryId = id;
       // mark that it's not the first query already - don't do force search
