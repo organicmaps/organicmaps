@@ -52,12 +52,6 @@ namespace alohalytics {
 
 static constexpr const char * kAlohalyticsHTTPContentType = "application/alohalytics-binary-blob";
 
-// Used for cereal smart-pointers polymorphic serialization.
-struct NoOpDeleter {
-  template <typename T>
-  void operator()(T *) {}
-};
-
 // Use alohalytics::Stats::Instance() to access statistics engine.
 Stats::Stats()
     : messages_queue_(

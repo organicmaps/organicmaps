@@ -39,6 +39,15 @@
 
 #include "location.h"
 
+// Small helper, used for cereal smart-pointers polymorphic serialization.
+// TODO(AlexZ): Remove it later together with Cereal.
+namespace alohalytics {
+struct NoOpDeleter {
+  template <typename T>
+  void operator()(T *) {}
+};
+}  // namespace alohalytics
+
 // For easier processing on a server side, every statistics event should derive from this base class.
 struct AlohalyticsBaseEvent {
   uint64_t timestamp;
