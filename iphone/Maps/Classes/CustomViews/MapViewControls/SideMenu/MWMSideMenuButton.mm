@@ -62,13 +62,17 @@
 - (void)layoutXPosition:(BOOL)hidden
 {
   if (hidden)
+  {
     self.minX = self.superview.width;
+  }
   else
+  {
     self.maxX = self.superview.width - 2.0 * kViewControlsOffsetToBounds;
-  
-  m2::PointD const pivot(self.minX * self.contentScaleFactor - 2.0 * kViewControlsOffsetToBounds, self.maxY * self.contentScaleFactor - kViewControlsOffsetToBounds);
-  [self.delegate setRulerPivot:pivot];
-  [self.delegate setCopyrightLabelPivot:pivot];
+
+    m2::PointD const pivot(self.minX * self.contentScaleFactor - 2.0 * kViewControlsOffsetToBounds, self.maxY * self.contentScaleFactor - kViewControlsOffsetToBounds);
+    [self.delegate setRulerPivot:pivot];
+    [self.delegate setCopyrightLabelPivot:pivot];
+  }
 }
 
 #pragma mark - Properties
@@ -95,6 +99,7 @@
   else
   {
     self.hidden = hidden;
+    [self layoutXPosition:hidden];
   }
 }
 

@@ -83,13 +83,15 @@
 - (CGFloat)offsetBetweenButtons
 {
   CGFloat offset = 66.0;
-  CGFloat const buttonWidth = self.size.width;
-  CGFloat const buttonHeight = self.size.height;
-  if (buttonWidth > buttonHeight)
+  CGFloat const menuWidth = self.size.width;
+  CGFloat const menuHeight = self.size.height;
+  if (menuWidth > menuHeight)
   {
+    CGFloat const statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     NSUInteger const buttonsCount = self.buttons.count;
-    CGFloat const buttonCenterOffsetToBounds = 0.5 * self.searchButton.height + 2.0 * kViewControlsOffsetToBounds;
-    offset = MIN(offset, (buttonHeight - 2.0 * (buttonCenterOffsetToBounds - 0.5 * buttonHeight) - buttonsCount*buttonHeight) / (buttonsCount - 1) + buttonHeight);
+    CGFloat const buttonHeight = self.searchButton.height;
+    CGFloat const buttonCenterOffsetToBounds = 0.5 * buttonHeight + 2.0 * kViewControlsOffsetToBounds;
+    offset = MIN(offset, (menuHeight - 0.5 * statusBarHeight - 2.0 * (buttonCenterOffsetToBounds - 0.5 * buttonHeight) - buttonsCount*buttonHeight) / (buttonsCount - 1) + buttonHeight);
   }
   return offset;
 }
