@@ -7,16 +7,28 @@
 
 @implementation AddSetVC
 
-- (id)init
+- (instancetype)init
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
-  if (self)
-  {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelClicked)];
-    self.title = L(@"add_new_set");
-  }
   return self;
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)];
+  UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
+  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
+  [backButton addTarget:self action:@selector(onCancelClicked) forControlEvents:UIControlEventTouchUpInside];
+  [backButton setImage:backImage forState:UIControlStateNormal];
+  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+  self.title = L(@"add_new_set");
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)onCancelClicked

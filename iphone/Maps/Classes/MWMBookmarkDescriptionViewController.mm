@@ -13,6 +13,7 @@
 #import "UIKitCategories.h"
 
 static NSString * const kBookmarkDescriptionViewControllerNibName = @"MWMBookmarkDescriptionViewController";
+static CGFloat const kIpadPlacePageDefaultHeight = 288.;
 
 typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 {
@@ -58,8 +59,17 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     self.state = BookmarkDescriptionStateViewHTML;
   else
     self.state = BookmarkDescriptionStateEditText;
+
   if (self.iPadOwnerNavigationController)
+  {
+    self.realPlacePageHeight = self.iPadOwnerNavigationController.view.height;
+    UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
+    UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
+    [backButton addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setImage:backImage forState:UIControlStateNormal];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
     return;
+  }
 
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(keyboardWillShown:)
@@ -72,12 +82,13 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 - (void)viewWillAppear:(BOOL)animated
 {
+  [super viewWillAppear:animated];
   if (!self.iPadOwnerNavigationController)
     return;
-
-  self.realPlacePageHeight = self.iPadOwnerNavigationController.view.height;
-  CGFloat const bottomOffset = 88.;
-  self.iPadOwnerNavigationController.view.height = self.textView.height + bottomOffset;
+  CGFloat const bottomOffset = 12.;
+  self.iPadOwnerNavigationController.view.height = kIpadPlacePageDefaultHeight;
+  self.textView.height = kIpadPlacePageDefaultHeight - bottomOffset;
+  self.webView.height = kIpadPlacePageDefaultHeight - bottomOffset;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -86,7 +97,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   if (!self.iPadOwnerNavigationController)
     return;
 
-  [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
+  self.iPadOwnerNavigationController.navigationBar.hidden = YES;
   self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
 }
 

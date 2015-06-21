@@ -29,7 +29,15 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  if (!self.iPadOwnerNavigationController)
+    return;
   [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
+  self.realPlacePageHeight = self.iPadOwnerNavigationController.view.height;
+  UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
+  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
+  [backButton addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
+  [backButton setImage:backImage forState:UIControlStateNormal];
+  [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -37,15 +45,9 @@
   [super viewWillAppear:animated];
   if (!self.iPadOwnerNavigationController)
     return;
-  self.realPlacePageHeight = self.iPadOwnerNavigationController.view.height;
+
   CGFloat const bottomOffset = 88.;
   self.iPadOwnerNavigationController.view.height = self.tableView.height + bottomOffset;
-  UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
-  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
-  [backButton addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
-  [backButton setImage:backImage forState:UIControlStateNormal];
-  UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-  [self.navigationItem setLeftBarButtonItem:leftButton];
 }
 
 - (void)backTap
@@ -145,7 +147,7 @@
   if (!self.iPadOwnerNavigationController)
     return;
 
-  [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
+  self.iPadOwnerNavigationController.navigationBar.hidden = YES;
   self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
 }
 

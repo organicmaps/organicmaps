@@ -17,6 +17,8 @@
 #import "MWMBookmarkDescriptionViewController.h"
 
 extern CGFloat kBookmarkCellHeight;
+static CGFloat const kLeftOffset = 12.;
+static CGFloat const kTopOffset = 36.;
 
 @interface MWMiPadNavigationController : UINavigationController
 
@@ -30,6 +32,7 @@ extern CGFloat kBookmarkCellHeight;
   if (self)
   {
     [self setNavigationBarHidden:YES];
+    [self.navigationBar setTranslucent:NO];
     self.view.autoresizingMask = UIViewAutoresizingNone;
   }
   return self;
@@ -69,37 +72,49 @@ extern CGFloat kBookmarkCellHeight;
 - (void)configure
 {
   [super configure];
+  UIView * view = self.manager.ownerViewController.view;
   self.viewController = [[MWMiPadPlacePageViewController alloc] init];
   [self.navigationController.view removeFromSuperview];
   [self.navigationController removeFromParentViewController];
   self.navigationController = [[MWMiPadNavigationController alloc] initWithRootViewController:self.viewController];
 
-  UIView * view = self.manager.ownerViewController.view;
-  CGFloat const topOffset = 36.;
-  CGFloat const leftOffset = 12.;
   CGFloat const defaultWidth = 360.;
-  CGFloat const actionBarHeight = self.actionBar.height;
-  CGFloat const height = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
+  CGFloat const actionBarHeight = 58.;
+  CGFloat const defaultHeight = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
 
-  self.navigationController.view.frame = CGRectMake(leftOffset, topOffset, defaultWidth, height);
-  self.viewController.view.frame = self.navigationController.view.frame;
   [self.manager.ownerViewController addChildViewController:self.navigationController];
-  [view addSubview:self.navigationController.view];
+  self.navigationController.view.frame = CGRectMake( - defaultWidth, kTopOffset, defaultWidth, defaultHeight);
+  self.viewController.view.frame = CGRectMake(kLeftOffset, kTopOffset, defaultWidth, defaultHeight);
   [self.viewController.view addSubview:self.extendedPlacePageView];
-  self.extendedPlacePageView.size = self.navigationController.view.size;
-  [self.viewController.view addSubview:self.extendedPlacePageView];
-  self.extendedPlacePageView.origin = CGPointZero;
+  [self.viewController.view addSubview:self.actionBar];
+  self.extendedPlacePageView.frame = CGRectMake(0., 0., defaultWidth, defaultHeight);
   self.anchorImageView.image = nil;
   self.anchorImageView.backgroundColor = [UIColor whiteColor];
-  [self.extendedPlacePageView addSubview:self.actionBar];
-  self.actionBar.frame = CGRectMake(0., self.extendedPlacePageView.maxY - actionBarHeight, defaultWidth, actionBarHeight);
+  self.actionBar.width = defaultWidth;
+  self.actionBar.origin = CGPointMake(0., defaultHeight - actionBarHeight);
+  [view addSubview:self.navigationController.view];
+}
+
+- (void)show
+{
+  [UIView animateWithDuration:0.2f animations:^
+  {
+    self.navigationController.view.center = CGPointMake(kLeftOffset + self.navigationController.view.width / 2., kTopOffset + self.navigationController.view.height / 2.);
+  }];
 }
 
 - (void)dismiss
 {
-  [self.navigationController.view removeFromSuperview];
-  [self.navigationController removeFromParentViewController];
-  [super dismiss];
+  [UIView animateWithDuration:0.2f animations:^
+  {
+    self.navigationController.view.center = CGPointMake( - self.navigationController.view.width / 2. - kLeftOffset , kTopOffset);
+  }
+  completion:^(BOOL finished)
+  {
+    [self.navigationController.view removeFromSuperview];
+    [self.navigationController removeFromParentViewController];
+    [super dismiss];
+  }];
 }
 
 - (void)addBookmark

@@ -36,14 +36,6 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   self.title = L(@"bookmark_color");
   [self.tableView registerNib:[UINib nibWithNibName:kBookmarkColorCellIdentifier bundle:nil] forCellReuseIdentifier:kBookmarkColorCellIdentifier];
   self.colorWasChanged = NO;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-  [super viewWillAppear:animated];
-  [self configureTableViewForOrientation:self.interfaceOrientation];
-  [self.tableView reloadData];
-
   if (!self.iPadOwnerNavigationController)
     return;
 
@@ -54,8 +46,14 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
   [backButton addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
   [backButton setImage:backImage forState:UIControlStateNormal];
-  UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-  [self.navigationItem setLeftBarButtonItem:leftButton];
+  [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  [self configureTableViewForOrientation:self.interfaceOrientation];
+  [self.tableView reloadData];
 }
 
 - (void)backTap
@@ -115,13 +113,12 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
-  if (self.colorWasChanged)
+  if (self.colorWasChanged && !self.iPadOwnerNavigationController)
+  {
     [self.placePageManager reloadBookmark];
-
-  if (!self.iPadOwnerNavigationController)
     return;
-
-  [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
+  }
+  self.iPadOwnerNavigationController.navigationBar.hidden = YES;
   self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
 }
 
@@ -153,6 +150,11 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 {
   self.colorWasChanged = YES;
   self.placePageManager.entity.bookmarkColor = kBookmarkColorsVariant[indexPath.row];
+  if (!self.iPadOwnerNavigationController)
+    return;
+
+  [self.placePageManager reloadBookmark];
+  GetFramework().Invalidate();
 }
 
 @end
