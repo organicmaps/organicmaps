@@ -111,6 +111,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.basePlacePageView.distanceLabel.text = distance;
 }
 
+- (void)updateMyPositionStatus:(NSString *)status
+{
+  [self.basePlacePageView updateAndLayoutMyPositionSpeedAndAltitude:status];
+}
+
 - (void)changeBookmarkCategory
 {
   MWMPlacePageViewManager * manager = self.manager;

@@ -40,6 +40,7 @@
 
 - (void)setDirectionArrowTransform:(CGAffineTransform)transform;
 - (void)setDistance:(NSString *)distance;
+- (void)updateMyPositionStatus:(NSString *)status;
 
 - (instancetype)init __attribute__((unavailable("init is unavailable, call initWithManager: instead")));
 

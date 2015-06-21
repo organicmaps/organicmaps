@@ -109,6 +109,14 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   self.state = MWMiPhonePortraitPlacePageStatePreview;
 }
 
+- (void)updateMyPositionStatus:(NSString *)status
+{
+  [super updateMyPositionStatus:status];
+// Setup current state.
+  MWMiPhonePortraitPlacePageState currentState = self.state;
+  self.state = currentState;
+}
+
 - (void)setState:(MWMiPhonePortraitPlacePageState)state
 {
   CGSize const size = UIScreen.mainScreen.bounds.size;

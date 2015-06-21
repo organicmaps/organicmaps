@@ -25,5 +25,6 @@
 - (void)addBookmark;
 - (void)removeBookmark;
 - (void)reloadBookmarkCell;
+- (void)updateAndLayoutMyPositionSpeedAndAltitude:(NSString *)text;
 
 @end

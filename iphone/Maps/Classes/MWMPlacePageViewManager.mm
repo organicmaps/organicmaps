@@ -94,6 +94,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)configPlacePage
 {
+  if (self.entity.type == MWMPlacePageEntityTypeMyPosition)
+  {
+    BOOL hasSpeed;
+    self.entity.category = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed];
+  }
   [self.placePage configure];
   [self.placePage show];
   [self updateDistance];
@@ -103,6 +108,14 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   [self.placePage dismiss];
   self.placePage = [[MWMiPadPlacePage alloc] initWithManager:self];
+}
+
+- (void)updateMyPositionSpeedAndAltitude
+{
+  if (self.entity.type != MWMPlacePageEntityTypeMyPosition)
+    return;
+  BOOL hasSpeed = NO;
+  [self.placePage updateMyPositionStatus:[[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed]];
 }
 
 - (void)setPlacePageForiPhoneWithOrientation:(UIInterfaceOrientation)orientation
@@ -200,6 +213,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
   [self updateDistance];
+  [self updateMyPositionSpeedAndAltitude];
 }
 
 - (void)updateDistance

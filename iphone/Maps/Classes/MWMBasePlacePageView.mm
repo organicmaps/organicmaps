@@ -186,6 +186,12 @@ static CGFloat const kTitleBottomOffset = 2.;
   [self.ownerPlacePage.manager showDirectionViewWithTitle:self.titleLabel.text type:self.typeLabel.text];
 }
 
+- (void)updateAndLayoutMyPositionSpeedAndAltitude:(NSString *)text
+{
+  self.typeLabel.text = text;
+  [self setNeedsLayout];
+}
+
 @end
 
 @implementation MWMBasePlacePageView (UITableView)
