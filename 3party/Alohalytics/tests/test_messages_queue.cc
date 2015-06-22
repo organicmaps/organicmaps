@@ -102,7 +102,7 @@ void Test_GetDirectoryFromFilePath() {
 void Test_ScopedRemoveFile() {
   const std::string file = GenerateTemporaryFileName();
   {
-    ScopedRemoveFile remover(file);
+    const ScopedRemoveFile remover(file);
     TEST_EQUAL(true, FileManager::AppendStringToFile(file, file));
     TEST_EQUAL(file, FileManager::ReadFileAsString(file));
   }
@@ -111,12 +111,12 @@ void Test_ScopedRemoveFile() {
 
 void Test_CreateTemporaryFile() {
   const std::string file1 = GenerateTemporaryFileName();
-  ScopedRemoveFile remover1(file1);
+  const ScopedRemoveFile remover1(file1);
   TEST_EQUAL(true, FileManager::AppendStringToFile(file1, file1));
   TEST_EQUAL(file1, FileManager::ReadFileAsString(file1));
   const std::string file2 = GenerateTemporaryFileName();
   TEST_EQUAL(false, file1 == file2);
-  ScopedRemoveFile remover2(file2);
+  const ScopedRemoveFile remover2(file2);
   TEST_EQUAL(true, FileManager::AppendStringToFile(file2, file2));
   TEST_EQUAL(file2, FileManager::ReadFileAsString(file2));
   TEST_EQUAL(true, file1 != file2);
@@ -124,7 +124,7 @@ void Test_CreateTemporaryFile() {
 
 void Test_AppendStringToFile() {
   const std::string file = GenerateTemporaryFileName();
-  ScopedRemoveFile remover(file);
+  const ScopedRemoveFile remover(file);
   const std::string s1("First\0 String");
   TEST_EQUAL(true, FileManager::AppendStringToFile(s1, file));
   TEST_EQUAL(s1, FileManager::ReadFileAsString(file));
@@ -137,7 +137,7 @@ void Test_AppendStringToFile() {
 
 void Test_ReadFileAsString() {
   const std::string file = GenerateTemporaryFileName();
-  ScopedRemoveFile remover(file);
+  const ScopedRemoveFile remover(file);
   TEST_EQUAL(true, FileManager::AppendStringToFile(file, file));
   TEST_EQUAL(file, FileManager::ReadFileAsString(file));
 }
@@ -203,7 +203,7 @@ void Test_ForEachFileInDir() {
 
 void Test_GetFileSize() {
   const std::string file = GenerateTemporaryFileName();
-  ScopedRemoveFile remover(file);
+  const ScopedRemoveFile remover(file);
   // File does not exist yet.
   TEST_EXCEPTION(std::ios_base::failure, FileManager::GetFileSize(file));
   // Use file name itself as a file contents.
@@ -354,7 +354,7 @@ void Test_MessagesQueue_InMemory_FailedProcessing() {
 void Test_MessagesQueue_SwitchFromInMemoryToFile_and_OfflineEmulation() {
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
-  ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
+  const ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
   std::string archived_file, second_archived_file;
   {
     {
@@ -454,7 +454,7 @@ void Test_MessagesQueue_HighLoadAndIntegrity() {
   // so many archives will be created. But it will make everything much more complex now.
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
-  ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
+  const ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
   HundredKilobytesFileQueue q;
   const int kMaxThreads = 300;
   std::mt19937 gen(std::mt19937::default_seed);
