@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "routing/cross_routing_context.hpp"
 #include "routing/cross_mwm_road_graph.hpp"
 #include "routing/cross_mwm_router.hpp"
+#include "routing/cross_routing_context.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
@@ -15,11 +15,11 @@ namespace
 UNIT_TEST(TestCrossRouteConverter)
 {
   vector<BorderCross> graphCrosses;
-  CrossNode a(1, "aMap", {0,0}), b(2, "aMap", {2, 2});
-  CrossNode c(3, "bMap", {3,3}), d(3, "bMap", {4, 4});
-  graphCrosses.emplace_back(BorderCross(a, b));
-  graphCrosses.emplace_back(BorderCross(b, c));
-  graphCrosses.emplace_back(BorderCross(c, d));
+  CrossNode const a(1, "aMap", {0, 0}), b(2, "aMap", {2, 2});
+  CrossNode const c(3, "bMap", {3, 3}), d(3, "bMap", {4, 4});
+  graphCrosses.emplace_back(a, b);
+  graphCrosses.emplace_back(b, c);
+  graphCrosses.emplace_back(c, d);
   FeatureGraphNode startGraphNode;
   startGraphNode.node.forward_node_id = 5;
   startGraphNode.mwmName = "aMap";
@@ -40,10 +40,10 @@ UNIT_TEST(TestCrossRouteConverter)
 UNIT_TEST(TestCrossRouteConverterEdgeCase)
 {
   vector<BorderCross> graphCrosses;
-  CrossNode a(1, "aMap", {0,0}), b(2, "aMap", {2, 2});
-  CrossNode c(3, "bMap", {3,3});
-  graphCrosses.emplace_back(BorderCross(a, b));
-  graphCrosses.emplace_back(BorderCross(b, c));
+  CrossNode const a(1, "aMap", {0, 0}), b(2, "aMap", {2, 2});
+  CrossNode const c(3, "bMap", {3, 3});
+  graphCrosses.emplace_back(a, b);
+  graphCrosses.emplace_back(b, c);
   FeatureGraphNode startGraphNode;
   startGraphNode.node.forward_node_id = 5;
   startGraphNode.mwmName = "aMap";

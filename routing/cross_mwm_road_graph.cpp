@@ -184,31 +184,31 @@ double CrossMwmGraph::HeuristicCostEstimate(BorderCross const & v, BorderCross c
   return 0;
 }
 
-void ConvertToSingleRouterTasks(vector<BorderCross> const  & graphCrosses,
+void ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
                                 FeatureGraphNode const & startGraphNode,
                                 FeatureGraphNode const & finalGraphNode,
                                 TCheckedPath & route)
 {
   route.clear();
-  for (size_t i = 0; i < graphCrosses.size() - 1; ++i)
+  for (size_t i = 0; i + 1 < graphCrosses.size(); ++i)
   {
     route.emplace_back(graphCrosses[i].toNode.node, graphCrosses[i + 1].fromNode.node,
         graphCrosses[i].toNode.mwmName);
   }
 
-  if (!route.empty())
-  {
-    //Start virtual node always will be becase they are not compaired in A* algo.
-    route.front().startNode = startGraphNode;
+  if (route.empty())
+    return;
 
-    // Stop point lays on out edge, and we have no virtual edge to unpack.
-    if (route.back().startNode.mwmName != finalGraphNode.mwmName)
-      route.emplace_back(RoutePathCross(graphCrosses.back().toNode.node,
-                                        graphCrosses.back().toNode.node,
-                                        graphCrosses.back().toNode.mwmName));
+  // Starts of virtual nodes are always present because they are not compaired in A* algo.
+  route.front().startNode = startGraphNode;
 
-    route.back().finalNode = finalGraphNode;
-  }
+  // Stop point lays on out edge, and we have no virtual edge to unpack.
+  if (route.back().startNode.mwmName != finalGraphNode.mwmName)
+    route.emplace_back(graphCrosses.back().toNode.node,
+                       graphCrosses.back().toNode.node,
+                       graphCrosses.back().toNode.mwmName);
+
+  route.back().finalNode = finalGraphNode;
 }
 
 }  // namespace routing
