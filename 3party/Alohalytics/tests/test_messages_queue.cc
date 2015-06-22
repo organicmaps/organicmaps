@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *******************************************************************************/
 
+#include "test_defines.h"
+
 #include "../src/file_manager.h"
 #include "../src/messages_queue.h"
 
@@ -35,55 +37,9 @@ SOFTWARE.
 #include <thread>
 #include <vector>
 
-#define TEST_EQUAL(x, y)                                                                                        \
-  {                                                                                                             \
-    auto vx = (x);                                                                                              \
-    auto vy = (y);                                                                                              \
-    if (vx != vy) {                                                                                             \
-      std::cerr << __FILE__ << ':' << __FUNCTION__ << ':' << __LINE__ << " Test failed: " << #x << " != " << #y \
-                << " (" << vx << " != " << vy << ")" << std::endl;                                              \
-      std::exit(-1);                                                                                            \
-    }                                                                                                           \
-  }
-
-#define TEST_EXCEPTION(ex, op)                                                                                   \
-  {                                                                                                              \
-    bool has_fired = false;                                                                                      \
-    try {                                                                                                        \
-      op;                                                                                                        \
-    } catch (const std::exception & exc) {                                                                       \
-      has_fired = true;                                                                                          \
-      if (typeid(ex) != typeid(exc)) {                                                                           \
-        std::cerr << __FILE__ << ':' << __FUNCTION__ << ':' << __LINE__ << " Test failed: " << typeid(ex).name() \
-                  << " != " << typeid(exc).name() << std::endl;                                                  \
-        std::exit(-1);                                                                                           \
-      }                                                                                                          \
-    }                                                                                                            \
-    if (!has_fired) {                                                                                            \
-      std::cerr << __FILE__ << ':' << __FUNCTION__ << ':' << __LINE__ << " Test failed: "                        \
-                << "Exception " << typeid(ex).name() << "Was not thrown." << std::endl;                          \
-      std::exit(-1);                                                                                             \
-    }                                                                                                            \
-  }
-
 using alohalytics::FileManager;
 using alohalytics::ScopedRemoveFile;
 
-// Generates unique temporary file name or empty string on error.
-static std::string GenerateTemporaryFileName() {
-#ifdef _MSC_VER
-  char tmp_file[L_tmpnam];
-  if (0 == ::tmpnam_s(tmp_file, L_tmpnam)) {
-    return tmp_file;
-  }
-#else
-  char tmp_file[] = "/tmp/alohalytics_file_manager-XXXXXX";
-  if (::mktemp(tmp_file)) {
-    return tmp_file;
-  }
-#endif
-  return std::string();
-}
 
 void Test_GetDirectoryFromFilePath() {
   const std::string s = std::string(1, FileManager::kDirectorySeparator);

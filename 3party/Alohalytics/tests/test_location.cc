@@ -21,6 +21,9 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
  *******************************************************************************/
+
+#include "test_defines.h"
+
 #include "../src/location.h"
 
 #include <sstream>
@@ -32,17 +35,6 @@ using alohalytics::Location;
 using std::cerr;
 using std::endl;
 using std::string;
-
-#define ASSERT_EQUAL(x, y)                                                                        \
-  if ((x) != (y)) {                                                                               \
-    cerr << "Test failed: " << #x << " != " << #y << " (" << (x) << " != " << (y) << ")" << endl; \
-    return -1;                                                                                    \
-  }
-#define ASSERT_ALMOST_EQUAL(x, y, epsilon)                                                          \
-  if (fabs((x) - (y)) > epsilon) {                                                                  \
-    cerr << "Test failed: " << #x << " ~!= " << #y << " (" << (x) << " ~!= " << (y) << ")" << endl; \
-    return -1;                                                                                      \
-  }
 
 int main(int, char **) {
   cerr.precision(20);
@@ -65,23 +57,23 @@ int main(int, char **) {
                                      .SetBearing(bearing)
                                      .SetSource(source)
                                      .Encode();
-  ASSERT_EQUAL(serialized.size(), 32);
+  TEST_EQUAL(serialized.size(), std::string::size_type(32));
 
   const alohalytics::Location l(serialized);
-  ASSERT_EQUAL(l.HasLatLon(), true);
-  ASSERT_EQUAL(l.timestamp_ms_, timestamp);
-  ASSERT_ALMOST_EQUAL(l.latitude_deg_, lat, 1e-7);
-  ASSERT_ALMOST_EQUAL(l.longitude_deg_, lon, 1e-7);
-  ASSERT_ALMOST_EQUAL(l.horizontal_accuracy_m_, horizontal_accuracy, 1e-2);
-  ASSERT_EQUAL(l.HasAltitude(), true);
-  ASSERT_ALMOST_EQUAL(l.altitude_m_, alt, 1e-2);
-  ASSERT_ALMOST_EQUAL(l.vertical_accuracy_m_, vertical_accuracy, 1e-2);
-  ASSERT_EQUAL(l.HasBearing(), true);
-  ASSERT_ALMOST_EQUAL(l.bearing_deg_, bearing, 1e-7);
-  ASSERT_EQUAL(l.HasSpeed(), true);
-  ASSERT_ALMOST_EQUAL(l.speed_mps_, speed, 1e-2);
-  ASSERT_EQUAL(l.HasSource(), true);
-  ASSERT_EQUAL(l.source_, source);
+  TEST_EQUAL(l.HasLatLon(), true);
+  TEST_EQUAL(l.timestamp_ms_, timestamp);
+  TEST_ALMOST_EQUAL(l.latitude_deg_, lat, 1e-7);
+  TEST_ALMOST_EQUAL(l.longitude_deg_, lon, 1e-7);
+  TEST_ALMOST_EQUAL(l.horizontal_accuracy_m_, horizontal_accuracy, 1e-2);
+  TEST_EQUAL(l.HasAltitude(), true);
+  TEST_ALMOST_EQUAL(l.altitude_m_, alt, 1e-2);
+  TEST_ALMOST_EQUAL(l.vertical_accuracy_m_, vertical_accuracy, 1e-2);
+  TEST_EQUAL(l.HasBearing(), true);
+  TEST_ALMOST_EQUAL(l.bearing_deg_, bearing, 1e-7);
+  TEST_EQUAL(l.HasSpeed(), true);
+  TEST_ALMOST_EQUAL(l.speed_mps_, speed, 1e-2);
+  TEST_EQUAL(l.HasSource(), true);
+  TEST_EQUAL(l.source_, source);
 
   std::cout << "All tests have passed." << endl;
   return 0;
