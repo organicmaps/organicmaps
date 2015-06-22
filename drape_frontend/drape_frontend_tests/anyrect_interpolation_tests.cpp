@@ -8,13 +8,13 @@ namespace
 void IsEqual(m2::AnyRectD const & r1, m2::AnyRectD const & r2)
 {
   TEST(r1.LocalZero().EqualDxDy(r2.LocalZero(), 0.00001), ());
-  TEST_ALMOST_EQUAL(ang::AngleIn2PI(r1.Angle().val()), ang::AngleIn2PI(r2.Angle().val()), ());
+  TEST_ALMOST_EQUAL_ULPS(ang::AngleIn2PI(r1.Angle().val()), ang::AngleIn2PI(r2.Angle().val()), ());
   m2::RectD lR1 = r1.GetLocalRect();
   m2::RectD lR2 = r2.GetLocalRect();
-  TEST_ALMOST_EQUAL(lR1.minX(), lR2.minX(), ());
-  TEST_ALMOST_EQUAL(lR1.minY(), lR2.minY(), ());
-  TEST_ALMOST_EQUAL(lR1.maxX(), lR2.maxX(), ());
-  TEST_ALMOST_EQUAL(lR1.maxY(), lR2.maxY(), ());
+  TEST_ALMOST_EQUAL_ULPS(lR1.minX(), lR2.minX(), ());
+  TEST_ALMOST_EQUAL_ULPS(lR1.minY(), lR2.minY(), ());
+  TEST_ALMOST_EQUAL_ULPS(lR1.maxX(), lR2.maxX(), ());
+  TEST_ALMOST_EQUAL_ULPS(lR1.maxY(), lR2.maxY(), ());
 }
 
 }

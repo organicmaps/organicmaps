@@ -10,6 +10,7 @@
 #include "drape/utils/projection.hpp"
 
 #include "indexer/scales.hpp"
+#include "indexer/drawing_rules.hpp"
 
 #include "geometry/any_rect2d.hpp"
 
@@ -582,6 +583,13 @@ void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
   m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
 }
 
+void FrontendRenderer::RefreshBgColor()
+{
+  uint32_t color = drule::rules().GetBgColor();
+  dp::Color c = dp::Extract(color, 255 - (color >> 24));
+  GLFunctions::glClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
+}
+
 int FrontendRenderer::GetCurrentZoomLevel() const
 {
   return m_currentZoomLevel;
@@ -720,7 +728,8 @@ void FrontendRenderer::Routine::Do()
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
   GLFunctions::glEnable(gl_const::GLDepthTest);
 
-  GLFunctions::glClearColor(0.93f, 0.93f, 0.86f, 1.f);
+  m_renderer.RefreshBgColor();
+
   GLFunctions::glClearDepthValue(1.0);
   GLFunctions::glDepthFunc(gl_const::GLLessOrEqual);
   GLFunctions::glDepthMask(true);
@@ -863,6 +872,7 @@ ScreenBase const & FrontendRenderer::UpdateScene(bool & modelViewChanged)
                               MessagePriority::High);
 
     RefreshModelView(modelView);
+    RefreshBgColor();
     EmitModelViewChanged(modelView);
   }
 

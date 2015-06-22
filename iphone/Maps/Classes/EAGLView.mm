@@ -145,11 +145,6 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
   }
 }
 
-- (void)setMapStyle:(MapStyle)mapStyle
-{
-  //@TODO UVR
-}
-
 - (void)onSize:(int)width withHeight:(int)height
 {
   int w = width * self.contentScaleFactor;

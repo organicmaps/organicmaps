@@ -242,18 +242,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   GetFramework().SwitchMyPositionNextMode();
 }
 
-- (IBAction)zoomInPressed:(id)sender
-{
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"+"];
-  GetFramework().Scale(Framework::SCALE_MAG, true);
-}
-
-- (IBAction)zoomOutPressed:(id)sender
-{
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"-"];
-  GetFramework().Scale(Framework::SCALE_MIN, true);
-}
-
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
   [self destroyPopover];
@@ -369,8 +357,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)setMapStyle:(MapStyle)mapStyle
 {
-  EAGLView * v = (EAGLView *)self.view;
-  [v setMapStyle: mapStyle];
+  GetFramework().SetMapStyle(mapStyle);
 }
 
 - (void)onEnterForeground
@@ -864,29 +851,6 @@ NSInteger compareAddress(id l, id r, void * context)
     [[MapsAppDelegate theApp] disableStandby];
   else
     [[MapsAppDelegate theApp] enableStandby];
-}
-
-- (void)setUserTouchesAction:(UserTouchesAction)userTouchesAction
-{
-  if (_userTouchesAction == userTouchesAction)
-    return;
-  Framework & f = GetFramework();
-  switch (userTouchesAction)
-  {
-    case UserTouchesActionNone:
-      if (_userTouchesAction == UserTouchesActionDrag)
-        f.StopDrag(DragEvent(m_Pt1.x, m_Pt1.y));
-      else if (_userTouchesAction == UserTouchesActionScale)
-        f.StopScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
-      break;
-    case UserTouchesActionDrag:
-      f.StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
-      break;
-    case UserTouchesActionScale:
-      f.StartScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
-      break;
-  }
-  _userTouchesAction = userTouchesAction;
 }
 
 #pragma mark - Properties

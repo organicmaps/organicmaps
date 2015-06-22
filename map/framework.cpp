@@ -855,7 +855,7 @@ void Framework::ClearAllCaches()
 
 void Framework::OnDownloadMapCallback(storage::TIndex const & countryIndex)
 {
-  m_activeMaps->DownloadMap(countryIndex, TMapOptions::EMapOnly);
+  m_activeMaps->DownloadMap(countryIndex, TMapOptions::EMap);
 }
 
 void Framework::OnDownloadMapRoutingCallback(storage::TIndex const & countryIndex)

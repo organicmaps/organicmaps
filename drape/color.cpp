@@ -11,6 +11,7 @@ static const uint8_t MaxChannelValue = 255;
 } // namespace
 
 #define EXTRACT_BYTE(x, n) (((x) >> 8 * (n)) & 0xFF);
+#define CHANNEL_TO_FLOAT(x) ((x) / static_cast<float>(MaxChannelValue))
 
 Color::Color()
   : m_rgba(MaxChannelValue)
@@ -40,6 +41,26 @@ uint8_t Color::GetBlue() const
 uint8_t Color::GetAlfa() const
 {
   return EXTRACT_BYTE(m_rgba, 0);
+}
+
+float Color::GetRedF() const
+{
+  return CHANNEL_TO_FLOAT(GetRed());
+}
+
+float Color::GetGreenF() const
+{
+  return CHANNEL_TO_FLOAT(GetGreen());
+}
+
+float Color::GetBlueF() const
+{
+  return CHANNEL_TO_FLOAT(GetBlue());
+}
+
+float Color::GetAlfaF() const
+{
+  return CHANNEL_TO_FLOAT(GetAlfa());
 }
 
 uint8_t ExtractRed(uint32_t argb)

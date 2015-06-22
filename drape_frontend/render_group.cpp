@@ -110,7 +110,7 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
     if (lDepth != rDepth)
       return lDepth < rDepth;
 
-    if (my::AlmostEqual(l->GetOpacity(), r->GetOpacity()))
+    if (my::AlmostEqualULPs(l->GetOpacity(), r->GetOpacity()))
       return lState < rState;
     else
       return l->GetOpacity() > r->GetOpacity();

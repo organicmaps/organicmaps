@@ -17,6 +17,11 @@ struct Color
   uint8_t GetBlue() const;
   uint8_t GetAlfa() const;
 
+  float GetRedF() const;
+  float GetGreenF() const;
+  float GetBlueF() const;
+  float GetAlfaF() const;
+
   bool operator==(Color const & other) const { return m_rgba == other.m_rgba; }
   bool operator< (Color const & other) const { return m_rgba < other.m_rgba; }
 

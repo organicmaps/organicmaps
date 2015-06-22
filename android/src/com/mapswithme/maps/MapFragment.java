@@ -10,9 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.mapswithme.maps.downloader.DownloadHelper;
 import com.mapswithme.util.UiUtils;
-import com.nvidia.devtech.NvEventQueueFragment;
 
-public class MapFragment extends NvEventQueueFragment
+public class MapFragment extends RenderFragment
 {
   public interface MapRenderingListener
   {
@@ -59,21 +58,21 @@ public class MapFragment extends NvEventQueueFragment
   @Override
   protected void applyWidgetPivots()
   {
-    Framework.setWidgetPivot(Framework.MAP_WIDGET_RULER,
-                             mSurfaceWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
-                             mSurfaceHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom));
-    Framework.setWidgetPivot(Framework.MAP_WIDGET_COPYRIGHT,
-                             mSurfaceWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
-                             mSurfaceHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom));
+    //Framework.setWidgetPivot(Framework.MAP_WIDGET_RULER,
+    //                        mSurfaceWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
+    //                         mSurfaceHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom));
+    //Framework.setWidgetPivot(Framework.MAP_WIDGET_COPYRIGHT,
+    //                         mSurfaceWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
+    //                         mSurfaceHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom));
 
-    adjustCompass(0);
+    //adjustCompass(0);
   }
 
   public void adjustCompass(int offset)
   {
-    Framework.setWidgetPivot(Framework.MAP_WIDGET_COMPASS,
-                             UiUtils.dimen(R.dimen.margin_compass_left) + offset,
-                             mSurfaceHeight - UiUtils.dimen(R.dimen.margin_compass_bottom));
+    //Framework.setWidgetPivot(Framework.MAP_WIDGET_COMPASS,
+    //                         UiUtils.dimen(R.dimen.margin_compass_left) + offset,
+    //                         mSurfaceHeight - UiUtils.dimen(R.dimen.margin_compass_bottom));
   }
 
   @Override

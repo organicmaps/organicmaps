@@ -6,25 +6,25 @@ extern "C"
 {
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_RenderActivity_CreateEngine(JNIEnv * env, jobject thiz, jobject surface, jint destiny)
+Java_com_mapswithme_maps_RenderFragment_CreateEngine(JNIEnv * env, jobject thiz, jobject surface, jint destiny)
 {
   return static_cast<jboolean>(g_framework->CreateDrapeEngine(env, surface, static_cast<int>(destiny)));
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_RenderActivity_SurfaceResized(JNIEnv * env, jobject thiz, jint w, jint h)
+Java_com_mapswithme_maps_RenderFragment_SurfaceResized(JNIEnv * env, jobject thiz, jint w, jint h)
 {
   g_framework->Resize(static_cast<int>(w), static_cast<int>(h));
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_RenderActivity_DestroyEngine(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_RenderFragment_DestroyEngine(JNIEnv * env, jobject thiz)
 {
   g_framework->DeleteDrapeEngine();
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_RenderActivity_OnTouch(JNIEnv * env, jobject thiz, jint action, jboolean hasFirst, jboolean hasSecond,
+Java_com_mapswithme_maps_RenderFragment_OnTouch(JNIEnv * env, jobject thiz, jint action, jboolean hasFirst, jboolean hasSecond,
                                                  jfloat x1, jfloat y1, jfloat x2, jfloat y2)
 {
   int mask = 0;

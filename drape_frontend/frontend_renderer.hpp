@@ -131,6 +131,7 @@ private:
   void RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group);
   void RefreshProjection();
   void RefreshModelView(ScreenBase const & screen);
+  void RefreshBgColor();
   ScreenBase const & UpdateScene(bool & modelViewChanged);
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;

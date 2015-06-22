@@ -323,7 +323,7 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::SetMapStyle(MapStyle mapStyle)
   {
-    //@TODO UVR
+    m_framework->SetMapStyle(mapStyle);
   }
 
   void DrawWidget::sizeChanged(int)

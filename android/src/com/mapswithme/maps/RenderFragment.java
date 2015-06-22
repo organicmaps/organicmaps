@@ -1,16 +1,18 @@
 package com.mapswithme.maps;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 
-import com.mapswithme.maps.base.MWMFragmentActivity;
+import com.mapswithme.maps.base.BaseMwmFragment;
 
-public abstract class RenderActivity extends MWMFragmentActivity
+public abstract class RenderFragment extends BaseMwmFragment
                                      implements View.OnTouchListener,
                                                 SurfaceHolder.Callback
 {
@@ -56,19 +58,19 @@ public abstract class RenderActivity extends MWMFragmentActivity
   {
     super.onCreate(b);
     final DisplayMetrics metrics = new DisplayMetrics();
-    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     m_displayDensity = metrics.densityDpi;
   }
 
   @Override
-  protected void onResume()
+  public void onResume()
   {
     super.onResume();
     InitEngine();
   }
 
   @Override
-  protected void onStop()
+  public void onStop()
   {
     DestroyEngine();
     super.onStop();
@@ -80,7 +82,7 @@ public abstract class RenderActivity extends MWMFragmentActivity
     final int count = event.getPointerCount();
 
     if (count == 0)
-      return super.onTouchEvent(event);
+      return false;
 
     int action = event.getActionMasked();
     switch (action)
@@ -127,6 +129,8 @@ public abstract class RenderActivity extends MWMFragmentActivity
       }
     }
   }
+
+  protected abstract void applyWidgetPivots(final int mapHeight, final int mapWidth);
 
   private void InitEngine()
   {
