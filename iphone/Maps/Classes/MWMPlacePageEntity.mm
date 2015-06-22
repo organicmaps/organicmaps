@@ -126,7 +126,8 @@ typedef feature::FeatureMetadata::EMetadataType TMetadataType;
 
 - (void)configureEntityWithMetadata:(feature::FeatureMetadata const &)metadata addressInfo:(search::AddressInfo const &)info
 {
-  self.title = [NSString stringWithUTF8String:info.GetPinName().c_str()];
+  NSString * const name = [NSString stringWithUTF8String:info.GetPinName().c_str()];
+  self.title = name.length > 0 ? name : L(@"dropped_pin");
   self.category = [NSString stringWithUTF8String:info.GetPinType().c_str()];
 
   vector<TMetadataType> const presentTypes = metadata.GetPresentTypes();
