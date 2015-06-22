@@ -11,6 +11,7 @@ import android.location.Location;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -122,7 +123,7 @@ public enum LocationHelper implements SensorEventListener
 
   public long getLastLocationTime() { return mLastLocationTime; }
 
-  public void setLastLocation(Location loc)
+  public void setLastLocation(@NonNull Location loc)
   {
     mLastLocation = loc;
     mLastLocationTime = System.currentTimeMillis();
@@ -131,6 +132,9 @@ public enum LocationHelper implements SensorEventListener
 
   void notifyLocationUpdated()
   {
+    if (mLastLocation == null)
+      return;
+
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mLastLocation);
   }

@@ -47,8 +47,6 @@ public class AndroidNativeProvider extends BaseLocationProvider implements andro
         if (lastLocation != null && !LocationUtils.isExpired(lastLocation, LocationHelper.INSTANCE.getLastLocationTime(),
             LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
           LocationHelper.INSTANCE.setLastLocation(lastLocation);
-        else
-          LocationHelper.INSTANCE.setLastLocation(null);
       }
     }
   }
