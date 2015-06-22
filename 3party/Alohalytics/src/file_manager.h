@@ -67,8 +67,9 @@ struct FileManager {
 
   // Creates a new file or appends string to an existing one.
   // Returns false on error.
+  // TODO(AlexZ): Should consider exceptions?
   static bool AppendStringToFile(const std::string & str, const std::string & file_path) {
-    return std::ofstream(file_path, std::ofstream::app | std::ofstream::binary)
+    return std::ofstream(file_path, std::ios_base::app | std::ios_base::binary | std::ios_base::out)
         .write(str.data(), str.size())
         .flush()
         .good();
@@ -78,7 +79,7 @@ struct FileManager {
   static std::string ReadFileAsString(std::string const & file_path) {
     const int64_t size = GetFileSize(file_path);
     if (size > 0) {
-      std::ifstream fi(file_path, std::ifstream::binary);
+      std::ifstream fi(file_path, std::ios_base::binary | std::ios_base::in);
       std::string buffer(static_cast<const size_t>(size), '\0');
       if (fi.read(&buffer[0], static_cast<std::streamsize>(size)).good()) {
         return buffer;
