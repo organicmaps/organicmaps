@@ -33,9 +33,9 @@ namespace alohalytics {
 
 // Useful helper.
 struct ScopedRemoveFile {
-  std::string file_;
-  ScopedRemoveFile(const std::string & file) : file_(file) {}
-  ~ScopedRemoveFile() { std::remove(file_.c_str()); }
+  std::string file;
+  ScopedRemoveFile(const std::string & file_to_delete) : file(file_to_delete) {}
+  ~ScopedRemoveFile() { std::remove(file.c_str()); }
 };
 
 // Functions are wrapped into the class for convenience.
