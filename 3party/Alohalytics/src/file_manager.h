@@ -25,9 +25,9 @@ SOFTWARE.
 #ifndef FILE_MANAGER_H
 #define FILE_MANAGER_H
 
-#include <string>
 #include <functional>
 #include <fstream>
+#include <string>
 
 namespace alohalytics {
 
@@ -75,14 +75,16 @@ struct FileManager {
         .good();
   }
 
-  // Returns file content as a string or empty string on error.
-  static std::string ReadFileAsString(std::string const & file_path) {
-    const int64_t size = GetFileSize(file_path);
-    if (size > 0) {
-      std::ifstream fi(file_path, std::ios_base::binary | std::ios_base::in);
-      std::string buffer(static_cast<const size_t>(size), '\0');
-      if (fi.read(&buffer[0], static_cast<std::streamsize>(size)).good()) {
-        return buffer;
+  // Returns file content as a string.
+  // Throws ios_base::failure exception if file is absent or is a directory.
+  static std::string ReadFileAsString(const std::string & file_path) {
+    const uint64_t size = GetFileSize(file_path);
+    std::ifstream fi(file_path, std::ios_base::binary | std::ios_base::in);
+    fi.exceptions(std::ios_base::badbit | std::ios_base::failbit);
+    std::string buffer(static_cast<const size_t>(size), '\0');
+    fi.read(&buffer[0], static_cast<std::streamsize>(size));
+    return buffer;
+  }
       }
     }
     return std::string();
@@ -91,9 +93,8 @@ struct FileManager {
   // Executes lambda for each regular file in the directory and stops immediately if lambda returns false.
   static void ForEachFileInDir(std::string directory, std::function<bool(const std::string & full_path)> lambda);
 
-  // Returns negative value on error and if full_path_to_file is a directory.
-  // TODO(AlexZ): Should consider approach with exceptions and uint64_t return type.
-  static int64_t GetFileSize(const std::string & full_path_to_file);
+  // Throws std::ios_base::failure exception if file is absent or is a directory.
+  static uint64_t GetFileSize(const std::string & full_path_to_file);
 };
 
 }  // namespace alohalytics

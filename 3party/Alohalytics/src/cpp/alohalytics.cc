@@ -82,8 +82,8 @@ void Stats::GzipAndArchiveFileInTheQueue(const std::string & in_file, const std:
       fi.exceptions(std::ifstream::failbit | std::ifstream::badbit);
       fi.open(in_file, std::ifstream::in | std::ifstream::binary);
       const size_t data_offset = encoded_unique_client_id.size();
-      const int64_t file_size = FileManager::GetFileSize(in_file);
-      buffer.resize(data_offset + static_cast<std::string::size_type>(file_size));
+      const uint64_t file_size = FileManager::GetFileSize(in_file);
+      buffer.resize(data_offset + file_size);
       fi.read(&buffer[data_offset], static_cast<std::streamsize>(file_size));
     }
     {

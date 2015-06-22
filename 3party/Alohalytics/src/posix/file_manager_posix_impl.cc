@@ -25,6 +25,8 @@ SOFTWARE.
 // POSIX implementations for FileManager.
 #include "../file_manager.h"
 
+#include <cerrno>
+#include <cstring>
 #include <dirent.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -61,11 +63,16 @@ void FileManager::ForEachFileInDir(std::string directory, std::function<bool(con
   }
 }
 
-int64_t FileManager::GetFileSize(const std::string & full_path_to_file) {
+uint64_t FileManager::GetFileSize(const std::string & full_path_to_file) {
   struct stat st;
-  if (0 == ::stat(full_path_to_file.c_str(), &st) && S_ISREG(st.st_mode)) {
-    return static_cast<int64_t>(st.st_size);
+  if (0 == ::stat(full_path_to_file.c_str(), &st)) {
+    if (S_ISREG(st.st_mode)) {
+      return st.st_size;
+    }
+    throw std::ios_base::failure(full_path_to_file + " is a directory.",
+                                 std::error_code(EISDIR, std::generic_category()));
   }
-  return -1;
+  throw std::ios_base::failure(std::string("Can't stat file ") + full_path_to_file,
+                               std::error_code(errno, std::generic_category()));
 }
 }  // namespace alohalytics

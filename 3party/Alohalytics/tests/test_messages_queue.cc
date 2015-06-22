@@ -46,6 +46,26 @@ SOFTWARE.
     }                                                                                                           \
   }
 
+#define TEST_EXCEPTION(ex, op)                                                                                   \
+  {                                                                                                              \
+    bool has_fired = false;                                                                                      \
+    try {                                                                                                        \
+      op;                                                                                                        \
+    } catch (const std::exception & exc) {                                                                       \
+      has_fired = true;                                                                                          \
+      if (typeid(ex) != typeid(exc)) {                                                                           \
+        std::cerr << __FILE__ << ':' << __FUNCTION__ << ':' << __LINE__ << " Test failed: " << typeid(ex).name() \
+                  << " != " << typeid(exc).name() << std::endl;                                                  \
+        std::exit(-1);                                                                                           \
+      }                                                                                                          \
+    }                                                                                                            \
+    if (!has_fired) {                                                                                            \
+      std::cerr << __FILE__ << ':' << __FUNCTION__ << ':' << __LINE__ << " Test failed: "                        \
+                << "Exception " << typeid(ex).name() << "Was not thrown." << std::endl;                          \
+      std::exit(-1);                                                                                             \
+    }                                                                                                            \
+  }
+
 using alohalytics::FileManager;
 using alohalytics::ScopedRemoveFile;
 
@@ -86,7 +106,7 @@ void Test_ScopedRemoveFile() {
     TEST_EQUAL(true, FileManager::AppendStringToFile(file, file));
     TEST_EQUAL(file, FileManager::ReadFileAsString(file));
   }
-  TEST_EQUAL(std::string(), FileManager::ReadFileAsString(file));
+  TEST_EXCEPTION(std::ios_base::failure, FileManager::ReadFileAsString(file));
 }
 
 void Test_CreateTemporaryFile() {
@@ -175,7 +195,7 @@ void Test_ForEachFileInDir() {
       if (file == files_copy.front()) {
         TEST_EQUAL(file, FileManager::ReadFileAsString(file));
       } else {
-        TEST_EQUAL("", FileManager::ReadFileAsString(file))
+        TEST_EXCEPTION(std::ios_base::failure, FileManager::ReadFileAsString(file))
       }
     }
   }
@@ -185,12 +205,13 @@ void Test_GetFileSize() {
   const std::string file = GenerateTemporaryFileName();
   ScopedRemoveFile remover(file);
   // File does not exist yet.
-  TEST_EQUAL(-1, FileManager::GetFileSize(file));
+  TEST_EXCEPTION(std::ios_base::failure, FileManager::GetFileSize(file));
   // Use file name itself as a file contents.
   TEST_EQUAL(true, FileManager::AppendStringToFile(file, file));
-  TEST_EQUAL(static_cast<int64_t>(file.size()), FileManager::GetFileSize(file));
-  // It should fail for directories.
-  TEST_EQUAL(-1, FileManager::GetFileSize(FileManager::GetDirectoryFromFilePath(file)));
+  TEST_EQUAL(file.size(), FileManager::GetFileSize(file));
+  // It should also fail for directories.
+  TEST_EXCEPTION(std::ios_base::failure, FileManager::GetFileSize(FileManager::GetDirectoryFromFilePath(file)));
+}
 }
 
 // ******************* Message Queue tests ******************
@@ -372,15 +393,15 @@ void Test_MessagesQueue_SwitchFromInMemoryToFile_and_OfflineEmulation() {
     TEST_EQUAL(ProcessingResult::EProcessedSuccessfully, finish_task.get());
     TEST_EQUAL(true, archive1_processed);
     TEST_EQUAL(true, archive2_processed);
-    TEST_EQUAL("", FileManager::ReadFileAsString(archived_file));
-    TEST_EQUAL("", FileManager::ReadFileAsString(second_archived_file));
+    TEST_EXCEPTION(std::ios_base::failure, FileManager::ReadFileAsString(archived_file));
+    TEST_EXCEPTION(std::ios_base::failure, FileManager::ReadFileAsString(second_archived_file));
   }
 }
 
 void Test_MessagesQueue_CreateArchiveOnSizeLimitHit() {
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
-  ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
+  const ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
   HundredKilobytesFileQueue q;
   q.SetStorageDirectory(tmpdir);
 

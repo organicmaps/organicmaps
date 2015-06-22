@@ -64,17 +64,20 @@ void FileManager::ForEachFileInDir(std::string directory, std::function<bool(con
   } while (::FindNextFileA(handle, &find_data) != 0);
 }
 
-int64_t FileManager::GetFileSize(const std::string & full_path_to_file) {
+uint64_t FileManager::GetFileSize(const std::string & full_path_to_file) {
+  // TODO(AlexZ): Do we need to use *W functions (and wstrings) for files processing?
   HANDLE handle = ::CreateFileA(full_path_to_file.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING,
                                 FILE_ATTRIBUTE_NORMAL, NULL);
   if (handle != INVALID_HANDLE_VALUE) {
     const ScopedCloseFindFileHandle closer(handle, &::CloseHandle);
     LARGE_INTEGER size;
-    if (0 != GetFileSizeEx(hFile, &size)) {
+    // TODO(AlexZ): Do we need IsDirectory check here?
+    if (0 != ::GetFileSizeEx(hFile, &size)) {
       return static_cast<int64_t>(size.QuadPart);
     }
   }
-  return -1;
+  // TODO(AlexZ): Use GetLastError.
+  throw std::ios_base::failure(std::strerror(ENOENT), std::error_code(ENOENT, std::generic_category()));
 }
 
 }  // namespace alohalytics
