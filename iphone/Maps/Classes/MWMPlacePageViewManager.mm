@@ -65,6 +65,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   GetFramework().GetBalloonManager().RemovePin();
   m_userMark = nullptr;
   self.entity = nil;
+  self.placePage = nil;
 }
 
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
@@ -83,7 +84,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)layoutPlacePageToOrientation:(UIInterfaceOrientation)orientation
 {
-  if (IPAD)
+  if (IPAD || !self.placePage)
     return;
 
   [self.placePage dismiss];
@@ -189,11 +190,6 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)dragPlacePage:(CGPoint)point
 {
   [self.ownerViewController dragPlacePage:point];
-}
-
-- (void)startMonitoringLocation:(NSNotification *)notification
-{
-  [[MapsAppDelegate theApp].m_locationManager start:self];
 }
 
 - (void)onLocationError:(location::TLocationError)errorCode
