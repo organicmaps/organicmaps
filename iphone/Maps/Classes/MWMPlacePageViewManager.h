@@ -21,6 +21,7 @@
 
 - (instancetype)initWithViewController:(UIViewController<MWMPlacePageViewDragDelegate> *)viewController;
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
+- (void)refreshPlacePage;
 - (void)dismissPlacePage;
 - (void)buildRoute;
 - (void)stopBuildingRoute;

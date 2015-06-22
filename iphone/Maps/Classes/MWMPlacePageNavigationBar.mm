@@ -77,7 +77,7 @@ static inline CGPoint const dismissCenter(CGFloat xPosition)
 
 - (void)dismiss
 {
-  [UIView animateWithDuration:.3f animations:^
+  [UIView animateWithDuration:.1 animations:^
   {
     self.center = dismissCenter(self.center.x);
   }];
@@ -85,7 +85,7 @@ static inline CGPoint const dismissCenter(CGFloat xPosition)
 
 - (void)show
 {
-  [UIView animateWithDuration:.3f animations:^
+  [UIView animateWithDuration:.1 animations:^
   {
     self.center = openCenter(self.center.x);
   }];
@@ -108,7 +108,7 @@ static inline CGPoint const dismissCenter(CGFloat xPosition)
 - (IBAction)backTap:(id)sender
 {
   [self dismiss];
-  [self.placePage.manager dismissPlacePage];
+  [self.placePage.manager refreshPlacePage];
 }
 
 - (void)layoutSubviews

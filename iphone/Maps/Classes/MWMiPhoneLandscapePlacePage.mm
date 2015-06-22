@@ -98,28 +98,18 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 {
   UIView * ppv = self.extendedPlacePageView;
   UIView * ppvSuper = ppv.superview;
-  CGPoint const point = [sender translationInView:ppvSuper];
-  CGSize const size = UIScreen.mainScreen.bounds.size;
-  CGFloat const height = MIN(size.width, size.height);
-  CGFloat const offset = MAX(height, kMaximumPlacePageWidth);
-  CGFloat const x = ppv.center.x + point.x;
-
-  if (x > offset / 2.)
-    return;
-
-  ppv.center = CGPointMake(ppv.center.x + point.x, ppv.center.y );
+  ppv.minX += [sender translationInView:ppvSuper].x;
+  ppv.minX = MIN(ppv.minX, 0.0);
   [sender setTranslation:CGPointZero inView:ppvSuper];
-  if (sender.state == UIGestureRecognizerStateEnded)
+  [self cancelSpringAnimation];
+  UIGestureRecognizerState const state = sender.state;
+  if (state == UIGestureRecognizerStateEnded || state == UIGestureRecognizerStateCancelled)
   {
     self.panVelocity = [sender velocityInView:ppvSuper].x;
     if (self.panVelocity > 0)
       self.state = MWMiPhoneLandscapePlacePageStateOpen;
     else
       [self.manager dismissPlacePage];
-  }
-  else
-  {
-    [self cancelSpringAnimation];
   }
 }
 
@@ -151,8 +141,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 
 - (void)setTargetPoint:(CGPoint)targetPoint
 {
-  if (CGPointEqualToPoint(_targetPoint, targetPoint))
-    return;
   _targetPoint = targetPoint;
   __weak MWMiPhoneLandscapePlacePage * weakSelf = self;
   [self startAnimatingPlacePage:self initialVelocity:CGPointMake(self.panVelocity, 0.0) completion:^

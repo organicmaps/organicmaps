@@ -118,25 +118,22 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 
 - (void)setState:(MWMiPhonePortraitPlacePageState)state
 {
-  CGSize const size = UIScreen.mainScreen.bounds.size;
-  CGFloat const width = MIN(size.height, size.width);
-  NSString * anchorImageName;
   _state = state;
   [self updateTargetPoint];
   switch (state)
   {
     case MWMiPhonePortraitPlacePageStateClosed:
       [self.actionBar removeFromSuperview];
+      [self.manager.ownerViewController.view endEditing:YES];
       break;
     case MWMiPhonePortraitPlacePageStatePreview:
-      anchorImageName = @"bg_placepage_tablet_normal_";
+      [self.manager.ownerViewController.view endEditing:YES];
       break;
     case MWMiPhonePortraitPlacePageStateOpen:
     case MWMiPhonePortraitPlacePageStateHover:
-      anchorImageName = @"bg_placepage_tablet_open_";
       break;
   }
-  self.anchorImageView.image = [UIImage imageNamed:[anchorImageName stringByAppendingString:@((NSUInteger)width).stringValue]];
+  [self setAnchorImage];
 }
 
 - (void)updateTargetPoint
@@ -196,9 +193,10 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     [MWMPlacePageNavigationBar showNavigationBarForPlacePage:self];
   else
     [MWMPlacePageNavigationBar dismissNavigationBar];
-
   [sender setTranslation:CGPointZero inView:ppvSuper];
-  if (sender.state == UIGestureRecognizerStateEnded)
+  [self cancelSpringAnimation];
+  UIGestureRecognizerState const state = sender.state;
+  if (state == UIGestureRecognizerStateEnded || state == UIGestureRecognizerStateCancelled)
   {
     self.panVelocity = [sender velocityInView:ppvSuper].y;
     CGFloat const estimatedYPosition = [MWMSpringAnimation approxTargetFor:ppv.frame.origin.y velocity:self.panVelocity];
@@ -213,10 +211,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     else
       [self.manager dismissPlacePage];
   }
-  else
-  {
-    [self cancelSpringAnimation];
-  }
 }
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender
@@ -227,15 +221,12 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     case MWMiPhonePortraitPlacePageStateClosed:
       self.state = MWMiPhonePortraitPlacePageStatePreview;
       break;
-
     case MWMiPhonePortraitPlacePageStatePreview:
       self.state = MWMiPhonePortraitPlacePageStateOpen;
       break;
-
     case MWMiPhonePortraitPlacePageStateOpen:
     case MWMiPhonePortraitPlacePageStateHover:
       self.state = MWMiPhonePortraitPlacePageStatePreview;
-      [self.manager.ownerViewController.view endEditing:YES];
       break;
   }
 }
@@ -250,6 +241,29 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 {
   self.keyboardHeight = 0.;
   [self updateTargetPoint];
+}
+
+- (void)setAnchorImage
+{
+  NSString * anchorImageName = nil;
+  switch (self.state)
+  {
+    case MWMiPhonePortraitPlacePageStateClosed:
+      break;
+    case MWMiPhonePortraitPlacePageStatePreview:
+      anchorImageName = @"bg_placepage_tablet_normal_";
+      break;
+    case MWMiPhonePortraitPlacePageStateOpen:
+    case MWMiPhonePortraitPlacePageStateHover:
+      anchorImageName = @"bg_placepage_tablet_open_";
+      break;
+  }
+  if (anchorImageName)
+  {
+    CGSize const size = UIScreen.mainScreen.bounds.size;
+    CGFloat const width = MIN(size.height, size.width);
+    self.anchorImageView.image = [UIImage imageNamed:[anchorImageName stringByAppendingString:@((NSUInteger)width).stringValue]];
+  }
 }
 
 #pragma mark - Properties

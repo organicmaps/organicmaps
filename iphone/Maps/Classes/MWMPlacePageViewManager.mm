@@ -101,6 +101,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     self.entity.category = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed];
   }
   [self.placePage configure];
+  [self refreshPlacePage];
+}
+
+- (void)refreshPlacePage
+{
   [self.placePage show];
   [self updateDistance];
 }
