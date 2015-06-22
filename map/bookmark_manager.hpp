@@ -1,11 +1,11 @@
 #pragma once
 #include "map/bookmark.hpp"
+#include "map/route_track.hpp"
 #include "map/user_mark_container.hpp"
 #include "map/user_mark_dl_cache.hpp"
-#include "map/route_track.hpp"
 
-#include "std/unique_ptr.hpp"
 #include "std/function.hpp"
+#include "std/unique_ptr.hpp"
 
 
 class Framework;
@@ -69,10 +69,10 @@ public:
   bool UserMarkHasActive() const;
   bool IsUserMarkActive(UserMark const * container) const;
 
-  typedef function<m2::AnyRectD const & (UserMarkContainer::Type)> TouchRectHolder;
+  typedef function<m2::AnyRectD const & (UserMarkContainer::Type)> TTouchRectHolder;
 
   UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
-  UserMark const * FindNearestUserMark(TouchRectHolder const & holder) const;
+  UserMark const * FindNearestUserMark(TTouchRectHolder const & holder) const;
 
   /// Additional layer methods
   void UserMarksSetVisible(UserMarkContainer::Type type, bool isVisible);

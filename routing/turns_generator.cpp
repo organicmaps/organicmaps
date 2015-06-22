@@ -89,7 +89,7 @@ vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingM
     Index::FeaturesLoaderGuard loader1(index, routingMapping.GetMwmId());
     loader1.GetFeature(seg1.m_fid, ft1);
 
-    using namespace feature;
+    using feature::Metadata;
     ft1.ParseMetadata();
     Metadata const & md = ft1.GetMetadata();
 

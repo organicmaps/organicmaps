@@ -369,7 +369,7 @@ namespace
   class BestUserMarkFinder
   {
   public:
-    BestUserMarkFinder(BookmarkManager::TouchRectHolder const & rectHolder)
+    BestUserMarkFinder(BookmarkManager::TTouchRectHolder const & rectHolder)
       : m_rectHolder(rectHolder)
       , m_d(numeric_limits<double>::max())
       , m_mark(NULL) {}
@@ -377,15 +377,14 @@ namespace
     void operator() (UserMarkContainer const * container)
     {
       m2::AnyRectD const & rect = m_rectHolder(container->GetType());
-      UserMark const * p = container->FindMarkInRect(rect, m_d);
-      if (p)
+      if (UserMark const * p = container->FindMarkInRect(rect, m_d))
         m_mark = p;
     }
 
     UserMark const * GetFindedMark() const { return m_mark; }
 
   private:
-    BookmarkManager::TouchRectHolder const & m_rectHolder;
+    BookmarkManager::TTouchRectHolder const & m_rectHolder;
     double m_d;
     UserMark const * m_mark;
   };
@@ -396,7 +395,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect)
   return FindNearestUserMark([&rect](UserMarkContainer::Type) -> m2::AnyRectD const & { return rect; });
 }
 
-UserMark const * BookmarkManager::FindNearestUserMark(TouchRectHolder const & holder) const
+UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder) const
 {
   BestUserMarkFinder finder(holder);
   for_each(m_categories.begin(), m_categories.end(), ref(finder));

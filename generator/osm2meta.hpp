@@ -26,7 +26,7 @@ public:
     if (v.empty())
       return false;
 
-    using namespace feature;
+    using feature::Metadata;
     Metadata & md = m_params.GetMetadata();
 
     if (k == "cuisine")

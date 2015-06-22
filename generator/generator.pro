@@ -50,8 +50,8 @@ HEADERS += \
     first_pass_parser.hpp \
     gen_mwm_info.hpp \
     generate_info.hpp \
-    osm2type.hpp \
     osm2meta.hpp \
+    osm2type.hpp \
     osm_decl.hpp \
     osm_element.hpp \
     osm_id.hpp \
