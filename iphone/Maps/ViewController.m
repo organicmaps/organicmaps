@@ -16,6 +16,12 @@
   return NO;
 }
 
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  [self.navigationController.navigationBar setTranslucent:NO];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
   [Alohalytics logEvent:@"$viewWillAppear" withValue:NSStringFromClass([self class])];
