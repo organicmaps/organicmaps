@@ -29,6 +29,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 
 @property (nonatomic) MWMiPhoneLandscapePlacePageState state;
 @property (nonatomic) CGPoint targetPoint;
+@property (nonatomic) CGFloat panVelocity;
 
 @end
 
@@ -64,49 +65,56 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   self.state = MWMiPhoneLandscapePlacePageStateOpen;
 }
 
+- (void)dismiss
+{
+  self.state = MWMiPhoneLandscapePlacePageStateClosed;
+}
+
 - (void)setState:(MWMiPhoneLandscapePlacePageState)state
+{
+  _state = state;
+  [self updateTargetPoint];
+}
+
+- (void)updateTargetPoint
 {
   CGSize const size = UIScreen.mainScreen.bounds.size;
   CGFloat const height = MIN(size.width, size.height);
   CGFloat const offset = MIN(height, kMaximumPlacePageWidth);
-
-  switch (state)
+  switch (self.state)
   {
     case MWMiPhoneLandscapePlacePageStateClosed:
-      GetFramework().GetBalloonManager().RemovePin();
+      [self.actionBar removeFromSuperview];
       self.targetPoint = CGPointMake(-offset / 2., height / 2.);
       break;
-
     case MWMiPhoneLandscapePlacePageStateOpen:
       self.targetPoint = CGPointMake(offset / 2., height / 2.);
       break;
   }
-  _state = state;
-  [self startAnimatingPlacePage:self initialVelocity:self.springAnimation.velocity];
 }
-
 #pragma mark - Actions
 
 - (IBAction)didPan:(UIPanGestureRecognizer *)sender
 {
-  CGPoint const point = [sender translationInView:self.extendedPlacePageView.superview];
+  UIView * ppv = self.extendedPlacePageView;
+  UIView * ppvSuper = ppv.superview;
+  CGPoint const point = [sender translationInView:ppvSuper];
   CGSize const size = UIScreen.mainScreen.bounds.size;
   CGFloat const height = MIN(size.width, size.height);
   CGFloat const offset = MAX(height, kMaximumPlacePageWidth);
-  CGFloat const x = self.extendedPlacePageView.center.x + point.x;
+  CGFloat const x = ppv.center.x + point.x;
 
   if (x > offset / 2.)
     return;
 
-  self.extendedPlacePageView.center = CGPointMake(self.extendedPlacePageView.center.x + point.x, self.extendedPlacePageView.center.y );
-  [sender setTranslation:CGPointZero inView:self.extendedPlacePageView.superview];
+  ppv.center = CGPointMake(ppv.center.x + point.x, ppv.center.y );
+  [sender setTranslation:CGPointZero inView:ppvSuper];
   if (sender.state == UIGestureRecognizerStateEnded)
   {
-    CGPoint velocity = [sender velocityInView:self.extendedPlacePageView.superview];
-    velocity.y = 5.;
-    self.state = velocity.x < 0. ? MWMiPhoneLandscapePlacePageStateClosed : MWMiPhoneLandscapePlacePageStateOpen;
-    [self startAnimatingPlacePage:self initialVelocity:velocity];
-    if (self.state == MWMiPhoneLandscapePlacePageStateClosed)
+    self.panVelocity = [sender velocityInView:ppvSuper].x;
+    if (self.panVelocity > 0)
+      self.state = MWMiPhoneLandscapePlacePageStateOpen;
+    else
       [self.manager dismissPlacePage];
   }
   else
@@ -137,6 +145,23 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   {
     self.basePlacePageView.transform = CGAffineTransformMakeTranslation(0., 0.);
   }];
+}
+
+#pragma mark - Properties
+
+- (void)setTargetPoint:(CGPoint)targetPoint
+{
+  if (CGPointEqualToPoint(_targetPoint, targetPoint))
+    return;
+  _targetPoint = targetPoint;
+  __weak MWMiPhoneLandscapePlacePage * weakSelf = self;
+  [self startAnimatingPlacePage:self initialVelocity:CGPointMake(self.panVelocity, 0.0) completion:^
+  {
+    __strong MWMiPhoneLandscapePlacePage * self = weakSelf;
+    if (self.state == MWMiPhoneLandscapePlacePageStateClosed)
+      [super dismiss];
+  }];
+  self.panVelocity = 0.0;
 }
 
 @end

@@ -21,12 +21,14 @@
 #include "Framework.h"
 
 static NSString * const kPlacePageViewDragKeyPath = @"center";
+static CGFloat const kPlacePageBottomOffset = 31.;
 
 typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 {
   MWMiPhonePortraitPlacePageStateClosed,
   MWMiPhonePortraitPlacePageStatePreview,
-  MWMiPhonePortraitPlacePageStateOpen
+  MWMiPhonePortraitPlacePageStateOpen,
+  MWMiPhonePortraitPlacePageStateHover
 };
 
 @interface MWMiPhonePortraitPlacePage ()
@@ -34,6 +36,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 @property (nonatomic) MWMiPhonePortraitPlacePageState state;
 @property (nonatomic) CGPoint targetPoint;
 @property (nonatomic) CGFloat keyboardHeight;
+@property (nonatomic) CGFloat panVelocity;
 
 @end
 
@@ -63,6 +66,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 - (void)configure
 {
   [super configure];
+  self.basePlacePageView.featureTable.scrollEnabled = NO;
   UIView const * view = self.manager.ownerViewController.view;
   if ([view.subviews containsObject:self.extendedPlacePageView])
     return;
@@ -91,9 +95,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 - (void)dismiss
 {
   self.state = MWMiPhonePortraitPlacePageStateClosed;
-  [MWMPlacePageNavigationBar remove];
-  self.keyboardHeight = 0.;
-  [super dismiss];
 }
 
 - (void)addBookmark
@@ -112,88 +113,105 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 - (void)updateMyPositionStatus:(NSString *)status
 {
   [super updateMyPositionStatus:status];
-// Setup current state.
-  MWMiPhonePortraitPlacePageState currentState = self.state;
-  self.state = currentState;
+  [self updateTargetPoint];
 }
 
 - (void)setState:(MWMiPhonePortraitPlacePageState)state
 {
   CGSize const size = UIScreen.mainScreen.bounds.size;
-  BOOL const isLandscape = size.width > size.height;
-  CGFloat const width = isLandscape ? size.height : size.width;
-  CGFloat const height = isLandscape ? size.width : size.height;
-  static CGFloat const kPlacePageBottomOffset = 31.;
+  CGFloat const width = MIN(size.height, size.width);
+  NSString * anchorImageName;
+  _state = state;
+  [self updateTargetPoint];
   switch (state)
   {
     case MWMiPhonePortraitPlacePageStateClosed:
-      self.targetPoint = CGPointMake(self.extendedPlacePageView.width / 2., self.extendedPlacePageView.height * 2.);
+      [self.actionBar removeFromSuperview];
       break;
-
     case MWMiPhonePortraitPlacePageStatePreview:
-    {
-      CGFloat const typeHeight = self.basePlacePageView.typeLabel.text.length > 0 ? self.basePlacePageView.typeLabel.height : self.basePlacePageView.typeDescriptionView.height;
-      CGFloat const h = height - (self.basePlacePageView.titleLabel.height + kPlacePageBottomOffset + typeHeight + self.actionBar.height);
-      self.targetPoint = CGPointMake(width / 2., height + h);
-
-      [MWMPlacePageNavigationBar dismissNavigationBar];
+      anchorImageName = @"bg_placepage_tablet_normal_";
       break;
-    }
-
     case MWMiPhonePortraitPlacePageStateOpen:
-    {
-      CGFloat const typeHeight = self.basePlacePageView.typeLabel.text.length > 0 ? self.basePlacePageView.typeLabel.height : self.basePlacePageView.typeDescriptionView.height;
-      CGFloat const h = height - (self.basePlacePageView.titleLabel.height + kPlacePageBottomOffset + typeHeight + [(UITableView *)self.basePlacePageView.featureTable height] + self.actionBar.height + self.keyboardHeight);
-      self.targetPoint = CGPointMake(width / 2., height + h);
-
-      if (self.targetPoint.y <= height)
-        [MWMPlacePageNavigationBar showNavigationBarForPlacePage:self];
-      else
-        [MWMPlacePageNavigationBar dismissNavigationBar];
-
+    case MWMiPhonePortraitPlacePageStateHover:
+      anchorImageName = @"bg_placepage_tablet_open_";
       break;
-    }
   }
-  _state = state;
-  [self startAnimatingPlacePage:self initialVelocity:self.springAnimation.velocity];
+  self.anchorImageView.image = [UIImage imageNamed:[anchorImageName stringByAppendingString:@((NSUInteger)width).stringValue]];
+}
 
-  NSString * anchorImageName;
-  NSNumber const * widthNumber = @((NSUInteger)width);
-  if (_state == MWMiPhonePortraitPlacePageStateOpen)
-    anchorImageName = [@"bg_placepage_tablet_open_" stringByAppendingString:widthNumber.stringValue];
-  else
-    anchorImageName = [@"bg_placepage_tablet_normal_" stringByAppendingString:widthNumber.stringValue];
+- (void)updateTargetPoint
+{
+  UIView * ppv = self.extendedPlacePageView;
+  switch (self.state)
+  {
+    case MWMiPhonePortraitPlacePageStateClosed:
+      self.targetPoint = CGPointMake(ppv.width / 2., ppv.height * 2.);
+      break;
+    case MWMiPhonePortraitPlacePageStatePreview:
+      self.targetPoint = [self getPreviewTargetPoint];
+      break;
+    case MWMiPhonePortraitPlacePageStateOpen:
+      self.targetPoint = [self getOpenTargetPoint];
+      break;
+    case MWMiPhonePortraitPlacePageStateHover:
+      self.targetPoint = CGPointMake(ppv.center.x, MAX([MWMSpringAnimation approxTargetFor:ppv.center.y velocity:self.panVelocity], [self getOpenTargetPoint].y));
+      break;
+  }
+}
 
-  self.anchorImageView.image = [UIImage imageNamed:anchorImageName];
+- (CGPoint)getPreviewTargetPoint
+{
+  CGSize const size = UIScreen.mainScreen.bounds.size;
+  BOOL const isLandscape = size.width > size.height;
+  CGFloat const width = isLandscape ? size.height : size.width;
+  CGFloat const height = isLandscape ? size.width : size.height;
+  MWMBasePlacePageView * basePPV = self.basePlacePageView;
+  CGFloat const typeHeight = basePPV.typeLabel.text.length > 0 ? basePPV.typeLabel.height : basePPV.typeDescriptionView.height;
+  CGFloat const h = height - (basePPV.titleLabel.height + kPlacePageBottomOffset + typeHeight + self.actionBar.height);
+  return CGPointMake(width / 2., height + h);
+}
+
+- (CGPoint)getOpenTargetPoint
+{
+  CGSize const size = UIScreen.mainScreen.bounds.size;
+  BOOL const isLandscape = size.width > size.height;
+  CGFloat const width = isLandscape ? size.height : size.width;
+  CGFloat const height = isLandscape ? size.width : size.height;
+  MWMBasePlacePageView * basePPV = self.basePlacePageView;
+  CGFloat const typeHeight = basePPV.typeLabel.text.length > 0 ? basePPV.typeLabel.height : basePPV.typeDescriptionView.height;
+  CGFloat const h = height - (basePPV.titleLabel.height + kPlacePageBottomOffset + typeHeight + [(UITableView *)basePPV.featureTable height] + self.actionBar.height + self.keyboardHeight);
+  return CGPointMake(width / 2., height + h);
 }
 
 #pragma mark - Actions
 
 - (IBAction)didPan:(UIPanGestureRecognizer *)sender
 {
-  CGPoint const point = [sender translationInView:self.extendedPlacePageView.superview];
-  self.extendedPlacePageView.center = CGPointMake(self.extendedPlacePageView.center.x, self.extendedPlacePageView.center.y + point.y);
-  CGSize const size = UIScreen.mainScreen.bounds.size;
-  BOOL const isLandscape = size.width > size.height;
-  CGFloat const height = isLandscape ? size.width : size.height;
+  UIView * ppv = self.extendedPlacePageView;
+  UIView * ppvSuper = ppv.superview;
 
-  if (self.extendedPlacePageView.center.y <= height)
+  ppv.minY += [sender translationInView:ppvSuper].y;
+  ppv.midY = MAX(ppv.midY, [self getOpenTargetPoint].y);
+  if (ppv.minY <= 0.0)
     [MWMPlacePageNavigationBar showNavigationBarForPlacePage:self];
   else
     [MWMPlacePageNavigationBar dismissNavigationBar];
 
-  [sender setTranslation:CGPointZero inView:self.extendedPlacePageView.superview];
+  [sender setTranslation:CGPointZero inView:ppvSuper];
   if (sender.state == UIGestureRecognizerStateEnded)
   {
-    CGPoint velocity = [sender velocityInView:self.extendedPlacePageView.superview];
-    velocity.x = 5;
-    self.state = velocity.y >= 0. ? MWMiPhonePortraitPlacePageStateClosed : MWMiPhonePortraitPlacePageStateOpen;
-    [self startAnimatingPlacePage:self initialVelocity:velocity];
-    if (self.state == MWMiPhonePortraitPlacePageStateClosed)
-    {
-      self.actionBar.alpha = 0.;
+    self.panVelocity = [sender velocityInView:ppvSuper].y;
+    CGFloat const estimatedYPosition = [MWMSpringAnimation approxTargetFor:ppv.frame.origin.y velocity:self.panVelocity];
+    CGFloat const bound1 = ppvSuper.height * 0.2;
+    CGFloat const bound2 = ppvSuper.height * 0.5;
+    if (estimatedYPosition < bound1)
+      self.state = MWMiPhonePortraitPlacePageStateHover;
+    else if (self.panVelocity <= 0.0)
+      self.state = MWMiPhonePortraitPlacePageStateOpen;
+    else if (ppv.minY < bound2)
+      self.state = MWMiPhonePortraitPlacePageStatePreview;
+    else
       [self.manager dismissPlacePage];
-    }
   }
   else
   {
@@ -215,11 +233,11 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
       break;
 
     case MWMiPhonePortraitPlacePageStateOpen:
+    case MWMiPhonePortraitPlacePageStateHover:
       self.state = MWMiPhonePortraitPlacePageStatePreview;
       [self.manager.ownerViewController.view endEditing:YES];
       break;
   }
-  [self startAnimatingPlacePage:self initialVelocity:self.springAnimation.velocity];
 }
 
 - (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight
@@ -231,9 +249,35 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 - (void)willFinishEditingBookmarkTitle:(CGFloat)keyboardHeight
 {
   self.keyboardHeight = 0.;
-  //Just setup current state.
-  MWMiPhonePortraitPlacePageState currentState = self.state;
-  self.state = currentState;
+  [self updateTargetPoint];
+}
+
+#pragma mark - Properties
+
+- (void)setTargetPoint:(CGPoint)targetPoint
+{
+  if (CGPointEqualToPoint(_targetPoint, targetPoint))
+    return;
+  _targetPoint = targetPoint;
+  __weak MWMiPhonePortraitPlacePage * weakSelf = self;
+  [self startAnimatingPlacePage:self initialVelocity:CGPointMake(0.0, self.panVelocity) completion:^
+  {
+    __strong MWMiPhonePortraitPlacePage * self = weakSelf;
+    if (self.state == MWMiPhonePortraitPlacePageStateClosed)
+    {
+      [MWMPlacePageNavigationBar remove];
+      self.keyboardHeight = 0.;
+      [super dismiss];
+    }
+    else
+    {
+      if (self.extendedPlacePageView.minY <= 0.0)
+        [MWMPlacePageNavigationBar showNavigationBarForPlacePage:self];
+      else
+        [MWMPlacePageNavigationBar dismissNavigationBar];
+    }
+  }];
+  self.panVelocity = 0.0;
 }
 
 @end

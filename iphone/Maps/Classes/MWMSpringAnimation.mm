@@ -14,17 +14,18 @@
 @property (nonatomic) CGPoint velocity;
 @property (nonatomic) CGPoint targetPoint;
 @property (nonatomic) UIView * view;
+@property (copy, nonatomic) MWMSpringAnimationCompletionBlock completion;
 
 @end
 
 @implementation MWMSpringAnimation
 
-+ (instancetype)animationWithView:(UIView *)view target:(CGPoint)target velocity:(CGPoint)velocity
++ (instancetype)animationWithView:(UIView *)view target:(CGPoint)target velocity:(CGPoint)velocity completion:(MWMSpringAnimationCompletionBlock)completion
 {
-  return [[self alloc] initWithView:view target:target velocity:velocity];
+  return [[self alloc] initWithView:view target:target velocity:velocity completion:completion];
 }
 
-- (instancetype)initWithView:(UIView *)view target:(CGPoint)target velocity:(CGPoint)velocity
+- (instancetype)initWithView:(UIView *)view target:(CGPoint)target velocity:(CGPoint)velocity completion:(MWMSpringAnimationCompletionBlock)completion
 {
   self = [super init];
   if (self)
@@ -32,6 +33,7 @@
     self.view = view;
     self.targetPoint = target;
     self.velocity = velocity;
+    self.completion = completion;
   }
   return self;
 }
@@ -58,7 +60,15 @@
   {
     self.view.center = self.targetPoint;
     *finished = YES;
+    if (self.completion)
+      self.completion();
   }
+}
+
++ (CGFloat)approxTargetFor:(CGFloat)startValue velocity:(CGFloat)velocity
+{
+  CGFloat const decelaration = (velocity > 0 ? -1.0 : 1.0) * 300.0;
+  return startValue - (velocity * velocity) / (2.0 * decelaration);
 }
 
 @end

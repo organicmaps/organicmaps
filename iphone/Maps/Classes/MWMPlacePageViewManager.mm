@@ -62,6 +62,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   self.state = MWMPlacePageManagerStateClosed;
   [self.placePage dismiss];
+  [[MapsAppDelegate theApp].m_locationManager stop:self];
   GetFramework().GetBalloonManager().RemovePin();
   m_userMark = nullptr;
   self.entity = nil;

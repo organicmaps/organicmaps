@@ -35,10 +35,10 @@
   self.springAnimation = nil;
 }
 
-- (void)startAnimatingPlacePage:(MWMPlacePage *)placePage initialVelocity:(CGPoint)velocity
+- (void)startAnimatingPlacePage:(MWMPlacePage *)placePage initialVelocity:(CGPoint)velocity completion:(void (^)(void))completion
 {
   [self cancelSpringAnimation];
-  self.springAnimation = [MWMSpringAnimation animationWithView:placePage.extendedPlacePageView target:placePage.targetPoint velocity:velocity];
+  self.springAnimation = [MWMSpringAnimation animationWithView:placePage.extendedPlacePageView target:placePage.targetPoint velocity:velocity completion:completion];
   [self.manager.ownerViewController.view.animator addAnimation:self.springAnimation];
 }
 
