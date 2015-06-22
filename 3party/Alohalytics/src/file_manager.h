@@ -25,6 +25,7 @@ SOFTWARE.
 #ifndef FILE_MANAGER_H
 #define FILE_MANAGER_H
 
+#include <algorithm>
 #include <functional>
 #include <fstream>
 #include <string>
@@ -85,9 +86,32 @@ struct FileManager {
     fi.read(&buffer[0], static_cast<std::streamsize>(size));
     return buffer;
   }
+
+  // Returns true if we can write to the specified directory.
+  static bool IsDirectoryWritable(std::string directory) {
+    AppendDirectorySlash(directory);
+    std::string temporary_file = directory;
+    // For a pseudo-random file we turn directory path into a file name.
+    std::replace(temporary_file.begin(), temporary_file.end(), kDirectorySeparator, 'Z');
+    // Make sure it does not exist first.
+    while (true) {
+      try {
+        (void)GetFileSize(directory + temporary_file);
+        temporary_file += 'Z';
+      } catch (const std::exception &) {
+        break;
       }
     }
-    return std::string();
+    const ScopedRemoveFile remover(directory + temporary_file);
+    bool is_writable = false;
+    try {
+      (void)FileManager::AppendStringToFile(temporary_file, remover.file);
+      if (FileManager::ReadFileAsString(remover.file) == temporary_file) {
+        is_writable = true;
+      }
+    } catch (const std::exception &) {
+    }
+    return is_writable;
   }
 
   // Executes lambda for each regular file in the directory and stops immediately if lambda returns false.

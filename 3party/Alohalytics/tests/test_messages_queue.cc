@@ -212,6 +212,21 @@ void Test_GetFileSize() {
   // It should also fail for directories.
   TEST_EXCEPTION(std::ios_base::failure, FileManager::GetFileSize(FileManager::GetDirectoryFromFilePath(file)));
 }
+
+void Test_IsDirectoryWritable() {
+  const std::string file = GenerateTemporaryFileName();
+  const ScopedRemoveFile remover(file);
+  TEST_EQUAL(true, FileManager::IsDirectoryWritable(FileManager::GetDirectoryFromFilePath(file)));
+  TEST_EQUAL(false, FileManager::IsDirectoryWritable(file));
+
+  const std::string not_writable_system_directory =
+#ifdef _MSC_VER
+      "C:\";
+#else
+      "/Users";
+#endif
+  // Suppose you do not run tests as root/Administrator.
+  TEST_EQUAL(false, FileManager::IsDirectoryWritable(not_writable_system_directory));
 }
 
 // ******************* Message Queue tests ******************
@@ -490,6 +505,7 @@ int main(int, char * []) {
   Test_AppendStringToFile();
   Test_ForEachFileInDir();
   Test_GetFileSize();
+  Test_IsDirectoryWritable();
 
   Test_EndsWith();
   Test_MessagesQueue_InMemory_Empty();
