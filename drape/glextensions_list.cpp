@@ -85,16 +85,19 @@ GLExtensionsList::GLExtensionsList()
   m_impl->CheckExtension(RequiredInternalFormat, "GL_OES_required_internalformat");
   m_impl->CheckExtension(TextureNPOT, "GL_OES_texture_npot");
   m_impl->CheckExtension(MapBuffer, "GL_OES_mapbuffer");
+  m_impl->CheckExtension(UintIndices, "GL_OES_element_index_uint");
 #elif defined(OMIM_OS_WINDOWS)
   m_impl->CheckExtension(TextureNPOT, "GL_ARB_texture_non_power_of_two");
   m_impl->SetExtension(VertexArrayObject, false);
   m_impl->SetExtension(RequiredInternalFormat, false);
   m_impl->SetExtension(MapBuffer, true);
+  m_impl->SetExtension(UintIndices, true);
 #else
   m_impl->CheckExtension(VertexArrayObject, "GL_APPLE_vertex_array_object");
   m_impl->CheckExtension(TextureNPOT, "GL_ARB_texture_non_power_of_two");
   m_impl->SetExtension(RequiredInternalFormat, false);
   m_impl->SetExtension(MapBuffer, true);
+  m_impl->SetExtension(UintIndices, true);
 #endif
 }
 

@@ -14,10 +14,10 @@ namespace dp
 struct MutateRegion
 {
   MutateRegion() : m_offset(0), m_count(0) {}
-  MutateRegion(uint16_t offset, uint16_t count) : m_offset(offset), m_count(count) {}
+  MutateRegion(uint32_t offset, uint32_t count) : m_offset(offset), m_count(count) {}
 
-  uint16_t m_offset; // Offset from buffer begin in "Elements" not in bytes
-  uint16_t m_count;  // Count of "Elements".
+  uint32_t m_offset; // Offset from buffer begin in "Elements" not in bytes
+  uint32_t m_count;  // Count of "Elements".
 };
 
 struct MutateNode

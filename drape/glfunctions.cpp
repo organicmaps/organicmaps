@@ -777,10 +777,11 @@ void GLFunctions::glTexParameter(glConst param, glConst value)
   GLCHECK(::glTexParameteri(GL_TEXTURE_2D, param, value));
 }
 
-void GLFunctions::glDrawElements(uint16_t indexCount, uint16_t startIndex)
+void GLFunctions::glDrawElements(bool use32bits, uint32_t indexCount, uint32_t startIndex)
 {
-  GLCHECK(::glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT,
-                           reinterpret_cast<GLvoid *>(startIndex * sizeof(uint16_t))));
+  uint32_t const sizeOfIndex = use32bits ? sizeof(uint32_t) : sizeof(uint16_t);
+  GLCHECK(::glDrawElements(GL_TRIANGLES, indexCount, use32bits ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT,
+                           reinterpret_cast<GLvoid *>(startIndex * sizeOfIndex)));
 }
 
 namespace

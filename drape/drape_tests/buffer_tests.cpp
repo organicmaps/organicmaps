@@ -5,6 +5,7 @@
 #include "drape/data_buffer.hpp"
 #include "drape/gpu_buffer.hpp"
 #include "drape/index_buffer.hpp"
+#include "drape/index_storage.hpp"
 
 #include "std/cstdlib.hpp"
 #include "std/unique_ptr.hpp"
@@ -36,7 +37,7 @@ UNIT_TEST(CreateDestroyIndexBufferTest)
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLElementArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, 100 * sizeof(uint16_t), NULL, gl_const::GLDynamicDraw));
+  EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, 100 * dp::IndexStorage::SizeOfIndex(), NULL, gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 

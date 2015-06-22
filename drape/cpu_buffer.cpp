@@ -9,7 +9,7 @@
 namespace dp
 {
 
-CPUBuffer::CPUBuffer(uint8_t elementSize, uint16_t capacity)
+CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity)
   : TBase(elementSize, capacity)
 {
   uint32_t memorySize = my::NextPowOf2(GetCapacity() * GetElementSize());
@@ -23,7 +23,7 @@ CPUBuffer::~CPUBuffer()
   SharedBufferManager::instance().freeSharedBuffer(m_memory->size(), m_memory);
 }
 
-void CPUBuffer::UploadData(void const * data, uint16_t elementCount)
+void CPUBuffer::UploadData(void const * data, uint32_t elementCount)
 {
   uint32_t byteCountToCopy = GetElementSize() * elementCount;
 #ifdef DEBUG
@@ -35,7 +35,7 @@ void CPUBuffer::UploadData(void const * data, uint16_t elementCount)
   TBase::UploadData(elementCount);
 }
 
-void CPUBuffer::Seek(uint16_t elementNumber)
+void CPUBuffer::Seek(uint32_t elementNumber)
 {
   uint32_t offsetFromBegin = GetElementSize() * elementNumber;
   ASSERT(Data() + offsetFromBegin <= Data() + m_memory->size(), ());
@@ -43,9 +43,9 @@ void CPUBuffer::Seek(uint16_t elementNumber)
   m_memoryCursor = NonConstData() + offsetFromBegin;
 }
 
-uint16_t CPUBuffer::GetCurrentElementNumber() const
+uint32_t CPUBuffer::GetCurrentElementNumber() const
 {
-  uint16_t pointerDiff = GetCursor() - Data();
+  uint32_t pointerDiff = GetCursor() - Data();
   ASSERT(pointerDiff % GetElementSize() == 0, ());
   return pointerDiff / GetElementSize();
 }

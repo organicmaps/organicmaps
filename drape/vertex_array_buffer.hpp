@@ -15,14 +15,14 @@ namespace dp
 
 struct IndicesRange
 {
-  uint16_t m_idxStart;
-  uint16_t m_idxCount;
+  uint32_t m_idxStart;
+  uint32_t m_idxCount;
 
   IndicesRange()
     : m_idxStart(0), m_idxCount(0)
   {}
 
-  IndicesRange(uint16_t idxStart, uint16_t idxCount)
+  IndicesRange(uint32_t idxStart, uint32_t idxCount)
     : m_idxStart(idxStart), m_idxCount(idxCount)
   {}
 
@@ -48,14 +48,14 @@ public:
   void Build(ref_ptr<GpuProgram> program);
   ///@}
 
-  uint16_t GetAvailableVertexCount() const;
-  uint16_t GetAvailableIndexCount() const;
-  uint16_t GetStartIndexValue() const;
-  uint16_t GetDynamicBufferOffset(BindingInfo const & bindingInfo);
-  uint16_t GetIndexCount() const;
+  uint32_t GetAvailableVertexCount() const;
+  uint32_t GetAvailableIndexCount() const;
+  uint32_t GetStartIndexValue() const;
+  uint32_t GetDynamicBufferOffset(BindingInfo const & bindingInfo);
+  uint32_t GetIndexCount() const;
 
-  void UploadData(BindingInfo const & bindingInfo, void const * data, uint16_t count);
-  void UploadIndexes(uint16_t const * data, uint16_t count);
+  void UploadData(BindingInfo const & bindingInfo, void const * data, uint32_t count);
+  void UploadIndexes(void const * data, uint32_t count);
 
   void ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
                      ref_ptr<AttributeBufferMutator> attrMutator);

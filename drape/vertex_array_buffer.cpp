@@ -65,9 +65,12 @@ void VertexArrayBuffer::RenderRange(IndicesRange const & range)
     else
       BindStaticBuffers();
 
+    // here we have to be sure that 32-bit indices are supported
+    bool const supports32bit = GLExtensionsList::Instance().IsSupported(GLExtensionsList::UintIndices);
+
     BindDynamicBuffers();
     GetIndexBuffer()->Bind();
-    GLFunctions::glDrawElements(range.m_idxCount, range.m_idxStart);
+    GLFunctions::glDrawElements(supports32bit, range.m_idxCount, range.m_idxStart);
   }
 }
 
@@ -87,7 +90,7 @@ void VertexArrayBuffer::Build(ref_ptr<GpuProgram> program)
   BindStaticBuffers();
 }
 
-void VertexArrayBuffer::UploadData(BindingInfo const & bindingInfo, void const * data, uint16_t count)
+void VertexArrayBuffer::UploadData(BindingInfo const & bindingInfo, void const * data, uint32_t count)
 {
   ref_ptr<DataBuffer> buffer;
   if (!bindingInfo.IsDynamic())
@@ -148,19 +151,19 @@ ref_ptr<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & bin
   return make_ref(it->second);
 }
 
-uint16_t VertexArrayBuffer::GetAvailableIndexCount() const
+uint32_t VertexArrayBuffer::GetAvailableIndexCount() const
 {
   return GetIndexBuffer()->GetAvailableSize();
 }
 
-uint16_t VertexArrayBuffer::GetAvailableVertexCount() const
+uint32_t VertexArrayBuffer::GetAvailableVertexCount() const
 {
   if (m_staticBuffers.empty())
     return m_dataBufferSize;
 
 #ifdef DEBUG
   TBuffersMap::const_iterator it = m_staticBuffers.begin();
-  uint16_t prev = it->second->GetBuffer()->GetAvailableSize();
+  uint32_t prev = it->second->GetBuffer()->GetAvailableSize();
   for (; it != m_staticBuffers.end(); ++it)
     ASSERT(prev == it->second->GetBuffer()->GetAvailableSize(), ());
 #endif
@@ -168,14 +171,14 @@ uint16_t VertexArrayBuffer::GetAvailableVertexCount() const
   return m_staticBuffers.begin()->second->GetBuffer()->GetAvailableSize();
 }
 
-uint16_t VertexArrayBuffer::GetStartIndexValue() const
+uint32_t VertexArrayBuffer::GetStartIndexValue() const
 {
   if (m_staticBuffers.empty())
     return 0;
 
 #ifdef DEBUG
   TBuffersMap::const_iterator it = m_staticBuffers.begin();
-  uint16_t prev = it->second->GetBuffer()->GetCurrentSize();
+  uint32_t prev = it->second->GetBuffer()->GetCurrentSize();
   for (; it != m_staticBuffers.end(); ++it)
     ASSERT(prev == it->second->GetBuffer()->GetCurrentSize(), ());
 #endif
@@ -183,17 +186,17 @@ uint16_t VertexArrayBuffer::GetStartIndexValue() const
   return m_staticBuffers.begin()->second->GetBuffer()->GetCurrentSize();
 }
 
-uint16_t VertexArrayBuffer::GetDynamicBufferOffset(BindingInfo const & bindingInfo)
+uint32_t VertexArrayBuffer::GetDynamicBufferOffset(BindingInfo const & bindingInfo)
 {
   return GetOrCreateDynamicBuffer(bindingInfo)->GetBuffer()->GetCurrentSize();
 }
 
-uint16_t VertexArrayBuffer::GetIndexCount() const
+uint32_t VertexArrayBuffer::GetIndexCount() const
 {
   return GetIndexBuffer()->GetCurrentSize();
 }
 
-void VertexArrayBuffer::UploadIndexes(uint16_t const * data, uint16_t count)
+void VertexArrayBuffer::UploadIndexes(void const * data, uint32_t count)
 {
   ASSERT(count <= GetIndexBuffer()->GetAvailableSize(), ());
   GetIndexBuffer()->UploadData(data, count);

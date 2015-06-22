@@ -18,17 +18,17 @@ public:
   {
   }
 
-  uint16_t GetCapacity() const override
+  uint32_t GetCapacity() const override
   {
     return m_buffer->GetCapacity();
   }
 
-  uint16_t GetCurrentSize() const override
+  uint32_t GetCurrentSize() const override
   {
     return m_buffer->GetCurrentSize();
   }
 
-  uint16_t GetAvailableSize() const override
+  uint32_t GetAvailableSize() const override
   {
     return m_buffer->GetAvailableSize();
   }
@@ -38,7 +38,7 @@ public:
     return m_buffer->GetElementSize();
   }
 
-  void Seek(uint16_t elementNumber) override
+  void Seek(uint32_t elementNumber) override
   {
     m_buffer->Seek(elementNumber);
   }
@@ -60,14 +60,14 @@ public:
     return m_buffer->Data();
   }
 
-  void UploadData(void const * data, uint16_t elementCount) override
+  void UploadData(void const * data, uint32_t elementCount) override
   {
     m_buffer->UploadData(data, elementCount);
-    uint16_t const newOffset = m_buffer->GetCurrentSize();
+    uint32_t const newOffset = m_buffer->GetCurrentSize();
     m_buffer->Seek(newOffset);
   }
 
-  void UpdateData(void * destPtr, void const * srcPtr, uint16_t elementOffset, uint16_t elementCount) override
+  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset, uint32_t elementCount) override
   {
     ASSERT(false, ("Data updating is unavailable for CPU buffer"));
   }
@@ -103,12 +103,12 @@ public:
     return nullptr;
   }
 
-  void UploadData(void const * data, uint16_t elementCount) override
+  void UploadData(void const * data, uint32_t elementCount) override
   {
     m_buffer->UploadData(data, elementCount);
   }
 
-  void UpdateData(void * destPtr, void const * srcPtr, uint16_t elementOffset, uint16_t elementCount) override
+  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset, uint32_t elementCount) override
   {
     m_buffer->UpdateData(destPtr, srcPtr, elementOffset, elementCount);
   }

@@ -255,7 +255,7 @@ void * GLFunctions::glMapBuffer(glConst target) { return 0; }
 
 void GLFunctions::glUnmapBuffer(glConst target) {}
 
-void GLFunctions::glDrawElements(uint16_t indexCount, uint16_t startIndex) {}
+void GLFunctions::glDrawElements(bool use32bits, uint32_t indexCount, uint32_t startIndex) {}
 
 void GLFunctions::glPixelStore(glConst name, uint32_t value) {}
 

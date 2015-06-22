@@ -15,7 +15,7 @@
 namespace dp
 {
 
-AttributeProvider::AttributeProvider(uint8_t streamCount, uint16_t vertexCount)
+AttributeProvider::AttributeProvider(uint8_t streamCount, uint32_t vertexCount)
   : m_vertexCount(vertexCount)
 {
   m_streams.resize(streamCount);
@@ -29,7 +29,7 @@ bool AttributeProvider::IsDataExists() const
   return m_vertexCount > 0;
 }
 
-uint16_t AttributeProvider::GetVertexCount() const
+uint32_t AttributeProvider::GetVertexCount() const
 {
   return m_vertexCount;
 }
@@ -53,7 +53,7 @@ BindingInfo const & AttributeProvider::GetBindingInfo(uint8_t streamIndex) const
   return m_streams[streamIndex].m_binding;
 }
 
-void AttributeProvider::Advance(uint16_t vertexCount)
+void AttributeProvider::Advance(uint32_t vertexCount)
 {
   ASSERT_LESS_OR_EQUAL(vertexCount, m_vertexCount, ());
   CHECK_STREAMS;

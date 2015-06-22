@@ -7,28 +7,28 @@
 namespace dp
 {
 
-IndexBufferMutator::IndexBufferMutator(uint16_t baseSize)
+IndexBufferMutator::IndexBufferMutator(uint32_t baseSize)
   : m_activeSize(0)
 {
-  m_buffer.resize(baseSize);
+  m_buffer.Resize(baseSize);
 }
 
-void IndexBufferMutator::AppendIndexes(uint16_t const * indexes, uint16_t count)
+void IndexBufferMutator::AppendIndexes(void const * indexes, uint32_t count)
 {
-  size_t dstActiveSize = m_activeSize + count;
-  if (dstActiveSize  > m_buffer.size())
-    m_buffer.resize(max(m_buffer.size() * 2, dstActiveSize));
+  uint32_t dstActiveSize = m_activeSize + count;
+  if (dstActiveSize  > m_buffer.Size())
+    m_buffer.Resize(max(m_buffer.Size() * 2, dstActiveSize));
 
-  memcpy(&m_buffer[m_activeSize], indexes, count * sizeof(uint16_t));
+  memcpy(m_buffer.GetRaw(m_activeSize), indexes, count * IndexStorage::SizeOfIndex());
   m_activeSize = dstActiveSize;
 }
 
-uint16_t const * IndexBufferMutator::GetIndexes() const
+void const * IndexBufferMutator::GetIndexes() const
 {
-  return &m_buffer[0];
+  return m_buffer.GetRawConst();
 }
 
-uint16_t IndexBufferMutator::GetIndexCount() const
+uint32_t IndexBufferMutator::GetIndexCount() const
 {
   return m_activeSize;
 }

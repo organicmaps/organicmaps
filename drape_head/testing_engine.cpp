@@ -347,7 +347,7 @@ TestingEngine::TestingEngine(ref_ptr<dp::OGLContextFactory> oglcontextfactory,
   m_textures = make_unique_dp<dp::TextureManager>();
   m_textures->Init(params);
 
-  m_batcher = make_unique_dp<dp::Batcher>();
+  m_batcher = make_unique_dp<dp::Batcher>(65000, 65000);
   m_programManager = make_unique_dp<dp::GpuProgramManager>();
 
   ModelViewInit();

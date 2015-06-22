@@ -25,7 +25,6 @@ namespace df
 BackendRenderer::BackendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
-  , m_batchersPool(make_unique_dp<BatchersPool>(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)))
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model))
 {
   gui::DrapeGui::Instance().SetRecacheCountryStatusSlot([this]()
@@ -232,6 +231,10 @@ void BackendRenderer::Routine::Do()
 {
   m_renderer.m_contextFactory->getResourcesUploadContext()->makeCurrent();
   GLFunctions::Init();
+
+  // initialize batchers pool after OGL context creation
+  m_renderer.m_batchersPool = make_unique_dp<BatchersPool>(ReadManager::ReadCount(),
+                                                           bind(&BackendRenderer::FlushGeometry, &m_renderer, _1));
 
   m_renderer.InitGLDependentResource();
 

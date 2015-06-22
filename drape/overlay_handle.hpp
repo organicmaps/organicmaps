@@ -3,6 +3,7 @@
 #include "drape/drape_global.hpp"
 #include "drape/binding_info.hpp"
 #include "drape/index_buffer_mutator.hpp"
+#include "drape/index_storage.hpp"
 #include "drape/attribute_buffer_mutator.hpp"
 
 #include "indexer/feature_decl.hpp"
@@ -42,12 +43,12 @@ public:
   bool IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle> const h) const;
 
   virtual bool IndexesRequired() const { return true; }
-  uint16_t * IndexStorage(uint16_t size);
+  void * IndexStorage(uint32_t size);
   void GetElementIndexes(ref_ptr<IndexBufferMutator> mutator) const;
   virtual void GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator, ScreenBase const & screen) const;
 
   bool HasDynamicAttributes() const;
-  void AddDynamicAttribute(BindingInfo const & binding, uint16_t offset, uint16_t count);
+  void AddDynamicAttribute(BindingInfo const & binding, uint32_t offset, uint32_t count);
 
   FeatureID const & GetFeatureID() const;
   double const & GetPriority() const;
@@ -67,7 +68,7 @@ private:
   bool m_isVisible;
   bool m_isValid;
 
-  vector<uint16_t> m_indexes;
+  dp::IndexStorage m_indexes;
   struct LessOffsetNode
   {
     bool operator()(TOffsetNode const & node1, TOffsetNode const & node2) const

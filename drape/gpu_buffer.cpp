@@ -29,7 +29,7 @@ glConst glTarget(GPUBuffer::Target t)
   return gl_const::GLElementArrayBuffer;
 }
 
-GPUBuffer::GPUBuffer(Target t, void const * data, uint8_t elementSize, uint16_t capacity)
+GPUBuffer::GPUBuffer(Target t, void const * data, uint8_t elementSize, uint32_t capacity)
   : TBase(elementSize, capacity)
   , m_t(t)
 #ifdef DEBUG
@@ -49,11 +49,11 @@ GPUBuffer::~GPUBuffer()
 #endif
 }
 
-void GPUBuffer::UploadData(void const * data, uint16_t elementCount)
+void GPUBuffer::UploadData(void const * data, uint32_t elementCount)
 {
   ASSERT(m_isMapped == false, ());
 
-  uint16_t currentSize = GetCurrentSize();
+  uint32_t currentSize = GetCurrentSize();
   uint8_t elementSize = GetElementSize();
   ASSERT(GetCapacity() >= elementCount + currentSize, ("Not enough memory to upload ", elementCount, " elements"));
   Bind();
@@ -90,9 +90,9 @@ void * GPUBuffer::Map()
   return NULL;
 }
 
-void GPUBuffer::UpdateData(void * gpuPtr, void const * data, uint16_t elementOffset, uint16_t elementCount)
+void GPUBuffer::UpdateData(void * gpuPtr, void const * data, uint32_t elementOffset, uint32_t elementCount)
 {
-  uint32_t const elementSize = static_cast<uint32_t>(GetElementSize());
+  uint32_t const elementSize = GetElementSize();
   uint32_t const byteOffset = elementOffset * elementSize;
   uint32_t const byteCount = elementCount * elementSize;
   uint32_t const byteCapacity = GetCapacity() * elementSize;
@@ -129,7 +129,7 @@ void GPUBuffer::Unmap()
     GLFunctions::glUnmapBuffer(glTarget(m_t));
 }
 
-void GPUBuffer::Resize(void const * data, uint16_t elementCount)
+void GPUBuffer::Resize(void const * data, uint32_t elementCount)
 {
   TBase::Resize(elementCount);
   Bind();

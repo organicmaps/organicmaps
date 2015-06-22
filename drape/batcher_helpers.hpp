@@ -13,10 +13,10 @@ class BindingInfo;
 class BatchCallbacks
 {
 public:
-  typedef function<void (BindingInfo const &, void const *, uint16_t)> TFlushVertexFn;
-  typedef function<uint16_t * (uint16_t, uint16_t &)> TGetIndexStorageFn;
+  typedef function<void (BindingInfo const &, void const *, uint32_t)> TFlushVertexFn;
+  typedef function<void * (uint32_t, uint32_t &)> TGetIndexStorageFn;
   typedef function<void ()> TSubmitIndexFn;
-  typedef function<uint16_t ()> TGetAvailableFn;
+  typedef function<uint32_t ()> TGetAvailableFn;
   typedef function<void ()> ChangeBufferFn;
 
   TFlushVertexFn      m_flushVertex;
@@ -39,16 +39,16 @@ public:
   void SetVertexStride(uint8_t vertexStride);
 
 protected:
-  void FlushData(ref_ptr<AttributeProvider> streams, uint16_t vertexVount) const;
-  void FlushData(BindingInfo const & info, void const * data, uint16_t elementCount) const;
-  uint16_t * GetIndexStorage(uint16_t indexCount, uint16_t & startIndex);
+  void FlushData(ref_ptr<AttributeProvider> streams, uint32_t vertexVount) const;
+  void FlushData(BindingInfo const & info, void const * data, uint32_t elementCount) const;
+  void * GetIndexStorage(uint32_t indexCount, uint32_t & startIndex);
   void SubmitIndex();
-  uint16_t GetAvailableVertexCount() const;
-  uint16_t GetAvailableIndexCount() const;
+  uint32_t GetAvailableVertexCount() const;
+  uint32_t GetAvailableIndexCount() const;
   void ChangeBuffer() const;
   uint8_t GetVertexStride() const;
 
-  virtual bool IsBufferFilled(uint16_t availableVerticesCount, uint16_t availableIndicesCount) const;
+  virtual bool IsBufferFilled(uint32_t availableVerticesCount, uint32_t availableIndicesCount) const;
 
 private:
   BatchCallbacks m_callbacks;
@@ -74,16 +74,16 @@ public:
   FanStripHelper(BatchCallbacks const & callbacks);
 
 protected:
-  uint16_t BatchIndexes(uint16_t vertexCount);
-  void CalcBatchPortion(uint16_t vertexCount, uint16_t avVertex, uint16_t avIndex,
-                        uint16_t & batchVertexCount, uint16_t & batchIndexCount);
+  uint32_t BatchIndexes(uint32_t vertexCount);
+  void CalcBatchPortion(uint32_t vertexCount, uint32_t avVertex, uint32_t avIndex,
+                        uint32_t & batchVertexCount, uint32_t & batchIndexCount);
   bool IsFullUploaded() const;
 
-  virtual uint16_t VtoICount(uint16_t vCount) const;
-  virtual uint16_t ItoVCount(uint16_t iCount) const;
-  virtual uint16_t AlignVCount(uint16_t vCount) const;
-  virtual uint16_t AlignICount(uint16_t vCount) const;
-  virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const = 0;
+  virtual uint32_t VtoICount(uint32_t vCount) const;
+  virtual uint32_t ItoVCount(uint32_t iCount) const;
+  virtual uint32_t AlignVCount(uint32_t vCount) const;
+  virtual uint32_t AlignICount(uint32_t vCount) const;
+  virtual void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const = 0;
 
 private:
   bool m_isFullUploaded;
@@ -98,7 +98,7 @@ public:
 
   virtual void BatchData(ref_ptr<AttributeProvider> streams);
 protected:
-  virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const;
+  virtual void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const;
 };
 
 class TriangleFanBatch : public FanStripHelper
@@ -110,7 +110,7 @@ public:
 
   virtual void BatchData(ref_ptr<AttributeProvider> streams);
 protected:
-  virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const;
+  virtual void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const;
 };
 
 class TriangleListOfStripBatch : public FanStripHelper
@@ -123,12 +123,12 @@ public:
   virtual void BatchData(ref_ptr<AttributeProvider> streams);
 
 protected:
-  virtual bool IsBufferFilled(uint16_t availableVerticesCount, uint16_t availableIndicesCount) const;
-  virtual uint16_t VtoICount(uint16_t vCount) const;
-  virtual uint16_t ItoVCount(uint16_t iCount) const;
-  virtual uint16_t AlignVCount(uint16_t vCount) const;
-  virtual uint16_t AlignICount(uint16_t iCount) const;
-  virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const;
+  virtual bool IsBufferFilled(uint32_t availableVerticesCount, uint32_t availableIndicesCount) const;
+  virtual uint32_t VtoICount(uint32_t vCount) const;
+  virtual uint32_t ItoVCount(uint32_t iCount) const;
+  virtual uint32_t AlignVCount(uint32_t vCount) const;
+  virtual uint32_t AlignICount(uint32_t iCount) const;
+  virtual void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const;
 };
 
 } // namespace dp

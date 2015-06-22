@@ -75,16 +75,16 @@ bool OverlayHandle::IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle
   return false;
 }
 
-uint16_t * OverlayHandle::IndexStorage(uint16_t size)
+void * OverlayHandle::IndexStorage(uint32_t size)
 {
-  m_indexes.resize(size);
-  return &m_indexes[0];
+  m_indexes.Resize(size);
+  return m_indexes.GetRaw();
 }
 
 void OverlayHandle::GetElementIndexes(ref_ptr<IndexBufferMutator> mutator) const
 {
   ASSERT_EQUAL(m_isVisible, true, ());
-  mutator->AppendIndexes(&m_indexes[0], m_indexes.size());
+  mutator->AppendIndexes(m_indexes.GetRawConst(), m_indexes.Size());
 }
 
 void OverlayHandle::GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator, ScreenBase const & screen) const
@@ -98,7 +98,7 @@ bool OverlayHandle::HasDynamicAttributes() const
   return !m_offsets.empty();
 }
 
-void OverlayHandle::AddDynamicAttribute(BindingInfo const & binding, uint16_t offset, uint16_t count)
+void OverlayHandle::AddDynamicAttribute(BindingInfo const & binding, uint32_t offset, uint32_t count)
 {
   ASSERT(binding.IsDynamic(), ());
   ASSERT(find_if(m_offsets.begin(), m_offsets.end(), OffsetNodeFinder(binding.GetID())) == m_offsets.end(), ());

@@ -8,12 +8,12 @@ namespace dp
 class IndexBuffer : public DataBuffer
 {
 public:
-  IndexBuffer(uint16_t capacity);
+  IndexBuffer(uint32_t capacity);
 
   /// check size of buffer and size of uploaded data
-  void UploadData(uint16_t const * data, uint16_t size);
+  void UploadData(void const * data, uint32_t size);
   /// resize buffer to new size, and discard old data
-  void UpdateData(uint16_t const * data, uint16_t size);
+  void UpdateData(void const * data, uint32_t size);
 };
 
 } // namespace dp

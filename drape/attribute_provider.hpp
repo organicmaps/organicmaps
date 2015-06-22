@@ -11,17 +11,17 @@ namespace dp
 class AttributeProvider
 {
 public:
-  AttributeProvider(uint8_t streamCount, uint16_t vertexCount);
+  AttributeProvider(uint8_t streamCount, uint32_t vertexCount);
 
   /// interface for batcher
   bool IsDataExists() const;
-  uint16_t GetVertexCount() const;
+  uint32_t GetVertexCount() const;
 
   uint8_t GetStreamCount() const;
   void const * GetRawPointer(uint8_t streamIndex);
   BindingInfo const & GetBindingInfo(uint8_t streamIndex) const;
 
-  void Advance(uint16_t vertexCount);
+  void Advance(uint32_t vertexCount);
 
   void InitStream(uint8_t streamIndex,
                   BindingInfo const & bindingInfo,

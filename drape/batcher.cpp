@@ -1,6 +1,8 @@
 #include "drape/batcher.hpp"
-#include "drape/cpu_buffer.hpp"
 #include "drape/batcher_helpers.hpp"
+#include "drape/cpu_buffer.hpp"
+#include "drape/glextensions_list.hpp"
+#include "drape/index_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "base/assert.hpp"
@@ -32,23 +34,23 @@ public:
     m_indicesRange.m_idxStart = m_buffer->GetIndexCount();
   }
 
-  void FlushData(BindingInfo const & info, void const * data, uint16_t count)
+  void FlushData(BindingInfo const & info, void const * data, uint32_t count)
   {
     if (m_overlay != nullptr && info.IsDynamic())
     {
-      uint16_t offset = m_buffer->GetDynamicBufferOffset(info);
+      uint32_t offset = m_buffer->GetDynamicBufferOffset(info);
       m_overlay->AddDynamicAttribute(info, offset, count);
     }
     m_buffer->UploadData(info, data, count);
   }
 
-  uint16_t * GetIndexStorage(uint16_t size, uint16_t & startIndex)
+  void * GetIndexStorage(uint32_t size, uint32_t & startIndex)
   {
     startIndex = m_buffer->GetStartIndexValue();
     if (m_overlay == nullptr || !m_overlay->IndexesRequired())
     {
-      m_indexStorage.resize(size);
-      return &m_indexStorage[0];
+      m_indexStorage.Resize(size);
+      return m_indexStorage.GetRaw();
     }
     else
       return m_overlay->IndexStorage(size);
@@ -57,15 +59,15 @@ public:
   void SubmitIndexes()
   {
     if (m_overlay == nullptr || !m_overlay->IndexesRequired())
-      m_buffer->UploadIndexes(&m_indexStorage[0], m_indexStorage.size());
+      m_buffer->UploadIndexes(m_indexStorage.GetRawConst(), m_indexStorage.Size());
   }
 
-  uint16_t GetAvailableVertexCount() const
+  uint32_t GetAvailableVertexCount() const
   {
     return m_buffer->GetAvailableVertexCount();
   }
 
-  uint16_t GetAvailableIndexCount() const
+  uint32_t GetAvailableIndexCount() const
   {
     return m_buffer->GetAvailableIndexCount();
   }
@@ -89,7 +91,7 @@ private:
   GLState const & m_state;
   ref_ptr<VertexArrayBuffer> m_buffer;
   ref_ptr<OverlayHandle> m_overlay;
-  vector<uint16_t> m_indexStorage;
+  IndexStorage m_indexStorage;
   IndicesRange m_indicesRange;
   bool m_vaoChanged;
 };
@@ -243,6 +245,19 @@ IndicesRange Batcher::InsertTriangles(GLState const & state, ref_ptr<AttributePr
     bucket->AddOverlayHandle(move(handle));
 
   return range;
+}
+
+Batcher * BatcherFactory::GetNew() const
+{
+  uint32_t indexBufferSize = 65000;
+  uint32_t vertexBufferSize = 65000;
+  if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::UintIndices))
+  {
+    indexBufferSize = 65000 * 2;
+    vertexBufferSize = 65000 * 2;
+  }
+
+  return new Batcher(indexBufferSize, vertexBufferSize);
 }
 
 SessionGuard::SessionGuard(Batcher & batcher, const Batcher::TFlushFn & flusher)

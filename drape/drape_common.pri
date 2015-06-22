@@ -24,6 +24,7 @@ SOURCES += \
     $$DRAPE_DIR/gpu_program_manager.cpp \
     $$DRAPE_DIR/index_buffer.cpp \
     $$DRAPE_DIR/index_buffer_mutator.cpp \
+    $$DRAPE_DIR/index_storage.cpp \
     $$DRAPE_DIR/oglcontextfactory.cpp \
     $$DRAPE_DIR/overlay_handle.cpp \
     $$DRAPE_DIR/overlay_tree.cpp \
@@ -76,6 +77,7 @@ HEADERS += \
     $$DRAPE_DIR/gpu_program_manager.hpp \
     $$DRAPE_DIR/index_buffer.hpp \
     $$DRAPE_DIR/index_buffer_mutator.hpp \
+    $$DRAPE_DIR/index_storage.hpp \
     $$DRAPE_DIR/object_pool.hpp \
     $$DRAPE_DIR/oglcontext.hpp \
     $$DRAPE_DIR/oglcontextfactory.hpp \

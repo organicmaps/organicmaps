@@ -144,7 +144,7 @@ void Button::Draw(Params const & params, ShapeControl & control, ref_ptr<dp::Tex
 
     ApplyAnchor(params.m_anchor, vertexes, halfWidth, halfHeight);
 
-    uint16_t const verticesCount = (uint16_t)vertexes.size();
+    uint32_t const verticesCount = (uint32_t)vertexes.size();
     dp::AttributeProvider provider(1 /* stream count */, verticesCount);
     provider.InitStream(0 /*stream index*/, ButtonVertex::GetBindingInfo(),
                         make_ref(vertexes.data()));
