@@ -1,6 +1,7 @@
 #include "drape/batcher_helpers.hpp"
 #include "drape/attribute_provider.hpp"
 #include "drape/cpu_buffer.hpp"
+#include "drape/index_storage.hpp"
 #include "drape/glextensions_list.hpp"
 
 #include "base/assert.hpp"
@@ -19,12 +20,6 @@ bool IsEnoughMemory(uint32_t avVertex, uint32_t existVertex, uint32_t avIndex, u
   return avVertex >= existVertex && avIndex >= existIndex;
 }
 
-bool IsSupported32bit()
-{
-  static bool const supports32bit = GLExtensionsList::Instance().IsSupported(GLExtensionsList::UintIndices);
-  return supports32bit;
-}
-
 template<typename TGenerator> void GenerateIndices(void * indexStorage, uint32_t count, uint32_t startIndex)
 {
   GenerateIndices<TGenerator>(indexStorage, count, TGenerator(startIndex));
@@ -32,7 +27,7 @@ template<typename TGenerator> void GenerateIndices(void * indexStorage, uint32_t
 
 template<typename TGenerator> void GenerateIndices(void * indexStorage, uint32_t count, TGenerator const & generator)
 {
-  if (IsSupported32bit())
+  if (dp::IndexStorage::IsSupported32bit())
   {
     uint32_t * pIndexStorage = static_cast<uint32_t *>(indexStorage);
     generate(pIndexStorage, pIndexStorage + count, generator);
@@ -166,10 +161,10 @@ void TriangleBatch::SetVertexStride(uint8_t vertexStride)
   m_vertexStride = vertexStride;
 }
 
-void TriangleBatch::FlushData(ref_ptr<AttributeProvider> streams, uint32_t vertexVount) const
+void TriangleBatch::FlushData(ref_ptr<AttributeProvider> streams, uint32_t vertexCount) const
 {
   for (uint8_t i = 0; i < streams->GetStreamCount(); ++i)
-    FlushData(streams->GetBindingInfo(i), streams->GetRawPointer(i), vertexVount);
+    FlushData(streams->GetBindingInfo(i), streams->GetRawPointer(i), vertexCount);
 }
 
 void TriangleBatch::FlushData(BindingInfo const & info, void const * data, uint32_t elementCount) const

@@ -39,7 +39,7 @@ public:
   void SetVertexStride(uint8_t vertexStride);
 
 protected:
-  void FlushData(ref_ptr<AttributeProvider> streams, uint32_t vertexVount) const;
+  void FlushData(ref_ptr<AttributeProvider> streams, uint32_t vertexCount) const;
   void FlushData(BindingInfo const & info, void const * data, uint32_t elementCount) const;
   void * GetIndexStorage(uint32_t indexCount, uint32_t & startIndex);
   void SubmitIndex();

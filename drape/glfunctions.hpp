@@ -121,7 +121,7 @@ public:
   static void glTexParameter(glConst param, glConst value);
 
   // Draw support
-  static void glDrawElements(bool use32bits, uint32_t indexCount, uint32_t startIndex = 0);
+  static void glDrawElements(uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex = 0);
 };
 
 void CheckGLError(my::SrcPoint const &src);

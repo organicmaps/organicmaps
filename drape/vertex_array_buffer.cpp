@@ -1,6 +1,7 @@
 #include "drape/vertex_array_buffer.hpp"
 #include "drape/glfunctions.hpp"
 #include "drape/glextensions_list.hpp"
+#include "drape/index_storage.hpp"
 
 #include "base/stl_add.hpp"
 #include "base/assert.hpp"
@@ -65,12 +66,9 @@ void VertexArrayBuffer::RenderRange(IndicesRange const & range)
     else
       BindStaticBuffers();
 
-    // here we have to be sure that 32-bit indices are supported
-    bool const supports32bit = GLExtensionsList::Instance().IsSupported(GLExtensionsList::UintIndices);
-
     BindDynamicBuffers();
     GetIndexBuffer()->Bind();
-    GLFunctions::glDrawElements(supports32bit, range.m_idxCount, range.m_idxStart);
+    GLFunctions::glDrawElements(dp::IndexStorage::SizeOfIndex(), range.m_idxCount, range.m_idxStart);
   }
 }
 

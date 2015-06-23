@@ -6,43 +6,52 @@
 namespace dp
 {
 
+IndexStorage::IndexStorage()
+  : m_size(0)
+{}
+
 IndexStorage::IndexStorage(vector<uint32_t> && initial)
 {
+  m_size = (uint32_t)initial.size();
   if (IsSupported32bit())
   {
-    m_storage32bit = move(initial);
+    m_storage = move(initial);
   }
   else
   {
-    m_storage16bit.reserve(initial.size());
+    /// we pack 2 uint16_t indices into single m_storage element
+    /// every element of "initial" vector is single index
+    m_storage.resize(GetStorageSize(m_size));
     for (size_t i = 0; i < initial.size(); i++)
-      m_storage16bit.push_back((uint16_t)initial[i]);
+    {
+      uint16_t * ptr = reinterpret_cast<uint16_t *>(m_storage.data()) + i;
+      *ptr = (uint16_t)initial[i];
+    }
   }
 }
 
 void IndexStorage::Resize(uint32_t size)
 {
-  if (IsSupported32bit())
-    m_storage32bit.resize(size);
-  else
-    m_storage16bit.resize(size);
+  m_size = size;
+  m_storage.resize(GetStorageSize(m_size));
 }
 
 uint32_t IndexStorage::Size() const
 {
-  return IsSupported32bit() ? (uint32_t)m_storage32bit.size() : (uint32_t)m_storage16bit.size();
+  return m_size;
 }
 
 void * IndexStorage::GetRaw(uint32_t offsetInElements)
 {
-  return IsSupported32bit() ? static_cast<void *>(&m_storage32bit[offsetInElements]) :
-                              static_cast<void *>(&m_storage16bit[offsetInElements]);
+  if (IsSupported32bit())
+    return &m_storage[offsetInElements];
+
+  return reinterpret_cast<uint16_t *>(m_storage.data()) + offsetInElements;
 }
 
 void const * IndexStorage::GetRawConst() const
 {
-  return IsSupported32bit() ? static_cast<void const *>(m_storage32bit.data()) :
-                              static_cast<void const *>(m_storage16bit.data());
+  return static_cast<void const *>(m_storage.data());
 }
 
 bool IndexStorage::IsSupported32bit()
@@ -54,6 +63,11 @@ bool IndexStorage::IsSupported32bit()
 uint32_t IndexStorage::SizeOfIndex()
 {
   return IsSupported32bit() ? sizeof(uint32_t) : sizeof(uint16_t);
+}
+
+uint32_t IndexStorage::GetStorageSize(uint32_t elementsCount) const
+{
+  return IsSupported32bit() ? elementsCount : (elementsCount / 2 + 1);
 }
 
 }

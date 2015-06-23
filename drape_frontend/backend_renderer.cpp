@@ -232,10 +232,6 @@ void BackendRenderer::Routine::Do()
   m_renderer.m_contextFactory->getResourcesUploadContext()->makeCurrent();
   GLFunctions::Init();
 
-  // initialize batchers pool after OGL context creation
-  m_renderer.m_batchersPool = make_unique_dp<BatchersPool>(ReadManager::ReadCount(),
-                                                           bind(&BackendRenderer::FlushGeometry, &m_renderer, _1));
-
   m_renderer.InitGLDependentResource();
 
   while (!IsCancelled())
@@ -249,6 +245,8 @@ void BackendRenderer::Routine::Do()
 
 void BackendRenderer::InitGLDependentResource()
 {
+  m_batchersPool = make_unique_dp<BatchersPool>(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1));
+
   dp::TextureManager::Params params;
   params.m_resPrefix = VisualParams::Instance().GetResourcePostfix();
   params.m_glyphMngParams.m_uniBlocks = "unicode_blocks.txt";

@@ -8,7 +8,7 @@ namespace dp
 class IndexStorage
 {
 public:
-  IndexStorage() = default;
+  IndexStorage();
   IndexStorage(vector<uint32_t> && initial);
 
   uint32_t Size() const;
@@ -21,8 +21,10 @@ public:
   static uint32_t SizeOfIndex();
 
 private:
-  vector<uint16_t> m_storage16bit;
-  vector<uint32_t> m_storage32bit;
+  vector<uint32_t> m_storage;
+  uint32_t m_size;
+
+  uint32_t GetStorageSize(uint32_t elementsCount) const;
 };
 
 

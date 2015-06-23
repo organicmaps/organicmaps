@@ -251,7 +251,7 @@ Batcher * BatcherFactory::GetNew() const
 {
   uint32_t indexBufferSize = 65000;
   uint32_t vertexBufferSize = 65000;
-  if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::UintIndices))
+  if (dp::IndexStorage::IsSupported32bit())
   {
     indexBufferSize = 65000 * 2;
     vertexBufferSize = 65000 * 2;
