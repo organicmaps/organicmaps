@@ -170,7 +170,7 @@ double PedestrianModel::GetSpeed(FeatureType const & f) const
   feature::TypesHolder types(f);
 
   if (IsFoot(types) && IsRoad(types))
-    return VehicleModel::GetSpeed(f);
+    return VehicleModel::GetSpeed(types);
   else
     return 0.0;
 }

@@ -43,6 +43,7 @@ public:
 
   RoadGraph(IRoadGraph const & roadGraph)
     : m_roadGraph(roadGraph)
+    , m_maxSpeedMPS(roadGraph.GetMaxSpeedKMPH() * KMPH2MPS)
   {}
 
   void GetOutgoingEdgesList(Junction const & v, vector<WeightedEdge> & adj) const
@@ -55,13 +56,13 @@ public:
 
     for (auto const & e : edges)
     {
-      double const speedMPS = m_roadGraph.GetSpeedKMPH(e) * KMPH2MPS;
-      if (speedMPS <= 0.0)
+      double const speedKMPH = m_roadGraph.GetSpeedKMPH(e);
+      if (speedKMPH <= 0.0)
         continue;
 
       ASSERT_EQUAL(v, e.GetStartJunction(), ());
 
-      adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
+      adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedKMPH * KMPH2MPS));
     }
   }
 
@@ -75,24 +76,24 @@ public:
 
     for (auto const & e : edges)
     {
-      double const speedMPS = m_roadGraph.GetSpeedKMPH(e) * KMPH2MPS;
-      if (speedMPS <= 0.0)
+      double const speedKMPH = m_roadGraph.GetSpeedKMPH(e);
+      if (speedKMPH <= 0.0)
         continue;
 
       ASSERT_EQUAL(v, e.GetEndJunction(), ());
 
-      adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
+      adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedKMPH * KMPH2MPS));
     }
   }
 
   double HeuristicCostEstimate(Junction const & v, Junction const & w) const
   {
-    double const speedMPS = m_roadGraph.GetMaxSpeedKMPH() * KMPH2MPS;
-    return TimeBetweenSec(v, w, speedMPS);
+    return TimeBetweenSec(v, w, m_maxSpeedMPS);
   }
 
 private:
   IRoadGraph const & m_roadGraph;
+  double const m_maxSpeedMPS;
 };
 
 typedef AStarAlgorithm<RoadGraph> TAlgorithmImpl;

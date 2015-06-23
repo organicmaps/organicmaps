@@ -42,24 +42,22 @@ public:
 
   void operator()(FeatureType & ft)
   {
+    // check type to skip not line objects
+    if (ft.GetFeatureType() != feature::GEOM_LINE)
+      return;
+
+    // skip roads with null speed
+    double const speedKMPH = m_graph.GetSpeedKMPHFromFt(ft);
+    if (speedKMPH <= 0.0)
+      return;
+
     FeatureID const fID = ft.GetID();
     if (fID.m_mwmId != m_graph.GetMwmID())
       return;
 
-    /// @todo remove overhead with type and speed checks (now speed loads in cache creation)
-    // check type to skip not line objects
-    feature::TypesHolder types(ft);
-    if (types.GetGeoType() != feature::GEOM_LINE)
-      return;
-
-    // skip roads with null speed
-    double const speed = m_graph.GetSpeedKMPHFromFt(ft);
-    if (speed <= 0.0)
-      return;
-
     // load feature from cache
-    IRoadGraph::RoadInfo const & ri = m_graph.GetCachedRoadInfo(fID.m_offset, ft, false /*fullLoad*/);
-    ASSERT_EQUAL(speed, ri.m_speedKMPH, ());
+    IRoadGraph::RoadInfo const & ri = m_graph.GetCachedRoadInfo(fID.m_offset, true /*preload*/, ft, speedKMPH);
+    ASSERT_EQUAL(speedKMPH, ri.m_speedKMPH, ());
 
     m_edgesLoader(fID.m_offset, ri);
   }
@@ -82,13 +80,13 @@ void FeaturesRoadGraph::LoadFeature(uint32_t featureId, FeatureType & ft) const
 IRoadGraph::RoadInfo FeaturesRoadGraph::GetRoadInfo(uint32_t featureId) const
 {
   FeatureType ft;
-  return GetCachedRoadInfo(featureId, ft, true /*fullLoad*/);
+  return GetCachedRoadInfo(featureId, false /*preload*/, ft, 0.0 /*speedKMPH*/);
 }
 
 double FeaturesRoadGraph::GetSpeedKMPH(uint32_t featureId) const
 {
   FeatureType ft;
-  return GetCachedRoadInfo(featureId, ft, true /*fullLoad*/).m_speedKMPH;
+  return GetCachedRoadInfo(featureId, false /*preload*/, ft, 0.0 /*speedKMPH*/).m_speedKMPH;
 }
 
 double FeaturesRoadGraph::GetMaxSpeedKMPH() const
@@ -117,28 +115,36 @@ double FeaturesRoadGraph::GetSpeedKMPHFromFt(FeatureType const & ft) const
 }
 
 IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(uint32_t featureId,
-                                                                  FeatureType & ft, bool fullLoad) const
+                                                                  bool preload,
+                                                                  FeatureType & ft,
+                                                                  double speedKMPH) const
 {
   bool found = false;
   RoadInfo & ri = m_cache.Find(featureId, found);
 
   if (!found)
   {
-    if (fullLoad)
-      LoadFeature(featureId, ft);
-    else
+    if (preload)
     {
       // ft must be set
       ASSERT(featureId == ft.GetID().m_offset, ());
       ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     }
+    else
+    {
+      LoadFeature(featureId, ft);
+      speedKMPH = GetSpeedKMPHFromFt(ft);
+    }
 
     ri.m_bidirectional = !IsOneWay(ft);
-    ri.m_speedKMPH = GetSpeedKMPHFromFt(ft);
+    ri.m_speedKMPH = speedKMPH;
     ft.SwapPoints(ri.m_points);
+
     m_cacheMiss++;
   }
   m_cacheAccess++;
+
+  ASSERT_EQUAL(ri.m_speedKMPH, GetSpeedKMPHFromFt(ft), ());
 
   return ri;
 }

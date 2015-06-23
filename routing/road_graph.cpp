@@ -165,9 +165,6 @@ IRoadGraph::CrossEdgesLoader::CrossEdgesLoader(m2::PointD const & cross, TEdgeVe
 
 void IRoadGraph::CrossEdgesLoader::operator()(uint32_t featureId, RoadInfo const & roadInfo)
 {
-  if (roadInfo.m_points.empty())
-    return;
-
   size_t const numPoints = roadInfo.m_points.size();
 
   for (size_t i = 0; i < numPoints; ++i)
@@ -182,8 +179,7 @@ void IRoadGraph::CrossEdgesLoader::operator()(uint32_t featureId, RoadInfo const
       //               p
       // o------------>o
 
-      Edge edge(featureId, false /* forward */, i - 1, p, roadInfo.m_points[i - 1]);
-      m_outgoingEdges.push_back(edge);
+      m_outgoingEdges.emplace_back(featureId, false /* forward */, i - 1, p, roadInfo.m_points[i - 1]);
     }
 
     if (i < numPoints - 1)
@@ -191,8 +187,7 @@ void IRoadGraph::CrossEdgesLoader::operator()(uint32_t featureId, RoadInfo const
       // p
       // o------------>o
 
-      Edge edge(featureId, true /* forward */, i, p, roadInfo.m_points[i + 1]);
-      m_outgoingEdges.push_back(edge);
+      m_outgoingEdges.emplace_back(featureId, true /* forward */, i, p, roadInfo.m_points[i + 1]);
     }
   }
 }

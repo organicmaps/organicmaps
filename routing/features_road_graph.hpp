@@ -25,7 +25,7 @@ public:
 
   static uint32_t GetStreetReadScale();
 
-  inline MwmSet::MwmId GetMwmID() const { return m_mwmID; }
+  inline MwmSet::MwmId const & GetMwmID() const { return m_mwmID; }
 
   double GetCacheMiss() const
   {
@@ -49,8 +49,13 @@ private:
   double GetSpeedKMPHFromFt(FeatureType const & ft) const;
   void LoadFeature(uint32_t featureId, FeatureType & ft) const;
 
-  // ft must be set if fullLoad set to false (optimization)
-  RoadInfo const & GetCachedRoadInfo(uint32_t featureId, FeatureType & ft, bool fullLoad) const;
+  // Optimization:
+  // If preload is set to true then feature ft is set and speedKMPH contains valid value,
+  // otherwise feature is not set and must be load and speed is not valid.
+  RoadInfo const & GetCachedRoadInfo(uint32_t featureId,
+                                     bool preload,
+                                     FeatureType & ft,
+                                     double speedKMPH) const;
 
   Index const & m_index;
   MwmSet::MwmId const m_mwmID;
