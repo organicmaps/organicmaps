@@ -276,8 +276,10 @@ static alohalytics::TStringMap ParseLaunchOptions(NSDictionary * options) {
 // Need it to effectively upload data when app goes into background.
 static UIBackgroundTaskIdentifier sBackgroundTaskId = UIBackgroundTaskInvalid;
 static void EndBackgroundTask() {
-  [[UIApplication sharedApplication] endBackgroundTask:sBackgroundTaskId];
-  sBackgroundTaskId = UIBackgroundTaskInvalid;
+  if (sBackgroundTaskId != UIBackgroundTaskInvalid) {
+    [[UIApplication sharedApplication] endBackgroundTask:sBackgroundTaskId];
+    sBackgroundTaskId = UIBackgroundTaskInvalid;
+  }
 }
 static void OnUploadFinished(alohalytics::ProcessingResult result) {
   if (Stats::Instance().DebugMode()) {
@@ -289,9 +291,7 @@ static void OnUploadFinished(alohalytics::ProcessingResult result) {
     }
     ALOG(str);
   }
-  if (sBackgroundTaskId != UIBackgroundTaskInvalid) {
-    EndBackgroundTask();
-  }
+  EndBackgroundTask();
 }
 
 // Quick check if device has any active connection.
@@ -453,9 +453,7 @@ bool IsConnectionActive() {
 + (void)applicationWillEnterForeground:(NSNotificationCenter *)notification {
   Stats::Instance().LogEvent("$applicationWillEnterForeground");
 
-  if (sBackgroundTaskId != UIBackgroundTaskInvalid) {
-    EndBackgroundTask();
-  }
+  EndBackgroundTask();
 }
 
 + (void)applicationDidEnterBackground:(NSNotification *)notification {
