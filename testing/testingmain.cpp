@@ -27,8 +27,33 @@
   #endif
 #endif
 
+namespace
+{
+bool g_bLastTestOK = true;
 
-static bool g_bLastTestOK = true;
+char const kFilterOption[] = "--filter=";
+char const kSuppressOption[] = "--suppress=";
+
+struct CommandLineOptions
+{
+  CommandLineOptions() : filterRegExp(nullptr), suppressRegExp(nullptr) {}
+
+  char const * filterRegExp;
+  char const * suppressRegExp;
+};
+
+void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
+{
+  for (int i = 1; i < argc; ++i)
+  {
+    char const * const arg = argv[i];
+    if (strings::StartsWith(arg, kFilterOption))
+      options.filterRegExp = arg + sizeof(kFilterOption) - 1;
+    if (strings::StartsWith(arg, kSuppressOption))
+      options.suppressRegExp = arg + sizeof(kSuppressOption) - 1;
+  }
+}
+}  // namespace
 
 int main(int argc, char * argv[])
 {
@@ -49,19 +74,16 @@ int main(int argc, char * argv[])
   vector<bool> testResults;
   int numFailedTests = 0;
 
-  char const filterOptionPrefix[] = "--filter=";
-  char const * testsFilter = nullptr;
+  CommandLineOptions options;
+  ParseOptions(argc, argv, options);
 
-  regexp::RegExpT testsFilterRegExp;
+  regexp::RegExpT filterRegExp;
+  if (options.filterRegExp)
+    regexp::Create(options.filterRegExp, filterRegExp);
 
-  for (int arg = 1; arg < argc; ++arg)
-  {
-    if (strings::StartsWith(argv[arg], filterOptionPrefix))
-      testsFilter = argv[arg] + sizeof(filterOptionPrefix) - 1;
-  }
-
-  if (testsFilter)
-    regexp::Create(testsFilter, testsFilterRegExp);
+  regexp::RegExpT suppressRegExp;
+  if (options.suppressRegExp)
+    regexp::Create(options.suppressRegExp, suppressRegExp);
 
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; pTest = pTest->m_pNext)
   {
@@ -83,8 +105,11 @@ int main(int argc, char * argv[])
   int iTest = 0;
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; ++iTest, pTest = pTest->m_pNext)
   {
-    if (testsFilter && !regexp::Matches(testNames[iTest], testsFilterRegExp))
+    if (options.filterRegExp && !regexp::Matches(testNames[iTest], filterRegExp))
       continue;
+    if (options.suppressRegExp && regexp::Matches(testNames[iTest], suppressRegExp))
+      continue;
+
     cerr << "Running " << testNames[iTest] << endl << flush;
     if (!g_bLastTestOK)
     {
