@@ -41,7 +41,7 @@ extern NSString * const kBookmarkCellWebViewDidFinishLoadContetnNotification = @
                                                name:UIKeyboardWillShowNotification object:nil];
 
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillBeHidden:)
+                                           selector:@selector(keyboardWillBeHidden)
                                                name:UIKeyboardWillHideNotification object:nil];
 }
 
@@ -53,12 +53,10 @@ extern NSString * const kBookmarkCellWebViewDidFinishLoadContetnNotification = @
     [self.placePage willStartEditingBookmarkTitle:kbSize.height];
 }
 
-- (void)keyboardWillBeHidden:(NSNotification *)aNotification
+- (void)keyboardWillBeHidden
 {
-  NSDictionary const * info = [aNotification userInfo];
-  CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
   if ([self.title isEditing])
-    [self.placePage willFinishEditingBookmarkTitle:kbSize.height];
+    [self.placePage willFinishEditingBookmarkTitle:self.title.text.length > 0 ? self.title.text : self.placePage.manager.entity.title];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField

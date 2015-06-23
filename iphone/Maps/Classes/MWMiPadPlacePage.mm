@@ -117,6 +117,15 @@ static CGFloat const kTopOffset = 36.;
   }];
 }
 
+- (void)willFinishEditingBookmarkTitle:(NSString *)title
+{
+  [super willFinishEditingBookmarkTitle:title];
+  CGFloat const actionBarHeight = self.actionBar.height;
+  CGFloat const defaultHeight = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
+  self.actionBar.origin = CGPointMake(0., defaultHeight - actionBarHeight);
+  self.navigationController.view.height = defaultHeight;
+}
+
 - (void)addBookmark
 {
   [super addBookmark];

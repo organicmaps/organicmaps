@@ -146,9 +146,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 // This method should be empty if your target is iPad.
 }
 
-- (void)willFinishEditingBookmarkTitle:(CGFloat)keyboardHeight
+- (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
-// This method should be empty if your target is iPad.
+  self.basePlacePageView.titleLabel.text = title;
+  [self.basePlacePageView layoutSubviews];
 }
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender

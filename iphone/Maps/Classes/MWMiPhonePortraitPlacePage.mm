@@ -237,8 +237,9 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   self.state = MWMiPhonePortraitPlacePageStateOpen;
 }
 
-- (void)willFinishEditingBookmarkTitle:(CGFloat)keyboardHeight
+- (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
+  [super willFinishEditingBookmarkTitle:title];
   self.keyboardHeight = 0.;
   [self updateTargetPoint];
 }

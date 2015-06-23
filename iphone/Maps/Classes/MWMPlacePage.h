@@ -34,7 +34,7 @@
 - (void)stopBuildingRoute;
 - (void)reloadBookmark;
 - (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight;
-- (void)willFinishEditingBookmarkTitle:(CGFloat)keyboardHeight;
+- (void)willFinishEditingBookmarkTitle:(NSString *)title;
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender;
 

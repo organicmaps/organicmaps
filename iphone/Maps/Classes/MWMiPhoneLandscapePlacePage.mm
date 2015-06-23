@@ -129,8 +129,9 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   }];
 }
 
-- (void)willFinishEditingBookmarkTitle:(CGFloat)keyboardHeight
+- (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
+  [super willFinishEditingBookmarkTitle:title];
   [UIView animateWithDuration:0.3f animations:^
   {
     self.basePlacePageView.transform = CGAffineTransformMakeTranslation(0., 0.);
