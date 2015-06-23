@@ -6,11 +6,12 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include "std/cstring.hpp"
+#include "std/iomanip.hpp"
 #include "std/iostream.hpp"
 #include "std/target_os.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
-
 
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
   #include <Qt>
@@ -31,16 +32,47 @@ namespace
 {
 bool g_bLastTestOK = true;
 
+int const kOptionFieldWidth = 32;
 char const kFilterOption[] = "--filter=";
 char const kSuppressOption[] = "--suppress=";
+char const kHelpOption[] = "--help";
 
+// This struct contains parsed command line options. It may contain pointers to argc contents.
 struct CommandLineOptions
 {
-  CommandLineOptions() : filterRegExp(nullptr), suppressRegExp(nullptr) {}
+  CommandLineOptions() : filterRegExp(nullptr), suppressRegExp(nullptr), help(false) {}
 
+  // Non-owning ptr.
   char const * filterRegExp;
+
+  // Non-owning ptr.
   char const * suppressRegExp;
+
+  bool help;
 };
+
+void DisplayOption(ostream & os, char const * option, char const * description)
+{
+  os << "  " << setw(kOptionFieldWidth) << left << option << " " << description << endl;
+}
+
+void DisplayOption(ostream & os, char const * option, char const * value, char const * description)
+{
+  os << "  " << setw(kOptionFieldWidth) << left << (string(option) + string(value)) << " "
+     << description << endl;
+}
+
+void Usage(char const * name)
+{
+  cerr << "USAGE: " << name << " [options]" << endl;
+  cerr << endl;
+  cerr << "OPTIONS:" << endl;
+  DisplayOption(cerr, kFilterOption, "<ECMA Regexp>",
+                "Run tests with names corresponding to regexp.");
+  DisplayOption(cerr, kSuppressOption, "<ECMA Regexp>",
+                "Do not run tests with names corresponding to regexp.");
+  DisplayOption(cerr, kHelpOption, "Print this help message and exit.");
+}
 
 void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
 {
@@ -51,6 +83,8 @@ void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
       options.filterRegExp = arg + sizeof(kFilterOption) - 1;
     if (strings::StartsWith(arg, kSuppressOption))
       options.suppressRegExp = arg + sizeof(kSuppressOption) - 1;
+    if (strcmp(arg, kHelpOption) == 0)
+      options.help = true;
   }
 }
 }  // namespace
@@ -76,6 +110,11 @@ int main(int argc, char * argv[])
 
   CommandLineOptions options;
   ParseOptions(argc, argv, options);
+  if (options.help)
+  {
+    Usage(argv[0]);
+    return 1;
+  }
 
   regexp::RegExpT filterRegExp;
   if (options.filterRegExp)

@@ -9,6 +9,7 @@
 #include <iomanip>
 using std::fixed;
 using std::hex;
+using std::left;
 using std::setfill;
 using std::setprecision;
 using std::setw;
