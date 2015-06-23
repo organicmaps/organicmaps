@@ -52,6 +52,7 @@ HEADERS += \
     generate_info.hpp \
     osm2meta.hpp \
     osm2type.hpp \
+    osm2meta.hpp \
     osm_decl.hpp \
     osm_element.hpp \
     osm_id.hpp \
