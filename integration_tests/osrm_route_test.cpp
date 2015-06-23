@@ -44,6 +44,39 @@ namespace
           );
   }
 
+  // Geometry unpacking test.
+  UNIT_TEST(RussiaFerryToCrimeaLoadCrossGeometryTest)
+  {
+    // Forward
+    TRouteResult route = integration::CalculateRoute(
+                         integration::GetAllMaps(), MercatorBounds::FromLatLon(45.34123, 36.67679),
+                         {0., 0.}, MercatorBounds::FromLatLon(45.36479, 36.62194));
+    TEST_EQUAL(route.second, IRouter::NoError, ());
+    TEST_GREATER(route.first->GetPoly().GetSize(), 50, ());
+    // And backward case
+    route = integration::CalculateRoute(
+            integration::GetAllMaps(), MercatorBounds::FromLatLon(45.36479, 36.62194), {0., 0.},
+            MercatorBounds::FromLatLon(45.34123, 36.67679));
+    TEST_EQUAL(route.second, IRouter::NoError, ());
+    TEST_GREATER(route.first->GetPoly().GetSize(), 50, ());
+  }
+
+  UNIT_TEST(PriceIslandLoadCrossGeometryTest)
+  {
+    // Forward
+    TRouteResult route = integration::CalculateRoute(
+                         integration::GetAllMaps(), MercatorBounds::FromLatLon(46.16255,-63.81643),
+                         {0., 0.}, MercatorBounds::FromLatLon(46.25401, -63.70213));
+    TEST_EQUAL(route.second, IRouter::NoError, ());
+    TEST_GREATER(route.first->GetPoly().GetSize(), 29, ());
+    // And backward case
+    route = integration::CalculateRoute(
+            integration::GetAllMaps(), MercatorBounds::FromLatLon(46.25401, -63.70213), {0., 0.},
+            MercatorBounds::FromLatLon(46.16255,-63.81643));
+    TEST_EQUAL(route.second, IRouter::NoError, ());
+    TEST_GREATER(route.first->GetPoly().GetSize(), 29, ());
+  }
+
   // Cross mwm tests.
   UNIT_TEST(RussiaMoscowLeningradskiy39GerPanfilovtsev22RouteTest)
   {
