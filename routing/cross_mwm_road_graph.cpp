@@ -74,7 +74,19 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
     return IRouter::RouteNotFound;
 
   for (auto j = mwmIngoingIter.first; j != mwmIngoingIter.second; ++j)
+  {
+    // Case with a target node at the income mwm node.
+    if (j->m_nodeId == finalNode.node)
+    {
+      CrossNode start(j->m_nodeId, finalNode.mwmName,
+                      MercatorBounds::FromLatLon(j->m_point.y, j->m_point.x));
+      vector<CrossWeightedEdge> dummyEdges;
+      dummyEdges.emplace_back(BorderCross(finalNode, finalNode), 0 /* no weight */);
+      m_virtualEdges.insert(make_pair(start, dummyEdges));
+      return IRouter::NoError;
+    }
     sources.emplace_back(j->m_nodeId, true /* isStartNode */, finalNode.mwmName);
+  }
   vector<EdgeWeight> weights;
 
   targets[0] = FeatureGraphNode(finalNode.node, false /* isStartNode */, finalNode.mwmName);
@@ -199,15 +211,7 @@ void ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
   if (route.empty())
     return;
 
-  // Starts of virtual nodes are always present because they are not compaired in A* algo.
   route.front().startNode = startGraphNode;
-
-  // Stop point lays on out edge, and we have no virtual edge to unpack.
-  if (route.back().startNode.mwmName != finalGraphNode.mwmName)
-    route.emplace_back(graphCrosses.back().toNode.node,
-                       graphCrosses.back().toNode.node,
-                       graphCrosses.back().toNode.mwmName);
-
   route.back().finalNode = finalGraphNode;
 }
 

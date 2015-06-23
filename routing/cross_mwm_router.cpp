@@ -74,6 +74,7 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   for (FeatureGraphNode const & final : finalGraphNodes)
   {
     finalNode = CrossNode(final.node.reverse_node_id, final.mwmName, final.segmentPoint);
+    finalNode.isVirtual = true;
     code = roadGraph.SetFinalNode(finalNode);
     if (code == IRouter::NoError)
     {

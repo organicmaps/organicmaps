@@ -20,9 +20,10 @@ struct CrossNode
   NodeID node;
   string mwmName;
   m2::PointD point;
+  bool isVirtual;
 
   CrossNode(NodeID node, string const & mwmName, m2::PointD const & point)
-      : node(node), mwmName(mwmName), point(point)
+      : node(node), mwmName(mwmName), point(point), isVirtual(false)
   {
   }
 
@@ -32,13 +33,15 @@ struct CrossNode
 
   inline bool operator==(CrossNode const & a) const
   {
-    return node == a.node && mwmName == a.mwmName;
+    return node == a.node && mwmName == a.mwmName && isVirtual == a.isVirtual;
   }
 
   inline bool operator<(CrossNode const & a) const
   {
     if (a.node != node)
       return node < a.node;
+    if(isVirtual != a.isVirtual)
+      return isVirtual < a.isVirtual;
     return mwmName < a.mwmName;
   }
 };

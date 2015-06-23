@@ -37,30 +37,6 @@ UNIT_TEST(TestCrossRouteConverter)
              ("End node must be replaced by origin."));
 }
 
-UNIT_TEST(TestCrossRouteConverterEdgeCase)
-{
-  vector<BorderCross> graphCrosses;
-  CrossNode const a(1, "aMap", {0, 0}), b(2, "aMap", {2, 2});
-  CrossNode const c(3, "bMap", {3, 3});
-  graphCrosses.emplace_back(a, b);
-  graphCrosses.emplace_back(b, c);
-  FeatureGraphNode startGraphNode;
-  startGraphNode.node.forward_node_id = 5;
-  startGraphNode.mwmName = "aMap";
-  FeatureGraphNode finalGraphNode;
-  finalGraphNode.node.reverse_node_id = 6;
-  finalGraphNode.mwmName = "bMap";
-  TCheckedPath route;
-  ConvertToSingleRouterTasks(graphCrosses, startGraphNode, finalGraphNode, route);
-  TEST_EQUAL(route.size(), 2, ("We have 2 maps aMap and bMap."));
-  for (auto const & r : route)
-    TEST_EQUAL(r.startNode.mwmName, r.finalNode.mwmName, ());
-  TEST_EQUAL(route.front().startNode.node, startGraphNode.node,
-             ("Start node must be replaced by origin."));
-  TEST_EQUAL(route.back().finalNode.node, finalGraphNode.node,
-             ("End node must be replaced by origin."));
-}
-
 // Cross routing context tests.
 UNIT_TEST(TestContextSerialization)
 {
