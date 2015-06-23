@@ -460,8 +460,14 @@ bool IsConnectionActive() {
   Stats::Instance().LogEvent("$applicationDidEnterBackground");
 
   if (IsConnectionActive()) {
-    // Start uploading in the background, we have about 10 mins to do that.
-    sBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{ EndBackgroundTask(); }];
+    // Start uploading in the background, but keep in mind, that we have a limited time to do that.
+    // Graceful background task finish is a must before system time limit hits.
+    UIApplication * theApp = [UIApplication sharedApplication];
+    void (^endBackgroundTaskBlock)(void) = ^{ EndBackgroundTask(); };
+    ::dispatch_after(::dispatch_time(DISPATCH_TIME_NOW, static_cast<int64_t>(theApp.backgroundTimeRemaining)),
+                     ::dispatch_get_main_queue(),
+                     endBackgroundTaskBlock);
+    sBackgroundTaskId = [theApp beginBackgroundTaskWithExpirationHandler:endBackgroundTaskBlock];
     alohalytics::Stats::Instance().Upload(&OnUploadFinished);
   } else {
     if (Stats::Instance().DebugMode()) {
