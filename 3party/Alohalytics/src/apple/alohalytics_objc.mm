@@ -459,9 +459,9 @@ bool IsConnectionActive() {
 + (void)applicationDidEnterBackground:(NSNotification *)notification {
   Stats::Instance().LogEvent("$applicationDidEnterBackground");
 
-  sBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{ EndBackgroundTask(); }];
   if (IsConnectionActive()) {
     // Start uploading in the background, we have about 10 mins to do that.
+    sBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{ EndBackgroundTask(); }];
     alohalytics::Stats::Instance().Upload(&OnUploadFinished);
   } else {
     if (Stats::Instance().DebugMode()) {
