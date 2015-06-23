@@ -26,6 +26,9 @@ DrapeGui::DrapeGui()
 DrapeGui & DrapeGui::Instance()
 {
   static DrapeGui s_gui;
+  if (!s_gui.m_impl)
+    s_gui.m_impl.reset(new Impl());
+
   return s_gui;
 }
 

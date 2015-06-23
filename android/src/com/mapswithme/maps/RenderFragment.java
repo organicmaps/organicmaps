@@ -63,20 +63,6 @@ public abstract class RenderFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onResume()
-  {
-    super.onResume();
-    InitEngine();
-  }
-
-  @Override
-  public void onStop()
-  {
-    DestroyEngine();
-    super.onStop();
-  }
-
-  @Override
   public boolean onTouch(View view, MotionEvent event)
   {
     final int count = event.getPointerCount();

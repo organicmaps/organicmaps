@@ -93,6 +93,10 @@ GlyphGenerator::~GlyphGenerator()
   m_condition.notify_one();
   m_thread.join();
   m_completionHandler = nullptr;
+
+  for (GlyphGenerationData & data : m_queue)
+    data.m_glyph.m_image.Destroy();
+  m_queue.clear();
 }
 
 void GlyphGenerator::WaitForGlyph(list<GlyphGenerationData> & queue)

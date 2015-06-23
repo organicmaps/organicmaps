@@ -136,6 +136,8 @@ void TextureManager::Release()
   m_colorTexture.reset();
 
   m_glyphTextures.clear();
+
+  m_glyphManager.reset();
 }
 
 bool TextureManager::UpdateDynamicTextures()
