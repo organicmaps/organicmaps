@@ -77,6 +77,7 @@ static CGFloat const kTopOffset = 36.;
   [self.navigationController.view removeFromSuperview];
   [self.navigationController removeFromParentViewController];
   self.navigationController = [[MWMiPadNavigationController alloc] initWithRootViewController:self.viewController];
+  [self configureShadow];
 
   CGFloat const defaultWidth = 360.;
   CGFloat const actionBarHeight = 58.;
@@ -93,6 +94,17 @@ static CGFloat const kTopOffset = 36.;
   self.actionBar.width = defaultWidth;
   self.actionBar.origin = CGPointMake(0., defaultHeight - actionBarHeight);
   [view addSubview:self.navigationController.view];
+}
+
+- (void)configureShadow
+{
+  CALayer * layer = self.navigationController.view.layer;
+  layer.masksToBounds = NO;
+  layer.shadowColor = UIColor.blackColor.CGColor;
+  layer.shadowRadius = 4.;
+  layer.shadowOpacity = 0.24f;
+  layer.shadowOffset = CGSizeMake(0., - 2.);
+  layer.shouldRasterize = YES;
 }
 
 - (void)show
@@ -166,6 +178,48 @@ static CGFloat const kTopOffset = 36.;
   MWMBookmarkDescriptionViewController * controller = [[MWMBookmarkDescriptionViewController alloc] initWithPlacePageManager:self.manager];
   controller.iPadOwnerNavigationController = self.navigationController;
   [self.viewController.navigationController pushViewController:controller animated:YES];
+}
+
+- (IBAction)didPan:(UIPanGestureRecognizer *)sender
+{
+  UIView * navigationControllerView = self.navigationController.view;
+  UIView * superview = navigationControllerView.superview;
+
+  navigationControllerView.minX += [sender translationInView:superview].x;
+  navigationControllerView.minX = MIN(navigationControllerView.minX, kLeftOffset);
+  [sender setTranslation:CGPointZero inView:superview];
+  navigationControllerView.alpha = self.currentAlpha;
+  UIGestureRecognizerState const state = sender.state;
+  if (state == UIGestureRecognizerStateEnded || state == UIGestureRecognizerStateCancelled)
+  {
+    if (navigationControllerView.minX < ( - navigationControllerView.width / 8.))
+    {
+      [UIView animateWithDuration:0.2f animations:^
+      {
+        navigationControllerView.minX = - kLeftOffset - navigationControllerView.width;
+        navigationControllerView.alpha = self.currentAlpha;
+      }
+      completion:^(BOOL finished)
+      {
+        [self.manager dismissPlacePage];
+      }];
+    }
+    else
+    {
+      [UIView animateWithDuration:0.2f animations:^
+      {
+        navigationControllerView.minX = kLeftOffset;
+        navigationControllerView.alpha = self.currentAlpha;
+      }];
+    }
+  }
+}
+
+- (CGFloat)currentAlpha
+{
+  UIView * view = self.navigationController.view;
+  CGFloat const maxX = MAX(0., view.maxX);
+  return maxX / (view.width + kLeftOffset);
 }
 
 @end
