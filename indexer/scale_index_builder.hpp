@@ -50,7 +50,9 @@ private:
   uint32_t m_Feature;
 };
 STATIC_ASSERT(sizeof(CellFeaturePair) == 12);
+#ifndef OMIM_OS_LINUX
 STATIC_ASSERT(is_trivially_copyable<CellFeaturePair>::value);
+#endif
 
 class CellFeatureBucketTuple
 {
@@ -75,7 +77,9 @@ private:
   uint32_t m_bucket;
 };
 STATIC_ASSERT(sizeof(CellFeatureBucketTuple) == 16);
+#ifndef OMIM_OS_LINUX
 STATIC_ASSERT(is_trivially_copyable<CellFeatureBucketTuple>::value);
+#endif
 
 template <class TSorter>
 class FeatureCoverer
