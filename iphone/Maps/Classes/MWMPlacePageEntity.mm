@@ -177,7 +177,7 @@ typedef feature::FeatureMetadata::EMetadataType TMetadataType;
       {
         NSString * v;
         if (type == feature::FeatureMetadata::EMetadataType::FMD_OPEN_HOURS)
-          v = [[NSString stringWithUTF8String:metadata.Get(type).c_str()] stringByReplacingOccurrencesOfString:@"; " withString:@";\n"];
+          v = [self formattedOpenHoursFromString:metadata.Get(type)];
         else
           v = [NSString stringWithUTF8String:metadata.Get(type).c_str()];
 
@@ -331,6 +331,25 @@ typedef feature::FeatureMetadata::EMetadataType TMetadataType;
     bookmark->SetName(self.bookmarkTitle.UTF8String);
 
   category->SaveToKMLFile();
+}
+
+#pragma mark - Open hours string formatter
+
+- (NSString *)formattedOpenHoursFromString:(string const &)s
+{
+//TODO (Vlad): Not the best solution, but this function is temporary and will be replaced in future.
+  NSMutableString * r = [NSMutableString stringWithUTF8String:s.c_str()];
+  [r replaceOccurrencesOfString:@"," withString:@", " options:NSCaseInsensitiveSearch range:NSMakeRange(0, r.length)];
+  while (YES)
+  {
+    NSRange const range = [r rangeOfString:@"  "];
+    if (range.location == NSNotFound)
+      break;
+    [r replaceCharactersInRange:range withString:@" "];
+  }
+  [r replaceOccurrencesOfString:@"; " withString:@"\n" options:NSCaseInsensitiveSearch range:NSMakeRange(0, r.length)];
+  [r replaceOccurrencesOfString:@";" withString:@"\n" options:NSCaseInsensitiveSearch range:NSMakeRange(0, r.length)];
+  return r.copy;
 }
 
 @end

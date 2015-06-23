@@ -167,13 +167,13 @@ size_t BookmarkCategory::GetBookmarksCount() const
 Bookmark const * BookmarkCategory::GetBookmark(size_t index) const
 {
   base_t::Controller const & c = base_t::GetController();
-  return static_cast<Bookmark const *>(index < c.GetUserMarkCount() ? c.GetUserMark(index) : 0);
+  return static_cast<Bookmark const *>(index < c.GetUserMarkCount() ? c.GetUserMark(index) : nullptr);
 }
 
 Bookmark * BookmarkCategory::GetBookmark(size_t index)
 {
   base_t::Controller & c = base_t::GetController();
-  return static_cast<Bookmark *>(index < c.GetUserMarkCount() ? c.GetUserMarkForEdit(index) : 0);
+  return static_cast<Bookmark *>(index < c.GetUserMarkCount() ? c.GetUserMarkForEdit(index) : nullptr);
 }
 
 size_t BookmarkCategory::FindBookmark(Bookmark const * bookmark) const
