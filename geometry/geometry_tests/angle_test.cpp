@@ -76,10 +76,17 @@ UNIT_TEST(ShortestDistance)
 
 UNIT_TEST(TwoVectorsAngle)
 {
-  TEST_ALMOST_EQUAL_ULPS(ang::TwoVectorsAngle(m2::Point<double>(0, 0)  /* p */,
-                                              m2::Point<double>(0, 1)  /* p1 */,
-                                              m2::Point<double>(1, 0)) /* p2 */, 3 * math::pi2, ());
-  TEST_ALMOST_EQUAL_ULPS(ang::TwoVectorsAngle(m2::Point<double>(1, 1)  /* p */,
-                                              m2::Point<double>(2, 2)  /* p1 */,
-                                              m2::Point<double>(1, 2)) /* p2 */, math::pi4, ());
+  double const eps = 1e-10;
+  TEST(my::AlmostEqualAbs(ang::TwoVectorsAngle(m2::Point<double>(0, 0)  /* p */,
+                                               m2::Point<double>(0, 1)  /* p1 */,
+                                               m2::Point<double>(1, 0)) /* p2 */, 3 * math::pi2, eps), ());
+  TEST(my::AlmostEqualAbs(ang::TwoVectorsAngle(m2::Point<double>(1, 1)  /* p */,
+                                               m2::Point<double>(2, 2)  /* p1 */,
+                                               m2::Point<double>(1, 2)) /* p2 */, math::pi4, eps), ());
+  TEST(my::AlmostEqualAbs(ang::TwoVectorsAngle(m2::Point<double>(0, 0)  /* p */,
+                                               m2::Point<double>(1, 0)  /* p1 */,
+                                               m2::Point<double>(0, -1)) /* p2 */, 3 * math::pi2, eps), ());
+  TEST(my::AlmostEqualAbs(ang::TwoVectorsAngle(m2::Point<double>(0, 0)  /* p */,
+                                               m2::Point<double>(1, 0)  /* p1 */,
+                                               m2::Point<double>(-1, 0)) /* p2 */, math::pi, eps), ());
 }

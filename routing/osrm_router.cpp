@@ -344,6 +344,7 @@ public:
                         }),
                         res.end());
   }
+
   DISALLOW_COPY(Point2PhantomNode);
 };
 } // namespace
@@ -381,10 +382,10 @@ bool OsrmRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source,
 OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const & path,
                                                             Route & route)
 {
-  Route::TurnsT TurnsDir;
-  Route::TimesT Times;
+  Route::TTurns TurnsDir;
+  Route::TTimes Times;
   vector<m2::PointD> Points;
-  turns::TurnsGeomT TurnsGeom;
+  turns::TTurnsGeom TurnsGeom;
   for (RoutePathCross const & cross: path)
   {
     ASSERT_EQUAL(cross.startNode.mwmName, cross.finalNode.mwmName, ());
@@ -397,10 +398,10 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
       return OsrmRouter::RouteNotFound;
 
     // Get annotated route
-    Route::TurnsT mwmTurnsDir;
-    Route::TimesT mwmTimes;
+    Route::TTurns mwmTurnsDir;
+    Route::TTimes mwmTimes;
     vector<m2::PointD> mwmPoints;
-    turns::TurnsGeomT mwmTurnsGeom;
+    turns::TTurnsGeom mwmTurnsGeom;
     MakeTurnAnnotation(routingResult, mwmMapping, mwmPoints, mwmTurnsDir, mwmTimes, mwmTurnsGeom);
 
     // And connect it to result route
@@ -526,10 +527,10 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
     // 5. Restore route.
 
-    Route::TurnsT turnsDir;
-    Route::TimesT times;
+    Route::TTurns turnsDir;
+    Route::TTimes times;
     vector<m2::PointD> points;
-    turns::TurnsGeomT turnsGeom;
+    turns::TTurnsGeom turnsGeom;
 
     MakeTurnAnnotation(routingResult, startMapping, points, turnsDir, times, turnsGeom);
 
@@ -595,9 +596,9 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
 OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & routingResult,
                                                       TRoutingMappingPtr const & mapping,
                                                       vector<m2::PointD> & points,
-                                                      Route::TurnsT & turnsDir,
-                                                      Route::TimesT & times,
-                                                      turns::TurnsGeomT & turnsGeom)
+                                                      Route::TTurns & turnsDir,
+                                                      Route::TTimes & times,
+                                                      turns::TTurnsGeom & turnsGeom)
 {
   ASSERT(mapping, ());
 

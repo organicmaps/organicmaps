@@ -239,10 +239,10 @@ void IRoadGraph::ReconstructPath(TJunctionVector const & positions, Route & rout
 
   /// @todo: investigate whether it's worth reconstructing detailed turns and times.
 
-  Route::TimesT times;
+  Route::TTimes times;
   times.emplace_back(path.size() - 1, trackTimeSec);
 
-  Route::TurnsT turnsDir;
+  Route::TTurns turnsDir;
   turnsDir.emplace_back(path.size() - 1, turns::TurnDirection::ReachedYourDestination);
 
   route.SetGeometry(path.begin(), path.end());

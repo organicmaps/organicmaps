@@ -36,9 +36,10 @@ double PiMinusTwoVectorsAngle(m2::PointD const & p, m2::PointD const & p1, m2::P
 struct TurnCandidate
 {
   /*!
-   * angle is an angle in degrees between the current edge and the edge of the candidate.
+   * angle is an angle of the turn in degrees. It means angle is 180 minus
+   * an angle between the current edge and the edge of the candidate. A counterclockwise rotation.
    * The current edge is an edge which belongs the route and located before the junction.
-   * angle belongs to the range [0; 360];
+   * angle belongs to the range [-180; 180];
    */
   double angle;
   /*!
@@ -96,8 +97,6 @@ public:
   DISALLOW_COPY_AND_MOVE(Point2Geometry);
 };
 
-size_t GetFirstSegmentPointIndex(pair<size_t, size_t> const & p) { return p.first; }
-
 OsrmMappingTypes::FtSeg GetSegment(NodeID node, RoutingMapping const & routingMapping,
                                    TGetIndexFunction GetIndex)
 {
@@ -128,9 +127,9 @@ ftypes::HighwayClass GetOutgoingHighwayClass(NodeID outgoingNode,
  * - and the turn is GoStraight or TurnSlight*.
  */
 bool KeepTurnByHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass outgoingClass,
-                        NodeID outgoingNode, TurnDirection turn,
-                        TTurnCandidates const & possibleTurns,
-                        RoutingMapping const & routingMapping, Index const & index)
+                            NodeID outgoingNode, TurnDirection turn,
+                            TTurnCandidates const & possibleTurns,
+                            RoutingMapping const & routingMapping, Index const & index)
 {
   if (!IsGoStraightOrSlightTurn(turn))
     return true;  // The road significantly changes its direction here. So this turn shall be kept.
@@ -197,17 +196,17 @@ bool FixupLaneSet(TurnDirection turn, vector<SingleLaneInfo> & lanes,
 
 /*!
  * \brief Converts a turn angle into a turn direction.
- * \note upperBounds is a table of pairs: an angle and a direction.
- * upperBounds shall be sorted by the first parameter (angle) from small angles to big angles.
- * These angles should be measured in degrees and should belong to the range [0; 360].
- * The second paramer (angle) shall be greater than or equal to zero and is measured in degrees.
+ * \note lowerBounds is a table of pairs: an angle and a direction.
+ * lowerBounds shall be sorted by the first parameter (angle) from big angles to small angles.
+ * These angles should be measured in degrees and should belong to the range [-180; 180].
+ * The second paramer (angle) shall belong to the range [-180; 180] and is measured in degrees.
  */
 TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & lowerBounds,
                                    double angle)
 {
   ASSERT_GREATER_OR_EQUAL(angle, -180., (angle));
   ASSERT_LESS_OR_EQUAL(angle, 180., (angle));
-  ASSERT_GREATER(lowerBounds.size(), 0, ());
+  ASSERT(!lowerBounds.empty(), ());
   ASSERT(is_sorted(lowerBounds.cbegin(), lowerBounds.cend(),
              [](pair<double, TurnDirection> const & p1, pair<double, TurnDirection> const & p2)
          {
@@ -224,29 +223,47 @@ TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & l
   return TurnDirection::NoTurn;
 }
 
+/*!
+ * \brief GetPointForTurnAngle returns ingoingPoint or outgoingPoint for turns.
+ * These points belongs to the route but they often are not neighbor of turnPoint.
+ * The distance between the turnPoint and the resulting point is less then kMinDistMeters
+ * plus the next part of the segment parameter.
+ * The length of the way from turnPoint to the resulting point is less or equal then
+ * kMaxPointsCount segments.
+ * \param segment is a ingoing or outgoing feature segment.
+ * \param ft is a ingoing or outgoing feature.
+ * \param turnPoint is a junction point.
+ * \param GetPointIndex is a function for getting points by index. It differs for ingoing and
+ * outgoing cases.
+ * \return an ingoing or outgoing point for turn calculation.
+ */
 m2::PointD GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & segment, FeatureType const & ft,
                                 m2::PointD const & turnPoint,
                                 size_t (*GetPointIndex)(const size_t, const size_t, const size_t))
 {
+  // An ingoing and outgoing point could be farther then kMaxPointsCount points from the turnPoint
   size_t const kMaxPointsCount = 7;
-  double const kMaxDistMeters = 300.;
-  double curDist = 0.f;
-  m2::PointD pnt = turnPoint;
-  m2::PointD nextPnt;
+  // If ft feature is long enough and consist of short segments
+  // the point for turn generation is taken as the next point the route after kMinDistMeters.
+  double const kMinDistMeters = 300.;
+  double curDistanceMeters = 0.;
+  m2::PointD point = turnPoint;
+  m2::PointD nextPoint;
 
   size_t const numSegPoints = abs(segment.m_pointEnd - segment.m_pointStart);
+  ASSERT_GREATER(numSegPoints, 0, ());
   ASSERT_LESS(numSegPoints, ft.GetPointsCount(), ());
   size_t const usedFtPntNum = min(kMaxPointsCount, numSegPoints);
 
   for (size_t i = 1; i <= usedFtPntNum; ++i)
   {
-    nextPnt = ft.GetPoint(GetPointIndex(segment.m_pointStart, segment.m_pointEnd, i));
-    curDist += MercatorBounds::DistanceOnEarth(pnt, nextPnt);
-    if (curDist > kMaxDistMeters)
-      return nextPnt;
-    pnt = nextPnt;
+    nextPoint = ft.GetPoint(GetPointIndex(segment.m_pointStart, segment.m_pointEnd, i));
+    curDistanceMeters += MercatorBounds::DistanceOnEarth(point, nextPoint);
+    if (curDistanceMeters > kMinDistMeters)
+      return nextPoint;
+    point = nextPoint;
   }
-  return nextPnt;
+  return nextPoint;
 }
 
 /*!
@@ -453,8 +470,8 @@ vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingM
   return lanes;
 }
 
-void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir,
-                           TurnsGeomT & turnsGeom)
+void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TTurns const & turnsDir,
+                           TTurnsGeom & turnsGeom)
 {
   size_t const kNumPoints = points.size();
   // "Pivot point" is a point of bifurcation (a point of a turn).
@@ -484,7 +501,7 @@ void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT cons
   return;
 }
 
-void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
+void FixupTurns(vector<m2::PointD> const & points, Route::TTurns & turnsDir)
 {
   double const kMergeDistMeters = 30.0;
   // For turns that are not EnterRoundAbout exitNum is always equal to zero.
@@ -566,7 +583,7 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
   return;
 }
 
-void SelectRecommendedLanes(Route::TurnsT & turnsDir)
+void SelectRecommendedLanes(Route::TTurns & turnsDir)
 {
   for (auto & t : turnsDir)
   {
@@ -630,7 +647,7 @@ TurnDirection InvertDirection(TurnDirection dir)
   };
 }
 
-TurnDirection MostRightDirection(const double angle)
+TurnDirection RightmostDirection(const double angle)
 {
   static vector<pair<double, TurnDirection>> const kLowerBounds = {
       {157., TurnDirection::TurnSharpRight},
@@ -644,9 +661,9 @@ TurnDirection MostRightDirection(const double angle)
   return FindDirectionByAngle(kLowerBounds, angle);
 }
 
-TurnDirection MostLeftDirection(const double angle)
+TurnDirection LeftmostDirection(const double angle)
 {
-  return InvertDirection(MostRightDirection(-angle));
+  return InvertDirection(RightmostDirection(-angle));
 }
 
 TurnDirection IntermediateDirection(const double angle)
@@ -714,9 +731,9 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
     return;
 
   if (nodes.front().node == turnInfo.m_outgoingNodeID)
-    turn.m_turn = MostLeftDirection(a);
+    turn.m_turn = LeftmostDirection(a);
   else if (nodes.back().node == turnInfo.m_outgoingNodeID)
-    turn.m_turn = MostRightDirection(a);
+    turn.m_turn = RightmostDirection(a);
   else
     turn.m_turn = IntermediateDirection(a);
 
@@ -772,7 +789,6 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
   {
     if (!hasMultiTurns)
       turn.m_turn = TurnDirection::NoTurn;
-
     return;
   }
 

@@ -13,8 +13,8 @@ namespace routing
 namespace turns
 {
 /// @todo(vbykoianko) It's a good idea to gather all the turns information into one entity.
-/// For the time being several separate entities reflect the turn information. Like Route::TurnsT or
-/// turns::TurnsGeomT
+/// For the time being several separate entities reflect the turn information. Like Route::TTurns or
+/// turns::TTurnsGeom
 
 /*!
  * \warning The order of values below shall not be changed.
@@ -89,7 +89,7 @@ struct TurnGeom
 
 string DebugPrint(TurnGeom const & turnGeom);
 
-typedef vector<turns::TurnGeom> TurnsGeomT;
+typedef vector<turns::TurnGeom> TTurnsGeom;
 typedef vector<LaneWay> TSingleLane;
 
 struct SingleLaneInfo

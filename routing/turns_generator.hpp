@@ -61,17 +61,18 @@ vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingM
  * \brief Returns geometry for all the turns. It means that for every turn CalculateTurnGeometry
  * calculates a sequence of points.
  */
-void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir,
-                           TurnsGeomT & turnsGeom);
+void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TTurns const & turnsDir,
+                           TTurnsGeom & turnsGeom);
 /*!
  * \brief Selects lanes which are recommended for an end user.
  */
-void SelectRecommendedLanes(Route::TurnsT & turnsDir);
-void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir);
+void SelectRecommendedLanes(Route::TTurns & turnsDir);
+void FixupTurns(vector<m2::PointD> const & points, Route::TTurns & turnsDir);
+inline size_t GetFirstSegmentPointIndex(pair<size_t, size_t> const & p) { return p.first; }
 
 TurnDirection InvertDirection(TurnDirection dir);
-TurnDirection MostRightDirection(double angle);
-TurnDirection MostLeftDirection(double angle);
+TurnDirection RightmostDirection(double angle);
+TurnDirection LeftmostDirection(double angle);
 TurnDirection IntermediateDirection(double angle);
 
 /*!

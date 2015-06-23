@@ -55,17 +55,17 @@ void Route::Swap(Route & rhs)
   m_absentCountries.swap(rhs.m_absentCountries);
 }
 
-void Route::SetTurnInstructions(TurnsT & v)
+void Route::SetTurnInstructions(TTurns & v)
 {
   swap(m_turns, v);
 }
 
-void Route::SetSectionTimes(TimesT & v)
+void Route::SetSectionTimes(TTimes & v)
 {
   swap(m_times, v);
 }
 
-void Route::SetTurnInstructionsGeometry(turns::TurnsGeomT & v)
+void Route::SetTurnInstructionsGeometry(turns::TTurnsGeom & v)
 {
   swap(m_turnsGeom, v);
 }
@@ -108,7 +108,7 @@ uint32_t Route::GetTime() const
     return 0;
   }
 
-  TimesT::const_iterator it = upper_bound(m_times.begin(), m_times.end(), m_current.m_ind,
+  TTimes::const_iterator it = upper_bound(m_times.begin(), m_times.end(), m_current.m_ind,
                                          [](size_t v, Route::TTimeItem const & item) { return v < item.first; });
 
   if (it == m_times.end())

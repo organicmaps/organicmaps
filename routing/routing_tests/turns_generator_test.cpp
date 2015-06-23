@@ -131,13 +131,13 @@ UNIT_TEST(TestFixupTurns)
   };
   // The constructor TurnItem(uint32_t idx, TurnDirection t, uint32_t exitNum = 0)
   // is used for initialization of vector<TurnItem> below.
-  Route::TurnsT turnsDir1 = {{0, TurnDirection::EnterRoundAbout},
+  Route::TTurns turnsDir1 = {{0, TurnDirection::EnterRoundAbout},
                              {1, TurnDirection::StayOnRoundAbout},
                              {2, TurnDirection::LeaveRoundAbout},
                              {3, TurnDirection::ReachedYourDestination}};
 
   FixupTurns(pointsMerc1, turnsDir1);
-  Route::TurnsT const expectedTurnDir1 = {{0, TurnDirection::EnterRoundAbout, 2},
+  Route::TTurns const expectedTurnDir1 = {{0, TurnDirection::EnterRoundAbout, 2},
                                           {2, TurnDirection::LeaveRoundAbout},
                                           {3, TurnDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir1, expectedTurnDir1, ());
@@ -147,12 +147,12 @@ UNIT_TEST(TestFixupTurns)
     { kSquareNearZero.minX(), kSquareNearZero.minY()},
     { kSquareCenterLonLat.x, kSquareCenterLonLat.y },
     { kSquareNearZero.maxX(), kSquareNearZero.maxY() }};
-  Route::TurnsT turnsDir2 = {{0, TurnDirection::GoStraight},
+  Route::TTurns turnsDir2 = {{0, TurnDirection::GoStraight},
                              {1, TurnDirection::TurnLeft},
                              {2, TurnDirection::ReachedYourDestination}};
 
   FixupTurns(pointsMerc2, turnsDir2);
-  Route::TurnsT const expectedTurnDir2 = {{1, TurnDirection::TurnLeft},
+  Route::TTurns const expectedTurnDir2 = {{1, TurnDirection::TurnLeft},
                                           {2, TurnDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir2, expectedTurnDir2, ());
 
@@ -161,11 +161,11 @@ UNIT_TEST(TestFixupTurns)
     { kSquareNearZero.minX(), kSquareNearZero.minY()},
     { kSquareNearZero.minX(), kSquareNearZero.maxY() },
     { kSquareNearZero.maxX(), kSquareNearZero.maxY() }};
-  Route::TurnsT turnsDir3 = {{1, TurnDirection::TurnRight},
+  Route::TTurns turnsDir3 = {{1, TurnDirection::TurnRight},
                              {2, TurnDirection::ReachedYourDestination}};
 
   FixupTurns(pointsMerc3, turnsDir3);
-  Route::TurnsT const expectedTurnDir3 = {{1, TurnDirection::TurnRight},
+  Route::TTurns const expectedTurnDir3 = {{1, TurnDirection::TurnRight},
                                           {2, TurnDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir3, expectedTurnDir3, ());
 }
@@ -181,8 +181,8 @@ UNIT_TEST(TestCalculateTurnGeometry)
 
   // Empty vectors
   vector<m2::PointD> const points1;
-  Route::TurnsT const turnsDir1;
-  TurnsGeomT turnsGeom1;
+  Route::TTurns const turnsDir1;
+  TTurnsGeom turnsGeom1;
   CalculateTurnGeometry(points1, turnsDir1, turnsGeom1);
   TEST(turnsGeom1.empty(), ());
 
@@ -192,9 +192,9 @@ UNIT_TEST(TestCalculateTurnGeometry)
     { kSquareNearZero.maxX(), kSquareNearZero.maxY() },
     { kSquareNearZero.minX(), kSquareNearZero.maxY() }
   };
-  Route::TurnsT const turnsDir2 = {{1, TurnDirection::TurnLeft},
+  Route::TTurns const turnsDir2 = {{1, TurnDirection::TurnLeft},
                                    {2, TurnDirection::ReachedYourDestination}};
-  TurnsGeomT turnsGeom2;
+  TTurnsGeom turnsGeom2;
 
   CalculateTurnGeometry(points2, turnsDir2, turnsGeom2);
   TEST_EQUAL(turnsGeom2.size(), 1, ());
@@ -219,10 +219,10 @@ UNIT_TEST(TestCalculateTurnGeometry)
     { kSquareNearZero.maxX(), kSquareNearZero.minY() },
     { kSquareCenterLonLat.x, kSquareCenterLonLat.y }
   };
-  Route::TurnsT const turnsDir3 = {{0, TurnDirection::GoStraight},
+  Route::TTurns const turnsDir3 = {{0, TurnDirection::GoStraight},
                                    {3, TurnDirection::TurnSharpRight},
                                    {4, TurnDirection::ReachedYourDestination}};
-  TurnsGeomT turnsGeom3;
+  TTurnsGeom turnsGeom3;
 
   CalculateTurnGeometry(points3, turnsDir3, turnsGeom3);
   TEST_EQUAL(turnsGeom3.size(), 1, ());
@@ -274,7 +274,7 @@ UNIT_TEST(TestIsLaneWayConformedTurnDirectionApproximately)
 
 UNIT_TEST(TestAddingActiveLaneInformation)
 {
-  Route::TurnsT turns = {{0, TurnDirection::GoStraight},
+  Route::TTurns turns = {{0, TurnDirection::GoStraight},
                          {1, TurnDirection::TurnLeft},
                          {2, TurnDirection::ReachedYourDestination}};
   turns[0].m_lanes.push_back({LaneWay::Left, LaneWay::Through});
@@ -326,28 +326,28 @@ UNIT_TEST(TestInvertDirection)
   TEST_EQUAL(InvertDirection(TurnDirection::TurnSharpLeft), TurnDirection::TurnSharpRight, ());
 }
 
-UNIT_TEST(TestMostRightDirection)
+UNIT_TEST(TestRightmostDirection)
 {
-  TEST_EQUAL(MostRightDirection(180.), TurnDirection::TurnSharpRight, ());
-  TEST_EQUAL(MostRightDirection(170.), TurnDirection::TurnSharpRight, ());
-  TEST_EQUAL(MostRightDirection(90.), TurnDirection::TurnRight, ());
-  TEST_EQUAL(MostRightDirection(45.), TurnDirection::TurnRight, ());
-  TEST_EQUAL(MostRightDirection(0.), TurnDirection::TurnSlightRight, ());
-  TEST_EQUAL(MostRightDirection(-20.), TurnDirection::GoStraight, ());
-  TEST_EQUAL(MostRightDirection(-90.), TurnDirection::TurnLeft, ());
-  TEST_EQUAL(MostRightDirection(-170.), TurnDirection::TurnSharpLeft, ());
+  TEST_EQUAL(RightmostDirection(180.), TurnDirection::TurnSharpRight, ());
+  TEST_EQUAL(RightmostDirection(170.), TurnDirection::TurnSharpRight, ());
+  TEST_EQUAL(RightmostDirection(90.), TurnDirection::TurnRight, ());
+  TEST_EQUAL(RightmostDirection(45.), TurnDirection::TurnRight, ());
+  TEST_EQUAL(RightmostDirection(0.), TurnDirection::TurnSlightRight, ());
+  TEST_EQUAL(RightmostDirection(-20.), TurnDirection::GoStraight, ());
+  TEST_EQUAL(RightmostDirection(-90.), TurnDirection::TurnLeft, ());
+  TEST_EQUAL(RightmostDirection(-170.), TurnDirection::TurnSharpLeft, ());
 }
 
-UNIT_TEST(TestMostLeftDirection)
+UNIT_TEST(TestLeftmostDirection)
 {
-  TEST_EQUAL(MostLeftDirection(180.), TurnDirection::TurnSharpRight, ());
-  TEST_EQUAL(MostLeftDirection(170.), TurnDirection::TurnSharpRight, ());
-  TEST_EQUAL(MostLeftDirection(90.), TurnDirection::TurnRight, ());
-  TEST_EQUAL(MostLeftDirection(45.), TurnDirection::TurnSlightRight, ());
-  TEST_EQUAL(MostLeftDirection(0.), TurnDirection::TurnSlightLeft, ());
-  TEST_EQUAL(MostLeftDirection(-20.), TurnDirection::TurnSlightLeft, ());
-  TEST_EQUAL(MostLeftDirection(-90.), TurnDirection::TurnLeft, ());
-  TEST_EQUAL(MostLeftDirection(-170.), TurnDirection::TurnSharpLeft, ());
+  TEST_EQUAL(LeftmostDirection(180.), TurnDirection::TurnSharpRight, ());
+  TEST_EQUAL(LeftmostDirection(170.), TurnDirection::TurnSharpRight, ());
+  TEST_EQUAL(LeftmostDirection(90.), TurnDirection::TurnRight, ());
+  TEST_EQUAL(LeftmostDirection(45.), TurnDirection::TurnSlightRight, ());
+  TEST_EQUAL(LeftmostDirection(0.), TurnDirection::TurnSlightLeft, ());
+  TEST_EQUAL(LeftmostDirection(-20.), TurnDirection::TurnSlightLeft, ());
+  TEST_EQUAL(LeftmostDirection(-90.), TurnDirection::TurnLeft, ());
+  TEST_EQUAL(LeftmostDirection(-170.), TurnDirection::TurnSharpLeft, ());
 }
 
 UNIT_TEST(TestIntermediateDirection)

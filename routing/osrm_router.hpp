@@ -86,8 +86,8 @@ protected:
    */
   ResultCode MakeTurnAnnotation(RawRoutingResult const & routingResult,
                                 TRoutingMappingPtr const & mapping, vector<m2::PointD> & points,
-                                Route::TurnsT & turnsDir, Route::TimesT & times,
-                                turns::TurnsGeomT & turnsGeom);
+                                Route::TTurns & turnsDir, Route::TTimes & times,
+                                turns::TTurnsGeom & turnsGeom);
 
 private:
   /*!

@@ -159,17 +159,17 @@ namespace integration
                        double relativeError)
   {
     double const delta = expectedRouteMeters * relativeError;
-    double const routeLength = route.GetDistance();
-    TEST_LESS_OR_EQUAL(routeLength - delta, expectedRouteMeters, ("Route length test failed. Expected:", expectedRouteMeters, "have:", routeLength));
-    TEST_GREATER_OR_EQUAL(routeLength + delta, expectedRouteMeters, ("Route length test failed. Expected:", expectedRouteMeters, "have:", routeLength));
+    double const routeMeters = route.GetDistance();
+    TEST(my::AlmostEqualAbs(routeMeters, expectedRouteMeters, delta),
+        ("Route time test failed. Expected:", expectedRouteMeters, "have:", routeMeters, "delta:", delta));
   }
 
   void TestRouteTime(Route const & route, double expectedRouteSeconds, double relativeError)
   {
     double const delta = expectedRouteSeconds * relativeError;
-    double const routeTime = route.GetAllTime();
-    TEST_LESS_OR_EQUAL(routeTime - delta, expectedRouteSeconds, ());
-    TEST_GREATER_OR_EQUAL(routeTime + delta, expectedRouteSeconds, ());
+    double const routeSeconds = route.GetAllTime();
+    TEST(my::AlmostEqualAbs(routeSeconds, expectedRouteSeconds, delta),
+        ("Route time test failed. Expected:", expectedRouteSeconds, "have:", routeSeconds, "delta:", delta));
   }
 
   void CalculateRouteAndTestRouteLength(OsrmRouterComponents const & routerComponents,
@@ -225,11 +225,11 @@ namespace integration
 
   TestTurn GetNthTurn(routing::Route const & route, uint32_t turnNumber)
   {
-    turns::TurnsGeomT const & turnsGeom = route.GetTurnsGeometry();
+    turns::TTurnsGeom const & turnsGeom = route.GetTurnsGeometry();
     if (turnNumber >= turnsGeom.size())
       return TestTurn();
 
-    Route::TurnsT const & turns = route.GetTurns();
+    Route::TTurns const & turns = route.GetTurns();
     if (turnNumber >= turns.size())
       return TestTurn();
 
@@ -242,8 +242,8 @@ namespace integration
   TestTurn GetTurnByPoint(routing::Route const & route, m2::PointD const & approximateTurnPoint,
                           double inaccuracyMeters)
   {
-    turns::TurnsGeomT const & turnsGeom = route.GetTurnsGeometry();
-    Route::TurnsT const & turns = route.GetTurns();
+    turns::TTurnsGeom const & turnsGeom = route.GetTurnsGeometry();
+    Route::TTurns const & turns = route.GetTurns();
     ASSERT_EQUAL(turnsGeom.size() + 1, turns.size(), ());
 
     for (int i = 0; i != turnsGeom.size(); ++i)

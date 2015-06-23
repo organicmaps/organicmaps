@@ -56,10 +56,9 @@ string DebugPrint(TurnItem const & turnItem);
 class Route
 {
 public:
-  typedef vector<TurnItem> TurnsT;
-
+  typedef vector<TurnItem> TTurns;
   typedef pair<uint32_t, double> TTimeItem;
-  typedef vector<TTimeItem> TimesT;
+  typedef vector<TTimeItem> TTimes;
 
   explicit Route(string const & router) : m_router(router) {}
 
@@ -80,9 +79,9 @@ public:
     Update();
   }
 
-  void SetTurnInstructions(TurnsT & v);
-  void SetSectionTimes(TimesT & v);
-  void SetTurnInstructionsGeometry(turns::TurnsGeomT & v);
+  void SetTurnInstructions(TTurns & v);
+  void SetSectionTimes(TTimes & v);
+  void SetTurnInstructionsGeometry(turns::TTurnsGeom & v);
 
   // Time measure are seconds
   uint32_t GetAllTime() const;
@@ -90,8 +89,8 @@ public:
 
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly; }
-  turns::TurnsGeomT const & GetTurnsGeometry() const { return m_turnsGeom; }
-  TurnsT const & GetTurns() const { return m_turns; }
+  turns::TTurnsGeom const & GetTurnsGeometry() const { return m_turnsGeom; }
+  TTurns const & GetTurns() const { return m_turns; }
   string const & GetName() const { return m_name; }
   bool IsValid() const { return (m_poly.GetSize() > 1); }
 
@@ -157,10 +156,10 @@ private:
   /// Precalculated info for fast projection finding.
   vector<m2::ProjectionToSection<m2::PointD>> m_segProj;
 
-  TurnsT m_turns;
-  TimesT m_times;
+  TTurns m_turns;
+  TTimes m_times;
 
-  turns::TurnsGeomT m_turnsGeom;
+  turns::TTurnsGeom m_turnsGeom;
 
   /// Cached result iterator for last MoveIterator query.
   mutable IterT m_current;
