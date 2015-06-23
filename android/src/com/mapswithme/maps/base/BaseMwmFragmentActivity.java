@@ -15,15 +15,16 @@ import ru.mail.mrgservice.MRGService;
 public class BaseMwmFragmentActivity extends AppCompatActivity
 {
   @Override
-  protected void onCreate(Bundle arg0)
+  protected void onCreate(Bundle savedInstanceState)
   {
+    super.onCreate(savedInstanceState);
+
     // Use full-screen on Kindle Fire only
     if (Utils.isAmazonDevice())
     {
       getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
       getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
     }
-    super.onCreate(arg0);
 
     MWMApplication.get().initStats();
   }

@@ -342,10 +342,10 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
+    super.onCreate(savedInstanceState);
+
     // Do not turn off the screen while downloading needed resources
     getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-    super.onCreate(savedInstanceState);
 
     mApplication = (MWMApplication) getApplication();
 

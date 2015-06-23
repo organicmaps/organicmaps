@@ -16,9 +16,9 @@ public class ChooseBookmarkCategoryActivity extends BaseMwmFragmentActivity
   public static final int REQUEST_CODE_EDIT_BOOKMARK = 0x2;
 
   @Override
-  protected void onCreate(Bundle arg0)
+  protected void onCreate(Bundle savedInstanceState)
   {
-    super.onCreate(arg0);
+    super.onCreate(savedInstanceState);
 
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     Fragment fragment = Fragment.instantiate(this, ChooseBookmarkCategoryFragment.class.getName(), getIntent().getExtras());
