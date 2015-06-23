@@ -15,7 +15,7 @@
 
 extern NSArray * const kBookmarkColorsVariant = @[@"placemark-red", @"placemark-yellow", @"placemark-blue", @"placemark-green", @"placemark-purple", @"placemark-orange", @"placemark-brown", @"placemark-pink"];
 extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
-static NSArray * const kPatternTypesArray = @[@(MWMPlacePageMetadataTypePostcode), @(MWMPlacePageMetadataTypePhoneNumber), @(MWMPlacePageMetadataTypeWebsite), @(MWMPlacePageMetadataTypeURL), @(MWMPlacePageMetadataTypeEmail), @(MWMPlacePageMetadataTypeOpenHours), @(MWMPlacePageMetadataTypeCoordinate)];
+static NSArray * const kPatternTypesArray = @[@(MWMPlacePageMetadataTypePostcode), @(MWMPlacePageMetadataTypePhoneNumber), @(MWMPlacePageMetadataTypeWebsite), @(MWMPlacePageMetadataTypeURL), @(MWMPlacePageMetadataTypeEmail), @(MWMPlacePageMetadataTypeOpenHours), @(MWMPlacePageMetadataTypeWiFi), @(MWMPlacePageMetadataTypeCoordinate)];
 
 static NSString * const kTypesKey = @"types";
 static NSString * const kValuesKey = @"values";
@@ -174,10 +174,13 @@ using feature::Metadata;
       case Metadata::FMD_OPEN_HOURS:
       case Metadata::FMD_EMAIL:
       case Metadata::FMD_POSTCODE:
+      case Metadata::FMD_INTERNET:
       {
         NSString * v;
         if (type == Metadata::EType::FMD_OPEN_HOURS)
           v = [self formattedOpenHoursFromString:metadata.Get(type)];
+        else if (type == Metadata::FMD_INTERNET)
+          v = L(@"WiFi_available");
         else
           v = [NSString stringWithUTF8String:metadata.Get(type).c_str()];
 
@@ -186,9 +189,6 @@ using feature::Metadata;
         [values addObject:v];
         break;
       }
-      case Metadata::FMD_INTERNET:
-        /// @todo Add Internet processing here
-        break;
 
       default:
         break;
@@ -253,7 +253,8 @@ using feature::Metadata;
       return @(MWMPlacePageMetadataTypeEmail);
     case Metadata::FMD_POSTCODE:
       return @(MWMPlacePageMetadataTypePostcode);
-
+    case Metadata::FMD_INTERNET:
+      return @(MWMPlacePageMetadataTypeWiFi);
     default:
       return nil;
   }

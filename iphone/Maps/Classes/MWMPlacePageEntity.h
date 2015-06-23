@@ -21,6 +21,7 @@ typedef NS_ENUM (NSUInteger, MWMPlacePageMetadataType)
   MWMPlacePageMetadataTypeEmail,
   MWMPlacePageMetadataTypeOpenHours,
   MWMPlacePageMetadataTypeCoordinate,
+  MWMPlacePageMetadataTypeWiFi,
   MWMPlacePageMetadataTypeBookmark
 };
 

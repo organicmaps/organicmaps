@@ -51,6 +51,9 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
     case MWMPlacePageMetadataTypeOpenHours:
       [imageName appendString:@"OpenHours"];
       break;
+    case MWMPlacePageMetadataTypeWiFi:
+      [imageName appendFormat:@"WiFi"];
+      break;
     case MWMPlacePageMetadataTypeBookmark:
       NSAssert(false, @"Incorrect type!");
       break;
