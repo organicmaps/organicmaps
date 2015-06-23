@@ -388,7 +388,49 @@ bool OsrmRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source,
   return false;
 }
 
-void CalculateProperNode(TRoutingMappingPtr & mapping, FeatureGraphNode & graphNode,
+void FindGraphNodeOffsets(size_t const nodeId, m2::PointD const & point,
+                          Index const * pIndex, TRoutingMappingPtr & mapping,
+                          FeatureGraphNode & graphNode)
+{
+  graphNode.segmentPoint = point;
+
+  Point2PhantomNode::Candidate best;
+
+  auto range = mapping->m_segMapping.GetSegmentsRange(nodeId);
+  for (size_t i = range.first; i < range.second; ++i)
+  {
+    OsrmMappingTypes::FtSeg s;
+    mapping->m_segMapping.GetSegmentByIndex(i, s);
+    if (!s.IsValid())
+      continue;
+    FeatureType ft;
+    Index::FeaturesLoaderGuard loader(*pIndex, mapping->GetMwmId());
+    loader.GetFeature(s.m_fid, ft);
+    Point2PhantomNode::Candidate mappedSeg;
+    Point2PhantomNode::FindMappedSegment(ft, point, mappedSeg);
+    OsrmMappingTypes::FtSeg seg;
+    seg.m_fid = mappedSeg.m_fid;
+    seg.m_pointStart = mappedSeg.m_segIdx;
+    seg.m_pointEnd = mappedSeg.m_segIdx + 1;
+    if (!s.IsIntersect(seg))
+      continue;
+
+    if (mappedSeg.m_dist < best.m_dist)
+      best = mappedSeg;
+  }
+
+  if (best.m_fid == OsrmMappingTypes::FtSeg::INVALID_FID )
+  {
+    ASSERT(false, ("Best geometry not found."));
+    return;
+  }
+
+  graphNode.segment.m_fid = best.m_fid;
+  graphNode.segment.m_pointStart = best.m_segIdx;
+  graphNode.segment.m_pointEnd = best.m_segIdx + 1;
+}
+
+void CalculatePhantomNodeForCross(TRoutingMappingPtr & mapping, FeatureGraphNode & graphNode,
                          Index const * pIndex, bool forward)
 {
   if (graphNode.segment.IsValid())
@@ -439,42 +481,8 @@ void CalculateProperNode(TRoutingMappingPtr & mapping, FeatureGraphNode & graphN
     return;
   }
 
-  graphNode.segmentPoint = MercatorBounds::FromLatLon(point.y, point.x);
-
-  Point2PhantomNode::Candidate best;
-
-  auto range = mapping->m_segMapping.GetSegmentsRange(nodeId);
-  for (size_t i = range.first; i < range.second; ++i)
-  {
-    OsrmMappingTypes::FtSeg s;
-    mapping->m_segMapping.GetSegmentByIndex(i, s);
-    if (!s.IsValid())
-      continue;
-    FeatureType ft;
-    Index::FeaturesLoaderGuard loader(*pIndex, mapping->GetMwmId());
-    loader.GetFeature(s.m_fid, ft);
-    Point2PhantomNode::Candidate mappedSeg;
-    Point2PhantomNode::FindMappedSegment(ft, graphNode.segmentPoint, mappedSeg);
-    OsrmMappingTypes::FtSeg seg;
-    seg.m_fid = mappedSeg.m_fid;
-    seg.m_pointStart = mappedSeg.m_segIdx;
-    seg.m_pointEnd = mappedSeg.m_segIdx + 1;
-    if (!s.IsIntersect(seg))
-      continue;
-
-    if (mappedSeg.m_dist < best.m_dist)
-      best = mappedSeg;
-  }
-
-  if (best.m_fid == OsrmMappingTypes::FtSeg::INVALID_FID )
-  {
-    ASSERT(false, ("Best geometry not found."));
-    return;
-  }
-
-  graphNode.segment.m_fid = best.m_fid;
-  graphNode.segment.m_pointStart = best.m_segIdx;
-  graphNode.segment.m_pointEnd = best.m_segIdx + 1;
+  FindGraphNodeOffsets(nodeId, MercatorBounds::FromLatLon(point.y, point.x),
+                       pIndex, mapping, graphNode);
 }
 
 // TODO (ldragunov) move this function to cross mwm router
@@ -494,18 +502,18 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     ASSERT(mwmMapping->IsValid(), ());
     MappingGuard mwmMappingGuard(mwmMapping);
     UNUSED_VALUE(mwmMappingGuard);
-    CalculateProperNode(mwmMapping, cross.startNode, m_pIndex, true);
-    CalculateProperNode(mwmMapping, cross.finalNode, m_pIndex, false);
+    CalculatePhantomNodeForCross(mwmMapping, cross.startNode, m_pIndex, true);
+    CalculatePhantomNodeForCross(mwmMapping, cross.finalNode, m_pIndex, false);
     if (!FindSingleRoute(cross.startNode, cross.finalNode, mwmMapping->m_dataFacade, routingResult))
       return OsrmRouter::RouteNotFound;
 
-    // Get annotated route
+    // Get annotated route.
     Route::TTurns mwmTurnsDir;
     Route::TTimes mwmTimes;
     vector<m2::PointD> mwmPoints;
     turns::TTurnsGeom mwmTurnsGeom;
     MakeTurnAnnotation(routingResult, mwmMapping, mwmPoints, mwmTurnsDir, mwmTimes, mwmTurnsGeom);
-    // And connect it to result route
+    // And connect it to result route.
     // -1 because --mwmPoints.begin(), so psize can be negative.
     const int64_t pSize = Points.size() - 1;
     for (auto turn : mwmTurnsDir)
@@ -513,7 +521,6 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
       turn.m_index += pSize;
       TurnsDir.push_back(turn);
     }
-
 
     double const estimationTime = Times.size() ? Times.back().second : 0.0;
     for (auto time : mwmTimes)
@@ -523,10 +530,9 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
       Times.push_back(time);
     }
 
-
     if (!Points.empty())
     {
-      // We're at the end point
+      // We're at the end point.
       Points.pop_back();
       for (auto & turnGeom : mwmTurnsGeom)
         turnGeom.m_indexInRoute += pSize;
