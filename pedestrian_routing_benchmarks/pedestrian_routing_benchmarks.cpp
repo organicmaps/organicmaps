@@ -23,6 +23,37 @@ namespace
 string const MAP_NAME = "UK_England";
 string const MAP_FILE = MAP_NAME + DATA_FILE_EXTENSION;
 
+// Since for test purposes we compare routes lengths to check algorithms consistency,
+// we should use simplified pedestrian model, where all available edges have max speed
+class SimplifiedPedestrianModel : public routing::PedestrianModel
+{
+public:
+  SimplifiedPedestrianModel() = default;
+  virtual double GetSpeed(FeatureType const & f) const override
+  {
+    double const speed = routing::PedestrianModel::GetSpeed(f);
+    if (speed <= 0.0)
+      return 0.0;
+    return routing::PedestrianModel::GetMaxSpeed();
+  }
+};
+
+unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index const & index, routing::TMwmFileByPointFn const & countryFileFn)
+{
+  unique_ptr<routing::IVehicleModel> vehicleModel(new SimplifiedPedestrianModel());
+  unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm(nullptr));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, move(vehicleModel), move(algorithm), countryFileFn));
+  return router;
+}
+
+unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index const & index, routing::TMwmFileByPointFn const & countryFileFn)
+{
+  unique_ptr<routing::IVehicleModel> vehicleModel(new SimplifiedPedestrianModel());
+  unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarBidirectionalRoutingAlgorithm(nullptr));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, move(vehicleModel), move(algorithm), countryFileFn));
+  return router;
+}
+
 m2::PointD GetPointOnEdge(routing::Edge & e, double posAlong)
 {
   if (posAlong <= 0.0)
@@ -77,12 +108,12 @@ void TestRouters(Index const & index, m2::PointD const & startPos, m2::PointD co
 
   // find route by A*-bidirectional algorithm
   routing::Route routeFoundByAstarBidirectional("");
-  unique_ptr<routing::IRouter> router = routing::CreatePedestrianAStarBidirectionalRouter(index, countryFileFn, nullptr);
+  unique_ptr<routing::IRouter> router = CreatePedestrianAStarBidirectionalTestRouter(index, countryFileFn);
   TestRouter(*router, startPos, finalPos, routeFoundByAstarBidirectional);
 
   // find route by A* algorithm
   routing::Route routeFoundByAstar("");
-  router = routing::CreatePedestrianAStarRouter(index, countryFileFn, nullptr);
+  router = CreatePedestrianAStarTestRouter(index, countryFileFn);
   TestRouter(*router, startPos, finalPos, routeFoundByAstar);
 
   double constexpr kEpsilon = 1e-6;
