@@ -34,6 +34,16 @@ namespace
         MercatorBounds::FromLatLon(37.33498, -122.03575), 1438.);
   }
 
+  // ASSERT on pedestrian edges
+  UNIT_TEST(RussiaAssertHighwayClassOnPedestrianRouteInOSRM)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+          integration::GetAllMaps(),
+          MercatorBounds::FromLatLon(55.77787, 37.70405), {0., 0.},
+          MercatorBounds::FromLatLon(55.77682, 37.70391), 3032.
+          );
+  }
+
   // Cross mwm tests.
   UNIT_TEST(RussiaMoscowLeningradskiy39GerPanfilovtsev22RouteTest)
   {

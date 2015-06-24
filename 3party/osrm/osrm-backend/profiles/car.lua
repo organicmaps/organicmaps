@@ -310,10 +310,11 @@ function way_function (way, result)
       end
     else
       -- Set the avg speed on ways that are marked accessible
-      if access_tag_whitelist[access] then
-        result.forward_speed = speed_profile["default"]
-        result.backward_speed = speed_profile["default"]
-      end
+      -- OMIM does not support non highway classes
+      --if access_tag_whitelist[access] and "yes" ~= access then
+      --  result.forward_speed = speed_profile["default"]
+      --  result.backward_speed = speed_profile["default"]
+      --end
     end
     if 0 == max_speed then
       max_speed = math.huge
