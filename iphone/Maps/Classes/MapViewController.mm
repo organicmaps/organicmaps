@@ -967,10 +967,11 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
   if (!GetFramework().IsRoutingActive())
     return;
-  [UIView animateWithDuration:0.3 animations:^
+  [UIView animateWithDuration:0.3 delay:0.0 damping:0.9 initialVelocity:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^
   {
     self.routeViewWrapper.minY = MAX(offset - [self.searchView defaultSearchBarMinY], 0.0);
-  }];
+  }
+  completion:nil];
 }
 
 #pragma mark - UIKitViews delegates
