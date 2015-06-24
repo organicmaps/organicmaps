@@ -86,16 +86,19 @@ extern NSString * const kBookmarkCellWebViewDidFinishLoadContetnNotification = @
 - (IBAction)colorPickerButtonTap
 {
   [self.placePage changeBookmarkColor];
+  [self.title resignFirstResponder];
 }
 
 - (IBAction)categoryButtonTap
 {
   [self.placePage changeBookmarkCategory];
+  [self.title resignFirstResponder];
 }
 
 - (IBAction)editTap
 {
   [self.placePage changeBookmarkDescription];
+  [self.title resignFirstResponder];
 }
 
 @end
