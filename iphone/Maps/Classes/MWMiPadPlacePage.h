@@ -10,4 +10,6 @@
 
 @interface MWMiPadPlacePage : MWMPlacePage
 
+- (void)updatePlacePageLayout;
+
 @end

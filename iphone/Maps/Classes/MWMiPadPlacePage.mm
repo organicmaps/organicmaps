@@ -19,6 +19,7 @@
 extern CGFloat kBookmarkCellHeight;
 static CGFloat const kLeftOffset = 12.;
 static CGFloat const kTopOffset = 36.;
+static CGFloat const kBottomOffset = 12.;
 
 @interface MWMiPadPlacePageViewController : UIViewController
 
@@ -87,6 +88,7 @@ static CGFloat const kTopOffset = 36.;
 @interface MWMiPadPlacePage ()
 
 @property (strong, nonatomic) MWMiPadNavigationController * navigationController;
+@property (nonatomic) CGFloat height;
 
 @end
 
@@ -97,16 +99,14 @@ static CGFloat const kTopOffset = 36.;
   [super configure];
 
   CGFloat const defaultWidth = 360.;
-  CGFloat const actionBarHeight = 58.;
-  CGFloat const defaultHeight = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
+  [self updatePlacePageLayout];
 
   [self.manager addSubviews:@[self.navigationController.view] withNavigationController:self.navigationController];
-  self.navigationController.view.frame = CGRectMake( -defaultWidth, self.topBound + kTopOffset, defaultWidth, defaultHeight);
-  self.extendedPlacePageView.frame = CGRectMake(0., 0., defaultWidth, defaultHeight);
+  self.navigationController.view.frame = CGRectMake( -defaultWidth, self.topBound + kTopOffset, defaultWidth, self.height);
+  self.extendedPlacePageView.frame = CGRectMake(0., 0., defaultWidth, self.height);
   self.anchorImageView.image = nil;
   self.anchorImageView.backgroundColor = [UIColor whiteColor];
   self.actionBar.width = defaultWidth;
-  self.actionBar.origin = CGPointMake(0., defaultHeight - actionBarHeight);
 }
 
 - (void)show
@@ -139,25 +139,20 @@ static CGFloat const kTopOffset = 36.;
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
   [super willFinishEditingBookmarkTitle:title];
-  CGFloat const actionBarHeight = self.actionBar.height;
-  CGFloat const defaultHeight = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
-  self.actionBar.origin = CGPointMake(0., defaultHeight - actionBarHeight);
-  self.navigationController.view.height = defaultHeight;
+  [self updatePlacePageLayout];
 }
 
 - (void)addBookmark
 {
   [super addBookmark];
-  self.navigationController.view.height += kBookmarkCellHeight;
-  self.extendedPlacePageView.height += kBookmarkCellHeight;
+  self.height += kBookmarkCellHeight;
   self.actionBar.minY += kBookmarkCellHeight;
 }
 
 - (void)removeBookmark
 {
   [super removeBookmark];
-  self.navigationController.view.height -= kBookmarkCellHeight;
-  self.extendedPlacePageView.height -= kBookmarkCellHeight;
+  self.height -= kBookmarkCellHeight;
   self.actionBar.minY -= kBookmarkCellHeight;
 }
 
@@ -204,7 +199,21 @@ static CGFloat const kTopOffset = 36.;
   }
 }
 
+- (void)updatePlacePageLayout
+{
+  CGFloat const actionBarHeight = self.actionBar.height;
+  self.height = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
+  self.actionBar.origin = CGPointMake(0., self.height - actionBarHeight);
+}
+
 #pragma mark - Properties
+
+- (void)setHeight:(CGFloat)height
+{
+  _height = MIN(height, self.parentViewHeight - kTopOffset - kBottomOffset);
+  self.navigationController.view.height = _height;
+  self.extendedPlacePageView.height = _height;
+}
 
 - (MWMiPadNavigationController *)navigationController
 {

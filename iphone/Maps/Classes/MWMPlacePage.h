@@ -19,6 +19,7 @@
 @property (weak, nonatomic, readonly) MWMPlacePageViewManager * manager;
 @property (nonatomic) MWMPlacePageActionBar * actionBar;
 @property (nonatomic) CGFloat topBound;
+@property (nonatomic) CGFloat parentViewHeight;
 
 - (instancetype)initWithManager:(MWMPlacePageViewManager *)manager;
 - (void)show;

@@ -85,12 +85,20 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)layoutPlacePageToOrientation:(UIInterfaceOrientation)orientation
 {
-  if (IPAD || !self.placePage)
+  if (!self.placePage)
     return;
 
-  [self.placePage dismiss];
-  [self setPlacePageForiPhoneWithOrientation:orientation];
-  [self configPlacePage];
+  if (IPAD)
+  {
+    self.placePage.parentViewHeight = self.ownerViewController.view.width;
+    [(MWMiPadPlacePage *)self.placePage updatePlacePageLayout];
+  }
+  else
+  {
+    [self.placePage dismiss];
+    [self setPlacePageForiPhoneWithOrientation:orientation];
+    [self configPlacePage];
+  }
 }
 
 - (void)configPlacePage
@@ -101,6 +109,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     self.entity.category = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed];
   }
   self.placePage.topBound = self.topBound;
+  self.placePage.parentViewHeight = self.ownerViewController.view.height;
   [self.placePage configure];
   [self refreshPlacePage];
 }
