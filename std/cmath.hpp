@@ -1,10 +1,10 @@
 #pragma once
-#include "common_defines.hpp"
 
 #ifdef new
 #undef new
 #endif
 
+// We do not define _USE_MATH_DEFINES - please add your constants below.
 #include <cmath>
 
 #ifdef DEBUG_NEW
