@@ -28,7 +28,10 @@ string const MAP_FILE = MAP_NAME + DATA_FILE_EXTENSION;
 class SimplifiedPedestrianModel : public routing::PedestrianModel
 {
 public:
-  SimplifiedPedestrianModel() = default;
+  // IVehicleModel override:
+  // PedestrianModel::GetSpeed filters features and returns zero speed if feature
+  // is not allowed for pedestrians or otherwise some speed depending of road type (0 <= speed <= maxSpeed).
+  // For tests purposes for all allowed features speed must be the same as maxSpeed.
   virtual double GetSpeed(FeatureType const & f) const override
   {
     double const speed = routing::PedestrianModel::GetSpeed(f);
