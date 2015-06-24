@@ -24,8 +24,8 @@ public:
     jclass klass = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
     ASSERT ( klass, () );
 
-    jmethodID methodId = env->GetMethodID(klass, "<init>", "(JLjava/lang/String;JJJ[BLjava/lang/String;)V");
-    ASSERT ( methodId, () );
+    static jmethodID initMethodId = env->GetMethodID(klass, "<init>", "(JLjava/lang/String;JJJ[BLjava/lang/String;)V");
+    ASSERT ( initMethodId, () );
 
     // User id is always the same, so do not waste time on every chunk call
     static string uniqueUserId = GetPlatform().UniqueClientId();
@@ -37,21 +37,32 @@ public:
       postBody = env->NewByteArray(postBodySize);
       env->SetByteArrayRegion(postBody, 0, postBodySize, reinterpret_cast<jbyte const *>(pb.c_str()));
     }
-    m_self = env->NewGlobalRef(env->NewObject(klass,
-                                              methodId,
-                                              reinterpret_cast<jlong>(&cb),
-                                              env->NewStringUTF(url.c_str()),
-                                              static_cast<jlong>(beg),
-                                              static_cast<jlong>(end),
-                                              static_cast<jlong>(expectedFileSize),
-                                              postBody,
-                                              env->NewStringUTF(uniqueUserId.c_str())));
+
+    jstring jUrl = env->NewStringUTF(url.c_str());
+    jstring jUserId = env->NewStringUTF(uniqueUserId.c_str());
+    jobject const localSelf = env->NewObject(klass,
+                                             initMethodId,
+                                             reinterpret_cast<jlong>(&cb),
+                                             jUrl,
+                                             static_cast<jlong>(beg),
+                                             static_cast<jlong>(end),
+                                             static_cast<jlong>(expectedFileSize),
+                                             postBody,
+                                             jUserId);
+    m_self = env->NewGlobalRef(localSelf);
     ASSERT ( m_self, () );
 
-    methodId = env->GetMethodID(klass, "start", "()V");
-    ASSERT ( methodId, () );
+    env->DeleteLocalRef(localSelf);
+    env->DeleteLocalRef(postBody);
+    env->DeleteLocalRef(jUrl);
+    env->DeleteLocalRef(jUserId);
 
-    env->CallVoidMethod(m_self, methodId);
+    static jmethodID startMethodId = env->GetMethodID(klass, "start", "()V");
+    ASSERT ( startMethodId, () );
+
+    env->DeleteLocalRef(klass);
+
+    env->CallVoidMethod(m_self, startMethodId);
   }
 
   ~HttpThread()

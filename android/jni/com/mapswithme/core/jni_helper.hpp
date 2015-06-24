@@ -47,4 +47,6 @@ namespace jni
 
   jobject GetNewPoint(JNIEnv * env, m2::PointD const & point);
   jobject GetNewPoint(JNIEnv * env, m2::PointI const & point);
+
+  void DumpDalvikReferenceTables();
 }

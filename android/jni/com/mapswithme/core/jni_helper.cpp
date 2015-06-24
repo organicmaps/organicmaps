@@ -81,6 +81,9 @@ namespace jni
 
     jmethodID mid = env->GetMethodID(cls, fn, sig);
     ASSERT(mid, ("Can't get methodID", fn, sig, DescribeException()));
+
+    env->DeleteLocalRef(cls);
+
     return mid;
   }
 
@@ -218,5 +221,19 @@ namespace jni
     return env->NewObject(klass, methodID,
                               static_cast<jint>(point.x),
                               static_cast<jint>(point.y));
+  }
+
+  // TODO
+  // make ScopedLocalRef wrapper similar to https://android.googlesource.com/platform/libnativehelper/+/jb-mr1.1-dev-plus-aosp/include/nativehelper/ScopedLocalRef.h
+  // for localrefs automatically removed after going out of scope
+
+  // This util method dumps content of local and global reference jni tables to logcat for debug and testing purposes
+  void DumpDalvikReferenceTables()
+  {
+    JNIEnv * env = jni::GetEnv();
+    jclass vm_class = env->FindClass("dalvik/system/VMDebug");
+    jmethodID dump_mid = env->GetStaticMethodID(vm_class, "dumpReferenceTables", "()V");
+    env->CallStaticVoidMethod(vm_class, dump_mid);
+    env->DeleteLocalRef(vm_class);
   }
 } // namespace jni
