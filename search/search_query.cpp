@@ -88,7 +88,7 @@ Query::Query(Index const * pIndex,
 {
   // m_viewport is initialized as empty rects
 
-  ASSERT (m_pIndex, ());
+  ASSERT(m_pIndex, ());
 
   // Results queue's initialization.
   static_assert(QUEUES_COUNT == ARRAY_SIZE(g_arrCompare1), "");

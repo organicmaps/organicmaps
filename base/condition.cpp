@@ -1,3 +1,5 @@
+#include "condition.hpp"
+
 #include "std/target_os.hpp"
 
 #if defined(OMIM_OS_WINDOWS_NATIVE)

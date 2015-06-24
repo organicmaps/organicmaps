@@ -1,9 +1,9 @@
 #pragma once
 
-#include "std/target_os.hpp"
 #include "base/logging.hpp"
 
-#include "base/logging.hpp"
+#include "std/target_os.hpp"
+
 
 #if defined(OMIM_OS_WINDOWS)
   #include "../../std/windows.hpp"

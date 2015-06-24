@@ -27,10 +27,8 @@ template <typename T> inline T Abs(T x)
 template <typename TFloat>
 bool AlmostEqualULPs(TFloat x, TFloat y, unsigned int maxULPs = 256)
 {
-  static_assert(is_floating_point<TFloat>::value, "Only floating point is supported.");
-  static_assert(numeric_limits<TFloat>::is_iec559, "Only floating point is supported.");
-  static_assert(!numeric_limits<TFloat>::is_exact, "Only floating point is supported.");
-  static_assert(!numeric_limits<TFloat>::is_integer, "Only floating point is supported.");
+  static_assert(is_floating_point<TFloat>::value, "");
+  static_assert(numeric_limits<TFloat>::is_iec559, "");
 
   // Make sure maxUlps is non-negative and small enough that the
   // default NaN won't compare as equal to anything.
@@ -208,9 +206,11 @@ template <typename T> T GCD(T a, T b)
   return multiplier * gcd;
 }
 
+/// Calculate hash for the pair of values.
 template <typename T1, typename T2>
-size_t Hash(T1 t1, T2 t2)
+size_t Hash(T1 const & t1, T2 const & t2)
 {
+  /// @todo Probably, we need better hash for 2 integral types.
   return (hash<T1>()(t1) ^ (hash<T2>()(t2) << 1));
 }
 

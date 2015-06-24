@@ -245,7 +245,6 @@ HEADERS += \
   $$ROOT_DIR/std/iostream.hpp \
   $$ROOT_DIR/std/iterator.hpp \
   $$ROOT_DIR/std/iterator_facade.hpp \
-  $$ROOT_DIR/std/kdtree.hpp \
   $$ROOT_DIR/std/limits.hpp \
   $$ROOT_DIR/std/list.hpp \
   $$ROOT_DIR/std/map.hpp \

@@ -15,8 +15,7 @@
 #define MY_RELEASE_DEFINED 0
 #endif
 
-static_assert(!(MY_DEBUG_DEFINED && MY_RELEASE_DEFINED), "Either Debug or Release should be defined, but not both.");
-static_assert(MY_DEBUG_DEFINED || MY_RELEASE_DEFINED, "Either Debug or Release should be defined, but not both.");
+static_assert(MY_DEBUG_DEFINED ^ MY_RELEASE_DEFINED, "Either Debug or Release should be defined, but not both.");
 
 // #define DEBUG macro, which should be used with #ifdef.
 #if !MY_RELEASE_DEFINED

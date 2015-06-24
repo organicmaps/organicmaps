@@ -1,5 +1,3 @@
-#include "std/target_os.hpp"
-
 #include "indexer/drawing_rules.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/classificator.hpp"
@@ -8,12 +6,12 @@
 
 #include "defines.hpp"
 
-#include "std/bind.hpp"
-#include "std/iterator_facade.hpp"
-
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
+
+#include "std/bind.hpp"
+#include "std/iterator_facade.hpp"
 
 #include <google/protobuf/text_format.h>
 

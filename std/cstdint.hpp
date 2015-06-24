@@ -5,6 +5,8 @@
 #endif
 
 #include <cstdint>
+#include <cstddef>
+
 using std::int8_t;
 using std::uint8_t;
 using std::int16_t;
@@ -13,8 +15,6 @@ using std::int32_t;
 using std::uint32_t;
 using std::int64_t;
 using std::uint64_t;
-
-#include <cstddef>
 using std::size_t;
 
 #ifdef DEBUG_NEW

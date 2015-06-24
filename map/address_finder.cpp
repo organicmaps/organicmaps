@@ -189,8 +189,8 @@ namespace
       template <size_t count, size_t ind>
       void FillMatch(char const * (& arr)[count][ind], vector<uint32_t> & vec)
       {
-        static_assert (count > 0, "");
-        static_assert (ind > 0, "");
+        static_assert(count > 0, "");
+        static_assert(ind > 0, "");
 
         Classificator const & c = classif();
 

@@ -178,7 +178,7 @@ template <class FilterT> class OffsetIntersecter
   {
     size_t operator() (ValueT const & v) const
     {
-      return static_cast<size_t>(v.m_featureId);
+      return v.m_featureId;
     }
   };
   struct EqualFn

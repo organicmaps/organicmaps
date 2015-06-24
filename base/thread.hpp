@@ -4,11 +4,10 @@
 #include "base/cancellable.hpp"
 #include "base/macros.hpp"
 
-#include "std/target_os.hpp"
-
+#include "std/cstdint.hpp"
 #include "std/noncopyable.hpp"
 #include "std/shared_ptr.hpp"
-#include "std/cstdint.hpp"
+#include "std/target_os.hpp"
 #include "std/thread.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"

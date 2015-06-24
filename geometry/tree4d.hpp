@@ -7,7 +7,8 @@
 #include "base/logging.hpp"
 
 #include "std/sstream.hpp"
-#include "std/kdtree.hpp"
+
+#include "3party/kdtree++/kdtree.hpp"
 
 
 namespace m4
