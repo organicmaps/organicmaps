@@ -40,7 +40,7 @@ struct CrossNode
   {
     if (a.node != node)
       return node < a.node;
-    if(isVirtual != a.isVirtual)
+    if (isVirtual != a.isVirtual)
       return isVirtual < a.isVirtual;
     return mwmName < a.mwmName;
   }
@@ -122,9 +122,8 @@ private:
 //--------------------------------------------------------------------------------------------------
 
 /// Convertor from CrossMwmGraph to cross mwm route task.
-void  ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
-                                 FeatureGraphNode const & startGraphNode,
-                                 FeatureGraphNode const & finalGraphNode,
-                                 TCheckedPath & route);
+void ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
+                                FeatureGraphNode const & startGraphNode,
+                                FeatureGraphNode const & finalGraphNode, TCheckedPath & route);
 
 }  // namespace routing

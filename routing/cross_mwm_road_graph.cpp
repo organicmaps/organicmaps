@@ -198,14 +198,13 @@ double CrossMwmGraph::HeuristicCostEstimate(BorderCross const & v, BorderCross c
 
 void ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
                                 FeatureGraphNode const & startGraphNode,
-                                FeatureGraphNode const & finalGraphNode,
-                                TCheckedPath & route)
+                                FeatureGraphNode const & finalGraphNode, TCheckedPath & route)
 {
   route.clear();
   for (size_t i = 0; i + 1 < graphCrosses.size(); ++i)
   {
     route.emplace_back(graphCrosses[i].toNode.node, graphCrosses[i + 1].fromNode.node,
-        graphCrosses[i].toNode.mwmName);
+                       graphCrosses[i].toNode.mwmName);
   }
 
   if (route.empty())
