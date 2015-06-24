@@ -1,10 +1,11 @@
 #pragma once
 #include "base/assert.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/cmath.hpp"
+#include "std/functional.hpp"
 #include "std/limits.hpp"
 #include "std/type_traits.hpp"
-#include "std/algorithm.hpp"
 
 #include <boost/integer.hpp>
 
@@ -205,6 +206,12 @@ template <typename T> T GCD(T a, T b)
   }
 
   return multiplier * gcd;
+}
+
+template <typename T1, typename T2>
+size_t Hash(T1 t1, T2 t2)
+{
+  return (hash<T1>()(t1) ^ (hash<T2>()(t2) << 1));
 }
 
 }

@@ -80,7 +80,7 @@ namespace tesselator
   void TrianglesInfo::ListInfo::AddNeighbour(int p1, int p2, int trg)
   {
     // find or insert element for key
-    pair<neighbors_t::iterator, bool> ret = m_neighbors.insert(make_pair(make_pair(p1, p2), trg));
+    pair<TNeighbours::iterator, bool> ret = m_neighbors.insert(make_pair(make_pair(p1, p2), trg));
 
     // triangles should not duplicate
     CHECK ( ret.second, ("Duplicating triangles for indices : ", p1, p2) );

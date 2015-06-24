@@ -111,6 +111,8 @@ private:
 
   map<CrossNode, vector<CrossWeightedEdge> > m_virtualEdges;
   mutable RoutingIndexManager m_indexManager;
-  mutable unordered_map<m2::PointD, BorderCross> m_cachedNextNodes;
+
+  // hash function for unordered map realisation.
+  mutable unordered_map<m2::PointD, BorderCross, m2::PointD::Hash> m_cachedNextNodes;
 };
 }  // namespace routing

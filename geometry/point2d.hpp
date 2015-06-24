@@ -7,9 +7,10 @@
 
 #include "std/array.hpp"
 #include "std/cmath.hpp"
+#include "std/functional.hpp"
 #include "std/sstream.hpp"
 #include "std/typeinfo.hpp"
-#include "std/unordered_map.hpp"
+
 
 namespace m2
 {
@@ -178,6 +179,14 @@ namespace m2
       x = org.x + oldX * dx.x + y * dy.x;
       y = org.y + oldX * dx.y + y * dy.y;
     }
+
+    struct Hash
+    {
+      size_t operator()(m2::Point<T> const & p) const
+      {
+        return my::Hash(p.x, p.y);
+      }
+    };
   };
 
   template <typename T>
@@ -391,17 +400,4 @@ bool AlmostEqualULPs(m2::Point<T> const & p1, m2::Point<T> const & p2, unsigned 
   return m2::AlmostEqualULPs(p1, p2, maxULPs);
 }
 
-}
-
-// hash function for unordered map realisation.
-namespace boost
-{
-template <>
-struct hash<m2::PointD>
-{
-  size_t operator()(m2::PointD const & p) const
-  {
-    return (hash<double>()(p.x) ^ (hash<double>()(p.y) >> 1));
-  }
-};
 }

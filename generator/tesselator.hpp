@@ -64,8 +64,16 @@ namespace tesselator
       mutable vector<bool> m_visited;
 
       // directed edge -> triangle
-      typedef unordered_map<pair<int, int>, int> neighbors_t;
-      neighbors_t m_neighbors;
+      template <typename T1, typename T2> struct HashPair
+      {
+        size_t operator()(pair<T1, T2> const & p) const
+        {
+          return my::Hash(p.first, p.second);
+        }
+      };
+
+      typedef unordered_map<pair<int, int>, int, HashPair<int, int>> TNeighbours;
+      TNeighbours m_neighbors;
 
       void AddNeighbour(int p1, int p2, int trg);
 
@@ -76,7 +84,7 @@ namespace tesselator
           PointsInfo const & points, Triangle const & from, Triangle const & to) const;
 
     public:
-      typedef neighbors_t::const_iterator iter_t;
+      typedef TNeighbours::const_iterator iter_t;
 
       ListInfo(size_t count)
       {
