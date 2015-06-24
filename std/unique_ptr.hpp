@@ -1,5 +1,4 @@
 #pragma once
-#include "common_defines.hpp"
 
 #ifdef new
 #undef new
@@ -9,7 +8,7 @@
 using std::unique_ptr;
 
 /// @todo(y): replace this hand-written helper function by
-/// std::make_unique when it will be available.
+/// std::make_unique when it will be available in C++14
 template <typename T, typename... Args>
 unique_ptr<T> make_unique(Args &&... args)
 {

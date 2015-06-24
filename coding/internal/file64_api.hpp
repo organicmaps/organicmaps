@@ -18,14 +18,14 @@
   #define fseek64 fseeko64
   #define ftell64 ftello64
 
-#elif defined(OMIM_OS_ANDROID)
-  static_assert(sizeof(off_t) == 4, "For Android, off_t is 32bit, so big files are not supported.");
-  #define fseek64 fseeko
-  #define ftell64 ftello
-
 #else
+  // POSIX standart.
   #include <sys/types.h>
-  static_assert(sizeof(off_t) == 8, "");
+  #ifdef OMIM_OS_ANDROID
+    static_assert(sizeof(off_t) == 4, "");
+  #else
+    static_assert(sizeof(off_t) == 8, "");
+  #endif
   #define fseek64 fseeko
   #define ftell64 ftello
 

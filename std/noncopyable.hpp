@@ -1,10 +1,10 @@
 #pragma once
-#include "common_defines.hpp"
 
 #ifdef new
 #undef new
 #endif
 
+// TODO: Mirgate to C++11 technics to disable copying.
 #include <boost/noncopyable.hpp>
 using boost::noncopyable;
 

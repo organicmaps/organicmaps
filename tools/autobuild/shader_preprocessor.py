@@ -74,9 +74,10 @@ def definitionChanged(newHeaderContent, defFilePath):
 def writeDefinitionFile(programIndex):
     result = ""
     result += "#pragma once\n\n"
-    result += "#include \"../std/map.hpp\"\n"
-    result += "#include \"../std/vector.hpp\"\n"
-    result += "#include \"../std/string.hpp\"\n\n"
+    result += "#include \"std/map.hpp\"\n"
+    result += "#include \"std/string.hpp\"\n"
+    result += "#include \"std/target_os.hpp\"\n"
+    result += "#include \"std/vector.hpp\"\n\n"
     result += "namespace gpu\n"
     result += "{\n"
     result += "\n"

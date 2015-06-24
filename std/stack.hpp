@@ -1,4 +1,4 @@
-#include "common_defines.hpp"
+#pragma once
 
 #ifdef new
 #undef new

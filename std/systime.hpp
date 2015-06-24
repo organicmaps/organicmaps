@@ -1,6 +1,5 @@
 #pragma once
 
-#include "common_defines.hpp"
 #include "target_os.hpp"
 #include "ctime.hpp"
 

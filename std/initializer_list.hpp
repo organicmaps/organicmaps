@@ -1,12 +1,10 @@
 #pragma once
-#include "common_defines.hpp"
 
 #ifdef new
 #undef new
 #endif
 
 #include <initializer_list>
-
 using std::initializer_list;
 typedef initializer_list<char const *> StringIL;
 

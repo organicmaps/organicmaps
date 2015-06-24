@@ -1,4 +1,7 @@
-#include "base/internal/message.hpp"
+#include "message.hpp"
+
+#include "std/target_os.hpp"
+
 
 string DebugPrint(string const & t)
 {

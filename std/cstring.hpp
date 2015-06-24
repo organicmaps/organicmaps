@@ -3,7 +3,6 @@
 // - memcpy, memcmp, memset
 
 #pragma once
-#include "common_defines.hpp"
 
 #ifdef new
 #undef new

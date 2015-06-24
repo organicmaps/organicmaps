@@ -3,6 +3,7 @@
 #import <Foundation/Foundation.h>
 
 #include "../std/string.hpp"
+#include "../std/target_os.hpp"
 
 namespace downloader { class IHttpThreadCallback; }
 

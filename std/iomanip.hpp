@@ -1,5 +1,4 @@
 #pragma once
-#include "common_defines.hpp"
 #include "target_os.hpp"
 
 #ifdef new
@@ -14,6 +13,7 @@ using std::setfill;
 using std::setprecision;
 using std::setw;
 
+// TODO: Should we force clang/libc++ here?
 #ifndef OMIM_OS_LINUX
 using std::get_time;
 using std::put_time;
