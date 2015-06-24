@@ -10,6 +10,8 @@
 #import "MWMMapViewControlsCommon.h"
 #import "UIKitCategories.h"
 
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
 @interface MWMLocationButtonView()
 
 @property (nonatomic) CGRect defaultBounds;
@@ -86,6 +88,7 @@
 
 - (void)changeButtonFromState:(location::State::Mode)beginState toState:(location::State::Mode)endState
 {
+  NSAssert1(beginState != endState, @"MWMLocationButtonView::(changeButtonFromState:toState:) states must be different! state:%@", @(beginState));
   [self setImageNamed:endState];
   static NSDictionary const * const stateMap = @{@(location::State::UnknownPosition).stringValue : @"noposition",
                                                  @(location::State::PendingPosition).stringValue : @"pending",
@@ -96,7 +99,22 @@
   static NSUInteger const animationImagesCount = 6;
   NSMutableArray * const animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   for (NSUInteger i = 0; i < animationImagesCount; ++i)
-    animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", changeAnimation, @(i+1)]];
+  {
+    NSString * imageName = [NSString stringWithFormat:@"%@%@", changeAnimation, @(i+1)];
+    UIImage * image = [UIImage imageNamed:imageName];
+    NSAssert1(image, @"MWMLocationButtonView::(changeButtonFromState:toState:) image is nil! imageName: %@", imageName);
+    if (image)
+    {
+      animationImages[i] = image;
+    }
+    else
+    {
+      // TODO(grechuhin): Temporary, check Alohalytics logs and clean implementation.
+      [Alohalytics logEvent:@"MWMLocationButtonViewChangeButtonFromStateToStateInvalidImageName" withValue:imageName];
+      [self changeStateFinish];
+      return;
+    }
+  }
   [self setAnimation:animationImages once:YES];
   [self changeStateFinish];
 }
