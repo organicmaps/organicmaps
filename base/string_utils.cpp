@@ -119,8 +119,8 @@ namespace
   char ascii_to_lower(char in)
   {
     char const diff = 'z' - 'Z';
-    STATIC_ASSERT(diff == 'a' - 'A');
-    STATIC_ASSERT(diff > 0);
+    static_assert(diff == 'a' - 'A', "");
+    static_assert(diff > 0, "");
 
     if (in >= 'A' && in <= 'Z')
       return (in + diff);

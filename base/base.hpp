@@ -1,7 +1,6 @@
 #pragma once
 
 #include "std/stdint.hpp"
-#include "std/static_assert.hpp"
 
 #if defined(DEBUG) || defined(_DEBUG) || defined(NRELEASE) || defined(QT_DEBUG)
 #define MY_DEBUG_DEFINED 1
@@ -16,10 +15,8 @@
 #define MY_RELEASE_DEFINED 0
 #endif
 
-// Either Debug or Release should be defined, but not both.
-STATIC_ASSERT(!(MY_DEBUG_DEFINED && MY_RELEASE_DEFINED));
-STATIC_ASSERT(MY_DEBUG_DEFINED || MY_RELEASE_DEFINED);
-
+static_assert(!(MY_DEBUG_DEFINED && MY_RELEASE_DEFINED), "Either Debug or Release should be defined, but not both.");
+static_assert(MY_DEBUG_DEFINED || MY_RELEASE_DEFINED, "Either Debug or Release should be defined, but not both.");
 
 // #define DEBUG macro, which should be used with #ifdef.
 #if !MY_RELEASE_DEFINED

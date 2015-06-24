@@ -38,7 +38,7 @@ public:
   public:
     uint16_t m_Count[256];
   };
-  STATIC_ASSERT(sizeof(Index) == 2 * 258);
+  static_assert(sizeof(Index) == 2 * 258, "");
 };
 
 // TODO: IntervalIndex shouldn't do SwapIfBigEndian for ValueT.

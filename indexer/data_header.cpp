@@ -57,7 +57,7 @@ namespace feature
     template <class TSink, class TCont>
     void SaveBytes(TSink & sink, TCont const & cont)
     {
-      STATIC_ASSERT(sizeof(typename TCont::value_type) == 1);
+      static_assert(sizeof(typename TCont::value_type) == 1, "");
 
       uint32_t const count = static_cast<uint32_t>(cont.size());
       WriteVarUint(sink, count);
@@ -68,7 +68,7 @@ namespace feature
     template <class TSource, class TCont>
     void LoadBytes(TSource & src, TCont & cont)
     {
-      STATIC_ASSERT(sizeof(typename TCont::value_type) == 1);
+      static_assert(sizeof(typename TCont::value_type) == 1, "");
       ASSERT ( cont.empty(), () );
 
       uint32_t const count = ReadVarUint<uint32_t>(src);

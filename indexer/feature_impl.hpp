@@ -21,9 +21,9 @@ namespace feature
     str = prefix;
 
     static char const arrChar[] = { '0', '1', '2', '3' };
-    STATIC_ASSERT ( ARRAY_SIZE(arrChar) >= ARRAY_SIZE(g_arrWorldScales) );
-    STATIC_ASSERT ( ARRAY_SIZE(arrChar) >= ARRAY_SIZE(g_arrCountryScales) );
-    ASSERT ( ind >= 0 && ind < ARRAY_SIZE(arrChar), (ind) );
+    static_assert(ARRAY_SIZE(arrChar) >= ARRAY_SIZE(g_arrWorldScales), "");
+    static_assert(ARRAY_SIZE(arrChar) >= ARRAY_SIZE(g_arrCountryScales), "");
+    ASSERT(ind >= 0 && ind < ARRAY_SIZE(arrChar), (ind));
 
     str += arrChar[ind];
     return str;

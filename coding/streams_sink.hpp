@@ -38,7 +38,7 @@ namespace stream
 
     SinkReaderStream & operator >> (double & t)
     {
-      STATIC_ASSERT(sizeof(double) == sizeof(int64_t));
+      static_assert(sizeof(double) == sizeof(int64_t), "");
       int64_t * tInt = reinterpret_cast<int64_t *>(&t);
       operator >> (*tInt);
       return *this;
@@ -74,7 +74,7 @@ namespace stream
 
     SinkWriterStream & operator << (double t)
     {
-      STATIC_ASSERT(sizeof(double) == sizeof(int64_t));
+      static_assert(sizeof(double) == sizeof(int64_t), "");
       int64_t const tInt = *reinterpret_cast<int64_t const *>(&t);
       operator << (tInt);
       return (*this);

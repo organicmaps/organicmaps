@@ -220,7 +220,7 @@ namespace
         { "place", "island" },
         { "place", "islet" }
       };
-      STATIC_ASSERT(ARRAY_SIZE(arr) == TYPES_COUNT);
+      static_assert(ARRAY_SIZE(arr) == TYPES_COUNT, "");
 
       for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
         m_types[i] = c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2));

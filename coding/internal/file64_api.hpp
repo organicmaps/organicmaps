@@ -7,7 +7,7 @@
   #define ftell64 _ftelli64
 
 #elif defined(OMIM_OS_TIZEN)
-  STATIC_ASSERT(sizeof(__off64_t) == 8);
+  static_assert(sizeof(__off64_t) == 8, "");
   #define fseek64 fseeko64
   #define ftell64 ftello64
 
@@ -15,18 +15,16 @@
   typedef uint64_t _fpos64_t;
 
 #elif defined(OMIM_OS_WINDOWS_MINGW)
-  //STATIC_ASSERT(sizeof(off64_t) == 8);
   #define fseek64 fseeko64
   #define ftell64 ftello64
 
 #elif defined(OMIM_OS_ANDROID)
-  // For Android, off_t is 32bit, so big files are not supported
-  STATIC_ASSERT(sizeof(off_t) == 4);
+  static_assert(sizeof(off_t) == 4, "For Android, off_t is 32bit, so big files are not supported.");
   #define fseek64 fseeko
   #define ftell64 ftello
 
 #else
-  STATIC_ASSERT(sizeof(off_t) == 8);
+  static_assert(sizeof(off_t) == 8, "");
   #define fseek64 fseeko
   #define ftell64 ftello
 

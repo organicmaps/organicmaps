@@ -32,7 +32,7 @@ class MemWriter : public Writer
 public:
   inline MemWriter(ContainerT & data) : m_Data(data), m_Pos(0)
   {
-    STATIC_ASSERT(sizeof(typename ContainerT::value_type) == 1);
+    static_assert(sizeof(typename ContainerT::value_type) == 1, "");
   }
 
   inline void Seek(int64_t pos)

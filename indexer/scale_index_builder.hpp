@@ -49,9 +49,9 @@ private:
   uint32_t m_CellHi;
   uint32_t m_Feature;
 };
-STATIC_ASSERT(sizeof(CellFeaturePair) == 12);
+static_assert(sizeof(CellFeaturePair) == 12, "");
 #ifndef OMIM_OS_LINUX
-STATIC_ASSERT(is_trivially_copyable<CellFeaturePair>::value);
+static_assert(is_trivially_copyable<CellFeaturePair>::value, "");
 #endif
 
 class CellFeatureBucketTuple
@@ -76,9 +76,9 @@ private:
   CellFeaturePair m_pair;
   uint32_t m_bucket;
 };
-STATIC_ASSERT(sizeof(CellFeatureBucketTuple) == 16);
+static_assert(sizeof(CellFeatureBucketTuple) == 16, "");
 #ifndef OMIM_OS_LINUX
-STATIC_ASSERT(is_trivially_copyable<CellFeatureBucketTuple>::value);
+static_assert(is_trivially_copyable<CellFeatureBucketTuple>::value, "");
 #endif
 
 template <class TSorter>

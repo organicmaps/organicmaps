@@ -26,7 +26,7 @@ inline string ToHex(const void * ptr, size_t size)
 template <typename ContainerT>
 inline string ToHex(ContainerT const & container)
 {
-  STATIC_ASSERT(sizeof(*container.begin()) == 1);
+  static_assert(sizeof(*container.begin()) == 1, "");
 
   if (container.empty())
     return string();
@@ -39,7 +39,7 @@ inline string ToHex(ContainerT const & container)
 template <typename IntT>
 inline string NumToHex(IntT n)
 {
-  STATIC_ASSERT(is_integral<IntT>::value);
+  static_assert(is_integral<IntT>::value, "");
 
   uint8_t buf[sizeof(n)];
 

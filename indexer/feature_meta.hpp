@@ -6,7 +6,6 @@
 #include "std/algorithm.hpp"
 #include "std/limits.hpp"
 #include "std/map.hpp"
-#include "std/static_assert.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -38,7 +37,7 @@ namespace feature
       FMD_COUNT
     };
 
-    STATIC_ASSERT(FMD_COUNT <= 255);
+    static_assert(FMD_COUNT <= 255, "Meta types count is limited to one byte.");
 
     bool Add(EType type, string const & s)
     {

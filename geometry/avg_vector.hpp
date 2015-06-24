@@ -58,7 +58,7 @@ namespace math
   public:
     AvgVector(size_t count = 1) : m_count(count)
     {
-      STATIC_ASSERT(is_floating_point<T>::value);
+      static_assert(is_floating_point<T>::value, "");
     }
 
     void SetCount(size_t count) { m_count = count; }

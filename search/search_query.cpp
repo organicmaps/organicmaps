@@ -88,11 +88,11 @@ Query::Query(Index const * pIndex,
 {
   // m_viewport is initialized as empty rects
 
-  ASSERT ( m_pIndex, () );
+  ASSERT (m_pIndex, ());
 
   // Results queue's initialization.
-  STATIC_ASSERT ( QUEUES_COUNT == ARRAY_SIZE(g_arrCompare1) );
-  STATIC_ASSERT ( QUEUES_COUNT == ARRAY_SIZE(g_arrCompare2) );
+  static_assert(QUEUES_COUNT == ARRAY_SIZE(g_arrCompare1), "");
+  static_assert(QUEUES_COUNT == ARRAY_SIZE(g_arrCompare2), "");
 
   for (size_t i = 0; i < QUEUES_COUNT; ++i)
   {

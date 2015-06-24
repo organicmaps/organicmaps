@@ -12,7 +12,7 @@ static char const * gLangs[] = {
 
 int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 {
-  STATIC_ASSERT(ARRAY_SIZE(gLangs) == MAX_SUPPORTED_LANGUAGES);
+  static_assert(ARRAY_SIZE(gLangs) == MAX_SUPPORTED_LANGUAGES, "");
 
   for (size_t i = 0; i < ARRAY_SIZE(gLangs); ++i)
     if (lang == gLangs[i])

@@ -23,7 +23,7 @@ namespace graphics
   template <typename T>
   void CheckPointLayout()
   {
-    STATIC_ASSERT(sizeof(m2::Point<T>) == 2 * sizeof(T));
+    static_assert(sizeof(m2::Point<T>) == 2 * sizeof(T), "");
     m2::Point<T> p;
     CHECK_EQUAL(reinterpret_cast<unsigned char*>(&p), reinterpret_cast<unsigned char*>(&p.x), ());
     CHECK_EQUAL(reinterpret_cast<unsigned char*>(&p) + sizeof(T), reinterpret_cast<unsigned char*>(&p.y), ());
@@ -412,7 +412,7 @@ namespace graphics
                                        double depth,
                                        int pipelineID)
   {
-    STATIC_ASSERT(sizeof(m2::PointF) == 2 * sizeof(float));
+    static_assert(sizeof(m2::PointF) == 2 * sizeof(float), "");
 
     VertexStream vs;
 
@@ -444,7 +444,7 @@ namespace graphics
                                               double depth,
                                               int pipelineID)
   {
-    STATIC_ASSERT(sizeof(m2::PointF) == 2 * sizeof(float));
+    static_assert(sizeof(m2::PointF) == 2 * sizeof(float), "");
 
     VertexStream vs;
 
@@ -475,7 +475,7 @@ namespace graphics
       int pipelineID
       )
   {
-    STATIC_ASSERT(sizeof(m2::PointF) == 2 * sizeof(float));
+    static_assert(sizeof(m2::PointF) == 2 * sizeof(float), "");
 
     VertexStream vs;
 
@@ -508,7 +508,7 @@ namespace graphics
       double depth,
       int pipelineID)
   {
-    STATIC_ASSERT(sizeof(m2::PointF) == 2 * sizeof(float));
+    static_assert(sizeof(m2::PointF) == 2 * sizeof(float), "");
 
     VertexStream vs;
 
@@ -541,8 +541,8 @@ namespace graphics
       double depth,
       int pipelineID)
   {
-    STATIC_ASSERT(sizeof(m2::PointD) == 2 * sizeof(double));
-    STATIC_ASSERT(sizeof(m2::PointF) == 2 * sizeof(float));
+    static_assert(sizeof(m2::PointD) == 2 * sizeof(double), "");
+    static_assert(sizeof(m2::PointF) == 2 * sizeof(float), "");
 
     VertexStream vs;
 
@@ -575,8 +575,8 @@ namespace graphics
       double depth,
       int pipelineID)
   {
-    STATIC_ASSERT(sizeof(m2::PointD) == 2 * sizeof(double));
-    STATIC_ASSERT(sizeof(m2::PointF) == 2 * sizeof(float));
+    static_assert(sizeof(m2::PointD) == 2 * sizeof(double), "");
+    static_assert(sizeof(m2::PointF) == 2 * sizeof(float), "");
 
     VertexStream vs;
 
@@ -610,7 +610,7 @@ namespace graphics
       double depth,
       int pipelineID)
   {
-    STATIC_ASSERT(sizeof(m2::PointF) == 2 * sizeof(float));
+    static_assert(sizeof(m2::PointF) == 2 * sizeof(float), "");
 
     VertexStream vs;
 

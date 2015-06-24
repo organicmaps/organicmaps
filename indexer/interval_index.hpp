@@ -9,8 +9,6 @@
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 
-#include "std/static_assert.hpp"
-
 
 class IntervalIndexBase : public IntervalIndexIFace
 {
@@ -24,7 +22,7 @@ public:
     uint8_t m_LeafBytes;
   };
 #pragma pack(pop)
-  STATIC_ASSERT(sizeof(Header) == 4);
+  static_assert(sizeof(Header) == 4, "");
 
   static inline uint32_t BitmapSize(uint32_t bitsPerLevel)
   {

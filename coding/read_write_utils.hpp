@@ -6,7 +6,7 @@
 
 #include "std/string.hpp"
 #include "std/vector.hpp"
-//#include "../std/type_traits.hpp"
+#include "std/type_traits.hpp"
 
 
 namespace rw
@@ -90,8 +90,8 @@ namespace rw
   void ReadVectorOfPOD(TSource & src, TCont & v)
   {
     typedef typename TCont::value_type ValueT;
-    // Not every compiler support this.
-    //STATIC_ASSERT(boost::is_pod<ValueT>::value);
+    // This assert fails on std::pair<pod, pod> and OsmID class.
+    //static_assert(is_trivially_copyable<ValueT>::value, "");
 
     uint32_t const count = ReadVarUint<uint32_t>(src);
     if (count > 0)
@@ -105,8 +105,8 @@ namespace rw
   void WriteVectorOfPOD(TSink & sink, TCont const & v)
   {
     typedef typename TCont::value_type ValueT;
-    // Not every compiler support this.
-    //STATIC_ASSERT(boost::is_pod<ValueT>::value);
+    // This assert fails on std::pair<pod, pod> and OsmID class.
+    //static_assert(is_trivially_copyable<ValueT>::value, "");
 
     uint32_t const count = static_cast<uint32_t>(v.size());
     WriteVarUint(sink, count);

@@ -25,9 +25,9 @@ typedef dp::BindingInfo (*TInitFunction)();
 
 dp::BindingInfo SolidTexturingBindingInit()
 {
-  STATIC_ASSERT(sizeof(SolidTexturingVertex) == (sizeof(SolidTexturingVertex::TPosition) +
+  static_assert(sizeof(SolidTexturingVertex) == (sizeof(SolidTexturingVertex::TPosition) +
                                                  sizeof(SolidTexturingVertex::TNormal) +
-                                                 sizeof(SolidTexturingVertex::TTexCoord)));
+                                                 sizeof(SolidTexturingVertex::TTexCoord)), "");
 
   dp::BindingInfo info(3);
 
@@ -57,8 +57,8 @@ dp::BindingInfo SolidTexturingBindingInit()
 
 dp::BindingInfo TextStaticBindingInit()
 {
-  STATIC_ASSERT(sizeof(TextStaticVertex) == (sizeof(TextStaticVertex::TPosition) +
-                                             3 * sizeof(TextStaticVertex::TTexCoord)));
+  static_assert(sizeof(TextStaticVertex) == (sizeof(TextStaticVertex::TPosition) +
+                                             3 * sizeof(TextStaticVertex::TTexCoord)), "");
   dp::BindingInfo info(4);
 
   dp::BindingDecl & posDecl = info.GetBindingDecl(0);
@@ -94,7 +94,7 @@ dp::BindingInfo TextStaticBindingInit()
 
 dp::BindingInfo TextDynamicBindingInit()
 {
-  STATIC_ASSERT(sizeof(TextDynamicVertex) == sizeof(TextDynamicVertex::TNormal));
+  static_assert(sizeof(TextDynamicVertex) == sizeof(TextDynamicVertex::TNormal), "");
   dp::BindingInfo info(1, TextDynamicVertex::GetDynamicStreamID());
 
   dp::BindingDecl & decl = info.GetBindingDecl(0);
@@ -109,9 +109,9 @@ dp::BindingInfo TextDynamicBindingInit()
 
 dp::BindingInfo LineBindingInit()
 {
-  STATIC_ASSERT(sizeof(LineVertex) == sizeof(LineVertex::TPosition) +
+  static_assert(sizeof(LineVertex) == sizeof(LineVertex::TPosition) +
                                       2 * sizeof(LineVertex::TNormal) +
-                                      2 * sizeof(LineVertex::TTexCoord));
+                                      2 * sizeof(LineVertex::TTexCoord), "");
   dp::BindingInfo info(5);
 
   dp::BindingDecl & posDecl = info.GetBindingDecl(0);

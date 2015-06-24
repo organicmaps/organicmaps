@@ -26,10 +26,10 @@ template <typename T> inline T Abs(T x)
 template <typename TFloat>
 bool AlmostEqualULPs(TFloat x, TFloat y, unsigned int maxULPs = 256)
 {
-  STATIC_ASSERT(is_floating_point<TFloat>::value);
-  STATIC_ASSERT(numeric_limits<TFloat>::is_iec559);
-  STATIC_ASSERT(!numeric_limits<TFloat>::is_exact);
-  STATIC_ASSERT(!numeric_limits<TFloat>::is_integer);
+  static_assert(is_floating_point<TFloat>::value, "Only floating point is supported.");
+  static_assert(numeric_limits<TFloat>::is_iec559, "Only floating point is supported.");
+  static_assert(!numeric_limits<TFloat>::is_exact, "Only floating point is supported.");
+  static_assert(!numeric_limits<TFloat>::is_integer, "Only floating point is supported.");
 
   // Make sure maxUlps is non-negative and small enough that the
   // default NaN won't compare as equal to anything.

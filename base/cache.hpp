@@ -18,8 +18,7 @@ namespace my
     explicit Cache(uint32_t logCacheSize)
       : m_Cache(new Data[1 << logCacheSize]), m_HashMask((1 << logCacheSize) - 1)
     {
-      STATIC_ASSERT((is_same<KeyT, uint32_t>::value ||
-                     is_same<KeyT, uint64_t>::value));
+      static_assert((is_same<KeyT, uint32_t>::value || is_same<KeyT, uint64_t>::value), "");
 
       // We always use cache with static constant. So debug assert is enough here.
       ASSERT_GREATER ( logCacheSize, 0, () );

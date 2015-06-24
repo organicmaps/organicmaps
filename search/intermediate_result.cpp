@@ -155,7 +155,7 @@ namespace
         { "place", "continent" },
         { "place", "country" }
       };
-      STATIC_ASSERT ( m_count == ARRAY_SIZE(arr) );
+      static_assert(m_count == ARRAY_SIZE(arr), "");
 
       Classificator const & c = classif();
       for (size_t i = 0; i < m_count; ++i)

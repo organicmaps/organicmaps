@@ -84,13 +84,13 @@ namespace bits
 
   template <typename T> inline typename make_unsigned<T>::type ZigZagEncode(T x)
   {
-    STATIC_ASSERT(is_signed<T>::value);
+    static_assert(is_signed<T>::value, "Type should be signed");
     return (x << 1) ^ (x >> (sizeof(x) * 8 - 1));
   }
 
   template <typename T> inline typename make_signed<T>::type ZigZagDecode(T x)
   {
-    STATIC_ASSERT(is_unsigned<T>::value);
+    static_assert(is_unsigned<T>::value, "Type should be unsigned.");
     return (x >> 1) ^ -static_cast<typename make_signed<T>::type>(x & 1);
   }
 

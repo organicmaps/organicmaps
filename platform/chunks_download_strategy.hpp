@@ -4,7 +4,6 @@
 #include "std/vector.hpp"
 #include "std/utility.hpp"
 #include "std/stdint.hpp"
-#include "std/static_assert.hpp"
 
 
 namespace downloader
@@ -27,8 +26,7 @@ private:
 
     ChunkT() : m_pos(-1), m_status(-1)
     {
-      // Be sure to avoid overhead in writing to file.
-      STATIC_ASSERT(sizeof(ChunkT) == 9);
+      static_assert(sizeof(ChunkT) == 9, "Be sure to avoid overhead in writing to file.");
     }
     ChunkT(int64_t pos, int8_t st) : m_pos(pos), m_status(st) {}
   };
