@@ -43,10 +43,12 @@ struct TurnInfo
   NodeID m_ingoingNodeID;
   OsrmMappingTypes::FtSeg m_ingoingSegment;
   ftypes::HighwayClass m_ingoingHighwayClass;
+  bool m_isIngoingEdgeRoundabout;
 
   NodeID m_outgoingNodeID;
   OsrmMappingTypes::FtSeg m_outgoingSegment;
   ftypes::HighwayClass m_outgoingHighwayClass;
+  bool m_isOutgoingEdgeRoundabout;
 
   TurnInfo(RoutingMapping & routeMapping, NodeID ingoingNodeID, NodeID outgoingNodeID);
 
@@ -91,11 +93,28 @@ TurnDirection IntermediateDirection(double angle);
  * That means isIngoingEdgeRoundabout is false and isOutgoingEdgeRoundabout is true.
  */
 bool CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout);
+
 /*!
- * \return Returns a turn instruction if an ingoing edge or (and) outgoing edge belongs to a roundabout.
+ * \return Returns true if the route leaves a roundabout.
+ * That means isIngoingEdgeRoundabout is true and isOutgoingEdgeRoundabout is false.
+ */
+bool CheckRoundaboutExit(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout);
+
+/*!
+ * \brief Calculates a turn instruction if the ingoing edge or (and) the outgoing edge belongs to a roundabout.
+ * \return Returns one of the following results:
+ * - TurnDirection::EnterRoundAbout if the ingoing edge does not belong to a roundabout
+ *   and the outgoing edge belongs to a roundabout.
+ * - TurnDirection::StayOnRoundAbout if the ingoing edge and the outgoing edge belong to a roundabout
+ *   and there is a reasonalbe way to leave the junction besides the outgoing edge.
+ *   This function does not return TurnDirection::StayOnRoundAbout for small ways to leave the roundabout.
+ * - TurnDirection::NoTurn if the ingoing edge and the outgoing edge belong to a roundabout
+ *   (a) and there is a single way (outgoing edge) to leave the junction.
+ *   (b) and there is a way(s) besides outgoing edge to leave the junction (the roundabout)
+ *       but it is (they are) relevantly small.
  */
 TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
-                                     bool isMultiTurnJunction);
+                                     bool isMultiTurnJunction, bool keepTurnByHighwayClass);
 /*!
  * \brief GetTurnDirection makes a primary decision about turns on the route.
  * \param turnInfo is used for cashing some information while turn calculation.

@@ -97,6 +97,27 @@ public:
   DISALLOW_COPY_AND_MOVE(Point2Geometry);
 };
 
+class Point2Node
+{
+  RoutingMapping const & m_routingMapping;
+  vector<NodeID> & n_nodeIds;
+
+public:
+  Point2Node(RoutingMapping const & routingMapping, vector<NodeID> & nodeID)
+    : m_routingMapping(routingMapping), n_nodeIds(nodeID) {}
+
+  void operator()(FeatureType const & ft)
+  {
+    static CarModel const carModel;
+    if (ft.GetFeatureType() != feature::GEOM_LINE || !carModel.IsRoad(ft))
+      return;
+    for (auto const n : m_routingMapping.m_segMapping.GetNodeIdByFid(ft.GetID().m_offset))
+      n_nodeIds.push_back(n);
+  }
+
+  DISALLOW_COPY_AND_MOVE(Point2Node);
+};
+
 OsrmMappingTypes::FtSeg GetSegment(NodeID node, RoutingMapping const & routingMapping,
                                    TGetIndexFunction GetIndex)
 {
@@ -126,10 +147,8 @@ ftypes::HighwayClass GetOutgoingHighwayClass(NodeID outgoingNode,
  * - and the other possible turns lead to small roads;
  * - and the turn is GoStraight or TurnSlight*.
  */
-bool KeepTurnByHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass outgoingClass,
-                            NodeID outgoingNode, TurnDirection turn,
-                            TTurnCandidates const & possibleTurns,
-                            RoutingMapping const & routingMapping, Index const & index)
+bool KeepTurnByHighwayClass(TurnDirection turn, TTurnCandidates const & possibleTurns,
+                            TurnInfo const & turnInfo, Index const & index)
 {
   if (!IsGoStraightOrSlightTurn(turn))
     return true;  // The road significantly changes its direction here. So this turn shall be kept.
@@ -141,10 +160,10 @@ bool KeepTurnByHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::HighwayCl
   ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::Error;
   for (auto const & t : possibleTurns)
   {
-    if (t.node == outgoingNode)
+    if (t.node == turnInfo.m_outgoingNodeID)
       continue;
     ftypes::HighwayClass const highwayClass =
-        GetOutgoingHighwayClass(t.node, routingMapping, index);
+        GetOutgoingHighwayClass(t.node, turnInfo.m_routeMapping, index);
     if (static_cast<int>(highwayClass) > static_cast<int>(maxClassForPossibleTurns))
       maxClassForPossibleTurns = highwayClass;
   }
@@ -155,7 +174,8 @@ bool KeepTurnByHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::HighwayCl
   }
 
   ftypes::HighwayClass const minClassForTheRoute = static_cast<ftypes::HighwayClass>(
-      min(static_cast<int>(ingoingClass), static_cast<int>(outgoingClass)));
+      min(static_cast<int>(turnInfo.m_ingoingHighwayClass),
+          static_cast<int>(turnInfo.m_outgoingHighwayClass)));
   if (minClassForTheRoute == ftypes::HighwayClass::Error)
   {
     ASSERT(false, ("The route contains undefined HighwayClass."));
@@ -170,6 +190,69 @@ bool KeepTurnByHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::HighwayCl
     return false;
   }
   return true;
+}
+
+bool RemoveTurnByIngoingAndOutgoingEdges(TurnDirection intermediateDirection, TurnInfo const & turnInfo,
+                                         TurnItem const & turn)
+{
+  return !turn.m_keepAnyway && !turnInfo.m_isIngoingEdgeRoundabout && !turnInfo.m_isOutgoingEdgeRoundabout
+      && IsGoStraightOrSlightTurn(intermediateDirection)
+      && turnInfo.m_ingoingHighwayClass == turnInfo.m_outgoingHighwayClass
+      && turn.m_sourceName == turn.m_targetName;
+}
+
+/*!
+ * \brief GetTurnGeometry looks for all the road network edges near ingoingPoint.
+ * GetTurnGeometry fills candidates with angles of all the incoming and outgoint segments.
+ * \warning GetTurnGeometry should be used carefully because it's a time-consuming function.
+ * \warning In multilevel crossroads there is an insignificant possibility that candidates
+ * is filled with redundant segments of roads of different levels.
+ */
+void GetTurnGeometry(m2::PointD const & junctionPoint, m2::PointD const & ingoingPoint,
+                     TGeomTurnCandidate & candidates, RoutingMapping const & mapping,
+                     Index const & index)
+{
+  Point2Geometry getter(junctionPoint, ingoingPoint, candidates);
+  index.ForEachInRectForMWM(
+      getter, MercatorBounds::RectByCenterXYAndSizeInMeters(junctionPoint, kFeaturesNearTurnMeters),
+      scales::GetUpperScale(), mapping.GetMwmId());
+}
+
+/*!
+ * \param junctionPoint is a point of the junction.
+ * \param ingoingPointOneSegment is a point one segment before the junction along the route.
+ * \param mapping is a route mapping.
+ * \return number of all the segments which joins junctionPoint. That means
+ * the number of ingoing segments plus the number of outgoing segments.
+ * \warning NumberOfIngoingAndOutgoingSegments should be used carefully because
+ * it's a time-consuming function.
+ * \warning In multilevel crossroads there is an insignificant possibility that the returned value
+ * contains redundant segments of roads of different levels.
+ */
+size_t NumberOfIngoingAndOutgoingSegments(m2::PointD const & junctionPoint,
+                                          m2::PointD const & ingoingPointOneSegment,
+                                          RoutingMapping const & mapping, Index const & index)
+{
+  TGeomTurnCandidate geoNodes;
+  // TODO(vbykoianko) It is repeating of a time consumption operation. The first time
+  // the geometry is extracted in GetPossibleTurns and the second time here.
+  // It shall be fixed. For the time being this repeating time consumption method
+  // is called relevantly seldom.
+  GetTurnGeometry(junctionPoint, ingoingPointOneSegment, geoNodes, mapping, index);
+  return geoNodes.size();
+}
+
+bool KeepTurnByIngoingEdges(m2::PointD const & junctionPoint, m2::PointD const & ingoingPointOneSegment,
+                            m2::PointD const & outgoingPoint, bool hasMultiTurns,
+                            RoutingMapping const & routingMapping, Index const & index)
+{
+  bool const isGoStraightOrSlightTurn = IsGoStraightOrSlightTurn(IntermediateDirection(
+      my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPointOneSegment, outgoingPoint))));
+  // The code below is resposible for cases when there is only one way to leave the junction.
+  // Such junction has to be kept as a turn when it's not a slight turn and it has ingoing edges (one or more);
+  return hasMultiTurns ||
+      (!isGoStraightOrSlightTurn && NumberOfIngoingAndOutgoingSegments(junctionPoint, ingoingPointOneSegment,
+                                                                      routingMapping, index) > 2);
 }
 
 bool FixupLaneSet(TurnDirection turn, vector<SingleLaneInfo> & lanes,
@@ -275,105 +358,56 @@ m2::PointD GetPointForTurn(OsrmMappingTypes::FtSeg const & segment, FeatureType 
   return nextPoint;
 }
 
-/*!
- * \brief GetTurnGeometry looks for all the road network edges near ingoingPoint.
- * GetTurnGeometry fills candidates with angles of all the incoming and outgoint segments.
- * \warning GetTurnGeometry should be used carefully because it's a time-consuming function.
- * \warning In multilevel crossroads there is an insignificant possibility that candidates
- * is filled with redundant segments of roads of different levels.
- */
-void GetTurnGeometry(m2::PointD const & junctionPoint, m2::PointD const & ingoingPoint,
-                     TGeomTurnCandidate & candidates, RoutingMapping const & mapping,
-                     Index const & index)
+// OSRM graph contains preprocessed edges without proper information about adjecency.
+// So, to determine we must read the nearest geometry and check its adjacency by OSRM road graph.
+void GetPossibleTurns(Index const & index, NodeID node, m2::PointD const & ingoingPoint, m2::PointD const & junctionPoint,
+                      RoutingMapping & routingMapping, TTurnCandidates & candidates)
 {
-  Point2Geometry getter(junctionPoint, ingoingPoint, candidates);
-  index.ForEachInRectForMWM(
-      getter, MercatorBounds::RectByCenterXYAndSizeInMeters(junctionPoint, kFeaturesNearTurnMeters),
-      scales::GetUpperScale(), mapping.GetMwmId());
-}
+  double const kReadCrossEpsilon = 1.0E-4;
 
-/*!
- * \param junctionPoint is a point of the junction.
- * \param ingoingPointOneSegment is a point one segment before the junction along the route.
- * \param mapping is a route mapping.
- * \return number of all the segments which joins junctionPoint. That means
- * the number of ingoing segments plus the number of outgoing segments.
- * \warning NumberOfIngoingAndOutgoingSegments should be used carefully because
- * it's a time-consuming function.
- * \warning In multilevel crossroads there is an insignificant possibility that the returned value
- * contains redundant segments of roads of different levels.
- */
-size_t NumberOfIngoingAndOutgoingSegments(m2::PointD const & junctionPoint,
-                                          m2::PointD const & ingoingPointOneSegment,
-                                          RoutingMapping const & mapping, Index const & index)
-{
-  TGeomTurnCandidate geoNodes;
-  GetTurnGeometry(junctionPoint, ingoingPointOneSegment, geoNodes, mapping, index);
-  return geoNodes.size();
-}
+  // Geting nodes by geometry.
+  vector<NodeID> geomNodes;
+  Point2Node p2n(routingMapping, geomNodes);
 
-NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData,
-                         RoutingMapping & routingMapping)
-{
-  ASSERT_NOT_EQUAL(src, SPECIAL_NODEID, ());
-  ASSERT_NOT_EQUAL(trg, SPECIAL_NODEID, ());
-  if (!edgeData.shortcut)
-    return trg;
+  index.ForEachInRectForMWM(p2n,
+                            m2::RectD(junctionPoint.x - kReadCrossEpsilon, junctionPoint.y - kReadCrossEpsilon,
+                                      junctionPoint.x + kReadCrossEpsilon, junctionPoint.y + kReadCrossEpsilon),
+                            scales::GetUpperScale(), routingMapping.GetMwmId());
 
-  ASSERT_LESS(edgeData.id, routingMapping.m_dataFacade.GetNumberOfNodes(), ());
-  EdgeID edge = SPECIAL_EDGEID;
-  QueryEdge::EdgeData d;
-  for (EdgeID e : routingMapping.m_dataFacade.GetAdjacentEdgeRange(edgeData.id))
-  {
-    if (routingMapping.m_dataFacade.GetTarget(e) == src)
-    {
-      d = routingMapping.m_dataFacade.GetEdgeData(e, edgeData.id);
-      if (d.backward)
-      {
-        edge = e;
-        break;
-      }
-    }
-  }
+  sort(geomNodes.begin(), geomNodes.end());
+  auto it = unique(geomNodes.begin(), geomNodes.end());
+  geomNodes.erase(it, geomNodes.end());
 
-  if (edge == SPECIAL_EDGEID)
-  {
-    for (EdgeID const e : routingMapping.m_dataFacade.GetAdjacentEdgeRange(src))
-    {
-      if (routingMapping.m_dataFacade.GetTarget(e) == edgeData.id)
-      {
-        d = routingMapping.m_dataFacade.GetEdgeData(e, src);
-        if (d.forward)
-        {
-          edge = e;
-          break;
-        }
-      }
-    }
-  }
-  ASSERT_NOT_EQUAL(edge, SPECIAL_EDGEID, ());
-
-  if (d.shortcut)
-    return GetTurnTargetNode(src, edgeData.id, d, routingMapping);
-
-  return edgeData.id;
-}
-
-void GetPossibleTurns(Index const & index, NodeID node, m2::PointD const & ingoingPoint,
-                      m2::PointD const & junctionPoint, RoutingMapping & routingMapping,
-                      TTurnCandidates & candidates)
-{
-  for (EdgeID e : routingMapping.m_dataFacade.GetAdjacentEdgeRange(node))
+  // Filtering virtual edges.
+  vector<NodeID> adjacentNodes;
+  for (EdgeID const e : routingMapping.m_dataFacade.GetAdjacentEdgeRange(node))
   {
     QueryEdge::EdgeData const data = routingMapping.m_dataFacade.GetEdgeData(e, node);
-    if (!data.forward)
+    if (data.forward && !data.shortcut)
+    {
+      adjacentNodes.push_back(routingMapping.m_dataFacade.GetTarget(e));
+      ASSERT_NOT_EQUAL(routingMapping.m_dataFacade.GetTarget(e), SPECIAL_NODEID, ());
+    }
+  }
+
+  for (NodeID const adjacentNode : geomNodes)
+  {
+    if (adjacentNode == node)
       continue;
+    for (EdgeID const e : routingMapping.m_dataFacade.GetAdjacentEdgeRange(adjacentNode))
+    {
+      if (routingMapping.m_dataFacade.GetTarget(e) != node)
+        continue;
+      QueryEdge::EdgeData const data = routingMapping.m_dataFacade.GetEdgeData(e, adjacentNode);
+      if (!data.shortcut && data.backward)
+        adjacentNodes.push_back(adjacentNode);
+    }
+  }
 
-    NodeID const trg =
-        GetTurnTargetNode(node, routingMapping.m_dataFacade.GetTarget(e), data, routingMapping);
-    ASSERT_NOT_EQUAL(trg, SPECIAL_NODEID, ());
-
-    auto const range = routingMapping.m_segMapping.GetSegmentsRange(trg);
+  // Preparing candidates.
+  for (NodeID const targetNode : adjacentNodes)
+  {
+    auto const range = routingMapping.m_segMapping.GetSegmentsRange(targetNode);
     OsrmMappingTypes::FtSeg seg;
     routingMapping.m_segMapping.GetSegmentByIndex(range.first, seg);
     if (!seg.IsValid())
@@ -384,29 +418,16 @@ void GetPossibleTurns(Index const & index, NodeID node, m2::PointD const & ingoi
     loader.GetFeature(seg.m_fid, ft);
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-    m2::PointD const outgoingPoint = ft.GetPoint(seg.m_pointStart < seg.m_pointEnd ? seg.m_pointStart + 1
-                                                                        : seg.m_pointStart - 1);
+    m2::PointD const outgoingPoint = ft.GetPoint(seg.m_pointStart < seg.m_pointEnd ? seg.m_pointStart + 1 : seg.m_pointStart - 1);
     ASSERT_LESS(MercatorBounds::DistanceOnEarth(junctionPoint, ft.GetPoint(seg.m_pointStart)),
                 kFeaturesNearTurnMeters, ());
 
     double const a = my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
-
-    candidates.emplace_back(a, trg);
+    candidates.emplace_back(a, targetNode);
   }
 
-  sort(candidates.begin(), candidates.end(), [](TurnCandidate const & t1, TurnCandidate const & t2)
-  {
-    return t1.node < t2.node;
-  });
-
-  auto const last = unique(candidates.begin(), candidates.end(),
-                           [](TurnCandidate const & t1, TurnCandidate const & t2)
-  {
-    return t1.node == t2.node;
-  });
-  candidates.erase(last, candidates.end());
-
-  sort(candidates.begin(), candidates.end(), [](TurnCandidate const & t1, TurnCandidate const & t2)
+  sort(candidates.begin(), candidates.end(),
+       [](TurnCandidate const & t1, TurnCandidate const & t2)
   {
     return t1.angle < t2.angle;
   });
@@ -421,8 +442,10 @@ TurnInfo::TurnInfo(RoutingMapping & routeMapping, NodeID ingoingNodeID, NodeID o
     : m_routeMapping(routeMapping),
       m_ingoingNodeID(ingoingNodeID),
       m_ingoingHighwayClass(ftypes::HighwayClass::Undefined),
+      m_isIngoingEdgeRoundabout(false),
       m_outgoingNodeID(outgoingNodeID),
-      m_outgoingHighwayClass(ftypes::HighwayClass::Undefined)
+      m_outgoingHighwayClass(ftypes::HighwayClass::Undefined),
+      m_isOutgoingEdgeRoundabout(false)
 {
   m_ingoingSegment = GetSegment(m_ingoingNodeID, m_routeMapping, GetLastSegmentPointIndex);
   m_outgoingSegment = GetSegment(m_outgoingNodeID, m_routeMapping, GetFirstSegmentPointIndex);
@@ -615,20 +638,25 @@ bool CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRo
   return !isIngoingEdgeRoundabout && isOutgoingEdgeRoundabout;
 }
 
+bool CheckRoundaboutExit(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout)
+{
+  return isIngoingEdgeRoundabout && !isOutgoingEdgeRoundabout;
+}
+
 TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
-                                     bool isMultiTurnJunction)
+                                     bool isMultiTurnJunction, bool keepTurnByHighwayClass)
 {
   if (isIngoingEdgeRoundabout && isOutgoingEdgeRoundabout)
   {
     if (isMultiTurnJunction)
-      return TurnDirection::StayOnRoundAbout;
+      return keepTurnByHighwayClass ? TurnDirection::StayOnRoundAbout : TurnDirection::NoTurn;
     return TurnDirection::NoTurn;
   }
 
-  if (!isIngoingEdgeRoundabout && isOutgoingEdgeRoundabout)
+  if (CheckRoundaboutEntrance(isIngoingEdgeRoundabout, isOutgoingEdgeRoundabout))
     return TurnDirection::EnterRoundAbout;
 
-  if (isIngoingEdgeRoundabout && !isOutgoingEdgeRoundabout)
+  if (CheckRoundaboutExit(isIngoingEdgeRoundabout, isOutgoingEdgeRoundabout))
     return TurnDirection::LeaveRoundAbout;
 
   ASSERT(false, ());
@@ -723,16 +751,34 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
         return end > start ? start + i : start - i;
       });
   double const a = my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+  TurnDirection const intermediateDirection = IntermediateDirection(a);
 
-  m2::PointD const ingoingPointOneSegment = ingoingFeature.GetPoint(
-      turnInfo.m_ingoingSegment.m_pointStart < turnInfo.m_ingoingSegment.m_pointEnd
-          ? turnInfo.m_ingoingSegment.m_pointEnd - 1
-          : turnInfo.m_ingoingSegment.m_pointEnd + 1);
+  // Getting all the information about ingoing and outgoing edges.
+  turnInfo.m_isIngoingEdgeRoundabout = ftypes::IsRoundAboutChecker::Instance()(ingoingFeature);
+  turnInfo.m_isOutgoingEdgeRoundabout = ftypes::IsRoundAboutChecker::Instance()(outgoingFeature);
+
+  turn.m_keepAnyway = (!ftypes::IsLinkChecker::Instance()(ingoingFeature) &&
+                       ftypes::IsLinkChecker::Instance()(outgoingFeature));
+
+  turnInfo.m_ingoingHighwayClass = ftypes::GetHighwayClass(ingoingFeature);
+  turnInfo.m_outgoingHighwayClass = ftypes::GetHighwayClass(outgoingFeature);
+
+  ingoingFeature.GetName(FeatureType::DEFAULT_LANG, turn.m_sourceName);
+  outgoingFeature.GetName(FeatureType::DEFAULT_LANG, turn.m_targetName);
+
+  turn.m_turn = TurnDirection::NoTurn;
+  // Early filtering based only on the information about ingoing and outgoing edges.
+  if (RemoveTurnByIngoingAndOutgoingEdges(intermediateDirection, turnInfo, turn))
+    return;
+
+  m2::PointD const ingoingPointOneSegment =
+      ingoingFeature.GetPoint(turnInfo.m_ingoingSegment.m_pointStart < turnInfo.m_ingoingSegment.m_pointEnd
+                              ? turnInfo.m_ingoingSegment.m_pointEnd - 1
+                              : turnInfo.m_ingoingSegment.m_pointEnd + 1);
   TTurnCandidates nodes;
   GetPossibleTurns(index, turnInfo.m_ingoingNodeID, ingoingPointOneSegment, junctionPoint,
                    turnInfo.m_routeMapping, nodes);
 
-  turn.m_turn = TurnDirection::NoTurn;
   size_t const nodesSize = nodes.size();
   bool const hasMultiTurns = (nodesSize >= 2);
 
@@ -741,7 +787,7 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
 
   if (!hasMultiTurns)
   {
-    turn.m_turn = IntermediateDirection(a);
+    turn.m_turn = intermediateDirection;
   }
   else
   {
@@ -750,52 +796,26 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
     else if (nodes.back().node == turnInfo.m_outgoingNodeID)
       turn.m_turn = RightmostDirection(a);
     else
-      turn.m_turn = IntermediateDirection(a);
+      turn.m_turn = intermediateDirection;
   }
 
-  bool const isIngoingEdgeRoundabout = ftypes::IsRoundAboutChecker::Instance()(ingoingFeature);
-  bool const isOutgoingEdgeRoundabout = ftypes::IsRoundAboutChecker::Instance()(outgoingFeature);
-
-  if (isIngoingEdgeRoundabout || isOutgoingEdgeRoundabout)
+  bool const keepTurnByHighwayClass = KeepTurnByHighwayClass(turn.m_turn, nodes, turnInfo, index);
+  if (turnInfo.m_isIngoingEdgeRoundabout || turnInfo.m_isOutgoingEdgeRoundabout)
   {
-    turn.m_turn =
-        GetRoundaboutDirection(isIngoingEdgeRoundabout, isOutgoingEdgeRoundabout, hasMultiTurns);
+    turn.m_turn = GetRoundaboutDirection(turnInfo.m_isIngoingEdgeRoundabout,
+                                         turnInfo.m_isOutgoingEdgeRoundabout,
+                                         hasMultiTurns, keepTurnByHighwayClass);
     return;
   }
 
-  turn.m_keepAnyway = (!ftypes::IsLinkChecker::Instance()(ingoingFeature) &&
-                       ftypes::IsLinkChecker::Instance()(outgoingFeature));
-
-  {
-    string name1, name2;
-
-    ingoingFeature.GetName(FeatureType::DEFAULT_LANG, turn.m_sourceName);
-    outgoingFeature.GetName(FeatureType::DEFAULT_LANG, turn.m_targetName);
-
-    search::GetStreetNameAsKey(turn.m_sourceName, name1);
-    search::GetStreetNameAsKey(turn.m_targetName, name2);
-  }
-
-  turnInfo.m_ingoingHighwayClass = ftypes::GetHighwayClass(ingoingFeature);
-  turnInfo.m_outgoingHighwayClass = ftypes::GetHighwayClass(outgoingFeature);
-  if (!turn.m_keepAnyway &&
-      !KeepTurnByHighwayClass(turnInfo.m_ingoingHighwayClass, turnInfo.m_outgoingHighwayClass,
-                          turnInfo.m_outgoingNodeID, turn.m_turn, nodes, turnInfo.m_routeMapping, index))
+  if (!turn.m_keepAnyway && !keepTurnByHighwayClass)
   {
     turn.m_turn = TurnDirection::NoTurn;
     return;
   }
 
-  bool const isGoStraightOrSlightTurn = IsGoStraightOrSlightTurn(IntermediateDirection(
-      my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPointOneSegment, outgoingPoint))));
-  // The code below is resposible for cases when there is only one way to leave the junction.
-  // Such junction has to be kept as a turn when:
-  // * it's not a slight turn and it has ingoing edges (one or more);
-  // * it's an entrance to a roundabout;
-  if (!hasMultiTurns && (isGoStraightOrSlightTurn ||
-                         NumberOfIngoingAndOutgoingSegments(junctionPoint, ingoingPointOneSegment,
-                                                            turnInfo.m_routeMapping, index) <= 2) &&
-      !CheckRoundaboutEntrance(isIngoingEdgeRoundabout, isOutgoingEdgeRoundabout))
+  if (!KeepTurnByIngoingEdges(junctionPoint, ingoingPointOneSegment,
+                              outgoingPoint, hasMultiTurns, turnInfo.m_routeMapping, index))
   {
     turn.m_turn = TurnDirection::NoTurn;
     return;
@@ -807,10 +827,6 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
       turn.m_turn = TurnDirection::NoTurn;
     return;
   }
-
-  // @todo(vbykoianko) Checking if it's a uturn or not shall be moved to FindDirectionByAngle.
-  if (turn.m_turn == TurnDirection::NoTurn)
-    turn.m_turn = TurnDirection::UTurn;
 }
 }  // namespace turns
 }  // namespace routing

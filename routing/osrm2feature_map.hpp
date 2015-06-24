@@ -112,7 +112,7 @@ public:
   void Construct(OsrmFtSegMapping & mapping, uint32_t const maxNodeId,
                  FilesMappingContainer & routingFile);
 
-  TNodesList const &  GetNodeIdByFid(uint32_t const fid) const;
+  TNodesList const &  GetNodeIdByFid(uint32_t fid) const;
 
   void Clear();
 };
@@ -145,6 +145,10 @@ public:
   void GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) const;
 
   void GetSegmentByIndex(size_t idx, OsrmMappingTypes::FtSeg & seg) const;
+  TNodesList const &  GetNodeIdByFid(uint32_t fid) const
+  {
+    return m_backwardIndex.GetNodeIdByFid(fid);
+  }
 
   /// @name For debug purpose only.
   //@{

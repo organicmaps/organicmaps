@@ -297,22 +297,34 @@ UNIT_TEST(TestAddingActiveLaneInformation)
 UNIT_TEST(TestGetRoundaboutDirection)
 {
   // The signature of GetRoundaboutDirection function is
-  // GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout, bool
-  // isMultiTurnJunction)
-  TEST_EQUAL(GetRoundaboutDirection(true, true, true), TurnDirection::StayOnRoundAbout, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, true, false), TurnDirection::NoTurn, ());
-  TEST_EQUAL(GetRoundaboutDirection(false, true, false), TurnDirection::EnterRoundAbout, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, false, false), TurnDirection::LeaveRoundAbout, ());
+  // GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
+  //     bool isMultiTurnJunction, bool keepTurnByHighwayClass)
+  TEST_EQUAL(GetRoundaboutDirection(true, true, true, true), TurnDirection::StayOnRoundAbout, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, true, true, false), TurnDirection::NoTurn, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, true, false, true), TurnDirection::NoTurn, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, true, false, false), TurnDirection::NoTurn, ());
+  TEST_EQUAL(GetRoundaboutDirection(false, true, false, true), TurnDirection::EnterRoundAbout, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, false, false, false), TurnDirection::LeaveRoundAbout, ());
 }
 
 UNIT_TEST(TestCheckRoundaboutEntrance)
 {
-  // The signature of GetRoundaboutDirection function is
+  // The signature of CheckRoundaboutEntrance function is
   // CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout)
   TEST(!CheckRoundaboutEntrance(true, true), ());
   TEST(!CheckRoundaboutEntrance(false, false), ());
   TEST(!CheckRoundaboutEntrance(true, false), ());
   TEST(CheckRoundaboutEntrance(false, true), ());
+}
+
+UNIT_TEST(TestCheckRoundaboutExit)
+{
+  // The signature of GetRoundaboutDirection function is
+  // CheckRoundaboutExit(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout)
+  TEST(!CheckRoundaboutExit(true, true), ());
+  TEST(!CheckRoundaboutExit(false, false), ());
+  TEST(CheckRoundaboutExit(true, false), ());
+  TEST(!CheckRoundaboutExit(false, true), ());
 }
 
 UNIT_TEST(TestInvertDirection)
