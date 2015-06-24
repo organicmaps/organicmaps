@@ -38,13 +38,9 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)configure
 {
   [super configure];
-  CGSize const size = UIScreen.mainScreen.bounds.size;
-  CGFloat const height = MIN(size.width, size.height);
   self.anchorImageView.backgroundColor = [UIColor whiteColor];
   self.anchorImageView.image = nil;
-  CGFloat const headerViewHeight = self.basePlacePageView.height - self.basePlacePageView.featureTable.height;
-  CGFloat const tableContentHeight = self.basePlacePageView.featureTable.contentSize.height;
-  self.basePlacePageView.featureTable.contentInset = UIEdgeInsetsMake(0., 0., self.actionBar.height + (tableContentHeight - height - headerViewHeight + self.anchorImageView.height), 0.);
+  [self configureContentInset];
   [self.extendedPlacePageView addSubview:self.actionBar];
   [self.manager addSubviews:@[self.extendedPlacePageView] withNavigationController:nil];
 }
@@ -52,6 +48,44 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)show
 {
   self.state = MWMiPhoneLandscapePlacePageStateOpen;
+}
+
+- (void)dismiss
+{
+  self.state = MWMiPhoneLandscapePlacePageStateClosed;
+}
+
+- (void)configureContentInset
+{
+  CGFloat const height = self.extendedPlacePageView.height - self.anchorImageView.height;
+  CGFloat const actionBarHeight = self.actionBar.height;
+  UITableView * featureTable = self.basePlacePageView.featureTable;
+  CGFloat const tableContentHeight = featureTable.contentSize.height;
+  CGFloat const headerViewHeight = self.basePlacePageView.separatorView.maxY;
+  CGFloat const availableTableHeight = height - headerViewHeight - actionBarHeight;
+  CGFloat const externalHeight = tableContentHeight - availableTableHeight;
+  if (externalHeight > 0)
+  {
+    featureTable.contentInset = UIEdgeInsetsMake(0., 0., externalHeight, 0.);
+    featureTable.scrollEnabled = YES;
+  }
+  else
+  {
+    [featureTable setContentOffset:CGPointZero animated:YES];
+    featureTable.scrollEnabled = NO;
+  }
+}
+
+- (void)addBookmark
+{
+  [super addBookmark];
+  [self configureContentInset];
+}
+
+- (void)removeBookmark
+{
+  [super removeBookmark];
+  [self configureContentInset];
 }
 
 - (void)updateTargetPoint
@@ -136,6 +170,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   self.actionBar.minX = 0.0;
   self.actionBar.maxY = height - topBound;
   [self updateTargetPoint];
+  [self configureContentInset];
 }
 
 - (void)setTargetPoint:(CGPoint)targetPoint
