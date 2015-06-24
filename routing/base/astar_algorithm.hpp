@@ -161,8 +161,9 @@ private:
 // that ensures l_r(v, w) >= 0 for every edge. We set pi() to calculate
 // the shortest possible distance to a goal node, and this is a common
 // heuristic that people use in A*.
-// Refer to this paper for more information:
+// Refer to these papers for more information:
 // http://research.microsoft.com/pubs/154937/soda05.pdf
+// http://www.cs.princeton.edu/courses/archive/spr06/cos423/Handouts/EPP%20shortest%20path%20algorithms.pdf
 
 template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
@@ -251,7 +252,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
   BidirectionalStepContext backward(false /* forward */, startVertex, finalVertex, graph);
 
   bool foundAnyPath = false;
-  double bestPathLength = 0.0;
+  double bestPathReducedLength = 0.0;
 
   forward.bestDistance[startVertex] = 0.0;
   forward.queue.push(State(startVertex, 0.0 /* distance */));
@@ -282,24 +283,31 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
     if (steps % kQueueSwitchPeriod == 0)
       swap(cur, nxt);
 
-    double const curTop = cur->TopDistance();
-    double const nxtTop = nxt->TopDistance();
-    double const pTopV = cur->ConsistentHeuristic(cur->queue.top().vertex);
-    double const pTopW = nxt->ConsistentHeuristic(nxt->queue.top().vertex);
-
-    // The intuition behind this is that we cannot obtain a path shorter
-    // than the left side of the inequality because that is how any path we find
-    // will look like (see comment for curPathLength below).
-    // We do not yet have the proof that we will not miss a good path by doing so.
-    if (foundAnyPath &&
-        curTop + nxtTop - pTopV + cur->pS - pTopW + nxt->pS >= bestPathLength - kEpsilon)
+    if (foundAnyPath)
     {
-      ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent,
-                                   path);
-      CHECK(!path.empty(), ());
-      if (!cur->forward)
-        reverse(path.begin(), path.end());
-      return Result::OK;
+      double const curTop = cur->TopDistance();
+      double const nxtTop = nxt->TopDistance();
+
+      // The intuition behind this is that we cannot obtain a path shorter
+      // than the left side of the inequality because that is how any path we find
+      // will look like (see comment for curPathReducedLength below).
+      // We do not yet have the proof that we will not miss a good path by doing so.
+
+      // The shortest reduced path corresponds to the shortest real path
+      // because the heuristics we use are consistent.
+      // It would be a mistake to make a decision based on real path lengths because
+      // several top states in a priority queue may have equal reduced path lengths and
+      // different real path lengths.
+
+      if (curTop + nxtTop >= bestPathReducedLength - kEpsilon)
+      {
+        ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent,
+                                     path);
+        CHECK(!path.empty(), ());
+        if (!cur->forward)
+          reverse(path.begin(), path.end());
+        return Result::OK;
+      }
     }
 
     State const stateV = cur->queue.top();
@@ -333,16 +341,14 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       auto const itNxt = nxt->bestDistance.find(stateW.vertex);
       if (itNxt != nxt->bestDistance.end())
       {
-        double const pRW = nxt->ConsistentHeuristic(stateW.vertex);
         double const distW = itNxt->second;
-        // Length that the path we've just found has in the original graph:
-        // find the length of the path's parts in the reduced forward and backward
-        // graphs and remove the heuristic adjustments.
-        double const curPathLength = newReducedDist + distW - pW + cur->pS - pRW + nxt->pS;
+        // Reduced length that the path we've just found has in the original graph:
+        // find the reduced length of the path's parts in the reduced forward and backward graphs.
+        double const curPathReducedLength = newReducedDist + distW;
         // No epsilon here: it is ok to overshoot slightly.
-        if (!foundAnyPath || bestPathLength > curPathLength)
+        if (!foundAnyPath || bestPathReducedLength > curPathReducedLength)
         {
-          bestPathLength = curPathLength;
+          bestPathReducedLength = curPathReducedLength;
           foundAnyPath = true;
           cur->bestVertex = stateV.vertex;
           nxt->bestVertex = stateW.vertex;
