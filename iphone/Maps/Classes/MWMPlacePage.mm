@@ -98,6 +98,18 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.actionBar dismissActivityIndicatior];
 }
 
+- (void)addPlacePageShadowToView:(UIView *)view
+{
+  CALayer * layer = view.layer;
+  layer.masksToBounds = NO;
+  layer.shadowColor = UIColor.blackColor.CGColor;
+  layer.shadowRadius = 4.;
+  layer.shadowOpacity = 0.24f;
+  layer.shadowOffset = CGSizeMake(0., - 2.);
+  layer.shouldRasterize = YES;
+  layer.rasterizationScale = [[UIScreen mainScreen] scale];
+}
+
 - (void)setDirectionArrowTransform:(CGAffineTransform)transform
 {
   self.basePlacePageView.directionArrow.transform = transform;

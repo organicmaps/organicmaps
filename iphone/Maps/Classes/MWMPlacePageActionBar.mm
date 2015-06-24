@@ -124,10 +124,4 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   self.indicatior = nil;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-// Prevent super call to stop event propagation
-// [super touchesBegan:touches withEvent:event];
-}
-
 @end

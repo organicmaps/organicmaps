@@ -41,6 +41,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   self.anchorImageView.backgroundColor = [UIColor whiteColor];
   self.anchorImageView.image = nil;
   [self configureContentInset];
+  [self addPlacePageShadowToView:self.extendedPlacePageView];
   [self.extendedPlacePageView addSubview:self.actionBar];
   [self.manager addSubviews:@[self.extendedPlacePageView] withNavigationController:nil];
 }
@@ -48,11 +49,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)show
 {
   self.state = MWMiPhoneLandscapePlacePageStateOpen;
-}
-
-- (void)dismiss
-{
-  self.state = MWMiPhoneLandscapePlacePageStateClosed;
 }
 
 - (void)configureContentInset

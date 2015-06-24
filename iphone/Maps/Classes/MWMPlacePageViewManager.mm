@@ -181,7 +181,9 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   ShareInfo * info = [[ShareInfo alloc] initWithText:entity.title gX:entity.point.x gY:entity.point.y myPosition:NO];
 
   self.actionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self.ownerViewController];
-  [self.actionSheet showFromRect:CGRectNull];
+  UIView * parentView = self.ownerViewController.view;
+  CGRect rect = CGRectMake(parentView.midX, parentView.height - 40.0, 0.0, 0.0);
+  [self.actionSheet showFromRect:rect];
 }
 
 - (void)addBookmark

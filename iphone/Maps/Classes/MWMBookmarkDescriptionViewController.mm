@@ -98,7 +98,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     return;
 
   self.iPadOwnerNavigationController.navigationBar.hidden = YES;
-  self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
 }
 
 - (void)setState:(BookmarkDescriptionState)state
@@ -172,7 +171,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   if (self.manager.entity.isHTMLDescription)
     self.state = BookmarkDescriptionStateViewHTML;
   else
-    [self.navigationController popViewControllerAnimated:YES];
+    [self popViewController];
 }
 
 - (void)doneTap
@@ -185,17 +184,35 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   if (entity.isHTMLDescription)
     self.state = BookmarkDescriptionStateViewHTML;
   else
-    [self.navigationController popViewControllerAnimated:YES];
+    [self popViewController];
 }
 
 - (void)backTap
 {
-  [self.navigationController popViewControllerAnimated:YES];
+  [self popViewController];
 }
 
 - (void)editTap
 {
   self.state = BookmarkDescriptionStateEditHTML;
+}
+
+- (void)popViewController
+{
+  if (!self.iPadOwnerNavigationController)
+  {
+    [self.navigationController popViewControllerAnimated:YES];
+    return;
+  }
+
+  [UIView animateWithDuration:0.1 animations:^
+  {
+    self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
+  }
+  completion:^(BOOL finished)
+  {
+    [self.navigationController popViewControllerAnimated:YES];
+  }];
 }
 
 #pragma mark - Notifications

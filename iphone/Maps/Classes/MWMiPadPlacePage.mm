@@ -57,24 +57,12 @@ static CGFloat const kBottomOffset = 12.;
   [self setNavigationBarHidden:YES];
   [self.navigationBar setTranslucent:NO];
   self.view.autoresizingMask = UIViewAutoresizingNone;
-  [self configureShadow];
   return self;
 }
 
 - (void)backTap:(id)sender
 {
   [self popViewControllerAnimated:YES];
-}
-
-- (void)configureShadow
-{
-  CALayer * layer = self.view.layer;
-  layer.masksToBounds = NO;
-  layer.shadowColor = UIColor.blackColor.CGColor;
-  layer.shadowRadius = 4.;
-  layer.shadowOpacity = 0.24f;
-  layer.shadowOffset = CGSizeMake(0., - 2.);
-  layer.shouldRasterize = YES;
 }
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -87,7 +75,7 @@ static CGFloat const kBottomOffset = 12.;
 
 @interface MWMiPadPlacePage ()
 
-@property (strong, nonatomic) MWMiPadNavigationController * navigationController;
+@property (nonatomic) MWMiPadNavigationController * navigationController;
 @property (nonatomic) CGFloat height;
 
 @end
@@ -100,6 +88,7 @@ static CGFloat const kBottomOffset = 12.;
 
   CGFloat const defaultWidth = 360.;
   [self updatePlacePageLayout];
+  [self addPlacePageShadowToView:self.navigationController.view];
 
   [self.manager addSubviews:@[self.navigationController.view] withNavigationController:self.navigationController];
   self.navigationController.view.frame = CGRectMake( -defaultWidth, self.topBound + kTopOffset, defaultWidth, self.height);
