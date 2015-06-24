@@ -419,11 +419,7 @@ void FindGraphNodeOffsets(size_t const nodeId, m2::PointD const & point,
       best = mappedSeg;
   }
 
-  if (best.m_fid == OsrmMappingTypes::FtSeg::INVALID_FID )
-  {
-    ASSERT(false, ("Best geometry not found."));
-    return;
-  }
+  CHECK(best.m_fid != OsrmMappingTypes::FtSeg::INVALID_FID, ());
 
   graphNode.segment.m_fid = best.m_fid;
   graphNode.segment.m_pointStart = best.m_segIdx;
@@ -441,11 +437,8 @@ void CalculatePhantomNodeForCross(TRoutingMappingPtr & mapping, FeatureGraphNode
     nodeId = graphNode.node.forward_node_id;
   else
     nodeId = graphNode.node.reverse_node_id;
-  if (nodeId == INVALID_NODE_ID)
-  {
-    ASSERT(false, ("Can't determine node id."));
-    return;
-  }
+
+  CHECK(nodeId != INVALID_NODE_ID, ());
 
   mapping->LoadCrossContext();
   MappingGuard guard(mapping);
@@ -475,11 +468,7 @@ void CalculatePhantomNodeForCross(TRoutingMappingPtr & mapping, FeatureGraphNode
     }
   }
 
-  if (point.IsAlmostZero())
-  {
-    ASSERT(false, ("A point of intersection with the border not found;"));
-    return;
-  }
+  CHECK(!point.IsAlmostZero(), ());
 
   FindGraphNodeOffsets(nodeId, MercatorBounds::FromLatLon(point.y, point.x),
                        pIndex, mapping, graphNode);
