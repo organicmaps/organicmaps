@@ -96,6 +96,7 @@ static CGFloat const kBottomOffset = 12.;
   self.anchorImageView.image = nil;
   self.anchorImageView.backgroundColor = [UIColor whiteColor];
   self.actionBar.width = defaultWidth;
+  [self configureContentInset];
 }
 
 - (void)show
@@ -140,15 +141,19 @@ static CGFloat const kBottomOffset = 12.;
 - (void)addBookmark
 {
   [super addBookmark];
-  self.height += kBookmarkCellHeight;
-  self.actionBar.minY += kBookmarkCellHeight;
+  [UIView animateWithDuration:0.1 animations:^
+  {
+    [self updatePlacePageLayout];
+  }];
 }
 
 - (void)removeBookmark
 {
   [super removeBookmark];
-  self.height -= kBookmarkCellHeight;
-  self.actionBar.minY -= kBookmarkCellHeight;
+  [UIView animateWithDuration:0.1 animations:^
+  {
+    [self updatePlacePageLayout];
+  }];
 }
 
 - (void)changeBookmarkColor
@@ -204,8 +209,30 @@ static CGFloat const kBottomOffset = 12.;
 
 - (void)updatePlacePagePosition
 {
-  self.navigationController.view.maxY = [self availableHeight] + kTopOffset;
-  self.navigationController.view.minY = MIN(self.navigationController.view.minY, self.topBound + kTopOffset);
+  UIView * view = self.navigationController.view;
+  view.maxY = self.availableHeight + kTopOffset;
+  view.minY = MIN(view.minY, self.topBound + kTopOffset);
+  [self configureContentInset];
+}
+
+- (void)configureContentInset
+{
+  UITableView * featureTable = self.basePlacePageView.featureTable;
+  CGFloat const height = self.navigationController.view.height;
+  CGFloat const tableContentHeight = featureTable.contentSize.height;
+  CGFloat const headerViewHeight = self.basePlacePageView.separatorView.maxY;
+  CGFloat const availableTableHeight = height - headerViewHeight - self.actionBar.height;
+  CGFloat const externalHeight = tableContentHeight - availableTableHeight;
+  if (externalHeight > 0.)
+  {
+    featureTable.contentInset = UIEdgeInsetsMake(0., 0., externalHeight, 0.);
+    featureTable.scrollEnabled = YES;
+  }
+  else
+  {
+    [featureTable setContentOffset:CGPointZero animated:YES];
+    featureTable.scrollEnabled = NO;
+  }
 }
 
 - (CGFloat)availableHeight
@@ -217,7 +244,7 @@ static CGFloat const kBottomOffset = 12.;
 
 - (void)setHeight:(CGFloat)height
 {
-  _height = MIN(height, [self availableHeight]);
+  _height = MIN(height, self.availableHeight);
   self.navigationController.view.height = _height;
   self.extendedPlacePageView.height = _height;
 }

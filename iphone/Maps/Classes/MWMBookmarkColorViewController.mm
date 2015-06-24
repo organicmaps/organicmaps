@@ -58,7 +58,7 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 
 - (void)backTap
 {
-  [self.navigationController popViewControllerAnimated:YES];
+  [self popViewController];
 }
 
 - (void)configureTableViewForOrientation:(UIInterfaceOrientation)orientation
@@ -110,6 +110,24 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   return YES;
 }
 
+- (void)popViewController
+{
+  if (!self.iPadOwnerNavigationController)
+  {
+    [self.navigationController popViewControllerAnimated:YES];
+    return;
+  }
+
+  [UIView animateWithDuration:0.1 animations:^
+   {
+     self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
+   }
+                   completion:^(BOOL finished)
+   {
+     [self.navigationController popViewControllerAnimated:YES];
+   }];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
@@ -119,7 +137,6 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
     return;
   }
   self.iPadOwnerNavigationController.navigationBar.hidden = YES;
-  self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
 }
 
 @end

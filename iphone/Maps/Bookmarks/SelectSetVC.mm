@@ -52,7 +52,7 @@
 
 - (void)backTap
 {
-  [self.iPadOwnerNavigationController popViewControllerAnimated:YES];
+  [self popViewController];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -137,8 +137,26 @@
   {
     [self moveBookmarkToSetWithIndex:static_cast<int>(indexPath.row)];
     [self.manager reloadBookmark];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self popViewController];
   }
+}
+
+- (void)popViewController
+{
+  if (!self.iPadOwnerNavigationController)
+  {
+    [self.navigationController popViewControllerAnimated:YES];
+    return;
+  }
+
+  [UIView animateWithDuration:0.1 animations:^
+   {
+     self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
+   }
+                   completion:^(BOOL finished)
+   {
+     [self.navigationController popViewControllerAnimated:YES];
+   }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -148,7 +166,6 @@
     return;
 
   self.iPadOwnerNavigationController.navigationBar.hidden = YES;
-  self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
 }
 
 @end
