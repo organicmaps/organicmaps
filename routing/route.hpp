@@ -79,9 +79,20 @@ public:
     Update();
   }
 
-  void SetTurnInstructions(TTurns & v);
-  void SetSectionTimes(TTimes & v);
-  void SetTurnInstructionsGeometry(turns::TTurnsGeom & v);
+  inline void SetTurnInstructions(TTurns & v)
+  {
+    swap(m_turns, v);
+  }
+
+  inline void SetSectionTimes(TTimes & v)
+  {
+    swap(m_times, v);
+  }
+
+  inline void SetTurnInstructionsGeometry(turns::TTurnsGeom & v)
+  {
+    swap(m_turnsGeom, v);
+  }
 
   // Time measure are seconds
   uint32_t GetAllTime() const;

@@ -43,7 +43,7 @@ struct TurnCandidate
    */
   double angle;
   /*!
-   * node is a possible node (a possilbe way) from the juction.
+   * node is a possible node (a possible way) from the juction.
    */
   NodeID node;
 
@@ -224,30 +224,39 @@ TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & l
 }
 
 /*!
- * \brief GetPointForTurnAngle returns ingoingPoint or outgoingPoint for turns.
- * These points belongs to the route but they often are not neighbor of turnPoint.
- * The distance between the turnPoint and the resulting point is less then kMinDistMeters
- * plus the next part of the segment parameter.
- * The length of the way from turnPoint to the resulting point is less or equal then
- * kMaxPointsCount segments.
+ * \brief GetPointForTurn returns ingoingPoint or outgoingPoint for turns.
+ * These points belongs to the route but they often are not neighbor of junctionPoint.
+ * To calculate the resulting point the function implements the following steps:
+ * - going from junctionPoint along feature ft according to the direction which is set in GetPointIndex().
+ * - until one of following conditions is fulfilled:
+ *   - the end of ft is reached; (returns the last feature point)
+ *   - more than kMaxPointsCount points are passed; (returns the kMaxPointsCount-th point)
+ *   - the length of passed parts of segment exceeds kMinDistMeters; (returns the next point after the event)
  * \param segment is a ingoing or outgoing feature segment.
  * \param ft is a ingoing or outgoing feature.
- * \param turnPoint is a junction point.
- * \param GetPointIndex is a function for getting points by index. It differs for ingoing and
- * outgoing cases.
+ * \param junctionPoint is a junction point.
+ * \param GetPointIndex is a function for getting points by index.
+ * It defines a direction of following along a feature. So it differs for ingoing and outgoing cases.
+ * It has following parameters:
+ * - start is an index of the start point of a feature segment. For example, FtSeg::m_pointStart.
+ * - end is an index of the end point of a feature segment. For example, FtSeg::m_pointEnd.
+ * - shift is a number of points which shall be added to end or start index. After that
+ * the sum reflects an index of a point of a feature segment which will be used for turn calculation.
+ * The sum shall belongs to a range [min(start, end), max(start, end)].
+ * shift belongs to a  range [0, abs(end - start)].
  * \return an ingoing or outgoing point for turn calculation.
  */
-m2::PointD GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & segment, FeatureType const & ft,
-                                m2::PointD const & turnPoint,
-                                size_t (*GetPointIndex)(const size_t, const size_t, const size_t))
+m2::PointD GetPointForTurn(OsrmMappingTypes::FtSeg const & segment, FeatureType const & ft,
+                           m2::PointD const & junctionPoint,
+                           size_t (*GetPointIndex)(const size_t start, const size_t end, const size_t shift))
 {
-  // An ingoing and outgoing point could be farther then kMaxPointsCount points from the turnPoint
+  // An ingoing and outgoing point could be farther then kMaxPointsCount points from the junctionPoint
   size_t const kMaxPointsCount = 7;
   // If ft feature is long enough and consist of short segments
   // the point for turn generation is taken as the next point the route after kMinDistMeters.
   double const kMinDistMeters = 300.;
   double curDistanceMeters = 0.;
-  m2::PointD point = turnPoint;
+  m2::PointD point = junctionPoint;
   m2::PointD nextPoint;
 
   size_t const numSegPoints = abs(segment.m_pointEnd - segment.m_pointStart);
@@ -329,7 +338,7 @@ NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edg
 
   if (edge == SPECIAL_EDGEID)
   {
-    for (EdgeID e : routingMapping.m_dataFacade.GetAdjacentEdgeRange(src))
+    for (EdgeID const e : routingMapping.m_dataFacade.GetAdjacentEdgeRange(src))
     {
       if (routingMapping.m_dataFacade.GetTarget(e) == edgeData.id)
       {
@@ -702,14 +711,14 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
 
   m2::PointD const junctionPoint = ingoingFeature.GetPoint(turnInfo.m_ingoingSegment.m_pointEnd);
   m2::PointD const ingoingPoint =
-      GetPointForTurnAngle(turnInfo.m_ingoingSegment, ingoingFeature, junctionPoint,
-                           [](const size_t start, const size_t end, const size_t i)
+      GetPointForTurn(turnInfo.m_ingoingSegment, ingoingFeature, junctionPoint,
+                      [](const size_t start, const size_t end, const size_t i)
       {
         return end > start ? end - i : end + i;
       });
   m2::PointD const outgoingPoint =
-      GetPointForTurnAngle(turnInfo.m_outgoingSegment, outgoingFeature, junctionPoint,
-                           [](const size_t start, const size_t end, const size_t i)
+      GetPointForTurn(turnInfo.m_outgoingSegment, outgoingFeature, junctionPoint,
+                      [](const size_t start, const size_t end, const size_t i)
       {
         return end > start ? start + i : start - i;
       });
@@ -730,12 +739,19 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
   if (nodesSize == 0)
     return;
 
-  if (nodes.front().node == turnInfo.m_outgoingNodeID)
-    turn.m_turn = LeftmostDirection(a);
-  else if (nodes.back().node == turnInfo.m_outgoingNodeID)
-    turn.m_turn = RightmostDirection(a);
-  else
+  if (!hasMultiTurns)
+  {
     turn.m_turn = IntermediateDirection(a);
+  }
+  else
+  {
+    if (nodes.front().node == turnInfo.m_outgoingNodeID)
+      turn.m_turn = LeftmostDirection(a);
+    else if (nodes.back().node == turnInfo.m_outgoingNodeID)
+      turn.m_turn = RightmostDirection(a);
+    else
+      turn.m_turn = IntermediateDirection(a);
+  }
 
   bool const isIngoingEdgeRoundabout = ftypes::IsRoundAboutChecker::Instance()(ingoingFeature);
   bool const isOutgoingEdgeRoundabout = ftypes::IsRoundAboutChecker::Instance()(outgoingFeature);

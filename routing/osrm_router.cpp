@@ -754,7 +754,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
 
   size_t last = 0;
   double lastTime = 0;
-  for (Route::TTimeItem t : times)
+  for (Route::TTimeItem & t : times)
   {
     double dist = 0;
     for (size_t i = last + 1; i <= t.first; ++i)

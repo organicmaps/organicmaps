@@ -71,8 +71,19 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TTurns & turnsDir);
 inline size_t GetFirstSegmentPointIndex(pair<size_t, size_t> const & p) { return p.first; }
 
 TurnDirection InvertDirection(TurnDirection dir);
+
+/*!
+ * \param angle is an angle of a turn. It belongs to a range [-180, 180].
+ * \return correct direction if the route follows along the rightmost possible way.
+ */
 TurnDirection RightmostDirection(double angle);
 TurnDirection LeftmostDirection(double angle);
+
+/*!
+ * \param angle is an angle of a turn. It belongs to a range [-180, 180].
+ * \return correct direction if the route follows not along one of two outermost ways
+ * or if there is only one possible way.
+ */
 TurnDirection IntermediateDirection(double angle);
 
 /*!
