@@ -43,7 +43,7 @@ MapFilesDownloader::TProgress HttpMapFilesDownloader::GetDownloadingProgress()
 bool HttpMapFilesDownloader::IsIdle()
 {
   ASSERT(m_checker.CalledOnOriginalThread(), ());
-  return m_request.get() != nullptr;
+  return m_request.get() == nullptr;
 }
 
 void HttpMapFilesDownloader::Reset()
