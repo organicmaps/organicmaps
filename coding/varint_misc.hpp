@@ -7,7 +7,7 @@
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 #include "std/vector.hpp"
 
 // Encode Varint by appending to vector of bytes.

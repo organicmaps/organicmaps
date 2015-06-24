@@ -2,7 +2,7 @@
 
 #include "base/assert.hpp"
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 
 namespace df
 {

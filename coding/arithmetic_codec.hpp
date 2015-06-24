@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 #include "std/vector.hpp"
 
 // Forward declarations.

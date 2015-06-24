@@ -5,7 +5,7 @@
 
 #include "base/shared_buffer_manager.hpp"
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 #include "std/map.hpp"
 
 namespace dp

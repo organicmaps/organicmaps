@@ -1,5 +1,5 @@
 #pragma once
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 
 
 static const uint32_t READER_CHUNK_LOG_SIZE = 10;

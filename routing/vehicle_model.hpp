@@ -2,7 +2,7 @@
 #include "base/buffer_vector.hpp"
 
 #include "std/initializer_list.hpp"
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 #include "std/unordered_map.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"

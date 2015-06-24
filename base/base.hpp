@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 
 #if defined(DEBUG) || defined(_DEBUG) || defined(NRELEASE) || defined(QT_DEBUG)
 #define MY_DEBUG_DEFINED 1

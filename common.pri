@@ -228,6 +228,7 @@ HEADERS += \
   $$ROOT_DIR/std/complex.hpp \
   $$ROOT_DIR/std/condition_variable.hpp \
   $$ROOT_DIR/std/cstdarg.hpp \
+  $$ROOT_DIR/std/cstdint.hpp \
   $$ROOT_DIR/std/cstdio.hpp \
   $$ROOT_DIR/std/cstdlib.hpp \
   $$ROOT_DIR/std/cstring.hpp \
@@ -258,7 +259,6 @@ HEADERS += \
   $$ROOT_DIR/std/shared_ptr.hpp \
   $$ROOT_DIR/std/sstream.hpp \
   $$ROOT_DIR/std/stack.hpp \
-  $$ROOT_DIR/std/stdint.hpp \
   $$ROOT_DIR/std/string.hpp \
   $$ROOT_DIR/std/systime.hpp \
   $$ROOT_DIR/std/target_os.hpp \

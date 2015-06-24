@@ -3,7 +3,7 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 #include "std/utility.hpp"
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 
 
 namespace downloader

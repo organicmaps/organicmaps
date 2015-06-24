@@ -22,7 +22,7 @@
 #include "3party/agg/agg_renderer_primitives.h"
 #include "3party/agg/agg_path_storage.h"
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 #include "std/unique_ptr.hpp"
 
 

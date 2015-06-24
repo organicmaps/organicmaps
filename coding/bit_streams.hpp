@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 
 // Forward declarations.
 class Reader;

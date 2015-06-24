@@ -3,7 +3,7 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 
 #include "std/noncopyable.hpp"
 

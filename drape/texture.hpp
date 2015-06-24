@@ -6,7 +6,7 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 #include "std/function.hpp"
 
 namespace dp

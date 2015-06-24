@@ -2,7 +2,7 @@
 
 #include "indexer/mwm_set.hpp"
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 #include "std/string.hpp"
 
 namespace feature

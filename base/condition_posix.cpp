@@ -5,7 +5,7 @@
 #include "base/condition.hpp"
 #include "base/mutex.hpp"
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 #include "std/systime.hpp"
 #include "std/errno.hpp"
 

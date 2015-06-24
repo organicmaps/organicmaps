@@ -1,7 +1,7 @@
 #pragma once
 
 #include "std/vector.hpp"
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 
 struct FrameImage
 {

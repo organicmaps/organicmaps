@@ -2,7 +2,7 @@
 #include "base/assert.hpp"
 
 #include "std/type_traits.hpp"
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 
 
 namespace bits

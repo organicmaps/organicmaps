@@ -23,7 +23,7 @@
 
 #include "base/assert.hpp"
 #include "std/iterator.hpp"
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 #include "std/vector.hpp"
 
 // Forward declare used Reader/Writer.

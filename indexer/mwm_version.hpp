@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 
 class FilesContainerR;
 class ReaderSrc;
