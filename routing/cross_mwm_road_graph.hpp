@@ -40,8 +40,10 @@ struct CrossNode
   {
     if (a.node != node)
       return node < a.node;
+
     if (isVirtual != a.isVirtual)
       return isVirtual < a.isVirtual;
+
     return mwmName < a.mwmName;
   }
 };
@@ -111,6 +113,14 @@ public:
 private:
   BorderCross FindNextMwmNode(OutgoingCrossNode const & startNode,
                               TRoutingMappingPtr const & currentMapping) const;
+  /*!
+   * Adds a virtual edge to the graph so that it is possible to represent
+   * the final segment of the path that leads from the map's border
+   * to finalNode. Addition of such virtual edges for the starting node is
+   * inlined elsewhere.
+   */
+  void AddVirtualEdge(IngoingCrossNode const & node, CrossNode const & finalNode,
+                      EdgeWeight weight);
 
   map<CrossNode, vector<CrossWeightedEdge> > m_virtualEdges;
   mutable RoutingIndexManager m_indexManager;
@@ -121,7 +131,11 @@ private:
 // Helper functions.
 //--------------------------------------------------------------------------------------------------
 
-/// Convertor from CrossMwmGraph to cross mwm route task.
+/*!
+ * \brief Convertor from CrossMwmGraph to cross mwm route task.
+ * \warning It's assumed that the first and the last BorderCrosses are always virtual and represents
+ * routing inside mwm.
+ */
 void ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
                                 FeatureGraphNode const & startGraphNode,
                                 FeatureGraphNode const & finalGraphNode, TCheckedPath & route);

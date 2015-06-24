@@ -54,6 +54,16 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   return IRouter::NoError;
 }
 
+void CrossMwmGraph::AddVirtualEdge(IngoingCrossNode const & node, CrossNode const & finalNode,
+                                   EdgeWeight weight)
+{
+  CrossNode start(node.m_nodeId, finalNode.mwmName,
+                  MercatorBounds::FromLatLon(node.m_point.y, node.m_point.x));
+  vector<CrossWeightedEdge> dummyEdges;
+  dummyEdges.emplace_back(BorderCross(finalNode, finalNode), weight);
+  m_virtualEdges.insert(make_pair(start, dummyEdges));
+}
+
 IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
 {
   ASSERT(finalNode.mwmName.length(), ());
@@ -78,11 +88,7 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
     // Case with a target node at the income mwm node.
     if (j->m_nodeId == finalNode.node)
     {
-      CrossNode start(j->m_nodeId, finalNode.mwmName,
-                      MercatorBounds::FromLatLon(j->m_point.y, j->m_point.x));
-      vector<CrossWeightedEdge> dummyEdges;
-      dummyEdges.emplace_back(BorderCross(finalNode, finalNode), 0 /* no weight */);
-      m_virtualEdges.insert(make_pair(start, dummyEdges));
+      AddVirtualEdge(*j, finalNode, 0 /* no weight */);
       return IRouter::NoError;
     }
     sources.emplace_back(j->m_nodeId, true /* isStartNode */, finalNode.mwmName);
@@ -97,12 +103,7 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   {
     if (IsValidEdgeWeight(weights[i]))
     {
-      IngoingCrossNode const & iNode = *(mwmIngoingIter.first + i);
-      CrossNode start(iNode.m_nodeId, finalNode.mwmName,
-                      MercatorBounds::FromLatLon(iNode.m_point.y, iNode.m_point.x));
-      vector<CrossWeightedEdge> dummyEdges;
-      dummyEdges.emplace_back(BorderCross(finalNode, finalNode), weights[i]);
-      m_virtualEdges.insert(make_pair(start, dummyEdges));
+      AddVirtualEdge(*(mwmIngoingIter.first + i), finalNode, weights[i]);
     }
   }
   return IRouter::NoError;
@@ -203,6 +204,7 @@ void ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
   route.clear();
   for (size_t i = 0; i + 1 < graphCrosses.size(); ++i)
   {
+    ASSERT_EQUAL(graphCrosses[i].toNode.mwmName, graphCrosses[i + 1].fromNode.mwmName, ());
     route.emplace_back(graphCrosses[i].toNode.node, graphCrosses[i + 1].fromNode.node,
                        graphCrosses[i].toNode.mwmName);
   }
@@ -212,6 +214,8 @@ void ConvertToSingleRouterTasks(vector<BorderCross> const & graphCrosses,
 
   route.front().startNode = startGraphNode;
   route.back().finalNode = finalGraphNode;
+  ASSERT_EQUAL(route.front().startNode.mwmName, route.front().finalNode.mwmName, ());
+  ASSERT_EQUAL(route.back().startNode.mwmName, route.back().finalNode.mwmName, ());
 }
 
 }  // namespace routing

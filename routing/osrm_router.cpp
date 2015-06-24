@@ -379,6 +379,7 @@ bool OsrmRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source,
 }
 
 // TODO (ldragunov) move this function to cross mwm router
+// TODO (ldragunov) process case when the start and the finish points are placed on the same edge.
 OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const & path,
                                                             Route & route)
 {

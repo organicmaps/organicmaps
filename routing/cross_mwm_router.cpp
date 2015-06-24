@@ -95,10 +95,7 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   // Final path conversion to output type.
   ConvertToSingleRouterTasks(tempRoad, startGraphNode, finalGraphNode, route);
 
-  if (route.empty())
-    return IRouter::RouteNotFound;
-
-  return IRouter::NoError;
+  return route.empty() ? IRouter::RouteNotFound : IRouter::NoError;
 }
 
 }  // namespace routing
