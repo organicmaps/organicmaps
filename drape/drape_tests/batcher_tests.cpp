@@ -12,7 +12,6 @@
 #include "base/stl_add.hpp"
 
 #include "std/bind.hpp"
-#include "std/scoped_ptr.hpp"
 #include "std/cstring.hpp"
 #include "std/function.hpp"
 #include "std/bind.hpp"

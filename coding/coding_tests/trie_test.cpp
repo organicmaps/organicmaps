@@ -8,7 +8,6 @@
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
-#include "std/scoped_ptr.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 #include "std/cstring.hpp"

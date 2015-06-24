@@ -9,7 +9,6 @@
 #include "base/buffer_vector.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/scoped_ptr.hpp"
 #include "std/sstream.hpp"
 #include "std/vector.hpp"
 
