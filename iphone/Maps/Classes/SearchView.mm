@@ -393,14 +393,14 @@ static BOOL keyboardLoaded = NO;
 }
 
 // TODO: This code only for demonstration purposes and will be removed soon
-- (bool)tryChangeMapStyleCmd:(NSString*)str
+- (BOOL)tryChangeMapStyleCmd:(NSString *)cmd
 {
   // Hook for shell command on change map style
-  bool const isDark = [str isEqualToString: @"mapstyle:dark"];
-  bool const isLight = isDark ? false : [str isEqualToString: @"mapstyle:light"];
+  BOOL const isDark = [cmd isEqualToString:@"mapstyle:dark"];
+  BOOL const isLight = isDark ? NO : [cmd isEqualToString:@"mapstyle:light"];
   
   if (!isDark && !isLight)
-    return false;
+    return NO;
 
   // close Search panel
   [self searchBarDidPressCancelButton:nil];
@@ -409,20 +409,36 @@ static BOOL keyboardLoaded = NO;
   MapStyle const mapStyle = isDark ? MapStyleDark : MapStyleLight;
   [[MapsAppDelegate theApp] setMapStyle: mapStyle];
     
-  return true;
+  return YES;
+}
+
+- (BOOL)tryToChangeRoutingModeCmd:(NSString *)cmd
+{
+  if (![cmd isEqual:@"?pedestrian"])
+    return NO;
+
+  MapsAppDelegate * delegate = [MapsAppDelegate theApp];
+  BOOL const isPedestrianRoutingMode = delegate.isPedestrianRoutingMode;
+  delegate.isPedestrianRoutingMode = !isPedestrianRoutingMode;
+ [self searchBarDidPressCancelButton:nil];
+  return YES;
 }
 
 - (void)textFieldTextChanged:(id)sender
 {
-  NSString * newText = self.searchBar.textField.text;
+  NSString * currentText = self.searchBar.textField.text;
   
   // TODO: This code only for demonstration purposes and will be removed soon
-  if ([self tryChangeMapStyleCmd: newText])
+  if ([self tryChangeMapStyleCmd:currentText])
     return;
 
-  if ([newText length])
+  // TODO(Vlad): This code only for demonstration purposes and will be removed soon
+  if ([self tryToChangeRoutingModeCmd:currentText])
+    return;
+
+  if ([currentText length])
   {
-    [self search:newText];
+    [self search:currentText];
   }
   else
   {

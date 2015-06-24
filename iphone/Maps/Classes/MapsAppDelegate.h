@@ -20,6 +20,7 @@
 
 @property (nonatomic, weak) IBOutlet MapViewController * m_mapViewController;
 @property (nonatomic, readonly) LocationManager * m_locationManager;
+@property (nonatomic) BOOL isPedestrianRoutingMode;
 
 + (MapsAppDelegate *)theApp;
 

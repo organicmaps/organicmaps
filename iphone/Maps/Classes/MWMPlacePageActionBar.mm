@@ -12,6 +12,7 @@
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageEntity.h"
 #import "UIKitCategories.h"
+#import "MapsAppDelegate.h"
 
 #include "Framework.h"
 
@@ -41,6 +42,8 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   BOOL const isMyPosition = placePage.manager.entity.type == MWMPlacePageEntityTypeMyPosition;
   bar.routeButton.hidden = isMyPosition;
   bar.autoresizingMask = UIViewAutoresizingNone;
+  NSString * routeImageName = [MapsAppDelegate theApp].isPedestrianRoutingMode ? @"ic_route_walk" : @"ic_route";
+  [bar.routeButton setImage:[UIImage imageNamed:routeImageName] forState:UIControlStateNormal];
   return bar;
 }
 
