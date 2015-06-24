@@ -251,8 +251,9 @@ static BOOL keyboardLoaded = NO;
     } completion:nil];
     [self.searchBar.textField resignFirstResponder];
   }
-  _state = state;
   GetFramework().Invalidate();
+  _state = state;
+  [self.delegate searchViewDidEnterState:state];
 }
 
 - (void)onLocationError:(location::TLocationError)errorCode

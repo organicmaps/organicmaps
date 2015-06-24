@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, SearchViewState) {
 @protocol SearchViewDelegate <NSObject>
 
 - (void)searchViewWillEnterState:(SearchViewState)state;
+- (void)searchViewDidEnterState:(SearchViewState)state;
 
 @end
 

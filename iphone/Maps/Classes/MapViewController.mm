@@ -930,24 +930,35 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
     case SearchViewStateHidden:
       self.controlsManager.hidden = NO;
       [self moveRouteViewAnimatedtoOffset:0.0];
-      [self clearMapInfoViewFlag:MapInfoViewSearch];
       break;
     case SearchViewStateResults:
       self.controlsManager.hidden = NO;
       [self moveRouteViewAnimatedtoOffset:self.searchView.searchBar.maxY];
-      [self setMapInfoViewFlag:MapInfoViewSearch];
       break;
     case SearchViewStateAlpha:
       self.controlsManager.hidden = NO;
-      [self clearMapInfoViewFlag:MapInfoViewSearch];
       break;
     case SearchViewStateFullscreen:
       self.controlsManager.hidden = YES;
       GetFramework().ActivateUserMark(NULL);
-      [self clearMapInfoViewFlag:MapInfoViewSearch];
       break;
   }
   [self updateStatusBarStyle];
+}
+
+- (void)searchViewDidEnterState:(SearchViewState)state
+{
+  switch (state)
+  {
+    case SearchViewStateResults:
+      [self setMapInfoViewFlag:MapInfoViewSearch];
+      break;
+    case SearchViewStateHidden:
+    case SearchViewStateAlpha:
+    case SearchViewStateFullscreen:
+      [self clearMapInfoViewFlag:MapInfoViewSearch];
+      break;
+  }
 }
 
 #pragma mark - Layout
