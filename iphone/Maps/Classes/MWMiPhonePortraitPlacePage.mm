@@ -35,7 +35,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 
 @property (nonatomic) MWMiPhonePortraitPlacePageState state;
 @property (nonatomic) CGPoint targetPoint;
-@property (nonatomic) CGFloat keyboardHeight;
 @property (nonatomic) CGFloat panVelocity;
 
 @end
@@ -101,7 +100,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 - (void)removeBookmark
 {
  [super removeBookmark];
-  self.keyboardHeight = 0.;
   self.state = MWMiPhonePortraitPlacePageStatePreview;
 }
 
@@ -230,14 +228,13 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 
 - (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight
 {
-  self.keyboardHeight = keyboardHeight;
+  [super willStartEditingBookmarkTitle:keyboardHeight];
   self.state = MWMiPhonePortraitPlacePageStateOpen;
 }
 
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
   [super willFinishEditingBookmarkTitle:title];
-  self.keyboardHeight = 0.;
   [self updateTargetPoint];
 }
 

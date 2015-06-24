@@ -125,6 +125,12 @@ static CGFloat const kBottomOffset = 12.;
   }];
 }
 
+- (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight
+{
+  [super willStartEditingBookmarkTitle:keyboardHeight];
+  [self updatePlacePagePosition];
+}
+
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
   [super willFinishEditingBookmarkTitle:title];
@@ -193,13 +199,25 @@ static CGFloat const kBottomOffset = 12.;
   CGFloat const actionBarHeight = self.actionBar.height;
   self.height = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
   self.actionBar.origin = CGPointMake(0., self.height - actionBarHeight);
+  [self updatePlacePagePosition];
+}
+
+- (void)updatePlacePagePosition
+{
+  self.navigationController.view.maxY = [self availableHeight] + kTopOffset;
+  self.navigationController.view.minY = MIN(self.navigationController.view.minY, self.topBound + kTopOffset);
+}
+
+- (CGFloat)availableHeight
+{
+  return self.parentViewHeight - self.keyboardHeight - kTopOffset - kBottomOffset;
 }
 
 #pragma mark - Properties
 
 - (void)setHeight:(CGFloat)height
 {
-  _height = MIN(height, self.parentViewHeight - kTopOffset - kBottomOffset);
+  _height = MIN(height, [self availableHeight]);
   self.navigationController.view.height = _height;
   self.extendedPlacePageView.height = _height;
 }

@@ -78,6 +78,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   [self.manager removeBookmark];
   [self.basePlacePageView removeBookmark];
+  self.keyboardHeight = 0.;
 }
 
 - (void)share
@@ -152,13 +153,14 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight
 {
-// This method should be empty if your target is iPad.
+  self.keyboardHeight = keyboardHeight;
 }
 
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
   self.basePlacePageView.titleLabel.text = title;
   [self.basePlacePageView layoutSubviews];
+  self.keyboardHeight = 0.;
 }
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender

@@ -20,6 +20,7 @@
 @property (nonatomic) MWMPlacePageActionBar * actionBar;
 @property (nonatomic) CGFloat topBound;
 @property (nonatomic) CGFloat parentViewHeight;
+@property (nonatomic) CGFloat keyboardHeight;
 
 - (instancetype)initWithManager:(MWMPlacePageViewManager *)manager;
 - (void)show;

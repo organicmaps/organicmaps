@@ -124,6 +124,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 
 - (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight
 {
+  [super willStartEditingBookmarkTitle:keyboardHeight];
   CGFloat const statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
   MWMBasePlacePageView const * basePlacePageView = self.basePlacePageView;
   UITableView const * tableView = basePlacePageView.featureTable;
