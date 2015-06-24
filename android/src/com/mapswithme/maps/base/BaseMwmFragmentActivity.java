@@ -12,7 +12,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
-import ru.mail.mrgservice.MRGService;
+import ru.mail.android.mytracker.MRMyTracker;
 
 public class BaseMwmFragmentActivity extends AppCompatActivity
 {
@@ -42,7 +42,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     super.onStart();
     Statistics.INSTANCE.startActivity(this);
 
-    MRGService.instance().onStart(this);
+    MRMyTracker.onStartActivity(this);
   }
 
   @Override
@@ -51,7 +51,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     Statistics.INSTANCE.stopActivity(this);
     super.onStop();
 
-    MRGService.instance().onStop(this);
+    MRMyTracker.onStopActivity(this);
   }
 
   @Override

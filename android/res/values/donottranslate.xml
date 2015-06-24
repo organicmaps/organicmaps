@@ -8,9 +8,8 @@
   <!-- FB -->
   <string name="fb_app_id" translatable="false">185237551520383</string>
 
-  <!-- MRGS -->
-  <string name="mrgs_key" translatable="false">***REMOVED***</string>
-  <string name="mrgs_id" translatable="false">150</string>
+  <!-- myTracker -->
+  <string name="my_tracker_app_id" translatable="false">***REMOVED***</string>
 
   <!-- Font names -->
   <string name="robotoLight" translatable="false">sans-serif-light</string>

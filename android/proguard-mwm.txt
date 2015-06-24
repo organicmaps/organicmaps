@@ -1,12 +1,13 @@
 # obfuscate supportV7 menu subclasses. it fixes bug with some Samsung and other devices ROMS based on android 4.2.2.
 # more details here : https://code.google.com/p/android/issues/detail?id=78377
 -keep class !android.support.v7.internal.view.menu.**,** {*;}
-# ignore warnings from MRGS billing.
--dontwarn ru.mail.**
+
 # flurry
 -dontwarn com.flurry.**
+
 # support library bug
 -dontwarn android.support.**
+
 # parse
 -dontwarn com.squareup.okhttp.**
 -dontwarn okio.**

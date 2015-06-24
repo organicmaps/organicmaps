@@ -1,7 +1,6 @@
 package com.mapswithme.maps;
 
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -22,12 +21,11 @@ import com.parse.Parse;
 import com.parse.ParseInstallation;
 
 import java.io.File;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import ru.mail.mrgservice.MRGSApplication;
-import ru.mail.mrgservice.MRGSMap;
-import ru.mail.mrgservice.MRGSServerData;
-import ru.mail.mrgservice.MRGService;
+import ru.mail.android.mytracker.MRMyTracker;
+import ru.mail.android.mytracker.MRMyTrackerParams;
 
 public class MWMApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
 {
@@ -39,6 +37,10 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private static final String FIRST_INSTALL_VERSION = "FirstInstallVersion";
   private static final String FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
   private static final String IS_PREINSTALL_ACTIVATED = "PreinstallActivated";
+  // for myTracker
+  private static final String MY_MAP_DOWNLOAD = "DownloadMap";
+  private static final String MY_MAP_UPDATE = "UpdateMap";
+  private static final String MY_TOTAL_COUNT = "Count";
 
   private static MWMApplication mSelf;
   private final Gson mGson = new Gson();
@@ -78,12 +80,17 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   @Override
   public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition)
   {
-    if (!nativeGetBoolean(IS_PREINSTALL_ACTIVATED, false) && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE &&
-        ((oldGroup == ActiveCountryTree.GROUP_OUT_OF_DATE) || (oldGroup == ActiveCountryTree.GROUP_NEW && ActiveCountryTree.getTotalDownloadedCount() > 1)))
-    {
-      nativeSetBoolean(IS_PREINSTALL_ACTIVATED, true);
-      Statistics.INSTANCE.trackPreinstallActivation(getFirstInstallFlavor());
-    }
+    if (oldGroup == ActiveCountryTree.GROUP_NEW && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE)
+      myTrackerTrackMapChange(MY_MAP_DOWNLOAD);
+    else if (oldGroup == ActiveCountryTree.GROUP_OUT_OF_DATE && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE)
+      myTrackerTrackMapChange(MY_MAP_UPDATE);
+  }
+
+  private void myTrackerTrackMapChange(String eventType)
+  {
+    final Map<String, String> params = new HashMap<>();
+    params.put(MY_TOTAL_COUNT, String.valueOf(ActiveCountryTree.getTotalDownloadedCount()));
+    MRMyTracker.trackEvent(eventType, params);
   }
 
   @Override
@@ -143,22 +150,17 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     initParse();
   }
 
-  private void initMrgs()
+  private void initMyTracker()
   {
-    MRGService.setAppContext(this);
-    final Bundle options = new Bundle();
-    options.putBoolean("locations", false);
-    MRGService.service(this, new MRGSServerData.MRGSServerDataDelegate()
-    {
-      @Override
-      public void loadServerDataDidFinished(MRGSMap mrgsMap) {}
+    MRMyTracker.setDebugMode(BuildConfig.DEBUG);
 
-      @Override
-      public void loadPromoBannersDidFinished(MRGSMap mrgsMap) {}
-    }, getString(R.string.mrgs_id), getString(R.string.mrgs_key), options);
+    MRMyTracker.createTracker(getString(R.string.my_tracker_app_id), this);
 
-    if (getLaunchesNumber() == 1)
-      MRGSApplication.instance().markAsUpdated(new Date());
+    final MRMyTrackerParams myParams = MRMyTracker.getTrackerParams();
+    myParams.setTrackingPreinstallsEnabled(true);
+    myParams.setTrackingLaunchEnabled(true);
+
+    MRMyTracker.initTracker();
   }
 
   public String getApkPath()
@@ -259,7 +261,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
       mAreStatsInitialised = true;
       updateLaunchNumbers();
       updateSessionsNumber();
-      initMrgs();
+      initMyTracker();
       PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
       org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);

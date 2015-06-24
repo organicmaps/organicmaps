@@ -76,7 +76,6 @@ public enum Statistics
     public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
     public static final String FACEBOOK_INVITE_INVITED = "GPlay dialog cancelled.";
     public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
-    public static final String PREINSTALL_ACTIVATED = "Preinstalled application activated.";
   }
 
   public static class EventParam
@@ -99,7 +98,7 @@ public enum Statistics
     public static final String RATING = "Rating";
   }
 
-  private Statistics()
+  Statistics()
   {
     configure();
     mLogger.d("Created Statistics instance.");
@@ -147,13 +146,6 @@ public enum Statistics
   public void trackCountryDeleted()
   {
     trackIfEnabled(mEventBuilder.setName(EventName.COUNTRY_DELETE).buildEvent());
-  }
-
-  public void trackPreinstallActivation(String flavor)
-  {
-    trackIfEnabled(mEventBuilder.
-        setName(EventName.PREINSTALL_ACTIVATED + flavor).
-        buildEvent());
   }
 
   public void trackSearchCategoryClicked(String category)

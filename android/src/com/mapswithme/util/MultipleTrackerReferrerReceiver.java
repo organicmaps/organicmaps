@@ -7,7 +7,7 @@ import android.content.Intent;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.statistics.AlohaHelper;
 
-import ru.mail.mrgservice.MRGSBroadcastReceiver;
+import ru.mail.android.mytracker.campaign.CampaignReceiver;
 
 /**
  * Custom broadcast receiver to send intent to MRGS & Alohalytics at the same time
@@ -46,8 +46,8 @@ public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
       e.printStackTrace();
     }
     intent.setComponent(null);
-    // now send intent to MRGS tools
-    MRGSBroadcastReceiver receiver = new MRGSBroadcastReceiver();
+    // now send intent to myTracker
+    CampaignReceiver receiver = new CampaignReceiver();
     receiver.onReceive(context, intent);
   }
 }

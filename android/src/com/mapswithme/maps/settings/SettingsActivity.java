@@ -37,7 +37,7 @@ import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-import ru.mail.mrgservice.MRGService;
+import ru.mail.android.mytracker.MRMyTracker;
 
 public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener, Preference.OnPreferenceChangeListener
 {
@@ -137,7 +137,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     super.onStart();
 
     Statistics.INSTANCE.startActivity(this);
-    MRGService.instance().onStart(this);
+    MRMyTracker.onStartActivity(this);
   }
 
   @Override
@@ -146,7 +146,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     super.onStop();
 
     Statistics.INSTANCE.stopActivity(this);
-    MRGService.instance().onStop(this);
+    MRMyTracker.onStopActivity(this);
   }
 
   @Override
