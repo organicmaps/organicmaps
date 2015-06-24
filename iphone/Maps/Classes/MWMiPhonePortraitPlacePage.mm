@@ -88,7 +88,8 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 
 - (void)dismiss
 {
-  self.state = MWMiPhonePortraitPlacePageStateClosed;
+  [MWMPlacePageNavigationBar remove];
+  [super dismiss];
 }
 
 - (void)addBookmark
@@ -118,9 +119,11 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   {
     case MWMiPhonePortraitPlacePageStateClosed:
       [self.actionBar removeFromSuperview];
+      [MWMPlacePageNavigationBar remove];
       [self.manager.ownerViewController.view endEditing:YES];
       break;
     case MWMiPhonePortraitPlacePageStatePreview:
+      [MWMPlacePageNavigationBar remove];
       [self.manager.ownerViewController.view endEditing:YES];
       break;
     case MWMiPhonePortraitPlacePageStateOpen:
@@ -274,7 +277,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     __strong MWMiPhonePortraitPlacePage * self = weakSelf;
     if (self.state == MWMiPhonePortraitPlacePageStateClosed)
     {
-      [MWMPlacePageNavigationBar remove];
       self.keyboardHeight = 0.;
       [super dismiss];
     }

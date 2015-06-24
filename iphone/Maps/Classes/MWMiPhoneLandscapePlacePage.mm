@@ -54,11 +54,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   self.state = MWMiPhoneLandscapePlacePageStateOpen;
 }
 
-- (void)dismiss
-{
-  self.state = MWMiPhoneLandscapePlacePageStateClosed;
-}
-
 - (void)updateTargetPoint
 {
   CGSize const size = UIScreen.mainScreen.bounds.size;
