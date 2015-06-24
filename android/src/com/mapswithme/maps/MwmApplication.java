@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -45,6 +46,7 @@ public class MwmApplication extends Application
 
   private boolean mAreStatsInitialised;
   private Handler mMainLoopHandler;
+  private Object mMainQueueToken = new Object();
 
   public MwmApplication()
   {
@@ -190,7 +192,8 @@ public class MwmApplication extends Application
 
   public void runNativeFunctorOnUiThread(final long functorPointer)
   {
-    mMainLoopHandler.post(new Runnable()
+    //TODO(android developer) implement categories of messages
+    Message m = Message.obtain(mMainLoopHandler, new Runnable()
     {
       @Override
       public void run()
@@ -198,6 +201,13 @@ public class MwmApplication extends Application
         runNativeFunctor(functorPointer);
       }
     });
+    m.obj = mMainQueueToken;
+    mMainLoopHandler.sendMessage(m);
+  }
+
+  public void clearFunctorsOnUiThread()
+  {
+    mMainLoopHandler.removeCallbacksAndMessages(mMainQueueToken);
   }
 
   /**

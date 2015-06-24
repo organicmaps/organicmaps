@@ -492,8 +492,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     TLocationStateModeFn locationStateModeFn = (TLocationStateModeFn)[self methodForSelector:locationStateModeSelector];
     f.SetMyPositionModeListener(bind(locationStateModeFn, self, locationStateModeSelector, _1));
 
-	///@TODO UVR
-    //f.GetCountryStatusDisplay()->SetDownloadCountryListener([self, &f](storage::TIndex const & idx, int opt)
+    f.SetDownloadCountryListener([self, &f](storage::TIndex const & idx, int opt)
     {
       ActiveMapsLayout & layout = f.GetCountryTree().GetActiveMapLayout();
       if (opt == -1)
@@ -529,7 +528,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
         layout.DownloadMap(idx, static_cast<MapOptions>(opt));
       }
-    });*/
+    });
 
     f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
     {

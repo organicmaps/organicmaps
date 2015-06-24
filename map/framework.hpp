@@ -108,6 +108,9 @@ protected:
 
   void StopLocationFollow();
 
+  using TDownloadCountryListener = function<void(storage::TIndex const &, int)>;
+  TDownloadCountryListener m_downloadCountryListener;
+
   storage::Storage m_storage;
   shared_ptr<storage::ActiveMapsLayout> m_activeMaps;
   storage::CountryTree m_globalCntTree;
@@ -172,6 +175,8 @@ public:
   void DeleteCountry(storage::TIndex const & index, MapOptions opt);
   /// options - flags that signal about parts of map that must be downloaded
   void DownloadCountry(storage::TIndex const & index, MapOptions opt);
+
+  void SetDownloadCountryListener(TDownloadCountryListener const & listener);
 
   storage::TStatus GetCountryStatus(storage::TIndex const & index) const;
   string GetCountryName(storage::TIndex const & index) const;

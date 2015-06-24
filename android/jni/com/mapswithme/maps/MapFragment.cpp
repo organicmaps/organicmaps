@@ -101,16 +101,9 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapFragment_nativeConnectDownloadButton(JNIEnv * env, jobject thiz)
   {
-    ///@TODO UVR
-    //CountryStatusDisplay * display = g_framework->GetCountryStatusDisplay();
-
-    //jmethodID methodID = jni::GetJavaMethodID(env, thiz, "OnDownloadCountryClicked", "(IIII)V");
-
-    //display->SetDownloadCountryListener(bind(&CallOnDownloadCountryClicked,
-    //                                          jni::make_global_ref(thiz),
-    //                                          _1,
-    //                                          _2,
-    //                                          methodID));
+    jmethodID methodID = jni::GetJavaMethodID(env, thiz, "OnDownloadCountryClicked", "(IIII)V");
+    g_framework->NativeFramework()->SetDownloadCountryListener(bind(&CallOnDownloadCountryClicked,
+                                                               jni::make_global_ref(thiz), _1, _2, methodID));
   }
 
   JNIEXPORT void JNICALL

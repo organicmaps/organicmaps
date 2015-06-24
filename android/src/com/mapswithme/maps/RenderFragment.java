@@ -42,6 +42,7 @@ public abstract class RenderFragment extends BaseMwmFragment
   public void surfaceDestroyed(SurfaceHolder surfaceHolder)
   {
     mSurfaceHolder = null;
+    MWMApplication.get().clearFunctorsOnUiThread();
     DestroyEngine();
   }
 
