@@ -59,12 +59,6 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   self.state = MWMiPhoneLandscapePlacePageStateClosed;
 }
 
-- (void)setState:(MWMiPhoneLandscapePlacePageState)state
-{
-  _state = state;
-  [self updateTargetPoint];
-}
-
 - (void)updateTargetPoint
 {
   CGSize const size = UIScreen.mainScreen.bounds.size;
@@ -94,9 +88,10 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   UIGestureRecognizerState const state = sender.state;
   if (state == UIGestureRecognizerStateEnded || state == UIGestureRecognizerStateCancelled)
   {
+    sender.enabled = NO;
     self.panVelocity = [sender velocityInView:ppvSuper].x;
     if (self.panVelocity > 0)
-      self.state = MWMiPhoneLandscapePlacePageStateOpen;
+      [self show];
     else
       [self.manager dismissPlacePage];
   }
@@ -129,6 +124,12 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 
 #pragma mark - Properties
 
+- (void)setState:(MWMiPhoneLandscapePlacePageState)state
+{
+  _state = state;
+  [self updateTargetPoint];
+}
+
 - (void)setTopBound:(CGFloat)topBound
 {
   super.topBound = topBound;
@@ -151,6 +152,8 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
     __strong MWMiPhoneLandscapePlacePage * self = weakSelf;
     if (self.state == MWMiPhoneLandscapePlacePageStateClosed)
       [super dismiss];
+    else
+      self.panRecognizer.enabled = YES;
   }];
   self.panVelocity = 0.0;
 }

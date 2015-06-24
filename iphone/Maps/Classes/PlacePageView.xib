@@ -10,6 +10,7 @@
                 <outlet property="anchorImageView" destination="a4c-bA-qa5" id="XxC-0s-K2B"/>
                 <outlet property="basePlacePageView" destination="8RI-YR-2UD" id="B5i-Do-Hos"/>
                 <outlet property="extendedPlacePageView" destination="KWK-Ky-ZkL" id="rlo-FR-5wm"/>
+                <outlet property="panRecognizer" destination="elN-ZP-7aG" id="LmJ-8k-oOP"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
