@@ -16,7 +16,7 @@
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
-#import "MWMPlacePageViewDragDelegate.h"
+#import "MWMPlacePageViewManagerDelegate.h"
 #import "MWMPlacePageViewManager.h"
 #import "ShareActionSheet.h"
 #import "UIKitCategories.h"
@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   unique_ptr<UserMarkCopy> m_userMark;
 }
 
-@property (weak, nonatomic) UIViewController<MWMPlacePageViewDragDelegate> * ownerViewController;
+@property (weak, nonatomic) UIViewController<MWMPlacePageViewManagerDelegate> * ownerViewController;
 @property (nonatomic, readwrite) MWMPlacePageEntity * entity;
 @property (nonatomic) MWMPlacePage * placePage;
 @property (nonatomic) MWMPlacePageManagerState state;
@@ -47,7 +47,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 @implementation MWMPlacePageViewManager
 
-- (instancetype)initWithViewController:(UIViewController<MWMPlacePageViewDragDelegate> *)viewController
+- (instancetype)initWithViewController:(UIViewController<MWMPlacePageViewManagerDelegate> *)viewController
 {
   self = [super init];
   if (self)
@@ -100,6 +100,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     BOOL hasSpeed;
     self.entity.category = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed];
   }
+  self.placePage.topBound = self.topBound;
   [self.placePage configure];
   [self refreshPlacePage];
 }
@@ -146,6 +147,13 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     case UIInterfaceOrientationUnknown:
       break;
   }
+}
+
+- (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller
+{
+  if (controller)
+    [self.ownerViewController addChildViewController:controller];
+  [self.ownerViewController addPlacePageViews:views];
 }
 
 - (void)buildRoute
@@ -263,6 +271,14 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   self.directionView.titleLabel.text = title;
   self.directionView.typeLabel.text = type;
   [self updateDistance];
+}
+
+#pragma mark - Properties
+
+- (void)setTopBound:(CGFloat)bound
+{
+  _topBound = bound;
+  self.placePage.topBound = bound;
 }
 
 @end

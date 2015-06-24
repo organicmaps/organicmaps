@@ -7,6 +7,7 @@
 //
 
 #import "MWMPlacePage.h"
+#import "MWMSpringAnimation.h"
 
 @class MWMSpringAnimation;
 
@@ -15,7 +16,7 @@
 @property (nonatomic) MWMSpringAnimation * springAnimation;
 
 - (void)cancelSpringAnimation;
-- (void)startAnimatingPlacePage:(MWMPlacePage *)placePage initialVelocity:(CGPoint)velocity completion:(void (^)(void))completion;
+- (void)startAnimatingPlacePage:(MWMPlacePage *)placePage initialVelocity:(CGPoint)velocity completion:(MWMSpringAnimationCompletionBlock)completion;
 - (CGPoint)targetPoint;
 
 @end

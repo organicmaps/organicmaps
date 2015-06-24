@@ -5,7 +5,7 @@
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMPlacePageViewDragDelegate.h"
+#import "MWMPlacePageViewManagerDelegate.h"
 #import "MWMPlacePageViewManager.h"
 #import "Reachability.h"
 #import "RouteState.h"
@@ -50,6 +50,12 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   UserTouchesActionScale
 };
 
+typedef NS_OPTIONS(NSUInteger, MapInfoView)
+{
+  MapInfoViewRoute  = 1 << 0,
+  MapInfoViewSearch = 1 << 1
+};
+
 @interface NSValueWrapper : NSObject
 
 -(NSValue *)getInnerValue;
@@ -81,7 +87,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 @end
 
-@interface MapViewController () <RouteViewDelegate, SearchViewDelegate, MWMPlacePageViewDragDelegate>
+@interface MapViewController () <RouteViewDelegate, SearchViewDelegate, MWMPlacePageViewManagerDelegate>
 
 @property (nonatomic) UIView * routeViewWrapper;
 @property (nonatomic) RouteView * routeView;
@@ -96,6 +102,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 @property (nonatomic) MWMPlacePageViewManager * placePageManager;
 
 @property (nonatomic) UserTouchesAction userTouchesAction;
+
+@property (nonatomic) MapInfoView mapInfoView;
 
 @end
 
@@ -714,7 +722,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
         {
           f.GetBalloonManager().RemovePin();
           f.GetBalloonManager().Dismiss();
-          [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
+          [self.searchView setState:SearchViewStateHidden animated:YES];
           [self performAfterDelay:0.3 block:^
            {
              if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
@@ -794,7 +802,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
   if (!_routeView)
   {
-    _routeView = [[RouteView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 80)];
+    CGFloat const routeInfoView = 68.0;
+    _routeView = [[RouteView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.width, routeInfoView)];
     _routeView.delegate = self;
     _routeView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   }
@@ -808,7 +817,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     _searchView = [[SearchView alloc] initWithFrame:self.view.bounds];
     _searchView.delegate = self;
     _searchView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [_searchView addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
   }
   return _searchView;
 }
@@ -884,7 +892,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)dismissRouting
 {
   GetFramework().CloseRouting();
-  [self.controlsManager resetZoomButtonsVisibility];
   [self.routeView setState:RouteViewStateHidden animated:YES];
   self.disableStandbyOnRouteFollowing = NO;
   [RouteState remove];
@@ -908,14 +915,51 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)routeViewWillEnterState:(RouteViewState)state
 {
-  [self.controlsManager moveButton:MWMMapViewControlsButtonZoom toDefaultPosition:(state == RouteViewStateHidden)];
+  if (state == RouteViewStateHidden)
+    [self clearMapInfoViewFlag:MapInfoViewRoute];
+  else
+    [self setMapInfoViewFlag:MapInfoViewRoute];
 }
 
 #pragma mark - SearchViewDelegate
 
 - (void)searchViewWillEnterState:(SearchViewState)state
 {
-  self.controlsManager.hidden = (state == SearchViewStateFullscreen);
+  switch (state)
+  {
+    case SearchViewStateHidden:
+      self.controlsManager.hidden = NO;
+      [self moveRouteViewAnimatedtoOffset:0.0];
+      [self clearMapInfoViewFlag:MapInfoViewSearch];
+      break;
+    case SearchViewStateResults:
+      self.controlsManager.hidden = NO;
+      [self moveRouteViewAnimatedtoOffset:self.searchView.searchBar.maxY];
+      [self setMapInfoViewFlag:MapInfoViewSearch];
+      break;
+    case SearchViewStateAlpha:
+      self.controlsManager.hidden = NO;
+      [self clearMapInfoViewFlag:MapInfoViewSearch];
+      break;
+    case SearchViewStateFullscreen:
+      self.controlsManager.hidden = YES;
+      GetFramework().ActivateUserMark(NULL);
+      [self clearMapInfoViewFlag:MapInfoViewSearch];
+      break;
+  }
+  [self updateStatusBarStyle];
+}
+
+#pragma mark - Layout
+
+- (void)moveRouteViewAnimatedtoOffset:(CGFloat)offset
+{
+  if (!GetFramework().IsRoutingActive())
+    return;
+  [UIView animateWithDuration:0.3 animations:^
+  {
+    self.routeViewWrapper.minY = MAX(offset - [self.searchView defaultSearchBarMinY], 0.0);
+  }];
 }
 
 #pragma mark - UIKitViews delegates
@@ -935,39 +979,21 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   }
 }
 
-#pragma mark - MWMPlacePageViewDragDelegate
+#pragma mark - MWMPlacePageViewManagerDelegate
 
 - (void)dragPlacePage:(CGPoint)point
 {
   [self.controlsManager setBottomBound:point.y];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)addPlacePageViews:(NSArray *)views
 {
-  if (object == self.searchView && [keyPath isEqualToString:@"state"])
+  [views enumerateObjectsUsingBlock:^(UIView * view, NSUInteger idx, BOOL *stop)
   {
-    [self updateStatusBarStyle];
-    if (self.searchView.state == SearchViewStateFullscreen)
-    {
-      GetFramework().ActivateUserMark(NULL);
-    }
-    else if (self.searchView.state == SearchViewStateResults)
-    {
-      [UIView animateWithDuration:0.3 animations:^
-      {
-        if (GetFramework().IsRoutingActive())
-          self.routeViewWrapper.minY = self.searchView.searchBar.maxY - 20;
-      }];
-    }
-    else if (self.searchView.state == SearchViewStateHidden)
-    {
-      [UIView animateWithDuration:0.3 animations:^
-      {
-        if (GetFramework().IsRoutingActive())
-          self.routeViewWrapper.minY = 0;
-      }];
-    }
-  }
+    if ([self.view.subviews containsObject:view])
+      return;
+    [self.view insertSubview:view belowSubview:self.searchView];
+  }];
 }
 
 #pragma mark - Public methods
@@ -1003,7 +1029,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   }
 
   [self dismissPopover];
-  [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
+  [self.searchView setState:SearchViewStateHidden animated:YES];
 
   _apiMode = apiMode;
 
@@ -1063,7 +1089,47 @@ NSInteger compareAddress(id l, id r, void * context)
   [self invalidate];
 }
 
+- (void)updateInfoViews
+{
+  CGFloat topBound = 0.0;
+  if ([self testMapInfoViewFlag:MapInfoViewRoute])
+  {
+    CGRect const routeRect = self.routeViewWrapper.frame;
+    topBound = MAX(topBound, routeRect.origin.y + routeRect.size.height);
+  }
+  if ([self testMapInfoViewFlag:MapInfoViewSearch])
+  {
+    CGRect const searchRect = self.searchView.infoRect;
+    topBound = MAX(topBound, searchRect.origin.y + searchRect.size.height);
+  }
+  [self.controlsManager setTopBound:topBound];
+  [self.placePageManager setTopBound:topBound];
+}
+
 #pragma mark - Properties
+
+- (BOOL)testMapInfoViewFlag:(MapInfoView)flag
+{
+  return (self.mapInfoView & flag) == flag;
+}
+
+- (void)setMapInfoViewFlag:(MapInfoView)flag
+{
+  if (![self testMapInfoViewFlag:flag])
+    self.mapInfoView |= flag;
+}
+
+- (void)clearMapInfoViewFlag:(MapInfoView)flag
+{
+  if ([self testMapInfoViewFlag:flag])
+    self.mapInfoView &= ~flag;
+}
+
+- (void)setMapInfoView:(MapInfoView)mapInfoView
+{
+  _mapInfoView = mapInfoView;
+  [self updateInfoViews];
+}
 
 - (void)setRestoreRouteDestination:(m2::PointD)restoreRouteDestination
 {

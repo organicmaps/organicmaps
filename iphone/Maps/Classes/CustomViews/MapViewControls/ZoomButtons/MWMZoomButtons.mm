@@ -51,9 +51,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.zoomView.hidden = !zoomButtonsEnabled;
 }
 
-- (void)moveToDefaultPosition:(BOOL)defaultPosition
+- (void)setTopBound:(CGFloat)bound
 {
-  self.zoomView.defaultPosition = defaultPosition;
+  self.zoomView.topBound = bound;
 }
 
 - (void)setBottomBound:(CGFloat)bound

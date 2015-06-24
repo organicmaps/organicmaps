@@ -46,9 +46,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   MWMPlacePageEntity * entity = self.manager.entity;
   [self.basePlacePageView configureWithEntity:entity];
 
-  if (!self.actionBar)
-    self.actionBar = [MWMPlacePageActionBar actionBarForPlacePage:self];
-
   MWMPlacePageEntityType type = entity.type;
   BOOL const isBookmark = type == MWMPlacePageEntityTypeBookmark;
   self.actionBar.bookmarkButton.selected = isBookmark;
@@ -160,6 +157,15 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (IBAction)didPan:(UIPanGestureRecognizer *)sender
 {
   // This method should be ovverriden if you want to process custom pan.
+}
+
+#pragma mark - Properties
+
+- (MWMPlacePageActionBar *)actionBar
+{
+  if (!_actionBar)
+    _actionBar = [MWMPlacePageActionBar actionBarForPlacePage:self];
+  return _actionBar;
 }
 
 @end

@@ -40,22 +40,9 @@
   return self;
 }
 
-- (void)resetZoomButtonsVisibility
+- (void)setTopBound:(CGFloat)bound
 {
-  [self.zoomButtons resetVisibility];
-}
-
-- (void)moveButton:(MWMMapViewControlsButton)button toDefaultPosition:(BOOL)defaultPosition
-{
-  switch (button)
-  {
-    case MWMMapViewControlsButtonZoom:
-      [self.zoomButtons moveToDefaultPosition:defaultPosition];
-      break;
-    case MWMMapViewControlsButtonMenu:
-    case MWMMapViewControlsButtonLocation:
-      break;
-  }
+  [self.zoomButtons setTopBound:bound];
 }
 
 - (void)setBottomBound:(CGFloat)bound

@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView * anchorImageView;
 @property (weak, nonatomic, readonly) MWMPlacePageViewManager * manager;
 @property (nonatomic) MWMPlacePageActionBar * actionBar;
+@property (nonatomic) CGFloat topBound;
 
 - (instancetype)initWithManager:(MWMPlacePageViewManager *)manager;
 - (void)show;

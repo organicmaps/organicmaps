@@ -21,9 +21,12 @@ typedef NS_ENUM(NSUInteger, SearchViewState) {
 
 @property (nonatomic) SearchBar * searchBar;
 
-- (void)setState:(SearchViewState)state animated:(BOOL)animated withCallback:(BOOL)withCallback;
+- (void)setState:(SearchViewState)state animated:(BOOL)animated;
+- (CGFloat)defaultSearchBarMinY;
 
 @property (weak, nonatomic) id <SearchViewDelegate> delegate;
-@property (readonly, nonatomic) SearchViewState state;
+@property (nonatomic, readonly) SearchViewState state;
+
+@property (nonatomic, readonly) CGRect infoRect;
 
 @end

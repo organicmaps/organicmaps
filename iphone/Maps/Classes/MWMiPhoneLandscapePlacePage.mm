@@ -38,26 +38,15 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)configure
 {
   [super configure];
-
   CGSize const size = UIScreen.mainScreen.bounds.size;
   CGFloat const height = MIN(size.width, size.height);
-  CGFloat const offset = MIN(height, kMaximumPlacePageWidth);
-
-  UIView const * view = self.manager.ownerViewController.view;
-  if ([view.subviews containsObject:self.extendedPlacePageView] && self.state != MWMiPhoneLandscapePlacePageStateClosed)
-    return;
-  
-  self.extendedPlacePageView.frame = CGRectMake(0., 0., offset, height);
-  
   self.anchorImageView.backgroundColor = [UIColor whiteColor];
   self.anchorImageView.image = nil;
   CGFloat const headerViewHeight = self.basePlacePageView.height - self.basePlacePageView.featureTable.height;
   CGFloat const tableContentHeight = self.basePlacePageView.featureTable.contentSize.height;
-  self.basePlacePageView.featureTable.contentInset = UIEdgeInsetsMake(0., 0., self.actionBar.height+ (tableContentHeight - height - headerViewHeight + self.anchorImageView.height), 0.);
-  [view addSubview:self.extendedPlacePageView];
-  self.actionBar.width = offset;
-  self.actionBar.center = CGPointMake(self.actionBar.width / 2., height - self.actionBar.height / 2.);
+  self.basePlacePageView.featureTable.contentInset = UIEdgeInsetsMake(0., 0., self.actionBar.height + (tableContentHeight - height - headerViewHeight + self.anchorImageView.height), 0.);
   [self.extendedPlacePageView addSubview:self.actionBar];
+  [self.manager addSubviews:@[self.extendedPlacePageView] withNavigationController:nil];
 }
 
 - (void)show
@@ -85,10 +74,10 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   {
     case MWMiPhoneLandscapePlacePageStateClosed:
       [self.actionBar removeFromSuperview];
-      self.targetPoint = CGPointMake(-offset / 2., height / 2.);
+      self.targetPoint = CGPointMake(-offset / 2., (height + self.topBound) / 2.);
       break;
     case MWMiPhoneLandscapePlacePageStateOpen:
-      self.targetPoint = CGPointMake(offset / 2., height / 2.);
+      self.targetPoint = CGPointMake(offset / 2., (height + self.topBound) / 2.);
       break;
   }
 }
@@ -139,6 +128,19 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 }
 
 #pragma mark - Properties
+
+- (void)setTopBound:(CGFloat)topBound
+{
+  super.topBound = topBound;
+  CGSize const size = UIScreen.mainScreen.bounds.size;
+  CGFloat const height = MIN(size.width, size.height);
+  CGFloat const offset = MIN(height, kMaximumPlacePageWidth);
+  self.extendedPlacePageView.frame = CGRectMake(0., topBound, offset, height - topBound);
+  self.actionBar.width = offset;
+  self.actionBar.minX = 0.0;
+  self.actionBar.maxY = height - topBound;
+  [self updateTargetPoint];
+}
 
 - (void)setTargetPoint:(CGPoint)targetPoint
 {

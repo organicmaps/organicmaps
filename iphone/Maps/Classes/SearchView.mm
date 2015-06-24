@@ -141,8 +141,7 @@ typedef NS_ENUM(NSUInteger, CellType)
 
   self.searchBar.midX = self.width / 2;
 
-  [self setState:SearchViewStateHidden animated:NO withCallback:NO];
-  [self addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+  [self setState:SearchViewStateHidden animated:NO];
 
   if ([self.tableView respondsToSelector:@selector(registerClass:forCellReuseIdentifier:)])
   {
@@ -159,19 +158,13 @@ typedef NS_ENUM(NSUInteger, CellType)
   return self;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-  if (object == self && [keyPath isEqualToString:@"state"])
-    [self setState:self.state animated:YES withCallback:NO];
-}
-
 static BOOL keyboardLoaded = NO;
 
-- (void)setState:(SearchViewState)state animated:(BOOL)animated withCallback:(BOOL)withCallback
+- (void)setState:(SearchViewState)state animated:(BOOL)animated
 {
   [self.delegate searchViewWillEnterState:state];
-  // Clear search results on the map when clear in the search bar on the map is pressed or when we reopen search dialog
-  if ((_state == SearchViewStateResults && state == SearchViewStateHidden) || state == SearchViewStateFullscreen)
+  // Clear search results on the map when clear in the search bar on the map is pressed
+  if (_state == SearchViewStateResults && state == SearchViewStateHidden)
     [self clearSearchResultsMode];
 
   UIViewAnimationOptions const options = UIViewAnimationOptionCurveEaseInOut;
@@ -258,12 +251,7 @@ static BOOL keyboardLoaded = NO;
     } completion:nil];
     [self.searchBar.textField resignFirstResponder];
   }
-  if (withCallback)
-    [self willChangeValueForKey:@"state"];
   _state = state;
-  if (withCallback)
-    [self didChangeValueForKey:@"state"];
-  
   GetFramework().Invalidate();
 }
 
@@ -377,7 +365,7 @@ static BOOL keyboardLoaded = NO;
 - (void)searchBarDidPressClearButton:(SearchBar *)searchBar
 {
   if (self.state == SearchViewStateResults)
-    [self setState:SearchViewStateHidden animated:YES withCallback:YES];
+    [self setState:SearchViewStateHidden animated:YES];
   else
     [self.searchBar.textField becomeFirstResponder];
 
@@ -389,7 +377,7 @@ static BOOL keyboardLoaded = NO;
 {
   self.searchBar.textField.text = nil;
   [self textFieldTextChanged:nil];
-  [self setState:SearchViewStateHidden animated:YES withCallback:YES];
+  [self setState:SearchViewStateHidden animated:YES];
 }
 
 // TODO: This code only for demonstration purposes and will be removed soon
@@ -454,7 +442,7 @@ static BOOL keyboardLoaded = NO;
 {
   if (self.state == SearchViewStateResults)
     [self clearSearchResultsMode];
-  [self setState:SearchViewStateFullscreen animated:YES withCallback:YES];
+  [self setState:SearchViewStateFullscreen animated:YES];
 }
 
 - (void)showOnMap
@@ -492,7 +480,7 @@ static BOOL keyboardLoaded = NO;
 
   f.StartInteractiveSearch(params);
 
-  [self setState:SearchViewStateResults animated:YES withCallback:YES];
+  [self setState:SearchViewStateResults animated:YES];
 }
 
 - (BOOL)isShowingCategories
@@ -674,7 +662,7 @@ static BOOL keyboardLoaded = NO;
     {
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       search::Result const & result = [self.wrapper resultWithPosition:position];
-      [self setState:SearchViewStateHidden animated:YES withCallback:YES];
+      [self setState:SearchViewStateHidden animated:YES];
       GetFramework().ShowSearchResult(result);
       break;
     }
@@ -812,6 +800,13 @@ static BOOL keyboardLoaded = NO;
 - (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Properties
+
+- (CGRect)infoRect
+{
+  return [self convertRect:self.topBackgroundView.frame toView:self.superview];
 }
 
 @end

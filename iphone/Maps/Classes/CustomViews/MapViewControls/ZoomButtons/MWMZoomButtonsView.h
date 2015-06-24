@@ -10,7 +10,7 @@
 
 @interface MWMZoomButtonsView : UIView
 
-@property (nonatomic) BOOL defaultPosition;
+@property (nonatomic) CGFloat topBound;
 @property (nonatomic) CGFloat bottomBound;
 
 - (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame is not available")));

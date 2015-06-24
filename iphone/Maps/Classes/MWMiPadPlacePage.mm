@@ -20,31 +20,6 @@ extern CGFloat kBookmarkCellHeight;
 static CGFloat const kLeftOffset = 12.;
 static CGFloat const kTopOffset = 36.;
 
-@interface MWMiPadNavigationController : UINavigationController
-
-@end
-
-@implementation MWMiPadNavigationController
-
-- (instancetype)initWithRootViewController:(UIViewController *)rootViewController
-{
-  self = [super initWithRootViewController:rootViewController];
-  if (self)
-  {
-    [self setNavigationBarHidden:YES];
-    [self.navigationBar setTranslucent:NO];
-    self.view.autoresizingMask = UIViewAutoresizingNone;
-  }
-  return self;
-}
-
-- (void)backTap:(id)sender
-{
-  [self popViewControllerAnimated:YES];
-}
-
-@end
-
 @interface MWMiPadPlacePageViewController : UIViewController
 
 @end
@@ -60,45 +35,39 @@ static CGFloat const kTopOffset = 36.;
 
 @end
 
-@interface MWMiPadPlacePage ()
-
-@property (strong, nonatomic) MWMiPadNavigationController * navigationController;
-@property (strong, nonatomic) MWMiPadPlacePageViewController * viewController;
+@interface MWMiPadNavigationController : UINavigationController
 
 @end
 
-@implementation MWMiPadPlacePage
+@implementation MWMiPadNavigationController
 
-- (void)configure
+- (instancetype)initWithViews:(NSArray *)views
 {
-  [super configure];
-  UIView * view = self.manager.ownerViewController.view;
-  self.viewController = [[MWMiPadPlacePageViewController alloc] init];
-  [self.navigationController.view removeFromSuperview];
-  [self.navigationController removeFromParentViewController];
-  self.navigationController = [[MWMiPadNavigationController alloc] initWithRootViewController:self.viewController];
+  MWMiPadPlacePageViewController * viewController = [[MWMiPadPlacePageViewController alloc] init];
+  if (!viewController)
+    return nil;
+  [views enumerateObjectsUsingBlock:^(UIView * view, NSUInteger idx, BOOL *stop)
+  {
+    [viewController.view addSubview:view];
+  }];
+  self = [super initWithRootViewController:viewController];
+  if (!self)
+    return nil;
+  [self setNavigationBarHidden:YES];
+  [self.navigationBar setTranslucent:NO];
+  self.view.autoresizingMask = UIViewAutoresizingNone;
   [self configureShadow];
+  return self;
+}
 
-  CGFloat const defaultWidth = 360.;
-  CGFloat const actionBarHeight = 58.;
-  CGFloat const defaultHeight = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
-
-  [self.manager.ownerViewController addChildViewController:self.navigationController];
-  self.navigationController.view.frame = CGRectMake( - defaultWidth, kTopOffset, defaultWidth, defaultHeight);
-  self.viewController.view.frame = CGRectMake(kLeftOffset, kTopOffset, defaultWidth, defaultHeight);
-  [self.viewController.view addSubview:self.extendedPlacePageView];
-  [self.viewController.view addSubview:self.actionBar];
-  self.extendedPlacePageView.frame = CGRectMake(0., 0., defaultWidth, defaultHeight);
-  self.anchorImageView.image = nil;
-  self.anchorImageView.backgroundColor = [UIColor whiteColor];
-  self.actionBar.width = defaultWidth;
-  self.actionBar.origin = CGPointMake(0., defaultHeight - actionBarHeight);
-  [view addSubview:self.navigationController.view];
+- (void)backTap:(id)sender
+{
+  [self popViewControllerAnimated:YES];
 }
 
 - (void)configureShadow
 {
-  CALayer * layer = self.navigationController.view.layer;
+  CALayer * layer = self.view.layer;
   layer.masksToBounds = NO;
   layer.shadowColor = UIColor.blackColor.CGColor;
   layer.shadowRadius = 4.;
@@ -107,24 +76,62 @@ static CGFloat const kTopOffset = 36.;
   layer.shouldRasterize = YES;
 }
 
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+  viewController.view.frame = self.view.bounds;
+  [super pushViewController:viewController animated:animated];
+}
+
+@end
+
+@interface MWMiPadPlacePage ()
+
+@property (strong, nonatomic) MWMiPadNavigationController * navigationController;
+
+@end
+
+@implementation MWMiPadPlacePage
+
+- (void)configure
+{
+  [super configure];
+
+  CGFloat const defaultWidth = 360.;
+  CGFloat const actionBarHeight = 58.;
+  CGFloat const defaultHeight = self.basePlacePageView.height + self.anchorImageView.height + actionBarHeight - 1;
+
+  [self.manager addSubviews:@[self.navigationController.view] withNavigationController:self.navigationController];
+  self.navigationController.view.frame = CGRectMake( -defaultWidth, self.topBound + kTopOffset, defaultWidth, defaultHeight);
+  self.extendedPlacePageView.frame = CGRectMake(0., 0., defaultWidth, defaultHeight);
+  self.anchorImageView.image = nil;
+  self.anchorImageView.backgroundColor = [UIColor whiteColor];
+  self.actionBar.width = defaultWidth;
+  self.actionBar.origin = CGPointMake(0., defaultHeight - actionBarHeight);
+}
+
 - (void)show
 {
+  UIView * view = self.navigationController.view;
   [UIView animateWithDuration:0.2f animations:^
   {
-    self.navigationController.view.center = CGPointMake(kLeftOffset + self.navigationController.view.width / 2., kTopOffset + self.navigationController.view.height / 2.);
+    view.minX = kLeftOffset;
+    view.alpha = 1.0;
   }];
 }
 
 - (void)dismiss
 {
+  UIView * view = self.navigationController.view;
+  UIViewController * controller = self.navigationController;
   [UIView animateWithDuration:0.2f animations:^
   {
-    self.navigationController.view.center = CGPointMake( - self.navigationController.view.width / 2. - kLeftOffset , kTopOffset);
+    view.maxX = 0.0;
+    view.alpha = 0.0;
   }
   completion:^(BOOL finished)
   {
-    [self.navigationController.view removeFromSuperview];
-    [self.navigationController removeFromParentViewController];
+    [view removeFromSuperview];
+    [controller removeFromParentViewController];
     [super dismiss];
   }];
 }
@@ -142,7 +149,6 @@ static CGFloat const kTopOffset = 36.;
 {
   [super addBookmark];
   self.navigationController.view.height += kBookmarkCellHeight;
-  self.viewController.view.height += kBookmarkCellHeight;
   self.extendedPlacePageView.height += kBookmarkCellHeight;
   self.actionBar.minY += kBookmarkCellHeight;
 }
@@ -151,7 +157,6 @@ static CGFloat const kTopOffset = 36.;
 {
   [super removeBookmark];
   self.navigationController.view.height -= kBookmarkCellHeight;
-  self.viewController.view.height -= kBookmarkCellHeight;
   self.extendedPlacePageView.height -= kBookmarkCellHeight;
   self.actionBar.minY -= kBookmarkCellHeight;
 }
@@ -161,65 +166,62 @@ static CGFloat const kTopOffset = 36.;
   MWMBookmarkColorViewController * controller = [[MWMBookmarkColorViewController alloc] initWithNibName:[MWMBookmarkColorViewController className] bundle:nil];
   controller.iPadOwnerNavigationController = self.navigationController;
   controller.placePageManager = self.manager;
-  controller.view.frame = self.viewController.view.frame;
-  [self.viewController.navigationController pushViewController:controller animated:YES];
+  [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)changeBookmarkCategory
 {
   SelectSetVC * controller = [[SelectSetVC alloc] initWithPlacePageManager:self.manager];
   controller.iPadOwnerNavigationController = self.navigationController;
-  controller.view.frame = self.viewController.view.frame;
-  [self.viewController.navigationController pushViewController:controller animated:YES];
+  [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)changeBookmarkDescription
 {
   MWMBookmarkDescriptionViewController * controller = [[MWMBookmarkDescriptionViewController alloc] initWithPlacePageManager:self.manager];
   controller.iPadOwnerNavigationController = self.navigationController;
-  [self.viewController.navigationController pushViewController:controller animated:YES];
+  [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (IBAction)didPan:(UIPanGestureRecognizer *)sender
 {
-  UIView * navigationControllerView = self.navigationController.view;
-  UIView * superview = navigationControllerView.superview;
+  UIView * view = self.navigationController.view;
+  UIView * superview = view.superview;
 
-  navigationControllerView.minX += [sender translationInView:superview].x;
-  navigationControllerView.minX = MIN(navigationControllerView.minX, kLeftOffset);
+  view.minX += [sender translationInView:superview].x;
+  view.minX = MIN(view.minX, kLeftOffset);
   [sender setTranslation:CGPointZero inView:superview];
-  navigationControllerView.alpha = self.currentAlpha;
+
+  CGFloat const alpha = MAX(0.0, view.maxX) / (view.width + kLeftOffset);
+  view.alpha = alpha;
   UIGestureRecognizerState const state = sender.state;
   if (state == UIGestureRecognizerStateEnded || state == UIGestureRecognizerStateCancelled)
   {
-    if (navigationControllerView.minX < ( - navigationControllerView.width / 8.))
-    {
-      [UIView animateWithDuration:0.2f animations:^
-      {
-        navigationControllerView.minX = - kLeftOffset - navigationControllerView.width;
-        navigationControllerView.alpha = self.currentAlpha;
-      }
-      completion:^(BOOL finished)
-      {
-        [self.manager dismissPlacePage];
-      }];
-    }
+    if (alpha < 0.8)
+      [self.manager dismissPlacePage];
     else
-    {
-      [UIView animateWithDuration:0.2f animations:^
-      {
-        navigationControllerView.minX = kLeftOffset;
-        navigationControllerView.alpha = self.currentAlpha;
-      }];
-    }
+      [self show];
   }
 }
 
-- (CGFloat)currentAlpha
+#pragma mark - Properties
+
+- (MWMiPadNavigationController *)navigationController
 {
-  UIView * view = self.navigationController.view;
-  CGFloat const maxX = MAX(0., view.maxX);
-  return maxX / (view.width + kLeftOffset);
+  if (!_navigationController)
+  {
+    _navigationController = [[MWMiPadNavigationController alloc] initWithViews:@[self.extendedPlacePageView, self.actionBar]];
+  }
+  return _navigationController;
+}
+
+- (void)setTopBound:(CGFloat)topBound
+{
+  super.topBound = topBound;
+  [UIView animateWithDuration:0.2f animations:^
+  {
+    self.navigationController.view.minY = topBound + kTopOffset;
+  }];
 }
 
 @end

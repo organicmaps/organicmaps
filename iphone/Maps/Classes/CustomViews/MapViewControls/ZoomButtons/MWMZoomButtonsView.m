@@ -10,8 +10,7 @@
 #import "MWMMapViewControlsCommon.h"
 #import "UIKitCategories.h"
 
-static CGFloat const kZoomViewOffsetToTopBoundDefault = 12.0;
-static CGFloat const kZoomViewOffsetToTopBoundMoved = 66.0;
+static CGFloat const kZoomViewOffsetToTopBound = 12.0;
 static CGFloat const kZoomViewOffsetToBottomBound = 40.0;
 static CGFloat const kZoomViewOffsetToFrameBound = 294.0;
 static CGFloat const kZoomViewHideBoundPercent = 0.4;
@@ -31,7 +30,7 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
   {
     self.defaultBounds = self.bounds;
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.defaultPosition = YES;
+    self.topBound = 0.0;
     self.bottomBound = 0.0;
   }
   return self;
@@ -42,7 +41,7 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
   [super layoutSubviews];
   self.bounds = self.defaultBounds;
   [self layoutXPosition:self.hidden];
-  [self layoutYPosition:self.defaultPosition];
+  [self layoutYPosition];
 }
 
 - (void)layoutXPosition:(BOOL)hidden
@@ -53,21 +52,23 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
     self.maxX = self.superview.width - kViewControlsOffsetToBounds;
 }
 
-- (void)layoutYPosition:(BOOL)defaultPosition
+- (void)layoutYPosition
 {
   self.maxY = self.superview.height - kZoomViewOffsetToFrameBound;
   if (self.bottomBound > 0.0)
     self.maxY = MIN(self.maxY, self.bottomBound - kZoomViewOffsetToBottomBound);
 
-  self.minY = MAX(self.minY, defaultPosition ? kZoomViewOffsetToTopBoundDefault : kZoomViewOffsetToTopBoundMoved);
+  self.minY = MAX(self.minY, self.topBound + kZoomViewOffsetToTopBound);
 }
 
 - (void)moveAnimated
 {
+  if (self.hidden)
+    return;
   [UIView animateWithDuration:framesDuration(kMenuViewMoveFramesCount) animations:^
-   {
-     [self layoutYPosition:self.defaultPosition];
-   }];
+  {
+    [self layoutYPosition];
+  }];
 }
 
 - (void)fadeAnimatedIn:(BOOL)show
@@ -98,9 +99,9 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
   }];
 }
 
-- (void)setDefaultPosition:(BOOL)defaultPosition
+- (void)setTopBound:(CGFloat)topBound
 {
-  _defaultPosition = defaultPosition;
+  _topBound = topBound;
   [self moveAnimated];
 }
 

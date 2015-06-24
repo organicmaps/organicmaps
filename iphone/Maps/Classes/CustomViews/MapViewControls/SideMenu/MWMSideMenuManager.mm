@@ -111,7 +111,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   self.controller.controlsManager.hidden = YES;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
-  [self.controller.searchView setState:SearchViewStateFullscreen animated:YES withCallback:YES];
+  [self.controller.searchView setState:SearchViewStateFullscreen animated:YES];
 }
 
 - (IBAction)toggleMenu

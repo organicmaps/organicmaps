@@ -11,15 +11,16 @@
 #include "map/user_mark.hpp"
 
 @class MWMPlacePageEntity, MWMPlacePageNavigationBar;
-@protocol MWMPlacePageViewDragDelegate;
+@protocol MWMPlacePageViewManagerDelegate;
 
 @interface MWMPlacePageViewManager : NSObject
 
-@property (weak, nonatomic, readonly) UIViewController<MWMPlacePageViewDragDelegate> * ownerViewController;
+@property (weak, nonatomic, readonly) UIViewController<MWMPlacePageViewManagerDelegate> * ownerViewController;
 @property (nonatomic, readonly) MWMPlacePageEntity * entity;
 @property (nonatomic) MWMPlacePageNavigationBar * iPhoneNavigationBar;
+@property (nonatomic) CGFloat topBound;
 
-- (instancetype)initWithViewController:(UIViewController<MWMPlacePageViewDragDelegate> *)viewController;
+- (instancetype)initWithViewController:(UIViewController<MWMPlacePageViewManagerDelegate> *)viewController;
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
 - (void)refreshPlacePage;
 - (void)dismissPlacePage;
@@ -32,6 +33,7 @@
 - (void)reloadBookmark;
 - (void)dragPlacePage:(CGPoint)point;
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type;
+- (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller;
 
 - (instancetype)init __attribute__((unavailable("init is unavailable, call initWithViewController: instead")));
 

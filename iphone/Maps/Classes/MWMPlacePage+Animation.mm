@@ -7,7 +7,6 @@
 //
 
 #import "MWMPlacePage+Animation.h"
-#import "MWMSpringAnimation.h"
 #import "MWMPlacePageViewManager.h"
 #import <objc/runtime.h>
 
@@ -35,7 +34,7 @@
   self.springAnimation = nil;
 }
 
-- (void)startAnimatingPlacePage:(MWMPlacePage *)placePage initialVelocity:(CGPoint)velocity completion:(void (^)(void))completion
+- (void)startAnimatingPlacePage:(MWMPlacePage *)placePage initialVelocity:(CGPoint)velocity completion:(MWMSpringAnimationCompletionBlock)completion
 {
   [self cancelSpringAnimation];
   self.springAnimation = [MWMSpringAnimation animationWithView:placePage.extendedPlacePageView target:placePage.targetPoint velocity:velocity completion:completion];

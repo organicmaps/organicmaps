@@ -343,7 +343,7 @@
 		340F24611B14910500F874CD /* RouteState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteState.h; sourceTree = "<group>"; };
 		340F24621B14910500F874CD /* RouteState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RouteState.mm; sourceTree = "<group>"; };
 		340F24641B15F01D00F874CD /* MWMSideMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSideMenuDelegate.h; sourceTree = "<group>"; };
-		342E75A11B302FCC00A8635F /* MWMPlacePageViewDragDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageViewDragDelegate.h; sourceTree = "<group>"; };
+		342E75A11B302FCC00A8635F /* MWMPlacePageViewManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageViewManagerDelegate.h; sourceTree = "<group>"; };
 		343F262C1AEFC4A300388A6D /* MWMFrameworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkUtils.h; sourceTree = "<group>"; };
 		343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkUtils.mm; sourceTree = "<group>"; };
 		343F262F1AEFDB1A00388A6D /* Framework.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Framework.cpp; path = ../../Classes/Framework.cpp; sourceTree = "<group>"; };
@@ -1498,7 +1498,7 @@
 			children = (
 				F653D4211AE9398700282659 /* MWMPlacePageViewManager.h */,
 				F653D4221AE9398700282659 /* MWMPlacePageViewManager.mm */,
-				342E75A11B302FCC00A8635F /* MWMPlacePageViewDragDelegate.h */,
+				342E75A11B302FCC00A8635F /* MWMPlacePageViewManagerDelegate.h */,
 			);
 			name = PlacePageManager;
 			sourceTree = "<group>";
