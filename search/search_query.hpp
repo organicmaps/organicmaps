@@ -9,6 +9,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/cancellable.hpp"
 #include "base/limited_priority_queue.hpp"
 #include "base/string_utils.hpp"
 
@@ -49,7 +50,7 @@ namespace impl
   class HouseCompFactory;
 }
 
-class Query
+class Query : public my::Cancellable
 {
 public:
   struct SuggestT
@@ -105,8 +106,6 @@ public:
 
   void ClearCaches();
 
-  inline void DoCancel() { m_cancel = true; }
-  inline bool IsCanceled() const { return m_cancel; }
   struct CancelException {};
 
   /// @name This stuff is public for implementation classes in search_query.cpp
@@ -217,8 +216,6 @@ private:
   CategoriesHolder const * m_pCategories;
   StringsToSuggestVectorT const * m_pStringsToSuggest;
   storage::CountryInfoGetter const * m_pInfoGetter;
-
-  volatile bool m_cancel;
 
   string m_region;
   string const * m_query;

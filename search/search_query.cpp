@@ -129,7 +129,7 @@ int8_t Query::GetLanguage(int id) const
 
 void Query::SetViewport(m2::RectD const & viewport, bool forceUpdate)
 {
-  m_cancel = false;
+  Reset();
 
   MWMVectorT mwmsInfo;
   m_pIndex->GetMwmsInfo(mwmsInfo);
@@ -307,7 +307,7 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const &
 
 void Query::Init(bool viewportSearch)
 {
-  m_cancel = false;
+  Reset();
 
   m_tokens.clear();
   m_prefix.clear();
@@ -450,18 +450,22 @@ void Query::SearchCoordinates(string const & query, Results & res) const
 
 void Query::Search(Results & res, size_t resCount)
 {
-  if (m_cancel) return;
+  if (IsCancelled())
+    return;
 
   if (m_tokens.empty())
     SuggestStrings(res);
 
-  if (m_cancel) return;
+  if (IsCancelled())
+    return;
   SearchAddress(res);
 
-  if (m_cancel) return;
+  if (IsCancelled())
+    return;
   SearchFeatures();
 
-  if (m_cancel) return;
+  if (IsCancelled())
+    return;
   FlushResults(res, false, resCount);
 }
 
@@ -773,7 +777,8 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
   size_t count = res.GetCount();
   for (size_t i = 0; i < indV.size() && count < resCount; ++i)
   {
-    if (m_cancel) break;
+    if (IsCancelled())
+      break;
 
     LOG(LDEBUG, (indV[i]));
 
@@ -784,10 +789,12 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
 
 void Query::SearchViewportPoints(Results & res)
 {
-  if (m_cancel) return;
+  if (IsCancelled())
+    return;
   SearchAddress(res);
 
-  if (m_cancel) return;
+  if (IsCancelled())
+    return;
   SearchFeatures();
 
   vector<IndexedValue> indV;
@@ -806,11 +813,11 @@ void Query::SearchViewportPoints(Results & res)
 
   for (size_t i = 0; i < indV.size(); ++i)
   {
-    if (m_cancel) break;
+    if (IsCancelled())
+      break;
 
-    res.AddResultNoChecks((*(indV[i])).GeneratePointResult(m_pCategories,
-                                                           &m_prefferedTypes,
-                                                           m_currentLocaleCode));
+    res.AddResultNoChecks(
+        (*(indV[i])).GeneratePointResult(m_pCategories, &m_prefferedTypes, m_currentLocaleCode));
   }
 }
 
@@ -1784,7 +1791,7 @@ namespace impl
 
     void operator() (Query::TrieValueT const & v)
     {
-      if (m_query.IsCanceled())
+      if (m_query.IsCancelled())
         throw Query::CancelException();
 
       // find locality in current results
@@ -1958,16 +1965,16 @@ namespace
   {
     vector<uint32_t> const * m_offsets;
 
-    volatile bool & m_isCancelled;
+    my::Cancellable const & m_cancellable;
   public:
-    FeaturesFilter(vector<uint32_t> const * offsets, volatile bool & isCancelled)
-      : m_offsets(offsets), m_isCancelled(isCancelled)
+    FeaturesFilter(vector<uint32_t> const * offsets, my::Cancellable const & cancellable)
+      : m_offsets(offsets), m_cancellable(cancellable)
     {
     }
 
     bool operator() (uint32_t offset) const
     {
-      if (m_isCancelled)
+      if (m_cancellable.IsCancelled())
       {
         //LOG(LINFO, ("Throw CancelException"));
         //dbg::ObjectTracker::PrintLeaks();
@@ -2077,7 +2084,7 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
                                          trie::EdgeValueReader()));
 
       MwmSet::MwmId const mwmId = mwmLock.GetId();
-      FeaturesFilter filter((vID == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[vID][mwmId], m_cancel);
+      FeaturesFilter filter((vID == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[vID][mwmId], *this);
 
       // Get categories for each token separately - find needed edge with categories.
       TrieValuesHolder<FeaturesFilter> categoriesHolder(filter);

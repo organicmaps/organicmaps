@@ -153,7 +153,7 @@ void Engine::GetResults(Results & res)
 void Engine::SetViewportAsync(m2::RectD const & viewport)
 {
   // First of all - cancel previous query.
-  m_pQuery->DoCancel();
+  m_pQuery->Cancel();
 
   // Enter to run new search.
   threads::MutexGuard searchGuard(m_searchMutex);
@@ -196,7 +196,7 @@ void Engine::SearchAsync()
     return;
 
   // First of all - cancel previous query.
-  m_pQuery->DoCancel();
+  m_pQuery->Cancel();
 
   // Enter to run new search.
   threads::MutexGuard searchGuard(m_searchMutex);
@@ -255,7 +255,7 @@ void Engine::SearchAsync()
     }
     else
     {
-      while (!m_pQuery->IsCanceled())
+      while (!m_pQuery->IsCancelled())
       {
         bool const isInflated = GetInflatedViewport(viewport);
         size_t const oldCount = res.GetCount();
@@ -280,7 +280,7 @@ void Engine::SearchAsync()
 
   // Make additional search in whole mwm when not enough results (only for non-empty query).
   size_t const count = res.GetCount();
-  if (!viewportSearch && !m_pQuery->IsCanceled() && count < RESULTS_COUNT)
+  if (!viewportSearch && !m_pQuery->IsCancelled() && count < RESULTS_COUNT)
   {
     try
     {
@@ -296,7 +296,7 @@ void Engine::SearchAsync()
   }
 
   // Emit finish marker to client.
-  params.m_callback(Results::GetEndMarker(m_pQuery->IsCanceled()));
+  params.m_callback(Results::GetEndMarker(m_pQuery->IsCancelled()));
 }
 
 string Engine::GetCountryFile(m2::PointD const & pt)
