@@ -18,8 +18,11 @@
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/utils/projection.hpp"
 
+#include "base/logging.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/utility.hpp"
+#include "std/mutex.hpp"
 
 namespace df
 {
@@ -31,6 +34,71 @@ dp::Color ToDrapeColor(uint32_t src)
 {
   return dp::Extract(src, 255 - (src >> 24));
 }
+
+#ifdef CALC_FILTERED_POINTS
+class LinesStat
+{
+public:
+  ~LinesStat()
+  {
+    map<int, TValue> zoomValues;
+    for (pair<TKey, TValue> const & f : m_features)
+    {
+      TValue & v = zoomValues[f.first.second];
+      v.m_neededPoints += f.second.m_neededPoints;
+      v.m_readedPoints += f.second.m_readedPoints;
+    }
+
+    LOG(LINFO, ("========================"));
+    for (pair<int, TValue> const & v : zoomValues)
+      LOG(LINFO, ("Zoom = ", v.first, " Percent = ", 1 - v.second.m_neededPoints / (double)v.second.m_readedPoints));
+  }
+
+  static LinesStat & Get()
+  {
+    static LinesStat s_stat;
+    return s_stat;
+  }
+
+  void InsertLine(FeatureID const & id, double scale, int vertexCount, int renderVertexCount)
+  {
+    int s = 0;
+    double factor = 5.688;
+    while (factor < scale)
+    {
+      s++;
+      factor = factor * 2.0;
+    }
+
+    InsertLine(id, s, vertexCount, renderVertexCount);
+  }
+
+  void InsertLine(FeatureID const & id, int scale, int vertexCount, int renderVertexCount)
+  {
+    TKey key(id, scale);
+    lock_guard<mutex> g(m_mutex);
+    if (m_features.find(key) != m_features.end())
+      return;
+
+    TValue & v = m_features[key];
+    v.m_readedPoints = vertexCount;
+    v.m_neededPoints = renderVertexCount;
+  }
+
+private:
+  LinesStat() = default;
+
+  using TKey = pair<FeatureID, int>;
+  struct TValue
+  {
+    int m_readedPoints = 0;
+    int m_neededPoints = 0;
+  };
+
+  map<TKey, TValue> m_features;
+  mutex m_mutex;
+};
+#endif
 
 void Extract(::LineDefProto const * lineRule,
              df::LineViewParams & params)
@@ -259,15 +327,41 @@ ApplyLineFeature::ApplyLineFeature(ref_ptr<EngineContext> context, FeatureID con
                                    double currentScaleGtoP)
   : TBase(context, id, captions)
   , m_currentScaleGtoP(currentScaleGtoP)
+  , m_sqrScale(math::sqr(m_currentScaleGtoP))
+#ifdef CALC_FILTERED_POINTS
+  , m_readedCount(0)
+#endif
 {
 }
 
 void ApplyLineFeature::operator() (m2::PointD const & point)
 {
+#ifdef CALC_FILTERED_POINTS
+  ++m_readedCount;
+#endif
+
   if (m_spline.IsNull())
     m_spline.Reset(new m2::Spline());
 
-  m_spline->AddPoint(point);
+  if (m_spline->IsEmpty())
+  {
+    m_spline->AddPoint(point);
+    m_lastAddedPoint = point;
+  }
+  else
+  {
+    static float minSegmentLength = math::sqr(4.0 * df::VisualParams::Instance().GetVisualScale());
+    if ((m_spline->GetSize() > 1 && point.SquareLength(m_lastAddedPoint) * m_sqrScale < minSegmentLength) ||
+        m_spline->IsPrelonging(point))
+    {
+      m_spline->ReplacePoint(point);
+    }
+    else
+    {
+      m_spline->AddPoint(point);
+      m_lastAddedPoint = point;
+    }
+  }
 }
 
 bool ApplyLineFeature::HasGeometry() const
@@ -331,6 +425,10 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
 
 void ApplyLineFeature::Finish()
 {
+#ifdef CALC_FILTERED_POINTS
+  LinesStat::Get().InsertLine(m_id, m_currentScaleGtoP, m_readedCount, m_spline->GetSize());
+#endif
+
   string const & roadNumber = m_captions.GetRoadNumber();
   if (roadNumber.empty())
     return;

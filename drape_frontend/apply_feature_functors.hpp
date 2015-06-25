@@ -14,6 +14,8 @@ class CircleRuleProto;
 class SymbolRuleProto;
 class CaptionDefProto;
 
+//#define CALC_FILTERED_POINTS
+
 namespace df
 {
 
@@ -91,6 +93,12 @@ public:
 private:
   m2::SharedSpline m_spline;
   double m_currentScaleGtoP;
+  double m_sqrScale;
+  m2::PointD m_lastAddedPoint;
+
+#ifdef CALC_FILTERED_POINTS
+  int m_readedCount;
+#endif
 };
 
 } // namespace df

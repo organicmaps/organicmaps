@@ -44,6 +44,38 @@ void Spline::AddPoint(PointD const & pt)
   }
 }
 
+void Spline::ReplacePoint(PointD const & pt)
+{
+  ASSERT(m_position.size() > 1, ());
+  ASSERT(!m_length.empty(), ());
+  ASSERT(!m_direction.empty(), ());
+  m_position.pop_back();
+  m_length.pop_back();
+  m_direction.pop_back();
+  AddPoint(pt);
+}
+
+bool Spline::IsPrelonging(PointD const & pt)
+{
+  if (m_position.size() < 2)
+    return false;
+
+  PointD dir = pt - m_position.back();
+  if (dir.IsAlmostZero())
+    return true;
+
+  dir = dir.Normalize();
+  PointD prevDir = m_direction.back().Normalize();
+
+  double const MAX_ANGLE_THRESHOLD = 0.98;
+  return fabs(DotProduct(prevDir, dir)) > MAX_ANGLE_THRESHOLD;
+}
+
+size_t Spline::GetSize() const
+{
+  return m_position.size();
+}
+
 bool Spline::IsEmpty() const
 {
   return m_position.empty();
