@@ -37,6 +37,14 @@ char const kFilterOption[] = "--filter=";
 char const kSuppressOption[] = "--suppress=";
 char const kHelpOption[] = "--help";
 
+enum Status
+{
+  STATUS_SUCCESS = 0,
+  STATUS_FAILED = 1,
+  STATUS_HELP_DISPLAYED = 2,
+  STATUS_BROKEN_FRAMEWORK = 5,
+};
+
 // This struct contains parsed command line options. It may contain pointers to argc contents.
 struct CommandLineOptions
 {
@@ -113,7 +121,7 @@ int main(int argc, char * argv[])
   if (options.help)
   {
     Usage(argv[0]);
-    return 1;
+    return STATUS_HELP_DISPLAYED;
   }
 
   regexp::RegExpT filterRegExp;
@@ -128,14 +136,11 @@ int main(int argc, char * argv[])
   {
     string fileName(pTest->m_FileName);
     string testName(pTest->m_TestName);
+
     // Retrieve fine file name
-    {
-      int iFirstSlash = static_cast<int>(fileName.size()) - 1;
-      while (iFirstSlash >= 0 && fileName[iFirstSlash] != '\\'  && fileName[iFirstSlash] != '/')
-        --iFirstSlash;
-      if (iFirstSlash >= 0)
-        fileName.erase(0, iFirstSlash + 1);
-    }
+    auto const lastSlash = fileName.find_last_of("\\/");
+    if (lastSlash != string::npos)
+      fileName.erase(0, lastSlash + 1);
 
     testNames.push_back(fileName + "::" + testName);
     testResults.push_back(true);
@@ -149,12 +154,12 @@ int main(int argc, char * argv[])
     if (options.suppressRegExp && regexp::Matches(testNames[iTest], suppressRegExp))
       continue;
 
-    cerr << "Running " << testNames[iTest] << endl << flush;
+    cerr << "Running " << testNames[iTest] << endl;
     if (!g_bLastTestOK)
     {
       // Somewhere else global variables have been reset.
       LOG(LERROR, ("\n\nSOMETHING IS REALLY WRONG IN THE UNIT TEST FRAMEWORK!!!"));
-      return 5;
+      return STATUS_BROKEN_FRAMEWORK;
     }
 
     my::HighResTimer timer(true);
@@ -200,12 +205,7 @@ int main(int argc, char * argv[])
     LOG(LINFO, ("Test took", elapsed / 1000000, "ms\n"));
   }
 
-  if (numFailedTests == 0)
-  {
-    LOG(LINFO, ("All tests passed."));
-    return 0;
-  }
-  else
+  if (numFailedTests != 0)
   {
     LOG(LINFO, (numFailedTests, " tests failed:"));
     for (size_t i = 0; i < testNames.size(); ++i)
@@ -214,6 +214,9 @@ int main(int argc, char * argv[])
         cerr << testNames[i] << endl;
     }
     LOG(LINFO, ("Some tests FAILED."));
-    return 1;
+    return STATUS_FAILED;
   }
+
+  LOG(LINFO, ("All tests passed."));
+  return STATUS_SUCCESS;
 }
