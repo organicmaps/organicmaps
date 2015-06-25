@@ -12,10 +12,10 @@
 
 @interface MWMPlacePage : NSObject
 
-@property (weak, nonatomic) IBOutlet MWMBasePlacePageView * basePlacePageView;
-@property (weak, nonatomic) IBOutlet UIView * extendedPlacePageView;
-@property (weak, nonatomic) IBOutlet UIImageView * anchorImageView;
-@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer * panRecognizer;
+@property (nonatomic) IBOutlet MWMBasePlacePageView * basePlacePageView;
+@property (nonatomic) IBOutlet UIView * extendedPlacePageView;
+@property (nonatomic) IBOutlet UIImageView * anchorImageView;
+@property (nonatomic) IBOutlet UIPanGestureRecognizer * panRecognizer;
 @property (weak, nonatomic, readonly) MWMPlacePageViewManager * manager;
 @property (nonatomic) MWMPlacePageActionBar * actionBar;
 @property (nonatomic) CGFloat topBound;
