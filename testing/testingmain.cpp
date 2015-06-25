@@ -41,7 +41,6 @@ enum Status
 {
   STATUS_SUCCESS = 0,
   STATUS_FAILED = 1,
-  STATUS_HELP_DISPLAYED = 2,
   STATUS_BROKEN_FRAMEWORK = 5,
 };
 
@@ -121,7 +120,7 @@ int main(int argc, char * argv[])
   if (options.help)
   {
     Usage(argv[0]);
-    return STATUS_HELP_DISPLAYED;
+    return STATUS_SUCCESS;
   }
 
   regexp::RegExpT filterRegExp;
