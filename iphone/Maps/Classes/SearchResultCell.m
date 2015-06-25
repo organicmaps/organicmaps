@@ -1,6 +1,9 @@
 
 #import "SearchResultCell.h"
 #import "UIKitCategories.h"
+#import "UIColor+MapsMeColor.h"
+
+static CGFloat const kOffset = 16.;
 
 @interface SearchResultCell ()
 
@@ -22,19 +25,14 @@
   [self.contentView addSubview:self.subtitleLabel];
   [self.contentView addSubview:self.distanceLabel];
 
-  UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
-  selectedBackgroundView.backgroundColor = [UIColor colorWithColorCode:@"15d081"];
-  self.selectedBackgroundView = selectedBackgroundView;
-
   return self;
 }
 
-#define DISTANCE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12.5]
-#define TYPE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12.5]
-#define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:17]
-#define SUBTITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12.5]
-#define LEFT_SHIFT 20
-#define RIGHT_SHIFT 20
+#define DISTANCE_FONT [UIFont fontWithName:@"HelveticaNeue" size:14]
+#define TYPE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12]
+#define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue" size:16]
+#define TITLE_BOLD_FONT [UIFont fontWithName:@"HelveticaNeue-Bold" size:16]
+#define SUBTITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12]
 #define SPACE 4
 
 - (void)setTitle:(NSString *)title selectedRanges:(NSArray *)selectedRanges
@@ -64,7 +62,7 @@
 {
   static NSDictionary * selectedAttributes;
   if (!selectedAttributes)
-    selectedAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithColorCode:@"16b68a"], NSFontAttributeName : TITLE_FONT};
+    selectedAttributes = @{NSForegroundColorAttributeName : [UIColor blackPrimaryText], NSFontAttributeName : TITLE_BOLD_FONT};
   return selectedAttributes;
 }
 
@@ -72,7 +70,7 @@
 {
   static NSDictionary * unselectedAttributes;
   if (!unselectedAttributes)
-    unselectedAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : TITLE_FONT};
+    unselectedAttributes = @{NSForegroundColorAttributeName : [UIColor blackPrimaryText], NSFontAttributeName : TITLE_FONT};
   return unselectedAttributes;
 }
 
@@ -81,25 +79,24 @@
   [super layoutSubviews];
 
   self.typeLabel.size = [[self class] typeSizeWithType:self.typeLabel.text];
-  self.typeLabel.maxX = self.width - RIGHT_SHIFT;
+  self.typeLabel.maxX = self.width - kOffset;
   self.typeLabel.minY = 9;
 
   self.distanceLabel.width = 70;
   [self.distanceLabel sizeToIntegralFit];
-  self.distanceLabel.maxX = self.width - RIGHT_SHIFT;
+  self.distanceLabel.maxX = self.width - kOffset;
   self.distanceLabel.maxY = self.height - 8;
 
   self.titleLabel.size = [[self class] titleSizeWithTitle:self.titleLabel.text viewWidth:self.width typeSize:self.typeLabel.size];
-  self.titleLabel.minX = LEFT_SHIFT;
+  self.titleLabel.minX = kOffset;
   self.titleLabel.minY = self.typeLabel.minY - 4;
 
-  self.subtitleLabel.size = CGSizeMake(self.width - self.distanceLabel.width - LEFT_SHIFT - RIGHT_SHIFT - SPACE, 16);
-  self.subtitleLabel.minX = LEFT_SHIFT;
+  self.subtitleLabel.size = CGSizeMake(self.width - self.distanceLabel.width - 2 * kOffset - SPACE, 16);
+  self.subtitleLabel.minX = kOffset;
   self.subtitleLabel.maxY = self.distanceLabel.maxY;
 
-  CGFloat const offset = 12.5;
-  self.separatorView.width = self.width - 2 * offset;
-  self.separatorView.minX = offset;
+  self.separatorView.width = self.width - kOffset;
+  self.separatorView.minX = kOffset;
 }
 
 + (CGSize)typeSizeWithType:(NSString *)type
@@ -109,8 +106,8 @@
 
 + (CGSize)titleSizeWithTitle:(NSString *)title viewWidth:(CGFloat)width typeSize:(CGSize)typeSize
 {
-  CGSize const titleDrawSize = CGSizeMake(width - typeSize.width - LEFT_SHIFT - RIGHT_SHIFT - SPACE, 300);
-  return [title sizeWithDrawSize:titleDrawSize font:TITLE_FONT];
+  CGSize const titleDrawSize = CGSizeMake(width - typeSize.width - 2 * kOffset - SPACE, 300);
+  return [title sizeWithDrawSize:titleDrawSize font:TITLE_BOLD_FONT];
 }
 
 + (CGFloat)cellHeightWithTitle:(NSString *)title type:(NSString *)type subtitle:(NSString *)subtitle distance:(NSString *)distance viewWidth:(CGFloat)width
@@ -127,7 +124,7 @@
     _typeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     _typeLabel.font = TYPE_FONT;
     _typeLabel.backgroundColor = [UIColor clearColor];
-    _typeLabel.textColor = [UIColor colorWithColorCode:@"c9c9c9"];
+    _typeLabel.textColor = [UIColor blackSecondaryText];
     _typeLabel.textAlignment = NSTextAlignmentRight;
   }
   return _typeLabel;
@@ -139,7 +136,7 @@
   {
     _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _distanceLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-    _distanceLabel.textColor = [UIColor colorWithColorCode:@"c9c9c9"];
+    _distanceLabel.textColor = [UIColor blackPrimaryText];
     _distanceLabel.backgroundColor = [UIColor clearColor];
     _distanceLabel.font = DISTANCE_FONT;
     _distanceLabel.textAlignment = NSTextAlignmentRight;
@@ -153,7 +150,7 @@
   {
     _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _subtitleLabel.backgroundColor = [UIColor clearColor];
-    _subtitleLabel.textColor = [UIColor whiteColor];
+    _subtitleLabel.textColor = [UIColor blackSecondaryText];
     _subtitleLabel.font = SUBTITLE_FONT;
   }
   return _subtitleLabel;
@@ -170,7 +167,7 @@
     if (![_titleLabel respondsToSelector:@selector(setAttributedText:)])
     {
       _titleLabel.font = TITLE_FONT;
-      _titleLabel.textColor = [UIColor whiteColor];
+      _titleLabel.textColor = [UIColor blackPrimaryText];
     }
   }
   return _titleLabel;

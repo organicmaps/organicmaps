@@ -1,21 +1,19 @@
 
 #import "SearchCell.h"
 #import "UIKitCategories.h"
+#import "UIColor+MapsMeColor.h"
 
 @implementation SearchCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-
   self.backgroundColor = [UIColor clearColor];
   self.selectionStyle = UITableViewCellSelectionStyleDefault;
   [self addSubview:self.separatorView];
-
-  UIImageView * selectedBackgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
-  selectedBackgroundView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.2];
-  self.selectedBackgroundView = selectedBackgroundView;
-
+  UIView * selectedView = [[UIView alloc] initWithFrame:self.bounds];
+  selectedView.backgroundColor = [UIColor pressBackground];
+  self.selectedBackgroundView = selectedView;
   return self;
 }
 
@@ -26,12 +24,12 @@
   self.backgroundView.frame = self.bounds;
 }
 
-- (UIImageView *)separatorView
+- (UIView *)separatorView
 {
   if (!_separatorView)
   {
     _separatorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1)];
-    _separatorView.image = [[UIImage imageNamed:@"SearchCellSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    _separatorView.backgroundColor = [UIColor blackDividers];
     _separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   }
   return _separatorView;

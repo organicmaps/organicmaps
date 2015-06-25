@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "search-delete-onmap.png"
+      "filename" : "SearchBarClearButton.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "search-delete-onmap@2x.png"
+      "filename" : "SearchBarClearButton@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "search-delete-onmap@3x.png"
+      "filename" : "SearchBarClearButton@3x.png"
     }
   ],
   "info" : {

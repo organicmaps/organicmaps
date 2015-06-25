@@ -12,6 +12,7 @@
 #import "Statistics.h"
 #import "ToastView.h"
 #import "UIKitCategories.h"
+#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 
@@ -174,7 +175,7 @@ static BOOL keyboardLoaded = NO;
 
   CGFloat const cancelButtonMinX = (state == SearchViewStateResults) ? self.searchBar.width - 4 : self.searchBar.cancelButton.minX;
   CGFloat const textFieldBackgroundWidth = cancelButtonMinX - self.searchBar.fieldBackgroundView.minX - 8;
-  CGFloat const textFieldWidth = textFieldBackgroundWidth - 60;
+  CGFloat const textFieldWidth = textFieldBackgroundWidth - 60.;
 
   LocationManager const * const locationManager = [MapsAppDelegate theApp].m_locationManager;
   if (state == SearchViewStateFullscreen)
@@ -586,7 +587,6 @@ static BOOL keyboardLoaded = NO;
       search::Result const & result = [self.wrapper resultWithPosition:position];
 
       customCell.titleLabel.text = [NSString stringWithUTF8String:result.GetString()];
-      customCell.iconImageView.image = [UIImage imageNamed:@"SearchSpot"];
       cell = customCell;
       break;
     }
@@ -723,19 +723,19 @@ static BOOL keyboardLoaded = NO;
         @"food",
         @"hotel",
         @"tourism",
+        @"wifi",
         @"transport",
         @"fuel",
+        @"parking",
         @"shop",
-        @"entertainment",
         @"atm",
         @"bank",
-        @"wifi",
-        @"parking",
-        @"toilet",
-        @"pharmacy",
+        @"entertainment",
         @"hospital",
-        @"post",
-        @"police"];
+        @"pharmacy",
+        @"police",
+        @"toilet",
+        @"post"];
   return _categoriesNames;
 }
 
@@ -752,7 +752,7 @@ static BOOL keyboardLoaded = NO;
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.backgroundColor = [UIColor colorWithColorCode:@"1D1F29"];
+    _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   }
   return _tableView;
@@ -790,9 +790,9 @@ static BOOL keyboardLoaded = NO;
   {
     _emptyResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, 60)];
     _emptyResultLabel.backgroundColor = [UIColor clearColor];
-    _emptyResultLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+    _emptyResultLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
     _emptyResultLabel.text = L(@"no_search_results_found");
-    _emptyResultLabel.textColor = [UIColor whiteColor];
+    _emptyResultLabel.textColor = [UIColor primary];
     _emptyResultLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _emptyResultLabel.textAlignment = NSTextAlignmentCenter;
   }

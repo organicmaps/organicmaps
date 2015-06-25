@@ -1,6 +1,7 @@
 
 #import "SearchSuggestCell.h"
 #import "UIKitCategories.h"
+#import "UIColor+MapsMeColor.h"
 
 @interface SearchSuggestCell ()
 
@@ -17,11 +18,6 @@
 
   [self.contentView addSubview:self.titleLabel];
   [self.contentView addSubview:self.iconImageView];
-
-  UIView * backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-  backgroundView.backgroundColor = [UIColor colorWithColorCode:@"1f9f7e"];
-  self.backgroundView = backgroundView;
-
   return self;
 }
 
@@ -29,12 +25,15 @@
 {
   [super layoutSubviews];
 
-  self.titleLabel.width = self.width - self.titleLabel.minX - 20;
-  self.titleLabel.minX = self.iconImageView.minX + self.iconImageView.width + 5;
+  CGFloat const offset = 34.;
+  self.titleLabel.minX = offset;
+  self.titleLabel.width = self.width - self.titleLabel.minX - offset;
+  self.titleLabel.center = CGPointMake(self.titleLabel.center.x, self.height / 2.);
+  self.iconImageView.center = CGPointMake(self.iconImageView.center.x, self.titleLabel.center.y);
+
   
-  CGFloat const offset = 12.5;
-  self.separatorView.width = self.width - 2 * offset;
-  self.separatorView.minX = offset;
+  self.separatorView.width = self.width - 16.;
+  self.separatorView.minX = 16.;
 }
 
 + (CGFloat)cellHeight
@@ -46,11 +45,11 @@
 {
   if (!_titleLabel)
   {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, INTEGRAL(8.5), 0, 24)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0., INTEGRAL(8.5), 0, 24)];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _titleLabel.backgroundColor = [UIColor clearColor];
-    _titleLabel.textColor = [UIColor whiteColor];
-    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
+    _titleLabel.textColor = [UIColor primary];
+    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.];
   }
   return _titleLabel;
 }
@@ -59,7 +58,8 @@
 {
   if (!_iconImageView)
   {
-    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 12, 20, 20)];
+    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 14, 12, 12)];
+    _iconImageView.image = [UIImage imageNamed:@"ic_suggest"];
     _iconImageView.contentMode = UIViewContentModeCenter;
   }
   return _iconImageView;

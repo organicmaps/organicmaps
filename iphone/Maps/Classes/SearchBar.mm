@@ -1,16 +1,18 @@
 
 #import "SearchBar.h"
 #import "Framework.h"
+#import "UIColor+MapsMeColor.h"
+
 #import "../../../3party/Alohalytics/src/alohalytics_objc.h"
 
 @interface SearchBar ()
 
 @property (nonatomic) UITextField * textField;
-@property (nonatomic) UIButton * clearButton;
 @property (nonatomic) UIButton * cancelButton;
+@property (nonatomic) UIButton * clearButton;
 @property (nonatomic) UIImageView * spotImageView;
 @property (nonatomic) UIActivityIndicatorView * activity;
-@property (nonatomic) SolidTouchImageView * fieldBackgroundView;
+@property (nonatomic) SolidTouchView * fieldBackgroundView;
 
 @end
 
@@ -24,7 +26,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   [self addSubview:self.fieldBackgroundView];
   self.fieldBackgroundView.maxY = self.height - 12;
-  self.fieldBackgroundView.minX = 12.5;
+  self.fieldBackgroundView.minX = 8;
 
   [self.fieldBackgroundView addSubview:self.spotImageView];
   self.spotImageView.center = CGPointMake(14, self.fieldBackgroundView.height / 2 - 1);
@@ -36,15 +38,15 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.clearButton.midX = self.fieldBackgroundView.width - 14;
 
   self.cancelButton.midY = self.height / 2 - 5;
-  self.cancelButton.maxX = self.width - 4;
+  self.cancelButton.maxX = self.width - 8;
   [self addSubview:self.cancelButton];
 
   [self addSubview:self.textField];
   self.textField.midY = self.height / 2 - 3;
-  self.textField.minX = 44;
+  self.textField.minX = 36.;
 
   if ([self.textField respondsToSelector:@selector(setTintColor:)])
-    self.textField.tintColor = [UIColor whiteColor];
+    self.textField.tintColor = [UIColor blackHintText];
 
   return self;
 }
@@ -69,16 +71,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.delegate searchBarDidPressCancelButton:self];
 }
 
-- (void)clearButtonPressed:(id)sender
+- (void)clearButtonPressed
 {
   [self.delegate searchBarDidPressClearButton:self];
-}
-
-- (void)hideSearchedText
-{
-  [UIView animateWithDuration:0.4 delay:0 damping:0.8 initialVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    self.clearButton.alpha = 0;
-  } completion:nil];
 }
 
 - (UIButton *)cancelButton
@@ -101,26 +96,26 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (UIButton *)clearButton
 {
-  if (!_clearButton)
+ if (!_clearButton)
   {
     _clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     _clearButton.contentMode = UIViewContentModeCenter;
     _clearButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [_clearButton setImage:[UIImage imageNamed:@"SearchBarClearButton"] forState:UIControlStateNormal];
-    [_clearButton addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_clearButton addTarget:self action:@selector(clearButtonPressed) forControlEvents:UIControlEventTouchUpInside];
   }
   return _clearButton;
 }
 
-- (SolidTouchImageView *)fieldBackgroundView
+- (SolidTouchView *)fieldBackgroundView
 {
   if (!_fieldBackgroundView)
   {
-    UIImage * image = [[UIImage imageNamed:@"SearchFieldBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(6, 6, 6, 6)];
-    _fieldBackgroundView = [[SolidTouchImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 27)];
-    _fieldBackgroundView.image = image;
+    _fieldBackgroundView = [[SolidTouchView alloc] initWithFrame:CGRectMake(0, 0, 0, 27)];
+    _fieldBackgroundView.backgroundColor = [UIColor whiteColor];
     _fieldBackgroundView.userInteractionEnabled = YES;
     _fieldBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _fieldBackgroundView.layer.cornerRadius = 4.;
   }
   return _fieldBackgroundView;
 }
@@ -129,10 +124,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (!_textField)
   {
-    _textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.width, 22)];
+    _textField = [[UITextField alloc] initWithFrame:CGRectMake(1, 0, self.width, 22)];
     _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _textField.font = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
-    _textField.textColor = [UIColor whiteColor];
+    _textField.font = [UIFont fontWithName:@"HelveticaNeue" size:16.];
+    _textField.textColor = [UIColor blackPrimaryText];
+    _textField.placeholder = L(@"search");
     _textField.returnKeyType = UIReturnKeySearch;
     _textField.autocorrectionType = UITextAutocorrectionTypeNo;
     _textField.enablesReturnKeyAutomatically = YES;
@@ -144,7 +140,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (!_spotImageView)
   {
-    _spotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SearchSpot"]];
+    _spotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_search"]];
     _spotImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
   }
   return _spotImageView;
@@ -154,7 +150,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (!_activity)
   {
-    _activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    _activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _activity.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
   }
   return _activity;

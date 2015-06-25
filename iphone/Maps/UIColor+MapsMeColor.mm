@@ -78,7 +78,7 @@ static CGFloat const alpha100 = 1.;
   return [[UIColor blackColor] colorWithAlphaComponent:alpha26];
 }
 
-+ (UIColor *)blackDeviders
++ (UIColor *)blackDividers
 {
   return [[UIColor blackColor] colorWithAlphaComponent:alpha12];
 }
@@ -98,7 +98,7 @@ static CGFloat const alpha100 = 1.;
   return [[UIColor whiteColor] colorWithAlphaComponent:alpha26];
 }
 
-+ (UIColor *)whiteDeviders
++ (UIColor *)whiteDividers
 {
   return [[UIColor whiteColor] colorWithAlphaComponent:alpha12];
 }

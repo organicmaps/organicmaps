@@ -21,10 +21,10 @@
 + (UIColor *)blackPrimaryText;
 + (UIColor *)blackSecondaryText;
 + (UIColor *)blackHintText;
-+ (UIColor *)blackDeviders;
++ (UIColor *)blackDividers;
 + (UIColor *)whitePrimaryText;
 + (UIColor *)whiteSecondaryText;
 + (UIColor *)whiteHintText;
-+ (UIColor *)whiteDeviders;
++ (UIColor *)whiteDividers;
 
 @end

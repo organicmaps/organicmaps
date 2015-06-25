@@ -13,9 +13,9 @@
 @interface SearchBar : UIView
 
 @property (nonatomic, readonly) UITextField * textField;
-@property (nonatomic, readonly) UIButton * clearButton;
 @property (nonatomic, readonly) UIButton * cancelButton;
-@property (nonatomic, readonly) SolidTouchImageView * fieldBackgroundView;
+@property (nonatomic, readonly) UIButton * clearButton;
+@property (nonatomic, readonly) SolidTouchView * fieldBackgroundView;
 
 @property (nonatomic, weak) id <SearchBarDelegate> delegate;
 

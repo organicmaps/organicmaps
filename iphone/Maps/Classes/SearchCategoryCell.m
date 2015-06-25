@@ -1,6 +1,7 @@
 
 #import "SearchCategoryCell.h"
 #import "UIKitCategories.h"
+#import "UIColor+MapsMeColor.h"
 
 @interface SearchCategoryCell ()
 
@@ -18,10 +19,6 @@
   [self.contentView addSubview:self.titleLabel];
   [self.contentView addSubview:self.iconImageView];
 
-  UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
-  selectedBackgroundView.backgroundColor = [UIColor colorWithColorCode:@"15d081"];
-  self.selectedBackgroundView = selectedBackgroundView;
-
   return self;
 }
 
@@ -29,12 +26,13 @@
 {
   [super layoutSubviews];
 
-  self.titleLabel.origin = CGPointMake(44, 8);
+  CGFloat const offsetL = 56;
+  self.titleLabel.origin = CGPointMake(offsetL, 8);
   self.titleLabel.width = self.width - self.titleLabel.minX - 20;
+  self.titleLabel.center = CGPointMake(self.titleLabel.center.x, self.height / 2.);
+  self.iconImageView.center = CGPointMake(self.iconImageView.center.x, self.titleLabel.center.y);
 
-  CGFloat const offsetL = 40;
-  CGFloat const offsetR = 12.5;
-  self.separatorView.width = self.width - offsetL - offsetR;
+  self.separatorView.width = self.width - offsetL;
   self.separatorView.minX = offsetL;
 }
 
@@ -50,8 +48,8 @@
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 24)];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _titleLabel.backgroundColor = [UIColor clearColor];
-    _titleLabel.textColor = [UIColor whiteColor];
-    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5];
+    _titleLabel.textColor = [UIColor blackPrimaryText];
+    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.];
   }
   return _titleLabel;
 }
@@ -60,7 +58,7 @@
 {
   if (!_iconImageView)
   {
-    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(9, 9, 25, 25)];
+    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 9, 25, 25)];
     _iconImageView.contentMode = UIViewContentModeCenter;
   }
   return _iconImageView;
