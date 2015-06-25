@@ -48,7 +48,9 @@ string Platform::ReadPathForFile(string const & file, string searchScope) const
       return fullPath;
   }
 
-  MYTHROW(FileAbsentException, ("File", file, "doesn't exist in the scope", searchScope));
+  string possiblePaths = m_writableDir  + "\n" + m_resourcesDir + "\n" + m_settingsDir + "\n" + m_optionalDir;
+
+  MYTHROW(FileAbsentException, ("File", file, "doesn't exist in the scope", searchScope, "Have been looking in:\n", possiblePaths));
 }
 
 string Platform::HashUniqueID(string const & s)
