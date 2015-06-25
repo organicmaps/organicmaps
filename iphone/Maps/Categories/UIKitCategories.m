@@ -55,7 +55,6 @@
 
 @end
 
-
 @implementation UIView (Coordinates)
 
 - (void)setMidX:(CGFloat)midX

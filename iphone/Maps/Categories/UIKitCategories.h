@@ -39,7 +39,6 @@ static inline CGFloat CGPointLength(CGPoint point)
 
 @end
 
-
 @interface UIView (Coordinates)
 
 @property (nonatomic) CGFloat minX;

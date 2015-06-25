@@ -180,7 +180,7 @@
 		EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
 		F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */; };
 		F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */; };
-		F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m */; };
+		F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm */; };
 		F63732961AE9431E00A03764 /* MWMBasePlacePageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63732951AE9431E00A03764 /* MWMBasePlacePageView.mm */; };
 		F64F19991AB81A00006EAF7E /* MWMAlertViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19821AB81A00006EAF7E /* MWMAlertViewController.mm */; };
 		F64F199A1AB81A00006EAF7E /* MWMAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19831AB81A00006EAF7E /* MWMAlertViewController.xib */; };
@@ -230,12 +230,13 @@
 		F6D434521AD2AB96007C7728 /* maps.me WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 348E57D71B0F49EE000FA02A /* maps.me WatchKit App.app */; };
 		F6D4345A1AD2AB96007C7728 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6D434581AD2AB96007C7728 /* Interface.storyboard */; };
 		F6D4345F1AD2AB96007C7728 /* maps.me WatchKit Extension WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 348E57C81B0F49EE000FA02A /* maps.me WatchKit Extension WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.m */; };
+		F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm */; };
 		F6ED13541B1643900095C6DE /* MWMDirectionView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED13531B1643900095C6DE /* MWMDirectionView.mm */; };
 		F6ED13561B16439E0095C6DE /* MWMDirectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6ED13551B16439E0095C6DE /* MWMDirectionView.xib */; };
 		F6ED135B1B18AA930095C6DE /* MWMExtendedPlacePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F6ED135A1B18AA930095C6DE /* MWMExtendedPlacePageView.m */; };
 		F6ED13911B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED13901B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm */; };
 		F6ED13931B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6ED13921B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib */; };
+		F6F533A31B3C248900C1940B /* UIColor+MapsMeColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F533A21B3C248900C1940B /* UIColor+MapsMeColor.mm */; };
 		F6F722F81AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F722F71AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm */; };
 		F6FE2C0F1B03A006009814AA /* MWMPlacePageNavigationBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FE2C0E1B03A006009814AA /* MWMPlacePageNavigationBar.mm */; };
 		F6FE2C111B03A016009814AA /* PlacePageNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FE2C101B03A015009814AA /* PlacePageNavigationBar.xib */; };
@@ -562,7 +563,7 @@
 		F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRateAlert.mm; sourceTree = "<group>"; };
 		F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRateAlert.xib; sourceTree = "<group>"; };
 		F62404F91AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+RuntimeAttributes.h"; sourceTree = "<group>"; };
-		F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+RuntimeAttributes.m"; sourceTree = "<group>"; };
+		F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UILabel+RuntimeAttributes.mm"; sourceTree = "<group>"; };
 		F63732941AE9431E00A03764 /* MWMBasePlacePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBasePlacePageView.h; sourceTree = "<group>"; };
 		F63732951AE9431E00A03764 /* MWMBasePlacePageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBasePlacePageView.mm; sourceTree = "<group>"; };
 		F64F19811AB81A00006EAF7E /* MWMAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAlertViewController.h; sourceTree = "<group>"; };
@@ -643,7 +644,7 @@
 		F6D434571AD2AB96007C7728 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6D434591AD2AB96007C7728 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		F6DBF9B41AA8779300F2EC2C /* CALayer+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+RuntimeAttributes.h"; sourceTree = "<group>"; };
-		F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+RuntimeAttributes.m"; sourceTree = "<group>"; };
+		F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CALayer+RuntimeAttributes.mm"; sourceTree = "<group>"; };
 		F6ED13521B1643900095C6DE /* MWMDirectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDirectionView.h; sourceTree = "<group>"; };
 		F6ED13531B1643900095C6DE /* MWMDirectionView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDirectionView.mm; sourceTree = "<group>"; };
 		F6ED13551B16439E0095C6DE /* MWMDirectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDirectionView.xib; sourceTree = "<group>"; };
@@ -652,6 +653,8 @@
 		F6ED138F1B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkDescriptionViewController.h; sourceTree = "<group>"; };
 		F6ED13901B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarkDescriptionViewController.mm; sourceTree = "<group>"; };
 		F6ED13921B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBookmarkDescriptionViewController.xib; sourceTree = "<group>"; };
+		F6F533A11B3C248900C1940B /* UIColor+MapsMeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MapsMeColor.h"; sourceTree = "<group>"; };
+		F6F533A21B3C248900C1940B /* UIColor+MapsMeColor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIColor+MapsMeColor.mm"; sourceTree = "<group>"; };
 		F6F722F61AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMiPhonePortraitPlacePage.h; sourceTree = "<group>"; };
 		F6F722F71AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMiPhonePortraitPlacePage.mm; sourceTree = "<group>"; };
 		F6F9BD221AD3C3A600308C33 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Macros.h; path = ../Macros.h; sourceTree = "<group>"; };
@@ -1138,9 +1141,11 @@
 				9747278218338F0C006B7CB7 /* UIViewController+Navigation.h */,
 				9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */,
 				F6DBF9B41AA8779300F2EC2C /* CALayer+RuntimeAttributes.h */,
-				F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.m */,
+				F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm */,
 				F62404F91AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.h */,
-				F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m */,
+				F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm */,
+				F6F533A11B3C248900C1940B /* UIColor+MapsMeColor.h */,
+				F6F533A21B3C248900C1940B /* UIColor+MapsMeColor.mm */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -2107,7 +2112,7 @@
 				A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */,
 				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
 				6C93FAEC1AD8063900A2C4AE /* MWMWatchNotification.mm in Sources */,
-				F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m in Sources */,
+				F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm in Sources */,
 				F6588E2C1B15C26700EE1E58 /* MWMTextView.mm in Sources */,
 				F6F722F81AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm in Sources */,
 				F6CB21681AEFC6AA00FB8963 /* MWMPlacePageActionBar.mm in Sources */,
@@ -2152,7 +2157,7 @@
 				F6CB21601AEE7A5B00FB8963 /* MWMPlacePageInfoCell.mm in Sources */,
 				B0E1FCDC1A23399E00A8E08B /* RouteOverallInfoView.m in Sources */,
 				F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */,
-				F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.m in Sources */,
+				F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
 				F6ED135B1B18AA930095C6DE /* MWMExtendedPlacePageView.m in Sources */,
 				F6588E2F1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm in Sources */,
@@ -2170,6 +2175,7 @@
 				97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
 				978F9242183B660F000D6C7C /* SelectableCell.m in Sources */,
 				34BC722A1B0DECAE0012A34B /* MWMZoomButtonsView.m in Sources */,
+				F6F533A31B3C248900C1940B /* UIColor+MapsMeColor.mm in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
