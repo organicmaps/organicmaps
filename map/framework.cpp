@@ -750,8 +750,7 @@ void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
 
 void Framework::TouchEvent(df::TouchEvent const & touch)
 {
-  if (m_drapeEngine)
-    m_drapeEngine->AddTouchEvent(touch);
+  CallDrapeFunction(bind(&df::DrapeEngine::AddTouchEvent, _1, touch));
 }
 
 int Framework::GetDrawScale() const
