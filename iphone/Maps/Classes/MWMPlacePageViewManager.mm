@@ -307,7 +307,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (BOOL)isDirectionViewShown
 {
-  return self.directionView.superview;
+  return self.directionView.superview != nil;
 }
 
 - (void)setTopBound:(CGFloat)bound
