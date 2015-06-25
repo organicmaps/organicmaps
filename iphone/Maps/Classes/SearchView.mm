@@ -409,7 +409,8 @@ static BOOL keyboardLoaded = NO;
   MapsAppDelegate * delegate = [MapsAppDelegate theApp];
   BOOL const isPedestrianRoutingMode = delegate.isPedestrianRoutingMode;
   delegate.isPedestrianRoutingMode = !isPedestrianRoutingMode;
- [self searchBarDidPressCancelButton:nil];
+  [self search:cmd];
+  [self searchBarDidPressCancelButton:nil];
   return YES;
 }
 
