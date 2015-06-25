@@ -56,13 +56,10 @@ public:
 
     for (auto const & e : edges)
     {
-      double const speedKMPH = m_roadGraph.GetSpeedKMPH(e);
-      if (speedKMPH <= 0.0)
-        continue;
-
       ASSERT_EQUAL(v, e.GetStartJunction(), ());
 
-      adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedKMPH * KMPH2MPS));
+      double const speedMPS = m_roadGraph.GetSpeedKMPH(e) * KMPH2MPS;
+      adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }
 
@@ -76,13 +73,10 @@ public:
 
     for (auto const & e : edges)
     {
-      double const speedKMPH = m_roadGraph.GetSpeedKMPH(e);
-      if (speedKMPH <= 0.0)
-        continue;
-
       ASSERT_EQUAL(v, e.GetEndJunction(), ());
 
-      adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedKMPH * KMPH2MPS));
+      double const speedMPS = m_roadGraph.GetSpeedKMPH(e) * KMPH2MPS;
+      adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }
 

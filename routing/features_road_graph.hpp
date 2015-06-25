@@ -27,12 +27,7 @@ public:
 
   inline MwmSet::MwmId const & GetMwmID() const { return m_mwmID; }
 
-  double GetCacheMiss() const
-  {
-    if (m_cacheAccess == 0)
-      return 0.0;
-    return (double)m_cacheMiss / (double)m_cacheAccess;
-  }
+  double GetCacheMiss() const { return m_cache.GetCacheMiss(); }
 
 protected:
   // IRoadGraph overrides:
@@ -47,13 +42,9 @@ private:
 
   bool IsOneWay(FeatureType const & ft) const;
   double GetSpeedKMPHFromFt(FeatureType const & ft) const;
-  void LoadFeature(uint32_t featureId, FeatureType & ft) const;
 
-  // Optimization:
-  // If preload is set to true then feature ft is set and speedKMPH contains valid value,
-  // otherwise feature is not set and must be load and speed is not valid.
+  RoadInfo const & GetCachedRoadInfo(uint32_t featureId) const;
   RoadInfo const & GetCachedRoadInfo(uint32_t featureId,
-                                     bool preload,
                                      FeatureType & ft,
                                      double speedKMPH) const;
 
@@ -61,9 +52,7 @@ private:
   MwmSet::MwmId const m_mwmID;
   IVehicleModel const & m_vehicleModel;
   
-  mutable my::Cache<uint32_t, RoadInfo> m_cache;
-  mutable uint32_t m_cacheMiss;
-  mutable uint32_t m_cacheAccess;
+  mutable my::CacheWithStat<uint32_t, RoadInfo> m_cache;
 };
 
 }  // namespace routing

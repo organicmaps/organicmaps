@@ -6,7 +6,7 @@
 
 namespace my
 {
-  // Simple Cache that stores list of most recently used values.
+  // Simple cache that stores list of values.
   template <typename KeyT, typename ValueT> class Cache
   {
   private:
@@ -14,7 +14,7 @@ namespace my
     Cache<KeyT, ValueT> & operator = (Cache<KeyT, ValueT> const &); // Not implemented.
 
   public:
-    // Create cache with maximum size @maxCachedObjects.
+    // @logCacheSize is pow of two for number of elements in cache.
     explicit Cache(uint32_t logCacheSize)
       : m_Cache(new Data[1 << logCacheSize]), m_HashMask((1 << logCacheSize) - 1)
     {
@@ -59,7 +59,7 @@ namespace my
     }
 
     template <typename F>
-    void ForEachValue(F f)
+    void ForEachValue(F && f)
     {
       for (uint32_t i = 0; i <= m_HashMask; ++i)
         f(m_Cache[i].m_Value);
@@ -105,5 +105,54 @@ namespace my
 
     Data * const m_Cache;
     uint32_t const m_HashMask;
+  };
+
+  // Simple cache that stores list of values and provides cache missing statistics.
+  // CacheWithStat class has the same interface as Cache class
+  template <typename TKey, typename TValue>
+  class CacheWithStat
+  {
+  public:
+    // @logCacheSize is pow of two for number of elements in cache.
+    explicit CacheWithStat(uint32_t logCacheSize)
+      : m_cache(logCacheSize), m_miss(0), m_access(0)
+    {
+    }
+
+    double GetCacheMiss() const
+    {
+      if (m_access == 0)
+        return 0.0;
+      return (double)m_miss / (double)m_access;
+    }
+
+    uint32_t GetCacheSize() const { return m_cache.GetCacheSize(); }
+
+    TValue & Find(TKey const & key, bool & found)
+    {
+      ++m_access;
+      TValue & res = m_cache.Find(key, found);
+      if (!found)
+        ++m_miss;
+      return res;
+    }
+
+    template <typename F>
+    void ForEachValue(F && f)
+    {
+      m_cache.ForEachValue(std::forward<F>(f));
+    }
+
+    void Reset()
+    {
+      m_cache.Reset();
+      m_access = 0;
+      m_miss = 0;
+    }
+
+  private:
+    Cache<TKey, TValue> m_cache;
+    uint32_t m_miss;
+    uint32_t m_access;
   };
 }
