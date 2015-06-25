@@ -504,9 +504,11 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     MakeTurnAnnotation(routingResult, mwmMapping, mwmPoints, mwmTurnsDir, mwmTimes, mwmTurnsGeom);
     // And connect it to result route.
     // -1 because --mwmPoints.begin(), so psize can be negative.
-    const int64_t pSize = Points.size() - 1;
+    const int64_t pSize = static_cast<int64_t>(Points.size()) - 1;
     for (auto turn : mwmTurnsDir)
     {
+      if (turn.m_index == 0 && pSize == -1)
+        continue;
       turn.m_index += pSize;
       TurnsDir.push_back(turn);
     }
@@ -514,6 +516,8 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     double const estimationTime = Times.size() ? Times.back().second : 0.0;
     for (auto time : mwmTimes)
     {
+      if (time.first == 0 && pSize == -1)
+        continue;
       time.first += pSize;
       time.second += estimationTime;
       Times.push_back(time);
@@ -524,7 +528,10 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
       // We're at the end point.
       Points.pop_back();
       for (auto & turnGeom : mwmTurnsGeom)
-        turnGeom.m_indexInRoute += pSize;
+      {
+        if (turnGeom.m_indexInRoute || pSize > -1)
+          turnGeom.m_indexInRoute += pSize;
+      }
     }
     Points.insert(Points.end(), ++mwmPoints.begin(), mwmPoints.end());
     TurnsGeom.insert(TurnsGeom.end(), mwmTurnsGeom.begin(), mwmTurnsGeom.end());
