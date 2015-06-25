@@ -4,6 +4,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include "base/thread.hpp"
+
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -25,21 +27,23 @@ string GenerateOnlineRequest(string const & serverURL, m2::PointD const & startP
 /// \return true if there are some maps in a server's response.
 bool ParseResponse(string const & serverResponse, vector<m2::PointD> & outPoints);
 
-class OnlineCrossFetcher
+class OnlineCrossFetcher : public threads::IRoutine
 {
 public:
   /// \brief OnlineCrossFetcher helper class to make request to online OSRM server
   ///        and get mwm name list
   /// \param serverURL Server URL
-  /// \param startPoint Start point coordinate
-  /// \param finalPoint Finish point coordinate
+  /// \param startPoint Start point coordinates in mercator
+  /// \param finalPoint Finish point coordinates in mercator
   OnlineCrossFetcher(string const & serverURL, m2::PointD const & startPoint,
                      m2::PointD const & finalPoint);
 
-  /// \brief getMwmPoints Waits for a server response, and returns mwm representation points list.
-  /// \return Mwm names to build route from startPt to finishPt. Empty list if there were errors.
-  /// \warning Can take a long time while waits a server response.
-  vector<m2::PointD> const & GetMwmPoints();
+  /// Do synchronous (blocking) call of online OSRM server. Designing for call from another thread.
+  void Do() override;
+
+  /// \brief GetMwmPoints returns mwm representation points list.
+  /// \return Mwm points to build route from startPt to finishPt. Empty list if there were errors.
+  vector<m2::PointD> const & GetMwmPoints() { return m_mwmPoints; }
 
 private:
   alohalytics::HTTPClientPlatformWrapper m_request;

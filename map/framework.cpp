@@ -18,6 +18,7 @@
 
 #include "defines.hpp"
 
+#include "routing/online_absent_fetcher.hpp"
 #include "routing/osrm_router.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
@@ -2157,6 +2158,7 @@ void Framework::SetRouter(RouterType type)
   };
 
   unique_ptr<IRouter> router;
+  unique_ptr<OnlineAbsentFetcher> fetcher;
   if (type == RouterType::Pedestrian)
   {
     router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter,
@@ -2166,9 +2168,10 @@ void Framework::SetRouter(RouterType type)
   {
     router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter, localFileGetter,
                                 routingVisualizerFn));
+    fetcher.reset(new OnlineAbsentFetcher(countryFileFn));
   }
 
-  m_routingSession.SetRouter(move(router), routingStatisticsFn);
+  m_routingSession.SetRouter(move(router), move(fetcher), routingStatisticsFn);
 }
 
 void Framework::RemoveRoute()

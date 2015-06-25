@@ -52,7 +52,7 @@ public:
 
   RoutingSession();
 
-  void SetRouter(unique_ptr<IRouter> && router,
+  void SetRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentFetcher> && fetcher,
                  TRoutingStatisticsCallback const & routingStatisticsFn);
 
   /// @param[in] startPoint and endPoint in mercator

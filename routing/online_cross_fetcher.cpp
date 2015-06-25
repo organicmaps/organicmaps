@@ -7,6 +7,8 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+#include "indexer/mercator.hpp"
+
 #include "std/bind.hpp"
 
 namespace routing
@@ -45,16 +47,19 @@ string GenerateOnlineRequest(string const & serverURL, m2::PointD const & startP
 
 OnlineCrossFetcher::OnlineCrossFetcher(string const & serverURL, m2::PointD const & startPoint,
                                        m2::PointD const & finalPoint)
-    : m_request(GenerateOnlineRequest(serverURL, startPoint, finalPoint))
+    : m_request(GenerateOnlineRequest(
+          serverURL, {MercatorBounds::XToLon(startPoint.x), MercatorBounds::YToLat(startPoint.y)},
+          {MercatorBounds::XToLon(finalPoint.x), MercatorBounds::YToLat(finalPoint.y)}))
 {
   LOG(LINFO, ("Check mwms by URL: ", GenerateOnlineRequest(serverURL, startPoint, finalPoint)));
 }
 
-vector<m2::PointD> const & OnlineCrossFetcher::GetMwmPoints()
+void OnlineCrossFetcher::Do()
 {
   m_mwmPoints.clear();
-  if (m_request.RunHTTPRequest())
+  if (m_request.RunHTTPRequest() && m_request.error_code() == 200 && !m_request.was_redirected())
     ParseResponse(m_request.server_response(), m_mwmPoints);
-  return m_mwmPoints;
+  else
+    LOG(LWARNING, ("Can't get OSRM server response. Code: ", m_request.error_code()));
 }
-}
+}  // namespace routing

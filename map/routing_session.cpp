@@ -191,9 +191,11 @@ void RoutingSession::AssignRoute(Route & route)
   m_route.Swap(route);
 }
 
-void RoutingSession::SetRouter(unique_ptr<IRouter> && router, TRoutingStatisticsCallback const & routingStatisticsFn)
+void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
+                               unique_ptr<OnlineAbsentFetcher> && fetcher,
+                               TRoutingStatisticsCallback const & routingStatisticsFn)
 {
-  m_router.reset(new AsyncRouter(move(router), routingStatisticsFn));
+  m_router.reset(new AsyncRouter(move(router), move(fetcher), routingStatisticsFn));
 }
 
 void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,

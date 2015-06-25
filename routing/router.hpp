@@ -33,6 +33,7 @@ public:
     EndPointNotFound,
     PointsInDifferentMWM,
     RouteNotFound,
+    NeedMoreMaps,
     InternalError
   };
 

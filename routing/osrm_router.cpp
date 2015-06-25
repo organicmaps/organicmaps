@@ -49,38 +49,6 @@ using RawRouteData = InternalRouteResult;
 
 namespace
 {
-class AbsentCountryChecker
-{
-public:
-  AbsentCountryChecker(m2::PointD const & startPoint, m2::PointD const & finalPoint,
-                       RoutingIndexManager & indexManager, Route & route)
-      : m_route(route),
-        m_indexManager(indexManager),
-        m_fetcher(OSRM_ONLINE_SERVER_URL,
-                  {MercatorBounds::XToLon(startPoint.x), MercatorBounds::YToLat(startPoint.y)},
-                  {MercatorBounds::XToLon(finalPoint.x), MercatorBounds::YToLat(finalPoint.y)})
-  {
-  }
-
-  ~AbsentCountryChecker()
-  {
-    vector<m2::PointD> const & points = m_fetcher.GetMwmPoints();
-    for (m2::PointD const & point : points)
-    {
-      TRoutingMappingPtr mapping = m_indexManager.GetMappingByPoint(point);
-      if (!mapping->IsValid())
-      {
-        LOG(LINFO, ("Online recomends to download: ", mapping->GetName()));
-        m_route.AddAbsentCountry(mapping->GetName());
-      }
-    }
-  }
-
-private:
-  Route & m_route;
-  RoutingIndexManager & m_indexManager;
-  OnlineCrossFetcher m_fetcher;
-};
 
 class Point2PhantomNode
 {
@@ -553,11 +521,6 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                                   m2::PointD const & startDirection,
                                                   m2::PointD const & finalPoint, Route & route)
 {
-// Experimental feature
-#if defined(DEBUG)
-  AbsentCountryChecker checker(startPoint, finalPoint, m_indexManager, route);
-  UNUSED_VALUE(checker);
-#endif
   my::HighResTimer timer(true);
   TRoutingMappingPtr startMapping = m_indexManager.GetMappingByPoint(startPoint);
   TRoutingMappingPtr targetMapping = m_indexManager.GetMappingByPoint(finalPoint);

@@ -44,8 +44,9 @@ namespace integration
   class OsrmRouterComponents;
 
   void TestOnlineCrosses(m2::PointD const & startPoint, m2::PointD const & finalPoint,
-                         vector<string> const & expected,
-                         OsrmRouterComponents & routerComponents);
+                         vector<string> const & expected, OsrmRouterComponents & routerComponents);
+  void TestOnlineFetcher(m2::PointD const & startPoint, m2::PointD const & finalPoint,
+                         vector<string> const & expected, OsrmRouterComponents & routerComponents);
 
   OsrmRouterComponents & GetAllMaps();
   shared_ptr<OsrmRouterComponents> LoadMaps(vector<platform::LocalCountryFile> const & localFiles);

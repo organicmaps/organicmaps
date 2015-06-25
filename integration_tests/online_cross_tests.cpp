@@ -4,6 +4,14 @@
 
 namespace
 {
+// Separately tests only fetcher. Other tests will test both fetcher and raw code.
+UNIT_TEST(OnlineCrossFetcherSmokeTest)
+{
+  integration::OsrmRouterComponents & routerComponents = integration::GetAllMaps();
+  TestOnlineFetcher({34.45, 61.76}, {38.94, 45.07},
+                    {"Russia_Central", "Russia_Southern", "Russia_Northwestern"}, routerComponents);
+}
+
 UNIT_TEST(OnlineRussiaNorthToSouthTest)
 {
   integration::OsrmRouterComponents & routerComponents  = integration::GetAllMaps();

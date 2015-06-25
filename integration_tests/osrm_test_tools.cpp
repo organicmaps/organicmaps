@@ -5,6 +5,7 @@
 #include "map/feature_vec_model.hpp"
 
 #include "routing/online_cross_fetcher.hpp"
+#include "routing/online_absent_fetcher.hpp"
 #include "routing/route.hpp"
 
 #include "search/search_engine.hpp"
@@ -267,11 +268,39 @@ namespace integration
     return TestTurn();
   }
 
+  void TestOnlineFetcher(m2::PointD const & startPoint, m2::PointD const & finalPoint,
+                         vector<string> const & expected, OsrmRouterComponents & routerComponents)
+  {
+    search::Engine * searchEngine(routerComponents.GetSearchEngine());
+    routing::OnlineAbsentFetcher fetcher([&searchEngine](m2::PointD const & pt)
+                                         {
+                                           return searchEngine->GetCountryFile(pt);
+                                         });
+    fetcher.GenerateRequest(MercatorBounds::FromLatLon(startPoint.y, startPoint.x),
+                            MercatorBounds::FromLatLon(finalPoint.y, finalPoint.x));
+    vector<string> absent;
+    fetcher.GetAbsentCountries(absent);
+    if (expected.size() < 2)
+    {
+      // Single MWM case. Do not use online routing.
+      TEST(absent.empty(), ());
+      return;
+    }
+    TEST_EQUAL(absent.size(), expected.size(), ());
+    for (string const & name : expected)
+    {
+      TEST(find(absent.begin(), absent.end(), name) != absent.end(), ("Can't find ", name));
+    }
+  }
+
   void TestOnlineCrosses(m2::PointD const & startPoint, m2::PointD const & finalPoint,
                          vector<string> const & expected,
                          OsrmRouterComponents & routerComponents)
   {
-    routing::OnlineCrossFetcher fetcher(OSRM_ONLINE_SERVER_URL, startPoint, finalPoint);
+    routing::OnlineCrossFetcher fetcher(OSRM_ONLINE_SERVER_URL,
+                                        MercatorBounds::FromLatLon(startPoint.y, startPoint.x),
+                                        MercatorBounds::FromLatLon(finalPoint.y, finalPoint.x));
+    fetcher.Do();
     vector<m2::PointD> const & points = fetcher.GetMwmPoints();
     TEST_EQUAL(points.size(), expected.size(), ());
     for (m2::PointD const & point : points)
@@ -279,5 +308,6 @@ namespace integration
       string const mwmName = routerComponents.GetSearchEngine()->GetCountryFile(point);
       TEST(find(expected.begin(), expected.end(), mwmName) != expected.end(), ("Can't find ", mwmName));
     }
+    TestOnlineFetcher(startPoint, finalPoint, expected, routerComponents);
   }
 }

@@ -19,6 +19,7 @@ SOURCES += \
     cross_routing_context.cpp \
     features_road_graph.cpp \
     nearest_edge_finder.cpp \
+    online_absent_fetcher.cpp \
     online_cross_fetcher.cpp \
     osrm2feature_map.cpp \
     osrm_engine.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     cross_routing_context.hpp \
     features_road_graph.hpp \
     nearest_edge_finder.hpp \
+    online_absent_fetcher.hpp \
     online_cross_fetcher.hpp \
     osrm2feature_map.hpp \
     osrm_data_facade.hpp \
