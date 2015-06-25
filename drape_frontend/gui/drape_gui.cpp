@@ -44,8 +44,7 @@ CountryStatusHelper & DrapeGui::GetCountryStatusHelper()
 
 dp::FontDecl const & DrapeGui::GetGuiTextFont()
 {
-  static dp::FontDecl font(dp::Color(0x4D, 0x4D, 0x4D, 0xDD),
-                           7 * df::VisualParams::Instance().GetVisualScale());
+  static dp::FontDecl font(dp::Color(0x4D, 0x4D, 0x4D, 0xDD), 14);
   return font;
 }
 
