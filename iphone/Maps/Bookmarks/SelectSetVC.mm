@@ -9,7 +9,6 @@
 @interface SelectSetVC () <AddSetVCDelegate>
 
 @property (weak, nonatomic) MWMPlacePageViewManager * manager;
-@property (nonatomic) CGFloat realPlacePageHeight;
 
 @end
 
@@ -32,7 +31,6 @@
   if (!self.iPadOwnerNavigationController)
     return;
   [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
-  self.realPlacePageHeight = self.iPadOwnerNavigationController.view.height;
   UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
   UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
   [backButton addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
@@ -52,7 +50,7 @@
 
 - (void)backTap
 {
-  [self popViewController];
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -137,26 +135,8 @@
   {
     [self moveBookmarkToSetWithIndex:static_cast<int>(indexPath.row)];
     [self.manager reloadBookmark];
-    [self popViewController];
-  }
-}
-
-- (void)popViewController
-{
-  if (!self.iPadOwnerNavigationController)
-  {
     [self.navigationController popViewControllerAnimated:YES];
-    return;
   }
-
-  [UIView animateWithDuration:0.1 animations:^
-   {
-     self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
-   }
-                   completion:^(BOOL finished)
-   {
-     [self.navigationController popViewControllerAnimated:YES];
-   }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

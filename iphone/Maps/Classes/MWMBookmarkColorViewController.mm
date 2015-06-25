@@ -19,7 +19,6 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 @interface MWMBookmarkColorViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
-@property (nonatomic) CGFloat realPlacePageHeight;
 @property (nonatomic) BOOL colorWasChanged;
 
 @end
@@ -39,7 +38,6 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   if (!self.iPadOwnerNavigationController)
     return;
 
-  self.realPlacePageHeight = self.iPadOwnerNavigationController.view.height;
   CGFloat const bottomOffset = 88.;
   self.iPadOwnerNavigationController.view.height = self.tableView.height + bottomOffset;
   UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
@@ -58,7 +56,7 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 
 - (void)backTap
 {
-  [self popViewController];
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)configureTableViewForOrientation:(UIInterfaceOrientation)orientation
@@ -110,33 +108,13 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   return YES;
 }
 
-- (void)popViewController
-{
-  if (!self.iPadOwnerNavigationController)
-  {
-    [self.navigationController popViewControllerAnimated:YES];
-    return;
-  }
-
-  [UIView animateWithDuration:0.1 animations:^
-   {
-     self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
-   }
-                   completion:^(BOOL finished)
-   {
-     [self.navigationController popViewControllerAnimated:YES];
-   }];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
   if (self.colorWasChanged && !self.iPadOwnerNavigationController)
-  {
     [self.placePageManager reloadBookmark];
-    return;
-  }
-  self.iPadOwnerNavigationController.navigationBar.hidden = YES;
+  else
+    self.iPadOwnerNavigationController.navigationBar.hidden = YES;
 }
 
 @end

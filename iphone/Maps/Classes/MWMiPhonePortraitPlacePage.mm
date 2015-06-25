@@ -69,10 +69,12 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   CGSize const size = UIScreen.mainScreen.bounds.size;
   CGFloat const width = MIN(size.width, size.height);
   CGFloat const height = MAX(size.width, size.height);
-  self.extendedPlacePageView.frame = CGRectMake(0., height, width, 2 * height);
+  UIView * ppv = self.extendedPlacePageView;
+  ppv.frame = CGRectMake(0., height, width, 2 * height);
+  _targetPoint = ppv.center;
   self.actionBar.width = width;
   self.actionBar.center = CGPointMake(width / 2., height + self.actionBar.height / 2.);
-  [self.manager addSubviews:@[self.extendedPlacePageView, self.actionBar] withNavigationController:nil];
+  [self.manager addSubviews:@[ppv, self.actionBar] withNavigationController:nil];
   [UIView animateWithDuration:0.3f delay:0. options:UIViewAnimationOptionCurveEaseOut animations:^
   {
     self.actionBar.center = CGPointMake(width / 2., height - self.actionBar.height / 2.);

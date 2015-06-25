@@ -71,6 +71,22 @@ static CGFloat const kBottomOffset = 12.;
   [super pushViewController:viewController animated:animated];
 }
 
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated
+{
+  NSUInteger const count = self.viewControllers.count;
+  CGFloat const height = count > 1 ? ((UIViewController *)self.viewControllers[count - 2]).view.height + self.navigationBar.height: 0.0;
+
+  [UIView animateWithDuration:0.1 animations:^
+  {
+    self.view.height = height;
+  }
+  completion:^(BOOL finished)
+  {
+    [super popViewControllerAnimated:animated];
+  }];
+  return self.viewControllers.lastObject;
+}
+
 @end
 
 @interface MWMiPadPlacePage ()
@@ -210,7 +226,7 @@ static CGFloat const kBottomOffset = 12.;
 - (void)updatePlacePagePosition
 {
   UIView * view = self.navigationController.view;
-  view.maxY = self.availableHeight + kTopOffset;
+  view.maxY = [self getAvailableHeight] + kTopOffset;
   view.minY = MIN(view.minY, self.topBound + kTopOffset);
   [self configureContentInset];
 }
@@ -235,7 +251,7 @@ static CGFloat const kBottomOffset = 12.;
   }
 }
 
-- (CGFloat)availableHeight
+- (CGFloat)getAvailableHeight
 {
   return self.parentViewHeight - self.keyboardHeight - kTopOffset - kBottomOffset;
 }
@@ -244,7 +260,7 @@ static CGFloat const kBottomOffset = 12.;
 
 - (void)setHeight:(CGFloat)height
 {
-  _height = MIN(height, self.availableHeight);
+  _height = MIN(height, [self getAvailableHeight]);
   self.navigationController.view.height = _height;
   self.extendedPlacePageView.height = _height;
 }
