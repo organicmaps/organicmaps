@@ -392,6 +392,7 @@
 		34BC721E1B0DECAE0012A34B /* MWMZoomButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMZoomButtonsView.h; sourceTree = "<group>"; };
 		34BC721F1B0DECAE0012A34B /* MWMZoomButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMZoomButtonsView.m; sourceTree = "<group>"; };
 		34BC72201B0DECAE0012A34B /* MWMZoomButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMZoomButtonsView.xib; sourceTree = "<group>"; };
+		34D56DDE1B3C310A00DFF4CC /* MWMSideMenuButtonDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSideMenuButtonDelegate.h; sourceTree = "<group>"; };
 		34DF4D0F1AE77B9F0012702D /* MWMWKInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWKInterfaceController.h; sourceTree = "<group>"; };
 		34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWKInterfaceController.mm; sourceTree = "<group>"; };
 		3D443C9C19E421EE0025C2FC /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1077,6 +1078,7 @@
 				34BC72131B0DECAE0012A34B /* MWMMapViewControlsCommon.h */,
 				34BC72141B0DECAE0012A34B /* MWMSideMenuButton.h */,
 				34BC72151B0DECAE0012A34B /* MWMSideMenuButton.mm */,
+				34D56DDE1B3C310A00DFF4CC /* MWMSideMenuButtonDelegate.h */,
 				34BC72161B0DECAE0012A34B /* MWMSideMenuManager.h */,
 				34BC72171B0DECAE0012A34B /* MWMSideMenuManager.mm */,
 				34BC72181B0DECAE0012A34B /* MWMSideMenuView.h */,

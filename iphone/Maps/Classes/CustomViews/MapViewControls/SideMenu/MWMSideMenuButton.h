@@ -6,12 +6,13 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MWMSideMenuButtonDelegate.h"
 #import "MWMSideMenuDelegate.h"
+#import <UIKit/UIKit.h>
 
 @interface MWMSideMenuButton : UIButton
 
-@property (weak, nonatomic) id<MWMSideMenuInformationDisplayProtocol> delegate;
+@property (weak, nonatomic) id<MWMSideMenuInformationDisplayProtocol, MWMSideMenuTapProtocol> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame is not available")));
 - (instancetype)init __attribute__((unavailable("init is not available")));

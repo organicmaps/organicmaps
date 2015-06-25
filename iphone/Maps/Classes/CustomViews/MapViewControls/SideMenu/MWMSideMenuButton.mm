@@ -75,6 +75,32 @@
   }
 }
 
+- (void)handleSingleTap
+{
+  [self.delegate handleSingleTap];
+}
+
+- (void)handleDoubleTap
+{
+  [self.delegate handleDoubleTap];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  UITouch * touch = [touches anyObject];
+  if (touch.tapCount > 1)
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  UITouch * touch = [touches anyObject];
+  if (touch.tapCount == 1)
+    [self performSelector:@selector(handleSingleTap) withObject:nil afterDelay:0.1];
+  else
+    [self handleDoubleTap];
+}
+
 #pragma mark - Properties
 
 - (void)setHidden:(BOOL)hidden animated:(BOOL)animated

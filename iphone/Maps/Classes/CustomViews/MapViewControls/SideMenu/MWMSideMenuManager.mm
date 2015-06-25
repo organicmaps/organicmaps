@@ -15,6 +15,7 @@
 #import "MWMMapViewControlsCommon.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMSideMenuButton.h"
+#import "MWMSideMenuButtonDelegate.h"
 #import "MWMSideMenuDelegate.h"
 #import "MWMSideMenuManager.h"
 #import "MWMSideMenuView.h"
@@ -29,7 +30,7 @@ static NSString * const kMWMSideMenuViewsNibName = @"MWMSideMenuViews";
 
 extern NSString * const kAlohalyticsTapEventKey;
 
-@interface MWMSideMenuManager() <MWMSideMenuInformationDisplayProtocol>
+@interface MWMSideMenuManager() <MWMSideMenuInformationDisplayProtocol, MWMSideMenuTapProtocol>
 
 @property (weak, nonatomic) MapViewController * controller;
 @property (nonatomic) IBOutlet MWMSideMenuButton * menuButton;
@@ -114,12 +115,22 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.controller.searchView setState:SearchViewStateFullscreen animated:YES];
 }
 
-- (IBAction)toggleMenu
+- (void)toggleMenu
 {
   if (self.state == MWMSideMenuStateActive)
     self.state = MWMSideMenuStateInactive;
   else if (self.state == MWMSideMenuStateInactive)
     self.state = MWMSideMenuStateActive;
+}
+
+- (void)handleSingleTap
+{
+  [self toggleMenu];
+}
+
+- (void)handleDoubleTap
+{
+  [self menuActionOpenSearch];
 }
 
 #pragma mark - MWMSideMenuInformationDisplayProtocol
