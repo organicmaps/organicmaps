@@ -610,7 +610,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   else
   {
     UIStatusBarStyle style = UIStatusBarStyleDefault;
-    if (self.searchView.state != SearchViewStateHidden || self.controlsManager.menuState == MWMSideMenuStateActive)
+    if (self.searchView.state != SearchViewStateHidden || self.controlsManager.menuState == MWMSideMenuStateActive || self.placePageManager.isDirectionViewShown || GetFramework().GetMapStyle() == MapStyleDark)
       style = UIStatusBarStyleLightContent;
     return style;
   }
@@ -943,7 +943,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
       GetFramework().ActivateUserMark(NULL);
       break;
   }
-  [self updateStatusBarStyle];
 }
 
 - (void)searchViewDidEnterState:(SearchViewState)state
@@ -959,6 +958,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
       [self clearMapInfoViewFlag:MapInfoViewSearch];
       break;
   }
+  [self updateStatusBarStyle];
 }
 
 #pragma mark - Layout

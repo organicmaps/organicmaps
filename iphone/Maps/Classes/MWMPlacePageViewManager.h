@@ -19,6 +19,7 @@
 @property (nonatomic, readonly) MWMPlacePageEntity * entity;
 @property (nonatomic) MWMPlacePageNavigationBar * iPhoneNavigationBar;
 @property (nonatomic) CGFloat topBound;
+@property (nonatomic, readonly) BOOL isDirectionViewShown;
 
 - (instancetype)initWithViewController:(UIViewController<MWMPlacePageViewManagerDelegate> *)viewController;
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
@@ -33,6 +34,7 @@
 - (void)reloadBookmark;
 - (void)dragPlacePage:(CGPoint)point;
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type;
+- (void)hideDirectionView;
 - (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller;
 
 - (instancetype)init __attribute__((unavailable("init is unavailable, call initWithViewController: instead")));

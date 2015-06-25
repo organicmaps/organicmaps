@@ -10,5 +10,6 @@
 
 - (void)dragPlacePage:(CGPoint)point;
 - (void)addPlacePageViews:(NSArray *)views;
+- (void)updateStatusBarStyle;
 
 @end

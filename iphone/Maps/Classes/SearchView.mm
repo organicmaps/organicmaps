@@ -387,17 +387,17 @@ static BOOL keyboardLoaded = NO;
   // Hook for shell command on change map style
   BOOL const isDark = [cmd isEqualToString:@"mapstyle:dark"];
   BOOL const isLight = isDark ? NO : [cmd isEqualToString:@"mapstyle:light"];
-  
+
   if (!isDark && !isLight)
     return NO;
 
-  // close Search panel
-  [self searchBarDidPressCancelButton:nil];
-    
   // change map style
   MapStyle const mapStyle = isDark ? MapStyleDark : MapStyleLight;
   [[MapsAppDelegate theApp] setMapStyle: mapStyle];
-    
+
+  // close Search panel
+  [self searchBarDidPressCancelButton:nil];
+
   return YES;
 }
 

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class MWMPlacePageViewManager;
+
 @interface MWMDirectionView : UIView
 
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
@@ -16,7 +18,12 @@
 @property (weak, nonatomic) IBOutlet UIImageView * directionArrow;
 @property (weak, nonatomic) IBOutlet UIView * contentView;
 
-+ (MWMDirectionView *)directionViewForViewController:(UIViewController *)viewController;
+- (instancetype)initWithManager:(MWMPlacePageViewManager *)manager;
 - (void)setDirectionArrowTransform:(CGAffineTransform)transform;
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("initWithCoder is not available")));
+- (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame is not available")));
+- (instancetype)init __attribute__((unavailable("init is not available")));
+
 
 @end
