@@ -85,6 +85,10 @@ namespace android
 
     bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi);
     void DeleteDrapeEngine();
+    bool IsDrapeEngineCreated();
+
+    void DetachSurface();
+    void AttachSurface(JNIEnv * env, jobject jSurface);
 
     void SetMapStyle(MapStyle mapStyle);
     MapStyle GetMapStyle() const;

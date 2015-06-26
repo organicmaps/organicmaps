@@ -1,5 +1,6 @@
 package com.mapswithme.maps;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
@@ -29,7 +30,10 @@ public abstract class RenderFragment extends BaseMwmFragment
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
     mSurfaceHolder = surfaceHolder;
-    InitEngine();
+    if (IsEngineCreated())
+      AttachSurface(mSurfaceHolder.getSurface());
+    else
+      InitEngine();
   }
 
   @Override
@@ -42,8 +46,17 @@ public abstract class RenderFragment extends BaseMwmFragment
   public void surfaceDestroyed(SurfaceHolder surfaceHolder)
   {
     mSurfaceHolder = null;
-    MWMApplication.get().clearFunctorsOnUiThread();
-    DestroyEngine();
+
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ||
+        getActivity() == null || !getActivity().isChangingConfigurations())
+    {
+      MWMApplication.get().clearFunctorsOnUiThread();
+      DestroyEngine();
+    }
+    else
+    {
+      DetachSurface();
+    }
   }
 
   @Override
@@ -134,7 +147,10 @@ public abstract class RenderFragment extends BaseMwmFragment
   abstract public void ReportUnsupported();
 
   private native boolean CreateEngine(Surface surface, int density);
+  private native boolean IsEngineCreated();
   private native void SurfaceResized(int w, int h);
   private native void DestroyEngine();
+  private native void DetachSurface();
+  private native void AttachSurface(Surface surface);
   private native boolean OnTouch(int actionType, boolean hasFirst, boolean hasSecond, float x1, float y1, float x2, float y2);
 }

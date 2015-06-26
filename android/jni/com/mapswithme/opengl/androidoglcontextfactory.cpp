@@ -78,19 +78,9 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
   , m_display(EGL_NO_DISPLAY)
   , m_surfaceWidth(0)
   , m_surfaceHeight(0)
-  , m_valid(false)
+  , m_windowSurfaceValid(false)
   , m_useCSAA(false)
 {
-  if (!jsurface)
-    return;
-
-  m_nativeWindow = ANativeWindow_fromSurface(env, jsurface);
-  if (!m_nativeWindow)
-  {
-    LOG(LINFO, ("Can't get native window from Java surface"));
-    return;
-  }
-
   m_display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
   if (m_display == EGL_NO_DISPLAY)
   {
@@ -105,7 +95,58 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
     return;
   }
 
-  if (!(createWindowSurface() && createPixelbufferSurface()))
+  SetSurface(env, jsurface);
+
+  if (!createPixelbufferSurface())
+  {
+    CHECK_EGL(eglTerminate(m_display));
+    return;
+  }
+}
+
+AndroidOGLContextFactory::~AndroidOGLContextFactory()
+{
+  if (m_drawContext != nullptr)
+  {
+    delete m_drawContext;
+    m_drawContext = nullptr;
+  }
+
+  if (m_uploadContext != nullptr)
+  {
+    delete m_uploadContext;
+    m_uploadContext = nullptr;
+  }
+
+  ResetSurface();
+
+  if (m_pixelbufferSurface != EGL_NO_SURFACE)
+  {
+    eglDestroySurface(m_display, m_pixelbufferSurface);
+    CHECK_EGL_CALL();
+    m_pixelbufferSurface = EGL_NO_SURFACE;
+  }
+
+  if (m_display != EGL_NO_DISPLAY)
+  {
+    eglTerminate(m_display);
+    CHECK_EGL_CALL();
+  }
+}
+
+void AndroidOGLContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
+{
+  if (!jsurface)
+    return;
+
+  m_nativeWindow = ANativeWindow_fromSurface(env, jsurface);
+  if (!m_nativeWindow)
+  {
+    LOG(LINFO, ("Can't get native window from Java surface"));
+    return;
+  }
+
+  if (!createWindowSurface())
   {
     CHECK_EGL(eglTerminate(m_display));
     return;
@@ -114,30 +155,33 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
   if (!QuerySurfaceSize())
     return;
 
-  m_valid = true;
+  if (m_drawContext != nullptr)
+    m_drawContext->setSurface(m_windowSurface);
+
+  m_windowSurfaceValid = true;
 }
 
-AndroidOGLContextFactory::~AndroidOGLContextFactory()
+void AndroidOGLContextFactory::ResetSurface()
 {
+  if (m_drawContext != nullptr)
+    m_drawContext->resetSurface();
+
   if (IsValid())
   {
-    delete m_drawContext;
-    delete m_uploadContext;
-
     eglDestroySurface(m_display, m_windowSurface);
     CHECK_EGL_CALL();
-    eglDestroySurface(m_display, m_pixelbufferSurface);
-    CHECK_EGL_CALL();
-    eglTerminate(m_display);
-    CHECK_EGL_CALL();
+    m_windowSurface = EGL_NO_SURFACE;
 
     ANativeWindow_release(m_nativeWindow);
+    m_nativeWindow = NULL;
+
+    m_windowSurfaceValid = false;
   }
 }
 
 bool AndroidOGLContextFactory::IsValid() const
 {
-  return m_valid;
+  return m_windowSurfaceValid && m_pixelbufferSurface != EGL_NO_SURFACE;
 }
 
 int AndroidOGLContextFactory::GetWidth() const

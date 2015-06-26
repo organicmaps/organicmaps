@@ -89,6 +89,12 @@ void BaseRenderer::CheckRenderingEnabled()
 {
   if (!m_isEnabled)
   {
+    bool const isDrawContext = m_threadName == ThreadsCommutator::RenderThread;
+    dp::OGLContext * context = isDrawContext ? m_contextFactory->getDrawContext() :
+                                               m_contextFactory->getResourcesUploadContext();
+
+    context->setRenderingEnabled(false);
+
     // nofity initiator-thread about rendering disabling
     Notify();
 
@@ -99,6 +105,8 @@ void BaseRenderer::CheckRenderingEnabled()
     // here rendering is enabled again
     m_wasNotified = false;
     m_isEnabled = true;
+
+    context->setRenderingEnabled(true);
 
     // nofity initiator-thread about rendering enabling
     // m_renderingEnablingCompletionHandler will be setup before awakening of this thread

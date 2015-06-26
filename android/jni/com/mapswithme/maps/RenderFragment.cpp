@@ -24,6 +24,24 @@ Java_com_mapswithme_maps_RenderFragment_DestroyEngine(JNIEnv * env, jobject thiz
 }
 
 JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_RenderFragment_IsEngineCreated(JNIEnv * env, jobject thiz)
+{
+  return static_cast<jboolean>(g_framework->IsDrapeEngineCreated());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_RenderFragment_DetachSurface(JNIEnv * env, jobject thiz)
+{
+  g_framework->DetachSurface();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_RenderFragment_AttachSurface(JNIEnv * env, jobject thiz, jobject surface)
+{
+  g_framework->AttachSurface(env, surface);
+}
+
+JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_RenderFragment_OnTouch(JNIEnv * env, jobject thiz, jint action, jboolean hasFirst, jboolean hasSecond,
                                                  jfloat x1, jfloat y1, jfloat x2, jfloat y2)
 {
@@ -41,6 +59,5 @@ Java_com_mapswithme_maps_RenderFragment_OnTouch(JNIEnv * env, jobject thiz, jint
 
   return JNI_TRUE;
 }
-
 
 }

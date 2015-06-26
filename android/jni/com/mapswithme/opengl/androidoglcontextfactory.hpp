@@ -20,6 +20,9 @@ public:
   virtual bool isDrawContextCreated() const;
   virtual bool isUploadContextCreated() const;
 
+  void SetSurface(JNIEnv * env, jobject jsurface);
+  void ResetSurface();
+
   int GetWidth() const;
   int GetHeight() const;
   void UpdateSurfaceSize();
@@ -45,7 +48,7 @@ private:
   int m_surfaceWidth;
   int m_surfaceHeight;
 
-  bool m_valid;
+  bool m_windowSurfaceValid;
   bool m_useCSAA;
 };
 

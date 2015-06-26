@@ -175,6 +175,11 @@ void Framework::DeleteDrapeEngine()
   m_work.DestroyDrapeEngine();
 }
 
+bool Framework::IsDrapeEngineCreated()
+{
+  return m_work.GetDrapeEngine() != nullptr;
+}
+
 void Framework::Resize(int w, int h)
 {
   m_contextFactory->CastFactory<AndroidOGLContextFactory>()->UpdateSurfaceSize();
@@ -193,6 +198,24 @@ void Framework::Resize(int w, int h)
 
     m_work.SetWidgetLayout(move(layout));
   }
+}
+
+void Framework::DetachSurface()
+{
+  m_work.EnterBackground();
+
+  ASSERT(m_contextFactory != nullptr, ());
+  AndroidOGLContextFactory * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
+  factory->ResetSurface();
+}
+
+void Framework::AttachSurface(JNIEnv * env, jobject jSurface)
+{
+  ASSERT(m_contextFactory != nullptr, ());
+  AndroidOGLContextFactory * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
+  factory->SetSurface(env, jSurface);
+
+  m_work.EnterForeground();
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)

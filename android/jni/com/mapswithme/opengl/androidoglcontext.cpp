@@ -55,6 +55,7 @@ void AndroidOGLContext::setDefaultFramebuffer()
 
 void AndroidOGLContext::makeCurrent()
 {
+  ASSERT(m_surface != EGL_NO_SURFACE, ());
   if (eglMakeCurrent(m_display, m_surface, m_surface, m_nativeContext) == EGL_FALSE)
   {
     CHECK_EGL_CALL();
@@ -72,8 +73,25 @@ void AndroidOGLContext::makeCurrent()
   }
 }
 
+void AndroidOGLContext::clearCurrent()
+{
+  if (eglMakeCurrent(m_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) == EGL_FALSE)
+  {
+    CHECK_EGL_CALL();
+  }
+}
+
+void AndroidOGLContext::setRenderingEnabled(bool enabled)
+{
+  if (enabled)
+    makeCurrent();
+  else
+    clearCurrent();
+}
+
 void AndroidOGLContext::present()
 {
+  ASSERT(m_surface != EGL_NO_SURFACE, ());
   if (eglSwapBuffers(m_display, m_surface) == EGL_FALSE)
   {
     CHECK_EGL_CALL();
@@ -83,6 +101,17 @@ void AndroidOGLContext::present()
 int AndroidOGLContext::additionClearFlags()
 {
   return m_csaaUsed ? GL_COVERAGE_BUFFER_BIT_NV : 0;
+}
+
+void AndroidOGLContext::setSurface(EGLSurface surface)
+{
+  m_surface = surface;
+  ASSERT(m_surface != EGL_NO_SURFACE, ());
+}
+
+void AndroidOGLContext::resetSurface()
+{
+  m_surface = EGL_NO_SURFACE;
 }
 
 } // namespace android

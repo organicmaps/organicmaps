@@ -13,6 +13,7 @@ public:
   /// @ param w, h - pixel size of render target (logical size * visual scale)
   virtual void resize(int /*w*/, int /*h*/) {}
   virtual int additionClearFlags() { return 0; }
+  virtual void setRenderingEnabled(bool enabled) {}
 };
 
 } // namespace dp

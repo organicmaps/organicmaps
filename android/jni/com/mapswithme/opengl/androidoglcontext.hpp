@@ -17,7 +17,13 @@ public:
   void makeCurrent() override;
   void present() override;
   void setDefaultFramebuffer() override;
-  int additionClearFlags();
+  int additionClearFlags() override;
+  void setRenderingEnabled(bool enabled) override;
+
+  void setSurface(EGLSurface surface);
+  void resetSurface();
+
+  void clearCurrent();
 
 private:
   // {@ Owned by Context
