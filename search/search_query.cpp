@@ -203,7 +203,7 @@ void Query::SetPreferredLocale(string const & locale)
 {
   ASSERT(!locale.empty(), ());
 
-  LOG(LDEBUG, ("New preffered locale:", locale));
+  LOG(LINFO, ("New preffered locale:", locale));
 
   int8_t const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
   SetLanguage(LANG_CURRENT, code);
