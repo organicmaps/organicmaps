@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -12,12 +13,13 @@ public class InputUtils
 {
   private static Boolean mVoiceInputSupported = null;
 
+  private InputUtils() { /* static class */ }
+
   public static boolean isVoiceInputSupported(Context context)
   {
     if (mVoiceInputSupported == null)
-    {
       mVoiceInputSupported = Utils.isIntentSupported(context, new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH));
-    }
+
     return mVoiceInputSupported;
   }
 
@@ -25,7 +27,7 @@ public class InputUtils
   {
     final Intent vrIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
     vrIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH)
-            .putExtra(RecognizerIntent.EXTRA_PROMPT, promptText);
+        .putExtra(RecognizerIntent.EXTRA_PROMPT, promptText);
 
     return vrIntent;
   }
@@ -36,21 +38,30 @@ public class InputUtils
    */
   public static String getMostConfidentResult(Intent vrIntentResult)
   {
-    final ArrayList<String> recongnizedStrings
-      = vrIntentResult.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+    final ArrayList<String> recognizedStrings
+        = vrIntentResult.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-    if (recongnizedStrings == null)
+    if (recognizedStrings == null)
       return null;
 
-    return recongnizedStrings.isEmpty() ? null : recongnizedStrings.get(0);
+    return recognizedStrings.isEmpty() ? null : recognizedStrings.get(0);
   }
 
   public static void hideKeyboard(View view)
   {
     final Context c = view.getContext();
-    final InputMethodManager imm =  (InputMethodManager)c.getSystemService(Context.INPUT_METHOD_SERVICE);
+    final InputMethodManager imm = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE);
     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
   }
 
-  private InputUtils() { /* static class */ }
+  /*
+   Hacky method to remove focus from the only EditText at activity
+   */
+  public static void removeFocusEditTextHack(EditText editText)
+  {
+    editText.setFocusableInTouchMode(false);
+    editText.setFocusable(false);
+    editText.setFocusableInTouchMode(true);
+    editText.setFocusable(true);
+  }
 }

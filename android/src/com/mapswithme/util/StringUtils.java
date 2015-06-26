@@ -1,7 +1,9 @@
 package com.mapswithme.util;
 
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextWatcher;
 import android.text.style.CharacterStyle;
 
 import com.mapswithme.maps.MWMApplication;
@@ -62,6 +64,7 @@ public class StringUtils
    * Removes html tags, generated from edittext content after it's transformed to html.
    * In version 4.3.1 we converted descriptions, entered by users, to html automatically. Later html conversion was cancelled, but those converted descriptions should be converted back to
    * plain text, that's why that ugly util is introduced.
+   *
    * @param text source text
    * @return result text
    */
@@ -82,6 +85,18 @@ public class StringUtils
       return (size + Constants.MB / 2) / Constants.MB + " " + MWMApplication.get().getString(R.string.mb);
     else
       return (size + Constants.KB - 1) / Constants.KB + " " + MWMApplication.get().getString(R.string.kb);
+  }
+
+  public static class SimpleTextWatcher implements TextWatcher
+  {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+    @Override
+    public void afterTextChanged(Editable s) { }
   }
 
   private StringUtils() {}

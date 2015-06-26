@@ -1,10 +1,11 @@
 package com.mapswithme.util;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
+
+import com.mapswithme.maps.MWMApplication;
 
 import java.util.Locale;
 
@@ -12,18 +13,18 @@ public class Language
 {
   // Locale.getLanguage() returns even 3-letter codes, not that we need in the C++ core,
   // so we use locale itself, like zh_CN
-  static public String getDefault()
+  static public String getDefaultLocale()
   {
     return Locale.getDefault().toString();
   }
 
   // After some testing on Galaxy S4, looks like this method doesn't work on all devices:
-  // sometime it always returns the same value as getDefault()
-  static public String getKeyboardInput(Context context)
+  // sometime it always returns the same value as getDefaultLocale()
+  static public String getKeyboardLocale()
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
-      final InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+      final InputMethodManager imm = (InputMethodManager) MWMApplication.get().getSystemService(Context.INPUT_METHOD_SERVICE);
       if (imm != null)
       {
         final InputMethodSubtype ims = imm.getCurrentInputMethodSubtype();
@@ -32,6 +33,6 @@ public class Language
       }
     }
 
-    return getDefault();
+    return getDefaultLocale();
   }
 }

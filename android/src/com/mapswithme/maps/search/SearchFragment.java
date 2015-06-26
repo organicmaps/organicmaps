@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMActivity;
-import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -28,6 +25,7 @@ import com.mapswithme.maps.data.RouterTypes;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -56,10 +54,10 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
   // Current position.
   private double mLat;
   private double mLon;
-  private double mNorth = -1.0;
+  private static final double DUMMY_NORTH = -1;
   //
-  private int mFlags = 0;
-  private int mQueryId = 0;
+  private int mFlags;
+  private int mQueryId;
   private SearchAdapter mAdapter;
 
   @Override
@@ -90,16 +88,47 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     }
   }
 
-  private void initAdapter()
+  @Override
+  public void onResume()
   {
-    mAdapter = new SearchAdapter(this);
+    super.onResume();
+
+    LocationHelper.INSTANCE.addLocationListener(this);
+    setSearchQuery(getLastQuery());
+    mEtSearchQuery.requestFocus();
+  }
+
+  @Override
+  public void onPause()
+  {
+    LocationHelper.INSTANCE.removeLocationListener(this);
+
+    super.onPause();
   }
 
   @Override
   public void onDestroy()
   {
     nativeDisconnect();
+
     super.onDestroy();
+  }
+
+  @Override
+  public void onListItemClick(ListView l, View v, int position, long id)
+  {
+    super.onListItemClick(l, v, position, id);
+
+    if (!isAdded())
+      return;
+
+    position -= l.getHeaderViewsCount();
+    final String suggestion = mAdapter.onItemClick(position);
+    if (suggestion == null)
+      showSearchResultOnMap(position);
+    else
+      // set suggestion string and run search (this call invokes runSearch)
+      setSearchQuery(suggestion);
   }
 
   /**
@@ -107,27 +136,37 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
    */
   protected boolean doShowCategories()
   {
-    return getSearchString().length() == 0;
+    return getSearchQuery().isEmpty();
   }
 
-  private String getSearchString()
+  private String getSearchQuery()
   {
     return mEtSearchQuery.getText().toString();
+  }
+
+  private void setSearchQuery(String query)
+  {
+    Utils.setTextAndCursorToEnd(mEtSearchQuery, query);
+  }
+
+  private void initAdapter()
+  {
+    mAdapter = new SearchAdapter(this);
   }
 
   private void setUpView(ViewGroup root)
   {
     mBtnVoice = root.findViewById(R.id.search_voice_input);
+    mBtnVoice.setOnClickListener(this);
     mPbSearch = (ProgressBar) root.findViewById(R.id.search_progress);
     mBtnClearQuery = root.findViewById(R.id.search_image_clear);
     mBtnClearQuery.setOnClickListener(this);
 
-    // Initialize search edit box processor.
     mEtSearchQuery = (EditText) root.findViewById(R.id.search_text_query);
-    mEtSearchQuery.addTextChangedListener(new TextWatcher()
+    mEtSearchQuery.addTextChangedListener(new StringUtils.SimpleTextWatcher()
     {
       @Override
-      public void afterTextChanged(Editable s)
+      public void onTextChanged(CharSequence s, int start, int before, int count)
       {
         if (!isAdded())
           return;
@@ -154,16 +193,6 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
           UiUtils.hide(mBtnVoice);
         }
       }
-
-      @Override
-      public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
-      {
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int arg1, int arg2, int arg3)
-      {
-      }
     });
 
     mEtSearchQuery.setOnEditorActionListener(new TextView.OnEditorActionListener()
@@ -186,22 +215,14 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
       }
     });
 
-    mBtnVoice.setOnClickListener(this);
-
     final ListView listView = getListView();
     listView.setOnScrollListener(new OnScrollListener()
     {
       @Override
       public void onScrollStateChanged(AbsListView view, int scrollState)
       {
-        // Hide keyboard when user starts scroll
         InputUtils.hideKeyboard(mEtSearchQuery);
-
-        // Hacky way to remove focus from only edittext at activity
-        mEtSearchQuery.setFocusableInTouchMode(false);
-        mEtSearchQuery.setFocusable(false);
-        mEtSearchQuery.setFocusableInTouchMode(true);
-        mEtSearchQuery.setFocusable(true);
+        InputUtils.removeFocusEditTextHack(mEtSearchQuery);
       }
 
       @Override
@@ -253,46 +274,6 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
   }
   // FIXME: This code only for demonstration purposes and will be removed soon
 
-  @Override
-  public void onResume()
-  {
-    super.onResume();
-
-    // Reset current mode flag - start first search.
-    mFlags = 0;
-    mNorth = -1.0;
-
-    LocationHelper.INSTANCE.addLocationListener(this);
-
-    setSearchQuery(getLastQuery());
-    mEtSearchQuery.requestFocus();
-  }
-
-  @Override
-  public void onPause()
-  {
-    LocationHelper.INSTANCE.removeLocationListener(this);
-
-    super.onPause();
-  }
-
-  @Override
-  public void onListItemClick(ListView l, View v, int position, long id)
-  {
-    super.onListItemClick(l, v, position, id);
-
-    if (!isAdded())
-      return;
-
-    position -= l.getHeaderViewsCount();
-    final String suggestion = mAdapter.onItemClick(position);
-    if (suggestion == null)
-      showSearchResultOnMap(position);
-    else
-      // set suggestion string and run search (this call invokes runSearch)
-      setSearchQuery(suggestion);
-  }
-
   private void showSearchResultOnMap(int position)
   {
     // If user searched for something, clear API layer
@@ -300,12 +281,12 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
 
     // Put query string for "View on map" or feature name for search result.
     final boolean allResults = (position == 0);
-    final String query = getSearchString();
+    final String query = getSearchQuery();
     SearchController.getInstance().setQuery(allResults ? query : "");
     if (allResults)
     {
       nativeShowAllSearchResults();
-      runInteractiveSearch(query, Language.getKeyboardInput(getActivity()));
+      runInteractiveSearch(query, Language.getKeyboardLocale());
     }
 
     InputUtils.hideKeyboard(mEtSearchQuery);
@@ -322,10 +303,9 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
 
   private void showCategories()
   {
-    // TODO clear edittexty?
     clearLastQuery();
     displaySearchProgress(false);
-    mAdapter.updateCategories();
+    mAdapter.showCategories();
   }
 
   @Override
@@ -346,11 +326,6 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
   @Override
   public void onLocationError(int errorCode) {}
 
-  private boolean isCurrentResult(int id)
-  {
-    return (id >= mQueryId && id < mQueryId + QUERY_STEP);
-  }
-
   // Called from native code
   @SuppressWarnings("unused")
   public void updateData(final int count, final int resultId)
@@ -365,7 +340,7 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
 
         if (!doShowCategories())
         {
-          mAdapter.updateData(count, resultId);
+          mAdapter.showData(count, resultId);
           // scroll list view to the top
           setSelection(0);
         }
@@ -390,14 +365,9 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     });
   }
 
-  private void setSearchQuery(String query)
-  {
-    Utils.setTextAndCursorToEnd(mEtSearchQuery, query);
-  }
-
   private int runSearch()
   {
-    final String query = getSearchString();
+    final String query = getSearchQuery();
     if (query.isEmpty())
     {
       // do force search next time from empty list
@@ -406,7 +376,7 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     }
 
     final int id = mQueryId + QUERY_STEP;
-    if (nativeRunSearch(query, Language.getKeyboardInput(MWMApplication.get()), mLat, mLon, mFlags, id))
+    if (nativeRunSearch(query, Language.getKeyboardLocale(), mLat, mLon, mFlags, id))
     {
       mQueryId = id;
       // mark that it's not the first query already - don't do force search
@@ -446,7 +416,7 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
 
   public SearchAdapter.SearchResult getResult(int position, int queryID)
   {
-    return nativeGetResult(position, queryID, mLat, mLon, (mFlags & HAS_POSITION) != 0, mNorth);
+    return nativeGetResult(position, queryID, mLat, mLon, (mFlags & HAS_POSITION) != 0, DUMMY_NORTH);
   }
 
   @Override

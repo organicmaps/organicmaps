@@ -1,8 +1,11 @@
 package com.mapswithme.maps.search;
 
 import android.content.res.Resources;
-import android.text.Html;
+import android.graphics.Typeface;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +63,10 @@ public class SearchAdapter extends BaseAdapter
   private final SearchFragment mSearchFragment;
   private final LayoutInflater mInflater;
   private final Resources mResources;
-  private int mCount = -1;
+
+  private static final int COUNT_NO_RESULTS = -1;
+  private int mCount = COUNT_NO_RESULTS;
+
   private int mResultId;
 
   public SearchAdapter(SearchFragment fragment)
@@ -98,7 +104,7 @@ public class SearchAdapter extends BaseAdapter
   {
     if (mSearchFragment.doShowCategories())
       return mCategoriesIds.length;
-    else if (mCount < 0)
+    else if (mCount == COUNT_NO_RESULTS)
       return 0;
     else if (doShowSearchOnMapButton())
       return mCount + 1;
@@ -122,7 +128,6 @@ public class SearchAdapter extends BaseAdapter
     else
       return position;
   }
-
 
   @Override
   public Object getItem(int position)
@@ -151,7 +156,7 @@ public class SearchAdapter extends BaseAdapter
       case RESULT_TYPE:
         convertView = mInflater.inflate(R.layout.item_search, parent, false);
         break;
-      case MESSAGE_TYPE:
+      default:
         convertView = mInflater.inflate(R.layout.item_search_message, parent, false);
         break;
       }
@@ -180,49 +185,39 @@ public class SearchAdapter extends BaseAdapter
 
   private void bindResultView(ViewHolder holder, int position)
   {
-    final SearchResult r = mSearchFragment.getResult(position, mResultId);
-    if (r != null)
+    final SearchResult result = mSearchFragment.getResult(position, mResultId);
+    if (result != null)
     {
       String country = null;
       String dist = null;
-      Spanned s;
-      // TODO replace completely html text with spannable builders
-      if (r.mType == SearchResult.TYPE_FEATURE)
+      SpannableStringBuilder builder = new SpannableStringBuilder(result.mName);
+      if (result.mType == SearchResult.TYPE_FEATURE)
       {
-        if (r.mHighlightRanges.length > 0)
+        if (result.mHighlightRanges.length > 0)
         {
-          StringBuilder builder = new StringBuilder();
-          int pos = 0, j = 0, n = r.mHighlightRanges.length / 2;
+          int j = 0, n = result.mHighlightRanges.length / 2;
 
           for (int i = 0; i < n; ++i)
           {
-            int start = r.mHighlightRanges[j++];
-            int len = r.mHighlightRanges[j++];
+            int start = result.mHighlightRanges[j++];
+            int len = result.mHighlightRanges[j++];
 
-            builder.append(r.mName.substring(pos, start));
-            builder.append("<font color=\"#1F9952\">");
-            builder.append(r.mName.substring(start, start + len));
-            builder.append("</font>");
-
-            pos = start + len;
+            builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
           }
-          builder.append(r.mName.substring(pos));
-          s = Html.fromHtml(builder.toString());
         }
         else
-          s = Html.fromHtml(r.mName);
+          builder.clearSpans();
 
-        country = r.mCountry;
-        dist = r.mDistance;
-        UiUtils.hide(holder.mImageLeft);
-        holder.mView.setBackgroundResource(0);
+        country = result.mCountry;
+        dist = result.mDistance;
       }
       else
-        s = Html.fromHtml("<font color=\"#1F9952\">" + r.mName + "</font>");
+        builder.setSpan(new ForegroundColorSpan(mResources.getColor(R.color.text_green)), 0, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-      UiUtils.setTextAndShow(holder.mName, s);
+      UiUtils.hide(holder.mImageLeft);
+      UiUtils.setTextAndShow(holder.mName, builder);
       UiUtils.setTextAndHideIfEmpty(holder.mCountry, country);
-      UiUtils.setTextAndHideIfEmpty(holder.mItemType, r.mAmenity);
+      UiUtils.setTextAndHideIfEmpty(holder.mItemType, result.mAmenity);
       UiUtils.setTextAndHideIfEmpty(holder.mDistance, dist);
     }
   }
@@ -244,7 +239,7 @@ public class SearchAdapter extends BaseAdapter
    * @param count
    * @param resultId
    */
-  public void updateData(int count, int resultId)
+  public void showData(int count, int resultId)
   {
     mCount = count;
     mResultId = resultId;
@@ -252,9 +247,9 @@ public class SearchAdapter extends BaseAdapter
     notifyDataSetChanged();
   }
 
-  public void updateCategories()
+  public void showCategories()
   {
-    mCount = -1;
+    mCount = COUNT_NO_RESULTS;
     notifyDataSetChanged();
   }
 
@@ -346,6 +341,7 @@ public class SearchAdapter extends BaseAdapter
     public static final int TYPE_FEATURE = 1;
 
     public int mType;
+    // consecutive pairs of numbers (each pair contains : start index, length), specifying highlighted substrings of original query
     public int[] mHighlightRanges;
 
 

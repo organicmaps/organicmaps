@@ -48,7 +48,7 @@ extern "C"
     ActiveMapsLayout & layout = GetMapLayout();
     ActiveMapsLayout::TGroup coreGroup = ToGroup(group);
     int pos = static_cast<int>(position);
-    bool const local = (isLocal == JNI_TRUE) ? true : false;
+    bool const local = isLocal == JNI_TRUE;
     TMapOptions opt = ToOptions(options);
 
     if (options == -1 || local)
