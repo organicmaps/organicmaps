@@ -47,10 +47,7 @@ void LocalCountryFile::DeleteFromDisk()
   for (TMapOptions file : {TMapOptions::EMap, TMapOptions::ECarRouting})
   {
     if (OnDisk(file))
-    {
-      bool const deleted = my::DeleteFileX(GetPath(file));
-      ASSERT(deleted, (file, "from", *this, "wasn't deleted from disk."));
-    }
+      VERIFY(my::DeleteFileX(GetPath(file)), (file, "from", *this, "wasn't deleted from disk."));
   }
 }
 

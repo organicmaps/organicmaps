@@ -467,8 +467,7 @@ void FeatureBuilder1::SetCoastCell(int64_t iCell, string const & strCell)
 string FeatureBuilder1::GetName(int8_t lang) const
 {
   string s;
-  bool const res = m_params.name.GetString(lang, s);
-  ASSERT(res != s.empty(), ());
+  VERIFY(m_params.name.GetString(lang, s) != s.empty(), ());
   return s;
 }
 
