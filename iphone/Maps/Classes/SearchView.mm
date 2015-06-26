@@ -390,12 +390,14 @@ static BOOL keyboardLoaded = NO;
 
 - (BOOL)tryToChangeRoutingModeCmd:(NSString *)cmd
 {
-  if (![cmd isEqual:@"?pedestrian"])
+  BOOL const isPedestrian = [cmd isEqualToString:@"?pedestrian"];
+  BOOL const isVehicle = [cmd isEqualToString:@"?vehicle"];
+
+  if (!isPedestrian && !isVehicle)
     return NO;
 
   MapsAppDelegate * delegate = [MapsAppDelegate theApp];
-  BOOL const isPedestrianRoutingMode = delegate.isPedestrianRoutingMode;
-  delegate.isPedestrianRoutingMode = !isPedestrianRoutingMode;
+  delegate.isPedestrianRoutingMode = isPedestrian;
   [self search:cmd];
   [self searchBarDidPressCancelButton:nil];
   return YES;
