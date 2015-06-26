@@ -16,8 +16,7 @@
 @class BFAppLinkReturnToRefererView;
 @class BFURL;
 
-typedef NS_ENUM(NSUInteger, BFIncludeStatusBarInSize)
-{
+typedef NS_ENUM(NSUInteger, BFIncludeStatusBarInSize) {
     BFIncludeStatusBarInSizeNever,
     BFIncludeStatusBarInSizeIOS7AndLater,
     BFIncludeStatusBarInSizeAlways,

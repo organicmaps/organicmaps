@@ -23,4 +23,9 @@ framework module FBSDKCoreKit {
         header "FBSDKGraphRequestDataAttachment.h"
         export *
     }
+
+    explicit module FBSDKTestUsersManager {
+        header "FBSDKTestUsersManager.h"
+        export *
+    }
 }

@@ -31,7 +31,8 @@
 #import <FBSDKCoreKit/FBSDKProfile.h>
 #import <FBSDKCoreKit/FBSDKProfilePictureView.h>
 #import <FBSDKCoreKit/FBSDKSettings.h>
+#import <FBSDKCoreKit/FBSDKTestUsersManager.h>
 #import <FBSDKCoreKit/FBSDKUtility.h>
 
-#define FBSDK_VERSION_STRING @"4.1.0"
+#define FBSDK_VERSION_STRING @"4.3.0"
 #define FBSDK_TARGET_PLATFORM_VERSION @"v2.3"

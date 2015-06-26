@@ -16,7 +16,7 @@
 /// @name Version
 ///--------------------------------------
 
-#define PARSE_VERSION @"1.7.4"
+#define PARSE_VERSION @"1.7.5"
 
 extern NSInteger const PARSE_API_VERSION;
 

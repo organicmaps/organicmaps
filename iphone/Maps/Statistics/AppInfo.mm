@@ -168,16 +168,7 @@ NSString * const AppInfoSyncedNotification = @"AppInfoSyncedNotification";
     }
     else // if id not stored in settings
     {
-      // trying to get id
-      if ([UIDevice instancesRespondToSelector:@selector(identifierForVendor)])
-        _uniqueId = [[UIDevice currentDevice].identifierForVendor UUIDString];
-      else
-      {
-        CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
-        _uniqueId = (NSString *)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, uuid));
-        CFRelease(uuid);
-      }
-
+      _uniqueId = [[UIDevice currentDevice].identifierForVendor UUIDString];
       if (_uniqueId) // then saving in settings
         Settings::Set("UniqueId", std::string([_uniqueId UTF8String]));
     }

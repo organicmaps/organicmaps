@@ -42,9 +42,11 @@
 #import <ParseOSX/PFConstants.h>
 #import <ParseOSX/PFFile.h>
 #import <ParseOSX/PFGeoPoint.h>
+#import <ParseOSX/PFInstallation.h>
 #import <ParseOSX/PFNullability.h>
 #import <ParseOSX/PFObject+Subclass.h>
 #import <ParseOSX/PFObject.h>
+#import <ParseOSX/PFPush.h>
 #import <ParseOSX/PFQuery.h>
 #import <ParseOSX/PFRelation.h>
 #import <ParseOSX/PFRole.h>

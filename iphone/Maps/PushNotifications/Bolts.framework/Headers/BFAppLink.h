@@ -21,10 +21,10 @@ FOUNDATION_EXPORT NSString *const BFAppLinkVersion;
 
 /*!
  Creates a BFAppLink with the given list of BFAppLinkTargets and target URL.
- 
+
  Generally, this will only be used by implementers of the BFAppLinkResolving protocol,
  as these implementers will produce App Link metadata for a given URL.
- 
+
  @param sourceURL the URL from which this App Link is derived
  @param targets an ordered list of BFAppLinkTargets for this platform derived
  from App Link metadata.

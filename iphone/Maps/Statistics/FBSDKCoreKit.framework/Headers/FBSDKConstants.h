@@ -88,6 +88,11 @@ typedef NS_ENUM(NSInteger, FBSDKErrorCode)
    or that the dialog is unavailable.  Subsequent attempts to use the dialog may succeed as the configuration is loaded.
    */
   FBSDKDialogUnavailableErrorCode,
+
+  /*!
+   @abstract Indicates an operation failed because a required access token was not found.
+   */
+  FBSDKAccessTokenRequiredErrorCode,
 };
 
 /*!

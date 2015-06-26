@@ -68,4 +68,8 @@ typedef NS_ENUM(NSInteger, FBSDKLoginErrorCode)
    @abstract An error occurred related to Facebook system Account store
   */
   FBSDKLoginSystemAccountUnavailableErrorCode,
+  /*!
+   @abstract The login response was missing a valid challenge string.
+  */
+  FBSDKLoginBadChallengeString,
 };

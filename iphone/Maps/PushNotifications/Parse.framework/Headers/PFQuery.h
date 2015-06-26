@@ -32,6 +32,13 @@ PF_ASSUME_NONNULL_BEGIN
 ///--------------------------------------
 
 /*!
+ @abstract Initializes the query with a class name.
+
+ @param className The class name.
+ */
+- (instancetype)initWithClassName:(NSString *)className;
+
+/*!
  @abstract Returns a `PFQuery` for a given class.
 
  @param className The class to query on.
@@ -65,13 +72,7 @@ PF_ASSUME_NONNULL_BEGIN
 + (instancetype)queryWithClassName:(NSString *)className predicate:(PF_NULLABLE NSPredicate *)predicate;
 
 /*!
- Initializes the query with a class name.
- @param newClassName The class name.
- */
-- (instancetype)initWithClassName:(NSString *)newClassName;
-
-/*!
- The class name to query for
+ The class name to query for.
  */
 @property (nonatomic, strong) NSString *parseClassName;
 

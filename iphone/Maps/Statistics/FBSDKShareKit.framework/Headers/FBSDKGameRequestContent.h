@@ -101,18 +101,31 @@ typedef NS_ENUM(NSUInteger, FBSDKGameRequestFilter)
  @abstract An array of user IDs, usernames or invite tokens (NSString) of people to send request.
  @discussion These may or may not be a friend of the sender. If this is specified by the app,
  the sender will not have a choice of recipients. If not, the sender will see a multi-friend selector
+
+ This is equivalent to the "to" parameter when using the web game request dialog.
  */
-@property (nonatomic, copy) NSArray *to;
+@property (nonatomic, copy) NSArray *recipients;
 
 /*!
  @abstract An array of user IDs that will be included in the dialog as the first suggested friends.
  Cannot be used together with filters.
+ @discussion This is equivalent to the "suggestions" parameter when using the web game request dialog.
 */
-@property (nonatomic, copy) NSArray *suggestions;
+@property (nonatomic, copy) NSArray *recipientSuggestions;
+
+/*!
+ @deprecated Use `recipientSuggestions` instead.
+*/
+@property (nonatomic, copy) NSArray *suggestions __attribute__ ((deprecated("use recipientSuggestions instead")));
 
 /*!
  @abstract The title for the dialog.
  */
 @property (nonatomic, copy) NSString *title;
+
+/*!
+ @deprecated Use `recipients` instead.
+ */
+@property (nonatomic, copy) NSArray *to __attribute__ ((deprecated("use recipients instead")));
 
 @end

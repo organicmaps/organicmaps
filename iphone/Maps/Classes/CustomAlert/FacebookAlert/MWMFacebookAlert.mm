@@ -52,7 +52,7 @@ extern NSString * const kUDAlreadySharedKey;
 
   FBSDKAppInviteContent * const content = [[FBSDKAppInviteContent alloc] init];
   content.appLinkURL = [NSURL URLWithString:kFacebookAppName];
-  content.previewImageURL = [NSURL URLWithString:kFacebookAlertPreviewImage];
+  content.appInvitePreviewImageURL = [NSURL URLWithString:kFacebookAlertPreviewImage];
   [FBSDKAppInviteDialog showWithContent:content delegate:nil];
 }
 

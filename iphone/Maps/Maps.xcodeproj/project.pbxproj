@@ -14,6 +14,7 @@
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
 		340F24631B14910500F874CD /* RouteState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340F24621B14910500F874CD /* RouteState.mm */; };
+		34287FDC1B3D7C4800F9959C /* libFlurry_6.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */; };
 		343F262E1AEFC4A300388A6D /* MWMFrameworkUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */; };
 		343F26301AEFDB1A00388A6D /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 343F262F1AEFDB1A00388A6D /* Framework.cpp */; };
 		343F26311AEFDF3E00388A6D /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
@@ -89,7 +90,6 @@
 		4A7D89C71B2EBF3B00AC843E /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */; };
 		4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */; };
 		6B8A738A1B2616E90085EFE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
-		6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */; };
 		6C24A3AD1AD7CA1000A47B99 /* MWMNoMapInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C47C8C81AD6C825000C52C1 /* MWMNoMapInterfaceController.mm */; };
 		6C24A3B21AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */; };
 		6C24A3B31AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */; };
@@ -344,6 +344,7 @@
 		340F24611B14910500F874CD /* RouteState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteState.h; sourceTree = "<group>"; };
 		340F24621B14910500F874CD /* RouteState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RouteState.mm; sourceTree = "<group>"; };
 		340F24641B15F01D00F874CD /* MWMSideMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSideMenuDelegate.h; sourceTree = "<group>"; };
+		34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.4.0.a; path = Statistics/libFlurry_6.4.0.a; sourceTree = "<group>"; };
 		342E75A11B302FCC00A8635F /* MWMPlacePageViewManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageViewManagerDelegate.h; sourceTree = "<group>"; };
 		343F262C1AEFC4A300388A6D /* MWMFrameworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkUtils.h; sourceTree = "<group>"; };
 		343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkUtils.mm; sourceTree = "<group>"; };
@@ -411,7 +412,6 @@
 		4A7D89C21B2EBF3B00AC843E /* resources-mdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi_dark"; path = "../../data/resources-mdpi_dark"; sourceTree = "<group>"; };
 		4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi_dark"; path = "../../data/resources-xhdpi_dark"; sourceTree = "<group>"; };
 		4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi_dark"; path = "../../data/resources-xxhdpi_dark"; sourceTree = "<group>"; };
-		6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.0.0.a; path = Statistics/libFlurry_6.0.0.a; sourceTree = "<group>"; };
 		6C24A3B01AD7D65500A47B99 /* MWMWatchEventInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWatchEventInfo.h; sourceTree = "<group>"; };
 		6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWatchEventInfo.mm; sourceTree = "<group>"; };
 		6C47C8C31AD6C78A000C52C1 /* MWMNoLocationInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoLocationInterfaceController.h; sourceTree = "<group>"; };
@@ -755,6 +755,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34287FDC1B3D7C4800F9959C /* libFlurry_6.4.0.a in Frameworks */,
 				34570A411B13229300E6D4FD /* FBSDKLoginKit.framework in Frameworks */,
 				B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */,
 				34570A3F1B13225500E6D4FD /* Accounts.framework in Frameworks */,
@@ -766,7 +767,6 @@
 				34570A381B13217C00E6D4FD /* ParseFacebookUtilsV4.framework in Frameworks */,
 				F69A16A31AF24A3300EF43F0 /* libMyTracker.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
-				6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */,
 				F6BC1E4D1ACBE96100EF0360 /* FBSDKCoreKit.framework in Frameworks */,
 				F6BC1E4E1ACBE96100EF0360 /* FBSDKShareKit.framework in Frameworks */,
 				B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */,
@@ -916,6 +916,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */,
 				34570A401B13229300E6D4FD /* FBSDKLoginKit.framework */,
 				34570A3E1B13225500E6D4FD /* Accounts.framework */,
 				34570A3C1B13223000E6D4FD /* libsqlite3.dylib */,
@@ -929,7 +930,6 @@
 				F673E9151AD2B65B0064EB7F /* GLKit.framework */,
 				F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */,
 				F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */,
-				6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */,
 				B00511051A1101FC00A61AA4 /* CoreMedia.framework */,
 				B00511031A1101F600A61AA4 /* CoreData.framework */,
 				97EDDCE418A299C000AEFB7A /* Twitter.framework */,

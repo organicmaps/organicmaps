@@ -43,11 +43,13 @@ typedef NS_ENUM(NSUInteger, FBSDKLoginButtonTooltipBehavior)
 };
 
 /*!
- @abstract A button to simplify login.
+ @abstract A button that initiates a log in or log out flow upon tapping.
  @discussion `FBSDKLoginButton` works with `[FBSDKAccessToken currentAccessToken]` to
-  determine what to display. The delegate is only notified when a login flow is initiated
-  by a tapping the button and your app delegate is connected to `FBSDKApplicationDelegate`
-  (in the same way when using `FBSDKLoginManager`).
+  determine what to display, and automatically starts authentication when tapped (i.e.,
+  you do not need to manually subscribe action targets).
+
+  Like `FBSDKLoginManager`, you should make sure your app delegate is connected to
+  `FBSDKApplicationDelegate` in order for the button's delegate to receive messages.
 
  `FBSDKLoginButton` has a fixed height, but you may change the width. `initWithFrame:CGRectZero`
  will size the button to its minimum frame.

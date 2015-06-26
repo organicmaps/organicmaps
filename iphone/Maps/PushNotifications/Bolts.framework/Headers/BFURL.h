@@ -27,12 +27,12 @@
  */
 + (BFURL *)URLWithURL:(NSURL *)url;
 
-/*! 
- Creates a link target from a raw URL received from an external application. This is typically called from the app delegate's 
+/*!
+ Creates a link target from a raw URL received from an external application. This is typically called from the app delegate's
  application:openURL:sourceApplication:annotation: and will post the BFAppLinkNavigateInEventName measurement event.
  @param url The instance of `NSURL` to create BFURL from.
  @param sourceApplication the bundle ID of the app that is requesting your app to open the URL. The same sourceApplication in application:openURL:sourceApplication:annotation:
-*/
+ */
 + (BFURL *)URLWithInboundURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication;
 
 /*!

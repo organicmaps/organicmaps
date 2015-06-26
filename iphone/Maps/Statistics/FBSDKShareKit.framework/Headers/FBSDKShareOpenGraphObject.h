@@ -24,7 +24,21 @@
 
 /*!
  @abstract An Open Graph Object for sharing.
- @discussion The property keys MUST have namespaces specified on them, such as `og:image`.
+ @discussion The property keys MUST have namespaces specified on them, such as `og:image`,
+  and `og:type` is required.
+
+ See https://developers.facebook.com/docs/sharing/opengraph/object-properties for other properties.
+
+ You can specify nested namespaces inline to define complex properties. For example, the following
+ code will generate a fitness.course object with a location:
+
+ FBSDKShareOpenGraphObject *course = [FBSDKShareOpenGraphObject objectWithProperties:
+  @{
+    @"og:type": @"fitness.course",
+    @"og:title": @"Sample course",
+    @"fitness:metrics:location:latitude": @"41.40338",
+    @"fitness:metrics:location:longitude": @"2.17403",
+ }];
  */
 @interface FBSDKShareOpenGraphObject : FBSDKShareOpenGraphValueContainer <FBSDKCopying, NSSecureCoding>
 

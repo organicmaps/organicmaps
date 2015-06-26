@@ -9,22 +9,6 @@
 #import <UIKit/UIKit.h>
 
 /*!
- *  @brief Provides all available methods for defining and reporting Analytics from use
- *  of your app.
- * 
- *  Set of methods that allow developers to capture detailed, aggregate information
- *  regarding the use of their app by end users.
- *  
- *  @note This class provides methods necessary for correct function of FlurryAds.h.
- *  For information on how to use Flurry's Ads SDK to
- *  attract high-quality users and monetize your user base see <a href="http://support.flurry.com/index.php?title=Publishers">Support Center - Publishers</a>.
- *  
- *  @author 2009 - 2013 Flurry, Inc. All Rights Reserved.
- *  @version 4.3.0
- * 
- */
-
-/*!
  *  @brief Enum for setting up log output level.
  *  @since 4.2.0
  *
@@ -44,6 +28,52 @@ typedef enum {
     FlurryEventLogCountExceeded,
     FlurryEventLoggingDelayed
 } FlurryEventRecordStatus;
+
+
+/*!
+ *  @brief Provides all available delegates for receiving callbacks related to Flurry analytics.
+ *
+ *  Set of methods that allow developers to manage and take actions within
+ *  different phases of App.
+ *
+ *  @note This class serves as a delegate for Flurry. \n
+ *  For additional information on how to use Flurry's Ads SDK to
+ *  attract high-quality users and monetize your user base see <a href="http://wiki.flurry.com/index.php?title=Publisher">Support Center - Publisher</a>.
+ *  @author 2010 - 2014 Flurry, Inc. All Rights Reserved.
+ *  @version 6.3.0
+ *
+ */
+@protocol FlurryDelegate <NSObject>
+
+/*!
+ *  @brief Invoked when analytics session is created
+ *  @since 6.3.0
+ *
+ *  This method informs the app that an analytics session is created.
+ *
+ *  @see Flurry#startSession for details on session.
+ *
+ *  @param info A dictionary of session information: sessionID, apiKey
+ */
+- (void)flurrySessionDidCreateWithInfo:(NSDictionary*)info;
+
+@end
+
+/*!
+ *  @brief Provides all available methods for defining and reporting Analytics from use
+ *  of your app.
+ *
+ *  Set of methods that allow developers to capture detailed, aggregate information
+ *  regarding the use of their app by end users.
+ *
+ *  @note This class provides methods necessary for correct function of Flurry.h.
+ *  For information on how to use Flurry's Ads SDK to
+ *  attract high-quality users and monetize your user base see <a href="http://support.flurry.com/index.php?title=Publishers">Support Center - Publishers</a>.
+ *
+ *  @author 2009 - 2013 Flurry, Inc. All Rights Reserved.
+ *  @version 4.3.0
+ *
+ */
 
 @interface Flurry : NSObject {
 }
@@ -242,11 +272,44 @@ typedef enum {
  }
  * @endcode
  *
- * @param apiKey The API key for this project.
- * @param options passed launchOptions from the applicatin's didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+ */
++ (BOOL)activeSessionExists;
+
+/*!
+ *  @brief Start a Flurry session for the project denoted by @c apiKey.
+ *  @since 6.3.0
+ *
+ * @code
+ *  - (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+ {
+ // Optional Flurry startup methods
+ [Flurry getSessionID];
+ // ....
+ }
+ * @endcode
+ *
+
+ */
++ (NSString*)getSessionID;
+
+
+/*!
+ *  @brief Set Flurry delegate for callback on session creation.
+ *  @since 6.3.0
+ *
+ * @code
+ *  - (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+ {
+ // Optional Flurry startup methods
+ // If self implements protocol, FlurryDelegate
+ [Flurry setDelegate:self];
+ // ....
+ }
+ * @endcode
+ *
  
  */
-+ (BOOL) activeSessionExists;
++ (void)setDelegate:(id<FlurryDelegate>)delegate;
 
 /*!
  *  @brief Pauses a Flurry session left running in background.
@@ -833,7 +896,16 @@ typedef enum {
  */
 + (void)setEventLoggingEnabled:(BOOL)value;
 
-
+/*!
+ *  @brief Enables Flurry Pulse
+ *  @since 6.3.0
+ *
+ *  @note: Please see https://developer.yahoo.com/flurry-pulse/ for more details
+ *
+ *  @param value YES to enable event logging, NO to stop custom logging.
+ *
+ */
++ (void)setPulseEnabled:(BOOL)value;
 
 //@}
 

@@ -6,9 +6,15 @@
 
 #import <Foundation/Foundation.h>
 
+#if TARGET_OS_IPHONE
 #import <Parse/PFNullability.h>
 #import <Parse/PFObject.h>
 #import <Parse/PFSubclassing.h>
+#else
+#import <ParseOSX/PFNullability.h>
+#import <ParseOSX/PFObject.h>
+#import <ParseOSX/PFSubclassing.h>
+#endif
 
 PF_ASSUME_NONNULL_BEGIN
 
@@ -28,9 +34,6 @@ PF_ASSUME_NONNULL_BEGIN
 
  `PFInstallation` objects which have a valid <deviceToken> and are saved to
  the Parse cloud can be used to target push notifications.
-
- This class is currently for iOS only. There is no `PFInstallation` for Parse
- applications running on OS X, because they cannot receive push notifications.
  */
 
 @interface PFInstallation : PFObject<PFSubclassing>
