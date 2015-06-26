@@ -141,8 +141,22 @@ using feature::Metadata;
     {
       case Metadata::FMD_CUISINE:
       {
-        NSString * cuisine = [NSString stringWithFormat:@"cuisine_%@", [NSString stringWithUTF8String:metadata.Get(type).c_str()]];
-        self.category = [NSString stringWithFormat:@"%@, %@", self.category, L(cuisine)];
+        NSString * result = [NSString stringWithUTF8String:metadata.Get(type).c_str()];
+        NSString * cuisine = [NSString stringWithFormat:@"cuisine_%@", result];
+        NSString * localizedResult = L(cuisine);
+        NSString * currentCategory = self.category;
+        if (![localizedResult isEqualToString:currentCategory])
+        {
+          if ([localizedResult isEqualToString:cuisine])
+          {
+            if (![result isEqualToString:currentCategory])
+              self.category = [NSString stringWithFormat:@"%@, %@", self.category, result];
+          }
+          else
+          {
+            self.category = [NSString stringWithFormat:@"%@, %@", self.category, localizedResult];
+          }
+        }
         break;
       }
       case Metadata::FMD_ELE:
