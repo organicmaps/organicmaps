@@ -124,7 +124,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)didMoveToSuperview
 {
-  self.minY = [self viewMinY];
+  self.minY = 0.0;
   [self setState:RouteViewStateHidden animated:NO];
 }
 
@@ -189,11 +189,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   } completion:nil];
 }
 
-- (CGFloat)viewMinY
-{
-  return isIOSVersionLessThan(7) ? -20 : 0;
-}
-
 - (UIView *)phoneIdiomView
 {
   if (!_phoneIdiomView)
@@ -210,7 +205,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!_phoneTurnInstructions)
   {
     _phoneTurnInstructions = [[UIView alloc] initWithFrame:CGRectZero];
-    _phoneTurnInstructions.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.94];;
+    _phoneTurnInstructions.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.94];
     _phoneTurnInstructions.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     
     UIImageView * shadow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _phoneTurnInstructions.width, 18)];
@@ -272,7 +267,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!_routeInfo)
   {
     _routeInfo = [[UIView alloc] initWithFrame:CGRectZero];
-    _routeInfo.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.94];;
+    _routeInfo.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.94];
     _routeInfo.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     
     UIImageView * shadow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _routeInfo.width, 18)];

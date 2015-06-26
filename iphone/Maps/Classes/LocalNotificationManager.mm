@@ -104,33 +104,20 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   
   if ([action isEqualToString:@"Share"])
   {
-    NSURL * link = [NSURL URLWithString:notificationInfo[@"NotificationShareLink"]];
     UIImage * shareImage = [UIImage imageNamed:notificationInfo[@"NotifiicationShareImage"]];
     LocalNotificationInfoProvider * infoProvider = [[LocalNotificationInfoProvider alloc] initWithDictionary:notificationInfo];
 
-    if (isIOSVersionLessThan(6))
-    {
-      UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
-      pasteboard.URL = link;
-      NSString * message = [NSString stringWithFormat:L(@"copied_to_clipboard"), [link absoluteString]];
-      UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:message message:nil delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil];
-      [alertView show];
-    }
-    else
-    {
-      NSMutableArray * itemsToShare = [NSMutableArray arrayWithObject:infoProvider];
-      if (shareImage)
-        [itemsToShare addObject:shareImage];
-      
-      UIActivityViewController * activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
-      NSMutableArray * excludedActivityTypes = [@[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll] mutableCopy];
-      if (!isIOSVersionLessThan(7))
-        [excludedActivityTypes addObject:UIActivityTypeAirDrop];
-      activityVC.excludedActivityTypes = excludedActivityTypes;
-      UIWindow * window = [[UIApplication sharedApplication].windows firstObject];
-      NavigationController * vc = (NavigationController *)window.rootViewController;
-      [vc presentViewController:activityVC animated:YES completion:nil];
-    }
+    NSMutableArray * itemsToShare = [NSMutableArray arrayWithObject:infoProvider];
+    if (shareImage)
+      [itemsToShare addObject:shareImage];
+
+    UIActivityViewController * activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+    NSMutableArray * excludedActivityTypes = [@[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll] mutableCopy];
+    [excludedActivityTypes addObject:UIActivityTypeAirDrop];
+    activityVC.excludedActivityTypes = excludedActivityTypes;
+    UIWindow * window = [[UIApplication sharedApplication].windows firstObject];
+    NavigationController * vc = (NavigationController *)window.rootViewController;
+    [vc presentViewController:activityVC animated:YES completion:nil];
   }
 }
 

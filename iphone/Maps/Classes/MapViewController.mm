@@ -618,10 +618,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)updateStatusBarStyle
 {
-  if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-    [self setNeedsStatusBarAppearanceUpdate];
-  else
-    [UIApplication sharedApplication].statusBarStyle = [self preferredStatusBarStyle];
+  [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (id)initWithCoder:(NSCoder *)coder
@@ -736,13 +733,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
           if (!isDisclaimerApproved)
           {
-            NSString * title;
-            NSString * message;
-            if (isIOSVersionLessThan(7))
-              message = L(@"routing_disclaimer");
-            else
-              title = L(@"routing_disclaimer");
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"routing_disclaimer") message:@"" delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
             alert.tag = ALERT_VIEW_ROUTING_DISCLAIMER;
             [alert show];
           }
@@ -825,7 +816,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
   if (!_apiBar)
   {
-    UIImage * image = isIOSVersionLessThan(7) ? [UIImage imageNamed:@"ApiBarBackground6"] : [UIImage imageNamed:@"ApiBarBackground7"];
+    UIImage * image = [UIImage imageNamed:@"ApiBarBackground7"];
     _apiBar = [[UIImageView alloc] initWithImage:[image resizableImageWithCapInsets:UIEdgeInsetsZero]];
     _apiBar.width = self.view.width;
     _apiBar.userInteractionEnabled = YES;

@@ -136,7 +136,8 @@
   if ([string length] < tailLength + incrementStep)
     return string;
   BOOL firstTime = YES;
-  while ([string sizeWithFont:font].width > width)
+  NSDictionary * attrs = @{NSFontAttributeName:font};
+  while ([string sizeWithAttributes:attrs].width > width)
   {
     if (!firstTime)
       string = [[string substringToIndex:([string length] - tailLength - incrementStep)] stringByAppendingString:@"..."];

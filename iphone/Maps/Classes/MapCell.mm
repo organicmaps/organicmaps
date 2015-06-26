@@ -171,10 +171,6 @@
 
   self.separatorBottom.frame = CGRectMake(0, self.contentView.height - PIXEL, self.contentView.width, PIXEL);
   self.separatorBottom.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleTopMargin;
-
-  // On iOS6 and lower table view looks different, we won't show separators there.
-  if (isIOSVersionLessThan(7))
-    self.separatorTop.alpha  = self.separator.alpha = self.separatorBottom.alpha = 0.0;
 }
 
 - (void)prepareForReuse

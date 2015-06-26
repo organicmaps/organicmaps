@@ -63,7 +63,7 @@
   CGFloat xDelim = (int)(r.origin.x + w / 2);
   if (_bmDistance.text.length)
   {
-    CGSize const distanceTextSize = [_bmDistance.text sizeWithFont:_bmDistance.font];
+    CGSize const distanceTextSize = [_bmDistance.text sizeWithAttributes:@{NSFontAttributeName:_bmDistance.font}];
     if (xDelim + distanceTextSize.width < r.origin.x + w)
       xDelim = r.origin.x + w - distanceTextSize.width - KPaddingX;
   }

@@ -50,8 +50,7 @@ static CGFloat const kDefaultTextLeftInset = 5.;
   self.placeholderView.font = self.font;
   self.placeholderView.isAccessibilityElement = NO;
 
-  if (!isIOSVersionLessThan(7))
-    [self setTextContainerInset:UIEdgeInsetsZero];
+  [self setTextContainerInset:UIEdgeInsetsZero];
 
   [self updatePlaceholderVisibility];
 

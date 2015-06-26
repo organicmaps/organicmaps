@@ -37,25 +37,16 @@ static CGFloat const kOffset = 16.;
 
 - (void)setTitle:(NSString *)title selectedRanges:(NSArray *)selectedRanges
 {
-  if ([self.titleLabel respondsToSelector:@selector(setAttributedText:)])
-  {
-    // iOS 6 and higher
-    
-    if (!title)
-      title = @"";
+  if (!title)
+    title = @"";
 
-    NSMutableAttributedString * attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
-    [attributedTitle addAttributes:[self unselectedTitleAttributes] range:NSMakeRange(0, [title length])];
-    for (NSValue * range in selectedRanges)
-      [attributedTitle addAttributes:[self selectedTitleAttributes] range:[range rangeValue]];
+  NSMutableAttributedString * attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
+  [attributedTitle addAttributes:[self unselectedTitleAttributes] range:NSMakeRange(0, [title length])];
+  NSDictionary * selectedTitleAttributes = [self selectedTitleAttributes];
+  for (NSValue * range in selectedRanges)
+    [attributedTitle addAttributes:selectedTitleAttributes range:[range rangeValue]];
 
-    self.titleLabel.attributedText = attributedTitle;
-  }
-  else
-  {
-    // iOS 5
-    self.titleLabel.text = title;
-  }
+  self.titleLabel.attributedText = attributedTitle;
 }
 
 - (NSDictionary *)selectedTitleAttributes
@@ -164,11 +155,8 @@ static CGFloat const kOffset = 16.;
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.numberOfLines = 0;
     _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    if (![_titleLabel respondsToSelector:@selector(setAttributedText:)])
-    {
-      _titleLabel.font = TITLE_FONT;
-      _titleLabel.textColor = [UIColor blackPrimaryText];
-    }
+    _titleLabel.font = TITLE_FONT;
+    _titleLabel.textColor = [UIColor blackPrimaryText];
   }
   return _titleLabel;
 }

@@ -196,8 +196,8 @@ void InitLocalizedStrings()
   
   self.standbyCounter = 0;
 
-  if ([application respondsToSelector:@selector(setMinimumBackgroundFetchInterval:)])
-    [application setMinimumBackgroundFetchInterval:(6 * 60 * 60)];
+  NSTimeInterval const minimumBackgroundFetchIntervalInSeconds = 6 * 60 * 60;
+  [application setMinimumBackgroundFetchInterval:minimumBackgroundFetchIntervalInSeconds];
 
   [self registerNotifications:application launchOptions:launchOptions];
 
@@ -221,9 +221,6 @@ void InitLocalizedStrings()
   application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
   f.GetLocationState()->InvalidatePosition();
   
-  if (isIOSVersionLessThan(7))
-    return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
-
   return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
@@ -313,9 +310,7 @@ void InitLocalizedStrings()
   m_mwmURL = nil;
   m_fileURL = nil;
 
-  if (!isIOSVersionLessThan(7))
-    [FBSDKAppEvents activateApp];
-  
+  [FBSDKAppEvents activateApp];
   [self restoreRouteState];
 }
 
@@ -356,27 +351,17 @@ void InitLocalizedStrings()
 - (void)customizeAppearance
 {
   NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];
-  attributes[UITextAttributeTextColor] = [UIColor whiteColor];
-  attributes[UITextAttributeTextShadowColor] = [UIColor clearColor];
+  attributes[NSForegroundColorAttributeName] = [UIColor whiteColor];
 
   Class const navigationControllerClass = [NavigationController class];
-  if (!isIOSVersionLessThan(7))
-  {
-    [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setTintColor:[UIColor whiteColor]];
-    [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setBarTintColor:[UIColor colorWithColorCode:@"0e8639"]];
-    attributes[UITextAttributeFont] = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
-  }
-  else
-  {
-    [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setTintColor:[UIColor colorWithColorCode:@"15c584"]];
-    [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground7"] forBarMetrics:UIBarMetricsCompactPrompt];
-  }
+  [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setTintColor:[UIColor whiteColor]];
+  [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
+  [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setBarTintColor:[UIColor colorWithColorCode:@"0e8639"]];
+  attributes[NSFontAttributeName] = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
 
-  if ([UINavigationBar instancesRespondToSelector:@selector(setShadowImage:)])
-    [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setShadowImage:[[UIImage alloc] init]];
-
-  [[UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil] setTitleTextAttributes:attributes];
+  UINavigationBar * navBar = [UINavigationBar appearanceWhenContainedIn:navigationControllerClass, nil];
+  navBar.shadowImage = [[UIImage alloc] init];
+  navBar.titleTextAttributes = attributes;
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
@@ -392,9 +377,6 @@ void InitLocalizedStrings()
   if ([self checkLaunchURL:url])
     return YES;
 
-  if (isIOSVersionLessThan(7))
-    return NO;
-  
   return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
@@ -587,7 +569,7 @@ void InitLocalizedStrings()
 
 - (void)showFacebookAlert
 {
-  if (isIOSVersionLessThan(7) || !Reachability.reachabilityForInternetConnection.isReachable)
+  if (!Reachability.reachabilityForInternetConnection.isReachable)
     return;
   
   UIViewController *topViewController = [(UINavigationController*)m_window.rootViewController visibleViewController];

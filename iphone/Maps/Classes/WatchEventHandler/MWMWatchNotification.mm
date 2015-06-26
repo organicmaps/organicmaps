@@ -27,9 +27,6 @@ static NSString * const kMWMWatchNotificationArchiveNameFormat = @"%@.archive";
 
 - (instancetype)init
 {
-  if (![[NSFileManager defaultManager] respondsToSelector:@selector(containerURLForSecurityApplicationGroupIdentifier:)])
-    return nil;
-
   self = [super init];
   if (self)
   {

@@ -128,7 +128,7 @@
     AddSetVC * asVC = [[AddSetVC alloc] init];
     asVC.delegate = self;
     if (IPAD)
-      [asVC setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
+      asVC.preferredContentSize = self.preferredContentSize;
     [self.navigationController pushViewController:asVC animated:YES];
   }
   else

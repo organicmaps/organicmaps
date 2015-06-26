@@ -284,7 +284,7 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
-  [self dismissModalViewControllerAnimated:YES];
+  [self dismissViewControllerAnimated:YES completion:nil];
   [[Statistics instance] logEvent:@"KML Export"];
 }
 
@@ -434,7 +434,7 @@
   NSData * myData = [[NSData alloc] initWithContentsOfFile:filePath];
   [mailVC addAttachmentData:myData mimeType:mimeType fileName:[NSString stringWithFormat:@"%@%@", catName, fileExtension]];
   [mailVC setMessageBody:[NSString stringWithFormat:L(@"share_bookmarks_email_body"), catName] isHTML:NO];
-  [self presentModalViewController:mailVC animated:YES];
+  [self presentViewController:mailVC animated:YES completion:nil];
 }
 
 - (void)calculateSections

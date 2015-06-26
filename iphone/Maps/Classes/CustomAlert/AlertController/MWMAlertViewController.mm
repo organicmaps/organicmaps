@@ -27,14 +27,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   return self;
 }
 
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-  // Need only for iOS 5.
-  if (isIOSVersionLessThan(6))
-    self.tap.delegate = self;
-}
-
 #pragma mark - Actions
 
 - (void)presentRateAlert

@@ -159,10 +159,7 @@
 
 + (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay damping:(double)dampingRatio initialVelocity:(double)springVelocity options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^)(BOOL))completion
 {
-  if ([UIView respondsToSelector:@selector(animateWithDuration:delay:usingSpringWithDamping:initialSpringVelocity:options:animations:completion:)])
-    [UIView animateWithDuration:duration delay:delay usingSpringWithDamping:dampingRatio initialSpringVelocity:springVelocity options:options animations:animations completion:completion];
-  else
-    [UIView animateWithDuration:(duration * dampingRatio) delay:delay options:options animations:animations completion:completion];
+  [UIView animateWithDuration:duration delay:delay usingSpringWithDamping:dampingRatio initialSpringVelocity:springVelocity options:options animations:animations completion:completion];
 }
 
 - (void)sizeToIntegralFit
@@ -189,16 +186,8 @@
 
 - (CGSize)sizeWithDrawSize:(CGSize)drawSize font:(UIFont *)font
 {
-  if ([self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)])
-  {
-    CGRect rect = [self boundingRectWithSize:drawSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:nil];
-    return CGRectIntegral(rect).size;
-  }
-  else
-  {
-    CGSize size = [self sizeWithFont:font constrainedToSize:drawSize lineBreakMode:NSLineBreakByWordWrapping];
-    return CGRectIntegral(CGRectMake(0, 0, size.width, size.height)).size;
-  }
+  CGRect rect = [self boundingRectWithSize:drawSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:nil];
+  return CGRectIntegral(rect).size;
 }
 
 @end

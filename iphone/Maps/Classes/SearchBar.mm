@@ -45,8 +45,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.textField.midY = self.height / 2 - 3;
   self.textField.minX = 36.;
 
-  if ([self.textField respondsToSelector:@selector(setTintColor:)])
-    self.textField.tintColor = [UIColor blackHintText];
+  self.textField.tintColor = [UIColor blackHintText];
 
   return self;
 }

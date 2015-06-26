@@ -104,7 +104,7 @@
     [mailVC setMessageBody:body isHTML:NO];
     [mailVC setSubject:subject];
     mailVC.mailComposeDelegate = self;
-    [self.viewController presentModalViewController:mailVC animated:YES];
+    [self.viewController presentViewController:mailVC animated:YES completion:nil];
   }
   else if ([self canUseGmailApp])
   {
@@ -124,19 +124,19 @@
   else
     [messageVC setBody:[NSString stringWithFormat:L(@"bookmark_share_sms"), shortUrl, httpGe0Url]];
   messageVC.messageComposeDelegate = self;
-  [self.viewController presentModalViewController:messageVC animated:YES];
+  [self.viewController presentViewController:messageVC animated:YES completion:nil];
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
-  [self.viewController dismissModalViewControllerAnimated:YES];
+  [self.viewController dismissViewControllerAnimated:YES completion:nil];
   if (result == MessageComposeResultSent)
     [[Statistics instance] logEvent:@"ge0(zero) MESSAGE Export"];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
-  [self.viewController dismissModalViewControllerAnimated:YES];
+  [self.viewController dismissViewControllerAnimated:YES completion:nil];
   if (result == MFMailComposeResultSent || result == MFMailComposeResultSaved)
     [[Statistics instance] logEvent:@"ge0(zero) MAIL Export"];
 }

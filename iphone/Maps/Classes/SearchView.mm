@@ -28,16 +28,6 @@
 #include "../../geometry/angles.hpp"
 #include "../../geometry/distance_on_sphere.hpp"
 
-
-static NSString * GetKeyboardInputLanguage()
-{
-  UITextInputMode * mode = [UITextInputMode currentInputMode];
-  if (mode)
-    return mode.primaryLanguage;
-  // Use system language as a fall-back
-  return [[NSLocale preferredLanguages] firstObject];
-}
-
 @interface SearchResultsWrapper : NSObject
 
 - (id)initWithResults:(search::Results const &)res;
@@ -144,14 +134,10 @@ typedef NS_ENUM(NSUInteger, CellType)
 
   [self setState:SearchViewStateHidden animated:NO];
 
-  if ([self.tableView respondsToSelector:@selector(registerClass:forCellReuseIdentifier:)])
-  {
-    // only for iOS 6 and higher
-    [self.tableView registerClass:[SearchCategoryCell class] forCellReuseIdentifier:[SearchCategoryCell className]];
-    [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:[SearchResultCell className]];
-    [self.tableView registerClass:[SearchSuggestCell class] forCellReuseIdentifier:[SearchSuggestCell className]];
-    [self.tableView registerClass:[SearchShowOnMapCell class] forCellReuseIdentifier:[SearchShowOnMapCell className]];
-  }
+  [self.tableView registerClass:[SearchCategoryCell class] forCellReuseIdentifier:[SearchCategoryCell className]];
+  [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:[SearchResultCell className]];
+  [self.tableView registerClass:[SearchSuggestCell class] forCellReuseIdentifier:[SearchSuggestCell className]];
+  [self.tableView registerClass:[SearchShowOnMapCell class] forCellReuseIdentifier:[SearchShowOnMapCell className]];
 
   [self layoutSubviews];
   self.tableView.contentOffset = CGPointMake(0, -self.topBackgroundView.height);
@@ -313,7 +299,7 @@ static BOOL keyboardLoaded = NO;
       [self frameworkDidAddSearchResult:wrapper];
     });
   };
-  sp.SetInputLocale([GetKeyboardInputLanguage() UTF8String]);
+  sp.SetInputLocale([[self keyboardInputLanguage] UTF8String]);
   sp.SetForceSearch(force == YES);
 }
 
@@ -479,7 +465,7 @@ static BOOL keyboardLoaded = NO;
 
   search::SearchParams params;
   params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
-  params.SetInputLocale([GetKeyboardInputLanguage() UTF8String]);
+  params.SetInputLocale([[self keyboardInputLanguage] UTF8String]);
 
   f.StartInteractiveSearch(params);
 
@@ -504,12 +490,12 @@ static BOOL keyboardLoaded = NO;
 
 - (CGFloat)defaultSearchBarMinY
 {
-  return isIOSVersionLessThan(7) ? 3 : 20;
+  return 20.0;
 }
 
 - (CGFloat)defaultTopBackgroundHeight
 {
-  return isIOSVersionLessThan(7) ? 44 : 64;
+  return 64.0;
 }
 
 - (BOOL)iPhoneInLandscape
@@ -802,6 +788,15 @@ static BOOL keyboardLoaded = NO;
 - (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (NSString *)keyboardInputLanguage
+{
+  UITextInputMode * mode = [self textInputMode];
+  if (mode)
+    return mode.primaryLanguage;
+  // Use system language as a fall-back
+  return [[NSLocale preferredLanguages] firstObject];
 }
 
 #pragma mark - Properties
