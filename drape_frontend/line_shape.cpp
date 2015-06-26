@@ -100,6 +100,12 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   float const halfWidth = m_params.m_width / 2.0f;
   float const glbHalfWidth = halfWidth / m_params.m_baseGtoPScale;
 
+  // skip joins generation
+  float const joinsGenerationThreshold = 2.5f;
+  bool generateJoins = true;
+  if (halfWidth <= joinsGenerationThreshold)
+    generateJoins = false;
+
   auto const getLineVertex = [&](LineSegment const & segment, glsl::vec3 const & pivot,
                                  glsl::vec2 const & normal, float offsetFromStart)
   {
@@ -130,8 +136,11 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   // build geometry
   for (size_t i = 0; i < segments.size(); i++)
   {
-    UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
-                 (i < segments.size() - 1) ? &segments[i + 1] : nullptr);
+    if (generateJoins)
+    {
+      UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
+                    (i < segments.size() - 1) ? &segments[i + 1] : nullptr);
+    }
 
     // calculate number of steps to cover line segment
     float const initialGlobalLength = glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
@@ -139,17 +148,9 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     float maskSize = initialGlobalLength;
     if (!texCoordGen.IsSolid())
     {
-      float const leftWidth = glbHalfWidth * max(segments[i].m_leftWidthScalar[StartPoint].y,
-                                                 segments[i].m_rightWidthScalar[StartPoint].y);
-      float const rightWidth = glbHalfWidth * max(segments[i].m_leftWidthScalar[EndPoint].y,
-                                                  segments[i].m_rightWidthScalar[EndPoint].y);
-      float const effectiveLength = initialGlobalLength - leftWidth - rightWidth;
-      if (effectiveLength > 0)
-      {
-        float const pixelLen = effectiveLength * m_params.m_baseGtoPScale;
-        steps = static_cast<int>((pixelLen + texCoordGen.GetMaskLength() - 1) / texCoordGen.GetMaskLength());
-        maskSize = effectiveLength / steps;
-      }
+      float const pixelLen = initialGlobalLength * m_params.m_baseGtoPScale;
+      steps = static_cast<int>((pixelLen + texCoordGen.GetMaskLength() - 1) / texCoordGen.GetMaskLength());
+      maskSize = initialGlobalLength / steps;
     }
 
     // generate main geometry
@@ -162,30 +163,19 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
 
       glsl::vec2 const newPoint = segments[i].m_points[StartPoint] + segments[i].m_tangent * currentSize;
       glsl::vec3 const newPivot = glsl::vec3(newPoint, m_params.m_depth);
+      glsl::vec2 const leftNormal = GetNormal(segments[i], true /* isLeft */, BaseNormal);
+      glsl::vec2 const rightNormal = GetNormal(segments[i], false /* isLeft */, BaseNormal);
 
-      ENormalType normalType1 = (step == 0) ? StartNormal : BaseNormal;
-      ENormalType normalType2 = (step == steps - 1) ? EndNormal : BaseNormal;
-
-      glsl::vec2 const leftNormal1 = GetNormal(segments[i], true /* isLeft */, normalType1);
-      glsl::vec2 const rightNormal1 = GetNormal(segments[i], false /* isLeft */, normalType1);
-      glsl::vec2 const leftNormal2 = GetNormal(segments[i], true /* isLeft */, normalType2);
-      glsl::vec2 const rightNormal2 = GetNormal(segments[i], false /* isLeft */, normalType2);
-
-      geometry.push_back(getLineVertex(segments[i], currentStartPivot, glsl::vec2(0, 0), offsetFromStart));
-      geometry.push_back(getLineVertex(segments[i], currentStartPivot, leftNormal1, offsetFromStart));
-      geometry.push_back(getLineVertex(segments[i], newPivot, glsl::vec2(0, 0), offsetFromStart));
-      geometry.push_back(getLineVertex(segments[i], newPivot, leftNormal2, offsetFromStart));
-
-      geometry.push_back(getLineVertex(segments[i], currentStartPivot, rightNormal1, offsetFromStart));
-      geometry.push_back(getLineVertex(segments[i], currentStartPivot, glsl::vec2(0, 0), offsetFromStart));
-      geometry.push_back(getLineVertex(segments[i], newPivot, rightNormal2, offsetFromStart));
-      geometry.push_back(getLineVertex(segments[i], newPivot, glsl::vec2(0, 0), offsetFromStart));
+      geometry.push_back(getLineVertex(segments[i], currentStartPivot, rightNormal, offsetFromStart));
+      geometry.push_back(getLineVertex(segments[i], currentStartPivot, leftNormal, offsetFromStart));
+      geometry.push_back(getLineVertex(segments[i], newPivot, rightNormal, offsetFromStart));
+      geometry.push_back(getLineVertex(segments[i], newPivot, leftNormal, offsetFromStart));
 
       currentStartPivot = newPivot;
     }
 
     // generate joins
-    if (i < segments.size() - 1)
+    if (generateJoins && i < segments.size() - 1)
     {
       glsl::vec2 n1 = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_leftNormals[EndPoint] :
                                                             segments[i].m_rightNormals[EndPoint];
