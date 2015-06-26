@@ -73,7 +73,11 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
 #endif // TARGET_OS_IPHONE
     if (!basic_auth_user_.empty()) {
       NSData * loginAndPassword = [[NSString stringWithUTF8String:(basic_auth_user_ + ":" + basic_auth_password_).c_str()] dataUsingEncoding:NSUTF8StringEncoding];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+      // base64Encoding selector below was deprecated in iOS 7+, but we still need it to support 5.1+ versions.
       [request setValue:[NSString stringWithFormat:@"Basic %@", [loginAndPassword base64Encoding]] forHTTPHeaderField:@"Authorization"];
+#pragma clang diagnostic pop
     }
     if (!body_data_.empty()) {
       request.HTTPBody = [NSData dataWithBytes:body_data_.data() length:body_data_.size()];
