@@ -178,7 +178,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)share
 {
   MWMPlacePageEntity * entity = self.entity;
-  ShareInfo * info = [[ShareInfo alloc] initWithText:entity.title gX:entity.point.x gY:entity.point.y myPosition:NO];
+  ShareInfo * info = [[ShareInfo alloc] initWithText:entity.title lat:entity.point.x lon:entity.point.y myPosition:NO];
 
   self.actionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self.ownerViewController];
   UIView * parentView = self.ownerViewController.view;

@@ -100,9 +100,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     return;
   }
   CLLocationCoordinate2D const coord = location.coordinate;
-  double const gX = MercatorBounds::LonToX(coord.longitude);
-  double const gY = MercatorBounds::LatToY(coord.latitude);
-  ShareInfo * const info = [[ShareInfo alloc] initWithText:nil gX:gX gY:gY myPosition:YES];
+  ShareInfo * const info = [[ShareInfo alloc] initWithText:nil lat:coord.latitude lon:coord.longitude myPosition:YES];
   self.controller.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self.controller];
   UIView const * const parentView = self.controller.view;
   [self.controller.shareActionSheet showFromRect:CGRectMake(parentView.midX, parentView.height - 40.0, 0.0, 0.0)];

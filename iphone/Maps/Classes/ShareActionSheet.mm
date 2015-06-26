@@ -10,13 +10,13 @@
 
 @implementation ShareInfo
 
-- (instancetype)initWithText:(NSString *)text gX:(double)gX gY:(double)gY myPosition:(BOOL)myPosition
+- (instancetype)initWithText:(NSString *)text lat:(double)lat lon:(double)lon myPosition:(BOOL)myPosition
 {
   self = [super init];
 
   self.text = text ? text : @"";
-  self.gX = gX;
-  self.gY = gY;
+  self.lat = lat;
+  self.lon = lon;
   self.myPosition = myPosition;
 
   return self;
@@ -62,7 +62,7 @@
 - (void)actionSheet:(UIActionSheet *)as willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
   Framework & f = GetFramework();
-  string const s = f.CodeGe0url(MercatorBounds::YToLat(self.info.gY), MercatorBounds::XToLon(self.info.gX), f.GetDrawScale(), [self.info.text UTF8String]);
+  string const s = f.CodeGe0url(self.info.lat, self.info.lon, f.GetDrawScale(), [self.info.text UTF8String]);
   NSString * shortUrl = [NSString stringWithUTF8String:s.c_str()];
 
   if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:L(@"email")])
@@ -87,7 +87,7 @@
   if (self.info.myPosition)
   {
     search::AddressInfo info;
-    GetFramework().GetAddressInfoForGlobalPoint(m2::PointD(self.info.gX, self.info.gY), info);
+    GetFramework().GetAddressInfoForGlobalPoint(m2::PointD(MercatorBounds::LonToX(self.info.lon), MercatorBounds::LatToY(self.info.lat)), info);
     NSString * nameAndAddress = [NSString stringWithUTF8String:info.FormatNameAndAddress().c_str()];
     body = [NSString stringWithFormat:L(@"my_position_share_email"), nameAndAddress, shortUrl, httpGe0Url];
     subject = L(@"my_position_share_email_subject");

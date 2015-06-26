@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "ic_email.png"
+      "filename" : "ic_Email.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "ic_email@2x.png"
+      "filename" : "ic_Email@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "ic_email@3x.png"
+      "filename" : "ic_Email@3x.png"
     }
   ],
   "info" : {

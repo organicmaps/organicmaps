@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "ic_wifi.png"
+      "filename" : "ic_WiFi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "ic_wifi@2x.png"
+      "filename" : "ic_WiFi@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "ic_wifi@3x.png"
+      "filename" : "ic_WiFi@3x.png"
     }
   ],
   "info" : {

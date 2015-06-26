@@ -5,11 +5,11 @@
 
 @interface ShareInfo : NSObject
 
-- (instancetype)initWithText:(NSString *)text gX:(double)gX gY:(double)gY myPosition:(BOOL)myPosition;
+- (instancetype)initWithText:(NSString *)text lat:(double)lat lon:(double)lon myPosition:(BOOL)myPosition;
 
 @property (nonatomic) NSString * text;
-@property (nonatomic) double gX;
-@property (nonatomic) double gY;
+@property (nonatomic) double lat;
+@property (nonatomic) double lon;
 @property (nonatomic) BOOL myPosition;
 
 @end
