@@ -81,22 +81,28 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
 
 #pragma mark - Properties
 
-- (void)setHidden:(BOOL)hidden
+- (void)setHidden:(BOOL)hidden animated:(BOOL)animated
 {
-  if (super.hidden == hidden)
-    return;
-  if (!hidden)
-    super.hidden = NO;
-  [self layoutXPosition:!hidden];
-  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount) animations:^
-  {
-    [self layoutXPosition:hidden];
+  if (animated) {
+    if (self.hidden == hidden)
+      return;
+    if (!hidden)
+      self.hidden = NO;
+    [self layoutXPosition:!hidden];
+    [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount) animations:^
+    {
+      [self layoutXPosition:hidden];
+    }
+    completion:^(BOOL finished)
+    {
+      if (hidden)
+        self.hidden = YES;
+    }];
   }
-  completion:^(BOOL finished)
+  else
   {
-    if (hidden)
-      super.hidden = YES;
-  }];
+    self.hidden = hidden;
+  }
 }
 
 - (void)setTopBound:(CGFloat)topBound

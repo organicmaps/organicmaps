@@ -25,6 +25,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property (weak, nonatomic) IBOutlet UIButton * zoomOutButton;
 
 @property (nonatomic) BOOL zoomSwipeEnabled;
+@property (nonatomic, readonly) BOOL isZoomEnabled;
 
 @end
 
@@ -37,18 +38,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [[NSBundle mainBundle] loadNibNamed:kMWMZoomButtonsViewNibName owner:self options:nil];
     [view addSubview:self.zoomView];
-    [self resetVisibility];
     self.zoomSwipeEnabled = NO;
   }
   return self;
-}
-
-- (void)resetVisibility
-{
-  bool zoomButtonsEnabled;
-  if (!Settings::Get("ZoomButtonsEnabled", zoomButtonsEnabled))
-    zoomButtonsEnabled = false;
-  self.zoomView.hidden = !zoomButtonsEnabled;
 }
 
 - (void)setTopBound:(CGFloat)bound
@@ -112,14 +104,25 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - Properties
 
+- (BOOL)isZoomEnabled
+{
+  bool zoomButtonsEnabled;
+  if (!Settings::Get("ZoomButtonsEnabled", zoomButtonsEnabled))
+    zoomButtonsEnabled = false;
+  return zoomButtonsEnabled;
+}
+
 - (BOOL)hidden
 {
-  return self.zoomView.hidden;
+  return self.isZoomEnabled ? self.zoomView.hidden : YES;
 }
 
 - (void)setHidden:(BOOL)hidden
 {
-  self.zoomView.hidden = hidden;
+  if (self.isZoomEnabled)
+    [self.zoomView setHidden:hidden animated:YES];
+  else
+    self.zoomView.hidden = YES;
 }
 
 @end

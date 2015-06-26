@@ -14,7 +14,6 @@
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view;
-- (void)resetVisibility;
 - (void)setTopBound:(CGFloat)bound;
 - (void)setBottomBound:(CGFloat)bound;
 
