@@ -609,10 +609,9 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   }
   else
   {
-    UIStatusBarStyle style = UIStatusBarStyleDefault;
-    if (self.searchView.state != SearchViewStateHidden || self.controlsManager.menuState == MWMSideMenuStateActive || self.placePageManager.isDirectionViewShown || GetFramework().GetMapStyle() == MapStyleDark)
-      style = UIStatusBarStyleLightContent;
-    return style;
+    if (self.searchView.state != SearchViewStateHidden || self.controlsManager.menuState == MWMSideMenuStateActive || self.placePageManager.isDirectionViewShown || (GetFramework().GetMapStyle() == MapStyleDark && self.routeView.state == RouteViewStateHidden))
+      return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
   }
 }
 
@@ -910,6 +909,11 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
     [self clearMapInfoViewFlag:MapInfoViewRoute];
   else
     [self setMapInfoViewFlag:MapInfoViewRoute];
+}
+
+- (void)routeViewDidEnterState:(RouteViewState)state
+{
+  [self updateStatusBarStyle];
 }
 
 #pragma mark - SearchViewDelegate

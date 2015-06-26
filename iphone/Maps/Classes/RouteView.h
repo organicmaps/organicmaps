@@ -15,6 +15,7 @@ typedef NS_ENUM(NSUInteger, RouteViewState) {
 - (void)routeViewDidStartFollowing:(RouteView *)routeView;
 
 - (void)routeViewWillEnterState:(RouteViewState)state;
+- (void)routeViewDidEnterState:(RouteViewState)state;
 
 @end
 

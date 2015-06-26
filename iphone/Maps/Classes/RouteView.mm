@@ -153,7 +153,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)setState:(RouteViewState)state animated:(BOOL)animated
 {
   [self.delegate routeViewWillEnterState:state];
-  _state = state;
   
   [UIView animateWithDuration:(animated ? 0.5 : 0) delay:0 damping:0.83 initialVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^ {
     self.phoneTurnInstructions.userInteractionEnabled = NO;
@@ -186,7 +185,10 @@ extern NSString * const kAlohalyticsTapEventKey;
       default:
         break;
     }
-  } completion:nil];
+  }
+  completion:nil];
+  _state = state;
+  [self.delegate routeViewDidEnterState:state];
 }
 
 - (UIView *)phoneIdiomView
