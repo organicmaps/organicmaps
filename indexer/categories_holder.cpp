@@ -65,7 +65,7 @@ bool CategoriesHolder::ValidKeyToken(StringT const & s)
     return true;
 
   /// @todo We need to have global stop words array for the most used languages.
-  char const * arr[] = { "a", "z", "s", "d", "di", "de", "le", "wi", "fi" };
+  char const * arr[] = { "a", "z", "s", "d", "di", "de", "le", "wi", "fi", "ra", "xe", "ao" };
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     if (s.IsEqualAscii(arr[i]))
       return false;
@@ -222,6 +222,11 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     {"tr", 20 },
     {"sk", 21 },
     {"sv", 22 },
+    {"vi", 23 },
+    {"id", 24 },
+    {"ro", 25 },
+    {"nb", 26 },
+    {"fi", 27 },
   };
   for (size_t i = 0; i < ARRAY_SIZE(mapping); ++i)
     if (locale.find(mapping[i].m_name) == 0)

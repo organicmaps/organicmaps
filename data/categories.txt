@@ -21,6 +21,11 @@ ar:ماكينة الصراف الآلي|الأموال|فلوس|atm
 da:3hæveautomat|penge
 tr:3bankamatik|atm|3para
 sv:3bankomat|pengar
+vi:2máy atm|tiền
+id:2atm|uang
+ro:3bancomat|bani
+nb:2penger
+fi:2raha
 
 amenity-bank
 en:3bank|money
@@ -45,6 +50,11 @@ ar:البنك|الأموال
 da:3bank|3penge
 tr:3banka|3para
 sv:3bank|pengar
+vi:3ngân hàng|tiền
+id:3bank|uang
+ro:3bancă|bani
+nb:3bank
+fi:3pankki
 
 amenity-bureau_de_change
 en:3currency exchange|3exchange|money
@@ -69,6 +79,11 @@ ar:صرف العملات|الصرف|الأموال
 da:3veksel|3penge
 tr:3döviz bürosu|3para
 sv:3valutaväxling|3växling|pengar
+vi:2tỉ giá hiện tại|tỉ giá
+id:3pertukaran valuta|pertukaran
+ro:3schimb valutar|schimb
+nb:4valutaveksling
+fi:4rahanvaihto
 
 amenity-bar|amenity-pub
 en:2bar|2pub|beer|drink|food
@@ -93,6 +108,11 @@ ar:الحانة|خمارة์|بيرة ์|شراب|الطعام
 da:2bar|øl|pub|drink|mad
 tr:2pub|2bira|içki|yemek
 sv:2bar|2pub|öl|drink|mat
+vi:2quán bar|quán rượu|đồ uống|ẩm thực
+id:2bar|2pub|minuman|makanan
+ro:2bar|2cârciumă|băutură|alimentație
+nb:2bar
+fi:2baari
 
 amenity-cafe
 en:3cafe|3restaurant|3food
@@ -117,6 +137,11 @@ ar:مقهى|مطعم่|طعام|الطعام
 da:3café|restaurant|mad
 tr:3kafeterya่|restoran|3yemek
 sv:3café|3restaurang|3mat
+vi:cà phê|quán ăn|ẩm thực
+id:3kafe|3restoran|makanan
+ro:3cafenea|3restaurant|alimentație
+nb:2kafé
+fi:2kahvila
 
 amenity-fast_food
 en:4fast food|3restaurant|3cafe|takeaway|3food
@@ -141,6 +166,11 @@ ar:وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام|الطع
 da:4fastfood|restaurant|café|takeaway|mad
 tr:4fast food|3restoran|3kafeterya|yemek
 sv:4snabbmat|3restaurang|3café|takeaway|3mat
+vi:thức ăn nhanh|quán ăn|ẩm thực
+id:cepat saji|3restoran|makanan
+ro:fast food|3restaurant|alimentație
+nb:3hurtigmat
+fi:3pikaruokala
 
 amenity-restaurant
 en:3restaurant|3cafe|3food
@@ -165,6 +195,11 @@ ar:1مطعم|مقهى|طعام|الطعام
 da:3restaurant|café|mad
 tr:3restoran|3kafeterya|3yemek
 sv:3restaurang|3café|3mat
+vi:quán ăn|cà phê||ẩm thực
+id:restoran|3kafe|makanan
+ro:3restaurant|3cafenea|alimentație
+nb:3restaurant
+fi:3ravintola
 
 amenity-fuel
 en:gas station|3fuel|2gas
@@ -188,8 +223,12 @@ zh-Hans:1加油站|燃料|汽油
 ar:1محطة وقود|وقود|غاز|الغاز
 da:3tankstation|benzin
 tr:3benzin istasyonu|2gaz
-sv:bensinstation|3bränsle|2gas|3bensin
-
+sv:3bensinstation|3bränsle|2gas|3bensin
+vi:trạm xăng|khí đốt
+id:pompa bensin|bahan bakar
+ro:3benzinărie|benzină
+nb:3bensinstasjon
+fi:3huoltoasema
 
 shop-bakery
 en:3bakery|shop
@@ -214,6 +253,11 @@ ar:مخبزี่|متجر|المتجر
 da:2bager|bageri|butik
 tr:3fırın|mağaza
 sv:3bageri|butik
+vi:hiệu bánh|cửa hàng
+id:toko roti|toko
+ro:3brutărie|magazin
+nb:3bakeri
+fi:3leipomo
 
 shop|shop-convenience|shop-mall|shop-doityourself|shop-florist|shop-butcher|shop-furniture|shop-alcohol|shop-books|shop-shoes|shop-electronics|shop-hardware|shop-jewelry|shop-optician|shop-gift|shop-mobile_phone|shop-beauty|shop-greengrocer|shop-chemist|shop-garden_centre|shop-sports
 en:2shop
@@ -238,6 +282,11 @@ ar:متجر|المتجر
 da:2butik
 tr:2mağaza
 sv:2butik
+vi:cửa hàng
+id:2toko
+ro:3magazin
+nb:3butikk
+fi:3kauppa
 
 shop-supermarket|shop-department_store
 en:3supermarket|shop
@@ -262,6 +311,11 @@ ar:سوبر ماركت|متجر|المتجر
 da:3supermarked|butik
 tr:3süpermarket|mağaza
 sv:3stormarknad|butik
+vi:siêu thị
+id:3supermarket
+ro:3supermarket
+nb:3supermarked
+fi:3supermarketti
 
 amenity-marketplace
 en:3marketplace|market|shop
@@ -286,6 +340,11 @@ ar:ساحة السوق|السوق|متجر|المتجر
 da:3markedsplads|marked|butik
 tr:3pazaryeri|mağaza
 sv:3marknadsplats|marknad|butik
+vi:2cửa hàng
+id:2toko
+ro:2magazin
+nb:2torg
+fi:3kauppatori
 
 shop-clothes
 en:clothes shop|4clothes
@@ -310,6 +369,11 @@ ar:متجر ألبسة|المتجر
 da:tøjbutik|tøj|butik
 tr:giyim mağazası|mağaza
 sv:kläder butik|4kläder
+vi:cửa hàng quần áo
+id:toko baju
+ro:magazin de haine
+nb:bilverksted
+fi:vaatekauppa
 
 shop-car
 en:car shop
@@ -333,7 +397,12 @@ zh-Hans:车店|商店
 ar:متجر سيارات|المتجر
 da:bilforhandler|butik
 tr:otomobil mağazası|mağaza
-sv:bilåterförsäljare
+sv:3bilåterförsäljare
+vi:2cửa hàng xe
+id:3bengkel mobil
+ro:3magazin auto
+nb:3bensinstasjon
+fi:3autokorjaamo
 
 shop-bicycle
 en:4bicycle shop|cycle|bike|shop
@@ -358,6 +427,11 @@ ar:دراجة هوائية|المتجر
 da:cykelforretning|butik
 tr:bisiklet|mağaza
 sv:4cykelaffär|cykel|cykel|butik
+vi:3thuê ô tô
+id:3sepeda
+ro:3bicicletă
+nb:3sykkel
+fi:3polkupyörä
 
 shop-kiosk
 en:kiosk|shop
@@ -382,6 +456,11 @@ ar:كشك|المتجر
 da:kiosk|butik
 tr:mağaza
 sv:kiosk|butik
+vi:cửa hàng
+id:toko
+ro:magazin
+nb:
+fi:
 
 highway-bus_stop
 en:bus stop|2bus|stop|4transport
@@ -405,7 +484,12 @@ zh-Hans:1公交车站|公交车|运输|交通
 ar:محطة الحافلة์|حافلة|نقل|النقل
 da:3busstoppested|bus|transport
 tr:otobüs durağı|3otobüs|ulaşım
-sv:busshållplats|2buss|hållplats|4transport
+sv:busshållplats|3buss|hållplats|4transport
+vi:3bến xe buýt
+id:3halte bus
+ro:3stație de autobuz
+nb:3busstopp
+fi:3bussipysäkki
 
 railway-tram_stop
 en:tram stop|3tram|stop|4transport
@@ -430,6 +514,11 @@ ar:محطة الترام|نقل|النقل
 da:3sporvogn|station|transport
 tr:3tramvay durağı|ulaşım
 sv:spårvagnshållplats|3spårvagn|hållplats|4transport
+vi:bến tàu điện
+id:3perhentian trem
+ro:3stație de tramvai
+nb:3trikkestopp
+fi:4raitiovaunupysäkki
 
 amenity-bus_station
 en:bus station|2bus|station|4transport
@@ -454,6 +543,11 @@ ar:محطة الباص|حافلة|نقل|النقل
 da:2busstation|2bus|station|4transport
 tr:3otobüs durağı|3otobüs|2ulaşım
 sv:busstation|2buss|station|4transport
+vi:2bến xe buýt
+id:3stasiun bus
+ro:3stație de autobuz
+nb:3busstasjon
+fi:3bussiasema
 
 railway-station|railway-halt
 en:3train station|4railway|railroad|3train|4station|4transport
@@ -478,6 +572,11 @@ ar:سكة الحديدี|محطة القطارี|محطةี|نقل|النقل
 da:3jernbane|4togstationี|4stationี|transport
 tr:2gar|3demiryolları|ulaşım
 sv:3tågstation|4järnväg|järnväg|3tåg|4station|4transport
+vi:đường tàu hỏa
+id:rel kereta api
+ro:feroviar
+nb:togstasjon
+fi:rautatieasema
 
 railway-subway_entrance|railway-station-subway
 en:3subway|3tube|3metro|3underground|transport
@@ -502,6 +601,11 @@ ar:محطة|القطار الكهربائي النفقي|قطار الأنفاق
 da:3undergrundsbane|3metro|3undergrund|3transport
 tr:2metro|3yer altı metrosu|ulaşım
 sv:3tunnelbana|3tunnelbana|3metro|3tunnelbana|transport
+vi:3ngầm
+id:3stasiun bawah tanah
+ro:3metrou
+nb:2T-bane|undergrunnsbane|metro
+fi:3metro
 
 amenity-ferry_terminal
 en:3ferry|terminal|transport
@@ -526,6 +630,11 @@ ar:مركب|محطة|نقل|النقل
 da:2færge|terminal|transport
 tr:3feribot|terminal|ulaşım
 sv:3färja|terminal|transport
+vi:phà|bến tàu xe|giao thông
+id:3terminal|feri|transportasi
+ro:3feribot|terminal|transport
+nb:3ferje|terminal|transport
+fi:3lautta|terminaali|kuljetus
 
 amenity-taxi
 en:3taxi|transport
@@ -550,6 +659,11 @@ ar:تكسي|نقل|النقل
 da:3tax|taxa|transport
 tr:3taksi|ulaşım
 sv:3taxi|transport
+vi:3taxi
+id:3taksi
+ro:3taxi
+nb:3drosje
+fi:3taksi
 
 amenity-townhall
 en:3town hall|3tourism|3sights
@@ -574,6 +688,11 @@ ar:مبنى البلدية|سياحة|مناظر
 da:3rådhus|3turisme|3sightseeing|3seværdigheder
 tr:3belediye binası|3turizm|3görülecek yerler
 sv:3rådhus|3turism|3sevärdheter
+vi:3trung tâm thành phố
+id:3balai kota
+ro:3primărie
+nb:3rådhus
+fi:kaupungintalo
 
 tourism-attraction
 en:3attraction|3tourism|3sights
@@ -598,6 +717,11 @@ ar:أماكن الجذب|سياحة|مناظر
 da:3attraktioner|3turisme|3sightseeing|3seværdigheder
 tr:3cazibe merkezleri|3turizm|3görülecek yerler
 sv:3attraktion|3turism|3sevärdheter
+vi:3hấp dẫn
+id:3atraksi
+ro:3punct de atracție
+nb:3attraksjon
+fi:3huvitus
 
 tourism-artwork
 en:3artwork|3tourism|3sights
@@ -622,6 +746,11 @@ ar:سياحة|مناظر
 da:3seværdighed|3turisme|3sightseeing|3seværdigheder
 tr:3turizm|3görülecek yerler
 sv:3konstverk|3turism|3sevärdheter
+vi:3du lịch
+id:3pariwisata
+ro:3turism
+nb:kunstverk
+fi:rautatieasema
 
 tourism-viewpoint
 en:4viewpoint|tourism|sights
@@ -646,6 +775,11 @@ ar:أماكن مراقبة|سياحة|مناظر
 da:4synspunkt|turisme|sightseeing|seværdigheder
 tr:3bakış|3turizm|3görülecek yerler
 sv:4utsiktsplats|turism|sevärdheter
+vi:điểm nhìn
+id:titik pandang
+ro:3punct de vedere
+nb:3utsiktspunkt
+fi:3näköalatasanne
 
 tourism-information
 en:4tourist information|4information|sights
@@ -670,6 +804,11 @@ ar:معلومات سياحية|معلومات|مناظر|سياحة
 da:4turistinformation|turistinformation|4information|seværdigheder
 tr:4turist bilgileri|görülecek yerler
 sv:4turistinformation|4information|sevärdheter
+vi:thông tin du lịch
+id:3informasi turis
+ro:3informații turistice
+nb:3Turistinformasjon
+fi:3matkailuinfo
 
 tourism-picnic_site|amenity-bbq
 en:3picnic site|sights
@@ -694,6 +833,11 @@ ar:أماكن للرحلات|مناظر|سياحة
 da:3picnic|seværdigheder
 tr:3piknik alanı|görülecek yerler
 sv:3picknickplatser|sevärdheter
+vi:điểm cắm trại
+id:3Lokasi piknik
+ro:3Locații picnic
+nb:3rasteplasser
+fi:3piknikpaikat
 
 amenity-place_of_worship
 en:place of worship|4temple|sights
@@ -718,6 +862,11 @@ ar:مكان للعبادة|مناظر|سياحة
 da:3tempel|moske|kirke|synagoge|kultsted|sightseeing|seværdigheder
 tr:3ibadet yerleri|4tapınak|görülecek yerler
 sv:plats för tillbedjan|4tempel|sevärdheter
+vi:ghế dài
+id:tempat ibadah
+ro:3loc de cult
+nb:3gudshus
+fi:3uskonnollinen kohde
 
 tourism-museum
 en:2museum|attraction|tourism|sights
@@ -742,6 +891,11 @@ ar:متحف|أماكن الجذب|سياحة|مناظر
 da:2museum|attraktioner|turisme|seværdigheder
 tr:2müze|cazibe merkezleri|turizm|görülecek yerler
 sv:2museum|attraktion|tursim|sevärdheter
+vi:3bảo tàng
+id:3museum
+ro:3muzeu
+nb:3museum
+fi:3museo
 
 waterway-waterfall|natural-waterfall
 en:2waterfall|sights
@@ -766,6 +920,11 @@ ar:شلال|مناظر|سياحة
 da:2vandfald|seværdigheder
 tr:2şelale|görülecek yerler
 sv:2vattenfall|sevärdheter
+vi:2thác nước|điểm tham quan
+id:2air terjun|pemandangan
+ro:3cascadă|obiective
+nb:3foss|severdigheter
+fi:3vesiputous|nähtävyydet
 
 historic-memorial
 en:memorial|monument|attraction|tourism|sights
@@ -789,7 +948,12 @@ zh-Hans:纪念馆|景点
 ar:تمثال|سياحة
 da:mindested|seværdigheder
 tr:anıt|abide|cazibe merkezleri|turizm|görülecek yerler
-sv:minnesmärke|monument|attraktion|turism|sevärdheter
+sv:3minnesmärke|monument|attraktion|turism|sevärdheter
+vi:3đài tưởng niệm
+id:3tugu peringatan
+ro:3comemorare
+nb:3minnesmerke
+fi:3muistomerkki
 
 historic-monument
 en:monument|attraction|tourism|sights
@@ -814,6 +978,11 @@ ar:تمثال|أماكن الجذب|سياحة
 da:monument|seværdigheder
 tr:abide|cazibe merkezleri|turizm|görülecek yerler
 sv:monument|attraktion|tursim|sevärdheter
+vi:tượng đài
+id:monumen
+ro:monument
+nb:monument
+fi:monumentti
 
 historic-ruins
 en:ruins|attraction|tourism|sights
@@ -838,6 +1007,11 @@ ar:آثار|أماكن الجذب|سياحة|مناظر
 da:ruiner|bunker|seværdigheder|turisme
 tr:harabeler|cazibe merkezleri|turizm|görülecek yerler
 sv:ruiner|attraktion|turism|sevärdheter
+vi:phế tích
+id:reruntuhan
+ro:ruine
+nb:ruiner
+fi:rauniot
 
 historic-castle
 en:castle|attraction|tourism|sights
@@ -862,6 +1036,11 @@ ar:قلعةأماكن الجذب|سياحة|مناظر
 da:slot|seværdigheder|turisme
 tr:kale|cazibe merkezleri|turizm|görülecek yerler
 sv:slott|attraktion|turism|sevärdheter
+vi:pháo đài
+id:kastel
+ro:castel
+nb:slott
+fi:linna
 
 historic-archaeological_site
 en:archaeological site|attraction|tourism|sights
@@ -886,6 +1065,11 @@ ar:موقع أثري|أماكن الجذب|سياحة|مناظر
 da:arkæologisk sted|seværdigheder|turisme
 tr:arkeolojik alan|cazibe merkezleri|turizm|görülecek yerler
 sv:arkeologisk plats|attraktion|turism|sevärdheter
+vi:điểm khảo cổ
+id:situs arkeologi
+ro:sit arheologic
+nb:arkeologisk område
+fi:arkeologinen kohde
 
 leisure-garden
 en:2garden|sights
@@ -910,6 +1094,11 @@ ar:بستان|مناظر|سياحة
 da:2have|seværdigheder
 tr:2bahçe|görülecek yerler
 sv:2trädgård|sevärdheter
+vi:điểm khảo cổ
+id:situs arkeologi
+ro:sit arheologic
+nb:hage
+fi:puutarha
 
 amenity-bench
 en:bench
@@ -933,6 +1122,11 @@ ar:مقعد طويل
 da:bænk
 tr:bank
 sv:bänk
+vi:xe đạp
+id:bangku panjang
+ro:bancă
+nb:benk
+fi:penkki
 
 amenity-bicycle_rental
 en:4bicycle rental|cycle|bike|3rental
@@ -957,6 +1151,11 @@ ar:دراجة هوائية
 da:4cykel
 tr:4bisiklet
 sv:4cykeluthyrning|cykel|cykel|3uthyrning
+vi:thuê ô tô
+id:sepeda
+ro:bicicletă
+nb:bilutleie
+fi:polkupyörä
 
 amenity-car_sharing|amenity-car_rental
 en:3car rental|car|rental|sharing
@@ -981,6 +1180,11 @@ ar:تأجير سيارات|سيارة
 da:4biludlejning|bil
 tr:3araç kiralama|araba
 sv:3biluthyrning|bil|uthyrning|delning
+vi:ô tô
+id:rental mobil
+ro:închiriere mașini
+nb:bilutleie
+fi:autovuokraamo
 
 amenity-cinema
 en:3cinema|entertainment
@@ -1005,6 +1209,11 @@ ar:سينيما|التسلية
 da:3biograf
 tr:3sinema|eğlence
 sv:3bio|underhållning
+vi:rạp chiếu phim
+id:bioskop
+ro:cinema
+nb:kino
+fi:elokuvateatteri
 
 amenity-theatre
 en:3theatre|theater|entertainment
@@ -1029,6 +1238,11 @@ ar:مسرح|التسلية
 da:3teater
 tr:3tiyatro|eğlence
 sv:3teater|teater|underhållning
+vi:điểm trú ẩn
+id:teater
+ro:teatru
+nb:teater
+fi:teatteri
 
 amenity-nightclub
 en:3nightclub|3disco|dance|entertainment
@@ -1053,6 +1267,11 @@ ar:نادي ليلي|رقص|التسلية
 da:3natklub|dans|danseklub
 tr:3gece kulübü|dans|eğlence
 sv:3nattklubb|3disco|dans|underhållning
+vi:câu lạc bộ đêm
+id:kelab malam
+ro:club de noapte
+nb:nattklubb
+fi:yökerho
 
 amenity-brothel
 en:brothel|entertainment
@@ -1077,6 +1296,11 @@ ar:دعارة|لتسلية
 da:bordel|underholdning
 tr:genelev|eğlence
 sv:bordell|underhållning
+vi:giải trí
+id:hiburan
+ro:divertisment
+nb:bordell
+fi:bordelli
 
 amenity-casino
 en:casino|entertainment
@@ -1101,6 +1325,11 @@ ar:اكازينو|لتسلية
 da:kasino|underholdning
 tr:casino|eğlence
 sv:kasino|underhållning
+vi:giải trí
+id:hiburan
+ro:divertisment
+nb:kasino
+fi:casino
 
 amenity-college
 en:college
@@ -1125,6 +1354,12 @@ ar:كلية
 da:universitet|college|gymnasium
 tr:kolej
 sv:högskola
+vi:trường đại học
+id:kampus
+ro:colegiu
+nb:høyskole
+fi:college
+
 
 amenity-drinking_water
 en:4drinking water
@@ -1149,6 +1384,11 @@ ar:مياه الشرب
 da:3vand|4drikkevand
 tr:4içme suyu
 sv:4dricksvatten
+vi:nước uống
+id:air minum
+ro:apă de băut
+nb:drikkevann
+fi:juomavesi
 
 amenity-fire_station
 en:fire station
@@ -1173,6 +1413,11 @@ ar:محطة إطفائية
 da:2brandstation
 tr:itfaiye
 sv:brandstation
+vi:trạm cứu hỏa
+id:kantor pemadam kebakaran
+ro:unitate de pompieri
+nb:Brannstasjon
+fi:paloasema
 
 amenity-fountain
 en:fountain
@@ -1197,6 +1442,11 @@ ar:نافورة
 da:3springvand|fontæne
 tr:çeşme
 sv:fontän
+vi:đài phun nước
+id:air mancur
+ro:fântână
+nb:fontene
+fi:lähde
 
 amenity-grave_yard|landuse-cemetery
 en:graveyard
@@ -1221,6 +1471,11 @@ ar:مقبرة
 da:kirkegård|gravsted
 tr:3mezarlık
 sv:kyrkogård
+vi:bãi tha ma
+id:pemakaman
+ro:cimitir
+nb:gravplass
+fi:hautausmaa
 
 amenity-hospital|amenity-doctors
 en:3hospital|clinic|3doctor
@@ -1245,6 +1500,11 @@ ar:المستشفى|عيادة
 da:3hospital|3klinik
 tr:3hastane|3klinik|doktor
 sv:3sjukhus|klinik|3läkare
+vi:bệnh viện
+id:rumah sakit
+ro:spital
+nb:sykehus
+fi:sairaala
 
 amenity-hunting_stand
 en:hunting stand
@@ -1268,6 +1528,11 @@ ar:منصة صيد
 da:jagt|jagtsted
 tr:avlanma alanı
 sv:jakttorn
+vi:điểm săn bắn
+id:lokasi berburu
+ro:stand de vânătoare
+nb:jaktpost
+fi:metsästyspaikka
 
 amenity-kindergarten
 en:kindergarten
@@ -1292,6 +1557,11 @@ ar:رياض الأطفال
 da:4børnehave
 tr:4anaokulu
 sv:förskola
+vi:mẫu giáo
+id:taman kanak-kanak
+ro:grădiniță
+nb:barnehage
+fi:päiväkoti
 
 amenity-library
 en:3library
@@ -1316,6 +1586,11 @@ ar:مكتبة
 da:3bibliotek
 tr:3kütüphane
 sv:3bibliotek
+vi:thư viện
+id:perpustakaan
+ro:bibliotecă
+nb:bibliotek
+fi:kirjasto
 
 amenity-parking
 en:3parking
@@ -1340,6 +1615,11 @@ ar:الاصطفاف
 da:3parkering
 tr:3otopark
 sv:3parkering
+vi:đỗ xe
+id:parkir
+ro:parcare
+nb:parkering
+fi:parkkipaikka
 
 amenity-pharmacy
 en:3pharmacy|3drugstore|apothecary|dispensary
@@ -1364,6 +1644,11 @@ ar:الصيدلية
 da:3apotek
 tr:3eczane
 sv:3apotek|3apotek|apotekare|apotek
+vi:bệnh viện
+id:apotek
+ro:farmacie
+nb:apotek
+fi:apteekki
 
 amenity-post_box
 en:3postbox|post
@@ -1388,6 +1673,11 @@ ar:صندوق بريد|البريد
 da:3postboks|3postboks|p/o|post
 tr:3posta kutusu|posta
 sv:3postlåda|post
+vi:bưu điện
+id:pos
+ro:poştă
+nb:postboks
+fi:postilaatikko
 
 amenity-post_office
 en:3post
@@ -1412,6 +1702,11 @@ ar:البريد
 da:3post
 tr:3postane|posta
 sv:3post
+vi:bưu điện
+id:pos
+ro:poştă
+nb:post
+fi:posti
 
 amenity-recycling|amenity-waste_disposal
 en:recycling|trash|bin|garbage
@@ -1436,6 +1731,11 @@ ar:تدوير
 da:genbrug|skrald
 tr:geri dönüşüm|çöp|çöplük
 sv:återvinning|skräp|soptunna|avfall
+vi:tái chế
+id:daur ulang
+ro:reciclare
+nb:resirkulering
+fi:kierrätys
 
 amenity-school
 en:3school
@@ -1460,6 +1760,11 @@ ar:مدرسة
 da:2skole
 tr:3okul
 sv:3skola
+vi:rác
+id:sekolah
+ro:școală
+nb:skole
+fi:koulu
 
 amenity-shelter
 en:shelter
@@ -1484,6 +1789,11 @@ ar:مأوى
 da:hjem|ly|tilflugtssted
 tr:barınak
 sv:logi
+vi:trường học
+id:tempat penampungan
+ro:adăpost
+nb:tilfluktsrom
+fi:turvapaikka
 
 amenity-telephone
 en:2phone
@@ -1508,6 +1818,11 @@ ar:الهاتف
 da:2telefon
 tr:2telefon
 sv:2telefon
+vi:Điện thoại
+id:telepon
+ro:telefon
+nb:telefon
+fi:puhelin
 
 amenity-toilets
 en:3toilet|wc
@@ -1532,6 +1847,11 @@ ar:الحمام
 da:3toilet
 tr:3tuvalet
 sv:3toalett
+vi:nhà vệ sinh
+id:toilet
+ro:toaletă
+nb:toalett
+fi:wc
 
 amenity-university
 en:4university
@@ -1556,6 +1876,11 @@ ar:جامعة
 da:4universitet
 tr:4üniversite
 sv:4universitet
+vi:nhà hát
+id:universitas
+ro:universitate
+nb:universitet
+fi:yliopisto
 
 place-continent
 en:continent
@@ -1580,6 +1905,11 @@ ar:قارة
 da:kontinent
 tr:kıta
 sv:kontinent
+vi:trường đại học
+id:benua
+ro:continent
+nb:kontinent
+fi:maanosa
 
 place-country
 en:country
@@ -1604,6 +1934,11 @@ ar:دولة
 da:land
 tr:ülke
 sv:land
+vi:trường đại học
+id:benua
+ro:continent
+nb:land
+fi:maa
 
 place-city
 en:city|town
@@ -1628,6 +1963,11 @@ ar:مدينة
 da:by|stad
 tr:şehir|kasaba
 sv:stad|stad
+vi:đất nước
+id:kota
+ro:municipiu
+nb:by
+fi:kaupunki
 
 place-town
 en:town|city
@@ -1652,6 +1992,11 @@ ar:بلدة
 da:by|stad
 tr:kasaba
 sv:stad|stad
+vi:thành phố
+id:kota
+ro:oraș
+nb:by
+fi:kaupunki
 
 place-city-capital
 en:capital|city
@@ -1676,6 +2021,11 @@ ar:مدينة
 da:kapital
 tr:sermaye
 sv:huvudstad|stad
+vi:thủ đô
+id:ibu kota
+ro:capitală
+nb:hovedstad
+fi:pääkaupunki
 
 place-county
 en:county
@@ -1700,6 +2050,11 @@ ar:مقاطعة
 da:amt
 tr:kırsal kesim
 sv:land
+vi:thị trấn
+id:kabupaten
+ro:județ
+nb:fylke
+fi:lääni
 
 place-state
 en:state|province
@@ -1724,6 +2079,11 @@ ar:محافظة
 da:stat|provins
 tr:eyalet
 sv:stat|provins
+vi:hạt
+id:negara bagian
+ro:stat
+nb:stat
+fi:lääni
 
 place-region
 en:region
@@ -1748,6 +2108,11 @@ ar:منطقة
 da:region
 tr:bölge
 sv:region
+vi:vùng
+id:wilayah
+ro:regiune
+nb:region
+fi:alue
 
 place-island|place-islet
 en:island|islet
@@ -1772,6 +2137,11 @@ ar:جزيرة
 da:ø
 tr:ada
 sv:ö
+vi:tỉnh
+id:pulau
+ro:insulă
+nb:øy
+fi:saari
 
 place-suburb
 en:suburb|district
@@ -1796,6 +2166,11 @@ ar:ضاحية
 da:forstad|distrikt
 tr:banliyö|ilçe
 sv:förort|distrikt
+vi:đảo
+id:pinggiran kota
+ro:suburbie
+nb:forstad
+fi:forstad
 
 place-hamlet
 en:hamlet|village
@@ -1820,6 +2195,11 @@ ar:قرية صغيرة|قرية
 da:landsby|landsby
 tr:küçük|köy
 sv:by|by
+vi:quận
+id:dusun
+ro:cătun
+nb:landsby
+fi:pieni kylä
 
 place-village
 en:village|hamlet
@@ -1844,6 +2224,11 @@ ar:قرية|قرية صغيرة
 da:landsby|landsby
 tr:köy|küçük köy
 sv:by|by
+vi:xóm
+id:desa
+ro:sat
+nb:landsby
+fi:kylä
 
 place-locality
 en:locality
@@ -1868,6 +2253,11 @@ ar:منطقة مجاورة
 da:lokalitet|sted
 tr:semt
 sv:lokalitet
+vi:thôn
+id:wilayah
+ro:localitate
+nb:lokalitet
+fi:paikkakunta
 
 place-farm
 en:farm
@@ -1892,6 +2282,11 @@ ar:مزرعة
 da:gård
 tr:çiftlik
 sv:gård
+vi:nội hạt
+id:ladang
+ro:fermă
+nb:gård
+fi:maatila
 
 waterway-river|waterway-stream|waterway-riverbank
 en:river
@@ -1916,6 +2311,11 @@ ar:نهر
 da:flod
 tr:nehir
 sv:flod
+vi:sông
+id:sungai
+ro:râu
+nb:elv
+fi:joki
 
 waterway-canal
 en:canal
@@ -1940,6 +2340,11 @@ ar:قناة
 da:kanal
 tr:kanal
 sv:kanal
+vi:kênh
+id:kanal
+ro:canal
+nb:kanal
+fi:kanaali
 
 highway-raceway
 en:racetrack
@@ -1964,6 +2369,11 @@ ar:مسار السباق
 da:væddeløbsbane
 tr:koşu yolu
 sv:racerbana
+vi:đường đua
+id:lintasan balap
+ro:pistă de curse
+nb:løpebane
+fi:kilparata
 
 highway-path|highway-footway|highway-steps
 en:path
@@ -1988,6 +2398,11 @@ ar:طريق
 da:sti|gangsti|vej
 tr:yol
 sv:väg
+vi:đường
+id:jalur
+ro:cale
+nb:sti
+fi:polku
 
 highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-motorway_link|highway-motorway
 en:street|st|str|ave|road|rd
@@ -2012,6 +2427,11 @@ ar:شارع
 da:gade
 tr:cadde
 sv:gata|väg
+vi:phố
+id:jalan
+ro:stradă
+nb:gate
+fi:katu
 
 highway-motorway_junction
 en:3exit|3junction
@@ -2033,6 +2453,11 @@ ar:مخرج|تقاطع
 da:2udgang|kryds|vejkryds
 tr:2çıkış|3kavşak
 sv:3avfart|3korsning
+vi:lối ra
+id:keluar
+ro:ieșire
+nb:utgang|kryss
+fi:poistumistie|liittymä
 
 natural-peak
 en:peak|mountain
@@ -2057,6 +2482,11 @@ ar:قمة|جبل
 da:2bjerg|bjergtop
 tr:2zirve|dağ
 sv:bergstopp|berg
+vi:đỉnh
+id:puncak
+ro:munte
+nb:høydepunkt|fjell
+fi:huippu|vuori
 
 natural-water|landuse-basin|landuse-reservoir
 en:water
@@ -2081,6 +2511,11 @@ ar:مياه
 da:vand
 tr:su
 sv:vatten
+vi:nước
+id:air
+ro:apă
+nb:vann
+fi:vesi
 
 natural-pond
 en:pond|water
@@ -2105,6 +2540,11 @@ ar:بركة|مياه
 da:dam|vandhul
 tr:gölet|su
 sv:damm|vatten
+vi:ao
+id:kolam
+ro:heleșteu
+nb:dam|vann
+fi:lampi|vesi
 
 natural-lake
 en:lake|water
@@ -2129,6 +2569,11 @@ ar:بحيرة|مياه
 da:1sø
 tr:göl|su
 sv:sjö|vatten
+vi:hồ
+id:danau
+ro:lac
+nb:innsjø|vann
+fi:järvi|vesi
 
 natural-wood|landuse-forest
 en:forest
@@ -2153,6 +2598,11 @@ ar:غابة
 da:skov
 tr:orman
 sv:skog
+vi:rừng
+id:hutan
+ro:pădure
+nb:skog
+fi:metsä
 
 leisure-park
 en:park
@@ -2177,6 +2627,11 @@ ar:حديقة
 da:park
 tr:park
 sv:park
+vi:công viên
+id:taman
+ro:parc
+nb:park
+fi:puisto
 
 tourism-hostel
 en:3hostel|hotel|motel
@@ -2201,6 +2656,11 @@ ar:نزُل|فندق|فندق رخيص|الفندق
 da:3hostel|kro|vandrerhjem|hotel|motel
 tr:3pansiyon|otel|motel
 sv:3vandrarhem|hotell|motell
+vi:nhà khách
+id:hostel
+ro:hostel
+nb:vandrerhjem
+fi:hostelli
 
 tourism-hotel
 en:2hotel|motel
@@ -2225,6 +2685,11 @@ ar:فندق|فندق رخيص|الفندق
 da:2hotel|motel
 tr:2otel|motel
 sv:2hotell|motell
+vi:khách sạn
+id:hotel
+ro:hotel
+nb:hotell
+fi:hotelli
 
 tourism-guest_house
 en:guest house|hotel|hostel
@@ -2249,6 +2714,11 @@ ar:دار الضيافة|فندق|نزُل|الفندق
 da:gæstehus|gæstehjem|hotel|hostel
 tr:misafir evi|pansiyon|otel
 sv:gästhus|hotell|vandrarhem
+vi:nhà khách
+id:wisma tamu
+ro:pensiune
+nb:gjestehus
+fi:majatalo
 
 tourism-motel
 en:3motel|hotel|hostel
@@ -2273,6 +2743,11 @@ ar:فندق رخيص|فندق|نزُل|الفندق
 da:motel|hotel|hostel
 tr:3motel|pansiyon|otel
 sv:3motell|hotell|vandrarhem
+vi:nhà nghỉ
+id:motel
+ro:motel
+nb:motell|hotell
+fi:motelli|hotelli
 
 tourism-alpine_hut
 en:mountains lodging|hotel|hostel|alpine hut
@@ -2297,6 +2772,11 @@ ar:مساكن جبلية|فندق|الفندق
 da:bjerg logi|hotel
 tr:3dağda konaklama|otel
 sv:bergsboende|hotell|vandrarhem|fjällstuga
+vi:nhà ở trên núi
+id:penginapan di pegunungan
+ro:cabană de munte
+nb:fjellstue
+fi:vuorimajoitus
 
 shop-hairdresser
 en:3hairdresser
@@ -2321,6 +2801,11 @@ ar:مصفف شعر
 da:3frisør
 tr:3kuaför
 sv:3frisör
+vi:tiệm làm tóc
+id:penata rambut
+ro:coafor
+nb:frisør
+fi:kampaamo
 
 aeroway-airport|aeroway-aerodrome
 en:3airport|3plane
@@ -2345,6 +2830,11 @@ ar:مطار|طائرة
 da:3lufthavn|fly
 tr:3havaalanıuçak|
 sv:3flygplats|3flygplan
+vi:sân bay
+id:bandar udara
+ro:aeroport
+nb:flyplass
+fi:lentokenttä
 
 leisure-stadium
 en:stadium|4sport
@@ -2369,6 +2859,11 @@ ar:استاد|رياضة
 da:stadium|sport
 tr:2stadyum
 sv:stadion|4sport
+vi:sân vận động
+id:stadion
+ro:stadion
+nb:stadion
+fi:stadion
 
 leisure-playground
 en:playground
@@ -2393,6 +2888,11 @@ ar:ملعب
 da:legeplads
 tr:oyun alanı
 sv:lekplats
+vi:sân chơi
+id:taman bermain
+ro:loc de joacă
+nb:lekeplass
+fi:leikkikenttä
 
 leisure-sports_centre
 en:sports center|sport
@@ -2417,6 +2917,11 @@ ar:رياضة
 da:sport
 tr:spor
 sv:sportcenter|sport
+vi:thể thao
+id:olahraga
+ro:sport
+nb:sportssenter
+fi:urheilukeskus
 
 leisure-golf_course
 en:golf course|sport
@@ -2441,6 +2946,11 @@ ar:ملعب جولف|
 da:golf|golfbane
 tr:golf sahası|spor
 sv:golfbana|sport
+vi:sân gôn
+id:lapangan golf
+ro:teren de golf
+nb:golfbane
+fi:golf-rata
 
 leisure-pitch
 en:pitch|sport
@@ -2465,6 +2975,11 @@ ar:ميدان اللعب|رياضة
 da:teltplads|fiskested|fodboldbane|bane|sportsplads
 tr:alan|spor
 sv:bana|sport
+vi:đường pích
+id:lapangan
+ro:gazon
+nb:sportssenter
+fi:nimikkopaikka
 
 leisure-swimming_pool
 en:4swimming pool|sport
@@ -2489,6 +3004,11 @@ ar:حوض سباحة|رياضة
 da:2pool|svømmingpool|swimmingpool
 tr:2yüzme havuzu|spor
 sv:4simbassäng|sport
+vi:bể bơi
+id:kolam renang
+ro:piscină
+nb:svømmebasseng
+fi:uima-allas
 
 building|building-address
 en:building
@@ -2513,6 +3033,11 @@ ar:مبنى
 da:2bygning
 tr:bina
 sv:byggnad
+vi:tòa nhà
+id:gedung
+ro:clădire
+nb:bygning
+fi:rakennus
 
 amenity-police
 en:4police
@@ -2537,6 +3062,11 @@ ar:الشرطة
 da:4politi
 tr:3polis
 sv:4polis
+vi:cảnh sát
+id:polisi
+ro:poliție
+nb:politi
+fi:poliisi
 
 amenity-embassy
 en:4embassy
@@ -2561,6 +3091,11 @@ ar:سفارة
 da:ambassade
 tr:4büyükelçilik
 sv:4ambassad
+vi:đại sứ quán
+id:kedutaan
+ro:ambasadă
+nb:ambassade
+fi:suurlähetystö
 
 natural-bay
 en:bay
@@ -2585,6 +3120,11 @@ ar:خليج
 da:bugt|havbugt
 tr:koy
 sv:bukt
+vi:vịnh
+id:teluk
+ro:golf
+nb:bukt
+fi:lahti
 
 natural-spring
 en:spring
@@ -2609,8 +3149,11 @@ ar:خليجc
 da:springflod|kilde
 tr:pınar
 sv:vattenkälla
-
-
+vi:suối
+id:mata air
+ro:primăvară
+nb:vår
+fi:lähde
 
 shop-car_repair
 en:3car repair shop|4service station|auto
@@ -2635,6 +3178,11 @@ ar:محل صيانة السيارات|محطة خدمات
 da:3garage|3bilværksted|service station
 tr:3oto tamir dükkanı|servis istasyonu|araba
 sv:3 bilreparatör|4servicestation|bil
+vi:cửa hàng sửa chữa ô tô
+id:bengkel mobil
+ro:atelier de reparații auto
+nb:bilverksted
+fi:autokorjaamo
 
 tourism-camp_site
 en:4camping|campsite|campground
@@ -2659,6 +3207,11 @@ ar:تخييم|مكان التخييم|أرض التخييم
 da:camping|campingplads|teltplads|lejrplads
 tr:2kamp alanı|kamp|kamp yeri
 sv:4camping|campingplats|campingområde
+vi:cắm trại
+id:perkemahan
+ro:camping
+nb:camping
+fi:retkeily
 
 tourism-caravan_site
 en:4caravan site|RV site
@@ -2683,6 +3236,11 @@ ar:موقع البيت المتنقل
 da:campingvogn|husvogn
 tr:4karavan alanı
 sv:4husvagnsplats
+vi:khu lễ hội hóa trang
+id:lokasi perkemahan
+ro:teren pentru campare
+nb:camping
+fi:retkeily
 
 office|office-company|office-government
 en:3office|company
@@ -2707,6 +3265,11 @@ ar:مكتب|شركة
 da:2kontor|firma|virksomhed
 tr:3ofis|şirket
 sv:3kontor|företag
+vi:văn phòng
+id:kantor
+ro:birou
+nb:kontor
+fi:toimisto
 
 area:highway-footway|area:highway-pedestrian|area:highway-steps
 en:3square
@@ -2731,6 +3294,11 @@ ar:ساحة
 da:3plads|torv|torveplads
 tr:3meydan
 sv:3torg
+vi:quảng trường
+id:alun-alun
+ro:piață
+nb:plass
+fi:aukio
 
 place-sea
 en:sea
@@ -2755,6 +3323,11 @@ ar:يكون
 da:er
 tr:deniz
 sv:hav
+vi:biển
+id:laut
+ro:mare
+nb:sjø
+fi:meri
 
 place-ocean
 en:ocean
@@ -2779,6 +3352,11 @@ ar:المحيط
 da:ocean
 tr:okyanus
 sv:ocean
+vi:đại dương
+id:samudra
+ro:ocean
+nb:hav
+fi:valtameri
 
 internet_access|internet_access-wlan
 en:WiFi|3Internet
@@ -2803,6 +3381,11 @@ ar:واي فاي|الإنترنت|WiFi|3Internet
 da:WiFi|3Internet
 tr:WiFi|3Internet
 sv:WiFi|3Internet
+vi:WiFi|3Internet
+id:WiFi|3Internet
+ro:WiFi|3Internet
+nb:WiFi|3Internet
+fi:WiFi|3Internet
 
 natural-beach
 en:beach
@@ -2826,7 +3409,17 @@ ar:شاطئ
 da:strand
 tr:plaj
 sv:stranden
+vi:bãi biển
+id:pantai
+ro:plajă
+nb:strand
+fi:ranta
 
 highway-speed_camera
 en:3speed camera
 ru:3камера скорости
+vi:camera tốc độ
+id:kamera kecepatan
+ro:radar
+nb:fartskamera
+fi:nopeuskamera
