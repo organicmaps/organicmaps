@@ -24,10 +24,11 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
 
   private final Logger mLog = StubLogger.get();
 
+  private boolean mIsRenderingInitialized;
   private EglWrapper mEglWrapper;
   protected SurfaceHolder mCachedSurfaceHolder;
-  private int mSurfaceWidth;
-  private int mSurfaceHeight;
+  protected int mSurfaceWidth;
+  protected int mSurfaceHeight;
 
   private int mDisplayDensity;
 
@@ -80,6 +81,8 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
     mDisplayDensity = metrics.densityDpi;
     mIsNativeLaunched = true;
     onCreateNative();
+    if (getActivity().isChangingConfigurations())
+      mIsRenderingInitialized = true;
   }
 
   @Override
@@ -103,7 +106,6 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
       {
         mCachedSurfaceHolder = holder;
         onSurfaceCreatedNative(mSurfaceWidth, mSurfaceHeight, mDisplayDensity);
-        applyWidgetPivots(mSurfaceHeight, mSurfaceWidth);
       }
 
       @Override
@@ -113,7 +115,8 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
         mSurfaceWidth = width;
         mSurfaceHeight = height;
         onSurfaceChangedNative(mSurfaceWidth, mSurfaceHeight, mDisplayDensity);
-        applyWidgetPivots(mSurfaceHeight, mSurfaceWidth);
+        if (mIsRenderingInitialized)
+          applyWidgetPivots();
       }
 
       @Override
@@ -125,7 +128,10 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
     });
   }
 
-  protected abstract void applyWidgetPivots(final int mapHeight, final int mapWidth);
+  /**
+   * Implement to position map widgets.
+   */
+  protected abstract void applyWidgetPivots();
 
   @Override
   public void onStart()
@@ -161,8 +167,11 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
   {
     super.onStop();
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB || !getActivity().isChangingConfigurations())
+    {
       // if configuration is changed - EGL shouldn't be reinitialized
+      mIsRenderingInitialized = false;
       onStopNative();
+    }
   }
 
   @Override
@@ -279,7 +288,16 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
   }
 
   @SuppressWarnings("UnusedDeclaration")
-  public void OnRenderingInitialized() {}
+  public void OnRenderingInitialized()
+  {
+    mIsRenderingInitialized = true;
+    applyWidgetPivots();
+  }
+
+  public boolean isRenderingInitialized()
+  {
+    return mIsRenderingInitialized;
+  }
 
   @SuppressWarnings("UnusedDeclaration")
   public void ReportUnsupported()

@@ -22,8 +22,6 @@ public class MapFragment extends NvEventQueueFragment
 
   public static final String FRAGMENT_TAG = MapFragment.class.getSimpleName();
 
-  private boolean mIsRenderingInitialized;
-
   protected native void nativeStorageConnected();
 
   protected native void nativeStorageDisconnected();
@@ -63,44 +61,24 @@ public class MapFragment extends NvEventQueueFragment
   }
 
   @Override
-  public void onStop()
-  {
-    super.onStop();
-    mIsRenderingInitialized = false;
-  }
-
-  @Override
-  protected void applyWidgetPivots(final int mapHeight, final int mapWidth)
+  protected void applyWidgetPivots()
   {
     final Resources resources = getResources();
-    // TODO need a delay here to make call work
-    getView().postDelayed(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        Framework.setWidgetPivot(Framework.MAP_WIDGET_RULER, mapWidth - resources.getDimensionPixelOffset(R.dimen.margin_right_ruler), mapHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_ruler));
-        Framework.setWidgetPivot(Framework.MAP_WIDGET_COMPASS, resources.getDimensionPixelOffset(R.dimen.margin_left_compass), mapHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_compass));
-      }
-    }, 300);
-  }
-
-  public boolean isRenderingInitialized()
-  {
-    return mIsRenderingInitialized;
+    Framework.setWidgetPivot(Framework.MAP_WIDGET_RULER, mSurfaceWidth - resources.getDimensionPixelOffset(R.dimen.margin_right_ruler), mSurfaceHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_ruler));
+    Framework.setWidgetPivot(Framework.MAP_WIDGET_COMPASS, resources.getDimensionPixelOffset(R.dimen.margin_left_compass), mSurfaceHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_compass));
   }
 
   @Override
   public void OnRenderingInitialized()
   {
-    mIsRenderingInitialized = true;
-
     final Activity host = getActivity();
     if (host != null && host instanceof MapRenderingListener)
     {
       final MapRenderingListener listener = (MapRenderingListener) host;
       listener.onRenderingInitialized();
     }
+
+    super.OnRenderingInitialized();
   }
 
   @Override
