@@ -21,7 +21,7 @@ module Twine
                   return match[1]
               end
           end
-
+          
         return
       end
 
@@ -106,7 +106,7 @@ module Twine
                   end
                   printed_section = true
                 end
-
+                
                 basetrans = row.translated_string_for_lang(default_lang)
 
                 key = row.key

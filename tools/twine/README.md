@@ -47,7 +47,7 @@ Whitepace in this file is mostly ignored. If you absolutely need to put spaces a
 			en = No
 			fr = Non
 			ja = いいえ
-	
+
 	[[Errors]]
 		[path_not_found_error]
 			en = The file '%@' could not be found.
@@ -57,7 +57,7 @@ Whitepace in this file is mostly ignored. If you absolutely need to put spaces a
 			en = The network is currently unavailable.
 			tags = app1
 			comment = An error describing when the device can not connect to the internet.
-	
+
 	[[Escaping Example]]
 		[list_item_separator]
 			en = `, `
@@ -77,13 +77,14 @@ Twine currently supports the following formats for outputting strings:
 * [Gettext PO Files][gettextpo] (format: gettext)
 * [jquery-localize Language Files][jquerylocalize] (format: jquery)
 * [Django PO Files][djangopo] (format: django)
+* [Tizen String Resources][tizen] (format: tizen)
 
 If you would like to enable twine to create language files in another format, create an appropriate formatter in `lib/twine/formatters`.
 
 ## Usage
 
 	Usage: twine COMMAND STRINGS_FILE [INPUT_OR_OUTPUT_PATH] [--lang LANG1,LANG2...] [--tags TAG1,TAG2,TAG3...] [--format FORMAT]
-	
+
 ### Commands
 
 #### `generate-string-file`
@@ -129,9 +130,15 @@ This command is a convenient way of taking a zip file and executing the `consume
 
 #### `generate-report`
 
-This command gives you useful information about your strings. It will tell you how many strings you have, how many have been translated into each language, and whether your master strings data file has any duplicate string keys.
+This command gives you useful information about your strings. It will tell you how many strings you have and how many have been translated into each language.
 
 	$ twine generate-report /path/to/strings.txt
+
+#### `validate-strings-file`
+
+This command validates that the strings file can be parsed, contains no duplicate keys, and that all strings have at least one tag. It will exit with a non-zero status code if any of those criteria are not met.
+
+	$ twine validate-strings-file /path/to/strings.txt
 
 ## Creating Your First strings.txt File
 
@@ -141,6 +148,8 @@ The easiest way to create your first strings.txt file is to run the `consume-all
 	$ twine consume-all-string-files strings.txt Resources/Locales --developer-language en --consume-all --consume-comments
 
 ## Twine and Your Build Process
+
+### Xcode
 
 It is easy to incorporate Twine right into your iOS and OS X app build processes.
 
@@ -158,22 +167,62 @@ It is easy to incorporate Twine right into your iOS and OS X app build processes
 
 Now, whenever you build your application, Xcode will automatically invoke Twine to make sure that your `.strings` files are up-to-date.
 
+### Android Studio/Gradle
+
+Add the following task at the top level in app/build.gradle:
+```
+task generateStrings {
+    String script = 'if hash twine 2>/dev/null; then twine generate-string-file strings.txt ./src/main/res/values/generated_strings.xml; fi'
+    exec {
+        executable "sh"
+        args '-c', script
+    }
+}
+```
+
+Now every time you build your app the strings are generated from the twine file.
+
+
 ## User Interface
 
 * [Twine TextMate 2 Bundle](https://github.com/mobiata/twine.tmbundle) — This [TextMate 2](https://github.com/textmate/textmate) bundle will make it easier for you to work with Twine strings files. In particular, it lets you use code folding to easily collapse and expand both strings and sections.
 * [twine_ui](https://github.com/Daij-Djan/twine_ui) — A user interface for Twine written by [Dominik Pich](https://github.com/Daij-Djan/). Consider using this if you would prefer to use Twine without dropping to a command line.
+
+## Plugin Support
+
+Twine supports a basic plugin infrastructure, allowing third-party code to provide support for additional formatters. Twine will read a yaml config file specifying which plugins to load from three locations.
+
+0. `./twine.yml`    The current working directory
+0. `~/.twine`       The home directory
+0. `/etc/twine.yml` The etc directory
+
+Plugins are specified as values for the `gems` key. The following is an example config:
+
+```
+gems: appium_twine
+```
+
+Multiple gems can also be specfied in the yaml file.
+
+```
+gems: [appium_twine, some_other_plugin]
+```
+
+[appium_twine](https://github.com/appium/appium_twine) is a sample plugin used to provide a C# formatter.
 
 ## Contributors
 
 Many thanks to all of the contributors to the Twine project, including:
 
 * [Blake Watters](https://github.com/blakewatters)
+* [bootstraponline](https://github.com/bootstraponline)
 * [Ishitoya Kentaro](https://github.com/kent013)
 * [Joseph Earl](https://github.com/JosephEarl)
 * [Kevin Everets](https://github.com/keverets)
 * [Kevin Wood](https://github.com/kwood)
 * [Mohammad Hejazi](https://github.com/MohammadHejazi)
 * [Robert Guo](http://www.robertguo.me/)
+* [Sergey Pisarchik](https://github.com/SergeyPisarchik)
 * [Shai Shamir](https://github.com/pichirichi)
 
 
@@ -185,3 +234,4 @@ Many thanks to all of the contributors to the Twine project, including:
 [gettextpo]: http://www.gnu.org/savannah-checkouts/gnu/gettext/manual/html_node/PO-Files.html
 [jquerylocalize]: https://github.com/coderifous/jquery-localize
 [djangopo]: https://docs.djangoproject.com/en/dev/topics/i18n/translation/
+[tizen]: https://developer.tizen.org/documentation/articles/localization

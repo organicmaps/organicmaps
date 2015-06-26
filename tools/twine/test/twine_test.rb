@@ -60,6 +60,14 @@ class TwineTest < Test::Unit::TestCase
     end
   end
 
+  def test_generate_string_file_8
+    Dir.mktmpdir do |dir|
+      output_path = File.join(dir, 'fr.xml')
+      Twine::Runner.run(%W(generate-string-file --format tizen test/fixtures/strings-1.txt #{output_path} --include-untranslated))
+      assert_equal(ERB.new(File.read('test/fixtures/test-output-12.txt')).result, File.read(output_path))
+    end
+  end
+
   def test_consume_string_file_1
     Dir.mktmpdir do |dir|
       output_path = File.join(dir, 'strings.txt')
@@ -110,5 +118,21 @@ class TwineTest < Test::Unit::TestCase
 
   def test_generate_report_1
     Twine::Runner.run(%w(generate-report test/fixtures/strings-1.txt))
+  end
+
+  def test_json_line_breaks_consume
+    Dir.mktmpdir do |dir|
+      output_path = File.join(dir, 'strings.txt')
+      Twine::Runner.run(%W(consume-string-file test/fixtures/test-json-line-breaks/line-breaks.txt test/fixtures/test-json-line-breaks/line-breaks.json -l fr -o #{output_path}))
+      assert_equal(File.read('test/fixtures/test-json-line-breaks/consumed.txt'), File.read(output_path))
+    end
+  end
+
+  def test_json_line_breaks_generate
+    Dir.mktmpdir do |dir|
+      output_path = File.join(dir, 'en.json')
+      Twine::Runner.run(%W(generate-string-file test/fixtures/test-json-line-breaks/line-breaks.txt #{output_path}))
+      assert_equal(File.read('test/fixtures/test-json-line-breaks/generated.json'), File.read(output_path))
+    end
   end
 end

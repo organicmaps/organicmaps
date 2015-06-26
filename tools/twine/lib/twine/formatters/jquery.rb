@@ -35,6 +35,7 @@ module Twine
         open(path) do |io|
           json = JSON.load(io)
           json.each do |key, value|
+            value.gsub!("\n","\\n")
             set_translation_for_key(key, lang, value)
           end
         end

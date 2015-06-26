@@ -31,7 +31,9 @@ module Twine
         opts.separator ''
         opts.separator 'consume-loc-drop -- Consumes an archive of translated files. This archive should be in the same format as the one created by the generate-loc-drop command.'
         opts.separator ''
-        opts.separator 'generate-report -- Generates a report containing data about your strings. For example, it will tell you if you have any duplicate strings or if any of your strings are missing tags. In addition, it will tell you how many strings you have and how many of those strings have been translated into each language.'
+        opts.separator 'generate-report -- Generates a report containing data about your strings. It will tell you how many strings you have and how many of those strings have been translated into each language.'
+        opts.separator ''
+        opts.separator 'validate-strings-file -- Validates that the given strings file is parseable, contains no duplicates, and that every string has a tag. Exits with a non-zero exit code if those criteria are not met.'
         opts.separator ''
         opts.separator 'General Options:'
         opts.separator ''
@@ -45,7 +47,7 @@ module Twine
           @options[:untagged] = true
         end
         formats = []
-        Formatters::FORMATTERS.each do |formatter|
+        Formatters.formatters.each do |formatter|
           formats << formatter::FORMAT_NAME
         end
         opts.on('-f', '--format FORMAT', "The file format to read or write (#{formats.join(', ')}). Additional formatters can be placed in the formats/ directory.") do |format|
@@ -93,10 +95,11 @@ module Twine
         opts.separator '> twine generate-string-file strings.txt ko.xml --tags FT'
         opts.separator '> twine generate-all-string-files strings.txt Resources/Locales/ --tags FT,FB'
         opts.separator '> twine consume-string-file strings.txt ja.strings'
-        opts.separator '> twine consume-all-string-files strings.txt Resources/Locales/ --developer-language en'
+        opts.separator '> twine consume-all-string-files strings.txt Resources/Locales/ --developer-language en --tags DefaultTag1,DefaultTag2'
         opts.separator '> twine generate-loc-drop strings.txt LocDrop5.zip --tags FT,FB --format android --lang de,en,en-GB,ja,ko'
         opts.separator '> twine consume-loc-drop strings.txt LocDrop5.zip'
         opts.separator '> twine generate-report strings.txt'
+        opts.separator '> twine validate-strings-file strings.txt'
       end
       parser.parse! @args
 
@@ -177,6 +180,10 @@ module Twine
           raise Twine::Error.new 'Not enough arguments.'
         end
       when 'generate-report'
+        if @args.length > 2
+          raise Twine::Error.new "Unknown argument: #{@args[2]}"
+        end
+      when 'validate-strings-file'
         if @args.length > 2
           raise Twine::Error.new "Unknown argument: #{@args[2]}"
         end

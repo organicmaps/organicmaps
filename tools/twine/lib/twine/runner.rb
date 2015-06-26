@@ -1,7 +1,9 @@
 require 'tmpdir'
 
+Twine::Plugin.new # Initialize plugins first in Runner.
+
 module Twine
-  VALID_COMMANDS = ['generate-string-file', 'generate-all-string-files', 'consume-string-file', 'consume-all-string-files', 'generate-loc-drop', 'consume-loc-drop', 'generate-report']
+  VALID_COMMANDS = ['generate-string-file', 'generate-all-string-files', 'consume-string-file', 'consume-all-string-files', 'generate-loc-drop', 'consume-loc-drop', 'generate-report', 'validate-strings-file']
 
   class Runner
     def initialize(args)
@@ -48,6 +50,8 @@ module Twine
         consume_loc_drop
       when 'generate-report'
         generate_report
+      when 'validate-strings-file'
+        validate_strings_file
       end
     end
 
@@ -208,12 +212,33 @@ module Twine
     def generate_report
       total_strings = 0
       strings_per_lang = {}
-      all_keys = Set.new
-      duplicate_keys = Set.new
-      keys_without_tags = Set.new
       @strings.language_codes.each do |code|
         strings_per_lang[code] = 0
       end
+
+      @strings.sections.each do |section|
+        section.rows.each do |row|
+          total_strings += 1
+
+          row.translations.each_key do |code|
+            strings_per_lang[code] += 1
+          end
+        end
+      end
+
+      # Print the report.
+      puts "Total number of strings = #{total_strings}"
+      @strings.language_codes.each do |code|
+        puts "#{code}: #{strings_per_lang[code]}"
+      end
+    end
+
+    def validate_strings_file
+      total_strings = 0
+      all_keys = Set.new
+      duplicate_keys = Set.new
+      keys_without_tags = Set.new
+      errors = []
 
       @strings.sections.each do |section|
         section.rows.each do |row|
@@ -225,37 +250,29 @@ module Twine
             all_keys.add(row.key)
           end
 
-          row.translations.each_key do |code|
-            strings_per_lang[code] += 1
-          end
-
           if row.tags == nil || row.tags.length == 0
             keys_without_tags.add(row.key)
           end
         end
       end
 
-      # Print the report.
-      puts "Total number of strings = #{total_strings}"
-      @strings.language_codes.each do |code|
-        puts "#{code}: #{strings_per_lang[code]}"
-      end
-
       if duplicate_keys.length > 0
-        puts "\nDuplicate string keys:"
-        duplicate_keys.each do |key|
-          puts key
-        end
+        error_body = duplicate_keys.to_a.join("\n  ")
+        errors << "Found duplicate string key(s):\n  #{error_body}"
       end
 
       if keys_without_tags.length == total_strings
-        puts "\nNone of your strings have tags."
+        errors << "None of your strings have tags."
       elsif keys_without_tags.length > 0
-        puts "\nStrings without tags:"
-        keys_without_tags.each do |key|
-          puts key
-        end
+        error_body = keys_without_tags.to_a.join("\n  ")
+        errors << "Found strings(s) without tags:\n  #{error_body}"
       end
+
+      if errors.length > 0
+        raise Twine::Error.new errors.join("\n\n")
+      end
+
+      puts "#{@options[:strings_file]} is valid."
     end
 
     def determine_language_given_path(path)
@@ -269,7 +286,7 @@ module Twine
 
     def determine_format_given_path(path)
       ext = File.extname(path)
-      Formatters::FORMATTERS.each do |formatter|
+      Formatters.formatters.each do |formatter|
         if formatter::EXTENSION == ext
           return formatter::FORMAT_NAME
         end
@@ -279,7 +296,7 @@ module Twine
     end
 
     def determine_format_given_directory(directory)
-      Formatters::FORMATTERS.each do |formatter|
+      Formatters.formatters.each do |formatter|
         if formatter.can_handle_directory?(directory)
           return formatter::FORMAT_NAME
         end
@@ -289,7 +306,7 @@ module Twine
     end
 
     def formatter_for_format(format)
-      Formatters::FORMATTERS.each do |formatter|
+      Formatters.formatters.each do |formatter|
         if formatter::FORMAT_NAME == format
           return formatter.new(@strings, @options)
         end

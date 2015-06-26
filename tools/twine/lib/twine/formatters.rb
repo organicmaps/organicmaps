@@ -9,6 +9,22 @@ require 'twine/formatters/tizen'
 
 module Twine
   module Formatters
-    FORMATTERS = [Formatters::Apple, Formatters::Android, Formatters::Gettext, Formatters::JQuery, Formatters::Flash, Formatters::Django, Formatters::Tizen]
+    @formatters = [Formatters::Apple, Formatters::Android, Formatters::Gettext, Formatters::JQuery, Formatters::Flash, Formatters::Django, Formatters::Tizen]
+
+    class << self
+      attr_reader :formatters
+
+      ###
+      # registers a new formatter
+      #
+      # formatter_class - the class of the formatter to register
+      #
+      # returns array of active formatters
+      #
+      def register_formatter formatter_class
+        raise "#{formatter_class} already registered" if @formatters.include? formatter_class
+        @formatters << formatter_class
+      end
+    end
   end
 end
