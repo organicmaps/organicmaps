@@ -58,8 +58,12 @@ void CleanupMapsDirectory()
       platform.GetFilesByType(subdirPath,
                               Platform::FILE_TYPE_REGULAR | Platform::FILE_TYPE_DIRECTORY, files);
       if (all_of(files.begin(), files.end(), &IsSpecialFile))
-        VERIFY(Platform::ERR_OK == Platform::RmDir(subdirPath),
+      {
+        Platform::EError const ret = Platform::RmDir(subdirPath);
+        ASSERT_EQUAL(Platform::ERR_OK, ret,
                ("Can't remove empty directory:", subdirPath, "error:", ret));
+        UNUSED_VALUE(ret);
+      }
     }
   }
 }
