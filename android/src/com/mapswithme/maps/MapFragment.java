@@ -76,7 +76,7 @@ public class MapFragment extends RenderFragment
   }
 
   @Override
-  public void OnRenderingInitialized()
+  public void onRenderingInitialized()
   {
     final Activity host = getActivity();
     if (isAdded() && host instanceof MapRenderingListener)
@@ -89,7 +89,7 @@ public class MapFragment extends RenderFragment
   }
 
   @Override
-  public void ReportUnsupported()
+  public void reportUnsupported()
   {
     getActivity().runOnUiThread(new Runnable()
     {

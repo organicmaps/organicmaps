@@ -4,7 +4,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -30,8 +29,8 @@ public abstract class RenderFragment extends BaseMwmFragment
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
     mSurfaceHolder = surfaceHolder;
-    if (IsEngineCreated())
-      AttachSurface(mSurfaceHolder.getSurface());
+    if (isEngineCreated())
+      attachSurface(mSurfaceHolder.getSurface());
     else
       InitEngine();
   }
@@ -39,7 +38,7 @@ public abstract class RenderFragment extends BaseMwmFragment
   @Override
   public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int w, int h)
   {
-    SurfaceResized(w, h);
+    surfaceResized(w, h);
   }
 
   @Override
@@ -51,11 +50,11 @@ public abstract class RenderFragment extends BaseMwmFragment
         getActivity() == null || !getActivity().isChangingConfigurations())
     {
       MWMApplication.get().clearFunctorsOnUiThread();
-      DestroyEngine();
+      destroyEngine();
     }
     else
     {
-      DetachSurface();
+      detachSurface();
     }
   }
 
@@ -112,7 +111,7 @@ public abstract class RenderFragment extends BaseMwmFragment
         final float x0 = event.getX();
         final float y0 = event.getY();
 
-        return OnTouch(action, true, false, x0, y0, 0, 0);
+        return onTouch(action, true, false, x0, y0, 0, 0);
       }
     default:
       {
@@ -123,9 +122,9 @@ public abstract class RenderFragment extends BaseMwmFragment
         final float y1 = event.getY(1);
 
         if (event.getPointerId(0) == mLastPointerId)
-          return OnTouch(action, true, true, x0, y0, x1, y1);
+          return onTouch(action, true, true, x0, y0, x1, y1);
         else
-          return OnTouch(action, true, true, x1, y1, x0, y0);
+          return onTouch(action, true, true, x1, y1, x0, y0);
       }
     }
   }
@@ -136,21 +135,22 @@ public abstract class RenderFragment extends BaseMwmFragment
   {
     if (mSurfaceHolder != null)
     {
-      if (CreateEngine(mSurfaceHolder.getSurface(), m_displayDensity))
-        OnRenderingInitialized();
+      if (createEngine(mSurfaceHolder.getSurface(), m_displayDensity))
+        onRenderingInitialized();
       else
-        ReportUnsupported();
+        reportUnsupported();
     }
   }
 
-  abstract public void OnRenderingInitialized();
-  abstract public void ReportUnsupported();
+  abstract public void onRenderingInitialized();
+  abstract public void reportUnsupported();
 
-  private native boolean CreateEngine(Surface surface, int density);
-  private native boolean IsEngineCreated();
-  private native void SurfaceResized(int w, int h);
-  private native void DestroyEngine();
-  private native void DetachSurface();
-  private native void AttachSurface(Surface surface);
-  private native boolean OnTouch(int actionType, boolean hasFirst, boolean hasSecond, float x1, float y1, float x2, float y2);
+  private native boolean createEngine(Surface surface, int density);
+  private native boolean isEngineCreated();
+  private native void surfaceResized(int w, int h);
+  private native void destroyEngine();
+  private native void detachSurface();
+  private native void attachSurface(Surface surface);
+  private native boolean onTouch(int actionType, boolean hasFirst, boolean hasSecond, float x1, float y1, float x2, float y2);
 }
+

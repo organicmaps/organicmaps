@@ -43,9 +43,7 @@ AndroidOGLContext::~AndroidOGLContext()
 {
   // Native context must exist
   if (eglDestroyContext(m_display, m_nativeContext) == EGL_FALSE)
-  {
     CHECK_EGL_CALL();
-  }
 }
 
 void AndroidOGLContext::setDefaultFramebuffer()
@@ -57,9 +55,7 @@ void AndroidOGLContext::makeCurrent()
 {
   ASSERT(m_surface != EGL_NO_SURFACE, ());
   if (eglMakeCurrent(m_display, m_surface, m_surface, m_nativeContext) == EGL_FALSE)
-  {
     CHECK_EGL_CALL();
-  }
 
   if (m_csaaUsed)
   {
@@ -76,9 +72,7 @@ void AndroidOGLContext::makeCurrent()
 void AndroidOGLContext::clearCurrent()
 {
   if (eglMakeCurrent(m_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) == EGL_FALSE)
-  {
     CHECK_EGL_CALL();
-  }
 }
 
 void AndroidOGLContext::setRenderingEnabled(bool enabled)
@@ -93,9 +87,7 @@ void AndroidOGLContext::present()
 {
   ASSERT(m_surface != EGL_NO_SURFACE, ());
   if (eglSwapBuffers(m_display, m_surface) == EGL_FALSE)
-  {
     CHECK_EGL_CALL();
-  }
 }
 
 int AndroidOGLContext::additionClearFlags()
