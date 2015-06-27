@@ -81,6 +81,13 @@ module Twine
       end
 
       def write_file(path, lang)
+        # This is a patch to correctly support Norwegian, when 'no' is specified in translations file,
+        # but by default XCode creates nb.lproj folder and 'no' translation is ignored.
+        # Strange that it works on Android even with values-nb folder name...
+        # If you change translation to nb, then it works for Apple, but stops working on Android.
+        if lang == "nb"
+          lang = "no"
+        end
         default_lang = @strings.language_codes[0]
         encoding = @options[:output_encoding] || 'UTF-8'
         File.open(path, "w:#{encoding}") do |f|
