@@ -2068,7 +2068,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nDRAPE_CONF=\"old_renderer\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\nCONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\nCONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\nif [[ \"$LOWERED_CONFIG\" == *simulator* ]]; then\nCONF=\"simulator-release\"\nelse\nCONF=\"release\"\nfi\nfi\n\nif [[ \"$LOWERED_CONFIG\" == *drape* ]]; then\necho \"Drape renderer building\"\nDRAPE_CONF=\"drape\"\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF $DRAPE_CONF";
+			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nDRAPE_CONF=\"old_renderer\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\nCONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\nCONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\nif [[ \"$LOWERED_CONFIG\" == *simulator* ]]; then\nCONF=\"simulator-release\"\nelse\nCONF=\"release\"\nfi\nfi\n\nif [[ \"$LOWERED_CONFIG\" == *drape* ]]; then\necho \"Drape renderer building\"\nDRAPE_CONF=\"drape\"\nfi\n\n# Respect \"Build for active arch only\" project setting.\nif [[ \"$ONLY_ACTIVE_ARCH\" == YES ]]; then\n  if [[ ! -z $CURRENT_ARCH ]]; then\n    VALID_ARCHS=\"$CURRENT_ARCH\"\n  fi\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF $DRAPE_CONF";
 		};
 		FA3A60E715AD5BBD00F40D20 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2082,7 +2082,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nDRAPE_CONF=\"old_renderer\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  if [[ \"$LOWERED_CONFIG\" == *simulator* ]]; then\n    CONF=\"simulator-release\"\n  else\n    CONF=\"release\"\n  fi\nfi\n\nif [[ \"$LOWERED_CONFIG\" == *drape* ]]; then\n  echo \"Drape renderer building\"\n  DRAPE_CONF=\"drape\"\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF $DRAPE_CONF";
+			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nDRAPE_CONF=\"old_renderer\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  if [[ \"$LOWERED_CONFIG\" == *simulator* ]]; then\n    CONF=\"simulator-release\"\n  else\n    CONF=\"release\"\n  fi\nfi\n\nif [[ \"$LOWERED_CONFIG\" == *drape* ]]; then\n  echo \"Drape renderer building\"\n  DRAPE_CONF=\"drape\"\nfi\n\n# Respect \"Build for active arch only\" project setting.\nif [[ \"$ONLY_ACTIVE_ARCH\" == YES ]]; then\n  if [[ ! -z $CURRENT_ARCH ]]; then\n    VALID_ARCHS=\"$CURRENT_ARCH\"\n  fi\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF $DRAPE_CONF";
 		};
 /* End PBXShellScriptBuildPhase section */
 
