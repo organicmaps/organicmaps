@@ -120,13 +120,13 @@ android {
       android.sourceSets.yandex.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
-    prestigio {
+    preinstall {
       applicationId 'com.mapswithme.maps.pro'
-      versionName = android.defaultConfig.versionName + '-Prestigio'
+      versionName = android.defaultConfig.versionName + '-Preinstall'
       buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'true'
-      android.sourceSets.prestigio.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      android.sourceSets.preinstall.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     cipherlab {
