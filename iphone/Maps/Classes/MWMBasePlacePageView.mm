@@ -79,7 +79,7 @@ extern CGFloat const kBookmarkCellHeight = 135.;
   [self layoutSubviews];
 }
 
-static CGFloat const kPlacePageTitleKoefficient = 0.6375;
+static CGFloat const kPlacePageTitleKoefficient = 0.63;
 static CGFloat const kLeftOffset = 16.;
 static CGFloat const kDirectionArrowSide = 32.;
 static CGFloat const kOffsetFromTitleToDistance = 12.;
@@ -108,7 +108,6 @@ static CGFloat const kTitleBottomOffset = 2.;
   self.titleLabel.origin = CGPointMake(kLeftOffset, topOffset);
   self.typeLabel.origin = CGPointMake(kLeftOffset, typeMinY);
 
-  [self layoutDistanceLabelWithPlacePageWidth:placePageWidth];
   [self.typeDescriptionView removeFromSuperview];
   if (isExtendedType)
     [self layoutTypeDescription];
@@ -116,6 +115,7 @@ static CGFloat const kTitleBottomOffset = 2.;
   CGFloat const typeHeight = self.typeLabel.text.length > 0 ? self.typeLabel.height : self.typeDescriptionView.height;
   self.featureTable.minY = typeMinY + typeHeight + typeBottomOffset;
   self.separatorView.minY = self.featureTable.minY - 1;
+  [self layoutDistanceLabelWithPlacePageWidth:placePageWidth];
   self.featureTable.height = self.featureTable.contentSize.height;
   self.height = typeBottomOffset + kTitleBottomOffset + self.titleLabel.height + self.typeLabel.height + self.featureTable.height;
 }
@@ -142,13 +142,11 @@ static CGFloat const kTitleBottomOffset = 2.;
   CGFloat const distanceLabelWidthPositionLeft = placePageWidth - maximumTitleWidth - kDirectionArrowSide - 2 * kLeftOffset - kOffsetFromDistanceToArrow - kOffsetFromTitleToDistance;
   self.distanceLabel.width = distanceLabelWidthPositionLeft;
   [self.distanceLabel sizeToFit];
-  CGFloat const titleCenterY = self.titleLabel.center.y;
   CGFloat const directionArrowMinX = placePageWidth - kLeftOffset - kDirectionArrowSide;
   CGFloat const distanceLabelMinX = directionArrowMinX - self.distanceLabel.width - kOffsetFromDistanceToArrow;
-  CGFloat const distanceLabelMinY = titleCenterY - self.distanceLabel.height / 2.;
-  CGFloat const directionArrowMinY = titleCenterY - kDirectionArrowSide / 2.;
-  self.distanceLabel.origin = CGPointMake(distanceLabelMinX, distanceLabelMinY);
-  self.directionArrow.center = CGPointMake(directionArrowMinX + kDirectionArrowSide / 2., directionArrowMinY + kDirectionArrowSide / 2.);
+  CGFloat const directionArrowCenterY = self.separatorView.maxY / 2.;
+  self.directionArrow.center = CGPointMake(directionArrowMinX + kDirectionArrowSide / 2., directionArrowCenterY);
+  self.distanceLabel.origin = CGPointMake(distanceLabelMinX, directionArrowCenterY - self.distanceLabel.height / 2.);
   self.directionButton.origin = self.directionArrow.origin;
 }
 

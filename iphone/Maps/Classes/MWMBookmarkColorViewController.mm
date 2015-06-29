@@ -11,6 +11,7 @@
 #import "MWMBookmarkColorCell.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
+#import "UIViewController+navigation.h"
 
 extern NSArray * const kBookmarkColorsVariant;
 
@@ -31,20 +32,9 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
   self.title = L(@"bookmark_color");
   [self.tableView registerNib:[UINib nibWithNibName:kBookmarkColorCellIdentifier bundle:nil] forCellReuseIdentifier:kBookmarkColorCellIdentifier];
   self.colorWasChanged = NO;
-  if (!self.iPadOwnerNavigationController)
-    return;
-
-  CGFloat const bottomOffset = 88.;
-  self.iPadOwnerNavigationController.view.height = self.tableView.height + bottomOffset;
-  UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
-  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
-  [backButton addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
-  [backButton setImage:backImage forState:UIControlStateNormal];
-  [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,10 +42,20 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   [super viewWillAppear:animated];
   [self configureTableViewForOrientation:self.interfaceOrientation];
   [self.tableView reloadData];
+  if (!self.iPadOwnerNavigationController)
+    return;
+
+  [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
+  CGFloat const bottomOffset = 88.;
+  self.iPadOwnerNavigationController.view.height = self.tableView.height + bottomOffset;
+  [self showBackButton];
 }
 
 - (void)backTap
 {
+  if (self.iPadOwnerNavigationController)
+   [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
+
   [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -113,8 +113,6 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   [super viewWillDisappear:animated];
   if (self.colorWasChanged && !self.iPadOwnerNavigationController)
     [self.placePageManager reloadBookmark];
-  else
-    self.iPadOwnerNavigationController.navigationBar.hidden = YES;
 }
 
 @end

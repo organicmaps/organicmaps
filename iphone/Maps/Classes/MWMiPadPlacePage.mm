@@ -15,13 +15,14 @@
 #import "SelectSetVC.h"
 #import "UIViewController+Navigation.h"
 #import "MWMBookmarkDescriptionViewController.h"
+#import "ViewController.h"
 
 extern CGFloat kBookmarkCellHeight;
 static CGFloat const kLeftOffset = 12.;
 static CGFloat const kTopOffset = 36.;
 static CGFloat const kBottomOffset = 12.;
 
-@interface MWMiPadPlacePageViewController : UIViewController
+@interface MWMiPadPlacePageViewController : ViewController
 
 @end
 
@@ -74,7 +75,7 @@ static CGFloat const kBottomOffset = 12.;
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated
 {
   NSUInteger const count = self.viewControllers.count;
-  CGFloat const height = count > 1 ? ((UIViewController *)self.viewControllers[count - 2]).view.height + self.navigationBar.height: 0.0;
+  CGFloat const height = count > 1 ? ((UIViewController *)self.viewControllers[count - 2]).view.height : 0.0;
 
   [UIView animateWithDuration:0.1 animations:^
   {

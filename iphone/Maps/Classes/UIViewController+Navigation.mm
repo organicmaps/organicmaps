@@ -6,18 +6,24 @@
 
 - (void)showBackButton
 {
-  UIBarButtonItem * leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavigationBarBackButton"] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonPressed:)];
+  UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
+  CGFloat const imageSide = backImage.size.width;
+  UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., imageSide, imageSide)];
+  [button setImage:backImage forState:UIControlStateNormal];
+  [button addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
+  button.imageEdgeInsets = UIEdgeInsetsMake(0., -imageSide, 0., 0.);
+  UIBarButtonItem * leftItem = [[UIBarButtonItem alloc] initWithCustomView:button];
   self.navigationItem.leftBarButtonItem = leftItem;
 }
 
-- (void)backButtonPressed:(id)sender
+- (void)backTap
 {
   [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (UIStoryboard *)mainStoryboard
 {
-  NSString * name = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? @"Main_iPad" : @"Main_iPhone";
+  NSString * name = IPAD ? @"Main_iPad" : @"Main_iPhone";
   return [UIStoryboard storyboardWithName:name bundle:nil];
 }
 

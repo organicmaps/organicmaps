@@ -61,7 +61,7 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
   
   UIImage * image = [UIImage imageNamed:imageName];
   self.type = type;
-  [self.imageView setImage:image];
+  self.icon.image = image;
 
   if ([self.textContainer isKindOfClass:[UITextView class]])
     [self.textContainer setAttributedText:[[NSAttributedString alloc] initWithString:info attributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:16.]}]];
@@ -76,6 +76,14 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
   return YES;
+}
+
+- (void)layoutSubviews
+{
+  CGFloat const leftOffset = 16.;
+  CGFloat const topOffset = 14.;;
+  self.icon.origin = CGPointMake(leftOffset, topOffset);
+  [self.textContainer setMinX:3 * leftOffset];
 }
 
 - (IBAction)cellTap

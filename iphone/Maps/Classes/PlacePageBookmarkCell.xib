@@ -20,40 +20,26 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                     </view>
                     <view contentMode="scaleToFill" id="X0g-D4-i58">
-                        <rect key="frame" x="40" y="81" width="280" height="1"/>
+                        <rect key="frame" x="48" y="81" width="272" height="1"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                     </view>
                     <view contentMode="scaleToFill" id="jSl-xq-N7n">
-                        <rect key="frame" x="40" y="44" width="220" height="1"/>
+                        <rect key="frame" x="48" y="44" width="212" height="1"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IZm-JR-i7Q">
-                        <rect key="frame" x="44" y="45" width="220" height="36"/>
+                        <rect key="frame" x="48" y="45" width="216" height="36"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                        <inset key="contentEdgeInsets" minX="-3" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="My marks &gt;">
                             <color key="titleColor" red="0.094117647060000004" green="0.61960784310000006" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
                             <action selector="categoryButtonTap" destination="riP-j7-sc5" eventType="touchUpInside" id="MSi-Yf-pko"/>
-                        </connections>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rer-vk-fBj">
-                        <rect key="frame" x="40" y="82" width="280" height="32"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="9" maxY="0.0"/>
-                        <state key="normal" title="&gt;">
-                            <color key="titleColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="editTap" destination="riP-j7-sc5" eventType="touchUpInside" id="anV-lp-0Gq"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="07N-gj-Msx">
@@ -67,7 +53,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dpw-Z7-JkD">
-                        <rect key="frame" x="40" y="82" width="248" height="32"/>
+                        <rect key="frame" x="48" y="82" width="240" height="32"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                         <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
@@ -77,11 +63,28 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_bookmark" id="Sgy-EK-ZNd">
-                        <rect key="frame" x="16" y="15" width="16" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                        <rect key="frame" x="16" y="14" width="16" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray" id="7ox-1S-vLm">
+                        <rect key="frame" x="298" y="92" width="8" height="12"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rer-vk-fBj">
+                        <rect key="frame" x="48" y="82" width="272" height="32"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="9" maxY="0.0"/>
+                        <state key="normal">
+                            <color key="titleColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="editTap" destination="riP-j7-sc5" eventType="touchUpInside" id="anV-lp-0Gq"/>
+                        </connections>
+                    </button>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="iH4-qA-j8k">
-                        <rect key="frame" x="42" y="0.0" width="228" height="44"/>
+                        <rect key="frame" x="48" y="0.0" width="220" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
@@ -101,6 +104,7 @@
                 <outlet property="categoryButton" destination="IZm-JR-i7Q" id="D5e-XT-WOB"/>
                 <outlet property="descriptionLabel" destination="dpw-Z7-JkD" id="UFN-79-sDe"/>
                 <outlet property="firstSeparatorView" destination="jSl-xq-N7n" id="MLa-z2-PIS"/>
+                <outlet property="icon" destination="Sgy-EK-ZNd" id="syG-fk-rua"/>
                 <outlet property="markButton" destination="07N-gj-Msx" id="fQD-22-0C8"/>
                 <outlet property="secondSeparatorView" destination="X0g-D4-i58" id="kN1-EX-J9i"/>
                 <outlet property="title" destination="iH4-qA-j8k" id="A6E-Ob-jsN"/>
@@ -109,6 +113,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ic_arrow_gray" width="8" height="12"/>
         <image name="ic_bookmark" width="16" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

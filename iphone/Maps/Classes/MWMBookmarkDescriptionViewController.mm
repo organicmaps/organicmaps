@@ -11,6 +11,7 @@
 #import "MWMPlacePage.h"
 #import "MWMPlacePageEntity.h"
 #import "UIKitCategories.h"
+#import "UIViewController+Navigation.h"
 
 static NSString * const kBookmarkDescriptionViewControllerNibName = @"MWMBookmarkDescriptionViewController";
 static CGFloat const kIpadPlacePageDefaultHeight = 288.;
@@ -38,7 +39,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 @implementation MWMBookmarkDescriptionViewController
 
-
 - (instancetype)initWithPlacePageManager:(MWMPlacePageViewManager *)manager
 {
   self = [super initWithNibName:kBookmarkDescriptionViewControllerNibName bundle:nil];
@@ -51,7 +51,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
   self.navigationItem.title = L(@"description");
   MWMPlacePageEntity const * entity = self.manager.entity;
 
@@ -63,11 +62,8 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   if (self.iPadOwnerNavigationController)
   {
     self.realPlacePageHeight = self.iPadOwnerNavigationController.view.height;
-    UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
-    UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
-    [backButton addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setImage:backImage forState:UIControlStateNormal];
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
+    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithCustomView:self.backButton];
+    [self.navigationItem setLeftBarButtonItem:leftButton];
     return;
   }
 
@@ -85,19 +81,12 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   [super viewWillAppear:animated];
   if (!self.iPadOwnerNavigationController)
     return;
+
+  [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
   CGFloat const bottomOffset = 12.;
   self.iPadOwnerNavigationController.view.height = kIpadPlacePageDefaultHeight;
   self.textView.height = kIpadPlacePageDefaultHeight - bottomOffset;
   self.webView.height = kIpadPlacePageDefaultHeight - bottomOffset;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-  [super viewWillDisappear:animated];
-  if (!self.iPadOwnerNavigationController)
-    return;
-
-  self.iPadOwnerNavigationController.navigationBar.hidden = YES;
 }
 
 - (void)setState:(BookmarkDescriptionState)state
@@ -155,7 +144,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 - (void)configureNavigationBarForView
 {
-  self.leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavigationBarBackButton"] style:UIBarButtonItemStylePlain target:self action:@selector(backTap)];
+  self.leftButton = [[UIBarButtonItem alloc] initWithCustomView:self.backButton];
   self.rightButton = [[UIBarButtonItem alloc] initWithTitle:L(@"edit") style:UIBarButtonItemStylePlain target:self action:@selector(editTap)];
   [self setupButtons];
 }
@@ -204,7 +193,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     [self.navigationController popViewControllerAnimated:YES];
     return;
   }
-
+  [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
   [UIView animateWithDuration:0.1 animations:^
   {
     self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
@@ -248,6 +237,19 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     return NO;
   }
   return YES;
+}
+
+#pragma mark - Buttons
+
+- (UIButton *)backButton
+{
+  UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
+  CGFloat const imageSide = backImage.size.width;
+  UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., imageSide, imageSide)];
+  [button setImage:backImage forState:UIControlStateNormal];
+  [button addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
+  button.imageEdgeInsets = UIEdgeInsetsMake(0., -imageSide, 0., 0.);
+  return button;
 }
 
 @end

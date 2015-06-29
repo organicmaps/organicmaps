@@ -22,6 +22,7 @@ extern NSString * const kBookmarkCellWebViewDidFinishLoadContetnNotification = @
 @property (weak, nonatomic, readwrite) IBOutlet UIButton * categoryButton;
 @property (weak, nonatomic, readwrite) IBOutlet UIButton * markButton;
 @property (weak, nonatomic, readwrite) IBOutlet UILabel * descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView * icon;
 
 @property (weak, nonatomic) IBOutlet UIView * firstSeparatorView;
 @property (weak, nonatomic) IBOutlet UIView * secondSeparatorView;
@@ -65,6 +66,13 @@ extern NSString * const kBookmarkCellWebViewDidFinishLoadContetnNotification = @
   entity.bookmarkTitle = textField.text.length > 0 ? textField.text : self.placePage.manager.entity.title;
   [entity synchronize];
   [textField resignFirstResponder];
+}
+
+- (void)layoutSubviews
+{
+  CGFloat const leftOffset = 16.;
+  CGFloat const topOffset = 14.;
+  self.icon.origin = CGPointMake(leftOffset, topOffset);
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField

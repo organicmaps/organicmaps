@@ -2,6 +2,7 @@
 #import "AddSetVC.h"
 #import "Framework.h"
 #import "UIKitCategories.h"
+#import "UIViewController+Navigation.h"
 
 #define TEXT_FIELD_TAG 666
 
@@ -17,11 +18,7 @@
 {
   [super viewDidLoad];
   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)];
-  UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
-  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
-  [backButton addTarget:self action:@selector(onCancelClicked) forControlEvents:UIControlEventTouchUpInside];
-  [backButton setImage:backImage forState:UIControlStateNormal];
-  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+  [(UIViewController *)self showBackButton];
   self.title = L(@"add_new_set");
 }
 

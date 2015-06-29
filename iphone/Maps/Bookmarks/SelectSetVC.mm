@@ -5,6 +5,7 @@
 #import "UIKitCategories.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageEntity.h"
+#import "UIViewController+Navigation.h"
 
 @interface SelectSetVC () <AddSetVCDelegate>
 
@@ -25,31 +26,23 @@
   return self;
 }
 
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-  if (!self.iPadOwnerNavigationController)
-    return;
-  [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
-  UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
-  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., backImage.size.width, backImage.size.height)];
-  [backButton addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
-  [backButton setImage:backImage forState:UIControlStateNormal];
-  [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
   if (!self.iPadOwnerNavigationController)
     return;
 
+  [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
+  [(UIViewController *)self showBackButton];
   CGFloat const bottomOffset = 88.;
   self.iPadOwnerNavigationController.view.height = self.tableView.height + bottomOffset;
 }
 
 - (void)backTap
 {
+  if (self.iPadOwnerNavigationController)
+    [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
+
   [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -137,15 +130,6 @@
     [self.manager reloadBookmark];
     [self.navigationController popViewControllerAnimated:YES];
   }
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-  [super viewWillDisappear:animated];
-  if (!self.iPadOwnerNavigationController)
-    return;
-
-  self.iPadOwnerNavigationController.navigationBar.hidden = YES;
 }
 
 @end
