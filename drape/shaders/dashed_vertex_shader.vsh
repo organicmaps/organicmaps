@@ -1,6 +1,7 @@
 attribute vec3 a_position;
 attribute vec2 a_normal;
 attribute vec2 a_colorTexCoord;
+attribute vec2 a_maskTexCoord;
 
 uniform mat4 modelView;
 uniform mat4 projection;
@@ -20,5 +21,6 @@ void main(void)
   }
 
   v_colorTexCoord = a_colorTexCoord;
+  v_maskTexCoord = a_maskTexCoord;
   gl_Position = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
 }

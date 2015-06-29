@@ -55,4 +55,27 @@ uint8_t FillDecl(size_t index, string const & attrName, dp::BindingInfo & info, 
   return sizeof(TFieldType);
 }
 
+template <typename TVertex>
+class BindingFiller
+{
+public:
+  BindingFiller(uint8_t count, uint8_t id = 0)
+    : m_info(count, id)
+  {
+  }
+
+  template<typename TFieldType>
+  void FillDecl(string const & attrName)
+  {
+    m_offset += dp::FillDecl<TFieldType, TVertex>(m_index, attrName, m_info, m_offset);
+    ++m_index;
+  }
+
+  dp::BindingInfo m_info;
+
+private:
+  size_t m_index = 0;
+  uint8_t m_offset = 0;
+};
+
 } // namespace dp

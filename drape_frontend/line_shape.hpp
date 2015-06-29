@@ -17,6 +17,10 @@ public:
   virtual void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const;
 
 private:
+  template <typename TBuilder>
+  void Draw(TBuilder & builder, ref_ptr<dp::Batcher> batcher) const;
+
+private:
   LineViewParams m_params;
   m2::SharedSpline m_spline;
 };

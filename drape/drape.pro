@@ -13,6 +13,8 @@ SOURCES += glfunctions.cpp
 
 OTHER_FILES += \
     shaders/compass_vertex_shader.vsh \
+    shaders/dashed_fragment_shader.fsh \
+    shaders/dashed_vertex_shader.vsh \
     shaders/line_fragment_shader.fsh \
     shaders/line_vertex_shader.vsh \
     shaders/my_position_shader.vsh \

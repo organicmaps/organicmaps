@@ -62,12 +62,21 @@ typedef buffer_vector<TextDynamicVertex, 128> TTextDynamicVertexBuffer;
 struct LineVertex : BaseVertex
 {
   LineVertex();
-  LineVertex(TPosition const & position, TNormal const & normal,
-             TTexCoord const & color, TTexCoord const & mask);
+  LineVertex(TPosition const & position, TNormal const & normal, TTexCoord const & color);
 
   TPosition m_position;
   TNormal m_normal;
   TTexCoord m_colorTexCoord;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
+struct DashedLineVertex : LineVertex
+{
+  DashedLineVertex();
+  DashedLineVertex(TPosition const & position, TNormal const & normal,
+                   TTexCoord const & color, TTexCoord const & mask);
+
   TTexCoord m_maskTexCoord;
 
   static dp::BindingInfo const & GetBindingInfo();
