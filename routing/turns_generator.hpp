@@ -101,13 +101,16 @@ bool CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRo
 bool CheckRoundaboutExit(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout);
 
 /*!
- * \brief Calculates a turn instruction if the ingoing edge or (and) the outgoing edge belongs to a roundabout.
+ * \brief Calculates a turn instruction if the ingoing edge or (and) the outgoing edge belongs to a
+ * roundabout.
  * \return Returns one of the following results:
  * - TurnDirection::EnterRoundAbout if the ingoing edge does not belong to a roundabout
  *   and the outgoing edge belongs to a roundabout.
- * - TurnDirection::StayOnRoundAbout if the ingoing edge and the outgoing edge belong to a roundabout
+ * - TurnDirection::StayOnRoundAbout if the ingoing edge and the outgoing edge belong to a
+ * roundabout
  *   and there is a reasonalbe way to leave the junction besides the outgoing edge.
- *   This function does not return TurnDirection::StayOnRoundAbout for small ways to leave the roundabout.
+ *   This function does not return TurnDirection::StayOnRoundAbout for small ways to leave the
+ * roundabout.
  * - TurnDirection::NoTurn if the ingoing edge and the outgoing edge belong to a roundabout
  *   (a) and there is a single way (outgoing edge) to leave the junction.
  *   (b) and there is a way(s) besides outgoing edge to leave the junction (the roundabout)
