@@ -802,6 +802,12 @@ static BOOL keyboardLoaded = NO;
   return [[NSLocale preferredLanguages] firstObject];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  // Prevent super call to stop event propagation
+  // [super touchesBegan:touches withEvent:event];
+}
+
 #pragma mark - Properties
 
 - (CGRect)infoRect

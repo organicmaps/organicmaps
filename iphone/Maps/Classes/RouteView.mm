@@ -351,4 +351,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   return _timeLeftLabel;
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  // Prevent super call to stop event propagation
+  // [super touchesBegan:touches withEvent:event];
+}
+
 @end
