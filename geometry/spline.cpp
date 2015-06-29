@@ -67,7 +67,7 @@ bool Spline::IsPrelonging(PointD const & pt)
   dir = dir.Normalize();
   PointD prevDir = m_direction.back().Normalize();
 
-  double const MAX_ANGLE_THRESHOLD = 0.98;
+  double const MAX_ANGLE_THRESHOLD = 0.995;
   return fabs(DotProduct(prevDir, dir)) > MAX_ANGLE_THRESHOLD;
 }
 
