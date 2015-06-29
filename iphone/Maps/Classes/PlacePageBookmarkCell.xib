@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="135"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="riP-j7-sc5" id="tHy-p3-ggw">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="134"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="134.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view hidden="YES" contentMode="scaleToFill" id="Ke2-cO-m9r">
@@ -85,7 +85,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="name"/>
                         </userDefinedRuntimeAttributes>
