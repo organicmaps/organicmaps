@@ -171,8 +171,8 @@ double PedestrianModel::GetSpeed(FeatureType const & f) const
 
   if (IsFoot(types) && IsRoad(types))
     return VehicleModel::GetSpeed(types);
-  else
-    return 0.0;
+
+  return 0.0;
 }
 
 }  // namespace routing

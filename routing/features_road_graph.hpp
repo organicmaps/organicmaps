@@ -43,7 +43,11 @@ private:
   bool IsOneWay(FeatureType const & ft) const;
   double GetSpeedKMPHFromFt(FeatureType const & ft) const;
 
+  // Searches a feature RoadInfo in the cache, and if does not find then
+  // loads feature from the index and takes speed for the feature from the vehicle model.
   RoadInfo const & GetCachedRoadInfo(uint32_t featureId) const;
+  // Searches a feature RoadInfo in the cache, and if does not find then takes passed feature and speed.
+  // This version is used to prevent redundant feature loading when feature speed is known.
   RoadInfo const & GetCachedRoadInfo(uint32_t featureId,
                                      FeatureType & ft,
                                      double speedKMPH) const;

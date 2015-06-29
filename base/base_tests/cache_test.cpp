@@ -7,14 +7,45 @@
 
 namespace
 {
+// This functor will be passed in Cache::ForEachValue by reference
 class SimpleFunctor
 {
 public:
+  SimpleFunctor() {}
+
   void operator() (char c)
   {
     m_v.push_back(c);
   }
+
   vector<char> m_v;
+
+private:
+  DISALLOW_COPY(SimpleFunctor);
+};
+
+// This functor will be passed in Cache::ForEachValue by move ctor
+class SimpleMovableFunctor
+{
+public:
+  SimpleMovableFunctor(vector<char> * v) : m_v(v) {}
+
+  // movable
+  SimpleMovableFunctor(SimpleMovableFunctor && other)
+  {
+      m_v = other.m_v;
+      other.m_v = nullptr;
+  }
+
+  void operator() (char c)
+  {
+    m_v->push_back(c);
+  }
+
+private:
+  vector<char> * m_v;
+
+  DISALLOW_COPY(SimpleMovableFunctor);
 };
 
 double constexpr kEpsilon = 1e-6;
@@ -120,4 +151,12 @@ UNIT_TEST(CacheSmoke_5)
   SimpleFunctor f;
   cache.ForEachValue(ref(f)); // f passed by reference
   TEST_EQUAL(f.m_v, vector<char>(8, 0), ());
+}
+
+UNIT_TEST(CacheSmoke_6)
+{
+  my::CacheWithStat<uint32_t, char> cache(3); // it contains 2^3=8 elements
+  vector<char> v;
+  cache.ForEachValue(SimpleMovableFunctor(&v));
+  TEST_EQUAL(v, vector<char>(8, 0), ());
 }

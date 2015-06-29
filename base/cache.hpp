@@ -123,7 +123,7 @@ namespace my
     {
       if (m_access == 0)
         return 0.0;
-      return (double)m_miss / (double)m_access;
+      return static_cast<double>(m_miss) / static_cast<double>(m_access);
     }
 
     uint32_t GetCacheSize() const { return m_cache.GetCacheSize(); }
@@ -152,7 +152,7 @@ namespace my
 
   private:
     Cache<TKey, TValue> m_cache;
-    uint32_t m_miss;
-    uint32_t m_access;
+    uint64_t m_miss;
+    uint64_t m_access;
   };
 }
