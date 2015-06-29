@@ -81,7 +81,7 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
 - (void)layoutSubviews
 {
   CGFloat const leftOffset = 16.;
-  CGFloat const topOffset = 14.;;
+  CGFloat const topOffset = 15.;;
   self.icon.origin = CGPointMake(leftOffset, topOffset);
   [self.textContainer setMinX:3 * leftOffset];
 }

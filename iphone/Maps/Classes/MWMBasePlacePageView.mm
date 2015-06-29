@@ -81,7 +81,7 @@ extern CGFloat const kBookmarkCellHeight = 135.;
 
 static CGFloat const kPlacePageTitleKoefficient = 0.63;
 static CGFloat const kLeftOffset = 16.;
-static CGFloat const kDirectionArrowSide = 32.;
+static CGFloat const kDirectionArrowSide = 25.;
 static CGFloat const kOffsetFromTitleToDistance = 12.;
 static CGFloat const kOffsetFromDistanceToArrow = 8.;
 static CGFloat const kTitleBottomOffset = 2.;
@@ -208,7 +208,7 @@ static CGFloat const kTitleBottomOffset = 2.;
   label.numberOfLines = 0;
   label.text = self.entity.metadataValues[indexPath.row];
   [label sizeToFit];
-  CGFloat const defaultCellOffset = 26.;
+  CGFloat const defaultCellOffset = 24.;
   return MAX(label.height + defaultCellOffset, defaultCellHeight);
 }
 

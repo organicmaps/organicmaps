@@ -71,7 +71,7 @@ extern NSString * const kBookmarkCellWebViewDidFinishLoadContetnNotification = @
 - (void)layoutSubviews
 {
   CGFloat const leftOffset = 16.;
-  CGFloat const topOffset = 14.;
+  CGFloat const topOffset = 15.;
   self.icon.origin = CGPointMake(leftOffset, topOffset);
 }
 
