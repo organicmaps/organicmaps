@@ -891,6 +891,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)routeViewDidStartFollowing:(RouteView *)routeView
 {
+  self.forceRoutingStateChange = ForceRoutingStateChangeNone;
   [routeView setState:RouteViewStateTurnInstructions animated:YES];
   self.controlsManager.zoomHidden = NO;
   GetFramework().FollowRoute();
