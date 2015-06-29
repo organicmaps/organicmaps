@@ -194,6 +194,7 @@ static BOOL keyboardLoaded = NO;
   }
   else if (state == SearchViewStateResults)
   {
+    [locationManager stop:self];
     [self.searchBar.textField resignFirstResponder];
     [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.alpha = 1;
