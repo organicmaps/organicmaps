@@ -111,8 +111,8 @@ sv:2bar|2pub|öl|drink|mat
 vi:2quán bar|quán rượu|đồ uống|ẩm thực
 id:2bar|2pub|minuman|makanan
 ro:2bar|2cârciumă|băutură|alimentație
-nb:2bar
-fi:2baari
+nb:2bar|mat
+fi:2baari|ruoka
 
 amenity-cafe
 en:3cafe|3restaurant|3food
@@ -140,8 +140,8 @@ sv:3café|3restaurang|3mat
 vi:cà phê|quán ăn|ẩm thực
 id:3kafe|3restoran|makanan
 ro:3cafenea|3restaurant|alimentație
-nb:2kafé
-fi:2kahvila
+nb:2kafé|mat
+fi:2kahvila|ruoka
 
 amenity-fast_food
 en:4fast food|3restaurant|3cafe|takeaway|3food
@@ -169,8 +169,8 @@ sv:4snabbmat|3restaurang|3café|takeaway|3mat
 vi:thức ăn nhanh|quán ăn|ẩm thực
 id:cepat saji|3restoran|makanan
 ro:fast food|3restaurant|alimentație
-nb:3hurtigmat
-fi:3pikaruokala
+nb:3hurtigmat|mat
+fi:3pikaruokala|ruoka
 
 amenity-restaurant
 en:3restaurant|3cafe|3food
@@ -198,8 +198,8 @@ sv:3restaurang|3café|3mat
 vi:quán ăn|cà phê||ẩm thực
 id:restoran|3kafe|makanan
 ro:3restaurant|3cafenea|alimentație
-nb:3restaurant
-fi:3ravintola
+nb:3restaurant|mat
+fi:3ravintola|ruoka
 
 amenity-fuel
 en:gas station|3fuel|2gas
@@ -256,8 +256,8 @@ sv:3bageri|butik
 vi:hiệu bánh|cửa hàng
 id:toko roti|toko
 ro:3brutărie|magazin
-nb:3bakeri
-fi:3leipomo
+nb:3bakeri|butikk
+fi:3leipomo|kauppa
 
 shop|shop-convenience|shop-mall|shop-doityourself|shop-florist|shop-butcher|shop-furniture|shop-alcohol|shop-books|shop-shoes|shop-electronics|shop-hardware|shop-jewelry|shop-optician|shop-gift|shop-mobile_phone|shop-beauty|shop-greengrocer|shop-chemist|shop-garden_centre|shop-sports
 en:2shop
@@ -311,11 +311,11 @@ ar:سوبر ماركت|متجر|المتجر
 da:3supermarked|butik
 tr:3süpermarket|mağaza
 sv:3stormarknad|butik
-vi:siêu thị
-id:3supermarket
-ro:3supermarket
-nb:3supermarked
-fi:3supermarketti
+vi:siêu thị|cửa hàng
+id:3supermarket|toko
+ro:3supermarket|magazin
+nb:3supermarked|butikk
+fi:3supermarketti|kauppa
 
 amenity-marketplace
 en:3marketplace|market|shop
@@ -343,8 +343,8 @@ sv:3marknadsplats|marknad|butik
 vi:2cửa hàng
 id:2toko
 ro:2magazin
-nb:2torg
-fi:3kauppatori
+nb:2torg|butikk
+fi:3kauppatori|kauppa
 
 shop-clothes
 en:clothes shop|4clothes
@@ -369,11 +369,11 @@ ar:متجر ألبسة|المتجر
 da:tøjbutik|tøj|butik
 tr:giyim mağazası|mağaza
 sv:kläder butik|4kläder
-vi:cửa hàng quần áo
-id:toko baju
-ro:magazin de haine
-nb:bilverksted
-fi:vaatekauppa
+vi:cửa hàng quần áo|cửa hàng
+id:toko baju|toko
+ro:magazin de haine|magazin
+nb:bilverksted|butikk
+fi:vaatekauppa|kauppa
 
 shop-car
 en:car shop
@@ -398,11 +398,11 @@ ar:متجر سيارات|المتجر
 da:bilforhandler|butik
 tr:otomobil mağazası|mağaza
 sv:3bilåterförsäljare
-vi:2cửa hàng xe
-id:3bengkel mobil
-ro:3magazin auto
-nb:3bensinstasjon
-fi:3autokorjaamo
+vi:2cửa hàng xe|cửa hàng
+id:3bengkel mobil|toko
+ro:3magazin auto|magazin
+nb:3bensinstasjon|butikk
+fi:3autokorjaamo|kauppa
 
 shop-bicycle
 en:4bicycle shop|cycle|bike|shop
@@ -427,11 +427,11 @@ ar:دراجة هوائية|المتجر
 da:cykelforretning|butik
 tr:bisiklet|mağaza
 sv:4cykelaffär|cykel|cykel|butik
-vi:3thuê ô tô
-id:3sepeda
-ro:3bicicletă
-nb:3sykkel
-fi:3polkupyörä
+vi:3thuê ô tô|cửa hàng
+id:3sepeda|toko
+ro:3bicicletă|magazin
+nb:3sykkel|butikk
+fi:3polkupyörä|kauppa
 
 shop-kiosk
 en:kiosk|shop
@@ -459,8 +459,8 @@ sv:kiosk|butik
 vi:cửa hàng
 id:toko
 ro:magazin
-nb:
-fi:
+nb:butikk
+fi:kauppa
 
 highway-bus_stop
 en:bus stop|2bus|stop|4transport
@@ -485,11 +485,11 @@ ar:محطة الحافلة์|حافلة|نقل|النقل
 da:3busstoppested|bus|transport
 tr:otobüs durağı|3otobüs|ulaşım
 sv:busshållplats|3buss|hållplats|4transport
-vi:3bến xe buýt
-id:3halte bus
-ro:3stație de autobuz
-nb:3busstopp
-fi:3bussipysäkki
+vi:3bến xe buýt|giao thông
+id:3halte bus|transportasi
+ro:3stație de autobuz|transport
+nb:3busstopp|transport
+fi:3bussipysäkki|liikenne
 
 railway-tram_stop
 en:tram stop|3tram|stop|4transport
@@ -514,11 +514,11 @@ ar:محطة الترام|نقل|النقل
 da:3sporvogn|station|transport
 tr:3tramvay durağı|ulaşım
 sv:spårvagnshållplats|3spårvagn|hållplats|4transport
-vi:bến tàu điện
-id:3perhentian trem
-ro:3stație de tramvai
-nb:3trikkestopp
-fi:4raitiovaunupysäkki
+vi:bến tàu điện|giao thông
+id:3perhentian trem|transportasi
+ro:3stație de tramvai|transport
+nb:3trikkestopp|transport
+fi:4raitiovaunupysäkki|liikenne
 
 amenity-bus_station
 en:bus station|2bus|station|4transport
@@ -543,11 +543,11 @@ ar:محطة الباص|حافلة|نقل|النقل
 da:2busstation|2bus|station|4transport
 tr:3otobüs durağı|3otobüs|2ulaşım
 sv:busstation|2buss|station|4transport
-vi:2bến xe buýt
-id:3stasiun bus
-ro:3stație de autobuz
-nb:3busstasjon
-fi:3bussiasema
+vi:2bến xe buýt|giao thông
+id:3stasiun bus|transportasi
+ro:3stație de autobuz|transport
+nb:3busstasjon|transport
+fi:3bussiasema|liikenne
 
 railway-station|railway-halt
 en:3train station|4railway|railroad|3train|4station|4transport
@@ -572,11 +572,11 @@ ar:سكة الحديدี|محطة القطارี|محطةี|نقل|النقل
 da:3jernbane|4togstationี|4stationี|transport
 tr:2gar|3demiryolları|ulaşım
 sv:3tågstation|4järnväg|järnväg|3tåg|4station|4transport
-vi:đường tàu hỏa
-id:rel kereta api
-ro:feroviar
-nb:togstasjon
-fi:rautatieasema
+vi:đường tàu hỏa|giao thông
+id:rel kereta api|transportasi
+ro:feroviar|transport
+nb:togstasjon|transport
+fi:rautatieasema|liikenne
 
 railway-subway_entrance|railway-station-subway
 en:3subway|3tube|3metro|3underground|transport
@@ -601,11 +601,11 @@ ar:محطة|القطار الكهربائي النفقي|قطار الأنفاق
 da:3undergrundsbane|3metro|3undergrund|3transport
 tr:2metro|3yer altı metrosu|ulaşım
 sv:3tunnelbana|3tunnelbana|3metro|3tunnelbana|transport
-vi:3ngầm
-id:3stasiun bawah tanah
-ro:3metrou
-nb:2T-bane|undergrunnsbane|metro
-fi:3metro
+vi:3ngầm|giao thông
+id:3stasiun bawah tanah|transportasi
+ro:3metrou|transport
+nb:2T-bane|undergrunnsbane|metro|transport
+fi:3metro|liikenne
 
 amenity-ferry_terminal
 en:3ferry|terminal|transport
@@ -634,7 +634,7 @@ vi:phà|bến tàu xe|giao thông
 id:3terminal|feri|transportasi
 ro:3feribot|terminal|transport
 nb:3ferje|terminal|transport
-fi:3lautta|terminaali|kuljetus
+fi:3lautta|terminaali|kuljetus|liikenne
 
 amenity-taxi
 en:3taxi|transport
@@ -659,11 +659,11 @@ ar:تكسي|نقل|النقل
 da:3tax|taxa|transport
 tr:3taksi|ulaşım
 sv:3taxi|transport
-vi:3taxi
-id:3taksi
-ro:3taxi
-nb:3drosje
-fi:3taksi
+vi:3taxi|giao thông
+id:3taksi|transportasi
+ro:3taxi|transport
+nb:3drosje|transport
+fi:3taksi|liikenne
 
 amenity-townhall
 en:3town hall|3tourism|3sights
@@ -688,11 +688,11 @@ ar:مبنى البلدية|سياحة|مناظر
 da:3rådhus|3turisme|3sightseeing|3seværdigheder
 tr:3belediye binası|3turizm|3görülecek yerler
 sv:3rådhus|3turism|3sevärdheter
-vi:3trung tâm thành phố
-id:3balai kota
-ro:3primărie
-nb:3rådhus
-fi:kaupungintalo
+vi:3trung tâm thành phố|diểm tham quan
+id:3balai kota|pemandangan
+ro:3primărie|obiective turistice
+nb:3rådhus|severdigheter
+fi:kaupungintalo|nähtävyydet
 
 tourism-attraction
 en:3attraction|3tourism|3sights
@@ -717,11 +717,11 @@ ar:أماكن الجذب|سياحة|مناظر
 da:3attraktioner|3turisme|3sightseeing|3seværdigheder
 tr:3cazibe merkezleri|3turizm|3görülecek yerler
 sv:3attraktion|3turism|3sevärdheter
-vi:3hấp dẫn
-id:3atraksi
-ro:3punct de atracție
-nb:3attraksjon
-fi:3huvitus
+vi:3hấp dẫn|diểm tham quan
+id:3atraksi|pemandangan
+ro:3punct de atracție|obiective turistice
+nb:3attraksjon|severdigheter
+fi:3huvitus|nähtävyydet
 
 tourism-artwork
 en:3artwork|3tourism|3sights
@@ -746,11 +746,11 @@ ar:سياحة|مناظر
 da:3seværdighed|3turisme|3sightseeing|3seværdigheder
 tr:3turizm|3görülecek yerler
 sv:3konstverk|3turism|3sevärdheter
-vi:3du lịch
-id:3pariwisata
-ro:3turism
-nb:kunstverk
-fi:rautatieasema
+vi:3du lịch|diểm tham quan
+id:3pariwisata|pemandangan
+ro:3turism|obiective turistice
+nb:kunstverk|severdigheter
+fi:rautatieasema|nähtävyydet
 
 tourism-viewpoint
 en:4viewpoint|tourism|sights
@@ -775,11 +775,11 @@ ar:أماكن مراقبة|سياحة|مناظر
 da:4synspunkt|turisme|sightseeing|seværdigheder
 tr:3bakış|3turizm|3görülecek yerler
 sv:4utsiktsplats|turism|sevärdheter
-vi:điểm nhìn
-id:titik pandang
-ro:3punct de vedere
-nb:3utsiktspunkt
-fi:3näköalatasanne
+vi:điểm nhìn|diểm tham quan
+id:titik pandang|pemandangan
+ro:3punct de vedere|obiective turistice
+nb:3utsiktspunkt|severdigheter
+fi:3näköalatasanne|nähtävyydet
 
 tourism-information
 en:4tourist information|4information|sights
@@ -804,11 +804,11 @@ ar:معلومات سياحية|معلومات|مناظر|سياحة
 da:4turistinformation|turistinformation|4information|seværdigheder
 tr:4turist bilgileri|görülecek yerler
 sv:4turistinformation|4information|sevärdheter
-vi:thông tin du lịch
-id:3informasi turis
-ro:3informații turistice
-nb:3Turistinformasjon
-fi:3matkailuinfo
+vi:thông tin du lịch|diểm tham quan
+id:3informasi turis|pemandangan
+ro:3informații turistice|obiective turistice
+nb:3Turistinformasjon|severdigheter
+fi:3matkailuinfo|nähtävyydet
 
 tourism-picnic_site|amenity-bbq
 en:3picnic site|sights
@@ -833,11 +833,11 @@ ar:أماكن للرحلات|مناظر|سياحة
 da:3picnic|seværdigheder
 tr:3piknik alanı|görülecek yerler
 sv:3picknickplatser|sevärdheter
-vi:điểm cắm trại
-id:3Lokasi piknik
-ro:3Locații picnic
-nb:3rasteplasser
-fi:3piknikpaikat
+vi:điểm cắm trại|diểm tham quan
+id:3Lokasi piknik|pemandangan
+ro:3Locații picnic|obiective turistice
+nb:3rasteplasser|severdigheter
+fi:3piknikpaikat|nähtävyydet
 
 amenity-place_of_worship
 en:place of worship|4temple|sights
@@ -862,11 +862,11 @@ ar:مكان للعبادة|مناظر|سياحة
 da:3tempel|moske|kirke|synagoge|kultsted|sightseeing|seværdigheder
 tr:3ibadet yerleri|4tapınak|görülecek yerler
 sv:plats för tillbedjan|4tempel|sevärdheter
-vi:ghế dài
-id:tempat ibadah
-ro:3loc de cult
-nb:3gudshus
-fi:3uskonnollinen kohde
+vi:ghế dài|diểm tham quan
+id:tempat ibadah|pemandangan
+ro:3loc de cult|obiective turistice
+nb:3gudshus|severdigheter
+fi:3uskonnollinen kohde|nähtävyydet
 
 tourism-museum
 en:2museum|attraction|tourism|sights
@@ -891,11 +891,11 @@ ar:متحف|أماكن الجذب|سياحة|مناظر
 da:2museum|attraktioner|turisme|seværdigheder
 tr:2müze|cazibe merkezleri|turizm|görülecek yerler
 sv:2museum|attraktion|tursim|sevärdheter
-vi:3bảo tàng
-id:3museum
-ro:3muzeu
-nb:3museum
-fi:3museo
+vi:3bảo tàng|diểm tham quan
+id:3museum|pemandangan
+ro:3muzeu|obiective turistice
+nb:3museum|severdigheter
+fi:3museo|nähtävyydet
 
 waterway-waterfall|natural-waterfall
 en:2waterfall|sights
@@ -922,7 +922,7 @@ tr:2şelale|görülecek yerler
 sv:2vattenfall|sevärdheter
 vi:2thác nước|điểm tham quan
 id:2air terjun|pemandangan
-ro:3cascadă|obiective
+ro:3cascadă|obiective turistice
 nb:3foss|severdigheter
 fi:3vesiputous|nähtävyydet
 
@@ -949,11 +949,11 @@ ar:تمثال|سياحة
 da:mindested|seværdigheder
 tr:anıt|abide|cazibe merkezleri|turizm|görülecek yerler
 sv:3minnesmärke|monument|attraktion|turism|sevärdheter
-vi:3đài tưởng niệm
-id:3tugu peringatan
-ro:3comemorare
-nb:3minnesmerke
-fi:3muistomerkki
+vi:3đài tưởng niệm|diểm tham quan
+id:3tugu peringatan|pemandangan
+ro:3comemorare|obiective turistice
+nb:3minnesmerke|severdigheter
+fi:3muistomerkki|nähtävyydet
 
 historic-monument
 en:monument|attraction|tourism|sights
@@ -978,11 +978,11 @@ ar:تمثال|أماكن الجذب|سياحة
 da:monument|seværdigheder
 tr:abide|cazibe merkezleri|turizm|görülecek yerler
 sv:monument|attraktion|tursim|sevärdheter
-vi:tượng đài
-id:monumen
-ro:monument
-nb:monument
-fi:monumentti
+vi:tượng đài|diểm tham quan
+id:monumen|pemandangan
+ro:monument|obiective turistice
+nb:monument|severdigheter
+fi:monumentti|nähtävyydet
 
 historic-ruins
 en:ruins|attraction|tourism|sights
@@ -1007,11 +1007,11 @@ ar:آثار|أماكن الجذب|سياحة|مناظر
 da:ruiner|bunker|seværdigheder|turisme
 tr:harabeler|cazibe merkezleri|turizm|görülecek yerler
 sv:ruiner|attraktion|turism|sevärdheter
-vi:phế tích
-id:reruntuhan
-ro:ruine
-nb:ruiner
-fi:rauniot
+vi:phế tích|diểm tham quan
+id:reruntuhan|pemandangan
+ro:ruine|obiective turistice
+nb:ruiner|severdigheter
+fi:rauniot|nähtävyydet
 
 historic-castle
 en:castle|attraction|tourism|sights
@@ -1036,11 +1036,11 @@ ar:قلعةأماكن الجذب|سياحة|مناظر
 da:slot|seværdigheder|turisme
 tr:kale|cazibe merkezleri|turizm|görülecek yerler
 sv:slott|attraktion|turism|sevärdheter
-vi:pháo đài
-id:kastel
-ro:castel
-nb:slott
-fi:linna
+vi:pháo đài|diểm tham quan
+id:kastel|pemandangan
+ro:castel|obiective turistice
+nb:slott|severdigheter
+fi:linna|nähtävyydet
 
 historic-archaeological_site
 en:archaeological site|attraction|tourism|sights
@@ -1065,11 +1065,11 @@ ar:موقع أثري|أماكن الجذب|سياحة|مناظر
 da:arkæologisk sted|seværdigheder|turisme
 tr:arkeolojik alan|cazibe merkezleri|turizm|görülecek yerler
 sv:arkeologisk plats|attraktion|turism|sevärdheter
-vi:điểm khảo cổ
-id:situs arkeologi
-ro:sit arheologic
-nb:arkeologisk område
-fi:arkeologinen kohde
+vi:điểm khảo cổ|diểm tham quan
+id:situs arkeologi|pemandangan
+ro:sit arheologic|obiective turistice
+nb:arkeologisk område|severdigheter
+fi:arkeologinen kohde|nähtävyydet
 
 leisure-garden
 en:2garden|sights
@@ -1094,11 +1094,11 @@ ar:بستان|مناظر|سياحة
 da:2have|seværdigheder
 tr:2bahçe|görülecek yerler
 sv:2trädgård|sevärdheter
-vi:điểm khảo cổ
-id:situs arkeologi
-ro:sit arheologic
-nb:hage
-fi:puutarha
+vi:điểm khảo cổ|diểm tham quan
+id:situs arkeologi|pemandangan
+ro:sit arheologic|obiective turistice
+nb:hage|severdigheter
+fi:puutarha|nähtävyydet
 
 amenity-bench
 en:bench
@@ -1209,11 +1209,11 @@ ar:سينيما|التسلية
 da:3biograf
 tr:3sinema|eğlence
 sv:3bio|underhållning
-vi:rạp chiếu phim
-id:bioskop
-ro:cinema
-nb:kino
-fi:elokuvateatteri
+vi:rạp chiếu phim|giải trí
+id:bioskop|hiburan
+ro:cinema|divertisment
+nb:kino|underholdning
+fi:elokuvateatteri|viihde
 
 amenity-theatre
 en:3theatre|theater|entertainment
@@ -1238,11 +1238,11 @@ ar:مسرح|التسلية
 da:3teater
 tr:3tiyatro|eğlence
 sv:3teater|teater|underhållning
-vi:điểm trú ẩn
-id:teater
-ro:teatru
-nb:teater
-fi:teatteri
+vi:điểm trú ẩn|giải trí
+id:teater|hiburan
+ro:teatru|divertisment
+nb:teater|underholdning
+fi:teatteri|viihde
 
 amenity-nightclub
 en:3nightclub|3disco|dance|entertainment
@@ -1267,11 +1267,11 @@ ar:نادي ليلي|رقص|التسلية
 da:3natklub|dans|danseklub
 tr:3gece kulübü|dans|eğlence
 sv:3nattklubb|3disco|dans|underhållning
-vi:câu lạc bộ đêm
-id:kelab malam
-ro:club de noapte
-nb:nattklubb
-fi:yökerho
+vi:câu lạc bộ đêm|giải trí
+id:kelab malam|hiburan
+ro:club de noapte|divertisment
+nb:nattklubb|underholdning
+fi:yökerho|viihde
 
 amenity-brothel
 en:brothel|entertainment
@@ -1299,8 +1299,8 @@ sv:bordell|underhållning
 vi:giải trí
 id:hiburan
 ro:divertisment
-nb:bordell
-fi:bordelli
+nb:bordell|underholdning
+fi:bordelli|viihde
 
 amenity-casino
 en:casino|entertainment
@@ -1328,8 +1328,8 @@ sv:kasino|underhållning
 vi:giải trí
 id:hiburan
 ro:divertisment
-nb:kasino
-fi:casino
+nb:kasino|underholdning
+fi:casino|viihde
 
 amenity-college
 en:college
@@ -2656,11 +2656,11 @@ ar:نزُل|فندق|فندق رخيص|الفندق
 da:3hostel|kro|vandrerhjem|hotel|motel
 tr:3pansiyon|otel|motel
 sv:3vandrarhem|hotell|motell
-vi:nhà khách
-id:hostel
-ro:hostel
-nb:vandrerhjem
-fi:hostelli
+vi:nhà khách||khách sạn
+id:hostel|hotel
+ro:hostel|hotel
+nb:vandrerhjem|hotell
+fi:hostelli|hotelli
 
 tourism-hotel
 en:2hotel|motel
@@ -2714,11 +2714,11 @@ ar:دار الضيافة|فندق|نزُل|الفندق
 da:gæstehus|gæstehjem|hotel|hostel
 tr:misafir evi|pansiyon|otel
 sv:gästhus|hotell|vandrarhem
-vi:nhà khách
-id:wisma tamu
-ro:pensiune
-nb:gjestehus
-fi:majatalo
+vi:nhà khách||khách sạn
+id:wisma tamu|hotel
+ro:pensiune|hotel
+nb:gjestehus|hotell
+fi:majatalo|hotelli
 
 tourism-motel
 en:3motel|hotel|hostel
@@ -2743,9 +2743,9 @@ ar:فندق رخيص|فندق|نزُل|الفندق
 da:motel|hotel|hostel
 tr:3motel|pansiyon|otel
 sv:3motell|hotell|vandrarhem
-vi:nhà nghỉ
-id:motel
-ro:motel
+vi:nhà nghỉ|khách sạn
+id:motel|hotel
+ro:motel|hotel
 nb:motell|hotell
 fi:motelli|hotelli
 
@@ -2772,11 +2772,11 @@ ar:مساكن جبلية|فندق|الفندق
 da:bjerg logi|hotel
 tr:3dağda konaklama|otel
 sv:bergsboende|hotell|vandrarhem|fjällstuga
-vi:nhà ở trên núi
-id:penginapan di pegunungan
-ro:cabană de munte
-nb:fjellstue
-fi:vuorimajoitus
+vi:nhà ở trên núi|khách sạn
+id:penginapan di pegunungan|hotel
+ro:cabană de munte|hotel
+nb:fjellstue|hotell
+fi:vuorimajoitus|hotelli
 
 shop-hairdresser
 en:3hairdresser
