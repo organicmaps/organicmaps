@@ -111,7 +111,8 @@ public:
     static CarModel const carModel;
     if (ft.GetFeatureType() != feature::GEOM_LINE || !carModel.IsRoad(ft))
       return;
-    for (auto const n : m_routingMapping.m_segMapping.GetNodeIdByFid(ft.GetID().m_offset))
+    uint32_t const offset = ft.GetID().m_offset;
+    for (auto const n : m_routingMapping.m_segMapping.GetNodeIdByFid(offset))
       n_nodeIds.push_back(n);
   }
 
@@ -192,8 +193,8 @@ bool KeepTurnByHighwayClass(TurnDirection turn, TTurnCandidates const & possible
   return true;
 }
 
-bool RemoveTurnByIngoingAndOutgoingEdges(TurnDirection intermediateDirection, TurnInfo const & turnInfo,
-                                         TurnItem const & turn)
+bool DiscardTurnByIngoingAndOutgoingEdges(TurnDirection intermediateDirection, TurnInfo const & turnInfo,
+                                          TurnItem const & turn)
 {
   return !turn.m_keepAnyway && !turnInfo.m_isIngoingEdgeRoundabout && !turnInfo.m_isOutgoingEdgeRoundabout
       && IsGoStraightOrSlightTurn(intermediateDirection)
@@ -375,8 +376,7 @@ void GetPossibleTurns(Index const & index, NodeID node, m2::PointD const & ingoi
                             scales::GetUpperScale(), routingMapping.GetMwmId());
 
   sort(geomNodes.begin(), geomNodes.end());
-  auto it = unique(geomNodes.begin(), geomNodes.end());
-  geomNodes.erase(it, geomNodes.end());
+  geomNodes.erase(unique(geomNodes.begin(), geomNodes.end()), geomNodes.end());
 
   // Filtering virtual edges.
   vector<NodeID> adjacentNodes;
@@ -768,7 +768,7 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
 
   turn.m_turn = TurnDirection::NoTurn;
   // Early filtering based only on the information about ingoing and outgoing edges.
-  if (RemoveTurnByIngoingAndOutgoingEdges(intermediateDirection, turnInfo, turn))
+  if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, turnInfo, turn))
     return;
 
   m2::PointD const ingoingPointOneSegment =

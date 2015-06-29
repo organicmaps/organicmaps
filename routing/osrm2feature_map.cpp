@@ -365,7 +365,7 @@ bool OsrmFtSegBackwardIndex::Load(string const & nodesFileName, string const & b
   return true;
 }
 
-void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_t maxNodeId,
+void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, uint32_t maxNodeId,
                                        FilesMappingContainer & routingFile)
 {
   Clear();
