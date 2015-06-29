@@ -3407,6 +3407,7 @@
 					"$(PROJECT_DIR)/MyTracker",
 					"$(PROJECT_DIR)/Statistics",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
