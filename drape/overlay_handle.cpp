@@ -87,10 +87,12 @@ void OverlayHandle::GetElementIndexes(ref_ptr<IndexBufferMutator> mutator) const
   mutator->AppendIndexes(m_indexes.GetRawConst(), m_indexes.Size());
 }
 
-void OverlayHandle::GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator, ScreenBase const & screen) const
+void OverlayHandle::GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator,
+                                         ScreenBase const & screen, bool isVisible) const
 {
   UNUSED_VALUE(mutator);
   UNUSED_VALUE(screen);
+  UNUSED_VALUE(isVisible);
 }
 
 bool OverlayHandle::HasDynamicAttributes() const

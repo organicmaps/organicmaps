@@ -1,4 +1,5 @@
 #include "drape_frontend/path_text_shape.hpp"
+#include "drape_frontend/text_handle.hpp"
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/intrusive_vector.hpp"
@@ -24,85 +25,69 @@ using m2::Spline;
 
 namespace
 {
-  class PathTextHandle : public dp::OverlayHandle
+
+class PathTextHandle : public df::TextHandle
+{
+public:
+  PathTextHandle(m2::SharedSpline const & spl,
+                 df::SharedTextLayout const & layout,
+                 float const mercatorOffset,
+                 float const depth)
+    : TextHandle(FeatureID(), dp::Center, depth)
+    , m_spline(spl)
+    , m_layout(layout)
   {
-  public:
-    PathTextHandle(m2::SharedSpline const & spl,
-                   df::SharedTextLayout const & layout,
-                   float const mercatorOffset,
-                   float const depth)
-      : OverlayHandle(FeatureID(), dp::Center, depth)
-      , m_spline(spl)
-      , m_layout(layout)
+    m_centerPointIter = m_spline.CreateIterator();
+    m_centerPointIter.Advance(mercatorOffset);
+    m_normals.resize(4 * m_layout->GetGlyphCount());
+  }
+
+  void Update(ScreenBase const & screen)
+  {
+    if (m_layout->CacheDynamicGeometry(m_centerPointIter, screen, m_normals))
     {
-      m_centerPointIter = m_spline.CreateIterator();
-      m_centerPointIter.Advance(mercatorOffset);
-      m_normals.resize(4 * m_layout->GetGlyphCount());
+      SetIsValid(true);
+      return;
     }
 
-    void Update(ScreenBase const & screen)
+    SetIsValid(false);
+  }
+
+  m2::RectD GetPixelRect(ScreenBase const & screen) const
+  {
+    ASSERT(IsValid(), ());
+
+    m2::PointD pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
+    m2::RectD result;
+    for (gpu::TextDynamicVertex const & v : m_normals)
+      result.Add(pixelPivot + glsl::ToPoint(v.m_normal));
+
+    return result;
+  }
+
+  void GetPixelShape(ScreenBase const & screen, Rects & rects) const
+  {
+    ASSERT(IsValid(), ());
+
+    m2::PointD pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
+    for (size_t quadIndex = 0; quadIndex < m_normals.size(); quadIndex += 4)
     {
-      if (m_layout->CacheDynamicGeometry(m_centerPointIter, screen, m_normals))
-      {
-        SetIsValid(true);
-        return;
-      }
-
-      SetIsValid(false);
+      m2::RectF r;
+      r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex].m_normal));
+      r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 1].m_normal));
+      r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 2].m_normal));
+      r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 3].m_normal));
+      rects.push_back(r);
     }
+  }
 
-    m2::RectD GetPixelRect(ScreenBase const & screen) const
-    {
-      ASSERT(IsValid(), ());
+private:
+  m2::SharedSpline m_spline;
+  m2::Spline::iterator m_centerPointIter;
 
-      m2::PointD pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
-      m2::RectD result;
-      for (gpu::TextDynamicVertex const & v : m_normals)
-        result.Add(pixelPivot + glsl::ToPoint(v.m_normal));
+  df::SharedTextLayout m_layout;
+};
 
-      return result;
-    }
-
-    void GetPixelShape(ScreenBase const & screen, Rects & rects) const
-    {
-      ASSERT(IsValid(), ());
-
-      m2::PointD pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
-      for (size_t quadIndex = 0; quadIndex < m_normals.size(); quadIndex += 4)
-      {
-        m2::RectF r;
-        r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex].m_normal));
-        r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 1].m_normal));
-        r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 2].m_normal));
-        r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 3].m_normal));
-        rects.push_back(r);
-      }
-    }
-
-    void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
-    {
-      ASSERT(IsValid(), ());
-
-      TOffsetNode const & node = GetOffsetNode(gpu::TextDynamicVertex::GetDynamicStreamID());
-      ASSERT(node.first.GetElementSize() == sizeof(gpu::TextDynamicVertex), ());
-      ASSERT(node.second.m_count == m_normals.size(), ());
-
-      uint32_t byteCount = m_normals.size() * sizeof(gpu::TextDynamicVertex);
-      void * buffer = mutator->AllocateMutationBuffer(byteCount);
-      memcpy(buffer, m_normals.data(), byteCount);
-      dp::MutateNode mutateNode;
-      mutateNode.m_region = node.second;
-      mutateNode.m_data = make_ref(buffer);
-      mutator->AddMutation(node.first, mutateNode);
-    }
-
-  private:
-    m2::SharedSpline m_spline;
-    m2::Spline::iterator m_centerPointIter;
-    gpu::TTextDynamicVertexBuffer m_normals;
-
-    df::SharedTextLayout m_layout;
-  };
 }
 
 namespace df

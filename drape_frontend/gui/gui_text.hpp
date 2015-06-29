@@ -144,7 +144,7 @@ public:
   MutableLabelHandle(dp::Anchor anchor, m2::PointF const & pivot);
 
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
-                            ScreenBase const & screen) const override;
+                            ScreenBase const & screen, bool isVisible) const override;
 
   ref_ptr<MutableLabel> GetTextView();
   void UpdateSize(m2::PointF const & size);

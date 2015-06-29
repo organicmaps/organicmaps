@@ -59,6 +59,7 @@ SOURCES += \
     rule_drawer.cpp \
     selection_shape.cpp \
     stylist.cpp \
+    text_handle.cpp \
     text_layout.cpp \
     text_shape.cpp \
     threads_commutator.cpp \
@@ -129,6 +130,7 @@ HEADERS += \
     selection_shape.hpp \
     shape_view_params.hpp \
     stylist.hpp \
+    text_handle.hpp \
     text_layout.hpp \
     text_shape.hpp \
     threads_commutator.hpp \

@@ -1,4 +1,5 @@
 #include "drape_frontend/text_shape.hpp"
+#include "drape_frontend/text_handle.hpp"
 #include "drape_frontend/text_layout.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
@@ -18,20 +19,19 @@ namespace df
 namespace
 {
 
-class StraightTextHandle : public dp::OverlayHandle
+class StraightTextHandle : public TextHandle
 {
 public:
   StraightTextHandle(FeatureID const & id, dp::Anchor anchor, glsl::vec2 const & pivot,
                      glsl::vec2 const & pxSize, glsl::vec2 const & offset,
-                     double priority)
-    : OverlayHandle(id, anchor, priority)
+                     double priority, gpu::TTextDynamicVertexBuffer && normals)
+    : TextHandle(id, anchor, priority, move(normals))
     , m_pivot(glsl::ToPoint(pivot))
     , m_offset(glsl::ToPoint(offset))
     , m_size(glsl::ToPoint(pxSize))
-  {
-  }
+  {}
 
-  m2::RectD GetPixelRect(ScreenBase const & screen) const
+  m2::RectD GetPixelRect(ScreenBase const & screen) const override
   {
     m2::PointD pivot = screen.GtoP(m_pivot) + m_offset;
     double x = pivot.x;
@@ -62,7 +62,7 @@ public:
                      max(x, pivot.x), max(y, pivot.y));
   }
 
-  void GetPixelShape(ScreenBase const & screen, Rects & rects) const
+  void GetPixelShape(ScreenBase const & screen, Rects & rects) const override
   {
     rects.push_back(m2::RectF(GetPixelRect(screen)));
   }
@@ -137,17 +137,20 @@ void TextShape::DrawSubString(StraightTextLayout const & layout,
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());
 
+  gpu::TTextDynamicVertexBuffer initialDynBuffer;
+  initialDynBuffer.resize(dynamicBuffer.size(), gpu::TextDynamicVertex(glsl::vec2(0.0, 0.0)));
+
   m2::PointU const & pixelSize = layout.GetPixelSize();
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<StraightTextHandle>(m_params.m_featureID,
                                                                            m_params.m_anchor,
                                                                            glsl::ToVec2(m_basePoint),
                                                                            glsl::vec2(pixelSize.x, pixelSize.y),
-                                                                           baseOffset,
-                                                                           m_params.m_depth);
+                                                                           baseOffset, m_params.m_depth,
+                                                                           move(dynamicBuffer));
 
   dp::AttributeProvider provider(2, staticBuffer.size());
   provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
-  provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynamicBuffer.data()));
+  provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(initialDynBuffer.data()));
   batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
 }
 

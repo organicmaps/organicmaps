@@ -45,7 +45,8 @@ public:
   virtual bool IndexesRequired() const { return true; }
   void * IndexStorage(uint32_t size);
   void GetElementIndexes(ref_ptr<IndexBufferMutator> mutator) const;
-  virtual void GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator, ScreenBase const & screen) const;
+  virtual void GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator,
+                                    ScreenBase const & screen, bool isVisible) const;
 
   bool HasDynamicAttributes() const;
   void AddDynamicAttribute(BindingInfo const & binding, uint32_t offset, uint32_t count);

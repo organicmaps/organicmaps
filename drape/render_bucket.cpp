@@ -82,17 +82,23 @@ void RenderBucket::Render(ScreenBase const & screen)
     ref_ptr<IndexBufferMutator> rfpIndex = make_ref(&indexMutator);
     ref_ptr<AttributeBufferMutator> rfpAttrib = make_ref(&attributeMutator);
 
+    bool hasIndexMutation = false;
     for (drape_ptr<OverlayHandle> const & handle : m_overlay)
     {
-      if (handle->IsValid() && handle->IsVisible())
+      if (handle->IsValid())
       {
-        handle->GetElementIndexes(rfpIndex);
+        if (handle->IndexesRequired() && handle->IsVisible())
+        {
+          handle->GetElementIndexes(rfpIndex);
+          hasIndexMutation = true;
+        }
+
         if (handle->HasDynamicAttributes())
-          handle->GetAttributeMutation(rfpAttrib, screen);
+          handle->GetAttributeMutation(rfpAttrib, screen, handle->IsVisible());
       }
     }
 
-    m_buffer->ApplyMutation(rfpIndex, rfpAttrib);
+    m_buffer->ApplyMutation(hasIndexMutation ? rfpIndex : nullptr, rfpAttrib);
   }
   m_buffer->Render();
 }
