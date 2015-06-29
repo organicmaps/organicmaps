@@ -254,3 +254,21 @@ UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
   TEST_EQUAL(result, OsrmRouter::NoError, ());
   integration::TestTurnCount(route, 0);
 }
+
+// Test case: a route goes in Moscow from Varshavskoe shosse (from the city center direction)
+// to MKAD (the outer side). A turn instruction (to leave Varshavskoe shosse)
+// shall be generated.
+UNIT_TEST(RussiaMoscowVorshavskoiShosseMKAD)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetAllMaps(), MercatorBounds::FromLatLon(55.58210, 37.59695), {0., 0.},
+      MercatorBounds::FromLatLon(55.57514, 37.61020));
+
+  Route const & route = *routeResult.first;
+  OsrmRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, OsrmRouter::NoError, ());
+  integration::TestTurnCount(route, 1);
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
+      {TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
+}
