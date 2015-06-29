@@ -186,6 +186,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 
   ppv.minY += [sender translationInView:ppvSuper].y;
   ppv.midY = MAX(ppv.midY, [self getOpenTargetPoint].y);
+  _targetPoint = ppv.center;
   if (ppv.minY <= 0.0)
     [MWMPlacePageNavigationBar showNavigationBarForPlacePage:self];
   else
@@ -200,13 +201,24 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
     CGFloat const bound1 = ppvSuper.height * 0.2;
     CGFloat const bound2 = ppvSuper.height * 0.5;
     if (estimatedYPosition < bound1)
-      self.state = MWMiPhonePortraitPlacePageStateHover;
+    {
+      if (self.panVelocity <= 0.0)
+        self.state = MWMiPhonePortraitPlacePageStateHover;
+      else
+        self.state = MWMiPhonePortraitPlacePageStateOpen;
+    }
     else if (self.panVelocity <= 0.0)
+    {
       self.state = MWMiPhonePortraitPlacePageStateOpen;
+    }
     else if (ppv.minY < bound2)
+    {
       self.state = MWMiPhonePortraitPlacePageStatePreview;
+    }
     else
+    {
       [self.manager dismissPlacePage];
+    }
   }
 }
 
