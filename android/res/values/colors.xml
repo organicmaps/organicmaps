@@ -2,6 +2,7 @@
 <resources>
 
   <!-- general text colors -->
+  <color name="text_darkest">#000000</color>
   <color name="text_dark">#DE000000</color>
   <color name="text_dark_subtitle">#8A000000</color>
   <color name="text_dark_hint">#42000000</color>
@@ -52,7 +53,6 @@
 
   <!-- downloader -->
   <color name="downloader_green">#179E4D</color>
-  <color name="downloader_red">#FF4436</color>
   <color name="downloader_blue">#0585ff</color>
   <color name="downloader_gray">#999999</color>
   <color name="downloader_gray_bg">#efeff4</color>

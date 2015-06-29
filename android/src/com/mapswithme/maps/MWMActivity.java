@@ -161,6 +161,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private View mLlDownloader;
   private View mLlShare;
   private View mLlSettings;
+  private TextView mTvOutdatedCount;
   private View mTvShare;
   private View mTvBookmarks;
   private View mTvDownloader;
@@ -634,6 +635,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mLlDownloader.setOnClickListener(this);
     mBtnDownloader = (ImageView) mBottomButtons.findViewById(R.id.btn__download_maps);
     mTvDownloader = mBottomButtons.findViewById(R.id.tv__download_maps);
+    mTvOutdatedCount = (TextView) mBottomButtons.findViewById(R.id.tv__outdated_maps_counter);
     mBtnShare = (ImageView) mBottomButtons.findViewById(R.id.btn__share);
     mLlShare = mBottomButtons.findViewById(R.id.ll__share);
     mLlShare.setOnClickListener(this);
@@ -746,6 +748,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private void showBottomButtons()
   {
     UiUtils.show(mLlBookmarks, mLlDownloader, mLlSettings, mLlShare, mLlSearch);
+    refreshOutdatedMapsCounter();
   }
 
   private void hideBottomButtons()
@@ -1028,11 +1031,10 @@ public class MWMActivity extends BaseMwmFragmentActivity
       public void onGlobalLayout()
       {
         refreshZoomButtonsVisibility();
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
           mFadeView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-        } else {
+        else
           mFadeView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-        }
       }
     });
   }
@@ -1382,6 +1384,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private void slideBottomButtonsIn()
   {
     mBtnMenu.setVisibility(View.GONE);
+    refreshOutdatedMapsCounter();
     mButtonsAnimation = new AnimatorSet();
     mLlSearch.setVisibility(View.VISIBLE);
     final float baseY = ViewCompat.getY(mLlSearch);
@@ -1429,6 +1432,15 @@ public class MWMActivity extends BaseMwmFragmentActivity
     result.play(animator);
 
     return result;
+  }
+
+  private void refreshOutdatedMapsCounter()
+  {
+    final int count = ActiveCountryTree.getOutOfDateCount();
+    if (count == 0)
+      mTvOutdatedCount.setVisibility(View.GONE);
+    else
+      UiUtils.setTextAndShow(mTvOutdatedCount, String.valueOf(count));
   }
 
   @Override

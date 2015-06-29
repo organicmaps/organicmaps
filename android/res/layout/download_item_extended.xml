@@ -2,44 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:addStatesFromChildren="true"
-                android:minHeight="?android:attr/listPreferredItemHeight"
-                android:paddingLeft="@dimen/margin_small">
+                android:minHeight="?android:attr/listPreferredItemHeight">
 
   <TextView
       android:id="@+id/title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
       android:layout_centerVertical="true"
-      android:layout_marginLeft="@dimen/margin_small"
+      android:layout_marginLeft="@dimen/margin_medium"
+      android:layout_marginRight="@dimen/margin_medium"
       android:text="@string/downloader_downloaded"
-      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-      android:textColor="@android:color/black"/>
+      android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
   <TextView
       android:id="@+id/tv__count"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      style="@style/MwmWidget.TextView.OutOfDateMapsMarker"
       android:layout_centerVertical="true"
-      android:layout_marginLeft="@dimen/dp_x_3"
-      android:layout_toRightOf="@id/title"
-      android:background="@drawable/bg_downloader_update_count"
-      android:gravity="center"
-      android:minWidth="@dimen/bg_downloader_size"
-      android:paddingLeft="@dimen/margin_micro"
-      android:paddingRight="@dimen/margin_micro"
-      android:src="@drawable/ic_next_item"
-      android:textColor="@android:color/white"/>
-
-  <ImageView
-      android:id="@+id/tv__set_size"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:paddingLeft="@dimen/dp_x_3"
-      android:paddingRight="@dimen/dp_x_3"
-      android:src="@drawable/ic_next_item"/>
+      android:layout_toRightOf="@id/title"/>
 
 </RelativeLayout>

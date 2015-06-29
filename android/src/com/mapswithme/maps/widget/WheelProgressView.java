@@ -52,7 +52,7 @@ public class WheelProgressView extends View
 
   private void init(AttributeSet attrs)
   {
-    setBackgroundColor(Color.WHITE);
+    setBackgroundColor(Color.TRANSPARENT);
 
     final TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.WheelProgressView, 0, 0);
     mStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.WheelProgressView_wheelThickness, DEFAULT_THICKNESS);
@@ -124,7 +124,6 @@ public class WheelProgressView extends View
   {
     if (mIsInit)
     {
-      canvas.drawColor(Color.WHITE);
       canvas.drawCircle(mCenter.x, mCenter.y, mRadius, mBgPaint);
       canvas.drawArc(mProgressRect, -90, 360 * mProgress / 100, false, mFgPaint);
       if (mCenterBitmap == null)

@@ -24,8 +24,7 @@
 
     <ImageView
         android:id="@+id/btn__share"
-        style="@style/MwmWidget.MapButton.Green"
-        android:clickable="false"
+        style="@style/MwmWidget.MapButton.Green.Child"
         android:contentDescription="@string/share_my_location"
         android:src="@drawable/btn_green_share"/>
 
@@ -48,10 +47,8 @@
 
     <ImageView
         android:id="@+id/btn__settings"
-        style="@style/MwmWidget.MapButton.Green"
-        android:clickable="false"
+        style="@style/MwmWidget.MapButton.Green.Child"
         android:contentDescription="@string/settings"
-        android:duplicateParentState="true"
         android:src="@drawable/btn_green_settings"/>
 
   </LinearLayout>
@@ -71,13 +68,23 @@
         android:text="@string/download_maps"
         android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 
-    <ImageView
-        android:id="@+id/btn__download_maps"
-        style="@style/MwmWidget.MapButton.Green"
-        android:clickable="false"
-        android:contentDescription="@string/download_maps"
-        android:duplicateParentState="true"
-        android:src="@drawable/btn_green_download"/>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:duplicateParentState="true">
+
+      <ImageView
+          android:id="@+id/btn__download_maps"
+          style="@style/MwmWidget.MapButton.Green.Child"
+          android:contentDescription="@string/download_maps"
+          android:src="@drawable/btn_green_download"/>
+
+      <TextView
+          android:id="@+id/tv__outdated_maps_counter"
+          style="@style/MwmWidget.TextView.OutOfDateMapsMarker"
+          android:layout_gravity="right"/>
+    </FrameLayout>
+
 
   </LinearLayout>
 
@@ -98,10 +105,8 @@
 
     <ImageView
         android:id="@+id/btn__bookmarks"
-        style="@style/MwmWidget.MapButton.Green"
-        android:clickable="false"
+        style="@style/MwmWidget.MapButton.Green.Child"
         android:contentDescription="@string/bookmarks"
-        android:duplicateParentState="true"
         android:src="@drawable/btn_green_bookmarks"/>
 
   </LinearLayout>
@@ -123,8 +128,7 @@
 
     <ImageView
         android:id="@+id/btn__search"
-        style="@style/MwmWidget.MapButton.Green"
-        android:clickable="false"
+        style="@style/MwmWidget.MapButton.Green.Child"
         android:contentDescription="@string/search"
         android:src="@drawable/btn_green_search"/>
 

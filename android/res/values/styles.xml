@@ -80,6 +80,11 @@
     <item name="android:background">@drawable/bg_btn_green</item>
   </style>
 
+  <style name="MwmWidget.MapButton.Green.Child">
+    <item name="android:duplicateParentState">true</item>
+    <item name="android:clickable">false</item>
+  </style>
+
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
     <item name="android:textColor">@color/text_place_page</item>
@@ -101,7 +106,7 @@
     <item name="android:contentInsetLeft">72dp</item>
   </style>
 
-  <style name="MwmWidget.ListView" parent="android:Widget.ListView">
+  <style name="MwmWidget.ListView" parent="Widget.AppCompat.ListView">
     <item name="android:fadingEdge">none</item>
     <item name="android:divider">@color/base_black_divider</item>
     <item name="android:background">@null</item>
@@ -157,6 +162,17 @@
   <style name="MwmWidget.RatingBar" parent="android:Widget.RatingBar">
     <item name="android:progressDrawable">@drawable/rating_bar</item>
     <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
+  </style>
+
+  <style name="MwmWidget.TextView.OutOfDateMapsMarker">
+    <item name="android:progressDrawable">@drawable/rating_bar</item>
+    <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
+    <item name="android:layout_width">26dp</item>
+    <item name="android:layout_height">26dp</item>
+    <item name="android:background">@drawable/bg_circle_outdated_maps_marker</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body3</item>
+    <item name="android:textColor">@android:color/white</item>
   </style>
 
   <!-- Widgets -->
@@ -230,6 +246,11 @@
   <style name="MwmTextAppearance.Body3">
     <item name="android:textSize">@dimen/text_size_body_3</item>
     <item name="android:textColor">@color/text_dark_subtitle</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body3.Light">
+    <item name="android:textSize">@dimen/text_size_body_3</item>
+    <item name="android:textColor">@color/text_light_subtitle</item>
   </style>
 
   <style name="MwmTextAppearance.IconTitle">

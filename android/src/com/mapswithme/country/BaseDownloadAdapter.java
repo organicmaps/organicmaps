@@ -442,13 +442,13 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
       };
       holder.mProgressSlided.setOnClickListener(listener);
       holder.mInfoSlided.setOnClickListener(listener);
-      holder.mProgressSlided.setProgressColor(mFragment.getResources().getColor(R.color.downloader_red));
+      holder.mProgressSlided.setProgressColor(mFragment.getResources().getColor(R.color.base_red));
       holder.mProgressSlided.setDrawable(BitmapFactory.decodeResource(mFragment.getResources(), R.drawable.ic_retry));
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentText(holder, mStatusFailed);
-      setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_red));
+      setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.base_red));
       break;
 
     case MapStorage.IN_QUEUE:

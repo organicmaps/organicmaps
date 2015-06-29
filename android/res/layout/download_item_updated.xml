@@ -7,4 +7,4 @@
     android:background="@color/downloader_gray_bg"
     android:paddingLeft="@dimen/margin_medium"
     android:paddingTop="@dimen/margin_small"
-    android:textAppearance="@style/TextAppearance.AppCompat"/>
+    android:textAppearance="@style/MwmTextAppearance.Body3"/>
