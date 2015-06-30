@@ -13,8 +13,7 @@ module Twine
         'zh-rCN' => 'zh-Hans',
         'zh-rHK' => 'zh-Hant',
         'en-rGB' => 'en-UK',
-        'in' => 'id',
-        'nb' => 'no'
+        'in' => 'id'
         # TODO: spanish
       ]
       DEFAULT_LANG_CODES = Hash[
