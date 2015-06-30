@@ -174,11 +174,12 @@ dp::Anchor GetAnchor(CaptionDefProto const * capRule)
 
 m2::PointF GetOffset(CaptionDefProto const * capRule)
 {
+  float vs = VisualParams::Instance().GetVisualScale();
   m2::PointF result(0, 0);
   if (capRule != nullptr && capRule->has_offset_x())
-    result.x = capRule->offset_x();
+    result.x = capRule->offset_x() * vs;
   if (capRule != nullptr && capRule->has_offset_y())
-    result.y = capRule->offset_y();
+    result.y = capRule->offset_y() * vs;
 
   return result;
 }
@@ -207,7 +208,6 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   params.m_primaryText = m_captions.GetMainText();
   params.m_primaryTextFont = decl;
   params.m_primaryOffset = GetOffset(primaryProto);
-  params.m_secondaryOffset = GetOffset(secondaryProto);
 
   if (secondaryProto)
   {
@@ -464,7 +464,6 @@ void ApplyLineFeature::Finish()
     viewParams.m_primaryText = roadNumber;
     viewParams.m_primaryTextFont = dp::FontDecl(dp::Color::RoadNumberOutline(), textHeight, dp::Color::White());
     viewParams.m_primaryOffset = m2::PointF(0, 0);
-    viewParams.m_secondaryOffset = m2::PointF(0, 0);
 
     m2::Spline::iterator it = m_spline.CreateIterator();
     while (!it.BeginAgain())
