@@ -1,5 +1,6 @@
 #include "cross_mwm_router.hpp"
 #include "online_cross_fetcher.hpp"
+#include "osrm2feature_map.hpp"
 #include "osrm_router.hpp"
 #include "turns_generator.hpp"
 #include "vehicle_model.hpp"
@@ -100,11 +101,12 @@ public:
     Candidate() : m_dist(numeric_limits<double>::max()), m_fid(OsrmMappingTypes::FtSeg::INVALID_FID) {}
   };
 
-  static void FindMappedSegment(FeatureType const & ft, m2::PointD const & point, Candidate & res)
+  static void FindNearestSegment(FeatureType const & ft, m2::PointD const & point, Candidate & res)
   {
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     size_t const count = ft.GetPointsCount();
+    uint32_t const offset = ft.GetID().m_offset;
     ASSERT_GREATER(count, 1, ());
     for (size_t i = 1; i < count; ++i)
     {
@@ -116,7 +118,7 @@ public:
       if (d < res.m_dist)
       {
         res.m_dist = d;
-        res.m_fid = ft.GetID().m_offset;
+        res.m_fid = offset;
         res.m_segIdx = i - 1;
         res.m_point = pt;
       }
@@ -141,7 +143,7 @@ public:
 
     Candidate res;
 
-    FindMappedSegment(ft, m_point, res);
+    FindNearestSegment(ft, m_point, res);
 
     if (!m_mwmId.IsAlive())
       m_mwmId = ft.GetID().m_mwmId;
@@ -403,11 +405,14 @@ void FindGraphNodeOffsets(size_t const nodeId, m2::PointD const & point,
     mapping->m_segMapping.GetSegmentByIndex(i, s);
     if (!s.IsValid())
       continue;
+
     FeatureType ft;
     Index::FeaturesLoaderGuard loader(*pIndex, mapping->GetMwmId());
     loader.GetFeature(s.m_fid, ft);
+
     Point2PhantomNode::Candidate mappedSeg;
-    Point2PhantomNode::FindMappedSegment(ft, point, mappedSeg);
+    Point2PhantomNode::FindNearestSegment(ft, point, mappedSeg);
+
     OsrmMappingTypes::FtSeg seg;
     seg.m_fid = mappedSeg.m_fid;
     seg.m_pointStart = mappedSeg.m_segIdx;
@@ -438,7 +443,7 @@ void CalculatePhantomNodeForCross(TRoutingMappingPtr & mapping, FeatureGraphNode
   else
     nodeId = graphNode.node.reverse_node_id;
 
-  CHECK(nodeId != INVALID_NODE_ID, ());
+  CHECK_NOT_EQUAL(nodeId, INVALID_NODE_ID, ());
 
   mapping->LoadCrossContext();
   MappingGuard guard(mapping);
@@ -483,7 +488,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
   Route::TTimes Times;
   vector<m2::PointD> Points;
   turns::TTurnsGeom TurnsGeom;
-  for (RoutePathCross cross: path)
+  for (RoutePathCross cross : path)
   {
     ASSERT_EQUAL(cross.startNode.mwmName, cross.finalNode.mwmName, ());
     RawRoutingResult routingResult;
@@ -491,8 +496,8 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     ASSERT(mwmMapping->IsValid(), ());
     MappingGuard mwmMappingGuard(mwmMapping);
     UNUSED_VALUE(mwmMappingGuard);
-    CalculatePhantomNodeForCross(mwmMapping, cross.startNode, m_pIndex, true);
-    CalculatePhantomNodeForCross(mwmMapping, cross.finalNode, m_pIndex, false);
+    CalculatePhantomNodeForCross(mwmMapping, cross.startNode, m_pIndex, true /* forward */);
+    CalculatePhantomNodeForCross(mwmMapping, cross.finalNode, m_pIndex, false /* forward */);
     if (!FindSingleRoute(cross.startNode, cross.finalNode, mwmMapping->m_dataFacade, routingResult))
       return OsrmRouter::RouteNotFound;
 
@@ -502,12 +507,11 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     vector<m2::PointD> mwmPoints;
     turns::TTurnsGeom mwmTurnsGeom;
     MakeTurnAnnotation(routingResult, mwmMapping, mwmPoints, mwmTurnsDir, mwmTimes, mwmTurnsGeom);
-    // And connect it to result route.
-    // -1 because --mwmPoints.begin(), so psize can be negative.
-    const int64_t pSize = static_cast<int64_t>(Points.size()) - 1;
+    // Connect annotated route.
+    const uint32_t pSize = Points.size();
     for (auto turn : mwmTurnsDir)
     {
-      if (turn.m_index == 0 && pSize == -1)
+      if (turn.m_index == 0)
         continue;
       turn.m_index += pSize;
       TurnsDir.push_back(turn);
@@ -516,7 +520,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     double const estimationTime = Times.size() ? Times.back().second : 0.0;
     for (auto time : mwmTimes)
     {
-      if (time.first == 0 && pSize == -1)
+      if (time.first == 0)
         continue;
       time.first += pSize;
       time.second += estimationTime;
@@ -529,11 +533,11 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
       Points.pop_back();
       for (auto & turnGeom : mwmTurnsGeom)
       {
-        if (turnGeom.m_indexInRoute || pSize > -1)
+        if (turnGeom.m_indexInRoute)
           turnGeom.m_indexInRoute += pSize;
       }
     }
-    Points.insert(Points.end(), ++mwmPoints.begin(), mwmPoints.end());
+    Points.insert(Points.end(), mwmPoints.begin(), mwmPoints.end());
     TurnsGeom.insert(TurnsGeom.end(), mwmTurnsGeom.begin(), mwmTurnsGeom.end());
   }
 
