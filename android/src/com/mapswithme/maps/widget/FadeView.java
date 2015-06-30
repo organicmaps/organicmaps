@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,7 +25,8 @@ public class FadeView extends FrameLayout
     @Override
     public void onAnimationEnd(Animator animation)
     {
-      UiUtils.hideAfterAlphaAnimation(FadeView.this);
+      setVisibility(View.GONE);
+      UiUtils.clearAnimationAfterAlpha(FadeView.this);
       if (mFadeListener != null && mDoNotify)
         mFadeListener.onFadeOut();
     }
@@ -71,6 +73,7 @@ public class FadeView extends FrameLayout
 
   /**
    * Fades out view and notifies on animation end, if requested
+   *
    * @param notify whether we want notification
    */
   public void fadeIn(boolean notify)
@@ -84,6 +87,7 @@ public class FadeView extends FrameLayout
 
   /**
    * Fades out view and notifies on animation end, if requested
+   *
    * @param notify whether we want notification
    */
   public void fadeOut(boolean notify)
@@ -102,6 +106,18 @@ public class FadeView extends FrameLayout
   public boolean isFadingOut()
   {
     return mFadeOutAnimation != null && mFadeOutAnimation.isRunning();
+  }
+
+  public void fadeInInstantly()
+  {
+    setVisibility(View.VISIBLE);
+    ViewCompat.setAlpha(this, FADE_ALPHA_VALUE);
+  }
+
+  public void fadeOutInstantly()
+  {
+    setVisibility(View.GONE);
+    ViewCompat.setAlpha(this, 0);
   }
 
   @Override

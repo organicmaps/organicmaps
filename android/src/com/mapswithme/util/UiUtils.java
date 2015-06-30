@@ -63,16 +63,13 @@ public final class UiUtils
   }
 
   /*
-    Views after alpha animations with 'setFillAfter' on 2.3 can't become GONE, until clearAnimation is called.
+    Views after alpha animations with 'setFillAfter' on 2.3 can't become GONE, until clearAnimationAfterAlpha is called.
    */
-  public static void hideAfterAlphaAnimation(View... views)
+  public static void clearAnimationAfterAlpha(View... views)
   {
-    for (final View view : views)
-    {
-      hide(view);
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+      for (final View view : views)
         view.clearAnimation();
-    }
   }
 
   public static Drawable drawCircle(int color, int sizeResId, Resources res)
@@ -341,7 +338,8 @@ public final class UiUtils
   /**
    * View's default getHitRect() had a bug and would not apply transforms properly.
    * More details : http://stackoverflow.com/questions/17750116/strange-view-gethitrect-behaviour
-   * @param v view
+   *
+   * @param v    view
    * @param rect rect
    */
   public static void getHitRect(View v, Rect rect)
@@ -354,7 +352,8 @@ public final class UiUtils
 
   /**
    * Tests, whether views intercects each other in parent coordinates.
-   * @param firstView base view
+   *
+   * @param firstView  base view
    * @param secondView covering view
    * @return intersects or not
    */

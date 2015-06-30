@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
-import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,8 +30,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -69,6 +66,7 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.StoragePathManager.SetStoragePathListener;
 import com.mapswithme.maps.settings.UnitLocale;
+import com.mapswithme.maps.widget.BottomButtonsLayout;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
@@ -83,9 +81,7 @@ import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 import java.io.Serializable;
@@ -114,6 +110,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private static final String STATE_PP_OPENED = "PpOpened";
   private static final String STATE_MAP_OBJECT = "MapObject";
   private static final String STATE_BUTTONS_OPENED = "ButtonsOpened";
+  private static final int BASE_ANIM_DURATION = 30;
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
   private BroadcastReceiver mExternalStorageReceiver;
@@ -146,31 +143,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   // but they shall not be reinitialized on screen orientation changing.
   private static boolean mStorageAvailable = false;
   private static boolean mStorageWritable = true;
-  // Buttons
-  private static final long BUTTONS_ANIM_DURATION = 30;
-  private static final long BUTTONS_ANIM_DURATION_LONG = 35;
-  private ViewGroup mBottomButtons;
-  private ImageView mBtnBookmarks;
-  private ImageView mBtnSearch;
-  private ImageView mBtnDownloader;
-  private ImageView mBtnShare;
-  private ImageView mBtnSettings;
-  private ImageButton mBtnMenu;
-  private View mLlBookmarks;
-  private View mLlSearch;
-  private View mLlDownloader;
-  private View mLlShare;
-  private View mLlSettings;
-  private TextView mTvOutdatedCount;
-  private View mTvShare;
-  private View mTvBookmarks;
-  private View mTvDownloader;
-  private View mTvSettings;
-  private View mTvSearch;
-
-  private AnimationDrawable mAnimMenu;
-  private AnimationDrawable mAnimMenuReversed;
-  private AnimatorSet mButtonsAnimation;
 
   private FadeView mFadeView;
 
@@ -178,6 +150,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private View mToolbarSearch;
   private ImageButton mBtnZoomIn;
   private ImageButton mBtnZoomOut;
+  private BottomButtonsLayout mBottomButtons;
 
   private static final String IS_KML_MOVED = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
@@ -264,7 +237,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       {
         final double lat = Double.parseDouble(intent.getStringExtra(EXTRA_LAT));
         final double lon = Double.parseDouble(intent.getStringExtra(EXTRA_LON));
-        mBottomButtons.getHandler().postDelayed(new Runnable()
+        mFadeView.getHandler().postDelayed(new Runnable()
         {
           @Override
           public void run()
@@ -599,8 +572,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
       @Override
       public void onFadeOut()
       {
-        if (areBottomButtonsVisible())
-          toggleMenuButtons();
+        if (mBottomButtons.areButtonsVisible())
+          mBottomButtons.slideButtonsOut();
       }
 
       @Override
@@ -622,34 +595,14 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("deprecation")
   private void initNavigationButtons()
   {
-    mBottomButtons = (ViewGroup) findViewById(R.id.map_bottom_buttons);
-    mBtnBookmarks = (ImageView) mBottomButtons.findViewById(R.id.btn__bookmarks);
-    mLlBookmarks = mBottomButtons.findViewById(R.id.ll__bookmarks);
-    mLlBookmarks.setOnClickListener(this);
-    mTvBookmarks = mBottomButtons.findViewById(R.id.tv__bookmarks);
-    mBtnSearch = (ImageView) mBottomButtons.findViewById(R.id.btn__search);
-    mLlSearch = mBottomButtons.findViewById(R.id.ll__search);
-    mLlSearch.setOnClickListener(this);
-    mTvSearch = mBottomButtons.findViewById(R.id.tv__search);
-    mLlDownloader = mBottomButtons.findViewById(R.id.ll__download_maps);
-    mLlDownloader.setOnClickListener(this);
-    mBtnDownloader = (ImageView) mBottomButtons.findViewById(R.id.btn__download_maps);
-    mTvDownloader = mBottomButtons.findViewById(R.id.tv__download_maps);
-    mTvOutdatedCount = (TextView) mBottomButtons.findViewById(R.id.tv__outdated_maps_counter);
-    mBtnShare = (ImageView) mBottomButtons.findViewById(R.id.btn__share);
-    mLlShare = mBottomButtons.findViewById(R.id.ll__share);
-    mLlShare.setOnClickListener(this);
-    mTvShare = mBottomButtons.findViewById(R.id.tv__share);
-    mBtnSettings = (ImageView) mBottomButtons.findViewById(R.id.btn__settings);
-    mLlSettings = mBottomButtons.findViewById(R.id.ll__settings);
-    mLlSettings.setOnClickListener(this);
-    mTvSettings = mBottomButtons.findViewById(R.id.tv__settings);
-
-    mBtnMenu = (ImageButton) mBottomButtons.findViewById(R.id.btn__open_menu);
-    mBtnMenu.setOnClickListener(this);
-    mAnimMenu = (AnimationDrawable) getResources().getDrawable(R.drawable.anim_menu);
-    mAnimMenuReversed = (AnimationDrawable) getResources().getDrawable(R.drawable.anim_menu_reversed);
-    hideBottomButtons();
+    mBottomButtons = (BottomButtonsLayout) findViewById(R.id.map_bottom_buttons);
+    mBottomButtons.hideButtons();
+    mBottomButtons.findViewById(R.id.btn__open_menu).setOnClickListener(this);
+    mBottomButtons.findViewById(R.id.ll__share).setOnClickListener(this);
+    mBottomButtons.findViewById(R.id.ll__search).setOnClickListener(this);
+    mBottomButtons.findViewById(R.id.ll__download_maps).setOnClickListener(this);
+    mBottomButtons.findViewById(R.id.ll__bookmarks).setOnClickListener(this);
+    mBottomButtons.findViewById(R.id.ll__settings).setOnClickListener(this);
 
     mNavigationButtons = (ViewGroup) findViewById(R.id.navigation_buttons);
     mBtnZoomIn = (ImageButton) mNavigationButtons.findViewById(R.id.map_button_plus);
@@ -717,7 +670,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       outState.putBoolean(STATE_PP_OPENED, true);
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
     }
-    else if (areBottomButtonsVisible())
+    else if (mBottomButtons.areButtonsVisible())
       outState.putBoolean(STATE_BUTTONS_OPENED, true);
 
     super.onSaveInstanceState(outState);
@@ -736,29 +689,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
     if (savedInstanceState.getBoolean(STATE_BUTTONS_OPENED))
     {
-      mFadeView.fadeIn(false);
-      showBottomButtons();
+      mFadeView.fadeInInstantly();
+      mBottomButtons.showButtons();
     }
-    else
-      hideBottomButtons();
 
     super.onRestoreInstanceState(savedInstanceState);
-  }
-
-  private void showBottomButtons()
-  {
-    UiUtils.show(mLlBookmarks, mLlDownloader, mLlSettings, mLlShare, mLlSearch);
-    refreshOutdatedMapsCounter();
-  }
-
-  private void hideBottomButtons()
-  {
-    UiUtils.hide(mLlBookmarks, mLlDownloader, mLlSettings, mLlShare, mLlSearch);
-    // IMPORTANT views after alpha animations with 'setFillAfter' on 2.3 can't become GONE, until clearAnimation is called.
-    UiUtils.hideAfterAlphaAnimation(mLlSearch, mLlBookmarks, mLlDownloader, mLlSettings, mLlShare);
-    if (mButtonsAnimation != null && mButtonsAnimation.isRunning())
-      mButtonsAnimation.end();
-    mBtnMenu.setVisibility(View.VISIBLE);
   }
 
   @Override
@@ -1149,9 +1084,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
       hidePlacePage();
       Framework.deactivatePopup();
     }
-    else if (areBottomButtonsVisible())
+    else if (mBottomButtons.areButtonsVisible())
     {
-      toggleMenuButtons();
+      mBottomButtons.toggle();
       mFadeView.fadeOut(false);
     }
     else if (canFragmentInterceptBackPress())
@@ -1159,7 +1094,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       return;
     else if (popFragment())
     {
-      InputUtils.hideKeyboard(mBottomButtons);
+      InputUtils.hideKeyboard(mFadeView);
       mFadeView.fadeOut(false);
     }
     else
@@ -1381,93 +1316,31 @@ public class MWMActivity extends BaseMwmFragmentActivity
     return !(UiUtils.isBigTablet() || (UiUtils.isSmallTablet() && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE));
   }
 
-  private void slideBottomButtonsIn()
-  {
-    mBtnMenu.setVisibility(View.GONE);
-    refreshOutdatedMapsCounter();
-    mButtonsAnimation = new AnimatorSet();
-    mLlSearch.setVisibility(View.VISIBLE);
-    final float baseY = ViewCompat.getY(mLlSearch);
-    mButtonsAnimation.play(generateMenuAnimator(mLlBookmarks, baseY - ViewCompat.getY(mLlBookmarks)));
-    mButtonsAnimation.play(generateMenuAnimator(mLlDownloader, baseY - ViewCompat.getY(mLlDownloader)));
-    mButtonsAnimation.play(generateMenuAnimator(mLlSettings, baseY - ViewCompat.getY(mLlSettings)));
-    mButtonsAnimation.play(generateMenuAnimator(mLlShare, baseY - ViewCompat.getY(mLlShare)));
-    mButtonsAnimation.addListener(new UiUtils.SimpleNineoldAnimationListener()
-    {
-      @Override
-      public void onAnimationEnd(Animator animation)
-      {
-        mBtnMenu.setVisibility(View.GONE);
-      }
-    });
-    mButtonsAnimation.start();
-  }
-
-  private void slideBottomButtonsOut()
-  {
-    hideBottomButtons();
-  }
-
-  private Animator generateMenuAnimator(@NonNull final View layout, final float translationY)
-  {
-    final float durationMultiplier = translationY / layout.getHeight();
-    final AnimatorSet result = new AnimatorSet();
-    ValueAnimator animator = ObjectAnimator.ofFloat(layout, "translationY", translationY, 0);
-    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
-    {
-      @Override
-      public void onAnimationStart(Animator animation)
-      {
-        layout.setVisibility(View.VISIBLE);
-        ViewCompat.setAlpha(layout, 0);
-      }
-    });
-    animator.setInterpolator(new LinearInterpolator());
-    animator.setDuration((long) (BUTTONS_ANIM_DURATION * durationMultiplier));
-    result.play(animator);
-
-    animator = ObjectAnimator.ofFloat(layout, "alpha", 0, 1);
-    animator.setDuration((long) (BUTTONS_ANIM_DURATION_LONG * durationMultiplier));
-    animator.setInterpolator(new AccelerateInterpolator());
-    result.play(animator);
-
-    return result;
-  }
-
-  private void refreshOutdatedMapsCounter()
-  {
-    final int count = ActiveCountryTree.getOutOfDateCount();
-    if (count == 0)
-      mTvOutdatedCount.setVisibility(View.GONE);
-    else
-      UiUtils.setTextAndShow(mTvOutdatedCount, String.valueOf(count));
-  }
-
   @Override
   public void onClick(View v)
   {
     switch (v.getId())
     {
-    case R.id.btn__share:
     case R.id.ll__share:
       AlohaHelper.logClick(AlohaHelper.MENU_SHARE);
       shareMyLocation();
-      hideBottomButtons();
-      UiUtils.hideAfterAlphaAnimation(mFadeView);
+      mBottomButtons.hideButtons();
+      UiUtils.hide(mFadeView);
+      UiUtils.clearAnimationAfterAlpha(mFadeView);
       break;
-    case R.id.btn__settings:
     case R.id.ll__settings:
       AlohaHelper.logClick(AlohaHelper.MENU_SETTINGS);
       startActivity(new Intent(this, SettingsActivity.class));
-      hideBottomButtons();
-      UiUtils.hideAfterAlphaAnimation(mFadeView);
+      mBottomButtons.hideButtons();
+      UiUtils.hide(mFadeView);
+      UiUtils.clearAnimationAfterAlpha(mFadeView);
       break;
-    case R.id.btn__download_maps:
     case R.id.ll__download_maps:
       AlohaHelper.logClick(AlohaHelper.MENU_DOWNLOADER);
       showDownloader(false);
-      hideBottomButtons();
-      UiUtils.hideAfterAlphaAnimation(mFadeView);
+      mBottomButtons.hideButtons();
+      UiUtils.hide(mFadeView);
+      UiUtils.clearAnimationAfterAlpha(mFadeView);
       break;
     case R.id.rl__route:
       AlohaHelper.logClick(AlohaHelper.PP_ROUTE);
@@ -1496,21 +1369,21 @@ public class MWMActivity extends BaseMwmFragmentActivity
     case R.id.btn__open_menu:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_MENU);
       mFadeView.fadeIn(false);
-      toggleMenuButtons();
+      mBottomButtons.toggle();
       break;
-    case R.id.btn__search:
     case R.id.ll__search:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_SEARCH);
       showSearchIfUpdated();
-      hideBottomButtons();
-      UiUtils.hideAfterAlphaAnimation(mFadeView);
+      mBottomButtons.hideButtons();
+      UiUtils.hide(mFadeView);
+      UiUtils.clearAnimationAfterAlpha(mFadeView);
       break;
-    case R.id.btn__bookmarks:
     case R.id.ll__bookmarks:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_BOOKMARKS);
       showBookmarks();
-      hideBottomButtons();
-      UiUtils.hideAfterAlphaAnimation(mFadeView);
+      mBottomButtons.hideButtons();
+      UiUtils.hide(mFadeView);
+      UiUtils.clearAnimationAfterAlpha(mFadeView);
       break;
     case R.id.btn__myposition:
       switchNextLocationState();
@@ -1531,27 +1404,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     default:
       break;
     }
-  }
-
-  private void toggleMenuButtons()
-  {
-    if (areBottomButtonsVisible())
-    {
-      mBtnMenu.setImageDrawable(mAnimMenuReversed);
-      mAnimMenuReversed.start();
-      slideBottomButtonsOut();
-    }
-    else
-    {
-      mBtnSearch.setImageDrawable(mAnimMenu);
-      mAnimMenu.start();
-      slideBottomButtonsIn();
-    }
-  }
-
-  private boolean areBottomButtonsVisible()
-  {
-    return mLlSearch.getVisibility() == View.VISIBLE;
   }
 
   private void followRoute()
@@ -1656,11 +1508,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     if (keyCode == KeyEvent.KEYCODE_MENU)
     {
-      if (areBottomButtonsVisible())
+      if (mBottomButtons.areButtonsVisible())
         mFadeView.fadeOut(false);
       else
         mFadeView.fadeIn(false);
-      toggleMenuButtons();
+      mBottomButtons.toggle();
       return true;
     }
     return super.onKeyUp(keyCode, event);
@@ -1701,7 +1553,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
           mLayoutRoutingGo.setVisibility(View.VISIBLE);
 
           Animator animator = ObjectAnimator.ofFloat(mRlRoutingBox, "alpha", 0, 1);
-          animator.setDuration(BUTTONS_ANIM_DURATION);
+          animator.setDuration(BASE_ANIM_DURATION);
           animator.start();
 
           mRlRoutingBox.setVisibility(View.VISIBLE);

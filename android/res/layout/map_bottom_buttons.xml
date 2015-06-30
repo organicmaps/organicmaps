@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin_small"
     tools:ignore="UseCompoundDrawables">
 
   <LinearLayout
@@ -134,12 +133,18 @@
 
   </LinearLayout>
 
-  <ImageButton
-      android:id="@+id/btn__open_menu"
-      style="@style/MwmWidget.MapButton.Green"
+  <FrameLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      android:layout_alignParentRight="true"
-      android:contentDescription="@string/menu_search"
-      android:src="@drawable/btn_green_menu"/>
+      android:layout_alignParentRight="true">
 
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/btn__open_menu"
+        style="@style/MwmWidget.MapButton.Green"
+        android:contentDescription="@string/menu_search"
+        android:src="@drawable/btn_green_menu"/>
+
+  </FrameLayout>
+
+</merge>

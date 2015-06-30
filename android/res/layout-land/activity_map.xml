@@ -44,8 +44,12 @@
       android:background="@android:color/black"
       android:visibility="gone"/>
 
-  <include
+  <com.mapswithme.maps.widget.BottomButtonsLayout
       android:id="@+id/map_bottom_buttons"
-      layout="@layout/map_bottom_buttons"/>
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentRight="true"
+      android:padding="@dimen/margin_small"/>
 
 </RelativeLayout>
