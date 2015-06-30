@@ -38,12 +38,17 @@
   self.iPadOwnerNavigationController.view.height = self.tableView.height + bottomOffset;
 }
 
-- (void)backTap
+- (void)popViewController
 {
   if (self.iPadOwnerNavigationController)
     [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
 
   [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)backTap
+{
+  [self popViewController];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -128,7 +133,7 @@
   {
     [self moveBookmarkToSetWithIndex:static_cast<int>(indexPath.row)];
     [self.manager reloadBookmark];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self popViewController];
   }
 }
 
