@@ -72,6 +72,7 @@ int main(int argc, char * argv[]) {
     return result;
   }
   alohalytics::StatisticsReceiver receiver(argv[1]);
+  string gzipped_body;
   ALOG("FastCGI Server instance is ready to serve clients' requests.");
   while (FCGX_Accept_r(&request) >= 0) {
     try {
@@ -83,17 +84,12 @@ int main(int argc, char * argv[]) {
                      "Status: 411 Length Required\r\nContent-Type: text/plain\r\n\r\n411 Length Required\n");
         continue;
       }
-      unique_ptr<char[]> body(new char[content_length]);
-      if (fcgi_istream(request.in).read(body.get(), content_length).fail()) {
+      gzipped_body.resize(content_length);
+      if (fcgi_istream(request.in).read(&gzipped_body[0], content_length).fail()) {
         ALOG("WARNING: Can't read body contents, request is ignored.");
         FCGX_FPrintF(request.out, "Status: 400 Bad Request\r\nContent-Type: text/plain\r\n\r\n400 Bad Request\n");
         continue;
       }
-
-      //      FCGX_FPrintF(request.out, "Content-Type: text/plain\r\n\r\n");
-      //      for (char ** p = request.envp; *p; ++p) {
-      //        FCGX_FPrintF(request.out, "%s\n", *p);
-      //      }
 
       const char * user_agent_str = FCGX_GetParam("HTTP_USER_AGENT", request.envp);
       if (user_agent_str) {
@@ -111,9 +107,11 @@ int main(int argc, char * argv[]) {
         ALOG("WARNING: Missing REMOTE_ADDR.");
       }
 
-      // Process received body.
-
-      ALOG("Successfully processed request:", string(body.get(), content_length));
+      // Process and store received body.
+      // This call can throw different exceptions.
+      receiver.ProcessReceivedHTTPBody(gzipped_body, AlohalyticsBaseEvent::CurrentTimestamp(),
+                                       remote_addr_str ? remote_addr_str : "", user_agent_str ? user_agent_str : "",
+                                       request_uri_str ? request_uri_str : "");
       FCGX_FPrintF(request.out, "Status: 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %ld\r\n\r\n%s\n",
                    kBodyTextInSuccessfulServerReply.size(), kBodyTextInSuccessfulServerReply.c_str());
 
@@ -121,8 +119,8 @@ int main(int argc, char * argv[]) {
       ALOG("ERROR: Exception while processing request: ", ex.what());
       FCGX_FPrintF(request.out,
                    "Status: 500 Internal Server Error\r\nContent-Type: text/plain\r\n\r\n500 Internal Server Error\n");
-      // TODO(AlexZ): Full log here to get more details. Also think about clients who can constantly fail because of bad
-      // data file.
+      // TODO(AlexZ): Full log, possibly into the file, to get more details about the error. Also think about clients
+      // who can constantly fail because of bad data file.
       continue;
     }
   }

@@ -40,58 +40,13 @@ namespace alohalytics {
 
 class StatisticsReceiver {
   std::string storage_directory_;
-  // Collect all data into a single file in the queue, but periodically archive it
-  // and create a new one with a call to ProcessArchivedFiles
   UnlimitedFileQueue file_storage_queue_;
-
-  // How often should we create separate files with all collected data.
-  static constexpr uint64_t kArchiveFileIntervalInMS = 1000 * 60 * 60;  // One hour.
-  static constexpr const char * kArchiveExtension = ".cereal";
-  static constexpr const char * kGzippedArchiveExtension = ".gz";
-
-  // Used to archive currently collected data into a separate file.
-  uint64_t last_checked_time_ms_from_epoch_;
 
  public:
   explicit StatisticsReceiver(const std::string & storage_directory)
-      : storage_directory_(storage_directory),
-        last_checked_time_ms_from_epoch_(AlohalyticsBaseEvent::CurrentTimestamp()) {
+      : storage_directory_(storage_directory) {
     FileManager::AppendDirectorySlash(storage_directory_);
     file_storage_queue_.SetStorageDirectory(storage_directory_);
-  }
-
-  //  static std::string GenerateFileNameFromEpochMilliseconds(uint64_t ms_from_epoch) {
-  //    const time_t timet = static_cast<const time_t>(ms_from_epoch / 1000);
-  //    char buf[100];
-  //    if (std::strftime(buf, sizeof(buf), "%F-%H%M%S", std::gmtime(&timet))) {
-  //      return std::string(buf) + kArchiveExtension;
-  //    } else {
-  //      return std::to_string(ms_from_epoch) + kArchiveExtension;
-  //    }
-  //  }
-
-  //  bool ShouldRenameFile(uint64_t current_ms_from_epoch) {
-  //    last_checked_time_ms_from_epoch_ = current_ms_from_epoch;
-  //    if (current_ms_from_epoch - last_checked_time_ms_from_epoch_ > kArchiveFileIntervalInMS) {
-  //      last_checked_time_ms_from_epoch_ = current_ms_from_epoch;
-  //      return true;
-  //    }
-  //    return false;
-  //  }
-
-  void ArchiveCollectedData(const std::string & destination_archive_file) {
-    // TODO Should we gzip it here? Probably by calling an external tool?
-    file_storage_queue_.ProcessArchivedFiles([destination_archive_file](bool, const std::string & file_path) {
-      // Sanity check - this lambda should be called only once.
-      try {
-        if (FileManager::GetFileSize(destination_archive_file) > 0) {
-          std::cerr << "ERROR in the queue? Archived file already exists: " << destination_archive_file << std::endl;
-        }
-      } catch (const std::exception &) {
-        std::rename(file_path.c_str(), destination_archive_file.c_str());
-      }
-      return true;
-    });
   }
 
   // Throws exceptions on any error.
@@ -112,21 +67,21 @@ class StatisticsReceiver {
       in_ar(ptr);
       // Cereal does not check if binary data is valid. Let's do it ourselves.
       // TODO(AlexZ): Switch from Cereal to another library.
-      if (ptr.get() == nullptr) {
+      if (!ptr) {
         throw std::invalid_argument("Corrupted Cereal object, this == 0.");
       }
       // TODO(AlexZ): Looks like an overhead to cast every event instead of only the first one,
       // but what if stream contains several mixed bodies?
       const AlohalyticsIdEvent * id_event = dynamic_cast<const AlohalyticsIdEvent *>(ptr.get());
       if (id_event) {
-        AlohalyticsIdServerEvent * server_id_event = new AlohalyticsIdServerEvent();
+        std::unique_ptr<AlohalyticsIdServerEvent> server_id_event(new AlohalyticsIdServerEvent());
         server_id_event->timestamp = id_event->timestamp;
         server_id_event->id = id_event->id;
         server_id_event->server_timestamp = server_timestamp;
         server_id_event->ip = ip;
         server_id_event->user_agent = user_agent;
         server_id_event->uri = uri;
-        ptr.reset(server_id_event);
+        ptr = std::move(server_id_event);
       }
       // Serialize it back.
       cereal::BinaryOutputArchive(out_stream) << ptr;

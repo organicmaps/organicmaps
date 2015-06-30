@@ -118,7 +118,7 @@ int main(int argc, char ** argv) {
     }
     struct tm stm;
     ::memset(&stm, 0, sizeof(stm));
-    if (nullptr == ::strptime(&log_entry[start_pos], "[%d/%b/%Y:%H:%M:%S", &stm)) {
+    if (NULL == ::strptime(&log_entry[start_pos], "[%d/%b/%Y:%H:%M:%S", &stm)) {
       cout << "WARNING: Can't parse server timestamp: " << log_entry.substr(start_pos, end_pos - start_pos) << endl;
       continue;
     }

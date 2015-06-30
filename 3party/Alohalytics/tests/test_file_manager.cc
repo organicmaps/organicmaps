@@ -168,7 +168,7 @@ void Test_IsDirectoryWritable() {
 
   const std::string not_writable_system_directory =
 #ifdef _MSC_VER
-      "C:\";
+      "C:\\";
 #else
       "/Users";
 #endif
