@@ -8,6 +8,7 @@
 namespace
 {
 using namespace routing::turns;
+
 /// The order is important. Starting with the most frequent tokens according to
 /// taginfo.openstreetmap.org we minimize the number of the comparisons in ParseSingleLane().
 array<pair<LaneWay, string>, static_cast<size_t>(LaneWay::Count)> const g_laneWayNames = {
@@ -43,7 +44,7 @@ array<pair<TurnDirection, string>, static_cast<size_t>(TurnDirection::Count)> co
      {TurnDirection::ReachedYourDestination, "ReachedYourDestination"}}};
 static_assert(g_turnNames.size() == static_cast<size_t>(TurnDirection::Count),
               "Check the size of g_turnNames");
-}
+}  // namespace
 
 namespace routing
 {
@@ -58,6 +59,18 @@ bool TurnGeom::operator==(TurnGeom const & other) const
 bool SingleLaneInfo::operator==(SingleLaneInfo const & other) const
 {
   return m_lane == other.m_lane && m_isRecommended == other.m_isRecommended;
+}
+
+string DebugPrint(TurnItem const & turnItem)
+{
+  stringstream out;
+  out << "[ TurnItem: m_index = " << turnItem.m_index
+      << ", m_turn = " << DebugPrint(turnItem.m_turn)
+      << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
+      << ", m_sourceName = " << turnItem.m_sourceName
+      << ", m_targetName = " << turnItem.m_targetName
+      << ", m_keepAnyway = " << turnItem.m_keepAnyway << " ]" << endl;
+  return out.str();
 }
 
 string const GetTurnString(TurnDirection turn)
@@ -242,6 +255,5 @@ string DebugPrint(SingleLaneInfo const & singleLaneInfo)
       << ", m_lane == " << ::DebugPrint(singleLaneInfo.m_lane) << " ]" << endl;
   return out.str();
 }
-
-}
-}
+}  // namespace turns
+}  // namespace routing

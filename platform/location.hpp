@@ -3,6 +3,7 @@
 #include "base/base.hpp"
 
 #include "routing/turns.hpp"
+#include "routing/turns_sound_settings.hpp"
 
 #include "std/cmath.hpp"
 #include "std/string.hpp"
@@ -128,7 +129,12 @@ namespace location
     int m_time;
     // m_lanes contains lane information on the edge before the turn.
     vector<SingleLaneInfoClient> m_lanes;
-    // The next street name
+    // m_turnNotifications contains information about the next turn notifications.
+    // If there is nothing to pronounce m_turnNotifications is empty.
+    // If there is something to pronounce the size of m_turnNotifications may be one or even more
+    // depends on the number of notifications to prononce.
+    vector<routing::turns::sound::Notifications> m_turnNotifications;
+    // The next street name.
     string m_targetName;
 
     bool IsValid() const { return !m_distToTarget.empty(); }

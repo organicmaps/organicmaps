@@ -89,7 +89,7 @@ struct TurnGeom
 
 string DebugPrint(TurnGeom const & turnGeom);
 
-typedef vector<turns::TurnGeom> TTurnsGeom;
+typedef vector<TurnGeom> TTurnsGeom;
 typedef vector<LaneWay> TSingleLane;
 
 struct SingleLaneInfo
@@ -102,6 +102,43 @@ struct SingleLaneInfo
 };
 
 string DebugPrint(SingleLaneInfo const & singleLaneInfo);
+
+struct TurnItem
+{
+  TurnItem()
+      : m_index(numeric_limits<uint32_t>::max()),
+        m_turn(TurnDirection::NoTurn),
+        m_exitNum(0),
+        m_keepAnyway(false)
+  {
+  }
+
+  TurnItem(uint32_t idx, TurnDirection t, uint32_t exitNum = 0)
+      : m_index(idx), m_turn(t), m_exitNum(exitNum), m_keepAnyway(false)
+  {
+  }
+
+  bool operator==(TurnItem const & rhs) const
+  {
+    return m_index == rhs.m_index && m_turn == rhs.m_turn && m_lanes == rhs.m_lanes &&
+           m_exitNum == rhs.m_exitNum && m_sourceName == rhs.m_sourceName &&
+           m_targetName == rhs.m_targetName && m_keepAnyway == rhs.m_keepAnyway;
+  }
+
+  uint32_t m_index; /*!< Index of point on polyline (number of segment + 1). */
+  TurnDirection m_turn;
+  vector<SingleLaneInfo> m_lanes; /*!< Lane information on the edge before the turn. */
+  uint32_t m_exitNum;             /*!< Number of exit on roundabout. */
+  string m_sourceName;
+  string m_targetName;
+  /*!
+   * \brief m_keepAnyway is true if the turn shall not be deleted
+   * and shall be demonstrated to an end user.
+   */
+  bool m_keepAnyway;
+};
+
+string DebugPrint(TurnItem const & turnItem);
 
 string const GetTurnString(TurnDirection turn);
 

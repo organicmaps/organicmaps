@@ -81,6 +81,7 @@ void RoutingSession::Reset()
 
   RemoveRouteImpl();
   m_router->ClearState();
+  m_turnsSound.Reset();
 }
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const & position,
@@ -103,6 +104,8 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
   ASSERT(m_route.IsValid(), ());
+
+  m_turnsSound.SetSpeedMetersPerSecond(info.m_speed);
 
   if (m_route.MoveIterator(info))
   {
@@ -160,17 +163,18 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   {
     formatDistFn(m_route.GetCurrentDistanceToEnd(), info.m_distToTarget, info.m_targetUnitsSuffix);
 
-    double dist;
-    TurnItem turn;
-    m_route.GetTurn(dist, turn);
+    double distanceToTurnMeters = 0.;
+    turns::TurnItem turn;
+    m_route.GetTurn(distanceToTurnMeters, turn);
 
-    formatDistFn(dist, info.m_distToTurn, info.m_turnUnitsSuffix);
+    formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
     info.m_turn = turn.m_turn;
     info.m_exitNum = turn.m_exitNum;
     info.m_time = m_route.GetTime();
     info.m_targetName = turn.m_targetName;
 
-    if (dist < kShowLanesDistInMeters)
+    // Lane information.
+    if (distanceToTurnMeters < kShowLanesDistInMeters)
     {
       // There are two nested loops below. Outer one is for lanes and inner one (ctor of
       // SingleLaneInfo) is
@@ -184,6 +188,9 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     {
       info.m_lanes.clear();
     }
+
+    // Voice turn notifications.
+    m_turnsSound.GetRouteFollowingInfo(info, turn, distanceToTurnMeters);
   }
   else
   {
@@ -221,5 +228,26 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
   m_route.MatchLocationToRoute(location, routeMatchingInfo);
+}
+
+void RoutingSession::EnableTurnNotification(bool enable)
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  m_turnsSound.EnableTurnNotification(enable);
+}
+
+bool RoutingSession::IsTurnNotificationEnabled() const
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  return m_turnsSound.IsTurnNotificationEnabled();
+}
+
+void RoutingSession::AssignTurnSoundNotificationSettings(turns::sound::Settings const & settings)
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  m_turnsSound.AssignSettings(settings);
 }
 }

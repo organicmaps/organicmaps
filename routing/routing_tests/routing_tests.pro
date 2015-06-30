@@ -32,6 +32,7 @@ SOURCES += \
   road_graph_builder.cpp \
   road_graph_nearest_edges_test.cpp \
   turns_generator_test.cpp \
+  turns_sound_test.cpp \
   vehicle_model_test.cpp \
 
 HEADERS += \

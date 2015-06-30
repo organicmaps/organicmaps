@@ -21,19 +21,6 @@ static double const LOCATION_TIME_THRESHOLD = 60.0*1.0;
 static double const ON_ROAD_TOLERANCE_M = 50.0;
 static double const ON_END_TOLERANCE_M = 10.0;
 
-string DebugPrint(TurnItem const & turnItem)
-{
-  stringstream out;
-  out << "[ TurnItem: m_index = " << turnItem.m_index
-      << ", m_turn = " << DebugPrint(turnItem.m_turn)
-      << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
-      << ", m_sourceName = " << turnItem.m_sourceName
-      << ", m_targetName = " << turnItem.m_targetName
-      << ", m_keepAnyway = " << turnItem.m_keepAnyway << " ]" << endl;
-  return out.str();
-}
-
-
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
   : m_router(router), m_poly(points), m_name(name)
 {
@@ -130,24 +117,24 @@ uint32_t Route::GetTime() const
     return (uint32_t)((GetAllTime() - (*it).second));
 }
 
-void Route::GetTurn(double & distance, TurnItem & turn) const
+void Route::GetTurn(double & distance, turns::TurnItem & turn) const
 {
   if (m_segDistance.empty() || m_turns.empty())
   {
     ASSERT(!m_segDistance.empty(), ());
     ASSERT(!m_turns.empty(), ());
     distance = 0;
-    turn = TurnItem();
+    turn = turns::TurnItem();
     return;
   }
 
-  TurnItem t;
+  turns::TurnItem t;
   t.m_index = m_current.m_ind;
   auto it = upper_bound(m_turns.begin(), m_turns.end(), t,
-            [](TurnItem const & v, TurnItem const & item)
-            {
-              return v.m_index < item.m_index;
-            });
+                        [](turns::TurnItem const & v, turns::TurnItem const & item)
+  {
+    return v.m_index < item.m_index;
+  });
 
   ASSERT_GREATER_OR_EQUAL((*it).m_index - 1, 0, ());
 

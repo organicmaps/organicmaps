@@ -32,6 +32,8 @@ SOURCES += \
     routing_mapping.cpp \
     turns.cpp \
     turns_generator.cpp \
+    turns_sound.cpp \
+    turns_sound_settings.cpp \
     vehicle_model.cpp \
 
 HEADERS += \
@@ -57,4 +59,7 @@ HEADERS += \
     routing_mapping.h \
     turns.hpp \
     turns_generator.hpp \
+    turns_sound.hpp \
+    turns_sound_settings.hpp \
     vehicle_model.hpp \
+

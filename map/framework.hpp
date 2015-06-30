@@ -62,6 +62,11 @@ namespace search
 namespace gui { class Controller; }
 namespace anim { class Controller; }
 
+namespace routing
+{
+namespace turns{ class Settings; }
+}
+
 class CountryStatusDisplay;
 class BenchmarkEngine;
 struct FrameImage;
@@ -565,6 +570,11 @@ public:
   void CloseRouting();
   void GetRouteFollowingInfo(location::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
   m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
+  // @TODO The three methods below has to called from jni.
+  // Sound notifications for turn instructions.
+  void EnableTurnNotification(bool enable);
+  bool IsTurnNotificationEnabled();
+  void AssignTurnSoundNotificationSettings(routing::turns::sound::Settings const & settings);
 
 private:
   void SetRouter(routing::RouterType type);

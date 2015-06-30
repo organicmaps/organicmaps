@@ -3,6 +3,8 @@
 #include "routing/async_router.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"
+#include "routing/turns.hpp"
+#include "routing/turns_sound.hpp"
 
 #include "platform/location.hpp"
 
@@ -76,6 +78,11 @@ public:
   // TODO (Dragunov) Make activation of the pedestrian routing
   void ActivateAdditionalFeatures() {}
 
+  // Sound notifications for turn instructions.
+  void AssignTurnSoundNotificationSettings(turns::sound::Settings const & settings);
+  void EnableTurnNotification(bool enable);
+  bool IsTurnNotificationEnabled() const;
+
 private:
   struct DoReadyCallback
   {
@@ -108,5 +115,8 @@ private:
   double m_lastDistance;
   int m_moveAwayCounter;
   m2::PointD m_lastGoodPosition;
+
+  // Sound turn notification parameters.
+  turns::sound::TurnsSound m_turnsSound;
 };
-}
+}  // namespace routing
