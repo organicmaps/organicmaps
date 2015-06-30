@@ -86,14 +86,14 @@ void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   ASSERT(!m_params.m_primaryText.empty(), ());
   StraightTextLayout primaryLayout(strings::MakeUniString(m_params.m_primaryText),
                                    m_params.m_primaryTextFont.m_size, textures, m_params.m_anchor);
-  glsl::vec2 primaryOffset(0.0, 0.0);
+  glsl::vec2 primaryOffset = glsl::ToVec2(m_params.m_primaryOffset);
 
   if (!m_params.m_secondaryText.empty())
   {
     StraightTextLayout secondaryLayout(strings::MakeUniString(m_params.m_secondaryText),
                                        m_params.m_secondaryTextFont.m_size, textures, m_params.m_anchor);
 
-    glsl::vec2 secondaryOffset = primaryOffset;
+    glsl::vec2 secondaryOffset = primaryOffset + glsl::ToVec2(m_params.m_secondaryOffset);
 
     if (m_params.m_anchor & dp::Top)
       secondaryOffset += glsl::vec2(0.0, primaryLayout.GetPixelSize().y);

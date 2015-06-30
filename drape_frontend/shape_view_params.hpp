@@ -57,6 +57,8 @@ struct TextViewParams : CommonViewParams
   dp::FontDecl m_secondaryTextFont;
   string m_secondaryText;
   dp::Anchor m_anchor;
+  m2::PointF m_primaryOffset;
+  m2::PointF m_secondaryOffset;
 };
 
 struct PathTextViewParams : CommonViewParams

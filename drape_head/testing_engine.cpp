@@ -394,6 +394,8 @@ void TestingEngine::Draw()
   TScene::iterator it = m_scene.begin();
   for(; it != m_scene.end(); ++it)
   {
+    m_textures->UpdateDynamicTextures();
+
     dp::GLState const & state = it->first;
     ref_ptr<dp::GpuProgram> prg = m_programManager->GetProgram(state.GetProgramIndex());
     prg->Bind();
@@ -456,6 +458,8 @@ void TestingEngine::DrawImpl()
   params.m_primaryTextFont = fd;
   params.m_secondaryTextFont = auxFd;
   params.m_secondaryText = "Народная Китайская республика";
+  params.m_primaryOffset = m2::PointF(0, 0);
+  params.m_secondaryOffset = m2::PointF(0, 0);
   TextShape sh1(m2::PointF(82.277071f, 46.9271164f), params);
   sh1.Draw(make_ref(m_batcher), make_ref(m_textures));
 
