@@ -3,15 +3,18 @@
                 android:oneshot="true">
 
   <item
+      android:drawable="@drawable/btn_green_search"
+      android:duration="40"/>
+  <item
       android:drawable="@drawable/btn_green_menu_4"
-      android:duration="50"/>
+      android:duration="40"/>
   <item
       android:drawable="@drawable/btn_green_menu_3"
-      android:duration="50"/>
+      android:duration="40"/>
   <item
       android:drawable="@drawable/btn_green_menu_2"
-      android:duration="50"/>
+      android:duration="40"/>
   <item
       android:drawable="@drawable/btn_green_menu"
-      android:duration="50"/>
+      android:duration="40"/>
 </animation-list>
