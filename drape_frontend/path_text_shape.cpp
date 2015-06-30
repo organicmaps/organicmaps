@@ -42,7 +42,7 @@ public:
     m_normals.resize(4 * m_layout->GetGlyphCount());
   }
 
-  void Update(ScreenBase const & screen)
+  void Update(ScreenBase const & screen) override
   {
     if (m_layout->CacheDynamicGeometry(m_centerPointIter, screen, m_normals))
     {
@@ -53,11 +53,11 @@ public:
     SetIsValid(false);
   }
 
-  m2::RectD GetPixelRect(ScreenBase const & screen) const
+  m2::RectD GetPixelRect(ScreenBase const & screen) const override
   {
     ASSERT(IsValid(), ());
 
-    m2::PointD pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
+    m2::PointD const pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
     m2::RectD result;
     for (gpu::TextDynamicVertex const & v : m_normals)
       result.Add(pixelPivot + glsl::ToPoint(v.m_normal));
@@ -65,11 +65,11 @@ public:
     return result;
   }
 
-  void GetPixelShape(ScreenBase const & screen, Rects & rects) const
+  void GetPixelShape(ScreenBase const & screen, Rects & rects) const override
   {
     ASSERT(IsValid(), ());
 
-    m2::PointD pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
+    m2::PointD const pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
     for (size_t quadIndex = 0; quadIndex < m_normals.size(); quadIndex += 4)
     {
       m2::RectF r;
@@ -79,6 +79,14 @@ public:
       r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 3].m_normal));
       rects.push_back(r);
     }
+  }
+
+  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
+                            ScreenBase const & screen) const override
+  {
+    // for visible text paths we always update normals
+    SetForceUpdateNormals(IsVisible());
+    TextHandle::GetAttributeMutation(mutator, screen);
   }
 
 private:

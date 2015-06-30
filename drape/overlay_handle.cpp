@@ -88,11 +88,10 @@ void OverlayHandle::GetElementIndexes(ref_ptr<IndexBufferMutator> mutator) const
 }
 
 void OverlayHandle::GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator,
-                                         ScreenBase const & screen, bool isVisible) const
+                                         ScreenBase const & screen) const
 {
   UNUSED_VALUE(mutator);
   UNUSED_VALUE(screen);
-  UNUSED_VALUE(isVisible);
 }
 
 bool OverlayHandle::HasDynamicAttributes() const

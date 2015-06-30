@@ -46,7 +46,7 @@ public:
   void * IndexStorage(uint32_t size);
   void GetElementIndexes(ref_ptr<IndexBufferMutator> mutator) const;
   virtual void GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator,
-                                    ScreenBase const & screen, bool isVisible) const;
+                                    ScreenBase const & screen) const;
 
   bool HasDynamicAttributes() const;
   void AddDynamicAttribute(BindingInfo const & binding, uint32_t offset, uint32_t count);

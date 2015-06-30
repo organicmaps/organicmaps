@@ -94,7 +94,7 @@ void RenderBucket::Render(ScreenBase const & screen)
         }
 
         if (handle->HasDynamicAttributes())
-          handle->GetAttributeMutation(rfpAttrib, screen, handle->IsVisible());
+          handle->GetAttributeMutation(rfpAttrib, screen);
       }
     }
 

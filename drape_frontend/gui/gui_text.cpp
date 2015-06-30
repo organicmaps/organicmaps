@@ -444,10 +444,9 @@ MutableLabelHandle::MutableLabelHandle(dp::Anchor anchor, m2::PointF const & piv
 }
 
 void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
-                                              ScreenBase const & screen, bool isVisible) const
+                                              ScreenBase const & screen) const
 {
   UNUSED_VALUE(screen);
-  UNUSED_VALUE(isVisible);
 
   if (!m_isContentDirty)
     return;

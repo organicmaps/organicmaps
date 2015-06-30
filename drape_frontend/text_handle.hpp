@@ -9,23 +9,24 @@ namespace df
 class TextHandle : public dp::OverlayHandle
 {
 public:
-  TextHandle(FeatureID const & id, dp::Anchor anchor, double priority)
-    : OverlayHandle(id, anchor, priority)
-  {}
+  TextHandle(FeatureID const & id, dp::Anchor anchor, double priority);
 
   TextHandle(FeatureID const & id, dp::Anchor anchor, double priority,
-             gpu::TTextDynamicVertexBuffer && normals)
-    : OverlayHandle(id, anchor, priority)
-    , m_normals(move(normals))
-  {}
+             gpu::TTextDynamicVertexBuffer && normals);
 
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
-                            ScreenBase const & screen, bool isVisible) const override;
+                            ScreenBase const & screen) const override;
 
   bool IndexesRequired() const override;
 
+  void SetForceUpdateNormals(bool forceUpdate) const;
+
 protected:
   gpu::TTextDynamicVertexBuffer m_normals;
+  mutable bool m_forceUpdateNormals;
+
+private:
+  mutable bool m_isLastVisible;
 };
 
 

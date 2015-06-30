@@ -137,8 +137,7 @@ void TextShape::DrawSubString(StraightTextLayout const & layout,
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());
 
-  gpu::TTextDynamicVertexBuffer initialDynBuffer;
-  initialDynBuffer.resize(dynamicBuffer.size(), gpu::TextDynamicVertex(glsl::vec2(0.0, 0.0)));
+  gpu::TTextDynamicVertexBuffer initialDynBuffer(dynamicBuffer.size());
 
   m2::PointU const & pixelSize = layout.GetPixelSize();
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<StraightTextHandle>(m_params.m_featureID,
