@@ -2120,7 +2120,8 @@ void Framework::BuildRoute(m2::PointD const & destination)
         for(string const & name : route.GetAbsentCountries())
           absentFiles.push_back(m_storage.FindIndexByFile(name));
 
-        RemoveRoute();
+        if (code != IRouter::NeedMoreMaps)
+          RemoveRoute();
       }
       CallRouteBuilded(code, absentFiles);
     });

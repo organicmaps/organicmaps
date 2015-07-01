@@ -186,11 +186,13 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
   // Check online response if we have.
   vector<string> absent;
   m_absentFetcher->GetAbsentCountries(absent);
-  if (absent.empty() && code != IRouter::NoError)
+  if (absent.empty())
   {
-    GetPlatform().RunOnGuiThread(bind(callback, route, code));
+    if (code != IRouter::NoError)
+      GetPlatform().RunOnGuiThread(bind(callback, route, code));
     return;
   }
+
   for (string const & country : absent)
     route.AddAbsentCountry(country);
   if (code != IRouter::NoError)

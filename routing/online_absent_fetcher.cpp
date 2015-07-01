@@ -25,8 +25,15 @@ void OnlineAbsentFetcher::GetAbsentCountries(vector<string> & countries)
   for (auto point : static_cast<OnlineCrossFetcher *>(m_fetcherThread.GetRoutine())->GetMwmPoints())
   {
     string name = m_countryFunction(point);
-    LOG(LINFO, ("Online recomends to download: ", name));
-    countries.emplace_back(move(name));
+    //TODO (ldragunov) rewrite when storage GetLocalCountryFile will be present.
+    Platform & pl = GetPlatform();
+    string const mwmName = name + DATA_FILE_EXTENSION;
+    string const fPath = pl.WritablePathForFile(mwmName + ROUTING_FILE_EXTENSION);
+    if (!pl.IsFileExistsByFullPath(fPath))
+    {
+      LOG(LINFO, ("Online recomends to download: ", name));
+      countries.emplace_back(move(name));
+    }
   }
 }
 }  // namespace routing
