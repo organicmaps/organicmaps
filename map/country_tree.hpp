@@ -5,8 +5,6 @@
 #include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "platform/country_file.hpp"
-
 #include "base/buffer_vector.hpp"
 
 #include "std/string.hpp"
@@ -38,7 +36,7 @@ public:
   CountryTree & operator=(CountryTree const & other);
 
   /// @param[in]  Sorted vector of current .mwm files.
-  void Init(vector<platform::CountryFile> const & maps);
+  void Init(vector<string> const & maps);
   void Clear();
 
   ActiveMapsLayout & GetActiveMapLayout();

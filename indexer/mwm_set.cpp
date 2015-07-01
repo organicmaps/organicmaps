@@ -9,9 +9,6 @@
 
 #include "std/algorithm.hpp"
 
-using platform::CountryFile;
-using platform::LocalCountryFile;
-
 MwmInfo::MwmInfo() : m_minScale(0), m_maxScale(0), m_status(STATUS_DEREGISTERED), m_lockCount(0) {}
 
 MwmInfo::MwmTypeT MwmInfo::GetType() const
@@ -77,64 +74,57 @@ MwmSet::~MwmSet()
 void MwmSet::Cleanup()
 {
   lock_guard<mutex> lock(m_lock);
+
   ClearCacheImpl(m_cache.begin(), m_cache.end());
+
+#ifdef DEBUG
+  for (auto const & p : m_info)
+  {
+    MwmInfo const & info = *p.second;
+    if (info.IsUpToDate())
+    {
+      ASSERT_EQUAL(info.m_lockCount, 0, (info.m_fileName));
+      ASSERT(!info.m_fileName.empty(), ());
+    }
+  }
+#endif
 }
 
-MwmSet::MwmId MwmSet::GetMwmIdByCountryFileImpl(CountryFile const & countryFile) const
+MwmSet::MwmId MwmSet::GetMwmIdByFileNameImpl(TMwmFileName const & name) const
 {
-  string const name = countryFile.GetNameWithoutExt();
   ASSERT(!name.empty(), ());
   auto const it = m_info.find(name);
-  if (it == m_info.cend() || it->second.empty())
+  if (it == m_info.cend())
     return MwmId();
-  return MwmId(it->second.back());
+  return MwmId(it->second);
 }
 
-pair<MwmSet::MwmLock, bool> MwmSet::Register(LocalCountryFile const & localFile)
+pair<MwmSet::MwmLock, bool> MwmSet::Register(TMwmFileName const & fileName)
 {
   lock_guard<mutex> lock(m_lock);
 
-  CountryFile const & countryFile = localFile.GetCountryFile();
-  MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
+  MwmId const id = GetMwmIdByFileNameImpl(fileName);
   if (!id.IsAlive())
-    return RegisterImpl(localFile);
-
+    return RegisterImpl(fileName);
   shared_ptr<MwmInfo> info = id.GetInfo();
-
-  // Deregister old mwm for the country.
-  if (info->GetVersion() < localFile.GetVersion())
-  {
-    DeregisterImpl(id);
-    return RegisterImpl(localFile);
-  }
-
-  string const name = countryFile.GetNameWithoutExt();
-  // Update the status of the mwm with the same version.
-  if (info->GetVersion() == localFile.GetVersion())
-  {
-    LOG(LWARNING, ("Trying to add already registered mwm:", name));
-    info->SetStatus(MwmInfo::STATUS_REGISTERED);
-    return make_pair(GetLock(id), false);
-  }
-
-  LOG(LWARNING, ("Trying to add too old (", localFile.GetVersion(), ") mwm (", name,
-                 "), current version:", info->GetVersion()));
-  return make_pair(MwmLock(), false);
+  if (info->IsRegistered())
+    LOG(LWARNING, ("Trying to add already registered mwm:", fileName));
+  else
+    info->SetStatus(MwmInfo::STATUS_UP_TO_DATE);
+  return make_pair(GetLock(id), false);
 }
 
-pair<MwmSet::MwmLock, bool> MwmSet::RegisterImpl(LocalCountryFile const & localFile)
+pair<MwmSet::MwmLock, bool> MwmSet::RegisterImpl(TMwmFileName const & fileName)
 {
   shared_ptr<MwmInfo> info(new MwmInfo());
 
   // This function can throw an exception for a bad mwm file.
-  if (!GetVersion(localFile, *info))
+  if (!GetVersion(fileName, *info))
     return make_pair(MwmLock(), false);
-  info->SetStatus(MwmInfo::STATUS_REGISTERED);
-  info->m_file = localFile;
-  string const name = localFile.GetCountryFile().GetNameWithoutExt();
+  info->SetStatus(MwmInfo::STATUS_UP_TO_DATE);
+  info->m_fileName = fileName;
+  m_info[fileName] = info;
 
-  vector<shared_ptr<MwmInfo>> & infos = m_info[name];
-  infos.push_back(info);
   return make_pair(GetLock(MwmId(info)), true);
 }
 
@@ -143,28 +133,26 @@ bool MwmSet::DeregisterImpl(MwmId const & id)
   if (!id.IsAlive())
     return false;
   shared_ptr<MwmInfo> const & info = id.GetInfo();
-
   if (info->m_lockCount == 0)
   {
     info->SetStatus(MwmInfo::STATUS_DEREGISTERED);
-    vector<shared_ptr<MwmInfo>> & infos = m_info[info->GetCountryName()];
-    infos.erase(remove(infos.begin(), infos.end(), info), infos.end());
-    OnMwmDeregistered(info->GetLocalFile());
+    m_info.erase(info->m_fileName);
+    OnMwmDeleted(info);
     return true;
   }
   info->SetStatus(MwmInfo::STATUS_MARKED_TO_DEREGISTER);
   return false;
 }
 
-bool MwmSet::Deregister(CountryFile const & countryFile)
+bool MwmSet::Deregister(TMwmFileName const & fileName)
 {
   lock_guard<mutex> lock(m_lock);
-  return DeregisterImpl(countryFile);
+  return DeregisterImpl(fileName);
 }
 
-bool MwmSet::DeregisterImpl(CountryFile const & countryFile)
+bool MwmSet::DeregisterImpl(TMwmFileName const & fileName)
 {
-  MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
+  MwmId const id = GetMwmIdByFileNameImpl(fileName);
   if (!id.IsAlive())
     return false;
   bool const deregistered = DeregisterImpl(id);
@@ -176,24 +164,21 @@ void MwmSet::DeregisterAll()
 {
   lock_guard<mutex> lock(m_lock);
 
-  for (auto const & p : m_info)
+  for (auto it = m_info.begin(); it != m_info.end();)
   {
-    // Vector of shared pointers is copied here because an original
-    // vector will be modified by the body of the cycle.
-    vector<shared_ptr<MwmInfo>> infos = p.second;
-    for (shared_ptr<MwmInfo> info : infos)
-      DeregisterImpl(MwmId(info));
+    auto cur = it++;
+    DeregisterImpl(MwmId(cur->second));
   }
 
   // Do not call ClearCache - it's under mutex lock.
   ClearCacheImpl(m_cache.begin(), m_cache.end());
 }
 
-bool MwmSet::IsLoaded(CountryFile const & countryFile) const
+bool MwmSet::IsLoaded(TMwmFileName const & fileName) const
 {
   lock_guard<mutex> lock(m_lock);
 
-  MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
+  MwmId const id = GetMwmIdByFileNameImpl(fileName + DATA_FILE_EXTENSION);
   return id.IsAlive() && id.GetInfo()->IsRegistered();
 }
 
@@ -203,10 +188,7 @@ void MwmSet::GetMwmsInfo(vector<shared_ptr<MwmInfo>> & info) const
   info.clear();
   info.reserve(m_info.size());
   for (auto const & p : m_info)
-  {
-    if (!p.second.empty())
-      info.push_back(p.second.back());
-  }
+    info.push_back(p.second);
 }
 
 MwmSet::TMwmValueBasePtr MwmSet::LockValue(MwmId const & id)
@@ -234,7 +216,7 @@ MwmSet::TMwmValueBasePtr MwmSet::LockValueImpl(MwmId const & id)
       return result;
     }
   }
-  return CreateValue(info->GetLocalFile());
+  return CreateValue(info->m_fileName);
 }
 
 void MwmSet::UnlockValue(MwmId const & id, TMwmValueBasePtr p)
@@ -251,10 +233,22 @@ void MwmSet::UnlockValueImpl(MwmId const & id, TMwmValueBasePtr p)
     return;
 
   shared_ptr<MwmInfo> const & info = id.GetInfo();
-  ASSERT_GREATER(info->m_lockCount, 0, ());
+  CHECK_GREATER(info->m_lockCount, 0, ());
   --info->m_lockCount;
-  if (info->m_lockCount == 0 && info->GetStatus() == MwmInfo::STATUS_MARKED_TO_DEREGISTER)
-    VERIFY(DeregisterImpl(id), ());
+  if (info->m_lockCount == 0)
+  {
+    switch (info->GetStatus())
+    {
+      case MwmInfo::STATUS_MARKED_TO_DEREGISTER:
+        CHECK(DeregisterImpl(id), ());
+        break;
+      case MwmInfo::STATUS_PENDING_UPDATE:
+        OnMwmReadyForUpdate(info);
+        break;
+      default:
+        break;
+    }
+  }
 
   if (info->IsUpToDate())
   {
@@ -273,20 +267,20 @@ void MwmSet::ClearCache()
   ClearCacheImpl(m_cache.begin(), m_cache.end());
 }
 
-MwmSet::MwmId MwmSet::GetMwmIdByCountryFile(CountryFile const & countryFile) const
+MwmSet::MwmId MwmSet::GetMwmIdByFileName(TMwmFileName const & fileName) const
 {
   lock_guard<mutex> lock(m_lock);
 
-  MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
-  ASSERT(id.IsAlive(), ("Can't get an mwm's (", countryFile.GetNameWithoutExt(), ") identifier."));
+  MwmId const id = GetMwmIdByFileNameImpl(fileName);
+  ASSERT(id.IsAlive(), ("Can't get an mwm's (", fileName, ") identifier."));
   return id;
 }
 
-MwmSet::MwmLock MwmSet::GetMwmLockByCountryFile(CountryFile const & countryFile)
+MwmSet::MwmLock MwmSet::GetMwmLockByFileName(TMwmFileName const & fileName)
 {
   lock_guard<mutex> lock(m_lock);
 
-  MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
+  MwmId const id = GetMwmIdByFileNameImpl(fileName);
   TMwmValueBasePtr value(nullptr);
   if (id.IsAlive())
     value = LockValueImpl(id);

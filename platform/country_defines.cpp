@@ -2,25 +2,14 @@
 
 #include "base/assert.hpp"
 
-bool HasOptions(TMapOptions mask, TMapOptions options)
+bool HasOptions(TMapOptions options, TMapOptions bits)
 {
-  return (static_cast<uint8_t>(mask) & static_cast<uint8_t>(options)) ==
-         static_cast<uint8_t>(options);
+  return (static_cast<uint8_t>(options) & static_cast<uint8_t>(bits)) == static_cast<uint8_t>(bits);
 }
 
-TMapOptions SetOptions(TMapOptions mask, TMapOptions options)
+TMapOptions SetOptions(TMapOptions options, TMapOptions bits)
 {
-  return static_cast<TMapOptions>(static_cast<uint8_t>(mask) | static_cast<uint8_t>(options));
-}
-
-TMapOptions UnsetOptions(TMapOptions mask, TMapOptions options)
-{
-  return static_cast<TMapOptions>(static_cast<uint8_t>(mask) & ~static_cast<uint8_t>(options));
-}
-
-TMapOptions LeastSignificantOption(TMapOptions mask)
-{
-  return static_cast<TMapOptions>(static_cast<uint8_t>(mask) & -static_cast<uint8_t>(mask));
+  return static_cast<TMapOptions>(static_cast<uint8_t>(options) | static_cast<uint8_t>(bits));
 }
 
 string DebugPrint(TMapOptions options)
@@ -35,5 +24,8 @@ string DebugPrint(TMapOptions options)
       return "CarRouting";
     case TMapOptions::EMapWithCarRouting:
       return "MapWithCarRouting";
+    default:
+      ASSERT(false, ("Unknown TMapOptions (", static_cast<uint8_t>(options), ")"));
+      return string();
   }
 }

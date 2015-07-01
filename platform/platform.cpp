@@ -1,7 +1,5 @@
 #include "platform/platform.hpp"
 
-#include "platform/local_country_file.hpp"
-
 #include "coding/sha2.hpp"
 #include "coding/base64.hpp"
 #include "coding/file_name_utils.hpp"
@@ -148,10 +146,4 @@ string Platform::WritablePathForCountryIndexes(string const & mwmName) const
 string Platform::GetIndexFileName(string const & mwmName, string const & extension) const
 {
   return GetPlatform().WritablePathForCountryIndexes(mwmName) + mwmName + extension;
-}
-
-ModelReader * Platform::GetCountryReader(platform::LocalCountryFile const & file,
-                                         TMapOptions options) const
-{
-  return GetReader(file.GetPath(options), "f");
 }

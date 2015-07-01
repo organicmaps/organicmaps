@@ -5,8 +5,6 @@
 #include "indexer/data_header.hpp"
 #include "indexer/interval_index.hpp"
 
-#include "platform/local_country_file.hpp"
-#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
@@ -14,25 +12,25 @@
 
 UNIT_TEST(CheckMWM_LoadAll)
 {
-  Platform & platform = GetPlatform();
-  vector<platform::LocalCountryFile> localFiles;
-  platform::FindAllLocalMapsInDirectory(platform.WritableDir(), 0 /* version */, localFiles);
+  Platform & pl = GetPlatform();
+
+  Platform::FilesList maps;
+  pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);
 
   model::FeaturesFetcher m;
   m.InitClassificator();
 
-  for (platform::LocalCountryFile const & localFile : localFiles)
+  for (string const & s : maps)
   {
-    LOG(LINFO, ("Found mwm:", localFile));
     try
     {
-      pair<MwmSet::MwmLock, bool> const p = m.RegisterMap(localFile);
+      pair<MwmSet::MwmLock, bool> const p = m.RegisterMap(s);
       TEST(p.first.IsLocked(), ());
       TEST(p.second, ());
     }
     catch (RootException const & ex)
     {
-      TEST(false, ("Bad mwm file:", localFile));
+      TEST(false, ("Bad mwm file:", s));
     }
   }
 }

@@ -600,7 +600,7 @@ namespace impl
       if (m_pFV->IsWorld())
         country.clear();
       else
-        country = m_pFV->GetCountryFileName();
+        country = m_pFV->GetFileName();
     }
 
   public:
@@ -1659,14 +1659,11 @@ void Query::SearchAddress(Results & res)
           {
             MwmSet::MwmId id(info);
             Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), id);
+            string fileName;
             if (mwmLock.IsLocked())
-            {
-              platform::CountryFile const & countryFile =
-                  mwmLock.GetValue<MwmValue>()->GetCountryFile();
-              string const countryFileName = countryFile.GetNameWithoutExt();
-              if (m_pInfoGetter->IsBelongToRegion(countryFileName, region.m_ids))
-                SearchInMWM(mwmLock, params);
-            }
+              fileName = mwmLock.GetValue<MwmValue>()->GetFileName();
+            if (m_pInfoGetter->IsBelongToRegion(fileName, region.m_ids))
+              SearchInMWM(mwmLock, params);
           }
         }
       }
@@ -2111,8 +2108,9 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
                               TrieRootPrefix(*pLangRoot, edge),
                               filter, categoriesHolder, emitter);
 
-          LOG(LDEBUG, ("Country", pMwm->GetCountryFile().GetNameWithoutExt(), "Lang",
-                       StringUtf8Multilang::GetLangByCode(lang), "Matched", emitter.GetCount()));
+          LOG(LDEBUG, ("Country", pMwm->GetFileName(),
+                       "Lang", StringUtf8Multilang::GetLangByCode(lang),
+                       "Matched", emitter.GetCount()));
 
           emitter.Reset();
         }
@@ -2195,11 +2193,8 @@ void Query::SearchAdditional(Results & res, size_t resCount)
     for (shared_ptr<MwmInfo> const & info : mwmsInfo)
     {
       Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), MwmSet::MwmId(info));
-      if (mwmLock.IsLocked() &&
-          mwmLock.GetValue<MwmValue>()->GetCountryFile().GetNameWithoutExt() == fileName)
-      {
+      if (mwmLock.IsLocked() && mwmLock.GetValue<MwmValue>()->GetFileName() == fileName)
         SearchInMWM(mwmLock, params);
-      }
     }
 
     FlushResults(res, true, resCount);

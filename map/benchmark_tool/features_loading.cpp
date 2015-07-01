@@ -9,8 +9,6 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/file_name_utils.hpp"
-
 #include "base/macros.hpp"
 #include "base/timer.hpp"
 
@@ -99,20 +97,8 @@ namespace
 
 void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleR, AllResult & res)
 {
-  string baseName = file;
-  my::GetNameFromFullPath(baseName);
-
-  // Check that file is relative to maps dir.
-  ASSERT_EQUAL(file, baseName, ());
-
-  string countryFileName = baseName;
-  my::GetNameWithoutExt(countryFileName);
-
-  platform::LocalCountryFile localFile =
-      platform::LocalCountryFile::MakeForTesting(countryFileName);
-
   feature::DataHeader header;
-  LoadMapHeader(GetPlatform().GetCountryReader(localFile, TMapOptions::EMap), header);
+  LoadMapHeader(GetPlatform().GetReader(file), header);
 
   pair<int, int> const r = header.GetScaleRange();
   if (r.first > scaleR.first)
@@ -124,7 +110,7 @@ void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleR, All
     return;
 
   model::FeaturesFetcher src;
-  UNUSED_VALUE(src.RegisterMap(platform::LocalCountryFile::MakeForTesting(countryFileName)));
+  UNUSED_VALUE(src.RegisterMap(file));
 
   RunBenchmark(src, header.GetBounds(), scaleR, res);
 }

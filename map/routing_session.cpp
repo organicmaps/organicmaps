@@ -8,10 +8,12 @@
 
 #include "coding/internal/file_data.hpp"
 
+
 using namespace location;
 
 namespace routing
 {
+
 static int const ON_ROUTE_MISSED_COUNT = 5;
 
 RoutingSession::RoutingSession()
@@ -44,7 +46,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackF
                            DoReadyCallback(*this, callback, m_routeSessionMutex));
 }
 
-void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultCode e)
+void RoutingSession::DoReadyCallback::operator() (Route & route, IRouter::ResultCode e)
 {
   threads::MutexGuard guard(m_routeSessionMutexInner);
   UNUSED_VALUE(guard);
@@ -65,8 +67,6 @@ void RoutingSession::Reset()
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
   Route(string()).Swap(m_route);
-
-  m_router->ClearState();
 }
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const & position,
@@ -196,8 +196,14 @@ void RoutingSession::SetRouter(unique_ptr<IRouter> && router, TRoutingStatistics
   m_router.reset(new AsyncRouter(move(router), routingStatisticsFn));
 }
 
-void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
-                                          location::RouteMatchingInfo & routeMatchingInfo) const
+void RoutingSession::DeleteIndexFile(string const & fileName)
+{
+  Reset();
+  m_router->ClearState();
+  (void) my::DeleteFileX(GetPlatform().WritablePathForFile(fileName));
+}
+
+void RoutingSession::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const
 {
   if (m_state != State::OnRoute)
     return;
@@ -206,4 +212,5 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
   UNUSED_VALUE(guard);
   m_route.MatchLocationToRoute(location, routeMatchingInfo);
 }
+
 }

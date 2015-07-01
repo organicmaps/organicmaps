@@ -92,8 +92,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   if (m_countryFileFn(startPoint) != mwmName)
     return PointsInDifferentMWM;
 
-  platform::CountryFile countryFile(mwmName);
-  MwmSet::MwmLock const mwmLock = const_cast<Index &>(m_index).GetMwmLockByCountryFile(countryFile);
+  MwmSet::MwmLock const mwmLock = const_cast<Index&>(m_index).GetMwmLockByFileName(mwmName);
   if (!mwmLock.IsLocked())
     return RouteFileNotExist;
   

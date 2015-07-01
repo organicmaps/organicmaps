@@ -3,10 +3,9 @@
 
 #include "defines.hpp"
 
-#include "coding/file_name_utils.hpp"
-#include "coding/internal/file_data.hpp"
-#include "coding/reader_streambuf.hpp"
 #include "coding/url_encode.hpp"
+#include "coding/reader_streambuf.hpp"
+#include "coding/internal/file_data.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/http_request.hpp"
@@ -213,11 +212,7 @@ extern "C"
     storage::Storage const & storage = g_framework->Storage();
     for (size_t i = 0; i < curFile.m_urls.size(); ++i)
     {
-      string baseName = curFile.m_fileName;
-      my::GetNameWithoutExt(baseName);
-      storage::TIndex const index = storage.FindIndexByFile(baseName);
-
-      curFile.m_urls[i] = storage.GetFileDownloadUrl(curFile.m_urls[i], index, TMapOptions::EMap);
+      curFile.m_urls[i] = storage.GetFileDownloadUrl(curFile.m_urls[i], curFile.m_fileName);
       LOG(LDEBUG, (curFile.m_urls[i]));
     }
 

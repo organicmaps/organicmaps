@@ -13,25 +13,24 @@
 
 #include "base/mutex.hpp"
 
-namespace location
-{
-class RouteMatchingInfo;
-}
+
+namespace location {   class RouteMatchingInfo;}
 
 namespace routing
 {
+
 class RoutingSession
 {
 public:
   enum State
   {
     RoutingNotActive,
-    RouteBuilding,     // we requested a route and wait when it will be builded
-    RouteNotReady,     // routing was not build
-    RouteNotStarted,   // route is builded but the user isn't on it
-    OnRoute,           // user follows the route
-    RouteNeedRebuild,  // user left the route
-    RouteFinished      // destination point is reached but the session isn't closed
+    RouteBuilding,    // we requested a route and wait when it will be builded
+    RouteNotReady,    // routing was not build
+    RouteNotStarted,  // route is builded but the user isn't on it
+    OnRoute,          // user follows the route
+    RouteNeedRebuild, // user left the route
+    RouteFinished     // destination point is reached but the session isn't closed
   };
 
   /*
@@ -48,7 +47,7 @@ public:
 
   typedef function<void(map<string, string> const &)> TRoutingStatisticsCallback;
 
-  typedef function<void(Route const &, IRouter::ResultCode)> TReadyCallbackFn;
+  typedef function<void (Route const &, IRouter::ResultCode)> TReadyCallbackFn;
 
   RoutingSession();
 
@@ -56,8 +55,7 @@ public:
                  TRoutingStatisticsCallback const & routingStatisticsFn);
 
   /// @param[in] startPoint and endPoint in mercator
-  void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
-                  TReadyCallbackFn const & callback);
+  void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint, TReadyCallbackFn const & callback);
   void RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback);
 
   m2::PointD GetEndPoint() const { return m_endPoint; }
@@ -70,8 +68,8 @@ public:
   State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
-  void MatchLocationToRoute(location::GpsInfo & location,
-                            location::RouteMatchingInfo & routeMatchingInfo) const;
+  void DeleteIndexFile(string const & fileName);
+  void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
   // TODO (Dragunov) Make activation of the pedestrian routing
   void ActivateAdditionalFeatures() {}
@@ -83,13 +81,12 @@ private:
     TReadyCallbackFn m_callback;
     threads::Mutex & m_routeSessionMutexInner;
 
-    DoReadyCallback(RoutingSession & rs, TReadyCallbackFn const & cb,
-                    threads::Mutex & routeSessionMutex)
-        : m_rs(rs), m_callback(cb), m_routeSessionMutexInner(routeSessionMutex)
+    DoReadyCallback(RoutingSession & rs, TReadyCallbackFn const & cb, threads::Mutex & routeSessionMutex)
+      : m_rs(rs), m_callback(cb), m_routeSessionMutexInner(routeSessionMutex)
     {
     }
 
-    void operator()(Route & route, IRouter::ResultCode e);
+    void operator() (Route & route, IRouter::ResultCode e);
   };
   void AssignRoute(Route & route);
 
@@ -106,4 +103,5 @@ private:
   int m_moveAwayCounter;
   m2::PointD m_lastGoodPosition;
 };
+
 }

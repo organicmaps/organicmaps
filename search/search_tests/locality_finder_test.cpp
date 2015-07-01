@@ -5,10 +5,6 @@
 
 #include "search/locality_finder.hpp"
 
-#include "platform/country_file.hpp"
-#include "platform/local_country_file.hpp"
-#include "platform/platform.hpp"
-
 namespace
 {
 
@@ -38,8 +34,7 @@ void doTests2(search::LocalityFinder & finder, vector<m2::PointD> const & input,
 UNIT_TEST(LocalityFinder)
 {
   Index index;
-  pair<MwmSet::MwmLock, bool> const p =
-      index.Register(platform::LocalCountryFile::MakeForTesting("World"));
+  pair<MwmSet::MwmLock, bool> const p = index.Register("World.mwm");
   TEST(p.second, ());
   MwmSet::MwmLock const & lock = p.first;
   TEST(lock.IsLocked(), ());

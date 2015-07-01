@@ -10,12 +10,8 @@ enum class TMapOptions : uint8_t
   EMapWithCarRouting = 0x3
 };
 
-bool HasOptions(TMapOptions mask, TMapOptions options);
+bool HasOptions(TMapOptions options, TMapOptions bits);
 
-TMapOptions SetOptions(TMapOptions mask, TMapOptions options);
-
-TMapOptions UnsetOptions(TMapOptions mask, TMapOptions options);
-
-TMapOptions LeastSignificantOption(TMapOptions mask);
+TMapOptions SetOptions(TMapOptions options, TMapOptions bits);
 
 string DebugPrint(TMapOptions options);

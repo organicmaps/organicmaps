@@ -28,13 +28,13 @@ DrapeSurface::DrapeSurface()
 
   ///{ Temporary initialization
   m_model.InitClassificator();
-  // Platform::FilesList maps;
-  // Platform & pl = GetPlatform();
-  // pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);
+  Platform::FilesList maps;
+  Platform & pl = GetPlatform();
+  pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);
 
-  // for_each(maps.begin(), maps.end(), bind(&model::FeaturesFetcher::RegisterMap, &m_model, _1));
-  // ///}
-  // ///
+  for_each(maps.begin(), maps.end(), bind(&model::FeaturesFetcher::RegisterMap, &m_model, _1));
+  ///}
+  ///
 }
 
 DrapeSurface::~DrapeSurface()

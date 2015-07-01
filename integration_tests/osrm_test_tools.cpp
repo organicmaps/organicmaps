@@ -11,8 +11,6 @@
 
 #include "map/feature_vec_model.hpp"
 
-#include "platform/local_country_file.hpp"
-#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
@@ -22,7 +20,6 @@
 
 
 using namespace routing;
-using platform::LocalCountryFile;
 
 namespace
 {
@@ -37,19 +34,19 @@ namespace
 
 namespace integration
 {
-  shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile> const & localFiles)
+  shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<string> const & mapNames)
   {
     size_t const maxOpenFileNumber = 1024;
     ChangeMaxNumberOfOpenFiles(maxOpenFileNumber);
     shared_ptr<model::FeaturesFetcher> featuresFetcher(new model::FeaturesFetcher);
     featuresFetcher->InitClassificator();
 
-    for (LocalCountryFile const & localFile : localFiles)
+    for (auto const mapName : mapNames)
     {
-      pair<MwmSet::MwmLock, bool> result = featuresFetcher->RegisterMap(localFile);
+      pair<MwmSet::MwmLock, bool> result = featuresFetcher->RegisterMap(mapName);
       if (!result.second)
       {
-        ASSERT(false, ("Can't register", localFile));
+        ASSERT(false, ());
         return nullptr;
       }
     }
@@ -85,27 +82,21 @@ namespace integration
     ASSERT(featuresFetcher, ());
     ASSERT(searchEngine, ());
 
-    shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(
-        &featuresFetcher->GetIndex(), [searchEngine](m2::PointD const & pt)
-        {
-          return searchEngine->GetCountryFile(pt);
-        },
-        [](string const & countryFileName)
-        {
-          return make_shared<LocalCountryFile>(LocalCountryFile::MakeForTesting(countryFileName));
-        }));
+    shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(&featuresFetcher->GetIndex(),
+                                                     [searchEngine](m2::PointD const & pt)
+                                                     {
+      return searchEngine->GetCountryFile(pt);
+    }));
     return osrmRouter;
   }
 
   class OsrmRouterComponents
   {
   public:
-    OsrmRouterComponents(vector<LocalCountryFile> const & localFiles)
-        : m_featuresFetcher(CreateFeaturesFetcher(localFiles)),
-          m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
-          m_osrmRouter(CreateOsrmRouter(m_featuresFetcher, m_searchEngine))
-    {
-    }
+    OsrmRouterComponents(vector<string> const & mapNames)
+      : m_featuresFetcher(CreateFeaturesFetcher(mapNames)),
+        m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
+        m_osrmRouter(CreateOsrmRouter(m_featuresFetcher, m_searchEngine)) {}
     OsrmRouter * GetOsrmRouter() const { return m_osrmRouter.get(); }
     search::Engine * GetSearchEngine() const { return m_searchEngine.get(); }
 
@@ -115,17 +106,28 @@ namespace integration
     shared_ptr<OsrmRouter> m_osrmRouter;
   };
 
-  shared_ptr<OsrmRouterComponents> LoadMaps(vector<LocalCountryFile> const & localFiles)
+  void GetMapNames(vector<string> & maps)
   {
-    return shared_ptr<OsrmRouterComponents>(new OsrmRouterComponents(localFiles));
+    Platform const & pl = GetPlatform();
+
+    pl.GetFilesByExt(pl.ResourcesDir(), DATA_FILE_EXTENSION, maps);
+    pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);
+
+    sort(maps.begin(), maps.end());
+    maps.erase(unique(maps.begin(), maps.end()), maps.end());
+  }
+
+  shared_ptr<OsrmRouterComponents> LoadMaps(vector<string> const & mapNames)
+  {
+    return shared_ptr<OsrmRouterComponents>(new OsrmRouterComponents(mapNames));
   }
 
   shared_ptr<OsrmRouterComponents> LoadAllMaps()
   {
-    vector<LocalCountryFile> localFiles;
-    platform::FindAllLocalMaps(localFiles);
-    ASSERT(!localFiles.empty(), ());
-    return LoadMaps(localFiles);
+    vector<string> maps;
+    GetMapNames(maps);
+    ASSERT(!maps.empty(), ());
+    return LoadMaps(maps);
   }
 
   OsrmRouterComponents & GetAllMaps()

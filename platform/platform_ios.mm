@@ -37,7 +37,7 @@ Platform::Platform()
 Platform::EError Platform::MkDir(string const & dirName) const
 {
   if (::mkdir(dirName.c_str(), 0755))
-    return ErrnoToError();
+    return Platform::ERR_UNKNOWN;
   return Platform::ERR_OK;
 }
 

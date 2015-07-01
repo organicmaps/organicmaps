@@ -23,11 +23,8 @@
 
 #include "geometry/angles.hpp"
 
-#include "platform/country_file.hpp"
-#include "platform/local_country_file.hpp"
-#include "platform/local_country_file_utils.hpp"
-#include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/location.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
@@ -48,8 +45,6 @@ const double DOUBLE_TOUCH_S = SHORT_TOUCH_MS / 1000.0;
 android::Framework * g_framework = 0;
 
 using namespace storage;
-using platform::CountryFile;
-using platform::LocalCountryFile;
 
 namespace
 {
@@ -558,32 +553,33 @@ namespace android
 
   void Framework::GetMapsWithoutSearch(vector<string> & out) const
   {
-    ASSERT(out.empty(), ());
+    ASSERT ( out.empty(), () );
 
     ::Platform const & pl = GetPlatform();
 
-    vector<LocalCountryFile> localFiles;
-    platform::FindAllLocalMaps(localFiles);
+    vector<string> v;
+    m_work.GetMaps(v);
 
-    for (LocalCountryFile const & localFile : localFiles)
+    for (size_t i = 0; i < v.size(); ++i)
     {
-      CountryFile const countryFile = localFile.GetCountryFile();
       // skip World and WorldCoast
-      if (countryFile.GetNameWithoutExt() == WORLD_FILE_NAME ||
-          countryFile.GetNameWithoutExt() == WORLD_COASTS_FILE_NAME)
+      if (v[i].find(WORLD_FILE_NAME) == string::npos &&
+          v[i].find(WORLD_COASTS_FILE_NAME) == string::npos)
       {
-        continue;
-      }
-      try
-      {
-        FilesContainerR cont(pl.GetCountryReader(localFile, TMapOptions::EMap));
-        if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
-          out.push_back(countryFile.GetNameWithoutExt());
-      }
-      catch (RootException const & ex)
-      {
-        // sdcard can contain dummy _*.mwm files. Suppress these errors.
-        LOG(LWARNING, ("Bad mwm file:", countryFile.GetNameWithoutExt(), "Error:", ex.Msg()));
+        try
+        {
+          FilesContainerR cont(pl.GetReader(v[i]));
+          if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
+          {
+            my::GetNameWithoutExt(v[i]);
+            out.push_back(v[i]);
+          }
+        }
+        catch (RootException const & ex)
+        {
+          // sdcard can contain dummy _*.mwm files. Supress this errors.
+          LOG(LWARNING, ("Bad mwm file:", v[i], "Error:", ex.Msg()));
+        }
       }
     }
   }

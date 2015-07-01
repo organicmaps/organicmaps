@@ -135,10 +135,8 @@ protected:
   static const int TOUCH_PIXEL_RADIUS = 20;
 
   /// This function is called by m_storage to notify that country downloading is finished.
-  void UpdateAfterDownload(platform::LocalCountryFile const & localFile);
-
-  /// This function is called by m_model when the map file is deregistered.
-  void OnMapDeregistered(platform::LocalCountryFile const & localFile);
+  /// @param[in] file Country file name (without extensions).
+  void UpdateAfterDownload(string const & file, TMapOptions opt);
 
   //my::Timer m_timer;
   inline double ElapsedSeconds() const
@@ -157,7 +155,10 @@ protected:
 
   void ClearAllCaches();
 
-  void DeregisterMap(platform::CountryFile const & countryFile);
+  void DeregisterMap(string const & file);
+
+  /// Deletes user calculated indexes on country updates
+  void DeleteCountryIndexes(string const & mwmName);
 
 public:
   Framework();
@@ -188,6 +189,11 @@ public:
   void ReleaseSingleFrameRenderer();
   bool IsSingleFrameRendererInited() const;
 
+  /// @name Process storage connecting/disconnecting.
+  //@{
+  /// @param[out] maps  File names without path.
+  void GetMaps(vector<string> & maps) const;
+
   /// Registers all local map files in internal indexes.
   void RegisterAllMaps();
 
@@ -198,7 +204,7 @@ public:
   ///
   /// @return True and inner mwm data version from header in version
   ///         or false in case of errors.
-  pair<MwmSet::MwmLock, bool> RegisterMap(platform::LocalCountryFile const & localFile);
+  pair<MwmSet::MwmLock, bool> RegisterMap(string const & file);
   //@}
 
   /// Deletes all disk files corresponding to country.

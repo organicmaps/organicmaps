@@ -10,49 +10,34 @@
 
 #include "indexer/mwm_version.hpp"
 
-#include "platform/country_file.hpp"
-#include "platform/local_country_file.hpp"
 #include "platform/platform.hpp"
-
-using platform::CountryFile;
-using platform::LocalCountryFile;
 
 namespace routing
 {
-RoutingMapping::RoutingMapping(CountryFile const & countryFile)
+RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex)
     : m_mapCounter(0),
       m_facadeCounter(0),
       m_crossContextLoaded(0),
-      m_countryFileName(countryFile.GetNameWithoutExt()),
-      m_isValid(false),
-      m_error(IRouter::ResultCode::RouteFileNotExist)
-{
-}
-
-RoutingMapping::RoutingMapping(LocalCountryFile const & localFile, Index const * pIndex)
-    : m_mapCounter(0),
-      m_facadeCounter(0),
-      m_crossContextLoaded(0),
-      m_countryFileName(localFile.GetCountryFile().GetNameWithoutExt()),
+      m_baseName(fName),
       m_isValid(true),
       m_error(IRouter::ResultCode::NoError)
 {
   Platform & pl = GetPlatform();
-  if (!HasOptions(localFile.GetFiles(), TMapOptions::EMapWithCarRouting))
+  string const mwmName = m_baseName + DATA_FILE_EXTENSION;
+  string const fPath = pl.WritablePathForFile(mwmName + ROUTING_FILE_EXTENSION);
+  if (!pl.IsFileExistsByFullPath(fPath))
   {
     m_isValid = false;
     m_error = IRouter::ResultCode::RouteFileNotExist;
     return;
   }
-  string const routingFilePath = localFile.GetPath(TMapOptions::ECarRouting);
   // Open new container and check that mwm and routing have equal timestamp.
-  LOG(LDEBUG, ("Load routing index for file:", routingFilePath));
-  m_container.Open(routingFilePath);
+  LOG(LDEBUG, ("Load routing index for file:", fPath));
+  m_container.Open(fPath);
   {
     FileReader r1 = m_container.GetReader(VERSION_FILE_TAG);
     ReaderSrc src1(r1);
-    ModelReaderPtr r2 = FilesContainerR(pl.GetCountryReader(localFile, TMapOptions::EMap))
-                            .GetReader(VERSION_FILE_TAG);
+    ModelReaderPtr r2 = FilesContainerR(pl.GetReader(mwmName)).GetReader(VERSION_FILE_TAG);
     ReaderSrc src2(r2.GetPtr());
 
     version::MwmVersion version1;
@@ -70,7 +55,7 @@ RoutingMapping::RoutingMapping(LocalCountryFile const & localFile, Index const *
     }
   }
 
-  m_mwmId = pIndex->GetMwmIdByCountryFile(localFile.GetCountryFile());
+  m_mwmId = pIndex->GetMwmIdByFileName(mwmName);
 }
 
 RoutingMapping::~RoutingMapping()
@@ -128,33 +113,22 @@ void RoutingMapping::FreeCrossContext()
   m_crossContext = CrossRoutingContextReader();
 }
 
-// static
-shared_ptr<RoutingMapping> RoutingMapping::MakeInvalid(platform::CountryFile const & countryFile)
-{
-  return shared_ptr<RoutingMapping>(new RoutingMapping(countryFile));
-}
-
 TRoutingMappingPtr RoutingIndexManager::GetMappingByPoint(m2::PointD const & point)
 {
-  return GetMappingByName(m_countryFileFn(point));
+  return GetMappingByName(m_countryFn(point));
 }
 
 TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & mapName)
 {
-  shared_ptr<platform::LocalCountryFile> localFile = m_countryLocalFileFn(mapName);
-  // Return invalid mapping when file does not exist.
-  if (!localFile)
-    return RoutingMapping::MakeInvalid(platform::CountryFile(mapName));
-
   // Check if we have already loaded this file.
   auto mapIter = m_mapping.find(mapName);
   if (mapIter != m_mapping.end())
     return mapIter->second;
 
   // Or load and check file.
-  TRoutingMappingPtr newMapping = make_shared<RoutingMapping>(*localFile, m_index);
-  m_mapping.insert(make_pair(mapName, newMapping));
-  return newMapping;
+  TRoutingMappingPtr new_mapping = make_shared<RoutingMapping>(mapName, m_index);
+  m_mapping.insert(make_pair(mapName, new_mapping));
+  return new_mapping;
 }
 
 }  // namespace routing

@@ -1,16 +1,12 @@
 #include "platform/local_country_file_utils.hpp"
 
 #include "platform/platform.hpp"
-
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
-
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
-
 #include "std/algorithm.hpp"
 #include "std/cctype.hpp"
-#include "std/sstream.hpp"
 
 namespace platform
 {
@@ -30,11 +26,10 @@ void CleanupMapsDirectory()
   // Remove partially downloaded maps.
   {
     Platform::FilesList files;
-    // .(downloading|resume|ready)[0-9]?$
-    string const regexp = "\\.(downloading|resume|ready)[0-9]?$";
+    string const regexp = "\\" DATA_FILE_EXTENSION "\\.(downloading2?$|resume2?$)";
     platform.GetFilesByRegExp(mapsDir, regexp, files);
     for (string const & file : files)
-      FileWriter::DeleteFileX(my::JoinFoldersToPath(mapsDir, file));
+      FileWriter::DeleteFileX(file);
   }
 
   // Find and remove Brazil and Japan maps.
@@ -46,7 +41,7 @@ void CleanupMapsDirectory()
     if (countryFile.GetNameWithoutExt() == "Japan" || countryFile.GetNameWithoutExt() == "Brazil")
     {
       localFile.SyncWithDisk();
-      localFile.DeleteFromDisk(TMapOptions::EMapWithCarRouting);
+      localFile.DeleteFromDisk();
     }
   }
 
@@ -109,10 +104,9 @@ void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
     {
       int64_t version;
       if (ParseVersion(subdir, version))
-        FindAllLocalMapsInDirectory(my::JoinFoldersToPath(directory, subdir), version, localFiles);
+        FindAllLocalMapsInDirectory(my::JoinFoldersToPath(directory, subdir), version, allFiles);
     }
   }
-
 #if defined(OMIM_OS_ANDROID)
   // On Android World and WorldCoasts can be stored in alternative /Android/obb/ path.
   for (string const & file : {WORLD_FILE_NAME, WORLD_COASTS_FILE_NAME})
@@ -141,6 +135,7 @@ void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
     }
   }
 #endif  // defined(OMIM_OS_ANDROID)
+
   localFiles.insert(localFiles.end(), allFiles.begin(), allFiles.end());
 }
 
@@ -148,7 +143,6 @@ bool ParseVersion(string const & s, int64_t & version)
 {
   if (s.empty() || s.size() > kMaxTimestampLength)
     return false;
-
   int64_t v = 0;
   for (char const c : s)
   {
@@ -168,29 +162,22 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & cou
     return make_shared<LocalCountryFile>(platform.WritableDir(), countryFile, version);
   string const directory =
       my::JoinFoldersToPath(platform.WritableDir(), strings::to_string(version));
-  Platform::EError ret = platform.MkDir(directory);
-  switch (ret)
+  switch (platform.MkDir(directory))
   {
     case Platform::ERR_OK:
       return make_shared<LocalCountryFile>(directory, countryFile, version);
     case Platform::ERR_FILE_ALREADY_EXISTS:
     {
       Platform::EFileType type;
-      if (Platform::GetFileType(directory, type) != Platform::ERR_OK)
+      if (Platform::GetFileType(directory, type) != Platform::ERR_OK ||
+          type != Platform::FILE_TYPE_DIRECTORY)
       {
-        LOG(LERROR, ("Can't determine file type for:", directory));
-        return shared_ptr<LocalCountryFile>();
-      }
-      if (type != Platform::FILE_TYPE_DIRECTORY)
-      {
-        LOG(LERROR, (directory, "exists, but not a directory:", type));
         return shared_ptr<LocalCountryFile>();
       }
       return make_shared<LocalCountryFile>(directory, countryFile, version);
     }
     default:
-      LOG(LERROR, ("Can't prepare place for", countryFile, "(", version, ") :", ret));
       return shared_ptr<LocalCountryFile>();
-  }
+  };
 }
 }  // namespace platform

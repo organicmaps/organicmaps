@@ -65,7 +65,7 @@ CountryTree & CountryTree::operator=(CountryTree const & other)
   return *this;
 }
 
-void CountryTree::Init(vector<platform::CountryFile> const & maps)
+void CountryTree::Init(vector<string> const & maps)
 {
   ASSERT(IsValid(), ());
   m_layout->Init(maps);

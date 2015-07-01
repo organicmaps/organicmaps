@@ -25,9 +25,8 @@ public:
   // their sizes etc. with disk.
   void SyncWithDisk();
 
-  // Removes specified files from disk if they're known for LocalCountryFile, i.e.
-  // were found by previous SyncWithDisk() call.
-  void DeleteFromDisk(TMapOptions files) const;
+  // Removes known country files from disk.
+  void DeleteFromDisk();
 
   // Returns path to a file. Return value may be empty until
   // SyncWithDisk() is called.
@@ -48,7 +47,6 @@ public:
     return (static_cast<unsigned>(m_files) & static_cast<unsigned>(filesMask)) ==
            static_cast<unsigned>(filesMask);
   }
-
   inline string const & GetDirectory() const { return m_directory; }
   inline int64_t GetVersion() const { return m_version; }
   inline CountryFile const & GetCountryFile() const { return m_countryFile; }
