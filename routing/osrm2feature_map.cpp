@@ -445,6 +445,8 @@ TNodesList const & OsrmFtSegBackwardIndex::GetNodeIdByFid(const uint32_t fid) co
   ASSERT(m_table, ());
   size_t const index = m_table->GetFeatureIndexbyOffset(fid);
   ASSERT_LESS(index, m_table->size(), ("Can't find feature index in offsets table"));
+  if (!m_rankIndex[index])
+    return kEmptyList;
   size_t node_index = m_rankIndex.rank(index);
   ASSERT_LESS(node_index, m_nodeIds.size(), ());
   return m_nodeIds[node_index];

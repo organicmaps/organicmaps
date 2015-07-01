@@ -101,6 +101,7 @@ class OsrmFtSegBackwardIndex
   succinct::rs_bit_vector m_rankIndex;
   vector<TNodesList> m_nodeIds;
   unique_ptr<feature::FeaturesOffsetsTable> m_table;
+  const TNodesList kEmptyList;
 
   unique_ptr<MmapReader> m_mappedBits;
 
