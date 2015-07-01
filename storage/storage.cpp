@@ -105,6 +105,15 @@ Storage::Storage() : m_downloader(new HttpMapFilesDownloader()), m_currentSlotId
 
 void Storage::Init(TUpdateAfterDownload const & updateFn) { m_updateAfterDownload = updateFn; }
 
+void Storage::Clear()
+{
+  m_downloader->Reset();
+  m_queue.clear();
+  m_failedCountries.clear();
+  m_localFiles.clear();
+  m_localFilesForFakeCountries.clear();
+}
+
 void Storage::RegisterAllLocalMaps()
 {
   m_localFiles.clear();

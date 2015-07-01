@@ -60,10 +60,8 @@ class FeaturesFetcher : public Index::Observer
     /// Deregisters a map denoted by file from internal records.
     bool DeregisterMap(platform::CountryFile const & countryFile);
 
-    /// Deregisters all registered maps.
-    void DeregisterAllMaps();
+    void Clear();
 
-    //void Clean();
     void ClearCaches();
 
     inline bool IsLoaded(string const & countryFileName) const

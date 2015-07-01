@@ -73,7 +73,7 @@ bool FeaturesFetcher::DeregisterMap(CountryFile const & countryFile)
   return m_multiIndex.Deregister(countryFile);
 }
 
-void FeaturesFetcher::DeregisterAllMaps() { m_multiIndex.DeregisterAll(); }
+void FeaturesFetcher::Clear() { m_multiIndex.Clear(); }
 
 void FeaturesFetcher::ClearCaches()
 {

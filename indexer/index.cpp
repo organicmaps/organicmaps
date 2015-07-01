@@ -49,15 +49,6 @@ MwmSet::TMwmValueBasePtr Index::CreateValue(LocalCountryFile const & localFile) 
   return p;
 }
 
-Index::Index()
-{
-}
-
-Index::~Index()
-{
-  Cleanup();
-}
-
 pair<MwmSet::MwmLock, bool> Index::RegisterMap(LocalCountryFile const & localFile)
 {
   pair<MwmSet::MwmLock, bool> result = Register(localFile);

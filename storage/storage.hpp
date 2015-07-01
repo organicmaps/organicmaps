@@ -103,6 +103,9 @@ public:
 
   void Init(TUpdateAfterDownload const & updateFn);
 
+  // Clears local files registry and downloader's queue.
+  void Clear();
+
   // Finds and registers all map files in maps directory. In the case
   // of several versions of the same map keeps only the latest one, others
   // are deleted from disk.

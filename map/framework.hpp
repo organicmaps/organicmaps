@@ -157,8 +157,6 @@ protected:
 
   void ClearAllCaches();
 
-  void DeregisterMap(platform::CountryFile const & countryFile);
-
 public:
   Framework();
   virtual ~Framework();

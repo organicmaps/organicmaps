@@ -105,11 +105,6 @@ pair<MwmSet::MwmLock, bool> Framework::RegisterMap(LocalCountryFile const & loca
   return m_model.RegisterMap(localFile);
 }
 
-void Framework::DeregisterMap(CountryFile const & countryFile)
-{
-  m_model.DeregisterMap(countryFile);
-}
-
 void Framework::OnLocationError(TLocationError /*error*/) {}
 
 void Framework::OnLocationUpdate(GpsInfo const & info)
@@ -477,7 +472,8 @@ void Framework::RegisterAllMaps()
 void Framework::DeregisterAllMaps()
 {
   m_countryTree.Clear();
-  m_model.DeregisterAllMaps();
+  m_model.Clear();
+  m_storage.Clear();
 }
 
 void Framework::LoadBookmarks()

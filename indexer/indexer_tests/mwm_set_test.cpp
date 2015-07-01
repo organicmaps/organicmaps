@@ -37,7 +37,7 @@ protected:
   }
 
 public:
-  ~TestMwmSet() { Cleanup(); }
+  ~TestMwmSet() override = default;
 };
 
 void GetMwmsInfo(MwmSet const & mwmSet, TMwmsInfo & mwmsInfo)

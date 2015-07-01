@@ -74,7 +74,7 @@ private:
 class MwmSet
 {
 public:
-  struct MwmId
+  class MwmId
   {
   public:
     friend class MwmSet;
@@ -187,7 +187,6 @@ protected:
 
 public:
   bool Deregister(platform::CountryFile const & countryFile);
-  void DeregisterAll();
   //@}
 
   /// Returns true when country is registered and can be used.
@@ -196,6 +195,9 @@ public:
   /// Get ids of all mwms. Some of them may be with not active status.
   /// In that case, LockValue returns NULL.
   void GetMwmsInfo(vector<shared_ptr<MwmInfo>> & info) const;
+
+  // Clears caches and mwm's registry. All known mwms won't be marked as DEREGISTERED.
+  void Clear();
 
   void ClearCache();
 
@@ -207,8 +209,6 @@ protected:
   /// @return True when file format version was successfully read to MwmInfo.
   virtual bool GetVersion(platform::LocalCountryFile const & localFile, MwmInfo & info) const = 0;
   virtual TMwmValueBasePtr CreateValue(platform::LocalCountryFile const & localFile) const = 0;
-
-  void Cleanup();
 
 private:
   typedef deque<pair<MwmId, TMwmValueBasePtr>> CacheType;

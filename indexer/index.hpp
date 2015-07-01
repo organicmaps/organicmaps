@@ -60,8 +60,8 @@ public:
     virtual void OnMapDeregistered(platform::LocalCountryFile const & localFile) {}
   };
 
-  Index();
-  ~Index() override;
+  Index() = default;
+  ~Index() override = default;
 
   /// Registers a new map.
   ///

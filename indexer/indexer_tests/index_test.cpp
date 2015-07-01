@@ -23,12 +23,6 @@ using platform::LocalCountryFile;
 
 namespace
 {
-void CheckedDeleteFile(string const & file)
-{
-  if (Platform::IsFileExistsByFullPath(file))
-    CHECK(my::DeleteFileX(file), ("Can't remove file:", file));
-}
-
 class Observer : public Index::Observer
 {
 public:
@@ -95,7 +89,7 @@ UNIT_TEST(Index_Parse)
 UNIT_TEST(Index_MwmStatusNotifications)
 {
   Platform & platform = GetPlatform();
-  string const mapsDir = GetPlatform().WritableDir();
+  string const mapsDir = platform.WritableDir();
   CountryFile const countryFile("minsk-pass");
 
   // These two classes point to the same file, but will be considered

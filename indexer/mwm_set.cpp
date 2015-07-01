@@ -70,14 +70,8 @@ MwmSet::MwmSet(size_t cacheSize)
 
 MwmSet::~MwmSet()
 {
-  // Need do call Cleanup() in derived class.
+  Clear();
   ASSERT(m_cache.empty(), ());
-}
-
-void MwmSet::Cleanup()
-{
-  lock_guard<mutex> lock(m_lock);
-  ClearCacheImpl(m_cache.begin(), m_cache.end());
 }
 
 MwmSet::MwmId MwmSet::GetMwmIdByCountryFileImpl(CountryFile const & countryFile) const
@@ -172,23 +166,6 @@ bool MwmSet::DeregisterImpl(CountryFile const & countryFile)
   return deregistered;
 }
 
-void MwmSet::DeregisterAll()
-{
-  lock_guard<mutex> lock(m_lock);
-
-  for (auto const & p : m_info)
-  {
-    // Vector of shared pointers is copied here because an original
-    // vector will be modified by the body of the cycle.
-    vector<shared_ptr<MwmInfo>> infos = p.second;
-    for (shared_ptr<MwmInfo> info : infos)
-      DeregisterImpl(MwmId(info));
-  }
-
-  // Do not call ClearCache - it's under mutex lock.
-  ClearCacheImpl(m_cache.begin(), m_cache.end());
-}
-
 bool MwmSet::IsLoaded(CountryFile const & countryFile) const
 {
   lock_guard<mutex> lock(m_lock);
@@ -265,6 +242,13 @@ void MwmSet::UnlockValueImpl(MwmId const & id, TMwmValueBasePtr p)
       m_cache.pop_front();
     }
   }
+}
+
+void MwmSet::Clear()
+{
+  lock_guard<mutex> lock(m_lock);
+  ClearCacheImpl(m_cache.begin(), m_cache.end());
+  m_info.clear();
 }
 
 void MwmSet::ClearCache()
