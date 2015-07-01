@@ -66,21 +66,6 @@ uint64_t GetRemoteSize(CountryFile const & file, TMapOptions opt)
   return size;
 }
 
-// TODO (@gorshenin): directory where country indexes are stored
-// should be abstracted out to LocalCountryIndexes.
-void DeleteCountryIndexes(CountryFile const & file)
-{
-  Platform::FilesList files;
-  Platform const & platform = GetPlatform();
-  string const name = file.GetNameWithoutExt();
-  string const path = platform.WritablePathForCountryIndexes(name);
-
-  /// @todo We need correct regexp for any file (not including "." and "..").
-  platform.GetFilesByRegExp(path, name + "\\..*", files);
-  for (auto const & file : files)
-    my::DeleteFileX(path + file);
-}
-
 class EqualFileName
 {
   string const & m_name;
@@ -594,7 +579,7 @@ bool Storage::RegisterDownloadedFile(string const & path, uint64_t size, int64_t
 
 void Storage::OnMapDownloadFinished(shared_ptr<LocalCountryFile> localFile)
 {
-  DeleteCountryIndexes(localFile->GetCountryFile());
+  platform::CountryIndexes::DeleteFromDisk(*localFile);
 
   // Notify framework that all requested files for the country were downloaded.
   m_updateAfterDownload(*localFile);
@@ -815,16 +800,12 @@ void Storage::DeleteCountryFiles(TIndex const & index, TMapOptions opt)
   if (it == m_localFiles.end())
     return;
 
-  // TODO (@gorshenin): map-only indexes should not be touched when
-  // routing indexes are removed.
-  if (!it->second.empty())
-    DeleteCountryIndexes(it->second.front()->GetCountryFile());
-
-  list<shared_ptr<platform::LocalCountryFile>> & localFiles = it->second;
-  for (shared_ptr<LocalCountryFile> & localFile : localFiles)
+  auto & localFiles = it->second;
+  for (auto & localFile : localFiles)
   {
     localFile->DeleteFromDisk(opt);
     localFile->SyncWithDisk();
+    platform::CountryIndexes::DeleteFromDisk(*localFile);
     if (localFile->GetFiles() == TMapOptions::ENothing)
       localFile.reset();
   }

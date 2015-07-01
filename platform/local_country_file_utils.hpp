@@ -1,5 +1,6 @@
 #pragma once
 
+#include "platform/country_defines.hpp"
 #include "platform/local_country_file.hpp"
 
 #include "std/shared_ptr.hpp"
@@ -45,4 +46,35 @@ bool ParseVersion(string const & s, int64_t & version);
 // directory with name equal to decimal representation of version.
 shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & countryFile,
                                                          int64_t version);
+// An API for managing country indexes.
+class CountryIndexes
+{
+public:
+  enum class Index
+  {
+    Bits,
+    Nodes,
+    Offsets
+  };
+
+  // Prepares (if necessary) directory for country indexes. Local file
+  // should point to existing local country files. Returns true on
+  // success, false otherwise.
+  static bool PreparePlaceOnDisk(LocalCountryFile const & localFile);
+
+  // Removes country indexes from disk including containing directory.
+  static bool DeleteFromDisk(LocalCountryFile const & localFile);
+
+  // Returns full path to country index. Note that this method does
+  // not create a file on disk - it just returns a path where the
+  // index should be created/accessed/removed.
+  static string GetPath(LocalCountryFile const & localFile, Index index);
+
+private:
+  friend void UnitTest_LocalCountryFile_CountryIndexes();
+
+  static string IndexesDir(LocalCountryFile const & localFile);
+};
+
+string DebugPrint(CountryIndexes::Index index);
 }  // namespace platform

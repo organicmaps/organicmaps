@@ -3,7 +3,7 @@
 #include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
-#include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
@@ -19,6 +19,43 @@ namespace
 size_t const kMaxTimestampLength = 18;
 
 bool IsSpecialFile(string const & file) { return file == "." || file == ".."; }
+
+bool CheckedGetFileType(string const & path, Platform::EFileType & type)
+{
+  Platform::EError const ret = Platform::GetFileType(path, type);
+  if (ret != Platform::ERR_OK)
+  {
+    LOG(LERROR, ("Can't determine file type for", path, ":", ret));
+    return false;
+  }
+  return true;
+}
+
+bool CheckedMkDir(string const & directory)
+{
+  Platform & platform = GetPlatform();
+  Platform::EError const ret = platform.MkDir(directory);
+  switch (ret)
+  {
+    case Platform::ERR_OK:
+      return true;
+    case Platform::ERR_FILE_ALREADY_EXISTS:
+    {
+      Platform::EFileType type;
+      if (!CheckedGetFileType(directory, type))
+        return false;
+      if (type != Platform::FILE_TYPE_DIRECTORY)
+      {
+        LOG(LERROR, (directory, "exists, but not a directory:", type));
+        return false;
+      }
+      return true;
+    }
+    default:
+      LOG(LERROR, (directory, "can't be created:", ret));
+      return false;
+  }
+}
 }  // namespace
 
 void CleanupMapsDirectory()
@@ -34,7 +71,7 @@ void CleanupMapsDirectory()
     string const regexp = "\\.(downloading|resume|ready)[0-9]?$";
     platform.GetFilesByRegExp(mapsDir, regexp, files);
     for (string const & file : files)
-      FileWriter::DeleteFileX(my::JoinFoldersToPath(mapsDir, file));
+      my::DeleteFileX(my::JoinFoldersToPath(mapsDir, file));
   }
 
   // Find and remove Brazil and Japan maps.
@@ -160,29 +197,80 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & cou
     return make_shared<LocalCountryFile>(platform.WritableDir(), countryFile, version);
   string const directory =
       my::JoinFoldersToPath(platform.WritableDir(), strings::to_string(version));
-  Platform::EError ret = platform.MkDir(directory);
-  switch (ret)
+  if (!CheckedMkDir(directory))
+    return shared_ptr<LocalCountryFile>();
+  return make_shared<LocalCountryFile>(directory, countryFile, version);
+}
+
+// static
+bool CountryIndexes::PreparePlaceOnDisk(LocalCountryFile const & localFile)
+{
+  return CheckedMkDir(IndexesDir(localFile));
+}
+
+// static
+bool CountryIndexes::DeleteFromDisk(LocalCountryFile const & localFile)
+{
+  string const directory = IndexesDir(localFile);
+
+  vector<string> files;
+  Platform::GetFilesByRegExp(directory, "\\.*", files);
+  for (string const & file : files)
   {
-    case Platform::ERR_OK:
-      return make_shared<LocalCountryFile>(directory, countryFile, version);
-    case Platform::ERR_FILE_ALREADY_EXISTS:
-    {
-      Platform::EFileType type;
-      if (Platform::GetFileType(directory, type) != Platform::ERR_OK)
-      {
-        LOG(LERROR, ("Can't determine file type for:", directory));
-        return shared_ptr<LocalCountryFile>();
-      }
-      if (type != Platform::FILE_TYPE_DIRECTORY)
-      {
-        LOG(LERROR, (directory, "exists, but not a directory:", type));
-        return shared_ptr<LocalCountryFile>();
-      }
-      return make_shared<LocalCountryFile>(directory, countryFile, version);
-    }
-    default:
-      LOG(LERROR, ("Can't prepare place for", countryFile, "(", version, ") :", ret));
-      return shared_ptr<LocalCountryFile>();
+    if (IsSpecialFile(file))
+      continue;
+    string const path = my::JoinFoldersToPath(directory, file);
+    if (!my::DeleteFileX(path))
+      LOG(LERROR, ("Can't remove country index:", path));
+  }
+
+  Platform::EError const ret = Platform::RmDir(directory);
+  if (ret != Platform::ERR_OK && ret != Platform::ERR_FILE_DOES_NOT_EXIST)
+  {
+    LOG(LERROR, ("Can't remove indexes directory:", directory, ret));
+    return false;
+  }
+  return true;
+}
+
+// static
+string CountryIndexes::GetPath(LocalCountryFile const & localFile, Index index)
+{
+  string const directory = IndexesDir(localFile);
+  string const name = localFile.GetCountryFile().GetNameWithoutExt();
+  string file;
+  switch (index)
+  {
+    case Index::Bits:
+      file = name + ".bftsegbits";
+      break;
+    case Index::Nodes:
+      file = name + ".bftsegnodes";
+      break;
+    case Index::Offsets:
+      file = name + ".offsets";
+      break;
+  }
+  return my::JoinFoldersToPath(directory, file);
+}
+
+// static
+string CountryIndexes::IndexesDir(LocalCountryFile const & localFile)
+{
+  return my::JoinFoldersToPath(localFile.GetDirectory(),
+                               localFile.GetCountryFile().GetNameWithoutExt());
+}
+
+string DebugPrint(CountryIndexes::Index index)
+{
+  switch (index)
+  {
+    case CountryIndexes::Index::Bits:
+      return "Bits";
+    case CountryIndexes::Index::Nodes:
+      return "Nodes";
+    case CountryIndexes::Index::Offsets:
+      return "Offsets";
   }
 }
 }  // namespace platform

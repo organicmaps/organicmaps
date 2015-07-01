@@ -49,7 +49,10 @@ void LocalCountryFile::DeleteFromDisk(TMapOptions files) const
     if (OnDisk(file) && HasOptions(files, file))
     {
       if (!my::DeleteFileX(GetPath(file)))
+      {
         LOG(LERROR, (file, "from", *this, "wasn't deleted from disk."));
+        ASSERT(false, ());
+      }
     }
   }
 }

@@ -421,4 +421,35 @@ UNIT_TEST(LocalCountryFile_PreparePlaceForCountryFiles)
   TEST(franceLocalFile.get(), ());
   TEST_EQUAL(expectedFranceFile, *franceLocalFile, ());
 }
+
+UNIT_TEST(LocalCountryFile_CountryIndexes)
+{
+  Platform & platform = GetPlatform();
+
+  CountryFile germanyFile("Germany");
+  shared_ptr<LocalCountryFile> germanyLocalFile =
+      platform::PreparePlaceForCountryFiles(germanyFile, 101010 /* version */);
+  TEST(germanyLocalFile.get(), ("Can't prepare place for:", germanyFile));
+  TEST_EQUAL(my::JoinFoldersToPath(platform.WritableDir(), "101010"),
+             germanyLocalFile->GetDirectory(), ());
+  TEST_EQUAL(
+      my::JoinFoldersToPath(germanyLocalFile->GetDirectory(), germanyFile.GetNameWithoutExt()),
+      CountryIndexes::IndexesDir(*germanyLocalFile), ());
+  TEST(CountryIndexes::PreparePlaceOnDisk(*germanyLocalFile),
+       ("Can't prepare place for:", *germanyLocalFile));
+
+  string const bitsPath = CountryIndexes::GetPath(*germanyLocalFile, CountryIndexes::Index::Bits);
+  TEST(!Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
+  {
+    FileWriter writer(bitsPath);
+    string const contents = "bits index";
+    writer.Write(contents.data(), contents.size());
+  }
+  TEST(Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
+
+  TEST(CountryIndexes::DeleteFromDisk(*germanyLocalFile),
+       ("Can't delete indexes for:", *germanyLocalFile));
+
+  TEST(!Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
+}
 }  // namespace platform
