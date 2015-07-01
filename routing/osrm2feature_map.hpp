@@ -1,9 +1,9 @@
 #pragma once
 
+#include "indexer/features_offsets_table.hpp"
+
 #include "coding/file_container.hpp"
 #include "coding/mmap_reader.hpp"
-
-#include "indexer/features_offsets_table.hpp"
 
 #include "platform/platform.hpp"
 
@@ -16,19 +16,21 @@
 #include "std/vector.hpp"
 
 #include "3party/succinct/rs_bit_vector.hpp"
-
 #include "3party/succinct/elias_fano_compressed_list.hpp"
 
 #include "defines.hpp"
+
+
 namespace routing
 {
 
 typedef uint32_t TOsrmNodeId;
 typedef vector<TOsrmNodeId> TNodesList;
-extern TOsrmNodeId const INVALID_NODE_ID;
+constexpr TOsrmNodeId INVALID_NODE_ID = numeric_limits<TOsrmNodeId>::max();
 constexpr uint32_t kInvalidFid = numeric_limits<uint32_t>::max();
 
-namespace OsrmMappingTypes {
+namespace OsrmMappingTypes
+{
 #pragma pack (push, 1)
   struct FtSeg
   {
@@ -94,6 +96,7 @@ namespace OsrmMappingTypes {
   };
 #pragma pack (pop)
 }
+
 class OsrmFtSegMapping;
 
 class OsrmFtSegBackwardIndex
