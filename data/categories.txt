@@ -24,8 +24,8 @@ sv:3bankomat|pengar
 vi:2máy atm|tiền
 id:2atm|uang
 ro:3bancomat|bani
-nb:2penger
-fi:2raha
+nb:2penger|minibank
+fi:2raha|pankkiautomaatti
 
 amenity-bank
 en:3bank|money
@@ -227,7 +227,7 @@ sv:3bensinstation|3bränsle|2gas|3bensin
 vi:trạm xăng|khí đốt
 id:pompa bensin|bahan bakar
 ro:3benzinărie|benzină
-nb:3bensinstasjon
+nb:3bensinstasjon|drivstoff
 fi:3huoltoasema
 
 shop-bakery
@@ -1616,10 +1616,10 @@ da:3parkering
 tr:3otopark
 sv:3parkering
 vi:đỗ xe
-id:parkir
-ro:parcare
-nb:parkering
-fi:parkkipaikka
+id:3parkir
+ro:3parcare
+nb:3parkering
+fi:3parkkipaikka
 
 amenity-pharmacy
 en:3pharmacy|3drugstore|apothecary|dispensary
@@ -1643,12 +1643,12 @@ zh-Hans:1药店|药店|药剂师
 ar:الصيدلية
 da:3apotek
 tr:3eczane
-sv:3apotek|3apotek|apotekare|apotek
-vi:bệnh viện
-id:apotek
-ro:farmacie
-nb:apotek
-fi:apteekki
+sv:3apotek|apotekare
+vi:3hiệu thuốc
+id:3apotek
+ro:3farmacie
+nb:3apotek
+fi:3apteekki
 
 amenity-post_box
 en:3postbox|post
