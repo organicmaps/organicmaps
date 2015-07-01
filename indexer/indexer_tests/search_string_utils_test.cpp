@@ -18,14 +18,20 @@ UNIT_TEST(NormalizeAndSimplifyStringWithOurTambourines)
                         "Iiİı", "iiii",              // Famous turkish "I" letter bug.
                         "ЙЁйёШКИЙй", "йейешкийй",    // Better handling of Russian й letter.
                         "ØøÆæŒœ", "ooaeaeoeoe",
-                        "バス", "ハス"
+                        "バス", "ハス",
+                        "âàáạăốợồôểềệếỉđưựứửýĂÂĐÊÔƠƯ",
+                        "aaaaaooooeeeeiduuuuyaadeoou",  // Vietnamese
+                        "ăâț", "aat"                    // Romanian
                        };
   */
   string const arr[] = {"ÜbërÅłłęšß", "uberallesss", // Basic test case.
                         "Iiİı", "iiii",              // Famous turkish "I" letter bug.
                         "ЙЁйёШКИЙй", "иеиешкиии",    // Better handling of Russian й letter.
-                        "ØøÆæŒœ", "ooaeaeoeoe",
-                        "バス", "ハス"
+                        "ØøÆæŒœ", "ooaeaeoeoe",      // Dansk
+                        "バス", "ハス",
+                        "âàáạăốợồôểềệếỉđưựứửýĂÂĐÊÔƠƯ",
+                        "aaaaaooooeeeeiduuuuyaadeoou",  // Vietnamese
+                        "ăâț", "aat"                    // Romanian
                        };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)

@@ -17,6 +17,10 @@ inline strings::UniString NormalizeAndSimplifyString(string const & s)
     UniChar & c = uniString[i];
     switch (c)
     {
+    // Replace "d with stroke" to simple d letter. Used in Vietnamese.
+    // (unicode-compliant implementation leaves it unchanged)
+    case 0x0110:
+    case 0x0111: c = 'd'; break;
     // Replace small turkish dotless 'ı' with dotted 'i'.
     // Our own invented hack to avoid well-known Turkish I-letter bug.
     case 0x0131: c = 'i'; break;
