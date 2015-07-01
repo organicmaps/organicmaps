@@ -271,11 +271,16 @@ namespace integration
   void TestOnlineFetcher(m2::PointD const & startPoint, m2::PointD const & finalPoint,
                          vector<string> const & expected, OsrmRouterComponents & routerComponents)
   {
-    search::Engine * searchEngine(routerComponents.GetSearchEngine());
-    routing::OnlineAbsentFetcher fetcher([&searchEngine](m2::PointD const & pt)
-                                         {
-                                           return searchEngine->GetCountryFile(pt);
-                                         });
+    auto countryFileGetter = [&routerComponents](m2::PointD const & p) -> string
+    {
+      return routerComponents.GetSearchEngine()->GetCountryFile(p);
+    };
+    auto localFileGetter = [&routerComponents](string const & countryFile) -> shared_ptr<LocalCountryFile>
+    {
+      //Always returns empty LocalFile
+      return shared_ptr<LocalCountryFile>(new LocalCountryFile());
+    };
+    routing::OnlineAbsentFetcher fetcher(countryFileGetter, localFileGetter);
     fetcher.GenerateRequest(MercatorBounds::FromLatLon(startPoint.y, startPoint.x),
                             MercatorBounds::FromLatLon(finalPoint.y, finalPoint.x));
     vector<string> absent;

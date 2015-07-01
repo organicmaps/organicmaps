@@ -14,12 +14,13 @@ namespace routing
 class OnlineAbsentFetcher
 {
 public:
-  OnlineAbsentFetcher(TCountryFileFn const & fn) : m_countryFunction(fn) {}
+  OnlineAbsentFetcher(TCountryFileFn const & countryFileFn, TCountryLocalFileFn const & countryLocalFileFn) : m_countryFileFn(countryFileFn), m_countryLocalFileFn(countryLocalFileFn) {}
   void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint);
   void GetAbsentCountries(vector<string> & countries);
 
 private:
-  TCountryFileFn const m_countryFunction;
+  TCountryFileFn const m_countryFileFn;
+  TCountryLocalFileFn const m_countryLocalFileFn;
   threads::Thread m_fetcherThread;
 };
 }  // namespace routing

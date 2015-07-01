@@ -2169,7 +2169,7 @@ void Framework::SetRouter(RouterType type)
   {
     router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter, localFileGetter,
                                 routingVisualizerFn));
-    fetcher.reset(new OnlineAbsentFetcher(countryFileFn));
+    fetcher.reset(new OnlineAbsentFetcher(countryFileGetter, localFileGetter));
   }
 
   m_routingSession.SetRouter(move(router), move(fetcher), routingStatisticsFn);
