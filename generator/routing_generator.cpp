@@ -352,17 +352,33 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
         }
       }
 
-      // Matching error.
+      // Matching error. Print warning message.
       LOG(LWARNING, ("!!!!! Match not found:", seg.wayId));
       LOG(LWARNING, ("(Lat, Lon):", pts[0].y, pts[0].x, "; (Lat, Lon):", pts[1].y, pts[1].x));
-      for (uint32_t j = 0; j < ft.GetPointsCount(); ++j)
+
+      int ind1 = -1;
+      int ind2 = -1;
+      double dist1 = numeric_limits<double>::max();
+      double dist2 = numeric_limits<double>::max();
+      for (int j = 0; j < ft.GetPointsCount(); ++j)
       {
         double lon = MercatorBounds::XToLon(ft.GetPoint(j).x);
         double lat = MercatorBounds::YToLat(ft.GetPoint(j).y);
-        double const dist1 = ms::DistanceOnEarth(pts[0].y, pts[0].x, lat, lon);
-        double const dist2 = ms::DistanceOnEarth(pts[1].y, pts[1].x, lat, lon);
-        LOG(LWARNING, ("p", j, ":", lat, lon, "Dist1:", dist1, "Dist2:", dist2));
+        double const d1 = ms::DistanceOnEarth(pts[0].y, pts[0].x, lat, lon);
+        double const d2 = ms::DistanceOnEarth(pts[1].y, pts[1].x, lat, lon);
+        if (d1 < dist1)
+        {
+          ind1 = j;
+          dist1 = d1;
+        }
+        if (d2 < dist2)
+        {
+          ind2 = j;
+          dist2 = d2;
+        }
       }
+
+      LOG(LWARNING, ("ind1 =", ind1, "ind1 =", ind1, "dist1 =", dist1, "dist2 =", dist2));
     }
 
     if (vec.size() > 1)
