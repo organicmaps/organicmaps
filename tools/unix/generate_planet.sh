@@ -114,6 +114,7 @@ PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 DATA_PATH="$OMIM_PATH/data"
 [ ! -r "${DATA_PATH}/types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
+[ -n "$OPT_ROUTING" -a ! -f "$HOME/.stxxl" ] && fail "For routing, you need ~/.stxxl file. Run this: echo 'disk=$HOME/stxxl_disk1,400G,syscall' > $HOME/.stxxl"
 TARGET="${TARGET:-$DATA_PATH}"
 mkdir -p "$TARGET"
 INTDIR="${INTDIR:-$TARGET/intermediate_data}"
@@ -318,9 +319,7 @@ if [ "$MODE" == "mwm" ]; then
   PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
   for file in "$TARGET"/*.mwm.tmp; do
     if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
-      filename="$(basename "$file")"
-      filename="${filename%.*.*}"
-      "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --output="$filename" 2>> "$GENERATOR_LOG" &
+      "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --output="$(basename "$file" .mwm.tmp)" 2>> "$GENERATOR_LOG" &
       forky
     fi
   done

@@ -73,8 +73,9 @@ elif [ "$1" == "prepare" ]; then
   PROFILE="${PROFILE:-$OSRM_PATH/profiles/car.lua}"
   [ $# -gt 1 ] && PROFILE="$2"
   [ ! -r "$PROFILE" ] && fail "Lua profile $PROFILE is not found"
-
   export STXXLCFG="$HOME/.stxxl"
+  [ ! -f "$STXXLCFG" ] && fail "For routing, you need ~/.stxxl file. Run this: echo 'disk=$HOME/stxxl_disk1,400G,syscall' > $STXXLCFG"
+
   for PBF in "$INTDIR"/*.pbf; do
     OSRM_FILE="${PBF%.*}.osrm"
     RESTRICTIONS_FILE="$OSRM_FILE.restrictions"
