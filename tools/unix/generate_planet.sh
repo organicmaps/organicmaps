@@ -5,7 +5,7 @@
 
 # Displayed when there are unknown options
 usage() {
-  echo ''
+  echo
   echo "Usage: $0 [-c] [-u] [-w] [-r]"
   echo
   echo -e "-u\tUpdate planet until coastline is not broken"
@@ -49,7 +49,7 @@ forky() {
 log() {
    local prefix="[$(date +%Y/%m/%d\ %H:%M:%S)]:"
    echo "${prefix} $@" >&2
-   echo "${prefix} $@" >> "$GENERATOR_LOG"
+   echo "${prefix} $@" >> "$PLANET_LOG"
 }
 
 # Print mode start message and store it in the status file
@@ -131,8 +131,9 @@ STATUS_FILE="$INTDIR/status"
 OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
 SCRIPTS_PATH="$(dirname "$0")"
 ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
-GENERATOR_LOG="$TARGET/planet_generator.log"
-ROUTING_LOG="$TARGET/planet_routing.log"
+LOG_PATH="$TARGET/logs"
+mkdir -p "$LOG_PATH"
+PLANET_LOG="$LOG_PATH/generate_planet.log"
 log "STATUS" "Start"
 
 # Run external script to find generator_tool
@@ -170,6 +171,7 @@ export PLANET
 export OSMCTOOLS
 export NUM_PROCESSES
 export KEEP_INTDIR
+export LOG_PATH
 export REGIONS= # Routing script might expect something in this variable
 export BORDERS_PATH="$TARGET/borders" # Also for the routing script
 
@@ -199,6 +201,7 @@ if [ "$MODE" == "coast" ]; then
   [ ! -x "$OSMCTOOLS/osmfilter"  ] && wget -q -O - http://m.m.i24.cc/osmfilter.c  | cc -x c - -O3 -o "$OSMCTOOLS/osmfilter"
   if [ -n "$OPT_DOWNLOAD" ]; then
     # Planet download is requested
+    log "STATUS" "Step 0: Downloading and converting the planet"
     PLANET_PBF="$(dirname "$PLANET")/planet-latest.osm.pbf"
     wget -O "$PLANET_PBF" http://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
     "$OSMCTOOLS/osmconvert" "$PLANET_PBF" --drop-author --drop-version --out-o5m "-o=$PLANET"
@@ -229,11 +232,11 @@ if [ "$MODE" == "coast" ]; then
       log "TIMEMARK" "Generate coastlines intermediate"
       [ -n "$EXIT_ON_ERROR" ] && set +e # Temporary disable to read error code
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
-        -preprocess 2>> "$GENERATOR_LOG"
+        -preprocess 2>> "$LOG_PATH/WorldCoasts.log"
       # Generate temporary coastlines file in the coasts intermediate dir
       log "TIMEMARK" "Generate coastlines"
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
-        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$GENERATOR_LOG"
+        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log"
 
       if [ $? != 0 ]; then
         log "TIMEMARK" "Coastline merge failed"
@@ -268,27 +271,27 @@ if [ -n "$OPT_ROUTING" ]; then
 
     if [ -n "$ASYNC_PBF" ]; then
       (
-        bash "$ROUTING_SCRIPT" pbf >> "$ROUTING_LOG" 2>&1
-        bash "$ROUTING_SCRIPT" prepare >> "$ROUTING_LOG" 2>&1
+        bash "$ROUTING_SCRIPT" pbf >> "$PLANET_LOG" 2>&1
+        bash "$ROUTING_SCRIPT" prepare >> "$PLANET_LOG" 2>&1
       ) &
     else
       # Osmconvert takes too much memory: it makes sense to not extract pbfs asyncronously
-      bash "$ROUTING_SCRIPT" pbf >> "$ROUTING_LOG" 2>&1
-      ( bash "$ROUTING_SCRIPT" prepare >> "$ROUTING_LOG" 2>&1 ) &
+      bash "$ROUTING_SCRIPT" pbf >> "$PLANET_LOG" 2>&1
+      ( bash "$ROUTING_SCRIPT" prepare >> "$PLANET_LOG" 2>&1 ) &
     fi
   fi
 fi
 
 if [ -n "$OPT_ONLINE_ROUTING" ]; then
   putmode "Step RO: Generating OSRM files for osrm-routed server."
-  bash "$ROUTING_SCRIPT" online >> "$ROUTING_LOG" 2>&1
+  bash "$ROUTING_SCRIPT" online >> "$PLANET_LOG" 2>&1
 fi
 
 if [ "$MODE" == "inter" ]; then
   putmode "Step 3: Generating intermediate data for all MWMs"
   # 1st pass, run in parallel - preprocess whole planet to speed up generation if all coastlines are correct
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
-    -preprocess 2>> "$GENERATOR_LOG"
+    -preprocess 2>> "$PLANET_LOG"
   MODE=features
 fi
 
@@ -301,7 +304,7 @@ if [ "$MODE" == "features" ]; then
   [ -n "$OPT_WORLD" ] && PARAMS_SPLIT="$PARAMS_SPLIT -generate_world"
   [ -n "$OPT_WORLD" -a "$NODE_STORAGE" == "map" ] && log "WARNING: generating world files with NODE_STORAGE=map may lead to an out of memory error. Try NODE_STORAGE=mem if it fails."
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
-    --data_path="$TARGET" --user_resource_path="$DATA_PATH/" $PARAMS_SPLIT 2>> "$GENERATOR_LOG"
+    --data_path="$TARGET" --user_resource_path="$DATA_PATH/" $PARAMS_SPLIT 2>> "$PLANET_LOG"
   MODE=mwm
 fi
 
@@ -310,25 +313,22 @@ if [ "$MODE" == "mwm" ]; then
   # 3rd pass - do in parallel
   # but separate exceptions for world files to finish them earlier
   PARAMS="--data_path=$TARGET --user_resource_path=$DATA_PATH/ --node_storage=$NODE_STORAGE -generate_geometry -generate_index"
-  log "TIMEMARK" "Generate final mwms"
   if [ -n "$OPT_WORLD" ]; then
-    "$GENERATOR_TOOL" $PARAMS --output=World 2>> "$GENERATOR_LOG" &
-    "$GENERATOR_TOOL" $PARAMS --output=WorldCoasts 2>> "$GENERATOR_LOG" &
+    (
+      "$GENERATOR_TOOL" $PARAMS --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
+    ) &
+    "$GENERATOR_TOOL" $PARAMS --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
   fi
 
   PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
   for file in "$TARGET"/*.mwm.tmp; do
     if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
-      "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --output="$(basename "$file" .mwm.tmp)" 2>> "$GENERATOR_LOG" &
+      BASENAME="$(basename "$file" .mwm.tmp)"
+      "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
       forky
     fi
   done
-
-  if [ -n "$OPT_WORLD" ]; then
-    wait # For generator_tool --output=World
-    log "TIMEMARK" "Generate world search index"
-    "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$GENERATOR_LOG"
-  fi
 
   if [ -n "$OPT_ROUTING" ]; then
     MODE=routing
@@ -345,7 +345,7 @@ if [ "$MODE" == "routing" ]; then
   if [ ! -e "$OSRM_FLAG" ]; then
     log "OSRM files are missing, skipping routing step."
   else
-    bash "$ROUTING_SCRIPT" mwm >> "$ROUTING_LOG" 2>&1
+    bash "$ROUTING_SCRIPT" mwm >> "$PLANET_LOG" 2>&1
   fi
   MODE=resources
 fi
@@ -354,7 +354,7 @@ if [ "$MODE" == "resources" ]; then
   putmode "Step 7: Updating resource lists"
   # Update countries list
   [ ! -e "$TARGET/countries.txt" ] && cp "$DATA_PATH/countries.txt" "$TARGET/countries.txt"
-  "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$GENERATOR_LOG"
+  "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$PLANET_LOG"
   # We have no means of finding the resulting file, so let's assume it was magically placed in DATA_PATH
   [ -e "$DATA_PATH/countries.txt.updated" ] && mv "$DATA_PATH/countries.txt.updated" "$TARGET/countries.txt"
   # A quick fix: chmodding to a+rw all generated files

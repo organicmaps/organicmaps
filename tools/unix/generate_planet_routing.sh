@@ -30,6 +30,7 @@ mkdir -p "$INTDIR"
 NUM_PROCESSES=${NUM_PROCESSES:-8}
 KEEP_INTDIR=${KEEP_INTDIR-}
 OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
+LOG_PATH=${LOG_PATH:-.}
 echo "[$(date +%Y/%m/%d\ %H:%M:%S)] $0 $1"
 
 if [ "$1" == "pbf" ]; then
@@ -79,15 +80,16 @@ elif [ "$1" == "prepare" ]; then
   for PBF in "$INTDIR"/*.pbf; do
     OSRM_FILE="${PBF%.*}.osrm"
     RESTRICTIONS_FILE="$OSRM_FILE.restrictions"
+    LOG="$LOG_PATH/$(basename "$PBF" .pbf).log"
     rm -f "$OSRM_FILE"
-    "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF"
-    "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE" -r "$RESTRICTIONS_FILE"
-    "$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM_FILE"
+    "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF" >> "$LOG" 2>&1
+    "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE" -r "$RESTRICTIONS_FILE" >> "$LOG" 2>&1
+    "$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM_FILE" >> "$LOG" 2>&1
     if [ -s "$OSRM_FILE" ]; then
       [ -z "$KEEP_INTDIR" ] && rm -f "$PBF"
       ONE_OSRM_READY=1
     else
-      echo "Failed to create $OSRM_FILE"
+      echo "Failed to create $OSRM_FILE" >> "$LOG"
     fi
   done
   [ -z "${ONE_OSRM_READY-}" ] && fail "No osrm files were prepared"
@@ -104,11 +106,14 @@ elif [ "$1" == "mwm" ]; then
     cp "$BORDERS_PATH"/*.poly "$POLY_DIR/"
   fi
 
-  export GENERATOR_TOOL
+  # Xargs has 255 chars limit for exec string, so we use short variable names.
+  export G="$GENERATOR_TOOL"
+  export K="--make_routing --make_cross_section"
   export TARGET
+  export LOG_PATH
   export DATA_PATH="$OMIM_PATH/data/"
   find "$INTDIR" -name '*.osrm' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
-    sh -c '"$GENERATOR_TOOL" --make_routing --make_cross_section --osrm_file_name="%" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$(basename "%" .osrm)"'
+    sh -c 'O="%"; B="$(basename "$O" .osrm)"; "$G" $K --osrm_file_name="$O" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$B" 2>> "$LOG_PATH/$B.log"'
 
   if [ -n "${POLY_DIR-}" ]; then
     # delete temporary polygons
@@ -146,13 +151,14 @@ elif [ "$1" == "online" ]; then
   export STXXLCFG="$HOME/.stxxl"
   OSRM_FILE="$INTDIR/planet.osrm"
   RESTRICTIONS_FILE="$OSRM_FILE.restrictions"
+  LOG="$LOG_PATH/planet.log"
   rm -f "$OSRM_FILE"
-  "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF"
-  "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE" -r "$RESTRICTIONS_FILE"
+  "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF" >> "$LOG" 2>&1
+  "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE" -r "$RESTRICTIONS_FILE" >> "$LOG" 2>&1
   if [ -s "$OSRM_FILE" ]; then
      [ -z "$KEEP_INTDIR" ] && rm -f "$PBF"
   else
-      echo "Failed to create $OSRM_FILE"
+      echo "Failed to create $OSRM_FILE" >> "$LOG"
   fi
 
 else
