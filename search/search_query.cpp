@@ -821,6 +821,11 @@ void Query::SearchViewportPoints(Results & res)
   }
 }
 
+int Query::GetQueryIndexScale(m2::RectD const & viewport) const
+{
+  return search::GetQueryIndexScale(viewport);
+}
+
 ftypes::Type Query::GetLocalityIndex(feature::TypesHolder const & types) const
 {
   using namespace ftypes;

@@ -145,6 +145,8 @@ public:
   string GetOsmIdsString() const;
   //@}
 
+  bool AddName(string const & lang, string const & name);
+
   int GetMinFeatureDrawScale() const;
 
   void SetCoastCell(int64_t iCell, string const & strCell);

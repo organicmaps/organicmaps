@@ -74,11 +74,10 @@ public:
 
 }
 
-
-Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
-               ModelReaderPtr polyR, ModelReaderPtr countryR,
-               string const & locale)
-  : m_pData(new EngineData(pCategoriesR, polyR, countryR))
+Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR, ModelReaderPtr polyR,
+               ModelReaderPtr countryR, string const & locale,
+               unique_ptr<SearchQueryFactory> && factory)
+    : m_pFactory(move(factory)), m_pData(new EngineData(pCategoriesR, polyR, countryR))
 {
   m_isReadyThread.clear();
 
@@ -86,10 +85,8 @@ Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
   m_pData->m_categories.ForEachName(bind<void>(ref(doInit), _1));
   doInit.GetSuggests(m_pData->m_stringsToSuggest);
 
-  m_pQuery.reset(new Query(pIndex,
-                           &m_pData->m_categories,
-                           &m_pData->m_stringsToSuggest,
-                           &m_pData->m_infoGetter));
+  m_pQuery = m_pFactory->BuildSearchQuery(pIndex, &m_pData->m_categories,
+                                          &m_pData->m_stringsToSuggest, &m_pData->m_infoGetter);
   m_pQuery->SetPreferredLocale(locale);
 }
 

@@ -72,7 +72,7 @@ public:
         CategoriesHolder const * pCategories,
         StringsToSuggestVectorT const * pStringsToSuggest,
         storage::CountryInfoGetter const * pInfoGetter);
-  ~Query();
+  virtual ~Query();
 
   inline void SupportOldFormat(bool b) { m_supportOldFormat = b; }
 
@@ -103,6 +103,9 @@ public:
 
   void SearchViewportPoints(Results & res);
   //@}
+
+  // Get scale level to make geometry index query for current viewport.
+  virtual int GetQueryIndexScale(m2::RectD const & viewport) const;
 
   void ClearCaches();
 

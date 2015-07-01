@@ -18,12 +18,10 @@
 
 #include "coding/internal/file_data.hpp"
 #include "coding/file_container.hpp"
+#include "coding/file_name_utils.hpp"
 
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
-
-
-
 
 namespace
 {
@@ -542,8 +540,8 @@ namespace feature
 
   bool GenerateFinalFeatures(string const & path, string const & name, int mapType)
   {
-    string const srcFilePath = path + name + DATA_FILE_EXTENSION_TMP;
-    string const datFilePath = path + name + DATA_FILE_EXTENSION;
+    string const srcFilePath = my::JoinFoldersToPath(path, name + DATA_FILE_EXTENSION_TMP);
+    string const datFilePath = my::JoinFoldersToPath(path, name + DATA_FILE_EXTENSION);
 
     // stores cellIds for middle points
     CalculateMidPoints midPoints;

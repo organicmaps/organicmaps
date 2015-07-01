@@ -23,6 +23,9 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
+#include "search/search_engine.hpp"
+#include "search/search_query_factory.hpp"
+
 #include <sys/resource.h>
 
 
@@ -70,11 +73,9 @@ namespace integration
     try
     {
       shared_ptr<search::Engine> searchEngine(new search::Engine(
-                         &index,
-                         pl.GetReader(SEARCH_CATEGORIES_FILE_NAME),
-                         pl.GetReader(PACKED_POLYGONS_FILE),
-                         pl.GetReader(COUNTRIES_FILE),
-                         languages::GetCurrentOrig()));
+          &index, pl.GetReader(SEARCH_CATEGORIES_FILE_NAME), pl.GetReader(PACKED_POLYGONS_FILE),
+          pl.GetReader(COUNTRIES_FILE), languages::GetCurrentOrig(),
+          make_unique<search::SearchQueryFactory>()));
       return searchEngine;
     }
     catch (RootException const &e)

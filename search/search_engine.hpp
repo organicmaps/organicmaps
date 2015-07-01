@@ -2,6 +2,7 @@
 
 #include "params.hpp"
 #include "result.hpp"
+#include "search_query_factory.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -33,9 +34,8 @@ public:
   typedef Index IndexType;
 
   // Doesn't take ownership of @pIndex. Takes ownership of pCategories
-  Engine(IndexType const * pIndex, Reader * pCategoriesR,
-         ModelReaderPtr polyR, ModelReaderPtr countryR,
-         string const & locale);
+  Engine(IndexType const * pIndex, Reader * pCategoriesR, ModelReaderPtr polyR,
+         ModelReaderPtr countryR, string const & locale, unique_ptr<SearchQueryFactory> && factory);
   ~Engine();
 
   void SupportOldFormat(bool b);
@@ -79,7 +79,8 @@ private:
   SearchParams m_params;
   m2::RectD m_viewport;
 
-  unique_ptr<search::Query> m_pQuery;
+  unique_ptr<Query> m_pQuery;
+  unique_ptr<SearchQueryFactory> m_pFactory;
   unique_ptr<EngineData> const m_pData;
 };
 

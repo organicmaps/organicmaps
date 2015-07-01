@@ -47,6 +47,7 @@ SUBDIRS = 3party \
           map_server \
           integration_tests \
           pedestrian_routing_benchmarks \
+          search/integration_tests \
 } else:drape_device {
   # libraries which are used on mobile devices with drape engine
   SUBDIRS = 3party \

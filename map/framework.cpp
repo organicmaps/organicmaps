@@ -25,6 +25,7 @@
 #include "routing/routing_algorithm.hpp"
 
 #include "search/search_engine.hpp"
+#include "search/search_query_factory.hpp"
 #include "search/result.hpp"
 
 #include "indexer/categories_holder.hpp"
@@ -1235,11 +1236,9 @@ search::Engine * Framework::GetSearchEngine() const
     try
     {
       m_pSearchEngine.reset(new search::Engine(
-                              &m_model.GetIndex(),
-                              pl.GetReader(SEARCH_CATEGORIES_FILE_NAME),
-                              pl.GetReader(PACKED_POLYGONS_FILE),
-                              pl.GetReader(COUNTRIES_FILE),
-                              languages::GetCurrentOrig()));
+          &m_model.GetIndex(), pl.GetReader(SEARCH_CATEGORIES_FILE_NAME),
+          pl.GetReader(PACKED_POLYGONS_FILE), pl.GetReader(COUNTRIES_FILE),
+          languages::GetCurrentOrig(), make_unique<search::SearchQueryFactory>()));
     }
     catch (RootException const & e)
     {
