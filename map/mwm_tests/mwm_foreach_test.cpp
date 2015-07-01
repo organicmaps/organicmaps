@@ -247,17 +247,18 @@ public:
   }
 };
 
-void RunTest(string const & file)
+void RunTest(string const & countryFileName)
 {
   model::FeaturesFetcher src1;
   src1.InitClassificator();
 
-  UNUSED_VALUE(src1.RegisterMap(file));
+  platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeForTesting(countryFileName));
+  UNUSED_VALUE(src1.RegisterMap(localFile));
 
   vector<m2::RectD> rects;
   rects.push_back(src1.GetWorldRect());
 
-  ModelReaderPtr reader = GetPlatform().GetReader(file);
+  ModelReaderPtr reader = GetPlatform().GetCountryReader(localFile, TMapOptions::EMap);
 
   while (!rects.empty())
   {
@@ -301,15 +302,10 @@ void RunTest(string const & file)
   }
 }
 
-void RunTestForChoice(string const & fName)
-{
-  RunTest(fName + DATA_FILE_EXTENSION);
-}
-
 }
 
 UNIT_TEST(ForEach_QueryResults)
 {
-  RunTestForChoice("minsk-pass");
+  RunTest("minsk-pass");
   //RunTestForChoice("london-center");
 }

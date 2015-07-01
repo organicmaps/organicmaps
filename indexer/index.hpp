@@ -24,33 +24,25 @@ class MwmValue : public MwmSet::MwmValueBase
 public:
   FilesContainerR m_cont;
   IndexFactory m_factory;
+  platform::CountryFile const m_countryFile;
 
-  explicit MwmValue(string const & name);
+  explicit MwmValue(platform::LocalCountryFile const & localFile);
 
   inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
   inline version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
 
-  /// @return MWM file name without extension.
-  string GetFileName() const;
+  inline platform::CountryFile const & GetCountryFile() const { return m_countryFile; }
 };
 
 class Index : public MwmSet
 {
 protected:
   // MwmSet overrides:
-  bool GetVersion(string const & name, MwmInfo & info) const override;
-  TMwmValueBasePtr CreateValue(string const & name) const override;
-  void OnMwmDeleted(shared_ptr<MwmInfo> const & info) override;
-  void OnMwmReadyForUpdate(shared_ptr<MwmInfo> const & info) override;
+  bool GetVersion(platform::LocalCountryFile const & localFile, MwmInfo & info) const override;
+  TMwmValueBasePtr CreateValue(platform::LocalCountryFile const & localFile) const override;
+  void OnMwmDeregistered(platform::LocalCountryFile const & localFile) override;
 
 public:
-  enum UpdateStatus
-  {
-    UPDATE_STATUS_OK,
-    UPDATE_STATUS_BAD_FILE,
-    UPDATE_STATUS_UPDATE_DELAYED
-  };
-
   /// An Observer interface to MwmSet. Note that these functions can
   /// be called from *ANY* thread because most signals are sent when
   /// some thread releases its MwmLock, so overrides must be as fast
@@ -58,19 +50,14 @@ public:
   class Observer
   {
   public:
-    virtual ~Observer() {}
+    virtual ~Observer() = default;
 
-    /// Called when a map is registered for a first time.
-    virtual void OnMapRegistered(string const & file) {}
+    /// Called when a map is registered for a first time and can be
+    /// used.
+    virtual void OnMapRegistered(platform::LocalCountryFile const & localFile) {}
 
-    /// Called when an update for a map is downloaded.
-    virtual void OnMapUpdateIsReady(string const & file) {}
-
-    /// Called when an update for a map is applied.
-    virtual void OnMapUpdated(string const & file) {}
-
-    /// Called when a map is deleted.
-    virtual void OnMapDeleted(string const & file) {}
+    /// Called when a map is deregistered and can not be used.
+    virtual void OnMapDeregistered(platform::LocalCountryFile const & localFile) {}
   };
 
   Index();
@@ -78,37 +65,21 @@ public:
 
   /// Registers a new map.
   ///
-  /// \return A pair of an MwmLock and a flag. MwmLock is locked iff the
-  ///         map with fileName was created or already exists. Flag
-  ///         is set when the map was registered for a first
-  ///         time. Thus, there are three main cases:
-  ///
-  ///         * the map already exists - returns active lock and unset flag
-  ///         * the map was already registered - returns active lock and set flag
-  ///         * the map can't be registered - returns inactive lock and unset flag
-  WARN_UNUSED_RESULT pair<MwmLock, bool> RegisterMap(string const & fileName);
+  /// \return A pair of an MwmLock and a flag. There are three cases:
+  ///         * the map is newer than the newest registered - returns
+  ///           active lock and set flag
+  ///         * the map is older than the newest registered - returns inactive lock and
+  ///           unset flag.
+  ///         * the version of the map equals to the version of the newest registered -
+  ///           returns active lock and unset flag.
+  WARN_UNUSED_RESULT pair<MwmLock, bool> RegisterMap(platform::LocalCountryFile const & localFile);
 
-  /// Replaces a map file corresponding to fileName with a new one, when
-  /// it's possible - no clients of the map file. Otherwise, update
-  /// will be delayed.
+  /// Deregisters a map from internal records.
   ///
-  /// \return * the map file have been updated - returns active lock and
-  ///           UPDATE_STATUS_OK
-  ///         * update is delayed because the map is busy - returns active lock and
-  ///           UPDATE_STATUS_UPDATE_DELAYED
-  ///         * the file isn't suitable for update - returns inactive lock and
-  ///           UPDATE_STATUS_BAD_FILE
-  WARN_UNUSED_RESULT pair<MwmLock, UpdateStatus> UpdateMap(string const & fileName);
-
-  /// Deletes a map both from the file system and internal tables, also,
-  /// deletes all files related to the map. If the map was successfully
-  /// deleted, notifies observers.
-  ///
-  /// \param fileName A fileName denoting the map to be deleted, may
-  ///                 be a full path or a short path relative to
-  ///                 executable's directories.
-  //// \return True if the map was successfully deleted.
-  bool DeleteMap(string const & fileName);
+  /// \param countryFile A countryFile denoting a map to be deregistered.
+  /// \return True if the map was successfully deregistered. If map is locked
+  ///         now, returns false.
+  bool DeregisterMap(platform::CountryFile const & countryFile);
 
   bool AddObserver(Observer & observer);
 
@@ -280,7 +251,7 @@ public:
     FeaturesLoaderGuard(Index const & parent, MwmId id);
 
     inline MwmSet::MwmId GetId() const { return m_lock.GetId(); }
-    string GetFileName() const;
+    string GetCountryFileName() const;
     bool IsWorld() const;
     void GetFeature(uint32_t offset, FeatureType & ft);
 

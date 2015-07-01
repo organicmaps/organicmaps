@@ -1,5 +1,7 @@
 #pragma once
 
+#include "platform/country_defines.hpp"
+
 #include "coding/reader.hpp"
 
 #include "base/exception.hpp"
@@ -12,9 +14,13 @@
 
 #include "defines.hpp"
 
-
 DECLARE_EXCEPTION(FileAbsentException, RootException);
 DECLARE_EXCEPTION(NotImplementedException, RootException);
+
+namespace platform
+{
+class LocalCountryFile;
+}
 
 class Platform
 {
@@ -108,6 +114,9 @@ public:
   string SettingsDir() const { return m_settingsDir; }
   /// @return full path to file in the settings directory
   string SettingsPathForFile(string const & file) const { return SettingsDir() + file; }
+
+  ModelReader * GetCountryReader(platform::LocalCountryFile const & file,
+                                 TMapOptions options) const;
 
   /// @return reader for file decriptor.
   /// @throws FileAbsentException

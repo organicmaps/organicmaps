@@ -17,6 +17,7 @@
 #include "std/iostream.hpp"
 #include "std/fstream.hpp"
 
+using platform::LocalCountryFile;
 
 class StreetIDsByName
 {
@@ -183,7 +184,8 @@ UNIT_TEST(HS_StreetsMerge)
   classificator::Load();
 
   Index index;
-  pair<MwmSet::MwmLock, bool> const p = index.Register("minsk-pass.mwm");
+  pair<MwmSet::MwmLock, bool> const p =
+      index.Register(LocalCountryFile::MakeForTesting("minsk-pass"));
   TEST(p.first.IsLocked(), ());
   TEST(p.second, ());
 
@@ -272,7 +274,8 @@ UNIT_TEST(HS_FindHouseSmoke)
   classificator::Load();
 
   Index index;
-  pair<MwmSet::MwmLock, bool> const p = index.Register("minsk-pass.mwm");
+  pair<MwmSet::MwmLock, bool> const p =
+      index.Register(LocalCountryFile::MakeForTesting("minsk-pass"));
   TEST(p.first.IsLocked(), ());
   TEST(p.second, ());
 
@@ -345,10 +348,7 @@ struct Address
   string m_house;
   double m_lat, m_lon;
 
-  bool operator<(Address const & rhs) const
-  {
-    return (m_streetKey < rhs.m_streetKey);
-  }
+  bool operator<(Address const & rhs) const { return (m_streetKey < rhs.m_streetKey); }
 };
 
 void swap(Address & a1, Address & a2)
@@ -375,7 +375,7 @@ UNIT_TEST(HS_MWMSearch)
   }
 
   Index index;
-  pair<MwmSet::MwmLock, bool> const p = index.Register(country + ".mwm");
+  pair<MwmSet::MwmLock, bool> const p = index.Register(LocalCountryFile::MakeForTesting(country));
   if (!p.second)
   {
     LOG(LWARNING, ("MWM file not found"));

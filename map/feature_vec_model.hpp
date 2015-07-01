@@ -15,7 +15,7 @@ namespace model
 {
 //#define USE_BUFFER_READER
 
-  class FeaturesFetcher
+class FeaturesFetcher : public Index::Observer
   {
   public:
 #ifdef USE_BUFFER_READER
@@ -24,57 +24,55 @@ namespace model
     typedef ModelReaderPtr ReaderT;
 #endif
 
+    typedef function<void(platform::LocalCountryFile const &)> TMapDeregisteredCallback;
+
   private:
     m2::RectD m_rect;
 
     Index m_multiIndex;
 
+    TMapDeregisteredCallback m_onMapDeregistered;
+
   public:
+    FeaturesFetcher();
+
+    virtual ~FeaturesFetcher();
+
     void InitClassificator();
+
+    inline void SetOnMapDeregisteredCallback(TMapDeregisteredCallback const & callback)
+    {
+      m_onMapDeregistered = callback;
+    }
 
     /// Registers a new map.
     ///
-    /// \return A pair of an MwmLock and a flag. MwmLock is locked iff the
-    ///         map with fileName was created or already exists. Flag
-    ///         is set when the map was registered for a first
-    ///         time. Thus, there are three main cases:
-    ///
-    ///         * the map already exists - returns active lock and unset flag
-    ///         * the map was already registered - returns active lock and set flag
-    ///         * the map can't be registered - returns inactive lock and unset flag
-    WARN_UNUSED_RESULT pair<MwmSet::MwmLock, bool> RegisterMap(string const & file);
+    /// \return A pair of an MwmLock and a flag. There are three cases:
+    ///         * the map is newer than the newest registered - returns
+    ///           active lock and set flag
+    ///         * the map is older than the newest registered - returns inactive lock and
+    ///           unset flag.
+    ///         * the version of the map equals to the version of the newest registered -
+    ///           returns active lock and unset flag.
+    WARN_UNUSED_RESULT pair<MwmSet::MwmLock, bool> RegisterMap(
+        platform::LocalCountryFile const & localFile);
 
     /// Deregisters a map denoted by file from internal records.
-    void DeregisterMap(string const & file);
+    bool DeregisterMap(platform::CountryFile const & countryFile);
 
     /// Deregisters all registered maps.
     void DeregisterAllMaps();
 
-    /// Deletes all files related to map denoted by file.
-    ///
-    /// \return True if a map was successfully deleted.
-    bool DeleteMap(string const & file);
-
-    /// Replaces a map file corresponding to fileName with a new one, when
-    /// it's possible - no clients of the map file. Otherwise, update
-    /// will be delayed.
-    ///
-    /// \return * the map file have been updated - returns active lock and
-    ///           UPDATE_STATUS_OK
-    ///         * update is delayed because the map is busy - returns active lock and
-    ///           UPDATE_STATUS_UPDATE_DELAYED
-    ///         * the file isn't suitable for update - returns inactive lock and
-    ///           UPDATE_STATUS_BAD_FILE
-    WARN_UNUSED_RESULT pair<MwmSet::MwmLock, Index::UpdateStatus> UpdateMap(string const & file);
-    //@}
-
     //void Clean();
     void ClearCaches();
 
-    inline bool IsLoaded(string const & fName) const
+    inline bool IsLoaded(string const & countryFileName) const
     {
-      return m_multiIndex.IsLoaded(fName);
+      return m_multiIndex.IsLoaded(platform::CountryFile(countryFileName));
     }
+
+    // Index::Observer overrides:
+    void OnMapDeregistered(platform::LocalCountryFile const & localFile) override;
 
     //bool IsLoaded(m2::PointD const & pt) const;
 

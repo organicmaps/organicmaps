@@ -30,6 +30,9 @@
 #include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
 #include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
 
+using platform::CountryFile;
+using platform::LocalCountryFile;
+
 namespace routing
 {
 
@@ -224,9 +227,13 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 {
   classificator::Load();
 
-  string const mwmFile = baseDir + countryName + DATA_FILE_EXTENSION;
+  CountryFile countryFile(countryName);
+
+  // Correct mwm version doesn't matter here - we just need access to mwm files via Index.
+  LocalCountryFile localFile(baseDir, countryFile, 0 /* version */);
+  localFile.SyncWithDisk();
   Index index;
-  pair<MwmSet::MwmLock, bool> const p = index.Register(mwmFile);
+  pair<MwmSet::MwmLock, bool> const p = index.Register(localFile);
   if (!p.second)
   {
     LOG(LCRITICAL, ("MWM file not found"));
@@ -236,7 +243,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
   osrm::NodeDataVectorT nodeData;
   gen::OsmID2FeatureID osm2ft;
-  if (!LoadIndexes(mwmFile, osrmFile, nodeData, osm2ft))
+  if (!LoadIndexes(localFile.GetPath(TMapOptions::EMap), osrmFile, nodeData, osm2ft))
     return;
 
   OsrmFtSegMappingBuilder mapping;
@@ -367,13 +374,13 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
               "Multiple:", multiple, "Equal:", equal));
 
   LOG(LINFO, ("Collect all data into one file..."));
-  string const fPath = mwmFile + ROUTING_FILE_EXTENSION;
+  string const fPath = localFile.GetPath(TMapOptions::ECarRouting);
 
   FilesContainerW routingCont(fPath /*, FileWriter::OP_APPEND*/);
 
   {
     // Write version for routing file that is equal to correspondent mwm file.
-    FilesContainerR mwmCont(mwmFile);
+    FilesContainerR mwmCont(localFile.GetPath(TMapOptions::EMap));
 
     FileWriter w = routingCont.GetWriter(VERSION_FILE_TAG);
     ReaderSource<ModelReaderPtr> src(mwmCont.GetReader(VERSION_FILE_TAG));

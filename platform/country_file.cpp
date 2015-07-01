@@ -22,8 +22,8 @@ string CountryFile::GetNameWithExt(TMapOptions file) const
       return m_name + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION;
     default:
       ASSERT(false, ("Can't get name for:", file));
+      return string();
   }
-  return string();
 }
 
 void CountryFile::SetRemoteSizes(uint32_t mapSize, uint32_t routingSize)

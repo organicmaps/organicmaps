@@ -4,6 +4,7 @@
 #include "turns_generator.hpp"
 #include "vehicle_model.hpp"
 
+#include "platform/country_file.hpp"
 #include "platform/platform.hpp"
 
 #include "geometry/angles.hpp"
@@ -349,9 +350,12 @@ public:
 };
 } // namespace
 
-OsrmRouter::OsrmRouter(Index const * index, TCountryFileFn const & fn,
+OsrmRouter::OsrmRouter(Index const * index, TCountryFileFn const & countryFileFn,
+                       TCountryLocalFileFn const & countryLocalFileFn,
                        TRoutingVisualizerFn routingVisualization)
-    : m_pIndex(index), m_indexManager(fn, index), m_routingVisualization(routingVisualization)
+    : m_pIndex(index),
+      m_indexManager(countryFileFn, countryLocalFileFn, index),
+      m_routingVisualization(routingVisualization)
 {
 }
 

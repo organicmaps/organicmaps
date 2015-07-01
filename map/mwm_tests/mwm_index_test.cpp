@@ -36,10 +36,11 @@ public:
   }
 };
 
-bool RunTest(string const & fileName, int lowS, int highS)
+bool RunTest(string const & countryFileName, int lowS, int highS)
 {
   model::FeaturesFetcher src;
-  pair<MwmSet::MwmLock, bool> const p = src.RegisterMap(fileName);
+  pair<MwmSet::MwmLock, bool> const p =
+      src.RegisterMap(platform::LocalCountryFile::MakeForTesting(countryFileName));
   if (!p.second)
     return false;
   MwmSet::MwmLock const & lock = p.first;
@@ -66,8 +67,8 @@ UNIT_TEST(ForEachFeatureID_Test)
   classificator::Load();
 
   /// @todo Uncomment World* checking after next map data update.
-  //TEST(RunTest("World.mwm", 0, scales::GetUpperWorldScale()), ());
-  //TEST(RunTest("WorldCoasts.mwm", 0, scales::GetUpperWorldScale()), ());
-  //TEST(RunTest("Belarus.mwm", scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale()), ());
-  TEST(RunTest("minsk-pass.mwm", scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale()), ());
+  // TEST(RunTest("World", 0, scales::GetUpperWorldScale()), ());
+  // TEST(RunTest("WorldCoasts.mwm", 0, scales::GetUpperWorldScale()), ());
+  // TEST(RunTest("Belarus", scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale()), ());
+  TEST(RunTest("minsk-pass", scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale()), ());
 }

@@ -36,14 +36,14 @@ ActiveMapsLayout::~ActiveMapsLayout()
 #endif
 }
 
-void ActiveMapsLayout::Init(vector<string> const & maps)
+void ActiveMapsLayout::Init(vector<platform::CountryFile> const & files)
 {
   Clear();
 
   Storage & storage = GetStorage();
-  for (auto const & file : maps)
+  for (auto const & file : files)
   {
-    vector<TIndex> arr = storage.FindAllIndexesByFile(Storage::MapWithoutExt(file));
+    vector<TIndex> arr = storage.FindAllIndexesByFile(file.GetNameWithoutExt());
     if (!arr.empty())
     {
       TStatus status;
@@ -53,7 +53,9 @@ void ActiveMapsLayout::Init(vector<string> const & maps)
         m_items.push_back({ arr, status, options, options });
     }
     else
+    {
       LOG(LWARNING, ("Can't find map index for", file));
+    }
   }
 
   auto const comparatorFn = [&storage] (Item const & lhs, Item const & rhs)
@@ -237,7 +239,7 @@ LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TGroup const &
 
 LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TIndex const & index) const
 {
-  CountryFile const & c = GetStorage().CountryByIndex(index).GetFile();
+  platform::CountryFile const & c = GetStorage().CountryByIndex(index).GetFile();
   size_t const mapSize = c.GetRemoteSize(TMapOptions::EMap);
   return { mapSize, c.GetRemoteSize(TMapOptions::ECarRouting) };
 }
@@ -265,7 +267,7 @@ void ActiveMapsLayout::DownloadMap(TIndex const & index, TMapOptions const & opt
   else
   {
     Storage const & s = GetStorage();
-    vector<TIndex> arr = s.FindAllIndexesByFile(s.CountryFileNameWithoutExt(index));
+    vector<TIndex> arr = s.FindAllIndexesByFile(s.GetCountryFile(index).GetNameWithoutExt());
     int position = InsertInGroup(TGroup::ENewMap, { arr, TStatus::ENotDownloaded, validOptions, validOptions });
     NotifyInsertion(TGroup::ENewMap, position);
   }

@@ -34,20 +34,23 @@ void LocalCountryFile::SyncWithDisk()
 
   Platform & platform = GetPlatform();
 
-  if (platform.GetFileSizeByName(GetPath(TMapOptions::EMap), m_mapSize))
+  if (platform.GetFileSizeByFullPath(GetPath(TMapOptions::EMap), m_mapSize))
     m_files = SetOptions(m_files, TMapOptions::EMap);
 
   string const routingPath = GetPath(TMapOptions::ECarRouting);
-  if (platform.GetFileSizeByName(routingPath, m_routingSize))
+  if (platform.GetFileSizeByFullPath(routingPath, m_routingSize))
     m_files = SetOptions(m_files, TMapOptions::ECarRouting);
 }
 
-void LocalCountryFile::DeleteFromDisk()
+void LocalCountryFile::DeleteFromDisk(TMapOptions files) const
 {
   for (TMapOptions file : {TMapOptions::EMap, TMapOptions::ECarRouting})
   {
-    if (OnDisk(file))
-      VERIFY(my::DeleteFileX(GetPath(file)), (file, "from", *this, "wasn't deleted from disk."));
+    if (OnDisk(file) && HasOptions(files, file))
+    {
+      if (!my::DeleteFileX(GetPath(file)))
+        LOG(LERROR, (file, "from", *this, "wasn't deleted from disk."));
+    }
   }
 }
 

@@ -44,10 +44,11 @@
 
 #include "gui/controller.hpp"
 
+#include "platform/local_country_file_utils.hpp"
 #include "platform/measurement_utils.hpp"
-#include "platform/settings.hpp"
-#include "platform/preferred_languages.hpp"
 #include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/zip_reader.hpp"
@@ -81,6 +82,8 @@ using namespace storage;
 using namespace routing;
 using namespace location;
 
+using platform::CountryFile;
+using platform::LocalCountryFile;
 
 #ifdef FIXED_LOCATION
 Framework::FixedPosition::FixedPosition()
@@ -95,37 +98,19 @@ namespace
   static const int BM_TOUCH_PIXEL_INCREASE = 20;
 }
 
-pair<MwmSet::MwmLock, bool> Framework::RegisterMap(string const & file)
+pair<MwmSet::MwmLock, bool> Framework::RegisterMap(LocalCountryFile const & localFile)
 {
-  LOG(LINFO, ("Loading map:", file));
-
-  pair<MwmSet::MwmLock, bool> p = m_model.RegisterMap(file);
-  if (!p.second)
-    return p;
-  MwmSet::MwmLock const & lock = p.first;
-  ASSERT(lock.IsLocked(), ());
-
-  shared_ptr<MwmInfo> info = lock.GetInfo();
-  ASSERT(info, ());
-
-  if (info->m_version.format == version::v1)
-  {
-    // Now we do force delete of old (April 2011) maps.
-    LOG(LINFO, ("Deleting old map:", file));
-
-    DeregisterMap(file);
-    VERIFY(my::DeleteFileX(GetPlatform().WritablePathForFile(file)), ());
-    return make_pair(MwmSet::MwmLock(), false);
-  }
-
-  return p;
+  string const countryFileName = localFile.GetCountryFile().GetNameWithoutExt();
+  LOG(LINFO, ("Loading map:", countryFileName));
+  return m_model.RegisterMap(localFile);
 }
 
-void Framework::DeregisterMap(string const & file) { m_model.DeregisterMap(file); }
-
-void Framework::OnLocationError(TLocationError /*error*/)
+void Framework::DeregisterMap(CountryFile const & countryFile)
 {
+  m_model.DeregisterMap(countryFile);
 }
+
+void Framework::OnLocationError(TLocationError /*error*/) {}
 
 void Framework::OnLocationUpdate(GpsInfo const & info)
 {
@@ -198,32 +183,6 @@ m2::PointD Framework::GetWidgetSize(InformationDisplay::WidgetType widget) const
   return m_informationDisplay.GetWidgetSize(widget);
 }
 
-void Framework::GetMaps(vector<string> & maps) const
-{
-  Platform & pl = GetPlatform();
-
-  pl.GetFilesByExt(pl.ResourcesDir(), DATA_FILE_EXTENSION, maps);
-  pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);
-
-  // Remove duplicate maps if they're both present in Resources and in Writable dirs.
-  sort(maps.begin(), maps.end());
-  maps.erase(unique(maps.begin(), maps.end()), maps.end());
-
-#ifdef OMIM_OS_ANDROID
-  // On Android World and WorldCoasts can be stored in alternative /Android/obb/ path.
-  char const * arrCheck[] = { WORLD_FILE_NAME DATA_FILE_EXTENSION,
-                              WORLD_COASTS_FILE_NAME DATA_FILE_EXTENSION };
-
-  for (size_t i = 0; i < ARRAY_SIZE(arrCheck); ++i)
-  {
-    auto const it = lower_bound(maps.begin(), maps.end(), arrCheck[i]);
-    if (it == maps.end() || *it != arrCheck[i])
-      maps.insert(it, arrCheck[i]);
-  }
-#endif
-}
-
-
 Framework::Framework()
   : m_navigator(m_scales),
     m_animator(this),
@@ -280,6 +239,7 @@ Framework::Framework()
 #endif
 
   m_model.InitClassificator();
+  m_model.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
   LOG(LDEBUG, ("Classificator initialized"));
 
   // To avoid possible races - init search engine once in constructor.
@@ -292,7 +252,7 @@ Framework::Framework()
   LOG(LDEBUG, ("Maps initialized"));
 
   // Init storage with needed callback.
-  m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1, _2));
+  m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1));
   LOG(LDEBUG, ("Storage initialized"));
 
 #ifdef USE_PEDESTRIAN_ROUTER
@@ -308,6 +268,7 @@ Framework::Framework()
 Framework::~Framework()
 {
   delete m_benchmarkEngine;
+  m_model.SetOnMapDeregisteredCallback(nullptr);
 }
 
 void Framework::DrawSingleFrame(m2::PointD const & center, int zoomModifier,
@@ -395,42 +356,32 @@ double Framework::GetVisualScale() const
   return m_scales.GetVisualScale();
 }
 
-void Framework::DeleteCountry(TIndex const & index, TMapOptions opt)
+void Framework::DeleteCountry(storage::TIndex const & index, TMapOptions opt)
 {
-  if (HasOptions(opt, TMapOptions::EMap))
-    opt = TMapOptions::EMapWithCarRouting;
-
-  if (!m_storage.DeleteFromDownloader(index))
+  switch (opt)
   {
-    CountryFile const & file = m_storage.CountryByIndex(index).GetFile();
-
-    if (HasOptions(opt, TMapOptions::EMap))
+    case TMapOptions::ENothing:
+      return;
+    case TMapOptions::EMap:  // fall through
+    case TMapOptions::EMapWithCarRouting:
     {
-      if (m_model.DeleteMap(file.GetFileWithExt(TMapOptions::EMap)))
-        InvalidateRect(GetCountryBounds(file.GetFileWithoutExt()), true);
+      CountryFile const & countryFile = m_storage.GetCountryFile(index);
+      // m_model will notify us when latest map file will be deleted via
+      // OnMapDeregistered call.
+      if (m_model.DeregisterMap(countryFile))
+      {
+        InvalidateRect(GetCountryBounds(countryFile.GetNameWithoutExt()), true /* doForceUpdate */);
+      }
+      // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmLocks. Thus,
+      // it won' be needed to reset it after maps update.
+      m_routingSession.Reset();
+      return;
     }
-
-    if (HasOptions(opt, TMapOptions::ECarRouting))
-      m_routingSession.DeleteIndexFile(file.GetFileWithExt(TMapOptions::ECarRouting));
-
-    m_storage.NotifyStatusChanged(index);
-
-    DeleteCountryIndexes(m_storage.CountryFileNameWithoutExt(index));
+    case TMapOptions::ECarRouting:
+      m_routingSession.Reset();
+      m_storage.DeleteCountry(index, opt);
+      return;
   }
-}
-
-void Framework::DeleteCountryIndexes(string const & mwmName)
-{
-  m_routingSession.Reset();
-
-  Platform::FilesList files;
-  Platform const & pl = GetPlatform();
-  string const path = pl.WritablePathForCountryIndexes(mwmName);
-
-  /// @todo We need correct regexp for any file (not including "." and "..").
-  pl.GetFilesByRegExp(path, mwmName + "\\..*", files);
-  for (auto const & file : files)
-    (void) my::DeleteFileX(path + file);
 }
 
 void Framework::DownloadCountry(TIndex const & index, TMapOptions opt)
@@ -459,7 +410,8 @@ m2::RectD Framework::GetCountryBounds(string const & file) const
 
 m2::RectD Framework::GetCountryBounds(TIndex const & index) const
 {
-  return GetCountryBounds(m_storage.CountryFileNameWithoutExt(index));
+  CountryFile const & file = m_storage.GetCountryFile(index);
+  return GetCountryBounds(file.GetNameWithoutExt());
 }
 
 void Framework::ShowCountry(TIndex const & index)
@@ -469,72 +421,57 @@ void Framework::ShowCountry(TIndex const & index)
   ShowRectEx(GetCountryBounds(index));
 }
 
-void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
+void Framework::UpdateAfterDownload(LocalCountryFile const & localFile)
 {
-  if (HasOptions(opt, TMapOptions::EMap))
-  {
-    // Delete old (splitted) map files, if any.
-    char const * arr[] = { "Japan", "Brazil" };
-    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-      if (fileName.find(arr[i]) == 0)
-      {
-        if (m_model.DeleteMap(string(arr[i]) + DATA_FILE_EXTENSION))
-          Invalidate(true);
+  // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmLocks. Thus,
+  // it won' be needed to reset it after maps update.
+  m_routingSession.Reset();
 
-        // Routing index doesn't exist for this map files.
-      }
+  if (!HasOptions(localFile.GetFiles(), TMapOptions::EMap))
+    return;
 
-    // Add downloaded map.
-    pair<MwmSet::MwmLock, Index::UpdateStatus> const p = m_model.UpdateMap(fileName);
-    if (p.second == Index::UPDATE_STATUS_OK)
-    {
-      MwmSet::MwmLock const & lock = p.first;
-      ASSERT(lock.IsLocked(), ());
-      InvalidateRect(lock.GetInfo()->m_limitRect, true);
-    }
+  // Add downloaded map.
+  pair<MwmSet::MwmLock, bool> const result = m_model.RegisterMap(localFile);
+  MwmSet::MwmLock const & lock = result.first;
+  if (lock.IsLocked())
+    InvalidateRect(lock.GetInfo()->m_limitRect, true /* doForceUpdate */);
+  GetSearchEngine()->ClearViewportsCache();
+}
 
-    GetSearchEngine()->ClearViewportsCache();
-  }
-
-  // Replace routing file.
-  if (HasOptions(opt, TMapOptions::ECarRouting))
-  {
-    string routingName = fileName + ROUTING_FILE_EXTENSION;
-    m_routingSession.DeleteIndexFile(routingName);
-
-    routingName = GetPlatform().WritableDir() + routingName;
-    VERIFY(my::RenameFileX(routingName + READY_FILE_EXTENSION, routingName), ());
-  }
-
-  string countryName(fileName);
-  my::GetNameWithoutExt(countryName);
-  DeleteCountryIndexes(countryName);
+void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
+{
+  m_storage.DeleteCustomCountryVersion(localFile);
 }
 
 void Framework::RegisterAllMaps()
 {
-  ASSERT(!Storage().IsDownloadInProgress(),
-         ("Registering maps while map downloading leads to removing downloading maps from ActiveMapsListener::m_items."));
-  //ASSERT(m_model.IsEmpty(), ());
+  ASSERT(!m_storage.IsDownloadInProgress(),
+         ("Registering maps while map downloading leads to removing downloading maps from "
+          "ActiveMapsListener::m_items."));
 
-  int minVersion = numeric_limits<int>::max();
+  platform::CleanupMapsDirectory();
+  m_storage.RegisterAllLocalMaps();
 
-  vector<string> maps;
-  GetMaps(maps);
-  for_each(maps.begin(), maps.end(), [&](string const & file)
+  int minFormat = numeric_limits<int>::max();
+  vector<CountryFile> maps;
+  m_storage.GetLocalMaps(maps);
+
+  for (CountryFile const & countryFile : maps)
   {
-    pair<MwmSet::MwmLock, bool> const p = RegisterMap(file);
-    if (p.second)
-    {
-      MwmSet::MwmLock const & lock = p.first;
-      ASSERT(lock.IsLocked(), ());
-      minVersion = min(minVersion, static_cast<int>(lock.GetInfo()->m_version.format));
-    }
-  });
+    shared_ptr<LocalCountryFile> localFile = m_storage.GetLatestLocalFile(countryFile);
+    if (!localFile)
+      continue;
+    pair<MwmSet::MwmLock, bool> const p = RegisterMap(*localFile);
+    if (!p.second)
+      continue;
+    MwmSet::MwmLock const & lock = p.first;
+    ASSERT(lock.IsLocked(), ());
+    minFormat = min(minFormat, static_cast<int>(lock.GetInfo()->m_version.format));
+  }
 
   m_countryTree.Init(maps);
 
-  GetSearchEngine()->SupportOldFormat(minVersion < version::v3);
+  GetSearchEngine()->SupportOldFormat(minFormat < version::v3);
 }
 
 void Framework::DeregisterAllMaps()
@@ -2212,22 +2149,27 @@ void Framework::SetRouter(RouterType type)
     alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
   };
 
+  auto countryFileGetter = [this](m2::PointD const & p) -> string
+  {
+    // TODO (@gorshenin): fix search engine to return CountryFile
+    // instances instead of plain strings.
+    return GetSearchEngine()->GetCountryFile(p);
+  };
+  auto localFileGetter = [this](string const & countryFile) -> shared_ptr<LocalCountryFile>
+  {
+    return m_storage.GetLatestLocalFile(CountryFile(countryFile));
+  };
+
   unique_ptr<IRouter> router;
   if (type == RouterType::Pedestrian)
   {
-    auto const countryFileFn = [this](m2::PointD const & pt)
-    {
-      return GetSearchEngine()->GetCountryFile(pt) + DATA_FILE_EXTENSION;
-    };
-    router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), countryFileFn, routingVisualizerFn);
+    router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter,
+                                                      routingVisualizerFn);
   }
   else
   {
-    auto const countryFileFn = [this](m2::PointD const & pt)
-    {
-      return GetSearchEngine()->GetCountryFile(pt);
-    };
-    router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileFn, routingVisualizerFn));
+    router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter, localFileGetter,
+                                routingVisualizerFn));
   }
 
   m_routingSession.SetRouter(move(router), routingStatisticsFn);
