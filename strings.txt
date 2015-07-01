@@ -28,7 +28,7 @@
     id = Tentang
     vi = Giới thiệu
     ro = Despre
-    no = Om
+    nb = Om
     fi = Tietoja
 
   [back]
@@ -59,7 +59,7 @@
     id = Kembali
     vi = Quay lại
     ro = Înapoi
-    no = Tilbake
+    nb = Tilbake
     fi = Takaisin
 
   [cancel]
@@ -91,7 +91,7 @@
     id = Batalkan
     vi = Huỷ bỏ
     ro = Anulare
-    no = Avbryt
+    nb = Avbryt
     fi = Peruuta
 
   [cancel_download]
@@ -123,7 +123,7 @@
     id = Batalkan Pengunduhan
     vi = Huỷ bỏ Tải xuống
     ro = Anulare descărcare
-    no = Avbryt nedlasting
+    nb = Avbryt nedlasting
     fi = Peruuta lataus
 
   [delete]
@@ -155,7 +155,7 @@
     id = Hapus
     vi = Xóa
     ro = Ștergere
-    no = Slett
+    nb = Slett
     fi = Poista
 
   [delete_old_maps]
@@ -186,7 +186,7 @@
     id = Hapus peta tua dan lanjutkan
     vi = Xóa bản đồ cũ và tiếp tục
     ro = Șterge hărțile vechi și continuă
-    no = Slett gamle kart og fortsett
+    nb = Slett gamle kart og fortsett
     fi = Poista vanhat kartat ja jatka
 
   [do_not_ask_me_again]
@@ -217,7 +217,7 @@
     id = Jangan tanyai saya lagi
     vi = Không hỏi tôi một lần nữa
     ro = Nu mă mai întreba
-    no = Ikke spør meg igjen
+    nb = Ikke spør meg igjen
     fi = Älä kysy uudelleen
 
   [do_nothing]
@@ -248,7 +248,7 @@
     id = Lanjutkan
     vi = Tiếp tục
     ro = Continuare
-    no = Ikke spør meg igjen
+    nb = Ikke spør meg igjen
     fi = Jatka
 
   [download_maps]
@@ -279,7 +279,7 @@
     id = Unduh Peta
     vi = Tải xuống Bản đồ
     ro = Descărcare hărți
-    no = Last ned kart
+    nb = Last ned kart
     fi = Lataa kartat
 
   [download_x_kb]
@@ -309,7 +309,7 @@
     id = Unduh %qu kB
     vi = Tải xuống %qu kB
     ro = Descărcare %qu kB
-    no = Last ned %qu kB
+    nb = Last ned %qu kB
     fi = Lataa %qu Kt
 
   [download_x_mb]
@@ -339,7 +339,7 @@
     id = Unduh %qu MB
     vi = Tải xuống %qu MB
     ro = Descărcare %qu MB
-    no = Last ned %qu MB
+    nb = Last ned %qu MB
     fi = Lataa %qu Mt
 
   [download_has_failed]
@@ -370,7 +370,7 @@
     id = Pengunduhan gagal, sentuh untuk mencoba sekali lagi
     vi = Tải xuống thất bại, hãy chạm lại để thử một lần nữa
     ro = Descărcarea a eșuat. Atingeți pentru a încerca din nou.
-    no = Nedlastingen mislyktes – trykk på nytt for å prøve en gang til
+    nb = Nedlastingen mislyktes – trykk på nytt for å prøve en gang til
     fi = Lataus epäonnistui, yritä uudelleen koskettamalla
 
   [downloaded_x_y_touch_to_delete]
@@ -401,7 +401,7 @@
     id = Telah mengunduh (%1$qu %2$@), sentuh untuk menghapus
     vi = Đã tải xuống (%1$qu %2$@), chạm để xóa
     ro = Descărcat (%1$qu %2$@). Atingeți pentru a șterge.
-    no = Lastet ned (%1$qu %2$@) – trykk for å slette
+    nb = Lastet ned (%1$qu %2$@) – trykk for å slette
     fi = Ladattu (%1$qu %2$@), poista koskettamalla
 
   [downloading_x_touch_to_cancel]
@@ -432,7 +432,7 @@
     id = Sedang mengunduh %qu%%, sentuh untuk membatalkan
     vi = Đang tải xuống %qu%%, chạm để hủy bỏ
     ro = Se descarcă %qu%%. Atingeți pentru a anula.
-    no = Laster ned %qu%% – trykk for å avbryte
+    nb = Laster ned %qu%% – trykk for å avbryte
     fi = Ladataan %qu%%, peruuta koskettamalla
 
   [downloading]
@@ -463,7 +463,7 @@
     id = Sedang mengunduh…
     vi = Đang tải xuống...
     ro = Se descarcă...
-    no = Laster ned …
+    nb = Laster ned …
     fi = Ladataan…
 
   [get_it_now]
@@ -493,7 +493,7 @@
     id = Dapatkan sekarang
     vi = Tải xuống ngay
     ro = Obțineți acum
-    no = Hent nå
+    nb = Hent nå
     fi = Hanki nyt
 
   [share_on_facebook_text]
@@ -522,7 +522,7 @@
     id =Apakah Anda menikmati menggunakan MAPS.ME? Bantulah teman-teman dan keluarga Anda mempelajari aplikasi ini, bagikan kepada mereka melalui Facebook!
     vi = Bạn có thích MAPS.ME không? Hãy giúp bạn bè và người thân của bạn biết về ứng dụng này và chia sẻ nó với họ trên Facebook!
     ro = Vă place MAPS.ME? Ajutați-vă prietenii și familia să afle despre această aplicație: distribuiți-o pe Facebook!
-    no = Liker du MAPS.ME? Hjelp venner og familie med å bli kjent med appen – del den med dem på Facebook!
+    nb = Liker du MAPS.ME? Hjelp venner og familie med å bli kjent med appen – del den med dem på Facebook!
     fi = Tykkäätkö MAPS.ME -sovelluksesta? Kerro siitä ystävillesi ja perheellesi jakamalla sovellus Facebookissa!
 
   [kb]
@@ -539,7 +539,7 @@
     id = kB
     vi = kB
     ro = kB
-    no = kB
+    nb = kB
     fi = Kt
 
   [kilometres]
@@ -571,7 +571,7 @@
     id = Kilometer
     vi = Kilômét
     ro = Kilometri
-    no = Kilometer
+    nb = Kilometer
     fi = Kilometrit
 
   [leave_a_review]
@@ -602,7 +602,7 @@
     id = Tulis Ulasan
     vi = Để lại Đánh giá
     ro = Scrieți o recenzie
-    no = Legg inn en vurdering
+    nb = Legg inn en vurdering
     fi = Jätä arviointi
 
   [maps]
@@ -633,7 +633,7 @@
     id = Peta
     vi = Bản đồ
     ro = Hărți
-    no = Kart
+    nb = Kart
     fi = Kartat
 
   [marked_for_downloading]
@@ -664,7 +664,7 @@
     id = Ditandai untuk pengunduhan, sentuh untuk membatalkan
     vi = Đã đánh dấu để tải xuống, chạm để hủy bỏ
     ro = Marcat pentru descărcare. Atingeți pentru a anula.
-    no = Merket for nedlasting – trykk for å avbryte
+    nb = Merket for nedlasting – trykk for å avbryte
     fi = Merkitty ladattavaksi, peruuta koskettamalla
 
   [mb]
@@ -681,7 +681,7 @@
     id = MB
     vi = MB
     ro = MB
-    no = MB
+    nb = MB
     fi = Mt
 
   [miles]
@@ -713,7 +713,7 @@
     id = Mil
     vi = Dặm
     ro = Mile
-    no = Miles
+    nb = Miles
     fi = Mailit
 
   [my_position]
@@ -744,7 +744,7 @@
     id = Posisi Saya
     vi = Vị trí của Tôi
     ro = Poziția mea
-    no = Min posisjon
+    nb = Min posisjon
     fi = Sijaintini
 
   [no_internet_connection_detected]
@@ -776,7 +776,7 @@
     id = Tidak ada koneksi internet yang terdeteksi
     vi = Không có kết nối Internet
     ro = Nu a fost detectată nicio conexiune la internet.
-    no = Ingen Internett-tilkobling oppdaget
+    nb = Ingen Internett-tilkobling oppdaget
     fi = Internet-yhteyttä ei havaittu
 
   [no_wifi_ask_cellular_download]
@@ -808,7 +808,7 @@
     id = Tidak ada koneksi WiFi yang terdeteksi. Apakah Anda ingin menggunakan paket data seluler (GPRS, EDGE or 3G) untuk mengunduh %@?
     vi = Không có kết nối WiFi. Bạn có muốn sử dụng dữ liệu di động (GPRS, EDGE hoặc 3G) để tải xuống %@ không?
     ro = Nu a fost detectată nicio conexiune WiFi. Doriți să utilizați datele mobile (GPRS, EDGE sau 3G) pentru a descărca %@?
-    no = Ingen WiFi-tilkobling oppdaget. Har du lyst til å bruke mobildata (GPRS, EDGE, 3G eller 4G) for å laste ned %@?
+    nb = Ingen WiFi-tilkobling oppdaget. Har du lyst til å bruke mobildata (GPRS, EDGE, 3G eller 4G) for å laste ned %@?
     fi = WiFi-yhteyttä ei havaittu. Haluatko käyttää mobiilidataa (GPRS, EDGE tai 3G) ladataksesi tiedoston %@?
 
   [ok]
@@ -825,7 +825,7 @@
     id = OK
     vi = OK
     ro = OK
-    no = OK
+    nb = OK
     fi = OK
 
   [enable_location_services]
@@ -856,7 +856,7 @@
     id = Mohon aktifkan Layanan Lokasi
     vi = Bạn vui lòng bật Dịch vụ Định vị
     ro = Vă rugăm să activați serviciile de localizare
-    no = Aktiver posisjonstjenester
+    nb = Aktiver posisjonstjenester
     fi = Ota sijaintipalvelut käyttöön
 
   [free_disk_space_for_country_x]
@@ -886,7 +886,7 @@
     id = Mohon bebaskan ruang pada perangkat Anda terlebih dahulu untuk mengunduh %@
     vi = Bạn vui lòng giải phóng dung lượng trên thiết bị của mình để có thể tải xuống %@
     ro = Vă rugăm să eliberați niște spațiu pe dispozitivul dvs. mai întâi, pentru a descărca %@.
-    no = Frigjør plass på enheten først for å laste ned %@
+    nb = Frigjør plass på enheten først for å laste ned %@
     fi = Vapauta tilaa laitteellasi ladataksesi tiedoston %@
 
   [remind_me_later]
@@ -918,7 +918,7 @@
     id = Ingatkan saya lagi nanti
     vi = Nhắc tôi sau
     ro = Amintește-mi mai târziu
-    no = Minn meg på det senere
+    nb = Minn meg på det senere
     fi = Muistuta myöhemmin
 
   [later]
@@ -948,7 +948,7 @@
     id = Nanti
     vi = Để sau
     ro = Mai târziu
-    no = Senere
+    nb = Senere
     fi = Myöhemmin
 
   [never]
@@ -977,7 +977,7 @@
     id = Tidak akan pernah
     vi = Không bao giờ
     ro = Niciodată
-    no = Aldri
+    nb = Aldri
     fi = Ei koskaan
 
   [report_an_issue]
@@ -1008,7 +1008,7 @@
     id = Laporkan sebuah masalah
     vi = Báo cáo một vấn đề
     ro = Raportează o problemă
-    no = Rapporter et problem
+    nb = Rapporter et problem
     fi = Ilmoita virheestä
 
   [search]
@@ -1038,7 +1038,7 @@
     id = Cari
     vi = Tìm kiếm
     ro = Căutare
-    no = Søk
+    nb = Søk
     fi = Haku
 
   [search_map]
@@ -1069,7 +1069,7 @@
     id = Cari Peta
     vi = Tìm kiếm Bản đồ
     ro = Căutare hartă
-    no = Søk kart
+    nb = Søk kart
     fi = Hae kartalta
 
   [not_enough_disk_space]
@@ -1100,7 +1100,7 @@
     id = Tidak ada ruang kosong yang cukup
     vi = Không có đủ dung lượng trống trên ổ đĩa
     ro = Nu există suficient spațiu liber pe disc.
-    no = Det er ikke nok ledig diskplass
+    nb = Det er ikke nok ledig diskplass
     fi = Ei tarpeeksi tyhjää levytilaa
 
   [touch_to_download]
@@ -1131,7 +1131,7 @@
     id = Sentuh untuk mengunduh
     vi = Chạm để tải xuống
     ro = Atingeți pentru a descărca.
-    no = Trykk for å laste ned
+    nb = Trykk for å laste ned
     fi = Lataa koskettamalla
 
   [use_cellular_data]
@@ -1162,7 +1162,7 @@
     id = Ya
     vi = Có
     ro = Da
-    no = Ja
+    nb = Ja
     fi = Kyllä
 
   [use_wifi_recommendation_text]
@@ -1194,7 +1194,7 @@
     id = Kami merekomendasi gunakan WiFi untuk mengunduh peta yang berukuran besar
     vi = Chúng tôi khuyên bạn nên sử dụng WiFi để tải xuống các bảnđồ lớn.
     ro = Vă recomandăm să utilizați WiFi pentru a descărca hărți mari.
-    no = Vi anbefaler å bruke WiFi når du skal laste ned store kart
+    nb = Vi anbefaler å bruke WiFi når du skal laste ned store kart
     fi = WiFi-yhteyttä suositellaan suurten karttojen lataamiseen
 
   [new_map_data_format_upgrade_dialog]
@@ -1214,7 +1214,7 @@
     id = Kami telah memperbarui data peta dan membuatnya lebih kecil. Untuk negara-negara yang lebih besar, kini Anda dapat memilih untuk mengunduh hanya daerah/negara bagian yang Anda perlukan. Namun, untuk menggunakan peta yang baru Anda harus menghapus data peta lama apa pun yang telah diunduh sebelumnya.
     vi = Chúng tôi đã cập nhật dữ liệu bản đồ và nén nó cho nhỏ hơn. Với các quốc gia lớn hơn, giờ đây bạn đã có thể chọn chỉ tải xuống khu vực/tiểu bang mà bạn cần. Tuy nhiên, để sử dụng bản đồ mới bạn nên xóa bất kỳ dữ liệu bản đồ cũ nào đã được tải xuống trước đây.
     ro = Am actualizat datele cartografice și le-am făcut mai mici. În cazul țărilor mari, acum puteți alege să descărcați doar regiunea/statul de care aveți nevoie. Totuși, pentru a putea utiliza hărțile noi, trebuie să ștergeți orice date cartografice descărcate anterior.
-    no = Vi har oppdatert kartdata og gjort dem mindre. For større land kan du nå velge å laste ned bare det området du trenger. For å bruke de nye kartene bør du imidlertid slette eldre kartdata som du har lastet ned tidligere.
+    nb = Vi har oppdatert kartdata og gjort dem mindre. For større land kan du nå velge å laste ned bare det området du trenger. For å bruke de nye kartene bør du imidlertid slette eldre kartdata som du har lastet ned tidligere.
     fi = Olemme päivittäneet karttoja ja pienentäneet niitä. Suuremmissa kartoissa voit valita lataavasi vain tarvitsemasi alueen/osavaltion. Uusia karttoja käyttääksesi sinun tulee kuitenkin ensin poistaa vanhat aiemmin lataamasi kartat.
 
   [which_measurement_system]
@@ -1245,7 +1245,7 @@
     id = Sistem pengukuran manakah yang lebih Anda sukai?
     vi = Bạn thích sử dụng hệ thống đo lường nào?
     ro = Ce sistem de măsură preferați?
-    no = Hvilket målesystem foretrekker du?
+    nb = Hvilket målesystem foretrekker du?
     fi = Mitä mittayksikköä haluat käyttää?
 
   [location_is_disabled_long_text]
@@ -1276,7 +1276,7 @@
     id = Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.
     vi = Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.
     ro = În acest moment aveți dezactivate toate serviciile de localizare pentru acest dispozitiv sau aplicație. Vă rugăm să le activați la setări.
-    no = Du har for øyeblikket deaktivert alle posisjonstjenester for denne enheten eller applikasjonen. Slå dem på i «Innstillinger».
+    nb = Du har for øyeblikket deaktivert alle posisjonstjenester for denne enheten eller applikasjonen. Slå dem på i «Innstillinger».
     fi = Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.
 
   [device_doesnot_support_location_services]
@@ -1307,7 +1307,7 @@
     id = Perangkat Anda tidak mendukung Layanan Lokasi
     vi = Thiết bị của bạn không hỗ trợ Dịch vụ Định vị
     ro = Dispozitivul dvs. nu acceptă servicii de localizare.
-    no = Enheten din støtter ikke posisjonstjenester
+    nb = Enheten din støtter ikke posisjonstjenester
     fi = Laitteesi ei tue sijaintipalveluita
 
   [zoom_to_country]
@@ -1338,7 +1338,7 @@
     id = Perbesar ke negara
     vi = Phóng to vào quốc gia
     ro = Faceți zoom spre această țară
-    no = Zoom til landet
+    nb = Zoom til landet
     fi = Zoomaa maahan
 
   [country_status_added_to_queue]
@@ -1369,7 +1369,7 @@
     id = ^\ntelah ditambahkan ke antrean pengunduhan.
     vi = ^\nđã được thêm vào danh sách đợi tải xuống.
     ro = ^\neste adăugată la coada de descărcare.
-    no = ^\ner lagt til i nedlastingskøen.
+    nb = ^\ner lagt til i nedlastingskøen.
     fi = ^\non lisätty latausjonoon.
 
   [country_status_downloading]
@@ -1400,7 +1400,7 @@
     id = Sedang mengunduh\n^\n^%
     vi = Đang tải xuống\n^\n^%
     ro = Se descarcă\n^\n^%
-    no = Laster ned\n^\n^%
+    nb = Laster ned\n^\n^%
     fi = Ladataan\n^\n^%
 
   [country_status_download_routing]
@@ -1430,7 +1430,7 @@
     id = Unduh Peta + Rute\n^ ^
     vi = Tải xuống Bản đồ + Lộ trình\n^ ^
     ro = Descărcare hartă + trasee\n^ ^
-    no = Last ned kart + rutetilordning\n^ ^
+    nb = Last ned kart + rutetilordning\n^ ^
     fi = Lataa kartta + reititys\n^ ^
 
   [country_status_download]
@@ -1461,7 +1461,7 @@
     id = Unduh Peta\n^ ^
     vi = Tải xuống Bản đồ\n^ ^
     ro = Descărcare hartă\n^ ^
-    no = Last ned kart\n^ ^
+    nb = Last ned kart\n^ ^
     fi = Lataa kartta\n^ ^
 
   [country_status_download_failed]
@@ -1492,7 +1492,7 @@
     id = Sedang Mengunduh\n^\ntelah gagal
     vi = Tải xuống\n^\nđã thất bại
     ro = Se descarcă\n^\na eșuat
-    no = Laster ned\n^\nmislyktes
+    nb = Laster ned\n^\nmislyktes
     fi = Ladataan\n^\nepäonnistui
 
   [try_again]
@@ -1523,7 +1523,7 @@
     id = Coba Lagi
     vi = Thử lại
     ro = Încercați din nou
-    no = Prøv på nytt
+    nb = Prøv på nytt
     fi = Yritä uudelleen
 
   [app_name]
@@ -1556,7 +1556,7 @@
     id = Tentang MAPS.ME
     vi = Giới thiệu về MAPS.ME
     ro = Despre MAPS.ME
-    no = Om MAPS.ME
+    nb = Om MAPS.ME
     fi = Tietoa MAPS.ME:stä
 
   [downloading_touch_to_cancel]
@@ -1586,7 +1586,7 @@
     id = Sedang mengunduh %d%%, sentuh untuk membatalkan
     vi = Đang tải xuống %d%%, chạm để hủy bỏ
     ro = Se descarcă %d%% . Atingeți pentru a anula.
-    no = Laster ned %d%% – trykk for å avbryte
+    nb = Laster ned %d%% – trykk for å avbryte
     fi = Ladataan %d%%, peruuta koskettamalla
 
   [downloaded_touch_to_delete]
@@ -1616,7 +1616,7 @@
     id = (%@) telah diunduh, sentuh untuk menghapus
     vi = Đã tải xuống (%@), chạm để xóa
     ro = Descărcat (%@). Atingeți pentru a șterge.
-    no = Lastet ned (%@) – trykk for å slette
+    nb = Lastet ned (%@) – trykk for å slette
     fi = Ladattu (%@), poista koskettamalla
 
   [connection_settings]
@@ -1646,7 +1646,7 @@
     id = Pengaturan Koneksi
     vi = Thiết lập Kết nối
     ro = Setări conexiune
-    no = Tilkoblingsinnstillinger
+    nb = Tilkoblingsinnstillinger
     fi = Yhteysasetukset
 
   [download_mb_or_kb]
@@ -1675,7 +1675,7 @@
     id = Unduh %@
     vi = Tải xuống %@
     ro = Descărcare %@
-    no = Last ned %@
+    nb = Last ned %@
     fi = Lataa %@
 
   [close]
@@ -1705,7 +1705,7 @@
     id = Tutup
     vi = Đóng
     ro = Închidere
-    no = Lukk
+    nb = Lukk
     fi = Sulje
 
   [unsupported_phone]
@@ -1735,7 +1735,7 @@
     id = OpenGL yang dipercepat oleh OpenGL diperlukan. Sayangnya, perangkat Anda tidak mendukung.
     vi = Cần có OpenGL được tăng tốc phần cứng. Thật không may, thiết bị của bạn không được hỗ trợ.
     ro = Este necesar un OpenGL accelerat din hardware. Din păcate, dispozitivul nu este acceptat.
-    no = En maskinvareakselerert OpenGL kreves. Dessverre støttes ikke enheten din.
+    nb = En maskinvareakselerert OpenGL kreves. Dessverre støttes ikke enheten din.
     fi = Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.
 
   [download]
@@ -1765,7 +1765,7 @@
     id = Unduh
     vi = Tải xuống
     ro = Descărcare
-    no = Last ned
+    nb = Last ned
     fi = Lataa
 
   [external_storage_is_not_available]
@@ -1795,7 +1795,7 @@
     id = Penyimpanan kartu SD/USB dengan peta terunduh tidak tersedia
     vi = Không hỗ trợ lưu trữ trên thẻ SD/USB với các bản đồ được tải xuống
     ro = Cartela SD/dispozitivul de stocare USB cu hărțile descărcate nu este disponibil.
-    no = SD-kort/USB-enhet med nedlastede kart er ikke tilgjengelig
+    nb = SD-kort/USB-enhet med nedlastede kart er ikke tilgjengelig
     fi = SD-kortti/USB-massamuisti, jolle kartat on ladattu, ei ole käytettävissä
 
   [disconnect_usb_cable]
@@ -1825,7 +1825,7 @@
     id = Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan MAPS.ME
     vi = Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng MAPS.ME
     ro = Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza MAPS.ME.
-    no = Koble fra USB-kabelen eller sett inn minnekortet for å bruke MAPS.ME
+    nb = Koble fra USB-kabelen eller sett inn minnekortet for å bruke MAPS.ME
     fi = Irrota USB-kaapeli tai syötä muistikortti käyttääksesi MAPS.ME -sovellusta
 
   [not_enough_free_space_on_sdcard]
@@ -1855,7 +1855,7 @@
     id = Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi
     vi = Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng
     ro = Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.
-    no = Frigjør plass på SD-kortet/USB-enheten først for å bruke appen
+    nb = Frigjør plass på SD-kortet/USB-enheten først for å bruke appen
     fi = Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta
 
   [not_enough_memory]
@@ -1885,7 +1885,7 @@
     id = Memori tidak cukup untuk meluncurkan aplikasi
     vi = Không đủ bộ nhớ để chạy ứng dụng
     ro = Nu este suficientă memorie pentru a lansa aplicația.
-    no = Ikke nok minne til å starte appen
+    nb = Ikke nok minne til å starte appen
     fi = Ei tarpeeksi muistia sovelluksen avaamiseksi
 
   [free_space_for_country]
@@ -1915,7 +1915,7 @@
     id = Mohon bebaskan %1$@ pada perangkat Anda terlebih dahulu untuk mengunduh %2$@
     vi = Bạn vui lòng giải phóng %1$@ trên thiết bị của mình để có thể tải xuống %2$@
     ro = Vă rugăm să eliberați %1$@ spațiu pe dispozitivul dvs., pentru a putea descărca %2$@.
-    no = Frigjør %1$@ på enheten først for å laste ned %2$@
+    nb = Frigjør %1$@ på enheten først for å laste ned %2$@
     fi = Ole hyvä ja vapauta ensin %1$@ laitteeltasi ladataksesi %2$@
 
   [download_resources]
@@ -1946,7 +1946,7 @@
     id = Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %.1f%@.
     vi = Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %.1f%@ dữ liệu.
     ro = Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %.1f%@ de date.
-    no = Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %.1f%@ med data.
+    nb = Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %.1f%@ med data.
     fi = Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %.1f%@ dataa.
 
   [getting_position]
@@ -1976,7 +1976,7 @@
     id = Sedang mencari lokasi saat ini
     vi = Đang tìm vị trí hiện tại
     ro = Se obține poziția actuală
-    no = Henter nåværende posisjon
+    nb = Henter nåværende posisjon
     fi = Etsitään sijaintia
 
   [download_resources_continue]
@@ -2006,7 +2006,7 @@
     id = Pergi ke Peta
     vi = Đến Bản đồ
     ro = Mergeți la hartă.
-    no = Gå til kart
+    nb = Gå til kart
     fi = Siirry karttaan
 
   [downloading_country_can_proceed]
@@ -2036,7 +2036,7 @@
     id = Sedang mengunduh %@. Sekarang Anda dapat melanjutkan ke peta.
     vi = Đang tải xuống %@. Bây giờ bạn đã có thể\nvào bản đồ.
     ro =Se descarcă %@. Puteți\ntrece la hartă.
-    no = Laster ned %@. Du kan nå\nfortsette til kartet.
+    nb = Laster ned %@. Du kan nå\nfortsette til kartet.
     fi = Ladataan %@. Voit nyt jatkaa kartalle.
 
   [download_country_ask]
@@ -2066,7 +2066,7 @@
     id = Unduh %@?
     vi = Tải xuống %@?
     ro = Descărcați %@?
-    no = Vil du laste ned %@?
+    nb = Vil du laste ned %@?
     fi = Ladataanko %@?
 
   [update_country_ask]
@@ -2096,7 +2096,7 @@
     id = Perbarui %@?
     vi = Cập nhật %@?
     ro = Actualizați %@?
-    no = Vil du oppdatere %@?
+    nb = Vil du oppdatere %@?
     fi = Päivitetäänkö %@?
 
   [download_location_map_proposal]
@@ -2127,7 +2127,7 @@
     id = Anda dapat mengunduh peta lokasi Anda saat ini.
     vi = Bạn có thể tải xuống bản đồ\ncủa địa điểm hiện tại của bạn.
     ro = Puteți descărca harta\npentru poziția dvs. actuală.
-    no = Du kan laste ned kartet\nfor din nåværende posisjon.
+    nb = Du kan laste ned kartet\nfor din nåværende posisjon.
     fi = Voit ladata nykyisen sijaintisi kartan.
 
   [download_location_update_map_proposal]
@@ -2158,7 +2158,7 @@
     id = Anda dapat memperbarui peta lokasi Anda saat ini.
     vi = Bạn có thể cập nhật bản đồ\ncủa địa điểm hiện tại của bạn.
     ro = Puteți actualiza harta\npentru poziția dvs. actuală.
-    no = Du kan oppdatere kartet\nfor din nåværende posisjon.
+    nb = Du kan oppdatere kartet\nfor din nåværende posisjon.
     fi = Voit päivittää nykyisen sijaintisi kartan.
 
   [download_location_map_up_to_date]
@@ -2189,7 +2189,7 @@
     id = Peta lokasi Anda saat ini (%@) sudah yang terkini
     vi = Bản đồ của địa điểm\nhiện tại của bạn (%@) là bản mới nhất
     ro = Harta poziției dvs.\nactuale (%@) este la zi.
-    no = Kartet for din nåværende\nposisjon (%@) er oppdatert
+    nb = Kartet for din nåværende\nposisjon (%@) er oppdatert
     fi = Nykyisen sijaintisi (%@) kartta on ajan tasalla
 
   [pause]
@@ -2219,7 +2219,7 @@
     id = Jeda
     vi = Tạm dừng
     ro = Pauză
-    no = Pause
+    nb = Pause
     fi = Pysäytä
 
   [continue_download]
@@ -2250,7 +2250,7 @@
     id = Lanjutkan
     vi = Tiếp tục
     ro = Continuare
-    no = Fortsett
+    nb = Fortsett
     fi = Jatka
 
   [downloaded_touch_to_update]
@@ -2280,7 +2280,7 @@
     id = (%@) telah diunduh, sentuh untuk memperbarui atau menghapus
     vi = Đã tải xuống (%@), chạm để cập nhật hoặc xóa
     ro = Descărcat (%@). Atingeți pentru a actualiza sau a șterge.
-    no = Lastet ned (%@) – trykk for å oppdatere eller slette
+    nb = Lastet ned (%@) – trykk for å oppdatere eller slette
     fi = Ladattu (%@), päivitä tai poista koskettamalla
 
   [update_mb_or_kb]
@@ -2309,7 +2309,7 @@
     id = Perbarui %@
     vi = Cập nhật %@
     ro = Actualizați %@
-    no = Oppdater %@
+    nb = Oppdater %@
     fi = Päivitä %@
 
   [search_update_maps]
@@ -2341,7 +2341,7 @@
     id = Anda memerlukan peta terbaru untuk fungsi pencarian:
     vi = Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:
     ro = Aveți nevoie de hărți actualizate pentru funcția de căutare:
-    no = Du trenger oppdaterte kart for søkefunksjonen:
+    nb = Du trenger oppdaterte kart for søkefunksjonen:
     fi = Hakutoimintoa varten tarvitset päivitetyt kartat:
 
   [advise_update_maps]
@@ -2373,7 +2373,7 @@
     id = Tersedia pembaruan untuk peta ini:
     vi = Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:
     ro = Actualizări disponibile pentru aceste hărți:
-    no = Oppdatering tilgjengelig for disse kartene:
+    nb = Oppdatering tilgjengelig for disse kartene:
     fi = Päivitys saatavissa seuraaville kartoille:
 
   [suggest_uninstall_lite]
@@ -2405,7 +2405,7 @@
     id = Anda tidak lagi memerlukan MAPS.ME Lite, sehingga Anda dapat menghapusnya.
     vi = Bạn không cần MAPS.ME Lite nữa, vì vậy bạn có thể gỡ cài đặt nó.
     ro = Nu mai aveți nevoie de MAPS.ME Lite, îl puteți dezinstala.
-    no = Du trenger ikke MAPS.ME Lite lenger, så du kan gjerne avinstallere det.
+    nb = Du trenger ikke MAPS.ME Lite lenger, så du kan gjerne avinstallere det.
     fi = Et tarvitse enää MAPS.ME Lite:ä, joten voit poistaa sen.
 
   [download_country_success]
@@ -2437,7 +2437,7 @@
     id = %@ berhasil diunduh
     vi = %@, descărcată cu succes
     ro = %@, descărcată cu succes
-    no = %@ ble lastet ned
+    nb = %@ ble lastet ned
     fi = %@ ladattu onnistuneesti
 
   [download_country_failed]
@@ -2469,7 +2469,7 @@
     id = %@ gagal diunduh
     vi = %@ - descărcarea a eșuat
     ro = %@ - descărcarea a eșuat
-    no = Nedlasting av %@ mislyktes
+    nb = Nedlasting av %@ mislyktes
     fi = %@ lataus epäonnistui
 
   [add_new_set]
@@ -2501,7 +2501,7 @@
     id = Tambahkan Set baru
     vi = Thêm Bộ Mới
     ro = Adăugare la „Marcaje”
-    no = Lisää uusi valikoima
+    nb = Lisää uusi valikoima
     fi = Lisää uusi valikoima
 
   [add_to_bookmarks]
@@ -2532,7 +2532,7 @@
     id = Tambahkan ke Penanda
     vi = Thêm vào Điểm đánh dấu
     ro = Adăugare la „Marcaje”
-    no = Legg til i bokmerker
+    nb = Legg til i bokmerker
     fi = Lisää Kirjanmerkkeihin
 
   [bookmark_color]
@@ -2564,7 +2564,7 @@
     id = Warna Penanda
     vi = Đánh dấu Màu sắc
     ro = Culoare marcaj
-    no = Bokmerk farge
+    nb = Bokmerk farge
     fi = Kirjanmerkin väri
 
   [bookmark_set_name]
@@ -2596,7 +2596,7 @@
     id = Nama Set Penanda
     vi = Đánh dấu Tên Bộ
     ro = Nume set marcaje
-    no = Bokmerk settnavn
+    nb = Bokmerk settnavn
     fi = Kirjanmerkkivalikoiman nimi
 
   [bookmark_sets]
@@ -2628,7 +2628,7 @@
     id = Set Penanda
     vi = Đánh dấu Bộ
     ro = Seturi marcaje
-    no = Bokmerk sett
+    nb = Bokmerk sett
     fi = Kirjanmerkkivalikoimat
 
   [bookmarks]
@@ -2660,7 +2660,7 @@
     id = Penanda
     vi = Đánh dấu
     ro = Marcaje
-    no = Bokmerker
+    nb = Bokmerker
     fi = Kirjanmerkit
 
   [color]
@@ -2691,7 +2691,7 @@
     id = Warna
     vi = Màu sắc
     ro = Culoare
-    no = Farge
+    nb = Farge
     fi = Väri
 
   [dropped_pin]
@@ -2723,7 +2723,7 @@
     id = Pin yang Ditancapkan
     vi = Con Dấu đã Đặt
     ro = Poziție marcată
-    no = Droppet merke
+    nb = Droppet merke
     fi = Pudotettu nasta
 
   [my_places]
@@ -2755,7 +2755,7 @@
     id = Tempat-tempat Saya
     vi = Các Địa chỉ của Tôi
     ro = Locurile mele
-    no = Mine steder
+    nb = Mine steder
     fi = Paikkani
 
   [name]
@@ -2786,7 +2786,7 @@
     id = Nama
     vi = Tên
     ro = Nume
-    no = Navn
+    nb = Navn
     fi = Nimi
 
   [address]
@@ -2818,7 +2818,7 @@
     id = Alamat
     vi = Địa chỉ
     ro = Adresă
-    no = Adresse
+    nb = Adresse
     fi = Osoite
 
   [remove_pin]
@@ -2850,7 +2850,7 @@
     id = Hapus Pin
     vi = Xóa Con Dấu
     ro = Poziție eliminată
-    no = Fjern merke
+    nb = Fjern merke
     fi = Poista nasta
 
   [set]
@@ -2882,7 +2882,7 @@
     id = Set
     vi = Đặt
     ro = Set
-    no = Sett
+    nb = Sett
     fi = Aseta
 
   [bookmarks_usage_hint]
@@ -2914,7 +2914,7 @@
     id = Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ  tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.
     vi = Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ e-mail, Dropbox hoặc liên kết web.
     ro = Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din e-mail, Dropbox sau de la un link web.
-    no = Du har ingen bokmerker enda.\nTrykk på et hvilket som helst sted på kartet for å legge til et bokmerke.\nBokmerker fra andre kilder kan også importeres og vises i MAPS.ME. Åpne KML-/KMZ-filer med lagrede bokmerker fra e-post, Dropbox eller internettkobling.
+    nb = Du har ingen bokmerker enda.\nTrykk på et hvilket som helst sted på kartet for å legge til et bokmerke.\nBokmerker fra andre kilder kan også importeres og vises i MAPS.ME. Åpne KML-/KMZ-filer med lagrede bokmerker fra e-post, Dropbox eller internettkobling.
     fi = Sinulla ei vielä ole kirjanmerkkejä.\nLisää kirjanmerkki napsauttamalla mitä tahansa paikkaa kartalla.\nVoit myös tuoda kirjanmerkkejä muista lähteistä MAPS.ME:ssä käytettäviksi avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.
 
   [bookmarks_usage_hint_import_only]
@@ -2946,7 +2946,7 @@
     id = Penanda dari sumber lainnya dapat diimpor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.
     vi = Điểm đánh dấu từ các nguồn khác có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ thư, Dropbox hoặc liên kết web.
     ro = Pot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din e-mail, Dropbox sau de la un link web.
-    no = Bokmerker fra andre kilder kan også importeres og vises i MAPS.ME. Åpne KML-/KMZ-filer med lagrede bokmerker fra e-post, Dropbox eller internettkobling.
+    nb = Bokmerker fra andre kilder kan også importeres og vises i MAPS.ME. Åpne KML-/KMZ-filer med lagrede bokmerker fra e-post, Dropbox eller internettkobling.
     fi = Voit tuoda kirjanmerkkejä MAPS.ME:ssä käytettäväksi muista lähteistä avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.
 
   [settings]
@@ -2978,7 +2978,7 @@
     id = Pengaturan
     vi = Cài đặt
     ro = Setări
-    no = Innstillinger
+    nb = Innstillinger
     fi = Asetukset
 
   [maps_storage]
@@ -3010,7 +3010,7 @@
     id = Penyimpanan Peta
     vi = Lưu trữ bản đồ
     ro = Stocare hărți
-    no = Kartlagring
+    nb = Kartlagring
     fi = Karttojen tallennus
 
   [maps_storage_summary]
@@ -3042,7 +3042,7 @@
     id = Pilih tempat untuk menyimpan unduhan peta
     vi = Chọn vị trí nơi bản đồ sẽ được tải về
     ro = Selectați locul în care doriți să fie descărcate hărțile.
-    no = Velg hvor du vil at kartene skal lastes ned til
+    nb = Velg hvor du vil at kartene skal lastes ned til
     fi = Valitse karttojen latauskohde
 
   [move_maps]
@@ -3074,7 +3074,7 @@
     id = Pindahkan peta?
     vi = Di chuyển bản đồ?
     ro = Mutare hărți?
-    no = Flytt kart?
+    nb = Flytt kart?
     fi = Siirrä karttoja?
 
   [wait_several_minutes]
@@ -3106,7 +3106,7 @@
     id = Ini akan memakan waktu beberapa menit.\nMohon tunggu…
     vi = Việc này có thể mất vài phút.\nVui lòng đợi…
     ro = Aceasta poate dura câteva minute.\nVă rugăm să așteptați...
-    no = Dette kan ta flere minutter. Vent et øyeblikk ...
+    nb = Dette kan ta flere minutter. Vent et øyeblikk ...
     fi = Tämä voi kestää useita minuutteja.Odota hetkinen…
 
   [visible]
@@ -3137,7 +3137,7 @@
     id = Tampak
     vi = Hiện
     ro = Vizibil
-    no = Synlig
+    nb = Synlig
     fi = Näkyvä
 
   [gps_is_disabled_long_text]
@@ -3169,7 +3169,7 @@
     id = GPS dinon-aktifkan. Mohon aktifkan lewat Pengaturan.
     vi = GPS đã bị tắt. Vui lòng bật nó trong Cài đặt.
     ro = GPS-ul este dezactivat. Vă rugăm să îl activați din setări.
-    no = GPS er deaktivert. Dette kan aktiveres i «Innstillinger».
+    nb = GPS er deaktivert. Dette kan aktiveres i «Innstillinger».
     fi = GPS on pois käytöstä. Voit ottaa sen käyttöön asetusvalikosta.
 
   [measurement_units]
@@ -3201,7 +3201,7 @@
     id = Unit Pengukuran
     vi = Đơn vị đo
     ro = Unități de măsură
-    no = Måleenheter
+    nb = Måleenheter
     fi = Mittayksiköt
 
   [measurement_units_summary]
@@ -3233,7 +3233,7 @@
     id = Pilihlah antara mil dan kilometer
     vi = Chọn giữa dặm và kilômét
     ro = Alegeți între mile și kilometri
-    no = Velg mellom miles og kilometer
+    nb = Velg mellom miles og kilometer
     fi = Valitse mailit tai kilometrit
 
   [search_mode_all]
@@ -3346,7 +3346,7 @@
     id = Makanan
     vi = ẩm thực
     ro = Alimentație
-    no = Mat
+    nb = Mat
     fi = Ruoka
 
   [transport]
@@ -3378,7 +3378,7 @@
     id = Transportasi
     vi = giao thông
     ro = Transport
-    no = Transport
+    nb = Transport
     fi = Liikenne
 
   [fuel]
@@ -3410,7 +3410,7 @@
     id = Bahan bakar
     vi = Khí đốt
     ro = Benzină
-    no = Drivstoff
+    nb = Drivstoff
     fi = Huoltoasema
 
   [parking]
@@ -3442,7 +3442,7 @@
     id = Parkir
     vi = đỗ xe
     ro = Parcare
-    no = Parkering
+    nb = Parkering
     fi = Parkkipaikka
 
   [shop]
@@ -3474,7 +3474,7 @@
     id = Toko
     vi = Cửa hàng
     ro = Magazin
-    no = Butikk
+    nb = Butikk
     fi = Kauppa
 
   [hotel]
@@ -3505,7 +3505,7 @@
     id = Hotel
     vi = Khách sạn
     ro = Hotel
-    no = Hotell
+    nb = Hotell
     fi = Hotelli
 
   [tourism]
@@ -3537,7 +3537,7 @@
     id = Pemandangan
     vi = Diểm tham quan
     ro = Obiective turistice
-    no = Severdigheter
+    nb = Severdigheter
     fi = Nähtävyydet
 
   [entertainment]
@@ -3569,7 +3569,7 @@
     id = Hiburan
     vi = Giải trí
     ro = Divertisment
-    no = Underholdning
+    nb = Underholdning
     fi = Viihde
 
   [atm]
@@ -3601,7 +3601,7 @@
     id = ATM
     vi = Máy atm
     ro = Bancomat
-    no = Minibank
+    nb = Minibank
     fi = Pankkiautomaatti
 
   [bank]
@@ -3633,7 +3633,7 @@
     id = Bank
     vi = Ngân hàng
     ro = Bancă
-    no = Bank
+    nb = Bank
     fi = Pankki
 
   [pharmacy]
@@ -3665,7 +3665,7 @@
     id = Apotek
     vi = Hiệu thuốc
     ro = Farmacie
-    no = Apotek
+    nb = Apotek
     fi = Apteekki
 
   [hospital]
@@ -3697,7 +3697,7 @@
     id = Rumah sakit
     vi = Bệnh viện
     ro = Spital
-    no = Sykehus
+    nb = Sykehus
     fi = Sairaala
 
   [toilet]
@@ -3729,7 +3729,7 @@
     id = Toilet
     vi = Nhà vệ sinh
     ro = Toaletă
-    no = Toalett
+    nb = Toalett
     fi = WC
 
   [post]
@@ -3761,7 +3761,7 @@
     id = Pos
     vi = Bưu điện
     ro = Poştă
-    no = Post
+    nb = Post
     fi = Posti
 
   [police]
@@ -3793,7 +3793,7 @@
     id = Polisi
     vi = Cảnh sát
     ro = Poliție
-    no = Politi
+    nb = Politi
     fi = Poliisi
 
   [no_search_results_found]
@@ -3825,7 +3825,7 @@
     id = Tidak ada hasil yang ditemukan
     vi = Không tìm thấy kết quả nào
     ro = Nu s-a găsit niciun rezultat.
-    no = Ingen resultater funnet
+    nb = Ingen resultater funnet
     fi = Tuloksia ei löytynyt
 
   [description]
@@ -3857,7 +3857,7 @@
     id = Catatan
     vi = Ghi chú
     ro = Note
-    no = Merknader
+    nb = Merknader
     fi = Muistiinpanot
 
   [share_by_email]
@@ -3888,7 +3888,7 @@
     id = Bagikan menggunakan surel
     vi = Chia sẻ bằng email
     ro = Partajare prin e-mail
-    no = Del på e-post
+    nb = Del på e-post
     fi = Jaa sähköpostilla
 
   [share_bookmarks_email_subject]
@@ -3920,7 +3920,7 @@
     id = Bagikan penanda MAPS.ME
     vi = Điểm đánh dấu MAPS.ME được chia sẻ
     ro = Marcaje MAPS.ME partajate
-    no = Delte MAPS.ME-bokmerker
+    nb = Delte MAPS.ME-bokmerker
     fi = Jaetut MAPS.ME-kirjanmerkit
 
   [share_bookmarks_email_body]
@@ -3952,7 +3952,7 @@
     id = Salam,\n\nTerlampir penanda lokasi saya dari peta offline MAPS.ME. Mohon dibuka jika Anda memasang MAPS.ME. Jika tidak, unduhlah aplikasinya untuk perangkat iOS atau Android Anda melalui tautan ini: http://maps.me/get?kmz\n\nNikmatilah bepergian menggunakan MAPS.ME!
     vi = Xin chào,\n\nPhần đính kèm là các điểm đánh dấu của tôi từ bản đồ ngoại tuyến MAPS.ME. Vui lòng mở nó nếu bạn đã cài đặt MAPS.ME. Nếu không, hãy tải xuống ứng dụng này cho thiết bị iOS hoặc Android của bạn theo liên kết sau: http://maps.me/get?kmz\n\nChúc bạn du lịch vui vẻ cùng MAPS.ME!
     ro = Salutări,\n\nAm atașat marcajele mele din hărțile offline MAPS.ME. Te rog să le deschizi, dacă ai MAPS.ME instalată. Dacă nu, poți descărca aplicația pentru dispozitivul tău iOS sau Android, urmând acest link: http://maps.me/get?kmz\n\nCălătorie plăcută cu MAPS.ME!
-    no = Hallo,\n\nVedlagt er bokmerkene mine fra MAPS.ME offline-kart. De kan åpnes hvis du har installert MAPS.ME. Hvis ikke kan du laste ned appen til en iOS- eller Android-enhet ved å følge denne koblingen: http://maps.me/get?kmz\n\nKos deg på reisen med MAPS.ME!
+    nb = Hallo,\n\nVedlagt er bokmerkene mine fra MAPS.ME offline-kart. De kan åpnes hvis du har installert MAPS.ME. Hvis ikke kan du laste ned appen til en iOS- eller Android-enhet ved å følge denne koblingen: http://maps.me/get?kmz\n\nKos deg på reisen med MAPS.ME!
     fi = Hei,\n\nLiitteenä ovat kirjanmerkkini MAPS.ME:n offline-kartoista. Voit avata liitteen mikäli olet jo asentanut MAPS.ME -sovelluksen. Mikäli et ole vielä asentanut sitä, voit ladata sen iOS- tai Android-laitteellesi oheisen linkin kautta: http://maps.me/get?kmz\n\nNauti reissailusta MAPS.ME:n kanssa!
 
   [load_kmz_title]
@@ -3984,7 +3984,7 @@
     id = Memuat Penanda
     vi = Tải Điểm đánh dấu
     ro = Se încarcă marcajele
-    no = Laster inn bokmerker
+    nb = Laster inn bokmerker
     fi = Ladataan kirjanmerkkejä
 
   [load_kmz_successful]
@@ -4016,7 +4016,7 @@
     id = Penanda berhasil dimuat! Anda dapat menemukannya pada peta atau pada layar Pengelola Penanda Lokasi.
     vi = Đã tải điểm đánh dấu thành công! Bạn có thể tìm chúng trên bản đồ hoặc màn hình Trình quản lý Điểm đánh dấu.
     ro = Marcaje încărcate cu succes! Le puteți găsi pe hartă sau pe ecranul „Gestionare marcaje”.
-    no = Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».
+    nb = Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».
     fi = Kirjanmerkkien lataaminen onnistui! Löydät ne joko kartalta tai kirjanmerkkien hallinnasta.
 
   [load_kmz_failed]
@@ -4048,7 +4048,7 @@
     id = Gagal mengunggah penanda lokasi. Berkas mungkin rusak.
     vi = Không tải lên được điểm đánh dấu. Tập tin có thể bị hỏng hoặc lỗi.
     ro = Încărcarea marcajelor a eșuat. Fișierul poate fi corupt sau defect.
-    no = Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt.
+    nb = Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt.
     fi = Kirjanmerkkien lähetys epäonnistui. Tiedosto saattaa olla vioittunut.
 
   [edit]
@@ -4075,7 +4075,7 @@
     id = Edit
     vi = Sửa
     ro = Editare
-    no = Rediger
+    nb = Rediger
     fi = Muokkaa
 
   [unknown_current_position]
@@ -4107,7 +4107,7 @@
     id = Lokasi Anda belum ditentukan
     vi = Chưa xác định được vị trí của bạn
     ro = Poziția dvs. nu a fost stabilită încă.
-    no = Posisjonen din har ikke blitt fastslått enda
+    nb = Posisjonen din har ikke blitt fastslått enda
    fi = Sijaintiasi ei ole vielä määritetty
 
   [download_location_country]
@@ -4139,7 +4139,7 @@
     id = Unduh negara di mana Anda berada saat ini (%@)
     vi = Tải xuống quốc gia của vị trí hiện tại của bạn (%@)
     ro = Descărcați hărțile pentru țara în care vă aflați (%@).
-    no = Last ned det landet du befinner deg i (%@)
+    nb = Last ned det landet du befinner deg i (%@)
     fi = Lataa nykyisen sijainnin (%@) maa
 
   [download_viewport_country_to_search]
@@ -4171,7 +4171,7 @@
     id = Unduh negara yang lokasinya sedang Anda cari (%@)
     vi = Tải xuống quốc gia bạn đang tìm kiếm trên (%@)
     ro = Descărcați hărțile pentru țara pe care o căutați pe (%@).
-    no = Last ned det landet du søker på (%@)
+    nb = Last ned det landet du søker på (%@)
     fi = Lataa hakemasi sijainnin (%@) maa
 
   [cant_change_this_setting]
@@ -4203,7 +4203,7 @@
     id = Maaf, pengaturan Penyimpanan Peta saat ini sedang non-aktif.
     vi = Rất tiếc, cài đặt Lưu trữ Bản đồ hiện đã bị tắt.
     ro = Ne pare rău. Setările pentru stocarea hărților sunt dezactivate în acest moment.
-    no = Beklager, innstillingene for kartlagring er for øyeblikket deaktivert.
+    nb = Beklager, innstillingene for kartlagring er for øyeblikket deaktivert.
     fi = Valitettavasti karttatallennusasetukset ovat pois päältä.
 
   [downloading_is_active]
@@ -4235,7 +4235,7 @@
     id = Pengunduhan negara sedang berjalan.
     vi = Hiện đang tải xuống quốc gia.
     ro = Descărcarea hărților pentru țara dorită este în curs.
-    no = Nedlasting av land pågår nå.
+    nb = Nedlasting av land pågår nå.
     fi = Maata ladataan parhaillaan.
 
   [appStore_message]
@@ -4266,7 +4266,7 @@
     id = Kami harap Anda senang menggunakan MAPS.ME! Jika ya, mohon beri nilai atau ulasan untuk aplikasi ini di App Store. Hanya memakan waktu kurang dari satu menit tetapi hal itu dapat benar-benar membantu kami. Terima kasih atas dukungan Anda!
     vi = Hi vọng bạn thích sử dụng MAPS.ME! Nếu vậy, bạn vui lòng cho điểm hoặc đánh giá ứng dụng trên App Store. Việc này chỉ tốn dưới một phút và sẽ giúp chúng tôi rất nhiều. Cảm ơn bạn đã ủng hộ!
     ro = Sperăm că vă place MAPS.ME! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!
-    no = Håper du liker å bruke MAPS.ME! Hvis du gjør det er det flott om du rangerer eller vurderer appen på App Store. Det tar deg mindre enn ett minutt, men kan virkelig hjelpe oss. Takk for støtten!
+    nb = Håper du liker å bruke MAPS.ME! Hvis du gjør det er det flott om du rangerer eller vurderer appen på App Store. Det tar deg mindre enn ett minutt, men kan virkelig hjelpe oss. Takk for støtten!
     fi = Toivottavasti nautit MAPS.ME -sovelluksen käyttämisestä! Olisimme tyytyväisiä, jos voisit arvioida sovelluksen App Storessa. Se kesää alle minuutin, ja auttaa meitä todella paljon. Kiitos tuestasi!
 
   [no_thanks]
@@ -4298,7 +4298,7 @@
     id = Tidak, terima kasih
     vi = Không, cảm ơn
     ro = Nu, mulțumesc
-    no = Nei takk
+    nb = Nei takk
     fi = Ei kiitos
 
   [bookmark_share_sms]
@@ -4328,7 +4328,7 @@
     id = Hei, lihat pinku di MAPS.ME! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: http://maps.me/get
     vi = Này, hãy xem ghim của tôi tại MAPS.ME! %1$@ hoặc %2$@ Bạn chưa cài đặt bản đồ ngoại tuyến? Tải xuống tại đây: http://maps.me/get
     ro = Hei, poți vedea care este poziția mea pe MAPS.ME! %1$@ sau %2$@ Nu ai instalate hărțile offline? Descarcă de aici: http://maps.me/get
-    no = Hei, se merket mitt på MAPS.ME! %1$@ eller %2$@ Har du ikke installert offline-kart? Last dem ned her: http://maps.me/get
+    nb = Hei, se merket mitt på MAPS.ME! %1$@ eller %2$@ Har du ikke installert offline-kart? Last dem ned her: http://maps.me/get
     fi = Hei, se merket mitt på MAPS.ME! %1$@ eller %2$@ Har du ikke installert offline-kart? Last dem ned her: http://maps.me/get
 
   [my_position_share_sms]
@@ -4359,7 +4359,7 @@
     id = Hei, lihat lokasiku saat ini di MAPS.ME! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: http://maps.me/get
     vi = Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME! %1$@ hoặc %2$@ Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: http://maps.me/get
     ro = Hei, îmi poți vedea poziția actuală pe MAPS.ME! %1$@ sau %2$@ Nu ai hărțile offline? Descarcă de aici: http://maps.me/get
-    no = Hei, se posisjonen min på MAPS.ME! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: http://maps.me/get
+    nb = Hei, se posisjonen min på MAPS.ME! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: http://maps.me/get
     fi = Hei, se posisjonen min på MAPS.ME! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: http://maps.me/get
 
   [bookmark_share_email_subject]
@@ -4390,7 +4390,7 @@
     id = Hei, lihat pinku di peta MAPS.ME
     vi = Này, hãy xem ghim của tôi tại MAPS.ME map
     ro = Hei, poți vedea care este poziția mea pe harta MAPS.ME!
-    no = Hei, se merket mitt på MAPS.ME-kartet
+    nb = Hei, se merket mitt på MAPS.ME-kartet
     fi = Hei, se merket mitt på MAPS.ME-kartet
 
   [bookmark_share_email]
@@ -4421,7 +4421,7 @@
     id = Hai,\n\nI disematkan: %1$@ di MAPS.ME, peta offline dunia. Klik tautan ini %2$@ atau ini %3$@ untuk melihat tempat di peta.\n\n Terima kasih.
     vi = Xin chào,\n\nI được gắn: %1$@ tại MAPS.ME, bản đồ thế giới ngoại tuyến. Ấn vào đường dẫn này %2$@ hoặc cái này %3$@ để xem vị trí trên bản đồ.\n\nCám ơn nhiều.
     ro = Salut,\n\nAm fixat poziția: %1$@ pe MAPS.ME, hărțile offline din întreaga lume. Clic pe acest link %2$@ sau pe acesta %3$@ pentru a vedea locul pe hartă.\n\nMulțumesc.
-    no = Hei,\n\nI merket av: %1$@ på MAPS.ME, offline verdenskart. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.
+    nb = Hei,\n\nI merket av: %1$@ på MAPS.ME, offline verdenskart. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.
     fi = Hei,\n\nnastoitin kohteen %1$@ MAPS.ME:ssä, koko maailman kattavassa offline-karttasovelluksessa. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. \n\nKiitos. kaikki
 
   [my_position_share_email_subject]
@@ -4451,7 +4451,7 @@
     id = Hei, lihat lokasiku saat ini di peta MAPS.ME!
     vi = Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME map!
     ro = Hei, îmi poți vedea poziția actuală pe harta MAPS.ME!
-    no = Hei, se posisjonen min på MAPS.ME-kartet!
+    nb = Hei, se posisjonen min på MAPS.ME-kartet!
     fi = Hei, kurkkaa tämänhetkinen sijaintini MAPS.ME:n kartalla!
 
  [my_position_share_email]
@@ -4482,7 +4482,7 @@
     id = Hai,\n\nSekarang saya ada di sini: %1$@. Klik tautan ini %2$@ atau yang ini %3$@ untuk melihat tempatnya di peta.\n\nTerima kasih.
     vi = Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.
     ro = Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.
-    no = Hei,Jeg er her nå: %1$@. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.
+    nb = Hei,Jeg er her nå: %1$@. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.
     fi = Hei,n\nOlen nyt täällä: %1$@. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. Kiitos.
 
   [share_by_message]
@@ -4514,7 +4514,7 @@
     id = Bagikan menggunakan pesan
     vi = Chia sẻ bằng tin nhắn
     ro = Chia sẻ bằng tin nhắn
-    no = Del med melding
+    nb = Del med melding
     fi = Jaa viestillä
 
   [share]
@@ -4546,7 +4546,7 @@
     id = Bagikan
     vi = Chia sẻ
     ro = Chia sẻ
-    no = Del
+    nb = Del
     fi = Jaa
 
   [message]
@@ -4578,7 +4578,7 @@
     id = Pesan
     vi = Tin nhắn
     ro = Tin nhắn
-    no = Melding
+    nb = Melding
     fi = Viesti
 
   [email]
@@ -4609,7 +4609,7 @@
     id = Surel
     vi = E-Mail
     ro = E-Mail
-    no = E-post
+    nb = E-post
     fi = Sähköposti
 
   [copy_link]
@@ -4641,7 +4641,7 @@
     id = Salin Tautan
     vi = Sao chép Liên kết
     ro = Copiați link-ul
-    no = Kopier kobling
+    nb = Kopier kobling
     fi = Kopioi linkki
 
   [more_info]
@@ -4673,7 +4673,7 @@
     id = Tampilkan Lebih Banyak Info
     vi = Hiển thị thêm thông tin
     ro = Afișează mai multe informații
-    no = Vis mer info
+    nb = Vis mer info
     fi = Näytä lisätietoja
 
   [copied_to_clipboard]
@@ -4705,7 +4705,7 @@
     id = Telah Disalin ke Papan Klip: %1$@
     vi = Đã sao chép vào Bảng tạm: %1$@
     ro = Copiat în clipboard: %1$@
-    no = Kopiert til utklippstavlen: %1$@
+    nb = Kopiert til utklippstavlen: %1$@
     fi = Kopioitu leikepöydälle: %1$@
 
   [allow_statistics]
@@ -4737,7 +4737,7 @@
     id = Kirimkan Statistik
     vi = Gửi thống kê
     ro = Trimitere statistici
-    no = Send statistikk
+    nb = Send statistikk
     fi = Lähetä tilastot
 
   [allow_statistics_hint]
@@ -4769,7 +4769,7 @@
     id = Izinkan kami mengumpulkan statistik penggunaan untuk mengembangkan aplikasi
     vi = Cho phép chúng tôi thu thập thống kê sử dụng để nâng cao ứng dụng
     ro = Permiteți-ne să colectăm statistici de utilizare, pentru a ne îmbunătăți aplicația.
-    no = Tillat oss å innhente bruksstatistikk for å forbedre appen
+    nb = Tillat oss å innhente bruksstatistikk for å forbedre appen
     fi = Salli meidän kerätä tilastotietoja parantaaksemme sovellusta
 
   [info]
@@ -4801,7 +4801,7 @@
     id = Info
     vi = Thông tin
     ro = Informații
-    no = Informasjon
+    nb = Informasjon
     fi = Tietoa
 
   [done]
@@ -4833,7 +4833,7 @@
     id = Selesai
     vi = Xong
     ro = Gata
-    no = Ferdig
+    nb = Ferdig
     fi = Valmis
 
   [yopme_pref_summary]
@@ -4862,7 +4862,7 @@
     id = Pilih pengaturan Layar Belakang
     vi = Chọn cài đặt Màn hình Sau
     ro = Alegeți setările pentru ecranul din spate
-    no = Velg innstillinger for tilbakeskjerm
+    nb = Velg innstillinger for tilbakeskjerm
     fi = Valitse tausta-asetukset
 
   [yopme_pref_title]
@@ -4891,7 +4891,7 @@
     id = Pengaturan Layar Belakang
     vi = Cài đặt Màn hình Sau
     ro = Setări ecran spate
-    no = Innstillinger for tilbakeskjerm
+    nb = Innstillinger for tilbakeskjerm
     fi = Tausta-asetukset
 
   [show_on_backscreen]
@@ -4920,7 +4920,7 @@
     id = Tampilkan pada layar Belakang
     vi = Hiển thị trên màn hình Sau
     ro = Afișare pe ecranul din spate
-    no = Vis på tilbakeskjermen
+    nb = Vis på tilbakeskjermen
     fi = Näytä taustalla
 
   [version]
@@ -4952,7 +4952,7 @@
     id = Versi: %@
     vi = Phiên bản: %@
     ro = Versiune: %@
-    no = Versjon: %@
+    nb = Versjon: %@
     fi = Versio: %@
 
   [are_you_sure]
@@ -4984,7 +4984,7 @@
     id = Apakah Anda yakin ingin melanjutkan?
     vi = Bạn có chắc muốn tiếp tục không?
     ro = Sunteți sigur că doriți să continuați?
-    no = Er du sikker på at du ønsker å fortsette?
+    nb = Er du sikker på at du ønsker å fortsette?
     fi = Oletko varma että haluat jatkaa?
 
   [tracks]
@@ -5016,7 +5016,7 @@
     id = Jalur
     vi = Dấu vết
     ro = Rute
-    no = Ruter
+    nb = Ruter
     fi = Raidat
 
   [length]
@@ -5048,7 +5048,7 @@
     id = Panjang
     vi = Độ dài
     ro = Lungime
-    no = Lengde
+    nb = Lengde
     fi = Pituus
 
   [share_my_location]
@@ -5079,7 +5079,7 @@
     id = Bagikan Lokasi Saya
     vi = Chia sẻ Vị trí của tôi
     ro = Partajează-mi poziția
-    no = Del posisjonen min
+    nb = Del posisjonen min
     fi = Jaa sijaintini
 
   [become_a_pro]
@@ -5135,7 +5135,7 @@
     id = Cari
     vi = Tìm kiếm
     ro = Căutare
-    no = Søk
+    nb = Søk
     fi = Haku
 
   [pref_zoom_title]
@@ -5166,7 +5166,7 @@
     id = Tombol perbesaran
     vi = Nút Phóng to/Thu nhỏ
     ro = Butoane zoom
-    no = Zoom-knapper
+    nb = Zoom-knapper
     fi = Zoomauspainikkeet
 
   [pref_zoom_summary]
@@ -5197,7 +5197,7 @@
     id = Tampilkan pada layar
     vi = Hiển thị trên màn hình
     ro = Afișare pe ecran
-    no = Vis på skjermen
+    nb = Vis på skjermen
     fi = Näytä ruudulla
 
   [placepage_distance]
@@ -5227,7 +5227,7 @@
     id = Jarak
     vi = Khoảng cách
     ro = Distanță
-    no = Avstand
+    nb = Avstand
     fi = Etäisyys
 
   [placepage_coordinates]
@@ -5257,7 +5257,7 @@
     id = Koordinat
     vi = Tọa độ
     ro = Coordonate
-    no = Koordinater
+    nb = Koordinater
     fi = Koordinaatit
 
   [placepage_unsorted]
@@ -5287,7 +5287,7 @@
     id = Tidak diurutkan
     vi = Chưa phân loại
     ro = Nesortate
-    no = Usortert
+    nb = Usortert
     fi = Järjestelemätön
 
   [search_show_on_map]
@@ -5317,7 +5317,7 @@
     id = Tampilkan pada peta
     vi = Xem trên bản đồ
     ro = Vizualizare pe hartă
-    no = Vis på kartet
+    nb = Vis på kartet
     fi = Näytä kartalla
 
   [kitkat_migrate_ok]
@@ -5348,7 +5348,7 @@
     id = Penyimpanan data peta telah dioptimalkan. Mohon aplikasi di jalankan ulang.\n\nBerkas MapsWithMe pada akar kartu SD tidak diperlukan lagi, Anda dapat menghapusnya.
     vi = Lưu trữ dữ liệu bản đồ đã được tối ưu hóa. Vui lòng khởi động lại ứng dụng.\n\nKhông cần thư mục MapsWithMe trong thẻ SD nữa, bạn có thể xóa thư mục này.
     ro = Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.
-    no = Kartdatalagring har blitt optimalisert. Start appen på nytt.\n\nMapsWithMe-mappen som ligger i hovedmappen på SD-kortet er ikke nødvendig lenger, og du kan gjerne slette den.
+    nb = Kartdatalagring har blitt optimalisert. Start appen på nytt.\n\nMapsWithMe-mappen som ligger i hovedmappen på SD-kortet er ikke nødvendig lenger, og du kan gjerne slette den.
     fi = Tallennetut kartat on optimoitu. Käynnistä sovellus uudelleen.\n\nMapsWithMe-hakemistoa SD-kortillasi ei enää tarvita, joten voit poistaa sen.
 
   [kitkat_migrate_failed]
@@ -5380,7 +5380,7 @@
     id = Karena perubahan-perubahan pada Android 4.4, kami perlu mengoptimalkan penyimpanan data peta, tetapi tidak ada ruang yang cukup untuk menyalin data peta.\n\nMohon bebaskan memori, atau peta akan dibuka pada modus baca saja.
     vi = Do các thay đổi trong Android 4.4, chúng tôi cần tối ưu hóa lưu trữ dữ liệu bản đồ nhưng không có đủ dung lượng còn trống để sao chép dữ liệu bản đồ.\n\nVui lòng giải phóng bộ nhớ nếu không bản đồ sẽ ở chế độ chỉ đọc.
     ro = Din cauza modificărilor efectuate în Android 4.4, trebuie să optimizăm stocarea datelor hărților, dar nu este suficient spațiu pentru a copia aceste date.\n\nVă rugăm să eliberați memoria; altfel, hărțile vor fi disponibile doar în modul citire.
-    no = På grunn av endringer i Android 4.4 må vi optimalisere kartdatalagringen, men det er ikke nok plass til å kopiere kartdataene.\n\nDu må frigjøre minne, ellers vil kartene bare være tilgjengelige i skrivebeskyttet modus.
+    nb = På grunn av endringer i Android 4.4 må vi optimalisere kartdatalagringen, men det er ikke nok plass til å kopiere kartdataene.\n\nDu må frigjøre minne, ellers vil kartene bare være tilgjengelige i skrivebeskyttet modus.
     fi = Android 4.4 -järjestelmästä johtuvien muutosten tähden tallennetut kartat täytyy optimoida, mutta laitteellasi ei ole tarpeeksi vapaata tilaa karttojen kopioimiseen.
 
   [bookmark_move_fail]
@@ -5411,7 +5411,7 @@
     id = Kami perlu memindahkan penanda lokasi Anda ke memori internal, tetapi tidak ada ruang yang tersedia. Mohon bebaskan memori, atau penanda lokasi tidak akan tersedia.
     vi = Chúng tôi cần di chuyển các điểm đánh dấu của bạn vào bộ nhớ trong nhưng không còn dung lượng cho chúng. Vui lòng giải phóng bộ nhớ, nếu không các điểm đánh dấu sẽ không khả dụng.
     ro = Trebuie să vă mutăm marcajele în memoria internă, dar nu există spațiu suficient pentru ele. Vă rugăm să eliberați memoria, altfel marcajele nu vor fi disponibile.
-    no = Vi må flytte bokmerkene til internminnet, men det er ingen ledig plass til dem. Du må frigjøre minne, ellers vil ikke bokmerkene være tilgjengelige.
+    nb = Vi må flytte bokmerkene til internminnet, men det er ingen ledig plass til dem. Du må frigjøre minne, ellers vil ikke bokmerkene være tilgjengelige.
     fi = Vapauta muistia, sillä muuten karttoja voidaan käyttää vain lukutilassa. Kirjanmerkkisi pitää siirtää laitteen sisäiseen muistiin, mutta vapaata muistia ei ole tarpeeksi. Vapauta muistia, sillä muuten kirjanmerkkejä ei voida käyttää.
 
   [kitkat_optimization_in_progress]
@@ -5443,7 +5443,7 @@
     id = Penyimpanan peta Anda sedang dioptimalkan. Mohon tunggu, ini akan memakan waktu beberapa menit.
     vi = Lưu trữ bản đồ của bạn đang được tối ưu hóa. Vui lòng chờ, việc này có thể mất vài phút.
     ro = Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.
-    no = Kartlagring optimaliseres nå. Vent litt, dette kan ta noen minutter.
+    nb = Kartlagring optimaliseres nå. Vent litt, dette kan ta noen minutter.
     fi = Tallennettuja karttoja optimoidaan parhaillaan. Odota hetkinen, tämä voi kestää muutamia minuutteja.
 
   [free]
@@ -5529,7 +5529,7 @@
     id = Cari ada peta
     vi = Tìm trên bản đồ
     ro = Căutare pe hartă
-    no = Søk på kartet
+    nb = Søk på kartet
     fi = Etsi kartalta
 
   [no_route_found]
@@ -5558,7 +5558,7 @@
     lt = Maršruto nerasta
     lv = Nav atrasts neviens maršruts
     ms = Tiada jalan ditemui
-    no = Finner ingen rute
+    nb = Finner ingen rute
     nl = Geen route gevonden
     pl = Nie znaleziono trasy
     pt = Não foi encontrado nenhum trajecto
@@ -5602,7 +5602,7 @@
     lt = Maršrutas
     lv = Maršruts
     ms = Laluan
-    no = Rute
+    nb = Rute
     nl = Route
     pl = Trasa
     pt = Trajeto
@@ -5645,7 +5645,7 @@
     lt = Maršrutai
     lv = Maršruti
     ms = Laluan
-    no = Ruter
+    nb = Ruter
     nl = Routes
     pl = Marszruty
     pt = Trajetos
@@ -5688,7 +5688,7 @@
     lt = Pasirinkite pradžios tašką…
     lv = Izvēlēties sākuma punktu…
     ms = Pilih titik mula…
-    no = Velg startpunkt…
+    nb = Velg startpunkt…
     nl = Vertrekpunt kiezen…
     pl = Wybierz punkt początkowy…
     pt = Selecione o ponto de partida…
@@ -5732,7 +5732,7 @@
     lt = Pasirinkite kelionės tikslą…
     lv = Izvēlēties galamērķi…
     ms = Pilih destinasi…
-    no = Velg destinasjon…
+    nb = Velg destinasjon…
     nl = Bestemming kiezen…
     pl = Wybierz miejsce docelowe…
     pt = Selecione o destino…
@@ -5765,7 +5765,7 @@
     id = Aplikasi ini menggunakan data geografis (termasuk peta, daftar perusahaan, lokasi-lokasi menarik, batas-batas negara dan daerah, dll) yang diambil dari proyek OpenStreetMap. Kami tidak menjamin konsistensi, akurasi, kelengkapan atau kesesuaian data OpenStreetMap apa pun.
     vi = Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v...) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.
     ro = Această aplicație utilizează date geografice (inclusiv hărți, liste de firme, puncte de interes, frontiere de țări și regiuni etc.) preluate din proiectul OpenStreetMap. Nu garantăm uniformitatea, acuratețea, integralitatea sau aplicabilitatea datelor OpenStreetMap.
-    no = Denne applikasjonen bruker geografiske data (inkludert kart, butikkoppføringer, interessepunkter, landegrenser og regiongrenser osv.) som er hentet fra OpenStreetMap-prosjektet. Vi garanterer ikke at data fra OpenStreetMap alltid er konsekvente, nøyaktige, fullstendige eller pålitelige.
+    nb = Denne applikasjonen bruker geografiske data (inkludert kart, butikkoppføringer, interessepunkter, landegrenser og regiongrenser osv.) som er hentet fra OpenStreetMap-prosjektet. Vi garanterer ikke at data fra OpenStreetMap alltid er konsekvente, nøyaktige, fullstendige eller pålitelige.
     fi = Tämä sovellus käyttää maantieteellistä dataa (mukaan lukien karttoja, yrityslistauksia, mielenkiinnon kohteita, maiden ja alueiden rajoja jne.), joka on noudettu OpenStreetMap-järjestelmästä. Emme takaa OpenStreetMapin datan johdonmukaisuutta, täsmällisyyttä, täydellisyyttä tai sovellettavuutta.
 
   [agree]
@@ -5783,7 +5783,7 @@
     id = Saya setuju
     vi = Tôi đồng ý
     ro = Sunt de acord
-    no = Jeg samtykker
+    nb = Jeg samtykker
     fi = Hyväksyn
 
   [disagree]
@@ -5802,7 +5802,7 @@
     id = Saya setuju
     vi = Tôi không đồng ý
     ro = Nu sunt de acord
-    no = Jeg samtykker ikke
+    nb = Jeg samtykker ikke
     fi = En hyväksy
 
   [download_map_notification]
@@ -5834,7 +5834,7 @@
     id = Unduh peta tempat di mana Anda berada sekarang
     vi = Tải xuống bản đồ của vị trí của bạn
     ro = Descărcați harta locului în care vă aflați
-    no = Last ned kart over stedet der du befinner deg
+    nb = Last ned kart over stedet der du befinner deg
     fi = Lataa sijaintisi kartta
 
   [pro_version_is_free_today]
@@ -5893,7 +5893,7 @@
     id = Kami sedang mentransfer peta unduhan Anda dari MAPS.ME Lite ke MAPS.ME. Proses ini mungkin membutuhkan waktu beberapa menit.
     vi = Chúng tôi đang chuyển bản đồ đã tải xuống của bạn từ MAPS.ME Lite sang MAPS.ME. Việc này có thể mất vài phút.
     ro = Transferăm hărțile dvs. descărcate din MAPS.ME Lite în MAPS.ME. Acest lucru poate dura câteva minute.
-    no = Vi overfører dine nedlastede kart fra MAPS.ME Lite til MAPS.ME. Det kan ta noen minutter.
+    nb = Vi overfører dine nedlastede kart fra MAPS.ME Lite til MAPS.ME. Det kan ta noen minutter.
     fi = Me siirrämme lataamasi kartat MAPS.ME Lite:stä MAPS.ME:hen. Siirtäminen voi viedä muutaman minuutin.
 
   [move_lite_maps_to_pro_ok]
@@ -5925,7 +5925,7 @@
     id = Peta unduhan Anda berhasil ditransfer ke MAPS.ME.
     vi = Bản đồ đã tải xuống của bạn đã được chuyển thành công sang MAPS.ME.
     ro = Hărțile dvs. descărcate sunt transferate cu succes către MAPS.ME.
-    no = Nedlastede kart er overført til MAPS.ME.
+    nb = Nedlastede kart er overført til MAPS.ME.
     fi = Lataamasi kartat on siirretty onnistuneesti MAPS.ME:hen.
 
   [move_lite_maps_to_pro_failed]
@@ -5956,7 +5956,7 @@
     he = העברת המפות שלכם נכשלה. אנא מחקו את MAPS.ME Lite והורידו שוב את המפות.
     id = Peta Anda gagal ditransfer. Silakan hapus MAPS.ME Lite dan unduh peta lagi.
     vi = Bản đồ của bạn không chuyển được. Vui lòng xóa MAPS.ME Lite và tải xuống lại bản đồ.
-    no = Kartene dine ble ikke overført. Slett MAPS.ME Lite og last ned kartene på nytt.
+    nb = Kartene dine ble ikke overført. Slett MAPS.ME Lite og last ned kartene på nytt.
     fi = Karttoja ei voitu siirtää. Ole hyvä ja poista MAPS.ME Lite ja lataa kartat uudelleen.
 
   [settings_and_more]
@@ -5988,7 +5988,7 @@
     id = Setelan &amp; Lebih Banyak
     vi = Thiết lập &amp; Khác
     ro = Setări și altele
-    no = Innstillinger med mer
+    nb = Innstillinger med mer
     fi = Asetukset &amp; Lisää
 
   [maps_me_community]
@@ -6020,7 +6020,7 @@
     id = Komunitas MAPS.ME
     vi = Cộng đồng MAPS.ME
     ro = Comunitatea MAPS.ME
-    no = MAPS.ME-samfunnet
+    nb = MAPS.ME-samfunnet
     fi = MAPS.ME -yhteisö
 
   [like_on_facebook]
@@ -6052,7 +6052,7 @@
     id = Sukai di Facebook
     vi = Thích trên Facebook
     ro = Apreciați-ne pe Facebook
-    no = Lik på Facebook
+    nb = Lik på Facebook
     fi = Tykkää meistä Facebookissa
 
   [follow_on_twitter]
@@ -6084,7 +6084,7 @@
     id = Ikuti di Twitter
     vi = Theo dõi trên Twitter
     ro = Urmăriți-ne pe Twitter
-    no = Følg på Twitter
+    nb = Følg på Twitter
     fi = Seuraa meitä Twitterissä
 
   [contact_us]
@@ -6116,7 +6116,7 @@
     id = Hubungi kami
     vi = Liên hệ với chúng tôi
     ro = Contactați-ne
-    no = Kontakt oss
+    nb = Kontakt oss
     fi = Ota yhteyttä
 
   [subscribe_to_news]
@@ -6148,7 +6148,7 @@
     id = Berlangganan berita kami
     vi = Đăng ký nhận tin tức của chúng tôi
     ro = Abonați-vă la știrile noastre
-    no = Abonner på nyheter fra oss
+    nb = Abonner på nyheter fra oss
     fi = Tilaa uutiskirjeemme
 
   [rate_the_app]
@@ -6180,7 +6180,7 @@
     id = Beri nilai aplikasi
     vi = Cho điểm ứng dụng
     ro = Votați-ne aplicația
-    no = Ranger appen
+    nb = Ranger appen
     fi = Arvioi sovellus
 
   [help]
@@ -6212,7 +6212,7 @@
     id = Bantuan
     vi = Trợ giúp
     ro = Ajutor
-    no = Hjelp
+    nb = Hjelp
     fi = Ohje
 
   [copyright]
@@ -6244,7 +6244,7 @@
     id = Hak cipta
     vi = Bản quyền
     ro = Copyright
-    no = Opphavsrett
+    nb = Opphavsrett
     fi = Copyright
 
   [report_a_bug]
@@ -6276,7 +6276,7 @@
     id = Laporkan gangguan
     vi = Báo cáo lỗi
     ro = Raportați o eroare
-    no = Rapporter en feil
+    nb = Rapporter en feil
     fi = Ilmoita virheestä
 
   [subscribe_me_subject]
@@ -6308,7 +6308,7 @@
     id = Mohon daftarkan saya untuk berlangganan berita MAPS.ME
     vi = Vui lòng đăng ký tôi vào danh sách nhận thư định kỳ MAPS.ME
     ro = Abonează-mă la buletinul informativ MAPS.ME.
-    no = Jeg vil abonnere på MAPS.ME-nyhetsbrevet
+    nb = Jeg vil abonnere på MAPS.ME-nyhetsbrevet
     fi = Lisätkää minut MAPS.ME:n uutiskirjeen tilaajaksi
 
   [subscribe_me_body]
@@ -6340,7 +6340,7 @@
     id = Saya ingin menjadi yang pertama untuk mengetahui kabar dan promosi terbaru. Saya dapat membatalkan langganan saya kapan saja.
     vi = Tôi muốn là người đầu tiên được biết về các thông tin cập nhật và quảng bá mới nhất. Tôi có thể hủy bỏ đăng ký nhận tin của mình bất cứ lúc nào.
     ro = Vreau să fiu primul care află despre cele mai recente actualizări și promoții. Îmi pot anula abonamentul în orice moment.
-    no = Jeg ønsker å være den første som får vite om siste nytt og nye kampanjer. Jeg kan avbestille abonnementet når som helst.
+    nb = Jeg ønsker å være den første som får vite om siste nytt og nye kampanjer. Jeg kan avbestille abonnementet når som helst.
     fi = Liittäkää minut MAPS.ME -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.
 
  [about_text]
@@ -6372,7 +6372,7 @@
     id = MAPS.ME menawarkan peta offline tercepat dari semua kota, semua negara di dunia. Berpergianlah dengan kepercayaan diri yang penuh: di nana pun Anda berada, MAPS.ME akan membantu Anda mengetahui posisi Anda pada peta, menemukan restoran, hotel, bank, stasiun bahan bakar terdekat, dll. Tidak perlu koneksi internet.Kami selalu membuat fitur-fitur baru dan ingin mendengar pendapat Anda mengenai bagaimana kami dapat membuat MAPS.ME menjadi lebih baik. Jika Anda memiliki masalah apa pun dengan aplikasinya, jangan segan untuk menghubungi kami di support@maps.me. Kami akan merespons setiap permintaan!Apakah Anda menyukai MAPS.ME an ingin membantu kami? Terdapat beberapa cara yang mudah dan sepenuhnya gratis:- tulis ulasan di App Market Anda
     vi = MAPS.ME cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, MAPS.ME vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v... gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện MAPS.ME. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support@maps.me. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích MAPS.ME và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về MAPS.ME với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại http://openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng MAPS.ME ở phiên bản kế tiếp.
     ro = MAPS.ME oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, MAPS.ME vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți MAPS.ME. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@maps.me. Răspundem la fiecare solicitare!\n\nVă place MAPS.ME și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre MAPS.ME. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: http://openstreetmap.org, iar modificările dvs. vor apărea în aplicația MAPS.ME atunci când va fi lansată versiunea următoare.
-    no = MAPS.ME tilbyr de raskeste offline-kartene over alle byer i alle land i verden. Reis trygt: Uansett hvor du er, kan MAPS.ME hjelpe deg med å finne ut hvor du er på kartet eller finne nærmeste restaurant, hotell, bank, bensinstasjon osv. Det kreves ingen internettforbindelse.\n\nVi jobber alltid med å legge inn nye funksjoner, og vi vil gjerne høre hvordan du synes at vi kan forbedre MAPS.ME. Hvis du får problemer med appen, ikke nøl med å kontakte oss på support@maps.me. Vi svarer på alle forespørsler!\n\nLiker du MAPS.ME og ønsker å støtte oss? Det er noen enkle og helt gratis måter å gjøre det på:\n\n- Legg inn en vurdering på app-butikken\n- Lik Facebook-siden vår på http://www.facebook.com/mapswithme\n- Eller bare fortell mamma, venner og kolleger om MAPS.ME :)\n\nTakk for at du er med oss. Vi setter stor pris på støtten!\n\nPS! Vi henter kartdata fra OpenStreetMap, et kartprosjekt som ligner på Wikipedia, der brukerne selv kan opprette og redigere kart. Hvis du finner mangler eller feil på kartet, kan du korrigere kartet direkte på http://openstreetmap.org, og endringene vil vises i MAPS.ME-appen når neste versjon kommer.
+    nb = MAPS.ME tilbyr de raskeste offline-kartene over alle byer i alle land i verden. Reis trygt: Uansett hvor du er, kan MAPS.ME hjelpe deg med å finne ut hvor du er på kartet eller finne nærmeste restaurant, hotell, bank, bensinstasjon osv. Det kreves ingen internettforbindelse.\n\nVi jobber alltid med å legge inn nye funksjoner, og vi vil gjerne høre hvordan du synes at vi kan forbedre MAPS.ME. Hvis du får problemer med appen, ikke nøl med å kontakte oss på support@maps.me. Vi svarer på alle forespørsler!\n\nLiker du MAPS.ME og ønsker å støtte oss? Det er noen enkle og helt gratis måter å gjøre det på:\n\n- Legg inn en vurdering på app-butikken\n- Lik Facebook-siden vår på http://www.facebook.com/mapswithme\n- Eller bare fortell mamma, venner og kolleger om MAPS.ME :)\n\nTakk for at du er med oss. Vi setter stor pris på støtten!\n\nPS! Vi henter kartdata fra OpenStreetMap, et kartprosjekt som ligner på Wikipedia, der brukerne selv kan opprette og redigere kart. Hvis du finner mangler eller feil på kartet, kan du korrigere kartet direkte på http://openstreetmap.org, og endringene vil vises i MAPS.ME-appen når neste versjon kommer.
     fi = MAPS.ME tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, MAPS.ME auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support@maps.me. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö MAPS.ME -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa http://openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan MAPS.ME -päivityksen jälkeen.
 
   [email_error_body]
@@ -6404,7 +6404,7 @@
     id = Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %@
     vi = Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %@
     ro = Nu a fost setat clientul de e-mail. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %@.
-    no = E-postklienten har ikke blitt konfigurert. Konfigurer den eller bruk en annen måte å kontakte oss på %@
+    nb = E-postklienten har ikke blitt konfigurert. Konfigurer den eller bruk en annen måte å kontakte oss på %@
     fi = Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %@
 
   [email_error_title]
@@ -6436,7 +6436,7 @@
     id = Gangguan pengiriman surel
     vi = Lỗi gửi thư
     ro = Eroare trimitere e-mail.
-    no = Feil ved sending av e-post
+    nb = Feil ved sending av e-post
     fi = Virhe lähetettäessä viestiä
 
   [pref_calibration_title]
@@ -6467,7 +6467,7 @@
     id = Kalibrasi kompas
     vi = Chuẩn hóa la bàn
     ro = Calibrare busolă
-    no = Kompasskalibrering
+    nb = Kompasskalibrering
     fi = Kompassin kalibrointi
 
   [wifi]
@@ -6497,7 +6497,7 @@
     id = WiFi
     vi = WiFi
     ro = WiFi
-    no = WiFi
+    nb = WiFi
     fi = WiFi
 
   [routing_map_outdated]
@@ -6529,7 +6529,7 @@
     id = Mohon perbarui peta untuk membuat rute
     vi = Vui lòng cập nhật bản đồ để tạo tuyến đường
     ro = Vă rugăm să actualizați harta pentru a crea o rută.
-    no = Oppdater kartet for å opprette en rute
+    nb = Oppdater kartet for å opprette en rute
     fi = Päivitä kartta luodaksesi reitin
 
   [routing_update_maps]
@@ -6561,7 +6561,7 @@
     id = Versi MAPS.ME yang terbaru memungkinkan pembuatan rute dari posisi Anda saat itu ke titik tujuan. Mohon perbarui peta untuk menggunakan fitur ini.
     vi = Phiên bản MAPS.ME mới cho phép tạo các tuyến đường từ vị trí hiện tại của bạn đến điểm đến. Vui lòng cập nhật bản đồ để sử dụng tính năng này.
     ro = Noua versiune a MAPS.ME vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.
-    no = Med den nye versjonen av MAPS.ME kan du opprette ruter fra din nåværende posisjon til et ankomststed på kartet. Oppdater kartene for å bruke denne funksjonen.
+    nb = Med den nye versjonen av MAPS.ME kan du opprette ruter fra din nåværende posisjon til et ankomststed på kartet. Oppdater kartene for å bruke denne funksjonen.
     fi = Uusi MAPS.ME -versio mahdollistaa reittien luonnin nykyisestä sijainnista määränpäähäsi.Päivitä kartat käyttääksesi tätä ominaisuutta.
 
   [downloader_update_all]
@@ -6593,7 +6593,7 @@
     id = Perbarui semuanya
     vi = Cập nhật tất cả
     ro = Actualizare toate
-    no = Oppdater alle
+    nb = Oppdater alle
     fi = Päivitä kaikki
 
   [downloader_cancel_all]
@@ -6625,7 +6625,7 @@
     id = Batalkan Semuanya
     vi = Hủy tất cả
     ro = Anulare toate
-    no = Avbryt alle
+    nb = Avbryt alle
     fi = Peruuta kaikki
 
   [downloader_downloaded]
@@ -6657,7 +6657,7 @@
     id = Telah Diunduh
     vi = Đã tải xuống
     ro = Descărcate
-    no = Lastet ned
+    nb = Lastet ned
     fi = Ladattu
 
   [downloader_downloaded_maps]
@@ -6689,7 +6689,7 @@
     id = Peta yang telah diunduh
     vi = Bản đồ đã tải xuống
     ro = Hărți descărcate
-    no = Nedlastede kart
+    nb = Nedlastede kart
     fi = Ladatut kartat
 
   [downloader_my_maps]
@@ -6721,7 +6721,7 @@
     id = Peta saya
     vi = Bản đồ của tôi
     ro = Hărțile mele
-    no = Mine kart
+    nb = Mine kart
     fi = Karttani
 
   [downloader_queued]
@@ -6753,7 +6753,7 @@
     id = telah diantrekan
     vi = đã xếp hàng chờ
     ro = în lista de așteptare
-    no = lagt i kø
+    nb = lagt i kø
     fi = jonossa
 
   [routing_disclaimer]
@@ -6784,7 +6784,7 @@
     id = Dalam membuat rute di aplikasi MAPS.ME, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!
     vi = Tạo các tuyến đường trong ứng dụng MAPS.ME, xin lưu ý điều sau:\n\n – Các tuyến đường được gợi ý chỉ có thể được xem là đề xuất.\n – Điều kiện con đường, luật giao thông và biển báo có mức ưu tiên cao hơn lời khuyên dẫn hướng.\n – Bản đồ có thể không chính xác hoặc lỗi thời, tuyến đường có thể không được tạo theo cách tốt nhất có thể.\n\n Hãy lái xe an toàn trên đường và bảo trọng!
     ro = Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!
-    no = Når du oppretter ruter i MAPS.ME-appen må du huske på følgende:\n\n- Foreslåtte ruter må bare betraktes som anbefalinger.\n- Veiforhold, trafikkregler og skilt må gis høyere prioritet enn navigasjonsråd.\n- Kartet kan være feil eller utdatert, og det er ikke sikkert at rutene opprettes på best mulig måte.\n\nVær nøye med veisikkerheten og pass på deg selv!
+    nb = Når du oppretter ruter i MAPS.ME-appen må du huske på følgende:\n\n- Foreslåtte ruter må bare betraktes som anbefalinger.\n- Veiforhold, trafikkregler og skilt må gis høyere prioritet enn navigasjonsråd.\n- Kartet kan være feil eller utdatert, og det er ikke sikkert at rutene opprettes på best mulig måte.\n\nVær nøye med veisikkerheten og pass på deg selv!
     fi = Pidä mielessä seuraavat seikat luodessasi reittejä MAPS.ME -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!
 
   [downloader_outdated_maps]
@@ -6816,7 +6816,7 @@
     id = Usang
     vi = Lỗi thời
     ro = Neactualizată
-    no = Utdatert
+    nb = Utdatert
     fi = Vanhentunut
 
   [downloader_uptodate_maps]
@@ -6848,7 +6848,7 @@
     id = Terkini
     vi = Cập nhật
     ro = Actualizată
-    no = Oppdatert
+    nb = Oppdatert
     fi = Ajan tasalla
 
   [downloader_status_outdated]
@@ -6880,7 +6880,7 @@
     id = Perbarui
     vi = Cập nhật
     ro = Actualizare
-    no = Oppdatering
+    nb = Oppdatering
     fi = Päivitä
 
   [downloader_status_failed]
@@ -6912,7 +6912,7 @@
     id = Gagal
     vi = Thất bại
     ro = Eșuată
-    no = Mislyktes
+    nb = Mislyktes
     fi = Epäonnistunut
 
   [routing_failed_unknown_my_position]
@@ -6944,7 +6944,7 @@
     id = Lokasi saat ini tidak diketahui. Mohon masukkan lokasi untuk membuat rute.
     vi =Không xác định được vị trí hiện tại. Vui lòng xác định vị trí để tạo tuyến đường.
     ro = Poziția dvs. curentă este nedefinită. Vă rugăm să specificați poziția, pentru a crea o rută.
-    no = Nåværende posisjon er udefinert. Oppgi en posisjon for å opprette en rute.
+    nb = Nåværende posisjon er udefinert. Oppgi en posisjon for å opprette en rute.
     fi = Tämänhetkinen sijainti ei ole tiedossa. Määritä sijainti luodaksesi reitin.
 
   [routing_failed_has_no_routing_file]
@@ -6976,7 +6976,7 @@
     id = Data tambahan yang diperlukan untuk membuat rute dari lokasi Anda.
     vi = số liệu bổ sung cần thiết để tạo ra các tuyến đường đi từ vị trí của bạn.
     ro = Datele suplimentare necesare pentru a crea trasee de la locația dvs.
-    no = Tilleggsinformasjon som er nødvendig for å opprette ruter fra ditt ståsted.
+    nb = Tilleggsinformasjon som er nødvendig for å opprette ruter fra ditt ståsted.
     fi = Lisädata, jotka vaaditaan reittien luomiseen sijainnistasi.
 
   [routing_failed_start_point_not_found]
@@ -7008,7 +7008,7 @@
     id = Tidak dapat memperhitungkan rute. Tidak ada jalan di dekat titik Anda mulai.
     vi = Không thể tính toán tuyến đường. Không có con đường nào gần điểm bắt đầu của bạn.
     ro = Nu se poate calcula ruta. Nu există drumuri în apropierea punctului de pornire.
-    no = Klarer ikke å beregne ruten. Ingen veier i nærheten av startpunktet.
+    nb = Klarer ikke å beregne ruten. Ingen veier i nærheten av startpunktet.
     fi = Reittiä ei voida laskea, koska lähtöpisteen lähistöllä ei ole teitä.
 
   [routing_failed_dst_point_not_found]
@@ -7040,7 +7040,7 @@
     id = Tidak dapat memperhitungkan rute. Tidak ada jalan di dekat tujuan Anda.
     vi = Không thể tính toán tuyến đường. Không có con đường nào gần điểm đến của bạn.
     ro = Nu se poate calcula ruta. Nu există drumuri în apropierea punctului de destinație.
-    no = Klarer ikke å beregne ruten. Ingen veier i nærheten av reisemålet.
+    nb = Klarer ikke å beregne ruten. Ingen veier i nærheten av reisemålet.
     fi = Reittiä ei voida laskea, koska määränpään lähistöllä ei ole teitä.
 
   [routing_failed_cross_mwm_building]
@@ -7072,7 +7072,7 @@
     id = Rute hanya dapat dibuat dengan yang seluruhnya ada di dalam peta tunggal.
     vi = Tuyến đường chỉ có thể được tạo hoàn toàn được chứa trong một bản đồ.
     ro = Pot fi create doar rutele ce se află în întregime într-o singură hartă.
-    no = Det kan bare opprettes ruter som passer fullstendig innenfor ett enkelt kart.
+    nb = Det kan bare opprettes ruter som passer fullstendig innenfor ett enkelt kart.
     fi = Vain kokonaisuudessaan yhdelle kartalle mahtuvia reittejä voidaan luoda.
 
   [routing_failed_route_not_found]
@@ -7104,7 +7104,7 @@
     id = Tidak ada rute yang ditemukan antara tempat asal dan tujuan yang dipilih. Mohon pilih titik mulai atau tujuan yang berbeda.
     vi = Không tìm thấy tuyến đường nào giữa điểm gốc và điểm đến được chọn. Vui lòng chọn điểm bắt đầu hoặc điểm cuối khác.
     ro = Nu am găsit nicio rută între punctul de pornire și destinația selectată. Vă rugăm să alegeți un alt punct de pornire sau de destinație.
-    no = Finner ingen rute mellom valgt startsted og destinasjon. Velg et annet start- eller sluttpunkt.
+    nb = Finner ingen rute mellom valgt startsted og destinasjon. Velg et annet start- eller sluttpunkt.
     fi = Lähtöpisteen ja määränpään välillä ei löytynyt reittiä. Valitse toinen lähtöpiste tai määränpää.
 
   [routing_failed_internal_error]
@@ -7136,7 +7136,7 @@
     id = Terjadi gangguan internal. Mohon coba menghapus dan mengunduh petanya lagi. Jika masih terjadi masalah mohon hubungi kami di support@maps.me.
     vi = Đã xảy ra lỗi nội bộ. Vui lòng thử xóa và tải lại xuống bản đồ. Nếu vấn đề vẫn còn tồn tại, vui lòng liên hệ với chúng tôi tại support@maps.me.
     ro = A survenit o eroare internă. Vă rugăm să încercați să ștergeți și să descărcați harta din nou. Dacă problema persistă, vă rugăm să ne contactați la adresa support@maps.me.
-    no = Det oppsto en intern feil. Prøv å slette og laste ned kartet på nytt. Hvis problemet vedvarer kan du kontakte oss på support@maps.me.
+    nb = Det oppsto en intern feil. Prøv å slette og laste ned kartet på nytt. Hvis problemet vedvarer kan du kontakte oss på support@maps.me.
     fi = Sisäinen virhe. Kokeile asentaa kartta uudelleen. Mikäli ongelma jatkuu, ota yhteyttä asiakaspalveluun osoitteessa support@maps.me.
 
   [downloader_download_map_and_routing]
@@ -7168,7 +7168,7 @@
     id = Untuh Peta + Rute
     vi = Tải xuống Bản đồ + Định tuyến
     ro = Descărcare hartă + traseu
-    no = Last ned kart + rutetilordning
+    nb = Last ned kart + rutetilordning
     fi = Lataa kartta + reititys
 
   [downloader_download_routing]
@@ -7200,7 +7200,7 @@
     id = Unduh Rute
     vi = Tải xuống Định tuyến
     ro = Descărcare traseu
-    no = Last ned rutetilordning
+    nb = Last ned rutetilordning
     fi = Lataa reititys
 
   [downloader_delete_routing]
@@ -7233,7 +7233,7 @@
     id = Hapus Rute
     vi = Xóa Định tuyến
     ro = Ștergere traseu
-    no = Slett rutetilordning
+    nb = Slett rutetilordning
     fi = Poista reititys
 
   [downloader_download_map]
@@ -7266,7 +7266,7 @@
     id = Unduh Peta
     vi = Tải xuống Bản đồ
     ro = Descărcare hartă
-    no = Last ned kart
+    nb = Last ned kart
     fi = Lataa kartta
 
   [routing_go]
@@ -7299,7 +7299,7 @@
     id = Mulai!
     vi = Tiến hành!
     ro = Pornește!
-    no = Kjør!
+    nb = Kjør!
     fi = Lähde!
 
   [downloader_retry]
@@ -7331,7 +7331,7 @@
     id = Coba lagi
     vi = Thử lại
     ro = Reîncercare
-    no = Prøv på nytt
+    nb = Prøv på nytt
     fi = Yritä uudelleen
 
   [downloader_map_and_routing]
@@ -7363,7 +7363,7 @@
     id = Peta + Rute
     vi = Bản đồ + Định tuyến
     ro = Hartă + trasee
-    no = Kart + rutetilordning
+    nb = Kart + rutetilordning
     fi = Kartta + reititys
 
   [downloader_delete_map]
@@ -7395,7 +7395,7 @@
     id = Hapus Peta
     vi = Xóa Bản đồ
     ro = Ștergere hartă
-    no = Slett kart
+    nb = Slett kart
     fi = Poista kartta
 
   [downloader_update_map]
@@ -7427,7 +7427,7 @@
     id = Perbarui Peta
     vi = Cập nhật Bản đồ
     ro = Actualizare hartă
-    no = Oppdater kart
+    nb = Oppdater kart
     fi = Päivitä kartta
 
   [downloader_update_map_and_routing]
@@ -7459,7 +7459,7 @@
     id = Perbarui Peta + Rute
     vi = Cập nhật bản đồ + Định tuyến
     ro = Actualizare hartă + trasee
-    no = Oppdater kart + rutetilordning
+    nb = Oppdater kart + rutetilordning
     fi = Päivitä kartta + reititys
 
   [downloader_map_only]
@@ -7491,7 +7491,7 @@
     id = Hanya Peta
     vi = Chỉ bản đồ
     ro = Doar harta
-    no = Bare kart
+    nb = Bare kart
     fi = Vain kartta
 
   [toolbar_application_menu]
@@ -7523,7 +7523,7 @@
     id = Menu aplikasi
     vi = Menu ứng dụng
     ro = Meniu aplicație
-    no = Applikasjonsmeny
+    nb = Applikasjonsmeny
     fi = Sovellusvalikko
 
   [pref_use_google_play]
@@ -7554,7 +7554,7 @@
     id = Gunakan Layanan Google Play untuk mendapatkan lokasi Anda saat ini
     vi = Sử dụng Dịch vụ Google Play để có được vị trí hiện tại của bạn
     ro = Utilizați serviciile Google Play, pentru a vă obține poziția actuală.
-    no = Bruk Google Play Services for å hente din nåværende posisjon
+    nb = Bruk Google Play Services for å hente din nåværende posisjon
     fi = Käytä Google Play -palveluita sijaintisi selvittämiseksi
 
   [rating_just_rated]
@@ -7588,7 +7588,7 @@
     zh-Hant = 我剛剛評價了您的應用
     it = Ho appena valutato la tua app
     ar = لقد قمت بتقييم تطبيقك للتو
-    no = Jeg har nettopp vurdert appen
+    nb = Jeg har nettopp vurdert appen
 
   [rating_user_since]
     tags = android
@@ -7621,7 +7621,7 @@
     zh-Hant = 我是從%@年起的MAPS.ME用戶
     it = Sono un utente MAPS.ME dal %@
     ar = أنا مستخدم لتطبيق MAPS.ME منذ %@
-    no = Jeg har vært MAPS.ME-bruker siden %@
+    nb = Jeg har vært MAPS.ME-bruker siden %@
 
   [rating_do_like_maps]
     tags = android
@@ -7654,7 +7654,7 @@
     zh-Hant = 您喜歡MAPS.ME嗎？
     it = Ti piace MAPS.ME?
     ar = هل تطبيق MAPS.ME يعجبك؟
-    no = Liker du MAPS.ME?
+    nb = Liker du MAPS.ME?
 
   [rating_tap_star]
     tags = android
@@ -7687,7 +7687,7 @@
     zh-Hant = 點擊星星給我們應用評分。
     it = Fai tap sulla stella per valutare la nostra app.
     ar = انقر على النجمة لتقييم التطبيق.
-    no = Trykk på en stjerne for å vurdere appen.
+    nb = Trykk på en stjerne for å vurdere appen.
 
   [rating_thanks]
     tags = android
@@ -7720,7 +7720,7 @@
     zh-Hant = 謝謝您！
     it = Grazie!
     ar = شكرا لك!
-    no = Tusen takk!
+    nb = Tusen takk!
 
   [rating_share_ideas]
     tags = android
@@ -7753,7 +7753,7 @@
     zh-Hant = 分享任何主意或問題，這樣我們可以為您改善應用。
     it = Condividi le tue idee o problemi così che possiamo migliorare l'app per te.
     ar = شارك أي أفكار أو مشاكل، حتى نتمكن من تحسين التطبيق من أجلك.
-    no = Del ideer med oss eller still spørsmål, slik at vi kan forbedre appen for deg.
+    nb = Del ideer med oss eller still spørsmål, slik at vi kan forbedre appen for deg.
 
   [rating_send_feedback]
     tags = android
@@ -7786,7 +7786,7 @@
     zh-Hant = 發送反饋
     it = Invia feedback
     ar = إرسال التعليق
-    no = Send tilbakemelding
+    nb = Send tilbakemelding
 
   [rating_google_plus]
     tags = android
@@ -7819,7 +7819,7 @@
     zh-Hant = 點擊g+向您的朋友們告知這款應用。
     it = Clicca su g+ per far conoscere l'app ai tuoi amici.
     ar = اضغط على g+ لتخبر أصدقاءك عن التطبيق.
-    no = Klikk på g+ for å fortelle vennene dine om denne appen.
+    nb = Klikk på g+ for å fortelle vennene dine om denne appen.
 
   [routing_download_maps_along]
     tags = android, ios
@@ -7852,7 +7852,7 @@
     zh-Hant = 下載沿線地圖
     it = Scarica le mappe lungo il percorso
     ar = تنزيل الخرائط على طول الطريق
-    no = Last ned kart langs ruten
+    nb = Last ned kart langs ruten
 
   [routing_download_map]
     tags = android, ios
@@ -7885,7 +7885,7 @@
     zh-Hant = 獲取地圖
     it = Scarica la mappa
     ar = Scarica la mappa
-    no = Skaff kart
+    nb = Skaff kart
 
   [routing_download_map_and_routing]
     tags = android, ios
@@ -7918,7 +7918,7 @@
     zh-Hant = 下載更新的地圖和路線數據，獲取所有MAPS.ME的特色功能。
     it = Scarica la mappa aggiornata e i dati del percorso per ottenere tutte le funzionalità MAPS.ME.
     ar = Scarica la mappa aggiornata e i dati del percorso per ottenere tutte le funzionalità MAPS.ME.
-    no = Last ned oppdatert kart og ruteinformasjon for å få alle MAPS.ME funksjonene
+    nb = Last ned oppdatert kart og ruteinformasjon for å få alle MAPS.ME funksjonene
 
   [routing_get_routing_data]
     tags = android, ios
@@ -7951,7 +7951,7 @@
     zh-Hant = 獲取所需的路線數據
     it = Ottieni i dati del percorso
     ar = Ottieni i dati del percorso
-    no = Skaff ruteinformasjon
+    nb = Skaff ruteinformasjon
 
   [routing_get_additional_data]
     tags = android, ios
@@ -7984,7 +7984,7 @@
     zh-Hant = 更多數據，從您的位置創建路線。
     it = dati aggiuntivi richiesti per creare i percorsi dalla tua posizione.
     ar = dati aggiuntivi richiesti per creare i percorsi dalla tua posizione.
-    no = Tilleggsinformasjon som er nødvendig for å opprette ruter fra ditt ståsted.
+    nb = Tilleggsinformasjon som er nødvendig for å opprette ruter fra ditt ståsted.
 
   [routing_requires_all_map]
     tags = android, ios
@@ -8017,7 +8017,7 @@
     zh-Hant = 創建路線需要下載並更新好所有從您的位置到目的地的地圖。
     it = Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.
     ar = Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.
-    no = Når du skal opprette en rute må du ha oppdatert alle kartene fra ditt ståsted til din destinasjon.
+    nb = Når du skal opprette en rute må du ha oppdatert alle kartene fra ditt ståsted til din destinasjon.
 
   [routing_not_enough_space]
     tags = android, ios
@@ -8050,7 +8050,7 @@
     zh-Hant = 空間不夠
     it = Spazio non sufficiente
     ar = Spazio non sufficiente
-    no = Ikke nok ledig minne
+    nb = Ikke nok ledig minne
 
   [routing_download_more_than_avail]
     tags = android, ios
@@ -8083,7 +8083,7 @@
     zh-Hant = 您需要下載%@ MB，但只有%@ MB空間。
     it = Devi scaricare %@ MB, ma lo spazio disponibile è di soli %@ MB.
     ar = Devi scaricare %@ MB, ma lo spazio disponibile è di soli %@ MB.
-    no = Du vil laste ned %@ MB, men du har kun %@ MB tilgjengelig.
+    nb = Du vil laste ned %@ MB, men du har kun %@ MB tilgjengelig.
 
   [routing_download_roaming]
     tags = android, ios
@@ -8116,7 +8116,7 @@
     zh-Hant = 您將使用移動數據下載%@ MB（漫遊）。這取決於您的移動數據方案運營商，可能會產生額外的費用。
     it = Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.
     ar = Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.
-    no = Du er på vei til å laste ned %@ MB via mobildata (under 'roaming'). Dette kan resultere i påløpende ekstragebyrer, avhengig av din mobiloperatørløsning.
+    nb = Du er på vei til å laste ned %@ MB via mobildata (under 'roaming'). Dette kan resultere i påløpende ekstragebyrer, avhengig av din mobiloperatørløsning.
 
   [cuisine_regional]
     tags = android, ios
@@ -8141,7 +8141,7 @@
     da = regionalt køkken
     cs = regionální kuchyně
     it = cucina regionale
-    no = regional mat
+    nb = regional mat
     zh-Hant = 地区的
     zh-Hans = 地方菜
     vi = ẩm thực khu vực
@@ -8174,7 +8174,7 @@
     da = pizza
     cs = pizza
     it = pizza
-    no = pizza
+    nb = pizza
     zh-Hant = 匹薩
     zh-Hans = 匹萨
     vi = bánh pizza
@@ -8207,7 +8207,7 @@
     da = burger
     cs = burger
     it = hamburger
-    no = burger
+    nb = burger
     zh-Hant = 漢堡包
     zh-Hans = 汉堡包
     vi = bánh hamburger
@@ -8240,7 +8240,7 @@
     da = italiensk
     cs = italská kuchyně
     it = cucina italiana
-    no = italiensk mat
+    nb = italiensk mat
     zh-Hant = 意大利的
     zh-Hans = 意大利菜
     vi = ẩm thực ý
@@ -8273,7 +8273,7 @@
     da = kinesisk
     cs = čínská kuchyně
     it = cucina cinese
-    no = kinesisk mat
+    nb = kinesisk mat
     zh-Hant = 中国的
     zh-Hans = 中国菜
     vi = ẩm thực trung quốc
@@ -8306,7 +8306,7 @@
     da = café
     cs = kavárna
     it = bar caffetteria
-    no = kafé
+    nb = kafé
     zh-Hant = 咖啡_館
     zh-Hans = 咖啡_馆
     vi = tiệm_cà phê
@@ -8339,7 +8339,7 @@
     da = sandwich
     cs = sendvič
     it = panini
-    no = smørbrød
+    nb = smørbrød
     zh-Hant = 三明治
     zh-Hans = 三明治
     vi = bánh sandwich
@@ -8372,7 +8372,7 @@
     da = tysk
     cs = německá kuchyně
     it = cucina tedesca
-    no = tysk mat
+    nb = tysk mat
     zh-Hant = 德国的
     zh-Hans = 德国菜
     vi = ẩm thực đức
@@ -8405,7 +8405,7 @@
     da = japansk
     cs = japonská kuchyně
     it = cucina giapponese
-    no = japansk mat
+    nb = japansk mat
     zh-Hant = 日本的
     zh-Hans = 日本菜
     vi = ẩm thực nhật bản
@@ -8438,7 +8438,7 @@
     da = kebab
     cs = kebab
     it = kebab
-    no = kebab
+    nb = kebab
     zh-Hant = 烤肉
     zh-Hans = 烤肉
     vi = thịt nướng kebab
@@ -8471,7 +8471,7 @@
     da = mexicansk
     cs = mexická kuchyně
     it = cucina messicana
-    no = meksikansk mat
+    nb = meksikansk mat
     zh-Hant = 墨西哥的
     zh-Hans = 墨西哥菜
     vi = ẩm thực mexico
@@ -8504,7 +8504,7 @@
     da = indisk
     cs = indická kuchyně
     it = cucina indiana
-    no = indisk mat
+    nb = indisk mat
     zh-Hant = 印度的
     zh-Hans = 印度菜
     vi = ẩm thực ấn độ
@@ -8537,7 +8537,7 @@
     da = amerikansk
     cs = americká kuchyně
     it = cucina americana
-    no = amerikansk mat
+    nb = amerikansk mat
     zh-Hant = 美國菜
     zh-Hans = 美国菜
     vi = ẩm thực mỹ
@@ -8570,7 +8570,7 @@
     da = fransk
     cs = francouzská kuchyně
     it = cucina francese
-    no = fransk mat
+    nb = fransk mat
     zh-Hant = 法國菜
     zh-Hans = 法国菜
     vi = ẩm thực pháp
@@ -8603,7 +8603,7 @@
     da = is
     cs = zmrzlina
     it = gelateria
-    no = iskrem
+    nb = iskrem
     zh-Hant = 冰_淇淋
     zh-Hans = 冰_淇淋
     vi = kem
@@ -8636,7 +8636,7 @@
     da = asiatisk
     cs = asijská kuchyně
     it = cucina asiatica
-    no = asiatisk mat
+    nb = asiatisk mat
     zh-Hant = 亞洲的
     zh-Hans = 亚洲菜
     vi = ẩm thực châu á
@@ -8669,7 +8669,7 @@
     da = kylling
     cs = kuře
     it = pollo
-    no = kylling
+    nb = kylling
     zh-Hant = 雞
     zh-Hans = 鸡
     vi = gà
@@ -8702,7 +8702,7 @@
     da = græsk
     cs = řecká kuchyně
     it = cucina greca
-    no = gresk mat
+    nb = gresk mat
     zh-Hant = 希臘菜
     zh-Hans = 希腊菜
     vi = ẩm thực hy lạp
@@ -8735,7 +8735,7 @@
     da = thailandsk
     cs = thajská kuchyně
     it = cucina tailandese
-    no = Thaimat
+    nb = Thaimat
     zh-Hant = 泰國菜
     zh-Hans = 泰国菜
     vi = ẩm thực thái lan
@@ -8768,7 +8768,7 @@
     da = international
     cs = mezinárodní kuchyně
     it = cucina internazionale
-    no = internasjonal mat
+    nb = internasjonal mat
     zh-Hant = 國際菜肴
     zh-Hans = 国际菜肴
     vi = ẩm thực quốc tế
@@ -8801,7 +8801,7 @@
     da = sushi
     cs = suši
     it = sushi
-    no = sushi
+    nb = sushi
     zh-Hant = 壽司
     zh-Hans = 寿司
     vi = sushi
@@ -8834,7 +8834,7 @@
     da = fish and chips
     cs = fish and chips
     it = fish and chips
-    no = fisk og pommes frites
+    nb = fisk og pommes frites
     zh-Hant = 炸魚 和 薯條
     zh-Hans = 炸鱼 和 薯条
     vi = cá và khoai tây chiên
@@ -8867,7 +8867,7 @@
     da = tyrkisk
     cs = turecká kuchyně
     it = cucina turca
-    no = tyrkisk mat
+    nb = tyrkisk mat
     zh-Hant = 土耳其菜
     zh-Hans = 土耳其菜
     vi = ẩm thực thổ nhĩ kỳ
@@ -8900,7 +8900,7 @@
     da = fisk og skaldyr
     cs = mořské plody
     it = frutti di mare
-    no = sjømat
+    nb = sjømat
     zh-Hant = 海鮮
     zh-Hans = 海鲜
     vi = hải sản
@@ -8933,7 +8933,7 @@
     da = steakhouse
     cs = steaková restaurace
     it = bisteccheria
-    no = biffrestaurant
+    nb = biffrestaurant
     zh-Hant = 牛排_館
     zh-Hans = 牛排_馆
     vi = steak house
@@ -8966,7 +8966,7 @@
     da = spansk
     cs = španělská kuchyně
     it = cucina spagnola
-    no = spansk mat
+    nb = spansk mat
     zh-Hant = 西班牙菜
     zh-Hans = 西班牙菜
     vi = ẩm thực tây ban nha
@@ -8999,7 +8999,7 @@
     da = fisk
     cs = ryba
     it = pesce
-    no = fisk
+    nb = fisk
     zh-Hant = 魚
     zh-Hans = 鱼
     vi = cá
@@ -9032,7 +9032,7 @@
     da = vietnamesisk
     cs = vietnamská kuchyně
     it = cucina vietnamita
-    no = vietnamesisk mat
+    nb = vietnamesisk mat
     zh-Hant = 越南菜
     zh-Hans = 越南菜
     vi = ẩm thực việt
@@ -9065,7 +9065,7 @@
     da = nudler
     cs = nudle
     it = noodles
-    no = nudler
+    nb = nudler
     zh-Hant = 面
     zh-Hans = 面
     vi = mì
@@ -9098,7 +9098,7 @@
     da = vegetarretter
     cs = vegetariánská kuchyně
     it = cucina vegetariana
-    no = vegetar mat
+    nb = vegetar mat
     zh-Hant = 素菜
     zh-Hans = 素菜
     vi = ẩm thực chay
@@ -9131,7 +9131,7 @@
     da = koreansk
     cs = korejská kuchyně
     it = cucina coreana
-    no = koreansk mat
+    nb = koreansk mat
     zh-Hant = 韓國菜
     zh-Hans = 韩国菜
     vi = ẩm thực hàn quốc
@@ -9164,7 +9164,7 @@
     da = friture
     cs = smažené pokrmy
     it = fritture
-    no = frityrt
+    nb = frityrt
     zh-Hant = 油炸
     zh-Hans = 油炸
     vi = friture
@@ -9197,7 +9197,7 @@
     da = barbecue
     cs = grilované pokrmy
     it = barbecue
-    no = grillmat
+    nb = grillmat
     zh-Hant = 燒烤
     zh-Hans = 烧烤
     vi = thịt nướng ngoài trời
@@ -9230,7 +9230,7 @@
     da = bavarisk
     cs = bavorská kuchyně
     it = cucina bavarese
-    no = bayersk mat
+    nb = bayersk mat
     zh-Hant = 巴伐利亞菜
     zh-Hans = 巴伐利亚菜
     vi = ẩm thực bavarian
@@ -9263,7 +9263,7 @@
     da = ramen
     cs = ramen
     it = ramen
-    no = ramen
+    nb = ramen
     zh-Hant = 拉面
     zh-Hans = 拉面
     vi = mì ramen
@@ -9296,7 +9296,7 @@
     da = italiensk, pizza
     cs = italská, pizza
     it = cucina italiana, pizza
-    no = italiensk mat;pizza
+    nb = italiensk mat;pizza
     zh-Hant = 意大利菜；匹薩
     zh-Hans = 意大利菜；匹萨
     vi = ẩm thực ý, bánh pizza
@@ -9329,7 +9329,7 @@
     da = middelhavskost
     cs = středomořská kuchyně
     it = cucina mediterranea
-    no = middelhavsmat
+    nb = middelhavsmat
     zh-Hant = 地中海菜
     zh-Hans = 地中海菜
     vi = ẩm thực địa trung hải
@@ -9362,7 +9362,7 @@
     da = donuts
     cs = kobliha
     it = ciambelle
-    no = smultring
+    nb = smultring
     zh-Hant = 甜甜圈
     zh-Hans = 甜甜圈
     vi = bánh rán
@@ -9395,7 +9395,7 @@
     da = gyudon
     cs = miska hovězího
     it = gyūdon
-    no = biffbolle
+    nb = biffbolle
     zh-Hant = 牛肉 碗
     zh-Hans = 牛肉 碗
     vi = tô thịt bò
@@ -9428,7 +9428,7 @@
     da = kager
     cs = dort
     it = torte
-    no = kake
+    nb = kake
     zh-Hant = 蛋糕
     zh-Hans = 蛋糕
     vi = bánh ngọt
@@ -9461,7 +9461,7 @@
     da = crepes
     cs = crêpe
     it = crêpes
-    no = crepe
+    nb = crepe
     zh-Hant = 千層餅
     zh-Hans = 千层饼
     vi = bánh crepe
@@ -9494,7 +9494,7 @@
     da = heuriger
     cs = heuriger
     it = heuriger
-    no = heuriger
+    nb = heuriger
     zh-Hant = 霍里格
     zh-Hans = 霍里格
     vi = heuriger
@@ -9527,7 +9527,7 @@
     da = libanesisk
     cs = libanonská kuchyně
     it = cucina libanese
-    no = libanesisk mat
+    nb = libanesisk mat
     zh-Hant = 黎巴嫩菜
     zh-Hans = 黎巴嫩菜
     vi = ẩm thực lebanon
@@ -9560,7 +9560,7 @@
     da = bøf
     cs = steak
     it = bistecche
-    no = steak
+    nb = steak
     zh-Hant = 牛排
     zh-Hans = 牛排
     vi = bít tết
@@ -9593,7 +9593,7 @@
     da = lokalt køkken
     cs = místní kuchyně
     it = cucina locale
-    no = lokal mat
+    nb = lokal mat
     zh-Hant = 本地菜
     zh-Hans = 本地菜
     vi = ẩm thực địa phương
@@ -9626,7 +9626,7 @@
     da = karryretter
     cs = kari
     it = curry
-    no = karri
+    nb = karri
     zh-Hant = 咖喱
     zh-Hans = 咖喱
     vi = món cà ri
@@ -9659,7 +9659,7 @@
     da = filippinsk
     cs = filipínská kuchyně
     it = cucina filippina
-    no = filippinsk mat
+    nb = filippinsk mat
     zh-Hant = 菲律賓菜
     zh-Hans = 菲律宾菜
     vi = ẩm thực philipin
@@ -9692,7 +9692,7 @@
     da = russisk
     cs = ruská kuchyně
     it = cucina russa
-    no = russisk mat
+    nb = russisk mat
     zh-Hant = 俄羅斯菜
     zh-Hans = 俄罗斯菜
     vi = ẩm thực nga
@@ -9725,7 +9725,7 @@
     da = morgenmad
     cs = snídaně
     it = colazione
-    no = frokost
+    nb = frokost
     zh-Hant = 早餐
     zh-Hans = 早餐
     vi = bữa ăn sáng
@@ -9758,7 +9758,7 @@
     da = tapas
     cs = tapas
     it = tapas
-    no = tapas
+    nb = tapas
     zh-Hant = 塔帕斯
     zh-Hans = 塔帕斯
     vi = tapas
@@ -9791,7 +9791,7 @@
     da = BBQ
     cs = barbecue
     it = barbecue
-    no = grill
+    nb = grill
     zh-Hant = 燒烤
     zh-Hans = 烧烤
     vi = thịt nướng ngoài trời
@@ -9824,7 +9824,7 @@
     da = bagels
     cs = bagel
     it = bagel
-    no = bagel
+    nb = bagel
     zh-Hant = 貝格
     zh-Hans = 贝格
     vi = bánh mì vòng bagel
@@ -9857,7 +9857,7 @@
     da = pasta
     cs = těstoviny
     it = pasta
-    no = pasta
+    nb = pasta
     zh-Hant = 意大利面
     zh-Hans = 意大利面
     vi = mỳ ống
@@ -9890,7 +9890,7 @@
     da = buschenschank
     cs = buschenschank
     it = osteria contadina
-    no = buschenschank
+    nb = buschenschank
     zh-Hant = 酒莊
     zh-Hans = 酒庄
     vi = buschenschank
@@ -9923,7 +9923,7 @@
     da = pølser
     cs = klobása
     it = salsicce
-    no = pølse
+    nb = pølse
     zh-Hant = 火腿
     zh-Hans = 火腿
     vi = xúc xích
@@ -9956,7 +9956,7 @@
     da = portugisisk
     cs = portugalská kuchyně
     it = cucina portoghese
-    no = portugisisk mat
+    nb = portugisisk mat
     zh-Hant = 葡萄牙菜
     zh-Hans = 葡萄牙菜
     vi = ẩm thực bồ đào nha
@@ -9989,7 +9989,7 @@
     da = grill
     cs = gril
     it = cucina alla griglia
-    no = grill
+    nb = grill
     zh-Hant = 烤
     zh-Hans = 烤
     vi = thịt nướng
@@ -10022,7 +10022,7 @@
     da = pandekager
     cs = palačinka
     it = pancake
-    no = pannekake
+    nb = pannekake
     zh-Hant = 煎餅
     zh-Hans = 煎饼
     vi = bánh kếp
@@ -10055,7 +10055,7 @@
     da = madagaskisk
     cs = madagaskarská kuchyně
     it = cucina malgascia
-    no = Gassisk
+    nb = Gassisk
     zh-Hant = 馬達加斯加的
     zh-Hans = 马达加斯加的
     vi = Malagasy
@@ -10088,7 +10088,7 @@
     da = polsk
     cs = polská kuchyně
     it = cucina polacca
-    no = polsk mat
+    nb = polsk mat
     zh-Hant = 波蘭菜
     zh-Hans = 波兰菜
     vi = ẩm thực ba lan
@@ -10121,7 +10121,7 @@
     da = diner
     cs = večeře
     it = ristorantino
-    no = middag
+    nb = middag
     zh-Hant = 飯店
     zh-Hans = 饭店
     vi = bữa tối
@@ -10154,7 +10154,7 @@
     da = afrikansk
     cs = africká kuchyně
     it = cucina africana
-    no = afrikansk mat
+    nb = afrikansk mat
     zh-Hant = 非洲菜
     zh-Hans = 非洲菜
     vi = ẩm thực châu phi
@@ -10187,7 +10187,7 @@
     da = doughnuts
     cs = kobliha
     it = ciambelle
-    no = smultring
+    nb = smultring
     zh-Hant = 甜甜圈
     zh-Hans = 甜甜圈
     vi = bánh rán
@@ -10220,7 +10220,7 @@
     da = georgisk
     cs = gruzínská kuchyně
     it = cucina georgiana
-    no = georgisk mat
+    nb = georgisk mat
     zh-Hant = 格魯吉亞菜
     zh-Hans = 格鲁吉亚菜
     vi = ẩm thực georgia
@@ -10253,7 +10253,7 @@
     da = kroatisk
     cs = chorvatská kuchyně
     it = cucina croata
-    no = kroatisk mat
+    nb = kroatisk mat
     zh-Hant = 克羅地亞菜
     zh-Hans = 克罗地亚的
     vi = ẩm thực croatia
@@ -10286,7 +10286,7 @@
     da = arabisk
     cs = arabská kuchyně
     it = cucina araba
-    no = arabisk mat
+    nb = arabisk mat
     zh-Hant = 阿拉伯菜
     zh-Hans = 阿拉伯菜
     vi = ẩm thực ả-rập
@@ -10319,7 +10319,7 @@
     da = balkansk
     cs = balkánská kuchyně
     it = cucina balcanica
-    no = balkan mat
+    nb = balkan mat
     zh-Hant = 巴爾幹菜
     zh-Hans = 巴尔干菜
     vi = ẩm thực balkan
@@ -10352,7 +10352,7 @@
     da = brasiliansk
     cs = brazilská kuchyně
     it = cucina brasiliana
-    no = brasiliansk mat
+    nb = brasiliansk mat
     zh-Hant = 巴西菜
     zh-Hans = 巴西菜
     vi = ẩm thực brazil
@@ -10385,7 +10385,7 @@
     da = caribisk
     cs = karibská kuchyně
     it = cucina caraibica
-    no = karibisk mat
+    nb = karibisk mat
     zh-Hant = 加勒比菜
     zh-Hans = 加勒比菜
     vi = ẩm thực caribê
@@ -10418,7 +10418,7 @@
     da = østrigsk
     cs = rakouská kuchyně
     it = cucina austriaca
-    no = østerriksk mat
+    nb = østerriksk mat
     zh-Hant = 奧地利菜
     zh-Hans = 奥地利菜
     vi = ẩm thực áo
@@ -10451,7 +10451,7 @@
     da = vegansk
     cs = veganská kuchyně
     it = cucina vegana
-    no = veganermat
+    nb = veganermat
     zh-Hant = 全素菜
     zh-Hans = 全素菜
     vi = ẩm thực chay
@@ -10484,7 +10484,7 @@
     da = argentinsk
     cs = argentinská kuchyně
     it = cucina argentina
-    no = argentinsk mat
+    nb = argentinsk mat
     zh-Hant = 阿根廷菜
     zh-Hans = 阿根廷菜
     vi = ẩm thực argentina
@@ -10517,7 +10517,7 @@
     da = persisk
     cs = perská kuchyně
     it = cucina persiana
-    no = persisk mat
+    nb = persisk mat
     zh-Hant = 波斯菜
     zh-Hans = 波斯菜
     vi = ẩm thực ba tư
@@ -10550,7 +10550,7 @@
     da = soba
     cs = soba
     it = soba
-    no = soba
+    nb = soba
     zh-Hant = 蕎麥面
     zh-Hans = 荞麦面
     vi = mì soba
@@ -10583,7 +10583,7 @@
     da = malaysisk
     cs = malajsijská kuchyně
     it = cucina malese
-    no = malaysisk mat
+    nb = malaysisk mat
     zh-Hant = 馬來西亞菜
     zh-Hans = 马来西亚菜
     vi = ẩm thực malaysia
@@ -10616,7 +10616,7 @@
     da = indonesisk
     cs = indonéská kuchyně
     it = cucina indonesiana
-    no = indonesisk mat
+    nb = indonesisk mat
     zh-Hant = 印度尼西亞菜
     zh-Hans = 印度尼西亚菜
     vi = ẩm thực indonesia
@@ -10649,7 +10649,7 @@
     da = etiopisk
     cs = etiopská kuchyně
     it = cucina etiope
-    no = etiopisk mat
+    nb = etiopisk mat
     zh-Hant = 埃塞俄比亞菜
     zh-Hans = 埃塞俄比亚菜
     vi = ẩm thực ethiopia
@@ -10682,7 +10682,7 @@
     da = deli
     cs = lahůdky
     it = gastronomia
-    no = delimat
+    nb = delimat
     zh-Hant = 熟食店
     zh-Hans = 熟食店
     vi = Món ăn ngon
@@ -10715,7 +10715,7 @@
     da = irsk
     cs = irská kuchyně
     it = cucina irlandese
-    no = irsk mat
+    nb = irsk mat
     zh-Hant = 愛爾蘭菜
     zh-Hans = 爱尔兰菜
     vi = ẩm thực ai-len
@@ -10748,7 +10748,7 @@
     da = ungarsk
     cs = maďarská kuchyně
     it = cucina ungherese
-    no = ungarsk mat
+    nb = ungarsk mat
     zh-Hant = 匈牙利菜
     zh-Hans = 匈牙利菜
     vi = ẩm thực hungary
@@ -10781,7 +10781,7 @@
     da = laotisk
     cs = laoská kuchyně
     it = cucina laotiana
-    no = lao mat
+    nb = lao mat
     zh-Hant = 老撾菜
     zh-Hans = 老挝菜
     vi = ẩm thực lào
@@ -10814,7 +10814,7 @@
     da = kaffe
     cs = káva
     it = caffè
-    no = kaffe
+    nb = kaffe
     zh-Hant = 咖啡
     zh-Hans = 咖啡
     vi = cà phê
@@ -10847,7 +10847,7 @@
     da = hotdogs
     cs = hot dog
     it = hot dog
-    no = hotdog
+    nb = hotdog
     zh-Hant = 熱狗
     zh-Hans = 热狗
     vi = hotdog
@@ -10880,7 +10880,7 @@
     da = orientalsk
     cs = orientální kuchyně
     it = cucina orientale
-    no = orientalsk mat
+    nb = orientalsk mat
     zh-Hant = 東方菜
     zh-Hans = 东方菜
     vi = ẩm thực phương đông
@@ -10913,7 +10913,7 @@
     da = madpandekager
     cs = pikantní palačinky
     it = pancake salati
-    no = fylte pannekaker
+    nb = fylte pannekaker
     zh-Hant = 鹹的 煎餅
     zh-Hans = 咸的_煎饼
     vi = bánh kếp rau thơm
@@ -10946,7 +10946,7 @@
     da = marokkansk
     cs = marocká kuchyně
     it = cucina marocchina
-    no = marokkansk mat
+    nb = marokkansk mat
     zh-Hant = 摩洛哥菜
     zh-Hans = 摩洛哥菜
     vi = ẩm thực ma-rốc
@@ -10979,7 +10979,7 @@
     da = barbecue
     cs = barbecue
     it = barbecue
-    no = grillmat
+    nb = grillmat
     zh-Hant = 燒烤
     zh-Hans = 烧烤
     vi = thịt nướng ngoài trời
@@ -11012,7 +11012,7 @@
     da = peruviansk
     cs = peruánská kuchyně
     it = cucina peruviana
-    no = peruansk mat
+    nb = peruansk mat
     zh-Hant = 秘魯的
     zh-Hans = 秘鲁的
     vi = ẩm thực Pê-ru
@@ -11045,7 +11045,7 @@
     da = eksklusiv
     cs = zážitková gastronomie
     it = ristorante elegante
-    no = gourmet
+    nb = gourmet
     zh-Hant = 高級 餐飲
     zh-Hans = 高级 餐饮
     vi = chuỗi nhà hàng 
@@ -11078,7 +11078,7 @@
     da = te
     cs = čaj
     it = tè
-    no = te
+    nb = te
     zh-Hant = 茶
     zh-Hans = 茶
     vi = trà
@@ -11111,7 +11111,7 @@
     da = bogmærke
     cs = záložka
     it = segnalibro
-    no = bokmerk
+    nb = bokmerk
     zh-Hant = 書籤
     zh-Hans = 书签
     vi = đánh dấu
@@ -11152,7 +11152,7 @@
     id = Peta untuk lokasi Anda tidak diunduh
     vi = Bản đồ cho vị trí của bạn chưa được tải xuống
     ro = Harta pentru poziția dvs. nu este descărcată
-    no = Kartet for posisjonen din er ikke lastet ned
+    nb = Kartet for posisjonen din er ikke lastet ned
     fi = Olinpaikkasi karttaa ei ole ladattu
 
   [enable_location_service]
@@ -11183,7 +11183,7 @@
     id = Mohon aktifkan Layanan Lokasi
     vi = Bạn vui lòng bật Dịch vụ Định vị
     ro = Vă rugăm să activați serviciile de localizare
-    no = Aktiver posisjonstjenester
+    nb = Aktiver posisjonstjenester
     fi = Ota sijaintipalvelut käyttöön
 
   [download_map]
@@ -11214,7 +11214,7 @@
     id = Unduh peta untuk lokasi Anda
     vi = Tải xuống bản đồ cho vị trí của bạn
     ro = Descărcați harta pentru poziția dvs.
-    no = Last ned kartet for posisjonen din
+    nb = Last ned kartet for posisjonen din
     fi = Lataa olinpaikkasi kartta
 
   [download_map_iphone]
@@ -11245,7 +11245,7 @@
     id = Unduh peta lokasi saat ini pada iPhone Anda
     vi = Tải bản đồ vị trí hiện tại xuống iPhone của bạn
     ro = Descărcați o hartă pentru poziția dvs. actuală pe iPhone-ul dvs.
-    no = Last ned kartet for en aktuell posisjon til iPhone
+    nb = Last ned kartet for en aktuell posisjon til iPhone
     fi = Lataa tämän hetkisen olinpaikkasi kartta iPhoneesi
 
   [nearby]
@@ -11276,7 +11276,7 @@
     id = Terdekat
     vi = Gần kề
     ro = În apropiere
-    no = I nærheten
+    nb = I nærheten
     fi = Lähellä
 
   [clear_pin]
@@ -11307,7 +11307,7 @@
     id = Kosongkan Pin
     vi = Xóa Pin
     ro = Ștergeți semnul de poziție
-    no = Fjern merke
+    nb = Fjern merke
     fi = Tyhjennä kiinnitys
 
   [undefined_location]
@@ -11339,7 +11339,7 @@
     id = Lokasi saat ini tidak diketahui.
     vi = Không xác định được vị trí hiện tại.
     ro = Poziția dvs. curentă este nedefinită.
-    no = Nåværende posisjon er udefinert.
+    nb = Nåværende posisjon er udefinert.
     fi = Tämänhetkinen sijainti ei ole tiedossa.
 
   [download_country]
@@ -11370,7 +11370,7 @@
     id = Unduh negara di mana Anda berada saat ini
     vi = Tải xuống quốc gia bạn đang tìm kiếm trên
     ro = Descărcați hărțile pentru țara în care vă aflați
-    no = Last ned kartet for posisjonen din
+    nb = Last ned kartet for posisjonen din
     fi = Lataa nykyisen sijainnin maa
 
   [download_failed]
@@ -11401,7 +11401,7 @@
     id = gagal diunduh
     vi =  tải xuống thất bại
     ro = descărcarea a eșuat
-    no = Nedlasting mislyktes
+    nb = Nedlasting mislyktes
     fi = Lataus epäonnistui
 
   [get_the_map]
@@ -11432,7 +11432,7 @@
     id = Dapatkan peta
     vi = Tải bản đồ
     ro = Obțineți harta
-    no = Hent kartet
+    nb = Hent kartet
     fi = Hanki kartta
 
   [save]
@@ -11464,7 +11464,7 @@
     zh-Hans = 保存
     zh-Hant = 保存
     it = salva
-    no = lagre
+    nb = lagre
 
   [edit_description_hint]
     tags = android, ios
@@ -11493,7 +11493,7 @@
     zh-Hans = 您的描述（文本或html）
     zh-Hant = 您的描述（文本或html）
     it = Le tue descrizioni (formato testo o html)
-    no = Dine beskrivelser (tekst eller html)
+    nb = Dine beskrivelser (tekst eller html)
 
   [new_group]
     tags = android, ios
@@ -11523,7 +11523,7 @@
     zh-Hans = 新组
     zh-Hant = 新組
     it = nuovo gruppo
-    no = ny gruppe
+    nb = ny gruppe
     id = grup baru
 
   [create]
@@ -11555,7 +11555,7 @@
     zh-Hant = 創建
     it = crea
     id = buat
-    no = opprett
+    nb = opprett
 
   [red]
     tags = android, ios
@@ -11586,7 +11586,7 @@
     da = Rød
     tr = Kırmızı
     sv = Röd
-    no = Rød
+    nb = Rød
     fi = Punainen
 
   [yellow]
@@ -11618,7 +11618,7 @@
     da = Gul
     tr = Sarı
     sv = Gul
-    no = Gul
+    nb = Gul
     fi = Keltainen
 
   [blue]
@@ -11650,7 +11650,7 @@
     da = Blå
     tr = Mavi
     sv = Blå
-    no = Blå
+    nb = Blå
     fi = Sininen
 
   [green]
@@ -11682,7 +11682,7 @@
     da = Grøn
     tr = Yeşil
     sv = Grön
-    no = Grønn
+    nb = Grønn
     fi = Vihreä
 
   [purple]
@@ -11714,7 +11714,7 @@
     da = violet
     tr = Mor
     sv = Lila
-    no = Lilla
+    nb = Lilla
     fi = Violetti
 
   [orange]
@@ -11746,7 +11746,7 @@
     da = Orange
     tr = Turuncu
     sv = Orange
-    no = Oransje
+    nb = Oransje
     fi = Oranssi
 
   [brown]
@@ -11778,7 +11778,7 @@
     da = Brun
     tr = Kahverengi
     sv = Brun
-    no = Brun
+    nb = Brun
     fi = Ruskea
 
   [pink]
@@ -11810,7 +11810,7 @@
     da = Pink
     tr = Pembe
     sv = Rosa
-    no = Rosa
+    nb = Rosa
     fi = Pinkki
 
   [WiFi_available]
@@ -11842,5 +11842,5 @@
     id = Ya
     vi = Có
     ro = Da
-    no = Ja
+    nb = Ja
     fi = Kyllä
