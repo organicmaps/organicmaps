@@ -43,6 +43,8 @@ struct EmptyValueReader
 {
   typedef unsigned char ValueType;
 
+  EmptyValueReader() = default;
+
   template <typename SourceT>
   void operator() (SourceT &, ValueType & value) const
   {

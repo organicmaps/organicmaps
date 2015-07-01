@@ -58,8 +58,8 @@ public:
     }
   }
 
-  template <typename TReader>
-  void ReadEncoding(TReader & reader)
+  template <typename TSource>
+  void ReadEncoding(TSource & src)
   {
     DeleteHuffmanTree(m_root);
     m_root = new Node(0 /* symbol */, 0 /* freq */, false /* isLeaf */);
@@ -67,12 +67,12 @@ public:
     m_encoderTable.clear();
     m_decoderTable.clear();
 
-    size_t sz = static_cast<size_t>(ReadVarUint<uint32_t, TReader>(reader));
+    size_t sz = static_cast<size_t>(ReadVarUint<uint32_t, TSource>(src));
     for (size_t i = 0; i < sz; ++i)
     {
-      uint32_t bits = ReadVarUint<uint32_t, TReader>(reader);
-      uint32_t len = ReadVarUint<uint32_t, TReader>(reader);
-      uint32_t symbol = ReadVarUint<uint32_t, TReader>(reader);
+      uint32_t bits = ReadVarUint<uint32_t, TSource>(src);
+      uint32_t len = ReadVarUint<uint32_t, TSource>(src);
+      uint32_t symbol = ReadVarUint<uint32_t, TSource>(src);
       Code code(bits, len);
 
       m_encoderTable[symbol] = code;
@@ -103,20 +103,24 @@ public:
   bool Encode(uint32_t symbol, Code & code) const;
   bool Decode(Code const & code, uint32_t & symbol) const;
 
+  // Returns the number of bits written AFTER the size, i.e. the number
+  // of bits that the encoded string consists of.
   template <typename TWriter>
-  void EncodeAndWrite(TWriter & writer, strings::UniString const & s)
+  uint32_t EncodeAndWrite(TWriter & writer, strings::UniString const & s) const
   {
     BitWriter<TWriter> bitWriter(writer);
     WriteVarUint(writer, s.size());
+    uint32_t sz = 0;
     for (size_t i = 0; i < s.size(); ++i)
-      EncodeAndWrite(bitWriter, static_cast<uint32_t>(s[i]));
+      sz += EncodeAndWrite(bitWriter, static_cast<uint32_t>(s[i]));
+    return sz;
   }
 
-  template <typename TReader>
-  strings::UniString ReadAndDecode(TReader & reader) const
+  template <typename TSource>
+  strings::UniString ReadAndDecode(TSource & src) const
   {
-    BitReader<TReader> bitReader(reader);
-    size_t sz = static_cast<size_t>(ReadVarUint<uint32_t, TReader>(reader));
+    BitReader<TSource> bitReader(src);
+    size_t sz = static_cast<size_t>(ReadVarUint<uint32_t, TSource>(src));
     vector<strings::UniChar> v(sz);
     for (size_t i = 0; i < sz; ++i)
       v[i] = static_cast<strings::UniChar>(ReadAndDecode(bitReader));
@@ -152,7 +156,7 @@ private:
   // No need to clump the interface: keep private the methods
   // that encode one symbol only.
   template <typename TWriter>
-  void EncodeAndWrite(BitWriter<TWriter> & bitWriter, uint32_t symbol)
+  uint32_t EncodeAndWrite(BitWriter<TWriter> & bitWriter, uint32_t symbol) const
   {
     Code code;
     CHECK(Encode(symbol, code), ());
@@ -164,10 +168,11 @@ private:
       code.bits >>= CHAR_BIT;
     }
     bitWriter.Write(code.bits, rem);
+    return code.len;
   }
 
-  template <typename TReader>
-  uint32_t ReadAndDecode(BitReader<TReader> & bitReader) const
+  template <typename TSource>
+  uint32_t ReadAndDecode(BitReader<TSource> & bitReader) const
   {
     Node * cur = m_root;
     while (cur)

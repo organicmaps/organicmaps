@@ -1,3 +1,5 @@
+#include "indexer/search_index_builder.hpp"
+
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
@@ -5,7 +7,6 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/search_delimiters.hpp"
-#include "indexer/search_index_builder.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/search_trie.hpp"
 #include "indexer/string_file.hpp"
@@ -18,6 +19,7 @@
 #include "platform/platform.hpp"
 
 #include "coding/reader_writer_ops.hpp"
+#include "coding/succinct_trie_builder.hpp"
 #include "coding/trie_builder.hpp"
 #include "coding/writer.hpp"
 
@@ -404,10 +406,15 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
 
     names.EndAdding();
     names.OpenForRead();
-
+    
     trie::Build<Writer, typename StringsFile<SerializedFeatureInfoValue>::IteratorT,
                 trie::EmptyEdgeBuilder, ValueList<SerializedFeatureInfoValue>>(
         writer, names.Begin(), names.End(), trie::EmptyEdgeBuilder());
+    /*
+    trie::BuildSuccinctTrie<Writer, typename StringsFile<SerializedFeatureInfoValue>::IteratorT,
+                            trie::EmptyEdgeBuilder, ValueList<SerializedFeatureInfoValue>>(
+        writer, names.Begin(), names.End(), trie::EmptyEdgeBuilder());
+    */
 
     // at this point all readers of StringsFile should be dead
   }

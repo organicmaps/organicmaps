@@ -36,8 +36,8 @@ UNIT_TEST(BitStreams_Smoke)
   }
 
   MemReader encodedBitsReader(encodedBits.data(), encodedBits.size());
-  ReaderSource<MemReader> reader(encodedBitsReader);
-  BitReader<ReaderSource<MemReader>> bitsSource(reader);
+  ReaderSource<MemReader> src(encodedBitsReader);
+  BitReader<ReaderSource<MemReader>> bitsSource(src);
   for (size_t i = 0; i < nums.size(); ++i)
   {
     uint8_t num = bitsSource.Read(nums[i].second);

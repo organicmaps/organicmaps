@@ -5,7 +5,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = coding base minizip tomcrypt
+
+DEPENDENCIES = coding base minizip tomcrypt succinct
 
 include($$ROOT_DIR/common.pri)
 
@@ -35,6 +36,7 @@ SOURCES += ../../testing/testingmain.cpp \
     reader_test.cpp \
     reader_writer_ops_test.cpp \
     sha2_test.cpp \
+    succinct_trie_test.cpp \
     timsort_test.cpp \
     trie_test.cpp \
     uri_test.cpp \

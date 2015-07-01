@@ -85,6 +85,9 @@ HEADERS += \
     streams.hpp \
     streams_common.hpp \
     streams_sink.hpp \
+    succinct_trie.hpp \
+    succinct_trie_builder.hpp \
+    succinct_trie_reader.hpp \
     timsort/timsort.hpp \
     trie.hpp \
     trie_builder.hpp \
