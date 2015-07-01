@@ -64,8 +64,10 @@ using feature::Metadata;
       break;
     }
     case Type::SEARCH:
+      [self configureForSearch:static_cast<SearchMarkPoint const *>(mark)];
+      break;
     case Type::POI:
-      [self configureForPOI:static_cast<SearchMarkPoint const *>(mark)];
+      [self configureForPOI:static_cast<PoiMarkPoint const *>(mark)];
       break;
     case Type::BOOKMARK:
       [self configureForBookmark:mark];
@@ -98,11 +100,18 @@ using feature::Metadata;
   [self insertBookmarkInTypes];
 }
 
-- (void)configureForPOI:(SearchMarkPoint const *)poiMark
+- (void)configureForSearch:(SearchMarkPoint const *)searchMark
 {
-  search::AddressInfo const & addressInfo = poiMark->GetInfo();
-  Metadata const & metadata = poiMark->GetMetadata();
-  [self configureEntityWithMetadata:metadata addressInfo:addressInfo];
+//Workaround for framework bug.
+//TODO: Make correct way to get search metadata.
+  Metadata metadata;
+  GetFramework().FindClosestPOIMetadata(searchMark->GetOrg(), metadata);
+  [self configureEntityWithMetadata:metadata addressInfo:searchMark->GetInfo()];
+}
+
+- (void)configureForPOI:(PoiMarkPoint const *)poiMark
+{
+  [self configureEntityWithMetadata:poiMark->GetMetadata() addressInfo:poiMark->GetInfo()];
 }
 
 - (void)configureForMyPosition:(MyPositionMarkPoint const *)myPositionMark
