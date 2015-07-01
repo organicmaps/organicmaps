@@ -6,6 +6,7 @@
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "Reachability.h"
 #import "Statistics.h"
 #import "TimeUtils.h"
 #import "UIKitCategories.h"
@@ -321,7 +322,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   UIBackgroundFetchResult result = UIBackgroundFetchResultNoData;
 
   BOOL const inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
-  BOOL const onWiFi = [[AppInfo sharedInfo].reachability isReachableViaWiFi];
+  BOOL const onWiFi = Reachability.reachabilityForInternetConnection.isReachableViaWiFi;
   if (inBackground && onWiFi)
   {
     Framework & f = GetFramework();
