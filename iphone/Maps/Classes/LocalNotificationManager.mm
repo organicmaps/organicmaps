@@ -6,13 +6,13 @@
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
-#import "Reachability.h"
 #import "Statistics.h"
 #import "TimeUtils.h"
 #import "UIKitCategories.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
+#include "platform/platform.hpp"
 #include "storage/storage_defines.hpp"
 
 static NSString * kDownloadMapActionName = @"DownloadMapAction";
@@ -322,7 +322,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   UIBackgroundFetchResult result = UIBackgroundFetchResultNoData;
 
   BOOL const inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
-  BOOL const onWiFi = Reachability.reachabilityForInternetConnection.isReachableViaWiFi;
+  BOOL const onWiFi = (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI);
   if (inBackground && onWiFi)
   {
     Framework & f = GetFramework();

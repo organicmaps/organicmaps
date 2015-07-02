@@ -30,6 +30,9 @@
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIScreenMode.h>
 
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <netinet/in.h>
+
 Platform::Platform()
 {
 }
@@ -167,6 +170,29 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
     case EPriorityLow: priority = DISPATCH_QUEUE_PRIORITY_LOW; break;
   }
   dispatch_async_f(dispatch_get_global_queue(priority, 0), new TFunctor(fn), &PerformImpl);
+}
+
+Platform::EConnectionType Platform::ConnectionStatus()
+{
+  struct sockaddr_in zero;
+  bzero(&zero, sizeof(zero));
+  zero.sin_len = sizeof(zero);
+  zero.sin_family = AF_INET;
+  SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr*)&zero);
+  if (!reachability)
+    return EConnectionType::CONNECTION_NONE;
+  SCNetworkReachabilityFlags flags;
+  bool const gotFlags = SCNetworkReachabilityGetFlags(reachability, &flags);
+  CFRelease(reachability);
+  if (!gotFlags || ((flags & kSCNetworkReachabilityFlagsReachable) == 0))
+    return EConnectionType::CONNECTION_NONE;
+  SCNetworkReachabilityFlags userActionRequired = kSCNetworkReachabilityFlagsConnectionRequired | kSCNetworkReachabilityFlagsInterventionRequired;
+  if ((flags & userActionRequired) == userActionRequired)
+    return EConnectionType::CONNECTION_NONE;
+  if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
+    return EConnectionType::CONNECTION_WWAN;
+  else
+    return EConnectionType::CONNECTION_WIFI;
 }
 
 CustomIOSPlatform::CustomIOSPlatform()

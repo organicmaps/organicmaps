@@ -7,7 +7,6 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
 #import "MWMPlacePageViewManager.h"
-#import "Reachability.h"
 #import "RouteState.h"
 #import "RouteView.h"
 #import "ShareActionSheet.h"
@@ -682,10 +681,10 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           sizeToDownload += sizes.second;
 
         NSString * name = [NSString stringWithUTF8String:layout.GetCountryName(idx).c_str()];
-        Reachability * reachability = [Reachability reachabilityForInternetConnection];
-        if ([reachability isReachable])
+        Platform::EConnectionType const connection = Platform::ConnectionStatus();
+        if (connection != Platform::EConnectionType::CONNECTION_NONE)
         {
-          if ([reachability isReachableViaWWAN] && sizeToDownload > 50 * 1024 * 1024)
+          if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * 1024 * 1024)
           {
             NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
 

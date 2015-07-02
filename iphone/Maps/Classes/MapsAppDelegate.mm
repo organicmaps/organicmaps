@@ -9,7 +9,6 @@
 #import "MWMAlertViewController.h"
 #import "MWMWatchEventInfo.h"
 #import "Preferences.h"
-#import "Reachability.h"
 #import "RouteState.h"
 #import "Statistics.h"
 #import "UIKitCategories.h"
@@ -569,7 +568,7 @@ void InitLocalizedStrings()
 
 - (void)showFacebookAlert
 {
-  if (!Reachability.reachabilityForInternetConnection.isReachable)
+  if (!Platform::IsConnected())
     return;
   
   UIViewController *topViewController = [(UINavigationController*)m_window.rootViewController visibleViewController];
@@ -614,7 +613,7 @@ void InitLocalizedStrings()
 
 - (void)showRateAlert
 {
-  if (!Reachability.reachabilityForInternetConnection.isReachable)
+  if (!Platform::IsConnected())
     return;
   
   UIViewController *topViewController = [(UINavigationController*)m_window.rootViewController visibleViewController];

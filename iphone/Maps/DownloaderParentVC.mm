@@ -3,10 +3,10 @@
 #import "CustomAlertView.h"
 #import "DiskFreeSpace.h"
 #import "Statistics.h"
-#import "Reachability.h"
+
+#include "platform/platform.hpp"
 
 @implementation DownloaderParentVC
-
 
 - (void)viewDidLoad
 {
@@ -77,10 +77,10 @@
   uint64_t const size = [self selectedMapSizeWithOptions:self.selectedInActionSheetOptions];
   NSString * name = [self selectedMapName];
 
-  Reachability * reachability = [Reachability reachabilityForInternetConnection];
-  if ([reachability isReachable])
+  Platform::EConnectionType const connection = Platform::ConnectionStatus();
+  if (connection != Platform::EConnectionType::CONNECTION_NONE)
   {
-    if ([reachability isReachableViaWWAN] && size > 50 * MB)
+    if (connection == Platform::EConnectionType::CONNECTION_WWAN && size > 50 * MB)
     {
       NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
       [[[CustomAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"use_cellular_data"), nil] show];

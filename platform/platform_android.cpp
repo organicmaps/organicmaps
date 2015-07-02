@@ -286,3 +286,9 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
   // doesn't attach to JVM threads.
   threads::Thread().Create(make_unique<FunctorWrapper>(fn));
 }
+
+Platform::EConnectionType Platform::ConnectionStatus()
+{
+  // @TODO Add implementation
+  return EConnectionType::CONNECTION_NONE;
+}

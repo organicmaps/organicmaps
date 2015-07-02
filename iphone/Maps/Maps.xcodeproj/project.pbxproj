@@ -128,7 +128,6 @@
 		97A8001018B21395000C07A2 /* SearchBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A8000F18B21395000C07A2 /* SearchBar.mm */; };
 		97A8001418B2140A000C07A2 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8001318B2140A000C07A2 /* SearchResultCell.m */; };
 		97A8002718B2741C000C07A2 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8002618B2741C000C07A2 /* SearchCell.m */; };
-		97C9851E186AE3C500AF7E9E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9851C186AE3C500AF7E9E /* Reachability.m */; };
 		97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97C98520186AE3CF00AF7E9E /* AppInfo.mm */; };
 		97CC93BB19599F4700369B42 /* SearchSuggestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CC93BA19599F4700369B42 /* SearchSuggestCell.m */; };
 		97D40C0A184D031900A1D572 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C09184D031900A1D572 /* Images.xcassets */; };
@@ -481,8 +480,6 @@
 		97A8001318B2140A000C07A2 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultCell.m; sourceTree = "<group>"; };
 		97A8002518B2741C000C07A2 /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		97A8002618B2741C000C07A2 /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
-		97C9851C186AE3C500AF7E9E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		97C9851D186AE3C500AF7E9E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		97C98520186AE3CF00AF7E9E /* AppInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppInfo.mm; sourceTree = "<group>"; };
 		97C98521186AE3CF00AF7E9E /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		97C98647186C5E9900AF7E9E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
@@ -1250,8 +1247,6 @@
 			children = (
 				97C98521186AE3CF00AF7E9E /* AppInfo.h */,
 				97C98520186AE3CF00AF7E9E /* AppInfo.mm */,
-				97C9851D186AE3C500AF7E9E /* Reachability.h */,
-				97C9851C186AE3C500AF7E9E /* Reachability.m */,
 				CB252D6B16FF82C8001E41E9 /* Statistics.h */,
 				CB252D6C16FF82C8001E41E9 /* Statistics.mm */,
 				97DD585B18A8EB120079837E /* Flurry.h */,
@@ -2132,7 +2127,6 @@
 				F66A8FA81B09F052001B9C97 /* MWMiPhoneLandscapePlacePage.mm in Sources */,
 				974386DD19373EA400FD5659 /* ToastView.m in Sources */,
 				F6C9343C1AE4F94A00DDC624 /* MWMAnimator.mm in Sources */,
-				97C9851E186AE3C500AF7E9E /* Reachability.m in Sources */,
 				977E26B919E2E64200BA2219 /* MapsObservers.mm in Sources */,
 				F66A8FB01B09F268001B9C97 /* MWMPlacePage.mm in Sources */,
 				EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */,

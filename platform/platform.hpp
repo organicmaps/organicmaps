@@ -42,6 +42,13 @@ public:
     FILE_TYPE_DIRECTORY = 0x4
   };
 
+  enum class EConnectionType : uint8_t
+  {
+    CONNECTION_NONE,
+    CONNECTION_WIFI,
+    CONNECTION_WWAN
+  };
+
 protected:
   /// Usually read-only directory for application resources
   string m_resourcesDir;
@@ -195,8 +202,12 @@ public:
   bool IsTablet() const { return m_isTablet; }
 
   /// @return information about kinds of memory which are relevant for a platform.
-  /// This methid is implemented for iOS and Android only.
+  /// This method is implemented for iOS and Android only.
+  /// @TODO Add implementation
   string GetMemoryInfo() const;
+
+  static EConnectionType ConnectionStatus();
+  static bool IsConnected() { return ConnectionStatus() != EConnectionType::CONNECTION_NONE; };
 
 private:
   void GetSystemFontNames(FilesList & res) const;

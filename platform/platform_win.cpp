@@ -144,6 +144,12 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
   fn();
 }
 
+Platform::EConnectionType Platform::ConnectionStatus()
+{
+  // @TODO Add implementation
+  return EConnectionType::CONNECTION_NONE;
+}
+
 Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize) const
 {
   ULARGE_INTEGER freeSpace;

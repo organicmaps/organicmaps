@@ -126,3 +126,9 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
   /// @todo
   fn();
 }
+
+Platform::EConnectionType Platform::ConnectionStatus()
+{
+  // @TODO Add implementation
+  return EConnectionType::CONNECTION_NONE;
+}

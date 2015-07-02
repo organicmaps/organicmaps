@@ -108,6 +108,12 @@ int Platform::PreCachingDepth() const
   return 3;
 }
 
+Platform::EConnectionType Platform::ConnectionStatus()
+{
+  // @TODO Add implementation
+  return EConnectionType::CONNECTION_NONE;
+}
+
 extern Platform & GetPlatform()
 {
   static Platform platform;
