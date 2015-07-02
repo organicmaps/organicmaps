@@ -122,6 +122,7 @@ protected:
 class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
 {
   using TBase = BaseLineBuilder<gpu::LineVertex>;
+  using TNormal = gpu::LineVertex::TNormal;
 
 public:
   SolidLineBuilder(dp::TextureManager::ColorRegion const & color, float const  pxHalfWidth)
@@ -137,12 +138,12 @@ public:
   }
 
   void SubmitVertex(LineSegment const & segment, glsl::vec3 const & pivot,
-                    glsl::vec2 const & normal, float offsetFromStart)
+                    glsl::vec2 const & normal, bool isLeft, float offsetFromStart)
   {
     UNUSED_VALUE(segment);
     UNUSED_VALUE(offsetFromStart);
 
-    m_geometry.emplace_back(V(pivot, m_pxHalfWidth * normal, m_colorCoord));
+    m_geometry.emplace_back(V(pivot, TNormal(m_pxHalfWidth * normal, m_pxHalfWidth * GetSide(isLeft)), m_colorCoord));
   }
 
   void SubmitJoin(glsl::vec3 const & pivot, vector<glsl::vec2> const & normals)
@@ -151,10 +152,15 @@ public:
     for (int j = 0; j < trianglesCount; j++)
     {
       size_t baseIndex = 3 * j;
-      m_joinGeom.push_back(V(pivot, normals[baseIndex + 0], m_colorCoord));
-      m_joinGeom.push_back(V(pivot, normals[baseIndex + 1], m_colorCoord));
-      m_joinGeom.push_back(V(pivot, normals[baseIndex + 2], m_colorCoord));
+      m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 0], m_pxHalfWidth), m_colorCoord));
+      m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 1], m_pxHalfWidth), m_colorCoord));
+      m_joinGeom.push_back(V(pivot, TNormal(normals[baseIndex + 2], m_pxHalfWidth), m_colorCoord));
     }
+  }
+
+  float GetSide(bool isLeft)
+  {
+    return isLeft ? 1.0 : -1.0;
   }
 };
 
@@ -189,7 +195,7 @@ public:
   }
 
   void SubmitVertex(LineSegment const & segment, glsl::vec3 const & pivot,
-                    glsl::vec2 const & normal, float offsetFromStart)
+                    glsl::vec2 const & normal, bool /*isLeft*/, float offsetFromStart)
   {
     float distance = GetProjectionLength(pivot.xy() + m_glbHalfWidth * normal,
                                          segment.m_points[StartPoint],
@@ -273,10 +279,10 @@ void LineShape::Draw(TBuilder & builder, ref_ptr<dp::Batcher> batcher) const
       glsl::vec2 const leftNormal = GetNormal(segments[i], true /* isLeft */, BaseNormal);
       glsl::vec2 const rightNormal = GetNormal(segments[i], false /* isLeft */, BaseNormal);
 
-      builder.SubmitVertex(segments[i], currentStartPivot, rightNormal, offsetFromStart);
-      builder.SubmitVertex(segments[i], currentStartPivot, leftNormal, offsetFromStart);
-      builder.SubmitVertex(segments[i], newPivot, rightNormal, offsetFromStart);
-      builder.SubmitVertex(segments[i], newPivot, leftNormal, offsetFromStart);
+      builder.SubmitVertex(segments[i], currentStartPivot, rightNormal, false /* isLeft */, offsetFromStart);
+      builder.SubmitVertex(segments[i], currentStartPivot, leftNormal, true /* isLeft */, offsetFromStart);
+      builder.SubmitVertex(segments[i], newPivot, rightNormal, false /* isLeft */, offsetFromStart);
+      builder.SubmitVertex(segments[i], newPivot, leftNormal, true /* isLeft */, offsetFromStart);
 
       currentStartPivot = newPivot;
     }

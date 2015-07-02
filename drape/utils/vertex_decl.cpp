@@ -194,7 +194,7 @@ uint32_t TextDynamicVertex::GetDynamicStreamID()
 
 LineVertex::LineVertex()
   : m_position(0.0, 0.0, 0.0)
-  , m_normal(0.0, 0.0)
+  , m_normal(0.0, 0.0, 0.0)
   , m_colorTexCoord(0.0, 0.0)
 {
 }
@@ -218,7 +218,9 @@ DashedLineVertex::DashedLineVertex()
 
 DashedLineVertex::DashedLineVertex(TPosition const & position, TNormal const & normal,
                                    TTexCoord const & color, TTexCoord const & mask)
-  : LineVertex(position, normal, color)
+  : m_position(position)
+  , m_normal(normal)
+  , m_colorTexCoord(color)
   , m_maskTexCoord(mask)
 {
 }
