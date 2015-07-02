@@ -98,7 +98,7 @@ public:
     uint32_t m_fid;
     m2::PointD m_point;
 
-    Candidate() : m_dist(numeric_limits<double>::max()), m_fid(OsrmMappingTypes::FtSeg::INVALID_FID) {}
+    Candidate() : m_dist(numeric_limits<double>::max()), m_fid(kInvalidFid) {}
   };
 
   static void FindNearestSegment(FeatureType const & ft, m2::PointD const & point, Candidate & res)
@@ -149,7 +149,7 @@ public:
       m_mwmId = ft.GetID().m_mwmId;
     ASSERT_EQUAL(m_mwmId, ft.GetID().m_mwmId, ());
 
-    if (res.m_fid != OsrmMappingTypes::FtSeg::INVALID_FID)
+    if (res.m_fid != kInvalidFid)
       m_candidates.push_back(res);
   }
 
@@ -424,7 +424,7 @@ void FindGraphNodeOffsets(size_t const nodeId, m2::PointD const & point,
       best = mappedSeg;
   }
 
-  CHECK(best.m_fid != OsrmMappingTypes::FtSeg::INVALID_FID, ());
+  CHECK_NOT_EQUAL(best.m_fid, kInvalidFid, ());
 
   graphNode.segment.m_fid = best.m_fid;
   graphNode.segment.m_pointStart = best.m_segIdx;

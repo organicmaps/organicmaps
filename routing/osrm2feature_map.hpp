@@ -26,6 +26,7 @@ namespace routing
 typedef uint32_t TOsrmNodeId;
 typedef vector<TOsrmNodeId> TNodesList;
 extern TOsrmNodeId const INVALID_NODE_ID;
+constexpr uint32_t kInvalidFid = numeric_limits<uint32_t>::max();
 
 namespace OsrmMappingTypes {
 #pragma pack (push, 1)
@@ -35,7 +36,6 @@ namespace OsrmMappingTypes {
     uint16_t m_pointStart;
     uint16_t m_pointEnd;
 
-    static constexpr uint32_t INVALID_FID = numeric_limits<uint32_t>::max();
 
     // No need to initialize something her (for vector<FtSeg>).
     FtSeg() {}
@@ -57,7 +57,7 @@ namespace OsrmMappingTypes {
 
     bool IsValid() const
     {
-      return m_fid != INVALID_FID;
+      return m_fid != kInvalidFid;
     }
 
     void Swap(FtSeg & other)

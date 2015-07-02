@@ -101,7 +101,7 @@ FeatureGraphNode::FeatureGraphNode(NodeID const nodeId, bool const isStartNode,
   node.forward_offset = 0;
   node.reverse_offset = 0;
   node.name_id = 1;
-  segment.m_fid = OsrmMappingTypes::FtSeg::INVALID_FID;
+  segment.m_fid = kInvalidFid;
 }
 
 FeatureGraphNode::FeatureGraphNode()
@@ -113,7 +113,7 @@ FeatureGraphNode::FeatureGraphNode()
   node.forward_offset = 0;
   node.reverse_offset = 0;
   node.name_id = 1;
-  segment.m_fid = OsrmMappingTypes::FtSeg::INVALID_FID;
+  segment.m_fid = kInvalidFid;
   segmentPoint = m2::PointD::Zero();
 }
 
