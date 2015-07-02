@@ -40,6 +40,14 @@ void XMLElement::AddMEMBER(uint64_t ref, string const & type, string const & rol
   e.parent = this;
 }
 
+string DebugPrint(XMLElement const & e)
+{
+  ostringstream ss;
+  if (!e.k.empty() || !e.v.empty() || !e.childs.empty())
+    ss << "{ " << e.k << "=" << e.v << endl << DebugPrint(e.childs) << " }";
+  return ss.str();
+}
+
 
 void BaseOSMParser::AddAttr(string const & key, string const & value)
 {

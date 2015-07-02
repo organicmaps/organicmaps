@@ -574,3 +574,23 @@ UNIT_TEST(OsmType_Ferry)
   TEST(!params.IsTypeExist(type), ());
   TEST(!carModel.IsRoad(type), ());
 }
+
+UNIT_TEST(OsmType_Boundary)
+{
+  char const * arr[][2] = {
+    { "admin_level", "6" },
+    { "boundary", "administrative" },
+    { "admin_level", "2" },
+    { "boundary", "administrative" },
+  };
+
+  XMLElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  TEST_EQUAL(params.m_Types.size(), 2, (params));
+  TEST(params.IsTypeExist(GetType({"boundary", "administrative", "2"})), ());
+  TEST(params.IsTypeExist(GetType({"boundary", "administrative", "6"})), ());
+}

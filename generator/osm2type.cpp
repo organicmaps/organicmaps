@@ -62,12 +62,10 @@ namespace ftype
            );
     }
 
-    template <class ToDo>
-    typename ToDo::result_type for_each_tag(XMLElement * p, ToDo toDo)
+    template <typename TResult, class ToDo>
+    TResult for_each_tag(XMLElement * p, ToDo toDo)
     {
-      typedef typename ToDo::result_type res_t;
-
-      res_t res = res_t();
+      TResult res = TResult();
       for (auto & e : p->childs)
       {
         if (e.tagKey == XMLElement::ET_TAG)
@@ -85,6 +83,27 @@ namespace ftype
         }
       }
       return res;
+    }
+
+    template <typename TResult, class ToDo>
+    TResult for_each_tag_ex(XMLElement * p, ToDo toDo, set<int> & skipTags)
+    {
+      int id = 0;
+      return for_each_tag<TResult>(p, [&](string const & k, string const & v)
+      {
+        TResult res = TResult();
+        if (skipTags.count(id) == 0)
+        {
+          res = toDo(k, v);
+          if (res)
+          {
+            skipTags.insert(id);
+            return res;
+          }
+        }
+        ++id;
+        return res;
+      });
     }
 
     bool is_name_tag(string const & k)
@@ -114,8 +133,6 @@ namespace ftype
       FeatureParams & m_params;
 
     public:
-      typedef bool result_type;
-
       do_find_name(size_t & count, FeatureParams & params)
         : m_count(count), m_params(params)
       {
@@ -241,8 +258,6 @@ namespace ftype
       }
 
     public:
-      typedef ClassifObjectPtr result_type;
-
       do_find_obj(ClassifObject const * p, bool isKey) : m_parent(p), m_isKey(isKey) {}
 
       ClassifObjectPtr operator() (string const & k, string const & v) const
@@ -258,59 +273,47 @@ namespace ftype
 
     class do_find_root_obj
     {
-      set<int> & m_skipTags;
       path_type & m_path;
-      int m_id;
 
     public:
-      typedef bool result_type;
-
-      do_find_root_obj(set<int> & skipTags, path_type & path)
-        : m_skipTags(skipTags), m_path(path), m_id(0)
-      {
-      }
+      explicit do_find_root_obj(path_type & path) : m_path(path) {}
 
       bool operator() (string const & k, string const & v)
       {
-        if (m_skipTags.count(m_id) == 0)
+        // first try to match key
+        ClassifObjectPtr p = do_find_obj(classif().GetRoot(), true)(k, v);
+        if (p)
         {
-          // first try to match key
-          ClassifObjectPtr p = do_find_obj(classif().GetRoot(), true)(k, v);
+          m_path.push_back(p);
+
+          // now try to match correspondent value
+          p = do_find_obj(p.get(), false)(k, v);
           if (p)
-          {
             m_path.push_back(p);
-
-            // now try to match correspondent value
-            p = do_find_obj(p.get(), false)(k, v);
-            if (p)
-              m_path.push_back(p);
-
-            m_skipTags.insert(m_id);
-            return true;
-          }
+          return true;
         }
 
-        ++m_id;
         return false;
       }
     };
 
     class TagProcessor
     {
-      template<typename FuncT>
-      struct Rule{
+      template <typename FuncT>
+      struct Rule
+      {
         char const * key;
         char const * value;
         function<FuncT> func;
       };
 
       XMLElement * m_element;
+
     public:
-      TagProcessor(XMLElement *elem) : m_element(elem) {}
+      TagProcessor(XMLElement * elem) : m_element(elem) {}
 
-
-      template< typename FuncT = void()>
-      void ApplyRules(initializer_list<Rule<FuncT>> const &rules) const
+      template <typename FuncT = void()>
+      void ApplyRules(initializer_list<Rule<FuncT>> const & rules) const
       {
         for (auto & e : m_element->childs)
         {
@@ -324,38 +327,38 @@ namespace ftype
       }
 
     protected:
-      static void call(function<void()> const & f, string & k, string & v) { f(); }
-      static void call(function<void(string & , string &)> const & f, string & k, string & v) { f(k, v); }
+      static void call(function<void()> const & f, string &, string &) { f(); }
+      static void call(function<void(string &, string &)> const & f, string & k, string & v) { f(k, v); }
     };
   }
 
-  ClassifObjectPtr find_object(ClassifObject const * parent, XMLElement * p)
+  ClassifObjectPtr find_object(ClassifObject const * parent, XMLElement * p, set<int> & skipRows)
   {
     // next objects trying to find by value first
-    ClassifObjectPtr pObj = for_each_tag(p, do_find_obj(parent, false));
+    ClassifObjectPtr pObj = for_each_tag_ex<ClassifObjectPtr>(p, do_find_obj(parent, false), skipRows);
     // if no - try find object by key (in case of k = "area", v = "yes")
-    return pObj ? pObj : for_each_tag(p, do_find_obj(parent, true));
+    return pObj ? pObj : for_each_tag_ex<ClassifObjectPtr>(p, do_find_obj(parent, true), skipRows);
   }
 
   size_t ProcessCommonParams(XMLElement * p, FeatureParams & params)
   {
     size_t count;
-    for_each_tag(p, do_find_name(count, params));
+    for_each_tag<bool>(p, do_find_name(count, params));
     return count;
   }
 
   void AddLayers(XMLElement * p)
   {
-    bool isLayer = false;
-    char const *layer = nullptr;
+    bool hasLayer = false;
+    char const * layer = nullptr;
 
     TagProcessor(p).ApplyRules({
-      { "bridge", "yes", [&layer](){ layer = "1";}},
-      { "tunnel", "yes", [&layer](){ layer = "-1";} },
-      { "layer", "*", [&isLayer](){ isLayer = true;} },
+      { "bridge", "yes", [&layer]() { layer = "1"; }},
+      { "tunnel", "yes", [&layer]() { layer = "-1"; }},
+      { "layer", "*", [&hasLayer]() { hasLayer = true; }},
     });
 
-    if (!isLayer && layer)
+    if (!hasLayer && layer)
       p->AddKV("layer", layer);
   }
 
@@ -421,21 +424,21 @@ namespace ftype
     if (ProcessCommonParams(p, params) == 0)
       return;
 
-    set<int> skipRootKeys;
+    set<int> skipRows;
     do
     {
       path_type path;
 
       // find first root object by key
-      do_find_root_obj doFindRoot(skipRootKeys, path);
-      for_each_tag(p, doFindRoot);
+      do_find_root_obj doFindRoot(path);
+      for_each_tag_ex<bool>(p, doFindRoot, skipRows);
 
       if (path.empty())
         break;
 
       // continue find path from last element
       ClassifObjectPtr pObj;
-      while ((pObj = find_object(path.back().get(), p)))
+      while ((pObj = find_object(path.back().get(), p, skipRows)))
         path.push_back(pObj);
 
       // assign type
@@ -476,18 +479,14 @@ namespace ftype
           { "lit", "yes", [&params]() { params.AddType(types.Get(CachedTypes::LIT)); }},
           { "foot", "no", [&params]() { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
         });
-
         break;
       }
 
     params.FinishAddingTypes();
-    /// Collect addidtional information about feature such as start for hotels, opening hours and etc.
-    for_each_tag(p, MetadataTagProcessor(params));
-  }
 
-  uint32_t GetBoundaryType2()
-  {
-    return classif().GetTypeByPath({ "boundary", "administrative" });
+    // Collect addidtional information about feature such as
+    // hotel stars, opening hours, cuisine, ...
+    for_each_tag<bool>(p, MetadataTagProcessor(params));
   }
 
   bool IsValidTypes(FeatureParams const & params)

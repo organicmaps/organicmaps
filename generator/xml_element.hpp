@@ -36,8 +36,9 @@ struct XMLElement
   void AddKV(string const & k, string const & v);
   void AddND(uint64_t ref);
   void AddMEMBER(uint64_t ref, string const & type, string const & role);
-
 };
+
+string DebugPrint(XMLElement const & e);
 
 class BaseOSMParser
 {

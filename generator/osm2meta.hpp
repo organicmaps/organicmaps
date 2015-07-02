@@ -14,8 +14,6 @@ class MetadataTagProcessor
   FeatureParams & m_params;
 
 public:
-  typedef bool result_type;
-
   MetadataTagProcessor(FeatureParams &params)
   : m_params(params)
   {
