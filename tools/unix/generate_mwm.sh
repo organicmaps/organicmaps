@@ -18,10 +18,17 @@
 set -u
 
 if [ $# -lt 1 ]; then
-  echo ''
+  echo
   echo "Usage: $0 \<file.o5m/bz2\> [\<routing_profile.lua\>]"
-  echo ''
-  exit 0
+  echo
+  echo "Useful environment variables:"
+  echo
+  echo -e "BORDERS_PATH\tPath to *.poly files for cross-mwm routing"
+  echo -e "BORDER\tPath and name of a polygon file for the input"
+  echo -e "COASTS\tPath and name of WorldCoasts.mwm.tmp"
+  echo -e "TARGET\tWhere to put resulting files"
+  echo
+  exit 1
 fi
 
 fail() {
