@@ -22,19 +22,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *******************************************************************************/
 
-#include "gtest/gtest.h"
+#ifndef GENERATE_TEMPORARY_FILE_NAME
+#define GENERATE_TEMPORARY_FILE_NAME
 
-#include "../src/gzip_wrapper.h"
-
-#include <cstdlib>
+#include <stdlib.h>
 #include <string>
 
-TEST(GzipGunzip, SmokeTest) {
-  std::string data;
-  for (int i = 0; i < 10000 + rand(); ++i) {
-    data.push_back(rand());
+// Generates unique temporary file name or empty string on error.
+inline static std::string GenerateTemporaryFileName() {
+#ifdef _MSC_VER
+  char tmp_file[L_tmpnam];
+  if (0 == ::tmpnam_s(tmp_file, L_tmpnam)) {
+    return tmp_file;
   }
-  const std::string gzipped = alohalytics::Gzip(data);
-  const std::string ungzipped = alohalytics::Gunzip(gzipped);
-  EXPECT_EQ(data, ungzipped);
+#else
+  char tmp_file[] = "/tmp/alohalytics_file_manager-XXXXXX";
+  if (::mktemp(tmp_file)) {
+    return tmp_file;
+  }
+#endif
+  return std::string();
 }
+
+#endif  // GENERATE_TEMPORARY_FILE_NAME

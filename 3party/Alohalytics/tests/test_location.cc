@@ -22,7 +22,7 @@
  SOFTWARE.
  *******************************************************************************/
 
-#include "test_defines.h"
+#include "gtest/gtest.h"
 
 #include "../src/location.h"
 
@@ -36,7 +36,7 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-int main(int, char **) {
+TEST(Location, SmokeTest) {
   cerr.precision(20);
   cerr << std::fixed;
 
@@ -57,24 +57,21 @@ int main(int, char **) {
                                      .SetBearing(bearing)
                                      .SetSource(source)
                                      .Encode();
-  TEST_EQUAL(serialized.size(), std::string::size_type(32));
+  EXPECT_EQ(serialized.size(), std::string::size_type(32));
 
   const alohalytics::Location l(serialized);
-  TEST_EQUAL(l.HasLatLon(), true);
-  TEST_EQUAL(l.timestamp_ms_, timestamp);
-  TEST_ALMOST_EQUAL(l.latitude_deg_, lat, 1e-7);
-  TEST_ALMOST_EQUAL(l.longitude_deg_, lon, 1e-7);
-  TEST_ALMOST_EQUAL(l.horizontal_accuracy_m_, horizontal_accuracy, 1e-2);
-  TEST_EQUAL(l.HasAltitude(), true);
-  TEST_ALMOST_EQUAL(l.altitude_m_, alt, 1e-2);
-  TEST_ALMOST_EQUAL(l.vertical_accuracy_m_, vertical_accuracy, 1e-2);
-  TEST_EQUAL(l.HasBearing(), true);
-  TEST_ALMOST_EQUAL(l.bearing_deg_, bearing, 1e-7);
-  TEST_EQUAL(l.HasSpeed(), true);
-  TEST_ALMOST_EQUAL(l.speed_mps_, speed, 1e-2);
-  TEST_EQUAL(l.HasSource(), true);
-  TEST_EQUAL(l.source_, source);
-
-  std::cout << "All tests have passed." << endl;
-  return 0;
+  EXPECT_TRUE(l.HasLatLon());
+  EXPECT_EQ(l.timestamp_ms_, timestamp);
+  EXPECT_NEAR(l.latitude_deg_, lat, 1e-7);
+  EXPECT_NEAR(l.longitude_deg_, lon, 1e-7);
+  EXPECT_NEAR(l.horizontal_accuracy_m_, horizontal_accuracy, 1e-2);
+  EXPECT_TRUE(l.HasAltitude());
+  EXPECT_NEAR(l.altitude_m_, alt, 1e-2);
+  EXPECT_NEAR(l.vertical_accuracy_m_, vertical_accuracy, 1e-2);
+  EXPECT_TRUE(l.HasBearing());
+  EXPECT_NEAR(l.bearing_deg_, bearing, 1e-7);
+  EXPECT_TRUE(l.HasSpeed());
+  EXPECT_NEAR(l.speed_mps_, speed, 1e-2);
+  EXPECT_TRUE(l.HasSource());
+  EXPECT_EQ(l.source_, source);
 }

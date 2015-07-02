@@ -22,8 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *******************************************************************************/
 
-#include "test_defines.h"
+#include "gtest/gtest.h"
 
+#include "generate_temporary_file_name.h"
 #include "../src/file_manager.h"
 #include "../src/messages_queue.h"
 
@@ -41,13 +42,13 @@ bool EndsWith(const std::string & str, const std::string & suffix) {
   return str_size >= suffix_size && std::equal(suffix.begin(), suffix.end(), str.end() - suffix_size);
 }
 
-void Test_EndsWith() {
-  TEST_EQUAL(true, EndsWith("", ""));
-  TEST_EQUAL(true, EndsWith("Hello, World!", " World!"));
-  TEST_EQUAL(true, EndsWith("Hello", "Hello"));
-  TEST_EQUAL(false, EndsWith("Hello, World!", " World! "));
-  TEST_EQUAL(false, EndsWith("Hell", "Hello"));
-  TEST_EQUAL(false, EndsWith("ello", "Hello"));
+TEST(MessagesQueue, EndsWith) {
+  EXPECT_TRUE(EndsWith("", ""));
+  EXPECT_TRUE(EndsWith("Hello, World!", " World!"));
+  EXPECT_TRUE(EndsWith("Hello", "Hello"));
+  EXPECT_FALSE(EndsWith("Hello, World!", " World! "));
+  EXPECT_FALSE(EndsWith("Hell", "Hello"));
+  EXPECT_FALSE(EndsWith("ello", "Hello"));
 }
 
 // Removes all MessagesQueue's files in the directory.
@@ -109,7 +110,7 @@ static void FinishedCallback(ProcessingResult result, FinishTask & finish_task) 
   finish_task(result);
 }
 
-void Test_MessagesQueue_InMemory_Empty() {
+TEST(MessagesQueue, InMemory_Empty) {
   bool processor_was_called = false;
   HundredKilobytesFileQueue q;
   FinishTask finish_task;
@@ -117,11 +118,11 @@ void Test_MessagesQueue_InMemory_Empty() {
     processor_was_called = true;  // This code should not be executed.
     return false;
   }, std::bind(&FinishedCallback, std::placeholders::_1, std::ref(finish_task)));
-  TEST_EQUAL(ProcessingResult::ENothingToProcess, finish_task.get());
-  TEST_EQUAL(false, processor_was_called);
+  EXPECT_EQ(ProcessingResult::ENothingToProcess, finish_task.get());
+  EXPECT_FALSE(processor_was_called);
 }
 
-void Test_MessagesQueue_InMemory_SuccessfulProcessing() {
+TEST(MessagesQueue, InMemory_SuccessfulProcessing) {
   HundredKilobytesFileQueue q;
   q.PushMessage(kTestMessage);
   std::thread worker([&q]() { q.PushMessage(kTestWorkerMessage); });
@@ -129,31 +130,31 @@ void Test_MessagesQueue_InMemory_SuccessfulProcessing() {
   bool processor_was_called = false;
   FinishTask finish_task;
   q.ProcessArchivedFiles([&processor_was_called](bool is_file, const std::string & messages) {
-    TEST_EQUAL(false, is_file);
-    TEST_EQUAL(messages, kTestMessage + kTestWorkerMessage);
+    EXPECT_FALSE(is_file);
+    EXPECT_EQ(messages, kTestMessage + kTestWorkerMessage);
     processor_was_called = true;
     return true;
   }, std::bind(&FinishedCallback, std::placeholders::_1, std::ref(finish_task)));
-  TEST_EQUAL(ProcessingResult::EProcessedSuccessfully, finish_task.get());
-  TEST_EQUAL(true, processor_was_called);
+  EXPECT_EQ(ProcessingResult::EProcessedSuccessfully, finish_task.get());
+  EXPECT_TRUE(processor_was_called);
 }
 
-void Test_MessagesQueue_InMemory_FailedProcessing() {
+TEST(MessagesQueue, InMemory_FailedProcessing) {
   HundredKilobytesFileQueue q;
   q.PushMessage(kTestMessage);
   bool processor_was_called = false;
   FinishTask finish_task;
   q.ProcessArchivedFiles([&processor_was_called](bool is_file, const std::string & messages) {
-    TEST_EQUAL(false, is_file);
-    TEST_EQUAL(messages, kTestMessage);
+    EXPECT_FALSE(is_file);
+    EXPECT_EQ(messages, kTestMessage);
     processor_was_called = true;
     return false;
   }, std::bind(&FinishedCallback, std::placeholders::_1, std::ref(finish_task)));
-  TEST_EQUAL(ProcessingResult::EProcessingError, finish_task.get());
-  TEST_EQUAL(true, processor_was_called);
+  EXPECT_EQ(ProcessingResult::EProcessingError, finish_task.get());
+  EXPECT_TRUE(processor_was_called);
 }
 
-void Test_MessagesQueue_SwitchFromInMemoryToFile_and_OfflineEmulation() {
+TEST(MessagesQueue, SwitchFromInMemoryToFile_and_OfflineEmulation) {
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
   const ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
@@ -167,25 +168,24 @@ void Test_MessagesQueue_SwitchFromInMemoryToFile_and_OfflineEmulation() {
       worker.join();
       // After calling queue's destructor, all messages should be gracefully stored in the file.
     }
-    TEST_EQUAL(kTestMessage + kTestWorkerMessage,
-               FileManager::ReadFileAsString(tmpdir + alohalytics::kCurrentFileName));
+    EXPECT_EQ(kTestMessage + kTestWorkerMessage, FileManager::ReadFileAsString(tmpdir + alohalytics::kCurrentFileName));
 
     bool processor_was_called = false;
     FinishTask finish_task;
     HundredKilobytesFileQueue q;
     q.SetStorageDirectory(tmpdir);
     q.ProcessArchivedFiles([&processor_was_called, &archived_file](bool is_file, const std::string & full_file_path) {
-      TEST_EQUAL(true, is_file);
-      TEST_EQUAL(kTestMessage + kTestWorkerMessage, FileManager::ReadFileAsString(full_file_path));
+      EXPECT_TRUE(is_file);
+      EXPECT_EQ(kTestMessage + kTestWorkerMessage, FileManager::ReadFileAsString(full_file_path));
       processor_was_called = true;
       archived_file = full_file_path;
       return false;  // Emulate network error.
     }, std::bind(&FinishedCallback, std::placeholders::_1, std::ref(finish_task)));
-    TEST_EQUAL(ProcessingResult::EProcessingError, finish_task.get());
-    TEST_EQUAL(true, processor_was_called);
+    EXPECT_EQ(ProcessingResult::EProcessingError, finish_task.get());
+    EXPECT_TRUE(processor_was_called);
     // Current file should be empty as it was archived for processing.
-    TEST_EQUAL("", FileManager::ReadFileAsString(tmpdir + alohalytics::kCurrentFileName));
-    TEST_EQUAL(kTestMessage + kTestWorkerMessage, FileManager::ReadFileAsString(archived_file));
+    EXPECT_EQ("", FileManager::ReadFileAsString(tmpdir + alohalytics::kCurrentFileName));
+    EXPECT_EQ(kTestMessage + kTestWorkerMessage, FileManager::ReadFileAsString(archived_file));
   }
 
   // Create second archive in the queue after ProcessArchivedFiles() call.
@@ -196,26 +196,26 @@ void Test_MessagesQueue_SwitchFromInMemoryToFile_and_OfflineEmulation() {
     bool archive1_processed = false, archive2_processed = false;
     FinishTask finish_task;
     q.ProcessArchivedFiles([&](bool is_file, const std::string & full_file_path) {
-      TEST_EQUAL(true, is_file);
+      EXPECT_TRUE(is_file);
       if (full_file_path == archived_file) {
-        TEST_EQUAL(kTestMessage + kTestWorkerMessage, FileManager::ReadFileAsString(full_file_path));
+        EXPECT_EQ(kTestMessage + kTestWorkerMessage, FileManager::ReadFileAsString(full_file_path));
         archive1_processed = true;
       } else {
-        TEST_EQUAL(kTestMessage, FileManager::ReadFileAsString(full_file_path));
+        EXPECT_EQ(kTestMessage, FileManager::ReadFileAsString(full_file_path));
         second_archived_file = full_file_path;
         archive2_processed = true;
       }
       return true;  // Archives should be deleted by queue after successful processing.
     }, std::bind(&FinishedCallback, std::placeholders::_1, std::ref(finish_task)));
-    TEST_EQUAL(ProcessingResult::EProcessedSuccessfully, finish_task.get());
-    TEST_EQUAL(true, archive1_processed);
-    TEST_EQUAL(true, archive2_processed);
-    TEST_EXCEPTION(std::ios_base::failure, FileManager::ReadFileAsString(archived_file));
-    TEST_EXCEPTION(std::ios_base::failure, FileManager::ReadFileAsString(second_archived_file));
+    EXPECT_EQ(ProcessingResult::EProcessedSuccessfully, finish_task.get());
+    EXPECT_TRUE(archive1_processed);
+    EXPECT_TRUE(archive2_processed);
+    EXPECT_THROW(FileManager::ReadFileAsString(archived_file), std::ios_base::failure);
+    EXPECT_THROW(FileManager::ReadFileAsString(second_archived_file), std::ios_base::failure);
   }
 }
 
-void Test_MessagesQueue_CreateArchiveOnSizeLimitHit() {
+TEST(MessagesQueue, CreateArchiveOnSizeLimitHit) {
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
   const ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
@@ -241,17 +241,17 @@ void Test_MessagesQueue_CreateArchiveOnSizeLimitHit() {
   std::vector<std::ofstream::pos_type> file_sizes;
   FinishTask finish_task;
   q.ProcessArchivedFiles([&file_sizes](bool is_file, const std::string & full_file_path) {
-    TEST_EQUAL(true, is_file);
+    EXPECT_TRUE(is_file);
     file_sizes.push_back(FileManager::ReadFileAsString(full_file_path).size());
     return true;
   }, std::bind(&FinishedCallback, std::placeholders::_1, std::ref(finish_task)));
-  TEST_EQUAL(ProcessingResult::EProcessedSuccessfully, finish_task.get());
-  TEST_EQUAL(size_t(2), file_sizes.size());
-  TEST_EQUAL(size, file_sizes[0] + file_sizes[1]);
-  TEST_EQUAL(true, (file_sizes[0] > q.kMaxFileSizeInBytes) != (file_sizes[1] > q.kMaxFileSizeInBytes));
+  EXPECT_EQ(ProcessingResult::EProcessedSuccessfully, finish_task.get());
+  EXPECT_EQ(size_t(2), file_sizes.size());
+  EXPECT_EQ(size, file_sizes[0] + file_sizes[1]);
+  EXPECT_TRUE((file_sizes[0] > q.kMaxFileSizeInBytes) != (file_sizes[1] > q.kMaxFileSizeInBytes));
 }
 
-void Test_MessagesQueue_HighLoadAndIntegrity() {
+TEST(MessagesQueue, HighLoadAndIntegrity) {
   // TODO(AlexZ): This test can be improved by generating really a lot of data
   // so many archives will be created. But it will make everything much more complex now.
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
@@ -274,39 +274,26 @@ void Test_MessagesQueue_HighLoadAndIntegrity() {
     std::thread worker([&generator, c]() { generator(c); });
     threads.push_back(std::move(worker));
   }
-  TEST_EQUAL(true, total_size > 0);
+  EXPECT_TRUE(total_size > 0);
   for (auto & thread : threads) {
     thread.join();
   }
   FinishTask finish_task;
   q.ProcessArchivedFiles([&total_size](bool is_file, const std::string & full_file_path) {
-    TEST_EQUAL(true, is_file);
+    EXPECT_TRUE(is_file);
     const std::string data = FileManager::ReadFileAsString(full_file_path);
-    TEST_EQUAL(total_size, data.size());
+    EXPECT_EQ(total_size, data.size());
     // Integrity check.
     size_t beg = 0, end = 0;
     while (beg < data.size()) {
       end += data[beg];
       const size_t count = end - beg;
-      TEST_EQUAL(std::string(static_cast<size_t>(data[beg]), count), data.substr(beg, count));
+      EXPECT_EQ(std::string(static_cast<size_t>(data[beg]), count), data.substr(beg, count));
       beg += count;
     }
     total_size = 0;
     return true;
   }, std::bind(&FinishedCallback, std::placeholders::_1, std::ref(finish_task)));
-  TEST_EQUAL(ProcessingResult::EProcessedSuccessfully, finish_task.get());
-  TEST_EQUAL(size_t(0), total_size);  // Zero means that processor was called.
-}
-
-int main(int, char * []) {
-  Test_EndsWith();
-  Test_MessagesQueue_InMemory_Empty();
-  Test_MessagesQueue_InMemory_SuccessfulProcessing();
-  Test_MessagesQueue_InMemory_FailedProcessing();
-  Test_MessagesQueue_SwitchFromInMemoryToFile_and_OfflineEmulation();
-  Test_MessagesQueue_CreateArchiveOnSizeLimitHit();
-  Test_MessagesQueue_HighLoadAndIntegrity();
-
-  std::cout << "All tests have passed." << std::endl;
-  return 0;
+  EXPECT_EQ(ProcessingResult::EProcessedSuccessfully, finish_task.get());
+  EXPECT_EQ(size_t(0), total_size);  // Zero means that processor was called.
 }
