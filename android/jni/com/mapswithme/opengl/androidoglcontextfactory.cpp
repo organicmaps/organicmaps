@@ -7,55 +7,15 @@
 #include "std/algorithm.hpp"
 
 #include <EGL/egl.h>
-#include <EGL/eglext.h>
 #include <android/native_window_jni.h>
 #include <android/native_window.h>
 
 namespace android
 {
 
-static EGLint * getMultisampleAttributesList()
-{
-  static EGLint attr_list[] =
-  {
-      EGL_RED_SIZE, 5,
-      EGL_GREEN_SIZE, 6,
-      EGL_BLUE_SIZE, 5,
-      EGL_STENCIL_SIZE, 0,
-      EGL_DEPTH_SIZE, 16,
-      EGL_SAMPLE_BUFFERS, 1,
-      EGL_SAMPLES, 2,
-      EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-      EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
-      EGL_NONE
-  };
-  return attr_list;
-}
-
-/// nVidia Tegra2 doen't support EGL_SAMPLE_BUFFERS, but provide they own extension NV_coverage_sample
-/// Also https://gfxbench.com/result.jsp says, that this extension supported on many Samsung, Asus, LG, Sony and other devices
-static EGLint * getNVCoverageAttributesList()
-{
-  static EGLint attr_list[] =
-  {
-      EGL_RED_SIZE, 5,
-      EGL_GREEN_SIZE, 6,
-      EGL_BLUE_SIZE, 5,
-      EGL_STENCIL_SIZE, 0,
-      EGL_DEPTH_SIZE, 16,
-      EGL_COVERAGE_BUFFERS_NV, 1,
-      EGL_COVERAGE_SAMPLES_NV, 2,
-      EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-      EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
-      EGL_NONE
-  };
-  return attr_list;
-}
-
 static EGLint * getConfigAttributesList()
 {
-  static EGLint attr_list[] =
-  {
+  static EGLint attr_list[] = {
     EGL_RED_SIZE, 5,
     EGL_GREEN_SIZE, 6,
     EGL_BLUE_SIZE, 5,
@@ -79,7 +39,6 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
   , m_surfaceWidth(0)
   , m_surfaceHeight(0)
   , m_windowSurfaceValid(false)
-  , m_useCSAA(false)
 {
   m_display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
   if (m_display == EGL_NO_DISPLAY)
@@ -227,7 +186,7 @@ dp::OGLContext * AndroidOGLContextFactory::getDrawContext()
   ASSERT(IsValid(), ());
   ASSERT(m_windowSurface != EGL_NO_SURFACE, ());
   if (m_drawContext == nullptr)
-    m_drawContext = new AndroidOGLContext(m_display, m_windowSurface, m_config, m_uploadContext, m_useCSAA);
+    m_drawContext = new AndroidOGLContext(m_display, m_windowSurface, m_config, m_uploadContext);
   return m_drawContext;
 }
 
@@ -236,7 +195,7 @@ dp::OGLContext * AndroidOGLContextFactory::getResourcesUploadContext()
   ASSERT(IsValid(), ());
   ASSERT(m_pixelbufferSurface != EGL_NO_SURFACE, ());
   if (m_uploadContext == nullptr)
-    m_uploadContext = new AndroidOGLContext(m_display, m_pixelbufferSurface, m_config, m_drawContext, false /* don't use CSAA for upload context*/);
+    m_uploadContext = new AndroidOGLContext(m_display, m_pixelbufferSurface, m_config, m_drawContext);
   return m_uploadContext;
 }
 
@@ -250,75 +209,17 @@ bool AndroidOGLContextFactory::isUploadContextCreated() const
   return m_uploadContext != nullptr;
 }
 
-namespace
-{
-
-int GetConfigCount(EGLDisplay display, EGLint * attribs)
-{
-  int count = 0;
-  VERIFY(eglChooseConfig(display, attribs, nullptr, 0, &count) == EGL_TRUE, ());
-  LOG(LINFO, ("Matched Config count = ", count));
-  return count;
-}
-
-EGLint GetConfigValue(EGLDisplay display, EGLConfig config, EGLint attr)
-{
-  EGLint v = 0;
-  VERIFY(eglGetConfigAttrib(display, config, attr, &v) == EGL_TRUE, ());
-  return v;
-}
-
-/// It's a usefull code in debug
-//void PrintConfig(EGLDisplay display, EGLConfig config)
-//{
-//  LOG(LINFO, ("=================="));
-//  LOG(LINFO, ("Alpha = ", GetConfigValue(display, config, EGL_ALPHA_SIZE)));
-//  LOG(LINFO, ("Red = ", GetConfigValue(display, config, EGL_RED_SIZE)));
-//  LOG(LINFO, ("Blue = ", GetConfigValue(display, config, EGL_BLUE_SIZE)));
-//  LOG(LINFO, ("Green = ", GetConfigValue(display, config, EGL_GREEN_SIZE)));
-//  LOG(LINFO, ("Depth = ", GetConfigValue(display, config, EGL_DEPTH_SIZE)));
-//  LOG(LINFO, ("Sample buffer = ", GetConfigValue(display, config, EGL_SAMPLE_BUFFERS)));
-//  LOG(LINFO, ("Samples = ", GetConfigValue(display, config, EGL_SAMPLES)));
-//  LOG(LINFO, ("NV Coverage buffers = ", GetConfigValue(display, config, 0x30E0)));
-//  LOG(LINFO, ("NV Sample = ", GetConfigValue(display, config, 0x30E1)));
-//
-//  LOG(LINFO, ("Caveat = ", GetConfigValue(display, config, EGL_CONFIG_CAVEAT)));
-//  LOG(LINFO, ("Conformant = ", GetConfigValue(display, config, EGL_CONFORMANT)));
-//  LOG(LINFO, ("Transparent = ", GetConfigValue(display, config, EGL_TRANSPARENT_TYPE)));
-//}
-
-} // namespace
-
-EGLint * AndroidOGLContextFactory::GetSupportedAttributes()
-{
-  EGLint * attribs = getMultisampleAttributesList();
-  if (GetConfigCount(m_display, attribs) > 0)
-    return attribs;
-
-  attribs = getNVCoverageAttributesList();
-  if (GetConfigCount(m_display, attribs) > 0)
-  {
-    m_useCSAA = true;
-    return attribs;
-  }
-
-  return getConfigAttributesList();
-}
-
 bool AndroidOGLContextFactory::createWindowSurface()
 {
   EGLConfig configs[40];
   int count = 0;
-  EGLint * attribs = GetSupportedAttributes();
-  VERIFY(eglChooseConfig(m_display, attribs, configs, 40, &count) == EGL_TRUE, ());
-  ASSERT(count > 0, ("No one OGL config found"));
+  VERIFY(eglChooseConfig(m_display, getConfigAttributesList(), configs, 40, &count) == EGL_TRUE, ());
+  ASSERT(count > 0, ("Didn't find any configs."));
 
   sort(&configs[0], &configs[count], ConfigComparator(m_display));
   for (int i = 0; i < count; ++i)
   {
     EGLConfig currentConfig = configs[i];
-    if (GetConfigValue(m_display, currentConfig, EGL_RED_SIZE) != 5)
-      continue;
 
     EGLint format;
     eglGetConfigAttrib(m_display, currentConfig, EGL_NATIVE_VISUAL_ID, &format);

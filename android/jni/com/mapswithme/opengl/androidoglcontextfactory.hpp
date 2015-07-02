@@ -2,7 +2,7 @@
 
 #include "../core/jni_helper.hpp"
 #include "androidoglcontext.hpp"
-#include "../../../drape/oglcontextfactory.hpp"
+#include "drape/oglcontextfactory.hpp"
 
 namespace android
 {
@@ -29,7 +29,6 @@ public:
 
 private:
   bool QuerySurfaceSize();
-  EGLint * GetSupportedAttributes();
 
 private:
   bool createWindowSurface();
@@ -49,7 +48,6 @@ private:
   int m_surfaceHeight;
 
   bool m_windowSurfaceValid;
-  bool m_useCSAA;
 };
 
 } // namespace android
