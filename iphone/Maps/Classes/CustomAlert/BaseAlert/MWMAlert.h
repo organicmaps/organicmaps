@@ -8,16 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-#include "../../../../../routing/router.hpp"
-#include "../../../../../storage/storage.hpp"
+#include "routing/router.hpp"
+#include "storage/storage.hpp"
 
 @class MWMAlertViewController;
 
 @interface MWMAlert : UIView
-@property (nonatomic, weak) MWMAlertViewController *alertController;
+
+@property (weak, nonatomic) MWMAlertViewController *alertController;
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
-+ (MWMAlert *)downloaderAlertWithCountryIndex:(const storage::TIndex&)index;
++ (MWMAlert *)downloaderAlertWithCountryIndex:(storage::TIndex const &)index;
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount;
 + (MWMAlert *)facebookAlert;

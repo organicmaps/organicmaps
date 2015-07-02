@@ -13,9 +13,11 @@
 
 @interface MWMDefaultAlert ()
 
-@property (nonatomic, weak) IBOutlet UILabel *messageLabel;
-@property (nonatomic, weak) IBOutlet UIButton *okButton;
-@property (nonatomic, weak) IBOutlet UIView *deviderLine;
+@property (weak, nonatomic) IBOutlet UILabel * messageLabel;
+@property (weak, nonatomic) IBOutlet UIButton * rightButton;
+@property (weak, nonatomic) IBOutlet UIButton * leftButton;
+@property (weak, nonatomic) IBOutlet UILabel * titleLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * rightButtonWidth;
 
 @end
 
@@ -23,58 +25,71 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 @implementation MWMDefaultAlert
 
-+ (instancetype)routeNotFoundAlert {
++ (instancetype)routeNotFoundAlert
+{
   return [self defaultAlertWithLocalizedText:@"routing_failed_route_not_found"];
 }
 
-+ (instancetype)endPointNotFoundAlert {
++ (instancetype)endPointNotFoundAlert
+{
   return [self defaultAlertWithLocalizedText:@"routing_failed_dst_point_not_found"];
 }
 
-+ (instancetype)startPointNotFoundAlert {
++ (instancetype)startPointNotFoundAlert
+{
   return [self defaultAlertWithLocalizedText:@"routing_failed_start_point_not_found"];
 }
 
-+ (instancetype)internalErrorAlert {
++ (instancetype)internalErrorAlert
+{
   return [self defaultAlertWithLocalizedText:@"routing_failed_internal_error"];
 }
 
-+ (instancetype)noCurrentPositionAlert {
++ (instancetype)noCurrentPositionAlert
+{
   return [self defaultAlertWithLocalizedText:@"routing_failed_unknown_my_position"];
 }
 
-+ (instancetype)pointsInDifferentMWMAlert {
++ (instancetype)pointsInDifferentMWMAlert
+{
   return [self defaultAlertWithLocalizedText:@"routing_failed_cross_mwm_building"];
 }
 
-+ (instancetype)defaultAlertWithLocalizedText:(NSString *)text {
-  MWMDefaultAlert *alert = [[[NSBundle mainBundle] loadNibNamed:kDefaultAlertNibName owner:self options:nil] firstObject];
++ (instancetype)defaultAlertWithLocalizedText:(NSString *)text
+{
+  MWMDefaultAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kDefaultAlertNibName owner:self options:nil] firstObject];
   alert.messageLabel.localizedText = text;
-  [alert configure];
+  return alert;
+}
+
++ (instancetype)defaultAlertWithTitle:(nonnull NSString *)title message:(nonnull NSString *)message rightButtonTitle:(nonnull NSString *)rightButtonTitle leftButtonTitle:(nullable NSString *)leftButtonTitle
+{
+  MWMDefaultAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kDefaultAlertNibName owner:self options:nil] firstObject];
+  alert.messageLabel.localizedText = message;
+  alert.titleLabel.localizedText = title;
+  alert.rightButton.localizedText = rightButtonTitle;
+  if (leftButtonTitle)
+  {
+    alert.leftButton.localizedText = leftButtonTitle;
+  }
+  else
+  {
+    alert.leftButton.hidden = YES;
+    alert.rightButtonWidth.constant = alert.width;
+  }
   return alert;
 }
 
 #pragma mark - Actions
 
-- (IBAction)okButtonTap:(id)sender {
+- (IBAction)rightButtonTap
+{
   [self.alertController closeAlert];
 }
 
-#pragma mark - Configure
-
-- (void)configure {
-  [self.messageLabel sizeToFit];
-  [self configureViewSize];
-}
-
-- (void)configureViewSize {
-  const CGFloat topMainViewOffset = 17.;
-  const CGFloat minMainViewHeight = 144.;
-  const CGFloat actualMainViewHeight = 2 * topMainViewOffset + self.messageLabel.height + self.okButton.height;
-  self.height = actualMainViewHeight >= minMainViewHeight ? actualMainViewHeight : minMainViewHeight;
-  self.messageLabel.minY = topMainViewOffset;
-  self.deviderLine.minY = self.height - self.okButton.height;
-  self.okButton.minY = self.deviderLine.minY + self.deviderLine.height;
+- (IBAction)leftButtonTap
+{
+  [self.alertController closeAlert];
 }
 
 @end

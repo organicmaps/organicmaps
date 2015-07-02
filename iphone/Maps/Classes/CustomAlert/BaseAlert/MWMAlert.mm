@@ -42,29 +42,21 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
 {
   switch (type)
   {
-      
     case routing::IRouter::NoCurrentPosition:
       return [MWMDefaultAlert noCurrentPositionAlert];
-          
     case routing::IRouter::InconsistentMWMandRoute:
     case routing::IRouter::RouteFileNotExist:
       return [MWMDownloadAllMapsAlert alert];
-      
     case routing::IRouter::StartPointNotFound:
       return [MWMDefaultAlert startPointNotFoundAlert];
-      
     case routing::IRouter::EndPointNotFound:
       return [MWMDefaultAlert endPointNotFoundAlert];
-      
     case routing::IRouter::PointsInDifferentMWM:
       return [MWMDefaultAlert pointsInDifferentMWMAlert];
-      
     case routing::IRouter::RouteNotFound:
       return [MWMDefaultAlert routeNotFoundAlert];
-      
     case routing::IRouter::InternalError:
       return [MWMDefaultAlert internalErrorAlert];
-      
     case routing::IRouter::Cancelled:
     case routing::IRouter::NoError:
     case routing::IRouter::NeedMoreMaps:

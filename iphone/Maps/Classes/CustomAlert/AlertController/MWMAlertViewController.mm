@@ -13,8 +13,8 @@
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
 @interface MWMAlertViewController () <UIGestureRecognizerDelegate>
-@property (nonatomic, weak, readwrite) UIViewController *ownerViewController;
-@property (nonatomic, weak) IBOutlet UITapGestureRecognizer *tap;
+@property (weak, nonatomic, readwrite) UIViewController * ownerViewController;
+@property (weak, nonatomic) IBOutlet UITapGestureRecognizer * tap;
 @end
 
 @implementation MWMAlertViewController
@@ -31,31 +31,31 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentRateAlert
 {
-  MWMAlert *alert = [MWMAlert rateAlert];
+  MWMAlert * alert = [MWMAlert rateAlert];
   [self displayAlert:alert];
 }
 
 - (void)presentFacebookAlert
 {
-  MWMAlert *alert = [MWMAlert facebookAlert];
+  MWMAlert * alert = [MWMAlert facebookAlert];
   [self displayAlert:alert];
 }
 
 - (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount
 {
-  MWMAlert *alert = [MWMAlert feedbackAlertWithStarsCount:starsCount];
+  MWMAlert * alert = [MWMAlert feedbackAlertWithStarsCount:starsCount];
   [self displayAlert:alert];
 }
 
-- (void)presentDownloaderAlertWithCountryIndex:(const storage::TIndex&)index
+- (void)presentDownloaderAlertWithCountryIndex:(storage::TIndex const &)index
 {
-  MWMAlert *alert = [MWMAlert downloaderAlertWithCountryIndex:index];
+  MWMAlert * alert = [MWMAlert downloaderAlertWithCountryIndex:index];
   [self displayAlert:alert];
 }
 
 - (void)presentAlert:(routing::IRouter::ResultCode)type
 {
-  MWMAlert *alert = [MWMAlert alert:type];
+  MWMAlert * alert = [MWMAlert alert:type];
   [self displayAlert:alert];
 }
 
