@@ -235,25 +235,13 @@ namespace ftype
         if (is_name_tag(k))
           return false;
 
-        // Filter 3rd component of type here.
-        if (m_isKey)
+        if (!m_isKey)
         {
-          /// @todo Probably, we need to filter most keys like == "yes" here,
-          /// but need to carefully investigate the classificator.
-
-          // Grab only "capital == yes" and skip all other capitals.
-          if (k == "capital")
-            return (get_mark_value(k, v) == 1);
+          // Take numbers only for "capital" and "admin_level".
+          int dummy;
+          if (strings::to_int(v, dummy))
+            return (k == "admin_level" || k == "capital");
         }
-        else
-        {
-          // Numbers are used in boundary-administrative-X types.
-          // Take only "admin_level" tags to avoid grabbing any other trash numbers.
-          uint64_t dummy;
-          if (strings::to_uint64(v, dummy))
-            return (k == "admin_level");
-        }
-
         return true;
       }
 
@@ -262,26 +250,27 @@ namespace ftype
 
       ClassifObjectPtr operator() (string const & k, string const & v) const
       {
-        if (!is_good_tag(k, v))
-          return ClassifObjectPtr(0, 0);
-
-        return m_parent->BinaryFind(m_isKey ? k : v);
+        return (is_good_tag(k, v) ? m_parent->BinaryFind(m_isKey ? k : v) : ClassifObjectPtr(0, 0));
       }
     };
 
     typedef vector<ClassifObjectPtr> path_type;
 
-    class do_find_root_obj
+    class do_find_key_value_obj
     {
+      ClassifObject const * m_parent;
       path_type & m_path;
 
     public:
-      explicit do_find_root_obj(path_type & path) : m_path(path) {}
+      do_find_key_value_obj(ClassifObject const * p, path_type & path)
+        : m_parent(p), m_path(path)
+      {
+      }
 
       bool operator() (string const & k, string const & v)
       {
         // first try to match key
-        ClassifObjectPtr p = do_find_obj(classif().GetRoot(), true)(k, v);
+        ClassifObjectPtr p = do_find_obj(m_parent, true)(k, v);
         if (p)
         {
           m_path.push_back(p);
@@ -330,14 +319,6 @@ namespace ftype
       static void call(function<void()> const & f, string &, string &) { f(); }
       static void call(function<void(string &, string &)> const & f, string & k, string & v) { f(k, v); }
     };
-  }
-
-  ClassifObjectPtr find_object(ClassifObject const * parent, XMLElement * p, set<int> & skipRows)
-  {
-    // next objects trying to find by value first
-    ClassifObjectPtr pObj = for_each_tag_ex<ClassifObjectPtr>(p, do_find_obj(parent, false), skipRows);
-    // if no - try find object by key (in case of k = "area", v = "yes")
-    return pObj ? pObj : for_each_tag_ex<ClassifObjectPtr>(p, do_find_obj(parent, true), skipRows);
   }
 
   size_t ProcessCommonParams(XMLElement * p, FeatureParams & params)
@@ -425,21 +406,35 @@ namespace ftype
       return;
 
     set<int> skipRows;
+    ClassifObject const * root = classif().GetRoot();
     do
     {
       path_type path;
 
       // find first root object by key
-      do_find_root_obj doFindRoot(path);
-      for_each_tag_ex<bool>(p, doFindRoot, skipRows);
-
-      if (path.empty())
+      if (!for_each_tag_ex<bool>(p, do_find_key_value_obj(root, path), skipRows))
         break;
+      CHECK(!path.empty(), ());
 
-      // continue find path from last element
-      ClassifObjectPtr pObj;
-      while ((pObj = find_object(path.back().get(), p, skipRows)))
-        path.push_back(pObj);
+      do
+      {
+        // continue find path from last element
+        ClassifObject const * parent = path.back().get();
+
+        // next objects trying to find by value first
+        ClassifObjectPtr pObj = for_each_tag_ex<ClassifObjectPtr>(p, do_find_obj(parent, false), skipRows);
+
+        if (pObj)
+        {
+          path.push_back(pObj);
+        }
+        else
+        {
+          // if no - try find object by key (in case of k = "area", v = "yes")
+          if (!for_each_tag_ex<bool>(p, do_find_key_value_obj(parent, path), skipRows))
+            break;
+        }
+      } while (true);
 
       // assign type
       uint32_t t = ftype::GetEmptyValue();

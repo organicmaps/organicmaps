@@ -43018,6 +43018,1906 @@ cont {
   }
 }
 cont {
+  name: "place-city-capital-10"
+  element {
+    scale: 5
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 10
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 6
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 11
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 7
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 8
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 17
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 10
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 11
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 12
+    caption {
+      primary {
+        height: 20
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 20
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "place-city-capital-11"
+  element {
+    scale: 5
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 10
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 6
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 11
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 7
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 8
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 17
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 10
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 11
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 12
+    caption {
+      primary {
+        height: 20
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 20
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "place-city-capital-2"
+  element {
+    scale: 5
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 10
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 6
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 11
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 7
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 8
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 17
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 10
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 11
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 12
+    caption {
+      primary {
+        height: 20
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 20
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "place-city-capital-3"
+  element {
+    scale: 5
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 10
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 6
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 11
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 7
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 8
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 17
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 10
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 11
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 12
+    caption {
+      primary {
+        height: 20
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 20
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "place-city-capital-4"
+  element {
+    scale: 5
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 10
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 6
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 11
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 7
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 8
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 17
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 10
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 11
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 12
+    caption {
+      primary {
+        height: 20
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 20
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "place-city-capital-5"
+  element {
+    scale: 5
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 10
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 6
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 11
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 7
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 8
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 17
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 10
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 11
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 12
+    caption {
+      primary {
+        height: 20
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 20
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "place-city-capital-6"
+  element {
+    scale: 5
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 10
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 6
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 11
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 7
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 8
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 17
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 10
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 11
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 12
+    caption {
+      primary {
+        height: 20
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 20
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "place-city-capital-7"
+  element {
+    scale: 5
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 10
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 6
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 11
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 7
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 8
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 17
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 10
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 11
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 12
+    caption {
+      primary {
+        height: 20
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 20
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "place-city-capital-8"
+  element {
+    scale: 5
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 10
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 6
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 11
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 7
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 8
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 17
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 10
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 11
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 12
+    caption {
+      primary {
+        height: 20
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 20
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "place-city-capital-9"
+  element {
+    scale: 5
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 10
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 6
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 11
+        color: 10066329
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 7
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 8
+    caption {
+      primary {
+        height: 14
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 17
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 10
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 11
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 14
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 12
+    caption {
+      primary {
+        height: 20
+        color: 5592405
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 20
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 22
+        color: 4473924
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 16
+        color: 8947848
+        stroke_color: 15658717
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "place-continent"
   element {
     scale: 0

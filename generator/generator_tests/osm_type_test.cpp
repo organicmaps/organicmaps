@@ -306,8 +306,9 @@ UNIT_TEST(OsmType_Capital)
 {
   {
     char const * arr[][2] = {
+      { "admin_level", "6" },
+      { "capital", "yes" },
       { "place", "city" },
-      { "capital", "yes" }
     };
 
     XMLElement e;
@@ -317,13 +318,14 @@ UNIT_TEST(OsmType_Capital)
     ftype::GetNameAndType(&e, params);
 
     TEST_EQUAL(params.m_Types.size(), 1, (params));
-    TEST(params.IsTypeExist(GetType({"place", "city", "capital"})), ());
+    TEST(params.IsTypeExist(GetType({"place", "city", "capital", "6"})), ());
   }
 
   {
     char const * arr[][2] = {
+      { "admin_level", "6" },
+      { "capital", "no" },
       { "place", "city" },
-      { "capital", "6" }
     };
 
     XMLElement e;
@@ -334,6 +336,25 @@ UNIT_TEST(OsmType_Capital)
 
     TEST_EQUAL(params.m_Types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"place", "city"})), ());
+  }
+
+  {
+    char const * arr[][2] = {
+      { "admin_level", "6" },
+      { "boundary", "administrative" },
+      { "capital", "2" },
+      { "place", "city" },
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"place", "city", "capital", "2"})), ());
+    TEST(params.IsTypeExist(GetType({"boundary", "administrative", "6"})), ());
   }
 }
 

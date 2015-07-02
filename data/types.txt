@@ -994,3 +994,13 @@ shop|sports
 route|ferry|motor_vehicle
 railway|rail|motor_vehicle
 hwtag|nofoot
+place|city|capital|2
+place|city|capital|3
+place|city|capital|4
+place|city|capital|5
+place|city|capital|6
+place|city|capital|7
+place|city|capital|8
+place|city|capital|9
+place|city|capital|10
+place|city|capital|11
