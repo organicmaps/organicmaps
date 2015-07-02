@@ -80,11 +80,16 @@ public:
     float const upVector = -static_cast<int32_t>(pixelSize.y) - yOffset;
     float const bottomVector = -yOffset;
 
-    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(-xOffset, bottomVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(-xOffset, upVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(pixelSize.x - xOffset, bottomVector)));
-    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(pixelSize.x - xOffset, upVector)));
+    if (m_isFirstGlyph)
+    {
+      m_isFirstGlyph = false;
+      m_penPosition += glsl::vec2(-xOffset, 0.0f);
+    }
 
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(xOffset, bottomVector)));
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(xOffset, upVector)));
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
+    m_buffer.push_back(gpu::TextDynamicVertex(m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
     m_penPosition += glsl::vec2(glyph.GetAdvanceX() * m_textRatio, glyph.GetAdvanceY() * m_textRatio);
 
     TBase::operator()(glyph);
@@ -94,6 +99,7 @@ private:
   glsl::vec2 m_penPosition;
   gpu::TTextDynamicVertexBuffer & m_buffer;
   float m_textRatio = 0.0;
+  bool m_isFirstGlyph = true;
 };
 
 ///Old code
@@ -391,10 +397,10 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, Scr
 
     size_t baseIndex = 4 * i;
 
-    buffer[baseIndex + 0] = gpu::TextDynamicVertex(formingVector + normal * bottomVector - tangent * xOffset);
-    buffer[baseIndex + 1] = gpu::TextDynamicVertex(formingVector + normal * upVector - tangent * xOffset);
-    buffer[baseIndex + 2] = gpu::TextDynamicVertex(formingVector + normal * bottomVector + tangent * (pxSize.x - xOffset));
-    buffer[baseIndex + 3] = gpu::TextDynamicVertex(formingVector + normal * upVector + tangent * (pxSize.x - xOffset));
+    buffer[baseIndex + 0] = gpu::TextDynamicVertex(formingVector + normal * bottomVector + tangent * xOffset);
+    buffer[baseIndex + 1] = gpu::TextDynamicVertex(formingVector + normal * upVector + tangent * xOffset);
+    buffer[baseIndex + 2] = gpu::TextDynamicVertex(formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset));
+    buffer[baseIndex + 3] = gpu::TextDynamicVertex(formingVector + normal * upVector + tangent * (pxSize.x + xOffset));
 
 
     float const xAdvance = g.GetAdvanceX() * m_textSizeRatio;
