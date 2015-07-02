@@ -112,7 +112,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     cmd += "--data-binary @" + body_file_ + " ";
   }
 
-  cmd += url_requested_;
+  cmd += "'" + url_requested_ + "'";
   try {
     // TODO(AlexZ): Do not store data in memory if received_file_ was specified.
     server_response_ = RunCurl(cmd);
