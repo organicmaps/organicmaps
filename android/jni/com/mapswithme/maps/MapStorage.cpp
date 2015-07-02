@@ -78,10 +78,17 @@ extern "C"
     ActiveMapsLayout & layout = storage_utils::GetMapLayout();
     TMapOptions opt = storage_utils::ToOptions(options);
     LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(ToNative(idx));
-    if (opt == TMapOptions::EMapWithCarRouting)
-      return sizes.first + sizes.second;
-    else
-      return sizes.first;
+    switch (opt)
+    {
+      case TMapOptions::EMap:
+        return sizes.first;
+      case TMapOptions::ECarRouting:
+        return sizes.second;
+      case EMapWithCarRouting:
+        return sizes.first + sizes.second;
+      case ENothing:
+        return 0;
+    }
   }
 
   JNIEXPORT jint JNICALL
