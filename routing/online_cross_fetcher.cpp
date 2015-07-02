@@ -37,19 +37,17 @@ bool ParseResponse(const string & serverResponse, vector<m2::PointD> & outPoints
   return false;
 }
 
-string GenerateOnlineRequest(string const & serverURL, m2::PointD const & startPoint,
-                             m2::PointD const & finalPoint)
+string GenerateOnlineRequest(string const & serverURL, ms::LatLon const & startPoint,
+                             ms::LatLon const & finalPoint)
 {
-  return serverURL + "/mapsme?loc=" + strings::to_string(startPoint.y) + ',' +
-         strings::to_string(startPoint.x) + "&loc=" + strings::to_string(finalPoint.y) + ',' +
-         strings::to_string(finalPoint.x);
+  return serverURL + "/mapsme?loc=" + strings::to_string(startPoint.lat) + ',' +
+         strings::to_string(startPoint.lon) + "&loc=" + strings::to_string(finalPoint.lat) + ',' +
+         strings::to_string(finalPoint.lon);
 }
 
 OnlineCrossFetcher::OnlineCrossFetcher(string const & serverURL, m2::PointD const & startPoint,
                                        m2::PointD const & finalPoint)
-    : m_request(GenerateOnlineRequest(
-          serverURL, {MercatorBounds::XToLon(startPoint.x), MercatorBounds::YToLat(startPoint.y)},
-          {MercatorBounds::XToLon(finalPoint.x), MercatorBounds::YToLat(finalPoint.y)}))
+    : m_request(GenerateOnlineRequest(serverURL, startPoint, finalPoint))
 {
   LOG(LINFO, ("Check mwms by URL: ", GenerateOnlineRequest(serverURL, startPoint, finalPoint)));
 }

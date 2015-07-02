@@ -3,6 +3,7 @@
 #include "3party/Alohalytics/src/http_client.h"
 
 #include "geometry/point2d.hpp"
+#include "geometry/latlon.hpp"
 
 #include "base/thread.hpp"
 
@@ -18,8 +19,8 @@ namespace routing
 /// \param finalPoint Coordinates of a finish point.
 /// \return URL for OSRM MAPS.ME server request.
 /// \see MapsMePlugin.hpp for REST protocol.
-string GenerateOnlineRequest(string const & serverURL, m2::PointD const & startPoint,
-                             m2::PointD const & finalPoint);
+string GenerateOnlineRequest(string const & serverURL, ms::LatLon const & startPoint,
+                             ms::LatLon const & finalPoint);
 
 /// \brief ParseResponse MAPS.ME OSRM server response parser.
 /// \param serverResponse Server response data.

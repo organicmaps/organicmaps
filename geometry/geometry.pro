@@ -18,27 +18,28 @@ SOURCES += \
   spline.cpp \
 
 HEADERS += \
-  rect2d.hpp \
-  point2d.hpp \
-  distance.hpp \
-  distance_on_sphere.hpp \
   angles.hpp \
-  screenbase.hpp \
+  any_rect2d.hpp \
+  avg_vector.hpp \
   cellid.hpp \
-  rect_intersect.hpp \
   covering.hpp \
   covering_utils.hpp \
+  distance.hpp \
+  distance_on_sphere.hpp \
+  latlon.hpp \
   packer.hpp \
+  point2d.hpp \
   pointu_to_uint64.hpp \
-  simplification.hpp \
-  transformations.hpp \
-  tree4d.hpp \
   polygon.hpp \
+  polyline2d.hpp \
+  rect2d.hpp \
+  rect_intersect.hpp \
   region2d.hpp \
-  robust_orientation.hpp \
-  any_rect2d.hpp \
   region2d/binary_operators.hpp \
   region2d/boost_concept.hpp \
-  avg_vector.hpp \
-  polyline2d.hpp \
+  robust_orientation.hpp \
+  screenbase.hpp \
+  simplification.hpp \
   spline.hpp \
+  transformations.hpp \
+  tree4d.hpp \

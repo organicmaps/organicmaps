@@ -19,26 +19,27 @@ HEADERS += \
 
 SOURCES += \
   ../../testing/testingmain.cpp \
-  distance_test.cpp \
-  distance_on_sphere_test.cpp \
   angle_test.cpp \
-  common_test.cpp \
-  screen_test.cpp \
+  anyrect_test.cpp \
   cellid_test.cpp \
-  intersect_test.cpp \
-  point_test.cpp \
-  packer_test.cpp \
-  segments_intersect_test.cpp \
+  common_test.cpp \
   covering_test.cpp \
+  distance_on_sphere_test.cpp \
+  distance_test.cpp \
+  intersect_test.cpp \
+  latlon_test.cpp \
+  packer_test.cpp \
+  point_test.cpp \
   pointu_to_uint64_test.cpp \
+  polygon_test.cpp \
+  rect_test.cpp \
+  region2d_binary_op_test.cpp \
+  region_test.cpp \
+  robust_test.cpp \
+  screen_test.cpp \
+  segments_intersect_test.cpp \
   simplification_test.cpp \
+  spline_test.cpp \
   transformations_test.cpp \
   tree_test.cpp \
-  polygon_test.cpp \
-  region_test.cpp \
-  rect_test.cpp \
-  robust_test.cpp \
-  anyrect_test.cpp \
-  region2d_binary_op_test.cpp \
   vector_test.cpp \
-  spline_test.cpp \

@@ -4,8 +4,8 @@
 
 #include "map/feature_vec_model.hpp"
 
-#include "routing/online_cross_fetcher.hpp"
 #include "routing/online_absent_fetcher.hpp"
+#include "routing/online_cross_fetcher.hpp"
 #include "routing/route.hpp"
 
 #include "search/search_engine.hpp"
