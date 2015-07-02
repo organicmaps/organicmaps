@@ -35,7 +35,9 @@ namespace alohalytics {
 // Useful helper.
 struct ScopedRemoveFile {
   std::string file;
-  template<typename F> ScopedRemoveFile(F && file_to_delete): file(std::forward<F>(file_to_delete)) {}
+  template <typename F>
+  ScopedRemoveFile(F && file_to_delete)
+      : file(std::forward<F>(file_to_delete)) {}
   ~ScopedRemoveFile() { std::remove(file.c_str()); }
 };
 
@@ -88,7 +90,6 @@ struct FileManager {
   }
 
   // Returns true if we can write to the specified directory.
-  // TODO(AlexZ): Investigate better cross-platform solutions. For example, access() does not always work with setuid, etc.
   static bool IsDirectoryWritable(std::string directory) {
     AppendDirectorySlash(directory);
     std::string temporary_file = directory;

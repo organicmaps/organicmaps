@@ -49,6 +49,7 @@ namespace alohalytics {
 // If we try to upload our data from the background fetch handler on iOS, we have ~30 seconds to do that gracefully.
 static const double kTimeoutInSeconds = 24.0;
 
+// TODO(AlexZ): Rewrite to use async implementation for better redirects handling and ability to cancel request from destructor.
 bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   @autoreleasepool {
 

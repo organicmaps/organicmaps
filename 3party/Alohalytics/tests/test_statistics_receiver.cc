@@ -89,24 +89,3 @@ TEST(StatisticsReceiver, SmokeTest) {
     EXPECT_EQ(static_cast<size_t>(in_stream.tellg()), cereal_binary_events.size());
   }
 }
-
-TEST(StatisticsReceiver, FileProcessing) {
-  ScopedRemoveFile remover(kQueueFileToCleanUp);
-  const string events = CreateCerealIdEvent(kFirstEventId) + CreateCerealIdEvent(kSecondEventId);
-  StatisticsReceiver receiver(kTestDirectory);
-  receiver.ProcessReceivedHTTPBody(Gzip(events), AlohalyticsBaseEvent::CurrentTimestamp(), kFirstIP, kFirstUA,
-                                   kFirstURI);
-
-  receiver.ArchiveAlreadyCollectedData([&events](const string & file_name) {
-    const string cereal_binary_events = FileManager::ReadFileAsString(file_name);
-    istringstream in_stream(cereal_binary_events);
-    cereal::BinaryInputArchive in_ar(in_stream);
-    unique_ptr<AlohalyticsBaseEvent> ptr;
-    in_ar(ptr);
-    EXPECT_NE(nullptr, dynamic_cast<const AlohalyticsIdServerEvent *>(ptr.get()));
-    in_ar(ptr);
-    EXPECT_NE(nullptr, dynamic_cast<const AlohalyticsIdServerEvent *>(ptr.get()));
-    EXPECT_EQ(static_cast<size_t>(in_stream.tellg()), cereal_binary_events.size());
-  });
-  EXPECT_EQ(uint64_t(0), FileManager::GetFileSize(kQueueFileToCleanUp));
-}

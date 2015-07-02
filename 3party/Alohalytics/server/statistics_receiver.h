@@ -90,7 +90,8 @@ class StatisticsReceiver {
   // push into data base or into another server).
   // PLEASE NOTE: file_name will be deleted upon method return.
   void ArchiveAlreadyCollectedData(std::function<void(const std::string & /*file_name*/)> processor) {
-    file_storage_queue_.ProcessArchivedFiles([&processor](bool, const std::string & file_name) {
+    file_storage_queue_.ProcessArchivedFiles([&processor](bool /*is_file*/, const std::string & file_name) {
+      // We ignore is_file parameter as it is always true, due to SetStorageDirectory() called in constructor.
       processor(file_name);
       return true;
     });
