@@ -27,6 +27,13 @@ namespace my
   }
 }
 
+struct TestingOptions
+{
+  string dataPath;
+  string resourcePath;
+};
+extern TestingOptions testingOptions;
+
 #define TEST(X, msg) { if (X) {} else { \
   ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X")", ::my::impl::Message msg));}}
 #define TEST_EQUAL(X, Y, msg) { if ((X) == (Y)) {} else { \

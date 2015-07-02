@@ -122,6 +122,13 @@ namespace integration
 
   shared_ptr<OsrmRouterComponents> LoadAllMaps()
   {
+    // Setting stored paths from testingmain.cpp
+    Platform & pl = GetPlatform();
+    if (!testingOptions.dataPath.empty())
+      pl.SetWritableDir(testingOptions.dataPath);
+    if (!testingOptions.resourcePath.empty())
+      pl.AddOptionalPath(testingOptions.resourcePath);
+
     vector<LocalCountryFile> localFiles;
     platform::FindAllLocalMaps(localFiles);
     ASSERT(!localFiles.empty(), ());

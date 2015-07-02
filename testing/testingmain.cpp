@@ -28,6 +28,8 @@
   #endif
 #endif
 
+TestingOptions testingOptions;
+
 namespace
 {
 bool g_bLastTestOK = true;
@@ -36,6 +38,8 @@ int const kOptionFieldWidth = 32;
 char const kFilterOption[] = "--filter=";
 char const kSuppressOption[] = "--suppress=";
 char const kHelpOption[] = "--help";
+char const kDataPathOptions[] = "--data_path=";
+char const kResourcePathOptions[] = "--user_resource_path=";
 
 enum Status
 {
@@ -54,6 +58,9 @@ struct CommandLineOptions
 
   // Non-owning ptr.
   char const * suppressRegExp;
+
+  char const * dataPath;
+  char const * resourcePath;
 
   bool help;
 };
@@ -78,6 +85,8 @@ void Usage(char const * name)
                 "Run tests with names corresponding to regexp.");
   DisplayOption(cerr, kSuppressOption, "<ECMA Regexp>",
                 "Do not run tests with names corresponding to regexp.");
+  DisplayOption(cerr, kDataPathOptions, "<Path>", "Path to data files.");
+  DisplayOption(cerr, kResourcePathOptions, "<Path>", "Path to resources, styles and classificators.");
   DisplayOption(cerr, kHelpOption, "Print this help message and exit.");
 }
 
@@ -90,6 +99,10 @@ void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
       options.filterRegExp = arg + sizeof(kFilterOption) - 1;
     if (strings::StartsWith(arg, kSuppressOption))
       options.suppressRegExp = arg + sizeof(kSuppressOption) - 1;
+    if (strings::StartsWith(arg, kDataPathOptions))
+      options.dataPath = arg + sizeof(kDataPathOptions) - 1;
+    if (strings::StartsWith(arg, kResourcePathOptions))
+      options.resourcePath = arg + sizeof(kResourcePathOptions) - 1;
     if (strcmp(arg, kHelpOption) == 0)
       options.help = true;
   }
@@ -130,6 +143,11 @@ int main(int argc, char * argv[])
   regexp::RegExpT suppressRegExp;
   if (options.suppressRegExp)
     regexp::Create(options.suppressRegExp, suppressRegExp);
+
+  if (options.resourcePath)
+    testingOptions.resourcePath = options.resourcePath;
+  if (options.dataPath)
+    testingOptions.dataPath = options.dataPath;
 
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; pTest = pTest->m_pNext)
   {
