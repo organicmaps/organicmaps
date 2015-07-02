@@ -30,9 +30,7 @@
 #include "../src/gzip_wrapper.h"
 #include "../src/messages_queue.h"
 
-#include <chrono>
-#include <cstdio>
-#include <iostream>
+#include <functional>
 #include <sstream>
 #include <utility>
 
@@ -43,8 +41,7 @@ class StatisticsReceiver {
   UnlimitedFileQueue file_storage_queue_;
 
  public:
-  explicit StatisticsReceiver(const std::string & storage_directory)
-      : storage_directory_(storage_directory) {
+  explicit StatisticsReceiver(const std::string & storage_directory) : storage_directory_(storage_directory) {
     FileManager::AppendDirectorySlash(storage_directory_);
     file_storage_queue_.SetStorageDirectory(storage_directory_);
   }
@@ -87,6 +84,16 @@ class StatisticsReceiver {
       cereal::BinaryOutputArchive(out_stream) << ptr;
     }
     file_storage_queue_.PushMessage(out_stream.str());
+  }
+
+  // Call this method to process file with all previously received events (e.g. archive them, move to a separate file,
+  // push into data base or into another server).
+  // PLEASE NOTE: file_name will be deleted upon method return.
+  void ArchiveAlreadyCollectedData(std::function<void(const std::string & /*file_name*/)> processor) {
+    file_storage_queue_.ProcessArchivedFiles([&processor](bool, const std::string & file_name) {
+      processor(file_name);
+      return true;
+    });
   }
 };
 
