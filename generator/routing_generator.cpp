@@ -378,7 +378,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
         }
       }
 
-      LOG(LWARNING, ("ind1 =", ind1, "ind1 =", ind1, "dist1 =", dist1, "dist2 =", dist2));
+      LOG(LWARNING, ("ind1 =", ind1, "ind2 =", ind2, "dist1 =", dist1, "dist2 =", dist2));
     }
 
     if (vec.size() > 1)

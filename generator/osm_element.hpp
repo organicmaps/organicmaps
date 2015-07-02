@@ -271,7 +271,7 @@ class SecondPassParser : public BaseOSMParser
     m2::PointD m_pt;
     uint32_t m_type;
 
-    static constexpr double THRESHOLD_M = 20000.0;
+    static constexpr double EQUAL_PLACE_SEARCH_RADIUS_M = 20000.0;
 
     bool IsPoint() const { return (m_ft.GetGeomType() == feature::GEOM_POINT); }
 
@@ -285,7 +285,7 @@ class SecondPassParser : public BaseOSMParser
 
     m2::RectD GetLimitRect() const
     {
-      return MercatorBounds::RectByCenterXYAndSizeInMeters(m_pt, THRESHOLD_M);
+      return MercatorBounds::RectByCenterXYAndSizeInMeters(m_pt, EQUAL_PLACE_SEARCH_RADIUS_M);
     }
 
     /// @name Always replace point features and leave area features.
@@ -295,7 +295,7 @@ class SecondPassParser : public BaseOSMParser
       return (m_type == r.m_type &&
               m_ft.GetName() == r.m_ft.GetName() &&
               (IsPoint() || r.IsPoint()) &&
-              MercatorBounds::DistanceOnEarth(m_pt, r.m_pt) < THRESHOLD_M);
+              MercatorBounds::DistanceOnEarth(m_pt, r.m_pt) < EQUAL_PLACE_SEARCH_RADIUS_M);
     }
 
     bool NeedReplace(Place const & r) const
