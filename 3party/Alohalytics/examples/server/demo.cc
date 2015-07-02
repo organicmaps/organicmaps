@@ -55,7 +55,7 @@ int main(int, char **) {
   cereal::BinaryInputArchive ar(std::cin);
   Processor processor;
   try {
-    while (std::cin.good()) {
+    while (std::cin) {
       std::unique_ptr<AlohalyticsBaseEvent> ptr;
       ar(ptr);
       bricks::rtti::RuntimeDispatcher<AlohalyticsBaseEvent, AlohalyticsKeyPairsLocationEvent, AlohalyticsKeyPairsEvent,

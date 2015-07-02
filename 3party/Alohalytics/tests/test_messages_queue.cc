@@ -34,7 +34,7 @@ SOFTWARE.
 using alohalytics::FileManager;
 using alohalytics::ScopedRemoveFile;
 
-using alohalytics::HundredKilobytesFileQueue;
+using alohalytics::THundredKilobytesFileQueue;
 using alohalytics::ProcessingResult;
 
 bool EndsWith(const std::string & str, const std::string & suffix) {
@@ -112,7 +112,7 @@ static void FinishedCallback(ProcessingResult result, FinishTask & finish_task) 
 
 TEST(MessagesQueue, InMemory_Empty) {
   bool processor_was_called = false;
-  HundredKilobytesFileQueue q;
+  THundredKilobytesFileQueue q;
   FinishTask finish_task;
   q.ProcessArchivedFiles([&processor_was_called](bool, const std::string &) {
     processor_was_called = true;  // This code should not be executed.
@@ -123,7 +123,7 @@ TEST(MessagesQueue, InMemory_Empty) {
 }
 
 TEST(MessagesQueue, InMemory_SuccessfulProcessing) {
-  HundredKilobytesFileQueue q;
+  THundredKilobytesFileQueue q;
   q.PushMessage(kTestMessage);
   std::thread worker([&q]() { q.PushMessage(kTestWorkerMessage); });
   worker.join();
@@ -140,7 +140,7 @@ TEST(MessagesQueue, InMemory_SuccessfulProcessing) {
 }
 
 TEST(MessagesQueue, InMemory_FailedProcessing) {
-  HundredKilobytesFileQueue q;
+  THundredKilobytesFileQueue q;
   q.PushMessage(kTestMessage);
   bool processor_was_called = false;
   FinishTask finish_task;
@@ -161,7 +161,7 @@ TEST(MessagesQueue, SwitchFromInMemoryToFile_and_OfflineEmulation) {
   std::string archived_file, second_archived_file;
   {
     {
-      HundredKilobytesFileQueue q;
+      THundredKilobytesFileQueue q;
       q.PushMessage(kTestMessage);    // This one goes into the memory storage.
       q.SetStorageDirectory(tmpdir);  // Here message shoud move from memory into the file.
       std::thread worker([&q]() { q.PushMessage(kTestWorkerMessage); });
@@ -172,7 +172,7 @@ TEST(MessagesQueue, SwitchFromInMemoryToFile_and_OfflineEmulation) {
 
     bool processor_was_called = false;
     FinishTask finish_task;
-    HundredKilobytesFileQueue q;
+    THundredKilobytesFileQueue q;
     q.SetStorageDirectory(tmpdir);
     q.ProcessArchivedFiles([&processor_was_called, &archived_file](bool is_file, const std::string & full_file_path) {
       EXPECT_TRUE(is_file);
@@ -189,7 +189,7 @@ TEST(MessagesQueue, SwitchFromInMemoryToFile_and_OfflineEmulation) {
   }
 
   // Create second archive in the queue after ProcessArchivedFiles() call.
-  HundredKilobytesFileQueue q;
+  THundredKilobytesFileQueue q;
   q.SetStorageDirectory(tmpdir);
   q.PushMessage(kTestMessage);
   {
@@ -219,7 +219,7 @@ TEST(MessagesQueue, CreateArchiveOnSizeLimitHit) {
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
   const ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
-  HundredKilobytesFileQueue q;
+  THundredKilobytesFileQueue q;
   q.SetStorageDirectory(tmpdir);
 
   // Generate messages with total size enough for triggering archiving.
@@ -233,7 +233,7 @@ TEST(MessagesQueue, CreateArchiveOnSizeLimitHit) {
     size += generated_size;
   };
   static const std::ofstream::pos_type number_of_bytes_to_generate =
-      HundredKilobytesFileQueue::kMaxFileSizeInBytes / 2 + 100;
+      THundredKilobytesFileQueue::kMaxFileSizeInBytes / 2 + 100;
   std::thread worker([&generator]() { generator(kTestWorkerMessage, number_of_bytes_to_generate); });
   generator(kTestMessage, number_of_bytes_to_generate);
   worker.join();
@@ -257,7 +257,7 @@ TEST(MessagesQueue, HighLoadAndIntegrity) {
   const std::string tmpdir = FileManager::GetDirectoryFromFilePath(GenerateTemporaryFileName());
   CleanUpQueueFiles(tmpdir);
   const ScopedRemoveFile remover(tmpdir + alohalytics::kCurrentFileName);
-  HundredKilobytesFileQueue q;
+  THundredKilobytesFileQueue q;
   const int kMaxThreads = 300;
   std::mt19937 gen(std::mt19937::default_seed);
   std::uniform_int_distribution<> dis('A', 'Z');

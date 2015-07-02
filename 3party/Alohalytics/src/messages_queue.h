@@ -259,7 +259,8 @@ class MessagesQueue final {
   typedef std::function<void()> TCommand;
   std::list<TCommand> commands_queue_;
 
-  volatile bool worker_thread_should_exit_ = false;
+  // Should be guarded by mutex.
+  bool worker_thread_should_exit_ = false;
   std::mutex messages_mutex_;
   std::mutex commands_mutex_;
   std::condition_variable commands_condition_variable_;
@@ -269,7 +270,7 @@ class MessagesQueue final {
   std::thread worker_thread_ = std::thread(&MessagesQueue::WorkerThread, this);
 };
 
-typedef MessagesQueue<1024 * 100> HundredKilobytesFileQueue;
+typedef MessagesQueue<1024 * 100> THundredKilobytesFileQueue;
 // TODO(AlexZ): Remove unnecessary file size checks from this specialization.
 typedef MessagesQueue<std::numeric_limits<std::streamoff>::max()> UnlimitedFileQueue;
 

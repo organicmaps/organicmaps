@@ -76,12 +76,12 @@ void Stats::GzipAndArchiveFileInTheQueue(const std::string & in_file, const std:
   // Append unique installation id in the beginning of each archived file.
 
   try {
-    std::string buffer(encoded_unique_client_id);
+    std::string buffer(std::move(encoded_unique_client_id));
     {
       std::ifstream fi;
       fi.exceptions(std::ifstream::failbit | std::ifstream::badbit);
       fi.open(in_file, std::ifstream::in | std::ifstream::binary);
-      const size_t data_offset = encoded_unique_client_id.size();
+      const size_t data_offset = buffer.size();
       const uint64_t file_size = FileManager::GetFileSize(in_file);
       buffer.resize(data_offset + file_size);
       fi.read(&buffer[data_offset], static_cast<std::streamsize>(file_size));
@@ -134,7 +134,7 @@ Stats & Stats::SetClientId(const std::string & unique_client_id) {
   return *this;
 }
 
-static inline void LogEventImpl(AlohalyticsBaseEvent const & event, HundredKilobytesFileQueue & messages_queue) {
+static inline void LogEventImpl(AlohalyticsBaseEvent const & event, THundredKilobytesFileQueue & messages_queue) {
   std::ostringstream sstream;
   {
     // unique_ptr is used to correctly serialize polymorphic types.

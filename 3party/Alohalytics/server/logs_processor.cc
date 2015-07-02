@@ -77,7 +77,7 @@ using namespace alohalytics;
 
 static void DeleteFile(const string & file) { std::remove(file.c_str()); }
 
-int main(int argc, char ** argv) {
+int main(int argc, char * argv[]) {
   if (argc < 2) {
     cout << "Usage: " << argv[0] << " <directory to store merged file>" << endl;
     return -1;
@@ -94,10 +94,10 @@ int main(int argc, char ** argv) {
   size_t good_files_processed = 0, corrupted_files_removed = 0, other_files_removed = 0;
   size_t files_total_size = 0;
   StatisticsReceiver receiver(directory);
-  while (getline(cin, log_entry).good()) {
+  while (getline(cin, log_entry)) {
     // IP address.
-    size_t start_pos = 0;
-    size_t end_pos = log_entry.find_first_of(' ');
+    string::size_type start_pos = 0;
+    string::size_type end_pos = log_entry.find_first_of(' ');
     if (end_pos == string::npos) {
       cout << "WARNING: Can't get IP address. Invalid log entry? " << log_entry << endl;
       continue;

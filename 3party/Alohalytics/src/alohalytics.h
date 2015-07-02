@@ -43,7 +43,7 @@ class Stats final {
   // In current implementation it is used to distinguish between different users in the events stream on the server.
   // NOTE: Statistics will not be uploaded if unique client id was not set.
   std::string unique_client_id_;
-  HundredKilobytesFileQueue messages_queue_;
+  THundredKilobytesFileQueue messages_queue_;
   bool debug_mode_ = false;
 
   // Use alohalytics::Stats::Instance() to access statistics engine.

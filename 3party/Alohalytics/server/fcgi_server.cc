@@ -31,7 +31,6 @@
 // $http_content_encoding should be set to gzip
 
 #include <chrono>
-
 #include <cstdlib>
 #include <ctime>
 #include <exception>
@@ -92,18 +91,15 @@ int main(int argc, char * argv[]) {
       }
 
       const char * user_agent_str = FCGX_GetParam("HTTP_USER_AGENT", request.envp);
-      if (user_agent_str) {
-      } else {
+      if (!user_agent_str) {
         ALOG("WARNING: Missing HTTP User-Agent.");
       }
       const char * request_uri_str = FCGX_GetParam("REQUEST_URI", request.envp);
-      if (request_uri_str) {
-      } else {
+      if (!request_uri_str) {
         ALOG("WARNING: Missing REQUEST_URI.");
       }
       const char * remote_addr_str = FCGX_GetParam("REMOTE_ADDR", request.envp);
-      if (remote_addr_str) {
-      } else {
+      if (!remote_addr_str) {
         ALOG("WARNING: Missing REMOTE_ADDR.");
       }
 
@@ -115,7 +111,7 @@ int main(int argc, char * argv[]) {
       FCGX_FPrintF(request.out, "Status: 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %ld\r\n\r\n%s\n",
                    kBodyTextInSuccessfulServerReply.size(), kBodyTextInSuccessfulServerReply.c_str());
 
-    } catch (const std::exception & ex) {
+    } catch (const exception & ex) {
       ALOG("ERROR: Exception while processing request: ", ex.what());
       FCGX_FPrintF(request.out,
                    "Status: 500 Internal Server Error\r\nContent-Type: text/plain\r\n\r\n500 Internal Server Error\n");
