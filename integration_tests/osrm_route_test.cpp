@@ -29,9 +29,9 @@ namespace
   // Strange asserts near Cupertino test
   UNIT_TEST(CaliforniaCupertinoFindPhantomAssertTest)
   {
-    integration::CalculateRouteAndTestRouteLength(integration::GetAllMaps(),
-                                                  {-122.03448, 40.29689}, {0., 0.},
-                                                  {-122.03469, 40.29741}, 6548.);
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetAllMaps(), MercatorBounds::FromLatLon(37.33409, -122.03458), {0., 0.},
+        MercatorBounds::FromLatLon(37.33498, -122.03575), 1438.);
   }
 
   // Cross mwm tests.
