@@ -4,6 +4,9 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.CharacterStyle;
 
+import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.R;
+
 import java.util.Locale;
 
 public class StringUtils
@@ -66,6 +69,19 @@ public class StringUtils
 
   {
     return text.replaceAll("</p>", "").replaceAll("<br>", "").replaceAll("<p dir=\"ltr\">", "");
+  }
+
+  /**
+   * Formats size in bytes to "x MB" or "x KB" format.
+   * @param size Size in bytes
+   * @return formatted string
+   */
+  public static String getFileSizeString(long size)
+  {
+    if (size > Constants.MB)
+      return (size + Constants.MB / 2) / Constants.MB + " " + MWMApplication.get().getString(R.string.mb);
+    else
+      return (size + Constants.KB - 1) / Constants.KB + " " + MWMApplication.get().getString(R.string.kb);
   }
 
   private StringUtils() {}

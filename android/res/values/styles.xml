@@ -11,6 +11,7 @@
     <item name="colorControlNormal">@color/text_dark_hint</item>
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
+    <item name="alertDialogTheme">@style/MwmMain.DialogFragment</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:windowBackground">@android:color/white</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
@@ -32,6 +33,24 @@
     <item name="android:buttonBarStyle">@style/Theme.AppCompat.Dialog</item>
     <item name="listPreferredItemPaddingLeft">16dip</item>
     <item name="listPreferredItemPaddingRight">16dip</item>
+  </style>
+
+  <style name="MwmMain.DialogFragment" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="colorPrimary">@color/base_green</item>
+    <item name="colorPrimaryDark">@color/base_green_darker</item>
+    <item name="android:windowIsFloating">true</item>
+    <item name="clickableBackground">?attr/selectableItemBackground</item>
+    <item name="colorControlNormal">@color/text_dark_hint</item>
+    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
+    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
+    <item name="android:windowBackground">@android:color/white</item>
+    <item name="android:windowTitleStyle">@style/MwmMain.DialogFragment.TitleStyle</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
+  </style>
+
+  <style name="MwmMain.DialogFragment.TitleStyle" parent="Base.DialogWindowTitle.AppCompat">
+    <item name="android:textAppearance">@style/MwmTextAppearance.Display1</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
   </style>
 
   <style name="MwmMain.DialogFragment.Fullscreen" parent="Theme.AppCompat">

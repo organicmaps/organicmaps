@@ -25,6 +25,8 @@ public class RoutingResultCodes
     switch (errorCode)
     {
     case NO_POSITION:
+      // TODO add title translations
+//      titleRes =
       messageRes = R.string.routing_failed_unknown_my_position;
       break;
     case INCONSISTENT_MWM_ROUTE:
@@ -33,18 +35,28 @@ public class RoutingResultCodes
       messageRes = R.string.routing_requires_all_map;
       break;
     case START_POINT_NOT_FOUND:
+      // TODO add title translations
+      //      titleRes =
       messageRes = R.string.routing_failed_start_point_not_found;
       break;
     case END_POINT_NOT_FOUND:
+      // TODO add title translations
+      //      titleRes =
       messageRes = R.string.routing_failed_dst_point_not_found;
       break;
     case DIFFERENT_MWM:
+      // TODO add title translations
+      //      titleRes =
       messageRes = R.string.routing_failed_cross_mwm_building;
       break;
     case ROUTE_NOT_FOUND:
+      // TODO add title translations
+      //      titleRes =
       messageRes = R.string.routing_failed_route_not_found;
       break;
     case INTERNAL_ERROR:
+      // TODO add title translations
+      //      titleRes =
       messageRes = R.string.routing_failed_internal_error;
       break;
     }

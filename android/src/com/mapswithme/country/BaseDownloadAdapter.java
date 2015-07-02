@@ -20,12 +20,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.DownloadHelper;
 import com.mapswithme.maps.widget.WheelProgressView;
-import com.mapswithme.util.Constants;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -653,9 +652,9 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
   {
     String text;
     if (first <= 0)
-      text = getSizeString(second);
+      text = StringUtils.getFileSizeString(second);
     else
-      text = getSizeString(first) + "/" + getSizeString(second);
+      text = StringUtils.getFileSizeString(first) + "/" + StringUtils.getFileSizeString(second);
     holder.mSize.setText(text);
     holder.mSizeSlided.setText(text);
   }
@@ -828,7 +827,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
 
           if (status == MapStorage.ON_DISK && options == StorageOptions.MAP_OPTION_MAP_ONLY)
           {
-            final String titleShow = mFragment.getString(R.string.downloader_download_routing) + ", " + getSizeString(remoteSizes[1] - remoteSizes[0]);
+            final String titleShow = mFragment.getString(R.string.downloader_download_routing) + ", " + StringUtils.getFileSizeString(remoteSizes[1] - remoteSizes[0]);
             menu.add(0, MENU_DOWNLOAD_ROUTING, MENU_DOWNLOAD_ROUTING, titleShow).setOnMenuItemClickListener(menuItemClickListener);
           }
 
@@ -839,17 +838,17 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
             switch (options)
             {
             case StorageOptions.MAP_OPTION_MAP_ONLY:
-              titleUpdate = mFragment.getString(R.string.downloader_update_map) + ", " + getSizeString(remoteSizes[0]);
+              titleUpdate = mFragment.getString(R.string.downloader_update_map) + ", " + StringUtils.getFileSizeString(remoteSizes[0]);
               menu.add(0, MENU_UPDATE, MENU_UPDATE, titleUpdate)
                   .setOnMenuItemClickListener(menuItemClickListener);
 
-              titleUpdate = mFragment.getString(R.string.downloader_download_routing) + ", " + getSizeString(remoteSizes[1]);
+              titleUpdate = mFragment.getString(R.string.downloader_download_routing) + ", " + StringUtils.getFileSizeString(remoteSizes[1]);
               menu.add(0, MENU_UPDATE_MAP_DOWNLOAD_ROUTING, MENU_UPDATE_MAP_DOWNLOAD_ROUTING, titleUpdate)
                   .setOnMenuItemClickListener(menuItemClickListener);
               break;
 
             case StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING:
-              titleUpdate = mFragment.getString(R.string.downloader_update_map) + ", " + getSizeString(remoteSizes[1]);
+              titleUpdate = mFragment.getString(R.string.downloader_update_map) + ", " + StringUtils.getFileSizeString(remoteSizes[1]);
               menu.add(0, MENU_UPDATE_MAP_AND_ROUTING, MENU_UPDATE_MAP_AND_ROUTING, titleUpdate)
                   .setOnMenuItemClickListener(menuItemClickListener);
               break;
@@ -865,11 +864,11 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
             break;
 
           case MapStorage.NOT_DOWNLOADED:
-            String title = mFragment.getString(R.string.downloader_download_map) + ", " + getSizeString(remoteSizes[0]);
+            String title = mFragment.getString(R.string.downloader_download_map) + ", " + StringUtils.getFileSizeString(remoteSizes[0]);
             menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
 
-            title = mFragment.getString(R.string.downloader_download_map_and_routing) + ", " + getSizeString(remoteSizes[1]);
+            title = mFragment.getString(R.string.downloader_download_map_and_routing) + ", " + StringUtils.getFileSizeString(remoteSizes[1]);
             menu.add(0, MENU_DOWNLOAD_MAP_AND_ROUTING, MENU_DOWNLOAD_MAP_AND_ROUTING, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
             break;
@@ -891,13 +890,5 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
       anchor.showContextMenu();
       anchor.setOnCreateContextMenuListener(null);
     }
-  }
-
-  public static String getSizeString(long size)
-  {
-    if (size > Constants.MB)
-      return (size + Constants.MB / 2) / Constants.MB + " " + MWMApplication.get().getString(R.string.mb);
-    else
-      return (size + Constants.KB - 1) / Constants.KB + " " + MWMApplication.get().getString(R.string.kb);
   }
 }

@@ -23,7 +23,6 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
-import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,7 +37,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapswithme.country.ActiveCountryTree;
-import com.mapswithme.country.BaseDownloadAdapter;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.country.DownloadFragment;
 import com.mapswithme.country.StorageOptions;
@@ -57,6 +55,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.data.RouterTypes;
 import com.mapswithme.maps.data.RoutingResultCodes;
+import com.mapswithme.maps.dialog.RoutingErrorDialogFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.search.SearchActivity;
@@ -1565,57 +1564,36 @@ public class MWMActivity extends BaseMwmFragmentActivity
         }
         else
         {
-          final Pair<String, String> titleMessage = RoutingResultCodes.getDialogTitleSubtitle(resultCode);
-          AlertDialog.Builder builder = new AlertDialog.Builder(MWMActivity.this)
-              .setTitle(titleMessage.first)
-              .setMessage(titleMessage.second)
-              .setCancelable(true);
-          if (missingCountries != null && missingCountries.length != 0)
+          final Bundle args = new Bundle();
+          args.putInt(RoutingErrorDialogFragment.EXTRA_RESULT_CODE, resultCode);
+          args.putSerializable(RoutingErrorDialogFragment.EXTRA_MISSING_COUNTRIES, missingCountries);
+          final RoutingErrorDialogFragment fragment = (RoutingErrorDialogFragment) Fragment.instantiate(MWMActivity.this, RoutingErrorDialogFragment.class.getName());
+          fragment.setArguments(args);
+          fragment.setListener(new RoutingErrorDialogFragment.RoutingDialogListener()
           {
-            final View countryView = getLayoutInflater().inflate(R.layout.download_item_dialog, null);
-            ((TextView) countryView.findViewById(R.id.tv__title)).setText(MapStorage.INSTANCE.countryName(missingCountries[0]));
-            final String size = BaseDownloadAdapter.getSizeString(MapStorage.INSTANCE.
-                countryRemoteSizeInBytes(missingCountries[0], StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING));
-            ((TextView) countryView.findViewById(R.id.tv__size)).setText(size);
-            builder
-                .setView(countryView)
-                .setPositiveButton(R.string.download, new Dialog.OnClickListener()
-                {
-                  @Override
-                  public void onClick(DialogInterface dialog, int which)
-                  {
-                    ActiveCountryTree.downloadMapForIndex(missingCountries[0], StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
-                    showDownloader(true);
-                    closeRouting();
-                    dialog.dismiss();
-                  }
-                })
-                .setNegativeButton(android.R.string.cancel, new Dialog.OnClickListener()
-                {
-                  @Override
-                  public void onClick(DialogInterface dialog, int which)
-                  {
-                    closeRouting();
-                    dialog.dismiss();
-                  }
-                });
-          }
-          else
-          {
-            builder
-                .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
-                {
-                  @Override
-                  public void onClick(DialogInterface dialog, int which)
-                  {
-                    closeRouting();
-                    if (RoutingResultCodes.isDownloadable(resultCode))
-                      showDownloader(false);
-                    dialog.dismiss();
-                  }
-                });
-          }
-          builder.create().show();
+            @Override
+            public void onDownload()
+            {
+              closeRouting();
+              ActiveCountryTree.downloadMapsForIndex(missingCountries, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
+              showDownloader(true);
+            }
+
+            @Override
+            public void onCancel()
+            {
+              closeRouting();
+            }
+
+            @Override
+            public void onOk()
+            {
+              closeRouting();
+              if (RoutingResultCodes.isDownloadable(resultCode))
+                showDownloader(false);
+            }
+          });
+          fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getName());
         }
 
         refreshZoomButtonsVisibility();
