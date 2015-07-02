@@ -91,34 +91,28 @@ void FindAllLocalMapsInDirectory(string const & directory, int64_t version,
 
 void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
 {
-  vector<LocalCountryFile> allFiles;
-  Platform & platform = GetPlatform();
-  vector<string> baseDirectories = {
-      platform.ResourcesDir(), platform.WritableDir(),
-  };
-  sort(baseDirectories.begin(), baseDirectories.end());
-  baseDirectories.erase(unique(baseDirectories.begin(), baseDirectories.end()),
-                        baseDirectories.end());
-  for (string const & directory : baseDirectories)
-  {
-    FindAllLocalMapsInDirectory(directory, 0 /* version */, allFiles);
+  localFiles.clear();
 
-    Platform::FilesList subdirs;
-    Platform::GetFilesByType(directory, Platform::FILE_TYPE_DIRECTORY, subdirs);
-    for (string const & subdir : subdirs)
-    {
-      int64_t version;
-      if (ParseVersion(subdir, version))
-        FindAllLocalMapsInDirectory(my::JoinFoldersToPath(directory, subdir), version, localFiles);
-    }
+  Platform & platform = GetPlatform();
+
+  string const directory = platform.WritableDir();
+  FindAllLocalMapsInDirectory(directory, 0 /* version */, localFiles);
+
+  Platform::FilesList subdirs;
+  Platform::GetFilesByType(directory, Platform::FILE_TYPE_DIRECTORY, subdirs);
+  for (string const & subdir : subdirs)
+  {
+    int64_t version;
+    if (ParseVersion(subdir, version))
+      FindAllLocalMapsInDirectory(my::JoinFoldersToPath(directory, subdir), version, localFiles);
   }
 
-#if defined(OMIM_OS_ANDROID)
-  // On Android World and WorldCoasts can be stored in alternative /Android/obb/ path.
+  // World and WorldCoasts can be stored in app bundle or in resources
+  // directory, thus it's better to get them via Platform.
   for (string const & file : {WORLD_FILE_NAME, WORLD_COASTS_FILE_NAME})
   {
     bool found = false;
-    for (LocalCountryFile const & localFile : allFiles)
+    for (LocalCountryFile const & localFile : localFiles)
     {
       if (localFile.GetCountryFile().GetNameWithoutExt() == file)
       {
@@ -131,8 +125,8 @@ void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
       try
       {
         ModelReaderPtr reader = platform.GetReader(file + DATA_FILE_EXTENSION);
-        allFiles.emplace_back(my::GetDirectory(reader.GetName()), CountryFile(file),
-                              0 /* version */);
+        localFiles.emplace_back(my::GetDirectory(reader.GetName()), CountryFile(file),
+                                0 /* version */);
       }
       catch (FileAbsentException const & e)
       {
@@ -140,8 +134,6 @@ void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
       }
     }
   }
-#endif  // defined(OMIM_OS_ANDROID)
-  localFiles.insert(localFiles.end(), allFiles.begin(), allFiles.end());
 }
 
 bool ParseVersion(string const & s, int64_t & version)
