@@ -161,6 +161,7 @@ public:
   }
 
   string GetName(int8_t lang = StringUtf8Multilang::DEFAULT_CODE) const;
+  uint8_t GetRank() const { return m_params.rank; }
 
   /// @name For diagnostic use only.
   //@{
