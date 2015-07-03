@@ -30,6 +30,7 @@ SOURCES += ../../testing/testingmain.cpp \
     file_utils_test.cpp \
     gzip_test.cpp \
     hex_test.cpp \
+    huffman_test.cpp \
     mem_file_reader_test.cpp \
     mem_file_writer_test.cpp \
     multilang_utf8_string_test.cpp \
