@@ -530,8 +530,8 @@
     comment = Settings/Downloader - size string, only strings different from English should be translated
     fr = ko
     nl = KB
-    ru = КБ
-    uk = КБ
+    ru = кБ
+    uk = кБ
     pl = KB
     th = กิโลไบต์
     ar = ك.ب.
@@ -2173,7 +2173,7 @@
     ja = 現在地のマップは\n最新です (%@)
     ko = 현재 위치 (%@)\n에서지도는 최신이다
     nl = De kaart op uw huidige\nlocatie (%@) is up-to-date
-    ru = Карта местности, в которой\nвы находитесь (%@) уже загружена.
+    ru = Карта местности, в которой\nвы находитесь (%@), уже загружена.
     uk = Карта місцевості, в якій\nви знаходитеся (%@) вже завантажена.
     zh-Hant = 您目前所在位置 (%@)\n的地圖已是最新圖資 !
     pl = Mapa wokół twojej aktualnej\npozycji (%@) jest aktualna
@@ -2898,7 +2898,7 @@
     ja = 未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nMAPS.ME以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
     ko = 즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 MAPS.ME 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
     nl = Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
-    ru = У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТак же метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.
+    ru = У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.
     uk = У вас ще немає мiток.\nНатисніть на будь-яке місце на карті, щоб зберегти мiтку.\nМiтки з інших ресурсів також можна імпортувати для застосунка MAPS.ME. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.
     zh-Hant = 您還沒有任何書簽。\n點擊地圖上的任何地方以添加書簽。\n其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
     pl = Nie masz jeszcze żadnych zakładek.\nDotknij dowolnego miejsca na mapie, aby dodać zakładkę.\nZakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji MAPS.ME. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
@@ -5355,8 +5355,7 @@
     tags = android
     comment = Used to warn user when fixing KitKat issue
     en = Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.
-    ru = В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.
-    uk = В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но не сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.
+    ru = В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни во внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.
     zh-Hant = 由於安卓4.4版本有所更改，我們需要對地圖數據存儲進行優化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些內存，否則將只能以只讀模式使用地圖。
     ko = Android 4.4의 변경으로 인해, 우리는 지도 데이터 저장소를 최적화해야 하지만, 지도 데이터를 복사할 충분한 공간이 없습니다.\n\n메모리를 확보하지 않으면, 지도는 읽기 전용 모드로 사용할 수 있습니다.
     it = A causa di modifiche alla versione Android 4.4, abbiamo bisogno di ottimizzare l'archiviazione delle mappe, ma non c'è abbastanza spazio per copiarne i dati:\n\nTi preghiamo di liberare la memoria, altrimenti le mappe saranno disponibili in sola lettura.
@@ -5387,7 +5386,7 @@
     tags = android
     comment = Used to warn user when fixing KitKat issue
     en = We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.
-    ru = Для оптимизации хранения данных нам нужно переместить метки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.
+    ru = Для оптимизации хранения данных нам нужно переместить метки во внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.
     uk = Для оптимiзацiї збереження данних нам потрiбно перенести мітки до внутрiшньої пам'ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо мітки вам не будуть доступнi.
     zh-Hant = 我們需要將您的書籤移至內存儲器中，但沒有足夠的存儲空間。請釋放一些內存，否則，書籤將不可用。
     ko = 우리는 내부 메모리로 북마크를 이동해야 하지만, 이에 대한 사용 가능한 공간이 없습니다. 메모리를 확보하지 않으면, 북마크를 사용할 수 없습니다.
@@ -7858,7 +7857,7 @@
     tags = android, ios
     comment = Text for routing error dialog
     en = Get map
-    ru = Загрузи карту
+    ru = Загрузите карту
     uk = Отримати карту
     vi = Nhận bản đồ
     tr = Harita alın
@@ -7891,7 +7890,7 @@
     tags = android, ios
     comment = Text for routing error dialog
     en = Download updated map and routing data to get all MAPS.ME features.
-    ru = Загрузи карту и маршруты, чтобы получить доступ ко всем возможностям приложения.
+    ru = Загрузите карту и маршруты, чтобы получить доступ ко всем возможностям приложения.
     uk = Завантажте оновлену карту та дані про маршрут, щоб отримати всі можливості MAPS.ME.
     vi = Tải bản đồ và dữ liệu đường đi cập nhật để nhận được tất cả các tính năng của MAPS.ME.
     tr = Tüm MAPS.ME özelliklerini edinmek için güncellenmiş harita ve rota verilerini indirin.
@@ -7924,7 +7923,7 @@
     tags = android, ios
     comment = Text for routing error dialog
     en = Get routing data
-    ru = Загрузи маршруты
+    ru = Загрузите маршруты
     uk = Отримати дані про маршрут
     vi = Nhận dữ liệu đường đi
     tr = Rota verileri edin
@@ -7957,7 +7956,7 @@
     tags = android, ios
     comment = Text for routing error dialog
     en = Additional data required to create routes from your location.
-    ru = Загрузи данные для построения маршрутов
+    ru = Загрузите данные для построения маршрутов
     uk = Щоб створювати маршрути від вашого місцезнаходження, потрібно додаткові дані
     vi = số liệu bổ sung cần thiết để tạo ra các tuyến đường đi từ vị trí của bạn.
     tr = Konumunuzdan rota oluşturmak için ilave verileri edinin.
@@ -8089,7 +8088,7 @@
     tags = android, ios
     comment = Text for routing error dialog
     en = You are going to download %@ MB using Mobile Data (in Roaming). This may result in additional charges, depending on your operator mobile data plan.
-    ru = (Будет загружено %@ MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета
+    ru = Будет загружено %@ MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета
     uk = Ви збираєтесь завантажити %@ MB з використанням послуги передачі даних (у роумінгу). Це може потребувати додаткової оплати, в залежності від вашого мобільного оператора та умов використання вашого тарифного плану.
     vi = Bạn sắp tải xuống %@ MB sử dụng Dữ liệu Di động (trong dịch vụ Chuyển vùng). Điều này có thể dẫn đến cước phí bổ sung, tùy thuộc vào gói dữ liệu di động của nhà mạng của bạn.
     tr = %@ MB boyutunda veriyi Mobil Veri (Roaming) kullanarak indireceksiniz. Bu mobil operatör veri planınıza göre ilave ödeme gerektirebilir.
@@ -10762,7 +10761,7 @@
     tags = android, ios
     comment = Cuisine
     en = lao cuisine
-    ru = лаоская кухня
+    ru = лаосская кухня
     uk = лаоська кухня
     tr = lao mutfağı
     es = cocina laosiana
@@ -10927,7 +10926,7 @@
     tags = android, ios
     comment = Cuisine
     en = moroccan
-    ru = морокканская кухня
+    ru = марокканская кухня
     uk = марокканська кухня
     tr = fas mutfağı
     es = cocina marroquí
@@ -11638,8 +11637,8 @@
     ja = 青
     ko = 파란색
     nl = Blauw
-    ru = Синій
-    uk = Синий
+    ru = Синий
+    uk = Синій
     zh-Hant = 藍色
     pl = Niebieski
     pt = Azul
@@ -11670,8 +11669,8 @@
     ja = 緑
     ko = 녹색
     nl = Groen
-    ru = Зелений
-    uk = Зеленый
+    ru = Зеленый
+    uk = Зелений
     zh-Hant = 綠色
     pl = Zielony
     pt = Verde
@@ -11734,8 +11733,8 @@
     ja = オレンジ
     ko = 오렌지색
     nl = Oranje
-    ru = Помаранчевий
-    uk = Оранжевый
+    ru = Оранжевый
+    uk = Помаранчевий
     zh-Hant = 橘紅色
     pl = Pomarańczowy
     pt = Laranja
