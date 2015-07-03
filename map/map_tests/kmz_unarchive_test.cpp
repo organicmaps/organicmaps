@@ -1,19 +1,23 @@
 #include "testing/testing.hpp"
 
-#include "coding/zip_reader.hpp"
 #include "map/framework.hpp"
+
 #include "platform/platform.hpp"
+
+#include "coding/zip_reader.hpp"
+
 #include "base/scope_guard.hpp"
 
 #include "std/string.hpp"
 #include "std/vector.hpp"
 #include "std/iostream.hpp"
 
-UNIT_TEST(Open_KMZ_Test)
+
+UNIT_TEST(KMZ_UnzipTest)
 {
-  string const KMZFILE = GetPlatform().SettingsPathForFile("test.kmz");
+  string const kmzFile = GetPlatform().TestsDataPathForFile("test.kmz");
   ZipFileReader::FileListT files;
-  ZipFileReader::FilesList(KMZFILE, files);
+  ZipFileReader::FilesList(kmzFile, files);
 
   bool isKMLinZip = false;
 
@@ -27,13 +31,13 @@ UNIT_TEST(Open_KMZ_Test)
   }
   TEST(isKMLinZip, ("No KML file in KMZ"));
 
-  string const KMLFILE = GetPlatform().SettingsPathForFile("newKml.kml");
-  MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, KMLFILE));
-  ZipFileReader::UnzipFile(KMZFILE, "doc.kml", KMLFILE);
+  string const kmlFile = GetPlatform().WritablePathForFile("newKml.kml");
+  MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, kmlFile));
+  ZipFileReader::UnzipFile(kmzFile, "doc.kml", kmlFile);
 
   Framework framework;
   BookmarkCategory cat("Default", framework);
-  TEST(cat.LoadFromKML(new FileReader(KMLFILE)), ());
+  TEST(cat.LoadFromKML(new FileReader(kmlFile)), ());
 
   TEST_EQUAL(files.size(), 6, ("KMZ file wrong number of files"));
 

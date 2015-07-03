@@ -32,7 +32,7 @@ Platform::EError Platform::ErrnoToError()
 string Platform::ReadPathForFile(string const & file, string searchScope) const
 {
   if (searchScope.empty())
-    searchScope = "wrfo";
+    searchScope = "wrf";
 
   string fullPath;
   for (size_t i = 0; i < searchScope.size(); ++i)
@@ -42,7 +42,6 @@ string Platform::ReadPathForFile(string const & file, string searchScope) const
     case 'w': fullPath = m_writableDir + file; break;
     case 'r': fullPath = m_resourcesDir + file; break;
     case 's': fullPath = m_settingsDir + file; break;
-    case 'o': fullPath = m_optionalDir + file; break;
     case 'f': fullPath = file; break;
     default : CHECK(false, ("Unsupported searchScope:", searchScope)); break;
     }
@@ -50,9 +49,9 @@ string Platform::ReadPathForFile(string const & file, string searchScope) const
       return fullPath;
   }
 
-  string possiblePaths = m_writableDir  + "\n" + m_resourcesDir + "\n" + m_settingsDir + "\n" + m_optionalDir;
-
-  MYTHROW(FileAbsentException, ("File", file, "doesn't exist in the scope", searchScope, "Have been looking in:\n", possiblePaths));
+  string const possiblePaths = m_writableDir  + "\n" + m_resourcesDir + "\n" + m_settingsDir;
+  MYTHROW(FileAbsentException, ("File", file, "doesn't exist in the scope", searchScope,
+                                "Have been looking in:\n", possiblePaths));
 }
 
 string Platform::HashUniqueID(string const & s)

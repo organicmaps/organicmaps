@@ -19,6 +19,8 @@
 #include "indexer/index_builder.hpp"
 #include "indexer/search_index_builder.hpp"
 
+#include "coding/file_name_utils.hpp"
+
 #include "defines.hpp"
 
 #include "platform/platform.hpp"
@@ -29,6 +31,7 @@
 #include "std/fstream.hpp"
 #include "std/iomanip.hpp"
 #include "std/numeric.hpp"
+
 
 DEFINE_bool(generate_update, false,
               "If specified, update.maps file will be generated from cells in the data path");
@@ -67,21 +70,6 @@ DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m]");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 
 
-string AddSlashIfNeeded(string const & str)
-{
-  string result(str);
-  size_t const size = result.size();
-  if (size)
-  {
-    if (result.find_last_of('\\') == size - 1)
-      result[size - 1] = '/';
-    else
-      if (result.find_last_of('/') != size - 1)
-        result.push_back('/');
-  }
-  return result;
-}
-
 int main(int argc, char ** argv)
 {
   google::SetUsageMessage(
@@ -92,19 +80,20 @@ int main(int argc, char ** argv)
   Platform & pl = GetPlatform();
 
   if (!FLAGS_user_resource_path.empty())
-  {
-    pl.AddOptionalPath(FLAGS_user_resource_path);
-  }
+    pl.SetResourceDir(my::AddSlashIfNeeded(FLAGS_user_resource_path));
 
   string const path =
-      FLAGS_data_path.empty() ? pl.WritableDir() : AddSlashIfNeeded(FLAGS_data_path);
+      FLAGS_data_path.empty() ? pl.WritableDir() : my::AddSlashIfNeeded(FLAGS_data_path);
 
   // Generating intermediate files
   if (FLAGS_preprocess)
   {
     LOG(LINFO, ("Generating intermediate data ...."));
-    if (!GenerateIntermediateData(FLAGS_intermediate_data_path, FLAGS_node_storage, FLAGS_osm_file_type, FLAGS_osm_file_name))
+    if (!GenerateIntermediateData(FLAGS_intermediate_data_path, FLAGS_node_storage,
+                                  FLAGS_osm_file_type, FLAGS_osm_file_name))
+    {
       return -1;
+    }
   }
 
   feature::GenerateInfo genInfo;

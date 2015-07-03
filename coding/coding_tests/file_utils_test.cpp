@@ -59,3 +59,18 @@ UNIT_TEST(FileName_GetDirectory)
   TEST_EQUAL(".", my::GetDirectory("somefile"), ());
 #endif  // !defined(OMIM_OS_WINDOWS)
 }
+
+UNIT_TEST(FilePath_Slash)
+{
+#ifndef OMIM_OS_WINDOWS
+  TEST_EQUAL("/", my::AddSlashIfNeeded(""), ());
+  TEST_EQUAL("/", my::AddSlashIfNeeded("/"), ());
+  TEST_EQUAL("./", my::AddSlashIfNeeded("."), ());
+  TEST_EQUAL("data/", my::AddSlashIfNeeded("data"), ());
+  TEST_EQUAL("data/", my::AddSlashIfNeeded("data/"), ());
+  TEST_EQUAL("/data/", my::AddSlashIfNeeded("/data"), ());
+  TEST_EQUAL("/data/", my::AddSlashIfNeeded("/data/"), ());
+  TEST_EQUAL("../../data/", my::AddSlashIfNeeded("../../data"), ());
+  TEST_EQUAL("../../data/", my::AddSlashIfNeeded("../../data/"), ());
+#endif
+}

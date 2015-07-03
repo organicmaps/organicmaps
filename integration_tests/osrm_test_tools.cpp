@@ -2,21 +2,23 @@
 
 #include "testing/testing.hpp"
 
-#include "indexer/index.hpp"
-
-#include "geometry/distance_on_sphere.hpp"
+#include "map/feature_vec_model.hpp"
 
 #include "routing/online_cross_fetcher.hpp"
 #include "routing/route.hpp"
 
-#include "map/feature_vec_model.hpp"
+#include "search/search_engine.hpp"
+
+#include "indexer/index.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
-#include "search/search_engine.hpp"
+#include "geometry/distance_on_sphere.hpp"
+
+#include "coding/file_name_utils.hpp"
 
 #include <sys/resource.h>
 
@@ -126,9 +128,9 @@ namespace integration
     Platform & pl = GetPlatform();
     CommandLineOptions const & options = GetTestingOptions();
     if (options.m_dataPath)
-      pl.SetWritableDirForTests(options.m_dataPath);
+      pl.SetWritableDirForTests(my::AddSlashIfNeeded(options.m_dataPath));
     if (options.m_resourcePath)
-      pl.AddOptionalPath(options.m_resourcePath);
+      pl.SetResourceDir(my::AddSlashIfNeeded(options.m_resourcePath));
 
     vector<LocalCountryFile> localFiles;
     platform::FindAllLocalMaps(localFiles);

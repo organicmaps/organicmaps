@@ -637,24 +637,15 @@ UNIT_TEST(Bookmarks_SpecialXMLNames)
   TEST(my::DeleteFileX(cat1.GetFileName()), ());
 }
 
-namespace
-{
-bool AlmostEqualULPs(double const & a, double const & b)
-{
-  if (fabs(a - b) <= 1e-6)
-    return true;
-  return false;
-}
-}
-
 UNIT_TEST(TrackParsingTest_1)
 {
   Framework framework;
-  string const KML = GetPlatform().SettingsPathForFile("kml-with-track-kml.test");
-  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(KML, framework);
-  if (!cat)
-    TEST(false, ("Category can't be created"));
+  string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-kml.test");
+  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(kmlFile, framework);
+  TEST(cat, ("Category can't be created"));
+
   TEST_EQUAL(cat->GetTracksCount(), 4, ());
+
   string names[4] = { "Option1", "Pakkred1", "Pakkred2", "Pakkred3"};
   graphics::Color col[4] = {graphics::Color(230, 0, 0, 255),
                             graphics::Color(171, 230, 0, 255),
@@ -666,7 +657,7 @@ UNIT_TEST(TrackParsingTest_1)
   {
     Track const * track = cat->GetTrack(i);
     TEST_EQUAL(names[i], track->GetName(), ());
-    TEST(AlmostEqualULPs(track->GetLengthMeters(), length[i]), (track->GetLengthMeters(), length[i]));
+    TEST(fabs(track->GetLengthMeters() - length[i]) < 1.0E-6, (track->GetLengthMeters(), length[i]));
     TEST_EQUAL(col[i], track->GetMainColor(), ());
   }
 }
@@ -674,10 +665,10 @@ UNIT_TEST(TrackParsingTest_1)
 UNIT_TEST(TrackParsingTest_2)
 {
   Framework framework;
-  string const KML = GetPlatform().SettingsPathForFile("kml-with-track-from-google-earth.test");
-  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(KML, framework);
-  if (!cat)
-    TEST(false, ("Category can't be created"));
+  string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-from-google-earth.test");
+  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(kmlFile, framework);
+  TEST(cat, ("Category can't be created"));
+
   TEST_EQUAL(cat->GetTracksCount(), 1, ());
   Track const * track = cat->GetTrack(0);
   TEST_EQUAL(track->GetName(), "XY", ());
