@@ -13,10 +13,10 @@ public class LocationButtonImageSetter
 
   static
   {
-    STATE_TO_RES_MAP.put(LocationState.UNKNOWN_POSITION, R.drawable.btn_white_noposition);
-    STATE_TO_RES_MAP.put(LocationState.NOT_FOLLOW, R.drawable.btn_white_target_off_1);
-    STATE_TO_RES_MAP.put(LocationState.FOLLOW, R.drawable.btn_white_follow);
-    STATE_TO_RES_MAP.put(LocationState.ROTATE_AND_FOLLOW, R.drawable.btn_white_direction);
+    STATE_TO_RES_MAP.put(LocationState.UNKNOWN_POSITION, R.drawable.ic_no_position);
+    STATE_TO_RES_MAP.put(LocationState.NOT_FOLLOW, R.drawable.ic_not_follow);
+    STATE_TO_RES_MAP.put(LocationState.FOLLOW, R.drawable.ic_follow);
+    STATE_TO_RES_MAP.put(LocationState.ROTATE_AND_FOLLOW, R.drawable.ic_follow_and_rotate);
     STATE_TO_RES_MAP.put(LocationState.PENDING_POSITION, R.drawable.anim_myposition_pending);
   }
 
