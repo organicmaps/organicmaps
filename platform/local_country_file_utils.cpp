@@ -238,20 +238,20 @@ string CountryIndexes::GetPath(LocalCountryFile const & localFile, Index index)
 {
   string const directory = IndexesDir(localFile);
   string const name = localFile.GetCountryFile().GetNameWithoutExt();
-  string file;
+  char const * ext = nullptr;
   switch (index)
   {
     case Index::Bits:
-      file = name + ".bftsegbits";
+      ext = ".bftsegbits";
       break;
     case Index::Nodes:
-      file = name + ".bftsegnodes";
+      ext = ".bftsegnodes";
       break;
     case Index::Offsets:
-      file = name + ".offsets";
+      ext = ".offsets";
       break;
   }
-  return my::JoinFoldersToPath(directory, file);
+  return my::JoinFoldersToPath(directory, name + ext);
 }
 
 // static
