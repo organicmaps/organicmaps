@@ -28,7 +28,6 @@ namespace routing
 struct RoutePathCross;
 using TCheckedPath = vector<RoutePathCross>;
 
-/// All edges available for start route while routing
 typedef vector<FeatureGraphNode> TFeatureGraphNodeVec;
 
 class OsrmRouter : public IRouter
@@ -101,7 +100,7 @@ private:
 
   Index const * m_pIndex;
 
-  TFeatureGraphNodeVec m_CachedTargetTask;
+  TFeatureGraphNodeVec m_cachedTargets;
   m2::PointD m_CachedTargetPoint;
 
   RoutingIndexManager m_indexManager;

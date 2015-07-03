@@ -28,6 +28,7 @@ void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const 
   ASSERT(m_router != nullptr, ());
   m_lastGoodPosition = startPoint;
   m_endPoint = endPoint;
+  ClearCache();
   RebuildRoute(startPoint, callback);
 }
 
@@ -35,7 +36,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackF
 {
   ASSERT(m_router != nullptr, ());
   ASSERT_NOT_EQUAL(m_endPoint, m2::PointD::Zero(), ("End point was not set"));
-  Reset();
+  RemoveRoute();
   m_state = RouteBuilding;
 
   // Use old-style callback construction, because lambda constructs buggy function on Android
@@ -56,16 +57,37 @@ void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultC
   m_callback(m_rs.m_route, e);
 }
 
-void RoutingSession::Reset()
+void RoutingSession::ClearCache()
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
+  m_router->ClearState();
+}
+
+void RoutingSession::RemoveRouteImpl()
 {
   m_state = RoutingNotActive;
   m_lastDistance = 0.0;
   m_moveAwayCounter = 0;
 
+  Route(string()).Swap(m_route);
+}
+
+void RoutingSession::RemoveRoute()
+{
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  Route(string()).Swap(m_route);
 
+  RemoveRouteImpl();
+}
+
+void RoutingSession::Reset()
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
+  RemoveRouteImpl();
   m_router->ClearState();
 }
 

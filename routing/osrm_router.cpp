@@ -343,7 +343,7 @@ string OsrmRouter::GetName() const
 
 void OsrmRouter::ClearState()
 {
-  m_CachedTargetTask.clear();
+  m_cachedTargets.clear();
   m_indexManager.Clear();
 }
 
@@ -567,7 +567,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     {
       ResultCode const code =
           FindPhantomNodes(finalPoint, m2::PointD::Zero(),
-                           m_CachedTargetTask, kMaxNodeCandidatesCount, targetMapping);
+                           m_cachedTargets, kMaxNodeCandidatesCount, targetMapping);
       if (code != NoError)
         return code;
       m_CachedTargetPoint = finalPoint;
@@ -589,7 +589,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                   {
                                     indexPair.second->FreeCrossContext();
                                   });
-    if (!FindRouteFromCases(startTask, m_CachedTargetTask, startMapping->m_dataFacade,
+    if (!FindRouteFromCases(startTask, m_cachedTargets, startMapping->m_dataFacade,
                             routingResult))
     {
       return RouteNotFound;
@@ -617,7 +617,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     LOG(LINFO, ("Multiple mwm routing case"));
     TCheckedPath finalPath;
     my::Cancellable const & cancellable = *this;
-    ResultCode code = CalculateCrossMwmPath(startTask, m_CachedTargetTask, m_indexManager,
+    ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager,
                                             cancellable, m_routingVisualization, finalPath);
     timer.Reset();
 
