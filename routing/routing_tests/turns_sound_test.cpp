@@ -22,7 +22,10 @@ Settings const settingsFeet(20 /* notificationTimeSeconds */,
                             2000 /* maxNotificationDistanceUnits */,
                             {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
                             LengthUnits::Feet /* lengthUnits */);
+
+// A error to compare two double after conversion feet to meters.
 double const kEps = 1.;
+// A error to compare two doubles which are almost equal.
 double const kSmallEps = .001;
 
 UNIT_TEST(TurnNotificationSettingsMetersTest)
@@ -38,16 +41,11 @@ UNIT_TEST(TurnNotificationSettingsMetersTest)
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(300 /* distanceInUnits */), 300, ());
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(0 /* distanceInUnits */), 100, ());
 
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnNotificationDistanceUnits(0. /* distanceInUnits */),
-                          200., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnNotificationDistanceUnits(10. /* distanceInUnits */),
-                          200., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnNotificationDistanceUnits(20. /* distanceInUnits */),
-                          400., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnNotificationDistanceUnits(35. /* distanceInUnits */),
-                          700., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnNotificationDistanceUnits(200. /* distanceInUnits */),
-                          700., kSmallEps), ());
+  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(0. /* distanceInUnits */), 200., kSmallEps), ());
+  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(10. /* distanceInUnits */), 200., kSmallEps), ());
+  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(20. /* distanceInUnits */), 400., kSmallEps), ());
+  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(35. /* distanceInUnits */), 700., kSmallEps), ());
+  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(200. /* distanceInUnits */), 700., kSmallEps), ());
 }
 
 UNIT_TEST(TurnNotificationSettingsFeetTest)
@@ -63,16 +61,11 @@ UNIT_TEST(TurnNotificationSettingsFeetTest)
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(500 /* distanceInUnits */), 600, ());
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(0 /* distanceInUnits */), 200, ());
 
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnNotificationDistanceUnits(0. /* distanceInUnits */),
-                          500., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnNotificationDistanceUnits(10. /* distanceInUnits */),
-                          500., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnNotificationDistanceUnits(30. /* distanceInUnits */),
-                          600., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnNotificationDistanceUnits(40. /* distanceInUnits */),
-                          800., kSmallEps), ());
-  TEST(my::AlmostEqualAbs(settings.ComputeTurnNotificationDistanceUnits(200. /* distanceInUnits */),
-                          2000., kSmallEps), ());
+  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(0. /* distanceInUnits */), 500., kSmallEps), ());
+  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(10. /* distanceInUnits */), 500., kSmallEps), ());
+  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(30. /* distanceInUnits */), 600., kSmallEps), ());
+  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(40. /* distanceInUnits */), 800., kSmallEps), ());
+  TEST(my::AlmostEqualAbs(settings.ComputeTurnDistance(200. /* distanceInUnits */), 2000., kSmallEps), ());
 }
 
 UNIT_TEST(TurnNotificationSettingsNotValidTest)
@@ -99,8 +92,8 @@ UNIT_TEST(TurnNotificationSettingsNotValidTest)
 UNIT_TEST(TurnsSoundMetersTest)
 {
   TurnsSound turnSound;
-  turnSound.EnableTurnNotification(true);
-  turnSound.AssignSettings(settingsMeters);
+  turnSound.Enable(true);
+  turnSound.SetSettings(settingsMeters);
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(30.);
 
@@ -111,11 +104,11 @@ UNIT_TEST(TurnsSoundMetersTest)
 
   // Starting nearing the turnItem.
   // 1000 meters till the turn. No sound notifications is required.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 1000. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 1000. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 700 meters till the turn. No sound notifications is required.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 700. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 700. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 699 meters till the turn. It's time to pronounce the first voice notification.
@@ -124,7 +117,7 @@ UNIT_TEST(TurnsSoundMetersTest)
   // Besides that we need 5 seconds (but 100 meters maximum) for playing the notification.
   // So we start playing the first notification when the distance till the turn is less
   // then 20 seconds * 30 meters per seconds + 100 meters = 700 meters.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 699. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 699. /* distanceToTurnMeters */);
   TEST_EQUAL(followInfo.m_turnNotifications.size(), 1, ());
   TEST_EQUAL(followInfo.m_turnNotifications[0].m_distanceUnits, 600, ());
   TEST_EQUAL(followInfo.m_turnNotifications[0].m_exitNum, 0, ());
@@ -134,19 +127,21 @@ UNIT_TEST(TurnsSoundMetersTest)
 
   // 650 meters till the turn. No sound notifications is required.
   followInfo.m_turnNotifications.clear();
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 650. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 650. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
+  turnSound.SetSpeedMetersPerSecond(32.);
+
   // 150 meters till the turn. No sound notifications is required.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 150. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 150. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 100 meters till the turn. No sound notifications is required.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 100. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 100. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 99 meters till the turn. It's time to pronounce the second voice notification.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
   TEST_EQUAL(followInfo.m_turnNotifications.size(), 1, ());
   TEST_EQUAL(followInfo.m_turnNotifications[0].m_distanceUnits, 0, ());
   TEST_EQUAL(followInfo.m_turnNotifications[0].m_exitNum, 0, ());
@@ -156,27 +151,26 @@ UNIT_TEST(TurnsSoundMetersTest)
 
   // 99 meters till the turn again. No sound notifications is required.
   followInfo.m_turnNotifications.clear();
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 50 meters till the turn. No sound notifications is required.
-  followInfo.m_turnNotifications.clear();
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 50. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 50. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 0 meters till the turn. No sound notifications is required.
   followInfo.m_turnNotifications.clear();
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 0. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 0. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
-  TEST(turnSound.IsTurnNotificationEnabled(), ());
+  TEST(turnSound.IsEnabled(), ());
 }
 
 UNIT_TEST(TurnsSoundFeetTest)
 {
   TurnsSound turnSound;
-  turnSound.EnableTurnNotification(true);
-  turnSound.AssignSettings(settingsFeet);
+  turnSound.Enable(true);
+  turnSound.SetSettings(settingsFeet);
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(30.);
 
@@ -187,11 +181,11 @@ UNIT_TEST(TurnsSoundFeetTest)
 
   // Starting nearing the turnItem.
   // 1000 meters till the turn. No sound notifications is required.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 1000. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 1000. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 700 meters till the turn. No sound notifications is required.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 700. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 700. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 699 meters till the turn. It's time to pronounce the first voice notification.
@@ -200,7 +194,7 @@ UNIT_TEST(TurnsSoundFeetTest)
   // Besides that we need 5 seconds (but 100 meters maximum) for playing the notification.
   // So we start playing the first notification when the distance till the turn is less
   // then 20 seconds * 30 meters per seconds + 100 meters = 700 meters.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 699. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 699. /* distanceToTurnMeters */);
   TEST_EQUAL(followInfo.m_turnNotifications.size(), 1, ());
   TEST_EQUAL(followInfo.m_turnNotifications[0].m_distanceUnits, 2000, ());
   TEST_EQUAL(followInfo.m_turnNotifications[0].m_exitNum, 3, ());
@@ -210,19 +204,19 @@ UNIT_TEST(TurnsSoundFeetTest)
 
   // 650 meters till the turn. No sound notifications is required.
   followInfo.m_turnNotifications.clear();
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 650. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 650. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 150 meters till the turn. No sound notifications is required.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 150. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 150. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 100 meters till the turn. No sound notifications is required.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 100. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 100. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 99 meters till the turn. It's time to pronounce the second voice notification.
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
   TEST_EQUAL(followInfo.m_turnNotifications.size(), 1, ());
   TEST_EQUAL(followInfo.m_turnNotifications[0].m_distanceUnits, 0, ());
   TEST_EQUAL(followInfo.m_turnNotifications[0].m_exitNum, 3, ());
@@ -232,19 +226,19 @@ UNIT_TEST(TurnsSoundFeetTest)
 
   // 99 meters till the turn again. No sound notifications is required.
   followInfo.m_turnNotifications.clear();
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 50 meters till the turn. No sound notifications is required.
   followInfo.m_turnNotifications.clear();
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 50. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 50. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
   // 0 meters till the turn. No sound notifications is required.
   followInfo.m_turnNotifications.clear();
-  turnSound.GetRouteFollowingInfo(followInfo, turnItem, 0. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 0. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
 
-  TEST(turnSound.IsTurnNotificationEnabled(), ());
+  TEST(turnSound.IsEnabled(), ());
 }
 }  // namespace

@@ -10,7 +10,7 @@ namespace sound
 {
 enum class LengthUnits
 {
-  Undefined = 0,
+  Undefined,
   Meters,
   Feet
 };
@@ -22,9 +22,9 @@ string DebugPrint(LengthUnits const & lengthUnits);
 /// All distance parameters shall be set in m_lengthUnits. (Meters of feet for the time being.)
 class Settings
 {
-  uint32_t m_notificationTimeSeconds;
-  uint32_t m_minNotificationDistanceUnits;
-  uint32_t m_maxNotificationDistanceUnits;
+  uint32_t m_timeSeconds;
+  uint32_t m_minDistanceUnits;
+  uint32_t m_maxDistanceUnits;
 
   /// \brief m_distancesToPronounce is a list of distances in m_lengthUnits
   ///  which are ready to be pronounced.
@@ -32,13 +32,17 @@ class Settings
   LengthUnits m_lengthUnits;
 
 public:
-  Settings() : m_lengthUnits(LengthUnits::Undefined) {}
+  Settings()
+      : m_minDistanceUnits(0),
+        m_maxDistanceUnits(0),
+        m_soundedDistancesUnits(),
+        m_lengthUnits(LengthUnits::Undefined) {}
   Settings(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
            uint32_t maxNotificationDistanceUnits, vector<uint32_t> const & soundedDistancesUnits,
            LengthUnits lengthUnits)
-      : m_notificationTimeSeconds(notificationTimeSeconds),
-        m_minNotificationDistanceUnits(minNotificationDistanceUnits),
-        m_maxNotificationDistanceUnits(maxNotificationDistanceUnits),
+      : m_timeSeconds(notificationTimeSeconds),
+        m_minDistanceUnits(minNotificationDistanceUnits),
+        m_maxDistanceUnits(maxNotificationDistanceUnits),
         m_soundedDistancesUnits(soundedDistancesUnits),
         m_lengthUnits(lengthUnits)
   {
@@ -54,7 +58,7 @@ public:
   /// \param speedMetersPerSecond is a speed. For example it could be a current speed of an end
   /// user.
   /// \return distance in units which are set in m_lengthUnits. (Meters of feet for the time being.)
-  double ComputeTurnNotificationDistanceUnits(double speedUnitsPerSecond) const;
+  double ComputeTurnDistance(double speedUnitsPerSecond) const;
 
   /// \brief RoundByPresetSoundedDistancesUnits rounds off its parameter by
   /// m_soundedDistancesUnits.
@@ -64,14 +68,14 @@ public:
   /// The result will be one of the m_soundedDistancesUnits values.
   uint32_t RoundByPresetSoundedDistancesUnits(uint32_t turnNotificationUnits) const;
 
-  LengthUnits GetLengthUnits() const { return m_lengthUnits; }
+  inline LengthUnits GetLengthUnits() const { return m_lengthUnits; }
   double ConvertMetersPerSecondToUnitsPerSecond(double speedInMetersPerSecond) const;
   double ConvertUnitsToMeters(double distanceInUnits) const;
 };
 
-/// \brief The Notifications struct contains all the information about the next sound
+/// \brief The Notification struct contains all the information about the next sound
 /// notification to pronounce.
-struct Notifications
+struct Notification
 {
   uint32_t const m_distanceUnits;
   uint8_t const m_exitNum;
@@ -79,8 +83,8 @@ struct Notifications
   TurnDirection const m_turnDir;
   LengthUnits const m_lengthUnits;
 
-  Notifications(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-                TurnDirection turnDir, LengthUnits lengthUnits)
+  Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+               TurnDirection turnDir, LengthUnits lengthUnits)
       : m_distanceUnits(distanceUnits),
         m_exitNum(exitNum),
         m_useThenInsteadOfDistance(useThenInsteadOfDistance),
@@ -88,7 +92,7 @@ struct Notifications
         m_lengthUnits(lengthUnits)
   {
   }
-  bool IsValid() { return m_lengthUnits != LengthUnits::Undefined; }
+  inline bool IsValid() const { return m_lengthUnits != LengthUnits::Undefined; }
 };
 }  // namespace sound
 }  // namespace turns

@@ -131,10 +131,10 @@ void Route::GetTurn(double & distance, turns::TurnItem & turn) const
   turns::TurnItem t;
   t.m_index = m_current.m_ind;
   auto it = upper_bound(m_turns.begin(), m_turns.end(), t,
-                        [](turns::TurnItem const & v, turns::TurnItem const & item)
-  {
-    return v.m_index < item.m_index;
-  });
+                        [](turns::TurnItem const & lhs, turns::TurnItem const & rhs)
+            {
+              return lhs.m_index < rhs.m_index;
+            });
 
   ASSERT_GREATER_OR_EQUAL((*it).m_index - 1, 0, ());
 

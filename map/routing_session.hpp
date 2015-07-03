@@ -70,7 +70,7 @@ public:
   void Reset();
 
   State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);
-  void GetRouteFollowingInfo(location::FollowingInfo & info) const;
+  void GetRouteFollowingInfo(location::FollowingInfo & info);
 
   void MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
@@ -79,9 +79,9 @@ public:
   void ActivateAdditionalFeatures() {}
 
   // Sound notifications for turn instructions.
-  void AssignTurnSoundNotificationSettings(turns::sound::Settings const & settings);
-  void EnableTurnNotification(bool enable);
-  bool IsTurnNotificationEnabled() const;
+  void SetTurnSoundNotificationsSettings(turns::sound::Settings const & settings);
+  void EnableTurnNotifications(bool enable);
+  bool AreTurnNotificationsEnabled() const;
 
 private:
   struct DoReadyCallback

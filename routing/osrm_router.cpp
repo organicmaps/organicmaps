@@ -812,8 +812,10 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
 
   times.push_back(Route::TTimeItem(points.size() - 1, estimatedTime));
   if (routingResult.targetEdge.segment.IsValid())
+  {
     turnsDir.push_back(
         turns::TurnItem(points.size() - 1, turns::TurnDirection::ReachedYourDestination));
+  }
   turns::FixupTurns(points, turnsDir);
 
   turns::CalculateTurnGeometry(points, turnsDir, turnsGeom);

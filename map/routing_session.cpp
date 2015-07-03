@@ -141,7 +141,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   return m_state;
 }
 
-void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
+void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
 {
   auto formatDistFn = [](double dist, string & value, string & suffix)
   {
@@ -190,7 +190,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     }
 
     // Voice turn notifications.
-    m_turnsSound.GetRouteFollowingInfo(info, turn, distanceToTurnMeters);
+    m_turnsSound.UpdateRouteFollowingInfo(info, turn, distanceToTurnMeters);
   }
   else
   {
@@ -230,24 +230,24 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
   m_route.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
-void RoutingSession::EnableTurnNotification(bool enable)
+void RoutingSession::EnableTurnNotifications(bool enable)
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  m_turnsSound.EnableTurnNotification(enable);
+  m_turnsSound.Enable(enable);
 }
 
-bool RoutingSession::IsTurnNotificationEnabled() const
+bool RoutingSession::AreTurnNotificationsEnabled() const
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  return m_turnsSound.IsTurnNotificationEnabled();
+  return m_turnsSound.IsEnabled();
 }
 
-void RoutingSession::AssignTurnSoundNotificationSettings(turns::sound::Settings const & settings)
+void RoutingSession::SetTurnSoundNotificationsSettings(turns::sound::Settings const & settings)
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  m_turnsSound.AssignSettings(settings);
+  m_turnsSound.SetSettings(settings);
 }
 }

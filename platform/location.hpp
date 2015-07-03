@@ -133,7 +133,7 @@ namespace location
     // If there is nothing to pronounce m_turnNotifications is empty.
     // If there is something to pronounce the size of m_turnNotifications may be one or even more
     // depends on the number of notifications to prononce.
-    vector<routing::turns::sound::Notifications> m_turnNotifications;
+    vector<routing::turns::sound::Notification> m_turnNotifications;
     // The next street name.
     string m_targetName;
 

@@ -5,6 +5,7 @@
 #include "3party/osrm/osrm-backend/typedefs.h"
 
 #include "std/initializer_list.hpp"
+#include "std/limits.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -125,12 +126,12 @@ struct TurnItem
            m_targetName == rhs.m_targetName && m_keepAnyway == rhs.m_keepAnyway;
   }
 
-  uint32_t m_index; /*!< Index of point on polyline (number of segment + 1). */
-  TurnDirection m_turn;
+  uint32_t m_index;               /*!< Index of point on polyline (number of segment + 1). */
+  TurnDirection m_turn;           /*!< The turn instruction of the TurnItem */
   vector<SingleLaneInfo> m_lanes; /*!< Lane information on the edge before the turn. */
   uint32_t m_exitNum;             /*!< Number of exit on roundabout. */
-  string m_sourceName;
-  string m_targetName;
+  string m_sourceName;            /*!< Name of the street which the ingoing edge belongs to */
+  string m_targetName;            /*!< Name of the street which the outgoing edge belongs to */
   /*!
    * \brief m_keepAnyway is true if the turn shall not be deleted
    * and shall be demonstrated to an end user.

@@ -61,11 +61,7 @@ namespace search
 
 namespace gui { class Controller; }
 namespace anim { class Controller; }
-
-namespace routing
-{
-namespace turns{ class Settings; }
-}
+namespace routing { namespace turns{ class Settings; } }
 
 class CountryStatusDisplay;
 class BenchmarkEngine;
@@ -568,13 +564,16 @@ public:
   void SetRouteBuildingListener(TRouteBuildingCallback const & callback) { m_routingCallback = callback; }
   void FollowRoute() { GetLocationState()->StartRouteFollow(); }
   void CloseRouting();
-  void GetRouteFollowingInfo(location::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
+  void GetRouteFollowingInfo(location::FollowingInfo & info) { m_routingSession.GetRouteFollowingInfo(info); }
   m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
-  // @TODO The three methods below has to called from jni.
+  // @TODO The three methods below has to be called from jni.
   // Sound notifications for turn instructions.
-  void EnableTurnNotification(bool enable);
-  bool IsTurnNotificationEnabled();
-  void AssignTurnSoundNotificationSettings(routing::turns::sound::Settings const & settings);
+  inline void EnableTurnNotifications(bool enable) { m_routingSession.EnableTurnNotifications(enable); }
+  inline bool AreTurnNotificationsEnabled() const { return m_routingSession.AreTurnNotificationsEnabled(); }
+  inline void SetTurnSoundNotificationsSettings(routing::turns::sound::Settings const & settings)
+  {
+    m_routingSession.SetTurnSoundNotificationsSettings(settings);
+  }
 
 private:
   void SetRouter(routing::RouterType type);

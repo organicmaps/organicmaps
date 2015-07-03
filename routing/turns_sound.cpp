@@ -23,11 +23,7 @@ uint32_t CalculateDistBeforeMeters(double m_speedMetersPerSecond)
   ASSERT_LESS_OR_EQUAL(0, m_speedMetersPerSecond, ());
   uint32_t const startBeforeMeters =
       static_cast<uint32_t>(m_speedMetersPerSecond * kStartBeforeSeconds);
-  if (startBeforeMeters <= kMinStartBeforeMeters)
-    return kMinStartBeforeMeters;
-  if (startBeforeMeters >= kMaxStartBeforeMeters)
-    return kMaxStartBeforeMeters;
-  return startBeforeMeters;
+  return my::clamp(startBeforeMeters, kMinStartBeforeMeters, kMaxStartBeforeMeters);
 }
 }  // namespace
 
@@ -37,63 +33,63 @@ namespace turns
 {
 namespace sound
 {
-void TurnsSound::GetRouteFollowingInfo(location::FollowingInfo & info, TurnItem const & turn,
-                                       double distanceToTurnMeters) const
+void TurnsSound::UpdateRouteFollowingInfo(location::FollowingInfo & info, TurnItem const & turn,
+                                          double distanceToTurnMeters)
 {
-  if (m_turnNotificationEnabled)
+  info.m_turnNotifications.clear();
+
+  if (!m_enabled)
+    return;
+
+  if (m_nextTurnIndex != turn.m_index)
   {
-    if (m_nextTurnIndex != turn.m_index)
-    {
-      m_nextTurnNotificationProgress = SoundNotificationProgress::NoNotificationsPronounced;
-      m_nextTurnIndex = turn.m_index;
-    }
+    m_nextNotificationProgress = PronouncedNotification::Nothing;
+    m_nextTurnIndex = turn.m_index;
+  }
 
-    uint32_t const distanceToPronounceNotificationMeters = CalculateDistBeforeMeters(m_speedMetersPerSecond);
+  uint32_t const distanceToPronounceNotificationMeters = CalculateDistBeforeMeters(m_speedMetersPerSecond);
 
-    if (m_nextTurnNotificationProgress == SoundNotificationProgress::NoNotificationsPronounced)
-    {
-      double const currentSpeedUntisPerSecond =
-          m_settings.ConvertMetersPerSecondToUnitsPerSecond(m_speedMetersPerSecond);
-      double const turnNotificationDistUnits =
-          m_settings.ComputeTurnNotificationDistanceUnits(currentSpeedUntisPerSecond);
-      uint32_t const turnNotificationDistMeters =
-          m_settings.ConvertUnitsToMeters(turnNotificationDistUnits) + distanceToPronounceNotificationMeters;
+  if (m_nextNotificationProgress == PronouncedNotification::Nothing)
+  {
+    double const currentSpeedUntisPerSecond =
+        m_settings.ConvertMetersPerSecondToUnitsPerSecond(m_speedMetersPerSecond);
+    double const turnNotificationDistUnits =
+        m_settings.ComputeTurnDistance(currentSpeedUntisPerSecond);
+    uint32_t const turnNotificationDistMeters =
+        m_settings.ConvertUnitsToMeters(turnNotificationDistUnits) + distanceToPronounceNotificationMeters;
 
-      if (distanceToTurnMeters < turnNotificationDistMeters)
-      {
-        // First turn sound notification.
-        uint32_t const distToPronounce =
-            m_settings.RoundByPresetSoundedDistancesUnits(turnNotificationDistUnits);
-        info.m_turnNotifications.emplace_back(distToPronounce, turn.m_exitNum, false, turn.m_turn,
-                                              m_settings.GetLengthUnits());
-        // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
-        // If so add an extra item to info.m_turnNotifications with "then parameter".
-        m_nextTurnNotificationProgress =
-            SoundNotificationProgress::BeforehandNotificationPronounced;
-      }
-    }
-    else if (m_nextTurnNotificationProgress ==
-                 SoundNotificationProgress::BeforehandNotificationPronounced &&
-             distanceToTurnMeters < distanceToPronounceNotificationMeters)
+    if (distanceToTurnMeters < turnNotificationDistMeters)
     {
-      info.m_turnNotifications.emplace_back(0, turn.m_exitNum, false, turn.m_turn,
+      // First turn sound notification.
+      uint32_t const distToPronounce =
+          m_settings.RoundByPresetSoundedDistancesUnits(turnNotificationDistUnits);
+      info.m_turnNotifications.emplace_back(distToPronounce, turn.m_exitNum, false, turn.m_turn,
                                             m_settings.GetLengthUnits());
-
       // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
       // If so add an extra item to info.m_turnNotifications with "then parameter".
-      m_nextTurnNotificationProgress = SoundNotificationProgress::SecondNotificationPronounced;
+      m_nextNotificationProgress = PronouncedNotification::First;
     }
+  }
+  else if (m_nextNotificationProgress == PronouncedNotification::First &&
+           distanceToTurnMeters < distanceToPronounceNotificationMeters)
+  {
+    info.m_turnNotifications.emplace_back(0, turn.m_exitNum, false, turn.m_turn,
+                                          m_settings.GetLengthUnits());
+
+    // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
+    // If so add an extra item to info.m_turnNotifications with "then parameter".
+    m_nextNotificationProgress = PronouncedNotification::Second;
   }
 }
 
-void TurnsSound::EnableTurnNotification(bool enable)
+void TurnsSound::Enable(bool enable)
 {
-  if (enable)
+  if (enable && !m_enabled)
     Reset();
-  m_turnNotificationEnabled = enable;
+  m_enabled = enable;
 }
 
-void TurnsSound::AssignSettings(Settings const & newSettings)
+void TurnsSound::SetSettings(Settings const & newSettings)
 {
   ASSERT(newSettings.IsValid(), ());
   m_settings = newSettings;
@@ -101,7 +97,6 @@ void TurnsSound::AssignSettings(Settings const & newSettings)
 
 void TurnsSound::SetSpeedMetersPerSecond(double speed)
 {
-  Reset();
   // When the quality of GPS data is bad the current speed may be less then zero.
   // It's easy to reproduce at an office with Nexus 5.
   // In that case zero meters per second is used.
@@ -110,27 +105,26 @@ void TurnsSound::SetSpeedMetersPerSecond(double speed)
 
 void TurnsSound::Reset()
 {
-  m_nextTurnNotificationProgress =
-      turns::sound::SoundNotificationProgress::NoNotificationsPronounced;
+  m_nextNotificationProgress = turns::sound::PronouncedNotification::Nothing;
   m_nextTurnIndex = 0;
 }
 
-string DebugPrint(SoundNotificationProgress const notificationProgress)
+string DebugPrint(PronouncedNotification const notificationProgress)
 {
   switch (notificationProgress)
   {
-    case SoundNotificationProgress::NoNotificationsPronounced:
-      return "NoNotificationsPronounced";
-    case SoundNotificationProgress::BeforehandNotificationPronounced:
-      return "BeforehandNotificationPronounced";
-    case SoundNotificationProgress::SecondNotificationPronounced:
-      return "SecondNotificationPronounced";
-    default:
-      ASSERT(false, ());
-      stringstream out;
-      out << "unknown SoundNotificationProgress (" << static_cast<int>(notificationProgress) << ")";
-      return out.str();
+    case PronouncedNotification::Nothing:
+      return "Nothing";
+    case PronouncedNotification::First:
+      return "First";
+    case PronouncedNotification::Second:
+      return "Second";
   }
+
+  ASSERT(false, ());
+  stringstream out;
+  out << "unknown PronouncedNotification (" << static_cast<int>(notificationProgress) << ")";
+  return out.str();
 }
 }  // namespace sound
 }  // namespace turns

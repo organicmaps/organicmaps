@@ -64,7 +64,7 @@ bool SingleLaneInfo::operator==(SingleLaneInfo const & other) const
 string DebugPrint(TurnItem const & turnItem)
 {
   stringstream out;
-  out << "[ TurnItem: m_index = " << turnItem.m_index
+  out << "TurnItem [ m_index = " << turnItem.m_index
       << ", m_turn = " << DebugPrint(turnItem.m_turn)
       << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
       << ", m_sourceName = " << turnItem.m_sourceName

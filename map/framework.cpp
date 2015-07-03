@@ -2127,18 +2127,6 @@ void Framework::BuildRoute(m2::PointD const & destination)
     });
 }
 
-void Framework::EnableTurnNotification(bool enable)
-{
-  m_routingSession.EnableTurnNotification(enable);
-}
-
-bool Framework::IsTurnNotificationEnabled() { return m_routingSession.IsTurnNotificationEnabled(); }
-
-void Framework::AssignTurnSoundNotificationSettings(routing::turns::sound::Settings const & settings)
-{
-  m_routingSession.AssignTurnSoundNotificationSettings(settings);
-}
-
 void Framework::SetRouter(RouterType type)
 {
 #ifdef DEBUG
