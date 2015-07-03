@@ -258,7 +258,7 @@ UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
 // Test case: a route goes in Moscow from Varshavskoe shosse (from the city center direction)
 // to MKAD (the outer side). A turn instruction (to leave Varshavskoe shosse)
 // shall be generated.
-UNIT_TEST(RussiaMoscowVorshavskoiShosseMKAD)
+UNIT_TEST(RussiaMoscowVarshavskoeShosseMKAD)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetAllMaps(), MercatorBounds::FromLatLon(55.58210, 37.59695), {0., 0.},

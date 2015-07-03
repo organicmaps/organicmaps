@@ -35,7 +35,7 @@ namespace
   }
 
   // Cross mwm tests.
-  UNIT_TEST(RussiaMoscowLenigradskiy39GerPanfilovtsev22RouteTest)
+  UNIT_TEST(RussiaMoscowLeningradskiy39GerPanfilovtsev22RouteTest)
   {
     integration::CalculateRouteAndTestRouteLength(integration::GetAllMaps(),
                                                   {37.53758809983519, 67.536162466434234}, {0., 0.},
