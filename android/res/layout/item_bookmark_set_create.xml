@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:paddingLeft="@dimen/margin_medium"
-    android:paddingRight="@dimen/margin_medium">
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base">
 
   <TextView
       android:id="@+id/chs_footer_button"

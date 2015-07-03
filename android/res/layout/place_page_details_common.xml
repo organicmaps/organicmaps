@@ -6,14 +6,14 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      android:paddingLeft="@dimen/margin_medium_and_half"
-      android:paddingRight="@dimen/margin_medium_and_half"
-      android:paddingTop="@dimen/margin_medium">
+      android:paddingLeft="@dimen/margin_base_plus"
+      android:paddingRight="@dimen/margin_base_plus"
+      android:paddingTop="@dimen/margin_base">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_half"
         android:background="?android:attr/listDivider"/>
 
     <include layout="@layout/place_page_placename"/>
@@ -35,7 +35,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_marginBottom="@dimen/margin_small"/>
+        android:layout_marginBottom="@dimen/margin_half"/>
 
     <include
         layout="@layout/place_page_bookmark_details"

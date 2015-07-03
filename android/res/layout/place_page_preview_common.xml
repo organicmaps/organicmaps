@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv__title"
-        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_base"
         android:textColor="@color/text_place_page_subtitle"
         android:textSize="@dimen/place_page_subtitle"/>
 
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/tv__subtitle"
-        android:layout_marginBottom="@dimen/margin_micro"
+        android:layout_marginBottom="@dimen/margin_eighth"
         android:layout_toRightOf="@id/tv__subtitle"
         android:numStars="5"
         android:progressDrawable="@drawable/rating_bar_stars"
@@ -74,7 +74,7 @@
       android:layout_height="wrap_content"
       android:layout_marginRight="-8dp"
       android:clickable="true"
-      android:padding="@dimen/margin_small"/>
+      android:padding="@dimen/margin_half"/>
 
 </merge>
 

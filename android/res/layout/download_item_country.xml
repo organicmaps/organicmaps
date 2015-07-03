@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/clickableBackground"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:paddingLeft="@dimen/margin_small">
+    android:paddingLeft="@dimen/margin_half">
 
   <TextView
       android:id="@+id/title"
@@ -14,7 +14,7 @@
       android:layout_height="wrap_content"
       android:layout_alignParentLeft="true"
       android:layout_centerVertical="true"
-      android:layout_marginLeft="@dimen/margin_small"
+      android:layout_marginLeft="@dimen/margin_half"
       android:layout_toLeftOf="@+id/ll__info_slided"
       android:maxLines="2"
       android:textAppearance="@style/MwmTextAppearance.Body1"/>
@@ -26,11 +26,11 @@
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
       android:layout_marginRight="@dimen/progress_wheel_width_neg"
-      android:paddingLeft="@dimen/margin_tiny"
-      android:paddingRight="@dimen/margin_tiny"
+      android:paddingLeft="@dimen/margin_quarter"
+      android:paddingRight="@dimen/margin_quarter"
       wheel:progressColor="@color/downloader_blue"
       wheel:secondaryColor="@color/downloader_progress_bg"
-      wheel:wheelThickness="@dimen/margin_micro"/>
+      wheel:wheelThickness="@dimen/margin_eighth"/>
 
   <ImageView
       android:id="@+id/iv__routing_status_slided"
@@ -47,11 +47,11 @@
       android:layout_height="@dimen/progress_wheel_height"
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
-      android:paddingLeft="@dimen/margin_tiny"
-      android:paddingRight="@dimen/margin_tiny"
+      android:paddingLeft="@dimen/margin_quarter"
+      android:paddingRight="@dimen/margin_quarter"
       wheel:progressColor="@color/downloader_blue"
       wheel:secondaryColor="@color/downloader_progress_bg"
-      wheel:wheelThickness="@dimen/margin_micro"/>
+      wheel:wheelThickness="@dimen/margin_eighth"/>
 
   <LinearLayout
       android:id="@+id/ll__info"
@@ -59,7 +59,7 @@
       android:layout_height="match_parent"
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
-      android:layout_marginRight="@dimen/margin_small"
+      android:layout_marginRight="@dimen/margin_half"
       android:gravity="right"
       android:minWidth="60dp"
       android:orientation="vertical">

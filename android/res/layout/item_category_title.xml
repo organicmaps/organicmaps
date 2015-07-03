@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_item_oneline"
     android:gravity="left|center_vertical"
-    android:paddingLeft="@dimen/margin_medium"
-    android:paddingTop="@dimen/margin_small"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingTop="@dimen/margin_half"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     android:text="@string/bookmarks"/>

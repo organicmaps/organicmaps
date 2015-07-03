@@ -5,8 +5,8 @@
     android:layout_height="48dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/margin_medium"
-    android:paddingRight="@dimen/margin_medium">
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base">
 
   <TextView
       android:id="@+id/tv__set_name"

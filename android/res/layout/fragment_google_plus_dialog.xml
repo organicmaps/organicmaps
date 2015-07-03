@@ -9,7 +9,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
-      android:padding="@dimen/margin_medium"
+      android:padding="@dimen/margin_base"
       android:src="@drawable/ic_launcher"/>
 
   <TextView
@@ -18,14 +18,14 @@
       android:textSize="20sp"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
-      android:padding="@dimen/margin_small"
+      android:padding="@dimen/margin_half"
       android:text="@string/rating_do_like_maps"/>
 
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:fontFamily="@string/robotoLight"
-      android:padding="@dimen/margin_small"
+      android:padding="@dimen/margin_half"
       android:textSize="14sp"
       android:text="@string/rating_google_plus"/>
 
@@ -39,7 +39,7 @@
       xmlns:plus="http://schemas.android.com/apk/lib/com.google.android.gms.plus"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_margin="@dimen/margin_small"
+      android:layout_margin="@dimen/margin_half"
       plus:annotation="inline"
       plus:size="normal"/>
 

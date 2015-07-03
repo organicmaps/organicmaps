@@ -20,7 +20,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:gravity="center_vertical"
-        android:padding="@dimen/margin_small"
+        android:padding="@dimen/margin_half"
         android:text="@string/downloader_update_all"
         android:textAppearance="@style/MwmTextAppearance.Toolbar.Button"/>
   </android.support.v7.widget.Toolbar>

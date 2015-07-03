@@ -6,10 +6,10 @@
     <item name="android:layout_height">56dp</item>
     <item name="android:gravity">center_vertical</item>
     <item name="android:orientation">horizontal</item>
-    <item name="android:paddingBottom">@dimen/margin_small_and_half</item>
-    <item name="android:paddingLeft">@dimen/margin_medium_and_half</item>
-    <item name="android:paddingRight">@dimen/margin_medium_and_half</item>
-    <item name="android:paddingTop">@dimen/margin_medium_and_half</item>
+    <item name="android:paddingBottom">@dimen/margin_half_plus</item>
+    <item name="android:paddingLeft">@dimen/margin_base_plus</item>
+    <item name="android:paddingRight">@dimen/margin_base_plus</item>
+    <item name="android:paddingTop">@dimen/margin_base_plus</item>
   </style>
 
   <style name="PlacePageButtonText">
@@ -17,7 +17,7 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textAllCaps">true</item>
     <item name="android:textColor">@color/text_place_page_buttons</item>
-    <item name="android:layout_marginTop">@dimen/margin_micro</item>
+    <item name="android:layout_marginTop">@dimen/margin_eighth</item>
     <item name="android:textSize">10sp</item>
   </style>
 
@@ -25,8 +25,8 @@
     <item name="android:layout_width">24dp</item>
     <item name="android:layout_height">0dp</item>
     <item name="android:layout_weight">1</item>
-    <item name="android:paddingTop">@dimen/margin_medium</item>
-    <item name="android:paddingBottom">@dimen/margin_medium</item>
+    <item name="android:paddingTop">@dimen/margin_base</item>
+    <item name="android:paddingBottom">@dimen/margin_base</item>
     <item name="android:scaleType">center</item>
   </style>
 
@@ -36,9 +36,9 @@
     <item name="android:layout_gravity">center_horizontal</item>
     <item name="android:layout_weight">1</item>
     <item name="android:orientation">vertical</item>
-    <item name="android:paddingTop">@dimen/margin_small</item>
+    <item name="android:paddingTop">@dimen/margin_half</item>
     <item name="android:background">?attr/clickableBackground</item>
-    <item name="android:paddingBottom">@dimen/margin_small</item>
+    <item name="android:paddingBottom">@dimen/margin_half</item>
     <item name="android:gravity">center_horizontal</item>
   </style>
 </resources>

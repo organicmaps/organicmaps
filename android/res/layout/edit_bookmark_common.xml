@@ -4,14 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin_small">
+    android:padding="@dimen/margin_half">
 
   <LinearLayout
       android:id="@+id/ll__bookmark_name"
       android:layout_width="match_parent"
       android:layout_height="@dimen/height_item_edit_bookmark"
-      android:layout_marginLeft="@dimen/margin_small"
-      android:layout_marginRight="@dimen/margin_small"
+      android:layout_marginLeft="@dimen/margin_half"
+      android:layout_marginRight="@dimen/margin_half"
       android:orientation="vertical">
 
     <com.mapswithme.maps.widget.CustomTextInputLayout
@@ -36,15 +36,15 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/height_item_edit_bookmark"
       android:layout_below="@id/ll__bookmark_name"
-      android:layout_marginLeft="@dimen/margin_small_and_half"
-      android:layout_marginTop="@dimen/margin_small">
+      android:layout_marginLeft="@dimen/margin_half_plus"
+      android:layout_marginTop="@dimen/margin_half">
 
     <TextView
         android:id="@+id/tv__bookmark_set_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_extra_large"
-        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_quadruple"
+        android:layout_marginTop="@dimen/margin_base"
         android:text="@string/set"
         android:textAppearance="@style/MwmTextAppearance.Body3"/>
 
@@ -54,20 +54,20 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv__bookmark_set_title"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/margin_extra_large"
+        android:layout_marginRight="@dimen/margin_quadruple"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:drawableRight="@drawable/ic_arrow_down"
-        android:paddingBottom="@dimen/margin_small"
-        android:paddingTop="@dimen/margin_tiny_and_half"
+        android:paddingBottom="@dimen/margin_half"
+        android:paddingTop="@dimen/margin_quarter_plus"
         android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:layout_marginRight="@dimen/margin_extra_large"
+        android:layout_marginBottom="@dimen/margin_half"
+        android:layout_marginRight="@dimen/margin_quadruple"
         android:background="@color/base_black_divider"/>
 
     <ImageView
@@ -77,7 +77,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="?attr/clickableBackground"
-        android:padding="@dimen/margin_small"
+        android:padding="@dimen/margin_half"
         android:src="@drawable/color_picker_red_on"/>
   </RelativeLayout>
 
@@ -85,9 +85,9 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/height_item_edit_bookmark"
       android:layout_below="@id/rl__bookmark_set"
-      android:layout_margin="@dimen/margin_small"
+      android:layout_margin="@dimen/margin_half"
       android:orientation="vertical"
-      android:paddingTop="@dimen/margin_medium">
+      android:paddingTop="@dimen/margin_base">
 
     <com.mapswithme.maps.widget.CustomTextInputLayout
         android:layout_width="match_parent"

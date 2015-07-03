@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin_small">
+    android:padding="@dimen/margin_half">
 
   <ImageButton
       android:id="@+id/btn__myposition"
@@ -15,7 +15,7 @@
       android:id="@+id/yop_it"
       style="@style/MwmWidget.MapButton.Zoom"
       android:layout_alignParentRight="true"
-      android:layout_marginRight="@dimen/margin_tiny"
+      android:layout_marginRight="@dimen/margin_quarter"
       android:src="@drawable/ic_btn_yota_ptb"/>
 
   <android.support.v4.widget.Space

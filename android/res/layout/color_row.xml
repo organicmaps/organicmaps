@@ -3,7 +3,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/clickableBackground"
-                android:padding="@dimen/margin_small_and_half">
+                android:padding="@dimen/margin_half_plus">
 
   <ImageView
       android:id="@+id/iv__color"

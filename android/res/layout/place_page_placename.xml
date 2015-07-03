@@ -7,15 +7,15 @@
     android:background="?attr/clickableBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/margin_small"
-    android:paddingTop="@dimen/margin_small"
+    android:paddingBottom="@dimen/margin_half"
+    android:paddingTop="@dimen/margin_half"
     android:visibility="gone">
 
   <ImageView
       android:id="@+id/iv__place_name"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_large"
+      android:layout_marginRight="@dimen/margin_double"
       android:src="@drawable/ic_text_adress"/>
 
   <TextView

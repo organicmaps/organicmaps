@@ -137,7 +137,7 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:maxWidth">200dp</item>
     <item name="android:layout_weight">1</item>
-    <item name="android:layout_marginRight">@dimen/margin_small</item>
+    <item name="android:layout_marginRight">@dimen/margin_half</item>
     <item name="android:gravity">right</item>
     <item name="android:textAllCaps">true</item>
   </style>

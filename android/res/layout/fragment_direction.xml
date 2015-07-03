@@ -32,8 +32,8 @@
         android:layout_below="@id/tv__title"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/margin_direction_small"
-        android:layout_marginLeft="@dimen/margin_medium_and_half"
-        android:layout_marginRight="@dimen/margin_medium_and_half"
+        android:layout_marginLeft="@dimen/margin_base_plus"
+        android:layout_marginRight="@dimen/margin_base_plus"
         android:textColor="@color/semitransparent_white"
         android:textSize="@dimen/text_direction_subtitle"/>
 

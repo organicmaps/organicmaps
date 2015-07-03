@@ -45,7 +45,7 @@
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
       android:background="?attr/clickableBackground"
-      android:padding="@dimen/margin_medium"
+      android:padding="@dimen/margin_base"
       android:scaleType="center"
       android:src="@drawable/ic_close_routing"/>
 

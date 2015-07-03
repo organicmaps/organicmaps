@@ -11,7 +11,7 @@
       style="@style/TextAppearance.AppCompat.Large"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/margin_medium"/>
+      android:layout_marginLeft="@dimen/margin_base"/>
 
   <TextView
       android:id="@+id/tv__total_time"

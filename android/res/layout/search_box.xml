@@ -20,7 +20,7 @@
       android:hint="@string/search"
       android:imeOptions="actionSearch|flagNoExtractUi"
       android:inputType="text"
-      android:padding="@dimen/margin_tiny"
+      android:padding="@dimen/margin_quarter"
       android:singleLine="true"
       android:textCursorDrawable="@drawable/cursor_drawable"/>
 
@@ -29,7 +29,7 @@
       style="@style/Widget.AppCompat.ProgressBar"
       android:layout_width="@dimen/routing_progress_size"
       android:layout_height="@dimen/routing_progress_size"
-      android:layout_marginRight="@dimen/margin_small"
+      android:layout_marginRight="@dimen/margin_half"
       android:layout_weight="0"
       android:background="@android:color/transparent"/>
 
@@ -41,7 +41,7 @@
       android:layout_weight="0"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="@null"
-      android:padding="@dimen/margin_medium"
+      android:padding="@dimen/margin_base"
       android:src="@drawable/ic_close_w"/>
 
   <ImageView
@@ -52,7 +52,7 @@
       android:layout_weight="0"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="@null"
-      android:padding="@dimen/margin_medium"
+      android:padding="@dimen/margin_base"
       android:src="@drawable/ic_mic_white"
       android:visibility="gone"/>
 

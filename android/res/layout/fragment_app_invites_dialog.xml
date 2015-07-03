@@ -14,7 +14,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_medium_and_half"
+        android:layout_margin="@dimen/margin_base_plus"
         android:contentDescription="@null"
         android:src="@drawable/img_smile"/>
 
@@ -22,9 +22,9 @@
         android:id="@+id/tv__title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_medium"
-        android:layout_marginLeft="@dimen/margin_medium_and_half"
-        android:layout_marginRight="@dimen/margin_medium_and_half"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:layout_marginLeft="@dimen/margin_base_plus"
+        android:layout_marginRight="@dimen/margin_base_plus"
         android:text="@string/rating_do_like_maps"
         android:textAppearance="@style/MwmTextAppearance.Title.Light"
         android:textStyle="bold"/>
@@ -34,10 +34,10 @@
       android:id="@+id/tv__subtitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_medium_and_half"
-      android:layout_marginLeft="@dimen/margin_medium_and_half"
-      android:layout_marginRight="@dimen/margin_medium_and_half"
-      android:layout_marginTop="@dimen/margin_medium"
+      android:layout_marginBottom="@dimen/margin_base_plus"
+      android:layout_marginLeft="@dimen/margin_base_plus"
+      android:layout_marginRight="@dimen/margin_base_plus"
+      android:layout_marginTop="@dimen/margin_base"
       android:text="@string/rating_tap_star"
       android:textAppearance="@style/MwmTextAppearance.Body2"/>
 

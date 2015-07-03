@@ -9,5 +9,8 @@
   <item android:drawable="@drawable/btn_second_white_hover"
         android:state_hovered="true"/>
 
+  <item android:drawable="@drawable/btn_second_white_disable"
+        android:state_enabled="false"/>
+
   <item android:drawable="@drawable/btn_second_white_normal"/>
 </selector>

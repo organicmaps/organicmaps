@@ -11,8 +11,8 @@
       android:layout_height="wrap_content"
       android:clipChildren="false"
       android:orientation="vertical"
-      android:paddingLeft="@dimen/margin_medium_and_half"
-      android:paddingRight="@dimen/margin_medium_and_half">
+      android:paddingLeft="@dimen/margin_base_plus"
+      android:paddingRight="@dimen/margin_base_plus">
 
     <View
         android:layout_width="match_parent"
@@ -23,16 +23,16 @@
         android:id="@+id/rl__details_attrs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/margin_small"
-        android:paddingTop="@dimen/margin_small">
+        android:paddingBottom="@dimen/margin_half"
+        android:paddingTop="@dimen/margin_half">
 
       <View
           android:id="@+id/anchor_center"
           android:layout_width="0px"
           android:layout_height="match_parent"
           android:layout_centerHorizontal="true"
-          android:layout_marginLeft="@dimen/margin_medium"
-          android:layout_marginRight="@dimen/margin_medium"/>
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_base"/>
 
       <LinearLayout
           android:id="@+id/ll__details_left"

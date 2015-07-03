@@ -3,54 +3,34 @@
 
   <dimen name="track_circle_size">40dp</dimen>
 
-  <dimen name="margin_micro">2dp</dimen>
-  <dimen name="margin_tiny">4dp</dimen>
-  <dimen name="margin_tiny_and_half">6dp</dimen>
-  <dimen name="margin_small">8dp</dimen>
-  <dimen name="margin_small_and_half">12dp</dimen>
-  <dimen name="margin_medium">16dp</dimen>
-  <dimen name="margin_medium_and_half">24dp</dimen>
-  <dimen name="margin_large">32dp</dimen>
-  <dimen name="margin_large_and_half">48dp</dimen>
-  <dimen name="margin_extra_large">64dp</dimen>
+  <dimen name="margin_eighth">2dp</dimen>
+  <dimen name="margin_quarter">4dp</dimen>
+  <dimen name="margin_quarter_plus">6dp</dimen>
+  <dimen name="margin_half">8dp</dimen>
+  <dimen name="margin_half_plus">12dp</dimen>
+  <dimen name="margin_base">16dp</dimen>
+  <dimen name="margin_base_plus">24dp</dimen>
+  <dimen name="margin_double">32dp</dimen>
+  <dimen name="margin_double_plus">48dp</dimen>
+  <dimen name="margin_quadruple">64dp</dimen>
 
-  <dimen name="neg_margin_micro">-2dp</dimen>
-  <dimen name="neg_margin_tiny">-4dp</dimen>
-  <dimen name="neg_margin_tiny_and_half">-6dp</dimen>
-  <dimen name="neg_margin_small">-8dp</dimen>
-  <dimen name="neg_margin_small_and_half">-12dp</dimen>
-  <dimen name="neg_margin_medium">-16dp</dimen>
-  <dimen name="neg_margin_large">-32dp</dimen>
-
-  <!-- TODO remove all that dimens -->
-  <dimen name="dp_x_1">4dp</dimen>
-  <dimen name="dp_x_2">8dp</dimen>
-  <dimen name="dp_x_3">12dp</dimen>
-  <dimen name="dp_x_4">16dp</dimen>
-  <dimen name="dp_x_6">24dp</dimen>
-  <dimen name="dp_x_8">32dp</dimen>
-  <dimen name="dp_x_10">40dp</dimen>
-  <dimen name="dp_x_12">48dp</dimen>
-  <dimen name="dp_x_14">56dp</dimen>
-  <dimen name="dp_x_16">64dp</dimen>
-  <dimen name="dp_x_20">80dp</dimen>
+  <dimen name="neg_margin_eighth">-2dp</dimen>
+  <dimen name="neg_margin_quarter">-4dp</dimen>
+  <dimen name="neg_margin_quarter_plus">-6dp</dimen>
+  <dimen name="neg_margin_half">-8dp</dimen>
+  <dimen name="neg_margin_half_plus">-12dp</dimen>
+  <dimen name="neg_margin_base">-16dp</dimen>
+  <dimen name="neg_margin_double">-32dp</dimen>
 
   <dimen name="dialog_max_height">320dp</dimen>
-  <dimen name="zoom_buttom_size">56dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
   <dimen name="search_box_height">56dp</dimen>
 
   <dimen name="place_page_buttons_height">56dp</dimen>
 
-  <dimen name="bottom_panel_height">46dp</dimen>
-  <dimen name="bottom_button_width">113dp</dimen>
-  <dimen name="bottom_item_height">46dp</dimen>
-
   <dimen name="progress_wheel_width">48dp</dimen>
   <dimen name="progress_wheel_height">40dp</dimen>
   <dimen name="progress_wheel_width_neg">-48dp</dimen>
-  <dimen name="bg_downloader_radius">6dp</dimen>
-  <dimen name="bg_downloader_size">16dp</dimen>
 
   <dimen name="routing_pp_height">55dp</dimen>
   <dimen name="routing_button_height">51dp</dimen>
@@ -70,7 +50,7 @@
   <dimen name="margin_bottom_zoom_buttons">250dp</dimen>
 
   <!-- map widgets -->
-  <dimen name="margin_bottom_compass">104dp</dimen>
+  <dimen name="margin_bottom_compass">120dp</dimen>
   <dimen name="margin_bottom_ruler">10dp</dimen>
   <dimen name="margin_left_compass">40dp</dimen>
   <dimen name="margin_right_ruler">75dp</dimen>

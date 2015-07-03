@@ -4,8 +4,8 @@
               android:layout_height="wrap_content"
               android:gravity="center_vertical"
               android:minHeight="@dimen/height_item_oneline"
-              android:paddingLeft="@dimen/margin_medium"
-              android:paddingRight="@dimen/margin_medium">
+              android:paddingLeft="@dimen/margin_base"
+              android:paddingRight="@dimen/margin_base">
 
   <CheckBox
       android:id="@+id/chb__set_visible"
@@ -20,7 +20,7 @@
       android:id="@+id/tv__set_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/margin_medium"
+      android:layout_marginLeft="@dimen/margin_base"
       android:layout_weight="1"
       android:ellipsize="marquee"
       android:singleLine="true"

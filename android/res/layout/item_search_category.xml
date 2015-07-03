@@ -4,8 +4,8 @@
               android:layout_height="@dimen/search_item_height"
               android:gravity="center_vertical"
               android:orientation="horizontal"
-              android:paddingLeft="@dimen/margin_medium"
-              android:paddingRight="@dimen/margin_medium">
+              android:paddingLeft="@dimen/margin_base"
+              android:paddingRight="@dimen/margin_base">
 
   <ImageView
       android:id="@+id/iv__search_category"
@@ -20,7 +20,7 @@
       android:id="@+id/tv__search_category"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/margin_medium"
+      android:layout_marginLeft="@dimen/margin_base"
       android:layout_weight="1"
       android:textAppearance="@style/MwmTextAppearance.Body1"/>
 

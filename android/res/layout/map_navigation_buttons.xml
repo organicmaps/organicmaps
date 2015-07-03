@@ -3,18 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin_small">
+    android:padding="@dimen/margin_quarter">
 
   <ImageButton
       android:id="@+id/btn__myposition"
       style="@style/MwmWidget.MapButton.White"
       android:layout_alignParentBottom="true"
+      android:contentDescription="@string/my_position"
       android:src="@drawable/bg_btn_white"/>
 
   <ImageButton
       android:id="@+id/yop_it"
       style="@style/MwmWidget.MapButton.White"
       android:layout_alignParentRight="true"
+      android:contentDescription="@null"
       android:src="@drawable/ic_btn_yota_ptb"/>
 
   <android.support.v4.widget.Space
@@ -28,6 +30,7 @@
       style="@style/MwmWidget.MapButton.Zoom"
       android:layout_above="@id/space_bottom"
       android:layout_alignParentRight="true"
+      android:contentDescription="@null"
       android:src="@drawable/btn_white_zoom_out"/>
 
   <ImageButton
@@ -35,6 +38,7 @@
       style="@style/MwmWidget.MapButton.Zoom"
       android:layout_above="@id/map_button_minus"
       android:layout_alignParentRight="true"
+      android:contentDescription="@null"
       android:src="@drawable/btn_white_zoom_in"/>
 
 </RelativeLayout>

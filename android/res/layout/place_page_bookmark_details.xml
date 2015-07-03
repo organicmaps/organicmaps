@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
-    android:paddingBottom="@dimen/margin_medium"
+    android:paddingBottom="@dimen/margin_base"
     android:visibility="invisible">
 
   <View
@@ -17,8 +17,8 @@
       android:id="@+id/layout__bookmark_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_small"
-      android:layout_marginTop="@dimen/margin_medium">
+      android:layout_marginBottom="@dimen/margin_half"
+      android:layout_marginTop="@dimen/margin_base">
 
     <EditText
         android:id="@+id/et__bookmark_name"
@@ -38,7 +38,7 @@
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/layout__bookmark_name"
       android:layout_below="@id/layout__bookmark_name"
-      android:layout_marginTop="@dimen/margin_medium_and_half"
+      android:layout_marginTop="@dimen/margin_base_plus"
       android:lineSpacingMultiplier="1.67"
       android:text="@string/set"
       android:textColor="@color/text_place_page_subtitle"
@@ -62,9 +62,9 @@
         android:background="?attr/clickableBackground"
         android:drawableRight="@drawable/ic_arrow_down"
         android:lineSpacingMultiplier="1.43"
-        android:paddingBottom="@dimen/margin_small"
-        android:paddingRight="@dimen/margin_small"
-        android:paddingTop="@dimen/margin_small"
+        android:paddingBottom="@dimen/margin_half"
+        android:paddingRight="@dimen/margin_half"
+        android:paddingTop="@dimen/margin_half"
         android:textColor="@color/text_place_page"
         android:textSize="@dimen/place_page_subtitle"/>
 
@@ -72,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/tv__bookmark_group"
-        android:layout_marginTop="@dimen/margin_tiny"
+        android:layout_marginTop="@dimen/margin_quarter"
         android:layout_toLeftOf="@+id/iv__bookmark_color"
         android:background="?attr/dividerHorizontal"/>
 
@@ -84,7 +84,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="-8dp"
         android:background="?attr/clickableBackground"
-        android:padding="@dimen/margin_small"
+        android:padding="@dimen/margin_half"
         android:src="@drawable/color_picker_red_on"/>
   </RelativeLayout>
 
@@ -94,8 +94,8 @@
       android:layout_height="wrap_content"
       android:layout_alignLeft="@id/layout__bookmark_name"
       android:layout_below="@id/ll__group"
-      android:layout_marginBottom="@dimen/margin_small"
-      android:layout_marginTop="@dimen/margin_medium"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:layout_marginTop="@dimen/margin_base"
       android:clickable="true"
       android:lineSpacingMultiplier="1.67"
       android:text="@string/description"
@@ -114,7 +114,7 @@
       android:layout_height="wrap_content"
       android:layout_alignParentRight="true"
       android:layout_below="@id/wv__description"
-      android:layout_marginRight="@dimen/margin_medium"
+      android:layout_marginRight="@dimen/margin_base"
       android:background="?attr/selectableItemBackground"
       android:text="@string/edit"
       android:textAppearance="@style/MwmTextAppearance.Button"/>

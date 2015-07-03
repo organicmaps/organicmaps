@@ -15,14 +15,14 @@
       layout="@layout/toolbar_with_search"
       android:layout_width="@dimen/panel_width"
       android:layout_height="?attr/actionBarSize"
-      android:layout_margin="@dimen/margin_medium"/>
+      android:layout_margin="@dimen/margin_base"/>
 
   <FrameLayout
       android:id="@+id/fl__routing"
       android:layout_width="@dimen/panel_width"
       android:layout_height="@dimen/routing_pp_height"
       android:layout_below="@+id/toolbar_search"
-      android:layout_margin="@dimen/margin_medium">
+      android:layout_margin="@dimen/margin_base">
 
     <include layout="@layout/map_routing_full"/>
 
@@ -50,7 +50,7 @@
       android:id="@+id/fragment_container"
       android:layout_width="@dimen/panel_width"
       android:layout_height="match_parent"
-      android:layout_margin="@dimen/margin_medium"/>
+      android:layout_margin="@dimen/margin_base"/>
 
   <com.mapswithme.maps.widget.BottomButtonsLayout
       android:id="@+id/map_bottom_buttons"
@@ -58,5 +58,5 @@
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       android:layout_alignParentRight="true"
-      android:padding="@dimen/margin_small"/>
+      android:padding="@dimen/margin_quarter"/>
 </RelativeLayout>

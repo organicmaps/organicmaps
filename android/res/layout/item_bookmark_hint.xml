@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:paddingBottom="@dimen/dp_x_3"
-    android:paddingLeft="@dimen/dp_x_8"
-    android:paddingRight="@dimen/dp_x_8"
-    android:paddingTop="@dimen/dp_x_3"
+    android:paddingBottom="@dimen/margin_base"
+    android:paddingLeft="@dimen/margin_double_plus"
+    android:paddingRight="@dimen/margin_double_plus"
+    android:paddingTop="@dimen/margin_base"
     android:text="@string/bookmarks_usage_hint"
     android:textAppearance="@style/MwmTextAppearance.Body2"/>
