@@ -25,6 +25,7 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#include <ctime>
 #include <sstream>
 
 #if defined(__OBJC__)
@@ -46,19 +47,28 @@ namespace alohalytics {
 
 class Logger {
   std::ostringstream out_;
+  bool print_time_;
 
  public:
-  Logger() {}
+  Logger(bool print_time = true) : print_time_(print_time) {}
 
   Logger(const char * file, int line) { out_ << file << ':' << line << ": "; }
 
   ~Logger() {
 #if defined(__OBJC__)
+    // NSLog prints time automatically.
     NSLog(@"Alohalytics: %s", out_.str().c_str());
 #elif defined(ANDROID)
+    // Android also prints time automatically.
     __android_log_print(ANDROID_LOG_INFO, "Alohalytics", "%s", out_.str().c_str());
 #else
-    std::cout << "Alohalytics: " << out_.str() << std::endl;
+    if (print_time_) {
+      char buf[100] = "";
+      const time_t now = time(nullptr);
+      (void)::strftime(buf, sizeof(buf), "%d/%b/%Y:%H:%M:%S ", ::localtime(&now));
+      std::cout << buf;
+    }
+    std::cout << "Alohalytics: " << out_.str() << std::flush << std::endl;
 #endif
   }
 
@@ -104,6 +114,7 @@ class Logger {
 }  // namespace alohalytics
 
 #define ATRACE(...) alohalytics::Logger(__FILE__, __LINE__).Log(__VA_ARGS__)
-#define ALOG(...) alohalytics::Logger().Log(__VA_ARGS__)
+#define ALOG(...) alohalytics::Logger(false).Log(__VA_ARGS__)
+#define ATLOG(...) alohalytics::Logger(true).Log(__VA_ARGS__)
 
 #endif
