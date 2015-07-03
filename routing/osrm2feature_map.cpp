@@ -281,7 +281,9 @@ void OsrmFtSegMappingBuilder::Append(TOsrmNodeId nodeId, FtSegVectorT const & da
   size_t const count = data.size();
 
   if (count == 0)
+  {
     m_buffer.emplace_back(OsrmMappingTypes::FtSeg(kInvalidFid, 0, 1).Store());
+  }
   else
   {
     for (size_t i = 0; i < count; ++i)

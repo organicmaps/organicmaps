@@ -25,6 +25,7 @@
 #include "base/timer.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/limits.hpp"
 #include "std/string.hpp"
 
 #include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
