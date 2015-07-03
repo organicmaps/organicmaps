@@ -207,7 +207,8 @@ class MessagesQueue final {
     }
     FileManager::ForEachFileInDir(storage_directory_, [&processor, &result](const std::string & full_path_to_file) {
       // Ignore non-archived files.
-      if (full_path_to_file.find(kArchivedFilesExtension) == std::string::npos) {
+      const auto pos = full_path_to_file.rfind(kArchivedFilesExtension);
+      if (pos == std::string::npos || pos + sizeof(kArchivedFilesExtension) - 1 != full_path_to_file.size()) {
         return true;
       }
       if (processor(true /* true here means that second parameter is file path */, full_path_to_file)) {
