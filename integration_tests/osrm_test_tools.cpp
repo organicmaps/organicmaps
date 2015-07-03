@@ -280,7 +280,7 @@ namespace integration
       //Always returns empty LocalFile
       return shared_ptr<LocalCountryFile>(new LocalCountryFile());
     };
-    routing::OnlineAbsentFetcher fetcher(countryFileGetter, localFileGetter);
+    routing::OnlineAbsentCountriesFetcher fetcher(countryFileGetter, localFileGetter);
     fetcher.GenerateRequest(MercatorBounds::FromLatLon(startPoint.y, startPoint.x),
                             MercatorBounds::FromLatLon(finalPoint.y, finalPoint.x));
     vector<string> absent;

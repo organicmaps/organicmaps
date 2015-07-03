@@ -2159,7 +2159,7 @@ void Framework::SetRouter(RouterType type)
   };
 
   unique_ptr<IRouter> router;
-  unique_ptr<OnlineAbsentFetcher> fetcher;
+  unique_ptr<OnlineAbsentCountriesFetcher> fetcher;
   if (type == RouterType::Pedestrian)
   {
     router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter,
@@ -2169,7 +2169,7 @@ void Framework::SetRouter(RouterType type)
   {
     router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter, localFileGetter,
                                 routingVisualizerFn));
-    fetcher.reset(new OnlineAbsentFetcher(countryFileGetter, localFileGetter));
+    fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileGetter));
   }
 
   m_routingSession.SetRouter(move(router), move(fetcher), routingStatisticsFn);

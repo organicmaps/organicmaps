@@ -11,10 +11,10 @@
 
 namespace routing
 {
-class OnlineAbsentFetcher
+class OnlineAbsentCountriesFetcher
 {
 public:
-  OnlineAbsentFetcher(TCountryFileFn const & countryFileFn, TCountryLocalFileFn const & countryLocalFileFn) : m_countryFileFn(countryFileFn), m_countryLocalFileFn(countryLocalFileFn) {}
+  OnlineAbsentCountriesFetcher(TCountryFileFn const & countryFileFn, TCountryLocalFileFn const & countryLocalFileFn) : m_countryFileFn(countryFileFn), m_countryLocalFileFn(countryLocalFileFn) {}
   void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint);
   void GetAbsentCountries(vector<string> & countries);
 

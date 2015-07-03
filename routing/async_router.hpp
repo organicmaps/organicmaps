@@ -25,7 +25,7 @@ public:
   /// AsyncRouter is a wrapper class to run routing routines in the different thread
   /// @param router pointer to the router implementation. AsyncRouter will take ownership over
   /// router.
-  AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentFetcher> && fetcher,
+  AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
               TRoutingStatisticsCallback const & routingStatisticsFn);
 
   virtual ~AsyncRouter();
@@ -66,7 +66,7 @@ private:
   m2::PointD m_finalPoint;
   m2::PointD m_startDirection;
 
-  unique_ptr<OnlineAbsentFetcher> const m_absentFetcher;
+  unique_ptr<OnlineAbsentCountriesFetcher> const m_absentFetcher;
   unique_ptr<IRouter> const m_router;
   TRoutingStatisticsCallback const m_routingStatisticsFn;
 };

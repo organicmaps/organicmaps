@@ -18,6 +18,7 @@
 
 #include "3party/succinct/mapper.hpp"
 
+const routing::TNodesList kEmptyList;
 
 namespace routing
 {

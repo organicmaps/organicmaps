@@ -30,13 +30,6 @@ string ToString(IRouter::ResultCode code)
   case IRouter::RouteNotFound: return "RouteNotFound";
   case IRouter::InternalError: return "InternalError";
   case IRouter::NeedMoreMaps: return "NeedMoreMaps";
-  default:
-    {
-      ASSERT(false, ("Unknown IRouter::ResultCode value ", code));
-      ostringstream o;
-      o << "UnknownResultCode(" << static_cast<unsigned int>(code) << ")";
-      return o.str();
-    }
   }
 }
 
@@ -59,7 +52,7 @@ map<string, string> PrepareStatisticsData(string const & routerName,
 
 }  // namespace
 
-AsyncRouter::AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentFetcher> && fetcher,
+AsyncRouter::AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
                          TRoutingStatisticsCallback const & routingStatisticsFn)
     : m_absentFetcher(move(fetcher)),
       m_router(move(router)),
@@ -126,8 +119,14 @@ void AsyncRouter::LogCode(IRouter::ResultCode code, double const elapsedSec)
     case IRouter::NoError:
       LOG(LINFO, ("Route found, elapsed seconds:", elapsedSec));
       break;
-
-    default:
+    case IRouter::NoCurrentPosition:
+      LOG(LINFO, ("No current position"));
+      break;
+    case IRouter::InconsistentMWMandRoute:
+      LOG(LINFO, ("Inconsistent mwm and route"));
+      break;
+    case IRouter::InternalError:
+      LOG(LINFO, ("Internal error"));
       break;
   }
 }
@@ -156,7 +155,6 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
   }
 
   my::Timer timer;
-  timer.Reset();
   try
   {
     LOG(LDEBUG, ("Calculating the route from", startPoint, "to", finalPoint, "startDirection", startDirection));

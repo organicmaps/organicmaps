@@ -11,7 +11,7 @@ using platform::LocalCountryFile;
 
 namespace routing
 {
-void OnlineAbsentFetcher::GenerateRequest(const m2::PointD & startPoint,
+void OnlineAbsentCountriesFetcher::GenerateRequest(const m2::PointD & startPoint,
                                           const m2::PointD & finalPoint)
 {
   // single mwm case
@@ -22,19 +22,19 @@ void OnlineAbsentFetcher::GenerateRequest(const m2::PointD & startPoint,
   m_fetcherThread.Create(move(fetcher));
 }
 
-void OnlineAbsentFetcher::GetAbsentCountries(vector<string> & countries)
+void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries)
 {
   // Have task check
   if (!m_fetcherThread.GetRoutine())
     return;
   m_fetcherThread.Join();
-  for (auto point : static_cast<OnlineCrossFetcher *>(m_fetcherThread.GetRoutine())->GetMwmPoints())
+  for (auto point : m_fetcherThread.GetRoutineAs<OnlineCrossFetcher>()->GetMwmPoints())
   {
     string name = m_countryFileFn(point);
     auto localFile = m_countryLocalFileFn(name);
     if (!HasOptions(localFile->GetFiles(), TMapOptions::EMapWithCarRouting))
     {
-      LOG(LINFO, ("Online recomends to download: ", name));
+      LOG(LINFO, ("Online absent countries fetcher recomends to download: ", name));
       countries.emplace_back(move(name));
     }
   }

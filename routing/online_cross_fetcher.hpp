@@ -39,7 +39,7 @@ public:
   OnlineCrossFetcher(string const & serverURL, m2::PointD const & startPoint,
                      m2::PointD const & finalPoint);
 
-  /// Do synchronous (blocking) call of online OSRM server. Designing for call from another thread.
+  /// Override threads::IRoutine processing procedure. Calls online OSRM server and parses response.
   void Do() override;
 
   /// \brief GetMwmPoints returns mwm representation points list.

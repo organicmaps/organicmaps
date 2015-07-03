@@ -192,7 +192,7 @@ void RoutingSession::AssignRoute(Route & route)
 }
 
 void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
-                               unique_ptr<OnlineAbsentFetcher> && fetcher,
+                               unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
                                TRoutingStatisticsCallback const & routingStatisticsFn)
 {
   m_router.reset(new AsyncRouter(move(router), move(fetcher), routingStatisticsFn));
