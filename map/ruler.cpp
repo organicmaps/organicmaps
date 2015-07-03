@@ -64,23 +64,6 @@ namespace
     { "500 mi", 500 * 5280 }
   };
 
-  UnitValue g_arrYards[] = {
-    { "50 yd", 50 },
-    { "100 yd", 100 },
-    { "200 yd", 200 },
-    { "500 yd", 500 },
-    { "0.5 mi", 1760 / 2 },
-    { "1 mi", 1760 },
-    { "2 mi", 2 * 1760 },
-    { "5 mi", 5 * 1760 },
-    { "10 mi", 10 * 1760 },
-    { "20 mi", 20 * 1760 },
-    { "50 mi", 50 * 1760 },
-    { "100 mi", 100 * 1760 },
-    { "200 mi", 200 * 1760 },
-    { "500 mi", 500 * 1760 }
-  };
-
   UnitValue g_arrMetres[] = {
     { "1 m", 1 },
     { "2 m", 2 },
@@ -398,12 +381,6 @@ double Ruler::CalcMetresDiff(double value)
     count = ARRAY_SIZE(g_arrFeets);
     conversionFn = &MeasurementUtils::MetersToFeet;
     break;
-
-  case 2:
-    arrU = g_arrYards;
-    count = ARRAY_SIZE(g_arrYards);
-    conversionFn = &MeasurementUtils::MetersToYards;
-    break;
   }
 
   int prevUnitRange = m_currentRangeIndex;
@@ -492,9 +469,6 @@ void Ruler::layout()
     break;
   case Settings::Foot:
     m_currSystem = 1;
-    break;
-  case Settings::Yard:
-    m_currSystem = 2;
     break;
   }
 

@@ -46,10 +46,6 @@ namespace qt
       pLayout->addWidget(p);
       m_pUnits->addButton(p, Metric);
 
-      p = new QRadioButton("Imperial (yard)");
-      pLayout->addWidget(p);
-      m_pUnits->addButton(p, Yard);
-
       p = new QRadioButton("Imperial (foot)");
       pLayout->addWidget(p);
       m_pUnits->addButton(p, Foot);
@@ -102,8 +98,7 @@ namespace qt
     switch (i)
     {
     case 0: u = Metric; break;
-    case 1: u = Yard; break;
-    case 2: u = Foot; break;
+    case 1: u = Foot; break;
     }
 
     Settings::Set("Units", u);

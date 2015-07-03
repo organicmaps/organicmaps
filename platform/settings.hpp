@@ -46,7 +46,7 @@ namespace Settings
     StringStorage::Instance().DeleteKeyAndValue(key);
   }
 
-  enum Units { Metric = 0, Yard, Foot };
+  enum Units { Metric = 0, Foot };
 
   /// Use this function for running some stuff once according to date.
   /// @param[in]  date  Current date in format yymmdd.

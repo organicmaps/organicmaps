@@ -54,7 +54,6 @@ bool FormatDistance(double m, string & res)
   /// @todo Put string units resources.
   switch (u)
   {
-  case Yard: return FormatDistanceImpl(m, res, " mi", " yd", 1609.344, 0.9144);
   case Foot: return FormatDistanceImpl(m, res, " mi", " ft", 1609.344, 0.3048);
   default: return FormatDistanceImpl(m, res, " km", " m", 1000.0, 1.0);
   }
@@ -161,7 +160,6 @@ string FormatAltitude(double altitudeInMeters)
   /// @todo Put string units resources.
   switch (u)
   {
-  case Yard: ss << MetersToYards(altitudeInMeters) << "yd"; break;
   case Foot: ss << MetersToFeet(altitudeInMeters) << "ft"; break;
   default: ss << altitudeInMeters << "m"; break;
   }
@@ -179,7 +177,6 @@ string FormatSpeed(double metersPerSecond)
   /// @todo Put string units resources.
   switch (u)
   {
-  case Yard:
   case Foot:
     perHour = metersPerSecond * 3600. / 1609.344;
     res = ToStringPrecision(perHour, perHour >= 10.0 ? 0 : 1) + "mph";

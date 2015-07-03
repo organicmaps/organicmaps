@@ -9,12 +9,9 @@ namespace MeasurementUtils
 
 inline double MetersToMiles(double m) { return m * 0.000621371192; }
 inline double MilesToMeters(double mi) { return mi * 1609.344; }
-inline double MetersToYards(double m) { return m * 1.0936133; }
-inline double YardsToMeters(double yd) { return yd * 0.9144; }
 inline double MetersToFeet(double m) { return m * 3.2808399; }
 inline double FeetToMeters(double ft) {  return ft * 0.3048; }
 inline double FeetToMiles(double ft) { return ft * 5280; }
-inline double YardToMiles(double yd) { return yd * 1760; }
 
 /// Takes into an account user settings [metric, imperial]
 /// @param[in] m meters

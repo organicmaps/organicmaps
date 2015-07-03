@@ -319,7 +319,6 @@ namespace Settings
   {
     switch (v)
     {
-    case Yard: return "Yard";
     case Foot: return "Foot";
     default: return "Metric";
     }
@@ -329,8 +328,6 @@ namespace Settings
   {
     if (s == "Metric")
       v = Metric;
-    else if (s == "Yard")
-      v = Yard;
     else if (s == "Foot")
       v = Foot;
     else
