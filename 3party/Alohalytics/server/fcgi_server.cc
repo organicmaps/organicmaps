@@ -22,13 +22,56 @@
  SOFTWARE.
  *******************************************************************************/
 
-// This FastCGI server implementation is designed to store statistics received from remote clients.
+// clang-format off
+/* This FastCGI server implementation is designed to store statistics received from remote clients.
 
-// Validity checks for requests should be mostly done on nginx side:
-// $request_method should be POST only
-// $content_length should be set and greater than zero (we re-check it below anyway)
-// $content_type should be set to application/alohalytics-binary-blob
-// $http_content_encoding should be set to gzip
+Validity checks for requests should be mostly done on nginx side:
+$request_method should be POST only
+$content_length should be set and greater than zero (we re-check it below anyway)
+$content_type should be set to application/alohalytics-binary-blob
+$http_content_encoding should be set to gzip
+
+This binary shoud be spawn as a FastCGI app, for example:
+$ spawn-fcgi [-n] -p 8888 -- ./fcgi_server /dir/to/store/received/data [/optional/path/to/log.file]
+
+# This is nginx config example to receive data from clients.
+http {
+  log_format alohalytics  '$remote_addr [$time_local] "$request" $status $content_length "$http_user_agent" $content_type $http_content_encoding';
+  server {
+    listen 8080;
+    server_name localhost;
+    # To hide nginx version.
+    server_tokens off;
+
+    location ~ ^/(ios|android)/(.+)/(.+) {
+      set $OS $1;
+      # Our clients send only POST requests.
+      limit_except POST { deny all; }
+      # Content-Length should be valid, but it is anyway checked on FastCGI app's code side.
+      # Content-Type should be application/alohalytics-binary-blob
+      if ($content_type != "application/alohalytics-binary-blob") {
+        return 415; # Unsupported Media Type
+      }
+      if ($http_content_encoding != "gzip") {
+        return 400; # Bad Request
+      }
+      client_body_buffer_size 1M;
+      client_body_temp_path /tmp 2;
+      client_max_body_size 100M;
+
+      access_log /var/log/nginx/aloha-$OS-access.log alohalytics;
+      # Unfortunately, error_log does not support variables.
+      error_log  /var/log/nginx/aloha-error.log notice;
+
+      fastcgi_pass_request_headers on;
+      fastcgi_param REMOTE_ADDR $remote_addr;
+      fastcgi_param REQUEST_URI $request_uri;
+      fastcgi_pass 127.0.0.1:8888;
+    }
+  }
+}
+*/
+// clang-format on
 
 #include <cerrno>
 #include <chrono>
