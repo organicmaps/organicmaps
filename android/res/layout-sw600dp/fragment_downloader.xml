@@ -6,10 +6,11 @@
 
   <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
+      style="@style/MwmWidget.ToolbarStyle"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:gravity="center_vertical"
-      android:theme="@style/MwmWidget.Toolbar">
+      android:theme="@style/MwmWidget.ToolbarTheme">
 
     <TextView
         android:id="@+id/tv__update_all"

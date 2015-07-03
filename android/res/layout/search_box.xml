@@ -17,12 +17,12 @@
       android:layout_gravity="center_vertical"
       android:layout_weight="1"
       android:background="@null"
-      android:textCursorDrawable="@drawable/cursor_drawable"
       android:hint="@string/search"
       android:imeOptions="actionSearch|flagNoExtractUi"
       android:inputType="text"
       android:padding="@dimen/margin_tiny"
-      android:singleLine="true"/>
+      android:singleLine="true"
+      android:textCursorDrawable="@drawable/cursor_drawable"/>
 
   <ProgressBar
       android:id="@+id/search_progress"
@@ -33,33 +33,27 @@
       android:layout_weight="0"
       android:background="@android:color/transparent"/>
 
-  <FrameLayout
-      android:id="@+id/container_cancel_voice_input_search"
+  <ImageView
+      android:id="@+id/search_image_clear"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
       android:layout_weight="0"
-      android:background="@android:color/transparent">
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:contentDescription="@null"
+      android:padding="@dimen/margin_medium"
+      android:src="@drawable/ic_close_w"/>
 
-    <ImageView
-        android:id="@+id/search_image_clear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="?attr/clickableBackground"
-        android:contentDescription="@null"
-        android:padding="@dimen/margin_medium"
-        android:src="@drawable/ic_close_w"/>
-
-    <ImageView
-        android:id="@+id/search_voice_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="?attr/clickableBackground"
-        android:contentDescription="@null"
-        android:padding="@dimen/margin_medium"
-        android:src="@drawable/ic_mic_white"
-        android:visibility="gone"/>
-  </FrameLayout>
+  <ImageView
+      android:id="@+id/search_voice_input"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_weight="0"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:contentDescription="@null"
+      android:padding="@dimen/margin_medium"
+      android:src="@drawable/ic_mic_white"
+      android:visibility="gone"/>
 
 </LinearLayout>

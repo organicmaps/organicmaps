@@ -145,13 +145,13 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
 
         if (s.length() == 0)
         {
-          UiUtils.invisible(mBtnClearQuery);
+          UiUtils.hide(mBtnClearQuery);
           UiUtils.showIf(InputUtils.isVoiceInputSupported(getActivity()), mBtnVoice);
         }
         else
         {
           UiUtils.show(mBtnClearQuery);
-          UiUtils.invisible(mBtnVoice);
+          UiUtils.hide(mBtnVoice);
         }
       }
 

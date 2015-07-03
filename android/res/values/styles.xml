@@ -94,16 +94,21 @@
     <item name="android:fontFamily">@string/robotoRegular</item>
   </style>
 
-  <style name="MwmWidget.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+  <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="android:background">?attr/colorPrimary</item>
     <item name="android:elevation">4dp</item>
-    <item name="android:gravity">center_vertical</item>
     <item name="android:displayOptions">homeAsUp|showTitle</item>
-    <item name="colorAccent">@android:color/white</item>
     <item name="contentInsetStart">72dp</item>
+    <item name="android:titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
+    <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
     <item name="contentInsetLeft">72dp</item>
     <item name="android:contentInsetStart">72dp</item>
     <item name="android:contentInsetLeft">72dp</item>
+  </style>
+
+  <style name="MwmWidget.ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="android:gravity">center_vertical</item>
+    <item name="colorAccent">@android:color/white</item>
   </style>
 
   <style name="MwmWidget.ListView" parent="Widget.AppCompat.ListView">
@@ -250,7 +255,7 @@
 
   <style name="MwmTextAppearance.Body3.Light">
     <item name="android:textSize">@dimen/text_size_body_3</item>
-    <item name="android:textColor">@color/text_light_subtitle</item>
+    <item name="android:textColor">@color/text_light</item>
   </style>
 
   <style name="MwmTextAppearance.IconTitle">
@@ -264,12 +269,16 @@
     <item name="android:textAllCaps">true</item>
   </style>
 
-  <style name="MwmTextAppearance.Toolbar.Button" parent="MwmTextAppearance.Body1.Light">
+  <style name="MwmTextAppearance.Toolbar.Button" parent="MwmTextAppearance.Body3.Light">
     <item name="android:textAllCaps">true</item>
   </style>
 
   <style name="MwmTextAppearance.Hint.InputLayout" parent="TextAppearance.AppCompat">
     <item name="android:textColorHint">?attr/colorAccent</item>
+  </style>
+
+  <style name="MwmTextAppearance.Toolbar.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <item name="android:textSize">@dimen/text_size_toolbar</item>
   </style>
 
   <!-- Text appearance -->

@@ -6,15 +6,14 @@
 
   <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
-      style="@style/MwmWidget.Toolbar"
+      style="@style/MwmWidget.ToolbarStyle"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
-      android:theme="@style/MwmWidget.Toolbar"/>
+      android:theme="@style/MwmWidget.ToolbarTheme"/>
 
   <FrameLayout
       android:id="@+id/fl__elevation"
       style="@style/MwmWidget.FrameLayout.Elevation"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
-  <!-- style is needed, too, because some attrs(insets, eg) are not supported in theme-->
 </LinearLayout>

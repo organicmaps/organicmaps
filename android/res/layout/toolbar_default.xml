@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar"
-    style="@style/MwmWidget.Toolbar"
+    style="@style/MwmWidget.ToolbarStyle"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:theme="@style/MwmWidget.Toolbar"/>
-    <!-- style is needed, too, because some attrs(insets, eg) are not supported in theme-->
+    android:theme="@style/MwmWidget.ToolbarTheme"/>
