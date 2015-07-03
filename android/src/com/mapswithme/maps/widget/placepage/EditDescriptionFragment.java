@@ -8,6 +8,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -62,6 +63,9 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
     mEtDescription = (EditText) view.findViewById(R.id.et__description);
     mEtDescription.setText(description);
     initToolbar(view);
+
+    mEtDescription.requestFocus();
+    getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
   }
 
   public void setSaveDescriptionListener(OnDescriptionSaveListener listener)

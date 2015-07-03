@@ -1,12 +1,12 @@
 package com.mapswithme.util;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import java.util.ArrayList;
 
 public class InputUtils
 {
