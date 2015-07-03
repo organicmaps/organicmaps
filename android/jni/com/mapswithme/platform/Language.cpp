@@ -33,8 +33,7 @@ string GetAndroidSystemLanguage()
   jstring langString = (jstring)env->CallObjectMethod(localeInstance, localeGetLanguageId);
   ASSERT(langString, ());
 
-  // I'm out of ideas here. This simple code works at startup, but crashes a bit later.
-  // Probably, some kind of specific threads routine.
+  // TODO FindClass method won't work from non-ui threads, so cache class, remove comment or use cached classloader after it's implemented
   /*
   jclass langClass = env->FindClass("com/mapswithme/util/Language");
   ASSERT(langClass, ());

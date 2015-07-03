@@ -1,10 +1,10 @@
 #include "Framework.hpp"
 
+#include "base/thread.hpp"
 #include "search/result.hpp"
 
-#include "base/thread.hpp"
-
 #include "../core/jni_helper.hpp"
+#include "../platform/Language.hpp"
 
 
 class SearchAdapter
@@ -210,7 +210,7 @@ Java_com_mapswithme_maps_search_SearchFragment_nativeRunSearch(
   search::SearchParams params;
 
   params.m_query = jni::ToNativeString(env, s);
-  params.SetInputLocale(jni::ToNativeString(env, lang));
+  params.SetInputLocale(ReplaceDeprecatedLanguageCode(env, jni::ToNativeString(env, lang)));
 
   /// @note These magic numbers should be equal with NOT_FIRST_QUERY and HAS_POSITION
   /// from SearchFragment.java
@@ -305,7 +305,7 @@ Java_com_mapswithme_maps_search_SearchFragment_runInteractiveSearch(JNIEnv * env
 {
   search::SearchParams params;
   params.m_query = jni::ToNativeString(env, query);
-  params.SetInputLocale(jni::ToNativeString(env, lang));
+  params.SetInputLocale(ReplaceDeprecatedLanguageCode(env, jni::ToNativeString(env, lang)));
 
   g_framework->NativeFramework()->StartInteractiveSearch(params);
 }
