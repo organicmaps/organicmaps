@@ -125,10 +125,10 @@ namespace integration
     // Setting stored paths from testingmain.cpp
     Platform & pl = GetPlatform();
     CommandLineOptions const & options = GetTestingOptions();
-    if (options.dataPath)
-      pl.SetWritableDirForTests(options.dataPath);
-    if (options.resourcePath)
-      pl.AddOptionalPath(options.resourcePath);
+    if (options.m_dataPath)
+      pl.SetWritableDirForTests(options.m_dataPath);
+    if (options.m_resourcePath)
+      pl.AddOptionalPath(options.m_resourcePath);
 
     vector<LocalCountryFile> localFiles;
     platform::FindAllLocalMaps(localFiles);

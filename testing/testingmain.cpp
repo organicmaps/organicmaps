@@ -28,11 +28,11 @@
   #endif
 #endif
 
-CommandLineOptions testingOptions;
+CommandLineOptions g_testingOptions;
 
 CommandLineOptions const & GetTestingOptions()
 {
-  return testingOptions;
+  return g_testingOptions;
 }
 
 namespace
@@ -84,15 +84,15 @@ void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
   {
     char const * const arg = argv[i];
     if (strings::StartsWith(arg, kFilterOption))
-      options.filterRegExp = arg + sizeof(kFilterOption) - 1;
+      options.m_filterRegExp = arg + sizeof(kFilterOption) - 1;
     if (strings::StartsWith(arg, kSuppressOption))
-      options.suppressRegExp = arg + sizeof(kSuppressOption) - 1;
+      options.m_suppressRegExp = arg + sizeof(kSuppressOption) - 1;
     if (strings::StartsWith(arg, kDataPathOptions))
-      options.dataPath = arg + sizeof(kDataPathOptions) - 1;
+      options.m_dataPath = arg + sizeof(kDataPathOptions) - 1;
     if (strings::StartsWith(arg, kResourcePathOptions))
-      options.resourcePath = arg + sizeof(kResourcePathOptions) - 1;
+      options.m_resourcePath = arg + sizeof(kResourcePathOptions) - 1;
     if (strcmp(arg, kHelpOption) == 0)
-      options.help = true;
+      options.m_help = true;
   }
 }
 }  // namespace
@@ -116,20 +116,20 @@ int main(int argc, char * argv[])
   vector<bool> testResults;
   int numFailedTests = 0;
 
-  ParseOptions(argc, argv, testingOptions);
-  if (testingOptions.help)
+  ParseOptions(argc, argv, g_testingOptions);
+  if (g_testingOptions.m_help)
   {
     Usage(argv[0]);
     return STATUS_SUCCESS;
   }
 
   regexp::RegExpT filterRegExp;
-  if (testingOptions.filterRegExp)
-    regexp::Create(testingOptions.filterRegExp, filterRegExp);
+  if (g_testingOptions.m_filterRegExp)
+    regexp::Create(g_testingOptions.m_filterRegExp, filterRegExp);
 
   regexp::RegExpT suppressRegExp;
-  if (testingOptions.suppressRegExp)
-    regexp::Create(testingOptions.suppressRegExp, suppressRegExp);
+  if (g_testingOptions.m_suppressRegExp)
+    regexp::Create(g_testingOptions.m_suppressRegExp, suppressRegExp);
 
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; pTest = pTest->m_pNext)
   {
@@ -148,9 +148,9 @@ int main(int argc, char * argv[])
   int iTest = 0;
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; ++iTest, pTest = pTest->m_pNext)
   {
-    if (testingOptions.filterRegExp && !regexp::Matches(testNames[iTest], filterRegExp))
+    if (g_testingOptions.m_filterRegExp && !regexp::Matches(testNames[iTest], filterRegExp))
       continue;
-    if (testingOptions.suppressRegExp && regexp::Matches(testNames[iTest], suppressRegExp))
+    if (g_testingOptions.m_suppressRegExp && regexp::Matches(testNames[iTest], suppressRegExp))
       continue;
 
     cerr << "Running " << testNames[iTest] << endl;

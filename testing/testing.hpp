@@ -30,15 +30,18 @@ namespace my
 // This struct contains parsed command line options. It may contain pointers to argc contents.
 struct CommandLineOptions
 {
-  CommandLineOptions() : filterRegExp(nullptr), suppressRegExp(nullptr),
-      dataPath(nullptr), resourcePath(nullptr), help(false) {}
+  CommandLineOptions()
+      : m_filterRegExp(nullptr), m_suppressRegExp(nullptr),
+      m_dataPath(nullptr), m_resourcePath(nullptr), m_help(false)
+  {
+  }
 
-  char const * filterRegExp;
-  char const * suppressRegExp;
-  char const * dataPath;
-  char const * resourcePath;
+  char const * m_filterRegExp;
+  char const * m_suppressRegExp;
+  char const * m_dataPath;
+  char const * m_resourcePath;
 
-  bool help;
+  bool m_help;
 };
 CommandLineOptions const & GetTestingOptions();
 
