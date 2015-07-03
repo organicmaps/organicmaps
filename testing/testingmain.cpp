@@ -28,16 +28,10 @@
   #endif
 #endif
 
-CommandLineOptions g_testingOptions;
-
-CommandLineOptions const & GetTestingOptions()
-{
-  return g_testingOptions;
-}
-
 namespace
 {
 bool g_bLastTestOK = true;
+CommandLineOptions g_testingOptions;
 
 int const kOptionFieldWidth = 32;
 char const kFilterOption[] = "--filter=";
@@ -96,6 +90,11 @@ void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
   }
 }
 }  // namespace
+
+CommandLineOptions const & GetTestingOptions()
+{
+  return g_testingOptions;
+}
 
 int main(int argc, char * argv[])
 {
