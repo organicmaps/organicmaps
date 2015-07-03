@@ -27,7 +27,8 @@ SOURCES += \
   online_cross_tests.cpp \
   osrm_route_test.cpp \
   osrm_turn_test.cpp \
-  osrm_test_tools.cpp \
+  pedestrian_route_test.cpp \
+  routing_test_tools.cpp \
 
 HEADERS += \
-  osrm_test_tools.hpp \
+  routing_test_tools.hpp \

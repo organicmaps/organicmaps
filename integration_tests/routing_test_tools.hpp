@@ -13,10 +13,12 @@
 /*
  * These tests are developed to simplify routing integration tests writing.
  * You can use the interface bellow however you want but there are some hints.
- * 1. Most likely you want to use GetAllMaps() to get a reference to OsrmRouterComponents.
+ * 1. Most likely you want to use GetOsrmComponents() or GetPedestrianComponents() without parameter
+ *    to get a reference to IRouterComponents.
  *    It loads all the maps from directories Platform::WritableDir()
  *    and Platform::ResourcesDir() only once and then reuse it.
- *    Use LoadMaps() only if you want to test something on a special map set.
+ *    Use GetOsrmComponents() or GetPedestrianComponents() with vector of maps parameter
+ *    only if you want to test something on a special map set.
  * 2. Loading maps and calculating routes is a time consumption process.
  *    Do this only if you really need it.
  * 3. If you want to check that a turn is absent you have two options
@@ -37,20 +39,26 @@
 using namespace routing;
 using namespace turns;
 
-typedef pair<shared_ptr<Route>, OsrmRouter::ResultCode> TRouteResult;
+typedef pair<shared_ptr<Route>, IRouter::ResultCode> TRouteResult;
 
 namespace integration
 {
-  class OsrmRouterComponents;
+  class IRouterComponents;
 
   void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
-                         vector<string> const & expected, OsrmRouterComponents & routerComponents);
+                         vector<string> const & expected, IRouterComponents & routerComponents);
   void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
-                         vector<string> const & expected, OsrmRouterComponents & routerComponents);
+                         vector<string> const & expected, IRouterComponents & routerComponents);
 
-  OsrmRouterComponents & GetAllMaps();
-  shared_ptr<OsrmRouterComponents> LoadMaps(vector<platform::LocalCountryFile> const & localFiles);
-  TRouteResult CalculateRoute(OsrmRouterComponents const & routerComponents,
+  /// Get OSRM router components
+  IRouterComponents & GetOsrmComponents();
+  shared_ptr<IRouterComponents> GetOsrmComponents(vector<platform::LocalCountryFile> const & localFiles);
+
+  /// Get pedestrian router components
+  IRouterComponents & GetPedestrianComponents();
+  shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles);
+
+  TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
                               m2::PointD const & startPoint, m2::PointD const & startDirection,
                               m2::PointD const & finalPoint);
 
@@ -65,7 +73,8 @@ namespace integration
                        double relativeError = 0.01);
   void TestRouteTime(Route const & route, double expectedRouteSeconds,
                      double relativeError = 0.01);
-  void CalculateRouteAndTestRouteLength(OsrmRouterComponents const & routerComponents,
+
+  void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents,
                                         m2::PointD const & startPoint,
                                         m2::PointD const & startDirection,
                                         m2::PointD const & finalPoint, double expectedRouteMeters,

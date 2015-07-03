@@ -1,4 +1,4 @@
-#include "integration_tests/osrm_test_tools.hpp"
+#include "integration_tests/routing_test_tools.hpp"
 
 #include "testing/testing.hpp"
 
@@ -9,6 +9,7 @@
 
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/online_cross_fetcher.hpp"
+#include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 
 #include "search/search_engine.hpp"
@@ -83,16 +84,12 @@ namespace integration
     }
   }
 
-  shared_ptr<OsrmRouter> CreateOsrmRouter(shared_ptr<model::FeaturesFetcher> featuresFetcher,
-                                          shared_ptr<search::Engine> searchEngine)
+  shared_ptr<OsrmRouter> CreateOsrmRouter(Index const & index, search::Engine & searchEngine)
   {
-    ASSERT(featuresFetcher, ());
-    ASSERT(searchEngine, ());
-
     shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(
-        &featuresFetcher->GetIndex(), [searchEngine](m2::PointD const & pt)
+        &index, [&searchEngine](m2::PointD const & pt)
         {
-          return searchEngine->GetCountryFile(pt);
+          return searchEngine.GetCountryFile(pt);
         },
         [](string const & countryFileName)
         {
@@ -101,17 +98,38 @@ namespace integration
     return osrmRouter;
   }
 
-  class OsrmRouterComponents
+  shared_ptr<IRouter> CreatePedestrianRouter(Index const & index, search::Engine & searchEngine)
+  {
+    auto const countryFileFn = [&searchEngine](m2::PointD const & pt)
+    {
+      return searchEngine.GetCountryFile(pt);
+    };
+
+    unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index,
+                                                                          countryFileFn,
+                                                                          nullptr);
+    return shared_ptr<IRouter>(move(router));
+  }
+
+  class IRouterComponents
+  {
+  public:
+    virtual IRouter * GetRouter() const = 0;
+    virtual search::Engine * GetSearchEngine() const = 0;
+    virtual ~IRouterComponents() = default;
+  };
+
+  class OsrmRouterComponents : public IRouterComponents
   {
   public:
     OsrmRouterComponents(vector<LocalCountryFile> const & localFiles)
         : m_featuresFetcher(CreateFeaturesFetcher(localFiles)),
           m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
-          m_osrmRouter(CreateOsrmRouter(m_featuresFetcher, m_searchEngine))
+          m_osrmRouter(CreateOsrmRouter(m_featuresFetcher->GetIndex(), *m_searchEngine.get()))
     {
     }
-    OsrmRouter * GetOsrmRouter() const { return m_osrmRouter.get(); }
-    search::Engine * GetSearchEngine() const { return m_searchEngine.get(); }
+    IRouter * GetRouter() const override { return m_osrmRouter.get(); }
+    search::Engine * GetSearchEngine() const override { return m_searchEngine.get(); }
 
   private:
     shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
@@ -119,12 +137,26 @@ namespace integration
     shared_ptr<OsrmRouter> m_osrmRouter;
   };
 
-  shared_ptr<OsrmRouterComponents> LoadMaps(vector<LocalCountryFile> const & localFiles)
+  class PedestrianRouterComponents : public IRouterComponents
   {
-    return shared_ptr<OsrmRouterComponents>(new OsrmRouterComponents(localFiles));
-  }
+  public:
+    PedestrianRouterComponents(vector<LocalCountryFile> const & localFiles)
+        : m_featuresFetcher(CreateFeaturesFetcher(localFiles)),
+          m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
+          m_router(CreatePedestrianRouter(m_featuresFetcher->GetIndex(), *m_searchEngine.get()))
+    {
+    }
+    IRouter * GetRouter() const override { return m_router.get(); }
+    search::Engine * GetSearchEngine() const override { return m_searchEngine.get(); }
 
-  shared_ptr<OsrmRouterComponents> LoadAllMaps()
+  private:
+    shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
+    shared_ptr<search::Engine> m_searchEngine;
+    shared_ptr<IRouter> m_router;
+  };
+
+  template <typename TRouterComponents>
+  shared_ptr<TRouterComponents> CreateAllMapsComponents()
   {
     // Setting stored paths from testingmain.cpp
     Platform & pl = GetPlatform();
@@ -137,25 +169,42 @@ namespace integration
     vector<LocalCountryFile> localFiles;
     platform::FindAllLocalMaps(localFiles);
     ASSERT(!localFiles.empty(), ());
-    return LoadMaps(localFiles);
+    return shared_ptr<TRouterComponents>(new TRouterComponents(localFiles));
   }
 
-  OsrmRouterComponents & GetAllMaps()
+  shared_ptr<IRouterComponents> GetOsrmComponents(vector<platform::LocalCountryFile> const & localFiles)
   {
-    static shared_ptr<OsrmRouterComponents> const inst = LoadAllMaps();
+    return shared_ptr<IRouterComponents>(new OsrmRouterComponents(localFiles));
+  }
+
+  IRouterComponents & GetOsrmComponents()
+  {
+    static shared_ptr<IRouterComponents> const inst = CreateAllMapsComponents<OsrmRouterComponents>();
     ASSERT(inst, ());
     return *inst;
   }
 
-  TRouteResult CalculateRoute(OsrmRouterComponents const & routerComponents,
+  shared_ptr<IRouterComponents> GetPedestrianComponents(vector<platform::LocalCountryFile> const & localFiles)
+  {
+    return shared_ptr<IRouterComponents>(new PedestrianRouterComponents(localFiles));
+  }
+
+  IRouterComponents & GetPedestrianComponents()
+  {
+    static shared_ptr<IRouterComponents> const inst = CreateAllMapsComponents<PedestrianRouterComponents>();
+    ASSERT(inst, ());
+    return *inst;
+  }
+
+  TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
                               m2::PointD const & startPoint, m2::PointD const & startDirection,
                               m2::PointD const & finalPoint)
   {
-    OsrmRouter * osrmRouter = routerComponents.GetOsrmRouter();
-    ASSERT(osrmRouter, ());
+    IRouter * router = routerComponents.GetRouter();
+    ASSERT(router, ());
     shared_ptr<Route> route(new Route("mapsme"));
-    OsrmRouter::ResultCode result =
-        osrmRouter->CalculateRoute(startPoint, startDirection, finalPoint, *route.get());
+    IRouter::ResultCode result =
+        router->CalculateRoute(startPoint, startDirection, finalPoint, *route.get());
     ASSERT(route, ());
     return TRouteResult(route, result);
   }
@@ -182,7 +231,7 @@ namespace integration
         ("Route time test failed. Expected:", expectedRouteSeconds, "have:", routeSeconds, "delta:", delta));
   }
 
-  void CalculateRouteAndTestRouteLength(OsrmRouterComponents const & routerComponents,
+  void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents,
                                         m2::PointD const & startPoint,
                                         m2::PointD const & startDirection,
                                         m2::PointD const & finalPoint, double expectedRouteMeters,
@@ -190,8 +239,8 @@ namespace integration
   {
     TRouteResult routeResult =
         CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
-    OsrmRouter::ResultCode const result = routeResult.second;
-    TEST_EQUAL(result, OsrmRouter::NoError, ());
+    IRouter::ResultCode const result = routeResult.second;
+    TEST_EQUAL(result, IRouter::NoError, ());
     TestRouteLength(*routeResult.first, expectedRouteMeters, relativeError);
   }
 
@@ -272,7 +321,7 @@ namespace integration
   }
 
   void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
-                         vector<string> const & expected, OsrmRouterComponents & routerComponents)
+                         vector<string> const & expected, IRouterComponents & routerComponents)
   {
     auto countryFileGetter = [&routerComponents](m2::PointD const & p) -> string
     {
@@ -303,7 +352,7 @@ namespace integration
 
   void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                          vector<string> const & expected,
-                         OsrmRouterComponents & routerComponents)
+                         IRouterComponents & routerComponents)
   {
     routing::OnlineCrossFetcher fetcher(OSRM_ONLINE_SERVER_URL, startPoint, finalPoint);
     fetcher.Do();
