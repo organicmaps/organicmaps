@@ -13,8 +13,8 @@ namespace
 {
 UNIT_TEST(UrlGeneratorTest)
 {
-  TEST_EQUAL(GenerateOnlineRequest("http://mapsme.test.ru:10012", m2::PointD(37.726536, 55.690105),
-                                   m2::PointD(39.902344, 44.527843)),
+  TEST_EQUAL(GenerateOnlineRequest("http://mapsme.test.ru:10012", ms::LatLon(37.726536, 55.690105),
+                                   ms::LatLon(39.902344, 44.527843)),
              "http://mapsme.test.ru:10012/mapsme?loc=55.6901,37.7265&loc=44.5278,39.9023",
              ("Url parsed"));
 }

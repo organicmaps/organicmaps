@@ -6,29 +6,32 @@
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 
+#include "std/vector.hpp"
+
 using platform::CountryFile;
 using platform::LocalCountryFile;
 
 namespace routing
 {
 void OnlineAbsentCountriesFetcher::GenerateRequest(const m2::PointD & startPoint,
-                                          const m2::PointD & finalPoint)
+                                                   const m2::PointD & finalPoint)
 {
-  // single mwm case
+  // Single mwm case.
   if (m_countryFileFn(startPoint) == m_countryFileFn(finalPoint))
     return;
   unique_ptr<OnlineCrossFetcher> fetcher =
-      make_unique<OnlineCrossFetcher>(OSRM_ONLINE_SERVER_URL, startPoint, finalPoint);
+      make_unique<OnlineCrossFetcher>(OSRM_ONLINE_SERVER_URL, MercatorBounds::ToLatLon(startPoint),
+                                      MercatorBounds::ToLatLon(finalPoint));
   m_fetcherThread.Create(move(fetcher));
 }
 
 void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries)
 {
-  // Have task check
+  // Check whether a request was scheduled to be run on the thread.
   if (!m_fetcherThread.GetRoutine())
     return;
   m_fetcherThread.Join();
-  for (auto point : m_fetcherThread.GetRoutineAs<OnlineCrossFetcher>()->GetMwmPoints())
+  for (auto const & point : m_fetcherThread.GetRoutineAs<OnlineCrossFetcher>()->GetMwmPoints())
   {
     string name = m_countryFileFn(point);
     auto localFile = m_countryLocalFileFn(name);

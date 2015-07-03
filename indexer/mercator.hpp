@@ -6,6 +6,7 @@
 // I sugest considering moving this compiation unit to another place. Probably to geometry.
 
 #pragma once
+#include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -105,6 +106,16 @@ struct MercatorBounds
   inline static m2::PointD FromLatLon(double lat, double lon)
   {
     return m2::PointD(LonToX(lon), LatToY(lat));
+  }
+
+  inline static m2::PointD FromLatLon(ms::LatLon const & point)
+  {
+    return FromLatLon(point.lat, point.lon);
+  }
+
+  inline static ms::LatLon ToLatLon(m2::PointD const & point)
+  {
+    return {YToLat(point.y), XToLon(point.x)};
   }
 
   /// Converts lat lon rect to mercator one

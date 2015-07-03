@@ -4,6 +4,9 @@
 
 #include "map/feature_vec_model.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
+#include "geometry/latlon.hpp"
+
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/online_cross_fetcher.hpp"
 #include "routing/route.hpp"
@@ -268,7 +271,7 @@ namespace integration
     return TestTurn();
   }
 
-  void TestOnlineFetcher(m2::PointD const & startPoint, m2::PointD const & finalPoint,
+  void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                          vector<string> const & expected, OsrmRouterComponents & routerComponents)
   {
     auto countryFileGetter = [&routerComponents](m2::PointD const & p) -> string
@@ -278,11 +281,11 @@ namespace integration
     auto localFileGetter = [&routerComponents](string const & countryFile) -> shared_ptr<LocalCountryFile>
     {
       //Always returns empty LocalFile
-      return shared_ptr<LocalCountryFile>(new LocalCountryFile());
+      return make_shared<LocalCountryFile>();
     };
     routing::OnlineAbsentCountriesFetcher fetcher(countryFileGetter, localFileGetter);
-    fetcher.GenerateRequest(MercatorBounds::FromLatLon(startPoint.y, startPoint.x),
-                            MercatorBounds::FromLatLon(finalPoint.y, finalPoint.x));
+    fetcher.GenerateRequest(MercatorBounds::FromLatLon(startPoint),
+                            MercatorBounds::FromLatLon(finalPoint));
     vector<string> absent;
     fetcher.GetAbsentCountries(absent);
     if (expected.size() < 2)
@@ -298,13 +301,11 @@ namespace integration
     }
   }
 
-  void TestOnlineCrosses(m2::PointD const & startPoint, m2::PointD const & finalPoint,
+  void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                          vector<string> const & expected,
                          OsrmRouterComponents & routerComponents)
   {
-    routing::OnlineCrossFetcher fetcher(OSRM_ONLINE_SERVER_URL,
-                                        MercatorBounds::FromLatLon(startPoint.y, startPoint.x),
-                                        MercatorBounds::FromLatLon(finalPoint.y, finalPoint.x));
+    routing::OnlineCrossFetcher fetcher(OSRM_ONLINE_SERVER_URL, startPoint, finalPoint);
     fetcher.Do();
     vector<m2::PointD> const & points = fetcher.GetMwmPoints();
     TEST_EQUAL(points.size(), expected.size(), ());

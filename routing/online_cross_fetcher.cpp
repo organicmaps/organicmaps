@@ -45,8 +45,8 @@ string GenerateOnlineRequest(string const & serverURL, ms::LatLon const & startP
          strings::to_string(finalPoint.lon);
 }
 
-OnlineCrossFetcher::OnlineCrossFetcher(string const & serverURL, m2::PointD const & startPoint,
-                                       m2::PointD const & finalPoint)
+OnlineCrossFetcher::OnlineCrossFetcher(string const & serverURL, ms::LatLon const & startPoint,
+                                       ms::LatLon const & finalPoint)
     : m_request(GenerateOnlineRequest(serverURL, startPoint, finalPoint))
 {
   LOG(LINFO, ("Check mwms by URL: ", GenerateOnlineRequest(serverURL, startPoint, finalPoint)));

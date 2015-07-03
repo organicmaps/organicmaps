@@ -1,8 +1,5 @@
 #pragma once
 
-#include "indexer/mercator.hpp"
-
-#include "std/sstream.hpp"
 #include "std/string.hpp"
 
 namespace ms
@@ -11,19 +8,10 @@ namespace ms
 class LatLon
 {
 public:
-  LatLon(m2::PointD point)
-      : lat(MercatorBounds::YToLat(point.y)), lon(MercatorBounds::XToLon(point.x))
-  {
-  }
-
+  LatLon(double lat, double lon) : lat(lat), lon(lon) {}
   double lat, lon;
 };
 
-inline string DebugPrint(LatLon const & t)
-{
-  ostringstream out;
-  out << "LatLon [ " << t.lat << ", " << t.lon << " ]";
-  return out.str();
-}
+inline string DebugPrint(LatLon const & t);
 
 }  // namespace ms

@@ -9,12 +9,13 @@ ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
-  distance_on_sphere.cpp \
-  screenbase.cpp \
-  packer.cpp \
-  robust_orientation.cpp \
-  region2d/binary_operators.cpp \
   angles.cpp \
+  distance_on_sphere.cpp \
+  latlon.cpp \
+  packer.cpp \
+  region2d/binary_operators.cpp \
+  robust_orientation.cpp \
+  screenbase.cpp \
   spline.cpp \
 
 HEADERS += \

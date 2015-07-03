@@ -43,9 +43,9 @@ namespace integration
 {
   class OsrmRouterComponents;
 
-  void TestOnlineCrosses(m2::PointD const & startPoint, m2::PointD const & finalPoint,
+  void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                          vector<string> const & expected, OsrmRouterComponents & routerComponents);
-  void TestOnlineFetcher(m2::PointD const & startPoint, m2::PointD const & finalPoint,
+  void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
                          vector<string> const & expected, OsrmRouterComponents & routerComponents);
 
   OsrmRouterComponents & GetAllMaps();

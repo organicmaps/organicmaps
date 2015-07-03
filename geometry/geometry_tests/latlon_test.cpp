@@ -6,9 +6,8 @@
 UNIT_TEST(LatLonPointConstructorTest)
 {
   m2::PointD basePoint(39.123, 42.456);
-  ms::LatLon wgsPoint(basePoint);
-  m2::PointD resultPoint(MercatorBounds::LonToX(wgsPoint.lon),
-                         MercatorBounds::LatToY(wgsPoint.lat));
+  ms::LatLon wgsPoint = MercatorBounds::ToLatLon(basePoint);
+  m2::PointD resultPoint = MercatorBounds::FromLatLon(wgsPoint);
   TEST_ALMOST_EQUAL_ULPS(basePoint.x, resultPoint.x, ());
   TEST_ALMOST_EQUAL_ULPS(basePoint.y, resultPoint.y, ());
 }

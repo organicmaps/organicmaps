@@ -161,7 +161,7 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
 
     m_absentFetcher->GenerateRequest(startPoint, finalPoint);
 
-    // Run basic request
+    // Run basic request.
     code = m_router->CalculateRoute(startPoint, startDirection, finalPoint, route);
 
     double const elapsedSec = timer.ElapsedSeconds();

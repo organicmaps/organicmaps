@@ -4,6 +4,8 @@
 #include "router.hpp"
 #include "routing_mapping.h"
 
+#include "geometry/point2d.hpp"
+
 #include "base/thread.hpp"
 
 #include "std/string.hpp"
@@ -11,6 +13,10 @@
 
 namespace routing
 {
+/*!
+ * \brief The OnlineAbsentCountriesFetcher class incapsulates async fetching the map
+ * names from online OSRM server routines.
+ */
 class OnlineAbsentCountriesFetcher
 {
 public:

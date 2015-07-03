@@ -34,12 +34,12 @@ public:
   /// \brief OnlineCrossFetcher helper class to make request to online OSRM server
   ///        and get mwm name list
   /// \param serverURL Server URL
-  /// \param startPoint Start point coordinates in mercator
-  /// \param finalPoint Finish point coordinates in mercator
-  OnlineCrossFetcher(string const & serverURL, m2::PointD const & startPoint,
-                     m2::PointD const & finalPoint);
+  /// \param startPoint Start point coordinates
+  /// \param finalPoint Finish point coordinates
+  OnlineCrossFetcher(string const & serverURL, ms::LatLon const & startPoint,
+                     ms::LatLon const & finalPoint);
 
-  /// Override threads::IRoutine processing procedure. Calls online OSRM server and parses response.
+  /// Overrides threads::IRoutine processing procedure. Calls online OSRM server and parses response.
   void Do() override;
 
   /// \brief GetMwmPoints returns mwm representation points list.
