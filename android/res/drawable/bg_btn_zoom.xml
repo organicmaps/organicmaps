@@ -3,8 +3,11 @@
           xmlns:tools="http://schemas.android.com/tools"
           tools:ignore="UnusedAttribute">
 
-  <item android:drawable="@drawable/btn_white_second_pressed"
+  <item android:drawable="@drawable/btn_second_white_pressed"
         android:state_pressed="true"/>
 
-  <item android:drawable="@drawable/btn_white_second_normal"/>
+  <item android:drawable="@drawable/btn_second_white_hover"
+        android:state_hovered="true"/>
+
+  <item android:drawable="@drawable/btn_second_white_normal"/>
 </selector>

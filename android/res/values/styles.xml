@@ -63,7 +63,6 @@
 
   <style name="MwmWidget.MapButton" parent="android:Widget.ImageButton">
     <item name="android:scaleType">center</item>
-    <item name="android:layout_margin">@dimen/margin_micro</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_width">wrap_content</item>
   </style>

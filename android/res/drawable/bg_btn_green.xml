@@ -3,8 +3,11 @@
           xmlns:tools="http://schemas.android.com/tools"
           tools:ignore="UnusedAttribute">
 
-  <item android:drawable="@drawable/btn_green_pressed"
+  <item android:drawable="@drawable/btn_first_green_pressed"
         android:state_pressed="true"/>
 
-  <item android:drawable="@drawable/btn_green_normal"/>
+  <item android:drawable="@drawable/btn_first_green_hover"
+        android:state_hovered="true"/>
+
+  <item android:drawable="@drawable/btn_first_green_normal"/>
 </selector>
