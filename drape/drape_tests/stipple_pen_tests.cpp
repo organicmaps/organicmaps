@@ -450,6 +450,7 @@ UNIT_TEST(StippleMappingTest)
   EXPECTGL(glTexParameter(gl_const::GLMagFilter, gl_const::GLLinear));
   EXPECTGL(glTexParameter(gl_const::GLWrapS, gl_const::GLClampToEdge));
   EXPECTGL(glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge));
+  EXPECTGL(glBindTexture(0)).WillOnce(Return());
   MemoryComparer cmp(firstUploadEtalon, ARRAY_SIZE(firstUploadEtalon));
   EXPECTGL(glTexSubImage2D(0, 0, 256, 6, AnyOf(gl_const::GLAlpha, gl_const::GLAlpha8), gl_const::GL8BitOnChannel, _))
       .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));

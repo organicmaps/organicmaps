@@ -9,44 +9,39 @@
 namespace dp
 {
 
-Blending::Blending(bool isEnabled)
-  : m_isEnabled(isEnabled)
-  , m_blendFunction(gl_const::GLAddBlend)
+BlendingParams::BlendingParams()
+  : m_blendFunction(gl_const::GLAddBlend)
   , m_blendSrcFactor(gl_const::GLSrcAlfa)
   , m_blendDstFactor(gl_const::GLOneMinusSrcAlfa)
 {
 }
 
+void BlendingParams::Apply() const
+{
+  GLFunctions::glBlendEquation(m_blendFunction);
+  GLFunctions::glBlendFunc(m_blendSrcFactor, m_blendDstFactor);
+}
+
+Blending::Blending(bool isEnabled)
+  : m_isEnabled(isEnabled)
+{}
+
 void Blending::Apply() const
 {
   if (m_isEnabled)
-  {
     GLFunctions::glEnable(gl_const::GLBlending);
-    GLFunctions::glBlendEquation(m_blendFunction);
-    GLFunctions::glBlendFunc(m_blendSrcFactor, m_blendDstFactor);
-  }
   else
     GLFunctions::glDisable(gl_const::GLBlending);
 }
 
 bool Blending::operator < (Blending const & other) const
 {
-  if (m_isEnabled != other.m_isEnabled)
-    return m_isEnabled < other.m_isEnabled;
-  if (m_blendFunction != other.m_blendFunction)
-    return m_blendFunction < other.m_blendFunction;
-  if (m_blendSrcFactor != other.m_blendSrcFactor)
-    return m_blendSrcFactor < other.m_blendSrcFactor;
-
-  return m_blendDstFactor < other.m_blendDstFactor;
+  return m_isEnabled < other.m_isEnabled;
 }
 
 bool Blending::operator == (Blending const & other) const
 {
-  return m_isEnabled == other.m_isEnabled &&
-         m_blendFunction == other.m_blendFunction &&
-         m_blendSrcFactor == other.m_blendSrcFactor &&
-         m_blendDstFactor == other.m_blendDstFactor;
+  return m_isEnabled == other.m_isEnabled;
 }
 
 GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)

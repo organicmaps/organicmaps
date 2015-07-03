@@ -8,6 +8,17 @@
 namespace dp
 {
 
+struct BlendingParams
+{
+  BlendingParams();
+
+  void Apply() const;
+
+  glConst m_blendFunction;
+  glConst m_blendSrcFactor;
+  glConst m_blendDstFactor;
+};
+
 struct Blending
 {
   Blending(bool isEnabled = true);
@@ -18,9 +29,6 @@ struct Blending
   bool operator == (Blending const & other) const;
 
   bool m_isEnabled;
-  glConst m_blendFunction;
-  glConst m_blendSrcFactor;
-  glConst m_blendDstFactor;
 };
 
 class GLState

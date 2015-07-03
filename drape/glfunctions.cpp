@@ -1,6 +1,7 @@
 #include "drape/glfunctions.hpp"
 #include "drape/glIncludes.hpp"
 #include "drape/glextensions_list.hpp"
+#include "drape/glfunctions_cache.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -377,12 +378,12 @@ int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name)
 
 void GLFunctions::glEnable(glConst mode)
 {
-  GLCHECK(::glEnable(mode));
+  GLFunctionsCache::glEnable(mode);
 }
 
 void GLFunctions::glDisable(glConst mode)
 {
-  GLCHECK(::glDisable(mode));
+  GLFunctionsCache::glDisable(mode);
 }
 
 void GLFunctions::glClearDepthValue(double depth)
@@ -588,8 +589,7 @@ void GLFunctions::glDeleteProgram(uint32_t programID)
 
 void GLFunctions::glUseProgram(uint32_t programID)
 {
-  ASSERT(glUseProgramFn != nullptr, ());
-  GLCHECK(glUseProgramFn(programID));
+  GLFunctionsCache::glUseProgram(programID);
 }
 
 int8_t GLFunctions::glGetAttribLocation(uint32_t programID, string const & name)
@@ -649,9 +649,7 @@ int8_t GLFunctions::glGetUniformLocation(uint32_t programID, string const & name
 
 void GLFunctions::glUniformValuei(int8_t location, int32_t v)
 {
-  ASSERT(glUniform1iFn != nullptr, ());
-  ASSERT(location != -1, ());
-  GLCHECK(glUniform1iFn(location, v));
+  GLFunctionsCache::glUniformValuei(location, v);
 }
 
 void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2)
@@ -684,9 +682,7 @@ void GLFunctions::glUniformValueiv(int8_t location, int32_t * v, uint32_t size)
 
 void GLFunctions::glUniformValuef(int8_t location, float v)
 {
-  ASSERT(glUniform1fFn != nullptr, ());
-  ASSERT(location != -1, ());
-  GLCHECK(glUniform1fFn(location, v));
+  GLFunctionsCache::glUniformValuef(location, v);
 }
 
 void GLFunctions::glUniformValuef(int8_t location, float v1, float v2)
@@ -741,8 +737,7 @@ int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramName)
 
 void GLFunctions::glActiveTexture(glConst texBlock)
 {
-  ASSERT(glActiveTextureFn != nullptr, ());
-  GLCHECK(glActiveTextureFn(texBlock));
+  GLFunctionsCache::glActiveTexture(texBlock);
 }
 
 uint32_t GLFunctions::glGenTexture()
@@ -759,7 +754,7 @@ void GLFunctions::glDeleteTexture(uint32_t id)
 
 void GLFunctions::glBindTexture(uint32_t textureID)
 {
-  GLCHECK(::glBindTexture(GL_TEXTURE_2D, textureID));
+  GLFunctionsCache::glBindTexture(textureID);
 }
 
 void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data)
@@ -781,6 +776,47 @@ void GLFunctions::glDrawElements(uint32_t sizeOfIndex, uint32_t indexCount, uint
 {
   GLCHECK(::glDrawElements(GL_TRIANGLES, indexCount, sizeOfIndex == sizeof(uint32_t) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT,
                            reinterpret_cast<GLvoid *>(startIndex * sizeOfIndex)));
+}
+
+void GLFunctions::glActiveTextureImpl(glConst texBlock)
+{
+  ASSERT(glActiveTextureFn != nullptr, ());
+  GLCHECK(glActiveTextureFn(texBlock));
+}
+
+void GLFunctions::glBindTextureImpl(uint32_t textureID)
+{
+  GLCHECK(::glBindTexture(GL_TEXTURE_2D, textureID));
+}
+
+void GLFunctions::glEnableImpl(glConst mode)
+{
+  GLCHECK(::glEnable(mode));
+}
+
+void GLFunctions::glDisableImpl(glConst mode)
+{
+  GLCHECK(::glDisable(mode));
+}
+
+void GLFunctions::glUseProgramImpl(uint32_t programID)
+{
+  ASSERT(glUseProgramFn != nullptr, ());
+  GLCHECK(glUseProgramFn(programID));
+}
+
+void GLFunctions::glUniformValueiImpl(int8_t location, int32_t v)
+{
+  ASSERT(glUniform1iFn != nullptr, ());
+  ASSERT(location != -1, ());
+  GLCHECK(glUniform1iFn(location, v));
+}
+
+void GLFunctions::glUniformValuefImpl(int8_t location, float v)
+{
+  ASSERT(glUniform1fFn != nullptr, ());
+  ASSERT(location != -1, ());
+  GLCHECK(glUniform1fFn(location, v));
 }
 
 namespace

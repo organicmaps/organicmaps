@@ -738,6 +738,9 @@ void FrontendRenderer::Routine::Do()
   GLFunctions::glCullFace(gl_const::GLBack);
   GLFunctions::glEnable(gl_const::GLCullFace);
 
+  dp::BlendingParams blendingParams;
+  blendingParams.Apply();
+
   my::HighResTimer timer;
   //double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms
 

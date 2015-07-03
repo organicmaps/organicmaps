@@ -41,6 +41,7 @@ void InitOpenGLTextures(int const w, int const h)
   EXPECTGL(glTexParameter(gl_const::GLMagFilter, gl_const::GLLinear));
   EXPECTGL(glTexParameter(gl_const::GLWrapS, gl_const::GLClampToEdge));
   EXPECTGL(glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge));
+  EXPECTGL(glBindTexture(0)).WillOnce(Return());
 }
 
 class DummyColorPallete : public ColorPalette

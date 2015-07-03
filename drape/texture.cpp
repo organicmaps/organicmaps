@@ -67,6 +67,9 @@ void Texture::Create(uint32_t width, uint32_t height, TextureFormat format, ref_
   SetFilterParams(gl_const::GLLinear, gl_const::GLLinear);
   SetWrapMode(gl_const::GLClampToEdge, gl_const::GLClampToEdge);
 
+  GLFunctions::glFlush();
+  GLFunctions::glBindTexture(0);
+
 #if defined(TRACK_GPU_MEM)
   uint32_t channelBitSize = 8;
   uint32_t channelCount = 4;

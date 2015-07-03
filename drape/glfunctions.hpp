@@ -8,6 +8,8 @@
 
 class GLFunctions
 {
+  friend class GLFunctionsCache;
+
 public:
   static void Init();
 
@@ -122,6 +124,16 @@ public:
 
   // Draw support
   static void glDrawElements(uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex = 0);
+
+private:
+  static void glActiveTextureImpl(glConst texBlock);
+  static void glBindTextureImpl(uint32_t textureID);
+  static void glEnableImpl(glConst mode);
+  static void glDisableImpl(glConst mode);
+  static void glUseProgramImpl(uint32_t programID);
+
+  static void glUniformValueiImpl(int8_t location, int32_t v);
+  static void glUniformValuefImpl(int8_t location, float v);
 };
 
 void CheckGLError(my::SrcPoint const &src);
