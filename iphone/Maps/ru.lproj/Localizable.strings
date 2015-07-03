@@ -56,7 +56,7 @@
 "share_on_facebook_text" = "Нравится MAPS.ME? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
-"kb" = "КБ";
+"kb" = "кБ";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Километры";
@@ -203,7 +203,7 @@
 "download_location_update_map_proposal" = "Вы можете обновить карту\nвашего текущего местоположения.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Карта местности, в которой\nвы находитесь (%@) уже загружена.";
+"download_location_map_up_to_date" = "Карта местности, в которой\nвы находитесь (%@), уже загружена.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Приостановить";
@@ -270,7 +270,7 @@
 "set" = "Группа";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТак же метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.";
+"bookmarks_usage_hint" = "У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
 "bookmarks_usage_hint_import_only" = "Метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.";
@@ -497,10 +497,10 @@
 "kitkat_migrate_ok" = "Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.";
+"kitkat_migrate_failed" = "В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни во внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.";
 
 /* Used to warn user when fixing KitKat issue */
-"bookmark_move_fail" = "Для оптимизации хранения данных нам нужно переместить метки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.";
+"bookmark_move_fail" = "Для оптимизации хранения данных нам нужно переместить метки во внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.";
 
 /* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.";
@@ -731,16 +731,16 @@
 "routing_download_maps_along" = "Загрузите все карты по пути следования";
 
 /* Text for routing error dialog */
-"routing_download_map" = "Загрузи карту";
+"routing_download_map" = "Загрузите карту";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Загрузи карту и маршруты, чтобы получить доступ ко всем возможностям приложения.";
+"routing_download_map_and_routing" = "Загрузите карту и маршруты, чтобы получить доступ ко всем возможностям приложения.";
 
 /* Text for routing error dialog */
-"routing_get_routing_data" = "Загрузи маршруты";
+"routing_get_routing_data" = "Загрузите маршруты";
 
 /* Text for routing error dialog */
-"routing_get_additional_data" = "Загрузи данные для построения маршрутов";
+"routing_get_additional_data" = "Загрузите данные для построения маршрутов";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Для создания маршрута необходимо загрузить и обновить все карты на пути следования.";
@@ -752,7 +752,7 @@
 "routing_download_more_than_avail" = "Необходимо загрузить %@ МБ, но есть место только для %@ МБ";
 
 /* Text for routing error dialog */
-"routing_download_roaming" = "(Будет загружено %@ MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета";
+"routing_download_roaming" = "Будет загружено %@ MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета";
 
 /* Cuisine */
 "cuisine_regional" = "региональная кухня";
@@ -995,7 +995,7 @@
 "cuisine_hungarian" = "венгерская кухня";
 
 /* Cuisine */
-"cuisine_lao" = "лаоская кухня";
+"cuisine_lao" = "лаосская кухня";
 
 /* Cuisine */
 "cuisine_coffee" = "кофейня";
@@ -1010,7 +1010,7 @@
 "cuisine_savory_pancakes" = "несладкие блинчики";
 
 /* Cuisine */
-"cuisine_moroccan" = "морокканская кухня";
+"cuisine_moroccan" = "марокканская кухня";
 
 /* Cuisine */
 "cuisine_barbeque" = "барбекю";
@@ -1072,16 +1072,16 @@
 "yellow" = "Желтый";
 
 /* blue color */
-"blue" = "Синій";
+"blue" = "Синий";
 
 /* green color */
-"green" = "Зелений";
+"green" = "Зеленый";
 
 /* purple color */
 "purple" = "Фиолетовый";
 
 /* orange color */
-"orange" = "Помаранчевий";
+"orange" = "Оранжевый";
 
 /* brown color */
 "brown" = "Коричневый";

@@ -37,7 +37,7 @@
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Нравится MAPS.ME? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
-	<string name="kb">КБ</string>
+	<string name="kb">кБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Километры</string>
 	<!-- Leave Review dialog - Review button -->
@@ -126,7 +126,7 @@
 	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
 	<string name="download_location_update_map_proposal">Вы можете обновить карту\nвашего текущего местоположения.</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Карта местности, в которой\nвы находитесь (%s) уже загружена.</string>
+	<string name="download_location_map_up_to_date">Карта местности, в которой\nвы находитесь (%s), уже загружена.</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Приостановить</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -170,7 +170,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Группа</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТак же метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
+	<string name="bookmarks_usage_hint">У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">Метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.</string>
 	<!-- Settings button in system menu -->
@@ -318,9 +318,9 @@
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_failed">В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.</string>
+	<string name="kitkat_migrate_failed">В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни во внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="bookmark_move_fail">Для оптимизации хранения данных нам нужно переместить метки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.</string>
+	<string name="bookmark_move_fail">Для оптимизации хранения данных нам нужно переместить метки во внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.</string>
 	<!-- Used in More Apps menu -->
@@ -474,13 +474,13 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Загрузите все карты по пути следования</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map">Загрузи карту</string>
+	<string name="routing_download_map">Загрузите карту</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Загрузи карту и маршруты, чтобы получить доступ ко всем возможностям приложения.</string>
+	<string name="routing_download_map_and_routing">Загрузите карту и маршруты, чтобы получить доступ ко всем возможностям приложения.</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_get_routing_data">Загрузи маршруты</string>
+	<string name="routing_get_routing_data">Загрузите маршруты</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_get_additional_data">Загрузи данные для построения маршрутов</string>
+	<string name="routing_get_additional_data">Загрузите данные для построения маршрутов</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Для создания маршрута необходимо загрузить и обновить все карты на пути следования.</string>
 	<!-- Text for routing error dialog -->
@@ -488,7 +488,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_more_than_avail">Необходимо загрузить %1$s МБ, но есть место только для %2$s МБ</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_roaming">(Будет загружено %s MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета</string>
+	<string name="routing_download_roaming">Будет загружено %s MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета</string>
 	<!-- Cuisine -->
 	<string name="cuisine_regional">региональная кухня</string>
 	<!-- Cuisine -->
@@ -650,7 +650,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">венгерская кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">лаоская кухня</string>
+	<string name="cuisine_lao">лаосская кухня</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">кофейня</string>
 	<!-- Cuisine -->
@@ -660,7 +660,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_savory_pancakes">несладкие блинчики</string>
 	<!-- Cuisine -->
-	<string name="cuisine_moroccan">морокканская кухня</string>
+	<string name="cuisine_moroccan">марокканская кухня</string>
 	<!-- Cuisine -->
 	<string name="cuisine_barbeque">барбекю</string>
 	<!-- Cuisine -->
@@ -700,13 +700,13 @@
 	<!-- yellow color -->
 	<string name="yellow">Желтый</string>
 	<!-- blue color -->
-	<string name="blue">Синій</string>
+	<string name="blue">Синий</string>
 	<!-- green color -->
-	<string name="green">Зелений</string>
+	<string name="green">Зеленый</string>
 	<!-- purple color -->
 	<string name="purple">Фиолетовый</string>
 	<!-- orange color -->
-	<string name="orange">Помаранчевий</string>
+	<string name="orange">Оранжевый</string>
 	<!-- brown color -->
 	<string name="brown">Коричневый</string>
 	<!-- pink color -->

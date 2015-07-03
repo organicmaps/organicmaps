@@ -37,7 +37,7 @@
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
-	<string name="kb">КБ</string>
+	<string name="kb">кБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Кілометри</string>
 	<!-- Leave Review dialog - Review button -->
@@ -317,8 +317,6 @@
 	<string name="search_show_on_map">Подивитись на карті</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Ми оптимiзували збереження данних. Для подальшої работи, будь ласка, перезавантажте програму.\n\nПапка MapsWithMe, яка знаходится на SD-картi, вже не потрiбна, її можна видалити.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_failed">В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но не сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">Для оптимiзацiї збереження данних нам потрiбно перенести мітки до внутрiшньої пам\&#39;ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо мітки вам не будуть доступнi.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
@@ -694,13 +692,13 @@
 	<!-- yellow color -->
 	<string name="yellow">Жовтий</string>
 	<!-- blue color -->
-	<string name="blue">Синий</string>
+	<string name="blue">Синій</string>
 	<!-- green color -->
-	<string name="green">Зеленый</string>
+	<string name="green">Зелений</string>
 	<!-- purple color -->
 	<string name="purple">Пурпуровий</string>
 	<!-- orange color -->
-	<string name="orange">Оранжевый</string>
+	<string name="orange">Помаранчевий</string>
 	<!-- brown color -->
 	<string name="brown">Коричневий</string>
 	<!-- pink color -->
