@@ -27,12 +27,20 @@ namespace my
   }
 }
 
-struct TestingOptions
+// This struct contains parsed command line options. It may contain pointers to argc contents.
+struct CommandLineOptions
 {
-  string dataPath;
-  string resourcePath;
+  CommandLineOptions() : filterRegExp(nullptr), suppressRegExp(nullptr),
+      dataPath(nullptr), resourcePath(nullptr), help(false) {}
+
+  char const * filterRegExp;
+  char const * suppressRegExp;
+  char const * dataPath;
+  char const * resourcePath;
+
+  bool help;
 };
-extern TestingOptions testingOptions;
+CommandLineOptions const & GetTestingOptions();
 
 #define TEST(X, msg) { if (X) {} else { \
   ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X")", ::my::impl::Message msg));}}

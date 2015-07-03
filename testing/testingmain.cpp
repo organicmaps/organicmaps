@@ -28,7 +28,12 @@
   #endif
 #endif
 
-TestingOptions testingOptions;
+CommandLineOptions testingOptions;
+
+CommandLineOptions const & GetTestingOptions()
+{
+  return testingOptions;
+}
 
 namespace
 {
@@ -46,23 +51,6 @@ enum Status
   STATUS_SUCCESS = 0,
   STATUS_FAILED = 1,
   STATUS_BROKEN_FRAMEWORK = 5,
-};
-
-// This struct contains parsed command line options. It may contain pointers to argc contents.
-struct CommandLineOptions
-{
-  CommandLineOptions() : filterRegExp(nullptr), suppressRegExp(nullptr), help(false) {}
-
-  // Non-owning ptr.
-  char const * filterRegExp;
-
-  // Non-owning ptr.
-  char const * suppressRegExp;
-
-  char const * dataPath;
-  char const * resourcePath;
-
-  bool help;
 };
 
 void DisplayOption(ostream & os, char const * option, char const * description)
@@ -128,26 +116,20 @@ int main(int argc, char * argv[])
   vector<bool> testResults;
   int numFailedTests = 0;
 
-  CommandLineOptions options;
-  ParseOptions(argc, argv, options);
-  if (options.help)
+  ParseOptions(argc, argv, testingOptions);
+  if (testingOptions.help)
   {
     Usage(argv[0]);
     return STATUS_SUCCESS;
   }
 
   regexp::RegExpT filterRegExp;
-  if (options.filterRegExp)
-    regexp::Create(options.filterRegExp, filterRegExp);
+  if (testingOptions.filterRegExp)
+    regexp::Create(testingOptions.filterRegExp, filterRegExp);
 
   regexp::RegExpT suppressRegExp;
-  if (options.suppressRegExp)
-    regexp::Create(options.suppressRegExp, suppressRegExp);
-
-  if (options.resourcePath)
-    testingOptions.resourcePath = options.resourcePath;
-  if (options.dataPath)
-    testingOptions.dataPath = options.dataPath;
+  if (testingOptions.suppressRegExp)
+    regexp::Create(testingOptions.suppressRegExp, suppressRegExp);
 
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; pTest = pTest->m_pNext)
   {
@@ -166,9 +148,9 @@ int main(int argc, char * argv[])
   int iTest = 0;
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; ++iTest, pTest = pTest->m_pNext)
   {
-    if (options.filterRegExp && !regexp::Matches(testNames[iTest], filterRegExp))
+    if (testingOptions.filterRegExp && !regexp::Matches(testNames[iTest], filterRegExp))
       continue;
-    if (options.suppressRegExp && regexp::Matches(testNames[iTest], suppressRegExp))
+    if (testingOptions.suppressRegExp && regexp::Matches(testNames[iTest], suppressRegExp))
       continue;
 
     cerr << "Running " << testNames[iTest] << endl;
