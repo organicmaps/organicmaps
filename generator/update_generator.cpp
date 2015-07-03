@@ -129,7 +129,7 @@ namespace update
 
     storage::SaveCountries(my::TodayAsYYMMDD(), countries, jsonBuffer);
     {
-      string const outFileName = GetPlatform().WritablePathForFile(COUNTRIES_FILE".updated");
+      string const outFileName = dataDir + COUNTRIES_FILE ".updated";
       FileWriter f(outFileName);
       f.Write(&jsonBuffer[0], jsonBuffer.size());
       LOG(LINFO, ("Saved updated countries to", outFileName));

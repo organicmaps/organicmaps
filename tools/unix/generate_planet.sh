@@ -67,7 +67,7 @@ OPT_UPDATE=
 OPT_DOWNLOAD=
 OPT_ROUTING=
 OPT_ONLINE_ROUTING=
-while getopts ":couUwravh" opt; do
+while getopts ":couUwrapvh" opt; do
   case $opt in
     c)
       OPT_CLEAN=1
@@ -92,6 +92,8 @@ while getopts ":couUwravh" opt; do
       OPT_WORLD=1
       OPT_UPDATE=1
       OPT_ROUTING=1
+      ;;
+    p)
       ;;
     v)
       set -x
@@ -131,6 +133,7 @@ STATUS_FILE="$INTDIR/status"
 OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
 SCRIPTS_PATH="$(dirname "$0")"
 ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
+TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
 LOG_PATH="$TARGET/logs"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
@@ -149,7 +152,7 @@ if [ -n "${REGIONS:-}" ]; then
     BORDERS_BACKUP_PATH="$TARGET/borders.$(date +%Y%m%d%H%M%S)"
     mkdir -p "$BORDERS_BACKUP_PATH"
     log "BORDERS" "Note: old borders from $TARGET/borders were moved to $BORDERS_BACKUP_PATH"
-    ( cd "$TARGET/borders"; mv *.poly "$BORDERS_BACKUP_PATH/" )
+    mv "$TARGET/borders"/*.poly "$BORDERS_BACKUP_PATH"
   fi
   echo "$REGIONS" | xargs -I % cp "%" "$TARGET/borders/"
 elif [ -z "$PREV_BORDERS" ]; then
@@ -266,7 +269,7 @@ if [ -n "$OPT_ROUTING" ]; then
     putmode "Step R: Starting OSRM files generation"
     # If *.mwm.osm2ft were moved to INTDIR, let's put them back
     [ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
-    [ -z "$(ls "$TARGET" | grep \.mwm\.osm2ft)" -a -n "$(ls "$INTDIR" | grep \.mwm\.osm2ft)" ] && mv "$INTDIR/*.mwm.osm2ft" "$TARGET"
+    [ -z "$(ls "$TARGET" | grep \.mwm\.osm2ft)" -a -n "$(ls "$INTDIR" | grep \.mwm\.osm2ft)" ] && mv "$INTDIR"/*.mwm.osm2ft "$TARGET"
     [ -n "$EXIT_ON_ERROR" ] && set -e
 
     if [ -n "$ASYNC_PBF" ]; then
@@ -356,7 +359,7 @@ if [ "$MODE" == "resources" ]; then
   [ ! -e "$TARGET/countries.txt" ] && cp "$DATA_PATH/countries.txt" "$TARGET/countries.txt"
   "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$PLANET_LOG"
   # We have no means of finding the resulting file, so let's assume it was magically placed in DATA_PATH
-  [ -e "$DATA_PATH/countries.txt.updated" ] && mv "$DATA_PATH/countries.txt.updated" "$TARGET/countries.txt"
+  [ -e "$TARGET/countries.txt.updated" ] && mv "$TARGET/countries.txt.updated" "$TARGET/countries.txt"
   # A quick fix: chmodding to a+rw all generated files
   for file in "$TARGET"/*.mwm*; do
     chmod 0666 "$file"
@@ -382,6 +385,12 @@ if [ "$MODE" == "resources" ]; then
     chmod 0666 "$EXT_RES"
     [ -n "$EXIT_ON_ERROR" ] && set -e
   fi
+  MODE=test
+fi
+
+if [ "$MODE" == "test" ]; then
+  putmode "Step 8: Testing data"
+  bash "$TESTING_SCRIPT" > "$LOG_PATH/test_planet.log" "$TARGET"
 fi
 
 # Cleaning up temporary directories
