@@ -39,11 +39,12 @@ UNIT_TEST(FileName_Smoke)
   TEST_EQUAL(name, "test", ());
 }
 
-UNIT_TEST(FileName_GetDirectory)
-{
 // TODO (@gorshenin): implement a Clean() method to clean file path
 // (remove redundant separators, correctly collapse dots, dot-dots, etc.).
-#if !defined(OMIM_OS_WINDOWS)
+#ifndef OMIM_OS_WINDOWS
+
+UNIT_TEST(FileName_GetDirectory)
+{
   TEST_EQUAL("/tmp", my::GetDirectory("/tmp/evil\\file"), ());
   TEST_EQUAL(".", my::GetDirectory("evil\\file"), ());
 
@@ -57,12 +58,10 @@ UNIT_TEST(FileName_GetDirectory)
 
   TEST_EQUAL(".", my::GetDirectory("somefile.txt"), ());
   TEST_EQUAL(".", my::GetDirectory("somefile"), ());
-#endif  // !defined(OMIM_OS_WINDOWS)
 }
 
 UNIT_TEST(FilePath_Slash)
 {
-#ifndef OMIM_OS_WINDOWS
   TEST_EQUAL("/", my::AddSlashIfNeeded(""), ());
   TEST_EQUAL("/", my::AddSlashIfNeeded("/"), ());
   TEST_EQUAL("./", my::AddSlashIfNeeded("."), ());
@@ -72,5 +71,14 @@ UNIT_TEST(FilePath_Slash)
   TEST_EQUAL("/data/", my::AddSlashIfNeeded("/data/"), ());
   TEST_EQUAL("../../data/", my::AddSlashIfNeeded("../../data"), ());
   TEST_EQUAL("../../data/", my::AddSlashIfNeeded("../../data/"), ());
-#endif
 }
+
+UNIT_TEST(FilePath_Join)
+{
+  TEST_EQUAL("omim/strings.txt", my::JoinFoldersToPath("omim", "strings.txt"), ());
+  TEST_EQUAL("omim/strings.txt", my::JoinFoldersToPath("omim/", "strings.txt"), ());
+  TEST_EQUAL("../../omim/strings.txt", my::JoinFoldersToPath({"..", "..", "omim"}, "strings.txt"), ());
+  TEST_EQUAL("../../omim/strings.txt", my::JoinFoldersToPath({"../", "..", "omim/"}, "strings.txt"), ());
+}
+
+#endif // OMIM_OS_WINDOWS

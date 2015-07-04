@@ -2,9 +2,9 @@
 
 #include "platform/local_country_file.hpp"
 
-#include "coding/sha2.hpp"
 #include "coding/base64.hpp"
 #include "coding/file_name_utils.hpp"
+#include "coding/sha2.hpp"
 #include "coding/writer.hpp"
 
 #include "base/logging.hpp"
@@ -135,18 +135,28 @@ string Platform::DeviceName() const
 
 string Platform::WritablePathForCountryIndexes(string const & mwmName) const
 {
-  string dir = WritableDir() + mwmName + my::GetNativeSeparator();
+  string const dir = WritableDir() + mwmName + my::GetNativeSeparator();
   if (!IsFileExistsByFullPath(dir))
+  {
     if (MkDir(dir) != Platform::ERR_OK)
-    {
       MYTHROW(Writer::CreateDirException, ("Can't create directory:", dir));
-    }
+  }
   return dir;
 }
 
 string Platform::GetIndexFileName(string const & mwmName, string const & extension) const
 {
   return GetPlatform().WritablePathForCountryIndexes(mwmName) + mwmName + extension;
+}
+
+void Platform::SetWritableDirForTests(string const & path)
+{
+  m_writableDir = my::AddSlashIfNeeded(path);
+}
+
+void Platform::SetResourceDir(string const & path)
+{
+  m_resourcesDir = my::AddSlashIfNeeded(path);
 }
 
 ModelReader * Platform::GetCountryReader(platform::LocalCountryFile const & file,

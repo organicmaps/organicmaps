@@ -1,7 +1,7 @@
 #pragma once
 
+#include "std/initializer_list.hpp"
 #include "std/string.hpp"
-#include "std/vector.hpp"
 
 namespace my
 {
@@ -23,10 +23,8 @@ namespace my
 
   /// Create full path from some folder using native folders separator
   string JoinFoldersToPath(const string & folder, const string & file);
-  string JoinFoldersToPath(const string & folder1, const string & folder2, const string & file);
-  string JoinFoldersToPath(const string & folder1, const string & folder2, const string & folder3, const string & file);
-  string JoinFoldersToPath(const vector<string> & folders, const string & file);
+  string JoinFoldersToPath(initializer_list<string> const & folders, const string & file);
 
-  /// Add terminating slash, if it's not exist to the folder path string.
+  /// Add the terminating slash to the folder path string if it's not already there.
   string AddSlashIfNeeded(string const & path);
 }

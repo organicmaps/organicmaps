@@ -88,7 +88,7 @@ public:
   /// @return always the same writable dir for current user with slash at the end
   string WritableDir() const { return m_writableDir; }
   /// Set writable dir — use for testing and linux stuff only
-  void SetWritableDirForTests(string const & path) { m_writableDir = path; }
+  void SetWritableDirForTests(string const & path);
   /// @return full path to file in user's writable directory
   string WritablePathForFile(string const & file) const { return WritableDir() + file; }
   /// @return full path to indexes directory for country file.
@@ -101,7 +101,7 @@ public:
   string ResourcesDir() const { return m_resourcesDir; }
   /// @note! This function is used in generator_tool and unit tests.
   /// Client app should not replace default resource dir.
-  void SetResourceDir(string const & path) { m_resourcesDir = path; }
+  void SetResourceDir(string const & path);
 
   /// Creates directory at filesystem
   EError MkDir(string const & dirName) const;
@@ -116,7 +116,7 @@ public:
   /// @return full path to file in the temporary directory
   string TmpPathForFile(string const & file) const { return TmpDir() + file; }
 
-  /// @return full path to file where stored data for unit tests.
+  /// @return full path to the file where data for unit tests is stored.
   string TestsDataPathForFile(string const & file) const { return ReadPathForFile(file); }
 
   /// @return path for directory in the persistent memory, can be the same

@@ -18,8 +18,6 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
-#include "coding/file_name_utils.hpp"
-
 #include <sys/resource.h>
 
 
@@ -128,9 +126,9 @@ namespace integration
     Platform & pl = GetPlatform();
     CommandLineOptions const & options = GetTestingOptions();
     if (options.m_dataPath)
-      pl.SetWritableDirForTests(my::AddSlashIfNeeded(options.m_dataPath));
+      pl.SetWritableDirForTests(options.m_dataPath);
     if (options.m_resourcePath)
-      pl.SetResourceDir(my::AddSlashIfNeeded(options.m_resourcePath));
+      pl.SetResourceDir(options.m_resourcePath);
 
     vector<LocalCountryFile> localFiles;
     platform::FindAllLocalMaps(localFiles);

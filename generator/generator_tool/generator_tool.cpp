@@ -80,7 +80,7 @@ int main(int argc, char ** argv)
   Platform & pl = GetPlatform();
 
   if (!FLAGS_user_resource_path.empty())
-    pl.SetResourceDir(my::AddSlashIfNeeded(FLAGS_user_resource_path));
+    pl.SetResourceDir(FLAGS_user_resource_path);
 
   string const path =
       FLAGS_data_path.empty() ? pl.WritableDir() : my::AddSlashIfNeeded(FLAGS_data_path);
