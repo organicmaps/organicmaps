@@ -50,7 +50,7 @@
   <dimen name="margin_bottom_zoom_buttons">250dp</dimen>
 
   <!-- map widgets -->
-  <dimen name="margin_bottom_compass">120dp</dimen>
+  <dimen name="margin_bottom_compass">114dp</dimen>
   <dimen name="margin_bottom_ruler">10dp</dimen>
   <dimen name="margin_left_compass">40dp</dimen>
   <dimen name="margin_right_ruler">75dp</dimen>

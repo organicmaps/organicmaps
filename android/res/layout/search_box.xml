@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/container_search"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_search" xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
     android:baselineAligned="false"
     android:gravity="center_vertical"
     android:orientation="horizontal">
@@ -14,7 +13,6 @@
       style="@style/MwmTextAppearance.Toolbar"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_vertical"
       android:layout_weight="1"
       android:background="@null"
       android:hint="@string/search"
@@ -22,7 +20,7 @@
       android:inputType="text"
       android:padding="@dimen/margin_quarter"
       android:singleLine="true"
-      android:textCursorDrawable="@drawable/cursor_drawable"/>
+      android:textCursorDrawable="@drawable/cursor_drawable" tools:ignore="UnusedAttribute"/>
 
   <ProgressBar
       android:id="@+id/search_progress"
@@ -31,7 +29,9 @@
       android:layout_height="@dimen/routing_progress_size"
       android:layout_marginRight="@dimen/margin_half"
       android:layout_weight="0"
-      android:background="@android:color/transparent"/>
+      android:background="@null"
+      android:minHeight="@dimen/routing_progress_size"
+      android:minWidth="@dimen/routing_progress_size"/>
 
   <ImageView
       android:id="@+id/search_image_clear"
@@ -41,7 +41,7 @@
       android:layout_weight="0"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="@null"
-      android:padding="@dimen/margin_base"
+      android:padding="@dimen/margin_half"
       android:src="@drawable/ic_close_w"/>
 
   <ImageView
@@ -52,7 +52,7 @@
       android:layout_weight="0"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="@null"
-      android:padding="@dimen/margin_base"
+      android:padding="@dimen/margin_half"
       android:src="@drawable/ic_mic_white"
       android:visibility="gone"/>
 
