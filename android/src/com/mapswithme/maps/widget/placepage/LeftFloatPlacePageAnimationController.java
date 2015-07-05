@@ -10,6 +10,8 @@ import android.view.animation.AccelerateInterpolator;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
+import com.mapswithme.util.UiUtils;
+import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -126,13 +128,15 @@ public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimatio
         @Override
         public void onAnimationUpdate(ValueAnimator animation)
         {
-          ViewHelper.setTranslationY(mPlacePage, (Float) animation.getAnimatedValue());
-
-          if (isAnimationCompleted(animation))
-          {
-            mIsPlacePageVisible = mIsPreviewVisible = true;
-            notifyVisibilityListener();
-          }
+        }
+      });
+      animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animator animation)
+        {
+          mIsPlacePageVisible = mIsPreviewVisible = true;
+          notifyVisibilityListener();
         }
       });
 
@@ -152,13 +156,16 @@ public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimatio
       public void onAnimationUpdate(ValueAnimator animation)
       {
         ViewHelper.setTranslationY(mPlacePage, (Float) animation.getAnimatedValue());
-
-        if (isAnimationCompleted(animation))
-        {
-          mPlacePage.setVisibility(View.INVISIBLE);
-          mIsPlacePageVisible = mIsPreviewVisible = false;
-          notifyVisibilityListener();
-        }
+      }
+    });
+    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        mPlacePage.setVisibility(View.INVISIBLE);
+        mIsPlacePageVisible = mIsPreviewVisible = false;
+        notifyVisibilityListener();
       }
     });
 

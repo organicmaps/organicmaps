@@ -1,5 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.Toolbar;
@@ -16,9 +18,11 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
+import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class BottomPlacePageAnimationController extends BasePlacePageAnimationController implements View.OnLayoutChangeListener
 {
   private final View mViewBottomHack;
@@ -174,15 +178,17 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
           ViewHelper.setTranslationY(mButtons, (Float) animation.getAnimatedValue());
 
           if (animation.getAnimatedFraction() > .5f)
-          {
             mViewBottomHack.setVisibility(View.VISIBLE);
-            if (isAnimationCompleted(animation))
-            {
-              mIsPlacePageVisible = false;
-              mIsPreviewVisible = true;
-              notifyVisibilityListener();
-            }
-          }
+        }
+      });
+      animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animator animation)
+        {
+          mIsPlacePageVisible = false;
+          mIsPreviewVisible = true;
+          notifyVisibilityListener();
         }
       });
     }
@@ -198,15 +204,18 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
         {
           ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue());
           ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue() + detailsHeight);
-
-          if (isAnimationCompleted(animation))
-          {
-            mDetails.setVisibility(View.INVISIBLE);
-            mBookmarkDetails.setVisibility(View.INVISIBLE);
-            mIsPlacePageVisible = false;
-            mIsPreviewVisible = true;
-            notifyVisibilityListener();
-          }
+        }
+      });
+      animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animator animation)
+        {
+          mDetails.setVisibility(View.INVISIBLE);
+          mBookmarkDetails.setVisibility(View.INVISIBLE);
+          mIsPlacePageVisible = false;
+          mIsPreviewVisible = true;
+          notifyVisibilityListener();
         }
       });
     }
@@ -239,15 +248,18 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       {
         ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsScreenHeight);
         ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
-
-        if (isAnimationCompleted(animation))
-        {
-          refreshToolbarVisibility();
-          mIsPreviewVisible = mIsPlacePageVisible = true;
-          notifyVisibilityListener();
-          mDetails.scrollTo(0, 0);
-          mBookmarkDetails.setVisibility(View.INVISIBLE);
-        }
+      }
+    });
+    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        refreshToolbarVisibility();
+        mIsPreviewVisible = mIsPlacePageVisible = true;
+        notifyVisibilityListener();
+        mDetails.scrollTo(0, 0);
+        mBookmarkDetails.setVisibility(View.INVISIBLE);
       }
     });
 
@@ -281,13 +293,16 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       {
         ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsScreenHeight);
         ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
-
-        if (isAnimationCompleted(animation))
-        {
-          refreshToolbarVisibility();
-          mIsPreviewVisible = mIsPlacePageVisible = true;
-          notifyVisibilityListener();
-        }
+      }
+    });
+    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        refreshToolbarVisibility();
+        mIsPreviewVisible = mIsPlacePageVisible = true;
+        notifyVisibilityListener();
       }
     });
 
@@ -317,16 +332,19 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       public void onAnimationUpdate(ValueAnimator animation)
       {
         ViewHelper.setTranslationY(mPlacePage, (Float) animation.getAnimatedValue());
+      }
+    });
+    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        mIsPreviewVisible = mIsPlacePageVisible = false;
 
-        if (isAnimationCompleted(animation))
-        {
-          mIsPreviewVisible = mIsPlacePageVisible = false;
-
-          mPlacePage.setVisibility(View.INVISIBLE);
-          mBookmarkDetails.setVisibility(View.INVISIBLE);
-          ViewHelper.setTranslationY(mPlacePage, 0);
-          notifyVisibilityListener();
-        }
+        mPlacePage.setVisibility(View.INVISIBLE);
+        mBookmarkDetails.setVisibility(View.INVISIBLE);
+        ViewHelper.setTranslationY(mPlacePage, 0);
+        notifyVisibilityListener();
       }
     });
     animator.setDuration(SHORT_ANIM_DURATION);
