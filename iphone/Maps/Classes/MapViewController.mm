@@ -216,7 +216,10 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)onUserMarkClicked:(unique_ptr<UserMarkCopy>)mark
 {
-  [self.controlsManager showPlacePageWithUserMark:std::move(mark)];
+  if (mark == nullptr)
+    [self dismissPlacePage];
+  else
+    [self.placePageManager showPlacePageWithUserMark:std::move(mark)];
 }
 
 - (void)processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
@@ -731,7 +734,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
       break;
     case SearchViewStateFullscreen:
       self.controlsManager.hidden = YES;
-      GetFramework().ActivateUserMark(NULL);
+      GetFramework().DiactivateUserMark();
       break;
   }
 }

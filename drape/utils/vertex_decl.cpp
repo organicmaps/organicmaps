@@ -93,9 +93,9 @@ dp::BindingInfo DashedLineBindingInit()
 
 dp::BindingInfo RouteBindingInit()
 {
-  STATIC_ASSERT(sizeof(RouteVertex) == sizeof(RouteVertex::TPosition) +
+  static_assert(sizeof(RouteVertex) == sizeof(RouteVertex::TPosition) +
                                        sizeof(RouteVertex::TNormal) +
-                                       sizeof(RouteVertex::TLength));
+                                       sizeof(RouteVertex::TLength), "");
 
   dp::BindingFiller<RouteVertex> filler(3);
   filler.FillDecl<RouteVertex::TPosition>("a_position");

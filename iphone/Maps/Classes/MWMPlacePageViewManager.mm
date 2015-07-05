@@ -71,7 +71,6 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   self.state = MWMPlacePageManagerStateClosed;
   [self.placePage dismiss];
   [[MapsAppDelegate theApp].m_locationManager stop:self];
-  GetFramework().GetBalloonManager().RemovePin();
   m_userMark = nullptr;
   self.entity = nil;
   self.placePage = nil;
@@ -269,15 +268,15 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   Framework & f = GetFramework();
   BookmarkData data = BookmarkData(self.entity.title.UTF8String, f.LastEditedBMType());
   size_t const categoryIndex = f.LastEditedBMCategory();
-  size_t const bookmarkIndex =
-      f.GetBookmarkManager().AddBookmark(categoryIndex, m_userMark->GetUserMark()->GetOrg(), data);
+  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, m_userMark->GetUserMark()->GetPivot(), data);
   self.entity.bac = make_pair(categoryIndex, bookmarkIndex);
   self.entity.type = MWMPlacePageEntityTypeBookmark;
-  BookmarkCategory const * category = f.GetBmCategory(categoryIndex);
-  Bookmark const * bookmark = category->GetBookmark(bookmarkIndex);
+
+  BookmarkCategory::Guard guard(*f.GetBmCategory(categoryIndex));
+
+  UserMark const * bookmark = guard.m_controller.GetUserMark(bookmarkIndex);
   m_userMark.reset(new UserMarkCopy(bookmark, false));
-  f.ActivateUserMark(bookmark);
-  f.Invalidate();
+  f.ActivateUserMark(bookmark, false);
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
                                                   userInfo:nil];
@@ -293,15 +292,15 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   UserMark const * bookmark = bookmarkCategory->GetBookmark(self.entity.bac.second);
   BookmarkAndCategory const bookmarkAndCategory = f.FindBookmark(bookmark);
   self.entity.type = MWMPlacePageEntityTypeRegular;
-  PoiMarkPoint const * poi = f.GetAddressMark(bookmark->GetOrg());
+  PoiMarkPoint const * poi = f.GetAddressMark(bookmark->GetPivot());
   m_userMark.reset(new UserMarkCopy(poi, false));
-  f.ActivateUserMark(poi);
-  if (bookmarkCategory)
+  f.ActivateUserMark(poi, false);
+  if (category)
   {
-    bookmarkCategory->DeleteBookmark(bookmarkAndCategory.second);
-    bookmarkCategory->SaveToKMLFile();
+    BookmarkCategory::Guard guard(*bookmarkCategory);
+    guard.m_controller.DeleteUserMark(bookmarkAndCategory.second);
+    category->SaveToKMLFile();
   }
-  f.Invalidate();
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
                                                   userInfo:nil];

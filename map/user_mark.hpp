@@ -20,7 +20,7 @@ class UserMarkCopy;
 
 class UserMark : public df::UserPointMark
 {
-  DISALLOW_COPY_AND_MOVE(UserMark)
+  DISALLOW_COPY_AND_MOVE(UserMark);
 public:
   enum class Type
   {

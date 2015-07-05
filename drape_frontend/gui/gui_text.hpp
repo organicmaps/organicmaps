@@ -8,7 +8,7 @@
 #include "drape/glstate.hpp"
 #include "drape/texture_manager.hpp"
 
-#include "std/stdint.hpp"
+#include "std/cstdint.hpp"
 #include "std/utility.hpp"
 
 namespace gui

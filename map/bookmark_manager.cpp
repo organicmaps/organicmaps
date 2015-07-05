@@ -203,7 +203,7 @@ namespace
 
 UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
 {
-  return FindNearestUserMark([&rect](UserMarkContainer::Type) -> m2::AnyRectD const & { return rect; });
+  return FindNearestUserMark([&rect](UserMarkType) -> m2::AnyRectD const & { return rect; });
 }
 
 UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder) const

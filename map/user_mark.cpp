@@ -175,12 +175,12 @@ void SearchMarkPoint::SetInfo(search::AddressInfo const & info)
   m_info = info;
 }
 
-feature::FeatureMetadata const & SearchMarkPoint::GetMetadata() const
+feature::Metadata const & SearchMarkPoint::GetMetadata() const
 {
   return m_metadata;
 }
 
-void SearchMarkPoint::SetMetadata(const feature::FeatureMetadata & metadata)
+void SearchMarkPoint::SetMetadata(feature::Metadata && metadata)
 {
   m_metadata = metadata;
 }

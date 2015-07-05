@@ -113,8 +113,8 @@ public:
   template<typename TResult>
   operator ref_ptr<TResult>() const
   {
-    STATIC_ASSERT(is_base_of<TResult, T>::value || is_base_of<T, TResult>::value ||
-                  is_void<T>::value || is_void<TResult>::value);
+    static_assert(is_base_of<TResult, T>::value || is_base_of<T, TResult>::value ||
+                  is_void<T>::value || is_void<TResult>::value, "");
     return ref_ptr<TResult>(static_cast<TResult *>(m_ptr), m_isOwnerUnique);
   }
 

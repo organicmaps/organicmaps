@@ -137,24 +137,34 @@ public:
     int m_bottomZoom = -1;
   };
 
-  //@TODO UVR
-//  /// @param density - for Retina Display you must use EDensityXHDPI
-//  void InitSingleFrameRenderer(graphics::EDensity density);
-//  /// @param center - map center in ercator
-//  /// @param zoomModifier - result zoom calculate like "base zoom" + zoomModifier
-//  ///                       if we are have search result "base zoom" calculate that my position and search result
-//  ///                       will be see with some bottom clamp.
-//  ///                       if we are't have search result "base zoom" == scales::GetUpperComfortScale() - 1
-//  /// @param pxWidth - result image width.
-//  ///                  It must be equal render buffer width. For retina it's equal 2.0 * displayWidth
-//  /// @param pxHeight - result image height.
-//  ///                   It must be equal render buffer height. For retina it's equal 2.0 * displayHeight
-//  /// @param image [out] - result image
-//  void DrawSingleFrame(m2::PointD const & center, int zoomModifier,
-//                       uint32_t pxWidth, uint32_t pxHeight, FrameImage & image,
-//                       SingleFrameSymbols const & symbols);
-//  void ReleaseSingleFrameRenderer();
-//  bool IsSingleFrameRendererInited() const;
+  struct FrameImage
+  {
+    // image data.
+    // TopLeft-to-RightBottom order
+    // Format - png
+    vector<uint8_t> m_data;
+    uint32_t m_width = 0;       // pixel width of image
+    uint32_t m_height = 0;      // pixel height of image
+    uint32_t m_stride = 0;      // row stride in bytes
+  };
+
+  /// @param density - for Retina Display you must use EDensityXHDPI
+  void InitSingleFrameRenderer(float visualScale);
+  /// @param center - map center in ercator
+  /// @param zoomModifier - result zoom calculate like "base zoom" + zoomModifier
+  ///                       if we are have search result "base zoom" calculate that my position and search result
+  ///                       will be see with some bottom clamp.
+  ///                       if we are't have search result "base zoom" == scales::GetUpperComfortScale() - 1
+  /// @param pxWidth - result image width.
+  ///                  It must be equal render buffer width. For retina it's equal 2.0 * displayWidth
+  /// @param pxHeight - result image height.
+  ///                   It must be equal render buffer height. For retina it's equal 2.0 * displayHeight
+  /// @param image [out] - result image
+  void DrawSingleFrame(m2::PointD const & center, int zoomModifier,
+                       uint32_t pxWidth, uint32_t pxHeight, FrameImage & image,
+                       SingleFrameSymbols const & symbols);
+  void ReleaseSingleFrameRenderer();
+  bool IsSingleFrameRendererInited() const;
 
   /// Registers all local map files in internal indexes.
   void RegisterAllMaps();

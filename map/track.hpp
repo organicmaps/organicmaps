@@ -15,7 +15,7 @@ namespace location
 
 class Track : public df::UserLineMark
 {
-  DISALLOW_COPY_AND_MOVE(Track)
+  DISALLOW_COPY_AND_MOVE(Track);
 
 public:
   using PolylineD = m2::PolylineD;

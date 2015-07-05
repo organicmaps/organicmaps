@@ -89,7 +89,7 @@ public:
   SessionGuard(Batcher & batcher, Batcher::TFlushFn const & flusher);
   ~SessionGuard();
 
-  DISALLOW_COPY_AND_MOVE(SessionGuard)
+  DISALLOW_COPY_AND_MOVE(SessionGuard);
 private:
   Batcher & m_batcher;
 };

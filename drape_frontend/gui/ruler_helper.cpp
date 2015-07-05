@@ -226,21 +226,11 @@ double RulerHelper::CalcMetresDiff(double value)
   Settings::Units units = Settings::Metric;
   Settings::Get("Units", units);
 
-  switch (units)
+  if (units == Settings::Foot)
   {
-  case Settings::Foot:
     arrU = g_arrFeets;
     count = ARRAY_SIZE(g_arrFeets);
     conversionFn = &MeasurementUtils::MetersToFeet;
-    break;
-
-  case Settings::Yard:
-    arrU = g_arrYards;
-    count = ARRAY_SIZE(g_arrYards);
-    conversionFn = &MeasurementUtils::MetersToYards;
-    break;
-  default:
-    break;
   }
 
   int prevUnitRange = m_rangeIndex;

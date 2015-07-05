@@ -58,6 +58,11 @@ public abstract class RenderFragment extends BaseMwmFragment
     }
   }
 
+  public boolean isRenderingInitialized()
+  {
+    return isEngineCreated();
+  }
+
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {

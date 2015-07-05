@@ -17,7 +17,7 @@ public:
 private:
   InterpolationHolder() = default;
   ~InterpolationHolder();
-  DISALLOW_COPY_AND_MOVE(InterpolationHolder)
+  DISALLOW_COPY_AND_MOVE(InterpolationHolder);
 
 private:
   friend class BaseInterpolator;

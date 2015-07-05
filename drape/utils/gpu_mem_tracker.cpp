@@ -23,9 +23,9 @@ string GPUMemTracker::Report()
   for (auto const it : m_memTracker)
   {
     TTagStat & stat = tagStats[it.first.first];
-    stat.get<0>()++;
-    stat.get<1>() += it.second.first;
-    stat.get<2>() += it.second.second;
+    get<0>(stat)++;
+    get<1>(stat) += it.second.first;
+    get<2>(stat) += it.second.second;
 
     summaryAllocated += it.second.first;
     summaryUsed += it.second.second;
@@ -42,9 +42,9 @@ string GPUMemTracker::Report()
   for (auto const it : tagStats)
   {
     ss << " Tag = " << it.first << " \n";
-    ss << "   Object count = " << it.second.get<0>() << "\n";
-    ss << "   Allocated    = " << it.second.get<1>() / byteToMb << "\n";
-    ss << "   Used         = " << it.second.get<2>() / byteToMb << "\n";
+    ss << "   Object count = " << get<0>(it.second) << "\n";
+    ss << "   Allocated    = " << get<1>(it.second) / byteToMb << "\n";
+    ss << "   Used         = " << get<2>(it.second) / byteToMb << "\n";
   }
 
   ss << " ===== Mem Report ===== \n";

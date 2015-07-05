@@ -10,7 +10,6 @@
 #include "drape/shader_def.hpp"
 
 #include "std/algorithm.hpp"
-#include "std/static_assert.hpp"
 #include "std/type_traits.hpp"
 #include "std/unique_ptr.hpp"
 

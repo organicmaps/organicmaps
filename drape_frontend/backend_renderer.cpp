@@ -150,17 +150,18 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<UpdateUserMarkLayerMessage> msg = message;
       TileKey const & key = msg->GetKey();
 
-      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<ClearUserMarkLayerMessage>(key),
-                                MessagePriority::Normal);
-
-      m_batchersPool->ReserveBatcher(key);
-
       UserMarksProvider const * marksProvider = msg->StartProcess();
       if (marksProvider->IsDirty())
+      {
+        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<ClearUserMarkLayerMessage>(key),
+                                  MessagePriority::Normal);
+
+        m_batchersPool->ReserveBatcher(key);
         CacheUserMarks(marksProvider, m_batchersPool->GetTileBatcher(key), m_texMng);
+        m_batchersPool->ReleaseBatcher(key);
+      }
       msg->EndProcess();
-      m_batchersPool->ReleaseBatcher(key);
       break;
     }
   case Message::CountryInfoUpdate:

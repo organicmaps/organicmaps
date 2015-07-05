@@ -291,79 +291,80 @@ void Framework::DrawSingleFrame(m2::PointD const & center, int zoomModifier,
                                 uint32_t pxWidth, uint32_t pxHeight, FrameImage & image,
                                 SingleFrameSymbols const & symbols)
 {
-  ASSERT(IsSingleFrameRendererInited(), ());
-  Navigator frameNavigator = m_navigator;
-  frameNavigator.OnSize(0, 0, pxWidth, pxHeight);
-  frameNavigator.SetAngle(0);
+//  ASSERT(IsSingleFrameRendererInited(), ());
+//  Navigator frameNavigator = m_navigator;
+//  frameNavigator.OnSize(0, 0, pxWidth, pxHeight);
+//  frameNavigator.SetAngle(0);
 
-  m2::RectD rect = m_scales.GetRectForDrawScale(scales::GetUpperComfortScale() - 1, center);
-  if (symbols.m_showSearchResult && !rect.IsPointInside(symbols.m_searchResult))
-  {
-    double const kScaleFactor = 1.3;
-    m2::PointD oldCenter = rect.Center();
-    rect.Add(symbols.m_searchResult);
-    double const centersDiff = 2 * (rect.Center() - oldCenter).Length();
+//  m2::RectD rect = m_scales.GetRectForDrawScale(scales::GetUpperComfortScale() - 1, center);
+//  if (symbols.m_showSearchResult && !rect.IsPointInside(symbols.m_searchResult))
+//  {
+//    double const kScaleFactor = 1.3;
+//    m2::PointD oldCenter = rect.Center();
+//    rect.Add(symbols.m_searchResult);
+//    double const centersDiff = 2 * (rect.Center() - oldCenter).Length();
 
-    m2::RectD resultRect;
-    resultRect.SetSizes(rect.SizeX() + centersDiff, rect.SizeY() + centersDiff);
-    resultRect.SetCenter(center);
-    resultRect.Scale(kScaleFactor);
-    rect = resultRect;
-    ASSERT(rect.IsPointInside(symbols.m_searchResult), ());
-  }
+//    m2::RectD resultRect;
+//    resultRect.SetSizes(rect.SizeX() + centersDiff, rect.SizeY() + centersDiff);
+//    resultRect.SetCenter(center);
+//    resultRect.Scale(kScaleFactor);
+//    rect = resultRect;
+//    ASSERT(rect.IsPointInside(symbols.m_searchResult), ());
+//  }
 
-  int baseZoom = m_scales.GetDrawTileScale(rect);
-  int resultZoom = baseZoom + zoomModifier;
-  int const minZoom = symbols.m_bottomZoom == -1 ? resultZoom : symbols.m_bottomZoom;
-  resultZoom = my::clamp(resultZoom, minZoom, scales::GetUpperScale());
-  rect = m_scales.GetRectForDrawScale(resultZoom, rect.Center());
+//  int baseZoom = m_scales.GetDrawTileScale(rect);
+//  int resultZoom = baseZoom + zoomModifier;
+//  int const minZoom = symbols.m_bottomZoom == -1 ? resultZoom : symbols.m_bottomZoom;
+//  resultZoom = my::clamp(resultZoom, minZoom, scales::GetUpperScale());
+//  rect = m_scales.GetRectForDrawScale(resultZoom, rect.Center());
 
-  CheckMinGlobalRect(rect);
-  CheckMinMaxVisibleScale(rect);
-  frameNavigator.SetFromRect(m2::AnyRectD(rect));
+//  CheckMinGlobalRect(rect);
+//  CheckMinMaxVisibleScale(rect);
+//  frameNavigator.SetFromRect(m2::AnyRectD(rect));
 
-  m_cpuDrawer->BeginFrame(pxWidth, pxHeight, ConvertColor(drule::rules().GetBgColor(resultZoom)));
+//  m_cpuDrawer->BeginFrame(pxWidth, pxHeight, ConvertColor(drule::rules().GetBgColor(resultZoom)));
 
-  ScreenBase const & s = frameNavigator.Screen();
-  shared_ptr<PaintEvent> event = make_shared<PaintEvent>(m_cpuDrawer.get());
-  DrawModel(event, s, m2::RectD(0, 0, pxWidth, pxHeight), m_scales.GetTileScaleBase(s), false);
+//  ScreenBase const & s = frameNavigator.Screen();
+//  shared_ptr<PaintEvent> event = make_shared<PaintEvent>(m_cpuDrawer.get());
+//  DrawModel(event, s, m2::RectD(0, 0, pxWidth, pxHeight), m_scales.GetTileScaleBase(s), false);
 
-  m_cpuDrawer->Flush();
-  m_cpuDrawer->DrawMyPosition(frameNavigator.GtoP(center));
+//  m_cpuDrawer->Flush();
+//  m_cpuDrawer->DrawMyPosition(frameNavigator.GtoP(center));
 
-  if (symbols.m_showSearchResult)
-  {
-    if (!frameNavigator.Screen().PixelRect().IsPointInside(frameNavigator.GtoP(symbols.m_searchResult)))
-      m_cpuDrawer->DrawSearchArrow(ang::AngleTo(rect.Center(), symbols.m_searchResult));
-    else
-      m_cpuDrawer->DrawSearchResult(frameNavigator.GtoP(symbols.m_searchResult));
-  }
+//  if (symbols.m_showSearchResult)
+//  {
+//    if (!frameNavigator.Screen().PixelRect().IsPointInside(frameNavigator.GtoP(symbols.m_searchResult)))
+//      m_cpuDrawer->DrawSearchArrow(ang::AngleTo(rect.Center(), symbols.m_searchResult));
+//    else
+//      m_cpuDrawer->DrawSearchResult(frameNavigator.GtoP(symbols.m_searchResult));
+//  }
 
-  m_cpuDrawer->EndFrame(image);
+//  m_cpuDrawer->EndFrame(image);
 }
 
-void Framework::InitSingleFrameRenderer(graphics::EDensity density, int exactDensityDPI)
+void Framework::InitSingleFrameRenderer(float visualScale)
 {
-  ASSERT(!IsSingleFrameRendererInited(), ());
-  if (m_cpuDrawer == nullptr)
-  {
-    CPUDrawer::Params params(GetGlyphCacheParams(density, exactDensityDPI));
-    params.m_visualScale = graphics::visualScaleExact(exactDensityDPI);
-    params.m_density = density;
+//  ASSERT(!IsSingleFrameRendererInited(), ());
+//  if (m_cpuDrawer == nullptr)
+//  {
+//    CPUDrawer::Params params(GetGlyphCacheParams(density));
+//    params.m_visualScale = graphics::visualScale(density);
+//    params.m_density = density;
 
-    m_cpuDrawer.reset(new CPUDrawer(params));
-  }
+//    m_cpuDrawer.reset(new CPUDrawer(params));
+//  }
 }
 
 void Framework::ReleaseSingleFrameRenderer()
 {
-  if (IsSingleFrameRendererInited())
-    m_cpuDrawer.reset();
+//  if (IsSingleFrameRendererInited())
+//    m_cpuDrawer.reset();
 }
 
 bool Framework::IsSingleFrameRendererInited() const
 {
-  return m_cpuDrawer != nullptr;
+  //return m_cpuDrawer != nullptr;
+  return true;
 }
 
 void Framework::DeleteCountry(storage::TIndex const & index, MapOptions opt)
@@ -909,7 +910,7 @@ void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isC
     countryInfo.m_downloadProgress = progress.first * 100 / progress.second;
   }
 
-  string const & fileName = m_storage.CountryByIndex(countryIndex).GetFile().GetFileWithoutExt();
+  string const & fileName = m_storage.CountryByIndex(countryIndex).GetFile().GetNameWithoutExt();
   bool const isLoaded = m_model.IsLoaded(fileName);
   m_drapeEngine->SetCountryInfo(countryInfo, isCurrentCountry, isLoaded);
 }
@@ -1655,11 +1656,8 @@ PoiMarkPoint * Framework::GetAddressMark(m2::PointD const & globalPoint) const
 
 void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
 {
-  static UserMark const * activeMark = nullptr;
   if (m_activateUserMarkFn)
   {
-    bool hasActive = activeMark != nullptr;
-    activeMark = mark;
     if (mark)
     {
       m_activateUserMarkFn(mark->Copy());
@@ -1675,11 +1673,8 @@ void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
     }
     else
     {
-      if (hasActive)
-      {
-        m_activateUserMarkFn(nullptr);
-        CallDrapeFunction(bind(&df::DrapeEngine::DeselectObject, _1));
-      }
+      m_activateUserMarkFn(nullptr);
+      CallDrapeFunction(bind(&df::DrapeEngine::DeselectObject, _1));
     }
   }
 }
@@ -1730,7 +1725,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   UserMark const * mark = m_bmManager.FindNearestUserMark(
         [&rect, &bmSearchRect](UserMarkType type) -> m2::AnyRectD const &
         {
-          return (type == UserMarkContainer::BOOKMARK_MARK ? bmSearchRect : rect);
+          return (type == UserMarkType::BOOKMARK_MARK ? bmSearchRect : rect);
         });
 
   if (mark != nullptr)
@@ -1758,7 +1753,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
     PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
     poiMark->SetPtOrg(m_currentMovelView.PtoG(pxPivot));
     poiMark->SetInfo(info);
-    poiMark->SetMetadata(metadata);
+    poiMark->SetMetadata(move(metadata));
     return poiMark;
   }
 
@@ -1987,7 +1982,7 @@ void Framework::InsertRoute(Route const & route)
   }
 
   vector<double> turns;
-  turns::TurnsGeomT const & turnsGeom = route.GetTurnsGeometry();
+  turns::TTurnsGeom const & turnsGeom = route.GetTurnsGeometry();
   if (!turnsGeom.empty())
   {
     turns.reserve(turnsGeom.size());

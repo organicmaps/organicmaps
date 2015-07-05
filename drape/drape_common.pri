@@ -102,5 +102,3 @@ HEADERS += \
     $$DRAPE_DIR/utils/projection.hpp \
     $$DRAPE_DIR/utils/vertex_decl.hpp \
     $$DRAPE_DIR/vertex_array_buffer.hpp \
-    $$ROOT_DIR/sdf_image/sdf_image.h \
-    $$ROOT_DIR/stb_image/stb_image.h \

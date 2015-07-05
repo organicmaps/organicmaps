@@ -56,7 +56,7 @@ public class MapFragment extends RenderFragment
   }
 
   @Override
-  protected void applyWidgetPivots()
+  protected void applyWidgetPivots(final int mapHeight, final int mapWidth)
   {
     //Framework.setWidgetPivot(Framework.MAP_WIDGET_RULER,
     //                        mSurfaceWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
@@ -84,8 +84,6 @@ public class MapFragment extends RenderFragment
       final MapRenderingListener listener = (MapRenderingListener) host;
       listener.onRenderingInitialized();
     }
-
-    super.OnRenderingInitialized();
   }
 
   @Override
