@@ -21,72 +21,73 @@ public:
 private:
   static GLFunctionsCache & Instance();
 
-  template<typename TParam>
+  GLFunctionsCache() = default;
+
+  template<typename TValue>
   struct CachedParam
   {
-    TParam m_param;
-    bool m_initialized = false;
+    TValue m_value;
+    bool m_inited;
 
-    CachedParam() : m_param(TParam()) {}
-    explicit CachedParam(TParam const & param) : m_param(param) {}
-
-    bool operator!=(TParam const & param)
+    CachedParam()
+      : m_value(TValue())
+      , m_inited(false)
     {
-      return m_param != param;
     }
 
-    CachedParam & operator=(TParam const & param)
+    explicit CachedParam(TValue const & value)
+      : m_value(value)
+      , m_inited(true)
     {
-      m_param = param;
-      m_initialized = true;
+    }
+
+    bool Assign(TValue const & newValue)
+    {
+      if (m_inited && newValue == m_value)
+        return false;
+
+      m_value = newValue;
+      m_inited = true;
+      return true;
+    }
+
+    bool operator!=(TValue const & value) const
+    {
+      return m_value != value;
+    }
+
+    CachedParam & operator=(TValue const & param)
+    {
+      m_value = param;
+      m_inited = true;
       return *this;
     }
   };
 
-  struct EnablableParam
-  {
-    bool m_isEnabled = false;
-    bool m_initialized = false;
-
-    EnablableParam(){}
-    explicit EnablableParam(bool enabled) : m_isEnabled(enabled) {}
-
-    bool operator!=(bool enabled)
-    {
-      return m_isEnabled != enabled;
-    }
-
-    EnablableParam & operator=(bool enabled)
-    {
-      m_isEnabled = enabled;
-      m_initialized = true;
-      return *this;
-    }
-  };
-
-  template<typename TParam> using UniformCache = map<int8_t, CachedParam<TParam>>;
+  template<typename TValue> using UniformCache = map<int8_t, CachedParam<TValue>>;
+  using StateParams = map<glConst, CachedParam<bool>>;
 
   struct UniformsCache
   {
     UniformCache<int32_t> m_glUniform1iCache;
     UniformCache<float> m_glUniform1fCache;
+
+    bool Assign(int8_t location, int32_t value) { return Assign(location, value, m_glUniform1iCache); }
+    bool Assign(int8_t location, float value) { return Assign(location, value, m_glUniform1fCache); }
+
+    template<typename TValue>
+    bool Assign(int8_t location, TValue const & value, UniformCache<TValue> & cache)
+    {
+      return cache[location].Assign(value);
+    }
   };
 
-  template<typename TParamInternal, typename TParam>
-  bool CheckAndSetValue(TParamInternal const & newValue, TParam & cachedValue)
-  {
-    if (!cachedValue.m_initialized || cachedValue != newValue)
-    {
-      cachedValue = newValue;
-      return true;
-    }
-    return false;
-  }
+  static UniformsCache & GetCacheForCurrentProgram();
 
   CachedParam<uint32_t> m_glBindTextureCache;
   CachedParam<glConst> m_glActiveTextureCache;
   CachedParam<uint32_t> m_glUseProgramCache;
-  map<glConst, EnablableParam> m_glEnableCache;
+  StateParams m_glStateCache;
 
   map<uint32_t, UniformsCache> m_uniformsCache;
 };
