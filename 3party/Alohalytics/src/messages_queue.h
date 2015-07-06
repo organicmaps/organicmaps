@@ -117,6 +117,13 @@ class MessagesQueue final {
     commands_condition_variable_.notify_all();
   }
 
+  // This may be needed for correct logrotate utility support on *nix systems.
+  void LogrotateCurrentFile() {
+    std::lock_guard<std::mutex> lock(commands_mutex_);
+    commands_queue_.push_back(std::bind(&MessagesQueue::ProcessLogrotateCurrentFileCommand, this));
+    commands_condition_variable_.notify_all();
+  }
+
  private:
   // Returns full path to unique, non-existing file in the given directory.
   // Uses default extension for easier archives scan later.
@@ -225,6 +232,14 @@ class MessagesQueue final {
     if (callback) {
       callback(result);
     }
+  }
+
+  void ProcessLogrotateCurrentFileCommand() {
+    // Here we simply reopen the file. It should be already moved by logrotate.
+    current_file_.reset(nullptr);
+    current_file_.reset(
+        new std::ofstream(storage_directory_ + kCurrentFileName, std::ios_base::app | std::ios_base::binary));
+    // TODO(AlexZ): Should we check for possible reopen errors?
   }
 
   void WorkerThread() {

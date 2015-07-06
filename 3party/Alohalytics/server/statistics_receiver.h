@@ -83,6 +83,9 @@ class StatisticsReceiver {
     }
     file_storage_queue_.PushMessage(out_stream.str());
   }
+
+  // Correct logrotate utility support for queue's file.
+  void ReopenDataFile() { file_storage_queue_.LogrotateCurrentFile(); }
 };
 
 }  // namespace alohalytics

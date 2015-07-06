@@ -73,7 +73,6 @@ http {
 */
 // clang-format on
 
-#include <cerrno>
 #include <chrono>
 #include <csignal>
 #include <cstdlib>
@@ -105,28 +104,29 @@ void Reply200OKWithBody(FCGX_Stream * out, const string & body) {
                body.c_str());
 }
 
-// We need this global variable to reopen log file from SIGHUP handler.
-struct CoutToFileRedirector;
-CoutToFileRedirector * gRedirector = nullptr;
+// Global variables to correctly reopen data and log files after signals from logrotate utility.
+volatile sig_atomic_t gReceivedSIGHUP = 0;
+volatile sig_atomic_t gReceivedSIGUSR1 = 0;
 // Redirects all cout output into a file if good log_file_path was given in constructor.
 // Can always ReopenLogFile() if needed (e.g. for log rotation).
 struct CoutToFileRedirector {
   char const * path;
   unique_ptr<ofstream> log_file;
   streambuf * original_cout_buf;
+
   CoutToFileRedirector(const char * log_file_path) : path(log_file_path), original_cout_buf(cout.rdbuf()) {
     ReopenLogFile();
   }
   void ReopenLogFile() {
-    if (path) {
-      log_file.reset(nullptr);
-      log_file.reset(new ofstream(path, ofstream::out | ofstream::app));
-      if (log_file->good()) {
-        cout.rdbuf(log_file->rdbuf());
-        gRedirector = this;
-      } else {
-        ATLOG("ERROR: Can't open log file", path, "for writing.");
-      }
+    if (!path) {
+      return;
+    }
+    log_file.reset(nullptr);
+    log_file.reset(new ofstream(path, ofstream::out | ofstream::app));
+    if (log_file->good()) {
+      cout.rdbuf(log_file->rdbuf());
+    } else {
+      ATLOG("ERROR: Can't open log file", path, "for writing.");
     }
   }
   // Restore original cout streambuf.
@@ -135,24 +135,31 @@ struct CoutToFileRedirector {
 
 int main(int argc, char * argv[]) {
   if (argc < 2) {
-    ATLOG("Usage:", argv[0], "<directory to store received data> <path to error log file>");
+    ALOG("Usage:", argv[0], "<directory to store received data> <path to error log file>");
+    ALOG("  - SIGHUP reopens main data file and SIGUSR1 reopens debug log file for logrotate utility.");
     return -1;
   }
 
   // Redirect cout into a file if it was given in the command line.
-  const CoutToFileRedirector log_redirector(argc > 2 ? argv[2] : nullptr);
-  // Reopen log file on SIGHUP without server restart.
-  ::signal(SIGHUP, [](int) { gRedirector->ReopenLogFile(); });
+  CoutToFileRedirector log_redirector(argc > 2 ? argv[2] : nullptr);
+  // Correctly reopen data file on SIGHUP for logrotate.
+  if (SIG_ERR == ::signal(SIGHUP, [](int) { gReceivedSIGHUP = SIGHUP; })) {
+    ATLOG("WARNING: Can't set SIGHUP handler. Logrotate will not work correctly.");
+  }
+  // Correctly reopen debug log file on SIGUSR1 for logrotate.
+  if (SIG_ERR == ::signal(SIGUSR1, [](int) { gReceivedSIGUSR1 = SIGUSR1; })) {
+    ATLOG("WARNING: Can't set SIGUSR1 handler. Logrotate will not work correctly.");
+  }
 
   int result = FCGX_Init();
   if (0 != result) {
-    ATLOG("ERROR: FCGX_Init has failed with code", result);
+    ALOG("ERROR: FCGX_Init has failed with code", result);
     return result;
   }
   FCGX_Request request;
   result = FCGX_InitRequest(&request, 0, FCGI_FAIL_ACCEPT_ON_INTR);
   if (0 != result) {
-    ATLOG("ERROR: FCGX_InitRequest has failed with code", result);
+    ALOG("ERROR: FCGX_InitRequest has failed with code", result);
     return result;
   }
   alohalytics::StatisticsReceiver receiver(argv[1]);
@@ -163,6 +170,16 @@ int main(int argc, char * argv[]) {
   const char * user_agent_str;
   ATLOG("FastCGI Server instance is ready to serve clients' requests.");
   while (FCGX_Accept_r(&request) >= 0) {
+    // Correctly reopen data file in the queue.
+    if (gReceivedSIGHUP == SIGHUP) {
+      receiver.ReopenDataFile();
+      gReceivedSIGHUP = 0;
+    }
+    // Correctly reopen debug log file.
+    if (gReceivedSIGUSR1 == SIGUSR1) {
+      log_redirector.ReopenLogFile();
+      gReceivedSIGUSR1 = 0;
+    }
     FCGX_FPrintF(request.out, "Status: 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %ld\r\n\r\n%s\n",
                  kBodyTextForGoodServerReply.size(), kBodyTextForGoodServerReply.c_str());
     try {
