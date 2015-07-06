@@ -28,7 +28,7 @@ void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const 
   ASSERT(m_router != nullptr, ());
   m_lastGoodPosition = startPoint;
   m_endPoint = endPoint;
-  ClearCache();
+  m_router->ClearState();
   RebuildRoute(startPoint, callback);
 }
 
@@ -55,14 +55,6 @@ void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultC
     m_rs.m_state = RouteNotReady;
 
   m_callback(m_rs.m_route, e);
-}
-
-void RoutingSession::ClearCache()
-{
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-
-  m_router->ClearState();
 }
 
 void RoutingSession::RemoveRouteImpl()

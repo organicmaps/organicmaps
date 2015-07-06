@@ -95,8 +95,6 @@ private:
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RemoveRouteImpl();
-  /// ClearCache clears m_router caches (for example the target features cache).
-  void ClearCache();
 
 private:
   unique_ptr<AsyncRouter> m_router;
