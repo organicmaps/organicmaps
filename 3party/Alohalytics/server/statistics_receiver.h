@@ -26,11 +26,9 @@
 // additional data fields when processing received data on a server side.
 #define ALOHALYTICS_SERVER
 #include "../src/event_base.h"
-#include "../src/file_manager.h"
 #include "../src/gzip_wrapper.h"
 #include "../src/messages_queue.h"
 
-#include <functional>
 #include <sstream>
 #include <utility>
 
@@ -84,17 +82,6 @@ class StatisticsReceiver {
       cereal::BinaryOutputArchive(out_stream) << ptr;
     }
     file_storage_queue_.PushMessage(out_stream.str());
-  }
-
-  // Call this method to process file with all previously received events (e.g. archive them, move to a separate file,
-  // push into data base or into another server).
-  // PLEASE NOTE: file_name will be deleted upon method return.
-  void ArchiveAlreadyCollectedData(std::function<void(const std::string & /*file_name*/)> processor) {
-    file_storage_queue_.ProcessArchivedFiles([&processor](bool /*is_file*/, const std::string & file_name) {
-      // We ignore is_file parameter as it is always true, due to SetStorageDirectory() called in constructor.
-      processor(file_name);
-      return true;
-    });
   }
 };
 
