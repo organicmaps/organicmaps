@@ -107,14 +107,12 @@ namespace
         {11.327927635052676, 48.166256203616726}, 2870710.);
   }
 
-  // Railway ferry to London not routed yet.
-/*  UNIT_TEST(RussiaMoscowLenigradskiy39EnglandLondonCenterRouteTest)
+  UNIT_TEST(RussiaMoscowLenigradskiy39EnglandLondonCenterRouteTest)
   {
-    //@todo put down a correct route length when router is fixed
     integration::CalculateRouteAndTestRouteLength(
         integration::GetAllMaps(), {37.537572384446207, 67.536189683408367}, {0., 0.},
-        {-0.084976483156808751, 60.298304898120428}, 1000.);
-  }*/
+        {-0.084976483156808751, 60.298304898120428}, 2863000.);
+  }
 
   // Strange map edits in Africa borders. Routing not linked now.
   /*
