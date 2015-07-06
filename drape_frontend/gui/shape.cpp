@@ -12,7 +12,7 @@ Handle::Handle(dp::Anchor anchor, const m2::PointF & pivot, const m2::PointF & s
 {
 }
 
-void Handle::Update(ScreenBase const & screen)
+bool Handle::Update(ScreenBase const & screen)
 {
   using namespace glsl;
 
@@ -22,6 +22,8 @@ void Handle::Update(ScreenBase const & screen)
                                  value_ptr(transpose(translate(mat4(), vec3(m_pivot, 0.0)))));
     m_uniforms.SetFloatValue("u_opacity", 1.0);
   }
+
+  return true;
 }
 
 bool Handle::IndexesRequired() const
@@ -42,7 +44,7 @@ void Handle::GetPixelShape(const ScreenBase & screen, dp::OverlayHandle::Rects &
 
 bool TappableHandle::IsTapped(m2::RectD const & touchArea) const
 {
-  if (!IsVisible() || !IsValid())
+  if (!IsVisible())
     return false;
 
   if (m_anchor == dp::Anchor::Center)
@@ -88,7 +90,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
       [&uniformStorage, &screen, mng](ShapeControl::ShapeInfo & info) mutable
       {
         info.m_handle->Update(screen);
-        if (!(info.m_handle->IsValid() && info.m_handle->IsVisible()))
+        if (!info.m_handle->IsVisible())
           return;
 
         ref_ptr<dp::GpuProgram> prg = mng->GetProgram(info.m_state.GetProgramIndex());

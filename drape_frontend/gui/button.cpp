@@ -89,12 +89,12 @@ void ButtonHandle::OnTapEnd()
   m_isInPressedState = false;
 }
 
-void ButtonHandle::Update(ScreenBase const & screen)
+bool ButtonHandle::Update(ScreenBase const & screen)
 {
   glsl::vec4 color = glsl::ToVec4(m_isInPressedState ? dp::Color(0x0, 0x0, 0x0, 0xCC) :
                                                        dp::Color(0x0, 0x0, 0x0, 0x99));
   m_uniforms.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
-  TBase::Update(screen);
+  return TBase::Update(screen);
 }
 
 void Button::Draw(Params const & params, ShapeControl & control, ref_ptr<dp::TextureManager> texMgr)

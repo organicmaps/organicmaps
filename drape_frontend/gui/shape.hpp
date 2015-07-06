@@ -20,7 +20,7 @@ public:
 
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
 
-  void Update(ScreenBase const & screen) override;
+  bool Update(ScreenBase const & screen) override;
 
   virtual bool IsTapped(m2::RectD const & touchArea) const { return false; }
   virtual void OnTapBegin(){}

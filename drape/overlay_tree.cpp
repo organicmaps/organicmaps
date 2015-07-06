@@ -25,22 +25,20 @@ void OverlayTree::ForceUpdate()
   m_frameCounter = -1;
 }
 
-void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, bool canOverlap)
+void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
 {
   ASSERT(IsNeedUpdate(), ());
   Clear();
   m_traits.m_modelView = screen;
-  m_canOverlap = canOverlap;
 }
 
 void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
 {
   ScreenBase const & modelView = GetModelView();
 
-  handle->SetIsVisible(m_canOverlap);
-  handle->Update(modelView);
+  handle->SetIsVisible(false);
 
-  if (!handle->IsValid())
+  if (!handle->Update(modelView))
     return;
 
   m2::RectD const pixelRect = handle->GetPixelRect(modelView);
@@ -92,9 +90,7 @@ void OverlayTree::Select(m2::RectD const & rect, TSelectResult & result) const
   ScreenBase screen = m_traits.m_modelView;
   ForEachInRect(rect, [&](detail::OverlayInfo const & info)
   {
-    if (info.m_handle->IsValid() &&
-        info.m_handle->IsVisible() &&
-        info.m_handle->GetFeatureID().IsValid())
+    if (info.m_handle->IsVisible() && info.m_handle->GetFeatureID().IsValid())
     {
       OverlayHandle::Rects shape;
       info.m_handle->GetPixelShape(screen, shape);

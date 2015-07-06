@@ -35,10 +35,10 @@ public:
       m_tapHandler();
   }
 
-  void Update(ScreenBase const & screen) override
+  bool Update(ScreenBase const & screen) override
   {
     SetIsVisible(DrapeGui::GetCountryStatusHelper().IsVisibleForState(m_state));
-    TBase::Update(screen);
+    return TBase::Update(screen);
   }
 
 private:
@@ -57,10 +57,10 @@ public:
     , m_state(state)
   {}
 
-  void Update(ScreenBase const & screen) override
+  bool Update(ScreenBase const & screen) override
   {
     SetIsVisible(DrapeGui::GetCountryStatusHelper().IsVisibleForState(m_state));
-    TBase::Update(screen);
+    return TBase::Update(screen);
   }
 
 private:
@@ -76,14 +76,14 @@ public:
     : TBase(anchor, m2::PointF::Zero()), m_state(state)
   {}
 
-  void Update(ScreenBase const & screen) override
+  bool Update(ScreenBase const & screen) override
   {
     CountryStatusHelper & helper = DrapeGui::GetCountryStatusHelper();
     SetIsVisible(helper.IsVisibleForState(m_state));
     if (IsVisible())
       SetContent(helper.GetProgressValue());
 
-    TBase::Update(screen);
+    return TBase::Update(screen);
   }
 
 private:

@@ -17,7 +17,7 @@ public:
 
   void OnTapBegin() override;
   void OnTapEnd() override;
-  void Update(ScreenBase const & screen) override;
+  bool Update(ScreenBase const & screen) override;
 
 private:
   bool m_isInPressedState;

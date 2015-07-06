@@ -51,7 +51,7 @@ public:
   bool IsNeedUpdate() const;
   void ForceUpdate();
 
-  void StartOverlayPlacing(ScreenBase const & screen, bool canOverlap = false);
+  void StartOverlayPlacing(ScreenBase const & screen);
   void Add(ref_ptr<OverlayHandle> handle, bool isTransparent);
   void EndOverlayPlacing();
 
@@ -62,7 +62,6 @@ private:
   ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
 
 private:
-  bool m_canOverlap = false;
   int m_frameCounter = -1;
 };
 

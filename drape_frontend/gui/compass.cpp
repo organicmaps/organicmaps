@@ -46,7 +46,7 @@ namespace
         m_tapHandler();
     }
 
-    void Update(ScreenBase const & screen) override
+    bool Update(ScreenBase const & screen) override
     {
       float angle = ang::AngleIn2PI(screen.GetAngle());
 
@@ -76,6 +76,8 @@ namespace
 
       if (m_animation.IsFinished())
         SetIsVisible(isVisible);
+
+      return true;
     }
 
   private:

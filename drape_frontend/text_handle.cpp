@@ -20,7 +20,6 @@ TextHandle::TextHandle(FeatureID const & id, dp::Anchor anchor, double priority,
 void TextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
                                       ScreenBase const & screen) const
 {
-  ASSERT(IsValid(), ());
   UNUSED_VALUE(screen);
 
   bool const isVisible = IsVisible();

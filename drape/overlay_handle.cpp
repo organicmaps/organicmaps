@@ -26,7 +26,6 @@ OverlayHandle::OverlayHandle(FeatureID const & id,
   , m_anchor(anchor)
   , m_priority(priority)
   , m_isVisible(false)
-  , m_isValid(true)
 {
 }
 

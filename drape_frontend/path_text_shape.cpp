@@ -42,21 +42,13 @@ public:
     m_normals.resize(4 * m_layout->GetGlyphCount());
   }
 
-  void Update(ScreenBase const & screen) override
+  bool Update(ScreenBase const & screen) override
   {
-    if (m_layout->CacheDynamicGeometry(m_centerPointIter, screen, m_normals))
-    {
-      SetIsValid(true);
-      return;
-    }
-
-    SetIsValid(false);
+    return m_layout->CacheDynamicGeometry(m_centerPointIter, screen, m_normals);
   }
 
   m2::RectD GetPixelRect(ScreenBase const & screen) const override
   {
-    ASSERT(IsValid(), ());
-
     m2::PointD const pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
     m2::RectD result;
     for (gpu::TextDynamicVertex const & v : m_normals)
@@ -67,8 +59,6 @@ public:
 
   void GetPixelShape(ScreenBase const & screen, Rects & rects) const override
   {
-    ASSERT(IsValid(), ());
-
     m2::PointD const pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
     for (size_t quadIndex = 0; quadIndex < m_normals.size(); quadIndex += 4)
     {

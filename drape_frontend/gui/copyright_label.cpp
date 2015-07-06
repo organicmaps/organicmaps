@@ -28,10 +28,10 @@ namespace
       SetIsVisible(true);
     }
 
-    void Update(ScreenBase const & screen) override
+    bool Update(ScreenBase const & screen) override
     {
       if (!IsVisible())
-        return;
+        return false;
 
       TBase::Update(screen);
 
@@ -44,6 +44,8 @@ namespace
       }
 
       m_uniforms.SetFloatValue("u_opacity", m_animation->GetOpacity());
+
+      return true;
     }
 
   private:

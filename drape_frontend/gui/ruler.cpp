@@ -55,7 +55,7 @@ public:
   {
   }
 
-  void Update(ScreenBase const & screen)
+  bool Update(ScreenBase const & screen)
   {
     RulerHelper & helper = DrapeGui::GetRulerHelper();
 
@@ -89,6 +89,8 @@ public:
 
     if (m_animation.IsFinished())
       TBase::SetIsVisible(m_isVisibleAtEnd);
+
+    return true;
   }
 
 protected:
@@ -137,7 +139,7 @@ public:
   {
   }
 
-  void Update(ScreenBase const & screen) override
+  bool Update(ScreenBase const & screen) override
   {
     SetIsVisible(DrapeGui::GetRulerHelper().IsVisible(screen));
     if (IsVisible() && (DrapeGui::GetRulerHelper().IsTextDirty() || m_firstUpdate))
@@ -146,7 +148,7 @@ public:
       m_firstUpdate = false;
     }
 
-    TBase::Update(screen);
+    return TBase::Update(screen);
   }
 
   void SetPivot(glsl::vec2 const & pivot) override

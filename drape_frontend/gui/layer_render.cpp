@@ -128,7 +128,7 @@ public:
     SetIsVisible(true);
   }
 
-  void Update(ScreenBase const & screen) override
+  bool Update(ScreenBase const & screen) override
   {
     int newScale = df::GetDrawTileScale(screen);
     if (m_scale != newScale)
@@ -141,7 +141,7 @@ public:
     m2::PointF offset(10.0f * vs, 30.0f * vs);
 
     SetPivot(glsl::ToVec2(m2::PointF(screen.PixelRect().LeftBottom()) + offset));
-    TBase::Update(screen);
+    return TBase::Update(screen);
   }
 
 private:

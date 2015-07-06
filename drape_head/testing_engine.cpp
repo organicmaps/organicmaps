@@ -404,7 +404,7 @@ void TestingEngine::Draw()
 
     vector<drape_ptr<dp::RenderBucket> > & buckets = it->second;
     dp::OverlayTree tree;
-    tree.StartOverlayPlacing(m_modelView, true);
+    tree.StartOverlayPlacing(m_modelView);
     for (size_t i = 0; i < buckets.size(); ++i)
       buckets[i]->CollectOverlayHandles(make_ref(&tree), false);
     for (size_t i = 0; i < buckets.size(); ++i)
@@ -662,8 +662,7 @@ void TestingEngine::OnFlushData(dp::GLState const & state, drape_ptr<dp::RenderB
   for (size_t i = 0; i < m_scene[state].back()->GetOverlayHandlesCount(); ++i)
   {
     ref_ptr<dp::OverlayHandle> handle = m_scene[state].back()->GetOverlayHandle(i);
-    handle->Update(m_modelView);
-    if (handle->IsValid())
+    if (handle->Update(m_modelView))
     {
       m_boundRects.push_back(handle->GetPixelRect(m_modelView));
       m_rects.resize(m_rects.size() + 1);

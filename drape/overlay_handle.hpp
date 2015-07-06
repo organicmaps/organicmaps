@@ -31,11 +31,9 @@ public:
   bool IsVisible() const;
   void SetIsVisible(bool isVisible);
 
-  bool IsValid() const { return m_isValid; }
-
   m2::PointD GetPivot(ScreenBase const & screen) const;
 
-  virtual void Update(ScreenBase const & /*screen*/) {}
+  virtual bool Update(ScreenBase const & /*screen*/) { return true; }
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const = 0;
 
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const = 0;
@@ -55,9 +53,6 @@ public:
   double const & GetPriority() const;
 
 protected:
-  void SetIsValid(bool isValid) { m_isValid = isValid; }
-
-protected:
   FeatureID const m_id;
   dp::Anchor const m_anchor;
   double const m_priority;
@@ -67,7 +62,6 @@ protected:
 
 private:
   bool m_isVisible;
-  bool m_isValid;
 
   dp::IndexStorage m_indexes;
   struct LessOffsetNode
