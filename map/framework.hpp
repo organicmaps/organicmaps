@@ -558,7 +558,8 @@ public:
   bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
   bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }
   void BuildRoute(m2::PointD const & destination);
-  typedef function<void (routing::IRouter::ResultCode, vector<storage::TIndex> const &)> TRouteBuildingCallback;
+  typedef function<void(routing::IRouter::ResultCode, vector<storage::TIndex> const &,
+                        vector<storage::TIndex> const &)> TRouteBuildingCallback;
   void SetRouteBuildingListener(TRouteBuildingCallback const & callback) { m_routingCallback = callback; }
   void FollowRoute() { GetLocationState()->StartRouteFollow(); }
   void CloseRouting();
@@ -579,7 +580,9 @@ private:
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
   void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo) const;
-  void CallRouteBuilded(routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentFiles);
+  void CallRouteBuilded(routing::IRouter::ResultCode code,
+                        vector<storage::TIndex> const & absentCountries,
+                        vector<storage::TIndex> const & absentRoutingFiles);
   string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
 
   TRouteBuildingCallback m_routingCallback;

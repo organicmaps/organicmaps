@@ -2098,7 +2098,8 @@ void Framework::BuildRoute(m2::PointD const & destination)
   shared_ptr<State> const & state = GetLocationState();
   if (!state->IsModeHasPosition())
   {
-    CallRouteBuilded(IRouter::NoCurrentPosition, vector<storage::TIndex>());
+    CallRouteBuilded(IRouter::NoCurrentPosition, vector<storage::TIndex>(),
+                     vector<storage::TIndex>());
     return;
   }
 
@@ -2108,7 +2109,8 @@ void Framework::BuildRoute(m2::PointD const & destination)
   m_routingSession.BuildRoute(state->Position(), destination,
     [this] (Route const & route, IRouter::ResultCode code)
     {
-      vector<storage::TIndex> absentFiles;
+      vector<storage::TIndex> absentCountries;
+      vector<storage::TIndex> absentRoutingIndexes;
       if (code == IRouter::NoError)
       {
         InsertRoute(route);
@@ -2118,12 +2120,18 @@ void Framework::BuildRoute(m2::PointD const & destination)
       else
       {
         for(string const & name : route.GetAbsentCountries())
-          absentFiles.push_back(m_storage.FindIndexByFile(name));
+        {
+          storage::TIndex fileIndex = m_storage.FindIndexByFile(name);
+          if (m_storage.GetLatestLocalFile(fileIndex))
+            absentRoutingIndexes.push_back(fileIndex);
+          else
+            absentCountries.push_back(fileIndex);
+        }
 
         if (code != IRouter::NeedMoreMaps)
           RemoveRoute();
       }
-      CallRouteBuilded(code, absentFiles);
+      CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
     });
 }
 
@@ -2240,11 +2248,11 @@ void Framework::MatchLocationToRoute(location::GpsInfo & location, location::Rou
   m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
-void Framework::CallRouteBuilded(IRouter::ResultCode code, vector<storage::TIndex> const & absentFiles)
+void Framework::CallRouteBuilded(IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutingFiles)
 {
   if (code == IRouter::Cancelled)
     return;
-  m_routingCallback(code, absentFiles);
+  m_routingCallback(code, absentCountries, absentRoutingFiles);
 }
 
 string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)
