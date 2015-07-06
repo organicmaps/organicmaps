@@ -1,0 +1,36 @@
+BOOST update
+
+We planning update boost to version 1.59 in august 2015. 
+We expect new boost.geometry functionality from develop branch, such as dissolve, remove_spikes.
+
+Do not remember check boost patch from commits:
+
+commit 3913a4d952a13f74d561c010fa4bd3d44e70857c
+Author: MWM OSM <osm@maps.me>
+Date:   Mon Feb 16 01:26:57 2015 -0800
+    [linux][gcc][boost] Fixed gcc bug with boost https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63356
+
+commit 63854126541997d384dbc063db2d4cdf465aaa49
+Author: Alex Zolotarev <alex@maps.me>
+Date:   Sun Jan 11 07:58:08 2015 +0300
+    Warning fixes
+
+commit 26ad44839c01199ea70a6cc985ce875a86b072f4
+Author: Alex Zolotarev <alex@maps.me>
+Date:   Tue Oct 14 02:14:55 2014 -0700
+    [msvc][win] Fixed compilation issues
+
+commit 26a75714475cb8fa99e361eaa9dd514bb63d2c51
+Author: Alex Zolotarev <alex@mapswithme.com>
+Date:   Thu Sep 11 02:11:14 2014 -0700
+    [boost][android][hack] To compile boost system lib files for Android
+
+commit bb7428c169eb7360b5a9db6323570b6ef7d50d8d
+Author: Alex Zolotarev <alex@mapswithme.com>
+Date:   Sat Sep 6 23:26:53 2014 -0700
+    [boost] Added needed cpp files to avoid building boost system lib for osrm engine
+
+commit 7a85568ac8240c5c7238e1e945b9637412e05ecf
+Author: Alex Zolotarev <alex@mapswithme.com>
+Date:   Mon Sep 8 12:07:53 2014 -0700
+    [boost][cpp11] Compilation fix
