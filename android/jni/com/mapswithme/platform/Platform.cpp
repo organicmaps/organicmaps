@@ -74,6 +74,22 @@ void Platform::RunOnGuiThread(TFunctor const & fn)
 {
   android::Platform::RunOnGuiThreadImpl(fn);
 }
+
+Platform::EConnectionType Platform::ConnectionStatus()
+{
+  JNIEnv * env = jni::GetEnv();
+  if (env == nullptr)
+    return EConnectionType::CONNECTION_NONE;
+
+  static shared_ptr<jobject> clazzConnectionState = jni::make_global_ref(env->FindClass("com/mapswithme/util/ConnectionState"));
+  ASSERT(clazzConnectionState, ());
+
+  static jmethodID const getConnectionMethodId = env->GetStaticMethodID(static_cast<jclass>(*clazzConnectionState.get()), "getConnectionState", "()B");
+  ASSERT(getConnectionMethodId, ());
+
+  return static_cast<Platform::EConnectionType>(env->CallStaticByteMethod(static_cast<jclass>(*clazzConnectionState.get()), getConnectionMethodId));
+}
+
 namespace android
 {
   void Platform::Initialize(JNIEnv * env,
@@ -129,6 +145,9 @@ namespace android
     LOG(LINFO, ("Settings path = ", m_settingsDir));
     LOG(LINFO, ("OBB Google path = ", obbPath));
     LOG(LINFO, ("OBB Google files = ", files));
+
+    // IMPORTANT: This method SHOULD be called from UI thread to cache static jni ID-s inside.
+    (void) ConnectionStatus();
   }
 
   void Platform::OnExternalStorageStatusChanged(bool isAvailable)
