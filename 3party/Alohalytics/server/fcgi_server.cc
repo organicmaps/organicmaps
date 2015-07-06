@@ -88,7 +88,6 @@ http {
 #include <fcgiapp.h>
 #include <fcgio.h>
 
-#include "../src/file_manager.h"
 #include "../src/logger.h"
 
 #include "statistics_receiver.h"
@@ -96,7 +95,15 @@ http {
 using namespace std;
 
 // Can be used as a basic check on the client-side if it has connected to the right server.
-static const string kBodyTextInSuccessfulServerReply = "Mahalo";
+static const string kBodyTextForGoodServerReply = "Mahalo";
+static const string kBodyTextForBadServerReply = "Hohono";
+
+// We always reply to our clients that we have received everything they sent, even if it was a complete junk.
+// The difference is only in the body of the reply.
+void Reply200OKWithBody(FCGX_Stream * out, const string & body) {
+  FCGX_FPrintF(out, "Status: 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %ld\r\n\r\n%s\n", body.size(),
+               body.c_str());
+}
 
 // We need this global variable to reopen log file from SIGHUP handler.
 struct CoutToFileRedirector;
@@ -150,50 +157,57 @@ int main(int argc, char * argv[]) {
   }
   alohalytics::StatisticsReceiver receiver(argv[1]);
   string gzipped_body;
+  long long content_length;
+  const char * remote_addr_str;
+  const char * request_uri_str;
+  const char * user_agent_str;
   ATLOG("FastCGI Server instance is ready to serve clients' requests.");
   while (FCGX_Accept_r(&request) >= 0) {
+    FCGX_FPrintF(request.out, "Status: 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %ld\r\n\r\n%s\n",
+                 kBodyTextForGoodServerReply.size(), kBodyTextForGoodServerReply.c_str());
     try {
-      const char * content_length_str = FCGX_GetParam("HTTP_CONTENT_LENGTH", request.envp);
-      long long content_length;
-      if (!content_length_str || ((content_length = atoll(content_length_str)) <= 0)) {
-        ATLOG("WARNING: Invalid or missing Content-Length header, request is ignored.");
-        FCGX_FPrintF(request.out,
-                     "Status: 411 Length Required\r\nContent-Type: text/plain\r\n\r\n411 Length Required\n");
-        continue;
+      remote_addr_str = FCGX_GetParam("REMOTE_ADDR", request.envp);
+      if (!remote_addr_str) {
+        ATLOG("WARNING: Missing REMOTE_ADDR. Please check your http server configuration.");
+        remote_addr_str = "";
       }
-      gzipped_body.resize(content_length);
-      if (fcgi_istream(request.in).read(&gzipped_body[0], content_length).fail()) {
-        ATLOG("WARNING: Can't read body contents, request is ignored.");
-        FCGX_FPrintF(request.out, "Status: 400 Bad Request\r\nContent-Type: text/plain\r\n\r\n400 Bad Request\n");
-        continue;
+      request_uri_str = FCGX_GetParam("REQUEST_URI", request.envp);
+      if (!request_uri_str) {
+        ATLOG("WARNING: Missing REQUEST_URI. Please check your http server configuration.");
+        request_uri_str = "";
+      }
+      user_agent_str = FCGX_GetParam("HTTP_USER_AGENT", request.envp);
+      if (!user_agent_str) {
+        ATLOG("WARNING: Missing HTTP User-Agent. Please check your http server configuration.");
+        user_agent_str = "";
       }
 
-      const char * user_agent_str = FCGX_GetParam("HTTP_USER_AGENT", request.envp);
-      if (!user_agent_str) {
-        ATLOG("WARNING: Missing HTTP User-Agent.");
+      const char * content_length_str = FCGX_GetParam("HTTP_CONTENT_LENGTH", request.envp);
+      content_length = 0;
+      if (!content_length_str || ((content_length = atoll(content_length_str)) <= 0)) {
+        ATLOG("WARNING: Request is ignored due to invalid or missing Content-Length header", content_length_str,
+              remote_addr_str, request_uri_str, user_agent_str);
+        Reply200OKWithBody(request.out, kBodyTextForBadServerReply);
+        continue;
       }
-      const char * request_uri_str = FCGX_GetParam("REQUEST_URI", request.envp);
-      if (!request_uri_str) {
-        ATLOG("WARNING: Missing REQUEST_URI.");
-      }
-      const char * remote_addr_str = FCGX_GetParam("REMOTE_ADDR", request.envp);
-      if (!remote_addr_str) {
-        ATLOG("WARNING: Missing REMOTE_ADDR.");
+      // TODO(AlexZ): Should we make a better check for Content-Length or basic exception handling would be enough?
+      gzipped_body.resize(content_length);
+      if (fcgi_istream(request.in).read(&gzipped_body[0], content_length).fail()) {
+        ATLOG("WARNING: Request is ignored because it's body can't be read.", remote_addr_str, request_uri_str,
+              user_agent_str);
+        Reply200OKWithBody(request.out, kBodyTextForBadServerReply);
+        continue;
       }
 
       // Process and store received body.
       // This call can throw different exceptions.
-      receiver.ProcessReceivedHTTPBody(gzipped_body, AlohalyticsBaseEvent::CurrentTimestamp(),
-                                       remote_addr_str ? remote_addr_str : "", user_agent_str ? user_agent_str : "",
-                                       request_uri_str ? request_uri_str : "");
-      FCGX_FPrintF(request.out, "Status: 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %ld\r\n\r\n%s\n",
-                   kBodyTextInSuccessfulServerReply.size(), kBodyTextInSuccessfulServerReply.c_str());
+      receiver.ProcessReceivedHTTPBody(gzipped_body, AlohalyticsBaseEvent::CurrentTimestamp(), remote_addr_str,
+                                       user_agent_str, request_uri_str);
+      Reply200OKWithBody(request.out, kBodyTextForGoodServerReply);
     } catch (const exception & ex) {
-      ATLOG("ERROR: Exception while processing request: ", ex.what());
-      FCGX_FPrintF(request.out,
-                   "Status: 500 Internal Server Error\r\nContent-Type: text/plain\r\n\r\n500 Internal Server Error\n");
-      // TODO(AlexZ): Think about clients who can constantly fail because of bad data file.
-      continue;
+      ATLOG("ERROR: Exception was thrown:", ex.what(), remote_addr_str, request_uri_str, user_agent_str);
+      // TODO(AlexZ): Log "bad" received body for investigation.
+      Reply200OKWithBody(request.out, kBodyTextForBadServerReply);
     }
   }
   ATLOG("Shutting down FastCGI server instance.");
