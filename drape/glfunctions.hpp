@@ -13,6 +13,11 @@ class GLFunctions
 public:
   static void Init();
 
+  /// Enables cache of gl-functions. The only cache is available,
+  /// so invoking of this method on other thread leads to disabling
+  /// of current cache and enabling another
+  static void EnableCache();
+
   static bool glHasExtension(string const & name);
   static void glClearColor(float r, float g, float b, float a);
   static void glClear();
@@ -124,16 +129,6 @@ public:
 
   // Draw support
   static void glDrawElements(uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex = 0);
-
-private:
-  static void glActiveTextureImpl(glConst texBlock);
-  static void glBindTextureImpl(uint32_t textureID);
-  static void glEnableImpl(glConst mode);
-  static void glDisableImpl(glConst mode);
-  static void glUseProgramImpl(uint32_t programID);
-
-  static void glUniformValueiImpl(int8_t location, int32_t v);
-  static void glUniformValuefImpl(int8_t location, float v);
 };
 
 void CheckGLError(my::SrcPoint const &src);

@@ -17,7 +17,6 @@ SOURCES += \
     $$DRAPE_DIR/fribidi.cpp \
     $$DRAPE_DIR/glconstants.cpp \
     $$DRAPE_DIR/glextensions_list.cpp \
-    $$DRAPE_DIR/glfunctions_cache.cpp \
     $$DRAPE_DIR/glstate.cpp \
     $$DRAPE_DIR/glyph_manager.cpp \
     $$DRAPE_DIR/gpu_buffer.cpp \
@@ -68,7 +67,6 @@ HEADERS += \
     $$DRAPE_DIR/glconstants.hpp \
     $$DRAPE_DIR/glextensions_list.hpp \
     $$DRAPE_DIR/glfunctions.hpp \
-    $$DRAPE_DIR/glfunctions_cache.hpp \
     $$DRAPE_DIR/glIncludes.hpp \
     $$DRAPE_DIR/glsl_func.hpp \
     $$DRAPE_DIR/glsl_types.hpp \

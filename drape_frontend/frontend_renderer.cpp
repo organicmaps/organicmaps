@@ -724,6 +724,7 @@ void FrontendRenderer::Routine::Do()
   dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
   context->makeCurrent();
   GLFunctions::Init();
+  GLFunctions::EnableCache();
 
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
   GLFunctions::glEnable(gl_const::GLDepthTest);
