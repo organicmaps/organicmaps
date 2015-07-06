@@ -32,7 +32,7 @@ class OnlineCrossFetcher : public threads::IRoutine
 {
 public:
   /// \brief OnlineCrossFetcher helper class to make request to online OSRM server
-  ///        and get mwm name list
+  ///        and get mwm names list
   /// \param serverURL Server URL
   /// \param startPoint Start point coordinates
   /// \param finalPoint Finish point coordinates

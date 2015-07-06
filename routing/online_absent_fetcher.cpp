@@ -35,11 +35,11 @@ void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries
   {
     string name = m_countryFileFn(point);
     auto localFile = m_countryLocalFileFn(name);
-    if (!HasOptions(localFile->GetFiles(), TMapOptions::EMapWithCarRouting))
-    {
-      LOG(LINFO, ("Online absent countries fetcher recomends to download: ", name));
-      countries.emplace_back(move(name));
-    }
+    if (localFile && HasOptions(localFile->GetFiles(), TMapOptions::EMapWithCarRouting))
+      continue;
+
+    LOG(LINFO, ("Online absent countries fetcher recomends to download: ", name));
+    countries.emplace_back(move(name));
   }
 }
 }  // namespace routing

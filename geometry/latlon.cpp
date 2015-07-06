@@ -4,7 +4,6 @@
 
 namespace ms
 {
-
 string DebugPrint(LatLon const & t)
 {
   ostringstream out;

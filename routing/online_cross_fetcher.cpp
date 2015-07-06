@@ -11,6 +11,14 @@
 
 #include "std/bind.hpp"
 
+namespace
+{
+inline string LatLonToURLArgs(ms::LatLon const & point)
+{
+  return strings::to_string(point.lat) + ','+ strings::to_string(point.lon);
+}
+}  // namespace
+
 namespace routing
 {
 bool ParseResponse(const string & serverResponse, vector<m2::PointD> & outPoints)
@@ -40,9 +48,8 @@ bool ParseResponse(const string & serverResponse, vector<m2::PointD> & outPoints
 string GenerateOnlineRequest(string const & serverURL, ms::LatLon const & startPoint,
                              ms::LatLon const & finalPoint)
 {
-  return serverURL + "/mapsme?loc=" + strings::to_string(startPoint.lat) + ',' +
-         strings::to_string(startPoint.lon) + "&loc=" + strings::to_string(finalPoint.lat) + ',' +
-         strings::to_string(finalPoint.lon);
+  return serverURL + "/mapsme?loc=" + LatLonToURLArgs(startPoint) + "&loc=" +
+         LatLonToURLArgs(finalPoint);
 }
 
 OnlineCrossFetcher::OnlineCrossFetcher(string const & serverURL, ms::LatLon const & startPoint,
