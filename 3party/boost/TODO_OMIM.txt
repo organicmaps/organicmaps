@@ -3,7 +3,7 @@ BOOST update
 We planning update boost to version 1.59 in august 2015. 
 We expect new boost.geometry functionality from develop branch, such as dissolve, remove_spikes.
 
-Do not remember check boost patch from commits:
+Do not forget to check boost patch from commits:
 
 commit 3913a4d952a13f74d561c010fa4bd3d44e70857c
 Author: MWM OSM <osm@maps.me>
