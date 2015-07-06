@@ -101,7 +101,7 @@ namespace
 
 pair<MwmSet::MwmLock, bool> Framework::RegisterMap(LocalCountryFile const & localFile)
 {
-  string const countryFileName = localFile.GetCountryFile().GetNameWithoutExt();
+  string const countryFileName = localFile.GetCountryName();
   LOG(LINFO, ("Loading map:", countryFileName));
   return m_model.RegisterMap(localFile);
 }

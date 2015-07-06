@@ -33,7 +33,7 @@ RoutingMapping::RoutingMapping(LocalCountryFile const & localFile, Index const *
     : m_mapCounter(0),
       m_facadeCounter(0),
       m_crossContextLoaded(0),
-      m_countryFileName(localFile.GetCountryFile().GetNameWithoutExt()),
+      m_countryFileName(localFile.GetCountryName()),
       m_isValid(true),
       m_error(IRouter::ResultCode::NoError)
 {

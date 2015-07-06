@@ -20,7 +20,7 @@ size_t const kMaxTimestampLength = 18;
 
 bool IsSpecialFile(string const & file) { return file == "." || file == ".."; }
 
-bool CheckedGetFileType(string const & path, Platform::EFileType & type)
+bool GetFileTypeChecked(string const & path, Platform::EFileType & type)
 {
   Platform::EError const ret = Platform::GetFileType(path, type);
   if (ret != Platform::ERR_OK)
@@ -31,7 +31,7 @@ bool CheckedGetFileType(string const & path, Platform::EFileType & type)
   return true;
 }
 
-bool CheckedMkDir(string const & directory)
+bool MkDirChecked(string const & directory)
 {
   Platform & platform = GetPlatform();
   Platform::EError const ret = platform.MkDir(directory);
@@ -42,7 +42,7 @@ bool CheckedMkDir(string const & directory)
     case Platform::ERR_FILE_ALREADY_EXISTS:
     {
       Platform::EFileType type;
-      if (!CheckedGetFileType(directory, type))
+      if (!GetFileTypeChecked(directory, type))
         return false;
       if (type != Platform::FILE_TYPE_DIRECTORY)
       {
@@ -197,7 +197,7 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & cou
     return make_shared<LocalCountryFile>(platform.WritableDir(), countryFile, version);
   string const directory =
       my::JoinFoldersToPath(platform.WritableDir(), strings::to_string(version));
-  if (!CheckedMkDir(directory))
+  if (!MkDirChecked(directory))
     return shared_ptr<LocalCountryFile>();
   return make_shared<LocalCountryFile>(directory, countryFile, version);
 }
@@ -205,39 +205,37 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & cou
 // static
 bool CountryIndexes::PreparePlaceOnDisk(LocalCountryFile const & localFile)
 {
-  return CheckedMkDir(IndexesDir(localFile));
+  return MkDirChecked(IndexesDir(localFile));
 }
 
 // static
 bool CountryIndexes::DeleteFromDisk(LocalCountryFile const & localFile)
 {
   string const directory = IndexesDir(localFile);
+  bool ok = true;
 
-  vector<string> files;
-  Platform::GetFilesByRegExp(directory, "\\.*", files);
-  for (string const & file : files)
+  for (auto index : {Index::Bits, Index::Nodes, Index::Offsets})
   {
-    if (IsSpecialFile(file))
-      continue;
-    string const path = my::JoinFoldersToPath(directory, file);
-    if (!my::DeleteFileX(path))
+    string const path = GetPath(localFile, index);
+    if (Platform::IsFileExistsByFullPath(path) && !my::DeleteFileX(path))
+    {
       LOG(LERROR, ("Can't remove country index:", path));
+      ok = false;
+    }
   }
 
   Platform::EError const ret = Platform::RmDir(directory);
   if (ret != Platform::ERR_OK && ret != Platform::ERR_FILE_DOES_NOT_EXIST)
   {
     LOG(LERROR, ("Can't remove indexes directory:", directory, ret));
-    return false;
+    ok = false;
   }
-  return true;
+  return ok;
 }
 
 // static
 string CountryIndexes::GetPath(LocalCountryFile const & localFile, Index index)
 {
-  string const directory = IndexesDir(localFile);
-  string const name = localFile.GetCountryFile().GetNameWithoutExt();
   char const * ext = nullptr;
   switch (index)
   {
@@ -251,7 +249,7 @@ string CountryIndexes::GetPath(LocalCountryFile const & localFile, Index index)
       ext = ".offsets";
       break;
   }
-  return my::JoinFoldersToPath(directory, name + ext);
+  return my::JoinFoldersToPath(IndexesDir(localFile), localFile.GetCountryName() + ext);
 }
 
 // static

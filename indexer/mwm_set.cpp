@@ -125,7 +125,7 @@ pair<MwmSet::MwmLock, bool> MwmSet::RegisterImpl(LocalCountryFile const & localF
     return make_pair(MwmLock(), false);
   info->SetStatus(MwmInfo::STATUS_REGISTERED);
   info->m_file = localFile;
-  string const name = localFile.GetCountryFile().GetNameWithoutExt();
+  string const name = localFile.GetCountryName();
 
   vector<shared_ptr<MwmInfo>> & infos = m_info[name];
   infos.push_back(info);

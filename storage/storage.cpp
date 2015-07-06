@@ -135,7 +135,7 @@ void Storage::RegisterAllLocalMaps()
     }
 
     LocalCountryFile const & localFile = *i;
-    string const name = localFile.GetCountryFile().GetNameWithoutExt();
+    string const name = localFile.GetCountryName();
     TIndex index = FindIndexByFile(name);
     if (index.IsValid())
       RegisterCountryFiles(index, localFile.GetDirectory(), localFile.GetVersion());
@@ -768,7 +768,7 @@ void Storage::RegisterCountryFiles(shared_ptr<LocalCountryFile> localFile)
   CHECK(localFile.get(), ());
   localFile->SyncWithDisk();
 
-  TIndex const index = FindIndexByFile(localFile->GetCountryFile().GetNameWithoutExt());
+  TIndex const index = FindIndexByFile(localFile->GetCountryName());
   shared_ptr<LocalCountryFile> existingFile = GetLocalFile(index, localFile->GetVersion());
   if (existingFile.get() != nullptr)
     ASSERT_EQUAL(localFile.get(), existingFile.get(), ());

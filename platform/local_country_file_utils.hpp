@@ -72,6 +72,7 @@ public:
 
 private:
   friend void UnitTest_LocalCountryFile_CountryIndexes();
+  friend void UnitTest_LocalCountryFile_DoNotDeleteUserFiles();
 
   static string IndexesDir(LocalCountryFile const & localFile);
 };

@@ -9,6 +9,7 @@
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
 #include "defines.hpp"
@@ -424,21 +425,17 @@ UNIT_TEST(LocalCountryFile_PreparePlaceForCountryFiles)
 
 UNIT_TEST(LocalCountryFile_CountryIndexes)
 {
-  Platform & platform = GetPlatform();
+  ScopedTestDir testDir("101010");
 
   CountryFile germanyFile("Germany");
-  shared_ptr<LocalCountryFile> germanyLocalFile =
-      platform::PreparePlaceForCountryFiles(germanyFile, 101010 /* version */);
-  TEST(germanyLocalFile.get(), ("Can't prepare place for:", germanyFile));
-  TEST_EQUAL(my::JoinFoldersToPath(platform.WritableDir(), "101010"),
-             germanyLocalFile->GetDirectory(), ());
+  LocalCountryFile germanyLocalFile(testDir.GetFullPath(), germanyFile, 101010 /* version */);
   TEST_EQUAL(
-      my::JoinFoldersToPath(germanyLocalFile->GetDirectory(), germanyFile.GetNameWithoutExt()),
-      CountryIndexes::IndexesDir(*germanyLocalFile), ());
-  TEST(CountryIndexes::PreparePlaceOnDisk(*germanyLocalFile),
-       ("Can't prepare place for:", *germanyLocalFile));
+      my::JoinFoldersToPath(germanyLocalFile.GetDirectory(), germanyFile.GetNameWithoutExt()),
+      CountryIndexes::IndexesDir(germanyLocalFile), ());
+  TEST(CountryIndexes::PreparePlaceOnDisk(germanyLocalFile),
+       ("Can't prepare place for:", germanyLocalFile));
 
-  string const bitsPath = CountryIndexes::GetPath(*germanyLocalFile, CountryIndexes::Index::Bits);
+  string const bitsPath = CountryIndexes::GetPath(germanyLocalFile, CountryIndexes::Index::Bits);
   TEST(!Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
   {
     FileWriter writer(bitsPath);
@@ -447,9 +444,40 @@ UNIT_TEST(LocalCountryFile_CountryIndexes)
   }
   TEST(Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
 
-  TEST(CountryIndexes::DeleteFromDisk(*germanyLocalFile),
-       ("Can't delete indexes for:", *germanyLocalFile));
+  TEST(CountryIndexes::DeleteFromDisk(germanyLocalFile),
+       ("Can't delete indexes for:", germanyLocalFile));
 
   TEST(!Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
+}
+
+UNIT_TEST(LocalCountryFile_DoNotDeleteUserFiles)
+{
+  my::LogLevel oldLogLevel = my::g_LogLevel;
+  my::g_LogLevel = LCRITICAL;
+  MY_SCOPE_GUARD(restoreLogLevel, [&oldLogLevel]()
+  {
+    my::g_LogLevel = oldLogLevel;
+  });
+
+  ScopedTestDir testDir("101010");
+
+  CountryFile germanyFile("Germany");
+  LocalCountryFile germanyLocalFile(testDir.GetFullPath(), germanyFile, 101010 /* version */);
+
+  TEST(CountryIndexes::PreparePlaceOnDisk(germanyLocalFile),
+       ("Can't prepare place for:", germanyLocalFile));
+  string const userFilePath =
+      my::JoinFoldersToPath(CountryIndexes::IndexesDir(germanyLocalFile), "user-data.txt");
+  {
+    FileWriter writer(userFilePath);
+    string const data = "user data";
+    writer.Write(data.data(), data.size());
+  }
+  TEST(!CountryIndexes::DeleteFromDisk(germanyLocalFile),
+       ("Indexes dir should not be deleted for:", germanyLocalFile));
+
+  TEST(my::DeleteFileX(userFilePath), ("Can't delete test file:", userFilePath));
+  TEST(CountryIndexes::DeleteFromDisk(germanyLocalFile),
+       ("Can't delete indexes for:", germanyLocalFile));
 }
 }  // namespace platform

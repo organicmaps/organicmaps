@@ -24,7 +24,7 @@ protected:
   // MwmSet overrides:
   bool GetVersion(LocalCountryFile const & localFile, MwmInfo & info) const override
   {
-    int const n = localFile.GetCountryFile().GetNameWithoutExt()[0] - '0';
+    int const n = localFile.GetCountryName()[0] - '0';
     info.m_maxScale = n;
     info.m_limitRect = m2::RectD(0, 0, 1, 1);
     info.m_version.format = version::lastFormat;

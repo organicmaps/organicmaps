@@ -46,7 +46,7 @@ void FeaturesFetcher::InitClassificator()
 
 pair<MwmSet::MwmLock, bool> FeaturesFetcher::RegisterMap(LocalCountryFile const & localFile)
 {
-  string const countryFileName = localFile.GetCountryFile().GetNameWithoutExt();
+  string const countryFileName = localFile.GetCountryName();
   try
   {
     pair<MwmSet::MwmLock, bool> result = m_multiIndex.RegisterMap(localFile);
