@@ -36,7 +36,7 @@ namespace alohalytics {
 
 class StatisticsReceiver {
   std::string storage_directory_;
-  UnlimitedFileQueue file_storage_queue_;
+  TUnlimitedFileQueue file_storage_queue_;
 
  public:
   explicit StatisticsReceiver(const std::string & storage_directory) : storage_directory_(storage_directory) {

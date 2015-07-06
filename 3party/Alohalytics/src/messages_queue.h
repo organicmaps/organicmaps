@@ -273,7 +273,7 @@ class MessagesQueue final {
 
 typedef MessagesQueue<1024 * 100> THundredKilobytesFileQueue;
 // TODO(AlexZ): Remove unnecessary file size checks from this specialization.
-typedef MessagesQueue<std::numeric_limits<std::streamoff>::max()> UnlimitedFileQueue;
+typedef MessagesQueue<std::numeric_limits<std::streamoff>::max()> TUnlimitedFileQueue;
 
 }  // namespace alohalytics
 
