@@ -95,6 +95,15 @@ class Logger {
     }
   }
 
+  // Specialization to work with nullptr
+  void Log(const char * t) {
+    if (t) {
+      out_ << t;
+    } else {
+      out_ << "<NULL>";
+    }
+  }
+
   // Pretty-printing for containers.
   template <template <typename, typename...> class ContainerType, typename ValueType, typename... Args>
   void Log(const ContainerType<ValueType, Args...> & c) {
