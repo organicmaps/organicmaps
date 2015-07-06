@@ -18,9 +18,12 @@
 @property (weak, nonatomic) MWMAlertViewController *alertController;
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
-+ (MWMAlert *)downloaderAlertWithCountryIndex:(storage::TIndex const &)index;
++ (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes;
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount;
 + (MWMAlert *)facebookAlert;
++ (MWMAlert *)routingDisclaimerAlert;
++ (MWMAlert *)disabledLocationAlert;
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 
 @end

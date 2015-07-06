@@ -8,7 +8,6 @@
 
 #import "MWMAlert.h"
 #import "MWMDownloadTransitMapAlert.h"
-#import "MWMDownloadAllMapsAlert.h"
 #import "MWMDefaultAlert.h"
 #import "MWMFeedbackAlert.h"
 #import "MWMRateAlert.h"
@@ -28,14 +27,24 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
   return [MWMFacebookAlert alert];
 }
 
++ (MWMAlert *)routingDisclaimerAlert
+{
+  return [MWMDefaultAlert routingDisclaimerAlert];
+}
+
++ (MWMAlert *)disabledLocationAlert
+{
+  return [MWMDefaultAlert disabledLocationAlert];
+}
+
 + (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount
 {
   return [MWMFeedbackAlert alertWithStarsCount:starsCount];
 }
 
-+ (MWMAlert *)downloaderAlertWithCountryIndex:(const storage::TIndex&)index
++ (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
 {
-  return [MWMDownloadTransitMapAlert alertWithCountryIndex:index];
+  return [MWMDownloadTransitMapAlert alertWithMaps:countries routes:routes];
 }
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type
@@ -46,7 +55,7 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
       return [MWMDefaultAlert noCurrentPositionAlert];
     case routing::IRouter::InconsistentMWMandRoute:
     case routing::IRouter::RouteFileNotExist:
-      return [MWMDownloadAllMapsAlert alert];
+      return [MWMDefaultAlert routeNotExist];
     case routing::IRouter::StartPointNotFound:
       return [MWMDefaultAlert startPointNotFoundAlert];
     case routing::IRouter::EndPointNotFound:
@@ -62,6 +71,11 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
     case routing::IRouter::NeedMoreMaps:
       return nil;
   }
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
+{
+// Should override this method if you wont custom relayout after rotation.
 }
 
 @end

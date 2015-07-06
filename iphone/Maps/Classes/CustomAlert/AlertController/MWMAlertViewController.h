@@ -18,10 +18,16 @@
 
 - (instancetype)initWithViewController:(UIViewController *)viewController;
 - (void)presentAlert:(routing::IRouter::ResultCode)type;
-- (void)presentDownloaderAlertWithCountryIndex:(storage::TIndex const &)index;
+- (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes;
 - (void)presentRateAlert;
 - (void)presentFacebookAlert;
 - (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount;
+- (void)presentRoutingDisclaimerAlert;
+- (void)presentDisabledLocationAlert;
 - (void)closeAlert;
 
+- (instancetype)init __attribute__((unavailable("-init isn't available, call -initWithViewController: instead!")));
++ (instancetype)new __attribute__((unavailable("+new isn't available, call -initWithViewController: instead!")));
+- (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("-initWithCoder: isn't available, call -initWithViewController: instead!")));
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil __attribute__((unavailable("-initWithNibName:bundle: isn't available, call -initWithViewController: instead!")));
 @end

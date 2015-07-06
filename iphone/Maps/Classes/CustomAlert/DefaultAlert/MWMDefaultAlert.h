@@ -16,5 +16,8 @@
 + (instancetype)internalErrorAlert;
 + (instancetype)noCurrentPositionAlert;
 + (instancetype)pointsInDifferentMWMAlert;
++ (instancetype)routingDisclaimerAlert;
++ (instancetype)routeNotExist;
++ (instancetype)disabledLocationAlert;
 
 @end

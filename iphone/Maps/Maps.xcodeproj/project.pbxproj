@@ -190,10 +190,12 @@
 		F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19861AB81A00006EAF7E /* MWMAlert.mm */; };
 		F64F199D1AB81A00006EAF7E /* MWMDefaultAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F198B1AB81A00006EAF7E /* MWMDefaultAlert.mm */; };
 		F64F199E1AB81A00006EAF7E /* MWMDefaultAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F198C1AB81A00006EAF7E /* MWMDefaultAlert.xib */; };
-		F64F19A01AB81A00006EAF7E /* MWMDownloadAllMapsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19911AB81A00006EAF7E /* MWMDownloadAllMapsAlert.mm */; };
-		F64F19A11AB81A00006EAF7E /* MWMDownloadAllMapsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19921AB81A00006EAF7E /* MWMDownloadAllMapsAlert.xib */; };
 		F64F19A31AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19971AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm */; };
 		F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19981AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib */; };
+		F64F4B6D1B46A51F0081A24A /* MWMDownloaderDialogCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F4B6C1B46A51F0081A24A /* MWMDownloaderDialogCell.mm */; };
+		F64F4B6F1B46A5380081A24A /* MWMDownloaderDialogCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F4B6E1B46A5380081A24A /* MWMDownloaderDialogCell.xib */; };
+		F64F4B711B4A41D40081A24A /* MWMDownloaderDialogHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F4B701B4A41D40081A24A /* MWMDownloaderDialogHeader.xib */; };
+		F64F4B741B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F4B731B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm */; };
 		F65243351B0B634F00BFA9D4 /* MWMPlacePage+Animation.mm in Sources */ = {isa = PBXBuildFile; fileRef = F65243341B0B634F00BFA9D4 /* MWMPlacePage+Animation.mm */; };
 		F653D4231AE9398700282659 /* MWMPlacePageViewManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653D4221AE9398700282659 /* MWMPlacePageViewManager.mm */; };
 		F6588E2C1B15C26700EE1E58 /* MWMTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E2B1B15C26700EE1E58 /* MWMTextView.mm */; };
@@ -214,6 +216,8 @@
 		F69A16A31AF24A3300EF43F0 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F69A16A21AF24A3300EF43F0 /* libMyTracker.a */; };
 		F6BACD021AD946C3004E99B1 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 		F6BACD031AD946C3004E99B1 /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
+		F6BBF2C61B4FFB72000CF8E2 /* MWMLocationAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BBF2C51B4FFB72000CF8E2 /* MWMLocationAlert.m */; };
+		F6BBF2C81B4FFB8C000CF8E2 /* MWMLocationAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BBF2C71B4FFB8C000CF8E2 /* MWMLocationAlert.xib */; };
 		F6BC1E4D1ACBE96100EF0360 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		F6BC1E4E1ACBE96100EF0360 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		F6BC1E521ACBF98600EF0360 /* MWMFacebookAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BC1E511ACBF98600EF0360 /* MWMFacebookAlert.mm */; };
@@ -586,12 +590,15 @@
 		F64F198A1AB81A00006EAF7E /* MWMDefaultAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDefaultAlert.h; sourceTree = "<group>"; };
 		F64F198B1AB81A00006EAF7E /* MWMDefaultAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDefaultAlert.mm; sourceTree = "<group>"; };
 		F64F198C1AB81A00006EAF7E /* MWMDefaultAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDefaultAlert.xib; sourceTree = "<group>"; };
-		F64F19901AB81A00006EAF7E /* MWMDownloadAllMapsAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDownloadAllMapsAlert.h; sourceTree = "<group>"; };
-		F64F19911AB81A00006EAF7E /* MWMDownloadAllMapsAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDownloadAllMapsAlert.mm; sourceTree = "<group>"; };
-		F64F19921AB81A00006EAF7E /* MWMDownloadAllMapsAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDownloadAllMapsAlert.xib; sourceTree = "<group>"; };
 		F64F19961AB81A00006EAF7E /* MWMDownloadTransitMapAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDownloadTransitMapAlert.h; sourceTree = "<group>"; };
 		F64F19971AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDownloadTransitMapAlert.mm; sourceTree = "<group>"; };
 		F64F19981AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDownloadTransitMapAlert.xib; sourceTree = "<group>"; };
+		F64F4B6B1B46A51F0081A24A /* MWMDownloaderDialogCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDownloaderDialogCell.h; sourceTree = "<group>"; };
+		F64F4B6C1B46A51F0081A24A /* MWMDownloaderDialogCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDownloaderDialogCell.mm; sourceTree = "<group>"; };
+		F64F4B6E1B46A5380081A24A /* MWMDownloaderDialogCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDownloaderDialogCell.xib; sourceTree = "<group>"; };
+		F64F4B701B4A41D40081A24A /* MWMDownloaderDialogHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDownloaderDialogHeader.xib; sourceTree = "<group>"; };
+		F64F4B721B4A45FD0081A24A /* MWMDownloaderDialogHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDownloaderDialogHeader.h; sourceTree = "<group>"; };
+		F64F4B731B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDownloaderDialogHeader.mm; sourceTree = "<group>"; };
 		F65243331B0B634F00BFA9D4 /* MWMPlacePage+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMPlacePage+Animation.h"; sourceTree = "<group>"; };
 		F65243341B0B634F00BFA9D4 /* MWMPlacePage+Animation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMPlacePage+Animation.mm"; sourceTree = "<group>"; };
 		F653D4211AE9398700282659 /* MWMPlacePageViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageViewManager.h; sourceTree = "<group>"; };
@@ -628,6 +635,9 @@
 		F69A16A81AF24A9000EF43F0 /* MRTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRTracker.h; path = MyTracker/MRTracker.h; sourceTree = "<group>"; };
 		F69A16A91AF24A9000EF43F0 /* MRTrackerParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRTrackerParams.h; path = MyTracker/MRTrackerParams.h; sourceTree = "<group>"; };
 		F69A16AA1AF24A9000EF43F0 /* MRTrackerParams+Corp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MRTrackerParams+Corp.h"; path = "MyTracker/MRTrackerParams+Corp.h"; sourceTree = "<group>"; };
+		F6BBF2C41B4FFB72000CF8E2 /* MWMLocationAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationAlert.h; sourceTree = "<group>"; };
+		F6BBF2C51B4FFB72000CF8E2 /* MWMLocationAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMLocationAlert.m; sourceTree = "<group>"; };
+		F6BBF2C71B4FFB8C000CF8E2 /* MWMLocationAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMLocationAlert.xib; sourceTree = "<group>"; };
 		F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Statistics/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = Statistics/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		F6BC1E501ACBF98600EF0360 /* MWMFacebookAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFacebookAlert.h; sourceTree = "<group>"; };
@@ -1337,13 +1347,13 @@
 		F64F195F1AB8125C006EAF7E /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
+				F6BBF2C31B4FFB56000CF8E2 /* LocationAlert */,
 				F64F19801AB81A00006EAF7E /* AlertController */,
 				F6BC1E4F1ACBF97000EF0360 /* FacebookAlert */,
 				F67BBB531AC54A7800D162C7 /* FeedbackAlert */,
 				F64F19841AB81A00006EAF7E /* BaseAlert */,
 				F61579301AC2CE760032D8E9 /* RateAlert */,
 				F64F19871AB81A00006EAF7E /* DefaultAlert */,
-				F64F198D1AB81A00006EAF7E /* DownloadAllMapsAlert */,
 				F64F19931AB81A00006EAF7E /* DownloadTransitMapsAlert */,
 			);
 			path = CustomAlert;
@@ -1378,22 +1388,18 @@
 			path = DefaultAlert;
 			sourceTree = "<group>";
 		};
-		F64F198D1AB81A00006EAF7E /* DownloadAllMapsAlert */ = {
-			isa = PBXGroup;
-			children = (
-				F64F19901AB81A00006EAF7E /* MWMDownloadAllMapsAlert.h */,
-				F64F19911AB81A00006EAF7E /* MWMDownloadAllMapsAlert.mm */,
-				F64F19921AB81A00006EAF7E /* MWMDownloadAllMapsAlert.xib */,
-			);
-			path = DownloadAllMapsAlert;
-			sourceTree = "<group>";
-		};
 		F64F19931AB81A00006EAF7E /* DownloadTransitMapsAlert */ = {
 			isa = PBXGroup;
 			children = (
 				F64F19961AB81A00006EAF7E /* MWMDownloadTransitMapAlert.h */,
 				F64F19971AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm */,
 				F64F19981AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib */,
+				F64F4B6B1B46A51F0081A24A /* MWMDownloaderDialogCell.h */,
+				F64F4B6C1B46A51F0081A24A /* MWMDownloaderDialogCell.mm */,
+				F64F4B6E1B46A5380081A24A /* MWMDownloaderDialogCell.xib */,
+				F64F4B701B4A41D40081A24A /* MWMDownloaderDialogHeader.xib */,
+				F64F4B721B4A45FD0081A24A /* MWMDownloaderDialogHeader.h */,
+				F64F4B731B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm */,
 			);
 			path = DownloadTransitMapsAlert;
 			sourceTree = "<group>";
@@ -1499,6 +1505,16 @@
 				F69A16AA1AF24A9000EF43F0 /* MRTrackerParams+Corp.h */,
 			);
 			name = MyTracker;
+			sourceTree = "<group>";
+		};
+		F6BBF2C31B4FFB56000CF8E2 /* LocationAlert */ = {
+			isa = PBXGroup;
+			children = (
+				F6BBF2C41B4FFB72000CF8E2 /* MWMLocationAlert.h */,
+				F6BBF2C51B4FFB72000CF8E2 /* MWMLocationAlert.m */,
+				F6BBF2C71B4FFB8C000CF8E2 /* MWMLocationAlert.xib */,
+			);
+			path = LocationAlert;
 			sourceTree = "<group>";
 		};
 		F6BC1E4F1ACBF97000EF0360 /* FacebookAlert */ = {
@@ -1951,6 +1967,7 @@
 				EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */,
 				F64F199E1AB81A00006EAF7E /* MWMDefaultAlert.xib in Resources */,
 				EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */,
+				F64F4B711B4A41D40081A24A /* MWMDownloaderDialogHeader.xib in Resources */,
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
 				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,
 				EEA61602134C496A003A9827 /* 02_wqy-microhei.ttf in Resources */,
@@ -1974,6 +1991,7 @@
 				97FC99E019C1A2CD00C1CF98 /* resources-xxhdpi in Resources */,
 				97719D4B1843B86700BDD815 /* Main_iPad.storyboard in Resources */,
 				F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */,
+				F6BBF2C81B4FFB8C000CF8E2 /* MWMLocationAlert.xib in Resources */,
 				97A5967F19B9CD47007A963F /* copyright.html in Resources */,
 				978F9247183B6671000D6C7C /* Main_iPhone.storyboard in Resources */,
 				4A7D89C51B2EBF3B00AC843E /* resources-6plus_dark in Resources */,
@@ -2013,6 +2031,7 @@
 				F7E7BA2D1672328F00B4492E /* hospital@2x.png in Resources */,
 				F7E7BA2E1672328F00B4492E /* parking.png in Resources */,
 				F7E7BA2F1672328F00B4492E /* parking@2x.png in Resources */,
+				F64F4B6F1B46A5380081A24A /* MWMDownloaderDialogCell.xib in Resources */,
 				F7E7BA301672328F00B4492E /* pharmacy.png in Resources */,
 				F7E7BA311672328F00B4492E /* pharmacy@2x.png in Resources */,
 				F6ED13931B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib in Resources */,
@@ -2022,7 +2041,6 @@
 				F6588E331B15D73100EE1E58 /* MWMBookmarkColorViewController.xib in Resources */,
 				F7E7BA341672328F00B4492E /* post.png in Resources */,
 				F7E7BA351672328F00B4492E /* post@2x.png in Resources */,
-				F64F19A11AB81A00006EAF7E /* MWMDownloadAllMapsAlert.xib in Resources */,
 				F7E7BA361672328F00B4492E /* shop.png in Resources */,
 				F7E7BA371672328F00B4492E /* shop@2x.png in Resources */,
 				F7E7BA381672328F00B4492E /* toilet.png in Resources */,
@@ -2145,12 +2163,12 @@
 				F6F722F81AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm in Sources */,
 				F6CB21681AEFC6AA00FB8963 /* MWMPlacePageActionBar.mm in Sources */,
 				34BC72291B0DECAE0012A34B /* MWMZoomButtons.mm in Sources */,
-				F64F19A01AB81A00006EAF7E /* MWMDownloadAllMapsAlert.mm in Sources */,
 				978F9253183BD530000D6C7C /* NavigationController.mm in Sources */,
 				F66A8FA81B09F052001B9C97 /* MWMiPhoneLandscapePlacePage.mm in Sources */,
 				974386DD19373EA400FD5659 /* ToastView.m in Sources */,
 				F6C9343C1AE4F94A00DDC624 /* MWMAnimator.mm in Sources */,
 				977E26B919E2E64200BA2219 /* MapsObservers.mm in Sources */,
+				F6BBF2C61B4FFB72000CF8E2 /* MWMLocationAlert.m in Sources */,
 				F66A8FB01B09F268001B9C97 /* MWMPlacePage.mm in Sources */,
 				EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */,
 				34BC72251B0DECAE0012A34B /* MWMSideMenuButton.mm in Sources */,
@@ -2165,6 +2183,7 @@
 				977E26BE19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */,
 				97A8001418B2140A000C07A2 /* SearchResultCell.m in Sources */,
 				97F0817E19AF72590098FB0B /* BadgeView.m in Sources */,
+				F64F4B741B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm in Sources */,
 				97A8002718B2741C000C07A2 /* SearchCell.m in Sources */,
 				97908B2C19658767003DD7C6 /* SearchCategoryCell.m in Sources */,
 				F67BC2751B254F5500FE1D7B /* MWMPlacePageTypeDescription.mm in Sources */,
@@ -2206,6 +2225,7 @@
 				CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.m in Sources */,
 				342AD7721B53D32F00E0B997 /* UIView+RuntimeAttributes.m in Sources */,
+				F64F4B6D1B46A51F0081A24A /* MWMDownloaderDialogCell.mm in Sources */,
 				97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */,
 				F6ED13541B1643900095C6DE /* MWMDirectionView.mm in Sources */,
 				34BC72271B0DECAE0012A34B /* MWMSideMenuView.mm in Sources */,

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MWMDownloaderDialogHeader">
+            <rect key="frame" x="0.0" y="0.0" width="280" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hh9-2l-gu2">
+                    <rect key="frame" x="20" y="14" width="160" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="4WE-p5-RdF"/>
+                        <constraint firstAttribute="height" constant="16" id="FQE-Zk-gXr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_iexpand_more" translatesAutoresizingMaskIntoConstraints="NO" id="eqn-NQ-zOk">
+                    <rect key="frame" x="254" y="19" width="12" height="8"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="12" id="CkX-aX-oaf"/>
+                        <constraint firstAttribute="height" constant="8" id="mLX-ow-5er"/>
+                    </constraints>
+                </imageView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tqG-fM-g6J">
+                    <rect key="frame" x="0.0" y="43" width="280" height="1"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Vc3-uM-vHv"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="size" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m8f-ps-pFV">
+                    <rect key="frame" x="180" y="14" width="64" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="7Hg-8z-e56"/>
+                        <constraint firstAttribute="width" constant="64" id="hct-Jz-zGl"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eIt-Yb-1Yl">
+                    <rect key="frame" x="0.0" y="0.0" width="280" height="44"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                    <connections>
+                        <action selector="headerButtonTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="SW0-Mx-TVi"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="eIt-Yb-1Yl" secondAttribute="bottom" id="61x-d3-FtO"/>
+                <constraint firstAttribute="trailing" secondItem="eqn-NQ-zOk" secondAttribute="trailing" constant="14" id="8Xd-cJ-b0r"/>
+                <constraint firstAttribute="centerY" secondItem="eqn-NQ-zOk" secondAttribute="centerY" constant="-1" id="8zo-Jq-uiV"/>
+                <constraint firstAttribute="trailing" secondItem="tqG-fM-g6J" secondAttribute="trailing" id="9Xc-Au-fuY"/>
+                <constraint firstAttribute="centerY" secondItem="m8f-ps-pFV" secondAttribute="centerY" id="F82-yF-6kJ"/>
+                <constraint firstAttribute="centerY" secondItem="hh9-2l-gu2" secondAttribute="centerY" id="GYb-1Q-mMG"/>
+                <constraint firstItem="eIt-Yb-1Yl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Jdx-uy-XaA"/>
+                <constraint firstAttribute="trailing" secondItem="eIt-Yb-1Yl" secondAttribute="trailing" id="MSS-uK-Dby"/>
+                <constraint firstItem="eIt-Yb-1Yl" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Xxs-g9-ygX"/>
+                <constraint firstItem="hh9-2l-gu2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="ZfI-xz-HEx"/>
+                <constraint firstAttribute="trailing" secondItem="m8f-ps-pFV" secondAttribute="trailing" constant="36" id="kwN-VG-nEr"/>
+                <constraint firstItem="tqG-fM-g6J" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rDI-mo-gnf"/>
+                <constraint firstItem="tqG-fM-g6J" firstAttribute="top" secondItem="m8f-ps-pFV" secondAttribute="bottom" constant="13" id="v0U-Qb-rW1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="dividerView" destination="tqG-fM-g6J" id="eOr-3y-kbn"/>
+                <outlet property="expandImage" destination="eqn-NQ-zOk" id="fGc-MN-ss7"/>
+                <outlet property="headerButton" destination="eIt-Yb-1Yl" id="f0E-0A-6UG"/>
+                <outlet property="size" destination="m8f-ps-pFV" id="5ax-Hb-xEm"/>
+                <outlet property="sizeTrailing" destination="kwN-VG-nEr" id="K52-ZK-LuH"/>
+                <outlet property="title" destination="hh9-2l-gu2" id="JNQ-ls-kgI"/>
+                <outlet property="titleLeading" destination="ZfI-xz-HEx" id="Vzg-Cd-ztu"/>
+            </connections>
+            <point key="canvasLocation" x="202" y="259"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="dialog_btn_press" width="280" height="44"/>
+        <image name="ic_iexpand_more" width="12" height="8"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

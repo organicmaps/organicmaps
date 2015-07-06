@@ -13,8 +13,9 @@
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
 @interface MWMAlertViewController () <UIGestureRecognizerDelegate>
+
 @property (weak, nonatomic, readwrite) UIViewController * ownerViewController;
-@property (weak, nonatomic) IBOutlet UITapGestureRecognizer * tap;
+
 @end
 
 @implementation MWMAlertViewController
@@ -25,6 +26,13 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   if (self)
     self.ownerViewController = viewController;
   return self;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+  MWMAlert * alert = [self.view.subviews firstObject];
+  if ([alert respondsToSelector:@selector(willRotateToInterfaceOrientation:)])
+    [alert willRotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
 #pragma mark - Actions
@@ -47,9 +55,21 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:alert];
 }
 
-- (void)presentDownloaderAlertWithCountryIndex:(storage::TIndex const &)index
+- (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
 {
-  MWMAlert * alert = [MWMAlert downloaderAlertWithCountryIndex:index];
+  MWMAlert * alert = [MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes];
+  [self displayAlert:alert];
+}
+
+- (void)presentRoutingDisclaimerAlert
+{
+  MWMAlert * alert = [MWMAlert routingDisclaimerAlert];
+  [self displayAlert:alert];
+}
+
+- (void)presentDisabledLocationAlert
+{
+  MWMAlert * alert = [MWMAlert disabledLocationAlert];
   [self displayAlert:alert];
 }
 
@@ -68,6 +88,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [[[[UIApplication sharedApplication] delegate] window] addSubview:self.view];
   self.view.frame = [[[[UIApplication sharedApplication] delegate] window] frame];
   [self.view addSubview:alert];
+  alert.bounds = self.view.bounds;
   alert.center = self.view.center;
 }
 
@@ -76,38 +97,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   self.ownerViewController.view.userInteractionEnabled = YES;
   [self.view removeFromSuperview];
   [self removeFromParentViewController];
-}
-
-#pragma mark - Gesture intercepter
-
-- (IBAction)backgroundTap:(UITapGestureRecognizer *)sender
-{
-  return;
-}
-
-- (IBAction)backgroundSwipe:(UISwipeGestureRecognizer *)sender
-{
-  return;
-}
-
-- (IBAction)backgroundPinch:(id)sender
-{
-  return;
-}
-
-- (IBAction)backgroundPan:(id)sender
-{
-  return;
-}
-
-#pragma mark - Gesture Recognizer Delegate
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-  if ([touch.view isKindOfClass:[UIControl class]])
-    [(UIControl *)touch.view sendActionsForControlEvents:UIControlEventTouchUpInside];
-
-  return YES;
 }
 
 @end

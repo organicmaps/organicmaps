@@ -11,10 +11,10 @@
 
 namespace search { struct AddressInfo; }
 
-@class MWMMapViewControlsManager;
+@class MWMMapViewControlsManager, MWMPlacePageViewManager;
 @class ShareActionSheet;
 
-@interface MapViewController : ViewController <LocationObserver, UIAlertViewDelegate, UIPopoverControllerDelegate>
+@interface MapViewController : ViewController <LocationObserver, UIPopoverControllerDelegate>
 {
 	bool m_isSticking;
 	size_t m_StickyThreshold;
@@ -47,6 +47,7 @@ namespace search { struct AddressInfo; }
 @property (nonatomic) ShareActionSheet * shareActionSheet;
 - (void)setApiMode:(BOOL)apiMode animated:(BOOL)animated;
 @property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
+@property (nonatomic, readonly) MWMPlacePageViewManager * placePageManager;
 @property (nonatomic) m2::PointD restoreRouteDestination;
 
 @end

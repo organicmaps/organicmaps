@@ -32,8 +32,6 @@
 #include "../../../platform/platform.hpp"
 #include "../../../platform/settings.hpp"
 
-#define ALERT_VIEW_ROUTING_DISCLAIMER 7
-
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
 typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
@@ -732,16 +730,21 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
           if (!isDisclaimerApproved)
           {
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"routing_disclaimer") message:@"" delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
-            alert.tag = ALERT_VIEW_ROUTING_DISCLAIMER;
-            [alert show];
+            [self presentRoutingDisclaimerAlert];
+            Settings::Set("IsDisclaimerApproved", true);
           }
           break;
         }
         case routing::IRouter::RouteFileNotExist:
-        case routing::IRouter::RouteNotFound:
         case routing::IRouter::InconsistentMWMandRoute:
-          [self presentDownloaderAlert:code countries:absentCountries];
+        case routing::IRouter::NeedMoreMaps:
+          [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes];
+          break;
+        case routing::IRouter::NoCurrentPosition:
+          if (GetFramework().GetLocationState()->GetMode() == location::State::Mode::UnknownPosition)
+            [self presentDisabledLocationAlert];
+          else
+            [self presentDefaultAlert:code];
           break;
         case routing::IRouter::Cancelled:
           break;
@@ -758,11 +761,14 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 #pragma mark - ShowDialog callback
 
-- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const&)countries {
+- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
+{
   if (countries.size())
   {
-    MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
-    [alert presentDownloaderAlertWithCountryIndex:countries[0]];
+    MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
+//    if (type == routing::IRouter::NeedMoreMaps)
+//    else
+      [alert presentDownloaderAlertWithCountries:countries routes:routes];
   }
   else
   {
@@ -770,11 +776,25 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   }
 }
 
+- (void)presentDisabledLocationAlert
+{
+  MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
+  [alert presentDisabledLocationAlert];
+}
+
 - (void)presentDefaultAlert:(routing::IRouter::ResultCode)type
 {
-  MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
+  MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
   [alert presentAlert:type];
 }
+
+- (void)presentRoutingDisclaimerAlert
+{
+  MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
+  [alert presentRoutingDisclaimerAlert];
+}
+
+#pragma mark - Getters
 
 - (UIView *)routeViewWrapper
 {
@@ -968,23 +988,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
     self.routeViewWrapper.minY = MAX(offset - [self.searchView defaultSearchBarMinY], 0.0);
   }
   completion:nil];
-}
-
-#pragma mark - UIKitViews delegates
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-  switch (alertView.tag)
-  {
-    case ALERT_VIEW_ROUTING_DISCLAIMER:
-      if (buttonIndex == alertView.cancelButtonIndex)
-        [self dismissRouting];
-      else
-        Settings::Set("IsDisclaimerApproved", true);
-      break;
-    default:
-      break;
-  }
 }
 
 #pragma mark - MWMPlacePageViewManagerDelegate
