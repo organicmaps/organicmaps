@@ -78,6 +78,7 @@ public:
   void UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvider * provider);
 
   void SetRenderingEnabled(bool const isEnabled);
+  void InvalidateRect(m2::RectD const & rect);
 
   void SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded);
   void SetCompassInfo(location::CompassInfo const & info);

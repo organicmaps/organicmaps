@@ -27,6 +27,11 @@ void TileTree::SetHandlers(TRenderGroupHandler const & addRenderGroup,
   m_removeTileHandler = removeTile;
 }
 
+void TileTree::Invalidate()
+{
+  m_root.reset(new Node());
+}
+
 void TileTree::ResetHandlers()
 {
   m_addRenderGroupHandler = nullptr;

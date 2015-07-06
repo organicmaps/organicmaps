@@ -51,6 +51,7 @@ private:
   drape_ptr<threads::ThreadPool> m_pool;
 
   ScreenBase m_currentViewport;
+  bool m_forceUpdate;
 
   struct LessByTileInfo
   {

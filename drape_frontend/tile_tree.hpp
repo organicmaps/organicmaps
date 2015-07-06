@@ -36,6 +36,8 @@ public:
                    TTileHandler const & activateTile,
                    TTileHandler const & removeTile);
 
+  void Invalidate();
+
   /// This method must be called before requesting bunch of tiles.
   void BeginRequesting(int const zoomLevel, m2::RectD const & clipRect);
   /// This method requests a new tile.

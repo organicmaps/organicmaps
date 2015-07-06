@@ -160,6 +160,13 @@ void DrapeEngine::SetRenderingEnabled(bool const isEnabled)
   LOG(LDEBUG, (isEnabled ? "Rendering enabled" : "Rendering disabled"));
 }
 
+void DrapeEngine::InvalidateRect(m2::RectD const & rect)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<InvalidateRectMessage>(rect),
+                                  MessagePriority::High);
+}
+
 void DrapeEngine::AddUserEvent(UserEvent const & e)
 {
   m_frontend->AddUserEvent(e);

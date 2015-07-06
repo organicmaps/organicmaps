@@ -76,7 +76,7 @@ bada/Maps/*.zip
 
 # data
 data/intermediate_data
-data/*.mwm
+data/**/*.mwm
 !data/World.mwm
 !data/WorldCoasts.mwm
 # temporary files for downloader

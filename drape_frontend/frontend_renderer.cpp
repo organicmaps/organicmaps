@@ -134,17 +134,42 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-
   case Message::InvalidateRect:
     {
-      // TODO(@kuznetsov): implement invalidation
+      ref_ptr<InvalidateRectMessage> m = message;
+      TTilesCollection tiles;
+      ScreenBase screen = m_userEventStream.GetCurrentScreen();
+      m2::RectD rect = m->GetRect();
+      if (rect.Intersect(screen.ClipRect()))
+      {
+        m_tileTree->Invalidate();
+        ResolveTileKeys(rect, tiles);
 
-      //ref_ptr<InvalidateRectMessage> m = message;
-      //TTilesCollection keyStorage;
-      //Message * msgToBackend = new InvalidateReadManagerRectMessage(keyStorage);
-      //m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-      //                          dp::MovePointer(msgToBackend),
-      //                          MessagePriority::Normal);
+        auto eraseFunction = [&tiles](vector<drape_ptr<RenderGroup>> & groups)
+        {
+          vector<drape_ptr<RenderGroup> > newGroups;
+          for (drape_ptr<RenderGroup> & group : groups)
+          {
+            if (tiles.find(group->GetTileKey()) == tiles.end())
+              newGroups.push_back(move(group));
+          }
+
+          swap(groups, newGroups);
+        };
+
+        eraseFunction(m_renderGroups);
+        eraseFunction(m_deferredRenderGroups);
+
+        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<InvalidateReadManagerRectMessage>(tiles),
+                                  MessagePriority::Normal);
+
+        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<UpdateReadManagerMessage>(screen, move(tiles)),
+                                  MessagePriority::Normal);
+
+        RefreshBgColor();
+      }
       break;
     }
 
@@ -595,7 +620,7 @@ int FrontendRenderer::GetCurrentZoomLevel() const
   return m_currentZoomLevel;
 }
 
-void FrontendRenderer::ResolveZoomLevel(const ScreenBase & screen)
+void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
   m_currentZoomLevel = GetDrawTileScale(screen);
 }
@@ -679,26 +704,30 @@ void FrontendRenderer::OnScaleEnded()
 
 void FrontendRenderer::ResolveTileKeys(ScreenBase const & screen, TTilesCollection & tiles)
 {
+  m2::RectD const & clipRect = screen.ClipRect();
+  ResolveTileKeys(clipRect, tiles);
+}
+
+void FrontendRenderer::ResolveTileKeys(m2::RectD const & rect, TTilesCollection & tiles)
+{
   // equal for x and y
   int const tileScale = GetCurrentZoomLevel();
   double const range = MercatorBounds::maxX - MercatorBounds::minX;
   double const rectSize = range / (1 << tileScale);
 
-  m2::RectD const & clipRect = screen.ClipRect();
-
-  int const minTileX = static_cast<int>(floor(clipRect.minX() / rectSize));
-  int const maxTileX = static_cast<int>(ceil(clipRect.maxX() / rectSize));
-  int const minTileY = static_cast<int>(floor(clipRect.minY() / rectSize));
-  int const maxTileY = static_cast<int>(ceil(clipRect.maxY() / rectSize));
+  int const minTileX = static_cast<int>(floor(rect.minX() / rectSize));
+  int const maxTileX = static_cast<int>(ceil(rect.maxX() / rectSize));
+  int const minTileY = static_cast<int>(floor(rect.minY() / rectSize));
+  int const maxTileY = static_cast<int>(ceil(rect.maxY() / rectSize));
 
   // request new tiles
-  m_tileTree->BeginRequesting(tileScale, clipRect);
+  m_tileTree->BeginRequesting(tileScale, rect);
   for (int tileY = minTileY; tileY < maxTileY; ++tileY)
   {
     for (int tileX = minTileX; tileX < maxTileX; ++tileX)
     {
       TileKey key(tileX, tileY, tileScale);
-      if (clipRect.IsIntersect(key.GetGlobalRect()))
+      if (rect.IsIntersect(key.GetGlobalRect()))
       {
         tiles.insert(key);
         m_tileTree->RequestTile(key);

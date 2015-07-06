@@ -203,6 +203,8 @@ public:
   bool IsCountryLoaded(m2::PointD const & pt) const;
   //@}
 
+  void InvalidateRect(m2::RectD const & rect);
+
   /// @name Get any country info by point.
   //@{
   storage::TIndex GetCountryIndex(m2::PointD const & pt) const;

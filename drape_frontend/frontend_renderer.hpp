@@ -137,6 +137,7 @@ private:
   void EmitModelViewChanged(ScreenBase const & modelView) const;
 
   void ResolveTileKeys(ScreenBase const & screen, TTilesCollection & tiles);
+  void ResolveTileKeys(m2::RectD const & rect, TTilesCollection & tiles);
   int GetCurrentZoomLevel() const;
   void ResolveZoomLevel(ScreenBase const & screen);
 

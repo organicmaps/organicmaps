@@ -35,6 +35,7 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   : m_commutator(commutator)
   , m_model(model)
   , m_pool(make_unique_dp<threads::ThreadPool>(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)))
+  , m_forceUpdate(true)
   , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model))
   , m_counter(0)
 {
@@ -70,9 +71,10 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
 
 void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection const & tiles)
 {
-  if (screen == m_currentViewport)
+  if (screen == m_currentViewport && !m_forceUpdate)
     return;
 
+  m_forceUpdate = false;
   if (MustDropAllTiles(screen))
   {
     IncreaseCounter(static_cast<int>(tiles.size()));
@@ -112,14 +114,20 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection con
 
 void ReadManager::Invalidate(TTilesCollection const & keyStorage)
 {
-  for (auto & info : m_tileInfos)
+  TTileSet tilesToErase;
+  for (auto const & info : m_tileInfos)
   {
     if (keyStorage.find(info->GetTileKey()) != keyStorage.end())
-    {
-      CancelTileInfo(info);
-      PushTaskFront(info);
-    }
+      tilesToErase.insert(info);
   }
+
+  for (auto const & info : tilesToErase)
+  {
+    CancelTileInfo(info);
+    m_tileInfos.erase(info);
+  }
+
+  m_forceUpdate = true;
 }
 
 void ReadManager::Stop()
