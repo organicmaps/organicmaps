@@ -29,6 +29,7 @@ usage() {
   echo -e "\tREGIONS=\$(ls ../../data/A*.poly) $0"
   echo -e "NS\tNode storage; use \"map\" when you have less than 64 GB of memory"
   echo -e "ASYNC_PBF\tGenerate PBF files asynchronously, not in a separate step"
+  echo -e "MAIL\tE-mail address to send notifications"
   echo
 }
 
@@ -137,6 +138,7 @@ TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
 LOG_PATH="$TARGET/logs"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
+[ -n "${MAIL-}" ] && trap "grep STATUS \"$PLANET_LOG\" | mailx -s \"Generate_planet: build failed\" \"$MAIL\"; exit 1" SIGINT SIGTERM
 log "STATUS" "Start"
 
 # Run external script to find generator_tool
@@ -390,7 +392,12 @@ fi
 
 if [ "$MODE" == "test" ]; then
   putmode "Step 8: Testing data"
-  bash "$TESTING_SCRIPT" > "$LOG_PATH/test_planet.log" "$TARGET"
+  TEST_LOG="$LOG_PATH/test_planet.log"
+  bash "$TESTING_SCRIPT" "$TARGET" > "$TEST_LOG"
+  # Send both log files via e-mail
+  if [ -n "${MAIL-}" ]; then
+    cat <(grep STATUS "$PLANET_LOG") <(echo ---------------) "$TEST_LOG" | mailx -s "Generate_planet: build completed" "$MAIL"
+  fi
 fi
 
 # Cleaning up temporary directories

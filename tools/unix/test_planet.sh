@@ -25,11 +25,11 @@ echo
 echo '### LOGS'
 grep -i 'error\|warn\|critical\|fail\|abort\|останов\|fatal' "$PLANET_LOG" | grep -v 'settings\.ini'
 for log in "$LOG_PATH"/*.log; do
-  if [ "$log" != "$PLANET_LOG" ]; then
+  if [ "$log" != "$PLANET_LOG" -a "$log" != "$LOG_PATH/test_planet.log" ]; then
     CONTENT="$(grep -i 'error\|warn\|critical\|fail\|abort\|останов\|fatal' "$log" | grep -v 'settings\.ini\|language file for co\|Zero length lin\|too many tokens\|Equal choices for way\|No feature id for way\|number of threads is')"
     if [ -n "$CONTENT" ]; then
       echo
-      echo $log
+      echo "$log"
       echo "$CONTENT"
     fi
   fi
