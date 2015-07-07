@@ -3,6 +3,7 @@
 
 #include "std/cstdint.hpp"
 #include "std/initializer_list.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/unordered_map.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -21,11 +22,26 @@ public:
   virtual ~IVehicleModel() {}
 
   /// @return Allowed speed in KMpH.
-  /// 0 means that is's forbidden to drive on this feature or it's not a road at all.
+  /// 0 means that it's forbidden to move on this feature or it's not a road at all.
   virtual double GetSpeed(FeatureType const & f) const = 0;
+
+  /// @returns Max speed in KMpH for this model
   virtual double GetMaxSpeed() const = 0;
 
   virtual bool IsOneWay(FeatureType const & f) const = 0;
+};
+
+class IVehicleModelFactory
+{
+public:
+  virtual ~IVehicleModelFactory() {}
+
+  /// @returns Default vehicle model which corresponds for all countrines,
+  /// but it may be non optimal for some countries
+  virtual shared_ptr<IVehicleModel> GetVehicleModel() const = 0;
+
+  /// @returns The most optimal vehicle model for specified country
+  virtual shared_ptr<IVehicleModel> GetVehicleModelForCountry(string const & country) const = 0;
 };
 
 class VehicleModel : public IVehicleModel
@@ -78,22 +94,6 @@ class CarModel : public VehicleModel
 {
 public:
   CarModel();
-};
-
-class PedestrianModel : public VehicleModel
-{
-  uint32_t m_noFootType;
-
-  bool IsFoot(feature::TypesHolder const & types) const;
-
-public:
-  PedestrianModel();
-
-  /// @name Overrides from VehicleModel.
-  //@{
-  double GetSpeed(FeatureType const & f) const override;
-  bool IsOneWay(FeatureType const &) const override { return false; }
-  //@}
 };
 
 }  // namespace routing

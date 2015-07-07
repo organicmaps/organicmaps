@@ -25,6 +25,7 @@ SOURCES += \
     osrm_engine.cpp \
     osrm_online_router.cpp \
     osrm_router.cpp \
+    pedestrian_model.cpp \
     road_graph.cpp \
     road_graph_router.cpp \
     route.cpp \
@@ -51,6 +52,7 @@ HEADERS += \
     osrm_engine.hpp \
     osrm_online_router.hpp \
     osrm_router.hpp \
+    pedestrian_model.hpp \
     road_graph.hpp \
     road_graph_router.hpp \
     route.hpp \

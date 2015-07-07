@@ -40,38 +40,6 @@ VehicleModel::InitListT const s_carLimits =
 };
 
 
-static double const kPedestrianSpeedVerySlowKMpH = 4.25;
-static double const kPedestrianSpeedSlowKMpH = 4.5;
-static double const kPedestrianSpeedBelowNormalKMpH = 5;
-static double const kPedestrianSpeedNormalKMpH = 5;
-
-VehicleModel::InitListT const s_pedestrianLimits =
-{
-  // see road pictures here - http://wiki.openstreetmap.org/wiki/Key:highway
-  { {"highway", "motorway"},       kPedestrianSpeedVerySlowKMpH },
-  { {"highway", "trunk"},          kPedestrianSpeedVerySlowKMpH },
-  { {"highway", "motorway_link"},  kPedestrianSpeedVerySlowKMpH },
-  { {"highway", "trunk_link"},     kPedestrianSpeedVerySlowKMpH },
-  { {"highway", "primary"},        kPedestrianSpeedSlowKMpH },
-  { {"highway", "primary_link"},   kPedestrianSpeedSlowKMpH },
-  { {"highway", "secondary"},      kPedestrianSpeedSlowKMpH },
-  { {"highway", "secondary_link"}, kPedestrianSpeedSlowKMpH },
-  { {"highway", "tertiary"},       kPedestrianSpeedSlowKMpH },
-  { {"highway", "tertiary_link"},  kPedestrianSpeedSlowKMpH },
-  { {"highway", "service"},        kPedestrianSpeedSlowKMpH },
-  { {"highway", "unclassified"},   kPedestrianSpeedBelowNormalKMpH },
-  { {"highway", "road"},           kPedestrianSpeedBelowNormalKMpH },
-  { {"highway", "track"},          kPedestrianSpeedBelowNormalKMpH },
-  { {"highway", "path"},           kPedestrianSpeedBelowNormalKMpH },
-  { {"highway", "residential"},    kPedestrianSpeedNormalKMpH },
-  { {"highway", "living_street"},  kPedestrianSpeedNormalKMpH },
-  { {"highway", "steps"},          kPedestrianSpeedNormalKMpH },
-  { {"highway", "pedestrian"},     kPedestrianSpeedNormalKMpH },
-  { {"highway", "footway"},        kPedestrianSpeedNormalKMpH },
-  // all other are restricted
-};
-
-
 VehicleModel::VehicleModel(Classificator const & c, VehicleModel::InitListT const & speedLimits)
   : m_maxSpeedKMpH(0),
     m_onewayType(c.GetTypeByPath({ "hwtag", "oneway" }))
@@ -144,35 +112,6 @@ CarModel::CarModel()
   };
 
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
-}
-
-
-PedestrianModel::PedestrianModel()
-  : VehicleModel(classif(), s_pedestrianLimits),
-    m_noFootType(classif().GetTypeByPath({ "hwtag", "nofoot" }))
-{
-  initializer_list<char const *> arr[] =
-  {
-    { "route", "ferry" },
-    { "man_made", "pier" },
-  };
-
-  SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
-}
-
-bool PedestrianModel::IsFoot(feature::TypesHolder const & types) const
-{
-  return find(types.begin(), types.end(), m_noFootType) == types.end();
-}
-
-double PedestrianModel::GetSpeed(FeatureType const & f) const
-{
-  feature::TypesHolder types(f);
-
-  if (IsFoot(types) && IsRoad(types))
-    return VehicleModel::GetSpeed(types);
-
-  return 0.0;
 }
 
 }  // namespace routing

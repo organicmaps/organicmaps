@@ -26,7 +26,7 @@ class RoadGraphRouter : public IRouter
 public:
   RoadGraphRouter(string const & name,
                   Index const & index,
-                  unique_ptr<IVehicleModel> && vehicleModel,
+                  unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
                   unique_ptr<IRoutingAlgorithm> && algorithm,
                   TMwmFileByPointFn const & countryFileFn);
   ~RoadGraphRouter() override;
@@ -50,11 +50,12 @@ private:
 
   string const m_name;
   Index const & m_index;
-  unique_ptr<IVehicleModel> const m_vehicleModel;
+  unique_ptr<IVehicleModelFactory> const m_vehicleModelFactory;
   unique_ptr<IRoutingAlgorithm> const m_algorithm;
   TMwmFileByPointFn const m_countryFileFn;
 
   unique_ptr<IRoadGraph> m_roadGraph;
+  shared_ptr<IVehicleModel> m_vehicleModel;
 };
   
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index const & index,

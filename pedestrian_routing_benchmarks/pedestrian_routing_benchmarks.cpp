@@ -7,7 +7,7 @@
 #include "routing/nearest_edge_finder.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
-#include "routing/vehicle_model.hpp"
+#include "routing/pedestrian_model.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -43,19 +43,34 @@ public:
   }
 };
 
+class SimplifiedPedestrianModelFactory : public routing::IVehicleModelFactory
+{
+public:
+  SimplifiedPedestrianModelFactory()
+    : m_model(make_shared<SimplifiedPedestrianModel>())
+  {}
+
+  // IVehicleModelFactory overrides:
+  shared_ptr<routing::IVehicleModel> GetVehicleModel() const override { return m_model; }
+  shared_ptr<routing::IVehicleModel> GetVehicleModelForCountry(string const & /*country*/) const override { return m_model; }
+
+private:
+  shared_ptr<routing::IVehicleModel> const m_model;
+};
+
 unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index const & index, routing::TMwmFileByPointFn const & countryFileFn)
 {
-  unique_ptr<routing::IVehicleModel> vehicleModel(new SimplifiedPedestrianModel());
+  unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm(nullptr));
-  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, move(vehicleModel), move(algorithm), countryFileFn));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, move(vehicleModelFactory), move(algorithm), countryFileFn));
   return router;
 }
 
 unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index const & index, routing::TMwmFileByPointFn const & countryFileFn)
 {
-  unique_ptr<routing::IVehicleModel> vehicleModel(new SimplifiedPedestrianModel());
+  unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarBidirectionalRoutingAlgorithm(nullptr));
-  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, move(vehicleModel), move(algorithm), countryFileFn));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, move(vehicleModelFactory), move(algorithm), countryFileFn));
   return router;
 }
 
