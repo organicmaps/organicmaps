@@ -224,7 +224,7 @@ if [ "$MODE" == "coast" ]; then
       PLANET_ABS="$(cd "$(dirname "$PLANET")"; pwd)/$(basename "$PLANET")"
       (
         cd "$OSMCTOOLS" # osmupdate requires osmconvert in a current directory
-        ./osmupdate --drop-author --drop-version --out-o5m -v "$PLANET_ABS" "$PLANET_ABS.new.o5m"
+        ./osmupdate --drop-author --drop-version --out-o5m -v "$PLANET_ABS" "$PLANET_ABS.new.o5m" >> "$PLANET_LOG" 2>&1
       )
       mv "$PLANET.new.o5m" "$PLANET"
     fi
