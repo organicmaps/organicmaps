@@ -145,8 +145,6 @@ struct AddressInfo
 {
   string m_country, m_city, m_street, m_house, m_name;
   vector<string> m_types;
-  // TODO(AlexZ): It is not initialized in MakeFrom() below because we don't need it in search at the moment.
-  bool m_isBuilding = false;
 
   void MakeFrom(search::Result const & res);
 
@@ -159,7 +157,6 @@ struct AddressInfo
   string FormatNameAndAddress() const;  // Caroline, 7 vulica Frunze, Belarus
   char const * GetBestType() const;
   bool IsEmptyName() const;
-  bool IsBuilding() const { return m_isBuilding; }
 
   void Clear();
 };

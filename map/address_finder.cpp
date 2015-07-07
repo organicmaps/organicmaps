@@ -373,8 +373,6 @@ namespace
         if (info.m_house.empty())
           info.m_house = m_cont[i].m_house;
 
-        info.m_isBuilding = info.m_isBuilding || m_checker.IsBuilding(m_cont[i].m_types);
-
         if (info.m_name.empty())
         {
           /// @todo Make logic better.

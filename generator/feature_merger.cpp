@@ -288,8 +288,9 @@ void FeatureTypesProcessor::CorrectType(uint32_t & t) const
   ftype::TruncValue(t, 2);
 
   // 2. get mapping type:
-  map<uint32_t, uint32_t>::const_iterator i = m_mapping.find(t);
-  if (i != m_mapping.end()) t = i->second;
+  auto i = m_mapping.find(t);
+  if (i != m_mapping.end())
+    t = i->second;
 }
 
 void FeatureTypesProcessor::SetMappingTypes(char const * arr1[2], char const * arr2[2])
