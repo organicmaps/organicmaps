@@ -116,6 +116,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<GuiLayerLayoutMessage>(msg->AcceptLayoutInfo()),
                                 MessagePriority::Normal);
+      RecacheCountryStatus();
       break;
     }
   case Message::TileReadStarted:
