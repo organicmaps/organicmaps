@@ -268,7 +268,7 @@ node|z16-[natural=wood],
   text-color: @dark_gray_20;
 }
 
-area|z10-[natural=glacier]
+area|z0-[natural=glacier]
 {
   fill-color: @glacier;
 }
