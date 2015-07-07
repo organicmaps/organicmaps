@@ -5,6 +5,7 @@
 #include "base/src_point.hpp"
 
 #include "std/string.hpp"
+#include "std/thread.hpp"
 
 class GLFunctions
 {
@@ -13,10 +14,10 @@ class GLFunctions
 public:
   static void Init();
 
-  /// Enables cache of gl-functions. The only cache is available,
-  /// so invoking of this method on other thread leads to disabling
-  /// of current cache and enabling another
-  static void EnableCache();
+  /// Attaches cache of gl-functions to specified thread. The only cache
+  /// is available, so invoking of this method on other thread leads to
+  /// disabling of current cache and enabling another
+  static void AttachCache(thread::id const & threadId);
 
   static bool glHasExtension(string const & name);
   static void glClearColor(float r, float g, float b, float a);

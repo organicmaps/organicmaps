@@ -8,8 +8,6 @@
 #include "base/mutex.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/thread.hpp"
-
 #ifdef DEBUG
 #include "base/thread.hpp"
 #include "std/map.hpp"
@@ -448,9 +446,9 @@ void GLFunctions::Init()
   glUniformMatrix4fvFn = LOAD_GL_FUNC(TglUniformMatrix4fvFn, glUniformMatrix4fv);
 }
 
-void GLFunctions::EnableCache()
+void GLFunctions::AttachCache(thread::id const & threadId)
 {
-  s_cache.SetThread(this_thread::get_id());
+  s_cache.SetThread(threadId);
 }
 
 bool GLFunctions::glHasExtension(string const & name)
