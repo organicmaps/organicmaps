@@ -599,8 +599,12 @@ string Storage::GetFileDownloadUrl(string const & baseUrl, TIndex const & index,
                                    TMapOptions file) const
 {
   CountryFile const & countryFile = GetCountryFile(index);
-  return baseUrl + OMIM_OS_NAME "/" + strings::to_string(GetCurrentDataVersion()) + "/" +
-         UrlEncode(countryFile.GetNameWithExt(file));
+  return GetFileDownloadUrl(baseUrl, countryFile.GetNameWithExt(file));
+}
+
+string Storage::GetFileDownloadUrl(string const & baseUrl, string const & fName) const
+{
+  return baseUrl + OMIM_OS_NAME "/" + strings::to_string(GetCurrentDataVersion())  + "/" + UrlEncode(fName);
 }
 
 TIndex Storage::FindIndexByFile(string const & name) const

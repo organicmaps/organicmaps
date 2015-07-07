@@ -162,7 +162,10 @@ public:
 
   void NotifyStatusChanged(TIndex const & index);
 
+  /// get download url by index & options(first search file name by index, then format url)
   string GetFileDownloadUrl(string const & baseUrl, TIndex const & index, TMapOptions file) const;
+  /// get download url by base url & file name
+  string GetFileDownloadUrl(string const & baseUrl, string const & fName) const;
 
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(vector<Country const *> & countries) const;
