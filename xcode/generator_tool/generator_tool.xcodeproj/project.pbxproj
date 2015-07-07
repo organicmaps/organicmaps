@@ -542,6 +542,8 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					QtCore,
+					"-framework",
+					SystemConfiguration,
 				);
 				SDKROOT = macosx;
 			};
@@ -587,6 +589,8 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					QtCore,
+					"-framework",
+					SystemConfiguration,
 				);
 				SDKROOT = macosx;
 			};

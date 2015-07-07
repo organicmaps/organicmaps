@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -205,7 +205,7 @@
 		67534CB41A409A8E00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					67534CBB1A409A8E00A0A8C3 = {
@@ -214,7 +214,7 @@
 				};
 			};
 			buildConfigurationList = 67534CB71A409A8E00A0A8C3 /* Build configuration list for PBXProject "zlib" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (

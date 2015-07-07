@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C62041AE9014C00076BD0 /* measurement_utils.cpp */; };
 		671C62071AE9014C00076BD0 /* measurement_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671C62051AE9014C00076BD0 /* measurement_utils.hpp */; };
+		674125081B4C00CC00A3E828 /* country_defines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674125001B4C00CC00A3E828 /* country_defines.cpp */; };
+		674125091B4C00CC00A3E828 /* country_defines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674125011B4C00CC00A3E828 /* country_defines.hpp */; };
+		6741250A1B4C00CC00A3E828 /* country_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674125021B4C00CC00A3E828 /* country_file.cpp */; };
+		6741250B1B4C00CC00A3E828 /* country_file.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674125031B4C00CC00A3E828 /* country_file.hpp */; };
+		6741250C1B4C00CC00A3E828 /* local_country_file_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674125041B4C00CC00A3E828 /* local_country_file_utils.cpp */; };
+		6741250D1B4C00CC00A3E828 /* local_country_file_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674125051B4C00CC00A3E828 /* local_country_file_utils.hpp */; };
+		6741250E1B4C00CC00A3E828 /* local_country_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674125061B4C00CC00A3E828 /* local_country_file.cpp */; };
+		6741250F1B4C00CC00A3E828 /* local_country_file.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674125071B4C00CC00A3E828 /* local_country_file.hpp */; };
 		675343B11A3F5D5A00A0A8C3 /* apple_location_service.mm in Sources */ = {isa = PBXBuildFile; fileRef = 675343861A3F5D5900A0A8C3 /* apple_location_service.mm */; };
 		675343B21A3F5D5A00A0A8C3 /* apple_video_timer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 675343871A3F5D5900A0A8C3 /* apple_video_timer.mm */; };
 		675343B31A3F5D5A00A0A8C3 /* chunks_download_strategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343881A3F5D5900A0A8C3 /* chunks_download_strategy.cpp */; };
@@ -48,6 +56,14 @@
 		670D05A71B0E03BF0013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		671C62041AE9014C00076BD0 /* measurement_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = measurement_utils.cpp; sourceTree = "<group>"; };
 		671C62051AE9014C00076BD0 /* measurement_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = measurement_utils.hpp; sourceTree = "<group>"; };
+		674125001B4C00CC00A3E828 /* country_defines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_defines.cpp; sourceTree = "<group>"; };
+		674125011B4C00CC00A3E828 /* country_defines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_defines.hpp; sourceTree = "<group>"; };
+		674125021B4C00CC00A3E828 /* country_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_file.cpp; sourceTree = "<group>"; };
+		674125031B4C00CC00A3E828 /* country_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_file.hpp; sourceTree = "<group>"; };
+		674125041B4C00CC00A3E828 /* local_country_file_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = local_country_file_utils.cpp; sourceTree = "<group>"; };
+		674125051B4C00CC00A3E828 /* local_country_file_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local_country_file_utils.hpp; sourceTree = "<group>"; };
+		674125061B4C00CC00A3E828 /* local_country_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = local_country_file.cpp; sourceTree = "<group>"; };
+		674125071B4C00CC00A3E828 /* local_country_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local_country_file.hpp; sourceTree = "<group>"; };
 		675343781A3F5CF500A0A8C3 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		675343861A3F5D5900A0A8C3 /* apple_location_service.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = apple_location_service.mm; sourceTree = "<group>"; };
 		675343871A3F5D5900A0A8C3 /* apple_video_timer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = apple_video_timer.mm; sourceTree = "<group>"; };
@@ -115,6 +131,14 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				674125001B4C00CC00A3E828 /* country_defines.cpp */,
+				674125011B4C00CC00A3E828 /* country_defines.hpp */,
+				674125021B4C00CC00A3E828 /* country_file.cpp */,
+				674125031B4C00CC00A3E828 /* country_file.hpp */,
+				674125041B4C00CC00A3E828 /* local_country_file_utils.cpp */,
+				674125051B4C00CC00A3E828 /* local_country_file_utils.hpp */,
+				674125061B4C00CC00A3E828 /* local_country_file.cpp */,
+				674125071B4C00CC00A3E828 /* local_country_file.hpp */,
 				671C62041AE9014C00076BD0 /* measurement_utils.cpp */,
 				671C62051AE9014C00076BD0 /* measurement_utils.hpp */,
 				675343861A3F5D5900A0A8C3 /* apple_location_service.mm */,
@@ -163,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				675343B71A3F5D5A00A0A8C3 /* http_request.hpp in Headers */,
+				6741250B1B4C00CC00A3E828 /* country_file.hpp in Headers */,
 				675343B81A3F5D5A00A0A8C3 /* http_thread_apple.h in Headers */,
 				675343C21A3F5D5A00A0A8C3 /* location.hpp in Headers */,
 				675343D41A3F5D5A00A0A8C3 /* settings.hpp in Headers */,
@@ -172,9 +197,12 @@
 				675343D21A3F5D5A00A0A8C3 /* servers_list.hpp in Headers */,
 				675343BA1A3F5D5A00A0A8C3 /* http_thread_callback.hpp in Headers */,
 				675343B41A3F5D5A00A0A8C3 /* chunks_download_strategy.hpp in Headers */,
+				674125091B4C00CC00A3E828 /* country_defines.hpp in Headers */,
 				675343CD1A3F5D5A00A0A8C3 /* platform.hpp in Headers */,
 				675343D81A3F5D5A00A0A8C3 /* video_timer.hpp in Headers */,
+				6741250F1B4C00CC00A3E828 /* local_country_file.hpp in Headers */,
 				675343CF1A3F5D5A00A0A8C3 /* preferred_languages.hpp in Headers */,
+				6741250D1B4C00CC00A3E828 /* local_country_file_utils.hpp in Headers */,
 				675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */,
 				671C62071AE9014C00076BD0 /* measurement_utils.hpp in Headers */,
 			);
@@ -238,7 +266,11 @@
 			files = (
 				675343D11A3F5D5A00A0A8C3 /* servers_list.cpp in Sources */,
 				675343C91A3F5D5A00A0A8C3 /* platform_unix_impl.cpp in Sources */,
+				6741250A1B4C00CC00A3E828 /* country_file.cpp in Sources */,
+				674125081B4C00CC00A3E828 /* country_defines.cpp in Sources */,
+				6741250E1B4C00CC00A3E828 /* local_country_file.cpp in Sources */,
 				675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */,
+				6741250C1B4C00CC00A3E828 /* local_country_file_utils.cpp in Sources */,
 				675343B21A3F5D5A00A0A8C3 /* apple_video_timer.mm in Sources */,
 				671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */,
 				675343B61A3F5D5A00A0A8C3 /* http_request.cpp in Sources */,

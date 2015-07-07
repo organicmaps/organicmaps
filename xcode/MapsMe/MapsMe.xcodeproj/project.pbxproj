@@ -17,7 +17,6 @@
 		670D059A1B0CBD5B0013A7AC /* mainwindow.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345761A404CB200A0A8C3 /* mainwindow.hpp */; };
 		670D059B1B0CBD5B0013A7AC /* proxystyle.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753457A1A404CB200A0A8C3 /* proxystyle.hpp */; };
 		670D059C1B0CBD5B0013A7AC /* widgets.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345851A404CB200A0A8C3 /* widgets.hpp */; };
-		670D05BD1B0E10640013A7AC /* defaults.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 670D05BC1B0E10640013A7AC /* defaults.xcconfig */; };
 		6729A5C11A693014007D5872 /* categories.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5B91A693013007D5872 /* categories.txt */; };
 		6729A5C21A693014007D5872 /* classificator.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5BA1A693013007D5872 /* classificator.txt */; };
 		6729A5C31A693014007D5872 /* countries.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5BB1A693013007D5872 /* countries.txt */; };
@@ -467,7 +466,7 @@
 		675345411A404C6100A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					675345481A404C6100A0A8C3 = {
@@ -498,7 +497,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				670D05BD1B0E10640013A7AC /* defaults.xcconfig in Resources */,
 				6729A6681A69394D007D5872 /* resources.qrc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -594,6 +592,8 @@
 					QtOpenGL,
 					"-framework",
 					QtGui,
+					"-framework",
+					SystemConfiguration,
 				);
 				SDKROOT = macosx;
 				SYMROOT = build;
@@ -650,6 +650,8 @@
 					QtOpenGL,
 					"-framework",
 					QtGui,
+					"-framework",
+					SystemConfiguration,
 				);
 				SDKROOT = macosx;
 				SYMROOT = build;

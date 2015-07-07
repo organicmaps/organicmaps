@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -520,7 +520,7 @@
 		675345B31A4054AD00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					674A29DE1B26FD1C001A525C = {
@@ -532,7 +532,7 @@
 				};
 			};
 			buildConfigurationList = 675345B61A4054AD00A0A8C3 /* Build configuration list for PBXProject "map" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -785,6 +785,7 @@
 				674A29E51B26FD1C001A525C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		675345B61A4054AD00A0A8C3 /* Build configuration list for PBXProject "map" */ = {
 			isa = XCConfigurationList;

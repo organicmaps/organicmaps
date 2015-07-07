@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		670D04A31B0B7E460013A7AC /* alohalytics.cc in Sources */ = {isa = PBXBuildFile; fileRef = 670D04A21B0B7E460013A7AC /* alohalytics.cc */; };
+		674125171B4C056600A3E828 /* file_manager_posix_impl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 674125161B4C056600A3E828 /* file_manager_posix_impl.cc */; };
 		67D1C7F71AE50DDF00A239E3 /* alohalytics_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D1C7F51AE50DDF00A239E3 /* alohalytics_objc.mm */; };
 		67D1C7F81AE50DDF00A239E3 /* http_client_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D1C7F61AE50DDF00A239E3 /* http_client_apple.mm */; };
 		67D1C7FB1AE50DFB00A239E3 /* alohalytics_objc.h in Headers */ = {isa = PBXBuildFile; fileRef = 67D1C7F91AE50DFB00A239E3 /* alohalytics_objc.h */; };
@@ -17,6 +18,7 @@
 /* Begin PBXFileReference section */
 		670D04A21B0B7E460013A7AC /* alohalytics.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = alohalytics.cc; path = src/cpp/alohalytics.cc; sourceTree = "<group>"; };
 		670D05B91B0E0CAD0013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		674125161B4C056600A3E828 /* file_manager_posix_impl.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_manager_posix_impl.cc; path = src/posix/file_manager_posix_impl.cc; sourceTree = "<group>"; };
 		67D1C7DF1AE507D700A239E3 /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		67D1C7F51AE50DDF00A239E3 /* alohalytics_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = alohalytics_objc.mm; path = src/apple/alohalytics_objc.mm; sourceTree = "<group>"; };
 		67D1C7F61AE50DDF00A239E3 /* http_client_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = http_client_apple.mm; path = src/apple/http_client_apple.mm; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 		67D1C7E11AE507D700A239E3 /* alohalitics */ = {
 			isa = PBXGroup;
 			children = (
+				674125161B4C056600A3E828 /* file_manager_posix_impl.cc */,
 				670D04A21B0B7E460013A7AC /* alohalytics.cc */,
 				67D1C7F91AE50DFB00A239E3 /* alohalytics_objc.h */,
 				67D1C7FA1AE50DFB00A239E3 /* alohalytics.h */,
@@ -103,7 +106,7 @@
 		67D1C7D71AE507D700A239E3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					67D1C7DE1AE507D700A239E3 = {
@@ -112,7 +115,7 @@
 				};
 			};
 			buildConfigurationList = 67D1C7DA1AE507D700A239E3 /* Build configuration list for PBXProject "alohalitics" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -136,6 +139,7 @@
 				670D04A31B0B7E460013A7AC /* alohalytics.cc in Sources */,
 				67D1C7F71AE50DDF00A239E3 /* alohalytics_objc.mm in Sources */,
 				67D1C7F81AE50DDF00A239E3 /* http_client_apple.mm in Sources */,
+				674125171B4C056600A3E828 /* file_manager_posix_impl.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +230,7 @@
 		67D1C7EB1AE507D700A239E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
@@ -238,6 +243,7 @@
 		67D1C7EC1AE507D700A239E3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;

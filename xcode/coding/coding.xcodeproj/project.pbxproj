@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		670D04BB1B0BA91F0013A7AC /* timsort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670D04B91B0BA9050013A7AC /* timsort.cpp */; };
-		670D04BC1B0BA9270013A7AC /* timsort.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670D04BA1B0BA9050013A7AC /* timsort.hpp */; };
 		670D04BD1B0BA92D0013A7AC /* expat_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 670D04B31B0BA9050013A7AC /* expat_impl.h */; };
 		670D04BE1B0BA92D0013A7AC /* file64_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670D04B41B0BA9050013A7AC /* file64_api.hpp */; };
 		670D04BF1B0BA92D0013A7AC /* file_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670D04B51B0BA9050013A7AC /* file_data.cpp */; };
@@ -360,7 +358,6 @@
 				675342CD1A3F588C00A0A8C3 /* varint_vector.hpp in Headers */,
 				675342B51A3F588C00A0A8C3 /* reader_cache.hpp in Headers */,
 				675342CE1A3F588C00A0A8C3 /* varint.hpp in Headers */,
-				670D04BC1B0BA9270013A7AC /* timsort.hpp in Headers */,
 				675342D01A3F588C00A0A8C3 /* writer.hpp in Headers */,
 				675342CA1A3F588C00A0A8C3 /* var_serial_vector.hpp in Headers */,
 				6753429D1A3F588C00A0A8C3 /* file_name_utils.hpp in Headers */,
@@ -490,7 +487,6 @@
 				675342871A3F588C00A0A8C3 /* blob_indexer.cpp in Sources */,
 				675342D31A3F588C00A0A8C3 /* zip_reader.cpp in Sources */,
 				675342931A3F588C00A0A8C3 /* compressed_varnum_vector.cpp in Sources */,
-				670D04BB1B0BA91F0013A7AC /* timsort.cpp in Sources */,
 				675342911A3F588C00A0A8C3 /* compressed_bit_vector.cpp in Sources */,
 				6753429F1A3F588C00A0A8C3 /* file_reader.cpp in Sources */,
 				675342C51A3F588C00A0A8C3 /* uri.cpp in Sources */,
