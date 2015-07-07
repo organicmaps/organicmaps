@@ -340,6 +340,7 @@ UNIT_TEST(OsmType_Capital)
 
   {
     char const * arr[][2] = {
+      { "place", "city" },
       { "admin_level", "6" },
       { "boundary", "administrative" },
       { "capital", "2" },
