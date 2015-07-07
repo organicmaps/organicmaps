@@ -2,8 +2,6 @@
 #import "MWMWatchLocationTracker.h"
 #include "Framework.h"
 
-#include "render/frame_image.hpp"
-
 #include "indexer/scales.hpp"
 #include "indexer/mercator.hpp"
 
@@ -56,16 +54,14 @@ extern NSString * const kSearchResultPointKey;
 
 + (void)initSoftwareRenderer
 {
-  // @TODO UVR
-  //Framework & f = GetFramework();
-  //if (!f.IsSingleFrameRendererInited())
-  //  f.InitSingleFrameRenderer(graphics::EDensityXHDPI);
+  Framework & f = GetFramework();
+  if (!f.IsSingleFrameRendererInited())
+    f.InitSingleFrameRenderer(2.0f);
 }
 
 + (void)releaseSoftwareRenderer
 {
-  // @TODO UVR
-  //GetFramework().ReleaseSingleFrameRenderer();
+  GetFramework().ReleaseSingleFrameRenderer();
 }
 
 + (UIImage *)getFrame:(CGSize)frameSize withZoomModifier:(int)zoomModifier
@@ -88,13 +84,12 @@ extern NSString * const kSearchResultPointKey;
   else
     symbols.m_showSearchResult = false;
 
-  // @TODO UVR
-  //FrameImage image;
-  //[MWMFrameworkUtils initSoftwareRenderer];
-  //f.DrawSingleFrame(center, zoomModifier, pxWidth, pxHeight, image, symbols);
-  //NSData * imadeData = [NSData dataWithBytes:image.m_data.data() length:image.m_data.size()];
-  //return [UIImage imageWithData:imadeData];
-  return nil;
+
+  Framework::FrameImage image;
+  [MWMFrameworkUtils initSoftwareRenderer];
+  f.DrawSingleFrame(center, zoomModifier, pxWidth, pxHeight, image, symbols);
+  NSData * imadeData = [NSData dataWithBytes:image.m_data.data() length:image.m_data.size()];
+  return [UIImage imageWithData:imadeData];
 }
 
 + (void)searchAroundCurrentLocation:(NSString *)query callback:(void(^)(NSMutableArray *result))reply
