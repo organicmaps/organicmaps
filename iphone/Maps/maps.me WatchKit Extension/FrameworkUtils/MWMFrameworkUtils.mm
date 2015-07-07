@@ -52,11 +52,11 @@ extern NSString * const kSearchResultPointKey;
   return @(countryName.c_str());
 }
 
-+ (void)initSoftwareRenderer
++ (void)initSoftwareRenderer:(CGFloat)screenScale
 {
   Framework & f = GetFramework();
   if (!f.IsSingleFrameRendererInited())
-    f.InitSingleFrameRenderer(2.0f);
+    f.InitSingleFrameRenderer(screenScale);
 }
 
 + (void)releaseSoftwareRenderer
@@ -64,7 +64,7 @@ extern NSString * const kSearchResultPointKey;
   GetFramework().ReleaseSingleFrameRenderer();
 }
 
-+ (UIImage *)getFrame:(CGSize)frameSize withZoomModifier:(int)zoomModifier
++ (UIImage *)getFrame:(CGSize)frameSize withScreenScale:(CGFloat)screenScale andZoomModifier:(int)zoomModifier
 {
   [MWMFrameworkUtils prepareFramework];
   Framework & f = GetFramework();
@@ -86,7 +86,7 @@ extern NSString * const kSearchResultPointKey;
 
 
   Framework::FrameImage image;
-  [MWMFrameworkUtils initSoftwareRenderer];
+  [MWMFrameworkUtils initSoftwareRenderer:screenScale];
   f.DrawSingleFrame(center, zoomModifier, pxWidth, pxHeight, image, symbols);
   NSData * imadeData = [NSData dataWithBytes:image.m_data.data() length:image.m_data.size()];
   return [UIImage imageWithData:imadeData];

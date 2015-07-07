@@ -9,9 +9,9 @@
 + (BOOL)hasMWM;
 + (NSString *)currentCountryName;
 
-+ (void)initSoftwareRenderer;
++ (void)initSoftwareRenderer:(CGFloat)screenScale;
 + (void)releaseSoftwareRenderer;
-+ (UIImage *)getFrame:(CGSize)frameSize withZoomModifier:(int)zoomModifier;
++ (UIImage *)getFrame:(CGSize)frameSize withScreenScale:(CGFloat)screenScale andZoomModifier:(int)zoomModifier;
 
 + (void)searchAroundCurrentLocation:(NSString *)query callback:(void(^)(NSMutableArray *result))reply;
 

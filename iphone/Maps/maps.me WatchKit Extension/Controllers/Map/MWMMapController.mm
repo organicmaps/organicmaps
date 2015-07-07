@@ -114,7 +114,9 @@ static int const kZoomModifierDown = -2;
     return;
   self.needUpdateMap = NO;
   [self updateUIToDestination];
-  UIImage * frame = [MWMFrameworkUtils getFrame:self.contentFrame.size withZoomModifier:self.zoomModifier];
+  UIImage * frame = [MWMFrameworkUtils getFrame:self.contentFrame.size
+                                       withScreenScale:[WKInterfaceDevice currentDevice].screenScale
+                                       andZoomModifier:self.zoomModifier];
   [self.mapGroup setBackgroundImage:frame];
 }
 
@@ -153,7 +155,7 @@ static int const kZoomModifierDown = -2;
   if (!initSoftwareRenderer && _initSoftwareRenderer)
     [MWMFrameworkUtils releaseSoftwareRenderer];
   else if (initSoftwareRenderer && !_initSoftwareRenderer)
-    [MWMFrameworkUtils initSoftwareRenderer];
+    [MWMFrameworkUtils initSoftwareRenderer:[WKInterfaceDevice currentDevice].screenScale];
   _initSoftwareRenderer = initSoftwareRenderer;
 }
 
