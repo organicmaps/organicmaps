@@ -67,6 +67,7 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
       
     case routing::IRouter::Cancelled:
     case routing::IRouter::NoError:
+    case routing::IRouter::NeedMoreMaps:
       return nil;
   }
 }
