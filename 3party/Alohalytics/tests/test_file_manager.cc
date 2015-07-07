@@ -27,6 +27,7 @@ SOFTWARE.
 #include "../src/file_manager.h"
 
 #include <iostream>
+#include <memory>
 #include <vector>
 
 using alohalytics::FileManager;
@@ -50,7 +51,7 @@ TEST(FileManager, ScopedRemoveFile) {
   const std::string file = GenerateTemporaryFileName();
   {
     const ScopedRemoveFile remover(file);
-    EXPECT_EQ(true, FileManager::AppendStringToFile(file, file));
+    EXPECT_TRUE(FileManager::AppendStringToFile(file, file));
     EXPECT_EQ(file, FileManager::ReadFileAsString(file));
   }
   EXPECT_THROW(FileManager::ReadFileAsString(file), std::ios_base::failure);
@@ -59,33 +60,33 @@ TEST(FileManager, ScopedRemoveFile) {
 TEST(FileManager, CreateTemporaryFile) {
   const std::string file1 = GenerateTemporaryFileName();
   const ScopedRemoveFile remover1(file1);
-  EXPECT_EQ(true, FileManager::AppendStringToFile(file1, file1));
+  EXPECT_TRUE(FileManager::AppendStringToFile(file1, file1));
   EXPECT_EQ(file1, FileManager::ReadFileAsString(file1));
   const std::string file2 = GenerateTemporaryFileName();
-  EXPECT_EQ(false, file1 == file2);
+  EXPECT_NE(file1, file2);
   const ScopedRemoveFile remover2(file2);
-  EXPECT_EQ(true, FileManager::AppendStringToFile(file2, file2));
+  EXPECT_TRUE(FileManager::AppendStringToFile(file2, file2));
   EXPECT_EQ(file2, FileManager::ReadFileAsString(file2));
-  EXPECT_EQ(true, file1 != file2);
+  EXPECT_NE(file1, file2);
 }
 
 TEST(FileManager, AppendStringToFile) {
   const std::string file = GenerateTemporaryFileName();
   const ScopedRemoveFile remover(file);
   const std::string s1("First\0 String");
-  EXPECT_EQ(true, FileManager::AppendStringToFile(s1, file));
+  EXPECT_TRUE(FileManager::AppendStringToFile(s1, file));
   EXPECT_EQ(s1, FileManager::ReadFileAsString(file));
   const std::string s2("Second one.");
-  EXPECT_EQ(true, FileManager::AppendStringToFile(s2, file));
+  EXPECT_TRUE(FileManager::AppendStringToFile(s2, file));
   EXPECT_EQ(s1 + s2, FileManager::ReadFileAsString(file));
 
-  EXPECT_EQ(false, FileManager::AppendStringToFile(file, ""));
+  EXPECT_FALSE(FileManager::AppendStringToFile(file, ""));
 }
 
 TEST(FileManager, ReadFileAsString) {
   const std::string file = GenerateTemporaryFileName();
   const ScopedRemoveFile remover(file);
-  EXPECT_EQ(true, FileManager::AppendStringToFile(file, file));
+  EXPECT_TRUE(FileManager::AppendStringToFile(file, file));
   EXPECT_EQ(file, FileManager::ReadFileAsString(file));
 }
 
@@ -96,7 +97,7 @@ TEST(FileManager, ForEachFileInDir) {
       was_called_at_least_once = true;
       return true;
     });
-    EXPECT_EQ(false, was_called_at_least_once);
+    EXPECT_FALSE(was_called_at_least_once);
   }
 
   {
@@ -106,11 +107,11 @@ TEST(FileManager, ForEachFileInDir) {
       const std::string file = GenerateTemporaryFileName();
       files.push_back(file);
       removers.emplace_back(new ScopedRemoveFile(file));
-      EXPECT_EQ(true, FileManager::AppendStringToFile(file, file));
+      EXPECT_TRUE(FileManager::AppendStringToFile(file, file));
     }
     files_copy = files;
     const std::string directory = FileManager::GetDirectoryFromFilePath(files[0]);
-    EXPECT_EQ(false, directory.empty());
+    EXPECT_FALSE(directory.empty());
     FileManager::ForEachFileInDir(directory, [&files_copy](const std::string & path) -> bool {
       // Some random files can remain in the temporary directory.
       const auto found = std::find(files_copy.begin(), files_copy.end(), path);
@@ -154,7 +155,7 @@ TEST(FileManager, GetFileSize) {
   // File does not exist yet.
   EXPECT_THROW(FileManager::GetFileSize(file), std::ios_base::failure);
   // Use file name itself as a file contents.
-  EXPECT_EQ(true, FileManager::AppendStringToFile(file, file));
+  EXPECT_TRUE(FileManager::AppendStringToFile(file, file));
   EXPECT_EQ(file.size(), FileManager::GetFileSize(file));
   // It should also fail for directories.
   EXPECT_THROW(FileManager::GetFileSize(FileManager::GetDirectoryFromFilePath(file)), std::ios_base::failure);
@@ -163,8 +164,8 @@ TEST(FileManager, GetFileSize) {
 TEST(FileManager, IsDirectoryWritable) {
   const std::string file = GenerateTemporaryFileName();
   const ScopedRemoveFile remover(file);
-  EXPECT_EQ(true, FileManager::IsDirectoryWritable(FileManager::GetDirectoryFromFilePath(file)));
-  EXPECT_EQ(false, FileManager::IsDirectoryWritable(file));
+  EXPECT_TRUE(FileManager::IsDirectoryWritable(FileManager::GetDirectoryFromFilePath(file)));
+  EXPECT_FALSE(FileManager::IsDirectoryWritable(file));
 
   const std::string not_writable_system_directory =
 #ifdef _MSC_VER
@@ -173,5 +174,5 @@ TEST(FileManager, IsDirectoryWritable) {
       "/Users";
 #endif
   // Suppose you do not run tests as root/Administrator.
-  EXPECT_EQ(false, FileManager::IsDirectoryWritable(not_writable_system_directory));
+  EXPECT_FALSE(FileManager::IsDirectoryWritable(not_writable_system_directory));
 }
