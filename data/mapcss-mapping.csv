@@ -1004,3 +1004,4 @@ place|city|capital|8;[place=city][capital=8];;name;int_name;1003;
 place|city|capital|9;[place=city][capital=9];;name;int_name;1004;
 place|city|capital|10;[place=city][capital=10];;name;int_name;1005;
 place|city|capital|11;[place=city][capital=11];;name;int_name;1006;
+hwtag|yesfoot;[hwtag=yesfoot];;name;int_name;1007;

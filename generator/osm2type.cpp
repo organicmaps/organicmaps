@@ -292,9 +292,20 @@ namespace ftype
       struct Rule
       {
         char const * key;
+        // * - take any values
+        // ! - take only negative values
+        // ~ - take only positive values
         char const * value;
         function<FuncT> func;
       };
+
+      static bool IsNegative(string const & value)
+      {
+        for (char const * s : { "no", "none", "false" })
+          if (value == s)
+            return true;
+        return false;
+      }
 
       XMLElement * m_element;
 
@@ -305,14 +316,21 @@ namespace ftype
       void ApplyRules(initializer_list<Rule<FuncT>> const & rules) const
       {
         for (auto & e : m_element->childs)
-        {
           if (e.tagKey == XMLElement::ET_TAG)
-          {
             for (auto const & rule: rules)
-              if ((e.k == "*" || e.k == rule.key) && (e.v == "*" || e.v == rule.value))
-                call(rule.func, e.k, e.v);
-          }
-        }
+              if (e.k == rule.key)
+              {
+                bool take = false;
+                if (rule.value[0] == '*')
+                  take = true;
+                else if (rule.value[0] == '!')
+                  take = IsNegative(e.v);
+                else if (rule.value[0] == '~')
+                  take = !IsNegative(e.v);
+
+                if (take || e.v == rule.value)
+                  call(rule.func, e.k, e.v);
+              }
       }
 
     protected:
@@ -362,7 +380,7 @@ namespace ftype
     buffer_vector<uint32_t, 16> m_types;
 
   public:
-    enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT };
+    enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT };
 
     CachedTypes()
     {
@@ -374,7 +392,7 @@ namespace ftype
       StringIL arr[] =
       {
         {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"},
-        {"hwtag", "lit"}, {"hwtag", "nofoot"}
+        {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"}
       };
       for (auto const & e : arr)
         m_types.push_back(c.GetTypeByPath(e));
@@ -471,8 +489,13 @@ namespace ftype
           { "oneway", "1", [&params]() { params.AddType(types.Get(CachedTypes::ONEWAY)); }},
           { "oneway", "-1", [&params]() { params.AddType(types.Get(CachedTypes::ONEWAY)); params.m_reverseGeometry = true; }},
           { "access", "private", [&params]() { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
-          { "lit", "yes", [&params]() { params.AddType(types.Get(CachedTypes::LIT)); }},
-          { "foot", "no", [&params]() { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
+          { "lit", "~", [&params]() { params.AddType(types.Get(CachedTypes::LIT)); }},
+
+          { "foot", "!", [&params]() { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
+          { "sidewalk", "!", [&params]() { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
+
+          { "foot", "~", [&params]() { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
+          { "sidewalk", "~", [&params]() { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
         });
         break;
       }

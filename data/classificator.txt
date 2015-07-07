@@ -334,6 +334,7 @@ world  +
         nofoot  -
         oneway  -
         private  -
+        yesfoot  -
         {}
     internet_access  +
         wlan  -
