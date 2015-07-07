@@ -159,7 +159,8 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
   {
     LOG(LDEBUG, ("Calculating the route from", startPoint, "to", finalPoint, "startDirection", startDirection));
 
-    m_absentFetcher->GenerateRequest(startPoint, finalPoint);
+    if (m_absentFetcher)
+      m_absentFetcher->GenerateRequest(startPoint, finalPoint);
 
     // Run basic request.
     code = m_router->CalculateRoute(startPoint, startDirection, finalPoint, route);
@@ -183,7 +184,8 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
 
   // Check online response if we have.
   vector<string> absent;
-  m_absentFetcher->GetAbsentCountries(absent);
+  if (m_absentFetcher)
+    m_absentFetcher->GetAbsentCountries(absent);
   if (absent.empty())
   {
     if (code != IRouter::NoError)
