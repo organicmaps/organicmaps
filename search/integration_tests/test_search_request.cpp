@@ -24,7 +24,7 @@ void TestSearchRequest::Wait()
 {
   unique_lock<mutex> lock(m_mu);
   m_cv.wait(lock, [this]()
-            {
+  {
     return m_done;
   });
 }
