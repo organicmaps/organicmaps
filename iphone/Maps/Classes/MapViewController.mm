@@ -709,7 +709,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
       }
     });
 
-    f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries)
+    f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
     {
       [self.placePageManager stopBuildingRoute];
       switch (code)
