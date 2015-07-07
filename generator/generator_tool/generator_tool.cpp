@@ -97,8 +97,9 @@ int main(int argc, char ** argv)
   }
 
   feature::GenerateInfo genInfo;
-  genInfo.m_tmpDir = FLAGS_intermediate_data_path;
-
+  genInfo.m_tmpDir = FLAGS_intermediate_data_path.empty() ? path : FLAGS_intermediate_data_path;
+  genInfo.m_targetDir = path;
+  
   // load classificator only if necessary
   if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
       FLAGS_generate_index || FLAGS_generate_search_index ||
@@ -114,20 +115,7 @@ int main(int argc, char ** argv)
   {
     LOG(LINFO, ("Generating final data ..."));
 
-    if (FLAGS_split_by_polygons)
-    {
-      // do split by countries
-      genInfo.m_datFilePrefix = path;
-    }
-    else
-    {
-      // Used for one country generation - append destination file.
-      // FLAGS_output may be empty for FLAGS_make_coasts flag.
-      genInfo.m_datFilePrefix = path + FLAGS_output;
-    }
-
     genInfo.m_datFileSuffix = DATA_FILE_EXTENSION_TMP;
-
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
     genInfo.m_createWorld = FLAGS_generate_world;
     genInfo.m_makeCoasts = FLAGS_make_coasts;
@@ -171,7 +159,7 @@ int main(int argc, char ** argv)
       if (country == WORLD_COASTS_FILE_NAME)
         mapType = feature::DataHeader::worldcoasts;
 
-      if (!feature::GenerateFinalFeatures(path, country, mapType))
+      if (!feature::GenerateFinalFeatures(genInfo, country, mapType))
       {
         // If error - move to next bucket without index generation
         continue;

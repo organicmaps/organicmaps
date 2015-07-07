@@ -1,4 +1,5 @@
 #pragma once
+#include "generator/generate_info.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/simplification.hpp"
@@ -14,7 +15,7 @@ namespace feature
   /// Final generation of data from input feature-dat-file.
   /// @param path - path to folder with countries;
   /// @param name - name of generated country;
-  bool GenerateFinalFeatures(string const & path, string const & name, int mapType);
+  bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & name, int mapType);
 
   template <class PointT>
   inline bool are_points_equal(PointT const & p1, PointT const & p2)

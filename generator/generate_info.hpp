@@ -15,7 +15,7 @@ struct GenerateInfo
   }
 
   string m_tmpDir;
-  string m_datFilePrefix;
+  string m_targetDir;
   string m_datFileSuffix;
   string m_addressFile;
 

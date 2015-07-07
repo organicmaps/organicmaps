@@ -3,6 +3,7 @@
 #include "generator/feature_merger.hpp"
 
 #include "indexer/scales.hpp"
+#include "base/logging.hpp"
 
 #include "defines.hpp"
 
@@ -20,8 +21,9 @@ class WorldMapGenerator
   public:
     template <class TInfo>
     explicit EmitterImpl(TInfo const & info)
-      : m_output(info.m_datFilePrefix + WORLD_FILE_NAME + info.m_datFileSuffix)
+      : m_output(info.m_tmpDir + WORLD_FILE_NAME + info.m_datFileSuffix)
     {
+      LOG(LINFO, ("Output World file:", info.m_tmpDir + WORLD_FILE_NAME + info.m_datFileSuffix));
     }
 
     /// This function is called after merging linear features.

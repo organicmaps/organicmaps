@@ -538,10 +538,10 @@ namespace feature
     }
   };
 
-  bool GenerateFinalFeatures(string const & path, string const & name, int mapType)
+  bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & name, int mapType)
   {
-    string const srcFilePath = my::JoinFoldersToPath(path, name + DATA_FILE_EXTENSION_TMP);
-    string const datFilePath = my::JoinFoldersToPath(path, name + DATA_FILE_EXTENSION);
+    string const srcFilePath = my::JoinFoldersToPath(info.m_tmpDir, name + DATA_FILE_EXTENSION_TMP);
+    string const datFilePath = my::JoinFoldersToPath(info.m_targetDir, name + DATA_FILE_EXTENSION);
 
     // stores cellIds for middle points
     CalculateMidPoints midPoints;
@@ -578,7 +578,7 @@ namespace feature
       // languages
       try
       {
-        FileReader reader(path + "metainfo/" + name + ".meta");
+        FileReader reader(info.m_targetDir + "metainfo/" + name + ".meta");
         string buffer;
         reader.ReadAsString(buffer);
         strings::Tokenize(buffer, "|", DoStoreLanguages(header));
@@ -614,7 +614,6 @@ namespace feature
     }
 
     // remove old not-sorted dat file
-    FileWriter::DeleteFileX(srcFilePath);
     FileWriter::DeleteFileX(datFilePath + DATA_FILE_TAG);
 
     return true;

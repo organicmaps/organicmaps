@@ -236,8 +236,7 @@ namespace
 
         if (info.m_emitCoasts)
         {
-          m_coastsHolder.reset(new feature::FeaturesCollector(
-                                                     info.m_datFilePrefix + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix));
+          m_coastsHolder.reset(new feature::FeaturesCollector(m_srcCoastsFile));
         }
       }
       else

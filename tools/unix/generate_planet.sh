@@ -317,7 +317,7 @@ if [ "$MODE" == "mwm" ]; then
   putmode "Step 5: Building all MWMs of regions and of the whole world into $TARGET"
   # 3rd pass - do in parallel
   # but separate exceptions for world files to finish them earlier
-  PARAMS="--data_path=$TARGET --user_resource_path=$DATA_PATH/ --node_storage=$NODE_STORAGE -generate_geometry -generate_index"
+  PARAMS="--data_path=$TARGET --intermediate_data_path=$INTDIR/ --user_resource_path=$DATA_PATH/ --node_storage=$NODE_STORAGE -generate_geometry -generate_index"
   if [ -n "$OPT_WORLD" ]; then
     (
       "$GENERATOR_TOOL" $PARAMS --output=World 2>> "$LOG_PATH/World.log"
@@ -327,7 +327,7 @@ if [ "$MODE" == "mwm" ]; then
   fi
 
   PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
-  for file in "$TARGET"/*.mwm.tmp; do
+  for file in "$INTDIR"/*.mwm.tmp; do
     if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
       BASENAME="$(basename "$file" .mwm.tmp)"
       "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &

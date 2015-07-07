@@ -51,7 +51,7 @@ namespace feature
   public:
     template <class TInfo>
     explicit Polygonizer(TInfo const & info)
-      : m_prefix(info.m_datFilePrefix), m_suffix(info.m_datFileSuffix)
+      : m_prefix(info.m_tmpDir), m_suffix(info.m_datFileSuffix)
 #if PARALLEL_POLYGONIZER
     , m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * 8)
 #endif
@@ -62,7 +62,7 @@ namespace feature
 
       if (info.m_splitByPolygons)
       {
-        CHECK(borders::LoadCountriesList(info.m_datFilePrefix, m_countries),
+        CHECK(borders::LoadCountriesList(info.m_targetDir, m_countries),
             ("Error loading country polygons files"));
       }
       else
@@ -153,6 +153,7 @@ namespace feature
       if (country->m_index == -1)
       {
         m_Names.push_back(country->m_name);
+        LOG(LINFO, ("Output country file:", m_prefix + country->m_name + m_suffix));
         m_Buckets.push_back(new FeatureOutT(m_prefix + country->m_name + m_suffix));
         country->m_index = m_Buckets.size()-1;
       }
