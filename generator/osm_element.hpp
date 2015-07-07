@@ -274,6 +274,14 @@ class SecondPassParser : public BaseOSMParser
     static constexpr double EQUAL_PLACE_SEARCH_RADIUS_M = 20000.0;
 
     bool IsPoint() const { return (m_ft.GetGeomType() == feature::GEOM_POINT); }
+    static bool IsEqualTypes(uint32_t t1, uint32_t t2)
+    {
+      // Use 2-arity places comparison for filtering.
+      // ("place-city-capital-2" is equal to "place-city")
+      ftype::TruncValue(t1, 2);
+      ftype::TruncValue(t2, 2);
+      return (t1 == t2);
+    }
 
   public:
     Place(FeatureBuilderT const & ft, uint32_t type)
@@ -288,21 +296,33 @@ class SecondPassParser : public BaseOSMParser
       return MercatorBounds::RectByCenterXYAndSizeInMeters(m_pt, EQUAL_PLACE_SEARCH_RADIUS_M);
     }
 
-    /// @name Always replace point features and leave area features.
-    //@{
     bool IsEqual(Place const & r) const
     {
-      return (m_type == r.m_type &&
+      return (IsEqualTypes(m_type, r.m_type) &&
               m_ft.GetName() == r.m_ft.GetName() &&
               (IsPoint() || r.IsPoint()) &&
               MercatorBounds::DistanceOnEarth(m_pt, r.m_pt) < EQUAL_PLACE_SEARCH_RADIUS_M);
     }
 
-    bool NeedReplace(Place const & r) const
+    /// Check whether we need to replace place @r with place @this.
+    bool IsBetterThan(Place const & r) const
     {
-      return (r.IsPoint() && (!IsPoint() || r.m_ft.GetRank() < m_ft.GetRank()));
+      // Area places has priority before point places.
+      if (!r.IsPoint())
+        return false;
+      if (!IsPoint())
+        return true;
+
+      // Check types length.
+      // ("place-city-capital-2" is better than "place-city").
+      uint8_t const l1 = ftype::GetLevel(m_type);
+      uint8_t const l2 = ftype::GetLevel(r.m_type);
+      if (l1 != l2)
+        return (l2 < l1);
+
+      // Check ranks.
+      return (r.m_ft.GetRank() < m_ft.GetRank());
     }
-    //@}
   };
 
   m4::Tree<Place> m_places;
@@ -323,7 +343,7 @@ class SecondPassParser : public BaseOSMParser
       {
         m_places.ReplaceEqualInRect(Place(ft, type),
                                     bind(&Place::IsEqual, _1, _2),
-                                    bind(&Place::NeedReplace, _1, _2));
+                                    bind(&Place::IsBetterThan, _1, _2));
       }
       else
         m_emitter(ft);
