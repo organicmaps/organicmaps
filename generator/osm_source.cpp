@@ -225,7 +225,8 @@ namespace
       for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
         m_types[i] = c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2));
 
-      m_srcCoastsFile = info.m_tmpDir + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix;
+      m_srcCoastsFile = info.m_intermediateDir + WORLD_COASTS_FILE_NAME + ".geom";
+      string dstCoastsFile = info.m_tmpDir + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix;
 
       CHECK(!info.m_makeCoasts || !info.m_createWorld,
             ("We can't do make_coasts and generate_world at the same time"));
@@ -236,7 +237,7 @@ namespace
 
         if (info.m_emitCoasts)
         {
-          m_coastsHolder.reset(new feature::FeaturesCollector(m_srcCoastsFile));
+          m_coastsHolder.reset(new feature::FeaturesCollector(dstCoastsFile));
         }
       }
       else
@@ -475,10 +476,10 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, string const &osmFileTyp
 {
   try
   {
-    NodesHolderT nodes(info.m_tmpDir + NODES_FILE);
+    NodesHolderT nodes(info.m_intermediateDir + NODES_FILE);
 
     typedef feature::FileHolder<NodesHolderT> HolderT;
-    HolderT holder(nodes, info.m_tmpDir);
+    HolderT holder(nodes, info.m_intermediateDir);
     holder.LoadIndex();
 
     MainFeaturesEmitter bucketer(info);

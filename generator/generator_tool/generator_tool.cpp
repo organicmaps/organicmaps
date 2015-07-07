@@ -97,9 +97,14 @@ int main(int argc, char ** argv)
   }
 
   feature::GenerateInfo genInfo;
-  genInfo.m_tmpDir = FLAGS_intermediate_data_path.empty() ? path : FLAGS_intermediate_data_path;
-  genInfo.m_targetDir = path;
-  
+  genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty() ? path : my::AddSlashIfNeeded(FLAGS_intermediate_data_path);
+  genInfo.m_targetDir = genInfo.m_tmpDir = path;
+
+  if (!FLAGS_intermediate_data_path.empty()) {
+    genInfo.m_tmpDir = genInfo.m_intermediateDir + "tmp/";
+    pl.MkDir(genInfo.m_tmpDir);
+  }
+
   // load classificator only if necessary
   if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
       FLAGS_generate_index || FLAGS_generate_search_index ||

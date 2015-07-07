@@ -25,7 +25,7 @@ if [ $# -lt 1 ]; then
   echo
   echo -e "BORDERS_PATH\tPath to *.poly files for cross-mwm routing"
   echo -e "BORDER\tPath and name of a polygon file for the input"
-  echo -e "COASTS\tPath and name of WorldCoasts.mwm.tmp"
+  echo -e "COASTS\tPath and name of WorldCoasts.geom"
   echo -e "TARGET\tWhere to put resulting files"
   echo
   exit 1
@@ -59,7 +59,7 @@ trap "rm -rf \"${INTDIR}\"" EXIT SIGINT SIGTERM
 # Create MWM file
 INTDIR_FLAG="--intermediate_data_path=$INTDIR/ --node_storage=map"
 GENERATE_EVERYTHING='--generate_features=true --generate_geometry=true --generate_index=true --generate_search_index=true'
-COASTS="${COASTS-WorldCoasts.mwm.tmp}"
+COASTS="${COASTS-WorldCoasts.geom}"
 if [ -f "$COASTS" ]; then
   if [ ! -f "$TBORDERS/$BASE_NAME.poly" ]; then
     BORDER="${BORDER:-${BORDERS_PATH:-.}/$BASE_NAME.poly}"
@@ -68,8 +68,7 @@ if [ -f "$COASTS" ]; then
     CLEAN_POLY=1
     cp "$BORDER" "$TBORDERS/$BASE_NAME.poly"
   fi
-  cp "$COASTS" "$INTDIR"
-  [ ! -f "$TARGET/WorldCoasts.mwm.tmp" ] && CLEAN_COASTS_TMP=1
+  cp "$COASTS" "$INTDIR/WorldCoasts.geom"
   GENERATE_EVERYTHING="$GENERATE_EVERYTHING --emit_coasts=true --split_by_polygons=true"
 fi
 if [ "$SOURCE_TYPE" == "o5m" ]; then
@@ -83,7 +82,6 @@ else
   fail "Unsupported source type: $SOURCE_TYPE"
 fi
 
-[ -n "${CLEAN_COASTS_TMP-}" ] && rm "$TARGET/WorldCoasts.mwm.tmp"
 [ -n "${CLEAN_POLY-}" ] && rm "$TBORDERS/$BASE_NAME.poly"
 [ -n "${CLEAN_BORDERS-}" ] && rm -r "$TBORDERS"
 

@@ -258,7 +258,7 @@ if [ "$MODE" == "coast" ]; then
     fi
   done
   # make a working copy of generated coastlines file
-  [ -n "$OPT_WORLD" ] && cp "$INTCOASTSDIR/WorldCoasts.mwm.tmp" "$INTDIR"
+  [ -n "$OPT_WORLD" ] && cp "$INTCOASTSDIR/WorldCoasts.geom" "$INTDIR"
   [ -z "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
   MODE=inter
 fi
@@ -303,7 +303,7 @@ fi
 if [ "$MODE" == "features" ]; then
   putmode "Step 4: Generating features of everything into $TARGET"
   # Checking for coastlines, can't build proper mwms without them
-  [ ! -s "$INTDIR/WorldCoasts.mwm.tmp" ] && fail "Please prepare coastlines and put WorldCoasts.mwm.tmp to $INTDIR"
+  [ ! -s "$INTDIR/WorldCoasts.geom" ] && fail "Please prepare coastlines and put WorldCoasts.geom to $INTDIR"
   # 2nd pass - paralleled in the code
   PARAMS_SPLIT="-split_by_polygons -generate_features -emit_coasts"
   [ -n "$OPT_WORLD" ] && PARAMS_SPLIT="$PARAMS_SPLIT -generate_world"
@@ -327,7 +327,7 @@ if [ "$MODE" == "mwm" ]; then
   fi
 
   PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
-  for file in "$INTDIR"/*.mwm.tmp; do
+  for file in "$INTDIR"/tmp/*.mwm.tmp; do
     if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
       BASENAME="$(basename "$file" .mwm.tmp)"
       "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &

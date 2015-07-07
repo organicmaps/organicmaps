@@ -14,8 +14,13 @@ struct GenerateInfo
   {
   }
 
+  // directory for .mwm.tmp files
   string m_tmpDir;
+  // directory for result .mwm files
   string m_targetDir;
+  // directory for all intermediate files
+  string m_intermediateDir;
+
   string m_datFileSuffix;
   string m_addressFile;
 
