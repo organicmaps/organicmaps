@@ -1,16 +1,32 @@
+#include "Language.hpp"
+
 #include "../core/jni_helper.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/string.hpp"
 
 
-static char const * DEFAULT_LANG = "en";
+string ReplaceDeprecatedLanguageCode(string const & lang)
+{
+  // in* -> id
+  // iw* -> he
+
+  if (strings::StartsWith(lang, "in"))
+    return "id";
+  else if (strings::StartsWith(lang, "iw"))
+    return "he";
+
+  return lang;
+}
 
 /// This function is called from native c++ code
 string GetAndroidSystemLanguage()
 {
+  static char const * DEFAULT_LANG = "en";
+
   JNIEnv * env = jni::GetEnv();
   if (!env)
   {
@@ -49,6 +65,5 @@ string GetAndroidSystemLanguage()
   if (res.empty())
     res = DEFAULT_LANG;
 
-  LOG(LDEBUG, ("System language:", res));
-  return res;
+  return ReplaceDeprecatedLanguageCode(res);
 }
