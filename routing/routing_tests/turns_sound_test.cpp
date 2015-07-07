@@ -34,9 +34,9 @@ UNIT_TEST(TurnNotificationSettingsMetersTest)
 
   TEST(settings.IsValid(), ());
   TEST(my::AlmostEqualAbs(
-      settings.ConvertMetersPerSecondToUnitsPerSecond(20. /* speedUnitsPerSecond */), 20., kEps), ());
+      settings.ConvertMetersPerSecondToUnitsPerSecond(20.), 20., kEps), ());
   TEST(my::AlmostEqualAbs(
-      settings.ConvertMetersPerSecondToUnitsPerSecond(0. /* speedUnitsPerSecond */), 0., kEps), ());
+      settings.ConvertMetersPerSecondToUnitsPerSecond(0.), 0., kEps), ());
   TEST(my::AlmostEqualAbs(settings.ConvertUnitsToMeters(300. /* distanceInUnits */), 300., kEps), ());
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(300 /* distanceInUnits */), 300, ());
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(0 /* distanceInUnits */), 100, ());
@@ -54,9 +54,9 @@ UNIT_TEST(TurnNotificationSettingsFeetTest)
 
   TEST(settings.IsValid(), ());
   TEST(my::AlmostEqualAbs(
-      settings.ConvertMetersPerSecondToUnitsPerSecond(20. /* speedUnitsPerSecond */), 65., kEps), ());
+      settings.ConvertMetersPerSecondToUnitsPerSecond(20.), 65., kEps), ());
   TEST(my::AlmostEqualAbs(
-      settings.ConvertMetersPerSecondToUnitsPerSecond(0. /* speedUnitsPerSecond */), 0., kEps), ());
+      settings.ConvertMetersPerSecondToUnitsPerSecond(0.), 0., kEps), ());
   TEST(my::AlmostEqualAbs(settings.ConvertUnitsToMeters(300. /* distanceInUnits */), 91., kEps), ());
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(500 /* distanceInUnits */), 600, ());
   TEST_EQUAL(settings.RoundByPresetSoundedDistancesUnits(0 /* distanceInUnits */), 200, ());

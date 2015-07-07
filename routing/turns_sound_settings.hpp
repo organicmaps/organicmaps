@@ -77,11 +77,11 @@ public:
 /// notification to pronounce.
 struct Notification
 {
-  uint32_t const m_distanceUnits;
-  uint8_t const m_exitNum;
-  bool const m_useThenInsteadOfDistance;
-  TurnDirection const m_turnDir;
-  LengthUnits const m_lengthUnits;
+  uint32_t m_distanceUnits;
+  uint8_t m_exitNum;
+  bool m_useThenInsteadOfDistance;
+  TurnDirection m_turnDir;
+  LengthUnits m_lengthUnits;
 
   Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
                TurnDirection turnDir, LengthUnits lengthUnits)
