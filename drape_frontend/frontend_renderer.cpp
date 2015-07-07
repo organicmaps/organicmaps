@@ -784,7 +784,6 @@ void FrontendRenderer::Routine::Do()
     context->setDefaultFramebuffer();
     bool const hasAsyncRoutines = m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
-    GLFunctions::glFlush();
     bool const animActive = InterpolationHolder::Instance().Advance(frameTime);
     modelView = m_renderer.UpdateScene(viewChanged);
 
