@@ -7,31 +7,9 @@
 #include "indexer/scales.hpp"
 
 #include "base/scope_guard.hpp"
+#include "base/logging.hpp"
 
 #include "std/bind.hpp"
-
-namespace
-{
-
-struct IDsAccumulator
-{
-  IDsAccumulator(vector<FeatureID> & ids, vector<df::FeatureInfo> const & src)
-    : m_ids(ids)
-    , m_src(src)
-  {
-  }
-
-  void operator()(size_t index)
-  {
-    ASSERT_LESS(index, m_src.size(), ());
-    m_ids.push_back(m_src[index].m_id);
-  }
-
-  vector<FeatureID> & m_ids;
-  vector<df::FeatureInfo> const & m_src;
-};
-
-} // namespace
 
 namespace df
 {
@@ -39,7 +17,8 @@ namespace df
 TileInfo::TileInfo(drape_ptr<EngineContext> && context)
   : m_context(move(context))
   , m_isCanceled(false)
-{}
+{
+}
 
 m2::RectD TileInfo::GetGlobalRect() const
 {
@@ -69,14 +48,12 @@ void TileInfo::ReadFeatures(MapDataProvider const & model,
   ReadFeatureIndex(model);
 
   CheckCanceled();
-  vector<size_t> indexes;
-  RequestFeatures(memIndex, indexes);
+  vector<FeatureID> featuresToRead;
+  featuresToRead.reserve(AverageFeaturesCount);
+  RequestFeatures(memIndex, featuresToRead);
 
-  if (!indexes.empty())
+  if (!featuresToRead.empty())
   {
-    vector<FeatureID> featuresToRead;
-    for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
-
     RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), make_ref(m_context));
     model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
   }
@@ -108,10 +85,10 @@ bool TileInfo::DoNeedReadIndex() const
   return m_featureInfo.empty();
 }
 
-void TileInfo::RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes)
+void TileInfo::RequestFeatures(MemoryFeatureIndex & memIndex, vector<FeatureID> & featuresToRead)
 {
   lock_guard<mutex> lock(m_mutex);
-  memIndex.ReadFeaturesRequest(m_featureInfo, featureIndexes);
+  memIndex.ReadFeaturesRequest(m_featureInfo, featuresToRead);
 }
 
 void TileInfo::CheckCanceled() const

@@ -15,10 +15,13 @@
 
 namespace
 {
-  void MarkNodesAsReaded(vector<df::FeatureInfo> & features, const vector<size_t> & indexes)
+  void MarkNodesAsReaded(df::TFeaturesInfo & features, vector<FeatureID> const & featuresToRead)
   {
-    for (size_t i = 0; i < indexes.size(); ++i)
-      features[indexes[i]].m_isOwner = true;
+    for (df::FeatureInfo & info : features)
+    {
+      if (find(featuresToRead.begin(), featuresToRead.end(), info.m_id) != featuresToRead.end())
+        info.m_isOwner = true;
+    }
   }
 
 //  void ResetReadedMark(vector<df::FeatureInfo> & features)
@@ -143,7 +146,7 @@ namespace
   class TestRoutine : public threads::IRoutine
   {
   public:
-    TestRoutine(vector<df::FeatureInfo> & features, df::MemoryFeatureIndex &index)
+    TestRoutine(df::TFeaturesInfo & features, df::MemoryFeatureIndex &index)
       : m_features(features)
       , m_index(index)
     {
@@ -151,17 +154,17 @@ namespace
 
     virtual void Do()
     {
-      vector<size_t> result;
+      vector<FeatureID> result;
       m_index.ReadFeaturesRequest(m_features, result);
       MarkNodesAsReaded(m_features, result);
     }
 
   private:
-    vector<df::FeatureInfo> & m_features;
+    df::TFeaturesInfo & m_features;
     df::MemoryFeatureIndex & m_index;
   };
 
-  void GenerateFeatures(vector<df::FeatureInfo> & features)
+  void GenerateFeatures(df::TFeaturesInfo & features)
   {
     for (int i = 0; i < 10000; ++i)
       features.push_back(df::FeatureInfo(FeatureID(MwmSet::MwmId(), rand())));
@@ -177,7 +180,7 @@ UNIT_TEST(MemoryFeatureIndex_MT_Test)
   threads::ThreadPool pool(4, bind(&JoinFinishFinction, _1, ref(cond), ref(counter)));
 
   df::MemoryFeatureIndex index;
-  vector<df::FeatureInfo> features[TASK_COUNT];
+  df::TFeaturesInfo features[TASK_COUNT];
 
   for (int i = 0; i < TASK_COUNT; ++i)
   {

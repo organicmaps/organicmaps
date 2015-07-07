@@ -39,7 +39,7 @@ private:
   void ReadFeatureIndex(MapDataProvider const & model);
   void ProcessID(FeatureID const & id);
   void InitStylist(FeatureType const & f, Stylist & s);
-  void RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes);
+  void RequestFeatures(MemoryFeatureIndex & memIndex, vector<FeatureID> & featuresToRead);
   void CheckCanceled() const;
   bool DoNeedReadIndex() const;
 
@@ -47,7 +47,7 @@ private:
 
 private:
   drape_ptr<EngineContext> m_context;
-  vector<FeatureInfo> m_featureInfo;
+  TFeaturesInfo m_featureInfo;
 
   atomic<bool> m_isCanceled;
   mutex m_mutex;
