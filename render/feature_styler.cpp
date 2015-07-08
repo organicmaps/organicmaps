@@ -34,12 +34,8 @@ namespace
 namespace di
 {
   DrawRule::DrawRule(drule::BaseRule const * p, double depth)
-    : m_rule(p), m_depth(depth)
+    : m_rule(p), m_depth(my::clamp(depth, graphics::minDepth, graphics::maxDepth))
   {
-    if (m_depth < graphics::minDepth)
-      m_depth = graphics::minDepth;
-    else if (m_depth > graphics::maxDepth)
-      m_depth = graphics::maxDepth;
   }
 
   uint32_t DrawRule::GetID(size_t threadSlot) const

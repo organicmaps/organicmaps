@@ -113,7 +113,7 @@ namespace succinct {
                 n -= 64;
             }
             if (n) {
-                append_bits(uint64_t(-1) >> (64 - n), util::to_size(n));
+                append_bits(uint64_t(-1) >> (64 - n), static_cast<uint8_t>(n));
             }
         }
 
