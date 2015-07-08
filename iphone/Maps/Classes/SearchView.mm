@@ -1,4 +1,5 @@
 #import "Common.h"
+#import "Framework.h"
 #import "LocationManager.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
@@ -11,22 +12,21 @@
 #import "SearchView.h"
 #import "Statistics.h"
 #import "ToastView.h"
-#import "UIKitCategories.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
+#import "UIKitCategories.h"
 
-#include "Framework.h"
+#include "geometry/angles.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
-#include "../../search/result.hpp"
-#include "../../search/params.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../../indexer/mercator.hpp"
+#include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
+#include "platform/settings.hpp"
 
-#include "../../platform/platform.hpp"
-#include "../../platform/preferred_languages.hpp"
-#include "../../platform/settings.hpp"
-
-#include "../../geometry/angles.hpp"
-#include "../../geometry/distance_on_sphere.hpp"
+#include "search/params.hpp"
+#include "search/result.hpp"
 
 @interface SearchResultsWrapper : NSObject
 
@@ -779,7 +779,7 @@ static BOOL keyboardLoaded = NO;
   {
     _emptyResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, 60)];
     _emptyResultLabel.backgroundColor = [UIColor clearColor];
-    _emptyResultLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
+    _emptyResultLabel.font = [UIFont regular16];
     _emptyResultLabel.text = L(@"no_search_results_found");
     _emptyResultLabel.textColor = [UIColor primary];
     _emptyResultLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;

@@ -1,5 +1,5 @@
 //
-//  MWMPlacePage+MapsMeColor.h
+//  UIColor+MapsMeColor.h
 //  Maps
 //
 //  Created by v.mikhaylenko on 25.06.15.

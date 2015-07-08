@@ -1,9 +1,9 @@
-
-#import "SearchBar.h"
 #import "Framework.h"
+#import "SearchBar.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
 
-#import "../../../3party/Alohalytics/src/alohalytics_objc.h"
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 @interface SearchBar ()
 
@@ -125,7 +125,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(1, 0, self.width, 22)];
     _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _textField.font = [UIFont fontWithName:@"HelveticaNeue" size:16.];
+    _textField.font = [UIFont regular16];
     _textField.textColor = [UIColor blackPrimaryText];
     _textField.placeholder = L(@"search");
     _textField.returnKeyType = UIReturnKeySearch;

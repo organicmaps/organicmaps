@@ -1,5 +1,6 @@
 
 #import "RichTextVC.h"
+#import "UIFont+MapsMeFonts.h"
 
 @interface RichTextVC ()
 
@@ -36,7 +37,7 @@
     _textView.editable = NO;
     if ([_textView respondsToSelector:@selector(setTextContainerInset:)])
       _textView.textContainerInset = UIEdgeInsetsMake(10, 5, 10, 5);
-    _textView.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
+    _textView.font = [UIFont regular16];
     _textView.dataDetectorTypes = UIDataDetectorTypeLink;
   }
   return _textView;

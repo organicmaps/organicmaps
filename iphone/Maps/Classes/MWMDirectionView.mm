@@ -8,6 +8,7 @@
 
 #import "MWMDirectionView.h"
 #import "MWMPlacePageViewManager.h"
+#import "UIFont+MapsMeFonts.h"
 #import "UIKitCategories.h"
 
 static NSString * const kDirectionViewNibName = @"MWMDirectionView";
@@ -37,7 +38,7 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
 
   NSString * const kFontName = @"HelveticaNeue";
   self.titleLabel.font = self.distanceLabel.font = IPAD ? [UIFont fontWithName:kFontName size:52.] : [UIFont fontWithName:kFontName size:32.];
-  self.typeLabel.font = IPAD ? [UIFont fontWithName:kFontName size:24.] : [UIFont fontWithName:kFontName size:16.];
+  self.typeLabel.font = IPAD ? [UIFont regular24] : [UIFont regular16];
 
   self.autoresizingMask = self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   self.directionArrow.autoresizingMask = UIViewAutoresizingNone;

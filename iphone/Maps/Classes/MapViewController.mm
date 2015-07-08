@@ -10,6 +10,7 @@
 #import "RouteState.h"
 #import "RouteView.h"
 #import "ShareActionSheet.h"
+#import "UIFont+MapsMeFonts.h"
 #import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"
 
@@ -833,7 +834,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
     [clearButton setTitle:L(@"clear") forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearApiMode:) forControlEvents:UIControlEventTouchUpInside];
     clearButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    clearButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
+    clearButton.titleLabel.font = [UIFont light17];
     [_apiBar addSubview:clearButton];
 
     [_apiBar addSubview:self.apiTitleLabel];
@@ -853,7 +854,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   if (!_apiTitleLabel)
   {
     _apiTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 26)];
-    _apiTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
+    _apiTitleLabel.font = [UIFont light17];
     _apiTitleLabel.textColor = [UIColor whiteColor];
     _apiTitleLabel.textAlignment = NSTextAlignmentCenter;
     _apiTitleLabel.alpha = 0.5;

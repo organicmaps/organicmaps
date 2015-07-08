@@ -1,7 +1,8 @@
 
 #import "SearchCategoryCell.h"
-#import "UIKitCategories.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
+#import "UIKitCategories.h"
 
 @interface SearchCategoryCell ()
 
@@ -49,7 +50,7 @@
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textColor = [UIColor blackPrimaryText];
-    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.];
+    _titleLabel.font = [UIFont regular16];
   }
   return _titleLabel;
 }

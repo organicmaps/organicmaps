@@ -7,6 +7,7 @@
 //
 
 #import "NextTurnPhoneView.h"
+#import "UIFont+MapsMeFonts.h"
 #import "UIKitCategories.h"
 
 @implementation NextTurnPhoneView
@@ -129,7 +130,7 @@
   {
     _metricsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _metricsLabel.backgroundColor = [UIColor clearColor];
-    _metricsLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    _metricsLabel.font = [UIFont regular14];
     _metricsLabel.textColor = [UIColor colorWithColorCode:@"2291D1"];
   }
   return _metricsLabel;

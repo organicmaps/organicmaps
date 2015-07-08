@@ -1,6 +1,7 @@
 
 #import "BadgeView.h"
 #import "UIKitCategories.h"
+#import "UIFont+MapsMeFonts.h"
 
 @implementation BadgeView
 
@@ -9,7 +10,7 @@
   [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
   self.hidden = value == 0;
 
-  UIFont * font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+  UIFont * font = [UIFont regular10];
   UIImage * image = [UIImage imageNamed:@"Badge"];
   CGFloat const textWidth = [@(value).stringValue sizeWithDrawSize:CGSizeMake(100, 20) font:font].width;
   CGFloat const offset = 4;

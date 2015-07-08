@@ -7,8 +7,9 @@
 //
 
 #import "RouteOverallInfoView.h"
-#import "UIKitCategories.h"
 #import "TimeUtils.h"
+#import "UIFont+MapsMeFonts.h"
+#import "UIKitCategories.h"
 
 @implementation RouteOverallInfoView
 
@@ -81,7 +82,7 @@
   {
     _timeLeftLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _timeLeftLabel.backgroundColor = [UIColor clearColor];
-    _timeLeftLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    _timeLeftLabel.font = [UIFont regular14];
     _timeLeftLabel.textColor = [UIColor colorWithColorCode:@"565656"];
   }
   return _timeLeftLabel;

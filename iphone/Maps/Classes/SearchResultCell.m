@@ -1,7 +1,8 @@
 
 #import "SearchResultCell.h"
-#import "UIKitCategories.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
+#import "UIKitCategories.h"
 
 static CGFloat const kOffset = 16.;
 
@@ -28,11 +29,11 @@ static CGFloat const kOffset = 16.;
   return self;
 }
 
-#define DISTANCE_FONT [UIFont fontWithName:@"HelveticaNeue" size:14]
-#define TYPE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12]
-#define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue" size:16]
-#define TITLE_BOLD_FONT [UIFont fontWithName:@"HelveticaNeue-Bold" size:16]
-#define SUBTITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12]
+#define DISTANCE_FONT [UIFont regular14]
+#define TYPE_FONT [UIFont light12]
+#define TITLE_FONT [UIFont regular16]
+#define TITLE_BOLD_FONT [UIFont bold16]
+#define SUBTITLE_FONT [UIFont light12]
 #define SPACE 4
 
 - (void)setTitle:(NSString *)title selectedRanges:(NSArray *)selectedRanges

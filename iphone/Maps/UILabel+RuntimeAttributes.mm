@@ -21,6 +21,14 @@
   return L(self.text);
 }
 
+- (void)setFontName:(NSString *)fontName
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+  self.font = [[UIFont class] performSelector:NSSelectorFromString(fontName)];
+#pragma clang diagnostic pop
+}
+
 @end
 
 @implementation UIButton (RuntimeAttributes)
@@ -31,6 +39,14 @@
 
 - (NSString *)localizedText {
   return L([self titleForState:UIControlStateNormal]);
+}
+
+- (void)setFontName:(NSString *)fontName
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+  self.titleLabel.font = [[UIFont class] performSelector:NSSelectorFromString(fontName)];
+#pragma clang diagnostic pop
 }
 
 @end
@@ -47,6 +63,14 @@
   return L(self.placeholder);
 }
 
+- (void)setFontName:(NSString *)fontName
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+  self.font = [[UIFont class] performSelector:NSSelectorFromString(fontName)];
+#pragma clang diagnostic pop
+}
+
 @end
 
 @implementation MWMTextView (RuntimeAttributes)
@@ -59,6 +83,14 @@
 - (NSString *)localizedPlaceholder
 {
   return L(self.placeholder);
+}
+
+- (void)setFontName:(NSString *)fontName
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+  self.font = [[UIFont class] performSelector:NSSelectorFromString(fontName)];
+#pragma clang diagnostic pop
 }
 
 @end

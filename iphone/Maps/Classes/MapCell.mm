@@ -1,6 +1,8 @@
 #import "Common.h"
 #import "MapCell.h"
 #import "UIKitCategories.h"
+#import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
 
 @interface MapCell () <ProgressViewDelegate>
 
@@ -267,7 +269,7 @@
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textColor = [UIColor blackColor];
-    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
+    _titleLabel.font = [UIFont regular17];
   }
   return _titleLabel;
 }
@@ -278,7 +280,7 @@
   {
     _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _subtitleLabel.backgroundColor = [UIColor clearColor];
-    _subtitleLabel.textColor = [UIColor colorWithColorCode:@"999999"];
+    _subtitleLabel.textColor = [UIColor blackSecondaryText];
     _subtitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
   }
   return _subtitleLabel;

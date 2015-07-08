@@ -34,6 +34,7 @@
 		347274771B0F4F3900756B37 /* me.maps.watchkitextension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274761B0F4F3900756B37 /* me.maps.watchkitextension.entitlements */; };
 		347274791B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274781B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements */; };
 		3472747B1B0F4FF100756B37 /* me.maps.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */; };
+		3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */; };
 		348E578E1B0F3752000FA02A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
 		34A742FE1AE5461A00CE15EB /* index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FD1AE5461A00CE15EB /* index.cpp */; };
 		34A743001AE5468200CE15EB /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FF1AE5468200CE15EB /* storage.cpp */; };
@@ -368,6 +369,8 @@
 		347274761B0F4F3900756B37 /* me.maps.watchkitextension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.watchkitextension.entitlements; sourceTree = "<group>"; };
 		347274781B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.watchkitextension.production.entitlements; sourceTree = "<group>"; };
 		3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.production.entitlements; sourceTree = "<group>"; };
+		3472EC031B4D44BE0085CB79 /* UIFont+MapsMeFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+MapsMeFonts.h"; sourceTree = "<group>"; };
+		3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIFont+MapsMeFonts.mm"; sourceTree = "<group>"; };
 		348E57981B0F49D8000FA02A /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		348E57C81B0F49EE000FA02A /* maps.me WatchKit Extension WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "maps.me WatchKit Extension WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		348E57D71B0F49EE000FA02A /* maps.me WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1148,6 +1151,8 @@
 				F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm */,
 				F6F533A11B3C248900C1940B /* UIColor+MapsMeColor.h */,
 				F6F533A21B3C248900C1940B /* UIColor+MapsMeColor.mm */,
+				3472EC031B4D44BE0085CB79 /* UIFont+MapsMeFonts.h */,
+				3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -2191,6 +2196,7 @@
 				97F61794183E7445009919E2 /* LinkCell.m in Sources */,
 				976D86EC19C8697700C920EF /* ProgressView.m in Sources */,
 				B0FBFA271A515AFD0086819E /* ViewController.m in Sources */,
+				3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */,
 				F63732961AE9431E00A03764 /* MWMBasePlacePageView.mm in Sources */,
 				97A8001018B21395000C07A2 /* SearchBar.mm in Sources */,
 				EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */,

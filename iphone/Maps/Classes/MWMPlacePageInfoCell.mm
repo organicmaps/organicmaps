@@ -6,12 +6,13 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMPlacePageInfoCell.h"
-#import "UIKitCategories.h"
 #import "MWMPlacePageEntity.h"
+#import "MWMPlacePageInfoCell.h"
+#import "UIFont+MapsMeFonts.h"
+#import "UIKitCategories.h"
 
-#include "../../../platform/settings.hpp"
-#include "../../../platform/measurement_utils.hpp"
+#include "platform/settings.hpp"
+#include "platform/measurement_utils.hpp"
 
 extern NSString * const kUserDefaultsLatLonAsDMSKey;
 
@@ -64,7 +65,7 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
   self.icon.image = image;
 
   if ([self.textContainer isKindOfClass:[UITextView class]])
-    [self.textContainer setAttributedText:[[NSAttributedString alloc] initWithString:info attributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:16.]}]];
+    [self.textContainer setAttributedText:[[NSAttributedString alloc] initWithString:info attributes:@{NSFontAttributeName : [UIFont light16]}]];
   else
     [self.textContainer setText:info];
 
