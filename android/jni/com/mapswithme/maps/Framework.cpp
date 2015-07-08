@@ -1008,11 +1008,12 @@ extern "C"
     env->CallVoidMethod(*obj.get(), methodId);
   }
 
-  void CallRoutingListener(shared_ptr<jobject> obj, int errorCode, vector<storage::TIndex> const & absentCountries)
+  void CallRoutingListener(shared_ptr<jobject> obj, int errorCode, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
   {
     JNIEnv * env = jni::GetEnv();
     // cache methodID - it cannot change after class is loaded.
     // http://developer.android.com/training/articles/perf-jni.html#jclass_jmethodID_and_jfieldID more details here
+    // TODO pass & process second vector of absentRoutes
     static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(), "onRoutingEvent", "(I[Lcom/mapswithme/maps/MapStorage$Index;)V");
     ASSERT(methodId, ());
 
@@ -1435,7 +1436,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jobject thiz, jobject listener)
   {
-    frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2));
+    frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2, _3));
   }
 
   JNIEXPORT void JNICALL
