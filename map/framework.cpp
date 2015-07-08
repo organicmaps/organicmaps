@@ -100,7 +100,8 @@ namespace
   static const int BM_TOUCH_PIXEL_INCREASE = 20;
 }
 
-pair<MwmSet::MwmLock, bool> Framework::RegisterMap(LocalCountryFile const & localFile)
+pair<MwmSet::MwmHandle, MwmSet::RegResult> Framework::RegisterMap(
+    LocalCountryFile const & localFile)
 {
   string const countryFileName = localFile.GetCountryName();
   LOG(LINFO, ("Loading map:", countryFileName));
@@ -369,7 +370,7 @@ void Framework::DeleteCountry(storage::TIndex const & index, TMapOptions opt)
       {
         InvalidateRect(GetCountryBounds(countryFile.GetNameWithoutExt()), true /* doForceUpdate */);
       }
-      // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmLocks. Thus,
+      // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmHandles. Thus,
       // it won' be needed to reset it after maps update.
       m_routingSession.Reset();
       return;
@@ -420,7 +421,7 @@ void Framework::ShowCountry(TIndex const & index)
 
 void Framework::UpdateAfterDownload(LocalCountryFile const & localFile)
 {
-  // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmLocks. Thus,
+  // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmHandles. Thus,
   // it won' be needed to reset it after maps update.
   m_routingSession.Reset();
 
@@ -428,10 +429,10 @@ void Framework::UpdateAfterDownload(LocalCountryFile const & localFile)
     return;
 
   // Add downloaded map.
-  pair<MwmSet::MwmLock, bool> const result = m_model.RegisterMap(localFile);
-  MwmSet::MwmLock const & lock = result.first;
-  if (lock.IsLocked())
-    InvalidateRect(lock.GetInfo()->m_limitRect, true /* doForceUpdate */);
+  auto result = m_model.RegisterMap(localFile);
+  MwmSet::MwmHandle const & handle = result.first;
+  if (handle.IsAlive())
+    InvalidateRect(handle.GetInfo()->m_limitRect, true /* doForceUpdate */);
   GetSearchEngine()->ClearViewportsCache();
 }
 
@@ -458,12 +459,12 @@ void Framework::RegisterAllMaps()
     shared_ptr<LocalCountryFile> localFile = m_storage.GetLatestLocalFile(countryFile);
     if (!localFile)
       continue;
-    pair<MwmSet::MwmLock, bool> const p = RegisterMap(*localFile);
-    if (!p.second)
+    auto p = RegisterMap(*localFile);
+    if (p.second != MwmSet::RegResult::Success)
       continue;
-    MwmSet::MwmLock const & lock = p.first;
-    ASSERT(lock.IsLocked(), ());
-    minFormat = min(minFormat, static_cast<int>(lock.GetInfo()->m_version.format));
+    MwmSet::MwmHandle const & handle = p.first;
+    ASSERT(handle.IsAlive(), ());
+    minFormat = min(minFormat, static_cast<int>(handle.GetInfo()->m_version.format));
   }
 
   m_countryTree.Init(maps);

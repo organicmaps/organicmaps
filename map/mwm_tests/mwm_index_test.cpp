@@ -39,14 +39,13 @@ public:
 bool RunTest(string const & countryFileName, int lowS, int highS)
 {
   model::FeaturesFetcher src;
-  pair<MwmSet::MwmLock, bool> const p =
-      src.RegisterMap(platform::LocalCountryFile::MakeForTesting(countryFileName));
-  if (!p.second)
+  auto p = src.RegisterMap(platform::LocalCountryFile::MakeForTesting(countryFileName));
+  if (p.second != MwmSet::RegResult::Success)
     return false;
-  MwmSet::MwmLock const & lock = p.first;
-  ASSERT(lock.IsLocked(), ());
+  MwmSet::MwmHandle const & handle = p.first;
+  ASSERT(handle.IsAlive(), ());
 
-  version::Format const version = lock.GetInfo()->m_version.format;
+  version::Format const version = handle.GetInfo()->m_version.format;
   if (version == version::unknownFormat)
     return false;
 

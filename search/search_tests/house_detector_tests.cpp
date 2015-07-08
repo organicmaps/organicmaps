@@ -184,10 +184,9 @@ UNIT_TEST(HS_StreetsMerge)
   classificator::Load();
 
   Index index;
-  pair<MwmSet::MwmLock, bool> const p =
-      index.Register(LocalCountryFile::MakeForTesting("minsk-pass"));
-  TEST(p.first.IsLocked(), ());
-  TEST(p.second, ());
+  auto const p = index.Register(LocalCountryFile::MakeForTesting("minsk-pass"));
+  TEST(p.first.IsAlive(), ());
+  TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
 
   {
     search::HouseDetector houser(&index);
@@ -274,10 +273,9 @@ UNIT_TEST(HS_FindHouseSmoke)
   classificator::Load();
 
   Index index;
-  pair<MwmSet::MwmLock, bool> const p =
-      index.Register(LocalCountryFile::MakeForTesting("minsk-pass"));
-  TEST(p.first.IsLocked(), ());
-  TEST(p.second, ());
+  auto const p = index.Register(LocalCountryFile::MakeForTesting("minsk-pass"));
+  TEST(p.first.IsAlive(), ());
+  TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
 
   {
     vector<string> streetName(1, "Московская улица");
@@ -375,13 +373,13 @@ UNIT_TEST(HS_MWMSearch)
   }
 
   Index index;
-  pair<MwmSet::MwmLock, bool> const p = index.Register(LocalCountryFile::MakeForTesting(country));
-  if (!p.second)
+  auto p = index.Register(LocalCountryFile::MakeForTesting(country));
+  if (p.second != MwmSet::RegResult::Success)
   {
     LOG(LWARNING, ("MWM file not found"));
     return;
   }
-  TEST(p.first.IsLocked(), ());
+  TEST(p.first.IsAlive(), ());
 
   CollectStreetIDs streetIDs;
   index.ForEachInScale(streetIDs, scales::GetUpperScale());

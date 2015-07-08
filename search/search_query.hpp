@@ -4,7 +4,7 @@
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_trie.hpp"
-#include "indexer/index.hpp"   // for Index::MwmLock
+#include "indexer/index.hpp"  // for Index::MwmHandle
 
 #include "geometry/rect2d.hpp"
 
@@ -203,8 +203,9 @@ private:
   //@{
   /// Do search in all maps from mwmInfo.
   void SearchFeatures(Params const & params, MWMVectorT const & mwmsInfo, ViewportID vID);
-  /// Do search in particular map (mwmLock).
-  void SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, ViewportID vID = DEFAULT_V);
+  /// Do search in particular map (mwmHandle).
+  void SearchInMWM(Index::MwmHandle const & mwmHandle, Params const & params,
+                   ViewportID vID = DEFAULT_V);
   //@}
 
   void SuggestStrings(Results & res);

@@ -76,10 +76,10 @@ UNIT_TEST(MwmSetSmokeTest)
   TEST_EQUAL(mwmsInfo["0"]->m_maxScale, 0, ());
   TEST(mwmsInfo["2"]->IsUpToDate(), ());
   {
-    MwmSet::MwmLock const lock0 = mwmSet.GetMwmLockByCountryFile(CountryFile("0"));
-    MwmSet::MwmLock const lock1 = mwmSet.GetMwmLockByCountryFile(CountryFile("1"));
-    TEST(lock0.IsLocked(), ());
-    TEST(!lock1.IsLocked(), ());
+    MwmSet::MwmHandle const handle0 = mwmSet.GetMwmHandleByCountryFile(CountryFile("0"));
+    MwmSet::MwmHandle const handle1 = mwmSet.GetMwmHandleByCountryFile(CountryFile("1"));
+    TEST(handle0.IsAlive(), ());
+    TEST(!handle1.IsAlive(), ());
   }
 
   UNUSED_VALUE(mwmSet.Register(LocalCountryFile::MakeForTesting("3")));
@@ -95,8 +95,8 @@ UNIT_TEST(MwmSetSmokeTest)
   TEST_EQUAL(mwmsInfo["3"]->m_maxScale, 3, ());
 
   {
-    MwmSet::MwmLock const lock1 = mwmSet.GetMwmLockByCountryFile(CountryFile("1"));
-    TEST(!lock1.IsLocked(), ());
+    MwmSet::MwmHandle const handle1 = mwmSet.GetMwmHandleByCountryFile(CountryFile("1"));
+    TEST(!handle1.IsAlive(), ());
     mwmSet.Deregister(CountryFile("3"));
     UNUSED_VALUE(mwmSet.Register(LocalCountryFile::MakeForTesting("4")));
   }
@@ -130,10 +130,11 @@ UNIT_TEST(MwmSetSmokeTest)
 UNIT_TEST(MwmSetIdTest)
 {
   TestMwmSet mwmSet;
-  TEST(mwmSet.Register(LocalCountryFile::MakeForTesting("3")).second, ());
+  TEST_EQUAL(MwmSet::RegResult::Success,
+             mwmSet.Register(LocalCountryFile::MakeForTesting("3")).second, ());
 
-  MwmSet::MwmId const id0 = mwmSet.GetMwmLockByCountryFile(CountryFile("3")).GetId();
-  MwmSet::MwmId const id1 = mwmSet.GetMwmLockByCountryFile(CountryFile("3")).GetId();
+  MwmSet::MwmId const id0 = mwmSet.GetMwmHandleByCountryFile(CountryFile("3")).GetId();
+  MwmSet::MwmId const id1 = mwmSet.GetMwmHandleByCountryFile(CountryFile("3")).GetId();
 
   TEST(id0.IsAlive(), ());
   TEST(id1.IsAlive(), ());
@@ -155,18 +156,16 @@ UNIT_TEST(MwmSetLockAndIdTest)
   MwmSet::MwmId id;
 
   {
-    pair<MwmSet::MwmLock, bool> const lockFlag =
-        mwmSet.Register(LocalCountryFile::MakeForTesting("4"));
-    MwmSet::MwmLock const & lock = lockFlag.first;
-    bool const success = lockFlag.second;
-    TEST(lock.IsLocked(), ());
-    TEST(success, ("Can't register test mwm 4"));
-    TEST_EQUAL(MwmInfo::STATUS_REGISTERED, lock.GetInfo()->GetStatus(), ());
+    auto p = mwmSet.Register(LocalCountryFile::MakeForTesting("4"));
+    MwmSet::MwmHandle const & handle = p.first;
+    TEST(handle.IsAlive(), ());
+    TEST_EQUAL(MwmSet::RegResult::Success, p.second, ("Can't register test mwm 4"));
+    TEST_EQUAL(MwmInfo::STATUS_REGISTERED, handle.GetInfo()->GetStatus(), ());
 
     TEST(!mwmSet.Deregister(CountryFile("4")), ());  // It's not possible to remove mwm 4 right now.
-    TEST(lock.IsLocked(), ());
-    TEST_EQUAL(MwmInfo::STATUS_MARKED_TO_DEREGISTER, lock.GetInfo()->GetStatus(), ());
-    id = lock.GetId();
+    TEST(handle.IsAlive(), ());
+    TEST_EQUAL(MwmInfo::STATUS_MARKED_TO_DEREGISTER, handle.GetInfo()->GetStatus(), ());
+    id = handle.GetId();
     TEST(id.IsAlive(), ());
   }
 
@@ -177,8 +176,8 @@ UNIT_TEST(MwmSetLockAndIdTest)
 
   // It is not possible to lock mwm 4 because it is already deleted,
   // and it is not possible to get to it's info from mwmSet.
-  MwmSet::MwmLock lock = mwmSet.GetMwmLockByCountryFile(CountryFile("4"));
-  TEST(!lock.IsLocked(), ());
-  TEST(!lock.GetId().IsAlive(), ());
-  TEST(!lock.GetId().GetInfo().get(), ());
+  MwmSet::MwmHandle handle = mwmSet.GetMwmHandleByCountryFile(CountryFile("4"));
+  TEST(!handle.IsAlive(), ());
+  TEST(!handle.GetId().IsAlive(), ());
+  TEST(!handle.GetId().GetInfo().get(), ());
 }

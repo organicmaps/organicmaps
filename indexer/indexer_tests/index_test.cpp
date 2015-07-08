@@ -109,18 +109,18 @@ UNIT_TEST(Index_MwmStatusNotifications)
   // Checks that observers are triggered after map registration.
   {
     observer.ExpectRegisteredMap(localFileV1);
-    pair<MwmSet::MwmLock, bool> const p = index.RegisterMap(localFileV1);
-    TEST(p.first.IsLocked(), ());
-    TEST(p.second, ());
+    auto p = index.RegisterMap(localFileV1);
+    TEST(p.first.IsAlive(), ());
+    TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
     observer.CheckExpectations();
     localFileV1Id = p.first.GetId();
   }
 
   // Checks that map can't registered twice.
   {
-    pair<MwmSet::MwmLock, bool> const p = index.RegisterMap(localFileV1);
-    TEST(p.first.IsLocked(), ());
-    TEST(!p.second, ());
+    auto p = index.RegisterMap(localFileV1);
+    TEST(p.first.IsAlive(), ());
+    TEST_EQUAL(MwmSet::RegResult::VersionAlreadyExists, p.second, ());
     observer.CheckExpectations();
     TEST_EQUAL(localFileV1Id, p.first.GetId(), ());
   }
@@ -130,9 +130,9 @@ UNIT_TEST(Index_MwmStatusNotifications)
   {
     observer.ExpectRegisteredMap(localFileV2);
     observer.ExpectDeregisteredMap(localFileV1);
-    pair<MwmSet::MwmLock, bool> const p = index.RegisterMap(localFileV2);
-    TEST(p.first.IsLocked(), ());
-    TEST(p.second, ());
+    auto p = index.RegisterMap(localFileV2);
+    TEST(p.first.IsAlive(), ());
+    TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
     observer.CheckExpectations();
     localFileV2Id = p.first.GetId();
     TEST_NOT_EQUAL(localFileV1Id, localFileV2Id, ());
@@ -142,8 +142,8 @@ UNIT_TEST(Index_MwmStatusNotifications)
   // should be marked "to be removed" but can't be deregistered. After
   // leaving the inner block the map should be deregistered.
   {
-    MwmSet::MwmLock const lock = index.GetMwmLockByCountryFile(countryFile);
-    TEST(lock.IsLocked(), ());
+    MwmSet::MwmHandle const handle = index.GetMwmHandleByCountryFile(countryFile);
+    TEST(handle.IsAlive(), ());
 
     TEST(!index.DeregisterMap(countryFile), ());
     observer.CheckExpectations();

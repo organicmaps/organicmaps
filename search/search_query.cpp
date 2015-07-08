@@ -264,8 +264,8 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const &
     if (rect.IsIntersect(info->m_limitRect))
     {
       MwmSet::MwmId mwmId(info);
-      Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
-      if (MwmValue * const pMwm = mwmLock.GetValue<MwmValue>())
+      Index::MwmHandle const mwmHandle(const_cast<Index &>(*m_pIndex), mwmId);
+      if (MwmValue * const pMwm = mwmHandle.GetValue<MwmValue>())
       {
         FHeaderT const & header = pMwm->GetHeader();
         if (header.GetType() == FHeaderT::country)
@@ -1608,8 +1608,8 @@ void Query::SearchAddress(Results & res)
   for (shared_ptr<MwmInfo> & info : mwmsInfo)
   {
     MwmSet::MwmId mwmId(info);
-    Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
-    MwmValue * const pMwm = mwmLock.GetValue<MwmValue>();
+    Index::MwmHandle const mwmHandle(const_cast<Index &>(*m_pIndex), mwmId);
+    MwmValue * const pMwm = mwmHandle.GetValue<MwmValue>();
     if (pMwm &&
         pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) &&
         pMwm->GetHeader().GetType() == FHeaderT::world)
@@ -1663,14 +1663,14 @@ void Query::SearchAddress(Results & res)
           for (shared_ptr<MwmInfo> & info : mwmsInfo)
           {
             MwmSet::MwmId id(info);
-            Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), id);
-            if (mwmLock.IsLocked())
+            Index::MwmHandle const handle(const_cast<Index &>(*m_pIndex), id);
+            if (handle.IsAlive())
             {
               platform::CountryFile const & countryFile =
-                  mwmLock.GetValue<MwmValue>()->GetCountryFile();
+                  handle.GetValue<MwmValue>()->GetCountryFile();
               string const countryFileName = countryFile.GetNameWithoutExt();
               if (m_pInfoGetter->IsBelongToRegion(countryFileName, region.m_ids))
-                SearchInMWM(mwmLock, params);
+                SearchInMWM(handle, params);
             }
           }
         }
@@ -2030,8 +2030,8 @@ void Query::SearchFeatures(Params const & params, MWMVectorT const & mwmsInfo, V
     // Search only mwms that intersect with viewport (world always does).
     if (m_viewport[vID].IsIntersect(info->m_limitRect))
     {
-      Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), MwmSet::MwmId(info));
-      SearchInMWM(mwmLock, params, vID);
+      Index::MwmHandle const mwmHandle(const_cast<Index &>(*m_pIndex), MwmSet::MwmId(info));
+      SearchInMWM(mwmHandle, params, vID);
     }
   }
 }
@@ -2069,10 +2069,10 @@ void FillCategories(Query::Params const & params, TrieIterator const * pTrieRoot
 
 }
 
-void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
+void Query::SearchInMWM(Index::MwmHandle const & mwmHandle, Params const & params,
                         ViewportID vID /*= DEFAULT_V*/)
 {
-  if (MwmValue const * const pMwm = mwmLock.GetValue<MwmValue>())
+  if (MwmValue const * const pMwm = mwmHandle.GetValue<MwmValue>())
   {
     if (pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG))
     {
@@ -2091,7 +2091,7 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
                                          trie::ValueReader(cp),
                                          trie::EdgeValueReader()));
 
-      MwmSet::MwmId const mwmId = mwmLock.GetId();
+      MwmSet::MwmId const mwmId = mwmHandle.GetId();
       FeaturesFilter filter((vID == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[vID][mwmId], *this);
 
       // Get categories for each token separately - find needed edge with categories.
@@ -2199,11 +2199,11 @@ void Query::SearchAdditional(Results & res, size_t resCount)
 
     for (shared_ptr<MwmInfo> const & info : mwmsInfo)
     {
-      Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), MwmSet::MwmId(info));
-      if (mwmLock.IsLocked() &&
-          mwmLock.GetValue<MwmValue>()->GetCountryFile().GetNameWithoutExt() == fileName)
+      Index::MwmHandle const handle(const_cast<Index &>(*m_pIndex), MwmSet::MwmId(info));
+      if (handle.IsAlive() &&
+          handle.GetValue<MwmValue>()->GetCountryFile().GetNameWithoutExt() == fileName)
       {
-        SearchInMWM(mwmLock, params);
+        SearchInMWM(handle, params);
       }
     }
 

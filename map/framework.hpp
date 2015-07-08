@@ -194,10 +194,8 @@ public:
   void DeregisterAllMaps();
 
   /// Registers a local map file in internal indexes.
-  ///
-  /// @return True and inner mwm data version from header in version
-  ///         or false in case of errors.
-  pair<MwmSet::MwmLock, bool> RegisterMap(platform::LocalCountryFile const & localFile);
+  pair<MwmSet::MwmHandle, MwmSet::RegResult> RegisterMap(
+      platform::LocalCountryFile const & localFile);
   //@}
 
   /// Deletes all disk files corresponding to country.

@@ -54,8 +54,8 @@ namespace integration
 
     for (LocalCountryFile const & localFile : localFiles)
     {
-      pair<MwmSet::MwmLock, bool> result = featuresFetcher->RegisterMap(localFile);
-      if (!result.second)
+      auto p = featuresFetcher->RegisterMap(localFile);
+      if (p.second != MwmSet::RegResult::Success)
       {
         ASSERT(false, ("Can't register", localFile));
         return nullptr;

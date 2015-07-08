@@ -45,7 +45,7 @@ protected:
 public:
   /// An Observer interface to MwmSet. Note that these functions can
   /// be called from *ANY* thread because most signals are sent when
-  /// some thread releases its MwmLock, so overrides must be as fast
+  /// some thread releases its MwmHandle, so overrides must be as fast
   /// as possible and non-blocking when it's possible.
   class Observer
   {
@@ -64,15 +64,8 @@ public:
   ~Index() override = default;
 
   /// Registers a new map.
-  ///
-  /// \return A pair of an MwmLock and a flag. There are three cases:
-  ///         * the map is newer than the newest registered - returns
-  ///           active lock and set flag
-  ///         * the map is older than the newest registered - returns inactive lock and
-  ///           unset flag.
-  ///         * the version of the map equals to the version of the newest registered -
-  ///           returns active lock and unset flag.
-  WARN_UNUSED_RESULT pair<MwmLock, bool> RegisterMap(platform::LocalCountryFile const & localFile);
+  WARN_UNUSED_RESULT pair<MwmHandle, RegResult> RegisterMap(
+      platform::LocalCountryFile const & localFile);
 
   /// Deregisters a map from internal records.
   ///
@@ -120,9 +113,9 @@ private:
   public:
     ReadMWMFunctor(F & f) : m_f(f) {}
 
-    void operator() (MwmLock const & lock, covering::CoveringGetter & cov, uint32_t scale) const
+    void operator()(MwmHandle const & handle, covering::CoveringGetter & cov, uint32_t scale) const
     {
-      MwmValue * const pValue = lock.GetValue<MwmValue>();
+      MwmValue * const pValue = handle.GetValue<MwmValue>();
       if (pValue)
       {
         feature::DataHeader const & header = pValue->GetHeader();
@@ -142,7 +135,7 @@ private:
                                          pValue->m_factory);
 
         // iterate through intervals
-        ImplFunctor implF(fv, m_f, lock.GetId());
+        ImplFunctor implF(fv, m_f, handle.GetId());
         for (size_t i = 0; i < interval.size(); ++i)
           index.ForEachInIntervalAndScale(implF, interval[i].first, interval[i].second, scale);
       }
@@ -176,9 +169,9 @@ private:
   public:
     ReadFeatureIndexFunctor(F & f) : m_f(f) {}
 
-    void operator() (MwmLock const & lock, covering::CoveringGetter & cov, uint32_t scale) const
+    void operator()(MwmHandle const & handle, covering::CoveringGetter & cov, uint32_t scale) const
     {
-      MwmValue * const pValue = lock.GetValue<MwmValue>();
+      MwmValue * const pValue = handle.GetValue<MwmValue>();
       if (pValue)
       {
         feature::DataHeader const & header = pValue->GetHeader();
@@ -195,7 +188,7 @@ private:
                                          pValue->m_factory);
 
         // iterate through intervals
-        ImplFunctor implF(m_f, lock.GetId());
+        ImplFunctor implF(m_f, handle.GetId());
         for (size_t i = 0; i < interval.size(); ++i)
           index.ForEachInIntervalAndScale(implF, interval[i].first, interval[i].second, scale);
       }
@@ -250,13 +243,13 @@ public:
   public:
     FeaturesLoaderGuard(Index const & parent, MwmId id);
 
-    inline MwmSet::MwmId GetId() const { return m_lock.GetId(); }
+    inline MwmSet::MwmId GetId() const { return m_handle.GetId(); }
     string GetCountryFileName() const;
     bool IsWorld() const;
     void GetFeature(uint32_t offset, FeatureType & ft);
 
   private:
-    MwmLock m_lock;
+    MwmHandle m_handle;
     FeaturesVector m_vector;
   };
 
@@ -265,12 +258,12 @@ public:
   {
     if (id.IsAlive())
     {
-      MwmLock const lock(const_cast<Index &>(*this), id);
-      if (lock.IsLocked())
+      MwmHandle const handle(const_cast<Index &>(*this), id);
+      if (handle.IsAlive())
       {
         covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
         ReadMWMFunctor<F> fn(f);
-        fn(lock, cov, scale);
+        fn(handle, cov, scale);
       }
     }
   }
@@ -283,8 +276,8 @@ private:
     ASSERT_LESS(index, features.size(), ());
     size_t result = index;
     MwmId id = features[index].m_mwmId;
-    MwmLock const lock(const_cast<Index &>(*this), id);
-    MwmValue * const pValue = lock.GetValue<MwmValue>();
+    MwmHandle const handle(const_cast<Index &>(*this), id);
+    MwmValue * const pValue = handle.GetValue<MwmValue>();
     if (pValue)
     {
       FeaturesVector featureReader(pValue->m_cont, pValue->GetHeader());
@@ -334,8 +327,8 @@ private:
         {
           case MwmInfo::COUNTRY:
           {
-            MwmLock const lock(const_cast<Index &>(*this), id);
-            f(lock, cov, scale);
+            MwmHandle const handle(const_cast<Index &>(*this), id);
+            f(handle, cov, scale);
           }
           break;
 
@@ -352,14 +345,14 @@ private:
 
     if (worldID[0].IsAlive())
     {
-      MwmLock const lock(const_cast<Index &>(*this), worldID[0]);
-      f(lock, cov, scale);
+      MwmHandle const handle(const_cast<Index &>(*this), worldID[0]);
+      f(handle, cov, scale);
     }
 
     if (worldID[1].IsAlive())
     {
-      MwmLock const lock(const_cast<Index &>(*this), worldID[1]);
-      f(lock, cov, scale);
+      MwmHandle const handle(const_cast<Index &>(*this), worldID[1]);
+      f(handle, cov, scale);
     }
   }
 

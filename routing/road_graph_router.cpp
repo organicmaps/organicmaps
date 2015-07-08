@@ -93,11 +93,12 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
     return PointsInDifferentMWM;
 
   platform::CountryFile countryFile(mwmName);
-  MwmSet::MwmLock const mwmLock = const_cast<Index &>(m_index).GetMwmLockByCountryFile(countryFile);
-  if (!mwmLock.IsLocked())
+  MwmSet::MwmHandle const handle =
+      const_cast<Index &>(m_index).GetMwmHandleByCountryFile(countryFile);
+  if (!handle.IsAlive())
     return RouteFileNotExist;
-  
-  MwmSet::MwmId const mwmID = mwmLock.GetId();
+
+  MwmSet::MwmId const mwmID = handle.GetId();
   if (!IsMyMWM(mwmID))
     m_roadGraph.reset(new FeaturesRoadGraph(*m_vehicleModel.get(), m_index, mwmID));
   

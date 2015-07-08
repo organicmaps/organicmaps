@@ -39,8 +39,8 @@ UNIT_TEST(GenerateTestMwm_Smoke)
 
   TestSearchEngine engine("en" /* locale */);
   auto ret = engine.RegisterMap(file);
-  TEST(ret.second, ("Can't register generated map."));
-  TEST(ret.first.IsLocked(), ("Can't get lock on a generated map."));
+  TEST_EQUAL(MwmSet::RegResult::Success, ret.second, ("Can't register generated map."));
+  TEST(ret.first.IsAlive(), ("Can't get lock on a generated map."));
 
   TestFeaturesCount(engine, m2::RectD(m2::PointD(0, 0), m2::PointD(1, 1)), 4);
   TestFeaturesCount(engine, m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 1.5)), 2);

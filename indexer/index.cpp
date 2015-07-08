@@ -49,10 +49,10 @@ MwmSet::TMwmValueBasePtr Index::CreateValue(LocalCountryFile const & localFile) 
   return p;
 }
 
-pair<MwmSet::MwmLock, bool> Index::RegisterMap(LocalCountryFile const & localFile)
+pair<MwmSet::MwmHandle, MwmSet::RegResult> Index::RegisterMap(LocalCountryFile const & localFile)
 {
-  pair<MwmSet::MwmLock, bool> result = Register(localFile);
-  if (result.first.IsLocked() && result.second)
+  auto result = Register(localFile);
+  if (result.first.IsAlive() && result.second == MwmSet::RegResult::Success)
     m_observers.ForEach(&Observer::OnMapRegistered, localFile);
   return result;
 }
@@ -73,26 +73,26 @@ void Index::OnMwmDeregistered(LocalCountryFile const & localFile)
 //////////////////////////////////////////////////////////////////////////////////
 
 Index::FeaturesLoaderGuard::FeaturesLoaderGuard(Index const & parent, MwmId id)
-    : m_lock(const_cast<Index &>(parent), id),
+    : m_handle(const_cast<Index &>(parent), id),
       /// @note This guard is suitable when mwm is loaded
-      m_vector(m_lock.GetValue<MwmValue>()->m_cont, m_lock.GetValue<MwmValue>()->GetHeader())
+      m_vector(m_handle.GetValue<MwmValue>()->m_cont, m_handle.GetValue<MwmValue>()->GetHeader())
 {
 }
 
 string Index::FeaturesLoaderGuard::GetCountryFileName() const
 {
-  if (!m_lock.IsLocked())
+  if (!m_handle.IsAlive())
     return string();
-  return m_lock.GetValue<MwmValue>()->GetCountryFile().GetNameWithoutExt();
+  return m_handle.GetValue<MwmValue>()->GetCountryFile().GetNameWithoutExt();
 }
 
 bool Index::FeaturesLoaderGuard::IsWorld() const
 {
-  return m_lock.GetValue<MwmValue>()->GetHeader().GetType() == feature::DataHeader::world;
+  return m_handle.GetValue<MwmValue>()->GetHeader().GetType() == feature::DataHeader::world;
 }
 
 void Index::FeaturesLoaderGuard::GetFeature(uint32_t offset, FeatureType & ft)
 {
   m_vector.Get(offset, ft);
-  ft.SetID(FeatureID(m_lock.GetId(), offset));
+  ft.SetID(FeatureID(m_handle.GetId(), offset));
 }

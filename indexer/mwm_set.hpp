@@ -68,7 +68,7 @@ private:
 
   platform::LocalCountryFile m_file;  ///< Path to the mwm file.
   Status m_status;                    ///< Current country status.
-  uint8_t m_lockCount;                ///< Number of locks.
+  uint8_t m_numRefs;                  ///< Number of active handles.
 };
 
 class MwmSet
@@ -119,14 +119,15 @@ public:
 
   using TMwmValueBasePtr = shared_ptr<MwmValueBase>;
 
-  // Mwm lock, which is used to lock mwm when its FileContainer is used.
-  class MwmLock final
+  // Mwm handle, which is used to refer to mwm and prevent it from
+  // deletion when its FileContainer is used.
+  class MwmHandle final
   {
   public:
-    MwmLock();
-    MwmLock(MwmSet & mwmSet, MwmId const & mwmId);
-    MwmLock(MwmLock && lock);
-    ~MwmLock();
+    MwmHandle();
+    MwmHandle(MwmSet & mwmSet, MwmId const & mwmId);
+    MwmHandle(MwmHandle && handle);
+    ~MwmHandle();
 
     // Returns a non-owning ptr.
     template <typename T>
@@ -135,41 +136,46 @@ public:
       return static_cast<T *>(m_value.get());
     }
 
-    inline bool IsLocked() const { return m_value.get() != nullptr; }
+    inline bool IsAlive() const { return m_value.get() != nullptr; }
     inline MwmId const & GetId() const { return m_mwmId; }
     shared_ptr<MwmInfo> const & GetInfo() const;
 
-    MwmLock & operator=(MwmLock && lock);
+    MwmHandle & operator=(MwmHandle && handle);
 
   private:
     friend class MwmSet;
 
-    MwmLock(MwmSet & mwmSet, MwmId const & mwmId, TMwmValueBasePtr value);
+    MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, TMwmValueBasePtr value);
 
     MwmSet * m_mwmSet;
     MwmId m_mwmId;
     TMwmValueBasePtr m_value;
 
-    DISALLOW_COPY(MwmLock);
+    DISALLOW_COPY(MwmHandle);
+  };
+
+  enum class RegResult
+  {
+    Success,
+    VersionAlreadyExists,
+    VersionTooOld,
+    BadFile
   };
 
   /// Registers a new map.
   ///
-  /// \return A pair of an MwmLock and a flag. There are three cases:
-  ///         * the map is newer than the newest registered - returns
-  ///           active lock and set flag.
-  ///         * the map is older than the newest registered - returns inactive lock and
-  ///           unset flag.
-  ///         * the version of the map equals to the version of the newest registered -
-  ///           returns active lock and unset flag.
-  ///
-  /// *NOTE* When a new version for the same country is registered,
-  /// all previous versions will be automatically deregistered.
+  /// \return An active mwm handle when an mwm file with this version
+  /// already exists (in this case mwm handle will point to already
+  /// registered file) or when all registered corresponding mwm files
+  /// are older than the localFile (in this case mwm handle will point
+  /// to just-registered file).
 protected:
-  WARN_UNUSED_RESULT pair<MwmLock, bool> RegisterImpl(platform::LocalCountryFile const & localFile);
+  WARN_UNUSED_RESULT pair<MwmHandle, RegResult> RegisterImpl(
+      platform::LocalCountryFile const & localFile);
 
 public:
-  WARN_UNUSED_RESULT pair<MwmLock, bool> Register(platform::LocalCountryFile const & localFile);
+  WARN_UNUSED_RESULT pair<MwmHandle, RegResult> Register(
+      platform::LocalCountryFile const & localFile);
   //@}
 
   /// @name Remove mwm.
@@ -203,7 +209,7 @@ public:
 
   MwmId GetMwmIdByCountryFile(platform::CountryFile const & countryFile) const;
 
-  MwmLock GetMwmLockByCountryFile(platform::CountryFile const & countryFile);
+  MwmHandle GetMwmHandleByCountryFile(platform::CountryFile const & countryFile);
 
 protected:
   /// @return True when file format version was successfully read to MwmInfo.
@@ -234,9 +240,9 @@ protected:
   MwmId GetMwmIdByCountryFileImpl(platform::CountryFile const & countryFile) const;
 
   /// @precondition This function is always called under mutex m_lock.
-  WARN_UNUSED_RESULT inline MwmLock GetLock(MwmId const & id)
+  WARN_UNUSED_RESULT inline MwmHandle GetLock(MwmId const & id)
   {
-    return MwmLock(*this, id, LockValueImpl(id));
+    return MwmHandle(*this, id, LockValueImpl(id));
   }
 
   // This method is called under m_lock when mwm is removed from a
@@ -247,3 +253,5 @@ protected:
 
   mutable mutex m_lock;
 };
+
+string DebugPrint(MwmSet::RegResult result);

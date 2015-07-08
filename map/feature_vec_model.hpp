@@ -46,15 +46,7 @@ class FeaturesFetcher : public Index::Observer
     }
 
     /// Registers a new map.
-    ///
-    /// \return A pair of an MwmLock and a flag. There are three cases:
-    ///         * the map is newer than the newest registered - returns
-    ///           active lock and set flag
-    ///         * the map is older than the newest registered - returns inactive lock and
-    ///           unset flag.
-    ///         * the version of the map equals to the version of the newest registered -
-    ///           returns active lock and unset flag.
-    WARN_UNUSED_RESULT pair<MwmSet::MwmLock, bool> RegisterMap(
+    WARN_UNUSED_RESULT pair<MwmSet::MwmHandle, MwmSet::RegResult> RegisterMap(
         platform::LocalCountryFile const & localFile);
 
     /// Deregisters a map denoted by file from internal records.

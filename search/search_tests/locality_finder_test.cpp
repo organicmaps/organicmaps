@@ -38,12 +38,11 @@ void doTests2(search::LocalityFinder & finder, vector<m2::PointD> const & input,
 UNIT_TEST(LocalityFinder)
 {
   Index index;
-  pair<MwmSet::MwmLock, bool> const p =
-      index.Register(platform::LocalCountryFile::MakeForTesting("World"));
-  TEST(p.second, ());
-  MwmSet::MwmLock const & lock = p.first;
-  TEST(lock.IsLocked(), ());
-  shared_ptr<MwmInfo> info = lock.GetId().GetInfo();
+  auto const p = index.Register(platform::LocalCountryFile::MakeForTesting("World"));
+  TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
+  MwmSet::MwmHandle const & handle = p.first;
+  TEST(handle.IsAlive(), ());
+  shared_ptr<MwmInfo> info = handle.GetId().GetInfo();
   m2::RectD const & rect = info->m_limitRect;
 
   search::LocalityFinder finder(&index);

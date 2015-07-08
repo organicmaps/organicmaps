@@ -233,13 +233,13 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   LocalCountryFile localFile(baseDir, countryFile, 0 /* version */);
   localFile.SyncWithDisk();
   Index index;
-  pair<MwmSet::MwmLock, bool> const p = index.Register(localFile);
-  if (!p.second)
+  auto p = index.Register(localFile);
+  if (p.second != MwmSet::RegResult::Success)
   {
     LOG(LCRITICAL, ("MWM file not found"));
     return;
   }
-  ASSERT(p.first.IsLocked(), ());
+  ASSERT(p.first.IsAlive(), ());
 
   osrm::NodeDataVectorT nodeData;
   gen::OsmID2FeatureID osm2ft;

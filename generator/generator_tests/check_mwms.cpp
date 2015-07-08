@@ -26,9 +26,9 @@ UNIT_TEST(CheckMWM_LoadAll)
     LOG(LINFO, ("Found mwm:", localFile));
     try
     {
-      pair<MwmSet::MwmLock, bool> const p = m.RegisterMap(localFile);
-      TEST(p.first.IsLocked(), ());
-      TEST(p.second, ());
+      auto p = m.RegisterMap(localFile);
+      TEST(p.first.IsAlive(), ());
+      TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
     }
     catch (RootException const & ex)
     {

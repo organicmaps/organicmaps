@@ -44,27 +44,28 @@ void FeaturesFetcher::InitClassificator()
   }
 }
 
-pair<MwmSet::MwmLock, bool> FeaturesFetcher::RegisterMap(LocalCountryFile const & localFile)
+pair<MwmSet::MwmHandle, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
+    LocalCountryFile const & localFile)
 {
   string const countryFileName = localFile.GetCountryName();
   try
   {
-    pair<MwmSet::MwmLock, bool> result = m_multiIndex.RegisterMap(localFile);
-    if (!result.second)
+    auto result = m_multiIndex.RegisterMap(localFile);
+    if (result.second != MwmSet::RegResult::Success)
     {
       LOG(LWARNING, ("Can't add map", countryFileName,
                      "Probably it's already added or has newer data version."));
       return result;
     }
-    MwmSet::MwmLock & lock = result.first;
-    ASSERT(lock.IsLocked(), ("Mwm lock invariant violation."));
-    m_rect.Add(lock.GetInfo()->m_limitRect);
+    MwmSet::MwmHandle & handle = result.first;
+    ASSERT(handle.IsAlive(), ("Mwm lock invariant violation."));
+    m_rect.Add(handle.GetInfo()->m_limitRect);
     return result;
   }
   catch (RootException const & e)
   {
     LOG(LERROR, ("IO error while adding ", countryFileName, " map. ", e.what()));
-    return make_pair(MwmSet::MwmLock(), false);
+    return make_pair(MwmSet::MwmHandle(), MwmSet::RegResult::BadFile);
   }
 }
 
