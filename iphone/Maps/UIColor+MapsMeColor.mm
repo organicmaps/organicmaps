@@ -10,7 +10,7 @@
 
 static CGFloat const alpha12 = 0.12;
 static CGFloat const alpha26 = 0.26;
-static CGFloat const alpha56 = 0.56;
+static CGFloat const alpha54 = 0.54;
 static CGFloat const alpha80 = 0.80;
 static CGFloat const alpha87 = 0.87;
 static CGFloat const alpha100 = 1.;
@@ -70,7 +70,7 @@ static CGFloat const alpha100 = 1.;
 
 + (UIColor *)blackSecondaryText
 {
-  return [[UIColor blackColor] colorWithAlphaComponent:alpha56];
+  return [[UIColor blackColor] colorWithAlphaComponent:alpha54];
 }
 
 + (UIColor *)blackHintText
@@ -90,7 +90,7 @@ static CGFloat const alpha100 = 1.;
 
 + (UIColor *)whiteSecondaryText
 {
-  return [[UIColor whiteColor] colorWithAlphaComponent:alpha56];
+  return [[UIColor whiteColor] colorWithAlphaComponent:alpha54];
 }
 
 + (UIColor *)whiteHintText
