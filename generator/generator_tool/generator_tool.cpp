@@ -97,12 +97,16 @@ int main(int argc, char ** argv)
   }
 
   feature::GenerateInfo genInfo;
-  genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty() ? path : my::AddSlashIfNeeded(FLAGS_intermediate_data_path);
+  genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty()
+                                  ? path
+                                  : my::AddSlashIfNeeded(FLAGS_intermediate_data_path);
   genInfo.m_targetDir = genInfo.m_tmpDir = path;
 
-  if (!FLAGS_intermediate_data_path.empty()) {
-    genInfo.m_tmpDir = genInfo.m_intermediateDir + "tmp/";
-    pl.MkDir(genInfo.m_tmpDir);
+  if (!FLAGS_intermediate_data_path.empty())
+  {
+    string tmpPath = my::JoinFoldersToPath({genInfo.m_intermediateDir, "tmp"}, string());
+    if (pl.MkDir(genInfo.m_tmpDir) == Platform::ERR_OK)
+      genInfo.m_tmpDir = tmpPath;
   }
 
   // load classificator only if necessary

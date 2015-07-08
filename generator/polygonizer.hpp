@@ -153,7 +153,6 @@ namespace feature
       if (country->m_index == -1)
       {
         m_Names.push_back(country->m_name);
-        LOG(LINFO, ("Output country file:", m_prefix + country->m_name + m_suffix));
         m_Buckets.push_back(new FeatureOutT(m_prefix + country->m_name + m_suffix));
         country->m_index = m_Buckets.size()-1;
       }
