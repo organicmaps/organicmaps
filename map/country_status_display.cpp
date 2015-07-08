@@ -354,11 +354,11 @@ void CountryStatusDisplay::SetContentForDownloadPropose()
   m_label->setText(m_displayMapName);
   uint64_t sizeToDownload;
   string units;
-  FormatMapSize(mapAndRoutingSize.first, units, sizeToDownload);
-  m_primaryButton->setText(FormatStatusMessage("country_status_download", &sizeToDownload, &units));
-
   FormatMapSize(mapAndRoutingSize.first + mapAndRoutingSize.second, units, sizeToDownload);
-  m_secondaryButton->setText(FormatStatusMessage("country_status_download_routing", &sizeToDownload, &units));
+  m_primaryButton->setText(FormatStatusMessage("country_status_download_routing", &sizeToDownload, &units));
+
+  FormatMapSize(mapAndRoutingSize.first, units, sizeToDownload);
+  m_secondaryButton->setText(FormatStatusMessage("country_status_download", &sizeToDownload, &units));
 }
 
 void CountryStatusDisplay::SetContentForProgress()
@@ -448,7 +448,7 @@ void CountryStatusDisplay::OnButtonClicked(gui::Element const * button)
   ASSERT(m_countryIdx.IsValid(), ());
 
   TMapOptions options = TMapOptions::EMap;
-  if (button == m_secondaryButton.get())
+  if (button == m_primaryButton.get())
     options = SetOptions(options, TMapOptions::ECarRouting);
 
   ASSERT(m_downloadCallback, ());
