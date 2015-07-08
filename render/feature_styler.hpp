@@ -6,14 +6,10 @@
 
 #include "std/vector.hpp"
 
+
 class FeatureType;
-
-namespace graphics
-{
-  class GlyphCache;
-}
-
 class ScreenBase;
+namespace graphics { class GlyphCache; }
 
 namespace di
 {
@@ -23,11 +19,7 @@ namespace di
     double m_depth;
 
     DrawRule() : m_rule(0), m_depth(0.0) {}
-    DrawRule(drule::BaseRule const * p,
-             double d)
-      : m_rule(p),
-        m_depth(d)
-    {}
+    DrawRule(drule::BaseRule const * p, double depth);
 
     uint32_t GetID(size_t threadSlot) const;
     void SetID(size_t threadSlot, uint32_t id) const;

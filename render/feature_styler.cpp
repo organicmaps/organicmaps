@@ -12,10 +12,13 @@
 #include "geometry/screenbase.hpp"
 
 #include "graphics/glyph_cache.hpp"
+#include "graphics/depth_constants.hpp"
 
 #include "base/stl_add.hpp"
+#include "base/logging.hpp"
 
 #include "std/iterator_facade.hpp"
+
 
 namespace
 {
@@ -30,6 +33,15 @@ namespace
 
 namespace di
 {
+  DrawRule::DrawRule(drule::BaseRule const * p, double depth)
+    : m_rule(p), m_depth(depth)
+  {
+    if (m_depth < graphics::minDepth)
+      m_depth = graphics::minDepth;
+    else if (m_depth > graphics::maxDepth)
+      m_depth = graphics::maxDepth;
+  }
+
   uint32_t DrawRule::GetID(size_t threadSlot) const
   {
     return m_rule->GetID(threadSlot);
