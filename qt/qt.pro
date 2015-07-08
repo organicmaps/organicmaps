@@ -31,45 +31,13 @@ linux* {
   BINDIR = $$PREFIX/bin
 
   DATADIR = $$PREFIX/share/mapsme
-  RESDIR =  $$DATADIR
-
   FONTSDIR = /usr/share/fonts/truetype/mapsme/
 
   target.path = $$BINDIR
   desktop.path = /usr/share/applications/
   desktop.files += res/$${TARGET}.desktop
 
-  OTHER_RES.path = $$RESDIR
-  OTHER_RES.files = ../data/copyright.html ../data/eula.html ../data/welcome.html \
-                    ../data/countries.txt \
-                    ../data/languages.txt ../data/categories.txt \
-                    ../data/packed_polygons.bin res/logo.png
-  CLASSIFICATOR_RES.path = $$RESDIR
-  CLASSIFICATOR_RES.files = ../data/classificator.txt \
-                            ../data/types.txt \
-                            ../data/drules_proto.bin
-  MDPI_SKIN_RES.path = $$RESDIR/resources-mdpi
-  MDPI_SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
-  XHDPI_SKIN_RES.path = $$RESDIR/resources-xhdpi
-  XHDPI_SKIN_RES.files = ../data/resources-xhdpi/basic.skn ../data/resources-xhdpi/symbols.png
-
-  FONT_RES.path = $$FONTSDIR
-  FONT_RES.files = ../data/00_roboto_regular.ttf \
-                   ../data/01_dejavusans.ttf \
-                   ../data/02_wqy-microhei.ttf \
-                   ../data/03_jomolhari-id-a3d.ttf \
-                   ../data/04_padauk.ttf \
-                   ../data/05_khmeros.ttf \
-                   ../data/06_code2000.ttf
-
-  OTHER_RES.files += ../data/fonts_blacklist.txt \
-                     ../data/fonts_whitelist.txt \
-                     ../data/unicode_blocks.txt
-
-  MWM_RES.path = $$RESDIR
-  MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
-
-  INSTALLS += target desktop OTHER_RES CLASSIFICATOR_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES
+  INSTALLS += target desktop
 }
 
 macx-* {
@@ -85,33 +53,48 @@ macx-* {
   PLIST_PATH = $${DESTDIR}/$${TARGET}.app/Contents/$${PLIST_FILE}
   QMAKE_POST_LINK = $${IN_PWD}/../tools/unix/process_plist.sh $${IN_PWD}/.. $$VERSION_MAJOR $$VERSION_MINOR $$PLIST_PATH
 
+  DATADIR = Contents/Resources
+  FONTSDIR = $$DATADIR
+}
 
-  # Bundle Resouces
-  OTHER_RES.path = Contents/Resources
-  OTHER_RES.files = ../data/copyright.html ../data/eula.html ../data/welcome.html \
-                    ../data/countries.txt  \
-                    ../data/languages.txt ../data/categories.txt \
-                    ../data/packed_polygons.bin
-  CLASSIFICATOR_RES.path = Contents/Resources
-  CLASSIFICATOR_RES.files = ../data/classificator.txt \
-                            ../data/types.txt \
-                            ../data/drules_proto.bin
-  SKIN_RES.path = Contents/Resources
-  SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
-  FONT_RES.path = Contents/Resources
-  FONT_RES.files = ../data/01_dejavusans.ttf \
-                   ../data/02_wqy-microhei.ttf \
-                   ../data/03_jomolhari-id-a3d.ttf \
-                   ../data/04_padauk.ttf \
-                   ../data/05_khmeros.ttf \
-                   ../data/06_code2000.ttf \
-                   ../data/fonts_blacklist.txt \
+OTHER_RES.path = $$DATADIR
+OTHER_RES.files = ../data/copyright.html ../data/eula.html ../data/welcome.html \
+                  ../data/countries.txt \
+                  ../data/languages.txt ../data/categories.txt \
+                  ../data/packed_polygons.bin res/logo.png
+CLASSIFICATOR_RES.path = $$DATADIR
+CLASSIFICATOR_RES.files = ../data/classificator.txt \
+                          ../data/types.txt \
+                          ../data/drules_proto.bin
+MDPI_SKIN_RES.path = $$DATADIR/resources-mdpi
+MDPI_SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
+XHDPI_SKIN_RES.path = $$DATADIR/resources-xhdpi
+XHDPI_SKIN_RES.files = ../data/resources-xhdpi/basic.skn ../data/resources-xhdpi/symbols.png
+
+FONT_RES.path = $$FONTSDIR
+FONT_RES.files = ../data/00_roboto_regular.ttf \
+                 ../data/01_dejavusans.ttf \
+                 ../data/02_wqy-microhei.ttf \
+                 ../data/03_jomolhari-id-a3d.ttf \
+                 ../data/04_padauk.ttf \
+                 ../data/05_khmeros.ttf \
+                 ../data/06_code2000.ttf
+
+OTHER_RES.files += ../data/fonts_blacklist.txt \
                    ../data/fonts_whitelist.txt \
                    ../data/unicode_blocks.txt
-  MWM_RES.path = Contents/Resources
-  MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
 
-  QMAKE_BUNDLE_DATA += OTHER_RES CLASSIFICATOR_RES SKIN_RES FONT_RES MWM_RES
+MWM_RES.path = $$DATADIR
+MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
+
+ALL_RESOURCES = OTHER_RES CLASSIFICATOR_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES
+
+linux* {
+  INSTALLS += $$ALL_RESOURCES
+}
+
+macx-* {
+  QMAKE_BUNDLE_DATA += $$ALL_RESOURCES
 }
 
 SOURCES += \
