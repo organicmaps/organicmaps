@@ -241,7 +241,7 @@ if [ "$MODE" == "coast" ]; then
       # Generate temporary coastlines file in the coasts intermediate dir
       log "TIMEMARK" "Generate coastlines"
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
-        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log"
+        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log" | grep -v 'CellGeometry()\|ProcessCell()'
 
       if [ $? != 0 ]; then
         log "TIMEMARK" "Coastline merge failed"
