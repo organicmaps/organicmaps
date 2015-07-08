@@ -85,10 +85,10 @@ void Texture::Destroy()
   if (m_textureID != -1)
   {
     GLFunctions::glDeleteTexture(m_textureID);
-    m_textureID = -1;
 #if defined(TRACK_GPU_MEM)
     dp::GPUMemTracker::Inst().RemoveDeallocated("Texture", m_textureID);
 #endif
+    m_textureID = -1;
   }
 }
 

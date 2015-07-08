@@ -30,15 +30,12 @@ public:
   struct Params : BaseRenderer::Params
   {
     Params(ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::OGLContextFactory> factory,
-           ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model, string const & resourcesSuffix)
+           ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_model(model)
-      , m_resourcesSuffix(resourcesSuffix)
-    {
-    }
+    {}
 
     MapDataProvider const & m_model;
-    string m_resourcesSuffix;
   };
 
   BackendRenderer(Params const & params);
@@ -58,7 +55,6 @@ private:
   drape_ptr<ReadManager> m_readManager;
   drape_ptr<RouteBuilder> m_routeBuilder;
   gui::LayerCacher m_guiCacher;
-  string m_resourcesSuffix;
 
   /////////////////////////////////////////
   //           MessageAcceptor           //

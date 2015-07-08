@@ -31,7 +31,7 @@ public:
 
   explicit SymbolsTexture(string const & skinPathName);
 
-  ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource);
+  ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) override;
 
   void Invalidate(string const & skinPathName);
 

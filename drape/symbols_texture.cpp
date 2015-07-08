@@ -1,6 +1,8 @@
 #include "drape/symbols_texture.hpp"
 #include "3party/stb_image/stb_image.h"
 
+#include "indexer/map_style_reader.hpp"
+
 #include "platform/platform.hpp"
 
 #include "coding/reader.hpp"
@@ -10,6 +12,8 @@
 
 namespace dp
 {
+
+string const SymbolsTextureName = "symbols";
 
 class SymbolsTexture::DefinitionLoader
 {
@@ -128,7 +132,7 @@ void SymbolsTexture::Load(string const & skinPathName)
     DefinitionLoader loader(m_definition);
 
     {
-      ReaderPtr<Reader> reader = GetPlatform().GetReader(skinPathName + ".sdf");
+      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(SymbolsTextureName + ".sdf", skinPathName);
       ReaderSource<ReaderPtr<Reader> > source(reader);
       if (!ParseXML(source, loader))
       {
@@ -142,7 +146,7 @@ void SymbolsTexture::Load(string const & skinPathName)
     }
 
     {
-      ReaderPtr<Reader> reader = GetPlatform().GetReader(skinPathName + ".png");
+      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(SymbolsTextureName + ".png", skinPathName);
       size_t const size = reader.Size();
       rawData.resize(size);
       reader.Read(0, &rawData[0], size);

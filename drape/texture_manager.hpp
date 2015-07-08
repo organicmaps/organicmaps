@@ -73,7 +73,7 @@ public:
   void Release();
 
   void Init(Params const & params);
-  void Invalidate(string const & postfix);
+  void Invalidate(string const & resPostfix);
 
   void GetSymbolRegion(string const & symbolName, SymbolRegion & region);
 
@@ -211,8 +211,6 @@ private:
   static constexpr size_t GetInvalidGlyphGroup();
 
 private:
-  string GetSymbolsTexturePath(string const & postfix) const;
-
   drape_ptr<Texture> m_symbolTexture;
   drape_ptr<Texture> m_stipplePenTexture;
   drape_ptr<Texture> m_colorTexture;

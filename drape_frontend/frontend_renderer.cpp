@@ -328,8 +328,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::UpdateMapStyle:
     {
-      ref_ptr<UpdateMapStyleMessage> msg = message;
-
       m_tileTree->Invalidate();
 
       TTilesCollection tiles;
@@ -345,7 +343,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       BaseBlockingMessage::Blocker blocker;
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<InvalidateTexturesMessage>(blocker, msg->GetMapStyleSuffix()),
+                                make_unique_dp<InvalidateTexturesMessage>(blocker),
                                 MessagePriority::Normal);
       blocker.Wait();
 

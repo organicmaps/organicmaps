@@ -288,7 +288,7 @@ void TextureManager::Init(Params const & params)
 {
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
 
-  m_symbolTexture = make_unique_dp<SymbolsTexture>(GetSymbolsTexturePath(params.m_resPostfix));
+  m_symbolTexture = make_unique_dp<SymbolsTexture>(params.m_resPostfix);
   m_stipplePenTexture = make_unique_dp<StipplePenTexture>(m2::PointU(STIPPLE_TEXTURE_SIZE, STIPPLE_TEXTURE_SIZE));
   m_colorTexture = make_unique_dp<ColorTexture>(m2::PointU(COLOR_TEXTURE_SIZE, COLOR_TEXTURE_SIZE));
 
@@ -319,11 +319,11 @@ void TextureManager::Init(Params const & params)
   });
 }
 
-void TextureManager::Invalidate(string const & postfix)
+void TextureManager::Invalidate(string const & resPostfix)
 {
   ASSERT(m_symbolTexture != nullptr, ());
   ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTexture);
-  symbolsTexture->Invalidate(GetSymbolsTexturePath(postfix));
+  symbolsTexture->Invalidate(resPostfix);
 }
 
 void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region)
@@ -354,11 +354,6 @@ void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuf
 constexpr size_t TextureManager::GetInvalidGlyphGroup()
 {
   return INVALID_GLYPH_GROUP;
-}
-
-string TextureManager::GetSymbolsTexturePath(string const & postfix) const
-{
-  return my::JoinFoldersToPath(string("resources-") + postfix, "symbols");
 }
 
 } // namespace dp

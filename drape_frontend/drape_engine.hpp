@@ -38,15 +38,13 @@ public:
            Viewport const & viewport,
            MapDataProvider const & model,
            double vs,
-           gui::TWidgetsInitInfo && info,
-           string const & resourcesSuffix)
+           gui::TWidgetsInitInfo && info)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
       , m_model(model)
       , m_vs(vs)
       , m_info(move(info))
-      , m_resourcesSuffix(resourcesSuffix)
     {}
 
     ref_ptr<dp::OGLContextFactory> m_factory;
@@ -55,7 +53,6 @@ public:
     MapDataProvider m_model;
     double m_vs;
     gui::TWidgetsInitInfo m_info;
-    string m_resourcesSuffix;
   };
 
   DrapeEngine(Params && params);
@@ -81,7 +78,7 @@ public:
 
   void SetRenderingEnabled(bool const isEnabled);
   void InvalidateRect(m2::RectD const & rect);
-  void UpdateMapStyle(string const & mapStyleSuffix);
+  void UpdateMapStyle();
 
   void SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded);
   void SetCompassInfo(location::CompassInfo const & info);

@@ -1258,8 +1258,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             df::MapDataProvider(idReadFn, featureReadFn, updateCountryIndex, isCountryLoadedFn,
                                                 downloadMapFn, downloadMapRoutingFn, downloadRetryFn),
                             params.m_visualScale,
-                            move(params.m_widgetsInitInfo),
-                            GetStyleReader().GetCurrentStyleSuffix());
+                            move(params.m_widgetsInitInfo));
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)

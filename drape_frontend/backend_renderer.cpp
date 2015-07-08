@@ -26,7 +26,6 @@ BackendRenderer::BackendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model))
-  , m_resourcesSuffix(params.m_resourcesSuffix)
 {
   gui::DrapeGui::Instance().SetRecacheCountryStatusSlot([this]()
   {
@@ -205,10 +204,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::InvalidateTextures:
     {
-      ref_ptr<InvalidateTexturesMessage> msg = message;
-      m_resourcesSuffix = msg->GetMapStyleSuffix();
-
-      m_texMng->Invalidate(VisualParams::Instance().GetResourcePostfix() + m_resourcesSuffix);
+      m_texMng->Invalidate(VisualParams::Instance().GetResourcePostfix());
       break;
     }
   case Message::StopRendering:
@@ -260,7 +256,7 @@ void BackendRenderer::InitGLDependentResource()
   m_batchersPool = make_unique_dp<BatchersPool>(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1));
 
   dp::TextureManager::Params params;
-  params.m_resPostfix = VisualParams::Instance().GetResourcePostfix() + m_resourcesSuffix;
+  params.m_resPostfix = VisualParams::Instance().GetResourcePostfix();
   params.m_glyphMngParams.m_uniBlocks = "unicode_blocks.txt";
   params.m_glyphMngParams.m_whitelist = "fonts_whitelist.txt";
   params.m_glyphMngParams.m_blacklist = "fonts_blacklist.txt";

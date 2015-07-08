@@ -50,11 +50,6 @@ MapStyle StyleReader::GetCurrentStyle()
   return m_mapStyle;
 }
 
-string StyleReader::GetCurrentStyleSuffix()
-{
-  return GetStyleSuffix(GetCurrentStyle());
-}
-
 ReaderPtr<Reader> StyleReader::GetDrawingRulesReader()
 {
   string const rulesFile = string("drules_proto") + GetStyleSuffix(GetCurrentStyle()) + ".bin";

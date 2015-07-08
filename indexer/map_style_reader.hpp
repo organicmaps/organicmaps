@@ -12,8 +12,6 @@ public:
   void SetCurrentStyle(MapStyle mapStyle);
   MapStyle GetCurrentStyle();
 
-  string GetCurrentStyleSuffix();
-
   ReaderPtr<Reader> GetDrawingRulesReader();
 
   ReaderPtr<Reader> GetResourceReader(string const & file, string const & density);
