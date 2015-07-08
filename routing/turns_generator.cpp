@@ -1,6 +1,6 @@
 #include "routing/routing_mapping.h"
 #include "routing/turns_generator.hpp"
-#include "routing/vehicle_model.hpp"
+#include "routing/car_model.hpp"
 
 #include "search/house_detector.hpp"
 

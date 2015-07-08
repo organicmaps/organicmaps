@@ -3,7 +3,7 @@
 #include "osrm2feature_map.hpp"
 #include "osrm_router.hpp"
 #include "turns_generator.hpp"
-#include "vehicle_model.hpp"
+#include "car_model.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"

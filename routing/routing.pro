@@ -14,6 +14,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
 
 SOURCES += \
     async_router.cpp \
+    car_model.cpp \
     cross_mwm_road_graph.cpp \
     cross_mwm_router.cpp \
     cross_routing_context.cpp \
@@ -40,6 +41,7 @@ SOURCES += \
 HEADERS += \
     async_router.hpp \
     base/astar_algorithm.hpp \
+    car_model.hpp \
     cross_mwm_road_graph.hpp \
     cross_mwm_router.hpp \
     cross_routing_context.hpp \

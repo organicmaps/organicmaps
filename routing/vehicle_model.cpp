@@ -12,34 +12,6 @@
 namespace routing
 {
 
-VehicleModel::InitListT const s_carLimits =
-{
-  { {"highway", "motorway"},       90 },
-  { {"highway", "trunk"},          85 },
-  { {"highway", "motorway_link"},  75 },
-  { {"highway", "trunk_link"},     70 },
-  { {"highway", "primary"},        65 },
-  { {"highway", "primary_link"},   60 },
-  { {"highway", "secondary"},      55 },
-  { {"highway", "secondary_link"}, 50 },
-  { {"highway", "tertiary"},       40 },
-  { {"highway", "tertiary_link"},  30 },
-  { {"highway", "residential"},    25 },
-  { {"highway", "pedestrian"},     25 },
-  { {"highway", "unclassified"},   25 },
-  { {"highway", "service"},        15 },
-  { {"highway", "living_street"},  10 },
-  { {"highway", "road"},           10 },
-  { {"highway", "track"},          5  },
-  /// @todo: Add to classificator
-  //{ {"highway", "shuttle_train"},  10 },
-  //{ {"highway", "ferry"},          5  },
-  //{ {"highway", "default"},        10 },
-  /// @todo: Check type
-  //{ {"highway", "construction"},   40 },
-};
-
-
 VehicleModel::VehicleModel(Classificator const & c, VehicleModel::InitListT const & speedLimits)
   : m_maxSpeedKMpH(0),
     m_onewayType(c.GetTypeByPath({ "hwtag", "oneway" }))
@@ -98,20 +70,6 @@ bool VehicleModel::IsRoad(uint32_t type) const
 {
   return find(m_addRoadTypes.begin(), m_addRoadTypes.end(), type) != m_addRoadTypes.end() ||
          m_types.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_types.end();
-}
-
-
-CarModel::CarModel()
-  : VehicleModel(classif(), s_carLimits)
-{
-  initializer_list<char const *> arr[] =
-  {
-    { "route", "ferry", "motorcar" },
-    { "route", "ferry", "motor_vehicle" },
-    { "railway", "rail", "motor_vehicle" },
-  };
-
-  SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
 }  // namespace routing

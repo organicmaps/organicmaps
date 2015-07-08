@@ -1,6 +1,6 @@
 #include "generator/feature_builder.hpp"
 
-#include "routing/vehicle_model.hpp"
+#include "routing/car_model.hpp"
 #include "routing/pedestrian_model.hpp"
 
 #include "indexer/feature_impl.hpp"

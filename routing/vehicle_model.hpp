@@ -90,10 +90,4 @@ private:
   uint32_t m_onewayType;
 };
 
-class CarModel : public VehicleModel
-{
-public:
-  CarModel();
-};
-
 }  // namespace routing
