@@ -401,7 +401,8 @@ if [ "$MODE" == "test" ]; then
 fi
 
 # Cleaning up temporary directories
-rm "$STATUS_FILE" "$OSRM_FLAG"
+rm "$STATUS_FILE"
+[ -f "$OSRM_FLAG" ] && rm "$OSRM_FLAG"
 mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
 [ -z "$KEEP_INTDIR" ] && rm -r "$INTDIR"
 log "STATUS" "Done"
