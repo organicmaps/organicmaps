@@ -12,7 +12,7 @@ namespace succinct {
                 : n_ones(0)
             {}
 
-            void append1(uint64_t skip0 = 0)
+            void append1(uint8_t skip0 = 0)
             {
                 bits.append_bits(0, skip0);
                 bits.push_back(1);
@@ -21,7 +21,8 @@ namespace succinct {
                     block_inventory.push_back(bits.size() - 1);
                 }
                 if (n_ones % subblock_size == 0) {
-                    subblock_inventory.push_back(uint16_t(bits.size() - 1 - block_inventory[n_ones / block_size]));
+                    size_t const block = util::to_size(n_ones / block_size);
+                    subblock_inventory.push_back(uint16_t(bits.size() - 1 - block_inventory[block]));
                 }
 
                 n_ones += 1;
@@ -76,25 +77,22 @@ namespace succinct {
         uint64_t select(uint64_t idx) const
         {
             assert(idx < num_ones());
-            uint64_t block = idx / block_size;
-            uint64_t block_pos = m_block_inventory[block];
-
-            uint64_t subblock = idx / subblock_size;
-            uint64_t start_pos = block_pos + m_subblock_inventory[subblock];
+            uint64_t block_pos = m_block_inventory[util::to_size(idx / block_size)];
+            uint64_t start_pos = block_pos + m_subblock_inventory[util::to_size(idx / subblock_size)];
             uint64_t reminder = idx % subblock_size;
 
             if (!reminder) {
                 return start_pos;
             } else {
-                uint64_t word_idx = start_pos / 64;
+                size_t word_idx = util::to_size(start_pos / 64);
                 uint64_t word_shift = start_pos % 64;
-                uint64_t word = m_bits.data()[word_idx] & (uint64_t(-1) << word_shift);
+                uint64_t word = m_bits[word_idx] & (uint64_t(-1) << word_shift);
 
                 while (true) {
                     uint64_t popcnt = broadword::popcount(word);
                     if (reminder < popcnt) break;
                     reminder -= popcnt;
-                    word = m_bits.data()[++word_idx];
+                    word = m_bits[++word_idx];
                 }
 
                 return 64 * word_idx + broadword::select_in_word(word, reminder);

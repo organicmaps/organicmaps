@@ -24,7 +24,7 @@ namespace succinct {
                 std::vector<uint16_t> subblock_inventory;
                 std::vector<uint64_t> overflow_positions;
 
-                for (uint64_t word_idx = 0; word_idx < data.size(); ++word_idx) {
+                for (size_t word_idx = 0; word_idx < data.size(); ++word_idx) {
                     uint64_t cur_pos = word_idx * 64;
                     uint64_t cur_word = WordGetter()(data, word_idx);
                     unsigned long l;
@@ -74,22 +74,20 @@ namespace succinct {
             inline uint64_t select(bit_vector const& bv, uint64_t idx) const
             {
                 assert(idx < num_positions());
-                uint64_t block = idx / block_size;
-                int64_t block_pos = m_block_inventory[block];
+                int64_t block_pos = m_block_inventory[util::to_size(idx / block_size)];
                 if (block_pos < 0) {
                     uint64_t overflow_pos = uint64_t(-block_pos - 1);
-                    return m_overflow_positions[overflow_pos + (idx % block_size)];
+                    return m_overflow_positions[util::to_size(overflow_pos + (idx % block_size))];
                 }
 
-                uint64_t subblock = idx / subblock_size;
-                uint64_t start_pos = uint64_t(block_pos) + m_subblock_inventory[subblock];
+                uint64_t start_pos = uint64_t(block_pos) + m_subblock_inventory[util::to_size(idx / subblock_size)];
                 uint64_t reminder = idx % subblock_size;
                 mapper::mappable_vector<uint64_t> const& data = bv.data();
 
                 if (!reminder) {
                     return start_pos;
                 } else {
-                    uint64_t word_idx = start_pos / 64;
+                    size_t word_idx = util::to_size(start_pos / 64);
                     uint64_t word_shift = start_pos % 64;
                     uint64_t word = WordGetter()(data, word_idx) & (uint64_t(-1) << word_shift);
 

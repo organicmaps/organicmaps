@@ -13,7 +13,7 @@ namespace succinct {
     namespace detail {
         inline size_t words_for(uint64_t n)
         {
-            return util::ceil_div(n, 64);
+            return util::to_size(util::ceil_div(n, 64));
         }
     }
 
@@ -52,7 +52,7 @@ namespace succinct {
         }
 
         inline void set(uint64_t pos, bool b) {
-            uint64_t word = pos / 64;
+            size_t const word = util::to_size(pos / 64);
             uint64_t pos_in_word = pos % 64;
 
             m_bits[word] &= ~(uint64_t(1) << pos_in_word);
@@ -66,7 +66,7 @@ namespace succinct {
             assert(len == 64 || (bits >> len) == 0);
             if (!len) return;
             uint64_t mask = (len == 64) ? uint64_t(-1) : ((uint64_t(1) << len) - 1);
-            uint64_t word = pos / 64;
+            size_t const word = util::to_size(pos / 64);
             uint64_t pos_in_word = pos % 64;
 
             m_bits[word] &= ~(mask << pos_in_word);
@@ -79,7 +79,7 @@ namespace succinct {
             }
         }
 
-        inline void append_bits(uint64_t bits, size_t len)
+        inline void append_bits(uint64_t bits, uint8_t len)
         {
             // check there are no spurious bits
             assert(len == 64 || (bits >> len) == 0);
@@ -99,7 +99,7 @@ namespace succinct {
 
         inline void zero_extend(uint64_t n) {
             m_size += n;
-            uint64_t needed = detail::words_for(m_size) - m_bits.size();
+            size_t const needed = detail::words_for(m_size) - m_bits.size();
             if (needed) {
                 m_bits.insert(m_bits.end(), needed, 0);
                 m_cur_word = &m_bits.back();
@@ -113,7 +113,7 @@ namespace succinct {
                 n -= 64;
             }
             if (n) {
-                append_bits(uint64_t(-1) >> (64 - n), n);
+                append_bits(uint64_t(-1) >> (64 - n), util::to_size(n));
             }
         }
 
@@ -242,7 +242,7 @@ namespace succinct {
 
         inline bool operator[](uint64_t pos) const {
             assert(pos < m_size);
-            uint64_t block = pos / 64;
+            size_t const block = util::to_size(pos / 64);
             assert(block < m_bits.size());
             uint64_t shift = pos % 64;
             return (m_bits[block] >> shift) & 1;
@@ -253,7 +253,7 @@ namespace succinct {
             if (!len) {
                 return 0;
             }
-            uint64_t block = pos / 64;
+            size_t const block = util::to_size(pos / 64);
             uint64_t shift = pos % 64;
             uint64_t mask = -(len == 64) | ((1ULL << len) - 1);
             if (shift + len <= 64) {
@@ -267,7 +267,7 @@ namespace succinct {
         inline uint64_t get_word(uint64_t pos) const
         {
             assert(pos < size());
-            uint64_t block = pos / 64;
+            size_t const block = util::to_size(pos / 64);
             uint64_t shift = pos % 64;
             uint64_t word = m_bits[block] >> shift;
             if (shift && block + 1 < m_bits.size()) {
@@ -288,7 +288,7 @@ namespace succinct {
 
         inline uint64_t predecessor0(uint64_t pos) const {
             assert(pos < m_size);
-            uint64_t block = pos / 64;
+            size_t block = util::to_size(pos / 64);
             uint64_t shift = 64 - pos % 64 - 1;
             uint64_t word = ~m_bits[block];
             word = (word << shift) >> shift;
@@ -303,7 +303,7 @@ namespace succinct {
 
         inline uint64_t successor0(uint64_t pos) const {
             assert(pos < m_size);
-            uint64_t block = pos / 64;
+            size_t block = util::to_size(pos / 64);
             uint64_t shift = pos % 64;
             uint64_t word = (~m_bits[block] >> shift) << shift;
 
@@ -318,7 +318,7 @@ namespace succinct {
 
         inline uint64_t predecessor1(uint64_t pos) const {
             assert(pos < m_size);
-            uint64_t block = pos / 64;
+            size_t block = util::to_size(pos / 64);
             uint64_t shift = 64 - pos % 64 - 1;
             uint64_t word = m_bits[block];
             word = (word << shift) >> shift;
@@ -333,7 +333,7 @@ namespace succinct {
 
         inline uint64_t successor1(uint64_t pos) const {
             assert(pos < m_size);
-            uint64_t block = pos / 64;
+            size_t block = util::to_size(pos / 64);
             uint64_t shift = pos % 64;
             uint64_t word = (m_bits[block] >> shift) << shift;
 
@@ -363,7 +363,7 @@ namespace succinct {
                 , m_buf(0)
                 , m_avail(0)
             {
-                m_bv->data().prefetch(m_pos / 64);
+                m_bv->data().prefetch(util::to_size(m_pos / 64));
             }
 
             inline bool next()

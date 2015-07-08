@@ -47,7 +47,7 @@ namespace succinct {
             return ((uint64_t(1) << l) | m_bits.get_bits(r.first, l)) - 1;
         }
 
-        size_t size() const
+        uint64_t size() const
         {
             return m_ef.num_ones() - 1;
         }
