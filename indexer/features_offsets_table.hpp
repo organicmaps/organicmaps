@@ -92,7 +92,7 @@ namespace feature
     /// \return byte size of a table, may be slightly different from a
     ///         real byte size in memory or on disk due to alignment, but
     ///         can be used in benchmarks, logging, etc.
-    inline size_t byte_size() { return succinct::mapper::size_of(m_table); }
+    //inline size_t byte_size() { return static_cast<size_t>(succinct::mapper::size_of(m_table)); }
 
   private:
     FeaturesOffsetsTable(succinct::elias_fano::elias_fano_builder & builder);

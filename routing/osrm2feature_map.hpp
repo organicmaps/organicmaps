@@ -166,7 +166,7 @@ public:
   /// @return Node id for segment's index.
   TOsrmNodeId GetNodeId(size_t segInd) const;
 
-  size_t GetSegmentsCount() const { return m_segments.size(); }
+  size_t GetSegmentsCount() const { return static_cast<size_t>(m_segments.size()); }
   //@}
 
 protected:

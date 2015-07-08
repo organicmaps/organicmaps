@@ -13,7 +13,7 @@
 
 namespace feature
 {
-void FeaturesOffsetsTable::Builder::PushOffset(uint32_t const offset)
+  void FeaturesOffsetsTable::Builder::PushOffset(uint32_t const offset)
   {
     ASSERT(m_offsets.empty() || m_offsets.back() < offset, ());
     m_offsets.push_back(offset);

@@ -557,10 +557,8 @@ bool Storage::RegisterDownloadedFile(string const & path, uint64_t size, int64_t
 {
   QueuedCountry & queuedCountry = m_queue.front();
   TIndex const & index = queuedCountry.GetIndex();
-  uint64_t const expectedSize = GetDownloadSize(queuedCountry);
 
-  ASSERT_EQUAL(size, expectedSize, ("Downloaded file size mismatch:", size,
-                                    "bytes were downloaded,", expectedSize, "bytes expected."));
+  ASSERT_EQUAL(size, GetDownloadSize(queuedCountry), ("Downloaded file size mismatch with expected"));
 
   CountryFile const countryFile = GetCountryFile(index);
   shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, version);
