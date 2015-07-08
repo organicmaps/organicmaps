@@ -104,11 +104,9 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::PrepareShutdown()
   {
-    {
-      // Discard current and all future Swap requests
-      m_contextFactory->shutDown();
-      frameSwappedSlot(NotInitialized);
-    }
+    // Discard current and all future Swap requests
+    m_contextFactory->shutDown();
+    frameSwappedSlot(NotInitialized);
 
     // Shutdown engine. FR have ogl context in this moment and can delete OGL resources
     // PrepareToShutdown make FR::join and after this call we can bind OGL context to gui thread
@@ -207,10 +205,9 @@ bool IsLocationEmulation(QMouseEvent * e)
 
     ASSERT(m_contextFactory == nullptr, ());
     m_ratio = devicePixelRatio();
-    QOpenGLContext * ctx = context();
     QtOGLContextFactory::TRegisterThreadFn regFn = bind(&DrawWidget::CallRegisterThread, this, _1);
     QtOGLContextFactory::TSwapFn swapFn = bind(&DrawWidget::CallSwap, this);
-    m_contextFactory = make_unique_dp<QtOGLContextFactory>(ctx, QThread::currentThread(), regFn, swapFn);
+    m_contextFactory = make_unique_dp<QtOGLContextFactory>(context(), QThread::currentThread(), regFn, swapFn);
     CreateEngine();
     LoadState();
 
@@ -243,18 +240,15 @@ bool IsLocationEmulation(QMouseEvent * e)
     if (isExposed())
     {
       m_swapMutex.lock();
-      bool needUnlock = true;
       if (m_state == Render)
       {
         unique_lock<mutex> waitContextLock(m_waitContextMutex);
         m_state = WaitContext;
-        needUnlock = false;
         m_swapMutex.unlock();
 
         m_waitContextCond.wait(waitContextLock, [this](){ return m_state != WaitContext; });
       }
-
-      if (needUnlock)
+      else
         m_swapMutex.unlock();
     }
 
