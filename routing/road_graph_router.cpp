@@ -1,8 +1,8 @@
 #include "routing/features_road_graph.hpp"
 #include "routing/nearest_edge_finder.hpp"
+#include "routing/pedestrian_model.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
-#include "routing/pedestrian_model.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"

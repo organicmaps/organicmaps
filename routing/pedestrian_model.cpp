@@ -12,6 +12,11 @@ namespace
 
 // See model specifics in different countries here:
 //   http://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
+// Document contains proposals for some countries, but we assume that some kinds of roads are ready for pedestrian routing,
+// but not listed in tables in the document. For example, steps are not listed, paths, roads and services features also
+// can be treated as ready for pedestrian routing.
+// Kinds of roads which we assume footable are marked by // * below.
+
 // See road types here:
 //   http://wiki.openstreetmap.org/wiki/Key:highway
 
@@ -606,7 +611,7 @@ PedestrianModelFactory::PedestrianModelFactory()
   m_models["Russia"] = make_shared<PedestrianModel>(s_pedestrianLimits_Russia);
   m_models["Slovakia"] = make_shared<PedestrianModel>(s_pedestrianLimits_Slovakia);
   m_models["Switzerland"] = make_shared<PedestrianModel>(s_pedestrianLimits_Switzerland);
-  m_models["Turkey"] = make_shared<PedestrianModel>(s_pedestrianLimits_Turkey   );
+  m_models["Turkey"] = make_shared<PedestrianModel>(s_pedestrianLimits_Turkey);
   m_models["Ukraine"] = make_shared<PedestrianModel>(s_pedestrianLimits_Ukraine);
   m_models["UK"] = make_shared<PedestrianModel>(s_pedestrianLimits_UK);
   m_models["USA"] = make_shared<PedestrianModel>(s_pedestrianLimits_USA);

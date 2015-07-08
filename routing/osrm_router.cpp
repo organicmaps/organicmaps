@@ -1,9 +1,9 @@
+#include "car_model.hpp"
 #include "cross_mwm_router.hpp"
 #include "online_cross_fetcher.hpp"
 #include "osrm2feature_map.hpp"
 #include "osrm_router.hpp"
 #include "turns_generator.hpp"
-#include "car_model.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"

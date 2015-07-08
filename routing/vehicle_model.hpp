@@ -36,11 +36,11 @@ class IVehicleModelFactory
 public:
   virtual ~IVehicleModelFactory() {}
 
-  /// @returns Default vehicle model which corresponds for all countrines,
+  /// @return Default vehicle model which corresponds for all countrines,
   /// but it may be non optimal for some countries
   virtual shared_ptr<IVehicleModel> GetVehicleModel() const = 0;
 
-  /// @returns The most optimal vehicle model for specified country
+  /// @return The most optimal vehicle model for specified country
   virtual shared_ptr<IVehicleModel> GetVehicleModelForCountry(string const & country) const = 0;
 };
 
