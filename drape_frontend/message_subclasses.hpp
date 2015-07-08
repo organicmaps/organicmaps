@@ -560,5 +560,35 @@ private:
   drape_ptr<dp::RenderBucket> m_endOfRouteBuffer;
 };
 
+class UpdateMapStyleMessage : public Message
+{
+public:
+  UpdateMapStyleMessage(string const & mapStyleSuffix)
+    : m_mapStyleSuffix(mapStyleSuffix)
+  {}
+
+  Type GetType() const override { return Message::UpdateMapStyle; }
+
+  string const & GetMapStyleSuffix() const { return m_mapStyleSuffix; }
+
+private:
+  string m_mapStyleSuffix;
+};
+
+class InvalidateTexturesMessage : public BaseBlockingMessage
+{
+public:
+  InvalidateTexturesMessage(Blocker & blocker, string const & mapStyleSuffix)
+    : BaseBlockingMessage(blocker)
+    , m_mapStyleSuffix(mapStyleSuffix)
+  {}
+
+  Type GetType() const override { return Message::InvalidateTextures; }
+
+  string const & GetMapStyleSuffix() const { return m_mapStyleSuffix; }
+
+private:
+  string m_mapStyleSuffix;
+};
 
 } // namespace df

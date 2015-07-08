@@ -35,7 +35,9 @@ public:
     GetMyPosition,
     AddRoute,
     RemoveRoute,
-    FlushRoute
+    FlushRoute,
+    UpdateMapStyle,
+    InvalidateTextures
   };
 
   virtual ~Message() {}

@@ -812,8 +812,12 @@ void Framework::UpdateUserViewportChanged()
 
 void Framework::UpdateSearchResults(search::Results const & results)
 {
-  FillSearchResultsMarks(results);
-  Invalidate();
+  if (!results.IsEndMarker() && results.GetCount() > 0)
+  {
+    // Got here from search thread. Need to switch into GUI thread to modify search mark container.
+    // Do copy the results structure to pass into GUI thread.
+    GetPlatform().RunOnGuiThread(bind(&Framework::OnSearchResultsCallbackUI, this, results));
+  }
 }
 
 void Framework::OnSearchResultsCallbackUI(search::Results const & results)
@@ -1254,7 +1258,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             df::MapDataProvider(idReadFn, featureReadFn, updateCountryIndex, isCountryLoadedFn,
                                                 downloadMapFn, downloadMapRoutingFn, downloadRetryFn),
                             params.m_visualScale,
-                            move(params.m_widgetsInitInfo));
+                            move(params.m_widgetsInitInfo),
+                            GetStyleReader().GetCurrentStyleSuffix());
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
@@ -1284,7 +1289,7 @@ void Framework::SetMapStyle(MapStyle mapStyle)
 
   classificator::Load();
   drule::LoadRules();
-  InvalidateRect(m_currentMovelView.ClipRect());
+  CallDrapeFunction(bind(&df::DrapeEngine::UpdateMapStyle, _1, GetStyleReader().GetCurrentStyleSuffix()));
 
   alohalytics::TStringMap details {{"mapStyle", strings::to_string(static_cast<int>(mapStyle))}};
   alohalytics::Stats::Instance().LogEvent("MapStyle_Changed", details);

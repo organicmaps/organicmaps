@@ -166,6 +166,14 @@ void SymbolsTexture::Load(string const & skinPathName)
   stbi_image_free(data);
 }
 
+void SymbolsTexture::Invalidate(string const & skinPathName)
+{
+  Destroy();
+  m_definition.clear();
+
+  Load(skinPathName);
+}
+
 ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key, bool & newResource)
 {
   newResource = false;

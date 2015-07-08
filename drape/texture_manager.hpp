@@ -65,7 +65,7 @@ public:
 
   struct Params
   {
-    string m_resPrefix;
+    string m_resPostfix;
     GlyphManager::Params m_glyphMngParams;
   };
 
@@ -73,6 +73,8 @@ public:
   void Release();
 
   void Init(Params const & params);
+  void Invalidate(string const & postfix);
+
   void GetSymbolRegion(string const & symbolName, SymbolRegion & region);
 
   typedef buffer_vector<uint8_t, 8> TStipplePattern;
@@ -209,6 +211,8 @@ private:
   static constexpr size_t GetInvalidGlyphGroup();
 
 private:
+  string GetSymbolsTexturePath(string const & postfix) const;
+
   drape_ptr<Texture> m_symbolTexture;
   drape_ptr<Texture> m_stipplePenTexture;
   drape_ptr<Texture> m_colorTexture;

@@ -66,7 +66,7 @@ DrapeEngine::DrapeEngine(Params && params)
   m_frontend = make_unique_dp<FrontendRenderer>(frParams);
 
   BackendRenderer::Params brParams(frParams.m_commutator, frParams.m_oglContextFactory,
-                                   frParams.m_texMng, params.m_model);
+                                   frParams.m_texMng, params.m_model, params.m_resourcesSuffix);
   m_backend = make_unique_dp<BackendRenderer>(brParams);
 
   GuiRecacheMessage::Blocker blocker;
@@ -164,6 +164,13 @@ void DrapeEngine::InvalidateRect(m2::RectD const & rect)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<InvalidateRectMessage>(rect),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::UpdateMapStyle(string const & mapStyleSuffix)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<UpdateMapStyleMessage>(mapStyleSuffix),
                                   MessagePriority::High);
 }
 

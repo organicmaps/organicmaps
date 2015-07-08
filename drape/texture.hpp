@@ -49,6 +49,7 @@ public:
 
   void Create(uint32_t width, uint32_t height, TextureFormat format);
   void Create(uint32_t width, uint32_t height, TextureFormat format, ref_ptr<void> data);
+
   void SetFilterParams(glConst minFilter, glConst magFilter);
   void SetWrapMode(glConst sMode, glConst tMode);
 
@@ -68,6 +69,9 @@ public:
   void Bind() const;
 
   static uint32_t GetMaxTextureSize();
+
+protected:
+  void Destroy();
 
 private:
   void UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType);

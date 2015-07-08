@@ -33,6 +33,8 @@ public:
 
   ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource);
 
+  void Invalidate(string const & skinPathName);
+
 private:
   void Fail();
   void Load(string const & skinPathName);

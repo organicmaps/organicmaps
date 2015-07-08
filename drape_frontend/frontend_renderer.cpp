@@ -167,8 +167,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<UpdateReadManagerMessage>(screen, move(tiles)),
                                   MessagePriority::Normal);
-
-        RefreshBgColor();
       }
       break;
     }
@@ -318,6 +316,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_myPositionController->ActivateRouting();
       break;
     }
+
   case Message::RemoveRoute:
     {
       ref_ptr<RemoveRouteMessage> msg = message;
@@ -326,6 +325,39 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_myPositionController->DeactivateRouting();
       break;
     }
+
+  case Message::UpdateMapStyle:
+    {
+      ref_ptr<UpdateMapStyleMessage> msg = message;
+
+      m_tileTree->Invalidate();
+
+      TTilesCollection tiles;
+      ScreenBase screen = m_userEventStream.GetCurrentScreen();
+      ResolveTileKeys(screen.ClipRect(), tiles);
+
+      m_renderGroups.clear();
+      m_deferredRenderGroups.clear();
+
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                make_unique_dp<InvalidateReadManagerRectMessage>(tiles),
+                                MessagePriority::Normal);
+
+      BaseBlockingMessage::Blocker blocker;
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                make_unique_dp<InvalidateTexturesMessage>(blocker, msg->GetMapStyleSuffix()),
+                                MessagePriority::Normal);
+      blocker.Wait();
+
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                make_unique_dp<UpdateReadManagerMessage>(screen, move(tiles)),
+                                MessagePriority::Normal);
+
+      RefreshBgColor();
+
+      break;
+    }
+
   default:
     ASSERT(false, ());
   }

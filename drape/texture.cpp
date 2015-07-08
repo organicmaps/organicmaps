@@ -31,13 +31,7 @@ Texture::Texture()
 
 Texture::~Texture()
 {
-  if (m_textureID != -1)
-  {
-    GLFunctions::glDeleteTexture(m_textureID);
-#if defined(TRACK_GPU_MEM)
-    dp::GPUMemTracker::Inst().RemoveDeallocated("Texture", m_textureID);
-#endif
-  }
+  Destroy();
 }
 
 void Texture::Create(uint32_t width, uint32_t height, TextureFormat format)
@@ -84,6 +78,18 @@ void Texture::Create(uint32_t width, uint32_t height, TextureFormat format, ref_
   dp::GPUMemTracker::Inst().AddAllocated("Texture", m_textureID, memSize);
   dp::GPUMemTracker::Inst().SetUsed("Texture", m_textureID, memSize);
 #endif
+}
+
+void Texture::Destroy()
+{
+  if (m_textureID != -1)
+  {
+    GLFunctions::glDeleteTexture(m_textureID);
+    m_textureID = -1;
+#if defined(TRACK_GPU_MEM)
+    dp::GPUMemTracker::Inst().RemoveDeallocated("Texture", m_textureID);
+#endif
+  }
 }
 
 void Texture::SetFilterParams(glConst minFilter, glConst magFilter)
