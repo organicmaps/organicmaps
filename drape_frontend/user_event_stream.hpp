@@ -213,6 +213,7 @@ private:
   bool TouchMove(array<Touch, 2> const & touches);
   bool TouchCancel(array<Touch, 2> const & touches);
   bool TouchUp(array<Touch, 2> const & touches);
+  void PrepareTouches(array<Touch, 2> & touches);
   void UpdateTouches(array<Touch, 2> const & touches, size_t validCount);
   size_t GetValidTouchesCount(array<Touch, 2> const & touches) const;
 

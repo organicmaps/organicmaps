@@ -214,19 +214,22 @@ bool UserEventStream::ProcessTouch(TouchEvent const & touch)
          (touch.m_touches[0].m_id < touch.m_touches[1].m_id), ());
 
   bool isMapTouch = false;
+  array<Touch, 2> touches = touch.m_touches;
+  PrepareTouches(touches);
+
   switch (touch.m_type)
   {
   case TouchEvent::TOUCH_DOWN:
-    isMapTouch |= TouchDown(touch.m_touches);
+    isMapTouch |= TouchDown(touches);
     break;
   case TouchEvent::TOUCH_MOVE:
-    isMapTouch |= TouchMove(touch.m_touches);
+    isMapTouch |= TouchMove(touches);
     break;
   case TouchEvent::TOUCH_CANCEL:
-    isMapTouch |= TouchCancel(touch.m_touches);
+    isMapTouch |= TouchCancel(touches);
     break;
   case TouchEvent::TOUCH_UP:
-    isMapTouch |= TouchUp(touch.m_touches);
+    isMapTouch |= TouchUp(touches);
     break;
   default:
     ASSERT(false, ());
@@ -302,6 +305,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
     isMapTouch = false;
     break;
   case STATE_TAP_DETECTION:
+  case STATE_WAIT_DOUBLE_TAP:
     ASSERT(touchCount == 1, ());
     if (m_startDragOrg.SquareLength(touches[0].m_location) > VisualParams::Instance().GetDragThreshold())
       CancelTapDetector();
@@ -394,16 +398,22 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
   return isMapTouch;
 }
 
+void UserEventStream::PrepareTouches(array<Touch, 2> & touches)
+{
+  size_t validCount = GetValidTouchesCount(touches);
+  if (validCount == 2 && m_validTouchesCount > 0)
+  {
+    if (m_touches[0].m_id == touches[1].m_id)
+      swap(touches[0], touches[1]);
+  }
+}
+
 void UserEventStream::UpdateTouches(array<Touch, 2> const & touches, size_t validCount)
 {
   m_touches = touches;
   m_validTouchesCount = validCount;
-#ifdef DEBUG
-  if (validCount > 0)
-    ASSERT(m_touches[0].m_id != -1, ());
-  if (validCount > 1)
-    ASSERT(m_touches[1].m_id != -1, ());
-#endif
+
+  ASSERT(m_validTouchesCount == GetValidTouchesCount(m_touches), ());
 }
 
 size_t UserEventStream::GetValidTouchesCount(array<Touch, 2> const & touches) const
