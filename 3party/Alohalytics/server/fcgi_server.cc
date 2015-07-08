@@ -139,18 +139,6 @@ int main(int argc, char * argv[]) {
     ALOG("  - SIGHUP reopens main data file and SIGUSR1 reopens debug log file for logrotate utility.");
     return -1;
   }
-
-  // Redirect cout into a file if it was given in the command line.
-  CoutToFileRedirector log_redirector(argc > 2 ? argv[2] : nullptr);
-  // Correctly reopen data file on SIGHUP for logrotate.
-  if (SIG_ERR == ::signal(SIGHUP, [](int) { gReceivedSIGHUP = SIGHUP; })) {
-    ATLOG("WARNING: Can't set SIGHUP handler. Logrotate will not work correctly.");
-  }
-  // Correctly reopen debug log file on SIGUSR1 for logrotate.
-  if (SIG_ERR == ::signal(SIGUSR1, [](int) { gReceivedSIGUSR1 = SIGUSR1; })) {
-    ATLOG("WARNING: Can't set SIGUSR1 handler. Logrotate will not work correctly.");
-  }
-
   int result = FCGX_Init();
   if (0 != result) {
     ALOG("ERROR: FCGX_Init has failed with code", result);
@@ -162,6 +150,37 @@ int main(int argc, char * argv[]) {
     ALOG("ERROR: FCGX_InitRequest has failed with code", result);
     return result;
   }
+
+  // Redirect cout into a file if it was given in the command line.
+  CoutToFileRedirector log_redirector(argc > 2 ? argv[2] : nullptr);
+  // Correctly reopen data file on SIGHUP for logrotate.
+  if (SIG_ERR == ::signal(SIGHUP, [](int) { gReceivedSIGHUP = SIGHUP; })) {
+    ATLOG("WARNING: Can't set SIGHUP handler. Logrotate will not work correctly.");
+  }
+  // Correctly reopen debug log file on SIGUSR1 for logrotate.
+  if (SIG_ERR == ::signal(SIGUSR1, [](int) { gReceivedSIGUSR1 = SIGUSR1; })) {
+    ATLOG("WARNING: Can't set SIGUSR1 handler. Logrotate will not work correctly.");
+  }
+  // NOTE: On most systems, when we get a signal, FCGX_Accept_r blocks even with a FCGI_FAIL_ACCEPT_ON_INTR flag set
+  // in the request. Looks like on these systems default signal function installs the signals with the SA_RESTART flag
+  // set (see man sigaction for more details) and syscalls are automatically restart themselves if a signal occurs.
+  // To "fix" this behavior and gracefully shutdown our server, we use a trick from
+  // W. Richard Stevens, Stephen A. Rago, "Advanced Programming in the UNIX Environment", 2nd edition, page 329.
+  // It is also described here: http://comments.gmane.org/gmane.comp.web.fastcgi.devel/942
+  for (auto signo : {SIGTERM, SIGINT}) {
+    struct sigaction act;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+#ifdef SA_INTERRUPT
+    act.sa_flags |= SA_INTERRUPT;
+#endif
+    act.sa_handler = [](int) { FCGX_ShutdownPending(); };
+    const int result = sigaction(signo, &act, nullptr);
+    if (result != 0) {
+      ATLOG("WARNING: Can't set", signo, "signal handler");
+    }
+  }
+
   alohalytics::StatisticsReceiver receiver(argv[1]);
   string gzipped_body;
   long long content_length;
