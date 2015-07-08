@@ -30,7 +30,7 @@ struct RoutingMapping
   CrossRoutingContextReader m_crossContext;
 
   ///@param fName: mwm file path
-  RoutingMapping(platform::CountryFile const & localFile, Index * pIndex);
+  RoutingMapping(platform::CountryFile const & localFile, MwmSet * pIndex);
 
   ~RoutingMapping();
 
@@ -64,6 +64,10 @@ struct RoutingMapping
 private:
   // Ctor for invalid mappings.
   RoutingMapping(platform::CountryFile const & countryFile);
+
+  // Extracts a loading container functions from thr ctor to make ability of testing by
+  // the empty files.
+  void Open();
 
   size_t m_mapCounter;
   size_t m_facadeCounter;
@@ -102,7 +106,7 @@ class RoutingIndexManager
 {
 public:
   RoutingIndexManager(TCountryFileFn const & countryFileFn,
-                      Index * index)
+                     MwmSet * index)
       : m_countryFileFn(countryFileFn), m_index(index)
   {
     ASSERT(index, ());
@@ -123,7 +127,7 @@ public:
 private:
   TCountryFileFn m_countryFileFn;
   unordered_map<string, TRoutingMappingPtr> m_mapping;
-  Index * m_index;
+  MwmSet * m_index;
 };
 
 }  // namespace routing

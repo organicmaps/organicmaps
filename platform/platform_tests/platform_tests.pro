@@ -38,3 +38,6 @@ SOURCES += \
     measurement_tests.cpp \
     platform_test.cpp \
     video_timer_test.cpp \
+
+HEADERS += \
+    scoped_local_file.hpp \

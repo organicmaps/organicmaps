@@ -29,7 +29,7 @@ RoutingMapping::RoutingMapping(CountryFile const & countryFile)
 {
 }
 
-RoutingMapping::RoutingMapping(CountryFile const & countryFile, Index * pIndex)
+RoutingMapping::RoutingMapping(CountryFile const & countryFile, MwmSet * pIndex)
     : m_mapCounter(0),
       m_facadeCounter(0),
       m_crossContextLoaded(0),
@@ -44,7 +44,6 @@ RoutingMapping::RoutingMapping(CountryFile const & countryFile, Index * pIndex)
     return;
 
   m_error = IRouter::ResultCode::NoError;
-  m_container.Open(localFile.GetPath(TMapOptions::ECarRouting));
 }
 
 RoutingMapping::~RoutingMapping()
@@ -55,11 +54,21 @@ RoutingMapping::~RoutingMapping()
   m_container.Close();
 }
 
+void RoutingMapping::Open()
+{
+  if (!IsValid())
+    return;
+  string const & fileName = m_handle.GetInfo()->GetLocalFile().GetPath(TMapOptions::ECarRouting);
+  if (m_container.GetName().empty() && !fileName.empty())
+    m_container.Open(fileName);
+}
+
 void RoutingMapping::Map()
 {
   ++m_mapCounter;
   if (!m_segMapping.IsMapped())
   {
+    Open();
     m_segMapping.Load(m_container);
     m_segMapping.Map(m_container);
   }
@@ -75,7 +84,10 @@ void RoutingMapping::Unmap()
 void RoutingMapping::LoadFacade()
 {
   if (!m_facadeCounter)
+  {
+    Open();
     m_dataFacade.Load(m_container);
+  }
   ++m_facadeCounter;
 }
 
@@ -88,12 +100,15 @@ void RoutingMapping::FreeFacade()
 
 void RoutingMapping::LoadCrossContext()
 {
-  if (!m_crossContextLoaded)
-    if (m_container.IsExist(ROUTING_CROSS_CONTEXT_TAG))
-    {
-      m_crossContext.Load(m_container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
-      m_crossContextLoaded = true;
-    }
+  if (m_crossContextLoaded)
+    return;
+
+  Open();
+  if (m_container.IsExist(ROUTING_CROSS_CONTEXT_TAG))
+  {
+    m_crossContext.Load(m_container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
+    m_crossContextLoaded = true;
+  }
 }
 
 void RoutingMapping::FreeCrossContext()
