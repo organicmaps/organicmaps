@@ -327,11 +327,10 @@ private:
 };
 } // namespace
 
-OsrmRouter::OsrmRouter(Index const * index, TCountryFileFn const & countryFileFn,
-                       TCountryLocalFileFn const & countryLocalFileFn,
+OsrmRouter::OsrmRouter(Index * index, TCountryFileFn const & countryFileFn,
                        TRoutingVisualizerFn routingVisualization)
     : m_pIndex(index),
-      m_indexManager(countryFileFn, countryLocalFileFn, index),
+      m_indexManager(countryFileFn, index),
       m_routingVisualization(routingVisualization)
 {
 }
@@ -529,7 +528,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
   if (!startMapping->IsValid())
   {
-    route.AddAbsentCountry(startMapping->GetName());
+    route.AddAbsentCountry(startMapping->GetCountryFile().GetNameWithoutExt());
     return startMapping->GetError();
   }
   if (!targetMapping->IsValid())
@@ -538,9 +537,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     startMapping->LoadCrossContext();
     auto out_iterators = startMapping->m_crossContext.GetOutgoingIterators();
     for (auto i = out_iterators.first; i != out_iterators.second; ++i)
-      if (startMapping->m_crossContext.GetOutgoingMwmName(*i) == targetMapping->GetName())
+      if (startMapping->m_crossContext.GetOutgoingMwmName(*i) == targetMapping->GetCountryFile().GetNameWithoutExt())
       {
-        route.AddAbsentCountry(targetMapping->GetName());
+        route.AddAbsentCountry(targetMapping->GetCountryFile().GetNameWithoutExt());
         return targetMapping->GetError();
       }
     return targetMapping->GetError();
@@ -582,7 +581,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   RawRoutingResult routingResult;
 
   // 4.1 Single mwm case
-  if (startMapping->GetName() == targetMapping->GetName())
+  if (startMapping->GetMwmId() == targetMapping->GetMwmId())
   {
     LOG(LINFO, ("Single mwm routing case"));
     m_indexManager.ForEachMapping([](pair<string, TRoutingMappingPtr> const & indexPair)
@@ -654,7 +653,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
   if (!getter.HasCandidates())
     return RouteNotFound;
 
-  getter.MakeResult(res, maxCount, mapping->GetName());
+  getter.MakeResult(res, maxCount, mapping->GetCountryFile().GetNameWithoutExt());
   return NoError;
 }
 

@@ -58,7 +58,8 @@ private:
   shared_ptr<routing::IVehicleModel> const m_model;
 };
 
-unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index const & index, routing::TMwmFileByPointFn const & countryFileFn)
+unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index, routing::TMwmFileByPointFn const & countryFileFn)
+
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm(nullptr));
@@ -66,7 +67,7 @@ unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index const & index
   return router;
 }
 
-unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index const & index, routing::TMwmFileByPointFn const & countryFileFn)
+unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index & index, routing::TMwmFileByPointFn const & countryFileFn)
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarBidirectionalRoutingAlgorithm(nullptr));
@@ -122,7 +123,7 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::Poin
   foundRoute.Swap(route);
 }
 
-void TestRouters(Index const & index, m2::PointD const & startPos, m2::PointD const & finalPos)
+void TestRouters(Index & index, m2::PointD const & startPos, m2::PointD const & finalPos)
 {
   auto const countryFileFn = [](m2::PointD const & /* point */) { return MAP_NAME; };
 

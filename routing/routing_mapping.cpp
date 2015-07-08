@@ -23,54 +23,28 @@ RoutingMapping::RoutingMapping(CountryFile const & countryFile)
     : m_mapCounter(0),
       m_facadeCounter(0),
       m_crossContextLoaded(0),
-      m_countryFileName(countryFile.GetNameWithoutExt()),
-      m_isValid(false),
-      m_error(IRouter::ResultCode::RouteFileNotExist)
+      m_mentionedCountryFile(countryFile),
+      m_error(IRouter::ResultCode::RouteFileNotExist),
+      m_handle()
 {
 }
 
-RoutingMapping::RoutingMapping(LocalCountryFile const & localFile, Index const * pIndex)
+RoutingMapping::RoutingMapping(CountryFile const & countryFile, Index * pIndex)
     : m_mapCounter(0),
       m_facadeCounter(0),
       m_crossContextLoaded(0),
-      m_countryFileName(localFile.GetCountryName()),
-      m_isValid(true),
-      m_error(IRouter::ResultCode::NoError)
+      m_mentionedCountryFile(countryFile),
+      m_error(IRouter::ResultCode::RouteFileNotExist),
+      m_handle(pIndex->GetMwmHandleByCountryFile(countryFile))
 {
-  Platform & pl = GetPlatform();
-  if (!HasOptions(localFile.GetFiles(), TMapOptions::EMapWithCarRouting))
-  {
-    m_isValid = false;
-    m_error = IRouter::ResultCode::RouteFileNotExist;
+  if (!m_handle.IsAlive())
     return;
-  }
-  string const routingFilePath = localFile.GetPath(TMapOptions::ECarRouting);
-  // Open new container and check that mwm and routing have equal timestamp.
-  LOG(LDEBUG, ("Load routing index for file:", routingFilePath));
-  m_container.Open(routingFilePath);
-  {
-    FileReader r1 = m_container.GetReader(VERSION_FILE_TAG);
-    ReaderSrc src1(r1);
-    ModelReaderPtr r2 = FilesContainerR(pl.GetCountryReader(localFile, TMapOptions::EMap))
-                            .GetReader(VERSION_FILE_TAG);
-    ReaderSrc src2(r2.GetPtr());
+  LocalCountryFile const & localFile = m_handle.GetInfo()->GetLocalFile();
+  if (!HasOptions(localFile.GetFiles(), TMapOptions::EMapWithCarRouting))
+    return;
 
-    version::MwmVersion version1;
-    version::ReadVersion(src1, version1);
-
-    version::MwmVersion version2;
-    version::ReadVersion(src2, version2);
-
-    if (version1.timestamp != version2.timestamp)
-    {
-      m_container.Close();
-      m_isValid = false;
-      m_error = IRouter::ResultCode::InconsistentMWMandRoute;
-      return;
-    }
-  }
-
-  m_mwmId = pIndex->GetMwmIdByCountryFile(localFile.GetCountryFile());
+  m_error = IRouter::ResultCode::NoError;
+  m_container.Open(localFile.GetPath(TMapOptions::ECarRouting));
 }
 
 RoutingMapping::~RoutingMapping()
@@ -141,18 +115,14 @@ TRoutingMappingPtr RoutingIndexManager::GetMappingByPoint(m2::PointD const & poi
 
 TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & mapName)
 {
-  shared_ptr<platform::LocalCountryFile> localFile = m_countryLocalFileFn(mapName);
-  // Return invalid mapping when file does not exist.
-  if (!localFile)
-    return RoutingMapping::MakeInvalid(platform::CountryFile(mapName));
-
   // Check if we have already loaded this file.
   auto mapIter = m_mapping.find(mapName);
   if (mapIter != m_mapping.end())
     return mapIter->second;
 
   // Or load and check file.
-  TRoutingMappingPtr newMapping = make_shared<RoutingMapping>(*localFile, m_index);
+  TRoutingMappingPtr newMapping = make_shared<RoutingMapping>(platform::CountryFile(mapName),
+                                                              m_index);
   m_mapping.insert(make_pair(mapName, newMapping));
   return newMapping;
 }

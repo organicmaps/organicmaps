@@ -94,6 +94,7 @@ class FeaturesFetcher : public Index::Observer
     //@}
 
     Index const & GetIndex() const { return m_multiIndex; }
+    Index & GetIndex() { return m_multiIndex; }
     m2::RectD GetWorldRect() const;
   };
 }

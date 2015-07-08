@@ -35,8 +35,7 @@ class OsrmRouter : public IRouter
 public:
   typedef vector<double> GeomTurnCandidateT;
 
-  OsrmRouter(Index const * index, TCountryFileFn const & countryFileFn,
-             TCountryLocalFileFn const & countryLocalFileFn,
+  OsrmRouter(Index * index, TCountryFileFn const & countryFileFn,
              TRoutingVisualizerFn routingVisualization = nullptr);
 
   virtual string GetName() const;

@@ -13,6 +13,8 @@
 
 namespace routing
 {
+using TCountryLocalFileFn = function<shared_ptr<platform::LocalCountryFile>(string const &)>;
+
 /*!
  * \brief The OnlineAbsentCountriesFetcher class incapsulates async fetching the map
  * names from online OSRM server routines.

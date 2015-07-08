@@ -56,7 +56,7 @@ string GetCountryForMwmFile(string const & mwmName)
 RoadGraphRouter::~RoadGraphRouter() {}
 
 RoadGraphRouter::RoadGraphRouter(string const & name,
-                                 Index const & index,
+                                 Index & index,
                                  unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
                                  unique_ptr<IRoutingAlgorithm> && algorithm,
                                  TMwmFileByPointFn const & countryFileFn)
@@ -104,12 +104,11 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
     return PointsInDifferentMWM;
 
   platform::CountryFile countryFile(mwmName);
-  MwmSet::MwmHandle const handle =
-      const_cast<Index &>(m_index).GetMwmHandleByCountryFile(countryFile);
-  if (!handle.IsAlive())
+  MwmSet::MwmHandle const mwmHandle = m_index.GetMwmHandleByCountryFile(countryFile);
+  if (!mwmHandle.IsAlive())
     return RouteFileNotExist;
 
-  MwmSet::MwmId const mwmID = handle.GetId();
+  MwmSet::MwmId const mwmID = mwmHandle.GetId();
   if (!IsMyMWM(mwmID))
   {
     m_vehicleModel = m_vehicleModelFactory->GetVehicleModelForCountry(GetCountryForMwmFile(mwmName));
@@ -150,7 +149,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   return Convert(resultCode);
 }
 
-unique_ptr<IRouter> CreatePedestrianAStarRouter(Index const & index,
+unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
                                                 TMwmFileByPointFn const & countryFileFn,
                                                 TRoutingVisualizerFn const & visualizerFn)
 {
@@ -160,7 +159,7 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index const & index,
   return router;
 }
 
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index const & index,
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
                                                              TMwmFileByPointFn const & countryFileFn,
                                                              TRoutingVisualizerFn const & visualizerFn)
 {

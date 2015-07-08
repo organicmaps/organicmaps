@@ -25,7 +25,7 @@ class RoadGraphRouter : public IRouter
 {
 public:
   RoadGraphRouter(string const & name,
-                  Index const & index,
+                  Index & index,
                   unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
                   unique_ptr<IRoutingAlgorithm> && algorithm,
                   TMwmFileByPointFn const & countryFileFn);
@@ -49,7 +49,7 @@ private:
   bool IsMyMWM(MwmSet::MwmId const & mwmID) const;
 
   string const m_name;
-  Index const & m_index;
+  Index & m_index;
   unique_ptr<IVehicleModelFactory> const m_vehicleModelFactory;
   unique_ptr<IRoutingAlgorithm> const m_algorithm;
   TMwmFileByPointFn const m_countryFileFn;
@@ -58,10 +58,10 @@ private:
   shared_ptr<IVehicleModel> m_vehicleModel;
 };
   
-unique_ptr<IRouter> CreatePedestrianAStarRouter(Index const & index,
+unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
                                                 TMwmFileByPointFn const & countryFileFn,
                                                 TRoutingVisualizerFn const & visualizerFn);
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index const & index,
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
                                                              TMwmFileByPointFn const & countryFileFn,
                                                              TRoutingVisualizerFn const & visualizerFn);
 

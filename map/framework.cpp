@@ -2177,7 +2177,7 @@ void Framework::SetRouter(RouterType type)
   }
   else
   {
-    router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter, localFileGetter,
+    router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter,
                                 routingVisualizerFn));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileGetter));
   }

@@ -85,21 +85,18 @@ namespace integration
     }
   }
 
-  shared_ptr<OsrmRouter> CreateOsrmRouter(Index const & index, search::Engine & searchEngine)
+  shared_ptr<OsrmRouter> CreateOsrmRouter(Index & index, search::Engine & searchEngine)
   {
     shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(
         &index, [&searchEngine](m2::PointD const & pt)
         {
           return searchEngine.GetCountryFile(pt);
-        },
-        [](string const & countryFileName)
-        {
-          return make_shared<LocalCountryFile>(LocalCountryFile::MakeForTesting(countryFileName));
-        }));
+        }
+        ));
     return osrmRouter;
   }
 
-  shared_ptr<IRouter> CreatePedestrianRouter(Index const & index, search::Engine & searchEngine)
+  shared_ptr<IRouter> CreatePedestrianRouter(Index & index, search::Engine & searchEngine)
   {
     auto const countryFileFn = [&searchEngine](m2::PointD const & pt)
     {
@@ -169,6 +166,8 @@ namespace integration
 
     vector<LocalCountryFile> localFiles;
     platform::FindAllLocalMaps(localFiles);
+    for (auto & file : localFiles)
+      file.SyncWithDisk();
     ASSERT(!localFiles.empty(), ());
     return shared_ptr<TRouterComponents>(new TRouterComponents(localFiles));
   }
