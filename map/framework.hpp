@@ -586,6 +586,7 @@ private:
   string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
 
   TRouteBuildingCallback m_routingCallback;
+  routing::RouterType m_currentRouterType;
   //@}
 
 public:

@@ -2181,6 +2181,7 @@ void Framework::SetRouter(RouterType type)
   }
 
   m_routingSession.SetRouter(move(router), move(fetcher), routingStatisticsFn);
+  m_currentRouterType = type;
 }
 
 void Framework::RemoveRoute()
@@ -2212,9 +2213,16 @@ void Framework::InsertRoute(Route const & route)
   track.SetName(route.GetName());
   track.SetTurnsGeometry(route.GetTurnsGeometry());
 
+  /// @todo Consider a style parameter for the route color.
+  graphics::Color routeColor;
+  if (m_currentRouterType == RouterType::Pedestrian)
+    routeColor = graphics::Color(5, 105, 175, 255);
+  else
+    routeColor = graphics::Color(110, 180, 240, 255);
+
   Track::TrackOutline outlines[]
   {
-    { 10.0f * visScale, graphics::Color(110, 180, 240, 255) }
+    { 10.0f * visScale, routeColor }
   };
 
   track.AddOutline(outlines, ARRAY_SIZE(outlines));
