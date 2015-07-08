@@ -92,8 +92,18 @@ struct Notification
         m_lengthUnits(lengthUnits)
   {
   }
+  bool operator==(Notification const & rhv) const
+  {
+    return m_distanceUnits == rhv.m_distanceUnits && m_exitNum == rhv.m_exitNum &&
+           m_useThenInsteadOfDistance == rhv.m_useThenInsteadOfDistance &&
+           m_turnDir == rhv.m_turnDir && m_lengthUnits == rhv.m_lengthUnits;
+  }
+
   inline bool IsValid() const { return m_lengthUnits != LengthUnits::Undefined; }
 };
+
+string DebugPrint(Notification const & turnGeom);
+
 }  // namespace sound
 }  // namespace turns
 }  // namespace routing

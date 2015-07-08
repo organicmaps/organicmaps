@@ -94,6 +94,13 @@ namespace location
   class FollowingInfo
   {
   public:
+    FollowingInfo()
+        : m_turn(routing::turns::TurnDirection::NoTurn),
+          m_exitNum(0),
+          m_time(0)
+    {
+    }
+
     // SingleLaneInfoClient is used for passing information about a lane to client platforms such as
     // Android, iOS and so on.
     struct SingleLaneInfoClient

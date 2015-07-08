@@ -118,12 +118,10 @@ UNIT_TEST(TurnsSoundMetersTest)
   // So we start playing the first notification when the distance till the turn is less
   // then 20 seconds * 30 meters per seconds + 100 meters = 700 meters.
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 699. /* distanceToTurnMeters */);
-  TEST_EQUAL(followInfo.m_turnNotifications.size(), 1, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_distanceUnits, 600, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_exitNum, 0, ());
-  TEST(!followInfo.m_turnNotifications[0].m_useThenInsteadOfDistance, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_turnDir, TurnDirection::TurnRight, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_lengthUnits, LengthUnits::Meters, ());
+  vector<routing::turns::sound::Notification> const expectedNotification1 = {
+      {600 /* m_distanceUnits */, 0 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
+       TurnDirection::TurnRight, LengthUnits::Meters}};
+  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification1, ());
 
   // 650 meters till the turn. No sound notifications is required.
   followInfo.m_turnNotifications.clear();
@@ -142,12 +140,10 @@ UNIT_TEST(TurnsSoundMetersTest)
 
   // 99 meters till the turn. It's time to pronounce the second voice notification.
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
-  TEST_EQUAL(followInfo.m_turnNotifications.size(), 1, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_distanceUnits, 0, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_exitNum, 0, ());
-  TEST(!followInfo.m_turnNotifications[0].m_useThenInsteadOfDistance, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_turnDir, TurnDirection::TurnRight, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_lengthUnits, LengthUnits::Meters, ());
+  vector<routing::turns::sound::Notification> const expectedNotification2 = {
+      {0 /* m_distanceUnits */, 0 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
+       TurnDirection::TurnRight, LengthUnits::Meters}};
+  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification2, ());
 
   // 99 meters till the turn again. No sound notifications is required.
   followInfo.m_turnNotifications.clear();
@@ -162,6 +158,71 @@ UNIT_TEST(TurnsSoundMetersTest)
   followInfo.m_turnNotifications.clear();
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 0. /* distanceToTurnMeters */);
   TEST(followInfo.m_turnNotifications.empty(), ());
+
+  TEST(turnSound.IsEnabled(), ());
+}
+
+// Test case:
+// - Two turns;
+// - They are close to each other;
+// So the first notification of the second turn shall be skipped.
+UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
+{
+  TurnsSound turnSound;
+  turnSound.Enable(true);
+  turnSound.SetSettings(settingsMeters);
+  turnSound.Reset();
+  turnSound.SetSpeedMetersPerSecond(35.);
+
+  TurnItem turnItem1(5 /* idx */, TurnDirection::TurnSharpRight);
+  FollowingInfo followInfo;
+
+  ASSERT(followInfo.m_turnNotifications.empty(), ());
+
+  // Starting nearing the first turn.
+  // 800 meters till the turn. No sound notifications is required.
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 800. /* distanceToTurnMeters */);
+  TEST(followInfo.m_turnNotifications.empty(), ());
+
+  // 700 meters till the turn. It's time to pronounce the first voice notification.
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 700. /* distanceToTurnMeters */);
+  vector<routing::turns::sound::Notification> const expectedNotification1 = {
+      {700 /* m_distanceUnits */, 0 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
+       TurnDirection::TurnSharpRight, LengthUnits::Meters}};
+  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification1, ());
+
+  turnSound.SetSpeedMetersPerSecond(32.);
+
+  // 150 meters till the turn. No sound notifications is required.
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 150. /* distanceToTurnMeters */);
+  TEST(followInfo.m_turnNotifications.empty(), ());
+
+  // 99 meters till the turn. It's time to pronounce the second voice notification.
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 99. /* distanceToTurnMeters */);
+  vector<routing::turns::sound::Notification> const expectedNotification2 = {
+      {0 /* m_distanceUnits */, 0 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
+       TurnDirection::TurnSharpRight, LengthUnits::Meters}};
+  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification2, ());
+
+  turnSound.SetSpeedMetersPerSecond(10.);
+
+  // 0 meters till the turn. No sound notifications is required.
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 0. /* distanceToTurnMeters */);
+  TEST(followInfo.m_turnNotifications.empty(), ());
+
+  TurnItem turnItem2(11 /* idx */, TurnDirection::EnterRoundAbout, 2 /* exitNum */);
+
+  // Starting nearing the second turn.
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem2, 60. /* distanceToTurnMeters */);
+  TEST(followInfo.m_turnNotifications.empty(), ());
+
+  // 40 meters till the second turn. It's time to pronounce the second voice notification
+  // without the first one.
+  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem2, 40. /* distanceToTurnMeters */);
+  vector<routing::turns::sound::Notification> const expectedNotification3 = {
+      {0 /* m_distanceUnits */, 2 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
+       TurnDirection::EnterRoundAbout, LengthUnits::Meters}};
+  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification3, ());
 
   TEST(turnSound.IsEnabled(), ());
 }
@@ -195,12 +256,10 @@ UNIT_TEST(TurnsSoundFeetTest)
   // So we start playing the first notification when the distance till the turn is less
   // then 20 seconds * 30 meters per seconds + 100 meters = 700 meters.
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 699. /* distanceToTurnMeters */);
-  TEST_EQUAL(followInfo.m_turnNotifications.size(), 1, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_distanceUnits, 2000, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_exitNum, 3, ());
-  TEST(!followInfo.m_turnNotifications[0].m_useThenInsteadOfDistance, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_turnDir, TurnDirection::EnterRoundAbout, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_lengthUnits, LengthUnits::Feet, ());
+  vector<routing::turns::sound::Notification> const expectedNotification1 = {
+      {2000 /* m_distanceUnits */, 3 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
+       TurnDirection::EnterRoundAbout, LengthUnits::Feet}};
+  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification1, ());
 
   // 650 meters till the turn. No sound notifications is required.
   followInfo.m_turnNotifications.clear();
@@ -217,12 +276,10 @@ UNIT_TEST(TurnsSoundFeetTest)
 
   // 99 meters till the turn. It's time to pronounce the second voice notification.
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
-  TEST_EQUAL(followInfo.m_turnNotifications.size(), 1, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_distanceUnits, 0, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_exitNum, 3, ());
-  TEST(!followInfo.m_turnNotifications[0].m_useThenInsteadOfDistance, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_turnDir, TurnDirection::EnterRoundAbout, ());
-  TEST_EQUAL(followInfo.m_turnNotifications[0].m_lengthUnits, LengthUnits::Feet, ());
+  vector<routing::turns::sound::Notification> const expectedNotification2 = {
+      {0 /* m_distanceUnits */, 3 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
+       TurnDirection::EnterRoundAbout, LengthUnits::Feet}};
+  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification2, ());
 
   // 99 meters till the turn again. No sound notifications is required.
   followInfo.m_turnNotifications.clear();

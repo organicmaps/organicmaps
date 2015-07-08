@@ -93,6 +93,17 @@ string DebugPrint(LengthUnits const & lengthUnits)
   out << "Unknown LengthUnits value: " << static_cast<int>(lengthUnits);
   return out.str();
 }
+
+string DebugPrint(Notification const & notification)
+{
+  stringstream out;
+  out << "Notification [ m_distanceUnits == " << notification.m_distanceUnits
+      << ", m_exitNum == " << notification.m_exitNum
+      << ", m_useThenInsteadOfDistance == " << notification.m_useThenInsteadOfDistance
+      << ", m_turnDir == " << DebugPrint(notification.m_turnDir)
+      << ", m_lengthUnits == " << DebugPrint(notification.m_lengthUnits) << " ]" << endl;
+  return out.str();
+}
 }  // namespace sound
 }  // namespace turns
 }  // namespace routing

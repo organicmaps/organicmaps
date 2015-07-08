@@ -51,27 +51,38 @@ void TurnsSound::UpdateRouteFollowingInfo(location::FollowingInfo & info, TurnIt
 
   if (m_nextNotificationProgress == PronouncedNotification::Nothing)
   {
-    double const currentSpeedUntisPerSecond =
-        m_settings.ConvertMetersPerSecondToUnitsPerSecond(m_speedMetersPerSecond);
-    double const turnNotificationDistUnits =
-        m_settings.ComputeTurnDistance(currentSpeedUntisPerSecond);
-    uint32_t const turnNotificationDistMeters =
-        m_settings.ConvertUnitsToMeters(turnNotificationDistUnits) + distanceToPronounceNotificationMeters;
-
-    if (distanceToTurnMeters < turnNotificationDistMeters)
+    if (distanceToTurnMeters > kMaxStartBeforeMeters)
     {
-      // First turn sound notification.
-      uint32_t const distToPronounce =
-          m_settings.RoundByPresetSoundedDistancesUnits(turnNotificationDistUnits);
-      info.m_turnNotifications.emplace_back(distToPronounce, turn.m_exitNum, false, turn.m_turn,
-                                            m_settings.GetLengthUnits());
-      // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
-      // If so add an extra item to info.m_turnNotifications with "then parameter".
+      double const currentSpeedUntisPerSecond =
+          m_settings.ConvertMetersPerSecondToUnitsPerSecond(m_speedMetersPerSecond);
+      double const turnNotificationDistUnits =
+          m_settings.ComputeTurnDistance(currentSpeedUntisPerSecond);
+      uint32_t const turnNotificationDistMeters =
+          m_settings.ConvertUnitsToMeters(turnNotificationDistUnits) + distanceToPronounceNotificationMeters;
+
+      if (distanceToTurnMeters < turnNotificationDistMeters)
+      {
+        // First turn sound notification.
+        uint32_t const distToPronounce =
+            m_settings.RoundByPresetSoundedDistancesUnits(turnNotificationDistUnits);
+        info.m_turnNotifications.emplace_back(distToPronounce, turn.m_exitNum, false, turn.m_turn,
+                                              m_settings.GetLengthUnits());
+        // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
+        // If so add an extra item to info.m_turnNotifications with "then parameter".
+        m_nextNotificationProgress = PronouncedNotification::First;
+      }
+    }
+    else
+    {
+      // The first notification has not been pronounced but the distance to the turn is too short.
+      // It happens if one turn follows shortly behind another one.
       m_nextNotificationProgress = PronouncedNotification::First;
     }
+    return;
   }
-  else if (m_nextNotificationProgress == PronouncedNotification::First &&
-           distanceToTurnMeters < distanceToPronounceNotificationMeters)
+
+  if (m_nextNotificationProgress == PronouncedNotification::First &&
+      distanceToTurnMeters < distanceToPronounceNotificationMeters)
   {
     info.m_turnNotifications.emplace_back(0, turn.m_exitNum, false, turn.m_turn,
                                           m_settings.GetLengthUnits());
