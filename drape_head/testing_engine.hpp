@@ -12,27 +12,17 @@
 
 #include "std/map.hpp"
 
-#include <QObject>
-#include <QEvent>
-
 namespace df
 {
 
-class TestingEngine : public QObject
+class TestingEngine
 {
 public:
-  TestingEngine(ref_ptr<dp::OGLContextFactory> oglcontextfactory,
-                Viewport const & viewport,
-                double vs);
+  TestingEngine(Viewport const & viewport, double vs);
   ~TestingEngine();
 
   void Draw();
   void Resize(int w, int h);
-
-protected:
-  void timerEvent(QTimerEvent * e);
-
-  int m_timerId;
 
 private:
   void DrawImpl();
@@ -43,7 +33,6 @@ private:
   void ClearScene();
 
 private:
-  ref_ptr<dp::OGLContextFactory> m_contextFactory;
   drape_ptr<dp::Batcher> m_batcher;
   drape_ptr<dp::GpuProgramManager> m_programManager;
   drape_ptr<dp::TextureManager> m_textures;

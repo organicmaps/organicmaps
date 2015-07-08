@@ -5,45 +5,90 @@
 
 #include "drape/glfunctions.hpp"
 
-QtOGLContext::QtOGLContext(QWindow * surface, QtOGLContext * contextToShareWith)
+QtRenderOGLContext::QtRenderOGLContext(QOpenGLContext * nativeContext, QThread * guiThread,
+                                       TRegisterThreadFn const & regFn, TSwapFn const & swapFn)
+  : m_surface(nativeContext->surface())
+  , m_ctx(nativeContext)
+  , m_guiThread(guiThread)
+  , m_regFn(regFn)
+  , m_swapFn(swapFn)
+  , m_isRegistered(false)
+  , m_shutedDown(false)
 {
-  m_isContextCreated = false;
+}
+
+void QtRenderOGLContext::present()
+{
+  if (m_shutedDown)
+    return;
+
+  MoveContextOnGui();
+  m_swapFn();
+
+  makeCurrent();
+}
+
+void QtRenderOGLContext::makeCurrent()
+{
+  if (!m_isRegistered)
+  {
+    m_regFn(QThread::currentThread());
+    m_isRegistered = true;
+  }
+
+  m_ctx->makeCurrent(m_surface);
+}
+
+void QtRenderOGLContext::doneCurrent()
+{
+  MoveContextOnGui();
+}
+
+void QtRenderOGLContext::setDefaultFramebuffer()
+{
+  GLFunctions::glBindFramebuffer(GL_FRAMEBUFFER, m_ctx->defaultFramebufferObject());
+}
+
+void QtRenderOGLContext::shutDown()
+{
+  m_shutedDown = true;
+}
+
+void QtRenderOGLContext::MoveContextOnGui()
+{
+  m_ctx->doneCurrent();
+  m_ctx->moveToThread(m_guiThread);
+}
+
+QtUploadOGLContext::QtUploadOGLContext(QSurface * surface, QOpenGLContext * contextToShareWith)
+{
   m_surface = surface;
   m_nativeContext = new QOpenGLContext();
 
-  if  (contextToShareWith != NULL)
-    m_nativeContext->setShareContext(contextToShareWith->m_nativeContext);
+  ASSERT(contextToShareWith != nullptr, ());
+  m_nativeContext->setShareContext(contextToShareWith);
 
-  m_nativeContext->setFormat(m_surface->requestedFormat());
-  ASSERT(m_surface->isExposed(), ());
+  m_nativeContext->setFormat(contextToShareWith->format());
   VERIFY(m_nativeContext->create(), ());
 }
 
-QtOGLContext::~QtOGLContext()
+QtUploadOGLContext::~QtUploadOGLContext()
 {
   delete m_nativeContext;
 }
 
-void QtOGLContext::makeCurrent()
+void QtUploadOGLContext::makeCurrent()
 {
   ASSERT(m_nativeContext->isValid(), ());
   m_nativeContext->makeCurrent(m_surface);
-
-#ifdef DEBUG
-  LOG(LDEBUG, ("Current context : ", m_nativeContext));
-  QList<QOpenGLContext *> list = QOpenGLContextGroup::currentContextGroup()->shares();
-  for (int i = 0; i < list.size(); ++i)
-    LOG(LDEBUG, ("Share context : ", list[i]));
-#endif
 }
 
-void QtOGLContext::present()
+void QtUploadOGLContext::present()
 {
-  m_nativeContext->makeCurrent(m_surface);
-  m_nativeContext->swapBuffers(m_surface);
+  ASSERT(false, ());
 }
 
-void QtOGLContext::setDefaultFramebuffer()
+void QtUploadOGLContext::setDefaultFramebuffer()
 {
-  GLFunctions::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  ASSERT(false, ());
 }

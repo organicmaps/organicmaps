@@ -2,30 +2,33 @@
 
 #include "base/assert.hpp"
 
-QtOGLContextFactory::QtOGLContextFactory(QWindow * surface)
-  : m_surface(surface)
-  , m_drawContext(nullptr)
+QtOGLContextFactory::QtOGLContextFactory(QOpenGLContext * renderContext, QThread * thread,
+                                         TRegisterThreadFn const & regFn, TSwapFn const & swapFn)
+  : m_drawContext(new QtRenderOGLContext(renderContext, thread, regFn, swapFn))
   , m_uploadContext(nullptr)
-{}
+{
+  m_uploadThreadSurface = new QOffscreenSurface(renderContext->screen());
+  m_uploadThreadSurface->create();
+}
 
 QtOGLContextFactory::~QtOGLContextFactory()
 {
   delete m_drawContext;
   delete m_uploadContext;
+
+  m_uploadThreadSurface->destroy();
+  delete m_uploadThreadSurface;
 }
 
 dp::OGLContext * QtOGLContextFactory::getDrawContext()
 {
-  if (m_drawContext == nullptr)
-    m_drawContext = new QtOGLContext(m_surface, m_uploadContext);
-
   return m_drawContext;
 }
 
 dp::OGLContext * QtOGLContextFactory::getResourcesUploadContext()
 {
   if (m_uploadContext == nullptr)
-    m_uploadContext = new QtOGLContext(m_surface, m_drawContext);
+    m_uploadContext = new QtUploadOGLContext(m_uploadThreadSurface, m_drawContext->getNativeContext());
 
   return m_uploadContext;
 }

@@ -837,6 +837,7 @@ void FrontendRenderer::ReleaseResources()
   m_routeRenderer.reset();
 
   m_gpuProgramManager.reset();
+  m_contextFactory->getDrawContext()->doneCurrent();
 }
 
 void FrontendRenderer::AddUserEvent(UserEvent const & event)

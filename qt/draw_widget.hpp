@@ -9,18 +9,20 @@
 #include "drape_frontend/drape_engine.hpp"
 
 #include "std/unique_ptr.hpp"
+#include "std/mutex.hpp"
+#include "std/condition_variable.hpp"
 
-#include <QtGui/QWindow>
+#include <QtGui/QOpenGLWindow>
 
 namespace qt
 {
   class QScaleSlider;
 
-  class DrawWidget : public QWindow
+  class DrawWidget : public QOpenGLWindow
   {
-    typedef QWindow TBase;
+    using TBase = QOpenGLWindow;
 
-    drape_ptr<dp::OGLContextFactory> m_contextFactory;
+    drape_ptr<QtOGLContextFactory> m_contextFactory;
     unique_ptr<Framework> m_framework;
 
     qreal m_ratio;
@@ -67,9 +69,13 @@ namespace qt
     void CreateEngine();
 
   protected:
-    /// @name Overriden from QWidget.
+    /// @name Overriden from QOpenGLWindow.
     //@{
-    void exposeEvent(QExposeEvent * e) override;
+    void initializeGL() override;
+    void resizeGL(int width, int height) override;
+    void paintGL() override;
+
+    void exposeEvent(QExposeEvent * event);
     void mousePressEvent(QMouseEvent * e) override;
     void mouseDoubleClickEvent(QMouseEvent * e) override;
     void mouseMoveEvent(QMouseEvent * e) override;
@@ -79,7 +85,33 @@ namespace qt
     void keyReleaseEvent(QKeyEvent * e) override;
     //@}
 
-    Q_SLOT void sizeChanged(int);
+  private:
+    enum RenderingState
+    {
+      NotInitialized,
+      WaitContext,
+      WaitSwap,
+      Render,
+    };
+
+    void CallSwap();
+    void CallRegisterThread(QThread * thread);
+    Q_SIGNAL void Swap();
+    Q_SIGNAL void RegRenderingThread(QThread * thread);
+    Q_SLOT void OnSwap();
+    Q_SLOT void OnRegRenderingThread(QThread * thread);
+    Q_SLOT void frameSwappedSlot(RenderingState state = Render);
+
+    void MoveContextToRenderThread();
+    QThread * m_rendererThread;
+
+    mutex m_swapMutex;
+    condition_variable m_swapCond;
+
+    mutex m_waitContextMutex;
+    condition_variable m_waitContextCond;
+
+    RenderingState m_state;
 
   private:
     void SubmitFakeLocationPoint(m2::PointD const & pt);

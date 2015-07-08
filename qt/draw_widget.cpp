@@ -1,6 +1,7 @@
 #include "qt/draw_widget.hpp"
 
 #include "qt/slider_ctrl.hpp"
+#include "qt/qtoglcontext.hpp"
 
 #include "drape_frontend/visual_params.hpp"
 
@@ -19,6 +20,7 @@
 
 #include <QtCore/QLocale>
 #include <QtCore/QDateTime>
+#include <QtCore/QThread>
 
 namespace qt
 {
@@ -69,14 +71,13 @@ bool IsLocationEmulation(QMouseEvent * e)
     : m_contextFactory(nullptr),
       m_framework(new Framework()),
       m_ratio(1.0),
+      m_rendererThread(nullptr),
+      m_state(NotInitialized),
       m_pScale(nullptr),
-      m_emulatingLocation(false),
-      m_enableScaleUpdate(true)
+      m_enableScaleUpdate(true),
+      m_emulatingLocation(false)
   {
     setSurfaceType(QSurface::OpenGLSurface);
-
-    QObject::connect(this, SIGNAL(heightChanged(int)), this, SLOT(sizeChanged(int)));
-    QObject::connect(this, SIGNAL(widthChanged(int)), this,  SLOT(sizeChanged(int)));
 
     m_framework->SetUserMarkActivationListener([](unique_ptr<UserMarkCopy> mark)
     {
@@ -103,6 +104,14 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::PrepareShutdown()
   {
+    {
+      // Discard current and all future Swap requests
+      m_contextFactory->shutDown();
+      frameSwappedSlot(NotInitialized);
+    }
+
+    // Shutdown engine. FR have ogl context in this moment and can delete OGL resources
+    // PrepareToShutdown make FR::join and after this call we can bind OGL context to gui thread
     m_framework->PrepareToShutdown();
     m_contextFactory.reset();
   }
@@ -188,22 +197,68 @@ bool IsLocationEmulation(QMouseEvent * e)
     m_framework->AddViewportListener(bind(&DrawWidget::OnViewportChanged, this, _1));
   }
 
-  void DrawWidget::exposeEvent(QExposeEvent * e)
+  void DrawWidget::initializeGL()
   {
-    Q_UNUSED(e);
+    Qt::ConnectionType swapType = Qt::QueuedConnection;
+    Qt::ConnectionType regType = Qt::BlockingQueuedConnection;
+    VERIFY(connect(this, SIGNAL(Swap()), SLOT(OnSwap()), swapType), ());
+    VERIFY(connect(this, SIGNAL(RegRenderingThread(QThread *)), SLOT(OnRegRenderingThread(QThread *)), regType), ());
+    VERIFY(connect(this, SIGNAL(frameSwapped()), SLOT(frameSwappedSlot())), ());
 
+    ASSERT(m_contextFactory == nullptr, ());
+    m_ratio = devicePixelRatio();
+    QOpenGLContext * ctx = context();
+    QtOGLContextFactory::TRegisterThreadFn regFn = bind(&DrawWidget::CallRegisterThread, this, _1);
+    QtOGLContextFactory::TSwapFn swapFn = bind(&DrawWidget::CallSwap, this);
+    m_contextFactory = make_unique_dp<QtOGLContextFactory>(ctx, QThread::currentThread(), regFn, swapFn);
+    CreateEngine();
+    LoadState();
+
+    emit EngineCreated();
+  }
+
+  void DrawWidget::resizeGL(int width, int height)
+  {
+    float w = m_ratio * width;
+    float h = m_ratio * height;
+    m_framework->OnSize(w, h);
+    if (m_skin)
+    {
+      m_skin->Resize(w, h);
+
+      gui::TWidgetsLayoutInfo layout;
+      m_skin->ForEach([&layout](gui::EWidget w, gui::Position const & pos)
+      {
+        layout[w] = pos.m_pixelPivot;
+      });
+
+      m_framework->SetWidgetLayout(move(layout));
+    }
+  }
+
+  void DrawWidget::paintGL() { /*Must be empty*/ }
+
+  void DrawWidget::exposeEvent(QExposeEvent * event)
+  {
     if (isExposed())
     {
-      if (m_contextFactory == nullptr)
+      m_swapMutex.lock();
+      bool needUnlock = true;
+      if (m_state == Render)
       {
-        m_ratio = devicePixelRatio();
-        m_contextFactory = make_unique_dp<dp::ThreadSafeFactory>(new QtOGLContextFactory(this));
-        CreateEngine();
-        LoadState();
+        unique_lock<mutex> waitContextLock(m_waitContextMutex);
+        m_state = WaitContext;
+        needUnlock = false;
+        m_swapMutex.unlock();
 
-        emit EngineCreated();
+        m_waitContextCond.wait(waitContextLock, [this](){ return m_state != WaitContext; });
       }
+
+      if (needUnlock)
+        m_swapMutex.unlock();
     }
+
+    TBase::exposeEvent(event);
   }
 
   void DrawWidget::mousePressEvent(QMouseEvent * e)
@@ -284,6 +339,87 @@ bool IsLocationEmulation(QMouseEvent * e)
       m_emulatingLocation = false;
   }
 
+  void DrawWidget::CallSwap()
+  {
+    // Called on FR thread. In this point OGL context have already moved into GUI thread.
+    unique_lock<mutex> lock(m_swapMutex);
+    if (m_state == NotInitialized)
+    {
+      // This can be in two cases if GUI thread in PrepareToShutDown
+      return;
+    }
+
+    ASSERT(m_state != WaitSwap, ());
+    if (m_state == WaitContext)
+    {
+      lock_guard<mutex> waitContextLock(m_waitContextMutex);
+      m_state = Render;
+      m_waitContextCond.notify_one();
+    }
+
+    if (m_state == Render)
+    {
+      // We have to wait, while Qt on GUI thread finish composing widgets and make SwapBuffers
+      // After SwapBuffers Qt will call our SLOT(frameSwappedSlot)
+      m_state = WaitSwap;
+      emit Swap();
+      m_swapCond.wait(lock, [this]() { return m_state != WaitSwap; });
+    }
+  }
+
+  void DrawWidget::CallRegisterThread(QThread * thread)
+  {
+    // Called on FR thread. SIGNAL(RegRenderingThread) and SLOT(OnRegRenderingThread)
+    // connected by through Qt::BlockingQueuedConnection and we don't need any synchronization
+    ASSERT(m_state == NotInitialized, ());
+    emit RegRenderingThread(thread);
+  }
+
+  void DrawWidget::OnSwap()
+  {
+    // Called on GUI thread. In this point FR thread must wait SwapBuffers signal
+    lock_guard<mutex> lock(m_swapMutex);
+    if (m_state == WaitSwap)
+    {
+      context()->makeCurrent(this);
+      update();
+    }
+  }
+
+  void DrawWidget::OnRegRenderingThread(QThread * thread)
+  {
+    // Called on GUI thread.
+    // Here we register thread of FR, to return OGL context into it after SwapBuffers
+    // After this operation we can start rendering into back buffer on FR thread
+    lock_guard<mutex> lock(m_swapMutex);
+
+    ASSERT(m_state == NotInitialized, ());
+    m_state = Render;
+    m_rendererThread = thread;
+    MoveContextToRenderThread();
+  }
+
+  void DrawWidget::frameSwappedSlot(RenderingState state)
+  {
+    // Qt call this slot on GUI thread after glSwapBuffers perfomed
+    // Here we move OGL context into FR thread and wake up FR
+    lock_guard<mutex> lock(m_swapMutex);
+
+    if (m_state == WaitSwap)
+    {
+      MoveContextToRenderThread();
+      m_state = state;
+      m_swapCond.notify_all();
+    }
+  }
+
+  void DrawWidget::MoveContextToRenderThread()
+  {
+    QOpenGLContext * ctx = context();
+    ctx->doneCurrent();
+    ctx->moveToThread(m_rendererThread);
+  }
+
   void DrawWidget::wheelEvent(QWheelEvent * e)
   {
     m_framework->Scale(exp(e->delta() / 360.0), m2::PointD(L2D(e->x()), L2D(e->y())), false);
@@ -324,25 +460,6 @@ bool IsLocationEmulation(QMouseEvent * e)
   void DrawWidget::SetMapStyle(MapStyle mapStyle)
   {
     m_framework->SetMapStyle(mapStyle);
-  }
-
-  void DrawWidget::sizeChanged(int)
-  {
-    float w = m_ratio * width();
-    float h = m_ratio * height();
-    m_framework->OnSize(w, h);
-    if (m_skin)
-    {
-      m_skin->Resize(w, h);
-
-      gui::TWidgetsLayoutInfo layout;
-      m_skin->ForEach([&layout](gui::EWidget w, gui::Position const & pos)
-      {
-        layout[w] = pos.m_pixelPivot;
-      });
-
-      m_framework->SetWidgetLayout(move(layout));
-    }
   }
 
   void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)

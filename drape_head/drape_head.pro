@@ -29,15 +29,11 @@ macx-* {
 
 HEADERS += \
     mainwindow.hpp \
-    qtoglcontext.hpp \
-    qtoglcontextfactory.hpp \
     drape_surface.hpp \
     testing_engine.hpp \
 
 SOURCES += \
     mainwindow.cpp \
     main.cpp \
-    qtoglcontext.cpp \
-    qtoglcontextfactory.cpp \
     drape_surface.cpp \
     testing_engine.cpp \

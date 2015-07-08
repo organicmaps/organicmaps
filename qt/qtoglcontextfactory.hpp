@@ -3,13 +3,19 @@
 #include "drape/oglcontextfactory.hpp"
 #include "qt/qtoglcontext.hpp"
 
-#include <QtGui/QWindow>
+#include <QtGui/QOffscreenSurface>
 
 class QtOGLContextFactory : public dp::OGLContextFactory
 {
 public:
-  QtOGLContextFactory(QWindow * surface);
+  using TRegisterThreadFn = QtRenderOGLContext::TRegisterThreadFn;
+  using TSwapFn = QtRenderOGLContext::TSwapFn;
+
+  QtOGLContextFactory(QOpenGLContext * renderContext, QThread * thread,
+                      TRegisterThreadFn const & regFn, TSwapFn const & swapFn);
   ~QtOGLContextFactory();
+
+  void shutDown() { m_drawContext->shutDown(); }
 
   virtual dp::OGLContext * getDrawContext();
   virtual dp::OGLContext * getResourcesUploadContext();
@@ -19,7 +25,7 @@ protected:
   virtual bool isUploadContextCreated() const { return m_uploadContext != nullptr; }
 
 private:
-  QWindow * m_surface;
-  QtOGLContext * m_drawContext;
-  QtOGLContext * m_uploadContext;
+  QtRenderOGLContext * m_drawContext;
+  QtUploadOGLContext * m_uploadContext;
+  QOffscreenSurface * m_uploadThreadSurface;
 };

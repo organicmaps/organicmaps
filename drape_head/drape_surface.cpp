@@ -5,47 +5,44 @@
 #include "base/logging.hpp"
 
 DrapeSurface::DrapeSurface()
-  : m_contextFactory(nullptr)
 {
-  setSurfaceType(QSurface::OpenGLSurface);
-
-  QObject::connect(this, SIGNAL(heightChanged(int)), this, SLOT(sizeChanged(int)));
-  QObject::connect(this, SIGNAL(widthChanged(int)), this,  SLOT(sizeChanged(int)));
 }
 
 DrapeSurface::~DrapeSurface()
 {
+  m_timer.stop();
+  m_drapeEngine.reset();
 }
 
-void DrapeSurface::exposeEvent(QExposeEvent *e)
+void DrapeSurface::initializeGL()
 {
-  Q_UNUSED(e);
+  CreateEngine();
+  m_timer.setInterval(1000 / 30);
+  m_timer.setSingleShot(false);
 
-  if (isExposed())
+  connect(&m_timer, SIGNAL(timeout()), SLOT(update()));
+  m_timer.start();
+}
+
+void DrapeSurface::paintGL()
+{
+  m_drapeEngine->Draw();
+}
+
+void DrapeSurface::resizeGL(int width, int height)
+{
+  if (m_drapeEngine != nullptr)
   {
-    if (m_contextFactory == nullptr)
-    {
-      m_contextFactory = make_unique_dp<dp::ThreadSafeFactory>(new QtOGLContextFactory(this), false);
-      CreateEngine();
-    }
+    float const vs = devicePixelRatio();
+    int const w = width * vs;
+    int const h = height * vs;
+    m_drapeEngine->Resize(w, h);
   }
 }
 
 void DrapeSurface::CreateEngine()
 {
   float const pixelRatio = devicePixelRatio();
-  m_drapeEngine = make_unique_dp<df::TestingEngine>(make_ref(m_contextFactory),
-                                                    df::Viewport(0, 0, pixelRatio * width(), pixelRatio * height()),
+  m_drapeEngine = make_unique_dp<df::TestingEngine>(df::Viewport(0, 0, pixelRatio * width(), pixelRatio * height()),
                                                     pixelRatio);
-}
-
-void DrapeSurface::sizeChanged(int)
-{
-  if (m_drapeEngine != nullptr)
-  {
-    float const vs = devicePixelRatio();
-    int const w = width() * vs;
-    int const h = height() * vs;
-    m_drapeEngine->Resize(w, h);
-  }
 }

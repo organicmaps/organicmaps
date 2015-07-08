@@ -1,11 +1,11 @@
 #pragma once
 
-#include "drape_head/qtoglcontextfactory.hpp"
 #include "drape_head/testing_engine.hpp"
 
-#include <QtGui/QWindow>
+#include <QtGui/QOpenGLWindow>
+#include <QtCore/QTimer>
 
-class DrapeSurface : public QWindow
+class DrapeSurface : public QOpenGLWindow
 {
   Q_OBJECT
 
@@ -14,16 +14,13 @@ public:
   ~DrapeSurface();
 
 protected:
-  void exposeEvent(QExposeEvent * e);
+  void initializeGL() override;
+  void paintGL() override;
+  void resizeGL(int w, int h) override;
 
 private:
   void CreateEngine();
 
-  Q_SLOT void sizeChanged(int);
-
-private:
-  typedef drape_ptr<dp::OGLContextFactory> TContextFactoryPtr;
-  typedef drape_ptr<df::TestingEngine> TEnginePrt;
-  TContextFactoryPtr m_contextFactory;
-  TEnginePrt m_drapeEngine;
+  drape_ptr<df::TestingEngine> m_drapeEngine;
+  QTimer m_timer;
 };

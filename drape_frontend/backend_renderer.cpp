@@ -225,6 +225,7 @@ void BackendRenderer::ReleaseResources()
   m_routeBuilder.reset();
 
   m_texMng->Release();
+  m_contextFactory->getResourcesUploadContext()->doneCurrent();
 }
 
 BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(renderer) {}

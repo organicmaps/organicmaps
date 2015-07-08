@@ -326,13 +326,9 @@ private:
   TCreatorsMap m_creators;
 };
 
-TestingEngine::TestingEngine(ref_ptr<dp::OGLContextFactory> oglcontextfactory,
-                             Viewport const & viewport,
-                             double vs)
-  : m_contextFactory(oglcontextfactory)
-  , m_viewport(viewport)
+TestingEngine::TestingEngine(Viewport const & viewport, double vs)
+  : m_viewport(viewport)
 {
-  m_contextFactory->getDrawContext()->makeCurrent();
   df::VisualParams::Init(vs, df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
 
   GLFunctions::Init();
@@ -352,13 +348,10 @@ TestingEngine::TestingEngine(ref_ptr<dp::OGLContextFactory> oglcontextfactory,
 
   ModelViewInit();
   ProjectionInit();
-
-  m_timerId = startTimer(1000 / 30);
 }
 
 TestingEngine::~TestingEngine()
 {
-  killTimer(m_timerId);
   ClearScene();
   m_textures->Release();
 }
@@ -378,9 +371,6 @@ void TestingEngine::Draw()
 
   ModelViewInit();
   m_angle += 0.005;
-
-  dp::OGLContext * context = m_contextFactory->getDrawContext();
-  context->setDefaultFramebuffer();
 
   m_viewport.Apply();
   GLFunctions::glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
@@ -411,8 +401,6 @@ void TestingEngine::Draw()
       buckets[i]->Render(m_modelView);
     tree.EndOverlayPlacing();
   }
-
-  context->present();
 }
 
 void TestingEngine::Resize(int w, int h)
@@ -422,13 +410,6 @@ void TestingEngine::Resize(int w, int h)
   m_viewport.SetViewport(0, 0, w, h);
   ModelViewInit();
   ProjectionInit();
-  Draw();
-}
-
-void TestingEngine::timerEvent(QTimerEvent * e)
-{
-  if (e->timerId() == m_timerId)
-    Draw();
 }
 
 void TestingEngine::DrawImpl()
