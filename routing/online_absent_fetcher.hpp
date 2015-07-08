@@ -27,6 +27,6 @@ public:
 private:
   TCountryFileFn const m_countryFileFn;
   TCountryLocalFileFn const m_countryLocalFileFn;
-  threads::Thread m_fetcherThread;
+  unique_ptr<threads::Thread> m_fetcherThread;
 };
 }  // namespace routing

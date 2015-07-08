@@ -22,16 +22,18 @@ void OnlineAbsentCountriesFetcher::GenerateRequest(const m2::PointD & startPoint
   unique_ptr<OnlineCrossFetcher> fetcher =
       make_unique<OnlineCrossFetcher>(OSRM_ONLINE_SERVER_URL, MercatorBounds::ToLatLon(startPoint),
                                       MercatorBounds::ToLatLon(finalPoint));
-  m_fetcherThread.Create(move(fetcher));
+  // iOS can't reuse threads. So we need to recreate the thread.
+  m_fetcherThread.reset(new threads::Thread());
+  m_fetcherThread->Create(move(fetcher));
 }
 
 void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries)
 {
   // Check whether a request was scheduled to be run on the thread.
-  if (!m_fetcherThread.GetRoutine())
+  if (!m_fetcherThread->GetRoutine())
     return;
-  m_fetcherThread.Join();
-  for (auto const & point : m_fetcherThread.GetRoutineAs<OnlineCrossFetcher>()->GetMwmPoints())
+  m_fetcherThread->Join();
+  for (auto const & point : m_fetcherThread->GetRoutineAs<OnlineCrossFetcher>()->GetMwmPoints())
   {
     string name = m_countryFileFn(point);
     auto localFile = m_countryLocalFileFn(name);
