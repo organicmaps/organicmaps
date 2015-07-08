@@ -20,14 +20,22 @@ namespace
 // See road types here:
 //   http://wiki.openstreetmap.org/wiki/Key:highway
 
+// Heuristics:
+// For less pedestrian roads we add fine by setting smaller value of speed, and for more pedestrian roads we
+// set greater values of speed. Algorithm picks roads with greater speed first, preferencing a more pedestrian roads over
+// less pedestrian. As result of such heuristic road is not totally the shortest, but it avoids non pedestrian roads, which were
+// not marked as "foot=no" in OSM.
+// Despite we assume trunks, primary and secondary roads footable with some fine,
+// we assume links trunk_link, primary_link and secondary_link are prohibited.
+
 double constexpr kSpeedTrunkKMpH = 1.0;
-double constexpr kSpeedTrunkLinkKMpH = 1.0;
-double constexpr kSpeedPrimaryKMpH = 1.5;
-double constexpr kSpeedPrimaryLinkKMpH = 1.5;
+double constexpr kSpeedTrunkLinkKMpH = 0.0;
+double constexpr kSpeedPrimaryKMpH = 1.0;
+double constexpr kSpeedPrimaryLinkKMpH = 0.0;
 double constexpr kSpeedSecondaryKMpH = 2.0;
-double constexpr kSpeedSecondaryLinkKMpH = 2.0;
+double constexpr kSpeedSecondaryLinkKMpH = 0.0;
 double constexpr kSpeedTertiaryKMpH = 2.25;
-double constexpr kSpeedTertiaryLinkKMpH = 2.25;
+double constexpr kSpeedTertiaryLinkKMpH = 1.0;
 double constexpr kSpeedServiceKMpH = 3.0;
 double constexpr kSpeedUnclassifiedKMpH = 3.5;
 double constexpr kSpeedRoadKMpH = 4.0;

@@ -83,3 +83,51 @@ UNIT_TEST(MoscowMailRuStarbucksToPetrovskoRazumovskyAlley_BadRoute)
 }
 
 */
+
+UNIT_TEST(AustraliaMelburn_AvoidMotorway)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(-37.7936, 144.985), {0., 0.},
+      MercatorBounds::FromLatLon(-37.7896, 145.025), 5015.);
+}
+
+UNIT_TEST(AustriaWein_AvoidTrunk)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(48.233, 16.3562), {0., 0.},
+      MercatorBounds::FromLatLon(48.2458, 16.3704), 2627.);
+}
+
+UNIT_TEST(FranceParis_AvoidBridleway)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(48.859, 2.25452), {0., 0.},
+      MercatorBounds::FromLatLon(48.8634, 2.24315), 1307.);
+}
+
+UNIT_TEST(GermanyBerlin_AvoidCycleway)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(52.5459, 13.3952), {0., 0.},
+      MercatorBounds::FromLatLon(52.5413, 13.3989), 1008.);
+}
+
+UNIT_TEST(HungaryBudapest_AvoidMotorway)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(47.5535, 19.1321), {0., 0.},
+      MercatorBounds::FromLatLon(47.595, 19.2235), 13265.);
+}
+
+UNIT_TEST(PolandWarshaw_AvoidCycleway)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(52.2487, 21.0173), {0., 0.},
+      MercatorBounds::FromLatLon(52.25, 21.0164), 372.);
+}
