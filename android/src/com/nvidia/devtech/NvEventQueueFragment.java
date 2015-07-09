@@ -1,5 +1,6 @@
 package com.nvidia.devtech;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -81,7 +82,7 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
     mDisplayDensity = metrics.densityDpi;
     mIsNativeLaunched = true;
     onCreateNative();
-    if (getActivity().isChangingConfigurations())
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && getActivity().isChangingConfigurations())
       mIsRenderingInitialized = true;
   }
 
@@ -162,6 +163,7 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
     onFocusChangedNative(getActivity().hasWindowFocus());
   }
 
+  @SuppressLint("NewApi")
   @Override
   public void onStop()
   {
