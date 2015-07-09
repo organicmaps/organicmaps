@@ -171,6 +171,7 @@ bool FeatureParams::AddName(string const & lang, string const & s)
   if (IsDummyName(s))
     return false;
 
+  // The "default" new name will replace the old one if any (e.g. from AddHouseName call).
   name.AddString(lang, s);
   return true;
 }

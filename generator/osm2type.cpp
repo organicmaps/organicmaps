@@ -237,7 +237,11 @@ namespace ftype
 
         if (!m_isKey)
         {
-          // Take numbers only for "capital" and "admin_level".
+          // Take numbers only for "capital" and "admin_level" now.
+          // NOTE! If you add a new type into classificator, which has a number in it
+          // (like admin_level=1 or capital=2), please don't forget to insert it here too.
+          // Otherwise generated data will not contain your newly added features.
+
           if (strings::is_number(v))
             return (k == "admin_level" || k == "capital");
         }
