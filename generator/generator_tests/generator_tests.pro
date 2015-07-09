@@ -33,3 +33,4 @@ SOURCES += \
     osm_type_test.cpp \
     tesselator_test.cpp \
     triangles_tree_coding_test.cpp \
+    metadata_test.cpp

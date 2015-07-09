@@ -29,41 +29,41 @@ UNIT_TEST(Metadata_ValidateAndFormat_stars)
 
   // check correct values
   p("stars", "1");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "1", ())
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_STARS), "1", ())
+  params.GetMetadata().Drop(feature::Metadata::FMD_STARS);
 
   p("stars", "2");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "2", ())
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_STARS), "2", ())
+  params.GetMetadata().Drop(feature::Metadata::FMD_STARS);
 
   p("stars", "3");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "3", ())
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_STARS), "3", ())
+  params.GetMetadata().Drop(feature::Metadata::FMD_STARS);
 
   p("stars", "4");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "4", ())
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_STARS), "4", ())
+  params.GetMetadata().Drop(feature::Metadata::FMD_STARS);
 
   p("stars", "5");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "5", ())
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_STARS), "5", ())
+  params.GetMetadata().Drop(feature::Metadata::FMD_STARS);
 
   p("stars", "6");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "6", ())
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_STARS), "6", ())
+  params.GetMetadata().Drop(feature::Metadata::FMD_STARS);
 
   p("stars", "7");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "7", ())
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_STARS), "7", ())
+  params.GetMetadata().Drop(feature::Metadata::FMD_STARS);
 
   // check almost correct values
   p("stars", "4+");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "4", ())
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_STARS), "4", ())
+  params.GetMetadata().Drop(feature::Metadata::FMD_STARS);
 
   p("stars", "5s");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "5", ())
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_STARS), "5", ())
+  params.GetMetadata().Drop(feature::Metadata::FMD_STARS);
 
 }
 
@@ -83,19 +83,19 @@ UNIT_TEST(Metadata_ValidateAndFormat_operator)
 
   params.SetType(type_atm);
   p("operator", "Some");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_OPERATOR), "Some", ());
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_OPERATOR);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_OPERATOR), "Some", ());
+  params.GetMetadata().Drop(feature::Metadata::FMD_OPERATOR);
 
   params.SetType(type_fuel);
   p("operator", "Some");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_OPERATOR), "Some", ());
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_OPERATOR);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_OPERATOR), "Some", ());
+  params.GetMetadata().Drop(feature::Metadata::FMD_OPERATOR);
 
   params.SetType(type_atm);
   params.AddType(type_fuel);
   p("operator", "Some");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_OPERATOR), "Some", ());
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_OPERATOR);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_OPERATOR), "Some", ());
+  params.GetMetadata().Drop(feature::Metadata::FMD_OPERATOR);
 }
 
 UNIT_TEST(Metadata_ValidateAndFormat_ele)
@@ -125,8 +125,8 @@ UNIT_TEST(Metadata_ValidateAndFormat_ele)
 
   params.SetType(type_peak);
   p("ele", "123");
-  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_ELE), "123", ());
-  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_ELE);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_ELE), "123", ());
+  params.GetMetadata().Drop(feature::Metadata::FMD_ELE);
 }
 
 
@@ -150,11 +150,11 @@ UNIT_TEST(Metadata_ReadWrite_Intermediate)
   ReaderSource<MemReader> src(reader);
   params_test.GetMetadata().Deserialize(src);
 
-  TEST_EQUAL(params_test.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "3", ())
-  TEST_EQUAL(params_test.GetMetadata().Get(feature::FeatureMetadata::FMD_PHONE_NUMBER), "+123456789", ())
-  TEST_EQUAL(params_test.GetMetadata().Get(feature::FeatureMetadata::FMD_OPEN_HOURS), "24/7", ())
-  TEST_EQUAL(params_test.GetMetadata().Get(feature::FeatureMetadata::FMD_CUISINE), "regional", ())
-  TEST(params_test.GetMetadata().Get(feature::FeatureMetadata::FMD_OPERATOR).empty(), ())
+  TEST_EQUAL(params_test.GetMetadata().Get(feature::Metadata::FMD_STARS), "3", ())
+  TEST_EQUAL(params_test.GetMetadata().Get(feature::Metadata::FMD_PHONE_NUMBER), "+123456789", ())
+  TEST_EQUAL(params_test.GetMetadata().Get(feature::Metadata::FMD_OPEN_HOURS), "24/7", ())
+  TEST_EQUAL(params_test.GetMetadata().Get(feature::Metadata::FMD_CUISINE), "regional", ())
+  TEST(params_test.GetMetadata().Get(feature::Metadata::FMD_OPERATOR).empty(), ())
 }
 
 UNIT_TEST(Metadata_ReadWrite_MWM)
@@ -177,9 +177,9 @@ UNIT_TEST(Metadata_ReadWrite_MWM)
   ReaderSource<MemReader> src(reader);
   params_test.GetMetadata().DeserializeFromMWM(src);
 
-  TEST_EQUAL(params_test.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "3", ())
-  TEST_EQUAL(params_test.GetMetadata().Get(feature::FeatureMetadata::FMD_PHONE_NUMBER), "+123456789", ())
-  TEST_EQUAL(params_test.GetMetadata().Get(feature::FeatureMetadata::FMD_OPEN_HOURS), "24/7", ())
-  TEST_EQUAL(params_test.GetMetadata().Get(feature::FeatureMetadata::FMD_CUISINE), "regional", ())
-  TEST(params_test.GetMetadata().Get(feature::FeatureMetadata::FMD_OPERATOR).empty(), ())
+  TEST_EQUAL(params_test.GetMetadata().Get(feature::Metadata::FMD_STARS), "3", ())
+  TEST_EQUAL(params_test.GetMetadata().Get(feature::Metadata::FMD_PHONE_NUMBER), "+123456789", ())
+  TEST_EQUAL(params_test.GetMetadata().Get(feature::Metadata::FMD_OPEN_HOURS), "24/7", ())
+  TEST_EQUAL(params_test.GetMetadata().Get(feature::Metadata::FMD_CUISINE), "regional", ())
+  TEST(params_test.GetMetadata().Get(feature::Metadata::FMD_OPERATOR).empty(), ())
 }
