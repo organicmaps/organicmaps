@@ -30,7 +30,7 @@ void OnlineAbsentCountriesFetcher::GenerateRequest(const m2::PointD & startPoint
 void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries)
 {
   // Check whether a request was scheduled to be run on the thread.
-  if (!m_fetcherThread->GetRoutine())
+  if (!m_fetcherThread)
     return;
   m_fetcherThread->Join();
   for (auto const & point : m_fetcherThread->GetRoutineAs<OnlineCrossFetcher>()->GetMwmPoints())
@@ -43,5 +43,6 @@ void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries
     LOG(LINFO, ("Online absent countries fetcher recomends to download: ", name));
     countries.emplace_back(move(name));
   }
+  m_fetcherThread.reset();
 }
 }  // namespace routing

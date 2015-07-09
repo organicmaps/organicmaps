@@ -1,10 +1,12 @@
 #include "testing/testing.hpp"
 
+#include "routing/online_absent_fetcher.hpp"
 #include "routing/online_cross_fetcher.hpp"
 
 #include "geometry/point2d.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/string.hpp"
 #include "std/vector.hpp"
 
 using namespace routing;
@@ -46,4 +48,14 @@ UNIT_TEST(GarbadgeInputToResponseParser)
        ("Malformed response should not be processed."));
   TEST_EQUAL(outPoints.size(), 0, ("Found mwm points in invalid request"));
 }
+
+UNIT_TEST(OnlineAbsentFetcherSingleMwmTest)
+{
+  OnlineAbsentCountriesFetcher fetcher([](m2::PointD const & p){return "A";}, [](string const &){return nullptr;});
+  fetcher.GenerateRequest({1, 1}, {2, 2});
+  vector<string> countries;
+  fetcher.GetAbsentCountries(countries);
+  TEST(countries.empty(), ());
+}
+
 }
