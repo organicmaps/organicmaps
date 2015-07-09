@@ -46,9 +46,7 @@ UNIT_TEST(MoscowMuzeonToLebedinoeOzeroGorkyPark)
       MercatorBounds::FromLatLon(55.724, 37.5956), 1617.);
 }
 
-// Uncomment tests below when PedestrianModel will be improved
 /*
-
 UNIT_TEST(Zgrad315parkingToMusicSchoolBus_BadRoute)
 {
   // Bad route:
@@ -59,30 +57,23 @@ UNIT_TEST(Zgrad315parkingToMusicSchoolBus_BadRoute)
       MercatorBounds::FromLatLon(55.9996, 37.2174), {0., 0.},
       MercatorBounds::FromLatLon(55.9999, 37.2179), 161.);
 }
+*/
 
-UNIT_TEST(Zgrad924aToKrukovo_BadRoute)
+UNIT_TEST(Zgrad924aToKrukovo)
 {
-  // Bad route:
-  // route goes through a highway-primary.
-
   integration::CalculateRouteAndTestRouteLength(
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(55.9844, 37.1808), {0., 0.},
-      MercatorBounds::FromLatLon(55.9802, 37.1736), 0.);
+      MercatorBounds::FromLatLon(55.9802, 37.1736), 974.);
 }
 
-UNIT_TEST(MoscowMailRuStarbucksToPetrovskoRazumovskyAlley_BadRoute)
+UNIT_TEST(MoscowMailRuStarbucksToPetrovskoRazumovskyAlley)
 {
-  // Bad route:
-  // route goes through a highway-tertiary although an available pedestrian road.
-
   integration::CalculateRouteAndTestRouteLength(
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(55.7971, 37.5376), {0., 0.},
-      MercatorBounds::FromLatLon(55.7953, 37.5597), 0.);
+      MercatorBounds::FromLatLon(55.7953, 37.5597), 1840.);
 }
-
-*/
 
 UNIT_TEST(AustraliaMelburn_AvoidMotorway)
 {
@@ -97,7 +88,7 @@ UNIT_TEST(AustriaWein_AvoidTrunk)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(48.233, 16.3562), {0., 0.},
-      MercatorBounds::FromLatLon(48.2458, 16.3704), 2627.);
+      MercatorBounds::FromLatLon(48.2458, 16.3704), 2145.);
 }
 
 UNIT_TEST(FranceParis_AvoidBridleway)
@@ -108,20 +99,12 @@ UNIT_TEST(FranceParis_AvoidBridleway)
       MercatorBounds::FromLatLon(48.8634, 2.24315), 1307.);
 }
 
-UNIT_TEST(GermanyBerlin_AvoidCycleway)
-{
-  integration::CalculateRouteAndTestRouteLength(
-      integration::GetPedestrianComponents(),
-      MercatorBounds::FromLatLon(52.5459, 13.3952), {0., 0.},
-      MercatorBounds::FromLatLon(52.5413, 13.3989), 1008.);
-}
-
 UNIT_TEST(HungaryBudapest_AvoidMotorway)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetPedestrianComponents(),
-      MercatorBounds::FromLatLon(47.5535, 19.1321), {0., 0.},
-      MercatorBounds::FromLatLon(47.595, 19.2235), 13265.);
+      MercatorBounds::FromLatLon(47.56566, 19.14942), {0., 0.},
+      MercatorBounds::FromLatLon(47.593, 19.24018), 10890.);
 }
 
 UNIT_TEST(PolandWarshaw_AvoidCycleway)
@@ -130,4 +113,257 @@ UNIT_TEST(PolandWarshaw_AvoidCycleway)
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(52.2487, 21.0173), {0., 0.},
       MercatorBounds::FromLatLon(52.25, 21.0164), 372.);
+}
+
+UNIT_TEST(SwedenStockholmSlussenHiltonToMaritimeMuseum)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(59.32046, 18.06924), {0., 0.},
+      MercatorBounds::FromLatLon(59.32728, 18.09078), 3442.);
+}
+
+UNIT_TEST(SwedenStockholmSlussenHiltonToAfChapmanHostel)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(59.32045, 18.06928), {0., 0.},
+      MercatorBounds::FromLatLon(59.3254, 18.08022), 2155.);
+}
+
+UNIT_TEST(EstoniaTallinnRadissonHiltonToCatherdalChurch)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(59.4362, 24.7682), {0., 0.},
+      MercatorBounds::FromLatLon(59.437, 24.7392), 2016.);
+}
+
+UNIT_TEST(EstoniaTallinnRadissonHiltonToSkypeOffice)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(59.4362, 24.7682), {0., 0.},
+      MercatorBounds::FromLatLon(59.3971, 24.661), 8673.);
+}
+
+// Following tests cause assertion violations when
+// Belarus.mwm and minsk-pass.mwm are overlapped.
+// Uncomment these tests as soon as bug will be fixed.
+/*
+UNIT_TEST(BelarusMinksHotelYubileyniToChurchSaintsSimonAndHelen)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(53.9112, 27.5466), {0., 0.},
+      MercatorBounds::FromLatLon(53.8965, 27.5476), 2244.);
+}
+
+UNIT_TEST(BelarusMinksBarURatushiToMoscowBusStation)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(53.9045, 27.5569), {0., 0.},
+      MercatorBounds::FromLatLon(53.889, 27.5466), 2499.);
+}
+*/
+
+UNIT_TEST(BelarusBobruisk50LetVlksmToSanatoryShinnik)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(53.1638, 29.1804), {0., 0.},
+      MercatorBounds::FromLatLon(53.179, 29.1682), 2661.);
+}
+
+UNIT_TEST(BelarusBobruisk50LetVlksmToArena)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(53.1638, 29.1804), {0., 0.},
+      MercatorBounds::FromLatLon(53.1424, 29.2467), 6683.);
+}
+
+UNIT_TEST(RussiaTaganrogSyzranov10k3ToSoftech)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(47.2183, 38.8634), {0., 0.},
+      MercatorBounds::FromLatLon(47.2, 38.8878), 3868.);
+}
+
+UNIT_TEST(RussiaTaganrogSyzranov10k3ToTruseE)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(47.2183, 38.8634), {0., 0.},
+      MercatorBounds::FromLatLon(47.2048, 38.9441), 7463.);
+}
+
+UNIT_TEST(RussiaTaganrogSyzranov10k3ToLazo5k2)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(47.2183, 38.8634), {0., 0.},
+      MercatorBounds::FromLatLon(47.2584, 38.9128), 8520.);
+}
+
+UNIT_TEST(RussiaTaganrogJukova2ToBolBulvarnaya8)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(47.2768, 38.9282), {0., 0.},
+      MercatorBounds::FromLatLon(47.2412, 38.8902), 6239.);
+}
+
+UNIT_TEST(RussiaTaganrogCheckhova267k2ToKotlostroy33)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(47.2198, 38.8906), {0., 0.},
+      MercatorBounds::FromLatLon(47.2459, 38.8937), 3798.);
+}
+
+UNIT_TEST(RussiaTaganrogCheckhova267k2ToBolBulvarnaya8)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(47.2198, 38.8906), {0., 0.},
+      MercatorBounds::FromLatLon(47.2412, 38.8902), 2897.);
+}
+
+UNIT_TEST(RussiaRostovOnDonPrKosmonavtovToDneprovsky120b)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(47.2811, 39.7178), {0., 0.},
+      MercatorBounds::FromLatLon(47.2875, 39.759), 4600.);
+}
+
+UNIT_TEST(TurkeyKemerPalmetResortToYachtClub)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(36.6143, 30.5572), {0., 0.},
+      MercatorBounds::FromLatLon(36.6004, 30.576), 2992.);
+}
+
+UNIT_TEST(CzechPragueNode5ToHilton)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(50.0653, 14.4031), {0., 0.},
+      MercatorBounds::FromLatLon(50.0933, 14.4397), 5106.);
+}
+
+UNIT_TEST(CzechPragueHiltonToKarlovMost)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(50.0933, 14.4397), {0., 0.},
+      MercatorBounds::FromLatLon(50.0864, 14.4124), 2398.);
+}
+
+UNIT_TEST(CzechPragueHiltonToNicholasChurch)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(50.0933, 14.4397), {0., 0.},
+      MercatorBounds::FromLatLon(50.088, 14.4032), 3103.);
+}
+
+UNIT_TEST(CzechPragueHiltonToKvetniceViewpoint)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(50.0933, 14.4397), {0., 0.},
+      MercatorBounds::FromLatLon(50.0806, 14.3973), 4335.);
+}
+
+UNIT_TEST(RussiaSaintPetersburgMoyka93ToAlexanderColumn)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(59.9241, 30.323), {0., 0.},
+      MercatorBounds::FromLatLon(59.939, 30.3159), 2454.);
+}
+
+UNIT_TEST(RussiaSaintPetersburgMoyka93ToMarsovoPole)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(59.9241, 30.323), {0., 0.},
+      MercatorBounds::FromLatLon(59.9436, 30.3318), 2891.);
+}
+
+UNIT_TEST(RussiaSaintPetersburgMoyka93ToAvrora)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(59.9241, 30.323), {0., 0.},
+      MercatorBounds::FromLatLon(59.9554, 30.3378), 4770.);
+}
+
+UNIT_TEST(RussiaSaintPetersburgPetrPaulChurchToDolphins)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(59.9502, 30.3165), {0., 0.},
+      MercatorBounds::FromLatLon(59.973, 30.2702), 4507.);
+}
+
+UNIT_TEST(RussiaPetergofEntranceToErmitagePalace)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(59.8806, 29.904), {0., 0.},
+      MercatorBounds::FromLatLon(59.8889, 29.9034), 1073.);
+}
+
+UNIT_TEST(RussiaPetergofMarlyPalaceToTrainStation)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(59.8887, 29.8963), {0., 0.},
+      MercatorBounds::FromLatLon(59.8648, 29.9251), 3885.);
+}
+
+UNIT_TEST(RussiaMoscowMailRuToTsarCannon)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.79703, 37.53761), {0., 0.},
+      MercatorBounds::FromLatLon(55.75146, 37.61792), 7989.);
+}
+
+UNIT_TEST(RussiaMoscowHovrinoStationToKasperskyLab)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.8701, 37.50833), {0., 0.},
+      MercatorBounds::FromLatLon(55.83715, 37.48132), 5162.);
+}
+
+UNIT_TEST(ItalyRome_WalkOverStreetWithSidewalkBoth)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(41.9052, 12.4106), {0., 0.},
+      MercatorBounds::FromLatLon(41.9226, 12.4216), 2413.);
+}
+
+UNIT_TEST(USARedlandsEsriHQToRedlandsCommunity)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(34.0556, -117.19567), {0., 0.},
+      MercatorBounds::FromLatLon(34.03682, -117.20649), 3330.);
+}
+
+UNIT_TEST(USANewYorkEmpireStateBuildingToUnitedNations)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(40.74844, -73.98566), {0., 0.},
+      MercatorBounds::FromLatLon(40.75047, -73.96759), 2265.);
 }
