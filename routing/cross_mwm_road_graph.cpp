@@ -136,11 +136,11 @@ BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
     if (ms::DistanceOnEarth(startPoint.y, startPoint.x, targetPoint.y, targetPoint.x) <
         kMwmCrossingNodeEqualityRadiusMeters)
     {
-      BorderCross const cross(CrossNode(startNode.m_nodeId,
-                                        currentMapping->GetCountryFile().GetNameWithoutExt(),
-                                        MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
-                              CrossNode(i->m_nodeId, nextMwm,
-                                        MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));
+      BorderCross const cross(
+          CrossNode(startNode.m_nodeId, currentMapping->GetCountryFile().GetNameWithoutExt(),
+                    MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
+          CrossNode(i->m_nodeId, nextMwm,
+                    MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));
       m_cachedNextNodes.insert(make_pair(startPoint, cross));
       return cross;
     }

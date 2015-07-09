@@ -55,16 +55,15 @@ string GetCountryForMwmFile(string const & mwmName)
 
 RoadGraphRouter::~RoadGraphRouter() {}
 
-RoadGraphRouter::RoadGraphRouter(string const & name,
-                                 Index & index,
+RoadGraphRouter::RoadGraphRouter(string const & name, Index & index,
                                  unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
                                  unique_ptr<IRoutingAlgorithm> && algorithm,
                                  TMwmFileByPointFn const & countryFileFn)
-    : m_name(name)
-    , m_index(index)
-    , m_vehicleModelFactory(move(vehicleModelFactory))
-    , m_algorithm(move(algorithm))
-    , m_countryFileFn(countryFileFn)
+    : m_name(name),
+      m_index(index),
+      m_vehicleModelFactory(move(vehicleModelFactory)),
+      m_algorithm(move(algorithm)),
+      m_countryFileFn(countryFileFn)
 {
 }
 
@@ -159,9 +158,9 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
   return router;
 }
 
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
-                                                             TMwmFileByPointFn const & countryFileFn,
-                                                             TRoutingVisualizerFn const & visualizerFn)
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(
+    Index & index, TMwmFileByPointFn const & countryFileFn,
+    TRoutingVisualizerFn const & visualizerFn)
 {
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm(visualizerFn));

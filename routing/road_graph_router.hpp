@@ -24,8 +24,7 @@ typedef function<string(m2::PointD const &)> TMwmFileByPointFn;
 class RoadGraphRouter : public IRouter
 {
 public:
-  RoadGraphRouter(string const & name,
-                  Index & index,
+  RoadGraphRouter(string const & name, Index & index,
                   unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
                   unique_ptr<IRoutingAlgorithm> && algorithm,
                   TMwmFileByPointFn const & countryFileFn);
@@ -57,12 +56,12 @@ private:
   unique_ptr<IRoadGraph> m_roadGraph;
   shared_ptr<IVehicleModel> m_vehicleModel;
 };
-  
+
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
                                                 TMwmFileByPointFn const & countryFileFn,
                                                 TRoutingVisualizerFn const & visualizerFn);
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
-                                                             TMwmFileByPointFn const & countryFileFn,
-                                                             TRoutingVisualizerFn const & visualizerFn);
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(
+    Index & index, TMwmFileByPointFn const & countryFileFn,
+    TRoutingVisualizerFn const & visualizerFn);
 
 }  // namespace routing

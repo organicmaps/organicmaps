@@ -10,10 +10,8 @@
 using platform::CountryFile;
 using platform::LocalCountryFile;
 
-
 namespace tests
 {
-
 class MwmValue : public MwmSet::MwmValueBase
 {
 };

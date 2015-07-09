@@ -136,8 +136,8 @@ TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & mapName)
     return mapIter->second;
 
   // Or load and check file.
-  TRoutingMappingPtr newMapping = make_shared<RoutingMapping>(platform::CountryFile(mapName),
-                                                              m_index);
+  TRoutingMappingPtr newMapping =
+      make_shared<RoutingMapping>(platform::CountryFile(mapName), m_index);
   m_mapping.insert(make_pair(mapName, newMapping));
   return newMapping;
 }

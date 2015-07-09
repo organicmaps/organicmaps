@@ -58,7 +58,8 @@ private:
   shared_ptr<routing::IVehicleModel> const m_model;
 };
 
-unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index, routing::TMwmFileByPointFn const & countryFileFn)
+unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(
+    Index & index, routing::TMwmFileByPointFn const & countryFileFn)
 
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
@@ -67,7 +68,8 @@ unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index, rout
   return router;
 }
 
-unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index & index, routing::TMwmFileByPointFn const & countryFileFn)
+unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(
+    Index & index, routing::TMwmFileByPointFn const & countryFileFn)
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarBidirectionalRoutingAlgorithm(nullptr));

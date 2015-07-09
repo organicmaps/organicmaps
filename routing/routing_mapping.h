@@ -46,7 +46,7 @@ struct RoutingMapping
 
   void FreeCrossContext();
 
-  bool IsValid() const {return m_handle.IsAlive() && m_error == IRouter::ResultCode::NoError;}
+  bool IsValid() const { return m_handle.IsAlive() && m_error == IRouter::ResultCode::NoError; }
 
   IRouter::ResultCode GetError() const {return m_error;}
 
@@ -105,8 +105,7 @@ public:
 class RoutingIndexManager
 {
 public:
-  RoutingIndexManager(TCountryFileFn const & countryFileFn,
-                     MwmSet * index)
+  RoutingIndexManager(TCountryFileFn const & countryFileFn, MwmSet * index)
       : m_countryFileFn(countryFileFn), m_index(index)
   {
     ASSERT(index, ());
