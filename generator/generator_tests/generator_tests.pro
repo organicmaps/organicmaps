@@ -27,10 +27,10 @@ SOURCES += \
     coasts_test.cpp \
     feature_builder_test.cpp \
     feature_merger_test.cpp \
+    metadata_test.cpp \
     osm_id_test.cpp \
     osm_o5m_source_test.cpp \
     osm_parser_test.cpp \
     osm_type_test.cpp \
     tesselator_test.cpp \
     triangles_tree_coding_test.cpp \
-    metadata_test.cpp
