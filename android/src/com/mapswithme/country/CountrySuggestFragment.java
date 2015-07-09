@@ -1,0 +1,20 @@
+package com.mapswithme.country;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.BaseMwmFragment;
+
+public class CountrySuggestFragment extends BaseMwmFragment
+{
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  {
+    return inflater.inflate(R.layout.fragment_edit_bookmark, container, false);
+  }
+}

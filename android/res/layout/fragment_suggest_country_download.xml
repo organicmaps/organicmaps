@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_double_and_half">
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base_plus"
+      android:gravity="center"
+      android:text="Для поиска мест, построения машрута скачайте страну и интернет вам больше не понадобится"
+      android:textAppearance="@style/MwmTextAppearance.Body2"/>
+
+  <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"/>
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_base_block"
+      android:layout_marginTop="@dimen/margin_half"
+      android:gravity="center"
+      android:text="Moscow &amp; Central"
+      android:textAppearance="@style/MwmTextAppearance.Title"/>
+
+  <Button
+      style="@style/MwmWidget.Button.Green"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_base_block"
+      android:layout_marginTop="@dimen/margin_half"
+      android:text="СКАЧАТЬ КАРТУ"
+      android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+
+  <CheckBox
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/height_base_block"
+      android:layout_marginTop="@dimen/margin_half"
+      android:text="Автомобильные маршруты"
+      android:textAppearance="@style/MwmTextAppearance.Body2"/>
+
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_base_block"
+      android:layout_marginTop="@dimen/margin_base_plus"
+      android:background="?attr/clickableBackground"
+      android:text="ВЫБРАТЬ ДРУГУЮ СТРАНУ"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textColor="@color/text_green"/>
+
+
+</LinearLayout>

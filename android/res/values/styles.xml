@@ -94,12 +94,18 @@
   </style>
 
   <style name="MwmWidget.MapButton.Green">
-    <item name="android:background">@drawable/bg_btn_green</item>
+    <item name="android:background">@drawable/bg_btn_green_circle</item>
   </style>
 
   <style name="MwmWidget.MapButton.Green.Child">
     <item name="android:duplicateParentState">true</item>
     <item name="android:clickable">false</item>
+  </style>
+
+  <style name="MwmWidget.Button" />
+
+  <style name="MwmWidget.Button.Green">
+    <item name="android:background">@drawable/bg_btn_green</item>
   </style>
 
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">

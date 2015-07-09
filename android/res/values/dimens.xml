@@ -3,6 +3,8 @@
 
   <dimen name="track_circle_size">40dp</dimen>
 
+  <!-- margins -->
+
   <dimen name="margin_eighth">2dp</dimen>
   <dimen name="margin_quarter">4dp</dimen>
   <dimen name="margin_quarter_plus">6dp</dimen>
@@ -11,6 +13,7 @@
   <dimen name="margin_base">16dp</dimen>
   <dimen name="margin_base_plus">24dp</dimen>
   <dimen name="margin_double">32dp</dimen>
+  <dimen name="margin_double_and_half">40dp</dimen>
   <dimen name="margin_double_plus">48dp</dimen>
   <dimen name="margin_quadruple">64dp</dimen>
 
@@ -21,6 +24,10 @@
   <dimen name="neg_margin_half_plus">-12dp</dimen>
   <dimen name="neg_margin_base">-16dp</dimen>
   <dimen name="neg_margin_double">-32dp</dimen>
+
+  <!-- margins -->
+
+  <dimen name="height_base_block">48dp</dimen>
 
   <dimen name="dialog_max_height">320dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
