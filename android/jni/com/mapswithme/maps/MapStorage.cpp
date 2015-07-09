@@ -76,17 +76,16 @@ extern "C"
   Java_com_mapswithme_maps_MapStorage_countryRemoteSizeInBytes(JNIEnv * env, jobject thiz, jobject idx, jint options)
   {
     ActiveMapsLayout & layout = storage_utils::GetMapLayout();
-    TMapOptions opt = storage_utils::ToOptions(options);
-    LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(ToNative(idx));
-    switch (opt)
+    LocalAndRemoteSizeT const sizes = layout.GetRemoteCountrySizes(ToNative(idx));
+    switch (storage_utils::ToOptions(options))
     {
       case TMapOptions::EMap:
         return sizes.first;
       case TMapOptions::ECarRouting:
         return sizes.second;
-      case EMapWithCarRouting:
+      case TMapOptions::EMapWithCarRouting:
         return sizes.first + sizes.second;
-      case ENothing:
+      case TMapOptions::ENothing:
         return 0;
     }
   }

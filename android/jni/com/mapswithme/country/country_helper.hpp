@@ -4,6 +4,8 @@
 #include "../maps/MapStorage.hpp"
 #include "../maps/Framework.hpp"
 
+#include "platform/country_defines.hpp"
+
 namespace storage_utils
 {
   ::Framework * frm();
