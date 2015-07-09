@@ -4,6 +4,7 @@
 
 namespace ms
 {
+
 /// \brief Class for representing WGS point.
 class LatLon
 {
@@ -12,6 +13,6 @@ public:
   double lat, lon;
 };
 
-inline string DebugPrint(LatLon const & t);
+string DebugPrint(LatLon const & t);
 
 }  // namespace ms
