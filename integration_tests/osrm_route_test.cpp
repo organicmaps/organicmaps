@@ -40,7 +40,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
           integration::GetOsrmComponents(),
           MercatorBounds::FromLatLon(55.77787, 37.70405), {0., 0.},
-          MercatorBounds::FromLatLon(55.77682, 37.70391), 3032.
+          MercatorBounds::FromLatLon(55.77682, 37.70391), 185.
           );
   }
 
@@ -134,18 +134,17 @@ namespace
         MercatorBounds::FromLatLon(27.15587, -13.23059), 100864);
   }
 
-  UNIT_TEST(ArbatBaliCrimeanForwardCrossMwmTest)
+  UNIT_TEST(ArbatBaliCrimeanCrossMwmTest)
   {
+    // Forward case.
     integration::CalculateRouteAndTestRouteLength(
-        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(46.152324, 34.804955), {0., 0.},
-        MercatorBounds::FromLatLon(45.35697, 35.369712), 105000.);
-  }
+        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(45.90668,34.87221), {0., 0.},
+        MercatorBounds::FromLatLon(45.35697, 35.36971), 75000.);
+    // Backward case.
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(45.35697, 35.36971), {0., 0.},
+        MercatorBounds::FromLatLon(45.90668,34.87221), 75000.);
 
-  UNIT_TEST(ArbatBaliCrimeanBackwardCrossTest)
-  {
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(45.356971, 35.369712), {0., 0.},
-        MercatorBounds::FromLatLon(46.152324, 34.804955), 105000.);
   }
 
   UNIT_TEST(AlbaniaToMontenegroCrossTest)
