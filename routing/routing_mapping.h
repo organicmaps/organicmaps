@@ -61,6 +61,14 @@ struct RoutingMapping
   // static
   static shared_ptr<RoutingMapping> MakeInvalid(platform::CountryFile const & countryFile);
 
+protected:
+  /*!
+   * \brief CheckMwmConsistancy checks versions of mwm and routing files.
+   * \param localFile reference to country file we need to check.
+   * \return true if files has same versions.
+   */
+  bool CheckMwmConsistancy(platform::LocalCountryFile const & localFile);
+
 private:
   // Ctor for invalid mappings.
   RoutingMapping(platform::CountryFile const & countryFile);

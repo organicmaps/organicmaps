@@ -60,7 +60,6 @@ private:
 
 unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(
     Index & index, routing::TMwmFileByPointFn const & countryFileFn)
-
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm(nullptr));

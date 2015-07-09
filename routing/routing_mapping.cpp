@@ -43,7 +43,14 @@ RoutingMapping::RoutingMapping(CountryFile const & countryFile, MwmSet * pIndex)
   if (!HasOptions(localFile.GetFiles(), TMapOptions::EMapWithCarRouting))
     return;
 
+  // Updates here because CheckMwmConsistancy uses IsValid() checks for it's work.
   m_error = IRouter::ResultCode::NoError;
+  if (!CheckMwmConsistancy(localFile))
+  {
+    m_error = IRouter::ResultCode::InconsistentMWMandRoute;
+    return;
+  }
+
 }
 
 RoutingMapping::~RoutingMapping()
@@ -109,6 +116,31 @@ void RoutingMapping::LoadCrossContext()
     m_crossContext.Load(m_container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
     m_crossContextLoaded = true;
   }
+}
+
+bool RoutingMapping::CheckMwmConsistancy(platform::LocalCountryFile const & localFile)
+{
+  Open();
+  FileReader r1 = m_container.GetReader(VERSION_FILE_TAG);
+  ReaderSrc src1(r1);
+  ModelReaderPtr r2 = FilesContainerR(localFile.GetPath(TMapOptions::EMap))
+      .GetReader(VERSION_FILE_TAG);
+  ReaderSrc src2(r2.GetPtr());
+
+  version::MwmVersion version1;
+  version::ReadVersion(src1, version1);
+
+  version::MwmVersion version2;
+  version::ReadVersion(src2, version2);
+
+  if (version1.timestamp != version2.timestamp)
+  {
+    m_container.Close();
+    m_error = IRouter::ResultCode::InconsistentMWMandRoute;
+    return false;
+  }
+
+  return true;
 }
 
 void RoutingMapping::FreeCrossContext()
