@@ -22,9 +22,17 @@ public:
 
 private:
   void Init();
-  bool IsFoot(feature::TypesHolder const & types) const;
+
+  /// @return True if road is prohibited for pedestrian,
+  /// but if function returns False, real prohibition is unknown.
+  bool IsNoFoot(feature::TypesHolder const & types) const;
+
+  /// @return True if road is allowed for pedestrian,
+  /// but if function returns False, real allowance is unknown.
+  bool IsYesFoot(feature::TypesHolder const & types) const;
 
   uint32_t m_noFootType;
+  uint32_t m_yesFootType;
 };
 
 class PedestrianModelFactory : public IVehicleModelFactory

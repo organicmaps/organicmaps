@@ -63,7 +63,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Default =
   { {"highway", "road"},           kSpeedRoadKMpH },
   { {"highway", "track"},          kSpeedTrackKMpH }, // *
   { {"highway", "path"},           kSpeedPathKMpH },
-  { {"highway", "cycleway"},       kSpeedCyclewayKMpH }, // *
   { {"highway", "residential"},    kSpeedResidentialKMpH },
   { {"highway", "living_street"},  kSpeedLivingStreetKMpH },
   { {"highway", "steps"},          kSpeedStepsKMpH }, // *
@@ -572,6 +571,7 @@ PedestrianModel::PedestrianModel(VehicleModel::InitListT const & speedLimits)
 void PedestrianModel::Init()
 {
   m_noFootType = classif().GetTypeByPath({ "hwtag", "nofoot" });
+  m_yesFootType = classif().GetTypeByPath({ "hwtag", "yesfoot" });
 
   initializer_list<char const *> arr[] =
   {
@@ -582,16 +582,23 @@ void PedestrianModel::Init()
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
-bool PedestrianModel::IsFoot(feature::TypesHolder const & types) const
+bool PedestrianModel::IsNoFoot(feature::TypesHolder const & types) const
 {
-  return find(types.begin(), types.end(), m_noFootType) == types.end();
+  return find(types.begin(), types.end(), m_noFootType) != types.end();
+}
+
+bool PedestrianModel::IsYesFoot(feature::TypesHolder const & types) const
+{
+  return find(types.begin(), types.end(), m_yesFootType) != types.end();
 }
 
 double PedestrianModel::GetSpeed(FeatureType const & f) const
 {
   feature::TypesHolder types(f);
 
-  if (IsFoot(types) && IsRoad(types))
+  if (IsYesFoot(types))
+    return VehicleModel::GetMaxSpeed();
+  if (!IsNoFoot(types) && IsRoad(types))
     return VehicleModel::GetSpeed(types);
 
   return 0.0;
