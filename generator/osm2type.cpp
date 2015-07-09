@@ -492,7 +492,6 @@ namespace ftype
           { "lit", "~", [&params]() { params.AddType(types.Get(CachedTypes::LIT)); }},
 
           { "foot", "!", [&params]() { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
-          { "sidewalk", "!", [&params]() { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
 
           { "foot", "~", [&params]() { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
           { "sidewalk", "~", [&params]() { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
