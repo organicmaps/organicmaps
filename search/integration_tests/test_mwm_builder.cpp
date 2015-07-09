@@ -44,7 +44,10 @@ void TestMwmBuilder::Finish()
 {
   CHECK(m_collector, ("Finish() already was called."));
   m_collector.reset();
-  CHECK(GenerateFinalFeatures(m_file.GetDirectory(), m_file.GetCountryFile().GetNameWithoutExt(),
+  feature::GenerateInfo info;
+  info.m_targetDir = m_file.GetDirectory();
+  info.m_tmpDir = m_file.GetDirectory();
+  CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetNameWithoutExt(),
                               feature::DataHeader::country),
         ("Can't sort features."));
   CHECK(indexer::BuildIndexFromDatFile(m_file.GetPath(TMapOptions::EMap),
