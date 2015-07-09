@@ -2,13 +2,12 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 #import "LocationManager.h"
-#import "LocationButton.h"
 #import "SearchView.h"
 #import "LocationPredictor.h"
 
-#include "../../geometry/point2d.hpp"
-#include "../../geometry/rect2d.hpp"
-#include "../../indexer/map_style.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "indexer/map_style.hpp"
 
 namespace search { struct AddressInfo; }
 

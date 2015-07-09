@@ -3,7 +3,6 @@
 #import "CircleView.h"
 #import "ColorPickerView.h"
 #import "Common.h"
-#import "CustomNavigationView.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "Statistics.h"
@@ -12,12 +11,12 @@
 
 #include "Framework.h"
 
-#include "../../../platform/measurement_utils.hpp"
+#include "platform/measurement_utils.hpp"
 
-#include "../../../geometry/distance_on_sphere.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
-#include "../../../coding/zip_creator.hpp"
-#include "../../../coding/internal/file_data.hpp"
+#include "coding/zip_creator.hpp"
+#include "coding/internal/file_data.hpp"
 
 
 #define TEXTFIELD_TAG 999
