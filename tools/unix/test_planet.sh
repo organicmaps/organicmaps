@@ -45,12 +45,14 @@ if [ -d "$TARGET/borders" ]; then
     [ ! -f "$TARGET/$MWM" ] && echo "$MWM"
   done
 fi
-# Only display missing routing files for existing MWMs
-for mwm in "$TARGET"/*.mwm; do
-  if [[ "$mwm" != *World* ]]; then
-    [ ! -f "$mwm.routing" ] && echo "$(basename "$mwm").routing"
-  fi
-done
+if [ -n "$(ls "$TARGET" | grep '\.mwm\.routing')" ]; then
+  # Only display missing routing files for existing MWMs
+  for mwm in "$TARGET"/*.mwm; do
+    if [[ "$mwm" != *World* ]]; then
+      [ ! -f "$mwm.routing" ] && echo "$(basename "$mwm").routing"
+    fi
+  done
+fi
 
 # Step 3: run calc_statistics and check for sections
 echo
