@@ -40,7 +40,7 @@ void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries
     if (localFile && HasOptions(localFile->GetFiles(), TMapOptions::EMapWithCarRouting))
       continue;
 
-    LOG(LINFO, ("Online absent countries fetcher recomends to download: ", name));
+    LOG(LINFO, ("Needs: ", name));
     countries.emplace_back(move(name));
   }
   m_fetcherThread.reset();
