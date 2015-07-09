@@ -77,3 +77,29 @@ UNIT_TEST(MultilangString_ForEach)
   LangChecker doClass;
   s.ForEachRef(doClass);
 }
+
+UNIT_TEST(MultilangString_Unique)
+{
+  StringUtf8Multilang s;
+  string cmp;
+
+  s.AddString(0, "xxx");
+  TEST(s.GetString(0, cmp), ());
+  TEST_EQUAL(cmp, "xxx", ());
+
+  s.AddString(1, "yyy");
+  TEST(s.GetString(1, cmp), ());
+  TEST_EQUAL(cmp, "yyy", ());
+
+  s.AddString(0, "xxxxxx");
+  TEST(s.GetString(0, cmp), ());
+  TEST_EQUAL(cmp, "xxxxxx", ());
+  TEST(s.GetString(1, cmp), ());
+  TEST_EQUAL(cmp, "yyy", ());
+
+  s.AddString(0, "x");
+  TEST(s.GetString(0, cmp), ());
+  TEST_EQUAL(cmp, "x", ());
+  TEST(s.GetString(1, cmp), ());
+  TEST_EQUAL(cmp, "yyy", ());
+}

@@ -617,3 +617,30 @@ UNIT_TEST(OsmType_Boundary)
   TEST(params.IsTypeExist(GetType({"boundary", "administrative", "2"})), ());
   TEST(params.IsTypeExist(GetType({"boundary", "administrative", "6"})), ());
 }
+
+UNIT_TEST(OsmType_Dibrugarh)
+{
+  char const * arr[][2] = {
+    { "AND_a_c", "10001373" },
+    { "addr:city", "Dibrugarh" },
+    { "addr:housenumber", "hotel vishal" },
+    { "addr:postcode", "786001" },
+    { "addr:street", "Marwari Patty,Puja Ghat" },
+    { "name", "Dibrugarh" },
+    { "phone", "03732320016" },
+    { "place", "city" },
+    { "website", "http://www.hotelvishal.in" },
+  };
+
+  XMLElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  TEST_EQUAL(params.m_Types.size(), 1, (params));
+  TEST(params.IsTypeExist(GetType({"place", "city"})), (params));
+  string name;
+  TEST(params.name.GetString(StringUtf8Multilang::DEFAULT_CODE, name), (params));
+  TEST_EQUAL(name, "Dibrugarh", (params));
+}

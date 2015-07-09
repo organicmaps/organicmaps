@@ -56,6 +56,23 @@ size_t StringUtf8Multilang::GetNextIndex(size_t i) const
 
 void StringUtf8Multilang::AddString(int8_t lang, string const & utf8s)
 {
+  size_t i = 0;
+  size_t const sz = m_s.size();
+
+  while (i < sz)
+  {
+    size_t const next = GetNextIndex(i);
+
+    if ((m_s[i] & 0x3F) == lang)
+    {
+      ++i;
+      m_s.replace(i, next - i, utf8s);
+      return;
+    }
+
+    i = next;
+  }
+
   m_s.push_back(lang | 0x80);
   m_s.insert(m_s.end(), utf8s.begin(), utf8s.end());
 }
