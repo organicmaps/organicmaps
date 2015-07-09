@@ -87,7 +87,7 @@ public:
   m2::PointD GetGeometryCenter() const;
   m2::PointD GetKeyPoint() const;
 
-  inline size_t GetPointsCount() const { return GetGeometry().size(); }
+  inline size_t GetPointsCount() const { return GetFrontGeometry().size(); }
   inline size_t GetPolygonsCount() const { return m_polygons.size(); }
   inline size_t GetTypesCount() const { return m_params.m_Types.size(); }
   //@}
@@ -189,7 +189,7 @@ protected:
 
   typedef vector<m2::PointD> points_t;
 
-  inline points_t const & GetGeometry() const { return m_polygons.front(); }
+  inline points_t const & GetFrontGeometry() const { return m_polygons.front(); }
 
   /// List of geometry polygons.
   list<points_t> m_polygons; // Check HEADER_IS_AREA
@@ -231,7 +231,7 @@ public:
   inline bool IsArea() const { return (GetGeomType() == feature::GEOM_AREA); }
   bool IsDrawableInRange(int lowS, int highS) const;
 
-  inline points_t const & GetOuterPoly() const { return GetGeometry(); }
+  inline points_t const & GetOuterPoly() const { return GetFrontGeometry(); }
   inline list<points_t> const & GetPolygons() const { return m_polygons; }
 
   /// @name Overwrite from base_type.

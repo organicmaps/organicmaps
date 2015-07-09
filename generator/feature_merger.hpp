@@ -26,10 +26,10 @@ public:
 
   bool EqualGeometry(MergedFeatureBuilder1 const & fb) const;
 
-  inline bool NotEmpty() const { return !GetGeometry().empty(); }
+  inline bool NotEmpty() const { return !GetFrontGeometry().empty(); }
 
-  inline m2::PointD FirstPoint() const { return GetGeometry().front(); }
-  inline m2::PointD LastPoint() const { return GetGeometry().back(); }
+  inline m2::PointD FirstPoint() const { return GetFrontGeometry().front(); }
+  inline m2::PointD LastPoint() const { return GetFrontGeometry().back(); }
 
   inline bool PopAnyType(uint32_t & type) { return m_params.PopAnyType(type); }
 
@@ -41,7 +41,7 @@ public:
 
   template <class ToDo> void ForEachMiddlePoints(ToDo toDo) const
   {
-    points_t const & poly = GetGeometry();
+    points_t const & poly = GetFrontGeometry();
     for (size_t i = 1; i < poly.size()-1; ++i)
       toDo(poly[i]);
   }

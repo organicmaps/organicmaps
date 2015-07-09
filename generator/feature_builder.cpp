@@ -32,7 +32,7 @@ FeatureBuilder1::FeatureBuilder1()
 
 bool FeatureBuilder1::IsGeometryClosed() const
 {
-  points_t const & poly = GetGeometry();
+  points_t const & poly = GetFrontGeometry();
   return (poly.size() > 2 && poly.front() == poly.back());
 }
 
@@ -42,7 +42,7 @@ m2::PointD FeatureBuilder1::GetGeometryCenter() const
   //ASSERT ( IsGeometryClosed(), () );
   m2::PointD ret(0.0, 0.0);
 
-  points_t const & poly = GetGeometry();
+  points_t const & poly = GetFrontGeometry();
   size_t const count = poly.size();
   for (size_t i = 0; i < count; ++i)
     ret += poly[i];
@@ -96,7 +96,7 @@ void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
 
   if (holes.empty()) return;
 
-  points_t const & poly = GetGeometry();
+  points_t const & poly = GetFrontGeometry();
   m2::Region<m2::PointD> rgn(poly.begin(), poly.end());
 
   for (list<points_t>::const_iterator i = holes.begin(); i != holes.end(); ++i)
@@ -323,7 +323,7 @@ bool FeatureBuilder1::CheckValid() const
 
   EGeomType const type = m_params.GetGeomType();
 
-  points_t const & poly = GetGeometry();
+  points_t const & poly = GetFrontGeometry();
 
   if (type == GEOM_LINE)
     CHECK(poly.size() >= 2, (*this));
@@ -499,7 +499,7 @@ string DebugPrint(FeatureBuilder1 const & f)
 
 bool FeatureBuilder2::IsDrawableInRange(int lowS, int highS) const
 {
-  if (!GetGeometry().empty())
+  if (!GetFrontGeometry().empty())
   {
     FeatureBase const fb = GetFeatureBase();
 
@@ -620,10 +620,10 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
     }
     else
     {
-      ASSERT_GREATER ( GetGeometry().size(), 2, () );
+      ASSERT_GREATER ( GetFrontGeometry().size(), 2, () );
 
       // Store first point once for outer linear features.
-      serial::SavePoint(sink, GetGeometry()[0], params);
+      serial::SavePoint(sink, GetFrontGeometry()[0], params);
 
       // offsets was pushed from high scale index to low
       reverse(data.m_ptsOffset.begin(), data.m_ptsOffset.end());
