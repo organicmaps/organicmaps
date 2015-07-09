@@ -238,8 +238,7 @@ namespace ftype
         if (!m_isKey)
         {
           // Take numbers only for "capital" and "admin_level".
-          int dummy;
-          if (strings::to_int(v, dummy))
+          if (strings::is_number(v))
             return (k == "admin_level" || k == "capital");
         }
         return true;

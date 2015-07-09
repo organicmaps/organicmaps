@@ -150,6 +150,7 @@ public:
   int GetMinFeatureDrawScale() const;
 
   void SetCoastCell(int64_t iCell, string const & strCell);
+  inline bool IsCoastCell() const { return (m_coastCell != -1); }
   inline bool GetCoastCell(int64_t & cell) const
   {
     if (m_coastCell != -1)

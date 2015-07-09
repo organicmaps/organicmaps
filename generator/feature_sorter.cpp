@@ -434,8 +434,7 @@ namespace feature
         int const level = m_header.GetScale(i);
         if (fb.IsDrawableInRange(i > 0 ? m_header.GetScale(i-1) + 1 : 0, level))
         {
-          int64_t dummy;
-          bool const isCoast = fb.GetCoastCell(dummy);
+          bool const isCoast = fb.IsCoastCell();
           m2::RectD const rect = fb.GetLimitRect();
 
           // Simplify and serialize geometry.

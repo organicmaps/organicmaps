@@ -2121,7 +2121,7 @@ void Framework::BuildRoute(m2::PointD const & destination)
       }
       else
       {
-        for(string const & name : route.GetAbsentCountries())
+        for (string const & name : route.GetAbsentCountries())
         {
           storage::TIndex fileIndex = m_storage.FindIndexByFile(name);
           if (m_storage.GetLatestLocalFile(fileIndex))

@@ -178,6 +178,8 @@ bool to_uint64(char const * s, uint64_t & i);
 bool to_int64(char const * s, int64_t & i);
 bool to_double(char const * s, double & d);
 
+inline bool is_number(string const & s) { int64_t dummy; return to_int64(s.c_str(), dummy); }
+
 inline bool to_int(string const & s, int & i) { return to_int(s.c_str(), i); }
 inline bool to_uint64(string const & s, uint64_t & i) { return to_uint64(s.c_str(), i); }
 inline bool to_int64(string const & s, int64_t & i) { return to_int64(s.c_str(), i); }

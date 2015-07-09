@@ -103,9 +103,7 @@ namespace
   protected:
     bool HasID(FeatureBuilder1 const & fb) const
     {
-      int64_t dummy;
-      TEST(fb.GetCoastCell(dummy), ());
-
+      TEST(fb.IsCoastCell(), ());
       return (find(m_vID.begin(), m_vID.end(), fb.GetName()) != m_vID.end());
     }
 

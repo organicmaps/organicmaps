@@ -255,8 +255,7 @@ bool FeatureBuilder1::PreSerialize()
 
 void FeatureBuilder1::RemoveUselessNames()
 {
-  int64_t dummy;
-  if (!m_params.name.IsEmpty() && !GetCoastCell(dummy))
+  if (!m_params.name.IsEmpty() && !IsCoastCell())
   {
     using namespace feature;
 
@@ -274,8 +273,7 @@ void FeatureBuilder1::RemoveUselessNames()
 
 void FeatureBuilder1::RemoveNameIfInvisible(int minS, int maxS)
 {
-  int64_t dummy;
-  if (!m_params.name.IsEmpty() && !GetCoastCell(dummy))
+  if (!m_params.name.IsEmpty() && !IsCoastCell())
   {
     pair<int, int> const range = GetDrawableScaleRangeForRules(GetFeatureBase(), RULE_ANY_TEXT);
     if (range.first > maxS || range.second < minS)
