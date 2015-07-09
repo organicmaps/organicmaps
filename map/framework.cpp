@@ -206,10 +206,12 @@ Framework::Framework()
   m_ParsedMapApi.SetController(&m_bmManager.UserMarksGetController(UserMarkContainer::API_MARK));
 
   // Init strings bundle.
+  // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
+  // It's better to use strings form strings.txt intead of hardcoding them here.
   m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^\nis added to the downloading queue");
   m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading\n^\n^%");
-  m_stringsBundle.SetDefaultString("country_status_download", "Download map\n^ MB");
-  m_stringsBundle.SetDefaultString("country_status_download_routing", "Download Map + Routing\n^ MB");
+  m_stringsBundle.SetDefaultString("country_status_download", "Download map\n^ ^");
+  m_stringsBundle.SetDefaultString("country_status_download_routing", "Download Map + Routing\n^ ^");
   m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading\n^\nhas failed");
   m_stringsBundle.SetDefaultString("try_again", "Try Again");
   m_stringsBundle.SetDefaultString("not_enough_free_space_on_sdcard", "Not enough space for downloading");
