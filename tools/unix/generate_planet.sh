@@ -123,7 +123,7 @@ mkdir -p "$TARGET"
 INTDIR="${INTDIR:-$TARGET/intermediate_data}"
 OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
 [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
-MERGE_COASTS_DELAY_SEC=2400
+MERGE_COASTS_DELAY_MIN=40
 # set to "mem" if there is more than 64 GB of memory
 NODE_STORAGE=${NODE_STORAGE:-${NS:-mem}}
 ASYNC_PBF=${ASYNC_PBF-}
@@ -246,9 +246,10 @@ if [ "$MODE" == "coast" ]; then
       if [ $? != 0 ]; then
         log "TIMEMARK" "Coastline merge failed"
         if [ -n "$OPT_UPDATE" ]; then
+          tail -n 50 "$LOG_PATH/WorldCoasts.log" | mailx -s "Generate_planet: coastline merge failed, next try in $MERGE_COASTS_DELAY_MIN minutes" "$MAIL"
           date -u
-          echo "Will try fresh coasts again in $MERGE_COASTS_DELAY_SEC seconds, or press a key..."
-          read -rs -n 1 -t $MERGE_COASTS_DELAY_SEC
+          echo "Will try fresh coasts again in $MERGE_COASTS_DELAY_MIN minutes, or press a key..."
+          read -rs -n 1 -t $(expr $MERGE_COASTS_DELAY_MIN \* 60)
           TRY_AGAIN=1
         else
           fail
