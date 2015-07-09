@@ -115,6 +115,11 @@ uint32_t FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, Feature
   return static_cast<uint32_t>(offset);
 }
 
+void FeaturesCollector::DumpFeatureGeometry(FeatureBuilder1 const & fb)
+{
+
+}
+
 void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
 {
   FeatureBuilder1::buffer_t bytes;

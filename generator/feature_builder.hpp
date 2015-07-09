@@ -19,6 +19,9 @@ class FeatureBuilder1
   friend string DebugPrint(FeatureBuilder1 const & f);
 
 public:
+  typedef vector<m2::PointD> TRing;
+  typedef list<TRing> TPolygon;
+
   FeatureBuilder1();
 
   /// @name Geometry manipulating functions.
