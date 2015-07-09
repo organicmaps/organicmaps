@@ -5,6 +5,7 @@
 #include "geometry/polyline2d.hpp"
 
 #include "std/vector.hpp"
+#include "std/set.hpp"
 #include "std/string.hpp"
 
 
@@ -99,10 +100,10 @@ public:
   bool IsCurrentOnEnd() const;
 
   /// Add country name if we have no country filename to make route
-  void AddAbsentCountry(string const & name) {m_absentCountries.push_back(name);}
+  void AddAbsentCountry(string const & name) { m_absentCountries.insert(name); }
 
   /// Get absent file list of a routing files for shortest path finding
-  vector<string> const & GetAbsentCountries() const {return m_absentCountries;}
+  set<string> const & GetAbsentCountries() const { return m_absentCountries; }
 
 private:
   /// @param[in]  predictDistance   Predict distance from previous FindProjection call (meters).
@@ -124,7 +125,7 @@ private:
   m2::PolylineD m_poly;
   string m_name;
 
-  vector<string> m_absentCountries;
+  set<string> m_absentCountries;
 
   /// Accumulated cache of segments length in meters.
   vector<double> m_segDistance;
