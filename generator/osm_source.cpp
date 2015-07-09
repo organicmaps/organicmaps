@@ -226,6 +226,7 @@ namespace
         m_types[i] = c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2));
 
       m_srcCoastsFile = info.m_intermediateDir + WORLD_COASTS_FILE_NAME + ".geom";
+      string srcCoastsFileDump = info.m_intermediateDir + WORLD_COASTS_FILE_NAME + ".rawdump";
       string dstCoastsFile = info.m_tmpDir + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix;
 
       CHECK(!info.m_makeCoasts || !info.m_createWorld,
@@ -246,7 +247,7 @@ namespace
         // 20000 - max points count per feature
         m_coasts.reset(new CoastlineFeaturesGenerator(Type(NATURAL_COASTLINE), 4, 10, 20000));
 
-        m_coastsHolder.reset(new feature::FeaturesCollector(m_srcCoastsFile));
+        m_coastsHolder.reset(new feature::FeaturesCollector(m_srcCoastsFile, srcCoastsFileDump));
       }
 
       if (info.m_createWorld)

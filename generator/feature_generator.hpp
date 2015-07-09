@@ -6,6 +6,7 @@
 
 #include "std/vector.hpp"
 #include "std/string.hpp"
+#include "std/fstream.hpp"
 
 
 class FeatureBuilder1;
@@ -21,6 +22,8 @@ namespace feature
 
   protected:
     FileWriter m_datFile;
+    ofstream m_dumpFileStream;
+    string m_dumpFileName;
     m2::RectD m_bounds;
 
   private:
@@ -36,7 +39,7 @@ namespace feature
     void Flush();
 
   public:
-    FeaturesCollector(string const & fName);
+    FeaturesCollector(string const & fName, string const &dumpFileName = string());
     ~FeaturesCollector();
 
     void operator() (FeatureBuilder1 const & f);

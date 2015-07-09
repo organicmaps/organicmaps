@@ -25,10 +25,15 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace feature {
 
-FeaturesCollector::FeaturesCollector(string const & fName)
+FeaturesCollector::FeaturesCollector(string const & fName, string const &dumpFileName)
 : m_datFile(fName)
+, m_dumpFileName(dumpFileName)
 {
   CHECK_EQUAL(GetFileSize(m_datFile), 0, ());
+  if (!m_dumpFileName.empty())
+  {
+    m_dumpFileStream.open(m_dumpFileName.c_str(), ios::binary | ios::trunc | ios::out);
+  }
 }
 
 FeaturesCollector::~FeaturesCollector()
@@ -36,6 +41,7 @@ FeaturesCollector::~FeaturesCollector()
   FlushBuffer();
   /// Check file size
   (void)GetFileSize(m_datFile);
+  m_dumpFileStream.close();
 }
 
 uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)

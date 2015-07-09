@@ -40,7 +40,7 @@ public:
   //@}
 
   inline feature::Metadata const & GetMetadata() const { return m_params.GetMetadata(); }
-
+//  inline list<vector<m2::PointD>> const & GetGeometry() { return m_polygons; }
   inline feature::EGeomType GetGeomType() const { return m_params.GetGeomType(); }
 
   inline void AddType(uint32_t type) { m_params.AddType(type); }
