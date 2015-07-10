@@ -41,16 +41,21 @@ RoutingMapping::RoutingMapping(CountryFile const & countryFile, MwmSet * pIndex)
     return;
   LocalCountryFile const & localFile = m_handle.GetInfo()->GetLocalFile();
   if (!HasOptions(localFile.GetFiles(), TMapOptions::EMapWithCarRouting))
-    return;
-
-  // Updates here because CheckMwmConsistancy uses IsValid() checks for it's work.
-  m_error = IRouter::ResultCode::NoError;
-  if (!CheckMwmConsistancy(localFile))
   {
-    m_error = IRouter::ResultCode::InconsistentMWMandRoute;
+    m_handle = MwmSet::MwmHandle();
     return;
   }
 
+  m_container.Open(localFile.GetPath(TMapOptions::ECarRouting));
+  if (!CheckMwmConsistancy(localFile))
+  {
+    m_error = IRouter::ResultCode::InconsistentMWMandRoute;
+    m_container.Close();
+    m_handle = MwmSet::MwmHandle();
+    return;
+  }
+
+  m_error = IRouter::ResultCode::NoError;
 }
 
 RoutingMapping::~RoutingMapping()
@@ -61,21 +66,11 @@ RoutingMapping::~RoutingMapping()
   m_container.Close();
 }
 
-void RoutingMapping::Open()
-{
-  if (!IsValid())
-    return;
-  string const & fileName = m_handle.GetInfo()->GetLocalFile().GetPath(TMapOptions::ECarRouting);
-  if (m_container.GetName().empty() && !fileName.empty())
-    m_container.Open(fileName);
-}
-
 void RoutingMapping::Map()
 {
   ++m_mapCounter;
   if (!m_segMapping.IsMapped())
   {
-    Open();
     m_segMapping.Load(m_container);
     m_segMapping.Map(m_container);
   }
@@ -92,7 +87,6 @@ void RoutingMapping::LoadFacade()
 {
   if (!m_facadeCounter)
   {
-    Open();
     m_dataFacade.Load(m_container);
   }
   ++m_facadeCounter;
@@ -110,7 +104,6 @@ void RoutingMapping::LoadCrossContext()
   if (m_crossContextLoaded)
     return;
 
-  Open();
   if (m_container.IsExist(ROUTING_CROSS_CONTEXT_TAG))
   {
     m_crossContext.Load(m_container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
@@ -120,7 +113,6 @@ void RoutingMapping::LoadCrossContext()
 
 bool RoutingMapping::CheckMwmConsistancy(platform::LocalCountryFile const & localFile)
 {
-  Open();
   FileReader r1 = m_container.GetReader(VERSION_FILE_TAG);
   ReaderSrc src1(r1);
   ModelReaderPtr r2 = FilesContainerR(localFile.GetPath(TMapOptions::EMap))
@@ -133,14 +125,7 @@ bool RoutingMapping::CheckMwmConsistancy(platform::LocalCountryFile const & loca
   version::MwmVersion version2;
   version::ReadVersion(src2, version2);
 
-  if (version1.timestamp != version2.timestamp)
-  {
-    m_container.Close();
-    m_error = IRouter::ResultCode::InconsistentMWMandRoute;
-    return false;
-  }
-
-  return true;
+  return version1.timestamp == version2.timestamp;
 }
 
 void RoutingMapping::FreeCrossContext()

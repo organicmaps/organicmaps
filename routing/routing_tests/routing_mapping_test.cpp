@@ -1,5 +1,4 @@
 #include "testing/testing.hpp"
-
 #include "indexer/indexer_tests/test_mwm_set.hpp"
 
 #include "routing/routing_mapping.h"
@@ -20,10 +19,21 @@ using namespace tests;
 using namespace platform;
 using namespace platform::tests;
 
-// Underlying block is copypaste LocalFiles creation stub. I use a local copy to reduce including
-// test facilities in project headers.
 namespace
 {
+
+void GenerateVersionSections(LocalCountryFile const & localFile)
+{
+    FilesContainerW routingCont(localFile.GetPath(TMapOptions::ECarRouting));
+    // Write version for routing file that is equal to correspondent mwm file.
+    FilesContainerW mwmCont(localFile.GetPath(TMapOptions::EMap));
+
+    FileWriter w1 = routingCont.GetWriter(VERSION_FILE_TAG);
+    FileWriter w2 = mwmCont.GetWriter(VERSION_FILE_TAG);
+    version::WriteVersion(w1);
+    version::WriteVersion(w2);
+}  
+
 UNIT_TEST(RoutingMappingCountryFileLockTest)
 {
   // Create the local files and the registered MwmSet.
@@ -34,6 +44,7 @@ UNIT_TEST(RoutingMappingCountryFileLockTest)
   ScopedTestFile testRoutingFile(countryFile.GetNameWithExt(TMapOptions::ECarRouting), "routing");
   localFile.SyncWithDisk();
   TEST(localFile.OnDisk(TMapOptions::EMapWithCarRouting), ());
+  GenerateVersionSections(localFile);
 
   TestMwmSet mwmSet;
   pair<MwmSet::MwmHandle, MwmSet::RegResult> result = mwmSet.Register(localFile);
@@ -59,6 +70,7 @@ UNIT_TEST(IndexManagerLockManagementTest)
   ScopedTestFile testRoutingFile(countryFile.GetNameWithExt(TMapOptions::ECarRouting), "routing");
   localFile.SyncWithDisk();
   TEST(localFile.OnDisk(TMapOptions::EMapWithCarRouting), ());
+  GenerateVersionSections(localFile);
 
   TestMwmSet mwmSet;
   pair<MwmSet::MwmHandle, MwmSet::RegResult> result = mwmSet.Register(localFile);
