@@ -19,8 +19,8 @@ class FeatureBuilder1
   friend string DebugPrint(FeatureBuilder1 const & f);
 
 public:
-  typedef vector<m2::PointD> TRing;
-  typedef list<TRing> TPolygon;
+  typedef vector<m2::PointD> TPointSeq;
+  typedef list<TPointSeq> TGeometry;
 
   FeatureBuilder1();
 
@@ -43,7 +43,7 @@ public:
   //@}
 
   inline feature::Metadata const & GetMetadata() const { return m_params.GetMetadata(); }
-//  inline list<vector<m2::PointD>> const & GetGeometry() { return m_polygons; }
+  inline TGeometry const & GetGeometry() const { return m_polygons; }
   inline feature::EGeomType GetGeomType() const { return m_params.GetGeomType(); }
 
   inline void AddType(uint32_t type) { m_params.AddType(type); }

@@ -41,6 +41,8 @@ FeaturesCollector::~FeaturesCollector()
   FlushBuffer();
   /// Check file size
   (void)GetFileSize(m_datFile);
+  uint64_t terminator = 0;
+  m_dumpFileStream.write(reinterpret_cast<char *>(&terminator), sizeof(terminator));
   m_dumpFileStream.close();
 }
 
@@ -117,7 +119,18 @@ uint32_t FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, Feature
 
 void FeaturesCollector::DumpFeatureGeometry(FeatureBuilder1 const & fb)
 {
+  FeatureBuilder1::TGeometry const & geom = fb.GetGeometry();
+  if (geom.empty())
+    return;
 
+  uint64_t num_geometries = geom.size();
+  m_dumpFileStream.write(reinterpret_cast<char *>(&num_geometries), sizeof(num_geometries));
+  for (FeatureBuilder1::TPointSeq const & points : geom)
+  {
+    uint64_t num_points = points.size();
+    m_dumpFileStream.write(reinterpret_cast<char *>(&num_points), sizeof(num_points));
+    m_dumpFileStream.write(reinterpret_cast<char const *>(points.data()), sizeof(FeatureBuilder1::TPointSeq::value_type) * points.size());
+  }
 }
 
 void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
@@ -125,6 +138,9 @@ void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
   FeatureBuilder1::buffer_t bytes;
   fb.Serialize(bytes);
   (void)WriteFeatureBase(bytes, fb);
+
+  if (!m_dumpFileName.empty())
+    DumpFeatureGeometry(fb);
 }
 
 
