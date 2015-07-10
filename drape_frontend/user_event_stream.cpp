@@ -184,10 +184,22 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
 {
   if (isAnim)
   {
-    m2::AnyRectD startRect = GetCurrentRect();
-    double const duration = ModelViewAnimation::GetDuration(startRect, rect, m_navigator.Screen());
-    m_animation.reset(new ModelViewAnimation(startRect, rect, duration));
-    return false;
+    ScreenBase const & screen = m_navigator.Screen();
+    m2::AnyRectD const startRect = GetCurrentRect();
+    double const angleDuration = ModelViewAnimation::GetRotateDuration(startRect.Angle().val(), rect.Angle().val());
+    double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), rect.GlobalZero(), screen);
+    double const scaleDuration = ModelViewAnimation::GetScaleDuration(startRect.GetLocalRect().SizeX(),
+                                                                      rect.GetLocalRect().SizeX());
+
+    double const MAX_ANIMATION_TIME = 1.5; // in seconds
+
+    if (max(max(angleDuration, moveDuration), scaleDuration) < MAX_ANIMATION_TIME)
+    {
+      m_animation.reset(new ModelViewAnimation(startRect, rect, angleDuration, moveDuration, scaleDuration));
+      return false;
+    }
+    else
+      m_animation.reset();
   }
 
   m_navigator.SetFromRect(rect);

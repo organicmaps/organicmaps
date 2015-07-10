@@ -14,6 +14,8 @@ public:
 
 protected:
   double GetT() const;
+  double GetElapsedTime() const;
+  double GetDuration() const;
 
 private:
   double m_elapsedTime;

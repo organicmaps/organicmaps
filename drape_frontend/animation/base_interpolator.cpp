@@ -39,4 +39,14 @@ double BaseInterpolator::GetT() const
   return max(m_elapsedTime - m_delay, 0.0) / m_duration;
 }
 
+double BaseInterpolator::GetElapsedTime() const
+{
+  return m_elapsedTime;
+}
+
+double BaseInterpolator::GetDuration() const
+{
+  return m_duration;
+}
+
 }
