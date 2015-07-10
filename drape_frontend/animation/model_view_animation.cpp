@@ -32,8 +32,9 @@ namespace
 
 double GetSafeT(double elapsed, double duration)
 {
-  if (my::AlmostEqualAbs(duration, 0.0, 1e-5))
-    return 0.0;
+  if (duration <= 0.0 || elapsed > duration)
+    return 1.0;
+
   return elapsed / duration;
 }
 
@@ -41,13 +42,9 @@ double GetSafeT(double elapsed, double duration)
 
 m2::AnyRectD ModelViewAnimation::GetRect(double elapsedTime) const
 {
-  double const angleElapsed = min(elapsedTime, m_angleDuration);
-  double const moveElapsed = min(elapsedTime, m_moveDuration);
-  double const scaleElapsed = min(elapsedTime, m_scaleDuration);
-
-  double dstAngle = m_angleInterpolator.Interpolate(GetSafeT(angleElapsed, m_angleDuration));
-  m2::PointD dstZero = InterpolatePoint(m_startZero, m_endZero, GetSafeT(moveElapsed, m_moveDuration));
-  m2::RectD dstRect = InterpolateRect(m_startRect, m_endRect, GetSafeT(scaleElapsed, m_scaleDuration));
+  double dstAngle = m_angleInterpolator.Interpolate(GetSafeT(elapsedTime, m_angleDuration));
+  m2::PointD dstZero = InterpolatePoint(m_startZero, m_endZero, GetSafeT(elapsedTime, m_moveDuration));
+  m2::RectD dstRect = InterpolateRect(m_startRect, m_endRect, GetSafeT(elapsedTime, m_scaleDuration));
 
   return m2::AnyRectD(dstZero, dstAngle, dstRect);
 }
@@ -86,10 +83,8 @@ double ModelViewAnimation::GetScaleDuration(double startSize, double endSize)
   if (startSize > endSize)
     swap(startSize, endSize);
 
-  double const SCALE_FACTOR = 2.0;
-  double const ONE_DIV_SCALE_TIME = 2.0;
-
-  static double const pixelSpeed = ONE_DIV_SCALE_TIME * SCALE_FACTOR;
+  // Resize 2.0 times should be done for 0.5 seconds.
+  static double const pixelSpeed = 2.0 / 0.5;
   return CalcAnimSpeedDuration(endSize / startSize, pixelSpeed);
 }
 
