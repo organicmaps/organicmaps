@@ -27,8 +27,6 @@ public:
   RuleDrawer(TDrawerCallback const & fn,
              ref_ptr<EngineContext> context);
 
-  void InsertShape(drape_ptr<MapShape> && shape);
-
   void operator() (FeatureType const & f);
 
 private:

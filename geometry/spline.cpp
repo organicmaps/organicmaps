@@ -25,9 +25,10 @@ Spline::Spline(vector<PointD> const & path)
 
 Spline::Spline(size_t reservedSize)
 {
+  ASSERT_LESS(0, reservedSize, ());
   m_position.reserve(reservedSize);
-  m_direction.reserve(reservedSize);
-  m_length.reserve(reservedSize);
+  m_direction.reserve(reservedSize - 1);
+  m_length.reserve(reservedSize - 1);
 }
 
 void Spline::AddPoint(PointD const & pt)

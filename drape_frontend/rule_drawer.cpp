@@ -28,11 +28,6 @@ RuleDrawer::RuleDrawer(TDrawerCallback const & fn, ref_ptr<EngineContext> contex
   m_currentScaleGtoP = 1.0f / m_geometryConvertor.GetScale();
 }
 
-void RuleDrawer::InsertShape(drape_ptr<MapShape> && shape)
-{
-  m_mapShapes.push_back(move(shape));
-}
-
 void RuleDrawer::operator()(FeatureType const & f)
 {
   Stylist s;
@@ -56,9 +51,14 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   int zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
+  auto insertShape = [this](drape_ptr<MapShape> && shape)
+  {
+    m_mapShapes.push_back(move(shape));
+  };
+
   if (s.AreaStyleExists())
   {
-    ApplyAreaFeature apply(make_ref(this), f.GetID(), s.GetCaptionDescription());
+    ApplyAreaFeature apply(insertShape, f.GetID(), s.GetCaptionDescription());
     f.ForEachTriangleRef(apply, zoomLevel);
 
     if (s.PointStyleExists())
@@ -69,8 +69,8 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
   else if (s.LineStyleExists())
   {
-    ApplyLineFeature apply(m_context, f.GetID(), s.GetCaptionDescription(),
-                           m_currentScaleGtoP, zoomLevel >= SIMPLIFY_BOTTOM && zoomLevel <= SIMPLIFY_TOP, f.GetPointsCount());
+    ApplyLineFeature apply(insertShape, f.GetID(), s.GetCaptionDescription(), m_currentScaleGtoP,
+                           zoomLevel >= SIMPLIFY_BOTTOM && zoomLevel <= SIMPLIFY_TOP, f.GetPointsCount());
     f.ForEachPointRef(apply, zoomLevel);
 
     if (apply.HasGeometry())
@@ -80,7 +80,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   else
   {
     ASSERT(s.PointStyleExists(), ());
-    ApplyPointFeature apply(make_ref(this), f.GetID(), s.GetCaptionDescription());
+    ApplyPointFeature apply(insertShape, f.GetID(), s.GetCaptionDescription());
     f.ForEachPointRef(apply, zoomLevel);
 
     s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));

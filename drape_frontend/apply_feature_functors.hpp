@@ -20,12 +20,14 @@ namespace df
 {
 
 struct TextViewParams;
-class RuleDrawer;
+class MapShape;
+
+using TInsertShapeFn = function<void(drape_ptr<MapShape> && shape)>;
 
 class BaseApplyFeature
 {
 public:
-  BaseApplyFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
+  BaseApplyFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
                    CaptionDescription const & captions);
 
   virtual ~BaseApplyFeature() {}
@@ -36,7 +38,7 @@ protected:
                             double depth,
                             TextViewParams & params) const;
 
-  ref_ptr<RuleDrawer> m_drawer;
+  TInsertShapeFn m_insertShape;
   FeatureID m_id;
   CaptionDescription const & m_captions;
 };
@@ -45,7 +47,7 @@ class ApplyPointFeature : public BaseApplyFeature
 {
   typedef BaseApplyFeature TBase;
 public:
-  ApplyPointFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
+  ApplyPointFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
                     CaptionDescription const & captions);
 
   void operator()(m2::PointD const & point);
@@ -65,7 +67,7 @@ class ApplyAreaFeature : public ApplyPointFeature
 {
   typedef ApplyPointFeature TBase;
 public:
-  ApplyAreaFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
+  ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
                    CaptionDescription const & captions);
 
   using TBase::operator ();
@@ -81,7 +83,7 @@ class ApplyLineFeature : public BaseApplyFeature
 {
   typedef BaseApplyFeature TBase;
 public:
-  ApplyLineFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
+  ApplyLineFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
                    CaptionDescription const & captions,
                    double currentScaleGtoP, bool simplify, size_t pointsCount);
 
