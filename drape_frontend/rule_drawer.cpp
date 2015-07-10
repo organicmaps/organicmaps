@@ -13,8 +13,8 @@
 namespace df
 {
 
-int const SIMPLIFY_BOTTOM = 9;
-int const SIMPLIFY_TOP = 13;
+int const SIMPLIFY_BOTTOM = 10;
+int const SIMPLIFY_TOP = 12;
 
 RuleDrawer::RuleDrawer(TDrawerCallback const & fn, ref_ptr<EngineContext> context)
   : m_callback(fn)
@@ -65,7 +65,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   else if (s.LineStyleExists())
   {
     ApplyLineFeature apply(m_context, f.GetID(), s.GetCaptionDescription(),
-                           m_currentScaleGtoP, zoomLevel > SIMPLIFY_BOTTOM && zoomLevel < SIMPLIFY_TOP);
+                           m_currentScaleGtoP, zoomLevel >= SIMPLIFY_BOTTOM && zoomLevel <= SIMPLIFY_TOP);
     f.ForEachPointRef(apply, zoomLevel);
 
     if (apply.HasGeometry())
