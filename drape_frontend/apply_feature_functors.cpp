@@ -1,7 +1,6 @@
 #include "drape_frontend/apply_feature_functors.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
-#include "drape_frontend/engine_context.hpp"
 
 #include "drape_frontend/area_shape.hpp"
 #include "drape_frontend/line_shape.hpp"
@@ -186,9 +185,9 @@ m2::PointF GetOffset(CaptionDefProto const * capRule)
 
 } // namespace
 
-BaseApplyFeature::BaseApplyFeature(ref_ptr<EngineContext> context, FeatureID const & id,
+BaseApplyFeature::BaseApplyFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
                                    CaptionDescription const & caption)
-  : m_context(context)
+  : m_drawer(drawer)
   , m_id(id)
   , m_captions(caption)
 {
@@ -221,9 +220,9 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
 
 // ============================================= //
 
-ApplyPointFeature::ApplyPointFeature(ref_ptr<EngineContext> context, FeatureID const & id,
+ApplyPointFeature::ApplyPointFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
                                      CaptionDescription const & captions)
-  : TBase(context, id, captions)
+  : TBase(drawer, id, captions)
   , m_hasPoint(false)
   , m_symbolDepth(dp::minDepth)
   , m_circleDepth(dp::minDepth)
@@ -252,7 +251,7 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     TextViewParams params;
     ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
     if(!params.m_primaryText.empty() || !params.m_secondaryText.empty())
-      m_context->InsertShape(make_unique_dp<TextShape>(m_centerPoint, params));
+      m_drawer->InsertShape(make_unique_dp<TextShape>(m_centerPoint, params));
   }
 
   SymbolRuleProto const * symRule =  pRule->GetSymbol();
@@ -282,22 +281,22 @@ void ApplyPointFeature::Finish()
     params.m_depth = m_circleDepth;
     params.m_color = ToDrapeColor(m_circleRule->color());
     params.m_radius = m_circleRule->radius();
-    m_context->InsertShape(make_unique_dp<CircleShape>(m_centerPoint, params));
+    m_drawer->InsertShape(make_unique_dp<CircleShape>(m_centerPoint, params));
   }
   else if (m_symbolRule)
   {
     PoiSymbolViewParams params(m_id);
     params.m_depth = m_symbolDepth;
     params.m_symbolName = m_symbolRule->name();
-    m_context->InsertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params));
+    m_drawer->InsertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params));
   }
 }
 
 // ============================================= //
 
-ApplyAreaFeature::ApplyAreaFeature(ref_ptr<EngineContext> context, FeatureID const & id,
+ApplyAreaFeature::ApplyAreaFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
                                    CaptionDescription const & captions)
-  : TBase(context, id, captions)
+  : TBase(drawer, id, captions)
 {
 }
 
@@ -327,7 +326,7 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     AreaViewParams params;
     params.m_depth = depth;
     params.m_color = ToDrapeColor(areaRule->color());
-    m_context->InsertShape(make_unique_dp<AreaShape>(move(m_triangles), params));
+    m_drawer->InsertShape(make_unique_dp<AreaShape>(move(m_triangles), params));
   }
   else
     TBase::ProcessRule(rule);
@@ -335,13 +334,13 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
 
 // ============================================= //
 
-ApplyLineFeature::ApplyLineFeature(ref_ptr<EngineContext> context, FeatureID const & id,
+ApplyLineFeature::ApplyLineFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
                                    CaptionDescription const & captions,
-                                   double currentScaleGtoP, bool simplify)
-  : TBase(context, id, captions)
+                                   double currentScaleGtoP, size_t pointsCount)
+  : TBase(drawer, id, captions)
   , m_currentScaleGtoP(currentScaleGtoP)
   , m_sqrScale(math::sqr(m_currentScaleGtoP))
-  , m_simplify(simplify)
+  , m_initialPointsCount(pointsCount)
 #ifdef CALC_FILTERED_POINTS
   , m_readedCount(0)
 #endif
@@ -355,7 +354,7 @@ void ApplyLineFeature::operator() (m2::PointD const & point)
 #endif
 
   if (m_spline.IsNull())
-    m_spline.Reset(new m2::Spline());
+    m_spline.Reset(new m2::Spline(m_initialPointsCount));
 
   if (m_spline->IsEmpty())
   {
@@ -409,7 +408,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_currentScaleGtoP;
 
-    m_context->InsertShape(make_unique_dp<PathTextShape>(m_spline, params));
+    m_drawer->InsertShape(make_unique_dp<PathTextShape>(m_spline, params));
   }
 
   if (pLineRule != NULL)
@@ -425,7 +424,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       params.m_step = symRule.step() * mainScale;
       params.m_baseGtoPScale = m_currentScaleGtoP;
 
-      m_context->InsertShape(make_unique_dp<PathSymbolShape>(m_spline, params));
+      m_drawer->InsertShape(make_unique_dp<PathSymbolShape>(m_spline, params));
     }
     else
     {
@@ -433,7 +432,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       Extract(pLineRule, params);
       params.m_depth = depth;
       params.m_baseGtoPScale = m_currentScaleGtoP;
-      m_context->InsertShape(make_unique_dp<LineShape>(m_spline, params));
+      m_drawer->InsertShape(make_unique_dp<LineShape>(m_spline, params));
     }
   }
 }
@@ -470,7 +469,7 @@ void ApplyLineFeature::Finish()
     m2::Spline::iterator it = m_spline.CreateIterator();
     while (!it.BeginAgain())
     {
-      m_context->InsertShape(make_unique_dp<TextShape>(it.m_pos, viewParams));
+      m_drawer->InsertShape(make_unique_dp<TextShape>(it.m_pos, viewParams));
       it.Advance(splineStep);
     }
   }

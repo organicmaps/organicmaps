@@ -23,6 +23,13 @@ Spline::Spline(vector<PointD> const & path)
   }
 }
 
+Spline::Spline(size_t reservedSize)
+{
+  m_position.reserve(reservedSize);
+  m_direction.reserve(reservedSize);
+  m_length.reserve(reservedSize);
+}
+
 void Spline::AddPoint(PointD const & pt)
 {
   /// TODO remove this check when fix generator.

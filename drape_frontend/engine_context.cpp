@@ -24,16 +24,9 @@ void EngineContext::BeginReadTile()
   PostMessage(make_unique_dp<TileReadStartMessage>(m_tileKey));
 }
 
-void EngineContext::InsertShape(drape_ptr<MapShape> && shape)
+void EngineContext::Flush(list<drape_ptr<MapShape>> && shapes)
 {
-  lock_guard<mutex> lock(m_mutex);
-  m_mapShapes.push_back(move(shape));
-}
-
-void EngineContext::Flush()
-{
-  lock_guard<mutex> lock(m_mutex);
-  PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, move(m_mapShapes)));
+  PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, move(shapes)));
 }
 
 void EngineContext::EndReadTile()
@@ -67,9 +60,10 @@ void EngineContext::EndReadTile()
 
   tp.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
 
-  InsertShape(make_unique_dp<TextShape>(r.Center(), tp));
+  list<drape_ptr<MapShape>> shapes;
+  shapes.push_back(make_unique_dp<TextShape>(r.Center(), tp));
 
-  Flush();
+  Flush(move(shapes));
 #endif
 
   PostMessage(make_unique_dp<TileReadEndMessage>(m_tileKey));

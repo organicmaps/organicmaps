@@ -18,6 +18,7 @@ namespace df
 
 class EngineContext;
 class Stylist;
+class MapShape;
 
 class RuleDrawer
 {
@@ -25,6 +26,8 @@ public:
   using TDrawerCallback = function<void (FeatureType const &, Stylist &)>;
   RuleDrawer(TDrawerCallback const & fn,
              ref_ptr<EngineContext> context);
+
+  void InsertShape(drape_ptr<MapShape> && shape);
 
   void operator() (FeatureType const & f);
 
@@ -35,6 +38,8 @@ private:
   ScreenBase m_geometryConvertor;
   double m_currentScaleGtoP;
   set<string> m_coastlines;
+
+  list<drape_ptr<MapShape>> m_mapShapes;
 };
 
 } // namespace dfo

@@ -45,6 +45,7 @@ public:
 
 public:
   Spline() {}
+  Spline(size_t reservedSize);
   Spline(vector<PointD> const & path);
   Spline const & operator = (Spline const & spl);
 

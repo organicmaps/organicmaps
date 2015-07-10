@@ -19,21 +19,14 @@ public:
   TileKey const & GetTileKey() const { return m_tileKey; }
 
   void BeginReadTile();
-  /// If you call this method, you may forget about shape.
-  /// It will be proccessed and delete later
-  void InsertShape(drape_ptr<MapShape> && shape);
-  void Flush();
+  void Flush(list<drape_ptr<MapShape>> && shapes);
   void EndReadTile();
 
 private:
   void PostMessage(drape_ptr<Message> && message);
 
-private:
   TileKey m_tileKey;
   ref_ptr<ThreadsCommutator> m_commutator;
-
-  mutex m_mutex;
-  list<drape_ptr<MapShape>> m_mapShapes;
 };
 
 } // namespace df

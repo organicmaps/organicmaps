@@ -20,12 +20,12 @@ namespace df
 {
 
 struct TextViewParams;
-class EngineContext;
+class RuleDrawer;
 
 class BaseApplyFeature
 {
 public:
-  BaseApplyFeature(ref_ptr<EngineContext> context, FeatureID const & id,
+  BaseApplyFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
                    CaptionDescription const & captions);
 
   virtual ~BaseApplyFeature() {}
@@ -36,7 +36,7 @@ protected:
                             double depth,
                             TextViewParams & params) const;
 
-  ref_ptr<EngineContext> m_context;
+  ref_ptr<RuleDrawer> m_drawer;
   FeatureID m_id;
   CaptionDescription const & m_captions;
 };
@@ -45,7 +45,7 @@ class ApplyPointFeature : public BaseApplyFeature
 {
   typedef BaseApplyFeature TBase;
 public:
-  ApplyPointFeature(ref_ptr<EngineContext> context, FeatureID const & id,
+  ApplyPointFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
                     CaptionDescription const & captions);
 
   void operator()(m2::PointD const & point);
@@ -65,7 +65,7 @@ class ApplyAreaFeature : public ApplyPointFeature
 {
   typedef ApplyPointFeature TBase;
 public:
-  ApplyAreaFeature(ref_ptr<EngineContext> context, FeatureID const & id,
+  ApplyAreaFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
                    CaptionDescription const & captions);
 
   using TBase::operator ();
@@ -81,9 +81,9 @@ class ApplyLineFeature : public BaseApplyFeature
 {
   typedef BaseApplyFeature TBase;
 public:
-  ApplyLineFeature(ref_ptr<EngineContext> context, FeatureID const & id,
+  ApplyLineFeature(ref_ptr<RuleDrawer> drawer, FeatureID const & id,
                    CaptionDescription const & captions,
-                   double currentScaleGtoP, bool simplify);
+                   double currentScaleGtoP, bool simplify, size_t pointsCount);
 
   void operator() (m2::PointD const & point);
   bool HasGeometry() const;
@@ -96,6 +96,7 @@ private:
   double m_sqrScale;
   m2::PointD m_lastAddedPoint;
   bool m_simplify;
+  size_t m_initialPointsCount;
 
 #ifdef CALC_FILTERED_POINTS
   int m_readedCount;
