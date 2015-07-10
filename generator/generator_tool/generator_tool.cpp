@@ -105,7 +105,7 @@ int main(int argc, char ** argv)
   if (!FLAGS_intermediate_data_path.empty())
   {
     string tmpPath = my::JoinFoldersToPath({genInfo.m_intermediateDir, "tmp"}, string());
-    if (pl.MkDir(genInfo.m_tmpDir) == Platform::ERR_OK)
+    if (pl.MkDir(tmpPath) != Platform::ERR_UNKNOWN)
       genInfo.m_tmpDir = tmpPath;
   }
 
