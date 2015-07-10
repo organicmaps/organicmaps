@@ -337,10 +337,11 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
 
 ApplyLineFeature::ApplyLineFeature(ref_ptr<EngineContext> context, FeatureID const & id,
                                    CaptionDescription const & captions,
-                                   double currentScaleGtoP)
+                                   double currentScaleGtoP, bool simplify)
   : TBase(context, id, captions)
   , m_currentScaleGtoP(currentScaleGtoP)
   , m_sqrScale(math::sqr(m_currentScaleGtoP))
+  , m_simplify(simplify)
 #ifdef CALC_FILTERED_POINTS
   , m_readedCount(0)
 #endif
@@ -364,8 +365,9 @@ void ApplyLineFeature::operator() (m2::PointD const & point)
   else
   {
     static float minSegmentLength = math::sqr(4.0 * df::VisualParams::Instance().GetVisualScale());
-    if ((m_spline->GetSize() > 1 && point.SquareLength(m_lastAddedPoint) * m_sqrScale < minSegmentLength) ||
-        m_spline->IsPrelonging(point))
+    if (m_simplify &&
+        ((m_spline->GetSize() > 1 && point.SquareLength(m_lastAddedPoint) * m_sqrScale < minSegmentLength) ||
+        m_spline->IsPrelonging(point)))
     {
       m_spline->ReplacePoint(point);
     }

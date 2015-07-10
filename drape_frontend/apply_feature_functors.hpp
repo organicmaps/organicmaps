@@ -83,7 +83,7 @@ class ApplyLineFeature : public BaseApplyFeature
 public:
   ApplyLineFeature(ref_ptr<EngineContext> context, FeatureID const & id,
                    CaptionDescription const & captions,
-                   double currentScaleGtoP);
+                   double currentScaleGtoP, bool simplify);
 
   void operator() (m2::PointD const & point);
   bool HasGeometry() const;
@@ -95,6 +95,7 @@ private:
   double m_currentScaleGtoP;
   double m_sqrScale;
   m2::PointD m_lastAddedPoint;
+  bool m_simplify;
 
 #ifdef CALC_FILTERED_POINTS
   int m_readedCount;
