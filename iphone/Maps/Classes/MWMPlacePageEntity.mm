@@ -130,7 +130,13 @@ using feature::Metadata;
 
 - (void)configureForApi:(ApiMarkPoint const *)apiMark
 {
-// TODO(Vlad): Should implement this method.
+  Framework & f = GetFramework();
+  m2::PointD const & point = apiMark->GetOrg();
+  Metadata metadata;
+  search::AddressInfo info;
+  f.FindClosestPOIMetadata(point, metadata);
+  f.GetAddressInfoForGlobalPoint(point, info);
+  [self configureEntityWithMetadata:metadata addressInfo:info];
 }
 
 - (void)configureEntityWithMetadata:(Metadata const &)metadata addressInfo:(search::AddressInfo const &)info
