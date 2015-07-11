@@ -38,7 +38,8 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 + (instancetype)routeNotFoundAlert
 {
-  return [self defaultAlertWithTitle:@"route_not_found" message:@"routing_failed_route_not_found" rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+  NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_cant_build_route"), L(@"dialog_routing_change_start_or_end")];
+  return [self defaultAlertWithTitle:@"dialog_routing_unable_locate_route" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
 + (instancetype)locationServiceNotSupportedAlert
@@ -63,32 +64,32 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 + (instancetype)endPointNotFoundAlert
 {
-  return [self defaultAlertWithTitle:@"change_final_point" message:@"routing_failed_dst_point_not_found" rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+  NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_end_not_determined"), L(@"dialog_routing_select_closer_end")];
+  return [self defaultAlertWithTitle:@"dialog_routing_change_end" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
 + (instancetype)startPointNotFoundAlert
 {
-  return [self defaultAlertWithTitle:@"change_start_point" message:@"routing_failed_start_point_not_found" rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
-}
-
-+ (instancetype)routeNotExist
-{
-  return [self defaultAlertWithTitle:@"ggg" message:@"route_not_exist" rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+  NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_start_not_determined"), L(@"dialog_routing_select_closer_start")];
+  return [self defaultAlertWithTitle:@"dialog_routing_change_start" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
 + (instancetype)internalErrorAlert
 {
-  return [self defaultAlertWithTitle:@"internal_error" message:@"routing_failed_internal_error" rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+  NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_application_error"), L(@"dialog_routing_try_again")];
+  return [self defaultAlertWithTitle:@"dialog_routing_system_errorr" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
 + (instancetype)noCurrentPositionAlert
 {
-  return [self defaultAlertWithTitle:@"check_gps" message:@"routing_failed_unknown_my_position" rightButtonTitle:@"OK" leftButtonTitle:nil rightButtonAction:nil];
+  NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_error_location_not_found"), L(@"dialog_routing_location_turn_wifi")];
+  return [self defaultAlertWithTitle:@"dialog_routing_check_gps" message:message rightButtonTitle:@"OK" leftButtonTitle:nil rightButtonAction:nil];
 }
 
 + (instancetype)routingDisclaimerAlert
 {
-  return [self defaultAlertWithTitle:@"gggg" message:@"routing_disclaimer" rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+  NSString * message = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@", L(@"dialog_routing_disclaimer_priority"), L(@"dialog_routing_disclaimer_precision"), L(@"dialog_routing_disclaimer_recommendations"),L(@"dialog_routing_disclaimer_beware")];
+  return [self defaultAlertWithTitle:@"dialog_routing_disclaimer_title" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
 + (instancetype)disabledLocationAlert
@@ -100,7 +101,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
     GetFramework().GetLocationState()->SwitchToNextMode();
     [[MapsAppDelegate theApp].m_locationManager start:(id<LocationObserver>)manager];
   };
-  return [MWMDefaultAlert defaultAlertWithTitle:@"turn_on_geolocation" message:@"turn_geolaction_on" rightButtonTitle:@"turn_on" leftButtonTitle:@"not_now" rightButtonAction:action];
+  return [MWMDefaultAlert defaultAlertWithTitle:@"dialog_routing_location_turn_on" message:@"dialog_routing_location_unknown_turn_on" rightButtonTitle:@"turn_on" leftButtonTitle:@"later" rightButtonAction:action];
 }
 
 + (instancetype)pointsInDifferentMWMAlert
