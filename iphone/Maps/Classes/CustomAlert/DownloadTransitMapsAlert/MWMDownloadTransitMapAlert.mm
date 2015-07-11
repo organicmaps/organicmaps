@@ -112,7 +112,7 @@ extern UIColor * const kActiveDownloaderViewColor;
 #pragma mark - Actions
 
 - (IBAction)notNowButtonTap:(id)sender {
-  [self.alertController closeAlert];
+  [self close];
 }
 
 - (IBAction)downloadButtonTap:(id)sender {
@@ -121,7 +121,7 @@ extern UIColor * const kActiveDownloaderViewColor;
 
 - (void)downloadMaps {
   self.downloaderBlock();
-  [self.alertController closeAlert];
+  [self close];
   ActiveMapsVC *activeMapsViewController = [[ActiveMapsVC alloc] init];
   [self.alertController.ownerViewController.navigationController pushViewController:activeMapsViewController animated:YES];
 }

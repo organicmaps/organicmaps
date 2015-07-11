@@ -139,12 +139,12 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 {
   if (self.rightButtonAction)
     self.rightButtonAction();
-  [self.alertController closeAlert];
+  [self close];
 }
 
 - (IBAction)leftButtonTap
 {
-  [self.alertController closeAlert];
+  [self close];
 }
 
 @end

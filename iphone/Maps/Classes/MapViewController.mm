@@ -97,6 +97,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 @property (nonatomic) BOOL disableStandbyOnRouteFollowing;
 
 @property (nonatomic) MWMPlacePageViewManager * placePageManager;
+@property (nonatomic) MWMAlertViewController * alertController;
 
 @property (nonatomic) UserTouchesAction userTouchesAction;
 
@@ -116,15 +117,13 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   {
     case location::EDenied:
     {
-      MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
-      [alert presentLocationAlert];
+      [self.alertController presentLocationAlert];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
       break;
     }
     case location::ENotSupported:
     {
-      MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
-      [alert presentLocationServiceNotSupportedAlert];
+      [self.alertController presentLocationServiceNotSupportedAlert];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
       break;
     }
@@ -672,20 +671,18 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
         NSString * name = [NSString stringWithUTF8String:layout.GetCountryName(idx).c_str()];
         Platform::EConnectionType const connection = Platform::ConnectionStatus();
-        MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
         if (connection != Platform::EConnectionType::CONNECTION_NONE)
         {
           if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * 1024 * 1024)
           {
             NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
-
-            [alert presentNotWifiAlertWithName:title downloadBlock:^{layout.DownloadMap(idx, static_cast<TMapOptions>(opt));}];
+            [self.alertController presentNotWifiAlertWithName:title downloadBlock:^{layout.DownloadMap(idx, static_cast<TMapOptions>(opt));}];
             return;
           }
         }
         else
         {
-          [alert presentNotConnectionAlert];
+          [self.alertController presentNotConnectionAlert];
           return;
         }
 
@@ -751,11 +748,10 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
   if (countries.size())
   {
-    MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
     if (type == routing::IRouter::NeedMoreMaps)
-      [alert presentCrossCountryAlertWithCountries:countries routes:routes];
+      [self.alertController presentCrossCountryAlertWithCountries:countries routes:routes];
     else
-      [alert presentDownloaderAlertWithCountries:countries routes:routes];
+      [self.alertController presentDownloaderAlertWithCountries:countries routes:routes];
   }
   else
   {
@@ -765,23 +761,27 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)presentDisabledLocationAlert
 {
-  MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
-  [alert presentDisabledLocationAlert];
+  [self.alertController presentDisabledLocationAlert];
 }
 
 - (void)presentDefaultAlert:(routing::IRouter::ResultCode)type
 {
-  MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
-  [alert presentAlert:type];
+  [self.alertController presentAlert:type];
 }
 
 - (void)presentRoutingDisclaimerAlert
 {
-  MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
-  [alert presentRoutingDisclaimerAlert];
+  [self.alertController presentRoutingDisclaimerAlert];
 }
 
 #pragma mark - Getters
+
+- (MWMAlertViewController *)alertController
+{
+  if (!_alertController)
+    _alertController = [[MWMAlertViewController alloc] initWithViewController:self];
+  return _alertController;
+}
 
 - (UIView *)routeViewWrapper
 {

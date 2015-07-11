@@ -8,7 +8,6 @@
 
 #import "MWMFacebookAlert.h"
 #import "MWMAlertViewController.h"
-#import "UIKitCategories.h"
 #import <FBSDKShareKit/FBSDKShareKit.h>
 
 #import "Statistics.h"
@@ -22,21 +21,11 @@ static NSString * const kFacebookAlertPreviewImage = @"http://maps.me/images/fb_
 static NSString * const kFacebookInviteEventName = @"facebookInviteEvent";
 extern NSString * const kUDAlreadySharedKey;
 
-@interface MWMFacebookAlert ()
-
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (nonatomic, weak) IBOutlet UILabel *messageLabel;
-@property (nonatomic, weak) IBOutlet UIButton *notNowButton;
-@property (nonatomic, weak) IBOutlet UIButton *shareButton;
-
-@end
-
 @implementation MWMFacebookAlert
 
 + (MWMFacebookAlert *)alert
 {
-  MWMFacebookAlert *alert = [[[NSBundle mainBundle] loadNibNamed:kFacebookAlertNibName owner:self options:nil] firstObject];
-  [alert configure];
+  MWMFacebookAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kFacebookAlertNibName owner:self options:nil] firstObject];
   return alert;
 }
 
@@ -46,7 +35,7 @@ extern NSString * const kUDAlreadySharedKey;
 {
   [Alohalytics logEvent:kFacebookInviteEventName withValue:@"shareTap"];
   [[Statistics instance] logEvent:[NSString stringWithFormat:@"%@ShareTap", kFacebookInviteEventName]];
-  [self.alertController closeAlert];
+  [self close];
   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDAlreadySharedKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
 
@@ -60,24 +49,7 @@ extern NSString * const kUDAlreadySharedKey;
 {
   [Alohalytics logEvent:kFacebookInviteEventName withValue:@"notNowTap"];
   [[Statistics instance] logEvent:[NSString stringWithFormat:@"%@NotNowTap", kFacebookInviteEventName]];
-  [self.alertController closeAlert];
-}
-
-#pragma mark - Configure
-
-- (void)configure
-{
-  CGFloat const topMainViewOffset = 17.;
-  CGFloat const secondMainViewOffset = 14.;
-  CGFloat const thirdMainViewOffset = 20.;
-  [self.titleLabel sizeToFit];
-  [self.messageLabel sizeToFit];
-  CGFloat const mainViewHeight = topMainViewOffset + secondMainViewOffset + thirdMainViewOffset + self.titleLabel.height + self.messageLabel.height + self.notNowButton.height;
-  self.height = mainViewHeight;
-  self.titleLabel.minY = topMainViewOffset;
-  self.messageLabel.minY = self.titleLabel.maxY + secondMainViewOffset;
-  self.notNowButton.minY = self.messageLabel.maxY + thirdMainViewOffset;
-  self.shareButton.minY = self.notNowButton.minY;
+  [self close];
 }
 
 @end

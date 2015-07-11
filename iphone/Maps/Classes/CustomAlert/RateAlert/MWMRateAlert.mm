@@ -18,8 +18,6 @@ extern NSString * const kRateAlertEventName = @"rateAlertEvent";
 
 @interface MWMRateAlert ()
 
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (nonatomic, weak) IBOutlet UILabel *messageLabel;
 @property (nonatomic, weak) IBOutlet UIButton *oneStarButton;
 @property (nonatomic, weak) IBOutlet UIButton *twoStarButton;
 @property (nonatomic, weak) IBOutlet UIButton *threeStarButton;
@@ -35,9 +33,6 @@ extern NSString * const kRateAlertEventName = @"rateAlertEvent";
 @property (nonatomic, weak) IBOutlet UILabel *threeStarLabel;
 @property (nonatomic, weak) IBOutlet UILabel *fourStarLabel;
 @property (nonatomic, weak) IBOutlet UILabel *fiveStarLabel;
-@property (nonatomic, weak) IBOutlet UIView *rateView;
-@property (nonatomic, weak) IBOutlet UIButton *notNowBotton;
-@property (nonatomic, weak) IBOutlet UIView *deviderView;
 
 @end
 
@@ -45,109 +40,136 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 
 @implementation MWMRateAlert
 
-+ (instancetype)alert {
-  MWMRateAlert *alert = [[[NSBundle mainBundle] loadNibNamed:kRateAlertNibName owner:self options:nil] firstObject];
-  [alert configure];
++ (instancetype)alert
+{
+  MWMRateAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kRateAlertNibName owner:self options:nil] firstObject];
   return alert;
 }
 
 #pragma mark - Actions
 
-- (IBAction)oneStarTap:(UILongPressGestureRecognizer *)sender {
-  [self starButtonLongTap:sender withBegan:^{
-    [UIView animateWithDuration:0.35f animations:^{
-      self.oneStarPushImageView.alpha = 1;
-      self.oneStarButton.selected = YES;
-    } completion:^(BOOL finished) {
-      [UIView animateWithDuration:0.35f animations:^{
-        self.oneStarPushImageView.alpha = 0.;
-      }];
+- (IBAction)oneStarTap:(UILongPressGestureRecognizer *)sender
+{
+  [UIView animateWithDuration:0.15 animations:^
+  {
+    self.oneStarPushImageView.alpha = 1;
+    self.oneStarButton.selected = YES;
+  }
+  completion:^(BOOL finished)
+  {
+    [UIView animateWithDuration:0.15 animations:^
+    {
+      self.oneStarPushImageView.alpha = 0.;
+    }
+    completion:^(BOOL finished)
+    {
+      [self presentAlertWithStarsCount:1];
     }];
-  } completion:^{
-    [self presentAlertWithStarsCount:1];
   }];
 }
 
-- (IBAction)twoStarTap:(UILongPressGestureRecognizer *)sender {
-  [self starButtonLongTap:sender withBegan:^{
-    [UIView animateWithDuration:0.35f animations:^{
-      self.twoStarPushImageView.alpha = 1;
-      self.oneStarButton.selected = YES;
-      self.twoStarButton.selected = YES;
-    } completion:^(BOOL finished) {
-      [UIView animateWithDuration:0.35f animations:^{
-        self.twoStarPushImageView.alpha = 0.;
-      }];
+- (IBAction)twoStarTap:(UILongPressGestureRecognizer *)sender
+{
+  [UIView animateWithDuration:0.15 animations:^
+  {
+    self.twoStarPushImageView.alpha = 1;
+    self.oneStarButton.selected = YES;
+    self.twoStarButton.selected = YES;
+  }
+  completion:^(BOOL finished)
+  {
+    [UIView animateWithDuration:0.15 animations:^
+    {
+      self.twoStarPushImageView.alpha = 0.;
+    }
+    completion:^(BOOL finished)
+    {
+      [self presentAlertWithStarsCount:2];
     }];
-  } completion:^{
-    [self presentAlertWithStarsCount:2];
   }];
 }
 
-- (IBAction)threeStarTap:(UILongPressGestureRecognizer *)sender {
-  [self starButtonLongTap:sender withBegan:^{
-    [UIView animateWithDuration:0.35f animations:^{
-      self.threeStarPushImageView.alpha = 1.;
-      self.oneStarButton.selected = YES;
-      self.twoStarButton.selected = YES;
-      self.threeStarButton.selected = YES;
-    } completion:^(BOOL finished) {
-      [UIView animateWithDuration:0.35f animations:^{
-        self.threeStarPushImageView.alpha = 0.;
-      }];
+- (IBAction)threeStarTap:(UILongPressGestureRecognizer *)sender
+{
+  [UIView animateWithDuration:0.15 animations:^
+  {
+    self.threeStarPushImageView.alpha = 1.;
+    self.oneStarButton.selected = YES;
+    self.twoStarButton.selected = YES;
+    self.threeStarButton.selected = YES;
+  }
+  completion:^(BOOL finished)
+  {
+    [UIView animateWithDuration:0.15 animations:^
+    {
+      self.threeStarPushImageView.alpha = 0.;
+    }
+    completion:^(BOOL finished)
+    {
+      [self presentAlertWithStarsCount:3];
     }];
-  } completion:^{
-    [self presentAlertWithStarsCount:3];
   }];
 }
 
-- (IBAction)fourStarTap:(UILongPressGestureRecognizer *)sender {
-  [self starButtonLongTap:sender withBegan:^{
-    [UIView animateWithDuration:0.35f animations:^{
-        self.fourStarPushImageView.alpha = 1.;
-        self.oneStarButton.selected = YES;
-        self.twoStarButton.selected = YES;
-        self.threeStarButton.selected = YES;
-        self.fourStarButton.selected = YES;
-    } completion:^(BOOL finished) {
-      [UIView animateWithDuration:0.35f animations:^{
-        self.fourStarPushImageView.alpha = 0.;
-      }];
-    }];
-  } completion:^{
-    [self presentAlertWithStarsCount:4];
-  }];
-}
-
-- (IBAction)fiveStarTap:(UILongPressGestureRecognizer *)sender {
-  [Alohalytics logEvent:kRateAlertEventName withValue:@"fiveStar"];
-  [self starButtonLongTap:sender withBegan:^{
-    [UIView animateWithDuration:0.35f animations:^{
-      self.fiveStarPushImageView.alpha = 1.;
+- (IBAction)fourStarTap:(UILongPressGestureRecognizer *)sender
+{
+  [UIView animateWithDuration:0.15 animations:^
+  {
+      self.fourStarPushImageView.alpha = 1.;
       self.oneStarButton.selected = YES;
       self.twoStarButton.selected = YES;
       self.threeStarButton.selected = YES;
       self.fourStarButton.selected = YES;
-      self.fiveStarButton.selected = YES;
-    } completion:^(BOOL finished) {
-      [UIView animateWithDuration:0.35f animations:^{
-        self.fiveStarPushImageView.alpha = 0.;
-      }];
+  }
+  completion:^(BOOL finished)
+  {
+    [UIView animateWithDuration:0.15 animations:^
+    {
+      self.fourStarPushImageView.alpha = 0.;
+    }
+    completion:^(BOOL finished)
+    {
+      [self presentAlertWithStarsCount:4];
     }];
-  } completion:^{
-    dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::OK);
-    [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
-    [self.alertController closeAlert];
-    [self setupAlreadyRatedInUserDefaults];
   }];
 }
 
-- (IBAction)notNowTap:(UILongPressGestureRecognizer *)sender {
-  [Alohalytics logEvent:kRateAlertEventName withValue:@"notNowTap"];
-  [self.alertController closeAlert];
+- (IBAction)fiveStarTap:(UILongPressGestureRecognizer *)sender
+{
+  [Alohalytics logEvent:kRateAlertEventName withValue:@"fiveStar"];
+  [UIView animateWithDuration:0.15 animations:^
+  {
+    self.fiveStarPushImageView.alpha = 1.;
+    self.oneStarButton.selected = YES;
+    self.twoStarButton.selected = YES;
+    self.threeStarButton.selected = YES;
+    self.fourStarButton.selected = YES;
+    self.fiveStarButton.selected = YES;
+  }
+  completion:^(BOOL finished)
+  {
+    [UIView animateWithDuration:0.15 animations:^
+    {
+      self.fiveStarPushImageView.alpha = 0.;
+    }
+    completion:^(BOOL finished)
+    {
+      dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::OK);
+      [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
+      [self close];
+      [self setupAlreadyRatedInUserDefaults];
+    }];
+  }];
 }
 
-- (void)presentAlertWithStarsCount:(NSUInteger)starsCount {
+- (IBAction)notNowTap
+{
+  [Alohalytics logEvent:kRateAlertEventName withValue:@"notNowTap"];
+  [self close];
+}
+
+- (void)presentAlertWithStarsCount:(NSUInteger)starsCount
+{
   [self removeFromSuperview];
   [self.alertController presentFeedbackAlertWithStarsCount:starsCount];
   [self setupAlreadyRatedInUserDefaults];
@@ -156,44 +178,6 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 - (void)setupAlreadyRatedInUserDefaults {
   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDAlreadyRatedKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)starButtonLongTap:(UILongPressGestureRecognizer *) tap withBegan:(void (^)())began completion:(void (^)())completion {
-  switch (tap.state) {
-    case UIGestureRecognizerStateBegan:
-      began();
-      break;
-    
-    case UIGestureRecognizerStateEnded:
-      completion();
-      break;
-      
-    default:
-      break;
-  }
-}
-
-#pragma mark - Configure
-
-- (void)configure {
-  self.oneStarPushImageView.alpha = 0.;
-  self.twoStarPushImageView.alpha = 0.;
-  self.threeStarPushImageView.alpha = 0.;
-  self.fourStarPushImageView.alpha = 0.;
-  self.fiveStarPushImageView.alpha = 0.;
-  [self.titleLabel sizeToFit];
-  [self.messageLabel sizeToFit];
-  CGFloat const topMainViewOffset = 17.;
-  CGFloat const secondMainViewOffset = 14.;
-  CGFloat const thirdMainViewOffset = 20.;
-  CGFloat const minMainViewHeight = 144. + self.deviderView.height + self.notNowBotton.height;
-  CGFloat const actualMainViewHeight = topMainViewOffset + secondMainViewOffset + (2 * thirdMainViewOffset) + self.titleLabel.height + self.messageLabel.height + self.rateView.height + self.deviderView.height + self.notNowBotton.height;
-  self.height = actualMainViewHeight >= minMainViewHeight ? actualMainViewHeight : minMainViewHeight;
-  self.titleLabel.minY = topMainViewOffset;
-  self.messageLabel.minY = self.titleLabel.maxY + secondMainViewOffset;
-  self.notNowBotton.minY = self.height - self.notNowBotton.height;
-  self.deviderView.minY = self.notNowBotton.minY - 1;
-  self.rateView.minY = self.messageLabel.maxY + thirdMainViewOffset;
 }
 
 @end

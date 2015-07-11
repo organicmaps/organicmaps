@@ -29,6 +29,7 @@
 + (MWMAlert *)notWiFiAlertWithName:(NSString *)name downloadBlock:(void(^)())block;
 + (MWMAlert *)notConnectionAlert;
 + (MWMAlert *)locationServiceNotSupportedAlert;
+- (void)close;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;

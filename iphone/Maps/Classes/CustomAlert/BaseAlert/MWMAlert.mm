@@ -105,6 +105,12 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
 // Should override this method if you wont custom relayout after rotation.
 }
 
+- (void)close
+{
+  [self removeFromSuperview];
+  [self.alertController closeAlert];
+}
+
 - (void)setNeedsCloseAlertAfterEnterBackground
 {
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
@@ -118,7 +124,7 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
 - (void)applicationDidEnterBackground
 {
 // We should not be here when entering back to foreground state
-  [self.alertController closeAlert];
+  [self close];
 }
 
 @end

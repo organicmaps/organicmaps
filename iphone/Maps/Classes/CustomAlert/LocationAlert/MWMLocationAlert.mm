@@ -23,12 +23,12 @@ static NSString * const kLocationAlertNibName = @"MWMLocationAlert";
 - (IBAction)settingsTap
 {
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-  [self.alertController closeAlert];
+  [self close];
 }
 
 - (IBAction)closeTap
 {
-  [self.alertController closeAlert];
+  [self close];
 }
 
 @end
