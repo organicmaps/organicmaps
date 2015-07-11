@@ -41,6 +41,26 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return [self defaultAlertWithTitle:@"route_not_found" message:@"routing_failed_route_not_found" rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
++ (instancetype)locationServiceNotSupportedAlert
+{
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"device_doesnot_support_location_services" message:nil rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+  return alert;
+}
+
++ (instancetype)notConnectionAlert
+{
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"no_internet_connection_detected" message:nil rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+  [alert setNeedsCloseAlertAfterEnterBackground];
+  return alert;
+}
+
++ (instancetype)notWiFiAlertWithName:(NSString *)name downloadBlock:(void(^)())block
+{
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:name message:nil rightButtonTitle:@"use_cellular_data" leftButtonTitle:@"cancel" rightButtonAction:block];
+  [alert setNeedsCloseAlertAfterEnterBackground];
+  return alert;
+}
+
 + (instancetype)endPointNotFoundAlert
 {
   return [self defaultAlertWithTitle:@"change_final_point" message:@"routing_failed_dst_point_not_found" rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
@@ -80,7 +100,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
     GetFramework().GetLocationState()->SwitchToNextMode();
     [[MapsAppDelegate theApp].m_locationManager start:(id<LocationObserver>)manager];
   };
-  return [MWMDefaultAlert defaultAlertWithTitle:L(@"turn_on_geolocation") message:L(@"turn_geolaction_on") rightButtonTitle:L(@"turn_on") leftButtonTitle:L(@"not_now") rightButtonAction:action];
+  return [MWMDefaultAlert defaultAlertWithTitle:@"turn_on_geolocation" message:@"turn_geolaction_on" rightButtonTitle:@"turn_on" leftButtonTitle:@"not_now" rightButtonAction:action];
 }
 
 + (instancetype)pointsInDifferentMWMAlert

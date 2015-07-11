@@ -24,6 +24,11 @@
 - (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount;
 - (void)presentRoutingDisclaimerAlert;
 - (void)presentDisabledLocationAlert;
+- (void)presentLocationAlert;
+- (void)presentLocationServiceNotSupportedAlert;
+- (void)presentNotConnectionAlert;
+- (void)presentNotWifiAlertWithName:(NSString *)name downloadBlock:(void(^)())block;
+
 - (void)closeAlert;
 
 - (instancetype)init __attribute__((unavailable("-init isn't available, call -initWithViewController: instead!")));

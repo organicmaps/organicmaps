@@ -1,8 +1,8 @@
 
 #import "DownloaderParentVC.h"
-#import "CustomAlertView.h"
 #import "DiskFreeSpace.h"
 #import "Statistics.h"
+#import "MWMAlertViewController.h"
 
 #include "platform/platform.hpp"
 
@@ -37,6 +37,16 @@
     else if (self.selectedInActionSheetOptions == TMapOptions::EMapWithCarRouting)
       [self performAction:DownloaderActionDownloadAll withSizeCheck:NO];
   }
+}
+
+- (void)download
+{
+  if (self.selectedInActionSheetOptions == TMapOptions::EMap)
+    [self performAction:DownloaderActionDownloadMap withSizeCheck:NO];
+  else if (self.selectedInActionSheetOptions == TMapOptions::ECarRouting)
+    [self performAction:DownloaderActionDownloadCarRouting withSizeCheck:NO];
+  else if (self.selectedInActionSheetOptions == TMapOptions::EMapWithCarRouting)
+    [self performAction:DownloaderActionDownloadAll withSizeCheck:NO];
 }
 
 - (BOOL)allButtonsInActionSheetAreAboutDownloading:(TStatus const)status
@@ -78,19 +88,29 @@
   NSString * name = [self selectedMapName];
 
   Platform::EConnectionType const connection = Platform::ConnectionStatus();
+  MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
   if (connection != Platform::EConnectionType::CONNECTION_NONE)
   {
     if (connection == Platform::EConnectionType::CONNECTION_WWAN && size > 50 * MB)
     {
       NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
-      [[[CustomAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"use_cellular_data"), nil] show];
+      [alert presentNotWifiAlertWithName:title downloadBlock:^
+       {
+         if (self.selectedInActionSheetOptions == TMapOptions::EMap)
+           [self performAction:DownloaderActionDownloadMap withSizeCheck:NO];
+         else if (self.selectedInActionSheetOptions == TMapOptions::ECarRouting)
+           [self performAction:DownloaderActionDownloadCarRouting withSizeCheck:NO];
+         else if (self.selectedInActionSheetOptions == TMapOptions::EMapWithCarRouting)
+           [self performAction:DownloaderActionDownloadAll withSizeCheck:NO];
+       }];
     }
     else
       return YES;
   }
   else
   {
-    [[[CustomAlertView alloc] initWithTitle:L(@"no_internet_connection_detected") message:L(@"use_wifi_recommendation_text") delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
+    MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
+    [alert presentNotConnectionAlert];
   }
   return NO;
 }

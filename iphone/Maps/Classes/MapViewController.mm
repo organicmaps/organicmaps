@@ -15,7 +15,6 @@
 #import "UIViewController+Navigation.h"
 
 #import "../../../3party/Alohalytics/src/alohalytics_objc.h"
-#import "../../Common/CustomAlertView.h"
 
 #include "Framework.h"
 #include "RenderContext.hpp"
@@ -117,23 +116,15 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   {
     case location::EDenied:
     {
-      UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
-                                                           message:L(@"location_is_disabled_long_text")
-                                                          delegate:nil
-                                                 cancelButtonTitle:L(@"ok")
-                                                 otherButtonTitles:nil];
-      [alert show];
+      MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
+      [alert presentLocationAlert];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
       break;
     }
     case location::ENotSupported:
     {
-      UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
-                                                           message:L(@"device_doesnot_support_location_services")
-                                                          delegate:nil
-                                                 cancelButtonTitle:L(@"ok")
-                                                 otherButtonTitles:nil];
-      [alert show];
+      MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
+      [alert presentLocationServiceNotSupportedAlert];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
       break;
     }
@@ -664,7 +655,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
     f.Invalidate();
     f.LoadBookmarks();
 
-    f.GetCountryStatusDisplay()->SetDownloadCountryListener([](storage::TIndex const & idx, int opt)
+    f.GetCountryStatusDisplay()->SetDownloadCountryListener([self](storage::TIndex const & idx, int opt)
     {
       ActiveMapsLayout & layout = GetFramework().GetCountryTree().GetActiveMapLayout();
       if (opt == -1)
@@ -681,25 +672,20 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
         NSString * name = [NSString stringWithUTF8String:layout.GetCountryName(idx).c_str()];
         Platform::EConnectionType const connection = Platform::ConnectionStatus();
+        MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
         if (connection != Platform::EConnectionType::CONNECTION_NONE)
         {
           if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * 1024 * 1024)
           {
             NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
 
-            CustomAlertView * alertView = [[CustomAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"use_cellular_data"), nil];
-            alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)
-            {
-              if (buttonIndex != alertView.cancelButtonIndex)
-                layout.DownloadMap(idx, static_cast<TMapOptions>(opt));
-            };
-            [alertView show];
+            [alert presentNotWifiAlertWithName:title downloadBlock:^{layout.DownloadMap(idx, static_cast<TMapOptions>(opt));}];
             return;
           }
         }
         else
         {
-          [[[CustomAlertView alloc] initWithTitle:L(@"no_internet_connection_detected") message:L(@"use_wifi_recommendation_text") delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
+          [alert presentNotConnectionAlert];
           return;
         }
 

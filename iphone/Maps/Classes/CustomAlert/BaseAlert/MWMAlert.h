@@ -22,8 +22,14 @@
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount;
 + (MWMAlert *)facebookAlert;
++ (MWMAlert *)locationAlert;
 + (MWMAlert *)routingDisclaimerAlert;
 + (MWMAlert *)disabledLocationAlert;
++ (MWMAlert *)notWiFiAlertWithName:(NSString *)name downloadBlock:(void(^)())block;
++ (MWMAlert *)notConnectionAlert;
++ (MWMAlert *)locationServiceNotSupportedAlert;
+
+- (void)setNeedsCloseAlertAfterEnterBackground;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 
 @end

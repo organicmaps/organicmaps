@@ -43,9 +43,33 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:alert];
 }
 
+- (void)presentLocationAlert
+{
+  MWMAlert * alert = [MWMAlert locationAlert];
+  [self displayAlert:alert];
+}
+
 - (void)presentFacebookAlert
 {
   MWMAlert * alert = [MWMAlert facebookAlert];
+  [self displayAlert:alert];
+}
+
+- (void)presentLocationServiceNotSupportedAlert
+{
+  MWMAlert * alert = [MWMAlert locationServiceNotSupportedAlert];
+  [self displayAlert:alert];
+}
+
+- (void)presentNotConnectionAlert
+{
+  MWMAlert * alert = [MWMAlert notConnectionAlert];
+  [self displayAlert:alert];
+}
+
+- (void)presentNotWifiAlertWithName:(NSString *)name downloadBlock:(void(^)())block
+{
+  MWMAlert * alert = [MWMAlert notWiFiAlertWithName:name downloadBlock:block];
   [self displayAlert:alert];
 }
 

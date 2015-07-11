@@ -10,4 +10,6 @@
 
 @interface MWMLocationAlert : MWMAlert
 
++ (instancetype)alert;
+
 @end

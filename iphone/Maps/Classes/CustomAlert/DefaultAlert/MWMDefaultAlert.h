@@ -19,5 +19,8 @@
 + (instancetype)routingDisclaimerAlert;
 + (instancetype)routeNotExist;
 + (instancetype)disabledLocationAlert;
++ (instancetype)notWiFiAlertWithName:(NSString *)name downloadBlock:(void(^)())block;
++ (instancetype)notConnectionAlert;
++ (instancetype)locationServiceNotSupportedAlert;
 
 @end
