@@ -19,6 +19,7 @@
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes;
++ (MWMAlert *)crossCountryAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes;
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount;
 + (MWMAlert *)facebookAlert;

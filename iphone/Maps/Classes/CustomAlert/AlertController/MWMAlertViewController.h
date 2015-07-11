@@ -19,6 +19,7 @@
 - (instancetype)initWithViewController:(UIViewController *)viewController;
 - (void)presentAlert:(routing::IRouter::ResultCode)type;
 - (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes;
+- (void)presentCrossCountryAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes;
 - (void)presentRateAlert;
 - (void)presentFacebookAlert;
 - (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount;

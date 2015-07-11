@@ -752,8 +752,9 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   if (countries.size())
   {
     MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
-//    if (type == routing::IRouter::NeedMoreMaps)
-//    else
+    if (type == routing::IRouter::NeedMoreMaps)
+      [alert presentCrossCountryAlertWithCountries:countries routes:routes];
+    else
       [alert presentDownloaderAlertWithCountries:countries routes:routes];
   }
   else

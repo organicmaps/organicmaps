@@ -12,8 +12,8 @@
 #include "storage/storage.hpp"
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
-
-+ (instancetype)alertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes;
++ (instancetype)crossCountryAlertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes;
++ (instancetype)downloaderAlertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes;
 - (void)showDownloadDetail:(UIButton *)sender;
 
 @end

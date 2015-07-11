@@ -64,9 +64,15 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
   return [MWMFeedbackAlert alertWithStarsCount:starsCount];
 }
 
++ (MWMAlert *)crossCountryAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
+{
+  return [MWMDownloadTransitMapAlert crossCountryAlertWithCountries:countries routes:routes];
+}
+
+
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
 {
-  return [MWMDownloadTransitMapAlert alertWithMaps:countries routes:routes];
+  return [MWMDownloadTransitMapAlert downloaderAlertWithMaps:countries routes:routes];
 }
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type

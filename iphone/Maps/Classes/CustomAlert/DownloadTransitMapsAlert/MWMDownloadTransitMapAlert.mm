@@ -61,6 +61,22 @@ extern UIColor * const kActiveDownloaderViewColor;
 
 @implementation MWMDownloadTransitMapAlert
 
++ (instancetype)crossCountryAlertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes
+{
+  MWMDownloadTransitMapAlert * alert = [self alertWithMaps:maps routes:routes];
+  alert.titleLabel.text = L(@"dialog_routing_download_and_build_cross_route");
+  alert.messageLabel.text = L(@"dialog_routing_download_cross_route");
+  return alert;
+}
+
++ (instancetype)downloaderAlertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes
+{
+  MWMDownloadTransitMapAlert * alert = [self alertWithMaps:maps routes:routes];
+  alert.titleLabel.text = L(@"dialog_routing_download_files");
+  alert.messageLabel.text = L(@"dialog_routing_download_and_update_all");
+  return alert;
+}
+
 + (instancetype)alertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes
 {
   MWMDownloadTransitMapAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadTransitMapAlertNibName owner:nil options:nil] firstObject];
@@ -272,7 +288,7 @@ extern UIColor * const kActiveDownloaderViewColor;
         s += layout.GetCountrySize(index, TMapOptions::EMapWithCarRouting).second;
 
       NSString * size = [NSString stringWithFormat:@"%@ %@", @(s / (1024 * 1024)), L(@"mb")];
-      NSString * title = [NSString stringWithFormat:@"%@(%@)", L(@"maps"), @(maps.size())];
+      NSString * title = [NSString stringWithFormat:@"%@(%@)", L(@"dialog_routing_maps"), @(maps.size())];
       self.mapsHeader = [MWMDownloaderDialogHeader headerForOwnerAlert:self title:title size:size];
     }
     else
@@ -299,7 +315,7 @@ extern UIColor * const kActiveDownloaderViewColor;
         s += layout.GetCountrySize(index, TMapOptions::ECarRouting).second;
 
       NSString * size = [NSString stringWithFormat:@"%@ %@", @(s / (1024 * 1024)), L(@"mb")];
-      NSString * title = [NSString stringWithFormat:@"%@(%@)", L(@"route_files"), @(routes.size())];
+      NSString * title = [NSString stringWithFormat:@"%@(%@)", L(@"dialog_routing_routes_size"), @(routes.size())];
       self.routesHeader = [MWMDownloaderDialogHeader headerForOwnerAlert:self title:title size:size];
     }
     else
