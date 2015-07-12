@@ -141,14 +141,15 @@ struct CountryStatusDisplayTest
 
     m_framework.reset(new Framework());
 
-    p.m_depth = graphics::maxDepth;
-    p.m_pivot = m_pivot;
-    p.m_position = graphics::EPosAboveLeft;
+    ///@TODO (UVR)
+//    p.m_depth = graphics::maxDepth;
+//    p.m_pivot = m_pivot;
+//    p.m_position = graphics::EPosAboveLeft;
 
-    m_countryStatus.reset(new CountryStatusDisplay(p));
-    m_countryStatus->SetCountryIndex(storage::TIndex(1, 1, 1));
-    m_countryStatus->setPivot(m_pivot);
-    c->AddElement(m_countryStatus);
+//    m_countryStatus.reset(new CountryStatusDisplay(p));
+//    m_countryStatus->SetCountryIndex(storage::TIndex(1, 1, 1));
+//    m_countryStatus->setPivot(m_pivot);
+//    c->AddElement(m_countryStatus);
   }
 
   void DoDraw(shared_ptr<graphics::Screen> const & p)

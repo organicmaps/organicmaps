@@ -21,6 +21,8 @@
 #include "search/query_saver.hpp"
 #include "search/search_engine.hpp"
 
+#include "render/frame_image.hpp"
+
 #include "storage/storage.hpp"
 
 #include "platform/country_defines.hpp"
@@ -135,17 +137,6 @@ public:
     m2::PointD m_searchResult;
     bool m_showSearchResult = false;
     int m_bottomZoom = -1;
-  };
-
-  struct FrameImage
-  {
-    // image data.
-    // TopLeft-to-RightBottom order
-    // Format - png
-    vector<uint8_t> m_data;
-    uint32_t m_width = 0;       // pixel width of image
-    uint32_t m_height = 0;      // pixel height of image
-    uint32_t m_stride = 0;      // row stride in bytes
   };
 
   /// @param density - for Retina Display you must use EDensityXHDPI

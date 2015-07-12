@@ -83,7 +83,9 @@ bool IsLocationEmulation(QMouseEvent * e)
     {
     });
 
-    m_framework->SetRouteBuildingListener([] (routing::IRouter::ResultCode, vector<storage::TIndex> const &)
+    m_framework->SetRouteBuildingListener([](routing::IRouter::ResultCode,
+                                             vector<storage::TIndex> const &,
+                                             vector<storage::TIndex> const &)
     {
     });
   }

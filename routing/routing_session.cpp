@@ -406,21 +406,6 @@ m2::PointD const & RoutingSession::GetUserCurrentPosition() const
   return m_userCurrentPosition;
 }
 
-bool RoutingSession::GetMercatorDistanceFromBegin(double & distance) const
-{
-  if (m_state != State::OnRoute)
-  {
-    distance = 0.0;
-    return false;
-  }
-
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-
-  distance = m_route.GetMercatorDistanceFromBegin();
-  return true;
-}
-
 void RoutingSession::EnableTurnNotifications(bool enable)
 {
   threads::MutexGuard guard(m_routeSessionMutex);
