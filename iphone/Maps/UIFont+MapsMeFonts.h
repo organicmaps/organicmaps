@@ -16,6 +16,12 @@
 + (UIFont *)regular17;
 + (UIFont *)regular18;
 + (UIFont *)regular24;
++ (UIFont *)medium10;
++ (UIFont *)medium14;
++ (UIFont *)medium16;
++ (UIFont *)medium17;
++ (UIFont *)medium18;
++ (UIFont *)medium24;
 + (UIFont *)light10;
 + (UIFont *)light12;
 + (UIFont *)light16;
