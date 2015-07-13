@@ -26,6 +26,7 @@ HEADERS += \
     search_engine.hpp \
     search_query.hpp \
     search_query_factory.hpp \
+    search_query_params.hpp \
     search_string_intersection.hpp \
 
 SOURCES += \
@@ -41,3 +42,4 @@ SOURCES += \
     result.cpp \
     search_engine.cpp \
     search_query.cpp \
+    search_query_params.cpp \

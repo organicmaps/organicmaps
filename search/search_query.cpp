@@ -1,9 +1,11 @@
 #include "search_query.hpp"
+
 #include "feature_offset_match.hpp"
+#include "geometry_utils.hpp"
+#include "indexed_value.hpp"
 #include "latlon_match.hpp"
 #include "search_common.hpp"
-#include "indexed_value.hpp"
-#include "geometry_utils.hpp"
+#include "search_query_params.hpp"
 #include "search_string_intersection.hpp"
 
 #include "storage/country_info.hpp"
@@ -1241,188 +1243,47 @@ namespace
     }
 }
 
-Query::Params::Params(Query const & q, bool isLocalities/* = false*/)
+void Query::InitParams(bool localitySearch, SearchQueryParams & params)
 {
-  if (!q.m_prefix.empty())
-    m_prefixTokens.push_back(q.m_prefix);
+  if (!m_prefix.empty())
+    params.m_prefixTokens.push_back(m_prefix);
 
-  size_t const tokensCount = q.m_tokens.size();
-  m_tokens.resize(tokensCount);
+  size_t const tokensCount = m_tokens.size();
+  params.m_tokens.resize(tokensCount);
 
   // Add normal tokens.
   for (size_t i = 0; i < tokensCount; ++i)
-    m_tokens[i].push_back(q.m_tokens[i]);
+    params.m_tokens[i].push_back(m_tokens[i]);
 
   // Add names of categories (and synonyms).
-  if (!isLocalities)
+  if (!localitySearch)
   {
     Classificator const & cl = classif();
-    q.ForEachCategoryTypes([&] (size_t i, uint32_t t)
+    auto addSyms = [&](size_t i, uint32_t t)
     {
-      TokensVectorT & v = (i < tokensCount ? m_tokens[i] : m_prefixTokens);
+      SearchQueryParams::TSynonymsVector & v =
+          (i < tokensCount ? params.m_tokens[i] : params.m_prefixTokens);
 
       uint32_t const index = cl.GetIndexForType(t);
       v.push_back(FeatureTypeToString(index));
 
       // v2-version MWM has raw classificator types in search index prefix, so
       // do the hack: add synonyms for old convention if needed.
-      if (q.m_supportOldFormat)
+      if (m_supportOldFormat)
       {
         int const type = GetOldTypeFromIndex(index);
         if (type >= 0)
         {
-          ASSERT ( type == 70 || type > 4000, (type));
+          ASSERT(type == 70 || type > 4000, (type));
           v.push_back(FeatureTypeToString(static_cast<uint32_t>(type)));
         }
       }
-    });
+    };
+    ForEachCategoryTypes(addSyms);
   }
 
-  FillLanguages(q);
-}
-
-void Query::Params::EraseTokens(vector<size_t> & eraseInds)
-{
-  eraseInds.erase(unique(eraseInds.begin(), eraseInds.end()), eraseInds.end());
-
-  // fill temporary vector
-  vector<TokensVectorT> newTokens;
-
-  size_t skipI = 0;
-  size_t const count = m_tokens.size();
-  size_t const eraseCount = eraseInds.size();
-  for (size_t i = 0; i < count; ++i)
-  {
-    if (skipI < eraseCount && eraseInds[skipI] == i)
-    {
-      ++skipI;
-    }
-    else
-    {
-      newTokens.push_back(TokensVectorT());
-      newTokens.back().swap(m_tokens[i]);
-    }
-  }
-
-  // assign to m_tokens
-  newTokens.swap(m_tokens);
-
-  if (skipI < eraseCount)
-  {
-    // it means that we need to skip prefix tokens
-    ASSERT_EQUAL ( skipI+1, eraseCount, (eraseInds) );
-    ASSERT_EQUAL ( eraseInds[skipI], count, (eraseInds) );
-    m_prefixTokens.clear();
-  }
-}
-
-template <class ToDo> void Query::Params::ForEachToken(ToDo toDo)
-{
-  size_t const count = m_tokens.size();
-  for (size_t i = 0; i < count; ++i)
-  {
-    ASSERT ( !m_tokens[i].empty(), () );
-    ASSERT ( !m_tokens[i].front().empty(), () );
-    toDo(m_tokens[i].front(), i);
-  }
-
-  if (!m_prefixTokens.empty())
-  {
-    ASSERT ( !m_prefixTokens.front().empty(), () );
-    toDo(m_prefixTokens.front(), count);
-  }
-}
-
-string DebugPrint(Query::Params const & p)
-{
-  return ("Query::Params: Tokens = " + DebugPrint(p.m_tokens) +
-          "; Prefixes = " + DebugPrint(p.m_prefixTokens));
-}
-
-namespace
-{
-  class DoStoreNumbers
-  {
-    vector<size_t> & m_vec;
-  public:
-    DoStoreNumbers(vector<size_t> & vec) : m_vec(vec) {}
-    void operator() (Query::Params::StringT const & s, size_t i)
-    {
-      /// @todo Do smart filtering of house numbers and zipcodes.
-      if (feature::IsNumber(s))
-        m_vec.push_back(i);
-    }
-  };
-
-  class DoAddStreetSynonyms
-  {
-    Query::Params & m_params;
-
-    Query::Params::TokensVectorT & GetTokens(size_t i)
-    {
-      size_t const count = m_params.m_tokens.size();
-      if (i < count)
-        return m_params.m_tokens[i];
-      else
-      {
-        ASSERT_EQUAL ( i, count, () );
-        return m_params.m_prefixTokens;
-      }
-    }
-
-    void AddSynonym(size_t i, string const & sym)
-    {
-      GetTokens(i).push_back(strings::MakeUniString(sym));
-    }
-
-  public:
-    DoAddStreetSynonyms(Query::Params & params) : m_params(params) {}
-
-    void operator() (Query::Params::StringT const & s, size_t i)
-    {
-      if (s.size() <= 2)
-      {
-        string const ss = strings::ToUtf8(strings::MakeLowerCase(s));
-
-        // All synonyms should be lowercase!
-        if (ss == "n")
-          AddSynonym(i, "north");
-        else if (ss == "w")
-          AddSynonym(i, "west");
-        else if (ss == "s")
-          AddSynonym(i, "south");
-        else if (ss == "e")
-          AddSynonym(i, "east");
-        else if (ss == "nw")
-          AddSynonym(i, "northwest");
-        else if (ss == "ne")
-          AddSynonym(i, "northeast");
-        else if (ss == "sw")
-          AddSynonym(i, "southwest");
-        else if (ss == "se")
-          AddSynonym(i, "southeast");
-      }
-    }
-  };
-}
-
-void Query::Params::ProcessAddressTokens()
-{
-  // 1. Do simple stuff - erase all number tokens.
-  // Assume that USA street name numbers are end with "st, nd, rd, th" suffixes.
-
-  vector<size_t> toErase;
-  ForEachToken(DoStoreNumbers(toErase));
-  EraseTokens(toErase);
-
-  // 2. Add synonyms for N, NE, NW, etc.
-  ForEachToken(DoAddStreetSynonyms(*this));
-}
-
-void Query::Params::FillLanguages(Query const & q)
-{
   for (int i = 0; i < LANG_COUNT; ++i)
-    m_langs.insert(q.GetLanguage(i));
+    params.m_langs.insert(GetLanguage(i));
 }
 
 namespace impl
@@ -1622,7 +1483,8 @@ void Query::SearchAddress(Results & res)
       {
         LOG(LDEBUG, ("Final city-locality = ", city));
 
-        Params params(*this);
+        SearchQueryParams params;
+        InitParams(false /* localitySearch */, params);
         params.EraseTokens(city.m_matchedTokens);
 
         if (params.CanSuggest())
@@ -1652,7 +1514,8 @@ void Query::SearchAddress(Results & res)
       {
         LOG(LDEBUG, ("Final region-locality = ", region));
 
-        Params params(*this);
+        SearchQueryParams params;
+        InitParams(false /* localitySearch */, params);
         params.EraseTokens(region.m_matchedTokens);
 
         if (params.CanSuggest())
@@ -1897,7 +1760,8 @@ namespace impl
 
 void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region & res2)
 {
-  Params params(*this, true);
+  SearchQueryParams params;
+  InitParams(true /* localitySearch */, params);
 
   serial::CodingParams cp(GetCPForTrie(pMwm->GetHeader().GetDefCodingParams()));
 
@@ -1957,7 +1821,8 @@ void Query::SearchFeatures()
   MWMVectorT mwmsInfo;
   m_pIndex->GetMwmsInfo(mwmsInfo);
 
-  Params params(*this);
+  SearchQueryParams params;
+  InitParams(false /* localitySearch */, params);
 
   // do usual search in viewport and near me (without last rect)
   for (int i = 0; i < LOCALITY_V; ++i)
@@ -2023,7 +1888,8 @@ namespace
   };
 }
 
-void Query::SearchFeatures(Params const & params, MWMVectorT const & mwmsInfo, ViewportID vID)
+void Query::SearchFeatures(SearchQueryParams const & params, MWMVectorT const & mwmsInfo,
+                           ViewportID vID)
 {
   for (shared_ptr<MwmInfo> const & info : mwmsInfo)
   {
@@ -2038,8 +1904,7 @@ void Query::SearchFeatures(Params const & params, MWMVectorT const & mwmsInfo, V
 
 namespace
 {
-
-void FillCategories(Query::Params const & params, TrieIterator const * pTrieRoot,
+void FillCategories(SearchQueryParams const & params, TrieIterator const * pTrieRoot,
                     TrieValuesHolder<FeaturesFilter> & categoriesHolder)
 {
   unique_ptr<TrieIterator> pCategoriesRoot;
@@ -2069,7 +1934,7 @@ void FillCategories(Query::Params const & params, TrieIterator const * pTrieRoot
 
 }
 
-void Query::SearchInMWM(Index::MwmHandle const & mwmHandle, Params const & params,
+void Query::SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams const & params,
                         ViewportID vID /*= DEFAULT_V*/)
 {
   if (MwmValue const * const pMwm = mwmHandle.GetValue<MwmValue>())
@@ -2195,7 +2060,8 @@ void Query::SearchAdditional(Results & res, size_t resCount)
     MWMVectorT mwmsInfo;
     m_pIndex->GetMwmsInfo(mwmsInfo);
 
-    Params params(*this);
+    SearchQueryParams params;
+    InitParams(false /* localitySearch */, params);
 
     for (shared_ptr<MwmInfo> const & info : mwmsInfo)
     {

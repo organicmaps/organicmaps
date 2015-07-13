@@ -38,6 +38,7 @@ namespace storage { class CountryInfoGetter; }
 
 namespace search
 {
+struct SearchQueryParams;
 
 namespace impl
 {
@@ -116,35 +117,7 @@ public:
   //@{
   typedef trie::ValueReader::ValueType TrieValueT;
 
-  struct Params
-  {
-    typedef strings::UniString StringT;
-    typedef vector<StringT> TokensVectorT;
-    typedef unordered_set<int8_t> LangsSetT;
-
-    vector<TokensVectorT> m_tokens;
-    TokensVectorT m_prefixTokens;
-    LangsSetT m_langs;
-
-    /// Initialize search params (tokens, languages).
-    /// @param[in]  isLocalities  Use true when search for locality in World.
-    Params(Query const & q, bool isLocalities = false);
-
-    /// @param[in] eraseInds Sorted vector of token's indexes.
-    void EraseTokens(vector<size_t> & eraseInds);
-
-    void ProcessAddressTokens();
-
-    bool IsEmpty() const { return (m_tokens.empty() && m_prefixTokens.empty()); }
-    bool CanSuggest() const { return (m_tokens.empty() && !m_prefixTokens.empty()); }
-    bool IsLangExist(int8_t l) const { return (m_langs.count(l) > 0); }
-
-  private:
-    template <class ToDo> void ForEachToken(ToDo toDo);
-
-    void FillLanguages(Query const & q);
-  };
-  //@}
+  void InitParams(bool localitySearch, SearchQueryParams & params);
 
 private:
   friend class impl::FeatureLoader;
@@ -202,9 +175,10 @@ private:
   /// If ind == -1, don't do any matching with features in viewport (@see m_offsetsInViewport).
   //@{
   /// Do search in all maps from mwmInfo.
-  void SearchFeatures(Params const & params, MWMVectorT const & mwmsInfo, ViewportID vID);
+  void SearchFeatures(SearchQueryParams const & params, MWMVectorT const & mwmsInfo,
+                      ViewportID vID);
   /// Do search in particular map (mwmHandle).
-  void SearchInMWM(Index::MwmHandle const & mwmHandle, Params const & params,
+  void SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams const & params,
                    ViewportID vID = DEFAULT_V);
   //@}
 
