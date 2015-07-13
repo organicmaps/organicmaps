@@ -40,6 +40,14 @@ class TurnsSound
   /// for last several seconds instead of the current speed here.
   double m_speedMetersPerSecond;
   Settings m_settings;
+  /// m_nextNotificationProgress keeps a status which is being changing while
+  /// an end user is coming to the closest (the next) turn along the route.
+  /// When an end user is far from the next turn
+  /// m_nextNotificationProgress == Nothing.
+  /// After the first turn notification has been pronounced
+  /// m_nextNotificationProgress == First.
+  /// After the second notification has been pronounced
+  /// m_nextNotificationProgress == Second.
   PronouncedNotification m_nextNotificationProgress;
   uint32_t m_nextTurnIndex;
 

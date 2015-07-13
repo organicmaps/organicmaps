@@ -11,17 +11,17 @@ using namespace location;
 using namespace routing::turns;
 using namespace routing::turns::sound;
 
-Settings const settingsMeters(20 /* notificationTimeSeconds */,
-                              200 /* minNotificationDistanceUnits */,
-                              700 /* maxNotificationDistanceUnits */,
-                              {100, 200, 300, 400, 500, 600, 700} /* soundedDistancesUnits */,
-                              LengthUnits::Meters /* lengthUnits */);
+Settings const g_settingsMeters(20 /* notificationTimeSeconds */,
+                                200 /* minNotificationDistanceUnits */,
+                                700 /* maxNotificationDistanceUnits */,
+                                {100, 200, 300, 400, 500, 600, 700} /* soundedDistancesUnits */,
+                                LengthUnits::Meters /* lengthUnits */);
 
-Settings const settingsFeet(20 /* notificationTimeSeconds */,
-                            500 /* minNotificationDistanceUnits */,
-                            2000 /* maxNotificationDistanceUnits */,
-                            {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
-                            LengthUnits::Feet /* lengthUnits */);
+Settings const g_settingsFeet(20 /* notificationTimeSeconds */,
+                              500 /* minNotificationDistanceUnits */,
+                              2000 /* maxNotificationDistanceUnits */,
+                              {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
+                              LengthUnits::Feet /* lengthUnits */);
 
 // A error to compare two double after conversion feet to meters.
 double const kEps = 1.;
@@ -30,7 +30,7 @@ double const kSmallEps = .001;
 
 UNIT_TEST(TurnNotificationSettingsMetersTest)
 {
-  Settings const & settings = settingsMeters;
+  Settings const & settings = g_settingsMeters;
 
   TEST(settings.IsValid(), ());
   TEST(my::AlmostEqualAbs(
@@ -50,7 +50,7 @@ UNIT_TEST(TurnNotificationSettingsMetersTest)
 
 UNIT_TEST(TurnNotificationSettingsFeetTest)
 {
-  Settings const & settings = settingsFeet;
+  Settings const & settings = g_settingsFeet;
 
   TEST(settings.IsValid(), ());
   TEST(my::AlmostEqualAbs(
@@ -93,7 +93,7 @@ UNIT_TEST(TurnsSoundMetersTest)
 {
   TurnsSound turnSound;
   turnSound.Enable(true);
-  turnSound.SetSettings(settingsMeters);
+  turnSound.SetSettings(g_settingsMeters);
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(30.);
 
@@ -170,7 +170,7 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
 {
   TurnsSound turnSound;
   turnSound.Enable(true);
-  turnSound.SetSettings(settingsMeters);
+  turnSound.SetSettings(g_settingsMeters);
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(35.);
 
@@ -231,7 +231,7 @@ UNIT_TEST(TurnsSoundFeetTest)
 {
   TurnsSound turnSound;
   turnSound.Enable(true);
-  turnSound.SetSettings(settingsFeet);
+  turnSound.SetSettings(g_settingsFeet);
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(30.);
 
