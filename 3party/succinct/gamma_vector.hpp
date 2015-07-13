@@ -99,8 +99,8 @@ namespace succinct {
         value_type next()
         {
             assert(m_idx <= m_c->size());
-            uint64_t next_pos = m_high_bits_enumerator.next();
-            uint64_t l = next_pos - m_pos - 1;
+            size_t next_pos = m_high_bits_enumerator.next();
+            size_t l = next_pos - m_pos - 1;
             m_pos = next_pos;
             uint64_t chunk = m_low_bits_enumerator.take(l);
             uint64_t val = (chunk | (uint64_t(1) << (l))) - 1;

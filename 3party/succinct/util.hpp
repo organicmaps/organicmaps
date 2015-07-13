@@ -10,13 +10,7 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
 
-namespace succinct { namespace util
-{
-    inline size_t to_size(uint64_t n)
-    {
-        assert(n <= std::numeric_limits<size_t>::max());
-        return static_cast<size_t>(n);
-    }
+namespace succinct { namespace util {
 
     inline void trim_newline_chars(std::string& s)
     {

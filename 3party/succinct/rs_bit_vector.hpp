@@ -58,7 +58,7 @@ namespace succinct {
             uint64_t r = sub_block_rank(sub_block);
             uint64_t sub_left = pos % 64;
             if (sub_left) {
-                r += broadword::popcount(m_bits[util::to_size(sub_block)] << (64 - sub_left));
+                r += broadword::popcount(m_bits[sub_block] << (64 - sub_left));
             }
             return r;
         }
@@ -71,18 +71,19 @@ namespace succinct {
             using broadword::popcount;
             using broadword::select_in_word;
             assert(n < num_ones());
-            size_t a = 0;
-            size_t b = num_blocks();
+            uint64_t a = 0;
+            uint64_t b = num_blocks();
             if (m_select_hints.size()) {
-                size_t const chunk = util::to_size(n / select_ones_per_hint);
+                uint64_t chunk = n / select_ones_per_hint;
                 if (chunk != 0) {
-                    a = util::to_size(m_select_hints[chunk - 1]);
+                    a = m_select_hints[chunk - 1];
                 }
-                b = util::to_size(m_select_hints[chunk] + 1);
+                b = m_select_hints[chunk] + 1;
             }
 
+            uint64_t block = 0;
             while (b - a > 1) {
-                size_t const mid = a + (b - a) / 2;
+                uint64_t mid = a + (b - a) / 2;
                 uint64_t x = block_rank(mid);
                 if (x <= n) {
                     a = mid;
@@ -90,7 +91,7 @@ namespace succinct {
                     b = mid;
                 }
             }
-            size_t const block = a;
+            block = a;
 
             assert(block < num_blocks());
             uint64_t block_offset = block * block_size;
@@ -104,7 +105,7 @@ namespace succinct {
             cur_rank += sub_ranks >> (7 - sub_block_offset) * 9 & 0x1FF;
             assert(cur_rank <= n);
 
-            size_t const word_offset = util::to_size(block_offset + sub_block_offset);
+            uint64_t word_offset = block_offset + sub_block_offset;
             return word_offset * 64 + select_in_word(m_bits[word_offset], n - cur_rank);
         }
 
@@ -113,18 +114,19 @@ namespace succinct {
             using broadword::popcount;
             using broadword::select_in_word;
             assert(n < num_zeros());
-            size_t a = 0;
-            size_t b = num_blocks();
+            uint64_t a = 0;
+            uint64_t b = num_blocks();
             if (m_select0_hints.size()) {
-                size_t const chunk = util::to_size(n / select_zeros_per_hint);
+                uint64_t chunk = n / select_zeros_per_hint;
                 if (chunk != 0) {
-                    a = util::to_size(m_select0_hints[chunk - 1]);
+                    a = m_select0_hints[chunk - 1];
                 }
-                b = util::to_size(m_select0_hints[chunk] + 1);
+                b = m_select0_hints[chunk] + 1;
             }
 
+            uint64_t block = 0;
             while (b - a > 1) {
-                size_t const mid = a + (b - a) / 2;
+                uint64_t mid = a + (b - a) / 2;
                 uint64_t x = block_rank0(mid);
                 if (x <= n) {
                     a = mid;
@@ -132,7 +134,7 @@ namespace succinct {
                     b = mid;
                 }
             }
-            size_t const block = a;
+            block = a;
 
             assert(block < num_blocks());
             uint64_t block_offset = block * block_size;
@@ -145,34 +147,34 @@ namespace succinct {
             cur_rank0 += sub_ranks >> (7 - sub_block_offset) * 9 & 0x1FF;
             assert(cur_rank0 <= n);
 
-            size_t const word_offset = util::to_size(block_offset + sub_block_offset);
+            uint64_t word_offset = block_offset + sub_block_offset;
             return word_offset * 64 + select_in_word(~m_bits[word_offset], n - cur_rank0);
         }
 
     protected:
 
-        inline size_t num_blocks() const {
+        inline uint64_t num_blocks() const {
             return m_block_rank_pairs.size() / 2 - 1;
         }
 
-        inline uint64_t block_rank(size_t block) const {
+        inline uint64_t block_rank(uint64_t block) const {
             return m_block_rank_pairs[block * 2];
         }
 
         inline uint64_t sub_block_rank(uint64_t sub_block) const {
             uint64_t r = 0;
-            size_t const block = util::to_size(sub_block / block_size);
+            uint64_t block = sub_block / block_size;
             r += block_rank(block);
             uint64_t left = sub_block % block_size;
             r += sub_block_ranks(block) >> ((7 - left) * 9) & 0x1FF;
             return r;
         }
 
-        inline uint64_t sub_block_ranks(size_t block) const {
+        inline uint64_t sub_block_ranks(uint64_t block) const {
             return m_block_rank_pairs[block * 2 + 1];
         }
 
-        inline uint64_t block_rank0(size_t block) const {
+        inline uint64_t block_rank0(uint64_t block) const {
             return block * block_size * 64 - m_block_rank_pairs[block * 2];
         }
 

@@ -9,6 +9,8 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/construct.hpp>
 
+#include <stdint.h>
+
 #include "intrinsics.hpp"
 
 namespace succinct { namespace mapper {
@@ -84,7 +86,7 @@ namespace succinct { namespace mapper {
             mappable_vector(from).swap(*this);
         }
 
-        size_t size() const {
+        uint64_t size() const {
             return m_size;
         }
 
@@ -96,7 +98,7 @@ namespace succinct { namespace mapper {
             return m_data + m_size;
         }
 
-        inline T const& operator[](size_t i) const {
+        inline T const& operator[](uint64_t i) const {
             assert(i < m_size);
             return m_data[i];
         }
@@ -115,7 +117,7 @@ namespace succinct { namespace mapper {
 
     protected:
         const T* m_data;
-        size_t m_size;
+        uint64_t m_size;
         deleter_t m_deleter;
     };
 

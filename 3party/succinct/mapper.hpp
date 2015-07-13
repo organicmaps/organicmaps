@@ -107,7 +107,7 @@ namespace succinct { namespace mapper {
                 return *this;
             }
 
-            uint64_t written() const {
+            size_t written() const {
                 return m_written;
             }
 
@@ -255,7 +255,7 @@ namespace succinct { namespace mapper {
     }
 
     template <typename T>
-    uint64_t freeze(T& val, std::ofstream& fout, uint64_t flags = 0, const char* friendly_name = "<TOP>")
+    size_t freeze(T& val, std::ofstream& fout, uint64_t flags = 0, const char* friendly_name = "<TOP>")
     {
         detail::freeze_visitor freezer(fout, flags);
         freezer(val, friendly_name);
@@ -263,7 +263,7 @@ namespace succinct { namespace mapper {
     }
 
     template <typename T>
-    uint64_t freeze(T& val, const char* filename, uint64_t flags = 0, const char* friendly_name = "<TOP>")
+    size_t freeze(T& val, const char* filename, uint64_t flags = 0, const char* friendly_name = "<TOP>")
     {
         std::ofstream fout;
         fout.exceptions(std::ifstream::failbit);
