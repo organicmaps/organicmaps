@@ -13,7 +13,7 @@ node|z7-[place=ocean]
 {
   font-size: 16;
 }
-node|z3-[place=sea]
+node|z5-[place=sea]
 {
   text: name;
   font-size: 8;
