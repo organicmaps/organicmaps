@@ -1,6 +1,5 @@
 
 #import "ActiveMapsVC.h"
-#import "CustomAlertView.h"
 #import "Statistics.h"
 #import "MapCell.h"
 #import "BadgeView.h"

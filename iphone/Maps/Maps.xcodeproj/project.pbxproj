@@ -287,7 +287,6 @@
 		FA140655162A6288002BC1ED /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = FA14064F162A6288002BC1ED /* eye.png */; };
 		FA140657162A6288002BC1ED /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA140650162A6288002BC1ED /* eye@2x.png */; };
 		FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
-		FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
 		FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
 		FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		FA46DA2C12D4166E00968C36 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
@@ -730,8 +729,6 @@
 		FA140650162A6288002BC1ED /* eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "eye@2x.png"; path = "Bookmarks/eye@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA29FDA8141E77F8004ADF66 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Preferences.h; path = Settings/Preferences.h; sourceTree = "<group>"; };
 		FA29FDA9141E77F8004ADF66 /* Preferences.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Preferences.mm; path = Settings/Preferences.mm; sourceTree = "<group>"; };
-		FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomAlertView.mm; sourceTree = "<group>"; };
-		FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
 		FA36B80515403A4F004560CC /* BookmarksVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BookmarksVC.h; path = Bookmarks/BookmarksVC.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA36B80615403A4F004560CC /* BookmarksVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = BookmarksVC.mm; path = Bookmarks/BookmarksVC.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
@@ -1706,8 +1703,6 @@
 				FAFCB63513366E78001A5C59 /* WebViewController.mm */,
 				978D4A271996C17300D72CA7 /* RichTextVC.h */,
 				978D4A281996C17300D72CA7 /* RichTextVC.m */,
-				FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */,
-				FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */,
 				FAA4B13E13EC1C8C00BCAB63 /* DiskFreeSpace.h */,
 			);
 			name = Common;
@@ -2177,7 +2172,6 @@
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				F6FE2C0F1B03A006009814AA /* MWMPlacePageNavigationBar.mm in Sources */,
 				34BC72221B0DECAE0012A34B /* MWMLocationButtonView.mm in Sources */,
-				FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */,
 				340F24631B14910500F874CD /* RouteState.mm in Sources */,
 				9747264318323080006B7CB7 /* UIKitCategories.m in Sources */,
 				977E26BE19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */,

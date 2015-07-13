@@ -1,7 +1,6 @@
 
 #import "CountryTreeVC.h"
 #import "ActiveMapsVC.h"
-#import "CustomAlertView.h"
 #import "Statistics.h"
 
 extern NSString * const MapsStatusChangedNotification;
