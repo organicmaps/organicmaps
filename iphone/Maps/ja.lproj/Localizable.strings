@@ -676,6 +676,8 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "地図をダウンロード";
 
+"downloader_download_map_no_routing" = "ルート情報のないマップをダウンローする";
+
 /* Button for routing PP. */
 "routing_go" = "開始！";
 
@@ -1091,3 +1093,83 @@
 
 /* Wi-Fi available */
 "WiFi_available" = "はい";
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "案内ルートに従う際は、以下の点にご留意ください：";
+
+"dialog_routing_disclaimer_priority" = "— 道路の状況や道路交通法、道路標識をナビゲーションよりも常に優先してください。;";
+
+"dialog_routing_disclaimer_precision" = "— マップは必ずしも正確であるとは限らず、また案内ルートが常に目的地までの最適なルートであるとは限りません。;";
+
+"dialog_routing_disclaimer_recommendations" = "— 表示されるルートはあくまでも推奨ルートとしてご利用ください。;";
+
+"dialog_routing_disclaimer_beware" = "よく注意して安全運転を心がけましょう！";
+
+"dialog_routing_check_gps" = "GPS信号をご確認ください";
+
+"dialog_routing_error_location_not_found" = "案内ルートを作成できません。現在地のGPSコードを確認できません。";
+
+"dialog_routing_location_turn_wifi" = "GPS信号をご確認ください。Wi-Fiを有効にするとより正確な位置情報を取得できます。";
+
+"dialog_routing_location_turn_on" = "位置情報サービスを有効にしてください";
+
+"dialog_routing_location_unknown_turn_on" = "現在地のGPSコードを確認できません。案内ルートを作成するには、位置情報サービスを有効にしてください。";
+
+"dialog_routing_location_unknown" = "現在地のGPSコードを確認できません。";
+
+"dialog_routing_download_files" = "必要なファイルをダウンロードしてください";
+
+"dialog_routing_download_and_update_all" = "案内ルートを作成するには、表示されたパスに従ってすべてのマップ、ルート情報をダウンロード、アップデートしてください。";
+
+"dialog_routing_routes_size" = "ルート情報ファイル";
+
+"dialog_routing_unable_locate_route" = "ルートの位置を確認できません";
+
+"dialog_routing_cant_build_route" = "案内ルートを作成できません。";
+
+"dialog_routing_change_start_or_end" = "出発地または目的地の位置調整をしてください。";
+
+"dialog_routing_change_start" = "出発地の位置調整をしてください";
+
+"dialog_routing_start_not_determined" = "案内ルートを作成できません。出発地を確認できませんでした。";
+
+"dialog_routing_select_closer_start" = "道路に近い位置にある出発地を設定してください。";
+
+"dialog_routing_change_end" = "目的地の位置調整をしてください";
+
+"dialog_routing_end_not_determined" = "案内ルートを作成できません。目的地を確認できませんでした。";
+
+"dialog_routing_select_closer_end" = "道路に近い位置にある目的地を設定してください。";
+
+"dialog_routing_system_error" = "システムエラー";
+
+"dialog_routing_application_error" = "アプリケーションのエラーにより案内ルートを作成できませんでした。";
+
+"dialog_routing_try_again" = "もう一度お試しください";
+
+"dialog_routing_send_error" = "問題を報告する";
+
+"dialog_routing_if_get_cross_route" = "複数マップを利用してより最適なルートを作成しますか？";
+
+"dialog_routing_cross_route_is_optimal" = "このマップの境界を越えて複数マップを利用すると、より最適なルートを作成できます。";
+
+"dialog_routing_always_cross_that_border" = "常にこの境界を越える";
+
+"dialog_routing_not_now" = "あとで";
+
+"dialog_routing_build_route" = "作成する";
+
+"dialog_routing_download_and_build_cross_route" = "マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？";
+
+"dialog_routing_download_cross_route" = "このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。";
+
+"dialog_routing_cross_route_always" = "常にこの境界を越える";
+
+/********** Strings for downloading map from search **********/
+
+"search_without_internet_advertisement" = "検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は必要なくなります。";
+
+"search_select_map" = "地図を選択";
+
+"search_select_other_map" = "別の地図を選択";

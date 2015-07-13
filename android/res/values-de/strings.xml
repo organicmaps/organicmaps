@@ -41,7 +41,7 @@
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">Meinung hinterlassen</string>
 	<!-- View and button titles for accessibility -->
-	<string name="maps">Karte</string>
+	<string name="maps">Karten</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">Wartet auf Download. Drücken, um abzubrechen</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -421,6 +421,7 @@
 	<string name="downloader_delete_routing">Streckenführung löschen</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Karte herunterladen</string>
+	<string name="downloader_download_map_no_routing">Karte ohne Routenanleitungen herunterladen</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Los!</string>
 	<!-- Item status in downloader. -->
@@ -697,4 +698,46 @@
 	<string name="pink">Rosa</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ja</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">Wenn Sie der Route folgen, beachten Sie bitte:</string>
+	<string name="dialog_routing_disclaimer_priority">– Straßenverhältnisse, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;</string>
+	<string name="dialog_routing_disclaimer_precision">– Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimalste Weg, um das Ziel zu erreichen;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;</string>
+	<string name="dialog_routing_disclaimer_beware">Bitte fahren Sie aufmerksam und sicher!</string>
+	<string name="dialog_routing_check_gps">GPS-Signal prüfen</string>
+	<string name="dialog_routing_error_location_not_found">Route kann nicht erstellt werden. Aktuelle GPS-Koordinaten konnten nicht identifiziert werden.</string>
+	<string name="dialog_routing_location_turn_wifi">Bitte prüfen Sie Ihr GPS-Signal. WLAN verbessert Ihre Standortgenauigkeit.</string>
+	<string name="dialog_routing_location_turn_on">Ortungsdienste aktivieren</string>
+	<string name="dialog_routing_location_unknown_turn_on">Aktuelle GPS-Koordinaten können nicht gefunden werden. Aktivieren Sie Ortungsdienste, um die Route zu berechnen.</string>
+	<string name="dialog_routing_location_unknown">Aktuelle GPS-Koordinaten können nicht gefunden werden.</string>
+	<string name="dialog_routing_download_files">Erforderliche Dateien herunterladen</string>
+	<string name="dialog_routing_download_and_update_all">Laden Sie alle Karten- und Routeninformationen für den geplanten Weg herunter und aktualisieren Sie sie, um die Route zu berechnen.</string>
+	<string name="dialog_routing_routes_size">Routeninformationsdateien</string>
+	<string name="dialog_routing_unable_locate_route">Route kann nicht gefunden werden</string>
+	<string name="dialog_routing_cant_build_route">Route kann nicht erstellt werden.</string>
+	<string name="dialog_routing_change_start_or_end">Bitte passen Sie Ihren Startpunkt oder Ihr Ziel an.</string>
+	<string name="dialog_routing_change_start">Startpunkt anpassen</string>
+	<string name="dialog_routing_start_not_determined">Route wurde nicht erstellt. Startpunkt kann nicht gefunden werden.</string>
+	<string name="dialog_routing_select_closer_start">Bitte wählen Sie einen Startpunkt in der Nähe einer Straße aus.</string>
+	<string name="dialog_routing_change_end">Ziel anpassen</string>
+	<string name="dialog_routing_end_not_determined">Route wurde nicht erstellt. Ziel kann nicht gefunden werden.</string>
+	<string name="dialog_routing_select_closer_end">Bitte wählen Sie einen Zielort in der Nähe einer Straße aus.</string>
+	<string name="dialog_routing_system_error">Systemfehler</string>
+	<string name="dialog_routing_application_error">Route kann wegen eines Anwendungsfehlers nicht erstellt werden.</string>
+	<string name="dialog_routing_try_again">Bitte versuchen Sie es erneut</string>
+	<string name="dialog_routing_send_error">Problem melden</string>
+	<string name="dialog_routing_if_get_cross_route">Möchten Sie eine direktere Route erstellen, die mehr als eine Karte umfasst?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Es ist eine optimalere Route verfügbar, die den Rand dieser Karte überschreitet.</string>
+	<string name="dialog_routing_always_cross_that_border">Diese Grenze immer überschreiten</string>
+	<string name="dialog_routing_not_now">Nicht jetzt</string>
+	<string name="dialog_routing_build_route">Erstellen</string>
+	<string name="dialog_routing_download_and_build_cross_route">Möchten Sie die Karte herunterladen und eine optimalere Route erstellen, die mehr als eine Karte umfasst?</string>
+	<string name="dialog_routing_download_cross_route">Laden Sie die Karte herunter, um eine optimalere Route zu erstellen, die den Rand dieser Karte überschreitet.</string>
+	<string name="dialog_routing_cross_route_always">Diese Grenze immer überschreiten</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter und Sie benötigen fortan keine Internetverbindung mehr.</string>
+	<string name="search_select_map">Karte auswählen</string>
+	<string name="search_select_other_map">Eine andere karte auswählen</string>
 </resources>

@@ -432,6 +432,7 @@
 	<string name="downloader_delete_routing">删除路线</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">下载地图</string>
+	<string name="downloader_download_map_no_routing">下载不含路线指示的地图</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">出发！</string>
 	<!-- Item status in downloader. -->
@@ -706,4 +707,46 @@
 	<string name="pink">粉色</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">是</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">按照路线行进时，请谨记：</string>
+	<string name="dialog_routing_disclaimer_priority">— 路况、交通法规和路标始终优先于导航建议；</string>
+	<string name="dialog_routing_disclaimer_precision">— 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路径；</string>
+	<string name="dialog_routing_disclaimer_recommendations">— 建议的路线仅作为推荐路线供您采纳。；</string>
+	<string name="dialog_routing_disclaimer_beware">上路时请当心，祝您一路平安！</string>
+	<string name="dialog_routing_check_gps">检查 GPS 信号</string>
+	<string name="dialog_routing_error_location_not_found">无法创建路线。当前 GPS 坐标无法识别。</string>
+	<string name="dialog_routing_location_turn_wifi">请检查您的 GPS 信号。启用 Wi-Fi 将改善您的定位精度。</string>
+	<string name="dialog_routing_location_turn_on">启用定位服务</string>
+	<string name="dialog_routing_location_unknown_turn_on">无法定位当前 GPS 坐标。请启用定位服务以计算路线。</string>
+	<string name="dialog_routing_location_unknown">无法定位当前 GPS 坐标。</string>
+	<string name="dialog_routing_download_files">下载所需文件</string>
+	<string name="dialog_routing_download_and_update_all">下载和更新所有地图和预定路径沿途的路线信息，以计算路线。</string>
+	<string name="dialog_routing_routes_size">路线信息文件</string>
+	<string name="dialog_routing_unable_locate_route">无法定位路线</string>
+	<string name="dialog_routing_cant_build_route">无法创建路线。</string>
+	<string name="dialog_routing_change_start_or_end">请调整您的起点或目的地。</string>
+	<string name="dialog_routing_change_start">调整出发点</string>
+	<string name="dialog_routing_start_not_determined">路线未创建。无法定位起点。</string>
+	<string name="dialog_routing_select_closer_start">请选择更靠近公路的起点。</string>
+	<string name="dialog_routing_change_end">调整目的地</string>
+	<string name="dialog_routing_end_not_determined">路线未创建。无法定位目的地。</string>
+	<string name="dialog_routing_select_closer_end">请选择更靠近公路的目的地位置。</string>
+	<string name="dialog_routing_system_error">系统错误</string>
+	<string name="dialog_routing_application_error">由于应用程序错误，无法创建路线。</string>
+	<string name="dialog_routing_try_again">请重试</string>
+	<string name="dialog_routing_send_error">报告问题</string>
+	<string name="dialog_routing_if_get_cross_route">您是否要创建一条跨越多张地图的更直接路线？</string>
+	<string name="dialog_routing_cross_route_is_optimal">有一条跨越本地图边缘的更佳路线可用。</string>
+	<string name="dialog_routing_always_cross_that_border">始终跨越此边界线</string>
+	<string name="dialog_routing_not_now">现在不用</string>
+	<string name="dialog_routing_build_route">创建</string>
+	<string name="dialog_routing_download_and_build_cross_route">您是否要下载地图并创建一条跨越多张地图的更佳路线？</string>
+	<string name="dialog_routing_download_cross_route">下载地图，创建一条跨越此地图边缘的更佳路线。</string>
+	<string name="dialog_routing_cross_route_always">始终跨越此边界线</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">要开始搜索和创建路线，请下载地图，那您就不再需要网络连接了。</string>
+	<string name="search_select_map">选择地图</string>
+	<string name="search_select_other_map">选择另一个地图</string>
 </resources>

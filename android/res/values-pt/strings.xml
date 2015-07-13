@@ -423,6 +423,7 @@
 	<string name="downloader_delete_routing">Apagar Roteamento</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Descarregar Mapa</string>
+	<string name="downloader_download_map_no_routing">Baixar mapa sem instruções de rota</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Avançar!</string>
 	<!-- Item status in downloader. -->
@@ -699,4 +700,46 @@
 	<string name="pink">Rosa</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Sim</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">Ao seguir a rota, lembre-se de que:</string>
+	<string name="dialog_routing_disclaimer_priority">— As condições da estrada, as leis de trânsito e as sinalizações da pista sempre terão prioridade acima das sugestões de navegação;</string>
+	<string name="dialog_routing_disclaimer_precision">— O mapa pode estar desatualizado, e a rota indicada pode não ser a melhor maneira de chegar-se ao destino;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— As rotas indicadas devem ser tratadas apenas como sugestões;</string>
+	<string name="dialog_routing_disclaimer_beware">Fique sempre alerta nas estradas!</string>
+	<string name="dialog_routing_check_gps">Verifique o sinal do GPS</string>
+	<string name="dialog_routing_error_location_not_found">A rota não foi traçada, pois não foi possível identificar as coordenadas do GPS.</string>
+	<string name="dialog_routing_location_turn_wifi">Verifique o sinal do GPS. Ative o wi-fi para melhorar a precisão da localização.</string>
+	<string name="dialog_routing_location_turn_on">Ative os serviços de localização</string>
+	<string name="dialog_routing_location_unknown_turn_on">Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que a rota seja traçada.</string>
+	<string name="dialog_routing_location_unknown">Não foi possível localizar as coordenadas do GPS.</string>
+	<string name="dialog_routing_download_files">Baixe os arquivos necessários</string>
+	<string name="dialog_routing_download_and_update_all">Baixe e atualize todos os dados de mapas e rotas referentes ao trajeto desejado para que a rota seja traçada.</string>
+	<string name="dialog_routing_routes_size">Arquivos de dados de rota</string>
+	<string name="dialog_routing_unable_locate_route">Não foi possível encontrar uma rota</string>
+	<string name="dialog_routing_cant_build_route">Não foi possível traçar uma rota.</string>
+	<string name="dialog_routing_change_start_or_end">Ajuste o ponto de partida ou o ponto de chegada.</string>
+	<string name="dialog_routing_change_start">Ajuste o ponto de partida</string>
+	<string name="dialog_routing_start_not_determined">A rota não foi traçada, pois não foi possível localizar o ponto de partida.</string>
+	<string name="dialog_routing_select_closer_start">Selecione um ponto de partida mais perto de uma estrada.</string>
+	<string name="dialog_routing_change_end">Ajuste o ponto de chegada</string>
+	<string name="dialog_routing_end_not_determined">A rota não foi traçada, pois não foi possível localizar o ponto de chegada.</string>
+	<string name="dialog_routing_select_closer_end">Selecione um ponto de chegada mais perto de uma estrada.</string>
+	<string name="dialog_routing_system_error">Erro de sistema</string>
+	<string name="dialog_routing_application_error">Não foi possível traçar uma rota devido a um erro no aplicativo.</string>
+	<string name="dialog_routing_try_again">Tente novamente</string>
+	<string name="dialog_routing_send_error">Relatar o Problema</string>
+	<string name="dialog_routing_if_get_cross_route">Deseja traçar uma rota mais direta, mas que se estenda por mais de um mapa?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Há uma rota disponível que vai além dos limites desse mapa.</string>
+	<string name="dialog_routing_always_cross_that_border">Sempre cruzar esse limite</string>
+	<string name="dialog_routing_not_now">Agora Não</string>
+	<string name="dialog_routing_build_route">Traçar</string>
+	<string name="dialog_routing_download_and_build_cross_route">Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?</string>
+	<string name="dialog_routing_download_cross_route">Baixe o mapa para traçar uma rota melhor que vai além dos limites desse mapa.</string>
+	<string name="dialog_routing_cross_route_always">Sempre cruzar esse limite</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">Para começar a pesquisar e criar rotas, por favor, baixe o mapa e você não precisará mais de conexão com a internet.</string>
+	<string name="search_select_map">Selecionar o Mapa</string>
+	<string name="search_select_other_map">Selecionar Outro Mapa</string>
 </resources>

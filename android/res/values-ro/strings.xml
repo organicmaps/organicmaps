@@ -43,7 +43,7 @@
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">Scrieți o recenzie</string>
 	<!-- View and button titles for accessibility -->
-	<string name="maps">Hărți</string>
+	<string name="maps">Hărţi</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">Marcat pentru descărcare. Atingeți pentru a anula.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
@@ -423,6 +423,7 @@
 	<string name="downloader_delete_routing">Ștergere traseu</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Descărcare hartă</string>
+	<string name="downloader_download_map_no_routing">Descărcarea hărţii fără instrucţiuni privind traseul</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Pornește!</string>
 	<!-- Item status in downloader. -->
@@ -698,4 +699,46 @@
 	<string name="pink">Roz</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Da</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">Când urmaţi traseul, aveţi în vedere următoarele:</string>
+	<string name="dialog_routing_disclaimer_priority">— Condiţiile de drum, legile şi semnele rutiere sunt mai prioritare decât sfaturile de navigaţie;</string>
+	<string name="dialog_routing_disclaimer_precision">— Harta poate să conţină greşeli şi traseul sugerat poate să nu fie cel mai bun pentru a ajunge la destinaţie;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— Traseele sugerate au numai rol de recomandări;</string>
+	<string name="dialog_routing_disclaimer_beware">Rămâneţi vigilenţi şi conduceţi în siguranţă!</string>
+	<string name="dialog_routing_check_gps">Verificaţi semnalul GPS</string>
+	<string name="dialog_routing_error_location_not_found">Crearea traseului a eşuat. Coordonatele GPS curente nu au putut fi identificate.</string>
+	<string name="dialog_routing_location_turn_wifi">Verificaţi semnalul GPS. Pentru a îmbunătăţi precizia localizării, activaţi Wi-Fi.</string>
+	<string name="dialog_routing_location_turn_on">Activaţi serviciile de localizare</string>
+	<string name="dialog_routing_location_unknown_turn_on">Localizarea coordonatelor GPS curente a eşuat. Pentru a calcula traseul, activaţi serviciile de localizare.</string>
+	<string name="dialog_routing_location_unknown">Localizarea coordonatelor GPS curente a eşuat.</string>
+	<string name="dialog_routing_download_files">Descărcaţi fişierele necesare</string>
+	<string name="dialog_routing_download_and_update_all">Pentru calcularea traseului, descărcaţi şi actualizaţi toate hărţile şi informaţiile de stabilire a traseului pentru calea estimată.</string>
+	<string name="dialog_routing_routes_size">Fişiere cu informaţii de stabilire a traseului</string>
+	<string name="dialog_routing_unable_locate_route">Localizarea traseului a eşuat</string>
+	<string name="dialog_routing_cant_build_route">Crearea traseului a eşuat.</string>
+	<string name="dialog_routing_change_start_or_end">Ajustaţi punctul iniţial sau destinaţia.</string>
+	<string name="dialog_routing_change_start">Ajustaţi punctul iniţial</string>
+	<string name="dialog_routing_start_not_determined">Traseul nu a fost creat. Localizarea punctului iniţial a eşuat.</string>
+	<string name="dialog_routing_select_closer_start">Setaţi punctul iniţial mai aproape de un drum.</string>
+	<string name="dialog_routing_change_end">Ajustaţi destinaţia finală</string>
+	<string name="dialog_routing_end_not_determined">Traseul nu a fost creat. Localizarea destinaţiei a eşuat.</string>
+	<string name="dialog_routing_select_closer_end">Setaţi un punct de destinaţie mai aproape de un drum.</string>
+	<string name="dialog_routing_system_error">Eroare sistem</string>
+	<string name="dialog_routing_application_error">Crearea traseului a eşuat din cauza unei erori a aplicaţiei.</string>
+	<string name="dialog_routing_try_again">Încercaţi din nou</string>
+	<string name="dialog_routing_send_error">Raportaţi problema</string>
+	<string name="dialog_routing_if_get_cross_route">Doriţi să creaţi un traseu mai direct care include mai mult decât o hartă?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Este disponibil un traseu mai adecvat care trece de limita acestei hărţi.</string>
+	<string name="dialog_routing_always_cross_that_border">Întotdeauna să se treacă această limită</string>
+	<string name="dialog_routing_not_now">Nu acum</string>
+	<string name="dialog_routing_build_route">Creare</string>
+	<string name="dialog_routing_download_and_build_cross_route">Doriţi să descărcaţi harta şi să creaţi un traseu mai direct care include mai mult decât o hartă?</string>
+	<string name="dialog_routing_download_cross_route">Pentru a crea un traseu mai adecvat care trece de limita acestei hărţi, descărcaţi harta.</string>
+	<string name="dialog_routing_cross_route_always">Întotdeauna să se treacă această limită</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">Pentru a putea începe căutarea și crearea unor rute, vă rugăm să descărcați harta, iar apoi nu veți mai avea nevoie de conexiune la internet.</string>
+	<string name="search_select_map">Selectați harta</string>
+	<string name="search_select_other_map">Selectați altă hartă</string>
 </resources>

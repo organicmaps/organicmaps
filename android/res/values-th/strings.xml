@@ -428,6 +428,7 @@
 	<string name="downloader_delete_routing">ลบการเลือกเส้นทาง</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">ดาวน์โหลดแผนที่</string>
+	<string name="downloader_download_map_no_routing">ดาวน์โหลดแผนที่โดยเว้นคำแนะนำเส้นทาง</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">ไป!</string>
 	<!-- Item status in downloader. -->
@@ -704,4 +705,46 @@
 	<string name="pink">สีชมพู</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">ใช่</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">ขณะกำลังเดินทางตามเส้นทาง โปรดจำไว้ว่า:</string>
+	<string name="dialog_routing_disclaimer_priority">— สภาพถนน กฎจราจร และสัญลักษณ์บนถนนย่อมมีความสำคัญกว่าคำแนะนำเพื่อบอกทางเสมอ;</string>
+	<string name="dialog_routing_disclaimer_precision">— แผนที่อาจมีความคลาดเคลื่อนและเส้นทางที่แนะนำอาจไม่ใช่เส้นทางที่เหมาะสมที่สุดเสมอไปสำหรับการไปยังที่หมาย;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— เส้นทางที่แนะนำเป็นเพียงคำแนะนำเท่านั้น;</string>
+	<string name="dialog_routing_disclaimer_beware">โปรดมีสติอยู่เสมอและยึดถือความปลอดภัยบนถนน!</string>
+	<string name="dialog_routing_check_gps">ตรวจสอบสัญญาณ GPS</string>
+	<string name="dialog_routing_error_location_not_found">ไม่สามารถสร้างเส้นทางได้ ไม่สามารถระบุพิกัด GPS ปัจจุบันได้</string>
+	<string name="dialog_routing_location_turn_wifi">กรุณาตรวจสอบสัญญาณ GPS ของคุณ การเปิดใช้ Wi-Fi จะช่วยเพิ่มความแม่นยำในการระบุตำแหน่งของคุณ</string>
+	<string name="dialog_routing_location_turn_on">เปิดใช้บริการหาตำแหน่ง</string>
+	<string name="dialog_routing_location_unknown_turn_on">ไม่สามารถหาตำแหน่งพิกัด GPS ปัจจุบันได้ เปิดใช้บริการหาตำแหน่งเพื่อคำนวณเส้นทาง</string>
+	<string name="dialog_routing_location_unknown">ไม่สามารถหาตำแหน่งพิกัด GPS ปัจจุบันได้</string>
+	<string name="dialog_routing_download_files">ดาวน์โหลดไฟล์ที่จำเป็น</string>
+	<string name="dialog_routing_download_and_update_all">ดาวน์โหลดและอัปเดตแผนที่กับข้อมูลเส้นทางทั้งหมดตามเส้นทางที่คาดหมายเพื่อคำนวณเส้นทาง</string>
+	<string name="dialog_routing_routes_size">ไฟล์ข้อมูลเส้นทาง</string>
+	<string name="dialog_routing_unable_locate_route">ไม่สามารถหาเส้นทางได้</string>
+	<string name="dialog_routing_cant_build_route">ไม่สามารถสร้างเส้นทางได้</string>
+	<string name="dialog_routing_change_start_or_end">กรุณาปรับจุดเริ่มต้นหรือที่หมายของคุณ</string>
+	<string name="dialog_routing_change_start">ปรับจุดเริ่มต้น</string>
+	<string name="dialog_routing_start_not_determined">ไม่มีการสร้างเส้นทาง ไม่สามารถหาจุดเริ่มต้นได้</string>
+	<string name="dialog_routing_select_closer_start">กรุณาเลือกจุดเริ่มต้นที่ใกล้ถนนมากขึ้น</string>
+	<string name="dialog_routing_change_end">ปรับที่หมาย</string>
+	<string name="dialog_routing_end_not_determined">ไม่มีการสร้างเส้นทาง ไม่สามารถหาที่หมายได้</string>
+	<string name="dialog_routing_select_closer_end">กรุณาเลือกที่หมายที่ใกล้ถนนมากขึ้น</string>
+	<string name="dialog_routing_system_error">ระบบเกิดข้อผิดพลาด</string>
+	<string name="dialog_routing_application_error">ไม่สามารถสร้างเส้นทางได้เนื่องจากเกิดข้อผิดพลาดของแอปพลิเคชัน</string>
+	<string name="dialog_routing_try_again">กรุณาลองอีกครั้ง</string>
+	<string name="dialog_routing_send_error">รายงานปัญหา</string>
+	<string name="dialog_routing_if_get_cross_route">คุณต้องการสร้างเส้นทางที่อ้อมน้อยลงซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?</string>
+	<string name="dialog_routing_cross_route_is_optimal">มีเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้</string>
+	<string name="dialog_routing_always_cross_that_border">ข้ามขอบเขตนี้เสมอ</string>
+	<string name="dialog_routing_not_now">ไว้คราวหลัง</string>
+	<string name="dialog_routing_build_route">สร้าง</string>
+	<string name="dialog_routing_download_and_build_cross_route">คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?</string>
+	<string name="dialog_routing_download_cross_route">ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้</string>
+	<string name="dialog_routing_cross_route_always">ข้ามขอบเขตนี้เสมอ</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป</string>
+	<string name="search_select_map">เลือกแผนที่</string>
+	<string name="search_select_other_map">เลือกแผนที่อื่น</string>
 </resources>

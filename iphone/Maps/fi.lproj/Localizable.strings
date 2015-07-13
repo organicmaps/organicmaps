@@ -676,6 +676,8 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Lataa kartta";
 
+"downloader_download_map_no_routing" = "Lataa kartta ilman reittiohjeita";
+
 /* Button for routing PP. */
 "routing_go" = "Lähde!";
 
@@ -1091,3 +1093,83 @@
 
 /* Wi-Fi available */
 "WiFi_available" = "Kyllä";
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "Muista seuraavat asiat seuratessasi reittiä:";
+
+"dialog_routing_disclaimer_priority" = "— Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;";
+
+"dialog_routing_disclaimer_precision" = "— Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;";
+
+"dialog_routing_disclaimer_recommendations" = "— Ehdotettuja reittejä tulee pitää vain suosituksina;";
+
+"dialog_routing_disclaimer_beware" = "Pysy tarkkana ja aja turvallisesti!";
+
+"dialog_routing_check_gps" = "Tarkista GPS-signaali";
+
+"dialog_routing_error_location_not_found" = "Reittiä ei voi luoda. Tämänhetkisiä GPS-koordinaatteja ei löydy.";
+
+"dialog_routing_location_turn_wifi" = "Tarkista GPS-signaali. Wi-Fi-signaalin käyttöönotto parantaa sijainnin tarkkuutta.";
+
+"dialog_routing_location_turn_on" = "Ota sijaintipalvelut käyttöön";
+
+"dialog_routing_location_unknown_turn_on" = "Tämänhetkisiä GPS-koordinaatteja ei löydy. Ota sijaintipalvelut käyttöön reitin laskemista varten.";
+
+"dialog_routing_location_unknown" = "Tämänhetkisiä GPS-koordinaatteja ei löydy.";
+
+"dialog_routing_download_files" = "Lataa tarvittavat tiedostot";
+
+"dialog_routing_download_and_update_all" = "Lataa ja päivitä kaikki suunnitellun reitin kartta- ja reititystiedot, jotta reitin voi laskea.";
+
+"dialog_routing_routes_size" = "Reititystiedostot";
+
+"dialog_routing_unable_locate_route" = "Reitin paikannus ei onnistu";
+
+"dialog_routing_cant_build_route" = "Reitin luonti ei onnistu.";
+
+"dialog_routing_change_start_or_end" = "Muuta aloituskohtaa tai määränpäätä.";
+
+"dialog_routing_change_start" = "Muuta aloituskohtaa";
+
+"dialog_routing_start_not_determined" = "Reittiä ei luotu. Aloituskohdan paikannus ei onnistu.";
+
+"dialog_routing_select_closer_start" = "Valitse lähempänä tietä oleva aloituskohta.";
+
+"dialog_routing_change_end" = "Muuta määränpäätä";
+
+"dialog_routing_end_not_determined" = "Reittiä ei luotu. Määränpään paikannus ei onnistu.";
+
+"dialog_routing_select_closer_end" = "Valitse lähempänä tietä oleva määränpää.";
+
+"dialog_routing_system_error" = "Järjestelmävirhe";
+
+"dialog_routing_application_error" = "Reittiä ei voi luoda sovellusvirheen vuoksi.";
+
+"dialog_routing_try_again" = "Yritä uudelleen";
+
+"dialog_routing_send_error" = "Ilmoita ongelmasta";
+
+"dialog_routing_if_get_cross_route" = "Haluatko luoda suoremman reitin, joka ylettyy usealle kartalle?";
+
+"dialog_routing_cross_route_is_optimal" = "Tarjolla on suorempi reitti, joka ylittää tämän kartan reunan.";
+
+"dialog_routing_always_cross_that_border" = "Ylitä aina tämä raja";
+
+"dialog_routing_not_now" = "Ei nyt";
+
+"dialog_routing_build_route" = "Luo";
+
+"dialog_routing_download_and_build_cross_route" = "Haluatko ladata kartan ja luoda paremman reitin, joka ylettyy usealle kartalle?";
+
+"dialog_routing_download_cross_route" = "Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.";
+
+"dialog_routing_cross_route_always" = "Ylitä aina tämä raja";
+
+/********** Strings for downloading map from search **********/
+
+"search_without_internet_advertisement" = "Lataa kartta aloittaksesi haun ja luodaksesi reittejä. Tämän jälkeen et enää tule tarvitsemaan Internet-yhteyttä.";
+
+"search_select_map" = "Valitse kartta";
+
+"search_select_other_map" = "Valitse toinen kartta";

@@ -430,6 +430,7 @@
 	<string name="downloader_delete_routing">Rotayı Sil</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Haritayı İndir</string>
+	<string name="downloader_download_map_no_routing">Haritayı güzergah talimatları olmadan indirin</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Git!</string>
 	<!-- Item status in downloader. -->
@@ -706,4 +707,46 @@
 	<string name="pink">Pembe</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Evet</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">Güzergahınızı takip ederken şunları lütfen unutmayın:</string>
+	<string name="dialog_routing_disclaimer_priority">— Yol durumları, trafik kuralları ve trafik işaretleri, her zaman navigasyon tavsiyelerinden önceliklidir;</string>
+	<string name="dialog_routing_disclaimer_precision">— Harita doğru olmayabilir, önerilen güzergah da hedefinize ulaşmak için en uygun yol olmayabilir;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— Önerilen güzergahlar yalnızca tavsiye olarak kabul edilmelidir;</string>
+	<string name="dialog_routing_disclaimer_beware">Lütfen yolda dikkatli ve emniyetli olun!</string>
+	<string name="dialog_routing_check_gps">GPS sinyalini kontrol edin</string>
+	<string name="dialog_routing_error_location_not_found">Güzergah oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.</string>
+	<string name="dialog_routing_location_turn_wifi">Lütfen GPS sinyalinizi kontrol edin. Wi-Fi\&#39;ı etkinleştirmek konum isabetini arttırır.</string>
+	<string name="dialog_routing_location_turn_on">Konum hizmetlerini etkinleştirin</string>
+	<string name="dialog_routing_location_unknown_turn_on">Mevcut GPS koordinatları belirlenemiyor. Güzergah hesaplamak için konum hizmetlerini etkinleştirin.</string>
+	<string name="dialog_routing_location_unknown">Mevcut GPS koordinatları belirlenemiyor.</string>
+	<string name="dialog_routing_download_files">Gerekli dosyaları indirin</string>
+	<string name="dialog_routing_download_and_update_all">Planlanan yoldaki tüm harita ve güzergah bilgilerini indirip güncelleyerek güzergahı hesaplayın.</string>
+	<string name="dialog_routing_routes_size">Güzergah bilgi dosyaları</string>
+	<string name="dialog_routing_unable_locate_route">Güzergah belirlenemiyor</string>
+	<string name="dialog_routing_cant_build_route">Güzergah oluşturulamıyor.</string>
+	<string name="dialog_routing_change_start_or_end">Lütfen başlangıç noktanızı veya hedefinizi ayarlayın.</string>
+	<string name="dialog_routing_change_start">Başlangıç noktasını ayarlayın</string>
+	<string name="dialog_routing_start_not_determined">Güzergah oluşturulamadı. Başlangıç noktası belirlenemiyor.</string>
+	<string name="dialog_routing_select_closer_start">Lütfen yola daha yakın bir başlangıç noktası seçin.</string>
+	<string name="dialog_routing_change_end">Hedefinizi ayarlayın</string>
+	<string name="dialog_routing_end_not_determined">Güzergah oluşturulamadı. Hedef belirlenemiyor.</string>
+	<string name="dialog_routing_select_closer_end">Lütfen yola daha yakın bir hedef noktası seçin.</string>
+	<string name="dialog_routing_system_error">Sistem hatası</string>
+	<string name="dialog_routing_application_error">Uygulama hatası nedeniyle güzergah oluşturulamadı.</string>
+	<string name="dialog_routing_try_again">Lütfen daha sonra tekrar deneyin</string>
+	<string name="dialog_routing_send_error">Hatayı Bildirin</string>
+	<string name="dialog_routing_if_get_cross_route">Bir haritadan daha fazlasına uzanan doğrudan bir güzergah oluşturmak ister misiniz?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Bu haritanın bir kısmından geçen daha uygun bir güzergah mevcut.</string>
+	<string name="dialog_routing_always_cross_that_border">Bu sınırı her zaman geçin</string>
+	<string name="dialog_routing_not_now">Şimdi Değil</string>
+	<string name="dialog_routing_build_route">Oluşturun</string>
+	<string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden fazla haritaya uzanan daha uygun bir güzergah oluşturmak ister misiniz?</string>
+	<string name="dialog_routing_download_cross_route">Bu haritanın bir kısmından geçen daha uygun bir güzergah oluşturmak için haritayı indirin.</string>
+	<string name="dialog_routing_cross_route_always">Bu sınırı her zaman geçin</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">Rotaları aramak ve oluşturmaya başlamak için lütfen haritayı indirin ve artık internet bağlantısına ihtiyacınız yok.</string>
+	<string name="search_select_map">Haritayi Seçin</string>
+	<string name="search_select_other_map">Başka Bir Harita Seçin</string>
 </resources>

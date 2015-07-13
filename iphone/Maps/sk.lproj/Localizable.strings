@@ -676,6 +676,8 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Stiahnite si Mapu";
 
+"downloader_download_map_no_routing" = "Prevezmite si mapu bez pokynov týkajúcich sa trasy";
+
 /* Button for routing PP. */
 "routing_go" = "Štart!";
 
@@ -1091,3 +1093,83 @@
 
 /* Wi-Fi available */
 "WiFi_available" = "Áno";
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "Pri sledovaní trasy majte na pamäti nasledujúce:";
+
+"dialog_routing_disclaimer_priority" = "— Podmienky na ceste, dopravné predpisy a značenie majú vždy prednosť pred pokynmi z navigácie;";
+
+"dialog_routing_disclaimer_precision" = "— Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;";
+
+"dialog_routing_disclaimer_recommendations" = "— Navrhované trasy by sa mali brať len ako odporúčania;";
+
+"dialog_routing_disclaimer_beware" = "Na cestách buďte vždy ostražitý a dbajte na bezpečnosť!";
+
+"dialog_routing_check_gps" = "Skontrolujte signál GPS";
+
+"dialog_routing_error_location_not_found" = "Nedá sa vytvoriť trasa. Aktuálne súradnice GPS sa nedajú identifikovať.";
+
+"dialog_routing_location_turn_wifi" = "Skontrolujte signál GPS. Zapnutie Wi-Fi zlepší presnosť vašej lokalizácie.";
+
+"dialog_routing_location_turn_on" = "Zapnite lokalizačné služby";
+
+"dialog_routing_location_unknown_turn_on" = "Aktuálne súradnice GPS sa nedajú lokalizovať. Aktivujte lokalizačné služby na výpočet trasy.";
+
+"dialog_routing_location_unknown" = "Nedajú sa lokalizovať aktuálne súradnice GPS.";
+
+"dialog_routing_download_files" = "Prevezmite si požadované súbory";
+
+"dialog_routing_download_and_update_all" = "Prevezmite si a aktualizujte všetky mapy a informácie o trase pozdĺž naplánovanej trasy na výpočet trasy.";
+
+"dialog_routing_routes_size" = "Súbory s informáciami o trase";
+
+"dialog_routing_unable_locate_route" = "Trasa sa nedá lokalizovať";
+
+"dialog_routing_cant_build_route" = "Trasa sa nedá vytvoriť.";
+
+"dialog_routing_change_start_or_end" = "Prosím, upravte váš východiskový bod alebo cieľové miesto.";
+
+"dialog_routing_change_start" = "Nastavte východiskový bod";
+
+"dialog_routing_start_not_determined" = "Trasa nebola vytvorená. Nedá sa lokalizovať východiskový bod.";
+
+"dialog_routing_select_closer_start" = "Vyberte východiskový bod bližšie k ceste.";
+
+"dialog_routing_change_end" = "Nastavte cieľové miesto";
+
+"dialog_routing_end_not_determined" = "Trasa nebola vytvorená. Nedá sa lokalizovať cieľové miesto.";
+
+"dialog_routing_select_closer_end" = "Vyberte cieľové miesto nachádzajúce sa bližšie k ceste.";
+
+"dialog_routing_system_error" = "Systémová chyba";
+
+"dialog_routing_application_error" = "Nedá sa vytvoriť trasa z dôvodu aplikačnej chyby.";
+
+"dialog_routing_try_again" = "Skúste znova, prosím";
+
+"dialog_routing_send_error" = "Nahláste problém";
+
+"dialog_routing_if_get_cross_route" = "Chceli by ste vytvoriť priamejšiu trasu, ktorá zahŕňa viac ako jednu mapu?";
+
+"dialog_routing_cross_route_is_optimal" = "K dispozícii je optimálnejšia trasa, ktorá presahuje hranice tejto mapy.";
+
+"dialog_routing_always_cross_that_border" = "Vždy prekročiť túto hranicu";
+
+"dialog_routing_not_now" = "Nie teraz";
+
+"dialog_routing_build_route" = "Vytvoriť";
+
+"dialog_routing_download_and_build_cross_route" = "Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?";
+
+"dialog_routing_download_cross_route" = "Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.";
+
+"dialog_routing_cross_route_always" = "Vždy prekročiť túto hranicu";
+
+/********** Strings for downloading map from search **********/
+
+"search_without_internet_advertisement" = "Stiahnutím mapy už nebudete potrebovať pripojenie k internetu a môžete si začať vyhľadávať a vytvárať trasy.";
+
+"search_select_map" = "Vybrať mapu";
+
+"search_select_other_map" = "Vybrať inú mapu";

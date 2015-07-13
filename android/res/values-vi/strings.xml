@@ -425,6 +425,7 @@
 	<string name="downloader_delete_routing">Xóa Định tuyến</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Tải xuống Bản đồ</string>
+	<string name="downloader_download_map_no_routing">Tải về bản đồ mà không cần hướng dẫn tuyến đường</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Tiến hành!</string>
 	<!-- Item status in downloader. -->
@@ -701,4 +702,46 @@
 	<string name="pink">Hồng</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Có</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">Khi đi theo tuyến đường, hãy lưu ý:</string>
+	<string name="dialog_routing_disclaimer_priority">— Điều kiện đường, luật giao thông và biển báo đường bộ luôn được ưu tiên hơn lời khuyên định hướng;</string>
+	<string name="dialog_routing_disclaimer_precision">— Bản đồ có thể không chính xác và tuyến đường được đề xuất có thể không luôn là cách tối ưu nhất để đi đến đích;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— Các tuyến đường được đề nghị chỉ nên được coi là các khuyến nghị;</string>
+	<string name="dialog_routing_disclaimer_beware">Hãy cảnh giác và giữ an toàn trên đường!</string>
+	<string name="dialog_routing_check_gps">Kiểm tra tín hiệu GPS</string>
+	<string name="dialog_routing_error_location_not_found">Không thể tạo tuyến đường. Không xác định được tọa độ GPS hiện tại.</string>
+	<string name="dialog_routing_location_turn_wifi">Hãy kiểm tra tín hiệu GPS của bạn. Việc kích hoạt Wi-Fi sẽ cải thiện độ chính xác vị trí của bạn.</string>
+	<string name="dialog_routing_location_turn_on">Bật các dịch vụ định vị</string>
+	<string name="dialog_routing_location_unknown_turn_on">Không thể xác định vị trí tọa độ GPS hiện tại. Bật các dịch vụ định vị để tính toán tuyến đường.</string>
+	<string name="dialog_routing_location_unknown">Không thể xác định vị trí tọa độ GPS hiện tại.</string>
+	<string name="dialog_routing_download_files">Tải xuống các tệp yêu cầu</string>
+	<string name="dialog_routing_download_and_update_all">Tải về và cập nhật tất cả các bản đồ và các thông tin tuyến đường dọc theo lộ trình dự kiến để tính toán tuyến đường.</string>
+	<string name="dialog_routing_routes_size">Tệp thông tin tuyến đường</string>
+	<string name="dialog_routing_unable_locate_route">Không thể xác định tuyến đường</string>
+	<string name="dialog_routing_cant_build_route">Không thể tạo tuyến đường.</string>
+	<string name="dialog_routing_change_start_or_end">Hãy điều chỉnh điểm bắt đầu hoặc điểm đến của bạn.</string>
+	<string name="dialog_routing_change_start">Điều chỉnh điểm bắt đầu</string>
+	<string name="dialog_routing_start_not_determined">Tuyến đường chưa được tạo. Không thể xác định vị trí điểm bắt đầu.</string>
+	<string name="dialog_routing_select_closer_start">Hãy chọn điểm bắt đầu gần với một con đường hơn.</string>
+	<string name="dialog_routing_change_end">Điều chỉnh điểm đến</string>
+	<string name="dialog_routing_end_not_determined">Tuyến đường chưa được tạo. Không thể xác định vị trí điểm đến.</string>
+	<string name="dialog_routing_select_closer_end">Hãy chọn điểm đến gần với một con đường hơn.</string>
+	<string name="dialog_routing_system_error">Lỗi hệ thống</string>
+	<string name="dialog_routing_application_error">Không thể tạo tuyến đường do lỗi ứng dụng.</string>
+	<string name="dialog_routing_try_again">Vui lòng thử lại</string>
+	<string name="dialog_routing_send_error">Báo cáo vấn đề</string>
+	<string name="dialog_routing_if_get_cross_route">Bạn có muốn tạo một tuyến đường thẳng hơn mà kéo dài trên nhiều bản đồ không?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Có một tuyến đường tối ưu hơn đi qua cạnh của bản đồ này.</string>
+	<string name="dialog_routing_always_cross_that_border">Luôn đi qua ranh giới này</string>
+	<string name="dialog_routing_not_now">Lúc khác</string>
+	<string name="dialog_routing_build_route">Tạo</string>
+	<string name="dialog_routing_download_and_build_cross_route">Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?</string>
+	<string name="dialog_routing_download_cross_route">Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.</string>
+	<string name="dialog_routing_cross_route_always">Luôn đi qua ranh giới này</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.</string>
+	<string name="search_select_map">Chọn bản đồ</string>
+	<string name="search_select_other_map">Chọn bản đồ khác</string>
 </resources>

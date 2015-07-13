@@ -676,6 +676,8 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Pobierz mapę";
 
+"downloader_download_map_no_routing" = "Pobierz mapę bez pliku wyznaczania trasy";
+
 /* Button for routing PP. */
 "routing_go" = "Przejdź!";
 
@@ -1091,3 +1093,83 @@
 
 /* Wi-Fi available */
 "WiFi_available" = "Tak";
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "Jadąc wyznaczoną trasą, pamiętaj, że:";
+
+"dialog_routing_disclaimer_priority" = "— Warunki na drodze, przepisy ruchu drogowego i znaki drogowe zawsze są ważniejsze niż wskazówki nawigacji;";
+
+"dialog_routing_disclaimer_precision" = "— Mapa może być niedokładna, a sugerowana trasa może nie być optymalnym sposobem dotarcia do celu;";
+
+"dialog_routing_disclaimer_recommendations" = "— Sugerowane trasy należy traktować jedynie jako rekomendacje;";
+
+"dialog_routing_disclaimer_beware" = "Podczas podróży zachowaj czujność i prowadź ostrożnie!";
+
+"dialog_routing_check_gps" = "Sprawdź sygnał GPS";
+
+"dialog_routing_error_location_not_found" = "Nie można wyznaczyć trasy. Nie można ustalić współrzędnych GPS.";
+
+"dialog_routing_location_turn_wifi" = "Sprawdź sygnał GPS. Aktywacja Wi-Fi pomoże w precyzyjnym określeniu położenia.";
+
+"dialog_routing_location_turn_on" = "Włącz usługi określania lokalizacji";
+
+"dialog_routing_location_unknown_turn_on" = "Nie można ustalić współrzędnych GPS. Włącz usługi określania lokalizacji, aby wyznaczyć trasę.";
+
+"dialog_routing_location_unknown" = "Nie można ustalić współrzędnych GPS.";
+
+"dialog_routing_download_files" = "Pobierz wymagane pliki";
+
+"dialog_routing_download_and_update_all" = "Pobierz i zaktualizuj dane mapy i wyznaczania trasy wzdłuż planowanej drogi, aby wyznaczyć trasę.";
+
+"dialog_routing_routes_size" = "Pliki wyznaczania trasy";
+
+"dialog_routing_unable_locate_route" = "Nie można zlokalizować trasy";
+
+"dialog_routing_cant_build_route" = "Nie można wyznaczyć trasy.";
+
+"dialog_routing_change_start_or_end" = "Zmień punkt początkowy lub docelowy.";
+
+"dialog_routing_change_start" = "Zmień punkt początkowy";
+
+"dialog_routing_start_not_determined" = "Nie wyznaczono trasy. Nie można zlokalizować punktu początkowego.";
+
+"dialog_routing_select_closer_start" = "Wybierz punkt początkowy położony bliżej drogi.";
+
+"dialog_routing_change_end" = "Zmień punkt docelowy";
+
+"dialog_routing_end_not_determined" = "Nie wyznaczono trasy. Nie można zlokalizować punktu docelowego.";
+
+"dialog_routing_select_closer_end" = "Wybierz punkt docelowy położony bliżej drogi.";
+
+"dialog_routing_system_error" = "Błąd systemowy";
+
+"dialog_routing_application_error" = "Nie można wyznaczyć trasy z powodu błędu aplikacji.";
+
+"dialog_routing_try_again" = "Spróbuj ponownie";
+
+"dialog_routing_send_error" = "Zgłoś problem";
+
+"dialog_routing_if_get_cross_route" = "Chcesz wyznaczyć lepszą trasę, obejmującą więcej map?";
+
+"dialog_routing_cross_route_is_optimal" = "Dostępna jest lepsza trasa, wykraczająca poza granice bieżącej mapy.";
+
+"dialog_routing_always_cross_that_border" = "Zawsze przekraczaj tę granicę";
+
+"dialog_routing_not_now" = "Nie teraz";
+
+"dialog_routing_build_route" = "Wyznacz";
+
+"dialog_routing_download_and_build_cross_route" = "Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?";
+
+"dialog_routing_download_cross_route" = "Pobierz mapę i wyznacz lepszą trasę, wykraczającą poza granice bieżącej mapy.";
+
+"dialog_routing_cross_route_always" = "Zawsze przekraczaj tę granicę";
+
+/********** Strings for downloading map from search **********/
+
+"search_without_internet_advertisement" = "Aby rozpocząć wyszukiwanie i tworzenie tras, pobierz mapę, a nie będzie ci już potrzebne połączenie z Internetem.";
+
+"search_select_map" = "Wybierz mapę";
+
+"search_select_other_map" = "Wybierz inną mapę";

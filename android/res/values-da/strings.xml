@@ -426,6 +426,7 @@
 	<string name="downloader_delete_routing">Slet ruteangivelse</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Download kort</string>
+	<string name="downloader_download_map_no_routing">Download kort uden ruteanvisninger</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Kør!</string>
 	<!-- Item status in downloader. -->
@@ -702,4 +703,46 @@
 	<string name="pink">Pink</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ja</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">Når du følger en rute, skal du være opmærksom på følgende:</string>
+	<string name="dialog_routing_disclaimer_priority">— Vejforhold, færdselsregler og skiltning skal prioriteres højere end anvisningerne fra navigationsappen;</string>
+	<string name="dialog_routing_disclaimer_precision">— Kortet kan være unøjagtigt, og den foreslåede rute er ikke nødvendigvis altid den bedste måde at nå destinationen på;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— De foreslåede ruter skal kun betragtes som anbefalinger;</string>
+	<string name="dialog_routing_disclaimer_beware">Vær altid særligt opmærksom og årvågen, når du sidder bag rattet!</string>
+	<string name="dialog_routing_check_gps">Tjek GPS-signalet</string>
+	<string name="dialog_routing_error_location_not_found">Det lykkedes ikke at planlægge en rute. GPS-koordinaterne kunne ikke identificeres korrekt.</string>
+	<string name="dialog_routing_location_turn_wifi">Tjek venligst dit GPS-signal. Din placering registreres mere præcist, hvis wi-fi er slået til.</string>
+	<string name="dialog_routing_location_turn_on">Slå lokaliseringstjenester til</string>
+	<string name="dialog_routing_location_unknown_turn_on">Det lykkedes ikke at finde de aktuelle GPS-koordinater. Slå lokaliseringstjenester til for at beregne en rute.</string>
+	<string name="dialog_routing_location_unknown">Det lykkedes ikke at finde de aktuelle GPS-koordinater.</string>
+	<string name="dialog_routing_download_files">Download de nødvendige filer</string>
+	<string name="dialog_routing_download_and_update_all">Download og opdatér alle kort og ruteoplysninger for at beregne en rute.</string>
+	<string name="dialog_routing_routes_size">Filer med ruteoplysninger</string>
+	<string name="dialog_routing_unable_locate_route">Der blev ikke fundet en rute</string>
+	<string name="dialog_routing_cant_build_route">Der blev ikke planlagt en rute.</string>
+	<string name="dialog_routing_change_start_or_end">Prøv at angive et andet startpunkt eller en anden destination.</string>
+	<string name="dialog_routing_change_start">Vælg et andet startpunkt</string>
+	<string name="dialog_routing_start_not_determined">Det lykkedes ikke at planlægge en rute. Startpunktet blev ikke fundet.</string>
+	<string name="dialog_routing_select_closer_start">Angiv et startpunkt, der ligger tættere på en vej.</string>
+	<string name="dialog_routing_change_end">Vælg en anden destination</string>
+	<string name="dialog_routing_end_not_determined">Det lykkedes ikke at planlægge en rute. Destinationen blev ikke fundet.</string>
+	<string name="dialog_routing_select_closer_end">Angiv en destination, der ligger tættere på en vej.</string>
+	<string name="dialog_routing_system_error">Systemfejl</string>
+	<string name="dialog_routing_application_error">Det lykkedes ikke at planlægge en rute. Der opstod en fejl i systemet.</string>
+	<string name="dialog_routing_try_again">Prøv igen</string>
+	<string name="dialog_routing_send_error">Anmeld problemet</string>
+	<string name="dialog_routing_if_get_cross_route">Ønsker du at planlægge en mere direkte rute, der strækker sig over mere end ét kort?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Der findes en mere optimal rute, som strækker sig ud over dette korts grænser.</string>
+	<string name="dialog_routing_always_cross_that_border">Kryds altid denne grænse</string>
+	<string name="dialog_routing_not_now">Ikke nu</string>
+	<string name="dialog_routing_build_route">Opret</string>
+	<string name="dialog_routing_download_and_build_cross_route">Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?</string>
+	<string name="dialog_routing_download_cross_route">Download kortet for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.</string>
+	<string name="dialog_routing_cross_route_always">Kryds altid denne grænse</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">For at begynde at søge efter og oprette ruter bedes du downloade kortet, så du ikke længere har behov for en internetforbindelse.</string>
+	<string name="search_select_map">Vælk kortet</string>
+	<string name="search_select_other_map">Vælg et andet kort</string>
 </resources>

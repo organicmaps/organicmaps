@@ -676,6 +676,8 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Térkép letöltése";
 
+"downloader_download_map_no_routing" = "Töltse le a térképet útvonal-instrukciók nélkül";
+
 /* Button for routing PP. */
 "routing_go" = "Indulás!";
 
@@ -1091,3 +1093,83 @@
 
 /* Wi-Fi available */
 "WiFi_available" = "Igen";
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "Az útvonal követése során, kérjük, vegye figyelembe az alábbiakat:";
+
+"dialog_routing_disclaimer_priority" = "— Az útviszonyok, forgalmi törvények és jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatásokkal szemben;";
+
+"dialog_routing_disclaimer_precision" = "— A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja a célállomás elérésének;";
+
+"dialog_routing_disclaimer_recommendations" = "— A javasolt útvonalakat mindössze javaslatoknak kell tekinteni;";
+
+"dialog_routing_disclaimer_beware" = "Kérjük, mindig maradjon éber és vezessen biztonságosan az utakon!";
+
+"dialog_routing_check_gps" = "Ellenőrizze a GPS jelet";
+
+"dialog_routing_error_location_not_found" = "Nem sikerült létrehozni az útvonalat. A jelenlegi GPS koordináták nem azonosíthatók.";
+
+"dialog_routing_location_turn_wifi" = "Kérjük, ellenőrizze a GPS jelet. A Wi-Fi engedélyezése javítja a helyszín meghatározásának pontosságát.";
+
+"dialog_routing_location_turn_on" = "Engedélyezze a helyszíni szolgáltatásokat";
+
+"dialog_routing_location_unknown_turn_on" = "Nem sikerült lokalizálni a jelenlegi GPS koordinátákat. Az útvonaltervezéshez engedélyezze a helyszíni szolgáltatásokat.";
+
+"dialog_routing_location_unknown" = "Nem sikerült lokalizálni a jelenlegi GPS koordinátákat.";
+
+"dialog_routing_download_files" = "Töltse le a szükséges fájlokat";
+
+"dialog_routing_download_and_update_all" = "Útvonaltervezéshez töltse le és frissítse az összes térkép- és útvonal-információt a tervezett út mentén.";
+
+"dialog_routing_routes_size" = "Útvonal-információs fájlok";
+
+"dialog_routing_unable_locate_route" = "Nem sikerült meghatározni az útvonalat";
+
+"dialog_routing_cant_build_route" = "Nem sikerült létrehozni az útvonalat.";
+
+"dialog_routing_change_start_or_end" = "Kérjük, pontosítsa indulási helyét, vagy célállomását.";
+
+"dialog_routing_change_start" = "Pontosítsa indulási helyét";
+
+"dialog_routing_start_not_determined" = "Az útvonal nem lett létrehozva. Nem sikerült meghatározni az indulási helyet.";
+
+"dialog_routing_select_closer_start" = "Kérjük, válasszon egy úthoz közelebb eső indulási helyet.";
+
+"dialog_routing_change_end" = "Pontosítsa célállomását";
+
+"dialog_routing_end_not_determined" = "Az útvonal nem lett létrehozva. Nem sikerült meghatározni a célállomást.";
+
+"dialog_routing_select_closer_end" = "Kérjük, válasszon egy úthoz közelebb eső célállomást.";
+
+"dialog_routing_system_error" = "Rendszerhiba";
+
+"dialog_routing_application_error" = "Egy alkalmazáshiba miatt nem sikerült az útvonal létrehozása.";
+
+"dialog_routing_try_again" = "Kérjük, próbálja újra";
+
+"dialog_routing_send_error" = "Probléma bejelentése";
+
+"dialog_routing_if_get_cross_route" = "Szeretne egy közvetlenebb útvonalat létrehozni, amely több, mint egy térképen terül el?";
+
+"dialog_routing_cross_route_is_optimal" = "Elérhető egy optimálisabb útvonal, amely áthalad a jelenlegi térkép szélén.";
+
+"dialog_routing_always_cross_that_border" = "Mindig haladjon át ezen a határon";
+
+"dialog_routing_not_now" = "Most nem";
+
+"dialog_routing_build_route" = "Létrehozás";
+
+"dialog_routing_download_and_build_cross_route" = "Szeretné letölteni a térképet és létrehozni egy optimálisabb útvonalat, amely több, mint egy térképen terül el?";
+
+"dialog_routing_download_cross_route" = "Töltse le a térképet, hogy létrehozzon egy optimálisabb útvonalat, amely áthalad a jelenlegi térkép szélén.";
+
+"dialog_routing_cross_route_always" = "Mindig haladjon át ezen a határon";
+
+/********** Strings for downloading map from search **********/
+
+"search_without_internet_advertisement" = "Útvonalak kereséséhez és létrehozásához, kérjük, töltsd le a térképet és többé nem lesz szükséged internetkapcsolatra.";
+
+"search_select_map" = "Jelöld ki a térképet";
+
+"search_select_other_map" = "Jelölj ki másik térképet";

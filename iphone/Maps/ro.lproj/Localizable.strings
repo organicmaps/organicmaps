@@ -65,7 +65,7 @@
 "leave_a_review" = "Scrieți o recenzie";
 
 /* View and button titles for accessibility */
-"maps" = "Hărți";
+"maps" = "Hărţi";
 
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "Marcat pentru descărcare. Atingeți pentru a anula.";
@@ -676,6 +676,8 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Descărcare hartă";
 
+"downloader_download_map_no_routing" = "Descărcarea hărţii fără instrucţiuni privind traseul";
+
 /* Button for routing PP. */
 "routing_go" = "Pornește!";
 
@@ -1091,3 +1093,83 @@
 
 /* Wi-Fi available */
 "WiFi_available" = "Da";
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "Când urmaţi traseul, aveţi în vedere următoarele:";
+
+"dialog_routing_disclaimer_priority" = "— Condiţiile de drum, legile şi semnele rutiere sunt mai prioritare decât sfaturile de navigaţie;";
+
+"dialog_routing_disclaimer_precision" = "— Harta poate să conţină greşeli şi traseul sugerat poate să nu fie cel mai bun pentru a ajunge la destinaţie;";
+
+"dialog_routing_disclaimer_recommendations" = "— Traseele sugerate au numai rol de recomandări;";
+
+"dialog_routing_disclaimer_beware" = "Rămâneţi vigilenţi şi conduceţi în siguranţă!";
+
+"dialog_routing_check_gps" = "Verificaţi semnalul GPS";
+
+"dialog_routing_error_location_not_found" = "Crearea traseului a eşuat. Coordonatele GPS curente nu au putut fi identificate.";
+
+"dialog_routing_location_turn_wifi" = "Verificaţi semnalul GPS. Pentru a îmbunătăţi precizia localizării, activaţi Wi-Fi.";
+
+"dialog_routing_location_turn_on" = "Activaţi serviciile de localizare";
+
+"dialog_routing_location_unknown_turn_on" = "Localizarea coordonatelor GPS curente a eşuat. Pentru a calcula traseul, activaţi serviciile de localizare.";
+
+"dialog_routing_location_unknown" = "Localizarea coordonatelor GPS curente a eşuat.";
+
+"dialog_routing_download_files" = "Descărcaţi fişierele necesare";
+
+"dialog_routing_download_and_update_all" = "Pentru calcularea traseului, descărcaţi şi actualizaţi toate hărţile şi informaţiile de stabilire a traseului pentru calea estimată.";
+
+"dialog_routing_routes_size" = "Fişiere cu informaţii de stabilire a traseului";
+
+"dialog_routing_unable_locate_route" = "Localizarea traseului a eşuat";
+
+"dialog_routing_cant_build_route" = "Crearea traseului a eşuat.";
+
+"dialog_routing_change_start_or_end" = "Ajustaţi punctul iniţial sau destinaţia.";
+
+"dialog_routing_change_start" = "Ajustaţi punctul iniţial";
+
+"dialog_routing_start_not_determined" = "Traseul nu a fost creat. Localizarea punctului iniţial a eşuat.";
+
+"dialog_routing_select_closer_start" = "Setaţi punctul iniţial mai aproape de un drum.";
+
+"dialog_routing_change_end" = "Ajustaţi destinaţia finală";
+
+"dialog_routing_end_not_determined" = "Traseul nu a fost creat. Localizarea destinaţiei a eşuat.";
+
+"dialog_routing_select_closer_end" = "Setaţi un punct de destinaţie mai aproape de un drum.";
+
+"dialog_routing_system_error" = "Eroare sistem";
+
+"dialog_routing_application_error" = "Crearea traseului a eşuat din cauza unei erori a aplicaţiei.";
+
+"dialog_routing_try_again" = "Încercaţi din nou";
+
+"dialog_routing_send_error" = "Raportaţi problema";
+
+"dialog_routing_if_get_cross_route" = "Doriţi să creaţi un traseu mai direct care include mai mult decât o hartă?";
+
+"dialog_routing_cross_route_is_optimal" = "Este disponibil un traseu mai adecvat care trece de limita acestei hărţi.";
+
+"dialog_routing_always_cross_that_border" = "Întotdeauna să se treacă această limită";
+
+"dialog_routing_not_now" = "Nu acum";
+
+"dialog_routing_build_route" = "Creare";
+
+"dialog_routing_download_and_build_cross_route" = "Doriţi să descărcaţi harta şi să creaţi un traseu mai direct care include mai mult decât o hartă?";
+
+"dialog_routing_download_cross_route" = "Pentru a crea un traseu mai adecvat care trece de limita acestei hărţi, descărcaţi harta.";
+
+"dialog_routing_cross_route_always" = "Întotdeauna să se treacă această limită";
+
+/********** Strings for downloading map from search **********/
+
+"search_without_internet_advertisement" = "Pentru a putea începe căutarea și crearea unor rute, vă rugăm să descărcați harta, iar apoi nu veți mai avea nevoie de conexiune la internet.";
+
+"search_select_map" = "Selectați harta";
+
+"search_select_other_map" = "Selectați altă hartă";

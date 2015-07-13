@@ -65,7 +65,7 @@
 "leave_a_review" = "Laat een review achter";
 
 /* View and button titles for accessibility */
-"maps" = "Kaart";
+"maps" = "Kaarten";
 
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "Geselecteerd om te downloaden, raak aan om te annuleren";
@@ -676,6 +676,8 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Kaart downloaden";
 
+"downloader_download_map_no_routing" = "Download kaart zonder route-instructies";
+
 /* Button for routing PP. */
 "routing_go" = "Starten!";
 
@@ -1091,3 +1093,83 @@
 
 /* Wi-Fi available */
 "WiFi_available" = "Ja";
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "Belangrijk bij het volgen van een route:";
+
+"dialog_routing_disclaimer_priority" = "— De toestand van het wegdek, de verkeersregels en de -borden hebben altijd voorrang op het advies van het navigatiesysteem;";
+
+"dialog_routing_disclaimer_precision" = "— De kaart kan onnauwkeurig zijn en de voorgestelde route is niet altijd de meest optimale manier om uw bestemming te bereiken;";
+
+"dialog_routing_disclaimer_recommendations" = "— Beschouw de voorgestelde routes enkel als aanbevelingen;";
+
+"dialog_routing_disclaimer_beware" = "Blijf alert en rij veilig!";
+
+"dialog_routing_check_gps" = "Controleer gps-signaal";
+
+"dialog_routing_error_location_not_found" = "Route samenstellen mislukt. De huidige gps-coördinaten kunnen niet worden geïdentificeerd.";
+
+"dialog_routing_location_turn_wifi" = "Controleer uw gps-signaal. Schakel wifi in voor een betere locatiebepaling.";
+
+"dialog_routing_location_turn_on" = "Schakel locatiediensten in";
+
+"dialog_routing_location_unknown_turn_on" = "De huidige gps-coördinaten kunnen niet worden gevonden. Schakel locatiediensten in om de route te berekenen.";
+
+"dialog_routing_location_unknown" = "De huidige gps-coördinaten kunnen niet worden gevonden.";
+
+"dialog_routing_download_files" = "Download vereiste bestanden";
+
+"dialog_routing_download_and_update_all" = "Download de kaart en route-informatie voor het ingestelde traject en werk deze bij om de route te berekenen.";
+
+"dialog_routing_routes_size" = "Route-informatiebestanden";
+
+"dialog_routing_unable_locate_route" = "Route vinden mislukt";
+
+"dialog_routing_cant_build_route" = "Route samenstellen mislukt.";
+
+"dialog_routing_change_start_or_end" = "Kies een ander startpunt of andere bestemming.";
+
+"dialog_routing_change_start" = "Ander startpunt kiezen";
+
+"dialog_routing_start_not_determined" = "Route samenstellen mislukt. Startpunt kan niet worden gevonden.";
+
+"dialog_routing_select_closer_start" = "Kies een startpunt dat dichter bij een weg ligt.";
+
+"dialog_routing_change_end" = "Andere bestemming kiezen";
+
+"dialog_routing_end_not_determined" = "Route samenstellen mislukt. Bestemming kan niet worden gevonden.";
+
+"dialog_routing_select_closer_end" = "Kies een bestemming die dichter bij een weg ligt.";
+
+"dialog_routing_system_error" = "Systeemfout";
+
+"dialog_routing_application_error" = "Route samenstellen mislukt door een applicatiefout.";
+
+"dialog_routing_try_again" = "Probeer het opnieuw";
+
+"dialog_routing_send_error" = "Meld het probleem";
+
+"dialog_routing_if_get_cross_route" = "Wilt u een rechtstreeksere route samenstellen die meer dan één kaart beslaat?";
+
+"dialog_routing_cross_route_is_optimal" = "Er is een betere route beschikbaar die de grenzen van deze kaart overschrijdt.";
+
+"dialog_routing_always_cross_that_border" = "Deze grens altijd overschrijden";
+
+"dialog_routing_not_now" = "Niet nu";
+
+"dialog_routing_build_route" = "Samenstellen";
+
+"dialog_routing_download_and_build_cross_route" = "Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?";
+
+"dialog_routing_download_cross_route" = "Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.";
+
+"dialog_routing_cross_route_always" = "Deze grens altijd overschrijden";
+
+/********** Strings for downloading map from search **********/
+
+"search_without_internet_advertisement" = "Om te beginnen met zoeken en om routebeschrijvingen te kunnen maken, moet u de kaart downloaden. U heeft vervolgens geen internetverbinding meer nodig.";
+
+"search_select_map" = "Selecteer de kaart";
+
+"search_select_other_map" = "Selecteer een andere kaart";

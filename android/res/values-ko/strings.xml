@@ -414,6 +414,7 @@
 	<string name="downloader_delete_routing">라우팅 삭제</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">지도 다운로드</string>
+	<string name="downloader_download_map_no_routing">경로 안내 없이 지도 다운로드</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">이동!</string>
 	<!-- Item status in downloader. -->
@@ -690,4 +691,46 @@
 	<string name="pink">분홍색</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">네</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">경로를 따라갈 때는 다음 사항에 주의해 주세요:</string>
+	<string name="dialog_routing_disclaimer_priority">— 도로 상황, 교통법, 도로 표지판을 항상 내비게이션 안내보다 먼저 고려하세요;</string>
+	<string name="dialog_routing_disclaimer_precision">— 지도는 부정확할 수 있으며, 제안된 경로보다 나은 경로가 존재할 수도 있습니다;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— 제안된 경로는 권장 사항으로만 참고하세요;</string>
+	<string name="dialog_routing_disclaimer_beware">항상 안전에 주의하세요!</string>
+	<string name="dialog_routing_check_gps">GPS 신호 확인</string>
+	<string name="dialog_routing_error_location_not_found">경로를 설정할 수 없습니다. 현재 GPS 좌표를 확인할 수 없습니다.</string>
+	<string name="dialog_routing_location_turn_wifi">GPS 신호를 확인해주세요. Wi-Fi를 켜면 위치 정확도가 높아집니다.</string>
+	<string name="dialog_routing_location_turn_on">위치 서비스 활성화</string>
+	<string name="dialog_routing_location_unknown_turn_on">현재 GPS 좌표를 찾을 수 없습니다. 경로를 계산하려면 위치 서비스를 활성화하세요.</string>
+	<string name="dialog_routing_location_unknown">현재 GPS 좌표를 찾을 수 없습니다.</string>
+	<string name="dialog_routing_download_files">필수 파일 다운로드</string>
+	<string name="dialog_routing_download_and_update_all">경로를 계산하려면 모든 지도와 예상 경로 정보를 다운로드하고 업데이트하세요.</string>
+	<string name="dialog_routing_routes_size">경로 정보 파일</string>
+	<string name="dialog_routing_unable_locate_route">경로를 찾을 수 없습니다</string>
+	<string name="dialog_routing_cant_build_route">경로를 찾을 수 없습니다.</string>
+	<string name="dialog_routing_change_start_or_end">출발지나 목적지를 조정하세요.</string>
+	<string name="dialog_routing_change_start">출발지 조정</string>
+	<string name="dialog_routing_start_not_determined">경로가 설정되지 않았습니다. 출발지를 찾을 수 없습니다.</string>
+	<string name="dialog_routing_select_closer_start">도로와 가까운 출발지를 지정해주세요.</string>
+	<string name="dialog_routing_change_end">목적지 조정</string>
+	<string name="dialog_routing_end_not_determined">경로가 설정되지 않았습니다. 목적지를 찾을 수 없습니다.</string>
+	<string name="dialog_routing_select_closer_end">도로와 가까운 목적지를 지정해주세요.</string>
+	<string name="dialog_routing_system_error">시스템 오류</string>
+	<string name="dialog_routing_application_error">애플리케이션 오류로 인해 경로를 설정하지 못했습니다.</string>
+	<string name="dialog_routing_try_again">다시 시도해주세요.</string>
+	<string name="dialog_routing_send_error">문제 신고</string>
+	<string name="dialog_routing_if_get_cross_route">두 개 이상의 지도를 통과하는 더 직접적인 경로를 설정하시겠습니까?</string>
+	<string name="dialog_routing_cross_route_is_optimal">이 지도의 경계를 통과하는 더 최적화된 경로를 사용할 수 있습니다.</string>
+	<string name="dialog_routing_always_cross_that_border">항상 이 경계 통과</string>
+	<string name="dialog_routing_not_now">나중에</string>
+	<string name="dialog_routing_build_route">만들기</string>
+	<string name="dialog_routing_download_and_build_cross_route">지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?</string>
+	<string name="dialog_routing_download_cross_route">이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.</string>
+	<string name="dialog_routing_cross_route_always">항상 이 경계 통과</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.</string>
+	<string name="search_select_map">지도 선택</string>
+	<string name="search_select_other_map">다른 지도 선택</string>
 </resources>

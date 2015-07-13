@@ -65,7 +65,7 @@
 "leave_a_review" = "Написать отзыв";
 
 /* View and button titles for accessibility */
-"maps" = "Карта";
+"maps" = "Карты";
 
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "Поставлено в очередь на загрузку, нажмите для отмены";
@@ -676,6 +676,8 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Скачать карту";
 
+"downloader_download_map_no_routing" = "Скачать карту без автомобильных маршрутов";
+
 /* Button for routing PP. */
 "routing_go" = "Поехали!";
 
@@ -1091,3 +1093,83 @@
 
 /* Wi-Fi available */
 "WiFi_available" = "Есть";
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "При движении по маршруту помните:";
+
+"dialog_routing_disclaimer_priority" = "— Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;";
+
+"dialog_routing_disclaimer_precision" = "— Карта может быть неточной, а предложенный маршрут не всегда оптимален;";
+
+"dialog_routing_disclaimer_recommendations" = "— Предлагаемые маршруты — лишь рекомендации;";
+
+"dialog_routing_disclaimer_beware" = "Будьте внимательны на дорогах и берегите себя!";
+
+"dialog_routing_check_gps" = "Проверьте сигнал GPS";
+
+"dialog_routing_error_location_not_found" = "Маршрут не построен. Текущая геопозиция не определена.";
+
+"dialog_routing_location_turn_wifi" = "Пожалуйста, проверьте сигнал GPS. Для улучшения точности геопозиции включите Wi-Fi.";
+
+"dialog_routing_location_turn_on" = "Включите режим определения геопозиции";
+
+"dialog_routing_location_unknown_turn_on" = "Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.";
+
+"dialog_routing_location_unknown" = "Текущая геопозиция не определена.";
+
+"dialog_routing_download_files" = "Загрузите необходимые файлы";
+
+"dialog_routing_download_and_update_all" = "Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.";
+
+"dialog_routing_routes_size" = "Файлы маршрутов";
+
+"dialog_routing_unable_locate_route" = "Маршрут не найден";
+
+"dialog_routing_cant_build_route" = "Не получилось построить маршрут.";
+
+"dialog_routing_change_start_or_end" = "Пожалуйста, измените начальную или конечную точку маршрута.";
+
+"dialog_routing_change_start" = "Измените начальную точку маршрута";
+
+"dialog_routing_start_not_determined" = "Маршрут не построен. Не определена начальная точка маршрута.";
+
+"dialog_routing_select_closer_start" = "Пожалуйста, выберите начальную точку маршрута ближе к дороге.";
+
+"dialog_routing_change_end" = "Измените конечную точку маршрута";
+
+"dialog_routing_end_not_determined" = "Маршрут не построен. Не определена конечная точка маршрута.";
+
+"dialog_routing_select_closer_end" = "Пожалуйста, выберите конечную точку маршрута ближе к дороге.";
+
+"dialog_routing_system_error" = "Системная ошибка";
+
+"dialog_routing_application_error" = "Не удалось проложить маршрут из-за ошибки приложения.";
+
+"dialog_routing_try_again" = "Попробуйте снова";
+
+"dialog_routing_send_error" = "Сообщить об ошибке";
+
+"dialog_routing_if_get_cross_route" = "Построить более оптимальный маршрут с пересечением границы карты?";
+
+"dialog_routing_cross_route_is_optimal" = "Маршрут с пересечением границы карты более оптимальный.";
+
+"dialog_routing_always_cross_that_border" = "Всегда пересекать эту границу";
+
+"dialog_routing_not_now" = "Не сейчас";
+
+"dialog_routing_build_route" = "Построить";
+
+"dialog_routing_download_and_build_cross_route" = "Скачать карту и построить более оптимальный маршрут с пересечением границы карты?";
+
+"dialog_routing_download_cross_route" = "Для построения более оптимального маршрута с пересечением границы требуется скачать карту.";
+
+"dialog_routing_cross_route_always" = "Всегда пересекать эту границу";
+
+/********** Strings for downloading map from search **********/
+
+"search_without_internet_advertisement" = "Для поиска мест, построения маршрута скачайте карту и интернет вам больше не понадобится.";
+
+"search_select_map" = "Выбрать карту ";
+
+"search_select_other_map" = "Выбрать другую карту";

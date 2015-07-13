@@ -431,6 +431,7 @@
 	<string name="downloader_delete_routing">Zmazať Trasu</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Stiahnite si Mapu</string>
+	<string name="downloader_download_map_no_routing">Prevezmite si mapu bez pokynov týkajúcich sa trasy</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Štart!</string>
 	<!-- Item status in downloader. -->
@@ -705,4 +706,46 @@
 	<string name="pink">ružová</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Áno</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">Pri sledovaní trasy majte na pamäti nasledujúce:</string>
+	<string name="dialog_routing_disclaimer_priority">— Podmienky na ceste, dopravné predpisy a značenie majú vždy prednosť pred pokynmi z navigácie;</string>
+	<string name="dialog_routing_disclaimer_precision">— Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— Navrhované trasy by sa mali brať len ako odporúčania;</string>
+	<string name="dialog_routing_disclaimer_beware">Na cestách buďte vždy ostražitý a dbajte na bezpečnosť!</string>
+	<string name="dialog_routing_check_gps">Skontrolujte signál GPS</string>
+	<string name="dialog_routing_error_location_not_found">Nedá sa vytvoriť trasa. Aktuálne súradnice GPS sa nedajú identifikovať.</string>
+	<string name="dialog_routing_location_turn_wifi">Skontrolujte signál GPS. Zapnutie Wi-Fi zlepší presnosť vašej lokalizácie.</string>
+	<string name="dialog_routing_location_turn_on">Zapnite lokalizačné služby</string>
+	<string name="dialog_routing_location_unknown_turn_on">Aktuálne súradnice GPS sa nedajú lokalizovať. Aktivujte lokalizačné služby na výpočet trasy.</string>
+	<string name="dialog_routing_location_unknown">Nedajú sa lokalizovať aktuálne súradnice GPS.</string>
+	<string name="dialog_routing_download_files">Prevezmite si požadované súbory</string>
+	<string name="dialog_routing_download_and_update_all">Prevezmite si a aktualizujte všetky mapy a informácie o trase pozdĺž naplánovanej trasy na výpočet trasy.</string>
+	<string name="dialog_routing_routes_size">Súbory s informáciami o trase</string>
+	<string name="dialog_routing_unable_locate_route">Trasa sa nedá lokalizovať</string>
+	<string name="dialog_routing_cant_build_route">Trasa sa nedá vytvoriť.</string>
+	<string name="dialog_routing_change_start_or_end">Prosím, upravte váš východiskový bod alebo cieľové miesto.</string>
+	<string name="dialog_routing_change_start">Nastavte východiskový bod</string>
+	<string name="dialog_routing_start_not_determined">Trasa nebola vytvorená. Nedá sa lokalizovať východiskový bod.</string>
+	<string name="dialog_routing_select_closer_start">Vyberte východiskový bod bližšie k ceste.</string>
+	<string name="dialog_routing_change_end">Nastavte cieľové miesto</string>
+	<string name="dialog_routing_end_not_determined">Trasa nebola vytvorená. Nedá sa lokalizovať cieľové miesto.</string>
+	<string name="dialog_routing_select_closer_end">Vyberte cieľové miesto nachádzajúce sa bližšie k ceste.</string>
+	<string name="dialog_routing_system_error">Systémová chyba</string>
+	<string name="dialog_routing_application_error">Nedá sa vytvoriť trasa z dôvodu aplikačnej chyby.</string>
+	<string name="dialog_routing_try_again">Skúste znova, prosím</string>
+	<string name="dialog_routing_send_error">Nahláste problém</string>
+	<string name="dialog_routing_if_get_cross_route">Chceli by ste vytvoriť priamejšiu trasu, ktorá zahŕňa viac ako jednu mapu?</string>
+	<string name="dialog_routing_cross_route_is_optimal">K dispozícii je optimálnejšia trasa, ktorá presahuje hranice tejto mapy.</string>
+	<string name="dialog_routing_always_cross_that_border">Vždy prekročiť túto hranicu</string>
+	<string name="dialog_routing_not_now">Nie teraz</string>
+	<string name="dialog_routing_build_route">Vytvoriť</string>
+	<string name="dialog_routing_download_and_build_cross_route">Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?</string>
+	<string name="dialog_routing_download_cross_route">Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.</string>
+	<string name="dialog_routing_cross_route_always">Vždy prekročiť túto hranicu</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">Stiahnutím mapy už nebudete potrebovať pripojenie k internetu a môžete si začať vyhľadávať a vytvárať trasy.</string>
+	<string name="search_select_map">Vybrať mapu</string>
+	<string name="search_select_other_map">Vybrať inú mapu</string>
 </resources>

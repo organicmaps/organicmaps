@@ -676,6 +676,8 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Unduh Peta";
 
+"downloader_download_map_no_routing" = "Unduh peta tanpa petunjuk perutean";
+
 /* Button for routing PP. */
 "routing_go" = "Mulai!";
 
@@ -1091,3 +1093,83 @@
 
 /* Wi-Fi available */
 "WiFi_available" = "Ya";
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "Saat mengikuti rute, harap diingat:";
+
+"dialog_routing_disclaimer_priority" = "— Kondisi jalan, peraturan lalu lintas, dan marka jalan harus selalu didahulukan daripada saran navigasi;";
+
+"dialog_routing_disclaimer_precision" = "— Peta mungkin tidak akurat dan rute yang disarankan tidak mutlak merupakan cara paling optimal untuk mencapai tujuan;";
+
+"dialog_routing_disclaimer_recommendations" = "— Rute yang disarankan hanya untuk digunakan sebagai rekomendasi;";
+
+"dialog_routing_disclaimer_beware" = "Jaga selalu kewaspadaan dan keselamatan di jalan!";
+
+"dialog_routing_check_gps" = "Periksa sinyal GPS";
+
+"dialog_routing_error_location_not_found" = "Tidak dapat membuat rute. Koordinat GPS saat ini tidak dapat dikenali.";
+
+"dialog_routing_location_turn_wifi" = "Mohon periksa sinyal GPS Anda. Mengaktifkan Wi-Fi akan meningkatkan akurasi lokasi Anda.";
+
+"dialog_routing_location_turn_on" = "Aktifkan layanan lokasi";
+
+"dialog_routing_location_unknown_turn_on" = "TIdak dapat menemukan koordinat GPS saat ini. Aktifkan layanan lokasi untuk mengalkulasi rute.";
+
+"dialog_routing_location_unknown" = "TIdak dapat menemukan koordinat GPS saat ini.";
+
+"dialog_routing_download_files" = "Unduh file yang diperlukan";
+
+"dialog_routing_download_and_update_all" = "Unduh dan perbarui semua informasi peta dan perutean di sepanjang proyeksi jalan untuk mengalkulasi rute.";
+
+"dialog_routing_routes_size" = "File informasi rute";
+
+"dialog_routing_unable_locate_route" = "Tidak dapat menemukan rute";
+
+"dialog_routing_cant_build_route" = "Tidak dapat membuat rute.";
+
+"dialog_routing_change_start_or_end" = "Sesuaikan titik mula atau tujuan Anda.";
+
+"dialog_routing_change_start" = "Sesuaikan titik mula";
+
+"dialog_routing_start_not_determined" = "Rute tidak dibuat. Tidak dapat menemukan titik mula.";
+
+"dialog_routing_select_closer_start" = "Pilih titik mula yang lebih dekat dengan jalan.";
+
+"dialog_routing_change_end" = "Sesuaikan tujuan";
+
+"dialog_routing_end_not_determined" = "Rute tidak dibuat. Tidak dapat menemukan tujuan.";
+
+"dialog_routing_select_closer_end" = "Pilih titik tujuan yang lebih dekat dengan jalan.";
+
+"dialog_routing_system_error" = "Kesalahan sistem";
+
+"dialog_routing_application_error" = "Tidak dapat membuat rute karena kesalahan aplikasi.";
+
+"dialog_routing_try_again" = "Mohon coba lagi";
+
+"dialog_routing_send_error" = "Laporkan Masalah";
+
+"dialog_routing_if_get_cross_route" = "Apakah Anda ingin membuat rute yang lebih langsung yang meliputi lebih dari satu peta?";
+
+"dialog_routing_cross_route_is_optimal" = "Ada rute yang lebih optimal yang melewati ujung peta ini.";
+
+"dialog_routing_always_cross_that_border" = "Selalu lewati batas ini";
+
+"dialog_routing_not_now" = "Jangan Sekarang";
+
+"dialog_routing_build_route" = "Buat";
+
+"dialog_routing_download_and_build_cross_route" = "Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?";
+
+"dialog_routing_download_cross_route" = "Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.";
+
+"dialog_routing_cross_route_always" = "Selalu lewati batas ini";
+
+/********** Strings for downloading map from search **********/
+
+"search_without_internet_advertisement" = "Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.";
+
+"search_select_map" = "Pilih Peta";
+
+"search_select_other_map" = "Pilih Peta Lain";

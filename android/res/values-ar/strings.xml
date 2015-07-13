@@ -43,7 +43,7 @@
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">اترك تعليق</string>
 	<!-- View and button titles for accessibility -->
-	<string name="maps">خرائط</string>
+	<string name="maps">الخرائط</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">تم تحديد العنصر لتنزيله، انقر للإلغاء</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
@@ -430,6 +430,7 @@
 	<string name="downloader_delete_routing">إزالة تحديد المسار</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">تحميل الخريطة</string>
+	<string name="downloader_download_map_no_routing">تنزيل الخريطة دون إرشادات التوجيه</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">انطلق!</string>
 	<!-- Item status in downloader. -->
@@ -706,4 +707,46 @@
 	<string name="pink">وردي</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">نعم</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">عند اتباع المسار، يُرجى وضع ما يلي في الاعتبار:</string>
+	<string name="dialog_routing_disclaimer_priority">— دائمًا ما يكون لظروف الطريق وقوانين وإشارات المرور الأولوية على المشورة الملاحية;</string>
+	<string name="dialog_routing_disclaimer_precision">— قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— يتم التعامل مع المسارات المقترحة كتوصيات فقط;</string>
+	<string name="dialog_routing_disclaimer_beware">يجب أن تظل يقظًا وآمنًا على الطريق!</string>
+	<string name="dialog_routing_check_gps">تحقق من إشارة نظام تحديد المواقع العالمي \&quot;GPS\&quot;</string>
+	<string name="dialog_routing_error_location_not_found">تعذر إنشاء مسار. لا يمكن تحديد إحداثيات GPS الحالية.</string>
+	<string name="dialog_routing_location_turn_wifi">يُرجى التحقق من إشارة GPS لديك. ويساعد تمكين خدمة Wi-Fi في تحسين دقة تحديد موقعك.</string>
+	<string name="dialog_routing_location_turn_on">تمكين خدمات المواقع</string>
+	<string name="dialog_routing_location_unknown_turn_on">تعذر تحديد إحداثيات نظام تحديد المواقع العالمي GPS الحالية. قم بتمكين خدمات المواقع لحساب المسار.</string>
+	<string name="dialog_routing_location_unknown">تعذر تحديد مواقع إحداثيات نظام تحديد المواقع العالمي GPS الحالية.</string>
+	<string name="dialog_routing_download_files">تنزيل الملفات المطلوبة</string>
+	<string name="dialog_routing_download_and_update_all">قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.</string>
+	<string name="dialog_routing_routes_size">ملفات معلومات التوجيه</string>
+	<string name="dialog_routing_unable_locate_route">تعذر تحديد موقع المسار</string>
+	<string name="dialog_routing_cant_build_route">تعذر إنشاء مسار.</string>
+	<string name="dialog_routing_change_start_or_end">برجاء تعديل نقطة بدء وجهتك.</string>
+	<string name="dialog_routing_change_start">تعديل نقطة البدء</string>
+	<string name="dialog_routing_start_not_determined">لم يتم إنشاء المسار. تعذر تحديد موقع نقطة البدء.</string>
+	<string name="dialog_routing_select_closer_start">يُرجى تحديد نقطة بدء أكثر قربًا للطريق.</string>
+	<string name="dialog_routing_change_end">تعديل الوجهة</string>
+	<string name="dialog_routing_end_not_determined">لم يتم إنشاء المسار. تعذر تحديد موقع الوجهة.</string>
+	<string name="dialog_routing_select_closer_end">يُرجى تحديد نقطة وجهة تقع أكثر قربًا من الطريق.</string>
+	<string name="dialog_routing_system_error">خطأ في النظام</string>
+	<string name="dialog_routing_application_error">تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.</string>
+	<string name="dialog_routing_try_again">برجاء إعادة المحاولة</string>
+	<string name="dialog_routing_send_error">الإبلاغ عن المشكلة</string>
+	<string name="dialog_routing_if_get_cross_route">هل تريد إنشاء مسار مباشر بشكل أكبر يمتد عبر أكثر من خريطة؟</string>
+	<string name="dialog_routing_cross_route_is_optimal">هناك مسار أفضل يعبر حافة هذه الخريطة.</string>
+	<string name="dialog_routing_always_cross_that_border">اعبر هذه الحدود دائمًا</string>
+	<string name="dialog_routing_not_now">ليس الآن</string>
+	<string name="dialog_routing_build_route">إنشاء</string>
+	<string name="dialog_routing_download_and_build_cross_route">هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟</string>
+	<string name="dialog_routing_download_cross_route">تنزيل الخريطة لإنشاء مسار أفضل يعبر حافة هذه الخريطة.</string>
+	<string name="dialog_routing_cross_route_always">اعبر هذه الحدود دائمًا</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، وسوف لن تحتاج إلى اتصال بالإنترنت بعد الآن.</string>
+	<string name="search_select_map">اختيار الخريطة</string>
+	<string name="search_select_other_map">اختيار خريطة أخرى</string>
 </resources>

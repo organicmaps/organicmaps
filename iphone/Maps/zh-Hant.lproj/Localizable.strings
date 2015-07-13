@@ -676,6 +676,8 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "下載地圖";
 
+"downloader_download_map_no_routing" = "下載無路線的地圖";
+
 /* Button for routing PP. */
 "routing_go" = "開始！";
 
@@ -1091,3 +1093,83 @@
 
 /* Wi-Fi available */
 "WiFi_available" = "是的";
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "依照路線行進時，請牢記：";
+
+"dialog_routing_disclaimer_priority" = "— 道路情形、交通規則及號誌較導航意見更為優先；";
+
+"dialog_routing_disclaimer_precision" = "— 地圖可能有誤，建議的路線不盡然是最佳選擇；";
+
+"dialog_routing_disclaimer_recommendations" = "— 建議的路線僅供推薦參考；";
+
+"dialog_routing_disclaimer_beware" = "祝您出外安全，自身多加注意！";
+
+"dialog_routing_check_gps" = "查看 GPS";
+
+"dialog_routing_error_location_not_found" = "未產生路線。 目前位置尚未定義。";
+
+"dialog_routing_location_turn_wifi" = "請查看 GPS。 為提升地理位置定位品質，請啟用 Wi-Fi。";
+
+"dialog_routing_location_turn_on" = "啟用位置定位";
+
+"dialog_routing_location_unknown_turn_on" = "目前位置尚未定義。 若要產生路線，請啟用位置定位。";
+
+"dialog_routing_location_unknown" = "目前位置尚未定義。";
+
+"dialog_routing_download_files" = "下載所需檔案";
+
+"dialog_routing_download_and_update_all" = "若要產生路線，請下載並更新所有地圖及沿路線的路線檔案。";
+
+"dialog_routing_routes_size" = "路線檔案";
+
+"dialog_routing_unable_locate_route" = "路線未找到";
+
+"dialog_routing_cant_build_route" = "此路線尚未產生。";
+
+"dialog_routing_change_start_or_end" = "請變更起點或最終目的地。";
+
+"dialog_routing_change_start" = "變更起點";
+
+"dialog_routing_start_not_determined" = "此路線尚未產生。 未定義起點。";
+
+"dialog_routing_select_closer_start" = "請選擇更接近道路的起點。";
+
+"dialog_routing_change_end" = "變更最終目的地";
+
+"dialog_routing_end_not_determined" = "未產生路線。 未定義最終目的地。";
+
+"dialog_routing_select_closer_end" = "請選擇更接近道路的最終目的地。";
+
+"dialog_routing_system_error" = "系統錯誤";
+
+"dialog_routing_application_error" = "由於此錯誤，尚未建立路線。";
+
+"dialog_routing_try_again" = "請再試一次";
+
+"dialog_routing_send_error" = "提報問題";
+
+"dialog_routing_if_get_cross_route" = "您想產生跨越邊界的更好路線嗎？";
+
+"dialog_routing_cross_route_is_optimal" = "跨越邊界的路線更為理想。";
+
+"dialog_routing_always_cross_that_border" = "一律跨越邊界。";
+
+"dialog_routing_not_now" = "先不要";
+
+"dialog_routing_build_route" = "產生";
+
+"dialog_routing_download_and_build_cross_route" = "您是否要下載地圖，產生跨越邊界的更好路線？";
+
+"dialog_routing_download_cross_route" = "若要產生跨越邊界的更理想路線，您需要下載地圖。";
+
+"dialog_routing_cross_route_always" = "一律跨越此邊界";
+
+/********** Strings for downloading map from search **********/
+
+"search_without_internet_advertisement" = "要開始搜索和創建路線，請下載地圖，那您就不再需要網絡連接了。";
+
+"search_select_map" = "選擇地圖";
+
+"search_select_other_map" = "選擇另一個地圖";

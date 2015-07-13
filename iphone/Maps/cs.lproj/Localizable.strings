@@ -676,6 +676,8 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Stáhnout mapu";
 
+"downloader_download_map_no_routing" = "Stáhnout mapu bez pokynů navigace";
+
 /* Button for routing PP. */
 "routing_go" = "Jet!";
 
@@ -1091,3 +1093,83 @@
 
 /* Wi-Fi available */
 "WiFi_available" = "Ano";
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "Při navigaci podle trasy mějte na paměti následující:";
+
+"dialog_routing_disclaimer_priority" = "— Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace;";
+
+"dialog_routing_disclaimer_precision" = "— Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;";
+
+"dialog_routing_disclaimer_recommendations" = "— Navrhované trasy je třeba brát pouze jako doporučení;";
+
+"dialog_routing_disclaimer_beware" = "Na silnici buďte pozorní a chovejte se bezpečně!";
+
+"dialog_routing_check_gps" = "Zkontrolovat signál GPS";
+
+"dialog_routing_error_location_not_found" = "Nepodařilo se vytvořit trasu. Nelze zjistit aktuální souřadnice GPS.";
+
+"dialog_routing_location_turn_wifi" = "Zkontrolujte signál GPS. Povolením připojení Wi-Fi zpřesníte určení vaší polohy.";
+
+"dialog_routing_location_turn_on" = "Povolit služby určování polohy";
+
+"dialog_routing_location_unknown_turn_on" = "Nepodařilo se zjistit aktuální souřadnice GPS. Pro výpočet trasy povolte služby určování polohy.";
+
+"dialog_routing_location_unknown" = "Nepodařilo se zjistit aktuální souřadnice GPS.";
+
+"dialog_routing_download_files" = "Stáhnout požadované soubory";
+
+"dialog_routing_download_and_update_all" = "Stáhnout a aktualizovat veškeré informace o mapách a trasách spolu s navrhovanou cestou pro výpočet trasy.";
+
+"dialog_routing_routes_size" = "Soubory s informacemi o trasách";
+
+"dialog_routing_unable_locate_route" = "Nepodařilo se zjistit trasu";
+
+"dialog_routing_cant_build_route" = "Nepodařilo se vytvořit trasu.";
+
+"dialog_routing_change_start_or_end" = "Upravte místo startu nebo cíle.";
+
+"dialog_routing_change_start" = "Upravit místo startu";
+
+"dialog_routing_start_not_determined" = "Trasa nebyla vytvořena. Nepodařilo se najít místo startu.";
+
+"dialog_routing_select_closer_start" = "Vyberte místo startu blíže k silnici.";
+
+"dialog_routing_change_end" = "Upravit cíl";
+
+"dialog_routing_end_not_determined" = "Trasa nebyla vytvořena. Nepodařilo se najít cíl.";
+
+"dialog_routing_select_closer_end" = "Vyberte místo cíle blíže k silnici.";
+
+"dialog_routing_system_error" = "Systémová chyba";
+
+"dialog_routing_application_error" = "Nepodařilo se vytvořit trasu z důvodu chyby aplikace.";
+
+"dialog_routing_try_again" = "Zkuste to prosím znovu";
+
+"dialog_routing_send_error" = "Nahlásit problém";
+
+"dialog_routing_if_get_cross_route" = "Chcete vytvořit přímější trasu, která vede přes více než jednu mapu?";
+
+"dialog_routing_cross_route_is_optimal" = "K dispozici je optimálnější trasa, která překračuje hranice této mapy.";
+
+"dialog_routing_always_cross_that_border" = "Vždy překročit tuto hranici";
+
+"dialog_routing_not_now" = "Nyní ne";
+
+"dialog_routing_build_route" = "Vytvořit";
+
+"dialog_routing_download_and_build_cross_route" = "Chcete mapu stáhnout a vytvořit optimálnější trasu, která vede přes více než jednu mapu?";
+
+"dialog_routing_download_cross_route" = "Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.";
+
+"dialog_routing_cross_route_always" = "Vždy překročit tuto hranici";
+
+/********** Strings for downloading map from search **********/
+
+"search_without_internet_advertisement" = "Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.";
+
+"search_select_map" = "Vybrat mapu";
+
+"search_select_other_map" = "Vybrat jinou mapu";

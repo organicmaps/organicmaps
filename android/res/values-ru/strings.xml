@@ -43,7 +43,7 @@
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">Написать отзыв</string>
 	<!-- View and button titles for accessibility -->
-	<string name="maps">Карта</string>
+	<string name="maps">Карты</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">Поставлено в очередь на загрузку, нажмите для отмены</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
@@ -437,6 +437,7 @@
 	<string name="downloader_delete_routing">Удалить маршруты</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Скачать карту</string>
+	<string name="downloader_download_map_no_routing">Скачать карту без автомобильных маршрутов</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Поехали!</string>
 	<!-- Item status in downloader. -->
@@ -713,4 +714,46 @@
 	<string name="pink">Розовый</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Есть</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">При движении по маршруту помните:</string>
+	<string name="dialog_routing_disclaimer_priority">— Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;</string>
+	<string name="dialog_routing_disclaimer_precision">— Карта может быть неточной, а предложенный маршрут не всегда оптимален;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— Предлагаемые маршруты — лишь рекомендации;</string>
+	<string name="dialog_routing_disclaimer_beware">Будьте внимательны на дорогах и берегите себя!</string>
+	<string name="dialog_routing_check_gps">Проверьте сигнал GPS</string>
+	<string name="dialog_routing_error_location_not_found">Маршрут не построен. Текущая геопозиция не определена.</string>
+	<string name="dialog_routing_location_turn_wifi">Пожалуйста, проверьте сигнал GPS. Для улучшения точности геопозиции включите Wi-Fi.</string>
+	<string name="dialog_routing_location_turn_on">Включите режим определения геопозиции</string>
+	<string name="dialog_routing_location_unknown_turn_on">Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.</string>
+	<string name="dialog_routing_location_unknown">Текущая геопозиция не определена.</string>
+	<string name="dialog_routing_download_files">Загрузите необходимые файлы</string>
+	<string name="dialog_routing_download_and_update_all">Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.</string>
+	<string name="dialog_routing_routes_size">Файлы маршрутов</string>
+	<string name="dialog_routing_unable_locate_route">Маршрут не найден</string>
+	<string name="dialog_routing_cant_build_route">Не получилось построить маршрут.</string>
+	<string name="dialog_routing_change_start_or_end">Пожалуйста, измените начальную или конечную точку маршрута.</string>
+	<string name="dialog_routing_change_start">Измените начальную точку маршрута</string>
+	<string name="dialog_routing_start_not_determined">Маршрут не построен. Не определена начальная точка маршрута.</string>
+	<string name="dialog_routing_select_closer_start">Пожалуйста, выберите начальную точку маршрута ближе к дороге.</string>
+	<string name="dialog_routing_change_end">Измените конечную точку маршрута</string>
+	<string name="dialog_routing_end_not_determined">Маршрут не построен. Не определена конечная точка маршрута.</string>
+	<string name="dialog_routing_select_closer_end">Пожалуйста, выберите конечную точку маршрута ближе к дороге.</string>
+	<string name="dialog_routing_system_error">Системная ошибка</string>
+	<string name="dialog_routing_application_error">Не удалось проложить маршрут из-за ошибки приложения.</string>
+	<string name="dialog_routing_try_again">Попробуйте снова</string>
+	<string name="dialog_routing_send_error">Сообщить об ошибке</string>
+	<string name="dialog_routing_if_get_cross_route">Построить более оптимальный маршрут с пересечением границы карты?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Маршрут с пересечением границы карты более оптимальный.</string>
+	<string name="dialog_routing_always_cross_that_border">Всегда пересекать эту границу</string>
+	<string name="dialog_routing_not_now">Не сейчас</string>
+	<string name="dialog_routing_build_route">Построить</string>
+	<string name="dialog_routing_download_and_build_cross_route">Скачать карту и построить более оптимальный маршрут с пересечением границы карты?</string>
+	<string name="dialog_routing_download_cross_route">Для построения более оптимального маршрута с пересечением границы требуется скачать карту.</string>
+	<string name="dialog_routing_cross_route_always">Всегда пересекать эту границу</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">Для поиска мест, построения маршрута скачайте карту и интернет вам больше не понадобится.</string>
+	<string name="search_select_map">Выбрать карту </string>
+	<string name="search_select_other_map">Выбрать другую карту</string>
 </resources>

@@ -425,6 +425,7 @@
 	<string name="downloader_delete_routing">Poista reititys</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Lataa kartta</string>
+	<string name="downloader_download_map_no_routing">Lataa kartta ilman reittiohjeita</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Lähde!</string>
 	<!-- Item status in downloader. -->
@@ -701,4 +702,46 @@
 	<string name="pink">Pinkki</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Kyllä</string>
+
+	<!-- SECTION: Routing dialogs strings -->
+	<string name="dialog_routing_disclaimer_title">Muista seuraavat asiat seuratessasi reittiä:</string>
+	<string name="dialog_routing_disclaimer_priority">— Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;</string>
+	<string name="dialog_routing_disclaimer_precision">— Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— Ehdotettuja reittejä tulee pitää vain suosituksina;</string>
+	<string name="dialog_routing_disclaimer_beware">Pysy tarkkana ja aja turvallisesti!</string>
+	<string name="dialog_routing_check_gps">Tarkista GPS-signaali</string>
+	<string name="dialog_routing_error_location_not_found">Reittiä ei voi luoda. Tämänhetkisiä GPS-koordinaatteja ei löydy.</string>
+	<string name="dialog_routing_location_turn_wifi">Tarkista GPS-signaali. Wi-Fi-signaalin käyttöönotto parantaa sijainnin tarkkuutta.</string>
+	<string name="dialog_routing_location_turn_on">Ota sijaintipalvelut käyttöön</string>
+	<string name="dialog_routing_location_unknown_turn_on">Tämänhetkisiä GPS-koordinaatteja ei löydy. Ota sijaintipalvelut käyttöön reitin laskemista varten.</string>
+	<string name="dialog_routing_location_unknown">Tämänhetkisiä GPS-koordinaatteja ei löydy.</string>
+	<string name="dialog_routing_download_files">Lataa tarvittavat tiedostot</string>
+	<string name="dialog_routing_download_and_update_all">Lataa ja päivitä kaikki suunnitellun reitin kartta- ja reititystiedot, jotta reitin voi laskea.</string>
+	<string name="dialog_routing_routes_size">Reititystiedostot</string>
+	<string name="dialog_routing_unable_locate_route">Reitin paikannus ei onnistu</string>
+	<string name="dialog_routing_cant_build_route">Reitin luonti ei onnistu.</string>
+	<string name="dialog_routing_change_start_or_end">Muuta aloituskohtaa tai määränpäätä.</string>
+	<string name="dialog_routing_change_start">Muuta aloituskohtaa</string>
+	<string name="dialog_routing_start_not_determined">Reittiä ei luotu. Aloituskohdan paikannus ei onnistu.</string>
+	<string name="dialog_routing_select_closer_start">Valitse lähempänä tietä oleva aloituskohta.</string>
+	<string name="dialog_routing_change_end">Muuta määränpäätä</string>
+	<string name="dialog_routing_end_not_determined">Reittiä ei luotu. Määränpään paikannus ei onnistu.</string>
+	<string name="dialog_routing_select_closer_end">Valitse lähempänä tietä oleva määränpää.</string>
+	<string name="dialog_routing_system_error">Järjestelmävirhe</string>
+	<string name="dialog_routing_application_error">Reittiä ei voi luoda sovellusvirheen vuoksi.</string>
+	<string name="dialog_routing_try_again">Yritä uudelleen</string>
+	<string name="dialog_routing_send_error">Ilmoita ongelmasta</string>
+	<string name="dialog_routing_if_get_cross_route">Haluatko luoda suoremman reitin, joka ylettyy usealle kartalle?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Tarjolla on suorempi reitti, joka ylittää tämän kartan reunan.</string>
+	<string name="dialog_routing_always_cross_that_border">Ylitä aina tämä raja</string>
+	<string name="dialog_routing_not_now">Ei nyt</string>
+	<string name="dialog_routing_build_route">Luo</string>
+	<string name="dialog_routing_download_and_build_cross_route">Haluatko ladata kartan ja luoda paremman reitin, joka ylettyy usealle kartalle?</string>
+	<string name="dialog_routing_download_cross_route">Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.</string>
+	<string name="dialog_routing_cross_route_always">Ylitä aina tämä raja</string>
+
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">Lataa kartta aloittaksesi haun ja luodaksesi reittejä. Tämän jälkeen et enää tule tarvitsemaan Internet-yhteyttä.</string>
+	<string name="search_select_map">Valitse kartta</string>
+	<string name="search_select_other_map">Valitse toinen kartta</string>
 </resources>
