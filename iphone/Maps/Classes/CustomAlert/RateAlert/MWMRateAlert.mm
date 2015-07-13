@@ -52,7 +52,7 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 {
   [UIView animateWithDuration:0.15 animations:^
   {
-    self.oneStarPushImageView.alpha = 1;
+    self.oneStarPushImageView.alpha = 1.;
     self.oneStarButton.selected = YES;
   }
   completion:^(BOOL finished)
@@ -72,7 +72,7 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 {
   [UIView animateWithDuration:0.15 animations:^
   {
-    self.twoStarPushImageView.alpha = 1;
+    self.twoStarPushImageView.alpha = 1.;
     self.oneStarButton.selected = YES;
     self.twoStarButton.selected = YES;
   }
@@ -115,11 +115,11 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 {
   [UIView animateWithDuration:0.15 animations:^
   {
-      self.fourStarPushImageView.alpha = 1.;
-      self.oneStarButton.selected = YES;
-      self.twoStarButton.selected = YES;
-      self.threeStarButton.selected = YES;
-      self.fourStarButton.selected = YES;
+    self.fourStarPushImageView.alpha = 1.;
+    self.oneStarButton.selected = YES;
+    self.twoStarButton.selected = YES;
+    self.threeStarButton.selected = YES;
+    self.fourStarButton.selected = YES;
   }
   completion:^(BOOL finished)
   {

@@ -6,19 +6,19 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMDefaultAlert.h"
-#import "MWMAlertViewController.h"
-#import "UILabel+RuntimeAttributes.h"
-#import "UIKitCategories.h"
+#import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "MWMAlertViewController.h"
+#import "MWMDefaultAlert.h"
 #import "MWMPlacePageViewManager.h"
-#import "LocationManager.h"
+#import "UIButton+RuntimeAttributes.h"
+#import "UIKitCategories.h"
+#import "UILabel+RuntimeAttributes.h"
 
 #include "Framework.h"
 
-typedef void (^RightButtonAction)();
-static CGFloat const kDividerTopConstant = -8;
+static CGFloat const kDividerTopConstant = -8.;
 
 @interface MWMDefaultAlert ()
 
@@ -44,18 +44,17 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 + (instancetype)locationServiceNotSupportedAlert
 {
-  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"device_doesnot_support_location_services" message:nil rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
-  return alert;
+  return [self defaultAlertWithTitle:@"device_doesnot_support_location_services" message:nil rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
-+ (instancetype)notConnectionAlert
++ (instancetype)noConnectionAlert
 {
   MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"no_internet_connection_detected" message:nil rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
   [alert setNeedsCloseAlertAfterEnterBackground];
   return alert;
 }
 
-+ (instancetype)notWiFiAlertWithName:(NSString *)name downloadBlock:(void(^)())block
++ (instancetype)noWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block
 {
   MWMDefaultAlert * alert = [self defaultAlertWithTitle:name message:nil rightButtonTitle:@"use_cellular_data" leftButtonTitle:@"cancel" rightButtonAction:block];
   [alert setNeedsCloseAlertAfterEnterBackground];
@@ -96,10 +95,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 {
   RightButtonAction action = ^
   {
-    MWMPlacePageViewManager * manager = [MapsAppDelegate theApp].m_mapViewController.placePageManager;
-    [[MapsAppDelegate theApp].m_locationManager stop:(id<LocationObserver>)manager];
     GetFramework().GetLocationState()->SwitchToNextMode();
-    [[MapsAppDelegate theApp].m_locationManager start:(id<LocationObserver>)manager];
   };
   return [MWMDefaultAlert defaultAlertWithTitle:@"dialog_routing_location_turn_on" message:@"dialog_routing_location_unknown_turn_on" rightButtonTitle:@"turn_on" leftButtonTitle:@"later" rightButtonAction:action];
 }

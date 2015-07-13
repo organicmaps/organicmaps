@@ -654,9 +654,9 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
     f.Invalidate();
     f.LoadBookmarks();
 
-    f.GetCountryStatusDisplay()->SetDownloadCountryListener([self](storage::TIndex const & idx, int opt)
+    f.GetCountryStatusDisplay()->SetDownloadCountryListener([self, &f](storage::TIndex const & idx, int opt)
     {
-      ActiveMapsLayout & layout = GetFramework().GetCountryTree().GetActiveMapLayout();
+      ActiveMapsLayout & layout = f.GetCountryTree().GetActiveMapLayout();
       if (opt == -1)
       {
         layout.RetryDownloading(idx);
@@ -676,13 +676,13 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * 1024 * 1024)
           {
             NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
-            [self.alertController presentNotWifiAlertWithName:title downloadBlock:^{layout.DownloadMap(idx, static_cast<TMapOptions>(opt));}];
+            [self.alertController presentnoWiFiAlertWithName:title downloadBlock:^{layout.DownloadMap(idx, static_cast<TMapOptions>(opt));}];
             return;
           }
         }
         else
         {
-          [self.alertController presentNotConnectionAlert];
+          [self.alertController presentNoConnectionAlert];
           return;
         }
 
@@ -724,10 +724,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes];
           break;
         case routing::IRouter::NoCurrentPosition:
-          if (GetFramework().GetLocationState()->GetMode() == location::State::Mode::UnknownPosition)
-            [self presentDisabledLocationAlert];
-          else
-            [self presentDefaultAlert:code];
+          [self presentDefaultAlert:code];
           break;
         case routing::IRouter::Cancelled:
           break;

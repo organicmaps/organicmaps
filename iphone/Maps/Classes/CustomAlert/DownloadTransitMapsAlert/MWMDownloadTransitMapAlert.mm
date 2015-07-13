@@ -6,13 +6,14 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMDownloadTransitMapAlert.h"
-#import "MWMAlertViewController.h"
 #import "ActiveMapsVC.h"
-#import "UIKitCategories.h"
+#import "MWMAlertViewController.h"
 #import "MWMDownloaderDialogCell.h"
 #import "MWMDownloaderDialogHeader.h"
+#import "MWMDownloadTransitMapAlert.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIKitCategories.h"
+#import "UILabel+RuntimeAttributes.h"
 
 typedef void (^MWMDownloaderBlock)();
 
@@ -21,7 +22,6 @@ static CGFloat const kCellHeight = 32.;
 static CGFloat const kHeaderHeight = 43.;
 static CGFloat const kHeaderAndFooterHeight = 44.;
 static CGFloat const kMinimumOffset = 20.;
-static NSUInteger numberOfSection;
 
 typedef NS_ENUM(NSUInteger, SelectionState)
 {
@@ -32,7 +32,6 @@ typedef NS_ENUM(NSUInteger, SelectionState)
 };
 
 static NSString * const kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert";
-extern UIColor * const kActiveDownloaderViewColor;
 
 @interface MWMDownloadTransitMapAlert ()
 {
@@ -48,6 +47,7 @@ extern UIColor * const kActiveDownloaderViewColor;
 @property (weak, nonatomic) IBOutlet UITableView * dialogsTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * tableViewHeight;
 @property (weak, nonatomic) IBOutlet UIView * divider;
+@property (nonatomic) NSUInteger numberOfSections;
 
 @property (nonatomic) MWMDownloaderDialogHeader * mapsHeader;
 @property (nonatomic) MWMDownloaderDialogHeader * routesHeader;
@@ -64,16 +64,16 @@ extern UIColor * const kActiveDownloaderViewColor;
 + (instancetype)crossCountryAlertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes
 {
   MWMDownloadTransitMapAlert * alert = [self alertWithMaps:maps routes:routes];
-  alert.titleLabel.text = L(@"dialog_routing_download_and_build_cross_route");
-  alert.messageLabel.text = L(@"dialog_routing_download_cross_route");
+  alert.titleLabel.localizedText = @"dialog_routing_download_and_build_cross_route";
+  alert.messageLabel.localizedText = @"dialog_routing_download_cross_route";
   return alert;
 }
 
 + (instancetype)downloaderAlertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes
 {
   MWMDownloadTransitMapAlert * alert = [self alertWithMaps:maps routes:routes];
-  alert.titleLabel.text = L(@"dialog_routing_download_files");
-  alert.messageLabel.text = L(@"dialog_routing_download_and_update_all");
+  alert.titleLabel.localizedText = @"dialog_routing_download_files";
+  alert.messageLabel.localizedText = @"dialog_routing_download_and_update_all";
   return alert;
 }
 
@@ -82,11 +82,11 @@ extern UIColor * const kActiveDownloaderViewColor;
   MWMDownloadTransitMapAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadTransitMapAlertNibName owner:nil options:nil] firstObject];
   alert->maps = maps;
   alert->routes = routes;
-  numberOfSection = 0;
-  if (maps.size() > 0)
-    numberOfSection++;
-  if (routes.size() > 0)
-    numberOfSection++;
+  alert.numberOfSections = 0;
+  if (!maps.empty())
+    alert.numberOfSections++;
+  if (!routes.empty())
+    alert.numberOfSections++;
   [alert configure];
   return alert;
 }
@@ -98,13 +98,14 @@ extern UIColor * const kActiveDownloaderViewColor;
   if (maps.size() < 2 && routes.size() < 2)
     self.dialogsTableView.scrollEnabled = NO;
   __weak MWMDownloadTransitMapAlert * weakSelf = self;
-  self.downloaderBlock = ^{
+  self.downloaderBlock = ^
+  {
     __strong MWMDownloadTransitMapAlert * self = weakSelf;
-    ActiveMapsLayout & layout = GetFramework().GetCountryTree().GetActiveMapLayout();
+    storage::Storage & s = GetFramework().Storage();
     for (auto const & index : maps)
-      layout.DownloadMap(index, TMapOptions::EMapWithCarRouting);
+      s.DownloadCountry(index, TMapOptions::EMapWithCarRouting);
     for (auto const & index : routes)
-      layout.DownloadMap(index, TMapOptions::ECarRouting);
+      s.DownloadCountry(index, TMapOptions::ECarRouting);
   };
   [self.dialogsTableView reloadData];
 }
@@ -152,7 +153,7 @@ extern UIColor * const kActiveDownloaderViewColor;
   {
     case SelectionStateNone:
     {
-      CGFloat const height = kHeaderAndFooterHeight * numberOfSection;
+      CGFloat const height = kHeaderAndFooterHeight * self.numberOfSections;
       self.tableViewHeight.constant = height;
       [self.dialogsTableView.visibleCells enumerateObjectsUsingBlock:^(MWMDownloaderDialogCell * obj, NSUInteger idx, BOOL *stop) {
         obj.titleLabel.alpha = 0.;
@@ -169,30 +170,24 @@ extern UIColor * const kActiveDownloaderViewColor;
     case SelectionStateRoutes:
     case SelectionStateBoth:
     {
-      NSUInteger cellCount;
-      if (state == SelectionStateBoth)
-        cellCount = maps.size() + routes.size();
-      else if (state == SelectionStateMaps)
-        cellCount = maps.size();
-      else
-        cellCount = routes.size();
-
-      CGFloat const height = [self bounded:kCellHeight * cellCount + kHeaderAndFooterHeight * numberOfSection withHeight:self.superview.height];
+      NSUInteger const cellCount = self.cellCountForCurrentState;
+      CGFloat const height = [self bounded:kCellHeight * cellCount + kHeaderAndFooterHeight * self.numberOfSections withHeight:self.superview.height];
       self.tableViewHeight.constant = height;
       [UIView animateWithDuration:.05 animations:^
-       {
+      {
         [self layoutSubviews];
-       }
-       completion:^(BOOL finished)
-       {
-         [UIView animateWithDuration:.3 animations:^{
+      }
+      completion:^(BOOL finished)
+      {
+        [UIView animateWithDuration:.3 animations:^{
           [self.dialogsTableView beginUpdates];
-          [self.dialogsTableView.visibleCells enumerateObjectsUsingBlock:^(MWMDownloaderDialogCell * obj, NSUInteger idx, BOOL *stop) {
-            obj.titleLabel.alpha = 1.;
+          [self.dialogsTableView.visibleCells enumerateObjectsUsingBlock:^(MWMDownloaderDialogCell * obj, NSUInteger idx, BOOL *stop)
+            {
+              obj.titleLabel.alpha = 1.;
           }];
           [self.dialogsTableView endUpdates];
-         }];
-       }];
+        }];
+      }];
       break;
     }
   }
@@ -211,23 +206,27 @@ extern UIColor * const kActiveDownloaderViewColor;
   switch (self.state)
   {
     case SelectionStateNone:
-      self.tableViewHeight.constant = kHeaderAndFooterHeight * numberOfSection ;
+      self.tableViewHeight.constant = kHeaderAndFooterHeight * self.numberOfSections ;
       break;
     case SelectionStateMaps:
     case SelectionStateRoutes:
     case SelectionStateBoth:
     {
-      NSUInteger cellCount;
-      if (self.state == SelectionStateBoth)
-        cellCount = maps.size() + routes.size();
-      else if (self.state == SelectionStateMaps)
-        cellCount = maps.size();
-      else
-        cellCount = routes.size();
-      self.tableViewHeight.constant = [self bounded:(kCellHeight * cellCount + kHeaderAndFooterHeight * numberOfSection) withHeight:height];;
+      NSUInteger const cellCount = self.cellCountForCurrentState;
+      self.tableViewHeight.constant = [self bounded:(kCellHeight * cellCount + kHeaderAndFooterHeight * self.numberOfSections) withHeight:height];;
       break;
     }
   }
+}
+
+- (NSUInteger)cellCountForCurrentState
+{
+  if (self.state == SelectionStateBoth)
+    return maps.size() + routes.size();
+  else if (self.state == SelectionStateMaps)
+    return maps.size();
+  else
+    return routes.size();
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
@@ -242,15 +241,12 @@ extern UIColor * const kActiveDownloaderViewColor;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return numberOfSection;
+  return self.numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (section == 0)
-    return maps.size();
-  else
-    return routes.size();
+  return section == 0 ? maps.size() : routes.size();
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -275,7 +271,7 @@ extern UIColor * const kActiveDownloaderViewColor;
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-  ActiveMapsLayout & layout = GetFramework().GetCountryTree().GetActiveMapLayout();
+  storage::Storage & s = GetFramework().Storage();
   if (section == 0)
   {
     if (self.mapsHeader)
@@ -283,19 +279,20 @@ extern UIColor * const kActiveDownloaderViewColor;
 
     if (maps.size() > 1)
     {
-      uint64_t s = 0;
+      uint64_t totalRoutingSize = 0;
       for (auto const & index : maps)
-        s += layout.GetCountrySize(index, TMapOptions::EMapWithCarRouting).second;
+        totalRoutingSize += s.CountrySizeInBytes(index, TMapOptions::EMapWithCarRouting).second;
 
-      NSString * size = [NSString stringWithFormat:@"%@ %@", @(s / (1024 * 1024)), L(@"mb")];
+      NSString * size = [NSString stringWithFormat:@"%@ %@", @(totalRoutingSize / (1024 * 1024)), L(@"mb")];
       NSString * title = [NSString stringWithFormat:@"%@(%@)", L(@"dialog_routing_maps"), @(maps.size())];
       self.mapsHeader = [MWMDownloaderDialogHeader headerForOwnerAlert:self title:title size:size];
     }
     else
     {
+      NSAssert(!maps.empty(), @"Maps can't be empty!");
       storage::TIndex const & index = maps[0];
-      NSString * title = [NSString stringWithUTF8String:layout.GetFormatedCountryName(index).c_str()];
-      NSString * size = [NSString stringWithFormat:@"%@ %@", @(layout.GetCountrySize(index, TMapOptions::EMapWithCarRouting).second / (1024 * 1024)), L(@"mb")];
+      NSString * title = [NSString stringWithUTF8String:s.CountryName(index).c_str()];
+      NSString * size = [NSString stringWithFormat:@"%@ %@", @(s.CountrySizeInBytes(index, TMapOptions::EMapWithCarRouting).second / (1024 * 1024)), L(@"mb")];
       self.mapsHeader = [MWMDownloaderDialogHeader headerForOwnerAlert:self title:title size:size];
       self.mapsHeader.expandImage.hidden = YES;
       self.mapsHeader.headerButton.enabled = NO;
@@ -303,50 +300,38 @@ extern UIColor * const kActiveDownloaderViewColor;
     }
     return self.mapsHeader;
   }
+
+  if (self.routesHeader)
+    return self.routesHeader;
+
+  if (routes.size() > 1)
+  {
+    uint64_t totalRoutingSize = 0;
+    for (auto const & index : routes)
+      totalRoutingSize += s.CountrySizeInBytes(index, TMapOptions::ECarRouting).second;
+
+    NSString * size = [NSString stringWithFormat:@"%@ %@", @(totalRoutingSize / (1024 * 1024)), L(@"mb")];
+    NSString * title = [NSString stringWithFormat:@"%@(%@)", L(@"dialog_routing_routes_size"), @(routes.size())];
+    self.routesHeader = [MWMDownloaderDialogHeader headerForOwnerAlert:self title:title size:size];
+  }
   else
   {
-    if (self.routesHeader)
-      return self.routesHeader;
-
-    if (routes.size() > 1)
-    {
-      uint64_t s = 0;
-      for (auto const & index : routes)
-        s += layout.GetCountrySize(index, TMapOptions::ECarRouting).second;
-
-      NSString * size = [NSString stringWithFormat:@"%@ %@", @(s / (1024 * 1024)), L(@"mb")];
-      NSString * title = [NSString stringWithFormat:@"%@(%@)", L(@"dialog_routing_routes_size"), @(routes.size())];
-      self.routesHeader = [MWMDownloaderDialogHeader headerForOwnerAlert:self title:title size:size];
-    }
-    else
-    {
-      storage::TIndex const & index = routes[0];
-      NSString * title = [NSString stringWithUTF8String:layout.GetFormatedCountryName(index).c_str()];
-      NSString * size = [NSString stringWithFormat:@"%@ %@", @(layout.GetCountrySize(index, TMapOptions::ECarRouting).second / (1024 * 1024)), L(@"mb")];
-      self.routesHeader = [MWMDownloaderDialogHeader headerForOwnerAlert:self title:title size:size];
-      self.routesHeader.expandImage.hidden = YES;
-      self.routesHeader.headerButton.enabled = NO;
-      [self.routesHeader layoutSizeLabel];
-    }
-    return self.routesHeader;
+    NSAssert(!routes.empty(), @"Routes can't be empty");
+    storage::TIndex const & index = routes[0];
+    NSString * title = [NSString stringWithUTF8String:s.CountryName(index).c_str()];
+    NSString * size = [NSString stringWithFormat:@"%@ %@", @(s.CountrySizeInBytes(index, TMapOptions::ECarRouting).second / (1024 * 1024)), L(@"mb")];
+    self.routesHeader = [MWMDownloaderDialogHeader headerForOwnerAlert:self title:title size:size];
+    self.routesHeader.expandImage.hidden = YES;
+    self.routesHeader.headerButton.enabled = NO;
+    [self.routesHeader layoutSizeLabel];
   }
+  return self.routesHeader;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-
   UIView * view = [[UIView alloc] init];
-  if (numberOfSection == 2)
-  {
-    if (section == 0)
-      view.backgroundColor = [UIColor blackDividers];
-    else
-      view.backgroundColor = [UIColor clearColor];
-  }
-  else
-  {
-    view.backgroundColor = [UIColor clearColor];
-  }
+  view.backgroundColor = self.numberOfSections == 2 && section == 9 ? UIColor.blackDividers : UIColor.clearColor;
   return view;
 }
 
@@ -356,8 +341,8 @@ extern UIColor * const kActiveDownloaderViewColor;
   if (!cell)
     cell = [[MWMDownloaderDialogCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellIdentifier];
   storage::TIndex const & index = indexPath.section == 0 ? maps[indexPath.row] : routes[indexPath.row];
-  ActiveMapsLayout & layout = GetFramework().GetCountryTree().GetActiveMapLayout();
-  cell.titleLabel.text = [NSString stringWithUTF8String:layout.GetFormatedCountryName(index).c_str()];
+  storage::Storage & s = GetFramework().Storage();
+  cell.titleLabel.text = [NSString stringWithUTF8String:s.CountryName(index).c_str()];
   return cell;
 }
 

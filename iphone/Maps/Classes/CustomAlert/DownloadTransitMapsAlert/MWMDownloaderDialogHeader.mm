@@ -40,10 +40,7 @@ static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHe
   self.dividerView.hidden = currentState;
   [UIView animateWithDuration:.15 animations:^
   {
-    if (sender.selected)
-      self.expandImage.transform = CGAffineTransformMakeRotation(M_PI);
-    else
-      self.expandImage.transform = CGAffineTransformIdentity;
+    self.expandImage.transform = sender.selected ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformIdentity;
   }];
   [self.ownerAlert showDownloadDetail:sender];
 }

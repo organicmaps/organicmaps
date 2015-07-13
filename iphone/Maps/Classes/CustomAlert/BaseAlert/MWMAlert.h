@@ -11,11 +11,12 @@
 #include "routing/router.hpp"
 #include "storage/storage.hpp"
 
-@class MWMAlertViewController;
+typedef void (^RightButtonAction)();
 
+@class MWMAlertViewController;
 @interface MWMAlert : UIView
 
-@property (weak, nonatomic) MWMAlertViewController *alertController;
+@property (weak, nonatomic) MWMAlertViewController * alertController;
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes;
@@ -26,8 +27,8 @@
 + (MWMAlert *)locationAlert;
 + (MWMAlert *)routingDisclaimerAlert;
 + (MWMAlert *)disabledLocationAlert;
-+ (MWMAlert *)notWiFiAlertWithName:(NSString *)name downloadBlock:(void(^)())block;
-+ (MWMAlert *)notConnectionAlert;
++ (MWMAlert *)noWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block;
++ (MWMAlert *)noConnectionAlert;
 + (MWMAlert *)locationServiceNotSupportedAlert;
 - (void)close;
 

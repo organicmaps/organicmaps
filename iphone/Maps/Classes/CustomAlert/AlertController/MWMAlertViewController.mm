@@ -39,74 +39,62 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentRateAlert
 {
-  MWMAlert * alert = [MWMAlert rateAlert];
-  [self displayAlert:alert];
+  [self displayAlert:MWMAlert.rateAlert];
 }
 
 - (void)presentLocationAlert
 {
-  MWMAlert * alert = [MWMAlert locationAlert];
-  [self displayAlert:alert];
+  [self displayAlert:MWMAlert.locationAlert];
 }
 
 - (void)presentFacebookAlert
 {
-  MWMAlert * alert = [MWMAlert facebookAlert];
-  [self displayAlert:alert];
+  [self displayAlert:MWMAlert.facebookAlert];
 }
 
 - (void)presentLocationServiceNotSupportedAlert
 {
-  MWMAlert * alert = [MWMAlert locationServiceNotSupportedAlert];
-  [self displayAlert:alert];
+  [self displayAlert:MWMAlert.locationServiceNotSupportedAlert];
 }
 
-- (void)presentNotConnectionAlert
+- (void)presentNoConnectionAlert
 {
-  MWMAlert * alert = [MWMAlert notConnectionAlert];
-  [self displayAlert:alert];
+  [self displayAlert:MWMAlert.noConnectionAlert];
 }
 
-- (void)presentNotWifiAlertWithName:(NSString *)name downloadBlock:(void(^)())block
+- (void)presentnoWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block
 {
-  MWMAlert * alert = [MWMAlert notWiFiAlertWithName:name downloadBlock:block];
-  [self displayAlert:alert];
+  [self displayAlert:[MWMAlert noWiFiAlertWithName:name downloadBlock:block]];
 }
 
 - (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount
 {
-  MWMAlert * alert = [MWMAlert feedbackAlertWithStarsCount:starsCount];
-  [self displayAlert:alert];
+  [self displayAlert:[MWMAlert feedbackAlertWithStarsCount:starsCount]];
 }
 
 - (void)presentCrossCountryAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
 {
-  MWMAlert * alert = [MWMAlert crossCountryAlertWithCountries:countries routes:routes];
-  [self displayAlert:alert];
+  [self displayAlert:[MWMAlert crossCountryAlertWithCountries:countries routes:routes]];
 }
 
 - (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
 {
-  MWMAlert * alert = [MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes];
-  [self displayAlert:alert];
+  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes]];
 }
 
 - (void)presentRoutingDisclaimerAlert
 {
-  MWMAlert * alert = [MWMAlert routingDisclaimerAlert];
-  [self displayAlert:alert];
+  [self displayAlert:MWMAlert.routingDisclaimerAlert];
 }
 
 - (void)presentDisabledLocationAlert
 {
-  MWMAlert * alert = [MWMAlert disabledLocationAlert];
-  [self displayAlert:alert];
+  [self displayAlert:MWMAlert.disabledLocationAlert];
 }
 
 - (void)presentAlert:(routing::IRouter::ResultCode)type
 {
-  MWMAlert * alert = [MWMAlert alert:type];
-  [self displayAlert:alert];
+  [self displayAlert:[MWMAlert alert:type]];
 }
 
 - (void)displayAlert:(MWMAlert *)alert
@@ -115,8 +103,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self.ownerViewController addChildViewController:self];
   self.view.center = self.ownerViewController.view.center;
   [self.ownerViewController.view addSubview:self.view];
-  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.view];
-  self.view.frame = [[[[UIApplication sharedApplication] delegate] window] frame];
+  UIWindow * window = [[[UIApplication sharedApplication] delegate] window];
+  [window addSubview:self.view];
+  self.view.frame = window.bounds;
   [self.view addSubview:alert];
   alert.bounds = self.view.bounds;
   alert.center = self.view.center;

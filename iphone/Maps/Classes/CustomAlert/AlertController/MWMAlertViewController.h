@@ -27,8 +27,8 @@
 - (void)presentDisabledLocationAlert;
 - (void)presentLocationAlert;
 - (void)presentLocationServiceNotSupportedAlert;
-- (void)presentNotConnectionAlert;
-- (void)presentNotWifiAlertWithName:(NSString *)name downloadBlock:(void(^)())block;
+- (void)presentNoConnectionAlert;
+- (void)presentnoWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block;
 
 - (void)closeAlert;
 

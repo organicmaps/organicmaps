@@ -8,14 +8,12 @@
 
 #import "MWMAlert.h"
 #import "MWMAlertViewController.h"
-#import "MWMDownloadTransitMapAlert.h"
 #import "MWMDefaultAlert.h"
-#import "MWMFeedbackAlert.h"
-#import "MWMRateAlert.h"
+#import "MWMDownloadTransitMapAlert.h"
 #import "MWMFacebookAlert.h"
+#import "MWMFeedbackAlert.h"
 #import "MWMLocationAlert.h"
-
-extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/255. green:209/255. blue:205/255. alpha:1.];
+#import "MWMRateAlert.h"
 
 @implementation MWMAlert
 
@@ -44,14 +42,14 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
   return [MWMDefaultAlert disabledLocationAlert];
 }
 
-+ (MWMAlert *)notWiFiAlertWithName:(NSString *)name downloadBlock:(void(^)())block
++ (MWMAlert *)noWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block
 {
-  return [MWMDefaultAlert notWiFiAlertWithName:name downloadBlock:block];
+  return [MWMDefaultAlert noWiFiAlertWithName:name downloadBlock:block];
 }
 
-+ (MWMAlert *)notConnectionAlert
++ (MWMAlert *)noConnectionAlert
 {
-  return [MWMDefaultAlert notConnectionAlert];
+  return [MWMDefaultAlert noConnectionAlert];
 }
 
 + (MWMAlert *)locationServiceNotSupportedAlert
@@ -68,7 +66,6 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
 {
   return [MWMDownloadTransitMapAlert crossCountryAlertWithCountries:countries routes:routes];
 }
-
 
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
 {
@@ -102,7 +99,7 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-// Should override this method if you wont custom relayout after rotation.
+// Should override this method if you want custom relayout after rotation.
 }
 
 - (void)close
@@ -123,7 +120,7 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
 
 - (void)applicationDidEnterBackground
 {
-// We should not be here when entering back to foreground state
+// Should close alert when application entered background.
   [self close];
 }
 

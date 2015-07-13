@@ -8,8 +8,8 @@
 
 #import "MWMAlert.h"
 
-#include "std/vector.hpp"
 #include "storage/storage.hpp"
+#include "std/vector.hpp"
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
 + (instancetype)crossCountryAlertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes;

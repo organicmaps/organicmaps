@@ -10,6 +10,7 @@
 #import "MWMAlertViewController.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import "UIKitCategories.h"
+#import "AppInfo.h"
 #import <sys/utsname.h>
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -24,7 +25,6 @@
 static NSString * const kFeedbackAlertNibName = @"MWMFeedbackAlert";
 static NSString * const kRateEmail = @"rating@maps.me";
 extern NSDictionary * const deviceNames;
-extern UIColor * const kActiveDownloaderViewColor;
 extern NSString * const kLocaleUsedInSupportEmails;
 extern NSString * const kRateAlertEventName;
 
@@ -62,11 +62,11 @@ extern NSString * const kRateAlertEventName;
     NSString * language = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails] displayNameForKey:NSLocaleLanguageCode value:languageCode];
     NSString * locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
     NSString * country = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails] displayNameForKey:NSLocaleCountryCode value:locale];
-    NSString * bundleVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    NSString * bundleVersion = AppInfo.sharedInfo.bundleVersion;
     NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@", device, [UIDevice currentDevice].systemVersion, bundleVersion, language, country];
     MFMailComposeViewController * mailController = [[MFMailComposeViewController alloc] init];
     mailController.mailComposeDelegate = self;
-    [mailController setSubject:[NSString stringWithFormat:@"%@ : %@", L(@"rating_just_rated"),@(self.starsCount)]];
+    [mailController setSubject:[NSString stringWithFormat:@"%@ : %@", L(@"rating_just_rated"), @(self.starsCount)]];
     [mailController setToRecipients:@[kRateEmail]];
     [mailController setMessageBody:text isHTML:NO];
     mailController.navigationBar.tintColor = [UIColor blackColor];

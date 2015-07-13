@@ -18,8 +18,8 @@
 + (instancetype)pointsInDifferentMWMAlert;
 + (instancetype)routingDisclaimerAlert;
 + (instancetype)disabledLocationAlert;
-+ (instancetype)notWiFiAlertWithName:(NSString *)name downloadBlock:(void(^)())block;
-+ (instancetype)notConnectionAlert;
++ (instancetype)noWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block;
++ (instancetype)noConnectionAlert;
 + (instancetype)locationServiceNotSupportedAlert;
 
 @end

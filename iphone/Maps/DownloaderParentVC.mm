@@ -92,25 +92,13 @@
   if (connection != Platform::EConnectionType::CONNECTION_NONE)
   {
     if (connection == Platform::EConnectionType::CONNECTION_WWAN && size > 50 * MB)
-    {
-      NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
-      [alert presentNotWifiAlertWithName:title downloadBlock:^
-       {
-         if (self.selectedInActionSheetOptions == TMapOptions::EMap)
-           [self performAction:DownloaderActionDownloadMap withSizeCheck:NO];
-         else if (self.selectedInActionSheetOptions == TMapOptions::ECarRouting)
-           [self performAction:DownloaderActionDownloadCarRouting withSizeCheck:NO];
-         else if (self.selectedInActionSheetOptions == TMapOptions::EMapWithCarRouting)
-           [self performAction:DownloaderActionDownloadAll withSizeCheck:NO];
-       }];
-    }
+      [alert presentnoWiFiAlertWithName:[NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name] downloadBlock:^{[self download];}];
     else
       return YES;
   }
   else
   {
-    MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:self];
-    [alert presentNotConnectionAlert];
+    [alert presentNoConnectionAlert];
   }
   return NO;
 }
