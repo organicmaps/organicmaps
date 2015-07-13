@@ -3,6 +3,11 @@
 #include "bit_vector.hpp"
 #include "darray.hpp"
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wconversion"
+#endif
+
 namespace succinct {
 
     class elias_fano {
@@ -270,5 +275,8 @@ namespace succinct {
         bit_vector m_low_bits;
         uint8_t m_l;
     };
-
 }
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif

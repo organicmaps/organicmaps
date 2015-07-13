@@ -2,6 +2,11 @@
 
 #include "bit_vector.hpp"
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wconversion"
+#endif
+
 namespace succinct {
 
     namespace detail {
@@ -160,3 +165,7 @@ namespace succinct {
     typedef detail::darray<detail::identity_getter> darray1;
     typedef detail::darray<detail::negating_getter> darray0;
 }
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif

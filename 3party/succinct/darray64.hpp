@@ -3,6 +3,11 @@
 #include "bit_vector.hpp"
 #include "broadword.hpp"
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wconversion"
+#endif
+
 namespace succinct {
 
     struct darray64
@@ -113,3 +118,7 @@ namespace succinct {
 
     };
 }
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif

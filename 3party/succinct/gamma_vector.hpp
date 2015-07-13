@@ -4,6 +4,11 @@
 #include "forward_enumerator.hpp"
 #include "darray64.hpp"
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wconversion"
+#endif
+
 namespace succinct {
 
     // Compressed random-access vector to store unsigned integers
@@ -117,3 +122,7 @@ namespace succinct {
         bit_vector::enumerator m_low_bits_enumerator;
     };
 }
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif

@@ -1,6 +1,11 @@
 #include "bp_vector.hpp"
 #include "util.hpp"
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wconversion"
+#endif
+
 namespace succinct {
 
     namespace {
@@ -707,3 +712,7 @@ namespace succinct {
         m_superblock_excess_min.steal(superblock_excess_min);
     }
 }
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
