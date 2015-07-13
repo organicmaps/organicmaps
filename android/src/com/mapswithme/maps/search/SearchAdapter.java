@@ -2,6 +2,7 @@ package com.mapswithme.maps.search;
 
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -9,65 +10,23 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
-public class SearchAdapter extends BaseAdapter
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>
 {
-  private static final int mCategoriesIds[] = {
-      R.string.food,
-      R.string.hotel,
-      R.string.tourism,
-      R.string.wifi,
-      R.string.transport,
-      R.string.fuel,
-      R.string.parking,
-      R.string.shop,
-      R.string.atm,
-      R.string.bank,
-      R.string.entertainment,
-      R.string.hospital,
-      R.string.pharmacy,
-      R.string.police,
-      R.string.toilet,
-      R.string.post
-  };
-  private static final int mIcons[] = {
-      R.drawable.ic_food,
-      R.drawable.ic_hotel,
-      R.drawable.ic_tourism,
-      R.drawable.ic_wifi,
-      R.drawable.ic_transport,
-      R.drawable.ic_gas,
-      R.drawable.ic_parking,
-      R.drawable.ic_shop,
-      R.drawable.ic_atm,
-      R.drawable.ic_bank,
-      R.drawable.ic_entertainment,
-      R.drawable.ic_hospital,
-      R.drawable.ic_pharmacy,
-      R.drawable.ic_police,
-      R.drawable.ic_toilet,
-      R.drawable.ic_post
-  };
-
-  private static final int CATEGORY_TYPE = 0;
-  private static final int RESULT_TYPE = 1;
-  private static final int MESSAGE_TYPE = 2;
-  private static final int VIEW_TYPE_COUNT = 3;
+  private static final int RESULT_TYPE = 0;
+  private static final int MESSAGE_TYPE = 1;
   private final SearchFragment mSearchFragment;
   private final LayoutInflater mInflater;
   private final Resources mResources;
 
   private static final int COUNT_NO_RESULTS = -1;
-  private int mCount = COUNT_NO_RESULTS;
-
-  private int mResultId;
+  private int mResultsCount = COUNT_NO_RESULTS;
+  private int mResultsId;
 
   public SearchAdapter(SearchFragment fragment)
   {
@@ -77,47 +36,38 @@ public class SearchAdapter extends BaseAdapter
   }
 
   @Override
-  public boolean isEnabled(int position)
+  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    return (mSearchFragment.doShowCategories() || getCount() > 0);
+    if (viewType == RESULT_TYPE)
+      return new ViewHolder(mInflater.inflate(R.layout.item_search, parent, false), viewType);
+
+    return new ViewHolder(mInflater.inflate(R.layout.item_search_message, parent, false), viewType);
+  }
+
+  @Override
+  public void onBindViewHolder(ViewHolder holder, int position)
+  {
+    if (holder.getItemViewType() == RESULT_TYPE)
+      bindResultView(holder);
+    else
+      bindMessageView(holder);
   }
 
   @Override
   public int getItemViewType(int position)
   {
-    if (mSearchFragment.doShowCategories())
-      return CATEGORY_TYPE;
-    else if (position == 0 && doShowSearchOnMapButton())
+    if (position == 0 && doShowSearchOnMapButton())
       return MESSAGE_TYPE;
-    else
-      return RESULT_TYPE;
-  }
 
-  @Override
-  public int getViewTypeCount()
-  {
-    return VIEW_TYPE_COUNT;
-  }
-
-  @Override
-  public int getCount()
-  {
-    if (mSearchFragment.doShowCategories())
-      return mCategoriesIds.length;
-    else if (mCount == COUNT_NO_RESULTS)
-      return 0;
-    else if (doShowSearchOnMapButton())
-      return mCount + 1;
-    else
-      return mCount;
+    return RESULT_TYPE;
   }
 
   private boolean doShowSearchOnMapButton()
   {
-    if (mCount == 0)
+    if (mResultsCount == 0)
       return true;
 
-    final SearchResult result = mSearchFragment.getResult(0, mResultId);
+    final SearchResult result = mSearchFragment.getResult(0, mResultsId);
     return result != null && result.mType != SearchResult.TYPE_SUGGESTION;
   }
 
@@ -125,13 +75,7 @@ public class SearchAdapter extends BaseAdapter
   {
     if (doShowSearchOnMapButton())
       return position - 1;
-    else
-      return position;
-  }
 
-  @Override
-  public Object getItem(int position)
-  {
     return position;
   }
 
@@ -142,50 +86,20 @@ public class SearchAdapter extends BaseAdapter
   }
 
   @Override
-  public View getView(int position, View convertView, ViewGroup parent)
+  public int getItemCount()
   {
-    ViewHolder holder;
-    final int viewType = getItemViewType(position);
-    if (convertView == null)
-    {
-      switch (viewType)
-      {
-      case CATEGORY_TYPE:
-        convertView = mInflater.inflate(R.layout.item_search_category, parent, false);
-        break;
-      case RESULT_TYPE:
-        convertView = mInflater.inflate(R.layout.item_search, parent, false);
-        break;
-      default:
-        convertView = mInflater.inflate(R.layout.item_search_message, parent, false);
-        break;
-      }
-      holder = new ViewHolder(convertView, viewType);
+    if (mResultsCount == COUNT_NO_RESULTS)
+      return 0;
+    else if (doShowSearchOnMapButton())
+      return mResultsCount + 1;
 
-      convertView.setTag(holder);
-    }
-    else
-      holder = (ViewHolder) convertView.getTag();
-
-    switch (viewType)
-    {
-    case CATEGORY_TYPE:
-      bindCategoryView(holder, position);
-      break;
-    case RESULT_TYPE:
-      bindResultView(holder, getPositionInResults(position));
-      break;
-    case MESSAGE_TYPE:
-      bindMessageView(holder);
-      break;
-    }
-
-    return convertView;
+    return mResultsCount;
   }
 
-  private void bindResultView(ViewHolder holder, int position)
+  private void bindResultView(ViewHolder holder)
   {
-    final SearchResult result = mSearchFragment.getResult(position, mResultId);
+    final int position = getPositionInResults(holder.getAdapterPosition());
+    final SearchResult result = mSearchFragment.getResult(position, mResultsId);
     if (result != null)
     {
       String country = null;
@@ -214,18 +128,11 @@ public class SearchAdapter extends BaseAdapter
       else
         builder.setSpan(new ForegroundColorSpan(mResources.getColor(R.color.text_green)), 0, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-      UiUtils.hide(holder.mImageLeft);
       UiUtils.setTextAndShow(holder.mName, builder);
       UiUtils.setTextAndHideIfEmpty(holder.mCountry, country);
-      UiUtils.setTextAndHideIfEmpty(holder.mItemType, result.mAmenity);
+      UiUtils.setTextAndHideIfEmpty(holder.mType, result.mAmenity);
       UiUtils.setTextAndHideIfEmpty(holder.mDistance, dist);
     }
-  }
-
-  private void bindCategoryView(ViewHolder holder, int position)
-  {
-    UiUtils.setTextAndShow(holder.mName, mResources.getString(mCategoriesIds[position]));
-    holder.mImageLeft.setImageResource(mIcons[position]);
   }
 
   private void bindMessageView(ViewHolder holder)
@@ -236,139 +143,62 @@ public class SearchAdapter extends BaseAdapter
   /**
    * Update list data.
    *
-   * @param count
-   * @param resultId
+   * @param count    total count of result
+   * @param resultId id to query results
    */
-  public void showData(int count, int resultId)
+  public void refreshData(int count, int resultId)
   {
-    mCount = count;
-    mResultId = resultId;
+    mResultsCount = count;
+    mResultsId = resultId;
 
     notifyDataSetChanged();
   }
 
-  public void showCategories()
-  {
-    mCount = COUNT_NO_RESULTS;
-    notifyDataSetChanged();
-  }
-
-  /**
-   * Show tapped country or suggestion or category to search.
-   *
-   * @param position
-   * @return Suggestion string with space in the end (for full match purpose).
-   */
-  public String onItemClick(int position)
-  {
-    switch (getItemViewType(position))
-    {
-    case MESSAGE_TYPE:
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
-      return null;
-    case RESULT_TYPE:
-      final int resIndex = getPositionInResults(position);
-      final SearchResult r = mSearchFragment.getResult(resIndex, mResultId);
-      if (r != null)
-      {
-        if (r.mType == SearchResult.TYPE_FEATURE)
-        {
-          // show country and close activity
-          SearchFragment.nativeShowItem(resIndex);
-          return null;
-        }
-        else
-        {
-          // advise suggestion
-          return r.mSuggestion;
-        }
-      }
-      break;
-    case CATEGORY_TYPE:
-      Statistics.INSTANCE.trackSearchCategoryClicked(mResources.getResourceEntryName(mCategoriesIds[position]));
-
-      return mResources.getString(mCategoriesIds[position]) + ' ';
-    }
-
-    return null;
-  }
-
-  private static class ViewHolder
+  public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
     public View mView;
     public TextView mName;
     public TextView mCountry;
     public TextView mDistance;
-    public TextView mItemType;
-    public ImageView mImageLeft;
+    public TextView mType;
 
     public ViewHolder(View v, int type)
     {
-      mView = v;
-      mName = (TextView) v.findViewById(R.id.tv__search_category);
+      super(v);
 
-      switch (type)
+      mView = v;
+      mView.setOnClickListener(this);
+      if (type == MESSAGE_TYPE)
+        mName = (TextView) mView;
+      else
       {
-      case CATEGORY_TYPE:
-        mImageLeft = (ImageView) v.findViewById(R.id.iv__search_category);
-        break;
-      case RESULT_TYPE:
-        mImageLeft = (ImageView) v.findViewById(R.id.iv__search_image);
-        mDistance = (TextView) v.findViewById(R.id.tv_search_distance);
-        mCountry = (TextView) v.findViewById(R.id.tv_search_item_subtitle);
-        mItemType = (TextView) v.findViewById(R.id.tv_search_item_type);
-        break;
-      case MESSAGE_TYPE:
-        mImageLeft = (ImageView) v.findViewById(R.id.iv__search_image);
-        mCountry = (TextView) v.findViewById(R.id.tv_search_item_subtitle);
-        break;
+        mName = (TextView) v.findViewById(R.id.tv__search_title);
+        mCountry = (TextView) v.findViewById(R.id.tv__search_subtitle);
+        mDistance = (TextView) v.findViewById(R.id.tv__search_distance);
+        mType = (TextView) v.findViewById(R.id.tv__search_type);
       }
     }
-  }
 
-  // Created from native code.
-  public static class SearchResult
-  {
-    public String mName;
-    public String mSuggestion;
-    public String mCountry;
-    public String mAmenity;
-    public String mDistance;
-
-    // 0 - suggestion result
-    // 1 - feature result
-    public static final int TYPE_SUGGESTION = 0;
-    public static final int TYPE_FEATURE = 1;
-
-    public int mType;
-    // consecutive pairs of numbers (each pair contains : start index, length), specifying highlighted substrings of original query
-    public int[] mHighlightRanges;
-
-
-    // Called from native code
-    @SuppressWarnings("unused")
-    public SearchResult(String name, String suggestion, int[] highlightRanges)
+    @Override
+    public void onClick(View v)
     {
-      mName = name;
-      mSuggestion = suggestion;
-      mType = TYPE_SUGGESTION;
-
-      mHighlightRanges = highlightRanges;
-    }
-
-    // Called from native code
-    @SuppressWarnings("unused")
-    public SearchResult(String name, String country, String amenity,
-                        String distance, int[] highlightRanges)
-    {
-      mName = name;
-      mCountry = country;
-      mAmenity = amenity;
-      mDistance = distance;
-
-      mType = TYPE_FEATURE;
-
-      mHighlightRanges = highlightRanges;
+      if (getItemViewType() == MESSAGE_TYPE)
+      {
+        Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
+        mSearchFragment.showAllResultsOnMap();
+      }
+      else
+      {
+        final int resIndex = getPositionInResults(getAdapterPosition());
+        final SearchResult result = mSearchFragment.getResult(resIndex, mResultsId);
+        if (result != null)
+        {
+          if (result.mType == SearchResult.TYPE_FEATURE)
+            mSearchFragment.showSearchResultOnMap(resIndex);
+          else
+            mSearchFragment.setSearchQuery(result.mSuggestion);
+        }
+      }
     }
   }
 }

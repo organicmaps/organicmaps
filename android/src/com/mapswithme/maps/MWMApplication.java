@@ -72,7 +72,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition)
   {
     if (!nativeGetBoolean(IS_PREINSTALL_ACTIVATED, false) && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE &&
-        ((oldGroup == ActiveCountryTree.GROUP_OUT_OF_DATE) || (oldGroup == ActiveCountryTree.GROUP_NEW && ActiveCountryTree.getTotalCount() > 1)))
+        ((oldGroup == ActiveCountryTree.GROUP_OUT_OF_DATE) || (oldGroup == ActiveCountryTree.GROUP_NEW && ActiveCountryTree.getTotalDownloadedCount() > 1)))
     {
       nativeSetBoolean(IS_PREINSTALL_ACTIVATED, true);
       Statistics.INSTANCE.trackPreinstallActivation(getFirstInstallFlavor());

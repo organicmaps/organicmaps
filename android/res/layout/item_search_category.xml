@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="@dimen/search_item_height"
+              android:background="?selectableItemBackground"
               android:gravity="center_vertical"
               android:orientation="horizontal"
               android:paddingLeft="@dimen/margin_base"
@@ -11,8 +12,8 @@
       android:id="@+id/iv__search_category"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:background="@drawable/bg_circle_search_category"
       android:layout_weight="0"
+      android:background="@drawable/bg_circle_search_category"
       android:contentDescription="@null"
       android:scaleType="center"/>
 

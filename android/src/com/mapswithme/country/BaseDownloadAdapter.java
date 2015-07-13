@@ -212,7 +212,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
   private void processFailed(ViewHolder holder, int position)
   {
     holder.mProgressSlided.setProgressColor(mFragment.getResources().getColor(R.color.downloader_blue));
-    holder.mProgressSlided.setDrawable(null);
+    holder.mProgressSlided.setCenterBitmap(null);
     retryDownload(position);
   }
 
@@ -442,7 +442,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mProgressSlided.setOnClickListener(listener);
       holder.mInfoSlided.setOnClickListener(listener);
       holder.mProgressSlided.setProgressColor(mFragment.getResources().getColor(R.color.base_red));
-      holder.mProgressSlided.setDrawable(BitmapFactory.decodeResource(mFragment.getResources(), R.drawable.ic_retry));
+      holder.mProgressSlided.setCenterBitmap(BitmapFactory.decodeResource(mFragment.getResources(), R.drawable.ic_retry));
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);

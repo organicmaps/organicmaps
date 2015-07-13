@@ -190,7 +190,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     if (activity.mIsFragmentContainer)
       activity.showSearch();
     else
-      SearchActivity.startForSearch(context, query);
+      SearchActivity.startWithQuery(context, query);
   }
 
   public static Intent createUpdateMapsIntent()

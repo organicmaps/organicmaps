@@ -39,11 +39,11 @@ public enum LocationHelper implements SensorEventListener
 
   public interface LocationListener
   {
-    public void onLocationUpdated(final Location l);
+    void onLocationUpdated(final Location l);
 
-    public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
+    void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
 
-    public void onLocationError(int errorCode);
+    void onLocationError(int errorCode);
   }
 
   private final HashSet<LocationListener> mListeners = new HashSet<>();

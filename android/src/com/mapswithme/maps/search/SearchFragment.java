@@ -4,22 +4,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mapswithme.country.ActiveCountryTree;
+import com.mapswithme.country.CountrySuggestFragment;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmListFragment;
+import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.data.RouterTypes;
 import com.mapswithme.maps.location.LocationHelper;
@@ -31,21 +34,19 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 
-public class SearchFragment extends BaseMwmListFragment implements View.OnClickListener, LocationHelper.LocationListener, OnBackPressListener
+public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnClickListener, LocationHelper.LocationListener, OnBackPressListener, NativeSearchListener
 {
-  // These constants should be equal with
-  // Java_com_mapswithme_maps_SearchFragment_nativeRunSearch routine.
+  // These constants should be equal with Java_com_mapswithme_maps_SearchFragment_nativeRunSearch routine.
   private static final int NOT_FIRST_QUERY = 1;
   private static final int HAS_POSITION = 2;
   // Make 5-step increment to leave space for middle queries.
   // This constant should be equal with native SearchAdapter::QUERY_STEP;
-  private final static int QUERY_STEP = 5;
-  //
+  private static final int QUERY_STEP = 5;
   private static final int STATUS_SEARCH_LAUNCHED = 0;
   private static final int STATUS_QUERY_EMPTY = 1;
   private static final int STATUS_SEARCH_SKIPPED = 2;
-  // Handle voice recognition here
-  private final static int RC_VOICE_RECOGNITION = 0xCA11;
+  private static final int RC_VOICE_RECOGNITION = 0xCA11;
+  private static final double DUMMY_NORTH = -1;
   // Search views
   private EditText mEtSearchQuery;
   private ProgressBar mPbSearch;
@@ -54,11 +55,11 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
   // Current position.
   private double mLat;
   private double mLon;
-  private static final double DUMMY_NORTH = -1;
-  //
-  private int mFlags;
+
+  private int mSearchFlags;
   private int mQueryId;
-  private SearchAdapter mAdapter;
+  private SearchAdapter mSearchAdapter;
+  private CategoriesAdapter mCategoriesAdapter;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -72,29 +73,19 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     super.onViewCreated(view, savedInstanceState);
 
     final ViewGroup root = (ViewGroup) view;
-    setUpView(root);
-    // Create search list view adapter & add header
-    initAdapter();
-    setListAdapter(mAdapter);
-
-    nativeConnect();
-
-    final Bundle args = getArguments();
-    if (args != null)
-    {
-      final String query = args.getString(SearchActivity.EXTRA_QUERY);
-      if (query != null)
-        setSearchQuery(query);
-    }
+    initView(root);
+    initAdapters();
+    refreshContent();
+    nativeConnectSearchListener();
+    readArguments(getArguments());
   }
 
   @Override
   public void onResume()
   {
     super.onResume();
-
     LocationHelper.INSTANCE.addLocationListener(this);
-    setSearchQuery(getLastQuery());
+    setSearchQuery(nativeGetLastQuery());
     mEtSearchQuery.requestFocus();
   }
 
@@ -102,59 +93,27 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
   public void onPause()
   {
     LocationHelper.INSTANCE.removeLocationListener(this);
-
     super.onPause();
   }
 
   @Override
   public void onDestroy()
   {
-    nativeDisconnect();
-
+    nativeDisconnectSearchListener();
     super.onDestroy();
   }
 
-  @Override
-  public void onListItemClick(ListView l, View v, int position, long id)
-  {
-    super.onListItemClick(l, v, position, id);
-
-    if (!isAdded())
-      return;
-
-    position -= l.getHeaderViewsCount();
-    final String suggestion = mAdapter.onItemClick(position);
-    if (suggestion == null)
-      showSearchResultOnMap(position);
-    else
-      // set suggestion string and run search (this call invokes runSearch)
-      setSearchQuery(suggestion);
-  }
-
-  /**
-   * If search string is empty - show search categories.
-   */
-  protected boolean doShowCategories()
-  {
-    return getSearchQuery().isEmpty();
-  }
-
-  private String getSearchQuery()
+  protected String getSearchQuery()
   {
     return mEtSearchQuery.getText().toString();
   }
 
-  private void setSearchQuery(String query)
+  protected void setSearchQuery(String query)
   {
     Utils.setTextAndCursorToEnd(mEtSearchQuery, query);
   }
 
-  private void initAdapter()
-  {
-    mAdapter = new SearchAdapter(this);
-  }
-
-  private void setUpView(ViewGroup root)
+  private void initView(View root)
   {
     mBtnVoice = root.findViewById(R.id.search_voice_input);
     mBtnVoice.setOnClickListener(this);
@@ -204,35 +163,102 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
             (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_SEARCH);
         final boolean isActionSearch = (actionId == EditorInfo.IME_ACTION_SEARCH);
 
-        if ((isSearchDown || isActionSearch) && mAdapter.getCount() > 0)
+        if ((isSearchDown || isActionSearch) && mSearchAdapter.getItemCount() > 0)
         {
           Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
           if (!doShowCategories())
-            showSearchResultOnMap(0);
+            showAllResultsOnMap();
           return true;
         }
         return false;
       }
     });
 
-    final ListView listView = getListView();
-    listView.setOnScrollListener(new OnScrollListener()
+    getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener()
     {
       @Override
-      public void onScrollStateChanged(AbsListView view, int scrollState)
+      public void onScrollStateChanged(RecyclerView recyclerView, int newState)
       {
+        if (newState != RecyclerView.SCROLL_STATE_DRAGGING)
+          return;
         InputUtils.hideKeyboard(mEtSearchQuery);
         InputUtils.removeFocusEditTextHack(mEtSearchQuery);
       }
-
-      @Override
-      public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-      {}
     });
-
-    listView.addHeaderView(getActivity().getLayoutInflater().inflate(R.layout.header_default, listView, false), null, false);
   }
 
+  /**
+   * If search string is empty - show search categories.
+   */
+  protected boolean doShowCategories()
+  {
+    return getSearchQuery().isEmpty();
+  }
+
+  private void initAdapters()
+  {
+    mSearchAdapter = new SearchAdapter(this);
+    mCategoriesAdapter = new CategoriesAdapter(this);
+  }
+
+  private void refreshContent()
+  {
+    final RecyclerView recyclerView = getRecyclerView();
+
+    if (!getSearchQuery().isEmpty())
+    {
+      hideDownloadSuggest();
+      recyclerView.setAdapter(mSearchAdapter);
+    }
+    else if (doShowDownloadSuggest())
+      showDownloadSuggest();
+    else
+    {
+      hideDownloadSuggest();
+      recyclerView.setAdapter(mCategoriesAdapter);
+    }
+  }
+
+  private boolean doShowDownloadSuggest()
+  {
+    return ActiveCountryTree.getTotalDownloadedCount() == 0;
+  }
+
+  private void showDownloadSuggest()
+  {
+    getRecyclerView().setVisibility(View.GONE);
+    final FragmentManager manager = getChildFragmentManager();
+    final String fragmentName = CountrySuggestFragment.class.getName();
+    Fragment fragment = manager.findFragmentByTag(fragmentName);
+    if (fragment == null || fragment.isDetached() || fragment.isRemoving())
+    {
+      final FragmentTransaction transaction = manager.beginTransaction();
+      fragment = Fragment.instantiate(getActivity(), fragmentName, null);
+      transaction.add(R.id.inner_fragment_container, fragment, fragmentName).commit();
+    }
+  }
+
+  private void hideDownloadSuggest()
+  {
+    getRecyclerView().setVisibility(View.VISIBLE);
+    final FragmentManager manager = getChildFragmentManager();
+    final Fragment fragment = manager.findFragmentByTag(CountrySuggestFragment.class.getName());
+    if (fragment != null && !fragment.isRemoving() && !fragment.isDetached())
+    {
+      final FragmentTransaction transaction = manager.beginTransaction();
+      transaction.remove(fragment).commit();
+    }
+  }
+
+  private void readArguments(Bundle arguments)
+  {
+    if (arguments == null)
+      return;
+
+    final String query = arguments.getString(SearchActivity.EXTRA_QUERY);
+    if (query != null)
+      setSearchQuery(query);
+  }
 
   // FIXME: This code only for demonstration purposes and will be removed soon
   private boolean tryChangeMapStyle(String str)
@@ -247,7 +273,7 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     // close Search panel
     mEtSearchQuery.setText(null);
     InputUtils.hideKeyboard(mEtSearchQuery);
-    getActivity().onBackPressed();
+    navigateUpToParent();
 
     // change map style for the Map activity
     final int mapStyle = isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_LIGHT;
@@ -266,7 +292,7 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
 
     mEtSearchQuery.setText(null);
     InputUtils.hideKeyboard(mEtSearchQuery);
-    getActivity().onBackPressed();
+    navigateUpToParent();
 
     RouterTypes.saveRouterType(pedestrian ? RouterTypes.ROUTER_PEDESTRIAN : RouterTypes.ROUTER_VEHICLE);
 
@@ -274,50 +300,39 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
   }
   // FIXME: This code only for demonstration purposes and will be removed soon
 
-  private void showSearchResultOnMap(int position)
+  protected void showSearchResultOnMap(int resIndex)
   {
-    // If user searched for something, clear API layer
     SearchController.getInstance().cancelApiCall();
-
-    // Put query string for "View on map" or feature name for search result.
-    final boolean allResults = (position == 0);
-    final String query = getSearchQuery();
-    SearchController.getInstance().setQuery(allResults ? query : "");
-    if (allResults)
-    {
-      nativeShowAllSearchResults();
-      runInteractiveSearch(query, Language.getKeyboardLocale());
-    }
-
+    SearchController.getInstance().setQuery("");
+    nativeShowItem(resIndex);
     InputUtils.hideKeyboard(mEtSearchQuery);
-    MWMActivity.startWithSearchResult(getActivity(), !allResults);
-    getActivity().getSupportFragmentManager().popBackStack();
+    navigateUpToParent();
   }
 
-  @Override
-  public boolean onBackPressed()
+  protected void showAllResultsOnMap()
   {
-    SearchController.getInstance().cancelSearch();
-    return false;
+    nativeShowAllSearchResults();
+    runInteractiveSearch(getSearchQuery(), Language.getKeyboardLocale());
+    navigateUpToParent();
   }
 
   private void showCategories()
   {
-    clearLastQuery();
+    nativeClearLastQuery();
     displaySearchProgress(false);
-    mAdapter.showCategories();
+    refreshContent();
   }
 
   @Override
   public void onLocationUpdated(final Location l)
   {
-    mFlags |= HAS_POSITION;
+    mSearchFlags |= HAS_POSITION;
 
     mLat = l.getLatitude();
     mLon = l.getLongitude();
 
     if (runSearch() == STATUS_SEARCH_SKIPPED)
-      mAdapter.notifyDataSetChanged();
+      mSearchAdapter.notifyDataSetChanged();
   }
 
   @Override
@@ -326,9 +341,32 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
   @Override
   public void onLocationError(int errorCode) {}
 
-  // Called from native code
-  @SuppressWarnings("unused")
-  public void updateData(final int count, final int resultId)
+  private int runSearch()
+  {
+    final String query = getSearchQuery();
+    if (query.isEmpty())
+    {
+      // do force search next time from empty list
+      mSearchFlags &= (~NOT_FIRST_QUERY);
+      return STATUS_QUERY_EMPTY;
+    }
+
+    final int id = mQueryId + QUERY_STEP;
+    if (nativeRunSearch(query, Language.getKeyboardLocale(), mLat, mLon, mSearchFlags, id))
+    {
+      mQueryId = id;
+      // mark that it's not the first query already - don't do force search
+      mSearchFlags |= NOT_FIRST_QUERY;
+      displaySearchProgress(true);
+      mSearchAdapter.notifyDataSetChanged();
+      return STATUS_SEARCH_LAUNCHED;
+    }
+    else
+      return STATUS_SEARCH_SKIPPED;
+  }
+
+  @Override
+  public void onResultsUpdate(final int count, final int resultId)
   {
     getActivity().runOnUiThread(new Runnable()
     {
@@ -338,19 +376,18 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
         if (!isAdded())
           return;
 
-        if (!doShowCategories())
-        {
-          mAdapter.showData(count, resultId);
-          // scroll list view to the top
-          setSelection(0);
-        }
+        if (doShowCategories())
+          return;
+
+        refreshContent();
+        mSearchAdapter.refreshData(count, resultId);
+        getRecyclerView().scrollToPosition(0);
       }
     });
   }
 
-  // Called from native code
-  @SuppressWarnings("unused")
-  public void endData()
+  @Override
+  public void onResultsEnd()
   {
     getActivity().runOnUiThread(new Runnable()
     {
@@ -365,35 +402,11 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     });
   }
 
-  private int runSearch()
-  {
-    final String query = getSearchQuery();
-    if (query.isEmpty())
-    {
-      // do force search next time from empty list
-      mFlags &= (~NOT_FIRST_QUERY);
-      return STATUS_QUERY_EMPTY;
-    }
-
-    final int id = mQueryId + QUERY_STEP;
-    if (nativeRunSearch(query, Language.getKeyboardLocale(), mLat, mLon, mFlags, id))
-    {
-      mQueryId = id;
-      // mark that it's not the first query already - don't do force search
-      mFlags |= NOT_FIRST_QUERY;
-      displaySearchProgress(true);
-      mAdapter.notifyDataSetChanged();
-      return STATUS_SEARCH_LAUNCHED;
-    }
-    else
-      return STATUS_SEARCH_SKIPPED;
-  }
-
   private void displaySearchProgress(boolean inProgress)
   {
     if (inProgress)
       UiUtils.show(mPbSearch);
-    else // search is completed
+    else
       UiUtils.invisible(mPbSearch);
   }
 
@@ -414,11 +427,6 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     }
   }
 
-  public SearchAdapter.SearchResult getResult(int position, int queryID)
-  {
-    return nativeGetResult(position, queryID, mLat, mLon, (mFlags & HAS_POSITION) != 0, DUMMY_NORTH);
-  }
-
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
@@ -432,22 +440,33 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     }
   }
 
+  @Override
+  public boolean onBackPressed()
+  {
+    return false;
+  }
+
+  public SearchResult getResult(int position, int queryId)
+  {
+    return nativeGetResult(position, queryId, mLat, mLon, (mSearchFlags & HAS_POSITION) != 0, DUMMY_NORTH);
+  }
+
   public static native void nativeShowItem(int position);
 
   public static native void nativeShowAllSearchResults();
 
-  private static native SearchAdapter.SearchResult nativeGetResult(int position, int queryId,
-                                                                   double lat, double lon, boolean mode, double north);
+  private static native SearchResult nativeGetResult(int position, int queryId,
+                                                     double lat, double lon, boolean mode, double north);
 
-  private native void nativeConnect();
+  private native void nativeConnectSearchListener();
 
-  private native void nativeDisconnect();
+  private native void nativeDisconnectSearchListener();
 
   private native boolean nativeRunSearch(String s, String lang, double lat, double lon, int flags, int queryId);
 
-  private native String getLastQuery();
+  private native String nativeGetLastQuery();
 
-  private native void clearLastQuery();
+  private native void nativeClearLastQuery();
 
   private native void runInteractiveSearch(String query, String lang);
 }

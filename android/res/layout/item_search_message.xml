@@ -1,26 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center_vertical"
-              android:minHeight="@dimen/search_item_height"
-              android:orientation="horizontal"
-              android:padding="@dimen/margin_base">
-
-  <ImageView
-      android:id="@+id/iv__search_image"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:contentDescription="@null"/>
-
-  <TextView
-      android:id="@+id/tv__search_category"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAllCaps="true"
-      android:textAppearance="@style/MwmTextAppearance.Body1"
-      android:textColor="@color/text_green"
-      tools:ignore="UnusedAttribute"/>
-
-</LinearLayout>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:minHeight="@dimen/search_item_height"
+    android:padding="@dimen/margin_base"
+    android:textAllCaps="true"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:textColor="@color/text_green"
+    tools:ignore="UnusedAttribute"/>

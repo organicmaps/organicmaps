@@ -135,7 +135,7 @@ public enum Statistics
   public void trackCountryDownload()
   {
     trackIfEnabled(mEventBuilder.
-        addParam(EventParam.COUNT, String.valueOf(ActiveCountryTree.getTotalCount())).
+        addParam(EventParam.COUNT, String.valueOf(ActiveCountryTree.getTotalDownloadedCount())).
         buildEvent());
   }
 

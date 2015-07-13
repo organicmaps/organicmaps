@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -49,6 +50,9 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     mRecycler = (RecyclerView) view.findViewById(R.id.recycler);
     if (mRecycler == null)
       throw new IllegalStateException("RecyclerView not found in layout");
+
+    LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
+    mRecycler.setLayoutManager(manager);
   }
 
   public Toolbar getToolbar()

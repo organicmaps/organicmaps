@@ -17,6 +17,21 @@ public class ActiveCountryTree
     void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions);
   }
 
+  public static class SimpleCountryTreeListener implements ActiveCountryListener
+  {
+    @Override
+    public void onCountryProgressChanged(int group, int position, long[] sizes) {}
+
+    @Override
+    public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus) {}
+
+    @Override
+    public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition) {}
+
+    @Override
+    public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions) {}
+  }
+
   // Should be equal to values from ActiveMapsLayout::TGroup enum
   public static final int GROUP_NEW = 0;
   public static final int GROUP_OUT_OF_DATE = 1;
@@ -26,7 +41,7 @@ public class ActiveCountryTree
 
   public static native int getCountInGroup(int group);
 
-  public static int getTotalCount()
+  public static int getTotalDownloadedCount()
   {
     return getCountInGroup(GROUP_OUT_OF_DATE) + getCountInGroup(GROUP_UP_TO_DATE);
   }

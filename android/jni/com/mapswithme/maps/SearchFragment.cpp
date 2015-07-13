@@ -6,7 +6,6 @@
 #include "../core/jni_helper.hpp"
 #include "../platform/Language.hpp"
 
-
 class SearchAdapter
 {
   /// @name Results holder. Store last valid results from search threads (m_storeID)
@@ -39,7 +38,7 @@ class SearchAdapter
 
     if (res.IsEndMarker())
     {
-      jmethodID const methodId = jni::GetJavaMethodID(env, m_fragment, "endData", "()V");
+      jmethodID const methodId = jni::GetJavaMethodID(env, m_fragment, "onResultsEnd", "()V");
       env->CallVoidMethod(m_fragment, methodId);
       return;
     }
@@ -66,7 +65,7 @@ class SearchAdapter
     }
 
     // post message to update ListView in UI thread
-    jmethodID const id = jni::GetJavaMethodID(env, m_fragment, "updateData", "(II)V");
+    jmethodID const id = jni::GetJavaMethodID(env, m_fragment, "onResultsUpdate", "(II)V");
     env->CallVoidMethod(m_fragment, id,
                           static_cast<jint>(m_storeResults.GetCount()),
                           static_cast<jint>(m_storeID));
@@ -191,13 +190,13 @@ extern "C"
 {
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_search_SearchFragment_nativeConnect(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_search_SearchFragment_nativeConnectSearchListener(JNIEnv * env, jobject thiz)
 {
   SearchAdapter::ConnectInstance(env, thiz);
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_search_SearchFragment_nativeDisconnect(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_search_SearchFragment_nativeDisconnectSearchListener(JNIEnv * env, jobject thiz)
 {
   SearchAdapter::DisconnectInstance(env);
 }
@@ -238,7 +237,7 @@ Java_com_mapswithme_maps_search_SearchFragment_nativeGetResult(
     jdouble lat, jdouble lon, jboolean hasPosition, jdouble north)
 {
   search::Result const * res = SearchAdapter::Instance().GetResult(position, queryID);
-  if (res == 0) return 0;
+  if (res == nullptr) return 0;
 
   jintArray ranges = env->NewIntArray(res->GetHighlightRangesCount() * 2);
   jint * narr = env->GetIntArrayElements(ranges, NULL);
@@ -251,33 +250,13 @@ Java_com_mapswithme_maps_search_SearchFragment_nativeGetResult(
 
   env->ReleaseIntArrayElements(ranges, narr, 0);
 
-  jclass klass = env->FindClass("com/mapswithme/maps/search/SearchAdapter$SearchResult");
+  static shared_ptr<jobject> klassGlobalRef = jni::make_global_ref(env->FindClass("com/mapswithme/maps/search/SearchResult"));
+  jclass klass = static_cast<jclass>(*klassGlobalRef.get());
   ASSERT(klass, ());
 
-  if (!res->IsSuggest())
+  if (res->IsSuggest())
   {
-    jmethodID methodID = env->GetMethodID(
-        klass, "<init>",
-        "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[I)V");
-    ASSERT ( methodID, () );
-
-    string distance;
-    if (hasPosition)
-    {
-      double dummy;
-      (void) g_framework->NativeFramework()->GetDistanceAndAzimut(res->GetFeatureCenter(), lat, lon, north, distance, dummy);
-    }
-
-    return env->NewObject(klass, methodID,
-                          jni::ToJavaString(env, res->GetString()),
-                          jni::ToJavaString(env, res->GetRegionString()),
-                          jni::ToJavaString(env, res->GetFeatureType()),
-                          jni::ToJavaString(env, distance.c_str()),
-                          static_cast<jintArray>(ranges));
-  }
-  else
-  {
-    jmethodID methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;Ljava/lang/String;[I)V");
+    static jmethodID methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;Ljava/lang/String;[I)V");
     ASSERT ( methodID, () );
 
     return env->NewObject(klass, methodID,
@@ -285,16 +264,34 @@ Java_com_mapswithme_maps_search_SearchFragment_nativeGetResult(
                           jni::ToJavaString(env, res->GetSuggestionString()),
                           static_cast<jintArray>(ranges));
   }
+
+  static jmethodID methodID = env->GetMethodID(klass, "<init>",
+            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[I)V");
+  ASSERT ( methodID, () );
+
+  string distance;
+  if (hasPosition)
+  {
+    double dummy;
+    (void) g_framework->NativeFramework()->GetDistanceAndAzimut(res->GetFeatureCenter(), lat, lon, north, distance, dummy);
+  }
+
+  return env->NewObject(klass, methodID,
+                        jni::ToJavaString(env, res->GetString()),
+                        jni::ToJavaString(env, res->GetRegionString()),
+                        jni::ToJavaString(env, res->GetFeatureType()),
+                        jni::ToJavaString(env, distance.c_str()),
+                        static_cast<jintArray>(ranges));
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_search_SearchFragment_getLastQuery(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_search_SearchFragment_nativeGetLastQuery(JNIEnv * env, jobject thiz)
 {
   return jni::ToJavaString(env, g_framework->GetLastSearchQuery());
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_search_SearchFragment_clearLastQuery(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_search_SearchFragment_nativeClearLastQuery(JNIEnv * env, jobject thiz)
 {
   g_framework->ClearLastSearchQuery();
 }
