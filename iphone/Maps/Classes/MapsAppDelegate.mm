@@ -51,8 +51,8 @@ void InitLocalizedStrings()
   // Texts on the map screen when map is not downloaded or is downloading
   f.AddString("country_status_added_to_queue", [L(@"country_status_added_to_queue") UTF8String]);
   f.AddString("country_status_downloading", [L(@"country_status_downloading") UTF8String]);
-  f.AddString("country_status_download_routing", [L(@"country_status_download_routing") UTF8String]);
   f.AddString("country_status_download", [L(@"country_status_download") UTF8String]);
+  f.AddString("country_status_download_without_routing", [L(@"country_status_download_without_routing") UTF8String]);
   f.AddString("country_status_download_failed", [L(@"country_status_download_failed") UTF8String]);
   f.AddString("try_again", [L(@"try_again") UTF8String]);
   // Default texts for bookmarks added in C++ code (by URL Scheme API)

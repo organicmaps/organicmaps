@@ -27,27 +27,32 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
   gui::Button::Params bp;
 
   bp.m_depth = depth();
-  bp.m_minWidth = 200;
-  bp.m_minHeight = 40;
+  bp.m_minWidth = 260;
+  bp.m_minHeight = 56;
   bp.m_position = graphics::EPosCenter;
 
-  auto createButtonFn = [this] (gui::Button::Params const & params)
+  auto createButtonFn = [this] (gui::Button::Params const & params,
+      graphics::Color const & activeButtonColor, graphics::Color const & pressedButtonColor)
   {
     gui::Button * result = new gui::Button(params);
     result->setIsVisible(false);
     result->setOnClickListener(bind(&CountryStatusDisplay::OnButtonClicked, this, _1));
 
-    result->setFont(EActive, graphics::FontDesc(16, graphics::Color(255, 255, 255, 255)));
-    result->setFont(EPressed, graphics::FontDesc(16, graphics::Color(255, 255, 255, 255)));
+    result->setFont(EActive, graphics::FontDesc(15, graphics::Color(255, 255, 255, 255)));
+    result->setFont(EPressed, graphics::FontDesc(15, graphics::Color(255, 255, 255, 255)));
 
-    result->setColor(EActive, graphics::Color(0, 0, 0, 0.6 * 255));
-    result->setColor(EPressed, graphics::Color(0, 0, 0, 0.4 * 255));
+    result->setColor(EActive, activeButtonColor);
+    result->setColor(EPressed, pressedButtonColor);
 
     return result;
   };
 
-  m_primaryButton.reset(createButtonFn(bp));
-  m_secondaryButton.reset(createButtonFn(bp));
+  m_primaryButton.reset(createButtonFn(bp, graphics::Color(32, 152, 82, 255),
+                                       graphics::Color(24, 128, 68, 255)));
+  uint8_t constexpr activeAlpha = static_cast<uint8_t>(0.44 * 255);
+  uint8_t constexpr pressedAlpha = static_cast<uint8_t>(0.72 * 255);
+  m_secondaryButton.reset(createButtonFn(bp, graphics::Color(0, 0, 0, activeAlpha),
+                                         graphics::Color(0, 0, 0, pressedAlpha)));
 
   gui::TextView::Params tp;
   tp.m_depth = depth();
@@ -355,10 +360,11 @@ void CountryStatusDisplay::SetContentForDownloadPropose()
   uint64_t sizeToDownload;
   string units;
   FormatMapSize(mapAndRoutingSize.first + mapAndRoutingSize.second, units, sizeToDownload);
-  m_primaryButton->setText(FormatStatusMessage("country_status_download_routing", &sizeToDownload, &units));
+  m_primaryButton->setText(FormatStatusMessage("country_status_download", &sizeToDownload, &units));
 
   FormatMapSize(mapAndRoutingSize.first, units, sizeToDownload);
-  m_secondaryButton->setText(FormatStatusMessage("country_status_download", &sizeToDownload, &units));
+  m_secondaryButton->setText(FormatStatusMessage("country_status_download_without_routing",
+                                                 &sizeToDownload, &units));
 }
 
 void CountryStatusDisplay::SetContentForProgress()
@@ -406,13 +412,15 @@ void CountryStatusDisplay::ComposeElementsForState()
   ASSERT(visibleCount > 0, ());
 
   m2::PointD const & pv = pivot();
+  size_t const emptySpace = 16 * visualScale();
   if (visibleCount == 1)
     m_label->setPivot(pv);
+
   else if (visibleCount == 2)
   {
     size_t const labelHeight = m_label->GetBoundRect().SizeY();
     size_t const buttonHeight = m_primaryButton->GetBoundRect().SizeY();
-    size_t const commonHeight = buttonHeight + labelHeight + 10 * visualScale();
+    size_t const commonHeight = buttonHeight + labelHeight + emptySpace;
 
     m_label->setPivot(m2::PointD(pv.x, pv.y - commonHeight / 2 + labelHeight / 2));
     m_primaryButton->setPivot(m2::PointD(pv.x, pv.y + commonHeight / 2 - buttonHeight / 2));
@@ -422,7 +430,6 @@ void CountryStatusDisplay::ComposeElementsForState()
     size_t const labelHeight = m_label->GetBoundRect().SizeY();
     size_t const primButtonHeight = m_primaryButton->GetBoundRect().SizeY();
     size_t const secButtonHeight = m_secondaryButton->GetBoundRect().SizeY();
-    size_t const emptySpace = 10 * visualScale();
 
     double const offsetFromCenter = (primButtonHeight / 2 + emptySpace);
 

@@ -211,8 +211,8 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^\nis added to the downloading queue");
   m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading\n^\n^%");
   m_stringsBundle.SetDefaultString("country_status_download", "Download map\n^ ^");
-  m_stringsBundle.SetDefaultString("country_status_download_routing", "Download Map + Routing\n^ ^");
   m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading\n^\nhas failed");
+  m_stringsBundle.SetDefaultString("country_status_download_without_routing", "Download map\nwithout routing (^ ^)");
   m_stringsBundle.SetDefaultString("try_again", "Try Again");
   m_stringsBundle.SetDefaultString("not_enough_free_space_on_sdcard", "Not enough space for downloading");
 

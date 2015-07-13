@@ -113,7 +113,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     nativeAddLocalization("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
     nativeAddLocalization("country_status_downloading", getString(R.string.country_status_downloading));
     nativeAddLocalization("country_status_download", getString(R.string.country_status_download));
-    nativeAddLocalization("country_status_download_routing", getString(R.string.country_status_download_routing));
+    nativeAddLocalization("country_status_download_without_routing", getString(R.string.country_status_download_without_routing));
     nativeAddLocalization("country_status_download_failed", getString(R.string.country_status_download_failed));
     nativeAddLocalization("try_again", getString(R.string.try_again));
     nativeAddLocalization("not_enough_free_space_on_sdcard", getString(R.string.not_enough_free_space_on_sdcard));
