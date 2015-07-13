@@ -18,6 +18,10 @@ uint32_t const kStartBeforeSeconds = 5;
 uint32_t const kMinStartBeforeMeters = 10;
 uint32_t const kMaxStartBeforeMeters = 100;
 
+// kMinDistToSayNotificationMeters is minimum distance between two turns
+// when pronouncing the first notification about the second turn makes sense.
+uint32_t const kMinDistToSayNotificationMeters = 100;
+
 uint32_t CalculateDistBeforeMeters(double m_speedMetersPerSecond)
 {
   ASSERT_LESS_OR_EQUAL(0, m_speedMetersPerSecond, ());
@@ -51,16 +55,16 @@ void TurnsSound::UpdateRouteFollowingInfo(location::FollowingInfo & info, TurnIt
 
   if (m_nextTurnNotificationProgress == PronouncedNotification::Nothing)
   {
-    if (distanceToTurnMeters > kMaxStartBeforeMeters)
+    if (distanceToTurnMeters > kMinDistToSayNotificationMeters)
     {
       double const currentSpeedUntisPerSecond =
           m_settings.ConvertMetersPerSecondToUnitsPerSecond(m_speedMetersPerSecond);
       double const turnNotificationDistUnits =
           m_settings.ComputeTurnDistance(currentSpeedUntisPerSecond);
-      uint32_t const turnNotificationDistMeters =
+      uint32_t const startPronounceDistMeters =
           m_settings.ConvertUnitsToMeters(turnNotificationDistUnits) + distanceToPronounceNotificationMeters;
 
-      if (distanceToTurnMeters < turnNotificationDistMeters)
+      if (distanceToTurnMeters < startPronounceDistMeters)
       {
         // First turn sound notification.
         uint32_t const distToPronounce =
