@@ -43,13 +43,13 @@ void TurnsSound::UpdateRouteFollowingInfo(location::FollowingInfo & info, TurnIt
 
   if (m_nextTurnIndex != turn.m_index)
   {
-    m_nextNotificationProgress = PronouncedNotification::Nothing;
+    m_nextTurnNotificationProgress = PronouncedNotification::Nothing;
     m_nextTurnIndex = turn.m_index;
   }
 
   uint32_t const distanceToPronounceNotificationMeters = CalculateDistBeforeMeters(m_speedMetersPerSecond);
 
-  if (m_nextNotificationProgress == PronouncedNotification::Nothing)
+  if (m_nextTurnNotificationProgress == PronouncedNotification::Nothing)
   {
     if (distanceToTurnMeters > kMaxStartBeforeMeters)
     {
@@ -69,19 +69,19 @@ void TurnsSound::UpdateRouteFollowingInfo(location::FollowingInfo & info, TurnIt
                                               m_settings.GetLengthUnits());
         // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
         // If so add an extra item to info.m_turnNotifications with "then parameter".
-        m_nextNotificationProgress = PronouncedNotification::First;
+        m_nextTurnNotificationProgress = PronouncedNotification::First;
       }
     }
     else
     {
       // The first notification has not been pronounced but the distance to the turn is too short.
       // It happens if one turn follows shortly behind another one.
-      m_nextNotificationProgress = PronouncedNotification::First;
+      m_nextTurnNotificationProgress = PronouncedNotification::First;
     }
     return;
   }
 
-  if (m_nextNotificationProgress == PronouncedNotification::First &&
+  if (m_nextTurnNotificationProgress == PronouncedNotification::First &&
       distanceToTurnMeters < distanceToPronounceNotificationMeters)
   {
     info.m_turnNotifications.emplace_back(0, turn.m_exitNum, false, turn.m_turn,
@@ -89,7 +89,7 @@ void TurnsSound::UpdateRouteFollowingInfo(location::FollowingInfo & info, TurnIt
 
     // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
     // If so add an extra item to info.m_turnNotifications with "then parameter".
-    m_nextNotificationProgress = PronouncedNotification::Second;
+    m_nextTurnNotificationProgress = PronouncedNotification::Second;
   }
 }
 
@@ -116,7 +116,7 @@ void TurnsSound::SetSpeedMetersPerSecond(double speed)
 
 void TurnsSound::Reset()
 {
-  m_nextNotificationProgress = turns::sound::PronouncedNotification::Nothing;
+  m_nextTurnNotificationProgress = turns::sound::PronouncedNotification::Nothing;
   m_nextTurnIndex = 0;
 }
 

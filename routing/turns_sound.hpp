@@ -40,20 +40,20 @@ class TurnsSound
   /// for last several seconds instead of the current speed here.
   double m_speedMetersPerSecond;
   Settings m_settings;
-  /// m_nextNotificationProgress keeps a status which is being changing while
+  /// m_nextTurnNotificationProgress keeps a status which is being changing while
   /// an end user is coming to the closest (the next) turn along the route.
   /// When an end user is far from the next turn
-  /// m_nextNotificationProgress == Nothing.
+  /// m_nextTurnNotificationProgress == Nothing.
   /// After the first turn notification has been pronounced
-  /// m_nextNotificationProgress == First.
+  /// m_nextTurnNotificationProgress == First.
   /// After the second notification has been pronounced
-  /// m_nextNotificationProgress == Second.
-  PronouncedNotification m_nextNotificationProgress;
+  /// m_nextTurnNotificationProgress == Second.
+  PronouncedNotification m_nextTurnNotificationProgress;
   uint32_t m_nextTurnIndex;
 
 public:
   TurnsSound() : m_enabled(false), m_speedMetersPerSecond(0.), m_settings(),
-      m_nextNotificationProgress(PronouncedNotification::Nothing), m_nextTurnIndex(0) {}
+      m_nextTurnNotificationProgress(PronouncedNotification::Nothing), m_nextTurnIndex(0) {}
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
