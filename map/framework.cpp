@@ -2172,8 +2172,7 @@ void Framework::SetRouter(RouterType type)
   unique_ptr<OnlineAbsentCountriesFetcher> fetcher;
   if (type == RouterType::Pedestrian)
   {
-    router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter,
-                                                      routingVisualizerFn);
+    router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), routingVisualizerFn);
   }
   else
   {

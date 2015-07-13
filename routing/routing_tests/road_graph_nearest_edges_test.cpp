@@ -57,20 +57,20 @@ UNIT_TEST(RoadGraph_NearestEdges)
   // Expected outgoing edges.
   IRoadGraph::TEdgeVector expectedOutgoing =
   {
-    Edge(0 /* first road */, false /* forward */, 1 /* segId */, m2::PointD(0, 0), m2::PointD(-1, 0)),
-    Edge(0 /* first road */, true /* forward */, 2 /* segId */, m2::PointD(0, 0), m2::PointD(1, 0)),
-    Edge(1 /* second road */, false /* forward */, 1 /* segId */, m2::PointD(0, 0), m2::PointD(0, -1)),
-    Edge(1 /* second road */, true /* forward */, 2 /* segId */, m2::PointD(0, 0), m2::PointD(0, 1)),
+    Edge(MakeTestFeatureID(0) /* first road */, false /* forward */, 1 /* segId */, m2::PointD(0, 0), m2::PointD(-1, 0)),
+    Edge(MakeTestFeatureID(0) /* first road */, true /* forward */, 2 /* segId */, m2::PointD(0, 0), m2::PointD(1, 0)),
+    Edge(MakeTestFeatureID(1) /* second road */, false /* forward */, 1 /* segId */, m2::PointD(0, 0), m2::PointD(0, -1)),
+    Edge(MakeTestFeatureID(1) /* second road */, true /* forward */, 2 /* segId */, m2::PointD(0, 0), m2::PointD(0, 1)),
   };
   sort(expectedOutgoing.begin(), expectedOutgoing.end());
 
   // Expected ingoing edges.
   IRoadGraph::TEdgeVector expectedIngoing =
   {
-    Edge(0 /* first road */, true /* forward */, 1 /* segId */, m2::PointD(-1, 0), m2::PointD(0, 0)),
-    Edge(0 /* first road */, false /* forward */, 2 /* segId */, m2::PointD(1, 0), m2::PointD(0, 0)),
-    Edge(1 /* second road */, true /* forward */, 1 /* segId */, m2::PointD(0, -1), m2::PointD(0, 0)),
-    Edge(1 /* second road */, false /* forward */, 2 /* segId */, m2::PointD(0, 1), m2::PointD(0, 0)),
+    Edge(MakeTestFeatureID(0) /* first road */, true /* forward */, 1 /* segId */, m2::PointD(-1, 0), m2::PointD(0, 0)),
+    Edge(MakeTestFeatureID(0) /* first road */, false /* forward */, 2 /* segId */, m2::PointD(1, 0), m2::PointD(0, 0)),
+    Edge(MakeTestFeatureID(1) /* second road */, true /* forward */, 1 /* segId */, m2::PointD(0, -1), m2::PointD(0, 0)),
+    Edge(MakeTestFeatureID(1) /* second road */, false /* forward */, 2 /* segId */, m2::PointD(0, 1), m2::PointD(0, 0)),
   };
   sort(expectedIngoing.begin(), expectedIngoing.end());
 

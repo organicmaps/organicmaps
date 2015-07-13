@@ -1,8 +1,12 @@
 #include "road_graph_builder.hpp"
 
+#include "base/macros.hpp"
 #include "base/logging.hpp"
 
+#include "indexer/mwm_set.hpp"
+
 #include "std/algorithm.hpp"
+#include "std/shared_ptr.hpp"
 
 using namespace routing;
 
@@ -10,6 +14,42 @@ namespace
 {
 
 double const MAX_SPEED_KMPH = 5.0;
+
+/// Class provides a valid instance of FeatureID for testing purposes
+class TestValidFeatureIDProvider : private MwmSet
+{
+public:
+  TestValidFeatureIDProvider()
+  {
+    UNUSED_VALUE(Register(platform::LocalCountryFile::MakeForTesting("0")));
+
+    vector<shared_ptr<MwmInfo>> mwmsInfoList;
+    GetMwmsInfo(mwmsInfoList);
+
+    m_mwmInfo = mwmsInfoList[0];
+  }
+
+  FeatureID MakeFeatureID(uint32_t offset) const
+  {
+    return FeatureID(MwmSet::MwmId(m_mwmInfo), offset);
+  }
+
+private:
+  // MwmSet overrides:
+  bool GetVersion(platform::LocalCountryFile const & localFile, MwmInfo & info) const override
+  {
+    info.m_maxScale = 1;
+    info.m_limitRect = m2::RectD(0, 0, 1, 1);
+    info.m_version.format = version::lastFormat;
+    return true;
+  }
+  TMwmValueBasePtr CreateValue(platform::LocalCountryFile const &) const override
+  {
+    return TMwmValueBasePtr(new MwmValueBase());
+  }
+
+  shared_ptr<MwmInfo> m_mwmInfo;
+};
 
 }  // namespace
 
@@ -22,16 +62,16 @@ void RoadGraphMockSource::AddRoad(RoadInfo && ri)
   m_roads.push_back(move(ri));
 }
 
-IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(uint32_t featureId) const
+IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(FeatureID const & featureId) const
 {
-  CHECK_LESS(featureId, m_roads.size(), ("Invalid feature id."));
-  return m_roads[featureId];
+  CHECK_LESS(featureId.m_offset, m_roads.size(), ("Invalid feature id."));
+  return m_roads[featureId.m_offset];
 }
 
-double RoadGraphMockSource::GetSpeedKMPH(uint32_t featureId) const
+double RoadGraphMockSource::GetSpeedKMPH(FeatureID const & featureId) const
 {
-  CHECK_LESS(featureId, m_roads.size(), ("Invalid feature id."));
-  return m_roads[featureId].m_speedKMPH;
+  CHECK_LESS(featureId.m_offset, m_roads.size(), ("Invalid feature id."));
+  return m_roads[featureId.m_offset].m_speedKMPH;
 }
 
 double RoadGraphMockSource::GetMaxSpeedKMPH() const
@@ -43,7 +83,21 @@ void RoadGraphMockSource::ForEachFeatureClosestToCross(m2::PointD const & /* cro
                                                        CrossEdgesLoader & edgesLoader) const
 {
   for (size_t roadId = 0; roadId < m_roads.size(); ++roadId)
-    edgesLoader(roadId, m_roads[roadId]);
+    edgesLoader(MakeTestFeatureID(roadId), m_roads[roadId]);
+}
+
+void RoadGraphMockSource::FindClosestEdges(m2::PointD const & point, uint32_t count,
+                                           vector<pair<Edge, m2::PointD>> & vicinities) const
+{
+  UNUSED_VALUE(point);
+  UNUSED_VALUE(count);
+  UNUSED_VALUE(vicinities);
+}
+
+FeatureID MakeTestFeatureID(uint32_t offset)
+{
+  static TestValidFeatureIDProvider instance;
+  return instance.MakeFeatureID(offset);
 }
 
 void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)

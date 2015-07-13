@@ -86,10 +86,10 @@ string DebugPrint(Junction const & r)
 
 Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction)
 {
-  return Edge(kFakeFeatureId, true /* forward */, 0 /* segId */, startJunction, endJunction);
+  return Edge(FeatureID(), true /* forward */, 0 /* segId */, startJunction, endJunction);
 }
 
-Edge::Edge(uint32_t featureId, bool forward, size_t segId, Junction const & startJunction, Junction const & endJunction)
+Edge::Edge(FeatureID featureId, bool forward, uint32_t segId, Junction const & startJunction, Junction const & endJunction)
   : m_featureId(featureId), m_forward(forward), m_segId(segId), m_startJunction(startJunction), m_endJunction(endJunction)
 {
   ASSERT_LESS(segId, numeric_limits<uint32_t>::max(), ());
@@ -134,7 +134,7 @@ bool Edge::operator<(Edge const & r) const
 string DebugPrint(Edge const & r)
 {
   ostringstream ss;
-  ss << "Edge{featureId: " << r.GetFeatureId() << ", isForward:" << r.IsForward()
+  ss << "Edge{featureId: " << DebugPrint(r.GetFeatureId()) << ", isForward:" << r.IsForward()
      << ", segId:" << r.m_segId << ", startJunction:" << DebugPrint(r.m_startJunction)
      << ", endJunction:" << DebugPrint(r.m_endJunction) << "}";
   return ss.str();
@@ -163,7 +163,7 @@ IRoadGraph::CrossEdgesLoader::CrossEdgesLoader(m2::PointD const & cross, TEdgeVe
 {
 }
 
-void IRoadGraph::CrossEdgesLoader::operator()(uint32_t featureId, RoadInfo const & roadInfo)
+void IRoadGraph::CrossEdgesLoader::operator()(FeatureID const & featureId, RoadInfo const & roadInfo)
 {
   size_t const numPoints = roadInfo.m_points.size();
 

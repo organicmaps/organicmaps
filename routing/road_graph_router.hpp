@@ -26,13 +26,12 @@ class RoadGraphRouter : public IRouter
 public:
   RoadGraphRouter(string const & name, Index & index,
                   unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
-                  unique_ptr<IRoutingAlgorithm> && algorithm,
-                  TMwmFileByPointFn const & countryFileFn);
+                  unique_ptr<IRoutingAlgorithm> && algorithm);
   ~RoadGraphRouter() override;
 
   // IRouter overrides:
   string GetName() const override { return m_name; }
-  void ClearState() override { Reset(); }
+  void ClearState() override;
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
                             m2::PointD const & finalPoint, Route & route) override;
 
@@ -42,26 +41,14 @@ public:
   bool IsCancelled() const override { return m_algorithm->IsCancelled(); }
 
 private:
-  /// @todo This method fits better in features_road_graph.
-  void GetClosestEdges(m2::PointD const & pt, vector<pair<Edge, m2::PointD>> & edges);
-
-  bool IsMyMWM(MwmSet::MwmId const & mwmID) const;
-
   string const m_name;
-  Index & m_index;
-  unique_ptr<IVehicleModelFactory> const m_vehicleModelFactory;
   unique_ptr<IRoutingAlgorithm> const m_algorithm;
-  TMwmFileByPointFn const m_countryFileFn;
-
-  unique_ptr<IRoadGraph> m_roadGraph;
-  shared_ptr<IVehicleModel> m_vehicleModel;
+  unique_ptr<IRoadGraph> const m_roadGraph;
 };
-
+  
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
-                                                TMwmFileByPointFn const & countryFileFn,
                                                 TRoutingVisualizerFn const & visualizerFn);
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(
-    Index & index, TMwmFileByPointFn const & countryFileFn,
-    TRoutingVisualizerFn const & visualizerFn);
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
+                                                             TRoutingVisualizerFn const & visualizerFn);
 
 }  // namespace routing

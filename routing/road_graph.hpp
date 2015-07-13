@@ -4,8 +4,9 @@
 
 #include "base/string_utils.hpp"
 
+#include "indexer/feature_data.hpp"
+
 #include "std/initializer_list.hpp"
-#include "std/limits.hpp"
 #include "std/map.hpp"
 #include "std/vector.hpp"
 
@@ -38,22 +39,19 @@ private:
 /// The Edge class represents an edge description on a road network graph
 class Edge
 {
-private:
-  static constexpr uint32_t kFakeFeatureId = numeric_limits<uint32_t>::max();
-
 public:
   static Edge MakeFake(Junction const & startJunction, Junction const & endJunction);
 
-  Edge(uint32_t featureId, bool forward, size_t segId, Junction const & startJunction, Junction const & endJunction);
+  Edge(FeatureID featureId, bool forward, uint32_t segId, Junction const & startJunction, Junction const & endJunction);
   Edge(Edge const &) = default;
   Edge & operator=(Edge const &) = default;
 
-  inline uint32_t GetFeatureId() const { return m_featureId; }
+  inline FeatureID GetFeatureId() const { return m_featureId; }
   inline bool IsForward() const { return m_forward; }
   inline uint32_t GetSegId() const { return m_segId; }
   inline Junction const & GetStartJunction() const { return m_startJunction; }
   inline Junction const & GetEndJunction() const { return m_endJunction; }
-  inline bool IsFake() const { return m_featureId == kFakeFeatureId; }
+  inline bool IsFake() const { return !m_featureId.IsValid(); }
 
   Edge GetReverseEdge() const;
 
@@ -65,8 +63,8 @@ public:
 private:
   friend string DebugPrint(Edge const & r);
 
-  // Feature on which position is defined.
-  uint32_t m_featureId;
+  // Feature for which edge is defined.
+  FeatureID m_featureId;
 
   // Is the feature along the road.
   bool m_forward;
@@ -109,7 +107,7 @@ public:
   public:
     CrossEdgesLoader(m2::PointD const & cross, TEdgeVector & outgoingEdges);
 
-    void operator()(uint32_t featureId, RoadInfo const & roadInfo);
+    void operator()(FeatureID const & featureId, RoadInfo const & roadInfo);
 
   private:
     m2::PointD const m_cross;
@@ -135,10 +133,10 @@ public:
   void AddFakeEdges(Junction const & junction, vector<pair<Edge, m2::PointD>> const & vicinities);
 
   /// Returns RoadInfo for a road corresponding to featureId.
-  virtual RoadInfo GetRoadInfo(uint32_t featureId) const = 0;
+  virtual RoadInfo GetRoadInfo(FeatureID const & featureId) const = 0;
 
   /// Returns speed in KM/H for a road corresponding to featureId.
-  virtual double GetSpeedKMPH(uint32_t featureId) const = 0;
+  virtual double GetSpeedKMPH(FeatureID const & featureId) const = 0;
 
   /// Returns speed in KM/H for a road corresponding to edge.
   double GetSpeedKMPH(Edge const & edge) const;
@@ -149,6 +147,15 @@ public:
   /// Calls edgesLoader on each feature which is close to cross.
   virtual void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                             CrossEdgesLoader & edgesLoader) const = 0;
+
+  /// Finds the closest edges to the point.
+  /// @return Array of pairs of Edge and projection point on the Edge. If there is no the closest edges
+  /// then returns empty array.
+  virtual void FindClosestEdges(m2::PointD const & point, uint32_t count,
+                                vector<pair<Edge, m2::PointD>> & vicinities) const = 0;
+
+  /// Clear all temporary buffers.
+  virtual void ClearState() {}
 
 private:
   /// Finds all outgoing regular (non-fake) edges for junction.

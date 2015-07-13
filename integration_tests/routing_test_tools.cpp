@@ -96,16 +96,9 @@ namespace integration
     return osrmRouter;
   }
 
-  shared_ptr<IRouter> CreatePedestrianRouter(Index & index, search::Engine & searchEngine)
+  shared_ptr<IRouter> CreatePedestrianRouter(Index & index)
   {
-    auto const countryFileFn = [&searchEngine](m2::PointD const & pt)
-    {
-      return searchEngine.GetCountryFile(pt);
-    };
-
-    unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index,
-                                                                          countryFileFn,
-                                                                          nullptr);
+    unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index, nullptr);
     return shared_ptr<IRouter>(move(router));
   }
 
@@ -141,7 +134,7 @@ namespace integration
     PedestrianRouterComponents(vector<LocalCountryFile> const & localFiles)
         : m_featuresFetcher(CreateFeaturesFetcher(localFiles)),
           m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
-          m_router(CreatePedestrianRouter(m_featuresFetcher->GetIndex(), *m_searchEngine.get()))
+          m_router(CreatePedestrianRouter(m_featuresFetcher->GetIndex()))
     {
     }
     IRouter * GetRouter() const override { return m_router.get(); }

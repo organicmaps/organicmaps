@@ -5,10 +5,10 @@
 
 #include "geometry/point2d.hpp"
 
+#include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "std/limits.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -20,8 +20,6 @@ namespace routing
 /// Class returns pairs of outgoing edge and projection point on the edge
 class NearestEdgeFinder
 {
-  static constexpr uint32_t INVALID_FID = numeric_limits<uint32_t>::max();
-
   struct Candidate
   {
     double m_dist;
@@ -29,23 +27,20 @@ class NearestEdgeFinder
     m2::PointD m_segStart;
     m2::PointD m_segEnd;
     m2::PointD m_point;
-    uint32_t m_fid;
+    FeatureID m_fid;
 
     Candidate();
-
-    inline bool IsValid() const { return m_fid != INVALID_FID; }
   };
 
   m2::PointD const m_point;
-  IRoadGraph & m_roadGraph;
   vector<Candidate> m_candidates;
 
 public:
-  NearestEdgeFinder(m2::PointD const & point, IRoadGraph & roadGraph);
+  NearestEdgeFinder(m2::PointD const & point);
 
   inline bool HasCandidates() const { return !m_candidates.empty(); }
 
-  void AddInformationSource(uint32_t featureId);
+  void AddInformationSource(FeatureID const & featureId, IRoadGraph::RoadInfo const & roadInfo);
 
   void MakeResult(vector<pair<Edge, m2::PointD>> & res, size_t const maxCountFeatures);
 };

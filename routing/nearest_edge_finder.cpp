@@ -6,6 +6,8 @@
 
 #include "base/assert.hpp"
 
+#include "std/limits.hpp"
+
 namespace routing
 {
 
@@ -14,28 +16,26 @@ NearestEdgeFinder::Candidate::Candidate()
       m_segId(0),
       m_segStart(m2::PointD::Zero()),
       m_segEnd(m2::PointD::Zero()),
-      m_point(m2::PointD::Zero()),
-      m_fid(INVALID_FID)
+      m_point(m2::PointD::Zero())
 {
 }
 
-NearestEdgeFinder::NearestEdgeFinder(m2::PointD const & point, IRoadGraph & roadGraph)
-    : m_point(point), m_roadGraph(roadGraph)
+NearestEdgeFinder::NearestEdgeFinder(m2::PointD const & point)
+    : m_point(point)
 {
 }
 
-void NearestEdgeFinder::AddInformationSource(uint32_t featureId)
+void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadGraph::RoadInfo const & roadInfo)
 {
   Candidate res;
 
-  IRoadGraph::RoadInfo info = m_roadGraph.GetRoadInfo(featureId);
-  size_t const count = info.m_points.size();
+  size_t const count = roadInfo.m_points.size();
   ASSERT_GREATER(count, 1, ());
   for (size_t i = 1; i < count; ++i)
   {
     /// @todo Probably, we need to get exact projection distance in meters.
     m2::ProjectionToSection<m2::PointD> segProj;
-    segProj.SetBounds(info.m_points[i - 1], info.m_points[i]);
+    segProj.SetBounds(roadInfo.m_points[i - 1], roadInfo.m_points[i]);
 
     m2::PointD const pt = segProj(m_point);
     double const d = m_point.SquareLength(pt);
@@ -44,13 +44,13 @@ void NearestEdgeFinder::AddInformationSource(uint32_t featureId)
       res.m_dist = d;
       res.m_fid = featureId;
       res.m_segId = i - 1;
-      res.m_segStart = info.m_points[i - 1];
-      res.m_segEnd = info.m_points[i];
+      res.m_segStart = roadInfo.m_points[i - 1];
+      res.m_segEnd = roadInfo.m_points[i];
       res.m_point = pt;
     }
   }
 
-  if (res.IsValid())
+  if (res.m_fid.IsValid())
     m_candidates.push_back(res);
 }
 

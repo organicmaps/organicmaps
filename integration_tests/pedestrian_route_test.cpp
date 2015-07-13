@@ -367,3 +367,19 @@ UNIT_TEST(USANewYorkEmpireStateBuildingToUnitedNations)
       MercatorBounds::FromLatLon(40.74844, -73.98566), {0., 0.},
       MercatorBounds::FromLatLon(40.75047, -73.96759), 2265.);
 }
+
+UNIT_TEST(CrossMwmEgyptTabaToJordanAqaba)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(29.49271, 34.89571), {0., 0.},
+      MercatorBounds::FromLatLon(29.52774, 35.00324), 29016);
+}
+
+UNIT_TEST(CrossMwmRussiaPStaiToBelarusDrazdy)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.014, 30.95552), {0., 0.},
+      MercatorBounds::FromLatLon(55.01437, 30.8858), 4834.5);
+}

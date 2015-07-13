@@ -4,7 +4,6 @@
 #include "indexer/classificator_loader.hpp"
 
 #include "routing/features_road_graph.hpp"
-#include "routing/nearest_edge_finder.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/pedestrian_model.hpp"
@@ -58,21 +57,19 @@ private:
   shared_ptr<routing::IVehicleModel> const m_model;
 };
 
-unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(
-    Index & index, routing::TMwmFileByPointFn const & countryFileFn)
+unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index)
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm(nullptr));
-  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, move(vehicleModelFactory), move(algorithm), countryFileFn));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, move(vehicleModelFactory), move(algorithm)));
   return router;
 }
 
-unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(
-    Index & index, routing::TMwmFileByPointFn const & countryFileFn)
+unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index & index)
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarBidirectionalRoutingAlgorithm(nullptr));
-  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, move(vehicleModelFactory), move(algorithm), countryFileFn));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, move(vehicleModelFactory), move(algorithm)));
   return router;
 }
 
@@ -88,25 +85,10 @@ m2::PointD GetPointOnEdge(routing::Edge & e, double posAlong)
 
 void GetNearestPedestrianEdges(Index & index, m2::PointD const & pt, vector<pair<routing::Edge, m2::PointD>> & edges)
 {
-  MwmSet::MwmId const id = index.GetMwmIdByCountryFile(CountryFile(MAP_NAME));
-  TEST(id.IsAlive(), ());
+  unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
+  routing::FeaturesRoadGraph roadGraph(index, move(vehicleModelFactory));
 
-  routing::PedestrianModel const vehicleModel;
-  routing::FeaturesRoadGraph roadGraph(vehicleModel, index, id);
-
-  routing::NearestEdgeFinder finder(pt, roadGraph);
-
-  auto const f = [&finder, &vehicleModel](FeatureType & ft)
-  {
-    if (ft.GetFeatureType() == feature::GEOM_LINE && vehicleModel.GetSpeed(ft) > 0.0)
-      finder.AddInformationSource(ft.GetID().m_offset);
-  };
-
-  index.ForEachInRect(
-      f, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, 100.0 /* radiusM */),
-      routing::FeaturesRoadGraph::GetStreetReadScale());
-
-  finder.MakeResult(edges, 1 /* maxCount */);
+  roadGraph.FindClosestEdges(pt, 1 /*count*/, edges);
 }
 
 void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::PointD const & finalPos, routing::Route & foundRoute)
@@ -126,16 +108,14 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::Poin
 
 void TestRouters(Index & index, m2::PointD const & startPos, m2::PointD const & finalPos)
 {
-  auto const countryFileFn = [](m2::PointD const & /* point */) { return MAP_NAME; };
-
   // find route by A*-bidirectional algorithm
   routing::Route routeFoundByAstarBidirectional("");
-  unique_ptr<routing::IRouter> router = CreatePedestrianAStarBidirectionalTestRouter(index, countryFileFn);
+  unique_ptr<routing::IRouter> router = CreatePedestrianAStarBidirectionalTestRouter(index);
   TestRouter(*router, startPos, finalPos, routeFoundByAstarBidirectional);
 
   // find route by A* algorithm
   routing::Route routeFoundByAstar("");
-  router = CreatePedestrianAStarTestRouter(index, countryFileFn);
+  router = CreatePedestrianAStarTestRouter(index);
   TestRouter(*router, startPos, finalPos, routeFoundByAstar);
 
   double constexpr kEpsilon = 1e-6;

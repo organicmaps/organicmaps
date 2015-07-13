@@ -13,15 +13,19 @@ public:
   inline size_t GetRoadCount() const { return m_roads.size(); }
 
   // routing::IRoadGraph overrides:
-  RoadInfo GetRoadInfo(uint32_t featureId) const override;
-  double GetSpeedKMPH(uint32_t featureId) const override;
+  RoadInfo GetRoadInfo(FeatureID const & featureId) const override;
+  double GetSpeedKMPH(FeatureID const & featureId) const override;
   double GetMaxSpeedKMPH() const override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     CrossEdgesLoader & edgeLoader) const override;
+  void FindClosestEdges(m2::PointD const & point, uint32_t count,
+                        vector<pair<routing::Edge, m2::PointD>> & vicinities) const override;
 
 private:
   vector<RoadInfo> m_roads;
 };
+
+FeatureID MakeTestFeatureID(uint32_t offset);
 
 void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & graphMock);
 void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graphMock);
