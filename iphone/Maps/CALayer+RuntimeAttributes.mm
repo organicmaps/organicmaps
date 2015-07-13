@@ -7,6 +7,7 @@
 //
 
 #import "CALayer+RuntimeAttributes.h"
+#import "UIColor+MapsMeColor.h"
 
 @implementation CALayer (RuntimeAttributes)
 
@@ -20,13 +21,24 @@
   return [UIColor colorWithCGColor:self.borderColor];
 }
 
+- (void)setBorderColorName:(NSString *)colorName
+{
+  self.borderColor = [UIColor colorWithName:colorName].CGColor;
+}
 
-- (void)setShadowUIColor:(UIColor *)shadowUIColor {
+- (void)setShadowUIColor:(UIColor *)shadowUIColor
+{
   self.shadowColor = shadowUIColor.CGColor;
 }
 
-- (UIColor *)shadowUIColor {
+- (UIColor *)shadowUIColor
+{
   return [UIColor colorWithCGColor:self.shadowColor];
+}
+
+- (void)setShadowColorName:(NSString *)colorName
+{
+  self.shadowColor = [UIColor colorWithName:colorName].CGColor;
 }
 
 @end

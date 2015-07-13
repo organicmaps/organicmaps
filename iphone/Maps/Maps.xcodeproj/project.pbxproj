@@ -15,6 +15,8 @@
 		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
 		340F24631B14910500F874CD /* RouteState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340F24621B14910500F874CD /* RouteState.mm */; };
 		34287FDC1B3D7C4800F9959C /* libFlurry_6.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */; };
+		342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 342AD76E1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m */; };
+		342AD7721B53D32F00E0B997 /* UIView+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 342AD7711B53D32F00E0B997 /* UIView+RuntimeAttributes.m */; };
 		343F262E1AEFC4A300388A6D /* MWMFrameworkUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */; };
 		343F26301AEFDB1A00388A6D /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 343F262F1AEFDB1A00388A6D /* Framework.cpp */; };
 		343F26311AEFDF3E00388A6D /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
@@ -342,6 +344,10 @@
 		340F24621B14910500F874CD /* RouteState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RouteState.mm; sourceTree = "<group>"; };
 		340F24641B15F01D00F874CD /* MWMSideMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSideMenuDelegate.h; sourceTree = "<group>"; };
 		34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.4.0.a; path = Statistics/libFlurry_6.4.0.a; sourceTree = "<group>"; };
+		342AD76D1B53D30C00E0B997 /* UIButton+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+RuntimeAttributes.h"; sourceTree = "<group>"; };
+		342AD76E1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+RuntimeAttributes.m"; sourceTree = "<group>"; };
+		342AD7701B53D32F00E0B997 /* UIView+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RuntimeAttributes.h"; sourceTree = "<group>"; };
+		342AD7711B53D32F00E0B997 /* UIView+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RuntimeAttributes.m"; sourceTree = "<group>"; };
 		342E75A11B302FCC00A8635F /* MWMPlacePageViewManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageViewManagerDelegate.h; sourceTree = "<group>"; };
 		343F262C1AEFC4A300388A6D /* MWMFrameworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkUtils.h; sourceTree = "<group>"; };
 		343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkUtils.mm; sourceTree = "<group>"; };
@@ -1130,6 +1136,10 @@
 		974726401832306C006B7CB7 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				342AD7701B53D32F00E0B997 /* UIView+RuntimeAttributes.h */,
+				342AD7711B53D32F00E0B997 /* UIView+RuntimeAttributes.m */,
+				342AD76D1B53D30C00E0B997 /* UIButton+RuntimeAttributes.h */,
+				342AD76E1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m */,
 				9747264218323080006B7CB7 /* UIKitCategories.h */,
 				9747264118323080006B7CB7 /* UIKitCategories.m */,
 				B08AA8D81A26299A00810B1C /* TimeUtils.h */,
@@ -2170,6 +2180,7 @@
 				F6F533A31B3C248900C1940B /* UIColor+MapsMeColor.mm in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.m in Sources */,
+				342AD7721B53D32F00E0B997 /* UIView+RuntimeAttributes.m in Sources */,
 				97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */,
 				F6ED13541B1643900095C6DE /* MWMDirectionView.mm in Sources */,
 				34BC72271B0DECAE0012A34B /* MWMSideMenuView.mm in Sources */,
@@ -2179,6 +2190,7 @@
 				976D86EC19C8697700C920EF /* ProgressView.m in Sources */,
 				B0FBFA271A515AFD0086819E /* ViewController.m in Sources */,
 				3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */,
+				342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m in Sources */,
 				F63732961AE9431E00A03764 /* MWMBasePlacePageView.mm in Sources */,
 				97A8001018B21395000C07A2 /* SearchBar.mm in Sources */,
 				EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */,

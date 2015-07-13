@@ -70,4 +70,12 @@
   return [UIFont fontWithName:@"HelveticaNeue-Bold" size:48];
 }
 
++ (UIFont *)fontWithName:(NSString *)fontName
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+  return [[UIFont class] performSelector:NSSelectorFromString(fontName)];
+#pragma clang diagnostic pop
+}
+
 @end

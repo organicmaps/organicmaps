@@ -105,3 +105,9 @@ typedef void (^UIAlertViewCompletionBlock) (UIAlertView * alertView, NSInteger b
 - (NSUInteger)supportedInterfaceOrientations;
 
 @end
+
+@interface UIImage (ImageWithColor)
+
++ (UIImage *)imageWithColor:(UIColor *)color;
+
+@end

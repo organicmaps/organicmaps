@@ -103,6 +103,14 @@ static CGFloat const alpha100 = 1.;
   return [[UIColor whiteColor] colorWithAlphaComponent:alpha12];
 }
 
++ (UIColor *)colorWithName:(NSString *)colorName
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+  return [[UIColor class] performSelector:NSSelectorFromString(colorName)];
+#pragma clang diagnostic pop
+}
+
 CGFloat scaled(CGFloat f)
 {
   return f / 255.;

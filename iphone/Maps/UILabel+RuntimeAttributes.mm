@@ -8,6 +8,8 @@
 
 #import "UILabel+RuntimeAttributes.h"
 #import "UIKitCategories.h"
+#import "UIFont+MapsMeFonts.h"
+#import "UIColor+MapsMeColor.h"
 
 // Runtime attributes for setting localized text in Xib.
 
@@ -23,30 +25,12 @@
 
 - (void)setFontName:(NSString *)fontName
 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-  self.font = [[UIFont class] performSelector:NSSelectorFromString(fontName)];
-#pragma clang diagnostic pop
+  self.font = [UIFont fontWithName:fontName];
 }
 
-@end
-
-@implementation UIButton (RuntimeAttributes)
-
-- (void)setLocalizedText:(NSString *)localizedText {
-  [self setTitle:L(localizedText) forState:UIControlStateNormal];
-}
-
-- (NSString *)localizedText {
-  return L([self titleForState:UIControlStateNormal]);
-}
-
-- (void)setFontName:(NSString *)fontName
+- (void)setColorName:(NSString *)colorName
 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-  self.titleLabel.font = [[UIFont class] performSelector:NSSelectorFromString(fontName)];
-#pragma clang diagnostic pop
+  self.textColor = [UIColor colorWithName:colorName];
 }
 
 @end
@@ -65,10 +49,7 @@
 
 - (void)setFontName:(NSString *)fontName
 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-  self.font = [[UIFont class] performSelector:NSSelectorFromString(fontName)];
-#pragma clang diagnostic pop
+  self.font = [UIFont fontWithName:fontName];
 }
 
 @end
@@ -87,10 +68,7 @@
 
 - (void)setFontName:(NSString *)fontName
 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-  self.font = [[UIFont class] performSelector:NSSelectorFromString(fontName)];
-#pragma clang diagnostic pop
+  self.font = [UIFont fontWithName:fontName];
 }
 
 @end

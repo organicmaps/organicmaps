@@ -1,0 +1,55 @@
+//
+//  UIButton+RuntimeAttributes.m
+//  Maps
+//
+//  Created by Ilya Grechuhin on 09.07.15.
+//  Copyright (c) 2015 MapsWithMe. All rights reserved.
+//
+
+#import "Macros.h"
+#import "UIButton+RuntimeAttributes.h"
+#import "UIColor+MapsMeColor.h"
+#import "UIFont+MapsMeFonts.h"
+#import "UIKitCategories.h"
+
+@implementation UIButton (RuntimeAttributes)
+
+- (void)setLocalizedText:(NSString *)localizedText {
+  [self setTitle:L(localizedText) forState:UIControlStateNormal];
+}
+
+- (NSString *)localizedText {
+  return L([self titleForState:UIControlStateNormal]);
+}
+
+- (void)setFontName:(NSString *)fontName
+{
+  self.titleLabel.font = [UIFont fontWithName:fontName];
+}
+
+- (void)setTextColorName:(NSString *)colorName
+{
+  [self setTitleColor:[UIColor colorWithName:colorName] forState:UIControlStateNormal];
+}
+
+- (void)setTextColorHighlightedName:(NSString *)colorName
+{
+  [self setTitleColor:[UIColor colorWithName:colorName] forState:UIControlStateHighlighted];
+}
+
+- (void)setBackgroundColorName:(NSString *)colorName
+{
+  [self setBackgroundColor:[UIColor colorWithName:colorName] forState:UIControlStateNormal];
+}
+
+- (void)setBackgroundHighlightedColorName:(NSString *)colorName
+{
+  [self setBackgroundColor:[UIColor colorWithName:colorName] forState:UIControlStateHighlighted];
+}
+
+- (void)setBackgroundColor:(UIColor *)color forState:(UIControlState)state
+{
+  [self setBackgroundImage:[UIImage imageWithColor:color] forState:state];
+}
+
+@end

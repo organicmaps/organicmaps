@@ -27,4 +27,6 @@
 + (UIColor *)whiteHintText;
 + (UIColor *)whiteDividers;
 
++ (UIColor *)colorWithName:(NSString *)colorName;
+
 @end
