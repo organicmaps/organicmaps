@@ -1,122 +1,68 @@
+line|z1-[boundary=administrative][admin_level=2]
+{
+  z-index: 400;
+}
+line|z1-[boundary=administrative][admin_level=3]
+{
+  z-index: 390;
+}
+line|z1-[boundary=administrative][admin_level=4]
+{
+  z-index: 380;
+}
+
+line|z1-3[boundary=administrative][admin_level=2]
+{
+  color: @border_country_z4;
+  width: 0.5;
+}
 line|z4[boundary=administrative][admin_level=2]
 {
   color: @border_country_z4;
   width: 1;
-  z-index: 400;
-  dashes: 3.12,3.12;
-  linecap: butt;
-  -x-kot-layer: top;
+}
+line|z4-5[boundary=administrative][admin_level=3],
+line|z4-5[boundary=administrative][admin_level=4]
+{
+  color: @border_country_z4;
+  width: 0.75;
+  dashes: 2,2;
 }
 line|z5[boundary=administrative][admin_level=2]
 {
   color: @border_country_z5;
   width: 1;
-  z-index: 400;
-  dashes: 3.12,3.12;
-  linecap: butt;
-  -x-kot-layer: top;
-}
-line|z5-8[boundary=administrative][admin_level=4]::d2p2,
-line|z4-8[boundary=administrative][admin_level=4][border_type=state]::d3p2
-{
-  color: @light_yellow;
-  width: 1;
-  z-index: 120;
-  -x-kot-layer: top;
-}
-line|z4-[boundary=administrative][admin_level=3]
-{
-  color: @light_gray;
-  width: 1;
-  z-index: 123;
-  dashes: 1,1;
-  linecap: butt;
-  -x-kot-layer: top;
-}
-line|z6[boundary=administrative][admin_level=2]::d2p2
-{
-  color: @light_yellow;
-  width: 1;
-  z-index: 123;
-  -x-kot-layer: top;
-}
-line|z6[boundary=administrative][border_type=state]
-{
-  color: @border_state;
-  width: 1;
-  z-index: 55;
-}
-line|z6-[boundary=administrative][admin_level=3]::d2p2
-{
-  color: @light_yellow;
-  width: 1;
-  z-index: 122;
-  -x-kot-layer: top;
 }
 line|z6[boundary=administrative][admin_level=2]
 {
   color: @border_country_z6;
   width: 1;
-  z-index: 124;
-  dashes: 3.12,3.12;
-  linecap: butt;
-  -x-kot-layer: top;
 }
-line|z4-6[boundary=administrative][admin_level=4]
+line|z6[boundary=administrative][admin_level=3],
+line|z6[boundary=administrative][admin_level=4]
 {
-  color: @light_gray;
-  width: 0.2;
-  z-index: 121;
-  dashes: 0.3,0.6;
-  linecap: butt;
-  -x-kot-layer: top;
+  color: @border_country_z5;
+  width: 0.75;
+  dashes: 2,2;
 }
 line|z7[boundary=administrative][admin_level=2]
 {
-  color: @light_yellow;
-  width: 2.73;
-  z-index: 124;
-  -x-kot-layer: top;
+  color: @border_country_z6;
+  width: 1.5;
 }
-line|z7-8[boundary=administrative][admin_level=4]
+line|z8[boundary=administrative][admin_level=2]
 {
-  color: @gray90;
-  width: 0.7;
-  z-index: 121;
-  dashes: 0.3,0.6;
-  linecap: butt;
-  -x-kot-layer: top;
-}
-line|z7[boundary=administrative][admin_level=2]::d2p2
-{
-  color: @border;
+  color: @border_country_z8;
   width: 2;
-  z-index: 125;
-  dashes: 5,5;
-  linecap: butt;
-  -x-kot-layer: top;
 }
-line|z7[boundary=administrative][border_type=state]
+line|z9[boundary=administrative][admin_level=2]
 {
-  color: @border_state;
-  width: 0.62;
-  z-index: 56;
+  color: @border_country_z9;
+  width: 2;
 }
-line|z7[boundary=administrative][border_type=state]::d2p2
-{
-  color: @border;
-  width: 0.12;
-  z-index: 57;
-  dashes: 0.62,0.12,0.12,0.12;
-  linecap: butt;
-}
-line|z8[boundary=administrative][border_type=state]
-{
-  color: @border_state;
-  width: 1.25;
-  z-index: 63;
-}
-line|z8-11[boundary=administrative][admin_level=2]::d2p2
+
+
+line|z10-11[boundary=administrative][admin_level=2]::d2p2
 {
   color: @border;
   width: 2.34;
@@ -125,50 +71,12 @@ line|z8-11[boundary=administrative][admin_level=2]::d2p2
   linecap: butt;
   -x-kot-layer: top;
 }
-line|z8[boundary=administrative][border_type=state]::d2p2
-{
-  color: @border;
-  width: 0.25;
-  z-index: 64;
-  dashes: 1.25,0.25,0.25,0.25;
-  linecap: butt;
-  -x-kot-layer: top;
-}
-line|z8-11[boundary=administrative][admin_level=2]
+line|z10-11[boundary=administrative][admin_level=2]
 {
   color: @light_yellow;
   width: 3.12;
   z-index: 124;
   -x-kot-layer: top;
-}
-line|z9[boundary=administrative][admin_level=4]::d2p2
-{
-  color: @light_yellow;
-  width: 1.2;
-  -x-kot-layer: top;
-}
-line|z9[boundary=administrative][admin_level=4]
-{
-  color: @gray90;
-  width: 1;
-  z-index: 12;
-  dashes: 0.3,0.6;
-  linecap: butt;
-  -x-kot-layer: top;
-}
-line|z9[boundary=administrative][border_type=state]
-{
-  color: @border_state;
-  width: 1;
-  z-index: 63;
-}
-line|z9[boundary=administrative][border_type=state]::d2p2
-{
-  color: @border;
-  width: 0.5;
-  z-index: 64;
-  dashes: 2.5,0.5,0.5,0.5;
-  linecap: butt;
 }
 line|z10-11[boundary=administrative][admin_level=4]::d2p2,
 {

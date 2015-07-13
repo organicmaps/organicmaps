@@ -22,7 +22,7 @@ node|z3[place=country]
 {
   text: name;
   font-size: 12;
-  text-color: @dark_gray_40;
+  text-color: @continent_name;
 }
 area|z3[place=country]::int_name,
 node|z3[place=country]::int_name
@@ -32,7 +32,7 @@ node|z3[place=country]::int_name
   text-color: @gray60;
 }
 
-node|z4[place=city][capital?]::int_name
+node|z4[place=city][capital=2]::int_name
 {
   font-size: 10;
   text-halo-radius: 2;
@@ -42,14 +42,20 @@ node|z4[place=city][capital?]::int_name
 }
 node|z8[place=town]
 {
+  font-size: 10;
+  text: name;
+  text-color: @gray70;
+}
+node|z9[place=town]
+{
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: @dark_gray_40;
+  text-color: @gray60;
   text-halo-color: @light_yellow;
 }
-node|z4[place=country],
-node|z9[place=town]
+
+node|z4[place=country]
 {
   font-size: 14;
   text-halo-radius: 2;
@@ -57,14 +63,7 @@ node|z9[place=town]
   text-color: @dark_gray_40;
   text-halo-color: @light_yellow;
 }
-node|z4[place=state]
-{
-  text: name;
-  font-size: 11;
-  text-color: @state_name;
-  z-index: -10;
-}
-node|z4[place=city][capital?]
+node|z4[place=city][capital=2]
 {
   font-size: 11;
   text-halo-radius: 2;
@@ -82,7 +81,7 @@ node|z13-14[place=village]::int_name
   text-halo-color: @light_yellow;
 }
 
-node|z5[place=city][capital?]
+node|z5[place=city][capital=2]
 {
   font-size: 12;
   text-halo-radius: 2;
@@ -90,7 +89,7 @@ node|z5[place=city][capital?]
   text-color: @gray50;
   text-halo-color: @light_yellow;
 }
-node|z5[place=city][capital?]::int_name
+node|z5[place=city][capital=2]::int_name
 {
   font-size: 11;
   text-halo-radius: 2;
@@ -106,14 +105,6 @@ node|z5[place=country]
   text-color: @dark_gray_40;
   text-halo-color: @light_yellow;
 }
-node|z5[place=city]
-{
-  font-size: 11;
-  text-halo-radius: 2;
-  text: name;
-  text-color: @gray60;
-  text-halo-color: @light_yellow;
-}
 node|z5[place=state]
 {
   text: name;
@@ -121,18 +112,10 @@ node|z5[place=state]
   text-color: @state_name;
   z-index: -10;
 }
-node|z5[place=city]::int_name
-{
-  font-size: 10;
-  text-halo-radius: 2;
-  text: int_name;
-  text-color: @gray90;
-  text-halo-color: @light_yellow;
-}
 node|z7-8[place=city]::int_name,
 node|z9[place=town]::int_name,
 node|z12-13[place=town]::int_name,
-node|z6-9[place=city][capital?]::int_name
+node|z6-9[place=city][capital=2]::int_name
 {
   font-size: 12;
   text-halo-radius: 2;
@@ -140,7 +123,7 @@ node|z6-9[place=city][capital?]::int_name
   text-color: @gray;
   text-halo-color: @light_yellow;
 }
-node|z6[place=city][capital?]
+node|z6[place=city][capital=2]
 {
   font-size: 14;
   text-halo-radius: 2;
@@ -234,7 +217,7 @@ node|z8-9[place=region],
   font-size: 12;
   text-color: @gray60;
 }
-node|z8-9[place=city][capital?],
+node|z8-9[place=city][capital=2],
 node|z16[place=locality],
 node|z16[place=neighbourhood],
 node|z16[place=isolated_dwelling],
@@ -291,7 +274,7 @@ node|z9[place=county]
 node|z9-11[place=city]::int_name,
 node|z10-11[place=town]::int_name,
 node|z14[place=town]::int_name,
-node|z10-11[place=city][capital?]::int_name
+node|z10-11[place=city][capital=2]::int_name
 {
   font-size: 14;
   text-halo-radius: 2;
@@ -316,7 +299,7 @@ node|z12[place=town]
   text-color: @gray50;
   text-halo-color: @light_yellow;
 }
-node|z10-11[place=city][capital?]
+node|z10-11[place=city][capital=2]
 {
   font-size: 18;
   text-halo-radius: 2;
@@ -349,7 +332,7 @@ node|z12[place=city]::int_name
   text-color: @gray;
 }
 node|z13-15[place=city]::int_name,
-node|z12[place=city][capital?]::int_name
+node|z12[place=city][capital=2]::int_name
 {
   font-size: 16;
   text-halo-radius: 2;
@@ -374,7 +357,7 @@ node|z13[place=town]
   text-color: @gray50;
   text-halo-color: @light_yellow;
 }
-node|z12[place=city][capital?]
+node|z12[place=city][capital=2]
 {
   font-size: 22;
   text-halo-radius: 2;
@@ -390,7 +373,7 @@ node|z12[place=suburb]
   text-color: @gray90;
   z-index: 20;
 }
-node|z13[place=city][capital?]::int_name
+node|z13[place=city][capital=2]::int_name
 {
   font-size: 18;
   text-halo-radius: 2;
@@ -411,7 +394,7 @@ area|z11-[place=village]
 {
   fill-color: @village_fill;
 }
-node|z13[place=city][capital?]
+node|z13[place=city][capital=2]
 {
   text: name;
   font-size: 24;

@@ -25,33 +25,63 @@ line|z7[highway=trunk]
 {
   color: @highway_trunk_z7;
   width: 1;
+  casing-width: 0;
 }
 line|z7[highway=motorway]
 {
   color: @highway_motorway_z7;
   width: 1;
+  casing-width: 0;
 }
 line|z8[highway=trunk]
 {
   color: @highway_trunk_z8;
-  width: 2;
+  width: 0.8;
+  casing-width: 0.2;
 }
 line|z8[highway=motorway]
 {
   color: @highway_motorway_z8;
-  width: 2;
+  width: 0.8;
+  casing-width: 0.2;
 }
-line|z9-10[highway=trunk]
+line|z8[highway=primary]
+{
+  color: @highway_primary;
+  width: 0.8;
+  casing-width: 0.2;
+}
+line|z9[highway=trunk]
 {
   color: @highway_trunk;
-  width: 2;
+  width: 1;
+  casing-width: 0.5;
 }
 line|z9[highway=motorway]
 {
   color: @highway_motorway;
-  width: 3;
+  width: 1;
+  casing-width: 0.5;
 }
-line|z9-10[highway=secondary]
+line|z9[highway=secondary]
+{
+  color: @highway_secondary;
+  width: 0.8;
+  casing-width: 0.6;
+}
+line|z9[highway=primary]
+{
+  color: @highway_primary;
+  width: 1;
+  casing-width: 0.5;
+}
+
+line|z10[highway=trunk]
+{
+  color: @highway_trunk;
+  width: 2;
+}
+line|z10[highway=secondary]
 {
   color: @highway_secondary;
   width: 1;
@@ -67,7 +97,7 @@ line|z10-12[highway=byway]
   width: 1;
   dashes: 4.5,3;
 }
-line|z8-10[highway=primary]
+line|z10[highway=primary]
 {
   color: @highway_primary;
   width: 1;

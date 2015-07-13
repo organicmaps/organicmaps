@@ -12,6 +12,8 @@
 @border_country_z4: #661;
 @border_country_z5: #721;
 @border_country_z6: #721;
+@border_country_z8: #721;
+@border_country_z9: #721;
 @border_state: red;
 @building_fill: #333;
 @comm_line: #0f7f0f;
