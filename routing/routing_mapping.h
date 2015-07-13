@@ -30,7 +30,7 @@ struct RoutingMapping
   CrossRoutingContextReader m_crossContext;
 
   ///@param fName: mwm file path
-  RoutingMapping(platform::CountryFile const & localFile, MwmSet * pIndex);
+  RoutingMapping(platform::CountryFile const & countryFile, MwmSet * pIndex);
 
   ~RoutingMapping();
 
@@ -66,11 +66,11 @@ private:
   RoutingMapping(platform::CountryFile const & countryFile);
 
   /*!
-   * \brief CheckMwmConsistancy checks versions of mwm and routing files.
+   * \brief CheckMwmConsistency checks versions of mwm and routing files.
    * \param localFile reference to country file we need to check.
    * \return true if files has same versions.
    */
-  virtual bool CheckMwmConsistancy(platform::LocalCountryFile const & localFile);
+  virtual bool CheckMwmConsistency(platform::LocalCountryFile const & localFile);
 
   size_t m_mapCounter;
   size_t m_facadeCounter;

@@ -47,7 +47,7 @@ RoutingMapping::RoutingMapping(CountryFile const & countryFile, MwmSet * pIndex)
   }
 
   m_container.Open(localFile.GetPath(TMapOptions::ECarRouting));
-  if (!CheckMwmConsistancy(localFile))
+  if (!CheckMwmConsistency(localFile))
   {
     m_error = IRouter::ResultCode::InconsistentMWMandRoute;
     m_container.Close();
@@ -111,7 +111,7 @@ void RoutingMapping::LoadCrossContext()
   }
 }
 
-bool RoutingMapping::CheckMwmConsistancy(platform::LocalCountryFile const & localFile)
+bool RoutingMapping::CheckMwmConsistency(platform::LocalCountryFile const & localFile)
 {
   FileReader r1 = m_container.GetReader(VERSION_FILE_TAG);
   ReaderSrc src1(r1);
