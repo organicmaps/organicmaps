@@ -1245,13 +1245,15 @@ namespace
 
 void Query::InitParams(bool localitySearch, SearchQueryParams & params)
 {
+  params.Clear();
+
   if (!m_prefix.empty())
     params.m_prefixTokens.push_back(m_prefix);
 
   size_t const tokensCount = m_tokens.size();
-  params.m_tokens.resize(tokensCount);
 
   // Add normal tokens.
+  params.m_tokens.resize(tokensCount);
   for (size_t i = 0; i < tokensCount; ++i)
     params.m_tokens[i].push_back(m_tokens[i]);
 

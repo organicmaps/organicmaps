@@ -10,22 +10,6 @@ namespace search
 {
 namespace
 {
-class DoStoreNumbers
-{
-public:
-  DoStoreNumbers(vector<size_t> & vec) : m_vec(vec) {}
-
-  void operator()(SearchQueryParams::TString const & s, size_t i)
-  {
-    /// @todo Do smart filtering of house numbers and zipcodes.
-    if (feature::IsNumber(s))
-      m_vec.push_back(i);
-  }
-
-private:
-  vector<size_t> & m_vec;
-};
-
 class DoAddStreetSynonyms
 {
 public:
@@ -40,24 +24,24 @@ public:
     // All synonyms should be lowercase!
     if (ss == "n")
       AddSym(i, "north");
-    else if (ss == "w")
+    if (ss == "w")
       AddSym(i, "west");
-    else if (ss == "s")
+    if (ss == "s")
       AddSym(i, "south");
-    else if (ss == "e")
+    if (ss == "e")
       AddSym(i, "east");
-    else if (ss == "nw")
+    if (ss == "nw")
       AddSym(i, "northwest");
-    else if (ss == "ne")
+    if (ss == "ne")
       AddSym(i, "northeast");
-    else if (ss == "sw")
+    if (ss == "sw")
       AddSym(i, "southwest");
-    else if (ss == "se")
+    if (ss == "se")
       AddSym(i, "southeast");
   }
 
 private:
-  SearchQueryParams::TSynonymsVector & GetSyms(size_t i)
+  SearchQueryParams::TSynonymsVector & GetSyms(size_t i) const
   {
     size_t const count = m_params.m_tokens.size();
     if (i < count)
@@ -72,9 +56,17 @@ private:
 };
 }  // namespace
 
+void SearchQueryParams::Clear()
+{
+  m_tokens.clear();
+  m_prefixTokens.clear();
+  m_langs.clear();
+}
+
 void SearchQueryParams::EraseTokens(vector<size_t> & eraseInds)
 {
   eraseInds.erase(unique(eraseInds.begin(), eraseInds.end()), eraseInds.end());
+  ASSERT(is_sorted(eraseInds.begin(), eraseInds.end()), ());
 
   // fill temporary vector
   vector<TSynonymsVector> newTokens;
@@ -107,7 +99,11 @@ void SearchQueryParams::ProcessAddressTokens()
   // Erases all number tokens.
   // Assumes that USA street name numbers are end with "st, nd, rd, th" suffixes.
   vector<size_t> toErase;
-  ForEachToken(DoStoreNumbers(toErase));
+  ForEachToken([&toErase](SearchQueryParams::TString const & s, size_t i)
+               {
+                 if (feature::IsNumber(s))
+                   toErase.push_back(i);
+               });
   EraseTokens(toErase);
 
   // Adds synonyms for N, NE, NW, etc.
