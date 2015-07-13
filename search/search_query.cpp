@@ -1066,33 +1066,6 @@ void Query::MakeResultHighlight(Result & res) const
   SearchStringTokensIntersectionRanges(res.GetString(), beg, end, AssignHighlightRange(res));
 }
 
-namespace impl
-{
-class FeatureLoader
-{
-  Query & m_query;
-  MwmSet::MwmId m_mwmID;
-  size_t m_count;
-  Query::ViewportID m_viewportID;
-
-public:
-  FeatureLoader(Query & query, MwmSet::MwmId const & mwmID, Query::ViewportID viewportID)
-      : m_query(query), m_mwmID(mwmID), m_count(0), m_viewportID(viewportID)
-  {
-  }
-
-  void operator()(Query::TrieValueT const & value)
-  {
-    ++m_count;
-    m_query.AddResultFromTrie(value, m_mwmID, m_viewportID);
-  }
-
-  size_t GetCount() const { return m_count; }
-
-  void Reset() { m_count = 0; }
-};
-}
-
 namespace
 {
     int GetOldTypeFromIndex(size_t index)
@@ -1768,54 +1741,42 @@ void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region 
   serial::CodingParams cp(GetCPForTrie(pMwm->GetHeader().GetDefCodingParams()));
 
   ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-  unique_ptr<TrieIterator> const pTrieRoot(::trie::reader::ReadTrie(
-                                     SubReaderWrapper<Reader>(searchReader.GetPtr()),
-                                     trie::ValueReader(cp),
-                                     trie::EdgeValueReader()));
+  unique_ptr<TrieIterator> const trieRoot(
+      ::trie::reader::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
+                               trie::ValueReader(cp), trie::EdgeValueReader()));
 
-  ASSERT_LESS(pTrieRoot->m_edge.size(), numeric_limits<uint32_t>::max(), ());
-  uint32_t const count = static_cast<uint32_t>(pTrieRoot->m_edge.size());
-  for (uint32_t i = 0; i < count; ++i)
-  {
-    TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
+  ForEachLangPrefix(params, *trieRoot, [&](TrieRootPrefix & langRoot, int8_t lang)
+                    {
+    impl::DoFindLocality doFind(*this, pMwm, lang);
+    MatchTokensInTrie(params.m_tokens, langRoot, doFind);
 
-    /// We do search countries, states and cities for one language.
-    /// @todo Do combine countries and cities for different languages.
-    int8_t const lang = static_cast<int8_t>(edge[0]);
-    if (edge[0] < search::CATEGORIES_LANG && params.IsLangExist(lang))
+    // Last token's prefix is used as a complete token here, to limit number of results.
+    doFind.Resize(params.m_tokens.size() + 1);
+    doFind.StartNew(params.m_tokens.size());
+    MatchTokenInTrie(params.m_prefixTokens, langRoot, doFind);
+    doFind.SortLocalities();
+
+    // Get regions from STATE and COUNTRY localities
+    vector<impl::Region> regions;
+    doFind.GetRegions(regions);
+
+    // Get best CITY locality.
+    impl::Locality loc;
+    doFind.GetBestCity(loc, regions);
+    if (res1 < loc)
     {
-      unique_ptr<TrieIterator> const pLangRoot(pTrieRoot->GoToEdge(i));
-
-      // gel all localities from mwm
-      impl::DoFindLocality doFind(*this, pMwm, lang);
-      GetFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
-                        TrieRootPrefix(*pLangRoot, edge), doFind);
-
-      // sort localities by priority
-      doFind.SortLocalities();
-
-      // get Region's from STATE and COUNTRY localities
-      vector<impl::Region> regions;
-      doFind.GetRegions(regions);
-
-      // get best CITY locality
-      impl::Locality loc;
-      doFind.GetBestCity(loc, regions);
-      if (res1 < loc)
-      {
-        LOG(LDEBUG, ("Better location ", loc, " for language ", lang));
-        res1.Swap(loc);
-      }
-
-      // get best region
-      if (!regions.empty())
-      {
-        sort(regions.begin(), regions.end());
-        if (res2 < regions.back())
-          res2.Swap(regions.back());
-      }
+      LOG(LDEBUG, ("Better location ", loc, " for language ", lang));
+      res1.Swap(loc);
     }
-  }
+
+    // Get best region.
+    if (!regions.empty())
+    {
+      sort(regions.begin(), regions.end());
+      if (res2 < regions.back())
+        res2.Swap(regions.back());
+    }
+  });
 }
 
 void Query::SearchFeatures()
@@ -1860,34 +1821,6 @@ namespace
               binary_search(m_offsets->begin(), m_offsets->end(), offset));
     }
   };
-
-  template <class FilterT> class TrieValuesHolder
-  {
-    vector<vector<Query::TrieValueT> > m_holder;
-    size_t m_ind;
-    FilterT const & m_filter;
-
-  public:
-    TrieValuesHolder(FilterT const & filter) : m_filter(filter) {}
-
-    void Resize(size_t count) { m_holder.resize(count); }
-    void StartNew(size_t ind)
-    {
-      ASSERT_LESS ( ind, m_holder.size(), () );
-      m_ind = ind;
-    }
-    void operator() (Query::TrieValueT const & v)
-    {
-      if (m_filter(v.m_featureId))
-        m_holder[m_ind].push_back(v);
-    }
-
-    template <class ToDo> void GetValues(size_t ind, ToDo & toDo) const
-    {
-      for (size_t i = 0; i < m_holder[ind].size(); ++i)
-        toDo(m_holder[ind][i]);
-    }
-  };
 }
 
 void Query::SearchFeatures(SearchQueryParams const & params, MWMVectorT const & mwmsInfo,
@@ -1904,93 +1837,31 @@ void Query::SearchFeatures(SearchQueryParams const & params, MWMVectorT const & 
   }
 }
 
-namespace
-{
-void FillCategories(SearchQueryParams const & params, TrieIterator const * pTrieRoot,
-                    TrieValuesHolder<FeaturesFilter> & categoriesHolder)
-{
-  unique_ptr<TrieIterator> pCategoriesRoot;
-  typedef TrieIterator::Edge::EdgeStrT EdgeT;
-  EdgeT categoriesEdge;
-
-  ASSERT_LESS(pTrieRoot->m_edge.size(), numeric_limits<uint32_t>::max(), ());
-  uint32_t const count = static_cast<uint32_t>(pTrieRoot->m_edge.size());
-  for (uint32_t i = 0; i < count; ++i)
-  {
-    EdgeT const & edge = pTrieRoot->m_edge[i].m_str;
-    ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
-
-    if (edge[0] == search::CATEGORIES_LANG)
-    {
-      categoriesEdge = edge;
-      pCategoriesRoot.reset(pTrieRoot->GoToEdge(i));
-      break;
-    }
-  }
-  ASSERT(pCategoriesRoot != 0, ());
-
-  GetFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
-                    TrieRootPrefix(*pCategoriesRoot, categoriesEdge),
-                    categoriesHolder);
-}
-
-}
-
 void Query::SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams const & params,
-                        ViewportID vID /*= DEFAULT_V*/)
+                        ViewportID viewportId /*= DEFAULT_V*/)
 {
-  if (MwmValue const * const pMwm = mwmHandle.GetValue<MwmValue>())
-  {
-    if (pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG))
-    {
-      FHeaderT const & header = pMwm->GetHeader();
+  MwmValue const * const value = mwmHandle.GetValue<MwmValue>();
+  if (!value || !value->m_cont.IsExist(SEARCH_INDEX_FILE_TAG))
+    return;
 
-      /// @todo do not process World.mwm here - do it in SearchLocality
-      bool const isWorld = (header.GetType() == FHeaderT::world);
-      if (isWorld && !m_worldSearch)
-        return;
+  FHeaderT const & header = value->GetHeader();
+  /// @todo do not process World.mwm here - do it in SearchLocality
+  bool const isWorld = (header.GetType() == FHeaderT::world);
+  if (isWorld && !m_worldSearch)
+    return;
 
-      serial::CodingParams cp(GetCPForTrie(header.GetDefCodingParams()));
-
-      ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-      unique_ptr<TrieIterator> const pTrieRoot(::trie::reader::ReadTrie(
-                                         SubReaderWrapper<Reader>(searchReader.GetPtr()),
-                                         trie::ValueReader(cp),
-                                         trie::EdgeValueReader()));
-
-      MwmSet::MwmId const mwmId = mwmHandle.GetId();
-      FeaturesFilter filter((vID == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[vID][mwmId], *this);
-
-      // Get categories for each token separately - find needed edge with categories.
-      TrieValuesHolder<FeaturesFilter> categoriesHolder(filter);
-      FillCategories(params, pTrieRoot.get(), categoriesHolder);
-
-      // Match tokens to feature for each language - iterate through first edges.
-      impl::FeatureLoader emitter(*this, mwmId, vID);
-
-      ASSERT_LESS(pTrieRoot->m_edge.size(), numeric_limits<uint32_t>::max(), ());
-      uint32_t const count = static_cast<uint32_t>(pTrieRoot->m_edge.size());
-      for (uint32_t i = 0; i < count; ++i)
-      {
-        TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
-        int8_t const lang = static_cast<int8_t>(edge[0]);
-
-        if (edge[0] < search::CATEGORIES_LANG && params.IsLangExist(lang))
-        {
-          unique_ptr<TrieIterator> const pLangRoot(pTrieRoot->GoToEdge(i));
-
-          MatchFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
-                              TrieRootPrefix(*pLangRoot, edge),
-                              filter, categoriesHolder, emitter);
-
-          LOG(LDEBUG, ("Country", pMwm->GetCountryFile().GetNameWithoutExt(), "Lang",
-                       StringUtf8Multilang::GetLangByCode(lang), "Matched", emitter.GetCount()));
-
-          emitter.Reset();
-        }
-      }
-    }
-  }
+  serial::CodingParams cp(GetCPForTrie(header.GetDefCodingParams()));
+  ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
+  unique_ptr<TrieIterator> const trieRoot(
+      ::trie::reader::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
+                               trie::ValueReader(cp), trie::EdgeValueReader()));
+  MwmSet::MwmId const mwmId = mwmHandle.GetId();
+  FeaturesFilter filter(
+      (viewportId == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[viewportId][mwmId], *this);
+  MatchFeaturesInTrie(params, *trieRoot, filter, [&](TrieValueT const & value)
+                      {
+    AddResultFromTrie(value, mwmId, viewportId);
+  });
 }
 
 void Query::SuggestStrings(Results & res)

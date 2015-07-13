@@ -1,5 +1,6 @@
 #pragma once
 #include "search/search_common.hpp"
+#include "search/search_query_params.hpp"
 
 #include "indexer/search_trie.hpp"
 
@@ -221,16 +222,15 @@ public:
     m_set->clear();
   }
 
-  template <class ToDo> void ForEachResult(ToDo & toDo) const
+  template <class ToDo>
+  void ForEachResult(ToDo && toDo) const
   {
-    if (m_prevSet)
-    {
-      for (typename SetType::const_iterator i = m_prevSet->begin(); i != m_prevSet->end(); ++i)
-        toDo(*i);
-    }
+    if (!m_prevSet)
+      return;
+    for (auto const & value : *m_prevSet)
+      toDo(value);
   }
 };
-
 }  // namespace search::impl
 
 struct TrieRootPrefix
@@ -255,91 +255,175 @@ struct TrieRootPrefix
   }
 };
 
-/// Return features set for each token.
-template <class HolderT>
-void GetFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
-                       vector<strings::UniString> const & prefixTokens,
-                       TrieRootPrefix const & trieRoot,
-                       HolderT & holder)
+template <class TFilter>
+class TrieValuesHolder
 {
-  // Match tokens.
-  size_t const count = tokens.size();
-  holder.Resize(count + 1);
+public:
+  TrieValuesHolder(TFilter const & filter) : m_filter(filter) {}
 
-  for (size_t i = 0; i < count; ++i)
+  void Resize(size_t count) { m_holder.resize(count); }
+
+  void StartNew(size_t index)
+  {
+    ASSERT_LESS(index, m_holder.size(), ());
+    m_index = index;
+  }
+
+  void operator()(Query::TrieValueT const & v)
+  {
+    if (m_filter(v.m_featureId))
+      m_holder[m_index].push_back(v);
+  }
+
+  template <class ToDo>
+  void GetValues(size_t index, ToDo && toDo) const
+  {
+    for (auto const & value : m_holder[index])
+      toDo(value);
+  }
+
+private:
+  vector<vector<Query::TrieValueT> > m_holder;
+  size_t m_index;
+  TFilter const & m_filter;
+};
+
+// Calls toDo for each feature corresponding to at least one sym.
+// *NOTE* toDo may be called several times for the same feature.
+template <typename ToDo>
+void MatchTokenInTrie(SearchQueryParams::TSynonymsVector const & syms,
+                      TrieRootPrefix const & trieRoot, ToDo && toDo)
+{
+  for (auto const & sym : syms)
+  {
+    ASSERT(!sym.empty(), ());
+    impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize, sym, toDo);
+  }
+}
+
+// Calls toDo for each feature whose tokens contains at least one sym
+// as a prefix.
+// *NOTE* toDo may be called serveral times for the same feature.
+template <typename ToDo>
+void MatchTokenPrefixInTrie(SearchQueryParams::TSynonymsVector const & syms,
+                            TrieRootPrefix const & trieRoot, ToDo && toDo)
+{
+  for (auto const & sym : syms)
+  {
+    ASSERT(!sym.empty(), ());
+    impl::PrefixMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize, sym, toDo);
+  }
+}
+
+// Fills holder with features whose names correspond to tokens list up to synonyms.
+// *NOTE* the same feature may be put in the same holder's slot several times.
+template <typename THolder>
+void MatchTokensInTrie(vector<SearchQueryParams::TSynonymsVector> const & tokens,
+                       TrieRootPrefix const & trieRoot, THolder && holder)
+{
+  holder.Resize(tokens.size());
+  for (size_t i = 0; i < tokens.size(); ++i)
   {
     holder.StartNew(i);
-
-    for (size_t j = 0; j < tokens[i].size(); ++j)
-    {
-      ASSERT ( !tokens[i][j].empty(), () );
-
-      impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
-                            tokens[i][j], holder);
-    }
-  }
-
-  // Match prefix.
-  holder.StartNew(count);
-  for (size_t i = 0; i < prefixTokens.size(); ++i)
-  {
-    ASSERT ( !prefixTokens[i].empty(), () );
-
-    impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
-                          prefixTokens[i], holder);
+    MatchTokenInTrie(tokens[i], trieRoot, holder);
   }
 }
 
-/// Do set intersection of features for each token.
-template <class ToDo, class FilterT, class HolderT>
-void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
-                         vector<strings::UniString> const & prefixTokens,
-                         TrieRootPrefix const & trieRoot,
-                         FilterT const & filter,
-                         HolderT const & addHolder,
-                         ToDo & toDo)
+// Fills holder with features whose names correspond to tokens list up to synonyms,
+// also, last holder's slot will be filled with features corresponding to prefixTokens.
+// *NOTE* the same feature may be put in the same holder's slot several times.
+template <typename THolder>
+void MatchTokensAndPrefixInTrie(vector<SearchQueryParams::TSynonymsVector> const & tokens,
+                                SearchQueryParams::TSynonymsVector const & prefixTokens,
+                                TrieRootPrefix const & trieRoot, THolder && holder)
 {
-  impl::OffsetIntersecter<FilterT> intersecter(filter);
+  MatchTokensInTrie(tokens, trieRoot, holder);
 
-  // Match tokens.
-  size_t const count = tokens.size();
-  for (size_t i = 0; i < count; ++i)
-  {
-    for (size_t j = 0; j < tokens[i].size(); ++j)
-    {
-      ASSERT ( !tokens[i][j].empty(), () );
-
-      // match in trie
-      impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
-                            tokens[i][j], intersecter);
-    }
-
-    // get additional features for 'i' token
-    addHolder.GetValues(i, intersecter);
-
-    intersecter.NextStep();
-  }
-
-  // Match prefix.
-  size_t const prefixCount = prefixTokens.size();
-  for (size_t i = 0; i < prefixCount; ++i)
-  {
-    ASSERT ( !prefixTokens[i].empty(), () );
-
-    // match in trie
-    impl::PrefixMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
-                            prefixTokens[i], intersecter);
-  }
-
-  if (prefixCount > 0)
-  {
-    // get additional features for prefix token
-    addHolder.GetValues(count, intersecter);
-
-    intersecter.NextStep();
-  }
-
-  intersecter.ForEachResult(toDo);
+  holder.Resize(tokens.size() + 1);
+  holder.StartNew(tokens.size());
+  MatchTokenPrefixInTrie(prefixTokens, trieRoot, holder);
 }
 
+// Fills holder with categories whose description matches to at least one
+// token from a search query.
+// *NOTE* query prefix will be treated as a complete token in the function.
+template <typename THolder>
+bool MatchCategoriesInTrie(SearchQueryParams const & params, TrieIterator const & trieRoot,
+                           THolder && holder)
+{
+  ASSERT_LESS(trieRoot.m_edge.size(), numeric_limits<uint32_t>::max(), ());
+  uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edge.size());
+  for (uint32_t langIx = 0; langIx < numLangs; ++langIx)
+  {
+    auto const & edge = trieRoot.m_edge[langIx].m_str;
+    ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
+    if (edge[0] == search::CATEGORIES_LANG)
+    {
+      unique_ptr<TrieIterator> const catRoot(trieRoot.GoToEdge(langIx));
+      MatchTokensInTrie(params.m_tokens, TrieRootPrefix(*catRoot, edge), holder);
+
+      // Last token's prefix is used as a complete token here, to limit a number of
+      // features in the last bucket of a holder. Probably, this is a false optimization.
+      holder.Resize(params.m_tokens.size() + 1);
+      holder.StartNew(params.m_tokens.size());
+      MatchTokenInTrie(params.m_prefixTokens, TrieRootPrefix(*catRoot, edge), holder);
+      return true;
+    }
+  }
+  return false;
+}
+
+// Calls toDo with trie root prefix and language code on each languagу allowed by params.
+template <typename ToDo>
+void ForEachLangPrefix(SearchQueryParams const & params, TrieIterator const & trieRoot,
+                       ToDo && toDo)
+{
+  ASSERT_LESS(trieRoot.m_edge.size(), numeric_limits<uint32_t>::max(), ());
+  uint32_t const numLangs = static_cast<uint32_t>(trieRoot.m_edge.size());
+  for (uint32_t langIx = 0; langIx < numLangs; ++langIx)
+  {
+    auto const & edge = trieRoot.m_edge[langIx].m_str;
+    ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
+    int8_t const lang = static_cast<int8_t>(edge[0]);
+    if (edge[0] < search::CATEGORIES_LANG && params.IsLangExist(lang))
+    {
+      unique_ptr<TrieIterator> const langRoot(trieRoot.GoToEdge(langIx));
+      TrieRootPrefix langPrefix(*langRoot, edge);
+      toDo(langPrefix, lang);
+    }
+  }
+}
+
+// Calls toDo for each feature whose description contains *ALL* tokens from a search query.
+// Each feature will be passed to toDo only once.
+template <typename TFilter, typename ToDo>
+void MatchFeaturesInTrie(SearchQueryParams const & params, TrieIterator const & trieRoot,
+                         TFilter const & filter, ToDo && toDo)
+{
+  TrieValuesHolder<TFilter> categoriesHolder(filter);
+  CHECK(MatchCategoriesInTrie(params, trieRoot, categoriesHolder), ("Can't find categories."));
+
+  impl::OffsetIntersecter<TFilter> intersecter(filter);
+  for (size_t i = 0; i < params.m_tokens.size(); ++i)
+  {
+    ForEachLangPrefix(params, trieRoot, [&](TrieRootPrefix & langRoot, int8_t /* lang */)
+                      {
+      MatchTokenInTrie(params.m_tokens[i], langRoot, intersecter);
+    });
+    categoriesHolder.GetValues(i, intersecter);
+    intersecter.NextStep();
+  }
+
+  if (!params.m_prefixTokens.empty())
+  {
+    ForEachLangPrefix(params, trieRoot, [&](TrieRootPrefix & langRoot, int8_t /* lang */)
+                      {
+      MatchTokenPrefixInTrie(params.m_prefixTokens, langRoot, intersecter);
+    });
+    categoriesHolder.GetValues(params.m_tokens.size(), intersecter);
+    intersecter.NextStep();
+  }
+
+  intersecter.ForEachResult(forward<ToDo>(toDo));
+}
 }  // namespace search

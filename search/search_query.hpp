@@ -179,7 +179,7 @@ private:
                       ViewportID vID);
   /// Do search in particular map (mwmHandle).
   void SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams const & params,
-                   ViewportID vID = DEFAULT_V);
+                   ViewportID viewportId = DEFAULT_V);
   //@}
 
   void SuggestStrings(Results & res);
