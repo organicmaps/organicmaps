@@ -179,6 +179,7 @@ export KEEP_INTDIR
 export LOG_PATH
 export REGIONS= # Routing script might expect something in this variable
 export BORDERS_PATH="$TARGET/borders" # Also for the routing script
+export LC_ALL=en_US.UTF-8
 
 [ -n "$OPT_CLEAN" -a -d "$INTDIR" ] && rm -r "$INTDIR"
 mkdir -p "$INTDIR"
