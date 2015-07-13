@@ -86,9 +86,10 @@
 	<string name="country_status_added_to_queue">^\nis toegevoegd aan de download wachtrij</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">aan het downloaden\n^\n^%</string>
-	<string name="country_status_download_routing">Download kaart + routering\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Kaart downloaden\n^ ^</string>
+	<string name="country_status_download">Kaart downloaden\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download_without_routing">Download kaart\nzonder routeplanning (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Downloaden\n^\nis niet gelukt</string>
 	<!-- Button text for the button under the country_status_download_failed message -->

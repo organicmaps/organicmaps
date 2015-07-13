@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Laddar ner\n^\n^%";
 
-"country_status_download_routing" = "Ladda ner karta + anvisningar\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "Ladda ner karta\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Ladda ner karta\n^ ^";
+"country_status_download_without_routing" = "Hämta karta\nutan rutter (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Downloading\n^\nhar misslyckats";

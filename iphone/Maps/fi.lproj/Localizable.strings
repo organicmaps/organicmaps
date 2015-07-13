@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Ladataan\n^\n^%";
 
-"country_status_download_routing" = "Lataa kartta + reititys\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "Lataa kartta\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Lataa kartta\n^ ^";
+"country_status_download_without_routing" = "Lataa kartta\nilman reititystä (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Ladataan\n^\nepäonnistui";

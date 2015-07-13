@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "جاري التنزيل\n^\n^%";
 
-"country_status_download_routing" = "تنزيل الخريطة + تحديد المسار\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "(^ ^)\nتحميل الخريطة";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "تحميل الخريطة\n^ ^";
+"country_status_download_without_routing" = "(^ ^)\nتنزيل خريطة بدون تحديد خط السير";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "فشلت عملية تنزيل\n^";

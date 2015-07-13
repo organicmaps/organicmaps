@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "^\n^%\nをダウンロード中";
 
-"country_status_download_routing" = "地図とルートをダウンロード\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "地図をダウンロード\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "地図をダウンロード\n^ ^";
+"country_status_download_without_routing" = "ルートなしで地図をダウンロード\n(^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "^\nのダウンロードに失敗しました";

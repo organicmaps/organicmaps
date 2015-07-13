@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Descargando\n^\n^%";
 
-"country_status_download_routing" = "Descargar mapa + itinerario\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "Descargar mapa\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Descargar mapa\n^ ^";
+"country_status_download_without_routing" = "Descargar mapa\nsin ruta (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Error durante la descarga\n^";

@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Downloader\n^\n^%";
 
-"country_status_download_routing" = "Hent kort + ruteangivelse\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "Download kort\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Download kort\n^ ^";
+"country_status_download_without_routing" = "Download kort uden\nruteplanlægning (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Download\n^\nmislykket";

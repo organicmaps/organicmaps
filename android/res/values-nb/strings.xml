@@ -95,9 +95,10 @@
 	<string name="country_status_added_to_queue">^\ner lagt til i nedlastingskøen.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">Laster ned\n^\n^%</string>
-	<string name="country_status_download_routing">Last ned kart + rutetilordning\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Last ned kart\n^ ^</string>
+	<string name="country_status_download">Last ned kart\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download_without_routing">Last ned kart\nuten veiviserfunksjon (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Laster ned\n^\nmislyktes</string>
 	<!-- Button text for the button under the country_status_download_failed message -->

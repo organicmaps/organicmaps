@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Sedang mengunduh\n^\n^%";
 
-"country_status_download_routing" = "Unduh Peta + Rute\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "Unduh Peta\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Unduh Peta\n^ ^";
+"country_status_download_without_routing" = "Unduh peta tanpa\nperutean (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Sedang Mengunduh\n^\ntelah gagal";

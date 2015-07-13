@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Sťahovanie\n^\n^%";
 
-"country_status_download_routing" = "Na stiahnutie Mapa + Trasa\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "Stiahnite si Mapu\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Stiahnite si Mapu\n^ ^";
+"country_status_download_without_routing" = "Stiahnite si mapu\nbez smerovania (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Sťahovanie\n^\nzlyhalo";

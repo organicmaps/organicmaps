@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "aan het downloaden\n^\n^%";
 
-"country_status_download_routing" = "Download kaart + routering\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "Kaart downloaden\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Kaart downloaden\n^ ^";
+"country_status_download_without_routing" = "Download kaart\nzonder routeplanning (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Downloaden\n^\nis niet gelukt";

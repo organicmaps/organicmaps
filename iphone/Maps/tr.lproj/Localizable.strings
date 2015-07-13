@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "^\n^%\nindiriliyor";
 
-"country_status_download_routing" = "Harita + Rota İndir\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "Haritayı İndir\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Haritayı İndir\n^ ^";
+"country_status_download_without_routing" = "Haritayı rota\nolmadan indirin (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "^\nindirme işlemi başarısız oldu";

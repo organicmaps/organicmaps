@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Se descarcă\n^\n^%";
 
-"country_status_download_routing" = "Descărcare hartă + trasee\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "Descărcare hartă\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Descărcare hartă\n^ ^";
+"country_status_download_without_routing" = "Descărcare hartă\nfără rutare (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Se descarcă\n^\na eșuat";

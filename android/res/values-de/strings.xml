@@ -90,9 +90,10 @@
 	<string name="country_status_added_to_queue">^\nwird zur Download-Warteschleife hinzugefügt</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">Wird heruntergeladen\n^\n^%</string>
-	<string name="country_status_download_routing">Karte + Streckenführung herunterladen\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Karte herunterladen\n^ ^</string>
+	<string name="country_status_download">Karte herunterladen\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download_without_routing">Karte ohne Routenplanung\nherunterladen (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Download\n^\nfehlgeschlagen</string>
 	<!-- Button text for the button under the country_status_download_failed message -->

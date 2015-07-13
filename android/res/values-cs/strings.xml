@@ -90,9 +90,10 @@
 	<string name="country_status_added_to_queue">^\npřidáno do fronty stahování</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">Stahování\n^\n^%</string>
-	<string name="country_status_download_routing">Stáhnout mapu + trasy\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Stáhnout mapu\n^ ^</string>
+	<string name="country_status_download">Stáhnout mapu\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download_without_routing">Stáhnout mapy\nbez směrování (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Stahování\n^\nselhalo</string>
 	<!-- Button text for the button under the country_status_download_failed message -->

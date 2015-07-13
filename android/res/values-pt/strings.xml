@@ -88,9 +88,10 @@
 	<string name="country_status_added_to_queue">^\né adicionado à fila de descargas</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">A descarregar\n^\n^%</string>
-	<string name="country_status_download_routing">Descarregar Mapa + Roteamento\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Descarregar Mapa\n^ ^</string>
+	<string name="country_status_download">Descarregar Mapa\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download_without_routing">Baixar mapa\nsem roteamento (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">A descarga\n^\nfalhou</string>
 	<!-- Button text for the button under the country_status_download_failed message -->

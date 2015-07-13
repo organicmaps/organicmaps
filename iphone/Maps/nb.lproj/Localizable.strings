@@ -144,10 +144,11 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Laster ned\n^\n^%";
 
-"country_status_download_routing" = "Last ned kart + rutetilordning\n^ ^";
+/* Button text for the button at the center of the screen when the country is not downloaded */
+"country_status_download" = "Last ned kart\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Last ned kart\n^ ^";
+"country_status_download_without_routing" = "Last ned kart\nuten veiviserfunksjon (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Laster ned\n^\nmislyktes";

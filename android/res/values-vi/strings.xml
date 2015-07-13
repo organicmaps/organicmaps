@@ -95,9 +95,10 @@
 	<string name="country_status_added_to_queue">^\nđã được thêm vào danh sách đợi tải xuống.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">Đang tải xuống\n^\n^%</string>
-	<string name="country_status_download_routing">Tải xuống Bản đồ + Lộ trình\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Tải xuống Bản đồ\n^ ^</string>
+	<string name="country_status_download">Tải xuống Bản đồ\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download_without_routing">Tải về bản đồ không\ncó chỉ đường (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Tải xuống\n^\nđã thất bại</string>
 	<!-- Button text for the button under the country_status_download_failed message -->

@@ -88,9 +88,10 @@
 	<string name="country_status_added_to_queue">^\nをダウンロードキューに追加しました</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">^\n^%\nをダウンロード中</string>
-	<string name="country_status_download_routing">地図とルートをダウンロード\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">地図をダウンロード\n^ ^</string>
+	<string name="country_status_download">地図をダウンロード\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download_without_routing">ルートなしで地図をダウンロード\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">^\nのダウンロードに失敗しました</string>
 	<!-- Button text for the button under the country_status_download_failed message -->

@@ -91,9 +91,10 @@
 	<string name="country_status_added_to_queue">^\n已加入到下載佇列中</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">下載中\n^\n^%</string>
-	<string name="country_status_download_routing">下載地圖 + 佈置路線\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">下載地圖\n^ ^</string>
+	<string name="country_status_download">下載地圖\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download_without_routing">下載不帶路線的地圖\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">下載\n^\n失敗</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
