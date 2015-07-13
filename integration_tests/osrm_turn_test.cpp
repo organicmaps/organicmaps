@@ -221,7 +221,8 @@ UNIT_TEST(RussiaMoscowPetushkovaPetushkovaTest)
 UNIT_TEST(RussiaMoscowMKADLeningradkaTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetOsrmComponents(), {37.43858, 67.68358}, {0., 0.}, {37.44885, 67.68115});
+      integration::GetOsrmComponents(), MercatorBounds::FromLatLon(55.87992, 37.43940),
+      {0., 0.}, MercatorBounds::FromLatLon(55.87854, 37.44865));
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
 
