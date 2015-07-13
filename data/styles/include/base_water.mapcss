@@ -1,21 +1,17 @@
-node|z1-[place=ocean]
+node|z1-9[place=ocean]
 {
   text: name;
-  font-size:8;
+  font-size: 12;
   text-color:@sea_name;
   z-index:-1
 }
-node|z2-[place=ocean]
-{
-  font-size:9;
-}
 node|z5-[place=ocean]
 {
-  font-size:10;
+  font-size: 14;
 }
 node|z7-[place=ocean]
 {
-  font-size:11;
+  font-size: 16;
 }
 node|z3-[place=sea]
 {
