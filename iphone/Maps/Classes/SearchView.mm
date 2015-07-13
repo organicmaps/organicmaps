@@ -5,6 +5,7 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMSearchDownloadMapRequest.h"
 #import "SearchCategoryCell.h"
 #import "SearchResultCell.h"
 #import "SearchShowOnMapCell.h"
@@ -104,11 +105,13 @@ typedef NS_ENUM(NSUInteger, CellType)
 };
 
 
-@interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver>
+@interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver, MWMCircularProgressDelegate>
 
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) SolidTouchView * topBackgroundView;
 @property (nonatomic) UILabel * emptyResultLabel;
+
+@property (nonatomic) MWMSearchDownloadMapRequest * downloadRequest;
 
 @property (nonatomic) SearchResultsWrapper * wrapper;
 @property (nonatomic) NSArray * categoriesNames;
@@ -170,7 +173,8 @@ static BOOL keyboardLoaded = NO;
 
     GetFramework().PrepareSearch();
 
-    if (keyboardLoaded)
+    [self showDownloadMapRequestIfRequired];
+    if (keyboardLoaded && !self.downloadRequest)
       [self.searchBar.textField becomeFirstResponder];
     [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
       self.tableView.alpha = 1;
@@ -185,7 +189,7 @@ static BOOL keyboardLoaded = NO;
       self.searchBar.textField.width = textFieldWidth;
       [self.searchBar.clearButton setImage:[UIImage imageNamed:@"SearchBarClearButton"] forState:UIControlStateNormal];
     } completion:^(BOOL) {
-      if (!keyboardLoaded)
+      if (!keyboardLoaded && !self.downloadRequest)
       {
         keyboardLoaded = YES;
         [self.searchBar.textField becomeFirstResponder];
@@ -418,10 +422,13 @@ static BOOL keyboardLoaded = NO;
 
   if ([currentText length])
   {
+    [self hideDownloadMapRequest];
     [self search:currentText];
   }
   else
   {
+    if (sender)
+      [self showDownloadMapRequestIfRequired];
     // nil wrapper means "Display Categories" mode
     self.wrapper = nil;
     [self.searchBar setSearching:NO];
@@ -508,6 +515,7 @@ static BOOL keyboardLoaded = NO;
 
 - (void)layoutSubviews
 {
+  [super layoutSubviews];
   if (self.state == SearchViewStateFullscreen)
     self.searchBar.minY = [self defaultSearchBarMinY];
   self.tableView.contentInset = UIEdgeInsetsMake(self.topBackgroundView.height, 0, 0, 0);
@@ -808,7 +816,113 @@ static BOOL keyboardLoaded = NO;
   // [super touchesBegan:touches withEvent:event];
 }
 
+#pragma mark - Download request
+
+- (void)showDownloadMapRequestIfRequired
+{
+  if (self.delegate.haveCurrentMap)
+    return;
+  self.downloadRequest = [[MWMSearchDownloadMapRequest alloc] initWithParentView:self.tableView delegate:self];
+  Framework & f = GetFramework();
+  ActiveMapsLayout & activeMapLayout = f.GetCountryTree().GetActiveMapLayout();
+  if (activeMapLayout.IsDownloadingActive())
+  {
+    [self.downloadRequest startDownload];
+  }
+  else
+  {
+    double lat, lon;
+    if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
+    {
+
+      m2::PointD const mercatorLocation = MercatorBounds::FromLatLon(lat, lon);
+      storage::TIndex const countryIndex = f.GetCountryIndex(mercatorLocation);
+
+      NSString * countryName = [NSString stringWithUTF8String:activeMapLayout.GetFormatedCountryName(countryIndex).c_str()];
+      LocalAndRemoteSizeT const sizes = activeMapLayout.GetRemoteCountrySizes(countryIndex);
+      NSString * mapSize = formattedSize(sizes.first);
+      NSString * mapAndRouteSize = formattedSize(sizes.first + sizes.second);
+
+      __weak SearchView * weakSelf = self;
+      [self.downloadRequest showForLocationWithName:countryName mapSize:mapSize mapAndRouteSize:mapAndRouteSize download:^(BOOL needRoute)
+      {
+        __strong SearchView * self = weakSelf;
+        [self.downloadRequest startDownload];
+        [self.delegate startMapDownload:countryIndex type:needRoute ? TMapOptions::EMapWithCarRouting : TMapOptions::EMap];
+      }
+      select:^
+      {
+        [self selectMapsAction];
+      }];
+    }
+    else
+    {
+      [self.downloadRequest showForUnknownLocation:^
+      {
+        [self selectMapsAction];
+      }];
+    }
+  }
+}
+
+- (void)hideDownloadMapRequest
+{
+  self.downloadRequest = nil;
+}
+
+#pragma mark - Download callbacks
+
+- (void)downloadProgress:(CGFloat)progress countryName:(NSString *)countryName
+{
+  [self.downloadRequest downloadProgress:progress countryName:countryName];
+}
+
+- (void)downloadComplete
+{
+  [self hideDownloadMapRequest];
+}
+
+- (void)downloadFailed
+{
+  [self.downloadRequest setDownloadFailed];
+}
+
+#pragma mark - MWMCircularProgressDelegate
+
+- (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
+{
+  if (progress.failed)
+  {
+    double lat, lon;
+    if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
+    {
+      Framework & f = GetFramework();
+      m2::PointD const mercatorLocation = MercatorBounds::FromLatLon(lat, lon);
+      storage::TIndex const countryIndex = f.GetCountryIndex(mercatorLocation);
+      [self.delegate restartMapDownload:countryIndex];
+    }
+  }
+  else
+  {
+    [self.downloadRequest stopDownload];
+    [self.delegate stopMapsDownload];
+  }
+}
+
+#pragma mark - MWMNavigationDelegate
+
+- (void)selectMapsAction
+{
+  [self.delegate pushDownloadMaps];
+}
+
 #pragma mark - Properties
+
+- (void)setDownloadRequest:(MWMSearchDownloadMapRequest *)downloadRequest
+{
+  _downloadRequest = downloadRequest;
+  self.tableView.scrollEnabled = (downloadRequest == nil);
+}
 
 - (CGRect)infoRect
 {

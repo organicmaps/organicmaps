@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSearchDownloadMapRequest">
+            <connections>
+                <outlet property="dimButton" destination="iMA-Nl-9RY" id="deG-kr-rgy"/>
+                <outlet property="downloadRequestHolder" destination="uzQ-gk-yJp" id="NLf-AO-JMD"/>
+                <outlet property="rootView" destination="wP9-g7-AZb" id="w00-AT-5Lz"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="wP9-g7-AZb" customClass="MWMSearchDownloadMapRequestView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Для поиска мест, построения маршрута скачайте карту и интернет вам больше не понадобится." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="Gwe-nt-eeI" userLabel="Hint">
+                    <rect key="frame" x="20" y="40" width="280" height="49"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_without_internet_advertisement"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uzQ-gk-yJp" userLabel="DownloadRequestHolder">
+                    <rect key="frame" x="0.0" y="89" width="320" height="479"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iMA-Nl-9RY" userLabel="Dim">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.26000000000000001" colorSpace="calibratedRGB"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackHintText"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="dimTouchUpInside:" destination="-1" eventType="touchUpInside" id="bAP-fC-rHH"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="uzQ-gk-yJp" secondAttribute="trailing" id="1sz-bn-Jdf"/>
+                <constraint firstItem="iMA-Nl-9RY" firstAttribute="leading" secondItem="wP9-g7-AZb" secondAttribute="leading" id="7Lk-yw-xOq"/>
+                <constraint firstAttribute="bottom" secondItem="uzQ-gk-yJp" secondAttribute="bottom" id="9jx-hz-YeX"/>
+                <constraint firstItem="iMA-Nl-9RY" firstAttribute="top" secondItem="wP9-g7-AZb" secondAttribute="top" id="IpH-y1-AKW"/>
+                <constraint firstItem="uzQ-gk-yJp" firstAttribute="leading" secondItem="wP9-g7-AZb" secondAttribute="leading" id="NjZ-WD-2h3"/>
+                <constraint firstAttribute="bottom" secondItem="iMA-Nl-9RY" secondAttribute="bottom" id="PEJ-EP-gTU"/>
+                <constraint firstAttribute="trailing" secondItem="iMA-Nl-9RY" secondAttribute="trailing" id="Te8-04-GWH"/>
+                <constraint firstAttribute="trailing" secondItem="Gwe-nt-eeI" secondAttribute="trailing" constant="20" id="YaN-ox-CCC"/>
+                <constraint firstItem="Gwe-nt-eeI" firstAttribute="leading" secondItem="wP9-g7-AZb" secondAttribute="leading" constant="20" id="iNJ-np-5B7"/>
+                <constraint firstItem="uzQ-gk-yJp" firstAttribute="top" secondItem="Gwe-nt-eeI" secondAttribute="bottom" id="rBW-h2-v2z"/>
+                <constraint firstItem="Gwe-nt-eeI" firstAttribute="top" secondItem="wP9-g7-AZb" secondAttribute="top" constant="40" id="y9t-mi-Gpm"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="hint" destination="Gwe-nt-eeI" id="3Eo-4z-h1w"/>
+                <outlet property="hintTopOffset" destination="y9t-mi-Gpm" id="fpl-Z4-dx8"/>
+            </connections>
+            <point key="canvasLocation" x="162" y="354"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

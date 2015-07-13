@@ -1,9 +1,10 @@
 
-#import <UIKit/UIKit.h>
-#import "ViewController.h"
 #import "LocationManager.h"
-#import "SearchView.h"
 #import "LocationPredictor.h"
+#import "MWMNavigationDelegate.h"
+#import "SearchView.h"
+#import "ViewController.h"
+#import <UIKit/UIKit.h>
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -14,7 +15,7 @@ namespace search { struct AddressInfo; }
 @class MWMMapViewControlsManager, MWMPlacePageViewManager;
 @class ShareActionSheet;
 
-@interface MapViewController : ViewController <LocationObserver, UIPopoverControllerDelegate>
+@interface MapViewController : ViewController <LocationObserver, UIPopoverControllerDelegate, MWMNavigationDelegate>
 {
 	bool m_isSticking;
 	size_t m_StickyThreshold;

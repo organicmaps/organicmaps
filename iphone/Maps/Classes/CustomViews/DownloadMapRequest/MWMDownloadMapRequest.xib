@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMDownloadMapRequest">
+            <connections>
+                <outlet property="downloadMapButton" destination="ANW-J1-K9x" id="oE3-7R-Pyf"/>
+                <outlet property="downloadRoutesButton" destination="Ns9-3f-AnX" id="lxd-NO-JwR"/>
+                <outlet property="mapTitleLabel" destination="ldF-A5-Jo3" id="r20-cg-aHn"/>
+                <outlet property="progressViewWrapper" destination="Axo-F2-0Xb" id="8PW-T9-Wav"/>
+                <outlet property="rootView" destination="wdy-tr-47e" id="vKe-K9-3Io"/>
+                <outlet property="selectAnotherMapButton" destination="q7R-7R-aMD" id="StJ-Aq-Jo7"/>
+                <outlet property="undefinedLocationLabel" destination="0HQ-hc-mvu" id="H7G-lT-OqQ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="wdy-tr-47e" customClass="MWMDownloadMapRequestView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="251"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moscow &amp; Central" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="ldF-A5-Jo3">
+                    <rect key="frame" x="16" y="10" width="288" height="21"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular18"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Axo-F2-0Xb" userLabel="ProgressViewWrapper">
+                    <rect key="frame" x="144" y="55" width="32" height="32"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="32" id="CcH-aB-wPy"/>
+                        <constraint firstAttribute="height" constant="32" id="j9b-F2-Mcs"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANW-J1-K9x">
+                    <rect key="frame" x="40" y="51" width="240" height="44"/>
+                    <color key="backgroundColor" red="0.12156862745098039" green="0.59999999999999998" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="240" id="Nrd-CA-zhn"/>
+                        <constraint firstAttribute="height" constant="44" id="tID-44-te5"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                    <state key="normal" title="Скачать карту">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="primary"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="primaryDark"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="downloadMapTouchUpInside:" destination="-1" eventType="touchUpInside" id="tMi-t3-4NI"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ns9-3f-AnX">
+                    <rect key="frame" x="40" y="115" width="240" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="FMy-No-TLl"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Автомобильные маршруты" image="radioBtnOff">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="radioBtnOn"/>
+                    <connections>
+                        <action selector="downloadRoutesTouchUpInside:" destination="-1" eventType="touchUpInside" id="0Zh-cL-WYE"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ваше местоположение не определено" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="0HQ-hc-mvu">
+                    <rect key="frame" x="16" y="145" width="288" height="17"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="unknown_current_position"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7R-7R-aMD">
+                    <rect key="frame" x="40" y="183" width="240" height="44"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                    <state key="normal" title="Выбрать другую карту">
+                        <color key="titleColor" red="0.1215686275" green="0.59999999999999998" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="primary"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="layer.borderColorName" value="primary"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="whiteColor"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="whiteColor"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="primary"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="selectMapTouchUpInside:" destination="-1" eventType="touchUpInside" id="RXu-BP-tNk"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ANW-J1-K9x" firstAttribute="top" secondItem="ldF-A5-Jo3" secondAttribute="bottom" constant="20" id="8ct-NO-wGh"/>
+                <constraint firstAttribute="trailing" secondItem="ldF-A5-Jo3" secondAttribute="trailing" constant="16" id="KsU-Ev-FCI"/>
+                <constraint firstItem="q7R-7R-aMD" firstAttribute="top" secondItem="Ns9-3f-AnX" secondAttribute="bottom" constant="44" id="SM5-r0-AS2"/>
+                <constraint firstItem="Axo-F2-0Xb" firstAttribute="top" secondItem="ldF-A5-Jo3" secondAttribute="bottom" constant="24" id="SnX-Nf-mt9"/>
+                <constraint firstAttribute="bottom" secondItem="q7R-7R-aMD" secondAttribute="bottom" constant="24" id="d8R-jg-AMN"/>
+                <constraint firstItem="ANW-J1-K9x" firstAttribute="height" secondItem="q7R-7R-aMD" secondAttribute="height" id="eXG-Oy-6Vx"/>
+                <constraint firstItem="Ns9-3f-AnX" firstAttribute="centerX" secondItem="ANW-J1-K9x" secondAttribute="centerX" id="fir-kl-M8E"/>
+                <constraint firstItem="ANW-J1-K9x" firstAttribute="width" secondItem="q7R-7R-aMD" secondAttribute="width" id="gY4-nk-yaY"/>
+                <constraint firstItem="ANW-J1-K9x" firstAttribute="centerX" secondItem="q7R-7R-aMD" secondAttribute="centerX" id="gfS-3M-5zg"/>
+                <constraint firstItem="Ns9-3f-AnX" firstAttribute="width" secondItem="ANW-J1-K9x" secondAttribute="width" id="hQI-Kw-RlX"/>
+                <constraint firstItem="ldF-A5-Jo3" firstAttribute="centerX" secondItem="ANW-J1-K9x" secondAttribute="centerX" id="lWc-tH-1Oi"/>
+                <constraint firstItem="ldF-A5-Jo3" firstAttribute="leading" secondItem="wdy-tr-47e" secondAttribute="leading" constant="16" id="mFv-Dr-2pb"/>
+                <constraint firstAttribute="trailing" secondItem="0HQ-hc-mvu" secondAttribute="trailing" constant="16" id="o8v-fv-loA"/>
+                <constraint firstItem="0HQ-hc-mvu" firstAttribute="leading" secondItem="wdy-tr-47e" secondAttribute="leading" constant="16" id="tED-fC-gYF"/>
+                <constraint firstItem="q7R-7R-aMD" firstAttribute="top" secondItem="0HQ-hc-mvu" secondAttribute="bottom" constant="22" id="u95-8m-bpq"/>
+                <constraint firstItem="Ns9-3f-AnX" firstAttribute="top" secondItem="ANW-J1-K9x" secondAttribute="bottom" constant="20" id="uJa-y4-6sW"/>
+                <constraint firstItem="ldF-A5-Jo3" firstAttribute="centerX" secondItem="Axo-F2-0Xb" secondAttribute="centerX" id="w4N-6B-zSQ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bottomSpacing" destination="d8R-jg-AMN" id="NKs-4Y-gl7"/>
+                <outlet property="mapTitleLabel" destination="ldF-A5-Jo3" id="SCT-Zb-Xxq"/>
+                <outlet property="owner" destination="-1" id="uiR-Xb-rRc"/>
+                <outlet property="unknownPositionLabelBottomOffset" destination="u95-8m-bpq" id="qXZ-7m-zS1"/>
+                <outlet property="verticalFreeSpace" destination="SM5-r0-AS2" id="aXL-lW-az3"/>
+            </connections>
+            <point key="canvasLocation" x="71" y="376"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="radioBtnOff" width="22" height="22"/>
+        <image name="radioBtnOn" width="22" height="22"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

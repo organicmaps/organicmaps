@@ -1,7 +1,9 @@
 #import "AppInfo.h"
 #import "Common.h"
+#import "CountryTreeVC.h"
 #import "EAGLView.h"
 #import "MapsAppDelegate.h"
+#import "MapsObservers.h"
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMMapViewControlsManager.h"
@@ -84,7 +86,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 @end
 
-@interface MapViewController () <RouteViewDelegate, SearchViewDelegate, MWMPlacePageViewManagerDelegate>
+@interface MapViewController () <RouteViewDelegate, SearchViewDelegate, MWMPlacePageViewManagerDelegate, ActiveMapsObserverProtocol>
 
 @property (nonatomic) UIView * routeViewWrapper;
 @property (nonatomic) RouteView * routeView;
@@ -103,9 +105,15 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 @property (nonatomic) MapInfoView mapInfoView;
 
+@property (nonatomic) BOOL haveCurrentMap;
+
 @end
 
 @implementation MapViewController
+{
+  ActiveMapsObserver * m_mapsObserver;
+  int m_mapsObserverSlotId;
+}
 
 #pragma mark - LocationManager Callbacks
 
@@ -553,6 +561,10 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   [super viewWillAppear:animated];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
   [self invalidate];
+
+  m_mapsObserverSlotId = GetFramework().GetCountryTree().GetActiveMapLayout().AddListener(m_mapsObserver);
+  if (self.searchView.state == SearchViewStateFullscreen)
+    [self.searchView setState:SearchViewStateFullscreen animated:NO];
 }
 
 - (void)viewDidLoad
@@ -563,6 +575,9 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:self];
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   [self.view addSubview:self.searchView];
+
+  __weak MapViewController * weakSelf = self;
+  m_mapsObserver = new ActiveMapsObserver(weakSelf);
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -578,10 +593,13 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-  GetFramework().SetUpdatesEnabled(false);
+  [super viewWillDisappear:animated];
+
+  Framework & f = GetFramework();
+  f.SetUpdatesEnabled(false);
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 
-  [super viewWillDisappear:animated];
+  f.GetCountryTree().GetActiveMapLayout().RemoveListener(m_mapsObserverSlotId);
 }
 
 - (void)orientationChanged:(NSNotification *)notification
@@ -891,6 +909,56 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   [RouteState remove];
 }
 
+#pragma mark - Map state
+
+- (void)checkCurrentLocationMap
+{
+  Framework & f = GetFramework();
+  ActiveMapsLayout & activeMapLayout = f.GetCountryTree().GetActiveMapLayout();
+  int const mapsCount = activeMapLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate) + activeMapLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EUpToDate);
+  if (mapsCount == 0)
+  {
+    self.haveCurrentMap = NO;
+  }
+  else
+  {
+    double lat, lon;
+    if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
+    {
+      m2::PointD const mercatorLocation = MercatorBounds::FromLatLon(lat, lon);
+      storage::TIndex const countryIndex = f.GetCountryIndex(mercatorLocation);
+      if (countryIndex == storage::TIndex())
+      {
+        self.haveCurrentMap = f.IsCountryLoaded(mercatorLocation);
+      }
+      else
+      {
+        storage::TStatus const countryStatus = activeMapLayout.GetCountryStatus(countryIndex);
+        self.haveCurrentMap = (countryStatus == storage::TStatus::EOnDisk || countryStatus == storage::TStatus::EOnDiskOutOfDate);
+      }
+    }
+    else
+    {
+      self.haveCurrentMap = YES;
+    }
+  }
+}
+
+- (void)startMapDownload:(storage::TIndex const &)index type:(TMapOptions)type
+{
+  GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(index, type);
+}
+
+- (void)stopMapsDownload
+{
+  GetFramework().GetCountryTree().GetActiveMapLayout().CancelAll();
+}
+
+- (void)restartMapDownload:(storage::TIndex const &)index
+{
+  GetFramework().GetCountryTree().GetActiveMapLayout().RetryDownloading(index);
+}
+
 #pragma mark - RouteViewDelegate
 
 - (void)routeViewDidStartFollowing:(RouteView *)routeView
@@ -925,6 +993,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)searchViewWillEnterState:(SearchViewState)state
 {
+  [self checkCurrentLocationMap];
   switch (state)
   {
     case SearchViewStateHidden:
@@ -961,6 +1030,15 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   [self updateStatusBarStyle];
 }
 
+#pragma mark - MWMNavigationDelegate
+
+- (void)pushDownloadMaps
+{
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
+  CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
+  [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - Layout
 
 - (void)moveRouteViewAnimatedtoOffset:(CGFloat)offset
@@ -989,6 +1067,29 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
       return;
     [self.view insertSubview:view belowSubview:self.searchView];
   }];
+}
+
+#pragma mark - ActiveMapsObserverProtocol
+
+- (void)countryStatusChangedAtPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group
+{
+  if (self.searchView.state != SearchViewStateFullscreen)
+    return;
+  TStatus const status = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountryStatus(group, position);
+  if (status == TStatus::EDownloadFailed)
+    [self.searchView downloadFailed];
+  else if (status == TStatus::EOnDisk)
+    [self.searchView downloadComplete];
+}
+
+- (void)countryDownloadingProgressChanged:(LocalAndRemoteSizeT const &)progress atPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group
+{
+  if (self.searchView.state != SearchViewStateFullscreen)
+    return;
+  CGFloat const normProgress = (CGFloat)progress.first / (CGFloat)progress.second;
+  ActiveMapsLayout & activeMapLayout = GetFramework().GetCountryTree().GetActiveMapLayout();
+  NSString * countryName = [NSString stringWithUTF8String:activeMapLayout.GetFormatedCountryName(activeMapLayout.GetCoreIndex(group, position)).c_str()];
+  [self.searchView downloadProgress:normProgress countryName:countryName];
 }
 
 #pragma mark - Public methods

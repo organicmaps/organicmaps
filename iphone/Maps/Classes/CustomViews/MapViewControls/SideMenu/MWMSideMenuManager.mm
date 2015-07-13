@@ -7,7 +7,6 @@
 //
 
 #import "BookmarksRootVC.h"
-#import "CountryTreeVC.h"
 #import "Framework.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
@@ -76,9 +75,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (IBAction)menuActionDownloadMaps
 {
   self.state = MWMSideMenuStateInactive;
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
-  CountryTreeVC * const vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
-  [self.controller.navigationController pushViewController:vc animated:YES];
+  [self.controller pushDownloadMaps];
 }
 
 - (IBAction)menuActionOpenSettings
