@@ -50,6 +50,7 @@ public:
   inline bool HasType(uint32_t t) const { return m_params.IsTypeExist(t); }
   inline bool PopExactType(uint32_t type) { return m_params.PopExactType(type); }
   inline void SetType(uint32_t type) { m_params.SetType(type); }
+  inline uint32_t FindType(uint32_t comp, uint8_t level) const { return m_params.FindType(comp, level); }
 
   /// Check classificator types for their compatibility with feature geometry type.
   /// Need to call when using any classificator types manipulating.

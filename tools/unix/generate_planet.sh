@@ -260,6 +260,7 @@ if [ "$MODE" == "coast" ]; then
     fi
   done
   # make a working copy of generated coastlines file
+  [ -n "$OPT_WORLD" ] && cp "$INTCOASTSDIR/WorldCoasts.rawdump" "$INTDIR"
   [ -n "$OPT_WORLD" ] && cp "$INTCOASTSDIR/WorldCoasts.geom" "$INTDIR"
   [ -z "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
   MODE=inter

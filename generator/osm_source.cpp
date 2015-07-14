@@ -309,14 +309,23 @@ namespace
         size_t const count = m_coasts->GetCellsCount();
         LOG(LINFO, ("Generating coastline polygons", count));
 
+        size_t totalRegions = 0;
+        size_t totalPoints = 0;
+        size_t totalPolygons = 0;
         for (size_t i = 0; i < count; ++i)
         {
           vector<FeatureBuilder1> vecFb;
           m_coasts->GetFeatures(i, vecFb);
 
           for (size_t j = 0; j < vecFb.size(); ++j)
+          {
             (*m_coastsHolder)(vecFb[j]);
+            ++totalRegions;
+            totalPoints += vecFb[j].GetPointsCount();
+            totalPolygons += vecFb[j].GetPolygonsCount();
+          }
         }
+        LOG(LINFO, ("Total regions:", totalRegions, "total points:", totalPoints, "totalPolygons:", totalPolygons));
       }
       else if (m_coastsHolder)
       {
