@@ -248,7 +248,6 @@
   <style name="MwmTextAppearance.Body1">
     <item name="android:textSize">@dimen/text_size_body_1</item>
     <item name="android:textColor">@color/text_dark</item>
-    <item name="android:fontFamily">@string/robotoRegular</item>
   </style>
 
   <style name="MwmTextAppearance.Body1.Light">
