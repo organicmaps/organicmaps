@@ -7,18 +7,18 @@
 #include "geometry/angles.hpp"
 #include "geometry/point2d.hpp"
 
+#include "map/location_state.hpp"
+
 #include "base/logging.hpp"
 
 #include "std/numeric.hpp"
-
-#include "map/location_state.hpp"
+#include "std/utility.hpp"
 
 
 namespace routing
 {
 
 static double const LOCATION_TIME_THRESHOLD = 60.0*1.0;
-static double const ON_ROAD_TOLERANCE_M = 50.0;
 static double const ON_END_TOLERANCE_M = 10.0;
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
@@ -30,6 +30,7 @@ Route::Route(string const & router, vector<m2::PointD> const & points, string co
 void Route::Swap(Route & rhs)
 {
   m_router.swap(rhs.m_router);
+  swap(m_routingSettings, rhs.m_routingSettings);
   m_poly.Swap(rhs.m_poly);
   m_name.swap(rhs.m_name);
   m_segDistance.swap(rhs.m_segDistance);
@@ -157,7 +158,7 @@ bool Route::MoveIterator(location::GpsInfo const & info) const
 
   m2::RectD const rect = MercatorBounds::MetresToXY(
         info.m_longitude, info.m_latitude,
-        max(ON_ROAD_TOLERANCE_M, info.m_horizontalAccuracy));
+        max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
   IterT const res = FindProjection(rect, predictDistance);
   if (res.IsValid())
   {
@@ -203,11 +204,13 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
     const m2::PointD locationMerc(MercatorBounds::LonToX(location.m_longitude),
                                   MercatorBounds::LatToY(location.m_latitude));
     const double distFromRoute = MercatorBounds::DistanceOnEarth(m_current.m_pt, locationMerc);
-    if (distFromRoute < ON_ROAD_TOLERANCE_M)
+    if (distFromRoute < m_routingSettings.m_matchingThresholdM)
     {
       location.m_latitude = MercatorBounds::YToLat(m_current.m_pt.y);
       location.m_longitude = MercatorBounds::XToLon(m_current.m_pt.x);
-      location.m_bearing = location::AngleToBearing(GetPolySegAngle(m_current.m_ind));
+      if (m_routingSettings.m_matchBearing)
+        location.m_bearing = location::AngleToBearing(GetPolySegAngle(m_current.m_ind));
+
       routeMatchingInfo.Set(m_current.m_pt, m_current.m_ind);
     }
   }

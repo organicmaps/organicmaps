@@ -209,6 +209,8 @@ void RoutingSession::AssignRoute(Route & route)
     m_state = RouteNotStarted;
   else
     m_state = RoutingNotActive;
+
+  route.SetRoutingSettings(m_routingSettings);
   m_route.Swap(route);
 }
 
@@ -228,6 +230,13 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
   m_route.MatchLocationToRoute(location, routeMatchingInfo);
+}
+
+void RoutingSession::SetRoutingSettings(RoutingSettings const & routingSettings)
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  m_routingSettings = routingSettings;
 }
 
 void RoutingSession::EnableTurnNotifications(bool enable)

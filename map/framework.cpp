@@ -2173,11 +2173,14 @@ void Framework::SetRouter(RouterType type)
   if (type == RouterType::Pedestrian)
   {
     router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), routingVisualizerFn);
+    m_routingSession.SetRoutingSettings(routing::RoutingSettings(false /* m_matchBearing */,
+                                                                 20. /* m_matchingThresholdM */));
   }
   else
   {
     router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter, routingVisualizerFn));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileGetter));
+    m_routingSession.SetRoutingSettings(routing::RoutingSettings());
   }
 
   m_routingSession.SetRouter(move(router), move(fetcher), routingStatisticsFn);

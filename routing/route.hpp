@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/routing_settings.hpp"
 #include "routing/turns.hpp"
 
 #include "geometry/polyline2d.hpp"
@@ -105,6 +106,11 @@ public:
   /// Get absent file list of a routing files for shortest path finding
   set<string> const & GetAbsentCountries() const { return m_absentCountries; }
 
+  inline void SetRoutingSettings(RoutingSettings const & routingSettings)
+  {
+    m_routingSettings = routingSettings;
+  }
+
 private:
   /// @param[in]  predictDistance   Predict distance from previous FindProjection call (meters).
   IterT FindProjection(m2::RectD const & posRect, double predictDistance = -1.0) const;
@@ -122,6 +128,7 @@ private:
   friend string DebugPrint(Route const & r);
 
   string m_router;
+  RoutingSettings m_routingSettings;
   m2::PolylineD m_poly;
   string m_name;
 

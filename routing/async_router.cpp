@@ -133,6 +133,7 @@ void AsyncRouter::LogCode(IRouter::ResultCode code, double const elapsedSec)
 
 void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
 {
+  ASSERT(m_router, ());
   if (m_isReadyThread.test_and_set())
     return;
 

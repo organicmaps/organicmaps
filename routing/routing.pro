@@ -61,9 +61,9 @@ HEADERS += \
     router.hpp \
     routing_algorithm.hpp \
     routing_mapping.h \
+    routing_settings.hpp \
     turns.hpp \
     turns_generator.hpp \
     turns_sound.hpp \
     turns_sound_settings.hpp \
     vehicle_model.hpp \
-

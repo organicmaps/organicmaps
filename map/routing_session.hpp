@@ -78,6 +78,8 @@ public:
   // TODO (Dragunov) Make activation of the pedestrian routing
   void ActivateAdditionalFeatures() {}
 
+  void SetRoutingSettings(RoutingSettings const & routingSettings);
+
   // Sound notifications for turn instructions.
   void EnableTurnNotifications(bool enable);
   bool AreTurnNotificationsEnabled() const;
@@ -119,5 +121,7 @@ private:
 
   // Sound turn notification parameters.
   turns::sound::TurnsSound m_turnsSound;
+
+  RoutingSettings m_routingSettings;
 };
 }  // namespace routing
