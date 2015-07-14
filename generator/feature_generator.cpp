@@ -41,9 +41,13 @@ FeaturesCollector::~FeaturesCollector()
   FlushBuffer();
   /// Check file size
   (void)GetFileSize(m_datFile);
-  uint64_t terminator = 0;
-  m_dumpFileStream.write(reinterpret_cast<char *>(&terminator), sizeof(terminator));
-  m_dumpFileStream.close();
+  if (!m_dumpFileName.empty())
+  {
+    uint64_t terminator = 0;
+    m_dumpFileStream.write(reinterpret_cast<char *>(&terminator), sizeof(terminator));
+    m_dumpFileStream.close();
+    LOG(LINFO, ("Dumped", m_featureCounter, "features into", m_dumpFileName));
+  }
 }
 
 uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)
@@ -123,12 +127,14 @@ void FeaturesCollector::DumpFeatureGeometry(FeatureBuilder1 const & fb)
   if (geom.empty())
     return;
 
-  uint64_t num_geometries = geom.size();
-  m_dumpFileStream.write(reinterpret_cast<char *>(&num_geometries), sizeof(num_geometries));
+  ++m_featureCounter;
+
+  uint64_t numGeometries = geom.size();
+  m_dumpFileStream.write(reinterpret_cast<char *>(&numGeometries), sizeof(numGeometries));
   for (FeatureBuilder1::TPointSeq const & points : geom)
   {
-    uint64_t num_points = points.size();
-    m_dumpFileStream.write(reinterpret_cast<char *>(&num_points), sizeof(num_points));
+    uint64_t numPoints = points.size();
+    m_dumpFileStream.write(reinterpret_cast<char *>(&numPoints), sizeof(numPoints));
     m_dumpFileStream.write(reinterpret_cast<char const *>(points.data()), sizeof(FeatureBuilder1::TPointSeq::value_type) * points.size());
   }
 }
@@ -142,6 +148,5 @@ void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
   if (!m_dumpFileName.empty())
     DumpFeatureGeometry(fb);
 }
-
 
 }

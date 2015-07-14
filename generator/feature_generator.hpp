@@ -19,6 +19,7 @@ namespace feature
     char m_writeBuffer[48000];
     size_t m_writePosition = 0;
     uint32_t m_baseOffset = 0;
+    size_t m_featureCounter = 0;
 
   protected:
     FileWriter m_datFile;
