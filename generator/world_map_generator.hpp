@@ -19,12 +19,52 @@ class WorldMapGenerator
   class EmitterImpl : public FeatureEmitterIFace
   {
     FeatureOutT m_output;
+    uint32_t m_boundaryType;
+    list<m2::RegionD> m_waterRegions;
 
   public:
     explicit EmitterImpl(feature::GenerateInfo const & info)
       : m_output(info.GetTmpFileName(WORLD_FILE_NAME))
     {
+      m_boundaryType = classif().GetTypeByPath({ "boundary", "administrative"});
+      LoadWatersRegionsDump(info.m_intermediateDir + WORLD_COASTS_FILE_NAME + ".rawdump");
       LOG(LINFO, ("Output World file:", info.GetTmpFileName(WORLD_FILE_NAME)));
+    }
+
+
+    void LoadWatersRegionsDump(string const &dumpFileName)
+    {
+      LOG(LINFO, ("Load water polygons:", dumpFileName));
+      ifstream file;
+      file.exceptions(ifstream::badbit);
+      file.open(dumpFileName);
+      if (!file.is_open())
+        LOG(LCRITICAL, ("Can't open water polygons"));
+
+      size_t total = 0;
+      while (true)
+      {
+        uint64_t numGeometries = 0;
+        file.read(reinterpret_cast<char *>(&numGeometries), sizeof(numGeometries));
+
+        if (numGeometries == 0)
+          break;
+
+        ++total;
+
+        vector<m2::PointD> points;
+        for (size_t i = 0; i < numGeometries; ++i)
+        {
+          uint64_t numPoints = 0;
+          file.read(reinterpret_cast<char *>(&numPoints), sizeof(numPoints));
+          points.resize(numPoints);
+          file.read(reinterpret_cast<char *>(points.data()), sizeof(m2::PointD) * numPoints);
+          m_waterRegions.push_back(m2::RegionD());
+          m_waterRegions.back().Assign(points.begin(), points.end());
+        }
+      }
+
+      LOG(LINFO, ("Load", total, "water polygons"));
     }
 
     /// This function is called after merging linear features.
@@ -35,8 +75,48 @@ class WorldMapGenerator
         PushSure(fb);
     }
 
+    bool IsWaterBoundaries(FeatureBuilder1 const & fb) const
+    {
+      if (fb.FindType(m_boundaryType, 2) == ftype::GetEmptyValue())
+        return false;
+
+      m2::PointD pts[3] = {{0, 0}, {0, 0}, {0, 0}};
+      size_t hits[3] = {0, 0, 0};
+
+      pts[0] = fb.GetGeometry().front().front();
+      pts[1] = *(fb.GetGeometry().front().begin() + fb.GetGeometry().front().size()/2);
+      pts[2] = fb.GetGeometry().front().back();
+
+      for (m2::RegionD const & region : m_waterRegions)
+      {
+        hits[0] += region.Contains(pts[0]) ? 1 : 0;
+        hits[1] += region.Contains(pts[1]) ? 1 : 0;
+        hits[2] += region.Contains(pts[2]) ? 1 : 0;
+      }
+
+      size_t state = (hits[0] & 0x01) + (hits[1] & 0x01) + (hits[2] & 0x01);
+
+      LOG(LINFO, ("hits:", hits, "Boundary state:", state, "Dump:", DebugPrint(fb)));
+
+      // whole border on land
+      if (state == 0)
+        return false;
+
+      // whole border on water
+      if (state == 3)
+        return true;
+
+      LOG(LINFO, ("Found partial boundary"));
+      return false;
+    }
+
     bool NeedPushToWorld(FeatureBuilder1 const & fb) const
     {
+      if (IsWaterBoundaries(fb))
+      {
+        LOG(LINFO, ("Skip boundary"));
+        return false;
+      }
       // GetMinFeatureDrawScale also checks suitable size for AREA features
       return (scales::GetUpperWorldScale() >= fb.GetMinFeatureDrawScale());
     }
