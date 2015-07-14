@@ -112,8 +112,9 @@ set -o pipefail # Capture all errors in command chains
 set -u # Fail on undefined variables
 
 # Initialize everything. For variables with X="${X:-...}" you can override a default value
-PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
-[ ! -r "$PLANET" -a -z "$OPT_DOWNLOAD" ] && fail "Please put planet file into $PLANET, use -U, or specify correct PLANET variable"
+PLANET="${PLANET:-$HOME/planet}"
+[ -d "$PLANET" ] && PLANET="$PLANET/planet-latest.o5m"
+[ ! -f "$PLANET" -a -z "$OPT_DOWNLOAD" ] && fail "Please put planet file into $PLANET, use -U, or specify correct PLANET variable"
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 DATA_PATH="$OMIM_PATH/data"
 [ ! -r "${DATA_PATH}/types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
@@ -225,8 +226,8 @@ if [ "$MODE" == "coast" ]; then
       PLANET_ABS="$(cd "$(dirname "$PLANET")"; pwd)/$(basename "$PLANET")"
       (
         cd "$OSMCTOOLS" # osmupdate requires osmconvert in a current directory
-        ./osmupdate --drop-author --drop-version --out-o5m -v "$PLANET_ABS" "$PLANET_ABS.new.o5m" >> "$PLANET_LOG" 2>&1
-      )
+        ./osmupdate --drop-author --drop-version --out-o5m -v "$PLANET_ABS" "$PLANET_ABS.new.o5m"
+      ) >> "$PLANET_LOG" 2>&1
       mv "$PLANET.new.o5m" "$PLANET"
     fi
 
