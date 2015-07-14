@@ -128,6 +128,7 @@ public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimatio
         @Override
         public void onAnimationUpdate(ValueAnimator animation)
         {
+          ViewHelper.setTranslationY(mPlacePage, (Float) animation.getAnimatedValue());
         }
       });
       animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
