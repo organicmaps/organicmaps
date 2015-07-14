@@ -675,9 +675,9 @@
 "downloader_delete_routing" = "Zmazať Trasu";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Stiahnite si Mapu";
+"downloader_download_map" = "Stiahnuť mapu";
 
-"downloader_download_map_no_routing" = "Prevezmite si mapu bez pokynov týkajúcich sa trasy";
+"downloader_download_map_no_routing" = "Stiahnite si mapu bez smerovania";
 
 /* Button for routing PP. */
 "routing_go" = "Štart!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Vybrať mapu";
 
 "search_select_other_map" = "Vybrať inú mapu";
+
+"search_vehicle_routes" = "Smer jazdy";

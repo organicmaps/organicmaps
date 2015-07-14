@@ -426,8 +426,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Radera anvisningar</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Ladda ner karta</string>
-	<string name="downloader_download_map_no_routing">Ladda ned kartan utan väginstruktioner</string>
+	<string name="downloader_download_map">Ladda ner kartan</string>
+	<string name="downloader_download_map_no_routing">Hämta karta utan rutter</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Kör!</string>
 	<!-- Item status in downloader. -->
@@ -746,4 +746,5 @@
 	<string name="search_without_internet_advertisement">För att börja söka och skapa rutter, ladda ner kartan, och du behöver inte Internet-anslutning längre.</string>
 	<string name="search_select_map">Välj kartan</string>
 	<string name="search_select_other_map">Välj en annan karta</string>
+	<string name="search_vehicle_routes">Vägbeskrivning</string>
 </resources>

@@ -431,8 +431,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Zmazať Trasu</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Stiahnite si Mapu</string>
-	<string name="downloader_download_map_no_routing">Prevezmite si mapu bez pokynov týkajúcich sa trasy</string>
+	<string name="downloader_download_map">Stiahnuť mapu</string>
+	<string name="downloader_download_map_no_routing">Stiahnite si mapu bez smerovania</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Štart!</string>
 	<!-- Item status in downloader. -->
@@ -749,4 +749,5 @@
 	<string name="search_without_internet_advertisement">Stiahnutím mapy už nebudete potrebovať pripojenie k internetu a môžete si začať vyhľadávať a vytvárať trasy.</string>
 	<string name="search_select_map">Vybrať mapu</string>
 	<string name="search_select_other_map">Vybrať inú mapu</string>
+	<string name="search_vehicle_routes">Smer jazdy</string>
 </resources>

@@ -675,9 +675,9 @@
 "downloader_delete_routing" = "Hapus Rute";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Unduh Peta";
+"downloader_download_map" = "Unduh peta";
 
-"downloader_download_map_no_routing" = "Unduh peta tanpa petunjuk perutean";
+"downloader_download_map_no_routing" = "Unduh peta tanpa perutean";
 
 /* Button for routing PP. */
 "routing_go" = "Mulai!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Pilih Peta";
 
 "search_select_other_map" = "Pilih Peta Lain";
+
+"search_vehicle_routes" = "Petunjuk arah mengemudi";

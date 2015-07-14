@@ -416,8 +416,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Verwijder routering</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Kaart downloaden</string>
-	<string name="downloader_download_map_no_routing">Download kaart zonder route-instructies</string>
+	<string name="downloader_download_map">Download de kaart</string>
+	<string name="downloader_download_map_no_routing">Download kaart zonder routeplanning</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Starten!</string>
 	<!-- Item status in downloader. -->
@@ -736,4 +736,5 @@
 	<string name="search_without_internet_advertisement">Om te beginnen met zoeken en om routebeschrijvingen te kunnen maken, moet u de kaart downloaden. U heeft vervolgens geen internetverbinding meer nodig.</string>
 	<string name="search_select_map">Selecteer de kaart</string>
 	<string name="search_select_other_map">Selecteer een andere kaart</string>
+	<string name="search_vehicle_routes">Routebeschrijving</string>
 </resources>

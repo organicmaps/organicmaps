@@ -425,8 +425,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Hapus Rute</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Unduh Peta</string>
-	<string name="downloader_download_map_no_routing">Unduh peta tanpa petunjuk perutean</string>
+	<string name="downloader_download_map">Unduh peta</string>
+	<string name="downloader_download_map_no_routing">Unduh peta tanpa perutean</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Mulai!</string>
 	<!-- Item status in downloader. -->
@@ -744,4 +744,5 @@
 	<string name="search_without_internet_advertisement">Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.</string>
 	<string name="search_select_map">Pilih Peta</string>
 	<string name="search_select_other_map">Pilih Peta Lain</string>
+	<string name="search_vehicle_routes">Petunjuk arah mengemudi</string>
 </resources>

@@ -425,8 +425,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Slett rutetilordning</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Last ned kart</string>
-	<string name="downloader_download_map_no_routing">Last ned kart uten ruteinstruksjoner</string>
+	<string name="downloader_download_map">Last ned kartet</string>
+	<string name="downloader_download_map_no_routing">Last ned kart uten veiviserfunksjon</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Kjør!</string>
 	<!-- Item status in downloader. -->
@@ -745,4 +745,5 @@
 	<string name="search_without_internet_advertisement">Last vennligst ned kartet for å begynne å søke og opprette ruter - så slipper du i fremtiden å være avhengig av å ha internettforbindelse.</string>
 	<string name="search_select_map">Velg kartet</string>
 	<string name="search_select_other_map">Velg et annet kart</string>
+	<string name="search_vehicle_routes">Veibeskrivelser</string>
 </resources>

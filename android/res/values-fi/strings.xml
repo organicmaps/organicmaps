@@ -426,7 +426,7 @@
 	<string name="downloader_delete_routing">Poista reititys</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Lataa kartta</string>
-	<string name="downloader_download_map_no_routing">Lataa kartta ilman reittiohjeita</string>
+	<string name="downloader_download_map_no_routing">Lataa kartta ilman reititystä</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Lähde!</string>
 	<!-- Item status in downloader. -->
@@ -745,4 +745,5 @@
 	<string name="search_without_internet_advertisement">Lataa kartta aloittaksesi haun ja luodaksesi reittejä. Tämän jälkeen et enää tule tarvitsemaan Internet-yhteyttä.</string>
 	<string name="search_select_map">Valitse kartta</string>
 	<string name="search_select_other_map">Valitse toinen kartta</string>
+	<string name="search_vehicle_routes">Ajo-ohjeet</string>
 </resources>

@@ -675,9 +675,9 @@
 "downloader_delete_routing" = "Slett rutetilordning";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Last ned kart";
+"downloader_download_map" = "Last ned kartet";
 
-"downloader_download_map_no_routing" = "Last ned kart uten ruteinstruksjoner";
+"downloader_download_map_no_routing" = "Last ned kart uten veiviserfunksjon";
 
 /* Button for routing PP. */
 "routing_go" = "Kjør!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Velg kartet";
 
 "search_select_other_map" = "Velg et annet kart";
+
+"search_vehicle_routes" = "Veibeskrivelser";

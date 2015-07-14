@@ -424,7 +424,7 @@
 	<string name="downloader_delete_routing">るーどを削除</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">地図をダウンロード</string>
-	<string name="downloader_download_map_no_routing">ルート情報のないマップをダウンローする</string>
+	<string name="downloader_download_map_no_routing">ルートなしで地図をダウンロード</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">開始！</string>
 	<!-- Item status in downloader. -->
@@ -743,4 +743,5 @@
 	<string name="search_without_internet_advertisement">検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は必要なくなります。</string>
 	<string name="search_select_map">地図を選択</string>
 	<string name="search_select_other_map">別の地図を選択</string>
+	<string name="search_vehicle_routes">道案内</string>
 </resources>

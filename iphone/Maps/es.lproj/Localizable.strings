@@ -675,9 +675,9 @@
 "downloader_delete_routing" = "Eliminar itinerario";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Descargar mapa";
+"downloader_download_map" = "Descargar el mapa";
 
-"downloader_download_map_no_routing" = "Descargar mapa sin instrucciones de ruta";
+"downloader_download_map_no_routing" = "Descargar mapa sin ruta";
 
 /* Button for routing PP. */
 "routing_go" = "¡Listo!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Seleccionar el mapa";
 
 "search_select_other_map" = "Seleccionar otro mapa";
+
+"search_vehicle_routes" = "Direcciones de conducción";

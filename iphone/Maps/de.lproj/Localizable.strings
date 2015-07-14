@@ -677,7 +677,7 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Karte herunterladen";
 
-"downloader_download_map_no_routing" = "Karte ohne Routenanleitungen herunterladen";
+"downloader_download_map_no_routing" = "Karte ohne Routenplanung herunterladen";
 
 /* Button for routing PP. */
 "routing_go" = "Los!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Karte auswählen";
 
 "search_select_other_map" = "Eine andere karte auswählen";
+
+"search_vehicle_routes" = "Fahranweisungen";

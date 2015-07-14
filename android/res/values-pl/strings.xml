@@ -428,7 +428,7 @@
 	<string name="downloader_delete_routing">Skasuj wyznaczanie tras</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Pobierz mapę</string>
-	<string name="downloader_download_map_no_routing">Pobierz mapę bez pliku wyznaczania trasy</string>
+	<string name="downloader_download_map_no_routing">Pobierz mapę bez oznaczania tras</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Przejdź!</string>
 	<!-- Item status in downloader. -->
@@ -747,4 +747,5 @@
 	<string name="search_without_internet_advertisement">Aby rozpocząć wyszukiwanie i tworzenie tras, pobierz mapę, a nie będzie ci już potrzebne połączenie z Internetem.</string>
 	<string name="search_select_map">Wybierz mapę</string>
 	<string name="search_select_other_map">Wybierz inną mapę</string>
+	<string name="search_vehicle_routes">Wskazówki dojazdu</string>
 </resources>

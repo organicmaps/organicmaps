@@ -423,8 +423,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Ștergere traseu</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Descărcare hartă</string>
-	<string name="downloader_download_map_no_routing">Descărcarea hărţii fără instrucţiuni privind traseul</string>
+	<string name="downloader_download_map">Descărcați harta</string>
+	<string name="downloader_download_map_no_routing">Descărcare hartă fără rutare</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Pornește!</string>
 	<!-- Item status in downloader. -->
@@ -742,4 +742,5 @@
 	<string name="search_without_internet_advertisement">Pentru a putea începe căutarea și crearea unor rute, vă rugăm să descărcați harta, iar apoi nu veți mai avea nevoie de conexiune la internet.</string>
 	<string name="search_select_map">Selectați harta</string>
 	<string name="search_select_other_map">Selectați altă hartă</string>
+	<string name="search_vehicle_routes">Indicații rutiere</string>
 </resources>

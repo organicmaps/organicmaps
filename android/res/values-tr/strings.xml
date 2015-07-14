@@ -430,8 +430,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Rotayı Sil</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Haritayı İndir</string>
-	<string name="downloader_download_map_no_routing">Haritayı güzergah talimatları olmadan indirin</string>
+	<string name="downloader_download_map">Haritayı indir</string>
+	<string name="downloader_download_map_no_routing">Haritayı rota olmadan indirin</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Git!</string>
 	<!-- Item status in downloader. -->
@@ -750,4 +750,5 @@
 	<string name="search_without_internet_advertisement">Rotaları aramak ve oluşturmaya başlamak için lütfen haritayı indirin ve artık internet bağlantısına ihtiyacınız yok.</string>
 	<string name="search_select_map">Haritayi Seçin</string>
 	<string name="search_select_other_map">Başka Bir Harita Seçin</string>
+	<string name="search_vehicle_routes">Trafik yönleri</string>
 </resources>

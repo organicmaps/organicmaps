@@ -675,9 +675,9 @@
 "downloader_delete_routing" = "Apagar Roteamento";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Descarregar Mapa";
+"downloader_download_map" = "Baixar o mapa";
 
-"downloader_download_map_no_routing" = "Baixar mapa sem instruções de rota";
+"downloader_download_map_no_routing" = "Baixar mapa sem roteamento";
 
 /* Button for routing PP. */
 "routing_go" = "Avançar!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Selecionar o Mapa";
 
 "search_select_other_map" = "Selecionar Outro Mapa";
+
+"search_vehicle_routes" = "Instruções de direção";

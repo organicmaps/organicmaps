@@ -437,8 +437,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Supprimer Itinéraire</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Téléchargez la carte</string>
-	<string name="downloader_download_map_no_routing">Télécharger la carte sans créer l\&#39;itinéraire</string>
+	<string name="downloader_download_map">Télécharger la carte</string>
+	<string name="downloader_download_map_no_routing">Télécharger la carte sans itinéraire</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Allez-y !</string>
 	<!-- Item status in downloader. -->
@@ -757,4 +757,5 @@
 	<string name="search_without_internet_advertisement">Pour commencer à rechercher et à créer des itinéraires, veuillez télécharger la carte, et vous n\&#39;aurez plus besoin de connexion Internet.</string>
 	<string name="search_select_map">Sélectionner la carte</string>
 	<string name="search_select_other_map">Sélectionner une autre carte</string>
+	<string name="search_vehicle_routes">Indications routières</string>
 </resources>

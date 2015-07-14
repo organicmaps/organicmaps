@@ -675,9 +675,9 @@
 "downloader_delete_routing" = "Útvonal törlése";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Térkép letöltése";
+"downloader_download_map" = "Töltsd le a térképet";
 
-"downloader_download_map_no_routing" = "Töltse le a térképet útvonal-instrukciók nélkül";
+"downloader_download_map_no_routing" = "Térkép letöltése útvonal nélkül";
 
 /* Button for routing PP. */
 "routing_go" = "Indulás!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Jelöld ki a térképet";
 
 "search_select_other_map" = "Jelölj ki másik térképet";
+
+"search_vehicle_routes" = "Útvonaltervezés";

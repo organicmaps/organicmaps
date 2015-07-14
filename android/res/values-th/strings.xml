@@ -429,7 +429,7 @@
 	<string name="downloader_delete_routing">ลบการเลือกเส้นทาง</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">ดาวน์โหลดแผนที่</string>
-	<string name="downloader_download_map_no_routing">ดาวน์โหลดแผนที่โดยเว้นคำแนะนำเส้นทาง</string>
+	<string name="downloader_download_map_no_routing">ดาวน์โหลดแผนที่โดยไม่กำหนดเส้นทาง</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">ไป!</string>
 	<!-- Item status in downloader. -->
@@ -748,4 +748,5 @@
 	<string name="search_without_internet_advertisement">เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป</string>
 	<string name="search_select_map">เลือกแผนที่</string>
 	<string name="search_select_other_map">เลือกแผนที่อื่น</string>
+	<string name="search_vehicle_routes">เส้นทางการขับรถ</string>
 </resources>

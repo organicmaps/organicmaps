@@ -675,9 +675,9 @@
 "downloader_delete_routing" = "Видалити маршрути";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Завантажити мапу";
+"downloader_download_map" = "Завантажити карту";
 
-"downloader_download_map_no_routing" = "Завантажити карту без автомобільних маршрутів";
+"downloader_download_map_no_routing" = "Завантажити карту без маршрутів";
 
 /* Button for routing PP. */
 "routing_go" = "Поїхали!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Вибрати карту";
 
 "search_select_other_map" = "Вибрати іншу карту";
+
+"search_vehicle_routes" = "Напрямки руху";

@@ -415,7 +415,7 @@
 	<string name="downloader_delete_routing">라우팅 삭제</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">지도 다운로드</string>
-	<string name="downloader_download_map_no_routing">경로 안내 없이 지도 다운로드</string>
+	<string name="downloader_download_map_no_routing">라우팅없이 지도 다운로드</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">이동!</string>
 	<!-- Item status in downloader. -->
@@ -734,4 +734,5 @@
 	<string name="search_without_internet_advertisement">경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.</string>
 	<string name="search_select_map">지도 선택</string>
 	<string name="search_select_other_map">다른 지도 선택</string>
+	<string name="search_vehicle_routes">운전 방향</string>
 </resources>

@@ -677,7 +677,7 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Stáhnout mapu";
 
-"downloader_download_map_no_routing" = "Stáhnout mapu bez pokynů navigace";
+"downloader_download_map_no_routing" = "Stáhnout mapy bez směrování";
 
 /* Button for routing PP. */
 "routing_go" = "Jet!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Vybrat mapu";
 
 "search_select_other_map" = "Vybrat jinou mapu";
+
+"search_vehicle_routes" = "Pokyny pro řízení";

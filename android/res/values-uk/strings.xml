@@ -429,8 +429,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Видалити маршрути</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Завантажити мапу</string>
-	<string name="downloader_download_map_no_routing">Завантажити карту без автомобільних маршрутів</string>
+	<string name="downloader_download_map">Завантажити карту</string>
+	<string name="downloader_download_map_no_routing">Завантажити карту без маршрутів</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Поїхали!</string>
 	<!-- Item status in downloader. -->
@@ -749,4 +749,5 @@
 	<string name="search_without_internet_advertisement">Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте карту і вам більше ніколи не знадобиться інтернет-з’єднання.</string>
 	<string name="search_select_map">Вибрати карту</string>
 	<string name="search_select_other_map">Вибрати іншу карту</string>
+	<string name="search_vehicle_routes">Напрямки руху</string>
 </resources>

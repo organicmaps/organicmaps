@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "Отсутствует подключение к интернету";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Нет WiFi соединения. Вы хотите скачать %@ через сотового оператора (GPRS, EDGE или 3G)?";
+"no_wifi_ask_cellular_download" = "Нет WiFi соединения. Вы хотите загрузить %@ через сотового оператора (GPRS, EDGE или 3G)?";
 
 "ok" = "OK";
 
@@ -145,10 +145,10 @@
 "country_status_downloading" = "Загружается\n^\n^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Скачать карту\n(^ ^)";
+"country_status_download" = "Загрузить карту\n(^ ^)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download_without_routing" = "Скачать карту\nбез маршрутов (^ ^)";
+"country_status_download_without_routing" = "Загрузить карту\nбез маршрутов (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Ошибка загрузки\n^";
@@ -478,7 +478,7 @@
 
 "share_my_location" = "Поделиться местоположением";
 
-"become_a_pro" = "Скачать PRO";
+"become_a_pro" = "Загрузить PRO";
 
 "menu_search" = "Поиск";
 
@@ -666,18 +666,18 @@
 "routing_failed_internal_error" = "Внутренняя ошибка. Пожалуйста, удалите карту и скачайте ее еще раз. Если это не помогло, напишите нам на support@maps.me";
 
 /* Context menu item for downloader. */
-"downloader_download_map_and_routing" = "Скачать карту + маршруты";
+"downloader_download_map_and_routing" = "Загрузить карту + маршруты";
 
 /* Context menu item for downloader. */
-"downloader_download_routing" = "Скачать маршруты";
+"downloader_download_routing" = "Загрузить маршруты";
 
 /* Context menu item for downloader. */
 "downloader_delete_routing" = "Удалить маршруты";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Скачать карту";
+"downloader_download_map" = "Загрузить карту";
 
-"downloader_download_map_no_routing" = "Скачать карту без автомобильных маршрутов";
+"downloader_download_map_no_routing" = "Загрузить карту без маршрутов";
 
 /* Button for routing PP. */
 "routing_go" = "Поехали!";
@@ -1161,9 +1161,9 @@
 
 "dialog_routing_build_route" = "Построить";
 
-"dialog_routing_download_and_build_cross_route" = "Скачать карту и построить более оптимальный маршрут с пересечением границы карты?";
+"dialog_routing_download_and_build_cross_route" = "Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?";
 
-"dialog_routing_download_cross_route" = "Для построения более оптимального маршрута с пересечением границы требуется скачать карту.";
+"dialog_routing_download_cross_route" = "Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.";
 
 "dialog_routing_cross_route_always" = "Всегда пересекать эту границу";
 
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Выбрать карту ";
 
 "search_select_other_map" = "Выбрать другую карту";
+
+"search_vehicle_routes" = "Автомобильные маршруты";

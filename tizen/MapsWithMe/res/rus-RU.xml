@@ -22,7 +22,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">Отсутствует подключение к интернету</text>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Нет WiFi соединения. Вы хотите скачать %s через сотового оператора (GPRS, EDGE или 3G)?</text>
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Нет WiFi соединения. Вы хотите загрузить %s через сотового оператора (GPRS, EDGE или 3G)?</text>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Мы рекомендуем загружать большие страны через WiFi</text>
 	<text id="IDS_DOWNLOAD">Загрузить</text>
@@ -104,7 +104,7 @@
 	<!-- Confirmation in downloading countries dialog -->
 	<text id="IDS_ARE_YOU_SURE">Вы уверены, что хотите продолжить?</text>
 	<text id="IDS_SHARE_MY_LOCATION">Поделиться местоположением</text>
-	<text id="IDS_BECOME_A_PRO">Скачать PRO</text>
+	<text id="IDS_BECOME_A_PRO">Загрузить PRO</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Кнопки масштаба</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Показать на карте</text>
 	<!-- Show on first launch. -->
@@ -142,13 +142,13 @@
 	<!-- Status of failed country in the list -->
 	<text id="IDS_DOWNLOADER_STATUS_FAILED">Ошибка</text>
 	<!-- Context menu item for downloader. -->
-	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Скачать карту + маршруты</text>
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Загрузить карту + маршруты</text>
 	<!-- Context menu item for downloader. -->
-	<text id="IDS_DOWNLOADER_DOWNLOAD_ROUTING">Скачать маршруты</text>
+	<text id="IDS_DOWNLOADER_DOWNLOAD_ROUTING">Загрузить маршруты</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Удалить маршруты</text>
 	<!-- Context menu item for downloader. -->
-	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Скачать карту</text>
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Загрузить карту</text>
 	<!-- Button for routing PP. -->
 	<text id="IDS_ROUTING_GO">Поехали!</text>
 	<!-- Item status in downloader. -->

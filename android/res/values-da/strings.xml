@@ -426,8 +426,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Slet ruteangivelse</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Download kort</string>
-	<string name="downloader_download_map_no_routing">Download kort uden ruteanvisninger</string>
+	<string name="downloader_download_map">Download kortet</string>
+	<string name="downloader_download_map_no_routing">Download kort uden ruteplanlægning</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Kør!</string>
 	<!-- Item status in downloader. -->
@@ -746,4 +746,5 @@
 	<string name="search_without_internet_advertisement">For at begynde at søge efter og oprette ruter bedes du downloade kortet, så du ikke længere har behov for en internetforbindelse.</string>
 	<string name="search_select_map">Vælk kortet</string>
 	<string name="search_select_other_map">Vælg et andet kort</string>
+	<string name="search_vehicle_routes">Kørselsvejledning</string>
 </resources>

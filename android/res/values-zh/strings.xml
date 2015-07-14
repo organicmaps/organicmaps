@@ -433,7 +433,7 @@
 	<string name="downloader_delete_routing">删除路线</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">下载地图</string>
-	<string name="downloader_download_map_no_routing">下载不含路线指示的地图</string>
+	<string name="downloader_download_map_no_routing">下载不带路线的地图</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">出发！</string>
 	<!-- Item status in downloader. -->
@@ -750,4 +750,5 @@
 	<string name="search_without_internet_advertisement">要开始搜索和创建路线，请下载地图，那您就不再需要网络连接了。</string>
 	<string name="search_select_map">选择地图</string>
 	<string name="search_select_other_map">选择另一个地图</string>
+	<string name="search_vehicle_routes">驾车路线</string>
 </resources>

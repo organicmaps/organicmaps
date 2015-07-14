@@ -417,7 +417,7 @@
 	<string name="downloader_delete_routing">刪除路線</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">下載地圖</string>
-	<string name="downloader_download_map_no_routing">下載無路線的地圖</string>
+	<string name="downloader_download_map_no_routing">下載不帶路線的地圖</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">開始！</string>
 	<!-- Item status in downloader. -->
@@ -732,4 +732,5 @@
 	<string name="search_without_internet_advertisement">要開始搜索和創建路線，請下載地圖，那您就不再需要網絡連接了。</string>
 	<string name="search_select_map">選擇地圖</string>
 	<string name="search_select_other_map">選擇另一個地圖</string>
+	<string name="search_vehicle_routes">駕車路線</string>
 </resources>

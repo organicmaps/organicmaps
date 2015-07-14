@@ -677,7 +677,7 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "ดาวน์โหลดแผนที่";
 
-"downloader_download_map_no_routing" = "ดาวน์โหลดแผนที่โดยเว้นคำแนะนำเส้นทาง";
+"downloader_download_map_no_routing" = "ดาวน์โหลดแผนที่โดยไม่กำหนดเส้นทาง";
 
 /* Button for routing PP. */
 "routing_go" = "ไป!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "เลือกแผนที่";
 
 "search_select_other_map" = "เลือกแผนที่อื่น";
+
+"search_vehicle_routes" = "เส้นทางการขับรถ";

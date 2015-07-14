@@ -427,8 +427,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Útvonal törlése</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Térkép letöltése</string>
-	<string name="downloader_download_map_no_routing">Töltse le a térképet útvonal-instrukciók nélkül</string>
+	<string name="downloader_download_map">Töltsd le a térképet</string>
+	<string name="downloader_download_map_no_routing">Térkép letöltése útvonal nélkül</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Indulás!</string>
 	<!-- Item status in downloader. -->
@@ -747,4 +747,5 @@
 	<string name="search_without_internet_advertisement">Útvonalak kereséséhez és létrehozásához, kérjük, töltsd le a térképet és többé nem lesz szükséged internetkapcsolatra.</string>
 	<string name="search_select_map">Jelöld ki a térképet</string>
 	<string name="search_select_other_map">Jelölj ki másik térképet</string>
+	<string name="search_vehicle_routes">Útvonaltervezés</string>
 </resources>

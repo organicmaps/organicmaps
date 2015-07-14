@@ -423,8 +423,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Apagar Roteamento</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Descarregar Mapa</string>
-	<string name="downloader_download_map_no_routing">Baixar mapa sem instruções de rota</string>
+	<string name="downloader_download_map">Baixar o mapa</string>
+	<string name="downloader_download_map_no_routing">Baixar mapa sem roteamento</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Avançar!</string>
 	<!-- Item status in downloader. -->
@@ -743,4 +743,5 @@
 	<string name="search_without_internet_advertisement">Para começar a pesquisar e criar rotas, por favor, baixe o mapa e você não precisará mais de conexão com a internet.</string>
 	<string name="search_select_map">Selecionar o Mapa</string>
 	<string name="search_select_other_map">Selecionar Outro Mapa</string>
+	<string name="search_vehicle_routes">Instruções de direção</string>
 </resources>

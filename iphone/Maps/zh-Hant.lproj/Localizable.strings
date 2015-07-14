@@ -677,7 +677,7 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "下載地圖";
 
-"downloader_download_map_no_routing" = "下載無路線的地圖";
+"downloader_download_map_no_routing" = "下載不帶路線的地圖";
 
 /* Button for routing PP. */
 "routing_go" = "開始！";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "選擇地圖";
 
 "search_select_other_map" = "選擇另一個地圖";
+
+"search_vehicle_routes" = "駕車路線";

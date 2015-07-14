@@ -439,7 +439,7 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Delete Routing</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Download Map</string>
+	<string name="downloader_download_map">Download map</string>
 	<string name="downloader_download_map_no_routing">Download map without routing</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Go!</string>
@@ -759,4 +759,5 @@
 	<string name="search_without_internet_advertisement">To start searching and creating routes, please download the map, and you will not need Internet connection anymore.</string>
 	<string name="search_select_map">Select Map</string>
 	<string name="search_select_other_map">Select Another Map</string>
+	<string name="search_vehicle_routes">Driving directions</string>
 </resources>

@@ -677,7 +677,7 @@
 /* Context menu item for downloader. */
 "downloader_download_map" = "Pobierz mapę";
 
-"downloader_download_map_no_routing" = "Pobierz mapę bez pliku wyznaczania trasy";
+"downloader_download_map_no_routing" = "Pobierz mapę bez oznaczania tras";
 
 /* Button for routing PP. */
 "routing_go" = "Przejdź!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Wybierz mapę";
 
 "search_select_other_map" = "Wybierz inną mapę";
+
+"search_vehicle_routes" = "Wskazówki dojazdu";

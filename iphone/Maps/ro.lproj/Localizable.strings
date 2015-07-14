@@ -675,9 +675,9 @@
 "downloader_delete_routing" = "Ștergere traseu";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Descărcare hartă";
+"downloader_download_map" = "Descărcați harta";
 
-"downloader_download_map_no_routing" = "Descărcarea hărţii fără instrucţiuni privind traseul";
+"downloader_download_map_no_routing" = "Descărcare hartă fără rutare";
 
 /* Button for routing PP. */
 "routing_go" = "Pornește!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Selectați harta";
 
 "search_select_other_map" = "Selectați altă hartă";
+
+"search_vehicle_routes" = "Indicații rutiere";

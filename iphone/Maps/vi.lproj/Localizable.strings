@@ -675,9 +675,9 @@
 "downloader_delete_routing" = "Xóa Định tuyến";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Tải xuống Bản đồ";
+"downloader_download_map" = "Tải về bản đồ";
 
-"downloader_download_map_no_routing" = "Tải về bản đồ mà không cần hướng dẫn tuyến đường";
+"downloader_download_map_no_routing" = "Tải về bản đồ không có chỉ đường";
 
 /* Button for routing PP. */
 "routing_go" = "Tiến hành!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Chọn bản đồ";
 
 "search_select_other_map" = "Chọn bản đồ khác";
+
+"search_vehicle_routes" = "Hướng dẫn lái xe";

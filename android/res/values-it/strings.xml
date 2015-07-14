@@ -423,8 +423,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Elimina il percorso</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Scarica Map</string>
-	<string name="downloader_download_map_no_routing">Scarica la mappa senza le istruzioni di itinerario</string>
+	<string name="downloader_download_map">Scarica mappa</string>
+	<string name="downloader_download_map_no_routing">Scarica mappa senza percorsi</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Andare!</string>
 	<!-- Item status in downloader. -->
@@ -743,4 +743,5 @@
 	<string name="search_without_internet_advertisement">Per iniziare a cercare e a creare i percorsi, scarica la mappa e non avrai più bisogno di una connessione a internet.</string>
 	<string name="search_select_map">Seleziona mappa</string>
 	<string name="search_select_other_map">Seleziona un\&#39;altra mappa</string>
+	<string name="search_vehicle_routes">Indicazioni stradali</string>
 </resources>

@@ -425,8 +425,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">Xóa Định tuyến</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Tải xuống Bản đồ</string>
-	<string name="downloader_download_map_no_routing">Tải về bản đồ mà không cần hướng dẫn tuyến đường</string>
+	<string name="downloader_download_map">Tải về bản đồ</string>
+	<string name="downloader_download_map_no_routing">Tải về bản đồ không có chỉ đường</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Tiến hành!</string>
 	<!-- Item status in downloader. -->
@@ -745,4 +745,5 @@
 	<string name="search_without_internet_advertisement">Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.</string>
 	<string name="search_select_map">Chọn bản đồ</string>
 	<string name="search_select_other_map">Chọn bản đồ khác</string>
+	<string name="search_vehicle_routes">Hướng dẫn lái xe</string>
 </resources>

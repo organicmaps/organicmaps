@@ -140,7 +140,7 @@
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Apagar Roteamento</text>
 	<!-- Context menu item for downloader. -->
-	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Descarregar Mapa</text>
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Baixar o mapa</text>
 	<!-- Button for routing PP. -->
 	<text id="IDS_ROUTING_GO">Avançar!</text>
 	<!-- Item status in downloader. -->

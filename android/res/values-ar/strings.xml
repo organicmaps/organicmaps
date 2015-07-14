@@ -430,8 +430,8 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_delete_routing">إزالة تحديد المسار</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">تحميل الخريطة</string>
-	<string name="downloader_download_map_no_routing">تنزيل الخريطة دون إرشادات التوجيه</string>
+	<string name="downloader_download_map">تنزيل الخريطة</string>
+	<string name="downloader_download_map_no_routing">تنزيل خريطة بدون تحديد خط السير</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">انطلق!</string>
 	<!-- Item status in downloader. -->
@@ -750,4 +750,5 @@
 	<string name="search_without_internet_advertisement">لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، وسوف لن تحتاج إلى اتصال بالإنترنت بعد الآن.</string>
 	<string name="search_select_map">اختيار الخريطة</string>
 	<string name="search_select_other_map">اختيار خريطة أخرى</string>
+	<string name="search_vehicle_routes">اتجاهات القيادة</string>
 </resources>

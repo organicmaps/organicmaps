@@ -434,7 +434,7 @@
 	<string name="downloader_delete_routing">Smazat trasy</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Stáhnout mapu</string>
-	<string name="downloader_download_map_no_routing">Stáhnout mapu bez pokynů navigace</string>
+	<string name="downloader_download_map_no_routing">Stáhnout mapy bez směrování</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Jet!</string>
 	<!-- Item status in downloader. -->
@@ -753,4 +753,5 @@
 	<string name="search_without_internet_advertisement">Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.</string>
 	<string name="search_select_map">Vybrat mapu</string>
 	<string name="search_select_other_map">Vybrat jinou mapu</string>
+	<string name="search_vehicle_routes">Pokyny pro řízení</string>
 </resources>

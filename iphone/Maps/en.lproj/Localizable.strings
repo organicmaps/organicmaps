@@ -675,7 +675,7 @@
 "downloader_delete_routing" = "Delete Routing";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Download Map";
+"downloader_download_map" = "Download map";
 
 "downloader_download_map_no_routing" = "Download map without routing";
 
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Select Map";
 
 "search_select_other_map" = "Select Another Map";
+
+"search_vehicle_routes" = "Driving directions";

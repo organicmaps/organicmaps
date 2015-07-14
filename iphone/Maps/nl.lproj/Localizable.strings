@@ -675,9 +675,9 @@
 "downloader_delete_routing" = "Verwijder routering";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Kaart downloaden";
+"downloader_download_map" = "Download de kaart";
 
-"downloader_download_map_no_routing" = "Download kaart zonder route-instructies";
+"downloader_download_map_no_routing" = "Download kaart zonder routeplanning";
 
 /* Button for routing PP. */
 "routing_go" = "Starten!";
@@ -1174,3 +1174,5 @@
 "search_select_map" = "Selecteer de kaart";
 
 "search_select_other_map" = "Selecteer een andere kaart";
+
+"search_vehicle_routes" = "Routebeschrijving";
