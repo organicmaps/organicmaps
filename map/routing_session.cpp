@@ -244,10 +244,17 @@ bool RoutingSession::AreTurnNotificationsEnabled() const
   return m_turnsSound.IsEnabled();
 }
 
-void RoutingSession::SetTurnSoundNotificationsSettings(turns::sound::Settings const & settings)
+void RoutingSession::SetTurnSoundNotificationsUnits(routing::turns::sound::LengthUnits const & units)
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  m_turnsSound.SetSettings(settings);
+  m_turnsSound.SetLengthUnits(units);
 }
+
+routing::turns::sound::LengthUnits RoutingSession::GetTurnSoundNotificationsUnits() const
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  return m_turnsSound.GetLengthUnits();
 }
+}  // namespace routing

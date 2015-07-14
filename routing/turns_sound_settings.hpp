@@ -69,6 +69,7 @@ public:
   uint32_t RoundByPresetSoundedDistancesUnits(uint32_t turnNotificationUnits) const;
 
   inline LengthUnits GetLengthUnits() const { return m_lengthUnits; }
+  inline void SetLengthUnits(LengthUnits units) { m_lengthUnits = units; }
   double ConvertMetersPerSecondToUnitsPerSecond(double speedInMetersPerSecond) const;
   double ConvertUnitsToMeters(double distanceInUnits) const;
 };

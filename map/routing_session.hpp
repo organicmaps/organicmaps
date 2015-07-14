@@ -79,9 +79,10 @@ public:
   void ActivateAdditionalFeatures() {}
 
   // Sound notifications for turn instructions.
-  void SetTurnSoundNotificationsSettings(turns::sound::Settings const & settings);
   void EnableTurnNotifications(bool enable);
   bool AreTurnNotificationsEnabled() const;
+  void SetTurnSoundNotificationsUnits(routing::turns::sound::LengthUnits const & units);
+  routing::turns::sound::LengthUnits GetTurnSoundNotificationsUnits() const;
 
 private:
   struct DoReadyCallback

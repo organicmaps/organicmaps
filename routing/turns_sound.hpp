@@ -57,7 +57,8 @@ public:
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
-  void SetSettings(Settings const & newSettings);
+  void SetLengthUnits(LengthUnits units);
+  inline LengthUnits GetLengthUnits() const { return m_settings.GetLengthUnits(); }
   void SetSpeedMetersPerSecond(double speed);
 
    /// \brief UpdateRouteFollowingInfo updates information about the next turn notification.

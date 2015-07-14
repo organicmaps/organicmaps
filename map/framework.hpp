@@ -569,9 +569,13 @@ public:
   // Sound notifications for turn instructions.
   inline void EnableTurnNotifications(bool enable) { m_routingSession.EnableTurnNotifications(enable); }
   inline bool AreTurnNotificationsEnabled() const { return m_routingSession.AreTurnNotificationsEnabled(); }
-  inline void SetTurnSoundNotificationsSettings(routing::turns::sound::Settings const & settings)
+  inline void SetTurnSoundNotificationsUnits(routing::turns::sound::LengthUnits const & units)
   {
-    m_routingSession.SetTurnSoundNotificationsSettings(settings);
+    m_routingSession.SetTurnSoundNotificationsUnits(units);
+  }
+  inline routing::turns::sound::LengthUnits GetTurnSoundNotificationsUnits() const
+  {
+    return m_routingSession.GetTurnSoundNotificationsUnits();
   }
 
 private:

@@ -104,10 +104,27 @@ void TurnsSound::Enable(bool enable)
   m_enabled = enable;
 }
 
-void TurnsSound::SetSettings(Settings const & newSettings)
+void TurnsSound::SetLengthUnits(LengthUnits units)
 {
-  ASSERT(newSettings.IsValid(), ());
-  m_settings = newSettings;
+  m_settings.SetLengthUnits(units);
+  switch(units)
+  {
+  case LengthUnits::Undefined:
+    ASSERT(false, ());
+    return;
+  case LengthUnits::Meters:
+    m_settings = Settings(20 /* notificationTimeSeconds */, 200 /* minNotificationDistanceUnits */,
+                          2000 /* maxNotificationDistanceUnits */,
+                          {200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000} /* soundedDistancesUnits */,
+                          LengthUnits::Meters /* lengthUnits */);
+    return;
+  case LengthUnits::Feet:
+    m_settings = Settings(20 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
+                          5000 /* maxNotificationDistanceUnits */,
+                          {500, 600, 700, 800, 900, 1000, 1500, 2000, 3000, 4000, 5000} /* soundedDistancesUnits */,
+                          LengthUnits::Feet /* lengthUnits */);
+    return;
+  }
 }
 
 void TurnsSound::SetSpeedMetersPerSecond(double speed)
