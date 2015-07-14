@@ -15,7 +15,6 @@ SOURCES += ../../testing/testingmain.cpp \
     arithmetic_codec_test.cpp \
     base64_for_user_id_test.cpp \
     base64_test.cpp \
-    bit_shift_test.cpp \
     bit_streams_test.cpp \
 #    blob_storage_test.cpp \
     bzip2_test.cpp \

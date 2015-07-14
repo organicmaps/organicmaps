@@ -75,7 +75,6 @@ HEADERS += \
     bzip2_compressor.hpp \
     gzip_compressor.hpp \
     timsort/timsort.hpp \
-    bit_shift.hpp \
     base64.hpp \
     sha2.hpp \
     value_opt_string.hpp \

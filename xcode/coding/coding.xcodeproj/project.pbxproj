@@ -18,7 +18,6 @@
 		675342811A3F588C00A0A8C3 /* arithmetic_codec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753422A1A3F588B00A0A8C3 /* arithmetic_codec.hpp */; };
 		675342821A3F588C00A0A8C3 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753422B1A3F588B00A0A8C3 /* base64.cpp */; };
 		675342831A3F588C00A0A8C3 /* base64.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753422C1A3F588B00A0A8C3 /* base64.hpp */; };
-		675342841A3F588C00A0A8C3 /* bit_shift.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753422D1A3F588B00A0A8C3 /* bit_shift.hpp */; };
 		675342851A3F588C00A0A8C3 /* bit_streams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753422E1A3F588B00A0A8C3 /* bit_streams.cpp */; };
 		675342861A3F588C00A0A8C3 /* bit_streams.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753422F1A3F588B00A0A8C3 /* bit_streams.hpp */; };
 		675342871A3F588C00A0A8C3 /* blob_indexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675342301A3F588B00A0A8C3 /* blob_indexer.cpp */; };
@@ -115,7 +114,6 @@
 		6753422A1A3F588B00A0A8C3 /* arithmetic_codec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = arithmetic_codec.hpp; sourceTree = "<group>"; };
 		6753422B1A3F588B00A0A8C3 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
 		6753422C1A3F588B00A0A8C3 /* base64.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = base64.hpp; sourceTree = "<group>"; };
-		6753422D1A3F588B00A0A8C3 /* bit_shift.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bit_shift.hpp; sourceTree = "<group>"; };
 		6753422E1A3F588B00A0A8C3 /* bit_streams.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bit_streams.cpp; sourceTree = "<group>"; };
 		6753422F1A3F588B00A0A8C3 /* bit_streams.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bit_streams.hpp; sourceTree = "<group>"; };
 		675342301A3F588B00A0A8C3 /* blob_indexer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = blob_indexer.cpp; sourceTree = "<group>"; };
@@ -258,7 +256,6 @@
 				6753422A1A3F588B00A0A8C3 /* arithmetic_codec.hpp */,
 				6753422B1A3F588B00A0A8C3 /* base64.cpp */,
 				6753422C1A3F588B00A0A8C3 /* base64.hpp */,
-				6753422D1A3F588B00A0A8C3 /* bit_shift.hpp */,
 				6753422E1A3F588B00A0A8C3 /* bit_streams.cpp */,
 				6753422F1A3F588B00A0A8C3 /* bit_streams.hpp */,
 				675342301A3F588B00A0A8C3 /* blob_indexer.cpp */,
@@ -407,7 +404,6 @@
 				675342AA1A3F588C00A0A8C3 /* lodepng_io.hpp in Headers */,
 				675342BC1A3F588C00A0A8C3 /* reader.hpp in Headers */,
 				675342D21A3F588C00A0A8C3 /* zip_creator.hpp in Headers */,
-				675342841A3F588C00A0A8C3 /* bit_shift.hpp in Headers */,
 				675342A91A3F588C00A0A8C3 /* lodepng_io_private.hpp in Headers */,
 				675342B11A3F588C00A0A8C3 /* multilang_utf8_string.hpp in Headers */,
 				675342D41A3F588C00A0A8C3 /* zip_reader.hpp in Headers */,
