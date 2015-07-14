@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "scoped_local_file.hpp"
+#include "file_utils.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"

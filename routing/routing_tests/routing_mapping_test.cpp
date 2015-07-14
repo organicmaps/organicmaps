@@ -7,8 +7,8 @@
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
-#include "platform/platform_tests/scoped_local_file.hpp"
 #include "platform/platform.hpp"
+#include "platform/platform_tests/file_utils.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
@@ -21,9 +21,33 @@ using namespace platform::tests;
 
 namespace
 {
-
-void GenerateVersionSections(LocalCountryFile const & localFile)
+class LocalFileGenerator
 {
+public:
+  LocalFileGenerator(string const & fileName)
+      : m_countryFile(fileName),
+        m_testMapFile(m_countryFile.GetNameWithExt(TMapOptions::EMap), "map"),
+        m_testRoutingFile(m_countryFile.GetNameWithExt(TMapOptions::ECarRouting), "routing"),
+        m_localFile(GetPlatform().WritableDir(), m_countryFile, 0 /* version */)
+  {
+    m_localFile.SyncWithDisk();
+    TEST(m_localFile.OnDisk(TMapOptions::EMapWithCarRouting), ());
+    GenerateVersionSections(m_localFile);
+
+    m_result = m_testSet.Register(m_localFile);
+    TEST_EQUAL(m_result.second, MwmSet::RegResult::Success,
+               ("Can't register temporary localFile map"));
+  }
+
+  TestMwmSet & GetMwmSet() { return m_testSet; }
+
+  CountryFile const & GetCountryFile() { return m_countryFile; }
+
+  size_t GetNumRefs() { return m_result.first.GetInfo()->GetNumRefs(); }
+
+private:
+  void GenerateVersionSections(LocalCountryFile const & localFile)
+  {
     FilesContainerW routingCont(localFile.GetPath(TMapOptions::ECarRouting));
     // Write version for routing file that is equal to correspondent mwm file.
     FilesContainerW mwmCont(localFile.GetPath(TMapOptions::EMap));
@@ -32,61 +56,44 @@ void GenerateVersionSections(LocalCountryFile const & localFile)
     FileWriter w2 = mwmCont.GetWriter(VERSION_FILE_TAG);
     version::WriteVersion(w1);
     version::WriteVersion(w2);
-}  
+  }
+
+  CountryFile m_countryFile;
+  ScopedTestFile m_testMapFile;
+  ScopedTestFile m_testRoutingFile;
+  LocalCountryFile m_localFile;
+  TestMwmSet m_testSet;
+  pair<MwmSet::MwmHandle, MwmSet::RegResult> m_result;
+};
 
 UNIT_TEST(RoutingMappingCountryFileLockTest)
 {
-  // Create the local files and the registered MwmSet.
-  CountryFile countryFile("TestCountry");
-  countryFile.SetRemoteSizes(1 /* mapSize */, 2 /* routingSize */);
-  LocalCountryFile localFile(GetPlatform().WritableDir(), countryFile, 0 /* version */);
-  ScopedTestFile testMapFile(countryFile.GetNameWithExt(TMapOptions::EMap), "map");
-  ScopedTestFile testRoutingFile(countryFile.GetNameWithExt(TMapOptions::ECarRouting), "routing");
-  localFile.SyncWithDisk();
-  TEST(localFile.OnDisk(TMapOptions::EMapWithCarRouting), ());
-  GenerateVersionSections(localFile);
-
-  TestMwmSet mwmSet;
-  pair<MwmSet::MwmHandle, MwmSet::RegResult> result = mwmSet.Register(localFile);
-  TEST_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register temporary localFile map"));
-
-  // Test RoutingMapping ctor and the file lock.
+  LocalFileGenerator generator("1TestCountry");
   {
-    RoutingMapping testMapping(countryFile, (&mwmSet));
+    RoutingMapping testMapping(generator.GetCountryFile(), (&generator.GetMwmSet()));
     TEST(testMapping.IsValid(), ());
-    TEST_EQUAL(result.first.GetInfo()->GetLockCount(), 2, ());
+    TEST_EQUAL(generator.GetNumRefs(), 2, ());
   }
   // Routing mapping must unlock the file after destruction.
-  TEST_EQUAL(result.first.GetInfo()->GetLockCount(), 1, ());
+  TEST_EQUAL(generator.GetNumRefs(), 1, ());
 }
 
 UNIT_TEST(IndexManagerLockManagementTest)
 {
-  // Create the local files and the registered MwmSet.
-  CountryFile countryFile("TestCountry");
-  countryFile.SetRemoteSizes(1 /* mapSize */, 2 /* routingSize */);
-  LocalCountryFile localFile(GetPlatform().WritableDir(), countryFile, 0 /* version */);
-  ScopedTestFile testMapFile(countryFile.GetNameWithExt(TMapOptions::EMap), "map");
-  ScopedTestFile testRoutingFile(countryFile.GetNameWithExt(TMapOptions::ECarRouting), "routing");
-  localFile.SyncWithDisk();
-  TEST(localFile.OnDisk(TMapOptions::EMapWithCarRouting), ());
-  GenerateVersionSections(localFile);
-
-  TestMwmSet mwmSet;
-  pair<MwmSet::MwmHandle, MwmSet::RegResult> result = mwmSet.Register(localFile);
-  TEST_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register temporary localFile map"));
-
-  RoutingIndexManager manager([](m2::PointD const & q){return "TestCountry";}, &mwmSet);
+  string const fileName("1TestCountry");
+  LocalFileGenerator generator(fileName);
+  RoutingIndexManager manager([&fileName](m2::PointD const & q) { return fileName; },
+                              &generator.GetMwmSet());
   {
-    auto testMapping = manager.GetMappingByName("TestCountry");
+    auto testMapping = manager.GetMappingByName(fileName);
     TEST(testMapping->IsValid(), ());
-    TEST_EQUAL(result.first.GetInfo()->GetLockCount(), 2, ());
+    TEST_EQUAL(generator.GetNumRefs(), 2, ());
   }
-  // We freed mapping, by it stil persist inside the manager cache.
-  TEST_EQUAL(result.first.GetInfo()->GetLockCount(), 2, ());
+  // We freed mapping, but it still persists inside the manager cache.
+  TEST_EQUAL(generator.GetNumRefs(), 2, ());
 
   // Test cache clearing.
   manager.Clear();
-  TEST_EQUAL(result.first.GetInfo()->GetLockCount(), 1, ());
+  TEST_EQUAL(generator.GetNumRefs(), 1, ());
 }
 }  // namespace

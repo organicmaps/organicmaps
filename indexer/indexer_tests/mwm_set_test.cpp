@@ -1,7 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "indexer/mwm_set.hpp"
 #include "test_mwm_set.hpp"
+
+#include "indexer/mwm_set.hpp"
 
 #include "base/macros.hpp"
 

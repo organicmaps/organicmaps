@@ -17,13 +17,39 @@
 using platform::CountryFile;
 using platform::LocalCountryFile;
 
+namespace {
+/*!
+ * \brief CheckMwmConsistency checks versions of mwm and routing files.
+ * \param localFile reference to country file we need to check.
+ * \return true if files has same versions.
+ * \warning Function assumes that the file lock was already taken.
+ */
+bool CheckMwmConsistency(platform::LocalCountryFile const & localFile)
+{
+  ModelReaderPtr r1 = FilesContainerR(localFile.GetPath(TMapOptions::ECarRouting))
+      .GetReader(VERSION_FILE_TAG);
+  ReaderSrc src1(r1.GetPtr());
+  ModelReaderPtr r2 = FilesContainerR(localFile.GetPath(TMapOptions::EMap))
+      .GetReader(VERSION_FILE_TAG);
+  ReaderSrc src2(r2.GetPtr());
+
+  version::MwmVersion version1;
+  version::ReadVersion(src1, version1);
+
+  version::MwmVersion version2;
+  version::ReadVersion(src2, version2);
+
+  return version1.timestamp == version2.timestamp;
+}
+} //  namespace
+
 namespace routing
 {
 RoutingMapping::RoutingMapping(CountryFile const & countryFile)
     : m_mapCounter(0),
       m_facadeCounter(0),
       m_crossContextLoaded(0),
-      m_mentionedCountryFile(countryFile),
+      m_countryFile(countryFile),
       m_error(IRouter::ResultCode::RouteFileNotExist),
       m_handle()
 {
@@ -33,7 +59,7 @@ RoutingMapping::RoutingMapping(CountryFile const & countryFile, MwmSet * pIndex)
     : m_mapCounter(0),
       m_facadeCounter(0),
       m_crossContextLoaded(0),
-      m_mentionedCountryFile(countryFile),
+      m_countryFile(countryFile),
       m_error(IRouter::ResultCode::RouteFileNotExist),
       m_handle(pIndex->GetMwmHandleByCountryFile(countryFile))
 {
@@ -109,23 +135,6 @@ void RoutingMapping::LoadCrossContext()
     m_crossContext.Load(m_container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
     m_crossContextLoaded = true;
   }
-}
-
-bool RoutingMapping::CheckMwmConsistency(platform::LocalCountryFile const & localFile)
-{
-  FileReader r1 = m_container.GetReader(VERSION_FILE_TAG);
-  ReaderSrc src1(r1);
-  ModelReaderPtr r2 = FilesContainerR(localFile.GetPath(TMapOptions::EMap))
-      .GetReader(VERSION_FILE_TAG);
-  ReaderSrc src2(r2.GetPtr());
-
-  version::MwmVersion version1;
-  version::ReadVersion(src1, version1);
-
-  version::MwmVersion version2;
-  version::ReadVersion(src2, version2);
-
-  return version1.timestamp == version2.timestamp;
 }
 
 void RoutingMapping::FreeCrossContext()

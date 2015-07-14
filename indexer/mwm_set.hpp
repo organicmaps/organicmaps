@@ -64,7 +64,7 @@ public:
   MwmTypeT GetType() const;
 
   /// Returns the lock counter value for test needs.
-  uint8_t GetLockCount() { return m_numRefs; }
+  uint8_t GetNumRefs() const { return m_numRefs; }
 
 private:
   inline void SetStatus(Status status) { m_status = status; }

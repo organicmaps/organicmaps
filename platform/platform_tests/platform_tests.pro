@@ -40,4 +40,4 @@ SOURCES += \
     video_timer_test.cpp \
 
 HEADERS += \
-    scoped_local_file.hpp \
+    file_utils.hpp \

@@ -10,6 +10,9 @@
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
+//TODO(ldragunov, gorshenin) If there will be one more usage of this header, we must extract 
+// it to the standalone test support library.
+
 namespace platform
 {
 namespace tests

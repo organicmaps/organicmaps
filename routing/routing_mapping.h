@@ -54,7 +54,7 @@ struct RoutingMapping
    * Returns mentioned country file. Works even the LocalCountryFile does not exist and
    * the lock was not taken.
    */
-  platform::CountryFile const & GetCountryFile() const { return m_mentionedCountryFile; }
+  platform::CountryFile const & GetCountryFile() const { return m_countryFile; }
 
   Index::MwmId const & GetMwmId() const { return m_handle.GetId(); }
 
@@ -65,17 +65,10 @@ private:
   // Ctor for invalid mappings.
   RoutingMapping(platform::CountryFile const & countryFile);
 
-  /*!
-   * \brief CheckMwmConsistency checks versions of mwm and routing files.
-   * \param localFile reference to country file we need to check.
-   * \return true if files has same versions.
-   */
-  virtual bool CheckMwmConsistency(platform::LocalCountryFile const & localFile);
-
   size_t m_mapCounter;
   size_t m_facadeCounter;
   bool m_crossContextLoaded;
-  platform::CountryFile m_mentionedCountryFile;
+  platform::CountryFile m_countryFile;
   FilesMappingContainer m_container;
   IRouter::ResultCode m_error;
   MwmSet::MwmHandle m_handle;
