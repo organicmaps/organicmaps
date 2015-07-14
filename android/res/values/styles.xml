@@ -43,13 +43,12 @@
     <item name="colorControlNormal">@color/text_dark_hint</item>
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
-    <item name="android:windowBackground">@android:color/white</item>
     <item name="android:windowTitleStyle">@style/MwmMain.DialogFragment.TitleStyle</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
   </style>
 
   <style name="MwmMain.DialogFragment.TitleStyle" parent="Base.DialogWindowTitle.AppCompat">
-    <item name="android:textAppearance">@style/MwmTextAppearance.Display1</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Title</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
   </style>
 
