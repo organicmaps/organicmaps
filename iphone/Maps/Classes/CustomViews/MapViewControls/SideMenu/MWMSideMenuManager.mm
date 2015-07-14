@@ -16,6 +16,7 @@
 #import "MWMSideMenuButton.h"
 #import "MWMSideMenuButtonDelegate.h"
 #import "MWMSideMenuDelegate.h"
+#import "MWMSideMenuDownloadBadge.h"
 #import "MWMSideMenuManager.h"
 #import "MWMSideMenuView.h"
 #import "SettingsAndMoreVC.h"
@@ -34,6 +35,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property (weak, nonatomic) MapViewController * controller;
 @property (nonatomic) IBOutlet MWMSideMenuButton * menuButton;
 @property (nonatomic) IBOutlet MWMSideMenuView * sideMenu;
+@property (nonatomic) IBOutlet MWMSideMenuDownloadBadge * downloadBadge;
 
 @end
 
@@ -177,6 +179,17 @@ extern NSString * const kAlohalyticsTapEventKey;
   }];
 }
 
+- (void)addDownloadBadgeToView:(UIView<MWMSideMenuDownloadBadgeOwner> *)view
+{
+  int const count = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
+  if (count > 0)
+  {
+    self.downloadBadge.outOfDateCount = count;
+    view.downloadBadge = self.downloadBadge;
+    [self.downloadBadge showAnimatedAfterDelay:framesDuration(10)];
+  }
+}
+
 #pragma mark - Properties
 
 - (void)setState:(MWMSideMenuState)state
@@ -187,11 +200,12 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     case MWMSideMenuStateActive:
       [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"menu"];
-      self.sideMenu.outOfDateCount = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
+      [self addDownloadBadgeToView:self.sideMenu];
       [self showMenu];
       [self.sideMenu setup];
       break;
     case MWMSideMenuStateInactive:
+      [self addDownloadBadgeToView:self.menuButton];
       if (_state == MWMSideMenuStateActive)
       {
         [self.menuButton setHidden:NO animated:NO];

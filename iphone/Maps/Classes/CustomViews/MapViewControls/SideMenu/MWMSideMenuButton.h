@@ -8,11 +8,13 @@
 
 #import "MWMSideMenuButtonDelegate.h"
 #import "MWMSideMenuDelegate.h"
+#import "MWMSideMenuDownloadBadge.h"
 #import <UIKit/UIKit.h>
 
-@interface MWMSideMenuButton : UIButton
+@interface MWMSideMenuButton : UIView <MWMSideMenuDownloadBadgeOwner>
 
 @property (weak, nonatomic) id<MWMSideMenuInformationDisplayProtocol, MWMSideMenuTapProtocol> delegate;
+@property (weak, nonatomic) MWMSideMenuDownloadBadge * downloadBadge;
 
 - (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame is not available")));
 - (instancetype)init __attribute__((unavailable("init is not available")));

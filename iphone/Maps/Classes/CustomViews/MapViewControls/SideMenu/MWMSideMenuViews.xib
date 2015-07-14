@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -7,7 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSideMenuManager">
             <connections>
-                <outlet property="menuButton" destination="cTK-Dt-qgQ" id="g1C-K4-dov"/>
+                <outlet property="downloadBadge" destination="ap1-Ml-Dfy" id="bpF-Z1-YAt"/>
+                <outlet property="menuButton" destination="Mu5-FL-O9o" id="rNf-Pw-Kqq"/>
                 <outlet property="sideMenu" destination="i5M-Pr-FkT" id="p49-Bn-Hkx"/>
             </connections>
         </placeholder>
@@ -111,17 +112,6 @@
                         <action selector="menuActionDownloadMaps" destination="-1" eventType="touchUpInside" id="mRz-aq-RBf"/>
                     </connections>
                 </button>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_counter" id="AIs-PS-5d2" userLabel="Download Badge">
-                    <rect key="frame" x="288" y="376" width="24" height="24"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yPG-HI-11x" userLabel="Download Count">
-                    <rect key="frame" x="288" y="376" width="24" height="24"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="wordWrap" id="mWD-fB-THv" userLabel="Bookmarks Label">
                     <rect key="frame" x="8" y="440" width="240" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -192,8 +182,6 @@
                 <outlet property="bookmarksButton" destination="ZEc-sk-zsN" id="KjM-Yb-Jus"/>
                 <outlet property="bookmarksLabel" destination="mWD-fB-THv" id="gIu-lT-I05"/>
                 <outlet property="dimBackground" destination="4iS-Dh-FAa" id="ww7-Md-QuY"/>
-                <outlet property="downloadBadge" destination="AIs-PS-5d2" id="lUs-mB-j7R"/>
-                <outlet property="downloadCount" destination="yPG-HI-11x" id="HX1-3s-fpq"/>
                 <outlet property="downloadMapsButton" destination="pLL-6e-i3i" id="Wd7-aB-nMt"/>
                 <outlet property="downloadMapsLabel" destination="joI-Q5-Iyo" id="hzF-K0-klD"/>
                 <outlet property="searchButton" destination="rpT-xg-5E2" id="uAa-2k-Vdf"/>
@@ -205,16 +193,49 @@
             </connections>
             <point key="canvasLocation" x="301" y="305"/>
         </view>
-        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="cTK-Dt-qgQ" userLabel="Show Menu Button" customClass="MWMSideMenuButton">
+        <view contentMode="scaleToFill" id="ap1-Ml-Dfy" userLabel="Download Badge" customClass="MWMSideMenuDownloadBadge">
+            <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_counter" id="AIs-PS-5d2" userLabel="Background">
+                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yPG-HI-11x" userLabel="Download Count">
+                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="badgeBackground" destination="AIs-PS-5d2" id="n7J-su-7r7"/>
+                <outlet property="downloadCount" destination="yPG-HI-11x" id="fr5-Z4-OWh"/>
+            </connections>
+            <point key="canvasLocation" x="81" y="467"/>
+        </view>
+        <view contentMode="scaleToFill" id="Mu5-FL-O9o" customClass="MWMSideMenuButton">
             <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_green_menu_1" highlightedImage="btn_green_menu_pressed" id="FPt-Vy-4Lm" userLabel="buttonImage">
+                    <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </imageView>
+            </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <state key="normal" image="btn_green_menu_1">
-                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-            </state>
-            <state key="highlighted" image="btn_green_menu_pressed"/>
-            <point key="canvasLocation" x="48" y="561"/>
-        </button>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="buttonImage" destination="FPt-Vy-4Lm" id="etF-R1-wPc"/>
+            </connections>
+            <point key="canvasLocation" x="65" y="561"/>
+        </view>
     </objects>
     <resources>
         <image name="btn_green_bookmarks" width="56" height="56"/>

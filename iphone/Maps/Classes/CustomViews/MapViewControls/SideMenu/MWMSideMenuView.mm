@@ -7,6 +7,7 @@
 //
 
 #import "MWMMapViewControlsCommon.h"
+#import "MWMSideMenuDownloadBadge.h"
 #import "MWMSideMenuView.h"
 #import "UIKitCategories.h"
 
@@ -25,9 +26,6 @@
 @property (weak, nonatomic) IBOutlet UIButton * settingsLabel;
 @property (weak, nonatomic) IBOutlet UIButton * shareLocationLabel;
 @property (weak, nonatomic) IBOutlet UIButton * searchLabel;
-
-@property (weak, nonatomic) IBOutlet UIImageView * downloadBadge;
-@property (weak, nonatomic) IBOutlet UILabel * downloadCount;
 
 @property (nonatomic) NSArray * buttons;
 @property (nonatomic) NSArray * labels;
@@ -52,12 +50,6 @@
   self.labels = @[self.shareLocationLabel, self.settingsLabel, self.downloadMapsLabel, self.bookmarksLabel, self.searchLabel];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-  // Prevent super call to stop event propagation
-  // [super touchesBegan:touches withEvent:event];
-}
-
 - (void)setup
 {
   self.contentScaleFactor = self.superview.contentScaleFactor;
@@ -73,10 +65,8 @@
   animationIV.animationDuration = framesDuration(animationIV.animationImages.count);
   animationIV.animationRepeatCount = 1;
   [animationIV startAnimating];
-  self.downloadBadge.hidden = YES;
-  self.downloadCount.hidden = YES;
   [self updateMenuBackground];
-  [self updateMenuUI];
+  [self showAnimation];
   [self setNeedsLayout];
 }
 
@@ -149,11 +139,6 @@
   self.bookmarksLabel.maxX = rightBound;
   self.searchLabel.maxX = rightBound;
   
-  self.downloadBadge.maxX = self.downloadMapsButton.maxX;
-  self.downloadCount.maxX = self.downloadMapsButton.maxX;
-  self.downloadBadge.minY = self.downloadMapsButton.minY;
-  self.downloadCount.minY = self.downloadMapsButton.minY;
-  
   m2::PointD const pivot(self.searchButton.minX * self.contentScaleFactor - 2.0 * kViewControlsOffsetToBounds, self.searchButton.maxY * self.contentScaleFactor - kViewControlsOffsetToBounds);
   [self.delegate setRulerPivot:pivot];
   [self.delegate setCopyrightLabelPivot:pivot];
@@ -171,41 +156,14 @@
   }];
 }
 
-- (void)updateMenuUI
-{
-  [self showAnimation];
-  [self performSelector:@selector(updateMenuOutOfDateBadge) withObject:nil afterDelay:framesDuration(10)];
-}
-
-- (void)updateMenuOutOfDateBadge
-{
-  if (self.outOfDateCount == 0)
-    return;
-  CATransform3D const zeroScale = CATransform3DScale(CATransform3DIdentity, 0.0, 0.0, 1.0);
-  self.downloadBadge.layer.transform = zeroScale;
-  self.downloadCount.layer.transform = zeroScale;
-  self.downloadBadge.alpha = 0.0;
-  self.downloadCount.alpha = 0.0;
-  self.downloadBadge.hidden = NO;
-  self.downloadCount.hidden = NO;
-  self.downloadCount.text = @(self.outOfDateCount).stringValue;
-  [UIView animateWithDuration:framesDuration(4) animations:^
-  {
-    self.downloadBadge.layer.transform = CATransform3DIdentity;
-    self.downloadCount.layer.transform = CATransform3DIdentity;
-    self.downloadBadge.alpha = 1.0;
-    self.downloadCount.alpha = 1.0;
-  }];
-}
-
 - (void)showAnimation
 {
-  [self.labels enumerateObjectsUsingBlock:^(UIButton * label, NSUInteger idx, BOOL *stop)
+  [self.labels enumerateObjectsUsingBlock:^(UIButton * label, NSUInteger idx, BOOL * stop)
    {
      label.alpha = 0.0;
    }];
 
-  [self.buttons enumerateObjectsUsingBlock:^(UIButton * button, NSUInteger idx, BOOL *stop)
+  [self.buttons enumerateObjectsUsingBlock:^(UIButton * button, NSUInteger idx, BOOL * stop)
   {
     button.alpha = 0.0;
   }];
@@ -247,6 +205,15 @@
     [button.layer addAnimation:translationAnimation forKey:@"translationAnimation"];
   }
   [CATransaction commit];
+}
+
+#pragma mark - Properties
+
+- (void)setDownloadBadge:(MWMSideMenuDownloadBadge *)downloadBadge
+{
+  _downloadBadge = downloadBadge;
+  if (![downloadBadge.superview isEqual:self.downloadMapsButton])
+    [self.downloadMapsButton addSubview:downloadBadge];
 }
 
 @end

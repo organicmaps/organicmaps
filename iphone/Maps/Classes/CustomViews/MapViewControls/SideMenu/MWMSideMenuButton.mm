@@ -12,6 +12,7 @@
 
 @interface MWMSideMenuButton()
 
+@property (weak, nonatomic) IBOutlet UIImageView * buttonImage;
 @property (nonatomic) CGRect defaultBounds;
 
 @end
@@ -37,9 +38,9 @@
   {
     self.alpha = 1.0;
   }];
-  UIImageView const * const animationIV = self.imageView;
+  UIImageView const * const animationIV = self.buttonImage;
   NSString const * const imageName = @"btn_green_menu_";
-  [self setImage:[UIImage imageNamed:[imageName stringByAppendingString:@"1"]] forState:UIControlStateNormal];
+  self.buttonImage.image = [UIImage imageNamed:[imageName stringByAppendingString:@"1"]];
   static NSUInteger const animationImagesCount = 4;
   NSMutableArray * const animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   for (NSUInteger i = 0; i < animationImagesCount; ++i)
@@ -54,7 +55,7 @@
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  self.bounds = self.defaultBounds;
+  self.buttonImage.frame = self.bounds = self.defaultBounds;
   self.maxY = self.superview.height - 2.0 * kViewControlsOffsetToBounds;
   [self layoutXPosition:self.hidden];
 }
@@ -87,6 +88,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+  self.buttonImage.highlighted = YES;
   UITouch * touch = [touches anyObject];
   if (touch.tapCount > 1)
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
@@ -94,10 +96,11 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+  self.buttonImage.highlighted = NO;
   UITouch * touch = [touches anyObject];
   if (touch.tapCount == 1)
     [self performSelector:@selector(handleSingleTap) withObject:nil afterDelay:0.1];
-  else
+  else if (touch.tapCount > 1)
     [self handleDoubleTap];
 }
 
@@ -127,6 +130,15 @@
     self.hidden = hidden;
     [self layoutXPosition:hidden];
   }
+}
+
+#pragma mark - Properties
+
+- (void)setDownloadBadge:(MWMSideMenuDownloadBadge *)downloadBadge
+{
+  _downloadBadge = downloadBadge;
+  if (![downloadBadge.superview isEqual:self])
+    [self addSubview:downloadBadge];
 }
 
 @end
