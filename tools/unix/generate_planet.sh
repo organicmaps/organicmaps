@@ -319,6 +319,10 @@ fi
 
 if [ "$MODE" == "mwm" ]; then
   putmode "Step 5: Building all MWMs of regions and of the whole world into $TARGET"
+  # First, check for *.mwm.tmp
+  [ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
+  [ -z "$(ls "$INTDIR/tmp" | grep \.mwm\.tmp)" ] && fail "No .mwm.tmp files found."
+  [ -n "$EXIT_ON_ERROR" ] && set -e
   # 3rd pass - do in parallel
   # but separate exceptions for world files to finish them earlier
   PARAMS="--data_path=$TARGET --intermediate_data_path=$INTDIR/ --user_resource_path=$DATA_PATH/ --node_storage=$NODE_STORAGE -generate_geometry -generate_index"
