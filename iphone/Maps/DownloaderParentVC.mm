@@ -49,11 +49,6 @@
     [self performAction:DownloaderActionDownloadAll withSizeCheck:NO];
 }
 
-- (BOOL)allButtonsInActionSheetAreAboutDownloading:(TStatus const)status
-{
-  return status == TStatus::ENotDownloaded;
-}
-
 #pragma mark - Virtual methods
 
 - (void)performAction:(DownloaderAction)action withSizeCheck:(BOOL)check {}
@@ -103,54 +98,27 @@
   return NO;
 }
 
-#define ROUTING_SYMBOL @"\xF0\x9F\x9A\x97"
-
 - (UIActionSheet *)actionSheetToPerformActionOnSelectedMap
 {
   TStatus const status = [self selectedMapStatus];
   TMapOptions const options = [self selectedMapOptions];
-
   [self.actionSheetActions removeAllObjects];
-
-  NSString * title;
-  if ([self allButtonsInActionSheetAreAboutDownloading:status])
-    title = [NSString stringWithFormat:@"%@ %@", L(@"download").uppercaseString, [self actionSheetTitle]];
-  else
-    title = [self actionSheetTitle];
-
-  UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-
+  UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:self.actionSheetTitle delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
   if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
     [self addButtonWithTitle:L(@"zoom_to_country") action:DownloaderActionZoomToCountry toActionSheet:actionSheet];
 
   if (status == TStatus::ENotDownloaded || status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed)
   {
-    NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMap]];
-    NSString * title;
-    if ([self allButtonsInActionSheetAreAboutDownloading:status])
-      title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_map_only"), size];
-    else
-      title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map"), size];
-    [self addButtonWithTitle:title action:DownloaderActionDownloadMap toActionSheet:actionSheet];
-  }
-
-  if (status == TStatus::ENotDownloaded || status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed)
-  {
-    NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]];
-    NSString * title;
-    if ([self allButtonsInActionSheetAreAboutDownloading:status])
-      title = [NSString stringWithFormat:@"%@%@, %@", L(@"downloader_map_and_routing"), ROUTING_SYMBOL, size];
-    else
-      title = [NSString stringWithFormat:@"%@%@, %@", L(@"downloader_download_map_and_routing"), ROUTING_SYMBOL, size];
-
-    [self addButtonWithTitle:title action:DownloaderActionDownloadAll toActionSheet:actionSheet];
+    NSString * fullSize = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]];
+    NSString * onlyMapSize = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMap]];
+    [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map"), fullSize] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
+    [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map_no_routing"), onlyMapSize] action:DownloaderActionDownloadMap toActionSheet:actionSheet];
   }
 
   if (status == TStatus::EOnDiskOutOfDate && options == TMapOptions::EMapWithCarRouting)
   {
     NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]];
-    NSString * title = [NSString stringWithFormat:@"%@%@, %@", L(@"downloader_update_map_and_routing"), ROUTING_SYMBOL, size];
-    [self addButtonWithTitle:title action:DownloaderActionDownloadAll toActionSheet:actionSheet];
+    [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map_and_routing"), size] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
   }
 
   if (status == TStatus::EOnDisk && options == TMapOptions::EMap)
