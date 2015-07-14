@@ -1,21 +1,12 @@
 package com.mapswithme.maps.settings;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
 public class StoragePathActivity extends BaseMwmFragmentActivity
 {
   @Override
-  protected void onCreate(Bundle savedInstanceState)
+  protected String getFragmentClassName()
   {
-    super.onCreate(savedInstanceState);
-
-    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    Fragment fragment = Fragment.instantiate(this, StoragePathFragment.class.getName(), getIntent().getExtras());
-    transaction.replace(android.R.id.content, fragment, "fragment");
-    transaction.commit();
+    return StoragePathFragment.class.getName();
   }
 }

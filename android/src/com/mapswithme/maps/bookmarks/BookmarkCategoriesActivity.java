@@ -1,8 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 
 import com.mapswithme.maps.R;
@@ -16,15 +14,27 @@ public class BookmarkCategoriesActivity extends BaseMwmFragmentActivity
   {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_fragment_and_toolbar);
     final Toolbar toolbar = getToolbar();
     toolbar.setTitle(R.string.bookmark_sets);
     UiUtils.showHomeUpButton(toolbar);
     displayToolbarAsActionBar();
+  }
 
-    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    Fragment fragment = Fragment.instantiate(this, BookmarkCategoriesFragment.class.getName(), getIntent().getExtras());
-    transaction.replace(R.id.fragment_container, fragment, "fragment");
-    transaction.commit();
+  @Override
+  protected int getContentLayoutResId()
+  {
+    return R.layout.activity_fragment_and_toolbar;
+  }
+
+  @Override
+  protected String getFragmentClassName()
+  {
+    return BookmarkCategoriesFragment.class.getName();
+  }
+
+  @Override
+  protected int getFragmentContentResId()
+  {
+    return R.id.fragment_container;
   }
 }

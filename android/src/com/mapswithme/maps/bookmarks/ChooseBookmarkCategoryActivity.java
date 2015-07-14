@@ -2,9 +2,6 @@ package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
@@ -16,14 +13,9 @@ public class ChooseBookmarkCategoryActivity extends BaseMwmFragmentActivity
   public static final int REQUEST_CODE_EDIT_BOOKMARK = 0x2;
 
   @Override
-  protected void onCreate(Bundle savedInstanceState)
+  protected String getFragmentClassName()
   {
-    super.onCreate(savedInstanceState);
-
-    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    Fragment fragment = Fragment.instantiate(this, ChooseBookmarkCategoryFragment.class.getName(), getIntent().getExtras());
-    transaction.replace(android.R.id.content, fragment, "fragment");
-    transaction.commit();
+    return ChooseBookmarkCategoryFragment.class.getName();
   }
 
   @Override

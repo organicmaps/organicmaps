@@ -2,9 +2,6 @@ package com.mapswithme.maps.search;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
@@ -13,14 +10,9 @@ public class SearchActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_QUERY = "search_query";
 
   @Override
-  protected void onCreate(Bundle savedInstanceState)
+  protected String getFragmentClassName()
   {
-    super.onCreate(savedInstanceState);
-
-    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    Fragment fragment = Fragment.instantiate(this, SearchFragment.class.getName(), getIntent().getExtras());
-    transaction.replace(android.R.id.content, fragment, "fragment");
-    transaction.commit();
+    return SearchFragment.class.getName();
   }
 
   public static void startForSearch(Context context, String query)
