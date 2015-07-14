@@ -792,7 +792,7 @@
     ja = WiFi接続が見つかりません。GPRS、EDGE、3G等の携帯電話回線で%@をダウンロードしますか？
     ko = WiFi 연결이 감지되지 않았습니다. %@를 다운로드하기 위해 휴대 자료(GPRS, EDGE 혹은 3G)를 사용하시겠습니까?
     nl = Geen WiFi verbinding gedetecteerd. Wilt u mobiele data (GPRS, EDGE of 3G) gebruiken om %@ te downloaden?
-    ru = Нет WiFi соединения. Вы хотите скачать %@ через сотового оператора (GPRS, EDGE или 3G)?
+    ru = Нет WiFi соединения. Вы хотите загрузить %@ через сотового оператора (GPRS, EDGE или 3G)?
     uk = Відсутнє WiFi з'єднання. Ви бажаєте завантажити %@ через стільникового оператора (GPRS, EDGE або 3G)?
     zh-Hant = 未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE 或 3G)來下載嗎 %@？
     pl = Nie wykryto połączenia z siecią WiFi. Czy chciałbyś skorzystać z trybu sieci danych (GPRS, EDGE lub 3G), aby pobrać %@?
@@ -1426,7 +1426,7 @@
     cs = Stáhnout mapu\n(^ ^)
     ar = (^ ^)\nتحميل الخريطة
     hu = Térkép letöltése\n(^ ^)
-    ru = Скачать карту\n(^ ^)
+    ru = Загрузить карту\n(^ ^)
     fr = Téléchargez la carte\n(^ ^)
     id = Unduh Peta\n(^ ^)
     vi = Tải xuống Bản đồ\n(^ ^)
@@ -1457,7 +1457,7 @@
     cs = Stáhnout mapy\nbez směrování (^ ^)
     ar = (^ ^)\nتنزيل خريطة بدون تحديد خط السير
     hu = Térkép letöltése\nútvonal nélkül (^ ^)
-    ru = Скачать карту\nбез маршрутов (^ ^)
+    ru = Загрузить карту\nбез маршрутов (^ ^)
     fr = Télécharger la carte\nsans itinéraire (^ ^)
     id = Unduh peta tanpa\nperutean (^ ^)
     vi = Tải về bản đồ không\ncó chỉ đường (^ ^)
@@ -5086,7 +5086,7 @@
   [become_a_pro]
     tags = tizen
     en = Upgrade
-    ru = Скачать PRO
+    ru = Загрузить PRO
     uk = Купити PRO
     es = Obtener PRO
     pt = Obter PRO
@@ -7163,7 +7163,7 @@
     zh-Hant = 下載地圖 + 佈置路線
     cs = Stáhnout mapu + trasy
     ar = تنزيل الخريطة + تحديد المسار
-    ru = Скачать карту + маршруты
+    ru = Загрузить карту + маршруты
     uk = Завантажити карту + маршрути
     id = Untuh Peta + Rute
     vi = Tải xuống Bản đồ + Định tuyến
@@ -7195,7 +7195,7 @@
     zh-Hant = 下載路線
     cs = Stáhnout trasy
     ar = تنزيل تحديد المسار
-    ru = Скачать маршруты
+    ru = Загрузить маршруты
     uk = Завантажити маршрути
     id = Unduh Rute
     vi = Tải xuống Định tuyến
@@ -7239,66 +7239,65 @@
   [downloader_download_map]
     tags = ios,android,tizen
     comment = Context menu item for downloader.
-    en = Download Map
+    en = Download map
     th = ดาวน์โหลดแผนที่
-    uk = Завантажити мапу
-    tr = Haritayı İndir
-    es = Descargar mapa
-    sv = Ladda ner karta
+    uk = Завантажити карту
+    tr = Haritayı indir
+    es = Descargar el mapa
+    sv = Ladda ner kartan
     pl = Pobierz mapę
-    pt = Descarregar Mapa
-    sk = Stiahnite si Mapu
+    pt = Baixar o mapa
+    sk = Stiahnuť mapu
     ja = 地図をダウンロード
     ko = 지도 다운로드
-    he = הורידו מפה
-    it = Scarica Map
+    he = הורידו את המפה
+    it = Scarica mappa
     de = Karte herunterladen
-    da = Download kort
-    nl = Kaart downloaden
+    da = Download kortet
+    nl = Download de kaart
     zh-Hans = 下载地图
     zh-Hant = 下載地圖
     cs = Stáhnout mapu
-    ar = تحميل الخريطة
-    hu = Térkép letöltése
-    ru = Скачать карту
-    fr = Téléchargez la carte
-    he = הורידו מפה
-    id = Unduh Peta
-    vi = Tải xuống Bản đồ
-    ro = Descărcare hartă
-    nb = Last ned kart
+    ar = تنزيل الخريطة
+    hu = Töltsd le a térképet
+    ru = Загрузить карту
+    fr = Télécharger la carte
+    id = Unduh peta
+    vi = Tải về bản đồ
+    ro = Descărcați harta
+    nb = Last ned kartet
     fi = Lataa kartta
 
   [downloader_download_map_no_routing]
     tags = ios,android
-    ru = Скачать карту без автомобильных маршрутов
+    ru = Загрузить карту без маршрутов
     en = Download map without routing
-    fr = Télécharger la carte sans créer l'itinéraire
-    da = Download kort uden ruteanvisninger
-    id = Unduh peta tanpa petunjuk perutean
-    ko = 경로 안내 없이 지도 다운로드
-    sv = Ladda ned kartan utan väginstruktioner
-    tr = Haritayı güzergah talimatları olmadan indirin
-    uk = Завантажити карту без автомобільних маршрутів
-    vi = Tải về bản đồ mà không cần hướng dẫn tuyến đường
-    hu = Töltse le a térképet útvonal-instrukciók nélkül
-    de = Karte ohne Routenanleitungen herunterladen
-    fi = Lataa kartta ilman reittiohjeita
-    cs = Stáhnout mapu bez pokynů navigace
-    it = Scarica la mappa senza le istruzioni di itinerario
-    nb = Last ned kart uten ruteinstruksjoner
-    zh-Hant = 下載無路線的地圖
-    zh-Hans = 下载不含路线指示的地图
-    th = ดาวน์โหลดแผนที่โดยเว้นคำแนะนำเส้นทาง
-    ja = ルート情報のないマップをダウンローする
-    ro = Descărcarea hărţii fără instrucţiuni privind traseul
-    ar = تنزيل الخريطة دون إرشادات التوجيه
-    he = הורד את המפה ללא הנחיות יצירת המסלול
-    sk = Prevezmite si mapu bez pokynov týkajúcich sa trasy
-    es =Descargar mapa sin instrucciones de ruta
-    pl = Pobierz mapę bez pliku wyznaczania trasy
-    nl = Download kaart zonder route-instructies
-    pt = Baixar mapa sem instruções de rota
+    fr = Télécharger la carte sans itinéraire
+    da = Download kort uden ruteplanlægning
+    id = Unduh peta tanpa perutean
+    ko = 라우팅없이 지도 다운로드
+    sv = Hämta karta utan rutter
+    tr = Haritayı rota olmadan indirin
+    uk = Завантажити карту без маршрутів
+    vi = Tải về bản đồ không có chỉ đường
+    hu = Térkép letöltése útvonal nélkül
+    de = Karte ohne Routenplanung herunterladen
+    fi = Lataa kartta ilman reititystä
+    cs = Stáhnout mapy bez směrování
+    it = Scarica mappa senza percorsi
+    nb = Last ned kart uten veiviserfunksjon
+    zh-Hant = 下載不帶路線的地圖
+    zh-Hans = 下载不带路线的地图
+    th = ดาวน์โหลดแผนที่โดยไม่กำหนดเส้นทาง
+    ja = ルートなしで地図をダウンロード
+    ro = Descărcare hartă fără rutare
+    ar = تنزيل خريطة بدون تحديد خط السير
+    he = הורד מפה בלי לקבוע מסלול
+    sk = Stiahnite si mapu bez smerovania
+    es = Descargar mapa sin ruta
+    pl = Pobierz mapę bez oznaczania tras
+    nl = Download kaart zonder routeplanning
+    pt = Baixar mapa sem roteamento
 
   [routing_go]
     tags = ios,android,tizen
@@ -12873,7 +12872,7 @@
 
   [dialog_routing_download_and_build_cross_route]
     tags = ios,android
-    ru = Скачать карту и построить более оптимальный маршрут с пересечением границы карты?
+    ru = Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?
     en = Would you like to download the map and create a more optimal route spanning more than one map?
     fr = Voulez-vous télécharger la carte et créer un itinéraire plus direct s'étendant sur plus d'une carte?
     da = Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?
@@ -12904,7 +12903,7 @@
 
   [dialog_routing_download_cross_route]
     tags = ios,android
-    ru = Для построения более оптимального маршрута с пересечением границы требуется скачать карту.
+    ru = Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.
     en = Download the map to create a more optimal route that crosses the edge of this map.
     fr = Téléchargez la carte pour créer un itinéraire plus direct sortant du cadre de cette carte.
     da = Download kortet for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.
@@ -13059,3 +13058,34 @@
     pl = Wybierz inną mapę
     nl = Selecteer een andere kaart
     pt = Selecionar Outro Mapa
+
+  [search_vehicle_routes]
+    tags = ios,android
+    ru = Автомобильные маршруты
+    en = Driving directions
+    fr = Indications routières
+    da = Kørselsvejledning
+    id = Petunjuk arah mengemudi
+    ko = 운전 방향
+    sv = Vägbeskrivning
+    tr = Trafik yönleri
+    uk = Напрямки руху
+    vi = Hướng dẫn lái xe
+    hu = Útvonaltervezés
+    de = Fahranweisungen
+    fi = Ajo-ohjeet
+    cs = Pokyny pro řízení
+    it = Indicazioni stradali
+    nb = Veibeskrivelser
+    zh-Hant = 駕車路線
+    zh-Hans = 驾车路线
+    th = เส้นทางการขับรถ
+    ja = 道案内
+    ro = Indicații rutiere
+    ar = اتجاهات القيادة
+    he = הוראות נסיעה
+    sk = Smer jazdy
+    es = Direcciones de conducción
+    pl = Wskazówki dojazdu
+    nl = Routebeschrijving
+    pt = Instruções de direção
