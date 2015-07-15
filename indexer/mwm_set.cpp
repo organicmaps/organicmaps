@@ -137,12 +137,10 @@ pair<MwmSet::MwmHandle, MwmSet::RegResult> MwmSet::RegisterImpl(LocalCountryFile
   if (!GetVersion(localFile, *info))
     return make_pair(MwmHandle(), RegResult::UnsupportedFileFormat);
 
-  info->SetStatus(MwmInfo::STATUS_REGISTERED);
   info->m_file = localFile;
-  string const name = localFile.GetCountryName();
+  info->SetStatus(MwmInfo::STATUS_REGISTERED);
+  m_info[localFile.GetCountryName()].push_back(info);
 
-  vector<shared_ptr<MwmInfo>> & infos = m_info[name];
-  infos.push_back(info);
   return make_pair(GetLock(MwmId(info)), RegResult::Success);
 }
 
@@ -150,8 +148,8 @@ bool MwmSet::DeregisterImpl(MwmId const & id)
 {
   if (!id.IsAlive())
     return false;
-  shared_ptr<MwmInfo> const & info = id.GetInfo();
 
+  shared_ptr<MwmInfo> const & info = id.GetInfo();
   if (info->m_numRefs == 0)
   {
     info->SetStatus(MwmInfo::STATUS_DEREGISTERED);
@@ -160,6 +158,7 @@ bool MwmSet::DeregisterImpl(MwmId const & id)
     OnMwmDeregistered(info->GetLocalFile());
     return true;
   }
+
   info->SetStatus(MwmInfo::STATUS_MARKED_TO_DEREGISTER);
   return false;
 }
@@ -210,13 +209,16 @@ MwmSet::TMwmValueBasePtr MwmSet::LockValueImpl(MwmId const & id)
 {
   CHECK(id.IsAlive(), (id));
   shared_ptr<MwmInfo> info = id.GetInfo();
-  if (!info->IsUpToDate())
-    return TMwmValueBasePtr();
+
+  // It's better to return valid "value pointer" even for "out-of-date" files,
+  // because they can be locked for a long time by other algos.
+  //if (!info->IsUpToDate())
+  //  return TMwmValueBasePtr();
 
   ++info->m_numRefs;
 
   // Search in cache.
-  for (CacheType::iterator it = m_cache.begin(); it != m_cache.end(); ++it)
+  for (auto it = m_cache.begin(); it != m_cache.end(); ++it)
   {
     if (it->first == id)
     {
@@ -249,6 +251,9 @@ void MwmSet::UnlockValueImpl(MwmId const & id, TMwmValueBasePtr p)
 
   if (info->IsUpToDate())
   {
+    /// @todo Probably, it's better to store only "unique by id" free caches here.
+    /// But it's no obvious if we have many threads working with the single mwm.
+
     m_cache.push_back(make_pair(id, p));
     if (m_cache.size() > m_cacheSize)
     {
