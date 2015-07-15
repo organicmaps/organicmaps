@@ -451,20 +451,23 @@ static BOOL keyboardLoaded = NO;
   {
     NSString * secondSentence = @"";
     // Country in the viewport should be downloaded
-    if (!f.IsCountryLoaded(f.GetViewportCenter()))
+    m2::PointD const viewportCenter = f.GetViewportCenter();
+    if (!f.IsCountryLoaded(viewportCenter))
     {
       secondSentence = [NSString stringWithFormat:L(@"download_viewport_country_to_search"),
-                        [NSString stringWithUTF8String:f.GetCountryName(f.GetViewportCenter()).c_str()]];
+                        [NSString stringWithUTF8String:f.GetCountryName(viewportCenter).c_str()]];
     }
     else
     {
-      // Country in the current location should be downloaded
-      CLLocation * lastLocation = [[MapsAppDelegate theApp].m_locationManager lastLocation];
-      if (lastLocation && !f.IsCountryLoaded(MercatorBounds::FromLatLon(lastLocation.coordinate.latitude,
-                                                                        lastLocation.coordinate.longitude)))
+      LocationManager * locationManager = [MapsAppDelegate theApp].m_locationManager;
+      double lat, lon;
+      if ([locationManager getLat:lat Lon:lon])
       {
-        secondSentence = [NSString stringWithFormat:L(@"download_location_country"),
-                          [NSString stringWithUTF8String:f.GetCountryName(f.GetViewportCenter()).c_str()]];
+        m2::PointD const mercatorLocation = MercatorBounds::FromLatLon(lat, lon);
+        if (!f.IsCountryLoaded(mercatorLocation)) {
+          secondSentence = [NSString stringWithFormat:L(@"download_location_country"),
+                            [NSString stringWithUTF8String:f.GetCountryName(mercatorLocation).c_str()]];
+        }
       }
     }
 
