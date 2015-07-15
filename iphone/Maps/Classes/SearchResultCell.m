@@ -8,7 +8,6 @@ static CGFloat const kOffset = 16.;
 
 @interface SearchResultCell ()
 
-@property (nonatomic) UILabel * titleLabel;
 @property (nonatomic) UILabel * typeLabel;
 @property (nonatomic) UILabel * subtitleLabel;
 @property (nonatomic) UILabel * distanceLabel;
@@ -20,41 +19,35 @@ static CGFloat const kOffset = 16.;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-
-  [self.contentView addSubview:self.titleLabel];
-  [self.contentView addSubview:self.typeLabel];
-  [self.contentView addSubview:self.subtitleLabel];
-  [self.contentView addSubview:self.distanceLabel];
+  if (self)
+  {
+    [self.contentView addSubview:self.titleLabel];
+    [self.contentView addSubview:self.typeLabel];
+    [self.contentView addSubview:self.subtitleLabel];
+    [self.contentView addSubview:self.distanceLabel];
+  }
 
   return self;
 }
 
 #define DISTANCE_FONT [UIFont regular14]
 #define TYPE_FONT [UIFont light12]
-#define TITLE_FONT [UIFont regular16]
-#define TITLE_BOLD_FONT [UIFont bold16]
 #define SUBTITLE_FONT [UIFont light12]
 #define SPACE 4
 
-- (void)setTitle:(NSString *)title selectedRanges:(NSArray *)selectedRanges
+- (void)configTitleLabel
 {
-  if (!title)
-    title = @"";
-
-  NSMutableAttributedString * attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
-  [attributedTitle addAttributes:[self unselectedTitleAttributes] range:NSMakeRange(0, [title length])];
-  NSDictionary * selectedTitleAttributes = [self selectedTitleAttributes];
-  for (NSValue * range in selectedRanges)
-    [attributedTitle addAttributes:selectedTitleAttributes range:[range rangeValue]];
-
-  self.titleLabel.attributedText = attributedTitle;
+  [super configTitleLabel];
+  self.titleLabel.numberOfLines = 0;
+  self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+  self.titleLabel.textColor = [UIColor blackPrimaryText];
 }
 
 - (NSDictionary *)selectedTitleAttributes
 {
   static NSDictionary * selectedAttributes;
   if (!selectedAttributes)
-    selectedAttributes = @{NSForegroundColorAttributeName : [UIColor blackPrimaryText], NSFontAttributeName : TITLE_BOLD_FONT};
+    selectedAttributes = @{NSForegroundColorAttributeName : [UIColor blackPrimaryText], NSFontAttributeName : [UIFont bold16]};
   return selectedAttributes;
 }
 
@@ -62,7 +55,7 @@ static CGFloat const kOffset = 16.;
 {
   static NSDictionary * unselectedAttributes;
   if (!unselectedAttributes)
-    unselectedAttributes = @{NSForegroundColorAttributeName : [UIColor blackPrimaryText], NSFontAttributeName : TITLE_FONT};
+    unselectedAttributes = @{NSForegroundColorAttributeName : [UIColor blackPrimaryText], NSFontAttributeName : [UIFont regular16]};
   return unselectedAttributes;
 }
 
@@ -99,7 +92,7 @@ static CGFloat const kOffset = 16.;
 + (CGSize)titleSizeWithTitle:(NSString *)title viewWidth:(CGFloat)width typeSize:(CGSize)typeSize
 {
   CGSize const titleDrawSize = CGSizeMake(width - typeSize.width - 2 * kOffset - SPACE, 300);
-  return [title sizeWithDrawSize:titleDrawSize font:TITLE_BOLD_FONT];
+  return [title sizeWithDrawSize:titleDrawSize font:[UIFont bold16]];
 }
 
 + (CGFloat)cellHeightWithTitle:(NSString *)title type:(NSString *)type subtitle:(NSString *)subtitle distance:(NSString *)distance viewWidth:(CGFloat)width
@@ -146,20 +139,6 @@ static CGFloat const kOffset = 16.;
     _subtitleLabel.font = SUBTITLE_FONT;
   }
   return _subtitleLabel;
-}
-
-- (UILabel *)titleLabel
-{
-  if (!_titleLabel)
-  {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _titleLabel.backgroundColor = [UIColor clearColor];
-    _titleLabel.numberOfLines = 0;
-    _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _titleLabel.font = TITLE_FONT;
-    _titleLabel.textColor = [UIColor blackPrimaryText];
-  }
-  return _titleLabel;
 }
 
 @end

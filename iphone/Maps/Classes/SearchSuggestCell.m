@@ -6,7 +6,6 @@
 
 @interface SearchSuggestCell ()
 
-@property (nonatomic) UILabel * titleLabel;
 @property (nonatomic) UIImageView * iconImageView;
 
 @end
@@ -16,10 +15,36 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+  if (self)
+  {
+    [self.contentView addSubview:self.titleLabel];
+    [self.contentView addSubview:self.iconImageView];
+  }
 
-  [self.contentView addSubview:self.titleLabel];
-  [self.contentView addSubview:self.iconImageView];
   return self;
+}
+
+- (void)configTitleLabel
+{
+  [super configTitleLabel];
+  self.titleLabel.frame = CGRectMake(0., INTEGRAL(8.5), 0, 24);
+  self.titleLabel.textColor = [UIColor primary];
+}
+
+- (NSDictionary *)selectedTitleAttributes
+{
+  static NSDictionary * selectedAttributes;
+  if (!selectedAttributes)
+    selectedAttributes = @{NSForegroundColorAttributeName : [UIColor primary], NSFontAttributeName : [UIFont bold16]};
+  return selectedAttributes;
+}
+
+- (NSDictionary *)unselectedTitleAttributes
+{
+  static NSDictionary * unselectedAttributes;
+  if (!unselectedAttributes)
+    unselectedAttributes = @{NSForegroundColorAttributeName : [UIColor primary], NSFontAttributeName : [UIFont regular16]};
+  return unselectedAttributes;
 }
 
 - (void)layoutSubviews
@@ -40,19 +65,6 @@
 + (CGFloat)cellHeight
 {
   return 44;
-}
-
-- (UILabel *)titleLabel
-{
-  if (!_titleLabel)
-  {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0., INTEGRAL(8.5), 0, 24)];
-    _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    _titleLabel.backgroundColor = [UIColor clearColor];
-    _titleLabel.textColor = [UIColor primary];
-    _titleLabel.font = [UIFont regular16];
-  }
-  return _titleLabel;
 }
 
 - (UIImageView *)iconImageView

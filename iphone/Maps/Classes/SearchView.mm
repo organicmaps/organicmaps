@@ -525,6 +525,20 @@ static BOOL keyboardLoaded = NO;
   self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
 }
 
+- (void)setCellAttributedTitle:(SearchCell *)cell result:(search::Result const &)result
+{
+  size_t const rangesCount = result.GetHighlightRangesCount();
+  NSMutableArray * ranges = [NSMutableArray arrayWithCapacity:rangesCount];
+  for (size_t i = 0; i < rangesCount; i++)
+  {
+    pair<uint16_t, uint16_t> const & pairRange = result.GetHighlightRange(i);
+    NSRange range = NSMakeRange(pairRange.first, pairRange.second);
+    [ranges addObject:[NSValue valueWithRange:range]];
+  }
+  NSString * title = [NSString stringWithUTF8String:result.GetString()];
+  [cell setTitle:title selectedRanges:ranges];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell * cell;
@@ -534,9 +548,6 @@ static BOOL keyboardLoaded = NO;
     case CellTypeCategory:
     {
       SearchCategoryCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchCategoryCell className]];
-      if (!customCell) // only for iOS 5
-        customCell = [[SearchCategoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchCategoryCell className]];
-
       customCell.titleLabel.text = L(self.categoriesNames[indexPath.row]);
       NSString * iconName = [NSString stringWithFormat:@"CategoryIcon%@", [self.categoriesNames[indexPath.row] capitalizedString]];
       customCell.iconImageView.image = [UIImage imageNamed:iconName];
@@ -546,9 +557,6 @@ static BOOL keyboardLoaded = NO;
     case CellTypeShowOnMap:
     {
       SearchShowOnMapCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchShowOnMapCell className]];
-      if (!customCell) // only for iOS 5
-        customCell = [[SearchShowOnMapCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchShowOnMapCell className]];
-
       customCell.titleLabel.text = L(@"search_on_map");
       cell = customCell;
       break;
@@ -556,20 +564,9 @@ static BOOL keyboardLoaded = NO;
     case CellTypeResult:
     {
       SearchResultCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchResultCell className]];
-      if (!customCell) // only for iOS 5
-        customCell = [[SearchResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchResultCell className]];
-
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       search::Result const & result = [self.wrapper resultWithPosition:position];
-      NSMutableArray * ranges = [[NSMutableArray alloc] init];
-      for (size_t i = 0; i < result.GetHighlightRangesCount(); i++)
-      {
-        pair<uint16_t, uint16_t> const & pairRange = result.GetHighlightRange(i);
-        NSRange range = NSMakeRange(pairRange.first, pairRange.second);
-        [ranges addObject:[NSValue valueWithRange:range]];
-      }
-      NSString * title = [NSString stringWithUTF8String:result.GetString()];
-      [customCell setTitle:title selectedRanges:ranges];
+      [self setCellAttributedTitle:customCell result:result];
       customCell.subtitleLabel.text = [NSString stringWithUTF8String:result.GetRegionString()];
       customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinIcon"];
       customCell.distanceLabel.text = self.wrapper.distances[@(position)];
@@ -580,13 +577,9 @@ static BOOL keyboardLoaded = NO;
     case CellTypeSuggest:
     {
       SearchSuggestCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchSuggestCell className]];
-      if (!customCell) // only for iOS 5
-        customCell = [[SearchSuggestCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchSuggestCell className]];
-
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       search::Result const & result = [self.wrapper resultWithPosition:position];
-
-      customCell.titleLabel.text = [NSString stringWithUTF8String:result.GetString()];
+      [self setCellAttributedTitle:customCell result:result];
       cell = customCell;
       break;
     }
