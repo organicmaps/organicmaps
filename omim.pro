@@ -23,7 +23,7 @@ SUBDIRS = 3party \
           stats \
           indexer \
           platform \
-          routing routing/routing_tests \
+          routing \
           geometry/geometry_tests \
           platform/platform_tests \
           anim \
@@ -36,7 +36,8 @@ SUBDIRS = 3party \
           storage storage/storage_tests \
           search search/search_tests \
           drape_frontend drape_frontend/drape_frontend_tests \
-          map map/map_tests map/benchmark_tool map/mwm_tests\
+          map map/map_tests map/benchmark_tool map/mwm_tests \
+          routing/routing_tests \
           generator generator/generator_tests \
           generator/generator_tool \
           indexer/indexer_tests \
