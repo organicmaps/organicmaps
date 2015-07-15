@@ -64,7 +64,7 @@
 
 + (MWMAlert *)crossCountryAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
 {
-  return [MWMDownloadTransitMapAlert crossCountryAlertWithCountries:countries routes:routes];
+  return [MWMDownloadTransitMapAlert crossCountryAlertWithMaps:countries routes:routes];
 }
 
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
@@ -86,8 +86,9 @@
       return [MWMDefaultAlert pointsInDifferentMWMAlert];
     case routing::IRouter::RouteNotFound:
     case routing::IRouter::InconsistentMWMandRoute:
-    case routing::IRouter::RouteFileNotExist:
       return [MWMDefaultAlert routeNotFoundAlert];
+    case routing::IRouter::RouteFileNotExist:
+      return [MWMDefaultAlert routeFileNotExistAlert];
     case routing::IRouter::InternalError:
       return [MWMDefaultAlert internalErrorAlert];
     case routing::IRouter::Cancelled:

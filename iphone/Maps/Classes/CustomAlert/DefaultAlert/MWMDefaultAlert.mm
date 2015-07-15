@@ -36,6 +36,11 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 @implementation MWMDefaultAlert
 
++ (instancetype)routeFileNotExistAlert
+{
+  return [self defaultAlertWithTitle:@"dialog_routing_download_files" message:@"dialog_routing_download_and_update_all" rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+}
+
 + (instancetype)routeNotFoundAlert
 {
   NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_cant_build_route"), L(@"dialog_routing_change_start_or_end")];
@@ -76,7 +81,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)internalErrorAlert
 {
   NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_application_error"), L(@"dialog_routing_try_again")];
-  return [self defaultAlertWithTitle:@"dialog_routing_system_errorr" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+  return [self defaultAlertWithTitle:@"dialog_routing_system_error" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
 + (instancetype)noCurrentPositionAlert
@@ -124,7 +129,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   else
   {
     alert.leftButton.hidden = YES;
-    alert.rightButtonWidth.constant = alert.width;
+    alert.rightButtonWidth.constant = [alert.subviews.firstObject width];
   }
   return alert;
 }

@@ -105,8 +105,8 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 - (IBAction)routeTap
 {
-  [self.placePage route];
   [self startActivityIndicator];
+  [self.placePage route];
 }
 
 - (void)startActivityIndicator
@@ -123,6 +123,7 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 {
   [self.indicatior removeFromSuperview];
   self.indicatior = nil;
+  self.routeButton.hidden = NO;
 }
 
 @end

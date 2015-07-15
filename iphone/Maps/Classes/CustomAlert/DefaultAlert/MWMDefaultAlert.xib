@@ -49,6 +49,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jAg-cp-4Ms" userLabel="left">
                             <rect key="frame" x="0.0" y="94" width="140" height="44"/>
                             <constraints>
+                                <constraint firstAttribute="width" constant="140" id="4bW-b0-naB"/>
                                 <constraint firstAttribute="height" constant="44" id="RRQ-jI-El3"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -97,13 +98,12 @@
                         <constraint firstItem="Grl-z5-2cE" firstAttribute="top" secondItem="zso-DD-6SG" secondAttribute="top" constant="20" id="5iy-IL-Non"/>
                         <constraint firstAttribute="bottom" secondItem="RSB-i6-pEP" secondAttribute="bottom" id="7PX-qC-iuH"/>
                         <constraint firstItem="jAg-cp-4Ms" firstAttribute="top" secondItem="f8D-qe-39W" secondAttribute="bottom" id="BZX-XF-Cwq"/>
-                        <constraint firstItem="RSB-i6-pEP" firstAttribute="leading" secondItem="5H4-oD-Dex" secondAttribute="trailing" id="D45-0d-QN6"/>
                         <constraint firstItem="RSB-i6-pEP" firstAttribute="top" secondItem="f8D-qe-39W" secondAttribute="bottom" id="FV6-rs-AaS"/>
                         <constraint firstAttribute="width" constant="280" id="H9k-u4-6Xx"/>
                         <constraint firstAttribute="centerX" secondItem="0D6-oV-Lio" secondAttribute="centerX" id="HOk-vG-jd5"/>
-                        <constraint firstItem="RSB-i6-pEP" firstAttribute="leading" secondItem="jAg-cp-4Ms" secondAttribute="trailing" id="LJ7-DK-Avr"/>
                         <constraint firstItem="0D6-oV-Lio" firstAttribute="top" secondItem="Grl-z5-2cE" secondAttribute="bottom" constant="12" id="QBn-bf-ANB"/>
                         <constraint firstAttribute="bottom" secondItem="jAg-cp-4Ms" secondAttribute="bottom" id="QhB-d8-4KJ"/>
+                        <constraint firstItem="RSB-i6-pEP" firstAttribute="leading" secondItem="5H4-oD-Dex" secondAttribute="trailing" id="SbQ-E0-P7N"/>
                         <constraint firstAttribute="centerX" secondItem="f8D-qe-39W" secondAttribute="centerX" id="TuK-ia-Gl9"/>
                         <constraint firstItem="f8D-qe-39W" firstAttribute="top" secondItem="0D6-oV-Lio" secondAttribute="bottom" constant="20" id="XWN-lh-LsI"/>
                         <constraint firstAttribute="bottom" secondItem="5H4-oD-Dex" secondAttribute="bottom" constant="0.5" id="el1-Te-FrO"/>

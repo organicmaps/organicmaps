@@ -11,6 +11,7 @@
 @interface MWMDefaultAlert : MWMAlert
 
 + (instancetype)routeNotFoundAlert;
++ (instancetype)routeFileNotExistAlert;
 + (instancetype)endPointNotFoundAlert;
 + (instancetype)startPointNotFoundAlert;
 + (instancetype)internalErrorAlert;

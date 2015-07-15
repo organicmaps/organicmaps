@@ -95,7 +95,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)stopBuildingRoute
 {
-  self.actionBar.routeButton.hidden = NO;
   [self.actionBar dismissActivityIndicatior];
 }
 

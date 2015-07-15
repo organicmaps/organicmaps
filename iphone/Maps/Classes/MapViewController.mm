@@ -761,7 +761,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
 {
-  if (countries.size())
+  if (countries.size() || routes.size())
   {
     if (type == routing::IRouter::NeedMoreMaps)
       [self.alertController presentCrossCountryAlertWithCountries:countries routes:routes];
