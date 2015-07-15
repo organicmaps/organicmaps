@@ -51,6 +51,7 @@ private:
   void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
                       m2::PointD const & finalPoint,
                       IRouter::ResultCode resultCode,
+                      Route const & route,
                       double elapsedSec);
   void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
                       m2::PointD const & finalPoint,

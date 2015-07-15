@@ -169,7 +169,7 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
 
     LogCode(code, elapsedSec);
 
-    SendStatistics(startPoint, startDirection, finalPoint, code, elapsedSec);
+    SendStatistics(startPoint, startDirection, finalPoint, code, route, elapsedSec);
   }
   catch (RootException const & e)
   {
@@ -203,7 +203,7 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
   {
     double const elapsedSec = timer.ElapsedSeconds();
     LogCode(IRouter::NeedMoreMaps, elapsedSec);
-    SendStatistics(startPoint, startDirection, finalPoint, IRouter::NeedMoreMaps, elapsedSec);
+    SendStatistics(startPoint, startDirection, finalPoint, IRouter::NeedMoreMaps, route, elapsedSec);
     GetPlatform().RunOnGuiThread(bind(callback, route, IRouter::NeedMoreMaps));
   }
 }
@@ -211,6 +211,7 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
 void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
                                  m2::PointD const & finalPoint,
                                  IRouter::ResultCode resultCode,
+                                 Route const & route,
                                  double elapsedSec)
 {
   if (nullptr == m_routingStatisticsFn)
@@ -219,6 +220,9 @@ void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const
   map<string, string> statistics = PrepareStatisticsData(m_router->GetName(), startPoint, startDirection, finalPoint);
   statistics.emplace("result", ToString(resultCode));
   statistics.emplace("elapsed", strings::to_string(elapsedSec));
+
+  if (IRouter::NoError == resultCode)
+    statistics.emplace("distance", strings::to_string(route.GetDistance()));
 
   m_routingStatisticsFn(statistics);
 }
