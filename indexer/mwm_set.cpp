@@ -8,6 +8,8 @@
 #include "base/stl_add.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/sstream.hpp"
+
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
@@ -22,6 +24,16 @@ MwmInfo::MwmTypeT MwmInfo::GetType() const
     return WORLD;
   ASSERT_EQUAL(m_maxScale, scales::GetUpperScale(), ());
   return COASTS;
+}
+
+string DebugPrint(MwmSet::MwmId const & id)
+{
+  ostringstream ss;
+  if (id.m_info.get())
+    ss << "MwmId [" << id.m_info->GetCountryName() << "]";
+  else
+    ss << "MwmId [invalid]";
+  return ss.str();
 }
 
 MwmSet::MwmHandle::MwmHandle() : m_mwmSet(nullptr), m_mwmId(), m_value(nullptr) {}

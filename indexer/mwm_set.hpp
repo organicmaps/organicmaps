@@ -10,13 +10,13 @@
 #include "base/macros.hpp"
 
 #include "std/deque.hpp"
-#include "std/iostream.hpp"
 #include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
+
 
 /// Information about stored mwm.
 class MwmInfo
@@ -97,14 +97,7 @@ public:
     inline bool operator!=(MwmId const & rhs) const { return !(*this == rhs); }
     inline bool operator<(MwmId const & rhs) const { return GetInfo() < rhs.GetInfo(); }
 
-    friend ostream & operator<<(ostream & os, MwmId const & id)
-    {
-      if (id.m_info.get())
-        os << "MwmId [" << id.m_info->GetCountryName() << "]";
-      else
-        os << "MwmId [invalid]";
-      return os;
-    }
+    friend string DebugPrint(MwmId const & id);
 
   private:
     shared_ptr<MwmInfo> m_info;

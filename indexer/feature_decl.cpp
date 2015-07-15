@@ -6,6 +6,6 @@
 string DebugPrint(FeatureID const & id)
 {
   ostringstream ss;
-  ss << "{ " << id.m_mwmId << ", " << id.m_ind << " }";
+  ss << "{ " << DebugPrint(id.m_mwmId) << ", " << id.m_ind << " }";
   return ss.str();
 }
