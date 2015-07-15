@@ -44,7 +44,12 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentLocationAlert
 {
-  [self displayAlert:MWMAlert.locationAlert];
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    // @TODO Remove dispatch on LocationManager -> MWMLocationManager
+    // Test case when location is denied by user on app launch/relaunch
+    [self displayAlert:MWMAlert.locationAlert];
+  });
 }
 
 - (void)presentFacebookAlert
