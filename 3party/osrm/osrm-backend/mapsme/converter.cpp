@@ -19,12 +19,6 @@
 #include "../../../succinct/rs_bit_vector.hpp"
 #include "../../../succinct/mapper.hpp"
 
-#define CHECK_DEPENDENCY_PATH(x) { if (!boost::filesystem::exists(x)) \
-  { \
-    std::cerr << "Can't find file: " << x << std::endl; \
-    exit(1); \
-  }}
-
 namespace  mapsme
 {
 
@@ -78,22 +72,26 @@ void GenerateRoutingIndex(const std::string & fPath)
 {
   ServerPaths server_paths;
 
-  server_paths["hsgrdata"] = boost::filesystem::path(fPath + ".hsgr");
-  CHECK_DEPENDENCY_PATH(server_paths["hsgrdata"]);
-  server_paths["ramindex"] = boost::filesystem::path(fPath + ".ramIndex");
-  CHECK_DEPENDENCY_PATH(server_paths["ramindex"]);
-  server_paths["fileindex"] = boost::filesystem::path(fPath + ".fileIndex");
-  CHECK_DEPENDENCY_PATH(server_paths["fileindex"]);
-  server_paths["geometries"] = boost::filesystem::path(fPath + ".geometry");
-  CHECK_DEPENDENCY_PATH(server_paths["geometries"]);
-  server_paths["nodesdata"] = boost::filesystem::path(fPath + ".nodes");
-  CHECK_DEPENDENCY_PATH(server_paths["nodesdata"]);
-  server_paths["edgesdata"] = boost::filesystem::path(fPath + ".edges");
-  CHECK_DEPENDENCY_PATH(server_paths["edgesdata"]);
-  server_paths["namesdata"] = boost::filesystem::path(fPath + ".names");
-  CHECK_DEPENDENCY_PATH(server_paths["namesdata"]);
-  server_paths["timestamp"] = boost::filesystem::path(fPath + ".timestamp");
-  CHECK_DEPENDENCY_PATH(server_paths["timestamp"]);
+  static const char * kvs[][2] = {{"hsgrdata", ".hsgr"},
+                                  {"ramindex", ".ramIndex"},
+                                  {"fileindex", ".fileIndex"},
+                                  {"geometries", ".geometry"},
+                                  {"nodesdata", ".nodes"},
+                                  {"edgesdata", ".edges"},
+                                  {"namesdata", ".names"},
+                                  {"timestamp", ".timestamp"}};
+
+  for (auto const & kv : kvs)
+  {
+    auto & current_path = server_paths[std::string(kv[0])];
+    std::cout << std::string(kv[0]) << " --- " << std::string(kv[1]) << std::endl;
+    current_path = boost::filesystem::path(fPath + std::string(kv[1]));
+    if (!boost::filesystem::exists(current_path))
+    {
+      std::cerr << "Can't find file: " << current_path << std::endl;
+      exit(1);
+    }
+  }
 
   std::cout << "Create internal data facade for file: " << fPath << "...";
   InternalDataFacade<QueryEdge::EdgeData> facade(server_paths);
