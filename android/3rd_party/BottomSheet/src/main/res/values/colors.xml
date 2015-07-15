@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bs_divider_color">#1f000000</color>
+    <color name="bs_dark_divider_color">#1fffffff</color>
+
+</resources>

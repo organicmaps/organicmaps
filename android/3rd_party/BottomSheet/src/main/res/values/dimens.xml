@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<dimen name="bs_grid_left_padding">8dp</dimen>
+    <dimen name="bs_grid_top_padding">0dp</dimen>
+    <dimen name="bs_grid_right_padding">8dp</dimen>
+    <dimen name="bs_grid_bottom_padding">8dp</dimen>
+</resources>

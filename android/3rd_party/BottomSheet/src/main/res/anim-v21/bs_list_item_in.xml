@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Animation for when a dock window at the bottom of the screen is entering. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:interpolator/fast_out_slow_in">
+    <translate android:fromYDelta="600%" android:toYDelta="0"
+        android:duration="250"/>
+</set>

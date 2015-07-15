@@ -33,6 +33,8 @@ dependencies {
   // for Parse SDK
   compile 'com.parse.bolts:bolts-android:1.+'
   compile fileTree(dir: '3rd_party', include: '*.jar', exclude: 'mrgsmanifest.jar')
+  // BottomSheet
+  compile project(":3rd_party:BottomSheet")
 }
 
 def getDate() {
