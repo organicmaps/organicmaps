@@ -61,7 +61,7 @@ DEFINE_bool(generate_packed_borders, false, "Generate packed file with country p
 DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
 DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
-DEFINE_string(address_file_name, "", "Output file name for storing full addresses.");
+DEFINE_bool(generate_addresses_file, false, "Generate .addr file (for '--output' option) with full addresses list.");
 DEFINE_string(osrm_file_name, "", "Input osrm file to generate routing info");
 DEFINE_bool(make_routing, false, "Make routing info based on osrm file");
 DEFINE_bool(make_cross_section, false, "Make corss section in routing file for cross mwm routing");
@@ -102,9 +102,10 @@ int main(int argc, char ** argv)
                                   : my::AddSlashIfNeeded(FLAGS_intermediate_data_path);
   genInfo.m_targetDir = genInfo.m_tmpDir = path;
 
+  /// @todo Probably, it's better to add separate option for .mwm.tmp files.
   if (!FLAGS_intermediate_data_path.empty())
   {
-    string tmpPath = my::JoinFoldersToPath({genInfo.m_intermediateDir, "tmp"}, string());
+    string const tmpPath = genInfo.m_intermediateDir + "tmp" + my::GetNativeSeparator();
     if (pl.MkDir(tmpPath) != Platform::ERR_UNKNOWN)
       genInfo.m_tmpDir = tmpPath;
   }
@@ -124,21 +125,15 @@ int main(int argc, char ** argv)
   {
     LOG(LINFO, ("Generating final data ..."));
 
-    genInfo.m_datFileSuffix = DATA_FILE_EXTENSION_TMP;
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
     genInfo.m_createWorld = FLAGS_generate_world;
     genInfo.m_makeCoasts = FLAGS_make_coasts;
     genInfo.m_emitCoasts = FLAGS_emit_coasts;
-
-    if (!FLAGS_address_file_name.empty())
-      genInfo.m_addressFile = path + FLAGS_address_file_name;
+    genInfo.m_fileName = FLAGS_output;
+    genInfo.m_genAddresses = FLAGS_generate_addresses_file;
 
     if (!GenerateFeatures(genInfo, FLAGS_node_storage, FLAGS_osm_file_type, FLAGS_osm_file_name))
       return -1;
-
-    // without --spit_by_polygons, we have empty name country as result - assign it
-    if (genInfo.m_bucketNames.size() == 1 && genInfo.m_bucketNames[0].empty())
-      genInfo.m_bucketNames[0] = FLAGS_output;
 
     if (FLAGS_generate_world)
     {

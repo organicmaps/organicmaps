@@ -1,8 +1,10 @@
 #pragma once
 
 #include "generator/feature_merger.hpp"
+#include "generator/generate_info.hpp"
 
 #include "indexer/scales.hpp"
+
 #include "base/logging.hpp"
 
 #include "defines.hpp"
@@ -19,11 +21,10 @@ class WorldMapGenerator
     FeatureOutT m_output;
 
   public:
-    template <class TInfo>
-    explicit EmitterImpl(TInfo const & info)
-      : m_output(info.m_tmpDir + WORLD_FILE_NAME + info.m_datFileSuffix)
+    explicit EmitterImpl(feature::GenerateInfo const & info)
+      : m_output(info.GetTmpFile(WORLD_FILE_NAME))
     {
-      LOG(LINFO, ("Output World file:", info.m_tmpDir + WORLD_FILE_NAME + info.m_datFileSuffix));
+      LOG(LINFO, ("Output World file:", info.GetTmpFile(WORLD_FILE_NAME)));
     }
 
     /// This function is called after merging linear features.

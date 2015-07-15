@@ -170,7 +170,6 @@ namespace data
 
 namespace
 {
-
   class MainFeaturesEmitter
   {
     typedef WorldMapGenerator<feature::FeaturesCollector> WorldGenerator;
@@ -226,8 +225,7 @@ namespace
         m_types[i] = c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2));
 
       m_srcCoastsFile = info.m_intermediateDir + WORLD_COASTS_FILE_NAME + ".geom";
-      string srcCoastsFileDump = info.m_intermediateDir + WORLD_COASTS_FILE_NAME + ".rawdump";
-      string dstCoastsFile = info.m_tmpDir + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix;
+      string const srcCoastsFileDump = info.m_intermediateDir + WORLD_COASTS_FILE_NAME + ".rawdump";
 
       CHECK(!info.m_makeCoasts || !info.m_createWorld,
             ("We can't do make_coasts and generate_world at the same time"));
@@ -238,7 +236,7 @@ namespace
 
         if (info.m_emitCoasts)
         {
-          m_coastsHolder.reset(new feature::FeaturesCollector(dstCoastsFile));
+          m_coastsHolder.reset(new feature::FeaturesCollector(info.GetTmpFile(WORLD_COASTS_FILE_NAME)));
         }
       }
       else
@@ -496,7 +494,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, string const &osmFileTyp
     SecondPassParser<MainFeaturesEmitter, HolderT> parser(
                   bucketer, holder,
                   info.m_makeCoasts ? classif().GetCoastType() : 0,
-                  info.m_addressFile);
+                  info.GetAddressesFile());
 
     SourceReader reader(osmFileName);
 

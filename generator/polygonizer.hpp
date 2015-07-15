@@ -2,6 +2,7 @@
 
 #include "generator/borders_loader.hpp"
 #include "generator/feature_builder.hpp"
+#include "generator/generate_info.hpp"
 
 #include "indexer/feature_visibility.hpp"
 #include "indexer/cell_id.hpp"
@@ -35,8 +36,7 @@ namespace feature
   template <class FeatureOutT>
   class Polygonizer
   {
-    string m_prefix;
-    string m_suffix;
+    feature::GenerateInfo const & m_info;
 
     vector<FeatureOutT*> m_Buckets;
     vector<string> m_Names;
@@ -49,9 +49,7 @@ namespace feature
 #endif
 
   public:
-    template <class TInfo>
-    explicit Polygonizer(TInfo const & info)
-      : m_prefix(info.m_tmpDir), m_suffix(info.m_datFileSuffix)
+    explicit Polygonizer(feature::GenerateInfo const & info) : m_info(info)
 #if PARALLEL_POLYGONIZER
     , m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * 8)
 #endif
@@ -69,7 +67,7 @@ namespace feature
       {
         // Insert fake country polygon equal to whole world to
         // create only one output file which contains all features
-        m_countries.Add(borders::CountryPolygons(), MercatorBounds::FullRect());
+        m_countries.Add(borders::CountryPolygons(info.m_fileName), MercatorBounds::FullRect());
       }
     }
     ~Polygonizer()
@@ -153,7 +151,7 @@ namespace feature
       if (country->m_index == -1)
       {
         m_Names.push_back(country->m_name);
-        m_Buckets.push_back(new FeatureOutT(m_prefix + country->m_name + m_suffix));
+        m_Buckets.push_back(new FeatureOutT(m_info.GetTmpFile(country->m_name)));
         country->m_index = m_Buckets.size()-1;
       }
 
