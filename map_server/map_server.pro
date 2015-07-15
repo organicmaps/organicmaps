@@ -25,7 +25,7 @@ INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
 
 macx* {
   LIBS *= "-framework Foundation" "-framework CoreWLAN" \
-          "-framework QuartzCore" "-framework IOKit"
+          "-framework QuartzCore" "-framework IOKit"  "-framework SystemConfiguration"
 }
 win32* : LIBS *= -lshell32
 

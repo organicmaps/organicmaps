@@ -42,7 +42,7 @@ linux* {
 
 macx-* {
   LIBS *= "-framework CoreLocation" "-framework Foundation" "-framework CoreWLAN" \
-          "-framework QuartzCore" "-framework IOKit"
+          "-framework QuartzCore" "-framework IOKit" "-framework SystemConfiguration"
 
   ICON = res/mac.icns
   PLIST_FILE = Info.plist

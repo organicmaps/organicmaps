@@ -3,6 +3,7 @@
 #include "defines.hpp"
 #include "online_cross_fetcher.hpp"
 
+#include "platform/platform.hpp"
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 
@@ -17,7 +18,8 @@ void OnlineAbsentCountriesFetcher::GenerateRequest(const m2::PointD & startPoint
                                                    const m2::PointD & finalPoint)
 {
   // Single mwm case.
-  if (m_countryFileFn(startPoint) == m_countryFileFn(finalPoint))
+  if (m_countryFileFn(startPoint) == m_countryFileFn(finalPoint) ||
+      GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return;
   unique_ptr<OnlineCrossFetcher> fetcher =
       make_unique<OnlineCrossFetcher>(OSRM_ONLINE_SERVER_URL, MercatorBounds::ToLatLon(startPoint),

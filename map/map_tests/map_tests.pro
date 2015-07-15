@@ -29,7 +29,7 @@ win32* {
   LIBS *= -lShell32 -lOpengl32
   win32-g++: LIBS *= -lpthread
 }
-macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
+macx-*: LIBS *= "-framework Foundation" "-framework IOKit" "-framework SystemConfiguration"
 
 SOURCES += \
   ../../testing/testingmain.cpp \

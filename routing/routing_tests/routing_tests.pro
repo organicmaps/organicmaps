@@ -8,7 +8,7 @@ TEMPLATE = app
 ROOT_DIR = ../..
 DEPENDENCIES = routing indexer platform geometry coding base osrm protobuf tomcrypt succinct jansson stats_client map
 
-macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
+macx-*: LIBS *= "-framework Foundation" "-framework IOKit" "-framework SystemConfiguration"
 
 include($$ROOT_DIR/common.pri)
 
