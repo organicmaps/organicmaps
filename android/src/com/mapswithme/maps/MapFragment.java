@@ -66,6 +66,7 @@ public class MapFragment extends NvEventQueueFragment
     final Resources resources = getResources();
     Framework.setWidgetPivot(Framework.MAP_WIDGET_RULER, mSurfaceWidth - resources.getDimensionPixelOffset(R.dimen.margin_right_ruler), mSurfaceHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_ruler));
     Framework.setWidgetPivot(Framework.MAP_WIDGET_COMPASS, resources.getDimensionPixelOffset(R.dimen.margin_left_compass), mSurfaceHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_compass));
+    Framework.setWidgetPivot(Framework.MAP_WIDGET_COPYRIGHT, mSurfaceWidth - resources.getDimensionPixelOffset(R.dimen.margin_right_ruler), mSurfaceHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_ruler));
   }
 
   @Override
