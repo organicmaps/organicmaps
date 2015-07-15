@@ -8,8 +8,8 @@
 #include "coding/writer.hpp"
 
 #include "base/macros.hpp"
-#include "base/pseudo_random.hpp"
 
+#include "std/random.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -87,10 +87,16 @@ UNIT_TEST(ReadSerial)
 
 UNIT_TEST(EncodeDecode)
 {
+  mt19937 rng(0);
   vector<string> elements;
 
   for (size_t i = 0; i < 1024; ++i)
-    elements.push_back(rnd::GenerateString());
+  {
+    string s(1 + (rng() % 20), 0);
+    for (size_t j = 0; j < s.size(); ++j)
+      s[j] = static_cast<char>(rng() % 26) + 'a';
+    elements.push_back(s);
+  }
 
   string serial;
   PushBackByteSink<string> sink(serial);

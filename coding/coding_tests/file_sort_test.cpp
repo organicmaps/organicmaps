@@ -1,8 +1,10 @@
 #include "testing/testing.hpp"
+
 #include "coding/file_sort.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/reader.hpp"
-#include "base/pseudo_random.hpp"
+
+#include "std/random.hpp"
 
 namespace
 {
@@ -40,10 +42,10 @@ UNIT_TEST(FileSorter_Smoke)
 
 UNIT_TEST(FileSorter_Random)
 {
-  PseudoRNG32 rng;
+  mt19937 rng(0);
   vector<uint32_t> data(1000);
   for (size_t i = 0; i < data.size(); ++i)
-    data[i] = ((i+1 % 100) ? rng.Generate() : data[i - 20]);
+    data[i] = ((i+1 % 100) ? rng() : data[i - 20]);
 
   TestFileSorter(data, "file_sorter_test_random.tmp", data.size() / 10);
 }

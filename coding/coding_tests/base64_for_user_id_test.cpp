@@ -1,9 +1,11 @@
 #include "testing/testing.hpp"
 
-#include "base/logging.hpp"
-#include "base/pseudo_random.hpp"
-
 #include "coding/base64.hpp"
+
+#include "base/logging.hpp"
+
+#include "std/random.hpp"
+
 
 using namespace base64_for_user_ids;
 
@@ -23,7 +25,7 @@ UNIT_TEST(Base64_Encode_User_Ids)
 UNIT_TEST(Base64_QualityTest_User_Ids)
 {
   size_t const NUMBER_OF_TESTS = 10000;
-  LCG32 generator(NUMBER_OF_TESTS);
+  mt19937 rng(0);
   for (size_t i = 0; i < NUMBER_OF_TESTS; ++i)
   {
     string randomBytes;
@@ -34,7 +36,7 @@ UNIT_TEST(Base64_QualityTest_User_Ids)
         randomBytes.push_back('\0');
         continue;
       }
-      randomBytes.push_back(static_cast<char>(generator.Generate()));
+      randomBytes.push_back(static_cast<char>(rng()));
     }
     string const result = encode(randomBytes);
     TEST_GREATER_OR_EQUAL(result.size(), randomBytes.size(),

@@ -6,10 +6,8 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "base/pseudo_random.hpp"
+#include "std/random.hpp"
 
-
-using namespace rnd;
 
 struct NumsSource
 {
@@ -21,14 +19,15 @@ struct NumsSource
 
 UNIT_TEST(CompressedVarnumVector)
 {
+  mt19937 rng(0);
   uint32_t const NUMS_CNT = 5000;
   uint32_t const MAX_NUM_BYTESIZE = 5;
   vector<uint64_t> nums, sums(1, 0);
   uint64_t sum = 0;
   for (uint32_t i = 0; i < NUMS_CNT; ++i)
   {
-    uint32_t byteSize = GetRand64() % MAX_NUM_BYTESIZE + 1;
-    uint64_t num = GetRand64() & ((uint64_t(1) << (byteSize * 8)) - 1);
+    uint32_t byteSize = rng() % MAX_NUM_BYTESIZE + 1;
+    uint64_t num = rng() & ((uint64_t(1) << (byteSize * 8)) - 1);
     nums.push_back(num);
     sum += num;
     sums.push_back(sum);

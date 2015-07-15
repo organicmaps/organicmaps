@@ -6,7 +6,8 @@
 #include "coding/uri.hpp"
 
 #include "base/string_format.hpp"
-#include "base/pseudo_random.hpp"
+
+#include "std/random.hpp"
 
 
 using namespace url_scheme;
@@ -262,9 +263,9 @@ string generatePartOfUrl(url_scheme::ApiPoint const & point)
 string randomString(size_t size, size_t seed)
 {
   string result(size, '0');
-  LCG32 random(seed);
+  mt19937 rng(seed);
   for (size_t i = 0; i < size; ++i)
-    result[i] = 'a' + random.Generate() % 26;
+    result[i] = 'a' + rng() % 26;
   return result;
 }
 
@@ -274,11 +275,11 @@ void generateRandomTest(size_t numberOfPoints, size_t stringLength)
   for (size_t i = 0; i < numberOfPoints; ++i)
   {
     url_scheme::ApiPoint point;
-    LCG32 random(i);
-    point.m_lat = random.Generate() % 90;
-    point.m_lat *= random.Generate() % 2 == 0 ? 1 : -1;
-    point.m_lon = random.Generate() % 180;
-    point.m_lon *= random.Generate() % 2 == 0 ? 1 : -1;
+    mt19937 rng(i);
+    point.m_lat = rng() % 90;
+    point.m_lat *= rng() % 2 == 0 ? 1 : -1;
+    point.m_lon = rng() % 180;
+    point.m_lon *= rng() % 2 == 0 ? 1 : -1;
     point.m_name = randomString(stringLength, i);
     point.m_id = randomString(stringLength, i);
     vect[i] = point;

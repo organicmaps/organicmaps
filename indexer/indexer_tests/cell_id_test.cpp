@@ -1,10 +1,13 @@
-#include "indexer/cell_id.hpp"
 #include "testing/testing.hpp"
+
+#include "indexer/cell_id.hpp"
+
 #include "coding/hex.hpp"
-#include "base/pseudo_random.hpp"
+
 #include "std/cmath.hpp"
+#include "std/random.hpp"
 #include "std/string.hpp"
-#include "std/cmath.hpp"
+
 
 typedef m2::CellId<30> CellIdT;
 
@@ -39,11 +42,11 @@ namespace
 
 UNIT_TEST(CellId_RandomRecode)
 {
-  PseudoRNG32 rng;
+  mt19937 rng(0);
   for (size_t i = 0; i < 1000; ++i)
   {
-    uint32_t const x = rng.Generate() % 2000;
-    uint32_t const y = rng.Generate() % 1000;
+    uint32_t const x = rng() % 2000;
+    uint32_t const y = rng() % 1000;
     m2::PointD const pt =
         CellIdConverter<Bounds<0, 0, 2000, 1000>, CellIdT>::FromCellId(
             CellIdConverter<Bounds<0, 0, 2000, 1000>, CellIdT>::ToCellId(x, y));

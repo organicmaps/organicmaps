@@ -19,7 +19,6 @@ SOURCES += \
     lower_case.cpp \
     normalize_unicode.cpp \
     object_tracker.cpp \
-    pseudo_random.cpp \
     resource_pool.cpp \
     runner.cpp \
     shared_buffer_manager.cpp \
@@ -59,7 +58,6 @@ HEADERS += \
     mutex.hpp \
     object_tracker.hpp \
     observer_list.hpp \
-    pseudo_random.hpp \
     regexp.hpp \
     resource_pool.hpp \
     rolling_hash.hpp \

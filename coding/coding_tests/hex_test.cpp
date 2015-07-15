@@ -2,8 +2,7 @@
 
 #include "coding/hex.hpp"
 
-#include "base/pseudo_random.hpp"
-
+#include "std/random.hpp"
 #include "std/string.hpp"
 
 
@@ -18,9 +17,12 @@ UNIT_TEST(GoldenRecode)
 
 UNIT_TEST(RandomRecode)
 {
+  mt19937 rng(0);
   for (size_t i = 0; i < 256; ++i)
   {
-    string const data = rnd::GenerateString();
+    string data(1 + (rng() % 20), 0);
+    for (size_t j = 0; j < data.size(); ++j)
+      data[j] = static_cast<char>(rng() % 26) + 'A';
     TEST_EQUAL(data, FromHex(ToHex(data)), ());
   }
 }

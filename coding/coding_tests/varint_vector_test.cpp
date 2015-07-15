@@ -1,12 +1,11 @@
 #include "testing/testing.hpp"
 
 /*
+#include "coding/reader.hpp"
 #include "coding/varint_vector.hpp"
 #include "coding/writer.hpp"
-#include "coding/reader.hpp"
 
-#include "base/pseudo_random.hpp"
-
+#include "std/random.hpp"
 
 using namespace varint;
 
@@ -23,7 +22,7 @@ UNIT_TEST(VarintVector_Use)
   uint32_t const c_index_tests_count = 50000;
   uint32_t const c_sum_tests_count = 20000;
 
-  PseudoRNG32 rnd;
+  mt19937 rng(0);
 
   // Generate vector.
   {
@@ -32,8 +31,8 @@ UNIT_TEST(VarintVector_Use)
     for (uint32_t i = 0; i < c_nums_count; ++i)
     {
       g_nums_sums.push_back(sum);
-      uint8_t const byte_size = rnd.Generate() % 6 + 1;
-      uint64_t const num = rnd.Generate() & ((uint64_t(1) << (byte_size * 7)) - 1);
+      uint8_t const byte_size = rng() % 6 + 1;
+      uint64_t const num = rng() & ((uint64_t(1) << (byte_size * 7)) - 1);
 
       g_nums.push_back(num);
       builder.AddNum(num);
@@ -70,7 +69,7 @@ UNIT_TEST(VarintVector_Use)
     Vector v(&reader);
     for (uint32_t i = 0; i < c_index_tests_count; ++i)
     {
-      uint64_t const index = rnd.Generate() % g_nums.size();
+      uint64_t const index = rng() % g_nums.size();
 
       uint32_t serial_pos = 0;
       uint64_t sum_before = 0;
@@ -113,7 +112,7 @@ UNIT_TEST(VarintVector_Use)
     Vector v(&reader);
     for (uint32_t i = 0; i < c_sum_tests_count; ++i)
     {
-      uint64_t index = rnd.Generate() % (g_nums_sums.size() - 2);
+      uint64_t index = rng() % (g_nums_sums.size() - 2);
       while (g_nums_sums[index] == g_nums_sums[index + 1])
       {
         ++index;
@@ -141,7 +140,7 @@ UNIT_TEST(VarintVector_Use)
     Vector v(&reader);
     for (uint32_t i = 0; i < c_sum_tests_count; ++i)
     {
-      uint64_t index = rnd.Generate() % (g_nums_sums.size() - 2);
+      uint64_t index = rng() % (g_nums_sums.size() - 2);
       while (g_nums_sums[index] + 1 >= g_nums_sums[index + 1])
       {
         ++index;

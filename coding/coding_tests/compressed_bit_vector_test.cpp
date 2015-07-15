@@ -4,21 +4,20 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "base/pseudo_random.hpp"
+#include "std/random.hpp"
 
-
-using namespace rnd;
 
 uint32_t const NUMS_COUNT = 12345;
 
 UNIT_TEST(CompressedBitVector_Sparse)
 {
+  mt19937 rng(0);
   vector<uint32_t> posOnes;
   uint32_t sum = 0;
   for (uint32_t i = 0; i < NUMS_COUNT; ++i)
   {
-    uint32_t byteSize = GetRand64() % 2 + 1;
-    uint64_t num = GetRand64() & ((uint64_t(1) << (byteSize * 7)) - 1);
+    uint32_t byteSize = rng() % 2 + 1;
+    uint64_t num = rng() & ((uint64_t(1) << (byteSize * 7)) - 1);
     if (num == 0) num = 1;
     sum += num;
     posOnes.push_back(sum);
@@ -43,16 +42,17 @@ UNIT_TEST(CompressedBitVector_Sparse)
 
 UNIT_TEST(CompressedBitVector_Dense)
 {
+  mt19937 rng(0);
   vector<uint32_t> posOnes;
   //uint32_t prevPos = 0;
   uint32_t sum = 0;
   for (uint32_t i = 0; i < NUMS_COUNT; ++i)
   {
-    uint32_t zeroesByteSize = GetRand64() % 2 + 1;
-    uint64_t zeroesRangeSize = (GetRand64() & ((uint64_t(1) << (zeroesByteSize * 7)) - 1)) + 1;
+    uint32_t zeroesByteSize = rng() % 2 + 1;
+    uint64_t zeroesRangeSize = (rng() & ((uint64_t(1) << (zeroesByteSize * 7)) - 1)) + 1;
     sum += zeroesRangeSize;
-    uint32_t onesByteSize = GetRand64() % 1 + 1;
-    uint64_t onesRangeSize = (GetRand64() & ((uint64_t(1) << (onesByteSize * 7)) - 1)) + 1;
+    uint32_t onesByteSize = rng() % 1 + 1;
+    uint64_t onesRangeSize = (rng() & ((uint64_t(1) << (onesByteSize * 7)) - 1)) + 1;
     for (uint32_t j = 0; j < onesRangeSize; ++j) posOnes.push_back(sum + j);
     sum += onesRangeSize;
   }
@@ -76,11 +76,12 @@ UNIT_TEST(CompressedBitVector_Dense)
 
 UNIT_TEST(BitVectors_And)
 {
+  mt19937 rng(0);
   vector<bool> v1(NUMS_COUNT * 2, false), v2(NUMS_COUNT * 2, false);
   for (uint32_t i = 0; i < NUMS_COUNT; ++i)
   {
-    v1[GetRand64() % v1.size()] = true;
-    v2[GetRand64() % v2.size()] = true;
+    v1[rng() % v1.size()] = true;
+    v2[rng() % v2.size()] = true;
   }
   vector<uint32_t> posOnes1, posOnes2, andPos;
   for (uint32_t i = 0; i < v1.size(); ++i)
@@ -95,11 +96,12 @@ UNIT_TEST(BitVectors_And)
 
 UNIT_TEST(BitVectors_Or)
 {
+  mt19937 rng(0);
   vector<bool> v1(NUMS_COUNT * 2, false), v2(NUMS_COUNT * 2, false);
   for (uint32_t i = 0; i < NUMS_COUNT; ++i)
   {
-    v1[GetRand64() % v1.size()] = true;
-    v2[GetRand64() % v2.size()] = true;
+    v1[rng() % v1.size()] = true;
+    v2[rng() % v2.size()] = true;
   }
   vector<uint32_t> posOnes1, posOnes2, orPos;
   for (uint32_t i = 0; i < v1.size(); ++i)
@@ -114,13 +116,14 @@ UNIT_TEST(BitVectors_Or)
 
 UNIT_TEST(BitVectors_SubAnd)
 {
+  mt19937 rng(0);
   vector<bool> v1(NUMS_COUNT * 2, false);
   //uint64_t numV1Ones = 0;
-  for (uint32_t i = 0; i < v1.size(); ++i) v1[i] = (GetRand64() % 2) == 0;
+  for (uint32_t i = 0; i < v1.size(); ++i) v1[i] = (rng() % 2) == 0;
   vector<uint32_t> posOnes1;
   for (uint32_t i = 0; i < v1.size(); ++i) if (v1[i]) posOnes1.push_back(i);
   vector<bool> v2(posOnes1.size(), false);
-  for (uint32_t i = 0; i < v2.size(); ++i) v2[i] = (GetRand64() % 2) == 0;
+  for (uint32_t i = 0; i < v2.size(); ++i) v2[i] = (rng() % 2) == 0;
   vector<uint32_t> posOnes2, subandPos;
   for (uint32_t i = 0; i < v2.size(); ++i) if (v2[i]) posOnes2.push_back(i);
   for (uint32_t i = 0, j = 0; i < v1.size(); ++i)

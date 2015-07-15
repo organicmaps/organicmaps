@@ -4,22 +4,20 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "base/pseudo_random.hpp"
-
+#include "std/random.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
 
-using namespace rnd;
-
 UNIT_TEST(BitStream_ReadWrite)
 {
+  mt19937 rng(0);
   uint32_t const NUMS_CNT = 1000;
   vector< pair<uint64_t, uint32_t> > nums;
   for (uint32_t i = 0; i < NUMS_CNT; ++i)
   {
-    uint32_t numBits = GetRand64() % 65;
-    uint64_t num = GetRand64() & ((uint64_t(1) << numBits) - 1);
+    uint32_t numBits = rng() % 65;
+    uint64_t num = rng() & ((uint64_t(1) << numBits) - 1);
     nums.push_back(make_pair(num, numBits));
   }
   
