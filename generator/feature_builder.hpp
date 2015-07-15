@@ -145,6 +145,8 @@ public:
   /// Set all the parameters, except geometry type (it's set by other functions).
   inline void SetParams(FeatureParams const & params) { m_params.SetParams(params); }
 
+  inline FeatureParams const & GetParams() const { return m_params; }
+
   /// @name For OSM debugging, store original OSM id
   //@{
   void AddOsmId(osm::Id id);

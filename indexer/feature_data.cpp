@@ -431,7 +431,6 @@ string DebugPrint(FeatureParams const & p)
   string res = "Types";
   for (size_t i = 0; i < p.m_Types.size(); ++i)
     res += (" : " + c.GetReadableObjectName(p.m_Types[i]));
-  res += "\n";
 
   return (res + p.DebugString());
 }
