@@ -1,4 +1,4 @@
-
+#import "Common.h"
 #import "DownloaderParentVC.h"
 #import "DiskFreeSpace.h"
 #import "Statistics.h"
@@ -65,18 +65,6 @@
 
 #pragma mark - Public methods for successors
 
-#define MB (1024 * 1024)
-
-- (NSString *)formattedMapSize:(uint64_t)size
-{
-  NSString * sizeString;
-  if (size > MB)
-    sizeString = [NSString stringWithFormat:@"%llu %@", (size + 512 * 1024) / MB, L(@"mb")];
-  else
-    sizeString = [NSString stringWithFormat:@"%llu %@", (size + 1023) / 1024, L(@"kb")];
-  return [sizeString uppercaseString];
-}
-
 - (BOOL)canDownloadSelectedMap
 {
   uint64_t const size = [self selectedMapSizeWithOptions:self.selectedInActionSheetOptions];
@@ -109,31 +97,31 @@
 
   if (status == TStatus::ENotDownloaded || status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed)
   {
-    NSString * fullSize = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]];
-    NSString * onlyMapSize = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMap]];
+    NSString * fullSize = formattedSize([self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]);
+    NSString * onlyMapSize = formattedSize([self selectedMapSizeWithOptions:TMapOptions::EMap]);
     [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map"), fullSize] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
     [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map_no_routing"), onlyMapSize] action:DownloaderActionDownloadMap toActionSheet:actionSheet];
   }
 
   if (status == TStatus::EOnDiskOutOfDate && options == TMapOptions::EMapWithCarRouting)
   {
-    NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]];
+    NSString * size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]);
     [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map_and_routing"), size] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
   }
 
   if (status == TStatus::EOnDisk && options == TMapOptions::EMap)
   {
-    NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::ECarRouting]];
+    NSString * size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::ECarRouting]);
     NSString * title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_download_routing"), size];
     [self addButtonWithTitle:title action:DownloaderActionDownloadCarRouting toActionSheet:actionSheet];
   }
 
   if (status == TStatus::EOnDiskOutOfDate && options == TMapOptions::EMap)
   {
-    NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMap]];
+    NSString * size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::EMap]);
     NSString * title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map"), size];
     [self addButtonWithTitle:title action:DownloaderActionDownloadMap toActionSheet:actionSheet];
-    size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]];
+    size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]);
     title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map_and_routing"), size];
     [self addButtonWithTitle:title action:DownloaderActionDownloadAll toActionSheet:actionSheet];
   }

@@ -691,7 +691,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
         Platform::EConnectionType const connection = Platform::ConnectionStatus();
         if (connection != Platform::EConnectionType::CONNECTION_NONE)
         {
-          if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * 1024 * 1024)
+          if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * MB)
           {
             NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
             [self.alertController presentnoWiFiAlertWithName:title downloadBlock:^{layout.DownloadMap(idx, static_cast<TMapOptions>(opt));}];

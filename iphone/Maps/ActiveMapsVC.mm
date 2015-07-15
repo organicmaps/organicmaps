@@ -1,8 +1,9 @@
 
 #import "ActiveMapsVC.h"
-#import "Statistics.h"
-#import "MapCell.h"
 #import "BadgeView.h"
+#import "Common.h"
+#import "MapCell.h"
+#import "Statistics.h"
 
 extern NSString * const MapsStatusChangedNotification;
 
@@ -107,12 +108,13 @@ extern NSString * const MapsStatusChangedNotification;
   if (status == TStatus::ENotDownloaded)
   {
     LocalAndRemoteSizeT const size = self.mapsLayout.GetRemoteCountrySizes(group, position);
-    cell.sizeLabel.text = [NSString stringWithFormat:@"%@ / %@", [self formattedMapSize:size.first], [self formattedMapSize:size.second]];
+
+    cell.sizeLabel.text = [NSString stringWithFormat:@"%@ / %@", formattedSize(size.first), formattedSize(size.second)];
   }
   else if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
-    cell.sizeLabel.text = [self formattedMapSize:self.mapsLayout.GetCountrySize(group, position, options).second];
+    cell.sizeLabel.text = formattedSize(self.mapsLayout.GetCountrySize(group, position, options).second);
   else if (status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed || status == TStatus::EDownloading || status == TStatus::EInQueue)
-    cell.sizeLabel.text = [self formattedMapSize:self.mapsLayout.GetDownloadableCountrySize(group, position).second];
+    cell.sizeLabel.text = formattedSize(self.mapsLayout.GetDownloadableCountrySize(group, position).second);
 }
 
 #pragma mark - DownloaderParentVC virtual methods implementation

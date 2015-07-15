@@ -59,13 +59,15 @@ static inline BOOL isIOSVersionLessThan(NSUInteger version)
   return isIOSVersionLessThan([NSString stringWithFormat:@"%@", @(version)]);
 }
 
+static uint64_t const KB = 1024;
+static uint64_t const MB = 1024 * 1024;
+
 static inline NSString * formattedSize(uint64_t size)
 {
-  uint64_t const mb = 1024 * 1024;
   NSString * sizeString;
-  if (size > mb)
-    sizeString = [NSString stringWithFormat:@"%llu %@", (size + 512 * 1024) / mb, NSLocalizedString(@"mb", nil)];
+  if (size > MB)
+    sizeString = [NSString stringWithFormat:@"%llu %@", (size + 512 * KB) / MB, NSLocalizedString(@"mb", nil)];
   else
-    sizeString = [NSString stringWithFormat:@"%llu %@", (size + 1023) / 1024, NSLocalizedString(@"kb", nil)];
+    sizeString = [NSString stringWithFormat:@"%llu %@", (size + 1023) / KB, NSLocalizedString(@"kb", nil)];
   return [sizeString uppercaseString];
 }

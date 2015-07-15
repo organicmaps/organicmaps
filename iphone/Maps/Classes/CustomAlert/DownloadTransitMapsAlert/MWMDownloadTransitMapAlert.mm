@@ -7,6 +7,7 @@
 //
 
 #import "ActiveMapsVC.h"
+#import "Common.h"
 #import "MWMAlertViewController.h"
 #import "MWMDownloaderDialogCell.h"
 #import "MWMDownloaderDialogHeader.h"
@@ -42,7 +43,7 @@
     }
     self.isMapsFiles = isMaps;
     self.titles = titles;
-    self.size = [NSString stringWithFormat:@"%@ %@", @(totalRoutingSize / (1024 * 1024)), L(@"mb")];
+    self.size = [NSString stringWithFormat:@"%@ %@", @(totalRoutingSize / MB), L(@"mb")];
   }
   return self;
 }

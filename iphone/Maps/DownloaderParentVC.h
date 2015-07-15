@@ -25,8 +25,6 @@ using namespace storage;
 
 @interface DownloaderParentVC : ViewController <MapCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
-- (NSString *)formattedMapSize:(uint64_t)size;
-
 - (BOOL)canDownloadSelectedMap;
 - (UIActionSheet *)actionSheetToCancelDownloadingSelectedMap;
 - (UIActionSheet *)actionSheetToPerformActionOnSelectedMap;

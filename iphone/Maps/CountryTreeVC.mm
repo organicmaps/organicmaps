@@ -1,6 +1,7 @@
 
-#import "CountryTreeVC.h"
 #import "ActiveMapsVC.h"
+#import "Common.h"
+#import "CountryTreeVC.h"
 #import "Statistics.h"
 
 extern NSString * const MapsStatusChangedNotification;
@@ -113,12 +114,12 @@ extern NSString * const MapsStatusChangedNotification;
     if (status == TStatus::ENotDownloaded)
     {
       LocalAndRemoteSizeT const size = self.tree.GetRemoteLeafSizes(position);
-      cell.sizeLabel.text = [NSString stringWithFormat:@"%@ / %@", [self formattedMapSize:size.first], [self formattedMapSize:size.second]];
+      cell.sizeLabel.text = [NSString stringWithFormat:@"%@ / %@", formattedSize(size.first), formattedSize(size.second)];
     }
     else if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
-      cell.sizeLabel.text = [self formattedMapSize:self.tree.GetLeafSize(position, options).second];
+      cell.sizeLabel.text = formattedSize(self.tree.GetLeafSize(position, options).second);
     else if (status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed || status == TStatus::EDownloading || status == TStatus::EInQueue)
-      cell.sizeLabel.text = [self formattedMapSize:self.tree.GetDownloadableLeafSize(position).second];
+      cell.sizeLabel.text = formattedSize(self.tree.GetDownloadableLeafSize(position).second);
   }
 }
 
