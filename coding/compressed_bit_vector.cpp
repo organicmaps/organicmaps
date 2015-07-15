@@ -187,8 +187,8 @@ void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes,
       writer.Write(serialSizesEnc.data(), serialSizesEnc.size());
     }
     {
-      // Second Stage. Encode all bits of all diffs using BitSink.
-      BitSink bitWriter(writer);
+      // Second Stage. Encode all bits of all diffs using BitWriter.
+      BitWriter<Writer> bitWriter(writer);
       int64_t prevOnePos = -1;
       uint64_t totalReadBits = 0;
       uint64_t totalReadCnts = 0;
@@ -319,8 +319,8 @@ void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes,
     }
 
     {
-      // Second stage, encode all ranges bits using BitSink.
-      BitSink bitWriter(writer);
+      // Second stage, encode all ranges bits using BitWriter.
+      BitWriter<Writer> bitWriter(writer);
       int64_t prevOnePos = -1;
       uint64_t onesRangeLen = 0;
       for (uint32_t i = 0; i < posOnes.size(); ++i)
@@ -404,8 +404,11 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
     ArithmeticDecoder arithDec(*arithDecReader, distrTable);
     for (uint64_t i = 0; i < cntElements; ++i) bitsUsedVec.push_back(arithDec.Decode());
     decodeOffset += encSizesBytesize;
-    unique_ptr<Reader> bitReaderReader(reader.CreateSubReader(decodeOffset, serialSize - decodeOffset));
-    BitSource bitReader(*bitReaderReader);
+    unique_ptr<Reader> bitMemReader(
+        reader.CreateSubReader(decodeOffset, serialSize - decodeOffset));
+    ReaderPtr<Reader> readerPtr(bitMemReader.get());
+    ReaderSource<ReaderPtr<Reader>> bitReaderSource(readerPtr);
+    BitReader<ReaderSource<ReaderPtr<Reader>>> bitReader(bitReaderSource);
     int64_t prevOnePos = -1;
     for (uint64_t i = 0; i < cntElements; ++i)
     {
@@ -456,8 +459,11 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
     vector<uint32_t> bitsSizes1;
     for (uint64_t i = 0; i < cntElements1; ++i) bitsSizes1.push_back(arith_dec1.Decode());
     decodeOffset += enc1SizesBytesize;
-    unique_ptr<Reader> bitReaderReader(reader.CreateSubReader(decodeOffset, serialSize - decodeOffset));
-    BitSource bitReader(*bitReaderReader);
+    unique_ptr<Reader> bitMemReader(
+        reader.CreateSubReader(decodeOffset, serialSize - decodeOffset));
+    ReaderPtr<Reader> readerPtr(bitMemReader.get());
+    ReaderSource<ReaderPtr<Reader>> bitReaderSource(readerPtr);
+    BitReader<ReaderSource<ReaderPtr<Reader>>> bitReader(bitReaderSource);
     uint64_t sum = 0, i0 = 0, i1 = 0;
     while (i0 < cntElements0 && i1 < cntElements1)
     {

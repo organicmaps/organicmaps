@@ -9,30 +9,36 @@
 #include "std/vector.hpp"
 
 
-UNIT_TEST(BitStream_ReadWrite)
+UNIT_TEST(BitStreams_Smoke)
 {
+  uniform_int_distribution<uint8_t> randomBytesDistribution(0, 255);
   mt19937 rng(0);
-  uint32_t const NUMS_CNT = 1000;
-  vector< pair<uint64_t, uint32_t> > nums;
-  for (uint32_t i = 0; i < NUMS_CNT; ++i)
+  vector<pair<uint8_t, uint32_t>> nums;
+  for (size_t i = 0; i < 100; ++i)
   {
-    uint32_t numBits = rng() % 65;
-    uint64_t num = rng() & ((uint64_t(1) << numBits) - 1);
+    uint32_t numBits = randomBytesDistribution(rng) % 8;
+    uint8_t num = randomBytesDistribution(rng) >> (CHAR_BIT - numBits);
     nums.push_back(make_pair(num, numBits));
   }
-  
-  vector<uint8_t> encodedBits;
+  for (size_t i = 0; i < 100; ++i)
   {
-    MemWriter< vector<uint8_t> > encodedBitsWriter(encodedBits);
-    BitSink bitsSink(encodedBitsWriter);
-    for (uint32_t i = 0; i < nums.size(); ++i) bitsSink.Write(nums[i].first, nums[i].second);
+    uint32_t numBits = 8;
+    uint8_t num = randomBytesDistribution(rng);
+    nums.push_back(make_pair(num, numBits));
   }
+
+  vector<uint8_t> encodedBits;
+  MemWriter<vector<uint8_t>> encodedBitsWriter(encodedBits);
+  BitWriter<MemWriter<vector<uint8_t>>> bitSink(encodedBitsWriter);
+  for (size_t i = 0; i < nums.size(); ++i)
+    bitSink.Write(nums[i].first, nums[i].second);
+
   MemReader encodedBitsReader(encodedBits.data(), encodedBits.size());
-  BitSource bitsSource(encodedBitsReader);
-  for (uint32_t i = 0; i < nums.size(); ++i)
+  ReaderSource<MemReader> reader(encodedBitsReader);
+  BitReader<ReaderSource<MemReader>> bitsSource(reader);
+  for (size_t i = 0; i < nums.size(); ++i)
   {
-    uint64_t num = bitsSource.Read(nums[i].second);
-    TEST_EQUAL(num, nums[i].first, ());
+    uint8_t num = bitsSource.Read(nums[i].second);
+    TEST_EQUAL(num, nums[i].first, (i));
   }
 }
-

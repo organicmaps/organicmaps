@@ -36,7 +36,6 @@ SOURCES += \
     arithmetic_codec.cpp \
     compressed_bit_vector.cpp \
 #    compressed_varnum_vector.cpp \
-    bit_streams.cpp \
     png_memory_encoder.cpp \
 
 HEADERS += \
