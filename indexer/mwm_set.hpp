@@ -162,6 +162,7 @@ public:
     Success,
     VersionAlreadyExists,
     VersionTooOld,
+    UnsupportedFileFormat,
     BadFile
   };
 

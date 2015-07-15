@@ -1,12 +1,10 @@
 #include "indexer/mwm_version.hpp"
-#include "indexer/data_header.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/reader_wrapper.hpp"
 #include "coding/varint.hpp"
 #include "coding/writer.hpp"
 
-#include "base/logging.hpp"
 #include "base/timer.hpp"
 
 #include "defines.hpp"
@@ -17,7 +15,6 @@ namespace version
 {
 namespace
 {
-typedef feature::DataHeader FHeaderT;
 
 char const MWM_PROLOG[] = "MWM";
 
@@ -37,13 +34,9 @@ void ReadVersionT(TSource & src, MwmVersion & version)
     return;
   }
 
-  uint32_t formatIndex = ReadVarUint<uint32_t>(src);
-  if (formatIndex > lastFormat)
-  {
-    LOG(LERROR, ("Unknown file format index:", formatIndex));
-    formatIndex = lastFormat;
-  }
-  version.format = static_cast<Format>(formatIndex);
+  // Read format value "as-is". It's correctness will be checked later
+  // with the correspondent return value.
+  version.format = static_cast<Format>(ReadVarUint<uint32_t>(src));
   version.timestamp = ReadVarUint<uint32_t>(src);
 }
 }  // namespace
@@ -68,6 +61,7 @@ bool ReadVersion(FilesContainerR const & container, MwmVersion & version)
 {
   if (!container.IsExist(VERSION_FILE_TAG))
     return false;
+
   ModelReaderPtr versionReader = container.GetReader(VERSION_FILE_TAG);
   ReaderSource<ModelReaderPtr> src(versionReader);
   ReadVersionT(src, version);

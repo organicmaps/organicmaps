@@ -123,7 +123,8 @@ pair<MwmSet::MwmHandle, MwmSet::RegResult> MwmSet::RegisterImpl(LocalCountryFile
 
   // This function can throw an exception for a bad mwm file.
   if (!GetVersion(localFile, *info))
-    return make_pair(MwmHandle(), RegResult::BadFile);
+    return make_pair(MwmHandle(), RegResult::UnsupportedFileFormat);
+
   info->SetStatus(MwmInfo::STATUS_REGISTERED);
   info->m_file = localFile;
   string const name = localFile.GetCountryName();
@@ -315,5 +316,7 @@ string DebugPrint(MwmSet::RegResult result)
       return "VersionTooOld";
     case MwmSet::RegResult::BadFile:
       return "BadFile";
+    case MwmSet::RegResult::UnsupportedFileFormat:
+    return "UnsupportedFileFormat";
   }
 }
