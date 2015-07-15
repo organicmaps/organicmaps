@@ -409,17 +409,24 @@ public class MWMActivity extends BaseMwmFragmentActivity
       hidePlacePage();
       Framework.deactivatePopup();
       popFragment();
-
-      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-      Fragment fragment = new SearchFragment();
-      fragment.setArguments(getIntent().getExtras());
-      transaction.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom,
-          R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom);
-      transaction.add(R.id.fragment_container, fragment, fragment.getClass().getName());
-      transaction.addToBackStack(null).commit();
+      replaceFragment(SearchFragment.class.getName(), true, getIntent().getExtras());
     }
     else
       startActivity(new Intent(this, SearchActivity.class));
+  }
+
+  @Override
+  public void replaceFragment(String fragmentClassName, boolean addToBackStack, Bundle args)
+  {
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    Fragment fragment = Fragment.instantiate(this, fragmentClassName, args);
+    transaction.setCustomAnimations(R.anim.fragment_slide_in_bottom, R.anim.fragment_slide_out_bottom,
+        R.anim.fragment_slide_in_bottom, R.anim.fragment_slide_out_bottom);
+    transaction.replace(R.id.fragment_container, fragment, fragment.getClass().getName());
+    if (addToBackStack)
+      transaction.addToBackStack(null);
+
+    transaction.commit();
   }
 
   private void shareMyLocation()
@@ -460,17 +467,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       popFragment();
       hidePlacePage();
       SearchController.getInstance().cancelSearch();
-
-      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-      Fragment fragment = new DownloadFragment();
-      final Bundle extras = new Bundle();
-      extras.putBoolean(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, openDownloadedList);
-      fragment.setArguments(extras);
-      transaction.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom,
-          R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom);
-      transaction.add(R.id.fragment_container, fragment, fragment.getClass().getName());
-      transaction.addToBackStack(null).commit();
-
+      replaceFragment(DownloadFragment.class.getName(), true, new Bundle());
       mFadeView.fadeIn(false);
     }
     else
@@ -553,14 +550,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     initRoutingBox();
     initNavigationButtons();
     if (findViewById(R.id.fragment_container) != null)
-    {
       mIsFragmentContainer = true;
-      // add dummy fragment to enable pop out fragment animations
-      Fragment fragment = new Fragment();
-      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-      transaction.add(R.id.fragment_container, fragment);
-      transaction.commit();
-    }
   }
 
   private void initMap()
@@ -1089,7 +1079,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
       mFadeView.fadeOut(false);
     }
     else if (canFragmentInterceptBackPress())
-      // TODO close menu & fragments accordingly
       return;
     else if (popFragment())
     {
@@ -1108,39 +1097,34 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private boolean canFragmentInterceptBackPress()
   {
     final FragmentManager manager = getSupportFragmentManager();
-    final int count = manager.getBackStackEntryCount();
-    if (count < 1) // first fragment is dummy and shouldn't be removed
-      return false;
-
     DownloadFragment fragment = (DownloadFragment) manager.findFragmentByTag(DownloadFragment.class.getName());
-    return fragment != null && fragment.onBackPressed();
+    return fragment != null && fragment.isResumed() && fragment.onBackPressed();
   }
 
   private boolean popFragment()
   {
     final FragmentManager manager = getSupportFragmentManager();
-    final int count = manager.getBackStackEntryCount();
-    if (count < 1) // first fragment is dummy and shouldn't be removed
-      return false;
-
-    Fragment fragment = manager.findFragmentByTag(SearchFragment.class.getName());
-    // TODO we cant pop fragment, if it isn't resumed, cause of 'at android.support.v4.app.FragmentManagerImpl.checkStateLoss(FragmentManager.java:1375)'
-    // consider other possibilities here
-    if (fragment != null && fragment.isResumed())
+    for (String tag : new String[]{SearchFragment.class.getName(), DownloadFragment.class.getName()})
     {
-      manager.popBackStack();
-      return true;
-    }
-    fragment = manager.findFragmentByTag(DownloadFragment.class.getName());
-    if (fragment != null && fragment.isResumed())
-    {
-      manager.popBackStack();
-      return true;
+      Fragment fragment = manager.findFragmentByTag(tag);
+      // TODO we cant pop fragment, if it isn't resumed, cause of 'at android.support.v4.app.FragmentManagerImpl.checkStateLoss(FragmentManager.java:1375)'
+      // consider other possibilities here
+      if (fragment != null && fragment.isResumed())
+      {
+        manager.popBackStackImmediate();
+        return true;
+      }
     }
 
     return false;
   }
 
+  private void popAllFragments()
+  {
+    final FragmentManager manager = getSupportFragmentManager();
+    while (manager.getBackStackEntryCount() > 0)
+      manager.popBackStackImmediate();
+  }
 
   // Callbacks from native map objects touch event.
   @Override
@@ -1238,7 +1222,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
       mTvStartRouting.setVisibility(View.VISIBLE);
       mIvStartRouting.setVisibility(View.VISIBLE);
       mPbRoutingProgress.setVisibility(View.GONE);
-      if (popFragment() && isMapFaded())
+      popAllFragments();
+      if (isMapFaded())
         mFadeView.fadeOut(false);
     }
   }

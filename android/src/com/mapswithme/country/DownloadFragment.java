@@ -98,11 +98,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   public boolean onBackPressed()
   {
     if (getDownloadAdapter().onBackPressed())
-    {
-      // scroll list view to the top
       setSelection(0);
-      return true;
-    }
     else if (getListAdapter() instanceof DownloadedAdapter)
     {
       mMode = MODE_DISABLED;
@@ -111,12 +107,11 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
       mExtendedAdapter.onResume(getListView());
       setListAdapter(mExtendedAdapter);
       updateToolbar();
-      return true;
     }
     else
       navigateUpToParent();
 
-    return false;
+    return true;
   }
 
   private void updateToolbar()
