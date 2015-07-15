@@ -20,4 +20,8 @@ dependencies {
 android {
   compileSdkVersion propTargetSdkVersion.toInteger()
   buildToolsVersion propBuildToolsVersion
+
+  defaultConfig {
+    minSdkVersion propMinSdkVersion.toInteger()
+  }
 }

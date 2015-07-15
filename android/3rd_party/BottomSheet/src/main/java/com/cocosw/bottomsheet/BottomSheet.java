@@ -50,8 +50,10 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -79,6 +81,7 @@ public class BottomSheet extends Dialog implements DialogInterface {
     private boolean collapseListIcons;
     private int mStatusBarHeight;
     private GridView list;
+    private View listShadow;
     private SimpleSectionedGridAdapter adapter;
     private Builder builder;
 
@@ -316,6 +319,8 @@ public class BottomSheet extends Dialog implements DialogInterface {
             list.setNumColumns(1);
         }
 
+        listShadow = mDialogView.findViewById(R.id.bottom_sheet_list_shadow);
+
         if (builder.grid) {
             for (int i = 0; i < getMenu().size(); i++) {
                 if (getMenu().getItem(i).getIcon() == null)
@@ -475,6 +480,19 @@ public class BottomSheet extends Dialog implements DialogInterface {
         }
     }
 
+    public boolean shouldShowShadow() {
+        int first = list.getFirstVisiblePosition();
+        if (first > 0)
+            return true;
+
+        View child = list.getChildAt(0);
+        return (child.getTop() < 0);
+    }
+
+    private void updateListShadow() {
+        listShadow.setVisibility(shouldShowShadow() ? View.VISIBLE : View.GONE);
+    }
+
     private void showFullItems() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Transition changeBounds = new ChangeBounds();
@@ -484,7 +502,7 @@ public class BottomSheet extends Dialog implements DialogInterface {
         actions = fullMenuItem;
         updateSection();
         adapter.notifyDataSetChanged();
-        list.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        list.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         icon.setVisibility(View.VISIBLE);
         icon.setImageDrawable(close);
         icon.setOnClickListener(new View.OnClickListener() {
@@ -494,6 +512,17 @@ public class BottomSheet extends Dialog implements DialogInterface {
             }
         });
         setListLayout();
+
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                updateListShadow();
+            }
+        });
     }
 
     private void showShortItems() {
@@ -508,6 +537,9 @@ public class BottomSheet extends Dialog implements DialogInterface {
             icon.setVisibility(View.VISIBLE);
             icon.setImageDrawable(builder.icon);
         }
+
+        list.setOnScrollListener(null);
+        listShadow.setVisibility(View.GONE);
     }
 
     private boolean hasDivider() {
@@ -529,7 +561,7 @@ public class BottomSheet extends Dialog implements DialogInterface {
                 }
                 View lastChild = list.getChildAt(list.getChildCount() - 1);
                 if (lastChild != null)
-                    list.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, lastChild.getBottom() + lastChild.getPaddingBottom() + list.getPaddingBottom()));
+                    list.setLayoutParams(new FrameLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, lastChild.getBottom() + lastChild.getPaddingBottom() + list.getPaddingBottom()));
             }
         });
     }

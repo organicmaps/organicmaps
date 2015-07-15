@@ -36,15 +36,24 @@
             
         </LinearLayout>
 
-        <com.cocosw.bottomsheet.PinnedSectionGridView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bottom_sheet_gridview"
-            android:numColumns="?bs_numColumns"
-            android:fadingEdge="none"
-            style="?bs_listStyle"
-            tools:listitem="@layout/bs_grid_entry" />
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+            <com.cocosw.bottomsheet.PinnedSectionGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bottom_sheet_gridview"
+                android:numColumns="?bs_numColumns"
+                android:fadingEdge="none"
+                style="?bs_listStyle"
+                tools:listitem="@layout/bs_grid_entry" />
 
+            <View android:id="@+id/bottom_sheet_list_shadow"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/bs_shadow"
+                  android:visibility="gone"
+                  tools:visibility="visible"/>
+        </FrameLayout>
     </LinearLayout>
 
 </com.cocosw.bottomsheet.ClosableSlidingLayout>
