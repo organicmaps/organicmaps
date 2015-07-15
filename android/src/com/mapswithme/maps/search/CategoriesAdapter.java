@@ -1,6 +1,7 @@
 package com.mapswithme.maps.search;
 
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,42 +15,8 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
 {
-  private static final int mCategoriesIds[] = {
-      R.string.food,
-      R.string.hotel,
-      R.string.tourism,
-      R.string.wifi,
-      R.string.transport,
-      R.string.fuel,
-      R.string.parking,
-      R.string.shop,
-      R.string.atm,
-      R.string.bank,
-      R.string.entertainment,
-      R.string.hospital,
-      R.string.pharmacy,
-      R.string.police,
-      R.string.toilet,
-      R.string.post
-  };
-  private static final int mIcons[] = {
-      R.drawable.ic_food,
-      R.drawable.ic_hotel,
-      R.drawable.ic_tourism,
-      R.drawable.ic_wifi,
-      R.drawable.ic_transport,
-      R.drawable.ic_gas,
-      R.drawable.ic_parking,
-      R.drawable.ic_shop,
-      R.drawable.ic_atm,
-      R.drawable.ic_bank,
-      R.drawable.ic_entertainment,
-      R.drawable.ic_hospital,
-      R.drawable.ic_pharmacy,
-      R.drawable.ic_police,
-      R.drawable.ic_toilet,
-      R.drawable.ic_post
-  };
+  private final int mCategoryResIds[];
+  private final int mIconResIds[];
 
   private final LayoutInflater mInflater;
   private final Resources mResources;
@@ -57,6 +24,22 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
   public CategoriesAdapter(SearchFragment fragment)
   {
+    TypedArray categories = fragment.getActivity().getResources().obtainTypedArray(R.array.search_category_name_ids);
+    TypedArray icons = fragment.getActivity().getResources().obtainTypedArray(R.array.search_category_icon_ids);
+    int len = categories.length();
+    if (icons.length() != len)
+      throw new IllegalStateException("Categories and icons arrays must have the same length.");
+
+    mCategoryResIds = new int[len];
+    mIconResIds = new int[len];
+    for (int i = 0; i < len; i++)
+    {
+      mCategoryResIds[i] = categories.getResourceId(i, 0);
+      mIconResIds[i] = icons.getResourceId(i, 0);
+    }
+    categories.recycle();
+    icons.recycle();
+
     mFragment = fragment;
     mResources = mFragment.getResources();
     mInflater = LayoutInflater.from(mFragment.getActivity());
@@ -72,17 +55,17 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
   @Override
   public void onBindViewHolder(ViewHolder holder, int position)
   {
-    UiUtils.setTextAndShow(holder.mName, mResources.getString(mCategoriesIds[position]));
-    holder.mImageLeft.setImageResource(mIcons[position]);
+    UiUtils.setTextAndShow(holder.mName, mResources.getString(mCategoryResIds[position]));
+    holder.mImageLeft.setImageResource(mIconResIds[position]);
   }
 
   @Override
   public int getItemCount()
   {
-    return mCategoriesIds.length;
+    return mCategoryResIds.length;
   }
 
-  private String getSuggestionFromCategoryId(int resId)
+  private String getSuggestionFromCategory(int resId)
   {
     return mResources.getString(resId) + ' ';
   }
@@ -104,8 +87,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     public void onClick(View v)
     {
       final int position = getAdapterPosition();
-      Statistics.INSTANCE.trackSearchCategoryClicked(mResources.getResourceEntryName(mCategoriesIds[position]));
-      mFragment.setSearchQuery(getSuggestionFromCategoryId(mCategoriesIds[position]));
+      Statistics.INSTANCE.trackSearchCategoryClicked(mResources.getResourceEntryName(mCategoryResIds[position]));
+      mFragment.setSearchQuery(getSuggestionFromCategory(mCategoryResIds[position]));
     }
   }
 }

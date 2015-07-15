@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- IMPORTANT : order of items in 'search_category_icon_ids' and 'search_category_name_ids' should be identical. -->
+  <array name="search_category_icon_ids">
+    <item>@drawable/ic_food</item>
+    <item>@drawable/ic_hotel</item>
+    <item>@drawable/ic_tourism</item>
+    <item>@drawable/ic_wifi</item>
+    <item>@drawable/ic_transport</item>
+    <item>@drawable/ic_gas</item>
+    <item>@drawable/ic_parking</item>
+    <item>@drawable/ic_shop</item>
+    <item>@drawable/ic_atm</item>
+    <item>@drawable/ic_bank</item>
+    <item>@drawable/ic_entertainment</item>
+    <item>@drawable/ic_hospital</item>
+    <item>@drawable/ic_pharmacy</item>
+    <item>@drawable/ic_police</item>
+    <item>@drawable/ic_toilet</item>
+    <item>@drawable/ic_post</item>
+  </array>
+
+  <array name="search_category_name_ids">
+    <item>@string/food</item>
+    <item>@string/hotel</item>
+    <item>@string/tourism</item>
+    <item>@string/wifi</item>
+    <item>@string/transport</item>
+    <item>@string/fuel</item>
+    <item>@string/parking</item>
+    <item>@string/shop</item>
+    <item>@string/atm</item>
+    <item>@string/bank</item>
+    <item>@string/entertainment</item>
+    <item>@string/hospital</item>
+    <item>@string/pharmacy</item>
+    <item>@string/police</item>
+    <item>@string/toilet</item>
+    <item>@string/post</item>
+  </array>
+
+</resources>

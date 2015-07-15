@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="measument_units">
-        <item>@string/kilometres</item>
-        <item>@string/miles</item>
-    </string-array>
-    <string-array name="measument_units_values" translatable="false">
-        <item>0</item>
-        <item>2</item>
-    </string-array>
+  <string-array name="measument_units">
+    <item>@string/kilometres</item>
+    <item>@string/miles</item>
+  </string-array>
+  <string-array name="measument_units_values" translatable="false">
+    <item>0</item>
+    <item>2</item>
+  </string-array>
 
 </resources>
