@@ -9,10 +9,11 @@
 #import "Common.h"
 #import "MWMAlertViewController.h"
 #import "MWMDownloadTransitMapAlert.h"
+#import "UIKitCategories.h"
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
-@interface MWMAlertViewController () <UIGestureRecognizerDelegate>
+@interface MWMAlertViewController () <UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic, readwrite) UIViewController * ownerViewController;
 
@@ -44,12 +45,30 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentLocationAlert
 {
-  dispatch_async(dispatch_get_main_queue(), ^
+  NSString * title = L(@"location_is_disabled_long_text");
+  NSString * cancel = L(@"cancel");
+  NSString * openSettings = L(@"settings");
+  if (isIOSVersionLessThan(8))
   {
-    // @TODO Remove dispatch on LocationManager -> MWMLocationManager
-    // Test case when location is denied by user on app launch/relaunch
-    [self displayAlert:MWMAlert.locationAlert];
-  });
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:cancel otherButtonTitles:openSettings, nil];
+    [alertView show];
+    return;
+  }
+  UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
+  UIAlertAction * openSettingsAction = [UIAlertAction actionWithTitle:openSettings style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
+  {
+    [self openSettings];
+  }];
+  [alertController addAction:cancelAction];
+  [alertController addAction:openSettingsAction];
+  [self.ownerViewController presentViewController:alertController animated:YES completion:nil];
+//  dispatch_async(dispatch_get_main_queue(), ^
+//  {
+//    // @TODO Remove dispatch on LocationManager -> MWMLocationManager
+//    // Test case when location is denied by user on app launch/relaunch
+//    [self displayAlert:MWMAlert.locationAlert];
+//  });
 }
 
 - (void)presentFacebookAlert
@@ -122,5 +141,22 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self.view removeFromSuperview];
   [self removeFromParentViewController];
 }
+
+- (void)openSettings
+{
+  NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+  UIApplication * a = [UIApplication sharedApplication];
+  if ([a canOpenURL:url])
+    [a openURL:url];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex == 1)
+    [self openSettings];
+}
+
 
 @end
