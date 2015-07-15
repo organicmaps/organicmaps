@@ -176,7 +176,7 @@
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">Voit tuoda kirjanmerkkejä MAPS.ME:ssä käytettäväksi muista lähteistä avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.</string>
 	<!-- Settings button in system menu -->
-	<string name="settings">Asetukset</string>
+	<string name="settings">İnstellingen</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Karttojen tallennus</string>
 	<!-- Detailed description of Maps Storage settings button -->

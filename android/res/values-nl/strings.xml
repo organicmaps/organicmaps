@@ -164,7 +164,7 @@
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.</string>
 	<!-- Settings button in system menu -->
-	<string name="settings">Instellingen</string>
+	<string name="settings">İnstellingen</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Kaarten bewaren</string>
 	<!-- Detailed description of Maps Storage settings button -->

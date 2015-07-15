@@ -176,7 +176,7 @@
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">Điểm đánh dấu từ các nguồn khác có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ thư, Dropbox hoặc liên kết web.</string>
 	<!-- Settings button in system menu -->
-	<string name="settings">Cài đặt</string>
+	<string name="settings">Thiết lập</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Lưu trữ bản đồ</string>
 	<!-- Detailed description of Maps Storage settings button -->

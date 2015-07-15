@@ -277,7 +277,7 @@
 "bookmarks_usage_hint_import_only" = "V MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.";
 
 /* Settings button in system menu */
-"settings" = "Nastavenie";
+"settings" = "Nastavenia";
 
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "Úložisko máp";

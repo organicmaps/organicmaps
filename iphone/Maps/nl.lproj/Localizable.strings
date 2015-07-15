@@ -277,7 +277,7 @@
 "bookmarks_usage_hint_import_only" = "Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
 
 /* Settings button in system menu */
-"settings" = "Instellingen";
+"settings" = "İnstellingen";
 
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "Kaarten bewaren";

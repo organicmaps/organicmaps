@@ -167,7 +167,7 @@
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">Os marcadores de outras fontes podem ser importados e exibidos na aplicação MAPS.ME. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.</string>
 	<!-- Settings button in system menu -->
-	<string name="settings">Definições</string>
+	<string name="settings">Configurações</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Armazenamento dos mapas</string>
 	<!-- Detailed description of Maps Storage settings button -->

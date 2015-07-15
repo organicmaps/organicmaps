@@ -33,7 +33,7 @@
 	<!-- Bookmarks - dialog title -->
 	<text id="IDS_BOOKMARKS">Favoritos</text>
 	<!-- Settings button in system menu -->
-	<text id="IDS_SETTINGS">Definições</text>
+	<text id="IDS_SETTINGS">Configurações</text>
 	<!-- Show bookmarks from this category on a map or not -->
 	<text id="IDS_VISIBLE">Visível</text>
 	<!-- Measurement units title in settings activity -->

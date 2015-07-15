@@ -171,7 +171,7 @@
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">V MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.</string>
 	<!-- Settings button in system menu -->
-	<string name="settings">Nastavenie</string>
+	<string name="settings">Nastavenia</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Úložisko máp</string>
 	<!-- Detailed description of Maps Storage settings button -->

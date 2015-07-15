@@ -277,7 +277,7 @@
 "bookmarks_usage_hint_import_only" = "其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。";
 
 /* Settings button in system menu */
-"settings" = "設定";
+"settings" = "設置";
 
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "地圖儲存";
