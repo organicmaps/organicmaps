@@ -223,6 +223,7 @@ if [ "$MODE" == "coast" ]; then
     TRY_AGAIN=
     if [ -n "$OPT_UPDATE" ]; then
       log "STATUS" "Step 1: Updating the planet file $PLANET"
+      UPDATE_DATE="$(date +%y%m%d)"
       PLANET_ABS="$(cd "$(dirname "$PLANET")"; pwd)/$(basename "$PLANET")"
       (
         cd "$OSMCTOOLS" # osmupdate requires osmconvert in a current directory
@@ -370,6 +371,12 @@ if [ "$MODE" == "resources" ]; then
   "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$PLANET_LOG"
   # We have no means of finding the resulting file, so let's assume it was magically placed in DATA_PATH
   [ -e "$TARGET/countries.txt.updated" ] && mv "$TARGET/countries.txt.updated" "$TARGET/countries.txt"
+  # If we know the planet's version, update it in countries.txt
+  if [ -n "${UPDATE_DATE-}" ]; then
+    # In-place editing works differently on OS X and Linux, hence two steps
+    sed -e "s/\"v\":[0-9]\\{6\\}/\"v\":$UPDATE_DATE/" "$TARGET/countries.txt" > "$INTDIR/countries.txt"
+    mv "$INTDIR/countries.txt" "$TARGET"
+  fi
   # A quick fix: chmodding to a+rw all generated files
   for file in "$TARGET"/*.mwm*; do
     chmod 0666 "$file"
