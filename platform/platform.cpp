@@ -133,22 +133,6 @@ string Platform::DeviceName() const
   return OMIM_OS_NAME;
 }
 
-string Platform::WritablePathForCountryIndexes(string const & mwmName) const
-{
-  string const dir = WritableDir() + mwmName + my::GetNativeSeparator();
-  if (!IsFileExistsByFullPath(dir))
-  {
-    if (MkDir(dir) != Platform::ERR_OK)
-      MYTHROW(Writer::CreateDirException, ("Can't create directory:", dir));
-  }
-  return dir;
-}
-
-string Platform::GetIndexFileName(string const & mwmName, string const & extension) const
-{
-  return GetPlatform().WritablePathForCountryIndexes(mwmName) + mwmName + extension;
-}
-
 void Platform::SetWritableDirForTests(string const & path)
 {
   m_writableDir = my::AddSlashIfNeeded(path);

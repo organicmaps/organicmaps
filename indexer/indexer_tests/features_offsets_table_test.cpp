@@ -93,8 +93,11 @@ namespace feature
   {
     string const testFileName = "test_file";
     Platform & p = GetPlatform();
+    platform::CountryFile country("minsk-pass");
+    platform::LocalCountryFile localFile(p.WritableDir(), country, 0 /* version */);
+    localFile.SyncWithDisk();
     FilesContainerR baseContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
-    const string indexFile = p.GetIndexFileName(testFileName, FEATURES_OFFSETS_TABLE_FILE_EXT);
+    const string indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
 
     feature::DataHeader header;
     header.Load(baseContainer.GetReader(HEADER_FILE_TAG));
