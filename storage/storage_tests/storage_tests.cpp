@@ -541,7 +541,7 @@ UNIT_TEST(StorageTest_DownloadTwoCountriesAndDelete)
     unique_ptr<CountryDownloaderChecker> venezuelaChecker = make_unique<CountryDownloaderChecker>(
         storage, venezuelaIndex, TMapOptions::EMapWithCarRouting,
         vector<TStatus>{TStatus::ENotDownloaded, TStatus::EInQueue, TStatus::EDownloading,
-                        TStatus::EOnDisk});
+                        TStatus::EDownloading, TStatus::EOnDisk});
     uruguayChecker->StartDownload();
     venezuelaChecker->StartDownload();
     storage.DeleteCountry(uruguayIndex, TMapOptions::EMap);
