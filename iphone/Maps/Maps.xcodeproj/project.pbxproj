@@ -195,6 +195,9 @@
 		F63732961AE9431E00A03764 /* MWMBasePlacePageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63732951AE9431E00A03764 /* MWMBasePlacePageView.mm */; };
 		F63774E71B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */; };
 		F63774EA1B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63774E91B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm */; };
+		F63774E41B57F55300BCF54D /* MWMNavigationDashboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63774E31B57F55300BCF54D /* MWMNavigationDashboard.xib */; };
+		F63774ED1B5CEF9E00BCF54D /* MWMNavigationDashboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63774EC1B5CEF9E00BCF54D /* MWMNavigationDashboard.mm */; };
+		F63774F01B5CF25D00BCF54D /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63774EF1B5CF25D00BCF54D /* MWMNavigationDashboardManager.mm */; };
 		F64F19991AB81A00006EAF7E /* MWMAlertViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19821AB81A00006EAF7E /* MWMAlertViewController.mm */; };
 		F64F199A1AB81A00006EAF7E /* MWMAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19831AB81A00006EAF7E /* MWMAlertViewController.xib */; };
 		F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19861AB81A00006EAF7E /* MWMAlert.mm */; };
@@ -605,6 +608,11 @@
 		F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRoutingDisclaimerAlert.xib; sourceTree = "<group>"; };
 		F63774E81B59376F00BCF54D /* MWMRoutingDisclaimerAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutingDisclaimerAlert.h; sourceTree = "<group>"; };
 		F63774E91B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingDisclaimerAlert.mm; sourceTree = "<group>"; };
+		F63774E31B57F55300BCF54D /* MWMNavigationDashboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNavigationDashboard.xib; sourceTree = "<group>"; };
+		F63774EB1B5CEF9E00BCF54D /* MWMNavigationDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboard.h; sourceTree = "<group>"; };
+		F63774EC1B5CEF9E00BCF54D /* MWMNavigationDashboard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboard.mm; sourceTree = "<group>"; };
+		F63774EE1B5CF25D00BCF54D /* MWMNavigationDashboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardManager.h; sourceTree = "<group>"; };
+		F63774EF1B5CF25D00BCF54D /* MWMNavigationDashboardManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboardManager.mm; sourceTree = "<group>"; };
 		F64F19811AB81A00006EAF7E /* MWMAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAlertViewController.h; sourceTree = "<group>"; };
 		F64F19821AB81A00006EAF7E /* MWMAlertViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAlertViewController.mm; sourceTree = "<group>"; };
 		F64F19831AB81A00006EAF7E /* MWMAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAlertViewController.xib; sourceTree = "<group>"; };
@@ -857,6 +865,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F63774E21B57F54300BCF54D /* NavigationDashboard */,
 				340F24601B1490ED00F874CD /* RouteState */,
 				F6588E291B15C25C00EE1E58 /* TextView */,
 				F62A73A71AD8950900175470 /* WatchEventHandler */,
@@ -1404,6 +1413,18 @@
 				F63774E91B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm */,
 			);
 			path = RoutingDisclaimerAlert;
+			sourceTree = "<group>";
+		};
+		F63774E21B57F54300BCF54D /* NavigationDashboard */ = {
+			isa = PBXGroup;
+			children = (
+				F63774E31B57F55300BCF54D /* MWMNavigationDashboard.xib */,
+				F63774EB1B5CEF9E00BCF54D /* MWMNavigationDashboard.h */,
+				F63774EC1B5CEF9E00BCF54D /* MWMNavigationDashboard.mm */,
+				F63774EE1B5CF25D00BCF54D /* MWMNavigationDashboardManager.h */,
+				F63774EF1B5CF25D00BCF54D /* MWMNavigationDashboardManager.mm */,
+			);
+			path = NavigationDashboard;
 			sourceTree = "<group>";
 		};
 		F64F195F1AB8125C006EAF7E /* CustomAlert */ = {
@@ -2033,6 +2054,7 @@
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
 				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,
 				9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */,
+				F63774E41B57F55300BCF54D /* MWMNavigationDashboard.xib in Resources */,
 				4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */,
 				34BC722B1B0DECAE0012A34B /* MWMZoomButtonsView.xib in Resources */,
 				EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */,
@@ -2242,6 +2264,7 @@
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				F6FE2C0F1B03A006009814AA /* MWMPlacePageNavigationBar.mm in Sources */,
 				34BC72221B0DECAE0012A34B /* MWMLocationButtonView.mm in Sources */,
+				F63774F01B5CF25D00BCF54D /* MWMNavigationDashboardManager.mm in Sources */,
 				340F24631B14910500F874CD /* RouteState.mm in Sources */,
 				9747264318323080006B7CB7 /* UIKitCategories.m in Sources */,
 				977E26BE19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */,
@@ -2285,6 +2308,7 @@
 				34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */,
 				974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */,
 				97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
+				F63774ED1B5CEF9E00BCF54D /* MWMNavigationDashboard.mm in Sources */,
 				978F9242183B660F000D6C7C /* SelectableCell.m in Sources */,
 				34BC722A1B0DECAE0012A34B /* MWMZoomButtonsView.m in Sources */,
 				F6F533A31B3C248900C1940B /* UIColor+MapsMeColor.mm in Sources */,
