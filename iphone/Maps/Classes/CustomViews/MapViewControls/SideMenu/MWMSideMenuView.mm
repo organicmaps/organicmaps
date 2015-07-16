@@ -77,11 +77,11 @@
   CGFloat const menuHeight = self.size.height;
   if (menuWidth > menuHeight)
   {
-    CGFloat const statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    CGFloat const topOffset = 10.;
     NSUInteger const buttonsCount = self.buttons.count;
     CGFloat const buttonHeight = self.searchButton.height;
     CGFloat const buttonCenterOffsetToBounds = 0.5 * buttonHeight + 2.0 * kViewControlsOffsetToBounds;
-    offset = MIN(offset, (menuHeight - 0.5 * statusBarHeight - 2.0 * (buttonCenterOffsetToBounds - 0.5 * buttonHeight) - buttonsCount*buttonHeight) / (buttonsCount - 1) + buttonHeight);
+    offset = MIN(offset, (menuHeight - topOffset - 2.0 * (buttonCenterOffsetToBounds - 0.5 * buttonHeight) - buttonsCount*buttonHeight) / (buttonsCount - 1) + buttonHeight);
   }
   return offset;
 }
