@@ -20,7 +20,7 @@ import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.DisabledChildSimpleExpandableListAdapter;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.maps.data.RoutingResultCodes;
+import com.mapswithme.maps.data.RoutingResultCodesProcessor;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
@@ -64,7 +64,7 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     parseArguments();
-    final Pair<String, String> titleMessage = RoutingResultCodes.getDialogTitleSubtitle(mResultCode);
+    final Pair<String, String> titleMessage = RoutingResultCodesProcessor.getDialogTitleSubtitle(mResultCode);
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
         .setTitle(titleMessage.first)
         .setCancelable(true);
@@ -178,14 +178,12 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     final List<Map<String, String>> groupData = new ArrayList<>();
 
     final Map<String, String> countriesGroup = new HashMap<>();
-    // TODO translations
-    countriesGroup.put(GROUP_NAME, "Countries (" + mMissingCountries.length + ")");
+    countriesGroup.put(GROUP_NAME, getString(R.string.maps) + " (" + mMissingCountries.length + ") ");
     countriesGroup.put(GROUP_SIZE, StringUtils.getFileSizeString(getCountriesSizeInBytes(StorageOptions.MAP_OPTION_MAP_ONLY)));
     groupData.add(countriesGroup);
 
     final Map<String, String> routesGroup = new HashMap<>();
-    // TODO translations
-    routesGroup.put(GROUP_NAME, "Routes (" + mMissingCountries.length + ")");
+    routesGroup.put(GROUP_NAME, getString(R.string.dialog_routing_routes_size) + " (" + mMissingCountries.length + ") ");
     routesGroup.put(GROUP_SIZE, StringUtils.getFileSizeString(getCountriesSizeInBytes(StorageOptions.MAP_OPTION_CAR_ROUTING)));
     groupData.add(routesGroup);
 

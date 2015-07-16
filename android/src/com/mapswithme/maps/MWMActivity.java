@@ -54,7 +54,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.data.RouterTypes;
-import com.mapswithme.maps.data.RoutingResultCodes;
+import com.mapswithme.maps.data.RoutingResultCodesProcessor;
 import com.mapswithme.maps.dialog.RoutingErrorDialogFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
@@ -1433,8 +1433,14 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void showRoutingDisclaimer()
   {
+    StringBuilder builder = new StringBuilder();
+    for (int resId : new int[] {R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
+        R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_beware})
+      builder.append(getString(resId)).append("\n\n");
+
     new AlertDialog.Builder(this)
-        .setMessage(getString(R.string.routing_disclaimer))
+        .setTitle(R.string.dialog_routing_disclaimer_title)
+        .setMessage(builder.toString())
         .setCancelable(false)
         .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
         {
@@ -1534,7 +1540,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
-        if (resultCode == RoutingResultCodes.NO_ERROR)
+        if (resultCode == RoutingResultCodesProcessor.NO_ERROR)
         {
           mRlTurnByTurnBox.setVisibility(View.GONE);
           ViewCompat.setAlpha(mLayoutRoutingGo, 1);
@@ -1578,7 +1584,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
             public void onOk()
             {
               closeRouting();
-              if (RoutingResultCodes.isDownloadable(resultCode))
+              if (RoutingResultCodesProcessor.isDownloadable(resultCode))
                 showDownloader(false);
             }
           });
