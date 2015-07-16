@@ -36,6 +36,11 @@
   });
 }
 
+- (void)hide
+{
+  [self removeFromSuperview];
+}
+
 - (void)expand
 {
   if (self.outOfDateCount == 0)

@@ -20,5 +20,6 @@
 @property (nonatomic) NSUInteger outOfDateCount;
 
 - (void)showAnimatedAfterDelay:(NSTimeInterval)delay;
+- (void)hide;
 
 @end

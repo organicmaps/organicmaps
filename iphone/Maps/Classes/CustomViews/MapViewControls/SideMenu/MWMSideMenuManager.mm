@@ -68,7 +68,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (IBAction)menuActionOpenBookmarks
 {
-  self.state = MWMSideMenuStateInactive;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
   BookmarksRootVC * const vc = [[BookmarksRootVC alloc] init];
   [self.controller.navigationController pushViewController:vc animated:YES];
@@ -76,13 +75,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (IBAction)menuActionDownloadMaps
 {
-  self.state = MWMSideMenuStateInactive;
   [self.controller pushDownloadMaps];
 }
 
 - (IBAction)menuActionOpenSettings
 {
-  self.state = MWMSideMenuStateInactive;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
   SettingsAndMoreVC * const vc = [[SettingsAndMoreVC alloc] initWithStyle:UITableViewStyleGrouped];
   [self.controller.navigationController pushViewController:vc animated:YES];
@@ -90,7 +87,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (IBAction)menuActionShareLocation
 {
-  self.state = MWMSideMenuStateInactive;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"share@"];
   CLLocation const * const location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
   if (!location)
@@ -196,6 +192,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (_state == state)
     return;
+  [self.downloadBadge hide];
   switch (state)
   {
     case MWMSideMenuStateActive:

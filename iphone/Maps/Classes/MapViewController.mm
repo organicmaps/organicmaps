@@ -93,6 +93,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 @property (nonatomic) UIImageView * apiBar;
 @property (nonatomic) UILabel * apiTitleLabel;
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
+@property (nonatomic) MWMSideMenuState menuRestoreState;
 
 @property (nonatomic) ForceRoutingStateChange forceRoutingStateChange;
 @property (nonatomic) BOOL disableStandbyOnLocationStateMode;
@@ -565,6 +566,8 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   m_mapsObserverSlotId = GetFramework().GetCountryTree().GetActiveMapLayout().AddListener(m_mapsObserver);
   if (self.searchView.state == SearchViewStateFullscreen)
     [self.searchView setState:SearchViewStateFullscreen animated:NO];
+
+  self.controlsManager.menuState = self.menuRestoreState;
 }
 
 - (void)viewDidLoad
@@ -589,6 +592,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
     firstTime = NO;
     [self setApiMode:_apiMode animated:NO];
   }
+  self.menuRestoreState = self.controlsManager.menuState;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -664,6 +668,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
     self.forceRoutingStateChange = ForceRoutingStateChangeNone;
     self.userTouchesAction = UserTouchesActionNone;
+    self.menuRestoreState = MWMSideMenuStateInactive;
 
     // restore previous screen position
     if (!f.LoadState())
