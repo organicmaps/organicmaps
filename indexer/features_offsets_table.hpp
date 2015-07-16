@@ -1,8 +1,8 @@
 #pragma once
 
-#include "coding/file_container.hpp"
 #include "coding/mmap_reader.hpp"
 #include "defines.hpp"
+#include "platform/local_country_file.hpp"
 #include "std/cstdint.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
@@ -65,10 +65,10 @@ namespace feature
     /// \warning May take a lot of time if there is no precomputed section
     ///
     /// \param fileName a full path of the file to load or store data
-    /// \param mwmFileContainer mwm container to read features data (if we need to construct them)
+    /// \param localFile Representation of the map files with features data ( uses only if we need to construct them)
     /// \return a pointer to an instance of FeaturesOffsetsTable or nullptr
     ///         when it's not possible to create FeaturesOffsetsTable.
-    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(string const & fileName, FilesContainerR const & mwmFileContainer);
+    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(string const & fileName, platform::LocalCountryFile const & localFile);
 
     FeaturesOffsetsTable(FeaturesOffsetsTable const &) = delete;
     FeaturesOffsetsTable const & operator=(FeaturesOffsetsTable const &) = delete;

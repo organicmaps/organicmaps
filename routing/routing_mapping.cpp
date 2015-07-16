@@ -97,7 +97,7 @@ void RoutingMapping::Map()
   ++m_mapCounter;
   if (!m_segMapping.IsMapped())
   {
-    m_segMapping.Load(m_container);
+    m_segMapping.Load(m_container, m_handle.GetInfo()->GetLocalFile());
     m_segMapping.Map(m_container);
   }
 }

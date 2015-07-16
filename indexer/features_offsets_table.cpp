@@ -56,11 +56,13 @@ namespace feature
 
   // static
   unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(
-      string const & fileName, FilesContainerR const & mwmFileContainer)
+      string const & fileName, platform::LocalCountryFile const & localFile)
   {
     uint64_t size;
     if (GetPlatform().GetFileSizeByFullPath(fileName,size))
       return Load(fileName);
+
+    FilesContainerR mwmFileContainer(localFile.GetPath(TMapOptions::EMap));
 
     LOG(LINFO, ("Features offsets table is absent! Creating a new one."));
 

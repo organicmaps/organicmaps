@@ -7,6 +7,8 @@
 #include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
 
+#include "platform/local_country_file_utils.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
@@ -17,6 +19,8 @@
 #include "std/unordered_map.hpp"
 
 #include "3party/succinct/mapper.hpp"
+
+using platform::CountryIndexes;
 
 namespace
 {
@@ -109,7 +113,7 @@ void OsrmFtSegMapping::Clear()
   m_handle.Unmap();
 }
 
-void OsrmFtSegMapping::Load(FilesMappingContainer & cont)
+void OsrmFtSegMapping::Load(FilesMappingContainer & cont, platform::LocalCountryFile const & localFile)
 {
   Clear();
 
@@ -124,7 +128,8 @@ void OsrmFtSegMapping::Load(FilesMappingContainer & cont)
     }
   }
 
-  m_backwardIndex.Construct(*this, m_offsets.back().m_nodeId, cont);
+  CountryIndexes::PreparePlaceOnDisk(localFile);
+  m_backwardIndex.Construct(*this, m_offsets.back().m_nodeId, cont, localFile);
 }
 
 void OsrmFtSegMapping::Map(FilesMappingContainer & cont)
@@ -371,25 +376,17 @@ bool OsrmFtSegBackwardIndex::Load(string const & nodesFileName, string const & b
 }
 
 void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, uint32_t maxNodeId,
-                                       FilesMappingContainer & routingFile)
+                                       FilesMappingContainer & routingFile,
+                                       platform::LocalCountryFile const & localFile)
 {
   Clear();
 
-  // Calculate data file pathes
-  Platform const & p = GetPlatform();
+  string const offsetsIndexName = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
+  string const bitsFileName = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Bits);
+  string const nodesFileName = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Nodes);
 
-  /// @todo Find more suitable way to get mwm file name.
-  string const routingName = routingFile.GetName();
-  string const mwmName(routingName, 0, routingName.rfind(ROUTING_FILE_EXTENSION));
-  size_t const sepIndex = routingName.rfind(my::GetNativeSeparator());
-  string const name(routingName,  sepIndex + 1, routingName.rfind(DATA_FILE_EXTENSION) - sepIndex - 1);
-
-  string const offsetsIndexName = p.GetIndexFileName(name, FEATURES_OFFSETS_TABLE_FILE_EXT);
-  string const bitsFileName = p.GetIndexFileName(name, FTSEG_MAPPING_BACKWARD_INDEX_BITS_EXT);
-  string const nodesFileName = p.GetIndexFileName(name, FTSEG_MAPPING_BACKWARD_INDEX_NODES_EXT);
-
-  m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(offsetsIndexName, FilesContainerR(mwmName));
-  CHECK(m_table.get(), ("Can't get FeaturesOffsetsTable for", mwmName));
+  m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(offsetsIndexName, localFile);
+  CHECK(m_table.get(), ("Can't get FeaturesOffsetsTable for", offsetsIndexName));
 
   if (Load(bitsFileName, nodesFileName))
     return;
@@ -441,7 +438,7 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, uint32_t maxN
   // Pack and save index
   succinct::rs_bit_vector(inIndex).swap(m_rankIndex);
 
-  LOG(LINFO, ("Writing section to data file", routingName));
+  LOG(LINFO, ("Writing additional indexes to data files", bitsFileName, nodesFileName));
   Save(bitsFileName, nodesFileName);
 }
 

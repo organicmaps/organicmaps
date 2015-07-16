@@ -113,7 +113,8 @@ class OsrmFtSegBackwardIndex
 
 public:
   void Construct(OsrmFtSegMapping & mapping, uint32_t maxNodeId,
-                 FilesMappingContainer & routingFile);
+                 FilesMappingContainer & routingFile,
+                 platform::LocalCountryFile const & localFile);
 
   TNodesList const & GetNodeIdByFid(uint32_t fid) const;
 
@@ -126,7 +127,7 @@ public:
   typedef set<OsrmMappingTypes::FtSeg*, OsrmMappingTypes::FtSegLess> FtSegSetT;
 
   void Clear();
-  void Load(FilesMappingContainer & cont);
+  void Load(FilesMappingContainer & cont, platform::LocalCountryFile const & localFile);
 
   void Map(FilesMappingContainer & cont);
   void Unmap();

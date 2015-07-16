@@ -5,11 +5,15 @@
 #include "indexer/features_vector.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/local_country_file_utils.hpp"
+
 #include "coding/file_container.hpp"
 #include "base/scope_guard.hpp"
 #include "std/bind.hpp"
 #include "std/string.hpp"
 #include "defines.hpp"
+
+using platform::CountryIndexes;
 
 namespace feature
 {
@@ -60,10 +64,13 @@ namespace feature
   {
     string const testFileName = "minsk-pass";
     Platform & p = GetPlatform();
+    platform::CountryFile country(testFileName);
+    platform::LocalCountryFile localFile(GetPlatform().WritableDir(), country, 0 /* version */);
+    localFile.SyncWithDisk();
     FilesContainerR baseContainer(p.GetReader(testFileName + DATA_FILE_EXTENSION));
-    const string indexFile = p.GetIndexFileName(testFileName, FEATURES_OFFSETS_TABLE_FILE_EXT);
+    const string indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
     FileWriter::DeleteFileX(indexFile);
-    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::CreateIfNotExistsAndLoad(indexFile, baseContainer));
+    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::CreateIfNotExistsAndLoad(indexFile, localFile));
     MY_SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
     TEST(table.get(), ());
 

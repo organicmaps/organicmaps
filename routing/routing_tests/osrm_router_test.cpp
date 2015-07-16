@@ -7,7 +7,11 @@
 
 #include "coding/file_writer.hpp"
 
+#include "platform/country_file.hpp"
+#include "platform/local_country_file.hpp"
+#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
+#include "platform/platform_tests/file_utils.hpp"
 
 #include "defines.hpp"
 
@@ -18,6 +22,7 @@
 #include "std/vector.hpp"
 
 using namespace routing;
+using platform::CountryIndexes;
 
 namespace
 {
@@ -50,9 +55,13 @@ void TestMapping(InputDataT const & data,
                  NodeIdDataT const & nodeIds,
                  RangeDataT const & ranges)
 {
+
+  platform::CountryFile country("TestCountry");
+  platform::LocalCountryFile localFile(GetPlatform().WritableDir(), country, 0 /* version */);
+  localFile.SyncWithDisk();
   static char const ftSegsPath[] = "test1.tmp";
-  string const featuresOffsetsTablePath =
-      GetPlatform().GetIndexFileName(ftSegsPath, FEATURES_OFFSETS_TABLE_FILE_EXT);
+  string const & featuresOffsetsTablePath =
+    CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
   MY_SCOPE_GUARD(ftSegsFileDeleter, bind(FileWriter::DeleteFileX, ftSegsPath));
   MY_SCOPE_GUARD(featuresOffsetsTableFileDeleter,
                  bind(FileWriter::DeleteFileX, featuresOffsetsTablePath));
@@ -94,7 +103,7 @@ void TestMapping(InputDataT const & data,
   {
     FilesMappingContainer cont(ftSegsPath);
     OsrmFtSegMapping mapping;
-    mapping.Load(cont);
+    mapping.Load(cont, localFile);
     mapping.Map(cont);
 
     TestNodeId(mapping, nodeIds);
