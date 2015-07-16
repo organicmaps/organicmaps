@@ -26,11 +26,12 @@ public:
   typedef pair<uint32_t, double> TTimeItem;
   typedef vector<TTimeItem> TTimes;
 
-  explicit Route(string const & router) : m_router(router) {}
+  explicit Route(string const & router)
+    : m_router(router), m_routingSettings(GetCarRoutingSettings()) {}
 
   template <class IterT>
   Route(string const & router, IterT beg, IterT end)
-    : m_router(router), m_poly(beg, end)
+    : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(beg, end)
   {
     Update();
   }

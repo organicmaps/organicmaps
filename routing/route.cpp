@@ -22,7 +22,7 @@ static double const LOCATION_TIME_THRESHOLD = 60.0*1.0;
 static double const ON_END_TOLERANCE_M = 10.0;
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
-  : m_router(router), m_poly(points), m_name(name)
+  : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(points), m_name(name)
 {
   Update();
 }
@@ -201,10 +201,10 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
 {
   if (m_current.IsValid())
   {
-    const m2::PointD locationMerc(MercatorBounds::LonToX(location.m_longitude),
+    m2::PointD const locationMerc(MercatorBounds::LonToX(location.m_longitude),
                                   MercatorBounds::LatToY(location.m_latitude));
-    const double distFromRoute = MercatorBounds::DistanceOnEarth(m_current.m_pt, locationMerc);
-    if (distFromRoute < m_routingSettings.m_matchingThresholdM)
+    double const distFromRouteM = MercatorBounds::DistanceOnEarth(m_current.m_pt, locationMerc);
+    if (distFromRouteM < m_routingSettings.m_matchingThresholdM)
     {
       location.m_latitude = MercatorBounds::YToLat(m_current.m_pt.y);
       location.m_longitude = MercatorBounds::XToLon(m_current.m_pt.x);

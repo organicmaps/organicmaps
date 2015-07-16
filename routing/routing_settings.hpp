@@ -10,13 +10,6 @@ namespace routing
 /// For example, route matching properties, rerouting properties and so on.
 struct RoutingSettings
 {
-  RoutingSettings() : m_matchBearing(true), m_matchingThresholdM(50.) {}
-  RoutingSettings(bool routeMatchingBearing, double halfRouteMatchingPassageMeters)
-    : m_matchBearing(routeMatchingBearing),
-      m_matchingThresholdM(halfRouteMatchingPassageMeters)
-  {
-  }
-
   /// \brief if m_matchBearing is equal to true the bearing follows the
   /// route direction if the current position is matched to the route.
   /// If m_matchBearing is equal to false GPS bearing is used while
@@ -29,4 +22,14 @@ struct RoutingSettings
   /// the closest point to the route.
   double  m_matchingThresholdM;
 };
+
+inline RoutingSettings GetPedestrianRoutingSettings()
+{
+  return RoutingSettings({ false /* m_matchBearing */, 20. /* m_matchingThresholdM */ });
+}
+
+inline RoutingSettings GetCarRoutingSettings()
+{
+  return RoutingSettings({ true /* m_matchBearing */, 50. /* m_matchingThresholdM */ });
+}
 }  // namespace routing
