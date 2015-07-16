@@ -20,6 +20,7 @@ import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -134,7 +135,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       @Override
       public void onBookmarkColorSet(int colorPos)
       {
-        final Icon newIcon = BookmarkManager.INSTANCE.getIcons().get(colorPos);
+        final Icon newIcon = BookmarkManager.getIcons().get(colorPos);
         final String from = mBookmark.getIcon().getName();
         final String to = newIcon.getName();
         if (!TextUtils.equals(from, to))
@@ -152,6 +153,9 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   private void refreshBookmark()
   {
     mEtName.setText(mBookmark.getName());
+    mEtName.selectAll();
+    InputUtils.showKeyboard(mEtName);
+
     mEtDescription.setText(mBookmark.getBookmarkDescription());
     mTvBookmarkGroup.setText(mBookmark.getCategoryName(getActivity()));
     mIvColor.setImageResource(mBookmark.getIcon().getSelectedResId());

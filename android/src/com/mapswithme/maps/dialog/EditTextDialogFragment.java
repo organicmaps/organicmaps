@@ -6,20 +6,24 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.util.InputUtils;
 
 public class EditTextDialogFragment extends BaseMwmDialogFragment
 {
   public static final String EXTRA_TITLE = "DialogTitle";
+  public static final String EXTRA_INITIAL = "InitialText";
   public static final String EXTRA_POSITIVE_BUTTON = "PositiveText";
   public static final String EXTRA_NEGATIVE_BUTTON = "NegativeText";
 
   private String mTitle;
+  private String mInitialText;
   private EditText mEtInput;
 
   public interface OnTextSaveListener
@@ -41,6 +45,8 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     if (args != null)
     {
       mTitle = args.getString(EXTRA_TITLE);
+      mInitialText = args.getString(EXTRA_INITIAL);
+
       positiveButtonText = args.getString(EXTRA_POSITIVE_BUTTON);
       negativeButtonText = args.getString(EXTRA_NEGATIVE_BUTTON);
     }
@@ -78,6 +84,14 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   {
     @SuppressLint("InflateParams") final View root = getActivity().getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
     mEtInput = (EditText) root.findViewById(R.id.et__input);
+    if (!TextUtils.isEmpty(mInitialText))
+    {
+      mEtInput.setText(mInitialText);
+      mEtInput.selectAll();
+    }
+
+    InputUtils.showKeyboard(mEtInput);
+
     ((TextView) root.findViewById(R.id.tv__title)).setText(mTitle);
     return root;
   }

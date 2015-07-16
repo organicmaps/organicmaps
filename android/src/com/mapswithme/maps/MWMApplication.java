@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import com.google.gsonaltered.Gson;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
 import com.mapswithme.maps.background.Notifier;
@@ -40,6 +41,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private static final String IS_PREINSTALL_ACTIVATED = "PreinstallActivated";
 
   private static MWMApplication mSelf;
+  private final Gson mGson = new Gson();
 
   private boolean mAreStatsInitialised;
 
@@ -52,6 +54,11 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   public static MWMApplication get()
   {
     return mSelf;
+  }
+
+  public static Gson gson()
+  {
+    return mSelf.mGson;
   }
 
   @Override
@@ -131,7 +138,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
 
     // init BookmarkManager (automatically loads bookmarks)
-    BookmarkManager.INSTANCE.getIcons();
+    BookmarkManager.getIcons();
 
     initParse();
   }

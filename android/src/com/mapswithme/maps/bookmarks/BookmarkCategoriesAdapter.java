@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
@@ -67,15 +67,14 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     final BookmarkCategory set = getItem(position);
     holder.name.setText(set.getName());
     holder.size.setText(String.valueOf(set.getSize()));
-    holder.visibilityCheckBox.setChecked(set.isVisible());
-    holder.visibilityCheckBox.setOnClickListener(new View.OnClickListener()
+    holder.setVisibilityState(set.isVisible());
+    holder.visibilityMarker.setOnClickListener(new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
       {
-        final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(position);
-        if (category != null)
-          category.setVisibility(holder.visibilityCheckBox.isChecked());
+        BookmarkManager.INSTANCE.toggleCategoryVisibility(position);
+        holder.setVisibilityState(set.isVisible());
       }
     });
 
@@ -86,14 +85,20 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
   static class ViewHolder
   {
     TextView name;
-    CheckBox visibilityCheckBox;
+    ImageView visibilityMarker;
     TextView size;
 
     public ViewHolder(View root)
     {
       name = (TextView) root.findViewById(R.id.tv__set_name);
-      visibilityCheckBox = (CheckBox) root.findViewById(R.id.chb__set_visible);
+      visibilityMarker = (ImageView) root.findViewById(R.id.set_visible);
       size = (TextView) root.findViewById(R.id.tv__set_size);
+    }
+
+    void setVisibilityState(boolean visible)
+    {
+      visibilityMarker.setImageResource(visible ? R.drawable.ic_bookmark_show
+                                                : R.drawable.ic_bookmark_hide);
     }
   }
 }

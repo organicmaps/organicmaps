@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/share_message"
+        android:title="@string/share_by_message"
+        android:icon="@drawable/ic_share_message"/>
 
-  <item android:id="@+id/set_edit" android:title="@string/edit"/>
-  <item android:id="@+id/set_delete" android:title="@string/delete"/>
+  <item android:id="@+id/share_email"
+        android:title="@string/share_by_email"
+        android:icon="@drawable/ic_share_email"/>
 
+  <item android:id="@+id/share"
+        android:title="@string/share"
+        android:icon="@drawable/ic_share"/>
+
+  <item android:id="@+id/edit"
+        android:title="@string/edit"
+        android:icon="@drawable/ic_edit"/>
+
+  <item android:id="@+id/delete"
+        android:title="@string/delete"
+        android:icon="@drawable/ic_delete"/>
 </menu>

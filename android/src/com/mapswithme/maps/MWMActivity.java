@@ -70,13 +70,15 @@ import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
+import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.ShareAction;
+import com.mapswithme.util.sharing.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 import com.nineoldandroids.animation.Animator;
@@ -438,7 +440,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
       final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
       // we use shortest message we can have here
-      ShareAction.getAnyShare().shareWithText(this, body, "");
+      ShareAction.AnyShareAction.share(this, body);
     }
     else
     {
@@ -509,6 +511,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mLocationPredictor = new LocationPredictor(new Handler(), this);
     mLikesManager = new LikesManager(this);
     restoreRoutingState(savedInstanceState);
+
+    SharingHelper.prepare();
   }
 
   private void restoreRoutingState(@Nullable Bundle savedInstanceState)
@@ -645,7 +649,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   public void onDestroy()
   {
     Framework.nativeClearBalloonListeners();
-
+    BottomSheetHelper.free();
     super.onDestroy();
   }
 

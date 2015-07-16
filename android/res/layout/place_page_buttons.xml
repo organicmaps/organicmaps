@@ -48,7 +48,7 @@
           android:id="@+id/iv__share"
           style="@style/PlacePageButtonImage"
           android:contentDescription="@string/share"
-          android:src="@drawable/ic_share"/>
+          android:src="@drawable/ic_placepage_share"/>
 
       <TextView
           android:id="@+id/tv__share"

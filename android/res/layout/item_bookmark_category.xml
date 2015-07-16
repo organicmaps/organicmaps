@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center_vertical"
               android:minHeight="@dimen/height_item_oneline"
-              android:paddingLeft="@dimen/margin_base"
+              android:paddingLeft="0dp"
               android:paddingRight="@dimen/margin_base">
 
-  <CheckBox
-      android:id="@+id/chb__set_visible"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+  <ImageView
+      android:id="@+id/set_visible"
+      android:layout_width="@dimen/height_item_oneline"
+      android:layout_height="@dimen/height_item_oneline"
       android:layout_weight="0"
-      android:background="@null"
-      android:button="@drawable/btn_bookmark_visibility"
-      android:focusable="false"/>
+      android:scaleType="center"
+      android:background="?clickableBackground"
+      tools:src="@drawable/ic_bookmark_show"/>
 
   <TextView
       android:id="@+id/tv__set_name"
@@ -24,7 +25,8 @@
       android:layout_weight="1"
       android:ellipsize="marquee"
       android:singleLine="true"
-      android:textAppearance="@style/MwmTextAppearance.Body1"/>
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      tools:text="Bookmark name"/>
 
   <TextView
       android:id="@+id/tv__set_size"
@@ -32,6 +34,7 @@
       android:layout_height="wrap_content"
       android:layout_weight="0"
       android:gravity="right"
-      android:textAppearance="@style/MwmTextAppearance.Body2"/>
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      tools:text="42"/>
 
 </LinearLayout>

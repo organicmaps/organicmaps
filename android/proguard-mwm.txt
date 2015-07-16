@@ -22,3 +22,20 @@
 #-printseeds seeds.txt
 #-printusage unused.txt
 #-printmapping mapping.txt
+
+
+# Gson support
+-keep class com.mapswithme.util.Gsonable
+-keep class * implements com.mapswithme.util.Gsonable
+
+-keepclassmembernames class * implements com.mapswithme.util.Gsonable {
+  !transient <fields>;
+}
+
+-keepnames class * implements com.mapswithme.util.Gsonable {
+  !transient <fields>;
+}
+
+-keepclassmembers class * implements com.mapswithme.util.Gsonable {
+  <init>(...);
+}

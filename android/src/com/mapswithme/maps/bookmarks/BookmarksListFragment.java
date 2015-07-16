@@ -1,13 +1,11 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,9 +15,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMActivity;
-import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
@@ -27,12 +25,15 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
-import com.mapswithme.util.ShareAction;
+import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.sharing.ShareAction;
+import com.mapswithme.util.sharing.SharingHelper;
 
 public class BookmarksListFragment extends BaseMwmListFragment
+                                implements AdapterView.OnItemLongClickListener,
+                                           MenuItem.OnMenuItemClickListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
-  private static final int MENU_DELETE_TRACK = 0x42;
 
   private BookmarkCategory mCategory;
   private int mCategoryIndex;
@@ -51,16 +52,14 @@ public class BookmarksListFragment extends BaseMwmListFragment
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.fragment_bookmarks_list, container, false);
+    return inflater.inflate(R.layout.simple_list, container, false);
   }
 
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    initListAdapter();
-    setListAdapter(mAdapter);
-    registerForContextMenu(getListView());
+    initList();
     setHasOptionsMenu(true);
     ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mCategory.getName());
   }
@@ -82,10 +81,12 @@ public class BookmarksListFragment extends BaseMwmListFragment
     mAdapter.stopLocationUpdate();
   }
 
-  private void initListAdapter()
+  private void initList()
   {
     mAdapter = new BookmarkListAdapter(getActivity(), mCategory);
     mAdapter.startLocationUpdate();
+    setListAdapter(mAdapter);
+    getListView().setOnItemLongClickListener(this);
   }
 
   @Override
@@ -111,66 +112,82 @@ public class BookmarksListFragment extends BaseMwmListFragment
   }
 
   @Override
-  public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+  public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
   {
-    if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
+    mSelectedPosition = position;
+    final Object item = mAdapter.getItem(mSelectedPosition);
+    int type = mAdapter.getItemViewType(mSelectedPosition);
+
+    switch (type)
     {
-      final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+    case BookmarkListAdapter.TYPE_SECTION:
+      // Do nothing here?
+      break;
 
-      mSelectedPosition = info.position;
-      final Object obj = mAdapter.getItem(mSelectedPosition);
-      final int type = mAdapter.getItemViewType(mSelectedPosition);
+    case BookmarkListAdapter.TYPE_BOOKMARK:
+      BottomSheet bs = BottomSheetHelper.create(getActivity())
+                                        .title(((Bookmark) item).getName())
+                                        .sheet(R.menu.menu_bookmarks)
+                                        .listener(this)
+                                        .build();
 
-      if (type == BookmarkListAdapter.TYPE_BOOKMARK)
-      {
-        final MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.menu_bookmarks, menu);
+      if (!ShareAction.getSmsShare().isSupported(getActivity()))
+        bs.getMenu().removeItem(R.id.share_message);
 
-        for (final ShareAction action : ShareAction.ACTIONS.values())
-        {
-          if (action.isSupported(getActivity()))
-            menu.add(Menu.NONE, action.getId(), action.getId(), getResources().getString(action.getNameResId()));
-        }
+      if (!ShareAction.getEmailShare().isSupported(getActivity()))
+        bs.getMenu().removeItem(R.id.share_email);
 
-        menu.setHeaderTitle(((Bookmark) obj).getName());
-      }
-      else if (type == BookmarkListAdapter.TYPE_TRACK)
-      {
-        menu.add(Menu.NONE, MENU_DELETE_TRACK, MENU_DELETE_TRACK, getString(R.string.delete));
-        menu.setHeaderTitle(((Track) obj).getName());
-      }
+      bs.show();
+      break;
 
-      super.onCreateContextMenu(menu, v, menuInfo);
+    case BookmarkListAdapter.TYPE_TRACK:
+      BottomSheetHelper.create(getActivity())
+                       .title(((Track) item).getName())
+                       .sheet(Menu.NONE, R.drawable.ic_delete, R.string.delete)
+                       .listener(new DialogInterface.OnClickListener()
+                       {
+                         @Override
+                         public void onClick(DialogInterface dialog, int which)
+                         {
+                           BookmarkManager.INSTANCE.deleteTrack((Track) item);
+                           mAdapter.notifyDataSetChanged();
+                         }
+                       }).show();
+      break;
     }
+
+    return true;
   }
 
   @Override
-  public boolean onContextItemSelected(MenuItem item)
+  public boolean onMenuItemClick(MenuItem menuItem)
   {
-    final int itemId = item.getItemId();
-    final Object obj = mAdapter.getItem(mSelectedPosition);
+    Bookmark item = (Bookmark) mAdapter.getItem(mSelectedPosition);
 
-    if (itemId == R.id.set_edit)
+    switch (menuItem.getItemId())
     {
-      editBookmark(mCategory.getId(), ((Bookmark) obj).getBookmarkId());
-    }
-    else if (itemId == R.id.set_delete)
-    {
-      BookmarkManager.INSTANCE.deleteBookmark((Bookmark) obj);
-      mAdapter.notifyDataSetChanged();
-    }
-    else if (ShareAction.ACTIONS.containsKey(itemId))
-    {
-      final ShareAction shareAction = ShareAction.ACTIONS.get(itemId);
-      shareAction.shareMapObject(getActivity(), (Bookmark) obj);
-    }
-    else if (itemId == MENU_DELETE_TRACK)
-    {
-      BookmarkManager.INSTANCE.deleteTrack((Track) obj);
-      mAdapter.notifyDataSetChanged();
-    }
+    case R.id.share_message:
+      ShareAction.getSmsShare().shareMapObject(getActivity(), item);
+      break;
 
-    return super.onContextItemSelected(item);
+    case R.id.share_email:
+      ShareAction.getEmailShare().shareMapObject(getActivity(), item);
+      break;
+
+    case R.id.share:
+      ShareAction.getAnyShare().shareMapObject(getActivity(), item);
+      break;
+
+    case R.id.edit:
+      editBookmark(mCategory.getId(), item.getBookmarkId());
+      break;
+
+    case R.id.delete:
+      BookmarkManager.INSTANCE.deleteBookmark(item);
+      mAdapter.notifyDataSetChanged();
+      break;
+    }
+    return false;
   }
 
   private void editBookmark(int cat, int bmk)
@@ -181,34 +198,6 @@ public class BookmarksListFragment extends BaseMwmListFragment
     final EditBookmarkFragment fragment = (EditBookmarkFragment) Fragment.instantiate(getActivity(), EditBookmarkFragment.class.getName(), args);
     fragment.setArguments(args);
     fragment.show(getActivity().getSupportFragmentManager(), null);
-  }
-
-  private void sendBookmarkMail()
-  {
-    String path = MWMApplication.get().getTempPath();
-    final String name = BookmarkManager.INSTANCE.saveToKmzFile(mCategory.getId(), path);
-    if (name == null)
-    {
-      // some error occurred
-      return;
-    }
-
-    final Intent intent = new Intent(Intent.ACTION_SEND);
-    intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_bookmarks_email_subject));
-    intent.putExtra(android.content.Intent.EXTRA_TEXT, String.format(getString(R.string.share_bookmarks_email_body), name));
-
-    path = path + name + ".kmz";
-    Log.d(TAG, "KMZ file path = " + path);
-    intent.putExtra(android.content.Intent.EXTRA_STREAM, Uri.parse("file://" + path));
-    intent.setType("application/vnd.google-earth.kmz");
-
-    try
-    {
-      startActivity(Intent.createChooser(intent, getString(R.string.share_by_email)));
-    } catch (final Exception ex)
-    {
-      Log.i(TAG, "Can't run E-Mail activity" + ex);
-    }
   }
 
   @Override
@@ -222,7 +211,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
   {
     if (item.getItemId() == R.id.set_share)
     {
-      sendBookmarkMail();
+      SharingHelper.shareBookmarksCategory(getActivity(), mCategory.getId());
       return true;
     }
 

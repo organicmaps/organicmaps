@@ -50,7 +50,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.ShareAction;
+import com.mapswithme.util.sharing.ShareAction;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -755,7 +755,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       public void onBookmarkColorSet(int colorPos)
       {
         Bookmark bmk = (Bookmark) mMapObject;
-        final Icon newIcon = BookmarkManager.INSTANCE.getIcons().get(colorPos);
+        final Icon newIcon = BookmarkManager.getIcons().get(colorPos);
         final String from = bmk.getIcon().getName();
         final String to = newIcon.getName();
         if (!TextUtils.equals(from, to))

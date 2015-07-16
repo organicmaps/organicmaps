@@ -242,7 +242,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
   private List<String> getSections()
   {
-    final List<String> sections = new ArrayList<String>();
+    final List<String> sections = new ArrayList<>();
     sections.add(mActivity.getString(R.string.tracks));
     sections.add(mActivity.getString(R.string.bookmarks));
     return sections;

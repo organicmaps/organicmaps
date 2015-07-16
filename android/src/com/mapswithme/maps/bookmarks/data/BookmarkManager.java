@@ -12,7 +12,7 @@ public enum BookmarkManager
 {
   INSTANCE;
 
-  private static Icon[] sIcons = {
+  private static final Icon[] ICONS = {
       new Icon("placemark-red", "placemark-red", R.drawable.color_picker_red_off, R.drawable.icon_bookmark_red),
       new Icon("placemark-blue", "placemark-blue", R.drawable.color_picker_blue_off, R.drawable.icon_bookmark_blue),
       new Icon("placemark-purple", "placemark-purple", R.drawable.color_picker_purple_off, R.drawable.icon_bookmark_purple),
@@ -56,20 +56,27 @@ public enum BookmarkManager
 
   public native boolean deleteCategory(int index);
 
-  public Icon getIconByType(String type)
+  public static Icon getIconByType(String type)
   {
-    for (Icon icon : sIcons)
+    for (Icon icon : ICONS)
     {
       if (icon.getType().equals(type))
         return icon;
     }
     // return default icon
-    return sIcons[0];
+    return ICONS[0];
   }
 
-  public List<Icon> getIcons()
+  public void toggleCategoryVisibility(int index)
   {
-    return Arrays.asList(sIcons);
+    BookmarkCategory category = getCategoryById(index);
+    if (category != null)
+      category.setVisibility(!category.isVisible());
+  }
+
+  public static List<Icon> getIcons()
+  {
+    return Arrays.asList(ICONS);
   }
 
   public Bookmark getBookmark(Pair<Integer, Integer> catAndBmk)
@@ -80,11 +87,6 @@ public enum BookmarkManager
   public Bookmark getBookmark(int cat, int bmk)
   {
     return getCategoryById(cat).getBookmark(bmk);
-  }
-
-  public void setCategoryName(BookmarkCategory cat, String newName)
-  {
-    cat.setName(newName);
   }
 
   public Pair<Integer, Integer> addNewBookmark(String name, double lat, double lon)

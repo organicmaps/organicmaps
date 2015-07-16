@@ -13089,3 +13089,27 @@
     pl = Wskazówki dojazdu
     nl = Routebeschrijving
     pt = Instruções de direção
+
+  [show]
+    tags = android
+    comment = «Show» context menu
+    en = Show
+    ru = Показать
+
+  [hide]
+    tags = android
+    comment = «Hide» context menu
+    en = Hide
+    ru = Скрыть
+
+  [rename]
+    tags = android
+    comment = «Rename» context menu
+    en = Rename
+    ru = Переименовать
+
+  [bottom_sheet_more]
+    tags = android
+    comment = Bottom sheet: expand button (should be short)
+    en = More…
+    ru = Ещё…

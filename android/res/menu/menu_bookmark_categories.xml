@@ -1,10 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/set_show"/>
 
-  <item
-      android:id="@+id/set_edit"
-      android:title="@string/edit"/>
-  <item
-      android:id="@+id/set_delete"
-      android:title="@string/delete"/>
+  <item android:id="@+id/set_share"
+        android:title="@string/share"
+        android:icon="@drawable/ic_share"/>
 
+  <item android:id="@+id/set_edit"
+        android:title="@string/rename"
+        android:icon="@drawable/ic_edit"/>
+
+  <item android:id="@+id/set_delete"
+        android:title="@string/delete"
+        android:icon="@drawable/ic_delete"/>
 </menu>

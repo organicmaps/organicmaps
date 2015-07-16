@@ -60,7 +60,7 @@ public class BookmarkColorDialogFragment extends DialogFragment
 
   private View buildView()
   {
-    final List<Icon> icons = BookmarkManager.INSTANCE.getIcons();
+    final List<Icon> icons = BookmarkManager.getIcons();
     final IconsAdapter adapter = new IconsAdapter(getActivity(), icons);
     adapter.chooseItem(mIconType);
 
