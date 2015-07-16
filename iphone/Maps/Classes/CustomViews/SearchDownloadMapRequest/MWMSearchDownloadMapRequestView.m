@@ -20,6 +20,16 @@
 
 @implementation MWMSearchDownloadMapRequestView
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+  self = [super initWithCoder:aDecoder];
+  if (self)
+  {
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  }
+  return self;
+}
+
 - (void)layoutSubviews
 {
   [super layoutSubviews];
