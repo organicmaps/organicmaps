@@ -741,9 +741,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
         case routing::IRouter::NeedMoreMaps:
           [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes];
           break;
-        case routing::IRouter::NoCurrentPosition:
-          [self presentDefaultAlert:code];
-          break;
         case routing::IRouter::Cancelled:
           break;
         default:
