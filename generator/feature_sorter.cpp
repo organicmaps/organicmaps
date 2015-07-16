@@ -303,7 +303,7 @@ namespace feature
 
       points_t const & GetSourcePoints()
       {
-        return (!m_current.empty() ? m_current : m_rFB.GetOuterPoly());
+        return (!m_current.empty() ? m_current : m_rFB.GetOuterGeometry());
       }
 
       void AddPoints(points_t const & points, int scaleIndex)
@@ -457,7 +457,7 @@ namespace feature
             // At this point we don't need last point equal to first.
             points.pop_back();
 
-            polygons_t const & polys = fb.GetPolygons();
+            polygons_t const & polys = fb.GetGeometry();
             if (polys.size() == 1 && good && holder.TryToMakeStrip(points))
               continue;
 

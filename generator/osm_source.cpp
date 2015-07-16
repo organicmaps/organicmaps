@@ -247,7 +247,7 @@ namespace
         // 20000 - max points count per feature
         m_coasts.reset(new CoastlineFeaturesGenerator(Type(NATURAL_COASTLINE), 4, 10, 20000));
 
-        m_coastsHolder.reset(new feature::FeaturesCollector(m_srcCoastsFile, srcCoastsFileDump));
+        m_coastsHolder.reset(new feature::FeaturesAndRawGeometryCollector(m_srcCoastsFile, srcCoastsFileDump));
       }
 
       if (info.m_createWorld)
@@ -325,7 +325,7 @@ namespace
             totalPolygons += vecFb[j].GetPolygonsCount();
           }
         }
-        LOG(LINFO, ("Total regions:", totalRegions, "total points:", totalPoints, "totalPolygons:", totalPolygons));
+        LOG(LINFO, ("Total regions:", totalRegions, "total points:", totalPoints, "total polygons:", totalPolygons));
       }
       else if (m_coastsHolder)
       {

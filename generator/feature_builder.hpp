@@ -39,11 +39,15 @@ public:
   void SetAreaAddHoles(list<vector<m2::PointD> > const & holes);
   inline void SetArea() { m_params.SetGeomType(feature::GEOM_AREA); }
 
+  inline bool IsLine() const { return (GetGeomType() == feature::GEOM_LINE); }
+  inline bool IsArea() const { return (GetGeomType() == feature::GEOM_AREA); }
+
   void AddPolygon(vector<m2::PointD> & poly);
   //@}
 
   inline feature::Metadata const & GetMetadata() const { return m_params.GetMetadata(); }
   inline TGeometry const & GetGeometry() const { return m_polygons; }
+  inline TPointSeq const & GetOuterGeometry() const { return m_polygons.front(); }
   inline feature::EGeomType GetGeomType() const { return m_params.GetGeomType(); }
 
   inline void AddType(uint32_t type) { m_params.AddType(type); }
@@ -91,7 +95,7 @@ public:
   m2::PointD GetGeometryCenter() const;
   m2::PointD GetKeyPoint() const;
 
-  inline size_t GetPointsCount() const { return GetFrontGeometry().size(); }
+  inline size_t GetPointsCount() const { return GetOuterGeometry().size(); }
   inline size_t GetPolygonsCount() const { return m_polygons.size(); }
   inline size_t GetTypesCount() const { return m_params.m_Types.size(); }
   //@}
@@ -117,10 +121,10 @@ public:
       toDo(m_center);
     else
     {
-      for (list<points_t>::const_iterator i = m_polygons.begin(); i != m_polygons.end(); ++i)
+      for (TPointSeq const & points : m_polygons)
       {
-        for (points_t::const_iterator j = i->begin(); j != i->end(); ++j)
-          if (!toDo(*j))
+        for (auto const & pt : points)
+          if (!toDo(pt))
             return;
         toDo.EndRegion();
       }
@@ -149,9 +153,14 @@ public:
   string GetOsmIdsString() const;
   //@}
 
+  uint64_t GetWayIDForRouting() const;
+
+
   bool AddName(string const & lang, string const & name);
 
   int GetMinFeatureDrawScale() const;
+
+  bool IsDrawableInRange(int lowScale, int highScale) const;
 
   void SetCoastCell(int64_t iCell, string const & strCell);
   inline bool IsCoastCell() const { return (m_coastCell != -1); }
@@ -191,12 +200,8 @@ protected:
   /// - origin point of text or symbol in area-feature
   m2::PointD m_center;    // Check  HEADER_HAS_POINT
 
-  typedef vector<m2::PointD> points_t;
-
-  inline points_t const & GetFrontGeometry() const { return m_polygons.front(); }
-
   /// List of geometry polygons.
-  list<points_t> m_polygons; // Check HEADER_IS_AREA
+  TGeometry m_polygons; // Check HEADER_IS_AREA
 
   /// Not used in GEOM_POINTs
   int64_t m_coastCell;
@@ -222,7 +227,7 @@ public:
 
     uint32_t m_ptsSimpMask;
 
-    points_t m_innerPts, m_innerTrg;
+    TPointSeq m_innerPts, m_innerTrg;
     //@}
 
     /// @name output
@@ -231,20 +236,12 @@ public:
     buffers_holder_t() : m_ptsMask(0), m_trgMask(0), m_ptsSimpMask(0) {}
   };
 
-  inline bool IsLine() const { return (GetGeomType() == feature::GEOM_LINE); }
-  inline bool IsArea() const { return (GetGeomType() == feature::GEOM_AREA); }
-  bool IsDrawableInRange(int lowS, int highS) const;
-
-  inline points_t const & GetOuterPoly() const { return GetFrontGeometry(); }
-  inline list<points_t> const & GetPolygons() const { return m_polygons; }
-
   /// @name Overwrite from base_type.
   //@{
   bool PreSerialize(buffers_holder_t const & data);
   void Serialize(buffers_holder_t & data, serial::CodingParams const & params);
   //@}
 
-  uint64_t GetWayIDForRouting() const;
 };
 
 namespace feature

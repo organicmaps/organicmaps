@@ -19,21 +19,15 @@
 #include "std/unordered_map.hpp"
 #include "std/target_os.hpp"
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FeaturesCollector implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-namespace feature {
-
-FeaturesCollector::FeaturesCollector(string const & fName, string const &dumpFileName)
-: m_datFile(fName)
-, m_dumpFileName(dumpFileName)
+namespace feature
+{
+FeaturesCollector::FeaturesCollector(string const & fName)
+    : m_datFile(fName)
 {
   CHECK_EQUAL(GetFileSize(m_datFile), 0, ());
-  if (!m_dumpFileName.empty())
-  {
-    m_dumpFileStream.open(m_dumpFileName.c_str(), ios::binary | ios::trunc | ios::out);
-  }
 }
 
 FeaturesCollector::~FeaturesCollector()
@@ -41,13 +35,6 @@ FeaturesCollector::~FeaturesCollector()
   FlushBuffer();
   /// Check file size
   (void)GetFileSize(m_datFile);
-  if (!m_dumpFileName.empty())
-  {
-    uint64_t terminator = 0;
-    m_dumpFileStream.write(reinterpret_cast<char *>(&terminator), sizeof(terminator));
-    m_dumpFileStream.close();
-    LOG(LINFO, ("Dumped", m_featureCounter, "features into", m_dumpFileName));
-  }
 }
 
 uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)
@@ -60,7 +47,7 @@ uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)
   return ret;
 }
 
-template <typename ValueT, size_t ValueSizeT = sizeof(ValueT)+1>
+template <typename ValueT, size_t ValueSizeT = sizeof(ValueT) + 1>
 pair<char[ValueSizeT], uint8_t> PackValue(ValueT v)
 {
   static_assert(is_integral<ValueT>::value, "Non integral value");
@@ -90,7 +77,7 @@ void FeaturesCollector::Flush()
   m_datFile.Flush();
 }
 
-void FeaturesCollector::Write(char const *src, size_t size)
+void FeaturesCollector::Write(char const * src, size_t size)
 {
   do
   {
@@ -101,9 +88,8 @@ void FeaturesCollector::Write(char const *src, size_t size)
     m_writePosition += part_size;
     size -= part_size;
     src += part_size;
-  } while(size > 0);
+  } while (size > 0);
 }
-
 
 uint32_t FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuilder1 const & fb)
 {
@@ -121,32 +107,44 @@ uint32_t FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, Feature
   return static_cast<uint32_t>(offset);
 }
 
-void FeaturesCollector::DumpFeatureGeometry(FeatureBuilder1 const & fb)
-{
-  FeatureBuilder1::TGeometry const & geom = fb.GetGeometry();
-  if (geom.empty())
-    return;
-
-  ++m_featureCounter;
-
-  uint64_t numGeometries = geom.size();
-  m_dumpFileStream.write(reinterpret_cast<char *>(&numGeometries), sizeof(numGeometries));
-  for (FeatureBuilder1::TPointSeq const & points : geom)
-  {
-    uint64_t numPoints = points.size();
-    m_dumpFileStream.write(reinterpret_cast<char *>(&numPoints), sizeof(numPoints));
-    m_dumpFileStream.write(reinterpret_cast<char const *>(points.data()), sizeof(FeatureBuilder1::TPointSeq::value_type) * points.size());
-  }
-}
-
-void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
+void FeaturesCollector::operator()(FeatureBuilder1 const & fb)
 {
   FeatureBuilder1::buffer_t bytes;
   fb.Serialize(bytes);
   (void)WriteFeatureBase(bytes, fb);
-
-  if (!m_dumpFileName.empty())
-    DumpFeatureGeometry(fb);
 }
 
+FeaturesAndRawGeometryCollector::FeaturesAndRawGeometryCollector(string const & featuresFileName,
+                                                                 string const & rawGeometryFileName)
+    : FeaturesCollector(featuresFileName), m_rawGeometryFileStream(rawGeometryFileName)
+{
+  CHECK_EQUAL(GetFileSize(m_rawGeometryFileStream), 0, ());
+}
+
+FeaturesAndRawGeometryCollector::~FeaturesAndRawGeometryCollector()
+{
+  uint64_t terminator = 0;
+  m_rawGeometryFileStream.Write(&terminator, sizeof(terminator));
+  LOG(LINFO, ("Write", m_rawGeometryCounter, "geometries into", m_rawGeometryFileStream.GetName()));
+}
+
+void FeaturesAndRawGeometryCollector::operator()(FeatureBuilder1 const & fb)
+{
+  FeaturesCollector::operator()(fb);
+  FeatureBuilder1::TGeometry const & geom = fb.GetGeometry();
+  if (geom.empty())
+    return;
+
+  ++m_rawGeometryCounter;
+
+  uint64_t numGeometries = geom.size();
+  m_rawGeometryFileStream.Write(&numGeometries, sizeof(numGeometries));
+  for (FeatureBuilder1::TPointSeq const & points : geom)
+  {
+    uint64_t numPoints = points.size();
+    m_rawGeometryFileStream.Write(&numPoints, sizeof(numPoints));
+    m_rawGeometryFileStream.Write(points.data(),
+                                  sizeof(FeatureBuilder1::TPointSeq::value_type) * points.size());
+  }
+}
 }

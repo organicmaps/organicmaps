@@ -16,7 +16,7 @@ void MergedFeatureBuilder1::SetRound()
 {
   m_isRound = true;
 
-  m_roundBounds[0] = m_roundBounds[1] = GetFrontGeometry();
+  m_roundBounds[0] = m_roundBounds[1] = GetOuterGeometry();
 }
 
 void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool fromBegin, bool toBack)
@@ -24,8 +24,8 @@ void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool
   // Also merge Osm IDs for debugging
   m_osmIds.insert(m_osmIds.end(), fb.m_osmIds.begin(), fb.m_osmIds.end());
 
-  points_t & thisG = m_polygons.front();
-  points_t const & fbG = fb.GetFrontGeometry();
+  TPointSeq & thisG = m_polygons.front();
+  TPointSeq const & fbG = fb.GetOuterGeometry();
 
   if (fb.m_isRound)
   {
@@ -75,7 +75,7 @@ void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool
 
 bool MergedFeatureBuilder1::EqualGeometry(MergedFeatureBuilder1 const & fb) const
 {
-  return (GetFrontGeometry() == fb.GetFrontGeometry());
+  return (GetOuterGeometry() == fb.GetOuterGeometry());
 }
 
 pair<m2::PointD, bool> MergedFeatureBuilder1::GetKeyPoint(size_t i) const
@@ -106,7 +106,7 @@ size_t MergedFeatureBuilder1::GetKeyPointsCount() const
 
 double MergedFeatureBuilder1::GetPriority() const
 {
-  points_t const & poly = GetFrontGeometry();
+  TPointSeq const & poly = GetOuterGeometry();
 
   double pr = 0.0;
   for (size_t i = 1; i < poly.size(); ++i)

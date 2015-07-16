@@ -27,12 +27,12 @@ using namespace feature;
 FeatureBuilder1::FeatureBuilder1()
 : m_coastCell(-1)
 {
-  m_polygons.push_back(points_t());
+  m_polygons.push_back(TPointSeq());
 }
 
 bool FeatureBuilder1::IsGeometryClosed() const
 {
-  points_t const & poly = GetFrontGeometry();
+  TPointSeq const & poly = GetOuterGeometry();
   return (poly.size() > 2 && poly.front() == poly.back());
 }
 
@@ -42,7 +42,7 @@ m2::PointD FeatureBuilder1::GetGeometryCenter() const
   //ASSERT ( IsGeometryClosed(), () );
   m2::PointD ret(0.0, 0.0);
 
-  points_t const & poly = GetFrontGeometry();
+  TPointSeq const & poly = GetOuterGeometry();
   size_t const count = poly.size();
   for (size_t i = 0; i < count; ++i)
     ret += poly[i];
@@ -89,42 +89,44 @@ void FeatureBuilder1::SetLinear(bool reverseGeometry)
   }
 }
 
-void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
+void FeatureBuilder1::SetAreaAddHoles(FeatureBuilder1::TGeometry const & holes)
 {
   m_params.SetGeomType(GEOM_AREA);
   m_polygons.resize(1);
 
   if (holes.empty()) return;
 
-  points_t const & poly = GetFrontGeometry();
+  TPointSeq const & poly = GetOuterGeometry();
   m2::Region<m2::PointD> rgn(poly.begin(), poly.end());
 
-  for (list<points_t>::const_iterator i = holes.begin(); i != holes.end(); ++i)
+  for (TPointSeq const & points : holes)
   {
-    ASSERT ( !i->empty(), (*this) );
+    ASSERT ( !points.empty(), (*this) );
 
     size_t j = 0;
-    size_t const count = i->size();
+    size_t const count = points.size();
     for (; j < count; ++j)
-      if (!rgn.Contains((*i)[j]))
+      if (!rgn.Contains(points[j]))
         break;
 
     if (j == count)
-      m_polygons.push_back(*i);
+      m_polygons.push_back(points);
   }
 }
 
 void FeatureBuilder1::AddPolygon(vector<m2::PointD> & poly)
 {
   // check for closing
-  if (poly.size() < 3) return;
+  if (poly.size() < 3)
+    return;
+
   if (poly.front() != poly.back())
     poly.push_back(poly.front());
 
   CalcRect(poly, m_limitRect);
 
   if (!m_polygons.back().empty())
-    m_polygons.push_back(points_t());
+    m_polygons.push_back(TPointSeq());
 
   m_polygons.back().swap(poly);
 }
@@ -283,36 +285,27 @@ void FeatureBuilder1::RemoveNameIfInvisible(int minS, int maxS)
 
 bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
 {
-  if (!(m_params == fb.m_params)) return false;
-
-  if (m_coastCell != fb.m_coastCell) return false;
-
-  if (m_params.GetGeomType() == GEOM_POINT &&
-      !is_equal(m_center, fb.m_center))
-  {
+  if (!(m_params == fb.m_params))
     return false;
-  }
+
+  if (m_coastCell != fb.m_coastCell)
+    return false;
+
+  if (m_params.GetGeomType() == GEOM_POINT && !is_equal(m_center, fb.m_center))
+    return false;
 
   if (!is_equal(m_limitRect, fb.m_limitRect))
-  {
-    //LOG(LERROR, ("Different rects: ", m_LimitRect, fb.m_LimitRect));
     return false;
-  }
 
   if (m_polygons.size() != fb.m_polygons.size())
     return false;
 
-  list<points_t>::const_iterator i = m_polygons.begin();
-  list<points_t>::const_iterator j = fb.m_polygons.begin();
-  for (; i != m_polygons.end(); ++i, ++j)
-    if (!is_equal(*i, *j))
-    {
-      //LOG(LERROR, ("Different points: ", *i, *j));
-      return false;
-    }
-
   if (m_osmIds != fb.m_osmIds)
     return false;
+
+  for (auto i = m_polygons.cbegin(), j = fb.m_polygons.cbegin(); i != m_polygons.cend(); ++i, ++j)
+    if (!is_equal(*i, *j))
+      return false;
 
   return true;
 }
@@ -323,16 +316,12 @@ bool FeatureBuilder1::CheckValid() const
 
   EGeomType const type = m_params.GetGeomType();
 
-  points_t const & poly = GetFrontGeometry();
-
   if (type == GEOM_LINE)
-    CHECK(poly.size() >= 2, (*this));
+    CHECK(GetOuterGeometry().size() >= 2, (*this));
 
   if (type == GEOM_AREA)
-  {
-    for (list<points_t>::const_iterator i = m_polygons.begin(); i != m_polygons.end(); ++i)
-      CHECK(i->size() >= 3, (*this));
-  }
+    for (TPointSeq const & points : m_polygons)
+      CHECK(points.size() >= 3, (*this));
 
   return true;
 }
@@ -363,8 +352,8 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
   {
     WriteVarUint(sink, static_cast<uint32_t>(m_polygons.size()));
 
-    for (list<points_t>::const_iterator i = m_polygons.begin(); i != m_polygons.end(); ++i)
-      serial::SaveOuterPath(*i, cp, sink);
+    for (TPointSeq const & points : m_polygons)
+      serial::SaveOuterPath(points, cp, sink);
 
     WriteVarInt(sink, m_coastCell);
   }
@@ -404,7 +393,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
 
     for (uint32_t i = 0; i < count; ++i)
     {
-      m_polygons.push_back(points_t());
+      m_polygons.push_back(TPointSeq());
       serial::LoadOuterPath(source, cp, m_polygons.back());
       CalcRect(m_polygons.back(), m_limitRect);
     }
@@ -435,16 +424,13 @@ osm::Id FeatureBuilder1::GetLastOsmId() const
 
 string FeatureBuilder1::GetOsmIdsString() const
 {
-  size_t const size = m_osmIds.size();
-  if (size)
-  {
-    ostringstream out;
-    for (size_t i = 0; i < size; ++i)
-      out << m_osmIds[i].Type() << " id=" << m_osmIds[i].OsmId() << " ";
-    return out.str();
-  }
-  else
+  if (m_osmIds.empty())
     return "(NOT AN OSM FEATURE)";
+
+  ostringstream out;
+  for (auto const & id : m_osmIds)
+    out << id.Type() << " id=" << id.OsmId() << " ";
+  return out.str();
 }
 
 int FeatureBuilder1::GetMinFeatureDrawScale() const
@@ -487,29 +473,31 @@ string DebugPrint(FeatureBuilder1 const & f)
   default: out << "ERROR: unknown geometry type"; break;
   }
 
-  return (out.str() + " " +
-          DebugPrint(f.m_limitRect) + " " +
-          DebugPrint(f.m_params) + " " +
-          DebugPrint(f.m_osmIds));
+  out << " " << DebugPrint(f.m_limitRect) << " " << DebugPrint(f.m_params) << " " << DebugPrint(f.m_osmIds);
+  return out.str();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// FeatureBuilderGeomRef implementation
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-bool FeatureBuilder2::IsDrawableInRange(int lowS, int highS) const
+bool FeatureBuilder1::IsDrawableInRange(int lowScale, int highScale) const
 {
-  if (!GetFrontGeometry().empty())
+  if (!GetOuterGeometry().empty())
   {
     FeatureBase const fb = GetFeatureBase();
 
-    while (lowS <= highS)
-      if (feature::IsDrawableForIndex(fb, lowS++))
+    while (lowScale <= highScale)
+      if (feature::IsDrawableForIndex(fb, lowScale++))
         return true;
   }
 
   return false;
 }
+
+uint64_t FeatureBuilder1::GetWayIDForRouting() const
+{
+  if (m_osmIds.size() == 1 && m_osmIds[0].IsWay() && IsLine() && IsRoad())
+    return m_osmIds[0].OsmId();
+  return 0;
+}
+
 
 bool FeatureBuilder2::PreSerialize(buffers_holder_t const & data)
 {
@@ -620,10 +608,10 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
     }
     else
     {
-      ASSERT_GREATER ( GetFrontGeometry().size(), 2, () );
+      ASSERT_GREATER ( GetOuterGeometry().size(), 2, () );
 
       // Store first point once for outer linear features.
-      serial::SavePoint(sink, GetFrontGeometry()[0], params);
+      serial::SavePoint(sink, GetOuterGeometry()[0], params);
 
       // offsets was pushed from high scale index to low
       reverse(data.m_ptsOffset.begin(), data.m_ptsOffset.end());
@@ -641,12 +629,4 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
       serial::WriteVarUintArray(data.m_trgOffset, sink);
     }
   }
-}
-
-uint64_t FeatureBuilder2::GetWayIDForRouting() const
-{
-  if (m_osmIds.size() == 1 && m_osmIds[0].IsWay() && IsLine() && IsRoad())
-    return m_osmIds[0].OsmId();
-  else
-    return 0;
 }

@@ -128,7 +128,7 @@ namespace
         TEST(fb2.IsDrawableInRange(0, upperScale), ());
 
         m2::RectD const rect = fb2.GetLimitRect();
-        LOG(LINFO, ("ID = ", fb1.GetName(), "Rect = ", rect, "Polygons = ", fb2.GetPolygons()));
+        LOG(LINFO, ("ID = ", fb1.GetName(), "Rect = ", rect, "Polygons = ", fb2.GetGeometry()));
 
         // Make bound rect inflated a little.
         feature::BoundsDistance dist(rect);
@@ -137,7 +137,7 @@ namespace
         typedef vector<m2::PointD> PointsT;
         typedef list<PointsT> PolygonsT;
 
-        PolygonsT const & poly = fb2.GetPolygons();
+        PolygonsT const & poly = fb2.GetGeometry();
 
         // Check that all simplifications are inside bound rect.
         for (int level = 0; level <= upperScale; ++level)

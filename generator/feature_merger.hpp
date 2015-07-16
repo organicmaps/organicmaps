@@ -11,7 +11,7 @@ class MergedFeatureBuilder1 : public FeatureBuilder1
 {
   bool m_isRound;
 
-  points_t m_roundBounds[2];
+  TPointSeq m_roundBounds[2];
 
 public:
   MergedFeatureBuilder1() : m_isRound(false) {}
@@ -26,10 +26,10 @@ public:
 
   bool EqualGeometry(MergedFeatureBuilder1 const & fb) const;
 
-  inline bool NotEmpty() const { return !GetFrontGeometry().empty(); }
+  inline bool NotEmpty() const { return !GetOuterGeometry().empty(); }
 
-  inline m2::PointD FirstPoint() const { return GetFrontGeometry().front(); }
-  inline m2::PointD LastPoint() const { return GetFrontGeometry().back(); }
+  inline m2::PointD FirstPoint() const { return GetOuterGeometry().front(); }
+  inline m2::PointD LastPoint() const { return GetOuterGeometry().back(); }
 
   inline bool PopAnyType(uint32_t & type) { return m_params.PopAnyType(type); }
 
@@ -41,7 +41,7 @@ public:
 
   template <class ToDo> void ForEachMiddlePoints(ToDo toDo) const
   {
-    points_t const & poly = GetFrontGeometry();
+    TPointSeq const & poly = GetOuterGeometry();
     for (size_t i = 1; i < poly.size()-1; ++i)
       toDo(poly[i]);
   }
