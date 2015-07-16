@@ -60,7 +60,7 @@ private:
   void LogCode(IRouter::ResultCode code, double const elapsedSec);
 
   mutex m_paramsMutex;
-  mutex m_routeMutex;
+  mutex m_routingMutex;
   atomic_flag m_isReadyThread;
 
   m2::PointD m_startPoint;

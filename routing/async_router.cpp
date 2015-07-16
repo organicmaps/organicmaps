@@ -58,6 +58,8 @@ AsyncRouter::AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentC
       m_router(move(router)),
       m_routingStatisticsFn(routingStatisticsFn)
 {
+  ASSERT(m_router, ());
+
   m_isReadyThread.clear();
 }
 
@@ -66,10 +68,9 @@ AsyncRouter::~AsyncRouter() { ClearState(); }
 void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
                                  m2::PointD const & finalPoint, TReadyCallback const & callback)
 {
-  ASSERT(m_router, ());
   {
-    lock_guard<mutex> guard(m_paramsMutex);
-    UNUSED_VALUE(guard);
+    lock_guard<mutex> paramsGuard(m_paramsMutex);
+    UNUSED_VALUE(paramsGuard);
 
     m_startPoint = startPoint;
     m_startDirection = direction;
@@ -83,10 +84,11 @@ void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const
 
 void AsyncRouter::ClearState()
 {
-  ASSERT(m_router, ());
   m_router->Cancel();
 
-  lock_guard<mutex> guard(m_routeMutex);
+  lock_guard<mutex> routingGuard(m_routingMutex);
+  UNUSED_VALUE(routingGuard);
+
   m_router->ClearState();
 }
 
@@ -140,13 +142,15 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
   Route route(m_router->GetName());
   IRouter::ResultCode code;
 
-  lock_guard<mutex> guard(m_routeMutex);
+  lock_guard<mutex> routingGuard(m_routingMutex);
+  UNUSED_VALUE(routingGuard);
 
   m_isReadyThread.clear();
 
   m2::PointD startPoint, finalPoint, startDirection;
   {
-    lock_guard<mutex> params(m_paramsMutex);
+    lock_guard<mutex> paramsGuard(m_paramsMutex);
+    UNUSED_VALUE(paramsGuard);
 
     startPoint = m_startPoint;
     finalPoint = m_finalPoint;
@@ -156,6 +160,8 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
   }
 
   my::Timer timer;
+  double elapsedSec = 0.0;
+
   try
   {
     LOG(LDEBUG, ("Calculating the route from", startPoint, "to", finalPoint, "startDirection", startDirection));
@@ -166,47 +172,42 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
     // Run basic request.
     code = m_router->CalculateRoute(startPoint, startDirection, finalPoint, route);
 
-    double const elapsedSec = timer.ElapsedSeconds();
-
-    LogCode(code, elapsedSec);
-
-    SendStatistics(startPoint, startDirection, finalPoint, code, route, elapsedSec);
+    elapsedSec = timer.ElapsedSeconds(); // routing time
   }
   catch (RootException const & e)
   {
-    LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
     code = IRouter::InternalError;
-
+    LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
     SendStatistics(startPoint, startDirection, finalPoint, e.Msg());
-  }
-
-  if (code == IRouter::NoError)
     GetPlatform().RunOnGuiThread(bind(callback, route, code));
-
-  // Check online response if we have.
-  vector<string> absent;
-  if (m_absentFetcher)
-    m_absentFetcher->GetAbsentCountries(absent);
-  if (absent.empty())
-  {
-    if (code != IRouter::NoError)
-      GetPlatform().RunOnGuiThread(bind(callback, route, code));
     return;
   }
 
-  for (string const & country : absent)
-    route.AddAbsentCountry(country);
-  if (code != IRouter::NoError)
+  bool const needFetchAbsent = (code != IRouter::Cancelled);
+
+  // Check online response if we have.
+  vector<string> absent;
+  if (m_absentFetcher && needFetchAbsent)
   {
-    GetPlatform().RunOnGuiThread(bind(callback, route, code));
+    m_absentFetcher->GetAbsentCountries(absent);
+    for (string const & country : absent)
+      route.AddAbsentCountry(country);
   }
-  else
+
+  if (!absent.empty())
   {
-    double const elapsedSec = timer.ElapsedSeconds();
-    LogCode(IRouter::NeedMoreMaps, elapsedSec);
-    SendStatistics(startPoint, startDirection, finalPoint, IRouter::NeedMoreMaps, route, elapsedSec);
-    GetPlatform().RunOnGuiThread(bind(callback, route, IRouter::NeedMoreMaps));
+    elapsedSec = timer.ElapsedSeconds(); // routing time + absents fetch time
+
+    if (code == IRouter::NoError)
+    {
+      // Route has been found, but could be found a better route if were download absent files
+      code = IRouter::NeedMoreMaps;
+    }
   }
+
+  LogCode(code, elapsedSec);
+  SendStatistics(startPoint, startDirection, finalPoint, code, route, elapsedSec);
+  GetPlatform().RunOnGuiThread(bind(callback, route, code));
 }
 
 void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
