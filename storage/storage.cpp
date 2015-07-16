@@ -412,6 +412,8 @@ bool Storage::DeleteFromDownloader(TIndex const & index)
 
 bool Storage::IsDownloadInProgress() const { return !m_queue.empty(); }
 
+TIndex Storage::GetCurrentDownloadingCountryIndex() const { return IsDownloadInProgress() ? m_queue.front().GetIndex() : storage::TIndex(); }
+
 void Storage::LoadCountriesFile(bool forceReload)
 {
   if (forceReload)

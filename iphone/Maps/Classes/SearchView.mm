@@ -105,7 +105,7 @@ typedef NS_ENUM(NSUInteger, CellType)
 };
 
 
-@interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver, MWMCircularProgressDelegate>
+@interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver, MWMSearchDownloadMapRequest>
 
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) SolidTouchView * topBackgroundView;
@@ -428,8 +428,7 @@ static BOOL keyboardLoaded = NO;
   }
   else
   {
-    if (sender)
-      [self showDownloadMapRequestIfRequired];
+    [self showDownloadMapRequestIfRequired];
     // nil wrapper means "Display Categories" mode
     self.wrapper = nil;
     [self.searchBar setSearching:NO];
@@ -442,7 +441,6 @@ static BOOL keyboardLoaded = NO;
 {
   if (self.state == SearchViewStateResults)
     [self clearSearchResultsMode];
-  [self setState:SearchViewStateFullscreen animated:YES];
 }
 
 - (void)showOnMap
@@ -519,11 +517,11 @@ static BOOL keyboardLoaded = NO;
 
 - (void)layoutSubviews
 {
-  [super layoutSubviews];
   if (self.state == SearchViewStateFullscreen)
     self.searchBar.minY = [self defaultSearchBarMinY];
   self.tableView.contentInset = UIEdgeInsetsMake(self.topBackgroundView.height, 0, 0, 0);
   self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+  [super layoutSubviews];
 }
 
 - (void)setCellAttributedTitle:(SearchCell *)cell result:(search::Result const &)result
@@ -705,9 +703,16 @@ static BOOL keyboardLoaded = NO;
 - (NSInteger)rowsCount
 {
   if ([self isShowingCategories])
-    return [self.categoriesNames count];
+  {
+    if (self.delegate.haveMap)
+      return [self.categoriesNames count];
+    else
+      return 0;
+  }
   else
+  {
     return [self.wrapper suggestsCount] ? [self.wrapper count] : [self.wrapper count] + 1;
+  }
 }
 
 - (NSArray *)categoriesNames
@@ -817,49 +822,9 @@ static BOOL keyboardLoaded = NO;
 
 - (void)showDownloadMapRequestIfRequired
 {
-  if (self.delegate.haveCurrentMap)
+  if (self.delegate.haveMap)
     return;
   self.downloadRequest = [[MWMSearchDownloadMapRequest alloc] initWithParentView:self.tableView delegate:self];
-  Framework & f = GetFramework();
-  ActiveMapsLayout & activeMapLayout = f.GetCountryTree().GetActiveMapLayout();
-  if (activeMapLayout.IsDownloadingActive())
-  {
-    [self.downloadRequest startDownload];
-  }
-  else
-  {
-    double lat, lon;
-    if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
-    {
-
-      m2::PointD const mercatorLocation = MercatorBounds::FromLatLon(lat, lon);
-      storage::TIndex const countryIndex = f.GetCountryIndex(mercatorLocation);
-
-      NSString * countryName = [NSString stringWithUTF8String:activeMapLayout.GetFormatedCountryName(countryIndex).c_str()];
-      LocalAndRemoteSizeT const sizes = activeMapLayout.GetRemoteCountrySizes(countryIndex);
-      NSString * mapSize = formattedSize(sizes.first);
-      NSString * mapAndRouteSize = formattedSize(sizes.first + sizes.second);
-
-      __weak SearchView * weakSelf = self;
-      [self.downloadRequest showForLocationWithName:countryName mapSize:mapSize mapAndRouteSize:mapAndRouteSize download:^(BOOL needRoute)
-      {
-        __strong SearchView * self = weakSelf;
-        [self.downloadRequest startDownload];
-        [self.delegate startMapDownload:countryIndex type:needRoute ? TMapOptions::EMapWithCarRouting : TMapOptions::EMap];
-      }
-      select:^
-      {
-        [self selectMapsAction];
-      }];
-    }
-    else
-    {
-      [self.downloadRequest showForUnknownLocation:^
-      {
-        [self selectMapsAction];
-      }];
-    }
-  }
 }
 
 - (void)hideDownloadMapRequest
@@ -884,29 +849,7 @@ static BOOL keyboardLoaded = NO;
   [self.downloadRequest setDownloadFailed];
 }
 
-#pragma mark - MWMCircularProgressDelegate
-
-- (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
-{
-  if (progress.failed)
-  {
-    double lat, lon;
-    if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
-    {
-      Framework & f = GetFramework();
-      m2::PointD const mercatorLocation = MercatorBounds::FromLatLon(lat, lon);
-      storage::TIndex const countryIndex = f.GetCountryIndex(mercatorLocation);
-      [self.delegate restartMapDownload:countryIndex];
-    }
-  }
-  else
-  {
-    [self.downloadRequest stopDownload];
-    [self.delegate stopMapsDownload];
-  }
-}
-
-#pragma mark - MWMNavigationDelegate
+#pragma mark - MWMSearchDownloadMapRequest
 
 - (void)selectMapsAction
 {
@@ -919,6 +862,7 @@ static BOOL keyboardLoaded = NO;
 {
   _downloadRequest = downloadRequest;
   self.tableView.scrollEnabled = (downloadRequest == nil);
+  [self.tableView reloadData];
 }
 
 - (CGRect)infoRect

@@ -17,14 +17,10 @@ typedef NS_ENUM(NSUInteger, SearchViewState) {
 
 @protocol SearchViewDelegate <NSObject>
 
-@property (nonatomic, readonly) BOOL haveCurrentMap;
+@property (nonatomic, readonly) BOOL haveMap;
 
 - (void)searchViewWillEnterState:(SearchViewState)state;
 - (void)searchViewDidEnterState:(SearchViewState)state;
-
-- (void)startMapDownload:(storage::TIndex const &)index type:(TMapOptions)type;
-- (void)stopMapsDownload;
-- (void)restartMapDownload:(storage::TIndex const &)index;
 
 @end
 

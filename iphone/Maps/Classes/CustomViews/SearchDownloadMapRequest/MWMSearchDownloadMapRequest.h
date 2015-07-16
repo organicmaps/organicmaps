@@ -6,19 +6,17 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "MWMDownloadMapRequest.h"
+@protocol MWMSearchDownloadMapRequest <NSObject>
+
+- (void)selectMapsAction;
+
+@end
 
 @interface MWMSearchDownloadMapRequest : NSObject
 
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
-- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView delegate:(nonnull id <MWMCircularProgressDelegate>)delegate;
+- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView delegate:(nonnull id <MWMSearchDownloadMapRequest>)delegate;
 
-- (void)showForLocationWithName:(nonnull NSString *)locationName mapSize:(nonnull NSString *)mapSize mapAndRouteSize:(nonnull NSString *)mapAndRouteSize download:(nonnull MWMDownloadMapRequestDownloadCallback)download select:(nonnull MWMDownloadMapRequestSelectCallback)select;
-- (void)showForUnknownLocation:(nonnull MWMDownloadMapRequestSelectCallback)select;
-
-- (void)startDownload;
-- (void)stopDownload;
 - (void)downloadProgress:(CGFloat)progress countryName:(nonnull NSString *)countryName;
 - (void)setDownloadFailed;
 

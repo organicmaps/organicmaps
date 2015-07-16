@@ -342,6 +342,19 @@ void ActiveMapsLayout::CancelDownloading(TGroup const & group, int position)
   item.m_downloadRequest = item.m_options;
 }
 
+void ActiveMapsLayout::CancelDownloading(TIndex const & index)
+{
+  GetStorage().DeleteFromDownloader(index);
+  Item * item = FindItem(index);
+  if (item != nullptr)
+    item->m_downloadRequest = item->m_options;
+}
+
+TIndex ActiveMapsLayout::GetCurrentDownloadingCountryIndex() const
+{
+  return GetStorage().GetCurrentDownloadingCountryIndex();
+}
+
 void ActiveMapsLayout::ShowMap(TGroup const & group, int position)
 {
   ShowMap(GetItemInGroup(group, position).Index());

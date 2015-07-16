@@ -88,6 +88,9 @@ public:
 
   bool IsDownloadingActive() const;
   void CancelDownloading(TGroup const & group, int position);
+  void CancelDownloading(TIndex const & index);
+
+  TIndex GetCurrentDownloadingCountryIndex() const;
 
   void ShowMap(TGroup const & group, int position);
 

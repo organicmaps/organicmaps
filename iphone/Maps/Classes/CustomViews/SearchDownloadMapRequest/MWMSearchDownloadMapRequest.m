@@ -6,10 +6,11 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "MWMDownloadMapRequest.h"
 #import "MWMSearchDownloadMapRequest.h"
 #import "MWMSearchDownloadMapRequestView.h"
 
-@interface MWMSearchDownloadMapRequest ()
+@interface MWMSearchDownloadMapRequest () <MWMDownloadMapRequestDelegate>
 
 @property (nonatomic) IBOutlet MWMSearchDownloadMapRequestView * rootView;
 @property (nonatomic) IBOutlet UIView * downloadRequestHolder;
@@ -17,32 +18,25 @@
 @property (nonatomic) MWMDownloadMapRequest * downloadRequest;
 @property (strong, nonatomic) IBOutlet UIButton * dimButton;
 
+@property (nonnull, weak, nonatomic) id <MWMSearchDownloadMapRequest> delegate;
+
 @end
 
 @implementation MWMSearchDownloadMapRequest
 
-- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView delegate:(nonnull id <MWMCircularProgressDelegate>)delegate
+- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView delegate:(nonnull id <MWMSearchDownloadMapRequest>)delegate
 {
   self = [super init];
   if (self)
   {
     [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class) owner:self options:nil];
+    self.delegate = delegate;
     [parentView addSubview:self.rootView];
-    self.downloadRequest = [[MWMDownloadMapRequest alloc] initWithParentView:self.downloadRequestHolder delegate:delegate];
+    self.downloadRequest = [[MWMDownloadMapRequest alloc] initWithParentView:self.downloadRequestHolder delegate:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillhide:) name:UIKeyboardWillHideNotification object:nil];
   }
   return self;
-}
-
-- (void)showForLocationWithName:(nonnull NSString *)locationName mapSize:(nonnull NSString *)mapSize mapAndRouteSize:(nonnull NSString *)mapAndRouteSize download:(nonnull MWMDownloadMapRequestDownloadCallback)download select:(nonnull MWMDownloadMapRequestSelectCallback)select;
-{
-  [self.downloadRequest showForLocationWithName:locationName mapSize:mapSize mapAndRouteSize:mapAndRouteSize download:download select:select];
-}
-
-- (void)showForUnknownLocation:(nonnull MWMDownloadMapRequestSelectCallback)select
-{
-  [self.downloadRequest showForUnknownLocation:select];
 }
 
 - (void)dealloc
@@ -80,18 +74,6 @@
 
 #pragma mark - Process control
 
-- (void)startDownload
-{
-  self.rootView.hintHidden = YES;
-  [self.downloadRequest startDownload];
-}
-
-- (void)stopDownload
-{
-  self.rootView.hintHidden = NO;
-  [self.downloadRequest stopDownload];
-}
-
 - (void)downloadProgress:(CGFloat)progress countryName:(nonnull NSString *)countryName
 {
   [self.downloadRequest downloadProgress:progress countryName:countryName];
@@ -106,7 +88,19 @@
 
 - (IBAction)dimTouchUpInside:(nonnull UIButton *)sender
 {
-  [[UIApplication sharedApplication].keyWindow endEditing:YES];
+  [UIApplication.sharedApplication.keyWindow endEditing:YES];
+}
+
+#pragma mark - MWMDownloadMapRequestDelegate
+
+- (void)stateUpdated:(enum MWMDownloadMapRequestState)state
+{
+  [self.rootView show:state == MWMDownloadMapRequestStateDownload ? MWMSearchDownloadMapRequestViewStateProgress : MWMSearchDownloadMapRequestViewStateRequest];
+}
+
+- (void)selectMapsAction
+{
+  [self.delegate selectMapsAction];
 }
 
 @end

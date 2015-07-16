@@ -161,6 +161,8 @@ public:
   bool DeleteFromDownloader(TIndex const & index);
   bool IsDownloadInProgress() const;
 
+  TIndex GetCurrentDownloadingCountryIndex() const;
+
   void NotifyStatusChanged(TIndex const & index);
 
   /// get download url by index & options(first search file name by index, then format url)

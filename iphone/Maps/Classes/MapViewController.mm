@@ -106,7 +106,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 @property (nonatomic) MapInfoView mapInfoView;
 
-@property (nonatomic) BOOL haveCurrentMap;
+@property (nonatomic) BOOL haveMap;
 
 @end
 
@@ -920,47 +920,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   Framework & f = GetFramework();
   ActiveMapsLayout & activeMapLayout = f.GetCountryTree().GetActiveMapLayout();
   int const mapsCount = activeMapLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate) + activeMapLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EUpToDate);
-  if (mapsCount == 0)
-  {
-    self.haveCurrentMap = NO;
-  }
-  else
-  {
-    double lat, lon;
-    if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
-    {
-      m2::PointD const mercatorLocation = MercatorBounds::FromLatLon(lat, lon);
-      storage::TIndex const countryIndex = f.GetCountryIndex(mercatorLocation);
-      if (countryIndex == storage::TIndex())
-      {
-        self.haveCurrentMap = f.IsCountryLoaded(mercatorLocation);
-      }
-      else
-      {
-        storage::TStatus const countryStatus = activeMapLayout.GetCountryStatus(countryIndex);
-        self.haveCurrentMap = (countryStatus == storage::TStatus::EOnDisk || countryStatus == storage::TStatus::EOnDiskOutOfDate);
-      }
-    }
-    else
-    {
-      self.haveCurrentMap = YES;
-    }
-  }
-}
-
-- (void)startMapDownload:(storage::TIndex const &)index type:(TMapOptions)type
-{
-  GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(index, type);
-}
-
-- (void)stopMapsDownload
-{
-  GetFramework().GetCountryTree().GetActiveMapLayout().CancelAll();
-}
-
-- (void)restartMapDownload:(storage::TIndex const &)index
-{
-  GetFramework().GetCountryTree().GetActiveMapLayout().RetryDownloading(index);
+  self.haveMap = mapsCount > 0;
 }
 
 #pragma mark - RouteViewDelegate
@@ -1077,11 +1037,16 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)countryStatusChangedAtPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group
 {
-  TStatus const status = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountryStatus(group, position);
+  auto const status = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountryStatus(group, position);
   if (status == TStatus::EDownloadFailed)
+  {
     [self.searchView downloadFailed];
+  }
   else if (status == TStatus::EOnDisk)
+  {
+    [self checkCurrentLocationMap];
     [self.searchView downloadComplete];
+  }
 }
 
 - (void)countryDownloadingProgressChanged:(LocalAndRemoteSizeT const &)progress atPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group

@@ -7,22 +7,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMDownloadMapRequest">
             <connections>
-                <outlet property="downloadMapButton" destination="ANW-J1-K9x" id="oE3-7R-Pyf"/>
-                <outlet property="downloadRoutesButton" destination="Ns9-3f-AnX" id="lxd-NO-JwR"/>
+                <outlet property="downloadMapButton" destination="ANW-J1-K9x" id="8Ul-49-KUb"/>
+                <outlet property="downloadRoutesButton" destination="Ns9-3f-AnX" id="LQp-vW-Qxs"/>
                 <outlet property="mapTitleLabel" destination="ldF-A5-Jo3" id="r20-cg-aHn"/>
-                <outlet property="progressViewWrapper" destination="Axo-F2-0Xb" id="8PW-T9-Wav"/>
+                <outlet property="progressViewWrapper" destination="Axo-F2-0Xb" id="MY3-o4-9hX"/>
                 <outlet property="rootView" destination="wdy-tr-47e" id="vKe-K9-3Io"/>
-                <outlet property="selectAnotherMapButton" destination="q7R-7R-aMD" id="StJ-Aq-Jo7"/>
-                <outlet property="undefinedLocationLabel" destination="0HQ-hc-mvu" id="H7G-lT-OqQ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="wdy-tr-47e" customClass="MWMDownloadMapRequestView">
+        <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="wdy-tr-47e" customClass="MWMDownloadMapRequestView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="251"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moscow &amp; Central" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="ldF-A5-Jo3">
                     <rect key="frame" x="16" y="10" width="288" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -75,6 +74,9 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="selected" image="radioBtnOn"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_vehicle_routes"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="downloadRoutesTouchUpInside:" destination="-1" eventType="touchUpInside" id="0Zh-cL-WYE"/>
                     </connections>
@@ -140,8 +142,12 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="bottomSpacing" destination="d8R-jg-AMN" id="NKs-4Y-gl7"/>
+                <outlet property="downloadMapButton" destination="ANW-J1-K9x" id="yVE-8n-ezQ"/>
+                <outlet property="downloadRoutesButton" destination="Ns9-3f-AnX" id="Mh2-Di-igv"/>
                 <outlet property="mapTitleLabel" destination="ldF-A5-Jo3" id="SCT-Zb-Xxq"/>
-                <outlet property="owner" destination="-1" id="uiR-Xb-rRc"/>
+                <outlet property="progressViewWrapper" destination="Axo-F2-0Xb" id="haF-S7-daI"/>
+                <outlet property="selectAnotherMapButton" destination="q7R-7R-aMD" id="pyE-n2-tck"/>
+                <outlet property="undefinedLocationLabel" destination="0HQ-hc-mvu" id="qCF-gw-Ll7"/>
                 <outlet property="unknownPositionLabelBottomOffset" destination="u95-8m-bpq" id="qXZ-7m-zS1"/>
                 <outlet property="verticalFreeSpace" destination="SM5-r0-AS2" id="aXL-lW-az3"/>
             </connections>

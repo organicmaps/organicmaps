@@ -6,12 +6,16 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MWMDownloadMapRequest.h"
 #import "UIKitCategories.h"
 
 @interface MWMDownloadMapRequestView : SolidTouchView
 
-- (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame is not available")));
-- (instancetype)init __attribute__((unavailable("init is not available")));
+@property (nonatomic) enum MWMDownloadMapRequestState state;
+
+- (nonnull instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame is not available")));
+- (nonnull instancetype)init __attribute__((unavailable("init is not available")));
+
+- (void)stateUpdated:(enum MWMDownloadMapRequestState)state;
 
 @end

@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMDownloadMapRequest.h"
 #import "MWMDownloadMapRequestView.h"
+#import "UIButton+RuntimeAttributes.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
 
 @interface MWMDownloadMapRequestView ()
@@ -16,15 +17,27 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * verticalFreeSpace;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * bottomSpacing;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * unknownPositionLabelBottomOffset;
-@property (weak, nonatomic) IBOutlet MWMDownloadMapRequest * owner;
+
+@property (weak, nonatomic) IBOutlet UIButton * downloadMapButton;
+@property (weak, nonatomic) IBOutlet UIButton * downloadRoutesButton;
+@property (weak, nonatomic) IBOutlet UILabel * undefinedLocationLabel;
+@property (weak, nonatomic) IBOutlet UIButton * selectAnotherMapButton;
+@property (weak, nonatomic) IBOutlet UIView * progressViewWrapper;
 
 @end
 
 @implementation MWMDownloadMapRequestView
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+  self = [super initWithCoder:aDecoder];
+  if (self)
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  return self;
+}
+
 - (void)layoutSubviews
 {
-  [super layoutSubviews];
   UIView * superview = self.superview;
   BOOL const isLandscape = superview.height > superview.width;
   if (IPAD || isLandscape)
@@ -52,30 +65,49 @@
   }
   self.width = superview.width;
   self.minX = 0.0;
-  if (self.minY > 0.0)
-  {
-    [UIView animateWithDuration:0.3 animations:^
-    {
-      [self move];
-    }];
-  }
-  else
-  {
-    [self move];
-  }
+  [super layoutSubviews];
 }
 
-- (void)move
+#pragma mark - Properties
+
+- (void)stateUpdated:(enum MWMDownloadMapRequestState)state
 {
-  if (self.owner.state == MWMDownloadMapRequestProgress)
+  switch (state)
   {
-    UIView * superview = self.superview;
-    BOOL const isLandscape = superview.height > superview.width;
-    self.minY = (IPAD || isLandscape) ? 0.3 * self.superview.height : 0.0;
-  }
-  else
-  {
-    self.maxY = self.superview.height;
+    case MWMDownloadMapRequestStateDownload:
+      self.progressViewWrapper.hidden = NO;
+      self.mapTitleLabel.hidden = NO;
+      self.downloadMapButton.hidden = YES;
+      self.downloadRoutesButton.hidden = YES;
+      self.undefinedLocationLabel.hidden = YES;
+      self.selectAnotherMapButton.hidden = YES;
+      break;
+    case MWMDownloadMapRequestStateRequestLocation:
+      self.progressViewWrapper.hidden = YES;
+      self.mapTitleLabel.hidden = NO;
+      self.downloadMapButton.hidden = NO;
+      self.downloadRoutesButton.hidden = NO;
+      self.undefinedLocationLabel.hidden = YES;
+      self.selectAnotherMapButton.hidden = NO;
+      [self.selectAnotherMapButton setTitle:L(@"search_select_other_map") forState:UIControlStateNormal];
+      [self.selectAnotherMapButton setTitleColor:[UIColor primary] forState:UIControlStateNormal];
+      [self.selectAnotherMapButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+      [self.selectAnotherMapButton setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
+      [self.selectAnotherMapButton setBackgroundColor:[UIColor primary] forState:UIControlStateHighlighted];
+      break;
+    case MWMDownloadMapRequestStateRequestUnknownLocation:
+      self.progressViewWrapper.hidden = YES;
+      self.mapTitleLabel.hidden = YES;
+      self.downloadMapButton.hidden = YES;
+      self.downloadRoutesButton.hidden = YES;
+      self.undefinedLocationLabel.hidden = NO;
+      self.selectAnotherMapButton.hidden = NO;
+      [self.selectAnotherMapButton setTitle:L(@"search_select_map") forState:UIControlStateNormal];
+
+      [self.selectAnotherMapButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+      [self.selectAnotherMapButton setBackgroundColor:[UIColor primary] forState:UIControlStateNormal];
+      [self.selectAnotherMapButton setBackgroundColor:[UIColor primaryDark] forState:UIControlStateHighlighted];
+      break;
   }
 }
 

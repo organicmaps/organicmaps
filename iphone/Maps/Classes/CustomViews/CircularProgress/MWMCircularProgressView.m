@@ -54,7 +54,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 {
   self.progressLayer.fillColor = [UIColor clearColor].CGColor;
   self.progressLayer.lineWidth = kLineWidth;
-  self.progressLayer.strokeColor = self.owner.failed ? [UIColor red].CGColor : [UIColor primary].CGColor;;
+  self.progressLayer.strokeColor = self.owner.failed ? [UIColor red].CGColor : [UIColor primary].CGColor;
 }
 
 - (void)updatePath:(CGFloat)progress
@@ -83,8 +83,8 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)layoutSubviews
 {
-  [super layoutSubviews];
   self.frame = self.superview.bounds;
+  [super layoutSubviews];
 }
 
 #pragma mark - Properties

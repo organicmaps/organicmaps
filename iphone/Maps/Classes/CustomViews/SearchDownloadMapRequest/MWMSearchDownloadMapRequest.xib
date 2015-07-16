@@ -29,9 +29,12 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_without_internet_advertisement"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uzQ-gk-yJp" userLabel="DownloadRequestHolder">
-                    <rect key="frame" x="0.0" y="89" width="320" height="479"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uzQ-gk-yJp" userLabel="DownloadRequestWrapper">
+                    <rect key="frame" x="0.0" y="317" width="320" height="251"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="251" id="bsm-dc-NwX"/>
+                    </constraints>
                 </view>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iMA-Nl-9RY" userLabel="Dim">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -58,14 +61,16 @@
                 <constraint firstAttribute="trailing" secondItem="iMA-Nl-9RY" secondAttribute="trailing" id="Te8-04-GWH"/>
                 <constraint firstAttribute="trailing" secondItem="Gwe-nt-eeI" secondAttribute="trailing" constant="20" id="YaN-ox-CCC"/>
                 <constraint firstItem="Gwe-nt-eeI" firstAttribute="leading" secondItem="wP9-g7-AZb" secondAttribute="leading" constant="20" id="iNJ-np-5B7"/>
-                <constraint firstItem="uzQ-gk-yJp" firstAttribute="top" secondItem="Gwe-nt-eeI" secondAttribute="bottom" id="rBW-h2-v2z"/>
                 <constraint firstItem="Gwe-nt-eeI" firstAttribute="top" secondItem="wP9-g7-AZb" secondAttribute="top" constant="40" id="y9t-mi-Gpm"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="downloadRequestWrapper" destination="uzQ-gk-yJp" id="1Yl-V8-mn3"/>
+                <outlet property="downloadRequestWrapperBottomOffset" destination="9jx-hz-YeX" id="PyI-0r-3jc"/>
                 <outlet property="hint" destination="Gwe-nt-eeI" id="3Eo-4z-h1w"/>
                 <outlet property="hintTopOffset" destination="y9t-mi-Gpm" id="fpl-Z4-dx8"/>
+                <outlet property="owner" destination="-1" id="sKL-7q-o6K"/>
             </connections>
             <point key="canvasLocation" x="162" y="354"/>
         </view>
