@@ -75,16 +75,6 @@ MwmSet::MwmHandle & MwmSet::MwmHandle::operator=(MwmHandle && handle)
   return *this;
 }
 
-MwmSet::MwmSet(size_t cacheSize)
-  : m_cacheSize(cacheSize)
-{
-}
-
-MwmSet::~MwmSet()
-{
-  Clear();
-  ASSERT(m_cache.empty(), ());
-}
 
 MwmSet::MwmId MwmSet::GetMwmIdByCountryFileImpl(CountryFile const & countryFile) const
 {
@@ -131,10 +121,9 @@ pair<MwmSet::MwmHandle, MwmSet::RegResult> MwmSet::Register(LocalCountryFile con
 
 pair<MwmSet::MwmHandle, MwmSet::RegResult> MwmSet::RegisterImpl(LocalCountryFile const & localFile)
 {
-  shared_ptr<MwmInfo> info(new MwmInfo());
-
   // This function can throw an exception for a bad mwm file.
-  if (!GetVersion(localFile, *info))
+  shared_ptr<MwmInfo> info(CreateInfo(localFile));
+  if (!info)
     return make_pair(MwmHandle(), RegResult::UnsupportedFileFormat);
 
   info->m_file = localFile;
@@ -227,7 +216,8 @@ MwmSet::TMwmValueBasePtr MwmSet::LockValueImpl(MwmId const & id)
       return result;
     }
   }
-  return CreateValue(info->GetLocalFile());
+
+  return TMwmValueBasePtr(CreateValue(*info));
 }
 
 void MwmSet::UnlockValue(MwmId const & id, TMwmValueBasePtr p)

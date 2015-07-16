@@ -138,7 +138,7 @@ void LocalityFinder::RecreateCache(Cache & cache, m2::RectD rect) const
 
       ScaleIndex<ModelReaderPtr> index(pMwm->m_cont.GetReader(INDEX_FILE_TAG), pMwm->m_factory);
 
-      FeaturesVector loader(pMwm->m_cont, header);
+      FeaturesVector loader(pMwm->m_cont, header, pMwm->m_table);
 
       cache.m_rect = rect;
       for (size_t i = 0; i < interval.size(); ++i)

@@ -10,29 +10,26 @@ using platform::LocalCountryFile;
 
 namespace tests
 {
-class MwmValue : public MwmSet::MwmValueBase
-{
-};
 
 class TestMwmSet : public MwmSet
 {
 protected:
-  // MwmSet overrides:
-  bool GetVersion(LocalCountryFile const & localFile, MwmInfo & info) const override
+  /// @name MwmSet overrides
+  //@{
+  MwmInfo * CreateInfo(platform::LocalCountryFile const & localFile) const override
   {
     int const n = localFile.GetCountryName()[0] - '0';
-    info.m_maxScale = n;
-    info.m_limitRect = m2::RectD(0, 0, 1, 1);
-    info.m_version.format = version::lastFormat;
-    return true;
+    MwmInfo * info = new MwmInfo();
+    info->m_maxScale = n;
+    info->m_limitRect = m2::RectD(0, 0, 1, 1);
+    info->m_version.format = version::lastFormat;
+    return info;
   }
-
-  TMwmValueBasePtr CreateValue(LocalCountryFile const &) const override
+  MwmValueBase * CreateValue(MwmInfo &) const override
   {
-    return TMwmValueBasePtr(new MwmValue());
+    return new MwmValueBase();
   }
-
-public:
-  ~TestMwmSet() override = default;
+  //@}
 };
+
 }  // namespace

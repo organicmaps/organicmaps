@@ -62,6 +62,10 @@ public:
   // performs sync with disk.
   static LocalCountryFile MakeForTesting(string const & countryFileName);
 
+  /// @todo The easiest solution for now. Need to be removed in future.
+  /// @param fullPath Full path to the mwm file.
+  static LocalCountryFile MakeTemporary(string const & fullPath);
+
 private:
   friend string DebugPrint(LocalCountryFile const &);
   friend void UnitTest_LocalCountryFile_DirectoryLookup();

@@ -1,16 +1,20 @@
 #include "indexer/features_offsets_table.hpp"
-
-#include "indexer/data_header.hpp"
 #include "indexer/features_vector.hpp"
+
 #include "platform/local_country_file.hpp"
+#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
-#include "coding/file_writer.hpp"
+
+#include "coding/file_container.hpp"
 #include "coding/internal/file_data.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/scope_guard.hpp"
+
 #include "std/string.hpp"
 
+
+using namespace platform;
 
 namespace feature
 {
@@ -25,9 +29,9 @@ namespace feature
   {
   }
 
-  FeaturesOffsetsTable::FeaturesOffsetsTable(string const & fileName)
+  FeaturesOffsetsTable::FeaturesOffsetsTable(string const & filePath)
   {
-    m_pReader.reset(new MmapReader(fileName));
+    m_pReader.reset(new MmapReader(filePath));
     succinct::mapper::map(m_table, reinterpret_cast<char const *>(m_pReader->Data()));
   }
 
@@ -46,49 +50,58 @@ namespace feature
     return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(elias_fano_builder));
   }
 
-  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::LoadImpl(string const & fileName)
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::LoadImpl(string const & filePath)
   {
-    return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(fileName));
+    return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(filePath));
   }
 
   // static
-  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(string const & fileName)
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(string const & filePath)
   {
     uint64_t size;
-    if (!GetPlatform().GetFileSizeByFullPath(fileName, size))
+    if (!GetPlatform().GetFileSizeByFullPath(filePath, size))
       return unique_ptr<FeaturesOffsetsTable>();
-    return LoadImpl(fileName);
+    return LoadImpl(filePath);
   }
 
   // static
   unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(
-      string const & fileName, platform::LocalCountryFile const & localFile)
+      LocalCountryFile const & localFile)
   {
+    string const offsetsFilePath = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
+
     uint64_t size;
-    if (GetPlatform().GetFileSizeByFullPath(fileName, size))
-      return LoadImpl(fileName);
+    if (GetPlatform().GetFileSizeByFullPath(offsetsFilePath, size))
+      return LoadImpl(offsetsFilePath);
 
-    LOG(LINFO, ("Creating features offset table file", fileName));
+    LOG(LINFO, ("Creating features offset table file", offsetsFilePath));
 
-    FilesContainerR mwmFileContainer(localFile.GetPath(TMapOptions::EMap));
+    VERIFY(CountryIndexes::PreparePlaceOnDisk(localFile), ());
+
+    FilesContainerR cont(localFile.GetPath(TMapOptions::EMap));
 
     Builder builder;
-    FeaturesVector::ForEachOffset(mwmFileContainer.GetReader(DATA_FILE_TAG), [&builder] (uint32_t offset)
+    FeaturesVector::ForEachOffset(cont.GetReader(DATA_FILE_TAG), [&builder] (uint32_t offset)
     {
       builder.PushOffset(offset);
     });
 
     unique_ptr<FeaturesOffsetsTable> table(Build(builder));
-    table->Save(fileName);
+    table->Save(offsetsFilePath);
     return table;
   }
 
-  void FeaturesOffsetsTable::Save(string const & fileName)
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(FilesContainerR const & cont)
   {
-    LOG(LINFO, ("Saving features offsets table to ", fileName));
-    string const fileNameTmp = fileName + EXTENSION_TMP;
+    return CreateIfNotExistsAndLoad((LocalCountryFile::MakeTemporary(cont.GetFileName())));
+  }
+
+  void FeaturesOffsetsTable::Save(string const & filePath)
+  {
+    LOG(LINFO, ("Saving features offsets table to ", filePath));
+    string const fileNameTmp = filePath + EXTENSION_TMP;
     succinct::mapper::freeze(m_table, fileNameTmp.c_str());
-    my::RenameFileX(fileNameTmp, fileName);
+    my::RenameFileX(fileNameTmp, filePath);
   }
 
   uint32_t FeaturesOffsetsTable::GetFeatureOffset(size_t index) const

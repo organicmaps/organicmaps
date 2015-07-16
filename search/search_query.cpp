@@ -1652,7 +1652,7 @@ namespace impl
 
   public:
     DoFindLocality(Query & q, MwmValue * pMwm, int8_t lang)
-      : m_query(q), m_vector(pMwm->m_cont, pMwm->GetHeader()), m_lang(lang)
+      : m_query(q), m_vector(pMwm->m_cont, pMwm->GetHeader(), pMwm->m_table), m_lang(lang)
     {
       m_arrEn[0] = q.GetLanguage(LANG_EN);
       m_arrEn[1] = q.GetLanguage(LANG_INTERNATIONAL);

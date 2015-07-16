@@ -1,12 +1,13 @@
 #include "platform/local_country_file.hpp"
+#include "platform/platform.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/file_name_utils.hpp"
-#include "platform/platform.hpp"
 
 #include "base/logging.hpp"
 
 #include "std/sstream.hpp"
+
 
 namespace platform
 {
@@ -98,6 +99,17 @@ LocalCountryFile LocalCountryFile::MakeForTesting(string const & countryFileName
   localFile.SyncWithDisk();
   return localFile;
 }
+
+// static
+LocalCountryFile LocalCountryFile::MakeTemporary(string const & fullPath)
+{
+  string name = fullPath;
+  my::GetNameFromFullPath(name);
+  my::GetNameWithoutExt(name);
+
+  return LocalCountryFile(GetPlatform().WritableDir(), CountryFile(name), 0 /* version */);
+}
+
 
 string DebugPrint(LocalCountryFile const & file)
 {

@@ -355,4 +355,12 @@ UNIT_TEST(LocalCountryFile_DoNotDeleteUserFiles)
   TEST(CountryIndexes::DeleteFromDisk(germanyLocalFile),
        ("Can't delete indexes for:", germanyLocalFile));
 }
+
+UNIT_TEST(LocalCountryFile_MakeTemporary)
+{
+  string const path = GetPlatform().WritablePathForFile("minsk-pass" DATA_FILE_EXTENSION);
+  LocalCountryFile file = LocalCountryFile::MakeTemporary(path);
+  TEST_EQUAL(file.GetPath(TMapOptions::EMap), path, ());
+}
+
 }  // namespace platform

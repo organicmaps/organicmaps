@@ -1,12 +1,13 @@
 #include "road_graph_builder.hpp"
 
+#include "indexer/mwm_set.hpp"
+
 #include "base/macros.hpp"
 #include "base/logging.hpp"
 
-#include "indexer/mwm_set.hpp"
-
 #include "std/algorithm.hpp"
 #include "std/shared_ptr.hpp"
+
 
 using namespace routing;
 
@@ -35,18 +36,21 @@ public:
   }
 
 private:
-  // MwmSet overrides:
-  bool GetVersion(platform::LocalCountryFile const & localFile, MwmInfo & info) const override
+  /// @name MwmSet overrides
+  //@{
+  MwmInfo * CreateInfo(platform::LocalCountryFile const &) const override
   {
-    info.m_maxScale = 1;
-    info.m_limitRect = m2::RectD(0, 0, 1, 1);
-    info.m_version.format = version::lastFormat;
-    return true;
+    MwmInfo * info = new MwmInfo();
+    info->m_maxScale = 1;
+    info->m_limitRect = m2::RectD(0, 0, 1, 1);
+    info->m_version.format = version::lastFormat;
+    return info;
   }
-  TMwmValueBasePtr CreateValue(platform::LocalCountryFile const &) const override
+  MwmValueBase * CreateValue(MwmInfo &) const override
   {
-    return TMwmValueBasePtr(new MwmValueBase());
+    return new MwmValueBase();
   }
+  //@}
 
   shared_ptr<MwmInfo> m_mwmInfo;
 };

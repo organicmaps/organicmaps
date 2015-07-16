@@ -1,13 +1,18 @@
 #pragma once
 
 #include "coding/mmap_reader.hpp"
+
 #include "defines.hpp"
+
 #include "std/cstdint.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
+
 #include "3party/succinct/elias_fano.hpp"
 #include "3party/succinct/mapper.hpp"
 
+
+class FilesContainerR;
 namespace platform
 {
   class LocalCountryFile;
@@ -54,10 +59,10 @@ namespace feature
     /// mapped to the memory and used by internal structures of
     /// FeaturesOffsetsTable.
     ///
-    /// \param fileName a full path of the file to load or store data
+    /// \param filePath a full path of the file to load or store data
     /// \return a pointer to an instance of FeaturesOffsetsTable or nullptr
     ///         when it's not possible to load FeaturesOffsetsTable.
-    static unique_ptr<FeaturesOffsetsTable> Load(string const & fileName);
+    static unique_ptr<FeaturesOffsetsTable> Load(string const & filePath);
 
     /// Loads FeaturesOffsetsTable from FilesMappingContainer. Note
     /// that some part of a file referenced by container will be
@@ -68,19 +73,21 @@ namespace feature
     ///
     /// \warning May take a lot of time if there is no precomputed section
     ///
-    /// \param fileName a full path of the file to load or store data
     /// \param localFile Representation of the map files with features data ( uses only if we need to construct them)
     /// \return a pointer to an instance of FeaturesOffsetsTable or nullptr
     ///         when it's not possible to create FeaturesOffsetsTable.
-    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(string const & fileName, platform::LocalCountryFile const & localFile);
+    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(platform::LocalCountryFile const & localFile);
+
+    /// @todo The easiest solution for now. Need to be removed in future.
+    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(FilesContainerR const & cont);
 
     FeaturesOffsetsTable(FeaturesOffsetsTable const &) = delete;
     FeaturesOffsetsTable const & operator=(FeaturesOffsetsTable const &) = delete;
 
     /// Serializes current instance to a section in container.
     ///
-    /// \param fileName a full path of the file to store data
-    void Save(string const & fileName);
+    /// \param filePath a full path of the file to store data
+    void Save(string const & filePath);
 
     /// \param index index of a feature
     /// \return offset a feature
@@ -100,9 +107,9 @@ namespace feature
 
   private:
     FeaturesOffsetsTable(succinct::elias_fano::elias_fano_builder & builder);
-    FeaturesOffsetsTable(string const & fileName);
+    FeaturesOffsetsTable(string const & filePath);
 
-    static unique_ptr<FeaturesOffsetsTable> LoadImpl(string const & fileName);
+    static unique_ptr<FeaturesOffsetsTable> LoadImpl(string const & filePath);
 
     succinct::elias_fano m_table;
 

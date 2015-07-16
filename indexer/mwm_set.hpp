@@ -40,6 +40,7 @@ public:
   };
 
   MwmInfo();
+  virtual ~MwmInfo() = default;
 
   m2::RectD m_limitRect;          ///< Limit rect of mwm.
   uint8_t m_minScale;             ///< Min zoom level of mwm.
@@ -104,13 +105,13 @@ public:
   };
 
 public:
-  explicit MwmSet(size_t cacheSize = 5);
-  virtual ~MwmSet() = 0;
+  explicit MwmSet(size_t cacheSize = 5) : m_cacheSize(cacheSize) {}
+  virtual ~MwmSet() = default;
 
   class MwmValueBase
   {
   public:
-    virtual ~MwmValueBase() {}
+    virtual ~MwmValueBase() = default;
   };
 
   using TMwmValueBasePtr = shared_ptr<MwmValueBase>;
@@ -210,8 +211,8 @@ public:
 
 protected:
   /// @return True when file format version was successfully read to MwmInfo.
-  virtual bool GetVersion(platform::LocalCountryFile const & localFile, MwmInfo & info) const = 0;
-  virtual TMwmValueBasePtr CreateValue(platform::LocalCountryFile const & localFile) const = 0;
+  virtual MwmInfo * CreateInfo(platform::LocalCountryFile const & localFile) const = 0;
+  virtual MwmValueBase * CreateValue(MwmInfo & info) const = 0;
 
 private:
   typedef deque<pair<MwmId, TMwmValueBasePtr>> CacheType;

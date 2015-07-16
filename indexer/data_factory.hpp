@@ -22,4 +22,5 @@ public:
   IntervalIndexIFace * CreateIndex(ModelReaderPtr reader);
 };
 
+void LoadMapHeader(FilesContainerR const & cont, feature::DataHeader & header);
 void LoadMapHeader(ModelReaderPtr const & reader, feature::DataHeader & header);

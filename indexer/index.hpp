@@ -2,6 +2,7 @@
 #include "indexer/cell_id.hpp"
 #include "indexer/data_factory.hpp"
 #include "indexer/feature_covering.hpp"
+#include "indexer/features_offsets_table.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/scale_index.hpp"
@@ -16,9 +17,15 @@
 
 #include "std/algorithm.hpp"
 #include "std/limits.hpp"
-#include "std/unordered_set.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
+
+
+class MwmInfoEx : public MwmInfo
+{
+public:
+  unique_ptr<feature::FeaturesOffsetsTable> m_table;
+};
 
 class MwmValue : public MwmSet::MwmValueBase
 {
@@ -26,8 +33,10 @@ public:
   FilesContainerR m_cont;
   IndexFactory m_factory;
   platform::CountryFile const m_countryFile;
+  feature::FeaturesOffsetsTable const * m_table;
 
   explicit MwmValue(platform::LocalCountryFile const & localFile);
+  void SetTable(MwmInfoEx & info);
 
   inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
   inline version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
@@ -38,10 +47,14 @@ public:
 class Index : public MwmSet
 {
 protected:
-  // MwmSet overrides:
-  bool GetVersion(platform::LocalCountryFile const & localFile, MwmInfo & info) const override;
-  TMwmValueBasePtr CreateValue(platform::LocalCountryFile const & localFile) const override;
+  /// @name MwmSet overrides.
+  //@{
+  MwmInfoEx * CreateInfo(platform::LocalCountryFile const & localFile) const override;
+
+  MwmValue * CreateValue(MwmInfo & info) const override;
+
   void OnMwmDeregistered(platform::LocalCountryFile const & localFile) override;
+  //@}
 
 public:
   /// An Observer interface to MwmSet. Note that these functions can
@@ -61,8 +74,6 @@ public:
     virtual void OnMapDeregistered(platform::LocalCountryFile const & localFile) {}
   };
 
-  Index() = default;
-  ~Index() override = default;
 
   /// Registers a new map.
   WARN_UNUSED_RESULT pair<MwmHandle, RegResult> RegisterMap(
@@ -104,7 +115,7 @@ private:
         covering::IntervalsT const & interval = cov.Get(lastScale);
 
         // prepare features reading
-        FeaturesVector fv(pValue->m_cont, header);
+        FeaturesVector fv(pValue->m_cont, header, pValue->m_table);
         ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
                                          pValue->m_factory);
 
@@ -254,7 +265,7 @@ private:
     MwmValue * const pValue = handle.GetValue<MwmValue>();
     if (pValue)
     {
-      FeaturesVector featureReader(pValue->m_cont, pValue->GetHeader());
+      FeaturesVector featureReader(pValue->m_cont, pValue->GetHeader(), pValue->m_table);
       while (result < features.size() && id == features[result].m_mwmId)
       {
         FeatureID const & featureId = features[result];

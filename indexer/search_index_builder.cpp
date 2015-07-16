@@ -365,9 +365,8 @@ void AddFeatureNameIndexPairs(FilesContainerR const & container,
                               CategoriesHolder & categoriesHolder,
                               StringsFile<FeatureIndexValue> & stringsFile)
 {
-  feature::DataHeader header;
-  header.Load(container.GetReader(HEADER_FILE_TAG));
-  FeaturesVector features(container, header);
+  FeaturesVectorTest featuresV(container);
+  feature::DataHeader const & header = featuresV.GetHeader();
 
   ValueBuilder<FeatureIndexValue> valueBuilder;
 
@@ -375,19 +374,16 @@ void AddFeatureNameIndexPairs(FilesContainerR const & container,
   if (header.GetType() == feature::DataHeader::world)
     synonyms.reset(new SynonymsHolder(GetPlatform().WritablePathForFile(SYNONYMS_FILE)));
 
-  FeatureInserter<StringsFile<FeatureIndexValue>> inserter(
-      synonyms.get(), stringsFile, categoriesHolder, header.GetScaleRange(), valueBuilder);
-
-  features.ForEach(inserter);
+  featuresV.GetVector().ForEach(FeatureInserter<StringsFile<FeatureIndexValue>>(
+      synonyms.get(), stringsFile, categoriesHolder, header.GetScaleRange(), valueBuilder));
 }
 
 void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & catHolder,
                       Writer & writer, string const & tmpFilePath)
 {
   {
-    feature::DataHeader header;
-    header.Load(cont.GetReader(HEADER_FILE_TAG));
-    FeaturesVector featuresV(cont, header);
+    FeaturesVectorTest featuresV(cont);
+    feature::DataHeader const & header = featuresV.GetHeader();
 
     serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
     ValueBuilder<SerializedFeatureInfoValue> valueBuilder(cp);
@@ -398,7 +394,7 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
 
     StringsFile<SerializedFeatureInfoValue> names(tmpFilePath);
 
-    featuresV.ForEach(FeatureInserter<StringsFile<SerializedFeatureInfoValue>>(
+    featuresV.GetVector().ForEach(FeatureInserter<StringsFile<SerializedFeatureInfoValue>>(
         synonyms.get(), names, catHolder, header.GetScaleRange(), valueBuilder));
 
     names.EndAdding();

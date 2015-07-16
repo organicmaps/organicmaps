@@ -8,12 +8,16 @@
 #include "platform/platform.hpp"
 
 #include "coding/file_container.hpp"
+
 #include "base/scope_guard.hpp"
-#include "std/bind.hpp"
-#include "std/string.hpp"
+
 #include "defines.hpp"
 
-using platform::CountryIndexes;
+#include "std/bind.hpp"
+#include "std/string.hpp"
+
+
+using namespace platform;
 
 namespace feature
 {
@@ -63,23 +67,18 @@ namespace feature
   UNIT_TEST(FeaturesOffsetsTable_CreateIfNotExistsAndLoad)
   {
     string const testFileName = "minsk-pass";
-    Platform & p = GetPlatform();
-    platform::CountryFile country(testFileName);
-    platform::LocalCountryFile localFile(GetPlatform().WritableDir(), country, 0 /* version */);
-    localFile.SyncWithDisk();
-    FilesContainerR baseContainer(p.GetReader(testFileName + DATA_FILE_EXTENSION));
-    CountryIndexes::PreparePlaceOnDisk(localFile);
-    const string indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
+
+    LocalCountryFile localFile = LocalCountryFile::MakeForTesting(testFileName);
+    string const indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
     FileWriter::DeleteFileX(indexFile);
-    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::CreateIfNotExistsAndLoad(indexFile, localFile));
+
+    unique_ptr<FeaturesOffsetsTable> table = FeaturesOffsetsTable::CreateIfNotExistsAndLoad(localFile);
     MY_SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
     TEST(table.get(), ());
 
-    feature::DataHeader header;
-    header.Load(baseContainer.GetReader(HEADER_FILE_TAG));
-
     uint64_t builderSize = 0;
-    FeaturesVector(baseContainer, header).ForEach([&builderSize](FeatureType const & /*ft*/, uint32_t /*ind*/)
+    FilesContainerR cont(GetPlatform().GetReader(testFileName + DATA_FILE_EXTENSION));
+    FeaturesVectorTest(cont).GetVector().ForEach([&builderSize](FeatureType const &, uint32_t)
     {
       ++builderSize;
     });
@@ -93,12 +92,13 @@ namespace feature
   UNIT_TEST(FeaturesOffsetsTable_ReadWrite)
   {
     string const testFileName = "test_file";
-    Platform & p = GetPlatform();
-    platform::CountryFile country("minsk-pass");
-    platform::LocalCountryFile localFile(p.WritableDir(), country, 0 /* version */);
-    localFile.SyncWithDisk();
-    FilesContainerR baseContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
-    const string indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
+    Platform & pl = GetPlatform();
+
+    FilesContainerR baseContainer(pl.GetReader("minsk-pass" DATA_FILE_EXTENSION));
+
+    LocalCountryFile localFile = LocalCountryFile::MakeForTesting(testFileName);
+    string const indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
+    FileWriter::DeleteFileX(indexFile);
 
     FeaturesOffsetsTable::Builder builder;
     FeaturesVector::ForEachOffset(baseContainer.GetReader(DATA_FILE_TAG), [&builder](uint64_t offset)
@@ -110,7 +110,7 @@ namespace feature
     TEST(table.get(), ());
     TEST_EQUAL(builder.size(), table->size(), ());
 
-    string const testFile = p.WritablePathForFile(testFileName + DATA_FILE_EXTENSION);
+    string const testFile = pl.WritablePathForFile(testFileName + DATA_FILE_EXTENSION);
     MY_SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, cref(testFile)));
     MY_SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
 
@@ -130,7 +130,6 @@ namespace feature
 
     // Load table from the temporary data file.
     {
-      MY_SCOPE_GUARD(testTableGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
       unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(indexFile));
       TEST(loadedTable.get(), ());
 

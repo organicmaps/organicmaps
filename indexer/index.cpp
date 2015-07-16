@@ -17,38 +17,51 @@ using platform::LocalCountryFile;
 
 MwmValue::MwmValue(LocalCountryFile const & localFile)
     : m_cont(GetPlatform().GetCountryReader(localFile, TMapOptions::EMap)),
-      m_countryFile(localFile.GetCountryFile())
+      m_countryFile(localFile.GetCountryFile()), m_table(0)
 {
   m_factory.Load(m_cont);
+}
+
+void MwmValue::SetTable(MwmInfoEx & info)
+{
+  if (GetHeader().GetFormat() >= version::v5)
+  {
+    if (!info.m_table)
+      info.m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_cont);
+    m_table = info.m_table.get();
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 // Index implementation
 //////////////////////////////////////////////////////////////////////////////////
 
-bool Index::GetVersion(LocalCountryFile const & localFile, MwmInfo & info) const
+MwmInfoEx * Index::CreateInfo(platform::LocalCountryFile const & localFile) const
 {
   MwmValue value(localFile);
 
   feature::DataHeader const & h = value.GetHeader();
   if (!h.IsMWMSuitable())
-    return false;
+    return nullptr;
 
-  info.m_limitRect = h.GetBounds();
+  MwmInfoEx * info = new MwmInfoEx();
+  info->m_limitRect = h.GetBounds();
 
   pair<int, int> const scaleR = h.GetScaleRange();
-  info.m_minScale = static_cast<uint8_t>(scaleR.first);
-  info.m_maxScale = static_cast<uint8_t>(scaleR.second);
-  info.m_version = value.GetMwmVersion();
+  info->m_minScale = static_cast<uint8_t>(scaleR.first);
+  info->m_maxScale = static_cast<uint8_t>(scaleR.second);
+  info->m_version = value.GetMwmVersion();
 
-  return true;
+  return info;
 }
 
-MwmSet::TMwmValueBasePtr Index::CreateValue(LocalCountryFile const & localFile) const
+MwmValue * Index::CreateValue(MwmInfo & info) const
 {
-  TMwmValueBasePtr p(new MwmValue(localFile));
-  ASSERT(static_cast<MwmValue &>(*p.get()).GetHeader().IsMWMSuitable(), ());
-  return p;
+  unique_ptr<MwmValue> p(new MwmValue(info.GetLocalFile()));
+  p->SetTable(dynamic_cast<MwmInfoEx &>(info));
+  ASSERT(p->GetHeader().IsMWMSuitable(), ());
+
+  return p.release();
 }
 
 pair<MwmSet::MwmHandle, MwmSet::RegResult> Index::RegisterMap(LocalCountryFile const & localFile)
@@ -77,7 +90,9 @@ void Index::OnMwmDeregistered(LocalCountryFile const & localFile)
 Index::FeaturesLoaderGuard::FeaturesLoaderGuard(Index const & parent, MwmId id)
     : m_handle(const_cast<Index &>(parent), id),
       /// @note This guard is suitable when mwm is loaded
-      m_vector(m_handle.GetValue<MwmValue>()->m_cont, m_handle.GetValue<MwmValue>()->GetHeader())
+      m_vector(m_handle.GetValue<MwmValue>()->m_cont,
+               m_handle.GetValue<MwmValue>()->GetHeader(),
+               m_handle.GetValue<MwmValue>()->m_table)
 {
 }
 

@@ -128,7 +128,6 @@ void OsrmFtSegMapping::Load(FilesMappingContainer & cont, platform::LocalCountry
     }
   }
 
-  CountryIndexes::PreparePlaceOnDisk(localFile);
   m_backwardIndex.Construct(*this, m_offsets.back().m_nodeId, cont, localFile);
 }
 
@@ -381,12 +380,10 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, uint32_t maxN
 {
   Clear();
 
-  string const offsetsIndexName = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
   string const bitsFileName = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Bits);
   string const nodesFileName = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Nodes);
 
-  m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(offsetsIndexName, localFile);
-  CHECK(m_table.get(), ("Can't get FeaturesOffsetsTable for", offsetsIndexName));
+  m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(localFile);
 
   if (Load(bitsFileName, nodesFileName))
     return;

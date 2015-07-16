@@ -17,13 +17,7 @@ namespace check_model
   {
     Classificator const & c = classif();
 
-    FilesContainerR cont(fName);
-
-    DataHeader header;
-    header.Load(cont.GetReader(HEADER_FILE_TAG));
-
-    FeaturesVector vec(cont, header);
-    vec.ForEach([&] (FeatureType const & ft, uint32_t)
+    FeaturesVectorTest(fName).GetVector().ForEach([&] (FeatureType const & ft, uint32_t)
     {
       TypesHolder types(ft);
 

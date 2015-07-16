@@ -1,5 +1,3 @@
-#include "base/SRC_FIRST.hpp"
-
 #include "indexer/data_factory.hpp"
 #include "indexer/interval_index.hpp"
 #include "indexer/old/interval_index_101.hpp"
@@ -10,11 +8,8 @@
 #include "coding/file_reader.hpp"
 #include "coding/file_container.hpp"
 
-namespace
-{
-using FHeaderT = feature::DataHeader;
 
-}  // namespace
+using FHeaderT = feature::DataHeader;
 
 void LoadMapHeader(FilesContainerR const & cont, FHeaderT & header)
 {

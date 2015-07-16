@@ -193,7 +193,7 @@ private:
 };
 
 template <class TFeaturesVector, class TWriter>
-void IndexScales(feature::DataHeader const & header, TFeaturesVector const & featuresVector,
+void IndexScales(feature::DataHeader const & header, TFeaturesVector const & featuresV,
                  TWriter & writer, string const & tmpFilePrefix)
 {
   // TODO: Make scale bucketing dynamic.
@@ -212,8 +212,7 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
     TSorter sorter(1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2FEATURE_TMP_EXT, out);
     vector<uint32_t> featuresInBucket(bucketsCount);
     vector<uint32_t> cellsInBucket(bucketsCount);
-    featuresVector.ForEach(
-        FeatureCoverer<TSorter>(header, sorter, featuresInBucket, cellsInBucket));
+    featuresV.ForEach(FeatureCoverer<TSorter>(header, sorter, featuresInBucket, cellsInBucket));
     sorter.SortAndFinish();
 
     for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
