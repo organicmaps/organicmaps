@@ -140,14 +140,7 @@ static std::string RectToString(CGRect const & rect) {
 }
 
 // Logs some basic device's info.
-static void LogSystemInformation() {
-  // Initialize User Agent later, as it takes significant time at startup.
-  dispatch_async(dispatch_get_main_queue(), ^{
-    gBrowserUserAgent = [[[UIWebView alloc] initWithFrame:CGRectZero] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    if (gBrowserUserAgent) {
-      Stats::Instance().LogEvent("$browserUserAgent", ToStdString(gBrowserUserAgent));
-    }
-  });
+static void LogSystemInformation(NSString * userAgent) {
   UIDevice * device = [UIDevice currentDevice];
   UIScreen * screen = [UIScreen mainScreen];
   std::string preferredLanguages;
@@ -186,6 +179,10 @@ static void LogSystemInformation() {
     info.emplace("screenNativeBounds", RectToString(screen.nativeBounds));
     info.emplace("screenNativeScale", std::to_string(screen.nativeScale));
   }
+  if (userAgent) {
+    info.emplace("browserUserAgent", ToStdString(userAgent));
+  }
+
   Stats & instance = Stats::Instance();
   instance.LogEvent("$iosDeviceInfo", info);
 
@@ -372,6 +369,7 @@ bool IsConnectionActive() {
   // Calculate some basic statistics about installations/updates/launches.
   NSUserDefaults * userDataBase = [NSUserDefaults standardUserDefaults];
   NSString * installedVersion = [userDataBase objectForKey:@"AlohalyticsInstalledVersion"];
+  BOOL shouldSendUpdatedSystemInformation = NO;
   if (installationId.second && isFirstLaunch && installedVersion == nil) {
     // Documents folder modification time can be interpreted as a "first app launch time" or an approx. "app install time".
     // App bundle modification time can be interpreted as an "app update time".
@@ -380,11 +378,7 @@ bool IsConnectionActive() {
         {"bundleTimestampMillis", PathTimestampMillis([bundle executablePath])}});
     [userDataBase setValue:version forKey:@"AlohalyticsInstalledVersion"];
     [userDataBase synchronize];
-#if (TARGET_OS_IPHONE > 0)
-    LogSystemInformation();
-#else
-    static_cast<void>(options);  // Unused variable warning fix.
-#endif  // TARGET_OS_IPHONE
+    shouldSendUpdatedSystemInformation = YES;
   } else {
     if (installedVersion == nil || ![installedVersion isEqualToString:version]) {
       instance.LogEvent("$update", {{"CFBundleShortVersionString", [version UTF8String]},
@@ -392,9 +386,7 @@ bool IsConnectionActive() {
           {"bundleTimestampMillis", PathTimestampMillis([bundle executablePath])}});
       [userDataBase setValue:version forKey:@"AlohalyticsInstalledVersion"];
       [userDataBase synchronize];
-#if (TARGET_OS_IPHONE > 0)
-      LogSystemInformation();
-#endif  // TARGET_OS_IPHONE
+      shouldSendUpdatedSystemInformation = YES;
     }
   }
   instance.LogEvent("$launch"
@@ -402,6 +394,17 @@ bool IsConnectionActive() {
                     , ParseLaunchOptions(options)
 #endif  // TARGET_OS_IPHONE
                     );
+#if (TARGET_OS_IPHONE > 0)
+  // Initialize User-Agent asynchronously and log additional system info for iOS, as it takes significant time at startup.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    gBrowserUserAgent = [[[UIWebView alloc] initWithFrame:CGRectZero] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    if (shouldSendUpdatedSystemInformation) {
+      LogSystemInformation(gBrowserUserAgent);
+    }
+  });
+#else
+  static_cast<void>(options);  // Unused variable warning fix.
+#endif  // TARGET_OS_IPHONE
 }
 
 + (void)forceUpload {
