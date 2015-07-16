@@ -1176,3 +1176,15 @@
 "search_select_other_map" = "別の地図を選択";
 
 "search_vehicle_routes" = "道案内";
+
+/* «Show» context menu */
+"show" = "Show";
+
+/* «Hide» context menu */
+"hide" = "Hide";
+
+/* «Rename» context menu */
+"rename" = "Rename";
+
+/* Bottom sheet: expand button (should be short) */
+"bottom_sheet_more" = "More…";

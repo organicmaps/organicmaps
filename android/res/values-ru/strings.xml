@@ -758,4 +758,12 @@
 	<string name="search_select_map">Выбрать карту </string>
 	<string name="search_select_other_map">Выбрать другую карту</string>
 	<string name="search_vehicle_routes">Автомобильные маршруты</string>
+	<!-- «Show» context menu -->
+	<string name="show">Показать</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Скрыть</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">Переименовать</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Ещё…</string>
 </resources>

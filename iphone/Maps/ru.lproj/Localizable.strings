@@ -1176,3 +1176,15 @@
 "search_select_other_map" = "Выбрать другую карту";
 
 "search_vehicle_routes" = "Автомобильные маршруты";
+
+/* «Show» context menu */
+"show" = "Показать";
+
+/* «Hide» context menu */
+"hide" = "Скрыть";
+
+/* «Rename» context menu */
+"rename" = "Переименовать";
+
+/* Bottom sheet: expand button (should be short) */
+"bottom_sheet_more" = "Ещё…";

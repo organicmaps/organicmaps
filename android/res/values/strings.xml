@@ -760,4 +760,12 @@
 	<string name="search_select_map">Select Map</string>
 	<string name="search_select_other_map">Select Another Map</string>
 	<string name="search_vehicle_routes">Driving directions</string>
+	<!-- «Show» context menu -->
+	<string name="show">Show</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Hide</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">Rename</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">More…</string>
 </resources>
