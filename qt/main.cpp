@@ -1,20 +1,20 @@
-#include "qt/mainwindow.hpp"
-#include "qt/info_dialog.hpp"
 
-#include "platform/settings.hpp"
+#include "qt/info_dialog.hpp"
+#include "qt/mainwindow.hpp"
+
 #include "platform/platform.hpp"
+#include "platform/settings.hpp"
+
+#include "coding/file_reader.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/object_tracker.hpp"
 
-#include "coding/file_reader.hpp"
-
 #include "std/cstdio.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
-#include <QtCore/QLocale>
 #include <QtCore/QDir>
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
@@ -71,19 +71,7 @@ int main(int argc, char * argv[])
   alohalytics::Stats::Instance().SetDebugMode(true);
 #endif
 
-  // checking default measurement system.
-  Settings::Units u;
-
-  if (!Settings::Get("Units", u))
-  {
-    // set default measurement from system locale
-    if (QLocale::system().measurementSystem() == QLocale::MetricSystem)
-      u = Settings::Metric;
-    else
-      u = Settings::Foot;
-  }
-
-  Settings::Set("Units", u);
+  GetPlatform().SetupMeasurementSystem();
 
   // display EULA if needed
   char const * settingsEULA = "EulaAccepted";

@@ -1,6 +1,7 @@
 #include "platform/platform.hpp"
 #include "platform/platform_unix_impl.hpp"
 #include "platform/constants.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/zip_reader.hpp"
 #include "coding/file_name_utils.hpp"
@@ -262,6 +263,16 @@ Platform::EError Platform::MkDir(string const & dirName) const
     return ErrnoToError();
   }
   return Platform::ERR_OK;
+}
+
+void Platform::SetupMeasurementSystem() const
+{
+  Settings::Units u;
+  if (Settings::Get("Units", u))
+    return;
+  // @TODO Add correct implementation
+  u = Settings::Metric;
+  Settings::Set("Units", u);
 }
 
 namespace

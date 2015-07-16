@@ -207,6 +207,8 @@ public:
   static EConnectionType ConnectionStatus();
   static bool IsConnected() { return ConnectionStatus() != EConnectionType::CONNECTION_NONE; }
 
+  void SetupMeasurementSystem() const;
+
 private:
   void GetSystemFontNames(FilesList & res) const;
 };

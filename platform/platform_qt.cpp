@@ -1,17 +1,19 @@
-#include "platform/platform.hpp"
+
 #include "platform/constants.hpp"
+#include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/file_reader.hpp"
 
 #include "base/logging.hpp"
 #include "base/regexp.hpp"
 
-#include "std/target_os.hpp"
 #include "std/algorithm.hpp"
+#include "std/target_os.hpp"
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
-
+#include <QtCore/QLocale>
 
 ModelReader * Platform::GetReader(string const & file, string const & searchScope) const
 {
@@ -69,6 +71,15 @@ Platform::EError Platform::MkDir(string const & dirName) const
   return Platform::ERR_OK;
 }
 
+void Platform::SetupMeasurementSystem() const
+{
+  Settings::Units u;
+  if (Settings::Get("Units", u))
+    return;
+  bool const isMetric = QLocale::system().measurementSystem() == QLocale::MetricSystem;
+  u = isMetric ? Settings::Metric : Settings::Foot;
+  Settings::Set("Units", u);
+}
 
 extern Platform & GetPlatform()
 {

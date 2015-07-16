@@ -1,19 +1,20 @@
+#include "platform/constants.hpp"
 #include "platform/platform_ios.hpp"
 #include "platform/platform_unix_impl.hpp"
-#include "platform/constants.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/file_reader.hpp"
 
 #include <ifaddrs.h>
 
-#import <mach/mach.h>
+#include <mach/mach.h>
+
+#include <net/if_dl.h>
+#include <net/if.h>
 
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-
-#include <net/if_dl.h>
-#include <net/if.h>
 
 #if !defined(IFT_ETHER)
   #define IFT_ETHER 0x6 /* Ethernet CSMACD */
@@ -193,6 +194,16 @@ Platform::EConnectionType Platform::ConnectionStatus()
     return EConnectionType::CONNECTION_WWAN;
   else
     return EConnectionType::CONNECTION_WIFI;
+}
+
+void Platform::SetupMeasurementSystem() const
+{
+  Settings::Units u;
+  if (Settings::Get("Units", u))
+    return;
+  BOOL const isMetric = [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
+  u = isMetric ? Settings::Metric : Settings::Foot;
+  Settings::Set("Units", u);
 }
 
 CustomIOSPlatform::CustomIOSPlatform()
