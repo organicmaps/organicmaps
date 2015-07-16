@@ -64,7 +64,7 @@ public enum Statistics
     public static final String SETTINGS_ABOUT = "Settings. About.";
     public static final String SETTINGS_COPYRIGHT = "Settings. Copyright.";
     public static final String SETTINGS_COMMUNITY = "Settings. Community.";
-    public static final String SETTINGS_CHANGE_SETTING= "Settings. Change settings.";
+    public static final String SETTINGS_CHANGE_SETTING = "Settings. Change settings.";
     public static final String SEARCH_KEY_CLICKED = "Search key pressed.";
     public static final String SEARCH_ON_MAP_CLICKED = "Search on map clicked.";
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
@@ -134,6 +134,7 @@ public enum Statistics
   public void trackCountryDownload()
   {
     trackIfEnabled(mEventBuilder.
+        setName(EventName.COUNTRY_DOWNLOAD).
         addParam(EventParam.COUNT, String.valueOf(ActiveCountryTree.getTotalDownloadedCount())).
         buildEvent());
   }
