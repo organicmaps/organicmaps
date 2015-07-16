@@ -23,26 +23,33 @@ RoutingSession::RoutingSession()
 }
 
 void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
-                                TReadyCallbackFn const & callback)
+                                TReadyCallbackFn const & callback,
+                                uint32_t timeoutSec)
 {
   ASSERT(m_router != nullptr, ());
   m_lastGoodPosition = startPoint;
   m_endPoint = endPoint;
   m_router->ClearState();
-  RebuildRoute(startPoint, callback);
+  RebuildRoute(startPoint, callback, timeoutSec);
 }
 
-void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback)
+void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback,
+                                  uint32_t timeoutSec)
 {
   ASSERT(m_router != nullptr, ());
   ASSERT_NOT_EQUAL(m_endPoint, m2::PointD::Zero(), ("End point was not set"));
   RemoveRoute();
   m_state = RouteBuilding;
 
+  ResetRoutingWatchdogTimer();
+
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
   m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint,
                            DoReadyCallback(*this, callback, m_routeSessionMutex));
+
+  if (timeoutSec != 0)
+    InitRoutingWatchdogTimer(timeoutSec);
 }
 
 void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultCode e)
@@ -82,6 +89,8 @@ void RoutingSession::Reset()
   RemoveRouteImpl();
   m_router->ClearState();
   m_turnsSound.Reset();
+
+  ResetRoutingWatchdogTimer();
 }
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const & position,
@@ -218,6 +227,9 @@ void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
                                unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
                                TRoutingStatisticsCallback const & routingStatisticsFn)
 {
+  if (m_router)
+    Reset();
+
   m_router.reset(new AsyncRouter(move(router), move(fetcher), routingStatisticsFn));
 }
 
@@ -266,4 +278,23 @@ routing::turns::sound::LengthUnits RoutingSession::GetTurnSoundNotificationsUnit
   UNUSED_VALUE(guard);
   return m_turnsSound.GetLengthUnits();
 }
+
+void RoutingSession::ResetRoutingWatchdogTimer()
+{
+  if (m_routingWatchdog)
+  {
+    m_routingWatchdog->Cancel();
+    m_routingWatchdog->WaitForCompletion();
+    m_routingWatchdog.reset();
+  }
+}
+
+void RoutingSession::InitRoutingWatchdogTimer(uint32_t timeoutSec)
+{
+  ASSERT_NOT_EQUAL(0, timeoutSec, ());
+  ASSERT(nullptr == m_routingWatchdog, ());
+
+  m_routingWatchdog = make_unique<DeferredTask>([this](){ m_router->ClearState(); }, seconds(timeoutSec));
+}
+
 }  // namespace routing

@@ -11,10 +11,10 @@
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
 
+#include "base/deferred_task.hpp"
 #include "base/mutex.hpp"
 
 #include "std/unique_ptr.hpp"
-
 
 namespace location
 {
@@ -59,9 +59,12 @@ public:
                  TRoutingStatisticsCallback const & routingStatisticsFn);
 
   /// @param[in] startPoint and endPoint in mercator
+  /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
-                  TReadyCallbackFn const & callback);
-  void RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback);
+                  TReadyCallbackFn const & callback,
+                  uint32_t timeoutSec);
+  void RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback,
+                    uint32_t timeoutSec);
 
   m2::PointD GetEndPoint() const { return m_endPoint; }
   bool IsActive() const { return (m_state != RoutingNotActive); }
@@ -107,6 +110,9 @@ private:
   void RemoveRoute();
   void RemoveRouteImpl();
 
+  void ResetRoutingWatchdogTimer();
+  void InitRoutingWatchdogTimer(uint32_t timeoutSec);
+
 private:
   unique_ptr<AsyncRouter> m_router;
   Route m_route;
@@ -124,5 +130,8 @@ private:
   turns::sound::TurnsSound m_turnsSound;
 
   RoutingSettings m_routingSettings;
+
+  // Watchdog cancels routing if it takes too long time
+  unique_ptr<DeferredTask> m_routingWatchdog;
 };
 }  // namespace routing

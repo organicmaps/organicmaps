@@ -2095,7 +2095,7 @@ void Framework::UpdateSavedDataVersion()
   Settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
 }
 
-void Framework::BuildRoute(m2::PointD const & destination)
+void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
 {
   shared_ptr<State> const & state = GetLocationState();
   if (!state->IsModeHasPosition())
@@ -2134,7 +2134,7 @@ void Framework::BuildRoute(m2::PointD const & destination)
           RemoveRoute();
       }
       CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
-    });
+    }, timeoutSec);
 }
 
 void Framework::SetRouter(RouterType type)
@@ -2247,7 +2247,7 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
     {
       if (code == IRouter::NoError)
         InsertRoute(route);
-    });
+    }, 0 /* timeoutSec */);
   }
 }
 
