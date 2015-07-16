@@ -12,11 +12,13 @@
 #include "routing/router.hpp"
 #include "storage/storage.hpp"
 
+typedef void (^CloseAlertCompletion)();
+
 @interface MWMAlertViewController : UIViewController
 
-@property (weak, nonatomic, readonly) UIViewController * ownerViewController;
+@property (nonnull, weak, nonatomic, readonly) UIViewController * ownerViewController;
 
-- (instancetype)initWithViewController:(UIViewController *)viewController;
+- (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
 - (void)presentAlert:(routing::IRouter::ResultCode)type;
 - (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes;
 - (void)presentCrossCountryAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes;
@@ -28,12 +30,11 @@
 - (void)presentLocationAlert;
 - (void)presentLocationServiceNotSupportedAlert;
 - (void)presentNoConnectionAlert;
-- (void)presentnoWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block;
+- (void)presentnoWiFiAlertWithName:(nonnull NSString *)name downloadBlock:(nullable RightButtonAction)block;
+- (void)closeAlertWithCompletion:(nullable CloseAlertCompletion)completion;
 
-- (void)closeAlert;
-
-- (instancetype)init __attribute__((unavailable("-init isn't available, call -initWithViewController: instead!")));
-+ (instancetype)new __attribute__((unavailable("+new isn't available, call -initWithViewController: instead!")));
-- (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("-initWithCoder: isn't available, call -initWithViewController: instead!")));
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil __attribute__((unavailable("-initWithNibName:bundle: isn't available, call -initWithViewController: instead!")));
+- (nonnull instancetype)init __attribute__((unavailable("-init isn't available, call -initWithViewController: instead!")));
++ (nonnull instancetype)new __attribute__((unavailable("+new isn't available, call -initWithViewController: instead!")));
+- (nonnull instancetype)initWithCoder:(nonnull NSCoder *)aDecoder __attribute__((unavailable("-initWithCoder: isn't available, call -initWithViewController: instead!")));
+- (nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil __attribute__((unavailable("-initWithNibName:bundle: isn't available, call -initWithViewController: instead!")));
 @end

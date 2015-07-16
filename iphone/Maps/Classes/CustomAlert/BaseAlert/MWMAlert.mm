@@ -105,8 +105,10 @@
 
 - (void)close
 {
-  [self removeFromSuperview];
-  [self.alertController closeAlert];
+  [self.alertController closeAlertWithCompletion:^
+  {
+    [self removeFromSuperview];
+  }];
 }
 
 - (void)setNeedsCloseAlertAfterEnterBackground

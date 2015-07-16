@@ -15,13 +15,13 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 @interface MWMAlertViewController () <UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
-@property (weak, nonatomic, readwrite) UIViewController * ownerViewController;
+@property (nonnull ,weak, nonatomic, readwrite) UIViewController * ownerViewController;
 
 @end
 
 @implementation MWMAlertViewController
 
-- (instancetype)initWithViewController:(UIViewController *)viewController
+- (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController
 {
   self = [super initWithNibName:kAlertControllerNibIdentifier bundle:nil];
   if (self)
@@ -86,7 +86,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:MWMAlert.noConnectionAlert];
 }
 
-- (void)presentnoWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block
+- (void)presentnoWiFiAlertWithName:(nonnull NSString *)name downloadBlock:(nullable RightButtonAction)block
 {
   [self displayAlert:[MWMAlert noWiFiAlertWithName:name downloadBlock:block]];
 }
@@ -125,6 +125,10 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 {
   alert.alertController = self;
   [self.ownerViewController addChildViewController:self];
+  self.view.alpha = 0.;
+  alert.alpha = 0.;
+  CGFloat const scale = 1.1;
+  alert.transform = CGAffineTransformMakeScale(scale, scale);
   self.view.center = self.ownerViewController.view.center;
   [self.ownerViewController.view addSubview:self.view];
   UIWindow * window = [[[UIApplication sharedApplication] delegate] window];
@@ -133,13 +137,29 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self.view addSubview:alert];
   alert.bounds = self.view.bounds;
   alert.center = self.view.center;
+  [UIView animateWithDuration:.15 animations:^
+  {
+    self.view.alpha = 1.;
+    alert.alpha = 1.;
+    alert.transform = CGAffineTransformIdentity;
+  }];
 }
 
-- (void)closeAlert
+- (void)closeAlertWithCompletion:(nullable CloseAlertCompletion)completion
 {
-  self.ownerViewController.view.userInteractionEnabled = YES;
-  [self.view removeFromSuperview];
-  [self removeFromParentViewController];
+  MWMAlert * alert = self.view.subviews.firstObject;
+  [UIView animateWithDuration:.15 animations:^
+  {
+    alert.alpha = 0.;
+    self.view.alpha = 0.;
+  }
+  completion:^(BOOL finished)
+  {
+    if (completion)
+      completion();
+    [self.view removeFromSuperview];
+    [self removeFromParentViewController];
+  }];
 }
 
 - (void)openSettings
