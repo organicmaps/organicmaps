@@ -27,6 +27,12 @@ public class BookmarkListActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  protected String getFragmentClassName()
+  {
+    return BookmarksListFragment.class.getName();
+  }
+
+  @Override
   protected int getFragmentContentResId()
   {
     return R.id.fragment_container;
