@@ -9,6 +9,7 @@
     <item name="colorPrimaryDark">@color/base_green_darker</item>
     <item name="clickableBackground">?attr/selectableItemBackground</item>
     <item name="colorControlNormal">@color/text_dark_hint</item>
+    <item name="colorAccent">?attr/colorPrimary</item>
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="alertDialogTheme">@style/MwmMain.DialogFragment</item>
