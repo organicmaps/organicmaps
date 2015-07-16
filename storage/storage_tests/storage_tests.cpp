@@ -52,6 +52,12 @@ public:
     TEST(!m_transitionList.empty(), (m_countryFile));
   }
 
+  virtual ~CountryDownloaderChecker()
+  {
+    TEST_EQUAL(m_currStatus + 1, m_transitionList.size(), (m_countryFile));
+    m_storage.Unsubscribe(m_slot);
+  }
+
   void StartDownload()
   {
     TEST_EQUAL(0, m_currStatus, (m_countryFile));
@@ -61,14 +67,8 @@ public:
     m_storage.DownloadCountry(m_index, m_files);
   }
 
-  virtual ~CountryDownloaderChecker()
-  {
-    TEST_EQUAL(m_currStatus + 1, m_transitionList.size(), (m_countryFile));
-    m_storage.Unsubscribe(m_slot);
-  }
-
-private:
-  void OnCountryStatusChanged(TIndex const & index)
+protected:
+  virtual void OnCountryStatusChanged(TIndex const & index)
   {
     if (index != m_index)
       return;
@@ -86,7 +86,8 @@ private:
     }
   }
 
-  void OnCountryDownloadingProgress(TIndex const & index, LocalAndRemoteSizeT const & progress)
+  virtual void OnCountryDownloadingProgress(TIndex const & index,
+                                            LocalAndRemoteSizeT const & progress)
   {
     if (index != m_index)
       return;
@@ -111,6 +112,38 @@ private:
 
   size_t m_currStatus;
   vector<TStatus> m_transitionList;
+};
+
+class CancelDownloadingWhenAlmostDoneChecker : public CountryDownloaderChecker
+{
+public:
+  CancelDownloadingWhenAlmostDoneChecker(Storage & storage, TIndex const & index,
+                                         TaskRunner & runner)
+      : CountryDownloaderChecker(storage, index, TMapOptions::EMapWithCarRouting,
+                                 vector<TStatus>{TStatus::ENotDownloaded, TStatus::EDownloading,
+                                                 TStatus::ENotDownloaded}),
+        m_runner(runner)
+  {
+  }
+
+protected:
+  // CountryDownloaderChecker overrides:
+  void OnCountryDownloadingProgress(TIndex const & index,
+                                    LocalAndRemoteSizeT const & progress) override
+  {
+    CountryDownloaderChecker::OnCountryDownloadingProgress(index, progress);
+
+    // Cancel downloading when almost done.
+    if (progress.first + 2 * FakeMapFilesDownloader::kBlockSize >= progress.second)
+    {
+      m_runner.PostTask([&]()
+                        {
+                          m_storage.DeleteFromDownloader(m_index);
+                        });
+    }
+  }
+
+  TaskRunner & m_runner;
 };
 
 // Checks following state transitions:
@@ -484,7 +517,7 @@ UNIT_TEST(StorageTest_DownloadTwoCountriesAndDelete)
     unique_ptr<CountryDownloaderChecker> venezuelaChecker = make_unique<CountryDownloaderChecker>(
         storage, venezuelaIndex, TMapOptions::EMapWithCarRouting,
         vector<TStatus>{TStatus::ENotDownloaded, TStatus::EInQueue, TStatus::EDownloading,
-                        TStatus::EDownloading, TStatus::EOnDisk});
+                        TStatus::EOnDisk});
     uruguayChecker->StartDownload();
     venezuelaChecker->StartDownload();
     storage.DeleteCountry(uruguayIndex, TMapOptions::EMap);
@@ -497,4 +530,25 @@ UNIT_TEST(StorageTest_DownloadTwoCountriesAndDelete)
   shared_ptr<LocalCountryFile> venezuelaFile = storage.GetLatestLocalFile(venezuelaIndex);
   TEST(venezuelaFile.get(), ());
   TEST_EQUAL(TMapOptions::EMap, venezuelaFile->GetFiles(), ());
+}
+
+UNIT_TEST(StorageTest_CancelDownloadingWhenAlmostDone)
+{
+  Storage storage;
+  TaskRunner runner;
+  InitStorage(storage, runner);
+
+  TIndex const index = storage.FindIndexByFile("Uruguay");
+  TEST(index.IsValid(), ());
+  storage.DeleteCountry(index, TMapOptions::EMapWithCarRouting);
+  MY_SCOPE_GUARD(cleanupUruguayFiles,
+                 bind(&Storage::DeleteCountry, &storage, index, TMapOptions::EMapWithCarRouting));
+
+  {
+    CancelDownloadingWhenAlmostDoneChecker checker(storage, index, runner);
+    checker.StartDownload();
+    runner.Run();
+  }
+  shared_ptr<LocalCountryFile> file = storage.GetLatestLocalFile(index);
+  TEST(!file, (*file));
 }

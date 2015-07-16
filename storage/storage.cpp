@@ -321,7 +321,6 @@ void Storage::DeleteCountry(TIndex const & index, TMapOptions opt)
   opt = NormalizeDeleteFileSet(opt);
   DeleteCountryFiles(index, opt);
   DeleteCountryFilesFromDownloader(index, opt);
-  KickDownloaderAfterDeletionOfCountryFiles(index);
   NotifyStatusChanged(index);
 }
 
@@ -359,7 +358,7 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
     return;
   }
 
-  auto equalsToLocalFile = [&localFile](shared_ptr<LocalCountryFile> const & rhs)
+  auto const equalsToLocalFile = [&localFile](shared_ptr<LocalCountryFile> const & rhs)
   {
     return localFile == *rhs;
   };
@@ -397,7 +396,6 @@ bool Storage::DeleteFromDownloader(TIndex const & index)
 {
   if (!DeleteCountryFilesFromDownloader(index, TMapOptions::EMapWithCarRouting))
     return false;
-  KickDownloaderAfterDeletionOfCountryFiles(index);
   NotifyStatusChanged(index);
   return true;
 }
@@ -465,45 +463,10 @@ void Storage::OnMapFileDownloadFinished(bool success,
     return;
   }
 
-  {
-    string optionsName;
-    switch (queuedCountry.GetInitOptions())
-    {
-      case TMapOptions::ENothing:
-        optionsName = "Nothing";
-        break;
-      case TMapOptions::EMap:
-        optionsName = "Map";
-        break;
-      case TMapOptions::ECarRouting:
-        optionsName = "CarRouting";
-        break;
-      case TMapOptions::EMapWithCarRouting:
-        optionsName = "MapWithCarRouting";
-        break;
-    }
-    alohalytics::LogEvent(
-        "$OnMapDownloadFinished",
-        alohalytics::TStringMap({{"name", GetCountryFile(index).GetNameWithoutExt()},
-                                 {"status", success ? "ok" : "failed"},
-                                 {"version", strings::to_string(GetCurrentDataVersion())},
-                                 {"option", optionsName}}));
-  }
-  if (success)
-  {
-    shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, GetCurrentDataVersion());
-    ASSERT(localFile.get(), ());
-    OnMapDownloadFinished(localFile);
-  }
-  else
-  {
-    OnMapDownloadFailed();
-  }
-
+  OnMapDownloadFinished(index, success, queuedCountry.GetInitOptions());
   m_queue.pop_front();
 
   NotifyStatusChanged(index);
-
   m_downloader->Reset();
   DownloadNextCountryFromQueue();
 }
@@ -575,22 +538,46 @@ bool Storage::RegisterDownloadedFile(string const & path, uint64_t size, int64_t
   return true;
 }
 
-void Storage::OnMapDownloadFinished(shared_ptr<LocalCountryFile> localFile)
+void Storage::OnMapDownloadFinished(TIndex const & index, bool success, TMapOptions opt)
 {
-  platform::CountryIndexes::DeleteFromDisk(*localFile);
+  ASSERT_NOT_EQUAL(TMapOptions::ENothing, opt,
+                   ("This method should not be called for empty files set."));
+  {
+    string optionsName;
+    switch (opt)
+    {
+      case TMapOptions::ENothing:
+        optionsName = "Nothing";
+        break;
+      case TMapOptions::EMap:
+        optionsName = "Map";
+        break;
+      case TMapOptions::ECarRouting:
+        optionsName = "CarRouting";
+        break;
+      case TMapOptions::EMapWithCarRouting:
+        optionsName = "MapWithCarRouting";
+        break;
+    }
+    alohalytics::LogEvent(
+        "$OnMapDownloadFinished",
+        alohalytics::TStringMap({{"name", GetCountryFile(index).GetNameWithoutExt()},
+                                 {"status", success ? "ok" : "failed"},
+                                 {"version", strings::to_string(GetCurrentDataVersion())},
+                                 {"option", optionsName}}));
+  }
 
-  // Notify framework that all requested files for the country were downloaded.
-  m_updateAfterDownload(*localFile);
-}
-
-void Storage::OnMapDownloadFailed()
-{
-  TIndex const & index = m_queue.front().GetIndex();
-
-  // Add country to the failed countries set.
-  m_failedCountries.insert(index);
-  m_downloader->Reset();
-  DownloadNextCountryFromQueue();
+  if (success)
+  {
+    shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, GetCurrentDataVersion());
+    ASSERT(localFile.get(), ());
+    platform::CountryIndexes::DeleteFromDisk(*localFile);
+    m_updateAfterDownload(*localFile);
+  }
+  else
+  {
+    m_failedCountries.insert(index);
+  }
 }
 
 string Storage::GetFileDownloadUrl(string const & baseUrl, TIndex const & index,
@@ -825,29 +812,46 @@ bool Storage::DeleteCountryFilesFromDownloader(TIndex const & index, TMapOptions
   QueuedCountry * queuedCountry = FindCountryInQueue(index);
   if (!queuedCountry)
     return false;
+
+  opt = IntersectOptions(opt, queuedCountry->GetInitOptions());
+
   if (IsCountryFirstInQueue(index))
   {
     // Abrupt downloading of the current file if it should be removed.
     if (HasOptions(opt, queuedCountry->GetCurrentFile()))
       m_downloader->Reset();
   }
+
+  // Remove already downloaded files.
+  if (shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, GetCurrentDataVersion()))
+  {
+    localFile->DeleteFromDisk(opt);
+    localFile->SyncWithDisk();
+    if (localFile->GetFiles() == TMapOptions::ENothing)
+    {
+      auto equalsToLocalFile = [&localFile](shared_ptr<LocalCountryFile> const & rhs)
+      {
+        return *localFile == *rhs;
+      };
+      m_localFiles[index].remove_if(equalsToLocalFile);
+    }
+  }
+
   queuedCountry->RemoveOptions(opt);
 
   // Remove country from the queue if there's nothing to download.
   if (queuedCountry->GetInitOptions() == TMapOptions::ENothing)
     m_queue.erase(find(m_queue.begin(), m_queue.end(), index));
-  return true;
-}
 
-void Storage::KickDownloaderAfterDeletionOfCountryFiles(TIndex const & index)
-{
-  // Do nothing when there're no countries to download or when downloader is busy.
-  if (m_queue.empty() || !m_downloader->IsIdle())
-    return;
-  if (IsCountryFirstInQueue(index))
-    DownloadNextFile(m_queue.front());
-  else
-    DownloadNextCountryFromQueue();
+  if (!m_queue.empty() && m_downloader->IsIdle())
+  {
+    // Kick possibly interrupted downloader.
+    if (IsCountryFirstInQueue(index))
+      DownloadNextFile(m_queue.front());
+    else
+      DownloadNextCountryFromQueue();
+  }
+  return true;
 }
 
 uint64_t Storage::GetDownloadSize(QueuedCountry const & queuedCountry) const

@@ -1,7 +1,9 @@
 #pragma once
 
 #include "storage/map_files_downloader.hpp"
+#include "coding/file_writer.hpp"
 #include "base/thread_checker.hpp"
+#include "std/unique_ptr.hpp"
 
 namespace storage
 {
@@ -17,6 +19,8 @@ class TaskRunner;
 class FakeMapFilesDownloader : public MapFilesDownloader
 {
 public:
+  static int64_t const kBlockSize = 1024 * 1024;
+
   FakeMapFilesDownloader(TaskRunner & taskRunner);
 
   virtual ~FakeMapFilesDownloader();
@@ -31,9 +35,17 @@ public:
   void Reset() override;
 
 private:
+  void DownloadNextChunk(uint64_t requestId);
+
   vector<string> m_servers;
   TProgress m_progress;
   bool m_idle;
+
+  unique_ptr<FileWriter> m_writer;
+  TFileDownloadedCallback m_onDownloaded;
+  TDownloadingProgressCallback m_onProgress;
+
+  uint64_t m_timestamp;
 
   TaskRunner & m_taskRunner;
   ThreadChecker m_checker;

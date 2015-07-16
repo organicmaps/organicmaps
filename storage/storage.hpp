@@ -92,8 +92,7 @@ class Storage
   void OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & progress);
 
   bool RegisterDownloadedFile(string const & path, uint64_t size, int64_t version);
-  void OnMapDownloadFinished(shared_ptr<platform::LocalCountryFile> localFile);
-  void OnMapDownloadFailed();
+  void OnMapDownloadFinished(TIndex const & index, bool success, TMapOptions opt);
 
   /// Initiates downloading of the next file from the queue.
   void DownloadNextFile(QueuedCountry const & country);
@@ -222,10 +221,6 @@ private:
 
   // Removes country files from downloader.
   bool DeleteCountryFilesFromDownloader(TIndex const & index, TMapOptions opt);
-
-  // Resumes possibly cancelled downloading of countries after
-  // deletion of country files.
-  void KickDownloaderAfterDeletionOfCountryFiles(TIndex const & index);
 
   // Returns download size of the currently downloading file for the
   // queued country.

@@ -8,6 +8,11 @@ bool HasOptions(TMapOptions mask, TMapOptions options)
          static_cast<uint8_t>(options);
 }
 
+TMapOptions IntersectOptions(TMapOptions lhs, TMapOptions rhs)
+{
+  return static_cast<TMapOptions>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
+}
+
 TMapOptions SetOptions(TMapOptions mask, TMapOptions options)
 {
   return static_cast<TMapOptions>(static_cast<uint8_t>(mask) | static_cast<uint8_t>(options));

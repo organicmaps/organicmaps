@@ -12,6 +12,8 @@ enum class TMapOptions : uint8_t
 
 bool HasOptions(TMapOptions mask, TMapOptions options);
 
+TMapOptions IntersectOptions(TMapOptions lhs, TMapOptions rhs);
+
 TMapOptions SetOptions(TMapOptions mask, TMapOptions options);
 
 TMapOptions UnsetOptions(TMapOptions mask, TMapOptions options);
