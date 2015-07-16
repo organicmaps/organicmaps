@@ -201,14 +201,13 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
 {
   if (m_current.IsValid())
   {
-    m2::PointD const locationMerc(MercatorBounds::LonToX(location.m_longitude),
-                                  MercatorBounds::LatToY(location.m_latitude));
+    m2::PointD const locationMerc = MercatorBounds::FromLatLon(location.m_latitude, location.m_longitude);
     double const distFromRouteM = MercatorBounds::DistanceOnEarth(m_current.m_pt, locationMerc);
     if (distFromRouteM < m_routingSettings.m_matchingThresholdM)
     {
       location.m_latitude = MercatorBounds::YToLat(m_current.m_pt.y);
       location.m_longitude = MercatorBounds::XToLon(m_current.m_pt.x);
-      if (m_routingSettings.m_matchBearing)
+      if (m_routingSettings.m_matchRoute)
         location.m_bearing = location::AngleToBearing(GetPolySegAngle(m_current.m_ind));
 
       routeMatchingInfo.Set(m_current.m_pt, m_current.m_ind);
