@@ -166,7 +166,8 @@ static BOOL keyboardLoaded = NO;
   CGFloat const textFieldBackgroundWidth = cancelButtonMinX - self.searchBar.fieldBackgroundView.minX - 8;
   CGFloat const textFieldWidth = textFieldBackgroundWidth - 60.;
 
-  LocationManager const * const locationManager = [MapsAppDelegate theApp].m_locationManager;
+  [self hideDownloadMapRequest];
+  LocationManager * locationManager = [MapsAppDelegate theApp].m_locationManager;
   if (state == SearchViewStateFullscreen)
   {
     [locationManager start:self];

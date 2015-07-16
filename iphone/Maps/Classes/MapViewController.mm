@@ -1073,8 +1073,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)countryStatusChangedAtPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group
 {
-  if (self.searchView.state != SearchViewStateFullscreen)
-    return;
   TStatus const status = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountryStatus(group, position);
   if (status == TStatus::EDownloadFailed)
     [self.searchView downloadFailed];
