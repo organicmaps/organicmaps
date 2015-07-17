@@ -130,13 +130,15 @@ using feature::Metadata;
 
 - (void)configureForApi:(ApiMarkPoint const *)apiMark
 {
-  Framework & f = GetFramework();
-  m2::PointD const & point = apiMark->GetOrg();
-  Metadata metadata;
-  search::AddressInfo info;
-  f.FindClosestPOIMetadata(point, metadata);
-  f.GetAddressInfoForGlobalPoint(point, info);
-  [self configureEntityWithMetadata:metadata addressInfo:info];
+  self.title = [NSString stringWithUTF8String:apiMark->GetName().c_str()];
+  NSMutableArray const * types = [NSMutableArray array];
+  NSMutableArray const * values = [NSMutableArray array];
+  [types addObject:kPatternTypesArray.lastObject];
+  BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
+  NSString * latLonStr = isLatLonAsDMS ? [NSString stringWithUTF8String:MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()] : [NSString stringWithUTF8String: MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str()];
+  latLonStr = isLatLonAsDMS ? [NSString stringWithUTF8String:MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()] : [NSString stringWithUTF8String: MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str()];
+  [values addObject:latLonStr];
+  self.metadata = @{kTypesKey : types, kValuesKey : values};
 }
 
 - (void)configureEntityWithMetadata:(Metadata const &)metadata addressInfo:(search::AddressInfo const &)info
