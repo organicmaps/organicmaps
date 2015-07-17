@@ -2,12 +2,16 @@
 
 #include "coding/mmap_reader.hpp"
 #include "defines.hpp"
-#include "platform/local_country_file.hpp"
 #include "std/cstdint.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 #include "3party/succinct/elias_fano.hpp"
 #include "3party/succinct/mapper.hpp"
+
+namespace platform
+{
+  class LocalCountryFile;
+} //  platform
 
 namespace feature
 {

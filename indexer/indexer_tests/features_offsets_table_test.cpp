@@ -4,8 +4,8 @@
 #include "indexer/data_header.hpp"
 #include "indexer/features_vector.hpp"
 
-#include "platform/platform.hpp"
 #include "platform/local_country_file_utils.hpp"
+#include "platform/platform.hpp"
 
 #include "coding/file_container.hpp"
 #include "base/scope_guard.hpp"

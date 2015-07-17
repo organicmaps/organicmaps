@@ -2,9 +2,10 @@
 
 #include "indexer/data_header.hpp"
 #include "indexer/features_vector.hpp"
+#include "platform/local_country_file.hpp"
+#include "platform/platform.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
-#include "platform/platform.hpp"
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"

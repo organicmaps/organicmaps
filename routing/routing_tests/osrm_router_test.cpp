@@ -5,13 +5,13 @@
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/mercator.hpp"
 
-#include "coding/file_writer.hpp"
-
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests/file_utils.hpp"
+
+#include "coding/file_writer.hpp"
 
 #include "defines.hpp"
 
