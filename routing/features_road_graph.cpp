@@ -94,7 +94,7 @@ IRoadGraph::RoadInfo & FeaturesRoadGraph::RoadInfoCache::Find(FeatureID const & 
   auto res = m_cache.insert(make_pair(featureId.m_mwmId, TMwmFeatureCache()));
   if (res.second)
     res.first->second.Init(kPowOfTwoForFeatureCacheSize);
-  return res.first->second.Find(featureId.m_ind, found);
+  return res.first->second.Find(featureId.m_index, found);
 }
 
 void FeaturesRoadGraph::RoadInfoCache::Clear()
@@ -201,7 +201,7 @@ void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::Ty
 {
   FeatureType ft;
   Index::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
-  loader.GetFeature(featureId.m_offset, ft);
+  loader.GetFeatureByIndex(featureId.m_index, ft);
   ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
 
   types = feature::TypesHolder(ft);
@@ -234,7 +234,7 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   FeatureType ft;
   Index::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
-  loader.GetFeatureByIndex(featureId.m_ind, ft);
+  loader.GetFeatureByIndex(featureId.m_index, ft);
   ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
 
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);

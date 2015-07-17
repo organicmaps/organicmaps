@@ -101,10 +101,10 @@ public:
   }
 
   template <class TFeature>
-  void operator() (TFeature const & f, uint32_t ind) const
+  void operator() (TFeature const & ft, uint32_t index) const
   {
     m_scalesIdx = 0;
-    uint32_t minScaleClassif = feature::GetMinDrawableScaleClassifOnly(f);
+    uint32_t minScaleClassif = feature::GetMinDrawableScaleClassifOnly(ft);
     // The classificator won't allow this feature to be drawable for smaller
     // scales so the first buckets can be safely skipped.
     // todo(@pimenov) Parallelizing this loop may be helpful.
@@ -114,14 +114,14 @@ public:
       // This is not immediately obvious and in fact there was an idea to map
       // a bucket to a contiguous range of scales.
       // todo(@pimenov): We probably should remove scale_index.hpp altogether.
-      if (!FeatureShouldBeIndexed(f, bucket, bucket == minScaleClassif /* needReset */))
+      if (!FeatureShouldBeIndexed(ft, bucket, bucket == minScaleClassif /* needReset */))
       {
         continue;
       }
 
-      vector<int64_t> const cells = covering::CoverFeature(f, m_codingDepth, 250);
+      vector<int64_t> const cells = covering::CoverFeature(ft, m_codingDepth, 250);
       for (int64_t cell : cells)
-        m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, ind), bucket));
+        m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, index), bucket));
 
       m_featuresInBucket[bucket] += 1;
       m_cellsInBucket[bucket] += cells.size();
@@ -137,7 +137,7 @@ private:
   //   -- it is allowed by the classificator.
   // If the feature is invisible at all scales, do not index it.
   template <class TFeature>
-  bool FeatureShouldBeIndexed(TFeature const & f, uint32_t scale, bool needReset) const
+  bool FeatureShouldBeIndexed(TFeature const & ft, uint32_t scale, bool needReset) const
   {
     while (m_scalesIdx < m_header.GetScalesCount() && m_header.GetScale(m_scalesIdx) < scale)
     {
@@ -146,16 +146,16 @@ private:
     }
 
     if (needReset)
-      f.ResetGeometry();
+      ft.ResetGeometry();
 
     // This function invokes geometry reading for the needed scale.
-    if (f.IsEmptyGeometry(scale))
+    if (ft.IsEmptyGeometry(scale))
       return false;
 
     // This function assumes that geometry rect for the needed scale is already initialized.
     // Note: it works with FeatureBase so in fact it does not use the information about
     // the feature's geometry except for the type and the LimitRect.
-    return feature::IsDrawableForIndexGeometryOnly(f, scale);
+    return feature::IsDrawableForIndexGeometryOnly(ft, scale);
   }
 
   // We do not need to parse a feature's geometry for every bucket.

@@ -68,14 +68,14 @@ void RoadGraphMockSource::AddRoad(RoadInfo && ri)
 
 IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(FeatureID const & featureId) const
 {
-  CHECK_LESS(featureId.m_ind, m_roads.size(), ("Invalid feature id."));
-  return m_roads[featureId.m_ind];
+  CHECK_LESS(featureId.m_index, m_roads.size(), ("Invalid feature id."));
+  return m_roads[featureId.m_index];
 }
 
 double RoadGraphMockSource::GetSpeedKMPH(FeatureID const & featureId) const
 {
-  CHECK_LESS(featureId.m_ind, m_roads.size(), ("Invalid feature id."));
-  return m_roads[featureId.m_ind].m_speedKMPH;
+  CHECK_LESS(featureId.m_index, m_roads.size(), ("Invalid feature id."));
+  return m_roads[featureId.m_index].m_speedKMPH;
 }
 
 double RoadGraphMockSource::GetMaxSpeedKMPH() const

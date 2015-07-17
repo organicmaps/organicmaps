@@ -25,6 +25,7 @@ protected:
     info->m_version.format = version::lastFormat;
     return info;
   }
+
   MwmValueBase * CreateValue(MwmInfo &) const override
   {
     return new MwmValueBase();

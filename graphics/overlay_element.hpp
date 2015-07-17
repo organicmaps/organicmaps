@@ -3,7 +3,7 @@
 #include "graphics/defines.hpp"
 #include "graphics/color.hpp"
 
-#include "indexer/mwm_set.hpp"
+#include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/any_rect2d.hpp"
@@ -23,21 +23,19 @@ namespace graphics
   public:
     struct UserInfo
     {
-      MwmSet::MwmId m_mwmID;
-      uint32_t m_fID;
+      FeatureID m_featureID;
 
-      UserInfo() : m_fID(0) {}
-      inline bool IsValid() const { return m_mwmID.IsAlive(); }
-      inline bool operator== (UserInfo const & a) const
+      inline bool IsValid() const { return m_featureID.IsValid(); }
+      inline bool operator== (UserInfo const & r) const
       {
-        return IsValid() && (a.m_mwmID == m_mwmID) && (a.m_fID == m_fID);
+        return (IsValid() && m_featureID == r.m_featureID);
       }
     };
 
   private:
     m2::PointD m_pivot;
     graphics::EPosition m_position;
-    double m_depth;    
+    double m_depth;
 
     enum { NEED_REDRAW,
            FROZEN,

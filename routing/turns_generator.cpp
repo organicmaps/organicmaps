@@ -113,7 +113,7 @@ public:
     static CarModel const carModel;
     if (ft.GetFeatureType() != feature::GEOM_LINE || !carModel.IsRoad(ft))
       return;
-    uint32_t const featureId = ft.GetID().m_ind;
+    uint32_t const featureId = ft.GetID().m_index;
     for (auto const n : m_routingMapping.m_segMapping.GetNodeIdByFid(featureId))
       n_nodeIds.push_back(n);
   }

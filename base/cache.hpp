@@ -3,6 +3,7 @@
 #include "base/macros.hpp"
 
 #include "std/type_traits.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 
 
@@ -14,42 +15,29 @@ namespace my
     DISALLOW_COPY(Cache);
 
   public:
-    Cache() : m_Cache(nullptr) {}
+    Cache() = default;
+    Cache(Cache && r) = default;
 
-    // @logCacheSize is pow of two for number of elements in cache.
     explicit Cache(uint32_t logCacheSize)
     {
       Init(logCacheSize);
     }
 
-    Cache(Cache && r) : m_Cache(r.m_Cache), m_HashMask(r.m_HashMask)
-    {
-      r.m_Cache = nullptr;
-    }
-
+    /// @param[in] logCacheSize is pow of two for number of elements in cache.
     void Init(uint32_t logCacheSize)
     {
+      ASSERT(logCacheSize > 0 && logCacheSize < 32, (logCacheSize));
       static_assert((is_same<KeyT, uint32_t>::value || is_same<KeyT, uint64_t>::value), "");
 
-      m_Cache = new Data[1 << logCacheSize];
-      m_HashMask = (1 << logCacheSize) - 1;
-
-      // We always use cache with static constant. So debug assert is enough here.
-      ASSERT_GREATER(logCacheSize, 0, ());
-      ASSERT_GREATER(m_HashMask, 0, ());
-      ASSERT_LESS(logCacheSize, 32, ());
+      m_cache.reset(new Data[1 << logCacheSize]);
+      m_hashMask = (1 << logCacheSize) - 1;
 
       Reset();
     }
 
-    ~Cache()
-    {
-      delete [] m_Cache;
-    }
-
     uint32_t GetCacheSize() const
     {
-      return m_HashMask + 1;
+      return m_hashMask + 1;
     }
 
     // Find value by @key. If @key is found, returns reference to its value.
@@ -58,7 +46,7 @@ namespace my
     // TODO: Return pair<ValueT *, bool> instead?
     ValueT & Find(KeyT const & key, bool & found)
     {
-      Data & data = m_Cache[Index(key)];
+      Data & data = m_cache[Index(key)];
       if (data.m_Key == key)
       {
         found = true;
@@ -74,16 +62,16 @@ namespace my
     template <typename F>
     void ForEachValue(F && f)
     {
-      for (uint32_t i = 0; i <= m_HashMask; ++i)
-        f(m_Cache[i].m_Value);
+      for (uint32_t i = 0; i <= m_hashMask; ++i)
+        f(m_cache[i].m_Value);
     }
 
     void Reset()
     {
       // Initialize m_Cache such, that Index(m_Cache[i].m_Key) != i.
-      for (uint32_t i = 0; i <= m_HashMask; ++i)
+      for (uint32_t i = 0; i <= m_hashMask; ++i)
       {
-        KeyT & key = m_Cache[i].m_Key;
+        KeyT & key = m_cache[i].m_Key;
         for (key = 0; Index(key) == i; ++key) ;
       }
     }
@@ -91,7 +79,7 @@ namespace my
   private:
     inline size_t Index(KeyT const & key) const
     {
-      return static_cast<size_t>(Hash(key) & m_HashMask);
+      return static_cast<size_t>(Hash(key) & m_hashMask);
     }
 
     inline static uint32_t Hash(uint32_t x)
@@ -116,8 +104,8 @@ namespace my
       ValueT m_Value;
     };
 
-    Data * m_Cache;
-    uint32_t m_HashMask;
+    unique_ptr<Data[]> m_cache;
+    uint32_t m_hashMask;
   };
 
   // Simple cache that stores list of values and provides cache missing statistics.
@@ -127,14 +115,13 @@ namespace my
   {
   public:
     CacheWithStat() = default;
-    CacheWithStat(CacheWithStat && r) = default;
 
-    // @logCacheSize is pow of two for number of elements in cache.
     explicit CacheWithStat(uint32_t logCacheSize)
       : m_cache(logCacheSize), m_miss(0), m_access(0)
     {
     }
 
+    /// @param[in] logCacheSize is pow of two for number of elements in cache.
     void Init(uint32_t logCacheSize)
     {
       m_cache.Init(logCacheSize);

@@ -539,8 +539,8 @@ namespace feature
 
   bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & name, int mapType)
   {
-    string const srcFilePath = info.GetTmpFile(name);
-    string const datFilePath = info.GetTargetFile(name);
+    string const srcFilePath = info.GetTmpFileName(name);
+    string const datFilePath = info.GetTargetFileName(name);
 
     // stores cellIds for middle points
     CalculateMidPoints midPoints;

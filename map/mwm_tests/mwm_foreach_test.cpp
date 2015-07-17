@@ -49,12 +49,12 @@ protected:
   void add(FeatureType const & f) const
   {
     TEST(f.GetID().IsValid(), ());
-    m_cont.push_back(f.GetID().m_ind);
+    m_cont.push_back(f.GetID().m_index);
   }
 
-  void add(FeatureType const &, uint32_t ind) const
+  void add(FeatureType const &, uint32_t index) const
   {
-    m_cont.push_back(ind);
+    m_cont.push_back(index);
   }
 
 public:
@@ -167,10 +167,10 @@ public:
   {
   }
 
-  void operator() (FeatureType const & f, uint32_t ind) const
+  void operator() (FeatureType const & f, uint32_t index) const
   {
     if (is_drawable(f) && is_intersect(f))
-      add(f, ind);
+      add(f, index);
   }
 };
 
@@ -231,18 +231,18 @@ class FindOffset
   uint32_t m_index;
 
 public:
-  FindOffset(int level, uint32_t ind)
-    : m_level(level), m_index(ind)
+  FindOffset(int level, uint32_t index)
+    : m_level(level), m_index(index)
   {}
 
-  void operator() (FeatureType const & f, uint32_t ind)
+  void operator() (FeatureType const & ft, uint32_t index)
   {
-    if (ind == m_index)
+    if (index == m_index)
     {
-      TEST(IsDrawable(f, m_level), ());
+      TEST(IsDrawable(ft, m_level), ());
 
-      LOG(LINFO, ("Feature index:", ind));
-      LOG(LINFO, ("Feature:", f));
+      LOG(LINFO, ("Feature index:", index));
+      LOG(LINFO, ("Feature:", ft));
     }
   }
 };

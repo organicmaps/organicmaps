@@ -224,8 +224,7 @@ namespace
       for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
         m_types[i] = c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2));
 
-      m_srcCoastsFile = info.m_intermediateDir + WORLD_COASTS_FILE_NAME + ".geom";
-      string const srcCoastsFileDump = info.m_intermediateDir + WORLD_COASTS_FILE_NAME + ".rawdump";
+      m_srcCoastsFile = info.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom");
 
       CHECK(!info.m_makeCoasts || !info.m_createWorld,
             ("We can't do make_coasts and generate_world at the same time"));
@@ -236,7 +235,7 @@ namespace
 
         if (info.m_emitCoasts)
         {
-          m_coastsHolder.reset(new feature::FeaturesCollector(info.GetTmpFile(WORLD_COASTS_FILE_NAME)));
+          m_coastsHolder.reset(new feature::FeaturesCollector(info.GetTmpFileName(WORLD_COASTS_FILE_NAME)));
         }
       }
       else
@@ -245,7 +244,8 @@ namespace
         // 20000 - max points count per feature
         m_coasts.reset(new CoastlineFeaturesGenerator(Type(NATURAL_COASTLINE), 4, 10, 20000));
 
-        m_coastsHolder.reset(new feature::FeaturesAndRawGeometryCollector(m_srcCoastsFile, srcCoastsFileDump));
+        m_coastsHolder.reset(new feature::FeaturesAndRawGeometryCollector(
+                               m_srcCoastsFile, info.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".rawdump")));
       }
 
       if (info.m_createWorld)
@@ -494,7 +494,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, string const &osmFileTyp
     SecondPassParser<MainFeaturesEmitter, HolderT> parser(
                   bucketer, holder,
                   info.m_makeCoasts ? classif().GetCoastType() : 0,
-                  info.GetAddressesFile());
+                  info.GetAddressesFileName());
 
     SourceReader reader(osmFileName);
 

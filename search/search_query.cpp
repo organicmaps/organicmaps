@@ -593,7 +593,7 @@ namespace impl
       if (m_pFV.get() == 0 || m_pFV->GetId() != id.m_mwmId)
         m_pFV.reset(new Index::FeaturesLoaderGuard(*m_query.m_pIndex, id.m_mwmId));
 
-      m_pFV->GetFeatureByIndex(id.m_ind, f);
+      m_pFV->GetFeatureByIndex(id.m_index, f);
       f.SetID(id);
 
       m_query.GetBestMatchName(f, name);

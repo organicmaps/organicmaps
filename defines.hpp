@@ -5,6 +5,7 @@
 #define FONT_FILE_EXTENSION ".ttf"
 #define OSM2FEATURE_FILE_EXTENSION ".osm2ft"
 #define EXTENSION_TMP ".tmp"
+#define ADDR_FILE_EXTENSION ".addr"
 
 #define DATA_FILE_TAG "dat"
 #define GEOMETRY_FILE_TAG "geom"

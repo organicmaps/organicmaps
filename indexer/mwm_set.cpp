@@ -291,24 +291,14 @@ void MwmSet::ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end)
   m_cache.erase(beg, end);
 }
 
-namespace
-{
-  struct MwmIdIsEqualTo
-  {
-    MwmSet::MwmId m_id;
-
-    explicit MwmIdIsEqualTo(MwmSet::MwmId const & id) : m_id(id) {}
-
-    bool operator()(pair<MwmSet::MwmId, MwmSet::TMwmValueBasePtr> const & p) const
-    {
-      return p.first == m_id;
-    }
-  };
-}
-
 void MwmSet::ClearCache(MwmId const & id)
 {
-  ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(), MwmIdIsEqualTo(id)), m_cache.end());
+  ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(),
+  [&id] (pair<MwmSet::MwmId, MwmSet::TMwmValueBasePtr> const & p)
+  {
+    return (p.first == id);
+  }),
+  m_cache.end());
 }
 
 string DebugPrint(MwmSet::RegResult result)
@@ -324,6 +314,6 @@ string DebugPrint(MwmSet::RegResult result)
     case MwmSet::RegResult::BadFile:
       return "BadFile";
     case MwmSet::RegResult::UnsupportedFileFormat:
-    return "UnsupportedFileFormat";
+      return "UnsupportedFileFormat";
   }
 }

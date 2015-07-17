@@ -164,7 +164,7 @@ UNIT_TEST(CacheSmoke_6)
 UNIT_TEST(Cache_Init)
 {
   my::Cache<uint32_t, char> cache;
-  cache.Init(3);
+  cache.Init(3 /* logCacheSize */);
 
   bool found = true;
   cache.Find(5, found) = 'a';
@@ -173,7 +173,7 @@ UNIT_TEST(Cache_Init)
   TEST_EQUAL(cache.Find(5, found), 'a', ());
   TEST(found, ());
 
-  cache.Init(1);
+  cache.Init(1 /* logCacheSize */);
   cache.Find(5, found) = 'b';
   TEST(!found, ());
 

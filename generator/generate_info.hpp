@@ -16,17 +16,21 @@ struct GenerateInfo
   {
   }
 
-  string GetTmpFile(string const & fileName, char const * ext = DATA_FILE_EXTENSION_TMP) const
+  string GetTmpFileName(string const & fileName, char const * ext = DATA_FILE_EXTENSION_TMP) const
   {
     return (m_tmpDir + fileName + ext);
   }
-  string GetTargetFile(string const & fileName, char const * ext = DATA_FILE_EXTENSION) const
+  string GetTargetFileName(string const & fileName, char const * ext = DATA_FILE_EXTENSION) const
   {
     return (m_targetDir + fileName + ext);
   }
-  string GetAddressesFile() const
+  string GetIntermediateFileName(string const & fileName, char const * ext = DATA_FILE_EXTENSION) const
   {
-    return ((m_genAddresses && !m_fileName.empty()) ? GetTargetFile(m_fileName, ".addr") : string());
+    return (m_intermediateDir + fileName + ext);
+  }
+  string GetAddressesFileName() const
+  {
+    return ((m_genAddresses && !m_fileName.empty()) ? GetTargetFileName(m_fileName, ADDR_FILE_EXTENSION) : string());
   }
 
   // Directory for .mwm.tmp files.

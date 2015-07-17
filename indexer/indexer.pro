@@ -29,6 +29,7 @@ SOURCES += \
     feature_utils.cpp \
     feature_visibility.cpp \
     features_offsets_table.cpp \
+    features_vector.cpp \
     ftypes_matcher.cpp \
     geometry_coding.cpp \
     geometry_serialization.cpp \
@@ -46,7 +47,6 @@ SOURCES += \
     search_index_builder.cpp \
     search_string_utils.cpp \
     types_mapping.cpp \
-    features_vector.cpp \
 
 HEADERS += \
     categories_holder.hpp \

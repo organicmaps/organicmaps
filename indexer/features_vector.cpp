@@ -6,10 +6,11 @@
 #include "platform/constants.hpp"
 
 
-void FeaturesVector::GetByIndex(uint32_t ind, FeatureType & ft) const
+void FeaturesVector::GetByIndex(uint32_t index, FeatureType & ft) const
 {
   uint32_t offset = 0, size = 0;
-  m_RecordReader.ReadRecord(m_table ? m_table->GetFeatureOffset(ind) : ind, m_buffer, offset, size);
+  auto const ftOffset = m_table ? m_table->GetFeatureOffset(index) : index;
+  m_RecordReader.ReadRecord(ftOffset, m_buffer, offset, size);
   ft.Deserialize(m_LoadInfo.GetLoader(), &m_buffer[offset]);
 }
 

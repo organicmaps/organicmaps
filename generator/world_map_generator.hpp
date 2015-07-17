@@ -22,9 +22,9 @@ class WorldMapGenerator
 
   public:
     explicit EmitterImpl(feature::GenerateInfo const & info)
-      : m_output(info.GetTmpFile(WORLD_FILE_NAME))
+      : m_output(info.GetTmpFileName(WORLD_FILE_NAME))
     {
-      LOG(LINFO, ("Output World file:", info.GetTmpFile(WORLD_FILE_NAME)));
+      LOG(LINFO, ("Output World file:", info.GetTmpFileName(WORLD_FILE_NAME)));
     }
 
     /// This function is called after merging linear features.

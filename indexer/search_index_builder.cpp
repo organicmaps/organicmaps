@@ -158,15 +158,15 @@ struct ValueBuilder<SerializedFeatureInfoValue>
 
   ValueBuilder(serial::CodingParams const & cp) : m_valueSaver(cp) {}
 
-  void MakeValue(FeatureType const & f, feature::TypesHolder const & types, uint32_t ind,
+  void MakeValue(FeatureType const & ft, feature::TypesHolder const & types, uint32_t index,
                  SerializedFeatureInfoValue & value) const
   {
     SaverT::ValueType v;
-    v.m_featureId = ind;
+    v.m_featureId = index;
 
     // get BEST geometry rect of feature
-    v.m_pt = feature::GetCenter(f);
-    v.m_rank = feature::GetSearchRank(types, v.m_pt, f.GetPopulation());
+    v.m_pt = feature::GetCenter(ft);
+    v.m_rank = feature::GetSearchRank(types, v.m_pt, ft.GetPopulation());
 
     // write to buffer
     PushBackByteSink<SerializedFeatureInfoValue::ValueT> sink(value.m_value);
@@ -178,9 +178,9 @@ template <>
 struct ValueBuilder<FeatureIndexValue>
 {
   void MakeValue(FeatureType const & /* f */, feature::TypesHolder const & /* types */,
-                 uint32_t ind, FeatureIndexValue & value) const
+                 uint32_t index, FeatureIndexValue & value) const
   {
-    value.m_value = ind;
+    value.m_value = index;
   }
 };
 
@@ -313,7 +313,7 @@ public:
   {
   }
 
-  void operator() (FeatureType const & f, uint32_t ind) const
+  void operator() (FeatureType const & f, uint32_t index) const
   {
     feature::TypesHolder types(f);
 
@@ -327,7 +327,7 @@ public:
     // Insert synonyms only for countries and states (maybe will add cities in future).
     FeatureNameInserter<StringsFileT> inserter(skipIndex.IsCountryOrState(types) ? m_synonyms : 0,
                                                m_names);
-    m_valueBuilder.MakeValue(f, types, ind, inserter.m_val);
+    m_valueBuilder.MakeValue(f, types, index, inserter.m_val);
 
     // Skip types for features without names.
     if (!f.ForEachNameRef(inserter))

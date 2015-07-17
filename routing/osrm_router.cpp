@@ -75,7 +75,7 @@ public:
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     size_t const count = ft.GetPointsCount();
-    uint32_t const featureId = ft.GetID().m_ind;
+    uint32_t const featureId = ft.GetID().m_index;
     ASSERT_GREATER(count, 1, ());
     for (size_t i = 1; i < count; ++i)
     {

@@ -151,7 +151,7 @@ namespace feature
       if (country->m_index == -1)
       {
         m_Names.push_back(country->m_name);
-        m_Buckets.push_back(new FeatureOutT(m_info.GetTmpFile(country->m_name)));
+        m_Buckets.push_back(new FeatureOutT(m_info.GetTmpFileName(country->m_name)));
         country->m_index = m_Buckets.size()-1;
       }
 

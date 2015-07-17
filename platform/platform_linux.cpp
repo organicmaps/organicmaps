@@ -32,7 +32,7 @@ Platform::Platform()
   char const * homePath = ::getenv("HOME");
   string const home(homePath ? homePath : "");
 
-  m_settingsDir = home + "/.config/MapsWithMe/";
+  m_settingsDir = home + "/.config/MapsWithMe";
 
   if (!IsFileExistsByFullPath(m_settingsDir + SETTINGS_FILE_NAME))
   {

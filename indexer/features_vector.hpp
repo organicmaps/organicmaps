@@ -20,20 +20,20 @@ public:
   {
   }
 
-  void GetByIndex(uint32_t ind, FeatureType & ft) const;
+  void GetByIndex(uint32_t index, FeatureType & ft) const;
 
-  template <class ToDo> void ForEach(ToDo toDo) const
+  template <class ToDo> void ForEach(ToDo && toDo) const
   {
-    uint32_t ind = 0;
+    uint32_t index = 0;
     m_RecordReader.ForEachRecord([&] (uint32_t pos, char const * data, uint32_t /*size*/)
     {
       FeatureType ft;
       ft.Deserialize(m_LoadInfo.GetLoader(), data);
-      toDo(ft, m_table ? ind++ : pos);
+      toDo(ft, m_table ? index++ : pos);
     });
   }
 
-  template <class ToDo> static void ForEachOffset(ModelReaderPtr reader, ToDo toDo)
+  template <class ToDo> static void ForEachOffset(ModelReaderPtr reader, ToDo && toDo)
   {
     VarRecordReader<ModelReaderPtr, &VarRecordSizeReaderVarint> recordReader(reader, 256);
     recordReader.ForEachRecord([&] (uint32_t pos, char const * /*data*/, uint32_t /*size*/)
@@ -43,11 +43,11 @@ public:
   }
 
 private:
+  friend class FeaturesVectorTest;
+
   feature::SharedLoadInfo m_LoadInfo;
   VarRecordReader<FilesContainerR::ReaderT, &VarRecordSizeReaderVarint> m_RecordReader;
   mutable vector<char> m_buffer;
-
-  friend class FeaturesVectorTest;
   feature::FeaturesOffsetsTable const * m_table;
 };
 

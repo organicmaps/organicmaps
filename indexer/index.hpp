@@ -125,14 +125,14 @@ private:
 
         for (auto const & i : interval)
         {
-          index.ForEachInIntervalAndScale([&] (uint32_t ind)
+          index.ForEachInIntervalAndScale([&] (uint32_t index)
           {
-            if (checkUnique(ind))
+            if (checkUnique(index))
             {
               FeatureType feature;
 
-              fv.GetByIndex(ind, feature);
-              feature.SetID(FeatureID(mwmID, ind));
+              fv.GetByIndex(index, feature);
+              feature.SetID(FeatureID(mwmID, index));
 
               m_f(feature);
             }
@@ -172,10 +172,10 @@ private:
 
         for (auto const & i : interval)
         {
-          index.ForEachInIntervalAndScale([&] (uint32_t ind)
+          index.ForEachInIntervalAndScale([&] (uint32_t index)
           {
-            if (checkUnique(ind))
-              m_f(FeatureID(mwmID, ind));
+            if (checkUnique(index))
+              m_f(FeatureID(mwmID, index));
           }, i.first, i.second, scale);
         }
       }
@@ -230,7 +230,7 @@ public:
     inline MwmSet::MwmId GetId() const { return m_handle.GetId(); }
     string GetCountryFileName() const;
     bool IsWorld() const;
-    void GetFeatureByIndex(uint32_t ind, FeatureType & ft);
+    void GetFeatureByIndex(uint32_t index, FeatureType & ft);
 
   private:
     MwmHandle m_handle;
@@ -271,7 +271,7 @@ private:
         FeatureID const & featureId = features[result];
         FeatureType featureType;
 
-        featureReader.GetByIndex(featureId.m_ind, featureType);
+        featureReader.GetByIndex(featureId.m_index, featureType);
         featureType.SetID(featureId);
 
         f(featureType);

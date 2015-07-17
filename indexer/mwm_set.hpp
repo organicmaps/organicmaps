@@ -84,13 +84,12 @@ public:
     friend class MwmSet;
 
     MwmId() = default;
-    MwmId(MwmId const & id) = default;
     MwmId(shared_ptr<MwmInfo> const & info) : m_info(info) {}
 
     void Reset() { m_info.reset(); }
     bool IsAlive() const
     {
-      return m_info.get() != nullptr && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED;
+      return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED);
     }
     shared_ptr<MwmInfo> const & GetInfo() const { return m_info; }
 
