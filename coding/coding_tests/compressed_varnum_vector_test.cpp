@@ -13,7 +13,7 @@ struct NumsSource
 {
   NumsSource(vector<uint64_t> const & v) : m_v(v) {}
   uint64_t operator()(uint64_t pos) { ASSERT_LESS(pos, m_v.size(), ()); return m_v[pos]; }
-  
+
   vector<uint64_t> const & m_v;
 };
 

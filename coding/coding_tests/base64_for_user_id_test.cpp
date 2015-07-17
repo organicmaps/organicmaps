@@ -6,7 +6,6 @@
 
 #include "std/random.hpp"
 
-
 using namespace base64_for_user_ids;
 
 UNIT_TEST(Base64_Encode_User_Ids)

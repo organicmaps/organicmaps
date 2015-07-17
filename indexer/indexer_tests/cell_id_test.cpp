@@ -8,7 +8,6 @@
 #include "std/random.hpp"
 #include "std/string.hpp"
 
-
 typedef m2::CellId<30> CellIdT;
 
 UNIT_TEST(ToCellId)

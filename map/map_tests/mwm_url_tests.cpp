@@ -9,7 +9,6 @@
 
 #include "std/random.hpp"
 
-
 using namespace url_scheme;
 
 namespace

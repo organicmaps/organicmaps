@@ -6,7 +6,6 @@
 
 #include "std/random.hpp"
 
-
 uint32_t const NUMS_COUNT = 12345;
 
 UNIT_TEST(CompressedBitVector_Sparse)
@@ -119,11 +118,13 @@ UNIT_TEST(BitVectors_SubAnd)
   mt19937 rng(0);
   vector<bool> v1(NUMS_COUNT * 2, false);
   //uint64_t numV1Ones = 0;
-  for (uint32_t i = 0; i < v1.size(); ++i) v1[i] = (rng() % 2) == 0;
+  for (uint32_t i = 0; i < v1.size(); ++i)
+    v1[i] = (rng() % 2) == 0;
   vector<uint32_t> posOnes1;
   for (uint32_t i = 0; i < v1.size(); ++i) if (v1[i]) posOnes1.push_back(i);
   vector<bool> v2(posOnes1.size(), false);
-  for (uint32_t i = 0; i < v2.size(); ++i) v2[i] = (rng() % 2) == 0;
+  for (uint32_t i = 0; i < v2.size(); ++i)
+    v2[i] = (rng() % 2) == 0;
   vector<uint32_t> posOnes2, subandPos;
   for (uint32_t i = 0; i < v2.size(); ++i) if (v2[i]) posOnes2.push_back(i);
   for (uint32_t i = 0, j = 0; i < v1.size(); ++i)

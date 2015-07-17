@@ -6,7 +6,6 @@
 #include "std/algorithm.hpp"
 #include "std/random.hpp"
 
-
 namespace
 {
   template <class ReaderT> class CacheReader

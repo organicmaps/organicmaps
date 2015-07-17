@@ -45,7 +45,7 @@ UNIT_TEST(FileSorter_Random)
   mt19937 rng(0);
   vector<uint32_t> data(1000);
   for (size_t i = 0; i < data.size(); ++i)
-    data[i] = ((i+1 % 100) ? rng() : data[i - 20]);
+    data[i] = ((i + 1 % 100) ? rng() : data[i - 20]);
 
   TestFileSorter(data, "file_sorter_test_random.tmp", data.size() / 10);
 }

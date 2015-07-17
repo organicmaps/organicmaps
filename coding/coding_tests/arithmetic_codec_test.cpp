@@ -5,7 +5,6 @@
 
 #include "std/random.hpp"
 
-
 UNIT_TEST(ArithmeticCodec)
 {
   mt19937 rng(0);
