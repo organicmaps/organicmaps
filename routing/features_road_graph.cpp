@@ -91,12 +91,10 @@ void FeaturesRoadGraph::CrossCountryVehicleModel::Clear()
 
 IRoadGraph::RoadInfo & FeaturesRoadGraph::RoadInfoCache::Find(FeatureID const & featureId, bool & found)
 {
-  auto itr = m_cache.find(featureId.m_mwmId);
-  if (itr != m_cache.end())
-    return itr->second->Find(featureId.m_ind, found);
-
-  itr = m_cache.insert(make_pair(featureId.m_mwmId, make_unique<TMwmFeatureCache>(kPowOfTwoForFeatureCacheSize))).first;
-  return itr->second->Find(featureId.m_ind, found);
+  auto res = m_cache.insert(make_pair(featureId.m_mwmId, TMwmFeatureCache()));
+  if (res.second)
+    res.first->second.Init(kPowOfTwoForFeatureCacheSize);
+  return res.first->second.Find(featureId.m_ind, found);
 }
 
 void FeaturesRoadGraph::RoadInfoCache::Clear()

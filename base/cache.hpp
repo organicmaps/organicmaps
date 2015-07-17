@@ -1,28 +1,42 @@
 #include "base/assert.hpp"
 #include "base/base.hpp"
+#include "base/macros.hpp"
+
 #include "std/type_traits.hpp"
 #include "std/utility.hpp"
-#include "std/vector.hpp"
+
 
 namespace my
 {
   // Simple cache that stores list of values.
   template <typename KeyT, typename ValueT> class Cache
   {
-  private:
-    Cache(Cache<KeyT, ValueT> const &);                             // Not implemented.
-    Cache<KeyT, ValueT> & operator = (Cache<KeyT, ValueT> const &); // Not implemented.
+    DISALLOW_COPY(Cache);
 
   public:
+    Cache() : m_Cache(nullptr) {}
+
     // @logCacheSize is pow of two for number of elements in cache.
     explicit Cache(uint32_t logCacheSize)
-      : m_Cache(new Data[1 << logCacheSize]), m_HashMask((1 << logCacheSize) - 1)
+    {
+      Init(logCacheSize);
+    }
+
+    Cache(Cache && r) : m_Cache(r.m_Cache), m_HashMask(r.m_HashMask)
+    {
+      r.m_Cache = nullptr;
+    }
+
+    void Init(uint32_t logCacheSize)
     {
       static_assert((is_same<KeyT, uint32_t>::value || is_same<KeyT, uint64_t>::value), "");
 
+      m_Cache = new Data[1 << logCacheSize];
+      m_HashMask = (1 << logCacheSize) - 1;
+
       // We always use cache with static constant. So debug assert is enough here.
-      ASSERT_GREATER ( logCacheSize, 0, () );
-      ASSERT_GREATER ( m_HashMask, 0, () );
+      ASSERT_GREATER(logCacheSize, 0, ());
+      ASSERT_GREATER(m_HashMask, 0, ());
       ASSERT_LESS(logCacheSize, 32, ());
 
       Reset();
@@ -102,8 +116,8 @@ namespace my
       ValueT m_Value;
     };
 
-    Data * const m_Cache;
-    uint32_t const m_HashMask;
+    Data * m_Cache;
+    uint32_t m_HashMask;
   };
 
   // Simple cache that stores list of values and provides cache missing statistics.
@@ -112,10 +126,19 @@ namespace my
   class CacheWithStat
   {
   public:
+    CacheWithStat() = default;
+    CacheWithStat(CacheWithStat && r) = default;
+
     // @logCacheSize is pow of two for number of elements in cache.
     explicit CacheWithStat(uint32_t logCacheSize)
       : m_cache(logCacheSize), m_miss(0), m_access(0)
     {
+    }
+
+    void Init(uint32_t logCacheSize)
+    {
+      m_cache.Init(logCacheSize);
+      m_miss = m_access = 0;
     }
 
     double GetCacheMiss() const

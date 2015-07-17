@@ -160,3 +160,23 @@ UNIT_TEST(CacheSmoke_6)
   cache.ForEachValue(SimpleMovableFunctor(&v));
   TEST_EQUAL(v, vector<char>(8, 0), ());
 }
+
+UNIT_TEST(Cache_Init)
+{
+  my::Cache<uint32_t, char> cache;
+  cache.Init(3);
+
+  bool found = true;
+  cache.Find(5, found) = 'a';
+  TEST(!found, ());
+
+  TEST_EQUAL(cache.Find(5, found), 'a', ());
+  TEST(found, ());
+
+  cache.Init(1);
+  cache.Find(5, found) = 'b';
+  TEST(!found, ());
+
+  TEST_EQUAL(cache.Find(5, found), 'b', ());
+  TEST(found, ());
+}
