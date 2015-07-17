@@ -258,7 +258,7 @@ static CGFloat const kMinimumOffset = 20.;
       NSUInteger const cellCount = self.cellCountForCurrentState;
       CGFloat const actualHeight = kCellHeight * cellCount + kHeaderAndFooterHeight * numberOfSections;
       self.tableViewHeight.constant = [self bounded:actualHeight withHeight:height];;
-      self.dialogsTableView.scrollEnabled = actualHeight > self.tableViewHeight.constant ? YES : NO;
+      self.dialogsTableView.scrollEnabled = actualHeight > self.tableViewHeight.constant;
       break;
     }
   }

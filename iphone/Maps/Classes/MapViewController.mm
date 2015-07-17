@@ -746,6 +746,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
         case routing::IRouter::RouteFileNotExist:
         case routing::IRouter::InconsistentMWMandRoute:
         case routing::IRouter::NeedMoreMaps:
+        case routing::IRouter::RouteNotFound:
           [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes];
           break;
         case routing::IRouter::Cancelled:

@@ -25,7 +25,7 @@ typedef void (^RightButtonAction)();
 + (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount;
 + (MWMAlert *)facebookAlert;
 + (MWMAlert *)locationAlert;
-+ (MWMAlert *)routingDisclaimerAlert;
++ (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation;
 + (MWMAlert *)disabledLocationAlert;
 + (MWMAlert *)noWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block;
 + (MWMAlert *)noConnectionAlert;

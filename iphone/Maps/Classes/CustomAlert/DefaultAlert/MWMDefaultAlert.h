@@ -17,7 +17,6 @@
 + (instancetype)internalErrorAlert;
 + (instancetype)noCurrentPositionAlert;
 + (instancetype)pointsInDifferentMWMAlert;
-+ (instancetype)routingDisclaimerAlert;
 + (instancetype)disabledLocationAlert;
 + (instancetype)noWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block;
 + (instancetype)noConnectionAlert;

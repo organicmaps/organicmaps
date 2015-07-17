@@ -90,12 +90,6 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return [self defaultAlertWithTitle:@"dialog_routing_check_gps" message:message rightButtonTitle:@"OK" leftButtonTitle:nil rightButtonAction:nil];
 }
 
-+ (instancetype)routingDisclaimerAlert
-{
-  NSString * message = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@", L(@"dialog_routing_disclaimer_priority"), L(@"dialog_routing_disclaimer_precision"), L(@"dialog_routing_disclaimer_recommendations"),L(@"dialog_routing_disclaimer_beware")];
-  return [self defaultAlertWithTitle:@"dialog_routing_disclaimer_title" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
-}
-
 + (instancetype)disabledLocationAlert
 {
   RightButtonAction action = ^

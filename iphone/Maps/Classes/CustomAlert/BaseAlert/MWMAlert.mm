@@ -14,6 +14,7 @@
 #import "MWMFeedbackAlert.h"
 #import "MWMLocationAlert.h"
 #import "MWMRateAlert.h"
+#import "MWMRoutingDisclaimerAlert.h"
 
 @implementation MWMAlert
 
@@ -32,9 +33,9 @@
   return [MWMFacebookAlert alert];
 }
 
-+ (MWMAlert *)routingDisclaimerAlert
++ (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation
 {
-  return [MWMDefaultAlert routingDisclaimerAlert];
+  return [MWMRoutingDisclaimerAlert alertWithInitialOrientation:orientation];
 }
 
 + (MWMAlert *)disabledLocationAlert
