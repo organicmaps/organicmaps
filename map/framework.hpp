@@ -136,8 +136,9 @@ protected:
   /// How many pixels around touch point are used to get bookmark or POI
   static const int TOUCH_PIXEL_RADIUS = 20;
 
-  /// This function is called by m_storage to notify that country downloading is finished.
-  void UpdateAfterDownload(platform::LocalCountryFile const & localFile);
+  /// This function is called by m_storage when latest local files
+  /// were changed.
+  void UpdateLatestCountryFile(platform::LocalCountryFile const & localFile);
 
   /// This function is called by m_model when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);

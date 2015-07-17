@@ -5,6 +5,8 @@
 #include "storage/storage_tests/fake_map_files_downloader.hpp"
 #include "storage/storage_tests/task_runner.hpp"
 
+#include "indexer/indexer_tests/test_mwm_set.hpp"
+
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -253,9 +255,10 @@ private:
   int m_slot;
 };
 
-void InitStorage(Storage & storage, TaskRunner & runner)
+void InitStorage(Storage & storage, TaskRunner & runner,
+                 Storage::TUpdate const & update = &OnCountryDownloaded)
 {
-  storage.Init(&OnCountryDownloaded);
+  storage.Init(update);
   storage.RegisterAllLocalMaps();
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
 }
@@ -418,10 +421,16 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
 {
   Storage storage;
   TaskRunner runner;
-  InitStorage(storage, runner);
+  tests::TestMwmSet mwmSet;
+  InitStorage(storage, runner, [&mwmSet](LocalCountryFile const & localFile)
+  {
+    mwmSet.Register(localFile);
+  });
 
   TIndex const index = storage.FindIndexByFile("Azerbaijan");
   TEST(index.IsValid(), ());
+  CountryFile const countryFile = storage.GetCountryFile(index);
+
   storage.DeleteCountry(index, TMapOptions::EMapWithCarRouting);
 
   // Download map file only.
@@ -436,6 +445,10 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
   TEST(localFileA.get(), ());
   TEST_EQUAL(TMapOptions::EMap, localFileA->GetFiles(), ());
 
+  MwmSet::MwmId id = mwmSet.GetMwmIdByCountryFile(countryFile);
+  TEST(id.IsAlive(), ());
+  TEST_EQUAL(TMapOptions::EMap, id.GetInfo()->GetLocalFile().GetFiles(), ());
+
   // Download routing file in addition to exising map file.
   {
     unique_ptr<CountryDownloaderChecker> checker =
@@ -449,6 +462,9 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
   TEST_EQUAL(localFileA.get(), localFileB.get(), (*localFileA, *localFileB));
   TEST_EQUAL(TMapOptions::EMapWithCarRouting, localFileB->GetFiles(), ());
 
+  TEST(id.IsAlive(), ());
+  TEST_EQUAL(TMapOptions::EMapWithCarRouting, id.GetInfo()->GetLocalFile().GetFiles(), ());
+
   // Delete routing file and check status update.
   {
     CountryStatusChecker checker(storage, index, TStatus::EOnDisk);
@@ -459,11 +475,19 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
   TEST_EQUAL(localFileB.get(), localFileC.get(), (*localFileB, *localFileC));
   TEST_EQUAL(TMapOptions::EMap, localFileC->GetFiles(), ());
 
+  TEST(id.IsAlive(), ());
+  TEST_EQUAL(TMapOptions::EMap, id.GetInfo()->GetLocalFile().GetFiles(), ());
+
   // Delete map file and check status update.
   {
     CountryStatusChecker checker(storage, index, TStatus::ENotDownloaded);
     storage.DeleteCountry(index, TMapOptions::EMap);
   }
+
+  // Framework should notify MwmSet about deletion of a map file.
+  // As there're no framework, there should not be any changes in MwmInfo.
+  TEST(id.IsAlive(), ());
+  TEST_EQUAL(TMapOptions::EMap, id.GetInfo()->GetLocalFile().GetFiles(), ());
 }
 
 UNIT_TEST(StorageTest_DeletePendingCountry)
@@ -517,7 +541,7 @@ UNIT_TEST(StorageTest_DownloadTwoCountriesAndDelete)
     unique_ptr<CountryDownloaderChecker> venezuelaChecker = make_unique<CountryDownloaderChecker>(
         storage, venezuelaIndex, TMapOptions::EMapWithCarRouting,
         vector<TStatus>{TStatus::ENotDownloaded, TStatus::EInQueue, TStatus::EDownloading,
-                        TStatus::EOnDisk});
+                        TStatus::EDownloading, TStatus::EOnDisk});
     uruguayChecker->StartDownload();
     venezuelaChecker->StartDownload();
     storage.DeleteCountry(uruguayIndex, TMapOptions::EMap);
@@ -541,7 +565,7 @@ UNIT_TEST(StorageTest_CancelDownloadingWhenAlmostDone)
   TIndex const index = storage.FindIndexByFile("Uruguay");
   TEST(index.IsValid(), ());
   storage.DeleteCountry(index, TMapOptions::EMapWithCarRouting);
-  MY_SCOPE_GUARD(cleanupUruguayFiles,
+  MY_SCOPE_GUARD(cleanupFiles,
                  bind(&Storage::DeleteCountry, &storage, index, TMapOptions::EMapWithCarRouting));
 
   {

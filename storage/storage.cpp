@@ -44,7 +44,7 @@ void RemoveIf(vector<T> & v, function<bool(T const & t)> const & p)
 
 uint64_t GetLocalSize(shared_ptr<LocalCountryFile> file, TMapOptions opt)
 {
-  if (file.get() == nullptr)
+  if (!file)
     return 0;
   uint64_t size = 0;
   for (TMapOptions bit : {TMapOptions::EMap, TMapOptions::ECarRouting})
@@ -64,6 +64,15 @@ uint64_t GetRemoteSize(CountryFile const & file, TMapOptions opt)
       size += file.GetRemoteSize(bit);
   }
   return size;
+}
+
+void DeleteCountryIndexes(LocalCountryFile const & localFile)
+{
+  // TODO (@gorshenin, @ldragunov): delete localFile instead of rootFile when routing will be
+  // switched to new country indexes API.
+  LocalCountryFile rootFile(GetPlatform().WritableDir(), localFile.GetCountryFile(),
+                            localFile.GetVersion());
+  platform::CountryIndexes::DeleteFromDisk(rootFile);
 }
 
 class EqualFileName
@@ -88,7 +97,7 @@ Storage::Storage() : m_downloader(new HttpMapFilesDownloader()), m_currentSlotId
   LoadCountriesFile(false /* forceReload */);
 }
 
-void Storage::Init(TUpdateAfterDownload const & updateFn) { m_updateAfterDownload = updateFn; }
+void Storage::Init(TUpdate const & update) { m_update = update; }
 
 void Storage::Clear()
 {
@@ -232,7 +241,7 @@ shared_ptr<LocalCountryFile> Storage::GetLatestLocalFile(CountryFile const & cou
   TIndex const index = FindIndexByFile(countryFile.GetNameWithoutExt());
   {
     shared_ptr<LocalCountryFile> localFile = GetLatestLocalFile(index);
-    if (localFile.get())
+    if (localFile)
       return localFile;
   }
   {
@@ -290,7 +299,7 @@ void Storage::CountryStatusEx(TIndex const & index, TStatus & status, TMapOption
     options = TMapOptions::EMap;
 
     shared_ptr<LocalCountryFile> localFile = GetLatestLocalFile(index);
-    ASSERT(localFile.get(), ("Invariant violation: local file out of sync with disk."));
+    ASSERT(localFile, ("Invariant violation: local file out of sync with disk."));
     if (localFile->OnDisk(TMapOptions::ECarRouting))
       options = SetOptions(options, TMapOptions::ECarRouting);
   }
@@ -321,6 +330,11 @@ void Storage::DeleteCountry(TIndex const & index, TMapOptions opt)
   opt = NormalizeDeleteFileSet(opt);
   DeleteCountryFiles(index, opt);
   DeleteCountryFilesFromDownloader(index, opt);
+
+  auto localFile = GetLatestLocalFile(index);
+  if (localFile)
+    m_update(*localFile);
+
   NotifyStatusChanged(index);
 }
 
@@ -451,12 +465,6 @@ void Storage::OnMapFileDownloadFinished(bool success,
   QueuedCountry & queuedCountry = m_queue.front();
   TIndex const index = queuedCountry.GetIndex();
 
-  Platform & platform = GetPlatform();
-  string const path = GetFileDownloadPath(index, queuedCountry.GetCurrentFile());
-
-  success = success && platform.IsFileExistsByFullPath(path) &&
-            RegisterDownloadedFile(path, progress.first /* size */, GetCurrentDataVersion());
-
   if (success && queuedCountry.SwitchToNextFile())
   {
     DownloadNextFile(queuedCountry);
@@ -516,35 +524,48 @@ void Storage::OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & pr
   }
 }
 
-bool Storage::RegisterDownloadedFile(string const & path, uint64_t size, int64_t version)
+bool Storage::RegisterDownloadedFiles(TIndex const & index, TMapOptions files)
 {
-  QueuedCountry & queuedCountry = m_queue.front();
-  TIndex const & index = queuedCountry.GetIndex();
-
-  ASSERT_EQUAL(size, GetDownloadSize(queuedCountry), ("Downloaded file size mismatch with expected"));
-
   CountryFile const countryFile = GetCountryFile(index);
-  shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, version);
-  if (localFile.get() == nullptr)
-    localFile = PreparePlaceForCountryFiles(countryFile, version);
-  if (localFile.get() == nullptr)
+  shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, GetCurrentDataVersion());
+  if (!localFile)
+    localFile = PreparePlaceForCountryFiles(countryFile, GetCurrentDataVersion());
+  if (!localFile)
   {
-    LOG(LERROR, ("Local file data structure can't prepared for downloaded file(", path, ")."));
+    LOG(LERROR, ("Local file data structure can't be prepared for downloaded file(", countryFile,
+                 files, ")."));
     return false;
   }
-  if (!my::RenameFileX(path, localFile->GetPath(queuedCountry.GetCurrentFile())))
+
+  bool ok = true;
+  for (TMapOptions file : {TMapOptions::EMap, TMapOptions::ECarRouting})
+  {
+    if (!HasOptions(files, file))
+      continue;
+    string const path = GetFileDownloadPath(index, file);
+    if (!my::RenameFileX(path, localFile->GetPath(file)))
+    {
+      ok = false;
+      break;
+    }
+  }
+  localFile->SyncWithDisk();
+  if (!ok)
+  {
+    localFile->DeleteFromDisk(files);
     return false;
+  }
   RegisterCountryFiles(localFile);
   return true;
 }
 
-void Storage::OnMapDownloadFinished(TIndex const & index, bool success, TMapOptions opt)
+void Storage::OnMapDownloadFinished(TIndex const & index, bool success, TMapOptions files)
 {
-  ASSERT_NOT_EQUAL(TMapOptions::ENothing, opt,
+  ASSERT_NOT_EQUAL(TMapOptions::ENothing, files,
                    ("This method should not be called for empty files set."));
   {
     string optionsName;
-    switch (opt)
+    switch (files)
     {
       case TMapOptions::ENothing:
         optionsName = "Nothing";
@@ -567,17 +588,18 @@ void Storage::OnMapDownloadFinished(TIndex const & index, bool success, TMapOpti
                                  {"option", optionsName}}));
   }
 
-  if (success)
-  {
-    shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, GetCurrentDataVersion());
-    ASSERT(localFile.get(), ());
-    platform::CountryIndexes::DeleteFromDisk(*localFile);
-    m_updateAfterDownload(*localFile);
-  }
-  else
+  success = success && RegisterDownloadedFiles(index, files);
+
+  if (!success)
   {
     m_failedCountries.insert(index);
+    return;
   }
+
+  shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, GetCurrentDataVersion());
+  ASSERT(localFile, ());
+  DeleteCountryIndexes(*localFile);
+  m_update(*localFile);
 }
 
 string Storage::GetFileDownloadUrl(string const & baseUrl, TIndex const & index,
@@ -589,7 +611,8 @@ string Storage::GetFileDownloadUrl(string const & baseUrl, TIndex const & index,
 
 string Storage::GetFileDownloadUrl(string const & baseUrl, string const & fName) const
 {
-  return baseUrl + OMIM_OS_NAME "/" + strings::to_string(GetCurrentDataVersion())  + "/" + UrlEncode(fName);
+  return baseUrl + OMIM_OS_NAME "/" + strings::to_string(GetCurrentDataVersion()) + "/" +
+         UrlEncode(fName);
 }
 
 TIndex Storage::FindIndexByFile(string const & name) const
@@ -650,7 +673,7 @@ void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
     TIndex const & index = p.first;
     string const name = GetCountryFile(index).GetNameWithoutExt();
     shared_ptr<LocalCountryFile> const & file = GetLatestLocalFile(index);
-    if (file.get() && file->GetVersion() != GetCurrentDataVersion() &&
+    if (file && file->GetVersion() != GetCurrentDataVersion() &&
         name != WORLD_COASTS_FILE_NAME && name != WORLD_FILE_NAME)
     {
       countries.push_back(&CountryByIndex(index));
@@ -672,7 +695,7 @@ TStatus Storage::CountryStatusFull(TIndex const & index, TStatus const status) c
     return status;
 
   shared_ptr<LocalCountryFile> localFile = GetLatestLocalFile(index);
-  if (localFile.get() == nullptr || !localFile->OnDisk(TMapOptions::EMap))
+  if (!localFile || !localFile->OnDisk(TMapOptions::EMap))
     return TStatus::ENotDownloaded;
 
   CountryFile const & countryFile = GetCountryFile(index);
@@ -694,7 +717,7 @@ TMapOptions Storage::NormalizeDownloadFileSet(TIndex const & index, TMapOptions 
   for (TMapOptions file : {TMapOptions::EMap, TMapOptions::ECarRouting})
   {
     // Check whether requested files are on disk and up-to-date.
-    if (HasOptions(opt, file) && localCountryFile.get() && localCountryFile->OnDisk(file) &&
+    if (HasOptions(opt, file) && localCountryFile && localCountryFile->OnDisk(file) &&
         localCountryFile->GetVersion() == GetCurrentDataVersion())
     {
       opt = UnsetOptions(opt, file);
@@ -754,12 +777,12 @@ shared_ptr<LocalCountryFile> Storage::GetLocalFile(TIndex const & index, int64_t
 
 void Storage::RegisterCountryFiles(shared_ptr<LocalCountryFile> localFile)
 {
-  CHECK(localFile.get(), ());
+  CHECK(localFile, ());
   localFile->SyncWithDisk();
 
   TIndex const index = FindIndexByFile(localFile->GetCountryName());
   shared_ptr<LocalCountryFile> existingFile = GetLocalFile(index, localFile->GetVersion());
-  if (existingFile.get() != nullptr)
+  if (existingFile)
     ASSERT_EQUAL(localFile.get(), existingFile.get(), ());
   else
     m_localFiles[index].push_front(localFile);
@@ -794,13 +817,13 @@ void Storage::DeleteCountryFiles(TIndex const & index, TMapOptions opt)
   {
     localFile->DeleteFromDisk(opt);
     localFile->SyncWithDisk();
-    platform::CountryIndexes::DeleteFromDisk(*localFile);
+    DeleteCountryIndexes(*localFile);
     if (localFile->GetFiles() == TMapOptions::ENothing)
       localFile.reset();
   }
   auto isNull = [](shared_ptr<LocalCountryFile> const & localFile)
   {
-    return !localFile.get();
+    return !localFile;
   };
   localFiles.remove_if(isNull);
   if (localFiles.empty())
@@ -820,21 +843,6 @@ bool Storage::DeleteCountryFilesFromDownloader(TIndex const & index, TMapOptions
     // Abrupt downloading of the current file if it should be removed.
     if (HasOptions(opt, queuedCountry->GetCurrentFile()))
       m_downloader->Reset();
-  }
-
-  // Remove already downloaded files.
-  if (shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, GetCurrentDataVersion()))
-  {
-    localFile->DeleteFromDisk(opt);
-    localFile->SyncWithDisk();
-    if (localFile->GetFiles() == TMapOptions::ENothing)
-    {
-      auto equalsToLocalFile = [&localFile](shared_ptr<LocalCountryFile> const & rhs)
-      {
-        return *localFile == *rhs;
-      };
-      m_localFiles[index].remove_if(equalsToLocalFile);
-    }
   }
 
   queuedCountry->RemoveOptions(opt);

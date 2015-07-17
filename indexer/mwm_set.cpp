@@ -106,8 +106,9 @@ pair<MwmSet::MwmHandle, MwmSet::RegResult> MwmSet::Register(LocalCountryFile con
   // Update the status of the mwm with the same version.
   if (info->GetVersion() == localFile.GetVersion())
   {
-    LOG(LWARNING, ("Trying to add already registered mwm:", name));
+    LOG(LINFO, ("Updating already registered mwm:", name));
     info->SetStatus(MwmInfo::STATUS_REGISTERED);
+    info->m_file = localFile;
     return make_pair(GetLock(id), RegResult::VersionAlreadyExists);
   }
 

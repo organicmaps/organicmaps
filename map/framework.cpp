@@ -252,7 +252,7 @@ Framework::Framework()
   LOG(LDEBUG, ("Maps initialized"));
 
   // Init storage with needed callback.
-  m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1));
+  m_storage.Init(bind(&Framework::UpdateLatestCountryFile, this, _1));
   LOG(LDEBUG, ("Storage initialized"));
 
 #ifdef USE_PEDESTRIAN_ROUTER
@@ -421,7 +421,7 @@ void Framework::ShowCountry(TIndex const & index)
   ShowRectEx(GetCountryBounds(index));
 }
 
-void Framework::UpdateAfterDownload(LocalCountryFile const & localFile)
+void Framework::UpdateLatestCountryFile(LocalCountryFile const & localFile)
 {
   // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmHandles. Thus,
   // it won' be needed to reset it after maps update.

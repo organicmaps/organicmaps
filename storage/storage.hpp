@@ -20,6 +20,10 @@ namespace storage
 /// Can be used to store local maps and/or maps available for download
 class Storage
 {
+public:
+  using TUpdate = function<void(platform::LocalCountryFile const &)>;
+
+private:
   /// We support only one simultaneous request at the moment
   unique_ptr<MapFilesDownloader> m_downloader;
 
@@ -67,11 +71,9 @@ class Storage
   ObserversContT m_observers;
   //@}
 
-  typedef function<void(platform::LocalCountryFile const &)> TUpdateAfterDownload;
-
   // This function is called each time all files requested for a
   // country were successfully downloaded.
-  TUpdateAfterDownload m_updateAfterDownload;
+  TUpdate m_update;
 
   void DownloadNextCountryFromQueue();
 
@@ -91,8 +93,8 @@ class Storage
   /// during the downloading process.
   void OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & progress);
 
-  bool RegisterDownloadedFile(string const & path, uint64_t size, int64_t version);
-  void OnMapDownloadFinished(TIndex const & index, bool success, TMapOptions opt);
+  bool RegisterDownloadedFiles(TIndex const & index, TMapOptions files);
+  void OnMapDownloadFinished(TIndex const & index, bool success, TMapOptions files);
 
   /// Initiates downloading of the next file from the queue.
   void DownloadNextFile(QueuedCountry const & country);
@@ -100,7 +102,7 @@ class Storage
 public:
   Storage();
 
-  void Init(TUpdateAfterDownload const & updateFn);
+  void Init(TUpdate const & update);
 
   // Clears local files registry and downloader's queue.
   void Clear();
