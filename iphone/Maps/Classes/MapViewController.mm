@@ -255,7 +255,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)restoreRoute
 {
-  GetFramework().BuildRoute(self.restoreRouteDestination);
+  GetFramework().BuildRoute(self.restoreRouteDestination, 0 /* timeoutSec */);
   self.forceRoutingStateChange = ForceRoutingStateChangeStartFollowing;
 }
 

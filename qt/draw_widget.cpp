@@ -414,7 +414,7 @@ namespace qt
         if (m_framework->IsRoutingActive())
           m_framework->CloseRouting();
         else
-          m_framework->BuildRoute(m_framework->PtoG(pt));
+          m_framework->BuildRoute(m_framework->PtoG(pt), 0 /* timeoutSec */);
       }
       if (e->modifiers() & Qt::AltModifier)
       {

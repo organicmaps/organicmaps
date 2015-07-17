@@ -167,7 +167,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)buildRoute
 {
-  GetFramework().BuildRoute(m_userMark->GetUserMark()->GetOrg());
+  GetFramework().BuildRoute(m_userMark->GetUserMark()->GetOrg(), 0 /* timeoutSec */);
 }
 
 - (void)stopBuildingRoute
