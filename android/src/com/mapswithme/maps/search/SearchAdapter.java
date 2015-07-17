@@ -102,36 +102,33 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     final SearchResult result = mSearchFragment.getResult(position, mResultsId);
     if (result != null)
     {
-      String country = null;
-      String dist = null;
       SpannableStringBuilder builder = new SpannableStringBuilder(result.mName);
-      if (result.mType == SearchResult.TYPE_FEATURE)
+      if (result.mHighlightRanges != null && result.mHighlightRanges.length > 0)
       {
-        if (result.mHighlightRanges.length > 0)
+        int j = 0, n = result.mHighlightRanges.length / 2;
+
+        for (int i = 0; i < n; ++i)
         {
-          int j = 0, n = result.mHighlightRanges.length / 2;
+          int start = result.mHighlightRanges[j++];
+          int len = result.mHighlightRanges[j++];
 
-          for (int i = 0; i < n; ++i)
-          {
-            int start = result.mHighlightRanges[j++];
-            int len = result.mHighlightRanges[j++];
-
-            builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-          }
+          builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        else
-          builder.clearSpans();
+      }
 
-        country = result.mCountry;
-        dist = result.mDistance;
+      if (result.mType == SearchResult.TYPE_SUGGESTION)
+      {
+        builder.setSpan(new ForegroundColorSpan(mResources.getColor(R.color.text_search_suggestion)), 0, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        UiUtils.hide(holder.mCountry, holder.mDistance);
       }
       else
-        builder.setSpan(new ForegroundColorSpan(mResources.getColor(R.color.text_green)), 0, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      {
+        UiUtils.setTextAndHideIfEmpty(holder.mCountry, result.mCountry);
+        UiUtils.setTextAndHideIfEmpty(holder.mDistance, result.mDistance);
+      }
 
       UiUtils.setTextAndShow(holder.mName, builder);
-      UiUtils.setTextAndHideIfEmpty(holder.mCountry, country);
       UiUtils.setTextAndHideIfEmpty(holder.mType, result.mAmenity);
-      UiUtils.setTextAndHideIfEmpty(holder.mDistance, dist);
     }
   }
 

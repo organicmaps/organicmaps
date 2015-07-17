@@ -63,4 +63,8 @@
 
   <!-- TODO end of unfinished colors-->
 
+  <!-- search -->
+  <color name="text_search_suggestion">@color/text_green</color>
+
+
 </resources>

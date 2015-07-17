@@ -17,7 +17,7 @@ public class SearchResult
   public static final int TYPE_FEATURE = 1;
 
   public int mType;
-  // consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted substrings of original query
+  // consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted matches of original query in result
   public int[] mHighlightRanges;
 
   public SearchResult(String name, String suggestion, int[] highlightRanges)
