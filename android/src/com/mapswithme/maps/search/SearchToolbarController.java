@@ -34,6 +34,7 @@ public class SearchToolbarController implements OnClickListener
       @Override
       public void onClick(View v)
       {
+        MWMActivity.startSearch(mActivity, mSearchQuery.getText().toString());
         cancelSearchApiAndHide();
       }
     });

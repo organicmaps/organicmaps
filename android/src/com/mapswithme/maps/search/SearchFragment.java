@@ -78,6 +78,23 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
     refreshContent();
     nativeConnectSearchListener();
     readArguments(getArguments());
+    if (getToolbar() != null)
+      getToolbar().setNavigationOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          if (getSearchQuery().isEmpty())
+          {
+            navigateUpToParent();
+            return;
+          }
+
+          setSearchQuery("");
+          SearchToolbarController.cancelSearch();
+          refreshContent();
+        }
+      });
   }
 
   @Override
@@ -300,11 +317,11 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
   }
   // FIXME: This code only for demonstration purposes and will be removed soon
 
-  protected void showSearchResultOnMap(int resIndex)
+  protected void showSingleResultOnMap(int resultIndex)
   {
     SearchToolbarController.cancelApiCall();
     SearchToolbarController.setQuery("");
-    nativeShowItem(resIndex);
+    nativeShowItem(resultIndex);
     InputUtils.hideKeyboard(mEtSearchQuery);
     navigateUpToParent();
   }

@@ -191,7 +191,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         if (result != null)
         {
           if (result.mType == SearchResult.TYPE_FEATURE)
-            mSearchFragment.showSearchResultOnMap(resIndex);
+            mSearchFragment.showSingleResultOnMap(resIndex);
           else
             mSearchFragment.setSearchQuery(result.mSuggestion);
         }
