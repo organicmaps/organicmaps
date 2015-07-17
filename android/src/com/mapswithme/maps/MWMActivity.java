@@ -59,7 +59,7 @@ import com.mapswithme.maps.dialog.RoutingErrorDialogFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.search.SearchActivity;
-import com.mapswithme.maps.search.SearchController;
+import com.mapswithme.maps.search.SearchToolbarController;
 import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
@@ -162,6 +162,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private LocationPredictor mLocationPredictor;
   private LikesManager mLikesManager;
+  private SearchToolbarController mSearchController;
 
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
@@ -468,7 +469,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
         return;
       popFragment();
       hidePlacePage();
-      SearchController.getInstance().cancelSearch();
+      SearchToolbarController.cancelSearch();
+      mSearchController.refreshToolbar();
       replaceFragment(DownloadFragment.class.getName(), true, new Bundle());
       mFadeView.fadeIn(false);
     }
@@ -499,8 +501,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     addTask(intent);
 
-    SearchController.getInstance().onCreate(this);
-
     if (intent != null && intent.hasExtra(EXTRA_SCREENSHOTS_TASK))
     {
       String value = intent.getStringExtra(EXTRA_SCREENSHOTS_TASK);
@@ -510,6 +510,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
     mLocationPredictor = new LocationPredictor(new Handler(), this);
     mLikesManager = new LikesManager(this);
+    mSearchController = new SearchToolbarController(this);
     restoreRoutingState(savedInstanceState);
 
     SharingHelper.prepare();
@@ -936,7 +937,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     invalidateLocationState();
     startWatchingExternalStorage();
     refreshRouterIcon();
-    SearchController.getInstance().onResume();
+    mSearchController.refreshToolbar();
     mPlacePage.onResume();
     mLikesManager.showLikeDialogForCurrentSession();
     refreshZoomButtonsAfterLayout();

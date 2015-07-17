@@ -302,8 +302,8 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
 
   protected void showSearchResultOnMap(int resIndex)
   {
-    SearchController.getInstance().cancelApiCall();
-    SearchController.getInstance().setQuery("");
+    SearchToolbarController.cancelApiCall();
+    SearchToolbarController.setQuery("");
     nativeShowItem(resIndex);
     InputUtils.hideKeyboard(mEtSearchQuery);
     navigateUpToParent();
@@ -313,6 +313,7 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
   {
     nativeShowAllSearchResults();
     runInteractiveSearch(getSearchQuery(), Language.getKeyboardLocale());
+    SearchToolbarController.setQuery(getSearchQuery());
     navigateUpToParent();
   }
 
@@ -417,8 +418,8 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
     {
     case R.id.search_image_clear:
       mEtSearchQuery.setText(null);
-      SearchController.getInstance().cancelApiCall();
-      SearchController.getInstance().cancelSearch();
+      SearchToolbarController.cancelApiCall();
+      SearchToolbarController.cancelSearch();
       break;
     case R.id.search_voice_input:
       final Intent vrIntent = InputUtils.createIntentForVoiceRecognition(getResources().getString(R.string.search_map));
