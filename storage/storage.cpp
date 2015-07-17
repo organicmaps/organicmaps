@@ -68,11 +68,7 @@ uint64_t GetRemoteSize(CountryFile const & file, TMapOptions opt)
 
 void DeleteCountryIndexes(LocalCountryFile const & localFile)
 {
-  // TODO (@gorshenin, @ldragunov): delete localFile instead of rootFile when routing will be
-  // switched to new country indexes API.
-  LocalCountryFile rootFile(GetPlatform().WritableDir(), localFile.GetCountryFile(),
-                            localFile.GetVersion());
-  platform::CountryIndexes::DeleteFromDisk(rootFile);
+  platform::CountryIndexes::DeleteFromDisk(localFile);
 }
 
 class EqualFileName
