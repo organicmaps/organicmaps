@@ -1,4 +1,4 @@
-#include "map/routing_session.hpp"
+#include "routing/routing_session.hpp"
 
 #include "indexer/mercator.hpp"
 

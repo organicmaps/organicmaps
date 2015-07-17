@@ -32,6 +32,7 @@ SOURCES += \
     route.cpp \
     routing_algorithm.cpp \
     routing_mapping.cpp \
+    routing_session.cpp \
     turns.cpp \
     turns_generator.cpp \
     turns_sound.cpp \
@@ -61,6 +62,7 @@ HEADERS += \
     router.hpp \
     routing_algorithm.hpp \
     routing_mapping.h \
+    routing_session.hpp \
     routing_settings.hpp \
     turns.hpp \
     turns_generator.hpp \

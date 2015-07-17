@@ -38,7 +38,6 @@ HEADERS += \
     user_mark_dl_cache.hpp \
     anim_phase_chain.hpp \
     pin_click_manager.hpp \
-    routing_session.hpp \
     country_tree.hpp \
     active_maps_layout.hpp \
     route_track.hpp \
@@ -73,7 +72,6 @@ SOURCES += \
     user_mark_dl_cache.cpp \
     anim_phase_chain.cpp \
     pin_click_manager.cpp \
-    routing_session.cpp \
     country_tree.cpp \
     active_maps_layout.cpp \
     route_track.cpp \

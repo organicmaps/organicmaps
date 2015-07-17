@@ -13,8 +13,9 @@
 #include "map/mwm_url.hpp"
 #include "map/move_screen_task.hpp"
 #include "map/track.hpp"
-#include "map/routing_session.hpp"
 #include "map/country_tree.hpp"
+
+#include "routing/routing_session.hpp"
 
 #include "render/events.hpp"
 #include "render/scales_processor.hpp"
