@@ -1,6 +1,5 @@
 #pragma once
 
-#include "std/algorithm.hpp"
 #include "std/cstdint.hpp"
 #include "std/limits.hpp"
 
@@ -9,8 +8,10 @@
 
 namespace
 {
-uint64_t const kByteMask = (static_cast<uint64_t>(1) << CHAR_BIT) - 1;
+uint8_t const kByteMask = 0xFF;
 }  // namespace
+
+static_assert(CHAR_BIT == 8, "");
 
 template <typename TWriter>
 class BitWriter
@@ -50,14 +51,14 @@ public:
   {
     if (n == 0)
       return;
-    CHECK_LESS_OR_EQUAL(n, CHAR_BIT, ());
+    ASSERT_LESS_OR_EQUAL(n, CHAR_BIT, ());
     uint32_t bufferedBits = m_bitsWritten % CHAR_BIT;
     m_bitsWritten += n;
-    if (n + bufferedBits > 8)
+    if (n + bufferedBits > CHAR_BIT)
     {
       uint8_t b = (bits << bufferedBits) | m_buf;
       m_writer.Write(&b, 1);
-      m_buf = bits >> (8 - bufferedBits);
+      m_buf = bits >> (CHAR_BIT - bufferedBits);
     }
     else
     {
@@ -88,17 +89,17 @@ public:
   BitReader(TReader & reader) : m_reader(reader), m_bitsRead(0), m_bufferedBits(0), m_buf(0) {}
 
   // Returns the total number of bits read from this BitReader.
-  uint32_t BitsRead() const { return m_bitsRead; }
+  uint64_t BitsRead() const { return m_bitsRead; }
 
   // Reads n bits and returns them as the least significant bits of an 8-bit number.
   // The underlying m_reader is supposed to be byte-aligned (which is the
-  // case when it reads from the place that was written with BitWriter) because
+  // case when it reads from the place that was written to using BitWriter).
   // Read may use one lookahead byte.
   uint8_t Read(uint32_t n)
   {
     if (n == 0)
       return 0;
-    CHECK_LESS_OR_EQUAL(n, CHAR_BIT, ());
+    ASSERT_LESS_OR_EQUAL(n, CHAR_BIT, ());
     m_bitsRead += n;
     uint8_t result = 0;
     if (n <= m_bufferedBits)
@@ -121,7 +122,7 @@ public:
 
 private:
   TReader & m_reader;
-  uint32_t m_bitsRead;
+  uint64_t m_bitsRead;
   uint32_t m_bufferedBits;
   uint8_t m_buf;
 };

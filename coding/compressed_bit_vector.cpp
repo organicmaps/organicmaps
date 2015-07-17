@@ -202,7 +202,8 @@ void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes,
         {
           // Most significant bit is always 1 for non-zero diffs, so don't store it.
           --bitsUsed;
-          bitWriter.Write(diff, bitsUsed);
+          for (size_t j = 0; j < bitsUsed; ++j)
+            bitWriter.Write((diff >> j) & 1, 1);
           totalReadBits += bitsUsed;
           ++totalReadCnts;
         }
@@ -336,7 +337,8 @@ void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes,
             {
               // Most significant bit for non-zero values is always 1, don't encode it.
               --bitsUsed;
-              bitWriter.Write(onesRangeLen - 1, bitsUsed);
+              for (size_t j = 0; j < bitsUsed; ++j)
+                bitWriter.Write(((onesRangeLen - 1) >> j) & 1, 1);
             }
             onesRangeLen = 0;
           }
@@ -346,7 +348,8 @@ void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes,
           {
             // Most significant bit for non-zero values is always 1, don't encode it.
             --bitsUsed;
-            bitWriter.Write(posOnes[i] - prevOnePos - 2, bitsUsed);
+            for (size_t j = 0; j < bitsUsed; ++j)
+              bitWriter.Write(((posOnes[i] - prevOnePos - 2) >> j) & 1, 1);
           }
         }
         ++onesRangeLen;
@@ -360,7 +363,8 @@ void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes,
         {
           // Most significant bit for non-zero values is always 1, don't encode it.
           --bitsUsed;
-          bitWriter.Write(onesRangeLen - 1, bitsUsed);
+          for (size_t j = 0; j < bitsUsed; ++j)
+            bitWriter.Write(((onesRangeLen - 1) >> j) & 1, 1);
         }
         onesRangeLen = 0;
       }
@@ -404,9 +408,7 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
     ArithmeticDecoder arithDec(*arithDecReader, distrTable);
     for (uint64_t i = 0; i < cntElements; ++i) bitsUsedVec.push_back(arithDec.Decode());
     decodeOffset += encSizesBytesize;
-    unique_ptr<Reader> bitMemReader(
-        reader.CreateSubReader(decodeOffset, serialSize - decodeOffset));
-    ReaderPtr<Reader> readerPtr(bitMemReader.get());
+    ReaderPtr<Reader> readerPtr(reader.CreateSubReader(decodeOffset, serialSize - decodeOffset));
     ReaderSource<ReaderPtr<Reader>> bitReaderSource(readerPtr);
     BitReader<ReaderSource<ReaderPtr<Reader>>> bitReader(bitReaderSource);
     int64_t prevOnePos = -1;
@@ -414,7 +416,17 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
     {
       uint32_t bitsUsed = bitsUsedVec[i];
       uint64_t diff = 0;
-      if (bitsUsed > 0) diff = ((uint64_t(1) << (bitsUsed - 1)) | bitReader.Read(bitsUsed - 1)) + 1; else diff = 1;
+      if (bitsUsed > 0)
+      {
+        diff = static_cast<uint64_t>(1) << (bitsUsed - 1);
+        for (size_t j = 0; j + 1 < bitsUsed; ++j)
+          diff |= bitReader.Read(1) << j;
+        ++diff;
+      }
+      else
+      {
+        diff = 1;
+      }
       posOnes.push_back(prevOnePos + diff);
       prevOnePos += diff;
     }
@@ -459,9 +471,7 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
     vector<uint32_t> bitsSizes1;
     for (uint64_t i = 0; i < cntElements1; ++i) bitsSizes1.push_back(arith_dec1.Decode());
     decodeOffset += enc1SizesBytesize;
-    unique_ptr<Reader> bitMemReader(
-        reader.CreateSubReader(decodeOffset, serialSize - decodeOffset));
-    ReaderPtr<Reader> readerPtr(bitMemReader.get());
+    ReaderPtr<Reader> readerPtr(reader.CreateSubReader(decodeOffset, serialSize - decodeOffset));
     ReaderSource<ReaderPtr<Reader>> bitReaderSource(readerPtr);
     BitReader<ReaderSource<ReaderPtr<Reader>>> bitReader(bitReaderSource);
     uint64_t sum = 0, i0 = 0, i1 = 0;
@@ -472,13 +482,33 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
       if (!isFirstOne)
       {
         uint32_t bitsUsed = bitsSizes0[i0];
-        if (bitsUsed > 0) zerosRangeSize = ((uint64_t(1) << (bitsUsed - 1)) | bitReader.Read(bitsUsed - 1)) + 1; else zerosRangeSize = 1;
+        if (bitsUsed > 0)
+        {
+          zerosRangeSize = static_cast<uint64_t>(1) << (bitsUsed - 1);
+          for (size_t j = 0; j + 1 < bitsUsed; ++j)
+            zerosRangeSize |= bitReader.Read(1) << j;
+          ++zerosRangeSize;
+        }
+        else
+        {
+          zerosRangeSize = 1;
+        }
         ++i0;
       }
       else isFirstOne = false;
       uint64_t onesRangeSize = 0;
       uint32_t bitsUsed = bitsSizes1[i1];
-      if (bitsUsed > 0) onesRangeSize = ((uint64_t(1) << (bitsUsed - 1)) | bitReader.Read(bitsUsed - 1)) + 1; else onesRangeSize = 1;
+      if (bitsUsed > 0)
+      {
+        onesRangeSize = static_cast<uint64_t>(1) << (bitsUsed - 1);
+        for (size_t j = 0; j + 1 < bitsUsed; ++j)
+          onesRangeSize |= bitReader.Read(1) << j;
+        ++onesRangeSize;
+      }
+      else
+      {
+        onesRangeSize = 1;
+      }
       ++i1;
       sum += zerosRangeSize;
       for (uint64_t j = sum; j < sum + onesRangeSize; ++j) posOnes.push_back(j);
