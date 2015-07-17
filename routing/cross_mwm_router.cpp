@@ -19,7 +19,7 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
   TAlgorithm::TOnVisitedVertexCallback onVisitedVertex = nullptr;
   if (routingVisualizer)
   {
-    onVisitedVertex = [&routingVisualizer](BorderCross const & cross)
+    onVisitedVertex = [&routingVisualizer](BorderCross const & cross, BorderCross const & target)
     {
       routingVisualizer(cross.fromNode.point);
     };

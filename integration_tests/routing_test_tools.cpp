@@ -98,7 +98,7 @@ namespace integration
 
   shared_ptr<IRouter> CreatePedestrianRouter(Index & index)
   {
-    unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index, nullptr);
+    unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index, nullptr, nullptr);
     return shared_ptr<IRouter>(move(router));
   }
 

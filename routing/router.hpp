@@ -62,4 +62,7 @@ public:
 
 typedef function<void(m2::PointD const &)> TRoutingVisualizerFn;
 
+/// Returns routing progress from 0 to 100.
+typedef function<void(uint8_t const &)> TRoutingProgressFn;
+
 }  // namespace routing

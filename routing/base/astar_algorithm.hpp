@@ -44,7 +44,7 @@ public:
     return os;
   }
 
-  using TOnVisitedVertexCallback = std::function<void(TVertexType const &)>;
+  using TOnVisitedVertexCallback = std::function<void(TVertexType const &, TVertexType const &)>;
 
   Result FindPath(TGraphType const & graph,
                   TVertexType const & startVertex, TVertexType const & finalVertex,
@@ -174,7 +174,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     TOnVisitedVertexCallback onVisitedVertexCallback) const
 {
   if (nullptr == onVisitedVertexCallback)
-    onVisitedVertexCallback = [](TVertexType const &){};
+    onVisitedVertexCallback = [](TVertexType const &, TVertexType const &){};
 
   map<TVertexType, double> bestDistance;
   priority_queue<State, vector<State>, greater<State>> queue;
@@ -200,7 +200,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
       continue;
 
     if (steps % kVisitedVerticesPeriod == 0)
-      onVisitedVertexCallback(stateV.vertex);
+      onVisitedVertexCallback(stateV.vertex, finalVertex);
 
     if (stateV.vertex == finalVertex)
     {
@@ -246,7 +246,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
     TOnVisitedVertexCallback onVisitedVertexCallback) const
 {
   if (nullptr == onVisitedVertexCallback)
-    onVisitedVertexCallback = [](TVertexType const &){};
+    onVisitedVertexCallback = [](TVertexType const &, TVertexType const &){};
 
   BidirectionalStepContext forward(true /* forward */, startVertex, finalVertex, graph);
   BidirectionalStepContext backward(false /* forward */, startVertex, finalVertex, graph);
@@ -317,7 +317,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       continue;
 
     if (steps % kVisitedVerticesPeriod == 0)
-      onVisitedVertexCallback(stateV.vertex);
+      onVisitedVertexCallback(stateV.vertex, cur->finalVertex);
 
     cur->GetAdjacencyList(stateV.vertex, adj);
     for (auto const & edge : adj)

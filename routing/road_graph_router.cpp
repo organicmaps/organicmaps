@@ -105,6 +105,7 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
 }
 
 unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
+                                                             TRoutingProgressFn const & progressFn,
                                                              TRoutingVisualizerFn const & visualizerFn)
 {
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());

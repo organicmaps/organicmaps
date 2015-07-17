@@ -37,7 +37,7 @@ class AStarRoutingAlgorithmBase : public IRoutingAlgorithm
 protected:
   AStarRoutingAlgorithmBase(TRoutingVisualizerFn routingVisualizerFn);
 
-  std::function<void(Junction const &)> m_onVisitJunctionFn;
+  std::function<void(Junction const &, Junction const &)> m_onVisitJunctionFn;
 };
 
 // AStar routing algorithm implementation

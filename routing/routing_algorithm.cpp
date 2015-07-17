@@ -124,7 +124,7 @@ string DebugPrint(IRoutingAlgorithm::Result const & value)
 AStarRoutingAlgorithmBase::AStarRoutingAlgorithmBase(TRoutingVisualizerFn routingVisualizerFn)
 {
   if (routingVisualizerFn != nullptr)
-    m_onVisitJunctionFn = [=](Junction const & junction){ routingVisualizerFn(junction.GetPoint()); };
+    m_onVisitJunctionFn = [=](Junction const & junction, Junction const & target){ routingVisualizerFn(junction.GetPoint()); };
   else
     m_onVisitJunctionFn = nullptr;
 }
