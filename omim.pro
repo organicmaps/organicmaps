@@ -42,7 +42,6 @@ SUBDIRS = 3party \
           generator/generator_tool \
           indexer/indexer_tests \
           graphics/graphics_tests \
-          routing/routing_tests \
           gui/gui_tests \
           qt \
           drape_head \
