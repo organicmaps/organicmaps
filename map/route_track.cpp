@@ -1,7 +1,5 @@
 #include "map/route_track.hpp"
 
-#include "map/location_state.hpp"
-
 #include "graphics/screen.hpp"
 #include "graphics/display_list.hpp"
 #include "graphics/depth_constants.hpp"

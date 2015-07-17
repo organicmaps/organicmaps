@@ -8,6 +8,8 @@
 
 #include "routing/turns.hpp"
 
+#include "platform/location.hpp"
+
 #include "std/function.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
@@ -24,26 +26,6 @@ namespace location
 {
   class GpsInfo;
   class CompassInfo;
-
-  class RouteMatchingInfo
-  {
-    m2::PointD m_matchedPosition;
-    size_t m_indexInRoute;
-    bool m_isPositionMatched;
-
-  public:
-    RouteMatchingInfo() : m_matchedPosition(0., 0.), m_indexInRoute(0), m_isPositionMatched(false) {}
-    void Set(m2::PointD const & matchedPosition, size_t indexInRoute)
-    {
-      m_matchedPosition = matchedPosition;
-      m_indexInRoute = indexInRoute;
-      m_isPositionMatched = true;
-    }
-    void Reset() { m_isPositionMatched = false; }
-    bool IsMatched() const { return m_isPositionMatched; }
-    size_t GetIndexInRoute() const { return m_indexInRoute; }
-    m2::PointD GetPosition() const { return m_matchedPosition; }
-  };
 
   // Class, that handles position and compass updates,
   // centers, scales and rotates map according to this updates

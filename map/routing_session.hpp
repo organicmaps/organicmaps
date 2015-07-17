@@ -11,9 +11,10 @@
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
 
+#include "base/mutex.hpp"
+
 #include "std/unique_ptr.hpp"
 
-#include "base/mutex.hpp"
 
 namespace location
 {

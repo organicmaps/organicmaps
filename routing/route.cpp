@@ -7,8 +7,6 @@
 #include "geometry/angles.hpp"
 #include "geometry/point2d.hpp"
 
-#include "map/location_state.hpp"
-
 #include "base/logging.hpp"
 
 #include "std/numeric.hpp"

@@ -1,8 +1,8 @@
-#include "map/location_state.hpp"
 #include "map/routing_session.hpp"
 
 #include "indexer/mercator.hpp"
 
+#include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 

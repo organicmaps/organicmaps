@@ -4,7 +4,7 @@
 
 #include "routing/turns.hpp"
 
-#include "map/location_state.hpp"
+#include "platform/location.hpp"
 
 class RouteTrack : public Track
 {

@@ -15,7 +15,7 @@
 #include "base/timer.hpp"
 #include "base/logging.hpp"
 
-#include "map/location_state.hpp"
+#include "platform/location.hpp"
 
 
 Track::~Track()
