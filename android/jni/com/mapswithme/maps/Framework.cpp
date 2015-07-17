@@ -78,7 +78,8 @@ namespace android
      m_wasLongClick(false),
      m_densityDpi(0),
      m_screenWidth(0),
-     m_screenHeight(0)
+     m_screenHeight(0),
+     m_currentSlotID(0)
   {
     ASSERT_EQUAL ( g_framework, 0, () );
     g_framework = this;

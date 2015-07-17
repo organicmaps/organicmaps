@@ -42,7 +42,6 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
   static final int TYPE_COUNTRY_READY = 3;
   static final int TYPE_COUNTRY_NOT_DOWNLOADED = 4;
   static final int TYPES_COUNT = 5;
-  static final int INVALID_POSITION = -1;
 
   private int mActiveAnimationsCount;
   public static final String PROPERTY_TRANSLATION_X = "translationX";

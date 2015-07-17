@@ -1,14 +1,26 @@
 package com.mapswithme.country;
 
+import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
 
 public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree.ActiveCountryListener
 {
+  private static final String TAG = DownloadedAdapter.class.getSimpleName();
   private static final int TYPE_HEADER = 5;
   private static final int VIEW_TYPE_COUNT = 6;
+
+  /*
+   * Invalid position indicates, that country group(downloaded, new or outdated) and position in that group cannot be determined correctly.
+   * Normally we shouldn't fall into that case. However, due to some problems with callbacks it can happen.
+   * TODO remove constant & code where it appears after ActiveMapsLayout refactoring.
+   */
+  private static final int INVALID_POSITION = -1;
+
   private int mUpdatedCount;
   private int mOutdatedCount;
   private int mInProgressCount;
@@ -61,28 +73,43 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   @Override
   protected long[] getRemoteItemSizes(int position)
   {
-    final int group = getGroupByAbsPosition(position);
-    final int pos = getPositionInGroup(position);
-    long mapOnly = ActiveCountryTree.getCountrySize(group, pos, StorageOptions.MAP_OPTION_MAP_ONLY, false);
-    return new long[] { mapOnly, mapOnly + ActiveCountryTree.getCountrySize(group, pos, StorageOptions.MAP_OPTION_CAR_ROUTING, false)};
+    final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "getRemoteItemSizes. Cannot get correct positions.");
+    if (groupAndPosition != null)
+    {
+      long mapSize = ActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, StorageOptions.MAP_OPTION_MAP_ONLY, false);
+      long routingSize = ActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, StorageOptions.MAP_OPTION_CAR_ROUTING, false);
+      return new long[]{mapSize, mapSize + routingSize};
+    }
+
+    return new long[]{0, 0};
   }
 
   @Override
   protected long[] getDownloadableItemSizes(int position)
   {
-    final int group = getGroupByAbsPosition(position);
-    final int pos = getPositionInGroup(position);
-    return new long[] { ActiveCountryTree.getCountrySize(group, pos, -1, true),
-                        ActiveCountryTree.getCountrySize(group, pos, -1, false)};
+    final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "getDownloadableItemSizes. Cannot get correct positions.");
+    if (groupAndPosition != null)
+    {
+      long currentSize = ActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, -1, true);
+      long totalSize = ActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, -1, false);
+      return new long[]{currentSize, totalSize};
+    }
+
+    return new long[]{0, 0};
   }
 
   @Override
   public int getCount()
   {
+    updateGroupCounters();
+    return mInProgressCount + (mUpdatedCount == 0 ? 0 : mUpdatedCount + 1) + (mOutdatedCount == 0 ? 0 : mOutdatedCount + 1);
+  }
+
+  private void updateGroupCounters()
+  {
     mInProgressCount = ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_NEW);
     mUpdatedCount = ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_UP_TO_DATE);
     mOutdatedCount = ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_OUT_OF_DATE);
-    return mInProgressCount + (mUpdatedCount == 0 ? 0 : mUpdatedCount + 1) + (mOutdatedCount == 0 ? 0 : mOutdatedCount + 1);
   }
 
   @Override
@@ -91,9 +118,11 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
     if (isHeader(position))
       return null;
 
-    final int group = getGroupByAbsPosition(position);
-    final int positionInGroup = getPositionInGroup(position);
-    return ActiveCountryTree.getCountryItem(group, positionInGroup);
+    final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "getItem. Cannot get correct positions.");
+    if (groupAndPosition != null)
+      return ActiveCountryTree.getCountryItem(groupAndPosition.first, groupAndPosition.second);
+
+    return CountryItem.EMPTY;
   }
 
   @Override
@@ -206,19 +235,24 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   @Override
   protected void cancelDownload(int position)
   {
-    ActiveCountryTree.cancelDownloading(getGroupByAbsPosition(position), getPositionInGroup(position));
+    final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "cancelDownload. Cannot get correct positions.");
+    if (groupAndPosition != null)
+      ActiveCountryTree.cancelDownloading(groupAndPosition.first, groupAndPosition.second);
   }
 
   @Override
   protected void retryDownload(int position)
   {
-    ActiveCountryTree.retryDownloading(getGroupByAbsPosition(position), getPositionInGroup(position));
+    final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "retryDownload. Cannot get correct positions.");
+    if (groupAndPosition != null)
+      ActiveCountryTree.retryDownloading(groupAndPosition.first, groupAndPosition.second);
   }
 
   @Override
   protected void setCountryListener()
   {
-    mListenerSlotId = ActiveCountryTree.addListener(this);
+    if (mListenerSlotId == 0)
+      mListenerSlotId = ActiveCountryTree.addListener(this);
   }
 
   @Override
@@ -230,27 +264,37 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   @Override
   protected void updateCountry(int position, int options)
   {
-    ActiveCountryTree.downloadMap(getGroupByAbsPosition(position), getPositionInGroup(position), options);
+    final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "updateCountry. Cannot get correct positions.");
+    if (groupAndPosition != null)
+      ActiveCountryTree.downloadMap(groupAndPosition.first, groupAndPosition.second, options);
   }
 
   @Override
   protected void downloadCountry(int position, int options)
   {
-    ActiveCountryTree.downloadMap(getGroupByAbsPosition(position), getPositionInGroup(position), options);
+    final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "downloadCountry. Cannot get correct positions.");
+    if (groupAndPosition != null)
+      ActiveCountryTree.downloadMap(groupAndPosition.first, groupAndPosition.second, options);
   }
 
   @Override
   protected void deleteCountry(int position, int options)
   {
-    ActiveCountryTree.deleteMap(getGroupByAbsPosition(position), getPositionInGroup(position), options);
+    final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "downloadCountry. Cannot get correct positions.");
+    if (groupAndPosition != null)
+      ActiveCountryTree.deleteMap(groupAndPosition.first, groupAndPosition.second, options);
   }
 
   @Override
   protected void showCountry(int position)
   {
-    ActiveCountryTree.showOnMap(getGroupByAbsPosition(position), getPositionInGroup(position));
-    resetCountryListener();
-    mFragment.navigateUpToParent();
+    final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "showCountry. Cannot get correct positions.");
+    if (groupAndPosition != null)
+    {
+      ActiveCountryTree.showOnMap(groupAndPosition.first, groupAndPosition.second);
+      resetCountryListener();
+      mFragment.navigateUpToParent();
+    }
   }
 
   @Override
@@ -262,6 +306,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   @Override
   public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
   {
+    updateGroupCounters();
     onCountryStatusChanged(getAbsolutePosition(group, position));
   }
 
@@ -274,6 +319,42 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   @Override
   public void onCountryOptionsChanged(int group, int position, int newOpt, int requestOpt)
   {
+    updateGroupCounters();
     notifyDataSetChanged();
+  }
+
+  /**
+   * Splits absolute position to pair of (group, position in group)
+   *
+   * @param position     absolute position
+   * @param errorMessage message for the log if split fails
+   * @return splitted pair. null if split failed
+   */
+  private Pair<Integer, Integer> splitAbsolutePosition(int position, String errorMessage)
+  {
+    final int group = getGroupByAbsPosition(position);
+    final int positionInGroup = getPositionInGroup(position);
+
+    if (group == INVALID_POSITION || positionInGroup == INVALID_POSITION)
+    {
+      handleInvalidPosition(errorMessage, position, group, positionInGroup);
+      return null;
+    }
+
+    return new Pair<>(group, positionInGroup);
+  }
+
+  private void handleInvalidPosition(String message, int position, int group, int positionInGroup)
+  {
+    Log.d(TAG, message);
+    Log.d(TAG, "Current position : " + position);
+    Log.d(TAG, "Current group : " + group);
+    Log.d(TAG, "Current position in group : " + positionInGroup);
+    Log.d(TAG, "InProgress count : " + mInProgressCount);
+    Log.d(TAG, "Updated count: " + mUpdatedCount);
+    Log.d(TAG, "Outdated count : " + mOutdatedCount);
+
+    if (BuildConfig.DEBUG)
+      throw new IllegalStateException(message);
   }
 }
