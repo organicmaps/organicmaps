@@ -32,6 +32,13 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
   MWMAlert * alert = [self.view.subviews firstObject];
+  if (isIOSVersionLessThan(8) && [alert respondsToSelector:@selector(setTransform:)])
+  {
+    [UIView animateWithDuration:duration animations:^
+    {
+      alert.transform = [self rotationForOrientation:toInterfaceOrientation];
+    }];
+  }
   if ([alert respondsToSelector:@selector(willRotateToInterfaceOrientation:)])
     [alert willRotateToInterfaceOrientation:toInterfaceOrientation];
 }
@@ -56,7 +63,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   }
   UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
   UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
-  UIAlertAction * openSettingsAction = [UIAlertAction actionWithTitle:openSettings style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
+  UIAlertAction * openSettingsAction = [UIAlertAction actionWithTitle:openSettings style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
   {
     [self openSettings];
   }];
@@ -134,6 +141,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   UIWindow * window = [[[UIApplication sharedApplication] delegate] window];
   [window addSubview:self.view];
   self.view.frame = window.bounds;
+  if (isIOSVersionLessThan(8))
+    alert.transform = [self rotationForOrientation:self.ownerViewController.interfaceOrientation];
   [self.view addSubview:alert];
   alert.bounds = self.view.bounds;
   alert.center = self.view.center;
@@ -168,6 +177,22 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   UIApplication * a = [UIApplication sharedApplication];
   if ([a canOpenURL:url])
     [a openURL:url];
+}
+
+- (CGAffineTransform)rotationForOrientation:(UIInterfaceOrientation)orientation
+{
+  switch (orientation)
+  {
+    case UIInterfaceOrientationLandscapeLeft:
+      return CGAffineTransformMakeRotation(-M_PI_2);
+    case UIInterfaceOrientationLandscapeRight:
+      return CGAffineTransformMakeRotation(M_PI_2);
+    case UIInterfaceOrientationPortraitUpsideDown:
+      return CGAffineTransformMakeRotation(M_PI);
+    case UIInterfaceOrientationUnknown:
+    case UIInterfaceOrientationPortrait:
+      return CGAffineTransformIdentity;
+  }
 }
 
 #pragma mark - UIAlertViewDelegate

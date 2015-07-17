@@ -512,6 +512,8 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+  if (isIOSVersionLessThan(8))
+    [(UIViewController *)self.childViewControllers.firstObject willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
   [self.placePageManager layoutPlacePageToOrientation:toInterfaceOrientation];
 }
 
