@@ -101,9 +101,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private final static String SCREENSHOTS_TASK_PPP = "show_place_page";
   private final static String EXTRA_LAT = "lat";
   private final static String EXTRA_LON = "lon";
-  private final static String EXTRA_COUNTRY_INDEX = "country_index";
-  // Need it for search
-  private static final String EXTRA_SEARCH_RES_SINGLE = "search_res_index";
   // Need it for change map style
   private static final String EXTRA_SET_MAP_STYLE = "set_map_style";
   // Instance state
@@ -169,14 +166,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     return new Intent(context, DownloadResourcesActivity.class)
         .putExtra(DownloadResourcesActivity.EXTRA_COUNTRY_INDEX, index)
         .putExtra(DownloadResourcesActivity.EXTRA_AUTODOWNLOAD_CONTRY, doAutoDownload);
-  }
-
-  public static void startWithSearchResult(Context context, boolean single)
-  {
-    final Intent mapIntent = new Intent(context, MWMActivity.class);
-    mapIntent.putExtra(EXTRA_SEARCH_RES_SINGLE, single);
-    context.startActivity(mapIntent);
-    // Next we need to handle intent
   }
 
   public static void setMapStyle(Context context, int mapStyle)
@@ -699,17 +688,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
       if (intent.hasExtra(EXTRA_TASK))
         addTask(intent);
-      else if (intent.hasExtra(EXTRA_SEARCH_RES_SINGLE))
-      {
-        if (intent.getBooleanExtra(EXTRA_SEARCH_RES_SINGLE, false))
-        {
-          popFragment();
-          MapObject.SearchResult result = new MapObject.SearchResult(0);
-          activateMapObject(result);
-        }
-        else
-          onDismiss();
-      }
       else if (intent.hasExtra(EXTRA_SET_MAP_STYLE))
       {
         final int mapStyle = intent.getIntExtra(EXTRA_SET_MAP_STYLE, Framework.MAP_STYLE_LIGHT);
@@ -1605,6 +1583,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       InputUtils.hideKeyboard(mBottomButtons);
       mFadeView.fadeOut(false);
       refreshRouterIcon();
+      mSearchController.refreshToolbar();
     }
   }
 
