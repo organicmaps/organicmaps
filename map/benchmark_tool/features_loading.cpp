@@ -2,8 +2,6 @@
 
 #include "map/feature_vec_model.hpp"
 
-#include "indexer/data_factory.hpp"
-#include "indexer/data_header.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
 
@@ -13,6 +11,7 @@
 
 #include "base/macros.hpp"
 #include "base/timer.hpp"
+
 
 namespace bench
 {
@@ -99,34 +98,29 @@ namespace
 
 void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleR, AllResult & res)
 {
-  string baseName = file;
-  my::GetNameFromFullPath(baseName);
-
-  // Check that file is relative to maps dir.
-  ASSERT_EQUAL(file, baseName, ());
-
-  string countryFileName = baseName;
-  my::GetNameWithoutExt(countryFileName);
+  string fileName = file;
+  my::GetNameFromFullPath(fileName);
+  my::GetNameWithoutExt(fileName);
 
   platform::LocalCountryFile localFile =
-      platform::LocalCountryFile::MakeForTesting(countryFileName);
+      platform::LocalCountryFile::MakeForTesting(fileName);
 
-  feature::DataHeader header;
-  LoadMapHeader(GetPlatform().GetCountryReader(localFile, TMapOptions::EMap), header);
+  model::FeaturesFetcher src;
+  auto const r = src.RegisterMap(localFile);
+  if (r.second != MwmSet::RegResult::Success)
+    return;
 
-  pair<int, int> const r = header.GetScaleRange();
-  if (r.first > scaleR.first)
-    scaleR.first = r.first;
-  if (r.second < scaleR.second)
-    scaleR.second = r.second;
+  uint8_t const minS = r.first.GetInfo()->m_minScale;
+  uint8_t const maxS = r.first.GetInfo()->m_maxScale;
+  if (minS > scaleR.first)
+    scaleR.first = minS;
+  if (maxS < scaleR.second)
+    scaleR.second = maxS;
 
   if (scaleR.first > scaleR.second)
     return;
 
-  model::FeaturesFetcher src;
-  UNUSED_VALUE(src.RegisterMap(platform::LocalCountryFile::MakeForTesting(countryFileName)));
-
-  RunBenchmark(src, header.GetBounds(), scaleR, res);
+  RunBenchmark(src, r.first.GetInfo()->m_limitRect, scaleR, res);
 }
 
 }

@@ -2,8 +2,6 @@
 #include "indexer/data_header.hpp"
 #include "indexer/mwm_version.hpp"
 
-#include "coding/reader.hpp"
-
 
 class FilesContainerR;
 class IntervalIndexIFace;
@@ -21,6 +19,3 @@ public:
 
   IntervalIndexIFace * CreateIndex(ModelReaderPtr reader);
 };
-
-void LoadMapHeader(FilesContainerR const & cont, feature::DataHeader & header);
-void LoadMapHeader(ModelReaderPtr const & reader, feature::DataHeader & header);

@@ -4,8 +4,6 @@
 
 #include "coding/var_record_reader.hpp"
 
-#include "std/noncopyable.hpp"
-
 
 namespace feature { class FeaturesOffsetsTable; }
 
@@ -13,6 +11,8 @@ namespace feature { class FeaturesOffsetsTable; }
 /// You should have separate instance of Vector for every thread.
 class FeaturesVector
 {
+  DISALLOW_COPY(FeaturesVector);
+
 public:
   FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header,
                  feature::FeaturesOffsetsTable const * table)
@@ -52,19 +52,12 @@ private:
 };
 
 /// Test features vector (reader) that combines all the needed data for stand-alone work.
-class FeaturesVectorTest : private noncopyable
+/// Used in generator_tool and unit tests.
+class FeaturesVectorTest
 {
   FilesContainerR m_cont;
   feature::DataHeader m_header;
-
-  struct Initializer
-  {
-    Initializer(FeaturesVectorTest * p);
-  } m_initializer;
-
   FeaturesVector m_vector;
-
-  void Init();
 
 public:
   explicit FeaturesVectorTest(string const & filePath);

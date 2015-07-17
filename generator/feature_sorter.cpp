@@ -191,7 +191,7 @@ namespace feature
 
       points_t m_current;
 
-      DataHeader m_header;
+      DataHeader const & m_header;
 
       void WriteOuterPoints(points_t const & points, int i)
       {

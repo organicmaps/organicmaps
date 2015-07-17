@@ -107,7 +107,7 @@ class FilesContainerR : public FilesContainerBase
 public:
   typedef ModelReaderPtr ReaderT;
 
-  explicit FilesContainerR(string const & fName,
+  explicit FilesContainerR(string const & filePath,
                            uint32_t logPageSize = 10,
                            uint32_t logPageCount = 10);
   explicit FilesContainerR(ReaderT const & file);

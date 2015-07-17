@@ -4,7 +4,6 @@
 #include "indexer/data_header.hpp"
 
 #include "platform/settings.hpp"
-#include "platform/platform.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/reader_streambuf.hpp"
@@ -17,13 +16,9 @@ class DoGetBenchmarks
   set<string> m_processed;
 
   BenchmarkEngine & m_engine;
-  Platform & m_pl;
 
 public:
-  DoGetBenchmarks(BenchmarkEngine & engine)
-    : m_engine(engine), m_pl(GetPlatform())
-  {
-  }
+  explicit DoGetBenchmarks(BenchmarkEngine & engine) : m_engine(engine) {}
 
   void operator() (vector<string> const & v)
   {
@@ -38,8 +33,7 @@ public:
     {
       try
       {
-        feature::DataHeader header;
-        header.Load(FilesContainerR(m_pl.GetReader(v[0])).GetReader(HEADER_FILE_TAG));
+        feature::DataHeader header(v[0]);
         r = header.GetBounds();
       }
       catch (RootException const & e)

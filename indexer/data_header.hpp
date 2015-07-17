@@ -8,8 +8,9 @@
 #include "base/buffer_vector.hpp"
 
 
-class ModelReaderPtr;
+class FilesContainerR;
 class FileWriter;
+class ModelReaderPtr;
 
 namespace feature
 {
@@ -28,6 +29,9 @@ namespace feature
     buffer_vector<uint8_t, 2> m_langs;
 
   public:
+    DataHeader() = default;
+    explicit DataHeader(string const & fileName);
+    explicit DataHeader(FilesContainerR const & cont);
 
     inline void SetCodingParams(serial::CodingParams const & cp)
     {
@@ -66,12 +70,7 @@ namespace feature
     /// @name Serialization
     //@{
     void Save(FileWriter & w) const;
-
-    /// Use lastFormat as a default value for indexes building.
-    /// Pass the valid format from wmw in all other cases.
-    void Load(ModelReaderPtr const & r, version::Format format = version::lastFormat);
-    void LoadV1(ModelReaderPtr const & r);
-    //@}
+    void Load(FilesContainerR const & cont);
 
     enum MapType
     {
@@ -86,5 +85,11 @@ namespace feature
   private:
     version::Format m_format;
     MapType m_type;
+
+    /// Use lastFormat as a default value for indexes building.
+    /// Pass the valid format from wmw in all other cases.
+    void Load(ModelReaderPtr const & r, version::Format format);
+    void LoadV1(ModelReaderPtr const & r);
+    //@}
   };
 }

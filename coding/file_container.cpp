@@ -61,10 +61,10 @@ void FilesContainerBase::ReadInfo(ReaderT & reader)
 // FilesContainerR
 /////////////////////////////////////////////////////////////////////////////
 
-FilesContainerR::FilesContainerR(string const & fName,
+FilesContainerR::FilesContainerR(string const & filePath,
                                  uint32_t logPageSize,
                                  uint32_t logPageCount)
-  : m_source(new FileReader(fName, logPageSize, logPageCount))
+  : m_source(new FileReader(filePath, logPageSize, logPageCount))
 {
   ReadInfo(m_source);
 }

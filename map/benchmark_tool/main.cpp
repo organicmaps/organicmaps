@@ -1,9 +1,7 @@
 #include "map/benchmark_tool/api.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/data_factory.hpp"
-
-#include "platform/platform.hpp"
+#include "indexer/data_header.hpp"
 
 #include "std/iostream.hpp"
 
@@ -31,9 +29,7 @@ int main(int argc, char ** argv)
 
   if (FLAGS_print_scales)
   {
-    feature::DataHeader h;
-    LoadMapHeader(GetPlatform().GetReader(FLAGS_input), h);
-
+    feature::DataHeader h(FLAGS_input);
     cout << "Scales with geometry: ";
     for (size_t i = 0; i < h.GetScalesCount(); ++i)
       cout << h.GetScale(i) << " ";

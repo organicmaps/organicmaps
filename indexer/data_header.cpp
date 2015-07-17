@@ -2,17 +2,28 @@
 #include "indexer/point_to_int64.hpp"
 #include "indexer/scales.hpp"
 
-#include "defines.hpp"
+#include "platform/platform.hpp"
 
-#include "coding/file_reader.hpp"
-#include "coding/file_writer.hpp"
 #include "coding/file_container.hpp"
+#include "coding/file_writer.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/varint.hpp"
+
+#include "defines.hpp"
 
 
 namespace feature
 {
+  DataHeader::DataHeader(string const & fileName)
+    : DataHeader((FilesContainerR(GetPlatform().GetReader(fileName))))
+  {
+  }
+
+  DataHeader::DataHeader(FilesContainerR const & cont)
+  {
+    Load(cont);
+  }
+
   serial::CodingParams DataHeader::GetCodingParams(int scaleIndex) const
   {
     return serial::CodingParams(m_codingParams.GetCoordBits() -
@@ -93,7 +104,18 @@ namespace feature
     WriteVarInt(w, static_cast<int32_t>(m_type));
   }
 
-  void DataHeader::Load(ModelReaderPtr const & r, version::Format format /* = version::lastFormat */)
+  void DataHeader::Load(FilesContainerR const & cont)
+  {
+    ModelReaderPtr headerReader = cont.GetReader(HEADER_FILE_TAG);
+    version::MwmVersion version;
+
+    if (version::ReadVersion(cont, version))
+      Load(headerReader, version.format);
+    else
+      LoadV1(headerReader);
+  }
+
+  void DataHeader::Load(ModelReaderPtr const & r, version::Format format)
   {
     ReaderSource<ModelReaderPtr> src(r);
     m_codingParams.Load(src);

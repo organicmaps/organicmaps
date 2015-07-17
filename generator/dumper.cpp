@@ -197,10 +197,7 @@ namespace feature
   void DumpSearchTokens(string const & fPath)
   {
     FilesContainerR container(new FileReader(fPath));
-
-    feature::DataHeader header;
-    header.Load(container.GetReader(HEADER_FILE_TAG));
-
+    feature::DataHeader header(container);
     serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
 
     unique_ptr<search::TrieIterator> const pTrieRoot(
