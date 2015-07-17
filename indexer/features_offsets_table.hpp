@@ -11,7 +11,7 @@
 namespace platform
 {
   class LocalCountryFile;
-} //  platform
+}
 
 namespace feature
 {
