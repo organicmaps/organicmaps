@@ -70,7 +70,6 @@ void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const
 {
   {
     lock_guard<mutex> paramsGuard(m_paramsMutex);
-    UNUSED_VALUE(paramsGuard);
 
     m_startPoint = startPoint;
     m_startDirection = direction;
@@ -87,7 +86,6 @@ void AsyncRouter::ClearState()
   m_router->Cancel();
 
   lock_guard<mutex> routingGuard(m_routingMutex);
-  UNUSED_VALUE(routingGuard);
 
   m_router->ClearState();
 }
@@ -143,14 +141,12 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
   IRouter::ResultCode code;
 
   lock_guard<mutex> routingGuard(m_routingMutex);
-  UNUSED_VALUE(routingGuard);
 
   m_isReadyThread.clear();
 
   m2::PointD startPoint, finalPoint, startDirection;
   {
     lock_guard<mutex> paramsGuard(m_paramsMutex);
-    UNUSED_VALUE(paramsGuard);
 
     startPoint = m_startPoint;
     finalPoint = m_finalPoint;
