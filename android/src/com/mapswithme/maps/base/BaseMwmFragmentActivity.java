@@ -41,13 +41,14 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   {
     super.onStart();
     Statistics.INSTANCE.startActivity(this);
-
     MRMyTracker.onStartActivity(this);
+    org.alohalytics.Statistics.onStart(this);
   }
 
   @Override
   protected void onStop()
   {
+    org.alohalytics.Statistics.onStop(this);
     Statistics.INSTANCE.stopActivity(this);
     super.onStop();
 

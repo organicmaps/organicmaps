@@ -50,6 +50,9 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver {
   }
 
   public void onNetworkConnected() {
-    org.alohalytics.Statistics.forceUpload();
+    // Do not break active session, it will be sent later, when user close all app's activities.
+    if (!org.alohalytics.Statistics.isSessionActive()) {
+      org.alohalytics.Statistics.forceUpload();
+    }
   }
 }

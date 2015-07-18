@@ -24,10 +24,13 @@
 
 package org.alohalytics;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Pair;
 
 import java.io.File;
@@ -38,6 +41,8 @@ public class Statistics {
 
   private static final String TAG = "Alohalytics";
   private static boolean sDebugModeEnabled = false;
+  private static int sActivitiesCounter = 0;
+  private static long sSessionStartTimeInNanoSeconds;
 
   public static void setDebugMode(boolean enable) {
     sDebugModeEnabled = enable;
@@ -49,6 +54,46 @@ public class Statistics {
 
   public static boolean debugMode() {
     return sDebugModeEnabled;
+  }
+
+  public static boolean isSessionActive() {
+    return sActivitiesCounter > 0;
+  }
+
+  // Should be called from every activity's onStart for
+  // reliable data delivery and session tracking.
+  public static void onStart(Activity activity) {
+    // TODO(AlexZ): Create instance in setup and check that it was called before onStart.
+    if (sActivitiesCounter == 0) {
+      sSessionStartTimeInNanoSeconds = System.nanoTime();
+      logEvent("$startSession");
+    }
+    ++sActivitiesCounter;
+    logEvent("$onStart", activity.getClass().getSimpleName());
+  }
+
+  // Should be called from every activity's onStop for
+  // reliable data delivery and session tracking.
+  // If another activity of the same app is started, it's onStart is called
+  // before onStop of the previous activity of the same app.
+  public static void onStop(Activity activity) {
+    if (sActivitiesCounter == 0) {
+      throw new IllegalStateException("onStop() is called before onStart()");
+    }
+    --sActivitiesCounter;
+    logEvent("$onStop", activity.getClass().getSimpleName());
+    if (sActivitiesCounter == 0) {
+      final long currentTimeInNanoSeconds = System.nanoTime();
+      final long sessionLengthInSeconds =
+          (currentTimeInNanoSeconds - sSessionStartTimeInNanoSeconds) / 1000000000;
+      logEvent("$endSession", String.valueOf(sessionLengthInSeconds));
+      // Send data only if connected to any network.
+      final ConnectivityManager manager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+      final NetworkInfo info = manager.getActiveNetworkInfo();
+      if (info != null && info.isConnected()) {
+        forceUpload();
+      }
+    }
   }
 
   // Passed serverUrl will be modified to $(serverUrl)/android/packageName/versionCode

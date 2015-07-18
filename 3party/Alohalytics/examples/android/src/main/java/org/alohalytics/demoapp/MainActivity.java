@@ -65,6 +65,20 @@ public class MainActivity extends Activity {
   }
 
   @Override
+  protected void onStart() {
+    super.onStart();
+    // onStart and onStop are needed for reliable session tracking/uploading.
+    Statistics.onStart(this);
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    // onStart and onStop are needed for reliable session tracking/uploading.
+    Statistics.onStop(this);
+  }
+
+  @Override
   protected void onResume() {
     super.onResume();
 

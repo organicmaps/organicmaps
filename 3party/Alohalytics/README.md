@@ -46,7 +46,10 @@ Built-in logged events
 - $update
 - $androidIds
 - $androidDeviceInfo
-
+- $startSession
+- $endSession
+- $onStart
+- $onStop
 
 Other platforms
 ======
