@@ -35,7 +35,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.api.ParsedMmwRequest;
+import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -419,7 +419,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private void refreshButtons(boolean showBackButton)
   {
     if (showBackButton ||
-        (ParsedMmwRequest.hasRequest() && ParsedMmwRequest.getCurrentRequest().isPickPointMode()))
+        (ParsedMwmRequest.hasRequest() && ParsedMwmRequest.getCurrentRequest().isPickPointMode()))
       mLlApiBack.setVisibility(View.VISIBLE);
     else
       mLlApiBack.setVisibility(View.GONE);
@@ -545,7 +545,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void checkApiWasCanceled()
   {
-    if ((mMapObject.getType() == MapObjectType.API_POINT) && !ParsedMmwRequest.hasRequest())
+    if ((mMapObject.getType() == MapObjectType.API_POINT) && !ParsedMwmRequest.hasRequest())
     {
       setMapObject(null);
 
@@ -616,9 +616,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       break;
     case R.id.rl__api_back:
       final Activity activity = (Activity) getContext();
-      if (ParsedMmwRequest.hasRequest())
+      if (ParsedMwmRequest.hasRequest())
       {
-        final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
+        final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
         if (request.isPickPointMode())
           request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getName(), "");
         request.sendResponseAndFinish(activity, true);

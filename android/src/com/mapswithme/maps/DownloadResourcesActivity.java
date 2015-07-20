@@ -20,7 +20,7 @@ import com.mapswithme.maps.MWMActivity.MapTask;
 import com.mapswithme.maps.MWMActivity.OpenUrlTask;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.Const;
-import com.mapswithme.maps.api.ParsedMmwRequest;
+import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.ConnectionState;
@@ -662,8 +662,8 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       {
         Framework.cleanSearchLayerOnMap();
 
-        final ParsedMmwRequest request = ParsedMmwRequest.extractFromIntent(intent);
-        ParsedMmwRequest.setCurrentRequest(request);
+        final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
+        ParsedMwmRequest.setCurrentRequest(request);
         Statistics.INSTANCE.trackApiCall(request);
 
         if (!request.isPickPointMode())

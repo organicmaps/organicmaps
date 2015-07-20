@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.api.ParsedMmwRequest;
+import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.util.UiUtils;
 
 public class SearchToolbarController implements OnClickListener
@@ -52,10 +52,10 @@ public class SearchToolbarController implements OnClickListener
     mSearchQuery.setFocusable(false);
     UiUtils.hide(mSearchProgress, mVoiceInput);
 
-    if (ParsedMmwRequest.hasRequest())
+    if (ParsedMwmRequest.hasRequest())
     {
       UiUtils.show(mSearchToolbar);
-      mSearchQuery.setText(ParsedMmwRequest.getCurrentRequest().getTitle());
+      mSearchQuery.setText(ParsedMwmRequest.getCurrentRequest().getTitle());
     }
     else if (!TextUtils.isEmpty(mQuery))
     {
@@ -94,8 +94,8 @@ public class SearchToolbarController implements OnClickListener
 
   public static void cancelApiCall()
   {
-    if (ParsedMmwRequest.hasRequest())
-      ParsedMmwRequest.setCurrentRequest(null);
+    if (ParsedMwmRequest.hasRequest())
+      ParsedMwmRequest.setCurrentRequest(null);
     Framework.nativeClearApiPoints();
   }
 

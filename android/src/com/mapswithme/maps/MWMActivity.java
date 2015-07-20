@@ -44,7 +44,7 @@ import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
-import com.mapswithme.maps.api.ParsedMmwRequest;
+import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity;
@@ -1113,9 +1113,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   public void onApiPointActivated(final double lat, final double lon, final String name, final String id)
   {
-    if (ParsedMmwRequest.hasRequest())
+    if (ParsedMwmRequest.hasRequest())
     {
-      final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
+      final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
       request.setPointData(lat, lon, name, id);
 
       runOnUiThread(new Runnable()
@@ -1123,7 +1123,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
         @Override
         public void run()
         {
-          final String poiType = ParsedMmwRequest.getCurrentRequest().getCallerName(MWMApplication.get()).toString();
+          final String poiType = ParsedMwmRequest.getCurrentRequest().getCallerName(MWMApplication.get()).toString();
           activateMapObject(new ApiPoint(name, id, poiType, lat, lon));
         }
       });

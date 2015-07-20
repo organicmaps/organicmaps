@@ -6,7 +6,7 @@ import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.api.ParsedMmwRequest;
+import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.MathUtils;
@@ -224,7 +224,7 @@ public enum Statistics
     trackIfEnabled(event);
   }
 
-  public void trackApiCall(ParsedMmwRequest request)
+  public void trackApiCall(ParsedMwmRequest request)
   {
     if (request != null && request.getCallerInfo() != null)
     {

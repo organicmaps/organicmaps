@@ -10,10 +10,10 @@ import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
 
-public class ParsedMmwRequest
+public class ParsedMwmRequest
 {
 
-  private static volatile ParsedMmwRequest sCurrentRequest;
+  private static volatile ParsedMwmRequest sCurrentRequest;
 
   // caller info
   private ApplicationInfo mCallerInfo;
@@ -50,15 +50,15 @@ public class ParsedMmwRequest
 
   public String getCustomButtonName() { return mCustomButtonName; }
 
-  public static ParsedMmwRequest getCurrentRequest() { return sCurrentRequest; }
+  public static ParsedMwmRequest getCurrentRequest() { return sCurrentRequest; }
 
   public static boolean hasRequest() { return sCurrentRequest != null; }
 
-  public static void setCurrentRequest(ParsedMmwRequest request) { sCurrentRequest = request; }
+  public static void setCurrentRequest(ParsedMwmRequest request) { sCurrentRequest = request; }
 
-  public static ParsedMmwRequest extractFromIntent(Intent data)
+  public static ParsedMwmRequest extractFromIntent(Intent data)
   {
-    final ParsedMmwRequest request = new ParsedMmwRequest();
+    final ParsedMwmRequest request = new ParsedMwmRequest();
 
     request.mCallerInfo = data.getParcelableExtra(Const.EXTRA_CALLER_APP_INFO);
     request.mTitle = data.getStringExtra(Const.EXTRA_TITLE);
@@ -155,8 +155,8 @@ public class ParsedMmwRequest
   }
 
   /**
-   * Do not use constructor externally. Use {@link ParsedMmwRequest#extractFromIntent(android.content.Intent)} instead.
+   * Do not use constructor externally. Use {@link ParsedMwmRequest#extractFromIntent(android.content.Intent)} instead.
    */
-  private ParsedMmwRequest()
+  private ParsedMwmRequest()
   {}
 }
