@@ -8,14 +8,15 @@
 
 #import "MWMNavigationDashboard.h"
 
+@interface MWMNavigationDashboard ()
+
+@end
+
 @implementation MWMNavigationDashboard
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)layoutSubviews
+{
+  self.frame = CGRectMake(0.0, 0.0, self.superview.width, 92.0);
 }
-*/
 
 @end

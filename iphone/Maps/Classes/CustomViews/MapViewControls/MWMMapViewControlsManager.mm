@@ -10,6 +10,7 @@
 #import "MapViewController.h"
 #import "MWMLocationButton.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMNavigationDashboardManager.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
 #import "MWMSideMenuManager.h"
@@ -21,6 +22,7 @@
 @property (nonatomic) MWMLocationButton * locationButton;
 @property (nonatomic) MWMSideMenuManager * menuManager;
 @property (nonatomic) MWMPlacePageViewManager * placePageManager;
+@property (nonatomic) MWMNavigationDashboardManager * navigationManager;
 
 @property (weak, nonatomic) MapViewController * ownerController;
 
@@ -40,6 +42,7 @@
   self.locationButton = [[MWMLocationButton alloc] initWithParentView:controller.view];
   self.menuManager = [[MWMSideMenuManager alloc] initWithParentController:controller];
   self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:controller delegate:self];
+  self.navigationManager = [[MWMNavigationDashboardManager alloc] init];
   self.hidden = NO;
   self.zoomHidden = NO;
   self.menuState = MWMSideMenuStateInactive;

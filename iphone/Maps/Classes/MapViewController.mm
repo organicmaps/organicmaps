@@ -575,7 +575,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   [self.view addSubview:self.routeViewWrapper];
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   [self.view addSubview:self.searchView];
-
   __weak MapViewController * weakSelf = self;
   m_mapsObserver = new ActiveMapsObserver(weakSelf);
 }
