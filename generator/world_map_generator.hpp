@@ -26,6 +26,7 @@ class WorldMapGenerator
     deque<m2::RegionD> m_waterRegions;
 
     m4::Tree<size_t> m_tree;
+    map<uint32_t, size_t> m_mapTypes;
 
   public:
     explicit EmitterImpl(feature::GenerateInfo const & info)
@@ -35,6 +36,16 @@ class WorldMapGenerator
       LoadWaterGeometry(my::JoinFoldersToPath({info.m_intermediateDir},
                                                   string(WORLD_COASTS_FILE_NAME) + ".rawdump"));
       LOG(LINFO, ("Output World file:", info.GetTmpFileName(WORLD_FILE_NAME)));
+    }
+
+    ~EmitterImpl()
+    {
+      Classificator const & c = classif();
+
+      stringstream ss;
+      for (auto const & p : m_mapTypes)
+        ss << c.GetReadableObjectName(p.first) << " : " <<  p.second << endl;
+      LOG(LINFO, ("World types:\n", ss.str()));
     }
 
     void LoadWaterGeometry(string const & rawGeometryFileName)
@@ -77,6 +88,12 @@ class WorldMapGenerator
       if (NeedPushToWorld(fb) &&
           scales::IsGoodForLevel(scales::GetUpperWorldScale(), fb.GetLimitRect()))
         PushSure(fb);
+    }
+
+    void CalcStatistics(FeatureBuilder1 const & fb)
+    {
+      for (uint32_t type : fb.GetTypes())
+        ++m_mapTypes[type];
     }
 
     bool IsWaterBoundaries(FeatureBuilder1 const & fb) const
@@ -173,6 +190,7 @@ public:
   {
     if (m_worldBucket.NeedPushToWorld(fb))
     {
+      m_worldBucket.CalcStatistics(fb);
       // skip visible water boundary
       if (m_worldBucket.IsWaterBoundaries(fb))
         return;

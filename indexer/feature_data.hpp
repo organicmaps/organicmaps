@@ -208,8 +208,8 @@ class FeatureParams : public FeatureParamsBase
 public:
 
 
-  typedef vector<uint32_t> types_t;
-  types_t m_Types;
+  typedef vector<uint32_t> TTypes;
+  TTypes m_Types;
 
   bool m_reverseGeometry;
 
