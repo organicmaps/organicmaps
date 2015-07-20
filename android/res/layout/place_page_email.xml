@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/ll__place_email"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll__place_email"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/clickableBackground"
@@ -10,7 +11,9 @@
     android:paddingBottom="@dimen/margin_half"
     android:paddingTop="@dimen/margin_half"
     android:tag="email"
-    android:visibility="gone">
+    android:visibility="gone"
+    tools:visibility="visible"
+    tools:background="#F000FF00">
 
   <ImageView
       android:id="@+id/iv__place_email"
@@ -24,5 +27,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textColor="@color/text_place_page_blue"
-      android:textSize="@dimen/place_page_subtitle"/>
+      android:textSize="@dimen/place_page_subtitle"
+      tools:text="email@maps.me"/>
 </LinearLayout>

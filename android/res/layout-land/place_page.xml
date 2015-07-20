@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
-
   <include
       android:id="@+id/pp__preview"
       layout="@layout/place_page_preview"
@@ -9,7 +8,6 @@
       android:background="@drawable/bg_place_page_back"/>
 
   <include
-      android:id="@+id/pp__details"
       layout="@layout/place_page_details"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

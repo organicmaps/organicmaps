@@ -1,47 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <LinearLayout
-      android:id="@+id/rl__place_details"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+  <com.mapswithme.maps.widget.ObservableScrollView
+      android:id="@+id/pp__details"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:paddingLeft="@dimen/margin_base_plus"
-      android:paddingRight="@dimen/margin_base_plus"
-      android:paddingTop="@dimen/margin_base">
-
-    <View
+      android:layout_height="match_parent"
+      android:overScrollMode="never">
+    <LinearLayout
+        android:id="@+id/rl__place_details"
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginBottom="@dimen/margin_half"
-        android:background="?android:attr/listDivider"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/bg_top_panels"
+        android:paddingLeft="@dimen/margin_base_plus"
+        android:paddingRight="@dimen/margin_base_plus"
+        android:paddingTop="@dimen/margin_base">
 
-    <include layout="@layout/place_page_placename"/>
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1px"
+          android:layout_marginBottom="@dimen/margin_half"
+          android:background="?android:attr/listDivider"/>
 
-    <include layout="@layout/place_page_phone"/>
+      <include layout="@layout/place_page_placename"/>
 
-    <include layout="@layout/place_page_website"/>
+      <include layout="@layout/place_page_phone"/>
 
-    <include layout="@layout/place_page_schedule"/>
+      <include layout="@layout/place_page_website"/>
 
-    <include layout="@layout/place_page_latlon"/>
+      <include layout="@layout/place_page_schedule"/>
 
-    <include layout="@layout/place_page_wifi"/>
+      <include layout="@layout/place_page_latlon"/>
 
-    <include layout="@layout/place_page_email"/>
+      <include layout="@layout/place_page_wifi"/>
 
-    <include layout="@layout/place_page_operator"/>
+      <include layout="@layout/place_page_email"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_marginBottom="@dimen/margin_half"/>
+      <include layout="@layout/place_page_operator"/>
 
-    <include
-        layout="@layout/place_page_bookmark_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="0px"
+          android:layout_marginBottom="@dimen/margin_half"/>
 
-  </LinearLayout>
+      <include
+          layout="@layout/place_page_bookmark_details"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+    </LinearLayout>
+  </com.mapswithme.maps.widget.ObservableScrollView>
 
-</merge>
+  <include layout="@layout/shadow_top"/>
+
+  <include layout="@layout/shadow_bottom"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"/>
+</FrameLayout>

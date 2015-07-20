@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/ll__place_phone"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll__place_phone"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/clickableBackground"
@@ -10,7 +11,9 @@
     android:paddingBottom="@dimen/margin_half"
     android:paddingTop="@dimen/margin_half"
     android:tag="phone"
-    android:visibility="gone">
+    android:visibility="gone"
+    tools:visibility="visible"
+    tools:background="#200000FF">
 
   <ImageView
       android:id="@+id/iv__place_phone"
@@ -24,6 +27,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textColor="@color/text_place_page_blue"
-      android:textSize="@dimen/place_page_subtitle"/>
+      android:textSize="@dimen/place_page_subtitle"
+      tools:text="+1 234 567-89-00"
+  />
 
 </LinearLayout>

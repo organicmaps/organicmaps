@@ -13,9 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <include
-        android:id="@+id/pp__details"
-        layout="@layout/place_page_details"/>
+    <include layout="@layout/place_page_details"/>
 
   </LinearLayout>
 

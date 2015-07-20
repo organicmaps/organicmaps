@@ -5,7 +5,8 @@
               android:background="@color/bg_top_panels"
               android:orientation="vertical"
               android:paddingLeft="@dimen/margin_half_plus"
-              android:paddingRight="@dimen/margin_half_plus">
+              android:paddingRight="@dimen/margin_half_plus"
+              android:layout_marginTop="@dimen/margin_base">
 
   <View
       android:layout_width="match_parent"

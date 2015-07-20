@@ -15,7 +15,6 @@
         android:background="@drawable/bg_place_page_back"/>
 
     <include
-        android:id="@+id/pp__details"
         layout="@layout/place_page_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

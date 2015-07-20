@@ -50,7 +50,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
@@ -80,8 +79,7 @@ public class BottomSheet extends Dialog implements DialogInterface {
     private Drawable more;
     private boolean collapseListIcons;
     private int mStatusBarHeight;
-    private GridView list;
-    private View listShadow;
+    protected GridView list;
     private SimpleSectionedGridAdapter adapter;
     private Builder builder;
 
@@ -113,7 +111,7 @@ public class BottomSheet extends Dialog implements DialogInterface {
     }
 
     @SuppressWarnings("WeakerAccess")
-    BottomSheet(Context context, int theme) {
+    protected BottomSheet(Context context, int theme) {
         super(context, theme);
 
         TypedArray a = getContext()
@@ -264,7 +262,7 @@ public class BottomSheet extends Dialog implements DialogInterface {
         cancelOnSwipeDown = cancel;
     }
 
-    private void init(final Context context) {
+    protected void init(final Context context) {
         setCanceledOnTouchOutside(cancelOnTouchOutside);
         final ClosableSlidingLayout mDialogView = (ClosableSlidingLayout) View.inflate(context, R.layout.bottom_sheet_dialog, null);
         setContentView(mDialogView);
@@ -318,8 +316,6 @@ public class BottomSheet extends Dialog implements DialogInterface {
         if (!builder.grid) {
             list.setNumColumns(1);
         }
-
-        listShadow = mDialogView.findViewById(R.id.bottom_sheet_list_shadow);
 
         if (builder.grid) {
             for (int i = 0; i < getMenu().size(); i++) {
@@ -480,20 +476,7 @@ public class BottomSheet extends Dialog implements DialogInterface {
         }
     }
 
-    public boolean shouldShowShadow() {
-        int first = list.getFirstVisiblePosition();
-        if (first > 0)
-            return true;
-
-        View child = list.getChildAt(0);
-        return (child.getTop() < 0);
-    }
-
-    private void updateListShadow() {
-        listShadow.setVisibility(shouldShowShadow() ? View.VISIBLE : View.GONE);
-    }
-
-    private void showFullItems() {
+    protected void showFullItems() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Transition changeBounds = new ChangeBounds();
             changeBounds.setDuration(300);
@@ -512,20 +495,9 @@ public class BottomSheet extends Dialog implements DialogInterface {
             }
         });
         setListLayout();
-
-        list.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                updateListShadow();
-            }
-        });
     }
 
-    private void showShortItems() {
+    protected void showShortItems() {
         actions = menuItem;
         updateSection();
         adapter.notifyDataSetChanged();
@@ -539,7 +511,6 @@ public class BottomSheet extends Dialog implements DialogInterface {
         }
 
         list.setOnScrollListener(null);
-        listShadow.setVisibility(View.GONE);
     }
 
     private boolean hasDivider() {
@@ -852,6 +823,9 @@ public class BottomSheet extends Dialog implements DialogInterface {
             return this;
         }
 
+        protected BottomSheet createDialog(Context context, int theme) {
+            return new BottomSheet(context, theme);
+        }
 
         /**
          * Create a BottomSheet but not show it
@@ -860,7 +834,7 @@ public class BottomSheet extends Dialog implements DialogInterface {
          */
         @SuppressLint("Override")
         public BottomSheet build() {
-            BottomSheet dialog = new BottomSheet(context, theme);
+            BottomSheet dialog = createDialog(context, theme);
             dialog.builder = this;
             return dialog;
         }

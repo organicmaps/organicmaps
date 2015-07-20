@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.BuildConfig;
@@ -48,12 +49,16 @@ import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.ArrowView;
+import com.mapswithme.maps.widget.BaseShadowController;
+import com.mapswithme.maps.widget.ObservableScrollView;
+import com.mapswithme.maps.widget.ScrollViewShadowController;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.sharing.ShareAction;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.sharing.ShareAction;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -73,7 +78,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private RatingBar mRbStars;
   private TextView mTvElevation;
   // Place page details
-  private ViewGroup mPpDetails;
+  private ScrollView mPpDetails;
   private LinearLayout mLlAddress;
   private TextView mTvAddress;
   private LinearLayout mLlPhone;
@@ -98,6 +103,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private Button mBtnEditHtmlDescription;
   private TextView mTvBookmarkGroup;
   // Place page buttons
+  private BaseShadowController mShadowController;
   private LinearLayout mLlApiBack;
   private ImageView mIvBookmark;
   // Animations
@@ -156,7 +162,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mRbStars = (RatingBar) ppPreview.findViewById(R.id.rb__stars);
     mTvElevation = (TextView) ppPreview.findViewById(R.id.tv__peak_elevation);
 
-    mPpDetails = (ViewGroup) findViewById(R.id.pp__details);
+    mPpDetails = (ScrollView) findViewById(R.id.pp__details);
     mLlAddress = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_name);
     mTvAddress = (TextView) mPpDetails.findViewById(R.id.tv__place_address);
     mLlPhone = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_phone);
@@ -209,6 +215,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     bookmarkGroup.setOnClickListener(this);
     mIvBookmark = (ImageView) bookmarkGroup.findViewById(R.id.iv__bookmark);
     ppButtons.findViewById(R.id.rl__share).setOnClickListener(this);
+
+    mShadowController = new ScrollViewShadowController((ObservableScrollView) mPpDetails)
+                            .addShadow(BaseShadowController.BOTTOM, R.id.shadow_bottom)
+                            .attach();
   }
 
   private void initAnimationController(AttributeSet attrs, int defStyleAttr)
@@ -255,6 +265,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   public void setState(State state)
   {
     InputUtils.hideKeyboard(mEtBookmarkName);
+
+    mPpDetails.scrollTo(0, 0);
+
     if (mMapObject != null)
       mAnimationController.setState(state, mMapObject.getType());
   }
@@ -319,6 +332,16 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         refreshButtons(false);
         break;
       }
+
+      UiThread.runLater(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          mShadowController.updateShadows();
+          requestLayout();
+        }
+      });
     }
   }
 

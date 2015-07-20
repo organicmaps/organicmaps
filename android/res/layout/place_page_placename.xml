@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/ll__place_name"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll__place_name"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/clickableBackground"
@@ -9,7 +10,9 @@
     android:orientation="horizontal"
     android:paddingBottom="@dimen/margin_half"
     android:paddingTop="@dimen/margin_half"
-    android:visibility="gone">
+    android:visibility="gone"
+    tools:visibility="visible"
+    tools:background="#6000FF00">
 
   <ImageView
       android:id="@+id/iv__place_name"
@@ -23,5 +26,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textColor="@color/text_place_page"
-      android:textSize="@dimen/place_page_subtitle"/>
+      android:textSize="@dimen/place_page_subtitle"
+      tools:text="Sample place"/>
 </LinearLayout>

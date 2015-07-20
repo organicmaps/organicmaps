@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/rl__bookmark_details"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl__bookmark_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:paddingBottom="@dimen/margin_base"
-    android:visibility="invisible">
+    android:visibility="invisible"
+    tools:visibility="visible">
 
   <View
       android:layout_width="match_parent"
@@ -82,7 +84,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="-8dp"
         android:background="?attr/clickableBackground"
         android:padding="@dimen/margin_half"
         android:src="@drawable/color_picker_red_on"/>

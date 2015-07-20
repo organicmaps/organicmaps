@@ -181,7 +181,7 @@
   <style name="MwmWidget.FrameLayout"/>
 
   <style name="MwmWidget.FrameLayout.Elevation">
-    <item name="android:foreground">@drawable/bs_shadow</item>
+    <item name="android:foreground">@drawable/shadow_top</item>
   </style>
 
   <style name="MwmWidget.Shadow">

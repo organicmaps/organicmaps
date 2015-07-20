@@ -46,6 +46,8 @@
                 android:fadingEdge="none"
                 style="?bs_listStyle"
                 tools:listitem="@layout/bs_grid_entry" />
+
+            <include layout="@layout/shadow_top"/>
         </FrameLayout>
     </LinearLayout>
 
