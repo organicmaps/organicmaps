@@ -1,7 +1,9 @@
 #pragma once
 
 #include "platform/platform.hpp"
+
 #include "base/macros.hpp"
+
 #include "std/string.hpp"
 
 namespace platform

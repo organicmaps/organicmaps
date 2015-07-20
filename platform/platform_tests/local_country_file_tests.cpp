@@ -330,7 +330,7 @@ UNIT_TEST(LocalCountryFile_DoNotDeleteUserFiles)
   my::LogLevel oldLogLevel = my::g_LogLevel;
   my::g_LogLevel = LCRITICAL;
   MY_SCOPE_GUARD(restoreLogLevel, [&oldLogLevel]()
-                 {
+  {
     my::g_LogLevel = oldLogLevel;
   });
 
