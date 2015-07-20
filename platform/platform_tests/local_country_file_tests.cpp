@@ -1,11 +1,11 @@
 #include "testing/testing.hpp"
 
-#include "file_utils.hpp"
-
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_dir.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
@@ -20,7 +20,7 @@
 #include "std/bind.hpp"
 #include "std/set.hpp"
 
-using namespace platform::tests;
+using namespace platform::tests_support;
 
 namespace platform
 {
@@ -106,7 +106,7 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
   TEST(!localFile.OnDisk(TMapOptions::ECarRouting), ());
   TEST(!localFile.OnDisk(TMapOptions::EMapWithCarRouting), ());
 
-  ScopedTestFile testMapFile(countryFile.GetNameWithExt(TMapOptions::EMap), "map");
+  ScopedFile testMapFile(countryFile.GetNameWithExt(TMapOptions::EMap), "map");
 
   localFile.SyncWithDisk();
   TEST(localFile.OnDisk(TMapOptions::EMap), ());
@@ -114,7 +114,7 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
   TEST(!localFile.OnDisk(TMapOptions::EMapWithCarRouting), ());
   TEST_EQUAL(3, localFile.GetSize(TMapOptions::EMap), ());
 
-  ScopedTestFile testRoutingFile(countryFile.GetNameWithExt(TMapOptions::ECarRouting), "routing");
+  ScopedFile testRoutingFile(countryFile.GetNameWithExt(TMapOptions::ECarRouting), "routing");
 
   localFile.SyncWithDisk();
   TEST(localFile.OnDisk(TMapOptions::EMap), ());
@@ -141,17 +141,17 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   CountryFile brazilFile("Brazil");
   CountryFile irelandFile("Ireland");
 
-  ScopedTestDir testDir1("1");
+  ScopedDir testDir1("1");
   LocalCountryFile japanLocalFile(testDir1.GetFullPath(), japanFile, 1 /* version */);
-  ScopedTestFile japanMapFile(testDir1, japanFile, TMapOptions::EMap, "Japan");
+  ScopedFile japanMapFile(testDir1, japanFile, TMapOptions::EMap, "Japan");
 
-  ScopedTestDir testDir2("2");
+  ScopedDir testDir2("2");
   LocalCountryFile brazilLocalFile(testDir2.GetFullPath(), brazilFile, 2 /* version */);
-  ScopedTestFile brazilMapFile(testDir2, brazilFile, TMapOptions::EMap, "Brazil");
+  ScopedFile brazilMapFile(testDir2, brazilFile, TMapOptions::EMap, "Brazil");
   LocalCountryFile irelandLocalFile(testDir2.GetFullPath(), irelandFile, 2 /* version */);
-  ScopedTestFile irelandMapFile(testDir2, irelandFile, TMapOptions::EMap, "Ireland");
+  ScopedFile irelandMapFile(testDir2, irelandFile, TMapOptions::EMap, "Ireland");
 
-  ScopedTestDir testDir3("3");
+  ScopedDir testDir3("3");
 
   // Check that FindAllLocalMaps()
   vector<LocalCountryFile> localFiles;
@@ -186,22 +186,22 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
 
 UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
 {
-  ScopedTestFile toBeDeleted[] = {{"Ireland.mwm.ready", "Ireland"},
-                                  {"Netherlands.mwm.routing.downloading2", "Netherlands"},
-                                  {"Germany.mwm.ready3", "Germany"},
-                                  {"UK_England.mwm.resume4", "UK"}};
-  ScopedTestFile toBeKept[] = {
+  ScopedFile toBeDeleted[] = {{"Ireland.mwm.ready", "Ireland"},
+                              {"Netherlands.mwm.routing.downloading2", "Netherlands"},
+                              {"Germany.mwm.ready3", "Germany"},
+                              {"UK_England.mwm.resume4", "UK"}};
+  ScopedFile toBeKept[] = {
       {"Italy.mwm", "Italy"}, {"Spain.mwm", "Spain map"}, {"Spain.mwm.routing", "Spain routing"}};
 
   CleanupMapsDirectory();
 
-  for (ScopedTestFile & file : toBeDeleted)
+  for (ScopedFile & file : toBeDeleted)
   {
     TEST(!file.Exists(), (file));
     file.Reset();
   }
 
-  for (ScopedTestFile & file : toBeKept)
+  for (ScopedFile & file : toBeKept)
     TEST(file.Exists(), (file));
 }
 
@@ -217,13 +217,12 @@ UNIT_TEST(LocalCountryFile_DirectoryLookup)
   CountryFile const irelandFile("Ireland");
   CountryFile const netherlandsFile("Netherlands");
 
-  ScopedTestDir testDir("test-dir");
+  ScopedDir testDir("test-dir");
 
-  ScopedTestFile testIrelandMapFile(testDir, irelandFile, TMapOptions::EMap, "Ireland-map");
-  ScopedTestFile testNetherlandsMapFile(testDir, netherlandsFile, TMapOptions::EMap,
-                                        "Netherlands-map");
-  ScopedTestFile testNetherlandsRoutingFile(testDir, netherlandsFile, TMapOptions::ECarRouting,
-                                            "Netherlands-routing");
+  ScopedFile testIrelandMapFile(testDir, irelandFile, TMapOptions::EMap, "Ireland-map");
+  ScopedFile testNetherlandsMapFile(testDir, netherlandsFile, TMapOptions::EMap, "Netherlands-map");
+  ScopedFile testNetherlandsRoutingFile(testDir, netherlandsFile, TMapOptions::ECarRouting,
+                                        "Netherlands-routing");
 
   vector<LocalCountryFile> localFiles;
   FindAllLocalMapsInDirectory(testDir.GetFullPath(), 150309, localFiles);
@@ -252,8 +251,8 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
 
   Platform & platform = GetPlatform();
 
-  ScopedTestDir testDir("010101");
-  ScopedTestFile testItalyMapFile(testDir, italyFile, TMapOptions::EMap, "Italy-map");
+  ScopedDir testDir("010101");
+  ScopedFile testItalyMapFile(testDir, italyFile, TMapOptions::EMap, "Italy-map");
 
   vector<LocalCountryFile> localFiles;
   FindAllLocalMaps(localFiles);
@@ -282,7 +281,7 @@ UNIT_TEST(LocalCountryFile_PreparePlaceForCountryFiles)
   TEST(italyLocalFile.get(), ());
   TEST_EQUAL(expectedItalyFile, *italyLocalFile, ());
 
-  ScopedTestDir directoryForV1("1");
+  ScopedDir directoryForV1("1");
 
   CountryFile germanyFile("Germany");
   LocalCountryFile expectedGermanyFile(directoryForV1.GetFullPath(), germanyFile, 1 /* version */);
@@ -301,7 +300,7 @@ UNIT_TEST(LocalCountryFile_PreparePlaceForCountryFiles)
 
 UNIT_TEST(LocalCountryFile_CountryIndexes)
 {
-  ScopedTestDir testDir("101010");
+  ScopedDir testDir("101010");
 
   CountryFile germanyFile("Germany");
   LocalCountryFile germanyLocalFile(testDir.GetFullPath(), germanyFile, 101010 /* version */);
@@ -331,11 +330,11 @@ UNIT_TEST(LocalCountryFile_DoNotDeleteUserFiles)
   my::LogLevel oldLogLevel = my::g_LogLevel;
   my::g_LogLevel = LCRITICAL;
   MY_SCOPE_GUARD(restoreLogLevel, [&oldLogLevel]()
-  {
+                 {
     my::g_LogLevel = oldLogLevel;
   });
 
-  ScopedTestDir testDir("101010");
+  ScopedDir testDir("101010");
 
   CountryFile germanyFile("Germany");
   LocalCountryFile germanyLocalFile(testDir.GetFullPath(), germanyFile, 101010 /* version */);

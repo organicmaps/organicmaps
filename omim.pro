@@ -23,6 +23,7 @@ SUBDIRS = 3party \
           stats \
           indexer \
           platform \
+          platform/platform_tests_support \
           routing \
           geometry/geometry_tests \
           platform/platform_tests \

@@ -9,7 +9,6 @@
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
-#include "platform/platform_tests/file_utils.hpp"
 
 #include "coding/file_writer.hpp"
 
@@ -55,16 +54,18 @@ void TestMapping(InputDataT const & data,
                  NodeIdDataT const & nodeIds,
                  RangeDataT const & ranges)
 {
-
   platform::CountryFile country("TestCountry");
   platform::LocalCountryFile localFile(GetPlatform().WritableDir(), country, 0 /* version */);
   localFile.SyncWithDisk();
   static char const ftSegsPath[] = "test1.tmp";
+
+  platform::CountryIndexes::PreparePlaceOnDisk(localFile);
   string const & featuresOffsetsTablePath =
     CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
   MY_SCOPE_GUARD(ftSegsFileDeleter, bind(FileWriter::DeleteFileX, ftSegsPath));
   MY_SCOPE_GUARD(featuresOffsetsTableFileDeleter,
                  bind(FileWriter::DeleteFileX, featuresOffsetsTablePath));
+  MY_SCOPE_GUARD(indexesDeleter, bind(&CountryIndexes::DeleteFromDisk, localFile));
 
   {
     // Prepare fake features offsets table for input data, because

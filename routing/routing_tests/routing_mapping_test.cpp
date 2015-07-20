@@ -8,7 +8,7 @@
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/platform.hpp"
-#include "platform/platform_tests/file_utils.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
@@ -17,7 +17,7 @@
 using namespace routing;
 using namespace tests;
 using namespace platform;
-using namespace platform::tests;
+using namespace platform::tests_support;
 
 namespace
 {
@@ -59,8 +59,8 @@ private:
   }
 
   CountryFile m_countryFile;
-  ScopedTestFile m_testMapFile;
-  ScopedTestFile m_testRoutingFile;
+  ScopedFile m_testMapFile;
+  ScopedFile m_testRoutingFile;
   LocalCountryFile m_localFile;
   TestMwmSet m_testSet;
   pair<MwmSet::MwmHandle, MwmSet::RegResult> m_result;
