@@ -34,6 +34,10 @@ workspace_path = "omim-build-release/out/release"
 skiplist = []
 runlist = []
 logfile = "testlog.log"
+data_path = None
+user_resource_path = None
+
+
 
 TO_RUN = "to_run"
 SKIP = "skip"
@@ -68,6 +72,10 @@ Possbile options:
 
 -o --output : resulting log file. Default testlog.log
 
+-d --data_path : Path to data files (passed to the test executables as --data_path=<value>)
+
+-u --user_resource_path : Path to resources, styles and classificators (passed to the test executables as --user_resource_path=<value>)  
+
 
 Example
 
@@ -81,10 +89,12 @@ def set_global_vars():
     global logfile
     global runlist
     global workspace_path
+    global data_path
+    global user_resource_path
     
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "he:f:o:i:",
-                                   ["help", "exclude=", "include=", "folder=", "output="])
+        opts, args = getopt.getopt(sys.argv[1:], "he:f:o:i:d:u:",
+                                   ["help", "exclude=", "include=", "folder=", "output=", "data_path=", "user_resource_path="])
     except getopt.GetoptError as err:
         print(str(err))
         usage()
@@ -103,6 +113,11 @@ def set_global_vars():
             runlist = argument.split(",")
         elif option in ("-f", "--folder"):
             workspace_path = argument
+        elif option in ("-d", "--data_path"):
+            data_path = " --data_path={argument} ".format(argument=argument)
+        elif option in ("-u", "--user_resource_path"):
+            user_resource_path = " --user_resource_path={argument} ".format(argument=argument)
+            
         else:
             assert False, "unhandled option"
 
@@ -153,6 +168,8 @@ def run_tests(tests_to_run):
 
         if file == "platform_tests":
             start_server()
+        
+        file="{file}{data}{resources}".format(file=file, data=data_path, resources=user_resource_path)
         
         process = subprocess.Popen("{tests_path}/{file} 2>> {logfile}".
                                    format(tests_path=workspace_path, file=file, logfile=logfile),
