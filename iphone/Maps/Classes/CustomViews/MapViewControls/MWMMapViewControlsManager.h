@@ -8,9 +8,15 @@
 
 #import "MWMSideMenuManager.h"
 
-#import <Foundation/Foundation.h>
+#include "map/user_mark.hpp"
 
 @class MapViewController;
+
+@protocol MWMMapViewControlsManagerDelegate <NSObject>
+
+- (void)addPlacePageViews:(NSArray *)views;
+
+@end
 
 @interface MWMMapViewControlsManager : NSObject
 
@@ -22,6 +28,17 @@
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
 - (void)setTopBound:(CGFloat)bound;
-- (void)setBottomBound:(CGFloat)bound;
+
+#pragma mark - Layout
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
+
+#pragma mark - MWMPlacePageViewManager
+
+@property (nonatomic, readonly) BOOL isDirectionViewShown;
+
+- (void)dismissPlacePage;
+- (void)stopBuildingRoute;
+- (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
 
 @end

@@ -6,19 +6,23 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Framework.h"
 #import "MapViewController.h"
 #import "MWMLocationButton.h"
 #import "MWMMapViewControlsManager.h"
+#import "MWMPlacePageViewManager.h"
+#import "MWMPlacePageViewManagerDelegate.h"
 #import "MWMSideMenuManager.h"
 #import "MWMZoomButtons.h"
 
-#include "Framework.h"
-
-@interface MWMMapViewControlsManager()
+@interface MWMMapViewControlsManager () <MWMPlacePageViewManagerDelegate>
 
 @property (nonatomic) MWMZoomButtons * zoomButtons;
 @property (nonatomic) MWMLocationButton * locationButton;
 @property (nonatomic) MWMSideMenuManager * menuManager;
+@property (nonatomic) MWMPlacePageViewManager * placePageManager;
+
+@property (weak, nonatomic) MapViewController * ownerController;
 
 @end
 
@@ -31,9 +35,11 @@
   self = [super init];
   if (!self)
     return nil;
+  self.ownerController = controller;
   self.zoomButtons = [[MWMZoomButtons alloc] initWithParentView:controller.view];
   self.locationButton = [[MWMLocationButton alloc] initWithParentView:controller.view];
   self.menuManager = [[MWMSideMenuManager alloc] initWithParentController:controller];
+  self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:controller delegate:self];
   self.hidden = NO;
   self.zoomHidden = NO;
   self.menuState = MWMSideMenuStateInactive;
@@ -43,11 +49,48 @@
 - (void)setTopBound:(CGFloat)bound
 {
   [self.zoomButtons setTopBound:bound];
+  [self.placePageManager setTopBound:bound];
 }
 
-- (void)setBottomBound:(CGFloat)bound
+#pragma mark - Layout
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-  [self.zoomButtons setBottomBound:bound];
+  [self.placePageManager willRotateToInterfaceOrientation:orientation];
+}
+
+#pragma mark - MWMPlacePageViewManager
+
+- (void)dismissPlacePage
+{
+  [self.placePageManager dismissPlacePage];
+}
+
+- (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
+{
+  [self.placePageManager showPlacePageWithUserMark:std::move(userMark)];
+}
+
+- (void)stopBuildingRoute
+{
+  [self.placePageManager stopBuildingRoute];
+}
+
+#pragma mark - MWMPlacePageViewManagerDelegate
+
+- (void)dragPlacePage:(CGPoint)point
+{
+  [self.zoomButtons setBottomBound:point.y];
+}
+
+- (void)addPlacePageViews:(NSArray *)views
+{
+  [self.ownerController addPlacePageViews:views];
+}
+
+- (void)updateStatusBarStyle
+{
+  [self.ownerController updateStatusBarStyle];
 }
 
 #pragma mark - Properties
@@ -88,6 +131,11 @@
 {
   _locationHidden = locationHidden;
   self.locationButton.hidden = self.hidden || locationHidden;
+}
+
+- (BOOL)isDirectionViewShown
+{
+  return self.placePageManager.isDirectionViewShown;
 }
 
 @end

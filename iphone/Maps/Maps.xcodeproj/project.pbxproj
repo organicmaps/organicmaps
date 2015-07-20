@@ -39,6 +39,9 @@
 		3472747B1B0F4FF100756B37 /* me.maps.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */; };
 		3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */; };
 		348E578E1B0F3752000FA02A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
+		3497A9381B5CF8A900F51E55 /* MWMNavigationDashboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3497A9341B5CF8A900F51E55 /* MWMNavigationDashboard.mm */; };
+		3497A9391B5CF8A900F51E55 /* MWMNavigationDashboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3497A9351B5CF8A900F51E55 /* MWMNavigationDashboard.xib */; };
+		3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */; };
 		349A357A1B53D4C9009677EE /* MWMCircularProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A35761B53D4C9009677EE /* MWMCircularProgress.m */; };
 		349A357B1B53D4C9009677EE /* MWMCircularProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A35771B53D4C9009677EE /* MWMCircularProgress.xib */; };
 		349A357C1B53D4C9009677EE /* MWMCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A35791B53D4C9009677EE /* MWMCircularProgressView.m */; };
@@ -396,6 +399,11 @@
 		348E57981B0F49D8000FA02A /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		348E57C81B0F49EE000FA02A /* maps.me WatchKit Extension WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "maps.me WatchKit Extension WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		348E57D71B0F49EE000FA02A /* maps.me WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3497A9331B5CF8A900F51E55 /* MWMNavigationDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboard.h; sourceTree = "<group>"; };
+		3497A9341B5CF8A900F51E55 /* MWMNavigationDashboard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboard.mm; sourceTree = "<group>"; };
+		3497A9351B5CF8A900F51E55 /* MWMNavigationDashboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNavigationDashboard.xib; sourceTree = "<group>"; };
+		3497A9361B5CF8A900F51E55 /* MWMNavigationDashboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardManager.h; sourceTree = "<group>"; };
+		3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboardManager.mm; sourceTree = "<group>"; };
 		349A35751B53D4C9009677EE /* MWMCircularProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCircularProgress.h; sourceTree = "<group>"; };
 		349A35761B53D4C9009677EE /* MWMCircularProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMCircularProgress.m; sourceTree = "<group>"; };
 		349A35771B53D4C9009677EE /* MWMCircularProgress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMCircularProgress.xib; sourceTree = "<group>"; };
@@ -865,11 +873,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F63774E21B57F54300BCF54D /* NavigationDashboard */,
 				340F24601B1490ED00F874CD /* RouteState */,
 				F6588E291B15C25C00EE1E58 /* TextView */,
 				F62A73A71AD8950900175470 /* WatchEventHandler */,
-				F6F722F51AE156A000DA3DA1 /* PlacePage */,
 				F64F195F1AB8125C006EAF7E /* CustomAlert */,
 				97B4E9271851DAB300BEC5D7 /* Custom Views */,
 				FA4135DF120A25B90062D5B4 /* Settings */,
@@ -1101,6 +1107,19 @@
 			path = Entitlements;
 			sourceTree = "<group>";
 		};
+		3497A9321B5CF8A900F51E55 /* NavigationDashboard */ = {
+			isa = PBXGroup;
+			children = (
+				3497A9331B5CF8A900F51E55 /* MWMNavigationDashboard.h */,
+				3497A9341B5CF8A900F51E55 /* MWMNavigationDashboard.mm */,
+				3497A9351B5CF8A900F51E55 /* MWMNavigationDashboard.xib */,
+				3497A9361B5CF8A900F51E55 /* MWMNavigationDashboardManager.h */,
+				3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */,
+			);
+			name = NavigationDashboard;
+			path = CustomViews/NavigationDashboard;
+			sourceTree = "<group>";
+		};
 		349A35741B53D4C9009677EE /* CircularProgress */ = {
 			isa = PBXGroup;
 			children = (
@@ -1306,12 +1325,14 @@
 		97B4E9271851DAB300BEC5D7 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				349A35861B53EABC009677EE /* SearchDownloadMapRequest */,
-				349A357D1B53E967009677EE /* DownloadMapRequest */,
 				349A35741B53D4C9009677EE /* CircularProgress */,
+				349A357D1B53E967009677EE /* DownloadMapRequest */,
 				34BC72091B0DECAE0012A34B /* MapViewControls */,
+				3497A9321B5CF8A900F51E55 /* NavigationDashboard */,
+				F6F722F51AE156A000DA3DA1 /* PlacePage */,
 				B0E1FCD61A23386D00A8E08B /* Route */,
 				97A8000918B210DC000C07A2 /* Search */,
+				349A35861B53EABC009677EE /* SearchDownloadMapRequest */,
 				974386DB19373EA400FD5659 /* ToastView.h */,
 				974386DC19373EA400FD5659 /* ToastView.m */,
 				ED48BBB317C267F5003E7E92 /* ColorPickerView.h */,
@@ -2054,7 +2075,7 @@
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
 				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,
 				9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */,
-				F63774E41B57F55300BCF54D /* MWMNavigationDashboard.xib in Resources */,
+				3497A9391B5CF8A900F51E55 /* MWMNavigationDashboard.xib in Resources */,
 				4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */,
 				34BC722B1B0DECAE0012A34B /* MWMZoomButtonsView.xib in Resources */,
 				EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */,
@@ -2264,7 +2285,6 @@
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				F6FE2C0F1B03A006009814AA /* MWMPlacePageNavigationBar.mm in Sources */,
 				34BC72221B0DECAE0012A34B /* MWMLocationButtonView.mm in Sources */,
-				F63774F01B5CF25D00BCF54D /* MWMNavigationDashboardManager.mm in Sources */,
 				340F24631B14910500F874CD /* RouteState.mm in Sources */,
 				9747264318323080006B7CB7 /* UIKitCategories.m in Sources */,
 				977E26BE19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */,
@@ -2303,12 +2323,12 @@
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
 				977E26C619E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */,
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
+				3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */,
 				B0FBFA2B1A515B4C0086819E /* TableViewController.m in Sources */,
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */,
 				974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */,
 				97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
-				F63774ED1B5CEF9E00BCF54D /* MWMNavigationDashboard.mm in Sources */,
 				978F9242183B660F000D6C7C /* SelectableCell.m in Sources */,
 				34BC722A1B0DECAE0012A34B /* MWMZoomButtonsView.m in Sources */,
 				F6F533A31B3C248900C1940B /* UIColor+MapsMeColor.mm in Sources */,
@@ -2326,6 +2346,7 @@
 				976D86EC19C8697700C920EF /* ProgressView.m in Sources */,
 				B0FBFA271A515AFD0086819E /* ViewController.m in Sources */,
 				3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */,
+				3497A9381B5CF8A900F51E55 /* MWMNavigationDashboard.mm in Sources */,
 				342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m in Sources */,
 				349A358C1B53EABC009677EE /* MWMSearchDownloadMapRequest.m in Sources */,
 				F63732961AE9431E00A03764 /* MWMBasePlacePageView.mm in Sources */,

@@ -43,16 +43,19 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 @property (nonatomic) ShareActionSheet * actionSheet;
 @property (nonatomic) MWMDirectionView * directionView;
 
+@property (weak, nonatomic) id<MWMPlacePageViewManagerDelegate> delegate;
+
 @end
 
 @implementation MWMPlacePageViewManager
 
-- (instancetype)initWithViewController:(UIViewController<MWMPlacePageViewManagerDelegate> *)viewController
+- (instancetype)initWithViewController:(UIViewController *)viewController delegate:(id<MWMPlacePageViewManagerDelegate>) delegate
 {
   self = [super init];
   if (self)
   {
     self.ownerViewController = viewController;
+    self.delegate = delegate;
     self.state = MWMPlacePageManagerStateClosed;
   }
   return self;
@@ -83,7 +86,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [self configPlacePage];
 }
 
-- (void)layoutPlacePageToOrientation:(UIInterfaceOrientation)orientation
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
   if (!self.placePage)
     return;
@@ -162,7 +165,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   if (controller)
     [self.ownerViewController addChildViewController:controller];
-  [self.ownerViewController addPlacePageViews:views];
+  [self.delegate addPlacePageViews:views];
 }
 
 - (void)buildRoute
@@ -227,7 +230,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)dragPlacePage:(CGPoint)point
 {
-  [self.ownerViewController dragPlacePage:point];
+  [self.delegate dragPlacePage:point];
 }
 
 - (void)onLocationError:(location::TLocationError)errorCode
@@ -278,13 +281,12 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type
 {
-  UIViewController<MWMPlacePageViewManagerDelegate> * ovc = self.ownerViewController;
   MWMDirectionView * directionView = self.directionView;
   directionView.titleLabel.text = title;
   directionView.typeLabel.text = type;
-  [ovc.view addSubview:directionView];
+  [self.ownerViewController.view addSubview:directionView];
   [directionView setNeedsLayout];
-  [ovc updateStatusBarStyle];
+  [self.delegate updateStatusBarStyle];
   [(MapsAppDelegate *)[UIApplication sharedApplication].delegate disableStandby];
   [self updateDistance];
 }
@@ -292,7 +294,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)hideDirectionView
 {
   [self.directionView removeFromSuperview];
-  [self.ownerViewController updateStatusBarStyle];
+  [self.delegate updateStatusBarStyle];
   [(MapsAppDelegate *)[UIApplication sharedApplication].delegate enableStandby];
 }
 

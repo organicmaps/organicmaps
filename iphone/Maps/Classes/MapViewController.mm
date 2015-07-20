@@ -7,8 +7,6 @@
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMPlacePageViewManagerDelegate.h"
-#import "MWMPlacePageViewManager.h"
 #import "RouteState.h"
 #import "RouteView.h"
 #import "ShareActionSheet.h"
@@ -85,7 +83,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 @end
 
-@interface MapViewController () <RouteViewDelegate, SearchViewDelegate, MWMPlacePageViewManagerDelegate, ActiveMapsObserverProtocol>
+@interface MapViewController () <RouteViewDelegate, SearchViewDelegate, ActiveMapsObserverProtocol>
 
 @property (nonatomic) UIView * routeViewWrapper;
 @property (nonatomic) RouteView * routeView;
@@ -98,7 +96,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 @property (nonatomic) BOOL disableStandbyOnLocationStateMode;
 @property (nonatomic) BOOL disableStandbyOnRouteFollowing;
 
-@property (nonatomic) MWMPlacePageViewManager * placePageManager;
 @property (nonatomic) MWMAlertViewController * alertController;
 
 @property (nonatomic) UserTouchesAction userTouchesAction;
@@ -263,12 +260,12 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)dismissPlacePage
 {
-  [self.placePageManager dismissPlacePage];
+  [self.controlsManager dismissPlacePage];
 }
 
 - (void)onUserMarkClicked:(unique_ptr<UserMarkCopy>)mark
 {
-  [self.placePageManager showPlacePageWithUserMark:std::move(mark)];
+  [self.controlsManager showPlacePageWithUserMark:std::move(mark)];
 }
 
 - (void)processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
@@ -513,7 +510,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
   if (isIOSVersionLessThan(8))
     [(UIViewController *)self.childViewControllers.firstObject willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-  [self.placePageManager layoutPlacePageToOrientation:toInterfaceOrientation];
+  [self.controlsManager willRotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -576,7 +573,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   [super viewDidLoad];
   self.view.clipsToBounds = YES;
   [self.view addSubview:self.routeViewWrapper];
-  self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:self];
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   [self.view addSubview:self.searchView];
 
@@ -620,7 +616,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   }
   else
   {
-    if (self.searchView.state != SearchViewStateHidden || self.controlsManager.menuState == MWMSideMenuStateActive || self.placePageManager.isDirectionViewShown || (GetFramework().GetMapStyle() == MapStyleDark && self.routeView.state == RouteViewStateHidden))
+    if (self.searchView.state != SearchViewStateHidden || self.controlsManager.menuState == MWMSideMenuStateActive || self.controlsManager.isDirectionViewShown || (GetFramework().GetMapStyle() == MapStyleDark && self.routeView.state == RouteViewStateHidden))
       return UIStatusBarStyleLightContent;
     return UIStatusBarStyleDefault;
   }
@@ -716,7 +712,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
     f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
     {
-      [self.placePageManager stopBuildingRoute];
+      [self.controlsManager stopBuildingRoute];
       switch (code)
       {
         case routing::IRouter::ResultCode::NoError:
@@ -1019,11 +1015,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 #pragma mark - MWMPlacePageViewManagerDelegate
 
-- (void)dragPlacePage:(CGPoint)point
-{
-  [self.controlsManager setBottomBound:point.y];
-}
-
 - (void)addPlacePageViews:(NSArray *)views
 {
   [views enumerateObjectsUsingBlock:^(UIView * view, NSUInteger idx, BOOL *stop)
@@ -1167,7 +1158,6 @@ NSInteger compareAddress(id l, id r, void * context)
     topBound = MAX(topBound, searchRect.origin.y + searchRect.size.height);
   }
   [self.controlsManager setTopBound:topBound];
-  [self.placePageManager setTopBound:topBound];
 }
 
 #pragma mark - Properties

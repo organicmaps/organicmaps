@@ -12,7 +12,7 @@
 
 namespace search { struct AddressInfo; }
 
-@class MWMMapViewControlsManager, MWMPlacePageViewManager;
+@class MWMMapViewControlsManager;
 @class ShareActionSheet;
 
 @interface MapViewController : ViewController <LocationObserver, UIPopoverControllerDelegate, MWMNavigationDelegate>
@@ -42,13 +42,14 @@ namespace search { struct AddressInfo; }
 
 - (void)updateStatusBarStyle;
 
+- (void)addPlacePageViews:(NSArray *)views;
+
 @property (nonatomic) UIPopoverController * popoverVC;
 @property (nonatomic, readonly) BOOL apiMode;
 @property (nonatomic) SearchView * searchView;
 @property (nonatomic) ShareActionSheet * shareActionSheet;
 - (void)setApiMode:(BOOL)apiMode animated:(BOOL)animated;
 @property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
-@property (nonatomic, readonly) MWMPlacePageViewManager * placePageManager;
 @property (nonatomic) m2::PointD restoreRouteDestination;
 
 @end

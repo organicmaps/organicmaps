@@ -15,13 +15,13 @@
 
 @interface MWMPlacePageViewManager : NSObject
 
-@property (weak, nonatomic, readonly) UIViewController<MWMPlacePageViewManagerDelegate> * ownerViewController;
+@property (weak, nonatomic, readonly) UIViewController * ownerViewController;
 @property (nonatomic, readonly) MWMPlacePageEntity * entity;
 @property (nonatomic) MWMPlacePageNavigationBar * iPhoneNavigationBar;
 @property (nonatomic) CGFloat topBound;
 @property (nonatomic, readonly) BOOL isDirectionViewShown;
 
-- (instancetype)initWithViewController:(UIViewController<MWMPlacePageViewManagerDelegate> *)viewController;
+- (instancetype)initWithViewController:(UIViewController *)viewController delegate:(id<MWMPlacePageViewManagerDelegate>) delegate;
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
 - (void)refreshPlacePage;
 - (void)dismissPlacePage;
@@ -30,7 +30,7 @@
 - (void)share;
 - (void)addBookmark;
 - (void)removeBookmark;
-- (void)layoutPlacePageToOrientation:(UIInterfaceOrientation)orientation;
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 - (void)reloadBookmark;
 - (void)dragPlacePage:(CGPoint)point;
 - (void)showDirectionViewWithTitle:(NSString *)title type:(NSString *)type;
