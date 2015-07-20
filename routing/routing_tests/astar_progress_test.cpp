@@ -48,4 +48,4 @@ UNIT_TEST(BidirectedAStarProgressCheck)
   ASSERT_GREATER(result, 49.5, ());
   ASSERT_LESS(result, 50.5, ());
 }
-}
+} //  namespace routing_test

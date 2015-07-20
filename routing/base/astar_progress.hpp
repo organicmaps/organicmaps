@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geometry/point2d.hpp"
+
 #include "indexer/mercator.hpp"
 
 namespace routing
