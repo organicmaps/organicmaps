@@ -24,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.mapswithme.util.ViewServer;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.country.ActiveCountryTree;
@@ -61,6 +62,14 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     addPreferencesFromResource(R.xml.preferences);
     initPreferences();
     yotaSetup();
+    ViewServer.get(this).addWindow(this);
+  }
+
+  @Override
+  protected void onDestroy()
+  {
+    super.onDestroy();
+    ViewServer.get(this).removeWindow(this);
   }
 
   @SuppressWarnings("deprecation")
@@ -165,6 +174,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     storagePathSetup();
 
     org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName());
+    ViewServer.get(this).setFocusedWindow(this);
   }
 
   @Override

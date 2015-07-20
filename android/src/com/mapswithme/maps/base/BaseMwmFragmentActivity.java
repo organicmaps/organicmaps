@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.mapswithme.util.ViewServer;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
@@ -32,8 +33,16 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     }
 
     MWMApplication.get().initStats();
+    ViewServer.get(this).addWindow(this);
 
     attachDefaultFragment();
+  }
+
+  @Override
+  protected void onDestroy()
+  {
+    super.onDestroy();
+    ViewServer.get(this).removeWindow(this);
   }
 
   @Override
@@ -73,6 +82,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     super.onResume();
     org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName()
         + ":" + com.mapswithme.util.UiUtils.deviceOrientationAsString(this));
+    ViewServer.get(this).setFocusedWindow(this);
   }
 
   @Override
