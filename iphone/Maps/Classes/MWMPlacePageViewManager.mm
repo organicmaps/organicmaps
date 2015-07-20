@@ -204,17 +204,17 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)removeBookmark
 {
   Framework & f = GetFramework();
-  UserMark const * mark = m_userMark->GetUserMark();
-  BookmarkAndCategory bookmarkAndCategory = f.FindBookmark(mark);
+  BookmarkCategory * bookmarkCategory = f.GetBookmarkManager().GetBmCategory(self.entity.bac.first);
+  UserMark const * bookmark = bookmarkCategory->GetBookmark(self.entity.bac.second);
+  BookmarkAndCategory const bookmarkAndCategory = f.FindBookmark(bookmark);
   self.entity.type = MWMPlacePageEntityTypeRegular;
-  BookmarkCategory * category = f.GetBmCategory(bookmarkAndCategory.first);
-  PoiMarkPoint const * poi = f.GetAddressMark(mark->GetOrg());
+  PoiMarkPoint const * poi = f.GetAddressMark(bookmark->GetOrg());
   m_userMark.reset(new UserMarkCopy(poi, false));
   f.ActivateUserMark(poi);
-  if (category)
+  if (bookmarkCategory)
   {
-    category->DeleteBookmark(bookmarkAndCategory.second);
-    category->SaveToKMLFile();
+    bookmarkCategory->DeleteBookmark(bookmarkAndCategory.second);
+    bookmarkCategory->SaveToKMLFile();
   }
   f.Invalidate();
 }
