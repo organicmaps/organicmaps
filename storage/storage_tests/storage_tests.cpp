@@ -64,8 +64,7 @@ public:
   {
     TEST_EQUAL(0, m_currStatus, (m_countryFile));
     TEST_LESS(m_currStatus, m_transitionList.size(), (m_countryFile));
-    TEST_EQUAL(m_transitionList[m_currStatus], m_storage.CountryStatusEx(m_index),
-                (m_countryFile));
+    TEST_EQUAL(m_transitionList[m_currStatus], m_storage.CountryStatusEx(m_index), (m_countryFile));
     m_storage.DownloadCountry(m_index, m_files);
   }
 
@@ -424,7 +423,15 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
   tests::TestMwmSet mwmSet;
   InitStorage(storage, runner, [&mwmSet](LocalCountryFile const & localFile)
   {
-    mwmSet.Register(localFile);
+    try
+    {
+      auto p = mwmSet.Register(localFile);
+      TEST(p.first.IsAlive(), ());
+    }
+    catch (exception & e)
+    {
+      LOG(LERROR, ("Failed to register:", localFile, ":", e.what()));
+    }
   });
 
   TIndex const index = storage.FindIndexByFile("Azerbaijan");
