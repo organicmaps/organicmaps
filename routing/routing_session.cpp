@@ -178,6 +178,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
 
     formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
     info.m_turn = turn.m_turn;
+    info.m_pedestrianTurn = turn.m_pedestrianTurn;
     info.m_exitNum = turn.m_exitNum;
     info.m_time = m_route.GetTime();
     info.m_targetName = turn.m_targetName;
@@ -205,6 +206,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
   {
     // nothing should be displayed on the screen about turns if these lines are executed
     info.m_turn = turns::TurnDirection::NoTurn;
+    info.m_pedestrianTurn = turns::PedestrianDirection::None;
     info.m_exitNum = 0;
     info.m_time = 0;
     info.m_targetName.clear();

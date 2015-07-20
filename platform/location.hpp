@@ -131,6 +131,7 @@ namespace location
     string m_distToTurn;
     string m_turnUnitsSuffix;
     routing::turns::TurnDirection m_turn;
+    routing::turns::PedestrianDirection m_pedestrianTurn;
     uint32_t m_exitNum;
     //@}
     int m_time;

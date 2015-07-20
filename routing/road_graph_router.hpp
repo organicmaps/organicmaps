@@ -19,8 +19,6 @@ class Index;
 namespace routing
 {
 
-typedef function<string(m2::PointD const &)> TMwmFileByPointFn;
-
 class RoadGraphRouter : public IRouter
 {
 public:
@@ -41,6 +39,8 @@ public:
   bool IsCancelled() const override { return m_algorithm->IsCancelled(); }
 
 private:
+  void ReconstructRoute(vector<Junction> const & junctions, Route & route) const;
+
   string const m_name;
   unique_ptr<IRoutingAlgorithm> const m_algorithm;
   unique_ptr<IRoadGraph> const m_roadGraph;

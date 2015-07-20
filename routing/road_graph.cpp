@@ -19,8 +19,6 @@ namespace routing
 namespace
 {
 
-double constexpr KMPH2MPS = 1000.0 / (60 * 60);
-
 inline bool PointsAlmostEqualAbs(const m2::PointD & pt1, const m2::PointD & pt2)
 {
   double constexpr kEpsilon = 1e-6;
@@ -193,57 +191,6 @@ void IRoadGraph::CrossEdgesLoader::operator()(FeatureID const & featureId, RoadI
 }
 
 // IRoadGraph ------------------------------------------------------------------
-
-void IRoadGraph::ReconstructPath(TJunctionVector const & positions, Route & route) const
-{
-  CHECK(!positions.empty(), ("Can't reconstruct path from an empty list of positions."));
-
-  vector<m2::PointD> path;
-  path.reserve(positions.size());
-
-  double const speedMPS = GetMaxSpeedKMPH() * KMPH2MPS;
-
-  double trackTimeSec = 0.0;
-  m2::PointD prevPoint = positions[0].GetPoint();
-  path.push_back(prevPoint);
-  for (size_t i = 1; i < positions.size(); ++i)
-  {
-    m2::PointD const curPoint = positions[i].GetPoint();
-
-    // By some reason there're two adjacent positions on a road with
-    // the same end-points. This could happen, for example, when
-    // direction on a road was changed.  But it doesn't matter since
-    // this code reconstructs only geometry of a route.
-    if (curPoint == prevPoint)
-      continue;
-
-    path.push_back(curPoint);
-
-    double const lengthM = MercatorBounds::DistanceOnEarth(prevPoint, curPoint);
-    trackTimeSec += lengthM / speedMPS;
-    prevPoint = curPoint;
-  }
-
-  if (path.size() == 1)
-  {
-    m2::PointD point = path.front();
-    path.push_back(point);
-  }
-
-  ASSERT_GREATER_OR_EQUAL(path.size(), 2, ());
-
-  /// @todo: investigate whether it's worth reconstructing detailed turns and times.
-
-  Route::TTimes times;
-  times.emplace_back(path.size() - 1, trackTimeSec);
-
-  Route::TTurns turnsDir;
-  turnsDir.emplace_back(path.size() - 1, turns::TurnDirection::ReachedYourDestination);
-
-  route.SetGeometry(path.begin(), path.end());
-  route.SetTurnInstructions(turnsDir);
-  route.SetSectionTimes(times);
-}
 
 void IRoadGraph::GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const
 {
@@ -435,6 +382,16 @@ double IRoadGraph::GetSpeedKMPH(Edge const & edge) const
   double const speedKMPH = (edge.IsFake() ? GetMaxSpeedKMPH() : GetSpeedKMPH(edge.GetFeatureId()));
   ASSERT(speedKMPH <= GetMaxSpeedKMPH(), ());
   return speedKMPH;
+}
+
+void IRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const
+{
+  if (edge.IsFake())
+  {
+    types = feature::TypesHolder(feature::GEOM_LINE);
+    return;
+  }
+  GetFeatureTypes(edge.GetFeatureId(), types);
 }
 
 }  // namespace routing

@@ -53,6 +53,20 @@ enum class TurnDirection
 string DebugPrint(TurnDirection const l);
 
 /*!
+ * \warning The values of PedestrianDirectionType shall be synchronized with values in java
+ */
+enum class PedestrianDirection
+{
+  None = 0,
+  Upstairs,
+  Downstairs,
+  ReachedYourDestination,
+  Count  /**< This value is used for internals only. */
+};
+
+string DebugPrint(PedestrianDirection const l);
+
+/*!
  * \warning The values of LaneWay shall be synchronized with values of LaneWay enum in java.
  */
 enum class LaneWay
@@ -110,12 +124,20 @@ struct TurnItem
       : m_index(numeric_limits<uint32_t>::max()),
         m_turn(TurnDirection::NoTurn),
         m_exitNum(0),
-        m_keepAnyway(false)
+        m_keepAnyway(false),
+        m_pedestrianTurn(PedestrianDirection::None)
   {
   }
 
   TurnItem(uint32_t idx, TurnDirection t, uint32_t exitNum = 0)
       : m_index(idx), m_turn(t), m_exitNum(exitNum), m_keepAnyway(false)
+      , m_pedestrianTurn(PedestrianDirection::None)
+  {
+  }
+
+  TurnItem(uint32_t idx, PedestrianDirection p)
+      : m_index(idx), m_turn(TurnDirection::NoTurn), m_exitNum(0), m_keepAnyway(false)
+      , m_pedestrianTurn(p)
   {
   }
 
@@ -123,7 +145,8 @@ struct TurnItem
   {
     return m_index == rhs.m_index && m_turn == rhs.m_turn && m_lanes == rhs.m_lanes &&
            m_exitNum == rhs.m_exitNum && m_sourceName == rhs.m_sourceName &&
-           m_targetName == rhs.m_targetName && m_keepAnyway == rhs.m_keepAnyway;
+           m_targetName == rhs.m_targetName && m_keepAnyway == rhs.m_keepAnyway &&
+           m_pedestrianTurn == rhs.m_pedestrianTurn;
   }
 
   uint32_t m_index;               /*!< Index of point on polyline (number of segment + 1). */
@@ -137,6 +160,11 @@ struct TurnItem
    * and shall be demonstrated to an end user.
    */
   bool m_keepAnyway;
+  /*!
+   * \brief m_pedestrianTurn is type of corresponding direction for a pedestrian, or None
+   * if there is no pedestrian specific direction
+   */
+  PedestrianDirection m_pedestrianTurn;
 };
 
 string DebugPrint(TurnItem const & turnItem);

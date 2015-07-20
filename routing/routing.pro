@@ -27,6 +27,7 @@ SOURCES += \
     osrm_online_router.cpp \
     osrm_router.cpp \
     pedestrian_model.cpp \
+    pedestrian_turns_genetator.cpp \
     road_graph.cpp \
     road_graph_router.cpp \
     route.cpp \
@@ -56,6 +57,7 @@ HEADERS += \
     osrm_online_router.hpp \
     osrm_router.hpp \
     pedestrian_model.hpp \
+    pedestrian_turns_genetator.hpp \
     road_graph.hpp \
     road_graph_router.hpp \
     route.hpp \

@@ -69,7 +69,9 @@ string DebugPrint(TurnItem const & turnItem)
       << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
       << ", m_sourceName = " << turnItem.m_sourceName
       << ", m_targetName = " << turnItem.m_targetName
-      << ", m_keepAnyway = " << turnItem.m_keepAnyway << " ]" << endl;
+      << ", m_keepAnyway = " << turnItem.m_keepAnyway
+      << ", m_pedestrianDir = " << DebugPrint(turnItem.m_pedestrianTurn)
+      << " ]" << endl;
   return out.str();
 }
 
@@ -245,6 +247,25 @@ string DebugPrint(TurnDirection const turn)
 {
   stringstream out;
   out << "[ " << GetTurnString(turn) << " ]";
+  return out.str();
+}
+
+string DebugPrint(PedestrianDirection const l)
+{
+  switch (l)
+  {
+  case PedestrianDirection::None: return "None";
+  case PedestrianDirection::Upstairs: return "Upstairs";
+  case PedestrianDirection::Downstairs: return "Downstairs";
+  case PedestrianDirection::ReachedYourDestination: return "ReachedYourDestination";
+  case PedestrianDirection::Count:
+    // PedestrianDirection::Count should be never used in the code, print it as unknown value
+    // (it is added to cases list to suppress compiler warning).
+    break;
+  }
+
+  stringstream out;
+  out << "unknown PedestrianDirection (" << static_cast<int>(l) << ")";
   return out.str();
 }
 

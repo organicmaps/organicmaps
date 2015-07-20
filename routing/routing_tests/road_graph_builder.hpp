@@ -20,6 +20,7 @@ public:
                                     CrossEdgesLoader & edgeLoader) const override;
   void FindClosestEdges(m2::PointD const & point, uint32_t count,
                         vector<pair<routing::Edge, m2::PointD>> & vicinities) const override;
+  void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
 
 private:
   vector<RoadInfo> m_roads;

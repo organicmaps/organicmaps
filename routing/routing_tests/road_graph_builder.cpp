@@ -94,6 +94,12 @@ void RoadGraphMockSource::FindClosestEdges(m2::PointD const & point, uint32_t co
   UNUSED_VALUE(vicinities);
 }
 
+void RoadGraphMockSource::GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const
+{
+  UNUSED_VALUE(featureId);
+  UNUSED_VALUE(types);
+}
+
 FeatureID MakeTestFeatureID(uint32_t offset)
 {
   static TestValidFeatureIDProvider instance;

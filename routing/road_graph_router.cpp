@@ -1,6 +1,7 @@
 #include "routing/features_road_graph.hpp"
 #include "routing/nearest_edge_finder.hpp"
 #include "routing/pedestrian_model.hpp"
+#include "routing/pedestrian_turns_genetator.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 
@@ -26,6 +27,8 @@ namespace
 // an obstacle.  Using only the closest feature minimizes (but not
 // eliminates) this risk.
 size_t const MAX_ROAD_CANDIDATES = 1;
+
+double constexpr KMPH2MPS = 1000.0 / (60 * 60);
 
 IRouter::ResultCode Convert(IRoutingAlgorithm::Result value)
 {
@@ -83,16 +86,72 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   vector<Junction> routePos;
   IRoutingAlgorithm::Result const resultCode = m_algorithm->CalculateRoute(*m_roadGraph, startPos, finalPos, routePos);
 
-  m_roadGraph->ResetFakes();
-
   if (resultCode == IRoutingAlgorithm::Result::OK)
   {
     ASSERT_EQUAL(routePos.front(), startPos, ());
     ASSERT_EQUAL(routePos.back(), finalPos, ());
-    m_roadGraph->ReconstructPath(routePos, route);
+    ReconstructRoute(routePos, route);
   }
 
+  m_roadGraph->ResetFakes();
+
   return Convert(resultCode);
+}
+
+void RoadGraphRouter::ReconstructRoute(vector<Junction> const & junctions, Route & route) const
+{
+  CHECK(!junctions.empty(), ("Can't reconstruct path from an empty list of positions."));
+
+  vector<m2::PointD> path;
+  path.reserve(junctions.size());
+
+  double const speedMPS = m_roadGraph->GetMaxSpeedKMPH() * KMPH2MPS;
+
+  Route::TTimes times;
+  times.reserve(junctions.size());
+
+  double trackTimeSec = 0.0;
+  times.emplace_back(0, 0.0);
+
+  m2::PointD prevPoint = junctions[0].GetPoint();
+  path.emplace_back(prevPoint);
+  for (size_t i = 1; i < junctions.size(); ++i)
+  {
+    m2::PointD const curPoint = junctions[i].GetPoint();
+
+    // By some reason there're two adjacent positions on a road with
+    // the same end-points. This could happen, for example, when
+    // direction on a road was changed.  But it doesn't matter since
+    // this code reconstructs only geometry of a route.
+    if (curPoint == prevPoint)
+      continue;
+
+    double const lengthM = MercatorBounds::DistanceOnEarth(prevPoint, curPoint);
+    trackTimeSec += lengthM / speedMPS;
+
+    path.emplace_back(curPoint);
+    times.emplace_back(path.size()-1, trackTimeSec);
+
+    prevPoint = curPoint;
+  }
+
+  if (path.size() == 1)
+  {
+    path.emplace_back(path.front());
+    times.emplace_back(path.size()-1, trackTimeSec);
+  }
+
+  ASSERT_EQUAL(path.size(), times.size(), ());
+  ASSERT_GREATER_OR_EQUAL(path.size(), 2, ());
+
+  Route::TTurns turnsDir;
+  turns::TTurnsGeom turnsGeom;
+  turns::PedestrianTurnsGenerator().Generate(*m_roadGraph, path, turnsDir, turnsGeom);
+
+  route.SetGeometry(path.begin(), path.end());
+  route.SetSectionTimes(times);
+  route.SetTurnInstructions(turnsDir);
+  route.SetTurnInstructionsGeometry(turnsGeom);
 }
 
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,

@@ -20,7 +20,7 @@ namespace
 using TRoutingAlgorithm = AStarBidirectionalRoutingAlgorithm;
 
 void TestAStarRouterMock(Junction const & startPos, Junction const & finalPos,
-                         m2::PolylineD const & expected)
+                         vector<Junction> const & expected)
 {
   classificator::Load();
 
@@ -31,9 +31,7 @@ void TestAStarRouterMock(Junction const & startPos, Junction const & finalPos,
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
 
-  Route route("");
-  graph.ReconstructPath(path, route);
-  TEST_EQUAL(expected, route.GetPoly(), ());
+  TEST_EQUAL(expected, path, ());
 }
 
 void AddRoad(RoadGraphMockSource & graph, double speedKMPH, initializer_list<m2::PointD> const & points)
@@ -54,8 +52,8 @@ UNIT_TEST(AStarRouter_Graph2_Simple1)
   Junction const startPos = m2::PointD(0, 0);
   Junction const finalPos = m2::PointD(80, 55);
 
-  m2::PolylineD const expected = {m2::PointD(0, 0),   m2::PointD(5, 10),  m2::PointD(5, 40),
-                                  m2::PointD(18, 55), m2::PointD(39, 55), m2::PointD(80, 55)};
+  vector<Junction> const expected = {m2::PointD(0, 0),   m2::PointD(5, 10),  m2::PointD(5, 40),
+                                     m2::PointD(18, 55), m2::PointD(39, 55), m2::PointD(80, 55)};
 
   TestAStarRouterMock(startPos, finalPos, expected);
 }
@@ -65,9 +63,9 @@ UNIT_TEST(AStarRouter_Graph2_Simple2)
   Junction const startPos = m2::PointD(80, 55);
   Junction const finalPos = m2::PointD(80, 0);
 
-  m2::PolylineD const expected = {m2::PointD(80, 55), m2::PointD(39, 55), m2::PointD(37, 30),
-                                  m2::PointD(70, 30), m2::PointD(70, 10), m2::PointD(70, 0),
-                                  m2::PointD(80, 0)};
+  vector<Junction> const expected = {m2::PointD(80, 55), m2::PointD(39, 55), m2::PointD(37, 30),
+                                     m2::PointD(70, 30), m2::PointD(70, 10), m2::PointD(70, 0),
+                                     m2::PointD(80, 0)};
 
   TestAStarRouterMock(startPos, finalPos, expected);
 }
@@ -87,15 +85,13 @@ UNIT_TEST(AStarRouter_SimpleGraph_RouteIsFound)
   Junction const startPos = m2::PointD(0, 0);
   Junction const finalPos = m2::PointD(40, 100);
 
-  m2::PolylineD const expected = {m2::PointD(0, 0), m2::PointD(0, 30), m2::PointD(0, 60), m2::PointD(40, 100)};
+  vector<Junction> const expected = {m2::PointD(0, 0), m2::PointD(0, 30), m2::PointD(0, 60), m2::PointD(40, 100)};
 
   vector<Junction> path;
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
 
-  Route route("");
-  graph.ReconstructPath(path, route);
-  TEST_EQUAL(expected, route.GetPoly(), ());
+  TEST_EQUAL(expected, path, ());
 }
 
 UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)

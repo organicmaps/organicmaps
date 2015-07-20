@@ -13,8 +13,6 @@
 namespace routing
 {
 
-class Route;
-
 /// The Junction class represents a node description on a road network graph
 class Junction
 {
@@ -116,9 +114,6 @@ public:
 
   virtual ~IRoadGraph() = default;
 
-  /// Construct route by road positions (doesn't include first and last section).
-  void ReconstructPath(TJunctionVector const & junctions, Route & route) const;
-
   /// Finds all nearest outgoing edges, that route to the junction.
   void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const;
 
@@ -153,6 +148,12 @@ public:
   /// then returns empty array.
   virtual void FindClosestEdges(m2::PointD const & point, uint32_t count,
                                 vector<pair<Edge, m2::PointD>> & vicinities) const = 0;
+
+  /// @return Types for the specified feature
+  virtual void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const = 0;
+
+  /// @return Types for the specified edge
+  void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const;
 
   /// Clear all temporary buffers.
   virtual void ClearState() {}

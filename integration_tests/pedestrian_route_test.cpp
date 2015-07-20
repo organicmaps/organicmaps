@@ -2,9 +2,10 @@
 
 #include "integration_tests/routing_test_tools.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
 using namespace routing;
+using namespace routing::turns;
 
 UNIT_TEST(Zgrad424aTo1207)
 {
@@ -382,4 +383,61 @@ UNIT_TEST(CrossMwmRussiaPStaiToBelarusDrazdy)
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(55.014, 30.95552), {0., 0.},
       MercatorBounds::FromLatLon(55.01437, 30.8858), 4834.5);
+}
+
+UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.98401, 37.17979), {0., 0.},
+      MercatorBounds::FromLatLon(55.98419, 37.17938));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+
+  auto const & t = route.GetTurns();
+  TEST_EQUAL(t.size(), 3, ())
+
+  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Downstairs, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::Upstairs, ());
+  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
+}
+
+UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.80867, 37.50575), {0., 0.},
+      MercatorBounds::FromLatLon(55.80884, 37.50668));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+
+  auto const & t = route.GetTurns();
+  TEST_EQUAL(t.size(), 3, ())
+
+  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Upstairs, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::Downstairs, ());
+  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
+}
+
+UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(53.89302, 27.52792), {0., 0.},
+      MercatorBounds::FromLatLon(53.89262, 27.52838));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+
+  auto const & t = route.GetTurns();
+  TEST_EQUAL(t.size(), 3, ())
+
+  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Downstairs, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::Upstairs, ());
+  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }

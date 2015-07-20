@@ -199,6 +199,16 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
   finder.MakeResult(vicinities, count);
 }
 
+void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const
+{
+  FeatureType ft;
+  Index::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
+  loader.GetFeature(featureId.m_offset, ft);
+  ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
+
+  types = feature::TypesHolder(ft);
+}
+
 void FeaturesRoadGraph::ClearState()
 {
   m_cache.Clear();
