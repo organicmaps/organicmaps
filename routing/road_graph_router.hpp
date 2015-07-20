@@ -48,8 +48,8 @@ private:
   
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
                                                 TRoutingVisualizerFn const & visualizerFn);
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
-                                                             TRoutingProgressFn const & progressFn,
-                                                             TRoutingVisualizerFn const & visualizerFn);
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(
+    Index & index, TRoutingProgressFn const & progressFn,
+    TRoutingVisualizerFn const & visualizerFn);
 
 }  // namespace routing

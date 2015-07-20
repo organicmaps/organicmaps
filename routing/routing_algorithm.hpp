@@ -4,6 +4,7 @@
 
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
+#include "routing/base/astar_progress.hpp"
 
 #include "std/functional.hpp"
 #include "std/string.hpp"
@@ -35,8 +36,9 @@ string DebugPrint(IRoutingAlgorithm::Result const & result);
 class AStarRoutingAlgorithmBase : public IRoutingAlgorithm
 {
 protected:
-  AStarRoutingAlgorithmBase(TRoutingVisualizerFn routingVisualizerFn);
+  AStarRoutingAlgorithmBase();
 
+  AStarProgress m_progress;
   std::function<void(Junction const &, Junction const &)> m_onVisitJunctionFn;
 };
 
@@ -44,7 +46,8 @@ protected:
 class AStarRoutingAlgorithm : public AStarRoutingAlgorithmBase
 {
 public:
-  explicit AStarRoutingAlgorithm(TRoutingVisualizerFn routingVisualizerFn = nullptr);
+  explicit AStarRoutingAlgorithm(TRoutingVisualizerFn routingVisualizerFn = nullptr,
+                                 TRoutingProgressFn routingProgressFn = nullptr);
 
   // IRoutingAlgorithm overrides:
   Result CalculateRoute(IRoadGraph const &  graph,
@@ -56,7 +59,8 @@ public:
 class AStarBidirectionalRoutingAlgorithm : public AStarRoutingAlgorithmBase
 {
 public:
-  explicit AStarBidirectionalRoutingAlgorithm(TRoutingVisualizerFn routingVisualizerFn = nullptr);
+  explicit AStarBidirectionalRoutingAlgorithm(TRoutingVisualizerFn routingVisualizerFn = nullptr,
+                                              TRoutingProgressFn routingProgressFn = nullptr);
 
   // IRoutingAlgorithm overrides:
   Result CalculateRoute(IRoadGraph const &  graph,

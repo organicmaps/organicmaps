@@ -24,6 +24,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
 SOURCES += \
   ../../testing/testingmain.cpp \
   astar_algorithm_test.cpp \
+  astar_progress_test.cpp \
   astar_router_test.cpp \
   cross_routing_tests.cpp \
   nearest_edge_finder_tests.cpp \

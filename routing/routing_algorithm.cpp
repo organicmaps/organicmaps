@@ -121,19 +121,31 @@ string DebugPrint(IRoutingAlgorithm::Result const & value)
 
 // *************************** Base class for AStar based routing algorithms ******************************
 
-AStarRoutingAlgorithmBase::AStarRoutingAlgorithmBase(TRoutingVisualizerFn routingVisualizerFn)
+AStarRoutingAlgorithmBase::AStarRoutingAlgorithmBase()
+    : m_progress(0, 100)
 {
-  if (routingVisualizerFn != nullptr)
-    m_onVisitJunctionFn = [=](Junction const & junction, Junction const & target){ routingVisualizerFn(junction.GetPoint()); };
-  else
-    m_onVisitJunctionFn = nullptr;
 }
 
 // *************************** AStar routing algorithm implementation *************************************
 
-AStarRoutingAlgorithm::AStarRoutingAlgorithm(TRoutingVisualizerFn routingVisualizerFn)
-  : AStarRoutingAlgorithmBase(routingVisualizerFn)
+AStarRoutingAlgorithm::AStarRoutingAlgorithm(TRoutingVisualizerFn routingVisualizerFn,
+                                             TRoutingProgressFn routingProgressFn)
+    : AStarRoutingAlgorithmBase()
 {
+  if (routingVisualizerFn != nullptr || routingProgressFn != nullptr)
+    m_onVisitJunctionFn = [&](Junction const & junction, Junction const & target)
+    {
+      if (routingVisualizerFn != nullptr)
+        routingVisualizerFn(junction.GetPoint());
+      if (routingProgressFn != nullptr)
+      {
+        routingProgressFn(
+            m_progress.GetProgressForDirectedAlgo(junction.GetPoint()));
+      }
+
+    };
+  else
+    m_onVisitJunctionFn = nullptr;
 }
 
 IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const &  graph,
@@ -141,15 +153,31 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
                                                                 vector<Junction> & path)
 {
   my::Cancellable const & cancellable = *this;
+  m_progress.Initialise(startPos.GetPoint(), finalPos.GetPoint());
   TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPath(RoadGraph(graph), startPos, finalPos, path, cancellable, m_onVisitJunctionFn);
   return Convert(res);
 }
 
 // *************************** AStar-bidirectional routing algorithm implementation ***********************
 
-AStarBidirectionalRoutingAlgorithm::AStarBidirectionalRoutingAlgorithm(TRoutingVisualizerFn routingVisualizerFn)
-  : AStarRoutingAlgorithmBase(routingVisualizerFn)
+AStarBidirectionalRoutingAlgorithm::AStarBidirectionalRoutingAlgorithm(
+    TRoutingVisualizerFn routingVisualizerFn, TRoutingProgressFn routingProgressFn)
+    : AStarRoutingAlgorithmBase()
 {
+  if (routingVisualizerFn != nullptr || routingProgressFn != nullptr)
+    m_onVisitJunctionFn = [&](Junction const & junction, Junction const & target)
+    {
+      if (routingVisualizerFn != nullptr)
+        routingVisualizerFn(junction.GetPoint());
+      if (routingProgressFn != nullptr)
+      {
+        routingProgressFn(
+            m_progress.GetProgressForBidirectedAlgo(junction.GetPoint(), target.GetPoint()));
+      }
+
+    };
+  else
+    m_onVisitJunctionFn = nullptr;
 }
 
 IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(IRoadGraph const &  graph,
@@ -157,6 +185,7 @@ IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(IRo
                                                                              vector<Junction> & path)
 {
   my::Cancellable const & cancellable = *this;
+  m_progress.Initialise(startPos.GetPoint(), finalPos.GetPoint());
   TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPathBidirectional(RoadGraph(graph), startPos, finalPos, path, cancellable, m_onVisitJunctionFn);
   return Convert(res);
 }
