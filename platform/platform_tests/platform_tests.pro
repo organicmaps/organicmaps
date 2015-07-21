@@ -38,6 +38,3 @@ SOURCES += \
     measurement_tests.cpp \
     platform_test.cpp \
     video_timer_test.cpp \
-
-HEADERS += \
-    file_utils.hpp \
