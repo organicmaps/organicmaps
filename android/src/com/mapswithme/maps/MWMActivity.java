@@ -1580,7 +1580,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     if (popFragment())
     {
       InputUtils.hideKeyboard(mBottomButtons);
-      mFadeView.fadeOut(false);
       refreshRouterIcon();
       mSearchController.refreshToolbar();
     }
