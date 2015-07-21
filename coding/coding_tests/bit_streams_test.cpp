@@ -28,10 +28,12 @@ UNIT_TEST(BitStreams_Smoke)
   }
 
   vector<uint8_t> encodedBits;
-  MemWriter<vector<uint8_t>> encodedBitsWriter(encodedBits);
-  BitWriter<MemWriter<vector<uint8_t>>> bitSink(encodedBitsWriter);
-  for (size_t i = 0; i < nums.size(); ++i)
-    bitSink.Write(nums[i].first, nums[i].second);
+  {
+    MemWriter<vector<uint8_t>> encodedBitsWriter(encodedBits);
+    BitWriter<MemWriter<vector<uint8_t>>> bitSink(encodedBitsWriter);
+    for (size_t i = 0; i < nums.size(); ++i)
+      bitSink.Write(nums[i].first, nums[i].second);
+  }
 
   MemReader encodedBitsReader(encodedBits.data(), encodedBits.size());
   ReaderSource<MemReader> reader(encodedBitsReader);
