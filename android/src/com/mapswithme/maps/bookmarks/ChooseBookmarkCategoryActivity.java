@@ -7,10 +7,9 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
 public class ChooseBookmarkCategoryActivity extends BaseMwmFragmentActivity
 {
-  public static final String BOOKMARK = "pin";
-  public static final String BOOKMARK_SET = "pin_set";
-  public static final int REQUEST_CODE_SET = 0x1;
-  public static final int REQUEST_CODE_EDIT_BOOKMARK = 0x2;
+  public static final String BOOKMARK = "Bookmark";
+  public static final String BOOKMARK_CATEGORY_INDEX = "BoookmarkCategoryIndex";
+  public static final int REQUEST_CODE_BOOKMARK_SET = 0x1;
 
   @Override
   protected String getFragmentClassName()

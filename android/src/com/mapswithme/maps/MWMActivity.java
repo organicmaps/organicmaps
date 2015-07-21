@@ -59,8 +59,8 @@ import com.mapswithme.maps.dialog.RoutingErrorDialogFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.search.SearchActivity;
-import com.mapswithme.maps.search.SearchToolbarController;
 import com.mapswithme.maps.search.SearchFragment;
+import com.mapswithme.maps.search.SearchToolbarController;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.StoragePathManager.SetStoragePathListener;
@@ -74,10 +74,10 @@ import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.sharing.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.sharing.ShareAction;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
@@ -1413,7 +1413,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private void showRoutingDisclaimer()
   {
     StringBuilder builder = new StringBuilder();
-    for (int resId : new int[] {R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
+    for (int resId : new int[]{R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
         R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_beware})
       builder.append(getString(resId)).append("\n\n");
 
@@ -1494,19 +1494,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data)
   {
-    if (resultCode == RESULT_OK)
+    if (resultCode == RESULT_OK && requestCode == ChooseBookmarkCategoryActivity.REQUEST_CODE_BOOKMARK_SET)
     {
-      if (requestCode == ChooseBookmarkCategoryActivity.REQUEST_CODE_EDIT_BOOKMARK)
-      {
-        final Point bmk = ((ParcelablePoint) data.getParcelableExtra(ChooseBookmarkCategoryActivity.BOOKMARK)).getPoint();
-        onBookmarkActivated(bmk.x, bmk.y);
-      }
-      else if (requestCode == ChooseBookmarkCategoryActivity.REQUEST_CODE_SET)
-      {
-        final Point pin = ((ParcelablePoint) data.getParcelableExtra(ChooseBookmarkCategoryActivity.BOOKMARK)).getPoint();
-        final Bookmark bookmark = BookmarkManager.INSTANCE.getBookmark(pin.x, pin.y);
-        mPlacePage.setMapObject(bookmark);
-      }
+      final Point bookmarkAndCategory = ((ParcelablePoint) data.getParcelableExtra(ChooseBookmarkCategoryActivity.BOOKMARK)).getPoint();
+      final Bookmark bookmark = BookmarkManager.INSTANCE.getBookmark(bookmarkAndCategory.x, bookmarkAndCategory.y);
+      mPlacePage.setMapObject(bookmark);
     }
     super.onActivityResult(requestCode, resultCode, data);
   }

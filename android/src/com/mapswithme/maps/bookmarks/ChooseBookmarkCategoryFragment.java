@@ -24,7 +24,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmListFragment implemen
   {
     super.onViewCreated(view, savedInstanceState);
 
-    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), getArguments().getInt(ChooseBookmarkCategoryActivity.BOOKMARK_SET, 0));
+    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), getArguments().getInt(ChooseBookmarkCategoryActivity.BOOKMARK_CATEGORY_INDEX, 0));
     setListAdapter(mAdapter);
     mBookmark = getBookmarkFromIntent();
   }
@@ -70,7 +70,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmListFragment implemen
     final int category = BookmarkManager.INSTANCE.createCategory(name);
     mBookmark.setCategoryId(category);
 
-    getActivity().getIntent().putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_SET, category)
+    getActivity().getIntent().putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_CATEGORY_INDEX, category)
         .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK, new ParcelablePoint(category, 0));
 
     mAdapter.chooseItem(category);

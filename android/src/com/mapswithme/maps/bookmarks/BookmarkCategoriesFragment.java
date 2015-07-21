@@ -61,7 +61,7 @@ public class BookmarkCategoriesFragment extends BaseMwmListFragment
   public void onListItemClick(ListView l, View v, int position, long id)
   {
     startActivity(new Intent(getActivity(), BookmarkListActivity.class)
-        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_SET, position));
+        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_CATEGORY_INDEX, position));
   }
 
   @Override

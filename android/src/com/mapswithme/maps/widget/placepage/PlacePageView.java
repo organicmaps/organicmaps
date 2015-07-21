@@ -274,7 +274,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   public MapObject getMapObject()
   {
-    saveBookmarkNameIfUpdated();
+    saveBookmarkNameIfUpdated(null);
     return mMapObject;
   }
 
@@ -283,7 +283,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (hasMapObject(mapObject))
       return;
 
-    saveBookmarkNameIfUpdated();
+    saveBookmarkNameIfUpdated(mapObject);
     mMapObject = mapObject;
     refreshViews();
   }
@@ -566,17 +566,14 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     checkApiWasCanceled();
   }
 
+  // TODO remove that method completely. host activity should check that itself
   private void checkApiWasCanceled()
   {
     if ((mMapObject.getType() == MapObjectType.API_POINT) && !ParsedMwmRequest.hasRequest())
-    {
       setMapObject(null);
-
-      // FIXME
-      //      mAnimationController.hidePlacePage();
-    }
   }
 
+  // TODO refactor processing of bookmarks.
   private void checkBookmarkWasDeleted()
   {
     // We need to check, if content of body is still valid
@@ -610,9 +607,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     }
   }
 
-  private void saveBookmarkNameIfUpdated()
+  private void saveBookmarkNameIfUpdated(MapObject newObject)
   {
-    if (mMapObject == null || !(mMapObject instanceof Bookmark))
+    // 1. Can't save bookmark name if current object is not bookmark.
+    // 2. If new object is bookmark, we should NOT try to save old one, cause it might be just old bookmark moved to the new set.
+    // In that case old bookmark is already saved.
+    if (mMapObject == null || !(mMapObject instanceof Bookmark) || newObject instanceof Bookmark)
       return;
 
     final Bookmark bookmark = (Bookmark) mMapObject;
@@ -626,7 +626,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     switch (v.getId())
     {
     case R.id.iv__bookmark_color:
-      saveBookmarkNameIfUpdated();
+      saveBookmarkNameIfUpdated(null);
       selectBookmarkColor();
       break;
     case R.id.rl__bookmark:
@@ -675,7 +675,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       getContext().startActivity(intent);
       break;
     case R.id.tv__bookmark_group:
-      saveBookmarkNameIfUpdated();
+      saveBookmarkNameIfUpdated(null);
       selectBookmarkSet();
       break;
     case R.id.av__direction:
@@ -760,9 +760,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     final Activity activity = (Activity) getContext();
     final Bookmark bookmark = (Bookmark) mMapObject;
     final Intent intent = new Intent(activity, ChooseBookmarkCategoryActivity.class)
-        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_SET, bookmark.getCategoryId())
+        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_CATEGORY_INDEX, bookmark.getCategoryId())
         .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK, new ParcelablePoint(bookmark.getCategoryId(), bookmark.getBookmarkId()));
-    activity.startActivityForResult(intent, ChooseBookmarkCategoryActivity.REQUEST_CODE_SET);
+    activity.startActivityForResult(intent, ChooseBookmarkCategoryActivity.REQUEST_CODE_BOOKMARK_SET);
   }
 
   private void selectBookmarkColor()

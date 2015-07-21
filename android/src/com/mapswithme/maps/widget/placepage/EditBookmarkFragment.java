@@ -118,9 +118,9 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   private void selectBookmarkSet()
   {
     final Intent intent = new Intent(getActivity(), ChooseBookmarkCategoryActivity.class)
-        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_SET, mBookmark.getCategoryId())
+        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_CATEGORY_INDEX, mBookmark.getCategoryId())
         .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK, new ParcelablePoint(mBookmark.getCategoryId(), mBookmark.getBookmarkId()));
-    getActivity().startActivityForResult(intent, ChooseBookmarkCategoryActivity.REQUEST_CODE_SET);
+    getActivity().startActivityForResult(intent, ChooseBookmarkCategoryActivity.REQUEST_CODE_BOOKMARK_SET);
   }
 
   private void selectBookmarkColor()
