@@ -12,6 +12,12 @@ typedef NS_ENUM(NSUInteger, MWMNavigationRouteType)
   MWMNavigationRouteTypeVehicle
 };
 
+typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
+{
+  MWMNavigationDashboardStateHidden,
+  MWMNavigationDashboardStatePlanning
+};
+
 @protocol MWMNavigationDashboardManagerDelegate <NSObject>
 
 - (void)buildRouteWithType:(enum MWMNavigationRouteType)type;
@@ -19,6 +25,8 @@ typedef NS_ENUM(NSUInteger, MWMNavigationRouteType)
 @end
 
 @interface MWMNavigationDashboardManager : NSObject
+
+@property (nonatomic) MWMNavigationDashboardState state;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerDelegate>)delegate;

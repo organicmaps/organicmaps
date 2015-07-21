@@ -35,6 +35,8 @@
 		3457D2161B5E2DF600428798 /* MWMNavigationDashboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3457D2141B5E2DF600428798 /* MWMNavigationDashboard.xib */; };
 		3457D21B1B5E2E1400428798 /* MWMNavigationGo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3457D2191B5E2E1400428798 /* MWMNavigationGo.m */; };
 		3457D21C1B5E2E1400428798 /* MWMNavigationGo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3457D21A1B5E2E1400428798 /* MWMNavigationGo.xib */; };
+		3457D2231B5E4A2A00428798 /* MWMiPadLandscapeRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3457D2221B5E4A2A00428798 /* MWMiPadLandscapeRoutePreview.xib */; };
+		3457D2261B5E4AE100428798 /* MWMiPadLandscapeRoutePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 3457D2251B5E4AE100428798 /* MWMiPadLandscapeRoutePreview.m */; };
 		345C31711AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 345C316E1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m */; };
 		345C31721AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */; };
 		345C31781AE799B600EA0CC2 /* MWMSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 345C31751AE799B600EA0CC2 /* MWMSearchResultCell.m */; };
@@ -394,6 +396,9 @@
 		3457D2181B5E2E1400428798 /* MWMNavigationGo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationGo.h; sourceTree = "<group>"; };
 		3457D2191B5E2E1400428798 /* MWMNavigationGo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMNavigationGo.m; sourceTree = "<group>"; };
 		3457D21A1B5E2E1400428798 /* MWMNavigationGo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNavigationGo.xib; sourceTree = "<group>"; };
+		3457D2221B5E4A2A00428798 /* MWMiPadLandscapeRoutePreview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMiPadLandscapeRoutePreview.xib; sourceTree = "<group>"; };
+		3457D2241B5E4AE100428798 /* MWMiPadLandscapeRoutePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMiPadLandscapeRoutePreview.h; sourceTree = "<group>"; };
+		3457D2251B5E4AE100428798 /* MWMiPadLandscapeRoutePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMiPadLandscapeRoutePreview.m; sourceTree = "<group>"; };
 		345C31681AE7860600EA0CC2 /* MWMWatchLocationTrackerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMWatchLocationTrackerDelegate.h; sourceTree = "<group>"; };
 		345C316D1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCategoriesInterfaceCell.h; sourceTree = "<group>"; };
 		345C316E1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMCategoriesInterfaceCell.m; sourceTree = "<group>"; };
@@ -1047,9 +1052,12 @@
 		3457D2081B5E2DD000428798 /* RoutePreview */ = {
 			isa = PBXGroup;
 			children = (
-				3457D20B1B5E2DD000428798 /* MWMRoutePreview.xib */,
 				3457D20C1B5E2DD000428798 /* MWMRoutePreview.h */,
 				3457D20D1B5E2DD000428798 /* MWMRoutePreview.m */,
+				3457D20B1B5E2DD000428798 /* MWMRoutePreview.xib */,
+				3457D2241B5E4AE100428798 /* MWMiPadLandscapeRoutePreview.h */,
+				3457D2251B5E4AE100428798 /* MWMiPadLandscapeRoutePreview.m */,
+				3457D2221B5E4A2A00428798 /* MWMiPadLandscapeRoutePreview.xib */,
 			);
 			path = RoutePreview;
 			sourceTree = "<group>";
@@ -2175,6 +2183,7 @@
 				F7E7BA2A1672328F00B4492E /* fuel.png in Resources */,
 				F7E7BA2B1672328F00B4492E /* fuel@2x.png in Resources */,
 				4A7D89C61B2EBF3B00AC843E /* resources-mdpi_dark in Resources */,
+				3457D2231B5E4A2A00428798 /* MWMiPadLandscapeRoutePreview.xib in Resources */,
 				F6BC1E541ACBF9AB00EF0360 /* MWMFacebookAlert.xib in Resources */,
 				F7E7BA2C1672328F00B4492E /* hospital.png in Resources */,
 				F6CB21641AEFC42800FB8963 /* PlacePageActionBar.xib in Resources */,
@@ -2342,6 +2351,7 @@
 				B08AA8DA1A26299A00810B1C /* TimeUtils.m in Sources */,
 				F6CB216D1AF13EBD00FB8963 /* MWMPlacePageBookmarkCell.mm in Sources */,
 				F653D4231AE9398700282659 /* MWMPlacePageViewManager.mm in Sources */,
+				3457D2261B5E4AE100428798 /* MWMiPadLandscapeRoutePreview.m in Sources */,
 				F65243351B0B634F00BFA9D4 /* MWMPlacePage+Animation.mm in Sources */,
 				976D86F519CB21BD00C920EF /* RouteView.mm in Sources */,
 				349A357C1B53D4C9009677EE /* MWMCircularProgressView.m in Sources */,
