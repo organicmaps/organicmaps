@@ -6,22 +6,14 @@ namespace coding
 {
 HuffmanCoder::~HuffmanCoder()
 {
-  try
-  {
-    DeleteHuffmanTree(m_root);
-  }
-  catch (...)
-  {
-    LOG(LWARNING, ("Caught an exception when deleting a Huffman tree."));
-  }
+  DeleteHuffmanTree(m_root);
 }
 
 void HuffmanCoder::Init(vector<strings::UniString> const & data)
 {
+  DeleteHuffmanTree(m_root);
   BuildHuffmanTree(data.begin(), data.end());
   BuildTables(m_root, 0);
-  DeleteHuffmanTree(m_root);
-  m_root = nullptr;
 }
 
 bool HuffmanCoder::Encode(uint32_t symbol, Code & code) const

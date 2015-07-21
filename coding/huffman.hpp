@@ -23,7 +23,7 @@ public:
     uint32_t bits;
     uint32_t len;
 
-    Code() = default;
+    Code() : bits(0), len(0) {}
     Code(uint32_t bits, uint32_t len) : bits(bits), len(len) {}
 
     bool operator<(const Code & o) const
@@ -124,10 +124,6 @@ public:
   }
 
 private:
-  // One would need more than 2^32 symbols to build a code that long.
-  // On the other hand, 32 is short enough for our purposes, so do not
-  // try to shrink the trees beyond this threshold.
-  const uint32_t kMaxDepth = 32;
 
   struct Node
   {
@@ -160,8 +156,14 @@ private:
   {
     Code code;
     CHECK(Encode(symbol, code), ());
-    for (size_t i = 0; i < code.len; ++i)
-      bitWriter.Write((code.bits >> i) & 1, 1);
+    size_t fullBytes = code.len / CHAR_BIT;
+    size_t rem = code.len % CHAR_BIT;
+    for (size_t i = 0; i < fullBytes; ++i)
+    {
+      bitWriter.Write(code.bits & 0xFF, CHAR_BIT);
+      code.bits >>= CHAR_BIT;
+    }
+    bitWriter.Write(code.bits, rem);
   }
 
   template <typename TReader>
@@ -191,13 +193,18 @@ private:
   // Builds a fixed Huffman tree for a collection of strings::UniStrings.
   // UniString is always UTF-32. Every code point is treated as a symbol for the encoder.
   template <typename TIter>
-  void BuildHuffmanTree(TIter beg, TIter end)
+  void BuildHuffmanTree(TIter const & beg, TIter const & end)
   {
     if (beg == end)
     {
       m_root = nullptr;
       return;
     }
+
+    // One would need more than 2^32 symbols to build a code that long.
+    // On the other hand, 32 is short enough for our purposes, so do not
+    // try to shrink the trees beyond this threshold.
+    uint32_t const kMaxDepth = 32;
 
     map<uint32_t, uint32_t> freqs;
     for (auto it = beg; it != end; ++it)

@@ -5,6 +5,7 @@
 #include "coding/writer.hpp"
 
 #include "base/string_utils.hpp"
+
 #include "std/vector.hpp"
 
 namespace
@@ -13,7 +14,7 @@ vector<strings::UniString> MakeUniStringVector(vector<string> const & v)
 {
   vector<strings::UniString> result(v.size());
   for (size_t i = 0; i < v.size(); ++i)
-    result[i] = strings::UniString(v[i].begin(), v[i].end());
+    result[i] = strings::MakeUniString(v[i]);
   return result;
 }
 
@@ -44,6 +45,36 @@ UNIT_TEST(Huffman_OneSymbol)
   h.Init(MakeUniStringVector(vector<string>{string(5, 0)}));
 
   TestDecode(h, 0, 0, 0);
+}
+
+UNIT_TEST(Huffman_NonAscii)
+{
+  HuffmanCoder h;
+  string const data = "2πΩ";
+  strings::UniString const uniData = strings::MakeUniString(data);
+  h.Init(vector<strings::UniString>{uniData});
+
+  TestDecode(h, 0, 2, static_cast<uint32_t>(uniData[0]));  // 00
+  TestDecode(h, 1, 1, static_cast<uint32_t>(uniData[1]));  // 1
+  TestDecode(h, 2, 2, static_cast<uint32_t>(uniData[2]));  // 01
+}
+
+UNIT_TEST(Huffman_Init)
+{
+  HuffmanCoder h;
+  h.Init(MakeUniStringVector(vector<string>{"ab"}));
+
+  vector<uint8_t> buf;
+  buf.push_back(16);   // size
+  buf.push_back(105);  // 01101001
+  buf.push_back(150);  // 10010110
+
+  MemReader memReader(&buf[0], buf.size());
+  ReaderSource<MemReader> reader(memReader);
+  strings::UniString received = h.ReadAndDecode(reader);
+  strings::UniString expected = strings::MakeUniString("baababbaabbabaab");
+
+  TEST_EQUAL(expected, received, ());
 }
 
 UNIT_TEST(Huffman_Serialization_Encoding)
