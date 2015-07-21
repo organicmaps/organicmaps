@@ -226,24 +226,20 @@ namespace
       CHECK(!info.m_makeCoasts || !info.m_createWorld,
             ("We can't do make_coasts and generate_world at the same time"));
 
-      // TODO: In this case we need more carefully check command line parameters for one country
-      if (!info.m_makeCoasts && info.m_splitByPolygons)
-      {
-        m_countries.reset(new CountriesGenerator(info));
-
-        if (info.m_emitCoasts)
-        {
-          m_coastsHolder.reset(new feature::FeaturesCollector(info.GetTmpFileName(WORLD_COASTS_FILE_NAME)));
-        }
-      }
-
       if (info.m_makeCoasts)
       {
         m_coasts.reset(new CoastlineFeaturesGenerator(Type(NATURAL_COASTLINE)));
 
         m_coastsHolder.reset(new feature::FeaturesAndRawGeometryCollector(
-                               m_srcCoastsFile, info.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".rawdump")));
+                               m_srcCoastsFile, info.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION)));
+        return;
       }
+
+      if (info.m_emitCoasts)
+        m_coastsHolder.reset(new feature::FeaturesCollector(info.GetTmpFileName(WORLD_COASTS_FILE_NAME)));
+
+      if (info.m_splitByPolygons || !info.m_fileName.empty())
+        m_countries.reset(new CountriesGenerator(info));
 
       if (info.m_createWorld)
         m_world.reset(new WorldGenerator(info));
@@ -303,7 +299,7 @@ namespace
 
         LOG(LINFO, ("Generating coastline polygons"));
 
-        size_t totalRegions = 0;
+        size_t totalFeatures = 0;
         size_t totalPoints = 0;
         size_t totalPolygons = 0;
 
@@ -313,12 +309,12 @@ namespace
         for (auto & fb : vecFb)
         {
           (*m_coastsHolder)(fb);
-          ++totalRegions;
+            ++totalFeatures;
           totalPoints += fb.GetPointsCount();
           totalPolygons += fb.GetPolygonsCount();
+          }
         }
-        LOG(LINFO, ("Total regions:", totalRegions, "total points:", totalPoints, "total polygons:",
-                    totalPolygons));
+        LOG(LINFO, ("Total features:", totalFeatures, "total polygons:", totalPolygons, "total points:", totalPoints));
       }
       else if (m_coastsHolder)
       {

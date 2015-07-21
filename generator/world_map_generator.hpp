@@ -27,21 +27,25 @@ class WorldMapGenerator
 
     m4::Tree<size_t> m_tree;
     map<uint32_t, size_t> m_mapTypes;
+    size_t m_totalFeatures = 0;
+    size_t m_totalBorders = 0;
+    size_t m_skippedBorders = 0;
+    size_t m_selectedPolygons = 0;
 
   public:
     explicit EmitterImpl(feature::GenerateInfo const & info)
       : m_output(info.GetTmpFileName(WORLD_FILE_NAME))
     {
       m_boundaryType = classif().GetTypeByPath({"boundary", "administrative"});
-      LoadWaterGeometry(my::JoinFoldersToPath({info.m_intermediateDir},
-                                                  string(WORLD_COASTS_FILE_NAME) + ".rawdump"));
+      LoadWaterGeometry(info.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
       LOG(LINFO, ("Output World file:", info.GetTmpFileName(WORLD_FILE_NAME)));
     }
 
-    ~EmitterImpl()
+    ~EmitterImpl() override
     {
       Classificator const & c = classif();
 
+      LOG(LINFO, ("Features checked:", m_totalFeatures, "borders checked:", m_totalBorders, "borders skipped:", m_skippedBorders, "selected polygons:", m_selectedPolygons));
       stringstream ss;
       for (auto const & p : m_mapTypes)
         ss << c.GetReadableObjectName(p.first) << " : " <<  p.second << endl;
@@ -82,7 +86,7 @@ class WorldMapGenerator
     }
 
     /// This function is called after merging linear features.
-    virtual void operator()(FeatureBuilder1 const & fb)
+    void operator()(FeatureBuilder1 const & fb) override
     {
       // do additional check for suitable size of feature
       if (NeedPushToWorld(fb) &&
@@ -96,15 +100,17 @@ class WorldMapGenerator
         ++m_mapTypes[type];
     }
 
-    bool IsWaterBoundaries(FeatureBuilder1 const & fb) const
+    bool IsWaterBoundaries(FeatureBuilder1 const & fb)
     {
-      return false;
+      ++m_totalFeatures;
 
       if (fb.FindType(m_boundaryType, 2) == ftype::GetEmptyValue())
         return false;
 
-      m2::PointD pts[3] = {{0, 0}, {0, 0}, {0, 0}};
-      size_t hits[3] = {0, 0, 0};
+      ++m_totalBorders;
+
+      array<m2::PointD, 3> pts = {m2::PointD{0, 0}, {0, 0}, {0, 0}};
+      array<size_t, 3> hits = {0, 0, 0};
 
       // For check we select first, last and middle point in line.
       auto const & line = fb.GetGeometry().front();
@@ -112,12 +118,17 @@ class WorldMapGenerator
       pts[1] = *(line.cbegin() + line.size() / 2);
       pts[2] = line.back();
 
-      m_tree.ForEachInRect(fb.GetLimitRect(), [&](size_t index)
+      double constexpr kExtension = 0.01;
+
+      for (size_t i = 0; i < pts.size(); ++i)
       {
-        hits[0] += m_waterRegions[index].Contains(pts[0]) ? 1 : 0;
-        hits[1] += m_waterRegions[index].Contains(pts[1]) ? 1 : 0;
-        hits[2] += m_waterRegions[index].Contains(pts[2]) ? 1 : 0;
-      });
+        m2::RectD r(pts[i].x - kExtension, pts[i].y - kExtension, pts[i].x + kExtension, pts[i].y + kExtension);
+        m_tree.ForEachInRect(r, [&](size_t index)
+        {
+          ++m_selectedPolygons;
+          hits[i] += m_waterRegions[index].Contains(pts[i]) ? 1 : 0;
+        });
+      }
 
       size_t const state = (hits[0] & 0x01) + (hits[1] & 0x01) + (hits[2] & 0x01);
 
@@ -126,6 +137,7 @@ class WorldMapGenerator
       {
         LOG(LINFO, ("Boundary", (state == 3 ? "deleted" : "kept"), "hits:", hits,
                     DebugPrint(fb.GetParams()), fb.GetOsmIdsString()));
+        ++m_skippedBorders;
         return true;
       }
 
