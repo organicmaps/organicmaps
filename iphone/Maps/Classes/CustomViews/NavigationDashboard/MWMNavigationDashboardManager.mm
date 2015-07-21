@@ -18,22 +18,30 @@
 @property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboard;
 @property (nonatomic) IBOutlet MWMNavigationGo * navigatonGo;
 
+@property (weak, nonatomic) UIView * ownerView;
+@property (weak, nonatomic) id<MWMNavigationDashboardManagerDelegate> delegate;
+
 @end
 
 @implementation MWMNavigationDashboardManager
+
+- (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerDelegate>)delegate
+{
+  self = [super init];
+  if (self)
+  {
+    self.ownerView = view;
+    self.delegate = delegate;
+  }
+  return self;
+}
 
 #pragma mark - MWMRoutePreview
 
 - (IBAction)routePreviewChange:(UIButton *)sender
 {
-  if ([sender isEqual:self.routePreview.walk])
-  {
-    // Build walk route
-  }
-  else
-  {
-    // Build drive route
-  }
+  enum MWMNavigationRouteType const type = [sender isEqual:self.routePreview.pedestrian] ? MWMNavigationRouteTypePedestrian : MWMNavigationRouteTypeVehicle;
+  [self.delegate buildRouteWithType:type];
 }
 
 #pragma mark - MWMNavigationDashboard
@@ -53,21 +61,21 @@
 - (MWMRoutePreview *)routePreview
 {
   if (!_routePreview)
-    [[NSBundle mainBundle] loadNibNamed:MWMRoutePreview.className owner:self options:nil];
+    [NSBundle.mainBundle loadNibNamed:MWMRoutePreview.className owner:self options:nil];
   return _routePreview;
 }
 
 - (MWMNavigationDashboard *)navigationDashboard
 {
   if (!_navigationDashboard)
-    [[NSBundle mainBundle] loadNibNamed:MWMNavigationDashboard.className owner:self options:nil];
+    [NSBundle.mainBundle loadNibNamed:MWMNavigationDashboard.className owner:self options:nil];
   return _navigationDashboard;
 }
 
 - (MWMNavigationGo *)navigatonGo
 {
   if (!_navigatonGo)
-    [[NSBundle mainBundle] loadNibNamed:MWMNavigationGo.className owner:self options:nil];
+    [NSBundle.mainBundle loadNibNamed:MWMNavigationGo.className owner:self options:nil];
   return _navigatonGo;
 }
 

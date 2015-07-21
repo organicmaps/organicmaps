@@ -11,7 +11,7 @@
 @interface MWMRoutePreview : SolidTouchView
 
 @property (weak, nonatomic) IBOutlet UILabel * status;
-@property (weak, nonatomic) IBOutlet UIButton * walk;
-@property (weak, nonatomic) IBOutlet UIButton * drive;
+@property (weak, nonatomic) IBOutlet UIButton * pedestrian;
+@property (weak, nonatomic) IBOutlet UIButton * vehicle;
 
 @end

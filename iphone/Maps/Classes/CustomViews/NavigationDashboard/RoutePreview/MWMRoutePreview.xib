@@ -44,6 +44,7 @@
                             </state>
                             <connections>
                                 <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="2Yh-CE-Sq2"/>
+                                <action selector="routeTypePressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="w9W-9i-JXg"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KDI-3e-888" userLabel="Drive Button">
@@ -53,6 +54,7 @@
                             </state>
                             <connections>
                                 <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="9Pu-OX-NOL"/>
+                                <action selector="routeTypePressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="1tR-7d-1af"/>
                             </connections>
                         </button>
                     </subviews>
@@ -84,9 +86,9 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="drive" destination="KDI-3e-888" id="89j-XQ-qYp"/>
+                <outlet property="pedestrian" destination="BhZ-YH-NR4" id="tPi-D3-IUF"/>
                 <outlet property="status" destination="kPQ-m5-bML" id="O4H-Ld-GZg"/>
-                <outlet property="walk" destination="BhZ-YH-NR4" id="IVv-IB-z4z"/>
+                <outlet property="vehicle" destination="KDI-3e-888" id="bTw-F4-5xc"/>
             </connections>
             <point key="canvasLocation" x="330" y="261"/>
         </view>

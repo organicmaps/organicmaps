@@ -16,7 +16,7 @@
 #import "MWMSideMenuManager.h"
 #import "MWMZoomButtons.h"
 
-@interface MWMMapViewControlsManager () <MWMPlacePageViewManagerDelegate>
+@interface MWMMapViewControlsManager () <MWMPlacePageViewManagerDelegate, MWMNavigationDashboardManagerDelegate>
 
 @property (nonatomic) MWMZoomButtons * zoomButtons;
 @property (nonatomic) MWMLocationButton * locationButton;
@@ -25,6 +25,8 @@
 @property (nonatomic) MWMNavigationDashboardManager * navigationManager;
 
 @property (weak, nonatomic) MapViewController * ownerController;
+
+@property (nonatomic) m2::PointD routeDestination;
 
 @end
 
@@ -42,7 +44,7 @@
   self.locationButton = [[MWMLocationButton alloc] initWithParentView:controller.view];
   self.menuManager = [[MWMSideMenuManager alloc] initWithParentController:controller];
   self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:controller delegate:self];
-  self.navigationManager = [[MWMNavigationDashboardManager alloc] init];
+  self.navigationManager = [[MWMNavigationDashboardManager alloc] initWithParentView:controller.view delegate:self];
   self.hidden = NO;
   self.zoomHidden = NO;
   self.menuState = MWMSideMenuStateInactive;
@@ -94,6 +96,21 @@
 - (void)updateStatusBarStyle
 {
   [self.ownerController updateStatusBarStyle];
+}
+
+- (void)buildRoute:(m2::PointD)destination
+{
+  self.routeDestination = destination;
+  // Determine route type
+  enum MWMNavigationRouteType type = MWMNavigationRouteTypeVehicle;
+  [self buildRouteWithType:type];
+}
+
+#pragma mark - MWMNavigationDashboardManager
+
+- (void)buildRouteWithType:(enum MWMNavigationRouteType)type
+{
+  GetFramework().BuildRoute(self.routeDestination, 0 /* timeoutSec */);
 }
 
 #pragma mark - Properties

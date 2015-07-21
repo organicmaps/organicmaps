@@ -15,4 +15,10 @@
   self.frame = CGRectMake(0.0, 0.0, self.superview.width, 76.0);
 }
 
+- (IBAction)routeTypePressed:(UIButton *)sender
+{
+  self.pedestrian.selected = self.vehicle.selected = NO;
+  sender.selected = YES;
+}
+
 @end
