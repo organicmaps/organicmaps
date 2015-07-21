@@ -34,8 +34,8 @@ workspace_path = "omim-build-release/out/release"
 skiplist = []
 runlist = []
 logfile = "testlog.log"
-data_path = None
-user_resource_path = None
+data_path = ""
+user_resource_path = ""
 
 
 
