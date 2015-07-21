@@ -4,6 +4,7 @@
 
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
+
 #include "routing/base/astar_progress.hpp"
 
 #include "std/functional.hpp"

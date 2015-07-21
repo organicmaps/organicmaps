@@ -11,6 +11,8 @@ namespace routing
 
 namespace
 {
+float constexpr kProgressInterval = 2;
+
 double constexpr KMPH2MPS = 1000.0 / (60 * 60);
 
 inline double TimeBetweenSec(Junction const & j1, Junction const & j2, double speedMPS)
@@ -139,8 +141,10 @@ AStarRoutingAlgorithm::AStarRoutingAlgorithm(TRoutingVisualizerFn routingVisuali
         routingVisualizerFn(junction.GetPoint());
       if (routingProgressFn != nullptr)
       {
-        routingProgressFn(
-            m_progress.GetProgressForDirectedAlgo(junction.GetPoint()));
+        auto const lastValue = m_progress.GetLastValue();
+        auto const newValue = m_progress.GetProgressForDirectedAlgo(junction.GetPoint());
+        if (newValue - lastValue > kProgressInterval)
+          routingProgressFn(newValue);
       }
 
     };
@@ -153,7 +157,7 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
                                                                 vector<Junction> & path)
 {
   my::Cancellable const & cancellable = *this;
-  m_progress.Initialise(startPos.GetPoint(), finalPos.GetPoint());
+  m_progress.Initialize(startPos.GetPoint(), finalPos.GetPoint());
   TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPath(RoadGraph(graph), startPos, finalPos, path, cancellable, m_onVisitJunctionFn);
   return Convert(res);
 }
@@ -171,8 +175,11 @@ AStarBidirectionalRoutingAlgorithm::AStarBidirectionalRoutingAlgorithm(
         routingVisualizerFn(junction.GetPoint());
       if (routingProgressFn != nullptr)
       {
-        routingProgressFn(
-            m_progress.GetProgressForBidirectedAlgo(junction.GetPoint(), target.GetPoint()));
+        auto const lastValue = m_progress.GetLastValue();
+        auto const newValue =
+            m_progress.GetProgressForBidirectedAlgo(junction.GetPoint(), target.GetPoint());
+        if (newValue - lastValue > kProgressInterval)
+          routingProgressFn(newValue);
       }
 
     };
@@ -185,7 +192,7 @@ IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(IRo
                                                                              vector<Junction> & path)
 {
   my::Cancellable const & cancellable = *this;
-  m_progress.Initialise(startPos.GetPoint(), finalPos.GetPoint());
+  m_progress.Initialize(startPos.GetPoint(), finalPos.GetPoint());
   TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPathBidirectional(RoadGraph(graph), startPos, finalPos, path, cancellable, m_onVisitJunctionFn);
   return Convert(res);
 }
