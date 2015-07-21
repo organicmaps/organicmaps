@@ -367,7 +367,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void showBookmarks()
   {
-    // TODO open in fragment?
+    popAllFragments();
     startActivity(new Intent(this, BookmarkCategoriesActivity.class));
   }
 
@@ -1086,17 +1086,10 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private boolean popFragment()
   {
-    final FragmentManager manager = getSupportFragmentManager();
     for (String tag : new String[]{SearchFragment.class.getName(), DownloadFragment.class.getName()})
     {
-      Fragment fragment = manager.findFragmentByTag(tag);
-      // TODO we cant pop fragment, if it isn't resumed, cause of 'at android.support.v4.app.FragmentManagerImpl.checkStateLoss(FragmentManager.java:1375)'
-      // consider other possibilities here
-      if (fragment != null && fragment.isResumed())
-      {
-        manager.popBackStackImmediate();
+      if (popFragment(tag))
         return true;
-      }
     }
 
     return false;
@@ -1104,9 +1097,23 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void popAllFragments()
   {
+    for (String tag : new String[]{SearchFragment.class.getName(), DownloadFragment.class.getName()})
+      popFragment(tag);
+  }
+
+  private boolean popFragment(String className)
+  {
     final FragmentManager manager = getSupportFragmentManager();
-    while (manager.getBackStackEntryCount() > 0)
+    Fragment fragment = manager.findFragmentByTag(className);
+    // TODO d.yunitsky
+    // we cant pop fragment, if it isn't resumed, cause of 'at android.support.v4.app.FragmentManagerImpl.checkStateLoss(FragmentManager.java:1375)'
+    if (fragment != null && fragment.isResumed())
+    {
       manager.popBackStackImmediate();
+      return true;
+    }
+
+    return false;
   }
 
   // Callbacks from native map objects touch event.
