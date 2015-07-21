@@ -3,7 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin_half">
+    android:paddingLeft="@dimen/margin_half"
+    android:paddingRight="0dp"
+    android:paddingTop="@dimen/margin_half"
+    android:paddingBottom="@dimen/margin_half">
 
   <ImageButton
       android:id="@+id/btn__myposition"
@@ -27,6 +30,7 @@
   <ImageButton
       android:id="@+id/map_button_minus"
       style="@style/MwmWidget.MapButton.Zoom"
+      android:layout_marginRight="@dimen/margin_quarter"
       android:layout_above="@id/space_bottom"
       android:layout_alignParentRight="true"
       android:src="@drawable/ic_zoom_out"/>
@@ -34,6 +38,7 @@
   <ImageButton
       android:id="@+id/map_button_plus"
       style="@style/MwmWidget.MapButton.Zoom"
+      android:layout_marginRight="@dimen/margin_quarter"
       android:layout_above="@+id/map_button_minus"
       android:layout_alignParentRight="true"
       android:src="@drawable/ic_zoom_in"/>

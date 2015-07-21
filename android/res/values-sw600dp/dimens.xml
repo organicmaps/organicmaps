@@ -36,4 +36,5 @@
   <dimen name="margin_direction_mid">36dp</dimen>
   <dimen name="margin_direction_around_center">40dp</dimen>
 
+  <dimen name="margin_left_compass">44dp</dimen>
 </resources>
