@@ -5,6 +5,7 @@ import android.util.Pair;
 
 import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 
 import java.util.ArrayList;
@@ -25,8 +26,12 @@ public class RoutingResultCodesProcessor
   public static final int NEED_MORE_MAPS = 9;
   public static final int INTERNAL_ERROR = 10;
 
-  public static Pair<String, String> getDialogTitleSubtitle(int errorCode)
+  public static Pair<String, String> getDialogTitleSubtitle(int errorCode, MapStorage.Index[] missingCountries)
   {
+    int missingCount = 0;
+    if (missingCountries != null)
+      missingCount = missingCountries.length;
+
     Resources resources = MWMApplication.get().getResources();
     int titleRes = 0;
     List<String> messages = new ArrayList<>();
@@ -64,9 +69,17 @@ public class RoutingResultCodesProcessor
       messages.add(resources.getString(R.string.routing_failed_cross_mwm_building));
       break;
     case ROUTE_NOT_FOUND:
-      titleRes = R.string.dialog_routing_unable_locate_route;
-      messages.add(resources.getString(R.string.dialog_routing_cant_build_route));
-      messages.add(resources.getString(R.string.dialog_routing_change_start_or_end));
+      if (missingCount == 0)
+      {
+        titleRes = R.string.dialog_routing_unable_locate_route;
+        messages.add(resources.getString(R.string.dialog_routing_cant_build_route));
+        messages.add(resources.getString(R.string.dialog_routing_change_start_or_end));
+      }
+      else
+      {
+        titleRes = R.string.routing_download_maps_along;
+        messages.add(resources.getString(R.string.routing_requires_all_map));
+      }
       break;
     case INTERNAL_ERROR:
       titleRes = R.string.dialog_routing_system_error;
@@ -75,8 +88,7 @@ public class RoutingResultCodesProcessor
       break;
     case NEED_MORE_MAPS:
       titleRes = R.string.dialog_routing_download_and_build_cross_route;
-      messages.add(resources.getString(R.string.dialog_routing_application_error));
-      messages.add(resources.getString(R.string.dialog_routing_try_again));
+      messages.add(resources.getString(R.string.dialog_routing_download_cross_route));
       break;
     }
 

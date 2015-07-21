@@ -64,7 +64,7 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     parseArguments();
-    final Pair<String, String> titleMessage = RoutingResultCodesProcessor.getDialogTitleSubtitle(mResultCode);
+    final Pair<String, String> titleMessage = RoutingResultCodesProcessor.getDialogTitleSubtitle(mResultCode, mMissingCountries);
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
         .setTitle(titleMessage.first)
         .setCancelable(true);
