@@ -343,7 +343,7 @@ string OsrmRouter::GetName() const
 void OsrmRouter::ClearState()
 {
   m_cachedTargets.clear();
-  m_CachedTargetPoint = m2::PointD::Zero();
+  m_cachedTargetPoint = m2::PointD::Zero();
   m_indexManager.Clear();
 }
 
@@ -564,14 +564,14 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
       return code;
   }
   {
-    if (finalPoint != m_CachedTargetPoint)
+    if (finalPoint != m_cachedTargetPoint)
     {
       ResultCode const code =
           FindPhantomNodes(finalPoint, m2::PointD::Zero(),
                            m_cachedTargets, kMaxNodeCandidatesCount, targetMapping);
       if (code != NoError)
         return code;
-      m_CachedTargetPoint = finalPoint;
+      m_cachedTargetPoint = finalPoint;
     }
   }
   INTERRUPT_WHEN_CANCELLED();

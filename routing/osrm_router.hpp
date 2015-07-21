@@ -100,7 +100,7 @@ private:
   Index const * m_pIndex;
 
   TFeatureGraphNodeVec m_cachedTargets;
-  m2::PointD m_CachedTargetPoint;
+  m2::PointD m_cachedTargetPoint;
 
   RoutingIndexManager m_indexManager;
   TRoutingVisualizerFn m_routingVisualization;

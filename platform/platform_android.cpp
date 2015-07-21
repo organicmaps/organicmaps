@@ -257,7 +257,7 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
 
 Platform::EError Platform::MkDir(string const & dirName) const
 {
-  if (mkdir(dirName.c_str(), 0755))
+  if (0 != mkdir(dirName.c_str(), 0755))
     return ErrnoToError();
   return Platform::ERR_OK;
 }

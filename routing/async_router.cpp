@@ -131,7 +131,7 @@ void AsyncRouter::LogCode(IRouter::ResultCode code, double const elapsedSec)
   }
 }
 
-// TODO (ldragunov) write some tests to check this callback logick.
+// TODO (ldragunov) write some tests to check this callback logic.
 void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
 {
   ASSERT(m_router, ());
@@ -170,7 +170,6 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
     code = m_router->CalculateRoute(startPoint, startDirection, finalPoint, route);
 
     elapsedSec = timer.ElapsedSeconds(); // routing time
-    LOG(LINFO, ("Router return code:"));
     LogCode(code, elapsedSec);
   }
   catch (RootException const & e)
@@ -208,7 +207,6 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & callback)
     }
   }
 
-  LOG(LINFO, ("Final code:"));
   LogCode(code, elapsedSec);
   SendStatistics(startPoint, startDirection, finalPoint, code, route, elapsedSec);
   // Call callback only if we have some new data.
