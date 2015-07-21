@@ -343,6 +343,7 @@ string OsrmRouter::GetName() const
 void OsrmRouter::ClearState()
 {
   m_cachedTargets.clear();
+  m_CachedTargetPoint = m2::PointD::Zero();
   m_indexManager.Clear();
 }
 
