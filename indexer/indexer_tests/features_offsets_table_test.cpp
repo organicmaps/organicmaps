@@ -68,6 +68,7 @@ namespace feature
     platform::LocalCountryFile localFile(GetPlatform().WritableDir(), country, 0 /* version */);
     localFile.SyncWithDisk();
     FilesContainerR baseContainer(p.GetReader(testFileName + DATA_FILE_EXTENSION));
+    CountryIndexes::PreparePlaceOnDisk(localFile);
     const string indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
     FileWriter::DeleteFileX(indexFile);
     unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::CreateIfNotExistsAndLoad(indexFile, localFile));
