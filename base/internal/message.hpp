@@ -1,4 +1,5 @@
 #pragma once
+#include "std/array.hpp"
 #include "std/iterator.hpp"
 #include "std/list.hpp"
 #include "std/map.hpp"
@@ -76,6 +77,11 @@ namespace my
 template <typename T, size_t N> inline string DebugPrint(T (&arr) [N])
 {
   return ::my::impl::DebugPrintSequence(arr, arr + N);
+}
+
+template <typename T, size_t N> inline string DebugPrint(array<T, N> const & v)
+{
+  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
 template <typename T> inline string DebugPrint(vector<T> const & v)
