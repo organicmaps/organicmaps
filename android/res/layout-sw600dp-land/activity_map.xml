@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:placePage="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:clipToPadding="false">
 
   <FrameLayout
       android:id="@+id/map_fragment_container"
@@ -26,6 +27,7 @@
 
   <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
+      style="@style/MwmWidget.PlacePage.Floating"
       android:layout_width="@dimen/panel_width"
       android:layout_height="wrap_content"
       android:layout_below="@+id/toolbar_search"

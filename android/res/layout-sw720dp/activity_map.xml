@@ -26,6 +26,7 @@
 
   <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
+      style="@style/MwmWidget.PlacePage.Floating"
       android:layout_width="@dimen/panel_width"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/margin_base"

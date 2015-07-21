@@ -32,6 +32,7 @@
 
   <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
+      style="@style/MwmWidget.PlacePage.Floating"
       android:layout_width="360dp"
       android:layout_height="match_parent"
       android:layout_below="@+id/fl__routing"

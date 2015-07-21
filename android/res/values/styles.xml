@@ -114,11 +114,15 @@
     <item name="android:clickable">false</item>
   </style>
 
-  <style name="MwmWidget.Button" />
+  <style name="MwmWidget.Button"/>
 
   <style name="MwmWidget.Button.Green">
     <item name="android:background">@drawable/bg_btn_green</item>
   </style>
+
+  <style name="MwmWidget.PlacePage"/>
+
+  <style name="MwmWidget.PlacePage.Floating"/>
 
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
