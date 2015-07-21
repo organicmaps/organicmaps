@@ -62,6 +62,7 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
   [self.placePageManager willRotateToInterfaceOrientation:orientation];
+  [self.navigationManager willRotateToInterfaceOrientation:orientation];
 }
 
 #pragma mark - MWMPlacePageViewManager
@@ -110,7 +111,8 @@
 
 - (void)buildRouteWithType:(enum MWMNavigationRouteType)type
 {
-  GetFramework().BuildRoute(self.routeDestination, 0 /* timeoutSec */);
+  self.navigationManager.state = MWMNavigationDashboardStatePlanning;
+//  GetFramework().BuildRoute(self.routeDestination, 0 /* timeoutSec */);
 }
 
 #pragma mark - Properties

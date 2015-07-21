@@ -32,4 +32,6 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerDelegate>)delegate;
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
+
 @end

@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager">
             <connections>
-                <outlet property="routePreview" destination="7PP-4j-9rc" id="WJG-eH-84f"/>
+                <outlet property="routePreviewPortrait" destination="7PP-4j-9rc" id="R6c-Vi-IQ0"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -50,7 +50,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creating Route..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thj-oD-UU9">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Portrait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thj-oD-UU9">
                             <rect key="frame" x="56" y="37" width="172" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="mTp-qM-1co"/>
@@ -121,6 +121,7 @@
                 <constraint firstAttribute="bottom" secondItem="xXd-rh-qax" secondAttribute="bottom" constant="44" id="oL8-Fe-U5W"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="goButtonVerticalOffset" destination="oL8-Fe-U5W" id="aPg-oO-QqN"/>

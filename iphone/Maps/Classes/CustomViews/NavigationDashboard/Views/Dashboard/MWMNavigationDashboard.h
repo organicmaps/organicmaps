@@ -6,19 +6,14 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "UIKitCategories.h"
+#import "MWMNavigationView.h"
 
-@interface MWMNavigationDashboard : SolidTouchView
-
-@property (nonatomic) CGFloat topOffset;
+@interface MWMNavigationDashboard : MWMNavigationView
 
 @property (weak, nonatomic) IBOutlet UIImageView * direction;
 @property (weak, nonatomic) IBOutlet UILabel * distanceToNextAction;
 @property (weak, nonatomic) IBOutlet UILabel * distanceToNextActionUnits;
 @property (weak, nonatomic) IBOutlet UILabel * distanceLeft;
 @property (weak, nonatomic) IBOutlet UILabel * eta;
-
-- (void)addToView:(UIView *)superview;
-- (void)remove;
 
 @end

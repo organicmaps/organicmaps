@@ -13,8 +13,14 @@
 
 @interface MWMNavigationDashboardManager ()
 
-@property (nonatomic) IBOutlet MWMRoutePreview * routePreview;
-@property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboard;
+@property (nonatomic) IBOutlet MWMRoutePreview * routePreviewLandscape;
+@property (nonatomic) IBOutlet MWMRoutePreview * routePreviewPortrait;
+@property (weak, nonatomic) MWMRoutePreview * routePreview;
+
+
+@property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboardLandscape;
+@property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboardPortrait;
+@property (weak, nonatomic) MWMNavigationDashboard * navigationDashboard;
 
 @property (weak, nonatomic) UIView * ownerView;
 @property (weak, nonatomic) id<MWMNavigationDashboardManagerDelegate> delegate;
@@ -30,22 +36,55 @@
   {
     self.ownerView = view;
     self.delegate = delegate;
+    BOOL const isPortrait = self.ownerView.width < self.ownerView.height;
+
+    [NSBundle.mainBundle loadNibNamed:@"MWMPortraitRoutePreview" owner:self options:nil];
+    [NSBundle.mainBundle loadNibNamed:@"MWMLandscapeRoutePreview" owner:self options:nil];
+    self.routePreview = isPortrait ? self.routePreviewPortrait : self.routePreviewLandscape;
+
+    [NSBundle.mainBundle loadNibNamed:@"MWMPortraitNavigationDashboard" owner:self options:nil];
+    [NSBundle.mainBundle loadNibNamed:@"MWMLandscapeNavigationDashboard" owner:self options:nil];
+    self.navigationDashboard = isPortrait ? self.navigationDashboardPortrait : self.navigationDashboardLandscape;
   }
   return self;
+}
+
+#pragma mark - Layout
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
+{
+  BOOL const isPortrait = orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown;
+  MWMRoutePreview * routePreview = isPortrait ? self.routePreviewPortrait : self.routePreviewLandscape;
+  if (self.routePreview.isVisible && ![routePreview isEqual:self.routePreview])
+  {
+    [self.routePreview remove];
+    [routePreview addToView:self.ownerView];
+  }
+  self.routePreview = routePreview;
+
+  MWMNavigationDashboard * navigationDashboard = isPortrait ? self.navigationDashboardPortrait : self.navigationDashboardLandscape;
+  if (self.navigationDashboard.isVisible && ![navigationDashboard isEqual:self.navigationDashboard])
+  {
+    [self.navigationDashboard remove];
+    [navigationDashboard addToView:self.ownerView];
+  }
+  self.navigationDashboard = navigationDashboard;
 }
 
 #pragma mark - MWMRoutePreview
 
 - (IBAction)routePreviewChange:(UIButton *)sender
 {
-  enum MWMNavigationRouteType const type = [sender isEqual:self.routePreview.pedestrian] ? MWMNavigationRouteTypePedestrian : MWMNavigationRouteTypeVehicle;
-  [self.delegate buildRouteWithType:type];
+  self.routePreview.showGoButton = [sender isEqual:self.routePreview.pedestrian];
+//  enum MWMNavigationRouteType const type = [sender isEqual:self.routePreview.pedestrian] ? MWMNavigationRouteTypePedestrian : MWMNavigationRouteTypeVehicle;
+//  [self.delegate buildRouteWithType:type];
 }
 
 #pragma mark - MWMNavigationDashboard
 
 - (IBAction)navigationCancelPressed:(UIButton *)sender
 {
+  self.state = MWMNavigationDashboardStateHidden;
 }
 
 #pragma mark - MWMNavigationGo
@@ -56,6 +95,12 @@
 }
 
 #pragma mark - State changes
+
+- (void)hideState
+{
+  [self.routePreview remove];
+  [self.navigationDashboard remove];
+}
 
 - (void)showStatePlanning
 {
@@ -70,20 +115,6 @@
 
 #pragma mark - Properties
 
-- (MWMRoutePreview *)routePreview
-{
-  if (!_routePreview)
-    [NSBundle.mainBundle loadNibNamed:MWMRoutePreview.className owner:self options:nil];
-  return _routePreview;
-}
-
-- (MWMNavigationDashboard *)navigationDashboard
-{
-  if (!_navigationDashboard)
-    [NSBundle.mainBundle loadNibNamed:MWMNavigationDashboard.className owner:self options:nil];
-  return _navigationDashboard;
-}
-
 - (void)setState:(MWMNavigationDashboardState)state
 {
   if (_state == state)
@@ -91,6 +122,7 @@
   switch (state)
   {
     case MWMNavigationDashboardStateHidden:
+      [self hideState];
       break;
     case MWMNavigationDashboardStatePlanning:
       NSAssert(_state == MWMNavigationDashboardStateHidden, @"Invalid state change");

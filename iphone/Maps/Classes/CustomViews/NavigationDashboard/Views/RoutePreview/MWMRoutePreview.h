@@ -6,19 +6,14 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "UIKitCategories.h"
+#import "MWMNavigationView.h"
 
-@interface MWMRoutePreview : SolidTouchView
-
-@property (nonatomic) CGFloat topOffset;
+@interface MWMRoutePreview : MWMNavigationView
 
 @property (nonatomic) BOOL showGoButton;
 
 @property (weak, nonatomic) IBOutlet UILabel * status;
 @property (weak, nonatomic) IBOutlet UIButton * pedestrian;
 @property (weak, nonatomic) IBOutlet UIButton * vehicle;
-
-- (void)addToView:(UIView *)superview;
-- (void)remove;
 
 @end

@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager">
             <connections>
-                <outlet property="navigationDashboard" destination="kJl-MF-nLa" id="zpZ-nD-4eH"/>
+                <outlet property="navigationDashboardPortrait" destination="kJl-MF-nLa" id="3Sz-qR-jPV"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
