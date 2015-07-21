@@ -184,7 +184,6 @@ void RouteTrack::CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT co
   double const arrowWidth = 10. * visualScale;
   double const arrowLength = 19. * visualScale;
   double const arrowBodyWidth = 8. * visualScale;
-  graphics::Color const arrowColor(graphics::Color(40, 70, 160, 255));
   double const arrowDepth = graphics::arrowDepth;
 
   pair<m2::PointD, m2::PointD> arrowDirection;
@@ -210,12 +209,12 @@ void RouteTrack::CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT co
     if (!ptsNextTurn.empty())
       drawArrowHead = !MergeArrows(ptsTurn, ptsNextTurn, beforeTurn + afterTurn, arrowLength);
 
-    graphics::Pen::Info const outlineInfo(arrowColor, arrowBodyWidth);
+    graphics::Pen::Info const outlineInfo(m_arrowColor, arrowBodyWidth);
     uint32_t const outlineId = dlScreen->mapInfo(outlineInfo);
     dlScreen->drawPath(&ptsTurn[0], ptsTurn.size(), 0, outlineId, arrowDepth);
 
     if (drawArrowHead)
-      DrawArrowTriangle(dlScreen, arrowDirection, arrowWidth, arrowLength, arrowColor, arrowDepth);
+      DrawArrowTriangle(dlScreen, arrowDirection, arrowWidth, arrowLength, m_arrowColor, arrowDepth);
     ptsNextTurn = ptsTurn;
   }
 }
@@ -346,6 +345,8 @@ void RouteTrack::Swap(RouteTrack & rhs)
 
   rhs.m_relevantMatchedInfo.Reset();
   m_relevantMatchedInfo.Reset();
+
+  swap(m_arrowColor, rhs.m_arrowColor);
 }
 
 void RouteTrack::CleanUp() const

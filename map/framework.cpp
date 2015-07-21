@@ -2218,16 +2218,24 @@ void Framework::InsertRoute(Route const & route)
 
   /// @todo Consider a style parameter for the route color.
   graphics::Color routeColor;
+  graphics::Color arrowColor;
   if (m_currentRouterType == RouterType::Pedestrian)
+  {
     routeColor = graphics::Color(5, 105, 175, 255);
+    arrowColor = graphics::Color(110, 180, 240, 255);
+  }
   else
+  {
     routeColor = graphics::Color(110, 180, 240, 255);
+    arrowColor = graphics::Color(40, 70, 160, 255);
+  }
 
   Track::TrackOutline outlines[]
   {
     { 10.0f * visScale, routeColor }
   };
 
+  track.SetArrowColor(arrowColor);
   track.AddOutline(outlines, ARRAY_SIZE(outlines));
   track.AddClosingSymbol(false, "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
 

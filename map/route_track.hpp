@@ -27,6 +27,8 @@ public:
   void AddClosingSymbol(bool isBeginSymbol, string const & symbolName,
                         graphics::EPosition pos, double depth);
 
+  void SetArrowColor(graphics::Color color) { m_arrowColor = color; }
+
 private:
   void CreateDisplayListSymbols(graphics::Screen * dlScreen, PointContainerT const & pts) const;
 
@@ -48,10 +50,11 @@ private:
   vector<ClosingSymbol> m_beginSymbols;
   vector<ClosingSymbol> m_endSymbols;
 
-
   routing::turns::TTurnsGeom m_turnsGeom;
   mutable location::RouteMatchingInfo m_relevantMatchedInfo;
   mutable graphics::DisplayList * m_closestSegmentDL = nullptr;
+
+  graphics::Color m_arrowColor;
 };
 
 bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::PointD, m2::PointD> & arrowDirection,
