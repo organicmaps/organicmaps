@@ -226,7 +226,8 @@ namespace
       CHECK(!info.m_makeCoasts || !info.m_createWorld,
             ("We can't do make_coasts and generate_world at the same time"));
 
-      if (!info.m_makeCoasts)
+      // TODO: In this case we need more carefully check command line parameters for one country
+      if (!info.m_makeCoasts && info.m_splitByPolygons)
       {
         m_countries.reset(new CountriesGenerator(info));
 
@@ -235,7 +236,8 @@ namespace
           m_coastsHolder.reset(new feature::FeaturesCollector(info.GetTmpFileName(WORLD_COASTS_FILE_NAME)));
         }
       }
-      else
+
+      if (info.m_makeCoasts)
       {
         m_coasts.reset(new CoastlineFeaturesGenerator(Type(NATURAL_COASTLINE)));
 

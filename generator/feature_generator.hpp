@@ -31,7 +31,7 @@ protected:
 
   /// @return feature offset in the file, which is used as an ID later
   uint32_t WriteFeatureBase(vector<char> const & bytes, FeatureBuilder1 const & fb);
-  void WriteRawFeatureGeometry(FeatureBuilder1 const & fb);
+
   void Flush();
 
 public:
