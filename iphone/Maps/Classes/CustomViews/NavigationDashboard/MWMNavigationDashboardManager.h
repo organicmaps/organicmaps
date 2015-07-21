@@ -15,7 +15,8 @@ typedef NS_ENUM(NSUInteger, MWMNavigationRouteType)
 typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 {
   MWMNavigationDashboardStateHidden,
-  MWMNavigationDashboardStatePlanning
+  MWMNavigationDashboardStatePlanning,
+  MWMNavigationDashboardStateNavigation
 };
 
 @protocol MWMNavigationDashboardManagerDelegate <NSObject>

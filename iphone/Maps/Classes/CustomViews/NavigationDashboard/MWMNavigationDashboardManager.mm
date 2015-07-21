@@ -7,18 +7,14 @@
 //
 
 #import "Macros.h"
-#import "MWMiPadLandscapeRoutePreview.h"
 #import "MWMNavigationDashboard.h"
 #import "MWMNavigationDashboardManager.h"
-#import "MWMNavigationGo.h"
 #import "MWMRoutePreview.h"
 
 @interface MWMNavigationDashboardManager ()
 
 @property (nonatomic) IBOutlet MWMRoutePreview * routePreview;
-@property (nonatomic) IBOutlet MWMiPadLandscapeRoutePreview * iPadLandscapeRoutePreview;
 @property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboard;
-@property (nonatomic) IBOutlet MWMNavigationGo * navigatonGo;
 
 @property (weak, nonatomic) UIView * ownerView;
 @property (weak, nonatomic) id<MWMNavigationDashboardManagerDelegate> delegate;
@@ -54,8 +50,22 @@
 
 #pragma mark - MWMNavigationGo
 
-- (IBAction)navigationGoPressed:(MWMNavigationGo *)sender
+- (IBAction)navigationGoPressed:(UIButton *)sender
 {
+  self.state = MWMNavigationDashboardStateNavigation;
+}
+
+#pragma mark - State changes
+
+- (void)showStatePlanning
+{
+  [self.routePreview addToView:self.ownerView];
+}
+
+- (void)showStateNavigation
+{
+  [self.routePreview remove];
+  [self.navigationDashboard addToView:self.ownerView];
 }
 
 #pragma mark - Properties
@@ -67,13 +77,6 @@
   return _routePreview;
 }
 
-- (MWMiPadLandscapeRoutePreview *)iPadLandscapeRoutePreview
-{
-  if (!_iPadLandscapeRoutePreview)
-    [NSBundle.mainBundle loadNibNamed:MWMiPadLandscapeRoutePreview.className owner:self options:nil];
-  return _iPadLandscapeRoutePreview;
-}
-
 - (MWMNavigationDashboard *)navigationDashboard
 {
   if (!_navigationDashboard)
@@ -81,26 +84,24 @@
   return _navigationDashboard;
 }
 
-- (MWMNavigationGo *)navigatonGo
-{
-  if (!_navigatonGo)
-    [NSBundle.mainBundle loadNibNamed:MWMNavigationGo.className owner:self options:nil];
-  return _navigatonGo;
-}
-
 - (void)setState:(MWMNavigationDashboardState)state
 {
   if (_state == state)
     return;
-  _state = state;
   switch (state)
   {
     case MWMNavigationDashboardStateHidden:
       break;
     case MWMNavigationDashboardStatePlanning:
-      [self.ownerView addSubview:self.routePreview];
+      NSAssert(_state == MWMNavigationDashboardStateHidden, @"Invalid state change");
+      [self showStatePlanning];
+      break;
+    case MWMNavigationDashboardStateNavigation:
+      NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change");
+      [self showStateNavigation];
       break;
   }
+  _state = state;
 }
 
 @end

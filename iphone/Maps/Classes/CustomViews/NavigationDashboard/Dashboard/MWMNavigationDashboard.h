@@ -10,10 +10,15 @@
 
 @interface MWMNavigationDashboard : SolidTouchView
 
+@property (nonatomic) CGFloat topOffset;
+
 @property (weak, nonatomic) IBOutlet UIImageView * direction;
 @property (weak, nonatomic) IBOutlet UILabel * distanceToNextAction;
 @property (weak, nonatomic) IBOutlet UILabel * distanceToNextActionUnits;
 @property (weak, nonatomic) IBOutlet UILabel * distanceLeft;
 @property (weak, nonatomic) IBOutlet UILabel * eta;
+
+- (void)addToView:(UIView *)superview;
+- (void)remove;
 
 @end
