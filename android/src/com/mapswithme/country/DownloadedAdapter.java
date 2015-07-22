@@ -259,6 +259,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   protected void resetCountryListener()
   {
     ActiveCountryTree.removeListener(mListenerSlotId);
+    mListenerSlotId = 0;
   }
 
   @Override
