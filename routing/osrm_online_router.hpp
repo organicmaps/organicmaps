@@ -20,7 +20,8 @@ public:
   virtual string GetName() const;
   // AsyncRouter overrides:
   void CalculateRoute(m2::PointD const & startPoint, m2::PointD const & /* direction */,
-                      m2::PointD const & /* finalPoint */, TReadyCallback const & callback) override;
+                      m2::PointD const & /* finalPoint */, TReadyCallback const & callback,
+                      TProgressCallback const & /* progressCallback */) override;
 };
 
 } // namespace routing

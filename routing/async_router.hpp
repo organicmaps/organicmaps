@@ -19,6 +19,9 @@ public:
   /// Callback takes ownership of passed route.
   typedef function<void(Route &, IRouter::ResultCode)> TReadyCallback;
 
+  /// Calback for updating state of the router progress.
+  typedef function<void(float)> TProgressCallback;
+
   /// Callback on routing statistics
   typedef function<void(map<string, string> const &)> TRoutingStatisticsCallback;
 
@@ -36,16 +39,19 @@ public:
   /// @param startPoint point to start routing
   /// @param direction start direction for routers with high cost of the turnarounds
   /// @param finalPoint target point for route
-  /// @param callback function to return routing result
+  /// @param readyCallback function to return routing result
+  /// @param progressCallback function to update the router progress
   virtual void CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
-                              m2::PointD const & finalPoint, TReadyCallback const & callback);
+                              m2::PointD const & finalPoint, TReadyCallback const & readyCallback,
+                              TProgressCallback const & progressCallback);
 
   /// Interrupt routing and clear buffers
   virtual void ClearState();
 
 private:
   /// This function is called in async mode
-  void CalculateRouteImpl(TReadyCallback const & callback);
+  void CalculateRouteImpl(TReadyCallback const & readyCallback,
+      TProgressCallback const & progressCallback);
 
   /// These functions are called to send statistics about the routing
   void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,

@@ -35,18 +35,20 @@ RoutingSession::RoutingSession()
 }
 
 void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
-                                TReadyCallbackFn const & callback,
+                                TReadyCallbackFn const & readyCallback,
+                                TProgressCallbackFn const & progressCallback,
                                 uint32_t timeoutSec)
 {
   ASSERT(m_router != nullptr, ());
   m_lastGoodPosition = startPoint;
   m_endPoint = endPoint;
   m_router->ClearState();
-  RebuildRoute(startPoint, callback, timeoutSec);
+  RebuildRoute(startPoint, readyCallback, progressCallback, timeoutSec);
 }
 
-void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback,
-                                  uint32_t timeoutSec)
+void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
+    TReadyCallbackFn const & readyCallback,
+    TProgressCallbackFn const & progressCallback, uint32_t timeoutSec)
 {
   ASSERT(m_router != nullptr, ());
   ASSERT_NOT_EQUAL(m_endPoint, m2::PointD::Zero(), ("End point was not set"));
@@ -58,7 +60,8 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackF
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
   m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint,
-                           DoReadyCallback(*this, callback, m_routeSessionMutex));
+                           DoReadyCallback(*this, callback, m_routeSessionMutex),
+                           progressCallback);
 
   if (timeoutSec != 0)
     InitRoutingWatchdogTimer(timeoutSec);

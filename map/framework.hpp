@@ -564,7 +564,12 @@ public:
   void BuildRoute(m2::PointD const & destination, uint32_t timeoutSec);
   typedef function<void(routing::IRouter::ResultCode, vector<storage::TIndex> const &,
                         vector<storage::TIndex> const &)> TRouteBuildingCallback;
-  void SetRouteBuildingListener(TRouteBuildingCallback const & callback) { m_routingCallback = callback; }
+  typedef function<void(float)> TRouteProgressCallback;
+  void SetRouteBuildingListener(TRouteBuildingCallback const & buildingCallback, TRouteProgressCallback const & progressCallback)
+  {
+    m_routingCallback = buildingCallback;
+    m_progressCallback = progressCallback;
+  }
   void FollowRoute() { GetLocationState()->StartRouteFollow(); }
   void CloseRouting();
   void GetRouteFollowingInfo(location::FollowingInfo & info) { m_routingSession.GetRouteFollowingInfo(info); }
@@ -597,6 +602,7 @@ private:
   string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
 
   TRouteBuildingCallback m_routingCallback;
+  TRouteProgressCallback m_progressCallback;
   routing::RouterType m_currentRouterType;
   //@}
 

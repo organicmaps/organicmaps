@@ -52,6 +52,7 @@ public:
   typedef function<void(map<string, string> const &)> TRoutingStatisticsCallback;
 
   typedef function<void(Route const &, IRouter::ResultCode)> TReadyCallbackFn;
+  typedef function<void(float)> TProgressCallbackFn;
 
   RoutingSession();
 
@@ -61,10 +62,10 @@ public:
   /// @param[in] startPoint and endPoint in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
-                  TReadyCallbackFn const & callback,
-                  uint32_t timeoutSec);
-  void RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback,
-                    uint32_t timeoutSec);
+                  TReadyCallbackFn const & readyCallback,
+                  TProgressCallbackFn const & progressCallback, uint32_t timeoutSec);
+  void RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & readyCallback,
+      TProgressCallbackFn const & progressCallback, uint32_t timeoutSec);
 
   m2::PointD GetEndPoint() const { return m_endPoint; }
   bool IsActive() const { return (m_state != RoutingNotActive); }
@@ -79,7 +80,6 @@ public:
   void MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
 
-  // TODO (Dragunov) Make activation of the pedestrian routing
   void ActivateAdditionalFeatures() {}
 
   void SetRoutingSettings(RoutingSettings const & routingSettings);

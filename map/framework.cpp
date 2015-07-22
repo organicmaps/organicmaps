@@ -2125,7 +2125,7 @@ void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
           RemoveRoute();
       }
       CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
-    }, timeoutSec);
+    }, m_progressCallback, timeoutSec);
 }
 
 void Framework::SetRouter(RouterType type)
@@ -2176,7 +2176,7 @@ void Framework::SetRouterImpl(RouterType type)
   if (type == RouterType::Pedestrian)
   {
     router =
-        CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), nullptr, routingVisualizerFn);
+        CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), routingVisualizerFn);
     m_routingSession.SetRoutingSettings(routing::GetPedestrianRoutingSettings());
   }
   else
@@ -2259,7 +2259,7 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
     {
       if (code == IRouter::NoError)
         InsertRoute(route);
-    }, 0 /* timeoutSec */);
+    }, m_progressCallback, 0 /* timeoutSec */);
   }
 }
 

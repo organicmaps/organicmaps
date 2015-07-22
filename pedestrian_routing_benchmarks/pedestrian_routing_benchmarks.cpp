@@ -97,7 +97,7 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::Poin
   routing::Route route("");
   my::Timer timer;
   routing::IRouter::ResultCode const resultCode = router.CalculateRoute(startPos, m2::PointD::Zero() /* startDirection */,
-                                                                        finalPos, route);
+                                                                        finalPos, nullptr, route);
   double const elapsedSec = timer.ElapsedSeconds();
   TEST_EQUAL(routing::IRouter::NoError, resultCode, ());
   LOG(LINFO, ("Route polyline size:", route.GetPoly().GetSize()));

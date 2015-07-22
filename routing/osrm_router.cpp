@@ -519,7 +519,9 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
 
 OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                                   m2::PointD const & startDirection,
-                                                  m2::PointD const & finalPoint, Route & route)
+                                                  m2::PointD const & finalPoint,
+                                                  TRoutingProgressFn const & progressCallback,
+                                                  Route & route)
 {
   my::HighResTimer timer(true);
   TRoutingMappingPtr startMapping = m_indexManager.GetMappingByPoint(startPoint);
@@ -553,6 +555,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   UNUSED_VALUE(finalMappingGuard);
   LOG(LINFO, ("Duration of the MWM loading", timer.ElapsedNano()));
   timer.Reset();
+  if (progressCallback)
+    progressCallback(10.f);
 
   // 3. Find start/end nodes.
   TFeatureGraphNodeVec startTask;
@@ -578,6 +582,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
   LOG(LINFO, ("Duration of the start/stop points lookup", timer.ElapsedNano()));
   timer.Reset();
+  if (progressCallback)
+    progressCallback(15.f);
 
   // 4. Find route.
   RawRoutingResult routingResult;
@@ -596,6 +602,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
       return RouteNotFound;
     }
     INTERRUPT_WHEN_CANCELLED();
+    if (progressCallback)
+      progressCallback(70.0f);
 
     // 5. Restore route.
 
@@ -621,6 +629,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager,
                                             cancellable, m_routingVisualization, finalPath);
     timer.Reset();
+    if (progressCallback)
+      progressCallback(50.0f);
 
     // 5. Make generate answer
     if (code == NoError)

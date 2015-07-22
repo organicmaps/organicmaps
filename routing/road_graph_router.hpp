@@ -33,7 +33,8 @@ public:
   string GetName() const override { return m_name; }
   void ClearState() override;
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                            m2::PointD const & finalPoint, Route & route) override;
+                            m2::PointD const & finalPoint, TRoutingProgressFn const & progressFn,
+                            Route & route) override;
 
   // my::Cancellable overrides:
   void Reset() override { m_algorithm->Reset(); }
@@ -53,7 +54,7 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
                                                 TRoutingVisualizerFn const & visualizerFn);
 
 unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(
-    Index & index, TRoutingProgressFn const & progressFn,
+    Index & index,
     TRoutingVisualizerFn const & visualizerFn);
 
 }  // namespace routing

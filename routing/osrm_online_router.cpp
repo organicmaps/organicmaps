@@ -25,7 +25,8 @@ string OsrmOnlineRouter::GetName() const
 }
 
 void OsrmOnlineRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const & /* direction */,
-                                      m2::PointD const & /* finalPoint */, TReadyCallback const & callback)
+                                      m2::PointD const & /* finalPoint */, TReadyCallback const & callback,
+                                      TProgressCallback const & /* progressCallback */)
 {
   // Construct OSRM url request to get the route
   string url = OSRM_CAR_ROUTING_URL;

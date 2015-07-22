@@ -21,6 +21,11 @@ enum RouterType
 
 string ToString(RouterType type);
 
+typedef function<void(m2::PointD const &)> TRoutingVisualizerFn;
+
+/// Returns routing progress from 0 to 100.
+typedef function<void(float const &)> TRoutingProgressFn;
+
 class IRouter : public my::Cancellable
 {
 public:
@@ -59,12 +64,9 @@ public:
   /// @see Cancellable
   virtual ResultCode CalculateRoute(m2::PointD const & startPoint,
                                     m2::PointD const & startDirection,
-                                    m2::PointD const & finalPoint, Route & route) = 0;
+                                    m2::PointD const & finalPoint,
+                                    TRoutingProgressFn const & progressCallback,
+                                    Route & route) = 0;
 };
-
-typedef function<void(m2::PointD const &)> TRoutingVisualizerFn;
-
-/// Returns routing progress from 0 to 100.
-typedef function<void(uint8_t const &)> TRoutingProgressFn;
 
 }  // namespace routing

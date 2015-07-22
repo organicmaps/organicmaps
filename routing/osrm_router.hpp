@@ -41,7 +41,9 @@ public:
   virtual string GetName() const;
 
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                            m2::PointD const & finalPoint, Route & route) override;
+                            m2::PointD const & finalPoint,
+                            TRoutingProgressFn const & progressCallback,
+                            Route & route) override;
 
   virtual void ClearState();
 

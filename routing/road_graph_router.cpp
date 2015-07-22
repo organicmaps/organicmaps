@@ -70,7 +70,9 @@ void RoadGraphRouter::ClearState()
 
 IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoint,
                                                     m2::PointD const & /* startDirection */,
-                                                    m2::PointD const & finalPoint, Route & route)
+                                                    m2::PointD const & finalPoint,
+                                                    TRoutingProgressFn const & progressFn,
+                                                    Route & route)
 {
   vector<pair<Edge, m2::PointD>> finalVicinity;
   m_roadGraph->FindClosestEdges(finalPoint, MAX_ROAD_CANDIDATES, finalVicinity);
@@ -145,7 +147,7 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
 }
 
 unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(
-    Index & index, TRoutingProgressFn const & progressFn, TRoutingVisualizerFn const & visualizerFn)
+    Index & index, TRoutingVisualizerFn const & visualizerFn)
 {
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm(visualizerFn));

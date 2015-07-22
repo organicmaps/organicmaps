@@ -98,7 +98,7 @@ namespace integration
 
   shared_ptr<IRouter> CreatePedestrianRouter(Index & index)
   {
-    unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index, nullptr, nullptr);
+    unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index, nullptr);
     return shared_ptr<IRouter>(move(router));
   }
 
@@ -197,7 +197,7 @@ namespace integration
     ASSERT(router, ());
     shared_ptr<Route> route(new Route("mapsme"));
     IRouter::ResultCode result =
-        router->CalculateRoute(startPoint, startDirection, finalPoint, *route.get());
+        router->CalculateRoute(startPoint, startDirection, finalPoint, nullptr, *route.get());
     ASSERT(route, ());
     return TRouteResult(route, result);
   }
