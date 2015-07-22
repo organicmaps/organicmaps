@@ -143,11 +143,16 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
         mBookmark.setParams(mBookmark.getName(), newIcon, mBookmark.getBookmarkDescription());
         mBookmark = BookmarkManager.INSTANCE.getBookmark(mBookmark.getCategoryId(), mBookmark.getBookmarkId());
-        refreshBookmark();
+        refreshColorMarker();
       }
     });
 
     dialogFragment.show(getActivity().getSupportFragmentManager(), null);
+  }
+
+  private void refreshColorMarker()
+  {
+    mIvColor.setImageResource(mBookmark.getIcon().getSelectedResId());
   }
 
   private void refreshBookmark()
@@ -158,6 +163,6 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
     mEtDescription.setText(mBookmark.getBookmarkDescription());
     mTvBookmarkGroup.setText(mBookmark.getCategoryName(getActivity()));
-    mIvColor.setImageResource(mBookmark.getIcon().getSelectedResId());
+    refreshColorMarker();
   }
 }
