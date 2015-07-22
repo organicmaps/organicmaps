@@ -44,6 +44,8 @@
   <dimen name="routing_button_width">51dp</dimen>
   <dimen name="routing_progress_size">32dp</dimen>
   <dimen name="panel_width">400dp</dimen>
+  <dimen name="floating_panel_width">432dp</dimen>
+
   <!-- direction fragment -->
   <dimen name="margin_direction_small">8dp</dimen>
   <dimen name="margin_direction_big">20dp</dimen>

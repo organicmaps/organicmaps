@@ -1087,10 +1087,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private boolean popFragment()
   {
     for (String tag : new String[]{SearchFragment.class.getName(), DownloadFragment.class.getName()})
-    {
       if (popFragment(tag))
         return true;
-    }
 
     return false;
   }

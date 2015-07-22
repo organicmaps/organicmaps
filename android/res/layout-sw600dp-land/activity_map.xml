@@ -27,7 +27,7 @@
 
   <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
-      style="@style/MwmWidget.PlacePage.Floating"
+      style="@style/MwmWidget.Floating.PlacePage"
       android:layout_width="@dimen/panel_width"
       android:layout_height="wrap_content"
       android:layout_below="@+id/toolbar_search"
@@ -43,9 +43,11 @@
 
   <FrameLayout
       android:id="@+id/fragment_container"
-      android:layout_width="@dimen/panel_width"
+      style="@style/MwmWidget.Floating"
+      android:layout_width="@dimen/floating_panel_width"
       android:layout_height="match_parent"
-      android:layout_margin="@dimen/margin_base"/>
+      android:padding="@dimen/margin_base"
+      android:clipToPadding="false"/>
 
   <include
       android:id="@+id/toolbar_search"

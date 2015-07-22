@@ -65,6 +65,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     return mRecycler;
   }
 
+  @Override
   public void onResume()
   {
     super.onResume();

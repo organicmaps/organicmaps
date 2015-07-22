@@ -48,9 +48,10 @@
 
   <FrameLayout
       android:id="@+id/fragment_container"
-      android:layout_width="@dimen/panel_width"
+      android:layout_width="@dimen/floating_panel_width"
       android:layout_height="match_parent"
-      android:layout_margin="@dimen/margin_base"/>
+      android:padding="@dimen/margin_base"
+      android:clipToPadding="false"/>
 
   <com.mapswithme.maps.widget.BottomButtonsLayout
       android:id="@+id/map_bottom_buttons"

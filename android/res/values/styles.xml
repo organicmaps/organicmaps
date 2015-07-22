@@ -120,9 +120,12 @@
     <item name="android:background">@drawable/bg_btn_green</item>
   </style>
 
-  <style name="MwmWidget.PlacePage"/>
+  <style name="MwmWidget.Floating"/>
 
-  <style name="MwmWidget.PlacePage.Floating"/>
+  <style name="MwmWidget.Floating.PlacePage"
+         parent="MwmWidget.Floating">
+    <item name="android:background">@color/bg_top_panels</item>
+  </style>
 
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>

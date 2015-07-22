@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/MwmWidget.Floating"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
-
+              android:orientation="vertical"
+              android:background="@android:color/white">
   <include
       android:id="@+id/toolbar"
       layout="@layout/toolbar_with_search"
@@ -13,8 +14,7 @@
   <FrameLayout
       style="@style/MwmWidget.FrameLayout.Elevation"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@android:color/white">
+      android:layout_height="match_parent">
 
     <include
         layout="@layout/recycler_default"
