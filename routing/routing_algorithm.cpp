@@ -135,7 +135,7 @@ AStarRoutingAlgorithm::AStarRoutingAlgorithm(TRoutingVisualizerFn routingVisuali
     : AStarRoutingAlgorithmBase()
 {
   if (routingVisualizerFn != nullptr || routingProgressFn != nullptr)
-    m_onVisitJunctionFn = [&](Junction const & junction, Junction const & target)
+    m_onVisitJunctionFn = [routingVisualizerFn, routingProgressFn, this](Junction const & junction, Junction const & /* target */)
     {
       if (routingVisualizerFn != nullptr)
         routingVisualizerFn(junction.GetPoint());
@@ -169,7 +169,7 @@ AStarBidirectionalRoutingAlgorithm::AStarBidirectionalRoutingAlgorithm(
     : AStarRoutingAlgorithmBase()
 {
   if (routingVisualizerFn != nullptr || routingProgressFn != nullptr)
-    m_onVisitJunctionFn = [&](Junction const & junction, Junction const & target)
+    m_onVisitJunctionFn = [routingVisualizerFn, routingProgressFn, this](Junction const & junction, Junction const & target)
     {
       if (routingVisualizerFn != nullptr)
         routingVisualizerFn(junction.GetPoint());
