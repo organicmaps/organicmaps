@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/directions_engine.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_algorithm.hpp"
@@ -24,7 +25,8 @@ class RoadGraphRouter : public IRouter
 public:
   RoadGraphRouter(string const & name, Index & index,
                   unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
-                  unique_ptr<IRoutingAlgorithm> && algorithm);
+                  unique_ptr<IRoutingAlgorithm> && algorithm,
+                  unique_ptr<IDirectionsEngine> && directionsEngine);
   ~RoadGraphRouter() override;
 
   // IRouter overrides:
@@ -39,15 +41,17 @@ public:
   bool IsCancelled() const override { return m_algorithm->IsCancelled(); }
 
 private:
-  void ReconstructRoute(vector<Junction> const & junctions, Route & route) const;
+  void ReconstructRoute(vector<Junction> && junctions, Route & route) const;
 
   string const m_name;
   unique_ptr<IRoutingAlgorithm> const m_algorithm;
   unique_ptr<IRoadGraph> const m_roadGraph;
+  unique_ptr<IDirectionsEngine> const m_directionsEngine;
 };
   
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
                                                 TRoutingVisualizerFn const & visualizerFn);
+
 unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(
     Index & index, TRoutingProgressFn const & progressFn,
     TRoutingVisualizerFn const & visualizerFn);

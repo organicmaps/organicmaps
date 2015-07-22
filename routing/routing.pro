@@ -26,8 +26,8 @@ SOURCES += \
     osrm_engine.cpp \
     osrm_online_router.cpp \
     osrm_router.cpp \
+    pedestrian_directions.cpp \
     pedestrian_model.cpp \
-    pedestrian_turns_genetator.cpp \
     road_graph.cpp \
     road_graph_router.cpp \
     route.cpp \
@@ -47,6 +47,7 @@ HEADERS += \
     cross_mwm_road_graph.hpp \
     cross_mwm_router.hpp \
     cross_routing_context.hpp \
+    directions_engine.hpp \
     features_road_graph.hpp \
     nearest_edge_finder.hpp \
     online_absent_fetcher.hpp \
@@ -56,8 +57,8 @@ HEADERS += \
     osrm_engine.hpp \
     osrm_online_router.hpp \
     osrm_router.hpp \
+    pedestrian_directions.hpp \
     pedestrian_model.hpp \
-    pedestrian_turns_genetator.hpp \
     road_graph.hpp \
     road_graph_router.hpp \
     route.hpp \

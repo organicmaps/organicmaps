@@ -1,7 +1,7 @@
 #include "routing/features_road_graph.hpp"
 #include "routing/nearest_edge_finder.hpp"
+#include "routing/pedestrian_directions.hpp"
 #include "routing/pedestrian_model.hpp"
-#include "routing/pedestrian_turns_genetator.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 
@@ -28,8 +28,6 @@ namespace
 // eliminates) this risk.
 size_t const MAX_ROAD_CANDIDATES = 1;
 
-double constexpr KMPH2MPS = 1000.0 / (60 * 60);
-
 IRouter::ResultCode Convert(IRoutingAlgorithm::Result value)
 {
   switch (value)
@@ -41,16 +39,26 @@ IRouter::ResultCode Convert(IRoutingAlgorithm::Result value)
   ASSERT(false, ("Unexpected IRoutingAlgorithm::Result value:", value));
   return IRouter::ResultCode::RouteNotFound;
 }
+
+void Convert(vector<Junction> const & path, vector<m2::PointD> & geometry)
+{
+  geometry.clear();
+  geometry.reserve(path.size());
+  for (auto const & pos : path)
+    geometry.emplace_back(pos.GetPoint());
+}
 }  // namespace
 
 RoadGraphRouter::~RoadGraphRouter() {}
 
 RoadGraphRouter::RoadGraphRouter(string const & name, Index & index,
                                  unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
-                                 unique_ptr<IRoutingAlgorithm> && algorithm)
+                                 unique_ptr<IRoutingAlgorithm> && algorithm,
+                                 unique_ptr<IDirectionsEngine> && directionsEngine)
     : m_name(name)
     , m_algorithm(move(algorithm))
     , m_roadGraph(make_unique<FeaturesRoadGraph>(index, move(vehicleModelFactory)))
+    , m_directionsEngine(move(directionsEngine))
 {
 }
 
@@ -83,14 +91,15 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   m_roadGraph->AddFakeEdges(startPos, startVicinity);
   m_roadGraph->AddFakeEdges(finalPos, finalVicinity);
 
-  vector<Junction> routePos;
-  IRoutingAlgorithm::Result const resultCode = m_algorithm->CalculateRoute(*m_roadGraph, startPos, finalPos, routePos);
+  vector<Junction> path;
+  IRoutingAlgorithm::Result const resultCode = m_algorithm->CalculateRoute(*m_roadGraph, startPos, finalPos, path);
 
   if (resultCode == IRoutingAlgorithm::Result::OK)
   {
-    ASSERT_EQUAL(routePos.front(), startPos, ());
-    ASSERT_EQUAL(routePos.back(), finalPos, ());
-    ReconstructRoute(routePos, route);
+    ASSERT(!path.empty(), ());
+    ASSERT_EQUAL(path.front(), startPos, ());
+    ASSERT_EQUAL(path.back(), finalPos, ());
+    ReconstructRoute(move(path), route);
   }
 
   m_roadGraph->ResetFakes();
@@ -98,57 +107,28 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   return Convert(resultCode);
 }
 
-void RoadGraphRouter::ReconstructRoute(vector<Junction> const & junctions, Route & route) const
+void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route) const
 {
-  CHECK(!junctions.empty(), ("Can't reconstruct path from an empty list of positions."));
+  CHECK(!path.empty(), ("Can't reconstruct route from an empty list of positions."));
 
-  vector<m2::PointD> path;
-  path.reserve(junctions.size());
+  // By some reason there're two adjacent positions on a road with
+  // the same end-points. This could happen, for example, when
+  // direction on a road was changed.  But it doesn't matter since
+  // this code reconstructs only geometry of a route.
+  path.erase(unique(path.begin(), path.end()), path.end());
+  if (path.size() == 1)
+    path.emplace_back(path.back());
 
-  double const speedMPS = m_roadGraph->GetMaxSpeedKMPH() * KMPH2MPS;
+  vector<m2::PointD> geometry;
+  Convert(path, geometry);
 
   Route::TTimes times;
-  times.reserve(junctions.size());
-
-  double trackTimeSec = 0.0;
-  times.emplace_back(0, 0.0);
-
-  m2::PointD prevPoint = junctions[0].GetPoint();
-  path.emplace_back(prevPoint);
-  for (size_t i = 1; i < junctions.size(); ++i)
-  {
-    m2::PointD const curPoint = junctions[i].GetPoint();
-
-    // By some reason there're two adjacent positions on a road with
-    // the same end-points. This could happen, for example, when
-    // direction on a road was changed.  But it doesn't matter since
-    // this code reconstructs only geometry of a route.
-    if (curPoint == prevPoint)
-      continue;
-
-    double const lengthM = MercatorBounds::DistanceOnEarth(prevPoint, curPoint);
-    trackTimeSec += lengthM / speedMPS;
-
-    path.emplace_back(curPoint);
-    times.emplace_back(path.size()-1, trackTimeSec);
-
-    prevPoint = curPoint;
-  }
-
-  if (path.size() == 1)
-  {
-    path.emplace_back(path.front());
-    times.emplace_back(path.size()-1, trackTimeSec);
-  }
-
-  ASSERT_EQUAL(path.size(), times.size(), ());
-  ASSERT_GREATER_OR_EQUAL(path.size(), 2, ());
-
   Route::TTurns turnsDir;
   turns::TTurnsGeom turnsGeom;
-  turns::PedestrianTurnsGenerator().Generate(*m_roadGraph, path, turnsDir, turnsGeom);
+  if (m_directionsEngine)
+    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, turnsGeom);
 
-  route.SetGeometry(path.begin(), path.end());
+  route.SetGeometry(geometry.begin(), geometry.end());
   route.SetSectionTimes(times);
   route.SetTurnInstructions(turnsDir);
   route.SetTurnInstructionsGeometry(turnsGeom);
@@ -159,7 +139,8 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
 {
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm(visualizerFn));
-  unique_ptr<IRouter> router(new RoadGraphRouter("astar-pedestrian", index, move(vehicleModelFactory), move(algorithm)));
+  unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
+  unique_ptr<IRouter> router(new RoadGraphRouter("astar-pedestrian", index, move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
   return router;
 }
 
@@ -168,7 +149,8 @@ unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(
 {
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm(visualizerFn));
-  unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-pedestrian", index, move(vehicleModelFactory), move(algorithm)));
+  unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
+  unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-pedestrian", index, move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
   return router;
 }
 
