@@ -229,18 +229,24 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     // switch with values from "animationType" from attrs.xml
     switch (animationType)
     {
+    // TODO remove hacks with api levels after app will have 11+ SDK
     case 0:
-      // TODO remove this hack after 11+ SDK
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
         mAnimationController = new CompatPlacePageAnimationController(this);
       else
         mAnimationController = new BottomPlacePageAnimationController(this);
       break;
     case 2:
-      mAnimationController = new LeftFloatPlacePageAnimationController(this);
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        mAnimationController = new LeftCompatAnimationController(this);
+      else
+        mAnimationController = new LeftFloatPlacePageAnimationController(this);
       break;
     case 3:
-      mAnimationController = new LeftFullPlacePageAnimationController(this);
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        mAnimationController = new LeftCompatAnimationController(this);
+      else
+        mAnimationController = new LeftFullPlacePageAnimationController(this);
       break;
     }
   }
