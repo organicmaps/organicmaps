@@ -34,8 +34,8 @@ public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimatio
     case MotionEvent.ACTION_MOVE:
       final float yDiff = mDownCoord - event.getY();
       if (mDownCoord < ViewHelper.getY(mPreview) || mDownCoord > ViewHelper.getY(mButtons) ||
-          (mDownCoord > ViewHelper.getY(mDetails) && mDownCoord < ViewHelper.getY(mButtons) &&
-              (mDetails.getHeight() != mDetails.getChildAt(0).getHeight() && (mDetails.getScrollY() != 0 || yDiff > 0))))
+          (mDownCoord > ViewHelper.getY(mFrame) && mDownCoord < ViewHelper.getY(mButtons) &&
+              (mFrame.getHeight() != mDetailsContent.getHeight() && (mDetails.getScrollY() != 0 || yDiff > 0))))
         return false;
       if (Math.abs(yDiff) > mTouchSlop)
         return true;

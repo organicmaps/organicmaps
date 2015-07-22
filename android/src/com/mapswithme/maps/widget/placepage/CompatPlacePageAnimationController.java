@@ -31,7 +31,7 @@ public class CompatPlacePageAnimationController extends BasePlacePageAnimationCo
       final float yDiff = mDownCoord - event.getY();
       final float buttonsY = mButtons.getTop();
       if (mDownCoord < mPreview.getTop() || mDownCoord > buttonsY ||
-          (mDownCoord > mDetails.getTop() && mDownCoord < buttonsY))
+          (mDownCoord > mFrame.getTop() && mDownCoord < buttonsY))
         return false;
       if (Math.abs(yDiff) > mTouchSlop)
         return true;
@@ -91,7 +91,7 @@ public class CompatPlacePageAnimationController extends BasePlacePageAnimationCo
       @Override
       public boolean onSingleTapConfirmed(MotionEvent e)
       {
-        if (mDownCoord < mPreview.getTop() && mDownCoord < mDetails.getTop())
+        if (mDownCoord < mPreview.getTop() && mDownCoord < mFrame.getTop())
           return false;
 
         if (mPlacePage.getState() == State.PREVIEW)
@@ -128,7 +128,7 @@ public class CompatPlacePageAnimationController extends BasePlacePageAnimationCo
   {
     mPlacePage.setVisibility(View.VISIBLE);
     mPreview.setVisibility(View.VISIBLE);
-    mDetails.setVisibility(View.GONE);
+    mFrame.setVisibility(View.GONE);
 
     mIsPlacePageVisible = false;
     mIsPreviewVisible = true;
@@ -139,7 +139,7 @@ public class CompatPlacePageAnimationController extends BasePlacePageAnimationCo
   {
     mPlacePage.setVisibility(View.VISIBLE);
     mPreview.setVisibility(View.VISIBLE);
-    mDetails.setVisibility(View.VISIBLE);
+    mFrame.setVisibility(View.VISIBLE);
     mBookmarkDetails.setVisibility(View.GONE);
 
     mIsPreviewVisible = mIsPlacePageVisible = true;
@@ -150,7 +150,7 @@ public class CompatPlacePageAnimationController extends BasePlacePageAnimationCo
   {
     mPlacePage.setVisibility(View.VISIBLE);
     mPreview.setVisibility(View.VISIBLE);
-    mDetails.setVisibility(View.VISIBLE);
+    mFrame.setVisibility(View.VISIBLE);
     mBookmarkDetails.setVisibility(View.VISIBLE);
     mButtons.setVisibility(View.VISIBLE);
     mButtons.bringToFront();

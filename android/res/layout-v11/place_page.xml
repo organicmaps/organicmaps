@@ -9,6 +9,7 @@
       android:layout_above="@+id/pp__buttons"/>
 
   <include
+      android:id="@+id/pp__details_frame"
       layout="@layout/place_page_details"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

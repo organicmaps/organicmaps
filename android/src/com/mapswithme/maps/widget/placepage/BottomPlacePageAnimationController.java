@@ -60,8 +60,8 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     case MotionEvent.ACTION_MOVE:
       final float yDiff = mDownCoord - event.getY();
       if (mDownCoord < ViewHelper.getY(mPreview) || mDownCoord > ViewHelper.getY(mButtons) ||
-          (mDownCoord > ViewHelper.getY(mDetails) && mDownCoord < ViewHelper.getY(mButtons) &&
-              (mDetails.getHeight() != mDetails.getChildAt(0).getHeight() && (mDetails.getScrollY() != 0 || yDiff > 0))))
+          (mDownCoord > ViewHelper.getY(mFrame) && mDownCoord < ViewHelper.getY(mButtons) &&
+              (mFrame.getHeight() != mDetailsContent.getHeight() && (mDetails.getScrollY() != 0 || yDiff > 0))))
         return false;
       if (Math.abs(yDiff) > mTouchSlop)
         return true;
@@ -120,7 +120,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       @Override
       public boolean onSingleTapConfirmed(MotionEvent e)
       {
-        if (mDownCoord < ViewHelper.getY(mPreview) && mDownCoord < ViewHelper.getY(mDetails))
+        if (mDownCoord < ViewHelper.getY(mPreview) && mDownCoord < ViewHelper.getY(mFrame))
           return false;
 
         if (mPlacePage.getState() == State.PREVIEW)
@@ -157,7 +157,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   {
     mPlacePage.setVisibility(View.VISIBLE);
     mPreview.setVisibility(View.VISIBLE);
-    mDetails.addOnLayoutChangeListener(this);
+    mFrame.addOnLayoutChangeListener(this);
     if (mLayoutToolbar != null)
       mLayoutToolbar.setVisibility(View.GONE);
 
@@ -166,7 +166,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     if (currentState == State.HIDDEN)
     {
       mViewBottomHack.setVisibility(View.GONE);
-      mDetails.setVisibility(View.INVISIBLE);
+      mFrame.setVisibility(View.INVISIBLE);
       interpolator = new OvershootInterpolator();
       animator = ValueAnimator.ofFloat(mPreview.getHeight() + mButtons.getHeight(), 0f);
       animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
@@ -194,7 +194,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     }
     else
     {
-      final float detailsHeight = mDetails.getHeight();
+      final float detailsHeight = mFrame.getHeight();
       interpolator = new AccelerateInterpolator();
       animator = ValueAnimator.ofFloat(ViewHelper.getTranslationY(mPreview), 0f);
       animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
@@ -203,7 +203,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
         public void onAnimationUpdate(ValueAnimator animation)
         {
           ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue());
-          ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue() + detailsHeight);
+          ViewHelper.setTranslationY(mFrame, (Float) animation.getAnimatedValue() + detailsHeight);
         }
       });
       animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
@@ -211,7 +211,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
         @Override
         public void onAnimationEnd(Animator animation)
         {
-          mDetails.setVisibility(View.INVISIBLE);
+          mFrame.setVisibility(View.INVISIBLE);
           mBookmarkDetails.setVisibility(View.INVISIBLE);
           mIsPlacePageVisible = false;
           mIsPreviewVisible = true;
@@ -228,10 +228,10 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   {
     mPlacePage.setVisibility(View.VISIBLE);
     mPreview.setVisibility(View.VISIBLE);
-    mDetails.setVisibility(View.VISIBLE);
+    mFrame.setVisibility(View.VISIBLE);
 
     ValueAnimator animator;
-    final float detailsFullHeight = mDetails.getChildAt(0).getHeight();
+    final float detailsFullHeight = mDetailsContent.getHeight();
     final float detailsScreenHeight = mDetails.getHeight();
     final float bookmarkFullHeight = mBookmarkDetails.getHeight();
     final float bookmarkScreenHeight = bookmarkFullHeight - (detailsFullHeight - detailsScreenHeight);
@@ -247,7 +247,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       public void onAnimationUpdate(ValueAnimator animation)
       {
         ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsScreenHeight);
-        ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
+        ViewHelper.setTranslationY(mFrame, (Float) animation.getAnimatedValue());
       }
     });
     animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
@@ -272,11 +272,11 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   {
     mPlacePage.setVisibility(View.VISIBLE);
     mPreview.setVisibility(View.VISIBLE);
-    mDetails.setVisibility(View.VISIBLE);
+    mFrame.setVisibility(View.VISIBLE);
     mBookmarkDetails.setVisibility(View.VISIBLE);
 
     ValueAnimator animator;
-    final float detailsFullHeight = mDetails.getChildAt(0).getHeight();
+    final float detailsFullHeight = mDetailsContent.getHeight();
     final float detailsScreenHeight = mDetails.getHeight();
     final float bookmarkHeight = mBookmarkDetails.getHeight();
     final float bookmarkScreenHeight = bookmarkHeight - (detailsFullHeight - detailsScreenHeight);
@@ -292,7 +292,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       public void onAnimationUpdate(ValueAnimator animation)
       {
         ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsScreenHeight);
-        ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
+        ViewHelper.setTranslationY(mFrame, (Float) animation.getAnimatedValue());
       }
     });
     animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
@@ -314,7 +314,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   private void refreshToolbarVisibility()
   {
     if (mLayoutToolbar != null)
-      mLayoutToolbar.setVisibility(ViewHelper.getY(mDetails) < mPreview.getHeight() ? View.VISIBLE : View.GONE);
+      mLayoutToolbar.setVisibility(ViewHelper.getY(mFrame) < mPreview.getHeight() ? View.VISIBLE : View.GONE);
   }
 
   protected void hidePlacePage()
@@ -322,7 +322,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     if (mLayoutToolbar != null)
       mLayoutToolbar.setVisibility(View.GONE);
 
-    mDetails.removeOnLayoutChangeListener(this);
+    mFrame.removeOnLayoutChangeListener(this);
     final float animHeight = mPlacePage.getHeight() - mPreview.getTop() - ViewHelper.getTranslationY(mPreview);
     final ValueAnimator animator = ValueAnimator.ofFloat(0f, animHeight);
     mViewBottomHack.setVisibility(View.GONE);
@@ -355,9 +355,9 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   @Override
   public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
   {
-    if (mState == State.BOOKMARK && v.getId() == mDetails.getId() && top != oldTop)
+    if (mState == State.BOOKMARK && v.getId() == mFrame.getId() && top != oldTop)
     {
-      ViewHelper.setTranslationY(mPreview, -mDetails.getChildAt(0).getHeight());
+      ViewHelper.setTranslationY(mPreview, -mDetailsContent.getHeight());
       refreshToolbarVisibility();
     }
   }

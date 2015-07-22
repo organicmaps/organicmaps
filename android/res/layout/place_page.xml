@@ -5,6 +5,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_above="@+id/pp__buttons"
+      android:background="@color/bg_top_panels"
       android:orientation="vertical">
 
     <include
@@ -13,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <include layout="@layout/place_page_details"/>
+    <include android:id="@+id/pp__details_frame"
+             layout="@layout/place_page_details"/>
 
   </LinearLayout>
 
