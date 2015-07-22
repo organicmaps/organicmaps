@@ -13,6 +13,5 @@ SUBDIRS += opening_hours \
 !iphone*:!tizen*:!android* {
   SUBDIRS += gflags   \
              sgitess  \
-             qjsonrpc \
              gmock    \
 }

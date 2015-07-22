@@ -46,7 +46,6 @@ SUBDIRS = 3party \
           gui/gui_tests \
           qt \
           drape_head \
-          map_server \
           integration_tests \
           pedestrian_routing_benchmarks \
           search/integration_tests \
