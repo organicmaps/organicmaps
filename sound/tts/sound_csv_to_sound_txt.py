@@ -1,13 +1,15 @@
 #!/usr/bin/python
 
+from __future__ import print_function
+from optparse import OptionParser
+
 import csv
 import os.path
-
-from optparse import OptionParser
 
 ID_COLUMN = 1
 MIN_PROCESSED_COLUMN = 2
 MAX_PROCESSED_COLUMN = 30
+
 
 def parse_args():
   opt_parser = OptionParser(usage="It's a tool for converting text voice messages from csv to twine input format."
@@ -26,47 +28,39 @@ def parse_args():
 
 
 def run():
-  args = parse_args()
-
-  input_name = args[0]
-  twine_name = args[1]
-  languages_name = args[2]
+  csv_name, twine_name, languages_name = parse_args()
 
   print("Converting sound.csv to sound.txt (input of twine)")
-  if not os.path.isfile(input_name):
+  if not os.path.isfile(csv_name):
     print("Error. CSV file not found. Please check the usage.\n")
     return
 
-  txt_file = open(twine_name, 'w')
-  with open(input_name, 'rb') as csvfile:
-    txt_file.write('[[sound]]\n')
-    csv_reader = csv.reader(csvfile, delimiter=',', quotechar='\n')
+  with open(twine_name, 'w') as twine_file:
+    with open(csv_name, 'rb') as csv_file:
+      twine_file.write('[[sound]]\n')
+      csv_reader = csv.reader(csv_file, delimiter=',', quotechar='\n')
 
-    languages = {}
-    csv_reader.next()
+      languages = dict()
+      csv_reader.next()
 # A row with language names (like en, ru and so on) is located on the second line.
-    language_row = csv_reader.next()
-    languages_file = open(languages_name, 'w')
-    for idx, lang in enumerate(language_row):
-      if (idx >= MIN_PROCESSED_COLUMN 
-              and idx < MAX_PROCESSED_COLUMN and lang != ''):
-        languages[idx] = lang
-        languages_file.write(lang + ' ')
-    languages_file.close()
-    csv_reader.next()
-# Translation follows starting from the 4th line in the table.
-    for row in csv_reader:
-      if row[ID_COLUMN] != '':
-        txt_file.write('  [' + row[ID_COLUMN] + ']\n')
-        for column_idx, translation in enumerate(row):
-          if (column_idx >= MIN_PROCESSED_COLUMN 
-                and column_idx < MAX_PROCESSED_COLUMN and column_idx in languages):
-            txt_file.write('    ' + languages[column_idx] + ' = ' + translation + '\n')   
-        txt_file.write('\n')
+      language_row = csv_reader.next()
+      with open(languages_name, 'w') as languages_file:
+        for idx, lang in enumerate(language_row):
+          if (MIN_PROCESSED_COLUMN <= idx < MAX_PROCESSED_COLUMN and lang):
+            languages[idx] = lang
+            languages_file.write(lang + ' ')
 
-  csvfile.close()
-  txt_file.close()
-  print('Done. Check ' + twine_name + ' and ' + languages_name + ' for the result.')
+      csv_reader.next()
+# Translation follows starting from the 4th line in the table.
+      for row in csv_reader:
+        if row[ID_COLUMN]:
+          twine_file.write('  [{section}]\n'.format(section=row[ID_COLUMN]))
+          for column_idx, translation in enumerate(row):
+            if (MIN_PROCESSED_COLUMN <= column_idx < MAX_PROCESSED_COLUMN and column_idx in languages.keys()):
+              twine_file.write('    {lang} = {trans}\n'.format(lang = languages[column_idx], trans = translation))
+          twine_file.write('\n')
+
+  print('Done. Check {twine} and {lang} for the result.\n'.format(twine = twine_name, lang = languages_name))
 
 
 if __name__ == "__main__":

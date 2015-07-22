@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
-import os
-
+from __future__ import print_function
 from optparse import OptionParser
+
+import os
 
 
 def parse_args():
@@ -19,19 +20,14 @@ def parse_args():
 
 
 def run():
-  args = parse_args()
+  langs_name, json_dir_name = parse_args()
 
-  langs_name = args[0]
-  json_dir_name = args[1]
-
-  print "Creating directories for languages in json."
+  print ("Creating directories for languages in json.")
   with open(langs_name, 'r') as langs_file:
     for lang in langs_file.read().split():
       new_dir = json_dir_name + lang + '.json'
       if not os.path.exists(new_dir):
         os.makedirs(new_dir)
-
-    langs_file.close()
 
 
 if __name__ == "__main__":
