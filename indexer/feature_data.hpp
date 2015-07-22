@@ -75,6 +75,7 @@ namespace feature
     inline uint32_t const * begin() const { return m_types; }
     inline uint32_t const * end() const { return m_types + m_size; }
 
+    /// Assume that m_types is already sorted by SortBySpec function.
     inline uint32_t GetBestType() const
     {
       // 0 - is an empty type.

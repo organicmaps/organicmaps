@@ -391,7 +391,7 @@ namespace
     TEST_EQUAL(info.m_street, poi.m_street, ());
     TEST_EQUAL(info.m_house, poi.m_house, ());
     TEST_EQUAL(info.m_types.size(), 1, ());
-    TEST(strcmp(info.GetBestType(), poi.m_type) == 0, ());
+    TEST_EQUAL(info.GetBestType(), poi.m_type, ());
   }
 }
 

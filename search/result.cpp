@@ -221,10 +221,7 @@ string AddressInfo::GetPinName() const
 
 string AddressInfo::GetPinType() const
 {
-  char const * type = GetBestType();
-  if (IsEmptyName())
-    return "";
-  return (type ? type : "");
+  return GetBestType();
 }
 
 string AddressInfo::FormatPinText() const
@@ -232,16 +229,11 @@ string AddressInfo::FormatPinText() const
   // select name or house if name is empty
   string const & ret = (m_name.empty() ? m_house : m_name);
 
-  char const * type = GetBestType();
-  if (type)
-  {
-    if (ret.empty())
-      return type;
-    else
-      return ret + " (" + string(type) + ')';
-  }
-  else
+  string const type = GetBestType();
+  if (type.empty())
     return ret;
+
+  return (ret.empty() ? type : (ret + " (" + type + ')'));
 }
 
 string AddressInfo::FormatAddress() const
@@ -287,14 +279,14 @@ string AddressInfo::FormatNameAndAddress() const
   return (m_name.empty() ? addr : m_name + ", " + addr);
 }
 
-char const * AddressInfo::GetBestType() const
+string AddressInfo::GetBestType() const
 {
-  if (!m_types.empty())
-  {
-    ASSERT ( !m_types[0].empty(), () );
-    return m_types[0].c_str();
-  }
-  return 0;
+  if (m_types.empty())
+    return string();
+
+  /// @todo Probably, we should skip some "common" types here like in TypesHolder::SortBySpec.
+  ASSERT(!m_types[0].empty(), ());
+  return m_types[0];
 }
 
 void AddressInfo::Clear()

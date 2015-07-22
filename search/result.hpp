@@ -155,7 +155,7 @@ struct AddressInfo
   string FormatAddress() const; // 7 vulica Frunze, Belarus
   string FormatTypes() const;   // clothes shop
   string FormatNameAndAddress() const;  // Caroline, 7 vulica Frunze, Belarus
-  char const * GetBestType() const;
+  string GetBestType() const;
   bool IsEmptyName() const;
 
   void Clear();
