@@ -76,7 +76,10 @@ void PedestrianTurnsGenerator::Generate(IRoadGraph const & graph, vector<m2::Poi
   // direction "arrival"
   turnsDir.emplace_back(path.size() - 1, turns::PedestrianDirection::ReachedYourDestination);
 
+  // Do not show arrows for pedestrian routing until a good design solution
+  /*
   CalculateTurnGeometry(path, turnsDir, turnsGeom);
+  */
 }
 
 bool PedestrianTurnsGenerator::ReconstructPath(IRoadGraph const & graph, vector<m2::PointD> const & path,
