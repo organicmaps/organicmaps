@@ -174,7 +174,7 @@
     <activity
         android:name="com.mapswithme.maps.MWMActivity"
         android:launchMode="singleTask"
-        android:windowSoftInputMode="stateAlwaysHidden"
+        android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
         android:theme="@style/MwmTheme.Map">
     </activity>
 
