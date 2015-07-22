@@ -18,25 +18,14 @@ be found, i.e. the tests that were specified in the skip list, but do not exist.
 
 from __future__ import print_function
 
-import getopt
-from os import listdir
+from optparse import OptionParser
+from os import listdir, remove
 from os.path import isfile, join
-import os
 import socket
 import subprocess
 import sys
 import testserver
 import urllib2
-
-
-tests_path = ""
-workspace_path = "omim-build-release/out/release"
-skiplist = []
-runlist = []
-logfile = "testlog.log"
-data_path = ""
-user_resource_path = ""
-
 
 
 TO_RUN = "to_run"
@@ -47,169 +36,148 @@ PASSED = "passed"
 
 PORT = 34568
 
-def print_pretty(result, tests):
-    if len(tests) == 0:
-        return
 
-    print("")
-    print(result.upper())
+class TestRunner:
 
-    for test in tests:
-        print("- {test}".format(test=test))
+    def print_pretty(self, result, tests):
+        if not tests:
+            return
+        
+        print("\n{result}".format(result=result.upper()))
 
-
-def usage():
-    print("""
-Possbile options:
-
--h --help   : print this help
-
--f --folder : specify the folder where the tests reside (absolute path or relative to the location of this script)
-
--e --exclude: list of tests to exclude, comma separated, no spaces allowed
-
--i --include: list of tests to be run, overrides -e
-
--o --output : resulting log file. Default testlog.log
-
--d --data_path : Path to data files (passed to the test executables as --data_path=<value>)
-
--u --user_resource_path : Path to resources, styles and classificators (passed to the test executables as --user_resource_path=<value>)  
+        for test in tests:
+            print("- {test}".format(test=test))
 
 
-Example
+    def set_global_vars(self):
 
-./run_desktop_tests.py -f /Users/Jenkins/Home/jobs/Multiplatform/workspace/omim-build-release/out/release -e drape_tests,some_other_tests -o my_log_file.log
-""")
+        parser = OptionParser()
+        parser.add_option("-o", "--output", dest="output", default="testlog.log", help="resulting log file. Default testlog.log")
+        parser.add_option("-f", "--folder", dest="folder", default="omim-build-release/out/release", help="specify the folder where the tests reside (absolute path or relative to the location of this script)")
+        parser.add_option("-d", "--data_path", dest="data_path", help="Path to data files (passed to the test executables as --data_path=<value>)")
+        parser.add_option("-u", "--user_resource_path", dest="resource_path", help="Path to resources, styles and classificators (passed to the test executables as --user_resource_path=<value>)")
+        parser.add_option("-i", "--include", dest="runlist", action="append", default=[], help="Include test into execution, comma separated list with no spaces or individual tests, or both. E.g.: -i one -i two -i three,four,five")
+        parser.add_option("-e", "--exclude", dest="skiplist", action="append", default=[], help="Exclude test from execution, comma separated list with no spaces or individual tests, or both. E.g.: -i one -i two -i three,four,five")
+        
+        (options, args) = parser.parse_args()
 
-
-def set_global_vars():
-    
-    global skiplist
-    global logfile
-    global runlist
-    global workspace_path
-    global data_path
-    global user_resource_path
-    
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "he:f:o:i:d:u:",
-                                   ["help", "exclude=", "include=", "folder=", "output=", "data_path=", "user_resource_path="])
-    except getopt.GetoptError as err:
-        print(str(err))
-        usage()
-        sys.exit(2)
-
-    for option, argument in opts:
-        if option in ("-h", "--help"):
-            usage()
-            sys.exit()
-        if option in ("-o", "--output"):
-            logfile = argument
-        elif option in ("-e", "--exclude"):
-            skiplist = list(set(argument.split(",")))
-        elif option in ("-i", "--include"):
-            print("\n-i option found, -e option will be ignored!")
-            runlist = argument.split(",")
-        elif option in ("-f", "--folder"):
-            workspace_path = argument
-        elif option in ("-d", "--data_path"):
-            data_path = " --data_path={argument} ".format(argument=argument)
-        elif option in ("-u", "--user_resource_path"):
-            user_resource_path = " --user_resource_path={argument} ".format(argument=argument)
+        self.skiplist = set()
+        self.runlist = list()
+        
+        for tests in options.skiplist:
+            for test in tests.split(","):
+                self.skiplist.add(test)
+        
+        for tests in options.runlist:
+            self.runlist.extend(tests.split(","))
             
+        if self.runlist:
+            print("WARNING: -i option found, the -e option will be ignored")
+        
+        self.workspace_path = options.folder
+        self.logfile = options.output
+        self.data_path = (" --data_path={0}".format(options.data_path) if options.data_path else "")
+        self.user_resource_path = (" --user_resource_path={0}".format(options.resource_path) if options.resource_path else "") 
+        
+
+    def start_server(self):
+        server = testserver.TestServer()
+        server.start_serving()
+
+
+    def stop_server(self):
+        try:
+            urllib2.urlopen('http://localhost:{port}/kill'.format(port=PORT), timeout=5)
+        except (urllib2.URLError, socket.timeout):
+            print("Failed to stop the server...")
+
+
+    def categorize_tests(self):
+            
+        tests_to_run = []
+        local_skiplist = []
+        not_found = []
+    
+        test_files_in_dir = filter(lambda x: x.endswith("_tests"), listdir(self.workspace_path))
+
+        on_disk = lambda x: x in test_files_in_dir
+        not_on_disk = lambda x : not on_disk(x)
+
+        if not self.runlist:
+            local_skiplist = filter(on_disk, self.skiplist)
+            not_found = filter(not_on_disk, self.skiplist)
+            tests_to_run = filter(lambda x: x not in local_skiplist, test_files_in_dir)
         else:
-            assert False, "unhandled option"
+            tests_to_run = filter(on_disk, self.runlist)
+            not_found = filter(not_on_disk, self.runlist)
 
-
-def start_server():
-    server = testserver.TestServer()
-    server.start_serving()
-
-
-def stop_server():
-    try:
-        urllib2.urlopen('http://localhost:{port}/kill'.format(port=PORT), timeout=5)
-    except (urllib2.URLError, socket.timeout):
-        print("Failed to stop the server...")
-
-
-def categorize_tests():
-    global skiplist
-
-    tests_to_run = []
-    local_skiplist = []
-    not_found = []
-    
-    test_files_in_dir = filter(lambda x: x.endswith("_tests"), listdir(workspace_path))
-
-    on_disk = lambda x: x in test_files_in_dir
-    not_on_disk = lambda x : not on_disk(x)
-
-    if len(runlist) == 0:
-        local_skiplist = filter(on_disk, skiplist)
-        not_found = filter(not_on_disk, skiplist)
-        tests_to_run = filter(lambda x: x not in local_skiplist, test_files_in_dir)
-    else:
-        tests_to_run = filter(on_disk, runlist)
-        not_found = filter(not_on_disk, runlist)
-
-    return {TO_RUN:tests_to_run, SKIP:local_skiplist, NOT_FOUND:not_found}        
+        return {TO_RUN:tests_to_run, SKIP:local_skiplist, NOT_FOUND:not_found}        
         
 
-def run_tests(tests_to_run):
+    def run_tests(self, tests_to_run):
+        failed = []
+        passed = []
 
-    failed = []
-    passed = []
+        for test_file in tests_to_run:
+            
+            self.log_exec_file(test_file)
 
-    server = None
-    
-    for file in tests_to_run:
-
-        if file == "platform_tests":
-            start_server()
+            if test_file == "platform_tests":
+                self.start_server()
         
-        file="{file}{data}{resources}".format(file=file, data=data_path, resources=user_resource_path)
+            test_file_with_keys = "{test_file}{data}{resources}".format(test_file=test_file, data=self.data_path, resources=self.user_resource_path)
         
-        process = subprocess.Popen("{tests_path}/{file} 2>> {logfile}".
-                                   format(tests_path=workspace_path, file=file, logfile=logfile),
+            print(test_file_with_keys)
+            process = subprocess.Popen("{tests_path}/{test_file} 2>> {logfile}".
+                                   format(tests_path=self.workspace_path, test_file=test_file_with_keys, logfile=self.logfile),
                                    shell=True,
                                    stdout=subprocess.PIPE)
 
-        process.wait()
+            process.wait()
 
-        if file == "platform_tests":
-            stop_server()
+            if test_file == "platform_tests":
+                self.stop_server()
 
-        if process.returncode > 0:
-            failed.append(file)
-        else:
-            passed.append(file)
+            if process.returncode > 0:
+                failed.append(test_file)
+            else:
+                passed.append(test_file)
+            
+            self.log_exec_file(test_file, result=process.returncode)
 
-    return {FAILED: failed, PASSED: passed}
-
-
-def rm_log_file():
-    try:
-        os.remove(logfile)
-    except OSError:
-        pass
+        return {FAILED: failed, PASSED: passed}
 
 
-def main():
-    set_global_vars()
-    rm_log_file()
-
-    categorized_tests = categorize_tests()
-
-    results = run_tests(categorized_tests[TO_RUN])
-
-    print_pretty("failed", results[FAILED])
-    print_pretty("skipped", categorized_tests[SKIP])
-    print_pretty("passed", results[PASSED])
-    print_pretty("not found", categorized_tests[NOT_FOUND])
+    def log_exec_file(self, filename, result=None):
+        logstring = ("END" if result else "BEGIN")
+        resstring = (" | result: {returncode}".format(returncode=result) if result else "")
+        with open(self.logfile, "a") as logf: 
+            logf.write("\n{logstring}: {filename}{resstring}\n".format(logstring=logstring, filename=filename, resstring=resstring))
 
 
-if (__name__ == "__main__"):
-    main()
+    def rm_log_file(self):
+        try:
+            remove(self.logfile)
+        except OSError:
+            pass
+
+
+    def __init__(self):
+        self.set_global_vars()
+        self.rm_log_file()
+
+
+    def execute(self):
+        categorized_tests = self.categorize_tests()
+
+        results = self.run_tests(categorized_tests[TO_RUN])
+
+        self.print_pretty("failed", results[FAILED])
+        self.print_pretty("skipped", categorized_tests[SKIP])
+        self.print_pretty("passed", results[PASSED])
+        self.print_pretty("not found", categorized_tests[NOT_FOUND])
+
+
+runner = TestRunner()
+runner.execute()
 
