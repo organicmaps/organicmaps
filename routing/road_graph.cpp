@@ -387,11 +387,9 @@ double IRoadGraph::GetSpeedKMPH(Edge const & edge) const
 void IRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const
 {
   if (edge.IsFake())
-  {
     types = feature::TypesHolder(feature::GEOM_LINE);
-    return;
-  }
-  GetFeatureTypes(edge.GetFeatureId(), types);
+  else
+    GetFeatureTypes(edge.GetFeatureId(), types);
 }
 
 }  // namespace routing

@@ -1,13 +1,13 @@
 #include "routing/pedestrian_turns_genetator.hpp"
 #include "routing/turns_generator.hpp"
 
-#include "base/assert.hpp"
-#include "base/logging.hpp"
-
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
+
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
 namespace
 {
@@ -48,8 +48,6 @@ void PedestrianTurnsGenerator::Generate(IRoadGraph const & graph, vector<m2::Poi
     return;
   }
 
-  ASSERT_EQUAL(routeEdges.size()+1, path.size(), ());
-
   for (size_t i = 0; i < routeEdges.size(); ++i)
   {
     Edge const & edge = routeEdges[i];
@@ -77,9 +75,8 @@ void PedestrianTurnsGenerator::Generate(IRoadGraph const & graph, vector<m2::Poi
   turnsDir.emplace_back(path.size() - 1, turns::PedestrianDirection::ReachedYourDestination);
 
   // Do not show arrows for pedestrian routing until a good design solution
-  /*
-  CalculateTurnGeometry(path, turnsDir, turnsGeom);
-  */
+  // CalculateTurnGeometry(path, turnsDir, turnsGeom);
+  UNUSED_VALUE(turnsGeom);
 }
 
 bool PedestrianTurnsGenerator::ReconstructPath(IRoadGraph const & graph, vector<m2::PointD> const & path,
@@ -110,6 +107,8 @@ bool PedestrianTurnsGenerator::ReconstructPath(IRoadGraph const & graph, vector<
 
     curr = next;
   }
+
+  ASSERT_EQUAL(routeEdges.size()+1, path.size(), ());
 
   return true;
 }
