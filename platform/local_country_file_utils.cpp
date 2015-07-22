@@ -11,6 +11,8 @@
 #include "std/algorithm.hpp"
 #include "std/cctype.hpp"
 #include "std/sstream.hpp"
+#include "std/unique_ptr.hpp"
+
 
 namespace platform
 {
@@ -79,8 +81,8 @@ void CleanupMapsDirectory()
   FindAllLocalMaps(localFiles);
   for (LocalCountryFile & localFile : localFiles)
   {
-    CountryFile const countryFile = localFile.GetCountryFile();
-    if (countryFile.GetNameWithoutExt() == "Japan" || countryFile.GetNameWithoutExt() == "Brazil")
+    string const & countryName = localFile.GetCountryFile().GetNameWithoutExt();
+    if (countryName == "Japan" || countryName == "Brazil")
     {
       localFile.SyncWithDisk();
       localFile.DeleteFromDisk(TMapOptions::EMapWithCarRouting);
@@ -146,29 +148,34 @@ void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
 
   // World and WorldCoasts can be stored in app bundle or in resources
   // directory, thus it's better to get them via Platform.
-  for (string const & file : {WORLD_FILE_NAME, WORLD_COASTS_FILE_NAME})
+  for (string const & file : { WORLD_FILE_NAME, WORLD_COASTS_FILE_NAME })
   {
-    bool found = false;
-    for (LocalCountryFile const & localFile : localFiles)
+    auto i = localFiles.begin();
+    for (; i != localFiles.end(); ++i)
     {
-      if (localFile.GetCountryFile().GetNameWithoutExt() == file)
-      {
-        found = true;
+      if (i->GetCountryFile().GetNameWithoutExt() == file)
         break;
-      }
     }
-    if (!found)
+
+    try
     {
-      try
+      unique_ptr<ModelReader> guard(platform.GetReader(file + DATA_FILE_EXTENSION, "er"));
+      UNUSED_VALUE(guard);
+
+      // Assume that empty path means the resource file.
+      LocalCountryFile worldFile(string(), CountryFile(file), 0 /* version */);
+      if (i != localFiles.end())
       {
-        ModelReaderPtr reader = platform.GetReader(file + DATA_FILE_EXTENSION);
-        localFiles.emplace_back(my::GetDirectory(reader.GetName()), CountryFile(file),
-                                0 /* version */);
+        // Always use resource World files instead of local on disk.
+        *i = worldFile;
       }
-      catch (FileAbsentException const & e)
-      {
-        LOG(LERROR, ("Can't find map file for", file, "."));
-      }
+      else
+        localFiles.push_back(worldFile);
+    }
+    catch (RootException const & ex)
+    {
+      if (i == localFiles.end())
+        LOG(LERROR, ("Can't find any:", file, "Reason:", ex.Msg()));
     }
   }
 }
