@@ -14,10 +14,10 @@ namespace indexer
     {
       string const idxFileName(tmpFile + GEOM_INDEX_TMP_EXT);
       {
-        FeaturesVectorTest featuresV(datFile);
+        FeaturesVectorTest features(datFile);
         FileWriter writer(idxFileName);
 
-        BuildIndex(featuresV.GetHeader(), featuresV.GetVector(), writer, tmpFile);
+        BuildIndex(features.GetHeader(), features.GetVector(), writer, tmpFile);
       }
 
       FilesContainerW(datFile, FileWriter::OP_WRITE_EXISTING).Write(idxFileName, INDEX_FILE_TAG);

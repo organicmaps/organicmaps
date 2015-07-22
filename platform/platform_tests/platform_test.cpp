@@ -164,7 +164,7 @@ UNIT_TEST(GetFileSize)
   Platform & pl = GetPlatform();
   uint64_t size = 123141;
   TEST(!pl.GetFileSizeByName("adsmngfuwrbfyfwe", size), ());
-  TEST(!Platform::GetFileSizeByFullPath("adsmngfuwrbfyfwe", size), ());
+  TEST(!pl.IsFileExistsByFullPath("adsmngfuwrbfyfwe"), ());
 
   {
     FileWriter testFile(TEST_FILE_NAME);

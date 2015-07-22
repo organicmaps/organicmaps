@@ -58,8 +58,7 @@ namespace feature
   // static
   unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(string const & filePath)
   {
-    uint64_t size;
-    if (!GetPlatform().GetFileSizeByFullPath(filePath, size))
+    if (!GetPlatform().IsFileExistsByFullPath(filePath))
       return unique_ptr<FeaturesOffsetsTable>();
     return LoadImpl(filePath);
   }
@@ -70,8 +69,7 @@ namespace feature
   {
     string const offsetsFilePath = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
 
-    uint64_t size;
-    if (GetPlatform().GetFileSizeByFullPath(offsetsFilePath, size))
+    if (GetPlatform().IsFileExistsByFullPath(offsetsFilePath))
       return LoadImpl(offsetsFilePath);
 
     LOG(LINFO, ("Creating features offset table file", offsetsFilePath));

@@ -16,8 +16,8 @@ namespace feature
   template <class ToDo>
   void ForEachFromDat(ModelReaderPtr reader, ToDo & toDo)
   {
-    FeaturesVectorTest featuresV((FilesContainerR(reader)));
-    featuresV.GetVector().ForEach(ref(toDo));
+    FeaturesVectorTest features((FilesContainerR(reader)));
+    features.GetVector().ForEach(ref(toDo));
   }
 
   template <class ToDo>

@@ -58,9 +58,9 @@ namespace
   };
 
   void RunBenchmark(model::FeaturesFetcher const & src, m2::RectD const & rect,
-                    pair<int, int> const & scaleR, AllResult & res)
+                    pair<int, int> const & scaleRange, AllResult & res)
   {
-    ASSERT_LESS_OR_EQUAL ( scaleR.first, scaleR.second, () );
+    ASSERT_LESS_OR_EQUAL(scaleRange.first, scaleRange.second, ());
 
     vector<m2::RectD> rects;
     rects.push_back(rect);
@@ -74,7 +74,7 @@ namespace
 
       bool doDivide = true;
       int const scale = scales::GetScaleLevel(r);
-      if (scale >= scaleR.first)
+      if (scale >= scaleRange.first)
       {
         acc.Reset(scale);
 
@@ -85,7 +85,7 @@ namespace
         doDivide = !acc.IsEmpty();
       }
 
-      if (doDivide && scale < scaleR.second)
+      if (doDivide && scale < scaleRange.second)
       {
         m2::RectD r1, r2;
         r.DivideByGreaterSize(r1, r2);
@@ -96,7 +96,7 @@ namespace
   }
 }
 
-void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleR, AllResult & res)
+void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleRange, AllResult & res)
 {
   string fileName = file;
   my::GetNameFromFullPath(fileName);
@@ -110,17 +110,17 @@ void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleR, All
   if (r.second != MwmSet::RegResult::Success)
     return;
 
-  uint8_t const minS = r.first.GetInfo()->m_minScale;
-  uint8_t const maxS = r.first.GetInfo()->m_maxScale;
-  if (minS > scaleR.first)
-    scaleR.first = minS;
-  if (maxS < scaleR.second)
-    scaleR.second = maxS;
+  uint8_t const minScale = r.first.GetInfo()->m_minScale;
+  uint8_t const maxScale = r.first.GetInfo()->m_maxScale;
+  if (minScale > scaleRange.first)
+    scaleRange.first = minScale;
+  if (maxScale < scaleRange.second)
+    scaleRange.second = maxScale;
 
-  if (scaleR.first > scaleR.second)
+  if (scaleRange.first > scaleRange.second)
     return;
 
-  RunBenchmark(src, r.first.GetInfo()->m_limitRect, scaleR, res);
+  RunBenchmark(src, r.first.GetInfo()->m_limitRect, scaleRange, res);
 }
 
 }

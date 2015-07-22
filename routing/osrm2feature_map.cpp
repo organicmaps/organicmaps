@@ -354,9 +354,10 @@ void OsrmFtSegBackwardIndex::Save(string const & nodesFileName, string const & b
 
 bool OsrmFtSegBackwardIndex::Load(string const & nodesFileName, string const & bitsFileName)
 {
-  uint64_t size;
-  if (!GetPlatform().GetFileSizeByFullPath(nodesFileName, size) || !GetPlatform().GetFileSizeByFullPath(bitsFileName, size))
+  Platform & pl = GetPlatform();
+  if (!pl.IsFileExistsByFullPath(nodesFileName) || !pl.IsFileExistsByFullPath(bitsFileName))
     return false;
+
   m_mappedBits.reset(new MmapReader(bitsFileName));
 
   {

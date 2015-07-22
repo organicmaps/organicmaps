@@ -365,8 +365,8 @@ void AddFeatureNameIndexPairs(FilesContainerR const & container,
                               CategoriesHolder & categoriesHolder,
                               StringsFile<FeatureIndexValue> & stringsFile)
 {
-  FeaturesVectorTest featuresV(container);
-  feature::DataHeader const & header = featuresV.GetHeader();
+  FeaturesVectorTest features(container);
+  feature::DataHeader const & header = features.GetHeader();
 
   ValueBuilder<FeatureIndexValue> valueBuilder;
 
@@ -374,7 +374,7 @@ void AddFeatureNameIndexPairs(FilesContainerR const & container,
   if (header.GetType() == feature::DataHeader::world)
     synonyms.reset(new SynonymsHolder(GetPlatform().WritablePathForFile(SYNONYMS_FILE)));
 
-  featuresV.GetVector().ForEach(FeatureInserter<StringsFile<FeatureIndexValue>>(
+  features.GetVector().ForEach(FeatureInserter<StringsFile<FeatureIndexValue>>(
       synonyms.get(), stringsFile, categoriesHolder, header.GetScaleRange(), valueBuilder));
 }
 
@@ -382,8 +382,8 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
                       Writer & writer, string const & tmpFilePath)
 {
   {
-    FeaturesVectorTest featuresV(cont);
-    feature::DataHeader const & header = featuresV.GetHeader();
+    FeaturesVectorTest features(cont);
+    feature::DataHeader const & header = features.GetHeader();
 
     serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
     ValueBuilder<SerializedFeatureInfoValue> valueBuilder(cp);
@@ -394,7 +394,7 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
 
     StringsFile<SerializedFeatureInfoValue> names(tmpFilePath);
 
-    featuresV.GetVector().ForEach(FeatureInserter<StringsFile<SerializedFeatureInfoValue>>(
+    features.GetVector().ForEach(FeatureInserter<StringsFile<SerializedFeatureInfoValue>>(
         synonyms.get(), names, catHolder, header.GetScaleRange(), valueBuilder));
 
     names.EndAdding();

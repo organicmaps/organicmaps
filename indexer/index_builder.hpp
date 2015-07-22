@@ -6,14 +6,14 @@
 namespace indexer
 {
 template <class TFeaturesVector, typename TWriter>
-void BuildIndex(feature::DataHeader const & header, TFeaturesVector const & featuresV,
+void BuildIndex(feature::DataHeader const & header, TFeaturesVector const & features,
                 TWriter & writer, string const & tmpFilePrefix)
   {
     LOG(LINFO, ("Building scale index."));
     uint64_t indexSize;
     {
       SubWriter<TWriter> subWriter(writer);
-      covering::IndexScales(header, featuresV, subWriter, tmpFilePrefix);
+      covering::IndexScales(header, features, subWriter, tmpFilePrefix);
       indexSize = subWriter.Size();
     }
     LOG(LINFO, ("Built scale index. Size =", indexSize));

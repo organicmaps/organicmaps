@@ -26,10 +26,10 @@ UNIT_TEST(BuildIndexTest)
   // Build index.
   vector<char> serialIndex;
   {
-    FeaturesVectorTest featuresV(originalContainer);
+    FeaturesVectorTest features(originalContainer);
 
     MemWriter<vector<char> > serialWriter(serialIndex);
-    indexer::BuildIndex(featuresV.GetHeader(), featuresV.GetVector(), serialWriter, "build_index_test");
+    indexer::BuildIndex(features.GetHeader(), features.GetVector(), serialWriter, "build_index_test");
   }
 
   // Create a new mwm file.
