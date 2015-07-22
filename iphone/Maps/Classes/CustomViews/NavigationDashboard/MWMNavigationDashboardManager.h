@@ -23,11 +23,16 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 
 - (void)buildRouteWithType:(enum MWMNavigationRouteType)type;
 
+- (void)navigationDashBoardDidUpdate;
+
 @end
 
 @interface MWMNavigationDashboardManager : NSObject
 
 @property (nonatomic) MWMNavigationDashboardState state;
+@property (nonatomic) CGFloat topBound;
+@property (nonatomic, readonly) CGFloat height;
+
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerDelegate>)delegate;

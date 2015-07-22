@@ -48,8 +48,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
-  MapInfoViewRoute  = 1 << 0,
-  MapInfoViewSearch = 1 << 1
+  MapInfoViewSearch = 1 << 0
 };
 
 @interface NSValueWrapper : NSObject
@@ -572,7 +571,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
   [super viewDidLoad];
   self.view.clipsToBounds = YES;
-  [self.view addSubview:self.routeViewWrapper];
+//  [self.view addSubview:self.routeViewWrapper];
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   [self.view addSubview:self.searchView];
   __weak MapViewController * weakSelf = self;
@@ -938,10 +937,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)routeViewWillEnterState:(RouteViewState)state
 {
-  if (state == RouteViewStateHidden)
-    [self clearMapInfoViewFlag:MapInfoViewRoute];
-  else
-    [self setMapInfoViewFlag:MapInfoViewRoute];
 }
 
 - (void)routeViewDidEnterState:(RouteViewState)state
@@ -1146,11 +1141,6 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)updateInfoViews
 {
   CGFloat topBound = 0.0;
-  if ([self testMapInfoViewFlag:MapInfoViewRoute])
-  {
-    CGRect const routeRect = self.routeViewWrapper.frame;
-    topBound = MAX(topBound, routeRect.origin.y + routeRect.size.height);
-  }
   if ([self testMapInfoViewFlag:MapInfoViewSearch])
   {
     CGRect const searchRect = self.searchView.infoRect;

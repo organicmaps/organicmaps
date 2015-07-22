@@ -75,7 +75,7 @@
 
 - (IBAction)routePreviewChange:(UIButton *)sender
 {
-  self.routePreview.showGoButton = [sender isEqual:self.routePreview.pedestrian];
+  [self showGoButton:[sender isEqual:self.routePreview.pedestrian]];
 //  enum MWMNavigationRouteType const type = [sender isEqual:self.routePreview.pedestrian] ? MWMNavigationRouteTypePedestrian : MWMNavigationRouteTypeVehicle;
 //  [self.delegate buildRouteWithType:type];
 }
@@ -113,6 +113,12 @@
   [self.navigationDashboard addToView:self.ownerView];
 }
 
+- (void)showGoButton:(BOOL)show
+{
+  self.routePreviewPortrait.showGoButton = self.routePreviewLandscape.showGoButton = show;
+  [self.delegate navigationDashBoardDidUpdate];
+}
+
 #pragma mark - Properties
 
 - (void)setState:(MWMNavigationDashboardState)state
@@ -134,6 +140,29 @@
       break;
   }
   _state = state;
+  [self.delegate navigationDashBoardDidUpdate];
+}
+
+- (void)setTopBound:(CGFloat)topBound
+{
+  _topBound = self.routePreviewLandscape.topBound = self.routePreviewPortrait.topBound = self.navigationDashboardLandscape.topBound = self.navigationDashboardPortrait.topBound = topBound;
+  [self.delegate navigationDashBoardDidUpdate];
+}
+
+- (CGFloat)height
+{
+  switch (self.state)
+  {
+    case MWMNavigationDashboardStateHidden:
+      return 0.0;
+      break;
+    case MWMNavigationDashboardStatePlanning:
+      return self.routePreview.visibleHeight;
+      break;
+    case MWMNavigationDashboardStateNavigation:
+      return self.navigationDashboard.height;
+      break;
+  }
 }
 
 @end

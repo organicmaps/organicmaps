@@ -10,7 +10,8 @@
 
 @interface MWMNavigationView : SolidTouchView
 
-@property (nonatomic) CGFloat topOffset;
+@property (nonatomic) CGFloat topBound;
+@property (nonatomic, readonly) CGFloat visibleHeight;
 @property (nonatomic, readonly) BOOL isVisible;
 
 - (void)addToView:(UIView *)superview;

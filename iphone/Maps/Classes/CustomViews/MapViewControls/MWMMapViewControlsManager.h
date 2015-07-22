@@ -27,9 +27,10 @@
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
-- (void)setTopBound:(CGFloat)bound;
 
 #pragma mark - Layout
+
+@property (nonatomic) CGFloat topBound;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 

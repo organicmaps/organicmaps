@@ -51,12 +51,6 @@
   return self;
 }
 
-- (void)setTopBound:(CGFloat)bound
-{
-  [self.zoomButtons setTopBound:bound];
-  [self.placePageManager setTopBound:bound];
-}
-
 #pragma mark - Layout
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
@@ -115,6 +109,13 @@
 //  GetFramework().BuildRoute(self.routeDestination, 0 /* timeoutSec */);
 }
 
+- (void)navigationDashBoardDidUpdate
+{
+  CGFloat const topBound = self.topBound + self.navigationManager.height;
+  [self.zoomButtons setTopBound:topBound];
+  [self.placePageManager setTopBound:topBound];
+}
+
 #pragma mark - Properties
 
 @synthesize menuState = _menuState;
@@ -158,6 +159,12 @@
 - (BOOL)isDirectionViewShown
 {
   return self.placePageManager.isDirectionViewShown;
+}
+
+- (void)setTopBound:(CGFloat)topBound
+{
+  _topBound = topBound;
+  self.navigationManager.topBound = topBound;
 }
 
 @end

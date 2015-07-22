@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel * distanceToNextActionUnits;
 @property (weak, nonatomic) IBOutlet UILabel * distanceLeft;
 @property (weak, nonatomic) IBOutlet UILabel * eta;
+@property (weak, nonatomic) IBOutlet UILabel * arrivalsTimeLabel;
 
 @end
