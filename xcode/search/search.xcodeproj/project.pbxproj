@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		670EE5631B600255001E8064 /* search_query_factory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670EE5601B600255001E8064 /* search_query_factory.hpp */; };
+		670EE5641B600255001E8064 /* search_query_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670EE5611B600255001E8064 /* search_query_params.cpp */; };
+		670EE5651B600255001E8064 /* search_query_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670EE5621B600255001E8064 /* search_query_params.hpp */; };
 		671C621C1AE9227C00076BD0 /* algos_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C62131AE9227C00076BD0 /* algos_tests.cpp */; };
 		671C621D1AE9227C00076BD0 /* house_detector_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C62141AE9227C00076BD0 /* house_detector_tests.cpp */; };
 		671C621E1AE9227C00076BD0 /* keyword_lang_matcher_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C62151AE9227C00076BD0 /* keyword_lang_matcher_test.cpp */; };
@@ -72,6 +75,9 @@
 
 /* Begin PBXFileReference section */
 		670D05A31B0DF3C30013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		670EE5601B600255001E8064 /* search_query_factory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_query_factory.hpp; sourceTree = "<group>"; };
+		670EE5611B600255001E8064 /* search_query_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search_query_params.cpp; sourceTree = "<group>"; };
+		670EE5621B600255001E8064 /* search_query_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_query_params.hpp; sourceTree = "<group>"; };
 		671C620C1AE9225100076BD0 /* search_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = search_tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		671C62131AE9227C00076BD0 /* algos_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = algos_tests.cpp; sourceTree = "<group>"; };
 		671C62141AE9227C00076BD0 /* house_detector_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = house_detector_tests.cpp; sourceTree = "<group>"; };
@@ -240,6 +246,9 @@
 				675346D71A40560D00A0A8C3 /* search_engine.hpp */,
 				675346D81A40560D00A0A8C3 /* search_query.cpp */,
 				675346D91A40560D00A0A8C3 /* search_query.hpp */,
+				670EE5601B600255001E8064 /* search_query_factory.hpp */,
+				670EE5611B600255001E8064 /* search_query_params.cpp */,
+				670EE5621B600255001E8064 /* search_query_params.hpp */,
 				675346DA1A40560D00A0A8C3 /* search_string_intersection.hpp */,
 			);
 			name = search;
@@ -255,6 +264,7 @@
 			files = (
 				675346F01A40560D00A0A8C3 /* params.hpp in Headers */,
 				675346F81A40560D00A0A8C3 /* search_string_intersection.hpp in Headers */,
+				670EE5631B600255001E8064 /* search_query_factory.hpp in Headers */,
 				675346F71A40560D00A0A8C3 /* search_query.hpp in Headers */,
 				675346E11A40560D00A0A8C3 /* geometry_utils.hpp in Headers */,
 				675346E31A40560D00A0A8C3 /* house_detector.hpp in Headers */,
@@ -264,6 +274,7 @@
 				675346EE1A40560D00A0A8C3 /* locality_finder.hpp in Headers */,
 				675346EC1A40560D00A0A8C3 /* latlon_match.hpp in Headers */,
 				675346EA1A40560D00A0A8C3 /* keyword_matcher.hpp in Headers */,
+				670EE5651B600255001E8064 /* search_query_params.hpp in Headers */,
 				675346DF1A40560D00A0A8C3 /* feature_offset_match.hpp in Headers */,
 				675346F51A40560D00A0A8C3 /* search_engine.hpp in Headers */,
 				675346E41A40560D00A0A8C3 /* indexed_value.hpp in Headers */,
@@ -369,6 +380,7 @@
 				675346DD1A40560D00A0A8C3 /* approximate_string_match.cpp in Sources */,
 				675346E51A40560D00A0A8C3 /* intermediate_result.cpp in Sources */,
 				675346EF1A40560D00A0A8C3 /* params.cpp in Sources */,
+				670EE5641B600255001E8064 /* search_query_params.cpp in Sources */,
 				675346E01A40560D00A0A8C3 /* geometry_utils.cpp in Sources */,
 				675346F11A40560D00A0A8C3 /* result.cpp in Sources */,
 				675346E21A40560D00A0A8C3 /* house_detector.cpp in Sources */,

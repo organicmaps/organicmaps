@@ -13,6 +13,11 @@
 		670C62141AC5A15700C38A8C /* routing_mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 670C62121AC5A15700C38A8C /* routing_mapping.h */; };
 		670D049E1B0B4A970013A7AC /* nearest_edge_finder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670D049C1B0B4A970013A7AC /* nearest_edge_finder.cpp */; };
 		670D049F1B0B4A970013A7AC /* nearest_edge_finder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670D049D1B0B4A970013A7AC /* nearest_edge_finder.hpp */; };
+		670EE55D1B6001E7001E8064 /* routing_session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670EE55A1B6001E7001E8064 /* routing_session.cpp */; };
+		670EE55E1B6001E7001E8064 /* routing_session.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670EE55B1B6001E7001E8064 /* routing_session.hpp */; };
+		670EE55F1B6001E7001E8064 /* routing_settings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670EE55C1B6001E7001E8064 /* routing_settings.hpp */; };
+		670EE5681B600295001E8064 /* pedestrian_turns_genetator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670EE5661B600295001E8064 /* pedestrian_turns_genetator.cpp */; };
+		670EE5691B600295001E8064 /* pedestrian_turns_genetator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670EE5671B600295001E8064 /* pedestrian_turns_genetator.hpp */; };
 		674A28B11B1605D2001A525C /* osrm_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A28AF1B1605D2001A525C /* osrm_engine.cpp */; };
 		674A28B21B1605D2001A525C /* osrm_engine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A28B01B1605D2001A525C /* osrm_engine.hpp */; };
 		674F9BCA1B0A580E00704FFA /* async_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BBA1B0A580E00704FFA /* async_router.cpp */; };
@@ -68,6 +73,11 @@
 		670D049C1B0B4A970013A7AC /* nearest_edge_finder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nearest_edge_finder.cpp; sourceTree = "<group>"; };
 		670D049D1B0B4A970013A7AC /* nearest_edge_finder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nearest_edge_finder.hpp; sourceTree = "<group>"; };
 		670D05A61B0E02560013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		670EE55A1B6001E7001E8064 /* routing_session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_session.cpp; sourceTree = "<group>"; };
+		670EE55B1B6001E7001E8064 /* routing_session.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_session.hpp; sourceTree = "<group>"; };
+		670EE55C1B6001E7001E8064 /* routing_settings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_settings.hpp; sourceTree = "<group>"; };
+		670EE5661B600295001E8064 /* pedestrian_turns_genetator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pedestrian_turns_genetator.cpp; sourceTree = "<group>"; };
+		670EE5671B600295001E8064 /* pedestrian_turns_genetator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pedestrian_turns_genetator.hpp; sourceTree = "<group>"; };
 		674A28AF1B1605D2001A525C /* osrm_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm_engine.cpp; sourceTree = "<group>"; };
 		674A28B01B1605D2001A525C /* osrm_engine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osrm_engine.hpp; sourceTree = "<group>"; };
 		674F9BBA1B0A580E00704FFA /* async_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = async_router.cpp; sourceTree = "<group>"; };
@@ -147,23 +157,15 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				A120B3521B4A7C1C002F3808 /* astar_algorithm.hpp */,
 				67C7D4211B4EB48F00FE41AA /* car_model.cpp */,
 				67C7D4221B4EB48F00FE41AA /* car_model.hpp */,
-				67C7D4231B4EB48F00FE41AA /* pedestrian_model.cpp */,
-				67C7D4241B4EB48F00FE41AA /* pedestrian_model.hpp */,
-				67C7D4251B4EB48F00FE41AA /* turns_sound_settings.cpp */,
-				67C7D4261B4EB48F00FE41AA /* turns_sound_settings.hpp */,
-				67C7D4271B4EB48F00FE41AA /* turns_sound.cpp */,
-				67C7D4281B4EB48F00FE41AA /* turns_sound.hpp */,
-				A120B3521B4A7C1C002F3808 /* astar_algorithm.hpp */,
-				A120B34A1B4A7C0A002F3808 /* online_absent_fetcher.cpp */,
-				A120B34B1B4A7C0A002F3808 /* online_absent_fetcher.hpp */,
-				A120B34C1B4A7C0A002F3808 /* routing_algorithm.cpp */,
-				A120B34D1B4A7C0A002F3808 /* routing_algorithm.hpp */,
 				A120B3411B4A7BE5002F3808 /* cross_mwm_road_graph.cpp */,
 				A120B3421B4A7BE5002F3808 /* cross_mwm_road_graph.hpp */,
 				A120B3431B4A7BE5002F3808 /* cross_mwm_router.cpp */,
 				A120B3441B4A7BE5002F3808 /* cross_mwm_router.hpp */,
+				670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */,
+				670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */,
 				674A28AF1B1605D2001A525C /* osrm_engine.cpp */,
 				674A28B01B1605D2001A525C /* osrm_engine.hpp */,
 				670D049C1B0B4A970013A7AC /* nearest_edge_finder.cpp */,
@@ -172,18 +174,31 @@
 				674F9BBB1B0A580E00704FFA /* async_router.hpp */,
 				674F9BBC1B0A580E00704FFA /* features_road_graph.cpp */,
 				674F9BBD1B0A580E00704FFA /* features_road_graph.hpp */,
+				A120B34A1B4A7C0A002F3808 /* online_absent_fetcher.cpp */,
+				A120B34B1B4A7C0A002F3808 /* online_absent_fetcher.hpp */,
 				674F9BC01B0A580E00704FFA /* online_cross_fetcher.cpp */,
 				674F9BC11B0A580E00704FFA /* online_cross_fetcher.hpp */,
+				67C7D4231B4EB48F00FE41AA /* pedestrian_model.cpp */,
+				67C7D4241B4EB48F00FE41AA /* pedestrian_model.hpp */,
+				670EE5661B600295001E8064 /* pedestrian_turns_genetator.cpp */,
+				670EE5671B600295001E8064 /* pedestrian_turns_genetator.hpp */,
 				674F9BC21B0A580E00704FFA /* road_graph_router.cpp */,
 				674F9BC31B0A580E00704FFA /* road_graph_router.hpp */,
 				674F9BC41B0A580E00704FFA /* road_graph.cpp */,
 				674F9BC51B0A580E00704FFA /* road_graph.hpp */,
+				A120B34C1B4A7C0A002F3808 /* routing_algorithm.cpp */,
+				A120B34D1B4A7C0A002F3808 /* routing_algorithm.hpp */,
+				670EE55A1B6001E7001E8064 /* routing_session.cpp */,
+				670EE55B1B6001E7001E8064 /* routing_session.hpp */,
+				670EE55C1B6001E7001E8064 /* routing_settings.hpp */,
 				674F9BC61B0A580E00704FFA /* turns_generator.cpp */,
 				674F9BC71B0A580E00704FFA /* turns_generator.hpp */,
+				67C7D4251B4EB48F00FE41AA /* turns_sound_settings.cpp */,
+				67C7D4261B4EB48F00FE41AA /* turns_sound_settings.hpp */,
+				67C7D4271B4EB48F00FE41AA /* turns_sound.cpp */,
+				67C7D4281B4EB48F00FE41AA /* turns_sound.hpp */,
 				670C62111AC5A15700C38A8C /* routing_mapping.cpp */,
 				670C62121AC5A15700C38A8C /* routing_mapping.h */,
-				670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */,
-				670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */,
 				675344061A3F644F00A0A8C3 /* osrm_data_facade.hpp */,
 				675344071A3F644F00A0A8C3 /* osrm_online_router.cpp */,
 				675344081A3F644F00A0A8C3 /* osrm_online_router.hpp */,
@@ -226,8 +241,11 @@
 				6753441C1A3F644F00A0A8C3 /* route.hpp in Headers */,
 				67C7D4301B4EB48F00FE41AA /* turns_sound.hpp in Headers */,
 				67C7D42E1B4EB48F00FE41AA /* turns_sound_settings.hpp in Headers */,
+				670EE55E1B6001E7001E8064 /* routing_session.hpp in Headers */,
+				670EE55F1B6001E7001E8064 /* routing_settings.hpp in Headers */,
 				675344161A3F644F00A0A8C3 /* osrm_online_router.hpp in Headers */,
 				67C7D42C1B4EB48F00FE41AA /* pedestrian_model.hpp in Headers */,
+				670EE5691B600295001E8064 /* pedestrian_turns_genetator.hpp in Headers */,
 				674F9BCD1B0A580E00704FFA /* features_road_graph.hpp in Headers */,
 				6753441D1A3F644F00A0A8C3 /* router.hpp in Headers */,
 				67C7D42A1B4EB48F00FE41AA /* car_model.hpp in Headers */,
@@ -305,8 +323,10 @@
 				675344191A3F644F00A0A8C3 /* osrm2feature_map.cpp in Sources */,
 				670D049E1B0B4A970013A7AC /* nearest_edge_finder.cpp in Sources */,
 				674F9BD61B0A580E00704FFA /* turns_generator.cpp in Sources */,
+				670EE5681B600295001E8064 /* pedestrian_turns_genetator.cpp in Sources */,
 				675344171A3F644F00A0A8C3 /* osrm_router.cpp in Sources */,
 				674F9BD21B0A580E00704FFA /* road_graph_router.cpp in Sources */,
+				670EE55D1B6001E7001E8064 /* routing_session.cpp in Sources */,
 				A120B3451B4A7BE5002F3808 /* cross_mwm_road_graph.cpp in Sources */,
 				67C7D4291B4EB48F00FE41AA /* car_model.cpp in Sources */,
 				674A28B11B1605D2001A525C /* osrm_engine.cpp in Sources */,
