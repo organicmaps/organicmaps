@@ -555,8 +555,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   UNUSED_VALUE(finalMappingGuard);
   LOG(LINFO, ("Duration of the MWM loading", timer.ElapsedNano()));
   timer.Reset();
-  if (progressCallback)
-    progressCallback(10.f);
+
+  progressCallback(10.0f);
 
   // 3. Find start/end nodes.
   TFeatureGraphNodeVec startTask;
@@ -582,8 +582,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
   LOG(LINFO, ("Duration of the start/stop points lookup", timer.ElapsedNano()));
   timer.Reset();
-  if (progressCallback)
-    progressCallback(15.f);
+  progressCallback(15.f);
 
   // 4. Find route.
   RawRoutingResult routingResult;
@@ -602,8 +601,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
       return RouteNotFound;
     }
     INTERRUPT_WHEN_CANCELLED();
-    if (progressCallback)
-      progressCallback(70.0f);
+    progressCallback(70.0f);
 
     // 5. Restore route.
 
@@ -629,8 +627,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager,
                                             cancellable, m_routingVisualization, finalPath);
     timer.Reset();
-    if (progressCallback)
-      progressCallback(50.0f);
+    progressCallback(50.0f);
 
     // 5. Make generate answer
     if (code == NoError)
