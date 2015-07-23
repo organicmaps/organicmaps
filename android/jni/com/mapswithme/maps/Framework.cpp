@@ -1477,6 +1477,19 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_setRouter(JNIEnv * env, jclass thiz, jint routerType)
+  {
+    routing::RouterType const val = static_cast<routing::RouterType>(routerType);
+    android::Platform::RunOnGuiThreadImpl(bind(&android::Framework::SetRouter, g_framework, val));
+  }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_Framework_getRouter(JNIEnv * env, jclass thiz)
+  {
+    return static_cast<jint>(g_framework->GetRouter());
+  }
+
+  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_setWidgetPivot(JNIEnv * env, jclass thiz, jint widget, jint pivotX, jint pivotY)
   {
     using WidgetType = InformationDisplay::WidgetType;

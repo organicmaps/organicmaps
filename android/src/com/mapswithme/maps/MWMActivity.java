@@ -53,7 +53,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
-import com.mapswithme.maps.data.RouterTypes;
 import com.mapswithme.maps.data.RoutingResultCodesProcessor;
 import com.mapswithme.maps.dialog.RoutingErrorDialogFragment;
 import com.mapswithme.maps.location.LocationHelper;
@@ -923,7 +922,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void refreshRouterIcon()
   {
-    if (RouterTypes.getRouterType().equals(RouterTypes.ROUTER_VEHICLE))
+    if (Framework.ROUTER_TYPE_VEHICLE == Framework.getRouter())
       mIvStartRouting.setImageResource(R.drawable.ic_route);
     else
       mIvStartRouting.setImageResource(R.drawable.ic_walk);

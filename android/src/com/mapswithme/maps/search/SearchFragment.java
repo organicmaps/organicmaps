@@ -24,7 +24,6 @@ import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.data.RouterTypes;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
@@ -311,9 +310,10 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
     InputUtils.hideKeyboard(mEtSearchQuery);
     navigateUpToParent();
 
-    RouterTypes.saveRouterType(pedestrian ? RouterTypes.ROUTER_PEDESTRIAN : RouterTypes.ROUTER_VEHICLE);
+    final int routerType = pedestrian ? Framework.ROUTER_TYPE_PEDESTRIAN : Framework.ROUTER_TYPE_VEHICLE;
+    Framework.setRouter(routerType);
 
-    return false;
+    return true;
   }
   // FIXME: This code only for demonstration purposes and will be removed soon
 

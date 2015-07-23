@@ -15,6 +15,9 @@ public class Framework
   public static final int MAP_STYLE_LIGHT = 0;
   public static final int MAP_STYLE_DARK = 1;
 
+  public static final int ROUTER_TYPE_VEHICLE = 0;
+  public static final int ROUTER_TYPE_PEDESTRIAN = 1;
+
   // should correspond to values from 'information_display.hpp' in core
   public static final int MAP_WIDGET_RULER = 0;
   public static final int MAP_WIDGET_COPYRIGHT = 1;
@@ -142,6 +145,9 @@ public class Framework
   public native static double[] predictLocation(double lat, double lon, double accuracy, double bearing, double speed, double elapsedSeconds);
 
   public native static void setMapStyle(int mapStyle);
+
+  public native static void setRouter(int routerType);
+  public native static int getRouter();
 
   public native static void setWidgetPivot(int widget, int pivotX, int pivotY);
 }
