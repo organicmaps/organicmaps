@@ -92,7 +92,7 @@ public abstract class ShareAction
   public void shareMapObject(Activity activity, MapObject mapObject)
   {
     SharingHelper.shareOutside(new MapObjectShareable(activity, mapObject)
-                                   .setBaseIntent(mBaseIntent),
+                                   .setBaseIntent(new Intent(mBaseIntent)),
                                mNameResId);
   }
 
