@@ -8,9 +8,9 @@
 
 #import "MWMNavigationView.h"
 
-@interface MWMRoutePreview : MWMNavigationView
+@class MWMNavigationDashboardEntity;
 
-@property (nonatomic) BOOL showGoButton;
+@interface MWMRoutePreview : MWMNavigationView
 
 @property (weak, nonatomic) IBOutlet UILabel * status;
 @property (weak, nonatomic) IBOutlet UIButton * pedestrian;
@@ -18,5 +18,12 @@
 @property (weak, nonatomic) IBOutlet UILabel * timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel * distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel * arrivalsLabel;
+@property (weak, nonatomic) IBOutlet UIButton * spinner;
+@property (weak, nonatomic) IBOutlet UIButton * cancelButton;
+
+- (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity;
+- (void)statePlaning;
+
+- (void)showGoButtonAnimated:(BOOL)show;
 
 @end

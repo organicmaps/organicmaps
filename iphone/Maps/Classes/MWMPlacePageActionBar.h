@@ -17,7 +17,6 @@
 
 + (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage;
 - (void)configureForMyPosition:(BOOL)isMyPosition;
-- (void)dismissActivityIndicatior;
 
 - (instancetype)init __attribute__((unavailable("init is unavailable, call actionBarForPlacePage: instead")));
 - (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("initWithCoder: is unavailable, call actionBarForPlacePage: instead")));

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -49,6 +49,22 @@
                             <state key="normal" image="ic_spinner_close_1">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="navigationCancelPressed:" destination="-1" eventType="touchUpInside" id="Nnn-dW-Uc9"/>
+                            </connections>
+                        </button>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2m-Mj-kxw" userLabel="Cancel Button">
+                            <rect key="frame" x="0.0" y="2" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="ULq-q0-KBT"/>
+                                <constraint firstAttribute="width" constant="40" id="qew-DV-5Og"/>
+                            </constraints>
+                            <state key="normal" image="ic_cancel">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="navigationCancelPressed:" destination="-1" eventType="touchUpInside" id="Rnw-Di-BNW"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sxx-mC-hOX" userLabel="Buttons Box">
                             <rect key="frame" x="232" y="2" width="80" height="40"/>
@@ -62,7 +78,6 @@
                                     <state key="selected" image="ic_walk_on"/>
                                     <connections>
                                         <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="p1B-We-5Eo"/>
-                                        <action selector="routeTypePressed:" destination="88L-VX-bE9" eventType="touchUpInside" id="qOv-nu-Col"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q46-6u-Dnz" userLabel="Drive Button">
@@ -74,7 +89,6 @@
                                     <state key="selected" image="ic_drive_on"/>
                                     <connections>
                                         <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="PmK-Z7-ySd"/>
-                                        <action selector="routeTypePressed:" destination="88L-VX-bE9" eventType="touchUpInside" id="p0y-tA-r6k"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -95,7 +109,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FjK-vt-keq" userLabel="Planning Route Box">
                             <rect key="frame" x="56" y="12" width="172" height="20"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Portrait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6W-cv-xtL">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creating route..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6W-cv-xtL">
                                     <rect key="frame" x="0.0" y="0.0" width="172" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="JUk-KJ-2Ic"/>
@@ -170,7 +184,9 @@
                         <constraint firstItem="FjK-vt-keq" firstAttribute="top" secondItem="q2t-0L-2K9" secondAttribute="top" constant="12" id="Ybi-xR-Cb9"/>
                         <constraint firstItem="FjK-vt-keq" firstAttribute="leading" secondItem="HOJ-SC-XHE" secondAttribute="trailing" constant="16" id="YjO-tt-mNf"/>
                         <constraint firstAttribute="bottom" secondItem="HOJ-SC-XHE" secondAttribute="bottom" constant="2" id="aHI-ON-PIb"/>
+                        <constraint firstItem="d2m-Mj-kxw" firstAttribute="leading" secondItem="q2t-0L-2K9" secondAttribute="leading" id="dNR-t0-0MG"/>
                         <constraint firstItem="TAN-st-OOM" firstAttribute="top" secondItem="q2t-0L-2K9" secondAttribute="top" constant="12" id="gFK-VL-5cQ"/>
+                        <constraint firstItem="d2m-Mj-kxw" firstAttribute="top" secondItem="q2t-0L-2K9" secondAttribute="top" constant="2" id="gsp-3g-pwS"/>
                         <constraint firstAttribute="bottom" secondItem="sxx-mC-hOX" secondAttribute="bottom" constant="2" id="jaO-c5-e6f"/>
                         <constraint firstItem="TAN-st-OOM" firstAttribute="top" secondItem="q2t-0L-2K9" secondAttribute="top" constant="32" id="vfI-Sk-fAH"/>
                     </constraints>
@@ -193,12 +209,14 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="cancelButton" destination="d2m-Mj-kxw" id="tOI-vU-NUz"/>
                 <outlet property="completeBox" destination="TAN-st-OOM" id="KIc-tq-lnF"/>
                 <outlet property="contentView" destination="q2t-0L-2K9" id="QBv-uC-WJC"/>
                 <outlet property="distanceLabel" destination="Z2M-yN-YAq" id="055-qJ-WAJ"/>
                 <outlet property="goButtonHeight" destination="1mg-dZ-WyP" id="Ql3-hB-aTD"/>
                 <outlet property="goButtonVerticalOffset" destination="2ei-gn-88c" id="jT5-CH-aMT"/>
                 <outlet property="pedestrian" destination="p2P-UP-rWT" id="okx-QZ-c9c"/>
+                <outlet property="spinner" destination="HOJ-SC-XHE" id="dyz-fj-h1I"/>
                 <outlet property="status" destination="e6W-cv-xtL" id="APO-1K-MH5"/>
                 <outlet property="statusBox" destination="FjK-vt-keq" id="WgW-e1-R1d"/>
                 <outlet property="timeLabel" destination="yfW-D7-qCl" id="f6d-96-ej3"/>
@@ -208,6 +226,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ic_cancel" width="40" height="40"/>
         <image name="ic_drive_disable" width="40" height="40"/>
         <image name="ic_drive_off" width="40" height="40"/>
         <image name="ic_drive_on" width="40" height="40"/>

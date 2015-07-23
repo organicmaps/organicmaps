@@ -26,7 +26,6 @@
 - (void)refreshPlacePage;
 - (void)dismissPlacePage;
 - (void)buildRoute;
-- (void)stopBuildingRoute;
 - (void)share;
 - (void)addBookmark;
 - (void)removeBookmark;

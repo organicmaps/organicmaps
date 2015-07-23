@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -49,11 +49,27 @@
                             <state key="normal" image="ic_spinner_close_1">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="navigationCancelPressed:" destination="-1" eventType="touchUpInside" id="Gb7-lI-Oqh"/>
+                            </connections>
+                        </button>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eGS-Xr-GDV" userLabel="Cancel Button">
+                            <rect key="frame" x="0.0" y="2" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="1oI-UW-T3s"/>
+                                <constraint firstAttribute="height" constant="40" id="M2D-g6-ioS"/>
+                            </constraints>
+                            <state key="normal" image="ic_cancel">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="navigationCancelPressed:" destination="-1" eventType="touchUpInside" id="pyU-Pc-KC2"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECz-mP-xyb" userLabel="Planning Route Box">
                             <rect key="frame" x="56" y="12" width="588" height="20"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Landscape" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzR-lf-hDI">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creating route..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzR-lf-hDI">
                                     <rect key="frame" x="0.0" y="0.0" width="588" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="a91-oh-DfU"/>
@@ -77,7 +93,6 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tw5-0C-086">
                                     <rect key="frame" x="0.0" y="0.0" width="35" height="20"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="35" id="s7o-ci-WM6"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="35" id="uCf-6K-3Iw"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
@@ -87,15 +102,17 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ziN-lg-ual">
                                     <rect key="frame" x="66" y="0.0" width="31" height="20"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="31" id="dXn-mA-2ax"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="31" id="lgu-YA-uXa"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arrivals" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0NR-QB-wCJ">
-                                    <rect key="frame" x="135" y="0.0" width="453" height="20"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arrivals time in progress" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0NR-QB-wCJ">
+                                    <rect key="frame" x="135" y="0.0" width="183" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Wa6-9K-MFp"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -103,14 +120,14 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstAttribute="trailing" secondItem="0NR-QB-wCJ" secondAttribute="trailing" priority="250" constant="396.5" id="0e9-nG-KCA"/>
                                 <constraint firstAttribute="bottom" secondItem="0NR-QB-wCJ" secondAttribute="bottom" id="0q6-9b-n76"/>
                                 <constraint firstAttribute="bottom" secondItem="ziN-lg-ual" secondAttribute="bottom" id="1H4-wg-PYA"/>
                                 <constraint firstItem="ziN-lg-ual" firstAttribute="top" secondItem="EfU-nE-6L9" secondAttribute="top" id="876-18-bwv"/>
                                 <constraint firstItem="Tw5-0C-086" firstAttribute="leading" secondItem="EfU-nE-6L9" secondAttribute="leading" id="Cdb-pB-9Ob"/>
-                                <constraint firstAttribute="trailing" secondItem="0NR-QB-wCJ" secondAttribute="trailing" id="PEY-6C-JB9"/>
+                                <constraint firstItem="0NR-QB-wCJ" firstAttribute="leading" secondItem="ziN-lg-ual" secondAttribute="trailing" constant="38" id="RFy-07-ZSJ"/>
                                 <constraint firstItem="Tw5-0C-086" firstAttribute="top" secondItem="EfU-nE-6L9" secondAttribute="top" id="TjF-vm-SC1"/>
                                 <constraint firstAttribute="height" constant="20" id="YPp-YJ-xeQ"/>
-                                <constraint firstItem="0NR-QB-wCJ" firstAttribute="leading" secondItem="ziN-lg-ual" secondAttribute="trailing" constant="38" id="fjf-MI-w5n"/>
                                 <constraint firstAttribute="bottom" secondItem="Tw5-0C-086" secondAttribute="bottom" id="hwx-Vd-9Qo"/>
                                 <constraint firstItem="ziN-lg-ual" firstAttribute="leading" secondItem="Tw5-0C-086" secondAttribute="trailing" constant="31" id="wUi-tY-faO"/>
                                 <constraint firstItem="0NR-QB-wCJ" firstAttribute="top" secondItem="EfU-nE-6L9" secondAttribute="top" id="x2A-oT-PLO"/>
@@ -128,7 +145,6 @@
                                     <state key="selected" image="ic_walk_on"/>
                                     <connections>
                                         <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="bf4-fQ-DLf"/>
-                                        <action selector="routeTypePressed:" destination="EvQ-CH-5qC" eventType="touchUpInside" id="qWU-C0-8CT"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNr-DG-8Hu" userLabel="Drive Button">
@@ -140,7 +156,6 @@
                                     <state key="selected" image="ic_drive_on"/>
                                     <connections>
                                         <action selector="routePreviewChange:" destination="-1" eventType="touchUpInside" id="XHs-7h-PYO"/>
-                                        <action selector="routeTypePressed:" destination="EvQ-CH-5qC" eventType="touchUpInside" id="pI7-Yh-QDE"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -167,7 +182,9 @@
                         <constraint firstAttribute="bottom" secondItem="Oe3-Op-uEp" secondAttribute="bottom" constant="2" id="Res-ht-qAb"/>
                         <constraint firstItem="Oe3-Op-uEp" firstAttribute="leading" secondItem="EfU-nE-6L9" secondAttribute="trailing" constant="4" id="W3N-0v-ZMF"/>
                         <constraint firstItem="ECz-mP-xyb" firstAttribute="leading" secondItem="xcU-SM-tN8" secondAttribute="trailing" constant="16" id="aSe-p0-XQb"/>
+                        <constraint firstItem="eGS-Xr-GDV" firstAttribute="top" secondItem="bfG-c5-fMl" secondAttribute="top" constant="2" id="deE-9T-acf"/>
                         <constraint firstItem="ECz-mP-xyb" firstAttribute="top" secondItem="bfG-c5-fMl" secondAttribute="top" constant="12" id="g9u-yA-Bzr"/>
+                        <constraint firstItem="eGS-Xr-GDV" firstAttribute="leading" secondItem="bfG-c5-fMl" secondAttribute="leading" id="nym-lw-48E"/>
                         <constraint firstAttribute="height" constant="44" id="qFf-mT-U9d"/>
                         <constraint firstAttribute="trailing" secondItem="Oe3-Op-uEp" secondAttribute="trailing" constant="8" id="rTj-VC-TKj"/>
                         <constraint firstAttribute="bottom" secondItem="xcU-SM-tN8" secondAttribute="bottom" constant="2" id="rZp-0H-JZc"/>
@@ -188,12 +205,14 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="arrivalsLabel" destination="0NR-QB-wCJ" id="E3B-xd-DiO"/>
+                <outlet property="cancelButton" destination="eGS-Xr-GDV" id="9gQ-5b-oIX"/>
                 <outlet property="completeBox" destination="EfU-nE-6L9" id="0eS-Nq-1OX"/>
                 <outlet property="contentView" destination="bfG-c5-fMl" id="kaA-Q0-THS"/>
                 <outlet property="distanceLabel" destination="ziN-lg-ual" id="tVN-kZ-kgK"/>
                 <outlet property="goButtonHeight" destination="O48-rs-xGy" id="IGX-3J-58V"/>
                 <outlet property="goButtonVerticalOffset" destination="C4v-nE-10G" id="YCG-GD-szj"/>
                 <outlet property="pedestrian" destination="0dd-I8-xaK" id="0p2-T2-1MD"/>
+                <outlet property="spinner" destination="xcU-SM-tN8" id="RXH-Hb-oi8"/>
                 <outlet property="status" destination="wzR-lf-hDI" id="FXn-1Y-15m"/>
                 <outlet property="statusBox" destination="ECz-mP-xyb" id="iuO-KL-p0U"/>
                 <outlet property="timeLabel" destination="Tw5-0C-086" id="KJL-hQ-Tcp"/>
@@ -203,6 +222,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ic_cancel" width="40" height="40"/>
         <image name="ic_drive_disable" width="40" height="40"/>
         <image name="ic_drive_off" width="40" height="40"/>
         <image name="ic_drive_on" width="40" height="40"/>

@@ -9,6 +9,7 @@
 #import "MWMSideMenuManager.h"
 
 #include "map/user_mark.hpp"
+#include "platform/location.hpp"
 
 @class MapViewController;
 
@@ -39,7 +40,11 @@
 @property (nonatomic, readonly) BOOL isDirectionViewShown;
 
 - (void)dismissPlacePage;
-- (void)stopBuildingRoute;
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
+
+#pragma mark - MWMNavigationDashboardManager
+
+- (void)setupRoutingDashboard:(location::FollowingInfo const &)info;
+- (void)routingReady;
 
 @end

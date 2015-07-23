@@ -29,7 +29,6 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 @property (weak, nonatomic) IBOutlet UILabel * routeLabel;
 @property (weak, nonatomic) IBOutlet UILabel * bookmarkLabel;
 @property (weak, nonatomic) IBOutlet UILabel * shareLabel;
-@property (nonatomic) UIActivityIndicatorView * indicatior;
 
 @end
 
@@ -42,10 +41,7 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   BOOL const isMyPosition = placePage.manager.entity.type == MWMPlacePageEntityTypeMyPosition;
   bar.routeButton.hidden = isMyPosition;
   bar.autoresizingMask = UIViewAutoresizingNone;
-  BOOL const isPedestrian = GetFramework().GetRouter() == routing::RouterType::Pedestrian;
-  NSString * routeImageName = isPedestrian ? @"ic_route_walk" : @"ic_route";
-  [bar.routeButton setImage:[UIImage imageNamed:routeImageName] forState:UIControlStateNormal];
-  [self setupBookmarkButton:(MWMPlacePageActionBar *)bar];
+  [self setupBookmarkButton:bar];
   return bar;
 }
 
@@ -96,9 +92,6 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 - (void)layoutSubviews
 {
   BOOL const isMyPosition = self.placePage.manager.entity.type == MWMPlacePageEntityTypeMyPosition;
-  if (GetFramework().IsRouteBuilding() && !isMyPosition)
-    [self startActivityIndicator];
-
   CGPoint const center = self.center;
   CGFloat const leftOffset = 18.;
   if (isMyPosition)
@@ -108,7 +101,6 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
     CGFloat const actualWidth = MIN(MIN(size.height, size.width), maximumWidth);
     self.bookmarkButton.center = CGPointMake(3. * actualWidth / 4., self.bookmarkButton.center.y);
     self.shareButton.center = CGPointMake(actualWidth / 4., self.bookmarkButton.center.y);
-    [self.indicatior removeFromSuperview];
   }
   else
   {
@@ -127,25 +119,7 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 - (IBAction)routeTap
 {
-  [self startActivityIndicator];
   [self.placePage route];
-}
-
-- (void)startActivityIndicator
-{
-  [self.indicatior removeFromSuperview];
-  self.indicatior = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-  self.indicatior.center = self.routeButton.center;
-  self.routeButton.hidden = YES;
-  [self.indicatior startAnimating];
-  [self addSubview:self.indicatior];
-}
-
-- (void)dismissActivityIndicatior
-{
-  [self.indicatior removeFromSuperview];
-  self.indicatior = nil;
-  self.routeButton.hidden = NO;
 }
 
 @end

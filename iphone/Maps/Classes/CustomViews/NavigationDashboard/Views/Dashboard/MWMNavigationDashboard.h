@@ -8,6 +8,8 @@
 
 #import "MWMNavigationView.h"
 
+@class MWMNavigationDashboardEntity;
+
 @interface MWMNavigationDashboard : MWMNavigationView
 
 @property (weak, nonatomic) IBOutlet UIImageView * direction;
@@ -16,5 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel * distanceLeft;
 @property (weak, nonatomic) IBOutlet UILabel * eta;
 @property (weak, nonatomic) IBOutlet UILabel * arrivalsTimeLabel;
+
+- (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity;
 
 @end

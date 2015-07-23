@@ -35,7 +35,6 @@
 - (void)changeBookmarkDescription;
 - (void)share;
 - (void)route;
-- (void)stopBuildingRoute;
 - (void)reloadBookmark;
 - (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight;
 - (void)willFinishEditingBookmarkTitle:(NSString *)title;

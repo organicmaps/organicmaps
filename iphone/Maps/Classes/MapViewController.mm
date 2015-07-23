@@ -165,56 +165,57 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
     if (res.IsValid())
     {
-      NSMutableDictionary *routeInfo = [NSMutableDictionary dictionaryWithCapacity:7];
-      routeInfo[@"timeToTarget"] = @(res.m_time);
-      routeInfo[@"targetDistance"] = [NSString stringWithUTF8String:res.m_distToTarget.c_str()];
-      routeInfo[@"targetMetrics"] = [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()];
-      routeInfo[@"turnDistance"] = [NSString stringWithUTF8String:res.m_distToTurn.c_str()];
-      routeInfo[@"turnMetrics"] = [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()];
-      routeInfo[@"turnType"] = [self turnTypeToImage:res.m_turn];
-      static NSNumber * turnTypeValue;
-      if (res.m_turn == routing::turns::TurnDirection::EnterRoundAbout)
-        turnTypeValue = @(res.m_exitNum);
-      else if (res.m_turn != routing::turns::TurnDirection::StayOnRoundAbout)
-        turnTypeValue = nil;
-      if (turnTypeValue)
-        [routeInfo setObject:turnTypeValue forKey:@"turnTypeValue"];
-
-      [self.routeView updateWithInfo:routeInfo];
+      [self.controlsManager setupRoutingDashboard:res];
+//      NSMutableDictionary *routeInfo = [NSMutableDictionary dictionaryWithCapacity:7];
+//      routeInfo[@"timeToTarget"] = @(res.m_time);
+//      routeInfo[@"targetDistance"] = [NSString stringWithUTF8String:res.m_distToTarget.c_str()];
+//      routeInfo[@"targetMetrics"] = [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()];
+//      routeInfo[@"turnDistance"] = [NSString stringWithUTF8String:res.m_distToTurn.c_str()];
+//      routeInfo[@"turnMetrics"] = [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()];
+//      routeInfo[@"turnType"] = [self turnTypeToImage:res.m_turn];
+//      static NSNumber * turnTypeValue;
+//      if (res.m_turn == routing::turns::TurnDirection::EnterRoundAbout)
+//        turnTypeValue = @(res.m_exitNum);
+//      else if (res.m_turn != routing::turns::TurnDirection::StayOnRoundAbout)
+//        turnTypeValue = nil;
+//      if (turnTypeValue)
+//        [routeInfo setObject:turnTypeValue forKey:@"turnTypeValue"];
+//
+//      [self.routeView updateWithInfo:routeInfo];
     }
   }
 }
-
-- (NSString *)turnTypeToImage:(routing::turns::TurnDirection)type
-{
-  using namespace routing::turns;
-  switch (type)
-  {
-    case TurnDirection::TurnSlightRight:
-      return @"right-1";
-    case TurnDirection::TurnRight:
-      return @"right-2";
-    case TurnDirection::TurnSharpRight:
-      return @"right-3";
-
-    case TurnDirection::TurnSlightLeft:
-      return @"left-1";
-    case TurnDirection::TurnLeft:
-      return @"left-2";
-    case TurnDirection::TurnSharpLeft:
-      return @"left-3";
-
-    case TurnDirection::UTurn:
-      return @"turn-around";
-
-    case TurnDirection::LeaveRoundAbout:
-    case TurnDirection::StayOnRoundAbout:
-    case TurnDirection::EnterRoundAbout:
-      return @"circle";
-
-    default: return @"straight";
-  }
-}
+//
+//- (NSString *)turnTypeToImage:(routing::turns::TurnDirection)type
+//{
+//  using namespace routing::turns;
+//  switch (type)
+//  {
+//    case TurnDirection::TurnSlightRight:
+//      return @"right-1";
+//    case TurnDirection::TurnRight:
+//      return @"right-2";
+//    case TurnDirection::TurnSharpRight:
+//      return @"right-3";
+//
+//    case TurnDirection::TurnSlightLeft:
+//      return @"left-1";
+//    case TurnDirection::TurnLeft:
+//      return @"left-2";
+//    case TurnDirection::TurnSharpLeft:
+//      return @"left-3";
+//
+//    case TurnDirection::UTurn:
+//      return @"turn-around";
+//
+//    case TurnDirection::LeaveRoundAbout:
+//    case TurnDirection::StayOnRoundAbout:
+//    case TurnDirection::EnterRoundAbout:
+//      return @"circle";
+//
+//    default: return @"straight";
+//  }
+//}
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
@@ -710,7 +711,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
     f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
     {
-      [self.controlsManager stopBuildingRoute];
       switch (code)
       {
         case routing::IRouter::ResultCode::NoError:
@@ -720,10 +720,12 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           [self.searchView setState:SearchViewStateHidden animated:YES];
           [self performAfterDelay:0.3 block:^
            {
-             if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
-               [self routeViewDidStartFollowing:self.routeView];
-             else
-               [self.routeView setState:RouteViewStateInfo animated:YES];
+//             if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
+//               [self routeViewDidStartFollowing:self.routeView];
+//             else
+//               [self.routeView setState:RouteViewStateInfo animated:YES];
+             //TODO(Vlad): Implement logic for restore route.
+             [self.controlsManager routingReady];
              [self updateRoutingInfo];
            }];
 
@@ -736,6 +738,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           }
           break;
         }
+        //TODO(Vlad): Implement routing error handler in new navigation UI.
         case routing::IRouter::RouteFileNotExist:
         case routing::IRouter::InconsistentMWMandRoute:
         case routing::IRouter::NeedMoreMaps:

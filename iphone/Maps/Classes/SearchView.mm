@@ -394,6 +394,7 @@ static BOOL keyboardLoaded = NO;
   return YES;
 }
 
+//TODO(Vlad): Remove this code after new routing UI will be implement.
 - (BOOL)tryToChangeRoutingModeCmd:(NSString *)cmd
 {
   BOOL const isPedestrian = [cmd isEqualToString:@"?pedestrian"];
@@ -415,10 +416,6 @@ static BOOL keyboardLoaded = NO;
   
   // TODO: This code only for demonstration purposes and will be removed soon
   if ([self tryChangeMapStyleCmd:currentText])
-    return;
-
-  // TODO(Vlad): This code only for demonstration purposes and will be removed soon
-  if ([self tryToChangeRoutingModeCmd:currentText])
     return;
 
   if ([currentText length])

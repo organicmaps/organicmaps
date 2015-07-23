@@ -8,6 +8,7 @@
 
 #import "Macros.h"
 #import "MWMNavigationDashboard.h"
+#import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRoutePreview.h"
 
@@ -25,6 +26,7 @@
 @property (weak, nonatomic) UIView * ownerView;
 @property (weak, nonatomic) id<MWMNavigationDashboardManagerDelegate> delegate;
 
+@property (nonatomic, readwrite) MWMNavigationDashboardEntity * entity;
 @end
 
 @implementation MWMNavigationDashboardManager
@@ -71,13 +73,43 @@
   self.navigationDashboard = navigationDashboard;
 }
 
+- (void)setupDashboard:(location::FollowingInfo const &)info
+{
+  if (!self.entity)
+    self.entity = [[MWMNavigationDashboardEntity alloc] initWithFollowingInfo:info];
+  else
+    [self.entity updateWithFollowingInfo:info];
+  [self updateDashboard];
+}
+
+- (void)updateDashboard
+{
+  [self.routePreviewLandscape configureWithEntity:self.entity];
+  [self.routePreviewPortrait configureWithEntity:self.entity];
+  [self.navigationDashboardLandscape configureWithEntity:self.entity];
+  [self.navigationDashboardPortrait configureWithEntity:self.entity];
+}
+
 #pragma mark - MWMRoutePreview
 
 - (IBAction)routePreviewChange:(UIButton *)sender
 {
-  [self showGoButton:[sender isEqual:self.routePreview.pedestrian]];
-//  enum MWMNavigationRouteType const type = [sender isEqual:self.routePreview.pedestrian] ? MWMNavigationRouteTypePedestrian : MWMNavigationRouteTypeVehicle;
-//  [self.delegate buildRouteWithType:type];
+  if (sender.selected)
+    return;
+  sender.selected = YES;
+  auto & f = GetFramework();
+  if ([sender isEqual:self.routePreview.pedestrian])
+  {
+    self.routePreview.vehicle.selected = NO;
+    f.SetRouter(routing::RouterType::Pedestrian);
+  }
+  else
+  {
+    self.routePreview.pedestrian.selected = NO;
+    f.SetRouter(routing::RouterType::Vehicle);
+  }
+  f.CloseRouting();
+  [self.delegate buildRouteWithType:f.GetRouter()];
 }
 
 #pragma mark - MWMNavigationDashboard
@@ -85,6 +117,7 @@
 - (IBAction)navigationCancelPressed:(UIButton *)sender
 {
   self.state = MWMNavigationDashboardStateHidden;
+  [self.delegate didCancelRouting];
 }
 
 #pragma mark - MWMNavigationGo
@@ -92,6 +125,7 @@
 - (IBAction)navigationGoPressed:(UIButton *)sender
 {
   self.state = MWMNavigationDashboardStateNavigation;
+  [self.delegate didStartFollowing];
 }
 
 #pragma mark - State changes
@@ -105,6 +139,29 @@
 - (void)showStatePlanning
 {
   [self.routePreview addToView:self.ownerView];
+  [self.routePreviewLandscape statePlaning];
+  [self.routePreviewPortrait statePlaning];
+  auto const state = GetFramework().GetRouter();
+  switch (state)
+  {
+    case routing::RouterType::Pedestrian :
+      self.routePreviewLandscape.pedestrian.selected = YES;
+      self.routePreviewPortrait.pedestrian.selected = YES;
+      self.routePreviewPortrait.vehicle.selected = NO;
+      self.routePreviewLandscape.vehicle.selected = NO;
+      break;
+    case routing::RouterType::Vehicle:
+      self.routePreviewLandscape.vehicle.selected = YES;
+      self.routePreviewPortrait.vehicle.selected = YES;
+      self.routePreviewLandscape.pedestrian.selected = NO;
+      self.routePreviewPortrait.pedestrian.selected = NO;
+      break;
+  }
+}
+
+- (void)showStateReady
+{
+  [self showGoButton:YES];
 }
 
 - (void)showStateNavigation
@@ -115,7 +172,8 @@
 
 - (void)showGoButton:(BOOL)show
 {
-  self.routePreviewPortrait.showGoButton = self.routePreviewLandscape.showGoButton = show;
+  [self.routePreviewPortrait showGoButtonAnimated:show];
+  [self.routePreviewLandscape showGoButtonAnimated:show];
   [self.delegate navigationDashBoardDidUpdate];
 }
 
@@ -131,11 +189,15 @@
       [self hideState];
       break;
     case MWMNavigationDashboardStatePlanning:
-      NSAssert(_state == MWMNavigationDashboardStateHidden, @"Invalid state change");
+      NSAssert(_state == MWMNavigationDashboardStateHidden || _state == MWMNavigationDashboardStateReady, @"Invalid state change");
       [self showStatePlanning];
       break;
-    case MWMNavigationDashboardStateNavigation:
+    case MWMNavigationDashboardStateReady:
       NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change");
+      [self showStateReady];
+      break;
+    case MWMNavigationDashboardStateNavigation:
+      NSAssert(_state == MWMNavigationDashboardStateReady, @"Invalid state change");
       [self showStateNavigation];
       break;
   }
@@ -155,13 +217,11 @@
   {
     case MWMNavigationDashboardStateHidden:
       return 0.0;
-      break;
     case MWMNavigationDashboardStatePlanning:
+    case MWMNavigationDashboardStateReady:
       return self.routePreview.visibleHeight;
-      break;
     case MWMNavigationDashboardStateNavigation:
-      return self.navigationDashboard.height;
-      break;
+      return self.navigationDashboard.visibleHeight;
   }
 }
 

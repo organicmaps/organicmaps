@@ -170,12 +170,13 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)buildRoute
 {
-  [self.delegate buildRoute:m_userMark->GetUserMark()->GetOrg()];
-}
-
-- (void)stopBuildingRoute
-{
-  [self.placePage stopBuildingRoute];
+  auto & f = GetFramework();
+  m2::PointD const & destination = m_userMark->GetUserMark()->GetOrg();
+  CLLocationCoordinate2D const & myCoordinate = [MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate;
+  m2::PointD const myPosition {MercatorBounds::LonToX(myCoordinate.longitude), MercatorBounds::LatToY(myCoordinate.latitude)};
+  routing::RouterType const actualyRoterType = f.GetBestRouter(myPosition, destination);
+  f.SetRouter(actualyRoterType);
+  [self.delegate buildRoute:destination];
 }
 
 - (void)share

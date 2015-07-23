@@ -7,6 +7,7 @@
 //
 
 #import "Framework.h"
+#import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMLocationButton.h"
 #import "MWMMapViewControlsManager.h"
@@ -16,6 +17,7 @@
 #import "MWMSideMenuManager.h"
 #import "MWMSideMenuManagerDelegate.h"
 #import "MWMZoomButtons.h"
+#import "RouteState.h"
 
 @interface MWMMapViewControlsManager () <MWMPlacePageViewManagerProtocol, MWMNavigationDashboardManagerDelegate, MWMSideMenuManagerProtocol>
 
@@ -27,6 +29,7 @@
 
 @property (weak, nonatomic) MapViewController * ownerController;
 
+@property (nonatomic) BOOL disableStandbyOnRouteFollowing;
 @property (nonatomic) m2::PointD routeDestination;
 
 @end
@@ -72,11 +75,6 @@
   [self.placePageManager showPlacePageWithUserMark:std::move(userMark)];
 }
 
-- (void)stopBuildingRoute
-{
-  [self.placePageManager stopBuildingRoute];
-}
-
 #pragma mark - MWMSideMenuManagerProtocol
 
 - (void)sideMenuDidUpdateLayout
@@ -106,16 +104,20 @@
 {
   self.routeDestination = destination;
   // Determine route type
-  enum MWMNavigationRouteType type = MWMNavigationRouteTypeVehicle;
-  [self buildRouteWithType:type];
+  [self buildRouteWithType:GetFramework().GetRouter()];
 }
 
 #pragma mark - MWMNavigationDashboardManager
 
-- (void)buildRouteWithType:(enum MWMNavigationRouteType)type
+- (void)setupRoutingDashboard:(location::FollowingInfo const &)info
 {
+  [self.navigationManager setupDashboard:info];
+}
+
+- (void)buildRouteWithType:(enum routing::RouterType)type
+{
+  GetFramework().BuildRoute(self.routeDestination, 0 /* timeoutSec */);
   self.navigationManager.state = MWMNavigationDashboardStatePlanning;
-//  GetFramework().BuildRoute(self.routeDestination, 0 /* timeoutSec */);
 }
 
 - (void)navigationDashBoardDidUpdate
@@ -126,6 +128,37 @@
     [self.zoomButtons setTopBound:topBound];
     [self.placePageManager setTopBound:topBound];
   }];
+}
+
+- (void)didStartFollowing
+{
+  self.zoomHidden = NO;
+  GetFramework().FollowRoute();
+  self.disableStandbyOnRouteFollowing = YES;
+//  [RouteState save];
+}
+
+- (void)didCancelRouting
+{
+  GetFramework().CloseRouting();
+  self.disableStandbyOnRouteFollowing = NO;
+//  [RouteState remove];
+}
+
+- (void)routingReady
+{
+  self.navigationManager.state = MWMNavigationDashboardStateReady;
+}
+
+- (void)setDisableStandbyOnRouteFollowing:(BOOL)disableStandbyOnRouteFollowing
+{
+  if (_disableStandbyOnRouteFollowing == disableStandbyOnRouteFollowing)
+    return;
+  _disableStandbyOnRouteFollowing = disableStandbyOnRouteFollowing;
+  if (disableStandbyOnRouteFollowing)
+    [[MapsAppDelegate theApp] disableStandby];
+  else
+    [[MapsAppDelegate theApp] enableStandby];
 }
 
 #pragma mark - Properties

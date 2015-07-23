@@ -93,11 +93,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.manager buildRoute];
 }
 
-- (void)stopBuildingRoute
-{
-  [self.actionBar dismissActivityIndicatior];
-}
-
 - (void)addPlacePageShadowToView:(UIView *)view offset:(CGSize)offset
 {
   CALayer * layer = view.layer;
