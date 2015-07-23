@@ -10,6 +10,7 @@
 #include "platform/country_defines.hpp"
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
+#include "platform/platform.hpp"
 
 void TestFeaturesCount(TestSearchEngine const & engine, m2::RectD const & rect,
                        size_t expectedCount)
@@ -27,7 +28,7 @@ UNIT_TEST(GenerateTestMwm_Smoke)
 {
   classificator::Load();
 
-  platform::LocalCountryFile file("/tmp", platform::CountryFile("BuzzCity"), 0);
+  platform::LocalCountryFile file(GetPlatform().TmpDir(), platform::CountryFile("BuzzCity"), 0);
   {
     TestMwmBuilder builder(file);
     builder.AddPOI(m2::PointD(0, 0), "Wine shop", "en");

@@ -66,7 +66,7 @@ string AddSlashIfNeeded(string const & path)
 {
   string const sep = GetNativeSeparator();
   string::size_type const pos = path.rfind(sep);
-  if ((pos != string::npos) && (pos == path.size() - sep.size()))
+  if ((pos != string::npos) && (pos + sep.size() == path.size()))
     return path;
   return path + sep;
 }

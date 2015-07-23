@@ -107,7 +107,7 @@ LocalCountryFile LocalCountryFile::MakeTemporary(string const & fullPath)
   my::GetNameFromFullPath(name);
   my::GetNameWithoutExt(name);
 
-  return LocalCountryFile(GetPlatform().WritableDir(), CountryFile(name), 0 /* version */);
+  return LocalCountryFile(my::GetDirectory(fullPath), CountryFile(name), 0 /* version */);
 }
 
 

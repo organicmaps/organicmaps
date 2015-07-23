@@ -2,6 +2,8 @@
 
 #include "defines.hpp"
 
+#include "coding/file_name_utils.hpp"
+
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -18,15 +20,15 @@ struct GenerateInfo
 
   string GetTmpFileName(string const & fileName, char const * ext = DATA_FILE_EXTENSION_TMP) const
   {
-    return (m_tmpDir + fileName + ext);
+    return my::JoinFoldersToPath(m_tmpDir, fileName + ext);
   }
   string GetTargetFileName(string const & fileName, char const * ext = DATA_FILE_EXTENSION) const
   {
-    return (m_targetDir + fileName + ext);
+    return my::JoinFoldersToPath(m_targetDir, fileName + ext);
   }
   string GetIntermediateFileName(string const & fileName, char const * ext = DATA_FILE_EXTENSION) const
   {
-    return (m_intermediateDir + fileName + ext);
+    return my::JoinFoldersToPath(m_intermediateDir, fileName + ext);
   }
   string GetAddressesFileName() const
   {
