@@ -255,11 +255,8 @@ Framework::Framework()
   m_storage.Init(bind(&Framework::UpdateLatestCountryFile, this, _1));
   LOG(LDEBUG, ("Storage initialized"));
 
-#ifdef USE_PEDESTRIAN_ROUTER
-  SetRouter(RouterType::Pedestrian);
-#else
-  SetRouter(RouterType::Vehicle);
-#endif
+  SetRouterImpl(RouterType::Vehicle);
+
   LOG(LDEBUG, ("Routing engine initialized"));
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
@@ -1274,19 +1271,6 @@ void Framework::PrepareSearch()
 
 bool Framework::Search(search::SearchParams const & params)
 {
-  if (params.m_query == ROUTING_SECRET_UNLOCKING_WORD)
-  {
-    LOG(LINFO, ("Pedestrian routing mode enabled"));
-    SetRouter(RouterType::Pedestrian);
-    return false;
-  }
-  if (params.m_query == ROUTING_SECRET_LOCKING_WORD)
-  {
-    LOG(LINFO, ("Vehicle routing mode enabled"));
-    SetRouter(RouterType::Vehicle);
-    return false;
-  }
-
 #ifdef FIXED_LOCATION
   search::SearchParams rParams(params);
   if (params.IsValidPosition())
@@ -2138,6 +2122,18 @@ void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
 }
 
 void Framework::SetRouter(RouterType type)
+{
+  if (m_currentRouterType == type)
+    return;
+  SetRouterImpl(type);
+}
+
+routing::RouterType Framework::GetRouter() const
+{
+  return m_currentRouterType;
+}
+
+void Framework::SetRouterImpl(RouterType type)
 {
 #ifdef DEBUG
   TRoutingVisualizerFn const routingVisualizerFn = [this](m2::PointD const & pt)

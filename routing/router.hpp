@@ -15,8 +15,8 @@ class Route;
 /// Routing engine type.
 enum RouterType
 {
-  Vehicle,    /// For OSRM vehicle routing
-  Pedestrian  /// For A star pedestrian routing
+  Vehicle = 0, /// For OSRM vehicle routing
+  Pedestrian   /// For A star pedestrian routing
 };
 
 class IRouter : public my::Cancellable

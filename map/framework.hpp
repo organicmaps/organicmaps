@@ -556,6 +556,8 @@ public:
 public:
   /// @name Routing mode
   //@{
+  void SetRouter(routing::RouterType type);
+  routing::RouterType GetRouter() const;
   bool IsRoutingActive() const { return m_routingSession.IsActive(); }
   bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
   bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }
@@ -581,7 +583,7 @@ public:
   }
 
 private:
-  void SetRouter(routing::RouterType type);
+  void SetRouterImpl(routing::RouterType type);
   void RemoveRoute();
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);

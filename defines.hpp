@@ -27,10 +27,6 @@
 #define ROUTING_FTSEG_FILE_TAG  "ftseg"
 #define ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG  "node2ftseg"
 
-// Secret word to unlock experimental features in production builds.
-#define ROUTING_SECRET_UNLOCKING_WORD "?pedestrian"
-#define ROUTING_SECRET_LOCKING_WORD "?vehicle"
-
 // Switch to a development osrm server for online checking of the absent contries.
 #ifdef DEV_OSRM_SERVER
 #define OSRM_ONLINE_SERVER_URL "http://osrm.online.dev.server"
