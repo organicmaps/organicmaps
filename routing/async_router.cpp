@@ -178,7 +178,7 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, TProg
     code = IRouter::InternalError;
     LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
     SendStatistics(startPoint, startDirection, finalPoint, e.Msg());
-    GetPlatform().RunOnGuiThread(bind(callback, route, code));
+    GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
     return;
   }
 
@@ -197,27 +197,16 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, TProg
       route.AddAbsentCountry(country);
   }
 
-  if (!absent.empty())
+  if (!absent.empty() && code == IRouter::NoError)
   {
-    if (code != IRouter::NoError)
-      GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
-    return;
+    code = IRouter::NeedMoreMaps;
   }
 
   LogCode(code, elapsedSec);
   SendStatistics(startPoint, startDirection, finalPoint, code, route, elapsedSec);
   // Call callback only if we have some new data.
   if (code != IRouter::NoError)
-  {
     GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
-  }
-  else
-  {
-    double const elapsedSec = timer.ElapsedSeconds();
-    LogCode(IRouter::NeedMoreMaps, elapsedSec);
-    SendStatistics(startPoint, startDirection, finalPoint, IRouter::NeedMoreMaps, route, elapsedSec);
-    GetPlatform().RunOnGuiThread(bind(readyCallback, route, IRouter::NeedMoreMaps));
-  }
 }
 
 void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,

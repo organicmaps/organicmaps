@@ -60,7 +60,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
   m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint,
-                           DoReadyCallback(*this, callback, m_routeSessionMutex),
+                           DoReadyCallback(*this, readyCallback, m_routeSessionMutex),
                            progressCallback);
 
   if (timeoutSec != 0)
