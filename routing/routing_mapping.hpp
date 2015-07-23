@@ -11,11 +11,6 @@
 #include "std/algorithm.hpp"
 #include "std/unordered_map.hpp"
 
-namespace platform
-{
-class CountryFile;
-class LocalCountryFile;
-}
 
 namespace routing
 {
@@ -29,7 +24,7 @@ struct RoutingMapping
   CrossRoutingContextReader m_crossContext;
 
   ///@param fName: mwm file path
-  RoutingMapping(platform::CountryFile const & countryFile, MwmSet * pIndex);
+  RoutingMapping(string const & countryFile, MwmSet * pIndex);
 
   ~RoutingMapping();
 
@@ -47,27 +42,21 @@ struct RoutingMapping
 
   bool IsValid() const { return m_handle.IsAlive() && m_error == IRouter::ResultCode::NoError; }
 
-  IRouter::ResultCode GetError() const {return m_error;}
+  IRouter::ResultCode GetError() const { return m_error; }
 
   /*!
    * Returns mentioned country file. Works even the LocalCountryFile does not exist and
    * the lock was not taken.
    */
-  platform::CountryFile const & GetCountryFile() const { return m_countryFile; }
+  string const & GetCountryName() const { return m_countryFile; }
 
   Index::MwmId const & GetMwmId() const { return m_handle.GetId(); }
 
-  // static
-  static shared_ptr<RoutingMapping> MakeInvalid(platform::CountryFile const & countryFile);
-
 private:
-  // Ctor for invalid mappings.
-  RoutingMapping(platform::CountryFile const & countryFile);
-
   size_t m_mapCounter;
   size_t m_facadeCounter;
   bool m_crossContextLoaded;
-  platform::CountryFile m_countryFile;
+  string m_countryFile;
   FilesMappingContainer m_container;
   IRouter::ResultCode m_error;
   MwmSet::MwmHandle m_handle;

@@ -552,7 +552,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
   if (!startMapping->IsValid())
   {
-    route.AddAbsentCountry(startMapping->GetCountryFile().GetNameWithoutExt());
+    route.AddAbsentCountry(startMapping->GetCountryName());
     return startMapping->GetError();
   }
   if (!targetMapping->IsValid())
@@ -562,9 +562,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     auto out_iterators = startMapping->m_crossContext.GetOutgoingIterators();
     for (auto i = out_iterators.first; i != out_iterators.second; ++i)
       if (startMapping->m_crossContext.GetOutgoingMwmName(*i) ==
-          targetMapping->GetCountryFile().GetNameWithoutExt())
+          targetMapping->GetCountryName())
       {
-        route.AddAbsentCountry(targetMapping->GetCountryFile().GetNameWithoutExt());
+        route.AddAbsentCountry(targetMapping->GetCountryName());
         return targetMapping->GetError();
       }
     return targetMapping->GetError();
@@ -682,7 +682,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
   if (!getter.HasCandidates())
     return RouteNotFound;
 
-  getter.MakeResult(res, maxCount, mapping->GetCountryFile().GetNameWithoutExt());
+  getter.MakeResult(res, maxCount, mapping->GetCountryName());
   return NoError;
 }
 

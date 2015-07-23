@@ -136,7 +136,7 @@ void Storage::RegisterAllLocalMaps()
     }
 
     LocalCountryFile const & localFile = *i;
-    string const name = localFile.GetCountryName();
+    string const & name = localFile.GetCountryName();
     TIndex index = FindIndexByFile(name);
     if (index.IsValid())
       RegisterCountryFiles(index, localFile.GetDirectory(), localFile.GetVersion());

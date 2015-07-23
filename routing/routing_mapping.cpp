@@ -25,7 +25,7 @@ namespace
  * \return true if files has same versions.
  * \warning Function assumes that the file lock was already taken.
  */
-bool CheckMwmConsistency(platform::LocalCountryFile const & localFile)
+bool CheckMwmConsistency(LocalCountryFile const & localFile)
 {
   ModelReaderPtr r1 = FilesContainerR(localFile.GetPath(MapOptions::CarRouting))
       .GetReader(VERSION_FILE_TAG);
@@ -46,29 +46,22 @@ bool CheckMwmConsistency(platform::LocalCountryFile const & localFile)
 
 namespace routing
 {
-RoutingMapping::RoutingMapping(CountryFile const & countryFile)
-    : m_mapCounter(0),
-      m_facadeCounter(0),
-      m_crossContextLoaded(0),
-      m_countryFile(countryFile),
-      m_error(IRouter::ResultCode::RouteFileNotExist),
-      m_handle()
-{
-}
 
-RoutingMapping::RoutingMapping(CountryFile const & countryFile, MwmSet * pIndex)
+RoutingMapping::RoutingMapping(string const & countryFile, MwmSet * pIndex)
     : m_mapCounter(0),
       m_facadeCounter(0),
       m_crossContextLoaded(0),
       m_countryFile(countryFile),
-      m_error(IRouter::ResultCode::RouteFileNotExist),
-      m_handle(pIndex->GetMwmHandleByCountryFile(countryFile))
+      m_error(IRouter::ResultCode::RouteFileNotExist)
 {
+  m_handle = pIndex->GetMwmHandleByCountryFile(CountryFile(countryFile));
   if (!m_handle.IsAlive())
     return;
+
   LocalCountryFile const & localFile = m_handle.GetInfo()->GetLocalFile();
   if (!HasOptions(localFile.GetFiles(), MapOptions::MapWithCarRouting))
   {
+    m_error = IRouter::ResultCode::RouteFileNotExist;
     m_handle = MwmSet::MwmHandle();
     return;
   }
@@ -144,12 +137,6 @@ void RoutingMapping::FreeCrossContext()
   m_crossContext = CrossRoutingContextReader();
 }
 
-// static
-shared_ptr<RoutingMapping> RoutingMapping::MakeInvalid(platform::CountryFile const & countryFile)
-{
-  return shared_ptr<RoutingMapping>(new RoutingMapping(countryFile));
-}
-
 TRoutingMappingPtr RoutingIndexManager::GetMappingByPoint(m2::PointD const & point)
 {
   return GetMappingByName(m_countryFileFn(point));
@@ -164,7 +151,7 @@ TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & mapName)
 
   // Or load and check file.
   TRoutingMappingPtr newMapping =
-      make_shared<RoutingMapping>(platform::CountryFile(mapName), m_index);
+      make_shared<RoutingMapping>(mapName, m_index);
   m_mapping.insert(make_pair(mapName, newMapping));
   return newMapping;
 }

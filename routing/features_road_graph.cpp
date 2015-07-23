@@ -29,7 +29,8 @@ string GetFeatureCountryName(FeatureID const featureId)
   /// @todo Rework this function when storage will provide information about mwm's country
   // MwmInfo.GetCountryName returns country name as 'Country' or 'Country_Region', but only 'Country' is needed
   ASSERT(featureId.IsValid(), ());
-  string countryName = featureId.m_mwmId.GetInfo()->GetCountryName();
+
+  string const & countryName = featureId.m_mwmId.GetInfo()->GetCountryName();
   size_t const pos = countryName.find('_');
   if (string::npos == pos)
     return countryName;

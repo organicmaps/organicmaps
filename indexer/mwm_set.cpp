@@ -78,7 +78,7 @@ MwmSet::MwmHandle & MwmSet::MwmHandle::operator=(MwmHandle && handle)
 
 MwmSet::MwmId MwmSet::GetMwmIdByCountryFileImpl(CountryFile const & countryFile) const
 {
-  string const name = countryFile.GetNameWithoutExt();
+  string const & name = countryFile.GetNameWithoutExt();
   ASSERT(!name.empty(), ());
   auto const it = m_info.find(name);
   if (it == m_info.cend() || it->second.empty())

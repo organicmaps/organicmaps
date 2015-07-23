@@ -47,13 +47,12 @@ void FeaturesFetcher::InitClassificator()
 pair<MwmSet::MwmHandle, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
     LocalCountryFile const & localFile)
 {
-  string const countryFileName = localFile.GetCountryName();
   try
   {
     auto result = m_multiIndex.RegisterMap(localFile);
     if (result.second != MwmSet::RegResult::Success)
     {
-      LOG(LWARNING, ("Can't add map", countryFileName,
+      LOG(LWARNING, ("Can't add map", localFile.GetCountryName(),
                      "Probably it's already added or has newer data version."));
       return result;
     }
@@ -62,9 +61,9 @@ pair<MwmSet::MwmHandle, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
     m_rect.Add(handle.GetInfo()->m_limitRect);
     return result;
   }
-  catch (RootException const & e)
+  catch (RootException const & ex)
   {
-    LOG(LERROR, ("IO error while adding ", countryFileName, " map. ", e.what()));
+    LOG(LERROR, ("IO error while adding ", localFile.GetCountryName(), " map. ", ex.Msg()));
     return make_pair(MwmSet::MwmHandle(), MwmSet::RegResult::BadFile);
   }
 }

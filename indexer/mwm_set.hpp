@@ -57,7 +57,7 @@ public:
 
   inline platform::LocalCountryFile const & GetLocalFile() const { return m_file; }
 
-  inline string GetCountryName() const { return m_file.GetCountryName(); }
+  inline string const & GetCountryName() const { return m_file.GetCountryName(); }
 
   inline int64_t GetVersion() const { return m_file.GetVersion(); }
 

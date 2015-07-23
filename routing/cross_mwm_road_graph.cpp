@@ -137,7 +137,7 @@ BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
         kMwmCrossingNodeEqualityRadiusMeters)
     {
       BorderCross const cross(
-          CrossNode(startNode.m_nodeId, currentMapping->GetCountryFile().GetNameWithoutExt(),
+          CrossNode(startNode.m_nodeId, currentMapping->GetCountryName(),
                     MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
           CrossNode(i->m_nodeId, nextMwm,
                     MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));

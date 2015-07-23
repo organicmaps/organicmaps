@@ -41,7 +41,7 @@ public:
 
   TestMwmSet & GetMwmSet() { return m_testSet; }
 
-  CountryFile const & GetCountryFile() { return m_countryFile; }
+  string const & GetCountryName() { return m_countryFile.GetNameWithoutExt(); }
 
   size_t GetNumRefs() { return m_result.first.GetInfo()->GetNumRefs(); }
 
@@ -70,7 +70,7 @@ UNIT_TEST(RoutingMappingCountryFileLockTest)
 {
   LocalFileGenerator generator("1TestCountry");
   {
-    RoutingMapping testMapping(generator.GetCountryFile(), (&generator.GetMwmSet()));
+    RoutingMapping testMapping(generator.GetCountryName(), (&generator.GetMwmSet()));
     TEST(testMapping.IsValid(), ());
     TEST_EQUAL(generator.GetNumRefs(), 2, ());
   }
