@@ -8,6 +8,7 @@
 #include "graphics/opengl/opengl.hpp"
 #include "graphics/opengl/gl_render_context.hpp"
 #include "graphics/opengl/defines_conv.hpp"
+#include "graphics/opengl/route_vertex.hpp"
 
 #include "base/logging.hpp"
 #include "base/shared_buffer_manager.hpp"
@@ -209,6 +210,99 @@ namespace graphics
       LOG(LDEBUG, ("DrawGeometry, texture=", m_texture->id(), ", indicesCount=", m_indicesCount));
     }
 
+    GeometryRenderer::DrawRouteGeometry::DrawRouteGeometry()
+    {
+      ResetUniforms();
+    }
+
+    bool GeometryRenderer::DrawRouteGeometry::isNeedAdditionalUniforms() const
+    {
+      return true;
+    }
+
+    void GeometryRenderer::DrawRouteGeometry::setAdditionalUniforms(UniformsHolder const & holder)
+    {
+      holder.getValue(ERouteHalfWidth, m_halfWidth[0], m_halfWidth[1]);
+      holder.getValue(ERouteColor, m_color[0], m_color[1], m_color[2], m_color[3]);
+      holder.getValue(ERouteClipLength, m_clipLength);
+      holder.getValue(ERouteTextureRect, m_textureRect[0], m_textureRect[1], m_textureRect[2], m_textureRect[3]);
+      holder.getValue(ERouteArrowBorders, m_arrowBorders);
+    }
+
+    void GeometryRenderer::DrawRouteGeometry::ResetUniforms()
+    {
+      m_halfWidth[0] = 0.0f;
+      m_halfWidth[1] = 0.0f;
+
+      m_color[0] = 0.0f;
+      m_color[1] = 0.0f;
+      m_color[2] = 0.0f;
+      m_color[3] = 0.0f;
+
+      m_clipLength = 0.0f;
+
+      m_textureRect[0] = 0.0f;
+      m_textureRect[1] = 0.0f;
+      m_textureRect[2] = 0.0f;
+      m_textureRect[3] = 0.0f;
+
+      m_arrowBorders = math::Zero<float, 4>();
+    }
+
+    void GeometryRenderer::DrawRouteGeometry::resetAdditionalUniforms()
+    {
+      ResetUniforms();
+    }
+
+    void GeometryRenderer::DrawRouteGeometry::perform()
+    {
+      gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
+
+      shared_ptr<Program> const & prg = rc->program();
+
+      prg->setParam(ESemModelView, rc->matrix(EModelView));
+      prg->setParam(ESemProjection, rc->matrix(EProjection));
+      prg->setParam(ERouteHalfWidth, m_halfWidth[0], m_halfWidth[1]);
+
+      if (prg->isParamExist(ESemSampler0))
+        prg->setParam(ESemSampler0, 0);
+
+      if (prg->isParamExist(ERouteColor))
+        prg->setParam(ERouteColor, m_color[0], m_color[1], m_color[2], m_color[3]);
+
+      if (prg->isParamExist(ERouteClipLength))
+        prg->setParam(ERouteClipLength, m_clipLength);
+
+      if (prg->isParamExist(ERouteArrowBorders))
+        prg->setParam(ERouteArrowBorders, m_arrowBorders);
+
+      if (prg->isParamExist(ERouteTextureRect))
+        prg->setParam(ERouteTextureRect, m_textureRect[0], m_textureRect[1], m_textureRect[2], m_textureRect[3]);
+
+      prg->setStorage(m_storage);
+      prg->setVertexDecl(RouteVertex::getVertexDecl());
+
+      /// When the binders leave the scope the buffer object will be unbound.
+      gl::BufferObject::Binder verticesBufBinder, indicesBufBinder;
+      prg->makeCurrent(verticesBufBinder, indicesBufBinder);
+
+      if (m_texture)
+        m_texture->makeCurrent();
+      else
+        LOG(LDEBUG, ("null texture used in DrawGeometry"));
+
+      OGLCHECK(glDrawElements(
+        GL_TRIANGLES,
+        m_storage.m_indices->size(),
+        GL_UNSIGNED_SHORT,
+        (unsigned char*)m_storage.m_indices->glPtr()));
+    }
+
+    void GeometryRenderer::DrawRouteGeometry::dump()
+    {
+      LOG(LDEBUG, ("DrawRouteGeometry, texture=", m_texture->id(), ", indicesCount=", m_storage.m_indices->size()));
+    }
+
     void GeometryRenderer::drawGeometry(shared_ptr<BaseTexture> const & texture,
                                         Storage const & storage,
                                         size_t indicesCount,
@@ -224,6 +318,29 @@ namespace graphics
       command->m_primitiveType = primType;
 
       processCommand(command);
+    }
+
+    void GeometryRenderer::drawRouteGeometry(shared_ptr<BaseTexture> const & texture,
+                                             Storage const & storage)
+    {
+      shared_ptr<DrawRouteGeometry> command(new DrawRouteGeometry());
+
+      command->m_texture = texture;
+      command->m_storage = storage;
+
+      processCommand(command);
+    }
+
+    void GeometryRenderer::clearRouteGeometry()
+    {
+      gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
+      ProgramManager * pm = rc->programManager();
+
+      shared_ptr<Program> prg = pm->getProgram(EVxRoute, EFrgRoute);
+      prg->setStorage(gl::Storage());
+
+      prg = pm->getProgram(EVxRoute, EFrgRouteArrow);
+      prg->setStorage(gl::Storage());
     }
 
     void GeometryRenderer::FreeStorage::perform()
@@ -364,10 +481,17 @@ namespace graphics
       shared_ptr<Program> prg = pm->getProgram(EVxTextured, EFrgAlphaTest);
       if (m_type == AlfaVaringProgram)
         prg = pm->getProgram(EVxTextured, EFrgVarAlfa);
+      else if (m_type == RouteProgram)
+        prg = pm->getProgram(EVxRoute, EFrgRoute);
+      else if (m_type == RouteArrowProgram)
+        prg = pm->getProgram(EVxRoute, EFrgRouteArrow);
 
-      prg->setParam(ESemModelView, rc->matrix(EModelView));
-      prg->setParam(ESemProjection, rc->matrix(EProjection));
-      prg->setParam(ESemSampler0, 0);
+      if (m_type == DefaultProgram || m_type == AlfaVaringProgram)
+      {
+        prg->setParam(ESemModelView, rc->matrix(EModelView));
+        prg->setParam(ESemProjection, rc->matrix(EProjection));
+        prg->setParam(ESemSampler0, 0);
+      }
 
       rc->setProgram(prg);
     }
@@ -380,6 +504,16 @@ namespace graphics
     void GeometryRenderer::applyVarAlfaStates()
     {
       processCommand(make_shared<ApplyStates>(ApplyStates::AlfaVaringProgram));
+    }
+
+    void GeometryRenderer::applyRouteStates()
+    {
+      processCommand(make_shared<ApplyStates>(ApplyStates::RouteProgram));
+    }
+
+    void GeometryRenderer::applyRouteArrowStates()
+    {
+      processCommand(make_shared<ApplyStates>(ApplyStates::RouteArrowProgram));
     }
 
     void GeometryRenderer::ApplyBlitStates::perform()

@@ -20,6 +20,7 @@ SOURCES += \
     opengl/managed_texture.cpp \
     opengl/renderer.cpp \
     opengl/vertex.cpp \
+    opengl/route_vertex.cpp \
     opengl/clipper.cpp \
     opengl/geometry_renderer.cpp \
     opengl/shader.cpp \
@@ -79,6 +80,7 @@ HEADERS += \
     opengl/opengl.hpp \
     opengl/gl_procedures.inl \
     opengl/vertex.hpp \
+    opengl/route_vertex.hpp \
     opengl/texture.hpp \
     opengl/framebuffer.hpp \
     opengl/buffer_object.hpp \

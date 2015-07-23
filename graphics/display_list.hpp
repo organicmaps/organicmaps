@@ -15,6 +15,7 @@ namespace graphics
   private:
 
     typedef gl::GeometryRenderer::DrawGeometry DrawGeometryCmd;
+    typedef gl::GeometryRenderer::DrawRouteGeometry DrawRouteGeometryCmd;
     typedef gl::GeometryRenderer::DiscardStorage DiscardStorageCmd;
     typedef gl::GeometryRenderer::FreeTexture FreeTextureCmd;
     typedef gl::GeometryRenderer::UnlockStorage UnlockStorageCmd;
@@ -40,6 +41,9 @@ namespace graphics
 
     friend class DisplayListRenderer;
 
+    void makeTextureRef(shared_ptr<gl::BaseTexture> const & texture);
+    void makeStorageRef(gl::Storage const & storage);
+
   public:
 
     ~DisplayList();
@@ -48,6 +52,7 @@ namespace graphics
     void applyBlitStates(shared_ptr<ApplyBlitStatesCmd> const & cmd);
     void applySharpStates(shared_ptr<ApplySharpStatesCmd> const & cmd);
     void drawGeometry(shared_ptr<DrawGeometryCmd> const & cmd);
+    void drawRouteGeometry(shared_ptr<DrawRouteGeometryCmd> const & cmd);
     void unlockStorage(shared_ptr<UnlockStorageCmd> const & cmd);
     void discardStorage(shared_ptr<DiscardStorageCmd> const & cmd);
     void freeTexture(shared_ptr<FreeTextureCmd> const & cmd);

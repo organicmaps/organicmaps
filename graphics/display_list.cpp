@@ -43,23 +43,34 @@ namespace graphics
     m_commands.push_back(cmd);
   }
 
-  void DisplayList::drawGeometry(shared_ptr<DrawGeometryCmd> const & cmd)
+  void DisplayList::makeTextureRef(shared_ptr<gl::BaseTexture> const & texture)
   {
-    cmd->setIsDebugging(m_isDebugging);
-
-    shared_ptr<gl::BaseTexture> const & texture = cmd->m_texture;
-    gl::Storage const & storage = cmd->m_storage;
-
     TextureRef tref(texture.get());
 
     if (texture && m_textures.insert(tref).second)
       m_parent->addTextureRef(tref);
+  }
 
+  void DisplayList::makeStorageRef(gl::Storage const & storage)
+  {
     StorageRef sref(storage.m_vertices.get(), storage.m_indices.get());
 
     if (storage.isValid() && m_storages.insert(sref).second)
       m_parent->addStorageRef(sref);
+  }
 
+  void DisplayList::drawGeometry(shared_ptr<DrawGeometryCmd> const & cmd)
+  {
+    cmd->setIsDebugging(m_isDebugging);
+    makeTextureRef(cmd->m_texture);
+    makeStorageRef(cmd->m_storage);
+    m_commands.push_back(cmd);
+  }
+
+  void DisplayList::drawRouteGeometry(shared_ptr<DrawRouteGeometryCmd> const & cmd)
+  {
+    cmd->setIsDebugging(m_isDebugging);
+    makeTextureRef(cmd->m_texture);
     m_commands.push_back(cmd);
   }
 

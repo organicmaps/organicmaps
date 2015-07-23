@@ -30,8 +30,6 @@ namespace graphics
       Vertex const & operator=(Vertex const & v);
 
       static VertexDecl const * getVertexDecl();
-
-      static void setupLayout(void * glPtr);
     };
   }
 }

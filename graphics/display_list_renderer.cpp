@@ -150,6 +150,22 @@ namespace graphics
 
   }
 
+  void DisplayListRenderer::drawRouteGeometry(shared_ptr<gl::BaseTexture> const & texture,
+                                              gl::Storage const & storage)
+  {
+    if (m_displayList)
+    {
+      shared_ptr<DrawRouteGeometry> command(new DrawRouteGeometry());
+
+      command->m_texture = texture;
+      command->m_storage = storage;
+
+      m_displayList->drawRouteGeometry(command);
+    }
+    else
+      base_t::drawRouteGeometry(texture, storage);
+  }
+
   void DisplayListRenderer::uploadResources(shared_ptr<Resource> const * resources,
                                             size_t count,
                                             shared_ptr<gl::BaseTexture> const & texture)

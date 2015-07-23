@@ -14,14 +14,17 @@ namespace graphics
     enum EVxType
     {
       EVxTextured,
-      EVxSharp
+      EVxSharp,
+      EVxRoute
     };
 
     enum EFrgType
     {
       EFrgAlphaTest,
       EFrgNoAlphaTest,
-      EFrgVarAlfa
+      EFrgVarAlfa,
+      EFrgRoute,
+      EFrgRouteArrow
     };
 
     class ProgramManager

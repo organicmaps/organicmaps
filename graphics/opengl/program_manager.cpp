@@ -84,12 +84,87 @@ namespace graphics
 
       m_frgShaders[EFrgVarAlfa].reset(new Shader(uniformAlfaFrgSrc, EFragmentShader));
 
+      static const char routeVxSrc[] =
+        "attribute vec3 Position;\n"
+        "attribute vec2 Normal;\n"
+        "attribute vec3 Length;\n"
+        "uniform mat4 ModelView;\n"
+        "uniform mat4 Projection;\n"
+        "uniform vec2 u_halfWidth;\n"
+        "varying vec2 v_length;\n"
+        "void main(void)\n"
+        "{\n"
+        "  float normalLen = length(Normal);\n"
+        "  vec2 transformedAxisPos = (vec4(Position.xy, 0.0, 1.0) * ModelView).xy;\n"
+        "  vec2 len = vec2(Length.x, Length.z);\n"
+        "  if (u_halfWidth.x != 0.0 && normalLen != 0.0)\n"
+        "  {\n"
+        "    vec2 norm = Normal * u_halfWidth.x;\n"
+        "    float actualHalfWidth = length(norm);\n"
+        "    vec4 glbShiftPos = vec4(Position.xy + norm, 0.0, 1.0);\n"
+        "    vec2 shiftPos = (glbShiftPos * ModelView).xy;\n"
+        "    transformedAxisPos = transformedAxisPos + normalize(shiftPos - transformedAxisPos) * actualHalfWidth;\n"
+        "    if (u_halfWidth.y != 0.0)\n"
+        "      len = vec2(Length.x + Length.y * u_halfWidth.y, Length.z);\n"
+        "  }\n"
+        "  v_length = len;\n"
+        "  gl_Position = vec4(transformedAxisPos, Position.z, 1.0) * Projection;\n"
+        "}\n";
+
+      m_vxShaders[EVxRoute].reset(new Shader(routeVxSrc, EVertexShader));
+
+      static const char routeFrgSrc[] =
+        "varying vec2 v_length;\n"
+        "uniform vec4 u_color;\n"
+        "uniform float u_clipLength;\n"
+        "void main(void)\n"
+        "{\n"
+        "  vec4 color = u_color;\n"
+        "  if (v_length.x < u_clipLength)\n"
+        "    color.a = 0.0;\n"
+        "  gl_FragColor = color;\n"
+        "}\n";
+
+      m_frgShaders[EFrgRoute].reset(new Shader(routeFrgSrc, EFragmentShader));
+
+      static const char routeArrowFrgSrc[] =
+        "varying vec2 v_length;\n"
+        "uniform sampler2D Sampler0;\n"
+        "uniform vec4 u_textureRect;\n"
+        "uniform mat4 u_arrowBorders;\n"
+        "void main(void)\n"
+        "{\n"
+        "  bool needDiscard = true;\n"
+        "  vec2 uv = vec2(0, 0);\n"
+        "  for (int i = 0; i < 4; i++)\n"
+        "  {\n"
+        "    vec4 arrowBorder = u_arrowBorders[i];\n"
+        "    if (v_length.x >= arrowBorder.x && v_length.x <= arrowBorder.z)\n"
+        "    {\n"
+        "      needDiscard = false;\n"
+        "      float coef = clamp((v_length.x - arrowBorder.x) / (arrowBorder.z - arrowBorder.x), 0.0, 1.0);\n"
+        "      float u = mix(arrowBorder.y, arrowBorder.w, coef);\n"
+        "      float v = 0.5 * v_length.y + 0.5;\n"
+        "      uv = vec2(mix(u_textureRect.x, u_textureRect.z, u), mix(u_textureRect.y, u_textureRect.w, v));\n"
+        "    }\n"
+        "  }\n"
+        "  vec4 color = texture2D(Sampler0, uv);\n"
+        "  if (needDiscard)\n"
+        "    color.a = 0.0;\n"
+        "  gl_FragColor = color;\n"
+        "}\n";
+
+      m_frgShaders[EFrgRouteArrow].reset(new Shader(routeArrowFrgSrc, EFragmentShader));
+
       getProgram(EVxTextured, EFrgAlphaTest);
       getProgram(EVxTextured, EFrgNoAlphaTest);
       getProgram(EVxTextured, EFrgVarAlfa);
 
       getProgram(EVxSharp, EFrgAlphaTest);
       getProgram(EVxSharp, EFrgNoAlphaTest);
+
+      getProgram(EVxRoute, EFrgRoute);
+      getProgram(EVxRoute, EFrgRouteArrow);
     }
 
     shared_ptr<Program> const ProgramManager::getProgram(EVxType vxType,

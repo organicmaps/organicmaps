@@ -5,6 +5,7 @@
 
 #include "graphics/opengl/clipper.hpp"
 
+#include "base/matrix.hpp"
 #include "base/threaded_list.hpp"
 
 #include "std/shared_ptr.hpp"
@@ -58,6 +59,28 @@ namespace graphics
         float m_alfa;
       };
 
+      struct DrawRouteGeometry : Command
+      {
+        shared_ptr<BaseTexture> m_texture;
+        Storage m_storage;
+
+        DrawRouteGeometry();
+        virtual bool isNeedAdditionalUniforms() const;
+        virtual void setAdditionalUniforms(UniformsHolder const & holder);
+        virtual void resetAdditionalUniforms();
+        void perform();
+        void dump();
+
+      private:
+        void ResetUniforms();
+
+        float m_halfWidth[2];
+        float m_color[4];
+        float m_clipLength;
+        float m_textureRect[4];
+        math::Matrix<float, 4, 4> m_arrowBorders;
+      };
+
       struct FreeStorage : public Command
       {
         TStoragePool * m_storagePool;
@@ -103,7 +126,9 @@ namespace graphics
         enum ProgramType
         {
           DefaultProgram,
-          AlfaVaringProgram
+          AlfaVaringProgram,
+          RouteProgram,
+          RouteArrowProgram
         };
 
         ApplyStates(ProgramType type = DefaultProgram) : m_type(type) {}
@@ -126,6 +151,10 @@ namespace graphics
                         size_t indicesOffs,
                         EPrimitives primType);
 
+      void drawRouteGeometry(shared_ptr<BaseTexture> const & texture,
+                             Storage const & storage);
+      void clearRouteGeometry();
+
       void uploadResources(shared_ptr<Resource> const * styles,
                            size_t count,
                            shared_ptr<BaseTexture> const & texture);
@@ -139,6 +168,8 @@ namespace graphics
       void applyBlitStates();
       void applyVarAlfaStates();
       void applyStates();
+      void applyRouteStates();
+      void applyRouteArrowStates();
     };
   }
 }

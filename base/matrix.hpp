@@ -139,7 +139,7 @@ namespace math
   }
 
   template <typename T, unsigned M>
-      Matrix<T, M, M> const Inverse(Matrix<T, M, M> const & m)
+  Matrix<T, M, M> const Inverse(Matrix<T, M, M> const & m)
   {
     T det = Determinant(m);
     Matrix<T, M, M> res;
@@ -155,7 +155,7 @@ namespace math
   }
 
   template <typename T, unsigned M>
-      Matrix<T, M, M> const Identity()
+  Matrix<T, M, M> const Identity()
   {
     Matrix<T, M, M> res;
 
@@ -165,6 +165,18 @@ namespace math
 
     for (size_t i = 0; i < M; ++i)
       res(i, i) = 1;
+
+    return res;
+  }
+
+  template <typename T, unsigned M>
+  Matrix<T, M, M> const Zero()
+  {
+    Matrix<T, M, M> res;
+
+    for (size_t i = 0; i < M; ++i)
+      for (size_t j = 0; j < M; ++j)
+        res(i, j) = 0;
 
     return res;
   }

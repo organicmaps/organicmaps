@@ -22,6 +22,8 @@ SOURCES += \
     default_font.cpp \
     window_handle.cpp \
     render_policy.cpp \
+    route_renderer.cpp \
+    route_shape.cpp \
     tiling_render_policy_st.cpp \
     tiling_render_policy_mt.cpp \
     simple_render_policy.cpp \
@@ -54,6 +56,8 @@ HEADERS += \
     text_engine.h \
     point.h \
     rect.h \
+    route_renderer.cpp \
+    route_shape.cpp \
     window_handle.hpp \
     render_policy.hpp \
     tiling_render_policy_st.hpp \

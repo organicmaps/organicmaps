@@ -90,7 +90,13 @@ namespace graphics
     {ESemSampler0, "Sampler0"},
     {ESemModelView, "ModelView"},
     {ESemProjection, "Projection"},
-    {ETransparency, "Transparency"}
+    {ETransparency, "Transparency"},
+    {ESemLength, "Length"},
+    {ERouteHalfWidth, "u_halfWidth"},
+    {ERouteColor, "u_color"},
+    {ERouteClipLength, "u_clipLength"},
+    {ERouteTextureRect, "u_textureRect"},
+    {ERouteArrowBorders, "u_arrowBorders"}
   };
 
   void convert(char const * name, ESemantic & sem)

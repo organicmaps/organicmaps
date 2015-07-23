@@ -68,6 +68,9 @@ namespace graphics
                       size_t indicesCount,
                       size_t indicesOffs,
                       EPrimitives primType);
+    /// draw route geometry
+    void drawRouteGeometry(shared_ptr<gl::BaseTexture> const & texture,
+                           gl::Storage const & storage);
     /// upload ResourceStyle's on texture
     void uploadResources(shared_ptr<Resource> const * resources,
                          size_t count,
