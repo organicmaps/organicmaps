@@ -1,5 +1,4 @@
 #include "storage/storage.hpp"
-
 #include "storage/http_map_files_downloader.hpp"
 
 #include "defines.hpp"
@@ -7,27 +6,23 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/servers_list.hpp"
-#include "platform/settings.hpp"
 
-#include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
-#include "coding/file_reader.hpp"
-#include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/reader.hpp"
 #include "coding/url_encode.hpp"
-
-#include "platform/local_country_file_utils.hpp"
 
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
-#include "std/target_os.hpp"
 #include "std/bind.hpp"
 #include "std/sstream.hpp"
+#include "std/target_os.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
+
 
 using namespace downloader;
 using namespace platform;
@@ -146,6 +141,7 @@ void Storage::RegisterAllLocalMaps()
       RegisterCountryFiles(index, localFile.GetDirectory(), localFile.GetVersion());
     else
       RegisterFakeCountryFiles(localFile);
+
     LOG(LINFO, ("Found file:", name, "in directory:", localFile.GetDirectory()));
 
     i = j;
