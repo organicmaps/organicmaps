@@ -112,7 +112,7 @@ public:
     virtual ~MwmValueBase() = default;
   };
 
-  using TMwmValueBasePtr = shared_ptr<MwmValueBase>;
+  using TMwmValuePtr = MwmValueBase *;
 
   // Mwm handle, which is used to refer to mwm and prevent it from
   // deletion when its FileContainer is used.
@@ -128,10 +128,10 @@ public:
     template <typename T>
     inline T * GetValue() const
     {
-      return static_cast<T *>(m_value.get());
+      return static_cast<T *>(m_value);
     }
 
-    inline bool IsAlive() const { return m_value.get() != nullptr; }
+    inline bool IsAlive() const { return m_value; }
     inline MwmId const & GetId() const { return m_mwmId; }
     shared_ptr<MwmInfo> const & GetInfo() const;
 
@@ -140,11 +140,11 @@ public:
   private:
     friend class MwmSet;
 
-    MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, TMwmValueBasePtr value);
+    MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, TMwmValuePtr value);
 
     MwmSet * m_mwmSet;
     MwmId m_mwmId;
-    TMwmValueBasePtr m_value;
+    TMwmValuePtr m_value;
 
     DISALLOW_COPY(MwmHandle);
   };
@@ -215,15 +215,15 @@ protected:
   virtual MwmValueBase * CreateValue(MwmInfo & info) const = 0;
 
 private:
-  typedef deque<pair<MwmId, TMwmValueBasePtr>> CacheType;
+  typedef deque<pair<MwmId, TMwmValuePtr>> CacheType;
 
   /// @precondition This function is always called under mutex m_lock.
   MwmHandle GetMwmHandleByIdImpl(MwmId const & id);
 
-  TMwmValueBasePtr LockValue(MwmId const & id);
-  TMwmValueBasePtr LockValueImpl(MwmId const & id);
-  void UnlockValue(MwmId const & id, TMwmValueBasePtr p);
-  void UnlockValueImpl(MwmId const & id, TMwmValueBasePtr p);
+  TMwmValuePtr LockValue(MwmId const & id);
+  TMwmValuePtr LockValueImpl(MwmId const & id);
+  void UnlockValue(MwmId const & id, TMwmValuePtr p);
+  void UnlockValueImpl(MwmId const & id, TMwmValuePtr p);
 
   /// Do the cleaning for [beg, end) without acquiring the mutex.
   /// @precondition This function is always called under mutex m_lock.

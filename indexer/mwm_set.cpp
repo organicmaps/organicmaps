@@ -43,16 +43,17 @@ MwmSet::MwmHandle::MwmHandle(MwmSet & mwmSet, MwmId const & mwmId)
 {
 }
 
-MwmSet::MwmHandle::MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, TMwmValueBasePtr value)
+MwmSet::MwmHandle::MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, TMwmValuePtr value)
     : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(value)
 {
 }
 
 MwmSet::MwmHandle::MwmHandle(MwmHandle && handle)
-    : m_mwmSet(handle.m_mwmSet), m_mwmId(handle.m_mwmId), m_value(move(handle.m_value))
+    : m_mwmSet(handle.m_mwmSet), m_mwmId(handle.m_mwmId), m_value(handle.m_value)
 {
   handle.m_mwmSet = nullptr;
   handle.m_mwmId.Reset();
+  handle.m_value = nullptr;
 }
 
 MwmSet::MwmHandle::~MwmHandle()
@@ -188,13 +189,13 @@ void MwmSet::GetMwmsInfo(vector<shared_ptr<MwmInfo>> & info) const
   }
 }
 
-MwmSet::TMwmValueBasePtr MwmSet::LockValue(MwmId const & id)
+MwmSet::TMwmValuePtr MwmSet::LockValue(MwmId const & id)
 {
   lock_guard<mutex> lock(m_lock);
   return LockValueImpl(id);
 }
 
-MwmSet::TMwmValueBasePtr MwmSet::LockValueImpl(MwmId const & id)
+MwmSet::TMwmValuePtr MwmSet::LockValueImpl(MwmId const & id)
 {
   CHECK(id.IsAlive(), (id));
   shared_ptr<MwmInfo> info = id.GetInfo();
@@ -211,26 +212,25 @@ MwmSet::TMwmValueBasePtr MwmSet::LockValueImpl(MwmId const & id)
   {
     if (it->first == id)
     {
-      TMwmValueBasePtr result = it->second;
+      TMwmValuePtr result = it->second;
       m_cache.erase(it);
       return result;
     }
   }
 
-  return TMwmValueBasePtr(CreateValue(*info));
+  return TMwmValuePtr(CreateValue(*info));
 }
 
-void MwmSet::UnlockValue(MwmId const & id, TMwmValueBasePtr p)
+void MwmSet::UnlockValue(MwmId const & id, TMwmValuePtr p)
 {
   lock_guard<mutex> lock(m_lock);
   UnlockValueImpl(id, p);
 }
 
-void MwmSet::UnlockValueImpl(MwmId const & id, TMwmValueBasePtr p)
+void MwmSet::UnlockValueImpl(MwmId const & id, TMwmValuePtr p)
 {
-  ASSERT(id.IsAlive(), ());
-  ASSERT(p.get() != nullptr, (id));
-  if (!id.IsAlive() || p.get() == nullptr)
+  ASSERT(id.IsAlive() && p, (id));
+  if (!id.IsAlive() || !p)
     return;
 
   shared_ptr<MwmInfo> const & info = id.GetInfo();
@@ -248,7 +248,9 @@ void MwmSet::UnlockValueImpl(MwmId const & id, TMwmValueBasePtr p)
     if (m_cache.size() > m_cacheSize)
     {
       ASSERT_EQUAL(m_cache.size(), m_cacheSize + 1, ());
+      auto p = m_cache.front();
       m_cache.pop_front();
+      delete p.second;
     }
   }
 }
@@ -289,7 +291,7 @@ MwmSet::MwmHandle MwmSet::GetMwmHandleById(MwmId const & id)
 
 MwmSet::MwmHandle MwmSet::GetMwmHandleByIdImpl(MwmId const & id)
 {
-  TMwmValueBasePtr value(nullptr);
+  TMwmValuePtr value(nullptr);
   if (id.IsAlive())
     value = LockValueImpl(id);
   return MwmHandle(*this, id, value);
@@ -297,13 +299,15 @@ MwmSet::MwmHandle MwmSet::GetMwmHandleByIdImpl(MwmId const & id)
 
 void MwmSet::ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end)
 {
+  for (auto i = beg; i != end; ++i)
+    delete i->second;
   m_cache.erase(beg, end);
 }
 
 void MwmSet::ClearCache(MwmId const & id)
 {
   ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(),
-  [&id] (pair<MwmSet::MwmId, MwmSet::TMwmValueBasePtr> const & p)
+  [&id] (pair<MwmSet::MwmId, MwmSet::TMwmValuePtr> const & p)
   {
     return (p.first == id);
   }),
