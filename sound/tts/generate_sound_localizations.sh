@@ -20,7 +20,8 @@ mkdir $SOUND_TMP_DIR/json
 python $MY_PATH/languages_dir.py $MY_PATH/languages.txt $SOUND_TMP_DIR/json/
 $MY_PATH/../../tools/twine/twine --format jquery generate-all-string-files $MY_PATH/sound.txt $SOUND_TMP_DIR/json
 
-cd $SOUND_TMP_DIR/json/
-zip -r sound_strings.zip .
-mv $SOUND_TMP_DIR/json/sound_strings.zip $MY_PATH/../../data/
-cd $MY_PATH
+readonly SOUND_OUTPUT_DIR=$MY_PATH/../../data/sound-strings/
+if [ ! -d $SOUND_OUTPUT_DIR ]; then
+  mkdir $SOUND_OUTPUT_DIR
+fi
+cp -R $SOUND_TMP_DIR/json/ $SOUND_OUTPUT_DIR
