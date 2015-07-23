@@ -580,7 +580,7 @@ namespace android
       }
       try
       {
-        FilesContainerR cont(pl.GetCountryReader(localFile, TMapOptions::EMap));
+        FilesContainerR cont(platform::GetCountryReader(localFile, TMapOptions::EMap));
         if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
           out.push_back(countryFile.GetNameWithoutExt());
       }

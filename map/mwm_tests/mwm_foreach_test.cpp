@@ -1,7 +1,5 @@
 #include "testing/testing.hpp"
 
-#include "platform/platform.hpp"
-
 #include "map/feature_vec_model.hpp"
 
 #include "indexer/data_header.hpp"
@@ -9,6 +7,8 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/classificator.hpp"
+
+#include "platform/local_country_file_utils.hpp"
 
 #include "geometry/rect_intersect.hpp"
 #include "geometry/robust_orientation.hpp"
@@ -258,7 +258,7 @@ void RunTest(string const & countryFileName)
   vector<m2::RectD> rects;
   rects.push_back(src1.GetWorldRect());
 
-  ModelReaderPtr reader = GetPlatform().GetCountryReader(localFile, TMapOptions::EMap);
+  ModelReaderPtr reader = platform::GetCountryReader(localFile, TMapOptions::EMap);
 
   while (!rects.empty())
   {

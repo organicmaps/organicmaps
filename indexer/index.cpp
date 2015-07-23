@@ -1,12 +1,12 @@
 #include "indexer/index.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/local_country_file_utils.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
 
 #include "base/logging.hpp"
-
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
@@ -16,8 +16,9 @@ using platform::LocalCountryFile;
 //////////////////////////////////////////////////////////////////////////////////
 
 MwmValue::MwmValue(LocalCountryFile const & localFile)
-    : m_cont(GetPlatform().GetCountryReader(localFile, TMapOptions::EMap)),
-      m_countryFile(localFile.GetCountryFile()), m_table(0)
+    : m_cont(platform::GetCountryReader(localFile, TMapOptions::EMap)),
+      m_countryFile(localFile.GetCountryFile()),
+      m_table(0)
 {
   m_factory.Load(m_cont);
 }

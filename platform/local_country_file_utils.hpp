@@ -7,6 +7,8 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
+class ModelReader;
+
 namespace platform
 {
 // Removes partially downloaded maps, empty directories and old
@@ -46,6 +48,9 @@ bool ParseVersion(string const & s, int64_t & version);
 // directory with name equal to decimal representation of version.
 shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & countryFile,
                                                          int64_t version);
+
+ModelReader * GetCountryReader(LocalCountryFile const & file, TMapOptions options);
+
 // An API for managing country indexes.
 class CountryIndexes
 {

@@ -145,12 +145,3 @@ void Platform::SetResourceDir(string const & path)
 {
   m_resourcesDir = my::AddSlashIfNeeded(path);
 }
-
-ModelReader * Platform::GetCountryReader(platform::LocalCountryFile const & file,
-                                         TMapOptions options) const
-{
-  if (file.GetDirectory().empty())
-    return GetReader(file.GetCountryName() + DATA_FILE_EXTENSION, "er");
-  else
-    return GetReader(file.GetPath(options), "f");
-}

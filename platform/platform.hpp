@@ -120,9 +120,6 @@ public:
   /// @return full path to file in the settings directory
   string SettingsPathForFile(string const & file) const { return SettingsDir() + file; }
 
-  ModelReader * GetCountryReader(platform::LocalCountryFile const & file,
-                                 TMapOptions options) const;
-
   /// @return reader for file decriptor.
   /// @throws FileAbsentException
   /// @param[in] file name or full path which we want to read, don't forget to free memory or wrap it to ReaderPtr

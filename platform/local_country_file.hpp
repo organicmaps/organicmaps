@@ -10,6 +10,18 @@ namespace platform
 {
 // This class represents a path to disk files corresponding to some
 // country region.
+//
+// This class also wraps World.mwm and WorldCoasts.mwm
+// files from resource bundle, when they can't be found in a data
+// directory. In this exceptional case, directory will be empty and
+// SyncWithDisk()/DeleteFromDisk()/GetPath()/GetSize() will return
+// incorrect results.
+//
+// TODO (@gorshenin): fix this hack somehow
+// (https://trello.com/c/qcveFw3M/27-world-worldcoasts-mwm-localcountryfile)
+//
+// In any case, when you're going to read a file LocalCountryFile points to,
+// use GetCountryReader().
 class LocalCountryFile
 {
 public:
@@ -69,6 +81,7 @@ public:
 private:
   friend string DebugPrint(LocalCountryFile const &);
   friend void UnitTest_LocalCountryFile_DirectoryLookup();
+  friend void FindAllLocalMaps(vector<LocalCountryFile> & localFiles);
 
   string m_directory;
   CountryFile m_countryFile;

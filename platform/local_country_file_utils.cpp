@@ -4,6 +4,7 @@
 
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/reader.hpp"
 
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
@@ -12,7 +13,6 @@
 #include "std/cctype.hpp"
 #include "std/sstream.hpp"
 #include "std/unique_ptr.hpp"
-
 
 namespace platform
 {
@@ -57,6 +57,15 @@ bool MkDirChecked(string const & directory)
       LOG(LERROR, (directory, "can't be created:", ret));
       return false;
   }
+}
+
+string GetSpecialFilesSearchScope()
+{
+#if defined(OMIM_OS_ANDROID)
+  return "er";
+#else
+  return "r";
+#endif  // defined(OMIM_OS_ANDROID)
 }
 }  // namespace
 
@@ -162,11 +171,12 @@ void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
 
     try
     {
-      unique_ptr<ModelReader> guard(platform.GetReader(file + DATA_FILE_EXTENSION, "er"));
+      unique_ptr<ModelReader> guard(platform.GetReader(file + DATA_FILE_EXTENSION, GetSpecialFilesSearchScope()));
       UNUSED_VALUE(guard);
 
       // Assume that empty path means the resource file.
       LocalCountryFile worldFile(string(), CountryFile(file), 0 /* version */);
+      worldFile.m_files = TMapOptions::EMap;
       if (i != localFiles.end())
       {
         // Always use resource World files instead of local on disk.
@@ -210,6 +220,15 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & cou
   if (!MkDirChecked(directory))
     return shared_ptr<LocalCountryFile>();
   return make_shared<LocalCountryFile>(directory, countryFile, version);
+}
+
+ModelReader * GetCountryReader(platform::LocalCountryFile const & file, TMapOptions options)
+{
+  Platform & platform = GetPlatform();
+  // See LocalCountryFile comment for explanation.
+  if (file.GetDirectory().empty())
+    return platform.GetReader(file.GetCountryName() + DATA_FILE_EXTENSION, GetSpecialFilesSearchScope());
+  return platform.GetReader(file.GetPath(options), "f");
 }
 
 // static
