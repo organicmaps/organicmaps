@@ -42,7 +42,8 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   BOOL const isMyPosition = placePage.manager.entity.type == MWMPlacePageEntityTypeMyPosition;
   bar.routeButton.hidden = isMyPosition;
   bar.autoresizingMask = UIViewAutoresizingNone;
-  NSString * routeImageName = [MapsAppDelegate theApp].isPedestrianRoutingMode ? @"ic_route_walk" : @"ic_route";
+  BOOL const isPedestrian = GetFramework().GetRouter() == routing::RouterType::Pedestrian;
+  NSString * routeImageName = isPedestrian ? @"ic_route_walk" : @"ic_route";
   [bar.routeButton setImage:[UIImage imageNamed:routeImageName] forState:UIControlStateNormal];
   return bar;
 }

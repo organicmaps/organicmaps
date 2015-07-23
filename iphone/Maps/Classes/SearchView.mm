@@ -402,10 +402,10 @@ static BOOL keyboardLoaded = NO;
   if (!isPedestrian && !isVehicle)
     return NO;
 
-  MapsAppDelegate * delegate = [MapsAppDelegate theApp];
-  delegate.isPedestrianRoutingMode = isPedestrian;
-  [self search:cmd];
+  GetFramework().SetRouter(isPedestrian ? routing::RouterType::Pedestrian : routing::RouterType::Vehicle);
+  
   [self searchBarDidPressCancelButton:nil];
+
   return YES;
 }
 
