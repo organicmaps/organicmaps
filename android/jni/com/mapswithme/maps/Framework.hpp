@@ -2,22 +2,22 @@
 
 #include <jni.h>
 
-#include "../../../../../map/framework.hpp"
+#include "map/framework.hpp"
 
-#include "../../../../../search/result.hpp"
+#include "search/result.hpp"
 
-#include "../../../../../platform/country_defines.hpp"
+#include "platform/country_defines.hpp"
 
-#include "../../../../../geometry/avg_vector.hpp"
+#include "geometry/avg_vector.hpp"
 
-#include "../../../../../base/deferred_task.hpp"
-#include "../../../../../base/strings_bundle.hpp"
-#include "../../../../../base/timer.hpp"
+#include "base/deferred_task.hpp"
+#include "base/timer.hpp"
 
-#include "../../../../../indexer/map_style.hpp"
+#include "indexer/map_style.hpp"
 
-#include "../../../../../std/shared_ptr.hpp"
-#include "../../../../../std/map.hpp"
+#include "std/map.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/unique_ptr.hpp"
 
 #include "../../../nv_event/nv_event.hpp"
 

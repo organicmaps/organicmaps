@@ -9,7 +9,6 @@
 
 #include "../platform/Platform.hpp"
 
-#include "map/framework.hpp"
 #include "map/information_display.hpp"
 #include "map/user_mark.hpp"
 
@@ -30,8 +29,7 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
-
-#include "storage/storage_defines.hpp"
+#include "platform/settings.hpp"
 
 #include "base/math.hpp"
 #include "base/logging.hpp"
@@ -559,6 +557,11 @@ namespace android
 
   void Framework::GetMapsWithoutSearch(vector<string> & out) const
   {
+    // Actually, this routing is obsolete and comes from ancient times
+    // when mwm was without search index.
+    if (!Settings::IsFirstLaunchForDate(150101))
+      return;
+
     ASSERT(out.empty(), ());
 
     ::Platform const & pl = GetPlatform();
