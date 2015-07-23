@@ -461,6 +461,14 @@ string FeatureBuilder1::GetName(int8_t lang) const
   return s;
 }
 
+size_t FeatureBuilder1::GetPointsCount() const
+{
+  size_t counter = 0;
+  for (auto const & p : m_polygons)
+    counter += p.size();
+  return counter;
+}
+
 string DebugPrint(FeatureBuilder1 const & f)
 {
   ostringstream out;

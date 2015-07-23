@@ -95,7 +95,7 @@ public:
   m2::PointD GetGeometryCenter() const;
   m2::PointD GetKeyPoint() const;
 
-  inline size_t GetPointsCount() const { return GetOuterGeometry().size(); }
+  size_t GetPointsCount() const;
   inline size_t GetPolygonsCount() const { return m_polygons.size(); }
   inline size_t GetTypesCount() const { return m_params.m_Types.size(); }
   //@}
