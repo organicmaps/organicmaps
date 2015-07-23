@@ -19,6 +19,18 @@ enum RouterType
   Pedestrian   /// For A star pedestrian routing
 };
 
+
+string ToString(RouterType type)
+{
+  switch(type)
+  {
+    case RouterType::Vehicle: return string("Vehicle");
+    case RouterType::Pedestrian: return string("Pedestrian");
+    default: ASSERT(false, ());
+  }
+    return string("Error");
+}
+
 class IRouter : public my::Cancellable
 {
 public:

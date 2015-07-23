@@ -569,6 +569,8 @@ public:
   void CloseRouting();
   void GetRouteFollowingInfo(location::FollowingInfo & info) { m_routingSession.GetRouteFollowingInfo(info); }
   m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
+  void SetLastUsedRouter(routing::RouterType type);
+  routing::RouterType GetBestRouterType(m2::PointD const & startPoint, m2::PointD const & finalPoint);
   // @TODO The three methods below has to be called from jni.
   // Sound notifications for turn instructions.
   inline void EnableTurnNotifications(bool enable) { m_routingSession.EnableTurnNotifications(enable); }

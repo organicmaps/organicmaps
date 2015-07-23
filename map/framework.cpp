@@ -98,6 +98,7 @@ Framework::FixedPosition::FixedPosition()
 namespace
 {
   static const int BM_TOUCH_PIXEL_INCREASE = 20;
+  static const int kKeepPedestrianDistanceMeters = 10000;
 }
 
 pair<MwmSet::MwmHandle, MwmSet::RegResult> Framework::RegisterMap(
@@ -2092,6 +2093,8 @@ void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
   if (IsRoutingActive())
     CloseRouting();
 
+  SetLastUsedRouter(m_currentRouterType);
+
   m_routingSession.BuildRoute(state->Position(), destination,
     [this] (Route const & route, IRouter::ResultCode code)
     {
@@ -2302,4 +2305,21 @@ string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)
   }
 
   return m_stringsBundle.GetString(messageID);
+}
+
+RouterType Framework::GetBestRouterType(m2::PointD const & startPoint, m2::PointD const & finalPoint)
+{
+  if (MercatorBounds::DistanceOnEarth(startPoint, finalPoint) < kKeepPedestrianDistanceMeters)
+  {
+    string routerType;
+    Settings::Get("router", routerType);
+    if (routerType == routing::ToString(RouterType::Pedestrian))
+      return RouterType::Pedestrian;
+  }
+  return RouterType::Vehicle;
+}
+
+void Framework::SetLastUsedRouter(RouterType type)
+{
+  Settings::Set("router", routing::ToString(type));
 }
