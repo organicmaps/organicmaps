@@ -15,20 +15,25 @@
 
 namespace
 {
-class ScopedMapFile : public platform::LocalCountryFile
+class ScopedMapFile
 {
 public:
-  ScopedMapFile(string const & name)
-      : platform::LocalCountryFile(GetPlatform().TmpDir(), platform::CountryFile(name), 0)
+  explicit ScopedMapFile(string const & name)
+      : m_file(GetPlatform().TmpDir(), platform::CountryFile(name), 0)
   {
-    platform::CountryIndexes::DeleteFromDisk(*this);
+    platform::CountryIndexes::DeleteFromDisk(m_file);
   }
 
-  ~ScopedMapFile() override
+  ~ScopedMapFile()
   {
-    platform::CountryIndexes::DeleteFromDisk(*this);
-    DeleteFromDisk(TMapOptions::EMap);
+    platform::CountryIndexes::DeleteFromDisk(m_file);
+    m_file.DeleteFromDisk(TMapOptions::EMap);
   }
+
+  inline platform::LocalCountryFile & GetFile() { return m_file; }
+
+private:
+  platform::LocalCountryFile m_file;
 };
 }  // namespace
 
@@ -47,7 +52,9 @@ void TestFeaturesCount(TestSearchEngine const & engine, m2::RectD const & rect,
 UNIT_TEST(GenerateTestMwm_Smoke)
 {
   classificator::Load();
-  ScopedMapFile file("BuzzTown");
+  ScopedMapFile scopedFile("BuzzTown");
+  platform::LocalCountryFile & file = scopedFile.GetFile();
+
   {
     TestMwmBuilder builder(file);
     builder.AddPOI(m2::PointD(0, 0), "Wine shop", "en");
@@ -83,7 +90,9 @@ UNIT_TEST(GenerateTestMwm_Smoke)
 UNIT_TEST(GenerateTestMwm_NotPrefixFreeNames)
 {
   classificator::Load();
-  ScopedMapFile file("ATown");
+  ScopedMapFile scopedFile("ATown");
+  platform::LocalCountryFile & file = scopedFile.GetFile();
+
   {
     TestMwmBuilder builder(file);
     builder.AddPOI(m2::PointD(0, 0), "a", "en");

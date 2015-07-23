@@ -21,8 +21,6 @@ public:
   // SyncWithDisk() is called.
   LocalCountryFile(string const & directory, CountryFile const & countryFile, int64_t version);
 
-  virtual ~LocalCountryFile() = default;
-
   // Syncs internal state like availability of map and routing files,
   // their sizes etc. with disk.
   void SyncWithDisk();

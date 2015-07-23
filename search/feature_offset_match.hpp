@@ -111,7 +111,7 @@ void FullMatchInTrie(TrieIterator const & trieRoot,
   unique_ptr<search::TrieIterator> const pIter(
         MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched));
 
-  if (!pIter || (s.size() != 0 && !bFullEdgeMatched) || symbolsMatched != s.size())
+  if (!pIter || (!s.empty() && !bFullEdgeMatched) || symbolsMatched != s.size())
     return;
 
 #if defined(OMIM_OS_IPHONE) && !defined(__clang__)

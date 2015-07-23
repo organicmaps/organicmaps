@@ -11,6 +11,10 @@
 
 class TestSearchEngine;
 
+// This class wraps a search query to a search engine. Note that a
+// full token match will be performed, e.g. the last token will be
+// handled as a complete token (like other tokens), not a token's
+// prefix.
 class TestSearchRequest
 {
 public:
