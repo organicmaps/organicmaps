@@ -1,6 +1,5 @@
 #include "indexer/index.hpp"
 
-#include "platform/platform.hpp"
 #include "platform/local_country_file_utils.hpp"
 
 #include "coding/file_name_utils.hpp"
