@@ -1,5 +1,4 @@
 #include "platform/platform.hpp"
-
 #include "platform/local_country_file.hpp"
 
 #include "coding/base64.hpp"
@@ -8,6 +7,8 @@
 #include "coding/writer.hpp"
 
 #include "base/logging.hpp"
+
+#include "std/target_os.hpp"
 
 #include <errno.h>
 
@@ -89,7 +90,9 @@ void Platform::GetFontNames(FilesList & res) const
   /// @todo Actually, this list should present once in all our code.
   /// We can take it from data/external_resources.txt
   char const * arrDef[] = {
+#ifndef OMIM_OS_ANDROID
     "00_roboto_regular.ttf",
+#endif
     "01_dejavusans.ttf",
     "02_wqy-microhei.ttf",
     "03_jomolhari-id-a3d.ttf",
