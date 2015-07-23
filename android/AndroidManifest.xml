@@ -7,9 +7,6 @@
     android:sharedUserId="com.mapswithme"
     android:sharedUserLabel="@string/shared_user_label">
 
-  <uses-sdk
-      android:minSdkVersion="9"/>
-
   <uses-feature
       android:glEsVersion="0x00020000"
       android:required="true"/>
@@ -274,7 +271,7 @@
         android:exported="false">
     </service>
 
-    <!-- our custom receiver, that will call MRGS & Aloha handlers -->
+    <!-- our custom receiver, that will call Aloha & other handlers -->
     <receiver
         android:name="com.mapswithme.util.MultipleTrackerReferrerReceiver"
         android:exported="true">

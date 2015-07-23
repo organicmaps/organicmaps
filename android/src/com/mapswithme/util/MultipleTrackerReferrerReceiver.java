@@ -10,7 +10,7 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import ru.mail.android.mytracker.campaign.CampaignReceiver;
 
 /**
- * Custom broadcast receiver to send intent to MRGS & Alohalytics at the same time
+ * Custom broadcast receiver to send intent to MyTracker & Alohalytics at the same time
  */
 public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
 {
