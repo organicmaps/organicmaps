@@ -65,6 +65,7 @@ private slots:
   void OnClearButton();
 
   bool TryChangeMapStyleCmd(QString const & str);
+  bool TryChangeRouterCmd(QString const & str);
 };
 
 }

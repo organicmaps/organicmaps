@@ -681,4 +681,9 @@ namespace qt
     m_framework->SetUpdatesEnabled(true);
 #endif
   }
+
+  void DrawWidget::SetRouter(routing::RouterType routerType)
+  {
+    m_framework->SetRouter(routerType);
+  }
 }

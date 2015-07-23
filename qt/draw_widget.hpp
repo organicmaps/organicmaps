@@ -108,6 +108,8 @@ namespace qt
 
     void SetMapStyle(MapStyle mapStyle);
 
+    void SetRouter(routing::RouterType routerType);
+
   protected:
     VideoTimer * CreateVideoTimer();
 

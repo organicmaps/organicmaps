@@ -172,12 +172,33 @@ bool SearchPanel::TryChangeMapStyleCmd(QString const & str)
   return true;
 }
 
+// TODO: This code only for demonstration purposes and will be removed soon
+bool SearchPanel::TryChangeRouterCmd(QString const & str)
+{
+  bool const isPedestrian = (str == "?pedestrian");
+  bool const isVehicle = isPedestrian ? false : (str == "?vehicle");
+
+  if (!isPedestrian && !isVehicle)
+    return false;
+
+  m_pEditor->setText("");
+  parentWidget()->hide();
+
+  routing::RouterType const routerType = isPedestrian ? routing::RouterType::Pedestrian : routing::RouterType::Vehicle;
+  m_pDrawWidget->SetRouter(routerType);
+
+  return true;
+}
+
+
 void SearchPanel::OnSearchTextChanged(QString const & str)
 {
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
 
   // TODO: This code only for demonstration purposes and will be removed soon
   if (TryChangeMapStyleCmd(normalized))
+    return;
+  if (TryChangeRouterCmd(normalized))
     return;
 
   // search even with empty query
