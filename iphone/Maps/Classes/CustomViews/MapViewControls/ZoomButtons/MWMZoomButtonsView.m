@@ -54,29 +54,38 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
 
 - (void)layoutYPosition
 {
-  self.maxY = self.superview.height - kZoomViewOffsetToFrameBound;
-  if (self.bottomBound > 0.0)
-    self.maxY = MIN(self.maxY, self.bottomBound - kZoomViewOffsetToBottomBound);
-
-  self.minY = MAX(self.minY, self.topBound + kZoomViewOffsetToTopBound);
+  CGFloat const maxY = MIN(self.superview.height - kZoomViewOffsetToFrameBound, self.bottomBound - kZoomViewOffsetToBottomBound);
+  self.minY = MAX(maxY - self.height, self.topBound + kZoomViewOffsetToTopBound);
 }
 
 - (void)moveAnimated
 {
   if (self.hidden)
     return;
-  [UIView animateWithDuration:framesDuration(kMenuViewMoveFramesCount) animations:^
-  {
-    [self layoutYPosition];
-  }];
+  [UIView animateWithDuration:framesDuration(kMenuViewMoveFramesCount) animations:^{ [self layoutYPosition]; }];
 }
 
 - (void)fadeAnimatedIn:(BOOL)show
 {
-  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount) animations:^
+  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount) animations:^{ self.alpha = show ? 1.0 : 0.0; }];
+}
+
+- (void)animate
+{
+  CGFloat const hideBound = kZoomViewHideBoundPercent * self.superview.height;
+  BOOL const isHidden = self.alpha == 0.0;
+  BOOL const willHide = (self.bottomBound < hideBound) || (self.defaultBounds.size.height > self.bottomBound - self.topBound);
+  if (willHide)
   {
-    self.alpha = show ? 1.0 : 0.0;
-  }];
+    if (!isHidden)
+      [self fadeAnimatedIn:NO];
+  }
+  else
+  {
+    [self moveAnimated];
+    if (isHidden)
+      [self fadeAnimatedIn:YES];
+  }
 }
 
 #pragma mark - Properties
@@ -107,28 +116,18 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
 
 - (void)setTopBound:(CGFloat)topBound
 {
+  if (_topBound == topBound)
+    return;
   _topBound = topBound;
-  [self moveAnimated];
+  [self animate];
 }
 
 - (void)setBottomBound:(CGFloat)bottomBound
 {
-  CGFloat const hideBound = kZoomViewHideBoundPercent * self.superview.height;
-  BOOL const isHidden = _bottomBound < hideBound;
-  BOOL const willHide = bottomBound < hideBound;
+  if (_bottomBound == bottomBound)
+    return;
   _bottomBound = bottomBound;
-  
-  if (willHide)
-  {
-    if (!isHidden)
-      [self fadeAnimatedIn:NO];
-  }
-  else
-  {
-    [self moveAnimated];
-    if (isHidden)
-      [self fadeAnimatedIn:YES];
-  }
+  [self animate];
 }
 
 @end

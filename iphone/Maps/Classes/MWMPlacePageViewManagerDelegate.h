@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-@protocol MWMPlacePageViewManagerDelegate <NSObject>
+@protocol MWMPlacePageViewManagerProtocol <NSObject>
 
 - (void)dragPlacePage:(CGPoint)point;
 - (void)addPlacePageViews:(NSArray *)views;

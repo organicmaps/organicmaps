@@ -9,11 +9,11 @@
 #import "MWMSideMenuButtonDelegate.h"
 #import "MWMSideMenuDelegate.h"
 #import "MWMSideMenuDownloadBadge.h"
-#import <UIKit/UIKit.h>
 
 @interface MWMSideMenuButton : UIView <MWMSideMenuDownloadBadgeOwner>
 
-@property (weak, nonatomic) id<MWMSideMenuInformationDisplayProtocol, MWMSideMenuTapProtocol> delegate;
+@property (nonatomic, readonly) CGRect frameWithSpacing;
+@property (weak, nonatomic) id<MWMSideMenuInformationDisplayProtocol, MWMSideMenuButtonTapProtocol, MWMSideMenuButtonLayoutProtocol> delegate;
 @property (weak, nonatomic) MWMSideMenuDownloadBadge * downloadBadge;
 
 - (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame is not available")));

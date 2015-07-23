@@ -8,6 +8,8 @@
 
 #import "MWMNavigationView.h"
 
+static CGFloat const kStatusbarHeight = 20.0;
+
 @interface MWMNavigationView ()
 
 @property (nonatomic) BOOL isVisible;
@@ -33,7 +35,7 @@
 {
   [superview insertSubview:self atIndex:0];
   self.frame = self.defaultFrame;
-  self.isVisible = YES;
+  dispatch_async(dispatch_get_main_queue(), ^{ self.isVisible = YES; });
 }
 
 - (void)remove
@@ -45,8 +47,11 @@
 {
   [UIView animateWithDuration:0.2 animations:^
   {
-    self.frame = self.defaultFrame;
-    [self layoutStatusbar];
+    if (!CGRectEqualToRect(self.frame, self.defaultFrame))
+    {
+      self.frame = self.defaultFrame;
+      [self layoutStatusbar];
+    }
   }
   completion:^(BOOL finished)
   {
@@ -58,13 +63,11 @@
 
 - (void)layoutStatusbar
 {
-  CGRect const statusBarFrame = UIApplication.sharedApplication.statusBarFrame;
-  if (self.topBound <= statusBarFrame.size.height)
+  if (self.topBound <= kStatusbarHeight)
   {
     if (![self.statusbarBackground.superview isEqual:self])
       [self addSubview:self.statusbarBackground];
-    self.statusbarBackground.frame = statusBarFrame;
-    self.statusbarBackground.maxY = 0.0;
+    self.statusbarBackground.frame = CGRectMake(0.0, -kStatusbarHeight, self.width, kStatusbarHeight);
   }
   else
   {
@@ -81,7 +84,7 @@
 
 - (void)setTopBound:(CGFloat)topBound
 {
-  _topBound = MAX(topBound, UIApplication.sharedApplication.statusBarFrame.size.height);
+  _topBound = MAX(topBound, kStatusbarHeight);
   [self layoutSubviews];
 }
 

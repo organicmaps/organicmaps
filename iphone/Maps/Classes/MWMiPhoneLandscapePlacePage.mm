@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   self.anchorImageView.backgroundColor = [UIColor whiteColor];
   self.anchorImageView.image = nil;
   [self configureContentInset];
-  [self addPlacePageShadowToView:self.extendedPlacePageView];
+  [self addPlacePageShadowToView:self.extendedPlacePageView offset:CGSizeMake(2.0, 4.0)];
   [self.extendedPlacePageView addSubview:self.actionBar];
   [self.manager addSubviews:@[self.extendedPlacePageView] withNavigationController:nil];
 }

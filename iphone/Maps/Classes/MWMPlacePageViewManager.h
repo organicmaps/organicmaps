@@ -11,7 +11,7 @@
 #include "map/user_mark.hpp"
 
 @class MWMPlacePageEntity, MWMPlacePageNavigationBar;
-@protocol MWMPlacePageViewManagerDelegate;
+@protocol MWMPlacePageViewManagerProtocol;
 
 @interface MWMPlacePageViewManager : NSObject
 
@@ -21,7 +21,7 @@
 @property (nonatomic) CGFloat topBound;
 @property (nonatomic, readonly) BOOL isDirectionViewShown;
 
-- (instancetype)initWithViewController:(UIViewController *)viewController delegate:(id<MWMPlacePageViewManagerDelegate>) delegate;
+- (instancetype)initWithViewController:(UIViewController *)viewController delegate:(id<MWMPlacePageViewManagerProtocol>)delegate;
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
 - (void)refreshPlacePage;
 - (void)dismissPlacePage;

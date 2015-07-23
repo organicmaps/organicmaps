@@ -6,9 +6,15 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-@protocol MWMSideMenuTapProtocol <NSObject>
+@protocol MWMSideMenuButtonTapProtocol <NSObject>
 
 - (void)handleSingleTap;
 - (void)handleDoubleTap;
+
+@end
+
+@protocol MWMSideMenuButtonLayoutProtocol <NSObject>
+
+- (void)menuButtonDidUpdateLayout;
 
 @end

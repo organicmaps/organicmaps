@@ -39,7 +39,7 @@
 - (void)reloadBookmark;
 - (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight;
 - (void)willFinishEditingBookmarkTitle:(NSString *)title;
-- (void)addPlacePageShadowToView:(UIView *)view;
+- (void)addPlacePageShadowToView:(UIView *)view offset:(CGSize)offset;
 
 - (IBAction)didTap:(UITapGestureRecognizer *)sender;
 

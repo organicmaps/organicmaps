@@ -36,20 +36,20 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   unique_ptr<UserMarkCopy> m_userMark;
 }
 
-@property (weak, nonatomic) UIViewController<MWMPlacePageViewManagerDelegate> * ownerViewController;
+@property (weak, nonatomic) UIViewController<MWMPlacePageViewManagerProtocol> * ownerViewController;
 @property (nonatomic, readwrite) MWMPlacePageEntity * entity;
 @property (nonatomic) MWMPlacePage * placePage;
 @property (nonatomic) MWMPlacePageManagerState state;
 @property (nonatomic) ShareActionSheet * actionSheet;
 @property (nonatomic) MWMDirectionView * directionView;
 
-@property (weak, nonatomic) id<MWMPlacePageViewManagerDelegate> delegate;
+@property (weak, nonatomic) id<MWMPlacePageViewManagerProtocol> delegate;
 
 @end
 
 @implementation MWMPlacePageViewManager
 
-- (instancetype)initWithViewController:(UIViewController *)viewController delegate:(id<MWMPlacePageViewManagerDelegate>) delegate
+- (instancetype)initWithViewController:(UIViewController *)viewController delegate:(id<MWMPlacePageViewManagerProtocol>)delegate
 {
   self = [super init];
   if (self)

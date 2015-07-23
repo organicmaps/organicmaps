@@ -14,9 +14,10 @@
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
 #import "MWMSideMenuManager.h"
+#import "MWMSideMenuManagerDelegate.h"
 #import "MWMZoomButtons.h"
 
-@interface MWMMapViewControlsManager () <MWMPlacePageViewManagerDelegate, MWMNavigationDashboardManagerDelegate>
+@interface MWMMapViewControlsManager () <MWMPlacePageViewManagerProtocol, MWMNavigationDashboardManagerDelegate, MWMSideMenuManagerProtocol>
 
 @property (nonatomic) MWMZoomButtons * zoomButtons;
 @property (nonatomic) MWMLocationButton * locationButton;
@@ -42,7 +43,7 @@
   self.ownerController = controller;
   self.zoomButtons = [[MWMZoomButtons alloc] initWithParentView:controller.view];
   self.locationButton = [[MWMLocationButton alloc] initWithParentView:controller.view];
-  self.menuManager = [[MWMSideMenuManager alloc] initWithParentController:controller];
+  self.menuManager = [[MWMSideMenuManager alloc] initWithParentController:controller delegate:self];
   self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:controller delegate:self];
   self.navigationManager = [[MWMNavigationDashboardManager alloc] initWithParentView:controller.view delegate:self];
   self.hidden = NO;
@@ -76,11 +77,19 @@
   [self.placePageManager stopBuildingRoute];
 }
 
+#pragma mark - MWMSideMenuManagerProtocol
+
+- (void)sideMenuDidUpdateLayout
+{
+  [self.zoomButtons setBottomBound:self.menuManager.menuButtonFrameWithSpacing.origin.y];
+}
+
 #pragma mark - MWMPlacePageViewManagerDelegate
 
 - (void)dragPlacePage:(CGPoint)point
 {
-  [self.zoomButtons setBottomBound:point.y];
+  CGFloat const bound = MIN(self.menuManager.menuButtonFrameWithSpacing.origin.y, point.y);
+  [self.zoomButtons setBottomBound:bound];
 }
 
 - (void)addPlacePageViews:(NSArray *)views
@@ -112,8 +121,11 @@
 - (void)navigationDashBoardDidUpdate
 {
   CGFloat const topBound = self.topBound + self.navigationManager.height;
-  [self.zoomButtons setTopBound:topBound];
-  [self.placePageManager setTopBound:topBound];
+  [UIView animateWithDuration:0.2 animations:^
+  {
+    [self.zoomButtons setTopBound:topBound];
+    [self.placePageManager setTopBound:topBound];
+  }];
 }
 
 #pragma mark - Properties

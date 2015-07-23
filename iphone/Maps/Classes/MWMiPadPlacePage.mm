@@ -105,7 +105,7 @@ static CGFloat const kBottomOffset = 12.;
 
   CGFloat const defaultWidth = 360.;
   [self updatePlacePageLayout];
-  [self addPlacePageShadowToView:self.navigationController.view];
+  [self addPlacePageShadowToView:self.navigationController.view offset:CGSizeMake(0.0, -2.0)];
 
   [self.manager addSubviews:@[self.navigationController.view] withNavigationController:self.navigationController];
   self.navigationController.view.frame = CGRectMake( -defaultWidth, self.topBound + kTopOffset, defaultWidth, self.height);

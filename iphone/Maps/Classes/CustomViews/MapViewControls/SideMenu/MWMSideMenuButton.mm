@@ -58,6 +58,7 @@
   self.buttonImage.frame = self.bounds = self.defaultBounds;
   self.maxY = self.superview.height - 2.0 * kViewControlsOffsetToBounds;
   [self layoutXPosition:self.hidden];
+  [self.delegate menuButtonDidUpdateLayout];
 }
 
 - (void)layoutXPosition:(BOOL)hidden
@@ -139,6 +140,12 @@
   _downloadBadge = downloadBadge;
   if (![downloadBadge.superview isEqual:self])
     [self addSubview:downloadBadge];
+}
+
+- (CGRect)frameWithSpacing
+{
+  CGFloat const outset = 2.0 * kViewControlsOffsetToBounds;
+  return CGRectInset(self.frame, -outset, -outset);
 }
 
 @end

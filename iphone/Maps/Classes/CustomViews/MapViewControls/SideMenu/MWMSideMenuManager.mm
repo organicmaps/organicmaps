@@ -18,6 +18,7 @@
 #import "MWMSideMenuDelegate.h"
 #import "MWMSideMenuDownloadBadge.h"
 #import "MWMSideMenuManager.h"
+#import "MWMSideMenuManagerDelegate.h"
 #import "MWMSideMenuView.h"
 #import "SettingsAndMoreVC.h"
 #import "ShareActionSheet.h"
@@ -30,23 +31,26 @@ static NSString * const kMWMSideMenuViewsNibName = @"MWMSideMenuViews";
 
 extern NSString * const kAlohalyticsTapEventKey;
 
-@interface MWMSideMenuManager() <MWMSideMenuInformationDisplayProtocol, MWMSideMenuTapProtocol>
+@interface MWMSideMenuManager() <MWMSideMenuInformationDisplayProtocol, MWMSideMenuButtonTapProtocol, MWMSideMenuButtonLayoutProtocol>
 
+@property (weak, nonatomic) id<MWMSideMenuManagerProtocol> delegate;
 @property (weak, nonatomic) MapViewController * controller;
+
 @property (nonatomic) IBOutlet MWMSideMenuButton * menuButton;
-@property (nonatomic) IBOutlet MWMSideMenuView * sideMenu;
 @property (nonatomic) IBOutlet MWMSideMenuDownloadBadge * downloadBadge;
+@property (nonatomic) IBOutlet MWMSideMenuView * sideMenu;
 
 @end
 
 @implementation MWMSideMenuManager
 
-- (instancetype)initWithParentController:(MapViewController *)controller
+- (instancetype)initWithParentController:(MapViewController *)controller delegate:(id<MWMSideMenuManagerProtocol>)delegate
 {
   self = [super init];
   if (self)
   {
     self.controller = controller;
+    self.delegate = delegate;
     [[NSBundle mainBundle] loadNibNamed:kMWMSideMenuViewsNibName owner:self options:nil];
     [self.controller.view addSubview:self.menuButton];
     [self.menuButton setup];
@@ -116,6 +120,8 @@ extern NSString * const kAlohalyticsTapEventKey;
     self.state = MWMSideMenuStateActive;
 }
 
+#pragma mark - MWMSideMenuButtonTapProtocol
+
 - (void)handleSingleTap
 {
   [self toggleMenu];
@@ -124,6 +130,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)handleDoubleTap
 {
   [self menuActionOpenSearch];
+}
+
+#pragma mark - MWMSideMenuButtonLayoutProtocol
+
+- (void)menuButtonDidUpdateLayout
+{
+  [self.delegate sideMenuDidUpdateLayout];
 }
 
 #pragma mark - MWMSideMenuInformationDisplayProtocol
@@ -220,6 +233,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
   _state = state;
   [self.controller updateStatusBarStyle];
+}
+
+- (CGRect)menuButtonFrameWithSpacing
+{
+  return self.menuButton.frameWithSpacing;
 }
 
 @end
