@@ -198,10 +198,9 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, TProg
   }
 
   if (!absent.empty() && code == IRouter::NoError)
-  {
     code = IRouter::NeedMoreMaps;
-  }
 
+  elapsedSec = timer.ElapsedSeconds(); // routing time + absents fetch time
   LogCode(code, elapsedSec);
   SendStatistics(startPoint, startDirection, finalPoint, code, route, elapsedSec);
   // Call callback only if we have some new data.

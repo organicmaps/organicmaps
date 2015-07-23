@@ -582,7 +582,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
   LOG(LINFO, ("Duration of the start/stop points lookup", timer.ElapsedNano()));
   timer.Reset();
-  progressCallback(15.f);
+  progressCallback(15.0f);
 
   // 4. Find route.
   RawRoutingResult routingResult;

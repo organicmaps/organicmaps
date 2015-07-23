@@ -565,11 +565,8 @@ public:
   typedef function<void(routing::IRouter::ResultCode, vector<storage::TIndex> const &,
                         vector<storage::TIndex> const &)> TRouteBuildingCallback;
   typedef function<void(float)> TRouteProgressCallback;
-  void SetRouteBuildingListener(TRouteBuildingCallback const & buildingCallback, TRouteProgressCallback const & progressCallback)
-  {
-    m_routingCallback = buildingCallback;
-    m_progressCallback = progressCallback;
-  }
+  void SetRouteBuildingListener(TRouteBuildingCallback const & buildingCallback,
+                                TRouteProgressCallback const & progressCallback);
   void FollowRoute() { GetLocationState()->StartRouteFollow(); }
   void CloseRouting();
   void GetRouteFollowingInfo(location::FollowingInfo & info) { m_routingSession.GetRouteFollowingInfo(info); }
