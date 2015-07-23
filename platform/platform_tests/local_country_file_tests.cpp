@@ -141,31 +141,28 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   CountryFile brazilFile("Brazil");
   CountryFile irelandFile("Ireland");
 
-  ScopedDir testDir1("1");
-  LocalCountryFile japanLocalFile(testDir1.GetFullPath(), japanFile, 1 /* version */);
-  ScopedFile japanMapFile(testDir1, japanFile, TMapOptions::EMap, "Japan");
+  LocalCountryFile japanLocalFile(mapsDir, japanFile, 0 /* version */);
+  ScopedFile japanMapFile("Japan.mwm", "Japan");
 
-  ScopedDir testDir2("2");
-  LocalCountryFile brazilLocalFile(testDir2.GetFullPath(), brazilFile, 2 /* version */);
-  ScopedFile brazilMapFile(testDir2, brazilFile, TMapOptions::EMap, "Brazil");
-  LocalCountryFile irelandLocalFile(testDir2.GetFullPath(), irelandFile, 2 /* version */);
-  ScopedFile irelandMapFile(testDir2, irelandFile, TMapOptions::EMap, "Ireland");
+  LocalCountryFile brazilLocalFile(mapsDir, brazilFile, 0 /* version */);
+  ScopedFile brazilMapFile("Brazil.mwm", "Brazil");
 
-  ScopedDir testDir3("3");
+  LocalCountryFile irelandLocalFile(mapsDir, irelandFile, 0 /* version */);
+  ScopedFile irelandMapFile("Ireland.mwm", "Ireland");
+
+  ScopedDir emptyDir("3");
 
   // Check that FindAllLocalMaps()
   vector<LocalCountryFile> localFiles;
   FindAllLocalMaps(localFiles);
-  TEST(Contains(localFiles, japanLocalFile), (japanLocalFile));
-  TEST(Contains(localFiles, brazilLocalFile), (brazilLocalFile));
-  TEST(Contains(localFiles, irelandLocalFile), (irelandLocalFile));
+  TEST(Contains(localFiles, japanLocalFile), (japanLocalFile, localFiles));
+  TEST(Contains(localFiles, brazilLocalFile), (brazilLocalFile, localFiles));
+  TEST(Contains(localFiles, irelandLocalFile), (irelandLocalFile, localFiles));
 
   CleanupMapsDirectory();
 
   japanLocalFile.SyncWithDisk();
   TEST_EQUAL(TMapOptions::ENothing, japanLocalFile.GetFiles(), ());
-  TEST(!testDir1.Exists(), ("Empty directory", testDir1, "wasn't removed."));
-  testDir1.Reset();
   TEST(!japanMapFile.Exists(), (japanMapFile));
   japanMapFile.Reset();
 
@@ -180,8 +177,8 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   TEST(!irelandMapFile.Exists(), (irelandMapFile));
   irelandMapFile.Reset();
 
-  TEST(!testDir3.Exists(), ("Empty directory", testDir3, "wasn't removed."));
-  testDir3.Reset();
+  TEST(!emptyDir.Exists(), ("Empty directory", emptyDir, "wasn't removed."));
+  emptyDir.Reset();
 }
 
 UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
@@ -249,8 +246,6 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
 {
   CountryFile const italyFile("Italy");
 
-  Platform & platform = GetPlatform();
-
   ScopedDir testDir("010101");
   ScopedFile testItalyMapFile(testDir, italyFile, TMapOptions::EMap, "Italy-map");
 
@@ -258,16 +253,26 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
   FindAllLocalMaps(localFiles);
   multiset<LocalCountryFile> localFilesSet(localFiles.begin(), localFiles.end());
 
-  LocalCountryFile expectedWorldFile(platform.WritableDir(), CountryFile(WORLD_FILE_NAME),
-                                     0 /* version */);
-  TEST_EQUAL(1, localFilesSet.count(expectedWorldFile), ());
-
-  LocalCountryFile expectedWorldCoastsFile(platform.WritableDir(),
-                                           CountryFile(WORLD_COASTS_FILE_NAME), 0 /* version */);
-  TEST_EQUAL(1, localFilesSet.count(expectedWorldCoastsFile), ());
+  bool worldFound = false;
+  bool worldCoastsFound = false;
+  for (auto const & file : localFiles)
+  {
+    if (file.GetCountryName() == WORLD_FILE_NAME)
+    {
+      worldFound = true;
+      TEST_EQUAL(0, file.GetVersion(), ());
+    }
+    if (file.GetCountryName() == WORLD_COASTS_FILE_NAME)
+    {
+      worldCoastsFound = true;
+      TEST_EQUAL(0, file.GetVersion(), ());
+    }
+  }
+  TEST(worldFound, ());
+  TEST(worldCoastsFound, ());
 
   LocalCountryFile expectedItalyFile(testDir.GetFullPath(), italyFile, 10101);
-  TEST_EQUAL(1, localFilesSet.count(expectedItalyFile), ());
+  TEST_EQUAL(1, localFilesSet.count(expectedItalyFile), (localFiles));
 }
 
 UNIT_TEST(LocalCountryFile_PreparePlaceForCountryFiles)
