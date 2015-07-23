@@ -76,22 +76,25 @@ void CleanupMapsDirectory()
       my::DeleteFileX(my::JoinFoldersToPath(mapsDir, file));
   }
 
-  // Find and remove Brazil and Japan maps.
-  vector<LocalCountryFile> localFiles;
-  FindAllLocalMaps(localFiles);
-  for (LocalCountryFile & localFile : localFiles)
   {
-    string const & countryName = localFile.GetCountryFile().GetNameWithoutExt();
-    if (countryName == "Japan" || countryName == "Brazil")
+    // Delete Brazil.mwm and Japan.mwm maps, because they was replaces with
+    // smaler regions after osrm routing implementation.
+    vector<LocalCountryFile> localFiles;
+    FindAllLocalMapsInDirectory(mapsDir, 0 /* version */, localFiles);
+    for (LocalCountryFile & localFile : localFiles)
     {
-      localFile.SyncWithDisk();
-      localFile.DeleteFromDisk(TMapOptions::EMapWithCarRouting);
+      string const & countryName = localFile.GetCountryFile().GetNameWithoutExt();
+      if (countryName == "Japan" || countryName == "Brazil")
+      {
+        localFile.SyncWithDisk();
+        localFile.DeleteFromDisk(TMapOptions::EMapWithCarRouting);
+      }
     }
   }
 
   // Try to delete empty folders.
   Platform::FilesList subdirs;
-  Platform::GetFilesByType(mapsDir, Platform::FILE_TYPE_DIRECTORY, subdirs);
+  platform.GetFilesByType(mapsDir, Platform::FILE_TYPE_DIRECTORY, subdirs);
   for (string const & subdir : subdirs)
   {
     int64_t version;
