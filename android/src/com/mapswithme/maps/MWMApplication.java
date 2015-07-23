@@ -1,5 +1,6 @@
 package com.mapswithme.maps;
 
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -18,7 +19,9 @@ import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseInstallation;
+import com.parse.SaveCallback;
 
 import java.io.File;
 import java.util.HashMap;
@@ -36,11 +39,13 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private static final String LAST_SESSION_TIMESTAMP_SETTING = "LastSessionTimestamp"; // timestamp of last session
   private static final String FIRST_INSTALL_VERSION = "FirstInstallVersion";
   private static final String FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
-  private static final String IS_PREINSTALL_ACTIVATED = "PreinstallActivated";
   // for myTracker
   private static final String MY_MAP_DOWNLOAD = "DownloadMap";
   private static final String MY_MAP_UPDATE = "UpdateMap";
   private static final String MY_TOTAL_COUNT = "Count";
+  // Parse
+  private static final String PREF_PARSE_DEVICE_TOKEN = "ParseDeviceToken";
+  private static final String PREF_PARSE_INSTALLATION_ID = "ParseInstallationId";
 
   private static MWMApplication mSelf;
   private final Gson mGson = new Gson();
@@ -248,10 +253,27 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private void initParse()
   {
     Parse.initialize(this, "***REMOVED***", "***REMOVED***");
-    ParseInstallation.getCurrentInstallation().saveInBackground();
+    ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback()
+    {
+      @Override
+      public void done(ParseException e)
+      {
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
+        String previousId = prefs.getString(PREF_PARSE_INSTALLATION_ID, "");
+        String previousToken = prefs.getString(PREF_PARSE_DEVICE_TOKEN, "");
 
-    org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_INSTALLATION_ID, ParseInstallation.getCurrentInstallation().getInstallationId());
-    org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_DEVICE_TOKEN, ParseInstallation.getCurrentInstallation().getString("deviceToken"));
+        String newId = ParseInstallation.getCurrentInstallation().getInstallationId();
+        String newToken = ParseInstallation.getCurrentInstallation().getString("deviceToken");
+        if (previousId.equals(newId) || previousToken.equals(newToken))
+        {
+          org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_INSTALLATION_ID, newId);
+          org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_DEVICE_TOKEN, newToken);
+          prefs.edit()
+              .putString(PREF_PARSE_INSTALLATION_ID, newId)
+              .putString(PREF_PARSE_DEVICE_TOKEN, newToken).apply();
+        }
+      }
+    });
   }
 
   public void initStats()
