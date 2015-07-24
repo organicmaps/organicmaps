@@ -67,6 +67,7 @@ HEADERS += \
     country_defines.hpp \
     country_file.hpp \
     file_logging.hpp \
+    get_text_by_id.hpp \
     http_request.hpp \
     http_thread_callback.hpp \
     local_country_file.hpp \
@@ -84,6 +85,7 @@ SOURCES += \
     country_defines.cpp \
     country_file.cpp \
     file_logging.cpp \
+    get_text_by_id.cpp \
     http_request.cpp \
     local_country_file.cpp \
     local_country_file_utils.cpp \
