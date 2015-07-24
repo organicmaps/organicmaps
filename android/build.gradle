@@ -53,7 +53,11 @@ android {
     versionName propVersionName
     minSdkVersion propMinSdkVersion.toInteger()
     targetSdkVersion propTargetSdkVersion.toInteger()
+    applicationId 'com.mapswithme.maps.pro'
     buildConfigField 'String', 'STATISTICS_URL', propStatisticsUrl
+    buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
+    buildConfigField 'String', 'REVIEW_URL', '"http://maps.me/"'
+    buildConfigField 'int', 'RATING_DIVISOR', '5'
   }
 
   sourceSets.main {
@@ -67,117 +71,62 @@ android {
 
   productFlavors {
     google {
-      applicationId 'com.mapswithme.maps.pro'
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
     }
 
     samsung {
-      applicationId 'com.mapswithme.maps.pro'
       versionName = android.defaultConfig.versionName + '-Samsung'
       buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.samsung.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     amazon {
-      applicationId 'com.mapswithme.maps.pro'
       versionName = android.defaultConfig.versionName + '-Amazon'
       buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
+      buildConfigField 'int', 'RATING_DIVISOR', '4'
       android.sourceSets.amazon.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
-    androidpit {
-      applicationId 'com.mapswithme.maps.pro'
-      versionName = android.defaultConfig.versionName + '-AndroidPit'
-      buildConfigField 'String', 'REVIEW_URL', '"appcenter://package/com.mapswithme.maps.pro"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
-      android.sourceSets.androidpit.assets.srcDirs = ['flavors/mwm-ttf-assets']
-    }
-
-    slideme {
-      applicationId 'com.mapswithme.maps.pro'
-      versionName = android.defaultConfig.versionName + '-SlideMe'
-      buildConfigField 'String', 'REVIEW_URL', '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
-      android.sourceSets.slideme.assets.srcDirs = ['flavors/mwm-ttf-assets']
-    }
-
     yandex {
-      applicationId 'com.mapswithme.maps.pro'
       versionName = android.defaultConfig.versionName + '-Yandex'
       buildConfigField 'String', 'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.yandex.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     preinstall {
-      applicationId 'com.mapswithme.maps.pro'
       versionName = android.defaultConfig.versionName + '-Preinstall'
       buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'true'
     }
 
     cipherlab {
-      applicationId 'com.mapswithme.maps.pro'
       versionName = android.defaultConfig.versionName + '-CipherLab'
-      buildConfigField 'String', 'REVIEW_URL', '"http://maps.me/"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'true'
       android.sourceSets.cipherlab.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     xiaomi {
-      applicationId 'com.mapswithme.maps.pro'
       versionName = android.defaultConfig.versionName + '-Xiaomi'
-      buildConfigField 'String', 'REVIEW_URL', '"http://maps.me/"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.xiaomi.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
-    opera {
-      applicationId 'com.mapswithme.maps.pro'
-      versionName = android.defaultConfig.versionName + '-Opera'
-      buildConfigField 'String', 'REVIEW_URL', '"http://maps.me/"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
-      android.sourceSets.opera.assets.srcDirs = ['flavors/mwm-ttf-assets']
-    }
-
     lenovo {
-      applicationId 'com.mapswithme.maps.pro'
       versionName = android.defaultConfig.versionName + '-Lenovo'
       buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'true'
       android.sourceSets.lenovo.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     web {
-      applicationId 'com.mapswithme.maps.pro'
       versionName = android.defaultConfig.versionName + '-Web'
       buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     nineApp {
-      applicationId 'com.mapswithme.maps.pro'
       versionName = android.defaultConfig.versionName + '-9app'
-      buildConfigField 'String', 'REVIEW_URL', '"http://maps.me/"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.nineApp.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
   }
