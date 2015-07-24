@@ -87,6 +87,8 @@ namespace m2
       return (m_minX <= m_maxX && m_minY <= m_maxY);
     }
 
+    bool IsEmptyInterior() const { return m_minX >= m_maxX || m_minY >= m_maxY; }
+
     void Add(m2::Point<T> const & p)
     {
       m_minX = min(p.x, m_minX);

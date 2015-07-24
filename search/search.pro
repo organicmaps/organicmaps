@@ -22,6 +22,7 @@ HEADERS += \
     locality_finder.hpp \
     params.hpp \
     result.hpp \
+    retrieval.hpp \
     search_common.hpp \
     search_engine.hpp \
     search_query.hpp \
@@ -40,6 +41,7 @@ SOURCES += \
     locality_finder.cpp \
     params.cpp \
     result.cpp \
+    retrieval.cpp \
     search_engine.cpp \
     search_query.cpp \
     search_query_params.cpp \

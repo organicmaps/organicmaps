@@ -1746,7 +1746,7 @@ void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region 
                                trie::ValueReader(cp), trie::EdgeValueReader()));
 
   ForEachLangPrefix(params, *trieRoot, [&](TrieRootPrefix & langRoot, int8_t lang)
-                    {
+  {
     impl::DoFindLocality doFind(*this, pMwm, lang);
     MatchTokensInTrie(params.m_tokens, langRoot, doFind);
 
@@ -1859,7 +1859,7 @@ void Query::SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams co
   FeaturesFilter filter(
       (viewportId == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[viewportId][mwmId], *this);
   MatchFeaturesInTrie(params, *trieRoot, filter, [&](TrieValueT const & value)
-                      {
+  {
     AddResultFromTrie(value, mwmId, viewportId);
   });
 }

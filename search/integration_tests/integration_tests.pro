@@ -21,6 +21,7 @@ macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
 
 SOURCES += \
     ../../testing/testingmain.cpp \
+    retrieval_test.cpp \
     smoke_test.cpp \
     test_mwm_builder.cpp \
     test_search_engine.cpp \

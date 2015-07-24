@@ -1,5 +1,6 @@
 #pragma once
 #include "search/search_common.hpp"
+#include "search/search_query.hpp"
 #include "search/search_query_params.hpp"
 
 #include "indexer/search_trie.hpp"
@@ -44,6 +45,7 @@ TrieIterator * MoveTrieIteratorToString(TrieIterator const & trieRoot,
   unique_ptr<search::TrieIterator> pIter(trieRoot.Clone());
 
   size_t const szQuery = queryS.size();
+
   while (symbolsMatched < szQuery)
   {
     bool bMatched = false;
@@ -406,8 +408,8 @@ void MatchFeaturesInTrie(SearchQueryParams const & params, TrieIterator const & 
   impl::OffsetIntersecter<TFilter> intersecter(filter);
   for (size_t i = 0; i < params.m_tokens.size(); ++i)
   {
-    ForEachLangPrefix(params, trieRoot, [&](TrieRootPrefix & langRoot, int8_t /* lang */)
-                      {
+    ForEachLangPrefix(params, trieRoot, [&](TrieRootPrefix & langRoot, int8_t lang)
+    {
       MatchTokenInTrie(params.m_tokens[i], langRoot, intersecter);
     });
     categoriesHolder.GetValues(i, intersecter);
@@ -417,7 +419,7 @@ void MatchFeaturesInTrie(SearchQueryParams const & params, TrieIterator const & 
   if (!params.m_prefixTokens.empty())
   {
     ForEachLangPrefix(params, trieRoot, [&](TrieRootPrefix & langRoot, int8_t /* lang */)
-                      {
+    {
       MatchTokenPrefixInTrie(params.m_prefixTokens, langRoot, intersecter);
     });
     categoriesHolder.GetValues(params.m_tokens.size(), intersecter);

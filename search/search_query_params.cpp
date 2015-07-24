@@ -1,6 +1,7 @@
 #include "search/search_query_params.hpp"
 
 #include "indexer/feature_impl.hpp"
+#include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
 
@@ -56,11 +57,14 @@ private:
 };
 }  // namespace
 
+SearchQueryParams::SearchQueryParams() : m_scale(scales::GetUpperScale()) {}
+
 void SearchQueryParams::Clear()
 {
   m_tokens.clear();
   m_prefixTokens.clear();
   m_langs.clear();
+  m_scale = scales::GetUpperScale();
 }
 
 void SearchQueryParams::EraseTokens(vector<size_t> & eraseInds)
