@@ -1,15 +1,15 @@
-#include "indexer/search_index_builder.hpp"
+#include "indexer/categories_holder.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
+#include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/search_delimiters.hpp"
-#include "indexer/search_trie.hpp"
+#include "indexer/search_index_builder.hpp"
 #include "indexer/search_string_utils.hpp"
+#include "indexer/search_trie.hpp"
 #include "indexer/string_file.hpp"
 #include "indexer/string_file_values.hpp"
-#include "indexer/classificator.hpp"
-#include "indexer/feature_visibility.hpp"
-#include "indexer/categories_holder.hpp"
-#include "indexer/feature_algo.hpp"
 
 #include "../search/search_common.hpp"    // for MAX_TOKENS constant
 
@@ -17,16 +17,16 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/reader_writer_ops.hpp"
 #include "coding/trie_builder.hpp"
 #include "coding/writer.hpp"
-#include "coding/reader_writer_ops.hpp"
 
 #include "base/assert.hpp"
-#include "base/timer.hpp"
-#include "base/scope_guard.hpp"
-#include "base/string_utils.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/fstream.hpp"
@@ -153,7 +153,7 @@ struct ValueBuilder;
 template <>
 struct ValueBuilder<SerializedFeatureInfoValue>
 {
-  typedef search::trie::ValueReader SaverT;
+  typedef trie::ValueReader SaverT;
   SaverT m_valueSaver;
 
   ValueBuilder(serial::CodingParams const & cp) : m_valueSaver(cp) {}
@@ -193,7 +193,7 @@ class FeatureInserter
   CategoriesHolder const & m_categories;
 
   typedef typename StringsFileT::ValueT ValueT;
-  typedef search::trie::ValueReader SaverT;
+  typedef trie::ValueReader SaverT;
 
   pair<int, int> m_scales;
 
@@ -385,7 +385,7 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
     FeaturesVectorTest features(cont);
     feature::DataHeader const & header = features.GetHeader();
 
-    serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
+    serial::CodingParams cp(trie::GetCodingParams(header.GetDefCodingParams()));
     ValueBuilder<SerializedFeatureInfoValue> valueBuilder(cp);
 
     unique_ptr<SynonymsHolder> synonyms;
@@ -401,8 +401,8 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
     names.OpenForRead();
 
     trie::Build<Writer, typename StringsFile<SerializedFeatureInfoValue>::IteratorT,
-                trie::builder::EmptyEdgeBuilder, ValueList<SerializedFeatureInfoValue>>(
-        writer, names.Begin(), names.End(), trie::builder::EmptyEdgeBuilder());
+                trie::EmptyEdgeBuilder, ValueList<SerializedFeatureInfoValue>>(
+        writer, names.Begin(), names.End(), trie::EmptyEdgeBuilder());
 
     // at this point all readers of StringsFile should be dead
   }
@@ -518,9 +518,9 @@ void BuildCompressedSearchIndex(FilesContainerR & container, Writer & indexWrite
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
 
   stringsFile.OpenForRead();
-  trie::Build<Writer, typename StringsFile<FeatureIndexValue>::IteratorT,
-              trie::builder::EmptyEdgeBuilder, ValueList<FeatureIndexValue>>(
-      indexWriter, stringsFile.Begin(), stringsFile.End(), trie::builder::EmptyEdgeBuilder());
+  trie::Build<Writer, typename StringsFile<FeatureIndexValue>::IteratorT, trie::EmptyEdgeBuilder,
+              ValueList<FeatureIndexValue>>(indexWriter, stringsFile.Begin(), stringsFile.End(),
+                                            trie::EmptyEdgeBuilder());
 
   LOG(LINFO, ("End building compressed search index, elapsed seconds:", timer.ElapsedSeconds()));
 }

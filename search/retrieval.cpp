@@ -26,11 +26,11 @@ void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams
 {
   auto * value = handle.GetValue<MwmValue>();
   ASSERT(value, ());
-  serial::CodingParams codingParams(GetCPForTrie(value->GetHeader().GetDefCodingParams()));
+  serial::CodingParams codingParams(trie::GetCodingParams(value->GetHeader().GetDefCodingParams()));
   ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-  unique_ptr<TrieIterator> const trieRoot(
-      ::trie::reader::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
-                               trie::ValueReader(codingParams), trie::EdgeValueReader()));
+  unique_ptr<trie::DefaultIterator> const trieRoot(
+      trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
+                     trie::ValueReader(codingParams), trie::EdgeValueReader()));
 
   featureIds.clear();
   auto collector = [&](trie::ValueReader::ValueType const & value)

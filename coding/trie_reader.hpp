@@ -8,9 +8,6 @@
 
 namespace trie
 {
-namespace reader
-{
-
 template <class ValueReaderT, typename EdgeValueT>
 class LeafIterator0 : public Iterator<typename ValueReaderT::ValueType, EdgeValueT>
 {
@@ -211,5 +208,4 @@ ReadTrie(ReaderT const & reader,
         reader, valueReader, edgeValueReader, DEFAULT_CHAR);
 }
 
-}  // namespace trie::reader
 }  // namespace trie

@@ -1,9 +1,8 @@
 #pragma once
 
-#include "base/base.hpp"
 #include "base/assert.hpp"
+#include "base/base.hpp"
 #include "base/buffer_vector.hpp"
-//#include "../base/object_tracker.hpp"
 
 #include "std/unique_ptr.hpp"
 
@@ -40,9 +39,6 @@ public:
   virtual Iterator<ValueT, EdgeValueT> * GoToEdge(size_t i) const = 0;
 };
 
-namespace reader
-{
-
 struct EmptyValueReader
 {
   typedef unsigned char ValueType;
@@ -68,8 +64,6 @@ struct FixedSizeValueReader
     src.Read(&value.m_data[0], N);
   }
 };
-
-}  // namespace trie::reader
 
 template <typename ValueT, typename EdgeValueT, typename F, typename StringT>
 void ForEachRef(Iterator<ValueT, EdgeValueT> const & iter, F & f, StringT const & s)

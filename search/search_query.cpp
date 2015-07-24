@@ -1739,12 +1739,13 @@ void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region 
   SearchQueryParams params;
   InitParams(true /* localitySearch */, params);
 
-  serial::CodingParams cp(GetCPForTrie(pMwm->GetHeader().GetDefCodingParams()));
+  serial::CodingParams cp(trie::GetCodingParams(pMwm->GetHeader().GetDefCodingParams()));
 
   ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-  unique_ptr<TrieIterator> const trieRoot(
-      ::trie::reader::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
-                               trie::ValueReader(cp), trie::EdgeValueReader()));
+
+  unique_ptr<trie::DefaultIterator> const trieRoot(
+      trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()), trie::ValueReader(cp),
+                     trie::EdgeValueReader()));
 
   ForEachLangPrefix(params, *trieRoot, [&](TrieRootPrefix & langRoot, int8_t lang)
   {
@@ -1851,11 +1852,11 @@ void Query::SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams co
   if (isWorld && !m_worldSearch)
     return;
 
-  serial::CodingParams cp(GetCPForTrie(header.GetDefCodingParams()));
+  serial::CodingParams cp(trie::GetCodingParams(header.GetDefCodingParams()));
   ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-  unique_ptr<TrieIterator> const trieRoot(
-      ::trie::reader::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
-                               trie::ValueReader(cp), trie::EdgeValueReader()));
+  unique_ptr<trie::DefaultIterator> const trieRoot(
+      trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()), trie::ValueReader(cp),
+                     trie::EdgeValueReader()));
   MwmSet::MwmId const mwmId = mwmHandle.GetId();
   FeaturesFilter filter(
       (viewportId == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[viewportId][mwmId], *this);

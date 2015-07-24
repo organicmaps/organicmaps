@@ -164,7 +164,7 @@ namespace feature
 
     SearchTokensCollector() : m_currentS(), m_currentCount(0) {}
 
-    void operator() (strings::UniString const & s, search::trie::ValueReader::ValueType const &)
+    void operator()(strings::UniString const & s, trie::ValueReader::ValueType const &)
     {
       if (m_currentS == s)
       {
@@ -198,15 +198,14 @@ namespace feature
   {
     FilesContainerR container(new FileReader(fPath));
     feature::DataHeader header(container);
-    serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
+    serial::CodingParams cp(trie::GetCodingParams(header.GetDefCodingParams()));
 
-    unique_ptr<search::TrieIterator> const pTrieRoot(
-          ::trie::reader::ReadTrie(container.GetReader(SEARCH_INDEX_FILE_TAG),
-                                   search::trie::ValueReader(cp),
-                                   search::trie::EdgeValueReader()));
+    unique_ptr<trie::DefaultIterator> const pTrieRoot(
+        trie::ReadTrie(container.GetReader(SEARCH_INDEX_FILE_TAG), trie::ValueReader(cp),
+                       trie::EdgeValueReader()));
 
     SearchTokensCollector f;
-    ::trie::ForEachRef(*pTrieRoot, f, strings::UniString());
+    trie::ForEachRef(*pTrieRoot, f, strings::UniString());
     f.Finish();
 
     while (!f.tokens.empty())

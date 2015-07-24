@@ -38,10 +38,10 @@
 // [edge value]
 // [child size]: if the child is not the last one when reading
 
+
 namespace trie
 {
-namespace builder
-{
+
 template <typename SinkT, typename ChildIterT, typename ValueListT>
 void WriteNode(SinkT & sink, TrieChar baseChar, ValueListT const & valueList,
                ChildIterT const begChild, ChildIterT const endChild, bool isRoot = false)
@@ -227,13 +227,11 @@ struct MaxValueEdgeBuilder
   }
 };
 
-}  // namespace builder
-
 template <typename SinkT, typename IterT, typename EdgeBuilderT, typename ValueListT>
 void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & edgeBuilder)
 {
   typedef buffer_vector<TrieChar, 32> TrieString;
-  typedef builder::NodeInfo<EdgeBuilderT, ValueListT> NodeInfoT;
+  typedef NodeInfo<EdgeBuilderT, ValueListT> NodeInfoT;
 
   buffer_vector<NodeInfoT, 32> nodes;
   nodes.push_back(NodeInfoT(sink.Pos(), DEFAULT_CHAR, edgeBuilder));
@@ -256,7 +254,7 @@ void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & 
     while (nCommon < min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
       ++nCommon;
 
-    builder::PopNodes(sink, nodes, nodes.size() - nCommon - 1); // Root is also a common node.
+    PopNodes(sink, nodes, nodes.size() - nCommon - 1);  // Root is also a common node.
 
     uint64_t const pos = sink.Pos();
     for (size_t i = nCommon; i < key.size(); ++i)
@@ -270,7 +268,7 @@ void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & 
   }
 
   // Pop all the nodes from the stack.
-  builder::PopNodes(sink, nodes, nodes.size() - 1);
+  PopNodes(sink, nodes, nodes.size() - 1);
 
   // Write the root.
   WriteNodeReverse(sink, DEFAULT_CHAR /* baseChar */, nodes.back(), true /* isRoot */);

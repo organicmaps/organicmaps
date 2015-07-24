@@ -9,6 +9,10 @@
 
 namespace search
 {
+static const uint8_t CATEGORIES_LANG = 128;
+static const uint8_t POINT_CODING_BITS = 20;
+}  // namespace search
+
 namespace trie
 {
 
@@ -42,19 +46,15 @@ public:
   }
 };
 
-typedef ::trie::reader::EmptyValueReader EdgeValueReader;
+typedef EmptyValueReader EdgeValueReader;
 
-}  // namespace search::trie
+typedef trie::Iterator<trie::ValueReader::ValueType, trie::EdgeValueReader::ValueType>
+    DefaultIterator;
 
-  typedef ::trie::Iterator<
-      trie::ValueReader::ValueType,
-      trie::EdgeValueReader::ValueType> TrieIterator;
+inline serial::CodingParams GetCodingParams(serial::CodingParams const & orig)
+{
+  return serial::CodingParams(search::POINT_CODING_BITS,
+                              PointU2PointD(orig.GetBasePoint(), orig.GetCoordBits()));
+}
 
-  static const uint8_t CATEGORIES_LANG = 128;
-  static const uint8_t POINT_CODING_BITS = 20;
-
-  inline serial::CodingParams GetCPForTrie(serial::CodingParams const & orig)
-  {
-    return serial::CodingParams(POINT_CODING_BITS, PointU2PointD(orig.GetBasePoint(), orig.GetCoordBits()));
-  }
-}  // namespace search
+}  // namespace trie

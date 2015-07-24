@@ -5,19 +5,17 @@
 
 #include "indexer/search_trie.hpp"
 
-#include "base/string_utils.hpp"
-#include "base/stl_add.hpp"
-#include "base/scope_guard.hpp"
 #include "base/mutex.hpp"
+#include "base/scope_guard.hpp"
+#include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/target_os.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/unordered_set.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
-#include "std/target_os.hpp"
-
-//#include "../sparsehash/dense_hash_set.hpp"
 
 
 namespace search
@@ -34,15 +32,15 @@ size_t CalcEqualLength(SrcIterT b, SrcIterT e, CompIterT bC, CompIterT eC)
   return count;
 }
 
-inline TrieIterator * MoveTrieIteratorToString(TrieIterator const & trieRoot,
-                                        strings::UniString const & queryS,
-                                        size_t & symbolsMatched,
-                                        bool & bFullEdgeMatched)
+inline trie::DefaultIterator * MoveTrieIteratorToString(trie::DefaultIterator const & trieRoot,
+                                                    strings::UniString const & queryS,
+                                                    size_t & symbolsMatched,
+                                                    bool & bFullEdgeMatched)
 {
   symbolsMatched = 0;
   bFullEdgeMatched = false;
 
-  unique_ptr<search::TrieIterator> pIter(trieRoot.Clone());
+  unique_ptr<trie::DefaultIterator> pIter(trieRoot.Clone());
 
   size_t const szQuery = queryS.size();
 
@@ -100,19 +98,16 @@ namespace
 }
 
 template <typename F>
-void FullMatchInTrie(TrieIterator const & trieRoot,
-                     strings::UniChar const * rootPrefix,
-                     size_t rootPrefixSize,
-                     strings::UniString s,
-                     F & f)
+void FullMatchInTrie(trie::DefaultIterator const & trieRoot, strings::UniChar const * rootPrefix,
+                     size_t rootPrefixSize, strings::UniString s, F & f)
 {
   if (!CheckMatchString(rootPrefix, rootPrefixSize, s))
       return;
 
   size_t symbolsMatched = 0;
   bool bFullEdgeMatched;
-  unique_ptr<search::TrieIterator> const pIter(
-        MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched));
+  unique_ptr<trie::DefaultIterator> const pIter(
+      MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched));
 
   if (!pIter || (!s.empty() && !bFullEdgeMatched) || symbolsMatched != s.size())
     return;
@@ -129,21 +124,18 @@ void FullMatchInTrie(TrieIterator const & trieRoot,
 }
 
 template <typename F>
-void PrefixMatchInTrie(TrieIterator const & trieRoot,
-                       strings::UniChar const * rootPrefix,
-                       size_t rootPrefixSize,
-                       strings::UniString s,
-                       F & f)
+void PrefixMatchInTrie(trie::DefaultIterator const & trieRoot, strings::UniChar const * rootPrefix,
+                       size_t rootPrefixSize, strings::UniString s, F & f)
 {
   if (!CheckMatchString(rootPrefix, rootPrefixSize, s))
       return;
 
-  typedef vector<search::TrieIterator *> QueueT;
+  typedef vector<trie::DefaultIterator *> QueueT;
   QueueT trieQueue;
   {
     size_t symbolsMatched = 0;
     bool bFullEdgeMatched;
-    search::TrieIterator * pRootIter =
+    trie::DefaultIterator * pRootIter =
         MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched);
 
     UNUSED_VALUE(symbolsMatched);
@@ -162,7 +154,7 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
   {
     // Next 2 lines don't throw any exceptions while moving
     // ownership from container to smart pointer.
-    unique_ptr<search::TrieIterator> const pIter(trieQueue.back());
+    unique_ptr<trie::DefaultIterator> const pIter(trieQueue.back());
     trieQueue.pop_back();
 
     for (size_t i = 0; i < pIter->m_value.size(); ++i)
@@ -237,11 +229,12 @@ public:
 
 struct TrieRootPrefix
 {
-  TrieIterator const & m_root;
+  trie::DefaultIterator const & m_root;
   strings::UniChar const * m_prefix;
   size_t m_prefixSize;
 
-  TrieRootPrefix(TrieIterator const & root, TrieIterator::Edge::EdgeStrT const & edge)
+  TrieRootPrefix(trie::DefaultIterator const & root,
+                 trie::DefaultIterator::Edge::EdgeStrT const & edge)
     : m_root(root)
   {
     if (edge.size() == 1)
@@ -350,7 +343,7 @@ void MatchTokensAndPrefixInTrie(vector<SearchQueryParams::TSynonymsVector> const
 // token from a search query.
 // *NOTE* query prefix will be treated as a complete token in the function.
 template <typename THolder>
-bool MatchCategoriesInTrie(SearchQueryParams const & params, TrieIterator const & trieRoot,
+bool MatchCategoriesInTrie(SearchQueryParams const & params, trie::DefaultIterator const & trieRoot,
                            THolder && holder)
 {
   ASSERT_LESS(trieRoot.m_edge.size(), numeric_limits<uint32_t>::max(), ());
@@ -361,7 +354,7 @@ bool MatchCategoriesInTrie(SearchQueryParams const & params, TrieIterator const 
     ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
     if (edge[0] == search::CATEGORIES_LANG)
     {
-      unique_ptr<TrieIterator> const catRoot(trieRoot.GoToEdge(langIx));
+      unique_ptr<trie::DefaultIterator> const catRoot(trieRoot.GoToEdge(langIx));
       MatchTokensInTrie(params.m_tokens, TrieRootPrefix(*catRoot, edge), holder);
 
       // Last token's prefix is used as a complete token here, to
@@ -379,7 +372,7 @@ bool MatchCategoriesInTrie(SearchQueryParams const & params, TrieIterator const 
 // Calls toDo with trie root prefix and language code on each language
 // allowed by params.
 template <typename ToDo>
-void ForEachLangPrefix(SearchQueryParams const & params, TrieIterator const & trieRoot,
+void ForEachLangPrefix(SearchQueryParams const & params, trie::DefaultIterator const & trieRoot,
                        ToDo && toDo)
 {
   ASSERT_LESS(trieRoot.m_edge.size(), numeric_limits<uint32_t>::max(), ());
@@ -391,7 +384,7 @@ void ForEachLangPrefix(SearchQueryParams const & params, TrieIterator const & tr
     int8_t const lang = static_cast<int8_t>(edge[0]);
     if (edge[0] < search::CATEGORIES_LANG && params.IsLangExist(lang))
     {
-      unique_ptr<TrieIterator> const langRoot(trieRoot.GoToEdge(langIx));
+      unique_ptr<trie::DefaultIterator> const langRoot(trieRoot.GoToEdge(langIx));
       TrieRootPrefix langPrefix(*langRoot, edge);
       toDo(langPrefix, lang);
     }
@@ -401,7 +394,7 @@ void ForEachLangPrefix(SearchQueryParams const & params, TrieIterator const & tr
 // Calls toDo for each feature whose description contains *ALL* tokens from a search query.
 // Each feature will be passed to toDo only once.
 template <typename TFilter, typename ToDo>
-void MatchFeaturesInTrie(SearchQueryParams const & params, TrieIterator const & trieRoot,
+void MatchFeaturesInTrie(SearchQueryParams const & params, trie::DefaultIterator const & trieRoot,
                          TFilter const & filter, ToDo && toDo)
 {
   TrieValuesHolder<TFilter> categoriesHolder(filter);

@@ -88,8 +88,7 @@ struct KeyValuePairBackInserter
 {
   vector<KeyValuePair> m_v;
   template <class StringT>
-  void operator() (StringT const & s,
-                   trie::reader::FixedSizeValueReader<4>::ValueType const & rawValue)
+  void operator()(StringT const & s, trie::FixedSizeValueReader<4>::ValueType const & rawValue)
   {
     uint32_t value;
     memcpy(&value, &rawValue, 4);
@@ -175,7 +174,7 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
   };
 
   CharValueList valueList("123");
-  trie::builder::WriteNode(sink, 0, valueList, &children[0], &children[0] + ARRAY_SIZE(children));
+  trie::WriteNode(sink, 0, valueList, &children[0], &children[0] + ARRAY_SIZE(children));
   uint8_t const expected [] =
   {
     BOOST_BINARY(11000101),                                                 // Header: [0b11] [0b000101]
@@ -244,20 +243,17 @@ UNIT_TEST(TrieBuilder_Build)
 
     vector<uint8_t> serial;
     PushBackByteSink<vector<uint8_t> > sink(serial);
-    trie::Build<PushBackByteSink<vector<uint8_t> >, typename vector<KeyValuePair>::iterator,
-                trie::builder::MaxValueEdgeBuilder<MaxValueCalc>, Uint32ValueList>(
-        sink, v.begin(), v.end(), trie::builder::MaxValueEdgeBuilder<MaxValueCalc>());
+    trie::Build<PushBackByteSink<vector<uint8_t>>, typename vector<KeyValuePair>::iterator,
+                trie::MaxValueEdgeBuilder<MaxValueCalc>, Uint32ValueList>(
+        sink, v.begin(), v.end(), trie::MaxValueEdgeBuilder<MaxValueCalc>());
     reverse(serial.begin(), serial.end());
     // LOG(LINFO, (serial.size(), vs));
 
     MemReader memReader = MemReader(&serial[0], serial.size());
-    typedef trie::Iterator<
-        trie::reader::FixedSizeValueReader<4>::ValueType,
-        trie::reader::FixedSizeValueReader<1>::ValueType
-        > IteratorType;
-    unique_ptr<IteratorType> const root(trie::reader::ReadTrie(memReader,
-                                                               trie::reader::FixedSizeValueReader<4>(),
-                                                               trie::reader::FixedSizeValueReader<1>()));
+    typedef trie::Iterator<trie::FixedSizeValueReader<4>::ValueType,
+                           trie::FixedSizeValueReader<1>::ValueType> IteratorType;
+    unique_ptr<IteratorType> const root(trie::ReadTrie(memReader, trie::FixedSizeValueReader<4>(),
+                                                       trie::FixedSizeValueReader<1>()));
     vector<KeyValuePair> res;
     KeyValuePairBackInserter f;
     trie::ForEachRef(*root, f, vector<trie::TrieChar>());
