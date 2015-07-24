@@ -29,15 +29,15 @@ namespace graphics
     using TMat4Map = THolderMap<math::Matrix<float, 4, 4>>;
 
     template<typename THolder>
-    bool insertValue(THolderMap<THolder> & holder, ESemantic sem, THolder const & value)
+    static bool insertValue(THolderMap<THolder> & holder, ESemantic sem, THolder const & value)
     {
       return holder.insert(make_pair(sem, value)).second;
     }
 
     template<typename THolder>
-    bool getValue(THolderMap<THolder> const & holder, ESemantic sem, THolder & value) const
+    static bool getValue(THolderMap<THolder> const & holder, ESemantic sem, THolder & value)
     {
-      typename THolderMap<THolder>::const_iterator it = holder.find(sem);
+      auto it = holder.find(sem);
       if (it == holder.end())
         return false;
 

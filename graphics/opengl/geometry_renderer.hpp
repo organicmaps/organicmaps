@@ -40,7 +40,7 @@ namespace graphics
         void dump();
       };
 
-      struct DrawGeometry : Command
+      struct DrawGeometry : public Command
       {
         shared_ptr<BaseTexture> m_texture;
         Storage m_storage;
@@ -59,7 +59,7 @@ namespace graphics
         float m_alfa;
       };
 
-      struct DrawRouteGeometry : Command
+      struct DrawRouteGeometry : public Command
       {
         shared_ptr<BaseTexture> m_texture;
         Storage m_storage;

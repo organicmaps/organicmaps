@@ -251,6 +251,8 @@ void RouteShape::PrepareGeometry(m2::PolylineD const & polyline, RouteData & out
 
   // build geometry
   float length = 0;
+  vector<m2::PointF> normals;
+  normals.reserve(24);
   for (size_t i = 0; i < segments.size(); i++)
   {
     UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
@@ -285,10 +287,9 @@ void RouteShape::PrepareGeometry(m2::PolylineD const & polyline, RouteData & out
     generateIndices();
 
     // generate joins
-    vector<m2::PointF> normals;
-    normals.reserve(24);
     if (i < segments.size() - 1)
     {
+      normals.clear();
       m2::PointF n1 = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_leftNormals[EndPoint] :
                                                             segments[i].m_rightNormals[EndPoint];
       m2::PointF n2 = segments[i + 1].m_hasLeftJoin[StartPoint] ? segments[i + 1].m_leftNormals[StartPoint] :

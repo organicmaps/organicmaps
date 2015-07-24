@@ -46,9 +46,7 @@ int CheckForIntersection(double start, double end, vector<RouteSegment> const & 
     if (segments[i].m_isAvailable)
       continue;
 
-    if ((start >= segments[i].m_start && start <= segments[i].m_end) ||
-        (end >= segments[i].m_start && end <= segments[i].m_end) ||
-        (start < segments[i].m_start && end > segments[i].m_end))
+    if (start <= segments[i].m_end && end >= segments[i].m_start)
       return i;
   }
   return SegmentStatus::OK;
@@ -60,21 +58,18 @@ int FindNearestAvailableSegment(double start, double end, vector<RouteSegment> c
 
   // check if distance intersects unavailable segment
   int index = CheckForIntersection(start, end, segments);
+  if (index == SegmentStatus::OK)
+    return SegmentStatus::OK;
 
   // find nearest available segment if necessary
-  if (index != SegmentStatus::OK)
+  double const len = end - start;
+  for (size_t i = index; i < segments.size(); i++)
   {
-    double const len = end - start;
-    for (int i = index; i < (int)segments.size(); i++)
-    {
-      double const factor = (segments[i].m_end - segments[i].m_start) / len;
-      if (segments[i].m_isAvailable && factor > threshold)
-        return (int)i;
-    }
-    return SegmentStatus::NoSegment;
+    double const factor = (segments[i].m_end - segments[i].m_start) / len;
+    if (segments[i].m_isAvailable && factor > threshold)
+      return static_cast<int>(i);
   }
-
-  return SegmentStatus::OK;
+  return SegmentStatus::NoSegment;
 }
 
 void MergeAndClipBorders(vector<ArrowBorders> & borders)
