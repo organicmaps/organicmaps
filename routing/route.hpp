@@ -62,8 +62,8 @@ public:
   }
 
   // Time measure are seconds
-  uint32_t GetAllTime() const;
-  uint32_t GetTime() const;
+  uint32_t GetTotalTime() const;
+  uint32_t GetCurrentTimeToEnd() const;
 
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly; }
@@ -85,14 +85,14 @@ public:
 
   /// @return Distance on route in meters.
   //@{
-  double GetDistance() const;
+  double GetTotalDistance() const;
   double GetCurrentDistanceFromBegin() const;
   double GetCurrentDistanceToEnd() const;
   //@}
 
-  void GetTurn(double & distance, turns::TurnItem & turn) const;
+  void GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
 
-  void GetDirectionPoint(m2::PointD & pt) const;
+  void GetCurrentDirectionPoint(m2::PointD & pt) const;
 
   /// @return true  If position was updated successfully (projection within gps error radius).
   bool MoveIterator(location::GpsInfo const & info) const;

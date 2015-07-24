@@ -101,7 +101,7 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::Poin
   double const elapsedSec = timer.ElapsedSeconds();
   TEST_EQUAL(routing::IRouter::NoError, resultCode, ());
   LOG(LINFO, ("Route polyline size:", route.GetPoly().GetSize()));
-  LOG(LINFO, ("Route distance, meters:", route.GetDistance()));
+  LOG(LINFO, ("Route distance, meters:", route.GetTotalDistance()));
   LOG(LINFO, ("Elapsed, seconds:", elapsedSec));
   foundRoute.Swap(route);
 }
@@ -119,7 +119,7 @@ void TestRouters(Index & index, m2::PointD const & startPos, m2::PointD const & 
   TestRouter(*router, startPos, finalPos, routeFoundByAstar);
 
   double constexpr kEpsilon = 1e-6;
-  TEST(my::AlmostEqualAbs(routeFoundByAstar.GetDistance(), routeFoundByAstarBidirectional.GetDistance(), kEpsilon), ());
+  TEST(my::AlmostEqualAbs(routeFoundByAstar.GetTotalDistance(), routeFoundByAstarBidirectional.GetTotalDistance(), kEpsilon), ());
 }
 
 void TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & finalPos)

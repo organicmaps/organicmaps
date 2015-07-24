@@ -228,7 +228,7 @@ void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const
   statistics.emplace("elapsed", strings::to_string(elapsedSec));
 
   if (IRouter::NoError == resultCode)
-    statistics.emplace("distance", strings::to_string(route.GetDistance()));
+    statistics.emplace("distance", strings::to_string(route.GetTotalDistance()));
 
   m_routingStatisticsFn(statistics);
 }

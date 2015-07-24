@@ -182,12 +182,12 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
 
     double distanceToTurnMeters = 0.;
     turns::TurnItem turn;
-    m_route.GetTurn(distanceToTurnMeters, turn);
+    m_route.GetCurrentTurn(distanceToTurnMeters, turn);
 
     formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
     info.m_turn = turn.m_turn;
     info.m_exitNum = turn.m_exitNum;
-    info.m_time = m_route.GetTime();
+    info.m_time = m_route.GetCurrentTimeToEnd();
     info.m_targetName = turn.m_targetName;
 
     // Lane information.
@@ -207,9 +207,9 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
     }
 
     // Pedestrian info
-    m2::PointD nextPos;
-    m_route.GetDirectionPoint(nextPos);
-    info.m_pedestrianDirectionPos = MercatorBounds::ToLatLon(nextPos);
+    m2::PointD pos;
+    m_route.GetCurrentDirectionPoint(pos);
+    info.m_pedestrianDirectionPos = MercatorBounds::ToLatLon(pos);
     info.m_pedestrianTurn =
         (distanceToTurnMeters < kShowPedestrianTurnInMeters) ? turn.m_pedestrianTurn : turns::PedestrianDirection::None;
 

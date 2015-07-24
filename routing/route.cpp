@@ -42,7 +42,7 @@ void Route::Swap(Route & rhs)
   m_absentCountries.swap(rhs.m_absentCountries);
 }
 
-double Route::GetDistance() const
+double Route::GetTotalDistance() const
 {
   ASSERT(!m_segDistance.empty(), ());
   return m_segDistance.back();
@@ -65,12 +65,12 @@ double Route::GetCurrentDistanceToEnd() const
           MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
 }
 
-uint32_t Route::GetAllTime() const
+uint32_t Route::GetTotalTime() const
 {
   return m_times.empty() ? 0 : m_times.back().second;
 }
 
-uint32_t Route::GetTime() const
+uint32_t Route::GetCurrentTimeToEnd() const
 {
   size_t const polySz = m_poly.GetSize();
   if (m_times.empty() || m_poly.GetSize() == 0)
@@ -111,19 +111,19 @@ uint32_t Route::GetTime() const
   {
     double const distRemain = distFn(m_current.m_ind, m_times[idx].first + 1) -
                         MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind));
-    return (uint32_t)((GetAllTime() - (*it).second) + (double)time * (distRemain / dist));
+    return (uint32_t)((GetTotalTime() - (*it).second) + (double)time * (distRemain / dist));
   }
   else
-    return (uint32_t)((GetAllTime() - (*it).second));
+    return (uint32_t)((GetTotalTime() - (*it).second));
 }
 
-void Route::GetTurn(double & distance, turns::TurnItem & turn) const
+void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
 {
   if (m_segDistance.empty() || m_turns.empty())
   {
     ASSERT(!m_segDistance.empty(), ());
     ASSERT(!m_turns.empty(), ());
-    distance = 0;
+    distanceToTurnMeters = 0;
     turn = turns::TurnItem();
     return;
   }
@@ -140,10 +140,10 @@ void Route::GetTurn(double & distance, turns::TurnItem & turn) const
 
   size_t const segIdx = (*it).m_index - 1;
   turn = (*it);
-  distance = m_segDistance[segIdx] - GetCurrentDistanceFromBegin();
+  distanceToTurnMeters = m_segDistance[segIdx] - GetCurrentDistanceFromBegin();
 }
 
-void Route::GetDirectionPoint(m2::PointD & pt) const
+void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 {
   ASSERT(m_current.IsValid(), ());
 
