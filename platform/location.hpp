@@ -2,6 +2,8 @@
 
 #include "base/base.hpp"
 
+#include "geometry/latlon.hpp"
+
 #include "routing/turns.hpp"
 #include "routing/turns_sound_settings.hpp"
 
@@ -97,7 +99,8 @@ namespace location
     FollowingInfo()
         : m_turn(routing::turns::TurnDirection::NoTurn),
           m_exitNum(0),
-          m_time(0)
+          m_time(0),
+          m_pedestrianDirectionPos(0., 0.)
     {
     }
 
@@ -131,7 +134,6 @@ namespace location
     string m_distToTurn;
     string m_turnUnitsSuffix;
     routing::turns::TurnDirection m_turn;
-    routing::turns::PedestrianDirection m_pedestrianTurn;
     uint32_t m_exitNum;
     //@}
     int m_time;
@@ -144,6 +146,12 @@ namespace location
     vector<routing::turns::sound::Notification> m_turnNotifications;
     // The next street name.
     string m_targetName;
+
+    /// @name Pedestrian direction information
+    //@{
+    routing::turns::PedestrianDirection m_pedestrianTurn;
+    ms::LatLon m_pedestrianDirectionPos;
+    //@}
 
     bool IsValid() const { return !m_distToTarget.empty(); }
   };

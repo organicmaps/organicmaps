@@ -11,6 +11,7 @@
 
 #include "std/numeric.hpp"
 #include "std/utility.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace routing
@@ -140,6 +141,13 @@ void Route::GetTurn(double & distance, turns::TurnItem & turn) const
   size_t const segIdx = (*it).m_index - 1;
   turn = (*it);
   distance = m_segDistance[segIdx] - GetCurrentDistanceFromBegin();
+}
+
+void Route::GetDirectionPoint(m2::PointD & pt) const
+{
+  ASSERT(m_current.IsValid(), ());
+
+  m_poly.GetPoint(min(m_current.m_ind + 1, m_poly.GetSize() - 1));
 }
 
 bool Route::MoveIterator(location::GpsInfo const & info) const

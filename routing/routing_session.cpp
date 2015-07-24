@@ -10,9 +10,21 @@
 
 using namespace location;
 
+namespace
+{
+
+int constexpr kOnRouteMissedCount = 5;
+
+// @todo(vbykoianko) The distance should depend on the current speed.
+double constexpr kShowLanesDistInMeters = 500.;
+
+// @todo(kshalnev) The distance may depend on the current speed.
+double constexpr kShowPedestrianTurnInMeters = 5.;
+
+}  // namespace
+
 namespace routing
 {
-static int const ON_ROUTE_MISSED_COUNT = 5;
 
 RoutingSession::RoutingSession()
     : m_router(nullptr),
@@ -99,7 +111,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
 
   if (m_state == RouteNotReady)
   {
-    if (++m_moveAwayCounter > ON_ROUTE_MISSED_COUNT)
+    if (++m_moveAwayCounter > kOnRouteMissedCount)
       return RouteNeedRebuild;
     else
       return RouteNotReady;
@@ -141,7 +153,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
       m_lastDistance = 0.0;
     }
 
-    if (m_moveAwayCounter > ON_ROUTE_MISSED_COUNT)
+    if (m_moveAwayCounter > kOnRouteMissedCount)
       m_state = RouteNeedRebuild;
   }
 
@@ -160,8 +172,6 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
     suffix = value.substr(delim + 1);
     value.erase(delim);
   };
-  // @todo(vbykoianko) The distance should depend on the current speed.
-  double const kShowLanesDistInMeters = 500.;
 
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
@@ -176,7 +186,6 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
 
     formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
     info.m_turn = turn.m_turn;
-    info.m_pedestrianTurn = turn.m_pedestrianTurn;
     info.m_exitNum = turn.m_exitNum;
     info.m_time = m_route.GetTime();
     info.m_targetName = turn.m_targetName;
@@ -197,6 +206,13 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
       info.m_lanes.clear();
     }
 
+    // Pedestrian info
+    m2::PointD nextPos;
+    m_route.GetDirectionPoint(nextPos);
+    info.m_pedestrianDirectionPos = MercatorBounds::ToLatLon(nextPos);
+    info.m_pedestrianTurn =
+        (distanceToTurnMeters < kShowPedestrianTurnInMeters) ? turn.m_pedestrianTurn : turns::PedestrianDirection::None;
+
     // Voice turn notifications.
     m_turnsSound.UpdateRouteFollowingInfo(info, turn, distanceToTurnMeters);
   }
@@ -204,11 +220,12 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
   {
     // nothing should be displayed on the screen about turns if these lines are executed
     info.m_turn = turns::TurnDirection::NoTurn;
-    info.m_pedestrianTurn = turns::PedestrianDirection::None;
     info.m_exitNum = 0;
     info.m_time = 0;
     info.m_targetName.clear();
     info.m_lanes.clear();
+    info.m_pedestrianTurn = turns::PedestrianDirection::None;
+    info.m_pedestrianDirectionPos = ms::LatLon(0., 0.);
   }
 }
 
