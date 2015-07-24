@@ -17,10 +17,9 @@ Timer::Timer(bool start/* = true*/)
 {
   if (start)
     Reset();
-  else
-    m_startTime = 0.0;
 }
 
+// static
 double Timer::LocalTime()
 {
 #ifdef OMIM_OS_WINDOWS_NATIVE
@@ -36,16 +35,6 @@ double Timer::LocalTime()
   ::gettimeofday(&tv, 0);
   return tv.tv_sec + tv.tv_usec / 1000000.0;
 #endif
-}
-
-double Timer::ElapsedSeconds() const
-{
-  return LocalTime() - m_startTime;
-}
-
-void Timer::Reset()
-{
-  m_startTime = LocalTime();
 }
 
 string FormatCurrentTime()

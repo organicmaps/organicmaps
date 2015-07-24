@@ -39,8 +39,6 @@ public:
 
   bool WaitNonEmpty()
   {
-    double StartWaitTime = m_Timer.ElapsedSeconds();
-
     while (m_queue.empty())
     {
       if (IsCancelled())
@@ -48,8 +46,6 @@ public:
 
       m_Cond.Wait();
     }
-
-    m_WaitTime += m_Timer.ElapsedSeconds() - StartWaitTime;
 
     if (IsCancelled())
       return true;

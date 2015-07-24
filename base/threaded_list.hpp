@@ -76,8 +76,6 @@ public:
 
   bool WaitNonEmpty()
   {
-    double StartWaitTime = m_Timer.ElapsedSeconds();
-
     bool doFirstWait = true;
 
     while ((m_isEmpty = m_list.empty()))
@@ -90,8 +88,6 @@ public:
 
       m_Cond.Wait();
     }
-
-    m_WaitTime += m_Timer.ElapsedSeconds() - StartWaitTime;
 
     if (IsCancelled())
       return true;

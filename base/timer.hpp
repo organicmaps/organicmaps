@@ -11,16 +11,26 @@ namespace my
 /// Cross platform timer
 class Timer
 {
-  double m_startTime;
+  steady_clock::time_point m_startTime;
 
 public:
   explicit Timer(bool start = true);
 
   /// @return current UTC time in seconds, elapsed from 1970.
   static double LocalTime();
-  /// @return Elapsed time in seconds from start (@see Reset).
-  double ElapsedSeconds() const;
-  void Reset();
+
+  /// @return Elapsed time from start (@see Reset).
+  inline steady_clock::duration TimeElapsed() const { return steady_clock::now() - m_startTime; }
+
+  template <typename TDuration>
+  inline TDuration TimeElapsedAs() const
+  {
+    return duration_cast<TDuration>(TimeElapsed());
+  }
+
+  inline double ElapsedSeconds() const { return TimeElapsedAs<duration<double>>().count(); }
+
+  inline void Reset() { m_startTime = steady_clock::now(); }
 };
 
 string FormatCurrentTime();
