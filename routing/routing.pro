@@ -31,6 +31,7 @@ SOURCES += \
     road_graph.cpp \
     road_graph_router.cpp \
     route.cpp \
+    router.cpp \
     routing_algorithm.cpp \
     routing_mapping.cpp \
     routing_session.cpp \

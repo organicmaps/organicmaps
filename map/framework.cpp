@@ -99,6 +99,7 @@ namespace
 {
   static const int BM_TOUCH_PIXEL_INCREASE = 20;
   static const int kKeepPedestrianDistanceMeters = 10000;
+  char const kRouterTypeKey[] = "router";
 }
 
 pair<MwmSet::MwmHandle, MwmSet::RegResult> Framework::RegisterMap(
@@ -2307,12 +2308,12 @@ string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)
   return m_stringsBundle.GetString(messageID);
 }
 
-RouterType Framework::GetBestRouterType(m2::PointD const & startPoint, m2::PointD const & finalPoint)
+RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const
 {
   if (MercatorBounds::DistanceOnEarth(startPoint, finalPoint) < kKeepPedestrianDistanceMeters)
   {
     string routerType;
-    Settings::Get("router", routerType);
+    Settings::Get(kRouterTypeKey, routerType);
     if (routerType == routing::ToString(RouterType::Pedestrian))
       return RouterType::Pedestrian;
   }
@@ -2321,5 +2322,5 @@ RouterType Framework::GetBestRouterType(m2::PointD const & startPoint, m2::Point
 
 void Framework::SetLastUsedRouter(RouterType type)
 {
-  Settings::Set("router", routing::ToString(type));
+  Settings::Set(kRouterTypeKey, routing::ToString(type));
 }

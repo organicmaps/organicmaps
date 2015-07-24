@@ -570,7 +570,8 @@ public:
   void GetRouteFollowingInfo(location::FollowingInfo & info) { m_routingSession.GetRouteFollowingInfo(info); }
   m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
   void SetLastUsedRouter(routing::RouterType type);
-  routing::RouterType GetBestRouterType(m2::PointD const & startPoint, m2::PointD const & finalPoint);
+  /// Returns the most situable router engine type. Bases on distance and the last used router.
+  routing::RouterType GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const;
   // @TODO The three methods below has to be called from jni.
   // Sound notifications for turn instructions.
   inline void EnableTurnNotifications(bool enable) { m_routingSession.EnableTurnNotifications(enable); }
