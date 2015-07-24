@@ -105,7 +105,7 @@ private:
 
     void operator()(Route & route, IRouter::ResultCode e);
   };
-  void AssignRoute(Route & route);
+  void AssignRoute(Route & route, IRouter::ResultCode e);
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RemoveRouteImpl();
