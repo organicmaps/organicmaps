@@ -1,6 +1,7 @@
 package com.mapswithme.util;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
@@ -296,6 +297,14 @@ public class Utils
       marketIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
     else
       marketIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    activity.startActivity(marketIntent);
+
+    try
+    {
+      activity.startActivity(marketIntent);
+    }
+    catch (ActivityNotFoundException e)
+    {
+      e.printStackTrace();
+    }
   }
 }

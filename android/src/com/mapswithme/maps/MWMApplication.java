@@ -17,7 +17,6 @@ import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -296,7 +295,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     final int currentLaunches = nativeGetInt(LAUNCH_NUMBER_SETTING, 0);
     if (currentLaunches == 0)
     {
-      trackFirstLaunch();
       nativeSetInt(FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
 
       final String installedFlavor = getFirstInstallFlavor();
@@ -316,11 +314,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
       nativeSetInt(SESSION_NUMBER_SETTING, sessionNum + 1);
       nativeSetLong(LAST_SESSION_TIMESTAMP_SETTING, System.currentTimeMillis());
     }
-  }
-
-  private void trackFirstLaunch()
-  {
-    Statistics.INSTANCE.trackFirstLaunch(BuildConfig.IS_PREINSTALLED, BuildConfig.FLAVOR);
   }
 
   /**

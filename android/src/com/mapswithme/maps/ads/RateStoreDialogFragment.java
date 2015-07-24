@@ -59,7 +59,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
       {
         Statistics.INSTANCE.trackRatingDialog(rating);
         mRating = rating;
-        if (rating == 5.0f)
+        if (rating >= BuildConfig.RATING_THRESHOLD)
         {
           LikesManager.setRatingApplied(RateStoreDialogFragment.class, true);
           dismiss();

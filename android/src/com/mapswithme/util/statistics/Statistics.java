@@ -70,7 +70,6 @@ public enum Statistics
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
     //
     public static final String NO_FREE_SPACE = "Downloader. Not enough free space.";
-    public static final String APP_ACTIVATED = "Application activated.";
     public static final String PLUS_DIALOG_LATER = "GPlus dialog cancelled.";
     public static final String RATE_DIALOG_LATER = "GPlay dialog cancelled.";
     public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
@@ -93,7 +92,6 @@ public enum Statistics
     public static final String FG_TIME = "Foreground time";
     public static final String PRO_STAT = "One time PRO stat";
     public static final String ENABLED = "Enabled";
-    public static final String IS_PREINSTALLED = "IsPreinstalled";
     public static final String APP_FLAVOR = "Flavor";
     public static final String RATING = "Rating";
   }
@@ -246,16 +244,6 @@ public enum Statistics
         setName(EventName.WIFI_CONNECTED).
         addParam(EventParam.HAD_VALID_LOCATION, String.valueOf(isLocationExpired)).
         addParam(EventParam.DELAY_MILLIS, String.valueOf(delayMillis)).
-        buildEvent();
-    trackIfEnabled(event);
-  }
-
-  public void trackFirstLaunch(boolean isPreinstalled, String flavor)
-  {
-    final Event event = mEventBuilder.
-        setName(EventName.APP_ACTIVATED).
-        addParam(EventParam.IS_PREINSTALLED, String.valueOf(isPreinstalled)).
-        addParam(EventParam.APP_FLAVOR, flavor).
         buildEvent();
     trackIfEnabled(event);
   }
