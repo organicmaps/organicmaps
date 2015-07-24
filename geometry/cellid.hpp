@@ -36,6 +36,11 @@ public:
     return CellId(bits, level);
   }
 
+  inline static size_t TotalCellsOnLevel(size_t level)
+  {
+    return 1 << 2 * level;
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Simple getters
 

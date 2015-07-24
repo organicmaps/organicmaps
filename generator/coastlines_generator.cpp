@@ -11,7 +11,10 @@
 #include "3party/gflags/src/gflags/gflags.h"
 
 #include "std/bind.hpp"
-
+#include "std/condition_variable.hpp"
+#include "std/function.hpp"
+#include "std/thread.hpp"
+#include "std/utility.hpp"
 
 typedef m2::RegionI RegionT;
 typedef m2::PointI PointT;
@@ -83,7 +86,7 @@ void CoastlineFeaturesGenerator::AddRegionToTree(FeatureBuilder1 const & fb)
 {
   ASSERT ( fb.IsGeometryClosed(), () );
 
-  DoCreateRegion<TreeT> createRgn(m_tree);
+  DoCreateRegion<TTree> createRgn(m_tree);
   fb.ForEachGeometryPointEx(createRgn);
 }
 
@@ -211,58 +214,149 @@ namespace
   };
 }
 
-bool CoastlineFeaturesGenerator::GetFeature(CellIdT const & cell, FeatureBuilder1 & fb)
+class RegionInCellSplitter final
 {
-  // get rect cell
-  double minX, minY, maxX, maxY;
-  CellIdConverter<MercatorBounds, CellIdT>::GetCellBounds(cell, minX, minY, maxX, maxY);
+public:
+  typedef RectId TCell;
+  typedef m4::Tree<m2::RegionI> TIndex;
+  typedef function<void(TCell const &, DoDifference &)> TProcessResultFunc;
 
-  // create rect region
-  typedef m2::PointD P;
-  PointT arr[] = { D2I(P(minX, minY)), D2I(P(minX, maxY)),
-                   D2I(P(maxX, maxY)), D2I(P(maxX, minY)) };
-  RegionT rectR(arr, arr + ARRAY_SIZE(arr));
+protected:
+  TIndex const & m_index;
+  mutex & m_mutexTasks;
+  list<TCell> & m_listTasks;
+  list<TCell> m_errorCell;
+  condition_variable & m_listCondVar;
+  size_t & m_inWork;
+  TProcessResultFunc m_processResultFunc;
+  mutex & m_mutexResult;
 
-  // Do 'and' with all regions and accumulate the result, including bound region.
-  // In 'odd' parts we will have an ocean.
-  DoDifference doDiff(rectR);
-  m_tree.ForEachInRect(GetLimitRect(rectR), bind<void>(ref(doDiff), _1));
 
-  // Check if too many points for feature.
-  if (cell.Level() < m_highLevel && doDiff.GetPointsCount() >= m_maxPoints)
-    return false;
+  RegionInCellSplitter(list<TCell> & listTasks, mutex & mutexTasks, condition_variable & condVar, size_t & inWork,
+             TProcessResultFunc funcResult, mutex & mutexResult,
+             TIndex const & index)
+  : m_index(index)
+  , m_mutexTasks(mutexTasks)
+  , m_listTasks(listTasks)
+  , m_listCondVar(condVar)
+  , m_inWork(inWork)
+  , m_processResultFunc(funcResult)
+  , m_mutexResult(mutexResult)
+  {}
 
-  // assign feature
-  fb.SetCoastCell(cell.ToInt64(m_highLevel + 1), cell.ToString());
 
-  doDiff.AssignGeometry(fb);
-  fb.SetArea();
-  fb.AddType(m_coastType);
-
-  // should present any geometry
-  CHECK_GREATER ( fb.GetPolygonsCount(), 0, () );
-  CHECK_GREATER_OR_EQUAL ( fb.GetPointsCount(),  3, () );
-
-  return true;
-}
-
-void CoastlineFeaturesGenerator::GetFeatures(size_t i, vector<FeatureBuilder1> & vecFb)
-{
-  vector<CellIdT> stCells;
-  stCells.push_back(CellIdT::FromBitsAndLevel(i, m_lowLevel));
-
-  while (!stCells.empty())
+public:
+  static bool Process(size_t numThreads, size_t baseScale, TIndex const & index, TProcessResultFunc funcResult)
   {
-    CellIdT const cell = stCells.back();
-    stCells.pop_back();
+    list<TCell> listTasks;
+    for (size_t i = 0; i < TCell::TotalCellsOnLevel(baseScale); ++i)
+      listTasks.push_back(TCell::FromBitsAndLevel(i, static_cast<int>(baseScale)));
 
-    vecFb.push_back(FeatureBuilder1());
-    if (!GetFeature(cell, vecFb.back()))
+    vector<RegionInCellSplitter> instances;
+    vector<thread> threads;
+    mutex mutexTasks;
+    mutex mutexResult;
+    condition_variable condVar;
+    size_t inWork = 0;
+    for (size_t i = 0; i < numThreads; ++i)
     {
-      vecFb.pop_back();
+      instances.emplace_back(RegionInCellSplitter(listTasks, mutexTasks, condVar, inWork, funcResult, mutexResult, index));
+      threads.emplace_back(thread(instances.back()));
+    }
 
-      for (int8_t i = 0; i < 4; ++i)
-        stCells.push_back(cell.Child(i));
+    for (auto & thread : threads)
+      thread.join();
+    // return true if listTask has no error cells
+    return listTasks.empty();
+  }
+
+  bool ProcessCell(TCell const & cell)
+  {
+    // get rect cell
+    double minX, minY, maxX, maxY;
+    CellIdConverter<MercatorBounds, TCell>::GetCellBounds(cell, minX, minY, maxX, maxY);
+
+    // create rect region
+    typedef m2::PointD P;
+    PointT arr[] = { D2I(P(minX, minY)), D2I(P(minX, maxY)),
+      D2I(P(maxX, maxY)), D2I(P(maxX, minY)) };
+    RegionT rectR(arr, arr + ARRAY_SIZE(arr));
+
+    // Do 'and' with all regions and accumulate the result, including bound region.
+    // In 'odd' parts we will have an ocean.
+    DoDifference doDiff(rectR);
+    m_index.ForEachInRect(GetLimitRect(rectR), bind<void>(ref(doDiff), _1));
+
+    // Check if too many points for feature.
+    if (cell.Level() < 10 /*m_highLevel*/ && doDiff.GetPointsCount() >= 20000 /*m_maxPoints*/)
+      return false;
+
+    {
+      // assign feature
+      unique_lock<mutex> lock(m_mutexResult);
+      m_processResultFunc(cell, doDiff);
+    }
+
+
+    return true;
+  }
+
+public:
+  void operator()()
+  {
+    // thread main loop
+    for (;;)
+    {
+      TCell currentCell;
+      unique_lock<mutex> lock(m_mutexTasks);
+      m_listCondVar.wait(lock, [this]{return (!m_listTasks.empty() || m_inWork == 0);});
+      if (m_listTasks.empty() && m_inWork == 0)
+        break;
+
+      currentCell = m_listTasks.front();
+      m_listTasks.pop_front();
+      ++m_inWork;
+      lock.unlock();
+
+      bool done = ProcessCell(currentCell);
+
+      lock.lock();
+      // return to queue not ready cells
+      if (!done)
+      {
+        for (int8_t i = 0; i < 4; ++i)
+          m_listTasks.push_back(currentCell.Child(i));
+      }
+      --m_inWork;
+      m_listCondVar.notify_all();
+    }
+
+    // return back cells with error into task queue
+    if (!m_errorCell.empty())
+    {
+      unique_lock<mutex> lock(m_mutexTasks);
+      m_listTasks.insert(m_listTasks.end(), m_errorCell.begin(), m_errorCell.end());
     }
   }
+
+};
+
+void CoastlineFeaturesGenerator::GetFeatures(size_t baseLevel, vector<FeatureBuilder1> & features)
+{
+  size_t maxThreads = thread::thread::hardware_concurrency();
+  RegionInCellSplitter::Process(maxThreads, baseLevel, m_tree,
+                                [&features, this](RegionInCellSplitter::TCell const & cell, DoDifference & cellData)
+  {
+    features.emplace_back(FeatureBuilder1());
+    FeatureBuilder1 & fb = features.back();
+    fb.SetCoastCell(cell.ToInt64(m_highLevel + 1), cell.ToString());
+
+    cellData.AssignGeometry(fb);
+    fb.SetArea();
+    fb.AddType(m_coastType);
+
+    // should present any geometry
+    CHECK_GREATER ( fb.GetPolygonsCount(), 0, () );
+    CHECK_GREATER_OR_EQUAL ( fb.GetPointsCount(),  3, () );
+  });
 }
