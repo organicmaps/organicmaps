@@ -127,7 +127,7 @@
         android:layout_height="@dimen/progress_wheel_height"
         android:layout_marginTop="@dimen/margin_half_plus"
         android:background="?clickableBackground"
-        wheel:progressColor="@color/base_green"
+        wheel:wheelColor="@color/base_green"
         wheel:secondaryColor="@color/downloader_progress_bg"
         wheel:wheelThickness="@dimen/margin_quarter"/>
   </LinearLayout>

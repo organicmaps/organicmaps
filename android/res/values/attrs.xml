@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <declare-styleable name="WheelProgressView">
-    <attr name="progressColor" format="color"/>
+    <attr name="wheelColor" format="color"/>
     <attr name="secondaryColor" format="color"/>
     <attr name="wheelThickness" format="dimension"/>
     <attr name="clickableBackground" format="reference"/>
@@ -14,6 +14,14 @@
       <enum name="leftTop" value="2"/>
       <enum name="leftFull" value="3"/>
     </attr>
+  </declare-styleable>
+
+  <declare-styleable name="FlatProgressView">
+    <attr name="progressColor" format="color"/>
+    <attr name="progressThickness" format="dimension"/>
+    <attr name="headColor" format="color"/>
+    <attr name="headRadius" format="dimension"/>
+    <attr name="progress" format="integer"/>
   </declare-styleable>
 
   <!-- 7 inch tablet -->
