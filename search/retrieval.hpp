@@ -21,7 +21,7 @@ public:
   public:
     virtual ~Callback() = default;
 
-    virtual void OnMwmProcessed(MwmSet::MwmId const & id, vector<uint32_t> const & offsets) = 0;
+    virtual void OnMwmProcessed(MwmSet::MwmId const & id, vector<uint32_t> const & featureIds) = 0;
   };
 
   // Following class represents a set of retrieval's limits.
@@ -30,22 +30,23 @@ public:
   public:
     Limits();
 
-    // Sets lower bound on number of features to be retrieved.
-    void SetMinNumFeatures(uint64_t minNumFeatures);
-    uint64_t GetMinNumFeatures() const;
+    // Sets upper bound (inclusive) on a number of features to be
+    // retrieved.
+    void SetMaxNumFeatures(uint64_t minNumFeatures);
+    uint64_t GetMaxNumFeatures() const;
 
     // Sets upper bound on a maximum viewport's scale.
     void SetMaxViewportScale(double maxViewportScale);
     double GetMaxViewportScale() const;
 
-    inline bool IsMinNumFeaturesSet() const { return m_minNumFeaturesSet; }
+    inline bool IsMaxNumFeaturesSet() const { return m_maxNumFeaturesSet; }
     inline bool IsMaxViewportScaleSet() const { return m_maxViewportScaleSet; }
 
   private:
-    uint64_t m_minNumFeatures;
+    uint64_t m_maxNumFeatures;
     double m_maxViewportScale;
 
-    bool m_minNumFeaturesSet : 1;
+    bool m_maxNumFeaturesSet : 1;
     bool m_maxViewportScaleSet : 1;
   };
 
@@ -57,9 +58,9 @@ public:
   void Go(Callback & callback);
 
 private:
-  struct FeatureBucket
+  struct Bucket
   {
-    FeatureBucket(MwmSet::MwmHandle && handle);
+    Bucket(MwmSet::MwmHandle && handle);
 
     MwmSet::MwmHandle m_handle;
     vector<uint32_t> m_addressFeatures;
@@ -77,13 +78,14 @@ private:
 
   bool ViewportCoversAllMwms() const;
 
-  uint64_t CountRetrievedFeatures() const;
+  void ReportFeatures(Bucket & bucket, Callback & callback);
 
   Index * m_index;
   m2::RectD m_viewport;
   SearchQueryParams m_params;
   Limits m_limits;
+  uint64_t m_featuresReported;
 
-  vector<FeatureBucket> m_buckets;
+  vector<Bucket> m_buckets;
 };
 }  // namespace search

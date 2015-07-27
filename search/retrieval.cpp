@@ -9,6 +9,7 @@
 
 #include "base/stl_add.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/cmath.hpp"
 
 namespace search
@@ -21,7 +22,7 @@ struct EmptyFilter
 };
 
 void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams const & params,
-                             vector<uint32_t> & offsets)
+                             vector<uint32_t> & featureIds)
 {
   auto * value = handle.GetValue<MwmValue>();
   ASSERT(value, ());
@@ -31,16 +32,16 @@ void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams
       ::trie::reader::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
                                trie::ValueReader(codingParams), trie::EdgeValueReader()));
 
-  offsets.clear();
+  featureIds.clear();
   auto collector = [&](trie::ValueReader::ValueType const & value)
   {
-    offsets.push_back(value.m_featureId);
+    featureIds.push_back(value.m_featureId);
   };
   MatchFeaturesInTrie(params, *trieRoot, EmptyFilter(), collector);
 }
 
 void RetrieveGeometryFeatures(MwmSet::MwmHandle const & handle, m2::RectD const & viewport,
-                              SearchQueryParams const & params, vector<uint32_t> & offsets)
+                              SearchQueryParams const & params, vector<uint32_t> & featureIds)
 {
   auto * value = handle.GetValue<MwmValue>();
   ASSERT(value, ());
@@ -54,8 +55,8 @@ void RetrieveGeometryFeatures(MwmSet::MwmHandle const & handle, m2::RectD const 
   covering::IntervalsT const & intervals = covering.Get(scale);
   ScaleIndex<ModelReaderPtr> index(value->m_cont.GetReader(INDEX_FILE_TAG), value->m_factory);
 
-  offsets.clear();
-  auto collector = MakeBackInsertFunctor(offsets);
+  featureIds.clear();
+  auto collector = MakeBackInsertFunctor(featureIds);
   for (auto const & interval : intervals)
   {
     index.ForEachInIntervalAndScale(collector, interval.first, interval.second, scale);
@@ -64,23 +65,23 @@ void RetrieveGeometryFeatures(MwmSet::MwmHandle const & handle, m2::RectD const 
 }  // namespace
 
 Retrieval::Limits::Limits()
-    : m_minNumFeatures(0),
+    : m_maxNumFeatures(0),
       m_maxViewportScale(0.0),
-      m_minNumFeaturesSet(false),
+      m_maxNumFeaturesSet(false),
       m_maxViewportScaleSet(false)
 {
 }
 
-void Retrieval::Limits::SetMinNumFeatures(uint64_t minNumFeatures)
+void Retrieval::Limits::SetMaxNumFeatures(uint64_t maxNumFeatures)
 {
-  m_minNumFeatures = minNumFeatures;
-  m_minNumFeaturesSet = true;
+  m_maxNumFeatures = maxNumFeatures;
+  m_maxNumFeaturesSet = true;
 }
 
-uint64_t Retrieval::Limits::GetMinNumFeatures() const
+uint64_t Retrieval::Limits::GetMaxNumFeatures() const
 {
-  ASSERT(IsMinNumFeaturesSet(), ());
-  return m_minNumFeatures;
+  ASSERT(IsMaxNumFeaturesSet(), ());
+  return m_maxNumFeatures;
 }
 
 void Retrieval::Limits::SetMaxViewportScale(double maxViewportScale)
@@ -95,7 +96,7 @@ double Retrieval::Limits::GetMaxViewportScale() const
   return m_maxViewportScale;
 }
 
-Retrieval::FeatureBucket::FeatureBucket(MwmSet::MwmHandle && handle)
+Retrieval::Bucket::Bucket(MwmSet::MwmHandle && handle)
     : m_handle(move(handle)),
       m_intersectsWithViewport(false),
       m_coveredByViewport(false),
@@ -107,7 +108,7 @@ Retrieval::FeatureBucket::FeatureBucket(MwmSet::MwmHandle && handle)
   m_bounds = header.GetBounds();
 }
 
-Retrieval::Retrieval() : m_index(nullptr) {}
+Retrieval::Retrieval() : m_index(nullptr), m_featuresReported(0) {}
 
 void Retrieval::Init(Index & index, m2::RectD const & viewport, SearchQueryParams const & params,
                      Limits const & limits)
@@ -116,6 +117,7 @@ void Retrieval::Init(Index & index, m2::RectD const & viewport, SearchQueryParam
   m_viewport = viewport;
   m_params = params;
   m_limits = limits;
+  m_featuresReported = 0;
 
   vector<shared_ptr<MwmInfo>> infos;
   index.GetMwmsInfo(infos);
@@ -123,8 +125,7 @@ void Retrieval::Init(Index & index, m2::RectD const & viewport, SearchQueryParam
   m_buckets.clear();
   for (auto const & info : infos)
   {
-    MwmSet::MwmHandle handle =
-        index.GetMwmHandleByCountryFile(info->GetLocalFile().GetCountryFile());
+    MwmSet::MwmHandle handle = index.GetMwmHandleById(MwmSet::MwmId(info));
     if (!handle.IsAlive())
       continue;
     auto * value = handle.GetValue<MwmValue>();
@@ -154,7 +155,7 @@ void Retrieval::Go(Callback & callback)
       break;
     if (m_limits.IsMaxViewportScaleSet() && scale >= m_limits.GetMaxViewportScale())
       break;
-    if (m_limits.IsMinNumFeaturesSet() && CountRetrievedFeatures() >= m_limits.GetMinNumFeatures())
+    if (m_limits.IsMaxNumFeaturesSet() && m_featuresReported >= m_limits.GetMaxNumFeatures())
       break;
   }
 
@@ -165,8 +166,7 @@ void Retrieval::Go(Callback & callback)
     // The bucket is not covered by viewport, thus all matching
     // features were not reported.
     bucket.m_finished = true;
-    if (!bucket.m_intersection.empty())
-      callback.OnMwmProcessed(bucket.m_handle.GetId(), bucket.m_intersection);
+    ReportFeatures(bucket, callback);
   }
 }
 
@@ -200,11 +200,11 @@ void Retrieval::RetrieveForViewport(m2::RectD const & viewport, Callback & callb
 
     if (!bucket.m_coveredByViewport && viewport.IsRectInside(bucket.m_bounds))
     {
-      // Next time we will skip the bucket, so it's better to report all it's features now.
+      // Next time we will skip the bucket, so it's better to report
+      // all its features now.
       bucket.m_coveredByViewport = true;
       bucket.m_finished = true;
-      if (!bucket.m_intersection.empty())
-        callback.OnMwmProcessed(bucket.m_handle.GetId(), bucket.m_intersection);
+      ReportFeatures(bucket, callback);
     }
   }
 }
@@ -219,12 +219,19 @@ bool Retrieval::ViewportCoversAllMwms() const
   return true;
 }
 
-uint64_t Retrieval::CountRetrievedFeatures() const
+void Retrieval::ReportFeatures(Bucket & bucket, Callback & callback)
 {
-  static_assert(sizeof(size_t) <= sizeof(uint64_t), "uint64_t must be not less than size_t");
-  uint64_t count = 0;
-  for (auto const & bucket : m_buckets)
-    count += bucket.m_intersection.size();
-  return count;
+  ASSERT(!m_limits.IsMaxNumFeaturesSet() || m_featuresReported <= m_limits.GetMaxNumFeatures(), ());
+  if (m_limits.IsMaxNumFeaturesSet())
+  {
+    uint64_t const delta = m_limits.GetMaxNumFeatures() - m_featuresReported;
+    if (bucket.m_intersection.size() > delta)
+      bucket.m_intersection.resize(delta);
+  }
+  if (!bucket.m_intersection.empty())
+  {
+    callback.OnMwmProcessed(bucket.m_handle.GetId(), bucket.m_intersection);
+    m_featuresReported += bucket.m_intersection.size();
+  }
 }
 }  // namespace search

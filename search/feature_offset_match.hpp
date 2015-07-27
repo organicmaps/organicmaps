@@ -265,55 +265,55 @@ public:
 
   void Resize(size_t count) { m_holder.resize(count); }
 
-  void StartNew(size_t index)
+  void SwitchTo(size_t index)
   {
     ASSERT_LESS(index, m_holder.size(), ());
     m_index = index;
   }
 
-  void operator()(Query::TrieValueT const & v)
+  void operator()(Query::TTrieValue const & v)
   {
     if (m_filter(v.m_featureId))
       m_holder[m_index].push_back(v);
   }
 
   template <class ToDo>
-  void GetValues(size_t index, ToDo && toDo) const
+  void ForEachValue(size_t index, ToDo && toDo) const
   {
     for (auto const & value : m_holder[index])
       toDo(value);
   }
 
 private:
-  vector<vector<Query::TrieValueT> > m_holder;
+  vector<vector<Query::TTrieValue>> m_holder;
   size_t m_index;
   TFilter const & m_filter;
 };
 
-// Calls toDo for each feature corresponding to at least one sym.
+// Calls toDo for each feature corresponding to at least one synonym.
 // *NOTE* toDo may be called several times for the same feature.
 template <typename ToDo>
-void MatchTokenInTrie(SearchQueryParams::TSynonymsVector const & syms,
+void MatchTokenInTrie(SearchQueryParams::TSynonymsVector const & syns,
                       TrieRootPrefix const & trieRoot, ToDo && toDo)
 {
-  for (auto const & sym : syms)
+  for (auto const & syn : syns)
   {
-    ASSERT(!sym.empty(), ());
-    impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize, sym, toDo);
+    ASSERT(!syn.empty(), ());
+    impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize, syn, toDo);
   }
 }
 
-// Calls toDo for each feature whose tokens contains at least one sym
-// as a prefix.
+// Calls toDo for each feature whose tokens contains at least one
+// synonym as a prefix.
 // *NOTE* toDo may be called serveral times for the same feature.
 template <typename ToDo>
-void MatchTokenPrefixInTrie(SearchQueryParams::TSynonymsVector const & syms,
+void MatchTokenPrefixInTrie(SearchQueryParams::TSynonymsVector const & syns,
                             TrieRootPrefix const & trieRoot, ToDo && toDo)
 {
-  for (auto const & sym : syms)
+  for (auto const & syn : syns)
   {
-    ASSERT(!sym.empty(), ());
-    impl::PrefixMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize, sym, toDo);
+    ASSERT(!syn.empty(), ());
+    impl::PrefixMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize, syn, toDo);
   }
 }
 
@@ -326,7 +326,7 @@ void MatchTokensInTrie(vector<SearchQueryParams::TSynonymsVector> const & tokens
   holder.Resize(tokens.size());
   for (size_t i = 0; i < tokens.size(); ++i)
   {
-    holder.StartNew(i);
+    holder.SwitchTo(i);
     MatchTokenInTrie(tokens[i], trieRoot, holder);
   }
 }
@@ -342,7 +342,7 @@ void MatchTokensAndPrefixInTrie(vector<SearchQueryParams::TSynonymsVector> const
   MatchTokensInTrie(tokens, trieRoot, holder);
 
   holder.Resize(tokens.size() + 1);
-  holder.StartNew(tokens.size());
+  holder.SwitchTo(tokens.size());
   MatchTokenPrefixInTrie(prefixTokens, trieRoot, holder);
 }
 
@@ -364,10 +364,11 @@ bool MatchCategoriesInTrie(SearchQueryParams const & params, TrieIterator const 
       unique_ptr<TrieIterator> const catRoot(trieRoot.GoToEdge(langIx));
       MatchTokensInTrie(params.m_tokens, TrieRootPrefix(*catRoot, edge), holder);
 
-      // Last token's prefix is used as a complete token here, to limit a number of
-      // features in the last bucket of a holder. Probably, this is a false optimization.
+      // Last token's prefix is used as a complete token here, to
+      // limit the number of features in the last bucket of a
+      // holder. Probably, this is a false optimization.
       holder.Resize(params.m_tokens.size() + 1);
-      holder.StartNew(params.m_tokens.size());
+      holder.SwitchTo(params.m_tokens.size());
       MatchTokenInTrie(params.m_prefixTokens, TrieRootPrefix(*catRoot, edge), holder);
       return true;
     }
@@ -375,7 +376,8 @@ bool MatchCategoriesInTrie(SearchQueryParams const & params, TrieIterator const 
   return false;
 }
 
-// Calls toDo with trie root prefix and language code on each languagу allowed by params.
+// Calls toDo with trie root prefix and language code on each language
+// allowed by params.
 template <typename ToDo>
 void ForEachLangPrefix(SearchQueryParams const & params, TrieIterator const & trieRoot,
                        ToDo && toDo)
@@ -412,7 +414,7 @@ void MatchFeaturesInTrie(SearchQueryParams const & params, TrieIterator const & 
     {
       MatchTokenInTrie(params.m_tokens[i], langRoot, intersecter);
     });
-    categoriesHolder.GetValues(i, intersecter);
+    categoriesHolder.ForEachValue(i, intersecter);
     intersecter.NextStep();
   }
 
@@ -422,7 +424,7 @@ void MatchFeaturesInTrie(SearchQueryParams const & params, TrieIterator const & 
     {
       MatchTokenPrefixInTrie(params.m_prefixTokens, langRoot, intersecter);
     });
-    categoriesHolder.GetValues(params.m_tokens.size(), intersecter);
+    categoriesHolder.ForEachValue(params.m_tokens.size(), intersecter);
     intersecter.NextStep();
   }
 

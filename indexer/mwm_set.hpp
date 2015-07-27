@@ -208,6 +208,8 @@ public:
 
   MwmHandle GetMwmHandleByCountryFile(platform::CountryFile const & countryFile);
 
+  MwmHandle GetMwmHandleById(MwmId const & id);
+
 protected:
   /// @return True when file format version was successfully read to MwmInfo.
   virtual MwmInfo * CreateInfo(platform::LocalCountryFile const & localFile) const = 0;
@@ -215,6 +217,9 @@ protected:
 
 private:
   typedef deque<pair<MwmId, TMwmValueBasePtr>> CacheType;
+
+  /// @precondition This function is always called under mutex m_lock.
+  MwmHandle GetMwmHandleByIdImpl(MwmId const & id);
 
   TMwmValueBasePtr LockValue(MwmId const & id);
   TMwmValueBasePtr LockValueImpl(MwmId const & id);

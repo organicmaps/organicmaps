@@ -147,16 +147,16 @@ UNIT_TEST(Retrieval_Smoke)
                callback.Offsets().size(), ());
   }
 
-  // Retrieve at least than 8 whiskey bars from the center.
+  // Retrieve exactly 8 whiskey bars from the center.
   {
     TestCallback callback(handle.GetId());
     search::Retrieval::Limits limits;
-    limits.SetMinNumFeatures(8);
+    limits.SetMaxNumFeatures(8);
 
     retrieval.Init(index, m2::RectD(m2::PointD(4.9, 4.9), m2::PointD(5.1, 5.1)), params, limits);
     retrieval.Go(callback);
     TEST(callback.WasTriggered(), ());
-    TEST_GREATER_OR_EQUAL(callback.Offsets().size(), 8, ());
+    TEST_EQUAL(callback.Offsets().size(), 8, ());
   }
 }
 
@@ -210,12 +210,23 @@ UNIT_TEST(Retrieval_3Mwms)
   {
     TestCallback callback(mskHandle.GetId());
     search::Retrieval::Limits limits;
-    limits.SetMinNumFeatures(1);
+    limits.SetMaxNumFeatures(1);
 
     retrieval.Init(index, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params, limits);
     retrieval.Go(callback);
     TEST(callback.WasTriggered(), ());
     TEST_EQUAL(callback.Offsets().size(), 1, ());
+  }
+
+  {
+    TestCallback callback(mskHandle.GetId());
+    search::Retrieval::Limits limits;
+    limits.SetMaxNumFeatures(10 /* more than total number of features in all these mwms */);
+
+    retrieval.Init(index, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params, limits);
+    retrieval.Go(callback);
+    TEST(callback.WasTriggered(), ());
+    TEST_EQUAL(callback.Offsets().size(), 3 /* total number of features in all these mwms */, ());
   }
 
   {

@@ -278,8 +278,17 @@ MwmSet::MwmId MwmSet::GetMwmIdByCountryFile(CountryFile const & countryFile) con
 MwmSet::MwmHandle MwmSet::GetMwmHandleByCountryFile(CountryFile const & countryFile)
 {
   lock_guard<mutex> lock(m_lock);
+  return GetMwmHandleByIdImpl(GetMwmIdByCountryFileImpl(countryFile));
+}
 
-  MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
+MwmSet::MwmHandle MwmSet::GetMwmHandleById(MwmId const & id)
+{
+  lock_guard<mutex> lock(m_lock);
+  return GetMwmHandleByIdImpl(id);
+}
+
+MwmSet::MwmHandle MwmSet::GetMwmHandleByIdImpl(MwmId const & id)
+{
   TMwmValueBasePtr value(nullptr);
   if (id.IsAlive())
     value = LockValueImpl(id);

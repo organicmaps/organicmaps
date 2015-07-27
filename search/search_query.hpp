@@ -115,7 +115,7 @@ public:
   /// @name This stuff is public for implementation classes in search_query.cpp
   /// Do not use it in client code.
   //@{
-  typedef trie::ValueReader::ValueType TrieValueT;
+  using TTrieValue = trie::ValueReader::ValueType;
 
   void InitParams(bool localitySearch, SearchQueryParams & params);
 
@@ -149,7 +149,7 @@ private:
     COUNT_V = 2     // Should always be the last
   };
 
-  void AddResultFromTrie(TrieValueT const & val, MwmSet::MwmId const & mwmID,
+  void AddResultFromTrie(TTrieValue const & val, MwmSet::MwmId const & mwmID,
                          ViewportID vID = DEFAULT_V);
 
   template <class T> void MakePreResult2(vector<T> & cont, vector<FeatureID> & streets);

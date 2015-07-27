@@ -931,7 +931,7 @@ template <class T> void Query::ProcessSuggestions(vector<T> & vec, Results & res
   }
 }
 
-void Query::AddResultFromTrie(TrieValueT const & val, MwmSet::MwmId const & mwmID,
+void Query::AddResultFromTrie(TTrieValue const & val, MwmSet::MwmId const & mwmID,
                               ViewportID vID /*= DEFAULT_V*/)
 {
   impl::PreResult1 res(FeatureID(mwmID, val.m_featureId), val.m_rank,
@@ -1266,14 +1266,14 @@ namespace impl
   struct Locality
   {
     string m_name, m_enName;        ///< native name and english name of locality
-    Query::TrieValueT m_value;
+    Query::TTrieValue m_value;
     vector<size_t> m_matchedTokens; ///< indexes of matched tokens for locality
 
     ftypes::Type m_type;
     double m_radius;
 
     Locality() : m_type(ftypes::NONE) {}
-    Locality(Query::TrieValueT const & val, ftypes::Type type)
+    Locality(Query::TTrieValue const & val, ftypes::Type type)
       : m_value(val), m_type(type), m_radius(0)
     {
     }
@@ -1633,9 +1633,10 @@ namespace impl
     }
 
     void Resize(size_t) {}
-    void StartNew(size_t ind) { m_index = ind; }
 
-    void operator() (Query::TrieValueT const & v)
+    void SwitchTo(size_t ind) { m_index = ind; }
+
+    void operator() (Query::TTrieValue const & v)
     {
       if (m_query.IsCancelled())
         throw Query::CancelException();
@@ -1752,7 +1753,7 @@ void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region 
 
     // Last token's prefix is used as a complete token here, to limit number of results.
     doFind.Resize(params.m_tokens.size() + 1);
-    doFind.StartNew(params.m_tokens.size());
+    doFind.SwitchTo(params.m_tokens.size());
     MatchTokenInTrie(params.m_prefixTokens, langRoot, doFind);
     doFind.SortLocalities();
 
@@ -1858,7 +1859,7 @@ void Query::SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams co
   MwmSet::MwmId const mwmId = mwmHandle.GetId();
   FeaturesFilter filter(
       (viewportId == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[viewportId][mwmId], *this);
-  MatchFeaturesInTrie(params, *trieRoot, filter, [&](TrieValueT const & value)
+  MatchFeaturesInTrie(params, *trieRoot, filter, [&](TTrieValue const & value)
   {
     AddResultFromTrie(value, mwmId, viewportId);
   });
