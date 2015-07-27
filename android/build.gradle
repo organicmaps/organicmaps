@@ -28,9 +28,9 @@ dependencies {
   compile 'com.google.android.gms:play-services-plus:7.5.0'
   // 3-party
   compile 'com.nineoldandroids:library:2.4.0'
-  compile 'com.facebook.android:facebook-android-sdk:4.2.0'
+  compile 'com.facebook.android:facebook-android-sdk:4.4.0'
   // for Parse SDK
-  compile 'com.parse.bolts:bolts-android:1.+'
+  compile 'com.parse.bolts:bolts-android:1.1.2'
   compile fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
   compile project(":3rd_party:BottomSheet")
