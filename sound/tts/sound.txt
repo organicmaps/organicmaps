@@ -420,9 +420,9 @@
     th = อีก 200 เมตร
 
   [in_300_meters]
-    en = In 300 meters.
+    en = In 300 meters.
     ru = Через 300 метров.
-    pl = Za 300 metrów.
+    pl = Za 300 metrów.
     sv = Om 300 meter.
     tr = 300 metre sonra.
     fr = Dans 300 mètres.
@@ -448,9 +448,9 @@
     th = อีก 300 เมตร
 
   [in_400_meters]
-    en = In 400 meters.
+    en = In 400 meters.
     ru = Через 400 метров.
-    pl = Za 400 metrów.
+    pl = Za 400 metrów.
     sv = Om 400 meter.
     tr = 400 metre sonra.
     fr = Dans 400 mètres.
@@ -476,9 +476,9 @@
     th = อีก 400 เมตร
 
   [in_500_meters]
-    en = In 500 meters.
+    en = In 500 meters.
     ru = Через 500 метров.
-    pl = Za 500 metrów.
+    pl = Za 500 metrów.
     sv = Om 500 meter.
     tr = 500 metre sonra.
     fr = Dans 500 mètres.
@@ -504,9 +504,9 @@
     th = อีก 500 เมตร
 
   [in_600_meters]
-    en = In 600 meters.
+    en = In 600 meters.
     ru = Через 600 метров.
-    pl = Za 600 metrów.
+    pl = Za 600 metrów.
     sv = Om 600 meter.
     tr = 600 metre sonra.
     fr = Dans 600 mètres.
@@ -532,9 +532,9 @@
     th = อีก 600 เมตร
 
   [in_700_meters]
-    en = In 700 meters.
+    en = In 700 meters.
     ru = Через 700 метров.
-    pl = Za 700 metrów.
+    pl = Za 700 metrów.
     sv = Om 700 meter.
     tr = 700 metre sonra.
     fr = Dans 700 mètres.
@@ -560,9 +560,9 @@
     th = อีก 700 เมตร
 
   [in_800_meters]
-    en = In 800 meters.
+    en = In 800 meters.
     ru = Через 800 метров.
-    pl = Za 800 metrów.
+    pl = Za 800 metrów.
     sv = Om 800 meter.
     tr = 800 metre sonra.
     fr = Dans 800 mètres.
@@ -588,9 +588,9 @@
     th = อีก 800 เมตร
 
   [in_900_meters]
-    en = In 900 meters.
+    en = In 900 meters.
     ru = Через 900 метров.
-    pl = Za 900 metrów.
+    pl = Za 900 metrów.
     sv = Om 900 meter.
     tr = 900 metre sonra.
     fr = Dans 900 mètres.
@@ -1063,8 +1063,8 @@
     sw = Elekea kulia.
     th = ชิดขวา
 
-  [you_have_reached_the intermediate_point]
-    en = You have reached the intermediate point.
+  [you_have_reached_the intermediate_point]
+    en = You have reached the intermediate point.
     ru = Вы достигли промежуточной точки.
     pl = Dojeżdżasz do punktu pośredniego.
     sv = Du är framme vid delmålet.
@@ -1119,8 +1119,8 @@
     sw = Katikati ya safari
     th = จุดแวะพัก
 
-  [enter_the highway]
-    en = Enter the highway.
+  [enter_the highway]
+    en = Enter the highway.
     ru = На магистраль.
     pl = Wjedź na autostradę.
     sv = Kör ut på motorvägen.
@@ -1289,7 +1289,7 @@
 
   [follow_the_sign]
     en = Follow the sign.
-    ru = Следуйте знаку. 
+    ru = Следуйте знаку. 
     pl = Zastosuj się do znaku.
     sv = Följ skylten.
     tr = Tabelayı takip edin.
@@ -1596,9 +1596,9 @@
     th = อีก 50 ฟุต
 
   [in_100_feet]
-    en = In 100 feet.
-    ru = Через 100 футов.
-    pl = Za 100 stóp.
+    en = In 100 feet.
+    ru = Через 100 футов.
+    pl = Za 100 stóp.
     sv = Om 100 feet.
     tr = 100 fit sonra.
     fr = Dans 100 feet.
@@ -1624,9 +1624,9 @@
     th = อีก 100 ฟุต
 
   [in_200_feet]
-    en = In 200 feet.
-    ru = Через 200 футов.
-    pl = Za 200 stóp.
+    en = In 200 feet.
+    ru = Через 200 футов.
+    pl = Za 200 stóp.
     sv = Om 200 feet.
     tr = 200 fit sonra.
     fr = Dans 200 feet.
@@ -1652,9 +1652,9 @@
     th = อีก 200 ฟุต
 
   [in_300_feet]
-    en = In 300 feet.
-    ru = Через 300 футов.
-    pl = Za 300 stóp.
+    en = In 300 feet.
+    ru = Через 300 футов.
+    pl = Za 300 stóp.
     sv = Om 300 feet.
     tr = 300 fit sonra.
     fr = Dans 300 feet.
@@ -1680,9 +1680,9 @@
     th = อีก 300 ฟุต
 
   [in_400_feet]
-    en = In 400 feet.
-    ru = Через 400 футов.
-    pl = Za 400 stóp.
+    en = In 400 feet.
+    ru = Через 400 футов.
+    pl = Za 400 stóp.
     sv = Om 400 feet.
     tr = 400 fit sonra.
     fr = Dans 400 feet.
@@ -1708,9 +1708,9 @@
     th = อีก 400 ฟุต
 
   [in_500_feet]
-    en = In 500 feet.
-    ru = Через 500 футов.
-    pl = Za 500 stóp.
+    en = In 500 feet.
+    ru = Через 500 футов.
+    pl = Za 500 stóp.
     sv = Om 500 feet.
     tr = 500 fit sonra.
     fr = Dans 500 feet.
@@ -1736,9 +1736,9 @@
     th = อีก 500 ฟุต
 
   [in_600_feet]
-    en = In 600 feet.
-    ru = Через 600 футов.
-    pl = Za 600 stóp.
+    en = In 600 feet.
+    ru = Через 600 футов.
+    pl = Za 600 stóp.
     sv = Om 600 feet.
     tr = 600 fit sonra.
     fr = Dans 600 feet.
@@ -1764,9 +1764,9 @@
     th = อีก 600 ฟุต
 
   [in_700_feet]
-    en = In 700 feet.
-    ru = Через 700 футов.
-    pl = Za 700 stóp.
+    en = In 700 feet.
+    ru = Через 700 футов.
+    pl = Za 700 stóp.
     sv = Om 700 feet.
     tr = 700 fit sonra.
     fr = Dans 700 feet.
@@ -1792,9 +1792,9 @@
     th = อีก 700 ฟุต
 
   [in_800_feet]
-    en = In 800 feet.
-    ru = Через 800 футов.
-    pl = Za 800 stóp.
+    en = In 800 feet.
+    ru = Через 800 футов.
+    pl = Za 800 stóp.
     sv = Om 800 feet.
     tr = 800 fit sonra.
     fr = Dans 800 feet.
@@ -1820,9 +1820,9 @@
     th = อีก 800 ฟุต
 
   [in_900_feet]
-    en = In 900 feet.
-    ru = Через 900 футов.
-    pl = Za 900 stóp.
+    en = In 900 feet.
+    ru = Через 900 футов.
+    pl = Za 900 stóp.
     sv = Om 900 feet.
     tr = 900 fit sonra.
     fr = Dans 900 feet.
@@ -1848,9 +1848,9 @@
     th = อีก 900 ฟุต
 
   [in_1000_feet]
-    en = In 1000 feet.
-    ru = Через 1000 футов.
-    pl = Za 1000 stóp.
+    en = In 1000 feet.
+    ru = Через 1000 футов.
+    pl = Za 1000 stóp.
     sv = Om 1 000 feet.
     tr = 1000 fit sonra.
     fr = Dans 1000 feet.
@@ -1876,9 +1876,9 @@
     th = อีก 1000 ฟุต
 
   [in_1500_feet]
-    en = In 1500 feet.
-    ru = Через 1500 футов.
-    pl = Za 1500 stóp.
+    en = In 1500 feet.
+    ru = Через 1500 футов.
+    pl = Za 1500 stóp.
     sv = Om 1 500 feet.
     tr = 1500 fit sonra.
     fr = Dans 1500 feet.
@@ -1904,9 +1904,9 @@
     th = อีก 1500 ฟุต
 
   [in_2000_feet]
-    en = In 2000 feet.
-    ru = Через 2000 футов.
-    pl = Za 2000 stóp.
+    en = In 2000 feet.
+    ru = Через 2000 футов.
+    pl = Za 2000 stóp.
     sv = Om 2 000 feet.
     tr = 2000 fit sonra.
     fr = Dans 2000 feet.
@@ -1932,9 +1932,9 @@
     th = อีก 2000 ฟุต
 
   [in_2500_feet]
-    en = In 2500 feet.
-    ru = Через 2500 футов.
-    pl = Za 2500 stóp.
+    en = In 2500 feet.
+    ru = Через 2500 футов.
+    pl = Za 2500 stóp.
     sv = Om 2 500 feet.
     tr = 2500 fit sonra.
     fr = Dans 2500 feet.
@@ -1960,9 +1960,9 @@
     th = อีก 2500 ฟุต
 
   [in_3000_feet]
-    en = In 3000 feet.
-    ru = Через 3000 футов.
-    pl = Za 3000 stóp.
+    en = In 3000 feet.
+    ru = Через 3000 футов.
+    pl = Za 3000 stóp.
     sv = Om 3 000 feet.
     tr = 3000 fit sonra.
     fr = Dans 3000 feet.
@@ -1988,9 +1988,9 @@
     th = อีก 3000 ฟุต
 
   [in_3500_feet]
-    en = In 3500 feet.
-    ru = Через 3500 футов.
-    pl = Za 3500 stóp.
+    en = In 3500 feet.
+    ru = Через 3500 футов.
+    pl = Za 3500 stóp.
     sv = Om 3 500 feet.
     tr = 3500 fit sonra.
     fr = Dans 3500 feet.
@@ -2016,9 +2016,9 @@
     th = อีก 3500 ฟุต
 
   [in_4000_feet]
-    en = In 4000 feet.
-    ru = Через 4000 футов.
-    pl = Za 4000 stóp.
+    en = In 4000 feet.
+    ru = Через 4000 футов.
+    pl = Za 4000 stóp.
     sv = Om 4 000 feet.
     tr = 4000 fit sonra.
     fr = Dans 4000 feet.
@@ -2044,9 +2044,9 @@
     th = อีก 4000 ฟุต
 
   [in_4500_feet]
-    en = In 4500 feet.
-    ru = Через 4500 футов.
-    pl = Za 4500 stóp.
+    en = In 4500 feet.
+    ru = Через 4500 футов.
+    pl = Za 4500 stóp.
     sv = Om 4 500 feet.
     tr = 4500 fit sonra.
     fr = Dans 4500 feet.
@@ -2072,9 +2072,9 @@
     th = อีก 4500 ฟุต
 
   [in_5000_feet]
-    en = In 5000 feet.
-    ru = Через 5000 футов.
-    pl = Za 5000 stóp.
+    en = In 5000 feet.
+    ru = Через 5000 футов.
+    pl = Za 5000 stóp.
     sv = Om 5 000 feet.
     tr = 5000 fit sonra.
     fr = Dans 5000 feet.
