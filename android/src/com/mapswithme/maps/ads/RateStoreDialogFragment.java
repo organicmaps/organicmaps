@@ -23,6 +23,7 @@ import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -123,9 +124,9 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
       try
       {
         startActivity(intent);
-      } catch (android.content.ActivityNotFoundException ex)
+      } catch (android.content.ActivityNotFoundException e)
       {
-        //
+        AlohaHelper.logException(e);
       }
       break;
     }

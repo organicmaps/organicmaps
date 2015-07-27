@@ -14,6 +14,11 @@ public class AlohaHelper
     org.alohalytics.Statistics.logEvent(ALOHA_LONG_CLICK, element);
   }
 
+  public static void logException(Exception e)
+  {
+    org.alohalytics.Statistics.logEvent(ALOHA_EXCEPTION, new String[] {e.getClass().getSimpleName(), e.getMessage()});
+  }
+
   public static final String SETTINGS_CONTACT_US = "contactUs";
   public static final String SETTINGS_MAIL_SUBSCRIBE = "subscribeToNews";
   public static final String SETTINGS_REPORT_BUG = "reportABug";
@@ -28,6 +33,7 @@ public class AlohaHelper
   // for aloha stats
   public static final String ALOHA_CLICK = "$onClick";
   public static final String ALOHA_LONG_CLICK = "$onLongClick";
+  public static final String ALOHA_EXCEPTION = "exceptionAndroid";
   public static final String ZOOM_IN = "+";
   public static final String ZOOM_OUT = "-";
   // toolbar actions

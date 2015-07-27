@@ -669,7 +669,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         getContext().startActivity(intent);
       } catch (ActivityNotFoundException e)
       {
-        e.printStackTrace();
+        AlohaHelper.logException(e);
       }
       break;
     case R.id.ll__place_website:

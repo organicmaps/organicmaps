@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.util.statistics.AlohaHelper;
 
 import java.io.Closeable;
 import java.io.File;
@@ -304,7 +305,7 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
-      e.printStackTrace();
+      AlohaHelper.logException(e);
     }
   }
 }
