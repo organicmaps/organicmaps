@@ -147,7 +147,7 @@ void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 {
   ASSERT(m_current.IsValid(), ());
 
-  m_poly.GetPoint(min(m_current.m_ind + 1, m_poly.GetSize() - 1));
+  pt = m_poly.GetPoint(min(m_current.m_ind + 1, m_poly.GetSize() - 1));
 }
 
 bool Route::MoveIterator(location::GpsInfo const & info) const
