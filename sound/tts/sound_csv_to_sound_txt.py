@@ -17,6 +17,7 @@ def parse_args():
     + "https://docs.google.com/spreadsheets/d/1gJsSzFpp2B3xnSx-RjjQ3Do66lQDhCxtfEnQo7Vrkw0/edit#gid=150382014\n"
     + "The output shall be put to omim/sound/tts/sound.txt. As another output file the tool generates languages.txt."
     + "languages.txt contains all available languages in csv.\n"
+    + "Notice. The script exchanges all non-breaking spaces with spaces.\n"
     + "Example: python %prog path_to_sound.csv path_to_sound.txt path_to_languages.txt", 
     version="%prog 1.0")
 
@@ -25,6 +26,10 @@ def parse_args():
   if len(args) != 3:
     opt_parser.error("Wrong number of arguments.")
   return args
+
+
+def nbsp_to_spaces(str):
+  return str.replace('\xc2\xa0', ' ')
 
 
 def run():
@@ -54,10 +59,11 @@ def run():
 # Translation follows starting from the 4th line in the table.
       for row in csv_reader:
         if row[ID_COLUMN]:
-          twine_file.write('  [{section}]\n'.format(section=row[ID_COLUMN]))
+          twine_file.write('  [{section}]\n'.format(section = nbsp_to_spaces(row[ID_COLUMN])))
           for column_idx, translation in enumerate(row):
             if (MIN_PROCESSED_COLUMN <= column_idx < MAX_PROCESSED_COLUMN and column_idx in languages.keys()):
-              twine_file.write('    {lang} = {trans}\n'.format(lang = languages[column_idx], trans = translation))
+              twine_file.write('    {lang} = {trans}\n'.format(lang = languages[column_idx], 
+                trans = nbsp_to_spaces(translation)))
           twine_file.write('\n')
 
   print('Done. Check {twine} and {lang} for the result.\n'.format(twine = twine_name, lang = languages_name))
