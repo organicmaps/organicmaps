@@ -118,7 +118,7 @@ protected:
 
   unique_ptr<CPUDrawer> m_cpuDrawer;
 
-  double m_StartForegroundTime;
+  double m_startForegroundTime;
 
   bool m_queryMaxScaleMode;
 

@@ -29,6 +29,7 @@
 #error "This code does not support serialization on Big Endian archs (see TODOs below)."
 #endif
 
+#include <chrono>
 #include <cstdint>
 #include <exception>
 #include <iomanip>
@@ -160,6 +161,17 @@ class Location {
   }
 
   Location() = default;
+
+  // Helper function, useful if location source is different from GPS.
+  static Location FromLatLon(double latitude_deg, double longitude_deg, bool needs_timestamp = false) {
+    using namespace std::chrono;
+    uint64_t ts = 0;
+    if (needs_timestamp) {
+      // TODO(AlexZ): Use common timestamp method here and in AlohalyticsBaseEvent.
+      ts = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+    }
+    return Location().SetLatLon(ts, latitude_deg, longitude_deg, 1);
+  }
 
   enum Source : std::uint8_t { UNKNOWN = 0, GPS = 1, NETWORK = 2, PASSIVE = 3 } source_;
 
