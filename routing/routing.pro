@@ -24,7 +24,6 @@ SOURCES += \
     online_cross_fetcher.cpp \
     osrm2feature_map.cpp \
     osrm_engine.cpp \
-    osrm_online_router.cpp \
     osrm_router.cpp \
     pedestrian_directions.cpp \
     pedestrian_model.cpp \
@@ -57,7 +56,6 @@ HEADERS += \
     osrm2feature_map.hpp \
     osrm_data_facade.hpp \
     osrm_engine.hpp \
-    osrm_online_router.hpp \
     osrm_router.hpp \
     pedestrian_directions.hpp \
     pedestrian_model.hpp \
