@@ -311,14 +311,15 @@ namespace
         vector<FeatureBuilder1> vecFb;
         m_coasts->GetFeatures(vecFb);
 
-        for (size_t j = 0; j < vecFb.size(); ++j)
+        for (auto & fb : vecFb)
         {
-          (*m_coastsHolder)(vecFb[j]);
+          (*m_coastsHolder)(fb);
           ++totalRegions;
-          totalPoints += vecFb[j].GetPointsCount();
-          totalPolygons += vecFb[j].GetPolygonsCount();
+          totalPoints += fb.GetPointsCount();
+          totalPolygons += fb.GetPolygonsCount();
         }
-        LOG(LINFO, ("Total regions:", totalRegions, "total points:", totalPoints, "total polygons:", totalPolygons));
+        LOG(LINFO, ("Total regions:", totalRegions, "total points:", totalPoints, "total polygons:",
+                    totalPolygons));
       }
       else if (m_coastsHolder)
       {

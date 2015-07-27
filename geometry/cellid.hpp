@@ -14,6 +14,7 @@ template <int kDepthLevels = 31> class CellId
 public:
   // TODO: Move CellId::DEPTH_LEVELS to private.
   static int const DEPTH_LEVELS = kDepthLevels;
+  static uint8_t const MAX_CHILDREN = 4;
   static uint32_t const MAX_COORD = 1U << DEPTH_LEVELS;
 
   CellId() : m_Bits(0), m_Level(0)
@@ -38,7 +39,7 @@ public:
 
   inline static size_t TotalCellsOnLevel(size_t level)
   {
-    return 1 << 2 * level;
+    return 1 << (2 * level);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
