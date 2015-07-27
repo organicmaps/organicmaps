@@ -42,13 +42,13 @@ void Route::Swap(Route & rhs)
   m_absentCountries.swap(rhs.m_absentCountries);
 }
 
-double Route::GetTotalDistance() const
+double Route::GetTotalDistanceMeters() const
 {
   ASSERT(!m_segDistance.empty(), ());
   return m_segDistance.back();
 }
 
-double Route::GetCurrentDistanceFromBegin() const
+double Route::GetCurrentDistanceFromBeginMeters() const
 {
   ASSERT(m_current.IsValid(), ());
 
@@ -56,7 +56,7 @@ double Route::GetCurrentDistanceFromBegin() const
           MercatorBounds::DistanceOnEarth(m_poly.GetPoint(m_current.m_ind), m_current.m_pt));
 }
 
-double Route::GetCurrentDistanceToEnd() const
+double Route::GetCurrentDistanceToEndMeters() const
 {
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_segDistance.size(), ());
@@ -65,12 +65,12 @@ double Route::GetCurrentDistanceToEnd() const
           MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
 }
 
-uint32_t Route::GetTotalTime() const
+uint32_t Route::GetTotalTimeSec() const
 {
   return m_times.empty() ? 0 : m_times.back().second;
 }
 
-uint32_t Route::GetCurrentTimeToEnd() const
+uint32_t Route::GetCurrentTimeToEndSec() const
 {
   size_t const polySz = m_poly.GetSize();
   if (m_times.empty() || m_poly.GetSize() == 0)
@@ -111,10 +111,10 @@ uint32_t Route::GetCurrentTimeToEnd() const
   {
     double const distRemain = distFn(m_current.m_ind, m_times[idx].first + 1) -
                         MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind));
-    return (uint32_t)((GetTotalTime() - (*it).second) + (double)time * (distRemain / dist));
+    return (uint32_t)((GetTotalTimeSec() - (*it).second) + (double)time * (distRemain / dist));
   }
   else
-    return (uint32_t)((GetTotalTime() - (*it).second));
+    return (uint32_t)((GetTotalTimeSec() - (*it).second));
 }
 
 void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
@@ -140,7 +140,7 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
 
   size_t const segIdx = (*it).m_index - 1;
   turn = (*it);
-  distanceToTurnMeters = m_segDistance[segIdx] - GetCurrentDistanceFromBegin();
+  distanceToTurnMeters = m_segDistance[segIdx] - GetCurrentDistanceFromBeginMeters();
 }
 
 void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
@@ -223,7 +223,7 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
 
 bool Route::IsCurrentOnEnd() const
 {
-  return (GetCurrentDistanceToEnd() < ON_END_TOLERANCE_M);
+  return (GetCurrentDistanceToEndMeters() < ON_END_TOLERANCE_M);
 }
 
 Route::IterT Route::FindProjection(m2::RectD const & posRect, double predictDistance) const

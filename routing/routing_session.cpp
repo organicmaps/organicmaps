@@ -178,7 +178,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
 
   if (m_route.IsValid() && IsNavigable())
   {
-    formatDistFn(m_route.GetCurrentDistanceToEnd(), info.m_distToTarget, info.m_targetUnitsSuffix);
+    formatDistFn(m_route.GetCurrentDistanceToEndMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
 
     double distanceToTurnMeters = 0.;
     turns::TurnItem turn;
@@ -187,7 +187,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
     formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
     info.m_turn = turn.m_turn;
     info.m_exitNum = turn.m_exitNum;
-    info.m_time = m_route.GetCurrentTimeToEnd();
+    info.m_time = m_route.GetCurrentTimeToEndSec();
     info.m_targetName = turn.m_targetName;
 
     // Lane information.

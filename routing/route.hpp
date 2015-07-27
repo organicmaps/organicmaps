@@ -61,9 +61,8 @@ public:
     swap(m_turnsGeom, v);
   }
 
-  // Time measure are seconds
-  uint32_t GetTotalTime() const;
-  uint32_t GetCurrentTimeToEnd() const;
+  uint32_t GetTotalTimeSec() const;
+  uint32_t GetCurrentTimeToEndSec() const;
 
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly; }
@@ -83,12 +82,9 @@ public:
     bool IsValid() const { return m_ind != -1; }
   };
 
-  /// @return Distance on route in meters.
-  //@{
-  double GetTotalDistance() const;
-  double GetCurrentDistanceFromBegin() const;
-  double GetCurrentDistanceToEnd() const;
-  //@}
+  double GetTotalDistanceMeters() const;
+  double GetCurrentDistanceFromBeginMeters() const;
+  double GetCurrentDistanceToEndMeters() const;
 
   void GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
 
