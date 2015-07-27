@@ -22,12 +22,9 @@ typedef m2::RectI RectT;
 
 DECLARE_bool(fail_on_coasts);
 
-CoastlineFeaturesGenerator::CoastlineFeaturesGenerator(uint32_t coastType,
-                                                       int lowLevel, int highLevel, int maxPoints)
-  : m_merger(POINT_COORD_BITS), m_coastType(coastType),
-    m_lowLevel(lowLevel), m_highLevel(highLevel), m_maxPoints(maxPoints)
+CoastlineFeaturesGenerator::CoastlineFeaturesGenerator(uint32_t coastType)
+  : m_merger(POINT_COORD_BITS), m_coastType(coastType)
 {
-  ASSERT_LESS_OR_EQUAL ( m_lowLevel, m_highLevel, () );
 }
 
 namespace
@@ -221,11 +218,12 @@ public:
   typedef m4::Tree<m2::RegionI> TIndex;
   typedef function<void(TCell const &, DoDifference &)> TProcessResultFunc;
 
+  enum {kHighLevel = 10, kMaxPoints = 20000};
+
 protected:
   TIndex const & m_index;
   mutex & m_mutexTasks;
   list<TCell> & m_listTasks;
-  list<TCell> m_errorCell;
   condition_variable & m_listCondVar;
   size_t & m_inWork;
   TProcessResultFunc m_processResultFunc;
@@ -288,7 +286,7 @@ public:
     m_index.ForEachInRect(GetLimitRect(rectR), bind<void>(ref(doDiff), _1));
 
     // Check if too many points for feature.
-    if (cell.Level() < 10 /*m_highLevel*/ && doDiff.GetPointsCount() >= 20000 /*m_maxPoints*/)
+    if (cell.Level() < kHighLevel && doDiff.GetPointsCount() >= kMaxPoints)
       return false;
 
     {
@@ -296,7 +294,6 @@ public:
       unique_lock<mutex> lock(m_mutexResult);
       m_processResultFunc(cell, doDiff);
     }
-
 
     return true;
   }
@@ -307,13 +304,12 @@ public:
     // thread main loop
     for (;;)
     {
-      TCell currentCell;
       unique_lock<mutex> lock(m_mutexTasks);
       m_listCondVar.wait(lock, [this]{return (!m_listTasks.empty() || m_inWork == 0);});
       if (m_listTasks.empty() && m_inWork == 0)
         break;
 
-      currentCell = m_listTasks.front();
+      TCell currentCell = m_listTasks.front();
       m_listTasks.pop_front();
       ++m_inWork;
       lock.unlock();
@@ -330,13 +326,6 @@ public:
       --m_inWork;
       m_listCondVar.notify_all();
     }
-
-    // return back cells with error into task queue
-    if (!m_errorCell.empty())
-    {
-      unique_lock<mutex> lock(m_mutexTasks);
-      m_listTasks.insert(m_listTasks.end(), m_errorCell.begin(), m_errorCell.end());
-    }
   }
 
 };
@@ -349,7 +338,7 @@ void CoastlineFeaturesGenerator::GetFeatures(size_t baseLevel, vector<FeatureBui
   {
     features.emplace_back(FeatureBuilder1());
     FeatureBuilder1 & fb = features.back();
-    fb.SetCoastCell(cell.ToInt64(m_highLevel + 1), cell.ToString());
+    fb.SetCoastCell(cell.ToInt64(RegionInCellSplitter::kHighLevel + 1), cell.ToString());
 
     cellData.AssignGeometry(fb);
     fb.SetArea();

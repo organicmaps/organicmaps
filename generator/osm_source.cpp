@@ -240,9 +240,7 @@ namespace
       }
       else
       {
-        // 4-10 - level range for cells
-        // 20000 - max points count per feature
-        m_coasts.reset(new CoastlineFeaturesGenerator(Type(NATURAL_COASTLINE), 4, 10, 20000));
+        m_coasts.reset(new CoastlineFeaturesGenerator(Type(NATURAL_COASTLINE)));
 
         m_coastsHolder.reset(new feature::FeaturesAndRawGeometryCollector(
                                m_srcCoastsFile, info.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".rawdump")));
@@ -311,7 +309,7 @@ namespace
         size_t totalPolygons = 0;
 
         vector<FeatureBuilder1> vecFb;
-        m_coasts->GetFeatures(4 /*m_lowLevel*/, vecFb);
+        m_coasts->GetFeatures(4 /*start level*/, vecFb);
 
         for (size_t j = 0; j < vecFb.size(); ++j)
         {

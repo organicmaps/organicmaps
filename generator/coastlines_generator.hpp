@@ -18,11 +18,9 @@ class CoastlineFeaturesGenerator
   TTree m_tree;
 
   uint32_t m_coastType;
-  int m_lowLevel, m_highLevel, m_maxPoints;
 
 public:
-  CoastlineFeaturesGenerator(uint32_t coastType,
-                             int lowLevel, int highLevel, int maxPoints);
+  CoastlineFeaturesGenerator(uint32_t coastType);
 
   void AddRegionToTree(FeatureBuilder1 const & fb);
 
