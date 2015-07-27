@@ -27,7 +27,7 @@ public:
   ~ScopedMapFile()
   {
     platform::CountryIndexes::DeleteFromDisk(m_file);
-    m_file.DeleteFromDisk(TMapOptions::EMap);
+    m_file.DeleteFromDisk(TMapOptions::Map);
   }
 
   inline platform::LocalCountryFile & GetFile() { return m_file; }
@@ -62,7 +62,7 @@ UNIT_TEST(GenerateTestMwm_Smoke)
     builder.AddPOI(m2::PointD(0, 1), "Brandy shop", "en");
     builder.AddPOI(m2::PointD(1, 1), "Russian vodka shop", "en");
   }
-  TEST_EQUAL(TMapOptions::EMap, file.GetFiles(), ());
+  TEST_EQUAL(TMapOptions::Map, file.GetFiles(), ());
 
   TestSearchEngine engine("en" /* locale */);
   auto ret = engine.RegisterMap(file);
@@ -102,7 +102,7 @@ UNIT_TEST(GenerateTestMwm_NotPrefixFreeNames)
     builder.AddPOI(m2::PointD(2, 0), "aaa", "en");
     builder.AddPOI(m2::PointD(2, 1), "aaa", "en");
   }
-  TEST_EQUAL(TMapOptions::EMap, file.GetFiles(), ());
+  TEST_EQUAL(TMapOptions::Map, file.GetFiles(), ());
 
   TestSearchEngine engine("en" /* locale */);
   auto ret = engine.RegisterMap(file);

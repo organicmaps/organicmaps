@@ -580,7 +580,7 @@ namespace android
       }
       try
       {
-        FilesContainerR cont(platform::GetCountryReader(localFile, TMapOptions::EMap));
+        FilesContainerR cont(platform::GetCountryReader(localFile, TMapOptions::Map));
         if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
           out.push_back(countryFile.GetNameWithoutExt());
       }
@@ -1446,7 +1446,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_downloadCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    storage_utils::GetMapLayout().DownloadMap(storage::ToNative(idx), TMapOptions::EMap);
+    storage_utils::GetMapLayout().DownloadMap(storage::ToNative(idx), TMapOptions::Map);
   }
 
   JNIEXPORT void JNICALL

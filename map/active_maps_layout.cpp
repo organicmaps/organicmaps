@@ -240,8 +240,8 @@ LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TGroup const &
 LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TIndex const & index) const
 {
   platform::CountryFile const & c = GetStorage().CountryByIndex(index).GetFile();
-  size_t const mapSize = c.GetRemoteSize(TMapOptions::EMap);
-  return { mapSize, c.GetRemoteSize(TMapOptions::ECarRouting) };
+  size_t const mapSize = c.GetRemoteSize(TMapOptions::Map);
+  return { mapSize, c.GetRemoteSize(TMapOptions::CarRouting) };
 }
 
 int ActiveMapsLayout::AddListener(ActiveMapsListener * listener)
@@ -378,7 +378,7 @@ Storage & ActiveMapsLayout::GetStorage()
 void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
 {
   TStatus newStatus = TStatus::EUnknown;
-  TMapOptions options = TMapOptions::EMap;
+  TMapOptions options = TMapOptions::Map;
   GetStorage().CountryStatusEx(index, newStatus, options);
 
   TGroup group = TGroup::ENewMap;
@@ -662,13 +662,13 @@ void ActiveMapsLayout::NotifyOptionsChanged(TGroup const & group, int position,
 
 TMapOptions ActiveMapsLayout::ValidOptionsForDownload(TMapOptions const & options)
 {
-  return SetOptions(options, TMapOptions::EMap);
+  return SetOptions(options, TMapOptions::Map);
 }
 
 TMapOptions ActiveMapsLayout::ValidOptionsForDelete(TMapOptions const & options)
 {
-  if (HasOptions(options, TMapOptions::EMap))
-    return SetOptions(options, TMapOptions::ECarRouting);
+  if (HasOptions(options, TMapOptions::Map))
+    return SetOptions(options, TMapOptions::CarRouting);
   return options;
 }
 

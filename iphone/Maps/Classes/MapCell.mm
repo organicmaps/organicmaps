@@ -43,7 +43,7 @@
 
   self.progressView.failedMode = NO;
 
-  if (options == TMapOptions::EMap)
+  if (options == TMapOptions::Map)
     self.routingImageView.image = [UIImage imageNamed:@"DownloadRoutingButton"];
   else
     self.routingImageView.image = [UIImage imageNamed:@"RoutingDownloadedButton"];

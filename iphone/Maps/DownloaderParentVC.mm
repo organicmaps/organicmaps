@@ -30,22 +30,22 @@
 {
   if (buttonIndex != alertView.cancelButtonIndex)
   {
-    if (self.selectedInActionSheetOptions == TMapOptions::EMap)
+    if (self.selectedInActionSheetOptions == TMapOptions::Map)
       [self performAction:DownloaderActionDownloadMap withSizeCheck:NO];
-    else if (self.selectedInActionSheetOptions == TMapOptions::ECarRouting)
+    else if (self.selectedInActionSheetOptions == TMapOptions::CarRouting)
       [self performAction:DownloaderActionDownloadCarRouting withSizeCheck:NO];
-    else if (self.selectedInActionSheetOptions == TMapOptions::EMapWithCarRouting)
+    else if (self.selectedInActionSheetOptions == TMapOptions::MapWithCarRouting)
       [self performAction:DownloaderActionDownloadAll withSizeCheck:NO];
   }
 }
 
 - (void)download
 {
-  if (self.selectedInActionSheetOptions == TMapOptions::EMap)
+  if (self.selectedInActionSheetOptions == TMapOptions::Map)
     [self performAction:DownloaderActionDownloadMap withSizeCheck:NO];
-  else if (self.selectedInActionSheetOptions == TMapOptions::ECarRouting)
+  else if (self.selectedInActionSheetOptions == TMapOptions::CarRouting)
     [self performAction:DownloaderActionDownloadCarRouting withSizeCheck:NO];
-  else if (self.selectedInActionSheetOptions == TMapOptions::EMapWithCarRouting)
+  else if (self.selectedInActionSheetOptions == TMapOptions::MapWithCarRouting)
     [self performAction:DownloaderActionDownloadAll withSizeCheck:NO];
 }
 
@@ -56,7 +56,7 @@
 - (NSString *)selectedMapName { return nil; }
 - (uint64_t)selectedMapSizeWithOptions:(TMapOptions)options { return 0; }
 - (TStatus)selectedMapStatus { return TStatus::EUnknown; }
-- (TMapOptions)selectedMapOptions { return TMapOptions::EMap; }
+- (TMapOptions)selectedMapOptions { return TMapOptions::Map; }
 
 #pragma mark - Virtual table view methods
 
@@ -97,38 +97,38 @@
 
   if (status == TStatus::ENotDownloaded || status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed)
   {
-    NSString * fullSize = formattedSize([self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]);
-    NSString * onlyMapSize = formattedSize([self selectedMapSizeWithOptions:TMapOptions::EMap]);
+    NSString * fullSize = formattedSize([self selectedMapSizeWithOptions:TMapOptions::MapWithCarRouting]);
+    NSString * onlyMapSize = formattedSize([self selectedMapSizeWithOptions:TMapOptions::Map]);
     [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map"), fullSize] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
     [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map_no_routing"), onlyMapSize] action:DownloaderActionDownloadMap toActionSheet:actionSheet];
   }
 
-  if (status == TStatus::EOnDiskOutOfDate && options == TMapOptions::EMapWithCarRouting)
+  if (status == TStatus::EOnDiskOutOfDate && options == TMapOptions::MapWithCarRouting)
   {
-    NSString * size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]);
+    NSString * size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::MapWithCarRouting]);
     [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map_and_routing"), size] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
   }
 
-  if (status == TStatus::EOnDisk && options == TMapOptions::EMap)
+  if (status == TStatus::EOnDisk && options == TMapOptions::Map)
   {
-    NSString * size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::ECarRouting]);
+    NSString * size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::CarRouting]);
     NSString * title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_download_routing"), size];
     [self addButtonWithTitle:title action:DownloaderActionDownloadCarRouting toActionSheet:actionSheet];
   }
 
-  if (status == TStatus::EOnDiskOutOfDate && options == TMapOptions::EMap)
+  if (status == TStatus::EOnDiskOutOfDate && options == TMapOptions::Map)
   {
-    NSString * size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::EMap]);
+    NSString * size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::Map]);
     NSString * title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map"), size];
     [self addButtonWithTitle:title action:DownloaderActionDownloadMap toActionSheet:actionSheet];
-    size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]);
+    size = formattedSize([self selectedMapSizeWithOptions:TMapOptions::MapWithCarRouting]);
     title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map_and_routing"), size];
     [self addButtonWithTitle:title action:DownloaderActionDownloadAll toActionSheet:actionSheet];
   }
 
   if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
   {
-    if (options == TMapOptions::EMapWithCarRouting)
+    if (options == TMapOptions::MapWithCarRouting)
       [self addButtonWithTitle:L(@"downloader_delete_routing") action:DownloaderActionDeleteCarRouting toActionSheet:actionSheet];
 
     [self addButtonWithTitle:L(@"downloader_delete_map") action:DownloaderActionDeleteMap toActionSheet:actionSheet];
@@ -183,17 +183,17 @@
     {
       case DownloaderActionDownloadAll:
       case DownloaderActionDeleteAll:
-        self.selectedInActionSheetOptions = TMapOptions::EMapWithCarRouting;
+        self.selectedInActionSheetOptions = TMapOptions::MapWithCarRouting;
         break;
 
       case DownloaderActionDownloadMap:
       case DownloaderActionDeleteMap:
-        self.selectedInActionSheetOptions = TMapOptions::EMap;
+        self.selectedInActionSheetOptions = TMapOptions::Map;
         break;
 
       case DownloaderActionDownloadCarRouting:
       case DownloaderActionDeleteCarRouting:
-        self.selectedInActionSheetOptions = TMapOptions::ECarRouting;
+        self.selectedInActionSheetOptions = TMapOptions::CarRouting;
         break;
 
       default:

@@ -280,7 +280,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   /// Call download via Framework.
 
   Framework & f = GetFramework();
-  f.GetCountryTree().GetActiveMapLayout().DownloadMap(index, TMapOptions::EMap);
+  f.GetCountryTree().GetActiveMapLayout().DownloadMap(index, TMapOptions::Map);
   m2::RectD const rect = f.GetCountryBounds(index);
   double const lon = MercatorBounds::XToLon(rect.Center().x);
   double const lat = MercatorBounds::YToLat(rect.Center().y);

@@ -4,10 +4,10 @@
 
 enum class TMapOptions : uint8_t
 {
-  ENothing = 0x0,
-  EMap = 0x1,
-  ECarRouting = 0x2,
-  EMapWithCarRouting = 0x3
+  Nothing = 0x0,
+  Map = 0x1,
+  CarRouting = 0x2,
+  MapWithCarRouting = 0x3
 };
 
 bool HasOptions(TMapOptions mask, TMapOptions options);

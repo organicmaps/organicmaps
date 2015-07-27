@@ -211,9 +211,9 @@ void SaveImpl(T const & v, json_t * jParent)
       string const & strFile = file.GetNameWithoutExt();
       if (strFile != strName)
         json_object_set_new(jCountry.get(), "f", json_string(strFile.c_str()));
-      json_object_set_new(jCountry.get(), "s", json_integer(file.GetRemoteSize(TMapOptions::EMap)));
+      json_object_set_new(jCountry.get(), "s", json_integer(file.GetRemoteSize(TMapOptions::Map)));
       json_object_set_new(jCountry.get(), "rs",
-                          json_integer(file.GetRemoteSize(TMapOptions::ECarRouting)));
+                          json_integer(file.GetRemoteSize(TMapOptions::CarRouting)));
     }
 
     if (v[i].SiblingsCount())

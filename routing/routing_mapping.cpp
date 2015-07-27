@@ -26,10 +26,10 @@ namespace {
  */
 bool CheckMwmConsistency(platform::LocalCountryFile const & localFile)
 {
-  ModelReaderPtr r1 = FilesContainerR(localFile.GetPath(TMapOptions::ECarRouting))
+  ModelReaderPtr r1 = FilesContainerR(localFile.GetPath(TMapOptions::CarRouting))
       .GetReader(VERSION_FILE_TAG);
   ReaderSrc src1(r1.GetPtr());
-  ModelReaderPtr r2 = FilesContainerR(localFile.GetPath(TMapOptions::EMap))
+  ModelReaderPtr r2 = FilesContainerR(localFile.GetPath(TMapOptions::Map))
       .GetReader(VERSION_FILE_TAG);
   ReaderSrc src2(r2.GetPtr());
 
@@ -66,13 +66,13 @@ RoutingMapping::RoutingMapping(CountryFile const & countryFile, MwmSet * pIndex)
   if (!m_handle.IsAlive())
     return;
   LocalCountryFile const & localFile = m_handle.GetInfo()->GetLocalFile();
-  if (!HasOptions(localFile.GetFiles(), TMapOptions::EMapWithCarRouting))
+  if (!HasOptions(localFile.GetFiles(), TMapOptions::MapWithCarRouting))
   {
     m_handle = MwmSet::MwmHandle();
     return;
   }
 
-  m_container.Open(localFile.GetPath(TMapOptions::ECarRouting));
+  m_container.Open(localFile.GetPath(TMapOptions::CarRouting));
   if (!CheckMwmConsistency(localFile))
   {
     m_error = IRouter::ResultCode::InconsistentMWMandRoute;

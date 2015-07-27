@@ -691,7 +691,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
         LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
         uint64_t sizeToDownload = sizes.first;
         TMapOptions options = static_cast<TMapOptions>(opt);
-        if(HasOptions(options, TMapOptions::ECarRouting))
+        if(HasOptions(options, TMapOptions::CarRouting))
           sizeToDownload += sizes.second;
 
         NSString * name = [NSString stringWithUTF8String:layout.GetCountryName(idx).c_str()];

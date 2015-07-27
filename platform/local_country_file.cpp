@@ -12,7 +12,7 @@
 namespace platform
 {
 LocalCountryFile::LocalCountryFile()
-    : m_version(0), m_files(TMapOptions::ENothing), m_mapSize(0), m_routingSize()
+    : m_version(0), m_files(TMapOptions::Nothing), m_mapSize(0), m_routingSize()
 {
 }
 
@@ -21,7 +21,7 @@ LocalCountryFile::LocalCountryFile(string const & directory, CountryFile const &
     : m_directory(directory),
       m_countryFile(countryFile),
       m_version(version),
-      m_files(TMapOptions::ENothing),
+      m_files(TMapOptions::Nothing),
       m_mapSize(0),
       m_routingSize(0)
 {
@@ -29,23 +29,23 @@ LocalCountryFile::LocalCountryFile(string const & directory, CountryFile const &
 
 void LocalCountryFile::SyncWithDisk()
 {
-  m_files = TMapOptions::ENothing;
+  m_files = TMapOptions::Nothing;
   m_mapSize = 0;
   m_routingSize = 0;
 
   Platform & platform = GetPlatform();
 
-  if (platform.GetFileSizeByFullPath(GetPath(TMapOptions::EMap), m_mapSize))
-    m_files = SetOptions(m_files, TMapOptions::EMap);
+  if (platform.GetFileSizeByFullPath(GetPath(TMapOptions::Map), m_mapSize))
+    m_files = SetOptions(m_files, TMapOptions::Map);
 
-  string const routingPath = GetPath(TMapOptions::ECarRouting);
+  string const routingPath = GetPath(TMapOptions::CarRouting);
   if (platform.GetFileSizeByFullPath(routingPath, m_routingSize))
-    m_files = SetOptions(m_files, TMapOptions::ECarRouting);
+    m_files = SetOptions(m_files, TMapOptions::CarRouting);
 }
 
 void LocalCountryFile::DeleteFromDisk(TMapOptions files) const
 {
-  for (TMapOptions file : {TMapOptions::EMap, TMapOptions::ECarRouting})
+  for (TMapOptions file : {TMapOptions::Map, TMapOptions::CarRouting})
   {
     if (OnDisk(file) && HasOptions(files, file))
     {
@@ -63,9 +63,9 @@ string LocalCountryFile::GetPath(TMapOptions file) const
 uint32_t LocalCountryFile::GetSize(TMapOptions filesMask) const
 {
   uint64_t size64 = 0;
-  if (HasOptions(filesMask, TMapOptions::EMap))
+  if (HasOptions(filesMask, TMapOptions::Map))
     size64 += m_mapSize;
-  if (HasOptions(filesMask, TMapOptions::ECarRouting))
+  if (HasOptions(filesMask, TMapOptions::CarRouting))
     size64 += m_routingSize;
   uint32_t const size32 = static_cast<uint32_t>(size64);
   ASSERT_EQUAL(size32, size64, ());

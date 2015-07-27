@@ -49,7 +49,7 @@ namespace update
       string const fName = cnt.GetNameWithExt(opt);
       if (!GetPlatform().GetFileSizeByFullPath(m_dataDir + fName, sz))
       {
-        LOG(opt == TMapOptions::EMap ? LCRITICAL : LWARNING, ("File was not found:", fName));
+        LOG(opt == TMapOptions::Map ? LCRITICAL : LWARNING, ("File was not found:", fName));
         return 0;
       }
 
@@ -78,10 +78,10 @@ namespace update
 
         ++m_processedFiles;
 
-        cnt.SetRemoteSizes(GetFileSize(cnt, TMapOptions::EMap),
-                           GetFileSize(cnt, TMapOptions::ECarRouting));
+        cnt.SetRemoteSizes(GetFileSize(cnt, TMapOptions::Map),
+                           GetFileSize(cnt, TMapOptions::CarRouting));
 
-        string const fName = cnt.GetNameWithExt(TMapOptions::EMap);
+        string const fName = cnt.GetNameWithExt(TMapOptions::Map);
         auto found = find(m_files.begin(), m_files.end(), fName);
         if (found != m_files.end())
           m_files.erase(found);

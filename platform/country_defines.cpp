@@ -32,13 +32,13 @@ string DebugPrint(TMapOptions options)
 {
   switch (options)
   {
-    case TMapOptions::ENothing:
+    case TMapOptions::Nothing:
       return "Nothing";
-    case TMapOptions::EMap:
+    case TMapOptions::Map:
       return "MapOnly";
-    case TMapOptions::ECarRouting:
+    case TMapOptions::CarRouting:
       return "CarRouting";
-    case TMapOptions::EMapWithCarRouting:
+    case TMapOptions::MapWithCarRouting:
       return "MapWithCarRouting";
   }
 }

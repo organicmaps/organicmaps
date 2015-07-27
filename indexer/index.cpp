@@ -15,7 +15,7 @@ using platform::LocalCountryFile;
 //////////////////////////////////////////////////////////////////////////////////
 
 MwmValue::MwmValue(LocalCountryFile const & localFile)
-    : m_cont(platform::GetCountryReader(localFile, TMapOptions::EMap)),
+    : m_cont(platform::GetCountryReader(localFile, TMapOptions::Map)),
       m_countryFile(localFile.GetCountryFile()),
       m_table(0)
 {

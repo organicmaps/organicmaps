@@ -359,10 +359,10 @@ void Framework::DeleteCountry(storage::TIndex const & index, TMapOptions opt)
 {
   switch (opt)
   {
-    case TMapOptions::ENothing:
+    case TMapOptions::Nothing:
       return;
-    case TMapOptions::EMap:  // fall through
-    case TMapOptions::EMapWithCarRouting:
+    case TMapOptions::Map:  // fall through
+    case TMapOptions::MapWithCarRouting:
     {
       CountryFile const & countryFile = m_storage.GetCountryFile(index);
       // m_model will notify us when latest map file will be deleted via
@@ -376,7 +376,7 @@ void Framework::DeleteCountry(storage::TIndex const & index, TMapOptions opt)
       m_routingSession.Reset();
       return;
     }
-    case TMapOptions::ECarRouting:
+    case TMapOptions::CarRouting:
       m_routingSession.Reset();
       m_storage.DeleteCountry(index, opt);
       return;
@@ -426,7 +426,7 @@ void Framework::UpdateLatestCountryFile(LocalCountryFile const & localFile)
   // it won' be needed to reset it after maps update.
   m_routingSession.Reset();
 
-  if (!HasOptions(localFile.GetFiles(), TMapOptions::EMap))
+  if (!HasOptions(localFile.GetFiles(), TMapOptions::Map))
     return;
 
   // Add downloaded map.

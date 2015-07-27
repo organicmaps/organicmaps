@@ -121,7 +121,7 @@
 
 - (IBAction)downloadMapTouchUpInside:(nonnull UIButton *)sender
 {
-  auto const mapType = self.downloadRoutesButton.selected ? TMapOptions::EMapWithCarRouting : TMapOptions::EMap;
+  auto const mapType = self.downloadRoutesButton.selected ? TMapOptions::MapWithCarRouting : TMapOptions::Map;
   GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(self.currentCountryIndex, mapType);
   [self showRequest];
 }

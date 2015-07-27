@@ -39,7 +39,7 @@
     for (auto const & i : indexes)
     {
       [titles addObject:[NSString stringWithUTF8String:a.GetCountryName(i).c_str()]];
-      totalRoutingSize += a.GetCountrySize(i, isMaps ? TMapOptions::EMapWithCarRouting : TMapOptions::ECarRouting).second;
+      totalRoutingSize += a.GetCountrySize(i, isMaps ? TMapOptions::MapWithCarRouting : TMapOptions::CarRouting).second;
     }
     self.isMapsFiles = isMaps;
     self.titles = titles;
@@ -130,9 +130,9 @@ static CGFloat const kMinimumOffset = 20.;
     __strong MWMDownloadTransitMapAlert * alert = wAlert;
     auto & a = GetFramework().GetCountryTree().GetActiveMapLayout();
     for (auto const & index : alert->maps)
-      a.DownloadMap(index, TMapOptions::EMapWithCarRouting);
+      a.DownloadMap(index, TMapOptions::MapWithCarRouting);
     for (auto const & index : alert->routes)
-      a.DownloadMap(index, TMapOptions::ECarRouting);
+      a.DownloadMap(index, TMapOptions::CarRouting);
   };
   [alert configure];
   return alert;

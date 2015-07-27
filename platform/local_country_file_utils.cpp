@@ -96,7 +96,7 @@ void CleanupMapsDirectory()
       if (countryName == "Japan" || countryName == "Brazil")
       {
         localFile.SyncWithDisk();
-        localFile.DeleteFromDisk(TMapOptions::EMapWithCarRouting);
+        localFile.DeleteFromDisk(TMapOptions::MapWithCarRouting);
       }
     }
   }
@@ -176,7 +176,7 @@ void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
 
       // Assume that empty path means the resource file.
       LocalCountryFile worldFile(string(), CountryFile(file), 0 /* version */);
-      worldFile.m_files = TMapOptions::EMap;
+      worldFile.m_files = TMapOptions::Map;
       if (i != localFiles.end())
       {
         // Always use resource World files instead of local on disk.

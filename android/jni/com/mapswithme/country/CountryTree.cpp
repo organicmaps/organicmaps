@@ -113,9 +113,9 @@ extern "C"
     LocalAndRemoteSizeT sizes = tree.GetRemoteLeafSizes(pos);
     switch (opt)
     {
-      case TMapOptions::EMap:
+      case TMapOptions::Map:
         return sizes.first;
-      case TMapOptions::ECarRouting:
+      case TMapOptions::CarRouting:
         return sizes.second;
       default:
         return sizes.first + sizes.second;

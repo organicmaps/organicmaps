@@ -16,9 +16,9 @@ string CountryFile::GetNameWithExt(TMapOptions file) const
 {
   switch (file)
   {
-    case TMapOptions::EMap:
+    case TMapOptions::Map:
       return m_name + DATA_FILE_EXTENSION;
-    case TMapOptions::ECarRouting:
+    case TMapOptions::CarRouting:
       return m_name + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION;
     default:
       ASSERT(false, ("Can't get name for:", file));
@@ -35,9 +35,9 @@ void CountryFile::SetRemoteSizes(uint32_t mapSize, uint32_t routingSize)
 uint32_t CountryFile::GetRemoteSize(TMapOptions filesMask) const
 {
   uint32_t size = 0;
-  if (HasOptions(filesMask, TMapOptions::EMap))
+  if (HasOptions(filesMask, TMapOptions::Map))
     size += m_mapSize;
-  if (HasOptions(filesMask, TMapOptions::ECarRouting))
+  if (HasOptions(filesMask, TMapOptions::CarRouting))
     size += m_routingSize;
   return size;
 }
