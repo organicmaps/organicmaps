@@ -59,16 +59,16 @@ public:
   string const & GetChildName(int position) const;
   /// call this only if child IsLeaf == true
   TStatus GetLeafStatus(int position) const;
-  TMapOptions GetLeafOptions(int position) const;
+  MapOptions GetLeafOptions(int position) const;
   LocalAndRemoteSizeT const GetDownloadableLeafSize(int position) const;
-  LocalAndRemoteSizeT const GetLeafSize(int position, TMapOptions const & options) const;
+  LocalAndRemoteSizeT const GetLeafSize(int position, MapOptions const & options) const;
   LocalAndRemoteSizeT const GetRemoteLeafSizes(int position) const;
   bool IsCountryRoot() const;
   string const & GetRootName() const;
 
   ///@{
-  void DownloadCountry(int childPosition, TMapOptions const & options);
-  void DeleteCountry(int childPosition, TMapOptions const & options);
+  void DownloadCountry(int childPosition, MapOptions const & options);
+  void DeleteCountry(int childPosition, MapOptions const & options);
   void RetryDownloading(int childPosition);
   ///@}
   void CancelDownloading(int childPosition);

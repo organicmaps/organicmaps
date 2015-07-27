@@ -107,7 +107,7 @@ extern NSString * const MapsStatusChangedNotification;
   return [self activeMapsRowIsVisible] && [indexPath isEqual:[self downloadedCountriesIndexPath]];
 }
 
-- (void)configureSizeLabelOfMapCell:(MapCell *)cell position:(int)position status:(TStatus const &)status options:(TMapOptions const &)options
+- (void)configureSizeLabelOfMapCell:(MapCell *)cell position:(int)position status:(TStatus const &)status options:(MapOptions const &)options
 {
   if (self.tree.IsLeaf(position))
   {
@@ -135,7 +135,7 @@ extern NSString * const MapsStatusChangedNotification;
   return [NSString stringWithUTF8String:self.tree.GetChildName(self.selectedPosition).c_str()];
 }
 
-- (uint64_t)selectedMapSizeWithOptions:(TMapOptions)options
+- (uint64_t)selectedMapSizeWithOptions:(MapOptions)options
 {
   return self.tree.GetLeafSize(self.selectedPosition, options).second;
 }
@@ -145,7 +145,7 @@ extern NSString * const MapsStatusChangedNotification;
   return self.tree.GetLeafStatus(self.selectedPosition);
 }
 
-- (TMapOptions)selectedMapOptions
+- (MapOptions)selectedMapOptions
 {
   return self.tree.GetLeafOptions(self.selectedPosition);
 }
@@ -238,7 +238,7 @@ extern NSString * const MapsStatusChangedNotification;
     cell.separator.hidden = isLast;
     if (isLeaf)
     {
-      TMapOptions const options = self.tree.GetLeafOptions(position);
+      MapOptions const options = self.tree.GetLeafOptions(position);
       TStatus const status = self.tree.GetLeafStatus(position);
       if (status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed || status == TStatus::EDownloading || status == TStatus::EInQueue)
       {
@@ -335,7 +335,7 @@ extern NSString * const MapsStatusChangedNotification;
   {
     MapCell * cell = [self cellAtPositionInNode:position];
     TStatus const status = self.tree.GetLeafStatus(position);
-    TMapOptions const options = self.tree.GetLeafOptions(position);
+    MapOptions const options = self.tree.GetLeafOptions(position);
     [self configureSizeLabelOfMapCell:cell position:position status:status options:options];
     [cell setStatus:self.tree.GetLeafStatus(position) options:options animated:YES];
   }

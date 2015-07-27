@@ -2,7 +2,7 @@
 
 #include "std/string.hpp"
 
-enum class TMapOptions : uint8_t
+enum class MapOptions : uint8_t
 {
   Nothing = 0x0,
   Map = 0x1,
@@ -10,14 +10,14 @@ enum class TMapOptions : uint8_t
   MapWithCarRouting = 0x3
 };
 
-bool HasOptions(TMapOptions mask, TMapOptions options);
+bool HasOptions(MapOptions mask, MapOptions options);
 
-TMapOptions IntersectOptions(TMapOptions lhs, TMapOptions rhs);
+MapOptions IntersectOptions(MapOptions lhs, MapOptions rhs);
 
-TMapOptions SetOptions(TMapOptions mask, TMapOptions options);
+MapOptions SetOptions(MapOptions mask, MapOptions options);
 
-TMapOptions UnsetOptions(TMapOptions mask, TMapOptions options);
+MapOptions UnsetOptions(MapOptions mask, MapOptions options);
 
-TMapOptions LeastSignificantOption(TMapOptions mask);
+MapOptions LeastSignificantOption(MapOptions mask);
 
-string DebugPrint(TMapOptions options);
+string DebugPrint(MapOptions options);

@@ -17,10 +17,10 @@ public:
   explicit CountryFile(string const & name);
 
   string const & GetNameWithoutExt() const;
-  string GetNameWithExt(TMapOptions file) const;
+  string GetNameWithExt(MapOptions file) const;
 
   void SetRemoteSizes(uint32_t mapSize, uint32_t routingSize);
-  uint32_t GetRemoteSize(TMapOptions filesMask) const;
+  uint32_t GetRemoteSize(MapOptions filesMask) const;
 
   inline bool operator<(const CountryFile & rhs) const { return m_name < rhs.m_name; }
   inline bool operator==(const CountryFile & rhs) const { return m_name == rhs.m_name; }

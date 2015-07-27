@@ -18,7 +18,7 @@
 TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file)
     : m_file(file),
       m_collector(
-          make_unique<feature::FeaturesCollector>(file.GetPath(TMapOptions::Map) + EXTENSION_TMP)),
+          make_unique<feature::FeaturesCollector>(file.GetPath(MapOptions::Map) + EXTENSION_TMP)),
       m_classificator(classif())
 {
 }
@@ -50,10 +50,10 @@ void TestMwmBuilder::Finish()
   CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetNameWithoutExt(),
                               feature::DataHeader::country),
         ("Can't sort features."));
-  CHECK(indexer::BuildIndexFromDatFile(m_file.GetPath(TMapOptions::Map),
-                                       m_file.GetPath(TMapOptions::Map)),
+  CHECK(indexer::BuildIndexFromDatFile(m_file.GetPath(MapOptions::Map),
+                                       m_file.GetPath(MapOptions::Map)),
         ("Can't build geometry index."));
-  CHECK(indexer::BuildSearchIndexFromDatFile(m_file.GetPath(TMapOptions::Map),
+  CHECK(indexer::BuildSearchIndexFromDatFile(m_file.GetPath(MapOptions::Map),
                                              true /* forceRebuild */),
         ("Can't build search index."));
   m_file.SyncWithDisk();

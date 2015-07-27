@@ -26,12 +26,12 @@ class LocalFileGenerator
 public:
   LocalFileGenerator(string const & fileName)
       : m_countryFile(fileName),
-        m_testMapFile(m_countryFile.GetNameWithExt(TMapOptions::Map), "map"),
-        m_testRoutingFile(m_countryFile.GetNameWithExt(TMapOptions::CarRouting), "routing"),
+        m_testMapFile(m_countryFile.GetNameWithExt(MapOptions::Map), "map"),
+        m_testRoutingFile(m_countryFile.GetNameWithExt(MapOptions::CarRouting), "routing"),
         m_localFile(GetPlatform().WritableDir(), m_countryFile, 0 /* version */)
   {
     m_localFile.SyncWithDisk();
-    TEST(m_localFile.OnDisk(TMapOptions::MapWithCarRouting), ());
+    TEST(m_localFile.OnDisk(MapOptions::MapWithCarRouting), ());
     GenerateVersionSections(m_localFile);
 
     m_result = m_testSet.Register(m_localFile);
@@ -48,9 +48,9 @@ public:
 private:
   void GenerateVersionSections(LocalCountryFile const & localFile)
   {
-    FilesContainerW routingCont(localFile.GetPath(TMapOptions::CarRouting));
+    FilesContainerW routingCont(localFile.GetPath(MapOptions::CarRouting));
     // Write version for routing file that is equal to correspondent mwm file.
-    FilesContainerW mwmCont(localFile.GetPath(TMapOptions::Map));
+    FilesContainerW mwmCont(localFile.GetPath(MapOptions::Map));
 
     FileWriter w1 = routingCont.GetWriter(VERSION_FILE_TAG);
     FileWriter w2 = mwmCont.GetWriter(VERSION_FILE_TAG);

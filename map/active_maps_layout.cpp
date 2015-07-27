@@ -47,7 +47,7 @@ void ActiveMapsLayout::Init(vector<platform::CountryFile> const & files)
     if (!arr.empty())
     {
       TStatus status;
-      TMapOptions options;
+      MapOptions options;
       storage.CountryStatusEx(arr[0], status, options);
       if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
         m_items.push_back({ arr, status, options, options });
@@ -191,19 +191,19 @@ TStatus ActiveMapsLayout::GetCountryStatus(TIndex const & index) const
   return GetStorage().CountryStatusEx(index);
 }
 
-TMapOptions ActiveMapsLayout::GetCountryOptions(TGroup const & group, int position) const
+MapOptions ActiveMapsLayout::GetCountryOptions(TGroup const & group, int position) const
 {
   return GetItemInGroup(group, position).m_options;
 }
 
-TMapOptions ActiveMapsLayout::GetCountryOptions(TIndex const & index) const
+MapOptions ActiveMapsLayout::GetCountryOptions(TIndex const & index) const
 {
   Item const * item = FindItem(index);
   if (item)
     return item->m_options;
 
   TStatus status;
-  TMapOptions options;
+  MapOptions options;
   GetStorage().CountryStatusEx(index, status, options);
   return options;
 }
@@ -222,12 +222,12 @@ LocalAndRemoteSizeT const ActiveMapsLayout::GetDownloadableCountrySize(TIndex co
 }
 
 LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TGroup const & group, int position,
-                                                           TMapOptions const & options) const
+                                                           MapOptions const & options) const
 {
   return GetCountrySize(GetItemInGroup(group, position).Index(), options);
 }
 
-LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TIndex const & index, TMapOptions const & options) const
+LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TIndex const & index, MapOptions const & options) const
 {
   return GetStorage().CountrySizeInBytes(index, options);
 }
@@ -240,8 +240,8 @@ LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TGroup const &
 LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TIndex const & index) const
 {
   platform::CountryFile const & c = GetStorage().CountryByIndex(index).GetFile();
-  size_t const mapSize = c.GetRemoteSize(TMapOptions::Map);
-  return { mapSize, c.GetRemoteSize(TMapOptions::CarRouting) };
+  size_t const mapSize = c.GetRemoteSize(MapOptions::Map);
+  return { mapSize, c.GetRemoteSize(MapOptions::CarRouting) };
 }
 
 int ActiveMapsLayout::AddListener(ActiveMapsListener * listener)
@@ -255,9 +255,9 @@ void ActiveMapsLayout::RemoveListener(int slotID)
   m_listeners.erase(slotID);
 }
 
-void ActiveMapsLayout::DownloadMap(TIndex const & index, TMapOptions const & options)
+void ActiveMapsLayout::DownloadMap(TIndex const & index, MapOptions const & options)
 {
-  TMapOptions validOptions = ValidOptionsForDownload(options);
+  MapOptions validOptions = ValidOptionsForDownload(options);
   Item * item = FindItem(index);
   if (item)
   {
@@ -275,14 +275,14 @@ void ActiveMapsLayout::DownloadMap(TIndex const & index, TMapOptions const & opt
   m_framework.DownloadCountry(index, validOptions);
 }
 
-void ActiveMapsLayout::DownloadMap(TGroup const & group, int position, TMapOptions const & options)
+void ActiveMapsLayout::DownloadMap(TGroup const & group, int position, MapOptions const & options)
 {
   Item & item = GetItemInGroup(group, position);
   item.m_downloadRequest = ValidOptionsForDownload(options);
   m_framework.DownloadCountry(item.Index(), item.m_downloadRequest);
 }
 
-void ActiveMapsLayout::DeleteMap(TIndex const & index, const TMapOptions & options)
+void ActiveMapsLayout::DeleteMap(TIndex const & index, const MapOptions & options)
 {
   TGroup group;
   int position;
@@ -290,7 +290,7 @@ void ActiveMapsLayout::DeleteMap(TIndex const & index, const TMapOptions & optio
   DeleteMap(group, position, options);
 }
 
-void ActiveMapsLayout::DeleteMap(TGroup const & group, int position, TMapOptions const & options)
+void ActiveMapsLayout::DeleteMap(TGroup const & group, int position, MapOptions const & options)
 {
   TIndex indexCopy = GetItemInGroup(group, position).Index();
   m_framework.DeleteCountry(indexCopy, ValidOptionsForDelete(options));
@@ -378,7 +378,7 @@ Storage & ActiveMapsLayout::GetStorage()
 void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
 {
   TStatus newStatus = TStatus::EUnknown;
-  TMapOptions options = TMapOptions::Map;
+  MapOptions options = MapOptions::Map;
   GetStorage().CountryStatusEx(index, newStatus, options);
 
   TGroup group = TGroup::ENewMap;
@@ -403,7 +403,7 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
       //   but we must notify that options changed because for "NewMaps" m_options is virtual state
       if (item.m_options != options || group == TGroup::ENewMap)
       {
-        TMapOptions requestOptions = options;
+        MapOptions requestOptions = options;
         item.m_downloadRequest = item.m_options = options;
         NotifyOptionsChanged(group, position, item.m_options, requestOptions);
       }
@@ -418,7 +418,7 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
       // Here we handle
       // "Actual map without routing" -> "Actual map with routing"
       // "Actual map with routing" -> "Actual map without routing"
-      TMapOptions requestOpt = item.m_downloadRequest;
+      MapOptions requestOpt = item.m_downloadRequest;
       item.m_options = item.m_downloadRequest = options;
       NotifyOptionsChanged(group, position, item.m_options, requestOpt);
     }
@@ -654,21 +654,21 @@ void ActiveMapsLayout::NotifyStatusChanged(TGroup const & group, int position,
 }
 
 void ActiveMapsLayout::NotifyOptionsChanged(TGroup const & group, int position,
-                                            TMapOptions const & oldOpt, TMapOptions const & newOpt)
+                                            MapOptions const & oldOpt, MapOptions const & newOpt)
 {
   for (TListenerNode listener : m_listeners)
     listener.second->CountryOptionsChanged(group, position, oldOpt, newOpt);
 }
 
-TMapOptions ActiveMapsLayout::ValidOptionsForDownload(TMapOptions const & options)
+MapOptions ActiveMapsLayout::ValidOptionsForDownload(MapOptions const & options)
 {
-  return SetOptions(options, TMapOptions::Map);
+  return SetOptions(options, MapOptions::Map);
 }
 
-TMapOptions ActiveMapsLayout::ValidOptionsForDelete(TMapOptions const & options)
+MapOptions ActiveMapsLayout::ValidOptionsForDelete(MapOptions const & options)
 {
-  if (HasOptions(options, TMapOptions::Map))
-    return SetOptions(options, TMapOptions::CarRouting);
+  if (HasOptions(options, MapOptions::Map))
+    return SetOptions(options, MapOptions::CarRouting);
   return options;
 }
 

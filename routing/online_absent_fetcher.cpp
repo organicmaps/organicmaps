@@ -39,7 +39,7 @@ void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries
   {
     string name = m_countryFileFn(point);
     auto localFile = m_countryLocalFileFn(name);
-    if (localFile && HasOptions(localFile->GetFiles(), TMapOptions::MapWithCarRouting))
+    if (localFile && HasOptions(localFile->GetFiles(), MapOptions::MapWithCarRouting))
       continue;
 
     LOG(LINFO, ("Needs: ", name));

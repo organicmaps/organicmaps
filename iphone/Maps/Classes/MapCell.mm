@@ -36,14 +36,14 @@
   return self;
 }
 
-- (void)setStatus:(TStatus)status options:(TMapOptions)options animated:(BOOL)animated
+- (void)setStatus:(TStatus)status options:(MapOptions)options animated:(BOOL)animated
 {
   self.status = status;
   self.options = options;
 
   self.progressView.failedMode = NO;
 
-  if (options == TMapOptions::Map)
+  if (options == MapOptions::Map)
     self.routingImageView.image = [UIImage imageNamed:@"DownloadRoutingButton"];
   else
     self.routingImageView.image = [UIImage imageNamed:@"RoutingDownloadedButton"];

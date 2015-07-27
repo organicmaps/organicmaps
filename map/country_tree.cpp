@@ -148,10 +148,10 @@ TStatus CountryTree::GetLeafStatus(int position) const
   return GetStorage().CountryStatusEx(GetChild(position));
 }
 
-TMapOptions CountryTree::GetLeafOptions(int position) const
+MapOptions CountryTree::GetLeafOptions(int position) const
 {
   TStatus status;
-  TMapOptions options;
+  MapOptions options;
   GetStorage().CountryStatusEx(GetChild(position), status, options);
   return options;
 }
@@ -161,7 +161,7 @@ LocalAndRemoteSizeT const CountryTree::GetDownloadableLeafSize(int position) con
   return GetActiveMapLayout().GetDownloadableCountrySize(GetChild(position));
 }
 
-LocalAndRemoteSizeT const CountryTree::GetLeafSize(int position, TMapOptions const & options) const
+LocalAndRemoteSizeT const CountryTree::GetLeafSize(int position, MapOptions const & options) const
 {
   return GetActiveMapLayout().GetCountrySize(GetChild(position), options);
 }
@@ -186,13 +186,13 @@ string const & CountryTree::GetRootName() const
   return GetStorage().CountryName(GetCurrentRoot());
 }
 
-void CountryTree::DownloadCountry(int childPosition, TMapOptions const & options)
+void CountryTree::DownloadCountry(int childPosition, MapOptions const & options)
 {
   ASSERT(IsLeaf(childPosition), ());
   GetActiveMapLayout().DownloadMap(GetChild(childPosition), options);
 }
 
-void CountryTree::DeleteCountry(int childPosition, TMapOptions const & options)
+void CountryTree::DeleteCountry(int childPosition, MapOptions const & options)
 {
   ASSERT(IsLeaf(childPosition), ());
   GetActiveMapLayout().DeleteMap(GetChild(childPosition), options);

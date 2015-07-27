@@ -580,7 +580,7 @@ namespace android
       }
       try
       {
-        FilesContainerR cont(platform::GetCountryReader(localFile, TMapOptions::Map));
+        FilesContainerR cont(platform::GetCountryReader(localFile, MapOptions::Map));
         if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
           out.push_back(countryFile.GetNameWithoutExt());
       }
@@ -778,7 +778,7 @@ namespace android
   }
 
   void Framework::CountryOptionsChanged(ActiveMapsLayout::TGroup const & group, int position,
-                                        TMapOptions const & oldOpt, TMapOptions const & newOpt)
+                                        MapOptions const & oldOpt, MapOptions const & newOpt)
   {
     JNIEnv * env = jni::GetEnv();
     for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
@@ -1446,7 +1446,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_downloadCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    storage_utils::GetMapLayout().DownloadMap(storage::ToNative(idx), TMapOptions::Map);
+    storage_utils::GetMapLayout().DownloadMap(storage::ToNative(idx), MapOptions::Map);
   }
 
   JNIEXPORT void JNICALL

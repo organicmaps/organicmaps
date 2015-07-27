@@ -56,7 +56,7 @@ public:
   string const & Name() const { return m_name; }
   string const & Flag() const { return m_flag; }
 
-  uint64_t Size(TMapOptions opt) const;
+  uint64_t Size(MapOptions opt) const;
 };
 
 typedef SimpleTree<Country> CountriesContainerT;

@@ -92,8 +92,8 @@ private:
   /// during the downloading process.
   void OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & progress);
 
-  bool RegisterDownloadedFiles(TIndex const & index, TMapOptions files);
-  void OnMapDownloadFinished(TIndex const & index, bool success, TMapOptions files);
+  bool RegisterDownloadedFiles(TIndex const & index, MapOptions files);
+  void OnMapDownloadFinished(TIndex const & index, bool success, MapOptions files);
 
   /// Initiates downloading of the next file from the queue.
   void DownloadNextFile(QueuedCountry const & country);
@@ -130,7 +130,7 @@ public:
   string const & CountryName(TIndex const & index) const;
   string const & CountryFlag(TIndex const & index) const;
 
-  LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index, TMapOptions opt) const;
+  LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index, MapOptions opt) const;
   platform::CountryFile const & GetCountryFile(TIndex const & index) const;
   shared_ptr<platform::LocalCountryFile> GetLatestLocalFile(
       platform::CountryFile const & countryFile) const;
@@ -140,16 +140,16 @@ public:
   TStatus CountryStatus(TIndex const & index) const;
   /// Slow version, but checks if country is out of date
   TStatus CountryStatusEx(TIndex const & index) const;
-  void CountryStatusEx(TIndex const & index, TStatus & status, TMapOptions & options) const;
+  void CountryStatusEx(TIndex const & index, TStatus & status, MapOptions & options) const;
 
   /// Puts country denoted by index into the downloader's queue.
   /// During downloading process notifies observers about downloading
   /// progress and status changes.
-  void DownloadCountry(TIndex const & index, TMapOptions opt);
+  void DownloadCountry(TIndex const & index, MapOptions opt);
 
   /// Removes country files (for all versions) from the device.
   /// Notifies observers about country status change.
-  void DeleteCountry(TIndex const & index, TMapOptions opt);
+  void DeleteCountry(TIndex const & index, MapOptions opt);
 
   /// Removes country files of a particular version from the device.
   /// Notifies observers about country status change.
@@ -165,7 +165,7 @@ public:
   void NotifyStatusChanged(TIndex const & index);
 
   /// get download url by index & options(first search file name by index, then format url)
-  string GetFileDownloadUrl(string const & baseUrl, TIndex const & index, TMapOptions file) const;
+  string GetFileDownloadUrl(string const & baseUrl, TIndex const & index, MapOptions file) const;
   /// get download url by base url & file name
   string GetFileDownloadUrl(string const & baseUrl, string const & fName) const;
 
@@ -183,11 +183,11 @@ private:
   // Modifies file set of requested files - always adds a map file
   // when routing file is requested for downloading, but drops all
   // already downloaded and up-to-date files.
-  TMapOptions NormalizeDownloadFileSet(TIndex const & index, TMapOptions opt) const;
+  MapOptions NormalizeDownloadFileSet(TIndex const & index, MapOptions opt) const;
 
   // Modifies file set of file to deletion - always adds (marks for
   // removal) a routing file when map file is marked for deletion.
-  TMapOptions NormalizeDeleteFileSet(TMapOptions opt) const;
+  MapOptions NormalizeDeleteFileSet(MapOptions opt) const;
 
   // Returns a pointer to a country in the downloader's queue.
   QueuedCountry * FindCountryInQueue(TIndex const & index);
@@ -220,10 +220,10 @@ private:
   void RegisterFakeCountryFiles(platform::LocalCountryFile const & localFile);
 
   // Removes disk files for all versions of a country.
-  void DeleteCountryFiles(TIndex const & index, TMapOptions opt);
+  void DeleteCountryFiles(TIndex const & index, MapOptions opt);
 
   // Removes country files from downloader.
-  bool DeleteCountryFilesFromDownloader(TIndex const & index, TMapOptions opt);
+  bool DeleteCountryFilesFromDownloader(TIndex const & index, MapOptions opt);
 
   // Returns download size of the currently downloading file for the
   // queued country.
@@ -231,6 +231,6 @@ private:
 
   // Returns a path to a place on disk downloader can use for
   // downloaded files.
-  string GetFileDownloadPath(TIndex const & index, TMapOptions file) const;
+  string GetFileDownloadPath(TIndex const & index, MapOptions file) const;
 };
 }  // storage

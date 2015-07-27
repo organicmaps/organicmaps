@@ -79,13 +79,13 @@ extern "C"
     LocalAndRemoteSizeT const sizes = layout.GetRemoteCountrySizes(ToNative(idx));
     switch (storage_utils::ToOptions(options))
     {
-      case TMapOptions::Map:
+      case MapOptions::Map:
         return sizes.first;
-      case TMapOptions::CarRouting:
+      case MapOptions::CarRouting:
         return sizes.second;
-      case TMapOptions::MapWithCarRouting:
+      case MapOptions::MapWithCarRouting:
         return sizes.first + sizes.second;
-      case TMapOptions::Nothing:
+      case MapOptions::Nothing:
         return 0;
     }
   }

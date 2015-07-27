@@ -30,7 +30,7 @@ void ActiveMapsObserver::CountryStatusChanged(ActiveMapsLayout::TGroup const & g
     [m_delegateObject countryStatusChangedAtPosition:position inGroup:group];
 }
 
-void ActiveMapsObserver::CountryOptionsChanged(ActiveMapsLayout::TGroup const & group, int position, TMapOptions const & oldOpt, TMapOptions const & newOpt)
+void ActiveMapsObserver::CountryOptionsChanged(ActiveMapsLayout::TGroup const & group, int position, MapOptions const & oldOpt, MapOptions const & newOpt)
 {
   if ([m_delegateObject respondsToSelector:@selector(countryOptionsChangedAtPosition:inGroup:)])
     [m_delegateObject countryOptionsChangedAtPosition:position inGroup:group];

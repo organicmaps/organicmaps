@@ -103,7 +103,7 @@ extern NSString * const MapsStatusChangedNotification;
   self.selectedGroup = [self groupWithSection:indexPath.section];
 }
 
-- (void)configureSizeLabelOfMapCell:(MapCell *)cell position:(int)position group:(ActiveMapsLayout::TGroup const &)group status:(TStatus const &)status options:(TMapOptions const &)options
+- (void)configureSizeLabelOfMapCell:(MapCell *)cell position:(int)position group:(ActiveMapsLayout::TGroup const &)group status:(TStatus const &)status options:(MapOptions const &)options
 {
   if (status == TStatus::ENotDownloaded)
   {
@@ -129,7 +129,7 @@ extern NSString * const MapsStatusChangedNotification;
   return [NSString stringWithUTF8String:self.mapsLayout.GetCountryName(self.selectedGroup, self.selectedPosition).c_str()];
 }
 
-- (uint64_t)selectedMapSizeWithOptions:(TMapOptions)options
+- (uint64_t)selectedMapSizeWithOptions:(MapOptions)options
 {
   return self.mapsLayout.GetCountrySize(self.selectedGroup, self.selectedPosition, options).second;
 }
@@ -139,7 +139,7 @@ extern NSString * const MapsStatusChangedNotification;
   return self.mapsLayout.GetCountryStatus(self.selectedGroup, self.selectedPosition);
 }
 
-- (TMapOptions)selectedMapOptions
+- (MapOptions)selectedMapOptions
 {
   return self.mapsLayout.GetCountryOptions(self.selectedGroup, self.selectedPosition);
 }
@@ -241,7 +241,7 @@ extern NSString * const MapsStatusChangedNotification;
   int const position = static_cast<int const>(indexPath.row);
   ActiveMapsLayout::TGroup const group = [self groupWithSection:indexPath.section];
   TStatus const status = self.mapsLayout.GetCountryStatus(group, position);
-  TMapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
+  MapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
 
   NSInteger const numberOfRows = [self tableView:tableView numberOfRowsInSection:indexPath.section];
   BOOL const isLast = (indexPath.row == numberOfRows - 1);
@@ -304,7 +304,7 @@ extern NSString * const MapsStatusChangedNotification;
   {
     int const position = static_cast<int const>(indexPath.row);
     ActiveMapsLayout::TGroup const group = [self groupWithSection:indexPath.section];
-    TMapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
+    MapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
     self.mapsLayout.DeleteMap(group, position, options);
     [tableView setEditing:NO animated:YES];
     [self updateAllCellsSeprators];
@@ -356,7 +356,7 @@ extern NSString * const MapsStatusChangedNotification;
   MapCell * cell = [self cellAtPosition:position inGroup:group];
 
   TStatus const status = self.mapsLayout.GetCountryStatus(group, position);
-  TMapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
+  MapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
   [self configureSizeLabelOfMapCell:cell position:position group:group status:status options:options];
   [cell setStatus:self.mapsLayout.GetCountryStatus(group, position) options:self.mapsLayout.GetCountryOptions(group, position) animated:YES];
 
@@ -368,7 +368,7 @@ extern NSString * const MapsStatusChangedNotification;
   MapCell * cell = [self cellAtPosition:position inGroup:group];
 
   TStatus const status = self.mapsLayout.GetCountryStatus(group, position);
-  TMapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
+  MapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
   [self configureSizeLabelOfMapCell:cell position:position group:group status:status options:options];
   [cell setStatus:self.mapsLayout.GetCountryStatus(group, position) options:self.mapsLayout.GetCountryOptions(group, position) animated:YES];
 }

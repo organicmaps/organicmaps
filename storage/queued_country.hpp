@@ -9,23 +9,23 @@ namespace storage
 class QueuedCountry
 {
 public:
-  QueuedCountry(TIndex const & index, TMapOptions opt);
+  QueuedCountry(TIndex const & index, MapOptions opt);
 
-  void AddOptions(TMapOptions opt);
-  void RemoveOptions(TMapOptions opt);
+  void AddOptions(MapOptions opt);
+  void RemoveOptions(MapOptions opt);
   bool SwitchToNextFile();
 
   inline TIndex const & GetIndex() const { return m_index; }
-  inline TMapOptions GetInitOptions() const { return m_init; }
-  inline TMapOptions GetCurrentFile() const { return m_current; }
-  inline TMapOptions GetDownloadedFiles() const { return UnsetOptions(m_init, m_left); }
+  inline MapOptions GetInitOptions() const { return m_init; }
+  inline MapOptions GetCurrentFile() const { return m_current; }
+  inline MapOptions GetDownloadedFiles() const { return UnsetOptions(m_init, m_left); }
 
   inline bool operator==(TIndex const & index) const { return m_index == index; }
 
 private:
   TIndex m_index;
-  TMapOptions m_init;
-  TMapOptions m_left;
-  TMapOptions m_current;
+  MapOptions m_init;
+  MapOptions m_left;
+  MapOptions m_current;
 };
 }  // namespace storage

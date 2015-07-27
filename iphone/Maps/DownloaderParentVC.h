@@ -34,15 +34,15 @@ using namespace storage;
 // CountryTree methods accept int. It should be enough to store all countries.
 @property (nonatomic) int selectedPosition;
 
-@property (nonatomic) TMapOptions selectedInActionSheetOptions;
+@property (nonatomic) MapOptions selectedInActionSheetOptions;
 @property (nonatomic) NSMutableDictionary * actionSheetActions;
 
 // virtual
 - (NSString *)parentTitle;
 - (NSString *)selectedMapName;
-- (uint64_t)selectedMapSizeWithOptions:(TMapOptions)options;
+- (uint64_t)selectedMapSizeWithOptions:(MapOptions)options;
 - (TStatus)selectedMapStatus;
-- (TMapOptions)selectedMapOptions;
+- (MapOptions)selectedMapOptions;
 - (void)performAction:(DownloaderAction)action withSizeCheck:(BOOL)check;
 
 @end

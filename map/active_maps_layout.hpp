@@ -42,7 +42,7 @@ public:
     virtual void CountryStatusChanged(TGroup const & group, int position,
                                       TStatus const & oldStatus, TStatus const & newStatus) = 0;
     virtual void CountryOptionsChanged(TGroup const & group, int position,
-                                       TMapOptions const & oldOpt, TMapOptions const & newOpt) = 0;
+                                       MapOptions const & oldOpt, MapOptions const & newOpt) = 0;
     virtual void DownloadingProgressUpdate(TGroup const & group, int position,
                                            LocalAndRemoteSizeT const & progress) = 0;
   };
@@ -62,22 +62,22 @@ public:
   string const & GetCountryName(storage::TIndex const & index) const;
   TStatus GetCountryStatus(TGroup const & group, int position) const;
   TStatus GetCountryStatus(storage::TIndex const & index) const;
-  TMapOptions GetCountryOptions(TGroup const & group, int position) const;
-  TMapOptions GetCountryOptions(storage::TIndex const & index) const;
+  MapOptions GetCountryOptions(TGroup const & group, int position) const;
+  MapOptions GetCountryOptions(storage::TIndex const & index) const;
   LocalAndRemoteSizeT const GetDownloadableCountrySize(TGroup const & group, int position) const;
   LocalAndRemoteSizeT const GetDownloadableCountrySize(TIndex const & index) const;
-  LocalAndRemoteSizeT const GetCountrySize(TGroup const & group, int position, TMapOptions const & options) const;
-  LocalAndRemoteSizeT const GetCountrySize(TIndex const & index, TMapOptions const & options) const;
+  LocalAndRemoteSizeT const GetCountrySize(TGroup const & group, int position, MapOptions const & options) const;
+  LocalAndRemoteSizeT const GetCountrySize(TIndex const & index, MapOptions const & options) const;
   LocalAndRemoteSizeT const GetRemoteCountrySizes(TGroup const & group, int position) const;
   LocalAndRemoteSizeT const GetRemoteCountrySizes(TIndex const & index) const;
 
   int AddListener(ActiveMapsListener * listener);
   void RemoveListener(int slotID);
 
-  void DownloadMap(TIndex const & index, TMapOptions const & options);
-  void DownloadMap(TGroup const & group, int position, TMapOptions const & options);
-  void DeleteMap(TIndex const & index, TMapOptions const & options);
-  void DeleteMap(TGroup const & group, int position, TMapOptions const & options);
+  void DownloadMap(TIndex const & index, MapOptions const & options);
+  void DownloadMap(TGroup const & group, int position, MapOptions const & options);
+  void DeleteMap(TIndex const & index, MapOptions const & options);
+  void DeleteMap(TGroup const & group, int position, MapOptions const & options);
   void RetryDownloading(TGroup const & group, int position);
   void RetryDownloading(TIndex const & index);
 
@@ -115,8 +115,8 @@ private:
   public:
     template <class TCont> Item(TCont const & cont,
                                 TStatus status,
-                                TMapOptions options,
-                                TMapOptions downloadRequest)
+                                MapOptions options,
+                                MapOptions downloadRequest)
       : m_indexes(cont.begin(), cont.end()), m_status(status),
         m_options(options), m_downloadRequest(downloadRequest)
     {
@@ -133,8 +133,8 @@ private:
     TIndex const & Index() const { return m_indexes[0]; }
 
     TStatus m_status;
-    TMapOptions m_options;
-    TMapOptions m_downloadRequest;
+    MapOptions m_options;
+    MapOptions m_downloadRequest;
   };
 
   Item const & GetItemInGroup(TGroup const & group, int position) const;
@@ -156,10 +156,10 @@ private:
   void NotifyStatusChanged(TGroup const & group, int position,
                            TStatus const & oldStatus, TStatus const & newStatus);
   void NotifyOptionsChanged(TGroup const & group, int position,
-                            TMapOptions const & oldOpt, TMapOptions const & newOpt);
+                            MapOptions const & oldOpt, MapOptions const & newOpt);
 
-  TMapOptions ValidOptionsForDownload(TMapOptions const & options);
-  TMapOptions ValidOptionsForDelete(TMapOptions const & options);
+  MapOptions ValidOptionsForDownload(MapOptions const & options);
+  MapOptions ValidOptionsForDelete(MapOptions const & options);
 
 private:
   Framework & m_framework;

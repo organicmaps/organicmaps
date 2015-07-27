@@ -35,7 +35,7 @@ public:
   virtual void CountryStatusChanged(ActiveMapsLayout::TGroup const & group, int position,
                                     TStatus const & oldStatus, TStatus const & newStatus);
   virtual void CountryOptionsChanged(ActiveMapsLayout::TGroup const & group, int position,
-                                     TMapOptions const & oldOpt, TMapOptions const & newOpt);
+                                     MapOptions const & oldOpt, MapOptions const & newOpt);
   virtual void DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group, int position, LocalAndRemoteSizeT const & progress);
 
 private:

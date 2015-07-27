@@ -70,7 +70,7 @@ private:
   virtual void CountryStatusChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
                                     storage::TStatus const & oldStatus, storage::TStatus const & newStatus);
   virtual void CountryOptionsChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
-                                     TMapOptions const & oldOpt, TMapOptions const & newOpt)
+                                     MapOptions const & oldOpt, MapOptions const & newOpt)
   {
   }
   virtual void DownloadingProgressUpdate(storage::ActiveMapsLayout::TGroup const & group, int position,

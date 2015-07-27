@@ -2,43 +2,43 @@
 
 #include "base/assert.hpp"
 
-bool HasOptions(TMapOptions mask, TMapOptions options)
+bool HasOptions(MapOptions mask, MapOptions options)
 {
   return (static_cast<uint8_t>(mask) & static_cast<uint8_t>(options)) ==
          static_cast<uint8_t>(options);
 }
 
-TMapOptions IntersectOptions(TMapOptions lhs, TMapOptions rhs)
+MapOptions IntersectOptions(MapOptions lhs, MapOptions rhs)
 {
-  return static_cast<TMapOptions>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
+  return static_cast<MapOptions>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
 }
 
-TMapOptions SetOptions(TMapOptions mask, TMapOptions options)
+MapOptions SetOptions(MapOptions mask, MapOptions options)
 {
-  return static_cast<TMapOptions>(static_cast<uint8_t>(mask) | static_cast<uint8_t>(options));
+  return static_cast<MapOptions>(static_cast<uint8_t>(mask) | static_cast<uint8_t>(options));
 }
 
-TMapOptions UnsetOptions(TMapOptions mask, TMapOptions options)
+MapOptions UnsetOptions(MapOptions mask, MapOptions options)
 {
-  return static_cast<TMapOptions>(static_cast<uint8_t>(mask) & ~static_cast<uint8_t>(options));
+  return static_cast<MapOptions>(static_cast<uint8_t>(mask) & ~static_cast<uint8_t>(options));
 }
 
-TMapOptions LeastSignificantOption(TMapOptions mask)
+MapOptions LeastSignificantOption(MapOptions mask)
 {
-  return static_cast<TMapOptions>(static_cast<uint8_t>(mask) & -static_cast<uint8_t>(mask));
+  return static_cast<MapOptions>(static_cast<uint8_t>(mask) & -static_cast<uint8_t>(mask));
 }
 
-string DebugPrint(TMapOptions options)
+string DebugPrint(MapOptions options)
 {
   switch (options)
   {
-    case TMapOptions::Nothing:
+    case MapOptions::Nothing:
       return "Nothing";
-    case TMapOptions::Map:
+    case MapOptions::Map:
       return "MapOnly";
-    case TMapOptions::CarRouting:
+    case MapOptions::CarRouting:
       return "CarRouting";
-    case TMapOptions::MapWithCarRouting:
+    case MapOptions::MapWithCarRouting:
       return "MapWithCarRouting";
   }
 }

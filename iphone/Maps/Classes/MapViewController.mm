@@ -690,8 +690,8 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
       {
         LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
         uint64_t sizeToDownload = sizes.first;
-        TMapOptions options = static_cast<TMapOptions>(opt);
-        if(HasOptions(options, TMapOptions::CarRouting))
+        MapOptions options = static_cast<MapOptions>(opt);
+        if(HasOptions(options, MapOptions::CarRouting))
           sizeToDownload += sizes.second;
 
         NSString * name = [NSString stringWithUTF8String:layout.GetCountryName(idx).c_str()];
@@ -701,7 +701,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * MB)
           {
             NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
-            [self.alertController presentnoWiFiAlertWithName:title downloadBlock:^{layout.DownloadMap(idx, static_cast<TMapOptions>(opt));}];
+            [self.alertController presentnoWiFiAlertWithName:title downloadBlock:^{layout.DownloadMap(idx, static_cast<MapOptions>(opt));}];
             return;
           }
         }
@@ -711,7 +711,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           return;
         }
 
-        layout.DownloadMap(idx, static_cast<TMapOptions>(opt));
+        layout.DownloadMap(idx, static_cast<MapOptions>(opt));
       }
     });
 

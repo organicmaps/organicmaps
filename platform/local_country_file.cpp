@@ -12,7 +12,7 @@
 namespace platform
 {
 LocalCountryFile::LocalCountryFile()
-    : m_version(0), m_files(TMapOptions::Nothing), m_mapSize(0), m_routingSize()
+    : m_version(0), m_files(MapOptions::Nothing), m_mapSize(0), m_routingSize()
 {
 }
 
@@ -21,7 +21,7 @@ LocalCountryFile::LocalCountryFile(string const & directory, CountryFile const &
     : m_directory(directory),
       m_countryFile(countryFile),
       m_version(version),
-      m_files(TMapOptions::Nothing),
+      m_files(MapOptions::Nothing),
       m_mapSize(0),
       m_routingSize(0)
 {
@@ -29,23 +29,23 @@ LocalCountryFile::LocalCountryFile(string const & directory, CountryFile const &
 
 void LocalCountryFile::SyncWithDisk()
 {
-  m_files = TMapOptions::Nothing;
+  m_files = MapOptions::Nothing;
   m_mapSize = 0;
   m_routingSize = 0;
 
   Platform & platform = GetPlatform();
 
-  if (platform.GetFileSizeByFullPath(GetPath(TMapOptions::Map), m_mapSize))
-    m_files = SetOptions(m_files, TMapOptions::Map);
+  if (platform.GetFileSizeByFullPath(GetPath(MapOptions::Map), m_mapSize))
+    m_files = SetOptions(m_files, MapOptions::Map);
 
-  string const routingPath = GetPath(TMapOptions::CarRouting);
+  string const routingPath = GetPath(MapOptions::CarRouting);
   if (platform.GetFileSizeByFullPath(routingPath, m_routingSize))
-    m_files = SetOptions(m_files, TMapOptions::CarRouting);
+    m_files = SetOptions(m_files, MapOptions::CarRouting);
 }
 
-void LocalCountryFile::DeleteFromDisk(TMapOptions files) const
+void LocalCountryFile::DeleteFromDisk(MapOptions files) const
 {
-  for (TMapOptions file : {TMapOptions::Map, TMapOptions::CarRouting})
+  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
   {
     if (OnDisk(file) && HasOptions(files, file))
     {
@@ -55,17 +55,17 @@ void LocalCountryFile::DeleteFromDisk(TMapOptions files) const
   }
 }
 
-string LocalCountryFile::GetPath(TMapOptions file) const
+string LocalCountryFile::GetPath(MapOptions file) const
 {
   return my::JoinFoldersToPath(m_directory, m_countryFile.GetNameWithExt(file));
 }
 
-uint32_t LocalCountryFile::GetSize(TMapOptions filesMask) const
+uint32_t LocalCountryFile::GetSize(MapOptions filesMask) const
 {
   uint64_t size64 = 0;
-  if (HasOptions(filesMask, TMapOptions::Map))
+  if (HasOptions(filesMask, MapOptions::Map))
     size64 += m_mapSize;
-  if (HasOptions(filesMask, TMapOptions::CarRouting))
+  if (HasOptions(filesMask, MapOptions::CarRouting))
     size64 += m_routingSize;
   uint32_t const size32 = static_cast<uint32_t>(size64);
   ASSERT_EQUAL(size32, size64, ());

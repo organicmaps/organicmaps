@@ -10,7 +10,7 @@ using platform::CountryFile;
 
 namespace storage
 {
-uint64_t Country::Size(TMapOptions opt) const
+uint64_t Country::Size(MapOptions opt) const
 {
   uint64_t size = 0;
   for (CountryFile const & file : m_files)
@@ -211,9 +211,9 @@ void SaveImpl(T const & v, json_t * jParent)
       string const & strFile = file.GetNameWithoutExt();
       if (strFile != strName)
         json_object_set_new(jCountry.get(), "f", json_string(strFile.c_str()));
-      json_object_set_new(jCountry.get(), "s", json_integer(file.GetRemoteSize(TMapOptions::Map)));
+      json_object_set_new(jCountry.get(), "s", json_integer(file.GetRemoteSize(MapOptions::Map)));
       json_object_set_new(jCountry.get(), "rs",
-                          json_integer(file.GetRemoteSize(TMapOptions::CarRouting)));
+                          json_integer(file.GetRemoteSize(MapOptions::CarRouting)));
     }
 
     if (v[i].SiblingsCount())

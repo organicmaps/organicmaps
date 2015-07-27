@@ -20,7 +20,7 @@ class ScopedFile
 public:
   ScopedFile(string const & relativePath, string const & contents);
 
-  ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, TMapOptions file,
+  ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, MapOptions file,
              string const & contents);
 
   ~ScopedFile();

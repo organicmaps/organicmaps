@@ -37,12 +37,12 @@ void RemoveIf(vector<T> & v, function<bool(T const & t)> const & p)
   v.erase(remove_if(v.begin(), v.end(), p), v.end());
 }
 
-uint64_t GetLocalSize(shared_ptr<LocalCountryFile> file, TMapOptions opt)
+uint64_t GetLocalSize(shared_ptr<LocalCountryFile> file, MapOptions opt)
 {
   if (!file)
     return 0;
   uint64_t size = 0;
-  for (TMapOptions bit : {TMapOptions::Map, TMapOptions::CarRouting})
+  for (MapOptions bit : {MapOptions::Map, MapOptions::CarRouting})
   {
     if (HasOptions(opt, bit))
       size += file->GetSize(bit);
@@ -50,10 +50,10 @@ uint64_t GetLocalSize(shared_ptr<LocalCountryFile> file, TMapOptions opt)
   return size;
 }
 
-uint64_t GetRemoteSize(CountryFile const & file, TMapOptions opt)
+uint64_t GetRemoteSize(CountryFile const & file, MapOptions opt)
 {
   uint64_t size = 0;
-  for (TMapOptions bit : {TMapOptions::Map, TMapOptions::CarRouting})
+  for (MapOptions bit : {MapOptions::Map, MapOptions::CarRouting})
   {
     if (HasOptions(opt, bit))
       size += file.GetRemoteSize(bit);
@@ -130,7 +130,7 @@ void Storage::RegisterAllLocalMaps()
       LocalCountryFile & localFile = *j;
       LOG(LINFO, ("Removing obsolete", localFile));
       localFile.SyncWithDisk();
-      localFile.DeleteFromDisk(TMapOptions::MapWithCarRouting);
+      localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
       ++j;
     }
 
@@ -204,7 +204,7 @@ string const & Storage::CountryFlag(TIndex const & index) const
   return NodeFromIndex(m_countries, index).Value().Flag();
 }
 
-LocalAndRemoteSizeT Storage::CountrySizeInBytes(TIndex const & index, TMapOptions opt) const
+LocalAndRemoteSizeT Storage::CountrySizeInBytes(TIndex const & index, MapOptions opt) const
 {
   QueuedCountry const * queuedCountry = FindCountryInQueue(index);
   shared_ptr<LocalCountryFile> localFile = GetLatestLocalFile(index);
@@ -282,25 +282,25 @@ TStatus Storage::CountryStatusEx(TIndex const & index) const
   return CountryStatusFull(index, CountryStatus(index));
 }
 
-void Storage::CountryStatusEx(TIndex const & index, TStatus & status, TMapOptions & options) const
+void Storage::CountryStatusEx(TIndex const & index, TStatus & status, MapOptions & options) const
 {
   status = CountryStatusEx(index);
 
   if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
   {
-    options = TMapOptions::Map;
+    options = MapOptions::Map;
 
     shared_ptr<LocalCountryFile> localFile = GetLatestLocalFile(index);
     ASSERT(localFile, ("Invariant violation: local file out of sync with disk."));
-    if (localFile->OnDisk(TMapOptions::CarRouting))
-      options = SetOptions(options, TMapOptions::CarRouting);
+    if (localFile->OnDisk(MapOptions::CarRouting))
+      options = SetOptions(options, MapOptions::CarRouting);
   }
 }
 
-void Storage::DownloadCountry(TIndex const & index, TMapOptions opt)
+void Storage::DownloadCountry(TIndex const & index, MapOptions opt)
 {
   opt = NormalizeDownloadFileSet(index, opt);
-  if (opt == TMapOptions::Nothing)
+  if (opt == MapOptions::Nothing)
     return;
 
   if (QueuedCountry * queuedCountry = FindCountryInQueue(index))
@@ -317,7 +317,7 @@ void Storage::DownloadCountry(TIndex const & index, TMapOptions opt)
     NotifyStatusChanged(index);
 }
 
-void Storage::DeleteCountry(TIndex const & index, TMapOptions opt)
+void Storage::DeleteCountry(TIndex const & index, MapOptions opt)
 {
   opt = NormalizeDeleteFileSet(opt);
   DeleteCountryFiles(index, opt);
@@ -333,7 +333,7 @@ void Storage::DeleteCountry(TIndex const & index, TMapOptions opt)
 void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
 {
   CountryFile const countryFile = localFile.GetCountryFile();
-  localFile.DeleteFromDisk(TMapOptions::MapWithCarRouting);
+  localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
 
   {
     auto it = m_localFilesForFakeCountries.find(countryFile);
@@ -356,7 +356,7 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
   // If file version equals to current data version, delete from downloader all pending requests for
   // the country.
   if (localFile.GetVersion() == GetCurrentDataVersion())
-    DeleteCountryFilesFromDownloader(index, TMapOptions::MapWithCarRouting);
+    DeleteCountryFilesFromDownloader(index, MapOptions::MapWithCarRouting);
   auto countryFilesIt = m_localFiles.find(index);
   if (countryFilesIt == m_localFiles.end())
   {
@@ -400,7 +400,7 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
 
 bool Storage::DeleteFromDownloader(TIndex const & index)
 {
-  if (!DeleteCountryFilesFromDownloader(index, TMapOptions::MapWithCarRouting))
+  if (!DeleteCountryFilesFromDownloader(index, MapOptions::MapWithCarRouting))
     return false;
   NotifyStatusChanged(index);
   return true;
@@ -487,7 +487,7 @@ void Storage::OnServerListDownloaded(vector<string> const & urls)
 
   QueuedCountry const & queuedCountry = m_queue.front();
   TIndex const & index = queuedCountry.GetIndex();
-  TMapOptions const file = queuedCountry.GetCurrentFile();
+  MapOptions const file = queuedCountry.GetCurrentFile();
 
   vector<string> fileUrls;
   fileUrls.reserve(urls.size());
@@ -518,7 +518,7 @@ void Storage::OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & pr
   }
 }
 
-bool Storage::RegisterDownloadedFiles(TIndex const & index, TMapOptions files)
+bool Storage::RegisterDownloadedFiles(TIndex const & index, MapOptions files)
 {
   CountryFile const countryFile = GetCountryFile(index);
   shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, GetCurrentDataVersion());
@@ -532,7 +532,7 @@ bool Storage::RegisterDownloadedFiles(TIndex const & index, TMapOptions files)
   }
 
   bool ok = true;
-  for (TMapOptions file : {TMapOptions::Map, TMapOptions::CarRouting})
+  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
   {
     if (!HasOptions(files, file))
       continue;
@@ -553,24 +553,24 @@ bool Storage::RegisterDownloadedFiles(TIndex const & index, TMapOptions files)
   return true;
 }
 
-void Storage::OnMapDownloadFinished(TIndex const & index, bool success, TMapOptions files)
+void Storage::OnMapDownloadFinished(TIndex const & index, bool success, MapOptions files)
 {
-  ASSERT_NOT_EQUAL(TMapOptions::Nothing, files,
+  ASSERT_NOT_EQUAL(MapOptions::Nothing, files,
                    ("This method should not be called for empty files set."));
   {
     string optionsName;
     switch (files)
     {
-      case TMapOptions::Nothing:
+      case MapOptions::Nothing:
         optionsName = "Nothing";
         break;
-      case TMapOptions::Map:
+      case MapOptions::Map:
         optionsName = "Map";
         break;
-      case TMapOptions::CarRouting:
+      case MapOptions::CarRouting:
         optionsName = "CarRouting";
         break;
-      case TMapOptions::MapWithCarRouting:
+      case MapOptions::MapWithCarRouting:
         optionsName = "MapWithCarRouting";
         break;
     }
@@ -597,7 +597,7 @@ void Storage::OnMapDownloadFinished(TIndex const & index, bool success, TMapOpti
 }
 
 string Storage::GetFileDownloadUrl(string const & baseUrl, TIndex const & index,
-                                   TMapOptions file) const
+                                   MapOptions file) const
 {
   CountryFile const & countryFile = GetCountryFile(index);
   return GetFileDownloadUrl(baseUrl, countryFile.GetNameWithExt(file));
@@ -689,11 +689,11 @@ TStatus Storage::CountryStatusFull(TIndex const & index, TStatus const status) c
     return status;
 
   shared_ptr<LocalCountryFile> localFile = GetLatestLocalFile(index);
-  if (!localFile || !localFile->OnDisk(TMapOptions::Map))
+  if (!localFile || !localFile->OnDisk(MapOptions::Map))
     return TStatus::ENotDownloaded;
 
   CountryFile const & countryFile = GetCountryFile(index);
-  if (GetRemoteSize(countryFile, TMapOptions::Map) == 0)
+  if (GetRemoteSize(countryFile, MapOptions::Map) == 0)
     return TStatus::EUnknown;
 
   if (localFile->GetVersion() != GetCurrentDataVersion())
@@ -701,14 +701,14 @@ TStatus Storage::CountryStatusFull(TIndex const & index, TStatus const status) c
   return TStatus::EOnDisk;
 }
 
-TMapOptions Storage::NormalizeDownloadFileSet(TIndex const & index, TMapOptions opt) const
+MapOptions Storage::NormalizeDownloadFileSet(TIndex const & index, MapOptions opt) const
 {
   // Car routing files are useless without map files.
-  if (HasOptions(opt, TMapOptions::CarRouting))
-    opt = SetOptions(opt, TMapOptions::Map);
+  if (HasOptions(opt, MapOptions::CarRouting))
+    opt = SetOptions(opt, MapOptions::Map);
 
   shared_ptr<LocalCountryFile> localCountryFile = GetLatestLocalFile(index);
-  for (TMapOptions file : {TMapOptions::Map, TMapOptions::CarRouting})
+  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
   {
     // Check whether requested files are on disk and up-to-date.
     if (HasOptions(opt, file) && localCountryFile && localCountryFile->OnDisk(file) &&
@@ -720,11 +720,11 @@ TMapOptions Storage::NormalizeDownloadFileSet(TIndex const & index, TMapOptions 
   return opt;
 }
 
-TMapOptions Storage::NormalizeDeleteFileSet(TMapOptions opt) const
+MapOptions Storage::NormalizeDeleteFileSet(MapOptions opt) const
 {
   // Car routing files are useless without map files.
-  if (HasOptions(opt, TMapOptions::Map))
-    opt = SetOptions(opt, TMapOptions::CarRouting);
+  if (HasOptions(opt, MapOptions::Map))
+    opt = SetOptions(opt, MapOptions::CarRouting);
   return opt;
 }
 
@@ -800,7 +800,7 @@ void Storage::RegisterFakeCountryFiles(platform::LocalCountryFile const & localF
   m_localFilesForFakeCountries[fakeCountryLocalFile->GetCountryFile()] = fakeCountryLocalFile;
 }
 
-void Storage::DeleteCountryFiles(TIndex const & index, TMapOptions opt)
+void Storage::DeleteCountryFiles(TIndex const & index, MapOptions opt)
 {
   auto const it = m_localFiles.find(index);
   if (it == m_localFiles.end())
@@ -812,7 +812,7 @@ void Storage::DeleteCountryFiles(TIndex const & index, TMapOptions opt)
     localFile->DeleteFromDisk(opt);
     localFile->SyncWithDisk();
     DeleteCountryIndexes(*localFile);
-    if (localFile->GetFiles() == TMapOptions::Nothing)
+    if (localFile->GetFiles() == MapOptions::Nothing)
       localFile.reset();
   }
   auto isNull = [](shared_ptr<LocalCountryFile> const & localFile)
@@ -824,7 +824,7 @@ void Storage::DeleteCountryFiles(TIndex const & index, TMapOptions opt)
     m_localFiles.erase(index);
 }
 
-bool Storage::DeleteCountryFilesFromDownloader(TIndex const & index, TMapOptions opt)
+bool Storage::DeleteCountryFilesFromDownloader(TIndex const & index, MapOptions opt)
 {
   QueuedCountry * queuedCountry = FindCountryInQueue(index);
   if (!queuedCountry)
@@ -842,7 +842,7 @@ bool Storage::DeleteCountryFilesFromDownloader(TIndex const & index, TMapOptions
   queuedCountry->RemoveOptions(opt);
 
   // Remove country from the queue if there's nothing to download.
-  if (queuedCountry->GetInitOptions() == TMapOptions::Nothing)
+  if (queuedCountry->GetInitOptions() == MapOptions::Nothing)
     m_queue.erase(find(m_queue.begin(), m_queue.end(), index));
 
   if (!m_queue.empty() && m_downloader->IsIdle())
@@ -862,7 +862,7 @@ uint64_t Storage::GetDownloadSize(QueuedCountry const & queuedCountry) const
   return GetRemoteSize(file, queuedCountry.GetCurrentFile());
 }
 
-string Storage::GetFileDownloadPath(TIndex const & index, TMapOptions file) const
+string Storage::GetFileDownloadPath(TIndex const & index, MapOptions file) const
 {
   Platform & platform = GetPlatform();
   CountryFile const & countryFile = GetCountryFile(index);

@@ -8,7 +8,7 @@ namespace storage_utils
   storage::CountryTree & GetTree() { return frm()->GetCountryTree(); }
 
   storage::ActiveMapsLayout::TGroup ToGroup(int group) { return static_cast<storage::ActiveMapsLayout::TGroup>(group); }
-  TMapOptions ToOptions(int options) { return static_cast<TMapOptions>(options); }
+  MapOptions ToOptions(int options) { return static_cast<MapOptions>(options); }
   jlongArray ToArray(JNIEnv * env, storage::LocalAndRemoteSizeT const & size)
   {
     jlongArray result = env->NewLongArray(2);

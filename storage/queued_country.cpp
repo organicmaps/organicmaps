@@ -4,17 +4,17 @@
 
 namespace storage
 {
-QueuedCountry::QueuedCountry(TIndex const & index, TMapOptions opt)
-    : m_index(index), m_init(opt), m_left(opt), m_current(TMapOptions::Nothing)
+QueuedCountry::QueuedCountry(TIndex const & index, MapOptions opt)
+    : m_index(index), m_init(opt), m_left(opt), m_current(MapOptions::Nothing)
 {
   ASSERT(GetIndex().IsValid(), ("Only valid countries may be downloaded."));
-  ASSERT(m_left != TMapOptions::Nothing, ("Empty file set was requested for downloading."));
+  ASSERT(m_left != MapOptions::Nothing, ("Empty file set was requested for downloading."));
   SwitchToNextFile();
 }
 
-void QueuedCountry::AddOptions(TMapOptions opt)
+void QueuedCountry::AddOptions(MapOptions opt)
 {
-  for (TMapOptions file : {TMapOptions::Map, TMapOptions::CarRouting})
+  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
   {
     if (HasOptions(opt, file) && !HasOptions(m_init, file))
     {
@@ -24,9 +24,9 @@ void QueuedCountry::AddOptions(TMapOptions opt)
   }
 }
 
-void QueuedCountry::RemoveOptions(TMapOptions opt)
+void QueuedCountry::RemoveOptions(MapOptions opt)
 {
-  for (TMapOptions file : {TMapOptions::Map, TMapOptions::CarRouting})
+  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
   {
     if (HasOptions(opt, file) && HasOptions(m_init, file))
     {
@@ -40,13 +40,13 @@ void QueuedCountry::RemoveOptions(TMapOptions opt)
 
 bool QueuedCountry::SwitchToNextFile()
 {
-  // static_casts are needed here because TMapOptions values are
+  // static_casts are needed here because MapOptions values are
   // actually enum flags (see 3party/enum_flags.hpp) and bitwise
   // operators are overloaded for them.
   ASSERT(HasOptions(m_left, m_current),
          ("Current file (", m_current, ") is not specified in left files (", m_left, ")."));
   m_left = UnsetOptions(m_left, m_current);
   m_current = LeastSignificantOption(m_left);
-  return m_current != TMapOptions::Nothing;
+  return m_current != MapOptions::Nothing;
 }
 }  // namespace storage

@@ -150,10 +150,10 @@ namespace qt
         QAbstractButton * res = ask.clickedButton();
 
         if (res == btns[0])
-          m_framework.DownloadCountry(countryIndex, TMapOptions::MapWithCarRouting);
+          m_framework.DownloadCountry(countryIndex, MapOptions::MapWithCarRouting);
 
         if (res == btns[1])
-          m_framework.DeleteCountry(countryIndex, TMapOptions::MapWithCarRouting);
+          m_framework.DeleteCountry(countryIndex, MapOptions::MapWithCarRouting);
       }
       break;
 
@@ -167,18 +167,18 @@ namespace qt
         ask.setDefaultButton(QMessageBox::No);
 
         if (ask.exec() == QMessageBox::Yes)
-          m_framework.DeleteCountry(countryIndex, TMapOptions::MapWithCarRouting);
+          m_framework.DeleteCountry(countryIndex, MapOptions::MapWithCarRouting);
       }
       break;
 
     case TStatus::ENotDownloaded:
     case TStatus::EDownloadFailed:
-      m_framework.DownloadCountry(countryIndex, TMapOptions::MapWithCarRouting);
+      m_framework.DownloadCountry(countryIndex, MapOptions::MapWithCarRouting);
       break;
 
     case TStatus::EInQueue:
     case TStatus::EDownloading:
-      m_framework.DeleteCountry(countryIndex, TMapOptions::MapWithCarRouting);
+      m_framework.DeleteCountry(countryIndex, MapOptions::MapWithCarRouting);
       break;
 
     default:
@@ -247,7 +247,7 @@ namespace qt
       QString statusString;
       LocalAndRemoteSizeT size(0, 0);
 
-      TMapOptions const options = TMapOptions::MapWithCarRouting;
+      MapOptions const options = MapOptions::MapWithCarRouting;
 
       Storage const & st = GetStorage();
       switch (m_framework.GetCountryStatus(index))

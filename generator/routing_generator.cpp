@@ -243,7 +243,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
   osrm::NodeDataVectorT nodeData;
   gen::OsmID2FeatureID osm2ft;
-  if (!LoadIndexes(localFile.GetPath(TMapOptions::Map), osrmFile, nodeData, osm2ft))
+  if (!LoadIndexes(localFile.GetPath(MapOptions::Map), osrmFile, nodeData, osm2ft))
     return;
 
   OsrmFtSegMappingBuilder mapping;
@@ -390,13 +390,13 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
               "Multiple:", multiple, "Equal:", equal));
 
   LOG(LINFO, ("Collect all data into one file..."));
-  string const fPath = localFile.GetPath(TMapOptions::CarRouting);
+  string const fPath = localFile.GetPath(MapOptions::CarRouting);
 
   FilesContainerW routingCont(fPath /*, FileWriter::OP_APPEND*/);
 
   {
     // Write version for routing file that is equal to correspondent mwm file.
-    FilesContainerR mwmCont(localFile.GetPath(TMapOptions::Map));
+    FilesContainerR mwmCont(localFile.GetPath(MapOptions::Map));
 
     FileWriter w = routingCont.GetWriter(VERSION_FILE_TAG);
     ReaderSource<ModelReaderPtr> src(mwmCont.GetReader(VERSION_FILE_TAG));

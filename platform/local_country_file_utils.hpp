@@ -49,7 +49,7 @@ bool ParseVersion(string const & s, int64_t & version);
 shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & countryFile,
                                                          int64_t version);
 
-ModelReader * GetCountryReader(LocalCountryFile const & file, TMapOptions options);
+ModelReader * GetCountryReader(LocalCountryFile const & file, MapOptions options);
 
 // An API for managing country indexes.
 class CountryIndexes

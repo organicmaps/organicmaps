@@ -39,23 +39,23 @@ public:
 
   // Removes specified files from disk if they're known for LocalCountryFile, i.e.
   // were found by previous SyncWithDisk() call.
-  void DeleteFromDisk(TMapOptions files) const;
+  void DeleteFromDisk(MapOptions files) const;
 
   // Returns path to a file. Return value may be empty until
   // SyncWithDisk() is called.
-  string GetPath(TMapOptions file) const;
+  string GetPath(MapOptions file) const;
 
   // Returns size of a file. Return value may be zero until
   // SyncWithDisk() is called.
-  uint32_t GetSize(TMapOptions filesMask) const;
+  uint32_t GetSize(MapOptions filesMask) const;
 
   // Returns a mask of all known country files. Return value may be
   // empty until SyncWithDisk() is called.
-  inline TMapOptions GetFiles() const { return m_files; }
+  inline MapOptions GetFiles() const { return m_files; }
 
   // Checks whether files specified in filesMask are on disk. Return
   // value will be false until SyncWithDisk() is called.
-  inline bool OnDisk(TMapOptions filesMask) const
+  inline bool OnDisk(MapOptions filesMask) const
   {
     return (static_cast<unsigned>(m_files) & static_cast<unsigned>(filesMask)) ==
            static_cast<unsigned>(filesMask);
@@ -86,7 +86,7 @@ private:
   string m_directory;
   CountryFile m_countryFile;
   int64_t m_version;
-  TMapOptions m_files;
+  MapOptions m_files;
 
   uint64_t m_mapSize;
   uint64_t m_routingSize;

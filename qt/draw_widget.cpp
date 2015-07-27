@@ -99,7 +99,7 @@ namespace qt
       if (opt == -1)
         layout.RetryDownloading(idx);
       else
-        layout.DownloadMap(idx, static_cast<TMapOptions>(opt));
+        layout.DownloadMap(idx, static_cast<MapOptions>(opt));
     });
 
     m_framework->SetRouteBuildingListener([] (routing::IRouter::ResultCode, vector<storage::TIndex> const &, vector<storage::TIndex> const &)

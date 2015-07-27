@@ -27,7 +27,7 @@ ScopedFile::ScopedFile(string const & relativePath, string const & contents)
   TEST(Exists(), ("Can't create test file", GetFullPath()));
 }
 
-ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, TMapOptions file,
+ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, MapOptions file,
                        string const & contents)
     : ScopedFile(my::JoinFoldersToPath(dir.GetRelativePath(), countryFile.GetNameWithExt(file)),
                  contents)

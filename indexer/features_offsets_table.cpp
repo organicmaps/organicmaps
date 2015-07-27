@@ -76,7 +76,7 @@ namespace feature
 
     VERIFY(CountryIndexes::PreparePlaceOnDisk(localFile), ());
 
-    FilesContainerR cont(localFile.GetPath(TMapOptions::Map));
+    FilesContainerR cont(localFile.GetPath(MapOptions::Map));
 
     Builder builder;
     FeaturesVector::ForEachOffset(cont.GetReader(DATA_FILE_TAG), [&builder] (uint32_t offset)

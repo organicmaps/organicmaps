@@ -454,9 +454,9 @@ void CountryStatusDisplay::OnButtonClicked(gui::Element const * button)
 {
   ASSERT(m_countryIdx.IsValid(), ());
 
-  TMapOptions options = TMapOptions::Map;
+  MapOptions options = MapOptions::Map;
   if (button == m_primaryButton.get())
-    options = SetOptions(options, TMapOptions::CarRouting);
+    options = SetOptions(options, MapOptions::CarRouting);
 
   ASSERT(m_downloadCallback, ());
   int opt = static_cast<int>(options);

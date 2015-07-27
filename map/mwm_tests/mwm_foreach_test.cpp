@@ -258,7 +258,7 @@ void RunTest(string const & countryFileName)
   vector<m2::RectD> rects;
   rects.push_back(src1.GetWorldRect());
 
-  ModelReaderPtr reader = platform::GetCountryReader(localFile, TMapOptions::Map);
+  ModelReaderPtr reader = platform::GetCountryReader(localFile, MapOptions::Map);
 
   while (!rects.empty())
   {

@@ -31,12 +31,12 @@ using namespace storage;
 @property (nonatomic) BOOL parentMode;
 
 @property (nonatomic) TStatus status;
-@property (nonatomic) TMapOptions options;
+@property (nonatomic) MapOptions options;
 @property (nonatomic) double downloadProgress;
 
 @property (nonatomic, weak) id <MapCellDelegate> delegate;
 
-- (void)setStatus:(TStatus)status options:(TMapOptions)options animated:(BOOL)animated;
+- (void)setStatus:(TStatus)status options:(MapOptions)options animated:(BOOL)animated;
 - (void)setDownloadProgress:(double)downloadProgress animated:(BOOL)animated;
 
 + (CGFloat)cellHeight;

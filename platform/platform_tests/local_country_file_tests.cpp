@@ -68,26 +68,26 @@ UNIT_TEST(LocalCountryFile_Smoke)
 
   LocalCountryFile localFile("/test-dir", countryFile, 150309);
 
-  TEST_EQUAL("/test-dir/TestCountry" DATA_FILE_EXTENSION, localFile.GetPath(TMapOptions::Map), ());
+  TEST_EQUAL("/test-dir/TestCountry" DATA_FILE_EXTENSION, localFile.GetPath(MapOptions::Map), ());
   TEST_EQUAL("/test-dir/TestCountry" DATA_FILE_EXTENSION ROUTING_FILE_EXTENSION,
-             localFile.GetPath(TMapOptions::CarRouting), ());
+             localFile.GetPath(MapOptions::CarRouting), ());
 
   // Not synced with disk yet.
-  TEST_EQUAL(TMapOptions::Nothing, localFile.GetFiles(), ());
+  TEST_EQUAL(MapOptions::Nothing, localFile.GetFiles(), ());
 
   // Any statement is true about elements of an empty set.
-  TEST(localFile.OnDisk(TMapOptions::Nothing), ());
+  TEST(localFile.OnDisk(MapOptions::Nothing), ());
 
-  TEST(!localFile.OnDisk(TMapOptions::Map), ());
-  TEST(!localFile.OnDisk(TMapOptions::CarRouting), ());
-  TEST(!localFile.OnDisk(TMapOptions::MapWithCarRouting), ());
+  TEST(!localFile.OnDisk(MapOptions::Map), ());
+  TEST(!localFile.OnDisk(MapOptions::CarRouting), ());
+  TEST(!localFile.OnDisk(MapOptions::MapWithCarRouting), ());
 
   TEST_EQUAL("/test-dir", localFile.GetDirectory(), ());
 
-  TEST_EQUAL(0, localFile.GetSize(TMapOptions::Nothing), ());
-  TEST_EQUAL(0, localFile.GetSize(TMapOptions::Map), ());
-  TEST_EQUAL(0, localFile.GetSize(TMapOptions::CarRouting), ());
-  TEST_EQUAL(0, localFile.GetSize(TMapOptions::MapWithCarRouting), ());
+  TEST_EQUAL(0, localFile.GetSize(MapOptions::Nothing), ());
+  TEST_EQUAL(0, localFile.GetSize(MapOptions::Map), ());
+  TEST_EQUAL(0, localFile.GetSize(MapOptions::CarRouting), ());
+  TEST_EQUAL(0, localFile.GetSize(MapOptions::MapWithCarRouting), ());
 
   TEST_EQUAL(150309, localFile.GetVersion(), ());
 }
@@ -102,29 +102,29 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
   countryFile.SetRemoteSizes(1 /* mapSize */, 2 /* routingSize */);
 
   LocalCountryFile localFile(platform.WritableDir(), countryFile, 0 /* version */);
-  TEST(!localFile.OnDisk(TMapOptions::Map), ());
-  TEST(!localFile.OnDisk(TMapOptions::CarRouting), ());
-  TEST(!localFile.OnDisk(TMapOptions::MapWithCarRouting), ());
+  TEST(!localFile.OnDisk(MapOptions::Map), ());
+  TEST(!localFile.OnDisk(MapOptions::CarRouting), ());
+  TEST(!localFile.OnDisk(MapOptions::MapWithCarRouting), ());
 
-  ScopedFile testMapFile(countryFile.GetNameWithExt(TMapOptions::Map), "map");
-
-  localFile.SyncWithDisk();
-  TEST(localFile.OnDisk(TMapOptions::Map), ());
-  TEST(!localFile.OnDisk(TMapOptions::CarRouting), ());
-  TEST(!localFile.OnDisk(TMapOptions::MapWithCarRouting), ());
-  TEST_EQUAL(3, localFile.GetSize(TMapOptions::Map), ());
-
-  ScopedFile testRoutingFile(countryFile.GetNameWithExt(TMapOptions::CarRouting), "routing");
+  ScopedFile testMapFile(countryFile.GetNameWithExt(MapOptions::Map), "map");
 
   localFile.SyncWithDisk();
-  TEST(localFile.OnDisk(TMapOptions::Map), ());
-  TEST(localFile.OnDisk(TMapOptions::CarRouting), ());
-  TEST(localFile.OnDisk(TMapOptions::MapWithCarRouting), ());
-  TEST_EQUAL(3, localFile.GetSize(TMapOptions::Map), ());
-  TEST_EQUAL(7, localFile.GetSize(TMapOptions::CarRouting), ());
-  TEST_EQUAL(10, localFile.GetSize(TMapOptions::MapWithCarRouting), ());
+  TEST(localFile.OnDisk(MapOptions::Map), ());
+  TEST(!localFile.OnDisk(MapOptions::CarRouting), ());
+  TEST(!localFile.OnDisk(MapOptions::MapWithCarRouting), ());
+  TEST_EQUAL(3, localFile.GetSize(MapOptions::Map), ());
 
-  localFile.DeleteFromDisk(TMapOptions::MapWithCarRouting);
+  ScopedFile testRoutingFile(countryFile.GetNameWithExt(MapOptions::CarRouting), "routing");
+
+  localFile.SyncWithDisk();
+  TEST(localFile.OnDisk(MapOptions::Map), ());
+  TEST(localFile.OnDisk(MapOptions::CarRouting), ());
+  TEST(localFile.OnDisk(MapOptions::MapWithCarRouting), ());
+  TEST_EQUAL(3, localFile.GetSize(MapOptions::Map), ());
+  TEST_EQUAL(7, localFile.GetSize(MapOptions::CarRouting), ());
+  TEST_EQUAL(10, localFile.GetSize(MapOptions::MapWithCarRouting), ());
+
+  localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
   TEST(!testMapFile.Exists(), (testMapFile, "wasn't deleted by LocalCountryFile."));
   testMapFile.Reset();
 
@@ -162,18 +162,18 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   CleanupMapsDirectory();
 
   japanLocalFile.SyncWithDisk();
-  TEST_EQUAL(TMapOptions::Nothing, japanLocalFile.GetFiles(), ());
+  TEST_EQUAL(MapOptions::Nothing, japanLocalFile.GetFiles(), ());
   TEST(!japanMapFile.Exists(), (japanMapFile));
   japanMapFile.Reset();
 
   brazilLocalFile.SyncWithDisk();
-  TEST_EQUAL(TMapOptions::Nothing, brazilLocalFile.GetFiles(), ());
+  TEST_EQUAL(MapOptions::Nothing, brazilLocalFile.GetFiles(), ());
   TEST(!brazilMapFile.Exists(), (brazilMapFile));
   brazilMapFile.Reset();
 
   irelandLocalFile.SyncWithDisk();
-  TEST_EQUAL(TMapOptions::Map, irelandLocalFile.GetFiles(), ());
-  irelandLocalFile.DeleteFromDisk(TMapOptions::Map);
+  TEST_EQUAL(MapOptions::Map, irelandLocalFile.GetFiles(), ());
+  irelandLocalFile.DeleteFromDisk(MapOptions::Map);
   TEST(!irelandMapFile.Exists(), (irelandMapFile));
   irelandMapFile.Reset();
 
@@ -216,9 +216,9 @@ UNIT_TEST(LocalCountryFile_DirectoryLookup)
 
   ScopedDir testDir("test-dir");
 
-  ScopedFile testIrelandMapFile(testDir, irelandFile, TMapOptions::Map, "Ireland-map");
-  ScopedFile testNetherlandsMapFile(testDir, netherlandsFile, TMapOptions::Map, "Netherlands-map");
-  ScopedFile testNetherlandsRoutingFile(testDir, netherlandsFile, TMapOptions::CarRouting,
+  ScopedFile testIrelandMapFile(testDir, irelandFile, MapOptions::Map, "Ireland-map");
+  ScopedFile testNetherlandsMapFile(testDir, netherlandsFile, MapOptions::Map, "Netherlands-map");
+  ScopedFile testNetherlandsRoutingFile(testDir, netherlandsFile, MapOptions::CarRouting,
                                         "Netherlands-routing");
 
   vector<LocalCountryFile> localFiles;
@@ -228,10 +228,10 @@ UNIT_TEST(LocalCountryFile_DirectoryLookup)
     localFile.SyncWithDisk();
 
   LocalCountryFile expectedIrelandFile(testDir.GetFullPath(), irelandFile, 150309);
-  expectedIrelandFile.m_files = TMapOptions::Map;
+  expectedIrelandFile.m_files = MapOptions::Map;
 
   LocalCountryFile expectedNetherlandsFile(testDir.GetFullPath(), netherlandsFile, 150309);
-  expectedNetherlandsFile.m_files = TMapOptions::MapWithCarRouting;
+  expectedNetherlandsFile.m_files = MapOptions::MapWithCarRouting;
 
   vector<LocalCountryFile> expectedLocalFiles = {expectedIrelandFile, expectedNetherlandsFile};
   sort(expectedLocalFiles.begin(), expectedLocalFiles.end());
@@ -247,7 +247,7 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
   CountryFile const italyFile("Italy");
 
   ScopedDir testDir("010101");
-  ScopedFile testItalyMapFile(testDir, italyFile, TMapOptions::Map, "Italy-map");
+  ScopedFile testItalyMapFile(testDir, italyFile, MapOptions::Map, "Italy-map");
 
   vector<LocalCountryFile> localFiles;
   FindAllLocalMaps(localFiles);
@@ -365,7 +365,7 @@ UNIT_TEST(LocalCountryFile_MakeTemporary)
 {
   string const path = GetPlatform().WritablePathForFile("minsk-pass" DATA_FILE_EXTENSION);
   LocalCountryFile file = LocalCountryFile::MakeTemporary(path);
-  TEST_EQUAL(file.GetPath(TMapOptions::Map), path, ());
+  TEST_EQUAL(file.GetPath(MapOptions::Map), path, ());
 }
 
 }  // namespace platform

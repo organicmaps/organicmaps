@@ -102,7 +102,7 @@ extern "C"
     CountryTree & tree = GetTree();
     int pos = static_cast<int>(position);
     bool const local = (isLocal == JNI_TRUE) ? true : false;
-    TMapOptions opt = ToOptions(options);
+    MapOptions opt = ToOptions(options);
 
     if (options == -1 || local)
     {
@@ -113,9 +113,9 @@ extern "C"
     LocalAndRemoteSizeT sizes = tree.GetRemoteLeafSizes(pos);
     switch (opt)
     {
-      case TMapOptions::Map:
+      case MapOptions::Map:
         return sizes.first;
-      case TMapOptions::CarRouting:
+      case MapOptions::CarRouting:
         return sizes.second;
       default:
         return sizes.first + sizes.second;

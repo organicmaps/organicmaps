@@ -49,7 +49,7 @@ extern "C"
     ActiveMapsLayout::TGroup coreGroup = ToGroup(group);
     int pos = static_cast<int>(position);
     bool const local = isLocal == JNI_TRUE;
-    TMapOptions opt = ToOptions(options);
+    MapOptions opt = ToOptions(options);
 
     if (options == -1 || local)
     {
@@ -61,9 +61,9 @@ extern "C"
     LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(coreGroup, pos);
     switch (opt)
     {
-      case TMapOptions::Map:
+      case MapOptions::Map:
         return sizes.first;
-      case TMapOptions::CarRouting:
+      case MapOptions::CarRouting:
         return sizes.second;
       default:
         return sizes.first + sizes.second;
