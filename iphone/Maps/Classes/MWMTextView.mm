@@ -9,8 +9,6 @@
 #import "MWMTextView.h"
 #import "Common.h"
 
-static CGFloat const kDefaultTextLeftInset = 5.;
-
 @interface MWMTextView ()
 
 @property (nonatomic) UILabel * placeholderView;
@@ -23,7 +21,7 @@ static CGFloat const kDefaultTextLeftInset = 5.;
 {
   self = [super initWithCoder:coder];
   if (self)
-    [self preparePlaceholder];
+    [self prepare];
 
   return self;
 }
@@ -32,24 +30,13 @@ static CGFloat const kDefaultTextLeftInset = 5.;
 {
   self = [super initWithFrame:frame textContainer:textContainer];
   if (self)
-    [self preparePlaceholder];
+    [self prepare];
 
   return self;
 }
 
-- (void)preparePlaceholder
+- (void)prepare
 {
-  NSAssert(!self.placeholderView, @"placeholder has been prepared already: %@", self.placeholderView);
-
-  self.placeholderView = [[UILabel alloc] initWithFrame:self.bounds];
-  self.placeholderView.opaque = NO;
-  self.placeholderView.backgroundColor = [UIColor clearColor];
-  self.placeholderView.textColor = [UIColor lightGrayColor];
-  self.placeholderView.textAlignment = self.textAlignment;
-  self.placeholderView.userInteractionEnabled = NO;
-  self.placeholderView.font = self.font;
-  self.placeholderView.isAccessibilityElement = NO;
-
   [self setTextContainerInset:UIEdgeInsetsZero];
 
   [self updatePlaceholderVisibility];
@@ -58,6 +45,23 @@ static CGFloat const kDefaultTextLeftInset = 5.;
   [defaultCenter addObserver:self selector:@selector(textDidChange:)
                         name:UITextViewTextDidChangeNotification object:self];
   self.clipsToBounds = YES;
+}
+
+- (UILabel *)placeholderView
+{
+  if (!_placeholderView)
+  {
+    _placeholderView = [[UILabel alloc] initWithFrame:self.bounds];
+    _placeholderView.opaque = NO;
+    _placeholderView.backgroundColor = [UIColor clearColor];
+    _placeholderView.textColor = [UIColor lightGrayColor];
+    _placeholderView.textAlignment = self.textAlignment;
+    _placeholderView.userInteractionEnabled = NO;
+    _placeholderView.font = self.font;
+    _placeholderView.isAccessibilityElement = NO;
+    _placeholderView.numberOfLines = 0;
+  }
+  return _placeholderView;
 }
 
 #pragma mark - Setters
@@ -95,7 +99,6 @@ static CGFloat const kDefaultTextLeftInset = 5.;
 
 - (void)setTextContainerInset:(UIEdgeInsets)textContainerInset
 {
-  textContainerInset.left -= kDefaultTextLeftInset;
   [super setTextContainerInset:textContainerInset];
   [self updatePlaceholderInset:textContainerInset];
 }
@@ -108,7 +111,6 @@ static CGFloat const kDefaultTextLeftInset = 5.;
 
 - (void)resizePlaceholderFrame
 {
-  self.placeholderView.numberOfLines = 0;
   [self.placeholderView sizeToFit];
 }
 
@@ -119,7 +121,8 @@ static CGFloat const kDefaultTextLeftInset = 5.;
 
 - (void)updatePlaceholderInset:(UIEdgeInsets)inset
 {
-  self.placeholderView.frame = CGRectMake(inset.left + kDefaultTextLeftInset, inset.top, self.bounds.size.width - inset.right, self.bounds.size.height - inset.bottom);
+  CGFloat const kDefaultPlaceholderLeftInset = 5.0;
+  self.placeholderView.frame = CGRectMake(inset.left + kDefaultPlaceholderLeftInset, inset.top, self.bounds.size.width - inset.right, self.bounds.size.height - inset.bottom);
   [self resizePlaceholderFrame];
 }
 

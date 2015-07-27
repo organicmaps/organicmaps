@@ -14,7 +14,6 @@
 #import "UIViewController+Navigation.h"
 
 static NSString * const kBookmarkDescriptionViewControllerNibName = @"MWMBookmarkDescriptionViewController";
-static CGFloat const kIpadPlacePageDefaultHeight = 288.;
 
 typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 {
@@ -83,10 +82,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     return;
 
   [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
-  CGFloat const bottomOffset = 12.;
-  self.iPadOwnerNavigationController.view.height = kIpadPlacePageDefaultHeight;
-  self.textView.height = kIpadPlacePageDefaultHeight - bottomOffset;
-  self.webView.height = kIpadPlacePageDefaultHeight - bottomOffset;
 }
 
 - (void)setState:(BookmarkDescriptionState)state
@@ -109,6 +104,8 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 - (void)setupForEditingWithText:(NSString *)text
 {
+  self.textView.hidden = NO;
+  self.textView.text = text;
   [UIView animateWithDuration:0.2f animations:^
   {
     self.webView.alpha = 0.;
@@ -116,13 +113,15 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   }
   completion:^(BOOL finished)
   {
-    self.textView.text = text;
+    self.webView.hidden = YES;
   }];
   [self configureNavigationBarForEditing];
 }
 
 - (void)setupForViewWithText:(NSString *)text
 {
+  self.webView.hidden = NO;
+  [self.webView loadHTMLString:text baseURL:nil];
   [UIView animateWithDuration:0.2f animations:^
   {
     self.webView.alpha = 1.;
@@ -130,7 +129,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
   }
   completion:^(BOOL finished)
   {
-    [self.webView loadHTMLString:text baseURL:nil];
+    self.textView.hidden = YES;
   }];
   [self configureNavigationBarForView];
 }
