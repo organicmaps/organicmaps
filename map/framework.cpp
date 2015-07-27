@@ -2188,13 +2188,6 @@ void Framework::SetRouterImpl(RouterType type)
   m_currentRouterType = type;
 }
 
-void Framework::SetRouteBuildingListener(TRouteBuildingCallback const & buildingCallback,
-                                         TRouteProgressCallback const & progressCallback)
-{
-  m_routingCallback = buildingCallback;
-  m_progressCallback = progressCallback;
-}
-
 void Framework::RemoveRoute()
 {
   m_bmManager.UserMarksClear(UserMarkContainer::DEBUG_MARK);

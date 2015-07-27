@@ -107,6 +107,8 @@ private:
     void operator()(Route & route, IRouter::ResultCode e);
   };
 
+  void AssignRoute(Route & route, IRouter::ResultCode e);
+
   //TODO (ldragunov) Make consistent DoReady and DoProgress callbacks. Now DoReady runs
   // GUI proc inside caller function, and DoProgressCallback calls it inside callback wrapper.
   struct DoProgressCallback
