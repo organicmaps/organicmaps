@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/margin_direction_around_center"
-        android:src="@drawable/ic_direction"/>
+        android:src="@drawable/ic_direction_fullscreen"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

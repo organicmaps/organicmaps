@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv__subtitle"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_direction"/>
+        android:src="@drawable/ic_direction_fullscreen"/>
 
     <TextView
         android:id="@+id/tv__straight_distance"
