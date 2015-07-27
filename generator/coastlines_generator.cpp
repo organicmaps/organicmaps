@@ -214,11 +214,11 @@ namespace
 class RegionInCellSplitter final
 {
 public:
-  typedef RectId TCell;
-  typedef m4::Tree<m2::RegionI> TIndex;
-  typedef function<void(TCell const &, DoDifference &)> TProcessResultFunc;
+  using TCell = RectId;
+  using TIndex = m4::Tree<m2::RegionI>;
+  using TProcessResultFunc = function<void(TCell const &, DoDifference &)>;
 
-  enum {kHighLevel = 10, kMaxPoints = 20000};
+  enum {kStartLevel = 4, kHighLevel = 10, kMaxPoints = 20000};
 
 protected:
   TIndex const & m_index;
@@ -259,7 +259,7 @@ public:
     for (size_t i = 0; i < numThreads; ++i)
     {
       instances.emplace_back(RegionInCellSplitter(listTasks, mutexTasks, condVar, inWork, funcResult, mutexResult, index));
-      threads.emplace_back(thread(instances.back()));
+      threads.emplace_back(instances.back());
     }
 
     for (auto & thread : threads)
@@ -330,10 +330,10 @@ public:
 
 };
 
-void CoastlineFeaturesGenerator::GetFeatures(size_t baseLevel, vector<FeatureBuilder1> & features)
+void CoastlineFeaturesGenerator::GetFeatures(vector<FeatureBuilder1> & features)
 {
   size_t maxThreads = thread::thread::hardware_concurrency();
-  RegionInCellSplitter::Process(maxThreads, baseLevel, m_tree,
+  RegionInCellSplitter::Process(maxThreads, RegionInCellSplitter::kStartLevel, m_tree,
                                 [&features, this](RegionInCellSplitter::TCell const & cell, DoDifference & cellData)
   {
     features.emplace_back(FeatureBuilder1());

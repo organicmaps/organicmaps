@@ -28,5 +28,5 @@ public:
   /// @return false if coasts are not merged and FLAG_fail_on_coasts is set
   bool Finish();
 
-  void GetFeatures(size_t baseLevel, vector<FeatureBuilder1> & vecFb);
+  void GetFeatures(vector<FeatureBuilder1> & vecFb);
 };

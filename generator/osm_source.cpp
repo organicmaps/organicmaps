@@ -309,7 +309,7 @@ namespace
         size_t totalPolygons = 0;
 
         vector<FeatureBuilder1> vecFb;
-        m_coasts->GetFeatures(4 /*start level*/, vecFb);
+        m_coasts->GetFeatures(vecFb);
 
         for (size_t j = 0; j < vecFb.size(); ++j)
         {
