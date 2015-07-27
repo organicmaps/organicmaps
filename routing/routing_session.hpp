@@ -126,9 +126,6 @@ private:
   void RemoveRoute();
   void RemoveRouteImpl();
 
-  void ResetRoutingWatchdogTimer();
-  void InitRoutingWatchdogTimer(uint32_t timeoutSec);
-
 private:
   unique_ptr<AsyncRouter> m_router;
   Route m_route;
@@ -146,8 +143,5 @@ private:
   turns::sound::TurnsSound m_turnsSound;
 
   RoutingSettings m_routingSettings;
-
-  // Watchdog cancels routing if it takes too long time
-  unique_ptr<DeferredTask> m_routingWatchdog;
 };
 }  // namespace routing

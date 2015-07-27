@@ -69,7 +69,7 @@ AsyncRouter::~AsyncRouter() { ClearState(); }
 
 void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
                                  m2::PointD const & finalPoint, TReadyCallback const & readyCallback,
-                                 TProgressCallback const & progressCallback)
+                                 TProgressCallback const & progressCallback, uint32_t timeoutSec)
 {
   {
     lock_guard<mutex> paramsGuard(m_paramsMutex);
@@ -79,6 +79,7 @@ void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const
     m_finalPoint = finalPoint;
 
     m_observer.Cancel();
+    m_observer.SetTimeout(timeoutSec);
   }
 
   GetPlatform().RunAsync(bind(&AsyncRouter::CalculateRouteImpl, this, readyCallback, progressCallback));

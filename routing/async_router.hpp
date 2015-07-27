@@ -40,9 +40,10 @@ public:
   /// @param finalPoint target point for route
   /// @param readyCallback function to return routing result
   /// @param progressCallback function to update the router progress
+  /// @param timeoutSec timeout to cancel routing. 0 is infinity.
   virtual void CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
                               m2::PointD const & finalPoint, TReadyCallback const & readyCallback,
-                              TProgressCallback const & progressCallback);
+                              TProgressCallback const & progressCallback, uint32_t timeoutSec);
 
   /// Interrupt routing and clear buffers
   virtual void ClearState();

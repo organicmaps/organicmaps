@@ -55,16 +55,11 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   RemoveRoute();
   m_state = RouteBuilding;
 
-  ResetRoutingWatchdogTimer();
-
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
   m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint,
                            DoReadyCallback(*this, readyCallback, m_routeSessionMutex),
-                           DoProgressCallback(progressCallback));
-
-  if (timeoutSec != 0)
-    InitRoutingWatchdogTimer(timeoutSec);
+                           DoProgressCallback(progressCallback), timeoutSec);
 }
 
 void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultCode e)
@@ -102,8 +97,6 @@ void RoutingSession::Reset()
   RemoveRouteImpl();
   m_router->ClearState();
   m_turnsSound.Reset();
-
-  ResetRoutingWatchdogTimer();
 }
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const & position,
@@ -301,24 +294,6 @@ routing::turns::sound::LengthUnits RoutingSession::GetTurnSoundNotificationsUnit
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
   return m_turnsSound.GetLengthUnits();
-}
-
-void RoutingSession::ResetRoutingWatchdogTimer()
-{
-  if (m_routingWatchdog)
-  {
-    m_routingWatchdog->Cancel();
-    m_routingWatchdog->WaitForCompletion();
-    m_routingWatchdog.reset();
-  }
-}
-
-void RoutingSession::InitRoutingWatchdogTimer(uint32_t timeoutSec)
-{
-  ASSERT_NOT_EQUAL(0, timeoutSec, ());
-  ASSERT(nullptr == m_routingWatchdog, ());
-
-  m_routingWatchdog = make_unique<DeferredTask>([this](){ m_router->ClearState(); }, seconds(timeoutSec));
 }
 
 }  // namespace routing
