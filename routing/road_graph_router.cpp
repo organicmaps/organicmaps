@@ -64,15 +64,13 @@ RoadGraphRouter::RoadGraphRouter(string const & name, Index & index,
 
 void RoadGraphRouter::ClearState()
 {
-  m_algorithm->Reset();
   m_roadGraph->ClearState();
 }
 
 IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoint,
                                                     m2::PointD const & /* startDirection */,
                                                     m2::PointD const & finalPoint,
-                                                    TRoutingProgressFn const & progressFn,
-                                                    Route & route)
+                                                    IRouterObserver const & observer, Route & route)
 {
   vector<pair<Edge, m2::PointD>> finalVicinity;
   m_roadGraph->FindClosestEdges(finalPoint, MAX_ROAD_CANDIDATES, finalVicinity);
@@ -94,7 +92,8 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   m_roadGraph->AddFakeEdges(finalPos, finalVicinity);
 
   vector<Junction> path;
-  IRoutingAlgorithm::Result const resultCode = m_algorithm->CalculateRoute(*m_roadGraph, startPos, finalPos, path);
+  IRoutingAlgorithm::Result const resultCode =
+      m_algorithm->CalculateRoute(*m_roadGraph, startPos, finalPos, observer, path);
 
   if (resultCode == IRoutingAlgorithm::Result::OK)
   {
@@ -136,21 +135,19 @@ void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route) 
   route.SetTurnInstructionsGeometry(turnsGeom);
 }
 
-unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
-                                                TRoutingVisualizerFn const & visualizerFn)
+unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index)
 {
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
-  unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm(visualizerFn));
+  unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
   unique_ptr<IRouter> router(new RoadGraphRouter("astar-pedestrian", index, move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
   return router;
 }
 
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(
-    Index & index, TRoutingVisualizerFn const & visualizerFn)
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index)
 {
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
-  unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm(visualizerFn));
+  unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
   unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-pedestrian", index, move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
   return router;

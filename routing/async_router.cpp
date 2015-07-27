@@ -52,14 +52,16 @@ map<string, string> PrepareStatisticsData(string const & routerName,
 
 }  // namespace
 
-AsyncRouter::AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
-                         TRoutingStatisticsCallback const & routingStatisticsFn)
+AsyncRouter::AsyncRouter(unique_ptr<IRouter> && router,
+                         unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
+                         TRoutingStatisticsCallback const & routingStatisticsFn,
+                         TPointCheckCallback const & pointCheckCallback)
     : m_absentFetcher(move(fetcher)),
       m_router(move(router)),
       m_routingStatisticsFn(routingStatisticsFn)
 {
   ASSERT(m_router, ());
-
+  m_observer.SetPointCheckCallback(pointCheckCallback);
   m_isReadyThread.clear();
 }
 
@@ -76,7 +78,7 @@ void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const
     m_startDirection = direction;
     m_finalPoint = finalPoint;
 
-    m_router->Cancel();
+    m_observer.Cancel();
   }
 
   GetPlatform().RunAsync(bind(&AsyncRouter::CalculateRouteImpl, this, readyCallback, progressCallback));
@@ -84,8 +86,10 @@ void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const
 
 void AsyncRouter::ClearState()
 {
-  m_router->Cancel();
+  // Send cancel flag to the algorythms.
+  m_observer.Cancel();
 
+  // And wait while they finish.
   lock_guard<mutex> routingGuard(m_routingMutex);
 
   m_router->ClearState();
@@ -154,7 +158,8 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, TProg
     finalPoint = m_finalPoint;
     startDirection = m_startDirection;
 
-    m_router->Reset();
+    m_observer.Reset();
+    m_observer.SetProgressCallback(progressCallback);
   }
 
   my::Timer timer;
@@ -168,7 +173,7 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, TProg
       m_absentFetcher->GenerateRequest(startPoint, finalPoint);
 
     // Run basic request.
-    code = m_router->CalculateRoute(startPoint, startDirection, finalPoint, progressCallback, route);
+    code = m_router->CalculateRoute(startPoint, startDirection, finalPoint, m_observer, route);
 
     elapsedSec = timer.ElapsedSeconds(); // routing time
     LogCode(code, elapsedSec);

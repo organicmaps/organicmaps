@@ -11,6 +11,7 @@
 #include "routing/online_cross_fetcher.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
+#include "routing/timeout_observer.hpp"
 
 #include "search/search_engine.hpp"
 
@@ -98,7 +99,7 @@ namespace integration
 
   shared_ptr<IRouter> CreatePedestrianRouter(Index & index)
   {
-    unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index, nullptr);
+    unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index);
     return shared_ptr<IRouter>(move(router));
   }
 
@@ -193,11 +194,12 @@ namespace integration
                               m2::PointD const & startPoint, m2::PointD const & startDirection,
                               m2::PointD const & finalPoint)
   {
+    TimeoutObserver observer;
     IRouter * router = routerComponents.GetRouter();
     ASSERT(router, ());
     shared_ptr<Route> route(new Route("mapsme"));
     IRouter::ResultCode result =
-        router->CalculateRoute(startPoint, startDirection, finalPoint, nullptr, *route.get());
+        router->CalculateRoute(startPoint, startDirection, finalPoint, observer, *route.get());
     ASSERT(route, ());
     return TRouteResult(route, result);
   }

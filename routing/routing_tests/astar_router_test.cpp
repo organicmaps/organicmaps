@@ -5,6 +5,7 @@
 #include "routing/routing_algorithm.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/route.hpp"
+#include "routing/timeout_observer.hpp"
 
 #include "indexer/classificator_loader.hpp"
 
@@ -27,9 +28,11 @@ void TestAStarRouterMock(Junction const & startPos, Junction const & finalPos,
   RoadGraphMockSource graph;
   InitRoadGraphMockSourceWithTest2(graph);
 
+  TimeoutObserver observer;
   vector<Junction> path;
   TRoutingAlgorithm algorithm;
-  TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
+  TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+             algorithm.CalculateRoute(graph, startPos, finalPos, observer, path), ());
 
   TEST_EQUAL(expected, path, ());
 }
@@ -87,9 +90,11 @@ UNIT_TEST(AStarRouter_SimpleGraph_RouteIsFound)
 
   vector<Junction> const expected = {m2::PointD(0, 0), m2::PointD(0, 30), m2::PointD(0, 60), m2::PointD(40, 100)};
 
+  TimeoutObserver observer;
   vector<Junction> path;
   TRoutingAlgorithm algorithm;
-  TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
+  TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+             algorithm.CalculateRoute(graph, startPos, finalPos, observer, path), ());
 
   TEST_EQUAL(expected, path, ());
 }
@@ -139,10 +144,13 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     Junction const startPos(roadInfo_1[i].m_points[0]);
     for (size_t j = 0; j < roadInfo_2.size(); ++j)
     {
+      TimeoutObserver observer;
       Junction const finalPos(roadInfo_2[j].m_points[0]);
       vector<Junction> path;
-      TEST_EQUAL(TRoutingAlgorithm::Result::NoPath, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
-      TEST_EQUAL(TRoutingAlgorithm::Result::NoPath, algorithm.CalculateRoute(graph, finalPos, startPos, path), ());
+      TEST_EQUAL(TRoutingAlgorithm::Result::NoPath,
+                 algorithm.CalculateRoute(graph, startPos, finalPos, observer, path), ());
+      TEST_EQUAL(TRoutingAlgorithm::Result::NoPath,
+                 algorithm.CalculateRoute(graph, finalPos, startPos, observer, path), ());
     }
   }
 
@@ -152,10 +160,13 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     Junction const startPos(roadInfo_1[i].m_points[0]);
     for (size_t j = i + 1; j < roadInfo_1.size(); ++j)
     {
+      TimeoutObserver observer;
       Junction const finalPos(roadInfo_1[j].m_points[0]);
       vector<Junction> path;
-      TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
-      TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, finalPos, startPos, path), ());
+      TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+                 algorithm.CalculateRoute(graph, startPos, finalPos, observer, path), ());
+      TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+                 algorithm.CalculateRoute(graph, finalPos, startPos, observer, path), ());
     }
   }
 
@@ -165,10 +176,13 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     Junction const startPos(roadInfo_2[i].m_points[0]);
     for (size_t j = i + 1; j < roadInfo_2.size(); ++j)
     {
+      TimeoutObserver observer;
       Junction const finalPos(roadInfo_2[j].m_points[0]);
       vector<Junction> path;
-      TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, startPos, finalPos, path), ());
-      TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, finalPos, startPos, path), ());
+      TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+                 algorithm.CalculateRoute(graph, startPos, finalPos, observer, path), ());
+      TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+                 algorithm.CalculateRoute(graph, finalPos, startPos, observer, path), ());
     }
   }
 }
@@ -191,9 +205,12 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad1)
   // path2 = 8/3 = 2.666(6)
   // path3 = 1/5 + 8/4 + 1/5 = 2.4
 
+  TimeoutObserver observer;
   vector<Junction> path;
   TRoutingAlgorithm algorithm;
-  TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, m2::PointD(2,2), m2::PointD(10,2), path), ());
+  TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+             algorithm.CalculateRoute(graph, m2::PointD(2, 2), m2::PointD(10, 2), observer, path),
+             ());
   TEST_EQUAL(path, vector<Junction>({m2::PointD(2,2), m2::PointD(2,3), m2::PointD(4,3), m2::PointD(6,3),
                                      m2::PointD(8,3), m2::PointD(10,3), m2::PointD(10,2)}), ());
 }
@@ -215,9 +232,12 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad2)
   // path2 = 8/4.1 = 1.95
   // path3 = 1/5 + 8/4.4 + 1/5 = 2.2
 
+  TimeoutObserver observer;
   vector<Junction> path;
   TRoutingAlgorithm algorithm;
-  TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, m2::PointD(2,2), m2::PointD(10,2), path), ());
+  TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+             algorithm.CalculateRoute(graph, m2::PointD(2, 2), m2::PointD(10, 2), observer, path),
+             ());
   TEST_EQUAL(path, vector<Junction>({m2::PointD(2,2), m2::PointD(6,2), m2::PointD(10,2)}), ());
 }
 
@@ -238,8 +258,11 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
   // path2 = 8/3.9 = 2.05
   // path3 = 1/5 + 8/4.9 + 1/5 = 2.03
 
+  TimeoutObserver observer;
   vector<Junction> path;
   TRoutingAlgorithm algorithm;
-  TEST_EQUAL(TRoutingAlgorithm::Result::OK, algorithm.CalculateRoute(graph, m2::PointD(2,2), m2::PointD(10,2), path), ());
+  TEST_EQUAL(TRoutingAlgorithm::Result::OK,
+             algorithm.CalculateRoute(graph, m2::PointD(2, 2), m2::PointD(10, 2), observer, path),
+             ());
   TEST_EQUAL(path, vector<Junction>({m2::PointD(2,2), m2::PointD(2,1), m2::PointD(10,1), m2::PointD(10,2)}), ());
 }

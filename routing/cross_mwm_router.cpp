@@ -11,22 +11,19 @@ namespace
 /// Function to run AStar Algorithm from the base.
 IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross const & finalPos,
                                    CrossMwmGraph const & roadGraph, vector<BorderCross> & route,
-                                   my::Cancellable const & cancellable,
-                                   TRoutingVisualizerFn const & routingVisualizer)
+                                   IRouterObserver const & observer)
 {
   using TAlgorithm = AStarAlgorithm<CrossMwmGraph>;
 
-  TAlgorithm::TOnVisitedVertexCallback onVisitedVertex = nullptr;
-  if (routingVisualizer)
+  TAlgorithm::TOnVisitedVertexCallback onVisitedVertex =
+      [&observer](BorderCross const & cross, BorderCross const & /* target */)
   {
-    onVisitedVertex = [&routingVisualizer](BorderCross const & cross, BorderCross const & target)
-    {
-      routingVisualizer(cross.fromNode.point);
-    };
-  }
+    observer.OnPointCheck(cross.fromNode.point);
+  };
 
   my::HighResTimer timer(true);
-  TAlgorithm::Result const result = TAlgorithm().FindPath(roadGraph, startPos, finalPos, route, cancellable, onVisitedVertex);
+  TAlgorithm::Result const result =
+      TAlgorithm().FindPath(roadGraph, startPos, finalPos, route, observer, onVisitedVertex);
   LOG(LINFO, ("Duration of the cross MWM path finding", timer.ElapsedNano()));
   switch (result)
   {
@@ -46,9 +43,7 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
 IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
                                           TRoutingNodes const & finalGraphNodes,
                                           RoutingIndexManager & indexManager,
-                                          my::Cancellable const & cancellable,
-                                          TRoutingVisualizerFn const & routingVisualizer,
-                                          TCheckedPath & route)
+                                          IRouterObserver const & observer, TCheckedPath & route)
 {
   CrossMwmGraph roadGraph(indexManager);
   FeatureGraphNode startGraphNode, finalGraphNode;
@@ -87,8 +82,8 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
 
   // Finding path through maps.
   vector<BorderCross> tempRoad;
-  code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad,
-                        cancellable, routingVisualizer);
+  code =
+      CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad, observer);
   if (code != IRouter::NoError)
     return code;
 

@@ -7,6 +7,7 @@
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/pedestrian_model.hpp"
+#include "routing/timeout_observer.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -60,7 +61,7 @@ private:
 unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index)
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
-  unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm(nullptr));
+  unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm());
   unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, move(vehicleModelFactory), move(algorithm), nullptr));
   return router;
 }
@@ -68,7 +69,8 @@ unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index)
 unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index & index)
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
-  unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarBidirectionalRoutingAlgorithm(nullptr));
+  unique_ptr<routing::IRoutingAlgorithm> algorithm(
+      new routing::AStarBidirectionalRoutingAlgorithm());
   unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, move(vehicleModelFactory), move(algorithm), nullptr));
   return router;
 }
@@ -93,11 +95,12 @@ void GetNearestPedestrianEdges(Index & index, m2::PointD const & pt, vector<pair
 
 void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::PointD const & finalPos, routing::Route & foundRoute)
 {
+  routing::TimeoutObserver observer;
   LOG(LINFO, ("Calculating routing ...", router.GetName()));
   routing::Route route("");
   my::Timer timer;
-  routing::IRouter::ResultCode const resultCode = router.CalculateRoute(startPos, m2::PointD::Zero() /* startDirection */,
-                                                                        finalPos, nullptr, route);
+  routing::IRouter::ResultCode const resultCode = router.CalculateRoute(
+      startPos, m2::PointD::Zero() /* startDirection */, finalPos, observer, route);
   double const elapsedSec = timer.ElapsedSeconds();
   TEST_EQUAL(routing::IRouter::NoError, resultCode, ());
   LOG(LINFO, ("Route polyline size:", route.GetPoly().GetSize()));

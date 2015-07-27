@@ -2142,19 +2142,6 @@ routing::RouterType Framework::GetRouter() const
 
 void Framework::SetRouterImpl(RouterType type)
 {
-#ifdef DEBUG
-  TRoutingVisualizerFn const routingVisualizerFn = [this](m2::PointD const & pt)
-  {
-    GetPlatform().RunOnGuiThread([this,pt]()
-    {
-      m_bmManager.UserMarksGetController(UserMarkContainer::DEBUG_MARK).CreateUserMark(pt);
-      Invalidate();
-    });
-  };
-#else
-  TRoutingVisualizerFn const routingVisualizerFn = nullptr;
-#endif
-
   auto const routingStatisticsFn = [](map<string, string> const & statistics)
   {
     alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
@@ -2175,17 +2162,29 @@ void Framework::SetRouterImpl(RouterType type)
   unique_ptr<OnlineAbsentCountriesFetcher> fetcher;
   if (type == RouterType::Pedestrian)
   {
-    router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), routingVisualizerFn);
+    router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex());
     m_routingSession.SetRoutingSettings(routing::GetPedestrianRoutingSettings());
   }
   else
   {
-    router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter, routingVisualizerFn));
+    router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileGetter));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }
 
-  m_routingSession.SetRouter(move(router), move(fetcher), routingStatisticsFn);
+#ifdef DEBUG
+  routing::TPointCheckCallback const routingVisualizerFn = [this](m2::PointD const & pt)
+  {
+    GetPlatform().RunOnGuiThread([this,pt]()
+    {
+      m_bmManager.UserMarksGetController(UserMarkContainer::DEBUG_MARK).CreateUserMark(pt);
+      Invalidate();
+    });
+  };
+#else
+  routing::TPointCheckCallback const routingVisualizerFn = nullptr;
+#endif
+  m_routingSession.SetRouter(move(router), move(fetcher), routingStatisticsFn, routingVisualizerFn);
   m_currentRouterType = type;
 }
 

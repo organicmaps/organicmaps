@@ -38,7 +38,5 @@ using TCheckedPath = vector<RoutePathCross>;
 IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
                                           TRoutingNodes const & finalGraphNodes,
                                           RoutingIndexManager & indexManager,
-                                          my::Cancellable const & cancellable,
-                                          TRoutingVisualizerFn const & routingVisualizer,
-                                          TCheckedPath & route);
+                                          IRouterObserver const & observer, TCheckedPath & route);
 }  // namespace routing

@@ -16,7 +16,7 @@ namespace routing
 
 // IRoutingAlgorithm is an abstract interface of a routing algorithm,
 // which searches the optimal way between two junctions on the graph
-class IRoutingAlgorithm : public my::Cancellable
+class IRoutingAlgorithm
 {
 public:
   enum class Result
@@ -26,8 +26,8 @@ public:
     Cancelled
   };
 
-  virtual Result CalculateRoute(IRoadGraph const &  graph,
-                                Junction const & startPos, Junction const & finalPos,
+  virtual Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
+                                Junction const & finalPos, IRouterObserver const & observer,
                                 vector<Junction> & path) = 0;
 };
 
@@ -40,19 +40,17 @@ protected:
   AStarRoutingAlgorithmBase();
 
   AStarProgress m_progress;
-  std::function<void(Junction const &, Junction const &)> m_onVisitJunctionFn;
 };
 
 // AStar routing algorithm implementation
 class AStarRoutingAlgorithm : public AStarRoutingAlgorithmBase
 {
 public:
-  explicit AStarRoutingAlgorithm(TRoutingVisualizerFn routingVisualizerFn = nullptr,
-                                 TRoutingProgressFn routingProgressFn = nullptr);
+  explicit AStarRoutingAlgorithm();
 
   // IRoutingAlgorithm overrides:
-  Result CalculateRoute(IRoadGraph const &  graph,
-                        Junction const & startPos, Junction const & finalPos,
+  Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
+                        Junction const & finalPos, IRouterObserver const & observer,
                         vector<Junction> & path) override;
 };
 
@@ -60,12 +58,11 @@ public:
 class AStarBidirectionalRoutingAlgorithm : public AStarRoutingAlgorithmBase
 {
 public:
-  explicit AStarBidirectionalRoutingAlgorithm(TRoutingVisualizerFn routingVisualizerFn = nullptr,
-                                              TRoutingProgressFn routingProgressFn = nullptr);
+  explicit AStarBidirectionalRoutingAlgorithm();
 
   // IRoutingAlgorithm overrides:
-  Result CalculateRoute(IRoadGraph const &  graph,
-                        Junction const & startPos, Junction const & finalPos,
+  Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
+                        Junction const & finalPos, IRouterObserver const & observer,
                         vector<Junction> & path) override;
 };
 

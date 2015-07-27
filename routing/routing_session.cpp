@@ -247,12 +247,14 @@ void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)
 
 void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
                                unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
-                               TRoutingStatisticsCallback const & routingStatisticsFn)
+                               TRoutingStatisticsCallback const & routingStatisticsFn,
+                               TPointCheckCallback const & pointCheckCallback)
 {
   if (m_router)
     Reset();
 
-  m_router.reset(new AsyncRouter(move(router), move(fetcher), routingStatisticsFn));
+  m_router.reset(
+      new AsyncRouter(move(router), move(fetcher), routingStatisticsFn, pointCheckCallback));
 }
 
 void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,

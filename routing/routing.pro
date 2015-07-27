@@ -35,6 +35,7 @@ SOURCES += \
     routing_algorithm.cpp \
     routing_mapping.cpp \
     routing_session.cpp \
+    timeout_observer.cpp \
     turns.cpp \
     turns_generator.cpp \
     turns_sound.cpp \

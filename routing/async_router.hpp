@@ -3,6 +3,7 @@
 #include "online_absent_fetcher.hpp"
 #include "route.hpp"
 #include "router.hpp"
+#include "timeout_observer.hpp"
 
 #include "std/atomic.hpp"
 #include "std/map.hpp"
@@ -17,19 +18,17 @@ class AsyncRouter
 {
 public:
   /// Callback takes ownership of passed route.
-  typedef function<void(Route &, IRouter::ResultCode)> TReadyCallback;
-
-  /// Calback for updating state of the router progress.
-  typedef function<void(float)> TProgressCallback;
+  using TReadyCallback = function<void(Route &, IRouter::ResultCode)>;
 
   /// Callback on routing statistics
-  typedef function<void(map<string, string> const &)> TRoutingStatisticsCallback;
+  using TRoutingStatisticsCallback = function<void(map<string, string> const &)>;
 
   /// AsyncRouter is a wrapper class to run routing routines in the different thread
   /// @param router pointer to the router implementation. AsyncRouter will take ownership over
   /// router.
   AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
-              TRoutingStatisticsCallback const & routingStatisticsFn);
+              TRoutingStatisticsCallback const & routingStatisticsFn,
+              TPointCheckCallback const & pointCheckCallback);
 
   virtual ~AsyncRouter();
 
@@ -72,6 +71,8 @@ private:
   m2::PointD m_startPoint;
   m2::PointD m_finalPoint;
   m2::PointD m_startDirection;
+
+  TimeoutObserver m_observer;
 
   unique_ptr<OnlineAbsentCountriesFetcher> const m_absentFetcher;
   unique_ptr<IRouter> const m_router;

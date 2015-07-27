@@ -33,13 +33,8 @@ public:
   string GetName() const override { return m_name; }
   void ClearState() override;
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                            m2::PointD const & finalPoint, TRoutingProgressFn const & progressFn,
+                            m2::PointD const & finalPoint, IRouterObserver const & observer,
                             Route & route) override;
-
-  // my::Cancellable overrides:
-  void Reset() override { m_algorithm->Reset(); }
-  void Cancel() override { m_algorithm->Cancel(); }
-  bool IsCancelled() const override { return m_algorithm->IsCancelled(); }
 
 private:
   void ReconstructRoute(vector<Junction> && junctions, Route & route) const;
@@ -49,12 +44,8 @@ private:
   unique_ptr<IRoadGraph> const m_roadGraph;
   unique_ptr<IDirectionsEngine> const m_directionsEngine;
 };
-  
-unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
-                                                TRoutingVisualizerFn const & visualizerFn);
 
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(
-    Index & index,
-    TRoutingVisualizerFn const & visualizerFn);
+unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index);
 
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index);
 }  // namespace routing
