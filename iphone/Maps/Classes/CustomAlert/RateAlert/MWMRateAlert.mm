@@ -11,8 +11,6 @@
 #import "UIKitCategories.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#include "map/dialog_settings.hpp"
-
 extern NSString * const kUDAlreadyRatedKey;
 extern NSString * const kRateAlertEventName = @"rateAlertEvent";
 
@@ -154,7 +152,6 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
     }
     completion:^(BOOL finished)
     {
-      dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::OK);
       [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
       [self close];
       [self setupAlreadyRatedInUserDefaults];

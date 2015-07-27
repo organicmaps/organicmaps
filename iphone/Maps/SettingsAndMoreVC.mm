@@ -3,7 +3,6 @@
 #import "UIKitCategories.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
-#include "../../map/dialog_settings.hpp"
 #include "../../platform/platform.hpp"
 #import "SettingsViewController.h"
 #import "UIViewController+Navigation.h"
@@ -196,7 +195,6 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 
 - (void)rateApp
 {
-  dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::OK);
   [[UIApplication sharedApplication] rateVersionFrom:@"rate_menu_item"];
 }
 

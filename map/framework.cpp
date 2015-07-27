@@ -3,7 +3,6 @@
 #include "benchmark_engine.hpp"
 #include "geourl_process.hpp"
 #include "navigator_utils.hpp"
-#include "dialog_settings.hpp"
 #include "ge0_parser.hpp"
 
 #include "render/cpu_drawer.hpp"
@@ -1022,8 +1021,6 @@ void Framework::EnterBackground()
 #ifndef OMIM_OS_ANDROID
   ClearAllCaches();
 #endif
-
-  dlg_settings::EnterBackground(my::Timer::LocalTime() - m_StartForegroundTime);
 }
 
 void Framework::EnterForeground()

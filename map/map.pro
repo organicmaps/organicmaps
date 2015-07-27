@@ -27,7 +27,6 @@ HEADERS += \
     animator.hpp \
     move_screen_task.hpp \
     change_viewport_task.hpp \
-    dialog_settings.hpp \
     mwm_url.hpp \
     bookmark_manager.hpp \
     ge0_parser.hpp \
@@ -61,7 +60,6 @@ SOURCES += \
     animator.cpp \
     move_screen_task.cpp \
     change_viewport_task.cpp \
-    dialog_settings.cpp \
     mwm_url.cpp \
     bookmark_manager.cpp \
     ge0_parser.cpp \

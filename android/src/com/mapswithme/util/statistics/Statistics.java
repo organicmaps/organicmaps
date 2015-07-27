@@ -22,9 +22,6 @@ public enum Statistics
   INSTANCE;
 
   private final static String KEY_STAT_ENABLED = "StatisticsEnabled";
-  private final static String KEY_STAT_COLLECTED = "InitialStatisticsCollected";
-
-  private final static double ACTIVE_USER_MIN_FOREGROUND_TIME = 5 * 60; // 5 minutes
 
   private List<StatisticsEngine> mStatisticsEngines;
   private EventBuilder mEventBuilder;
@@ -42,10 +39,8 @@ public enum Statistics
     public static final String COUNTRY_UPDATE = "Country update";
     public static final String COUNTRY_DELETE = "Country deleted";
     public static final String SEARCH_CAT_CLICKED = "Search category clicked";
-    public static final String BOOKMARK_GROUP_CHANGED = "Bookmark group changed";
     public static final String DESCRIPTION_CHANGED = "Description changed";
     public static final String GROUP_CREATED = "Group Created";
-    public static final String SEARCH_CONTEXT_CHANGED = "Search context changed";
     public static final String COLOR_CHANGED = "Color changed";
     public static final String BOOKMARK_CREATED = "Bookmark created";
     public static final String PLACE_SHARED = "Place Shared";
@@ -69,7 +64,6 @@ public enum Statistics
     public static final String SEARCH_ON_MAP_CLICKED = "Search on map clicked.";
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
     //
-    public static final String NO_FREE_SPACE = "Downloader. Not enough free space.";
     public static final String PLUS_DIALOG_LATER = "GPlus dialog cancelled.";
     public static final String RATE_DIALOG_LATER = "GPlay dialog cancelled.";
     public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
@@ -87,12 +81,7 @@ public enum Statistics
     public static final String CALLER_ID = "Caller ID";
     public static final String HAD_VALID_LOCATION = "Had valid location";
     public static final String DELAY_MILLIS = "Delay in milliseconds";
-    public static final String BOOKMARK_NUMBER_AVG = "Average number of bmks";
-    public static final String CATEGORIES_COUNT = "Categories count";
-    public static final String FG_TIME = "Foreground time";
-    public static final String PRO_STAT = "One time PRO stat";
     public static final String ENABLED = "Enabled";
-    public static final String APP_FLAVOR = "Flavor";
     public static final String RATING = "Rating";
   }
 
@@ -157,11 +146,6 @@ public enum Statistics
     trackIfEnabled(event);
   }
 
-  public void trackGroupChanged()
-  {
-    trackIfEnabled(mEventBuilder.setName(EventName.BOOKMARK_GROUP_CHANGED).buildEvent());
-  }
-
   public void trackDescriptionChanged()
   {
     trackIfEnabled(mEventBuilder.setName(EventName.DESCRIPTION_CHANGED).buildEvent());
@@ -170,17 +154,6 @@ public enum Statistics
   public void trackGroupCreated()
   {
     trackIfEnabled(mEventBuilder.setName(EventName.GROUP_CREATED).buildEvent());
-  }
-
-  public void trackSearchContextChanged(String from, String to)
-  {
-    final Event event = mEventBuilder
-        .setName(EventName.SEARCH_CONTEXT_CHANGED)
-        .addParam(EventParam.FROM, from)
-        .addParam(EventParam.TO, to)
-        .buildEvent();
-
-    trackIfEnabled(event);
   }
 
   public void trackColorChanged(String from, String to)
@@ -279,20 +252,9 @@ public enum Statistics
       for (StatisticsEngine engine : mStatisticsEngines)
         engine.onStartActivity(activity);
 
-      if (doCollectStatistics())
-        collectOneTimeStatistics();
-
       FbUtil.activate(activity);
     }
   }
-
-  private boolean doCollectStatistics()
-  {
-    return isStatisticsEnabled()
-        && !isStatisticsCollected()
-        && isActiveUser(MWMApplication.get().getForegroundTime());
-  }
-
 
   private void configure()
   {
@@ -317,40 +279,6 @@ public enum Statistics
     }
   }
 
-  private void collectOneTimeStatistics()
-  {
-    mEventBuilder.setName(EventParam.PRO_STAT);
-
-    // Number of sets
-    final int categoriesCount = BookmarkManager.INSTANCE.getCategoriesCount();
-    if (categoriesCount > 0)
-    {
-      // Calculate average number of bookmarks in category
-      final double[] sizes = new double[categoriesCount];
-      for (int catIndex = 0; catIndex < categoriesCount; catIndex++)
-        sizes[catIndex] = BookmarkManager.INSTANCE.getCategoryById(catIndex).getSize();
-      final double average = MathUtils.average(sizes);
-
-      mEventBuilder.addParam(EventParam.BOOKMARK_NUMBER_AVG, String.valueOf(average));
-    }
-
-    mEventBuilder.addParam(EventParam.CATEGORIES_COUNT, String.valueOf(categoriesCount))
-        .addParam(EventParam.FG_TIME, String.valueOf(MWMApplication.get().getForegroundTime()));
-
-    trackIfEnabled(mEventBuilder.buildEvent());
-    setStatisticsCollected(true);
-  }
-
-  private boolean isStatisticsCollected()
-  {
-    return MWMApplication.get().nativeGetBoolean(KEY_STAT_COLLECTED, false);
-  }
-
-  private void setStatisticsCollected(boolean isCollected)
-  {
-    MWMApplication.get().nativeSetBoolean(KEY_STAT_COLLECTED, isCollected);
-  }
-
   public boolean isStatisticsEnabled()
   {
     return MWMApplication.get().nativeGetBoolean(KEY_STAT_ENABLED, true);
@@ -365,10 +293,5 @@ public enum Statistics
         .setName(EventName.STATISTICS_STATUS_CHANGED + " " + MWMApplication.get().getFirstInstallFlavor())
         .addParam(EventParam.ENABLED, String.valueOf(isEnabled))
         .buildEvent());
-  }
-
-  private boolean isActiveUser(double foregroundTime)
-  {
-    return foregroundTime > ACTIVE_USER_MIN_FOREGROUND_TIME;
   }
 }
