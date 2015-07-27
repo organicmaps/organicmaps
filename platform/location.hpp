@@ -100,6 +100,7 @@ namespace location
         : m_turn(routing::turns::TurnDirection::NoTurn),
           m_exitNum(0),
           m_time(0),
+          m_pedestrianTurn(routing::turns::PedestrianDirection::None),
           m_pedestrianDirectionPos(0., 0.)
     {
     }

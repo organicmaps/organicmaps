@@ -219,13 +219,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
   else
   {
     // nothing should be displayed on the screen about turns if these lines are executed
-    info.m_turn = turns::TurnDirection::NoTurn;
-    info.m_exitNum = 0;
-    info.m_time = 0;
-    info.m_targetName.clear();
-    info.m_lanes.clear();
-    info.m_pedestrianTurn = turns::PedestrianDirection::None;
-    info.m_pedestrianDirectionPos = ms::LatLon(0., 0.);
+    info = FollowingInfo();
   }
 }
 
