@@ -7,7 +7,6 @@
 #include "drape/glsl_func.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/attribute_provider.hpp"
-#include "drape/glstate.hpp"
 #include "drape/batcher.hpp"
 #include "drape/texture_manager.hpp"
 
@@ -60,14 +59,20 @@ private:
 };
 
 template <typename TVertex>
-class BaseLineBuilder
+class BaseLineBuilder : public LineBuilder
 {
 public:
-  BaseLineBuilder(dp::TextureManager::ColorRegion const & color, float pxHalfWidth)
+  BaseLineBuilder(dp::TextureManager::ColorRegion const & color, float pxHalfWidth,
+                  size_t geometrySize, size_t joinsSize)
     : m_color(color)
     , m_colorCoord(glsl::ToVec2(m_color.GetTexRect().Center()))
     , m_pxHalfWidth(pxHalfWidth)
   {
+    if (geometrySize != 0)
+      m_geometry.reserve(geometrySize);
+
+    if (joinsSize != 0)
+      m_joinGeom.reserve(joinsSize);
   }
 
   void GetTexturingInfo(float const globalLength, int & steps, float & maskSize)
@@ -77,27 +82,27 @@ public:
     UNUSED_VALUE(maskSize);
   }
 
-  dp::BindingInfo const & GetBindingInfo()
+  dp::BindingInfo const & GetBindingInfo() override
   {
     return TVertex::GetBindingInfo();
   }
 
-  ref_ptr<void> GetLineData()
+  ref_ptr<void> GetLineData() override
   {
     return make_ref(m_geometry.data());
   }
 
-  size_t GetLineSize()
+  size_t GetLineSize() override
   {
     return m_geometry.size();
   }
 
-  ref_ptr<void> GetJoinData()
+  ref_ptr<void> GetJoinData() override
   {
     return make_ref(m_joinGeom.data());
   }
 
-  size_t GetJoinSize()
+  size_t GetJoinSize() override
   {
     return m_joinGeom.size();
   }
@@ -109,7 +114,7 @@ public:
 
 protected:
   using V = TVertex;
-  using TGeometryBuffer = buffer_vector<V, 256>;
+  using TGeometryBuffer = vector<V>;
 
   TGeometryBuffer m_geometry;
   TGeometryBuffer m_joinGeom;
@@ -125,12 +130,12 @@ class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
   using TNormal = gpu::LineVertex::TNormal;
 
 public:
-  SolidLineBuilder(dp::TextureManager::ColorRegion const & color, float const  pxHalfWidth)
-    : TBase(color, pxHalfWidth)
+  SolidLineBuilder(dp::TextureManager::ColorRegion const & color, float const  pxHalfWidth, size_t pointsInSpline)
+    : TBase(color, pxHalfWidth, pointsInSpline * 2, (pointsInSpline - 2) * 8)
   {
   }
 
-  dp::GLState GetState()
+  dp::GLState GetState() override
   {
     dp::GLState state(gpu::LINE_PROGRAM, dp::GLState::GeometryLayer);
     state.SetColorTexture(m_color.GetTexture());
@@ -171,8 +176,9 @@ class DashedLineBuilder : public BaseLineBuilder<gpu::DashedLineVertex>
 public:
   DashedLineBuilder(dp::TextureManager::ColorRegion const & color,
                     dp::TextureManager::StippleRegion const & stipple,
-                    float glbHalfWidth, float pxHalfWidth, float baseGtoP)
-    : TBase(color, pxHalfWidth)
+                    float glbHalfWidth, float pxHalfWidth, float baseGtoP,
+                    size_t pointsInSpline)
+    : TBase(color, pxHalfWidth, pointsInSpline * 8, (pointsInSpline - 2) * 8)
     , m_texCoordGen(stipple, baseGtoP)
     , m_glbHalfWidth(glbHalfWidth)
     , m_baseGtoPScale(baseGtoP)
@@ -186,7 +192,7 @@ public:
     maskSize = globalLength / steps;
   }
 
-  dp::GLState GetState()
+  dp::GLState GetState() override
   {
     dp::GLState state(gpu::DASHED_LINE_PROGRAM, dp::GLState::GeometryLayer);
     state.SetColorTexture(m_color.GetTexture());
@@ -226,15 +232,40 @@ private:
 } // namespace
 
 LineShape::LineShape(m2::SharedSpline const & spline,
-                     LineViewParams const & params)
+                     LineViewParams const & params,
+                     ref_ptr<dp::TextureManager> textures)
   : m_params(params)
   , m_spline(spline)
 {
   ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
+
+  dp::TextureManager::ColorRegion colorRegion;
+  textures->GetColorRegion(m_params.m_color, colorRegion);
+  float const pxHalfWidth = m_params.m_width / 2.0f;
+
+  if (m_params.m_pattern.empty())
+  {
+    auto builder = make_unique<SolidLineBuilder>(colorRegion, pxHalfWidth, m_spline->GetPath().size());
+    Construct<SolidLineBuilder>(*builder);
+    m_lineBuilder = move(builder);
+  }
+  else
+  {
+    dp::TextureManager::StippleRegion maskRegion;
+    textures->GetStippleRegion(m_params.m_pattern, maskRegion);
+
+    float const glbHalfWidth = pxHalfWidth / m_params.m_baseGtoPScale;
+
+    auto builder = make_unique<DashedLineBuilder>(colorRegion, maskRegion, glbHalfWidth,
+                                                  pxHalfWidth, m_params.m_baseGtoPScale,
+                                                  m_spline->GetPath().size());
+    Construct<DashedLineBuilder>(*builder);
+    m_lineBuilder = move(builder);
+  }
 }
 
 template <typename TBuilder>
-void LineShape::Draw(TBuilder & builder, ref_ptr<dp::Batcher> batcher) const
+void LineShape::Construct(TBuilder & builder) const
 {
   vector<m2::PointD> const & path = m_spline->GetPath();
   ASSERT(path.size() > 1, ());
@@ -333,42 +364,24 @@ void LineShape::Draw(TBuilder & builder, ref_ptr<dp::Batcher> batcher) const
 
     builder.SubmitJoin(glsl::vec3(segment.m_points[EndPoint], m_params.m_depth), normals);
   }
-
-  dp::GLState state = builder.GetState();
-
-  dp::AttributeProvider provider(1, builder.GetLineSize());
-  provider.InitStream(0, builder.GetBindingInfo(), builder.GetLineData());
-  batcher->InsertListOfStrip(state, make_ref(&provider), dp::Batcher::VertexPerQuad);
-
-  size_t joinSize = builder.GetJoinSize();
-  if (joinSize > 0)
-  {
-    dp::AttributeProvider joinsProvider(1, joinSize);
-    joinsProvider.InitStream(0, builder.GetBindingInfo(), builder.GetJoinData());
-    batcher->InsertTriangleList(state, make_ref(&joinsProvider));
-  }
 }
 
 void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
-  dp::TextureManager::ColorRegion colorRegion;
-  textures->GetColorRegion(m_params.m_color, colorRegion);
-  float const pxHalfWidth = m_params.m_width / 2.0f;
+  ASSERT(m_lineBuilder != nullptr, ());
 
-  if (m_params.m_pattern.empty())
+  dp::GLState state = m_lineBuilder->GetState();
+
+  dp::AttributeProvider provider(1, m_lineBuilder->GetLineSize());
+  provider.InitStream(0, m_lineBuilder->GetBindingInfo(), m_lineBuilder->GetLineData());
+  batcher->InsertListOfStrip(state, make_ref(&provider), dp::Batcher::VertexPerQuad);
+
+  size_t joinSize = m_lineBuilder->GetJoinSize();
+  if (joinSize > 0)
   {
-    SolidLineBuilder builder(colorRegion, pxHalfWidth);
-    Draw(builder, batcher);
-  }
-  else
-  {
-    dp::TextureManager::StippleRegion maskRegion;
-    textures->GetStippleRegion(m_params.m_pattern, maskRegion);
-
-    float const glbHalfWidth = pxHalfWidth / m_params.m_baseGtoPScale;
-
-    DashedLineBuilder builder(colorRegion, maskRegion, glbHalfWidth, pxHalfWidth, m_params.m_baseGtoPScale);
-    Draw(builder, batcher);
+    dp::AttributeProvider joinsProvider(1, joinSize);
+    joinsProvider.InitStream(0, m_lineBuilder->GetBindingInfo(), m_lineBuilder->GetJoinData());
+    batcher->InsertTriangleList(state, make_ref(&joinsProvider));
   }
 }
 

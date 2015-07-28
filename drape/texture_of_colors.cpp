@@ -22,6 +22,8 @@ ColorPalette::ColorPalette(m2::PointU const & canvasSize)
 
 ref_ptr<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, bool & newResource)
 {
+  lock_guard<mutex> g(m_mappingLock);
+
   TPalette::iterator itm = m_palette.find(key.m_color);
   newResource = itm == m_palette.end();
   if (newResource)
@@ -31,7 +33,7 @@ ref_ptr<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, b
     pendingColor.m_rect = m2::RectU(m_cursor.x, m_cursor.y,
                                     m_cursor.x + RESOURCE_SIZE, m_cursor.y + RESOURCE_SIZE);
     {
-      threads::MutexGuard g(m_lock);
+      lock_guard<mutex> g(m_lock);
       m_pendingNodes.push_back(pendingColor);
     }
 
@@ -64,7 +66,7 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
 
   buffer_vector<PendingColor, 16> pendingNodes;
   {
-    threads::MutexGuard g(m_lock);
+    lock_guard<mutex> g(m_lock);
     m_pendingNodes.swap(pendingNodes);
   }
 

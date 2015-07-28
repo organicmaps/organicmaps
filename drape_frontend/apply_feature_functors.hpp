@@ -16,6 +16,11 @@ class CaptionDefProto;
 
 //#define CALC_FILTERED_POINTS
 
+namespace dp
+{
+  class TextureManager;
+}
+
 namespace df
 {
 
@@ -84,8 +89,8 @@ class ApplyLineFeature : public BaseApplyFeature
   typedef BaseApplyFeature TBase;
 public:
   ApplyLineFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
-                   CaptionDescription const & captions,
-                   double currentScaleGtoP, bool simplify, size_t pointsCount);
+                   CaptionDescription const & captions, double currentScaleGtoP,
+                   bool simplify, size_t pointsCount, ref_ptr<dp::TextureManager> texMng);
 
   void operator() (m2::PointD const & point);
   bool HasGeometry() const;
@@ -99,6 +104,8 @@ private:
   m2::PointD m_lastAddedPoint;
   bool m_simplify;
   size_t m_initialPointsCount;
+
+  ref_ptr<dp::TextureManager> m_texMng;
 
 #ifdef CALC_FILTERED_POINTS
   int m_readedCount;

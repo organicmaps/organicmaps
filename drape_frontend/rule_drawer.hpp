@@ -13,6 +13,11 @@
 
 class FeatureType;
 
+namespace dp
+{
+  class TextureManager;
+}
+
 namespace df
 {
 
@@ -25,7 +30,8 @@ class RuleDrawer
 public:
   using TDrawerCallback = function<void (FeatureType const &, Stylist &)>;
   RuleDrawer(TDrawerCallback const & fn,
-             ref_ptr<EngineContext> context);
+             ref_ptr<EngineContext> context,
+             ref_ptr<dp::TextureManager> texMng);
 
   void operator() (FeatureType const & f);
 
@@ -38,6 +44,7 @@ private:
   set<string> m_coastlines;
 
   list<drape_ptr<MapShape>> m_mapShapes;
+  ref_ptr<dp::TextureManager> m_texMng;
 };
 
 } // namespace dfo

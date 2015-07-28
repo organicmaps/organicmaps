@@ -140,6 +140,8 @@ void StipplePenRasterizator::Rasterize(void * buffer)
 
 ref_ptr<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const & key, bool & newResource)
 {
+  lock_guard<mutex> g(m_mappingLock);
+
   newResource = false;
   StipplePenHandle handle(key);
   TResourceMapping::iterator it = m_resourceMapping.find(handle);
@@ -151,7 +153,7 @@ ref_ptr<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const 
   StipplePenRasterizator resource(key);
   m2::RectU pixelRect = m_packer.PackResource(resource.GetSize());
   {
-    threads::MutexGuard g(m_lock);
+    lock_guard<mutex> g(m_lock);
     m_pendingNodes.push_back(make_pair(pixelRect, resource));
   }
 
@@ -170,7 +172,7 @@ void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
 
   TPendingNodes pendingNodes;
   {
-    threads::MutexGuard g(m_lock);
+    lock_guard<mutex> g(m_lock);
     m_pendingNodes.swap(pendingNodes);
   }
 

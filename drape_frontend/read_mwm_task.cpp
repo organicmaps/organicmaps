@@ -1,5 +1,7 @@
 #include "drape_frontend/read_mwm_task.hpp"
 
+#include "drape/texture_manager.hpp"
+
 namespace df
 {
 ReadMWMTask::ReadMWMTask(MemoryFeatureIndex & memIndex, MapDataProvider & model)
@@ -11,9 +13,10 @@ ReadMWMTask::ReadMWMTask(MemoryFeatureIndex & memIndex, MapDataProvider & model)
 #endif
 }
 
-void ReadMWMTask::Init(shared_ptr<TileInfo> const & tileInfo)
+void ReadMWMTask::Init(shared_ptr<TileInfo> const & tileInfo, ref_ptr<dp::TextureManager> texMng)
 {
   m_tileInfo = tileInfo;
+  m_texMng = texMng;
 #ifdef DEBUG
   m_checker = true;
 #endif
@@ -36,7 +39,7 @@ void ReadMWMTask::Do()
   ASSERT(m_tileInfo != nullptr, ());
   try
   {
-    m_tileInfo->ReadFeatures(m_model, m_memIndex);
+    m_tileInfo->ReadFeatures(m_model, m_memIndex, m_texMng);
   }
   catch (TileInfo::ReadCanceledException &)
   {

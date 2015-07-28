@@ -4,6 +4,8 @@
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/tile_info.hpp"
 
+#include "drape/texture_manager.hpp"
+
 #include "indexer/scales.hpp"
 
 #include "base/scope_guard.hpp"
@@ -38,12 +40,13 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 }
 
 void TileInfo::ReadFeatures(MapDataProvider const & model,
-                            MemoryFeatureIndex & memIndex)
+                            MemoryFeatureIndex & memIndex,
+                            ref_ptr<dp::TextureManager> texMng)
 {
   m_context->BeginReadTile();
 
   // Reading can be interrupted by exception throwing
-  MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, m_context.get()));
+  MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, m_context.get(), texMng));
 
   ReadFeatureIndex(model);
 
@@ -54,7 +57,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model,
 
   if (!featuresToRead.empty())
   {
-    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), make_ref(m_context));
+    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), make_ref(m_context), texMng);
     model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
   }
 }

@@ -6,6 +6,11 @@
 
 #include "drape/pointers.hpp"
 
+namespace dp
+{
+  class TextureManager;
+}
+
 namespace df
 {
 
@@ -20,7 +25,7 @@ public:
 
   void BeginReadTile();
   void Flush(list<drape_ptr<MapShape>> && shapes);
-  void EndReadTile();
+  void EndReadTile(ref_ptr<dp::TextureManager> texMng);
 
 private:
   void PostMessage(drape_ptr<Message> && message);

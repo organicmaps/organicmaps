@@ -5,7 +5,8 @@
 #include "drape/dynamic_texture.hpp"
 
 #include "base/buffer_vector.hpp"
-#include "base/mutex.hpp"
+
+#include "std/mutex.hpp"
 
 namespace dp
 {
@@ -55,7 +56,8 @@ private:
   m2::PointU m_textureSize;
   m2::PointU m_cursor;
   bool m_isDebug = false;
-  threads::Mutex m_lock;
+  mutex m_lock;
+  mutex m_mappingLock;
 };
 
 class ColorTexture : public DynamicTexture<ColorPalette, ColorKey, Texture::Color>

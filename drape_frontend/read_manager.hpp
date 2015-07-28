@@ -10,6 +10,7 @@
 
 #include "drape/object_pool.hpp"
 #include "drape/pointers.hpp"
+#include "drape/texture_manager.hpp"
 
 #include "base/thread_pool.hpp"
 
@@ -29,7 +30,7 @@ class ReadManager
 public:
   ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model);
 
-  void UpdateCoverage(ScreenBase const & screen, TTilesCollection const & tiles);
+  void UpdateCoverage(ScreenBase const & screen, TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng);
   void Invalidate(TTilesCollection const & keyStorage);
   void Stop();
 
@@ -39,8 +40,8 @@ private:
   void OnTaskFinished(threads::IRoutine * task);
   bool MustDropAllTiles(ScreenBase const & screen) const;
 
-  void PushTaskBackForTileKey(TileKey const & tileKey);
-  void PushTaskFront(shared_ptr<TileInfo> const & tileToReread);
+  void PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::TextureManager> texMng);
+  void PushTaskFront(shared_ptr<TileInfo> const & tileToReread, ref_ptr<dp::TextureManager> texMng);
 
 private:
   MemoryFeatureIndex m_memIndex;

@@ -3,6 +3,8 @@
 //#define DRAW_TILE_NET
 
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape/texture_manager.hpp"
+
 #ifdef DRAW_TILE_NET
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/text_shape.hpp"
@@ -29,7 +31,7 @@ void EngineContext::Flush(list<drape_ptr<MapShape>> && shapes)
   PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, move(shapes)));
 }
 
-void EngineContext::EndReadTile()
+void EngineContext::EndReadTile(ref_ptr<dp::TextureManager> texMng)
 {
 #ifdef DRAW_TILE_NET
   m2::RectD r = m_tileKey.GetGlobalRect();
@@ -49,7 +51,7 @@ void EngineContext::EndReadTile()
   p.m_width = 5;
   p.m_join = dp::RoundJoin;
 
-  InsertShape(make_unique_dp<LineShape>(spline, p));
+  InsertShape(make_unique_dp<LineShape>(spline, p, texMng));
 
   df::TextViewParams tp;
   tp.m_anchor = dp::Center;

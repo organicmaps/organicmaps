@@ -11,6 +11,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "std/map.hpp"
+#include "std/mutex.hpp"
 
 namespace dp
 {
@@ -112,7 +113,8 @@ private:
   TPendingNodes m_pendingNodes;
   StipplePenPacker m_packer;
 
-  threads::Mutex m_lock;
+  mutex m_lock;
+  mutex m_mappingLock;
 };
 
 string DebugPrint(StipplePenHandle const & key);

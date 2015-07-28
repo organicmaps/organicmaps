@@ -83,7 +83,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<UpdateReadManagerMessage> msg = message;
       ScreenBase const & screen = msg->GetScreen();
       TTilesCollection const & tiles = msg->GetTiles();
-      m_readManager->UpdateCoverage(screen, tiles);
+      m_readManager->UpdateCoverage(screen, tiles, m_texMng);
 
       gui::CountryStatusHelper & helper = gui::DrapeGui::Instance().GetCountryStatusHelper();
       if (!tiles.empty() && (*tiles.begin()).m_zoomLevel > scales::GetUpperWorldScale())
