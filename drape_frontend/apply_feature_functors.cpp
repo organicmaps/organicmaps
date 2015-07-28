@@ -128,6 +128,8 @@ void Extract(::LineDefProto const * lineRule,
     ASSERT(false, ());
   }
 
+  params.m_cap = dp::ButtCap;
+
   switch (lineRule->join())
   {
   case ::NOJOIN    : params.m_join = dp::MiterJoin;
