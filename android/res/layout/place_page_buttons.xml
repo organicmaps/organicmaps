@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/bg_top_panels"
-              android:orientation="vertical"
-              android:paddingLeft="@dimen/margin_half_plus"
-              android:paddingRight="@dimen/margin_half_plus"
-              android:layout_marginTop="@dimen/margin_base">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base"
+    android:background="@color/bg_place_page_buttons"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/margin_half_plus"
+    android:paddingRight="@dimen/margin_half_plus"
+    tools:ignore="UseCompoundDrawables">
 
   <View
       android:layout_width="match_parent"
@@ -25,14 +27,13 @@
 
     <LinearLayout
         android:id="@+id/rl__api_back"
-        style="@style/PlacePageButton"
-        android:visibility="gone">
+        style="@style/PlacePageButton">
 
       <ImageView
           android:id="@+id/iv__api_back"
           style="@style/PlacePageButtonImage"
           android:contentDescription="@string/back"
-          android:src="@drawable/ic_back"/>
+          android:src="@drawable/ic_back_api"/>
 
       <TextView
           android:id="@+id/tv__api_back"
@@ -49,7 +50,7 @@
           android:id="@+id/iv__share"
           style="@style/PlacePageButtonImage"
           android:contentDescription="@string/share"
-          android:src="@drawable/ic_placepage_share"/>
+          android:src="@drawable/ic_share"/>
 
       <TextView
           android:id="@+id/tv__share"
@@ -66,7 +67,7 @@
           android:id="@+id/iv__bookmark"
           style="@style/PlacePageButtonImage"
           android:contentDescription="@string/bookmark"
-          android:src="@drawable/ic_bookmark_off"/>
+          android:src="@drawable/ic_bookmarks_off"/>
 
       <TextView
           android:id="@+id/tv__bookmark"

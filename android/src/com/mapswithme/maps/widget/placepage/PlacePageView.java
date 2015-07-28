@@ -349,7 +349,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       mEtBookmarkName.setText(bookmark.getName());
       mTvBookmarkGroup.setText(bookmark.getCategoryName(getContext()));
       mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
-      mIvBookmark.setImageResource(R.drawable.ic_bookmark_on);
+      mIvBookmark.setImageResource(R.drawable.ic_bookmarks_on);
       final String notes = bookmark.getBookmarkDescription();
       if (notes.isEmpty())
         UiUtils.hide(mWvDescription, mBtnEditHtmlDescription, mTvDescription);
@@ -366,7 +366,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       }
     }
     else
-      mIvBookmark.setImageResource(R.drawable.ic_bookmark_off);
+      mIvBookmark.setImageResource(R.drawable.ic_bookmarks_off);
   }
 
   private void refreshPreview()

@@ -35,14 +35,14 @@
   <color name="semitransparent_black">#60000000</color>
   <color name="semitransparent_black_dark">#BB000000</color>
 
-  <color name="bg_bottom_toolbar">@android:color/white</color>
   <color name="divider_standard">#1E4A4B53</color>
   <!-- TODO end of unfinished colors-->
 
   <!-- place page -->
   <color name="text_place_page">@color/text_dark</color>
   <color name="text_place_page_subtitle">@color/text_dark_subtitle</color>
-  <color name="text_place_page_buttons">@color/text_green</color>
+  <color name="text_place_page_buttons">@color/text_dark_subtitle</color>
+  <color name="bg_place_page_buttons">@color/base_bg_secondary</color>
 
   <!-- TODO change all colors below, remove old ones-->
 
