@@ -309,10 +309,10 @@ namespace
         for (auto & fb : vecFb)
         {
           (*m_coastsHolder)(fb);
-            ++totalFeatures;
+
+          ++totalFeatures;
           totalPoints += fb.GetPointsCount();
           totalPolygons += fb.GetPolygonsCount();
-          }
         }
         LOG(LINFO, ("Total features:", totalFeatures, "total polygons:", totalPolygons, "total points:", totalPoints));
       }
