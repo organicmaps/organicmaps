@@ -13113,3 +13113,28 @@
     comment = Bottom sheet: expand button (should be short)
     en = More…
     ru = Ещё…
+
+  [routing_planning_error]
+    tags = ios,android
+    comment = Failed planning route message in navigation view
+    en = Route Planning Failed
+    ru = Ошибка построения маршрута
+
+  [routing_arrive]
+    tags = ios,android
+    comment = Arrive routing message in navigation view
+    en = Arrive
+    ru = Прибытие
+
+  [routing_start]
+    tags = ios,android
+    comment = Routing Start button title
+    en = Start
+    ru = Начать
+
+  [routing_planning]
+    tags = ios,android
+    comment = Planning route message in navigation view
+    en = Planning Route
+    ru = Поиск маршрута
+    
