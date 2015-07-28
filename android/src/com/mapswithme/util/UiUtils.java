@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -25,6 +26,7 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,16 +38,31 @@ import static com.mapswithme.util.Utils.checkNotNull;
 
 public final class UiUtils
 {
+  public static void hide(View view)
+  {
+    view.setVisibility(View.GONE);
+  }
+
   public static void hide(View... views)
   {
     for (final View v : views)
       v.setVisibility(View.GONE);
   }
 
+  public static void show(View view)
+  {
+    view.setVisibility(View.VISIBLE);
+  }
+
   public static void show(View... views)
   {
     for (final View v : views)
       v.setVisibility(View.VISIBLE);
+  }
+
+  public static void invisible(View view)
+  {
+    view.setVisibility(View.INVISIBLE);
   }
 
   public static void invisible(View... views)
@@ -368,6 +385,69 @@ public final class UiUtils
     UiUtils.getHitRect(secondView, testRect);
 
     return baseRect.intersect(testRect);
+  }
+
+  public static void appearSlidingDown(final View view, @Nullable final Runnable completionListener)
+  {
+    if (view.getVisibility() == View.VISIBLE)
+    {
+      if (completionListener != null)
+        completionListener.run();
+      return;
+    }
+
+    view.setVisibility(View.VISIBLE);
+
+    Animation a = AnimationUtils.loadAnimation(view.getContext(), R.anim.slide_appear_down);
+    if (completionListener != null)
+      a.setAnimationListener(new UiUtils.SimpleAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animation animation)
+        {
+          completionListener.run();
+        }
+      });
+
+    view.startAnimation(a);
+  }
+
+  public static void disappearSlidingUp(final View view, @Nullable final Runnable completionListener)
+  {
+    if (view.getVisibility() != View.VISIBLE)
+    {
+      if (completionListener != null)
+        completionListener.run();
+      return;
+    }
+
+    Animation a = AnimationUtils.loadAnimation(view.getContext(), R.anim.slide_disappear_up);
+    a.setAnimationListener(new UiUtils.SimpleAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animation animation)
+      {
+        view.setVisibility(View.GONE);
+        view.clearAnimation();
+
+        if (completionListener != null)
+          completionListener.run();
+      }
+    });
+
+    view.startAnimation(a);
+  }
+
+  public static void exchangeViewsAnimatedDown(final View toHide, final View toShow, @Nullable final Runnable completionListener)
+  {
+    disappearSlidingUp(toHide, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        appearSlidingDown(toShow, completionListener);
+      }
+    });
   }
 
   // utility class

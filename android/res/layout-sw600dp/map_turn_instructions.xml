@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_buttons"
     style="@style/MwmWidget.Shadow.Panel"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/routing_pp_height">
 
@@ -11,7 +12,8 @@
       style="@style/TextAppearance.AppCompat.Large"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/margin_base"/>
+      android:layout_marginLeft="@dimen/margin_base"
+      tools:text="2.8 km"/>
 
   <TextView
       android:id="@+id/tv__total_time"
@@ -21,7 +23,8 @@
       android:layout_alignLeft="@id/tv__total_distance"
       android:layout_below="@id/tv__total_distance"
       android:textColor="#99000000"
-      android:textSize="14sp"/>
+      android:textSize="14sp"
+      tools:text="0:05"/>
 
   <LinearLayout
       android:layout_width="wrap_content"
@@ -41,7 +44,8 @@
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_turn_blue"/>
+        android:textColor="@color/text_turn_blue"
+        tools:text="1.0 km"/>
   </LinearLayout>
 
   <ImageView

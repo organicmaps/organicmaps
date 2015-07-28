@@ -120,6 +120,8 @@ public class Framework
 
   public native static boolean nativeIsRouteBuilt();
 
+  public native static boolean nativeIsRouteBuilding();
+
   public native static void nativeCloseRouting();
 
   public native static void nativeBuildRoute(double lat, double lon);

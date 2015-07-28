@@ -1287,6 +1287,12 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_Framework_nativeIsRouteBuilding(JNIEnv * env, jclass thiz)
+  {
+    return frm()->IsRouteBuilding();
+  }
+
+  JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_Framework_nativeIsRouteBuilt(JNIEnv * env, jclass thiz)
   {
     return frm()->IsRouteBuilt();

@@ -32,7 +32,6 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,8 +79,6 @@ import com.mapswithme.util.sharing.ShareAction;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 import java.io.Serializable;
@@ -107,11 +104,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private static final String STATE_PP_OPENED = "PpOpened";
   private static final String STATE_MAP_OBJECT = "MapObject";
   private static final String STATE_BUTTONS_OPENED = "ButtonsOpened";
-  private static final int BASE_ANIM_DURATION = 30;
+
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
   private BroadcastReceiver mExternalStorageReceiver;
-  private StoragePathManager mPathManager = new StoragePathManager();
+  private final StoragePathManager mPathManager = new StoragePathManager();
   private AlertDialog mStorageDisconnectedDialog;
   private ImageButton mBtnLocation;
   // map
@@ -123,10 +120,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private TextView mTvStartRouting;
   private ImageView mIvStartRouting;
   // Routing
+  private View mRoutingFrame;
   private TextView mTvRoutingDistance;
-  private RelativeLayout mRlRoutingBox;
-  private RelativeLayout mLayoutRoutingGo;
-  private RelativeLayout mRlTurnByTurnBox;
+  private View mRoutingBox;
+  private View mLayoutRoutingGo;
+  private View mTurnByTurnBox;
   private TextView mTvTotalDistance;
   private TextView mTvTotalTime;
   private ImageView mIvTurn;
@@ -511,14 +509,16 @@ public class MWMActivity extends BaseMwmFragmentActivity
       if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_ROUTE_FOLLOWED))
       {
         updateRoutingDistance();
-        mRlTurnByTurnBox.setVisibility(View.VISIBLE);
-        mRlRoutingBox.setVisibility(View.GONE);
+
+        UiUtils.show(mRoutingFrame, mTurnByTurnBox);
+        UiUtils.hide(mRoutingBox);
       }
       else if (Framework.nativeIsRouteBuilt())
       {
         updateRoutingDistance();
-        mRlRoutingBox.setVisibility(View.VISIBLE);
-        mRlTurnByTurnBox.setVisibility(View.GONE);
+
+        UiUtils.show(mRoutingFrame, mRoutingBox);
+        UiUtils.hide(mTurnByTurnBox);
       }
       else if (savedInstanceState != null)
       {
@@ -528,9 +528,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
           mPlacePage.setState(State.PREVIEW);
           mPlacePage.setMapObject(object);
         }
-        mIvStartRouting.setVisibility(View.GONE);
-        mTvStartRouting.setVisibility(View.GONE);
-        mPbRoutingProgress.setVisibility(View.VISIBLE);
+
+        UiUtils.show(mPbRoutingProgress);
+        UiUtils.hide(mIvStartRouting, mTvStartRouting);
       }
     }
   }
@@ -610,19 +610,21 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void initRoutingBox()
   {
-    mRlRoutingBox = (RelativeLayout) findViewById(R.id.rl__routing_box);
-    mRlRoutingBox.setVisibility(View.GONE);
-    mRlRoutingBox.findViewById(R.id.iv__routing_close).setOnClickListener(this);
-    mLayoutRoutingGo = (RelativeLayout) mRlRoutingBox.findViewById(R.id.rl__routing_go);
-    mLayoutRoutingGo.setOnClickListener(this);
-    mTvRoutingDistance = (TextView) mRlRoutingBox.findViewById(R.id.tv__routing_distance);
+    mRoutingFrame = findViewById(R.id.fl__routing);
+    mRoutingBox = findViewById(R.id.rl__routing_box);
+    UiUtils.hide(mRoutingFrame, mRoutingBox);
 
-    mRlTurnByTurnBox = (RelativeLayout) findViewById(R.id.layout__turn_instructions);
-    mTvTotalDistance = (TextView) mRlTurnByTurnBox.findViewById(R.id.tv__total_distance);
-    mTvTotalTime = (TextView) mRlTurnByTurnBox.findViewById(R.id.tv__total_time);
-    mIvTurn = (ImageView) mRlTurnByTurnBox.findViewById(R.id.iv__turn);
-    mTvTurnDistance = (TextView) mRlTurnByTurnBox.findViewById(R.id.tv__turn_distance);
-    mRlTurnByTurnBox.findViewById(R.id.btn__close).setOnClickListener(this);
+    mRoutingBox.findViewById(R.id.iv__routing_close).setOnClickListener(this);
+    mLayoutRoutingGo = mRoutingBox.findViewById(R.id.rl__routing_go);
+    mLayoutRoutingGo.setOnClickListener(this);
+    mTvRoutingDistance = (TextView) mRoutingBox.findViewById(R.id.tv__routing_distance);
+
+    mTurnByTurnBox = findViewById(R.id.layout__turn_instructions);
+    mTvTotalDistance = (TextView) mTurnByTurnBox.findViewById(R.id.tv__total_distance);
+    mTvTotalTime = (TextView) mTurnByTurnBox.findViewById(R.id.tv__total_time);
+    mIvTurn = (ImageView) mTurnByTurnBox.findViewById(R.id.iv__turn);
+    mTvTurnDistance = (TextView) mTurnByTurnBox.findViewById(R.id.tv__turn_distance);
+    mTurnByTurnBox.findViewById(R.id.btn__close).setOnClickListener(this);
   }
 
   private void initYota()
@@ -645,7 +647,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   protected void onSaveInstanceState(Bundle outState)
   {
-    if (mRlTurnByTurnBox.getVisibility() == View.VISIBLE)
+    if (mTurnByTurnBox.getVisibility() == View.VISIBLE)
       outState.putBoolean(STATE_ROUTE_FOLLOWED, true);
     if (mPlacePage.getState() != State.HIDDEN)
     {
@@ -950,7 +952,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     final boolean showZoomSetting = MWMApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true) || Framework.nativeIsRoutingActive();
     UiUtils.showIf(showZoomSetting &&
             !UiUtils.areViewsIntersecting(mToolbarSearch, mBtnZoomIn) &&
-            !UiUtils.areViewsIntersecting(mRlRoutingBox, mBtnZoomIn),
+            !UiUtils.areViewsIntersecting(mRoutingBox, mBtnZoomIn),
         mBtnZoomIn, mBtnZoomOut);
   }
 
@@ -1380,18 +1382,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private void followRoute()
   {
     Framework.nativeFollowRoute();
-
-    Animator animator = ObjectAnimator.ofFloat(mRlRoutingBox, "alpha", 1, 0);
-    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
-    {
-      @Override
-      public void onAnimationEnd(Animator animation)
-      {
-        mRlTurnByTurnBox.setVisibility(View.VISIBLE);
-        mRlRoutingBox.setVisibility(View.GONE);
-      }
-    });
-    animator.start();
+    UiUtils.show(mRoutingFrame);
+    UiUtils.exchangeViewsAnimatedDown(mRoutingBox, mTurnByTurnBox, null);
   }
 
   private void buildRoute()
@@ -1401,6 +1393,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
       showRoutingDisclaimer();
       return;
     }
+
+    if (Framework.nativeIsRouteBuilding())
+      return;
+
+    closeRouting();
 
     final MapObject mapObject = mPlacePage.getMapObject();
     if (mapObject != null)
@@ -1453,15 +1450,29 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mIvStartRouting.setVisibility(View.VISIBLE);
     mTvStartRouting.setVisibility(View.VISIBLE);
     mPbRoutingProgress.setVisibility(View.GONE);
-    mRlRoutingBox.clearAnimation();
-    UiUtils.hide(mRlRoutingBox, mPbRoutingProgress, mRlTurnByTurnBox);
-    mRlStartRouting.setVisibility(View.VISIBLE);
+
+    UiUtils.hide(mPbRoutingProgress);
+    UiUtils.exchangeViewsAnimatedDown(mRoutingBox, mRlStartRouting, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        UiUtils.disappearSlidingUp(mTurnByTurnBox, new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            UiUtils.hide(mRoutingFrame);
+          }
+        });
+      }
+    });
 
     Framework.nativeCloseRouting();
     refreshZoomButtonsVisibility();
   }
 
-  private void switchNextLocationState()
+  private static void switchNextLocationState()
   {
     LocationState.INSTANCE.switchToNextMode();
   }
@@ -1517,16 +1528,12 @@ public class MWMActivity extends BaseMwmFragmentActivity
       {
         if (resultCode == RoutingResultCodesProcessor.NO_ERROR)
         {
-          mRlTurnByTurnBox.setVisibility(View.GONE);
           ViewCompat.setAlpha(mLayoutRoutingGo, 1);
-          mLayoutRoutingGo.setVisibility(View.VISIBLE);
 
-          Animator animator = ObjectAnimator.ofFloat(mRlRoutingBox, "alpha", 0, 1);
-          animator.setDuration(BASE_ANIM_DURATION);
-          animator.start();
-
-          mRlRoutingBox.setVisibility(View.VISIBLE);
-          mRlRoutingBox.bringToFront();
+          UiUtils.show(mLayoutRoutingGo, mRoutingFrame);
+          UiUtils.hide(mTurnByTurnBox);
+          UiUtils.appearSlidingDown(mRoutingBox, null);
+          mRoutingBox.bringToFront();
 
           hidePlacePage();
           Framework.deactivatePopup();
