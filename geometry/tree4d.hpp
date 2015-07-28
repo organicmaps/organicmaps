@@ -25,8 +25,17 @@ namespace m4
   template <class T, typename Traits = TraitsDef<T> >
   class Tree
   {
-    struct ValueT
+    class ValueT
     {
+      void SetRect(m2::RectD const & r)
+      {
+        m_pts[0] = r.minX();
+        m_pts[1] = r.minY();
+        m_pts[2] = r.maxX();
+        m_pts[3] = r.maxY();
+      }
+
+    public:
       T m_val;
       double m_pts[4];
 
@@ -34,10 +43,11 @@ namespace m4
 
       ValueT(T const & t, m2::RectD const & r) : m_val(t)
       {
-        m_pts[0] = r.minX();
-        m_pts[1] = r.minY();
-        m_pts[2] = r.maxX();
-        m_pts[3] = r.maxY();
+        SetRect(r);
+      }
+      ValueT(T && t, m2::RectD const & r) : m_val(move(t))
+      {
+        SetRect(r);
       }
 
       bool IsIntersect(m2::RectD const & r) const
@@ -129,10 +139,18 @@ namespace m4
     {
       Add(obj, GetLimitRect(obj));
     }
+    void Add(T && obj)
+    {
+      Add(move(obj), GetLimitRect(obj));
+    }
 
     void Add(T const & obj, m2::RectD const & rect)
     {
       m_tree.insert(ValueT(obj, rect));
+    }
+    void Add(T && obj, m2::RectD const & rect)
+    {
+      m_tree.insert(ValueT(move(obj), rect));
     }
 
   private:

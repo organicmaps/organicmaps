@@ -80,11 +80,15 @@ namespace m2
     //@}
 
   public:
-    Region() {}
+    Region() = default;
+
+    explicit Region(vector<PointD> && points) : m_points(move(points))
+    {
+      CalcLimitRect();
+    }
 
     template <class IterT>
-    Region(IterT first, IterT last)
-      : m_points(first, last)
+    Region(IterT first, IterT last) : m_points(first, last)
     {
       CalcLimitRect();
     }
@@ -119,7 +123,7 @@ namespace m2
       for_each(m_points.begin(), m_points.end(), toDo);
     }
 
-    inline m2::Rect<CoordT> GetRect() const { return m_rect; }
+    inline m2::Rect<CoordT> const & GetRect() const { return m_rect; }
     inline size_t GetPointsCount() const { return m_points.size(); }
     inline bool IsValid() const { return GetPointsCount() > 2; }
 

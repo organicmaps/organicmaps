@@ -4,6 +4,7 @@
 #include "generator/generate_info.hpp"
 
 #include "geometry/tree4d.hpp"
+#include "geometry/region2d.hpp"
 
 #include "indexer/scales.hpp"
 
@@ -16,9 +17,13 @@ namespace
 class WaterBoundaryChecker
 {
   uint32_t m_boundaryType;
-  deque<m2::RegionD> m_waterRegions;
 
-  m4::Tree<size_t> m_tree;
+  struct RegionTraits
+  {
+    m2::RectD const & LimitRect(m2::RegionD const & r) const { return r.GetRect(); }
+  };
+  m4::Tree<m2::RegionD, RegionTraits> m_tree;
+
   size_t m_totalFeatures = 0;
   size_t m_totalBorders = 0;
   size_t m_skippedBorders = 0;
@@ -55,16 +60,14 @@ public:
 
       ++total;
 
-      vector<m2::PointD> points;
       for (size_t i = 0; i < numGeometries; ++i)
       {
         uint64_t numPoints = 0;
         file.Read(&numPoints, sizeof(numPoints));
-        points.resize(numPoints);
+
+        vector<m2::PointD> points(numPoints);
         file.Read(points.data(), sizeof(m2::PointD) * numPoints);
-        m_waterRegions.push_back(m2::RegionD());
-        m_waterRegions.back().Assign(points.begin(), points.end());
-        m_tree.Add(m_waterRegions.size() - 1, m_waterRegions.back().GetRect());
+        m_tree.Add(m2::RegionD(move(points)));
       }
     }
     LOG(LINFO, ("Load", total, "water geometries"));
@@ -94,10 +97,10 @@ public:
     {
       m2::PointD const & p = pts[i];
       m2::RectD r(p.x - kExtension, p.y - kExtension, p.x + kExtension, p.y + kExtension);
-      m_tree.ForEachInRect(r, [&](size_t index)
+      m_tree.ForEachInRect(r, [&](m2::RegionD const & rgn)
       {
         ++m_selectedPolygons;
-        hits[i] += m_waterRegions[index].Contains(p) ? 1 : 0;
+        hits[i] += rgn.Contains(p) ? 1 : 0;
       });
     }
 
