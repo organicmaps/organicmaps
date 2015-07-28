@@ -329,7 +329,7 @@ void CoastlineFeaturesGenerator::GetFeatures(vector<FeatureBuilder1> & features)
         fb.SetArea();
         fb.AddType(m_coastType);
 
-        // should present any geometry
+        // Should represent non-empty geometry
         CHECK_GREATER(fb.GetPolygonsCount(), 0, ());
         CHECK_GREATER_OR_EQUAL(fb.GetPointsCount(), 3, ());
 
