@@ -127,6 +127,11 @@ android {
       buildConfigField 'String', 'REVIEW_URL', '"http://www.9apps.com/android-apps/mapswithme-maps-pro/"'
       android.sourceSets.nineApp.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
+
+    mobogenie {
+      versionName = android.defaultConfig.versionName + '-Mobogenie'
+      android.sourceSets.mobogenie.assets.srcDirs = ['flavors/mwm-ttf-assets']
+    }
   }
 
   // Currently (as of 1.2.3 gradle plugin) ABI filters aren't supported inside of product flavors, so we cannot generate splitted builds only for Google build.
