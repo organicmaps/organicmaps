@@ -148,10 +148,6 @@ UNIT_TEST(EstoniaTallinnRadissonHiltonToSkypeOffice)
       MercatorBounds::FromLatLon(59.3971, 24.661), 8673.);
 }
 
-// Following tests cause assertion violations when
-// Belarus.mwm and minsk-pass.mwm are overlapped.
-// Uncomment these tests as soon as bug will be fixed.
-/*
 UNIT_TEST(BelarusMinksHotelYubileyniToChurchSaintsSimonAndHelen)
 {
   integration::CalculateRouteAndTestRouteLength(
@@ -167,7 +163,6 @@ UNIT_TEST(BelarusMinksBarURatushiToMoscowBusStation)
       MercatorBounds::FromLatLon(53.9045, 27.5569), {0., 0.},
       MercatorBounds::FromLatLon(53.889, 27.5466), 2499.);
 }
-*/
 
 UNIT_TEST(BelarusBobruisk50LetVlksmToSanatoryShinnik)
 {
