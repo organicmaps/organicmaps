@@ -30,6 +30,7 @@ class PreResult1
 
 public:
   PreResult1(FeatureID const & fID, uint8_t rank, double priority, int8_t viewportID);
+
   explicit PreResult1(double priority);
 
   static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);

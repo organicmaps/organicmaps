@@ -355,6 +355,8 @@ bool Retrieval::RetrieveForScale(double scale, Callback & callback)
       if (!InitBucketStrategy(bucket))
         return false;
       bucket.m_intersectsWithViewport = true;
+      if (bucket.m_addressFeatures.empty())
+        bucket.m_finished = true;
     }
 
     ASSERT(bucket.m_intersectsWithViewport, ());
