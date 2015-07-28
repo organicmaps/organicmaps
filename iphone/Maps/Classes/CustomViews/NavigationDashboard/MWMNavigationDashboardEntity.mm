@@ -6,8 +6,11 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "LocationManager.h"
+#import "MapsAppDelegate.h"
 #import "MWMNavigationDashboardEntity.h"
-#import "Framework.h"
+
+#include "Framework.h"
 
 @implementation MWMNavigationDashboardEntity
 
@@ -27,10 +30,35 @@
 - (void)configure:(location::FollowingInfo const &)info
 {
   _timeToTarget = info.m_time;
-  _targetDistance = [NSString stringWithUTF8String:info.m_distToTarget.c_str()];
-  _targetUnits = [NSString stringWithUTF8String:info.m_targetUnitsSuffix.c_str()];
-  _distanceToTurn = [NSString stringWithUTF8String:info.m_distToTurn.c_str()];
-  _turnUnits = [NSString stringWithUTF8String:info.m_turnUnitsSuffix.c_str()];
+  _targetDistance = @(info.m_distToTarget.c_str());
+  _targetUnits = @(info.m_targetUnitsSuffix.c_str());
+  auto & f = GetFramework();
+  if (f.GetRouter() == routing::RouterType::Pedestrian)
+  {
+    _isPedestrian = YES;
+    LocationManager * locationManager = [MapsAppDelegate theApp].m_locationManager;
+    double north = -1.0;
+    [locationManager getNorthRad:north];
+    string distance;
+    double azimut = -1.0;
+    CLLocationCoordinate2D const coordinate (locationManager.lastLocation.coordinate);
+    ms::LatLon const & latLon = info.m_pedestrianDirectionPos;
+    m2::PointD const point (MercatorBounds::LonToX(latLon.lon), MercatorBounds::LatToY(latLon.lat));
+    f.GetDistanceAndAzimut(point, coordinate.latitude, coordinate.longitude, north, distance, azimut);
+    istringstream is (distance);
+    string dist;
+    string units;
+    is>>dist;
+    is>>units;
+    _distanceToTurn = @(dist.c_str());
+    _turnUnits = @(units.c_str());
+  }
+  else
+  {
+    _isPedestrian = NO;
+    _distanceToTurn = @(info.m_distToTurn.c_str());
+    _turnUnits = @(info.m_turnUnitsSuffix.c_str());
+  }
   _turnImage = image(info.m_turn);
   if (info.m_turn == routing::turns::TurnDirection::EnterRoundAbout)
     _roundExitNumber = info.m_exitNum;

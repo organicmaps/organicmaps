@@ -8,11 +8,10 @@
 
 
 @protocol LocationObserver
-@required
-  - (void)onLocationError:(location::TLocationError)errorCode;
-  - (void)onLocationUpdate:(location::GpsInfo const &)info;
 @optional
-  - (void)onCompassUpdate:(location::CompassInfo const &)info;
+- (void)onLocationError:(location::TLocationError)errorCode;
+- (void)onLocationUpdate:(location::GpsInfo const &)info;
+- (void)onCompassUpdate:(location::CompassInfo const &)info;
 @end
 
 @interface LocationManager : NSObject <CLLocationManagerDelegate>

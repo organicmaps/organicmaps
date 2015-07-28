@@ -73,12 +73,12 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
           break;
         case kCLAuthorizationStatusRestricted:
         case kCLAuthorizationStatusDenied:
-          [observer onLocationError:location::EDenied];
+          [self observer:observer onLocationError:location::EDenied];
           break;
       }
     }
     else
-      [observer onLocationError:location::EDenied];
+      [self observer:observer onLocationError:location::EDenied];
   }
   else
   {
@@ -90,7 +90,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
       // (default CLLocationManagerDelegate behaviour)
       location::GpsInfo newInfo;
       [self location:[self lastLocation] toGpsInfo:newInfo];
-      [observer onLocationUpdate:newInfo];
+      [self observer:observer onLocationUpdate:newInfo];
     }
   }
 }
@@ -189,7 +189,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   location::GpsInfo newInfo;
   [self location:newLocation toGpsInfo:newInfo];
   for (id observer in m_observers)
-    [observer onLocationUpdate:newInfo];
+    [self observer:observer onLocationUpdate:newInfo];
   // TODO(AlexZ): Temporary, remove in the future.
   [[Statistics instance] logLocation:newLocation];
 }
@@ -202,7 +202,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
     if (kRequestAuthStatus == kCLAuthorizationStatusAuthorizedAlways && [m_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
       [Alohalytics logEvent:kAlohalyticsLocationRequestAlwaysFailed];
     for (id observer in m_observers)
-      [observer onLocationError:location::EDenied];
+      [self observer:observer onLocationError:location::EDenied];
   }
 }
 
@@ -337,6 +337,24 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   for (id observer in m_observers)
     if ([observer respondsToSelector:@selector(onCompassUpdate:)])
       [observer onCompassUpdate:newInfo];
+}
+
+- (void)observer:(id<LocationObserver>)observer onLocationUpdate:(location::GpsInfo const &)info
+{
+  if ([(NSObject *)observer respondsToSelector:@selector(onLocationUpdate:)])
+    [observer onLocationUpdate:info];
+}
+
+- (void)observer:(id<LocationObserver>)observer onLocationError:(location::TLocationError)errorCode
+{
+  if ([(NSObject *)observer respondsToSelector:@selector(onLocationError:)])
+    [observer onLocationError:errorCode];
+}
+
+- (void)observer:(id<LocationObserver>)observer onCompasUpdate:(location::CompassInfo const &)info
+{
+  if ([(NSObject *)observer respondsToSelector:@selector(onCompassUpdate:)])
+    [observer onCompassUpdate:info];
 }
 
 @end

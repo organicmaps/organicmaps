@@ -19,6 +19,7 @@
 @property (nonatomic, readonly) UIImage * turnImage;
 @property (nonatomic, readonly) NSUInteger roundExitNumber;
 @property (nonatomic, readonly) NSUInteger timeToTarget;
+@property (nonatomic, readonly) BOOL isPedestrian;
 
 - (instancetype)initWithFollowingInfo:(location::FollowingInfo const &)info;
 - (void)updateWithFollowingInfo:(location::FollowingInfo const &)info;

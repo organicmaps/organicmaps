@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -45,6 +45,10 @@
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="36"/>
                                     <color key="textColor" red="0.12549019610000001" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium36"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vo5-Yp-xWN">
                                     <rect key="frame" x="83" y="21" width="26" height="22"/>
@@ -55,14 +59,32 @@
                                         <constraint firstAttribute="width" constant="26" id="rCL-RY-GbF"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                    <color key="textColor" red="0.12549019610000001" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.11764705882352941" green="0.58823529411764708" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
+                                    </userDefinedRuntimeAttributes>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="2Xd-X9-QxK"/>
                                             <exclude reference="rCL-RY-GbF"/>
                                         </mask>
                                     </variation>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vrh-bu-AbG" userLabel="exit">
+                                    <rect key="frame" x="6" y="16" width="42" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="5QF-QH-iSo"/>
+                                        <constraint firstAttribute="width" constant="42" id="dYV-fP-4ba"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                    <color key="textColor" red="0.11764705882352941" green="0.58823529411764708" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold17"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -78,9 +100,11 @@
                                 <constraint firstItem="Vo5-Yp-xWN" firstAttribute="leading" secondItem="sMk-g9-2oJ" secondAttribute="trailing" constant="3.5" id="RsH-2c-74p"/>
                                 <constraint firstItem="sMk-g9-2oJ" firstAttribute="leading" secondItem="1r7-WJ-4zD" secondAttribute="trailing" constant="8" id="XLA-lU-avx"/>
                                 <constraint firstItem="Vo5-Yp-xWN" firstAttribute="leading" secondItem="sMk-g9-2oJ" secondAttribute="trailing" constant="4" id="chw-Mu-gak"/>
+                                <constraint firstItem="1r7-WJ-4zD" firstAttribute="centerX" secondItem="Vrh-bu-AbG" secondAttribute="centerX" id="hGz-2W-3DF"/>
                                 <constraint firstAttribute="width" constant="190" id="pfA-s3-hU5"/>
                                 <constraint firstAttribute="trailing" secondItem="Vo5-Yp-xWN" secondAttribute="trailing" id="sCi-Lc-G8B"/>
                                 <constraint firstItem="sMk-g9-2oJ" firstAttribute="baseline" secondItem="Vo5-Yp-xWN" secondAttribute="baseline" id="t80-eN-Ymv"/>
+                                <constraint firstItem="1r7-WJ-4zD" firstAttribute="centerY" secondItem="Vrh-bu-AbG" secondAttribute="centerY" constant="0.5" id="wsB-QZ-xjY"/>
                                 <constraint firstAttribute="height" constant="54" id="y3P-ga-yXV"/>
                             </constraints>
                             <variation key="default">
@@ -94,34 +118,46 @@
                             </variation>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r2o-8G-3Cv" userLabel="Distance Box">
-                            <rect key="frame" x="548" y="14" width="180" height="42"/>
+                            <rect key="frame" x="616" y="14" width="112" height="42"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yzZ-6b-Jou">
-                                    <rect key="frame" x="0.0" y="0.0" width="180" height="21"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="112" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="Z2S-i8-Ntf"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heX-Mf-T11">
-                                    <rect key="frame" x="0.0" y="27" width="112" height="16"/>
+                                    <rect key="frame" x="0.0" y="27" width="48" height="15"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="112" id="APr-Ng-kVm"/>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="48" id="LEc-Kx-45B"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F95-AG-2uX">
-                                    <rect key="frame" x="132" y="27" width="48" height="16"/>
+                                    <rect key="frame" x="68" y="27" width="44" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="lBX-qz-7jM"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -130,15 +166,14 @@
                                 <constraint firstItem="yzZ-6b-Jou" firstAttribute="leading" secondItem="r2o-8G-3Cv" secondAttribute="leading" id="8Ys-z7-0ic"/>
                                 <constraint firstAttribute="trailing" secondItem="heX-Mf-T11" secondAttribute="trailing" constant="84" id="LwO-bA-IkU"/>
                                 <constraint firstAttribute="trailing" secondItem="yzZ-6b-Jou" secondAttribute="trailing" id="NnS-Nz-XvI"/>
-                                <constraint firstAttribute="bottom" secondItem="heX-Mf-T11" secondAttribute="bottom" constant="-1" id="SI8-Pr-fmE"/>
+                                <constraint firstAttribute="bottom" secondItem="heX-Mf-T11" secondAttribute="bottom" id="SI8-Pr-fmE"/>
                                 <constraint firstItem="heX-Mf-T11" firstAttribute="leading" secondItem="r2o-8G-3Cv" secondAttribute="leading" id="Xii-Px-eo7"/>
                                 <constraint firstAttribute="height" constant="42" id="Y1G-Es-QFk"/>
-                                <constraint firstAttribute="width" constant="180" id="Y2M-zQ-72a"/>
                                 <constraint firstAttribute="trailing" secondItem="F95-AG-2uX" secondAttribute="trailing" id="ZSo-ff-YeK"/>
                                 <constraint firstItem="heX-Mf-T11" firstAttribute="top" secondItem="yzZ-6b-Jou" secondAttribute="bottom" constant="6" id="nke-Cf-wrp"/>
                                 <constraint firstItem="yzZ-6b-Jou" firstAttribute="top" secondItem="r2o-8G-3Cv" secondAttribute="top" id="nqg-k8-6Zp"/>
                                 <constraint firstItem="F95-AG-2uX" firstAttribute="top" secondItem="yzZ-6b-Jou" secondAttribute="bottom" constant="6" id="pYP-hY-4tg"/>
-                                <constraint firstAttribute="bottom" secondItem="F95-AG-2uX" secondAttribute="bottom" constant="-1" id="wrw-dm-07W"/>
+                                <constraint firstAttribute="bottom" secondItem="F95-AG-2uX" secondAttribute="bottom" id="wrw-dm-07W"/>
                             </constraints>
                             <variation key="default">
                                 <mask key="constraints">
@@ -175,6 +210,7 @@
                 <outlet property="distanceToNextAction" destination="sMk-g9-2oJ" id="bjw-PH-BYo"/>
                 <outlet property="distanceToNextActionUnits" destination="Vo5-Yp-xWN" id="8Cy-zx-hPd"/>
                 <outlet property="eta" destination="yzZ-6b-Jou" id="cnG-M1-dFR"/>
+                <outlet property="roundRoadLabel" destination="Vrh-bu-AbG" id="0YE-g0-pTM"/>
             </connections>
             <point key="canvasLocation" x="369" y="261"/>
         </view>

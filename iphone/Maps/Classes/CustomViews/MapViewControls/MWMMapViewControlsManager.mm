@@ -114,10 +114,16 @@
   [self.navigationManager setupDashboard:info];
 }
 
+- (void)handleRoutingError
+{
+  [self.navigationManager handleError];
+}
+
 - (void)buildRouteWithType:(enum routing::RouterType)type
 {
-  GetFramework().BuildRoute(self.routeDestination, 0 /* timeoutSec */);
+  [[MapsAppDelegate theApp].m_locationManager start:self.navigationManager];
   self.navigationManager.state = MWMNavigationDashboardStatePlanning;
+  GetFramework().BuildRoute(self.routeDestination, 0 /* timeoutSec */);
 }
 
 - (void)navigationDashBoardDidUpdate
@@ -135,19 +141,26 @@
   self.zoomHidden = NO;
   GetFramework().FollowRoute();
   self.disableStandbyOnRouteFollowing = YES;
-//  [RouteState save];
+  [RouteState save];
 }
 
 - (void)didCancelRouting
 {
+  [[MapsAppDelegate theApp].m_locationManager stop:self.navigationManager];
   GetFramework().CloseRouting();
   self.disableStandbyOnRouteFollowing = NO;
-//  [RouteState remove];
+  [RouteState remove];
 }
 
 - (void)routingReady
 {
   self.navigationManager.state = MWMNavigationDashboardStateReady;
+}
+
+- (void)routingNavigation
+{
+  self.navigationManager.state = MWMNavigationDashboardStateNavigation;
+  [self didStartFollowing];
 }
 
 - (void)setDisableStandbyOnRouteFollowing:(BOOL)disableStandbyOnRouteFollowing

@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 
 @class MWMNavigationDashboardEntity;
 
-@interface MWMNavigationDashboardManager : NSObject
+@interface MWMNavigationDashboardManager : NSObject <LocationObserver>
 
 @property (nonatomic, readonly) MWMNavigationDashboardEntity * entity;
 @property (nonatomic) MWMNavigationDashboardState state;
@@ -39,6 +39,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerDelegate>)delegate;
 - (void)setupDashboard:(location::FollowingInfo const &)info;
+- (void)handleError;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 
 @end

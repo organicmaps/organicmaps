@@ -6,7 +6,9 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "LocationManager.h"
 #import "Macros.h"
+#import "MapsAppDelegate.h"
 #import "MWMNavigationDashboard.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
@@ -82,6 +84,12 @@
   [self updateDashboard];
 }
 
+- (void)handleError
+{
+  [self.routePreviewPortrait stateError];
+  [self.routePreviewLandscape stateError];
+}
+
 - (void)updateDashboard
 {
   [self.routePreviewLandscape configureWithEntity:self.entity];
@@ -139,6 +147,7 @@
 - (void)showStatePlanning
 {
   [self.routePreview addToView:self.ownerView];
+  [self.navigationDashboard remove];
   [self.routePreviewLandscape statePlaning];
   [self.routePreviewPortrait statePlaning];
   auto const state = GetFramework().GetRouter();
@@ -189,7 +198,6 @@
       [self hideState];
       break;
     case MWMNavigationDashboardStatePlanning:
-      NSAssert(_state == MWMNavigationDashboardStateHidden || _state == MWMNavigationDashboardStateReady, @"Invalid state change");
       [self showStatePlanning];
       break;
     case MWMNavigationDashboardStateReady:
@@ -197,7 +205,6 @@
       [self showStateReady];
       break;
     case MWMNavigationDashboardStateNavigation:
-      NSAssert(_state == MWMNavigationDashboardStateReady, @"Invalid state change");
       [self showStateNavigation];
       break;
   }
@@ -223,6 +230,31 @@
     case MWMNavigationDashboardStateNavigation:
       return self.navigationDashboard.visibleHeight;
   }
+}
+
+#pragma mark - LocationObserver
+
+- (void)onCompassUpdate:(location::CompassInfo const &)info
+{
+  auto & f = GetFramework();
+  if (f.GetRouter() == routing::RouterType::Vehicle)
+    return;
+
+  CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
+  if (!location)
+    return;
+
+  location::FollowingInfo res;
+  f.GetRouteFollowingInfo(res);
+  if (!res.IsValid())
+    return;
+
+  ms::LatLon const dest (res.m_pedestrianDirectionPos);
+  CLLocationCoordinate2D const lastPosition (location.coordinate);
+  CGFloat const angle = ang::AngleTo(MercatorBounds::FromLatLon(lastPosition.latitude, lastPosition.longitude), MercatorBounds::FromLatLon(dest.lat, dest.lon)) + info.m_bearing;
+  CGAffineTransform const transform (CGAffineTransformMakeRotation(M_PI_2 - angle));
+  self.navigationDashboardPortrait.direction.transform = transform;
+  self.navigationDashboardLandscape.direction.transform = transform;
 }
 
 @end

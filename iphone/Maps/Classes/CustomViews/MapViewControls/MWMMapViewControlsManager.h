@@ -46,5 +46,7 @@
 
 - (void)setupRoutingDashboard:(location::FollowingInfo const &)info;
 - (void)routingReady;
+- (void)routingNavigation;
+- (void)handleRoutingError;
 
 @end

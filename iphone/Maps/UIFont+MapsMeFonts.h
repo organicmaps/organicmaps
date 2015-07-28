@@ -22,11 +22,13 @@
 + (UIFont *)medium17;
 + (UIFont *)medium18;
 + (UIFont *)medium24;
++ (UIFont *)medium36;
 + (UIFont *)light10;
 + (UIFont *)light12;
 + (UIFont *)light16;
 + (UIFont *)light17;
 + (UIFont *)bold16;
++ (UIFont *)bold17;
 + (UIFont *)bold48;
 
 + (UIFont *)fontWithName:(NSString *)fontName;

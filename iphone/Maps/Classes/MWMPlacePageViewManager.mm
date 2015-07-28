@@ -234,11 +234,6 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [self.delegate dragPlacePage:point];
 }
 
-- (void)onLocationError:(location::TLocationError)errorCode
-{
-  NSLog(@"Location error %i in %@", errorCode, [[self class] className]);
-}
-
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
   [self updateDistance];

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -40,14 +40,32 @@
                                         <constraint firstAttribute="width" constant="52" id="xGv-2r-BQ7"/>
                                     </constraints>
                                 </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tmo-Mk-HBF" userLabel="exit">
+                                    <rect key="frame" x="5" y="16" width="42" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="MJv-jd-lKn"/>
+                                        <constraint firstAttribute="width" constant="42" id="ST5-eh-bxs"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                    <color key="textColor" red="0.12549019610000001" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold17"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7a-mi-GxC">
-                                    <rect key="frame" x="60" y="5" width="21" height="42"/>
+                                    <rect key="frame" x="60" y="5" width="20.5" height="42"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="36"/>
                                     <color key="textColor" red="0.12549019610000001" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium36"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQs-gj-DUL">
-                                    <rect key="frame" x="81" y="21" width="26" height="22"/>
+                                    <rect key="frame" x="81.5" y="21" width="26" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21.5" id="8Id-se-VcH"/>
                                         <constraint firstAttribute="height" constant="21.5" id="Hag-8H-qLV"/>
@@ -57,6 +75,10 @@
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
                                     <color key="textColor" red="0.12549019610000001" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
+                                    </userDefinedRuntimeAttributes>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="8Id-se-VcH"/>
@@ -71,6 +93,8 @@
                                 <constraint firstItem="vcg-Bu-8CX" firstAttribute="top" secondItem="8Zr-ul-QD4" secondAttribute="top" id="B2K-uh-ENJ"/>
                                 <constraint firstItem="vcg-Bu-8CX" firstAttribute="leading" secondItem="8Zr-ul-QD4" secondAttribute="leading" id="DNa-pK-w4t"/>
                                 <constraint firstAttribute="bottom" secondItem="w7a-mi-GxC" secondAttribute="bottom" constant="5" id="Gqm-CL-ck0"/>
+                                <constraint firstItem="vcg-Bu-8CX" firstAttribute="centerX" secondItem="Tmo-Mk-HBF" secondAttribute="centerX" id="Lyu-ef-srt"/>
+                                <constraint firstItem="vcg-Bu-8CX" firstAttribute="centerY" secondItem="Tmo-Mk-HBF" secondAttribute="centerY" id="PbW-09-NyW"/>
                                 <constraint firstAttribute="trailing" secondItem="vQs-gj-DUL" secondAttribute="trailing" id="PeX-D3-WSc"/>
                                 <constraint firstItem="vQs-gj-DUL" firstAttribute="leading" secondItem="w7a-mi-GxC" secondAttribute="trailing" constant="1" id="S4k-of-Pfg"/>
                                 <constraint firstAttribute="width" constant="190" id="aes-L3-OVF"/>
@@ -104,12 +128,20 @@
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2P-mo-JWt">
                                     <rect key="frame" x="0.0" y="26" width="96" height="16"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -153,6 +185,7 @@
                 <outlet property="distanceToNextAction" destination="w7a-mi-GxC" id="8SR-Qv-Udp"/>
                 <outlet property="distanceToNextActionUnits" destination="vQs-gj-DUL" id="OOE-0F-Y8v"/>
                 <outlet property="eta" destination="fLt-4z-zaW" id="C1L-bX-xd5"/>
+                <outlet property="roundRoadLabel" destination="Tmo-Mk-HBF" id="K74-y4-vwk"/>
             </connections>
             <point key="canvasLocation" x="369" y="261"/>
         </view>

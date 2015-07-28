@@ -23,6 +23,7 @@
 
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity;
 - (void)statePlaning;
+- (void)stateError;
 
 - (void)showGoButtonAnimated:(BOOL)show;
 

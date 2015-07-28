@@ -248,11 +248,6 @@ static BOOL keyboardLoaded = NO;
   [self.delegate searchViewDidEnterState:state];
 }
 
-- (void)onLocationError:(location::TLocationError)errorCode
-{
-  NSLog(@"Location error %i in %@", errorCode, self);
-}
-
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
   if (self.state == SearchViewStateFullscreen && ![self isShowingCategories])

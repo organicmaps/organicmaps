@@ -9,6 +9,7 @@
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMRoutePreview.h"
 #import "TimeUtils.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
 
 @interface MWMRoutePreview ()
@@ -17,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * goButtonVerticalOffset;
 @property (weak, nonatomic) IBOutlet UIView * statusBox;
 @property (weak, nonatomic) IBOutlet UIView * completeBox;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * goButtonHeight;
 
 @property (nonatomic) BOOL showGoButton;
@@ -37,6 +37,14 @@
 {
   self.timeLabel.text = [NSDateFormatter estimatedArrivalTimeWithSeconds:@(entity.timeToTarget)];
   self.distanceLabel.text = [NSString stringWithFormat:@"%@ %@", entity.targetDistance, entity.targetUnits];
+  self.arrivalsLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"routing_arrive"), [NSDateFormatter localizedStringFromDate:[[NSDate date] dateByAddingTimeInterval:entity.timeToTarget] dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterShortStyle]];
+}
+
+- (void)remove
+{
+  [super remove];
+  self.pedestrian.enabled = YES;
+  self.vehicle.enabled = YES;
 }
 
 - (void)statePlaning
@@ -46,15 +54,24 @@
   self.completeBox.hidden = YES;
   self.spinner.hidden = NO;
   self.cancelButton.hidden = YES;
+  self.status.text = L(@"routing_planning");
+  self.status.textColor = UIColor.blackHintText;
 
   NSUInteger const capacity = 12;
   NSMutableArray * images = [NSMutableArray arrayWithCapacity:capacity];
-  for (int i = 1; i != capacity; ++i)
-    [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"ic_spinner_close_%@", @(i)]]];
+  for (int i = 0; i < capacity; ++i)
+    images[i] = [UIImage imageNamed:[NSString stringWithFormat:@"ic_spinner_close_%@", @(i + 1)]];
 
-  self.spinner.imageView.animationImages = images.copy;
-  self.spinner.imageView.animationDuration = .5;
+  self.spinner.imageView.animationImages = images;
   [self.spinner.imageView startAnimating];
+}
+
+- (void)stateError
+{
+  self.spinner.hidden = YES;
+  self.cancelButton.hidden = NO;
+  self.status.text = L(@"routing_planning_error");
+  self.status.textColor = UIColor.red;
 }
 
 - (void)showGoButtonAnimated:(BOOL)show

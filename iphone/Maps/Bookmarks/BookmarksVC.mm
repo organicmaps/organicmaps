@@ -334,11 +334,6 @@
 
 //******************************************************************
 //*********** Location manager callbacks ***************************
-- (void)onLocationError:(location::TLocationError)errorCode
-{
-  // Handle location status changes if necessary
-}
-
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
   // Refresh distance

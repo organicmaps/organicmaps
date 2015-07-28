@@ -48,10 +48,8 @@ static CGFloat const kStatusbarHeight = 20.0;
   [UIView animateWithDuration:0.2 animations:^
   {
     if (!CGRectEqualToRect(self.frame, self.defaultFrame))
-    {
       self.frame = self.defaultFrame;
-      [self layoutStatusbar];
-    }
+    [self layoutStatusbar];
   }
   completion:^(BOOL finished)
   {
@@ -85,13 +83,13 @@ static CGFloat const kStatusbarHeight = 20.0;
 - (void)setTopBound:(CGFloat)topBound
 {
   _topBound = MAX(topBound, kStatusbarHeight);
-  [self layoutSubviews];
+  [self setNeedsLayout];
 }
 
 - (void)setIsVisible:(BOOL)isVisible
 {
   _isVisible = isVisible;
-  [self layoutSubviews];
+  [self setNeedsLayout];
 }
 
 - (CGFloat)visibleHeight

@@ -160,64 +160,15 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 - (void)updateRoutingInfo
 {
   Framework & frm = GetFramework();
-  if (frm.IsRoutingActive())
-  {
-    location::FollowingInfo res;
-    frm.GetRouteFollowingInfo(res);
+  if (!frm.IsRoutingActive())
+    return;
 
-    if (res.IsValid())
-    {
-      [self.controlsManager setupRoutingDashboard:res];
-//      NSMutableDictionary *routeInfo = [NSMutableDictionary dictionaryWithCapacity:7];
-//      routeInfo[@"timeToTarget"] = @(res.m_time);
-//      routeInfo[@"targetDistance"] = [NSString stringWithUTF8String:res.m_distToTarget.c_str()];
-//      routeInfo[@"targetMetrics"] = [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()];
-//      routeInfo[@"turnDistance"] = [NSString stringWithUTF8String:res.m_distToTurn.c_str()];
-//      routeInfo[@"turnMetrics"] = [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()];
-//      routeInfo[@"turnType"] = [self turnTypeToImage:res.m_turn];
-//      static NSNumber * turnTypeValue;
-//      if (res.m_turn == routing::turns::TurnDirection::EnterRoundAbout)
-//        turnTypeValue = @(res.m_exitNum);
-//      else if (res.m_turn != routing::turns::TurnDirection::StayOnRoundAbout)
-//        turnTypeValue = nil;
-//      if (turnTypeValue)
-//        [routeInfo setObject:turnTypeValue forKey:@"turnTypeValue"];
-//
-//      [self.routeView updateWithInfo:routeInfo];
-    }
-  }
+  location::FollowingInfo res;
+  frm.GetRouteFollowingInfo(res);
+
+  if (res.IsValid())
+    [self.controlsManager setupRoutingDashboard:res];
 }
-//
-//- (NSString *)turnTypeToImage:(routing::turns::TurnDirection)type
-//{
-//  using namespace routing::turns;
-//  switch (type)
-//  {
-//    case TurnDirection::TurnSlightRight:
-//      return @"right-1";
-//    case TurnDirection::TurnRight:
-//      return @"right-2";
-//    case TurnDirection::TurnSharpRight:
-//      return @"right-3";
-//
-//    case TurnDirection::TurnSlightLeft:
-//      return @"left-1";
-//    case TurnDirection::TurnLeft:
-//      return @"left-2";
-//    case TurnDirection::TurnSharpLeft:
-//      return @"left-3";
-//
-//    case TurnDirection::UTurn:
-//      return @"turn-around";
-//
-//    case TurnDirection::LeaveRoundAbout:
-//    case TurnDirection::StayOnRoundAbout:
-//    case TurnDirection::EnterRoundAbout:
-//      return @"circle";
-//
-//    default: return @"straight";
-//  }
-//}
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
@@ -254,8 +205,12 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)restoreRoute
 {
-  GetFramework().BuildRoute(self.restoreRouteDestination, 0 /* timeoutSec */);
   self.forceRoutingStateChange = ForceRoutingStateChangeStartFollowing;
+  auto & f = GetFramework();
+  CLLocationCoordinate2D const lastCoordinate ([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate);
+  m2::PointD const lastCoordinatePoint (MercatorBounds::LonToX(lastCoordinate.longitude), MercatorBounds::LatToY(lastCoordinate.latitude));
+  f.SetRouter(f.GetBestRouter(lastCoordinatePoint, self.restoreRouteDestination));
+  GetFramework().BuildRoute(self.restoreRouteDestination, 0 /* timeoutSec */);
 }
 
 #pragma mark - Map Navigation
@@ -574,7 +529,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
   [super viewDidLoad];
   self.view.clipsToBounds = YES;
-//  [self.view addSubview:self.routeViewWrapper];
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   [self.view addSubview:self.searchView];
   __weak MapViewController * weakSelf = self;
@@ -715,15 +669,16 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           f.GetBalloonManager().Dismiss();
           [self.searchView setState:SearchViewStateHidden animated:YES];
           [self performAfterDelay:0.3 block:^
-           {
-//             if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
-//               [self routeViewDidStartFollowing:self.routeView];
-//             else
-//               [self.routeView setState:RouteViewStateInfo animated:YES];
-             //TODO(Vlad): Implement logic for restore route.
-             [self.controlsManager routingReady];
+          {
+             if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
+               [self.controlsManager routingNavigation];
+             else
+               [self.controlsManager routingReady];
+
              [self updateRoutingInfo];
-           }];
+             self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+          }];
+
 
           bool isDisclaimerApproved = false;
           (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
@@ -734,18 +689,21 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           }
           break;
         }
-        //TODO(Vlad): Implement routing error handler in new navigation UI.
         case routing::IRouter::RouteFileNotExist:
         case routing::IRouter::InconsistentMWMandRoute:
         case routing::IRouter::NeedMoreMaps:
         case routing::IRouter::FileTooOld:
         case routing::IRouter::RouteNotFound:
+          [self.controlsManager handleRoutingError];
           [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes];
+          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
           break;
         case routing::IRouter::Cancelled:
           break;
         default:
+          [self.controlsManager handleRoutingError];
           [self presentDefaultAlert:code];
+          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
           break;
       }
     });
