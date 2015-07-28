@@ -17,7 +17,7 @@ def parse_args():
     + "https://docs.google.com/spreadsheets/d/1gJsSzFpp2B3xnSx-RjjQ3Do66lQDhCxtfEnQo7Vrkw0/edit#gid=150382014\n"
     + "The output shall be put to omim/sound/tts/sound.txt. As another output file the tool generates languages.txt."
     + "languages.txt contains all available languages in csv.\n"
-    + "Notice. The script exchanges all non-breaking spaces with spaces.\n"
+    + "Notice. The script replaces all non-breaking spaces with spaces.\n"
     + "Example: python %prog path_to_sound.csv path_to_sound.txt path_to_languages.txt", 
     version="%prog 1.0")
 

@@ -410,7 +410,7 @@
     da = Om 200 meter.
     es = En 200 metros.
     fi = 200 metrin päässä.
-    hi = 20 0 मीटर में।
+    hi = 200 मीटर में।
     hr = Za 200 metara.
     in = Setelah 200 meter.
     ko = 200 미터 앞
@@ -418,6 +418,34 @@
     sk = Po 200 metroch.
     sw = Kabla ya mita 200.
     th = อีก 200 เมตร
+
+  [in_250_meters]
+    en = In 250 meters.
+    ru = Через 250 метров.
+    pl = Za 250 metrów.
+    sv = Om 250 meter.
+    tr = 250 metre sonra.
+    fr = Dans 250 mètres.
+    nl = Over 250 meter:
+    de = In 250 Metern.
+    ar = بعد 250 متر
+    el = Σε 250 μέτρα.
+    it = Tra 250 metri.
+    cs = Za 250 metrů.
+    hu = 250 méter után.
+    ro = După 250 de metri.
+    ja = 250メートル先
+    da = Om 250 meter.
+    es = En 250 metros.
+    fi = 250 metrin päässä.
+    hi = 250 मीटर में।
+    hr = Za 250 metara.
+    in = Setelah 250 meter.
+    ko = 250 미터 앞
+    pt = A 250 metros.
+    sk = Po 250 metroch.
+    sw = Kabla ya mita 250.
+    th = อีก 250 เมตร
 
   [in_300_meters]
     en = In 300 meters.
@@ -438,7 +466,7 @@
     da = Om 300 meter.
     es = En 300 metros.
     fi = 300 metrin päässä.
-    hi = 30 0 मीटर में।
+    hi = 300 मीटर में।
     hr = Za 300 metara.
     in = Setelah 300 meter.
     ko = 300 미터 앞
@@ -559,6 +587,34 @@
     sw = Kabla ya mita 700.
     th = อีก 700 เมตร
 
+  [in_750_meters]
+    en = In 750 meters.
+    ru = Через 750 метров.
+    pl = Za 750 metrów.
+    sv = Om 750 meter.
+    tr = 750 metre sonra.
+    fr = Dans 750 mètres.
+    nl = Over 750 meter:
+    de = In 750 Metern.
+    ar = بعد 750 متر
+    el = Σε 750 μέτρα.
+    it = Tra 750 metri.
+    cs = Za 750 metrů.
+    hu = 750 méter után.
+    ro = După 750 de metri.
+    ja = 750メートル先
+    da = Om 750 meter.
+    es = En 750 metros.
+    fi = 750 metrin päässä.
+    hi = 750 मीटर में।
+    hr = Za 750 metara.
+    in = Setelah 750 meter.
+    ko = 750 미터 앞
+    pt = A 750 metros.
+    sk = Po 750 metroch.
+    sw = Kabla ya mita 750.
+    th = อีก 750 เมตร
+
   [in_800_meters]
     en = In 800 meters.
     ru = Через 800 метров.
@@ -615,7 +671,7 @@
     sw = Kabla ya mita 900.
     th = อีก 900 เมตร
 
-  [in_one_kilometer]
+  [in_1_kilometer]
     en = In one kilometer.
     ru = Через километр.
     pl = Za jeden kilometr.
@@ -643,7 +699,7 @@
     sw = Kabla ya kilomita moja
     th = อีก 1 กิโลเมตร
 
-  [in_one_and_a_half_kilometer]
+  [in_1_5_kilometers]
     en = In one and a half kilometer.
     ru = Через полтора километра.
     pl = Za półtora kilometra.
@@ -670,6 +726,90 @@
     sk = Po jeden a pol kilometri.
     sw = Kabla ya kilomita moja na nusu.
     th = อีก 1 กิโลเมตรครึ่ง
+
+  [in_2_kilometers]
+    en = In two kilometers.
+    ru = Через 2 километра.
+    pl = Za 2 kilometry.
+    sv = Om två kilometer.
+    tr = İki kilometre sonra.
+    fr = Dans deux kilomètres.
+    nl = Over twee kilometer:
+    de = In zwei Kilometern.
+    ar = بعد 2 كيلو متر
+    el = Σε δύο χιλιόμετρα.
+    it = Tra due chilometri.
+    cs = Za dva kilometry.
+    hu = Két kilométer után.
+    ro = După doi kilometri.
+    ja = 2キロ先
+    da = Om to kilometer.
+    es = En 2 kilómetros.
+    fi = Kahden kilometrin päässä.
+    hi = दो किलोमीटर में।
+    hr = Za dva kilometra.
+    in = Setelah dua kilometer.
+    ko = 2킬로미터 앞
+    pt = A dois quilómetros.
+    sk = Po dvoch kilometroch.
+    sw = Kabla ya kilomita mbili.
+    th = อีก 2 กิโลเมตร
+
+  [in_2_5_kilometers]
+    en = In two and half kilometers.
+    ru = Через два с половиной километра.
+    pl = Za dwa i pół kilometra.
+    sv = Om två och en halv kilometer.
+    tr = İki buçuk kilometre sonra.
+    fr = Dans deux virgule cinq kilomètres.
+    nl = Over tweeëneenhalve kilometer:
+    de = In zweieinhalb Kilometern.
+    ar = بعد 2 كيلو متر ونصف
+    el = Σε τρισήμιση χιλιόμετρα.
+    it = Tra due chilometri e mezzo.
+    cs = Za dva a půl kilometru.
+    hu = Két és fél kilométer után.
+    ro = După doi kilometri și jumătate.
+    ja = 2.5キロ先
+    da = Om to en halv kilometer.
+    es = En dos kilómetros y medio.
+    fi = Kahden ja puolen kilometrin päässä.
+    hi = ढाई किलोमीटर में।
+    hr = Za dva i pol kilometra.
+    in = Setelah 2.5 kilometer.
+    ko = 2.5킬로미터 앞
+    pt = A dois quilómetros e meio.
+    sk = Po dva a pol kilometri.
+    sw = Kabla ya kilomita mbili na nusu.
+    th = อีก 2 กิโลเมตรครึ่ง
+
+  [in_3_kilometers]
+    en = In 3 kilometers.
+    ru = Через 3 километра.
+    pl = Za 3 kilometry.
+    sv = Om 3 kilometer.
+    tr = 3 kilometre sonra.
+    fr = Dans trois kilomètres.
+    nl = Over drie kilometer:
+    de = In 3 Kilometern.
+    ar = بعد 3 كيلو متر
+    el = Σε τρία χιλιόμετρα.
+    it = Tra tre chilometri.
+    cs = Za 3 kilometry.
+    hu = 3 kilométer után.
+    ro = După 3 kilometri.
+    ja = 3キロ先
+    da = Om 3 kilometer.
+    es = En 3 kilómetros.
+    fi = 3 kilometrin päässä.
+    hi = 3 किलोमीटर में।
+    hr = Za 3 kilometra.
+    in = Setelah 3 kilometer.
+    ko = 3킬로미터 앞
+    pt = A 3 quilómetros.
+    sk = Po 3 kilometroch.
+    sw = Kabla ya kilomita 3.
+    th = อีก 3 กิโลเมตร
 
   [then]
     en = Then.
@@ -699,7 +839,7 @@
     sw = Kisha.
     th = จากนั้น
 
-  [take_the_first_exit]
+  [take_the_1st_exit]
     en = Take the first exit. 
     ru = Первый поворот с кольца.
     pl = Zjedź pierwszym zjazdem.
@@ -727,7 +867,7 @@
     sw = Ingia barabara ya kwanza ya kutoka.
     th = ออกทางออกที่ 1
 
-  [take_the_second_exit]
+  [take_the_2nd_exit]
     en = Take the second exit.
     ru = Второй поворот с кольца.
     pl = Zjedź drugim zjazdem.
@@ -755,7 +895,7 @@
     sw = Ingia barabara ya pili ya kutoka.
     th = ออกทางออกที่ 2
 
-  [take_the_third_exit]
+  [take_the_3rd_exit]
     en = Take the third exit. 
     ru = Третий поворот с кольца.
     pl = Zjedź trzecim zjazdem.
@@ -1063,7 +1203,7 @@
     sw = Elekea kulia.
     th = ชิดขวา
 
-  [you_have_reached_the intermediate_point]
+  [you_have_reached_the_intermediate_point]
     en = You have reached the intermediate point.
     ru = Вы достигли промежуточной точки.
     pl = Dojeżdżasz do punktu pośredniego.
@@ -1119,7 +1259,7 @@
     sw = Katikati ya safari
     th = จุดแวะพัก
 
-  [enter_the highway]
+  [enter_the_highway]
     en = Enter the highway.
     ru = На магистраль.
     pl = Wjedź na autostradę.
@@ -1314,258 +1454,6 @@
     sk = Sledujte dopravné značenie.
     sw = Fuata alama.
     th = ทำตามป้ายสัญญาณ
-
-  [in_250_meters]
-    en = In 250 meters.
-    ru = Через 250 метров.
-    pl = Za 250 metrów.
-    sv = Om 250 meter.
-    tr = 250 metre sonra.
-    fr = Dans 250 mètres.
-    nl = Over 250 meter:
-    de = In 250 Metern.
-    ar = بعد 250 متر
-    el = Σε 250 μέτρα.
-    it = Tra 250 metri.
-    cs = Za 250 metrů.
-    hu = 250 méter után.
-    ro = După 250 de metri.
-    ja = 250メートル先
-    da = Om 250 meter.
-    es = En 250 metros.
-    fi = 250 metrin päässä.
-    hi = 250 मीटर में।
-    hr = Za 250 metara.
-    in = Setelah 250 meter.
-    ko = 250 미터 앞
-    pt = A 250 metros.
-    sk = Po 250 metroch.
-    sw = Kabla ya mita 250.
-    th = อีก 250 เมตร
-
-  [in_750_meters]
-    en = In 750 meters.
-    ru = Через 750 метров.
-    pl = Za 750 metrów.
-    sv = Om 750 meter.
-    tr = 750 metre sonra.
-    fr = Dans 750 mètres.
-    nl = Over 750 meter:
-    de = In 750 Metern.
-    ar = بعد 750 متر
-    el = Σε 750 μέτρα.
-    it = Tra 750 metri.
-    cs = Za 750 metrů.
-    hu = 750 méter után.
-    ro = După 750 de metri.
-    ja = 750メートル先
-    da = Om 750 meter.
-    es = En 750 metros.
-    fi = 750 metrin päässä.
-    hi = 750 मीटर में।
-    hr = Za 750 metara.
-    in = Setelah 750 meter.
-    ko = 750 미터 앞
-    pt = A 750 metros.
-    sk = Po 750 metroch.
-    sw = Kabla ya mita 750.
-    th = อีก 750 เมตร
-
-  [in_two_kilometers]
-    en = In two kilometers.
-    ru = Через 2 километра.
-    pl = Za 2 kilometry.
-    sv = Om två kilometer.
-    tr = İki kilometre sonra.
-    fr = Dans deux kilomètres.
-    nl = Over twee kilometer:
-    de = In zwei Kilometern.
-    ar = بعد 2 كيلو متر
-    el = Σε δύο χιλιόμετρα.
-    it = Tra due chilometri.
-    cs = Za dva kilometry.
-    hu = Két kilométer után.
-    ro = După doi kilometri.
-    ja = 2キロ先
-    da = Om to kilometer.
-    es = En 2 kilómetros.
-    fi = Kahden kilometrin päässä.
-    hi = दो किलोमीटर में।
-    hr = Za dva kilometra.
-    in = Setelah dua kilometer.
-    ko = 2킬로미터 앞
-    pt = A dois quilómetros.
-    sk = Po dvoch kilometroch.
-    sw = Kabla ya kilomita mbili.
-    th = อีก 2 กิโลเมตร
-
-  [in_two_and_half_kilometers]
-    en = In two and half kilometers.
-    ru = Через два с половиной километра.
-    pl = Za dwa i pół kilometra.
-    sv = Om två och en halv kilometer.
-    tr = İki buçuk kilometre sonra.
-    fr = Dans deux virgule cinq kilomètres.
-    nl = Over tweeëneenhalve kilometer:
-    de = In zweieinhalb Kilometern.
-    ar = بعد 2 كيلو متر ونصف
-    el = Σε τρισήμιση χιλιόμετρα.
-    it = Tra due chilometri e mezzo.
-    cs = Za dva a půl kilometru.
-    hu = Két és fél kilométer után.
-    ro = După doi kilometri și jumătate.
-    ja = 2.5キロ先
-    da = Om to en halv kilometer.
-    es = En dos kilómetros y medio.
-    fi = Kahden ja puolen kilometrin päässä.
-    hi = ढाई किलोमीटर में।
-    hr = Za dva i pol kilometra.
-    in = Setelah 2.5 kilometer.
-    ko = 2.5킬로미터 앞
-    pt = A dois quilómetros e meio.
-    sk = Po dva a pol kilometri.
-    sw = Kabla ya kilomita mbili na nusu.
-    th = อีก 2 กิโลเมตรครึ่ง
-
-  [in_3_kilometers]
-    en = In 3 kilometers.
-    ru = Через 3 километра.
-    pl = Za 3 kilometry.
-    sv = Om 3 kilometer.
-    tr = 3 kilometre sonra.
-    fr = Dans trois kilomètres.
-    nl = Over drie kilometer:
-    de = In 3 Kilometern.
-    ar = بعد 3 كيلو متر
-    el = Σε τρία χιλιόμετρα.
-    it = Tra tre chilometri.
-    cs = Za 3 kilometry.
-    hu = 3 kilométer után.
-    ro = După 3 kilometri.
-    ja = 3キロ先
-    da = Om 3 kilometer.
-    es = En 3 kilómetros.
-    fi = 3 kilometrin päässä.
-    hi = 3 किलोमीटर में।
-    hr = Za 3 kilometra.
-    in = Setelah 3 kilometer.
-    ko = 3킬로미터 앞
-    pt = A 3 quilómetros.
-    sk = Po 3 kilometroch.
-    sw = Kabla ya kilomita 3.
-    th = อีก 3 กิโลเมตร
-
-  [in_one_and_half_miles]
-    en = In one and half miles.
-    ru = Через полторы мили.
-    pl = Za półtorej mili.
-    sv = Om en och en halv mile.
-    tr = Bir buçuk mil sonra.
-    fr = Dans un virgule cinq mile.
-    nl = Over anderhalve mijl:
-    de = In dreieinhalb Kilometern.
-    ar = بعد ميل ونصف
-    el = Σε ενάμιση μίλι.
-    it = Tra un miglio e mezzo.
-    cs = Za jednu a půl míle.
-    hu = Másfél mérföld után.
-    ro = După o milă și jumătate.
-    ja = 1.5マイル先
-    da = Om halvanden mil.
-    es = En una milla y media.
-    fi = Puolentoista mailin päässä.
-    hi = डेढ़ मील में।
-    hr = Za jednu i pol milju.
-    in = Setelah 1.5 mil.
-    ko = 1.5마일 앞
-    pt = A uma milha e meia.
-    sk = Po jeden a pol míli.
-    sw = Kabla ya maili moja na nusu.
-    th = อีก 1 ไมล์ครึ่ง
-
-  [in_two_miles]
-    en = In two miles.
-    ru = Через две мили.
-    pl = Za dwie mile.
-    sv = Om två mile.
-    tr = İki mil sonra.
-    fr = Dans deux miles.
-    nl = Over twee mijl:
-    de = In zwei Meilen.
-    ar = بعد 2 ميل
-    el = Σε δύο μίλια.
-    it = Tra due miglia.
-    cs = Za dvě míle.
-    hu = Két mérföld után.
-    ro = După două mile.
-    ja = 2マイル先
-    da = Om to mil.
-    es = En dos millas.
-    fi = Kahden mailin päässä.
-    hi = दो मील में।
-    hr = Za dvije milje.
-    in = Setelah dua mil.
-    ko = 2마일 앞
-    pt = A duas milhas.
-    sk = Po dvoch míľach.
-    sw = Kabla ya maili mbili.
-    th = อีก 2 ไมล์
-
-  [in_250_yards]
-    en = In 250 yards.
-    ru = Через 250 ярдов.
-    pl = Za 250 jardów.
-    sv = Om 250 yard.
-    tr = 250 yarda sonra.
-    fr = Dans 250 yards.
-    nl = Over 250 yards:
-    de = In 250 Yards.
-    ar = بعد 250 ياردة
-    el = Σε 250 γιάρδες.
-    it = Tra 250 yarde.
-    cs = Za 250 yardů.
-    hu = 250 yard után.
-    ro = După 250 de yarzi.
-    ja = 250ヤード先
-    da = Om 250 yard.
-    es = En 250 yardas.
-    fi = 250 jaardin päässä.
-    hi = 250 गज़ में।
-    hr = Za 250 jarda.
-    in = Setelah 250 yard.
-    ko = 250야드 앞
-    pt = A 250 jardas.
-    sk = Po 250 yardoch.
-    sw = Kabla ya yadi 250.
-    th = อีก 250 หลา
-
-  [in_750_yards]
-    en = In 750 yards.
-    ru = Через 750 ярдов.
-    pl = Za 750 jardów.
-    sv = Om 750 yard.
-    tr = 750 yarda sonra.
-    fr = Dans 750 yards.
-    nl = Over 750 yards:
-    de = In 750 Yards.
-    ar = بعد 750 ياردة
-    el = Σε 750 γιάρδες.
-    it = Tra 750 yarde.
-    cs = Za 750 yardů.
-    hu = 750 yard után.
-    ro = După 750 de yarzi.
-    ja = 750ヤード先
-    da = Om 750 yard.
-    es = En 750 yardas.
-    fi = 750 jaardin päässä.
-    hi = 750 गज़ में।
-    hr = Za 750 jarda.
-    in = Setelah 750 yard.
-    ko = 750야드 앞
-    pt = A 750 jardas.
-    sk = Po 750 yardoch.
-    sw = Kabla ya yadi 750.
-    th = อีก 750 หลา
 
   [in_50_feet]
     en = In 50 feet.
@@ -2099,7 +1987,7 @@
     sw = Kabla ya futi 5000.
     th = อีก 5000 ฟุต
 
-  [in_one_mile]
+  [in_1_mile]
     en = In one mile.
     ru = Через одну милю.
     pl = Za jedną milę.
@@ -2126,4 +2014,116 @@
     sk = Po jednej míli.
     sw = Kabla ya maili moja.
     th = อีก 1 ไมล์
+
+  [in_1_5_miles]
+    en = In one and half miles.
+    ru = Через полторы мили.
+    pl = Za półtorej mili.
+    sv = Om en och en halv mile.
+    tr = Bir buçuk mil sonra.
+    fr = Dans un virgule cinq mile.
+    nl = Over anderhalve mijl:
+    de = In dreieinhalb Kilometern.
+    ar = بعد ميل ونصف
+    el = Σε ενάμιση μίλι.
+    it = Tra un miglio e mezzo.
+    cs = Za jednu a půl míle.
+    hu = Másfél mérföld után.
+    ro = După o milă și jumătate.
+    ja = 1.5マイル先
+    da = Om halvanden mil.
+    es = En una milla y media.
+    fi = Puolentoista mailin päässä.
+    hi = डेढ़ मील में।
+    hr = Za jednu i pol milju.
+    in = Setelah 1.5 mil.
+    ko = 1.5마일 앞
+    pt = A uma milha e meia.
+    sk = Po jeden a pol míli.
+    sw = Kabla ya maili moja na nusu.
+    th = อีก 1 ไมล์ครึ่ง
+
+  [in_2_miles]
+    en = In two miles.
+    ru = Через две мили.
+    pl = Za dwie mile.
+    sv = Om två mile.
+    tr = İki mil sonra.
+    fr = Dans deux miles.
+    nl = Over twee mijl:
+    de = In zwei Meilen.
+    ar = بعد 2 ميل
+    el = Σε δύο μίλια.
+    it = Tra due miglia.
+    cs = Za dvě míle.
+    hu = Két mérföld után.
+    ro = După două mile.
+    ja = 2マイル先
+    da = Om to mil.
+    es = En dos millas.
+    fi = Kahden mailin päässä.
+    hi = दो मील में।
+    hr = Za dvije milje.
+    in = Setelah dua mil.
+    ko = 2마일 앞
+    pt = A duas milhas.
+    sk = Po dvoch míľach.
+    sw = Kabla ya maili mbili.
+    th = อีก 2 ไมล์
+
+  [in_250_yards]
+    en = In 250 yards.
+    ru = Через 250 ярдов.
+    pl = Za 250 jardów.
+    sv = Om 250 yard.
+    tr = 250 yarda sonra.
+    fr = Dans 250 yards.
+    nl = Over 250 yards:
+    de = In 250 Yards.
+    ar = بعد 250 ياردة
+    el = Σε 250 γιάρδες.
+    it = Tra 250 yarde.
+    cs = Za 250 yardů.
+    hu = 250 yard után.
+    ro = După 250 de yarzi.
+    ja = 250ヤード先
+    da = Om 250 yard.
+    es = En 250 yardas.
+    fi = 250 jaardin päässä.
+    hi = 250 गज़ में।
+    hr = Za 250 jarda.
+    in = Setelah 250 yard.
+    ko = 250야드 앞
+    pt = A 250 jardas.
+    sk = Po 250 yardoch.
+    sw = Kabla ya yadi 250.
+    th = อีก 250 หลา
+
+  [in_750_yards]
+    en = In 750 yards.
+    ru = Через 750 ярдов.
+    pl = Za 750 jardów.
+    sv = Om 750 yard.
+    tr = 750 yarda sonra.
+    fr = Dans 750 yards.
+    nl = Over 750 yards:
+    de = In 750 Yards.
+    ar = بعد 750 ياردة
+    el = Σε 750 γιάρδες.
+    it = Tra 750 yarde.
+    cs = Za 750 yardů.
+    hu = 750 yard után.
+    ro = După 750 de yarzi.
+    ja = 750ヤード先
+    da = Om 750 yard.
+    es = En 750 yardas.
+    fi = 750 jaardin päässä.
+    hi = 750 गज़ में।
+    hr = Za 750 jarda.
+    in = Setelah 750 yard.
+    ko = 750야드 앞
+    pt = A 750 jardas.
+    sk = Po 750 yardoch.
+    sw = Kabla ya yadi 750.
+    th = อีก 750 หลา
 
