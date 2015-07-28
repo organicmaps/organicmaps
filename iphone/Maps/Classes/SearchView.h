@@ -28,6 +28,8 @@ typedef NS_ENUM(NSUInteger, SearchViewState) {
 
 @property (nonnull, nonatomic) SearchBar * searchBar;
 
+@property (nonatomic) CGFloat topBound;
+
 - (void)setState:(SearchViewState)state animated:(BOOL)animated;
 - (CGFloat)defaultSearchBarMinY;
 

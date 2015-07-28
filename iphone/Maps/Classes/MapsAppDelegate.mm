@@ -292,9 +292,9 @@ void InitLocalizedStrings()
   {
     if (f.ShowMapForURL([m_mwmURL UTF8String]))
     {
-      [self.m_mapViewController setApiMode:YES animated:NO];
       [[Statistics instance] logApiUsage:m_sourceApplication];
       [self showMap];
+      [self.m_mapViewController showAPIBar];
     }
   }
   else if (m_fileURL)

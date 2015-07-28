@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "BackArrow.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "ApiBarBackground7@2x.png"
+      "filename" : "BackArrow@2x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "BackArrow@3x.png"
     }
   ],
   "info" : {

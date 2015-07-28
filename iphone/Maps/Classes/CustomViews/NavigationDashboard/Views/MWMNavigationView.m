@@ -79,7 +79,7 @@ static CGFloat const kStatusbarHeight = 20.0;
 
 - (CGRect)defaultFrame
 {
-  return CGRectMake(0.0, self.topBound - (self.isVisible ? 0.0 : self.defaultHeight), self.superview.width, self.defaultHeight);
+  return CGRectMake(0.0, self.isVisible ? self.topBound : -self.defaultHeight, self.superview.width, self.defaultHeight);
 }
 
 - (void)setTopBound:(CGFloat)topBound

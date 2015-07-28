@@ -144,7 +144,7 @@
   auto const state = GetFramework().GetRouter();
   switch (state)
   {
-    case routing::RouterType::Pedestrian :
+    case routing::RouterType::Pedestrian:
       self.routePreviewLandscape.pedestrian.selected = YES;
       self.routePreviewPortrait.pedestrian.selected = YES;
       self.routePreviewPortrait.vehicle.selected = NO;

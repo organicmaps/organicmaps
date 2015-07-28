@@ -6,6 +6,7 @@
 #import "MapsObservers.h"
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
+#import "MWMAPIBar.h"
 #import "MWMMapViewControlsManager.h"
 #import "RouteState.h"
 #import "RouteView.h"
@@ -48,7 +49,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
-  MapInfoViewSearch = 1 << 0
+  MapInfoViewSearch = 1 << 0,
+  MapInfoViewAPIBar = 1 << 1
 };
 
 @interface NSValueWrapper : NSObject
@@ -82,12 +84,10 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 @end
 
-@interface MapViewController () <RouteViewDelegate, SearchViewDelegate, ActiveMapsObserverProtocol>
+@interface MapViewController () <RouteViewDelegate, SearchViewDelegate, ActiveMapsObserverProtocol, MWMAPIBarProtocol>
 
 @property (nonatomic) UIView * routeViewWrapper;
 @property (nonatomic) RouteView * routeView;
-@property (nonatomic) UIImageView * apiBar;
-@property (nonatomic) UILabel * apiTitleLabel;
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) MWMSideMenuState menuRestoreState;
 
@@ -102,6 +102,8 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 @property (nonatomic) MapInfoView mapInfoView;
 
 @property (nonatomic) BOOL haveMap;
+
+@property (nonatomic) MWMAPIBar * apiBar;
 
 @end
 
@@ -582,12 +584,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 - (void)viewDidAppear:(BOOL)animated
 {
   [super viewDidAppear:animated];
-  static BOOL firstTime = YES;
-  if (firstTime)
-  {
-    firstTime = NO;
-    [self setApiMode:_apiMode animated:NO];
-  }
   self.menuRestoreState = self.controlsManager.menuState;
 }
 
@@ -609,7 +605,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  if (self.apiMode)
+  if (self.apiBar.state == MWMAPIBarStateVisible)
   {
     return UIStatusBarStyleLightContent;
   }
@@ -759,6 +755,38 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   return self;
 }
 
+#pragma mark - API bar
+
+- (MWMAPIBar *)apiBar
+{
+  if (!_apiBar)
+    _apiBar = [[MWMAPIBar alloc] initWithDelegate:self];
+  return _apiBar;
+}
+
+- (void)showAPIBar
+{
+  [self.apiBar show];
+}
+
+- (void)apiBarDidEnterState:(MWMAPIBarState)state
+{
+  if (state == MWMAPIBarStateVisible)
+  {
+    [self setMapInfoViewFlag:MapInfoViewAPIBar];
+    CGRect const apiRect = self.apiBar.frame;
+    self.searchView.topBound = apiRect.origin.y + apiRect.size.height;
+  }
+  else
+  {
+    [self clearMapInfoViewFlag:MapInfoViewAPIBar];
+    self.searchView.topBound = 0.0;
+  }
+  [self dismissPopover];
+  [self.searchView setState:SearchViewStateHidden animated:YES];
+  [self updateStatusBarStyle];
+}
+
 #pragma mark - ShowDialog callback
 
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
@@ -833,72 +861,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
     _searchView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   }
   return _searchView;
-}
-
-- (UIImageView *)apiBar
-{
-  if (!_apiBar)
-  {
-    UIImage * image = [UIImage imageNamed:@"ApiBarBackground7"];
-    _apiBar = [[UIImageView alloc] initWithImage:[image resizableImageWithCapInsets:UIEdgeInsetsZero]];
-    _apiBar.width = self.view.width;
-    _apiBar.userInteractionEnabled = YES;
-    _apiBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
-    UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-    backButton.contentMode = UIViewContentModeCenter;
-    [backButton addTarget:self action:@selector(backToApiApp:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setImage:[UIImage imageNamed:@"ApiBackButton"] forState:UIControlStateNormal];
-    backButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
-    [_apiBar addSubview:backButton];
-
-    UIButton * clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-    [clearButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [clearButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    [clearButton setTitle:L(@"clear") forState:UIControlStateNormal];
-    [clearButton addTarget:self action:@selector(clearApiMode:) forControlEvents:UIControlEventTouchUpInside];
-    clearButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    clearButton.titleLabel.font = [UIFont light17];
-    [_apiBar addSubview:clearButton];
-
-    [_apiBar addSubview:self.apiTitleLabel];
-
-    backButton.minX = -4;
-    backButton.maxY = _apiBar.height;
-    clearButton.maxX = _apiBar.width - 5;
-    clearButton.maxY = _apiBar.height;
-    self.apiTitleLabel.midX = _apiBar.width / 2;
-    self.apiTitleLabel.maxY = _apiBar.height - 10;
-  }
-  return _apiBar;
-}
-
-- (UILabel *)apiTitleLabel
-{
-  if (!_apiTitleLabel)
-  {
-    _apiTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 26)];
-    _apiTitleLabel.font = [UIFont light17];
-    _apiTitleLabel.textColor = [UIColor whiteColor];
-    _apiTitleLabel.textAlignment = NSTextAlignmentCenter;
-    _apiTitleLabel.alpha = 0.5;
-    _apiTitleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-  }
-  return _apiTitleLabel;
-}
-
-#pragma mark - Api methods
-
-- (void)clearApiMode:(id)sender
-{
-  [self setApiMode:NO animated:YES];
-  [self cleanUserMarks];
-}
-
-- (void)backToApiApp:(id)sender
-{
-  NSURL * url = [NSURL URLWithString:[NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetGlobalBackUrl().c_str()]];
-  [[UIApplication sharedApplication] openURL:url];
 }
 
 #pragma mark - Routing
@@ -1050,53 +1012,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 #pragma mark - Public methods
 
-- (void)setApiMode:(BOOL)apiMode animated:(BOOL)animated
-{
-  if (apiMode)
-  {
-    [self.view addSubview:self.apiBar];
-    self.apiBar.maxY = 0;
-    [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
-    {
-      self.apiBar.minY = 0;
-      self.routeViewWrapper.minY = self.apiBar.maxY;
-    }
-    completion:nil];
-
-    [self.view insertSubview:self.searchView aboveSubview:self.apiBar];
-
-    self.apiTitleLabel.text = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()];
-  }
-  else
-  {
-    [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
-    {
-      self.apiBar.maxY = 0;
-      self.routeViewWrapper.minY = self.apiBar.maxY;
-    }
-    completion:^(BOOL finished)
-    {
-      [self.apiBar removeFromSuperview];
-    }];
-  }
-
-  [self dismissPopover];
-  [self.searchView setState:SearchViewStateHidden animated:YES];
-
-  _apiMode = apiMode;
-
-  [self updateStatusBarStyle];
-}
-
-- (void)cleanUserMarks
-{
-  Framework & framework = GetFramework();
-  framework.GetBalloonManager().RemovePin();
-  framework.GetBalloonManager().Dismiss();
-  framework.GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
-  framework.Invalidate();
-}
-
 - (void)setupMeasurementSystem
 {
   GetFramework().SetupMeasurementSystem();
@@ -1144,6 +1059,11 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)updateInfoViews
 {
   CGFloat topBound = 0.0;
+  if ([self testMapInfoViewFlag:MapInfoViewAPIBar])
+  {
+    CGRect const apiRect = self.apiBar.frame;
+    topBound = MAX(topBound, apiRect.origin.y + apiRect.size.height);
+  }
   if ([self testMapInfoViewFlag:MapInfoViewSearch])
   {
     CGRect const searchRect = self.searchView.infoRect;

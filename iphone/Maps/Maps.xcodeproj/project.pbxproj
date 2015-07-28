@@ -14,6 +14,7 @@
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
 		340F24631B14910500F874CD /* RouteState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340F24621B14910500F874CD /* RouteState.mm */; };
+		341522BF1B666A550077AA8F /* MWMAPIBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 341522BE1B666A550077AA8F /* MWMAPIBarView.m */; };
 		34287FDC1B3D7C4800F9959C /* libFlurry_6.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */; };
 		3428BC131B55477E00C85B30 /* MWMSideMenuDownloadBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3428BC121B55477E00C85B30 /* MWMSideMenuDownloadBadge.m */; };
 		342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 342AD76E1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m */; };
@@ -33,6 +34,8 @@
 		345C31721AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */; };
 		345C31781AE799B600EA0CC2 /* MWMSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 345C31751AE799B600EA0CC2 /* MWMSearchResultCell.m */; };
 		345C31791AE799B600EA0CC2 /* MWMSearchResultController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */; };
+		3465E7D81B6658C000854C4D /* MWMAPIBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3465E7D71B6658C000854C4D /* MWMAPIBar.mm */; };
+		3465E7DD1B6658EB00854C4D /* MWMAPIBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3465E7DC1B6658EB00854C4D /* MWMAPIBarView.xib */; };
 		347274731B0F4EE000756B37 /* me.maps.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274721B0F4EE000756B37 /* me.maps.entitlements */; };
 		347274771B0F4F3900756B37 /* me.maps.watchkitextension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274761B0F4F3900756B37 /* me.maps.watchkitextension.entitlements */; };
 		347274791B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274781B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements */; };
@@ -366,6 +369,8 @@
 		340F24611B14910500F874CD /* RouteState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteState.h; sourceTree = "<group>"; };
 		340F24621B14910500F874CD /* RouteState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RouteState.mm; sourceTree = "<group>"; };
 		340F24641B15F01D00F874CD /* MWMSideMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSideMenuDelegate.h; sourceTree = "<group>"; };
+		341522BD1B666A550077AA8F /* MWMAPIBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAPIBarView.h; sourceTree = "<group>"; };
+		341522BE1B666A550077AA8F /* MWMAPIBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMAPIBarView.m; sourceTree = "<group>"; };
 		34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.4.0.a; path = Statistics/libFlurry_6.4.0.a; sourceTree = "<group>"; };
 		3428BC111B55477E00C85B30 /* MWMSideMenuDownloadBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSideMenuDownloadBadge.h; sourceTree = "<group>"; };
 		3428BC121B55477E00C85B30 /* MWMSideMenuDownloadBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMSideMenuDownloadBadge.m; sourceTree = "<group>"; };
@@ -393,6 +398,9 @@
 		345C31751AE799B600EA0CC2 /* MWMSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMSearchResultCell.m; sourceTree = "<group>"; };
 		345C31761AE799B600EA0CC2 /* MWMSearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchResultController.h; sourceTree = "<group>"; };
 		345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchResultController.mm; sourceTree = "<group>"; };
+		3465E7D61B6658C000854C4D /* MWMAPIBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAPIBar.h; sourceTree = "<group>"; };
+		3465E7D71B6658C000854C4D /* MWMAPIBar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAPIBar.mm; sourceTree = "<group>"; };
+		3465E7DC1B6658EB00854C4D /* MWMAPIBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAPIBarView.xib; sourceTree = "<group>"; };
 		347274721B0F4EE000756B37 /* me.maps.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.entitlements; sourceTree = "<group>"; };
 		347274761B0F4F3900756B37 /* me.maps.watchkitextension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.watchkitextension.entitlements; sourceTree = "<group>"; };
 		347274781B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.watchkitextension.production.entitlements; sourceTree = "<group>"; };
@@ -1088,6 +1096,18 @@
 			path = SearchResult;
 			sourceTree = "<group>";
 		};
+		3465E7D51B66589900854C4D /* APIBar */ = {
+			isa = PBXGroup;
+			children = (
+				3465E7D61B6658C000854C4D /* MWMAPIBar.h */,
+				3465E7D71B6658C000854C4D /* MWMAPIBar.mm */,
+				341522BD1B666A550077AA8F /* MWMAPIBarView.h */,
+				341522BE1B666A550077AA8F /* MWMAPIBarView.m */,
+				3465E7DC1B6658EB00854C4D /* MWMAPIBarView.xib */,
+			);
+			path = APIBar;
+			sourceTree = "<group>";
+		};
 		347274711B0F4EB300756B37 /* Entitlements */ = {
 			isa = PBXGroup;
 			children = (
@@ -1170,6 +1190,7 @@
 		34BC72091B0DECAE0012A34B /* MapViewControls */ = {
 			isa = PBXGroup;
 			children = (
+				3465E7D51B66589900854C4D /* APIBar */,
 				34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */,
 				34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */,
 				34BC720A1B0DECAE0012A34B /* LocationButton */,
@@ -2291,6 +2312,7 @@
 				B08AA8CE1A24C7BC00810B1C /* LocalNotificationInfoProvider.m in Sources */,
 				1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */,
 				F67BBB571AC54A7800D162C7 /* MWMFeedbackAlert.mm in Sources */,
+				341522BF1B666A550077AA8F /* MWMAPIBarView.m in Sources */,
 				349A35831B53E967009677EE /* MWMDownloadMapRequest.mm in Sources */,
 				A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */,
 				B0E1FCDF1A2343BC00A8E08B /* NextTurnPhoneView.m in Sources */,
@@ -2336,6 +2358,7 @@
 				F65243351B0B634F00BFA9D4 /* MWMPlacePage+Animation.mm in Sources */,
 				976D86F519CB21BD00C920EF /* RouteView.mm in Sources */,
 				349A357C1B53D4C9009677EE /* MWMCircularProgressView.m in Sources */,
+				3465E7D81B6658C000854C4D /* MWMAPIBar.mm in Sources */,
 				FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */,
 				F6588E371B15D87A00EE1E58 /* MWMBookmarkColorCell.mm in Sources */,
 				F6D409FA1B319BD70041730F /* ContextViews.mm in Sources */,

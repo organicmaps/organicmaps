@@ -44,11 +44,11 @@ namespace search { struct AddressInfo; }
 
 - (void)addPlacePageViews:(NSArray *)views;
 
+- (void)showAPIBar;
+
 @property (nonatomic) UIPopoverController * popoverVC;
-@property (nonatomic, readonly) BOOL apiMode;
 @property (nonatomic) SearchView * searchView;
 @property (nonatomic) ShareActionSheet * shareActionSheet;
-- (void)setApiMode:(BOOL)apiMode animated:(BOOL)animated;
 @property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) m2::PointD restoreRouteDestination;
 

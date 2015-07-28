@@ -205,16 +205,15 @@ static BOOL keyboardLoaded = NO;
       self.alpha = 1;
       self.searchBar.cancelButton.alpha = 0;
       self.searchBar.alpha = 1;
-      self.topBackgroundView.minY = 0;
+      self.topBackgroundView.minY = self.topBound;
+      self.searchBar.minY = searchBarOffset + self.topBound;
+      self.topBackgroundView.height = [self defaultTopBackgroundHeight];
+      if (self.topBound > 0.0)
+        self.searchBar.minY -= 7.0;
       if ([self iPhoneInLandscape])
       {
-        self.searchBar.minY = searchBarOffset - 3;
-        self.topBackgroundView.height = [self defaultTopBackgroundHeight] - 10;
-      }
-      else
-      {
-        self.searchBar.minY = searchBarOffset;
-        self.topBackgroundView.height = [self defaultTopBackgroundHeight];
+        self.searchBar.minY -= 3;
+        self.topBackgroundView.height -= 10;
       }
       self.tableView.alpha = 0;
       self.searchBar.fieldBackgroundView.width = textFieldBackgroundWidth;
@@ -865,6 +864,12 @@ static BOOL keyboardLoaded = NO;
 - (CGRect)infoRect
 {
   return [self convertRect:self.topBackgroundView.frame toView:self.superview];
+}
+
+- (void)setTopBound:(CGFloat)topBound
+{
+  _topBound = topBound;
+  [self setState:self.state animated:NO];
 }
 
 @end
