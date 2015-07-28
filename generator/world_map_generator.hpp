@@ -7,8 +7,6 @@
 
 #include "indexer/scales.hpp"
 
-#include "coding/file_name_utils.hpp"
-
 #include "base/logging.hpp"
 
 #include "defines.hpp"
@@ -99,7 +97,7 @@ public:
       m_tree.ForEachInRect(r, [&](size_t index)
       {
         ++m_selectedPolygons;
-        hits[i] += m_waterRegions[index].Contains(pts[i]) ? 1 : 0;
+        hits[i] += m_waterRegions[index].Contains(p) ? 1 : 0;
       });
     }
 
@@ -194,27 +192,6 @@ public:
 
     char const * arr2[] = {"boundary", "administrative", "4", "state"};
     m_typesCorrector.SetDontNormalizeType(arr2);
-
-    /// @todo It's not obvious to integrate link->way conversion.
-    /// Review it in future.
-    /*
-    char const * arr3[][2]  = {
-      { "highway", "motorway_link" },
-      { "highway", "primary_link" },
-      { "highway", "secondary_link" },
-      { "highway", "trunk_link" }
-    };
-    char const * arr4[][2]  = {
-      { "highway", "motorway" },
-      { "highway", "primary" },
-      { "highway", "secondary" },
-      { "highway", "trunk" }
-    };
-    STATIS_ASSERT(ARRAY_SIZE(arr3) == ARRAY_SIZE(arr4));
-
-    for (size_t i = 0; i < ARRAY_SIZE(arr3); ++i)
-      m_typesCorrector.SetMappingTypes(arr3[i], arr4[i]);
-    */
   }
 
   void operator()(FeatureBuilder1 fb)
