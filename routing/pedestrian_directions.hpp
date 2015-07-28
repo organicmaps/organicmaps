@@ -28,6 +28,7 @@ private:
 
   uint32_t const m_typeSteps;
   uint32_t const m_typeLiftGate;
+  uint32_t const m_typeGate;
 };
 
 }  // namespace routing
