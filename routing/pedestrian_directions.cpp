@@ -30,6 +30,7 @@ namespace routing
 
 PedestrianDirectionsEngine::PedestrianDirectionsEngine()
   : m_typeSteps(classif().GetTypeByPath({"highway", "steps"}))
+  , m_typeLiftGate(classif().GetTypeByPath({"barrier", "lift_gate"}))
 {
 }
 
@@ -135,6 +136,14 @@ void PedestrianDirectionsEngine::CalculateTurns(IRoadGraph const & graph, vector
         turnsDir.emplace_back(i, turns::PedestrianDirection::Upstairs);
       else
         turnsDir.emplace_back(i, turns::PedestrianDirection::Downstairs);
+    }
+    else
+    {
+      graph.GetJunctionTypes(edge.GetStartJunction(), types);
+
+      // direction "lift_gate"
+      if (HasType(m_typeLiftGate, types))
+        turnsDir.emplace_back(i, turns::PedestrianDirection::LiftGate);
     }
   }
 

@@ -60,6 +60,7 @@ enum class PedestrianDirection
   None = 0,
   Upstairs,
   Downstairs,
+  LiftGate,
   ReachedYourDestination,
   Count  /**< This value is used for internals only. */
 };

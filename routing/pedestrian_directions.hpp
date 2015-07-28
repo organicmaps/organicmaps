@@ -27,6 +27,7 @@ private:
                       Route::TTurns & turnsDir) const;
 
   uint32_t const m_typeSteps;
+  uint32_t const m_typeLiftGate;
 };
 
 }  // namespace routing
