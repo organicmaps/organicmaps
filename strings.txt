@@ -11467,34 +11467,34 @@
 
   [save]
     tags = android, ios
-    en = save
-    ru = сохранить
-    uk = зберегти
-    vi = lưu
-    tr = kaydet
+    en = Save
+    ru = Сохранить
+    uk = Зберегти
+    vi = Lưu
+    tr = Kaydet
     th = บันทึก
-    es = guardar
-    sv = spara
-    sk = uložiť
-    pt = salvar
+    es = Guardar
+    sv = Spara
+    sk = Uložiť
+    pt = Salvar
     ro = Salvare
-    pl = zapisz
+    pl = Zapisz
     ko = 저장
-    id = simpan
+    id = Simpan
     ja = 保存
-    hu = simpan
-    el = αποθήκευση
+    hu = Simpan
+    el = Αποθήκευση
     ar = حفظ
-    de = speichern
-    fr = sauvegarder
-    nl = opslaan
-    fi = tallenna
-    da = gem
-    cs = uložit
+    de = Speichern
+    fr = Sauvegarder
+    nl = Opslaan
+    fi = Tallenna
+    da = Gem
+    cs = Uložit
     zh-Hans = 保存
     zh-Hant = 保存
-    it = salva
-    nb = lagre
+    it = Salva
+    nb = Lagre
 
   [edit_description_hint]
     tags = android, ios
