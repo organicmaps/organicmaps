@@ -12,8 +12,10 @@ AllowShortFunctionsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 BreakBeforeBraces: Allman
-BreakConstructorInitializersBeforeComma: false
+BreakConstructorInitializersBeforeComma: true
 ColumnLimit: 100
+ConstructorInitializerIndentWidth: 2
 DerivePointerAlignment: false
 NamespaceIndentation: None
 PointerAlignment: Middle
+Standard: Cpp11
