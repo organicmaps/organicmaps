@@ -397,7 +397,7 @@ UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
   TEST_EQUAL(result, IRouter::NoError, ());
 
   auto const & t = route.GetTurns();
-  TEST_EQUAL(t.size(), 3, ())
+  TEST_EQUAL(t.size(), 3, ());
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Downstairs, ());
   TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::Upstairs, ());
@@ -416,7 +416,7 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
   TEST_EQUAL(result, IRouter::NoError, ());
 
   auto const & t = route.GetTurns();
-  TEST_EQUAL(t.size(), 3, ())
+  TEST_EQUAL(t.size(), 3, ());
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Upstairs, ());
   TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::Downstairs, ());
@@ -435,9 +435,64 @@ UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
   TEST_EQUAL(result, IRouter::NoError, ());
 
   auto const & t = route.GetTurns();
-  TEST_EQUAL(t.size(), 3, ())
+  TEST_EQUAL(t.size(), 3, ());
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Downstairs, ());
   TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::Upstairs, ());
+  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
+}
+
+UNIT_TEST(RussiaMoscowTrubnikovPereulok30Ac1LiftGate)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.75533, 37.58789), {0., 0.},
+      MercatorBounds::FromLatLon(55.75543, 37.58717));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+
+  auto const & t = route.GetTurns();
+  TEST_EQUAL(t.size(), 2, ());
+
+  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::LiftGate, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
+}
+
+UNIT_TEST(RussiaMoscowKhlebnyyLane15c1Gate)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.755, 37.59461), {0., 0.},
+      MercatorBounds::FromLatLon(55.75522, 37.59494));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+
+  auto const & t = route.GetTurns();
+  TEST_EQUAL(t.size(), 2, ());
+
+  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Gate, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
+}
+
+UNIT_TEST(RussiaMoscowKhlebnyyLane19LiftGateAndGate)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.75518, 37.59382), {0., 0.},
+      MercatorBounds::FromLatLon(55.7554, 37.59327));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+  TEST_EQUAL(result, IRouter::NoError, ());
+
+  auto const & t = route.GetTurns();
+  TEST_EQUAL(t.size(), 3, ());
+
+  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::LiftGate, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::Gate, ());
   TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
