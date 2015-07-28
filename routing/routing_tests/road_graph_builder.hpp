@@ -21,6 +21,7 @@ public:
   void FindClosestEdges(m2::PointD const & point, uint32_t count,
                         vector<pair<routing::Edge, m2::PointD>> & vicinities) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
+  void GetJunctionTypes(routing::Junction const & junction, feature::TypesHolder & types) const override;
 
 private:
   vector<RoadInfo> m_roads;

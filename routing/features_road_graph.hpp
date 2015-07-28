@@ -69,6 +69,7 @@ public:
   void FindClosestEdges(m2::PointD const & point, uint32_t count,
                         vector<pair<Edge, m2::PointD>> & vicinities) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
+  void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const override;
   void ClearState() override;
 
 private:

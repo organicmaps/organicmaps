@@ -43,6 +43,12 @@ MwmSet::MwmHandle GetMwmHandleByMwmId(Index & index, MwmSet::MwmId const & mwmId
   string const countryName = mwmId.GetInfo()->GetCountryName();
   return index.GetMwmHandleByCountryFile(platform::CountryFile(countryName));
 }
+
+inline bool PointsAlmostEqualAbs(const m2::PointD & pt1, const m2::PointD & pt2)
+{
+  double constexpr kEpsilon = 1e-6;
+  return my::AlmostEqualAbs(pt1.x, pt2.x, kEpsilon) && my::AlmostEqualAbs(pt1.y, pt2.y, kEpsilon);
+}
 }  // namespace
 
 
@@ -205,6 +211,34 @@ void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::Ty
   ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
 
   types = feature::TypesHolder(ft);
+}
+
+void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const
+{
+  types = feature::TypesHolder();
+
+  m2::PointD const & cross = junction.GetPoint();
+
+  auto const f = [&types, &cross](FeatureType & ft)
+  {
+    if (!types.Empty())
+      return;
+
+    if (ft.GetFeatureType() != feature::GEOM_POINT)
+      return;
+
+    if (!PointsAlmostEqualAbs(ft.GetCenter(), cross))
+      return;
+
+    feature::TypesHolder typesHolder(ft);
+    if (!typesHolder.Empty())
+      types = typesHolder;
+  };
+
+  m_index.ForEachInRect(f,
+                        m2::RectD(cross.x - kReadCrossEpsilon, cross.y - kReadCrossEpsilon,
+                                  cross.x + kReadCrossEpsilon, cross.y + kReadCrossEpsilon),
+                        GetStreetReadScale());
 }
 
 void FeaturesRoadGraph::ClearState()

@@ -104,6 +104,12 @@ void RoadGraphMockSource::GetFeatureTypes(FeatureID const & featureId, feature::
   UNUSED_VALUE(types);
 }
 
+void RoadGraphMockSource::GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const
+{
+  UNUSED_VALUE(junction);
+  UNUSED_VALUE(types);
+}
+
 FeatureID MakeTestFeatureID(uint32_t offset)
 {
   static TestValidFeatureIDProvider instance;

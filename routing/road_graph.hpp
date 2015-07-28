@@ -155,6 +155,9 @@ public:
   /// @return Types for the specified edge
   void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const;
 
+  /// @return Types for specified junction
+  virtual void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const = 0;
+
   /// Clear all temporary buffers.
   virtual void ClearState() {}
 
