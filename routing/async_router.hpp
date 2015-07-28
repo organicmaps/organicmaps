@@ -26,7 +26,7 @@ public:
   /// AsyncRouter is a wrapper class to run routing routines in the different thread
   /// @param router pointer to the router implementation. AsyncRouter will take ownership over
   /// router.
-  AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
+  AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFetcher> && fetcher,
               TRoutingStatisticsCallback const & routingStatisticsFn,
               TPointCheckCallback const & pointCheckCallback);
 
@@ -48,10 +48,12 @@ public:
   /// Interrupt routing and clear buffers
   virtual void ClearState();
 
+  /// Whait routing process. For testing use.
+  void WaitRouting() { lock_guard<mutex> routingGuard(m_routingMutex); }
+
 private:
   /// This function is called in async mode
-  void CalculateRouteImpl(TReadyCallback const & readyCallback,
-      TProgressCallback const & progressCallback);
+  void CalculateRouteImpl(TReadyCallback const & readyCallback, uint32_t timeoutSec);
 
   /// These functions are called to send statistics about the routing
   void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
@@ -75,7 +77,7 @@ private:
 
   TimeoutObserver m_observer;
 
-  unique_ptr<OnlineAbsentCountriesFetcher> const m_absentFetcher;
+  unique_ptr<IOnlineFetcher> const m_absentFetcher;
   unique_ptr<IRouter> const m_router;
   TRoutingStatisticsCallback const m_routingStatisticsFn;
 };

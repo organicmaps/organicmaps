@@ -554,6 +554,10 @@ public:
   BookmarkManager & GetBookmarkManager() { return m_bmManager; }
 
 public:
+  using TRouteBuildingCallback =
+      function<void(routing::IRouter::ResultCode, vector<storage::TIndex> const &,
+                    vector<storage::TIndex> const &)>;
+  using TRouteProgressCallback = function<void(float)>;
   /// @name Routing mode
   //@{
   void SetRouter(routing::RouterType type);
@@ -562,9 +566,6 @@ public:
   bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
   bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }
   void BuildRoute(m2::PointD const & destination, uint32_t timeoutSec);
-  typedef function<void(routing::IRouter::ResultCode, vector<storage::TIndex> const &,
-                        vector<storage::TIndex> const &)> TRouteBuildingCallback;
-  typedef function<void(float)> TRouteProgressCallback;
   void SetRouteBuildingListener(TRouteBuildingCallback const & buildingCallback) { m_routingCallback = buildingCallback; }
   void SetRouteProgressListener(TRouteProgressCallback const & progressCallback) { m_progressCallback = progressCallback; }
   void FollowRoute() { GetLocationState()->StartRouteFollow(); }

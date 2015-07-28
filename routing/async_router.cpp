@@ -52,8 +52,7 @@ map<string, string> PrepareStatisticsData(string const & routerName,
 
 }  // namespace
 
-AsyncRouter::AsyncRouter(unique_ptr<IRouter> && router,
-                         unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
+AsyncRouter::AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFetcher> && fetcher,
                          TRoutingStatisticsCallback const & routingStatisticsFn,
                          TPointCheckCallback const & pointCheckCallback)
     : m_absentFetcher(move(fetcher)),
@@ -79,10 +78,10 @@ void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const
     m_finalPoint = finalPoint;
 
     m_observer.Cancel();
-    m_observer.SetTimeout(timeoutSec);
+    m_observer.SetProgressCallback(progressCallback);
   }
 
-  GetPlatform().RunAsync(bind(&AsyncRouter::CalculateRouteImpl, this, readyCallback, progressCallback));
+  GetPlatform().RunAsync(bind(&AsyncRouter::CalculateRouteImpl, this, readyCallback, timeoutSec));
 }
 
 void AsyncRouter::ClearState()
@@ -137,8 +136,7 @@ void AsyncRouter::LogCode(IRouter::ResultCode code, double const elapsedSec)
   }
 }
 
-// TODO (ldragunov) write some tests to check this callback logic.
-void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, TProgressCallback const & progressCallback)
+void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, uint32_t timeoutSec)
 {
   ASSERT(m_router, ());
   if (m_isReadyThread.test_and_set())
@@ -160,7 +158,7 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, TProg
     startDirection = m_startDirection;
 
     m_observer.Reset();
-    m_observer.SetProgressCallback(progressCallback);
+    m_observer.SetTimeout(timeoutSec);
   }
 
   my::Timer timer;
@@ -184,13 +182,15 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, TProg
     code = IRouter::InternalError;
     LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
     SendStatistics(startPoint, startDirection, finalPoint, e.Msg());
-    GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
+    readyCallback(route, code);
     return;
   }
 
+  SendStatistics(startPoint, startDirection, finalPoint, code, route, elapsedSec);
+
   //Draw route without waiting network latency.
   if (code == IRouter::NoError)
-    GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
+    readyCallback(route, code);
 
   bool const needFetchAbsent = (code != IRouter::Cancelled);
 
@@ -208,10 +208,10 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, TProg
 
   elapsedSec = timer.ElapsedSeconds(); // routing time + absents fetch time
   LogCode(code, elapsedSec);
-  SendStatistics(startPoint, startDirection, finalPoint, code, route, elapsedSec);
+
   // Call callback only if we have some new data.
   if (code != IRouter::NoError)
-    GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
+    readyCallback(route, code);
 }
 
 void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,

@@ -15,16 +15,23 @@ namespace routing
 {
 using TCountryLocalFileFn = function<shared_ptr<platform::LocalCountryFile>(string const &)>;
 
+class IOnlineFetcher
+{
+public:
+  virtual void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint) = 0;
+  virtual void GetAbsentCountries(vector<string> & countries) = 0;
+};
+
 /*!
  * \brief The OnlineAbsentCountriesFetcher class incapsulates async fetching the map
  * names from online OSRM server routines.
  */
-class OnlineAbsentCountriesFetcher
+class OnlineAbsentCountriesFetcher : public IOnlineFetcher
 {
 public:
   OnlineAbsentCountriesFetcher(TCountryFileFn const & countryFileFn, TCountryLocalFileFn const & countryLocalFileFn) : m_countryFileFn(countryFileFn), m_countryLocalFileFn(countryLocalFileFn) {}
-  void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint);
-  void GetAbsentCountries(vector<string> & countries);
+  void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint) override;
+  void GetAbsentCountries(vector<string> & countries) override;
 
 private:
   TCountryFileFn const m_countryFileFn;

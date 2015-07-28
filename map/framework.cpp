@@ -2099,33 +2099,40 @@ void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
 
   SetLastUsedRouter(m_currentRouterType);
 
-  m_routingSession.BuildRoute(state->Position(), destination,
-    [this] (Route const & route, IRouter::ResultCode code)
+  auto fn = [this](Route const & route, IRouter::ResultCode code)
+  {
+    vector<storage::TIndex> absentCountries;
+    vector<storage::TIndex> absentRoutingIndexes;
+    if (code == IRouter::NoError)
     {
-      vector<storage::TIndex> absentCountries;
-      vector<storage::TIndex> absentRoutingIndexes;
-      if (code == IRouter::NoError)
+      InsertRoute(route);
+      GetLocationState()->RouteBuilded();
+      ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
+    }
+    else
+    {
+      for (string const & name : route.GetAbsentCountries())
       {
-        InsertRoute(route);
-        GetLocationState()->RouteBuilded();
-        ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
+        storage::TIndex fileIndex = m_storage.FindIndexByFile(name);
+        if (m_storage.GetLatestLocalFile(fileIndex))
+          absentRoutingIndexes.push_back(fileIndex);
+        else
+          absentCountries.push_back(fileIndex);
       }
-      else
-      {
-        for (string const & name : route.GetAbsentCountries())
-        {
-          storage::TIndex fileIndex = m_storage.FindIndexByFile(name);
-          if (m_storage.GetLatestLocalFile(fileIndex))
-            absentRoutingIndexes.push_back(fileIndex);
-          else
-            absentCountries.push_back(fileIndex);
-        }
 
-        if (code != IRouter::NeedMoreMaps)
-          RemoveRoute();
-      }
-      CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
-    }, m_progressCallback, timeoutSec);
+      if (code != IRouter::NeedMoreMaps)
+        RemoveRoute();
+    }
+    CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
+    LOG(LINFO, ("Inside callback!"));
+  };
+
+  m_routingSession.BuildRoute(state->Position(), destination,
+                              [fn](Route const & route, IRouter::ResultCode code)
+                              {
+                                GetPlatform().RunOnGuiThread(bind(fn, route, code));
+                              },
+                              m_progressCallback, timeoutSec);
 }
 
 void Framework::SetRouter(RouterType type)

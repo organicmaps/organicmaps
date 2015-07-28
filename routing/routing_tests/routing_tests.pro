@@ -26,6 +26,7 @@ SOURCES += \
   astar_algorithm_test.cpp \
   astar_progress_test.cpp \
   astar_router_test.cpp \
+  async_router_test.cpp \
   cross_routing_tests.cpp \
   nearest_edge_finder_tests.cpp \
   online_cross_fetcher_test.cpp \
