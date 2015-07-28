@@ -17,37 +17,26 @@ namespace search
 {
 namespace impl
 {
-
-template <class T> bool LessRankT(T const & r1, T const & r2);
-template <class T> bool LessDistanceT(T const & r1, T const & r2);
-
 /// First pass results class. Objects are creating during search in trie.
 /// Works fast without feature loading and provide ranking.
 class PreResult1
 {
   friend class PreResult2;
-  template <class T> friend bool LessRankT(T const & r1, T const & r2);
-  template <class T> friend bool LessDistanceT(T const & r1, T const & r2);
 
   FeatureID m_id;
-  m2::PointD m_center;
-  double m_distance;
+  double m_priority;
   uint8_t m_rank;
   int8_t m_viewportID;
 
-  void CalcParams(m2::PointD const & pivot);
-
 public:
-  PreResult1(FeatureID const & fID, uint8_t rank, m2::PointD const & center,
-             m2::PointD const & pivot, int8_t viewportID);
-  PreResult1(m2::PointD const & center, m2::PointD const & pivot);
+  PreResult1(FeatureID const & fID, uint8_t rank, double priority, int8_t viewportID);
+  PreResult1(double priority);
 
   static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);
-  static bool LessDistance(PreResult1 const & r1, PreResult1 const & r2);
+  static bool LessPriority(PreResult1 const & r1, PreResult1 const & r2);
   static bool LessPointsForViewport(PreResult1 const & r1, PreResult1 const & r2);
 
   inline FeatureID GetID() const { return m_id; }
-  inline m2::PointD GetCenter() const { return m_center; }
   inline uint8_t GetRank() const { return m_rank; }
   inline int8_t GetViewportID() const { return m_viewportID; }
 };
@@ -58,8 +47,6 @@ public:
 class PreResult2
 {
   friend class PreResult2Maker;
-
-  void CalcParams(m2::PointD const & pivot);
 
 public:
   enum ResultType
@@ -124,9 +111,6 @@ public:
   inline feature::TypesHolder const & GetTypes() const { return m_types; }
 
 private:
-  template <class T> friend bool LessRankT(T const & r1, T const & r2);
-  template <class T> friend bool LessDistanceT(T const & r1, T const & r2);
-
   bool IsEqualCommon(PreResult2 const & r) const;
 
   string ReadableFeatureType(CategoriesHolder const * pCat,

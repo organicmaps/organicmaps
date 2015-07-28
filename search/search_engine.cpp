@@ -102,8 +102,7 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
 
 Engine::Engine(Index & index, Reader * categoriesR, storage::CountryInfoGetter const & infoGetter,
                string const & locale, unique_ptr<SearchQueryFactory> && factory)
-  : m_factory(move(factory))
-  , m_data(make_unique<EngineData>(categoriesR))
+  : m_factory(move(factory)), m_data(new EngineData(pCategoriesR))
 {
   m_isReadyThread.clear();
 
@@ -217,15 +216,12 @@ void Engine::SearchAsync()
   // Get current search params.
   SearchParams params;
   m2::RectD viewport;
-  bool oneTimeSearch = false;
 
   {
     threads::MutexGuard updateGuard(m_updateMutex);
     params = m_params;
 
-    if (params.GetSearchRect(viewport))
-      oneTimeSearch = true;
-    else
+    if (!params.GetSearchRect(viewport))
       viewport = m_viewport;
   }
 
@@ -246,7 +242,7 @@ void Engine::SearchAsync()
 
   Results res;
 
-  // Call m_query->IsCancelled() everywhere it needed without storing
+  // Call m_pQuery->IsCancelled() everywhere it needed without storing
   // return value.  This flag can be changed from another thread.
 
   m_query->SearchCoordinates(params.m_query, res);
@@ -258,52 +254,20 @@ void Engine::SearchAsync()
 
     if (viewportSearch)
     {
-      m_query->SetViewport(viewport, true);
+      m_query->SetViewport(viewport, true /* forceUpdate */);
       m_query->SearchViewportPoints(res);
-
-      if (res.GetCount() > 0)
-        EmitResults(params, res);
     }
     else
     {
-      while (!m_query->IsCancelled())
-      {
-        bool const isInflated = GetInflatedViewport(viewport);
-        size_t const oldCount = res.GetCount();
-
-        m_query->SetViewport(viewport, oneTimeSearch);
-        m_query->Search(res, RESULTS_COUNT);
-
-        size_t const newCount = res.GetCount();
-        bool const exit = (oneTimeSearch || !isInflated || newCount >= RESULTS_COUNT);
-
-        if (exit || oldCount != newCount)
-          EmitResults(params, res);
-
-        if (exit)
-          break;
-      }
+      m_query->SetViewport(viewport, params.IsSearchAroundPosition() /* forceUpdate */);
+      m_query->Search(res, RESULTS_COUNT);
     }
+
+    if (res.GetCount() > 0)
+      EmitResults(params, res);
   }
   catch (Query::CancelException const &)
   {
-  }
-
-  // Make additional search in whole mwm when not enough results (only for non-empty query).
-  size_t const count = res.GetCount();
-  if (!viewportSearch && !m_query->IsCancelled() && count < RESULTS_COUNT)
-  {
-    try
-    {
-      m_query->SearchAdditional(res, RESULTS_COUNT);
-    }
-    catch (Query::CancelException const &)
-    {
-    }
-
-    // Emit if we have more results.
-    if (res.GetCount() > count)
-      EmitResults(params, res);
   }
 
   if (!viewportSearch && !m_query->IsCancelled())

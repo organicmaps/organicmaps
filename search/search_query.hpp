@@ -1,6 +1,7 @@
 #pragma once
 #include "intermediate_result.hpp"
 #include "keyword_lang_matcher.hpp"
+#include "retrieval.hpp"
 #include "suggest.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
@@ -39,6 +40,8 @@ namespace storage { class CountryInfoGetter; }
 
 namespace search
 {
+struct Locality;
+struct Region;
 struct SearchQueryParams;
 
 namespace impl
@@ -46,8 +49,6 @@ namespace impl
   class FeatureLoader;
   class BestNameFinder;
   class PreResult2Maker;
-  struct Locality;
-  struct Region;
   class DoFindLocality;
   class HouseCompFactory;
 }
@@ -55,9 +56,15 @@ namespace impl
 class Query : public my::Cancellable
 {
 public:
-  Query(Index & index, CategoriesHolder const & categories,
-        vector<Suggest> const & suggests,
+  Query(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
         storage::CountryInfoGetter const & infoGetter);
+
+  // TODO (@gorshenin): current cancellation logic is completely wrong
+  // and broken by design. Fix it ASAP.
+  //
+  // my::Cancellable overrides:
+  void Reset() override;
+  void Cancel() override;
 
   inline void SupportOldFormat(bool b) { m_supportOldFormat = b; }
 
@@ -82,11 +89,9 @@ public:
 
   /// @name Different search functions.
   //@{
-  void SearchCoordinates(string const & query, Results & res) const;
   void Search(Results & res, size_t resCount);
-  void SearchAdditional(Results & res, size_t resCount);
-
   void SearchViewportPoints(Results & res);
+  void SearchCoordinates(string const & query, Results & res) const;
   //@}
 
   // Get scale level to make geometry index query for current viewport.
@@ -104,6 +109,30 @@ public:
   void InitParams(bool localitySearch, SearchQueryParams & params);
 
 private:
+  enum ViewportID
+  {
+    DEFAULT_V = -1,
+    CURRENT_V = 0,
+    LOCALITY_V = 1,
+    COUNT_V = 2     // Should always be the last
+  };
+
+  friend string DebugPrint(ViewportID viewportId);
+
+  class RetrievalCallback : public Retrieval::Callback
+  {
+  public:
+    RetrievalCallback(Query & query, ViewportID id);
+
+    // Retrieval::Callback overrides:
+    void OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
+                             vector<uint32_t> const & featureIds) override;
+
+  private:
+    Query & m_query;
+    ViewportID m_viewportId;
+  };
+
   friend class impl::FeatureLoader;
   friend class impl::BestNameFinder;
   friend class impl::PreResult2Maker;
@@ -123,26 +152,15 @@ private:
 
   void SetViewportByIndex(TMWMVector const & mwmsInfo, m2::RectD const & viewport, size_t idx,
                           bool forceUpdate);
-  void UpdateViewportOffsets(TMWMVector const & mwmsInfo, m2::RectD const & rect,
-                             TOffsetsVector & offsets);
   void ClearCache(size_t ind);
 
-  enum ViewportID
-  {
-    DEFAULT_V = -1,
-    CURRENT_V = 0,
-    LOCALITY_V = 1,
-    COUNT_V = 2     // Should always be the last
-  };
-
-  void AddResultFromTrie(TTrieValue const & val, MwmSet::MwmId const & mwmID,
-                         ViewportID vID = DEFAULT_V);
+  void AddPreResult1(MwmSet::MwmId const & mwmId, uint32_t featureId, uint8_t rank, double priority,
+                     ViewportID viewportId = DEFAULT_V);
 
   template <class T> void MakePreResult2(vector<T> & cont, vector<FeatureID> & streets);
   void FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & streets);
   void FlushResults(Results & res, bool allMWMs, size_t resCount);
 
-  ftypes::Type GetLocalityIndex(feature::TypesHolder const & types) const;
   void RemoveStringPrefix(string const & str, string & res) const;
   void GetSuggestion(string const & name, string & suggest) const;
   template <class T> void ProcessSuggestions(vector<T> & vec, Results & res) const;
@@ -153,20 +171,16 @@ private:
   /// @param[in]  pMwm  MWM file for World
   /// @param[out] res1  Best city-locality
   /// @param[out] res2  Best region-locality
-  void SearchLocality(MwmValue const * pMwm, impl::Locality & res1, impl::Region & res2);
+  void SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2);
 
   void SearchFeatures();
+  void SearchFeaturesInViewport(ViewportID viewportId);
+  void SearchFeaturesInViewport(SearchQueryParams const & params, TMWMVector const & mwmsInfo,
+                                ViewportID viewportId);
 
-  /// @param[in] ind Index of viewport rect to search (@see m_viewport).
-  /// If ind == -1, don't do any matching with features in viewport (@see m_offsetsInViewport).
-  //@{
-  /// Do search in all maps from mwmInfo.
-  void SearchFeatures(SearchQueryParams const & params, TMWMVector const & mwmsInfo,
-                      ViewportID vID);
-  /// Do search in particular map (mwmHandle).
-  void SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams const & params,
-                   ViewportID viewportId = DEFAULT_V);
-  //@}
+  /// Do search in a set of maps.
+  void SearchInMwms(TMWMVector const & mwmsInfo, SearchQueryParams const & params,
+                    ViewportID viewportId);
 
   void SuggestStrings(Results & res);
   void MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale, string const & prolog, Results & res);
@@ -200,6 +214,7 @@ private:
   m2::RectD m_viewport[COUNT_V];
   m2::PointD m_pivot;
   bool m_worldSearch;
+  Retrieval m_retrieval;
 
   /// @name Get ranking params.
   //@{
@@ -214,7 +229,6 @@ private:
 
   KeywordLangMatcher m_keywordsScorer;
 
-  TOffsetsVector m_offsetsInViewport[COUNT_V];
   bool m_supportOldFormat;
 
   template <class TParam>

@@ -5,8 +5,11 @@
 
 #include "search/search_query.hpp"
 #include "search/search_query_factory.hpp"
+#include "search/suggest.hpp"
 
 #include "platform/platform.hpp"
+
+#include "defines.hpp"
 
 #include "std/unique_ptr.hpp"
 

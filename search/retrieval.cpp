@@ -357,6 +357,8 @@ bool Retrieval::RetrieveForScale(double scale, Callback & callback)
       }
 
       bucket.m_intersectsWithViewport = true;
+      if (bucket.m_addressFeatures.empty())
+        bucket.m_finished = true;
     }
 
     ASSERT_LESS_OR_EQUAL(bucket.m_featuresReported, bucket.m_addressFeatures.size(), ());

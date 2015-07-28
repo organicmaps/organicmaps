@@ -193,7 +193,8 @@ unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValue(MwmId const & id)
 
 unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId const & id)
 {
-  CHECK(id.IsAlive(), (id));
+  if (!id.IsAlive())
+    return nullptr;
   shared_ptr<MwmInfo> info = id.GetInfo();
 
   // It's better to return valid "value pointer" even for "out-of-date" files,

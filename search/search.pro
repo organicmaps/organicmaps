@@ -19,9 +19,11 @@ HEADERS += \
     keyword_lang_matcher.hpp \
     keyword_matcher.hpp \
     latlon_match.hpp \
+    locality.hpp \
     locality_finder.hpp \
     params.hpp \
     query_saver.hpp \
+    region.hpp \
     result.hpp \
     retrieval.hpp \
     search_common.hpp \
@@ -40,9 +42,11 @@ SOURCES += \
     keyword_lang_matcher.cpp \
     keyword_matcher.cpp \
     latlon_match.cpp \
+    locality.cpp \
     locality_finder.cpp \
     params.cpp \
     query_saver.cpp \
+    region.cpp \
     result.cpp \
     retrieval.cpp \
     search_engine.cpp \
