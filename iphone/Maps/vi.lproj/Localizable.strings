@@ -1060,7 +1060,7 @@
 /* get the map */
 "get_the_map" = "Tải bản đồ";
 
-"save" = "lưu";
+"save" = "Lưu";
 
 "edit_description_hint" = "Mô tả của bạn (chữ hoặc html)";
 
@@ -1188,3 +1188,15 @@
 
 /* Bottom sheet: expand button (should be short) */
 "bottom_sheet_more" = "More…";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "Route Planning Failed";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Arrive";
+
+/* Routing Start button title */
+"routing_start" = "Start";
+
+/* Planning route message in navigation view */
+"routing_planning" = "Planning Route";

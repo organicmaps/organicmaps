@@ -695,7 +695,7 @@
 	<string name="download_failed">download has failed</string>
 	<!-- get the map -->
 	<string name="get_the_map">Get the map</string>
-	<string name="save">save</string>
+	<string name="save">Save</string>
 	<string name="edit_description_hint">Your descriptions (text or html)</string>
 	<string name="new_group">new group</string>
 	<string name="create">create</string>
@@ -768,4 +768,12 @@
 	<string name="rename">Rename</string>
 	<!-- Bottom sheet: expand button (should be short) -->
 	<string name="bottom_sheet_more">More…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">Route Planning Failed</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Arrive</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">Start</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">Planning Route</string>
 </resources>

@@ -685,7 +685,7 @@
 	<string name="download_failed">Не вдалося завантажити</string>
 	<!-- get the map -->
 	<string name="get_the_map">Отримати карту</string>
-	<string name="save">зберегти</string>
+	<string name="save">Зберегти</string>
 	<string name="edit_description_hint">Ваше описання (текст або html)</string>
 	<string name="new_group">нова група</string>
 	<string name="create">створити</string>

@@ -681,7 +681,7 @@
 	<string name="download_failed">tải xuống thất bại</string>
 	<!-- get the map -->
 	<string name="get_the_map">Tải bản đồ</string>
-	<string name="save">lưu</string>
+	<string name="save">Lưu</string>
 	<string name="edit_description_hint">Mô tả của bạn (chữ hoặc html)</string>
 	<string name="new_group">nhóm mới</string>
 	<string name="create">tạo</string>

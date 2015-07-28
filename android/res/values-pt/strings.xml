@@ -679,7 +679,7 @@
 	<string name="download_failed">descarga falhou</string>
 	<!-- get the map -->
 	<string name="get_the_map">Obter mapa</string>
-	<string name="save">salvar</string>
+	<string name="save">Salvar</string>
 	<string name="edit_description_hint">Suas descrições (texto ou html)</string>
 	<string name="new_group">novo grupo</string>
 	<string name="create">criar</string>

@@ -693,7 +693,7 @@
 	<string name="download_failed">Не удалось загрузить</string>
 	<!-- get the map -->
 	<string name="get_the_map">Загрузить карту</string>
-	<string name="save">сохранить</string>
+	<string name="save">Сохранить</string>
 	<string name="edit_description_hint">Ваше описание (текст или html)</string>
 	<string name="new_group">новая группа</string>
 	<string name="create">создать</string>
@@ -766,4 +766,12 @@
 	<string name="rename">Переименовать</string>
 	<!-- Bottom sheet: expand button (should be short) -->
 	<string name="bottom_sheet_more">Ещё…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">Ошибка построения маршрута</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Прибытие</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">Начать</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">Поиск маршрута</string>
 </resources>

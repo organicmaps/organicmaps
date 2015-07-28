@@ -682,7 +682,7 @@
 	<string name="download_failed">nedladdning misslyckades</string>
 	<!-- get the map -->
 	<string name="get_the_map">Hämta karta</string>
-	<string name="save">spara</string>
+	<string name="save">Spara</string>
 	<string name="edit_description_hint">Dina beskrivningar (text eller html)</string>
 	<string name="new_group">ny grupp</string>
 	<string name="create">skapa</string>

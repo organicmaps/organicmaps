@@ -686,7 +686,7 @@
 	<string name="download_failed">indirme işlemi başarısız oldu</string>
 	<!-- get the map -->
 	<string name="get_the_map">Harita alın</string>
-	<string name="save">kaydet</string>
+	<string name="save">Kaydet</string>
 	<string name="edit_description_hint">Açıklamalarınız (metin veya html)</string>
 	<string name="new_group">yeni grup</string>
 	<string name="create">oluştur</string>

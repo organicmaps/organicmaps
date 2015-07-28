@@ -1060,7 +1060,7 @@
 /* get the map */
 "get_the_map" = "Загрузить карту";
 
-"save" = "сохранить";
+"save" = "Сохранить";
 
 "edit_description_hint" = "Ваше описание (текст или html)";
 
@@ -1188,3 +1188,15 @@
 
 /* Bottom sheet: expand button (should be short) */
 "bottom_sheet_more" = "Ещё…";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "Ошибка построения маршрута";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Прибытие";
+
+/* Routing Start button title */
+"routing_start" = "Начать";
+
+/* Planning route message in navigation view */
+"routing_planning" = "Поиск маршрута";

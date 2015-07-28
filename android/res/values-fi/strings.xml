@@ -681,7 +681,7 @@
 	<string name="download_failed">Lataus epäonnistui</string>
 	<!-- get the map -->
 	<string name="get_the_map">Hanki kartta</string>
-	<string name="save">tallenna</string>
+	<string name="save">Tallenna</string>
 	<string name="edit_description_hint">Kuvauksesi (teksti tai html)</string>
 	<string name="new_group">uusi ryhmä</string>
 	<string name="create">luo</string>

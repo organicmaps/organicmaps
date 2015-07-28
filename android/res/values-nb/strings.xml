@@ -681,7 +681,7 @@
 	<string name="download_failed">Nedlasting mislyktes</string>
 	<!-- get the map -->
 	<string name="get_the_map">Hent kartet</string>
-	<string name="save">lagre</string>
+	<string name="save">Lagre</string>
 	<string name="edit_description_hint">Dine beskrivelser (tekst eller html)</string>
 	<string name="new_group">ny gruppe</string>
 	<string name="create">opprett</string>

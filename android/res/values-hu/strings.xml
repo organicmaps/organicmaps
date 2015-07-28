@@ -683,7 +683,7 @@
 	<string name="download_failed">letöltése sikertelen</string>
 	<!-- get the map -->
 	<string name="get_the_map">Térkép megszerzése</string>
-	<string name="save">simpan</string>
+	<string name="save">Simpan</string>
 	<string name="edit_description_hint">Az ön leírásai (sima szöveg vagy html)</string>
 	<string name="new_group">új csoport</string>
 	<string name="create">létrehoz</string>

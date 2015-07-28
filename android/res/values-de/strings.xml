@@ -677,7 +677,7 @@
 	<string name="download_failed">herunterladen fehlgeschlagen</string>
 	<!-- get the map -->
 	<string name="get_the_map">Karte abrufen</string>
-	<string name="save">speichern</string>
+	<string name="save">Speichern</string>
 	<string name="edit_description_hint">Ihre Beschreibungen (Text oder HTML)</string>
 	<string name="new_group">Neue Gruppe</string>
 	<string name="create">erstellen</string>

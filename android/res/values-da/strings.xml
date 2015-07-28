@@ -682,7 +682,7 @@
 	<string name="download_failed">download mislykkedes</string>
 	<!-- get the map -->
 	<string name="get_the_map">Få kort</string>
-	<string name="save">gem</string>
+	<string name="save">Gem</string>
 	<string name="edit_description_hint">Dine beskrivelser (tekst eller html)</string>
 	<string name="new_group">ny gruppe</string>
 	<string name="create">skabe</string>
