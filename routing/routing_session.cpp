@@ -59,7 +59,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   // (callback param isn't captured by value).
   m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint,
                            DoReadyCallback(*this, readyCallback, m_routeSessionMutex),
-                           DoProgressCallback(progressCallback), timeoutSec);
+                           progressCallback, timeoutSec);
 }
 
 void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultCode e)

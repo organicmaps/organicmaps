@@ -109,19 +109,6 @@ private:
 
   void AssignRoute(Route & route, IRouter::ResultCode e);
 
-  //TODO (ldragunov) Make consistent DoReady and DoProgress callbacks. Now DoReady runs
-  // GUI proc inside caller function, and DoProgressCallback calls it inside callback wrapper.
-  struct DoProgressCallback
-  {
-    TProgressCallbackFn m_progressCallback;
-
-    DoProgressCallback(TProgressCallbackFn const & pr) : m_progressCallback(pr) {}
-    void operator()(float progress) {
-      if (m_progressCallback != nullptr)
-        GetPlatform().RunOnGuiThread(bind(m_progressCallback, progress));
-    }
-
-  };
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RemoveRouteImpl();
