@@ -451,8 +451,30 @@ public class StoragePathManager
     task.execute("");
   }
 
+  // Recursively lists all movable files in the directory.
+  private static void listMovableFiles(File dir, String prefix, String[] exts, ArrayList<String> relPaths) {
+    File[] files = dir.listFiles();
+    for (File file : files)
+    {
+      if (file.isDirectory())
+      {
+        listMovableFiles(file, prefix + file.getName() + File.separator, exts, relPaths);
+        continue;
+      }
+      for (String ext : exts)
+      {
+        if (file.getName().endsWith(ext))
+        {
+          relPaths.add(prefix + file.getName());
+          break;
+        }
+      }
+    }
+  }
+
   private static int doMoveMaps(StoragePathAdapter.StorageItem newStorage, StoragePathAdapter.StorageItem oldStorage)
   {
+    final String fullOldPath = getItemFullPath(oldStorage);
     final String fullNewPath = getItemFullPath(newStorage);
 
     // According to onStorageItemClick code above, oldStorage can be null.
@@ -462,7 +484,6 @@ public class StoragePathManager
       return NULL_ERROR;
     }
 
-    final String fullOldPath = getItemFullPath(oldStorage);
     final File oldDir = new File(fullOldPath);
     final File newDir = new File(fullNewPath);
     if (!newDir.exists())
@@ -472,50 +493,53 @@ public class StoragePathManager
     assert (newDir.isDirectory());
     assert (oldDir.isDirectory());
 
-    final String[] extensions = Framework.nativeGetMovableFilesExt();
+    final String[] exts = Framework.nativeGetMovableFilesExt();
+    ArrayList<String> relPaths = new ArrayList<String>();
+    listMovableFiles(oldDir, "", exts, relPaths);
 
-    File[] internalFiles = oldDir.listFiles(new FileFilter()
+    File[] oldFiles = new File[relPaths.size()];
+    File[] newFiles = new File[relPaths.size()];
+    for (int i = 0; i < relPaths.size(); ++i)
     {
-
-      @Override
-      public boolean accept(File pathname)
-      {
-        for (String postfix : extensions)
-        {
-          if (pathname.getName().endsWith(postfix))
-            return true;
-        }
-        Log.w(TAG, "Move maps. Old files dir is empty: " + oldDir);
-        return false;
-      }
-    });
-
-    // Strange thing: null only if oldDir is not a directory, but it fires according to the developer console.
-    if (internalFiles == null)
-    {
-      Log.w(TAG, "Source path is not a directory: " + fullOldPath);
-      return NOT_A_DIR_ERROR;
+      oldFiles[i] = new File(oldDir.getAbsolutePath() + File.separator + relPaths.get(i));
+      newFiles[i] = new File(newDir.getAbsolutePath() + File.separator + relPaths.get(i));
     }
 
     try
     {
-      for (File moveFile : internalFiles)
+      for (int i = 0; i < oldFiles.length; ++i)
       {
-        if (!MapStorage.nativeMoveFile(moveFile.getAbsolutePath(), fullNewPath + moveFile.getName()))
-          copyFile(moveFile, new File(fullNewPath + moveFile.getName()));
+        if (!MapStorage.nativeMoveFile(oldFiles[i].getAbsolutePath(), newFiles[i].getAbsolutePath()))
+        {
+          File parent = newFiles[i].getParentFile();
+          if (parent != null)
+            parent.mkdirs();
+          copyFile(oldFiles[i], newFiles[i]);
+        }
+        else
+        {
+          // No need to delete oldFiles[i] because it was moved to newFiles[i].
+          oldFiles[i] = null;
+        }
       }
     } catch (IOException e)
     {
       e.printStackTrace();
-      for (File moveFile : internalFiles)
-        new File(fullNewPath + moveFile.getName()).delete();
+      // In the case of failure delete all new files.  Old files will
+      // be lost if new files were just moved from old locations.
+      for (File newFile : newFiles)
+        newFile.delete();
       return IOEXCEPTION_ERROR;
     }
 
     Framework.nativeSetWritableDir(fullNewPath);
 
-    for (File moveFile : internalFiles)
-      moveFile.delete();
+    // Delete old files because new files were successfully created.
+    for (File oldFile : oldFiles)
+    {
+      if (oldFile != null)
+        oldFile.delete();
+    }
 
     return NO_ERROR;
   }
