@@ -25,7 +25,6 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
-import com.nineoldandroids.view.ViewHelper;
 
 import java.util.concurrent.TimeUnit;
 
@@ -239,11 +238,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
 
     mTvTurnDistance.setText(getSpannedDistance(getResources().getDimensionPixelSize(R.dimen.text_size_display_1),
         getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), info.mDistToTurn, info.mTurnUnitsSuffix));
-    mIvTurn.setImageResource(info.mTurnDirection.getDrawableRes());
-    if (RoutingInfo.TurnDirection.isLeftTurn(info.mTurnDirection))
-      ViewHelper.setScaleX(mIvTurn, -1); // right turns are displayed as mirrored left turns.
-    else
-      ViewHelper.setScaleX(mIvTurn, 1);
+    info.mVehicleTurnDirection.setTurnDrawable(mIvTurn);
 
     mTvTotalTime.setText(formatTime(info.mTotalTimeInSeconds));
     mTvTotalDistance.setText(new StringBuilder(info.mDistToTarget).append(" ").append(info.mUnits.toUpperCase()));

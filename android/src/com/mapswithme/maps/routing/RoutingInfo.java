@@ -2,8 +2,10 @@ package com.mapswithme.maps.routing;
 
 import android.support.annotation.DrawableRes;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
+import com.nineoldandroids.view.ViewHelper;
 
 public class RoutingInfo
 {
@@ -17,13 +19,14 @@ public class RoutingInfo
   // The next street according to the navigation route.
   public String mTargetName;
 
-  public TurnDirection mTurnDirection;
+  public VehicleTurnDirection mVehicleTurnDirection;
   public final String[] turnNotifications;
+  public PedestrianTurnDirection mPedestrianTurnDirection;
 
   /**
    * IMPORTANT : Order of enum values MUST BE the same with native TurnDirection enum.
    */
-  public enum TurnDirection
+  public enum VehicleTurnDirection
   {
     NO_TURN(R.drawable.ic_straight_compact),
     GO_STRAIGHT(R.drawable.ic_straight_compact),
@@ -48,27 +51,39 @@ public class RoutingInfo
 
     private int mTurnRes;
 
-    TurnDirection(@DrawableRes int resId)
+    VehicleTurnDirection(@DrawableRes int resId)
     {
       mTurnRes = resId;
     }
 
-    public
-    @DrawableRes
-    int getDrawableRes()
+    public void setTurnDrawable(ImageView imageView)
     {
-      return mTurnRes;
+      imageView.setImageResource(mTurnRes);
+      if (isLeftTurn(this))
+        ViewHelper.setScaleX(imageView, -1); // right turns are displayed as mirrored left turns.
+      else
+        ViewHelper.setScaleX(imageView, 1);
     }
 
-    public static boolean isLeftTurn(TurnDirection turn)
+    public static boolean isLeftTurn(VehicleTurnDirection turn)
     {
       return turn == TURN_LEFT || turn == TURN_SHARP_LEFT || turn == TURN_SLIGHT_LEFT;
     }
 
-    public static boolean isRightTurn(TurnDirection turn)
+    public static boolean isRightTurn(VehicleTurnDirection turn)
     {
       return turn == TURN_RIGHT || turn == TURN_SHARP_RIGHT || turn == TURN_SLIGHT_RIGHT;
     }
+  }
+
+  public enum PedestrianTurnDirection
+  {
+    NONE,
+    UPSTAIRS,
+    DOWNSTAIRS,
+    LIFT_GATE,
+    GATE,
+    REACHED_YOUR_DESTINATION;
   }
 
   /**
@@ -77,7 +92,7 @@ public class RoutingInfo
    * Information for every lane is composed of some number values below.
    * For example, a lane may have THROUGH and RIGHT values.
    */
-  enum LaneWay
+  public enum LaneWay
   {
     NONE,
     REVERSE,
@@ -92,8 +107,6 @@ public class RoutingInfo
     SHARP_RIGHT
   }
 
-  ;
-
   public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix,
                      String targetName, int direction, int totalTime, SingleLaneInfo[] lanes, String[] turnNotifications)
   {
@@ -103,10 +116,9 @@ public class RoutingInfo
     mDistToTurn = distTurn;
     mTargetName = targetName;
     mTotalTimeInSeconds = totalTime;
-    mTurnDirection = TurnDirection.values()[direction];
+    mVehicleTurnDirection = VehicleTurnDirection.values()[direction];
     this.turnNotifications = turnNotifications;
   }
-
 
   private void DumpLanes(SingleLaneInfo[] lanes)
   {
