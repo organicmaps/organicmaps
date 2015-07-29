@@ -1328,13 +1328,13 @@ extern "C"
     if (!info.IsValid())
       return nullptr;
     
-    jclass const klass = env->FindClass("com/mapswithme/maps/LocationState$RoutingInfo");
+    jclass const klass = env->FindClass("com/mapswithme/maps/routing/RoutingInfo");
     ASSERT(klass, (jni::DescribeException()));
     static jmethodID const ctorRouteInfoID =
         env->GetMethodID(klass, "<init>",
                          "(Ljava/lang/String;Ljava/lang/String;"
                          "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II"
-                         "[Lcom/mapswithme/maps/LocationState$SingleLaneInfo;[Ljava/lang/String;)V");
+                         "[Lcom/mapswithme/maps/routing/SingleLaneInfo;[Ljava/lang/String;)V");
     ASSERT(ctorRouteInfoID, (jni::DescribeException()));
 
     jobjectArray jNotificationTexts = nullptr;
@@ -1360,7 +1360,7 @@ extern "C"
       // A new java array of SingleLaneInfo classes for lane information is allocated here.
       // Then it will be saved in com.mapswithme.maps.LocationState, and then removed by java GC.
       jclass const singleLaneInfoClass =
-          env->FindClass("com/mapswithme/maps/LocationState$SingleLaneInfo");
+          env->FindClass("com/mapswithme/maps/routing/SingleLaneInfo");
       ASSERT(singleLaneInfoClass, (jni::DescribeException()));
       size_t const lanesSize = lanes.size();
       jLanes = env->NewObjectArray(lanesSize, singleLaneInfoClass, nullptr);

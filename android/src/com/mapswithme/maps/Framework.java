@@ -4,6 +4,7 @@ import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
+import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.util.Constants;
 
 /**
@@ -128,7 +129,7 @@ public class Framework
 
   public native static void nativeFollowRoute();
 
-  public native static LocationState.RoutingInfo nativeGetRouteFollowingInfo();
+  public native static RoutingInfo nativeGetRouteFollowingInfo();
 
   public native static void nativeSetRoutingListener(RoutingListener listener);
   //

@@ -1,4 +1,4 @@
-package com.mapswithme.maps.data;
+package com.mapswithme.maps.routing;
 
 import android.content.res.Resources;
 import android.util.Pair;

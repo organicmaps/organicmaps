@@ -46,10 +46,11 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
-import com.mapswithme.maps.data.RoutingResultCodesProcessor;
 import com.mapswithme.maps.dialog.RoutingErrorDialogFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
+import com.mapswithme.maps.routing.RoutingInfo;
+import com.mapswithme.maps.routing.RoutingResultCodesProcessor;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.search.SearchToolbarController;
@@ -749,8 +750,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
       // TODO think about moving TtsPlayer logic to RoutingLayout to minimyze native calls.
       if (state == RoutingLayout.State.TURN_INSTRUCTIONS)
       {
-        LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-        TtsPlayer.INSTANCE.speakNotifications(info.mTurnNotifications);
+        RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+        TtsPlayer.INSTANCE.speakNotifications(info.turnNotifications);
       }
     }
   }

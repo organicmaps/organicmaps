@@ -20,7 +20,7 @@ import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.DisabledChildSimpleExpandableListAdapter;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.maps.data.RoutingResultCodesProcessor;
+import com.mapswithme.maps.routing.RoutingResultCodesProcessor;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 

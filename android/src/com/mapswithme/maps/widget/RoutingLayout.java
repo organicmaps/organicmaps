@@ -19,10 +19,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.nineoldandroids.view.ViewHelper;
@@ -235,12 +235,12 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
 
   private void refreshTurnInstructions()
   {
-    LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+    RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
 
     mTvTurnDistance.setText(getSpannedDistance(getResources().getDimensionPixelSize(R.dimen.text_size_display_1),
         getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), info.mDistToTurn, info.mTurnUnitsSuffix));
     mIvTurn.setImageResource(info.mTurnDirection.getDrawableRes());
-    if (LocationState.RoutingInfo.TurnDirection.isLeftTurn(info.mTurnDirection))
+    if (RoutingInfo.TurnDirection.isLeftTurn(info.mTurnDirection))
       ViewHelper.setScaleX(mIvTurn, -1); // right turns are displayed as mirrored left turns.
     else
       ViewHelper.setScaleX(mIvTurn, 1);
@@ -253,7 +253,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
 
   private void refreshRouteSetup()
   {
-    LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+    RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
 
     mTvPrepareDistance.setText(info.mDistToTarget + " " + info.mUnits.toUpperCase());
     mTvPrepareTime.setText(formatTime(info.mTotalTimeInSeconds));
