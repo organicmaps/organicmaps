@@ -6,17 +6,17 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMPlacePageActionBar.h"
-#import "MWMPlacePage.h"
-#import "MWMBasePlacePageView.h"
-#import "MWMPlacePageViewManager.h"
-#import "MWMPlacePageEntity.h"
-#import "UIKitCategories.h"
 #import "MapsAppDelegate.h"
+#import "MWMBasePlacePageView.h"
+#import "MWMPlacePage.h"
+#import "MWMPlacePageActionBar.h"
+#import "MWMPlacePageEntity.h"
+#import "MWMPlacePageViewManager.h"
+#import "UIKitCategories.h"
 
 #include "Framework.h"
 
-#import "../../3party/Alohalytics/src/alohalytics_objc.h"
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 extern NSString * const kAlohalyticsTapEventKey;
 static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
@@ -45,7 +45,24 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   BOOL const isPedestrian = GetFramework().GetRouter() == routing::RouterType::Pedestrian;
   NSString * routeImageName = isPedestrian ? @"ic_route_walk" : @"ic_route";
   [bar.routeButton setImage:[UIImage imageNamed:routeImageName] forState:UIControlStateNormal];
+  [self setupBookmarkButton:(MWMPlacePageActionBar *)bar];
   return bar;
+}
+
++ (void)setupBookmarkButton:(MWMPlacePageActionBar *)bar
+{
+  UIButton * btn = bar.bookmarkButton;
+  [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateHighlighted|UIControlStateSelected];
+  [btn setImage:[UIImage imageNamed:@"ic_bookmarks_off_pressed"] forState:UIControlStateHighlighted];
+
+  NSUInteger const animationImagesCount = 11;
+  NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
+  for (NSUInteger i = 0; i < animationImagesCount; ++i)
+    animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"ic_bookmarks_%@", @(i+1)]];
+
+  UIImageView * animationIV = btn.imageView;
+  animationIV.animationImages = animationImages;
+  animationIV.animationRepeatCount = 1;
 }
 
 - (IBAction)bookmarkTap:(UIButton *)sender
@@ -54,11 +71,15 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   NSMutableString * eventName = @"ppBookmarkButtonTap".mutableCopy;
   if (sender.selected)
   {
+    [sender.imageView startAnimating];
+    self.bookmarkLabel.text = L(@"delete");
     [self.placePage addBookmark];
     [eventName appendString:@"Add"];
   }
   else
   {
+
+    self.bookmarkLabel.text = L(@"save");
     [self.placePage removeBookmark];
     [eventName appendString:@"Delete"];
   }
