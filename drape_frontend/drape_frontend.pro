@@ -73,6 +73,7 @@ SOURCES += \
     user_marks_provider.cpp \
     viewport.cpp \
     visual_params.cpp \
+    kinetic_scroller.cpp \
 
 HEADERS += \
     animation/base_interpolator.hpp \
@@ -144,3 +145,4 @@ HEADERS += \
     user_marks_provider.hpp \
     viewport.hpp \
     visual_params.hpp \
+    kinetic_scroller.hpp \

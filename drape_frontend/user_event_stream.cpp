@@ -233,15 +233,30 @@ bool UserEventStream::ProcessTouch(TouchEvent const & touch)
   {
   case TouchEvent::TOUCH_DOWN:
     isMapTouch |= TouchDown(touches);
+    if (isMapTouch)
+      m_scroller.InitGrab(m_navigator.Screen(), touch.m_timeStamp);
     break;
   case TouchEvent::TOUCH_MOVE:
     isMapTouch |= TouchMove(touches);
+    if (isMapTouch)
+      m_scroller.GrabViewRect(m_navigator.Screen(), touch.m_timeStamp);
     break;
   case TouchEvent::TOUCH_CANCEL:
     isMapTouch |= TouchCancel(touches);
+    if (isMapTouch)
+      m_scroller.CancelGrab();
     break;
   case TouchEvent::TOUCH_UP:
-    isMapTouch |= TouchUp(touches);
+    {
+      isMapTouch |= TouchUp(touches);
+      if (isMapTouch)
+      {
+        m_scroller.GrabViewRect(m_navigator.Screen(), touch.m_timeStamp);
+        m_animation = m_scroller.CreateKineticAnimation(m_navigator.Screen());
+        isMapTouch = false;
+        m_scroller.CancelGrab();
+      }
+    }
     break;
   default:
     ASSERT(false, ());

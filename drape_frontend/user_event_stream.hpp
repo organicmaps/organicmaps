@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/kinetic_scroller.hpp"
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/animation/model_view_animation.hpp"
 
@@ -30,6 +31,7 @@ struct TouchEvent
 {
   TouchEvent()
     : m_type(TOUCH_CANCEL)
+    , m_timeStamp(my::Timer::LocalTime())
   {
   }
 
@@ -43,6 +45,7 @@ struct TouchEvent
 
   ETouchType m_type;
   array<Touch, 2> m_touches;
+  double m_timeStamp; // seconds
 };
 
 struct ScaleEvent
@@ -257,13 +260,15 @@ private:
   array<Touch, 2> m_touches;
   size_t m_validTouchesCount;
 
-  unique_ptr<ModelViewAnimation> m_animation;
+  unique_ptr<BaseModelViewAnimation> m_animation;
   ref_ptr<Listener> m_listener;
 
 #ifdef DEBUG
   TTestBridge m_testFn;
 #endif
   m2::PointD m_startDragOrg;
+
+  KineticScroller m_scroller;
 };
 
 }

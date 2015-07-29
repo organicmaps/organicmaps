@@ -9,7 +9,16 @@
 namespace df
 {
 
-class ModelViewAnimation : public BaseInterpolator
+class BaseModelViewAnimation : public BaseInterpolator
+{
+public:
+  BaseModelViewAnimation(double duration, double delay = 0) : BaseInterpolator(duration, delay) {}
+
+  virtual m2::AnyRectD GetCurrentRect() const = 0;
+  virtual m2::AnyRectD GetTargetRect() const = 0;
+};
+
+class ModelViewAnimation : public BaseModelViewAnimation
 {
 public:
   static double GetRotateDuration(double startAngle, double endAngle);
@@ -21,8 +30,8 @@ public:
   /// sDuration - scaleDuration
   ModelViewAnimation(m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
                      double aDuration, double mDuration, double sDuration);
-  m2::AnyRectD GetCurrentRect() const;
-  m2::AnyRectD GetTargetRect() const;
+  m2::AnyRectD GetCurrentRect() const override;
+  m2::AnyRectD GetTargetRect() const override;
 
 private:
   m2::AnyRectD GetRect(double elapsedTime) const;

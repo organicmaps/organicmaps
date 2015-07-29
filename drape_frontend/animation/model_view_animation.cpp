@@ -5,7 +5,7 @@ namespace df
 
 ModelViewAnimation::ModelViewAnimation(m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
                                        double aDuration, double mDuration, double sDuration)
-  : BaseInterpolator(max(max(aDuration, mDuration), sDuration))
+  : BaseModelViewAnimation(max(max(aDuration, mDuration), sDuration))
   , m_angleInterpolator(startRect.Angle().val(), endRect.Angle().val())
   , m_startZero(startRect.GlobalZero())
   , m_endZero(endRect.GlobalZero())
