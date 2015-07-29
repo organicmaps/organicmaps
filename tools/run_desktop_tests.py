@@ -149,7 +149,7 @@ class TestRunner:
 
 
     def log_exec_file(self, filename, result=None):
-        logstring = ("END" if result else "BEGIN")
+        logstring = "BEGIN" if result is None else "END"  #can be 0 or None. If we omit the explicit check for None, we get wrong result
         resstring = (" | result: {returncode}".format(returncode=result) if result else "")
         with open(self.logfile, "a") as logf: 
             logf.write("\n{logstring}: {filename}{resstring}\n".format(logstring=logstring, filename=filename, resstring=resstring))
