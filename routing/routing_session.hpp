@@ -66,7 +66,7 @@ public:
                   TReadyCallbackFn const & readyCallback,
                   TProgressCallbackFn const & progressCallback, uint32_t timeoutSec);
   void RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & readyCallback,
-      TProgressCallbackFn const & progressCallback, uint32_t timeoutSec);
+                    TProgressCallbackFn const & progressCallback, uint32_t timeoutSec);
 
   m2::PointD GetEndPoint() const { return m_endPoint; }
   bool IsActive() const { return (m_state != RoutingNotActive); }

@@ -69,8 +69,7 @@ unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index)
 unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index & index)
 {
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
-  unique_ptr<routing::IRoutingAlgorithm> algorithm(
-      new routing::AStarBidirectionalRoutingAlgorithm());
+  unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarBidirectionalRoutingAlgorithm());
   unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, move(vehicleModelFactory), move(algorithm), nullptr));
   return router;
 }

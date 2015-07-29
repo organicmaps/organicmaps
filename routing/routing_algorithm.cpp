@@ -130,15 +130,13 @@ AStarRoutingAlgorithmBase::AStarRoutingAlgorithmBase()
 
 // *************************** AStar routing algorithm implementation *************************************
 
-AStarRoutingAlgorithm::AStarRoutingAlgorithm() : AStarRoutingAlgorithmBase() {}
-
 IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const & graph,
                                                                 Junction const & startPos,
                                                                 Junction const & finalPos,
                                                                 IRouterObserver const & observer,
                                                                 vector<Junction> & path)
 {
-  std::function<void(Junction const &, Junction const &)> onVisitJunctionFn =
+  function<void(Junction const &, Junction const &)> onVisitJunctionFn =
       [&observer, this](Junction const & junction, Junction const & /* target */)
   {
     observer.OnPointCheck(junction.GetPoint());
@@ -157,16 +155,11 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
 
 // *************************** AStar-bidirectional routing algorithm implementation ***********************
 
-AStarBidirectionalRoutingAlgorithm::AStarBidirectionalRoutingAlgorithm()
-    : AStarRoutingAlgorithmBase()
-{
-}
-
 IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(
     IRoadGraph const & graph, Junction const & startPos, Junction const & finalPos,
     IRouterObserver const & observer, vector<Junction> & path)
 {
-  std::function<void(Junction const &, Junction const &)> onVisitJunctionFn =
+  function<void(Junction const &, Junction const &)> onVisitJunctionFn =
       [&observer, this](Junction const & junction, Junction const & target)
   {
     observer.OnPointCheck(junction.GetPoint());

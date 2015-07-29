@@ -20,6 +20,7 @@ class IOnlineFetcher
 public:
   virtual void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint) = 0;
   virtual void GetAbsentCountries(vector<string> & countries) = 0;
+  virtual ~IOnlineFetcher() {}
 };
 
 /*!

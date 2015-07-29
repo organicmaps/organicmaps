@@ -7,7 +7,7 @@
 namespace routing
 {
 using TProgressCallback = function<void(float)>;
-using TPointCheckCallback = function<void(m2::PointD)>;
+using TPointCheckCallback = function<void(m2::PointD const &)>;
 
 class TimeoutObserver : public IRouterObserver
 {

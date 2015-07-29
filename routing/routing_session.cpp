@@ -246,8 +246,8 @@ void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
   if (m_router)
     Reset();
 
-  m_router.reset(
-      new AsyncRouter(move(router), move(fetcher), routingStatisticsFn, pointCheckCallback));
+  m_router.reset(new AsyncRouter(move(router), move(fetcher), routingStatisticsFn, 
+                                 pointCheckCallback));
 }
 
 void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,

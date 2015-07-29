@@ -82,8 +82,8 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
 
   // Finding path through maps.
   vector<BorderCross> tempRoad;
-  code =
-      CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad, observer);
+  code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad,
+                        observer);
   if (code != IRouter::NoError)
     return code;
 

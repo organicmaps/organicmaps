@@ -86,10 +86,10 @@ void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const
 
 void AsyncRouter::ClearState()
 {
-  // Send cancel flag to the algorythms.
+  // Send cancel flag to the algorithms.
   m_observer.Cancel();
 
-  // And wait while they finish.
+  // And wait while it is finishing.
   lock_guard<mutex> routingGuard(m_routingMutex);
 
   m_router->ClearState();

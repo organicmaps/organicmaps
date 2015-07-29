@@ -48,7 +48,7 @@ public:
   /// Interrupt routing and clear buffers
   virtual void ClearState();
 
-  /// Whait routing process. For testing use.
+  /// Wait routing process. For testing use.
   void WaitRouting() { lock_guard<mutex> routingGuard(m_routingMutex); }
 
 private:

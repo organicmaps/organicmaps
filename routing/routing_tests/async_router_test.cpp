@@ -55,8 +55,8 @@ void DummyStatisticsCallback(map<string, string> const &) {}
 
 struct DummyResultCallback
 {
-  static vector<ResultCode> m_codes;
-  static vector<vector<string>> m_absent;
+  vector<ResultCode> m_codes;
+  vector<vector<string>> m_absent;
   void operator()(Route & route, ResultCode code)
   {
     m_codes.push_back(code);
@@ -64,9 +64,6 @@ struct DummyResultCallback
     m_absent.emplace_back(absent.begin(), absent.end());
   }
 };
-
-vector<ResultCode> DummyResultCallback::m_codes;
-vector<vector<string>> DummyResultCallback::m_absent;
 
 UNIT_TEST(NeedMoreMapsSignalTest)
 {
@@ -76,7 +73,7 @@ UNIT_TEST(NeedMoreMapsSignalTest)
   AsyncRouter async(move(router), move(fetcher), DummyStatisticsCallback, nullptr);
   resultCallback.m_codes.clear();
   resultCallback.m_absent.clear();
-  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, resultCallback, nullptr, 0);
+  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, bind(ref(resultCallback), _1, _2), nullptr, 0);
 
   // Wait async process start.
   while (resultCallback.m_codes.empty())
@@ -101,7 +98,7 @@ UNIT_TEST(StandartAsyncFogTest)
   AsyncRouter async(move(router), move(fetcher), DummyStatisticsCallback, nullptr);
   resultCallback.m_codes.clear();
   resultCallback.m_absent.clear();
-  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, resultCallback, nullptr, 0);
+  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, bind(ref(resultCallback), _1, _2), nullptr, 0);
 
   // Wait async process start.
   while (resultCallback.m_codes.empty())

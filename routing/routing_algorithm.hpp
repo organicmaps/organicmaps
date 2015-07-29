@@ -46,8 +46,6 @@ protected:
 class AStarRoutingAlgorithm : public AStarRoutingAlgorithmBase
 {
 public:
-  explicit AStarRoutingAlgorithm();
-
   // IRoutingAlgorithm overrides:
   Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
                         Junction const & finalPos, IRouterObserver const & observer,
@@ -58,8 +56,6 @@ public:
 class AStarBidirectionalRoutingAlgorithm : public AStarRoutingAlgorithmBase
 {
 public:
-  explicit AStarBidirectionalRoutingAlgorithm();
-
   // IRoutingAlgorithm overrides:
   Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
                         Junction const & finalPos, IRouterObserver const & observer,
