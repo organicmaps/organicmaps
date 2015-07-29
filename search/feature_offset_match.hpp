@@ -34,7 +34,7 @@ size_t CalcEqualLength(SrcIterT b, SrcIterT e, CompIterT bC, CompIterT eC)
   return count;
 }
 
-TrieIterator * MoveTrieIteratorToString(TrieIterator const & trieRoot,
+inline TrieIterator * MoveTrieIteratorToString(TrieIterator const & trieRoot,
                                         strings::UniString const & queryS,
                                         size_t & symbolsMatched,
                                         bool & bFullEdgeMatched)
