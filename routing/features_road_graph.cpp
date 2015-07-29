@@ -219,7 +219,7 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
 
   m2::PointD const & cross = junction.GetPoint();
 
-  auto const f = [&types, &cross](FeatureType & ft)
+  auto const f = [&types, &cross](FeatureType const & ft)
   {
     if (!types.Empty())
       return;
