@@ -239,12 +239,18 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 
 - (void)showDownloadMapNotificationIfNeeded:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  self.downloadMapCompletionHandler = completionHandler;
-  self.timer = [NSTimer scheduledTimerWithTimeInterval:25 target:self selector:@selector(timerSelector:) userInfo:nil repeats:NO];
-  if ([CLLocationManager locationServicesEnabled])
+  NSTimeInterval const completionTimeIndent = 2.0;
+  NSTimeInterval const backgroundTimeRemaining = UIApplication.sharedApplication.backgroundTimeRemaining - completionTimeIndent;
+  if ([CLLocationManager locationServicesEnabled] && backgroundTimeRemaining > 0.0)
+  {
+    self.downloadMapCompletionHandler = completionHandler;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:backgroundTimeRemaining target:self selector:@selector(timerSelector:) userInfo:nil repeats:NO];
     [self.locationManager startUpdatingLocation];
+  }
   else
+  {
     completionHandler(UIBackgroundFetchResultFailed);
+  }
 }
 
 - (void)markNotificationShowingForIndex:(TIndex)index
@@ -271,7 +277,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 {
   // Location still was not received but it's time to finish up so system will not kill us.
   [self.locationManager stopUpdatingLocation];
-  self.downloadMapCompletionHandler(UIBackgroundFetchResultFailed);
+  [self performCompletionHandler:UIBackgroundFetchResultFailed];
 }
 
 - (void)downloadCountryWithIndex:(TIndex)index
@@ -299,6 +305,14 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
     return TIndex([components[0] intValue], [components[1] intValue], [components[2] intValue]);
   
   return TIndex();
+}
+
+- (void)performCompletionHandler:(UIBackgroundFetchResult)result
+{
+  if (!self.downloadMapCompletionHandler)
+    return;
+  self.downloadMapCompletionHandler(result);
+  self.downloadMapCompletionHandler = nil;
 }
 
 #pragma mark - Location Manager
@@ -352,7 +366,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
     }
   }
   [[Statistics instance] logEvent:flurryEventName withParameters:@{@"WiFi" : @(onWiFi)}];
-  self.downloadMapCompletionHandler(result);
+  [self performCompletionHandler:result];
 }
 
 @end
