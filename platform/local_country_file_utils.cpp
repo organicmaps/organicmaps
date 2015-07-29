@@ -18,6 +18,10 @@ namespace platform
 {
 namespace
 {
+char const kBitsExt[] = ".bftsegbits";
+char const kNodesExt[] = ".bftsegnodes";
+char const kOffsetsExt[] = ".offsets";
+
 size_t const kMaxTimestampLength = 18;
 
 bool IsSpecialFile(string const & file) { return file == "." || file == ".."; }
@@ -269,16 +273,24 @@ string CountryIndexes::GetPath(LocalCountryFile const & localFile, Index index)
   switch (index)
   {
     case Index::Bits:
-      ext = ".bftsegbits";
+      ext = kBitsExt;
       break;
     case Index::Nodes:
-      ext = ".bftsegnodes";
+      ext = kNodesExt;
       break;
     case Index::Offsets:
-      ext = ".offsets";
+      ext = kOffsetsExt;
       break;
   }
   return my::JoinFoldersToPath(IndexesDir(localFile), localFile.GetCountryName() + ext);
+}
+
+// static
+void CountryIndexes::GetIndexesExts(vector<string> & exts)
+{
+  exts.push_back(kBitsExt);
+  exts.push_back(kNodesExt);
+  exts.push_back(kOffsetsExt);
 }
 
 // static

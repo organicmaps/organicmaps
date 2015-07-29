@@ -75,6 +75,9 @@ public:
   // index should be created/accessed/removed.
   static string GetPath(LocalCountryFile const & localFile, Index index);
 
+  // Pushes to the exts's end possible index files extensions.
+  static void GetIndexesExts(vector<string> & exts);
+
 private:
   friend void UnitTest_LocalCountryFile_CountryIndexes();
   friend void UnitTest_LocalCountryFile_DoNotDeleteUserFiles();

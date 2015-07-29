@@ -1245,14 +1245,15 @@ extern "C"
   }
 
   JNIEXPORT jobjectArray JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetMovableFilesExt(JNIEnv * env, jclass thiz)
+  Java_com_mapswithme_maps_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclass thiz)
   {
     jclass stringClass = jni::GetStringClass(env);
 
-    char const * exts[] = { DATA_FILE_EXTENSION, FONT_FILE_EXTENSION, ROUTING_FILE_EXTENSION };
-    jobjectArray resultArray = env->NewObjectArray(ARRAY_SIZE(exts), stringClass, NULL);
+    vector<string> exts = {DATA_FILE_EXTENSION, FONT_FILE_EXTENSION, ROUTING_FILE_EXTENSION};
+    platform::CountryIndexes::GetIndexesExts(exts);
+    jobjectArray resultArray = env->NewObjectArray(exts.size(), stringClass, NULL);
 
-    for (size_t i = 0; i < ARRAY_SIZE(exts); ++i)
+    for (size_t i = 0; i < exts.size(); ++i)
       env->SetObjectArrayElement(resultArray, i, jni::ToJavaString(env, exts[i]));
 
     return resultArray;

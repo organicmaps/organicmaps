@@ -26,6 +26,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FilenameFilter;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -452,29 +453,53 @@ public class StoragePathManager
   }
 
   // Recursively lists all movable files in the directory.
-  private static void listMovableFiles(File dir, String prefix, String[] exts, ArrayList<String> relPaths) {
-    File[] files = dir.listFiles();
-    for (File file : files)
+  private static void listFilesRecursively(File dir, String prefix, FilenameFilter filter, ArrayList<String> relPaths)
+  {
+    for (File file : dir.listFiles())
     {
       if (file.isDirectory())
       {
-        listMovableFiles(file, prefix + file.getName() + File.separator, exts, relPaths);
+        listFilesRecursively(file, prefix + file.getName() + File.separator, filter, relPaths);
         continue;
       }
-      for (String ext : exts)
+      String name = file.getName();
+      if (filter.accept(dir, name))
+        relPaths.add(prefix + name);
+    }
+  }
+
+  private static void removeEmptyDirectories(File dir)
+  {
+    for (File file : dir.listFiles())
+    {
+      if (!file.isDirectory())
+        continue;
+      removeEmptyDirectories(file);
+      file.delete();
+    }
+  }
+
+  private static boolean removeFilesInDirectory(File dir, File[] files)
+  {
+    try
+    {
+      for (File file : files)
       {
-        if (file.getName().endsWith(ext))
-        {
-          relPaths.add(prefix + file.getName());
-          break;
-        }
+        if (file != null)
+          file.delete();
       }
+      removeEmptyDirectories(dir);
+      return true;
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+      return false;
     }
   }
 
   private static int doMoveMaps(StoragePathAdapter.StorageItem newStorage, StoragePathAdapter.StorageItem oldStorage)
   {
-    final String fullOldPath = getItemFullPath(oldStorage);
     final String fullNewPath = getItemFullPath(newStorage);
 
     // According to onStorageItemClick code above, oldStorage can be null.
@@ -483,6 +508,8 @@ public class StoragePathManager
       Log.w(TAG, "Old storage path is null. New path is: " + fullNewPath);
       return NULL_ERROR;
     }
+
+    final String fullOldPath = getItemFullPath(oldStorage);
 
     final File oldDir = new File(fullOldPath);
     final File newDir = new File(fullNewPath);
@@ -493,9 +520,20 @@ public class StoragePathManager
     assert (newDir.isDirectory());
     assert (oldDir.isDirectory());
 
-    final String[] exts = Framework.nativeGetMovableFilesExt();
-    ArrayList<String> relPaths = new ArrayList<String>();
-    listMovableFiles(oldDir, "", exts, relPaths);
+    final String[] exts = Framework.nativeGetMovableFilesExts();
+    ArrayList<String> relPaths = new ArrayList<>();
+    listFilesRecursively(oldDir, "", new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name)
+            {
+              for (String ext : exts)
+              {
+                if (name.endsWith(ext))
+                  return true;
+              }
+              return false;
+            }
+        }, relPaths);
 
     File[] oldFiles = new File[relPaths.size()];
     File[] newFiles = new File[relPaths.size()];
@@ -527,20 +565,14 @@ public class StoragePathManager
       e.printStackTrace();
       // In the case of failure delete all new files.  Old files will
       // be lost if new files were just moved from old locations.
-      for (File newFile : newFiles)
-        newFile.delete();
+      removeFilesInDirectory(newDir, newFiles);
       return IOEXCEPTION_ERROR;
     }
 
     Framework.nativeSetWritableDir(fullNewPath);
 
     // Delete old files because new files were successfully created.
-    for (File oldFile : oldFiles)
-    {
-      if (oldFile != null)
-        oldFile.delete();
-    }
-
+    removeFilesInDirectory(oldDir, oldFiles);
     return NO_ERROR;
   }
 
