@@ -123,7 +123,6 @@
 		97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97508422199522D300A7457D /* SettingsAndMoreVC.mm */; };
 		976D86EC19C8697700C920EF /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86EB19C8697700C920EF /* ProgressView.m */; };
 		976D86F119C877E600C920EF /* MapCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F019C877E600C920EF /* MapCell.mm */; };
-		976D86F519CB21BD00C920EF /* RouteView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F419CB21BD00C920EF /* RouteView.mm */; };
 		97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
 		97719D491843B6F700BDD815 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D471843B6F200BDD815 /* Security.framework */; };
 		97719D4B1843B86700BDD815 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97719D4A1843B86700BDD815 /* Main_iPad.storyboard */; };
@@ -171,8 +170,6 @@
 		B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864D186C5ED300AF7E9E /* Social.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		B08AA8DA1A26299A00810B1C /* TimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.m */; };
 		B0DFE6311A1B78A200B6C35E /* LocalNotifications.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62F1A1B78A200B6C35E /* LocalNotifications.plist */; };
-		B0E1FCDC1A23399E00A8E08B /* RouteOverallInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */; };
-		B0E1FCDF1A2343BC00A8E08B /* NextTurnPhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */; };
 		B0FBFA271A515AFD0086819E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA261A515AFD0086819E /* ViewController.m */; };
 		B0FBFA2B1A515B4C0086819E /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA2A1A515B4C0086819E /* TableViewController.m */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
@@ -497,8 +494,6 @@
 		976D86EB19C8697700C920EF /* ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressView.m; path = Classes/ProgressView.m; sourceTree = "<group>"; };
 		976D86EF19C877E600C920EF /* MapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapCell.h; path = Classes/MapCell.h; sourceTree = "<group>"; };
 		976D86F019C877E600C920EF /* MapCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MapCell.mm; path = Classes/MapCell.mm; sourceTree = "<group>"; };
-		976D86F319CB21BD00C920EF /* RouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteView.h; sourceTree = "<group>"; };
-		976D86F419CB21BD00C920EF /* RouteView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RouteView.mm; sourceTree = "<group>"; };
 		97719D441843B6DC00BDD815 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		97719D471843B6F200BDD815 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		97719D4A1843B86700BDD815 /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
@@ -577,10 +572,6 @@
 		B08AA8D81A26299A00810B1C /* TimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeUtils.h; path = Categories/TimeUtils.h; sourceTree = "<group>"; };
 		B08AA8D91A26299A00810B1C /* TimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeUtils.m; path = Categories/TimeUtils.m; sourceTree = "<group>"; };
 		B0DFE6301A1B78A200B6C35E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/LocalNotifications.plist; sourceTree = "<group>"; };
-		B0E1FCDA1A23399E00A8E08B /* RouteOverallInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteOverallInfoView.h; sourceTree = "<group>"; };
-		B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteOverallInfoView.m; sourceTree = "<group>"; };
-		B0E1FCDD1A2343BC00A8E08B /* NextTurnPhoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextTurnPhoneView.h; sourceTree = "<group>"; };
-		B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextTurnPhoneView.m; sourceTree = "<group>"; };
 		B0FBFA251A515AFD0086819E /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = ../ViewController.h; sourceTree = "<group>"; };
 		B0FBFA261A515AFD0086819E /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = ../ViewController.m; sourceTree = "<group>"; };
 		B0FBFA291A515B4C0086819E /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewController.h; path = ../TableViewController.h; sourceTree = "<group>"; };
@@ -1382,7 +1373,6 @@
 				349A35741B53D4C9009677EE /* CircularProgress */,
 				349A357D1B53E967009677EE /* DownloadMapRequest */,
 				34BC72091B0DECAE0012A34B /* MapViewControls */,
-				B0E1FCD61A23386D00A8E08B /* Route */,
 				97A8000918B210DC000C07A2 /* Search */,
 				349A35861B53EABC009677EE /* SearchDownloadMapRequest */,
 				974386DB19373EA400FD5659 /* ToastView.h */,
@@ -1393,19 +1383,6 @@
 				ED48BBB917C2B1E2003E7E92 /* CircleView.mm */,
 			);
 			name = "Custom Views";
-			sourceTree = "<group>";
-		};
-		B0E1FCD61A23386D00A8E08B /* Route */ = {
-			isa = PBXGroup;
-			children = (
-				976D86F319CB21BD00C920EF /* RouteView.h */,
-				976D86F419CB21BD00C920EF /* RouteView.mm */,
-				B0E1FCDD1A2343BC00A8E08B /* NextTurnPhoneView.h */,
-				B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */,
-				B0E1FCDA1A23399E00A8E08B /* RouteOverallInfoView.h */,
-				B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */,
-			);
-			name = Route;
 			sourceTree = "<group>";
 		};
 		CB252D6816FF82C8001E41E9 /* Statistics */ = {
@@ -2315,7 +2292,6 @@
 				341522BF1B666A550077AA8F /* MWMAPIBarView.m in Sources */,
 				349A35831B53E967009677EE /* MWMDownloadMapRequest.mm in Sources */,
 				A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */,
-				B0E1FCDF1A2343BC00A8E08B /* NextTurnPhoneView.m in Sources */,
 				46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */,
 				EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */,
 				F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */,
@@ -2356,7 +2332,6 @@
 				F6CB216D1AF13EBD00FB8963 /* MWMPlacePageBookmarkCell.mm in Sources */,
 				F653D4231AE9398700282659 /* MWMPlacePageViewManager.mm in Sources */,
 				F65243351B0B634F00BFA9D4 /* MWMPlacePage+Animation.mm in Sources */,
-				976D86F519CB21BD00C920EF /* RouteView.mm in Sources */,
 				349A357C1B53D4C9009677EE /* MWMCircularProgressView.m in Sources */,
 				3465E7D81B6658C000854C4D /* MWMAPIBar.mm in Sources */,
 				FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */,
@@ -2370,7 +2345,6 @@
 				978F9240183B660F000D6C7C /* SettingsViewController.mm in Sources */,
 				F6BD33871B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm in Sources */,
 				F6CB21601AEE7A5B00FB8963 /* MWMPlacePageInfoCell.mm in Sources */,
-				B0E1FCDC1A23399E00A8E08B /* RouteOverallInfoView.m in Sources */,
 				F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
 				F6ED135B1B18AA930095C6DE /* MWMExtendedPlacePageView.m in Sources */,

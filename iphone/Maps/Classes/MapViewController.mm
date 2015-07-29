@@ -9,7 +9,6 @@
 #import "MWMAPIBar.h"
 #import "MWMMapViewControlsManager.h"
 #import "RouteState.h"
-#import "RouteView.h"
 #import "ShareActionSheet.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIKitCategories.h"
@@ -84,16 +83,13 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 @end
 
-@interface MapViewController () <RouteViewDelegate, SearchViewDelegate, ActiveMapsObserverProtocol, MWMAPIBarProtocol>
+@interface MapViewController () <SearchViewDelegate, ActiveMapsObserverProtocol, MWMAPIBarProtocol>
 
-@property (nonatomic) UIView * routeViewWrapper;
-@property (nonatomic) RouteView * routeView;
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) MWMSideMenuState menuRestoreState;
 
 @property (nonatomic) ForceRoutingStateChange forceRoutingStateChange;
 @property (nonatomic) BOOL disableStandbyOnLocationStateMode;
-@property (nonatomic) BOOL disableStandbyOnRouteFollowing;
 
 @property (nonatomic) MWMAlertViewController * alertController;
 
@@ -565,7 +561,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   }
   else
   {
-    if (self.searchView.state != SearchViewStateHidden || self.controlsManager.menuState == MWMSideMenuStateActive || self.controlsManager.isDirectionViewShown || (GetFramework().GetMapStyle() == MapStyleDark && self.routeView.state == RouteViewStateHidden))
+    if (self.searchView.state != SearchViewStateHidden || self.controlsManager.menuState == MWMSideMenuStateActive || self.controlsManager.isDirectionViewShown || (GetFramework().GetMapStyle() == MapStyleDark && self.controlsManager.navigationState == MWMNavigationDashboardStateHidden))
       return UIStatusBarStyleLightContent;
     return UIStatusBarStyleDefault;
   }
@@ -785,31 +781,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
     _alertController = [[MWMAlertViewController alloc] initWithViewController:self];
   return _alertController;
 }
-
-- (UIView *)routeViewWrapper
-{
-  if (!_routeViewWrapper)
-  {
-    _routeViewWrapper = [[UIView alloc] initWithFrame:self.routeView.bounds];
-    _routeViewWrapper.backgroundColor = [UIColor clearColor];
-    _routeViewWrapper.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [_routeViewWrapper addSubview:self.routeView];
-  }
-  return _routeViewWrapper;
-}
-
-- (RouteView *)routeView
-{
-  if (!_routeView)
-  {
-    CGFloat const routeInfoView = 68.0;
-    _routeView = [[RouteView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.width, routeInfoView)];
-    _routeView.delegate = self;
-    _routeView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-  }
-  return _routeView;
-}
-
 - (SearchView *)searchView
 {
   if (!_searchView)
@@ -819,16 +790,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
     _searchView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   }
   return _searchView;
-}
-
-#pragma mark - Routing
-
-- (void)dismissRouting
-{
-  GetFramework().CloseRouting();
-  [self.routeView setState:RouteViewStateHidden animated:YES];
-  self.disableStandbyOnRouteFollowing = NO;
-  [RouteState remove];
 }
 
 #pragma mark - Map state
@@ -841,32 +802,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   self.haveMap = mapsCount > 0;
 }
 
-#pragma mark - RouteViewDelegate
-
-- (void)routeViewDidStartFollowing:(RouteView *)routeView
-{
-  self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-  [routeView setState:RouteViewStateTurnInstructions animated:YES];
-  self.controlsManager.zoomHidden = NO;
-  GetFramework().FollowRoute();
-  self.disableStandbyOnRouteFollowing = YES;
-  [RouteState save];
-}
-
-- (void)routeViewDidCancelRouting:(RouteView *)routeView
-{
-  [self dismissRouting];
-}
-
-- (void)routeViewWillEnterState:(RouteViewState)state
-{
-}
-
-- (void)routeViewDidEnterState:(RouteViewState)state
-{
-  [self updateStatusBarStyle];
-}
-
 #pragma mark - SearchViewDelegate
 
 - (void)searchViewWillEnterState:(SearchViewState)state
@@ -876,11 +811,9 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   {
     case SearchViewStateHidden:
       self.controlsManager.hidden = NO;
-      [self moveRouteViewAnimatedtoOffset:0.0];
       break;
     case SearchViewStateResults:
       self.controlsManager.hidden = NO;
-      [self moveRouteViewAnimatedtoOffset:self.searchView.searchBar.maxY];
       break;
     case SearchViewStateAlpha:
       self.controlsManager.hidden = NO;
@@ -915,19 +848,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
   CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
   [self.navigationController pushViewController:vc animated:YES];
-}
-
-#pragma mark - Layout
-
-- (void)moveRouteViewAnimatedtoOffset:(CGFloat)offset
-{
-  if (!GetFramework().IsRoutingActive())
-    return;
-  [UIView animateWithDuration:0.3 delay:0.0 damping:0.9 initialVelocity:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^
-  {
-    self.routeViewWrapper.minY = MAX(offset - [self.searchView defaultSearchBarMinY], 0.0);
-  }
-  completion:nil];
 }
 
 #pragma mark - MWMPlacePageViewManagerDelegate
@@ -1067,17 +987,6 @@ NSInteger compareAddress(id l, id r, void * context)
     return;
   _disableStandbyOnLocationStateMode = disableStandbyOnLocationStateMode;
   if (disableStandbyOnLocationStateMode)
-    [[MapsAppDelegate theApp] disableStandby];
-  else
-    [[MapsAppDelegate theApp] enableStandby];
-}
-
-- (void)setDisableStandbyOnRouteFollowing:(BOOL)disableStandbyOnRouteFollowing
-{
-  if (_disableStandbyOnRouteFollowing == disableStandbyOnRouteFollowing)
-    return;
-  _disableStandbyOnRouteFollowing = disableStandbyOnRouteFollowing;
-  if (disableStandbyOnRouteFollowing)
     [[MapsAppDelegate theApp] disableStandby];
   else
     [[MapsAppDelegate theApp] enableStandby];

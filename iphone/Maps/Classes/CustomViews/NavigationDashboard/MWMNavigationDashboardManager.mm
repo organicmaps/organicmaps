@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "LocationManager.h"
 #import "Macros.h"
 #import "MapsAppDelegate.h"
 #import "MWMNavigationDashboard.h"
@@ -209,6 +208,7 @@
       break;
   }
   _state = state;
+  [self.delegate updateStatusBarStyle];
   [self.delegate navigationDashBoardDidUpdate];
 }
 
@@ -237,7 +237,7 @@
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
   auto & f = GetFramework();
-  if (f.GetRouter() == routing::RouterType::Vehicle)
+  if (f.GetRouter() != routing::RouterType::Pedestrian)
     return;
 
   CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;

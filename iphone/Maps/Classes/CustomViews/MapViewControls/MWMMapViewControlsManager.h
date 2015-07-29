@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "MWMNavigationDashboardManager.h"
 #import "MWMSideMenuManager.h"
 
 #include "map/user_mark.hpp"
@@ -23,8 +24,9 @@
 
 @property (nonatomic) BOOL hidden;
 @property (nonatomic) BOOL zoomHidden;
-@property (nonatomic) MWMSideMenuState menuState;
 @property (nonatomic) BOOL locationHidden;
+@property (nonatomic) MWMSideMenuState menuState;
+@property (nonatomic, readonly) MWMNavigationDashboardState navigationState;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;

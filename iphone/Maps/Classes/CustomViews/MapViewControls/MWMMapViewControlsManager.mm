@@ -11,7 +11,6 @@
 #import "MapViewController.h"
 #import "MWMLocationButton.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMNavigationDashboardManager.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
 #import "MWMSideMenuManager.h"
@@ -206,6 +205,11 @@
   if (self.menuManager.state == MWMSideMenuStateActive)
     return MWMSideMenuStateActive;
   return _menuState;
+}
+
+- (MWMNavigationDashboardState)navigationState
+{
+  return self.navigationManager.state;
 }
 
 - (void)setLocationHidden:(BOOL)locationHidden

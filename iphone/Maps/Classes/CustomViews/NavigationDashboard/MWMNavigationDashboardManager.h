@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "LocationManager.h"
+
 #include "Framework.h"
 #include "platform/location.hpp"
 
@@ -23,6 +25,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 - (void)navigationDashBoardDidUpdate;
 - (void)didStartFollowing;
 - (void)didCancelRouting;
+- (void)updateStatusBarStyle;
 
 @end
 
