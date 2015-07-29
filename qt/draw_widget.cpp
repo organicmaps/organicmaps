@@ -106,6 +106,9 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::PrepareShutdown()
   {
+    if (!m_contextFactory)
+      return;
+
     // Discard current and all future Swap requests
     m_contextFactory->shutDown();
     frameSwappedSlot(NotInitialized);
