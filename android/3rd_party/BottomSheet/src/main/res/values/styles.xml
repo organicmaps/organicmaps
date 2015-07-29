@@ -92,7 +92,6 @@
     <style name="BottomSheet.List">
         <item name="android:listSelector">@drawable/bs_list_selector</item>
         <item name="android:drawSelectorOnTop">false</item>
-        <item name="android:layoutAnimation">@anim/bs_list_layout_anim_in</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="android:clipToPadding">false</item>
     </style>
