@@ -8,13 +8,10 @@
 
 #include "3party/jansson/myjansson.hpp"
 
-
-#define SETTINGS_SERVERS_KEY "LastBaseUrls"
-
-
 namespace downloader
 {
 
+// Returns false if can't parse urls. Note that it also clears outUrls.
 bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
 {
   outUrls.clear();
@@ -37,20 +34,15 @@ bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
 
 void GetServerListFromRequest(HttpRequest const & request, vector<string> & urls)
 {
-  if (request.Status() == HttpRequest::ECompleted &&
-      ParseServerList(request.Data(), urls))
+  if (request.Status() == HttpRequest::ECompleted && ParseServerList(request.Data(), urls))
   {
-    Settings::Set(SETTINGS_SERVERS_KEY, request.Data());
+    return;
   }
   else
   {
-    LOG(LWARNING, ("Can't get servers list from request"));
-
-    string serverList;
-    if (!Settings::Get(SETTINGS_SERVERS_KEY, serverList))
-      serverList = GetPlatform().DefaultUrlsJSON();
-    VERIFY ( ParseServerList(serverList, urls), () );
+    VERIFY(ParseServerList(GetPlatform().DefaultUrlsJSON(), urls), ());
+    LOG(LWARNING, ("Can't get servers list from request, using default servers:", urls));
   }
 }
 
-}
+} // namespace downloader
