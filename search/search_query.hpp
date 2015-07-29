@@ -54,24 +54,23 @@ namespace impl
 class Query : public my::Cancellable
 {
 public:
-  struct SuggestT
+  struct TSuggest
   {
     strings::UniString m_name;
     uint8_t m_prefixLength;
     int8_t m_locale;
 
-    SuggestT(strings::UniString const & name, uint8_t len, int8_t locale)
+    TSuggest(strings::UniString const & name, uint8_t len, int8_t locale)
       : m_name(name), m_prefixLength(len), m_locale(locale)
     {
     }
   };
 
   // Vector of suggests.
-  typedef vector<SuggestT> StringsToSuggestVectorT;
+  using TStringsToSuggestVector = vector<TSuggest>;
 
-  Query(Index const * pIndex,
-        CategoriesHolder const * pCategories,
-        StringsToSuggestVectorT const * pStringsToSuggest,
+  Query(Index const * pIndex, CategoriesHolder const * pCategories,
+        TStringsToSuggestVector const * pStringsToSuggest,
         storage::CountryInfoGetter const * pInfoGetter);
   virtual ~Query();
 
@@ -131,14 +130,14 @@ private:
   int GetCategoryLocales(int8_t (&arr) [3]) const;
   template <class ToDo> void ForEachCategoryTypes(ToDo toDo) const;
 
-  typedef vector<shared_ptr<MwmInfo>> MWMVectorT;
-  typedef map<MwmSet::MwmId, vector<uint32_t>> OffsetsVectorT;
-  typedef feature::DataHeader FHeaderT;
+  using TMWMVector = vector<shared_ptr<MwmInfo>>;
+  using TOffsetsVector = map<MwmSet::MwmId, vector<uint32_t>>;
+  using TFHeader = feature::DataHeader;
 
-  void SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & viewport,
-                          size_t idx, bool forceUpdate);
-  void UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const & rect,
-                             OffsetsVectorT & offsets);
+  void SetViewportByIndex(TMWMVector const & mwmsInfo, m2::RectD const & viewport, size_t idx,
+                          bool forceUpdate);
+  void UpdateViewportOffsets(TMWMVector const & mwmsInfo, m2::RectD const & rect,
+                             TOffsetsVector & offsets);
   void ClearCache(size_t ind);
 
   enum ViewportID
@@ -175,7 +174,7 @@ private:
   /// If ind == -1, don't do any matching with features in viewport (@see m_offsetsInViewport).
   //@{
   /// Do search in all maps from mwmInfo.
-  void SearchFeatures(SearchQueryParams const & params, MWMVectorT const & mwmsInfo,
+  void SearchFeatures(SearchQueryParams const & params, TMWMVector const & mwmsInfo,
                       ViewportID vID);
   /// Do search in particular map (mwmHandle).
   void SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams const & params,
@@ -192,7 +191,7 @@ private:
 
   Index const * m_pIndex;
   CategoriesHolder const * m_pCategories;
-  StringsToSuggestVectorT const * m_pStringsToSuggest;
+  TStringsToSuggestVector const * m_pStringsToSuggest;
   storage::CountryInfoGetter const * m_pInfoGetter;
 
   string m_region;
@@ -228,17 +227,18 @@ private:
 
   KeywordLangMatcher m_keywordsScorer;
 
-  OffsetsVectorT m_offsetsInViewport[COUNT_V];
+  TOffsetsVector m_offsetsInViewport[COUNT_V];
   bool m_supportOldFormat;
 
-  template <class ParamT> class CompareT
+  template <class TParam>
+  class TCompare
   {
-    typedef bool (*FunctionT) (ParamT const &, ParamT const &);
-    FunctionT m_fn;
+    using TFunction = function<bool(TParam const &, TParam const &)>;
+    TFunction m_fn;
 
   public:
-    CompareT() : m_fn(0) {}
-    explicit CompareT(FunctionT const & fn) : m_fn(fn) {}
+    TCompare() : m_fn(0) {}
+    explicit TCompare(TFunction const & fn) : m_fn(fn) {}
 
     template <class T> bool operator() (T const & v1, T const & v2) const
     {
@@ -246,22 +246,26 @@ private:
     }
   };
 
-  typedef CompareT<impl::PreResult1> QueueCompareT;
-  typedef my::limited_priority_queue<impl::PreResult1, QueueCompareT> QueueT;
+  using TQueueCompare = TCompare<impl::PreResult1>;
+  using TQueue = my::limited_priority_queue<impl::PreResult1, TQueueCompare>;
 
   /// @name Intermediate result queues sorted by different criterias.
   //@{
 public:
-  enum { QUEUES_COUNT = 2 };
+  enum
+  {
+    kQueuesCount = 2
+  };
+
 private:
   // The values order should be the same as in
   // g_arrCompare1, g_arrCompare2 function arrays.
   enum
   {
-    DISTANCE_TO_PIVOT,    // LessDistance
-    FEATURE_RANK          // LessRank
+    kDistanceToPivot,  // LessDistance
+    FEATURE_RANK       // LessRank
   };
-  QueueT m_results[QUEUES_COUNT];
+  TQueue m_results[kQueuesCount];
   size_t m_queuesCount;
   //@}
 };

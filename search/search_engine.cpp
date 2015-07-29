@@ -28,7 +28,7 @@ namespace search
 
 double const DIST_EQUAL_QUERY = 100.0;
 
-typedef vector<Query::SuggestT> SuggestsContainerT;
+using TSuggestsContainer = vector<Query::TSuggest>;
 
 class EngineData
 {
@@ -39,7 +39,7 @@ public:
   }
 
   CategoriesHolder m_categories;
-  SuggestsContainerT m_stringsToSuggest;
+  TSuggestsContainer m_stringsToSuggest;
   storage::CountryInfoGetter m_infoGetter;
 };
 
@@ -48,8 +48,8 @@ namespace
 
 class InitSuggestions
 {
-  typedef map<pair<strings::UniString, int8_t>, uint8_t> SuggestMapT;
-  SuggestMapT m_suggests;
+  using TSuggestMap = map<pair<strings::UniString, int8_t>, uint8_t>;
+  TSuggestMap m_suggests;
 
 public:
   void operator() (CategoriesHolder::Category::Name const & name)
@@ -64,11 +64,11 @@ public:
     }
   }
 
-  void GetSuggests(SuggestsContainerT & cont) const
+  void GetSuggests(TSuggestsContainer & cont) const
   {
     cont.reserve(m_suggests.size());
-    for (SuggestMapT::const_iterator i = m_suggests.begin(); i != m_suggests.end(); ++i)
-      cont.push_back(Query::SuggestT(i->first.first, i->second, i->first.second));
+    for (TSuggestMap::const_iterator i = m_suggests.begin(); i != m_suggests.end(); ++i)
+      cont.push_back(Query::TSuggest(i->first.first, i->second, i->first.second));
   }
 };
 

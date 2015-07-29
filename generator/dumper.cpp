@@ -202,7 +202,7 @@ namespace feature
 
     unique_ptr<trie::DefaultIterator> const pTrieRoot(
         trie::ReadTrie(container.GetReader(SEARCH_INDEX_FILE_TAG), trie::ValueReader(cp),
-                       trie::EdgeValueReader()));
+                       trie::TEdgeValueReader()));
 
     SearchTokensCollector f;
     trie::ForEachRef(*pTrieRoot, f, strings::UniString());

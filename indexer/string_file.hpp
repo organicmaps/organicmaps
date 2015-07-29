@@ -21,21 +21,21 @@ public:
   using ValueT = TValue;
   using IdT = uint32_t;
 
-  class StringT
+  class TString
   {
     strings::UniString m_name;
     ValueT m_val;
 
   public:
-    StringT() {}
-    StringT(strings::UniString const & name, signed char lang, ValueT const & val) : m_val(val)
+    TString() {}
+    TString(strings::UniString const & name, signed char lang, ValueT const & val) : m_val(val)
     {
       m_name.reserve(name.size() + 1);
       m_name.push_back(static_cast<uint8_t>(lang));
       m_name.append(name.begin(), name.end());
     }
 
-    StringT(strings::UniString const & langName, ValueT const & val) : m_name(langName), m_val(val)
+    TString(strings::UniString const & langName, ValueT const & val) : m_name(langName), m_val(val)
     {
     }
 
@@ -46,14 +46,14 @@ public:
 
     ValueT const & GetValue() const { return m_val; }
 
-    bool operator<(StringT const & name) const
+    bool operator<(TString const & name) const
     {
       if (m_name != name.m_name)
         return m_name < name.m_name;
       return m_val < name.m_val;
     }
 
-    bool operator==(StringT const & name) const
+    bool operator==(TString const & name) const
     {
       return m_name == name.m_name && m_val == name.m_val;
     }
@@ -81,14 +81,14 @@ public:
 
     inline size_t value_size() const { return m_val.size(); }
 
-    void Swap(StringT & r)
+    void Swap(TString & r)
     {
       m_name.swap(r.m_name);
       m_val.swap(r.m_val);
     }
   };
 
-  using StringsListT = vector<StringT>;
+  using StringsListT = vector<TString>;
 
   // Contains start and end offsets of file portions.
   using OffsetsListT = vector<pair<uint64_t, uint64_t>>;
@@ -144,7 +144,7 @@ public:
     DISALLOW_COPY_AND_MOVE(SortAndDumpStringsTask);
   };
 
-  class IteratorT : public iterator_facade<IteratorT, StringT, forward_traversal_tag, StringT>
+  class IteratorT : public iterator_facade<IteratorT, TString, forward_traversal_tag, TString>
   {
     StringsFile & m_file;
     bool m_end;
@@ -160,7 +160,7 @@ public:
         m_end = IsEnd();
     }
 
-    StringT dereference() const;
+    TString dereference() const;
     bool equal(IteratorT const & r) const { return (m_end == r.m_end); }
     void increment();
   };
@@ -171,7 +171,7 @@ public:
   void OpenForRead();
 
   /// @precondition Should be opened for writing.
-  void AddString(StringT const & s);
+  void AddString(TString const & s);
 
   IteratorT Begin() { return IteratorT(*this, false); }
   IteratorT End() { return IteratorT(*this, true); }
@@ -194,10 +194,10 @@ private:
 
   struct QValue
   {
-    StringT m_string;
+    TString m_string;
     size_t m_index;
 
-    QValue(StringT const & s, size_t i) : m_string(s), m_index(i) {}
+    QValue(TString const & s, size_t i) : m_string(s), m_index(i) {}
 
     inline bool operator>(QValue const & rhs) const { return !(m_string < rhs.m_string); }
   };
@@ -206,7 +206,7 @@ private:
 };
 
 template <typename ValueT>
-void StringsFile<ValueT>::AddString(StringT const & s)
+void StringsFile<ValueT>::AddString(TString const & s)
 {
   size_t const kMaxSize = 1000000;
 
@@ -223,7 +223,7 @@ bool StringsFile<ValueT>::IteratorT::IsEnd() const
 }
 
 template <typename ValueT>
-typename StringsFile<ValueT>::StringT StringsFile<ValueT>::IteratorT::dereference() const
+typename StringsFile<ValueT>::TString StringsFile<ValueT>::IteratorT::dereference() const
 {
   ASSERT(IsValid(), ());
   return m_file.m_queue.top().m_string;
@@ -268,7 +268,7 @@ bool StringsFile<ValueT>::PushNextValue(size_t i)
   src.Skip(m_offsets[i].first);
 
   // read string
-  StringT s;
+  TString s;
   s.Read(src);
 
   // update offset

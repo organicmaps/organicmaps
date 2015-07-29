@@ -13,7 +13,7 @@ public:
 
   virtual unique_ptr<Query> BuildSearchQuery(
       Index const * index, CategoriesHolder const * categories,
-      Query::StringsToSuggestVectorT const * stringsToSuggest,
+      Query::TStringsToSuggestVector const * stringsToSuggest,
       storage::CountryInfoGetter const * infoGetter)
   {
     return make_unique<Query>(index, categories, stringsToSuggest, infoGetter);

@@ -30,27 +30,23 @@
 #include "base/stl_add.hpp"
 
 #include "std/algorithm.hpp"
-
+#include "std/function.hpp"
 
 namespace search
 {
 
 namespace
 {
-  typedef bool (*CompareFunctionT1) (impl::PreResult1 const &, impl::PreResult1 const &);
-  typedef bool (*CompareFunctionT2) (impl::PreResult2 const &, impl::PreResult2 const &);
+using TCompareFunction1 = function<bool(impl::PreResult1 const &, impl::PreResult1 const &)>;
+using TCompareFunction2 = function<bool(impl::PreResult2 const &, impl::PreResult2 const &)>;
 
-  CompareFunctionT1 g_arrCompare1[] =
-  {
-    &impl::PreResult1::LessDistance,
-    &impl::PreResult1::LessRank,
-  };
+TCompareFunction1 g_arrCompare1[] = {
+    &impl::PreResult1::LessDistance, &impl::PreResult1::LessRank,
+};
 
-  CompareFunctionT2 g_arrCompare2[] =
-  {
-    &impl::PreResult2::LessDistance,
-    &impl::PreResult2::LessRank,
-  };
+TCompareFunction2 g_arrCompare2[] = {
+    &impl::PreResult2::LessDistance, &impl::PreResult2::LessRank,
+};
 
   /// This indexes should match the initialization routine below.
   int g_arrLang1[] = { 0, 1, 2, 2, 3 };
@@ -69,37 +65,39 @@ namespace
   }
 
   // Maximum result candidates count for each viewport/criteria.
-  size_t const PRE_RESULTS_COUNT = 200;
+  size_t const kPreResultsCount = 200;
 }
 
-Query::Query(Index const * pIndex,
-             CategoriesHolder const * pCategories,
-             StringsToSuggestVectorT const * pStringsToSuggest,
+Query::Query(Index const * pIndex, CategoriesHolder const * pCategories,
+             TStringsToSuggestVector const * pStringsToSuggest,
              storage::CountryInfoGetter const * pInfoGetter)
-  : m_pIndex(pIndex),
-    m_pCategories(pCategories),
-    m_pStringsToSuggest(pStringsToSuggest),
-    m_pInfoGetter(pInfoGetter),
+  : m_pIndex(pIndex)
+  , m_pCategories(pCategories)
+  , m_pStringsToSuggest(pStringsToSuggest)
+  , m_pInfoGetter(pInfoGetter)
+  ,
 #ifdef HOUSE_SEARCH_TEST
-    m_houseDetector(pIndex),
+  m_houseDetector(pIndex)
+  ,
 #endif
 #ifdef FIND_LOCALITY_TEST
-    m_locality(pIndex),
+  m_locality(pIndex)
+  ,
 #endif
-    m_worldSearch(true)
+  m_worldSearch(true)
 {
   // m_viewport is initialized as empty rects
 
   ASSERT(m_pIndex, ());
 
   // Results queue's initialization.
-  static_assert(QUEUES_COUNT == ARRAY_SIZE(g_arrCompare1), "");
-  static_assert(QUEUES_COUNT == ARRAY_SIZE(g_arrCompare2), "");
+  static_assert(kQueuesCount == ARRAY_SIZE(g_arrCompare1), "");
+  static_assert(kQueuesCount == ARRAY_SIZE(g_arrCompare2), "");
 
-  for (size_t i = 0; i < QUEUES_COUNT; ++i)
+  for (size_t i = 0; i < kQueuesCount; ++i)
   {
-    m_results[i] = QueueT(PRE_RESULTS_COUNT, QueueCompareT(g_arrCompare1[i]));
-    m_results[i].reserve(PRE_RESULTS_COUNT);
+    m_results[i] = TQueue(kPreResultsCount, TQueueCompare(g_arrCompare1[i]));
+    m_results[i].reserve(kPreResultsCount);
   }
 
   // Initialize keywords scorer.
@@ -133,14 +131,14 @@ void Query::SetViewport(m2::RectD const & viewport, bool forceUpdate)
 {
   Reset();
 
-  MWMVectorT mwmsInfo;
+  TMWMVector mwmsInfo;
   m_pIndex->GetMwmsInfo(mwmsInfo);
 
   SetViewportByIndex(mwmsInfo, viewport, CURRENT_V, forceUpdate);
 }
 
-void Query::SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & viewport,
-                               size_t idx, bool forceUpdate)
+void Query::SetViewportByIndex(TMWMVector const & mwmsInfo, m2::RectD const & viewport, size_t idx,
+                               bool forceUpdate)
 {
   ASSERT(idx < COUNT_V, (idx));
 
@@ -246,14 +244,14 @@ void Query::ClearCaches()
 void Query::ClearCache(size_t ind)
 {
   // clear cache and free memory
-  OffsetsVectorT emptyV;
+  TOffsetsVector emptyV;
   emptyV.swap(m_offsetsInViewport[ind]);
 
   m_viewport[ind].MakeEmpty();
 }
 
-void Query::UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const & rect,
-                                  OffsetsVectorT & offsets)
+void Query::UpdateViewportOffsets(TMWMVector const & mwmsInfo, m2::RectD const & rect,
+                                  TOffsetsVector & offsets)
 {
   offsets.clear();
 
@@ -269,8 +267,8 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const &
       Index::MwmHandle const mwmHandle(const_cast<Index &>(*m_pIndex), mwmId);
       if (MwmValue * const pMwm = mwmHandle.GetValue<MwmValue>())
       {
-        FHeaderT const & header = pMwm->GetHeader();
-        if (header.GetType() == FHeaderT::country)
+        TFHeader const & header = pMwm->GetHeader();
+        if (header.GetType() == TFHeader::country)
         {
           pair<int, int> const scaleR = header.GetScaleRange();
           int const scale = min(max(queryScale, scaleR.first), scaleR.second);
@@ -327,19 +325,20 @@ void Query::Init(bool viewportSearch)
     // (more uniform results distribution on the map).
 
     m_queuesCount = 1;
-    m_results[0] = QueueT(PRE_RESULTS_COUNT, QueueCompareT(&impl::PreResult1::LessPointsForViewport));
+    m_results[0] =
+        TQueue(kPreResultsCount, TQueueCompare(&impl::PreResult1::LessPointsForViewport));
   }
   else
   {
-    m_queuesCount = QUEUES_COUNT;
-    m_results[DISTANCE_TO_PIVOT] =
-        QueueT(PRE_RESULTS_COUNT, QueueCompareT(g_arrCompare1[DISTANCE_TO_PIVOT]));
+    m_queuesCount = kQueuesCount;
+    m_results[kDistanceToPivot] =
+        TQueue(kPreResultsCount, TQueueCompare(g_arrCompare1[kDistanceToPivot]));
   }
 }
 
 void Query::ClearQueues()
 {
-  for (size_t i = 0; i < QUEUES_COUNT; ++i)
+  for (size_t i = 0; i < kQueuesCount; ++i)
     m_results[i].clear();
 }
 
@@ -359,7 +358,8 @@ int Query::GetCategoryLocales(int8_t (&arr) [3]) const
   return count;
 }
 
-template <class ToDo> void Query::ForEachCategoryTypes(ToDo toDo) const
+template <class ToDo>
+void Query::ForEachCategoryTypes(ToDo toDo) const
 {
   if (m_pCategories)
   {
@@ -476,28 +476,41 @@ namespace
   /// @name Functors to convert pointers to referencies.
   /// Pass them to stl algorithms.
   //@{
-  template <class FunctorT> class ProxyFunctor1
+template <class TFunctor>
+class ProxyFunctor1
   {
-    FunctorT m_fn;
+    TFunctor m_fn;
+
   public:
-    template <class T> explicit ProxyFunctor1(T const & p) : m_fn(*p) {}
-    template <class T> bool operator() (T const & p) { return m_fn(*p); }
+    template <class T>
+    explicit ProxyFunctor1(T const & p)
+      : m_fn(*p)
+    {
+    }
+    template <class T>
+    bool operator()(T const & p)
+    {
+      return m_fn(*p);
+    }
   };
 
-  template <class FunctorT> class ProxyFunctor2
+  template <class TFunctor>
+  class ProxyFunctor2
   {
-    FunctorT m_fn;
+    TFunctor m_fn;
+
   public:
-    template <class T> bool operator() (T const & p1, T const & p2)
+    template <class T>
+    bool operator()(T const & p1, T const & p2)
     {
       return m_fn(*p1, *p2);
     }
   };
   //@}
 
-  class IndexedValue : public search::IndexedValueBase<Query::QUEUES_COUNT>
+  class IndexedValue : public search::IndexedValueBase<Query::kQueuesCount>
   {
-    typedef impl::PreResult2 ValueT;
+    using ValueT = impl::PreResult2;
 
     /// @todo Do not use shared_ptr for optimization issues.
     /// Need to rewrite std::unique algorithm.
@@ -527,9 +540,10 @@ namespace
   {
     struct CompT
     {
-      CompareFunctionT2 m_fn;
-      explicit CompT(CompareFunctionT2 fn) : m_fn(fn) {}
-      template <class T> bool operator() (T const & r1, T const & r2) const
+      TCompareFunction2 m_fn;
+      explicit CompT(TCompareFunction2 fn) : m_fn(fn) {}
+      template <class T>
+      bool operator()(T const & r1, T const & r2) const
       {
         return m_fn(*r1, *r2);
       }
@@ -542,7 +556,7 @@ namespace
 
   struct LessFeatureID
   {
-    typedef impl::PreResult1 ValueT;
+    using ValueT = impl::PreResult1;
     bool operator() (ValueT const & r1, ValueT const & r2) const
     {
       return (r1.GetID() < r2.GetID());
@@ -551,7 +565,7 @@ namespace
 
   class EqualFeatureID
   {
-    typedef impl::PreResult1 ValueT;
+    using ValueT = impl::PreResult1;
     ValueT const & m_val;
   public:
     EqualFeatureID(ValueT const & v) : m_val(v) {}
@@ -694,11 +708,12 @@ namespace impl
   };
 }
 
-template <class T> void Query::MakePreResult2(vector<T> & cont, vector<FeatureID> & streets)
+template <class T>
+void Query::MakePreResult2(vector<T> & cont, vector<FeatureID> & streets)
 {
   // make unique set of PreResult1
-  typedef set<impl::PreResult1, LessFeatureID> PreResultSetT;
-  PreResultSetT theSet;
+  using TPreResultSet = set<impl::PreResult1, LessFeatureID>;
+  TPreResultSet theSet;
 
   for (size_t i = 0; i < m_queuesCount; ++i)
   {
@@ -849,11 +864,11 @@ void Query::RemoveStringPrefix(string const & str, string & res) const
 {
   search::Delimiters delims;
   // Find start iterator of prefix in input query.
-  typedef utf8::unchecked::iterator<string::const_iterator> IterT;
-  IterT iter(str.end());
+  using TIter = utf8::unchecked::iterator<string::const_iterator>;
+  TIter iter(str.end());
   while (iter.base() != str.begin())
   {
-    IterT prev = iter;
+    TIter prev = iter;
     --prev;
 
     if (delims(*prev))
@@ -903,7 +918,8 @@ void Query::GetSuggestion(string const & name, string & suggest) const
     }
 }
 
-template <class T> void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
+template <class T>
+void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
 {
   if (m_prefix.empty())
     return;
@@ -980,16 +996,14 @@ void Query::GetBestMatchName(FeatureType const & f, string & name) const
 }
 
 /// Makes continuous range for tokens and prefix.
-template <class IterT, class ValueT> class CombinedIter
+template <class TIter, class ValueT>
+class CombinedIter
 {
-  IterT m_i, m_end;
+  TIter m_i, m_end;
   ValueT const * m_val;
 
 public:
-  CombinedIter(IterT i, IterT end, ValueT const * val)
-    : m_i(i), m_end(end), m_val(val)
-  {
-  }
+  CombinedIter(TIter i, TIter end, ValueT const * val) : m_i(i), m_end(end), m_val(val) {}
 
   ValueT const & operator*() const
   {
@@ -1057,11 +1071,11 @@ Result Query::MakeResult(impl::PreResult2 const & r) const
 
 void Query::MakeResultHighlight(Result & res) const
 {
-  typedef buffer_vector<strings::UniString, 32>::const_iterator IterT;
-  typedef CombinedIter<IterT, strings::UniString> CombinedIterT;
+  using TIter = buffer_vector<strings::UniString, 32>::const_iterator;
+  using TCombinedIter = CombinedIter<TIter, strings::UniString>;
 
-  CombinedIterT beg(m_tokens.begin(), m_tokens.end(), m_prefix.empty() ? 0 : &m_prefix);
-  CombinedIterT end(m_tokens.end(), m_tokens.end(), 0);
+  TCombinedIter beg(m_tokens.begin(), m_tokens.end(), m_prefix.empty() ? 0 : &m_prefix);
+  TCombinedIter end(m_tokens.end(), m_tokens.end(), 0);
 
   SearchStringTokensIntersectionRanges(res.GetString(), beg, end, AssignHighlightRange(res));
 }
@@ -1318,7 +1332,11 @@ namespace impl
       size_t & m_count;
     public:
       DoCount(size_t & count) : m_count(count) { m_count = 0; }
-      template <class T> void operator() (T const &) { ++m_count; }
+      template <class T>
+      void operator()(T const &)
+      {
+        ++m_count;
+      }
     };
 
     bool IsFullNameMatched() const
@@ -1328,10 +1346,10 @@ namespace impl
       return (count <= m_matchedTokens.size());
     }
 
-    typedef strings::UniString StringT;
-    typedef buffer_vector<StringT, 32> TokensArrayT;
+    using TString = strings::UniString;
+    using TTokensArray = buffer_vector<TString, 32>;
 
-    size_t GetSynonymTokenLength(TokensArrayT const & tokens, StringT const & prefix) const
+    size_t GetSynonymTokenLength(TTokensArray const & tokens, TString const & prefix) const
     {
       // check only one token as a synonym
       if (m_matchedTokens.size() == 1)
@@ -1352,7 +1370,7 @@ namespace impl
 
   public:
     /// Check that locality is suitable for source input tokens.
-    bool IsSuitable(TokensArrayT const & tokens, StringT const & prefix) const
+    bool IsSuitable(TTokensArray const & tokens, TString const & prefix) const
     {
       bool const isMatched = IsFullNameMatched();
 
@@ -1438,7 +1456,7 @@ namespace impl
 void Query::SearchAddress(Results & res)
 {
   // Find World.mwm and do special search there.
-  MWMVectorT mwmsInfo;
+  TMWMVector mwmsInfo;
   m_pIndex->GetMwmsInfo(mwmsInfo);
 
   for (shared_ptr<MwmInfo> & info : mwmsInfo)
@@ -1446,9 +1464,8 @@ void Query::SearchAddress(Results & res)
     MwmSet::MwmId mwmId(info);
     Index::MwmHandle const mwmHandle(const_cast<Index &>(*m_pIndex), mwmId);
     MwmValue * const pMwm = mwmHandle.GetValue<MwmValue>();
-    if (pMwm &&
-        pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) &&
-        pMwm->GetHeader().GetType() == FHeaderT::world)
+    if (pMwm && pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) &&
+        pMwm->GetHeader().GetType() == TFHeader::world)
     {
       impl::Locality city;
       impl::Region region;
@@ -1745,7 +1762,7 @@ void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region 
 
   unique_ptr<trie::DefaultIterator> const trieRoot(
       trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()), trie::ValueReader(cp),
-                     trie::EdgeValueReader()));
+                     trie::TEdgeValueReader()));
 
   ForEachLangPrefix(params, *trieRoot, [&](TrieRootPrefix & langRoot, int8_t lang)
   {
@@ -1783,7 +1800,7 @@ void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region 
 
 void Query::SearchFeatures()
 {
-  MWMVectorT mwmsInfo;
+  TMWMVector mwmsInfo;
   m_pIndex->GetMwmsInfo(mwmsInfo);
 
   SearchQueryParams params;
@@ -1825,7 +1842,7 @@ namespace
   };
 }
 
-void Query::SearchFeatures(SearchQueryParams const & params, MWMVectorT const & mwmsInfo,
+void Query::SearchFeatures(SearchQueryParams const & params, TMWMVector const & mwmsInfo,
                            ViewportID vID)
 {
   for (shared_ptr<MwmInfo> const & info : mwmsInfo)
@@ -1846,9 +1863,9 @@ void Query::SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams co
   if (!value || !value->m_cont.IsExist(SEARCH_INDEX_FILE_TAG))
     return;
 
-  FHeaderT const & header = value->GetHeader();
+  TFHeader const & header = value->GetHeader();
   /// @todo do not process World.mwm here - do it in SearchLocality
-  bool const isWorld = (header.GetType() == FHeaderT::world);
+  bool const isWorld = (header.GetType() == TFHeader::world);
   if (isWorld && !m_worldSearch)
     return;
 
@@ -1856,7 +1873,7 @@ void Query::SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams co
   ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
   unique_ptr<trie::DefaultIterator> const trieRoot(
       trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()), trie::ValueReader(cp),
-                     trie::EdgeValueReader()));
+                     trie::TEdgeValueReader()));
   MwmSet::MwmId const mwmId = mwmHandle.GetId();
   FeaturesFilter filter(
       (viewportId == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[viewportId][mwmId], *this);
@@ -1884,7 +1901,7 @@ void Query::SuggestStrings(Results & res)
 void Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale,
                                     string const & prolog, Results & res)
 {
-  for (SuggestT const & suggest : *m_pStringsToSuggest)
+  for (TSuggest const & suggest : *m_pStringsToSuggest)
   {
     strings::UniString const & s = suggest.m_name;
     if ((suggest.m_prefixLength <= token.size()) &&
@@ -1932,7 +1949,7 @@ void Query::SearchAdditional(Results & res, size_t resCount)
   {
     LOG(LDEBUG, ("Additional MWM search: ", fileName));
 
-    MWMVectorT mwmsInfo;
+    TMWMVector mwmsInfo;
     m_pIndex->GetMwmsInfo(mwmsInfo);
 
     SearchQueryParams params;

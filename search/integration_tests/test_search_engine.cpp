@@ -18,9 +18,9 @@ class TestQuery : public search::Query
 {
 public:
   TestQuery(Index const * index, CategoriesHolder const * categories,
-            search::Query::StringsToSuggestVectorT const * stringsToSuggest,
+            search::Query::TStringsToSuggestVector const * stringsToSuggest,
             storage::CountryInfoGetter const * infoGetter)
-      : search::Query(index, categories, stringsToSuggest, infoGetter)
+    : search::Query(index, categories, stringsToSuggest, infoGetter)
   {
   }
 
@@ -36,7 +36,7 @@ class TestSearchQueryFactory : public search::SearchQueryFactory
   // search::SearchQueryFactory overrides:
   unique_ptr<search::Query> BuildSearchQuery(
       Index const * index, CategoriesHolder const * categories,
-      search::Query::StringsToSuggestVectorT const * stringsToSuggest,
+      search::Query::TStringsToSuggestVector const * stringsToSuggest,
       storage::CountryInfoGetter const * infoGetter) override
   {
     return make_unique<TestQuery>(index, categories, stringsToSuggest, infoGetter);

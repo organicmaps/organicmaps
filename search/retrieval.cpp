@@ -30,7 +30,7 @@ void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams
   ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
   unique_ptr<trie::DefaultIterator> const trieRoot(
       trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
-                     trie::ValueReader(codingParams), trie::EdgeValueReader()));
+                     trie::ValueReader(codingParams), trie::TEdgeValueReader()));
 
   featureIds.clear();
   auto collector = [&](trie::ValueReader::ValueType const & value)

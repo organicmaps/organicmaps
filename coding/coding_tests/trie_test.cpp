@@ -46,8 +46,8 @@ struct KeyValuePair
 
   KeyValuePair() {}
 
-  template <class StringT>
-  KeyValuePair(StringT const & key, int value)
+  template <class TString>
+  KeyValuePair(TString const & key, int value)
     : m_key(key.begin(), key.end()), m_value(value)
   {}
 
@@ -87,8 +87,8 @@ string DebugPrint(KeyValuePair const & p)
 struct KeyValuePairBackInserter
 {
   vector<KeyValuePair> m_v;
-  template <class StringT>
-  void operator()(StringT const & s, trie::FixedSizeValueReader<4>::ValueType const & rawValue)
+  template <class TString>
+  void operator()(TString const & s, trie::FixedSizeValueReader<4>::ValueType const & rawValue)
   {
     uint32_t value;
     memcpy(&value, &rawValue, 4);
@@ -98,7 +98,7 @@ struct KeyValuePairBackInserter
 
 struct MaxValueCalc
 {
-  typedef uint8_t ValueType;
+  using ValueType = uint8_t;
 
   ValueType operator() (void const * p, uint32_t size) const
   {
@@ -119,8 +119,8 @@ public:
 
   bool empty() const { return m_string.empty(); }
 
-  template <typename SinkT>
-  void Dump(SinkT & sink) const
+  template <typename TSink>
+  void Dump(TSink & sink) const
   {
     sink.Write(m_string.data(), m_string.size());
   }
@@ -143,8 +143,8 @@ public:
 
   bool empty() const { return m_values.empty(); }
 
-  template <typename SinkT>
-  void Dump(SinkT & sink) const
+  template <typename TSink>
+  void Dump(TSink & sink) const
   {
     sink.Write(m_values.data(), m_values.size() * sizeof(BufferT::value_type));
   }
@@ -250,8 +250,8 @@ UNIT_TEST(TrieBuilder_Build)
     // LOG(LINFO, (serial.size(), vs));
 
     MemReader memReader = MemReader(&serial[0], serial.size());
-    typedef trie::Iterator<trie::FixedSizeValueReader<4>::ValueType,
-                           trie::FixedSizeValueReader<1>::ValueType> IteratorType;
+    using IteratorType = trie::Iterator<trie::FixedSizeValueReader<4>::ValueType,
+                                        trie::FixedSizeValueReader<1>::ValueType>;
     unique_ptr<IteratorType> const root(trie::ReadTrie(memReader, trie::FixedSizeValueReader<4>(),
                                                        trie::FixedSizeValueReader<1>()));
     vector<KeyValuePair> res;

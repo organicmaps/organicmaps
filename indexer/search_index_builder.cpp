@@ -76,11 +76,12 @@ public:
     }
   }
 
-  template <class ToDo> void ForEach(string const & key, ToDo toDo) const
+  template <class ToDo>
+  void ForEach(string const & key, ToDo toDo) const
   {
-    typedef unordered_multimap<string, string>::const_iterator IterT;
+    using TIter = unordered_multimap<string, string>::const_iterator;
 
-    pair<IterT, IterT> range = m_map.equal_range(key);
+    pair<TIter, TIter> range = m_map.equal_range(key);
     while (range.first != range.second)
     {
       toDo(range.first->second);
@@ -89,31 +90,32 @@ public:
   }
 };
 
-template<typename StringsFileT>
+template <typename TStringsFile>
 struct FeatureNameInserter
 {
   SynonymsHolder * m_synonyms;
-  StringsFileT & m_names;
-  typename StringsFileT::ValueT m_val;
+  TStringsFile & m_names;
+  typename TStringsFile::ValueT m_val;
 
-  FeatureNameInserter(SynonymsHolder * synonyms, StringsFileT & names)
+  FeatureNameInserter(SynonymsHolder * synonyms, TStringsFile & names)
     : m_synonyms(synonyms), m_names(names)
   {
   }
 
   void AddToken(signed char lang, strings::UniString const & s) const
   {
-    m_names.AddString(typename StringsFileT::StringT(s, lang, m_val));
+    m_names.AddString(typename TStringsFile::TString(s, lang, m_val));
   }
 
 private:
-  typedef buffer_vector<strings::UniString, 32> TokensArrayT;
+  using TTokensArray = buffer_vector<strings::UniString, 32>;
 
   class PushSynonyms
   {
-    TokensArrayT & m_tokens;
+    TTokensArray & m_tokens;
+
   public:
-    PushSynonyms(TokensArrayT & tokens) : m_tokens(tokens) {}
+    PushSynonyms(TTokensArray & tokens) : m_tokens(tokens) {}
     void operator() (string const & utf8str) const
     {
       m_tokens.push_back(search::NormalizeAndSimplifyString(utf8str));
@@ -153,15 +155,15 @@ struct ValueBuilder;
 template <>
 struct ValueBuilder<SerializedFeatureInfoValue>
 {
-  typedef trie::ValueReader SaverT;
-  SaverT m_valueSaver;
+  using TSaver = trie::ValueReader;
+  TSaver m_valueSaver;
 
   ValueBuilder(serial::CodingParams const & cp) : m_valueSaver(cp) {}
 
   void MakeValue(FeatureType const & ft, feature::TypesHolder const & types, uint32_t index,
                  SerializedFeatureInfoValue & value) const
   {
-    SaverT::ValueType v;
+    TSaver::ValueType v;
     v.m_featureId = index;
 
     // get BEST geometry rect of feature
@@ -184,16 +186,16 @@ struct ValueBuilder<FeatureIndexValue>
   }
 };
 
-template <typename StringsFileT>
+template <typename TStringsFile>
 class FeatureInserter
 {
   SynonymsHolder * m_synonyms;
-  StringsFileT & m_names;
+  TStringsFile & m_names;
 
   CategoriesHolder const & m_categories;
 
-  typedef typename StringsFileT::ValueT ValueT;
-  typedef trie::ValueReader SaverT;
+  using ValueT = typename TStringsFile::ValueT;
+  using TSaver = trie::ValueReader;
 
   pair<int, int> m_scales;
 
@@ -205,14 +207,14 @@ class FeatureInserter
   /// - skip specified types for features with empty names (m_enTypes)
   class SkipIndexing
   {
-    typedef buffer_vector<uint32_t, 16> ContT;
+    using TCont = buffer_vector<uint32_t, 16>;
 
     // Array index (0, 1) means type level for checking (1, 2).
-    ContT m_skipEn[2], m_skipF[2];
-    ContT m_dontSkipEn;
+    TCont m_skipEn[2], m_skipF[2];
+    TCont m_dontSkipEn;
     uint32_t m_country, m_state;
 
-    static bool HasType(ContT const & v, uint32_t t)
+    static bool HasType(TCont const & v, uint32_t t)
     {
       return (find(v.begin(), v.end(), t) != v.end());
     }
@@ -305,11 +307,14 @@ class FeatureInserter
   };
 
 public:
-  FeatureInserter(SynonymsHolder * synonyms, StringsFileT & names,
+  FeatureInserter(SynonymsHolder * synonyms, TStringsFile & names,
                   CategoriesHolder const & catHolder, pair<int, int> const & scales,
                   ValueBuilder<ValueT> const & valueBuilder)
-    : m_synonyms(synonyms), m_names(names),
-      m_categories(catHolder), m_scales(scales), m_valueBuilder(valueBuilder)
+    : m_synonyms(synonyms)
+    , m_names(names)
+    , m_categories(catHolder)
+    , m_scales(scales)
+    , m_valueBuilder(valueBuilder)
   {
   }
 
@@ -325,7 +330,7 @@ public:
 
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).
-    FeatureNameInserter<StringsFileT> inserter(skipIndex.IsCountryOrState(types) ? m_synonyms : 0,
+    FeatureNameInserter<TStringsFile> inserter(skipIndex.IsCountryOrState(types) ? m_synonyms : 0,
                                                m_names);
     m_valueBuilder.MakeValue(f, types, index, inserter.m_val);
 
@@ -353,7 +358,7 @@ public:
 
         if (r.second >= m_scales.first && r.first <= m_scales.second)
         {
-          inserter.AddToken(search::CATEGORIES_LANG,
+          inserter.AddToken(search::kCategoriesLang,
                             search::FeatureTypeToString(c.GetIndexForType(t)));
         }
       }
@@ -414,7 +419,7 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
 namespace indexer {
 bool BuildSearchIndexFromDatFile(string const & datFile, bool forceRebuild)
 {
-  LOG(LINFO, ("Start building search index. Bits = ", search::POINT_CODING_BITS));
+  LOG(LINFO, ("Start building search index. Bits = ", search::kPointCodingBits));
 
   try
   {
