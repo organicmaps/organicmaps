@@ -129,19 +129,21 @@ android {
     }
   }
 
+  // Currently (as of 1.2.3 gradle plugin) ABI filters aren't supported inside of product flavors, so we cannot generate splitted builds only for Google build.
+  // TODO check that feature when new gradle plugins will appear
+  // connected bugreport https://code.google.com/p/android/issues/detail?id=178606
+  splits {
+    abi {
+      enable true
+      reset()
+      include 'x86', 'armeabi-v7a'
+      universalApk true
+    }
+  }
+
   // TODO: Fix a lot of lint errors in our code
   lintOptions {
     abortOnError false
-  }
-
-  // version at the end of each built apk
-  applicationVariants.all { variant ->
-    variant.outputs.each { output ->
-      if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
-        def file = output.outputFile
-        output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + defaultConfig.versionName + "-" + getDate() + ".apk"))
-      }
-    }
   }
 
   gradle.projectsEvaluated {
@@ -207,6 +209,22 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_7
     targetCompatibility JavaVersion.VERSION_1_7
+  }
+}
+
+import com.android.build.OutputFile
+project.ext.versionCodes = ['armeabi-v7a':1, 'x86':2]
+
+android.applicationVariants.all { variant ->
+  variant.outputs.each { output ->
+    if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
+      def file = output.outputFile
+      // version at the end of each built apk
+      output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk"))
+      // set different versionCodes for different ABIs
+      int abiVersionCode = project.ext.versionCodes.get(output.getFilter(OutputFile.ABI)) ?: 0
+      output.versionCodeOverride = (abiVersionCode * 1000) + android.defaultConfig.versionCode
+    }
   }
 }
 
