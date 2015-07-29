@@ -237,11 +237,11 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
 
     mTvTurnDistance.setText(getSpannedDistance(getResources().getDimensionPixelSize(R.dimen.text_size_display_1),
-        getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), info.mDistToTurn, info.mTurnUnitsSuffix));
+        getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), info.mDistToTurn, info.mTurnUnits));
     info.mVehicleTurnDirection.setTurnDrawable(mIvTurn);
 
     mTvTotalTime.setText(formatTime(info.mTotalTimeInSeconds));
-    mTvTotalDistance.setText(new StringBuilder(info.mDistToTarget).append(" ").append(info.mUnits.toUpperCase()));
+    mTvTotalDistance.setText(new StringBuilder(info.mDistToTarget).append(" ").append(info.mTargetUnits.toUpperCase()));
     // FIXME add actual routing progress
     mFpRouteProgress.setProgress(40);
   }
@@ -250,7 +250,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
   {
     RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
 
-    mTvPrepareDistance.setText(info.mDistToTarget + " " + info.mUnits.toUpperCase());
+    mTvPrepareDistance.setText(info.mDistToTarget + " " + info.mTargetUnits.toUpperCase());
     mTvPrepareTime.setText(formatTime(info.mTotalTimeInSeconds));
   }
 

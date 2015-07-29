@@ -1,5 +1,6 @@
 package com.mapswithme.maps.routing;
 
+import android.location.Location;
 import android.support.annotation.DrawableRes;
 import android.util.Log;
 import android.widget.ImageView;
@@ -9,19 +10,24 @@ import com.nineoldandroids.view.ViewHelper;
 
 public class RoutingInfo
 {
+  // Target (end point of route).
   public String mDistToTarget;
-  public String mUnits;
-  public int mTotalTimeInSeconds;
-
+  public String mTargetUnits;
+  // Next turn.
   public String mDistToTurn;
-  public String mTurnUnitsSuffix;
+  public String mTurnUnits;
 
+  public int mTotalTimeInSeconds;
   // The next street according to the navigation route.
-  public String mTargetName;
-
+  public String mStreetName;
+  // For vehicle routing.
   public VehicleTurnDirection mVehicleTurnDirection;
   public final String[] turnNotifications;
+  public int mExitNum;
+  public SingleLaneInfo[] mLanes;
+  // For pedestrian routing.
   public PedestrianTurnDirection mPedestrianTurnDirection;
+  public Location mPedestrianNextDirection;
 
   /**
    * IMPORTANT : Order of enum values MUST BE the same with native TurnDirection enum.
@@ -107,17 +113,21 @@ public class RoutingInfo
     SHARP_RIGHT
   }
 
-  public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix,
-                     String targetName, int direction, int totalTime, SingleLaneInfo[] lanes, String[] turnNotifications)
+  public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String targetName,
+                     int vehicleTurnOrdinal, int pedestrianTurnOrdinal, double pedestrianDirectionLat, double pedestrianDirectionLon, int exitNum,
+                     int totalTime, SingleLaneInfo[] lanes, String[] turnNotifications)
   {
     mDistToTarget = distToTarget;
-    mUnits = units;
-    mTurnUnitsSuffix = turnSuffix;
+    mTargetUnits = units;
+    mTurnUnits = turnSuffix;
     mDistToTurn = distTurn;
-    mTargetName = targetName;
+    mStreetName = targetName;
     mTotalTimeInSeconds = totalTime;
-    mVehicleTurnDirection = VehicleTurnDirection.values()[direction];
+    mVehicleTurnDirection = VehicleTurnDirection.values()[vehicleTurnOrdinal];
     this.turnNotifications = turnNotifications;
+    mLanes = lanes;
+    mExitNum = exitNum;
+    mPedestrianTurnDirection = PedestrianTurnDirection.values()[pedestrianTurnOrdinal];
   }
 
   private void DumpLanes(SingleLaneInfo[] lanes)
