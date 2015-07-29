@@ -223,8 +223,6 @@
 		F67BC2751B254F5500FE1D7B /* MWMPlacePageTypeDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = F67BC2741B254F5500FE1D7B /* MWMPlacePageTypeDescription.mm */; };
 		F68CEF741AD8852A00563FBA /* MWMMapController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68CEF731AD8852A00563FBA /* MWMMapController.mm */; };
 		F69A16A31AF24A3300EF43F0 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F69A16A21AF24A3300EF43F0 /* libMyTracker.a */; };
-		F6BACD021AD946C3004E99B1 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
-		F6BACD031AD946C3004E99B1 /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		F6BBF2C61B4FFB72000CF8E2 /* MWMLocationAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BBF2C51B4FFB72000CF8E2 /* MWMLocationAlert.mm */; };
 		F6BBF2C81B4FFB8C000CF8E2 /* MWMLocationAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BBF2C71B4FFB8C000CF8E2 /* MWMLocationAlert.xib */; };
 		F6BC1E4D1ACBE96100EF0360 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -2125,8 +2123,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				343F26311AEFDF3E00388A6D /* resources-xhdpi in Resources */,
-				F6BACD021AD946C3004E99B1 /* World.mwm in Resources */,
-				F6BACD031AD946C3004E99B1 /* WorldCoasts.mwm in Resources */,
 				6C47C8BF1AD6C47E000C52C1 /* Localizable.strings in Resources */,
 				4579C8A01AD2FAB1001D6B90 /* 00_roboto_regular.ttf in Resources */,
 				4579C8A11AD2FAB1001D6B90 /* 01_dejavusans.ttf in Resources */,
