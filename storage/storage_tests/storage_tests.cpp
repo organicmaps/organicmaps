@@ -593,9 +593,9 @@ UNIT_TEST(StorageTest_DeleteCountry)
   TaskRunner runner;
   InitStorage(storage, runner);
 
-  tests_support::ScopedFile map("Uruguay.mwm", "Map");
-  tests_support::ScopedFile routing("Uruguay.mwm.routing", "Map");
-  LocalCountryFile file = LocalCountryFile::MakeForTesting("Uruguay");
+  tests_support::ScopedFile map("Wonderland.mwm", "map");
+  tests_support::ScopedFile routing("Wonderland.mwm.routing", "routing");
+  LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland");
   TEST_EQUAL(MapOptions::MapWithCarRouting, file.GetFiles(), ());
 
   TEST(CountryIndexes::PreparePlaceOnDisk(file), ());
@@ -606,7 +606,7 @@ UNIT_TEST(StorageTest_DeleteCountry)
     writer.Write(data.data(), data.size());
   }
 
-  storage.RegisterCountryFiles(make_shared<LocalCountryFile>(file));
+  storage.RegisterFakeCountryFiles(file);
   TEST(map.Exists(), ());
   TEST(routing.Exists(), ());
   TEST(Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
