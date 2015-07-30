@@ -219,14 +219,14 @@ UNIT_TEST(Retrieval_3Mwms)
   }
 
   {
-    TestCallback callback(mskHandle.GetId());
+    MultiMwmCallback callback({mskHandle.GetId(), mtvHandle.GetId(), zrhHandle.GetId()});
     search::Retrieval::Limits limits;
     limits.SetMaxNumFeatures(10 /* more than total number of features in all these mwms */);
 
     retrieval.Init(index, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params, limits);
     retrieval.Go(callback);
-    TEST(callback.WasTriggered(), ());
-    TEST_EQUAL(callback.Offsets().size(), 3 /* total number of features in all these mwms */, ());
+    TEST_EQUAL(3 /* total number of mwms */, callback.GetNumMwms(), ());
+    TEST_EQUAL(3 /* total number of features in all these mwms */, callback.GetNumFeatures(), ());
   }
 
   {
