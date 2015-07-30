@@ -8,23 +8,17 @@
 
 @class SearchView;
 
-typedef NS_ENUM(NSUInteger, MWMAPIBarState)
-{
-  MWMAPIBarStateHidden,
-  MWMAPIBarStateVisible
-};
-
 @protocol MWMAPIBarProtocol <NSObject>
 
 @property (nonnull, nonatomic) SearchView * searchView;
 
-- (void)apiBarDidEnterState:(MWMAPIBarState)state;
+- (void)apiBarBecameVisible:(BOOL)visible;
 
 @end
 
 @interface MWMAPIBar : NSObject
 
-@property (nonatomic, readonly) MWMAPIBarState state;
+@property (nonatomic, readonly) BOOL isVisible;
 @property (nonatomic, readonly) CGRect frame;
 
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));

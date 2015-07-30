@@ -388,22 +388,6 @@ static BOOL keyboardLoaded = NO;
   return YES;
 }
 
-//TODO(Vlad): Remove this code after new routing UI will be implement.
-- (BOOL)tryToChangeRoutingModeCmd:(NSString *)cmd
-{
-  BOOL const isPedestrian = [cmd isEqualToString:@"?pedestrian"];
-  BOOL const isVehicle = [cmd isEqualToString:@"?vehicle"];
-
-  if (!isPedestrian && !isVehicle)
-    return NO;
-
-  GetFramework().SetRouter(isPedestrian ? routing::RouterType::Pedestrian : routing::RouterType::Vehicle);
-  
-  [self searchBarDidPressCancelButton:nil];
-
-  return YES;
-}
-
 - (void)textFieldTextChanged:(id)sender
 {
   NSString * currentText = self.searchBar.textField.text;

@@ -11,6 +11,8 @@
 #import "MWMNavigationDashboardEntity.h"
 
 #include "Framework.h"
+#include "geometry/distance_on_sphere.hpp"
+#include "platform/measurement_utils.hpp"
 
 @implementation MWMNavigationDashboardEntity
 
@@ -36,15 +38,12 @@
   if (f.GetRouter() == routing::RouterType::Pedestrian)
   {
     _isPedestrian = YES;
-    LocationManager * locationManager = [MapsAppDelegate theApp].m_locationManager;
-    double north = -1.0;
-    [locationManager getNorthRad:north];
     string distance;
-    double azimut = -1.0;
-    CLLocationCoordinate2D const coordinate (locationManager.lastLocation.coordinate);
-    ms::LatLon const & latLon = info.m_pedestrianDirectionPos;
-    m2::PointD const point (MercatorBounds::LonToX(latLon.lon), MercatorBounds::LatToY(latLon.lat));
-    f.GetDistanceAndAzimut(point, coordinate.latitude, coordinate.longitude, north, distance, azimut);
+    CLLocationCoordinate2D const & coordinate ([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate);
+    ms::LatLon const & directionPos = info.m_pedestrianDirectionPos;
+    //TODO: Not the best solution, but this solution is temporary and will be replaced in future
+    MeasurementUtils::FormatDistance(ms::DistanceOnEarth(coordinate.latitude, coordinate.longitude,
+                                          directionPos.lat, directionPos.lon), distance);
     istringstream is (distance);
     string dist;
     string units;

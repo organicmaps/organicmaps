@@ -33,8 +33,8 @@ typedef void (^CloseAlertCompletion)();
 - (void)presentnoWiFiAlertWithName:(nonnull NSString *)name downloadBlock:(nullable RightButtonAction)block;
 - (void)closeAlertWithCompletion:(nullable CloseAlertCompletion)completion;
 
-- (nonnull instancetype)init __attribute__((unavailable("-init isn't available, call -initWithViewController: instead!")));
-+ (nonnull instancetype)new __attribute__((unavailable("+new isn't available, call -initWithViewController: instead!")));
-- (nonnull instancetype)initWithCoder:(nonnull NSCoder *)aDecoder __attribute__((unavailable("-initWithCoder: isn't available, call -initWithViewController: instead!")));
-- (nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil __attribute__((unavailable("-initWithNibName:bundle: isn't available, call -initWithViewController: instead!")));
+- (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));
++ (nonnull instancetype)new __attribute__((unavailable("call -initWithViewController: instead!")));
+- (nonnull instancetype)initWithCoder:(nonnull NSCoder *)aDecoder __attribute__((unavailable("call -initWithViewController: instead!")));
+- (nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil __attribute__((unavailable("call -initWithViewController: instead!")));
 @end

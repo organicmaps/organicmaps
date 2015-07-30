@@ -2,15 +2,15 @@
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIApplication.h>
 
-#include "../../platform/location.hpp"
-
-#include "../../std/utility.hpp"
-
+#include "indexer/mercator.hpp"
+#include "platform/location.hpp"
+#include "std/utility.hpp"
 
 @protocol LocationObserver
+@required
+- (void)onLocationUpdate:(location::GpsInfo const &)info;
 @optional
 - (void)onLocationError:(location::TLocationError)errorCode;
-- (void)onLocationUpdate:(location::GpsInfo const &)info;
 - (void)onCompassUpdate:(location::CompassInfo const &)info;
 @end
 
@@ -42,3 +42,13 @@
 - (void)triggerCompass;
 
 @end
+
+static inline m2::PointD ToMercator(CLLocationCoordinate2D const & l)
+{
+  return MercatorBounds::FromLatLon(l.latitude, l.longitude);
+}
+
+static inline m2::PointD ToMercator(ms::LatLon const & l)
+{
+  return MercatorBounds::FromLatLon(l);
+}

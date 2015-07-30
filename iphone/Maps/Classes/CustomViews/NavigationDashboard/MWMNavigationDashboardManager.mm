@@ -25,14 +25,14 @@
 @property (weak, nonatomic) MWMNavigationDashboard * navigationDashboard;
 
 @property (weak, nonatomic) UIView * ownerView;
-@property (weak, nonatomic) id<MWMNavigationDashboardManagerDelegate> delegate;
+@property (weak, nonatomic) id<MWMNavigationDashboardManagerProtocol> delegate;
 
 @property (nonatomic, readwrite) MWMNavigationDashboardEntity * entity;
 @end
 
 @implementation MWMNavigationDashboardManager
 
-- (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerDelegate>)delegate
+- (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate
 {
   self = [super init];
   if (self)
@@ -44,10 +44,12 @@
     [NSBundle.mainBundle loadNibNamed:@"MWMPortraitRoutePreview" owner:self options:nil];
     [NSBundle.mainBundle loadNibNamed:@"MWMLandscapeRoutePreview" owner:self options:nil];
     self.routePreview = isPortrait ? self.routePreviewPortrait : self.routePreviewLandscape;
+    self.routePreviewPortrait.delegate = self.routePreviewLandscape.delegate = delegate;
 
     [NSBundle.mainBundle loadNibNamed:@"MWMPortraitNavigationDashboard" owner:self options:nil];
     [NSBundle.mainBundle loadNibNamed:@"MWMLandscapeNavigationDashboard" owner:self options:nil];
     self.navigationDashboard = isPortrait ? self.navigationDashboardPortrait : self.navigationDashboardLandscape;
+    self.navigationDashboardPortrait.delegate = self.navigationDashboardLandscape.delegate = delegate;
   }
   return self;
 }
@@ -56,7 +58,8 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-  BOOL const isPortrait = orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown;
+  BOOL const isPortrait = orientation == UIInterfaceOrientationPortrait ||
+                          orientation == UIInterfaceOrientationPortraitUpsideDown;
   MWMRoutePreview * routePreview = isPortrait ? self.routePreviewPortrait : self.routePreviewLandscape;
   if (self.routePreview.isVisible && ![routePreview isEqual:self.routePreview])
   {
@@ -65,7 +68,8 @@
   }
   self.routePreview = routePreview;
 
-  MWMNavigationDashboard * navigationDashboard = isPortrait ? self.navigationDashboardPortrait : self.navigationDashboardLandscape;
+  MWMNavigationDashboard * navigationDashboard = isPortrait ? self.navigationDashboardPortrait :
+                                                              self.navigationDashboardLandscape;
   if (self.navigationDashboard.isVisible && ![navigationDashboard isEqual:self.navigationDashboard])
   {
     [self.navigationDashboard remove];
@@ -116,6 +120,7 @@
     f.SetRouter(routing::RouterType::Vehicle);
   }
   f.CloseRouting();
+  [self showStatePlanning];
   [self.delegate buildRouteWithType:f.GetRouter()];
 }
 
@@ -182,7 +187,6 @@
 {
   [self.routePreviewPortrait showGoButtonAnimated:show];
   [self.routePreviewLandscape showGoButtonAnimated:show];
-  [self.delegate navigationDashBoardDidUpdate];
 }
 
 #pragma mark - Properties
@@ -199,6 +203,10 @@
     case MWMNavigationDashboardStatePlanning:
       [self showStatePlanning];
       break;
+    case MWMNavigationDashboardStateError:
+      NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change");
+      [self handleError];
+      break;
     case MWMNavigationDashboardStateReady:
       NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change");
       [self showStateReady];
@@ -209,13 +217,12 @@
   }
   _state = state;
   [self.delegate updateStatusBarStyle];
-  [self.delegate navigationDashBoardDidUpdate];
 }
 
 - (void)setTopBound:(CGFloat)topBound
 {
-  _topBound = self.routePreviewLandscape.topBound = self.routePreviewPortrait.topBound = self.navigationDashboardLandscape.topBound = self.navigationDashboardPortrait.topBound = topBound;
-  [self.delegate navigationDashBoardDidUpdate];
+  _topBound = self.routePreviewLandscape.topBound = self.routePreviewPortrait.topBound =
+  self.navigationDashboardLandscape.topBound = self.navigationDashboardPortrait.topBound = topBound;
 }
 
 - (CGFloat)height
@@ -226,6 +233,7 @@
       return 0.0;
     case MWMNavigationDashboardStatePlanning:
     case MWMNavigationDashboardStateReady:
+    case MWMNavigationDashboardStateError:
       return self.routePreview.visibleHeight;
     case MWMNavigationDashboardStateNavigation:
       return self.navigationDashboard.visibleHeight;
@@ -233,6 +241,13 @@
 }
 
 #pragma mark - LocationObserver
+
+- (void)onLocationUpdate:(const location::GpsInfo &)info
+{
+// We don't need information about location update in this class,
+// but in LocationObserver protocol this method is required
+// since we don't want runtime overhead for introspection.
+}
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
@@ -249,9 +264,8 @@
   if (!res.IsValid())
     return;
 
-  ms::LatLon const dest (res.m_pedestrianDirectionPos);
-  CLLocationCoordinate2D const lastPosition (location.coordinate);
-  CGFloat const angle = ang::AngleTo(MercatorBounds::FromLatLon(lastPosition.latitude, lastPosition.longitude), MercatorBounds::FromLatLon(dest.lat, dest.lon)) + info.m_bearing;
+  CGFloat const angle = ang::AngleTo(ToMercator(location.coordinate),
+                                     ToMercator(res.m_pedestrianDirectionPos)) + info.m_bearing;
   CGAffineTransform const transform (CGAffineTransformMakeRotation(M_PI_2 - angle));
   self.navigationDashboardPortrait.direction.transform = transform;
   self.navigationDashboardLandscape.direction.transform = transform;

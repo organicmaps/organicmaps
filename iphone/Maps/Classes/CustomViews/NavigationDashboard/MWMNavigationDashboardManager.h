@@ -7,6 +7,7 @@
 //
 
 #import "LocationManager.h"
+#import "MWMNavigationViewProtocol.h"
 
 #include "Framework.h"
 #include "platform/location.hpp"
@@ -15,14 +16,14 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 {
   MWMNavigationDashboardStateHidden,
   MWMNavigationDashboardStatePlanning,
+  MWMNavigationDashboardStateError,
   MWMNavigationDashboardStateReady,
   MWMNavigationDashboardStateNavigation
 };
 
-@protocol MWMNavigationDashboardManagerDelegate <NSObject>
+@protocol MWMNavigationDashboardManagerProtocol <MWMNavigationViewProtocol>
 
 - (void)buildRouteWithType:(enum routing::RouterType)type;
-- (void)navigationDashBoardDidUpdate;
 - (void)didStartFollowing;
 - (void)didCancelRouting;
 - (void)updateStatusBarStyle;
@@ -40,9 +41,8 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
-- (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerDelegate>)delegate;
+- (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate;
 - (void)setupDashboard:(location::FollowingInfo const &)info;
-- (void)handleError;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 
 @end

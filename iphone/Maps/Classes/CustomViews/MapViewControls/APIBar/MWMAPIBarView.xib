@@ -22,7 +22,7 @@
                         <constraint firstAttribute="width" constant="60" id="0Xq-E4-45k"/>
                         <constraint firstAttribute="height" constant="44" id="TaT-76-6ui"/>
                     </constraints>
-                    <state key="normal" image="BackArrow">
+                    <state key="normal" image="btn_back_arrow">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -83,6 +83,6 @@
         </view>
     </objects>
     <resources>
-        <image name="BackArrow" width="12" height="20"/>
+        <image name="btn_back_arrow" width="12" height="20"/>
     </resources>
 </document>

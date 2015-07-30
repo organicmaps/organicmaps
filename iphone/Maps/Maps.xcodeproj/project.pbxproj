@@ -15,6 +15,8 @@
 		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
 		340F24631B14910500F874CD /* RouteState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340F24621B14910500F874CD /* RouteState.mm */; };
 		341522BF1B666A550077AA8F /* MWMAPIBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 341522BE1B666A550077AA8F /* MWMAPIBarView.m */; };
+		341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
+		341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */; };
 		34287FDC1B3D7C4800F9959C /* libFlurry_6.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */; };
 		3428BC131B55477E00C85B30 /* MWMSideMenuDownloadBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3428BC121B55477E00C85B30 /* MWMSideMenuDownloadBadge.m */; };
 		342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 342AD76E1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m */; };
@@ -35,7 +37,6 @@
 		345C31781AE799B600EA0CC2 /* MWMSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 345C31751AE799B600EA0CC2 /* MWMSearchResultCell.m */; };
 		345C31791AE799B600EA0CC2 /* MWMSearchResultController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */; };
 		3465E7D81B6658C000854C4D /* MWMAPIBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3465E7D71B6658C000854C4D /* MWMAPIBar.mm */; };
-		3465E7DD1B6658EB00854C4D /* MWMAPIBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3465E7DC1B6658EB00854C4D /* MWMAPIBarView.xib */; };
 		347274731B0F4EE000756B37 /* me.maps.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274721B0F4EE000756B37 /* me.maps.entitlements */; };
 		347274771B0F4F3900756B37 /* me.maps.watchkitextension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274761B0F4F3900756B37 /* me.maps.watchkitextension.entitlements */; };
 		347274791B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274781B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements */; };
@@ -92,7 +93,6 @@
 		4579C89F1AD2FA36001D6B90 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		4579C8A01AD2FAB1001D6B90 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
 		4579C8A11AD2FAB1001D6B90 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
-		9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		4579C8A31AD2FAB1001D6B90 /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
 		4579C8A41AD2FAB1001D6B90 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
 		4579C8A51AD2FAB1001D6B90 /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E9134C4968003A9827 /* 05_khmeros.ttf */; };
@@ -158,6 +158,7 @@
 		97FC99DC19C1A2CD00C1CF98 /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99D919C1A2CD00C1CF98 /* resources-mdpi */; };
 		97FC99DE19C1A2CD00C1CF98 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
 		97FC99E019C1A2CD00C1CF98 /* resources-xxhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */; };
+		9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D491A14980500E54A65 /* iosOGLContext.mm */; };
 		A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
 		A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
@@ -182,7 +183,6 @@
 		EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
-		9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
 		EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
 		EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E9134C4968003A9827 /* 05_khmeros.ttf */; };
@@ -368,6 +368,7 @@
 		340F24641B15F01D00F874CD /* MWMSideMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSideMenuDelegate.h; sourceTree = "<group>"; };
 		341522BD1B666A550077AA8F /* MWMAPIBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAPIBarView.h; sourceTree = "<group>"; };
 		341522BE1B666A550077AA8F /* MWMAPIBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMAPIBarView.m; sourceTree = "<group>"; };
+		341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAPIBarView.xib; sourceTree = "<group>"; };
 		34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.4.0.a; path = Statistics/libFlurry_6.4.0.a; sourceTree = "<group>"; };
 		3428BC111B55477E00C85B30 /* MWMSideMenuDownloadBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSideMenuDownloadBadge.h; sourceTree = "<group>"; };
 		3428BC121B55477E00C85B30 /* MWMSideMenuDownloadBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMSideMenuDownloadBadge.m; sourceTree = "<group>"; };
@@ -397,13 +398,13 @@
 		345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchResultController.mm; sourceTree = "<group>"; };
 		3465E7D61B6658C000854C4D /* MWMAPIBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAPIBar.h; sourceTree = "<group>"; };
 		3465E7D71B6658C000854C4D /* MWMAPIBar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAPIBar.mm; sourceTree = "<group>"; };
-		3465E7DC1B6658EB00854C4D /* MWMAPIBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAPIBarView.xib; sourceTree = "<group>"; };
 		347274721B0F4EE000756B37 /* me.maps.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.entitlements; sourceTree = "<group>"; };
 		347274761B0F4F3900756B37 /* me.maps.watchkitextension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.watchkitextension.entitlements; sourceTree = "<group>"; };
 		347274781B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.watchkitextension.production.entitlements; sourceTree = "<group>"; };
 		3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.production.entitlements; sourceTree = "<group>"; };
 		3472EC031B4D44BE0085CB79 /* UIFont+MapsMeFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+MapsMeFonts.h"; sourceTree = "<group>"; };
 		3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIFont+MapsMeFonts.mm"; sourceTree = "<group>"; };
+		348320CC1B6A2C52007EC039 /* MWMNavigationViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationViewProtocol.h; sourceTree = "<group>"; };
 		348E57981B0F49D8000FA02A /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		348E57C81B0F49EE000FA02A /* maps.me WatchKit Extension WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "maps.me WatchKit Extension WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		348E57D71B0F49EE000FA02A /* maps.me WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -559,6 +560,7 @@
 		97FC99D919C1A2CD00C1CF98 /* resources-mdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi"; path = "../../data/resources-mdpi"; sourceTree = "<group>"; };
 		97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi"; path = "../../data/resources-xhdpi"; sourceTree = "<group>"; };
 		97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi"; path = "../../data/resources-xxhdpi"; sourceTree = "<group>"; };
+		9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_droidsans-fallback.ttf"; path = "../../data/02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 		A32B6D481A14980500E54A65 /* iosOGLContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iosOGLContext.h; path = Platform/opengl/iosOGLContext.h; sourceTree = "<group>"; };
 		A32B6D491A14980500E54A65 /* iosOGLContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iosOGLContext.mm; path = Platform/opengl/iosOGLContext.mm; sourceTree = "<group>"; };
 		A32B6D4A1A14980500E54A65 /* iosOGLContextFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iosOGLContextFactory.h; path = Platform/opengl/iosOGLContextFactory.h; sourceTree = "<group>"; };
@@ -592,7 +594,6 @@
 		EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderBuffer.mm; path = Classes/RenderBuffer.mm; sourceTree = SOURCE_ROOT; };
 		EE7F297E1219ECA300EB67A9 /* RenderContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderContext.mm; path = Classes/RenderContext.mm; sourceTree = SOURCE_ROOT; };
 		EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 01_dejavusans.ttf; path = ../../data/01_dejavusans.ttf; sourceTree = SOURCE_ROOT; };
-		9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_droidsans-fallback.ttf"; path = "../../data/02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 		EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "03_jomolhari-id-a3d.ttf"; path = "../../data/03_jomolhari-id-a3d.ttf"; sourceTree = SOURCE_ROOT; };
 		EEA615E8134C4968003A9827 /* 04_padauk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 04_padauk.ttf; path = ../../data/04_padauk.ttf; sourceTree = SOURCE_ROOT; };
 		EEA615E9134C4968003A9827 /* 05_khmeros.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 05_khmeros.ttf; path = ../../data/05_khmeros.ttf; sourceTree = SOURCE_ROOT; };
@@ -1094,7 +1095,7 @@
 				3465E7D71B6658C000854C4D /* MWMAPIBar.mm */,
 				341522BD1B666A550077AA8F /* MWMAPIBarView.h */,
 				341522BE1B666A550077AA8F /* MWMAPIBarView.m */,
-				3465E7DC1B6658EB00854C4D /* MWMAPIBarView.xib */,
+				341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */,
 			);
 			path = APIBar;
 			sourceTree = "<group>";
@@ -1241,6 +1242,7 @@
 		34D783C71B5F9D7800E0C0EE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				348320CC1B6A2C52007EC039 /* MWMNavigationViewProtocol.h */,
 				F6BD33821B6240F200F2CE18 /* MWMNavigationView.h */,
 				F6BD33831B6240F200F2CE18 /* MWMNavigationView.m */,
 				F6BD33731B62400E00F2CE18 /* Dashboard */,
@@ -2104,8 +2106,7 @@
 				F64F4B711B4A41D40081A24A /* MWMDownloaderDialogHeader.xib in Resources */,
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
 				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,
-				9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */,
-				3497A9391B5CF8A900F51E55 /* MWMNavigationDashboard.xib in Resources */,
+				341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */,
 				4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */,
 				34BC722B1B0DECAE0012A34B /* MWMZoomButtonsView.xib in Resources */,
 				EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */,
@@ -2152,6 +2153,7 @@
 				F7E7BA241672328F00B4492E /* bank.png in Resources */,
 				34BC72231B0DECAE0012A34B /* MWMLocationButton.xib in Resources */,
 				349A358D1B53EABC009677EE /* MWMSearchDownloadMapRequest.xib in Resources */,
+				341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */,
 				F7E7BA251672328F00B4492E /* bank@2x.png in Resources */,
 				349A357B1B53D4C9009677EE /* MWMCircularProgress.xib in Resources */,
 				F7E7BA261672328F00B4492E /* entertainment.png in Resources */,

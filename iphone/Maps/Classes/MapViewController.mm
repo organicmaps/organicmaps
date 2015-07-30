@@ -203,9 +203,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
   self.forceRoutingStateChange = ForceRoutingStateChangeStartFollowing;
   auto & f = GetFramework();
-  CLLocationCoordinate2D const lastCoordinate ([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate);
-  m2::PointD const lastCoordinatePoint (MercatorBounds::LonToX(lastCoordinate.longitude), MercatorBounds::LatToY(lastCoordinate.latitude));
-  f.SetRouter(f.GetBestRouter(lastCoordinatePoint, self.restoreRouteDestination));
+  f.SetRouter(f.GetBestRouter(ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate), self.restoreRouteDestination));
   GetFramework().BuildRoute(self.restoreRouteDestination, 0 /* timeoutSec */);
 }
 
@@ -555,13 +553,18 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  if (self.apiBar.state == MWMAPIBarStateVisible)
+  if (self.apiBar.isVisible)
   {
     return UIStatusBarStyleLightContent;
   }
   else
   {
-    if (self.searchView.state != SearchViewStateHidden || self.controlsManager.menuState == MWMSideMenuStateActive || self.controlsManager.isDirectionViewShown || (GetFramework().GetMapStyle() == MapStyleDark && self.controlsManager.navigationState == MWMNavigationDashboardStateHidden))
+    BOOL const isLight = self.searchView.state != SearchViewStateHidden ||
+                   self.controlsManager.menuState == MWMSideMenuStateActive ||
+                   self.controlsManager.isDirectionViewShown ||
+                   (GetFramework().GetMapStyle() == MapStyleDark &&
+                   self.controlsManager.navigationState == MWMNavigationDashboardStateHidden);
+    if (isLight)
       return UIStatusBarStyleLightContent;
     return UIStatusBarStyleDefault;
   }
@@ -695,6 +698,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           self.forceRoutingStateChange = ForceRoutingStateChangeNone;
           break;
         case routing::IRouter::Cancelled:
+          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
           break;
         default:
           [self.controlsManager handleRoutingError];
@@ -723,9 +727,9 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   [self.apiBar show];
 }
 
-- (void)apiBarDidEnterState:(MWMAPIBarState)state
+- (void)apiBarBecameVisible:(BOOL)visible
 {
-  if (state == MWMAPIBarStateVisible)
+  if (visible)
   {
     [self setMapInfoViewFlag:MapInfoViewAPIBar];
     CGRect const apiRect = self.apiBar.frame;

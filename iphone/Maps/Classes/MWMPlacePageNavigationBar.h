@@ -16,8 +16,8 @@
 + (void)showNavigationBarForPlacePage:(MWMiPhonePortraitPlacePage *)placePage;
 + (void)remove;
 
-- (instancetype)init __attribute__((unavailable("init is unavailable, call navigationBarWithPlacePage: instead")));
-- (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("initWithCoder: is unavailable, call navigationBarWithPlacePage: instead")));
-- (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame: is unavailable, call navigationBarWithPlacePage: instead")));
+- (instancetype)init __attribute__((unavailable("call navigationBarWithPlacePage: instead")));
+- (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("call navigationBarWithPlacePage: instead")));
+- (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("call navigationBarWithPlacePage: instead")));
 
 @end

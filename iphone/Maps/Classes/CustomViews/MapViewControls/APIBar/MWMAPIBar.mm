@@ -19,7 +19,7 @@
 @property (nonatomic) IBOutlet UILabel * titleLabel;
 
 @property (weak, nonatomic) UIViewController<MWMAPIBarProtocol> * delegate;
-@property (nonatomic) MWMAPIBarState state;
+@property (nonatomic, setter = setVisible:) BOOL isVisible;
 
 @end
 
@@ -45,7 +45,7 @@
   [UIView animateWithDuration:0.2 animations:^
   {
     self.rootView.targetY = 0.0;
-    self.state = MWMAPIBarStateVisible;
+    self.isVisible = YES;
   }];
 }
 
@@ -54,7 +54,7 @@
   [UIView animateWithDuration:animated ? 0.2 : 0.0 animations:^
   {
     self.rootView.targetY = -self.rootView.height;
-    self.state = MWMAPIBarStateHidden;
+    self.isVisible = NO;
   }
   completion:^(BOOL finished)
   {
@@ -84,10 +84,10 @@
 
 #pragma mark - Properties
 
-- (void)setState:(MWMAPIBarState)state
+- (void)setVisible:(BOOL)visible
 {
-  _state = state;
-  [self.delegate apiBarDidEnterState:state];
+  _isVisible = visible;
+  [self.delegate apiBarBecameVisible:visible];
 }
 
 - (CGRect)frame

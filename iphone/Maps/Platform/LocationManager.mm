@@ -90,7 +90,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
       // (default CLLocationManagerDelegate behaviour)
       location::GpsInfo newInfo;
       [self location:[self lastLocation] toGpsInfo:newInfo];
-      [self observer:observer onLocationUpdate:newInfo];
+      [observer onLocationUpdate:newInfo];
     }
   }
 }
@@ -189,7 +189,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   location::GpsInfo newInfo;
   [self location:newLocation toGpsInfo:newInfo];
   for (id observer in m_observers)
-    [self observer:observer onLocationUpdate:newInfo];
+     [observer onLocationUpdate:newInfo];
   // TODO(AlexZ): Temporary, remove in the future.
   [[Statistics instance] logLocation:newLocation];
 }
@@ -339,22 +339,10 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
       [observer onCompassUpdate:newInfo];
 }
 
-- (void)observer:(id<LocationObserver>)observer onLocationUpdate:(location::GpsInfo const &)info
-{
-  if ([(NSObject *)observer respondsToSelector:@selector(onLocationUpdate:)])
-    [observer onLocationUpdate:info];
-}
-
 - (void)observer:(id<LocationObserver>)observer onLocationError:(location::TLocationError)errorCode
 {
   if ([(NSObject *)observer respondsToSelector:@selector(onLocationError:)])
     [observer onLocationError:errorCode];
-}
-
-- (void)observer:(id<LocationObserver>)observer onCompasUpdate:(location::CompassInfo const &)info
-{
-  if ([(NSObject *)observer respondsToSelector:@selector(onCompassUpdate:)])
-    [observer onCompassUpdate:info];
 }
 
 @end

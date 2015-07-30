@@ -18,7 +18,8 @@
 #import "MWMZoomButtons.h"
 #import "RouteState.h"
 
-@interface MWMMapViewControlsManager () <MWMPlacePageViewManagerProtocol, MWMNavigationDashboardManagerDelegate, MWMSideMenuManagerProtocol>
+@interface MWMMapViewControlsManager () <MWMPlacePageViewManagerProtocol, MWMNavigationDashboardManagerProtocol,
+                                         MWMSideMenuManagerProtocol>
 
 @property (nonatomic) MWMZoomButtons * zoomButtons;
 @property (nonatomic) MWMLocationButton * locationButton;
@@ -115,7 +116,7 @@
 
 - (void)handleRoutingError
 {
-  [self.navigationManager handleError];
+  self.navigationManager.state = MWMNavigationDashboardStateError;
 }
 
 - (void)buildRouteWithType:(enum routing::RouterType)type
@@ -128,11 +129,8 @@
 - (void)navigationDashBoardDidUpdate
 {
   CGFloat const topBound = self.topBound + self.navigationManager.height;
-  [UIView animateWithDuration:0.2 animations:^
-  {
-    [self.zoomButtons setTopBound:topBound];
-    [self.placePageManager setTopBound:topBound];
-  }];
+  [self.zoomButtons setTopBound:topBound];
+  [self.placePageManager setTopBound:topBound];
 }
 
 - (void)didStartFollowing

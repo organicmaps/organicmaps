@@ -17,7 +17,6 @@
 
 #include "platform/location.hpp"
 
-
 extern NSString * const kSearchResultTitleKey;
 extern NSString * const kSearchResultCategoryKey;
 extern NSString * const kSearchResultPointKey;

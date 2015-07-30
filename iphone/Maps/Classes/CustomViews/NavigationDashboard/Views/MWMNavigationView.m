@@ -49,7 +49,8 @@ static CGFloat const kStatusbarHeight = 20.0;
   {
     if (!CGRectEqualToRect(self.frame, self.defaultFrame))
       self.frame = self.defaultFrame;
-    [self layoutStatusbar];
+    self.statusbarBackground.frame = CGRectMake(0.0, -kStatusbarHeight, self.width, kStatusbarHeight);
+    [self.delegate navigationDashBoardDidUpdate];
   }
   completion:^(BOOL finished)
   {
@@ -59,30 +60,26 @@ static CGFloat const kStatusbarHeight = 20.0;
   [super layoutSubviews];
 }
 
-- (void)layoutStatusbar
-{
-  if (self.topBound <= kStatusbarHeight)
-  {
-    if (![self.statusbarBackground.superview isEqual:self])
-      [self addSubview:self.statusbarBackground];
-    self.statusbarBackground.frame = CGRectMake(0.0, -kStatusbarHeight, self.width, kStatusbarHeight);
-  }
-  else
-  {
-    [self.statusbarBackground removeFromSuperview];
-  }
-}
-
 #pragma mark - Properties
 
 - (CGRect)defaultFrame
 {
-  return CGRectMake(0.0, self.isVisible ? self.topBound : -self.defaultHeight, self.superview.width, self.defaultHeight);
+  return CGRectMake(0.0, self.isVisible ? self.topBound :
+                                          -self.defaultHeight, self.superview.width, self.defaultHeight);
 }
 
 - (void)setTopBound:(CGFloat)topBound
 {
   _topBound = MAX(topBound, kStatusbarHeight);
+  if (_topBound <= kStatusbarHeight)
+  {
+    if (![self.statusbarBackground.superview isEqual:self])
+      [self addSubview:self.statusbarBackground];
+  }
+  else
+  {
+    [self.statusbarBackground removeFromSuperview];
+  }
   [self setNeedsLayout];
 }
 

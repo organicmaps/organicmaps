@@ -1,12 +1,13 @@
 
+#import "LocationManager.h"
 #import "ShareActionSheet.h"
-#import "Framework.h"
 #import <MessageUI/MFMessageComposeViewController.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import "Statistics.h"
 #import "UIKitCategories.h"
 
-#include "../../search/result.hpp"
+#include "Framework.h"
+#include "search/result.hpp"
 
 @implementation ShareInfo
 
@@ -87,7 +88,7 @@
   if (self.info.myPosition)
   {
     search::AddressInfo info;
-    GetFramework().GetAddressInfoForGlobalPoint(m2::PointD(MercatorBounds::LonToX(self.info.lon), MercatorBounds::LatToY(self.info.lat)), info);
+    GetFramework().GetAddressInfoForGlobalPoint(MercatorBounds::FromLatLon(self.info.lat, self.info.lon), info);
     NSString * nameAndAddress = [NSString stringWithUTF8String:info.FormatNameAndAddress().c_str()];
     body = [NSString stringWithFormat:L(@"my_position_share_email"), nameAndAddress, shortUrl, httpGe0Url];
     subject = L(@"my_position_share_email_subject");

@@ -36,6 +36,6 @@
 - (void)hideDirectionView;
 - (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller;
 
-- (instancetype)init __attribute__((unavailable("init is unavailable, call initWithViewController: instead")));
+- (instancetype)init __attribute__((unavailable("call initWithViewController: instead")));
 
 @end

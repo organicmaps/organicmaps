@@ -172,10 +172,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   auto & f = GetFramework();
   m2::PointD const & destination = m_userMark->GetUserMark()->GetOrg();
-  CLLocationCoordinate2D const & myCoordinate = [MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate;
-  m2::PointD const myPosition {MercatorBounds::LonToX(myCoordinate.longitude), MercatorBounds::LatToY(myCoordinate.latitude)};
-  routing::RouterType const actualyRoterType = f.GetBestRouter(myPosition, destination);
-  f.SetRouter(actualyRoterType);
+  m2::PointD const myPosition (ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate));
+  f.SetRouter(f.GetBestRouter(myPosition, destination));
   [self.delegate buildRoute:destination];
 }
 
@@ -268,8 +266,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   if (!location || !m_userMark)
     return;
 
-  CLLocationCoordinate2D const coord = location.coordinate;
-  CGFloat angle = ang::AngleTo(MercatorBounds::FromLatLon(coord.latitude, coord.longitude), m_userMark->GetUserMark()->GetOrg()) + info.m_bearing;
+  CGFloat const angle = ang::AngleTo(ToMercator(location.coordinate), m_userMark->GetUserMark()->GetOrg()) + info.m_bearing;
   CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
   [self.placePage setDirectionArrowTransform:transform];
   [self.directionView setDirectionArrowTransform:transform];

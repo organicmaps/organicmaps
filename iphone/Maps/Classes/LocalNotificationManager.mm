@@ -284,13 +284,10 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 {
   /// @todo Fix this logic after Framework -> CountryTree -> ActiveMapLayout refactoring.
   /// Call download via Framework.
-
   Framework & f = GetFramework();
   f.GetCountryTree().GetActiveMapLayout().DownloadMap(index, MapOptions::Map);
-  m2::RectD const rect = f.GetCountryBounds(index);
-  double const lon = MercatorBounds::XToLon(rect.Center().x);
-  double const lat = MercatorBounds::YToLat(rect.Center().y);
-  f.ShowRect(lat, lon, 10);
+  double const defaultZoom = 10;
+  f.ShowRect(f.GetCountryBounds(index).Center(), defaultZoom);
 }
 
 - (NSString *)flagStringForIndex:(TIndex)index
@@ -341,7 +338,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   {
     Framework & f = GetFramework();
     CLLocation * lastLocation = [locations lastObject];
-    TIndex const index = f.GetCountryIndex(MercatorBounds::FromLatLon(lastLocation.coordinate.latitude, lastLocation.coordinate.longitude));
+    TIndex const index = f.GetCountryIndex(ToMercator(lastLocation.coordinate));
     
     if (index.IsValid() && [self shouldShowNotificationForIndex:index])
     {

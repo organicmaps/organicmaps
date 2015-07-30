@@ -18,8 +18,8 @@
 + (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage;
 - (void)configureForMyPosition:(BOOL)isMyPosition;
 
-- (instancetype)init __attribute__((unavailable("init is unavailable, call actionBarForPlacePage: instead")));
-- (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("initWithCoder: is unavailable, call actionBarForPlacePage: instead")));
-- (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame: is unavailable, call actionBarForPlacePage: instead")));
+- (instancetype)init __attribute__((unavailable("call actionBarForPlacePage: instead")));
+- (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("call actionBarForPlacePage: instead")));
+- (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("call actionBarForPlacePage: instead")));
 
 @end

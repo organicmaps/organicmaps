@@ -23,7 +23,8 @@ NS_ENUM(NSUInteger, MWMDownloadMapRequestState)
 @interface MWMDownloadMapRequest : NSObject
 
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
-- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView  delegate:(nonnull id <MWMDownloadMapRequestDelegate>)delegate;
+- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView
+                                  delegate:(nonnull id <MWMDownloadMapRequestDelegate>)delegate;
 
 - (void)showRequest;
 

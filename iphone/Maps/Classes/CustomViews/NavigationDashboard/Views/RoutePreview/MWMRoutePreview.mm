@@ -37,7 +37,11 @@
 {
   self.timeLabel.text = [NSDateFormatter estimatedArrivalTimeWithSeconds:@(entity.timeToTarget)];
   self.distanceLabel.text = [NSString stringWithFormat:@"%@ %@", entity.targetDistance, entity.targetUnits];
-  self.arrivalsLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"routing_arrive"), [NSDateFormatter localizedStringFromDate:[[NSDate date] dateByAddingTimeInterval:entity.timeToTarget] dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterShortStyle]];
+  NSString * arriveStr = [NSDateFormatter localizedStringFromDate:[[NSDate date]
+                                           dateByAddingTimeInterval:entity.timeToTarget]
+                                                          dateStyle:NSDateFormatterNoStyle
+                                                          timeStyle:NSDateFormatterShortStyle];
+  self.arrivalsLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"routing_arrive"), arriveStr];
 }
 
 - (void)remove

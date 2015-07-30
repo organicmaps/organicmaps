@@ -37,7 +37,8 @@
 
 @implementation MWMDownloadMapRequest
 
-- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView  delegate:(nonnull id <MWMDownloadMapRequestDelegate>)delegate
+- (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView
+                                  delegate:(nonnull id <MWMDownloadMapRequestDelegate>)delegate
 {
   self = [super init];
   if (self)
@@ -76,11 +77,13 @@
 
     if (self.currentCountryIndex.IsValid())
     {
-      self.mapTitleLabel.text = [NSString stringWithUTF8String:activeMapLayout.GetFormatedCountryName(self.currentCountryIndex).c_str()];
+      self.mapTitleLabel.text = @(activeMapLayout.GetFormatedCountryName(self.currentCountryIndex).c_str());
       LocalAndRemoteSizeT const sizes = activeMapLayout.GetRemoteCountrySizes(self.currentCountryIndex);
       self.mapSize = formattedSize(sizes.first);
       self.mapAndRouteSize = formattedSize(sizes.first + sizes.second);
-      [self.downloadMapButton setTitle:[NSString stringWithFormat:@"%@ (%@)", L(@"downloader_download_map"), self.mapAndRouteSize] forState:UIControlStateNormal];
+      [self.downloadMapButton setTitle:[NSString stringWithFormat:@"%@ (%@)",
+                                        L(@"downloader_download_map"), self.mapAndRouteSize]
+                              forState:UIControlStateNormal];
       [self updateState:MWMDownloadMapRequestStateRequestLocation];
     }
     else
@@ -129,7 +132,10 @@
 - (IBAction)downloadRoutesTouchUpInside:(nonnull UIButton *)sender
 {
   sender.selected = !sender.selected;
-  [self.downloadMapButton setTitle:[NSString stringWithFormat:@"%@ (%@)", L(@"downloader_download_map"), sender.selected ? self.mapAndRouteSize : self.mapSize] forState:UIControlStateNormal];
+  [self.downloadMapButton setTitle:[NSString stringWithFormat:@"%@ (%@)",
+                                    L(@"downloader_download_map"),
+                                    sender.selected ? self.mapAndRouteSize : self.mapSize]
+                          forState:UIControlStateNormal];
 }
 
 - (IBAction)selectMapTouchUpInside:(nonnull UIButton *)sender

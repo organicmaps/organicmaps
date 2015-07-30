@@ -46,6 +46,6 @@
 - (void)setDistance:(NSString *)distance;
 - (void)updateMyPositionStatus:(NSString *)status;
 
-- (instancetype)init __attribute__((unavailable("init is unavailable, call initWithManager: instead")));
+- (instancetype)init __attribute__((unavailable("call initWithManager: instead")));
 
 @end

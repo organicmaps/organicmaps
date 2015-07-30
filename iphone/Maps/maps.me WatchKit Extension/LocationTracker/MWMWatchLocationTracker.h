@@ -19,9 +19,9 @@
 - (location::GpsInfo)infoFromCurrentLocation;
 - (NSString *)distanceToPoint:(m2::PointD const &)point;
 
-+ (instancetype)alloc __attribute__((unavailable("alloc not available, call sharedLocationTracker instead")));
-- (instancetype)init __attribute__((unavailable("init not available, call sharedLocation instead")));
-+ (instancetype)new __attribute__((unavailable("new not available, call sharedLocationTracker instead")));
++ (instancetype)alloc __attribute__((unavailable("call sharedLocationTracker instead")));
+- (instancetype)init __attribute__((unavailable("call sharedLocation instead")));
++ (instancetype)new __attribute__((unavailable("call sharedLocationTracker instead")));
 
 @property (nonatomic, readonly) CLLocationManager * locationManager;
 @property (weak, nonatomic) id<MWMWatchLocationTrackerDelegate> delegate;
