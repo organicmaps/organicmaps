@@ -64,7 +64,7 @@
 
   <!-- routing layout -->
   <dimen name="height_routing_setup">56dp</dimen>
-  <dimen name="height_routing_turns">78dp</dimen>
+  <dimen name="height_routing_turns">72dp</dimen>
 
 
 </resources>

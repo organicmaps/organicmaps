@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.nineoldandroids.view.ViewHelper;
 
 public class RoutingInfo
@@ -90,6 +91,12 @@ public class RoutingInfo
     LIFT_GATE,
     GATE,
     REACHED_YOUR_DESTINATION;
+
+    public void setTurnDrawable(ImageView view, DistanceAndAzimut distanceAndAzimut)
+    {
+      view.setImageResource(R.drawable.ic_direction_pedestrian);
+      ViewHelper.setRotation(view, -(float) Math.toDegrees(distanceAndAzimut.getAthimuth()));
+    }
   }
 
   /**
@@ -128,6 +135,9 @@ public class RoutingInfo
     mLanes = lanes;
     mExitNum = exitNum;
     mPedestrianTurnDirection = PedestrianTurnDirection.values()[pedestrianTurnOrdinal];
+    mPedestrianNextDirection = new Location("");
+    mPedestrianNextDirection.setLatitude(pedestrianDirectionLat);
+    mPedestrianNextDirection.setLongitude(pedestrianDirectionLon);
   }
 
   private void DumpLanes(SingleLaneInfo[] lanes)

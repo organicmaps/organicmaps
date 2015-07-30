@@ -14,33 +14,31 @@
       tools:ignore="UnusedAttribute">
 
     <TextView
-        android:id="@+id/tv__total_distance"
+        android:id="@+id/tv__total_time"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="@dimen/margin_base"
         android:layout_marginRight="@dimen/margin_base"
-        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginTop="@dimen/margin_half_plus"
         android:fontFamily="@string/robotoMedium"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:textAppearance="@style/MwmTextAppearance.Toolbar.Title"
-        tools:text="1.4 km"/>
+        tools:text="1,5 min"/>
 
     <TextView
-        android:id="@+id/tv__total_time"
+        android:id="@+id/tv__total_distance"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/tv__total_distance"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/margin_quarter"
+        android:layout_below="@id/tv__total_time"
+        android:layout_marginLeft="@dimen/margin_base"
         android:layout_marginRight="@dimen/margin_base"
         android:fontFamily="@string/robotoMedium"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:textAppearance="@style/MwmTextAppearance.Body3"
-        tools:text="1,5 min"/>
+        tools:text="1.4 km"/>
 
-    <ImageView
+    <com.mapswithme.maps.widget.ArrowView
         android:id="@+id/iv__turn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +50,6 @@
 
     <TextView
         android:id="@+id/tv__turn_distance"
-        style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -60,6 +57,7 @@
         android:layout_marginLeft="@dimen/margin_half"
         android:layout_toRightOf="@id/iv__turn"
         android:fontFamily="@string/robotoMedium"
+        android:textAppearance="@style/MwmTextAppearance.Title"
         android:textColor="@color/text_turn_blue"
         tools:text="300 m"/>
 
@@ -69,7 +67,7 @@
         android:layout_height="@dimen/base_block_size"
         android:layout_centerVertical="true"
         android:layout_margin="@dimen/margin_quarter"
-        android:background="?attr/clickableBackground"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="center"
         android:src="@drawable/ic_close_routing"/>
 
@@ -81,9 +79,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
-      app:headColor="@color/base_blue"
+      app:headColor="@color/base_light_blue"
       app:headRadius="4dp"
-      app:progressColor="@color/base_blue"
+      app:progressColor="@color/base_light_blue"
       app:progressThickness="4dp"/>
 
 </FrameLayout>

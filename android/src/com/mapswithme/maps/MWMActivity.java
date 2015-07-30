@@ -26,7 +26,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mapswithme.country.ActiveCountryTree;
@@ -95,7 +94,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   // Need it for change map style
   private static final String EXTRA_SET_MAP_STYLE = "set_map_style";
   // Instance state
-  private static final String STATE_ROUTE_FOLLOWED = "RouteFollowed";
   private static final String STATE_PP_OPENED = "PpOpened";
   private static final String STATE_MAP_OBJECT = "MapObject";
   private static final String STATE_BUTTONS_OPENED = "ButtonsOpened";
@@ -111,7 +109,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   // Place page
   private PlacePageView mPlacePage;
   private View mRlStartRouting;
-  private ImageView mIvStartRouting;
   // Routing
   private RoutingLayout mLayoutRouting;
 
@@ -453,35 +450,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mLocationPredictor = new LocationPredictor(new Handler(), this);
     mLikesManager = new LikesManager(this);
     mSearchController = new SearchToolbarController(this);
-    restoreRoutingState(savedInstanceState);
 
     SharingHelper.prepare();
-  }
-
-  private void restoreRoutingState(@Nullable Bundle savedInstanceState)
-  {
-    // TODO move logic to RoutingLayout
-    if (Framework.nativeIsRoutingActive())
-    {
-      if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_ROUTE_FOLLOWED))
-      {
-        mLayoutRouting.setState(RoutingLayout.State.TURN_INSTRUCTIONS);
-      }
-      else if (Framework.nativeIsRouteBuilt())
-      {
-        mLayoutRouting.setState(RoutingLayout.State.ROUTE_BUILT);
-      }
-      else if (savedInstanceState != null)
-      {
-        final MapObject object = savedInstanceState.getParcelable(STATE_MAP_OBJECT);
-        if (object != null)
-        {
-          mPlacePage.setState(State.PREVIEW);
-          mPlacePage.setMapObject(object);
-        }
-        mLayoutRouting.setState(RoutingLayout.State.PREPARING);
-      }
-    }
   }
 
   private void initViews()
@@ -507,18 +477,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
       }
 
       @Override
-      public void onStartRouteFollow()
-      {
-
-      }
+      public void onStartRouteFollow() {}
 
       @Override
-      public void onRouteTypeChange(int type)
-      {
-
-      }
+      public void onRouteTypeChange(int type) {}
     });
-    mLayoutRouting.setState(RoutingLayout.State.HIDDEN);
   }
 
   private void initMap()
@@ -578,7 +541,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mPlacePage.setOnVisibilityChangedListener(this);
     mRlStartRouting = mPlacePage.findViewById(R.id.rl__route);
     mRlStartRouting.setOnClickListener(this);
-    mIvStartRouting = (ImageView) mRlStartRouting.findViewById(R.id.iv__route);
   }
 
   private void initYota()
@@ -767,6 +729,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mMapFragment.nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
     if (mPlacePage.getState() != State.HIDDEN)
       mPlacePage.refreshAzimuth(north);
+
+    if (mLayoutRouting.getState() != RoutingLayout.State.HIDDEN)
+      mLayoutRouting.refreshAzimuth(north);
   }
 
   // Callback from native location state mode element processing.
@@ -816,19 +781,10 @@ public class MWMActivity extends BaseMwmFragmentActivity
     listenLocationStateModeUpdates();
     invalidateLocationState();
     startWatchingExternalStorage();
-    refreshRouterIcon();
     mSearchController.refreshToolbar();
     mPlacePage.onResume();
     mLikesManager.showLikeDialogForCurrentSession();
     refreshZoomButtonsAfterLayout();
-  }
-
-  private void refreshRouterIcon()
-  {
-    if (Framework.ROUTER_TYPE_VEHICLE == Framework.getRouter())
-      mIvStartRouting.setImageResource(R.drawable.ic_route);
-    else
-      mIvStartRouting.setImageResource(R.drawable.ic_walk);
   }
 
   private void refreshZoomButtonsAfterLayout()
@@ -1216,7 +1172,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     case R.id.rl__route:
       AlohaHelper.logClick(AlohaHelper.PP_ROUTE);
       mLayoutRouting.setEndPoint(mPlacePage.getMapObject());
-      mLayoutRouting.setState(RoutingLayout.State.PREPARING);
+      mLayoutRouting.setState(RoutingLayout.State.PREPARING, true);
       mPlacePage.setState(PlacePageView.State.HIDDEN);
       break;
     case R.id.map_button_plus:
@@ -1270,7 +1226,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private void closeRouting()
   {
 
-    mLayoutRouting.setState(RoutingLayout.State.HIDDEN);
+    mLayoutRouting.setState(RoutingLayout.State.HIDDEN, true);
   }
 
   private static void switchNextLocationState()
@@ -1329,7 +1285,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       {
         if (resultCode == RoutingResultCodesProcessor.NO_ERROR)
         {
-          mLayoutRouting.setState(RoutingLayout.State.ROUTE_BUILT);
+          mLayoutRouting.setState(RoutingLayout.State.ROUTE_BUILT, true);
         }
         else
         {
@@ -1379,7 +1335,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     if (popFragment())
     {
       InputUtils.hideKeyboard(mBottomButtons);
-      refreshRouterIcon();
       mSearchController.refreshToolbar();
     }
   }

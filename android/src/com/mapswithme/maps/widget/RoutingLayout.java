@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -21,7 +22,9 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -49,6 +52,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
   private View mLayoutTurnInstructions;
   private View mBtnStart;
   private FlatProgressView mFpRouteProgress;
+  private double mNorth;
 
   public enum State
   {
@@ -58,7 +62,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     TURN_INSTRUCTIONS
   }
 
-  private State mState;
+  private State mState = State.HIDDEN;
 
   public interface ActionListener
   {
@@ -86,11 +90,19 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     super(context, attrs, defStyleAttr);
     LayoutInflater.from(context).inflate(R.layout.layout_routing_full, this);
     initViews();
+    UiUtils.hide(this, mLayoutSetupRouting, mBtnStart, mLayoutTurnInstructions);
   }
 
   public void setListener(ActionListener listener)
   {
     mListener = listener;
+  }
+
+  public void refreshAzimuth(double north)
+  {
+    mNorth = north;
+    if (getState() == State.TURN_INSTRUCTIONS)
+      refreshTurnInstructions();
   }
 
   private void initViews()
@@ -130,22 +142,22 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     {
     case R.id.btn__close:
       AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
-      setState(State.HIDDEN);
+      setState(State.HIDDEN, true);
       mListener.onCloseRouting();
       break;
     case R.id.iv__routing_close:
       AlohaHelper.logClick(AlohaHelper.ROUTING_GO_CLOSE);
-      setState(State.HIDDEN);
+      setState(State.HIDDEN, true);
       mListener.onCloseRouting();
       break;
     case R.id.wp__routing_progress:
       AlohaHelper.logClick(AlohaHelper.ROUTING_PROGRESS_CLOSE);
-      setState(State.HIDDEN);
+      setState(State.HIDDEN, true);
       mListener.onCloseRouting();
       break;
     case R.id.btn__start_routing:
       AlohaHelper.logClick(AlohaHelper.ROUTING_GO);
-      setState(State.TURN_INSTRUCTIONS);
+      setState(State.TURN_INSTRUCTIONS, true);
       Framework.nativeFollowRoute();
       mListener.onStartRouteFollow();
       break;
@@ -158,7 +170,6 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     if (!isChecked)
       return;
 
-    Framework.nativeCloseRouting();
     if (buttonView.getId() == R.id.rb__pedestrian)
     {
       AlohaHelper.logClick(AlohaHelper.ROUTING_PEDESTRIAN_SET);
@@ -171,20 +182,23 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
       Framework.setRouter(Framework.ROUTER_TYPE_VEHICLE);
       mListener.onRouteTypeChange(Framework.ROUTER_TYPE_VEHICLE);
     }
-    setState(State.PREPARING);
+    setState(State.PREPARING, true);
   }
 
-  public void setState(State state)
+  public void setState(State state, boolean animated)
   {
-    if (mState == state)
-      return;
+    // TODO show mWvProgress instead of mIvCancelRouteBuild with actual progress updates from core after it's implemented
+    // TODO show routing progress
 
     mState = state;
-    // TODO add animations
     switch (mState)
     {
     case HIDDEN:
-      UiUtils.hide(this);
+      if (animated)
+        UiUtils.disappearSlidingUp(this, null);
+      else
+        UiUtils.hide(this);
+      UiUtils.hide(mBtnStart);
       Framework.nativeCloseRouting();
       mEndPoint = null;
       break;
@@ -192,20 +206,34 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
       if (mEndPoint == null)
         throw new IllegalStateException("End point should be not null to prepare routing");
 
-      UiUtils.show(this, mLayoutSetupRouting, mWvProgress, mTvPlanning);
-      UiUtils.hide(mLayoutTurnInstructions, mBtnStart, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
+      Framework.nativeCloseRouting();
+      UiUtils.show(mLayoutSetupRouting, mIvCancelRouteBuild, mTvPlanning);
+      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress);
+      if (animated)
+      {
+        UiUtils.appearSlidingDown(this, null);
+        UiUtils.disappearSlidingUp(mBtnStart, null);
+      }
+      else
+      {
+        UiUtils.show(this);
+        UiUtils.hide(mBtnStart);
+      }
       buildRoute();
-      // FIXME get actual progress updates from core
-      mWvProgress.setProgress(20);
       break;
     case ROUTE_BUILT:
-      UiUtils.show(this, mLayoutSetupRouting, mBtnStart, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
+      UiUtils.show(this, mLayoutSetupRouting, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
       UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning);
+      if (animated)
+        UiUtils.appearSlidingDown(mBtnStart, null);
+      else
+        UiUtils.show(mBtnStart);
+
       refreshRouteSetup();
       break;
     case TURN_INSTRUCTIONS:
       UiUtils.show(this, mLayoutTurnInstructions);
-      UiUtils.hide(mLayoutSetupRouting);
+      UiUtils.disappearSlidingUp(mLayoutSetupRouting, null);
       refreshTurnInstructions();
       break;
     }
@@ -236,14 +264,31 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
   {
     RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
 
-    mTvTurnDistance.setText(getSpannedDistance(getResources().getDimensionPixelSize(R.dimen.text_size_display_1),
-        getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), info.mDistToTurn, info.mTurnUnits));
-    info.mVehicleTurnDirection.setTurnDrawable(mIvTurn);
+    if (Framework.getRouter() == Framework.ROUTER_TYPE_VEHICLE)
+    {
+      mTvTurnDistance.setText(getSpannedDistance(getResources().getDimensionPixelSize(R.dimen.text_size_display_1),
+          getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), info.mDistToTurn, info.mTurnUnits.toLowerCase()));
+      info.mVehicleTurnDirection.setTurnDrawable(mIvTurn);
+    }
+    else
+      refreshPedestrianAzimutAndDistance(info);
 
     mTvTotalTime.setText(formatTime(info.mTotalTimeInSeconds));
-    mTvTotalDistance.setText(new StringBuilder(info.mDistToTarget).append(" ").append(info.mTargetUnits.toUpperCase()));
-    // FIXME add actual routing progress
-    mFpRouteProgress.setProgress(40);
+    mTvTotalDistance.setText(new StringBuilder(info.mDistToTarget).append(" ").append(info.mTargetUnits));
+  }
+
+  private void refreshPedestrianAzimutAndDistance(RoutingInfo info)
+  {
+    Location location = LocationHelper.INSTANCE.getLastLocation();
+    DistanceAndAzimut distanceAndAzimut = Framework.nativeGetDistanceAndAzimutFromLatLon(
+        mEndPoint.getLat(), mEndPoint.getLon(), location.getLatitude(), location.getLongitude(), mNorth);
+
+    String[] splitDistance = distanceAndAzimut.getDistance().split(" ");
+    mTvTurnDistance.setText(getSpannedDistance(getResources().getDimensionPixelSize(R.dimen.text_size_display_1),
+        getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), splitDistance[0], splitDistance[1].toLowerCase()));
+
+    if (info.mPedestrianTurnDirection != null)
+      info.mPedestrianTurnDirection.setTurnDrawable(mIvTurn, distanceAndAzimut);
   }
 
   private void refreshRouteSetup()
@@ -257,8 +302,8 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
   private SpannableStringBuilder getSpannedDistance(int distTextSize, int unitsTextSize, String distToTarget, String units)
   {
     SpannableStringBuilder builder = new SpannableStringBuilder(distToTarget).append(" ").append(units.toUpperCase());
-    builder.setSpan(new AbsoluteSizeSpan(distTextSize, true), 0, distToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new AbsoluteSizeSpan(unitsTextSize, true), distToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new AbsoluteSizeSpan(distTextSize, false), 0, distToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new AbsoluteSizeSpan(unitsTextSize, false), distToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
     return builder;
   }
@@ -329,12 +374,12 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
 
     // if route was build but it was lost before state was restored - we should rebuild again from scratch
     int correctOrdinal;
-    if (savedState.routingStateOrdinal > State.PREPARING.ordinal() && Framework.nativeIsRouteBuilt())
+    if (savedState.routingStateOrdinal > State.PREPARING.ordinal() && !Framework.nativeIsRouteBuilt())
       correctOrdinal = State.PREPARING.ordinal();
     else
       correctOrdinal = savedState.routingStateOrdinal;
 
-    setState(State.values()[correctOrdinal]);
+    setState(State.values()[correctOrdinal], false);
   }
 
   static class SavedState extends BaseSavedState

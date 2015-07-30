@@ -120,6 +120,10 @@
     <item name="android:background">@drawable/bg_btn_green</item>
   </style>
 
+  <style name="MwmWidget.Button.Blue">
+    <item name="android:background">@drawable/ripple_blue</item>
+  </style>
+
   <style name="MwmWidget.Floating"/>
 
   <style name="MwmWidget.Floating.Panel"

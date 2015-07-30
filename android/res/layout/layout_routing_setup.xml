@@ -9,18 +9,18 @@
     tools:ignore="UnusedAttribute">
 
   <Button
-      android:layout_below="@+id/layout__routing_details"
       android:id="@+id/btn__start_routing"
+      style="@style/MwmWidget.Button.Blue"
       android:layout_width="match_parent"
       android:layout_height="@dimen/base_block_size"
-      android:background="@color/base_blue"
+      android:layout_below="@+id/layout__setup_details"
       android:gravity="center"
       android:text="START"
       android:textAppearance="@style/MwmTextAppearance.Body3.Light"
       tools:text="START"/>
 
   <LinearLayout
-      android:id="@+id/layout__routing_details"
+      android:id="@+id/layout__setup_details"
       android:layout_width="match_parent"
       android:layout_height="@dimen/height_routing_setup"
       android:background="@color/bg_top_panels"
