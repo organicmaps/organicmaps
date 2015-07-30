@@ -9,6 +9,7 @@
 
 #include "std/target_os.hpp"
 
+
 namespace
 {
 string GetTextSourceString(platform::TextSource textSouce)
@@ -38,19 +39,29 @@ GetTextById::GetTextById(TextSource textSouce, string const & localeName)
       {GetTextSourceString(textSouce), localeName + ".json"}, "localize.json");
 
   // @TODO(vbykoianko) Add assert if locale path pathToJson is not valid.
+  LOG(LDEBUG, ("Trying to open json file at path", pathToJson));
   string jsonBuffer;
   ReaderPtr<Reader>(GetPlatform().GetReader(pathToJson)).ReadAsString(jsonBuffer);
+  InitFromJson(jsonBuffer);
+}
 
+GetTextById::GetTextById(string const & jsonBuffer)
+{
+  InitFromJson(jsonBuffer);
+}
+
+void GetTextById::InitFromJson(string const & jsonBuffer)
+{
   if (jsonBuffer.empty())
   {
-    ASSERT(false, ("No json files found at the path", pathToJson));
+    ASSERT(false, ("No json files found."));
     return;
   }
 
   my::Json root(jsonBuffer.c_str());
   if (root.get() == nullptr)
   {
-    ASSERT(false, ("Cannot parse the json file found at the path", pathToJson));
+    ASSERT(false, ("Cannot parse the json file."));
     return;
   }
 
@@ -67,14 +78,14 @@ GetTextById::GetTextById(TextSource textSouce, string const & localeName)
   ASSERT_EQUAL(m_localeTexts.size(), json_object_size(root.get()), ());
 }
 
-pair<string, bool> GetTextById::operator()(string const & textId) const
+string GetTextById::operator()(string const & textId) const
 {
   if (!IsValid())
-    return make_pair(textId, false);
+    return "";
 
   auto const textIt = m_localeTexts.find(textId);
   if (textIt == m_localeTexts.end())
-    return make_pair(textId, false);
-  return make_pair(textIt->second, true);
+    return "";
+  return textIt->second;
 }
 }  // namespace platform

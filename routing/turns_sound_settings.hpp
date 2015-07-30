@@ -15,81 +15,6 @@ enum class LengthUnits
   Feet
 };
 
-// All sounded distance for TTS in meters and kilometers.
-enum class AllSoundedDistancesMeters
-{
-  In50 = 50,
-  In100 = 100,
-  In200 = 200,
-  In250 = 250,
-  In300 = 300,
-  In400 = 400,
-  In500 = 500,
-  In600 = 600,
-  In700 = 700,
-  In750 = 750,
-  In800 = 800,
-  In900 = 900,
-  InOneKm = 1000,
-  InOneAndHalfKm = 1500,
-  InTwoKm = 2000,
-  InTwoAndHalfKm = 2500,
-  InThreeKm = 3000
-};
-
-// All sounded distance for TTS in feet and miles.
-enum class AllSoundedDistancesFeet
-{
-  In50 = 50,
-  In100 = 100,
-  In200 = 200,
-  In300 = 300,
-  In400 = 400,
-  In500 = 500,
-  In600 = 600,
-  In700 = 700,
-  In800 = 800,
-  In900 = 900,
-  In1000 = 1000,
-  In1500 = 1500,
-  In2000 = 2000,
-  In2500 = 2500,
-  In3000 = 3000,
-  In3500 = 3500,
-  In4000 = 4000,
-  In4500 = 4500,
-  In5000 = 5000,
-  InOneMile = 5280,
-  InOneAndHalfMiles = 7920,
-  InTwoMiles = 10560
-};
-
-vector<uint32_t> const soundedDistancesMeters =
-    { static_cast<uint32_t>(AllSoundedDistancesMeters::In200),
-      static_cast<uint32_t>(AllSoundedDistancesMeters::In300),
-      static_cast<uint32_t>(AllSoundedDistancesMeters::In400),
-      static_cast<uint32_t>(AllSoundedDistancesMeters::In500),
-      static_cast<uint32_t>(AllSoundedDistancesMeters::In600),
-      static_cast<uint32_t>(AllSoundedDistancesMeters::In700),
-      static_cast<uint32_t>(AllSoundedDistancesMeters::In800),
-      static_cast<uint32_t>(AllSoundedDistancesMeters::In900),
-      static_cast<uint32_t>(AllSoundedDistancesMeters::InOneKm),
-      static_cast<uint32_t>(AllSoundedDistancesMeters::InOneAndHalfKm),
-      static_cast<uint32_t>(AllSoundedDistancesMeters::InTwoKm)};
-
-vector<uint32_t> const soundedDistancesFeet =
-    { static_cast<uint32_t>(AllSoundedDistancesFeet::In500),
-      static_cast<uint32_t>(AllSoundedDistancesFeet::In600),
-      static_cast<uint32_t>(AllSoundedDistancesFeet::In700),
-      static_cast<uint32_t>(AllSoundedDistancesFeet::In800),
-      static_cast<uint32_t>(AllSoundedDistancesFeet::In900),
-      static_cast<uint32_t>(AllSoundedDistancesFeet::In1000),
-      static_cast<uint32_t>(AllSoundedDistancesFeet::In1500),
-      static_cast<uint32_t>(AllSoundedDistancesFeet::In2000),
-      static_cast<uint32_t>(AllSoundedDistancesFeet::In3000),
-      static_cast<uint32_t>(AllSoundedDistancesFeet::In4000),
-      static_cast<uint32_t>(AllSoundedDistancesFeet::In5000)};
-
 string DebugPrint(LengthUnits const & lengthUnits);
 
 /// \brief The Settings struct is a structure for gathering information about turn sound
@@ -179,6 +104,30 @@ struct Notification
 };
 
 string DebugPrint(Notification const & turnGeom);
+
+using PairDist = pair<uint32_t, char const *>;
+using VecPairDist = vector<PairDist>;
+
+/// @return a reference to a vector of pairs of a distance in meters and a text id.
+/// All the distances are translated in supported languages and can be pronounced.
+VecPairDist const & GetAllSoundedDistMeters();
+/// @return a reference to a vector of pairs of a distance in feet and a text id.
+/// All the distances are translated in supported languages and can be pronounced.
+VecPairDist const & GetAllSoundedDistFeet();
+
+// @TODO(vbykoianko) Now GetSoundedDistMeters/Feet() functions returns a subset of
+// the result of GetAllSoundedDistMeters/Feet() functions. So GetAllSoundedDistMeters/Feet()
+// returns more distances.
+// After the tuning of turn sound notification is finished to do
+// * remove all unnecessary distances from GetAllSoundedDistMeters/Feet().
+// * remove all unnecessary string form resources. It let us to reduce the size of apk/ipa by 10-20KB.
+// * remove GetSoundedDistMeters/Feet() and use lambda in TurnsSound::SetLengthUnits
+// to convert from vector<pair<uint32_t, char const *>> to vector<uint32_t>.
+
+/// @return distance in meters which are used for turn sound generation.
+vector<uint32_t> const & GetSoundedDistMeters();
+/// @return distance in feet which are used for turn sound generation.
+vector<uint32_t> const & GetSoundedDistFeet();
 
 }  // namespace sound
 }  // namespace turns

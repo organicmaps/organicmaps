@@ -42,7 +42,6 @@ SOURCES += \
     turns_tts_text.cpp \
     vehicle_model.cpp \
 
-
 HEADERS += \
     async_router.hpp \
     base/astar_algorithm.hpp \

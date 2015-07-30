@@ -115,13 +115,13 @@ void TurnsSound::SetLengthUnits(LengthUnits units)
   case LengthUnits::Meters:
     m_settings = Settings(20 /* notificationTimeSeconds */, 200 /* minNotificationDistanceUnits */,
                           2000 /* maxNotificationDistanceUnits */,
-                          soundedDistancesMeters /* soundedDistancesUnits */,
+                          GetSoundedDistMeters() /* soundedDistancesUnits */,
                           LengthUnits::Meters /* lengthUnits */);
     return;
   case LengthUnits::Feet:
     m_settings = Settings(20 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
                           5000 /* maxNotificationDistanceUnits */,
-                          soundedDistancesFeet /* soundedDistancesUnits */,
+                          GetSoundedDistFeet() /* soundedDistancesUnits */,
                           LengthUnits::Feet /* lengthUnits */);
     return;
   }
