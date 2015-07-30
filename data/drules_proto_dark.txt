@@ -17601,6 +17601,93 @@ cont {
   }
 }
 cont {
+  name: "highway-platform"
+  element {
+    scale: 16
+    lines {
+      width: 5.6
+      color: 7829350
+      priority: 999
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 4.0
+      color: 4473924
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    area {
+      color: 4473924
+      priority: 1001
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 9.6
+      color: 7829350
+      priority: 999
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 4473924
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    area {
+      color: 4473924
+      priority: 1001
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 9.6
+      color: 7829350
+      priority: 999
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 4473924
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    area {
+      color: 4473924
+      priority: 1001
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 9.6
+      color: 7829350
+      priority: 999
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 4473924
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    area {
+      color: 4473924
+      priority: 1001
+    }
+  }
+}
+cont {
   name: "highway-primary"
   element {
     scale: 8
@@ -46717,6 +46804,65 @@ cont {
     symbol {
       name: "power-tower"
       priority: 16000
+    }
+  }
+}
+cont {
+  name: "public_transport-platform"
+  element {
+    scale: 16
+    lines {
+      width: 4.0
+      color: 4473924
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    area {
+      color: 4473924
+      priority: 1001
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 8.0
+      color: 4473924
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    area {
+      color: 4473924
+      priority: 1001
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 8.0
+      color: 4473924
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    area {
+      color: 4473924
+      priority: 1001
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 8.0
+      color: 4473924
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    area {
+      color: 4473924
+      priority: 1001
     }
   }
 }

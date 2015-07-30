@@ -228,6 +228,7 @@ world  +
             bridge  -
             tunnel  -
             {}
+        platform  -
         primary  +
             bridge  -
             tunnel  -
@@ -555,6 +556,9 @@ world  +
         station  -
         sub_station  -
         tower  -
+        {}
+    public_transport  +
+        platform  -
         {}
     railway  +
         abandoned  +

@@ -1005,3 +1005,5 @@ place|city|capital|9
 place|city|capital|10
 place|city|capital|11
 hwtag|yesfoot
+public_transport|platform
+highway|platform
