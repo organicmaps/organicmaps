@@ -171,8 +171,8 @@
     <activity
         android:name="com.mapswithme.maps.MWMActivity"
         android:launchMode="singleTask"
-        android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-        android:theme="@style/MwmTheme.Map">
+        android:theme="@style/MwmTheme.Map"
+        android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
     </activity>
 
     <activity
@@ -323,6 +323,25 @@
         <category android:name="${applicationId}"/>
       </intent-filter>
     </receiver>
+
+    <!-- Catches app upgraded intent.
+         Different receivers are used due to MY_PACKAGE_REPLACED was added in Honeycomb_MR1-->
+    <receiver android:name=".background.UpgradeReceiver"
+              android:enabled="@bool/isNewerThanHoneycombMr1">
+      <intent-filter>
+        <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+      </intent-filter>
+    </receiver>
+
+    <receiver android:name=".background.UpgradeReceiverCompat"
+              android:enabled="@bool/isOlderThanHoneycombMr1">
+      <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+
+        <data android:scheme="package"/>
+      </intent-filter>
+    </receiver>
+
   </application>
 
 </manifest>
