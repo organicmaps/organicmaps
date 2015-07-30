@@ -24,9 +24,9 @@ class DummyRouter : public IRouter
 
 public:
   DummyRouter(ResultCode code, vector<string> const & absent) : m_result(code), m_absent(absent) {}
-
+  
+  // IRouter overrides:
   string GetName() const override { return "Dummy"; }
-
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
                             m2::PointD const & finalPoint, RouterDelegate const & delegate,
                             Route & route) override
@@ -47,6 +47,8 @@ class DummyFetcher : public IOnlineFetcher
 
 public:
   DummyFetcher(vector<string> const & absent) : m_absent(absent) {}
+
+  // IOnlineFetcher overrides:
   void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint) override {}
   void GetAbsentCountries(vector<string> & countries) override { countries = m_absent; }
 };
@@ -57,6 +59,7 @@ struct DummyResultCallback
 {
   vector<ResultCode> m_codes;
   vector<vector<string>> m_absent;
+
   void operator()(Route & route, ResultCode code)
   {
     m_codes.push_back(code);
@@ -77,10 +80,9 @@ UNIT_TEST(NeedMoreMapsSignalTest)
 
   // Wait async process start.
   while (resultCallback.m_codes.empty())
-  {
-  }
+    ;
 
-  async.WaitRouting();
+  async.WaitRoutingForTesting();
 
   TEST_EQUAL(resultCallback.m_codes.size(), 2, ());
   TEST_EQUAL(resultCallback.m_codes[0], ResultCode::NoError, ());
@@ -102,10 +104,9 @@ UNIT_TEST(StandartAsyncFogTest)
 
   // Wait async process start.
   while (resultCallback.m_codes.empty())
-  {
-  }
+    ;
 
-  async.WaitRouting();
+  async.WaitRoutingForTesting();
 
   TEST_EQUAL(resultCallback.m_codes.size(), 1, ());
   TEST_EQUAL(resultCallback.m_codes[0], ResultCode::NoError, ());

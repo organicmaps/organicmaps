@@ -18,9 +18,9 @@ using TCountryLocalFileFn = function<shared_ptr<platform::LocalCountryFile>(stri
 class IOnlineFetcher
 {
 public:
+  virtual ~IOnlineFetcher() = default;
   virtual void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint) = 0;
   virtual void GetAbsentCountries(vector<string> & countries) = 0;
-  virtual ~IOnlineFetcher() {}
 };
 
 /*!
@@ -30,7 +30,13 @@ public:
 class OnlineAbsentCountriesFetcher : public IOnlineFetcher
 {
 public:
-  OnlineAbsentCountriesFetcher(TCountryFileFn const & countryFileFn, TCountryLocalFileFn const & countryLocalFileFn) : m_countryFileFn(countryFileFn), m_countryLocalFileFn(countryLocalFileFn) {}
+  OnlineAbsentCountriesFetcher(TCountryFileFn const & countryFileFn,
+                               TCountryLocalFileFn const & countryLocalFileFn)
+    : m_countryFileFn(countryFileFn), m_countryLocalFileFn(countryLocalFileFn)
+  {
+  }
+
+  // IOnlineFetcher overrides:
   void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint) override;
   void GetAbsentCountries(vector<string> & countries) override;
 

@@ -50,7 +50,7 @@ public:
   virtual void ClearState();
 
   /// Wait routing process. For testing use.
-  void WaitRouting() { lock_guard<mutex> routingGuard(m_routingMutex); }
+  void WaitRoutingForTesting() { lock_guard<mutex> routingGuard(m_routingMutex); }
 
 private:
   /// This function is called in async mode

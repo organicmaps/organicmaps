@@ -5,29 +5,23 @@ namespace routing
 namespace
 {
 void DefaultProgressFn(float /* progress */) {}
-void DefaultPointFn(m2::PointD /* point */) {}
+void DefaultPointFn(m2::PointD const & /* point */) {}
 } //  namespace
 
 RouterDelegate::RouterDelegate()
 {
-  m_progressFn = DefaultProgressFn;
-  m_pointFn = DefaultPointFn;
+  m_progressCallback = DefaultProgressFn;
+  m_pointCallback = DefaultPointFn;
 }
 
-void RouterDelegate::SetProgressCallback(TProgressCallback const & progressFn)
+void RouterDelegate::SetProgressCallback(TProgressCallback const & progressCallback)
 {
-  if (progressFn != nullptr)
-    m_progressFn = progressFn;
-  else
-    m_progressFn = DefaultProgressFn;
+  m_progressCallback = (progressCallback) ? progressCallback : DefaultProgressFn;
 }
 
-void RouterDelegate::SetPointCheckCallback(TPointCheckCallback const & pointFn)
+void RouterDelegate::SetPointCheckCallback(TPointCheckCallback const & pointCallback)
 {
-  if (pointFn != nullptr)
-    m_pointFn = pointFn;
-  else
-    m_pointFn = DefaultPointFn;
+  m_pointCallback = (pointCallback) ? pointCallback : DefaultPointFn;
 }
 
 bool TimeoutCancellable::IsCancelled() const

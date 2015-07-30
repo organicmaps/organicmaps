@@ -621,8 +621,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   {
     LOG(LINFO, ("Multiple mwm routing case"));
     TCheckedPath finalPath;
-    ResultCode code =
-        CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, delegate, finalPath);
+    ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, delegate,
+                                            finalPath);
     timer.Reset();
     delegate.OnProgress(50.0f);
 

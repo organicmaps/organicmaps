@@ -554,10 +554,11 @@ public:
   BookmarkManager & GetBookmarkManager() { return m_bmManager; }
 
 public:
-  using TRouteBuildingCallback =
-      function<void(routing::IRouter::ResultCode, vector<storage::TIndex> const &,
-                    vector<storage::TIndex> const &)>;
+  using TRouteBuildingCallback = function<void(routing::IRouter::ResultCode, 
+                                               vector<storage::TIndex> const &,
+                                               vector<storage::TIndex> const &)>;
   using TRouteProgressCallback = function<void(float)>;
+
   /// @name Routing mode
   //@{
   void SetRouter(routing::RouterType type);

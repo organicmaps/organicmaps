@@ -9,18 +9,20 @@
 
 namespace routing
 {
-
 class TimeoutCancellable : public my::Cancellable
 {
-  public:
-    TimeoutCancellable() : m_timeoutSec(0) {}
+public:
+  TimeoutCancellable() : m_timeoutSec(0) {}
 
-    /// Sets timeout in seconds to autamaticly calcel. 0 is infinity value.
-    void SetTimeout(uint32_t);
-    bool IsCancelled() const override;
-  private:
-    my::Timer m_timer;
-    uint32_t m_timeoutSec;
+  /// Sets timeout before cancellation. 0 means an infinite timeout.
+  void SetTimeout(uint32_t timeoutSec);
+
+  // Cancellable overrides:
+  bool IsCancelled() const override;
+
+private:
+  my::Timer m_timer;
+  uint32_t m_timeoutSec;
 };
 
 class RouterDelegate : public TimeoutCancellable
@@ -32,15 +34,15 @@ public:
   RouterDelegate();
 
   /// Set routing progress. Waits current progress status from 0 to 100.
-  void OnProgress(float progress) const { m_progressFn(progress); }
-  void OnPointCheck(m2::PointD const & point) const { m_pointFn(point); }
+  void OnProgress(float progress) const { m_progressCallback(progress); }
+  void OnPointCheck(m2::PointD const & point) const { m_pointCallback(point); }
 
-  void SetProgressCallback(TProgressCallback const & progressFn);
-  void SetPointCheckCallback(TPointCheckCallback const & pointFn);
+  void SetProgressCallback(TProgressCallback const & progressCallback);
+  void SetPointCheckCallback(TPointCheckCallback const & pointCallback);
 
 private:
-  TProgressCallback m_progressFn;
-  TPointCheckCallback m_pointFn;
+  TProgressCallback m_progressCallback;
+  TPointCheckCallback m_pointCallback;
 };
 
 }  //  nomespace routing
