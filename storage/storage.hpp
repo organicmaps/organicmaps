@@ -177,6 +177,8 @@ public:
   void SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader);
 
 private:
+  friend void UnitTest_StorageTest_DeleteCountry();
+
   TStatus CountryStatusWithoutFailed(TIndex const & index) const;
   TStatus CountryStatusFull(TIndex const & index, TStatus const status) const;
 

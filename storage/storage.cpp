@@ -334,6 +334,7 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
 {
   CountryFile const countryFile = localFile.GetCountryFile();
   localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
+  CountryIndexes::DeleteFromDisk(localFile);
 
   {
     auto it = m_localFilesForFakeCountries.find(countryFile);

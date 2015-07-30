@@ -11,6 +11,7 @@
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
@@ -23,12 +24,14 @@
 
 #include "std/bind.hpp"
 #include "std/map.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
 using namespace platform;
-using namespace storage;
 
+namespace storage
+{
 namespace
 {
 // This class checks steps Storage::DownloadMap() performs to download a map.
@@ -583,3 +586,37 @@ UNIT_TEST(StorageTest_CancelDownloadingWhenAlmostDone)
   shared_ptr<LocalCountryFile> file = storage.GetLatestLocalFile(index);
   TEST(!file, (*file));
 }
+
+UNIT_TEST(StorageTest_DeleteCountry)
+{
+  Storage storage;
+  TaskRunner runner;
+  InitStorage(storage, runner);
+
+  tests_support::ScopedFile map("Uruguay.mwm", "Map");
+  tests_support::ScopedFile routing("Uruguay.mwm.routing", "Map");
+  LocalCountryFile file = LocalCountryFile::MakeForTesting("Uruguay");
+  TEST_EQUAL(MapOptions::MapWithCarRouting, file.GetFiles(), ());
+
+  TEST(CountryIndexes::PreparePlaceOnDisk(file), ());
+  string const bitsPath = CountryIndexes::GetPath(file, CountryIndexes::Index::Bits);
+  {
+    FileWriter writer(bitsPath);
+    string const data = "bits";
+    writer.Write(data.data(), data.size());
+  }
+
+  storage.RegisterCountryFiles(make_shared<LocalCountryFile>(file));
+  TEST(map.Exists(), ());
+  TEST(routing.Exists(), ());
+  TEST(Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
+
+  storage.DeleteCustomCountryVersion(file);
+  TEST(!map.Exists(), ())
+  TEST(!routing.Exists(), ())
+  TEST(!Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
+
+  map.Reset();
+  routing.Reset();
+}
+}  // namespace storage
