@@ -9,22 +9,21 @@
 
 #include "std/target_os.hpp"
 
-
 namespace
 {
 string GetTextSourceString(platform::TextSource textSouce)
 {
 #if defined(OMIM_OS_ANDROID) || defined(OMIM_OS_IPHONE)
-  switch(textSouce)
+  switch (textSouce)
   {
-  case platform::TextSource::TtsSound:
-    return "sound-strings";
+    case platform::TextSource::TtsSound:
+      return "sound-strings";
   }
 #else
-  switch(textSouce)
+  switch (textSouce)
   {
-  case platform::TextSource::TtsSound:
-    return "../data/sound-strings";
+    case platform::TextSource::TtsSound:
+      return "../data/sound-strings";
   }
 #endif
   ASSERT(false, ());
@@ -35,8 +34,8 @@ namespace platform
 {
 GetTextById::GetTextById(TextSource textSouce, string const & localeName)
 {
-  string const pathToJson = my::JoinFoldersToPath({GetTextSourceString(textSouce),
-                                                   localeName + ".json"}, "localize.json");
+  string const pathToJson = my::JoinFoldersToPath(
+      {GetTextSourceString(textSouce), localeName + ".json"}, "localize.json");
 
   string jsonBuffer;
   ReaderPtr<Reader>(GetPlatform().GetReader(pathToJson)).ReadAsString(jsonBuffer);

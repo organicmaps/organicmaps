@@ -3,7 +3,6 @@
 #include <std/string.hpp>
 #include <std/unordered_map.hpp>
 
-
 namespace platform
 {
 // class GetTextById is ready to work with different sources of text strings.
