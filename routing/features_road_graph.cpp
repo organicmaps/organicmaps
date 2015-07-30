@@ -20,7 +20,7 @@ namespace
 {
 uint32_t constexpr kPowOfTwoForFeatureCacheSize = 10; // cache contains 2 ^ kPowOfTwoForFeatureCacheSize elements
 
-double constexpr kReadCrossEpsilon = 1.0E-4;
+double constexpr kMwmRoadCrossingRadiusMeters = 2.0;
 
 double constexpr kMwmCrossingNodeEqualityRadiusMeters = 100.0;
 
@@ -162,10 +162,8 @@ void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
                                                      CrossEdgesLoader & edgesLoader) const
 {
   CrossFeaturesLoader featuresLoader(*this, edgesLoader);
-  m_index.ForEachInRect(featuresLoader,
-                        m2::RectD(cross.x - kReadCrossEpsilon, cross.y - kReadCrossEpsilon,
-                                  cross.x + kReadCrossEpsilon, cross.y + kReadCrossEpsilon),
-                        GetStreetReadScale());
+  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
+  m_index.ForEachInRect(featuresLoader, rect, GetStreetReadScale());
 }
 
 void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t count,
@@ -228,10 +226,8 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
       types = typesHolder;
   };
 
-  m_index.ForEachInRect(f,
-                        m2::RectD(cross.x - kReadCrossEpsilon, cross.y - kReadCrossEpsilon,
-                                  cross.x + kReadCrossEpsilon, cross.y + kReadCrossEpsilon),
-                        GetStreetReadScale());
+  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
+  m_index.ForEachInRect(f, rect, GetStreetReadScale());
 }
 
 void FeaturesRoadGraph::ClearState()
