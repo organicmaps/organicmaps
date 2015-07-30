@@ -2,6 +2,7 @@
 
 #include "routing/turns.hpp"
 #include "routing/turns_sound_settings.hpp"
+#include "routing/turns_tts_text.hpp"
 
 #include "std/string.hpp"
 
@@ -50,7 +51,12 @@ class TurnsSound
   /// m_nextTurnNotificationProgress == Second.
   PronouncedNotification m_nextTurnNotificationProgress;
   uint32_t m_nextTurnIndex;
+  /// getTtsText is a convector form turn notification information and locale to
+  /// notification string.
+  GetTtsText m_getTtsText;
 
+  string GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+                          TurnDirection turnDir, LengthUnits lengthUnits) const;
 public:
   TurnsSound() : m_enabled(false), m_speedMetersPerSecond(0.), m_settings(),
       m_nextTurnNotificationProgress(PronouncedNotification::Nothing), m_nextTurnIndex(0) {}
@@ -59,6 +65,8 @@ public:
   void Enable(bool enable);
   void SetLengthUnits(LengthUnits units);
   inline LengthUnits GetLengthUnits() const { return m_settings.GetLengthUnits(); }
+  inline void SetLocale(string const & locale) { m_getTtsText.SetLocale(locale); }
+  inline string GetLocale() const { return m_getTtsText.GetLocale(); }
   void SetSpeedMetersPerSecond(double speed);
 
    /// \brief UpdateRouteFollowingInfo updates information about the next turn notification.

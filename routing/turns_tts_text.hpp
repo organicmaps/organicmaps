@@ -23,6 +23,7 @@ class GetTtsText
 public:
   string operator()(Notification const & notification) const;
   void SetLocale(string const & locale);
+  inline string GetLocale() const { return m_locale; }
   /// SetLocaleWithJson is used for writing unit tests only.
   void SetLocaleWithJson(string const & jsonBuffer);
 
@@ -30,6 +31,7 @@ private:
   string GetTextById(string const & textId) const;
 
   unique_ptr<platform::GetTextById> m_getCurLang;
+  string m_locale;
 };
 
 /// Generates text message id about the distance of the notification. For example: In 300 meters.

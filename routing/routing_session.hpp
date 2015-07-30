@@ -88,8 +88,10 @@ public:
   // Sound notifications for turn instructions.
   void EnableTurnNotifications(bool enable);
   bool AreTurnNotificationsEnabled() const;
-  void SetTurnSoundNotificationsUnits(routing::turns::sound::LengthUnits const & units);
-  routing::turns::sound::LengthUnits GetTurnSoundNotificationsUnits() const;
+  void SetTurnNotificationsUnits(routing::turns::sound::LengthUnits const & units);
+  routing::turns::sound::LengthUnits GetTurnNotificationsUnits() const;
+  void SetTurnNotificationsLocale(string const & locale);
+  string GetTurnNotificationsLocale() const;
 
 private:
   struct DoReadyCallback

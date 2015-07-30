@@ -210,7 +210,8 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
         (distanceToTurnMeters < kShowPedestrianTurnInMeters) ? turn.m_pedestrianTurn : turns::PedestrianDirection::None;
 
     // Voice turn notifications.
-    m_turnsSound.UpdateRouteFollowingInfo(info, turn, distanceToTurnMeters);
+    if (m_routingSettings.m_soundDirection)
+      m_turnsSound.UpdateRouteFollowingInfo(info, turn, distanceToTurnMeters);
   }
   else
   {
@@ -282,18 +283,49 @@ bool RoutingSession::AreTurnNotificationsEnabled() const
   return m_turnsSound.IsEnabled();
 }
 
-void RoutingSession::SetTurnSoundNotificationsUnits(routing::turns::sound::LengthUnits const & units)
+void RoutingSession::SetTurnNotificationsUnits(routing::turns::sound::LengthUnits const & units)
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
   m_turnsSound.SetLengthUnits(units);
 }
 
-routing::turns::sound::LengthUnits RoutingSession::GetTurnSoundNotificationsUnits() const
+routing::turns::sound::LengthUnits RoutingSession::GetTurnNotificationsUnits() const
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
   return m_turnsSound.GetLengthUnits();
 }
 
+void RoutingSession::SetTurnNotificationsLocale(string const & locale)
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  m_turnsSound.SetLocale(locale);
+}
+
+string RoutingSession::GetTurnNotificationsLocale() const
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  return m_turnsSound.GetLocale();
+}
+
+void RoutingSession::ResetRoutingWatchdogTimer()
+{
+  if (m_routingWatchdog)
+  {
+    m_routingWatchdog->Cancel();
+    m_routingWatchdog->WaitForCompletion();
+    m_routingWatchdog.reset();
+  }
+}
+
+void RoutingSession::InitRoutingWatchdogTimer(uint32_t timeoutSec)
+{
+  ASSERT_NOT_EQUAL(0, timeoutSec, ());
+  ASSERT(nullptr == m_routingWatchdog, ());
+
+  m_routingWatchdog = make_unique<DeferredTask>([this](){ m_router->ClearState(); }, seconds(timeoutSec));
+}
 }  // namespace routing

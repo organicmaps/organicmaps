@@ -15,6 +15,9 @@ struct RoutingSettings
   /// If m_matchRoute is equal to false GPS bearing is used while
   /// the current position is matched to the route.
   bool    m_matchRoute;
+  /// \brief if m_soundDirection is equal to true an end user get sound notification
+  /// before directions.
+  bool    m_soundDirection;
 
   /// \brief m_matchingThresholdM is half width of the passage around the route
   /// for route matching in meters. That means if a real current position is closer than
@@ -25,11 +28,13 @@ struct RoutingSettings
 
 inline RoutingSettings GetPedestrianRoutingSettings()
 {
-  return RoutingSettings({ false /* m_matchRoute */, 20. /* m_matchingThresholdM */ });
+  return RoutingSettings({ false /* m_matchRoute */, false /* m_soundDirection */,
+                           20. /* m_matchingThresholdM */ });
 }
 
 inline RoutingSettings GetCarRoutingSettings()
 {
-  return RoutingSettings({ true /* m_matchRoute */, 50. /* m_matchingThresholdM */ });
+  return RoutingSettings({ true /* m_matchRoute */, true /* m_soundDirection */,
+                           50. /* m_matchingThresholdM */ });
 }
 }  // namespace routing

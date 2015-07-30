@@ -34,6 +34,7 @@ namespace sound
 {
 void GetTtsText::SetLocale(string const & locale)
 {
+  m_locale = locale;
   m_getCurLang.reset(new platform::GetTextById(platform::TextSource::TtsSound, locale));
   ASSERT(m_getCurLang && m_getCurLang->IsValid(), ());
 }

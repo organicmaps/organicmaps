@@ -5,6 +5,7 @@
 
 #include "std/string.hpp"
 
+
 namespace
 {
 using namespace routing::turns;

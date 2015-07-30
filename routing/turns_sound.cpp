@@ -37,6 +37,13 @@ namespace turns
 {
 namespace sound
 {
+string TurnsSound::GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+                                    TurnDirection turnDir, LengthUnits lengthUnits) const
+{
+  Notification const notification(distanceUnits, exitNum, useThenInsteadOfDistance, turnDir, lengthUnits);
+  return m_getTtsText(notification);
+}
+
 void TurnsSound::UpdateRouteFollowingInfo(location::FollowingInfo & info, TurnItem const & turn,
                                           double distanceToTurnMeters)
 {
