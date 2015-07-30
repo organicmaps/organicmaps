@@ -31,10 +31,10 @@ SOURCES += \
     road_graph_router.cpp \
     route.cpp \
     router.cpp \
+    router_delegate.cpp \
     routing_algorithm.cpp \
     routing_mapping.cpp \
     routing_session.cpp \
-    timeout_observer.cpp \
     turns.cpp \
     turns_generator.cpp \
     turns_sound.cpp \
@@ -63,6 +63,7 @@ HEADERS += \
     road_graph_router.hpp \
     route.hpp \
     router.hpp \
+    router_delegate.hpp \
     routing_algorithm.hpp \
     routing_mapping.h \
     routing_session.hpp \

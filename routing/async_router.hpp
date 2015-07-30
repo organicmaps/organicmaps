@@ -3,7 +3,7 @@
 #include "online_absent_fetcher.hpp"
 #include "route.hpp"
 #include "router.hpp"
-#include "timeout_observer.hpp"
+#include "router_delegate.hpp"
 
 #include "std/atomic.hpp"
 #include "std/map.hpp"
@@ -27,8 +27,8 @@ public:
   /// @param router pointer to the router implementation. AsyncRouter will take ownership over
   /// router.
   AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFetcher> && fetcher,
-              TRoutingStatisticsCallback const & routingStatisticsFn,
-              TPointCheckCallback const & pointCheckCallback);
+              TRoutingStatisticsCallback const & routingStatisticsCallback,
+              RouterDelegate::TPointCheckCallback const & pointCheckCallback);
 
   virtual ~AsyncRouter();
 
@@ -43,7 +43,8 @@ public:
   /// @param timeoutSec timeout to cancel routing. 0 is infinity.
   virtual void CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
                               m2::PointD const & finalPoint, TReadyCallback const & readyCallback,
-                              TProgressCallback const & progressCallback, uint32_t timeoutSec);
+                              RouterDelegate::TProgressCallback const & progressCallback, 
+                              uint32_t timeoutSec);
 
   /// Interrupt routing and clear buffers
   virtual void ClearState();
@@ -75,11 +76,11 @@ private:
   m2::PointD m_finalPoint;
   m2::PointD m_startDirection;
 
-  TimeoutObserver m_observer;
+  RouterDelegate m_delegate;
 
   unique_ptr<IOnlineFetcher> const m_absentFetcher;
   unique_ptr<IRouter> const m_router;
-  TRoutingStatisticsCallback const m_routingStatisticsFn;
+  TRoutingStatisticsCallback const m_routingStatisticsCallback;
 };
 
 }  // namespace routing

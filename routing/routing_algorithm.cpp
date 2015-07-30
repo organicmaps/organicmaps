@@ -133,20 +133,20 @@ AStarRoutingAlgorithmBase::AStarRoutingAlgorithmBase()
 IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const & graph,
                                                                 Junction const & startPos,
                                                                 Junction const & finalPos,
-                                                                IRouterObserver const & observer,
+                                                                RouterDelegate const & delegate,
                                                                 vector<Junction> & path)
 {
   function<void(Junction const &, Junction const &)> onVisitJunctionFn =
-      [&observer, this](Junction const & junction, Junction const & /* target */)
+      [&delegate, this](Junction const & junction, Junction const & /* target */)
   {
-    observer.OnPointCheck(junction.GetPoint());
+    delegate.OnPointCheck(junction.GetPoint());
     auto const lastValue = m_progress.GetLastValue();
     auto const newValue = m_progress.GetProgressForDirectedAlgo(junction.GetPoint());
     if (newValue - lastValue > kProgressInterval)
-      observer.OnProgress(newValue);
+      delegate.OnProgress(newValue);
 
   };
-  my::Cancellable const & cancellable = observer;
+  my::Cancellable const & cancellable = delegate;
   m_progress.Initialize(startPos.GetPoint(), finalPos.GetPoint());
   TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPath(
       RoadGraph(graph), startPos, finalPos, path, cancellable, onVisitJunctionFn);
@@ -157,20 +157,20 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
 
 IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(
     IRoadGraph const & graph, Junction const & startPos, Junction const & finalPos,
-    IRouterObserver const & observer, vector<Junction> & path)
+    RouterDelegate const & delegate, vector<Junction> & path)
 {
   function<void(Junction const &, Junction const &)> onVisitJunctionFn =
-      [&observer, this](Junction const & junction, Junction const & target)
+      [&delegate, this](Junction const & junction, Junction const & target)
   {
-    observer.OnPointCheck(junction.GetPoint());
+    delegate.OnPointCheck(junction.GetPoint());
     auto const lastValue = m_progress.GetLastValue();
     auto const newValue =
         m_progress.GetProgressForBidirectedAlgo(junction.GetPoint(), target.GetPoint());
     if (newValue - lastValue > kProgressInterval)
-      observer.OnProgress(newValue);
+      delegate.OnProgress(newValue);
   };
 
-  my::Cancellable const & cancellable = observer;
+  my::Cancellable const & cancellable = delegate;
   m_progress.Initialize(startPos.GetPoint(), finalPos.GetPoint());
   TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPathBidirectional(
       RoadGraph(graph), startPos, finalPos, path, cancellable, onVisitJunctionFn);

@@ -53,14 +53,14 @@ map<string, string> PrepareStatisticsData(string const & routerName,
 }  // namespace
 
 AsyncRouter::AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFetcher> && fetcher,
-                         TRoutingStatisticsCallback const & routingStatisticsFn,
-                         TPointCheckCallback const & pointCheckCallback)
+                         TRoutingStatisticsCallback const & routingStatisticsCallback,
+                         RouterDelegate::TPointCheckCallback const & pointCheckCallback)
     : m_absentFetcher(move(fetcher)),
       m_router(move(router)),
-      m_routingStatisticsFn(routingStatisticsFn)
+      m_routingStatisticsCallback(routingStatisticsCallback)
 {
   ASSERT(m_router, ());
-  m_observer.SetPointCheckCallback(pointCheckCallback);
+  m_delegate.SetPointCheckCallback(pointCheckCallback);
   m_isReadyThread.clear();
 }
 
@@ -68,7 +68,8 @@ AsyncRouter::~AsyncRouter() { ClearState(); }
 
 void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
                                  m2::PointD const & finalPoint, TReadyCallback const & readyCallback,
-                                 TProgressCallback const & progressCallback, uint32_t timeoutSec)
+                                 RouterDelegate::TProgressCallback const & progressCallback,
+                                 uint32_t timeoutSec)
 {
   {
     lock_guard<mutex> paramsGuard(m_paramsMutex);
@@ -77,8 +78,8 @@ void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const
     m_startDirection = direction;
     m_finalPoint = finalPoint;
 
-    m_observer.Cancel();
-    m_observer.SetProgressCallback(progressCallback);
+    m_delegate.Cancel();
+    m_delegate.SetProgressCallback(progressCallback);
   }
 
   GetPlatform().RunAsync(bind(&AsyncRouter::CalculateRouteImpl, this, readyCallback, timeoutSec));
@@ -87,7 +88,7 @@ void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const
 void AsyncRouter::ClearState()
 {
   // Send cancel flag to the algorithms.
-  m_observer.Cancel();
+  m_delegate.Cancel();
 
   // And wait while it is finishing.
   lock_guard<mutex> routingGuard(m_routingMutex);
@@ -157,8 +158,8 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, uint3
     finalPoint = m_finalPoint;
     startDirection = m_startDirection;
 
-    m_observer.Reset();
-    m_observer.SetTimeout(timeoutSec);
+    m_delegate.Reset();
+    m_delegate.SetTimeout(timeoutSec);
   }
 
   my::Timer timer;
@@ -172,7 +173,7 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, uint3
       m_absentFetcher->GenerateRequest(startPoint, finalPoint);
 
     // Run basic request.
-    code = m_router->CalculateRoute(startPoint, startDirection, finalPoint, m_observer, route);
+    code = m_router->CalculateRoute(startPoint, startDirection, finalPoint, m_delegate, route);
 
     elapsedSec = timer.ElapsedSeconds(); // routing time
     LogCode(code, elapsedSec);
@@ -220,7 +221,7 @@ void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const
                                  Route const & route,
                                  double elapsedSec)
 {
-  if (nullptr == m_routingStatisticsFn)
+  if (nullptr == m_routingStatisticsCallback)
     return;
 
   map<string, string> statistics = PrepareStatisticsData(m_router->GetName(), startPoint, startDirection, finalPoint);
@@ -230,20 +231,20 @@ void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const
   if (IRouter::NoError == resultCode)
     statistics.emplace("distance", strings::to_string(route.GetTotalDistanceMeters()));
 
-  m_routingStatisticsFn(statistics);
+  m_routingStatisticsCallback(statistics);
 }
 
 void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
                                  m2::PointD const & finalPoint,
                                  string const & exceptionMessage)
 {
-  if (nullptr == m_routingStatisticsFn)
+  if (nullptr == m_routingStatisticsCallback)
     return;
 
   map<string, string> statistics = PrepareStatisticsData(m_router->GetName(), startPoint, startDirection, finalPoint);
   statistics.emplace("exception", exceptionMessage);
 
-  m_routingStatisticsFn(statistics);
+  m_routingStatisticsCallback(statistics);
 }
 
 }  // namespace routing

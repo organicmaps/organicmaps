@@ -11,7 +11,7 @@
 #include "routing/online_cross_fetcher.hpp"
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
-#include "routing/timeout_observer.hpp"
+#include "routing/router_delegate.hpp"
 
 #include "search/search_engine.hpp"
 
@@ -194,12 +194,12 @@ namespace integration
                               m2::PointD const & startPoint, m2::PointD const & startDirection,
                               m2::PointD const & finalPoint)
   {
-    TimeoutObserver observer;
+    RouterDelegate delegate;
     IRouter * router = routerComponents.GetRouter();
     ASSERT(router, ());
     shared_ptr<Route> route(new Route("mapsme"));
     IRouter::ResultCode result =
-        router->CalculateRoute(startPoint, startDirection, finalPoint, observer, *route.get());
+        router->CalculateRoute(startPoint, startDirection, finalPoint, delegate, *route.get());
     ASSERT(route, ());
     return TRouteResult(route, result);
   }

@@ -35,7 +35,7 @@
 #define INTERRUPT_WHEN_CANCELLED() \
   do                               \
   {                                \
-    if (observer.IsCancelled())    \
+    if (delegate.IsCancelled())    \
       return Cancelled;            \
   } while (false)
 
@@ -448,7 +448,7 @@ void CalculatePhantomNodeForCross(TRoutingMappingPtr & mapping, FeatureGraphNode
 // TODO (ldragunov) move this function to cross mwm router
 // TODO (ldragunov) process case when the start and the finish points are placed on the same edge.
 OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const & path,
-                                                            IRouterObserver const & observer,
+                                                            RouterDelegate const & delegate,
                                                             Route & route)
 {
   Route::TTurns TurnsDir;
@@ -473,7 +473,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     Route::TTimes mwmTimes;
     vector<m2::PointD> mwmPoints;
     turns::TTurnsGeom mwmTurnsGeom;
-    MakeTurnAnnotation(routingResult, mwmMapping, observer, mwmPoints, mwmTurnsDir, mwmTimes,
+    MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmTurnsDir, mwmTimes,
                        mwmTurnsGeom);
     // Connect annotated route.
     const uint32_t pSize = Points.size();
@@ -519,7 +519,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
 OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                                   m2::PointD const & startDirection,
                                                   m2::PointD const & finalPoint,
-                                                  IRouterObserver const & observer, Route & route)
+                                                  RouterDelegate const & delegate, Route & route)
 {
   my::HighResTimer timer(true);
   TRoutingMappingPtr startMapping = m_indexManager.GetMappingByPoint(startPoint);
@@ -554,7 +554,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   LOG(LINFO, ("Duration of the MWM loading", timer.ElapsedNano()));
   timer.Reset();
 
-  observer.OnProgress(10.0f);
+  delegate.OnProgress(10.0f);
 
   // 3. Find start/end nodes.
   TFeatureGraphNodeVec startTask;
@@ -580,7 +580,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
   LOG(LINFO, ("Duration of the start/stop points lookup", timer.ElapsedNano()));
   timer.Reset();
-  observer.OnProgress(15.0f);
+  delegate.OnProgress(15.0f);
 
   // 4. Find route.
   RawRoutingResult routingResult;
@@ -599,7 +599,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
       return RouteNotFound;
     }
     INTERRUPT_WHEN_CANCELLED();
-    observer.OnProgress(70.0f);
+    delegate.OnProgress(70.0f);
 
     // 5. Restore route.
 
@@ -608,7 +608,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     vector<m2::PointD> points;
     turns::TTurnsGeom turnsGeom;
 
-    MakeTurnAnnotation(routingResult, startMapping, observer, points, turnsDir, times, turnsGeom);
+    MakeTurnAnnotation(routingResult, startMapping, delegate, points, turnsDir, times, turnsGeom);
 
     route.SetGeometry(points.begin(), points.end());
     route.SetTurnInstructions(turnsDir);
@@ -622,14 +622,14 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     LOG(LINFO, ("Multiple mwm routing case"));
     TCheckedPath finalPath;
     ResultCode code =
-        CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, observer, finalPath);
+        CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, delegate, finalPath);
     timer.Reset();
-    observer.OnProgress(50.0f);
+    delegate.OnProgress(50.0f);
 
     // 5. Make generate answer
     if (code == NoError)
     {
-      auto code = MakeRouteFromCrossesPath(finalPath, observer, route);
+      auto code = MakeRouteFromCrossesPath(finalPath, delegate, route);
       // Manually free all cross context allocations before geometry unpacking.
       m_indexManager.ForEachMapping([](pair<string, TRoutingMappingPtr> const & indexPair)
                                     {
@@ -671,7 +671,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
 // to be able to use the route without turn annotation.
 OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
     RawRoutingResult const & routingResult, TRoutingMappingPtr const & mapping,
-    IRouterObserver const & observer, vector<m2::PointD> & points, Route::TTurns & turnsDir,
+    RouterDelegate const & delegate, vector<m2::PointD> & points, Route::TTurns & turnsDir,
     Route::TTimes & times, turns::TTurnsGeom & turnsGeom)
 {
   ASSERT(mapping, ());

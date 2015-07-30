@@ -40,7 +40,7 @@ public:
   virtual string GetName() const;
 
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                            m2::PointD const & finalPoint, IRouterObserver const & observer,
+                            m2::PointD const & finalPoint, RouterDelegate const & delegate,
                             Route & route) override;
 
   virtual void ClearState();
@@ -75,7 +75,7 @@ protected:
    * \brief Compute turn and time estimation structs for OSRM raw route.
    * \param routingResult OSRM routing result structure to annotate.
    * \param mapping Feature mappings.
-   * \param observer Routing callbacks observer.
+   * \param delegate Routing callbacks delegate.
    * \param points Storage for unpacked points of the path.
    * \param turnsDir output turns annotation storage.
    * \param times output times annotation storage.
@@ -84,7 +84,7 @@ protected:
    */
   ResultCode MakeTurnAnnotation(RawRoutingResult const & routingResult,
                                 TRoutingMappingPtr const & mapping,
-                                IRouterObserver const & observer, vector<m2::PointD> & points,
+                                RouterDelegate const & delegate, vector<m2::PointD> & points,
                                 Route::TTurns & turnsDir, Route::TTimes & times,
                                 turns::TTurnsGeom & turnsGeom);
 
@@ -97,7 +97,7 @@ private:
    * \param route class to render final route
    * \return NoError or error code
    */
-  ResultCode MakeRouteFromCrossesPath(TCheckedPath const & path, IRouterObserver const & observer,
+  ResultCode MakeRouteFromCrossesPath(TCheckedPath const & path, RouterDelegate const & delegate,
                                       Route & route);
 
   Index const * m_pIndex;

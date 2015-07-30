@@ -70,7 +70,7 @@ void RoadGraphRouter::ClearState()
 IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoint,
                                                     m2::PointD const & /* startDirection */,
                                                     m2::PointD const & finalPoint,
-                                                    IRouterObserver const & observer, Route & route)
+                                                    RouterDelegate const & delegate, Route & route)
 {
   vector<pair<Edge, m2::PointD>> finalVicinity;
   m_roadGraph->FindClosestEdges(finalPoint, MAX_ROAD_CANDIDATES, finalVicinity);
@@ -93,7 +93,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
 
   vector<Junction> path;
   IRoutingAlgorithm::Result const resultCode =
-      m_algorithm->CalculateRoute(*m_roadGraph, startPos, finalPos, observer, path);
+      m_algorithm->CalculateRoute(*m_roadGraph, startPos, finalPos, delegate, path);
 
   if (resultCode == IRoutingAlgorithm::Result::OK)
   {

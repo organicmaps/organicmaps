@@ -51,22 +51,22 @@ public:
 
   typedef function<void(map<string, string> const &)> TRoutingStatisticsCallback;
 
-  typedef function<void(Route const &, IRouter::ResultCode)> TReadyCallbackFn;
-  typedef function<void(float)> TProgressCallbackFn;
+  typedef function<void(Route const &, IRouter::ResultCode)> TReadyCallback;
+  typedef function<void(float)> TProgressCallback;
 
   RoutingSession();
 
   void SetRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
                  TRoutingStatisticsCallback const & routingStatisticsFn,
-                 TPointCheckCallback const & pointCheckCallback);
+                 RouterDelegate::TPointCheckCallback const & pointCheckCallback);
 
   /// @param[in] startPoint and endPoint in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
-                  TReadyCallbackFn const & readyCallback,
-                  TProgressCallbackFn const & progressCallback, uint32_t timeoutSec);
-  void RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & readyCallback,
-                    TProgressCallbackFn const & progressCallback, uint32_t timeoutSec);
+                  TReadyCallback const & readyCallback,
+                  TProgressCallback const & progressCallback, uint32_t timeoutSec);
+  void RebuildRoute(m2::PointD const & startPoint, TReadyCallback const & readyCallback,
+                    TProgressCallback const & progressCallback, uint32_t timeoutSec);
 
   m2::PointD GetEndPoint() const { return m_endPoint; }
   bool IsActive() const { return (m_state != RoutingNotActive); }
@@ -95,10 +95,10 @@ private:
   struct DoReadyCallback
   {
     RoutingSession & m_rs;
-    TReadyCallbackFn m_callback;
+    TReadyCallback m_callback;
     threads::Mutex & m_routeSessionMutexInner;
 
-    DoReadyCallback(RoutingSession & rs, TReadyCallbackFn const & cb,
+    DoReadyCallback(RoutingSession & rs, TReadyCallback const & cb,
                     threads::Mutex & routeSessionMutex)
         : m_rs(rs), m_callback(cb), m_routeSessionMutexInner(routeSessionMutex)
     {

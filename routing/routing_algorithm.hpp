@@ -27,7 +27,7 @@ public:
   };
 
   virtual Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
-                                Junction const & finalPos, IRouterObserver const & observer,
+                                Junction const & finalPos, RouterDelegate const & delegate,
                                 vector<Junction> & path) = 0;
 };
 
@@ -48,7 +48,7 @@ class AStarRoutingAlgorithm : public AStarRoutingAlgorithmBase
 public:
   // IRoutingAlgorithm overrides:
   Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
-                        Junction const & finalPos, IRouterObserver const & observer,
+                        Junction const & finalPos, RouterDelegate const & delegate,
                         vector<Junction> & path) override;
 };
 
@@ -58,7 +58,7 @@ class AStarBidirectionalRoutingAlgorithm : public AStarRoutingAlgorithmBase
 public:
   // IRoutingAlgorithm overrides:
   Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
-                        Junction const & finalPos, IRouterObserver const & observer,
+                        Junction const & finalPos, RouterDelegate const & delegate,
                         vector<Junction> & path) override;
 };
 

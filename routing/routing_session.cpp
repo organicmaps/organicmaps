@@ -35,8 +35,8 @@ RoutingSession::RoutingSession()
 }
 
 void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
-                                TReadyCallbackFn const & readyCallback,
-                                TProgressCallbackFn const & progressCallback,
+                                TReadyCallback const & readyCallback,
+                                TProgressCallback const & progressCallback,
                                 uint32_t timeoutSec)
 {
   ASSERT(m_router != nullptr, ());
@@ -47,8 +47,8 @@ void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const 
 }
 
 void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
-    TReadyCallbackFn const & readyCallback,
-    TProgressCallbackFn const & progressCallback, uint32_t timeoutSec)
+    TReadyCallback const & readyCallback,
+    TProgressCallback const & progressCallback, uint32_t timeoutSec)
 {
   ASSERT(m_router != nullptr, ());
   ASSERT_NOT_EQUAL(m_endPoint, m2::PointD::Zero(), ("End point was not set"));
@@ -241,7 +241,7 @@ void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)
 void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
                                unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
                                TRoutingStatisticsCallback const & routingStatisticsFn,
-                               TPointCheckCallback const & pointCheckCallback)
+                               RouterDelegate::TPointCheckCallback const & pointCheckCallback)
 {
   if (m_router)
     Reset();

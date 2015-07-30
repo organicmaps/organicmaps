@@ -11,19 +11,19 @@ namespace
 /// Function to run AStar Algorithm from the base.
 IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross const & finalPos,
                                    CrossMwmGraph const & roadGraph, vector<BorderCross> & route,
-                                   IRouterObserver const & observer)
+                                   RouterDelegate const & delegate)
 {
   using TAlgorithm = AStarAlgorithm<CrossMwmGraph>;
 
   TAlgorithm::TOnVisitedVertexCallback onVisitedVertex =
-      [&observer](BorderCross const & cross, BorderCross const & /* target */)
+      [&delegate](BorderCross const & cross, BorderCross const & /* target */)
   {
-    observer.OnPointCheck(cross.fromNode.point);
+    delegate.OnPointCheck(cross.fromNode.point);
   };
 
   my::HighResTimer timer(true);
   TAlgorithm::Result const result =
-      TAlgorithm().FindPath(roadGraph, startPos, finalPos, route, observer, onVisitedVertex);
+      TAlgorithm().FindPath(roadGraph, startPos, finalPos, route, delegate, onVisitedVertex);
   LOG(LINFO, ("Duration of the cross MWM path finding", timer.ElapsedNano()));
   switch (result)
   {
@@ -43,7 +43,7 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
 IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
                                           TRoutingNodes const & finalGraphNodes,
                                           RoutingIndexManager & indexManager,
-                                          IRouterObserver const & observer, TCheckedPath & route)
+                                          RouterDelegate const & delegate, TCheckedPath & route)
 {
   CrossMwmGraph roadGraph(indexManager);
   FeatureGraphNode startGraphNode, finalGraphNode;
@@ -83,7 +83,7 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   // Finding path through maps.
   vector<BorderCross> tempRoad;
   code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad,
-                        observer);
+                        delegate);
   if (code != IRouter::NoError)
     return code;
 

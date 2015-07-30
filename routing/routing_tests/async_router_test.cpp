@@ -28,7 +28,7 @@ public:
   string GetName() const override { return "Dummy"; }
 
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                            m2::PointD const & finalPoint, IRouterObserver const & observer,
+                            m2::PointD const & finalPoint, RouterDelegate const & delegate,
                             Route & route) override
   {
     vector<m2::PointD> points({startPoint, finalPoint});

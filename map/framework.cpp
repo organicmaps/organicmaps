@@ -2180,7 +2180,7 @@ void Framework::SetRouterImpl(RouterType type)
   }
 
 #ifdef DEBUG
-  routing::TPointCheckCallback const routingVisualizerFn = [this](m2::PointD const & pt)
+  routing::RouterDelegate::TPointCheckCallback const routingVisualizerFn = [this](m2::PointD const & pt)
   {
     GetPlatform().RunOnGuiThread([this,pt]()
     {

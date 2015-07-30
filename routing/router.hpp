@@ -1,5 +1,7 @@
 #pragma once
 
+#include "router_delegate.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/cancellable.hpp"
@@ -20,14 +22,6 @@ enum RouterType
 };
 
 string ToString(RouterType type);
-
-class IRouterObserver : public my::Cancellable
-{
-public:
-  virtual void OnProgress(float) const = 0;
-  /// Returns routing progress from 0 to 100.
-  virtual void OnPointCheck(m2::PointD const &) const = 0;
-};
 
 class IRouter
 {
@@ -62,13 +56,13 @@ public:
   /// @param startPoint point to start routing
   /// @param startDirection start direction for routers with high cost of the turnarounds
   /// @param finalPoint target point for route
-  /// @param observer callback functions and cancellation flag
+  /// @param delegate callback functions and cancellation flag
   /// @param route result route
   /// @return ResultCode error code or NoError if route was initialised
   /// @see Cancellable
   virtual ResultCode CalculateRoute(m2::PointD const & startPoint,
                                     m2::PointD const & startDirection,
-                                    m2::PointD const & finalPoint, IRouterObserver const & observer,
+                                    m2::PointD const & finalPoint, RouterDelegate const & delegate,
                                     Route & route) = 0;
 };
 

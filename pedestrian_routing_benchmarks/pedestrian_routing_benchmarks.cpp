@@ -7,7 +7,7 @@
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/pedestrian_model.hpp"
-#include "routing/timeout_observer.hpp"
+#include "routing/router_delegate.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -94,12 +94,12 @@ void GetNearestPedestrianEdges(Index & index, m2::PointD const & pt, vector<pair
 
 void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::PointD const & finalPos, routing::Route & foundRoute)
 {
-  routing::TimeoutObserver observer;
+  routing::RouterDelegate delegate;
   LOG(LINFO, ("Calculating routing ...", router.GetName()));
   routing::Route route("");
   my::Timer timer;
   routing::IRouter::ResultCode const resultCode = router.CalculateRoute(
-      startPos, m2::PointD::Zero() /* startDirection */, finalPos, observer, route);
+      startPos, m2::PointD::Zero() /* startDirection */, finalPos, delegate, route);
   double const elapsedSec = timer.ElapsedSeconds();
   TEST_EQUAL(routing::IRouter::NoError, resultCode, ());
   LOG(LINFO, ("Route polyline size:", route.GetPoly().GetSize()));
