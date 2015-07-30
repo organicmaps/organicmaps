@@ -42,6 +42,11 @@ static NSString * const kOldWatchUserEventKey = @"OldWatchUser";
 static NSString * const kUDWatchEventAlreadyTracked = @"WatchEventAlreadyTracked";
 static NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 static NSString * const kIOSIDFA = @"IFA";
+static NSString * const kBundleVersion = @"BundleVersion";
+
+extern string const kCountryCodeKey;
+extern string const kUniqueIdKey;
+extern string const kLanguageKey;
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
@@ -133,11 +138,18 @@ void InitLocalizedStrings()
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-  PFInstallation * const currentInstallation = [PFInstallation currentInstallation];
+  PFInstallation * currentInstallation = [PFInstallation currentInstallation];
   [currentInstallation setDeviceTokenFromData:deviceToken];
-  NSUUID const * const advertisingId = [AppInfo sharedInfo].advertisingId;
+  AppInfo * appInfo = [AppInfo sharedInfo];
+  NSUUID * advertisingId = appInfo.advertisingId;
   if (advertisingId)
     [currentInstallation setObject:advertisingId.UUIDString forKey:kIOSIDFA];
+  [currentInstallation setObject:appInfo.countryCode forKey:@(kCountryCodeKey.c_str())];
+  [currentInstallation setObject:appInfo.uniqueId forKey:@(kUniqueIdKey.c_str())];
+  NSString * languageId = appInfo.languageId;
+  if (languageId)
+    [currentInstallation setObject:languageId forKey:@(kLanguageKey.c_str())];
+  [currentInstallation setObject:appInfo.bundleVersion forKey:kBundleVersion];
   [currentInstallation saveInBackground];
 
   [Alohalytics logEvent:kPushDeviceTokenLogEvent withValue:currentInstallation.deviceToken];

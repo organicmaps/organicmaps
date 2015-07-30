@@ -6,8 +6,10 @@
 #import <AdSupport/ASIdentifierManager.h>
 #include "../../../platform/settings.hpp"
 
-static string const kCountryCodeKey = "CountryCode";
-static string const kUniqueIdKey = "UniqueId";
+extern string const kCountryCodeKey = "CountryCode";
+extern string const kUniqueIdKey = "UniqueId";
+extern string const kLanguageKey = "Language";
+
 static string const kLaunchCountKey = "LaunchCount";
 static NSString * const kAppInfoFirstLaunchDateKey = @"AppInfoFirstLaunchDate";
 
@@ -170,6 +172,12 @@ static NSString * const kAppInfoFirstLaunchDateKey = @"AppInfoFirstLaunchDate";
       _advertisingId = m.advertisingIdentifier;
   }
   return _advertisingId;
+}
+
+- (NSString *)languageId
+{
+  NSArray * languages = [NSLocale preferredLanguages];
+  return languages.count == 0 ? nil : languages[0];
 }
 
 @end

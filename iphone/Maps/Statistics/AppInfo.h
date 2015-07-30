@@ -13,5 +13,6 @@
 @property (nonatomic, readonly) NSString * bundleVersion;
 @property (nonatomic, readonly) NSString * deviceInfo;
 @property (nonatomic, readonly) NSUUID * advertisingId;
+@property (nonatomic, readonly) NSString * languageId;
 
 @end
