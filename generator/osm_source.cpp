@@ -80,19 +80,22 @@ namespace feature
       return this->m_ways.Read(id, e);
     }
 
-    template <class ToDo> void ForEachRelationByWay(TKey id, ToDo & toDo)
+    template <class ToDo>
+    void ForEachRelationByWay(TKey id, ToDo && toDo)
     {
       RelationProcessor<ToDo> processor(this->m_relations, toDo);
       this->m_ways2rel.ForEachByKey(id, processor);
     }
 
-    template <class ToDo> void ForEachRelationByNodeCached(TKey id, ToDo & toDo)
+    template <class ToDo>
+    void ForEachRelationByNodeCached(TKey id, ToDo && toDo)
     {
       CachedRelationProcessor<ToDo> processor(this->m_relations, toDo);
       this->m_nodes2rel.ForEachByKey(id, processor);
     }
 
-    template <class ToDo> void ForEachRelationByWayCached(TKey id, ToDo & toDo)
+    template <class ToDo>
+    void ForEachRelationByWayCached(TKey id, ToDo && toDo)
     {
       CachedRelationProcessor<ToDo> processor(this->m_relations, toDo);
       this->m_ways2rel.ForEachByKey(id, processor);

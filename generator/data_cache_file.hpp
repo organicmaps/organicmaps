@@ -23,7 +23,9 @@ namespace detail
 template <class TFile, class TValue>
 class IndexFile
 {
-  using TElement = pair<uint64_t, TValue>;
+  using TKey = uint64_t;
+  static_assert(is_integral<TKey>::value, "TKey is not integral type");
+  using TElement = pair<TKey, TValue>;
   using TContainer = vector<TElement>;
 
   TContainer m_elements;
@@ -37,8 +39,8 @@ class IndexFile
     {
       return ((r1.first == r2.first) ? r1.second < r2.second : r1.first < r2.first);
     }
-    bool operator()(TElement const & r1, uint64_t r2) const { return (r1.first < r2); }
-    bool operator()(uint64_t r1, TElement const & r2) const { return (r1 < r2.first); }
+    bool operator()(TElement const & r1, TKey r2) const { return (r1.first < r2); }
+    bool operator()(TKey r1, TElement const & r2) const { return (r1 < r2.first); }
   };
 
   static size_t CheckedCast(uint64_t v)
@@ -87,7 +89,7 @@ public:
     LOG_SHORT(LINFO, ("Offsets reading is finished"));
   }
 
-  void Write(uint64_t k, TValue const & v)
+  void Write(TKey k, TValue const & v)
   {
     if (m_elements.size() > kFlushCount)
       Flush();
@@ -95,7 +97,7 @@ public:
     m_elements.push_back(make_pair(k, v));
   }
 
-  bool GetValueByKey(uint64_t k, TValue & v) const
+  bool GetValueByKey(TKey k, TValue & v) const
   {
     auto it = lower_bound(m_elements.begin(), m_elements.end(), k, ElementComparator());
     if ((it != m_elements.end()) && ((*it).first == k))
@@ -107,7 +109,7 @@ public:
   }
 
   template <class ToDo>
-  void ForEachByKey(uint64_t k, ToDo && toDo) const
+  void ForEachByKey(TKey k, ToDo && toDo) const
   {
     auto range = equal_range(m_elements.begin(), m_elements.end(), k, ElementComparator());
     for (; range.first != range.second; ++range.first)
@@ -182,7 +184,9 @@ class BaseFileHolder
 {
 protected:
   using TKey = typename TData::TKey;
-  using TIndex = detail::IndexFile<TFile, uint64_t>;
+  static_assert(is_integral<TKey>::value, "TKey is not integral type");
+
+  using TIndex = detail::IndexFile<TFile, TKey>;
 
   TNodesHolder & m_nodes;
 
