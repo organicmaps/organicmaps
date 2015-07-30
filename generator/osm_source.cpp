@@ -28,80 +28,72 @@ namespace feature
   template <class TNodesHolder>
   class FileHolder : public cache::BaseFileHolder<TNodesHolder, cache::DataFileReader, FileReader>
   {
-    typedef cache::DataFileReader reader_t;
-    typedef cache::BaseFileHolder<TNodesHolder, reader_t, FileReader> base_type;
+    using TReader = cache::DataFileReader;
+    using TBase = cache::BaseFileHolder<TNodesHolder, TReader, FileReader>;
 
-    typedef typename base_type::offset_map_t offset_map_t;
+    using typename TBase::TKey;
 
-    typedef typename base_type::user_id_t user_id_t;
-
-    template <class TElement, class ToDo> struct process_base
+    template <class TElement, class ToDo>
+    struct ElementProcessorBase
     {
     protected:
-      reader_t & m_reader;
+      TReader & m_reader;
       ToDo & m_toDo;
-    public:
-      process_base(reader_t & reader, ToDo & toDo) : m_reader(reader), m_toDo(toDo) {}
 
-      bool operator() (uint64_t id)
+    public:
+      ElementProcessorBase(TReader & reader, ToDo & toDo) : m_reader(reader), m_toDo(toDo) {}
+
+      bool operator()(uint64_t id)
       {
         TElement e;
-        if (m_reader.Read(id, e))
-          return m_toDo(id, e);
-        return false;
+        return m_reader.Read(id, e) ? m_toDo(id, e) : false;
       }
     };
 
-    template <class ToDo> struct process_relation : public process_base<RelationElement, ToDo>
+    template <class ToDo>
+    struct RelationProcessor : public ElementProcessorBase<RelationElement, ToDo>
     {
-      typedef process_base<RelationElement, ToDo> base_type;
-    public:
-      process_relation(reader_t & reader, ToDo & toDo) : base_type(reader, toDo) {}
+      using TBase = ElementProcessorBase<RelationElement, ToDo>;
+      RelationProcessor(TReader & reader, ToDo & toDo) : TBase(reader, toDo) {}
     };
 
-    template <class ToDo> struct process_relation_cached : public process_relation<ToDo>
+    template <class ToDo>
+    struct CachedRelationProcessor : public RelationProcessor<ToDo>
     {
-      typedef process_relation<ToDo> base_type;
-
-    public:
-      process_relation_cached(reader_t & rels, ToDo & toDo)
-      : base_type(rels, toDo) {}
-
-      bool operator() (uint64_t id)
-      {
-        return this->m_toDo(id, this->m_reader);
-      }
+      using TBase = RelationProcessor<ToDo>;
+      CachedRelationProcessor(TReader & rels, ToDo & toDo) : TBase(rels, toDo) {}
+      bool operator()(uint64_t id) { return this->m_toDo(id, this->m_reader); }
     };
 
   public:
-    FileHolder(TNodesHolder & holder, string const & dir) : base_type(holder, dir) {}
+    FileHolder(TNodesHolder & holder, string const & dir) : TBase(holder, dir) {}
 
     bool GetNode(uint64_t id, double & lat, double & lng)
     {
       return this->m_nodes.GetPoint(id, lat, lng);
     }
 
-    bool GetWay(user_id_t id, WayElement & e)
+    bool GetWay(TKey id, WayElement & e)
     {
       return this->m_ways.Read(id, e);
     }
 
-    template <class ToDo> void ForEachRelationByWay(user_id_t id, ToDo & toDo)
+    template <class ToDo> void ForEachRelationByWay(TKey id, ToDo & toDo)
     {
-      process_relation<ToDo> processor(this->m_relations, toDo);
-      this->m_ways2rel.for_each_ret(id, processor);
+      RelationProcessor<ToDo> processor(this->m_relations, toDo);
+      this->m_ways2rel.ForEachByKey(id, processor);
     }
 
-    template <class ToDo> void ForEachRelationByNodeCached(user_id_t id, ToDo & toDo)
+    template <class ToDo> void ForEachRelationByNodeCached(TKey id, ToDo & toDo)
     {
-      process_relation_cached<ToDo> processor(this->m_relations, toDo);
-      this->m_nodes2rel.for_each_ret(id, processor);
+      CachedRelationProcessor<ToDo> processor(this->m_relations, toDo);
+      this->m_nodes2rel.ForEachByKey(id, processor);
     }
 
-    template <class ToDo> void ForEachRelationByWayCached(user_id_t id, ToDo & toDo)
+    template <class ToDo> void ForEachRelationByWayCached(TKey id, ToDo & toDo)
     {
-      process_relation_cached<ToDo> processor(this->m_relations, toDo);
-      this->m_ways2rel.for_each_ret(id, processor);
+      CachedRelationProcessor<ToDo> processor(this->m_relations, toDo);
+      this->m_ways2rel.ForEachByKey(id, processor);
     }
     
     void LoadIndex()
@@ -109,8 +101,8 @@ namespace feature
       this->m_ways.LoadOffsets();
       this->m_relations.LoadOffsets();
       
-      this->m_nodes2rel.read_to_memory();
-      this->m_ways2rel.read_to_memory();
+      this->m_nodes2rel.ReadAll();
+      this->m_ways2rel.ReadAll();
     }
   };
 } // namespace feature
@@ -123,13 +115,13 @@ namespace data
   {
     typedef cache::BaseFileHolder<TNodesHolder, cache::DataFileWriter, FileWriter> base_type;
 
-    typedef typename base_type::user_id_t user_id_t;
+    typedef typename base_type::TKey user_id_t;
 
     template <class TMap, class TVec>
     void add_id2rel_vector(TMap & rMap, user_id_t relid, TVec const & v)
     {
       for (size_t i = 0; i < v.size(); ++i)
-        rMap.write(v[i].first, relid);
+        rMap.Write(v[i].first, relid);
     }
 
   public:
@@ -162,8 +154,8 @@ namespace data
       this->m_ways.SaveOffsets();
       this->m_relations.SaveOffsets();
       
-      this->m_nodes2rel.flush_to_file();
-      this->m_ways2rel.flush_to_file();
+      this->m_nodes2rel.Flush();
+      this->m_ways2rel.Flush();
     }
   };
 } // namespace data
