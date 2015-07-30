@@ -22,7 +22,7 @@ function BuildDrawingRules() {
 }
 
 # Cleanup
-cleanup=(classificator.txt types.txt visibility.txt)
+cleanup=(classificator.txt types.txt visibility.txt colors.txt)
 for item in ${cleanup[*]}
 do
   rm $DATA_PATH/$item || true

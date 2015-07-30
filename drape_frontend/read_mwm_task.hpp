@@ -10,11 +10,6 @@
 
 #include "std/shared_ptr.hpp"
 
-namespace dp
-{
-  class TextureManager;
-}
-
 namespace df
 {
 
@@ -26,14 +21,12 @@ public:
 
   virtual void Do();
 
-  void Init(shared_ptr<TileInfo> const & tileInfo, ref_ptr<dp::TextureManager> texMng);
+  void Init(shared_ptr<TileInfo> const & tileInfo);
   void Reset();
   TileKey GetTileKey() const;
 
 private:
   shared_ptr<TileInfo> m_tileInfo;
-  ref_ptr<dp::TextureManager> m_texMng;
-
   MemoryFeatureIndex & m_memIndex;
   MapDataProvider & m_model;
 

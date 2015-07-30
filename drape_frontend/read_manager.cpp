@@ -106,7 +106,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection con
     IncreaseCounter(static_cast<int>(inputRects.size() + (m_tileInfos.size() - outdatedTiles.size())));
 
     for_each(outdatedTiles.begin(), outdatedTiles.end(), bind(&ReadManager::ClearTileInfo, this, _1));
-    for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::PushTaskFront, this, _1, texMng));
+    for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::PushTaskFront, this, _1));
     for_each(inputRects.begin(), inputRects.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1, texMng));
   }
   m_currentViewport = screen;
@@ -153,17 +153,17 @@ bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
 
 void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::TextureManager> texMng)
 {
-  shared_ptr<TileInfo> tileInfo(new TileInfo(make_unique_dp<EngineContext>(tileKey, m_commutator)));
+  shared_ptr<TileInfo> tileInfo(new TileInfo(make_unique_dp<EngineContext>(tileKey, m_commutator, texMng)));
   m_tileInfos.insert(tileInfo);
   ReadMWMTask * task = myPool.Get();
-  task->Init(tileInfo, texMng);
+  task->Init(tileInfo);
   m_pool->PushBack(task);
 }
 
-void ReadManager::PushTaskFront(shared_ptr<TileInfo> const & tileToReread, ref_ptr<dp::TextureManager> texMng)
+void ReadManager::PushTaskFront(shared_ptr<TileInfo> const & tileToReread)
 {
   ReadMWMTask * task = myPool.Get();
-  task->Init(tileToReread, texMng);
+  task->Init(tileToReread);
   m_pool->PushFront(task);
 }
 

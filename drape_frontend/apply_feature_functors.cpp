@@ -15,7 +15,6 @@
 
 #include "drape/color.hpp"
 #include "drape/stipple_pen_resource.hpp"
-#include "drape/texture_manager.hpp"
 #include "drape/utils/projection.hpp"
 
 #include "base/logging.hpp"
@@ -340,13 +339,12 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
 
 ApplyLineFeature::ApplyLineFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
                                    CaptionDescription const & captions, double currentScaleGtoP,
-                                   bool simplify, size_t pointsCount, ref_ptr<dp::TextureManager> texMng)
+                                   bool simplify, size_t pointsCount)
   : TBase(insertShape, id, captions)
   , m_currentScaleGtoP(currentScaleGtoP)
   , m_sqrScale(math::sqr(m_currentScaleGtoP))
   , m_simplify(simplify)
   , m_initialPointsCount(pointsCount)
-  , m_texMng(texMng)
 #ifdef CALC_FILTERED_POINTS
   , m_readedCount(0)
 #endif
@@ -438,7 +436,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       Extract(pLineRule, params);
       params.m_depth = depth;
       params.m_baseGtoPScale = m_currentScaleGtoP;
-      m_insertShape(make_unique_dp<LineShape>(m_spline, params, m_texMng));
+      m_insertShape(make_unique_dp<LineShape>(m_spline, params));
     }
   }
 }

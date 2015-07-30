@@ -59,7 +59,6 @@ protected:
     m_indexer = nullptr;
   }
 
-private:
   ref_ptr<TIndexer> m_indexer;
 };
 

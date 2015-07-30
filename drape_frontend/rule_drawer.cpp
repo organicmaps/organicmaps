@@ -4,8 +4,6 @@
 #include "drape_frontend/apply_feature_functors.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "drape/texture_manager.hpp"
-
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 
@@ -18,11 +16,9 @@ namespace df
 int const SIMPLIFY_BOTTOM = 10;
 int const SIMPLIFY_TOP = 12;
 
-RuleDrawer::RuleDrawer(TDrawerCallback const & fn, ref_ptr<EngineContext> context,
-                       ref_ptr<dp::TextureManager> texMng)
+RuleDrawer::RuleDrawer(TDrawerCallback const & fn, ref_ptr<EngineContext> context)
   : m_callback(fn)
   , m_context(context)
-  , m_texMng(texMng)
 {
   m_globalRect = m_context->GetTileKey().GetGlobalRect();
 
@@ -74,8 +70,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   else if (s.LineStyleExists())
   {
     ApplyLineFeature apply(insertShape, f.GetID(), s.GetCaptionDescription(), m_currentScaleGtoP,
-                           zoomLevel >= SIMPLIFY_BOTTOM && zoomLevel <= SIMPLIFY_TOP, f.GetPointsCount(),
-                           m_texMng);
+                           zoomLevel >= SIMPLIFY_BOTTOM && zoomLevel <= SIMPLIFY_TOP, f.GetPointsCount());
     f.ForEachPointRef(apply, zoomLevel);
 
     if (apply.HasGeometry())
@@ -91,6 +86,9 @@ void RuleDrawer::operator()(FeatureType const & f)
     s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
     apply.Finish();
   }
+
+  for (auto & shape : m_mapShapes)
+    shape->Prepare(m_context->GetTextureManager());
 
   m_context->Flush(move(m_mapShapes));
 }

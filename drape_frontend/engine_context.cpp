@@ -15,10 +15,17 @@
 namespace df
 {
 
-EngineContext::EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commutator)
+EngineContext::EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commutator,
+                             ref_ptr<dp::TextureManager> texMng)
   : m_tileKey(tileKey)
   , m_commutator(commutator)
+  , m_texMng(texMng)
 {
+}
+
+ref_ptr<dp::TextureManager> EngineContext::GetTextureManager() const
+{
+  return m_texMng;
 }
 
 void EngineContext::BeginReadTile()
@@ -31,7 +38,7 @@ void EngineContext::Flush(list<drape_ptr<MapShape>> && shapes)
   PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, move(shapes)));
 }
 
-void EngineContext::EndReadTile(ref_ptr<dp::TextureManager> texMng)
+void EngineContext::EndReadTile()
 {
 #ifdef DRAW_TILE_NET
   m2::RectD r = m_tileKey.GetGlobalRect();
@@ -51,7 +58,7 @@ void EngineContext::EndReadTile(ref_ptr<dp::TextureManager> texMng)
   p.m_width = 5;
   p.m_join = dp::RoundJoin;
 
-  InsertShape(make_unique_dp<LineShape>(spline, p, texMng));
+  InsertShape(make_unique_dp<LineShape>(spline, p, m_texMng));
 
   df::TextViewParams tp;
   tp.m_anchor = dp::Center;

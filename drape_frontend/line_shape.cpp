@@ -59,7 +59,7 @@ private:
 };
 
 template <typename TVertex>
-class BaseLineBuilder : public LineBuilder
+class BaseLineBuilder : public ILineShapeInfo
 {
 public:
   BaseLineBuilder(dp::TextureManager::ColorRegion const & color, float pxHalfWidth,
@@ -68,11 +68,8 @@ public:
     , m_colorCoord(glsl::ToVec2(m_color.GetTexRect().Center()))
     , m_pxHalfWidth(pxHalfWidth)
   {
-    if (geometrySize != 0)
-      m_geometry.reserve(geometrySize);
-
-    if (joinsSize != 0)
-      m_joinGeom.reserve(joinsSize);
+    m_geometry.reserve(geometrySize);
+    m_joinGeom.reserve(joinsSize);
   }
 
   void GetTexturingInfo(float const globalLength, int & steps, float & maskSize)
@@ -231,14 +228,15 @@ private:
 
 } // namespace
 
-LineShape::LineShape(m2::SharedSpline const & spline,
-                     LineViewParams const & params,
-                     ref_ptr<dp::TextureManager> textures)
+LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & params)
   : m_params(params)
   , m_spline(spline)
 {
   ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
+}
 
+void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
+{
   dp::TextureManager::ColorRegion colorRegion;
   textures->GetColorRegion(m_params.m_color, colorRegion);
   float const pxHalfWidth = m_params.m_width / 2.0f;
@@ -247,7 +245,7 @@ LineShape::LineShape(m2::SharedSpline const & spline,
   {
     auto builder = make_unique<SolidLineBuilder>(colorRegion, pxHalfWidth, m_spline->GetPath().size());
     Construct<SolidLineBuilder>(*builder);
-    m_lineBuilder = move(builder);
+    m_lineShapeInfo = move(builder);
   }
   else
   {
@@ -260,7 +258,7 @@ LineShape::LineShape(m2::SharedSpline const & spline,
                                                   pxHalfWidth, m_params.m_baseGtoPScale,
                                                   m_spline->GetPath().size());
     Construct<DashedLineBuilder>(*builder);
-    m_lineBuilder = move(builder);
+    m_lineShapeInfo = move(builder);
   }
 }
 
@@ -368,19 +366,21 @@ void LineShape::Construct(TBuilder & builder) const
 
 void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
-  ASSERT(m_lineBuilder != nullptr, ());
+  if (!m_lineShapeInfo)
+    Prepare(textures);
 
-  dp::GLState state = m_lineBuilder->GetState();
+  ASSERT(m_lineShapeInfo != nullptr, ());
+  dp::GLState state = m_lineShapeInfo->GetState();
 
-  dp::AttributeProvider provider(1, m_lineBuilder->GetLineSize());
-  provider.InitStream(0, m_lineBuilder->GetBindingInfo(), m_lineBuilder->GetLineData());
+  dp::AttributeProvider provider(1, m_lineShapeInfo->GetLineSize());
+  provider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetLineData());
   batcher->InsertListOfStrip(state, make_ref(&provider), dp::Batcher::VertexPerQuad);
 
-  size_t joinSize = m_lineBuilder->GetJoinSize();
+  size_t joinSize = m_lineShapeInfo->GetJoinSize();
   if (joinSize > 0)
   {
     dp::AttributeProvider joinsProvider(1, joinSize);
-    joinsProvider.InitStream(0, m_lineBuilder->GetBindingInfo(), m_lineBuilder->GetJoinData());
+    joinsProvider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetJoinData());
     batcher->InsertTriangleList(state, make_ref(&joinsProvider));
   }
 }

@@ -32,6 +32,7 @@ class ColorPalette
 public:
   ColorPalette(m2::PointU const & canvasSize);
 
+  ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, ColorKey const & key, bool & newResource);
   ref_ptr<Texture::ResourceInfo> MapResource(ColorKey const & key, bool & newResource);
   void UploadResources(ref_ptr<Texture> texture);
   glConst GetMinFilter() const;
@@ -52,6 +53,7 @@ private:
   };
 
   TPalette m_palette;
+  TPalette m_predefinedPalette;
   buffer_vector<PendingColor, 16> m_pendingNodes;
   m2::PointU m_textureSize;
   m2::PointU m_cursor;
@@ -75,6 +77,8 @@ public:
 
     TBase::Init(make_ref(&m_pallete), params);
   }
+
+  void ReserveColor(dp::Color const & color);
 
   ~ColorTexture() { TBase::Reset(); }
 

@@ -41,7 +41,7 @@ private:
   bool MustDropAllTiles(ScreenBase const & screen) const;
 
   void PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::TextureManager> texMng);
-  void PushTaskFront(shared_ptr<TileInfo> const & tileToReread, ref_ptr<dp::TextureManager> texMng);
+  void PushTaskFront(shared_ptr<TileInfo> const & tileToReread);
 
 private:
   MemoryFeatureIndex m_memIndex;

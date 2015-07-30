@@ -463,7 +463,7 @@ void TestingEngine::DrawImpl()
   lvp.m_color = dp::Color::Red();
   lvp.m_width = 16.0f;
   lvp.m_join = dp::BevelJoin;
-  LineShape(spline, lvp, make_ref(m_textures)).Draw(make_ref(m_batcher), make_ref(m_textures));
+  LineShape(spline, lvp).Draw(make_ref(m_batcher), make_ref(m_textures));
 
   {
     PathSymbolViewParams p;
@@ -494,7 +494,7 @@ void TestingEngine::DrawImpl()
     lvp.m_join = dp::RoundJoin;
     lvp.m_cap = dp::RoundCap;
     lvp.m_color = dp::Color::Black();
-    LineShape(spl1, lvp, make_ref(m_textures)).Draw(make_ref(m_batcher), make_ref(m_textures));
+    LineShape(spl1, lvp).Draw(make_ref(m_batcher), make_ref(m_textures));
   }
 
   {
@@ -518,7 +518,7 @@ void TestingEngine::DrawImpl()
     lvpl.m_pattern.clear();
     lvpl.m_depth = -10.0f;
     lvpl.m_width = 2.0f;
-    LineShape(spl, lvpl, make_ref(m_textures)).Draw(make_ref(m_batcher), make_ref(m_textures));
+    LineShape(spl, lvpl).Draw(make_ref(m_batcher), make_ref(m_textures));
 
     DummyMutableLabel tt(m2::PointF(120.0f, 30.0f), "200 km");
     tt.Draw(make_ref(m_batcher), make_ref(m_textures));
@@ -537,7 +537,7 @@ void TestingEngine::DrawImpl()
       lvpl.m_pattern.clear();
       lvpl.m_depth = -10.0f;
       lvpl.m_width = 2.0f;
-      LineShape(spl, lvpl, make_ref(m_textures)).Draw(make_ref(m_batcher), make_ref(m_textures));
+      LineShape(spl, lvpl).Draw(make_ref(m_batcher), make_ref(m_textures));
     }
 
     dp::FontDecl font(dp::Color::Black(), 14);
@@ -577,7 +577,7 @@ void TestingEngine::DrawRects()
     };
 
     m2::SharedSpline spline(path);
-    LineShape(spline, lvp, make_ref(m_textures)).Draw(make_ref(m_batcher), make_ref(m_textures));
+    LineShape(spline, lvp).Draw(make_ref(m_batcher), make_ref(m_textures));
   };
 
   for (m2::RectD const & r : m_boundRects)

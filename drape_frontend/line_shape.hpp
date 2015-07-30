@@ -13,10 +13,10 @@
 namespace df
 {
 
-class LineBuilder
+class ILineShapeInfo
 {
 public:
-  virtual ~LineBuilder() {}
+  virtual ~ILineShapeInfo() {}
 
   virtual dp::BindingInfo const & GetBindingInfo() = 0;
   virtual dp::GLState GetState() = 0;
@@ -31,10 +31,9 @@ public:
 class LineShape : public MapShape
 {
 public:
-  LineShape(m2::SharedSpline const & spline,
-            LineViewParams const & params,
-            ref_ptr<dp::TextureManager> textures);
+  LineShape(m2::SharedSpline const & spline, LineViewParams const & params);
 
+  void Prepare(ref_ptr<dp::TextureManager> textures) const override;
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
 
 private:
@@ -43,7 +42,7 @@ private:
 
   LineViewParams m_params;
   m2::SharedSpline m_spline;
-  unique_ptr<LineBuilder> m_lineBuilder;
+  mutable unique_ptr<ILineShapeInfo> m_lineShapeInfo;
 };
 
 } // namespace df

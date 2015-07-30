@@ -20,12 +20,13 @@ ColorPalette::ColorPalette(m2::PointU const & canvasSize)
    , m_cursor(m2::PointU::Zero())
 {}
 
-ref_ptr<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, bool & newResource)
+ref_ptr<Texture::ResourceInfo> ColorPalette::ReserveResource(bool predefined, ColorKey const & key, bool & newResource)
 {
-  lock_guard<mutex> g(m_mappingLock);
+  lock_guard<mutex> lock(m_mappingLock);
 
-  TPalette::iterator itm = m_palette.find(key.m_color);
-  newResource = itm == m_palette.end();
+  TPalette & palette = predefined ? m_predefinedPalette : m_palette;
+  TPalette::iterator itm = palette.find(key.m_color);
+  newResource = (itm == palette.end());
   if (newResource)
   {
     PendingColor pendingColor;
@@ -51,11 +52,23 @@ ref_ptr<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, b
     m2::PointF const resCenter = m2::RectF(pendingColor.m_rect).Center();
     float const x = resCenter.x / sizeX;
     float const y = resCenter.y / sizeY;
-    auto res = m_palette.emplace(key.m_color, ColorResourceInfo(m2::RectF(x, y, x, y)));
+    auto res = palette.emplace(key.m_color, ColorResourceInfo(m2::RectF(x, y, x, y)));
     ASSERT(res.second, ());
     itm = res.first;
   }
+
   return make_ref(&itm->second);
+}
+
+ref_ptr<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, bool & newResource)
+{
+  TPalette::iterator itm = m_predefinedPalette.find(key.m_color);
+  if (itm != m_predefinedPalette.end())
+  {
+    newResource = false;
+    return make_ref(&itm->second);
+  }
+  return ReserveResource(false /* predefined */, key, newResource);
 }
 
 void ColorPalette::UploadResources(ref_ptr<Texture> texture)
@@ -170,6 +183,12 @@ void ColorPalette::MoveCursor()
   }
 
   ASSERT(m_cursor.y + RESOURCE_SIZE <= m_textureSize.y, ());
+}
+
+void ColorTexture::ReserveColor(dp::Color const & color)
+{
+  bool newResource = false;
+  m_indexer->ReserveResource(true /* predefined */, ColorKey(color), newResource);
 }
 
 }

@@ -9,7 +9,9 @@
 #include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
+#include "coding/reader.hpp"
 
+#include "base/logging.hpp"
 #include "base/stl_add.hpp"
 
 #include "std/vector.hpp"
@@ -27,18 +29,46 @@ size_t const DUPLICATED_GLYPHS_COUNT = 128;
 
 namespace
 {
-  void MultilineTextToUniString(TextureManager::TMultilineText const & text, strings::UniString & outString)
-  {
-    size_t cnt = 0;
-    for (strings::UniString const & str : text)
-      cnt += str.size();
 
-    outString.clear();
-    outString.reserve(cnt);
-    for (strings::UniString const & str : text)
-      outString.append(str.begin(), str.end());
+void MultilineTextToUniString(TextureManager::TMultilineText const & text, strings::UniString & outString)
+{
+  size_t cnt = 0;
+  for (strings::UniString const & str : text)
+    cnt += str.size();
+
+  outString.clear();
+  outString.reserve(cnt);
+  for (strings::UniString const & str : text)
+    outString.append(str.begin(), str.end());
+}
+
+template <typename ToDo>
+void ParseColorsList(string const & colorsFile, ToDo toDo)
+{
+  string colorsList;
+  try
+  {
+    ReaderPtr<Reader>(GetPlatform().GetReader(colorsFile)).ReadAsString(colorsList);
+  }
+  catch(RootException const & e)
+  {
+    LOG(LWARNING, ("Error reading colors list ", colorsFile, " : ", e.what()));
+    return;
+  }
+
+  istringstream fin(colorsList);
+  while (true)
+  {
+    uint32_t color;
+    fin >> color;
+    if (!fin)
+      break;
+
+    toDo(dp::Extract(color));
   }
 }
+
+} // namespace
 
 TextureManager::TextureManager()
   : m_maxTextureSize(0)
@@ -291,6 +321,11 @@ void TextureManager::Init(Params const & params)
   m_symbolTexture = make_unique_dp<SymbolsTexture>(params.m_resPostfix);
   m_stipplePenTexture = make_unique_dp<StipplePenTexture>(m2::PointU(STIPPLE_TEXTURE_SIZE, STIPPLE_TEXTURE_SIZE));
   m_colorTexture = make_unique_dp<ColorTexture>(m2::PointU(COLOR_TEXTURE_SIZE, COLOR_TEXTURE_SIZE));
+  ParseColorsList(params.m_colors, [this](dp::Color const & color)
+  {
+    ref_ptr<ColorTexture> colorTexture = make_ref(m_colorTexture);
+    colorTexture->ReserveColor(color);
+  });
 
   m_glyphManager = make_unique_dp<GlyphManager>(params.m_glyphMngParams);
   m_maxTextureSize = min(2048, GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));

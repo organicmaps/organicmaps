@@ -18,6 +18,7 @@ class MapShape
 {
 public:
   virtual ~MapShape(){}
+  virtual void Prepare(ref_ptr<dp::TextureManager> textures) const {}
   virtual void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const = 0;
 };
 

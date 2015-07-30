@@ -14,11 +14,6 @@
 
 class FeatureType;
 
-namespace dp
-{
-  class TextureManager;
-}
-
 namespace df
 {
 
@@ -32,9 +27,7 @@ public:
 
   TileInfo(drape_ptr<EngineContext> && context);
 
-  void ReadFeatures(MapDataProvider const & model,
-                    MemoryFeatureIndex & memIndex,
-                    ref_ptr<dp::TextureManager> texMng);
+  void ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & memIndex);
   void Cancel(MemoryFeatureIndex & memIndex);
 
   m2::RectD GetGlobalRect() const;
