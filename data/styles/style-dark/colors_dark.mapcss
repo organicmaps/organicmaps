@@ -59,6 +59,7 @@
 @highway_path: #3C3B38;
 @highway_pedestrian: #353434;
 @highway_pedestrian_area: #242423;
+@highway_platform: #444444;
 @highway_primary: #785E14;
 @highway_raceway: #785E14;
 @highway_secondary: #5A4800;
@@ -97,6 +98,7 @@
 @piste_nordic: #700;
 @pitch_fill: #224d67;
 @power_fill: #414141;
+@public_transport_platform: #444444;
 @rail_z12: #333333;
 @rail_z14: #555;
 @rail_z14_base: #191919;

@@ -305,3 +305,19 @@ node|z16-[railway=station][transport=subway]
 {
   icon-image: subway-station-l.svg;
 }
+
+area|z16[public_transport=platform],
+line|z16[public_transport=platform]
+{
+  fill-color: @public_transport_platform;
+  color: @public_transport_platform;
+  width: 4;
+}
+
+area|z17-[public_transport=platform],
+line|z17-[public_transport=platform]
+{
+  fill-color: @public_transport_platform;
+  color: @public_transport_platform;
+  width: 8;
+}

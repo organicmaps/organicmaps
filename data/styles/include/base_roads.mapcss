@@ -1267,3 +1267,19 @@ area|z15-[area:highway=footway],
   text-color: @dark_gray_40;
   text-position: center
 }
+
+area|z16[highway=platform],
+line|z16[highway=platform]
+{
+  fill-color: @highway_platform;
+  color: @highway_platform;
+  width: 4;
+}
+
+area|z17-[highway=platform],
+line|z17-[highway=platform]
+{
+  fill-color: @highway_platform;
+  color: @highway_platform;
+  width: 8;
+}
