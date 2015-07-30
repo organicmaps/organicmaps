@@ -4,6 +4,7 @@
 
 #include "coding/file_reader_stream.hpp"
 #include "coding/file_writer_stream.hpp"
+#include "coding/file_name_utils.hpp"
 
 #include "base/logging.hpp"
 
@@ -14,7 +15,7 @@
 #include "std/exception.hpp"
 
 /// Classes for reading and writing any data in file with map of offsets for
-/// fast searching in memory by some user-id.
+/// fast searching in memory by some key.
 namespace cache
 {
 namespace detail
@@ -40,9 +41,9 @@ class IndexFile
     bool operator()(uint64_t r1, TElement const & r2) const { return (r1 < r2.first); }
   };
 
-  size_t CheckedCast(uint64_t v)
+  static size_t CheckedCast(uint64_t v)
   {
-    ASSERT(v < numeric_limits<size_t>::max(), ("Value to long for memory address : ", v));
+    ASSERT_LESS(v, numeric_limits<size_t>::max(), ("Value too long for memory address : ", v));
     return static_cast<size_t>(v);
   }
 
@@ -68,6 +69,7 @@ public:
       return;
 
     LOG_SHORT(LINFO, ("Offsets reading is started for file ", GetFileName()));
+    CHECK_EQUAL(0, fileSize % sizeof(TElement), ("Damaged file."));
 
     try
     {
@@ -105,12 +107,14 @@ public:
   }
 
   template <class ToDo>
-  void ForEachByKey(uint64_t k, ToDo & toDo) const
+  void ForEachByKey(uint64_t k, ToDo && toDo) const
   {
     auto range = equal_range(m_elements.begin(), m_elements.end(), k, ElementComparator());
     for (; range.first != range.second; ++range.first)
+    {
       if (toDo((*range.first).second))
         return;
+    }
   }
 };
 } // namespace detail
@@ -119,7 +123,7 @@ template <class TStream, class TOffsetFile>
 class DataFileBase
 {
 public:
-  typedef uint64_t TKey;
+  using TKey = uint64_t;
 
 protected:
   TStream m_stream;
@@ -131,16 +135,16 @@ public:
 
 class DataFileWriter : public DataFileBase<FileWriterStream, FileWriter>
 {
-  typedef DataFileBase<FileWriterStream, FileWriter> base_type;
+  using TBase = DataFileBase<FileWriterStream, FileWriter>;
 
 public:
-  DataFileWriter(string const & name) : base_type(name) {}
+  DataFileWriter(string const & name) : TBase(name) {}
 
-  template <class T>
-  void Write(TKey id, T const & t)
+  template <class TValue>
+  void Write(TKey id, TValue const & value)
   {
     m_offsets.Write(id, m_stream.Pos());
-    m_stream << t;
+    m_stream << value;
   }
 
   void SaveOffsets() { m_offsets.Flush(); }
@@ -148,19 +152,19 @@ public:
 
 class DataFileReader : public DataFileBase<FileReaderStream, FileReader>
 {
-  typedef DataFileBase<FileReaderStream, FileReader> base_type;
+  using TBase = DataFileBase<FileReaderStream, FileReader>;
 
 public:
-  DataFileReader(string const & name) : base_type(name) {}
+  DataFileReader(string const & name) : TBase(name) {}
 
-  template <class T>
-  bool Read(TKey id, T & t)
+  template <class TValue>
+  bool Read(TKey id, TValue & value)
   {
     uint64_t pos;
     if (m_offsets.GetValueByKey(id, pos))
     {
       m_stream.Seek(pos);
-      m_stream >> t;
+      m_stream >> value;
       return true;
     }
     else
@@ -191,10 +195,10 @@ protected:
 public:
   BaseFileHolder(TNodesHolder & nodes, string const & dir)
     : m_nodes(nodes)
-    , m_ways(dir + WAYS_FILE)
-    , m_relations(dir + RELATIONS_FILE)
-    , m_nodes2rel(dir + NODES_FILE + ID2REL_EXT)
-    , m_ways2rel(dir + WAYS_FILE + ID2REL_EXT)
+    , m_ways(my::JoinFoldersToPath(dir, WAYS_FILE))
+    , m_relations(my::JoinFoldersToPath(dir, RELATIONS_FILE))
+    , m_nodes2rel(my::JoinFoldersToPath(dir, string(NODES_FILE) + ID2REL_EXT))
+    , m_ways2rel(my::JoinFoldersToPath(dir, string(WAYS_FILE) + ID2REL_EXT))
   {
   }
 };

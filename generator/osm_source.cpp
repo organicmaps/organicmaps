@@ -54,6 +54,7 @@ namespace feature
     struct RelationProcessor : public ElementProcessorBase<RelationElement, ToDo>
     {
       using TBase = ElementProcessorBase<RelationElement, ToDo>;
+
       RelationProcessor(TReader & reader, ToDo & toDo) : TBase(reader, toDo) {}
     };
 
@@ -61,6 +62,7 @@ namespace feature
     struct CachedRelationProcessor : public RelationProcessor<ToDo>
     {
       using TBase = RelationProcessor<ToDo>;
+
       CachedRelationProcessor(TReader & rels, ToDo & toDo) : TBase(rels, toDo) {}
       bool operator()(uint64_t id) { return this->m_toDo(id, this->m_reader); }
     };
