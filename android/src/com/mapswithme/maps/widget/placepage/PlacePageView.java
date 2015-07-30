@@ -106,6 +106,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private BaseShadowController mShadowController;
   private LinearLayout mLlApiBack;
   private ImageView mIvBookmark;
+  private View mRoutingButton;
   // Animations
   private BasePlacePageAnimationController mAnimationController;
   // Data
@@ -208,12 +209,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mBtnEditHtmlDescription.setOnClickListener(this);
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
-    mLlApiBack = (LinearLayout) ppButtons.findViewById(R.id.rl__api_back);
+    mLlApiBack = (LinearLayout) ppButtons.findViewById(R.id.ll__api_back);
     mLlApiBack.setOnClickListener(this);
-    final ViewGroup bookmarkGroup = (ViewGroup) ppButtons.findViewById(R.id.rl__bookmark);
+    final ViewGroup bookmarkGroup = (ViewGroup) ppButtons.findViewById(R.id.ll__bookmark);
     bookmarkGroup.setOnClickListener(this);
     mIvBookmark = (ImageView) bookmarkGroup.findViewById(R.id.iv__bookmark);
-    ppButtons.findViewById(R.id.rl__share).setOnClickListener(this);
+    ppButtons.findViewById(R.id.ll__share).setOnClickListener(this);
+    mRoutingButton = ppButtons.findViewById(R.id.ll__route);
 
     mShadowController = new ScrollViewShadowController((ObservableScrollView) mPpDetails)
                             .addShadow(BaseShadowController.BOTTOM, R.id.shadow_bottom)
@@ -308,24 +310,24 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       {
       case BOOKMARK:
         refreshDistanceToObject(loc);
-        refreshBookmarkDetails(true);
-        refreshButtons(false);
+        showBookmarkDetails();
+        refreshButtons(false, true);
         break;
       case POI:
       case ADDITIONAL_LAYER:
         refreshDistanceToObject(loc);
-        refreshBookmarkDetails(false);
-        refreshButtons(false);
+        hideBookmarkDetails();
+        refreshButtons(false, true);
         break;
       case API_POINT:
         refreshDistanceToObject(loc);
-        refreshBookmarkDetails(false);
-        refreshButtons(true);
+        hideBookmarkDetails();
+        refreshButtons(true, true);
         break;
       case MY_POSITION:
         refreshMyPosition(loc);
-        refreshBookmarkDetails(false);
-        refreshButtons(false);
+        hideBookmarkDetails();
+        refreshButtons(false, false);
         break;
       }
 
@@ -339,34 +341,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         }
       });
     }
-  }
-
-  private void refreshBookmarkDetails(boolean isBookmark)
-  {
-    if (isBookmark)
-    {
-      final Bookmark bookmark = (Bookmark) mMapObject;
-      mEtBookmarkName.setText(bookmark.getName());
-      mTvBookmarkGroup.setText(bookmark.getCategoryName(getContext()));
-      mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
-      mIvBookmark.setImageResource(R.drawable.ic_bookmarks_on);
-      final String notes = bookmark.getBookmarkDescription();
-      if (notes.isEmpty())
-        UiUtils.hide(mWvDescription, mBtnEditHtmlDescription, mTvDescription);
-      else if (StringUtils.isHtml(notes))
-      {
-        mWvDescription.loadData(notes, "text/html; charset=utf-8", null);
-        UiUtils.show(mWvDescription, mBtnEditHtmlDescription);
-        UiUtils.hide(mTvDescription);
-      }
-      else
-      {
-        UiUtils.hide(mWvDescription, mBtnEditHtmlDescription);
-        UiUtils.setTextAndShow(mTvDescription, notes);
-      }
-    }
-    else
-      mIvBookmark.setImageResource(R.drawable.ic_bookmarks_off);
   }
 
   private void refreshPreview()
@@ -432,13 +406,38 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       UiUtils.setTextAndShow(mTvElevation, elevation);
   }
 
-  private void refreshButtons(boolean showBackButton)
+  private void hideBookmarkDetails()
   {
-    if (showBackButton ||
-        (ParsedMwmRequest.hasRequest() && ParsedMwmRequest.getCurrentRequest().isPickPointMode()))
-      mLlApiBack.setVisibility(View.VISIBLE);
+    mIvBookmark.setImageResource(R.drawable.ic_bookmarks_off);
+  }
+
+  private void showBookmarkDetails()
+  {
+    final Bookmark bookmark = (Bookmark) mMapObject;
+    mEtBookmarkName.setText(bookmark.getName());
+    mTvBookmarkGroup.setText(bookmark.getCategoryName(getContext()));
+    mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
+    mIvBookmark.setImageResource(R.drawable.ic_bookmarks_on);
+    final String notes = bookmark.getBookmarkDescription();
+    if (notes.isEmpty())
+      UiUtils.hide(mWvDescription, mBtnEditHtmlDescription, mTvDescription);
+    else if (StringUtils.isHtml(notes))
+    {
+      mWvDescription.loadData(notes, "text/html; charset=utf-8", null);
+      UiUtils.show(mWvDescription, mBtnEditHtmlDescription);
+      UiUtils.hide(mTvDescription);
+    }
     else
-      mLlApiBack.setVisibility(View.GONE);
+    {
+      UiUtils.hide(mWvDescription, mBtnEditHtmlDescription);
+      UiUtils.setTextAndShow(mTvDescription, notes);
+    }
+  }
+
+  private void refreshButtons(boolean showBackButton, boolean showRoutingButton)
+  {
+    UiUtils.showIf(showBackButton || ParsedMwmRequest.isPickPointMode(), mLlApiBack);
+    UiUtils.showIf(showRoutingButton, mRoutingButton);
   }
 
   public void refreshLocation(Location l)
@@ -622,15 +621,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       saveBookmarkNameIfUpdated(null);
       selectBookmarkColor();
       break;
-    case R.id.rl__bookmark:
+    case R.id.ll__bookmark:
       AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
       toggleIsBookmark();
       break;
-    case R.id.rl__share:
+    case R.id.ll__share:
       AlohaHelper.logClick(AlohaHelper.PP_SHARE);
       ShareAction.ANY_SHARE.shareMapObject((Activity) getContext(), mMapObject);
       break;
-    case R.id.rl__api_back:
+    case R.id.ll__api_back:
       final Activity activity = (Activity) getContext();
       if (ParsedMwmRequest.hasRequest())
       {

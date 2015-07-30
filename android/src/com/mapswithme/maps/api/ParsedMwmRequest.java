@@ -44,7 +44,7 @@ public class ParsedMwmRequest
 
   public String getName() { return mName;}
 
-  public boolean isPickPointMode() { return mPickPoint; }
+  public static boolean isPickPointMode() { return hasRequest() && getCurrentRequest().mPickPoint; }
 
   public boolean hasCustomButtonName() { return !TextUtils.isEmpty(mCustomButtonName); }
 

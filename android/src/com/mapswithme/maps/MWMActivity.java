@@ -108,7 +108,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private MapFragment mMapFragment;
   // Place page
   private PlacePageView mPlacePage;
-  private View mRlStartRouting;
   // Routing
   private RoutingLayout mLayoutRouting;
 
@@ -539,8 +538,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     mPlacePage = (PlacePageView) findViewById(R.id.info_box);
     mPlacePage.setOnVisibilityChangedListener(this);
-    mRlStartRouting = mPlacePage.findViewById(R.id.rl__route);
-    mRlStartRouting.setOnClickListener(this);
+    mPlacePage.findViewById(R.id.ll__route).setOnClickListener(this);
   }
 
   private void initYota()
@@ -581,8 +579,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
       mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT));
       mPlacePage.setState(State.PREVIEW);
-      if (mPlacePage.getMapObject() instanceof MapObject.MyPosition)
-        mRlStartRouting.setVisibility(View.GONE);
     }
 
     if (savedInstanceState.getBoolean(STATE_BUTTONS_OPENED))
@@ -1037,7 +1033,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
         if (!Framework.nativeIsRoutingActive())
         {
           activateMapObject(mypos);
-          mRlStartRouting.setVisibility(View.GONE);
         }
       }
     });
@@ -1169,7 +1164,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       UiUtils.hide(mFadeView);
       UiUtils.clearAnimationAfterAlpha(mFadeView);
       break;
-    case R.id.rl__route:
+    case R.id.ll__route:
       AlohaHelper.logClick(AlohaHelper.PP_ROUTE);
       mLayoutRouting.setEndPoint(mPlacePage.getMapObject());
       mLayoutRouting.setState(RoutingLayout.State.PREPARING, true);

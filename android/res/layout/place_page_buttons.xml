@@ -10,13 +10,6 @@
     android:paddingRight="@dimen/margin_half_plus"
     tools:ignore="UseCompoundDrawables">
 
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="1px"
-      android:layout_marginLeft="@dimen/margin_half_plus"
-      android:layout_marginRight="@dimen/margin_half_plus"
-      android:background="?android:attr/listDivider"/>
-
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="@dimen/place_page_buttons_height"
@@ -26,7 +19,7 @@
       android:paddingRight="@dimen/margin_half_plus">
 
     <LinearLayout
-        android:id="@+id/rl__api_back"
+        android:id="@+id/ll__api_back"
         style="@style/PlacePageButton">
 
       <ImageView
@@ -43,7 +36,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/rl__share"
+        android:id="@+id/ll__share"
         style="@style/PlacePageButton">
 
       <ImageView
@@ -60,7 +53,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/rl__bookmark"
+        android:id="@+id/ll__bookmark"
         style="@style/PlacePageButton">
 
       <ImageView
@@ -77,7 +70,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/rl__route"
+        android:id="@+id/ll__route"
         style="@style/PlacePageButton">
 
       <ImageView
