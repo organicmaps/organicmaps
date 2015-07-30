@@ -37,6 +37,7 @@ SOURCES += \
   routing_mapping_test.cpp \
   turns_generator_test.cpp \
   turns_sound_test.cpp \
+  turns_tts_text_tests.cpp \
   vehicle_model_test.cpp \
 
 HEADERS += \
