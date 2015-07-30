@@ -122,7 +122,7 @@
 
   <style name="MwmWidget.Floating"/>
 
-  <style name="MwmWidget.Floating.PlacePage"
+  <style name="MwmWidget.Floating.Panel"
          parent="MwmWidget.Floating">
     <item name="android:background">@color/bg_top_panels</item>
   </style>
@@ -189,21 +189,6 @@
 
   <style name="MwmWidget.FrameLayout.Elevation">
     <item name="android:foreground">@drawable/shadow_top</item>
-  </style>
-
-  <style name="MwmWidget.Shadow">
-    <item name="android:paddingLeft">4dp</item>
-    <item name="android:paddingRight">4dp</item>
-    <item name="android:paddingTop">3dp</item>
-  </style>
-
-  <style name="MwmWidget.Shadow.Light">
-    <item name="android:paddingBottom">5dp</item>
-    <item name="android:background">@drawable/ic_bg_light</item>
-  </style>
-
-  <style name="MwmWidget.Shadow.Panel">
-    <item name="android:background">@color/bg_top_panels</item>
   </style>
 
   <style name="MwmWidget.RatingBar" parent="android:Widget.RatingBar">

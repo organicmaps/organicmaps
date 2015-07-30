@@ -22,6 +22,7 @@
 
   <FrameLayout
       android:id="@+id/fl__routing"
+      style="@style/MwmWidget.Floating.Panel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@+id/toolbar_search">
@@ -32,11 +33,10 @@
 
   <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
-      style="@style/MwmWidget.Floating.PlacePage"
+      style="@style/MwmWidget.Floating.Panel"
       android:layout_width="360dp"
       android:layout_height="match_parent"
       android:layout_below="@+id/fl__routing"
-      android:background="@color/bg_top_panels"
       placePage:animationType="leftFull"/>
 
   <com.mapswithme.maps.widget.FadeView

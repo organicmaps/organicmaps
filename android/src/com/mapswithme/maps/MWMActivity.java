@@ -1382,8 +1382,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private void followRoute()
   {
     Framework.nativeFollowRoute();
-    UiUtils.show(mRoutingFrame);
     UiUtils.exchangeViewsAnimatedDown(mRoutingBox, mTurnByTurnBox, null);
+    UiUtils.exchangeViewsAnimatedDown(mRoutingFrame, mRoutingFrame, null);
   }
 
   private void buildRoute()
@@ -1452,19 +1452,13 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mPbRoutingProgress.setVisibility(View.GONE);
 
     UiUtils.hide(mPbRoutingProgress);
+    UiUtils.disappearSlidingUp(mRoutingFrame, null);
     UiUtils.exchangeViewsAnimatedDown(mRoutingBox, mRlStartRouting, new Runnable()
     {
       @Override
       public void run()
       {
-        UiUtils.disappearSlidingUp(mTurnByTurnBox, new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            UiUtils.hide(mRoutingFrame);
-          }
-        });
+        UiUtils.disappearSlidingUp(mTurnByTurnBox, null);
       }
     });
 
@@ -1530,8 +1524,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
         {
           ViewCompat.setAlpha(mLayoutRoutingGo, 1);
 
-          UiUtils.show(mLayoutRoutingGo, mRoutingFrame);
+          UiUtils.show(mLayoutRoutingGo);
           UiUtils.hide(mTurnByTurnBox);
+          UiUtils.appearSlidingDown(mRoutingFrame, null);
           UiUtils.appearSlidingDown(mRoutingBox, null);
           mRoutingBox.bringToFront();
 

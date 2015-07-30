@@ -17,6 +17,7 @@
 
   <FrameLayout
       android:id="@+id/fl__routing"
+      style="@style/MwmWidget.Floating.Panel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@+id/toolbar_search">
