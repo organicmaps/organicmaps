@@ -1,7 +1,8 @@
 #pragma once
 
-#include <std/string.hpp>
-#include <std/unordered_map.hpp>
+#include "std/string.hpp"
+#include "std/unordered_map.hpp"
+#include "std/utility.hpp"
 
 namespace platform
 {
@@ -20,7 +21,10 @@ public:
   GetTextById(TextSource textSouce, string const & localeName);
 
   bool IsValid() const { return !m_localeTexts.empty(); }
-  string operator()(string const & textId) const;
+  /// @return a pair of a text string in a specified locale for textId and a boolean flag.
+  /// If textId is found in m_localeTexts then the boolean flag is set to true.
+  /// The boolean flag is set to false otherwise.
+  pair<string, bool> operator()(string const & textId) const;
 
 private:
   unordered_map<string, string> m_localeTexts;

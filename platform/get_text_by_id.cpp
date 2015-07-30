@@ -37,6 +37,7 @@ GetTextById::GetTextById(TextSource textSouce, string const & localeName)
   string const pathToJson = my::JoinFoldersToPath(
       {GetTextSourceString(textSouce), localeName + ".json"}, "localize.json");
 
+  // @TODO(vbykoianko) Add assert if locale path pathToJson is not valid.
   string jsonBuffer;
   ReaderPtr<Reader>(GetPlatform().GetReader(pathToJson)).ReadAsString(jsonBuffer);
 
@@ -66,14 +67,14 @@ GetTextById::GetTextById(TextSource textSouce, string const & localeName)
   ASSERT_EQUAL(m_localeTexts.size(), json_object_size(root.get()), ());
 }
 
-string GetTextById::operator()(string const & textId) const
+pair<string, bool> GetTextById::operator()(string const & textId) const
 {
   if (!IsValid())
-    return textId;
+    return make_pair(textId, false);
 
   auto const textIt = m_localeTexts.find(textId);
   if (textIt == m_localeTexts.end())
-    return textId;
-  return textIt->second;
+    return make_pair(textId, false);
+  return make_pair(textIt->second, true);
 }
 }  // namespace platform
