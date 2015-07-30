@@ -39,7 +39,9 @@ SOURCES += \
     turns_generator.cpp \
     turns_sound.cpp \
     turns_sound_settings.cpp \
+    turns_tts_text.cpp \
     vehicle_model.cpp \
+
 
 HEADERS += \
     async_router.hpp \
@@ -72,4 +74,5 @@ HEADERS += \
     turns_generator.hpp \
     turns_sound.hpp \
     turns_sound_settings.hpp \
+    turns_tts_text.hpp \
     vehicle_model.hpp \
