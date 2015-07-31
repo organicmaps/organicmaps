@@ -5,7 +5,6 @@
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 
-
 namespace routing
 {
 namespace turns
@@ -34,8 +33,9 @@ private:
 
 /// Generates text message id about the distance of the notification. For example: In 300 meters.
 string GetDistanceTextId(Notification const & notification);
-/// Generates text message id about the direction of the notification. For example: Make a right turn.
+/// Generates text message id about the direction of the notification. For example: Make a right
+/// turn.
 string GetDirectionTextId(Notification const & notification);
-} //  namespace sound
+}  // namespace sound
 }  // namespace turns
 }  // namespace routing

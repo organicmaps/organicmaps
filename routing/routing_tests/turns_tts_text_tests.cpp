@@ -5,7 +5,6 @@
 
 #include "std/string.hpp"
 
-
 namespace
 {
 using namespace routing::turns;
@@ -13,7 +12,7 @@ using namespace routing::turns::sound;
 
 UNIT_TEST(GetDistanceTextIdMetersTest)
 {
-  //Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+  // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
   //    TurnDirection turnDir, LengthUnits lengthUnits)
   Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, LengthUnits::Meters);
   TEST_EQUAL(GetDistanceTextId(notifiation1), "in_500_meters", ());
@@ -49,7 +48,8 @@ UNIT_TEST(GetDirectionTextIdTest)
 
 UNIT_TEST(GetTtsTextTest)
 {
-  string const engShortJson = "\
+  string const engShortJson =
+      "\
       {\
       \"in_300_meters\":\"In 300 meters.\",\
       \"in_500_meters\":\"In 500 meters.\",\
@@ -59,7 +59,8 @@ UNIT_TEST(GetTtsTextTest)
       \"you_have_reached_the_destination\":\"You have reached the destination.\"\
       }";
 
-  string const rusShortJson = "\
+  string const rusShortJson =
+      "\
       {\
       \"in_300_meters\":\"Через 300 метров.\",\
       \"in_500_meters\":\"Через 500 метров.\",\
@@ -70,7 +71,7 @@ UNIT_TEST(GetTtsTextTest)
       }";
 
   GetTtsText getTtsText;
-  //Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+  // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
   //    TurnDirection turnDir, LengthUnits lengthUnits)
   Notification const notifiation1(500, 0, false, TurnDirection::TurnRight, LengthUnits::Meters);
   Notification const notifiation2(300, 0, false, TurnDirection::TurnLeft, LengthUnits::Meters);
@@ -102,11 +103,11 @@ UNIT_TEST(GetAllSoundedDistMetersTest)
        }), ());
 
   TEST_EQUAL(allSoundedDistMeters.size(), 17, ());
-  PairDist const expected1 = { 50, "in_50_meters" };
+  PairDist const expected1 = {50, "in_50_meters"};
   TEST_EQUAL(allSoundedDistMeters[0], expected1, ());
-  PairDist const expected2 = { 700, "in_700_meters" };
+  PairDist const expected2 = {700, "in_700_meters"};
   TEST_EQUAL(allSoundedDistMeters[8], expected2, ());
-  PairDist const expected3 = { 3000, "in_3_kilometers" };
+  PairDist const expected3 = {3000, "in_3_kilometers"};
   TEST_EQUAL(allSoundedDistMeters[16], expected3, ());
 }
 
@@ -121,11 +122,11 @@ UNIT_TEST(GetAllSoundedDistFeet)
        }), ());
 
   TEST_EQUAL(allSoundedDistFeet.size(), 22, ());
-  PairDist const expected1 = { 50, "in_50_feet" };
+  PairDist const expected1 = {50, "in_50_feet"};
   TEST_EQUAL(allSoundedDistFeet[0], expected1, ());
-  PairDist const expected2 = { 700, "in_700_feet" };
+  PairDist const expected2 = {700, "in_700_feet"};
   TEST_EQUAL(allSoundedDistFeet[7], expected2, ());
-  PairDist const expected3 = { 10560, "in_2_miles" };
+  PairDist const expected3 = {10560, "in_2_miles"};
   TEST_EQUAL(allSoundedDistFeet[21], expected3, ());
 }
 
@@ -156,9 +157,8 @@ UNIT_TEST(GetSoundedDistFeet)
 
   TEST(is_sorted(soundedDistFeet.cbegin(), soundedDistFeet.cend()), ());
   // Checking that allSounded contains any element of inst.
-  TEST(find_first_of(soundedDistFeet.cbegin(), soundedDistFeet.cend(),
-                     allSoundedDistFeet.cbegin(), allSoundedDistFeet.cend(),
-                     [](uint32_t p1, PairDist const & p2)
+  TEST(find_first_of(soundedDistFeet.cbegin(), soundedDistFeet.cend(), allSoundedDistFeet.cbegin(),
+                     allSoundedDistFeet.cend(), [](uint32_t p1, PairDist const & p2)
        {
          return p1 == p2.first;
        }) != soundedDistFeet.cend(), ());
@@ -168,4 +168,4 @@ UNIT_TEST(GetSoundedDistFeet)
   TEST_EQUAL(soundedDistFeet[7], 2000, ());
   TEST_EQUAL(soundedDistFeet[10], 5000, ());
 }
-} //  namespace
+}  //  namespace

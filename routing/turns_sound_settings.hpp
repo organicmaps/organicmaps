@@ -120,7 +120,8 @@ VecPairDist const & GetAllSoundedDistFeet();
 // returns more distances.
 // After the tuning of turn sound notification is finished to do
 // * remove all unnecessary distances from GetAllSoundedDistMeters/Feet().
-// * remove all unnecessary string form resources. It let us to reduce the size of apk/ipa by 10-20KB.
+// * remove all unnecessary string form resources. It let us to reduce the size of apk/ipa by
+// 10-20KB.
 // * remove GetSoundedDistMeters/Feet() and use lambda in TurnsSound::SetLengthUnits
 // to convert from vector<pair<uint32_t, char const *>> to vector<uint32_t>.
 

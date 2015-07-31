@@ -6,7 +6,6 @@
 
 #include "std/algorithm.hpp"
 
-
 namespace routing
 {
 namespace turns
@@ -110,57 +109,51 @@ string DebugPrint(Notification const & notification)
 VecPairDist const & GetAllSoundedDistMeters()
 {
   // The vector below has to be sorted. It is checked in unit test GetAllSoundedDistMetersTest
-  static VecPairDist const inst =
-      {
-        { 50, "in_50_meters" },
-        { 100, "in_100_meters" },
-        { 200, "in_200_meters" },
-        { 250, "in_250_meters" },
-        { 300, "in_300_meters" },
-        { 400, "in_400_meters" },
-        { 500, "in_500_meters" },
-        { 600, "in_600_meters" },
-        { 700, "in_700_meters" },
-        { 750, "in_750_meters" },
-        { 800, "in_800_meters" },
-        { 900, "in_900_meters" },
-        { 1000, "in_1_kilometer" },
-        { 1500, "in_1_5_kilometers" },
-        { 2000, "in_2_kilometers" },
-        { 2500, "in_2_5_kilometers" },
-        { 3000, "in_3_kilometers" }
-      };
+  static VecPairDist const inst = {{50, "in_50_meters"},
+                                   {100, "in_100_meters"},
+                                   {200, "in_200_meters"},
+                                   {250, "in_250_meters"},
+                                   {300, "in_300_meters"},
+                                   {400, "in_400_meters"},
+                                   {500, "in_500_meters"},
+                                   {600, "in_600_meters"},
+                                   {700, "in_700_meters"},
+                                   {750, "in_750_meters"},
+                                   {800, "in_800_meters"},
+                                   {900, "in_900_meters"},
+                                   {1000, "in_1_kilometer"},
+                                   {1500, "in_1_5_kilometers"},
+                                   {2000, "in_2_kilometers"},
+                                   {2500, "in_2_5_kilometers"},
+                                   {3000, "in_3_kilometers"}};
   return inst;
 }
 
 VecPairDist const & GetAllSoundedDistFeet()
 {
   // The vector below has to be sorted. It is checked in unit test GetAllSoundedDistFeet
-  static VecPairDist const inst =
-      {
-        { 50, "in_50_feet" },
-        { 100, "in_100_feet" },
-        { 200, "in_200_feet" },
-        { 300, "in_300_feet" },
-        { 400, "in_400_feet" },
-        { 500, "in_500_feet" },
-        { 600, "in_600_feet" },
-        { 700, "in_700_feet" },
-        { 800, "in_800_feet" },
-        { 900, "in_900_feet" },
-        { 1000, "in_1000_feet" },
-        { 1500, "in_1500_feet" },
-        { 2000, "in_2000_feet" },
-        { 2500, "in_2500_feet" },
-        { 3000, "in_3000_feet" },
-        { 3500, "in_3500_feet" },
-        { 4000, "in_4000_feet" },
-        { 4500, "in_4500_feet" },
-        { 5000, "in_5000_feet" },
-        { 5280, "in_1_mile" },
-        { 7920, "in_1_5_miles" },
-        { 10560, "in_2_miles" }
-      };
+  static VecPairDist const inst = {{50, "in_50_feet"},
+                                   {100, "in_100_feet"},
+                                   {200, "in_200_feet"},
+                                   {300, "in_300_feet"},
+                                   {400, "in_400_feet"},
+                                   {500, "in_500_feet"},
+                                   {600, "in_600_feet"},
+                                   {700, "in_700_feet"},
+                                   {800, "in_800_feet"},
+                                   {900, "in_900_feet"},
+                                   {1000, "in_1000_feet"},
+                                   {1500, "in_1500_feet"},
+                                   {2000, "in_2000_feet"},
+                                   {2500, "in_2500_feet"},
+                                   {3000, "in_3000_feet"},
+                                   {3500, "in_3500_feet"},
+                                   {4000, "in_4000_feet"},
+                                   {4500, "in_4500_feet"},
+                                   {5000, "in_5000_feet"},
+                                   {5280, "in_1_mile"},
+                                   {7920, "in_1_5_miles"},
+                                   {10560, "in_2_miles"}};
   return inst;
 }
 
@@ -169,7 +162,7 @@ vector<uint32_t> const & GetSoundedDistMeters()
   // The vector has to be sorted. Besides that any of its elements has to be contained in
   // the vector which GetAllSoundedDistMeters() returns.
   // It is checked in the unit test GetSoundedDistMeters.
-  static vector<uint32_t> const inst = { 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000 };
+  static vector<uint32_t> const inst = {200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000};
   return inst;
 }
 
@@ -178,7 +171,8 @@ vector<uint32_t> const & GetSoundedDistFeet()
   // The vector has to be sorted. Besides that any of its elements has to be contained in
   // the vector which GetAllSoundedDistFeet() returns.
   // It is checked in the unit test GetSoundedDistFeet.
-  static vector<uint32_t> const inst = { 500, 600, 700, 800, 900, 1000, 1500, 2000, 3000, 4000, 5000 };
+  static vector<uint32_t> const inst = {500,  600,  700,  800,  900, 1000,
+                                        1500, 2000, 3000, 4000, 5000};
   return inst;
 }
 }  // namespace sound

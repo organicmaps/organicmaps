@@ -9,7 +9,6 @@
 
 #include "std/target_os.hpp"
 
-
 namespace
 {
 string GetTextSourceString(platform::TextSource textSouce)
@@ -45,10 +44,7 @@ GetTextById::GetTextById(TextSource textSouce, string const & localeName)
   InitFromJson(jsonBuffer);
 }
 
-GetTextById::GetTextById(string const & jsonBuffer)
-{
-  InitFromJson(jsonBuffer);
-}
+GetTextById::GetTextById(string const & jsonBuffer) { InitFromJson(jsonBuffer); }
 
 void GetTextById::InitFromJson(string const & jsonBuffer)
 {
