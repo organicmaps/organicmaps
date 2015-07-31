@@ -459,6 +459,7 @@ public class StoragePathManager
     final boolean mapsMigrated = MWMApplication.get().nativeGetBoolean(IS_KITKAT_MIGRATION_COMPLETED, false);
 
     if (!bookmarksMigrated)
+    {
       if (moveBookmarks())
         MWMApplication.get().nativeSetBoolean(IS_KML_MOVED, true);
       else
@@ -466,8 +467,9 @@ public class StoragePathManager
         UiUtils.showAlertDialog(activity, R.string.bookmark_move_fail);
         return;
       }
-
+    }
     if (!mapsMigrated)
+    {
       checkWritableDir(activity,
           new SetStoragePathListener()
           {
@@ -485,6 +487,7 @@ public class StoragePathManager
             }
           }
       );
+    }
   }
 
   private void setStoragePath(Context context, SetStoragePathListener listener, StoragePathAdapter.StorageItem newStorage,
@@ -633,13 +636,19 @@ public class StoragePathManager
 
   private static void copyFile(File source, File dest) throws IOException
   {
-    FileChannel inputChannel = null;
-    FileChannel outputChannel = null;
+    int maxChunkSize = 10 * Constants.MB; // move file by smaller chunks to avoid OOM.
+    FileChannel inputChannel = null, outputChannel = null;
     try
     {
       inputChannel = new FileInputStream(source).getChannel();
       outputChannel = new FileOutputStream(dest).getChannel();
-      outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+      long totalSize = inputChannel.size();
+
+      for (long currentPosition = 0; currentPosition < totalSize; currentPosition += maxChunkSize)
+      {
+        outputChannel.position(currentPosition);
+        outputChannel.transferFrom(inputChannel, currentPosition, maxChunkSize);
+      }
     } finally
     {
       if (inputChannel != null)
