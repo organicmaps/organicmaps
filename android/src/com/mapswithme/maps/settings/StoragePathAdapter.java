@@ -1,6 +1,7 @@
 package com.mapswithme.maps.settings;
 
 import android.app.Activity;
+import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Constants;
-import com.mapswithme.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +25,9 @@ class StoragePathAdapter extends BaseAdapter
   private StoragePathManager mStoragePathManager;
   private final LayoutInflater mInflater;
   private final Activity mContext;
-  private final int mListItemHeight;
 
   private List<StorageItem> mItems;
-  private int mCurrent = -1;
+  private int mCurrentStorageIndex = -1;
   private long mSizeNeeded;
 
   public StoragePathAdapter(StoragePathManager storagePathManager, Activity context)
@@ -36,8 +35,6 @@ class StoragePathAdapter extends BaseAdapter
     mStoragePathManager = storagePathManager;
     mContext = context;
     mInflater = mContext.getLayoutInflater();
-
-    mListItemHeight = (int) Utils.getAttributeDimension(context, android.R.attr.listPreferredItemHeight);
   }
 
   @Override
@@ -61,7 +58,7 @@ class StoragePathAdapter extends BaseAdapter
   @Override
   public StorageItem getItem(int position)
   {
-    return (position == 0 ? null : mItems.get(getIndexFromPos(position)));
+    return (getItemViewType(position) == TYPE_HEADER ? null : mItems.get(getStorageIndex(position)));
   }
 
   @Override
@@ -71,49 +68,52 @@ class StoragePathAdapter extends BaseAdapter
   }
 
   @Override
+  public boolean isEnabled(int position)
+  {
+    return getItemViewType(position) == TYPE_ITEM;
+  }
+
+  @Override
   public View getView(int position, View convertView, ViewGroup parent)
   {
-    // 1. It's a strange thing, but when I tried to use setClickable,
-    // all the views become nonclickable.
-    // 2. I call setMinimumHeight(listPreferredItemHeight)
-    // because standard item's height is unknown.
+    int viewType = getItemViewType(position);
+    if (convertView == null)
+      convertView = mInflater.inflate(getLayoutForType(viewType), parent, false);
 
     switch (getItemViewType(position))
     {
     case TYPE_HEADER:
-      if (convertView == null)
-      {
-        convertView = mInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
-        convertView.setMinimumHeight(mListItemHeight);
-      }
-
-      final TextView v = (TextView) convertView;
-      v.setText(mContext.getString(R.string.maps) + ": " + getSizeString(mSizeNeeded));
+      TextView view = (TextView) convertView;
+      view.setText(mContext.getString(R.string.maps) + ": " + getSizeString(mSizeNeeded));
       break;
     case TYPE_ITEM:
-      final int index = getIndexFromPos(position);
-      final StorageItem item = mItems.get(index);
+      int storageIndex = getStorageIndex(position);
+      StorageItem item = mItems.get(storageIndex);
 
       if (convertView == null)
-      {
-        convertView = mInflater.inflate(android.R.layout.simple_list_item_single_choice, parent, false);
-        convertView.setMinimumHeight(mListItemHeight);
-      }
+        convertView = mInflater.inflate(R.layout.item_storage, parent, false);
 
-      final CheckedTextView ctv = (CheckedTextView) convertView;
-      ctv.setText(item.mPath + ": " + getSizeString(item.mSize));
-      ctv.setChecked(index == mCurrent);
-      ctv.setEnabled((index == mCurrent) || isAvailable(index));
+      CheckedTextView checkedView = (CheckedTextView) convertView;
+      checkedView.setText(item.mPath + ": " + getSizeString(item.mSize));
+      checkedView.setChecked(storageIndex == mCurrentStorageIndex);
+      checkedView.setEnabled(storageIndex == mCurrentStorageIndex || isStorageBigEnough(storageIndex));
       break;
     }
 
     return convertView;
   }
 
+  private
+  @LayoutRes
+  int getLayoutForType(int viewType)
+  {
+    return viewType == 0 ? R.layout.item_storage_title : R.layout.item_storage;
+  }
+
   public void onItemClick(int position)
   {
-    final int index = getIndexFromPos(position);
-    if (isAvailable(index))
+    final int index = getStorageIndex(position);
+    if (isStorageBigEnough(index) && index != mCurrentStorageIndex)
       mStoragePathManager.onStorageItemClick(index);
   }
 
@@ -121,7 +121,7 @@ class StoragePathAdapter extends BaseAdapter
   {
     mSizeNeeded = dirSize;
     mItems = items;
-    mCurrent = currentItemIndex;
+    mCurrentStorageIndex = currentItemIndex;
 
     notifyDataSetChanged();
   }
@@ -145,17 +145,14 @@ class StoragePathAdapter extends BaseAdapter
     return String.format("%.1f %s", (double) size / (double) current, arrS[i]);
   }
 
-  private boolean isAvailable(int index)
+  private boolean isStorageBigEnough(int index)
   {
-    assert (index >= 0 && index < mItems.size());
-    return ((mCurrent != index) && (mItems.get(index).mSize >= mSizeNeeded));
+    return mItems.get(index).mSize >= mSizeNeeded;
   }
 
-  private int getIndexFromPos(int position)
+  private int getStorageIndex(int position)
   {
-    final int index = position - HEADERS_COUNT;
-    assert (index >= 0 && index < mItems.size());
-    return index;
+    return position - HEADERS_COUNT;
   }
 
   public static class StorageItem

@@ -22,9 +22,7 @@ public class StoragePathFragment extends BaseMwmListFragment implements StorageP
   @Override
   public void onListItemClick(final ListView l, View v, final int position, long id)
   {
-    // Do not process clicks on header items.
-    if (position != 0)
-      getAdapter().onItemClick(position);
+    getAdapter().onItemClick(position);
   }
 
   @Override
