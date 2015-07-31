@@ -4,6 +4,8 @@
 
 #include "graphics/depth_constants.hpp"
 
+#include "render/route_renderer.hpp"
+
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
@@ -24,6 +26,7 @@ BookmarkManager::BookmarkManager(Framework & f)
   , m_lastScale(1.0)
   , m_cache(NULL)
   , m_selection(f)
+  , m_routeRenderer(new rg::RouteRenderer())
 {
   m_userMarkLayers.reserve(3);
   m_userMarkLayers.push_back(new SearchUserMarkContainer(graphics::activePinDepth, m_framework));
@@ -305,12 +308,7 @@ void BookmarkManager::DrawItems(Drawer * drawer) const
   PaintOverlayEvent event(drawer, screen);
   for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event, m_cache));
   for_each(m_categories.begin(), m_categories.end(), bind(&BookmarkManager::DrawCategory, this, _1, event));
-  if (m_routeTrack != nullptr)
-  {
-    trackUpdateFn(m_routeTrack.get());
-    if (m_routeTrack->HasDisplayLists())
-      m_routeTrack->Draw(pScreen, LazyMatrixCalc(screen, m_lastScale).GetFinalG2P());
-  }
+  m_routeRenderer->Render(pScreen, screen);
   m_selection.Draw(event, m_cache);
 
   pScreen->endFrame();
@@ -462,22 +460,25 @@ void BookmarkManager::ResetScreen()
   {
     // Delete display lists for all tracks
     for_each(m_categories.begin(), m_categories.end(), dlDeleteFn);
-    if (m_routeTrack != nullptr)
-      m_routeTrack->CleanUp();
-
+    m_routeRenderer->Clear();
     m_bmScreen = 0;
   }
 }
 
-void BookmarkManager::SetRouteTrack(RouteTrack & track)
+void BookmarkManager::SetRouteTrack(m2::PolylineD const & routePolyline, vector<double> const & turns,
+                                    graphics::Color const & color)
 {
-  m_routeTrack.reset();
-  m_routeTrack.reset(track.CreatePersistent());
+  m_routeRenderer->Setup(routePolyline, turns, color);
 }
 
 void BookmarkManager::ResetRouteTrack()
 {
-  m_routeTrack.reset();
+  m_routeRenderer->Clear();
+}
+
+void BookmarkManager::UpdateRouteDistanceFromBegin(double distance)
+{
+  m_routeRenderer->UpdateDistanceFromBegin(distance);
 }
 
 UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkContainer::Type type) const

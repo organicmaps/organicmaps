@@ -669,10 +669,10 @@ namespace graphics
   }
 
   void GeometryBatcher::drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m,
-                                        UniformsHolder * holder)
+                                        UniformsHolder * holder, size_t indicesCount)
   {
     flush(-1);
-    base_t::drawDisplayList(dl, m, holder);
+    base_t::drawDisplayList(dl, m, holder, indicesCount);
   }
 
   void GeometryBatcher::uploadResources(shared_ptr<Resource> const * resources,

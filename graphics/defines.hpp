@@ -73,8 +73,7 @@ namespace graphics
     ERouteHalfWidth,
     ERouteColor,
     ERouteClipLength,
-    ERouteTextureRect,
-    ERouteArrowBorders
+    ERouteTextureRect
   };
 
   void convert(char const * name, ESemantic & sem);

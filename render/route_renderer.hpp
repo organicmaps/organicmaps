@@ -23,9 +23,25 @@ struct ArrowBorders
 {
   double m_startDistance = 0;
   double m_endDistance = 0;
-  float m_startTexCoord = 0;
-  float m_endTexCoord = 1;
+  double m_headSize = 0;
+  double m_tailSize = 0;
+
   int m_groupIndex = 0;
+  vector<m2::PointD> m_points;
+
+  bool operator==(ArrowBorders const & rhs) const
+  {
+    double const eps = 1e-7;
+    return fabs(m_startDistance - rhs.m_startDistance) < eps &&
+           fabs(m_endDistance - rhs.m_endDistance) < eps &&
+           fabs(m_headSize - rhs.m_headSize) < eps &&
+           fabs(m_tailSize - rhs.m_tailSize) < eps;
+  }
+
+  bool operator!=(ArrowBorders const & rhs) const
+  {
+    return !operator==(rhs);
+  }
 };
 
 struct RouteSegment
@@ -48,21 +64,28 @@ public:
 
   void Setup(m2::PolylineD const & routePolyline, vector<double> const & turns, graphics::Color const & color);
   void Clear();
-  void Render(shared_ptr<PaintEvent> const & e, ScreenBase const & screen);
+  void Render(graphics::Screen * dlScreen, ScreenBase const & screen);
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
 
 private:
   void ConstructRoute(graphics::Screen * dlScreen);
   void ClearRoute(graphics::Screen * dlScreen);
-  float CalculateRouteHalfWidth(ScreenBase const & screen, double & zoom) const;
-  void CalculateArrowBorders(double arrowLength, double scale, double arrowTextureWidth, double joinsBoundsScalar);
-  void ApplyJoinsBounds(double joinsBoundsScalar, double glbHeadLength);
+  void InterpolateByZoom(ScreenBase const & screen, float & halfWidth, float & alpha, double & zoom) const;
+  void CalculateArrowBorders(m2::RectD const & clipRect, double arrowLength, double scale,
+                             double arrowTextureWidth, double joinsBoundsScalar,
+                             vector<ArrowBorders> & arrowBorders);
+  void ApplyJoinsBounds(double joinsBoundsScalar, double glbHeadLength,
+                        vector<ArrowBorders> & arrowBorders);
   void RenderArrow(graphics::Screen * dlScreen, float halfWidth, ScreenBase const & screen);
+  bool RecacheArrows();
 
   graphics::DisplayList * m_displayList;
   graphics::DisplayList * m_endOfRouteDisplayList;
   graphics::gl::Storage m_storage;
+
+  graphics::DisplayList * m_arrowDisplayList;
+  graphics::gl::Storage m_arrowsStorage;
 
   double m_distanceFromBegin;
   RouteData m_routeData;
@@ -70,6 +93,9 @@ private:
   graphics::Color m_color;
   vector<double> m_turns;
   m2::PointD m_endOfRoutePoint;
+
+  m2::PolylineD m_polyline;
+  ArrowsBuffer m_arrowBuffer;
 
   vector<ArrowBorders> m_arrowBorders;
   vector<RouteSegment> m_routeSegments;

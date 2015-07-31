@@ -108,11 +108,10 @@ namespace graphics
     return m_displayList;
   }
 
-  void DisplayListRenderer::drawDisplayList(DisplayList * dl,
-                                            math::Matrix<double, 3, 3> const & m,
-                                            UniformsHolder * holder)
+  void DisplayListRenderer::drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m,
+                                            UniformsHolder * holder, size_t indicesCount)
   {
-    dl->draw(this, m, holder);
+    dl->draw(this, m, holder, indicesCount);
   }
 
   void DisplayListRenderer::clear(Color const & c, bool clearRT, float depth, bool clearDepth)

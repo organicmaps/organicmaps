@@ -211,6 +211,7 @@ namespace graphics
     }
 
     GeometryRenderer::DrawRouteGeometry::DrawRouteGeometry()
+      : m_indicesCount(0)
     {
       ResetUniforms();
     }
@@ -226,7 +227,6 @@ namespace graphics
       holder.getValue(ERouteColor, m_color[0], m_color[1], m_color[2], m_color[3]);
       holder.getValue(ERouteClipLength, m_clipLength);
       holder.getValue(ERouteTextureRect, m_textureRect[0], m_textureRect[1], m_textureRect[2], m_textureRect[3]);
-      holder.getValue(ERouteArrowBorders, m_arrowBorders);
     }
 
     void GeometryRenderer::DrawRouteGeometry::ResetUniforms()
@@ -254,6 +254,16 @@ namespace graphics
       ResetUniforms();
     }
 
+    bool GeometryRenderer::DrawRouteGeometry::isNeedIndicesCount() const
+    {
+      return true;
+    }
+
+    void GeometryRenderer::DrawRouteGeometry::setIndicesCount(size_t indicesCount)
+    {
+      m_indicesCount = indicesCount;
+    }
+
     void GeometryRenderer::DrawRouteGeometry::perform()
     {
       gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
@@ -273,9 +283,6 @@ namespace graphics
       if (prg->isParamExist(ERouteClipLength))
         prg->setParam(ERouteClipLength, m_clipLength);
 
-      if (prg->isParamExist(ERouteArrowBorders))
-        prg->setParam(ERouteArrowBorders, m_arrowBorders);
-
       if (prg->isParamExist(ERouteTextureRect))
         prg->setParam(ERouteTextureRect, m_textureRect[0], m_textureRect[1], m_textureRect[2], m_textureRect[3]);
 
@@ -293,14 +300,14 @@ namespace graphics
 
       OGLCHECK(glDrawElements(
         GL_TRIANGLES,
-        m_storage.m_indices->size(),
+        m_indicesCount,
         GL_UNSIGNED_SHORT,
         (unsigned char*)m_storage.m_indices->glPtr()));
     }
 
     void GeometryRenderer::DrawRouteGeometry::dump()
     {
-      LOG(LDEBUG, ("DrawRouteGeometry, texture=", m_texture->id(), ", indicesCount=", m_storage.m_indices->size()));
+      LOG(LDEBUG, ("DrawRouteGeometry, texture=", m_texture->id(), ", indicesCount=", m_indicesCount));
     }
 
     void GeometryRenderer::drawGeometry(shared_ptr<BaseTexture> const & texture,

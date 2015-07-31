@@ -16,6 +16,11 @@ using RV = graphics::gl::RouteVertex;
 using TGeometryBuffer = buffer_vector<RV, 128>;
 using TIndexBuffer = buffer_vector<unsigned short, 128>;
 
+double const arrowHeightFactor = 96.0 / 36.0;
+double const arrowAspect = 400.0 / 192.0;
+double const arrowTailSize = 20.0 / 400.0;
+double const arrowHeadSize = 124.0 / 400.0;
+
 struct RouteJoinBounds
 {
   double m_start = 0;
@@ -31,10 +36,27 @@ struct RouteData
   vector<RouteJoinBounds> m_joinsBounds;
 };
 
+struct ArrowsBuffer
+{
+  TGeometryBuffer m_geometry;
+  TIndexBuffer m_indices;
+  unsigned short m_indexCounter;
+
+  ArrowsBuffer() : m_indexCounter(0) {}
+  void Clear()
+  {
+    m_geometry.clear();
+    m_indices.clear();
+    m_indexCounter = 0;
+  }
+};
+
 class RouteShape
 {
 public:
   static void PrepareGeometry(m2::PolylineD const & polyline, RouteData & output);
+  static void PrepareArrowGeometry(vector<m2::PointD> const & points,
+                                   double start, double end, ArrowsBuffer & output);
 };
 
 } // namespace rg

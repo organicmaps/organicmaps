@@ -8,8 +8,10 @@ namespace graphics
 
 #if defined(OMIM_GL_ES)
   #define PRECISION "lowp"
+  #define PRECISION_ROUTE "precision highp float;\n"
 #else
   #define PRECISION ""
+  #define PRECISION_ROUTE ""
 #endif
 
     ProgramManager::ProgramManager()
@@ -85,6 +87,7 @@ namespace graphics
       m_frgShaders[EFrgVarAlfa].reset(new Shader(uniformAlfaFrgSrc, EFragmentShader));
 
       static const char routeVxSrc[] =
+        PRECISION_ROUTE
         "attribute vec3 Position;\n"
         "attribute vec2 Normal;\n"
         "attribute vec3 Length;\n"
@@ -108,12 +111,13 @@ namespace graphics
         "      len = vec2(Length.x + Length.y * u_halfWidth.y, Length.z);\n"
         "  }\n"
         "  v_length = len;\n"
-        "  gl_Position = vec4(transformedAxisPos, Position.z, 1.0) * Projection;\n"
+        "  gl_Position = vec4(transformedAxisPos, 0.0, 1.0) * Projection;\n"
         "}\n";
 
       m_vxShaders[EVxRoute].reset(new Shader(routeVxSrc, EVertexShader));
 
       static const char routeFrgSrc[] =
+        PRECISION_ROUTE
         "varying vec2 v_length;\n"
         "uniform vec4 u_color;\n"
         "uniform float u_clipLength;\n"
@@ -128,29 +132,16 @@ namespace graphics
       m_frgShaders[EFrgRoute].reset(new Shader(routeFrgSrc, EFragmentShader));
 
       static const char routeArrowFrgSrc[] =
+        PRECISION_ROUTE
         "varying vec2 v_length;\n"
         "uniform sampler2D Sampler0;\n"
         "uniform vec4 u_textureRect;\n"
-        "uniform mat4 u_arrowBorders;\n"
         "void main(void)\n"
         "{\n"
-        "  bool needDiscard = true;\n"
-        "  vec2 uv = vec2(0, 0);\n"
-        "  for (int i = 0; i < 4; i++)\n"
-        "  {\n"
-        "    vec4 arrowBorder = u_arrowBorders[i];\n"
-        "    if (v_length.x >= arrowBorder.x && v_length.x <= arrowBorder.z)\n"
-        "    {\n"
-        "      needDiscard = false;\n"
-        "      float coef = clamp((v_length.x - arrowBorder.x) / (arrowBorder.z - arrowBorder.x), 0.0, 1.0);\n"
-        "      float u = mix(arrowBorder.y, arrowBorder.w, coef);\n"
-        "      float v = 0.5 * v_length.y + 0.5;\n"
-        "      uv = vec2(mix(u_textureRect.x, u_textureRect.z, u), mix(u_textureRect.y, u_textureRect.w, v));\n"
-        "    }\n"
-        "  }\n"
+        "  float u = clamp(v_length.x, 0.0, 1.0);\n"
+        "  float v = 0.5 * v_length.y + 0.5;\n"
+        "  vec2 uv = vec2(mix(u_textureRect.x, u_textureRect.z, u), mix(u_textureRect.y, u_textureRect.w, v));\n"
         "  vec4 color = texture2D(Sampler0, uv);\n"
-        "  if (needDiscard)\n"
-        "    color.a = 0.0;\n"
         "  gl_FragColor = color;\n"
         "}\n";
 

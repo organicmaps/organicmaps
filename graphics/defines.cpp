@@ -95,8 +95,7 @@ namespace graphics
     {ERouteHalfWidth, "u_halfWidth"},
     {ERouteColor, "u_color"},
     {ERouteClipLength, "u_clipLength"},
-    {ERouteTextureRect, "u_textureRect"},
-    {ERouteArrowBorders, "u_arrowBorders"}
+    {ERouteTextureRect, "u_textureRect"}
   };
 
   void convert(char const * name, ESemantic & sem)

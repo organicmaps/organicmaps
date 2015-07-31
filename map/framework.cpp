@@ -145,6 +145,8 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
 
   if (state->IsModeChangeViewport())
     UpdateUserViewportChanged();
+
+  m_bmManager.UpdateRouteDistanceFromBegin(hasDistanceFromBegin ? distanceFromBegin : 0.0);
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -2220,36 +2222,27 @@ void Framework::InsertRoute(Route const & route)
     return;
   }
 
-  float const visScale = GetVisualScale();
-
-  RouteTrack track(route.GetPoly());
-  track.SetName(route.GetName());
-  track.SetTurnsGeometry(route.GetTurnsGeometry());
+  vector<double> turns;
+  if (m_currentRouterType == RouterType::Vehicle)
+  {
+    turns::TTurnsGeom const & turnsGeom = route.GetTurnsGeometry();
+    if (!turnsGeom.empty())
+    {
+      turns.reserve(turnsGeom.size());
+      for (size_t i = 0; i < turnsGeom.size(); i++)
+        turns.push_back(turnsGeom[i].m_mercatorDistance);
+    }
+  }
 
   /// @todo Consider a style parameter for the route color.
   graphics::Color routeColor;
-  graphics::Color arrowColor;
   if (m_currentRouterType == RouterType::Pedestrian)
-  {
-    routeColor = graphics::Color(5, 105, 175, 255);
-    arrowColor = graphics::Color(110, 180, 240, 255);
-  }
+    routeColor = graphics::Color(5, 105, 175, 204);
   else
-  {
-    routeColor = graphics::Color(110, 180, 240, 255);
-    arrowColor = graphics::Color(40, 70, 160, 255);
-  }
+    routeColor = graphics::Color(30, 150, 240, 204);
 
-  Track::TrackOutline outlines[]
-  {
-    { 10.0f * visScale, routeColor }
-  };
+  m_bmManager.SetRouteTrack(route.GetPoly(), turns, routeColor);
 
-  track.SetArrowColor(arrowColor);
-  track.AddOutline(outlines, ARRAY_SIZE(outlines));
-  track.AddClosingSymbol(false, "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
-
-  m_bmManager.SetRouteTrack(track);
   m_informationDisplay.ResetRouteMatchingInfo();
   Invalidate();
 }

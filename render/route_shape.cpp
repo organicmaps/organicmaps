@@ -197,21 +197,14 @@ m2::PointF GetNormal(LineSegment const & segment, bool isLeft, ENormalType norma
                   segment.m_rightNormals[index] * segment.m_rightWidthScalar[index].x;
 }
 
-}
-
-void RouteShape::PrepareGeometry(m2::PolylineD const & polyline, RouteData & output)
+double GenerateGeometry(vector<m2::PointD> const & points, bool isRoute, double lengthScalar,
+                        vector<RouteJoinBounds> & joinBounds, TGeometryBuffer & geometry,
+                        TIndexBuffer & indices, unsigned short & indexCounter)
 {
-  vector<m2::PointD> const & path = polyline.GetPoints();
-  ASSERT(path.size() > 1, ());
+  float depth = 0.0f;
 
-  output.m_joinsBounds.clear();
-  output.m_geometry.clear();
-  output.m_indices.clear();
-
-  unsigned short indexCounter = 0;
-
-  auto const generateTriangles = [&output, &indexCounter](m2::PointF const & pivot, vector<m2::PointF> const & normals,
-                                                          m2::PointF const & length, bool isLeft)
+  auto const generateTriangles = [&geometry, &indices, &indexCounter, &depth](m2::PointF const & pivot,
+                                 vector<m2::PointF> const & normals, m2::PointF const & length, bool isLeft)
   {
     float const eps = 1e-5;
     size_t const trianglesCount = normals.size() / 3;
@@ -222,32 +215,32 @@ void RouteShape::PrepareGeometry(m2::PolylineD const & polyline, RouteData & out
       float const lenZ2 = normals[3 * j + 1].Length() < eps ? CENTER : side;
       float const lenZ3 = normals[3 * j + 2].Length() < eps ? CENTER : side;
 
-      output.m_geometry.push_back(RV(pivot, 0.0f, normals[3 * j], length, lenZ1));
-      output.m_geometry.push_back(RV(pivot, 0.0f, normals[3 * j + 1], length, lenZ2));
-      output.m_geometry.push_back(RV(pivot, 0.0f, normals[3 * j + 2], length, lenZ3));
+      geometry.push_back(RV(pivot, depth, normals[3 * j], length, lenZ1));
+      geometry.push_back(RV(pivot, depth, normals[3 * j + 1], length, lenZ2));
+      geometry.push_back(RV(pivot, depth, normals[3 * j + 2], length, lenZ3));
 
-      output.m_indices.push_back(indexCounter);
-      output.m_indices.push_back(indexCounter + 1);
-      output.m_indices.push_back(indexCounter + 2);
+      indices.push_back(indexCounter);
+      indices.push_back(indexCounter + 1);
+      indices.push_back(indexCounter + 2);
       indexCounter += 3;
     }
   };
 
-  auto const generateIndices = [&output, &indexCounter]()
+  auto const generateIndices = [&indices, &indexCounter]()
   {
-    output.m_indices.push_back(indexCounter);
-    output.m_indices.push_back(indexCounter + 1);
-    output.m_indices.push_back(indexCounter + 3);
-    output.m_indices.push_back(indexCounter + 3);
-    output.m_indices.push_back(indexCounter + 2);
-    output.m_indices.push_back(indexCounter);
+    indices.push_back(indexCounter);
+    indices.push_back(indexCounter + 1);
+    indices.push_back(indexCounter + 3);
+    indices.push_back(indexCounter + 3);
+    indices.push_back(indexCounter + 2);
+    indices.push_back(indexCounter);
     indexCounter += 4;
   };
 
   // constuct segments
   vector<LineSegment> segments;
-  segments.reserve(path.size() - 1);
-  ConstructLineSegments(path, segments);
+  segments.reserve(points.size() - 1);
+  ConstructLineSegments(points, segments);
 
   // build geometry
   float length = 0;
@@ -269,21 +262,51 @@ void RouteShape::PrepareGeometry(m2::PolylineD const & polyline, RouteData & out
     m2::PointF const leftNormalEnd = GetNormal(segments[i], true /* isLeft */, EndNormal);
     m2::PointF const rightNormalEnd = GetNormal(segments[i], false /* isLeft */, EndNormal);
 
-    float const projLeftStart = -segments[i].m_leftWidthScalar[StartPoint].y;
-    float const projLeftEnd = segments[i].m_leftWidthScalar[EndPoint].y;
-    float const projRightStart = -segments[i].m_rightWidthScalar[StartPoint].y;
-    float const projRightEnd = segments[i].m_rightWidthScalar[EndPoint].y;
+    float projLeftStart = 0.0;
+    float projLeftEnd = 0.0;
+    float projRightStart = 0.0;
+    float projRightEnd = 0.0;
+    float scaledLength = length / lengthScalar;
+    float scaledEndLength = endLength / lengthScalar;
+    if (isRoute)
+    {
+      projLeftStart = -segments[i].m_leftWidthScalar[StartPoint].y / lengthScalar;
+      projLeftEnd = segments[i].m_leftWidthScalar[EndPoint].y / lengthScalar;
+      projRightStart = -segments[i].m_rightWidthScalar[StartPoint].y / lengthScalar;
+      projRightEnd = segments[i].m_rightWidthScalar[EndPoint].y / lengthScalar;
+    }
+    else
+    {
+      float const arrowTailEndCoord = arrowTailSize;
+      float const arrowBodyEndCoord = arrowTailEndCoord + arrowTailSize;
+      float const arrowHeadStartCoord = 1.0 - arrowHeadSize;
+      if (i == 0)
+      {
+        scaledLength = 0.0f;
+        scaledEndLength = arrowTailEndCoord;
+      }
+      else if (i == segments.size() - 1)
+      {
+        scaledLength = arrowHeadStartCoord;
+        scaledEndLength = 1.0f;
+      }
+      else
+      {
+        scaledLength = arrowTailEndCoord;
+        scaledEndLength = arrowBodyEndCoord;
+      }
+    }
 
-    output.m_geometry.push_back(RV(startPivot, 0.0f, m2::PointF::Zero(), m2::PointF(length, 0), CENTER));
-    output.m_geometry.push_back(RV(startPivot, 0.0f, leftNormalStart, m2::PointF(length, projLeftStart), LEFT_SIDE));
-    output.m_geometry.push_back(RV(endPivot, 0.0f, m2::PointF::Zero(), m2::PointF(endLength, 0), CENTER));
-    output.m_geometry.push_back(RV(endPivot, 0.0f, leftNormalEnd, m2::PointF(endLength, projLeftEnd), LEFT_SIDE));
+    geometry.push_back(RV(startPivot, depth, m2::PointF::Zero(), m2::PointF(scaledLength, 0), CENTER));
+    geometry.push_back(RV(startPivot, depth, leftNormalStart, m2::PointF(scaledLength, projLeftStart), LEFT_SIDE));
+    geometry.push_back(RV(endPivot, depth, m2::PointF::Zero(), m2::PointF(scaledEndLength, 0), CENTER));
+    geometry.push_back(RV(endPivot, depth, leftNormalEnd, m2::PointF(scaledEndLength, projLeftEnd), LEFT_SIDE));
     generateIndices();
 
-    output.m_geometry.push_back(RV(startPivot, 0.0f, rightNormalStart, m2::PointF(length, projRightStart), RIGHT_SIDE));
-    output.m_geometry.push_back(RV(startPivot, 0.0f, m2::PointF::Zero(), m2::PointF(length, 0), CENTER));
-    output.m_geometry.push_back(RV(endPivot, 0.0f, rightNormalEnd, m2::PointF(endLength, projRightEnd), RIGHT_SIDE));
-    output.m_geometry.push_back(RV(endPivot, 0.0f, m2::PointF::Zero(), m2::PointF(endLength, 0), CENTER));
+    geometry.push_back(RV(startPivot, depth, rightNormalStart, m2::PointF(scaledLength, projRightStart), RIGHT_SIDE));
+    geometry.push_back(RV(startPivot, depth, m2::PointF::Zero(), m2::PointF(scaledLength, 0), CENTER));
+    geometry.push_back(RV(endPivot, depth, rightNormalEnd, m2::PointF(scaledEndLength, projRightEnd), RIGHT_SIDE));
+    geometry.push_back(RV(endPivot, depth, m2::PointF::Zero(), m2::PointF(scaledEndLength, 0), CENTER));
     generateIndices();
 
     // generate joins
@@ -295,48 +318,75 @@ void RouteShape::PrepareGeometry(m2::PolylineD const & polyline, RouteData & out
       m2::PointF n2 = segments[i + 1].m_hasLeftJoin[StartPoint] ? segments[i + 1].m_leftNormals[StartPoint] :
                                                                   segments[i + 1].m_rightNormals[StartPoint];
       GenerateJoinNormals(n1, n2, segments[i].m_hasLeftJoin[EndPoint], normals);
-      generateTriangles(endPivot, normals, m2::PointF(endLength, 0), segments[i].m_hasLeftJoin[EndPoint]);
+      generateTriangles(endPivot, normals, m2::PointF(scaledEndLength, 0), segments[i].m_hasLeftJoin[EndPoint]);
     }
 
     // generate caps
-    if (i == 0)
+    if (isRoute && i == 0)
     {
       normals.clear();
       GenerateCapNormals(segments[i].m_rightNormals[StartPoint], true /* isStart */, normals);
-      generateTriangles(startPivot, normals, m2::PointF(length, 0), true);
+      generateTriangles(startPivot, normals, m2::PointF(scaledLength, 0), true);
     }
 
-    if (i == segments.size() - 1)
+    if (isRoute && i == segments.size() - 1)
     {
       normals.clear();
       GenerateCapNormals(segments[i].m_rightNormals[EndPoint], false /* isStart */, normals);
-      generateTriangles(endPivot, normals, m2::PointF(endLength, 0), true);
+      generateTriangles(endPivot, normals, m2::PointF(scaledEndLength, 0), true);
     }
 
     length = endLength;
   }
 
-  output.m_length = length;
-
   // calculate joins bounds
-  float const eps = 1e-5;
-  double len = 0;
-  for (size_t i = 0; i < segments.size() - 1; i++)
+  if (isRoute)
   {
-    len += (segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]).Length();
+    float const eps = 1e-5;
+    double len = 0;
+    for (size_t i = 0; i < segments.size() - 1; i++)
+    {
+      len += (segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]).Length();
 
-    RouteJoinBounds bounds;
-    bounds.m_start = min(segments[i].m_leftWidthScalar[EndPoint].y,
-                         segments[i].m_rightWidthScalar[EndPoint].y);
-    bounds.m_end = max(-segments[i + 1].m_leftWidthScalar[StartPoint].y,
-                       -segments[i + 1].m_rightWidthScalar[StartPoint].y);
+      RouteJoinBounds bounds;
+      bounds.m_start = min(segments[i].m_leftWidthScalar[EndPoint].y,
+                           segments[i].m_rightWidthScalar[EndPoint].y);
+      bounds.m_end = max(-segments[i + 1].m_leftWidthScalar[StartPoint].y,
+                         -segments[i + 1].m_rightWidthScalar[StartPoint].y);
 
-    if (fabs(bounds.m_end - bounds.m_start) < eps)
-      continue;
+      if (fabs(bounds.m_end - bounds.m_start) < eps)
+        continue;
 
-    bounds.m_offset = len;
-    output.m_joinsBounds.push_back(bounds);
+      bounds.m_offset = len;
+      joinBounds.push_back(bounds);
+    }
   }
+
+  return length;
+}
+
+}
+
+void RouteShape::PrepareGeometry(m2::PolylineD const & polyline, RouteData & output)
+{
+  vector<m2::PointD> const & path = polyline.GetPoints();
+  ASSERT(path.size() > 1, ());
+
+  output.m_joinsBounds.clear();
+  output.m_geometry.clear();
+  output.m_indices.clear();
+
+  unsigned short indexCounter = 0;
+  output.m_length = GenerateGeometry(path, true /* isRoute */, 1.0, output.m_joinsBounds,
+                                     output.m_geometry, output.m_indices, indexCounter);
+}
+
+void RouteShape::PrepareArrowGeometry(vector<m2::PointD> const & points,
+                                      double start, double end, ArrowsBuffer & output)
+{
+  vector<RouteJoinBounds> bounds;
+  GenerateGeometry(points, false /* isRoute */, end - start, bounds,
+                   output.m_geometry, output.m_indices, output.m_indexCounter);
 }
 
 } // namespace rg

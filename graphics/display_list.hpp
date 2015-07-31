@@ -61,8 +61,7 @@ namespace graphics
     void clear(shared_ptr<ClearCommandCmd> const & cmd);
     void addCheckPoint();
 
-    void draw(DisplayListRenderer * r,
-              math::Matrix<double, 3, 3> const & m,
-              UniformsHolder * holder = NULL);
+    void draw(DisplayListRenderer * r, math::Matrix<double, 3, 3> const & m,
+              UniformsHolder * holder = nullptr, size_t indicesCount = 0);
   };
 }

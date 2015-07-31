@@ -32,6 +32,9 @@ namespace graphics
     virtual void setAdditionalUniforms(UniformsHolder const & /*uniforms*/) {}
     virtual void resetAdditionalUniforms() {}
 
+    virtual bool isNeedIndicesCount() const { return false; }
+    virtual void setIndicesCount(size_t indicesCount) {}
+
     void setRenderContext(RenderContext * ctx);
     RenderContext * renderContext();
     RenderContext const * renderContext() const;

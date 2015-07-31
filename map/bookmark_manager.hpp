@@ -11,10 +11,10 @@
 class Framework;
 class PaintEvent;
 namespace graphics { class Screen; }
+namespace rg { class RouteRenderer; }
 
 class BookmarkManager : private noncopyable
 {
-  unique_ptr<RouteTrack> m_routeTrack;
   vector<BookmarkCategory *> m_categories;
   string m_lastCategoryUrl;
   string m_lastType;
@@ -86,8 +86,10 @@ public:
   void SetScreen(graphics::Screen * screen);
   void ResetScreen();
 
-  void SetRouteTrack(RouteTrack & track);
+  void SetRouteTrack(m2::PolylineD const & routePolyline, vector<double> const & turns,
+                     graphics::Color const & color);
   void ResetRouteTrack();
+  void UpdateRouteDistanceFromBegin(double distance);
 
 private:
   UserMarkContainer const * FindUserMarksContainer(UserMarkContainer::Type type) const;
@@ -96,4 +98,6 @@ private:
   UserMarkDLCache * m_cache;
 
   SelectionContainer m_selection;
+
+  unique_ptr<rg::RouteRenderer> m_routeRenderer;
 };

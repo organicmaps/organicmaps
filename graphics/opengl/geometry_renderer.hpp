@@ -65,9 +65,11 @@ namespace graphics
         Storage m_storage;
 
         DrawRouteGeometry();
-        virtual bool isNeedAdditionalUniforms() const;
-        virtual void setAdditionalUniforms(UniformsHolder const & holder);
-        virtual void resetAdditionalUniforms();
+        bool isNeedAdditionalUniforms() const override;
+        void setAdditionalUniforms(UniformsHolder const & holder) override;
+        void resetAdditionalUniforms() override;
+        bool isNeedIndicesCount() const override;
+        void setIndicesCount(size_t indicesCount) override;
         void perform();
         void dump();
 
@@ -79,6 +81,7 @@ namespace graphics
         float m_clipLength;
         float m_textureRect[4];
         math::Matrix<float, 4, 4> m_arrowBorders;
+        size_t m_indicesCount;
       };
 
       struct FreeStorage : public Command

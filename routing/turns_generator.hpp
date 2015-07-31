@@ -60,8 +60,8 @@ vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingM
                                     TGetIndexFunction GetIndex, Index const & index);
 
 // Returns the distance in meractor units for the path of points for the range [startPointIndex, endPointIndex].
-double CalculateMercatorDistanceAlongRoute(uint32_t startPoint,
-                                           uint32_t endPoint, vector<m2::PointD> const & points);
+double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t endPointIndex,
+                                          vector<m2::PointD> const & points);
 
 /*!
  * \brief Returns geometry for all the turns. It means that for every turn CalculateTurnGeometry

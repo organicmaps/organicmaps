@@ -109,9 +109,8 @@ namespace graphics
     static_cast<gl::Renderer*>(m_parent)->addCheckPoint();
   }
 
-  void DisplayList::draw(DisplayListRenderer * r,
-                         math::Matrix<double, 3, 3> const & m,
-                         UniformsHolder * holder)
+  void DisplayList::draw(DisplayListRenderer * r, math::Matrix<double, 3, 3> const & m,
+                         UniformsHolder * holder, size_t indicesCount)
   {
     math::Matrix<float, 4, 4> mv;
 
@@ -135,6 +134,10 @@ namespace graphics
         (*it)->setAdditionalUniforms(*holder);
       else
         (*it)->resetAdditionalUniforms();
+
+      if ((*it)->isNeedIndicesCount())
+        (*it)->setIndicesCount(indicesCount);
+
       (*it)->perform();
     }
 
