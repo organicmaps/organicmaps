@@ -32,18 +32,25 @@
 #include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
 #include "3party/osrm/osrm-backend/descriptors/description_factory.hpp"
 
-#define INTERRUPT_WHEN_CANCELLED() \
+#define INTERRUPT_WHEN_CANCELLED(DELEGATE) \
   do                               \
   {                                \
-    if (delegate.IsCancelled())    \
+    if (DELEGATE.IsCancelled())    \
       return Cancelled;            \
   } while (false)
 
 namespace routing
 {
+
+namespace
+{
 size_t constexpr kMaxNodeCandidatesCount = 10;
 double constexpr kFeatureFindingRectSideRadiusMeters = 1000.0;
-
+double constexpr kMwmLoadedProgress = 10.0f;
+double constexpr kPointsFoundProgress = 15.0f;
+double constexpr kCrossPathFoundProgress = 50.0f;
+double constexpr kPathFoundProgress = 70.0f;
+} //  namespace
 // TODO (ldragunov) Switch all RawRouteData and incapsulate to own omim types.
 using RawRouteData = InternalRouteResult;
 
@@ -554,7 +561,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   LOG(LINFO, ("Duration of the MWM loading", timer.ElapsedNano()));
   timer.Reset();
 
-  delegate.OnProgress(10.0f);
+  delegate.OnProgress(kMwmLoadedProgress);
 
   // 3. Find start/end nodes.
   TFeatureGraphNodeVec startTask;
@@ -576,11 +583,11 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
       m_cachedTargetPoint = finalPoint;
     }
   }
-  INTERRUPT_WHEN_CANCELLED();
+  INTERRUPT_WHEN_CANCELLED(delegate);
 
   LOG(LINFO, ("Duration of the start/stop points lookup", timer.ElapsedNano()));
   timer.Reset();
-  delegate.OnProgress(15.0f);
+  delegate.OnProgress(kPointsFoundProgress);
 
   // 4. Find route.
   RawRoutingResult routingResult;
@@ -598,8 +605,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     {
       return RouteNotFound;
     }
-    INTERRUPT_WHEN_CANCELLED();
-    delegate.OnProgress(70.0f);
+    INTERRUPT_WHEN_CANCELLED(delegate);
+    delegate.OnProgress(kPathFoundProgress);
 
     // 5. Restore route.
 
@@ -624,7 +631,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, delegate,
                                             finalPath);
     timer.Reset();
-    delegate.OnProgress(50.0f);
+    delegate.OnProgress(kCrossPathFoundProgress);
 
     // 5. Make generate answer
     if (code == NoError)
@@ -692,7 +699,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 
   for (auto const & segment : routingResult.unpackedPathSegments)
   {
-    INTERRUPT_WHEN_CANCELLED();
+    INTERRUPT_WHEN_CANCELLED(delegate);
 
     // Get all the coordinates for the computed route
     size_t const n = segment.size();

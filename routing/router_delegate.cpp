@@ -16,12 +16,16 @@ RouterDelegate::RouterDelegate()
 
 void RouterDelegate::SetProgressCallback(TProgressCallback const & progressCallback)
 {
-  m_progressCallback = (progressCallback) ? progressCallback : DefaultProgressFn;
+  m_progressCallback = progressCallback ? progressCallback : DefaultProgressFn;
 }
 
 void RouterDelegate::SetPointCheckCallback(TPointCheckCallback const & pointCallback)
 {
-  m_pointCallback = (pointCallback) ? pointCallback : DefaultPointFn;
+  m_pointCallback = pointCallback ? pointCallback : DefaultPointFn;
+}
+
+TimeoutCancellable::TimeoutCancellable() : m_timeoutSec(0)
+{
 }
 
 bool TimeoutCancellable::IsCancelled() const
@@ -29,6 +33,12 @@ bool TimeoutCancellable::IsCancelled() const
   if (m_timeoutSec && m_timer.ElapsedSeconds() > m_timeoutSec)
     return true;
   return Cancellable::IsCancelled();
+}
+
+void TimeoutCancellable::Reset()
+{
+  m_timeoutSec = 0;
+  Cancellable::Reset();
 }
 
 void TimeoutCancellable::SetTimeout(uint32_t timeoutSec)

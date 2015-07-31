@@ -49,9 +49,6 @@ public:
   /// Interrupt routing and clear buffers
   virtual void ClearState();
 
-  /// Wait routing process. For testing use.
-  void WaitRoutingForTesting() { lock_guard<mutex> routingGuard(m_routingMutex); }
-
 private:
   /// This function is called in async mode
   void CalculateRouteImpl(TReadyCallback const & readyCallback, uint32_t timeoutSec);

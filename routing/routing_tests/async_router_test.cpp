@@ -8,6 +8,8 @@
 
 #include "base/timer.hpp"
 
+#include "std/condition_variable.hpp"
+#include "std/mutex.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -59,54 +61,67 @@ struct DummyResultCallback
 {
   vector<ResultCode> m_codes;
   vector<vector<string>> m_absent;
+  condition_variable m_cv;
+  mutex m_lock;
+  uint32_t const m_expected;
+  uint32_t m_called;
+
+  DummyResultCallback(uint32_t expectedCalls) : m_expected(expectedCalls), m_called(0) {}
 
   void operator()(Route & route, ResultCode code)
   {
     m_codes.push_back(code);
     auto const & absent = route.GetAbsentCountries();
     m_absent.emplace_back(absent.begin(), absent.end());
+    {
+      lock_guard<mutex> calledLock(m_lock);
+      ++m_called;
+      TEST_LESS_OR_EQUAL(m_called, m_expected,
+                         ("The result callback called more times than expected."));
+    }
+    m_cv.notify_all();
+  }
+
+  void WaitFinish()
+  {
+    unique_lock<mutex> lk(m_lock);
+    return m_cv.wait(lk, [this] { return m_called == m_expected; });
   }
 };
 
 UNIT_TEST(NeedMoreMapsSignalTest)
 {
-  unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher({"test1", "test2"}));
+  vector<string> const absentData({"test1", "test2"});
+  unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher(absentData));
   unique_ptr<IRouter> router(new DummyRouter(ResultCode::NoError, {}));
-  DummyResultCallback resultCallback;
-  AsyncRouter async(move(router), move(fetcher), DummyStatisticsCallback, nullptr);
-  resultCallback.m_codes.clear();
-  resultCallback.m_absent.clear();
-  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, bind(ref(resultCallback), _1, _2), nullptr, 0);
+  DummyResultCallback resultCallback(2 /* expectedCalls */);
+  AsyncRouter async(move(router), move(fetcher), DummyStatisticsCallback,
+                    nullptr /* pointCheckCallback */);
+  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, bind(ref(resultCallback), _1, _2),
+                       nullptr /* progressCallback */, 0 /* timeoutSec */);
 
-  // Wait async process start.
-  while (resultCallback.m_codes.empty())
-    ;
-
-  async.WaitRoutingForTesting();
+  resultCallback.WaitFinish();
 
   TEST_EQUAL(resultCallback.m_codes.size(), 2, ());
   TEST_EQUAL(resultCallback.m_codes[0], ResultCode::NoError, ());
   TEST_EQUAL(resultCallback.m_codes[1], ResultCode::NeedMoreMaps, ());
   TEST_EQUAL(resultCallback.m_absent.size(), 2, ());
   TEST(resultCallback.m_absent[0].empty(), ());
-  TEST_EQUAL(resultCallback.m_absent[1].size(), 2, ())
+  TEST_EQUAL(resultCallback.m_absent[1].size(), 2, ());
+  TEST_EQUAL(resultCallback.m_absent[1], absentData, ());
 }
 
 UNIT_TEST(StandartAsyncFogTest)
 {
   unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher({}));
   unique_ptr<IRouter> router(new DummyRouter(ResultCode::NoError, {}));
-  DummyResultCallback resultCallback;
-  AsyncRouter async(move(router), move(fetcher), DummyStatisticsCallback, nullptr);
-  resultCallback.m_codes.clear();
-  resultCallback.m_absent.clear();
-  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, bind(ref(resultCallback), _1, _2), nullptr, 0);
+  DummyResultCallback resultCallback(1 /* expectedCalls */);
+  AsyncRouter async(move(router), move(fetcher), DummyStatisticsCallback,
+                    nullptr /* pointCheckCallback */);
+  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, bind(ref(resultCallback), _1, _2),
+                       nullptr /* progressCallback */, 0 /* timeoutSec */);
 
-  // Wait async process start.
-  while (resultCallback.m_codes.empty())
-    ;
-
-  async.WaitRoutingForTesting();
+  resultCallback.WaitFinish();
 
   TEST_EQUAL(resultCallback.m_codes.size(), 1, ());
   TEST_EQUAL(resultCallback.m_codes[0], ResultCode::NoError, ());

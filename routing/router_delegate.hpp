@@ -12,13 +12,14 @@ namespace routing
 class TimeoutCancellable : public my::Cancellable
 {
 public:
-  TimeoutCancellable() : m_timeoutSec(0) {}
+  TimeoutCancellable();
 
   /// Sets timeout before cancellation. 0 means an infinite timeout.
   void SetTimeout(uint32_t timeoutSec);
 
   // Cancellable overrides:
   bool IsCancelled() const override;
+  void Reset() override;
 
 private:
   my::Timer m_timer;

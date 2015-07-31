@@ -2124,7 +2124,6 @@ void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
         RemoveRoute();
     }
     CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
-    LOG(LINFO, ("Inside callback!"));
   };
 
   m_routingSession.BuildRoute(state->Position(), destination,
@@ -2189,7 +2188,7 @@ void Framework::SetRouterImpl(RouterType type)
     });
   };
 #else
-  routing::TPointCheckCallback const routingVisualizerFn = nullptr;
+  routing::RouterDelegate::TPointCheckCallback const routingVisualizerFn = nullptr;
 #endif
   m_routingSession.SetRouter(move(router), move(fetcher), routingStatisticsFn, routingVisualizerFn);
   m_currentRouterType = type;
