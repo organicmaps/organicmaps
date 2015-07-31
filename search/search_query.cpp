@@ -10,15 +10,15 @@
 
 #include "storage/country_info.hpp"
 
-#include "indexer/feature_impl.hpp"
+#include "indexer/categories_holder.hpp"
+#include "indexer/classificator.hpp"
 #include "indexer/feature_covering.hpp"
+#include "indexer/feature_impl.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
-#include "indexer/categories_holder.hpp"
-#include "indexer/classificator.hpp"
 
 #include "platform/preferred_languages.hpp"
 
@@ -26,8 +26,8 @@
 #include "coding/reader_wrapper.hpp"
 
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 #include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/function.hpp"
@@ -75,16 +75,13 @@ Query::Query(Index const * pIndex, CategoriesHolder const * pCategories,
   , m_pCategories(pCategories)
   , m_pStringsToSuggest(pStringsToSuggest)
   , m_pInfoGetter(pInfoGetter)
-  ,
 #ifdef HOUSE_SEARCH_TEST
-  m_houseDetector(pIndex)
-  ,
+  , m_houseDetector(pIndex)
 #endif
 #ifdef FIND_LOCALITY_TEST
-  m_locality(pIndex)
-  ,
+  , m_locality(pIndex)
 #endif
-  m_worldSearch(true)
+  , m_worldSearch(true)
 {
   // m_viewport is initialized as empty rects
 
@@ -331,8 +328,8 @@ void Query::Init(bool viewportSearch)
   else
   {
     m_queuesCount = kQueuesCount;
-    m_results[kDistanceToPivot] =
-        TQueue(kPreResultsCount, TQueueCompare(g_arrCompare1[kDistanceToPivot]));
+    m_results[DISTANCE_TO_PIVOT] =
+        TQueue(kPreResultsCount, TQueueCompare(g_arrCompare1[DISTANCE_TO_PIVOT]));
   }
 }
 
@@ -483,15 +480,10 @@ class ProxyFunctor1
 
   public:
     template <class T>
-    explicit ProxyFunctor1(T const & p)
-      : m_fn(*p)
-    {
-    }
+    explicit ProxyFunctor1(T const & p) : m_fn(*p) {}
+
     template <class T>
-    bool operator()(T const & p)
-    {
-      return m_fn(*p);
-    }
+    bool operator()(T const & p) { return m_fn(*p); }
   };
 
   template <class TFunctor>
@@ -1332,11 +1324,9 @@ namespace impl
       size_t & m_count;
     public:
       DoCount(size_t & count) : m_count(count) { m_count = 0; }
+
       template <class T>
-      void operator()(T const &)
-      {
-        ++m_count;
-      }
+      void operator()(T const &) { ++m_count; }
     };
 
     bool IsFullNameMatched() const

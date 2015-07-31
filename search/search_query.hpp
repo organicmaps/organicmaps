@@ -262,7 +262,7 @@ private:
   // g_arrCompare1, g_arrCompare2 function arrays.
   enum
   {
-    kDistanceToPivot,  // LessDistance
+    DISTANCE_TO_PIVOT,  // LessDistance
     FEATURE_RANK       // LessRank
   };
   TQueue m_results[kQueuesCount];
