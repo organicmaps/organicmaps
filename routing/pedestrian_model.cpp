@@ -70,8 +70,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Default =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Australia
@@ -98,8 +96,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Australia =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Austria
@@ -123,8 +119,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Austria =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Belarus
@@ -150,8 +144,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Belarus =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Belgium
@@ -176,8 +168,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Belgium =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Brazil
@@ -204,8 +194,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Brazil =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Denmark
@@ -229,8 +217,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Denmark =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // France
@@ -253,8 +239,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_France =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Finland
@@ -280,8 +264,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Finland =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Germany
@@ -306,8 +288,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Germany =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Hungary
@@ -330,8 +310,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Hungary =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Netherlands
@@ -355,8 +333,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Netherlands =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Norway
@@ -383,8 +359,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Norway =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Poland
@@ -407,8 +381,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Poland =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Romania
@@ -431,8 +403,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Romania =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Russia
@@ -458,8 +428,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Russia =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Slovakia
@@ -482,8 +450,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Slovakia =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Switzerland
@@ -506,8 +472,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Switzerland =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Turkey
@@ -534,8 +498,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Turkey =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // Ukraine
@@ -558,8 +520,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Ukraine =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // United Kingdom
@@ -586,8 +546,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_UK =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 // USA
@@ -614,8 +572,6 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_USA =
   { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
   { {"highway", "footway"},        kSpeedFootwayKMpH },
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"railway", "platform"},       kSpeedPlatformKMpH }, // *
-  { {"public_transport", "platform"}, kSpeedPlatformKMpH }, // *
 };
 
 }  // namespace
