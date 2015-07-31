@@ -491,3 +491,19 @@ UNIT_TEST(RussiaMoscowKhlebnyyLane19LiftGateAndGate)
   TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::Gate, ());
   TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
+
+UNIT_TEST(MoscowVodnyStadiumHighwayPlatform)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.83955, 37.48692), {0., 0.},
+      MercatorBounds::FromLatLon(55.84061, 37.48636), 136.115);
+}
+
+UNIT_TEST(MoscowLeningradskyVokzalRailwayPlatform)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.78163, 37.65144), {0., 0.},
+      MercatorBounds::FromLatLon(55.777, 37.65479), 581.594);
+}
