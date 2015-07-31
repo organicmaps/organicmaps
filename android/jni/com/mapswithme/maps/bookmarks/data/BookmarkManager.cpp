@@ -103,4 +103,12 @@ extern "C"
   {
     return frm()->LastEditedBMCategory();
   }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_generateUniqueBookmarkName(JNIEnv * env, jclass thiz, jstring jBaseName)
+  {
+    string baseName = jni::ToNativeString(env, jBaseName);
+    string bookmarkFileName = BookmarkCategory::GenerateUniqueFileName(GetPlatform().SettingsDir(), baseName);
+    return jni::ToJavaString(env, bookmarkFileName);
+  }
 }

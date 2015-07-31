@@ -2,6 +2,7 @@ package com.mapswithme.maps;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 
 import java.io.Serializable;
@@ -120,12 +121,19 @@ public enum MapStorage
 
   public interface UpdateFunctor
   {
-    public void doUpdate();
+    void doUpdate();
 
-    public void doCancel();
+    void doCancel();
   }
 
-  public boolean updateMaps(int msgID, Context context, final UpdateFunctor fn)
+  /**
+   * Checks whether all maps contain search indexes or updates them, if not.
+   * @param msgId
+   * @param context
+   * @param fn
+   * @return True, if any maps where updated. False otherwise.
+   */
+  public boolean updateMapsWithoutSearchIndex(@StringRes int msgId, Context context, final UpdateFunctor fn)
   {
     // get map names without search index
     final String[] maps = nativeGetMapsWithoutSearch();
@@ -156,7 +164,7 @@ public enum MapStorage
     if (count == 0)
       return false;
 
-    String msg = context.getString(msgID);
+    String msg = context.getString(msgId);
     for (int i = 0; i < maps.length; ++i)
     {
       if (indexes[i] != null)

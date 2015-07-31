@@ -107,4 +107,6 @@ public enum BookmarkManager
   public native int addBookmarkToLastEditedCategory(String name, double lat, double lon);
 
   public native int getLastEditedCategory();
+
+  public static native String generateUniqueBookmarkName(String baseName);
 }

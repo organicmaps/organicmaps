@@ -147,8 +147,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private ImageButton mBtnZoomOut;
   private BottomButtonsLayout mBottomButtons;
 
-  private static final String IS_KML_MOVED = "KmlBeenMoved";
-  private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
   // for routing
   private static final String IS_ROUTING_DISCLAIMER_APPROVED = "IsDisclaimerApproved";
 
@@ -247,7 +245,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       {
         // Run all checks in main thread after rendering is initialized.
         checkMeasurementSystem();
-        checkUpdateMaps();
+        checkUpdateMapsWithoutSearchIndex();
         checkKitkatMigrationMove();
         checkLiteMapsInPro();
         checkUserMarkActivation();
@@ -273,36 +271,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void checkKitkatMigrationMove()
   {
-    final boolean kmlMoved = MWMApplication.get().nativeGetBoolean(IS_KML_MOVED, false);
-    final boolean mapsCpy = MWMApplication.get().nativeGetBoolean(IS_KITKAT_MIGRATION_COMPLETED, false);
-
-    if (!kmlMoved)
-      if (mPathManager.moveBookmarks())
-        MWMApplication.get().nativeSetBoolean(IS_KML_MOVED, true);
-      else
-      {
-        UiUtils.showAlertDialog(this, R.string.bookmark_move_fail);
-        return;
-      }
-
-    if (!mapsCpy)
-      mPathManager.checkWritableDir(this,
-          new SetStoragePathListener()
-          {
-            @Override
-            public void moveFilesFinished(String newPath)
-            {
-              MWMApplication.get().nativeSetBoolean(IS_KITKAT_MIGRATION_COMPLETED, true);
-              UiUtils.showAlertDialog(MWMActivity.this, R.string.kitkat_migrate_ok);
-            }
-
-            @Override
-            public void moveFilesFailed(int errorCode)
-            {
-              UiUtils.showAlertDialog(MWMActivity.this, R.string.kitkat_migrate_failed);
-            }
-          }
-      );
+    mPathManager.checkKitkatMigration(this);
   }
 
   private void checkLiteMapsInPro()
@@ -332,14 +301,14 @@ public class MWMActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private void checkUpdateMaps()
+  private void checkUpdateMapsWithoutSearchIndex()
   {
     // do it only once
     if (mNeedCheckUpdate)
     {
       mNeedCheckUpdate = false;
 
-      MapStorage.INSTANCE.updateMaps(R.string.advise_update_maps, this, new MapStorage.UpdateFunctor()
+      MapStorage.INSTANCE.updateMapsWithoutSearchIndex(R.string.advise_update_maps, this, new MapStorage.UpdateFunctor()
       {
         @Override
         public void doUpdate()
@@ -368,9 +337,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
     startActivity(new Intent(this, BookmarkCategoriesActivity.class));
   }
 
-  private void showSearchIfUpdated()
+  private void showSearchIfContainsSearchIndex()
   {
-    if (!MapStorage.INSTANCE.updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
+    if (!MapStorage.INSTANCE.updateMapsWithoutSearchIndex(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
     {
       @Override
       public void doUpdate()
@@ -1346,7 +1315,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       break;
     case R.id.ll__search:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_SEARCH);
-      showSearchIfUpdated();
+      showSearchIfContainsSearchIndex();
       mBottomButtons.hideButtons();
       UiUtils.hide(mFadeView);
       UiUtils.clearAnimationAfterAlpha(mFadeView);

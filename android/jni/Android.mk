@@ -90,7 +90,6 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/DownloadResourcesActivity.cpp \
 	com/mapswithme/maps/SearchFragment.cpp \
 	com/mapswithme/maps/settings/UnitLocale.cpp \
-	com/mapswithme/maps/settings/StoragePathManager.cpp \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
 	com/mapswithme/platform/Language.cpp \
