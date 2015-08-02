@@ -34,7 +34,7 @@
       android:layout_margin="@dimen/margin_base"
       android:layout_below="@id/fl__routing"
       android:layout_alignWithParentIfMissing="true"
-      placePage:animationType="leftTop"/>
+      placePage:animationType="left"/>
 
   <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"

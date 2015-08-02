@@ -137,13 +137,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     super(context, attrs);
 
-    mIsLatLonDms = context.getSharedPreferences(context.getString(R.string.pref_file_name),
-        Context.MODE_PRIVATE).getBoolean(PREF_USE_DMS, false);
-
+    mIsLatLonDms = context.getSharedPreferences(context.getString(R.string.pref_file_name), Context.MODE_PRIVATE)
+                          .getBoolean(PREF_USE_DMS, false);
     initViews();
 
     initAnimationController(attrs, defStyleAttr);
-    setVisibility(View.INVISIBLE);
+    UiUtils.invisible(this);
   }
 
   private void initViews()
@@ -219,6 +218,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mShadowController = new ScrollViewShadowController((ObservableScrollView) mPpDetails)
                             .addShadow(BaseShadowController.BOTTOM, R.id.shadow_bottom)
                             .attach();
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+      setElevation(getResources().getDimensionPixelSize(R.dimen.appbar_elevation));
   }
 
   private void initAnimationController(AttributeSet attrs, int defStyleAttr)
@@ -229,24 +231,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     // switch with values from "animationType" from attrs.xml
     switch (animationType)
     {
-    // TODO remove hacks with api levels after app will have 11+ SDK
     case 0:
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-        mAnimationController = new CompatPlacePageAnimationController(this);
-      else
-        mAnimationController = new BottomPlacePageAnimationController(this);
+      mAnimationController = new PlacePageBottomAnimationController(this);
       break;
-    case 2:
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-        mAnimationController = new LeftCompatAnimationController(this);
-      else
-        mAnimationController = new LeftFloatPlacePageAnimationController(this);
-      break;
-    case 3:
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-        mAnimationController = new LeftCompatAnimationController(this);
-      else
-        mAnimationController = new LeftFullPlacePageAnimationController(this);
+
+    case 1:
+      mAnimationController = new PlacePageLeftAnimationController(this);
       break;
     }
   }
@@ -436,13 +426,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataStars(mMapObject.getMetadata(Metadata.MetadataType.FMD_STARS));
 
     final String elevation = mMapObject.getMetadata(Metadata.MetadataType.FMD_ELE);
-    if (!TextUtils.isEmpty(elevation))
-    {
-      mTvElevation.setVisibility(View.VISIBLE);
-      mTvElevation.setText(elevation);
-    }
+    if (TextUtils.isEmpty(elevation))
+      UiUtils.hide(mTvElevation);
     else
-      mTvElevation.setVisibility(View.GONE);
+      UiUtils.setTextAndShow(mTvElevation, elevation);
   }
 
   private void refreshButtons(boolean showBackButton)
@@ -476,8 +463,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (l.hasAltitude())
       builder.append(Framework.nativeFormatAltitude(l.getAltitude()));
     if (l.hasSpeed())
-      builder.append("   ").
-          append(Framework.nativeFormatSpeed(l.getSpeed()));
+      builder.append("   ")
+             .append(Framework.nativeFormatSpeed(l.getSpeed()));
     mTvSubtitle.setText(builder.toString());
 
     mMapObject.setLat(l.getLatitude());
@@ -508,7 +495,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       mTvLatlon.setText(latLon[0] + ", " + latLon[1]);
   }
 
-  private void refreshMetadataOrHide(String metadata, LinearLayout metaLayout, TextView metaTv)
+  private static void refreshMetadataOrHide(String metadata, LinearLayout metaLayout, TextView metaTv)
   {
     if (!TextUtils.isEmpty(metadata))
     {

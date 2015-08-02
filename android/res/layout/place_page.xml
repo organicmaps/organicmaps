@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <LinearLayout
+  <include
+      android:id="@+id/pp__preview"
+      layout="@layout/place_page_preview"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/pp__buttons"/>
+
+  <include
+      android:id="@+id/pp__details_frame"
+      layout="@layout/place_page_details"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_above="@+id/pp__buttons"
+      android:layout_marginTop="56dp"/>
+
+  <View
+      android:id="@+id/view_bottom_white"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/place_page_buttons_height"
+      android:layout_alignParentBottom="true"
       android:background="@color/bg_top_panels"
-      android:orientation="vertical">
-
-    <include
-        android:id="@+id/pp__preview"
-        layout="@layout/place_page_preview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <include android:id="@+id/pp__details_frame"
-             layout="@layout/place_page_details"/>
-
-  </LinearLayout>
+      android:visibility="gone"/>
 
   <include
       android:id="@+id/pp__buttons"
@@ -25,5 +30,10 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"/>
+
+  <include
+      android:id="@+id/toolbar_layout"
+      layout="@layout/toolbar_elevated"
+      android:visibility="gone"/>
 
 </merge>

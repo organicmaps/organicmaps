@@ -4,10 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
@@ -15,29 +13,26 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
-public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimationController
+class PlacePageLeftAnimationController extends BasePlacePageAnimationController
 {
-  public LeftFloatPlacePageAnimationController(@NonNull PlacePageView placePage)
+  public PlacePageLeftAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
   }
 
   @Override
-  boolean onInterceptTouchEvent(MotionEvent event)
+  protected boolean onInterceptTouchEvent(MotionEvent event)
   {
     switch (event.getAction())
     {
     case MotionEvent.ACTION_DOWN:
       mIsGestureHandled = false;
-      mDownCoord = event.getY();
+      mDownCoord = event.getX();
       break;
     case MotionEvent.ACTION_MOVE:
-      final float yDiff = mDownCoord - event.getY();
-      if (mDownCoord < ViewHelper.getY(mPreview) || mDownCoord > ViewHelper.getY(mButtons) ||
-          (mDownCoord > ViewHelper.getY(mFrame) && mDownCoord < ViewHelper.getY(mButtons) &&
-              (mFrame.getHeight() != mDetailsContent.getHeight() && (mDetails.getScrollY() != 0 || yDiff > 0))))
+      if (mDownCoord > mPlacePage.getRight())
         return false;
-      if (Math.abs(yDiff) > mTouchSlop)
+      if (Math.abs(mDownCoord - event.getX()) > mTouchSlop)
         return true;
       break;
     }
@@ -48,7 +43,7 @@ public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimatio
   @Override
   protected boolean onTouchEvent(@NonNull MotionEvent event)
   {
-    if (mDownCoord < ViewHelper.getY(mPreview) || mDownCoord > ViewHelper.getY(mButtons))
+    if (mDownCoord > mPlacePage.getRight())
       return false;
 
     super.onTouchEvent(event);
@@ -60,25 +55,22 @@ public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimatio
   {
     mGestureDetector = new GestureDetectorCompat(mPlacePage.getContext(), new GestureDetector.SimpleOnGestureListener()
     {
-      private static final int Y_MIN = 1;
-      private static final int Y_MAX = 100;
+      private static final int X_MIN = 4;
+      private static final int X_MAX = 100;
       private static final int X_TO_Y_SCROLL_RATIO = 2;
 
       @Override
       public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
       {
-        final boolean isVertical = Math.abs(distanceY) > X_TO_Y_SCROLL_RATIO * Math.abs(distanceX);
-        final boolean isInRange = Math.abs(distanceY) > Y_MIN && Math.abs(distanceY) < Y_MAX;
+        final boolean isHorizontal = Math.abs(distanceX) > X_TO_Y_SCROLL_RATIO * Math.abs(distanceY);
+        final boolean isInRange = Math.abs(distanceX) > X_MIN && Math.abs(distanceX) < X_MAX;
 
-        if (isVertical && isInRange)
+        if (isHorizontal && isInRange)
         {
           if (!mIsGestureHandled)
           {
-            if (distanceY < 0)
-            {
+            if (distanceX > 0)
               mPlacePage.setState(State.HIDDEN);
-              Framework.deactivatePopup();
-            }
 
             mIsGestureHandled = true;
           }
@@ -101,7 +93,7 @@ public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimatio
   }
 
   @Override
-  void animateStateChange(State currentState, State newState)
+  protected void onStateChanged(State currentState, State newState)
   {
     switch (newState)
     {
@@ -118,45 +110,24 @@ public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimatio
 
   protected void showPlacePage(final State currentState, final State newState)
   {
-    mPlacePage.setVisibility(View.VISIBLE);
-    mBookmarkDetails.setVisibility(newState == State.BOOKMARK ? View.VISIBLE : View.GONE);
-    if (currentState == State.HIDDEN)
+    UiUtils.show(mPlacePage);
+    UiUtils.showIf(newState == State.BOOKMARK, mBookmarkDetails);
+    if (currentState != State.HIDDEN)
+      return;
+
+    if (NO_ANIMATION)
     {
-      ValueAnimator animator = ValueAnimator.ofFloat(mPlacePage.getHeight(), 0f);
-      animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-      {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation)
-        {
-          ViewHelper.setTranslationY(mPlacePage, (Float) animation.getAnimatedValue());
-        }
-      });
-      animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
-      {
-        @Override
-        public void onAnimationEnd(Animator animation)
-        {
-          mIsPlacePageVisible = mIsPreviewVisible = true;
-          notifyVisibilityListener();
-        }
-      });
-
-      animator.setDuration(SHORT_ANIM_DURATION);
-      animator.setInterpolator(new AccelerateInterpolator());
-      animator.start();
+      finishAnimation(true, true);
+      return;
     }
-  }
 
-  protected void hidePlacePage()
-  {
-    ValueAnimator animator;
-    animator = ValueAnimator.ofFloat(0, mPlacePage.getHeight());
+    ValueAnimator animator = ValueAnimator.ofFloat(-mPlacePage.getWidth(), 0f);
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
       public void onAnimationUpdate(ValueAnimator animation)
       {
-        ViewHelper.setTranslationY(mPlacePage, (Float) animation.getAnimatedValue());
+        ViewHelper.setTranslationX(mPlacePage, (Float) animation.getAnimatedValue());
       }
     });
     animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
@@ -164,13 +135,45 @@ public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimatio
       @Override
       public void onAnimationEnd(Animator animation)
       {
-        mPlacePage.setVisibility(View.INVISIBLE);
-        mIsPlacePageVisible = mIsPreviewVisible = false;
-        notifyVisibilityListener();
+        finishAnimation(true, true);
       }
     });
 
-    animator.setDuration(SHORT_ANIM_DURATION);
+    animator.setDuration(DURATION);
+    animator.setInterpolator(new AccelerateInterpolator());
+    animator.start();
+  }
+
+  protected void hidePlacePage()
+  {
+    if (NO_ANIMATION)
+    {
+      UiUtils.hide(mPlacePage);
+      finishAnimation(false, false);
+      return;
+    }
+
+    ValueAnimator animator;
+    animator = ValueAnimator.ofFloat(0.0f, -mPlacePage.getWidth());
+    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+    {
+      @Override
+      public void onAnimationUpdate(ValueAnimator animation)
+      {
+        ViewHelper.setTranslationX(mPlacePage, (Float) animation.getAnimatedValue());
+      }
+    });
+    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        UiUtils.invisible(mPlacePage);
+        finishAnimation(false, false);
+      }
+    });
+
+    animator.setDuration(DURATION);
     animator.setInterpolator(new AccelerateInterpolator());
     animator.start();
   }

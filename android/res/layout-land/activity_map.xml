@@ -37,7 +37,7 @@
       android:layout_width="360dp"
       android:layout_height="match_parent"
       android:layout_below="@+id/fl__routing"
-      placePage:animationType="leftFull"/>
+      placePage:animationType="left"/>
 
   <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"

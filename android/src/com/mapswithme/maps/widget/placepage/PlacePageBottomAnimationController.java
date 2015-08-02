@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -14,21 +15,41 @@ import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.concurrency.UiThread;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class BottomPlacePageAnimationController extends BasePlacePageAnimationController implements View.OnLayoutChangeListener
+class PlacePageBottomAnimationController extends BasePlacePageAnimationController
 {
   private final View mViewBottomHack;
   private final ViewGroup mLayoutToolbar;
 
-  public BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
+  private final AnimationHelper mAnimationHelper = (NO_ANIMATION ? null : new AnimationHelper());
+
+
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  private class AnimationHelper
+  {
+    final View.OnLayoutChangeListener mListener = new View.OnLayoutChangeListener()
+    {
+      @Override
+      public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
+      {
+        if (mState == State.BOOKMARK && v.getId() == mFrame.getId() && top != oldTop)
+        {
+          ViewHelper.setTranslationY(mPreview, -mDetailsContent.getHeight());
+          refreshToolbarVisibility();
+        }
+      }
+    };
+  }
+
+
+  public PlacePageBottomAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
     mViewBottomHack = mPlacePage.findViewById(R.id.view_bottom_white);
@@ -49,7 +70,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   }
 
   @Override
-  boolean onInterceptTouchEvent(MotionEvent event)
+  protected boolean onInterceptTouchEvent(MotionEvent event)
   {
     switch (event.getAction())
     {
@@ -86,7 +107,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   {
     mGestureDetector = new GestureDetectorCompat(mPlacePage.getContext(), new GestureDetector.SimpleOnGestureListener()
     {
-      private static final int Y_MIN = 1;
+      private static final int Y_MIN = 4;
       private static final int Y_MAX = 100;
       private static final int X_TO_Y_SCROLL_RATIO = 2;
 
@@ -101,10 +122,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
           if (!mIsGestureHandled)
           {
             if (distanceY < 0f)
-            {
-              Framework.deactivatePopup();
               mPlacePage.setState(State.HIDDEN);
-            }
             else
               mPlacePage.setState(State.DETAILS);
 
@@ -134,7 +152,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   }
 
   @Override
-  void animateStateChange(State currentState, State newState)
+  protected void onStateChanged(State currentState, State newState)
   {
     switch (newState)
     {
@@ -153,20 +171,42 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     }
   }
 
+  @SuppressLint("NewApi")
   protected void showPreview(final State currentState)
   {
-    mPlacePage.setVisibility(View.VISIBLE);
-    mPreview.setVisibility(View.VISIBLE);
-    mFrame.addOnLayoutChangeListener(this);
+    UiUtils.show(mPlacePage, mPreview);
     if (mLayoutToolbar != null)
-      mLayoutToolbar.setVisibility(View.GONE);
+      UiUtils.hide(mLayoutToolbar);
+
+    if (NO_ANIMATION)
+    {
+      UiUtils.show(mViewBottomHack);
+
+      if (currentState == State.HIDDEN)
+      {
+        UiUtils.show(mViewBottomHack);
+        ViewHelper.setTranslationY(mPreview, 0.0f);
+      }
+      else
+      {
+        UiUtils.invisible(mBookmarkDetails);
+      }
+
+      UiUtils.invisible(mFrame);
+      finishAnimation(true, false);
+      return;
+    }
+
+    if (mAnimationHelper != null)
+      mFrame.addOnLayoutChangeListener(mAnimationHelper.mListener);
 
     ValueAnimator animator;
     Interpolator interpolator;
     if (currentState == State.HIDDEN)
     {
-      mViewBottomHack.setVisibility(View.GONE);
-      mFrame.setVisibility(View.INVISIBLE);
+      UiUtils.hide(mViewBottomHack);
+      UiUtils.invisible(mFrame);
+
       interpolator = new OvershootInterpolator();
       animator = ValueAnimator.ofFloat(mPreview.getHeight() + mButtons.getHeight(), 0f);
       animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
@@ -178,7 +218,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
           ViewHelper.setTranslationY(mButtons, (Float) animation.getAnimatedValue());
 
           if (animation.getAnimatedFraction() > .5f)
-            mViewBottomHack.setVisibility(View.VISIBLE);
+            UiUtils.show(mViewBottomHack);
         }
       });
       animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
@@ -186,9 +226,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
         @Override
         public void onAnimationEnd(Animator animation)
         {
-          mIsPlacePageVisible = false;
-          mIsPreviewVisible = true;
-          notifyVisibilityListener();
+          finishAnimation(true, false);
         }
       });
     }
@@ -211,36 +249,55 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
         @Override
         public void onAnimationEnd(Animator animation)
         {
-          mFrame.setVisibility(View.INVISIBLE);
-          mBookmarkDetails.setVisibility(View.INVISIBLE);
-          mIsPlacePageVisible = false;
-          mIsPreviewVisible = true;
-          notifyVisibilityListener();
+          UiUtils.invisible(mFrame, mBookmarkDetails);
+          finishAnimation(true, false);
         }
       });
     }
-    animator.setDuration(SHORT_ANIM_DURATION);
+    animator.setDuration(DURATION);
     animator.setInterpolator(interpolator);
     animator.start();
   }
 
+  private void correctPreviewTranslation()
+  {
+    UiThread.runLater(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        ViewHelper.setTranslationY(mPreview, -mDetailsContent.getHeight());
+      }
+    });
+  }
+
+  private void showPreviewFrame()
+  {
+    UiUtils.show(mPlacePage, mPreview, mFrame);
+    if (NO_ANIMATION)
+      correctPreviewTranslation();
+  }
+
   protected void showDetails(final State currentState)
   {
-    mPlacePage.setVisibility(View.VISIBLE);
-    mPreview.setVisibility(View.VISIBLE);
-    mFrame.setVisibility(View.VISIBLE);
+    showPreviewFrame();
 
-    ValueAnimator animator;
+    if (NO_ANIMATION)
+    {
+      refreshToolbarVisibility();
+      finishAnimation(true, true);
+      mDetails.scrollTo(0, 0);
+      UiUtils.hide(mBookmarkDetails);
+      return;
+    }
+
     final float detailsFullHeight = mDetailsContent.getHeight();
     final float detailsScreenHeight = mDetails.getHeight();
     final float bookmarkFullHeight = mBookmarkDetails.getHeight();
     final float bookmarkScreenHeight = bookmarkFullHeight - (detailsFullHeight - detailsScreenHeight);
 
-    if (currentState == State.PREVIEW)
-      animator = ValueAnimator.ofFloat(detailsScreenHeight, bookmarkScreenHeight);
-    else
-      animator = ValueAnimator.ofFloat(0f, bookmarkScreenHeight);
-
+    ValueAnimator animator = ValueAnimator.ofFloat(currentState == State.PREVIEW ? detailsScreenHeight : 0,
+                                                   bookmarkScreenHeight);
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
@@ -256,36 +313,35 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       public void onAnimationEnd(Animator animation)
       {
         refreshToolbarVisibility();
-        mIsPreviewVisible = mIsPlacePageVisible = true;
-        notifyVisibilityListener();
+        finishAnimation(true, true);
         mDetails.scrollTo(0, 0);
-        mBookmarkDetails.setVisibility(View.INVISIBLE);
+        UiUtils.invisible(mBookmarkDetails);
       }
     });
 
-    animator.setDuration(SHORT_ANIM_DURATION);
+    animator.setDuration(DURATION);
     animator.setInterpolator(new AccelerateInterpolator());
     animator.start();
   }
 
   void showBookmark(final State currentState)
   {
-    mPlacePage.setVisibility(View.VISIBLE);
-    mPreview.setVisibility(View.VISIBLE);
-    mFrame.setVisibility(View.VISIBLE);
-    mBookmarkDetails.setVisibility(View.VISIBLE);
+    UiUtils.show(mBookmarkDetails);
+    showPreviewFrame();
 
-    ValueAnimator animator;
+    if (NO_ANIMATION)
+    {
+      refreshToolbarVisibility();
+      finishAnimation(true, true);
+      return;
+    }
+
     final float detailsFullHeight = mDetailsContent.getHeight();
     final float detailsScreenHeight = mDetails.getHeight();
     final float bookmarkHeight = mBookmarkDetails.getHeight();
-    final float bookmarkScreenHeight = bookmarkHeight - (detailsFullHeight - detailsScreenHeight);
 
-    if (currentState == State.DETAILS)
-      animator = ValueAnimator.ofFloat(bookmarkScreenHeight, 0f);
-    else
-      animator = ValueAnimator.ofFloat(detailsScreenHeight, 0f);
-
+    ValueAnimator animator = ValueAnimator.ofFloat(currentState == State.DETAILS ? bookmarkHeight - (detailsFullHeight - detailsScreenHeight)
+                                                                                 : detailsScreenHeight, 0.0f);
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
@@ -301,31 +357,47 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       public void onAnimationEnd(Animator animation)
       {
         refreshToolbarVisibility();
-        mIsPreviewVisible = mIsPlacePageVisible = true;
-        notifyVisibilityListener();
+        finishAnimation(true, true);
       }
     });
 
-    animator.setDuration(SHORT_ANIM_DURATION);
+    animator.setDuration(DURATION);
     animator.setInterpolator(new AccelerateInterpolator());
     animator.start();
   }
 
-  private void refreshToolbarVisibility()
+  protected void refreshToolbarVisibility()
   {
     if (mLayoutToolbar != null)
-      mLayoutToolbar.setVisibility(ViewHelper.getY(mFrame) < mPreview.getHeight() ? View.VISIBLE : View.GONE);
+      UiThread.runLater(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          UiUtils.showIf(ViewHelper.getY(mPreview) < 0, mLayoutToolbar);
+        }
+      });
   }
 
+  @SuppressLint("NewApi")
   protected void hidePlacePage()
   {
+    UiUtils.hide(mViewBottomHack);
     if (mLayoutToolbar != null)
-      mLayoutToolbar.setVisibility(View.GONE);
+      UiUtils.hide(mLayoutToolbar);
 
-    mFrame.removeOnLayoutChangeListener(this);
+    if (NO_ANIMATION)
+    {
+      UiUtils.hide(mPlacePage);
+      finishAnimation(false, false);
+      return;
+    }
+
+    if (mAnimationHelper != null)
+      mFrame.removeOnLayoutChangeListener(mAnimationHelper.mListener);
+
     final float animHeight = mPlacePage.getHeight() - mPreview.getTop() - ViewHelper.getTranslationY(mPreview);
     final ValueAnimator animator = ValueAnimator.ofFloat(0f, animHeight);
-    mViewBottomHack.setVisibility(View.GONE);
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
@@ -339,26 +411,13 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       @Override
       public void onAnimationEnd(Animator animation)
       {
-        mIsPreviewVisible = mIsPlacePageVisible = false;
-
-        mPlacePage.setVisibility(View.INVISIBLE);
-        mBookmarkDetails.setVisibility(View.INVISIBLE);
+        UiUtils.invisible(mPlacePage, mBookmarkDetails);
         ViewHelper.setTranslationY(mPlacePage, 0);
-        notifyVisibilityListener();
+        finishAnimation(false, false);
       }
     });
-    animator.setDuration(SHORT_ANIM_DURATION);
+    animator.setDuration(DURATION);
     animator.setInterpolator(new AccelerateInterpolator());
     animator.start();
-  }
-
-  @Override
-  public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
-  {
-    if (mState == State.BOOKMARK && v.getId() == mFrame.getId() && top != oldTop)
-    {
-      ViewHelper.setTranslationY(mPreview, -mDetailsContent.getHeight());
-      refreshToolbarVisibility();
-    }
   }
 }

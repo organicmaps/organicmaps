@@ -10,9 +10,7 @@
   <declare-styleable name="PlacePageView">
     <attr name="animationType" format="enum">
       <enum name="bottom" value="0"/>
-      <enum name="top" value="1"/>
-      <enum name="leftTop" value="2"/>
-      <enum name="leftFull" value="3"/>
+      <enum name="left" value="1"/>
     </attr>
   </declare-styleable>
 
