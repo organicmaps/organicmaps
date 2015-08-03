@@ -128,8 +128,6 @@ void Extract(::LineDefProto const * lineRule,
     ASSERT(false, ());
   }
 
-  params.m_cap = dp::ButtCap;
-
   switch (lineRule->join())
   {
   case ::NOJOIN    : params.m_join = dp::MiterJoin;
@@ -436,6 +434,10 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       Extract(pLineRule, params);
       params.m_depth = depth;
       params.m_baseGtoPScale = m_currentScaleGtoP;
+
+      if (m_simplify)
+        params.m_cap = dp::ButtCap;
+
       m_insertShape(make_unique_dp<LineShape>(m_spline, params));
     }
   }

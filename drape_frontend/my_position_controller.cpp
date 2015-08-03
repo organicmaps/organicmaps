@@ -1,5 +1,8 @@
 #include "my_position_controller.hpp"
 #include "visual_params.hpp"
+#include "animation/base_interpolator.hpp"
+#include "animation/interpolations.hpp"
+#include "animation/model_view_animation.hpp"
 
 #include "indexer/mercator.hpp"
 
@@ -42,6 +45,41 @@ bool TestModeBit(uint32_t mode, uint32_t bit)
 
 } // namespace
 
+class MyPositionController::MyPositionAnim : public BaseInterpolator
+{
+  using TBase = BaseInterpolator;
+public:
+  MyPositionAnim(m2::PointD const & startPt, m2::PointD const & endPt, double moveDuration,
+                 double startAzimut, double endAzimut, double rotationDuration)
+    : TBase(max(moveDuration, rotationDuration))
+    , m_startPt(startPt)
+    , m_endPt(endPt)
+    , m_moveDuration(moveDuration)
+    , m_angleInterpolator(startAzimut, endAzimut)
+    , m_rotateDuration(rotationDuration)
+  {
+  }
+
+  m2::PointD GetCurrentPosition() const
+  {
+    return InterpolatePoint(m_startPt, m_endPt,
+                            my::clamp(GetElapsedTime() / m_moveDuration, 0.0, 1.0));
+  }
+
+  double GetCurrentAzimut() const
+  {
+    return m_angleInterpolator.Interpolate(my::clamp(GetElapsedTime() / m_rotateDuration, 0.0, 1.0));
+  }
+
+private:
+  m2::PointD m_startPt;
+  m2::PointD m_endPt;
+  double m_moveDuration;
+
+  InerpolateAngle m_angleInterpolator;
+  double m_rotateDuration;
+};
+
 MyPositionController::MyPositionController(location::EMyPositionMode initMode)
   : m_modeInfo(location::MODE_PENDING_POSITION)
   , m_afterPendingMode(location::MODE_FOLLOW)
@@ -56,6 +94,11 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode)
     m_afterPendingMode = initMode;
   else
     m_modeInfo = location::MODE_UNKNOWN_POSITION;
+}
+
+MyPositionController::~MyPositionController()
+{
+  m_anim.reset();
 }
 
 void MyPositionController::SetPixelRect(m2::RectD const & pixelRect)
@@ -225,9 +268,10 @@ void MyPositionController::Invalidate()
   }
 }
 
-void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable)
+void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable,
+                                            ScreenBase const & screen)
 {
-  Assign(info, isNavigable);
+  Assign(info, isNavigable, screen);
 
   SetIsVisible(true);
 
@@ -238,9 +282,10 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   }
 }
 
-void MyPositionController::OnCompassUpdate(location::CompassInfo const & info)
+void MyPositionController::OnCompassUpdate(location::CompassInfo const & info,
+                                           ScreenBase const & screen)
 {
-  Assign(info);
+  Assign(info, screen);
 }
 
 void MyPositionController::SetModeListener(location::TMyPositionModeChanged const & fn)
@@ -261,8 +306,8 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
       m_isDirtyViewport = false;
     }
 
-    m_shape->SetPosition(m_position);
-    m_shape->SetAzimuth(m_drawDirection);
+    m_shape->SetPosition(GetDrawablePosition());
+    m_shape->SetAzimuth(GetDrawableAzimut());
     m_shape->SetIsValidAzimuth(IsRotationActive());
     m_shape->SetAccuracy(m_errorRadius);
     m_shape->SetRoutingMode(IsInRouting());
@@ -273,6 +318,8 @@ void MyPositionController::Render(uint32_t renderMode, ScreenBase const & screen
     if ((renderMode & RenderMyPosition) != 0)
       m_shape->RenderMyPosition(screen, mng, commonUniforms);
   }
+
+  CheckAnimFinished();
 }
 
 void MyPositionController::AnimateStateTransition(location::EMyPositionMode oldMode, location::EMyPositionMode newMode)
@@ -296,8 +343,11 @@ void MyPositionController::AnimateStateTransition(location::EMyPositionMode oldM
   }
 }
 
-void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigable)
+void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen)
 {
+  m2::PointD oldPos = GetDrawablePosition();
+  double oldAzimut = GetDrawableAzimut();
+
   m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude,
                                               info.m_latitude,
                                               info.m_horizontalAccuracy);
@@ -315,11 +365,16 @@ void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigab
   if (m_listener)
     m_listener->PositionChanged(Position());
 
+  CreateAnim(oldPos, oldAzimut, screen);
+
   m_isDirtyViewport = true;
 }
 
-void MyPositionController::Assign(location::CompassInfo const & info)
+void MyPositionController::Assign(location::CompassInfo const & info, ScreenBase const & screen)
 {
+  m2::PointD oldPos = GetDrawablePosition();
+  double oldAzimut = GetDrawableAzimut();
+
   if ((IsInRouting() && GetMode() >= location::MODE_FOLLOW) ||
       (m_lastGPSBearing.ElapsedSeconds() < GPS_BEARING_LIFETIME_S))
   {
@@ -327,6 +382,8 @@ void MyPositionController::Assign(location::CompassInfo const & info)
   }
 
   SetDirection(info.m_bearing);
+  CreateAnim(oldPos, oldAzimut, screen);
+
   m_isDirtyViewport = true;
 }
 
@@ -438,6 +495,38 @@ m2::PointD MyPositionController::GetCurrentPixelBinding() const
     ASSERT(false, ());
 
   return m2::PointD::Zero();
+}
+
+m2::PointD MyPositionController::GetDrawablePosition() const
+{
+  if (m_anim)
+    return m_anim->GetCurrentPosition();
+
+  return Position();
+}
+
+double MyPositionController::GetDrawableAzimut() const
+{
+  if (m_anim)
+    return m_anim->GetCurrentAzimut();
+
+  return m_drawDirection;
+}
+
+void MyPositionController::CheckAnimFinished() const
+{
+  if (m_anim && m_anim->IsFinished())
+    m_anim.reset();
+}
+
+void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen)
+{
+  double moveDuration = ModelViewAnimation::GetMoveDuration(oldPos, m_position, screen);
+  double rotateDuration = ModelViewAnimation::GetRotateDuration(oldAzimut, m_drawDirection);
+  double maxDuration = max(moveDuration, rotateDuration);
+  double MAX_MY_POSITION_DURATION = 2.0; // in seconds
+  if (maxDuration > 0.0 && maxDuration < MAX_MY_POSITION_DURATION)
+    m_anim.reset(new MyPositionAnim(oldPos, m_position, moveDuration, oldAzimut, m_drawDirection, rotateDuration));
 }
 
 void MyPositionController::ActivateRouting()

@@ -257,14 +257,15 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::CompassInfo:
     {
       ref_ptr<CompassInfoMessage> msg = message;
-      m_myPositionController->OnCompassUpdate(msg->GetInfo());
+      m_myPositionController->OnCompassUpdate(msg->GetInfo(), m_userEventStream.GetCurrentScreen());
       break;
     }
 
   case Message::GpsInfo:
     {
       ref_ptr<GpsInfoMessage> msg = message;
-      m_myPositionController->OnLocationUpdate(msg->GetInfo(), msg->IsNavigable());
+      m_myPositionController->OnLocationUpdate(msg->GetInfo(), msg->IsNavigable(),
+                                               m_userEventStream.GetCurrentScreen());
 
       location::RouteMatchingInfo const & info = msg->GetRouteInfo();
       if (info.HasDistanceFromBegin())

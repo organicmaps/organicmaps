@@ -40,6 +40,7 @@ public:
   };
 
   MyPositionController(location::EMyPositionMode initMode);
+  ~MyPositionController();
 
   void SetPixelRect(m2::RectD const & pixelRect);
   void SetListener(ref_ptr<Listener> listener);
@@ -72,8 +73,8 @@ public:
   void TurnOff();
   void Invalidate();
 
-  void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable);
-  void OnCompassUpdate(location::CompassInfo const & info);
+  void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
+  void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
 
   void SetModeListener(location::TMyPositionModeChanged const & fn);
 
@@ -83,8 +84,8 @@ public:
 private:
   void AnimateStateTransition(location::EMyPositionMode oldMode, location::EMyPositionMode newMode);
 
-  void Assign(location::GpsInfo const & info, bool isNavigable);
-  void Assign(location::CompassInfo const & info);
+  void Assign(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
+  void Assign(location::CompassInfo const & info, ScreenBase const & screen);
   void SetDirection(double bearing);
 
   void SetModeInfo(uint32_t modeInfo, bool force = false);
@@ -105,6 +106,11 @@ private:
   void Follow();
   m2::PointD GetRaFPixelBinding() const;
   m2::PointD GetCurrentPixelBinding() const;
+
+  m2::PointD GetDrawablePosition() const;
+  double GetDrawableAzimut() const;
+  void CheckAnimFinished() const;
+  void CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen);
 
 private:
   // Mode bits
@@ -132,6 +138,9 @@ private:
 
   bool m_isVisible;
   bool m_isDirtyViewport;
+
+  class MyPositionAnim;
+  mutable drape_ptr<MyPositionAnim> m_anim;
 };
 
 }
