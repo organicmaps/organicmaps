@@ -14,11 +14,12 @@ usage() {
   echo -e "-r\tGenerate routing files"
   echo -e "-o\tGenerate online routing files"
   echo -e "-a\tEquivalent to -uwr"
+  echo -e "-p\tGenerate only countries, no world and no routing"
   echo -e "-c\tClean last pass results if there was an error, and start anew"
   echo -e "-v\tPrint all commands executed"
   echo -e "-h\tThis help message"
   echo
-  echo -e "\tIf there is unfinished job, continues it, ignoring all arguments."
+  echo -e "\tIf there is unfinished job, continues it, ignoring all arguments (use -p if in doubt)."
   echo -e "\tUse -c to clean temporary data and build everything from scratch."
   echo
   echo "Useful environment variables:"
@@ -29,6 +30,7 @@ usage() {
   echo -e "\tREGIONS=\$(ls ../../data/A*.poly) $0"
   echo -e "NS\tNode storage; use \"map\" when you have less than 64 GB of memory"
   echo -e "ASYNC_PBF\tGenerate PBF files asynchronously, not in a separate step"
+  echo -e "MODE\tA mode to start with: coast, inter, routing, test, etc."
   echo -e "MAIL\tE-mail address to send notifications"
   echo
 }
