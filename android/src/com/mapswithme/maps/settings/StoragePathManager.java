@@ -47,6 +47,19 @@ import java.util.Set;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class StoragePathManager
 {
+  private static final String[] MOVABLE_EXTS = Framework.nativeGetMovableFilesExts();
+  private static final FilenameFilter MOVABLE_FILES_FILTER = new FilenameFilter() {
+    @Override
+    public boolean accept(File dir, String filename)
+    {
+      for (String ext : MOVABLE_EXTS)
+        if (filename.endsWith(ext))
+          return true;
+
+      return false;
+    }
+  };
+
   public interface MoveFilesListener
   {
     void moveFilesFinished(String newPath);
@@ -241,7 +254,6 @@ public class StoragePathManager
     parseMountFile("/proc/mounts", MOUNTS_MODE, paths);
   }
 
-  // TODO count inner files
   public static long getMwmDirSize()
   {
     final File writableDir = new File(Framework.nativeGetWritableDir());
@@ -253,15 +265,7 @@ public class StoragePathManager
         throw new IllegalStateException("Writable directory isn't a directory, can't get size.");
     }
 
-    final File[] files = writableDir.listFiles();
-    if (files == null)
-      return 0;
-
-    long size = 0;
-    for (final File f : files)
-      size += f.length();
-
-    return size;
+    return getDirSizeRecursively(writableDir, MOVABLE_FILES_FILTER);
   }
 
   public boolean moveBookmarksToPrimaryStorage()
@@ -614,21 +618,8 @@ public class StoragePathManager
         throw new IllegalStateException("Cannot move maps. New path is not writable. New path : " + fullNewPath);
     }
 
-    final String[] exts = Framework.nativeGetMovableFilesExts();
     ArrayList<String> relPaths = new ArrayList<>();
-    listFilesRecursively(oldDir, "", new FilenameFilter()
-    {
-      @Override
-      public boolean accept(File dir, String name)
-      {
-        for (String ext : exts)
-        {
-          if (name.endsWith(ext))
-            return true;
-        }
-        return false;
-      }
-    }, relPaths);
+    listFilesRecursively(oldDir, "", MOVABLE_FILES_FILTER, relPaths);
 
     File[] oldFiles = new File[relPaths.size()];
     File[] newFiles = new File[relPaths.size()];
@@ -701,6 +692,24 @@ public class StoragePathManager
         outputChannel.close();
     }
   }
+
+  private static long getDirSizeRecursively(File file, FilenameFilter fileFilter)
+  {
+    if (file.isDirectory())
+    {
+      long dirSize = 0;
+      for (File child : file.listFiles())
+        dirSize += getDirSizeRecursively(child, fileFilter);
+
+      return dirSize;
+    }
+
+    if (fileFilter.accept(file.getParentFile(), file.getName()))
+      return file.length();
+
+    return 0;
+  }
+
 
   private class MoveFilesTask extends AsyncTask<String, Void, Integer>
   {
