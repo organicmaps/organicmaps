@@ -90,6 +90,14 @@ UNIT_TEST(TurnsSoundMetersTest)
   TurnsSound turnSound;
   turnSound.Enable(true);
   turnSound.SetLengthUnits(routing::turns::sound::LengthUnits::Meters);
+  string const engShortJson =
+      "\
+      {\
+      \"in_600_meters\":\"In 600 meters.\",\
+      \"make_a_right_turn\":\"Make a right turn.\"\
+      }";
+  turnSound.SetLocaleWithJson(engShortJson);
+
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(30.);
 
@@ -114,9 +122,7 @@ UNIT_TEST(TurnsSoundMetersTest)
   // So we start playing the first notification when the distance till the turn is less
   // then 20 seconds * 30 meters per seconds + 100 meters = 700 meters.
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 699. /* distanceToTurnMeters */);
-  vector<routing::turns::sound::Notification> const expectedNotification1 = {
-      {600 /* m_distanceUnits */, 0 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
-       TurnDirection::TurnRight, LengthUnits::Meters}};
+  vector<string> const expectedNotification1 = {{"In 600 meters. Make a right turn."}};
   TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification1, ());
 
   // 650 meters till the turn. No sound notifications is required.
@@ -136,9 +142,7 @@ UNIT_TEST(TurnsSoundMetersTest)
 
   // 99 meters till the turn. It's time to pronounce the second voice notification.
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
-  vector<routing::turns::sound::Notification> const expectedNotification2 = {
-      {0 /* m_distanceUnits */, 0 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
-       TurnDirection::TurnRight, LengthUnits::Meters}};
+  vector<string> const expectedNotification2 = {{"Make a right turn."}};
   TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification2, ());
 
   // 99 meters till the turn again. No sound notifications is required.
@@ -167,6 +171,15 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
   TurnsSound turnSound;
   turnSound.Enable(true);
   turnSound.SetLengthUnits(routing::turns::sound::LengthUnits::Meters);
+  string const engShortJson =
+      "\
+      {\
+      \"in_700_meters\":\"In 700 meters.\",\
+      \"make_a_sharp_right_turn\":\"Make a sharp right turn.\",\
+      \"enter_the_roundabout\":\"Enter the roundabout.\"\
+      }";
+  turnSound.SetLocaleWithJson(engShortJson);
+
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(35.);
 
@@ -182,9 +195,7 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
 
   // 700 meters till the turn. It's time to pronounce the first voice notification.
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 700. /* distanceToTurnMeters */);
-  vector<routing::turns::sound::Notification> const expectedNotification1 = {
-      {700 /* m_distanceUnits */, 0 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
-       TurnDirection::TurnSharpRight, LengthUnits::Meters}};
+  vector<string> const expectedNotification1 = {{"In 700 meters. Make a sharp right turn."}};
   TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification1, ());
 
   turnSound.SetSpeedMetersPerSecond(32.);
@@ -195,9 +206,7 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
 
   // 99 meters till the turn. It's time to pronounce the second voice notification.
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 99. /* distanceToTurnMeters */);
-  vector<routing::turns::sound::Notification> const expectedNotification2 = {
-      {0 /* m_distanceUnits */, 0 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
-       TurnDirection::TurnSharpRight, LengthUnits::Meters}};
+  vector<string> const expectedNotification2 = {{"Make a sharp right turn."}};
   TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification2, ());
 
   turnSound.SetSpeedMetersPerSecond(10.);
@@ -215,9 +224,7 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
   // 40 meters till the second turn. It's time to pronounce the second voice notification
   // without the first one.
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem2, 40. /* distanceToTurnMeters */);
-  vector<routing::turns::sound::Notification> const expectedNotification3 = {
-      {0 /* m_distanceUnits */, 2 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
-       TurnDirection::EnterRoundAbout, LengthUnits::Meters}};
+  vector<string> const expectedNotification3 = {{"Enter the roundabout."}};
   TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification3, ());
 
   TEST(turnSound.IsEnabled(), ());
@@ -228,6 +235,14 @@ UNIT_TEST(TurnsSoundFeetTest)
   TurnsSound turnSound;
   turnSound.Enable(true);
   turnSound.SetLengthUnits(routing::turns::sound::LengthUnits::Feet);
+  string const engShortJson =
+      "\
+      {\
+      \"in_2000_feet\":\"In 2000 feet.\",\
+      \"enter_the_roundabout\":\"Enter the roundabout.\"\
+      }";
+  turnSound.SetLocaleWithJson(engShortJson);
+
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(30.);
 
@@ -252,9 +267,7 @@ UNIT_TEST(TurnsSoundFeetTest)
   // So we start playing the first notification when the distance till the turn is less
   // then 20 seconds * 30 meters per seconds + 100 meters = 700 meters.
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 699. /* distanceToTurnMeters */);
-  vector<routing::turns::sound::Notification> const expectedNotification1 = {
-      {2000 /* m_distanceUnits */, 3 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
-       TurnDirection::EnterRoundAbout, LengthUnits::Feet}};
+  vector<string> const expectedNotification1 = {{"In 2000 feet. Enter the roundabout."}};
   TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification1, ());
 
   // 650 meters till the turn. No sound notifications is required.
@@ -272,9 +285,7 @@ UNIT_TEST(TurnsSoundFeetTest)
 
   // 99 meters till the turn. It's time to pronounce the second voice notification.
   turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
-  vector<routing::turns::sound::Notification> const expectedNotification2 = {
-      {0 /* m_distanceUnits */, 3 /* m_exitNum */, false /* m_useThenInsteadOfDistance */,
-       TurnDirection::EnterRoundAbout, LengthUnits::Feet}};
+  vector<string> const expectedNotification2 = {{"Enter the roundabout."}};
   TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification2, ());
 
   // 99 meters till the turn again. No sound notifications is required.

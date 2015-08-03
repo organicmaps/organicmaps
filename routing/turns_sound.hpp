@@ -67,6 +67,8 @@ public:
   inline LengthUnits GetLengthUnits() const { return m_settings.GetLengthUnits(); }
   inline void SetLocale(string const & locale) { m_getTtsText.SetLocale(locale); }
   inline string GetLocale() const { return m_getTtsText.GetLocale(); }
+  /// SetLocaleWithJson is used for writing unit tests only.
+  void SetLocaleWithJson(string const & jsonBuffer) { m_getTtsText.SetLocaleWithJson(jsonBuffer); }
   void SetSpeedMetersPerSecond(double speed);
 
    /// \brief UpdateRouteFollowingInfo updates information about the next turn notification.
