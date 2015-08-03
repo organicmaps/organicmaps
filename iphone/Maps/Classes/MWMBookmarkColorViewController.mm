@@ -21,6 +21,7 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
 @property (nonatomic) BOOL colorWasChanged;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * tableViewHeight;
 
 @end
 
@@ -64,38 +65,25 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
   if (self.iPadOwnerNavigationController)
     return;
 
-  CGFloat const defaultHeight = 352.;
   CGSize const size = self.navigationController.view.bounds.size;
-  CGFloat const topOffset = 24.;
-
+  CGFloat const defaultHeight = 352.;
   switch (orientation)
   {
-    case UIInterfaceOrientationUnknown:
-      break;
-
-    case UIInterfaceOrientationPortraitUpsideDown:
     case UIInterfaceOrientationPortrait:
-    {
-      CGFloat const width = MIN(size.width, size.height);
-      CGFloat const height = MAX(size.width, size.height);
-      CGFloat const externalHeight = self.navigationController.navigationBar.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
-      CGFloat const actualHeight = defaultHeight > (height - externalHeight) ? height : defaultHeight;
-      self.tableView.frame = CGRectMake(0., topOffset, width, actualHeight);
+    case UIInterfaceOrientationPortraitUpsideDown:
+    case UIInterfaceOrientationUnknown:
+      self.tableViewHeight.constant = defaultHeight;
       break;
-    }
-
     case UIInterfaceOrientationLandscapeLeft:
     case UIInterfaceOrientationLandscapeRight:
     {
-      CGFloat const navBarHeight = self.navigationController.navigationBar.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-      CGFloat const width = MAX(size.width, size.height);
-      CGFloat const height = MIN(size.width, size.height);
-      CGFloat const currentHeight = height - navBarHeight - 2 * topOffset;
-      CGFloat const actualHeight = currentHeight > defaultHeight ? defaultHeight : currentHeight;
-      self.tableView.frame = CGRectMake(0., topOffset, width, actualHeight);
+      CGFloat const topOffset = 24.;
+      CGFloat const navBarHeight = 64.;
+      self.tableViewHeight.constant = MIN(defaultHeight, MIN(size.width, size.height) - 2 * topOffset - navBarHeight);
       break;
     }
   }
+  [self.tableView setNeedsLayout];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation

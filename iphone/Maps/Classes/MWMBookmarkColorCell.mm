@@ -21,11 +21,8 @@ extern NSArray * const kBookmarkColorsVariant;
 
 - (void)configureWithColorString:(NSString *)colorString
 {
-  CGFloat const leftOffset = 60.;
-  CGFloat const rightOffset = 42.;
   self.currentImageName = colorString;
   self.titleLabel.text = L([colorString stringByReplacingOccurrencesOfString:@"placemark-" withString:@""]);
-  self.titleLabel.width = self.bounds.size.width - leftOffset - rightOffset;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
