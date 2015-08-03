@@ -4,18 +4,16 @@ import java.util.Locale;
 
 public class UnitLocale
 {
-
-  /// @note This constants should be equal with platform/settings.hpp
+  // This constants should be equal with platform/settings.hpp
   public static final int UNITS_UNDEFINED = -1;
   public static final int UNITS_METRIC = 0;
-  public static final int UNITS_YARD = 1;
-  public static final int UNITS_FOOT = 2;
+  public static final int UNITS_FOOT = 1;
 
   private static int getDefaultUnits()
   {
     final String code = Locale.getDefault().getCountry();
     // USA, UK, Liberia, Burma
-    String arr[] = { "US", "GB", "LR", "MM" };
+    String arr[] = {"US", "GB", "LR", "MM"};
     for (String s : arr)
       if (s.equalsIgnoreCase(code))
         return UNITS_FOOT;
@@ -40,14 +38,6 @@ public class UnitLocale
   public static void initializeCurrentUnits()
   {
     final int u = getCurrentUnits();
-    if (u == UNITS_UNDEFINED)
-    {
-      // Checking system-default measurement system
-      setCurrentUnits(getDefaultUnits());
-    }
-    else
-    {
-      setCurrentUnits(u);
-    }
+    setCurrentUnits(u == UNITS_UNDEFINED ? getDefaultUnits() : u);
   }
 }
