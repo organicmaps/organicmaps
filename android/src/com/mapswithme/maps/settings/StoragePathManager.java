@@ -24,6 +24,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 
 import java.io.BufferedReader;
@@ -46,7 +47,7 @@ import java.util.Set;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class StoragePathManager
 {
-  public interface SetStoragePathListener
+  public interface MoveFilesListener
   {
     void moveFilesFinished(String newPath);
 
@@ -67,7 +68,7 @@ public class StoragePathManager
   private static final String PRO_SDCARD_PREFIX = "Android/data/com.mapswithme.maps.pro/files";
   private static final int VOLD_MODE = 1;
   private static final int MOUNTS_MODE = 2;
-  private static final String IS_KML_MOVED = "KmlBeenMoved";
+  private static final String IS_KML_PLACED_IN_MAIN_STORAGE = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
 
   private BroadcastReceiver mExternalReceiver;
@@ -75,7 +76,7 @@ public class StoragePathManager
   private Activity mActivity;
   private ArrayList<StoragePathAdapter.StorageItem> mItems;
   private int mCurrentStorageIndex = -1;
-  private SetStoragePathListener mStorageListener;
+  private MoveFilesListener mStorageListener;
 
   /**
    * Observes status of connected media and retrieves list of available external storages.
@@ -84,7 +85,7 @@ public class StoragePathManager
    * @param receiver receiver to get broadcasts of media events. can be null
    * @param listener listener to get notifications about maps transfers. can be null
    */
-  public void startExternalStorageWatching(Activity activity, BroadcastReceiver receiver, SetStoragePathListener listener)
+  public void startExternalStorageWatching(Activity activity, BroadcastReceiver receiver, MoveFilesListener listener)
   {
     mActivity = activity;
     mStorageListener = listener;
@@ -263,13 +264,12 @@ public class StoragePathManager
     return size;
   }
 
-  public boolean moveBookmarks()
+  public boolean moveBookmarksToPrimaryStorage()
   {
     ArrayList<String> paths = new ArrayList<>();
-    if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
-      parseStorages(paths);
+    parseStorages(paths);
 
-    ArrayList<String> approvedPaths = new ArrayList<>();
+    List<String> approvedPaths = new ArrayList<>();
     for (String path : paths)
     {
       String mwmPath = path + Constants.MWM_DIR_POSTFIX;
@@ -282,7 +282,7 @@ public class StoragePathManager
     final String bookmarkDir = Framework.nativeGetBookmarkDir();
     final String bookmarkFileExt = Framework.nativeGetBookmarksExt();
 
-    LinkedHashSet<File> bookmarks = new LinkedHashSet<>();
+    Set<File> bookmarks = new LinkedHashSet<>();
     if (!settingsDir.equals(writableDir))
       approvedPaths.add(writableDir);
 
@@ -308,6 +308,7 @@ public class StoragePathManager
         oldBookmark.delete();
       } catch (IOException e)
       {
+        e.printStackTrace();
         return false;
       }
     }
@@ -351,7 +352,7 @@ public class StoragePathManager
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            setStoragePath(mActivity, new StoragePathManager.SetStoragePathListener()
+            setStoragePath(mActivity, new MoveFilesListener()
             {
               @Override
               public void moveFilesFinished(String newPath)
@@ -386,11 +387,8 @@ public class StoragePathManager
    * Checks whether current directory is actually writable on Kitkat devices. On earlier versions of android ( < 4.4 ) the root of external
    * storages was writable, but on Kitkat it isn't, so we should move our maps to other directory.
    * http://www.doubleencore.com/2014/03/android-external-storage/ check that link for explanations
-   *
-   * @param context
-   * @param listener
    */
-  public void checkWritableDir(Context context, SetStoragePathListener listener)
+  public void checkExternalStoragePathOnKitkat(Context context, MoveFilesListener listener)
   {
     if (Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT)
       return;
@@ -398,10 +396,7 @@ public class StoragePathManager
     final String settingsDir = Framework.nativeGetSettingsDir();
     final String writableDir = Framework.nativeGetWritableDir();
 
-    if (settingsDir.equals(writableDir))
-      return;
-
-    if (isDirWritable(writableDir))
+    if (settingsDir.equals(writableDir) || isDirWritable(writableDir))
       return;
 
     final long size = getMwmDirSize();
@@ -419,7 +414,7 @@ public class StoragePathManager
     listener.moveFilesFailed(UNKNOWN_KITKAT_ERROR);
   }
 
-  public void moveMapsLiteToPro(Context context, SetStoragePathListener listener)
+  public void moveMapsLiteToPro(Context context, MoveFilesListener listener)
   {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
       return;
@@ -453,25 +448,73 @@ public class StoragePathManager
     return storagePath.contains(LITE_SDCARD_PREFIX) || storagePath.contains(SAMSUNG_LITE_SDCARD_PREFIX);
   }
 
+  /**
+   * Checks bookmarks and data(mwms, routing, indexes etc) locations on external storages.
+   * <p/>
+   * Bookmarks should be placed in main MapsWithMe directory on primary storage (eg. SettingsDir, where settings.ini file is placed). If they were copied
+   * to external storage (can happen on 2.6 and earlier mapswithme application versions) - we should move them back.
+   * <p/>
+   * Data should be placed in private app directory on Kitkat+ devices, hence root of sdcard isn't writable anymore on them.
+   */
   public void checkKitkatMigration(final Activity activity)
   {
-    final boolean bookmarksMigrated = MWMApplication.get().nativeGetBoolean(IS_KML_MOVED, false);
-    final boolean mapsMigrated = MWMApplication.get().nativeGetBoolean(IS_KITKAT_MIGRATION_COMPLETED, false);
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+      return;
 
-    if (!bookmarksMigrated)
+    migrateBookmarks(activity, new MoveFilesListener()
     {
-      if (moveBookmarks())
-        MWMApplication.get().nativeSetBoolean(IS_KML_MOVED, true);
-      else
+      @Override
+      public void moveFilesFinished(String newPath)
+      {
+        migrateMaps(activity);
+      }
+
+      @Override
+      public void moveFilesFailed(int errorCode)
       {
         UiUtils.showAlertDialog(activity, R.string.bookmark_move_fail);
-        return;
       }
-    }
-    if (!mapsMigrated)
+    });
+  }
+
+  private void migrateBookmarks(final Activity activity, final MoveFilesListener listener)
+  {
+    if (MWMApplication.get().nativeGetBoolean(IS_KML_PLACED_IN_MAIN_STORAGE, false))
+      listener.moveFilesFinished("");
+    else
     {
-      checkWritableDir(activity,
-          new SetStoragePathListener()
+      ThreadPool.getStorage().execute(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          final boolean res = moveBookmarksToPrimaryStorage();
+
+          UiThread.run(new Runnable()
+          {
+            @Override
+            public void run()
+            {
+              if (res)
+              {
+                MWMApplication.get().nativeSetBoolean(IS_KML_PLACED_IN_MAIN_STORAGE, true);
+                listener.moveFilesFinished("");
+              }
+              else
+                listener.moveFilesFailed(NULL_ERROR);
+            }
+          });
+        }
+      });
+    }
+  }
+
+  private void migrateMaps(final Activity activity)
+  {
+    if (!MWMApplication.get().nativeGetBoolean(IS_KITKAT_MIGRATION_COMPLETED, false))
+    {
+      checkExternalStoragePathOnKitkat(activity,
+          new MoveFilesListener()
           {
             @Override
             public void moveFilesFinished(String newPath)
@@ -490,14 +533,15 @@ public class StoragePathManager
     }
   }
 
-  private void setStoragePath(Context context, SetStoragePathListener listener, StoragePathAdapter.StorageItem newStorage,
+  private void setStoragePath(Context context, MoveFilesListener listener, StoragePathAdapter.StorageItem newStorage,
                               StoragePathAdapter.StorageItem oldStorage, int messageId)
   {
-    MoveFilesTask task = new MoveFilesTask(context, listener, newStorage, oldStorage, messageId);
-    task.execute("");
+    new MoveFilesTask(context, listener, newStorage, oldStorage, messageId).execute("");
   }
 
-  // Recursively lists all movable files in the directory.
+  /**
+   * Recursively lists all movable files in the directory.
+   */
   private static void listFilesRecursively(File dir, String prefix, FilenameFilter filter, ArrayList<String> relPaths)
   {
     for (File file : dir.listFiles())
@@ -542,7 +586,7 @@ public class StoragePathManager
     }
   }
 
-  private static int doMoveMaps(StoragePathAdapter.StorageItem newStorage, StoragePathAdapter.StorageItem oldStorage)
+  private static int changeStorage(StoragePathAdapter.StorageItem newStorage, StoragePathAdapter.StorageItem oldStorage)
   {
     final String fullNewPath = getItemFullPath(newStorage);
 
@@ -663,9 +707,9 @@ public class StoragePathManager
     private final ProgressDialog mDlg;
     private final StoragePathAdapter.StorageItem mNewStorage;
     private final StoragePathAdapter.StorageItem mOldStorage;
-    private final SetStoragePathListener mListener;
+    private final MoveFilesListener mListener;
 
-    public MoveFilesTask(Context context, SetStoragePathListener listener, StoragePathAdapter.StorageItem newStorage,
+    public MoveFilesTask(Context context, MoveFilesListener listener, StoragePathAdapter.StorageItem newStorage,
                          StoragePathAdapter.StorageItem oldStorage, int messageID)
     {
       mNewStorage = newStorage;
@@ -688,7 +732,7 @@ public class StoragePathManager
     @Override
     protected Integer doInBackground(String... params)
     {
-      return doMoveMaps(mNewStorage, mOldStorage);
+      return changeStorage(mNewStorage, mOldStorage);
     }
 
     @Override

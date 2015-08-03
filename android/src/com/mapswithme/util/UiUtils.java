@@ -293,9 +293,9 @@ public final class UiUtils
     toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
   }
 
-  public static void showAlertDialog(Activity activity, int titleId)
+  public static AlertDialog buildAlertDialog(Activity activity, int titleId)
   {
-    new AlertDialog.Builder(activity)
+    return new AlertDialog.Builder(activity)
         .setCancelable(false)
         .setMessage(titleId)
         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
@@ -303,13 +303,18 @@ public final class UiUtils
           @Override
           public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
         })
-        .create()
-        .show();
+        .create();
   }
 
-  public static void showAlertDialog(Activity activity, String title)
+  public static void showAlertDialog(Activity activity, int titleId)
   {
-    new AlertDialog.Builder(activity)
+    buildAlertDialog(activity, titleId).show();
+  }
+
+
+  public static AlertDialog buildAlertDialog(Activity activity, String title)
+  {
+    return new AlertDialog.Builder(activity)
         .setCancelable(false)
         .setMessage(title)
         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
@@ -317,8 +322,12 @@ public final class UiUtils
           @Override
           public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
         })
-        .create()
-        .show();
+        .create();
+  }
+
+  public static void showAlertDialog(Activity activity, String title)
+  {
+    buildAlertDialog(activity, title).show();
   }
 
   public static String deviceOrientationAsString(Activity activity)

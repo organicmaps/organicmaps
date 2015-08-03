@@ -61,7 +61,7 @@ import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.search.SearchToolbarController;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
-import com.mapswithme.maps.settings.StoragePathManager.SetStoragePathListener;
+import com.mapswithme.maps.settings.StoragePathManager.MoveFilesListener;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.widget.BottomButtonsLayout;
 import com.mapswithme.maps.widget.FadeView;
@@ -283,7 +283,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
         return;
 
       mPathManager.moveMapsLiteToPro(this,
-          new SetStoragePathListener()
+          new MoveFilesListener()
           {
             @Override
             public void moveFilesFinished(String newPath)
