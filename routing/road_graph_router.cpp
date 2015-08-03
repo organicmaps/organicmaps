@@ -18,7 +18,7 @@ namespace routing
 
 namespace
 {
-// TODO (@gorshenin, @pimenov, @ldragunov): MAX_ROAD_CANDIDATES == 1
+// TODO (@gorshenin, @pimenov, @ldragunov): kMaxRoadCandidates == 1
 // means that only two closest feature will be examined when searching
 // for features in the vicinity of start and final points.
 // It is an oversimplification that is not as easily
@@ -26,7 +26,8 @@ namespace
 // you risk to find a feature that you cannot in fact reach because of
 // an obstacle.  Using only the closest feature minimizes (but not
 // eliminates) this risk.
-size_t const MAX_ROAD_CANDIDATES = 1;
+size_t const kMaxRoadCandidates = 1;
+uint64_t constexpr kMinPedestrianMwmVersion = 150713;
 
 IRouter::ResultCode Convert(IRoutingAlgorithm::Result value)
 {
@@ -46,6 +47,18 @@ void Convert(vector<Junction> const & path, vector<m2::PointD> & geometry)
   geometry.reserve(path.size());
   for (auto const & pos : path)
     geometry.emplace_back(pos.GetPoint());
+}
+
+// Check if the found edges lays on mwm with pedestrian routing support.
+string CheckMwmAge(vector<pair<Edge, m2::PointD>> const & vicinities)
+{
+  for (auto const & vicinity : vicinities)
+  {
+    auto const mwmInfo = vicinity.first.GetFeatureId().m_mwmId.GetInfo();
+    if (mwmInfo->GetVersion() < kMinPedestrianMwmVersion)
+      return mwmInfo->GetCountryName();
+  }
+  return "";
 }
 }  // namespace
 
@@ -73,16 +86,30 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
                                                     RouterDelegate const & delegate, Route & route)
 {
   vector<pair<Edge, m2::PointD>> finalVicinity;
-  m_roadGraph->FindClosestEdges(finalPoint, MAX_ROAD_CANDIDATES, finalVicinity);
+  m_roadGraph->FindClosestEdges(finalPoint, kMaxRoadCandidates, finalVicinity);
   
   if (finalVicinity.empty())
     return EndPointNotFound;
 
+  auto mwmName = CheckMwmAge(finalVicinity);
+  if (!mwmName.empty())
+  {
+    route.AddAbsentCountry(mwmName);
+    return FileTooOld;
+  }
+
   vector<pair<Edge, m2::PointD>> startVicinity;
-  m_roadGraph->FindClosestEdges(startPoint, MAX_ROAD_CANDIDATES, startVicinity);
+  m_roadGraph->FindClosestEdges(startPoint, kMaxRoadCandidates, startVicinity);
 
   if (startVicinity.empty())
     return StartPointNotFound;
+
+  mwmName = CheckMwmAge(startVicinity);
+  if (!mwmName.empty())
+  {
+    route.AddAbsentCountry(mwmName);
+    return FileTooOld;
+  }
 
   Junction const startPos(startPoint);
   Junction const finalPos(finalPoint);
