@@ -135,27 +135,43 @@ public enum LocationState
 
     private void DumpLanes(SingleLaneInfo[] lanes)
     {
+      final int initialCapacity = 32;
       for (int j = 0; j < lanes.length; j++)
       {
-        final int initialCapacity = 32;
         StringBuilder sb = new StringBuilder(initialCapacity);
         sb.append("Lane number ").append(j).append(". ").append(lanes[j]);
         Log.d("JNIARRAY", "    " + sb.toString());
       }
     }
 
+    private void DumpNotifications(String[] turnNotifications)
+    {
+      final int initialCapacity = 32;
+      for (int j = 0; j < turnNotifications.length; j++)
+      {
+        StringBuilder sb = new StringBuilder(initialCapacity);
+        sb.append("Turn notification ").append(j).append(". ").append(turnNotifications[j]);
+        Log.d("JNIARRAY", "    " + sb.toString());
+      }
+    }
+
     public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, 
-                       String targetName, int direction, int totalTime, SingleLaneInfo[] lanes)
+                       String targetName, int direction, int totalTime, SingleLaneInfo[] lanes, String[] turnNotifications)
     {
       // lanes is not equal to null if any lane information is available and should be displayed.
       // If so, lanes contains values of Lane enum for every lane.
       // Log.d("JNIARRAY", "RoutingInfo(" + distToTarget + ", " + units + ", " + distTurn + ", ... , " + targetName);
       // if (lanes == null)
-      //   Log.d("JNIARRAY", "lanes is empty");
+      //   Log.d("JNIARRAY", "lanes is empty.");
       // else
       //   DumpLanes(lanes);
+      // @TODO use lanes and targetName in java code.
 
-      //@todo use lanes and targetName in java code.
+      // if (turnNotifications == null)
+      //   Log.d("JNIARRAY", "No turn notifications.");
+      // else
+      //   DumpNotifications(turnNotifications);
+      // @TODO(vbykoianko) Use turn notification information in java code.
 
       mDistToTarget = distToTarget;
       mUnits = units;

@@ -1334,8 +1334,24 @@ extern "C"
         env->GetMethodID(klass, "<init>",
                          "(Ljava/lang/String;Ljava/lang/String;"
                          "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II"
-                         "[Lcom/mapswithme/maps/LocationState$SingleLaneInfo;)V");
+                         "[Lcom/mapswithme/maps/LocationState$SingleLaneInfo;[Ljava/lang/String;)V");
     ASSERT(ctorRouteInfoID, (jni::DescribeException()));
+
+    jobjectArray jNotificationTexts = nullptr;
+    if (!info.m_turnNotifications.empty())
+    {
+      // A new java array of Strings for TTS information is allocated here.
+      // Then it will be saved in com.mapswithme.maps.LocationState, and then removed by java GC.
+      size_t const notificationsSize = info.m_turnNotifications.size();
+      jNotificationTexts = env->NewObjectArray(notificationsSize, jni::GetStringClass(env), nullptr);
+
+      for (size_t i = 0; i < notificationsSize; ++i)
+      {
+        jstring const jNotificationText = jni::ToJavaString(env, info.m_turnNotifications[i]);
+        env->SetObjectArrayElement(jNotificationTexts, i, jNotificationText);
+        env->DeleteLocalRef(jNotificationText);
+      }
+    }
 
     vector<location::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
     jobjectArray jLanes = nullptr;
@@ -1375,7 +1391,7 @@ extern "C"
         klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),
         jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
         jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_targetName),
-        info.m_turn, info.m_time, jLanes);
+        info.m_turn, info.m_time, jLanes, jNotificationTexts);
     ASSERT(result, (jni::DescribeException()));
     return result;
   }

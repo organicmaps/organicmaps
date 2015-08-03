@@ -15,7 +15,7 @@ struct RoutingSettings
   /// If m_matchRoute is equal to false GPS bearing is used while
   /// the current position is matched to the route.
   bool    m_matchRoute;
-  /// \brief if m_soundDirection is equal to true an end user get sound notification
+  /// \brief if m_soundDirection is equal to true an end user gets sound notification
   /// before directions.
   bool    m_soundDirection;
 

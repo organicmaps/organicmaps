@@ -144,7 +144,7 @@ void TurnsSound::SetSpeedMetersPerSecond(double speed)
 
 void TurnsSound::Reset()
 {
-  m_nextTurnNotificationProgress = turns::sound::PronouncedNotification::Nothing;
+  m_nextTurnNotificationProgress = PronouncedNotification::Nothing;
   m_nextTurnIndex = 0;
 }
 
