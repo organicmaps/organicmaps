@@ -8,14 +8,15 @@
 namespace
 {
 using namespace routing::turns::sound;
-string DistToTextId(VecPairDist::const_iterator begin, VecPairDist::const_iterator end,
-                    uint32_t dist)
+
+template <class TIter> string DistToTextId(TIter begin, TIter end, uint32_t dist)
 {
-  VecPairDist::const_iterator distToSound =
-      lower_bound(begin, end, dist, [](PairDist const & p1, uint32_t p2)
-                  {
-        return p1.first < p2;
-      });
+  using TValue = typename iterator_traits<TIter>::value_type;
+
+  TIter distToSound = lower_bound(begin, end, dist, [](TValue const & p1, uint32_t p2)
+                      {
+                        return p1.first < p2;
+                      });
   if (distToSound == end)
   {
     ASSERT(false, ("notification.m_distanceUnits is not correct."));

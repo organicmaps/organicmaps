@@ -20,7 +20,7 @@ class GetTextById
 public:
   GetTextById(TextSource textSouce, string const & localeName);
   /// The constructor is used for writing unit tests only.
-  GetTextById(string const & jsonBuffer);
+  explicit GetTextById(string const & jsonBuffer);
 
   bool IsValid() const { return !m_localeTexts.empty(); }
   /// @return a pair of a text string in a specified locale for textId and a boolean flag.

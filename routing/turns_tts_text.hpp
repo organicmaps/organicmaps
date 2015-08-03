@@ -5,6 +5,7 @@
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 
+
 namespace routing
 {
 namespace turns
