@@ -69,6 +69,7 @@ public class RoutingResultCodesProcessor
     case DIFFERENT_MWM:
       messages.add(resources.getString(R.string.routing_failed_cross_mwm_building));
       break;
+    //TODO (@yunitski @marchuk) Add proper dialog for this case.
     case FILE_TOO_OLD:
     case ROUTE_NOT_FOUND:
       if (missingCount == 0)

@@ -95,6 +95,7 @@
     case routing::IRouter::Cancelled:
     case routing::IRouter::NoError:
     case routing::IRouter::NeedMoreMaps:
+    //TODO (mikhaylenko, grechuhin) Make proper flag processing.
     case routing::IRouter::FileTooOld:
       return nil;
   }

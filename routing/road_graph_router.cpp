@@ -26,7 +26,7 @@ namespace
 // you risk to find a feature that you cannot in fact reach because of
 // an obstacle.  Using only the closest feature minimizes (but not
 // eliminates) this risk.
-size_t const kMaxRoadCandidates = 1;
+size_t constexpr kMaxRoadCandidates = 1;
 uint64_t constexpr kMinPedestrianMwmVersion = 150713;
 
 IRouter::ResultCode Convert(IRoutingAlgorithm::Result value)
@@ -50,15 +50,16 @@ void Convert(vector<Junction> const & path, vector<m2::PointD> & geometry)
 }
 
 // Check if the found edges lays on mwm with pedestrian routing support.
-string CheckMwmAge(vector<pair<Edge, m2::PointD>> const & vicinities)
+bool CheckMwmVersion(vector<pair<Edge, m2::PointD>> const & vicinities, vector<string> & mwmNames)
 {
+  mwmNames.clear();
   for (auto const & vicinity : vicinities)
   {
     auto const mwmInfo = vicinity.first.GetFeatureId().m_mwmId.GetInfo();
     if (mwmInfo->GetVersion() < kMinPedestrianMwmVersion)
-      return mwmInfo->GetCountryName();
+      mwmNames.push_back(mwmInfo->GetCountryName());
   }
-  return "";
+  return !mwmNames.empty();
 }
 }  // namespace
 
@@ -91,10 +92,12 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   if (finalVicinity.empty())
     return EndPointNotFound;
 
-  auto mwmName = CheckMwmAge(finalVicinity);
-  if (!mwmName.empty())
+  //TODO (ldragunov) Remove this check after several releases. (Estimated in november)
+  vector<string> mwmNames;
+  if (CheckMwmVersion(finalVicinity, mwmNames))
   {
-    route.AddAbsentCountry(mwmName);
+    for (auto const & name : mwmNames)
+      route.AddAbsentCountry(name);
     return FileTooOld;
   }
 
@@ -104,10 +107,11 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   if (startVicinity.empty())
     return StartPointNotFound;
 
-  mwmName = CheckMwmAge(startVicinity);
-  if (!mwmName.empty())
+  //TODO (ldragunov) Remove this check after several releases. (Estimated in november)
+  if (CheckMwmVersion(startVicinity, mwmNames))
   {
-    route.AddAbsentCountry(mwmName);
+    for (auto const & name : mwmNames)
+      route.AddAbsentCountry(name);
     return FileTooOld;
   }
 

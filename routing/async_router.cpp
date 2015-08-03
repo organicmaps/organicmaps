@@ -32,6 +32,8 @@ string ToString(IRouter::ResultCode code)
   case IRouter::NeedMoreMaps: return "NeedMoreMaps";
   case IRouter::FileTooOld: return "FileTooOld";
   }
+  ASSERT(false, ());
+  return "Routing result code case error.";
 }
 
 map<string, string> PrepareStatisticsData(string const & routerName,
