@@ -2114,7 +2114,7 @@ void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
       for (string const & name : route.GetAbsentCountries())
       {
         storage::TIndex fileIndex = m_storage.FindIndexByFile(name);
-        if (m_storage.GetLatestLocalFile(fileIndex))
+        if (m_storage.GetLatestLocalFile(fileIndex) && code != IRouter::FileTooOld)
           absentRoutingIndexes.push_back(fileIndex);
         else
           absentCountries.push_back(fileIndex);
