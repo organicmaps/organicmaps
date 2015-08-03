@@ -34,6 +34,13 @@ RoutingSession::RoutingSession()
 {
 }
 
+void RoutingSession::Init(TRoutingStatisticsCallback const & routingStatisticsFn,
+                          RouterDelegate::TPointCheckCallback const & pointCheckCallback)
+{
+  ASSERT(m_router == nullptr, ());
+  m_router.reset(new AsyncRouter(routingStatisticsFn, pointCheckCallback));
+}
+
 void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
                                 TReadyCallback const & readyCallback,
                                 TProgressCallback const & progressCallback,
@@ -91,6 +98,8 @@ void RoutingSession::RemoveRoute()
 
 void RoutingSession::Reset()
 {
+  ASSERT(m_router != nullptr, ());
+
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
 
@@ -240,15 +249,11 @@ void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)
 }
 
 void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
-                               unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
-                               TRoutingStatisticsCallback const & routingStatisticsFn,
-                               RouterDelegate::TPointCheckCallback const & pointCheckCallback)
+                               unique_ptr<OnlineAbsentCountriesFetcher> && fetcher)
 {
-  if (m_router)
-    Reset();
-
-  m_router.reset(new AsyncRouter(move(router), move(fetcher), routingStatisticsFn, 
-                                 pointCheckCallback));
+  ASSERT(m_router != nullptr, ());
+  Reset();
+  m_router->SetRouter(move(router), move(fetcher));
 }
 
 void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,

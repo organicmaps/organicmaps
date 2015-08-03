@@ -55,48 +55,117 @@ map<string, string> PrepareStatisticsData(string const & routerName,
 
 }  // namespace
 
-AsyncRouter::AsyncRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFetcher> && fetcher,
-                         TRoutingStatisticsCallback const & routingStatisticsCallback,
-                         RouterDelegate::TPointCheckCallback const & pointCheckCallback)
-    : m_absentFetcher(move(fetcher)),
-      m_router(move(router)),
-      m_routingStatisticsCallback(routingStatisticsCallback)
+// ----------------------------------------------------------------------------------------------------------------------------
+
+AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(TReadyCallback const & onReady,
+                                                      RouterDelegate::TPointCheckCallback const & onPointCheck,
+                                                      RouterDelegate::TProgressCallback const & onProgress,
+                                                      uint32_t timeoutSec)
+  : m_onReady(onReady), m_onPointCheck(onPointCheck), m_onProgress(onProgress)
 {
-  ASSERT(m_router, ());
-  m_delegate.SetPointCheckCallback(pointCheckCallback);
-  m_isReadyThread.clear();
+  m_delegate.Reset();
+  m_delegate.SetPointCheckCallback(bind(&RouterDelegateProxy::OnPointCheck, this, _1));
+  m_delegate.SetProgressCallback(bind(&RouterDelegateProxy::OnProgress, this, _1));
+  m_delegate.SetTimeout(timeoutSec);
 }
 
-AsyncRouter::~AsyncRouter() { ClearState(); }
+void AsyncRouter::RouterDelegateProxy::OnReady(Route & route, IRouter::ResultCode resultCode)
+{
+  if (!m_onReady)
+    return;
+  lock_guard<mutex> l(m_guard);
+  if (m_delegate.IsCancelled())
+    return;
+  m_onReady(route, resultCode);
+}
+
+void AsyncRouter::RouterDelegateProxy::Cancel()
+{
+  lock_guard<mutex> l(m_guard);
+  m_delegate.Cancel();
+}
+
+void AsyncRouter::RouterDelegateProxy::OnProgress(float progress)
+{
+  if (!m_onProgress)
+    return;
+  lock_guard<mutex> l(m_guard);
+  if (m_delegate.IsCancelled())
+    return;
+  m_onProgress(progress);
+}
+
+void AsyncRouter::RouterDelegateProxy::OnPointCheck(m2::PointD const & pt)
+{
+  if (!m_onPointCheck)
+    return;
+  lock_guard<mutex> l(m_guard);
+  if (m_delegate.IsCancelled())
+    return;
+  m_onPointCheck(pt);
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+
+AsyncRouter::AsyncRouter(TRoutingStatisticsCallback const & routingStatisticsCallback,
+                         RouterDelegate::TPointCheckCallback const & pointCheckCallback)
+    : m_threadExit(false), m_hasRequest(false), m_clearState(false),
+      m_routingStatisticsCallback(routingStatisticsCallback),
+      m_pointCheckCallback(pointCheckCallback)
+{
+  m_thread = thread(bind(&AsyncRouter::ThreadFunc, this));
+}
+
+AsyncRouter::~AsyncRouter()
+{
+  {
+    unique_lock<mutex> ul(m_guard);
+
+    ResetDelegate();
+
+    m_threadExit = true;
+    m_threadCondVar.notify_one();
+  }
+
+  m_thread.join();
+}
+
+void AsyncRouter::SetRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFetcher> && fetcher)
+{
+  unique_lock<mutex> ul(m_guard);
+
+  ResetDelegate();
+
+  m_router = move(router);
+  m_absentFetcher = move(fetcher);
+}
 
 void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
                                  m2::PointD const & finalPoint, TReadyCallback const & readyCallback,
                                  RouterDelegate::TProgressCallback const & progressCallback,
                                  uint32_t timeoutSec)
 {
-  {
-    lock_guard<mutex> paramsGuard(m_paramsMutex);
+  unique_lock<mutex> ul(m_guard);
 
-    m_startPoint = startPoint;
-    m_startDirection = direction;
-    m_finalPoint = finalPoint;
+  m_startPoint = startPoint;
+  m_startDirection = direction;
+  m_finalPoint = finalPoint;
 
-    m_delegate.Cancel();
-    m_delegate.SetProgressCallback(progressCallback);
-  }
+  ResetDelegate();
 
-  GetPlatform().RunAsync(bind(&AsyncRouter::CalculateRouteImpl, this, readyCallback, timeoutSec));
+  m_delegate = make_shared<RouterDelegateProxy>(readyCallback, m_pointCheckCallback, progressCallback, timeoutSec);
+
+  m_hasRequest = true;
+  m_threadCondVar.notify_one();
 }
 
 void AsyncRouter::ClearState()
 {
-  // Send cancel flag to the algorithms.
-  m_delegate.Cancel();
+  unique_lock<mutex> ul(m_guard);
 
-  // And wait while it is finishing.
-  lock_guard<mutex> routingGuard(m_routingMutex);
+  m_clearState = true;
 
-  m_router->ClearState();
+  ResetDelegate();
 }
 
 void AsyncRouter::LogCode(IRouter::ResultCode code, double const elapsedSec)
@@ -137,33 +206,70 @@ void AsyncRouter::LogCode(IRouter::ResultCode code, double const elapsedSec)
     case IRouter::InternalError:
       LOG(LINFO, ("Internal error"));
       break;
+    case IRouter::FileTooOld:
+      LOG(LINFO, ("File too old"));
+      break;
   }
 }
 
-void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, uint32_t timeoutSec)
+void AsyncRouter::ResetDelegate()
 {
-  ASSERT(m_router, ());
-  if (m_isReadyThread.test_and_set())
-    return;
-
-  Route route(m_router->GetName());
-  IRouter::ResultCode code;
-
-  lock_guard<mutex> routingGuard(m_routingMutex);
-
-  m_isReadyThread.clear();
-
-  m2::PointD startPoint, finalPoint, startDirection;
+  if (m_delegate)
   {
-    lock_guard<mutex> paramsGuard(m_paramsMutex);
+    m_delegate->Cancel();
+    m_delegate.reset();
+  }
+}
+
+void AsyncRouter::ThreadFunc()
+{
+  while (true)
+  {
+    {
+      unique_lock<mutex> ul(m_guard);
+      m_threadCondVar.wait(ul, [this](){ return m_threadExit || m_hasRequest; });
+
+      if (m_threadExit)
+        break;
+    }
+
+    CalculateRoute();
+  }
+}
+
+void AsyncRouter::CalculateRoute()
+{
+  bool clearState = true;
+  shared_ptr<RouterDelegateProxy> delegate;
+  m2::PointD startPoint, finalPoint, startDirection;
+  shared_ptr<IOnlineFetcher> absentFetcher;
+  shared_ptr<IRouter> router;
+
+  {
+    unique_lock<mutex> ul(m_guard);
+
+    bool hasRequest = m_hasRequest;
+    m_hasRequest = false;
+    if (!hasRequest)
+      return;
+    if (!m_router)
+      return;
+    if (!m_delegate)
+      return;
 
     startPoint = m_startPoint;
     finalPoint = m_finalPoint;
     startDirection = m_startDirection;
+    clearState = m_clearState;
+    delegate = m_delegate;
+    router = m_router;
+    absentFetcher = m_absentFetcher;
 
-    m_delegate.Reset();
-    m_delegate.SetTimeout(timeoutSec);
+    m_clearState = false;
   }
+
+  Route route(router->GetName());
+  IRouter::ResultCode code;
 
   my::Timer timer;
   double elapsedSec = 0.0;
@@ -172,11 +278,14 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, uint3
   {
     LOG(LDEBUG, ("Calculating the route from", startPoint, "to", finalPoint, "startDirection", startDirection));
 
-    if (m_absentFetcher)
-      m_absentFetcher->GenerateRequest(startPoint, finalPoint);
+    if (absentFetcher)
+      absentFetcher->GenerateRequest(startPoint, finalPoint);
+
+    if (clearState)
+      router->ClearState();
 
     // Run basic request.
-    code = m_router->CalculateRoute(startPoint, startDirection, finalPoint, m_delegate, route);
+    code = router->CalculateRoute(startPoint, startDirection, finalPoint, delegate->GetDelegate(), route);
 
     elapsedSec = timer.ElapsedSeconds(); // routing time
     LogCode(code, elapsedSec);
@@ -186,23 +295,23 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, uint3
     code = IRouter::InternalError;
     LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
     SendStatistics(startPoint, startDirection, finalPoint, e.Msg());
-    readyCallback(route, code);
+    delegate->OnReady(route, code);
     return;
   }
 
   SendStatistics(startPoint, startDirection, finalPoint, code, route, elapsedSec);
 
-  //Draw route without waiting network latency.
+  // Draw route without waiting network latency.
   if (code == IRouter::NoError)
-    readyCallback(route, code);
+    delegate->OnReady(route, code);
 
   bool const needFetchAbsent = (code != IRouter::Cancelled);
 
   // Check online response if we have.
   vector<string> absent;
-  if (m_absentFetcher && needFetchAbsent)
+  if (absentFetcher && needFetchAbsent)
   {
-    m_absentFetcher->GetAbsentCountries(absent);
+    absentFetcher->GetAbsentCountries(absent);
     for (string const & country : absent)
       route.AddAbsentCountry(country);
   }
@@ -215,7 +324,7 @@ void AsyncRouter::CalculateRouteImpl(TReadyCallback const & readyCallback, uint3
 
   // Call callback only if we have some new data.
   if (code != IRouter::NoError)
-    readyCallback(route, code);
+    delegate->OnReady(route, code);
 }
 
 void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,

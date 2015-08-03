@@ -56,9 +56,10 @@ public:
 
   RoutingSession();
 
-  void SetRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentCountriesFetcher> && fetcher,
-                 TRoutingStatisticsCallback const & routingStatisticsFn,
-                 RouterDelegate::TPointCheckCallback const & pointCheckCallback);
+  void Init(TRoutingStatisticsCallback const & routingStatisticsFn,
+            RouterDelegate::TPointCheckCallback const & pointCheckCallback);
+
+  void SetRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentCountriesFetcher> && fetcher);
 
   /// @param[in] startPoint and endPoint in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout

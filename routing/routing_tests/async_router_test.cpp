@@ -95,8 +95,8 @@ UNIT_TEST(NeedMoreMapsSignalTest)
   unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher(absentData));
   unique_ptr<IRouter> router(new DummyRouter(ResultCode::NoError, {}));
   DummyResultCallback resultCallback(2 /* expectedCalls */);
-  AsyncRouter async(move(router), move(fetcher), DummyStatisticsCallback,
-                    nullptr /* pointCheckCallback */);
+  AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
+  async.SetRouter(move(router), move(fetcher));
   async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, bind(ref(resultCallback), _1, _2),
                        nullptr /* progressCallback */, 0 /* timeoutSec */);
 
@@ -116,8 +116,8 @@ UNIT_TEST(StandartAsyncFogTest)
   unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher({}));
   unique_ptr<IRouter> router(new DummyRouter(ResultCode::NoError, {}));
   DummyResultCallback resultCallback(1 /* expectedCalls */);
-  AsyncRouter async(move(router), move(fetcher), DummyStatisticsCallback,
-                    nullptr /* pointCheckCallback */);
+  AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
+  async.SetRouter(move(router), move(fetcher));
   async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, bind(ref(resultCallback), _1, _2),
                        nullptr /* progressCallback */, 0 /* timeoutSec */);
 

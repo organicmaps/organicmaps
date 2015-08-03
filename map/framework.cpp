@@ -256,6 +256,24 @@ Framework::Framework()
   m_storage.Init(bind(&Framework::UpdateLatestCountryFile, this, _1));
   LOG(LDEBUG, ("Storage initialized"));
 
+  auto const routingStatisticsFn = [](map<string, string> const & statistics)
+  {
+    alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
+  };
+#ifdef DEBUG
+  auto const routingVisualizerFn = [this](m2::PointD const & pt)
+  {
+    GetPlatform().RunOnGuiThread([this,pt]()
+    {
+      m_bmManager.UserMarksGetController(UserMarkContainer::DEBUG_MARK).CreateUserMark(pt);
+      Invalidate();
+    });
+  };
+#else
+  routing::RouterDelegate::TPointCheckCallback const routingVisualizerFn = nullptr;
+#endif
+  m_routingSession.Init(routingStatisticsFn, routingVisualizerFn);
+
   SetRouterImpl(RouterType::Vehicle);
 
   LOG(LDEBUG, ("Routing engine initialized"));
@@ -2148,22 +2166,6 @@ routing::RouterType Framework::GetRouter() const
 
 void Framework::SetRouterImpl(RouterType type)
 {
-  auto const routingStatisticsFn = [](map<string, string> const & statistics)
-  {
-    alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
-  };
-
-  auto countryFileGetter = [this](m2::PointD const & p) -> string
-  {
-    // TODO (@gorshenin): fix search engine to return CountryFile
-    // instances instead of plain strings.
-    return GetSearchEngine()->GetCountryFile(p);
-  };
-  auto localFileGetter = [this](string const & countryFile) -> shared_ptr<LocalCountryFile>
-  {
-    return m_storage.GetLatestLocalFile(CountryFile(countryFile));
-  };
-
   unique_ptr<IRouter> router;
   unique_ptr<OnlineAbsentCountriesFetcher> fetcher;
   if (type == RouterType::Pedestrian)
@@ -2173,24 +2175,23 @@ void Framework::SetRouterImpl(RouterType type)
   }
   else
   {
+    auto countryFileGetter = [this](m2::PointD const & p) -> string
+    {
+      // TODO (@gorshenin): fix search engine to return CountryFile
+      // instances instead of plain strings.
+      return GetSearchEngine()->GetCountryFile(p);
+    };
+    auto localFileGetter = [this](string const & countryFile) -> shared_ptr<LocalCountryFile>
+    {
+      return m_storage.GetLatestLocalFile(CountryFile(countryFile));
+    };
+
     router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileGetter));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }
 
-#ifdef DEBUG
-  routing::RouterDelegate::TPointCheckCallback const routingVisualizerFn = [this](m2::PointD const & pt)
-  {
-    GetPlatform().RunOnGuiThread([this,pt]()
-    {
-      m_bmManager.UserMarksGetController(UserMarkContainer::DEBUG_MARK).CreateUserMark(pt);
-      Invalidate();
-    });
-  };
-#else
-  routing::RouterDelegate::TPointCheckCallback const routingVisualizerFn = nullptr;
-#endif
-  m_routingSession.SetRouter(move(router), move(fetcher), routingStatisticsFn, routingVisualizerFn);
+  m_routingSession.SetRouter(move(router), move(fetcher));
   m_currentRouterType = type;
 }
 
