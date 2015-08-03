@@ -310,22 +310,4 @@ string RoutingSession::GetTurnNotificationsLocale() const
   UNUSED_VALUE(guard);
   return m_turnsSound.GetLocale();
 }
-
-void RoutingSession::ResetRoutingWatchdogTimer()
-{
-  if (m_routingWatchdog)
-  {
-    m_routingWatchdog->Cancel();
-    m_routingWatchdog->WaitForCompletion();
-    m_routingWatchdog.reset();
-  }
-}
-
-void RoutingSession::InitRoutingWatchdogTimer(uint32_t timeoutSec)
-{
-  ASSERT_NOT_EQUAL(0, timeoutSec, ());
-  ASSERT(nullptr == m_routingWatchdog, ());
-
-  m_routingWatchdog = make_unique<DeferredTask>([this](){ m_router->ClearState(); }, seconds(timeoutSec));
-}
 }  // namespace routing
