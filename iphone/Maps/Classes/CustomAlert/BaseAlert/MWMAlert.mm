@@ -95,6 +95,7 @@
     case routing::IRouter::Cancelled:
     case routing::IRouter::NoError:
     case routing::IRouter::NeedMoreMaps:
+    case routing::IRouter::FileTooOld:
       return nil;
   }
 }

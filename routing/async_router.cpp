@@ -30,6 +30,7 @@ string ToString(IRouter::ResultCode code)
   case IRouter::RouteNotFound: return "RouteNotFound";
   case IRouter::InternalError: return "InternalError";
   case IRouter::NeedMoreMaps: return "NeedMoreMaps";
+  case IRouter::FileTooOld: return "FileTooOld";
   }
 }
 

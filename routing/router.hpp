@@ -26,19 +26,23 @@ string ToString(RouterType type);
 class IRouter
 {
 public:
+  /// Routing possible statuses enumeration.
+  /// \warning  this enum has JNI mirror!
+  /// \see android/src/com/mapswithme/maps/data/RoutingResultCodesProcessor.java
   enum ResultCode
   {
     NoError = 0,
-    Cancelled,
-    NoCurrentPosition,
-    InconsistentMWMandRoute,
-    RouteFileNotExist,
-    StartPointNotFound,
-    EndPointNotFound,
-    PointsInDifferentMWM,
-    RouteNotFound,
-    NeedMoreMaps,
-    InternalError
+    Cancelled = 1,
+    NoCurrentPosition = 2,
+    InconsistentMWMandRoute = 3,
+    RouteFileNotExist = 4,
+    StartPointNotFound = 5,
+    EndPointNotFound = 6,
+    PointsInDifferentMWM = 7,
+    RouteNotFound = 8,
+    NeedMoreMaps = 9,
+    InternalError = 10,
+    FileTooOld = 11
   };
 
   virtual ~IRouter() {}

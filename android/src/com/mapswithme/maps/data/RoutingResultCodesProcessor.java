@@ -25,6 +25,7 @@ public class RoutingResultCodesProcessor
   public static final int ROUTE_NOT_FOUND = 8;
   public static final int NEED_MORE_MAPS = 9;
   public static final int INTERNAL_ERROR = 10;
+  public static final int FILE_TOO_OLD = 11;
 
   public static Pair<String, String> getDialogTitleSubtitle(int errorCode, MapStorage.Index[] missingCountries)
   {
