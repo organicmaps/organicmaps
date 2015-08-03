@@ -46,6 +46,8 @@ namespace Settings
     StringStorage::Instance().DeleteKeyAndValue(key);
   }
 
+  // @TODO(vbykoianko) For the time being two enums which are reflected length units are used.
+  // This enum should be replaced with enum class LengthUnits.
   enum Units { Metric = 0, Foot };
 
   /// Use this function for running some stuff once according to date.

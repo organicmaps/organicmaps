@@ -63,6 +63,7 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.StoragePathManager.MoveFilesListener;
 import com.mapswithme.maps.settings.UnitLocale;
+import com.mapswithme.maps.sound.TTSPlayer;
 import com.mapswithme.maps.widget.BottomButtonsLayout;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
