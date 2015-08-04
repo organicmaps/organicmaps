@@ -83,6 +83,10 @@ extern "C"
     }
     catch (RootException const &)
     {
+      // TODO: A hack for a changed font file name. Remove when this stops being relevant.
+      // This is because we don't want to force update users with the old font (which is good enough)
+      if (name == "02_droidsans-fallback.ttf")
+        return NeedToDownload(pl, "02_wqy-microhei.ttf", size); // Size is not checked anyway
     }
     return true;
   }
