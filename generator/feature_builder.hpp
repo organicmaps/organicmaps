@@ -261,7 +261,7 @@ namespace feature
 
   /// Process features in .dat file.
   template <class ToDo>
-  void ForEachFromDatRawFormat(string const & fName, ToDo & toDo)
+  void ForEachFromDatRawFormat(string const & fName, ToDo && toDo)
   {
     FileReader reader(fName);
     ReaderSource<FileReader> src(reader);
