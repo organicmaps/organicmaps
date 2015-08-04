@@ -99,23 +99,6 @@ int main(int argc, char ** argv)
       genInfo.m_tmpDir = tmpPath;
   }
 
-  genInfo.m_osmFileName = FLAGS_osm_file_name;
-
-  if (!FLAGS_node_storage.empty())
-    genInfo.SetNodeStorageType(FLAGS_node_storage);
-  if (!FLAGS_osm_file_type.empty())
-    genInfo.SetOsmFileType(FLAGS_osm_file_type);
-
-  // Generating intermediate files
-  if (FLAGS_preprocess)
-  {
-    LOG(LINFO, ("Generating intermediate data ...."));
-    if (!GenerateIntermediateData(genInfo))
-    {
-      return -1;
-    }
-  }
-
   // load classificator only if necessary
   if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
       FLAGS_generate_index || FLAGS_generate_search_index ||
