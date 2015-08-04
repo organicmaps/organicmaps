@@ -4,7 +4,7 @@
 0cd8c6a6-5f3d-40bc-a36b-cb37842239d4 QtNetwork4.dll
 8de45066-d0c7-475e-b83e-cba8f9df8a60 QtWebkit4.dll
 9c3a2d71-58a5-4e5a-ae65-0ffd085e7f6f 01_dejavusans.ttf
-1370713b-1bdf-484a-984a-5a829ecfd9ee 02_wqy-microhei.ttf
+1370713b-1bdf-484a-984a-5a829ecfd9ee 02_droidsans-fallback.ttf
 8c0e64ea-b45e-4a1c-a8b5-8ec0647d6db6 03_jomolhari-id-a3d.ttf
 9895bfbb-480f-4a83-baa6-3826cf496398 04_padauk.ttf
 5ea3e229-6211-4790-9a7b-81f653cfda7d 05_khmeros.ttf

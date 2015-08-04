@@ -74,7 +74,7 @@ XHDPI_SKIN_RES.files = ../data/resources-xhdpi/basic.skn ../data/resources-xhdpi
 FONT_RES.path = $$FONTSDIR
 FONT_RES.files = ../data/00_roboto_regular.ttf \
                  ../data/01_dejavusans.ttf \
-                 ../data/02_wqy-microhei.ttf \
+                 ../data/02_droidsans-fallback.ttf \
                  ../data/03_jomolhari-id-a3d.ttf \
                  ../data/04_padauk.ttf \
                  ../data/05_khmeros.ttf \

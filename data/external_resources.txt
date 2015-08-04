@@ -1,7 +1,7 @@
 WorldCoasts.mwm 4788968
 World.mwm 40203475
 01_dejavusans.ttf 633604
-02_wqy-microhei.ttf 5177387
+02_droidsans-fallback.ttf 4033420
 03_jomolhari-id-a3d.ttf 1817160
 04_padauk.ttf 248076
 05_khmeros.ttf 265552

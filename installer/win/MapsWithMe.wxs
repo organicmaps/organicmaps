@@ -83,8 +83,8 @@
              <Component Id='_01_dejavusans.ttf' Guid='9c3a2d71-58a5-4e5a-ae65-0ffd085e7f6f'>
                <File Id='_01_dejavusans.ttf' Name='01_dejavusans.ttf' Source='..\..\data\01_dejavusans.ttf' DiskId='1' KeyPath='yes' Checksum='no' />
              </Component>
-             <Component Id='_02_wqy_microhei.ttf' Guid='1370713b-1bdf-484a-984a-5a829ecfd9ee'>
-               <File Id='_02_wqy_microhei.ttf' Name='02_wqy-microhei.ttf' Source='..\..\data\02_wqy-microhei.ttf' DiskId='1' KeyPath='yes' Checksum='no' />
+             <Component Id='_02_droidsans_fallback.ttf' Guid='1370713b-1bdf-484a-984a-5a829ecfd9ee'>
+               <File Id='_02_droidsans_fallback.ttf' Name='02_droidsans-fallback.ttf' Source='..\..\data\02_droidsans-fallback.ttf' DiskId='1' KeyPath='yes' Checksum='no' />
              </Component>
              <Component Id='_03_jomolhari_id_a3d.ttf' Guid='8c0e64ea-b45e-4a1c-a8b5-8ec0647d6db6'>
                <File Id='_03_jomolhari_id_a3d.ttf' Name='03_jomolhari-id-a3d.ttf' Source='..\..\data\03_jomolhari-id-a3d.ttf' DiskId='1' KeyPath='yes' Checksum='no' />
@@ -156,7 +156,7 @@
          <ComponentRef Id='_World.mwm' />
 
          <ComponentRef Id='_01_dejavusans.ttf' />
-         <ComponentRef Id='_02_wqy_microhei.ttf' />
+         <ComponentRef Id='_02_droidsans_fallback.ttf' />
          <ComponentRef Id='_03_jomolhari_id_a3d.ttf' />
          <ComponentRef Id='_04_padauk.ttf' />
          <ComponentRef Id='_05_khmeros.ttf' />

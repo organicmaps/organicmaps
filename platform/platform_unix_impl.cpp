@@ -27,6 +27,7 @@ void Platform::GetSystemFontNames(FilesList & res) const
   char const * fontsWhitelist[] = {
     "Roboto-Regular.ttf",
     "DroidSansFallback.ttf",
+    "DroidSansFallbackFull.ttf",
     "DroidSans.ttf",
     "DroidSansArabic.ttf",
     "DroidSansSemc.ttf",

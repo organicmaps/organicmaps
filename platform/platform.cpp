@@ -94,7 +94,7 @@ void Platform::GetFontNames(FilesList & res) const
     "00_roboto_regular.ttf",
 #endif
     "01_dejavusans.ttf",
-    "02_wqy-microhei.ttf",
+    "02_droidsans-fallback.ttf",
     "03_jomolhari-id-a3d.ttf",
     "04_padauk.ttf",
     "05_khmeros.ttf",

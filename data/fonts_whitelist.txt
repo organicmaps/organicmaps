@@ -21,4 +21,4 @@ Latin_Extended-B 01_dejavusans.ttf
 Latin_Extended-B /system/fonts/DroidSans.ttf
 Latin_Extended-B /system/fonts/Roboto-Regular.ttf
 Latin_Extended-B 00_roboto_regular.ttf
-CJK_Compatibility 02_wqy-microhei.ttf
+CJK_Compatibility 02_droidsans-fallback.ttf

@@ -1,6 +1,6 @@
 use strict;
 
-my @RESOURCES = ("01_dejavusans.ttf", "02_wqy-microhei.ttf", "03_jomolhari-id-a3d.ttf", "04_padauk.ttf", "05_khmeros.ttf", "06_code2000.ttf",
+my @RESOURCES = ("01_dejavusans.ttf", "02_droidsans-fallback.ttf", "03_jomolhari-id-a3d.ttf", "04_padauk.ttf", "05_khmeros.ttf", "06_code2000.ttf",
                  "basic.skn", "symbols_24.png",
                  "classificator.txt", "drawing_rules.bin",
                  "fonts_blacklist.txt", "fonts_whitelist.txt", "unicode_blocks.txt",

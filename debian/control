@@ -9,7 +9,7 @@ Homepage: http://mapswith.me/
 
 Package: mapswithme
 Architecture: any
-Depends: dbus, fonts-roboto|fonts-mapswithme, ttf-dejavu-core|fonts-mapswithme, ttf-wqy-microhei|fonts-mapswithme, fonts-dzongkha|fonts-mapswithme, fonts-sil-padauk|fonts-mapswithme, fonts-khmeros-core|fonts-mapswithme, fonts-tlwg-umpush|fonts-mapswithme, fonts-sil-abyssinica|fonts-mapswithme, fonts-paktype|fonts-mapswithme, mapswithme-data, ${shlibs:Depends}, ${misc:Depends}
+Depends: dbus, fonts-roboto|fonts-mapswithme, ttf-dejavu-core|fonts-mapswithme, fonts-droid|fonts-mapswithme, fonts-dzongkha|fonts-mapswithme, fonts-sil-padauk|fonts-mapswithme, fonts-khmeros-core|fonts-mapswithme, fonts-tlwg-umpush|fonts-mapswithme, fonts-sil-abyssinica|fonts-mapswithme, fonts-paktype|fonts-mapswithme, mapswithme-data, ${shlibs:Depends}, ${misc:Depends}
 Description: Detailed Offline Maps of the Entire World
  The quickest offline maps of the entire world. Search and navigate maps fully 
  offline. Maps work everywhere!
@@ -31,7 +31,7 @@ Description: Detailed Offline Maps of the Entire World
 
 Package: mapswithme-server
 Architecture: any
-Depends: fonts-roboto|fonts-mapswithme, ttf-dejavu-core|fonts-mapswithme, ttf-wqy-microhei|fonts-mapswithme, fonts-dzongkha|fonts-mapswithme, fonts-sil-padauk|fonts-mapswithme, fonts-khmeros-core|fonts-mapswithme, fonts-tlwg-umpush|fonts-mapswithme, fonts-sil-abyssinica|fonts-mapswithme, fonts-paktype|fonts-mapswithme, mapswithme-data, ${shlibs:Depends}, ${misc:Depends}
+Depends: fonts-roboto|fonts-mapswithme, ttf-dejavu-core|fonts-mapswithme, fonts-froid|fonts-mapswithme, fonts-dzongkha|fonts-mapswithme, fonts-sil-padauk|fonts-mapswithme, fonts-khmeros-core|fonts-mapswithme, fonts-tlwg-umpush|fonts-mapswithme, fonts-sil-abyssinica|fonts-mapswithme, fonts-paktype|fonts-mapswithme, mapswithme-data, ${shlibs:Depends}, ${misc:Depends}
 Description: MapsWithMe server application
  This package contains server application for using MapsWithMe engine in 
  userless environments. Maps work everywhere!

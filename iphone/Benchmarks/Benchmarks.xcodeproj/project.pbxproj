@@ -74,7 +74,7 @@
 		FA37C9BC1354CC14006610DC /* 07_abyssinica_sil_r.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA37C9991354CC14006610DC /* 07_abyssinica_sil_r.ttf */; };
 		FA37C9BD1354CC14006610DC /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA37C99A1354CC14006610DC /* 05_khmeros.ttf */; };
 		FA37C9BE1354CC14006610DC /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA37C99B1354CC14006610DC /* 04_padauk.ttf */; };
-		FA37C9BF1354CC14006610DC /* 02_wqy-microhei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA37C99C1354CC14006610DC /* 02_wqy-microhei.ttf */; };
+		9DF04B261B71019700DACAF1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B251B71019700DACAF1 /* 02_droidsans-fallback.ttf */; };
 		FA37C9C01354CC14006610DC /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA37C99D1354CC14006610DC /* 01_dejavusans.ttf */; };
 /* End PBXBuildFile section */
 
@@ -155,7 +155,7 @@
 		FA37C9991354CC14006610DC /* 07_abyssinica_sil_r.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 07_abyssinica_sil_r.ttf; path = ../../data/07_abyssinica_sil_r.ttf; sourceTree = SOURCE_ROOT; };
 		FA37C99A1354CC14006610DC /* 05_khmeros.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 05_khmeros.ttf; path = ../../data/05_khmeros.ttf; sourceTree = SOURCE_ROOT; };
 		FA37C99B1354CC14006610DC /* 04_padauk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 04_padauk.ttf; path = ../../data/04_padauk.ttf; sourceTree = SOURCE_ROOT; };
-		FA37C99C1354CC14006610DC /* 02_wqy-microhei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_wqy-microhei.ttf"; path = "../../data/02_wqy-microhei.ttf"; sourceTree = SOURCE_ROOT; };
+		9DF04B251B71019700DACAF1 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_droidsans-fallback.ttf"; path = "../../data/02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 		FA37C99D1354CC14006610DC /* 01_dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 01_dejavusans.ttf; path = ../../data/01_dejavusans.ttf; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -318,7 +318,7 @@
 				FA37C9991354CC14006610DC /* 07_abyssinica_sil_r.ttf */,
 				FA37C99A1354CC14006610DC /* 05_khmeros.ttf */,
 				FA37C99B1354CC14006610DC /* 04_padauk.ttf */,
-				FA37C99C1354CC14006610DC /* 02_wqy-microhei.ttf */,
+				9DF04B251B71019700DACAF1 /* 02_droidsans-fallback.ttf */,
 				FA37C99D1354CC14006610DC /* 01_dejavusans.ttf */,
 			);
 			name = Resources;
@@ -412,7 +412,7 @@
 				FA37C9BC1354CC14006610DC /* 07_abyssinica_sil_r.ttf in Resources */,
 				FA37C9BD1354CC14006610DC /* 05_khmeros.ttf in Resources */,
 				FA37C9BE1354CC14006610DC /* 04_padauk.ttf in Resources */,
-				FA37C9BF1354CC14006610DC /* 02_wqy-microhei.ttf in Resources */,
+				9DF04B261B71019700DACAF1 /* 02_droidsans-fallback.ttf in Resources */,
 				FA37C9C01354CC14006610DC /* 01_dejavusans.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
