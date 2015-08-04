@@ -8,7 +8,7 @@
 namespace bits
 {
   // Count the number of 1 bits. Implementation: see Hacker's delight book.
-  inline uint32_t popcount(uint32_t x)
+  inline uint32_t PopCount(uint32_t x)
   {
     x -= ((x >> 1) & 0x55555555);
     x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
@@ -18,14 +18,14 @@ namespace bits
     return x & 0x3F;
   }
 
-  inline uint32_t popcount(uint8_t x)
+  inline uint32_t PopCount(uint8_t x)
   {
-    return popcount(static_cast<uint32_t>(x));
+    return PopCount(static_cast<uint32_t>(x));
   }
 
   // Count the number of 1 bits in array p, length n bits.
   // There is a better implementation at hackersdelight.org
-  inline uint32_t popcount(uint32_t const * p, uint32_t n)
+  inline uint32_t PopCount(uint32_t const * p, uint32_t n)
   {
     uint32_t s = 0;
     for (uint32_t i = 0; i < n; i += 31)
@@ -61,10 +61,15 @@ namespace bits
     return static_cast<unsigned int>(SELECT1_ERROR);
   }
 
+  inline uint32_t PopCount(uint64_t x)
+  {
+    uint32_t lower = static_cast<uint32_t>(x);
+    uint32_t higher = static_cast<uint32_t>(x >> 32);
+    return PopCount(lower) + PopCount(higher);
+  }
+
   // Will be implemented when needed.
-  uint64_t popcount(uint64_t x);
-  // Will be implemented when needed.
-  uint64_t popcount(uint64_t const * p, uint64_t n);
+  uint64_t PopCount(uint64_t const * p, uint64_t n);
 
   template <typename T> T RoundLastBitsUpAndShiftRight(T x, T bits)
   {

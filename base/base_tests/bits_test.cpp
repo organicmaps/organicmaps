@@ -20,8 +20,8 @@ UNIT_TEST(Popcount32)
 {
   for (uint32_t i = 0; i < 10000; ++i)
   {
-    TEST_EQUAL(bits::popcount(i), PopCountSimple(i), (i));
-    TEST_EQUAL(bits::popcount(0xC2000000 | i), PopCountSimple(0xC2000000 | i), (0xC2000000 | i));
+    TEST_EQUAL(bits::PopCount(i), PopCountSimple(i), (i));
+    TEST_EQUAL(bits::PopCount(0xC2000000 | i), PopCountSimple(0xC2000000 | i), (0xC2000000 | i));
   }
 }
 
@@ -36,7 +36,7 @@ UNIT_TEST(PopcountArray32)
     uint32_t expectedPopCount = 0;
     for (size_t i = 0; i < v.size(); ++i)
       expectedPopCount += PopCountSimple(v[i]);
-    TEST_EQUAL(bits::popcount(v.empty() ? NULL : &v[0], v.size()), expectedPopCount,
+    TEST_EQUAL(bits::PopCount(v.empty() ? NULL : &v[0], v.size()), expectedPopCount,
                (j, v.size(), expectedPopCount));
   }
 }

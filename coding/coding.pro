@@ -52,6 +52,7 @@ HEADERS += \
     byte_stream.hpp \
     coder.hpp \
     coder_util.hpp \
+    compressed_bit_vector.hpp \
     old_compressed_bit_vector.hpp \
 #    compressed_varnum_vector.hpp \
     constants.hpp \
