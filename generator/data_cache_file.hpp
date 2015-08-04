@@ -54,7 +54,7 @@ public:
 
   string GetFileName() const { return m_file.GetName(); }
 
-  void Flush()
+  void WriteAll()
   {
     if (m_elements.empty())
       return;
@@ -89,10 +89,10 @@ public:
     LOG_SHORT(LINFO, ("Offsets reading is finished"));
   }
 
-  void Write(TKey k, TValue const & v)
+  void Add(TKey k, TValue const & v)
   {
     if (m_elements.size() > kFlushCount)
-      Flush();
+      WriteAll();
 
     m_elements.push_back(make_pair(k, v));
   }
@@ -145,11 +145,11 @@ public:
   template <class TValue>
   void Write(TKey id, TValue const & value)
   {
-    m_offsets.Write(id, m_stream.Pos());
+    m_offsets.Add(id, m_stream.Pos());
     m_stream << value;
   }
 
-  void SaveOffsets() { m_offsets.Flush(); }
+  void SaveOffsets() { m_offsets.WriteAll(); }
 };
 
 class DataFileReader : public DataFileBase<FileReaderStream, FileReader>
@@ -193,16 +193,16 @@ protected:
   TData m_ways;
   TData m_relations;
 
-  TIndex m_nodes2rel;
-  TIndex m_ways2rel;
+  TIndex m_nodeToRelations;
+  TIndex m_wayToRelations;
 
 public:
   BaseFileHolder(TNodesHolder & nodes, string const & dir)
     : m_nodes(nodes)
     , m_ways(my::JoinFoldersToPath(dir, WAYS_FILE))
     , m_relations(my::JoinFoldersToPath(dir, RELATIONS_FILE))
-    , m_nodes2rel(my::JoinFoldersToPath(dir, string(NODES_FILE) + ID2REL_EXT))
-    , m_ways2rel(my::JoinFoldersToPath(dir, string(WAYS_FILE) + ID2REL_EXT))
+    , m_nodeToRelations(my::JoinFoldersToPath(dir, string(NODES_FILE) + ID2REL_EXT))
+    , m_wayToRelations(my::JoinFoldersToPath(dir, string(WAYS_FILE) + ID2REL_EXT))
   {
   }
 };

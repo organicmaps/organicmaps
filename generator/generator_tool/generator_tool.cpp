@@ -85,21 +85,10 @@ int main(int argc, char ** argv)
   string const path =
       FLAGS_data_path.empty() ? pl.WritableDir() : my::AddSlashIfNeeded(FLAGS_data_path);
 
-  // Generating intermediate files
-  if (FLAGS_preprocess)
-  {
-    LOG(LINFO, ("Generating intermediate data ...."));
-    if (!GenerateIntermediateData(FLAGS_intermediate_data_path, FLAGS_node_storage,
-                                  FLAGS_osm_file_type, FLAGS_osm_file_name))
-    {
-      return -1;
-    }
-  }
 
   feature::GenerateInfo genInfo;
-  genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty()
-                                  ? path
-                                  : my::AddSlashIfNeeded(FLAGS_intermediate_data_path);
+  genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty() ? path
+                            : my::AddSlashIfNeeded(FLAGS_intermediate_data_path);
   genInfo.m_targetDir = genInfo.m_tmpDir = path;
 
   /// @todo Probably, it's better to add separate option for .mwm.tmp files.
@@ -108,6 +97,23 @@ int main(int argc, char ** argv)
     string const tmpPath = genInfo.m_intermediateDir + "tmp" + my::GetNativeSeparator();
     if (pl.MkDir(tmpPath) != Platform::ERR_UNKNOWN)
       genInfo.m_tmpDir = tmpPath;
+  }
+
+  genInfo.m_osmFileName = FLAGS_osm_file_name;
+
+  if (!FLAGS_node_storage.empty())
+    genInfo.SetNodeStorageType(FLAGS_node_storage);
+  if (!FLAGS_osm_file_type.empty())
+    genInfo.SetOsmFileType(FLAGS_osm_file_type);
+
+  // Generating intermediate files
+  if (FLAGS_preprocess)
+  {
+    LOG(LINFO, ("Generating intermediate data ...."));
+    if (!GenerateIntermediateData(genInfo))
+    {
+      return -1;
+    }
   }
 
   // load classificator only if necessary
@@ -132,7 +138,7 @@ int main(int argc, char ** argv)
     genInfo.m_fileName = FLAGS_output;
     genInfo.m_genAddresses = FLAGS_generate_addresses_file;
 
-    if (!GenerateFeatures(genInfo, FLAGS_node_storage, FLAGS_osm_file_type, FLAGS_osm_file_name))
+    if (!GenerateFeatures(genInfo))
       return -1;
 
     if (FLAGS_generate_world)
