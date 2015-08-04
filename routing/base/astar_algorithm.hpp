@@ -317,7 +317,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       continue;
 
     if (steps % kVisitedVerticesPeriod == 0)
-      onVisitedVertexCallback(stateV.vertex, cur->finalVertex);
+      onVisitedVertexCallback(stateV.vertex, cur->forward ? cur->finalVertex : cur->startVertex);
 
     cur->GetAdjacencyList(stateV.vertex, adj);
     for (auto const & edge : adj)
