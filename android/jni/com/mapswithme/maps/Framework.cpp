@@ -1536,8 +1536,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeSetTurnNotificationsLocale(JNIEnv * env, jclass thiz, jstring jLocale)
   {
-    string const locale = jni::ToNativeString(env, jLocale);
-    frm()->SetTurnNotificationsLocale(locale);
+    frm()->SetTurnNotificationsLocale(jni::ToNativeString(env, jLocale));
   }
 
   JNIEXPORT jstring JNICALL
