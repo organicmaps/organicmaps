@@ -19,7 +19,6 @@
 @property (nonatomic) IBOutlet MWMRoutePreview * routePreviewPortrait;
 @property (weak, nonatomic) MWMRoutePreview * routePreview;
 
-
 @property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboardLandscape;
 @property (nonatomic) IBOutlet MWMNavigationDashboard * navigationDashboardPortrait;
 @property (weak, nonatomic) MWMNavigationDashboard * navigationDashboard;
@@ -124,6 +123,12 @@
   [self.delegate buildRouteWithType:f.GetRouter()];
 }
 
+- (void)setRouteBuildingProgress:(CGFloat)progress
+{
+  [self.routePreviewLandscape setRouteBuildingProgress:progress];
+  [self.routePreviewPortrait setRouteBuildingProgress:progress];
+}
+
 #pragma mark - MWMNavigationDashboard
 
 - (IBAction)navigationCancelPressed:(UIButton *)sender
@@ -150,8 +155,8 @@
 
 - (void)showStatePlanning
 {
-  [self.routePreview addToView:self.ownerView];
   [self.navigationDashboard remove];
+  [self.routePreview addToView:self.ownerView];
   [self.routePreviewLandscape statePlaning];
   [self.routePreviewPortrait statePlaning];
   auto const state = GetFramework().GetRouter();
@@ -204,11 +209,11 @@
       [self showStatePlanning];
       break;
     case MWMNavigationDashboardStateError:
-      NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change");
+      NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (error)");
       [self handleError];
       break;
     case MWMNavigationDashboardStateReady:
-      NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change");
+      NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (ready)");
       [self showStateReady];
       break;
     case MWMNavigationDashboardStateNavigation:

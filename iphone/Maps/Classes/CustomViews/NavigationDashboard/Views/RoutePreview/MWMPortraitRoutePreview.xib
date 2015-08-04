@@ -43,19 +43,30 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2t-0L-2K9">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOJ-SC-XHE" userLabel="Spiner Button">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pT2-o1-o2w" userLabel="Progress">
                             <rect key="frame" x="0.0" y="2" width="40" height="40"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GZA-Mt-Lx4" userLabel="Progress Indicator">
+                                    <rect key="frame" x="8" y="8" width="24" height="24"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="24" id="DhW-aY-KNR"/>
+                                        <constraint firstAttribute="width" constant="24" id="IEq-Cd-iAT"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <gestureRecognizers/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="RdT-IS-eii"/>
-                                <constraint firstAttribute="width" constant="40" id="lSw-4L-0ev"/>
+                                <constraint firstAttribute="centerX" secondItem="GZA-Mt-Lx4" secondAttribute="centerX" id="h7L-nw-s6H"/>
+                                <constraint firstAttribute="height" constant="40" id="mpa-fk-lSz"/>
+                                <constraint firstAttribute="centerY" secondItem="GZA-Mt-Lx4" secondAttribute="centerY" id="uSw-vY-JGT"/>
+                                <constraint firstAttribute="width" constant="40" id="vfO-MP-5dL"/>
                             </constraints>
-                            <state key="normal" image="ic_spinner_close_1">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
                             <connections>
-                                <action selector="navigationCancelPressed:" destination="-1" eventType="touchUpInside" id="Nnn-dW-Uc9"/>
+                                <outletCollection property="gestureRecognizers" destination="NSr-rt-Wir" appends="YES" id="rU1-8c-mXt"/>
                             </connections>
-                        </button>
+                        </view>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2m-Mj-kxw" userLabel="Cancel Button">
                             <rect key="frame" x="0.0" y="2" width="40" height="40"/>
                             <constraints>
@@ -188,26 +199,20 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="HOJ-SC-XHE" firstAttribute="leading" secondItem="q2t-0L-2K9" secondAttribute="leading" id="1Nr-Oi-DK6"/>
-                        <constraint firstItem="TAN-st-OOM" firstAttribute="leading" secondItem="HOJ-SC-XHE" secondAttribute="trailing" constant="16" id="DJp-pM-IED"/>
+                        <constraint firstItem="pT2-o1-o2w" firstAttribute="leading" secondItem="q2t-0L-2K9" secondAttribute="leading" id="0VC-lQ-s1U"/>
+                        <constraint firstItem="TAN-st-OOM" firstAttribute="leading" secondItem="d2m-Mj-kxw" secondAttribute="trailing" constant="16" id="GWz-6U-MgH"/>
+                        <constraint firstItem="FjK-vt-keq" firstAttribute="leading" secondItem="d2m-Mj-kxw" secondAttribute="trailing" constant="16" id="IPB-gM-ZY6"/>
                         <constraint firstAttribute="trailing" secondItem="sxx-mC-hOX" secondAttribute="trailing" constant="8" id="JOi-7b-AiY"/>
                         <constraint firstItem="sxx-mC-hOX" firstAttribute="leading" secondItem="FjK-vt-keq" secondAttribute="trailing" constant="4" id="KrQ-4v-V2R"/>
                         <constraint firstItem="sxx-mC-hOX" firstAttribute="leading" secondItem="TAN-st-OOM" secondAttribute="trailing" constant="4" id="L4M-1z-8S1"/>
+                        <constraint firstItem="pT2-o1-o2w" firstAttribute="top" secondItem="q2t-0L-2K9" secondAttribute="top" constant="2" id="LBq-SA-kdr"/>
                         <constraint firstAttribute="height" constant="44" id="Si4-S0-e6Y"/>
                         <constraint firstItem="FjK-vt-keq" firstAttribute="top" secondItem="q2t-0L-2K9" secondAttribute="top" constant="12" id="Ybi-xR-Cb9"/>
-                        <constraint firstItem="FjK-vt-keq" firstAttribute="leading" secondItem="HOJ-SC-XHE" secondAttribute="trailing" constant="16" id="YjO-tt-mNf"/>
-                        <constraint firstAttribute="bottom" secondItem="HOJ-SC-XHE" secondAttribute="bottom" constant="2" id="aHI-ON-PIb"/>
                         <constraint firstItem="d2m-Mj-kxw" firstAttribute="leading" secondItem="q2t-0L-2K9" secondAttribute="leading" id="dNR-t0-0MG"/>
                         <constraint firstItem="TAN-st-OOM" firstAttribute="top" secondItem="q2t-0L-2K9" secondAttribute="top" constant="12" id="gFK-VL-5cQ"/>
                         <constraint firstItem="d2m-Mj-kxw" firstAttribute="top" secondItem="q2t-0L-2K9" secondAttribute="top" constant="2" id="gsp-3g-pwS"/>
                         <constraint firstAttribute="bottom" secondItem="sxx-mC-hOX" secondAttribute="bottom" constant="2" id="jaO-c5-e6f"/>
-                        <constraint firstItem="TAN-st-OOM" firstAttribute="top" secondItem="q2t-0L-2K9" secondAttribute="top" constant="32" id="vfI-Sk-fAH"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="vfI-Sk-fAH"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -229,7 +234,8 @@
                 <outlet property="goButtonHeight" destination="1mg-dZ-WyP" id="Ql3-hB-aTD"/>
                 <outlet property="goButtonVerticalOffset" destination="2ei-gn-88c" id="jT5-CH-aMT"/>
                 <outlet property="pedestrian" destination="p2P-UP-rWT" id="okx-QZ-c9c"/>
-                <outlet property="spinner" destination="HOJ-SC-XHE" id="dyz-fj-h1I"/>
+                <outlet property="progress" destination="pT2-o1-o2w" id="S37-0w-6fB"/>
+                <outlet property="progressIndicator" destination="GZA-Mt-Lx4" id="riC-SG-wCt"/>
                 <outlet property="status" destination="e6W-cv-xtL" id="APO-1K-MH5"/>
                 <outlet property="statusBox" destination="FjK-vt-keq" id="WgW-e1-R1d"/>
                 <outlet property="timeLabel" destination="yfW-D7-qCl" id="f6d-96-ej3"/>
@@ -237,12 +243,16 @@
             </connections>
             <point key="canvasLocation" x="369" y="452"/>
         </view>
+        <tapGestureRecognizer id="NSr-rt-Wir">
+            <connections>
+                <action selector="navigationCancelPressed:" destination="-1" id="Ire-ta-24g"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="ic_cancel" width="40" height="40"/>
         <image name="ic_drive_off" width="40" height="40"/>
         <image name="ic_drive_on" width="40" height="40"/>
-        <image name="ic_spinner_close_1" width="40" height="40"/>
         <image name="ic_walk_off" width="40" height="40"/>
         <image name="ic_walk_on" width="40" height="40"/>
     </resources>

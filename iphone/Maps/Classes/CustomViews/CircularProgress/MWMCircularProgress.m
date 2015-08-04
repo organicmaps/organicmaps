@@ -30,13 +30,14 @@
     [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class) owner:self options:nil];
     [parentView addSubview:self.rootView];
     self.delegate = delegate;
-    [self setup];
+    [self reset];
   }
   return self;
 }
 
-- (void)setup
+- (void)reset
 {
+  [self.rootView updatePath:0.];
   self.nextProgressToAnimate = nil;
 }
 

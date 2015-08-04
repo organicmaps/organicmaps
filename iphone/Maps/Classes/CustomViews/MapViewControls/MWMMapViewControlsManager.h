@@ -50,5 +50,6 @@
 - (void)routingReady;
 - (void)routingNavigation;
 - (void)handleRoutingError;
+- (void)setRouteBuildingProgress:(CGFloat)progress;
 
 @end

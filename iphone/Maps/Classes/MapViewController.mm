@@ -665,6 +665,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
         {
           f.GetBalloonManager().RemovePin();
           f.GetBalloonManager().Dismiss();
+          self.controlsManager.routeBuildingProgress = 100.;
           [self.searchView setState:SearchViewStateHidden animated:YES];
           [self performAfterDelay:0.3 block:^
           {
@@ -676,7 +677,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
              [self updateRoutingInfo];
              self.forceRoutingStateChange = ForceRoutingStateChangeNone;
           }];
-
 
           bool isDisclaimerApproved = false;
           (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
@@ -705,6 +705,10 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           self.forceRoutingStateChange = ForceRoutingStateChangeNone;
           break;
       }
+    });
+    f.SetRouteProgressListener([self](float progress)
+    {
+      self.controlsManager.routeBuildingProgress = progress;
     });
   }
 

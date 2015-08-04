@@ -18,13 +18,13 @@
 @property (weak, nonatomic) IBOutlet UILabel * timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel * distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel * arrivalsLabel;
-@property (weak, nonatomic) IBOutlet UIButton * spinner;
 @property (weak, nonatomic) IBOutlet UIButton * cancelButton;
 
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity;
 - (void)statePlaning;
 - (void)stateError;
 
+- (void)setRouteBuildingProgress:(CGFloat)progress;
 - (void)showGoButtonAnimated:(BOOL)show;
 
 @end

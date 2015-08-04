@@ -23,5 +23,6 @@
 
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
 - (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView delegate:(nonnull id <MWMCircularProgressDelegate>)delegate;
+- (void)reset;
 
 @end

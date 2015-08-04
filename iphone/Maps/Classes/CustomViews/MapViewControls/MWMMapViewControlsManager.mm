@@ -171,6 +171,11 @@
     [[MapsAppDelegate theApp] enableStandby];
 }
 
+- (void)setRouteBuildingProgress:(CGFloat)progress
+{
+  [self.navigationManager setRouteBuildingProgress:progress];
+}
+
 #pragma mark - Properties
 
 @synthesize menuState = _menuState;

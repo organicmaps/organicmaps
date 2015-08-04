@@ -39,10 +39,10 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 @property (nonatomic) CGFloat topBound;
 @property (nonatomic, readonly) CGFloat height;
 
-
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate;
 - (void)setupDashboard:(location::FollowingInfo const &)info;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
+- (void)setRouteBuildingProgress:(CGFloat)progress;
 
 @end

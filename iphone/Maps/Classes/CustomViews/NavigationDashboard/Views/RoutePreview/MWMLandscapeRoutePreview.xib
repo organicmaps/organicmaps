@@ -43,19 +43,30 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bfG-c5-fMl">
                     <rect key="frame" x="0.0" y="0.0" width="736" height="44"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcU-SM-tN8" userLabel="Spiner Button">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T3a-Uc-t4C" userLabel="Progress">
                             <rect key="frame" x="0.0" y="2" width="40" height="40"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eh1-Uy-Sq5" userLabel="Progress Indicator">
+                                    <rect key="frame" x="8" y="8" width="24" height="24"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="24" id="hc5-du-YLU"/>
+                                        <constraint firstAttribute="width" constant="24" id="vEt-9V-90f"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <gestureRecognizers/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="X0o-SP-FVU"/>
-                                <constraint firstAttribute="width" constant="40" id="e71-1l-O5m"/>
+                                <constraint firstAttribute="height" constant="40" id="Fhd-uI-aii"/>
+                                <constraint firstAttribute="centerY" secondItem="Eh1-Uy-Sq5" secondAttribute="centerY" id="Ni5-Xo-huC"/>
+                                <constraint firstAttribute="centerX" secondItem="Eh1-Uy-Sq5" secondAttribute="centerX" id="hp5-v7-zHm"/>
+                                <constraint firstAttribute="width" constant="40" id="l76-Dn-9ce"/>
                             </constraints>
-                            <state key="normal" image="ic_spinner_close_1">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
                             <connections>
-                                <action selector="navigationCancelPressed:" destination="-1" eventType="touchUpInside" id="Gb7-lI-Oqh"/>
+                                <outletCollection property="gestureRecognizers" destination="WGE-3l-as1" appends="YES" id="nX2-IU-UF8"/>
                             </connections>
-                        </button>
+                        </view>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eGS-Xr-GDV" userLabel="Cancel Button">
                             <rect key="frame" x="0.0" y="2" width="40" height="40"/>
                             <constraints>
@@ -194,17 +205,17 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="EfU-nE-6L9" firstAttribute="top" secondItem="bfG-c5-fMl" secondAttribute="top" constant="12" id="5Bd-yt-hv4"/>
-                        <constraint firstItem="xcU-SM-tN8" firstAttribute="leading" secondItem="bfG-c5-fMl" secondAttribute="leading" id="Jpl-JM-x5O"/>
-                        <constraint firstItem="EfU-nE-6L9" firstAttribute="leading" secondItem="xcU-SM-tN8" secondAttribute="trailing" constant="16" id="LmL-vi-JHG"/>
+                        <constraint firstItem="ECz-mP-xyb" firstAttribute="leading" secondItem="eGS-Xr-GDV" secondAttribute="trailing" constant="16" id="6Ll-tL-zxE"/>
+                        <constraint firstItem="T3a-Uc-t4C" firstAttribute="leading" secondItem="bfG-c5-fMl" secondAttribute="leading" id="B8L-xg-vFd"/>
+                        <constraint firstItem="T3a-Uc-t4C" firstAttribute="top" secondItem="bfG-c5-fMl" secondAttribute="top" constant="2" id="Ofb-1J-dFh"/>
                         <constraint firstAttribute="bottom" secondItem="Oe3-Op-uEp" secondAttribute="bottom" constant="2" id="Res-ht-qAb"/>
                         <constraint firstItem="Oe3-Op-uEp" firstAttribute="leading" secondItem="EfU-nE-6L9" secondAttribute="trailing" constant="4" id="W3N-0v-ZMF"/>
-                        <constraint firstItem="ECz-mP-xyb" firstAttribute="leading" secondItem="xcU-SM-tN8" secondAttribute="trailing" constant="16" id="aSe-p0-XQb"/>
                         <constraint firstItem="eGS-Xr-GDV" firstAttribute="top" secondItem="bfG-c5-fMl" secondAttribute="top" constant="2" id="deE-9T-acf"/>
                         <constraint firstItem="ECz-mP-xyb" firstAttribute="top" secondItem="bfG-c5-fMl" secondAttribute="top" constant="12" id="g9u-yA-Bzr"/>
+                        <constraint firstItem="EfU-nE-6L9" firstAttribute="leading" secondItem="eGS-Xr-GDV" secondAttribute="trailing" constant="16" id="nVJ-HW-CyX"/>
                         <constraint firstItem="eGS-Xr-GDV" firstAttribute="leading" secondItem="bfG-c5-fMl" secondAttribute="leading" id="nym-lw-48E"/>
                         <constraint firstAttribute="height" constant="44" id="qFf-mT-U9d"/>
                         <constraint firstAttribute="trailing" secondItem="Oe3-Op-uEp" secondAttribute="trailing" constant="8" id="rTj-VC-TKj"/>
-                        <constraint firstAttribute="bottom" secondItem="xcU-SM-tN8" secondAttribute="bottom" constant="2" id="rZp-0H-JZc"/>
                         <constraint firstItem="Oe3-Op-uEp" firstAttribute="leading" secondItem="ECz-mP-xyb" secondAttribute="trailing" constant="4" id="vXX-Ac-Sac"/>
                     </constraints>
                 </view>
@@ -229,7 +240,8 @@
                 <outlet property="goButtonHeight" destination="O48-rs-xGy" id="IGX-3J-58V"/>
                 <outlet property="goButtonVerticalOffset" destination="C4v-nE-10G" id="YCG-GD-szj"/>
                 <outlet property="pedestrian" destination="0dd-I8-xaK" id="0p2-T2-1MD"/>
-                <outlet property="spinner" destination="xcU-SM-tN8" id="RXH-Hb-oi8"/>
+                <outlet property="progress" destination="T3a-Uc-t4C" id="3NF-I4-27n"/>
+                <outlet property="progressIndicator" destination="Eh1-Uy-Sq5" id="puB-PV-EGe"/>
                 <outlet property="status" destination="wzR-lf-hDI" id="FXn-1Y-15m"/>
                 <outlet property="statusBox" destination="ECz-mP-xyb" id="iuO-KL-p0U"/>
                 <outlet property="timeLabel" destination="Tw5-0C-086" id="KJL-hQ-Tcp"/>
@@ -237,12 +249,16 @@
             </connections>
             <point key="canvasLocation" x="369" y="452"/>
         </view>
+        <tapGestureRecognizer id="WGE-3l-as1">
+            <connections>
+                <action selector="navigationCancelPressed:" destination="-1" id="od8-br-EaV"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="ic_cancel" width="40" height="40"/>
         <image name="ic_drive_off" width="40" height="40"/>
         <image name="ic_drive_on" width="40" height="40"/>
-        <image name="ic_spinner_close_1" width="40" height="40"/>
         <image name="ic_walk_off" width="40" height="40"/>
         <image name="ic_walk_on" width="40" height="40"/>
     </resources>

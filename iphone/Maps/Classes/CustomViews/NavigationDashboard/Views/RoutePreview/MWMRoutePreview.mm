@@ -6,21 +6,24 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "MWMCircularProgress.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMRoutePreview.h"
 #import "TimeUtils.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
 
-@interface MWMRoutePreview ()
+@interface MWMRoutePreview () <MWMCircularProgressDelegate>
 
 @property (nonatomic) CGFloat goButtonHiddenOffset;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * goButtonVerticalOffset;
 @property (weak, nonatomic) IBOutlet UIView * statusBox;
 @property (weak, nonatomic) IBOutlet UIView * completeBox;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * goButtonHeight;
-
+@property (weak, nonatomic) IBOutlet UIView * progress;
+@property (weak, nonatomic) IBOutlet UIView * progressIndicator;
 @property (nonatomic) BOOL showGoButton;
+@property (nonatomic) MWMCircularProgress * progressManager;
 
 @end
 
@@ -30,7 +33,6 @@
 {
   [super awakeFromNib];
   self.goButtonHiddenOffset = self.goButtonVerticalOffset.constant;
-  [self statePlaning];
 }
 
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity
@@ -56,23 +58,16 @@
   self.showGoButton = NO;
   self.statusBox.hidden = NO;
   self.completeBox.hidden = YES;
-  self.spinner.hidden = NO;
+  [self.progressManager reset];
+  self.progress.hidden = NO;
   self.cancelButton.hidden = YES;
   self.status.text = L(@"routing_planning");
   self.status.textColor = UIColor.blackHintText;
-
-  NSUInteger const capacity = 12;
-  NSMutableArray * images = [NSMutableArray arrayWithCapacity:capacity];
-  for (int i = 0; i < capacity; ++i)
-    images[i] = [UIImage imageNamed:[NSString stringWithFormat:@"ic_spinner_close_%@", @(i + 1)]];
-
-  self.spinner.imageView.animationImages = images;
-  [self.spinner.imageView startAnimating];
 }
 
 - (void)stateError
 {
-  self.spinner.hidden = YES;
+  self.progress.hidden = YES;
   self.cancelButton.hidden = NO;
   self.status.text = L(@"routing_planning_error");
   self.status.textColor = UIColor.red;
@@ -93,7 +88,7 @@
   self.goButtonVerticalOffset.constant = showGoButton ? 0.0 : self.goButtonHiddenOffset;
   self.statusBox.hidden = YES;
   self.completeBox.hidden = NO;
-  self.spinner.hidden = YES;
+  self.progress.hidden = YES;
   self.cancelButton.hidden = NO;
 }
 
@@ -103,6 +98,26 @@
   if (self.showGoButton)
     height += self.goButtonHeight.constant;
   return height;
+}
+
+- (void)setRouteBuildingProgress:(CGFloat)progress
+{
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    self.progressManager.progress = progress / 100.;
+  });
+}
+
+- (MWMCircularProgress *)progressManager
+{
+  if (!_progressManager)
+    _progressManager = [[MWMCircularProgress alloc] initWithParentView:self.progressIndicator delegate:self];
+  return _progressManager;
+}
+
+- (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
+{
+  [self.cancelButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 @end
