@@ -576,7 +576,6 @@ public:
   void SetLastUsedRouter(routing::RouterType type);
   /// Returns the most situable router engine type. Bases on distance and the last used router.
   routing::RouterType GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const;
-  // @TODO The six methods below has to be called from jni.
   // Sound notifications for turn instructions.
   inline void EnableTurnNotifications(bool enable) { m_routingSession.EnableTurnNotifications(enable); }
   inline bool AreTurnNotificationsEnabled() const { return m_routingSession.AreTurnNotificationsEnabled(); }
@@ -588,8 +587,8 @@ public:
   {
     return m_routingSession.GetTurnNotificationsUnits();
   }
-  void SetTurnNotificationsLocale(string const & locale) { m_routingSession.SetTurnNotificationsLocale(locale); }
-  string GetTurnNotificationsLocale() const { return m_routingSession.GetTurnNotificationsLocale(); }
+  inline void SetTurnNotificationsLocale(string const & locale) { m_routingSession.SetTurnNotificationsLocale(locale); }
+  inline string GetTurnNotificationsLocale() const { return m_routingSession.GetTurnNotificationsLocale(); }
 
 private:
   void SetRouterImpl(routing::RouterType type);

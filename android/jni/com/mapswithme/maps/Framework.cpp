@@ -1520,4 +1520,41 @@ extern "C"
     m2::PointD const pivot = m2::PointD(pivotX, pivotY);
     android::Platform::RunOnGuiThreadImpl(bind(&Framework::SetWidgetPivot, frm(), widgetType, pivot));
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeEnableTurnNotifications(JNIEnv * env, jclass thiz, jboolean enable)
+  {
+    return frm()->EnableTurnNotifications(enable == JNI_TRUE ? true : false);
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_Framework_nativeAreTurnNotificationsEnabled(JNIEnv * env, jclass clazz)
+  {
+    return frm()->AreTurnNotificationsEnabled() ? JNI_TRUE : JNI_FALSE;
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetTurnNotificationsLocale(JNIEnv * env, jclass thiz, jstring jLocale)
+  {
+    string const locale = jni::ToNativeString(env, jLocale);
+    frm()->SetTurnNotificationsLocale(locale);
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetTurnNotificationsLocale(JNIEnv * env, jclass thiz)
+  {
+    return jni::ToJavaString(env, frm()->GetTurnNotificationsLocale().c_str());
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetTurnNotificationsUnits(JNIEnv * env, jclass thiz, jint jLengthUnits)
+  {
+    frm()->SetTurnNotificationsUnits(static_cast<routing::turns::sound::LengthUnits>(jLengthUnits));
+  }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetTurnNotificationsUnits(JNIEnv * env, jclass thiz)
+  {
+    return static_cast<jint>(frm()->GetTurnNotificationsUnits());
+  }
 } // extern "C"
