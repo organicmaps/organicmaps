@@ -7,7 +7,7 @@
   </string-array>
   <string-array name="measument_units_values" translatable="false">
     <item>0</item>
-    <item>2</item>
+    <item>1</item>
   </string-array>
 
 </resources>
