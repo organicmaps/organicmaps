@@ -94,7 +94,7 @@ public abstract class BasePlacePageAnimationController
     return mGestureDetector.onTouchEvent(event);
   }
 
-  protected void finishAnimation(boolean previewShown, boolean ppShown)
+  protected void notifyVisibilityListener(boolean previewShown, boolean ppShown)
   {
     if (mVisibilityChangedListener != null)
     {

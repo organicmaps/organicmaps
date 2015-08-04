@@ -117,7 +117,7 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
 
     if (NO_ANIMATION)
     {
-      finishAnimation(true, true);
+      notifyVisibilityListener(true, true);
       return;
     }
 
@@ -135,7 +135,7 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
       @Override
       public void onAnimationEnd(Animator animation)
       {
-        finishAnimation(true, true);
+        notifyVisibilityListener(true, true);
       }
     });
 
@@ -149,7 +149,7 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
     if (NO_ANIMATION)
     {
       UiUtils.hide(mPlacePage);
-      finishAnimation(false, false);
+      notifyVisibilityListener(false, false);
       return;
     }
 
@@ -169,7 +169,7 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
       public void onAnimationEnd(Animator animation)
       {
         UiUtils.invisible(mPlacePage);
-        finishAnimation(false, false);
+        notifyVisibilityListener(false, false);
       }
     });
 

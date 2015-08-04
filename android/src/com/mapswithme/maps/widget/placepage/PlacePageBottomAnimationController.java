@@ -193,12 +193,11 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
       }
 
       UiUtils.invisible(mFrame);
-      finishAnimation(true, false);
+      notifyVisibilityListener(true, false);
       return;
     }
 
-    if (mAnimationHelper != null)
-      mFrame.addOnLayoutChangeListener(mAnimationHelper.mListener);
+    mFrame.addOnLayoutChangeListener(mAnimationHelper.mListener);
 
     ValueAnimator animator;
     Interpolator interpolator;
@@ -226,7 +225,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
         @Override
         public void onAnimationEnd(Animator animation)
         {
-          finishAnimation(true, false);
+          notifyVisibilityListener(true, false);
         }
       });
     }
@@ -250,7 +249,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
         public void onAnimationEnd(Animator animation)
         {
           UiUtils.invisible(mFrame, mBookmarkDetails);
-          finishAnimation(true, false);
+          notifyVisibilityListener(true, false);
         }
       });
     }
@@ -285,7 +284,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
     if (NO_ANIMATION)
     {
       refreshToolbarVisibility();
-      finishAnimation(true, true);
+      notifyVisibilityListener(true, true);
       mDetails.scrollTo(0, 0);
       UiUtils.hide(mBookmarkDetails);
       return;
@@ -313,7 +312,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
       public void onAnimationEnd(Animator animation)
       {
         refreshToolbarVisibility();
-        finishAnimation(true, true);
+        notifyVisibilityListener(true, true);
         mDetails.scrollTo(0, 0);
         UiUtils.invisible(mBookmarkDetails);
       }
@@ -332,7 +331,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
     if (NO_ANIMATION)
     {
       refreshToolbarVisibility();
-      finishAnimation(true, true);
+      notifyVisibilityListener(true, true);
       return;
     }
 
@@ -357,7 +356,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
       public void onAnimationEnd(Animator animation)
       {
         refreshToolbarVisibility();
-        finishAnimation(true, true);
+        notifyVisibilityListener(true, true);
       }
     });
 
@@ -389,12 +388,11 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
     if (NO_ANIMATION)
     {
       UiUtils.hide(mPlacePage);
-      finishAnimation(false, false);
+      notifyVisibilityListener(false, false);
       return;
     }
 
-    if (mAnimationHelper != null)
-      mFrame.removeOnLayoutChangeListener(mAnimationHelper.mListener);
+    mFrame.removeOnLayoutChangeListener(mAnimationHelper.mListener);
 
     final float animHeight = mPlacePage.getHeight() - mPreview.getTop() - ViewHelper.getTranslationY(mPreview);
     final ValueAnimator animator = ValueAnimator.ofFloat(0f, animHeight);
@@ -413,7 +411,7 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
       {
         UiUtils.invisible(mPlacePage, mBookmarkDetails);
         ViewHelper.setTranslationY(mPlacePage, 0);
-        finishAnimation(false, false);
+        notifyVisibilityListener(false, false);
       }
     });
     animator.setDuration(DURATION);
