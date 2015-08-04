@@ -39,13 +39,13 @@ public:
 
   ~WaterBoundaryChecker()
   {
-    LOG(LINFO, ("Features checked:", m_totalFeatures, "borders checked:", m_totalBorders,
+    LOG_SHORT(LINFO, ("Features checked:", m_totalFeatures, "borders checked:", m_totalBorders,
                 "borders skipped:", m_skippedBorders, "selected polygons:", m_selectedPolygons));
   }
 
   void LoadWaterGeometry(string const & rawGeometryFileName)
   {
-    LOG(LINFO, ("Loading water geometry:", rawGeometryFileName));
+    LOG_SHORT(LINFO, ("Loading water geometry:", rawGeometryFileName));
     FileReader reader(rawGeometryFileName);
     ReaderSource<FileReader> file(reader);
 
@@ -70,7 +70,7 @@ public:
         m_tree.Add(m2::RegionD(move(points)));
       }
     }
-    LOG(LINFO, ("Load", total, "water geometries"));
+    LOG_SHORT(LINFO, ("Load", total, "water geometries"));
   }
 
   bool IsWaterBoundaries(FeatureBuilder1 const & fb)
@@ -109,7 +109,7 @@ public:
     // whole border on water
     if (state == 3)
     {
-      LOG(LINFO, ("Boundary", (state == 3 ? "deleted" : "kept"), "hits:", hits,
+      LOG_SHORT(LINFO, ("Boundary", (state == 3 ? "deleted." : "kept."), "Hits:", hits,
                   DebugPrint(fb.GetParams()), fb.GetOsmIdsString()));
       ++m_skippedBorders;
       return true;
@@ -136,7 +136,7 @@ class WorldMapGenerator
     explicit EmitterImpl(feature::GenerateInfo const & info)
       : m_output(info.GetTmpFileName(WORLD_FILE_NAME))
     {
-      LOG(LINFO, ("Output World file:", info.GetTmpFileName(WORLD_FILE_NAME)));
+      LOG_SHORT(LINFO, ("Output World file:", info.GetTmpFileName(WORLD_FILE_NAME)));
     }
 
     ~EmitterImpl() override
@@ -144,9 +144,10 @@ class WorldMapGenerator
       Classificator const & c = classif();
       
       stringstream ss;
+      ss << endl;
       for (auto const & p : m_mapTypes)
         ss << c.GetReadableObjectName(p.first) << " : " <<  p.second << endl;
-      LOG(LINFO, ("World types:\n", ss.str()));
+      LOG_SHORT(LINFO, ("World types:", ss.str()));
     }
 
     /// This function is called after merging linear features.
