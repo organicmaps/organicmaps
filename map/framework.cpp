@@ -2316,7 +2316,7 @@ string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)
   return m_stringsBundle.GetString(messageID);
 }
 
-RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const
+RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint)
 {
   if (MercatorBounds::DistanceOnEarth(startPoint, finalPoint) < kKeepPedestrianDistanceMeters)
   {
@@ -2324,6 +2324,17 @@ RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD co
     Settings::Get(kRouterTypeKey, routerType);
     if (routerType == routing::ToString(RouterType::Pedestrian))
       return RouterType::Pedestrian;
+    else
+    {
+      // Return on short calls the vehicle router flag only if we are already have routing files.
+      auto countryFileGetter = [this](m2::PointD const & p)
+      {
+        return GetSearchEngine()->GetCountryFile(p);
+      };
+      if (!OsrmRouter::CheckRoutingAbility(startPoint, finalPoint, countryFileGetter,
+                                           &m_model.GetIndex()))
+        return RouterType::Pedestrian;
+    }
   }
   return RouterType::Vehicle;
 }
