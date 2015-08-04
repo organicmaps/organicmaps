@@ -78,9 +78,11 @@ void AsyncRouter::RouterDelegateProxy::OnReady(Route & route, IRouter::ResultCod
 {
   if (!m_onReady)
     return;
-  lock_guard<mutex> l(m_guard);
-  if (m_delegate.IsCancelled())
-    return;
+  {
+    lock_guard<mutex> l(m_guard);
+    if (m_delegate.IsCancelled())
+      return;
+  }
   m_onReady(route, resultCode);
 }
 
@@ -94,9 +96,11 @@ void AsyncRouter::RouterDelegateProxy::OnProgress(float progress)
 {
   if (!m_onProgress)
     return;
-  lock_guard<mutex> l(m_guard);
-  if (m_delegate.IsCancelled())
-    return;
+  {
+    lock_guard<mutex> l(m_guard);
+    if (m_delegate.IsCancelled())
+      return;
+  }
   m_onProgress(progress);
 }
 
@@ -104,9 +108,11 @@ void AsyncRouter::RouterDelegateProxy::OnPointCheck(m2::PointD const & pt)
 {
   if (!m_onPointCheck)
     return;
-  lock_guard<mutex> l(m_guard);
-  if (m_delegate.IsCancelled())
-    return;
+  {
+    lock_guard<mutex> l(m_guard);
+    if (m_delegate.IsCancelled())
+      return;
+  }
   m_onPointCheck(pt);
 }
 
