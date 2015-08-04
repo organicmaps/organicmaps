@@ -1,6 +1,6 @@
 #pragma once
 
-#include "coding/compressed_bit_vector.hpp"
+#include "coding/old_compressed_bit_vector.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/write_to_sink.hpp"
 

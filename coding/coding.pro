@@ -16,6 +16,7 @@ SOURCES += \
 #    blob_indexer.cpp \
 #    blob_storage.cpp \
     compressed_bit_vector.cpp \
+    old_compressed_bit_vector.cpp \
 #    compressed_varnum_vector.cpp \
     file_container.cpp \
     file_name_utils.cpp \
@@ -51,7 +52,7 @@ HEADERS += \
     byte_stream.hpp \
     coder.hpp \
     coder_util.hpp \
-    compressed_bit_vector.hpp \
+    old_compressed_bit_vector.hpp \
 #    compressed_varnum_vector.hpp \
     constants.hpp \
     dd_vector.hpp \

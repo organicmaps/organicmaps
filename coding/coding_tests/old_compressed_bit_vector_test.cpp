@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "coding/compressed_bit_vector.hpp"
+#include "coding/old_compressed_bit_vector.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 

@@ -86,7 +86,7 @@ vector<uint32_t> BitVectorsOr(It1T begin1, It1T end1, It2T begin2, It2T end2)
     else if (pos1 < pos2)
     {
       result.push_back(pos1);
-      ++it1;      
+      ++it1;
     }
     else  // pos1 > pos2
     {

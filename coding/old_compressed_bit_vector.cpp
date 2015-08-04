@@ -1,4 +1,4 @@
-#include "coding/compressed_bit_vector.hpp"
+#include "coding/old_compressed_bit_vector.hpp"
 
 #include "coding/arithmetic_codec.hpp"
 #include "coding/bit_streams.hpp"
@@ -154,7 +154,7 @@ void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes,
   else if (encType == 2)
   {
     // Diffs-Arith encoding.
-    
+
     // Encode encoding type plus number of freqs in the table.
     VarintEncode(writer, encType + (nonzeroDiffsSizesFreqsEnd << 2));
     // Encode freqs table.
@@ -214,7 +214,7 @@ void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes,
   else if (encType == 1)
   {
     // Ranges-Varint encoding.
-    
+
     // If bit vector starts with 1.
     bool isFirstOne = posOnes.size() > 0 && posOnes.front() == 0;
     // Encode encoding type plus flag if first is 1.
@@ -435,7 +435,7 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
   else if (encType == 1)
   {
     // Ranges-Varint encoding.
-    
+
     // If bit vector starts with 1.
     bool isFirstOne = ((header >> 2) & 1) == 1;
     uint64_t sum = 0;
