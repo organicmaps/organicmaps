@@ -792,6 +792,13 @@ public class MWMActivity extends BaseMwmFragmentActivity
       builder.setSpan(new AbsoluteSizeSpan(44, true), 0, info.mDistToTurn.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       builder.setSpan(new AbsoluteSizeSpan(11, true), info.mDistToTurn.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       mTvTurnDistance.setText(builder);
+
+      // Turn sound notifications.
+      if (info.mTurnNotifications != null)
+      {
+        for (String textToSpeak : info.mTurnNotifications)
+          TTSPlayer.get().speak(textToSpeak);
+      }
     }
   }
 

@@ -73,6 +73,7 @@ public enum LocationState
     public String mTargetName;
 
     public TurnDirection mTurnDirection;
+    public String[] mTurnNotifications;
 
     /**
      * IMPORTANT : Order of enum values MUST BE the same with native TurnDirection enum.
@@ -180,6 +181,7 @@ public enum LocationState
       mTargetName = targetName;
       mTotalTimeInSeconds = totalTime;
       mTurnDirection = TurnDirection.values()[direction];
+      mTurnNotifications = turnNotifications;
     }
   }
 }

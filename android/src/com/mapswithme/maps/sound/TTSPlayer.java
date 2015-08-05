@@ -22,6 +22,7 @@ public class TTSPlayer
   private TTSPlayer()
   {
     mContext = MWMApplication.get().getApplicationContext();
+    setLocaleIfAvailable(Locale.getDefault());
   }
 
   @Override
@@ -39,7 +40,7 @@ public class TTSPlayer
     return ourInstance;
   }
 
-  public void setLocaleIfAvailable(final Locale locale)
+  private void setLocaleIfAvailable(final Locale locale)
   {
     if (mTts != null && mTts.getLanguage().equals(locale))
       return;
@@ -67,7 +68,7 @@ public class TTSPlayer
       ;// Call native method to set locale for TTS (loc.getLanguage())
   }
 
-  public Locale getLocale()
+  private Locale getLocale()
   {
     if (mTts == null)
       return null;
@@ -94,13 +95,12 @@ public class TTSPlayer
 
   public boolean isEnabled()
   {
-    // Call native method to check if TTS is set as enabled
-    return true;
+    return nativeAreTurnNotificationsEnabled();
   }
 
   public void enable(boolean enabled)
   {
-    // Call native method to enable/disable TTS
+    nativeEnableTurnNotifications(enabled);
   }
 
   public void setLengthUnits(int units)
