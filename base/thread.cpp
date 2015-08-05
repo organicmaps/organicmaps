@@ -109,7 +109,7 @@ ThreadID GetCurrentThreadID() { return this_thread::get_id(); }
 /////////////////////////////////////////////////////////////////////
 // SimpleThread implementation
 
-void SimpleThread::ThreadFunc(function<void()> fn)
+void SimpleThread::ThreadFunc(function<void()> && fn)
 {
 #if defined(OMIM_OS_ANDROID)
   AndroidThreadAttachToJVM();

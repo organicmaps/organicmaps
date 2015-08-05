@@ -131,7 +131,7 @@ public:
   void swap(SimpleThread & x) noexcept { m_thread.swap(x.m_thread); }
 
 private:
-  static void ThreadFunc(function<void()> fn);
+  static void ThreadFunc(function<void()> && fn);
 
   DISALLOW_COPY(SimpleThread);
 
