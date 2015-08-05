@@ -1616,6 +1616,13 @@ MapStyle Framework::GetMapStyle() const
 
 void Framework::SetupMeasurementSystem()
 {
+  Settings::Units units = Settings::Metric;
+  Settings::Get("Units", units);
+  LOG(LDEBUG, ("Units =", units));
+  m_routingSession.SetTurnNotificationsUnits(units == Settings::Foot ?
+                                             routing::turns::sound::LengthUnits::Feet :
+                                             routing::turns::sound::LengthUnits::Meters);
+
   m_informationDisplay.measurementSystemChanged();
   Invalidate();
 }

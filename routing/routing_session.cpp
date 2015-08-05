@@ -310,13 +310,6 @@ void RoutingSession::SetTurnNotificationsUnits(routing::turns::sound::LengthUnit
   m_turnsSound.SetLengthUnits(units);
 }
 
-routing::turns::sound::LengthUnits RoutingSession::GetTurnNotificationsUnits() const
-{
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-  return m_turnsSound.GetLengthUnits();
-}
-
 void RoutingSession::SetTurnNotificationsLocale(string const & locale)
 {
   threads::MutexGuard guard(m_routeSessionMutex);

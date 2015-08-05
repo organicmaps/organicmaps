@@ -65,7 +65,7 @@ public class TTSPlayer
 
     final Locale loc = getLocale();
     if (loc != null)
-      ;// Call native method to set locale for TTS (loc.getLanguage())
+      nativeSetTurnNotificationsLocale(loc.getLanguage());
   }
 
   private Locale getLocale()
@@ -103,15 +103,8 @@ public class TTSPlayer
     nativeEnableTurnNotifications(enabled);
   }
 
-  public void setLengthUnits(int units)
-  {
-    // Call native method to set units for TTS
-  }
-
   public native static void nativeEnableTurnNotifications(boolean enable);
   public native static boolean nativeAreTurnNotificationsEnabled();
   public native static void nativeSetTurnNotificationsLocale(String locale);
   public native static String nativeGetTurnNotificationsLocale();
-  public native static void nativeSetTurnNotificationsUnits(int lengthUnits);
-  public native static int nativeGetTurnNotificationsUnits();
 }
