@@ -152,11 +152,4 @@ public class Framework
   public native static int getRouter();
 
   public native static void setWidgetPivot(int widget, int pivotX, int pivotY);
-
-  public native static void nativeEnableTurnNotifications(boolean enable);
-  public native static boolean nativeAreTurnNotificationsEnabled();
-  public native static void nativeSetTurnNotificationsLocale(String locale);
-  public native static String nativeGetTurnNotificationsLocale();
-  public native static void nativeSetTurnNotificationsUnits(int lengthUnits);
-  public native static int nativeGetTurnNotificationsUnits();
 }
