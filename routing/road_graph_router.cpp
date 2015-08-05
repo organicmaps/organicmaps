@@ -5,9 +5,15 @@
 #include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 
+#include "coding/reader_wrapper.hpp"
+
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
+#include "indexer/mwm_version.hpp"
+
+#include "platform/country_file.hpp"
+#include "platform/local_country_file.hpp"
 
 #include "geometry/distance.hpp"
 
@@ -56,7 +62,14 @@ bool CheckMwmVersion(vector<pair<Edge, m2::PointD>> const & vicinities, vector<s
   for (auto const & vicinity : vicinities)
   {
     auto const mwmInfo = vicinity.first.GetFeatureId().m_mwmId.GetInfo();
-    if (mwmInfo->GetVersion() < kMinPedestrianMwmVersion)
+    // mwmInfo gets version from a path of the file, so we must read the version header to be sure.
+    ModelReaderPtr reader = FilesContainerR(mwmInfo->GetLocalFile().GetPath(MapOptions::Map))
+                                            .GetReader(VERSION_FILE_TAG);
+    ReaderSrc src(reader.GetPtr());
+
+    version::MwmVersion version;
+    version::ReadVersion(src, version);
+    if (version.timestamp < kMinPedestrianMwmVersion)
       mwmNames.push_back(mwmInfo->GetCountryName());
   }
   return !mwmNames.empty();
