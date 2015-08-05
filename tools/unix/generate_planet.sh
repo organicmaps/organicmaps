@@ -10,10 +10,11 @@ usage() {
   echo
   echo -e "-u\tUpdate planet until coastline is not broken"
   echo -e "-U\tDownload planet when it is missing"
-  echo -e "-w\tGenerate World and WorldCoasts"
+  echo -e "-l\tGenerate coastlines"
+  echo -e "-w\tGenerate a world file"
   echo -e "-r\tGenerate routing files"
   echo -e "-o\tGenerate online routing files"
-  echo -e "-a\tEquivalent to -uwr"
+  echo -e "-a\tEquivalent to -ulwr"
   echo -e "-p\tGenerate only countries, no world and no routing"
   echo -e "-c\tClean last pass results if there was an error, and start anew"
   echo -e "-v\tPrint all commands executed"
@@ -65,6 +66,7 @@ putmode() {
 [ $# -eq 0 ] && usage && fail
 # Parse command line parameters
 OPT_CLEAN=
+OPT_COAST=
 OPT_WORLD=
 OPT_UPDATE=
 OPT_DOWNLOAD=
@@ -74,6 +76,9 @@ while getopts ":couUwrapvh" opt; do
   case $opt in
     c)
       OPT_CLEAN=1
+      ;;
+    l)
+      OPT_COAST=1
       ;;
     w)
       OPT_WORLD=1
@@ -92,6 +97,7 @@ while getopts ":couUwrapvh" opt; do
       OPT_ONLINE_ROUTING=1
       ;;
     a)
+      OPT_COAST=1
       OPT_WORLD=1
       OPT_UPDATE=1
       OPT_ROUTING=1
@@ -151,6 +157,7 @@ source "$SCRIPTS_PATH/find_generator_tool.sh"
 [ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
 mkdir -p "$TARGET/borders"
 PREV_BORDERS="$(ls "$TARGET/borders" | grep \.poly)"
+NO_REGIONS=
 if [ -n "${REGIONS:-}" ]; then
   # If region files are specified, backup old borders and copy new
   if [ -n "$PREV_BORDERS" ]; then
@@ -160,6 +167,9 @@ if [ -n "${REGIONS:-}" ]; then
     mv "$TARGET/borders"/*.poly "$BORDERS_BACKUP_PATH"
   fi
   echo "$REGIONS" | xargs -I % cp "%" "$TARGET/borders/"
+elif [ -z "${REGIONS-1}" ]; then
+  # A user asked specifically for no regions
+  NO_REGIONS=1
 elif [ -z "$PREV_BORDERS" ]; then
   # If there are no borders, copy them from $BORDERS_PATH
   BORDERS_PATH="${BORDERS_PATH:-$DATA_PATH/borders}"
@@ -189,11 +199,11 @@ mkdir -p "$INTDIR"
 
 if [ -r "$STATUS_FILE" ]; then
   # Read all control variables from file
-  IFS=, read -r OPT_ROUTING OPT_UPDATE OPT_WORLD MODE < "$STATUS_FILE"
+  IFS=, read -r OPT_ROUTING OPT_UPDATE OPT_COAST OPT_WORLD NO_REGIONS MODE < "$STATUS_FILE"
 fi
-MFLAGS="$OPT_ROUTING,$OPT_UPDATE,$OPT_WORLD,"
+MFLAGS="$OPT_ROUTING,$OPT_UPDATE,$OPT_COAST,$OPT_WORLD,$NO_REGIONS,"
 if [ -z "${MODE:-}" ]; then
-  if [ -n "$OPT_WORLD" -o -n "$OPT_UPDATE" ]; then
+  if [ -n "$OPT_COAST" -o -n "$OPT_UPDATE" ]; then
     MODE=coast
   else
     MODE=inter
@@ -234,7 +244,7 @@ if [ "$MODE" == "coast" ]; then
       mv "$PLANET.new.o5m" "$PLANET"
     fi
 
-    if [ -n "$OPT_WORLD" ]; then
+    if [ -n "$OPT_COAST" ]; then
       log "STATUS" "Step 2: Creating and processing new coastline in $COASTS"
       # Strip coastlines from the planet to speed up the process
       "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" "-o=$COASTS"
@@ -264,14 +274,14 @@ if [ "$MODE" == "coast" ]; then
     fi
   done
   # make a working copy of generated coastlines file
-  [ -n "$OPT_WORLD" ] && cp "$INTCOASTSDIR/WorldCoasts.rawgeom" "$INTDIR"
-  [ -n "$OPT_WORLD" ] && cp "$INTCOASTSDIR/WorldCoasts.geom" "$INTDIR"
+  [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/WorldCoasts.rawgeom" "$INTDIR"
+  [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/WorldCoasts.geom" "$INTDIR"
   [ -z "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
   MODE=inter
 fi
 
 # Starting routing generation as early as we can, since it's done in parallel
-if [ -n "$OPT_ROUTING" ]; then
+if [ -n "$OPT_ROUTING" -a -z "$NO_REGIONS" ]; then
   if [ -e "$OSRM_FLAG" ]; then
     log "start_routing(): OSRM files have been already created, no need to repeat"
   else
@@ -294,7 +304,7 @@ if [ -n "$OPT_ROUTING" ]; then
   fi
 fi
 
-if [ -n "$OPT_ONLINE_ROUTING" ]; then
+if [ -n "$OPT_ONLINE_ROUTING" -a -z "$NO_REGIONS" ]; then
   putmode "Step RO: Generating OSRM files for osrm-routed server."
   bash "$ROUTING_SCRIPT" online >> "$PLANET_LOG" 2>&1
 fi
@@ -324,7 +334,7 @@ if [ "$MODE" == "mwm" ]; then
   putmode "Step 5: Building all MWMs of regions and of the whole world into $TARGET"
   # First, check for *.mwm.tmp
   [ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
-  [ -z "$(ls "$INTDIR/tmp" | grep \.mwm\.tmp)" ] && fail "No .mwm.tmp files found."
+  [ -z "$NO_REGIONS" -a -z "$(ls "$INTDIR/tmp" | grep \.mwm\.tmp)" ] && fail "No .mwm.tmp files found."
   [ -n "$EXIT_ON_ERROR" ] && set -e
   # 3rd pass - do in parallel
   # but separate exceptions for world files to finish them earlier
@@ -334,19 +344,23 @@ if [ "$MODE" == "mwm" ]; then
       "$GENERATOR_TOOL" $PARAMS --output=World 2>> "$LOG_PATH/World.log"
       "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
     ) &
+  fi
+  if [ -n "$OPT_COAST" ]; then
     "$GENERATOR_TOOL" $PARAMS --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
   fi
 
-  PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
-  for file in "$INTDIR"/tmp/*.mwm.tmp; do
-    if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
-      BASENAME="$(basename "$file" .mwm.tmp)"
-      "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
-      forky
-    fi
-  done
+  if [ -z "$NO_REGIONS" ]; then
+    PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
+    for file in "$INTDIR"/tmp/*.mwm.tmp; do
+      if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
+        BASENAME="$(basename "$file" .mwm.tmp)"
+        "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
+        forky
+      fi
+    done
+  fi
 
-  if [ -n "$OPT_ROUTING" ]; then
+  if [ -n "$OPT_ROUTING" -a -z "$NO_REGIONS" ]; then
     MODE=routing
   else
     MODE=resources
@@ -385,7 +399,7 @@ if [ "$MODE" == "resources" ]; then
   done
   chmod 0666 "$TARGET/countries.txt"
 
-  if [ -n "$OPT_WORLD" ]; then
+  if [ -n "$OPT_WORLD" -o -n "$OPT_COAST" ]; then
     # Update external resources
     [ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
     [ -z "$(ls "$TARGET" | grep \.ttf)" ] && cp "$DATA_PATH"/*.ttf "$TARGET"
@@ -418,6 +432,7 @@ if [ "$MODE" == "test" ]; then
 fi
 
 # Cleaning up temporary directories
+set +e
 rm "$STATUS_FILE"
 [ -f "$OSRM_FLAG" ] && rm "$OSRM_FLAG"
 mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
