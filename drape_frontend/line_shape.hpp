@@ -26,6 +26,11 @@ public:
 
   virtual ref_ptr<void> GetJoinData() = 0;
   virtual size_t GetJoinSize() = 0;
+
+  virtual dp::BindingInfo const & GetCapBindingInfo() = 0;
+  virtual dp::GLState GetCapState() = 0;
+  virtual ref_ptr<void> GetCapData() = 0;
+  virtual size_t GetCapSize() = 0;
 };
 
 class LineShape : public MapShape

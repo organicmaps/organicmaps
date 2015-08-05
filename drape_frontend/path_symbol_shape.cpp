@@ -58,7 +58,7 @@ void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureMana
   if (buffer.empty())
     return;
 
-  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
+  dp::GLState state(gpu::PATH_SYMBOL_LINE, dp::GLState::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, buffer.size());

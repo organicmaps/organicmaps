@@ -1,4 +1,3 @@
-
 varying vec2 v_colorTexCoord;
 varying vec2 v_outlineColorTexCoord;
 varying vec2 v_maskTexCoord;

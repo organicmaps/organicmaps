@@ -26,3 +26,7 @@ OTHER_FILES += \
     shaders/texturing_fragment_shader.fsh \
     shaders/texturing_vertex_shader.vsh \
     shaders/user_mark.vsh \
+
+DISTFILES += \
+    shaders/circle_shader.fsh \
+    shaders/circle_shader.vsh

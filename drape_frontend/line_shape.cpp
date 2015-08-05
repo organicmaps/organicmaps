@@ -62,11 +62,13 @@ template <typename TVertex>
 class BaseLineBuilder : public ILineShapeInfo
 {
 public:
-  BaseLineBuilder(dp::TextureManager::ColorRegion const & color, float pxHalfWidth,
-                  size_t geometrySize, size_t joinsSize)
+  BaseLineBuilder(dp::TextureManager::ColorRegion const & color, float pxHalfWidth, float depth,
+                  size_t geometrySize, size_t joinsSize,   dp::LineCap lineCap)
     : m_color(color)
     , m_colorCoord(glsl::ToVec2(m_color.GetTexRect().Center()))
     , m_pxHalfWidth(pxHalfWidth)
+    , m_depth(depth)
+    , m_lineCap(lineCap)
   {
     m_geometry.reserve(geometrySize);
     m_joinGeom.reserve(joinsSize);
@@ -109,6 +111,26 @@ public:
     return m_pxHalfWidth;
   }
 
+  dp::BindingInfo const & GetCapBindingInfo() override
+  {
+    return GetBindingInfo();
+  }
+
+  dp::GLState GetCapState() override
+  {
+    return GetState();
+  }
+
+  ref_ptr<void> GetCapData() override
+  {
+    return ref_ptr<void>();
+  }
+
+  size_t GetCapSize() override
+  {
+    return 0;
+  }
+
 protected:
   using V = TVertex;
   using TGeometryBuffer = vector<V>;
@@ -116,9 +138,13 @@ protected:
   TGeometryBuffer m_geometry;
   TGeometryBuffer m_joinGeom;
 
+  vector<glsl::vec2> m_normalBuffer;
+
   dp::TextureManager::ColorRegion m_color;
   glsl::vec2 const m_colorCoord;
   float const m_pxHalfWidth;
+  float m_depth;
+  dp::LineCap m_lineCap;
 };
 
 class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
@@ -126,9 +152,31 @@ class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
   using TBase = BaseLineBuilder<gpu::LineVertex>;
   using TNormal = gpu::LineVertex::TNormal;
 
+  struct CapVertex
+  {
+    using TPosition = gpu::LineVertex::TPosition;
+    using TNormal = gpu::LineVertex::TNormal;
+    using TTexCoord = gpu::LineVertex::TTexCoord;
+
+    CapVertex() {}
+    CapVertex(TPosition const & pos, TNormal const & normal, TTexCoord const & color)
+      : m_position(pos)
+      , m_normal(normal)
+      , m_color(color)
+    {
+    }
+
+    TPosition m_position;
+    TNormal m_normal;
+    TTexCoord m_color;
+  };
+
+  using TCapBuffer = vector<CapVertex>;
+
 public:
-  SolidLineBuilder(dp::TextureManager::ColorRegion const & color, float const  pxHalfWidth, size_t pointsInSpline)
-    : TBase(color, pxHalfWidth, pointsInSpline * 2, (pointsInSpline - 2) * 8)
+  SolidLineBuilder(dp::TextureManager::ColorRegion const & color, float const pxHalfWidth,
+                   float const depth, size_t pointsInSpline, dp::LineCap lineCap)
+    : TBase(color, pxHalfWidth, depth, pointsInSpline * 2, (pointsInSpline - 2) * 8, lineCap)
   {
   }
 
@@ -137,6 +185,45 @@ public:
     dp::GLState state(gpu::LINE_PROGRAM, dp::GLState::GeometryLayer);
     state.SetColorTexture(m_color.GetTexture());
     return state;
+  }
+
+  dp::BindingInfo const & GetCapBindingInfo() override
+  {
+    if (m_lineCap != dp::RoundCap)
+      return TBase::GetCapBindingInfo();
+
+    static unique_ptr<dp::BindingInfo> s_capInfo;
+    if (s_capInfo == nullptr)
+    {
+      dp::BindingFiller<CapVertex> filler(3);
+      filler.FillDecl<CapVertex::TPosition>("a_position");
+      filler.FillDecl<CapVertex::TNormal>("a_normal");
+      filler.FillDecl<CapVertex::TTexCoord>("a_colorTexCoords");
+
+      s_capInfo.reset(new dp::BindingInfo(filler.m_info));
+    }
+
+    return *s_capInfo;
+  }
+
+  dp::GLState GetCapState() override
+  {
+    if (m_lineCap != dp::RoundCap)
+      return TBase::GetCapState();
+
+    dp::GLState state(gpu::CAP_JOIN_PROGRAM, dp::GLState::GeometryLayer);
+    state.SetColorTexture(m_color.GetTexture());
+    return state;
+  }
+
+  ref_ptr<void> GetCapData() override
+  {
+    return make_ref<void>(m_capGeometry.data());
+  }
+
+  size_t GetCapSize() override
+  {
+    return m_capGeometry.size();
   }
 
   void SubmitVertex(LineSegment const & segment, glsl::vec3 const & pivot,
@@ -160,10 +247,52 @@ public:
     }
   }
 
+  void SubmitCap(LineSegment const & segment, bool isStart)
+  {
+    EPointType const type = isStart ? StartPoint : EndPoint;
+    if (m_lineCap != dp::RoundCap)
+    {
+      m_normalBuffer.reserve(24);
+
+      float const sign = isStart ? -1.0 : 1.0;
+      GenerateCapNormals(m_lineCap,
+                         segment.m_leftNormals[type],
+                         segment.m_rightNormals[type],
+                         sign * segment.m_tangent,
+                         GetHalfWidth(), isStart, m_normalBuffer);
+
+      SubmitJoin(glsl::vec3(segment.m_points[type], m_depth), m_normalBuffer);
+      m_normalBuffer.clear();
+    }
+    else
+    {
+      m_capGeometry.reserve(8);
+
+      glsl::vec2 const pos = segment.m_points[type];
+      float const radius = GetHalfWidth();
+
+      m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_depth),
+                                        CapVertex::TNormal(-radius, radius, radius),
+                                        CapVertex::TTexCoord(m_colorCoord)));
+      m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_depth),
+                                        CapVertex::TNormal(-radius, -radius, radius),
+                                        CapVertex::TTexCoord(m_colorCoord)));
+      m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_depth),
+                                        CapVertex::TNormal(radius, radius, radius),
+                                        CapVertex::TTexCoord(m_colorCoord)));
+      m_capGeometry.push_back(CapVertex(CapVertex::TPosition(pos, m_depth),
+                                        CapVertex::TNormal(radius, -radius, radius),
+                                        CapVertex::TTexCoord(m_colorCoord)));
+    }
+  }
+
   float GetSide(bool isLeft)
   {
     return isLeft ? 1.0 : -1.0;
   }
+
+private:
+  TCapBuffer m_capGeometry;
 };
 
 class DashedLineBuilder : public BaseLineBuilder<gpu::DashedLineVertex>
@@ -173,9 +302,9 @@ class DashedLineBuilder : public BaseLineBuilder<gpu::DashedLineVertex>
 public:
   DashedLineBuilder(dp::TextureManager::ColorRegion const & color,
                     dp::TextureManager::StippleRegion const & stipple,
-                    float glbHalfWidth, float pxHalfWidth, float baseGtoP,
-                    size_t pointsInSpline)
-    : TBase(color, pxHalfWidth, pointsInSpline * 8, (pointsInSpline - 2) * 8)
+                    float glbHalfWidth, float pxHalfWidth, float const depth,
+                    float baseGtoP, size_t pointsInSpline, dp::LineCap lineCap)
+    : TBase(color, pxHalfWidth, depth, pointsInSpline * 8, (pointsInSpline - 2) * 8, lineCap)
     , m_texCoordGen(stipple, baseGtoP)
     , m_glbHalfWidth(glbHalfWidth)
     , m_baseGtoPScale(baseGtoP)
@@ -220,6 +349,22 @@ public:
     }
   }
 
+  void SubmitCap(LineSegment const & segment, bool isStart)
+  {
+    m_normalBuffer.reserve(24);
+
+    EPointType const type = isStart ? StartPoint : EndPoint;
+    float const sign = isStart ? -1.0 : 1.0;
+    GenerateCapNormals(m_lineCap,
+                       segment.m_leftNormals[type],
+                       segment.m_rightNormals[type],
+                       sign * segment.m_tangent,
+                       GetHalfWidth(), isStart, m_normalBuffer);
+
+    SubmitJoin(glsl::vec3(segment.m_points[type], m_depth), m_normalBuffer);
+    m_normalBuffer.clear();
+  }
+
 private:
   TextureCoordGenerator m_texCoordGen;
   float const m_glbHalfWidth;
@@ -243,7 +388,8 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
 
   if (m_params.m_pattern.empty())
   {
-    auto builder = make_unique<SolidLineBuilder>(colorRegion, pxHalfWidth, m_spline->GetPath().size());
+    auto builder = make_unique<SolidLineBuilder>(colorRegion, pxHalfWidth, m_params.m_depth,
+                                                 m_spline->GetPath().size(), m_params.m_cap);
     Construct<SolidLineBuilder>(*builder);
     m_lineShapeInfo = move(builder);
   }
@@ -255,8 +401,8 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     float const glbHalfWidth = pxHalfWidth / m_params.m_baseGtoPScale;
 
     auto builder = make_unique<DashedLineBuilder>(colorRegion, maskRegion, glbHalfWidth,
-                                                  pxHalfWidth, m_params.m_baseGtoPScale,
-                                                  m_spline->GetPath().size());
+                                                  pxHalfWidth, m_params.m_depth, m_params.m_baseGtoPScale,
+                                                  m_spline->GetPath().size(), m_params.m_cap);
     Construct<DashedLineBuilder>(*builder);
     m_lineShapeInfo = move(builder);
   }
@@ -336,32 +482,8 @@ void LineShape::Construct(TBuilder & builder) const
     }
   }
 
-  vector<glsl::vec2> normals;
-  normals.reserve(24);
-
-  {
-    LineSegment const & segment = segments[0];
-    GenerateCapNormals(m_params.m_cap,
-                       segment.m_leftNormals[StartPoint],
-                       segment.m_rightNormals[StartPoint],
-                       -segment.m_tangent,
-                       halfWidth, true /* isStart */, normals);
-
-    builder.SubmitJoin(glsl::vec3(segment.m_points[StartPoint], m_params.m_depth), normals);
-    normals.clear();
-  }
-
-  {
-    size_t index = segments.size() - 1;
-    LineSegment const & segment = segments[index];
-    GenerateCapNormals(m_params.m_cap,
-                       segment.m_leftNormals[EndPoint],
-                       segment.m_rightNormals[EndPoint],
-                       segment.m_tangent,
-                       halfWidth, false /* isStart */, normals);
-
-    builder.SubmitJoin(glsl::vec3(segment.m_points[EndPoint], m_params.m_depth), normals);
-  }
+  builder.SubmitCap(segments[0], true /* isStart */);
+  builder.SubmitCap(segments[segments.size() - 1], false /* isStart */);
 }
 
 void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
@@ -382,6 +504,14 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     dp::AttributeProvider joinsProvider(1, joinSize);
     joinsProvider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetJoinData());
     batcher->InsertTriangleList(state, make_ref(&joinsProvider));
+  }
+
+  size_t capSize = m_lineShapeInfo->GetCapSize();
+  if (capSize > 0)
+  {
+    dp::AttributeProvider capProvider(1, capSize);
+    capProvider.InitStream(0, m_lineShapeInfo->GetCapBindingInfo(), m_lineShapeInfo->GetCapData());
+    batcher->InsertListOfStrip(m_lineShapeInfo->GetCapState(), make_ref(&capProvider), dp::Batcher::VertexPerQuad);
   }
 }
 
