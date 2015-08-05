@@ -79,6 +79,9 @@ void Thread::Join()
 
 IRoutine * Thread::GetRoutine() { return m_routine.get(); }
 
+/////////////////////////////////////////////////////////////////////
+// SimpleThreadPool implementation
+
 SimpleThreadPool::SimpleThreadPool(size_t reserve) { m_pool.reserve(reserve); }
 
 void SimpleThreadPool::Add(unique_ptr<IRoutine> && routine)
@@ -98,4 +101,20 @@ IRoutine * SimpleThreadPool::GetRoutine(size_t i) const { return m_pool[i]->GetR
 void Sleep(size_t ms) { this_thread::sleep_for(milliseconds(ms)); }
 
 ThreadID GetCurrentThreadID() { return this_thread::get_id(); }
+
+/////////////////////////////////////////////////////////////////////
+// SimpleThread implementation
+
+void SimpleThread::ThreadFunc(function<void()> fn)
+{
+#if defined(OMIM_OS_ANDROID)
+  AndroidThreadAttachToJVM();
+#endif  // defined(OMIM_OS_ANDROID)
+
+  fn();
+
+#if defined(OMIM_OS_ANDROID)
+  AndroidThreadDetachFromJVM();
+#endif  // defined(OMIM_OS_ANDROID)
+}
 }

@@ -58,3 +58,60 @@ UNIT_TEST(Simple_Threads)
   TEST_EQUAL(vec.size(), MAX_COUNT, ("vector size"));
   TEST_EQUAL(summ, checkSumm, ("check summ"));
 }
+
+class SomeClass
+{
+public:
+  void Increment(int * a, int b)
+  {
+    *a = *a + b;
+  }
+};
+
+static void Increment(int * a, int b)
+{
+  *a = *a + b;
+}
+
+UNIT_TEST(SimpleThreadTest1)
+{
+  int a = 0;
+
+  auto fn = [&a](){ a = 1; };
+
+  threads::SimpleThread t(fn);
+  t.join();
+
+  TEST_EQUAL(a, 1, ("test a"));
+}
+
+UNIT_TEST(SimpleThreadTest2)
+{
+  int a = 0;
+
+  threads::SimpleThread t([&a](){ a = 1; });
+  t.join();
+
+  TEST_EQUAL(a, 1, ("test a"));
+}
+
+UNIT_TEST(SimpleThreadTest3)
+{
+  int a = 0;
+
+  SomeClass instance;
+  threads::SimpleThread t(&SomeClass::Increment, &instance, &a, 1);
+  t.join();
+
+  TEST_EQUAL(a, 1, ("test a"));
+}
+
+UNIT_TEST(SimpleThreadTest4)
+{
+  int a = 0;
+
+  threads::SimpleThread t(&Increment, &a, 1);
+  t.join();
+
+  TEST_EQUAL(a, 1, ("test a"));
+}

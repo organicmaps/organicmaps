@@ -4,7 +4,9 @@
 #include "base/cancellable.hpp"
 #include "base/macros.hpp"
 
+#include "std/bind.hpp"
 #include "std/cstdint.hpp"
+#include "std/function.hpp"
 #include "std/noncopyable.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/target_os.hpp"
@@ -94,4 +96,43 @@ typedef thread::id ThreadID;
 
 ThreadID GetCurrentThreadID();
 
+/// A wrapper around a std thread which executes callable object in android envorinment
+/// Class has the same interface as std::thread
+class SimpleThread
+{
+public:
+  using id = thread::id;
+  using native_handle_type = thread::native_handle_type;
+
+  SimpleThread() noexcept {}
+  SimpleThread(SimpleThread && x) noexcept
+    : m_thread(move(x.m_thread))
+  {}
+
+  template <class Fn, class... Args>
+  explicit SimpleThread(Fn && fn, Args &&... args)
+    : m_thread(&SimpleThread::ThreadFunc, bind(forward<Fn>(fn), forward<Args>(args)...))
+  {}
+
+  SimpleThread & operator= (SimpleThread && x) noexcept
+  {
+    m_thread = move(x.m_thread);
+    return *this;
+  }
+
+  SimpleThread(const SimpleThread &) = delete;
+  SimpleThread & operator= (const SimpleThread &) = delete;
+
+  void detach() { m_thread.detach(); }
+  id get_id() const noexcept { return m_thread.get_id(); }
+  void join() { m_thread.join(); }
+  bool joinable() const noexcept { return m_thread.joinable(); }
+  native_handle_type native_handle() { return m_thread.native_handle(); }
+  void swap(SimpleThread & x) noexcept { m_thread.swap(x.m_thread); }
+
+private:
+  static void ThreadFunc(function<void()> fn);
+
+  thread m_thread;
+};
 }  // namespace threads
