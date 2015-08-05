@@ -61,7 +61,10 @@ UNIT_TEST(Simple_Threads)
 
 class SomeClass
 {
+  DISALLOW_COPY(SomeClass);
+
 public:
+  SomeClass() {}
   void Increment(int * a, int b)
   {
     *a = *a + b;

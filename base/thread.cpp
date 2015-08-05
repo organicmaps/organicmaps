@@ -32,6 +32,10 @@ void RunRoutine(shared_ptr<IRoutine> routine)
 /////////////////////////////////////////////////////////////////////
 // Thread wrapper implementation
 
+Thread::Thread()
+{
+}
+
 Thread::~Thread()
 {
   // @todo (ygorshenin@): in general, it's not a good practice to

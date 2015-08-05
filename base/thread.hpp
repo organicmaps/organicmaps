@@ -40,7 +40,10 @@ class Thread
   thread m_thread;
   shared_ptr<IRoutine> m_routine;
 
+  DISALLOW_COPY(Thread);
+
 public:
+  Thread();
   ~Thread();
 
   /// Run thread immediately.
@@ -96,7 +99,7 @@ typedef thread::id ThreadID;
 
 ThreadID GetCurrentThreadID();
 
-/// A wrapper around a std thread which executes callable object in android envorinment
+/// A wrapper around a std thread which executes callable object in thread which is attached to JVM
 /// Class has the same interface as std::thread
 class SimpleThread
 {
@@ -120,9 +123,6 @@ public:
     return *this;
   }
 
-  SimpleThread(const SimpleThread &) = delete;
-  SimpleThread & operator= (const SimpleThread &) = delete;
-
   void detach() { m_thread.detach(); }
   id get_id() const noexcept { return m_thread.get_id(); }
   void join() { m_thread.join(); }
@@ -132,6 +132,8 @@ public:
 
 private:
   static void ThreadFunc(function<void()> fn);
+
+  DISALLOW_COPY(SimpleThread);
 
   thread m_thread;
 };
