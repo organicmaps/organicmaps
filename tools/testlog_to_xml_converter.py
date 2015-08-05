@@ -97,7 +97,9 @@ class TestInfo:
             b.text = self.test_comment
 
         if self.test_result == TestInfo.FAILED:
-            ElementTree.SubElement(d, "failure")
+            fail = ElementTree.SubElement(d, "failure")
+            if self.test_comment:
+                fail.text = self.test_comment
         return d
 
 
