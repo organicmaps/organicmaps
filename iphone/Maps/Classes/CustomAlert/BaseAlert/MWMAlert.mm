@@ -89,14 +89,13 @@
     case routing::IRouter::InconsistentMWMandRoute:
       return [MWMDefaultAlert routeNotFoundAlert];
     case routing::IRouter::RouteFileNotExist:
+    case routing::IRouter::FileTooOld:
       return [MWMDefaultAlert routeFileNotExistAlert];
     case routing::IRouter::InternalError:
       return [MWMDefaultAlert internalErrorAlert];
     case routing::IRouter::Cancelled:
     case routing::IRouter::NoError:
     case routing::IRouter::NeedMoreMaps:
-    //TODO (mikhaylenko, grechuhin) Make proper flag processing.
-    case routing::IRouter::FileTooOld:
       return nil;
   }
 }

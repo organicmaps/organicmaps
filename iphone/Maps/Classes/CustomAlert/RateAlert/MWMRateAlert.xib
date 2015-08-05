@@ -168,6 +168,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="later"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonBlueText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="notNowTap" destination="rvp-tn-CXj" eventType="touchUpInside" id="C51-Jm-q13"/>
@@ -181,7 +182,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="0.88" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="centerX" secondItem="w1i-if-5aJ" secondAttribute="centerX" id="0cw-Qe-tNn"/>
                         <constraint firstAttribute="centerX" secondItem="NX8-QL-ibo" secondAttribute="centerX" id="2re-A3-YeS"/>
@@ -208,6 +209,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="4"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="alertBackground"/>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>

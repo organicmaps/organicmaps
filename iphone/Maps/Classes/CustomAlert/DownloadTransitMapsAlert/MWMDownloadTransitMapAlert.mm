@@ -356,7 +356,7 @@ static CGFloat const kMinimumOffset = 20.;
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
   UIView * view = [[UIView alloc] init];
-  view.backgroundColor = self.missedFiles.count == 2 && section == 0 ? UIColor.blackDividers : UIColor.clearColor;
+  view.backgroundColor = self.missedFiles.count == 2 && section == 0 ? UIColor.blackDividers : [UIColor colorWithWhite:0. alpha:0.06];
   return view;
 }
 

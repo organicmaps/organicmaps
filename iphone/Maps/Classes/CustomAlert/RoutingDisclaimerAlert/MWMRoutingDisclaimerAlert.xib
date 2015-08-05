@@ -72,13 +72,14 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonBlueText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="okTap" destination="Ie9-JJ-hnZ" eventType="touchUpInside" id="vfz-Rd-Kh6"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="0.88" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="lbr-Xd-hLF" firstAttribute="top" secondItem="S3s-j7-v6E" secondAttribute="bottom" constant="11" id="20T-2E-mmf"/>
                         <constraint firstAttribute="width" secondItem="XIL-q9-MMp" secondAttribute="width" id="3m7-Ha-HlN"/>
@@ -102,6 +103,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="4"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="alertBackground"/>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>

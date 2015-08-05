@@ -61,6 +61,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonBlueText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="leftButtonTap" destination="iN0-l3-epB" eventType="touchUpInside" id="xE7-aE-OzM"/>
@@ -80,6 +81,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonBlueText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="rightButtonTap" destination="iN0-l3-epB" eventType="touchUpInside" id="UO8-7c-q1i"/>
@@ -94,7 +96,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.88" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="Grl-z5-2cE" firstAttribute="top" secondItem="zso-DD-6SG" secondAttribute="top" constant="20" id="5iy-IL-Non"/>
                         <constraint firstAttribute="bottom" secondItem="RSB-i6-pEP" secondAttribute="bottom" id="7PX-qC-iuH"/>
@@ -126,6 +128,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="4"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="alertBackground"/>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>

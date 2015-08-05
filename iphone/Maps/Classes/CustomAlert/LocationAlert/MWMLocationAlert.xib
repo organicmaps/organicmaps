@@ -80,6 +80,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonBlueText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="settingsTap" destination="mnY-7K-ids" eventType="touchUpInside" id="y48-t3-n6f"/>
@@ -145,7 +146,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="0.88" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="opl-lk-5kD" secondAttribute="bottom" id="0Mz-4Z-230"/>
                         <constraint firstAttribute="width" secondItem="oy8-sO-eim" secondAttribute="width" id="3MR-Nx-zJb"/>
@@ -189,6 +190,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="4"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="alertBackground"/>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
