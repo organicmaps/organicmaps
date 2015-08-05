@@ -72,7 +72,7 @@ OPT_UPDATE=
 OPT_DOWNLOAD=
 OPT_ROUTING=
 OPT_ONLINE_ROUTING=
-while getopts ":couUwrapvh" opt; do
+while getopts ":couUlwrapvh" opt; do
   case $opt in
     c)
       OPT_CLEAN=1
@@ -175,10 +175,10 @@ elif [ -z "$PREV_BORDERS" ]; then
   BORDERS_PATH="${BORDERS_PATH:-$DATA_PATH/borders}"
   cp "$BORDERS_PATH"/*.poly "$TARGET/borders/"
 fi
-[ -z "$(ls "$TARGET/borders" | grep \.poly)" ] && fail "No border polygons found, please use REGIONS or BORDER_PATH variables"
-[ -n "$EXIT_ON_ERROR" ] && set -e
+[ -z "$NO_REGIONS" -a -z "$(ls "$TARGET/borders" | grep \.poly)" ] && fail "No border polygons found, please use REGIONS or BORDER_PATH variables"
 ULIMIT_REQ=$(expr 3 \* $(ls "$TARGET/borders" | grep \.poly | wc -l))
 [ $(ulimit -n) -lt $ULIMIT_REQ ] && fail "Ulimit is too small, you need at least $ULIMIT_REQ (e.g. ulimit -n 4000)"
+[ -n "$EXIT_ON_ERROR" ] && set -e
 
 # These variables are used by external script(s), namely generate_planet_routing.sh
 export GENERATOR_TOOL
@@ -249,17 +249,15 @@ if [ "$MODE" == "coast" ]; then
       # Strip coastlines from the planet to speed up the process
       "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" "-o=$COASTS"
       # Preprocess coastlines to separate intermediate directory
-      log "TIMEMARK" "Generate coastlines intermediate"
       [ -n "$EXIT_ON_ERROR" ] && set +e # Temporary disable to read error code
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
         -preprocess 2>> "$LOG_PATH/WorldCoasts.log"
       # Generate temporary coastlines file in the coasts intermediate dir
-      log "TIMEMARK" "Generate coastlines"
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
-        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log" | grep -v 'CellGeometry()\|ProcessCell()'
+        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log" | grep -i 'not merged\|total'
 
       if [ $? != 0 ]; then
-        log "TIMEMARK" "Coastline merge failed"
+        log "STATUS" "Coastline merge failed"
         if [ -n "$OPT_UPDATE" ]; then
           tail -n 50 "$LOG_PATH/WorldCoasts.log" | mailx -s "Generate_planet: coastline merge failed, next try in $MERGE_COASTS_DELAY_MIN minutes" "$MAIL"
           date -u
@@ -322,7 +320,8 @@ if [ "$MODE" == "features" ]; then
   # Checking for coastlines, can't build proper mwms without them
   [ ! -s "$INTDIR/WorldCoasts.geom" ] && fail "Please prepare coastlines and put WorldCoasts.geom to $INTDIR"
   # 2nd pass - paralleled in the code
-  PARAMS_SPLIT="-split_by_polygons -generate_features -emit_coasts"
+  PARAMS_SPLIT="-generate_features -emit_coasts"
+  [ -z "$NO_REGIONS" ] && PARAMS_SPLIT="$PARAMS_SPLIT -split_by_polygons"
   [ -n "$OPT_WORLD" ] && PARAMS_SPLIT="$PARAMS_SPLIT -generate_world"
   [ -n "$OPT_WORLD" -a "$NODE_STORAGE" == "map" ] && log "WARNING: generating world files with NODE_STORAGE=map may lead to an out of memory error. Try NODE_STORAGE=mem if it fails."
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
