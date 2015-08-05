@@ -6,6 +6,7 @@
 
 #include "geometry/angles.hpp"
 #include "geometry/point2d.hpp"
+#include "geometry/simplification.hpp"
 
 #include "base/logging.hpp"
 
@@ -16,9 +17,12 @@
 
 namespace routing
 {
+namespace
+{
+double constexpr kLocationTimeThreshold = 60.0 * 1.0;
+double constexpr kOnEndToleranceM = 10.0;
 
-static double const LOCATION_TIME_THRESHOLD = 60.0*1.0;
-static double const ON_END_TOLERANCE_M = 10.0;
+}  //  namespace
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
   : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(points), m_name(name)
@@ -40,6 +44,7 @@ void Route::Swap(Route & rhs)
   swap(m_times, rhs.m_times);
   m_turnsGeom.swap(rhs.m_turnsGeom);
   m_absentCountries.swap(rhs.m_absentCountries);
+  m_pedestrianFollower.Swap(rhs.m_pedestrianFollower);
 }
 
 double Route::GetTotalDistanceMeters() const
@@ -159,9 +164,7 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
 
 void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 {
-  ASSERT(m_current.IsValid(), ());
-
-  pt = m_poly.GetPoint(min(m_current.m_ind + 1, m_poly.GetSize() - 1));
+  m_pedestrianFollower.GetCurrentDirectionPoint(pt);
 }
 
 bool Route::MoveIterator(location::GpsInfo const & info) const
@@ -172,13 +175,14 @@ bool Route::MoveIterator(location::GpsInfo const & info) const
     /// @todo Need to distinguish GPS and WiFi locations.
     /// They may have different time metrics in case of incorrect system time on a device.
     double const deltaT = info.m_timestamp - m_currentTime;
-    if (deltaT > 0.0 && deltaT < LOCATION_TIME_THRESHOLD)
+    if (deltaT > 0.0 && deltaT < kLocationTimeThreshold)
       predictDistance = info.m_speed * deltaT;
   }
 
   m2::RectD const rect = MercatorBounds::MetresToXY(
         info.m_longitude, info.m_latitude,
         max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
+  m_pedestrianFollower.FindProjection(rect, predictDistance);
   IterT const res = FindProjection(rect, predictDistance);
   if (res.IsValid())
   {
@@ -237,7 +241,7 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
 
 bool Route::IsCurrentOnEnd() const
 {
-  return (GetCurrentDistanceToEndMeters() < ON_END_TOLERANCE_M);
+  return (GetCurrentDistanceToEndMeters() < kOnEndToleranceM);
 }
 
 Route::IterT Route::FindProjection(m2::RectD const & posRect, double predictDistance) const
@@ -282,6 +286,13 @@ double Route::GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const
 
 void Route::Update()
 {
+  vector<m2::PointD> points;
+  auto distf = m2::DistanceToLineSquare<m2::PointD>();
+  // TODO (ldargunov) Rewrite dist f to distance in meters and avoid 0.00000 constants.
+  SimplifyNearOptimal(20, m_poly.Begin(), m_poly.End(), 0.00000001, distf,
+                      MakeBackInsertFunctor(points));
+  m_pedestrianFollower = RouteFollower(points.begin(), points.end());
+
   size_t n = m_poly.GetSize();
   ASSERT_GREATER(n, 1, ());
   --n;

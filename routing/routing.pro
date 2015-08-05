@@ -30,6 +30,7 @@ SOURCES += \
     road_graph.cpp \
     road_graph_router.cpp \
     route.cpp \
+    route_follower.cpp \
     router.cpp \
     router_delegate.cpp \
     routing_algorithm.cpp \
@@ -63,6 +64,7 @@ HEADERS += \
     road_graph.hpp \
     road_graph_router.hpp \
     route.hpp \
+    route_follower.hpp \
     router.hpp \
     router_delegate.hpp \
     routing_algorithm.hpp \

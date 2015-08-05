@@ -1,7 +1,8 @@
 #pragma once
 
-#include "routing/routing_settings.hpp"
-#include "routing/turns.hpp"
+#include "route_follower.hpp"
+#include "routing_settings.hpp"
+#include "turns.hpp"
 
 #include "geometry/polyline2d.hpp"
 
@@ -126,6 +127,8 @@ private:
 
 private:
   friend string DebugPrint(Route const & r);
+
+  mutable RouteFollower m_pedestrianFollower;
 
   string m_router;
   RoutingSettings m_routingSettings;

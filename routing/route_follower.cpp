@@ -1,0 +1,126 @@
+#include "route_follower.hpp"
+
+namespace routing
+{
+namespace
+{
+double constexpr kPedestrianEdgeSwitchMeters = 5.0;
+}  // namespace
+
+double RouteFollower::GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const
+{
+  ASSERT(it1.IsValid() && it2.IsValid(), ());
+  ASSERT_LESS_OR_EQUAL(it1.m_ind, it2.m_ind, ());
+  ASSERT_LESS(it1.m_ind, m_poly.GetSize(), ());
+  ASSERT_LESS(it2.m_ind, m_poly.GetSize(), ());
+
+  if (it1.m_ind == it2.m_ind)
+    return MercatorBounds::DistanceOnEarth(it1.m_pt, it2.m_pt);
+
+  return (MercatorBounds::DistanceOnEarth(it1.m_pt, m_poly.GetPoint(it1.m_ind + 1)) +
+          m_segDistance[it2.m_ind - 1] - m_segDistance[it1.m_ind] +
+          MercatorBounds::DistanceOnEarth(m_poly.GetPoint(it2.m_ind), it2.m_pt));
+}
+
+void RouteFollower::Swap(RouteFollower & rhs)
+{
+  m_poly.Swap(rhs.m_poly);
+  m_segDistance.swap(rhs.m_segDistance);
+  m_segProj.swap(rhs.m_segProj);
+  swap(m_current, rhs.m_current);
+}
+
+void RouteFollower::Update()
+{
+  size_t n = m_poly.GetSize();
+  ASSERT_GREATER(n, 1, ());
+  --n;
+
+  m_segDistance.resize(n);
+  m_segProj.resize(n);
+
+  double dist = 0.0;
+  for (size_t i = 0; i < n; ++i)
+  {
+    m2::PointD const & p1 = m_poly.GetPoint(i);
+    m2::PointD const & p2 = m_poly.GetPoint(i + 1);
+
+    dist += MercatorBounds::DistanceOnEarth(p1, p2);
+
+    m_segDistance[i] = dist;
+    m_segProj[i].SetBounds(p1, p2);
+  }
+
+  m_current = IterT(m_poly.Front(), 0);
+}
+
+template <class DistanceF>
+RouteFollower::IterT RouteFollower::GetClosestProjection(m2::RectD const & posRect,
+                                                         DistanceF const & distFn) const
+{
+  IterT res;
+  double minDist = numeric_limits<double>::max();
+
+  m2::PointD const currPos = posRect.Center();
+  size_t const count = m_poly.GetSize() - 1;
+  for (size_t i = m_current.m_ind; i < count; ++i)
+  {
+    m2::PointD const pt = m_segProj[i](currPos);
+
+    if (!posRect.IsPointInside(pt))
+      continue;
+
+    IterT it(pt, i);
+    double const dp = distFn(it);
+    if (dp < minDist)
+    {
+      res = it;
+      minDist = dp;
+    }
+  }
+
+  return res;
+}
+
+RouteFollower::IterT RouteFollower::FindProjection(m2::RectD const & posRect,
+                                                   double predictDistance) const
+{
+  ASSERT(m_current.IsValid(), ());
+  ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
+
+  IterT res;
+  if (predictDistance >= 0.0)
+  {
+    res = GetClosestProjection(posRect, [&](IterT const & it)
+                               {
+      return fabs(GetDistanceOnPolyline(m_current, it) - predictDistance);
+    });
+  }
+  else
+  {
+    m2::PointD const currPos = posRect.Center();
+    res = GetClosestProjection(posRect, [&](IterT const & it)
+                               {
+      return MercatorBounds::DistanceOnEarth(it.m_pt, currPos);
+    });
+  }
+
+  if (res.IsValid())
+    m_current = res;
+  return res;
+}
+void RouteFollower::GetCurrentDirectionPoint(m2::PointD & pt) const
+{
+  ASSERT(m_current.IsValid(), ());
+  size_t currentIndex = min(m_current.m_ind + 1, m_poly.GetSize() - 1);
+  m2::PointD point = m_poly.GetPoint(currentIndex);
+  for (; currentIndex < m_poly.GetSize() - 1; point = m_poly.GetPoint(++currentIndex))
+  {
+    if (MercatorBounds::DistanceOnEarth(point, m_current.m_pt) > kPedestrianEdgeSwitchMeters)
+      break;
+  }
+
+  pt = point;
+}
+
+}  //  namespace routing
