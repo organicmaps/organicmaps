@@ -24,8 +24,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace feature
 {
+
 FeaturesCollector::FeaturesCollector(string const & fName)
-    : m_datFile(fName)
+  : m_datFile(fName)
 {
   CHECK_EQUAL(GetFileSize(m_datFile), 0, ());
 }
@@ -33,7 +34,7 @@ FeaturesCollector::FeaturesCollector(string const & fName)
 FeaturesCollector::~FeaturesCollector()
 {
   FlushBuffer();
-  /// Check file size
+  // Check file size
   (void)GetFileSize(m_datFile);
 }
 
@@ -67,7 +68,6 @@ pair<char[ValueSizeT], uint8_t> PackValue(ValueT v)
 void FeaturesCollector::FlushBuffer()
 {
   m_datFile.Write(m_writeBuffer, m_writePosition);
-  m_baseOffset += m_writePosition;
   m_writePosition = 0;
 }
 
@@ -96,15 +96,12 @@ uint32_t FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, Feature
   size_t const sz = bytes.size();
   CHECK(sz != 0, ("Empty feature not allowed here!"));
 
-  size_t const offset = m_baseOffset + m_writePosition;
-
   auto const & packedSize = PackValue(sz);
   Write(packedSize.first, packedSize.second);
   Write(&bytes[0], sz);
 
   m_bounds.Add(fb.GetLimitRect());
-  CHECK_EQUAL(offset, static_cast<uint32_t>(offset), ());
-  return static_cast<uint32_t>(offset);
+  return m_featureID++;
 }
 
 void FeaturesCollector::operator()(FeatureBuilder1 const & fb)
@@ -116,7 +113,7 @@ void FeaturesCollector::operator()(FeatureBuilder1 const & fb)
 
 FeaturesAndRawGeometryCollector::FeaturesAndRawGeometryCollector(string const & featuresFileName,
                                                                  string const & rawGeometryFileName)
-    : FeaturesCollector(featuresFileName), m_rawGeometryFileStream(rawGeometryFileName)
+  : FeaturesCollector(featuresFileName), m_rawGeometryFileStream(rawGeometryFileName)
 {
   CHECK_EQUAL(GetFileSize(m_rawGeometryFileStream), 0, ());
 }
