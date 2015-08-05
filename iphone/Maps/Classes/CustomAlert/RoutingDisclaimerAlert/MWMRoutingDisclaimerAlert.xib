@@ -35,7 +35,7 @@
                         </label>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbr-Xd-hLF">
                             <rect key="frame" x="20" y="53" width="240" height="20"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="240" id="GeJ-mk-jko"/>
                                 <constraint firstAttribute="height" constant="20" id="XLp-um-S4A"/>

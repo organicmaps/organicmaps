@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "MWMAlertViewController.h"
 #import "MWMRoutingDisclaimerAlert.h"
 #import "UIColor+MapsMeColor.h"
@@ -25,12 +26,25 @@ static CGFloat const kMinimumOffset = 20.;
 
 + (instancetype)alertWithInitialOrientation:(UIInterfaceOrientation)orientation
 {
-  MWMRoutingDisclaimerAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMRoutingDisclaimerAlert className] owner:nil options:nil] firstObject];
-  NSString * message = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@", L(@"dialog_routing_disclaimer_priority"), L(@"dialog_routing_disclaimer_precision"), L(@"dialog_routing_disclaimer_recommendations"),L(@"dialog_routing_disclaimer_beware")];
-  alert.textView.attributedText = [[NSAttributedString alloc] initWithString:message attributes:@{NSFontAttributeName : UIFont.regular14, NSForegroundColorAttributeName : UIColor.blackSecondaryText}];
+  MWMRoutingDisclaimerAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMRoutingDisclaimerAlert className]
+                                                                     owner:nil
+                                                                   options:nil] firstObject];
+  NSString * message = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@",
+                        L(@"dialog_routing_disclaimer_priority"),
+                        L(@"dialog_routing_disclaimer_precision"),
+                        L(@"dialog_routing_disclaimer_recommendations"),
+                        L(@"dialog_routing_disclaimer_beware")];
+  alert.textView.attributedText = [[NSAttributedString alloc] initWithString:message
+                                                      attributes:@{NSFontAttributeName : UIFont.regular14,
+                                                        NSForegroundColorAttributeName : UIColor.blackSecondaryText}];
   [alert.textView sizeToFit];
   UIWindow * window = UIApplication.sharedApplication.keyWindow;
-  [alert invalidateTextViewHeight:alert.textView.height withHeight:UIInterfaceOrientationIsLandscape(orientation) ? window.width : window.height];
+  CGFloat height;
+  if (isIOSVersionLessThan(8))
+    height = UIInterfaceOrientationIsLandscape(orientation) ? window.width : window.height;
+  else
+    height = window.height;
+  [alert invalidateTextViewHeight:alert.textView.height withHeight:height];
   return alert;
 }
 

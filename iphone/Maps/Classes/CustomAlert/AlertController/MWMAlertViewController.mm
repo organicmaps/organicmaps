@@ -36,7 +36,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   {
     [UIView animateWithDuration:duration animations:^
     {
-      alert.transform = [self rotationForOrientation:toInterfaceOrientation];
+      alert.transform = rotation(toInterfaceOrientation);
     }];
   }
   if ([alert respondsToSelector:@selector(willRotateToInterfaceOrientation:)])
@@ -127,19 +127,23 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)displayAlert:(MWMAlert *)alert
 {
+  BOOL const iOS7 = isIOSVersionLessThan(8);
   alert.alertController = self;
   [self.ownerViewController addChildViewController:self];
   self.view.alpha = 0.;
   alert.alpha = 0.;
-  CGFloat const scale = 1.1;
-  alert.transform = CGAffineTransformMakeScale(scale, scale);
+  if (!iOS7)
+  {
+    CGFloat const scale = 1.1;
+    alert.transform = CGAffineTransformMakeScale(scale, scale);
+  }
   self.view.center = self.ownerViewController.view.center;
   [self.ownerViewController.view addSubview:self.view];
   UIWindow * window = [[[UIApplication sharedApplication] delegate] window];
   [window addSubview:self.view];
   self.view.frame = window.bounds;
-  if (isIOSVersionLessThan(8))
-    alert.transform = [self rotationForOrientation:self.ownerViewController.interfaceOrientation];
+  if (iOS7)
+    alert.transform = rotation(self.ownerViewController.interfaceOrientation);
   [self.view addSubview:alert];
   alert.bounds = self.view.bounds;
   alert.center = self.view.center;
@@ -147,7 +151,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   {
     self.view.alpha = 1.;
     alert.alpha = 1.;
-    alert.transform = CGAffineTransformIdentity;
+    if (!iOS7)
+      alert.transform = CGAffineTransformIdentity;
   }];
 }
 
@@ -176,7 +181,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
     [a openURL:url];
 }
 
-- (CGAffineTransform)rotationForOrientation:(UIInterfaceOrientation)orientation
+CGAffineTransform rotation(UIInterfaceOrientation orientation)
 {
   switch (orientation)
   {
