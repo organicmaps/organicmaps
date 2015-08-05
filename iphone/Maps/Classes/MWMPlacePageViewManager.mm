@@ -9,19 +9,19 @@
 #import "Common.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
+#import "MWMActivityViewController.h"
 #import "MWMBasePlacePageView.h"
+#import "MWMDirectionView.h"
 #import "MWMiPadPlacePage.h"
 #import "MWMiPhoneLandscapePlacePage.h"
 #import "MWMiPhonePortraitPlacePage.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
-#import "MWMPlacePageViewManagerDelegate.h"
-#import "MWMPlacePageViewManager.h"
-#import "ShareActionSheet.h"
-#import "UIKitCategories.h"
-#import "MWMDirectionView.h"
 #import "MWMPlacePageNavigationBar.h"
+#import "MWMPlacePageViewManager.h"
+#import "MWMPlacePageViewManagerDelegate.h"
+#import "UIKitCategories.h"
 
 #include "Framework.h"
 
@@ -40,7 +40,6 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 @property (nonatomic, readwrite) MWMPlacePageEntity * entity;
 @property (nonatomic) MWMPlacePage * placePage;
 @property (nonatomic) MWMPlacePageManagerState state;
-@property (nonatomic) ShareActionSheet * actionSheet;
 @property (nonatomic) MWMDirectionView * directionView;
 
 @property (weak, nonatomic) id<MWMPlacePageViewManagerProtocol> delegate;
@@ -49,7 +48,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 @implementation MWMPlacePageViewManager
 
-- (instancetype)initWithViewController:(UIViewController *)viewController delegate:(id<MWMPlacePageViewManagerProtocol>)delegate
+- (instancetype)initWithViewController:(UIViewController *)viewController
+                              delegate:(id<MWMPlacePageViewManagerProtocol>)delegate
 {
   self = [super init];
   if (self)
@@ -134,7 +134,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   if (self.entity.type != MWMPlacePageEntityTypeMyPosition)
     return;
   BOOL hasSpeed = NO;
-  [self.placePage updateMyPositionStatus:[[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed]];
+  [self.placePage updateMyPositionStatus:[[MapsAppDelegate theApp].m_locationManager
+                                          formattedSpeedAndAltitude:hasSpeed]];
 }
 
 - (void)setPlacePageForiPhoneWithOrientation:(UIInterfaceOrientation)orientation
@@ -180,12 +181,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)share
 {
   MWMPlacePageEntity * entity = self.entity;
-  ShareInfo * info = [[ShareInfo alloc] initWithText:entity.title lat:entity.point.x lon:entity.point.y myPosition:NO];
-
-  self.actionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self.ownerViewController];
-  UIView * parentView = self.ownerViewController.view;
-  CGRect rect = CGRectMake(parentView.midX, parentView.height - 40.0, 0.0, 0.0);
-  [self.actionSheet showFromRect:rect];
+  CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.point.x, entity.point.y);
+  MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForLocationTitle:entity.title
+                                                                                          location:coord
+                                                                                        myPosition:NO];
+  [shareVC presentInParentViewController:self.ownerViewController anchorView:self.placePage.actionBar];
 }
 
 - (void)addBookmark
@@ -193,7 +193,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   Framework & f = GetFramework();
   BookmarkData data = BookmarkData(self.entity.title.UTF8String, f.LastEditedBMType());
   size_t const categoryIndex = f.LastEditedBMCategory();
-  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, m_userMark->GetUserMark()->GetOrg(), data);
+  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, m_userMark->GetUserMark()->GetOrg(),
+                                                                  data);
   self.entity.bac = make_pair(categoryIndex, bookmarkIndex);
   self.entity.type = MWMPlacePageEntityTypeBookmark;
   BookmarkCategory const * category = f.GetBmCategory(categoryIndex);
@@ -256,7 +257,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [[MapsAppDelegate theApp].m_locationManager getNorthRad:north];
   string distance;
   CLLocationCoordinate2D const coord = location.coordinate;
-  GetFramework().GetDistanceAndAzimut(m_userMark->GetUserMark()->GetOrg(), coord.latitude, coord.longitude, north, distance, azimut);
+  GetFramework().GetDistanceAndAzimut(m_userMark->GetUserMark()->GetOrg(), coord.latitude, coord.longitude, north,
+                                      distance, azimut);
   return [NSString stringWithUTF8String:distance.c_str()];
 }
 

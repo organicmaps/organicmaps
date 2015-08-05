@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="downloadBadge" destination="ap1-Ml-Dfy" id="bpF-Z1-YAt"/>
                 <outlet property="menuButton" destination="Mu5-FL-O9o" id="rNf-Pw-Kqq"/>
+                <outlet property="shareLocationButton" destination="U6a-I5-v5p" id="TpK-KH-1cA"/>
                 <outlet property="sideMenu" destination="i5M-Pr-FkT" id="p49-Bn-Hkx"/>
             </connections>
         </placeholder>

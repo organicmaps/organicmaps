@@ -11,6 +11,7 @@
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "MWMActivityViewController.h"
 #import "MWMMapViewControlsCommon.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMSideMenuButton.h"
@@ -21,7 +22,6 @@
 #import "MWMSideMenuManagerDelegate.h"
 #import "MWMSideMenuView.h"
 #import "SettingsAndMoreVC.h"
-#import "ShareActionSheet.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -31,7 +31,8 @@ static NSString * const kMWMSideMenuViewsNibName = @"MWMSideMenuViews";
 
 extern NSString * const kAlohalyticsTapEventKey;
 
-@interface MWMSideMenuManager() <MWMSideMenuInformationDisplayProtocol, MWMSideMenuButtonTapProtocol, MWMSideMenuButtonLayoutProtocol>
+@interface MWMSideMenuManager() <MWMSideMenuInformationDisplayProtocol, MWMSideMenuButtonTapProtocol,
+                                 MWMSideMenuButtonLayoutProtocol>
 
 @property (weak, nonatomic) id<MWMSideMenuManagerProtocol> delegate;
 @property (weak, nonatomic) MapViewController * controller;
@@ -40,11 +41,14 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property (nonatomic) IBOutlet MWMSideMenuDownloadBadge * downloadBadge;
 @property (nonatomic) IBOutlet MWMSideMenuView * sideMenu;
 
+@property (weak, nonatomic) IBOutlet UIButton * shareLocationButton;
+
 @end
 
 @implementation MWMSideMenuManager
 
-- (instancetype)initWithParentController:(MapViewController *)controller delegate:(id<MWMSideMenuManagerProtocol>)delegate
+- (instancetype)initWithParentController:(MapViewController *)controller
+                                delegate:(id<MWMSideMenuManagerProtocol>)delegate
 {
   self = [super init];
   if (self)
@@ -95,14 +99,14 @@ extern NSString * const kAlohalyticsTapEventKey;
   CLLocation const * const location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
   if (!location)
   {
-    [[[UIAlertView alloc] initWithTitle:L(@"unknown_current_position") message:nil delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
+    [[[UIAlertView alloc] initWithTitle:L(@"unknown_current_position") message:nil delegate:nil
+                      cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
     return;
   }
   CLLocationCoordinate2D const coord = location.coordinate;
-  ShareInfo * const info = [[ShareInfo alloc] initWithText:nil lat:coord.latitude lon:coord.longitude myPosition:YES];
-  self.controller.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self.controller];
-  UIView const * const parentView = self.controller.view;
-  [self.controller.shareActionSheet showFromRect:CGRectMake(parentView.midX, parentView.height - 40.0, 0.0, 0.0)];
+  MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForLocationTitle:nil location:coord
+                                                                                        myPosition:YES];
+  [shareVC presentInParentViewController:self.controller anchorView:self.shareLocationButton];
 }
 
 - (IBAction)menuActionOpenSearch
