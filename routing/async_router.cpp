@@ -9,11 +9,6 @@
 
 #include "indexer/mercator.hpp"
 
-#if defined(OMIM_OS_ANDROID)
-void AndroidThreadAttachToJVM();
-void AndroidThreadDetachFromJVM();
-#endif  // defined(OMIM_OS_ANDROID)
-
 namespace routing
 {
 
@@ -124,7 +119,7 @@ AsyncRouter::AsyncRouter(TRoutingStatisticsCallback const & routingStatisticsCal
       m_routingStatisticsCallback(routingStatisticsCallback),
       m_pointCheckCallback(pointCheckCallback)
 {
-  m_thread = thread(bind(&AsyncRouter::ThreadFunc, this));
+  m_thread = threads::SimpleThread(&AsyncRouter::ThreadFunc, this);
 }
 
 AsyncRouter::~AsyncRouter()
@@ -234,10 +229,6 @@ void AsyncRouter::ResetDelegate()
 
 void AsyncRouter::ThreadFunc()
 {
-#if defined(OMIM_OS_ANDROID)
-  AndroidThreadAttachToJVM();
-#endif  // defined(OMIM_OS_ANDROID)
-
   while (true)
   {
     {
@@ -250,10 +241,6 @@ void AsyncRouter::ThreadFunc()
 
     CalculateRoute();
   }
-
-#if defined(OMIM_OS_ANDROID)
-  AndroidThreadDetachFromJVM();
-#endif  // defined(OMIM_OS_ANDROID)
 }
 
 void AsyncRouter::CalculateRoute()

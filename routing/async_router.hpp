@@ -5,12 +5,13 @@
 #include "router.hpp"
 #include "router_delegate.hpp"
 
+#include "base/thread.hpp"
+
 #include "std/condition_variable.hpp"
 #include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
-#include "std/thread.hpp"
 #include "std/unique_ptr.hpp"
 
 namespace routing
@@ -103,7 +104,7 @@ private:
   mutex m_guard;
 
   /// Thread which executes routing calculation
-  thread m_thread;
+  threads::SimpleThread m_thread;
   condition_variable m_threadCondVar;
   bool m_threadExit;
   bool m_hasRequest;
