@@ -335,13 +335,12 @@ private:
 } // namespace
 
 // static
-bool OsrmRouter::CheckRoutingAbility(m2::PointD const & startPoint,
-                                            m2::PointD const & finalPoint,
-                                            TCountryFileFn const & countryFileFn, Index * index)
+bool OsrmRouter::CheckRoutingAbility(m2::PointD const & startPoint, m2::PointD const & finalPoint,
+                                     TCountryFileFn const & countryFileFn, Index * index)
 {
-    RoutingIndexManager manager(countryFileFn, index);
-    return manager.GetMappingByPoint(startPoint)->IsValid() &&
-                                     manager.GetMappingByPoint(finalPoint)->IsValid();
+  RoutingIndexManager manager(countryFileFn, index);
+  return manager.GetMappingByPoint(startPoint)->IsValid() &&
+         manager.GetMappingByPoint(finalPoint)->IsValid();
 }
 
 OsrmRouter::OsrmRouter(Index * index, TCountryFileFn const & countryFileFn)
