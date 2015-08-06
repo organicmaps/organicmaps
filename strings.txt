@@ -13168,3 +13168,23 @@
     tags = ios, android
     comment = Text for email sharing news about walking routes
     en = Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.
+
+  [dialog_title_share_walking_routes_first_launch]
+    tags = ios, android
+    comment = Title for walking routes dialog
+    en = Smarter Then Ever.
+
+  [dialog_text_share_walking_routes_first_launch]
+    tags = ios, android
+    comment = Text for walking routes dialog
+    en = Our new high-accurate Pedestrian Navigation based on OpenStreetMap - the most detailed map in the World. It contains 2 360 000 kilometers of Walking Routes.
+
+  [dialog_title_share_walking_routes_active_pedestrian]
+    tags = ios, android
+    comment = Title for walking routes dialog after 3 built routes
+    en = Congratulations!
+
+  [dialog_text_share_walking_routes_active_pedestrian]
+    tags = ios, android
+    comment = Text for walking routes dialog after 3 built routes
+    en = You have tried our new Walking Routes function. Ain’t it cool? (или Was it helpful?) Share the experience with friends.
