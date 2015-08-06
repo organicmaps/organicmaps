@@ -87,7 +87,7 @@ void Stats::GzipAndArchiveFileInTheQueue(const std::string & in_file, const std:
           || file_size > std::numeric_limits<std::streamsize>::max()) {
         throw std::out_of_range("File size is out of range.");
       }
-      buffer.resize(data_offset + file_size);
+      buffer.resize(data_offset + size_t(file_size));
       fi.read(&buffer[data_offset], static_cast<std::streamsize>(file_size));
     }
     {
