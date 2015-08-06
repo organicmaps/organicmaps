@@ -12,8 +12,10 @@
 #include "std/vector.hpp"
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
-+ (instancetype)crossCountryAlertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes;
-+ (instancetype)downloaderAlertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes;
+
++ (instancetype)downloaderAlertWithMaps:(vector<storage::TIndex> const &)maps
+                                 routes:(vector<storage::TIndex> const &)routes
+                                   code:(routing::IRouter::ResultCode)code;
 - (void)showDownloadDetail:(UIButton *)sender;
 
 @end

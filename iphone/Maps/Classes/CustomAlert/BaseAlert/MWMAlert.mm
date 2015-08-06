@@ -63,14 +63,11 @@
   return [MWMFeedbackAlert alertWithStarsCount:starsCount];
 }
 
-+ (MWMAlert *)crossCountryAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
++ (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries
+                                          routes:(vector<storage::TIndex> const &)routes
+                                            code:(routing::IRouter::ResultCode)code
 {
-  return [MWMDownloadTransitMapAlert crossCountryAlertWithMaps:countries routes:routes];
-}
-
-+ (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
-{
-  return [MWMDownloadTransitMapAlert downloaderAlertWithMaps:countries routes:routes];
+  return [MWMDownloadTransitMapAlert downloaderAlertWithMaps:countries routes:routes code:code];
 }
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type

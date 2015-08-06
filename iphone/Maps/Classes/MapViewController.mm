@@ -750,19 +750,14 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 #pragma mark - ShowDialog callback
 
-- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
+- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
+                     countries:(vector<storage::TIndex> const &)countries
+                        routes:(vector<storage::TIndex> const &)routes
 {
   if (countries.size() || routes.size())
-  {
-    if (type == routing::IRouter::NeedMoreMaps)
-      [self.alertController presentCrossCountryAlertWithCountries:countries routes:routes];
-    else
-      [self.alertController presentDownloaderAlertWithCountries:countries routes:routes];
-  }
+    [self.alertController presentDownloaderAlertWithCountries:countries routes:routes code:code];
   else
-  {
-    [self presentDefaultAlert:type];
-  }
+    [self presentDefaultAlert:code];
 }
 
 - (void)presentDisabledLocationAlert

@@ -91,19 +91,31 @@ static CGFloat const kMinimumOffset = 20.;
 
 @implementation MWMDownloadTransitMapAlert
 
-+ (instancetype)crossCountryAlertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes
++ (instancetype)downloaderAlertWithMaps:(vector<storage::TIndex> const &)maps
+                                 routes:(vector<storage::TIndex> const &)routes
+                                   code:(routing::IRouter::ResultCode)code
 {
   MWMDownloadTransitMapAlert * alert = [self alertWithMaps:maps routes:routes];
-  alert.titleLabel.localizedText = @"dialog_routing_download_and_build_cross_route";
-  alert.messageLabel.localizedText = @"dialog_routing_download_cross_route";
-  return alert;
-}
-
-+ (instancetype)downloaderAlertWithMaps:(vector<storage::TIndex> const &)maps routes:(vector<storage::TIndex> const &)routes
-{
-  MWMDownloadTransitMapAlert * alert = [self alertWithMaps:maps routes:routes];
-  alert.titleLabel.localizedText = @"dialog_routing_download_files";
-  alert.messageLabel.localizedText = @"dialog_routing_download_and_update_all";
+  switch (code)
+  {
+    case routing::IRouter::InconsistentMWMandRoute:
+    case routing::IRouter::RouteNotFound:
+    case routing::IRouter::RouteFileNotExist:
+      alert.titleLabel.localizedText = @"dialog_routing_download_files";
+      alert.messageLabel.localizedText = @"dialog_routing_download_and_update_all";
+      break;
+    case routing::IRouter::FileTooOld:
+      alert.titleLabel.localizedText = @"dialog_routing_download_files";
+      alert.messageLabel.localizedText = @"dialog_routing_download_and_update_maps";
+      break;
+    case routing::IRouter::NeedMoreMaps:
+      alert.titleLabel.localizedText = @"dialog_routing_download_and_build_cross_route";
+      alert.messageLabel.localizedText = @"dialog_routing_download_cross_route";
+      break;
+    default:
+      NSAssert(false, @"Incorrect code!");
+      break;
+  }
   return alert;
 }
 

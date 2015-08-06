@@ -103,14 +103,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert feedbackAlertWithStarsCount:starsCount]];
 }
 
-- (void)presentCrossCountryAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
+- (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const &)countries
+                                     routes:(vector<storage::TIndex> const &)routes
+                                       code:(routing::IRouter::ResultCode)code
 {
-  [self displayAlert:[MWMAlert crossCountryAlertWithCountries:countries routes:routes]];
-}
-
-- (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const &)countries routes:(vector<storage::TIndex> const &)routes
-{
-  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes]];
+  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes code:code]];
 }
 
 - (void)presentRoutingDisclaimerAlert
