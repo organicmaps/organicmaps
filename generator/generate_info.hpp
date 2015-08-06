@@ -46,8 +46,10 @@ struct GenerateInfo
 
   bool m_createWorld;
   bool m_splitByPolygons;
-  bool m_makeCoasts, m_emitCoasts;
+  bool m_makeCoasts;
+  bool m_emitCoasts;
   bool m_genAddresses;
+  bool m_failOnCoasts;
 
 
   GenerateInfo()

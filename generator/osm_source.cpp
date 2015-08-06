@@ -168,6 +168,7 @@ class MainFeaturesEmitter
   unique_ptr<feature::FeaturesCollector> m_coastsHolder;
 
   string m_srcCoastsFile;
+  bool m_failOnCoasts;
 
   enum TypeIndex
   {
@@ -185,6 +186,7 @@ class MainFeaturesEmitter
 public:
   MainFeaturesEmitter(feature::GenerateInfo const & info)
   {
+    m_failOnCoasts = info.m_failOnCoasts;
     Classificator const & c = classif();
 
     char const * arr[][2] = {
@@ -267,7 +269,7 @@ public:
     if (m_coasts)
     {
       // Check and stop if some coasts were not merged
-      if (!m_coasts->Finish())
+      if (!m_coasts->Finish() && m_failOnCoasts)
         return false;
 
       LOG(LINFO, ("Generating coastline polygons"));

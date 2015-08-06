@@ -8,8 +8,6 @@
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
 
-#include "3party/gflags/src/gflags/gflags.h"
-
 #include "std/bind.hpp"
 #include "std/condition_variable.hpp"
 #include "std/function.hpp"
@@ -19,8 +17,6 @@
 typedef m2::RegionI RegionT;
 typedef m2::PointI PointT;
 typedef m2::RectI RectT;
-
-DECLARE_bool(fail_on_coasts);
 
 CoastlineFeaturesGenerator::CoastlineFeaturesGenerator(uint32_t coastType)
   : m_merger(POINT_COORD_BITS), m_coastType(coastType)
@@ -145,8 +141,7 @@ bool CoastlineFeaturesGenerator::Finish()
   {
     LOG(LINFO, ("Total not merged coasts:", doAdd.GetNotMergedCoastsCount()));
     LOG(LINFO, ("Total points in not merged coasts:", doAdd.GetNotMergedCoastsPoints()));
-    if (FLAGS_fail_on_coasts)
-      return false;
+    return false;
   }
 
   return true;
