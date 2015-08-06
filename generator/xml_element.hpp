@@ -33,6 +33,23 @@ struct XMLElement
   XMLElement * parent = nullptr;
   vector<XMLElement> childs;
 
+
+  bool operator == (XMLElement const & e) const
+  {
+    return (
+            tagKey == e.tagKey
+            && id == e.id
+            && lng == e.lng
+            && lat == e.lat
+            && ref == e.ref
+            && k == e.k
+            && v == e.v
+            && type == e.type
+            && role == e.role
+            && childs == childs
+    );
+  }
+
   void AddKV(string const & k, string const & v);
   void AddND(uint64_t ref);
   void AddMEMBER(uint64_t ref, string const & type, string const & role);

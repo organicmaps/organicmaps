@@ -8,7 +8,6 @@
 #include "generator/osm_source.hpp"
 #include "generator/point_storage.hpp"
 #include "generator/polygonizer.hpp"
-#include "generator/source_reader.hpp"
 #include "generator/world_map_generator.hpp"
 #include "generator/xml_element.hpp"
 
@@ -17,9 +16,38 @@
 
 #include "coding/parse_xml.hpp"
 
+#include "std/fstream.hpp"
+
 #include "defines.hpp"
 
 #define DECODE_O5M_COORD(coord) (static_cast<double>(coord) / 1E+7)
+
+SourceReader::SourceReader()
+: m_file(unique_ptr<istream,Deleter>(&cin, Deleter(false)))
+{
+  LOG_SHORT(LINFO, ("Reading OSM data from stdin"));
+}
+
+SourceReader::SourceReader(string const & filename)
+: m_filename(filename)
+, m_file(unique_ptr<istream, Deleter>(new ifstream(filename), Deleter()))
+{
+  CHECK(m_filename.empty() , ("Filename can't be empty"));
+  LOG_SHORT(LINFO, ("Reading OSM data from", filename));
+}
+
+SourceReader::SourceReader(istringstream & stream)
+: m_file(unique_ptr<istream, Deleter>(&stream, Deleter(false)))
+{
+  LOG_SHORT(LINFO, ("Reading OSM data from memory"));
+}
+
+uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
+{
+  m_file->read(buffer, bufferSize);
+  return m_file->gcount();
+}
+
 
 namespace
 {
@@ -449,7 +477,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
 {
   try
   {
-    TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE));
+    TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
 
     using TDataCache = IntermediateDataReader<TNodesHolder>;
     TDataCache cache(nodes, info.m_intermediateDir);
@@ -460,7 +488,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
         bucketer, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
         info.GetAddressesFileName());
 
-    SourceReader reader(info.m_osmFileName);
+    SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
     switch (info.m_osmFileType)
     {
       case feature::GenerateInfo::OsmSourceType::XML:
@@ -494,11 +522,11 @@ bool GenerateIntermediateDataImpl(feature::GenerateInfo & info)
 {
   try
   {
-    TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE));
+    TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
     using TDataCache = IntermediateDataWriter<TNodesHolder>;
     TDataCache cache(nodes, info.m_intermediateDir);
 
-    SourceReader reader(info.m_osmFileName);
+    SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
 
     LOG(LINFO, ("Data source:", info.m_osmFileName));
 
