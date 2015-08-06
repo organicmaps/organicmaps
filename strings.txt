@@ -13137,4 +13137,10 @@
     comment = Planning route message in navigation view
     en = Planning Route
     ru = Поиск маршрута
+
+  [dialog_routing_download_and_update_maps]
+    tags = ios, android
+    comment = Text for routing::IRouter::FileTooOld dialog.
+    en = Download and update all map along the projected path to calculate route.
+    ru = Для построения маршрута загрузите и обновите все карты по пути следования
     
