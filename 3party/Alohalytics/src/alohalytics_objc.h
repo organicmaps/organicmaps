@@ -23,11 +23,13 @@
  *******************************************************************************/
 
 // Convenience header to use from pure Objective-C project.
+// TODO(AlexZ): Refactor it to use instance and it's methods instead of static functions.
 
 #ifndef ALOHALYTICS_OBJC_H
 #define ALOHALYTICS_OBJC_H
 
 #import <Foundation/Foundation.h>
+#import <Foundation/NSDate.h>
 #import <CoreLocation/CoreLocation.h>
 
 @interface Alohalytics : NSObject
@@ -35,9 +37,6 @@
 // Should be called in application:didFinishLaunchingWithOptions: or in application:willFinishLaunchingWithOptions:
 // Final serverUrl is modified to $(serverUrl)/[ios|mac]/your.bundle.id/app.version
 + (void)setup:(NSString *)serverUrl withLaunchOptions:(NSDictionary *)options;
-// Alternative to the previous setup method if you integrated Alohalytics after initial release
-// and don't want to count app upgrades as new installs (and definitely know that it's an already existing user).
-+ (void)setup:(NSString *)serverUrl andFirstLaunch:(BOOL)isFirstLaunch withLaunchOptions:(NSDictionary *)options;
 + (void)forceUpload;
 + (void)logEvent:(NSString *)event;
 + (void)logEvent:(NSString *)event atLocation:(CLLocation *)location;
@@ -48,6 +47,21 @@
 + (void)logEvent:(NSString *)event withKeyValueArray:(NSArray *)array atLocation:(CLLocation *)location;
 + (void)logEvent:(NSString *)event withDictionary:(NSDictionary *)dictionary;
 + (void)logEvent:(NSString *)event withDictionary:(NSDictionary *)dictionary atLocation:(CLLocation *)location;
+// Returns YES if it is a first session, before app goes into background.
++ (BOOL)isFirstSession;
+// Returns summary time of all active user sessions up to now.
++ (NSInteger)totalSecondsSpentInTheApp;
+
+// Returns the date when app was launched for the first time (usually the same as install date).
++ (NSDate *)firstLaunchDate;
+// When app was installed (it's Documents folder creation date).
+// Note: firstLaunchDate is usually later than installDate.
++ (NSDate *)installDate;
+// When app was updated (~== installDate for the first installation, it's Resources folder creation date).
++ (NSDate *)updateDate;
+// When the binary was built.
+// Hint: if buildDate > installDate then this is not a new app install, but an existing old user.
++ (NSDate *)buildDate;
 @end
 
 #endif  // #ifndef ALOHALYTICS_OBJC_H

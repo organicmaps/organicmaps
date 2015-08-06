@@ -167,7 +167,7 @@ void InitLocalizedStrings()
 #ifndef OMIM_PRODUCTION
   [Alohalytics setDebugMode:YES];
 #endif
-  [Alohalytics setup:@"http://localhost:8080" andFirstLaunch:[MapsAppDelegate isFirstAppLaunch] withLaunchOptions:launchOptions];
+  [Alohalytics setup:@"http://localhost:8080" withLaunchOptions:launchOptions];
   
   NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
   if (url != nil)

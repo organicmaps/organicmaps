@@ -44,6 +44,12 @@
   // Used for example purposes only to upload statistics (unpredictable) in background, when system wakes app up.
   [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
+  NSLog(@"isFirstSession: %d", [Alohalytics isFirstSession]);
+  NSLog(@"firstLaunchDate: %@", [Alohalytics firstLaunchDate]);
+  NSLog(@"installDate: %@", [Alohalytics installDate]);
+  NSLog(@"updateDate: %@", [Alohalytics updateDate]);
+  NSLog(@"buildDate: %@", [Alohalytics buildDate]);
+
   return YES;
 }
 
