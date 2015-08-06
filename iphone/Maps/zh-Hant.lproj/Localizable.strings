@@ -1203,3 +1203,30 @@
 
 /* Text for routing::IRouter::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
+
+/* Text for facebook sharing news about walking routes */
+"share_walking_routes_facebook" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+
+/* Text for messenger sharing news about walking routes */
+"share_walking_routes_messenger" = "Wow! Maps.me launched Walking Routes. Install it to discover secret tracks and trails around you.";
+
+/* Text for sms sharing news about walking routes */
+"share_walking_routes_sms" = "Wow! Maps.me launched Walking Routes. Install to discover trails near.";
+
+/* Subject for email sharing news about walking routes */
+"share_walking_routes_email_subject" = "Maps.me smarter then ever.";
+
+/* Text for email sharing news about walking routes */
+"share_walking_routes_email_body" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+
+/* Title for walking routes dialog */
+"dialog_title_share_walking_routes_first_launch" = "Smarter Then Ever.";
+
+/* Text for walking routes dialog */
+"dialog_text_share_walking_routes_first_launch" = "Our new high-accurate Pedestrian Navigation based on OpenStreetMap - the most detailed map in the World. It contains 2 360 000 kilometers of Walking Routes.";
+
+/* Title for walking routes dialog after 3 built routes */
+"dialog_title_share_walking_routes_active_pedestrian" = "Congratulations!";
+
+/* Text for walking routes dialog after 3 built routes */
+"dialog_text_share_walking_routes_active_pedestrian" = "You have tried our new Walking Routes function. Ain’t it cool? (или Was it helpful?) Share the experience with friends.";
