@@ -6,7 +6,7 @@
 # Displayed when there are unknown options
 usage() {
   echo
-  echo "Usage: $0 [-c] [-u] [-w] [-r]"
+  echo "Usage: $0 [-c] [-u] [-l] [-w] [-r]"
   echo
   echo -e "-u\tUpdate planet until coastline is not broken"
   echo -e "-U\tDownload planet when it is missing"
@@ -268,7 +268,12 @@ if [ "$MODE" == "coast" ]; then
   [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/WorldCoasts.rawgeom" "$INTDIR"
   [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/WorldCoasts.geom" "$INTDIR"
   [ -z "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
-  MODE=inter
+  if [ -n "$OPT_ROUTING" -o -n "$OPT_WORLD" -o -z "$NO_REGIONS" ]; then
+    MODE=inter
+  else
+    log "STATUS" "Nothing but coastline temporary files were requested, finishing"
+    MODE=last
+  fi
 fi
 
 # Starting routing generation as early as we can, since it's done in parallel
@@ -342,8 +347,6 @@ if [ "$MODE" == "mwm" ]; then
       "$GENERATOR_TOOL" $PARAMS --output=World 2>> "$LOG_PATH/World.log"
       "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
     ) &
-  fi
-  if [ -n "$OPT_COAST" ]; then
     "$GENERATOR_TOOL" $PARAMS --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
   fi
 
@@ -397,7 +400,7 @@ if [ "$MODE" == "resources" ]; then
   done
   chmod 0666 "$TARGET/countries.txt"
 
-  if [ -n "$OPT_WORLD" -o -n "$OPT_COAST" ]; then
+  if [ -n "$OPT_WORLD" ]; then
     # Update external resources
     [ -z "$(ls "$TARGET" | grep '\.ttf')" ] && cp "$DATA_PATH"/*.ttf "$TARGET"
     EXT_RES="$TARGET/external_resources.txt"
