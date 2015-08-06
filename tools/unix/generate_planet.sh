@@ -114,8 +114,7 @@ while getopts ":couUlwrapvh" opt; do
   esac
 done
 
-EXIT_ON_ERROR=${EXIT_ON_ERROR-1}
-[ -n "$EXIT_ON_ERROR" ] && set -e # Exit when any of commands fail
+set -e # Exit when any of commands fail
 set -o pipefail # Capture all errors in command chains
 set -u # Fail on undefined variables
 
@@ -132,11 +131,11 @@ mkdir -p "$TARGET"
 INTDIR="${INTDIR:-$TARGET/intermediate_data}"
 OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
 [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
-MERGE_COASTS_DELAY_MIN=40
+MERGE_INTERVAL=${MERGE_INTERVAL:-40}
 # set to "mem" if there is more than 64 GB of memory
 NODE_STORAGE=${NODE_STORAGE:-${NS:-mem}}
 ASYNC_PBF=${ASYNC_PBF-}
-NUM_PROCESSES=${NUM_PROCESSES:-$(expr $(nproc || echo 8) - 1)}
+NUM_PROCESSES=${NUM_PROCESSES:-$(($(nproc || echo 8) - 1))}
 KEEP_INTDIR=${KEEP_INTDIR-1}
 
 STATUS_FILE="$INTDIR/status"
@@ -154,13 +153,11 @@ log "STATUS" "Start"
 source "$SCRIPTS_PATH/find_generator_tool.sh"
 
 # Prepare borders
-[ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
 mkdir -p "$TARGET/borders"
-PREV_BORDERS="$(ls "$TARGET/borders" | grep \.poly)"
 NO_REGIONS=
 if [ -n "${REGIONS:-}" ]; then
   # If region files are specified, backup old borders and copy new
-  if [ -n "$PREV_BORDERS" ]; then
+  if [ -n "$(ls "$TARGET/borders" | grep '\.poly')" ]; then
     BORDERS_BACKUP_PATH="$TARGET/borders.$(date +%Y%m%d%H%M%S)"
     mkdir -p "$BORDERS_BACKUP_PATH"
     log "BORDERS" "Note: old borders from $TARGET/borders were moved to $BORDERS_BACKUP_PATH"
@@ -170,15 +167,14 @@ if [ -n "${REGIONS:-}" ]; then
 elif [ -z "${REGIONS-1}" ]; then
   # A user asked specifically for no regions
   NO_REGIONS=1
-elif [ -z "$PREV_BORDERS" ]; then
+elif [ -z "$(ls "$TARGET/borders" | grep '\.poly')" ]; then
   # If there are no borders, copy them from $BORDERS_PATH
   BORDERS_PATH="${BORDERS_PATH:-$DATA_PATH/borders}"
   cp "$BORDERS_PATH"/*.poly "$TARGET/borders/"
 fi
-[ -z "$NO_REGIONS" -a -z "$(ls "$TARGET/borders" | grep \.poly)" ] && fail "No border polygons found, please use REGIONS or BORDER_PATH variables"
-ULIMIT_REQ=$(expr 3 \* $(ls "$TARGET/borders" | grep \.poly | wc -l))
+[ -z "$NO_REGIONS" -a -z "$(ls "$TARGET/borders" | grep '\.poly')" ] && fail "No border polygons found, please use REGIONS or BORDER_PATH variables"
+ULIMIT_REQ=$((3 * $(ls "$TARGET/borders" | { grep '\.poly' || true; } | wc -l)))
 [ $(ulimit -n) -lt $ULIMIT_REQ ] && fail "Ulimit is too small, you need at least $ULIMIT_REQ (e.g. ulimit -n 4000)"
-[ -n "$EXIT_ON_ERROR" ] && set -e
 
 # These variables are used by external script(s), namely generate_planet_routing.sh
 export GENERATOR_TOOL
@@ -249,26 +245,23 @@ if [ "$MODE" == "coast" ]; then
       # Strip coastlines from the planet to speed up the process
       "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" "-o=$COASTS"
       # Preprocess coastlines to separate intermediate directory
-      [ -n "$EXIT_ON_ERROR" ] && set +e # Temporary disable to read error code
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
         -preprocess 2>> "$LOG_PATH/WorldCoasts.log"
       # Generate temporary coastlines file in the coasts intermediate dir
-      "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
-        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log" | grep -i 'not merged\|total'
-
-      if [ $? != 0 ]; then
+      if ! "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
+        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log" | { grep -i 'not merged' || true; }
+      then
         log "STATUS" "Coastline merge failed"
         if [ -n "$OPT_UPDATE" ]; then
-          tail -n 50 "$LOG_PATH/WorldCoasts.log" | mailx -s "Generate_planet: coastline merge failed, next try in $MERGE_COASTS_DELAY_MIN minutes" "$MAIL"
+          [ -n "${MAIL-}" ] && tail -n 50 "$LOG_PATH/WorldCoasts.log" | mailx -s "Generate_planet: coastline merge failed, next try in $MERGE_INTERVAL minutes" "$MAIL"
           date -u
-          echo "Will try fresh coasts again in $MERGE_COASTS_DELAY_MIN minutes, or press a key..."
-          read -rs -n 1 -t $(expr $MERGE_COASTS_DELAY_MIN \* 60)
+          echo "Will try fresh coasts again in $MERGE_INTERVAL minutes, or press a key..."
+          read -rs -n 1 -t $(($MERGE_INTERVAL * 60)) || true
           TRY_AGAIN=1
         else
           fail
         fi
       fi
-      [ -n "$EXIT_ON_ERROR" ] && set -e
     fi
   done
   # make a working copy of generated coastlines file
@@ -285,9 +278,7 @@ if [ -n "$OPT_ROUTING" -a -z "$NO_REGIONS" ]; then
   else
     putmode "Step R: Starting OSRM files generation"
     # If *.mwm.osm2ft were moved to INTDIR, let's put them back
-    [ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
-    [ -z "$(ls "$TARGET" | grep \.mwm\.osm2ft)" -a -n "$(ls "$INTDIR" | grep \.mwm\.osm2ft)" ] && mv "$INTDIR"/*.mwm.osm2ft "$TARGET"
-    [ -n "$EXIT_ON_ERROR" ] && set -e
+    [ -z "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" -a -n "$(ls "$INTDIR" | grep '\.mwm\.osm2ft')" ] && mv "$INTDIR"/*.mwm.osm2ft "$TARGET"
 
     if [ -n "$ASYNC_PBF" ]; then
       (
@@ -318,7 +309,17 @@ fi
 if [ "$MODE" == "features" ]; then
   putmode "Step 4: Generating features of everything into $TARGET"
   # Checking for coastlines, can't build proper mwms without them
-  [ ! -s "$INTDIR/WorldCoasts.geom" ] && fail "Please prepare coastlines and put WorldCoasts.geom to $INTDIR"
+  if [ ! -s "$INTDIR/WorldCoasts.geom" ]; then
+    COASTS="${COASTS-WorldCoasts.geom}"
+    if [ -s "$COASTS" ]; then
+      cp "$COASTS" "$INTDIR/WorldCoasts.geom"
+      RAWGEOM="${COASTS%.*}.rawgeom"
+      [ -s "$RAWGEOM" ] && cp "$RAWGEOM" "$INTDIR/WorldCoasts.rawgeom"
+    else
+      fail "Please prepare coastlines and put WorldCoasts.geom to $INTDIR"
+    fi
+  fi
+  [ -n "$OPT_WORLD" -a ! -s "$INTDIR/WorldCoasts.rawgeom" ] && fail "You need WorldCoasts.rawgeom in $INTDIR to build a world file"
   # 2nd pass - paralleled in the code
   PARAMS_SPLIT="-generate_features -emit_coasts"
   [ -z "$NO_REGIONS" ] && PARAMS_SPLIT="$PARAMS_SPLIT -split_by_polygons"
@@ -332,9 +333,7 @@ fi
 if [ "$MODE" == "mwm" ]; then
   putmode "Step 5: Building all MWMs of regions and of the whole world into $TARGET"
   # First, check for *.mwm.tmp
-  [ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
-  [ -z "$NO_REGIONS" -a -z "$(ls "$INTDIR/tmp" | grep \.mwm\.tmp)" ] && fail "No .mwm.tmp files found."
-  [ -n "$EXIT_ON_ERROR" ] && set -e
+  [ -z "$NO_REGIONS" -a -z "$(ls "$INTDIR/tmp" | grep '\.mwm\.tmp')" ] && fail "No .mwm.tmp files found."
   # 3rd pass - do in parallel
   # but separate exceptions for world files to finish them earlier
   PARAMS="--data_path=$TARGET --intermediate_data_path=$INTDIR/ --user_resource_path=$DATA_PATH/ --node_storage=$NODE_STORAGE -generate_geometry -generate_index"
@@ -400,8 +399,7 @@ if [ "$MODE" == "resources" ]; then
 
   if [ -n "$OPT_WORLD" -o -n "$OPT_COAST" ]; then
     # Update external resources
-    [ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
-    [ -z "$(ls "$TARGET" | grep \.ttf)" ] && cp "$DATA_PATH"/*.ttf "$TARGET"
+    [ -z "$(ls "$TARGET" | grep '\.ttf')" ] && cp "$DATA_PATH"/*.ttf "$TARGET"
     EXT_RES="$TARGET/external_resources.txt"
     echo -n > "$EXT_RES"
     UNAME="$(uname)"
@@ -415,7 +413,6 @@ if [ "$MODE" == "resources" ]; then
       fi
     done
     chmod 0666 "$EXT_RES"
-    [ -n "$EXIT_ON_ERROR" ] && set -e
   fi
   MODE=test
 fi
@@ -430,10 +427,16 @@ if [ "$MODE" == "test" ]; then
   fi
 fi
 
+# Clean temporary indices
+if [ -n "$(ls "$TARGET" | grep '\.mwm')" ]; then
+  for mwm in "$TARGET"/*.mwm; do
+    BASENAME="${mwm%.mwm}"
+    [ -d "$BASENAME" ] && rm -r "$BASENAME"
+  done
+fi
 # Cleaning up temporary directories
-set +e
 rm "$STATUS_FILE"
 [ -f "$OSRM_FLAG" ] && rm "$OSRM_FLAG"
-mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
+[ -n "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" ] && mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
 [ -z "$KEEP_INTDIR" ] && rm -r "$INTDIR"
 log "STATUS" "Done"

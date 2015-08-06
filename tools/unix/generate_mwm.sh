@@ -137,3 +137,5 @@ fi
 
 # This file is needed only for routing generation
 rm -f "$TARGET/$BASE_NAME.mwm.osm2ft"
+# Remove temporary offsets table
+[ -d "$TARGET/$BASE_NAME" ] && rm -r "$TARGET/$BASE_NAME"
