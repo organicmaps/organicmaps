@@ -89,7 +89,7 @@ public:
     return m_points[idx];
   }
 
-  vector<Point<T> > const & GetPoints() const
+  vector<Point<T>> const & GetPoints() const
   {
     return m_points;
   }

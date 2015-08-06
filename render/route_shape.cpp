@@ -8,9 +8,9 @@ namespace rg
 namespace
 {
 
-float const LEFT_SIDE = 1.0;
-float const CENTER = 0.0;
-float const RIGHT_SIDE = -1.0;
+float const kLeftSide = 1.0;
+float const kCenter = 0.0;
+float const kRightSide = -1.0;
 
 enum EPointType
 {
@@ -48,7 +48,8 @@ struct LineSegment
 
 void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
 {
-  ASSERT(segment1 != nullptr && segment2 != nullptr, ());
+  ASSERT(segment1 != nullptr, ());
+  ASSERT(segment2 != nullptr, ());
 
   float const dotProduct = m2::DotProduct(segment1->m_leftNormals[EndPoint],
                                           segment2->m_leftNormals[StartPoint]);
@@ -105,7 +106,7 @@ void CalculateTangentAndNormals(m2::PointF const & pt0, m2::PointF const & pt1,
 
 void ConstructLineSegments(vector<m2::PointD> const & path, vector<LineSegment> & segments)
 {
-  ASSERT(path.size() > 1, ());
+  ASSERT_LESS(1, path.size(), ());
 
   float const eps = 1e-5;
 
@@ -147,14 +148,13 @@ void GenerateJoinNormals(m2::PointF const & normal1, m2::PointF const & normal2,
                          bool isLeft, vector<m2::PointF> & normals)
 {
   float const eps = 1e-5;
-  if (fabs(m2::DotProduct(normal1, normal2) - 1.0f) < eps)
+  float const dotProduct = m2::DotProduct(normal1, normal2);
+  if (fabs(dotProduct - 1.0f) < eps)
     return;
 
   float const segmentAngle = math::pi / 8.0;
-  float const fullAngle = acos(m2::DotProduct(normal1, normal2));
-  int segmentsCount = static_cast<int>(fullAngle / segmentAngle);
-  if (segmentsCount == 0)
-    segmentsCount = 1;
+  float const fullAngle = acos(dotProduct);
+  int segmentsCount = max(static_cast<int>(fullAngle / segmentAngle), 1);
 
   float const angle = fullAngle / segmentsCount * (isLeft ? -1.0 : 1.0);
   m2::PointF const startNormal = normal1.Normalize();
@@ -208,16 +208,16 @@ double GenerateGeometry(vector<m2::PointD> const & points, bool isRoute, double 
   {
     float const eps = 1e-5;
     size_t const trianglesCount = normals.size() / 3;
-    float const side = isLeft ? LEFT_SIDE : RIGHT_SIDE;
+    float const side = isLeft ? kLeftSide : kRightSide;
     for (int j = 0; j < trianglesCount; j++)
     {
-      float const lenZ1 = normals[3 * j].Length() < eps ? CENTER : side;
-      float const lenZ2 = normals[3 * j + 1].Length() < eps ? CENTER : side;
-      float const lenZ3 = normals[3 * j + 2].Length() < eps ? CENTER : side;
+      float const lenZ1 = normals[3 * j].Length() < eps ? kCenter : side;
+      float const lenZ2 = normals[3 * j + 1].Length() < eps ? kCenter : side;
+      float const lenZ3 = normals[3 * j + 2].Length() < eps ? kCenter : side;
 
-      geometry.push_back(RV(pivot, depth, normals[3 * j], length, lenZ1));
-      geometry.push_back(RV(pivot, depth, normals[3 * j + 1], length, lenZ2));
-      geometry.push_back(RV(pivot, depth, normals[3 * j + 2], length, lenZ3));
+      geometry.push_back(TRV(pivot, depth, normals[3 * j], length, lenZ1));
+      geometry.push_back(TRV(pivot, depth, normals[3 * j + 1], length, lenZ2));
+      geometry.push_back(TRV(pivot, depth, normals[3 * j + 2], length, lenZ3));
 
       indices.push_back(indexCounter);
       indices.push_back(indexCounter + 1);
@@ -297,16 +297,16 @@ double GenerateGeometry(vector<m2::PointD> const & points, bool isRoute, double 
       }
     }
 
-    geometry.push_back(RV(startPivot, depth, m2::PointF::Zero(), m2::PointF(scaledLength, 0), CENTER));
-    geometry.push_back(RV(startPivot, depth, leftNormalStart, m2::PointF(scaledLength, projLeftStart), LEFT_SIDE));
-    geometry.push_back(RV(endPivot, depth, m2::PointF::Zero(), m2::PointF(scaledEndLength, 0), CENTER));
-    geometry.push_back(RV(endPivot, depth, leftNormalEnd, m2::PointF(scaledEndLength, projLeftEnd), LEFT_SIDE));
+    geometry.push_back(TRV(startPivot, depth, m2::PointF::Zero(), m2::PointF(scaledLength, 0), kCenter));
+    geometry.push_back(TRV(startPivot, depth, leftNormalStart, m2::PointF(scaledLength, projLeftStart), kLeftSide));
+    geometry.push_back(TRV(endPivot, depth, m2::PointF::Zero(), m2::PointF(scaledEndLength, 0), kCenter));
+    geometry.push_back(TRV(endPivot, depth, leftNormalEnd, m2::PointF(scaledEndLength, projLeftEnd), kLeftSide));
     generateIndices();
 
-    geometry.push_back(RV(startPivot, depth, rightNormalStart, m2::PointF(scaledLength, projRightStart), RIGHT_SIDE));
-    geometry.push_back(RV(startPivot, depth, m2::PointF::Zero(), m2::PointF(scaledLength, 0), CENTER));
-    geometry.push_back(RV(endPivot, depth, rightNormalEnd, m2::PointF(scaledEndLength, projRightEnd), RIGHT_SIDE));
-    geometry.push_back(RV(endPivot, depth, m2::PointF::Zero(), m2::PointF(scaledEndLength, 0), CENTER));
+    geometry.push_back(TRV(startPivot, depth, rightNormalStart, m2::PointF(scaledLength, projRightStart), kRightSide));
+    geometry.push_back(TRV(startPivot, depth, m2::PointF::Zero(), m2::PointF(scaledLength, 0), kCenter));
+    geometry.push_back(TRV(endPivot, depth, rightNormalEnd, m2::PointF(scaledEndLength, projRightEnd), kRightSide));
+    geometry.push_back(TRV(endPivot, depth, m2::PointF::Zero(), m2::PointF(scaledEndLength, 0), kCenter));
     generateIndices();
 
     // generate joins
@@ -344,7 +344,7 @@ double GenerateGeometry(vector<m2::PointD> const & points, bool isRoute, double 
   {
     float const eps = 1e-5;
     double len = 0;
-    for (size_t i = 0; i < segments.size() - 1; i++)
+    for (size_t i = 0; i + 1 < segments.size(); i++)
     {
       len += (segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]).Length();
 
@@ -370,7 +370,7 @@ double GenerateGeometry(vector<m2::PointD> const & points, bool isRoute, double 
 void RouteShape::PrepareGeometry(m2::PolylineD const & polyline, RouteData & output)
 {
   vector<m2::PointD> const & path = polyline.GetPoints();
-  ASSERT(path.size() > 1, ());
+  ASSERT_LESS(1, path.size(), ());
 
   output.m_joinsBounds.clear();
   output.m_geometry.clear();

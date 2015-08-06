@@ -657,6 +657,7 @@ bool Framework::AddBookmarksFile(string const & filePath)
 void Framework::PrepareToShutdown()
 {
 #ifndef USE_DRAPE
+  m_bmManager.PrepareToShutdown();
   SetRenderPolicy(0);
 #else
   m_drapeEngine.Destroy();

@@ -46,9 +46,9 @@ struct ArrowBorders
 
 struct RouteSegment
 {
-  double m_start = 0;
-  double m_end = 0;
-  bool m_isAvailable = false;
+  double m_start;
+  double m_end;
+  bool m_isAvailable;
 
   RouteSegment(double start, double end, bool isAvailable)
     : m_start(start)
@@ -61,6 +61,9 @@ class RouteRenderer final
 {
 public:
   RouteRenderer();
+  ~RouteRenderer();
+
+  void PrepareToShutdown();
 
   void Setup(m2::PolylineD const & routePolyline, vector<double> const & turns, graphics::Color const & color);
   void Clear();
@@ -79,6 +82,7 @@ private:
                         vector<ArrowBorders> & arrowBorders);
   void RenderArrow(graphics::Screen * dlScreen, float halfWidth, ScreenBase const & screen);
   bool RecacheArrows();
+  void DestroyDisplayLists();
 
   graphics::DisplayList * m_displayList;
   graphics::DisplayList * m_endOfRouteDisplayList;

@@ -56,8 +56,8 @@ HEADERS += \
     text_engine.h \
     point.h \
     rect.h \
-    route_renderer.cpp \
-    route_shape.cpp \
+    route_renderer.hpp \
+    route_shape.hpp \
     window_handle.hpp \
     render_policy.hpp \
     tiling_render_policy_st.hpp \

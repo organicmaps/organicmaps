@@ -12,8 +12,8 @@
 namespace rg
 {
 
-using RV = graphics::gl::RouteVertex;
-using TGeometryBuffer = buffer_vector<RV, 128>;
+using TRV = graphics::gl::RouteVertex;
+using TGeometryBuffer = buffer_vector<TRV, 128>;
 using TIndexBuffer = buffer_vector<unsigned short, 128>;
 
 double const arrowHeightFactor = 96.0 / 36.0;
@@ -40,7 +40,7 @@ struct ArrowsBuffer
 {
   TGeometryBuffer m_geometry;
   TIndexBuffer m_indices;
-  unsigned short m_indexCounter;
+  uint16_t m_indexCounter;
 
   ArrowsBuffer() : m_indexCounter(0) {}
   void Clear()

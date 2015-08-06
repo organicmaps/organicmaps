@@ -16,7 +16,7 @@ namespace rg
 namespace
 {
 
-float const halfWidthInPixel[] =
+float const kHalfWidthInPixel[] =
 {
   // 1   2     3     4     5     6     7     8     9     10
   2.0f, 2.0f, 3.0f, 3.0f, 3.0f, 4.0f, 4.0f, 4.0f, 5.0f, 5.0f,
@@ -24,7 +24,7 @@ float const halfWidthInPixel[] =
   6.0f, 6.0f, 7.0f, 7.0f, 7.0f, 7.0f, 8.0f, 10.0f, 24.0f, 36.0f
 };
 
-uint8_t const alphaValue[] =
+uint8_t const kAlphaValue[] =
 {
   //1   2    3    4    5    6    7    8    9    10
   204, 204, 204, 204, 204, 204, 204, 204, 204, 204,
@@ -32,7 +32,7 @@ uint8_t const alphaValue[] =
   204, 204, 204, 204, 190, 180, 170, 160, 140, 120
 };
 
-int const arrowAppearingZoomLevel = 14;
+int const kArrowAppearingZoomLevel = 14;
 
 enum SegmentStatus
 {
@@ -40,8 +40,9 @@ enum SegmentStatus
   NoSegment = -2
 };
 
-int const invalidGroup = -1;
+int const kInvalidGroup = -1;
 
+// Checks for route segments for intersection with the distance [start; end].
 int CheckForIntersection(double start, double end, vector<RouteSegment> const & segments)
 {
   for (size_t i = 0; i < segments.size(); i++)
@@ -55,9 +56,10 @@ int CheckForIntersection(double start, double end, vector<RouteSegment> const & 
   return SegmentStatus::OK;
 }
 
+// Finds the nearest appropriate route segment to the distance [start; end].
 int FindNearestAvailableSegment(double start, double end, vector<RouteSegment> const & segments)
 {
-  double const threshold = 0.8;
+  double const kThreshold = 0.8;
 
   // check if distance intersects unavailable segment
   int index = CheckForIntersection(start, end, segments);
@@ -69,7 +71,7 @@ int FindNearestAvailableSegment(double start, double end, vector<RouteSegment> c
   for (size_t i = index; i < segments.size(); i++)
   {
     double const factor = (segments[i].m_end - segments[i].m_start) / len;
-    if (segments[i].m_isAvailable && factor > threshold)
+    if (segments[i].m_isAvailable && factor > kThreshold)
       return static_cast<int>(i);
   }
   return SegmentStatus::NoSegment;
@@ -79,7 +81,7 @@ void ClipBorders(vector<ArrowBorders> & borders)
 {
   auto invalidBorders = [](ArrowBorders const & borders)
   {
-    return borders.m_groupIndex == invalidGroup;
+    return borders.m_groupIndex == kInvalidGroup;
   };
   borders.erase(remove_if(borders.begin(), borders.end(), invalidBorders), borders.end());
 }
@@ -112,7 +114,7 @@ void MergeAndClipBorders(vector<ArrowBorders> & borders)
     }
     else
     {
-      borders[i].m_groupIndex = invalidGroup;
+      borders[i].m_groupIndex = kInvalidGroup;
     }
   }
   borders[lastGroupIndex].m_endDistance = borders.back().m_endDistance;
@@ -123,6 +125,7 @@ void MergeAndClipBorders(vector<ArrowBorders> & borders)
 
 double CalculateLength(vector<m2::PointD> const & points)
 {
+  ASSERT_LESS(0, points.size(), ());
   double len = 0;
   for (size_t i = 0; i < points.size() - 1; i++)
     len += (points[i + 1] - points[i]).Length();
@@ -211,22 +214,9 @@ vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline, double start,
   return AddPoints(CalculateLength(result) - headSize, result, false /* isTail */);
 }
 
-bool AreArrowBordersEqual(vector<ArrowBorders> const & borders1, vector<ArrowBorders> const & borders2)
-{
-  if (borders1.size() != borders2.size())
-    return false;
-
-  for (size_t i = 0; i < borders1.size(); i++)
-  {
-    if (borders1[i] != borders2[i])
-      return false;
-  }
-  return true;
-}
-
 float NormColor(uint8_t value)
 {
-  return static_cast<float>(value) / 255.0f;
+  return static_cast<float>(value) / numeric_limits<uint8_t>::max();
 }
 
 }
@@ -240,14 +230,27 @@ RouteRenderer::RouteRenderer()
   , m_waitForConstruction(false)
 {}
 
+RouteRenderer::~RouteRenderer()
+{
+  ASSERT(m_displayList == nullptr, ());
+  ASSERT(m_endOfRouteDisplayList == nullptr, ());
+  ASSERT(m_arrowDisplayList == nullptr, ());
+}
+
 void RouteRenderer::Setup(m2::PolylineD const & routePolyline, vector<double> const & turns, graphics::Color const & color)
 {
+  m_routeData.m_geometry.clear();
+  m_routeData.m_indices.clear();
+  m_routeData.m_joinsBounds.clear();
   RouteShape::PrepareGeometry(routePolyline, m_routeData);
+
   m_turns = turns;
   m_color = color;
   m_endOfRoutePoint = routePolyline.Back();
   m_distanceFromBegin = 0.0;
   m_polyline = routePolyline;
+
+  m_needClear = true;
   m_waitForConstruction = true;
 }
 
@@ -306,6 +309,20 @@ void RouteRenderer::ClearRoute(graphics::Screen * dlScreen)
   m_storage = graphics::gl::Storage();
   m_arrowsStorage = graphics::gl::Storage();
 
+  DestroyDisplayLists();
+
+  m_arrowBorders.clear();
+  m_routeSegments.clear();
+  m_arrowBuffer.Clear();
+}
+
+void RouteRenderer::PrepareToShutdown()
+{
+  DestroyDisplayLists();
+}
+
+void RouteRenderer::DestroyDisplayLists()
+{
   if (m_displayList != nullptr)
   {
     delete m_displayList;
@@ -323,10 +340,6 @@ void RouteRenderer::ClearRoute(graphics::Screen * dlScreen)
     delete m_endOfRouteDisplayList;
     m_endOfRouteDisplayList = nullptr;
   }
-
-  m_arrowBorders.clear();
-  m_routeSegments.clear();
-  m_arrowBuffer.Clear();
 }
 
 void RouteRenderer::InterpolateByZoom(ScreenBase const & screen, float & halfWidth, float & alpha, double & zoom) const
@@ -338,16 +351,16 @@ void RouteRenderer::InterpolateByZoom(ScreenBase const & screen, float & halfWid
 
   if (index < scales::UPPER_STYLE_SCALE)
   {
-    halfWidth = halfWidthInPixel[index] + lerpCoef * (halfWidthInPixel[index + 1] - halfWidthInPixel[index]);
+    halfWidth = kHalfWidthInPixel[index] + lerpCoef * (kHalfWidthInPixel[index + 1] - kHalfWidthInPixel[index]);
 
-    float const alpha1 = NormColor(alphaValue[index]);
-    float const alpha2 = NormColor(alphaValue[index + 1]);
+    float const alpha1 = NormColor(kAlphaValue[index]);
+    float const alpha2 = NormColor(kAlphaValue[index + 1]);
     alpha = alpha1 + lerpCoef * NormColor(alpha2 - alpha1);
   }
   else
   {
-    halfWidth = halfWidthInPixel[scales::UPPER_STYLE_SCALE];
-    alpha = NormColor(alphaValue[scales::UPPER_STYLE_SCALE]);
+    halfWidth = kHalfWidthInPixel[scales::UPPER_STYLE_SCALE];
+    alpha = NormColor(kAlphaValue[scales::UPPER_STYLE_SCALE]);
   }
 }
 
@@ -391,7 +404,7 @@ void RouteRenderer::Render(graphics::Screen * dlScreen, ScreenBase const & scree
   dlScreen->drawDisplayList(m_displayList, screen.GtoPMatrix(), &uniforms, indicesCount);
 
   // render arrows
-  if (zoom >= arrowAppearingZoomLevel)
+  if (zoom >= kArrowAppearingZoomLevel)
     RenderArrow(dlScreen, halfWidth, screen);
 
   dlScreen->applyStates();
@@ -413,7 +426,7 @@ void RouteRenderer::RenderArrow(graphics::Screen * dlScreen, float halfWidth, Sc
   if (!arrowBorders.empty())
   {
     bool needRender = true;
-    if (!AreArrowBordersEqual(m_arrowBorders, arrowBorders))
+    if (m_arrowBorders != arrowBorders)
     {
       m_arrowBorders.swap(arrowBorders);
       needRender = RecacheArrows();
@@ -444,8 +457,8 @@ bool RouteRenderer::RecacheArrows()
                                      m_arrowBuffer);
   }
 
-  size_t const vbSize = m_arrowBuffer.m_geometry.size() * sizeof(graphics::gl::RouteVertex);
-  size_t const ibSize = m_arrowBuffer.m_indices.size() * sizeof(unsigned short);
+  size_t const vbSize = m_arrowBuffer.m_geometry.size() * sizeof(m_arrowBuffer.m_geometry[0]);
+  size_t const ibSize = m_arrowBuffer.m_indices.size() * sizeof(m_arrowBuffer.m_indices[0]);
   if (vbSize == 0 && ibSize == 0)
     return false;
 
@@ -509,7 +522,7 @@ void RouteRenderer::ApplyJoinsBounds(double joinsBoundsScalar, double glbHeadLen
     {
       double const restDist = m_routeData.m_length - m_routeSegments[headIndex].m_start;
       if (headIndex == SegmentStatus::NoSegment || restDist < glbHeadLength)
-        arrowBorders[i].m_groupIndex = invalidGroup;
+        arrowBorders[i].m_groupIndex = kInvalidGroup;
       else
         arrowBorders[i].m_endDistance = min(m_routeData.m_length, m_routeSegments[headIndex].m_start + glbHeadLength);
       needMerge = true;
@@ -541,7 +554,7 @@ void RouteRenderer::CalculateArrowBorders(m2::RectD const & clipRect, double arr
   for (size_t i = 0; i < m_turns.size(); i++)
   {
     ArrowBorders borders;
-    borders.m_groupIndex = (int)i;
+    borders.m_groupIndex = static_cast<int>(i);
     borders.m_startDistance = max(0.0, m_turns[i] - halfLen * 0.8);
     borders.m_endDistance = min(m_routeData.m_length, m_turns[i] + halfLen * 1.2);
     borders.m_headSize = glbHeadLength;

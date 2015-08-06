@@ -39,6 +39,8 @@ public:
 
   void ClearItems();
 
+  void PrepareToShutdown();
+
   /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
   void LoadBookmark(string const & filePath);

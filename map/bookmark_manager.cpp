@@ -130,6 +130,11 @@ public:
 
 }
 
+void BookmarkManager::PrepareToShutdown()
+{
+  m_routeRenderer->PrepareToShutdown();
+}
+
 void BookmarkManager::DrawCategory(BookmarkCategory const * cat, PaintOverlayEvent const & e) const
 {
 #ifndef USE_DRAPE

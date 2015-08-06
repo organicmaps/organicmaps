@@ -162,7 +162,9 @@ namespace graphics
       m_displayList->drawRouteGeometry(command);
     }
     else
+    {
       base_t::drawRouteGeometry(texture, storage);
+    }
   }
 
   void DisplayListRenderer::uploadResources(shared_ptr<Resource> const * resources,
