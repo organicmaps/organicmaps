@@ -20,7 +20,6 @@ class LocalCountryFile;
 namespace routing
 {
 using TDataFacade = OsrmDataFacade<QueryEdge::EdgeData>;
-using TCountryFileFn = function<string(m2::PointD const &)>;
 
 /// Datamapping and facade for single MWM and MWM.routing file
 struct RoutingMapping

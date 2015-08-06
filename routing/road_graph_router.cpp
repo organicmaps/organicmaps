@@ -19,6 +19,9 @@
 
 #include "base/assert.hpp"
 
+using platform::CountryFile;
+using platform::LocalCountryFile;
+
 namespace routing
 {
 
@@ -79,10 +82,13 @@ bool CheckMwmVersion(vector<pair<Edge, m2::PointD>> const & vicinities, vector<s
 RoadGraphRouter::~RoadGraphRouter() {}
 
 RoadGraphRouter::RoadGraphRouter(string const & name, Index & index,
+                                 TCountryFileFn const & countryFileFn,
                                  unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
                                  unique_ptr<IRoutingAlgorithm> && algorithm,
                                  unique_ptr<IDirectionsEngine> && directionsEngine)
     : m_name(name)
+    , m_countryFileFn(countryFileFn)
+    , m_index(&index)
     , m_algorithm(move(algorithm))
     , m_roadGraph(make_unique<FeaturesRoadGraph>(index, move(vehicleModelFactory)))
     , m_directionsEngine(move(directionsEngine))
@@ -94,11 +100,27 @@ void RoadGraphRouter::ClearState()
   m_roadGraph->ClearState();
 }
 
+bool RoadGraphRouter::CheckMapExistence(m2::PointD const & point, Route & route) const
+{
+  string fileName = m_countryFileFn(point);
+  LocalCountryFile localCountryFile = m_index->GetMwmHandleByCountryFile(CountryFile(fileName)).GetInfo()->GetLocalFile();
+  if (!HasOptions(localCountryFile.GetFiles(), MapOptions::Map))
+  {
+    route.AddAbsentCountry(fileName);
+    return false;
+  }
+  return true;
+}
+
 IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoint,
                                                     m2::PointD const & /* startDirection */,
                                                     m2::PointD const & finalPoint,
                                                     RouterDelegate const & delegate, Route & route)
 {
+
+  if (!CheckMapExistence(startPoint, route) || !CheckMapExistence(finalPoint, route))
+    return RouteFileNotExist;
+
   vector<pair<Edge, m2::PointD>> finalVicinity;
   m_roadGraph->FindClosestEdges(finalPoint, kMaxRoadCandidates, finalVicinity);
   
@@ -184,21 +206,21 @@ void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
   route.SetTurnInstructionsGeometry(turnsGeom);
 }
 
-unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index)
+unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn)
 {
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
-  unique_ptr<IRouter> router(new RoadGraphRouter("astar-pedestrian", index, move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
+  unique_ptr<IRouter> router(new RoadGraphRouter("astar-pedestrian", index, countryFileFn, move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
   return router;
 }
 
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index)
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn)
 {
   unique_ptr<IVehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
-  unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-pedestrian", index, move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
+  unique_ptr<IRouter> router(new RoadGraphRouter("astar-bidirectional-pedestrian", index, countryFileFn, move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
   return router;
 }
 

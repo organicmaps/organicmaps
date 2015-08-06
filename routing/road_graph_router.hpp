@@ -24,6 +24,7 @@ class RoadGraphRouter : public IRouter
 {
 public:
   RoadGraphRouter(string const & name, Index & index,
+                  TCountryFileFn const & countryFileFn,
                   unique_ptr<IVehicleModelFactory> && vehicleModelFactory,
                   unique_ptr<IRoutingAlgorithm> && algorithm,
                   unique_ptr<IDirectionsEngine> && directionsEngine);
@@ -40,13 +41,19 @@ private:
   void ReconstructRoute(vector<Junction> && junctions, Route & route,
                         my::Cancellable const & cancellable) const;
 
+  /// Checks existance and add absent maps to route.
+  /// Returns true if map exists
+  bool CheckMapExistence(m2::PointD const & point, Route & route) const;
+
   string const m_name;
+  TCountryFileFn const m_countryFileFn;
+  Index * m_index;
   unique_ptr<IRoutingAlgorithm> const m_algorithm;
   unique_ptr<IRoadGraph> const m_roadGraph;
   unique_ptr<IDirectionsEngine> const m_directionsEngine;
 };
 
-unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index);
+unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn);
 
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index);
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn);
 }  // namespace routing

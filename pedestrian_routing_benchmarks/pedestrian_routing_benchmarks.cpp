@@ -60,17 +60,19 @@ private:
 
 unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index)
 {
+  auto UKGetter = [](m2::PointD const & /* point */){return "UK_England";};
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm());
-  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, move(vehicleModelFactory), move(algorithm), nullptr));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, UKGetter, move(vehicleModelFactory), move(algorithm), nullptr));
   return router;
 }
 
 unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index & index)
 {
+  auto UKGetter = [](m2::PointD const & /* point */){return "UK_England";};
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarBidirectionalRoutingAlgorithm());
-  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, move(vehicleModelFactory), move(algorithm), nullptr));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, UKGetter, move(vehicleModelFactory), move(algorithm), nullptr));
   return router;
 }
 
@@ -118,6 +120,7 @@ void TestRouters(Index & index, m2::PointD const & startPos, m2::PointD const & 
   // find route by A* algorithm
   routing::Route routeFoundByAstar("");
   router = CreatePedestrianAStarTestRouter(index);
+
   TestRouter(*router, startPos, finalPos, routeFoundByAstar);
 
   double constexpr kEpsilon = 1e-6;

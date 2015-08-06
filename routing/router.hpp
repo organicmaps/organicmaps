@@ -12,6 +12,8 @@
 namespace routing
 {
 
+using TCountryFileFn = function<string(m2::PointD const &)>;
+
 class Route;
 
 /// Routing engine type.

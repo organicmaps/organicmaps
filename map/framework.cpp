@@ -2190,19 +2190,21 @@ void Framework::SetRouterImpl(RouterType type)
 {
   unique_ptr<IRouter> router;
   unique_ptr<OnlineAbsentCountriesFetcher> fetcher;
+
+  auto countryFileGetter = [this](m2::PointD const & p) -> string
+  {
+    // TODO (@gorshenin): fix search engine to return CountryFile
+    // instances instead of plain strings.
+    return GetSearchEngine()->GetCountryFile(p);
+  };
+
   if (type == RouterType::Pedestrian)
   {
-    router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex());
+    router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter);
     m_routingSession.SetRoutingSettings(routing::GetPedestrianRoutingSettings());
   }
   else
   {
-    auto countryFileGetter = [this](m2::PointD const & p) -> string
-    {
-      // TODO (@gorshenin): fix search engine to return CountryFile
-      // instances instead of plain strings.
-      return GetSearchEngine()->GetCountryFile(p);
-    };
     auto localFileGetter = [this](string const & countryFile) -> shared_ptr<LocalCountryFile>
     {
       return m_storage.GetLatestLocalFile(CountryFile(countryFile));
