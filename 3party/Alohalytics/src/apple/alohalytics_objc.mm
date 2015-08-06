@@ -326,6 +326,8 @@ bool IsConnectionActive() {
 #endif  // TARGET_OS_IPHONE
 } // namespace
 
+// Keys for NSUserDefaults.
+static NSString * const kInstalledVersionKey = @"AlohalyticsInstalledVersion";
 @implementation Alohalytics
 
 + (void)setDebugMode:(BOOL)enable {
@@ -368,7 +370,7 @@ bool IsConnectionActive() {
 
   // Calculate some basic statistics about installations/updates/launches.
   NSUserDefaults * userDataBase = [NSUserDefaults standardUserDefaults];
-  NSString * installedVersion = [userDataBase objectForKey:@"AlohalyticsInstalledVersion"];
+  NSString * installedVersion = [userDataBase objectForKey:kInstalledVersionKey];
   BOOL shouldSendUpdatedSystemInformation = NO;
   if (installationId.second && isFirstLaunch && installedVersion == nil) {
     // Documents folder modification time can be interpreted as a "first app launch time" or an approx. "app install time".
@@ -376,7 +378,7 @@ bool IsConnectionActive() {
     instance.LogEvent("$install", {{"CFBundleShortVersionString", [version UTF8String]},
         {"documentsTimestampMillis", PathTimestampMillis([NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject])},
         {"bundleTimestampMillis", PathTimestampMillis([bundle executablePath])}});
-    [userDataBase setValue:version forKey:@"AlohalyticsInstalledVersion"];
+    [userDataBase setValue:version forKey:kInstalledVersionKey];
     [userDataBase synchronize];
     shouldSendUpdatedSystemInformation = YES;
   } else {
@@ -384,7 +386,7 @@ bool IsConnectionActive() {
       instance.LogEvent("$update", {{"CFBundleShortVersionString", [version UTF8String]},
           {"documentsTimestampMillis", PathTimestampMillis([NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject])},
           {"bundleTimestampMillis", PathTimestampMillis([bundle executablePath])}});
-      [userDataBase setValue:version forKey:@"AlohalyticsInstalledVersion"];
+      [userDataBase setValue:version forKey:kInstalledVersionKey];
       [userDataBase synchronize];
       shouldSendUpdatedSystemInformation = YES;
     }
