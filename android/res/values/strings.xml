@@ -776,4 +776,6 @@
 	<string name="routing_start">Start</string>
 	<!-- Planning route message in navigation view -->
 	<string name="routing_planning">Planning Route</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Download and update all map along the projected path to calculate route.</string>
 </resources>
