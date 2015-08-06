@@ -38,12 +38,12 @@ public:
   TestCallback(MwmSet::MwmId const & id) : m_id(id), m_triggered(false) {}
 
   // search::Retrieval::Callback overrides:
-  void OnMwmProcessed(MwmSet::MwmId const & id, vector<uint32_t> const & offsets) override
+  void OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
+                           vector<uint32_t> const & offsets) override
   {
-    TEST(!m_triggered, ("Callback must be triggered only once."));
     TEST_EQUAL(m_id, id, ());
     m_triggered = true;
-    m_offsets = offsets;
+    m_offsets.insert(m_offsets.end(), offsets.begin(), offsets.end());
   }
 
   bool WasTriggered() const { return m_triggered; }
@@ -63,13 +63,11 @@ public:
   MultiMwmCallback(vector<MwmSet::MwmId> const & ids) : m_ids(ids), m_numFeatures(0) {}
 
   // search::Retrieval::Callback overrides:
-  void OnMwmProcessed(MwmSet::MwmId const & id, vector<uint32_t> const & offsets) override
+  void OnFeaturesRetrieved(MwmSet::MwmId const & id, double /* scale */,
+                           vector<uint32_t> const & offsets) override
   {
     auto const it = find(m_ids.cbegin(), m_ids.cend(), id);
     TEST(it != m_ids.cend(), ("Unknown mwm:", id));
-
-    auto const rt = m_retrieved.find(id);
-    TEST(rt == m_retrieved.cend(), ("For", id, "callback must be triggered only once."));
 
     m_retrieved.insert(id);
     m_numFeatures += offsets.size();
@@ -93,7 +91,7 @@ UNIT_TEST(Retrieval_Smoke)
 
   platform::LocalCountryFile file(platform.WritableDir(), platform::CountryFile("WhiskeyTown"), 0);
   MY_SCOPE_GUARD(deleteFile, [&]()
-  {
+                 {
     file.DeleteFromDisk(MapOptions::Map);
   });
 
@@ -119,11 +117,14 @@ UNIT_TEST(Retrieval_Smoke)
 
   search::Retrieval retrieval;
 
+  vector<shared_ptr<MwmInfo>> infos;
+  index.GetMwmsInfo(infos);
+
   // Retrieve all (100) whiskey bars from the mwm.
   {
     TestCallback callback(handle.GetId());
 
-    retrieval.Init(index, m2::RectD(m2::PointD(0, 0), m2::PointD(1, 1)), params,
+    retrieval.Init(index, infos, m2::RectD(m2::PointD(0, 0), m2::PointD(1, 1)), params,
                    search::Retrieval::Limits());
     retrieval.Go(callback);
     TEST(callback.WasTriggered(), ());
@@ -138,9 +139,9 @@ UNIT_TEST(Retrieval_Smoke)
   {
     TestCallback callback(handle.GetId());
     search::Retrieval::Limits limits;
-    limits.SetMaxViewportScale(5.0);
+    limits.SetMaxViewportScale(9.0);
 
-    retrieval.Init(index, m2::RectD(m2::PointD(0, 0), m2::PointD(1, 1)), params, limits);
+    retrieval.Init(index, infos, m2::RectD(m2::PointD(0, 0), m2::PointD(1, 1)), params, limits);
     retrieval.Go(callback);
     TEST(callback.WasTriggered(), ());
     TEST_EQUAL(36 /* number of whiskey bars in a 5 x 5 square (border is counted) */,
@@ -153,7 +154,8 @@ UNIT_TEST(Retrieval_Smoke)
     search::Retrieval::Limits limits;
     limits.SetMaxNumFeatures(8);
 
-    retrieval.Init(index, m2::RectD(m2::PointD(4.9, 4.9), m2::PointD(5.1, 5.1)), params, limits);
+    retrieval.Init(index, infos, m2::RectD(m2::PointD(4.9, 4.9), m2::PointD(5.1, 5.1)), params,
+                   limits);
     retrieval.Go(callback);
     TEST(callback.WasTriggered(), ());
     TEST_EQUAL(callback.Offsets().size(), 8, ());
@@ -169,7 +171,7 @@ UNIT_TEST(Retrieval_3Mwms)
   platform::LocalCountryFile mtv(platform.WritableDir(), platform::CountryFile("mtv"), 0);
   platform::LocalCountryFile zrh(platform.WritableDir(), platform::CountryFile("zrh"), 0);
   MY_SCOPE_GUARD(deleteFiles, [&]()
-  {
+                 {
     msk.DeleteFromDisk(MapOptions::Map);
     mtv.DeleteFromDisk(MapOptions::Map);
     zrh.DeleteFromDisk(MapOptions::Map);
@@ -205,6 +207,9 @@ UNIT_TEST(Retrieval_3Mwms)
   search::SearchQueryParams params;
   InitParams("mtv", params);
 
+  vector<shared_ptr<MwmInfo>> infos;
+  index.GetMwmsInfo(infos);
+
   search::Retrieval retrieval;
 
   {
@@ -212,7 +217,8 @@ UNIT_TEST(Retrieval_3Mwms)
     search::Retrieval::Limits limits;
     limits.SetMaxNumFeatures(1);
 
-    retrieval.Init(index, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params, limits);
+    retrieval.Init(index, infos, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params,
+                   limits);
     retrieval.Go(callback);
     TEST(callback.WasTriggered(), ());
     TEST_EQUAL(callback.Offsets().size(), 1, ());
@@ -223,7 +229,8 @@ UNIT_TEST(Retrieval_3Mwms)
     search::Retrieval::Limits limits;
     limits.SetMaxNumFeatures(10 /* more than total number of features in all these mwms */);
 
-    retrieval.Init(index, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params, limits);
+    retrieval.Init(index, infos, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params,
+                   limits);
     retrieval.Go(callback);
     TEST_EQUAL(3 /* total number of mwms */, callback.GetNumMwms(), ());
     TEST_EQUAL(3 /* total number of features in all these mwms */, callback.GetNumFeatures(), ());
@@ -233,7 +240,8 @@ UNIT_TEST(Retrieval_3Mwms)
     MultiMwmCallback callback({mskHandle.GetId(), mtvHandle.GetId(), zrhHandle.GetId()});
     search::Retrieval::Limits limits;
 
-    retrieval.Init(index, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params, limits);
+    retrieval.Init(index, infos, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params,
+                   limits);
     retrieval.Go(callback);
     TEST_EQUAL(3, callback.GetNumMwms(), ());
     TEST_EQUAL(3, callback.GetNumFeatures(), ());

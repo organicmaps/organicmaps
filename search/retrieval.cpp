@@ -2,6 +2,7 @@
 
 #include "search/feature_offset_match.hpp"
 
+#include "indexer/feature.hpp"
 #include "indexer/index.hpp"
 #include "indexer/search_trie.hpp"
 
@@ -16,11 +17,17 @@ namespace search
 {
 namespace
 {
+// Upper bound on a number of features when fast path is used.
+// Otherwise, slow path is used.
+uint64_t constexpr kFastPathThreshold = 100;
+
 struct EmptyFilter
 {
   inline bool operator()(uint32_t /* featureId */) const { return true; }
 };
 
+// Retrieves from the search index corresponding to |handle| all
+// features matching to |params|.
 void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams const & params,
                              vector<uint32_t> & featureIds)
 {
@@ -32,7 +39,6 @@ void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams
       trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
                      trie::ValueReader(codingParams), trie::TEdgeValueReader()));
 
-  featureIds.clear();
   auto collector = [&](trie::ValueReader::ValueType const & value)
   {
     featureIds.push_back(value.m_featureId);
@@ -40,13 +46,19 @@ void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams
   MatchFeaturesInTrie(params, *trieRoot, EmptyFilter(), collector);
 }
 
-void RetrieveGeometryFeatures(MwmSet::MwmHandle const & handle, m2::RectD const & viewport,
-                              SearchQueryParams const & params, vector<uint32_t> & featureIds)
+// Retrieves from the geomery index corresponding to handle all
+// features in (and, possibly, around) viewport and executes |toDo| on
+// them.
+template <typename ToDo>
+void RetrieveGeometryFeatures(MwmSet::MwmHandle const & handle, m2::RectD viewport,
+                              SearchQueryParams const & params, ToDo && toDo)
 {
   auto * value = handle.GetValue<MwmValue>();
   ASSERT(value, ());
   feature::DataHeader const & header = value->GetHeader();
-  ASSERT(viewport.IsIntersect(header.GetBounds()), ());
+
+  if (!viewport.Intersect(header.GetBounds()))
+    return;
 
   auto const scaleRange = header.GetScaleRange();
   int const scale = min(max(params.m_scale, scaleRange.first), scaleRange.second);
@@ -55,20 +67,151 @@ void RetrieveGeometryFeatures(MwmSet::MwmHandle const & handle, m2::RectD const 
   covering::IntervalsT const & intervals = covering.Get(scale);
   ScaleIndex<ModelReaderPtr> index(value->m_cont.GetReader(INDEX_FILE_TAG), value->m_factory);
 
-  featureIds.clear();
-  auto collector = MakeBackInsertFunctor(featureIds);
   for (auto const & interval : intervals)
-  {
-    index.ForEachInIntervalAndScale(collector, interval.first, interval.second, scale);
-  }
+    index.ForEachInIntervalAndScale(toDo, interval.first, interval.second, scale);
 }
+
+// This class represents a fast retrieval strategy.  When number of
+// matching features in an mwm is small, it is worth to compute their
+// centers explicitly, by loading geometry from mwm.
+class FastPathStrategy : public Retrieval::Strategy
+{
+public:
+  FastPathStrategy(Index const & index, MwmSet::MwmHandle & handle, m2::RectD const & viewport,
+                   vector<uint32_t> const & addressFeatures)
+    : m_handle(handle), m_viewport(viewport), m_lastReported(0)
+  {
+    m2::PointD const center = m_viewport.Center();
+
+    Index::FeaturesLoaderGuard loader(index, m_handle.GetId());
+    for (auto const & featureId : addressFeatures)
+    {
+      FeatureType feature;
+      loader.GetFeatureByIndex(featureId, feature);
+      m_features.emplace_back(featureId, feature.GetCenter());
+    }
+    sort(m_features.begin(), m_features.end(),
+         [&center](pair<uint32_t, m2::PointD> const & lhs, pair<uint32_t, m2::PointD> const & rhs)
+         {
+      return lhs.second.SquareLength(center) < rhs.second.SquareLength(center);
+    });
+  }
+
+  // Retrieval::Strategy overrides:
+  bool Retrieve(double scale, my::Cancellable const & /* cancellable */,
+                TCallback const & callback) override
+  {
+    m2::RectD viewport = m_viewport;
+    viewport.Scale(scale);
+
+    vector<uint32_t> features;
+
+    ASSERT_LESS_OR_EQUAL(m_lastReported, m_features.size(), ());
+    while (m_lastReported < m_features.size() &&
+           viewport.IsPointInside(m_features[m_lastReported].second))
+    {
+      features.push_back(m_features[m_lastReported].first);
+      ++m_lastReported;
+    }
+
+    callback(features);
+
+    return true;
+  }
+
+private:
+  MwmSet::MwmHandle & m_handle;
+
+  vector<pair<uint32_t, m2::PointD>> m_features;
+  m2::RectD m_viewport;
+  size_t m_lastReported;
+};
+
+// This class represents a slow retrieval strategy.  It starts with
+// initial viewport and iteratively scales it until whole mwm is
+// covered by a scaled viewport.  On each scale it retrieves features
+// for a scaled viewport from a geometry index and then intersects
+// them with features retrieved from search index.
+class SlowPathStrategy : public Retrieval::Strategy
+{
+public:
+  SlowPathStrategy(MwmSet::MwmHandle & handle, SearchQueryParams const & params,
+                   m2::RectD const & viewport, vector<uint32_t> const & addressFeatures)
+    : m_handle(handle), m_params(params), m_viewport(viewport), m_prevScale(-1.0)
+  {
+    if (addressFeatures.empty())
+      return;
+
+    m_nonReported.resize(*max_element(addressFeatures.begin(), addressFeatures.end()) + 1);
+    for (auto const & featureId : addressFeatures)
+      m_nonReported[featureId] = true;
+  }
+
+  // Retrieval::Strategy overrides:
+  bool Retrieve(double scale, my::Cancellable const & cancellable,
+                TCallback const & callback) override
+  {
+#define LONG_OP(op)                \
+  {                                \
+    if (cancellable.IsCancelled()) \
+      return false;                \
+    op;                            \
+  }
+    m2::RectD currViewport = m_viewport;
+    currViewport.Scale(scale);
+
+    vector<uint32_t> geometryFeatures;
+    auto collector = [&](uint32_t feature)
+    {
+      if (feature < m_nonReported.size() && m_nonReported[feature])
+      {
+        geometryFeatures.push_back(feature);
+        m_nonReported[feature] = false;
+      }
+    };
+
+    if (m_prevScale < 0)
+    {
+      LONG_OP(RetrieveGeometryFeatures(m_handle, currViewport, m_params, collector));
+    }
+    else
+    {
+      m2::RectD prevViewport = m_viewport;
+      prevViewport.Scale(m_prevScale);
+
+      m2::RectD a(currViewport.LeftTop(), prevViewport.RightTop());
+      m2::RectD c(currViewport.RightBottom(), prevViewport.LeftBottom());
+      m2::RectD b(a.RightTop(), c.RightTop());
+      m2::RectD d(a.LeftBottom(), c.LeftBottom());
+
+      LONG_OP(RetrieveGeometryFeatures(m_handle, a, m_params, collector));
+      LONG_OP(RetrieveGeometryFeatures(m_handle, b, m_params, collector));
+      LONG_OP(RetrieveGeometryFeatures(m_handle, c, m_params, collector));
+      LONG_OP(RetrieveGeometryFeatures(m_handle, d, m_params, collector));
+    }
+
+    m_prevScale = scale;
+    callback(geometryFeatures);
+    return true;
+  }
+
+private:
+  MwmSet::MwmHandle & m_handle;
+  SearchQueryParams const & m_params;
+  m2::RectD m_viewport;
+  double m_prevScale;
+
+  vector<bool> m_nonReported;
+};
 }  // namespace
 
+// Retrieval::Limits -------------------------------------------------------------------------------
 Retrieval::Limits::Limits()
-    : m_maxNumFeatures(0),
-      m_maxViewportScale(0.0),
-      m_maxNumFeaturesSet(false),
-      m_maxViewportScaleSet(false)
+  : m_maxNumFeatures(0)
+  , m_maxViewportScale(0.0)
+  , m_maxNumFeaturesSet(false)
+  , m_maxViewportScaleSet(false)
+  , m_searchInWorld(false)
 {
 }
 
@@ -96,11 +239,12 @@ double Retrieval::Limits::GetMaxViewportScale() const
   return m_maxViewportScale;
 }
 
+// Retrieval::Bucket -------------------------------------------------------------------------------
 Retrieval::Bucket::Bucket(MwmSet::MwmHandle && handle)
-    : m_handle(move(handle)),
-      m_intersectsWithViewport(false),
-      m_coveredByViewport(false),
-      m_finished(false)
+  : m_handle(move(handle))
+  , m_featuresReported(0)
+  , m_intersectsWithViewport(false)
+  , m_finished(false)
 {
   auto * value = m_handle.GetValue<MwmValue>();
   ASSERT(value, ());
@@ -108,9 +252,11 @@ Retrieval::Bucket::Bucket(MwmSet::MwmHandle && handle)
   m_bounds = header.GetBounds();
 }
 
+// Retrieval ---------------------------------------------------------------------------------------
 Retrieval::Retrieval() : m_index(nullptr), m_featuresReported(0) {}
 
-void Retrieval::Init(Index & index, m2::RectD const & viewport, SearchQueryParams const & params,
+void Retrieval::Init(Index & index, vector<shared_ptr<MwmInfo>> const & infos,
+                     m2::RectD const & viewport, SearchQueryParams const & params,
                      Limits const & limits)
 {
   m_index = &index;
@@ -119,9 +265,6 @@ void Retrieval::Init(Index & index, m2::RectD const & viewport, SearchQueryParam
   m_limits = limits;
   m_featuresReported = 0;
 
-  vector<shared_ptr<MwmInfo>> infos;
-  index.GetMwmsInfo(infos);
-
   m_buckets.clear();
   for (auto const & info : infos)
   {
@@ -129,11 +272,15 @@ void Retrieval::Init(Index & index, m2::RectD const & viewport, SearchQueryParam
     if (!handle.IsAlive())
       continue;
     auto * value = handle.GetValue<MwmValue>();
-    if (value && value->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) &&
-        value->m_cont.IsExist(INDEX_FILE_TAG))
+    if (!value || !value->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) ||
+        !value->m_cont.IsExist(SEARCH_INDEX_FILE_TAG))
     {
-      m_buckets.emplace_back(move(handle));
+      continue;
     }
+    bool const isWorld = value->GetHeader().GetType() == feature::DataHeader::world;
+    if (isWorld && !m_limits.GetSearchInWorld())
+      continue;
+    m_buckets.emplace_back(move(handle));
   }
 }
 
@@ -141,97 +288,110 @@ void Retrieval::Go(Callback & callback)
 {
   static double const kViewportScaleMul = sqrt(2.0);
 
-  for (double viewportScale = 1.0;; viewportScale *= kViewportScaleMul)
+  double currScale = 1.0;
+  while (true)
   {
-    double scale = viewportScale;
-    if (m_limits.IsMaxViewportScaleSet() && scale >= m_limits.GetMaxViewportScale())
-      scale = m_limits.GetMaxViewportScale();
-
-    m2::RectD viewport = m_viewport;
-    viewport.Scale(scale);
-    RetrieveForViewport(viewport, callback);
-
-    if (ViewportCoversAllMwms())
+    if (IsCancelled())
       break;
-    if (m_limits.IsMaxViewportScaleSet() && scale >= m_limits.GetMaxViewportScale())
+
+    double reducedScale = currScale;
+    if (m_limits.IsMaxViewportScaleSet() && reducedScale >= m_limits.GetMaxViewportScale())
+      reducedScale = m_limits.GetMaxViewportScale();
+
+    if (!RetrieveForScale(reducedScale, callback))
+      break;
+
+    if (Finished())
+      break;
+    if (m_limits.IsMaxViewportScaleSet() && reducedScale >= m_limits.GetMaxViewportScale())
       break;
     if (m_limits.IsMaxNumFeaturesSet() && m_featuresReported >= m_limits.GetMaxNumFeatures())
       break;
-  }
 
-  for (auto & bucket : m_buckets)
-  {
-    if (bucket.m_finished)
-      continue;
-    // The bucket is not covered by viewport, thus all matching
-    // features were not reported.
-    bucket.m_finished = true;
-    ReportFeatures(bucket, callback);
+    currScale *= kViewportScaleMul;
   }
 }
 
-void Retrieval::RetrieveForViewport(m2::RectD const & viewport, Callback & callback)
+bool Retrieval::RetrieveForScale(double scale, Callback & callback)
 {
+  m2::RectD viewport = m_viewport;
+  viewport.Scale(scale);
+
   for (auto & bucket : m_buckets)
   {
-    if (bucket.m_coveredByViewport || bucket.m_finished || !viewport.IsIntersect(bucket.m_bounds))
+    if (IsCancelled())
+      return false;
+
+    if (bucket.m_finished || !viewport.IsIntersect(bucket.m_bounds))
       continue;
 
     if (!bucket.m_intersectsWithViewport)
     {
       // This is the first time viewport intersects with mwm. Retrieve
-      // all matching features from search index.
+      // all matching features from the search index.
+      ASSERT(!bucket.m_strategy, ());
       RetrieveAddressFeatures(bucket.m_handle, m_params, bucket.m_addressFeatures);
-      sort(bucket.m_addressFeatures.begin(), bucket.m_addressFeatures.end());
+      if (IsCancelled())
+        return false;
+      if (bucket.m_addressFeatures.size() < kFastPathThreshold)
+      {
+        bucket.m_strategy.reset(
+            new FastPathStrategy(*m_index, bucket.m_handle, m_viewport, bucket.m_addressFeatures));
+      }
+      else
+      {
+        bucket.m_strategy.reset(
+            new SlowPathStrategy(bucket.m_handle, m_params, m_viewport, bucket.m_addressFeatures));
+      }
+
       bucket.m_intersectsWithViewport = true;
     }
 
-    // Mwm is still not covered by expanding viewport.
-    if (!bucket.m_coveredByViewport)
+    ASSERT_LESS_OR_EQUAL(bucket.m_featuresReported, bucket.m_addressFeatures.size(), ());
+    if (bucket.m_featuresReported == bucket.m_addressFeatures.size())
     {
-      RetrieveGeometryFeatures(bucket.m_handle, viewport, m_params, bucket.m_geometryFeatures);
-      sort(bucket.m_geometryFeatures.begin(), bucket.m_geometryFeatures.end());
-
-      bucket.m_intersection.clear();
-      set_intersection(bucket.m_addressFeatures.begin(), bucket.m_addressFeatures.end(),
-                       bucket.m_geometryFeatures.begin(), bucket.m_geometryFeatures.end(),
-                       back_inserter(bucket.m_intersection));
-    }
-
-    if (!bucket.m_coveredByViewport && viewport.IsRectInside(bucket.m_bounds))
-    {
-      // Next time we will skip the bucket, so it's better to report
-      // all its features now.
-      bucket.m_coveredByViewport = true;
+      ASSERT(bucket.m_intersectsWithViewport, ());
+      // All features were reported for the bucket.
       bucket.m_finished = true;
-      ReportFeatures(bucket, callback);
+      continue;
     }
+
+    Strategy::TCallback wrapper = [&](vector<uint32_t> & features)
+    {
+      ReportFeatures(bucket, features, scale, callback);
+    };
+    if (!bucket.m_strategy->Retrieve(scale, *this /* cancellable */, wrapper))
+      return false;
   }
+
+  return true;
 }
 
-bool Retrieval::ViewportCoversAllMwms() const
+bool Retrieval::Finished() const
 {
   for (auto const & bucket : m_buckets)
   {
-    if (!bucket.m_coveredByViewport)
+    if (!bucket.m_finished)
       return false;
   }
   return true;
 }
 
-void Retrieval::ReportFeatures(Bucket & bucket, Callback & callback)
+void Retrieval::ReportFeatures(Bucket & bucket, vector<uint32_t> & featureIds, double scale,
+                               Callback & callback)
 {
   ASSERT(!m_limits.IsMaxNumFeaturesSet() || m_featuresReported <= m_limits.GetMaxNumFeatures(), ());
   if (m_limits.IsMaxNumFeaturesSet())
   {
     uint64_t const delta = m_limits.GetMaxNumFeatures() - m_featuresReported;
-    if (bucket.m_intersection.size() > delta)
-      bucket.m_intersection.resize(delta);
+    if (featureIds.size() > delta)
+      featureIds.resize(delta);
   }
-  if (!bucket.m_intersection.empty())
+  if (!featureIds.empty())
   {
-    callback.OnMwmProcessed(bucket.m_handle.GetId(), bucket.m_intersection);
-    m_featuresReported += bucket.m_intersection.size();
+    callback.OnFeaturesRetrieved(bucket.m_handle.GetId(), scale, featureIds);
+    bucket.m_featuresReported += featureIds.size();
+    m_featuresReported += featureIds.size();
   }
 }
 }  // namespace search
