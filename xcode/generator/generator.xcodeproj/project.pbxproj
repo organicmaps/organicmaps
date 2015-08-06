@@ -66,7 +66,6 @@
 		670D05AC1B0E07C30013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		6726C1D31A4AFEF4005EEA39 /* osm2meta.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm2meta.cpp; sourceTree = "<group>"; };
 		6726C1D41A4AFEF4005EEA39 /* osm2meta.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm2meta.hpp; sourceTree = "<group>"; };
-		674BFF381AD712EC00D77536 /* source_reader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = source_reader.hpp; sourceTree = "<group>"; };
 		6753401B1A3F2A1B00A0A8C3 /* libgenerator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgenerator.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		675340291A3F2A7400A0A8C3 /* borders_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = borders_generator.cpp; sourceTree = "<group>"; };
 		6753402A1A3F2A7400A0A8C3 /* borders_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = borders_generator.hpp; sourceTree = "<group>"; };
@@ -202,7 +201,6 @@
 				6753405B1A3F2A7400A0A8C3 /* xml_element.hpp */,
 				670B84BA1A8CDB0000CE4492 /* osm_source.cpp */,
 				670B84BB1A8CDB0000CE4492 /* osm_source.hpp */,
-				674BFF381AD712EC00D77536 /* source_reader.hpp */,
 				6764B8921ADD6A3300DD8B15 /* osm_o5m_source.hpp */,
 			);
 			name = generator;
