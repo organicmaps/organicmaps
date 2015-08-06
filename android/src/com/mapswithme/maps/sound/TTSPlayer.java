@@ -16,6 +16,7 @@ public class TTSPlayer
 
   private Context mContext = null;
   private TextToSpeech mTts = null;
+  private Locale mTtsLocale = null;
 
   private final static String TAG = "TTSPlayer";
 
@@ -43,7 +44,8 @@ public class TTSPlayer
 
   private boolean isLocaleEquals(Locale locale)
   {
-    return locale.equals(mTts.getLanguage());
+    return locale.getLanguage().equals(mTtsLocale.getLanguage()) &&
+            locale.getCountry().equals(mTtsLocale.getCountry());
   }
 
   private void setLocaleIfAvailable(final Locale locale)
@@ -58,6 +60,7 @@ public class TTSPlayer
       @Override
       public void onInit(int status)
       {
+        // This method is called anisochronously.
         if (status == TextToSpeech.ERROR)
         {
           Log.w(TAG, "Can't initialize TextToSpeech for locale " + locale.getLanguage() + " " + locale.getCountry());
@@ -65,16 +68,16 @@ public class TTSPlayer
         }
 
         final int avail = mTts.isLanguageAvailable(locale);
-        Locale loc = locale;
+        mTtsLocale = locale;
         if (avail != TextToSpeech.LANG_AVAILABLE && avail != TextToSpeech.LANG_COUNTRY_AVAILABLE
                 && avail != TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE)
         {
-          loc = Locale.UK; // No translation for TTS for Locale.getDefault() language.
+          mTtsLocale = Locale.UK; // No translation for TTS for Locale.getDefault() language.
         }
 
-        mTts.setLanguage(locale);
-        nativeSetTurnNotificationsLocale(locale.getLanguage());
-        Log.i(TAG, "setLocaleIfAvailable() nativeSetTurnNotificationsLocale(" + locale.getLanguage() + ")");
+        mTts.setLanguage(mTtsLocale);
+        nativeSetTurnNotificationsLocale(mTtsLocale.getLanguage());
+        Log.i(TAG, "setLocaleIfAvailable() nativeSetTurnNotificationsLocale(" + mTtsLocale.getLanguage() + ")");
       }
     });
   }
@@ -86,9 +89,13 @@ public class TTSPlayer
       Log.w(TAG, "TTSPlayer.speak() is called while mTts == null.");
       return;
     }
-
+    // @TODO(vbykoianko) removes these two toasts below when the test period is finished.
     Toast.makeText(mContext, textToSpeak, Toast.LENGTH_SHORT).show();
-    mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null);
+    if (mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null) == TextToSpeech.ERROR)
+    {
+      Log.e(TAG, "TextToSpeech returns TextToSpeech.ERROR.");
+      Toast.makeText(mContext, "TTS error", Toast.LENGTH_SHORT).show();
+    }
   }
 
   public void stop()
