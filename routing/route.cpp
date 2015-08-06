@@ -272,7 +272,8 @@ Route::IterT Route::FindProjection(m2::RectD const & posRect, double predictDist
 
 double Route::GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const
 {
-  ASSERT(it1.IsValid() && it2.IsValid(), ());
+  ASSERT(it1.IsValid(), ());
+  ASSERT(it2.IsValid(), ());
   ASSERT_LESS_OR_EQUAL(it1.m_ind, it2.m_ind, ());
   ASSERT_LESS(it1.m_ind, m_poly.GetSize(), ());
   ASSERT_LESS(it2.m_ind, m_poly.GetSize(), ());
@@ -290,9 +291,9 @@ void Route::Update()
   if (m_routingSettings.m_keepPedestrianInfo)
   {
     vector<m2::PointD> points;
-    auto distf = m2::DistanceToLineSquare<m2::PointD>();
+    auto distFn = m2::DistanceToLineSquare<m2::PointD>();
     // TODO (ldargunov) Rewrite dist f to distance in meters and avoid 0.00000 constants.
-    SimplifyNearOptimal(20, m_poly.Begin(), m_poly.End(), 0.00000001, distf,
+    SimplifyNearOptimal(20, m_poly.Begin(), m_poly.End(), 0.00000001, distFn,
                         MakeBackInsertFunctor(points));
     m_pedestrianFollower = RouteFollower(points.begin(), points.end());
   }

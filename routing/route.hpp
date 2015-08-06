@@ -30,8 +30,8 @@ public:
   explicit Route(string const & router)
     : m_router(router), m_routingSettings(GetCarRoutingSettings()) {}
 
-  template <class IterT>
-  Route(string const & router, IterT beg, IterT end)
+  template <class TIter>
+  Route(string const & router, TIter beg, TIter end)
     : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(beg, end)
   {
     Update();
@@ -41,7 +41,7 @@ public:
 
   void Swap(Route & rhs);
 
-  template <class IterT> void SetGeometry(IterT beg, IterT end)
+  template <class TIter> void SetGeometry(TIter beg, TIter end)
   {
     m2::PolylineD(beg, end).Swap(m_poly);
     Update();

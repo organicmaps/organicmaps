@@ -7,7 +7,7 @@ namespace
 double constexpr kPedestrianEdgeSwitchMeters = 5.0;
 }  // namespace
 
-double RouteFollower::GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const
+double RouteFollower::GetDistanceOnPolyline(Iter const & it1, Iter const & it2) const
 {
   ASSERT(it1.IsValid() && it2.IsValid(), ());
   ASSERT_LESS_OR_EQUAL(it1.m_ind, it2.m_ind, ());
@@ -51,14 +51,14 @@ void RouteFollower::Update()
     m_segProj[i].SetBounds(p1, p2);
   }
 
-  m_current = IterT(m_poly.Front(), 0);
+  m_current = Iter(m_poly.Front(), 0);
 }
 
-template <class DistanceF>
-RouteFollower::IterT RouteFollower::GetClosestProjection(m2::RectD const & posRect,
-                                                         DistanceF const & distFn) const
+template <class DistanceFn>
+RouteFollower::Iter RouteFollower::GetClosestProjection(m2::RectD const & posRect,
+                                                         DistanceFn const & distFn) const
 {
-  IterT res;
+  Iter res;
   double minDist = numeric_limits<double>::max();
 
   m2::PointD const currPos = posRect.Center();
@@ -70,7 +70,7 @@ RouteFollower::IterT RouteFollower::GetClosestProjection(m2::RectD const & posRe
     if (!posRect.IsPointInside(pt))
       continue;
 
-    IterT it(pt, i);
+    Iter it(pt, i);
     double const dp = distFn(it);
     if (dp < minDist)
     {
@@ -82,25 +82,25 @@ RouteFollower::IterT RouteFollower::GetClosestProjection(m2::RectD const & posRe
   return res;
 }
 
-RouteFollower::IterT RouteFollower::FindProjection(m2::RectD const & posRect,
+RouteFollower::Iter RouteFollower::FindProjection(m2::RectD const & posRect,
                                                    double predictDistance) const
 {
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
 
-  IterT res;
+  Iter res;
   if (predictDistance >= 0.0)
   {
-    res = GetClosestProjection(posRect, [&](IterT const & it)
-                               {
+    res = GetClosestProjection(posRect, [&](Iter const & it)
+    {
       return fabs(GetDistanceOnPolyline(m_current, it) - predictDistance);
     });
   }
   else
   {
     m2::PointD const currPos = posRect.Center();
-    res = GetClosestProjection(posRect, [&](IterT const & it)
-                               {
+    res = GetClosestProjection(posRect, [&](Iter const & it)
+    {
       return MercatorBounds::DistanceOnEarth(it.m_pt, currPos);
     });
   }
