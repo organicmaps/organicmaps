@@ -33,7 +33,7 @@
 		6729A5D71A69319F007D5872 /* fonts_whitelist.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5D51A69319F007D5872 /* fonts_whitelist.txt */; };
 		6729A5DF1A6931CE007D5872 /* 00_roboto_regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5D81A6931CD007D5872 /* 00_roboto_regular.ttf */; };
 		6729A5E01A6931CE007D5872 /* 01_dejavusans.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5D91A6931CD007D5872 /* 01_dejavusans.ttf */; };
-		9DF04B281B7101C700DACAF1 /* 02_droidsans-fallback.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9DF04B271B7101C700DACAF1 /* 02_droidsans-fallback.ttf */; };
+		9D4AD1DD1B7388CD00EBDD27 /* 02_droidsans-fallback.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9DF792621B73884F00AF2D19 /* 02_droidsans-fallback.ttf */; };
 		6729A5E21A6931CE007D5872 /* 03_jomolhari-id-a3d.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5DB1A6931CD007D5872 /* 03_jomolhari-id-a3d.ttf */; };
 		6729A5E31A6931CE007D5872 /* 04_padauk.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5DC1A6931CE007D5872 /* 04_padauk.ttf */; };
 		6729A5E41A6931CE007D5872 /* 05_khmeros.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5DD1A6931CE007D5872 /* 05_khmeros.ttf */; };
@@ -133,7 +133,7 @@
 				6729A5E91A69321A007D5872 /* WorldCoasts.mwm in CopyFiles */,
 				6729A5DF1A6931CE007D5872 /* 00_roboto_regular.ttf in CopyFiles */,
 				6729A5E01A6931CE007D5872 /* 01_dejavusans.ttf in CopyFiles */,
-				9DF04B271B7101C700DACAF1 /* 02_droidsans-fallback.ttf in CopyFiles */,
+				9D4AD1DD1B7388CD00EBDD27 /* 02_droidsans-fallback.ttf in CopyFiles */,
 				6729A5E21A6931CE007D5872 /* 03_jomolhari-id-a3d.ttf in CopyFiles */,
 				6729A5E31A6931CE007D5872 /* 04_padauk.ttf in CopyFiles */,
 				6729A5E41A6931CE007D5872 /* 05_khmeros.ttf in CopyFiles */,
@@ -175,7 +175,7 @@
 		6729A5D51A69319F007D5872 /* fonts_whitelist.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = fonts_whitelist.txt; sourceTree = "<group>"; };
 		6729A5D81A6931CD007D5872 /* 00_roboto_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 00_roboto_regular.ttf; sourceTree = "<group>"; };
 		6729A5D91A6931CD007D5872 /* 01_dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 01_dejavusans.ttf; sourceTree = "<group>"; };
-		9DF04B271B7101C700DACAF1 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
+		9DF792621B73884F00AF2D19 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 		6729A5DB1A6931CD007D5872 /* 03_jomolhari-id-a3d.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "03_jomolhari-id-a3d.ttf"; sourceTree = "<group>"; };
 		6729A5DC1A6931CE007D5872 /* 04_padauk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 04_padauk.ttf; sourceTree = "<group>"; };
 		6729A5DD1A6931CE007D5872 /* 05_khmeros.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 05_khmeros.ttf; sourceTree = "<group>"; };
@@ -351,7 +351,7 @@
 				6729A5E71A69321A007D5872 /* WorldCoasts.mwm */,
 				6729A5D81A6931CD007D5872 /* 00_roboto_regular.ttf */,
 				6729A5D91A6931CD007D5872 /* 01_dejavusans.ttf */,
-				9DF04B271B7101C700DACAF1 /* 02_droidsans-fallback.ttf */,
+				9DF792621B73884F00AF2D19 /* 02_droidsans-fallback.ttf */,
 				6729A5DB1A6931CD007D5872 /* 03_jomolhari-id-a3d.ttf */,
 				6729A5DC1A6931CE007D5872 /* 04_padauk.ttf */,
 				6729A5DD1A6931CE007D5872 /* 05_khmeros.ttf */,
