@@ -149,7 +149,7 @@ void Storage::RegisterAllLocalMaps()
   }
 }
 
-void Storage::GetLocalMaps(vector<CountryFile> & maps)
+void Storage::GetLocalMaps(vector<CountryFile> & maps) const
 {
   for (auto const & p : m_localFiles)
   {
@@ -158,6 +158,11 @@ void Storage::GetLocalMaps(vector<CountryFile> & maps)
   }
   for (auto const & p : m_localFilesForFakeCountries)
     maps.push_back(p.second->GetCountryFile());
+}
+
+size_t Storage::GetDownloadedFilesCount() const
+{
+  return m_localFiles.size();
 }
 
 CountriesContainerT const & NodeFromIndex(CountriesContainerT const & root, TIndex const & index)

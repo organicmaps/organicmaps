@@ -48,6 +48,7 @@ private:
 
   using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
   map<TIndex, list<TLocalFilePtr>> m_localFiles;
+  // Our World.mwm and WorldCoasts.mwm are fake countries, together with any custom mwm in data folder.
   map<platform::CountryFile, TLocalFilePtr> m_localFilesForFakeCountries;
 
   /// used to correctly calculate total country download progress with more than 1 file
@@ -114,8 +115,10 @@ public:
   // *NOTE* storage will forget all already known local maps.
   void RegisterAllLocalMaps();
 
-  // Returns list of all local maps, including fake countries.
-  void GetLocalMaps(vector<platform::CountryFile> & maps);
+  // Returns list of all local maps, including fake countries (World*.mwm).
+  void GetLocalMaps(vector<platform::CountryFile> & maps) const;
+  // Returns number of downloaded maps (files), excluding fake countries (World*.mwm).
+  size_t GetDownloadedFilesCount() const;
 
   /// @return unique identifier that should be used with Unsubscribe function
   int Subscribe(TChangeCountryFunction const & change, TProgressFunction const & progress);
