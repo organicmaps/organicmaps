@@ -164,7 +164,10 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
 
 void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 {
-  m_pedestrianFollower.GetCurrentDirectionPoint(pt);
+  if (m_routingSettings.m_keepPedestrianInfo)
+    m_pedestrianFollower.GetCurrentDirectionPoint(pt);
+  else
+    pt = m_poly.GetPoint(min(m_current.m_ind + 1, m_poly.GetSize() - 1));
 }
 
 bool Route::MoveIterator(location::GpsInfo const & info) const
