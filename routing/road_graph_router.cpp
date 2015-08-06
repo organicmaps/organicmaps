@@ -98,7 +98,6 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   {
     for (auto const & name : mwmNames)
       route.AddAbsentCountry(name);
-    return FileTooOld;
   }
 
   vector<pair<Edge, m2::PointD>> startVicinity;
@@ -112,8 +111,10 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   {
     for (auto const & name : mwmNames)
       route.AddAbsentCountry(name);
-    return FileTooOld;
   }
+
+  if (!route.GetAbsentCountries().empty())
+    return FileTooOld;
 
   Junction const startPos(startPoint);
   Junction const finalPos(finalPoint);
