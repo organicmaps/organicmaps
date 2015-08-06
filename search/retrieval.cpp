@@ -3,15 +3,17 @@
 #include "search/feature_offset_match.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/index.hpp"
 #include "indexer/search_trie.hpp"
 
 #include "coding/reader_wrapper.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cmath.hpp"
+#include "std/limits.hpp"
 
 namespace search
 {
@@ -72,14 +74,14 @@ void RetrieveGeometryFeatures(MwmSet::MwmHandle const & handle, m2::RectD viewpo
 }
 
 // This class represents a fast retrieval strategy.  When number of
-// matching features in an mwm is small, it is worth to compute their
+// matching features in an mwm is small, it is worth computing their
 // centers explicitly, by loading geometry from mwm.
 class FastPathStrategy : public Retrieval::Strategy
 {
 public:
   FastPathStrategy(Index const & index, MwmSet::MwmHandle & handle, m2::RectD const & viewport,
                    vector<uint32_t> const & addressFeatures)
-    : m_handle(handle), m_viewport(viewport), m_lastReported(0)
+    : Strategy(handle, viewport), m_lastReported(0)
   {
     m2::PointD const center = m_viewport.Center();
 
@@ -88,18 +90,18 @@ public:
     {
       FeatureType feature;
       loader.GetFeatureByIndex(featureId, feature);
-      m_features.emplace_back(featureId, feature.GetCenter());
+      m_features.emplace_back(featureId, feature::GetCenter(feature, FeatureType::WORST_GEOMETRY));
     }
     sort(m_features.begin(), m_features.end(),
          [&center](pair<uint32_t, m2::PointD> const & lhs, pair<uint32_t, m2::PointD> const & rhs)
-         {
+    {
       return lhs.second.SquareLength(center) < rhs.second.SquareLength(center);
     });
   }
 
   // Retrieval::Strategy overrides:
-  bool Retrieve(double scale, my::Cancellable const & /* cancellable */,
-                TCallback const & callback) override
+  bool RetrieveImpl(double scale, my::Cancellable const & /* cancellable */,
+                    TCallback const & callback) override
   {
     m2::RectD viewport = m_viewport;
     viewport.Scale(scale);
@@ -120,10 +122,7 @@ public:
   }
 
 private:
-  MwmSet::MwmHandle & m_handle;
-
   vector<pair<uint32_t, m2::PointD>> m_features;
-  m2::RectD m_viewport;
   size_t m_lastReported;
 };
 
@@ -135,9 +134,9 @@ private:
 class SlowPathStrategy : public Retrieval::Strategy
 {
 public:
-  SlowPathStrategy(MwmSet::MwmHandle & handle, SearchQueryParams const & params,
-                   m2::RectD const & viewport, vector<uint32_t> const & addressFeatures)
-    : m_handle(handle), m_params(params), m_viewport(viewport), m_prevScale(-1.0)
+  SlowPathStrategy(MwmSet::MwmHandle & handle, m2::RectD const & viewport,
+                   SearchQueryParams const & params, vector<uint32_t> const & addressFeatures)
+    : Strategy(handle, viewport), m_params(params)
   {
     if (addressFeatures.empty())
       return;
@@ -148,8 +147,8 @@ public:
   }
 
   // Retrieval::Strategy overrides:
-  bool Retrieve(double scale, my::Cancellable const & cancellable,
-                TCallback const & callback) override
+  bool RetrieveImpl(double scale, my::Cancellable const & cancellable,
+                    TCallback const & callback) override
   {
 #define LONG_OP(op)                \
   {                                \
@@ -157,6 +156,7 @@ public:
       return false;                \
     op;                            \
   }
+
     m2::RectD currViewport = m_viewport;
     currViewport.Scale(scale);
 
@@ -190,16 +190,13 @@ public:
       LONG_OP(RetrieveGeometryFeatures(m_handle, d, m_params, collector));
     }
 
-    m_prevScale = scale;
     callback(geometryFeatures);
+#undef LONG_OP
     return true;
   }
 
 private:
-  MwmSet::MwmHandle & m_handle;
   SearchQueryParams const & m_params;
-  m2::RectD m_viewport;
-  double m_prevScale;
 
   vector<bool> m_nonReported;
 };
@@ -239,6 +236,21 @@ double Retrieval::Limits::GetMaxViewportScale() const
   return m_maxViewportScale;
 }
 
+// Retrieval::Strategy -----------------------------------------------------------------------------
+Retrieval::Strategy::Strategy(MwmSet::MwmHandle & handle, m2::RectD const & viewport)
+  : m_handle(handle), m_viewport(viewport), m_prevScale(-numeric_limits<double>::epsilon())
+{
+}
+
+bool Retrieval::Strategy::Retrieve(double scale, my::Cancellable const & cancellable,
+                                   TCallback const & callback)
+{
+  ASSERT_GREATER(scale, m_prevScale, ("Invariant violation."));
+  bool result = RetrieveImpl(scale, cancellable, callback);
+  m_prevScale = scale;
+  return result;
+}
+
 // Retrieval::Bucket -------------------------------------------------------------------------------
 Retrieval::Bucket::Bucket(MwmSet::MwmHandle && handle)
   : m_handle(move(handle))
@@ -273,7 +285,7 @@ void Retrieval::Init(Index & index, vector<shared_ptr<MwmInfo>> const & infos,
       continue;
     auto * value = handle.GetValue<MwmValue>();
     if (!value || !value->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) ||
-        !value->m_cont.IsExist(SEARCH_INDEX_FILE_TAG))
+        !value->m_cont.IsExist(INDEX_FILE_TAG))
     {
       continue;
     }
@@ -341,7 +353,7 @@ bool Retrieval::RetrieveForScale(double scale, Callback & callback)
       else
       {
         bucket.m_strategy.reset(
-            new SlowPathStrategy(bucket.m_handle, m_params, m_viewport, bucket.m_addressFeatures));
+            new SlowPathStrategy(bucket.m_handle, m_viewport, m_params, bucket.m_addressFeatures));
       }
 
       bucket.m_intersectsWithViewport = true;

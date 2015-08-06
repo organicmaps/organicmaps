@@ -91,7 +91,7 @@ UNIT_TEST(Retrieval_Smoke)
 
   platform::LocalCountryFile file(platform.WritableDir(), platform::CountryFile("WhiskeyTown"), 0);
   MY_SCOPE_GUARD(deleteFile, [&]()
-                 {
+  {
     file.DeleteFromDisk(MapOptions::Map);
   });
 
@@ -171,7 +171,7 @@ UNIT_TEST(Retrieval_3Mwms)
   platform::LocalCountryFile mtv(platform.WritableDir(), platform::CountryFile("mtv"), 0);
   platform::LocalCountryFile zrh(platform.WritableDir(), platform::CountryFile("zrh"), 0);
   MY_SCOPE_GUARD(deleteFiles, [&]()
-                 {
+  {
     msk.DeleteFromDisk(MapOptions::Map);
     mtv.DeleteFromDisk(MapOptions::Map);
     zrh.DeleteFromDisk(MapOptions::Map);

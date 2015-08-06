@@ -69,10 +69,25 @@ public:
   public:
     using TCallback = function<void(vector<uint32_t> &)>;
 
+    Strategy(MwmSet::MwmHandle & handle, m2::RectD const & viewport);
+
     virtual ~Strategy() = default;
 
-    WARN_UNUSED_RESULT virtual bool Retrieve(double scale, my::Cancellable const & cancellable,
-                                             TCallback const & callback) = 0;
+    // Retrieves features for m_viewport scaled by |scale|. Returns
+    // false when cancelled.
+    //
+    // *NOTE* This method should be called on a strictly increasing
+    // *sequence of scales.
+    WARN_UNUSED_RESULT bool Retrieve(double scale, my::Cancellable const & cancellable,
+                                     TCallback const & callback);
+
+   protected:
+     WARN_UNUSED_RESULT virtual bool RetrieveImpl(double scale, my::Cancellable const & cancellable,
+                                                  TCallback const & callback) = 0;
+
+    MwmSet::MwmHandle & m_handle;
+    m2::RectD const m_viewport;
+    double m_prevScale;
   };
 
   Retrieval();
@@ -109,8 +124,8 @@ private:
     bool m_finished : 1;
   };
 
-  // Retrieves features for the viewport scaled by |scale| and
-  // invokes callback on retrieved features.
+  // Retrieves features for the viewport scaled by |scale| and invokes
+  // callback on retrieved features. Returns false when cancelled.
   //
   // *NOTE* |scale| of successive calls of this method should be
   // non-decreasing.
