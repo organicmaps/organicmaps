@@ -25,6 +25,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.sound.TTSPlayer;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.StringUtils;
@@ -157,6 +158,10 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
         if (tryChangeRouter(s.toString()))
           return;
 
+        // TODO: This code only for demonstration purposes and will be removed soon
+        if (trySwitchOnTurnSound(s.toString()))
+          return;
+
         if (s.length() == 0)
         {
           UiUtils.hide(mBtnClearQuery);
@@ -276,6 +281,13 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
       setSearchQuery(query);
   }
 
+  private void hideSearchPanel()
+  {
+    mEtSearchQuery.setText(null);
+    InputUtils.hideKeyboard(mEtSearchQuery);
+    navigateUpToParent();
+  }
+
   // FIXME: This code only for demonstration purposes and will be removed soon
   private boolean tryChangeMapStyle(String str)
   {
@@ -287,9 +299,7 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
       return false;
 
     // close Search panel
-    mEtSearchQuery.setText(null);
-    InputUtils.hideKeyboard(mEtSearchQuery);
-    navigateUpToParent();
+    hideSearchPanel();
 
     // change map style for the Map activity
     final int mapStyle = isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_LIGHT;
@@ -306,14 +316,26 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
     if (!pedestrian && !vehicle)
       return false;
 
-    mEtSearchQuery.setText(null);
-    InputUtils.hideKeyboard(mEtSearchQuery);
-    navigateUpToParent();
+    hideSearchPanel();
 
     final int routerType = pedestrian ? Framework.ROUTER_TYPE_PEDESTRIAN : Framework.ROUTER_TYPE_VEHICLE;
     Framework.setRouter(routerType);
 
     return true;
+  }
+
+  private boolean trySwitchOnTurnSound(String query)
+  {
+    final boolean sound = query.equals("?sound");
+    final boolean nosound = query.equals("?nosound");
+
+    if (!sound && !nosound)
+      return false;
+
+    hideSearchPanel();
+    TTSPlayer.get().enable(sound);
+
+    return sound;
   }
   // FIXME: This code only for demonstration purposes and will be removed soon
 
