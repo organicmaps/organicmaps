@@ -48,6 +48,12 @@ public class Framework
     void onRoutingEvent(int errorCode, Index[] missingCountries);
   }
 
+  @SuppressWarnings("unused")
+  public interface RoutingProgressListener
+  {
+    void onRouteBuildingProgress(float progress);
+  }
+
   // this class is just bridge between Java and C++ worlds, we must not create it
   private Framework() {}
 
@@ -82,9 +88,9 @@ public class Framework
 
   public native static void nativeActivateUserMark(double lat, double lon);
 
-  public native static void nativeConnectBalloonListeners(OnBalloonListener listener);
+  public native static void nativeSetBalloonListener(OnBalloonListener listener);
 
-  public native static void nativeClearBalloonListeners();
+  public native static void nativeRemoveBalloonListener();
 
   public native static String nativeGetOutdatedCountriesString();
 
@@ -132,6 +138,13 @@ public class Framework
   public native static RoutingInfo nativeGetRouteFollowingInfo();
 
   public native static void nativeSetRoutingListener(RoutingListener listener);
+
+  public native static void nativeSetRouteProgressListener(RoutingProgressListener listener);
+
+  // TODO consider implementing other model of listeners connection, and implement methods below then
+//  public native static void nativeRemoveRoutingListener();
+//
+//  public native static void nativeRemoveRouteProgressListener();
   //
 
   public native static String nativeGetCountryNameIfAbsent(double lat, double lon);

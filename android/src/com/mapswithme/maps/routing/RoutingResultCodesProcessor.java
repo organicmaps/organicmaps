@@ -11,9 +11,9 @@ import com.mapswithme.maps.R;
 import java.util.ArrayList;
 import java.util.List;
 
-// Codes correspond to native routing::IRouter::ResultCode
 public class RoutingResultCodesProcessor
 {
+  // Codes correspond to native routing::IRouter::ResultCode
   public static final int NO_ERROR = 0;
   public static final int CANCELLED = 1;
   public static final int NO_POSITION = 2;

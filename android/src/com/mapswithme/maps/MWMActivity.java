@@ -81,7 +81,7 @@ import java.util.Stack;
 
 public class MWMActivity extends BaseMwmFragmentActivity
     implements LocationHelper.LocationListener, OnBalloonListener, View.OnTouchListener, BasePlacePageAnimationController.OnVisibilityChangedListener,
-    OnClickListener, Framework.RoutingListener, MapFragment.MapRenderingListener, CustomNavigateUpListener
+    OnClickListener, Framework.RoutingListener, MapFragment.MapRenderingListener, CustomNavigateUpListener, Framework.RoutingProgressListener
 {
   public static final String EXTRA_TASK = "map_task";
   private final static String TAG = "MWMActivity";
@@ -424,15 +424,15 @@ public class MWMActivity extends BaseMwmFragmentActivity
     setContentView(R.layout.activity_map);
     initViews();
 
-    // Initializing TTS player.
     TtsPlayer.INSTANCE.init();
 
-    // Do not turn off the screen while benchmarking
     if (MWMApplication.get().nativeIsBenchmarking())
-      getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+      Utils.keepScreenOn(true, getWindow());
 
+    // TODO consider implementing other model of listeners connection, without activities being bound
     Framework.nativeSetRoutingListener(this);
-    Framework.nativeConnectBalloonListeners(this);
+    Framework.nativeSetRouteProgressListener(this);
+    Framework.nativeSetBalloonListener(this);
 
     final Intent intent = getIntent();
     // We need check for tasks both in onCreate and onNewIntent
@@ -553,7 +553,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   public void onDestroy()
   {
-    Framework.nativeClearBalloonListeners();
+    Framework.nativeRemoveBalloonListener();
     BottomSheetHelper.free();
     super.onDestroy();
   }
@@ -1284,6 +1284,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
         }
         else
         {
+          mLayoutRouting.setState(RoutingLayout.State.ROUTE_BUILD_ERROR, true);
           final Bundle args = new Bundle();
           args.putInt(RoutingErrorDialogFragment.EXTRA_RESULT_CODE, resultCode);
           args.putSerializable(RoutingErrorDialogFragment.EXTRA_MISSING_COUNTRIES, missingCountries);
@@ -1294,6 +1295,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
             @Override
             public void onDownload()
             {
+              mLayoutRouting.setState(RoutingLayout.State.HIDDEN, false);
               refreshZoomButtonsVisibility();
               ActiveCountryTree.downloadMapsForIndex(missingCountries, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
               showDownloader(true);
@@ -1310,16 +1312,29 @@ public class MWMActivity extends BaseMwmFragmentActivity
             {
               if (RoutingResultCodesProcessor.isDownloadable(resultCode))
               {
-                showDownloader(false);
+                mLayoutRouting.setState(RoutingLayout.State.HIDDEN, false);
                 refreshZoomButtonsVisibility();
+                showDownloader(false);
               }
-              // TODO add error messages to routing
             }
           });
           fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getName());
         }
 
         refreshZoomButtonsVisibility();
+      }
+    });
+  }
+
+  @Override
+  public void onRouteBuildingProgress(final float progress)
+  {
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        mLayoutRouting.setRouteBuildingProgress(progress);
       }
     });
   }

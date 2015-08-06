@@ -1034,6 +1034,14 @@ extern "C"
     env->DeleteLocalRef(countriesJava);
   }
 
+  void CallRouteProgressListener(shared_ptr<jobject> sharedListener, float progress)
+  {
+    JNIEnv * env = jni::GetEnv();
+    jobject listener = *sharedListener.get();
+    static jmethodID const methodId = jni::GetJavaMethodID(env, listener, "onRouteBuildingProgress", "(F)V");
+    env->CallVoidMethod(listener, methodId, progress);
+  }
+
   /// @name JNI EXPORTS
   //@{
   JNIEXPORT jstring JNICALL
@@ -1053,7 +1061,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeConnectBalloonListeners(JNIEnv * env, jclass clazz, jobject l)
+  Java_com_mapswithme_maps_Framework_nativeSetBalloonListener(JNIEnv * env, jclass clazz, jobject l)
   {
     PinClickManager & manager = g_framework->GetPinClickManager();
     shared_ptr<jobject> obj = jni::make_global_ref(l);
@@ -1063,7 +1071,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeClearBalloonListeners(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_Framework_nativeRemoveBalloonListener(JNIEnv * env, jobject thiz)
   {
     g_framework->GetPinClickManager().ClearListeners();
   }
@@ -1468,6 +1476,12 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jobject thiz, jobject listener)
   {
     frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2, _3));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetRouteProgressListener(JNIEnv * env, jobject thiz, jobject listener)
+  {
+    frm()->SetRouteProgressListener(bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
   }
 
   JNIEXPORT void JNICALL

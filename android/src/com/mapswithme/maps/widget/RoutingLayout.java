@@ -59,6 +59,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     HIDDEN,
     PREPARING,
     ROUTE_BUILT,
+    ROUTE_BUILD_ERROR,
     TURN_INSTRUCTIONS
   }
 
@@ -101,7 +102,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
   public void refreshAzimuth(double north)
   {
     mNorth = north;
-    if (getState() == State.TURN_INSTRUCTIONS)
+    if (mState == State.TURN_INSTRUCTIONS)
       refreshTurnInstructions();
   }
 
@@ -207,8 +208,9 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
         throw new IllegalStateException("End point should be not null to prepare routing");
 
       Framework.nativeCloseRouting();
-      UiUtils.show(mLayoutSetupRouting, mIvCancelRouteBuild, mTvPlanning);
-      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress);
+      UiUtils.show(mLayoutSetupRouting, mWvProgress, mTvPlanning);
+      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
+      mTvPlanning.setText(R.string.routing_planning);
       if (animated)
       {
         UiUtils.appearSlidingDown(this, null);
@@ -230,6 +232,11 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
         UiUtils.show(mBtnStart);
 
       refreshRouteSetup();
+      break;
+    case ROUTE_BUILD_ERROR:
+      UiUtils.show(mLayoutSetupRouting, mIvCancelRouteBuild, mTvPlanning);
+      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress);
+      mTvPlanning.setText(R.string.routing_planning_error);
       break;
     case TURN_INSTRUCTIONS:
       UiUtils.show(this, mLayoutTurnInstructions);
@@ -256,8 +263,13 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
 
   public void updateRouteInfo()
   {
-    if (getState() == State.TURN_INSTRUCTIONS)
+    if (mState == State.TURN_INSTRUCTIONS)
       refreshTurnInstructions();
+  }
+
+  public void setRouteBuildingProgress(float progress)
+  {
+    mWvProgress.setProgress((int) progress);
   }
 
   private void refreshTurnInstructions()
@@ -361,7 +373,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     Parcelable parentState = super.onSaveInstanceState();
     SavedState savedState = new SavedState(parentState);
     savedState.object = getEndPoint();
-    savedState.routingStateOrdinal = getState().ordinal();
+    savedState.routingStateOrdinal = mState.ordinal();
     return savedState;
   }
 
