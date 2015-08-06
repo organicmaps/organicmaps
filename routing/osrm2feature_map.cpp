@@ -2,6 +2,8 @@
 
 #include "defines.hpp"
 
+#include "indexer/data_header.hpp"
+
 #include "platform/local_country_file_utils.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -381,6 +383,11 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, uint32_t maxN
 {
   Clear();
 
+  feature::DataHeader header(localFile.GetPath(MapOptions::Map));
+  m_oldFormat = header.GetFormat() < version::v5;
+  if (m_oldFormat)
+    LOG(LINFO, ("Using old format index for", localFile.GetCountryName()));
+
   string const bitsFileName = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Bits);
   string const nodesFileName = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Nodes);
 
@@ -415,7 +422,7 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, uint32_t maxN
   size_t removedNodes = 0;
   for (size_t i = 0; i < m_table->size(); ++i)
   {
-    uint32_t fid = m_table->GetFeatureOffset(i);
+    uint32_t const fid = m_oldFormat ? m_table->GetFeatureOffset(i) : i;
     auto it = temporaryBackwardIndex.find(fid);
     if (it != temporaryBackwardIndex.end())
     {
@@ -440,16 +447,18 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, uint32_t maxN
   Save(bitsFileName, nodesFileName);
 }
 
-TNodesList const & OsrmFtSegBackwardIndex::GetNodeIdByFid(const uint32_t fid) const
+TNodesList const & OsrmFtSegBackwardIndex::GetNodeIdByFid(uint32_t fid) const
 {
   ASSERT(m_table, ());
-  size_t const index = m_table->GetFeatureIndexbyOffset(fid);
+
+  size_t const index = m_oldFormat ? m_table->GetFeatureIndexbyOffset(fid) : fid;
   ASSERT_LESS(index, m_table->size(), ("Can't find feature index in offsets table"));
   if (!m_rankIndex[index])
     return kEmptyList;
-  size_t node_index = m_rankIndex.rank(index);
-  ASSERT_LESS(node_index, m_nodeIds.size(), ());
-  return m_nodeIds[node_index];
+
+  size_t nodeIdx = m_rankIndex.rank(index);
+  ASSERT_LESS(nodeIdx, m_nodeIds.size(), ());
+  return m_nodeIds[nodeIdx];
 }
 
 void OsrmFtSegBackwardIndex::Clear()

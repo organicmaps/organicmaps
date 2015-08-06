@@ -107,8 +107,9 @@ class OsrmFtSegBackwardIndex
 
   unique_ptr<MmapReader> m_mappedBits;
 
-  void Save(string const & nodesFileName, string const & bitsFileName);
+  bool m_oldFormat;
 
+  void Save(string const & nodesFileName, string const & bitsFileName);
   bool Load(string const & nodesFileName, string const & bitsFileName);
 
 public:
