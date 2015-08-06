@@ -182,7 +182,8 @@ bool Route::MoveIterator(location::GpsInfo const & info) const
   m2::RectD const rect = MercatorBounds::MetresToXY(
         info.m_longitude, info.m_latitude,
         max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
-  m_pedestrianFollower.FindProjection(rect, predictDistance);
+  if (m_routingSettings.m_keepPedestrianInfo)
+    m_pedestrianFollower.FindProjection(rect, predictDistance);
   IterT const res = FindProjection(rect, predictDistance);
   if (res.IsValid())
   {
@@ -286,13 +287,15 @@ double Route::GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const
 
 void Route::Update()
 {
-  vector<m2::PointD> points;
-  auto distf = m2::DistanceToLineSquare<m2::PointD>();
-  // TODO (ldargunov) Rewrite dist f to distance in meters and avoid 0.00000 constants.
-  SimplifyNearOptimal(20, m_poly.Begin(), m_poly.End(), 0.00000001, distf,
-                      MakeBackInsertFunctor(points));
-  m_pedestrianFollower = RouteFollower(points.begin(), points.end());
-
+  if (m_routingSettings.m_keepPedestrianInfo)
+  {
+    vector<m2::PointD> points;
+    auto distf = m2::DistanceToLineSquare<m2::PointD>();
+    // TODO (ldargunov) Rewrite dist f to distance in meters and avoid 0.00000 constants.
+    SimplifyNearOptimal(20, m_poly.Begin(), m_poly.End(), 0.00000001, distf,
+                        MakeBackInsertFunctor(points));
+    m_pedestrianFollower = RouteFollower(points.begin(), points.end());
+  }
   size_t n = m_poly.GetSize();
   ASSERT_GREATER(n, 1, ());
   --n;

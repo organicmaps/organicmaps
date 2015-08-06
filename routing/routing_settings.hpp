@@ -24,17 +24,21 @@ struct RoutingSettings
   /// m_matchingThresholdM to the route than the current position is moved to
   /// the closest point to the route.
   double  m_matchingThresholdM;
+
+  /// \brief m_keepPedestrianInfo flag for keeping in memory additional information for pedestrian
+  /// routing.
+  bool m_keepPedestrianInfo;
 };
 
 inline RoutingSettings GetPedestrianRoutingSettings()
 {
   return RoutingSettings({ false /* m_matchRoute */, false /* m_soundDirection */,
-                           20. /* m_matchingThresholdM */ });
+                           20. /* m_matchingThresholdM */, true /* m_keepPedestrianInfo */ });
 }
 
 inline RoutingSettings GetCarRoutingSettings()
 {
   return RoutingSettings({ true /* m_matchRoute */, true /* m_soundDirection */,
-                           50. /* m_matchingThresholdM */ });
+                           50. /* m_matchingThresholdM */, false /* m_keepPedestrianInfo */ });
 }
 }  // namespace routing
