@@ -445,6 +445,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
     setContentView(R.layout.activity_map);
     initViews();
 
+    // Initializing TTS player instance.
+    TTSPlayer.get();
+
     // Do not turn off the screen while benchmarking
     if (MWMApplication.get().nativeIsBenchmarking())
       getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

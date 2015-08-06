@@ -1,6 +1,6 @@
-#include "../../Framework.hpp"
+#include "../Framework.hpp"
 
-#include "../../../core/jni_helper.hpp"
+#include "../../core/jni_helper.hpp"
 
 
 namespace
@@ -25,7 +25,8 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_sound_TTSPlayer_nativeSetTurnNotificationsLocale(JNIEnv * env, jclass thiz, jstring jLocale)
   {
-    frm()->SetTurnNotificationsLocale(jni::ToNativeString(env, jLocale));
+    if (frm())
+      frm()->SetTurnNotificationsLocale(jni::ToNativeString(env, jLocale));
   }
 
   JNIEXPORT jstring JNICALL

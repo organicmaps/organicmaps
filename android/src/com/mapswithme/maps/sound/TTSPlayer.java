@@ -35,9 +35,15 @@ public class TTSPlayer
 
   public static TTSPlayer get()
   {
-    if (ourInstance == null)
+    if (ourInstance == null || !ourInstance.isLocaleEquals(Locale.getDefault()))
       ourInstance = new TTSPlayer();
+
     return ourInstance;
+  }
+
+  private boolean isLocaleEquals(Locale locale)
+  {
+    return locale.equals(mTts.getLanguage());
   }
 
   private void setLocaleIfAvailable(final Locale locale)
@@ -58,28 +64,26 @@ public class TTSPlayer
           return;
         }
 
-        if (mTts.setLanguage(locale) != TextToSpeech.LANG_AVAILABLE)
-          mTts.setLanguage(Locale.UK);  // Assuming that Locale.UK is always available.
+        final int avail = mTts.isLanguageAvailable(locale);
+        Locale loc = locale;
+        if (avail != TextToSpeech.LANG_AVAILABLE && avail != TextToSpeech.LANG_COUNTRY_AVAILABLE
+                && avail != TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE)
+        {
+          loc = Locale.UK; // No translation for TTS for Locale.getDefault() language.
+        }
+
+        mTts.setLanguage(locale);
+        nativeSetTurnNotificationsLocale(locale.getLanguage());
+        Log.i(TAG, "setLocaleIfAvailable() nativeSetTurnNotificationsLocale(" + locale.getLanguage() + ")");
       }
     });
-
-    final Locale loc = getLocale();
-    if (loc != null)
-      nativeSetTurnNotificationsLocale(loc.getLanguage());
-  }
-
-  private Locale getLocale()
-  {
-    if (mTts == null)
-      return null;
-    return mTts.getLanguage();
   }
 
   public void speak(String textToSpeak)
   {
     if (mTts == null)
     {
-      Log.e(TAG, "speakText is called while mTts == null");
+      Log.w(TAG, "TTSPlayer.speak() is called while mTts == null.");
       return;
     }
 

@@ -1618,10 +1618,11 @@ void Framework::SetupMeasurementSystem()
 {
   Settings::Units units = Settings::Metric;
   Settings::Get("Units", units);
-  LOG(LDEBUG, ("Units =", units));
+  // @TODO(vbykoianko) Try to rewrite code to use only one structure fo LengthUnits
   m_routingSession.SetTurnNotificationsUnits(units == Settings::Foot ?
                                              routing::turns::sound::LengthUnits::Feet :
                                              routing::turns::sound::LengthUnits::Meters);
+  this->EnableTurnNotifications(true);
 
   m_informationDisplay.measurementSystemChanged();
   Invalidate();
