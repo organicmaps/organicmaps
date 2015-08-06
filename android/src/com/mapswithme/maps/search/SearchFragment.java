@@ -155,10 +155,6 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
           showCategories();
 
         // TODO: This code only for demonstration purposes and will be removed soon
-        if (tryChangeRouter(s.toString()))
-          return;
-
-        // TODO: This code only for demonstration purposes and will be removed soon
         if (trySwitchOnTurnSound(s.toString()))
           return;
 
@@ -308,22 +304,6 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
     return true;
   }
 
-  private boolean tryChangeRouter(String query)
-  {
-    final boolean pedestrian = query.equals("?pedestrian");
-    final boolean vehicle = query.equals("?vehicle");
-
-    if (!pedestrian && !vehicle)
-      return false;
-
-    hideSearch();
-
-    final int routerType = pedestrian ? Framework.ROUTER_TYPE_PEDESTRIAN : Framework.ROUTER_TYPE_VEHICLE;
-    Framework.setRouter(routerType);
-
-    return true;
-  }
-
   private boolean trySwitchOnTurnSound(String query)
   {
     final boolean sound = "?sound".equals(query);
@@ -337,7 +317,7 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
 
     return sound;
   }
-  // FIXME: This code only for demonstration purposes and will be removed soon
+  // FIXME END
 
   protected void showSingleResultOnMap(int resultIndex)
   {
