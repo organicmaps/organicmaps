@@ -942,6 +942,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     pauseLocation();
     stopWatchingExternalStorage();
     stopWatchingCompassStatusUpdate();
+    TTSPlayer.get().stop();
     super.onPause();
     mLikesManager.cancelLikeDialog();
   }
