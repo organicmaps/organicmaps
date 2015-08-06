@@ -667,17 +667,12 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           f.GetBalloonManager().Dismiss();
           self.controlsManager.routeBuildingProgress = 100.;
           [self.searchView setState:SearchViewStateHidden animated:YES];
-          [self performAfterDelay:0.3 block:^
-          {
-             if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
-               [self.controlsManager routingNavigation];
-             else
-               [self.controlsManager routingReady];
-
-             [self updateRoutingInfo];
-             self.forceRoutingStateChange = ForceRoutingStateChangeNone;
-          }];
-
+          if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
+            [self.controlsManager routingNavigation];
+          else
+            [self.controlsManager routingReady];
+          [self updateRoutingInfo];
+          self.forceRoutingStateChange = ForceRoutingStateChangeNone;
           bool isDisclaimerApproved = false;
           (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
           if (!isDisclaimerApproved)
