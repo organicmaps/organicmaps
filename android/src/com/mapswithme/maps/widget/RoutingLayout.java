@@ -188,9 +188,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
 
   public void setState(State state, boolean animated)
   {
-    // TODO show mWvProgress instead of mIvCancelRouteBuild with actual progress updates from core after it's implemented
-    // TODO show routing progress
-
+    // TODO show routing progress after its implemented.
     mState = state;
     switch (mState)
     {
@@ -211,6 +209,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
       UiUtils.show(mLayoutSetupRouting, mWvProgress, mTvPlanning);
       UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
       mTvPlanning.setText(R.string.routing_planning);
+      mWvProgress.setProgress(0);
       if (animated)
       {
         UiUtils.appearSlidingDown(this, null);

@@ -1,9 +1,9 @@
 package com.mapswithme.country;
 
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,7 +159,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     view.findViewById(R.id.btn__select_map).setOnClickListener(this);
     view.findViewById(R.id.btn__select_other_map).setOnClickListener(this);
     mWpvDownloadProgress = (WheelProgressView) view.findViewById(R.id.wpv__download_progress);
-    mWpvDownloadProgress.setCenterBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_close));
+    mWpvDownloadProgress.setCenterDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_close));
     mWpvDownloadProgress.setOnClickListener(this);
     mTvCountry = (TextView) view.findViewById(R.id.tv__country_name);
     mTvActiveCountry = (TextView) view.findViewById(R.id.tv__active_country_name);

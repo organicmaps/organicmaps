@@ -2,9 +2,9 @@ package com.mapswithme.country;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -210,7 +210,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
   private void processFailed(ViewHolder holder, int position)
   {
     holder.mProgressSlided.setProgressColor(mFragment.getResources().getColor(R.color.downloader_blue));
-    holder.mProgressSlided.setCenterBitmap(null);
+    holder.mProgressSlided.setCenterDrawable(null);
     retryDownload(position);
   }
 
@@ -440,7 +440,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mProgressSlided.setOnClickListener(listener);
       holder.mInfoSlided.setOnClickListener(listener);
       holder.mProgressSlided.setProgressColor(mFragment.getResources().getColor(R.color.base_red));
-      holder.mProgressSlided.setCenterBitmap(BitmapFactory.decodeResource(mFragment.getResources(), R.drawable.ic_retry_failed));
+      holder.mProgressSlided.setCenterDrawable(ContextCompat.getDrawable(mFragment.getActivity(), R.drawable.ic_retry_failed));
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <declare-styleable name="WheelProgressView">
-    <attr name="wheelColor" format="color"/>
-    <attr name="secondaryColor" format="color"/>
+    <attr name="wheelProgressColor" format="color"/>
+    <attr name="wheelSecondaryColor" format="color"/>
     <attr name="wheelThickness" format="dimension"/>
     <attr name="clickableBackground" format="reference"/>
+    <attr name="centerDrawable" format="reference" />
   </declare-styleable>
 
   <declare-styleable name="PlacePageView">

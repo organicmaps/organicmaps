@@ -15,7 +15,8 @@
       android:layout_height="@dimen/base_block_size"
       android:layout_below="@+id/layout__setup_details"
       android:gravity="center"
-      android:text="START"
+      android:text="@string/routing_start"
+      android:textAllCaps="true"
       android:textAppearance="@style/MwmTextAppearance.Body3.Light"
       tools:text="START"/>
 
@@ -29,13 +30,15 @@
 
     <com.mapswithme.maps.widget.WheelProgressView
         android:id="@+id/wp__routing_progress"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginLeft="@dimen/margin_half"
-        android:layout_marginRight="@dimen/margin_base"
+        android:layout_width="@dimen/base_block_size"
+        android:layout_height="@dimen/base_block_size"
+        android:layout_margin="@dimen/margin_quarter"
         android:layout_weight="0"
-        wheel:progressColor="@color/base_green"
-        wheel:secondaryColor="@color/base_black_divider"
+        android:padding="@dimen/margin_quarter"
+        android:visibility="gone"
+        wheel:centerDrawable="@drawable/ic_close"
+        wheel:wheelProgressColor="@color/base_green"
+        wheel:wheelSecondaryColor="@color/base_black_divider"
         wheel:wheelThickness="@dimen/margin_eighth"/>
 
     <ImageView
@@ -47,7 +50,7 @@
         android:padding="@dimen/margin_base"
         android:scaleType="center"
         android:src="@drawable/ic_close_routing"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <TextView
         android:id="@+id/tv__planning_route"
@@ -55,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:lines="1"
-        android:text="Planning route..."
+        android:text="@string/routing_planning"
         android:textAppearance="@style/MwmTextAppearance.Body3"
         tools:text="Planning route..."/>
 
