@@ -396,8 +396,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
       final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
       final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
-      // we use shortest message we can have here
-      ShareAction.AnyShareAction.share(this, body);
+      ShareAction.ANY_SHARE.share(this, body);
     }
     else
     {

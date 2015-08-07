@@ -4,7 +4,6 @@ import android.app.Activity;
 
 public class TextShareable extends BaseShareable
 {
-
   public TextShareable(Activity context)
   {
     super(context);
@@ -19,6 +18,6 @@ public class TextShareable extends BaseShareable
   @Override
   public String getMimeType()
   {
-    return "text/plain";
+    return ShareAction.TYPE_TEXT_PLAIN;
   }
 }

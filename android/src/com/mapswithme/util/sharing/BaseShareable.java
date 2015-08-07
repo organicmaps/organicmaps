@@ -27,8 +27,7 @@ public abstract class BaseShareable
     return mActivity;
   }
 
-  protected void modifyIntent(Intent intent)
-  {}
+  protected void modifyIntent(Intent intent) {}
 
   protected Intent getBaseIntent()
   {
@@ -42,7 +41,7 @@ public abstract class BaseShareable
     if (!TextUtils.isEmpty(mText))
       res.putExtra(Intent.EXTRA_TEXT, mText);
 
-    if (TextUtils.isEmpty(mSubject))
+    if (!TextUtils.isEmpty(mSubject))
       res.putExtra(Intent.EXTRA_SUBJECT, mSubject);
 
     String mime = getMimeType();

@@ -628,7 +628,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       break;
     case R.id.rl__share:
       AlohaHelper.logClick(AlohaHelper.PP_SHARE);
-      ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);
+      ShareAction.ANY_SHARE.shareMapObject((Activity) getContext(), mMapObject);
       break;
     case R.id.rl__api_back:
       final Activity activity = (Activity) getContext();

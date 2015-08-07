@@ -17,14 +17,17 @@ public class MapObjectShareable extends BaseShareable
     super(context);
     mMapObject = mapObject;
 
-    String ge0Url = Framework.nativeGetGe0Url(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getName());
-    String httpUrl = Framework.getHttpGe0Url(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getName());
-    String address = Framework.nativeGetNameAndAddress4Point(mMapObject.getLat(), mMapObject.getLon());
-    int resId = mMapObject.getType() == MapObject.MapObjectType.MY_POSITION ? R.string.my_position_share_email
-                                                                            : R.string.my_position_share_email_subject;
-    setText(getActivity().getString(resId, address, ge0Url, httpUrl));
-    setSubject(getActivity().getString(mMapObject.getType() == MapObject.MapObjectType.MY_POSITION ? R.string.my_position_share_email_subject
-                                                                                                  : R.string.bookmark_share_email_subject));
+    final Activity activity = getActivity();
+    final String ge0Url = Framework.nativeGetGe0Url(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getName());
+    final String httpUrl = Framework.getHttpGe0Url(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getName());
+    final String address = Framework.nativeGetNameAndAddress4Point(mMapObject.getLat(), mMapObject.getLon());
+    final int textId = mMapObject.getType() == MapObject.MapObjectType.MY_POSITION ?
+        R.string.my_position_share_email : R.string.bookmark_share_email;
+    final int subjectId = mMapObject.getType() == MapObject.MapObjectType.MY_POSITION ?
+        R.string.my_position_share_email_subject : R.string.bookmark_share_email_subject;
+
+    setText(activity.getString(textId, address, ge0Url, httpUrl));
+    setSubject(activity.getString(subjectId));
   }
 
   @Override

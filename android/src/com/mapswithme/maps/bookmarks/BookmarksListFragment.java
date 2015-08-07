@@ -131,10 +131,10 @@ public class BookmarksListFragment extends BaseMwmListFragment
                                         .listener(this)
                                         .build();
 
-      if (!ShareAction.getSmsShare().isSupported(getActivity()))
+      if (!ShareAction.SMS_SHARE.isSupported(getActivity()))
         bs.getMenu().removeItem(R.id.share_message);
 
-      if (!ShareAction.getEmailShare().isSupported(getActivity()))
+      if (!ShareAction.EMAIL_SHARE.isSupported(getActivity()))
         bs.getMenu().removeItem(R.id.share_email);
 
       bs.show();
@@ -167,15 +167,15 @@ public class BookmarksListFragment extends BaseMwmListFragment
     switch (menuItem.getItemId())
     {
     case R.id.share_message:
-      ShareAction.getSmsShare().shareMapObject(getActivity(), item);
+      ShareAction.SMS_SHARE.shareMapObject(getActivity(), item);
       break;
 
     case R.id.share_email:
-      ShareAction.getEmailShare().shareMapObject(getActivity(), item);
+      ShareAction.EMAIL_SHARE.shareMapObject(getActivity(), item);
       break;
 
     case R.id.share:
-      ShareAction.getAnyShare().shareMapObject(getActivity(), item);
+      ShareAction.ANY_SHARE.shareMapObject(getActivity(), item);
       break;
 
     case R.id.edit:
