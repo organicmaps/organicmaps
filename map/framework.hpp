@@ -48,6 +48,7 @@
 
 #include "base/macros.hpp"
 #include "base/strings_bundle.hpp"
+#include "base/thread_checker.hpp"
 
 #include "std/vector.hpp"
 #include "std/shared_ptr.hpp"
@@ -617,4 +618,8 @@ public:
 private:
   bool m_isFullScreenMode = false;
   //@}
+
+#ifdef DEBUG
+  ThreadChecker m_threadChecker;
+#endif // DEBUG
 };
