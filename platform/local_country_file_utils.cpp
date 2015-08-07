@@ -1,6 +1,6 @@
-#include "platform/local_country_file_utils.hpp"
-
-#include "platform/platform.hpp"
+#include "local_country_file_utils.hpp"
+#include "mwm_version.hpp"
+#include "platform.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
@@ -13,6 +13,7 @@
 #include "std/cctype.hpp"
 #include "std/sstream.hpp"
 #include "std/unique_ptr.hpp"
+
 
 namespace platform
 {
@@ -175,11 +176,10 @@ void FindAllLocalMaps(vector<LocalCountryFile> & localFiles)
 
     try
     {
-      unique_ptr<ModelReader> guard(platform.GetReader(file + DATA_FILE_EXTENSION, GetSpecialFilesSearchScope()));
-      UNUSED_VALUE(guard);
+      ModelReaderPtr reader(platform.GetReader(file + DATA_FILE_EXTENSION, GetSpecialFilesSearchScope()));
 
       // Assume that empty path means the resource file.
-      LocalCountryFile worldFile(string(), CountryFile(file), 0 /* version */);
+      LocalCountryFile worldFile(string(), CountryFile(file), version::ReadVersionTimestamp(reader));
       worldFile.m_files = MapOptions::Map;
       if (i != localFiles.end())
       {
@@ -296,8 +296,31 @@ void CountryIndexes::GetIndexesExts(vector<string> & exts)
 // static
 string CountryIndexes::IndexesDir(LocalCountryFile const & localFile)
 {
-  return my::JoinFoldersToPath(localFile.GetDirectory(),
-                               localFile.GetCountryFile().GetNameWithoutExt());
+  string dir = localFile.GetDirectory();
+  CountryFile const & file = localFile.GetCountryFile();
+
+  if (dir.empty())
+  {
+    // Local file is stored in resources. Need to prepare index folder in the writable directory.
+    int64_t const version = localFile.GetVersion();
+    ASSERT_GREATER(version, 0, ());
+    Platform & pl = GetPlatform();
+
+    dir = my::JoinFoldersToPath(pl.WritableDir(), strings::to_string(version));
+    switch (pl.MkDir(dir))
+    {
+    case Platform::ERR_OK:
+      /// @todo Cleanup old World directories ...
+      break;
+    case Platform::ERR_FILE_ALREADY_EXISTS:
+      break;
+    default:
+      LOG(LERROR, ("Can't create indecies directory"));
+      return string();
+    }
+  }
+
+  return my::JoinFoldersToPath(dir, file.GetNameWithoutExt());
 }
 
 string DebugPrint(CountryIndexes::Index index)

@@ -50,6 +50,7 @@ namespace feature
     return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(elias_fano_builder));
   }
 
+  // static
   unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::LoadImpl(string const & filePath)
   {
     return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(filePath));
@@ -64,19 +65,13 @@ namespace feature
   }
 
   // static
-  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(
-      LocalCountryFile const & localFile)
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateImpl(
+      platform::LocalCountryFile const & localFile,
+      FilesContainerR const & cont, string const & storePath)
   {
-    string const offsetsFilePath = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
-
-    if (GetPlatform().IsFileExistsByFullPath(offsetsFilePath))
-      return LoadImpl(offsetsFilePath);
-
-    LOG(LINFO, ("Creating features offset table file", offsetsFilePath));
+    LOG(LINFO, ("Creating features offset table file", storePath));
 
     VERIFY(CountryIndexes::PreparePlaceOnDisk(localFile), ());
-
-    FilesContainerR cont(localFile.GetPath(MapOptions::Map));
 
     Builder builder;
     FeaturesVector::ForEachOffset(cont.GetReader(DATA_FILE_TAG), [&builder] (uint32_t offset)
@@ -85,13 +80,38 @@ namespace feature
     });
 
     unique_ptr<FeaturesOffsetsTable> table(Build(builder));
-    table->Save(offsetsFilePath);
+    table->Save(storePath);
     return table;
   }
 
+  // static
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(
+      LocalCountryFile const & localFile, FilesContainerR const & cont)
+  {
+    string const offsetsFilePath = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
+
+    if (Platform::IsFileExistsByFullPath(offsetsFilePath))
+      return LoadImpl(offsetsFilePath);
+
+    return CreateImpl(localFile, cont, offsetsFilePath);
+  }
+
+  // static
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(
+      LocalCountryFile const & localFile)
+  {
+    string const offsetsFilePath = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
+
+    if (Platform::IsFileExistsByFullPath(offsetsFilePath))
+      return LoadImpl(offsetsFilePath);
+
+    return CreateImpl(localFile, FilesContainerR(localFile.GetPath(MapOptions::Map)), offsetsFilePath);
+  }
+
+  // static
   unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(FilesContainerR const & cont)
   {
-    return CreateIfNotExistsAndLoad((LocalCountryFile::MakeTemporary(cont.GetFileName())));
+    return CreateIfNotExistsAndLoad(LocalCountryFile::MakeTemporary(cont.GetFileName()), cont);
   }
 
   void FeaturesOffsetsTable::Save(string const & filePath)

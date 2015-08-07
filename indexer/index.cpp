@@ -16,7 +16,7 @@ using platform::LocalCountryFile;
 
 MwmValue::MwmValue(LocalCountryFile const & localFile)
     : m_cont(platform::GetCountryReader(localFile, MapOptions::Map)),
-      m_countryFile(localFile.GetCountryFile()),
+      m_file(localFile),
       m_table(0)
 {
   m_factory.Load(m_cont);
@@ -28,7 +28,7 @@ void MwmValue::SetTable(MwmInfoEx & info)
     return;
 
   if (!info.m_table)
-    info.m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_cont);
+    info.m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_file, m_cont);
   m_table = info.m_table.get();
 }
 

@@ -54,32 +54,18 @@ namespace feature
     /// \return a pointer to an instance of FeaturesOffsetsTable
     static unique_ptr<FeaturesOffsetsTable> Build(Builder & builder);
 
-    /// Loads FeaturesOffsetsTable from FilesMappingContainer. Note
-    /// that some part of a file referenced by container will be
-    /// mapped to the memory and used by internal structures of
-    /// FeaturesOffsetsTable.
-    ///
-    /// \param filePath a full path of the file to load or store data
-    /// \return a pointer to an instance of FeaturesOffsetsTable or nullptr
-    ///         when it's not possible to load FeaturesOffsetsTable.
+    /// Load table by full path to the table file.
     static unique_ptr<FeaturesOffsetsTable> Load(string const & filePath);
 
-    /// Loads FeaturesOffsetsTable from FilesMappingContainer. Note
-    /// that some part of a file referenced by container will be
-    /// mapped to the memory and used by internal structures of
-    /// FeaturesOffsetsTable.
-    /// If there is no FeaturesOffsetsTable section in the container,
-    /// the function builds it from section devoted to features.
-    ///
-    /// \warning May take a lot of time if there is no precomputed section
-    ///
-    /// \param localFile Representation of the map files with features data ( uses only if we need to construct them)
-    /// \return a pointer to an instance of FeaturesOffsetsTable or nullptr
-    ///         when it's not possible to create FeaturesOffsetsTable.
-    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(platform::LocalCountryFile const & localFile);
+    /// Get table for the MWM map, represented by localFile and cont.
+    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(
+        platform::LocalCountryFile const & localFile, FilesContainerR const & cont);
 
     /// @todo The easiest solution for now. Need to be removed in future.
+    //@{
+    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(platform::LocalCountryFile const & localFile);
     static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(FilesContainerR const & cont);
+    //@}
 
     FeaturesOffsetsTable(FeaturesOffsetsTable const &) = delete;
     FeaturesOffsetsTable const & operator=(FeaturesOffsetsTable const &) = delete;
@@ -110,6 +96,9 @@ namespace feature
     FeaturesOffsetsTable(string const & filePath);
 
     static unique_ptr<FeaturesOffsetsTable> LoadImpl(string const & filePath);
+    static unique_ptr<FeaturesOffsetsTable> CreateImpl(platform::LocalCountryFile const & localFile,
+                                                       FilesContainerR const & cont,
+                                                       string const & storePath);
 
     succinct::elias_fano m_table;
 

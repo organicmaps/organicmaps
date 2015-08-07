@@ -83,9 +83,12 @@ private:
   friend void UnitTest_LocalCountryFile_DirectoryLookup();
   friend void FindAllLocalMaps(vector<LocalCountryFile> & localFiles);
 
+  /// @note! If directory is empty, the file is stored in resources.
+  /// In this case, the only valid params are m_countryFile and m_version.
   string m_directory;
   CountryFile m_countryFile;
   int64_t m_version;
+
   MapOptions m_files;
 
   uint64_t m_mapSize;

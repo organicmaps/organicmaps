@@ -30,9 +30,9 @@ public:
 class MwmValue : public MwmSet::MwmValueBase
 {
 public:
-  FilesContainerR m_cont;
+  FilesContainerR const m_cont;
   IndexFactory m_factory;
-  platform::CountryFile const m_countryFile;
+  platform::LocalCountryFile const m_file;
   feature::FeaturesOffsetsTable const * m_table;
 
   explicit MwmValue(platform::LocalCountryFile const & localFile);
@@ -41,7 +41,7 @@ public:
   inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
   inline version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
 
-  inline platform::CountryFile const & GetCountryFile() const { return m_countryFile; }
+  inline platform::CountryFile const & GetCountryFile() const { return m_file.GetCountryFile(); }
 };
 
 class Index : public MwmSet
