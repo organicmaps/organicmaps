@@ -17,7 +17,7 @@ bool UniformsHolder::insertValue(ESemantic sem, float x, float y)
 
 bool UniformsHolder::insertValue(ESemantic sem, float x, float y, float z, float w)
 {
-  return insertValue(m_vec4Holder, sem, array<float, 4>({ x, y, z, w }));
+  return insertValue(m_vec4Holder, sem, array<float, 4>({{ x, y, z, w }}));
 }
 
 bool UniformsHolder::insertValue(ESemantic sem, math::Matrix<float, 4, 4> const & matrix)
