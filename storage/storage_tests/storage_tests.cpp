@@ -28,12 +28,16 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
+
 using namespace platform;
 
 namespace storage
 {
 namespace
 {
+
+using TLocalFilePtr = Storage::TLocalFilePtr;
+
 // This class checks steps Storage::DownloadMap() performs to download a map.
 class CountryDownloaderChecker
 {
@@ -199,11 +203,9 @@ void OnCountryDownloaded(LocalCountryFile const & localFile)
   LOG(LINFO, ("OnCountryDownloaded:", localFile));
 }
 
-shared_ptr<LocalCountryFile> CreateDummyMapFile(CountryFile const & countryFile, int64_t version,
-                                                size_t size)
+TLocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t version, size_t size)
 {
-  shared_ptr<LocalCountryFile> localFile =
-      platform::PreparePlaceForCountryFiles(countryFile, version);
+  TLocalFilePtr localFile = PreparePlaceForCountryFiles(countryFile, version);
   TEST(localFile.get(), ("Can't prepare place for", countryFile, "(version ", version, ")"));
   {
     string const zeroes(size, '\0');
@@ -354,20 +356,18 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
   CountryFile const countryFile = storage.GetCountryFile(index);
 
   storage.DeleteCountry(index, MapOptions::MapWithCarRouting);
-  shared_ptr<LocalCountryFile> latestLocalFile = storage.GetLatestLocalFile(index);
+  TLocalFilePtr latestLocalFile = storage.GetLatestLocalFile(index);
   TEST(!latestLocalFile.get(), ("Country wasn't deleted from disk."));
   TEST_EQUAL(TStatus::ENotDownloaded, storage.CountryStatusEx(index), ());
 
-  shared_ptr<LocalCountryFile> localFileV1 =
-      CreateDummyMapFile(countryFile, 1 /* version */, 1024 /* size */);
+  TLocalFilePtr localFileV1 = CreateDummyMapFile(countryFile, 1 /* version */, 1024 /* size */);
   storage.RegisterAllLocalMaps();
   latestLocalFile = storage.GetLatestLocalFile(index);
   TEST(latestLocalFile.get(), ("Created map file wasn't found by storage."));
   TEST_EQUAL(latestLocalFile->GetVersion(), localFileV1->GetVersion(), ());
   TEST_EQUAL(TStatus::EOnDiskOutOfDate, storage.CountryStatusEx(index), ());
 
-  shared_ptr<LocalCountryFile> localFileV2 =
-      CreateDummyMapFile(countryFile, 2 /* version */, 2048 /* size */);
+  TLocalFilePtr localFileV2 = CreateDummyMapFile(countryFile, 2 /* version */, 2048 /* size */);
   storage.RegisterAllLocalMaps();
   latestLocalFile = storage.GetLatestLocalFile(index);
   TEST(latestLocalFile.get(), ("Created map file wasn't found by storage."));
@@ -403,19 +403,19 @@ UNIT_TEST(StorageTest_DownloadCountryAndDeleteRoutingOnly)
   }
 
   // Delete routing file only and check that latest local file wasn't changed.
-  shared_ptr<LocalCountryFile> localFileA = storage.GetLatestLocalFile(index);
+  TLocalFilePtr localFileA = storage.GetLatestLocalFile(index);
   TEST(localFileA.get(), ());
   TEST_EQUAL(MapOptions::MapWithCarRouting, localFileA->GetFiles(), ());
 
   storage.DeleteCountry(index, MapOptions::CarRouting);
 
-  shared_ptr<LocalCountryFile> localFileB = storage.GetLatestLocalFile(index);
+  TLocalFilePtr localFileB = storage.GetLatestLocalFile(index);
   TEST(localFileB.get(), ());
   TEST_EQUAL(localFileA.get(), localFileB.get(), (*localFileA, *localFileB));
   TEST_EQUAL(MapOptions::Map, localFileB->GetFiles(), ());
 
   storage.DeleteCountry(index, MapOptions::Map);
-  shared_ptr<LocalCountryFile> localFileC = storage.GetLatestLocalFile(index);
+  TLocalFilePtr localFileC = storage.GetLatestLocalFile(index);
   TEST(!localFileC.get(), (*localFileC));
 }
 
@@ -451,7 +451,7 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
     runner.Run();
   }
 
-  shared_ptr<LocalCountryFile> localFileA = storage.GetLatestLocalFile(index);
+  TLocalFilePtr localFileA = storage.GetLatestLocalFile(index);
   TEST(localFileA.get(), ());
   TEST_EQUAL(MapOptions::Map, localFileA->GetFiles(), ());
 
@@ -467,7 +467,7 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
     runner.Run();
   }
 
-  shared_ptr<LocalCountryFile> localFileB = storage.GetLatestLocalFile(index);
+  TLocalFilePtr localFileB = storage.GetLatestLocalFile(index);
   TEST(localFileB.get(), ());
   TEST_EQUAL(localFileA.get(), localFileB.get(), (*localFileA, *localFileB));
   TEST_EQUAL(MapOptions::MapWithCarRouting, localFileB->GetFiles(), ());
@@ -480,7 +480,7 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
     CountryStatusChecker checker(storage, index, TStatus::EOnDisk);
     storage.DeleteCountry(index, MapOptions::CarRouting);
   }
-  shared_ptr<LocalCountryFile> localFileC = storage.GetLatestLocalFile(index);
+  TLocalFilePtr localFileC = storage.GetLatestLocalFile(index);
   TEST(localFileC.get(), ());
   TEST_EQUAL(localFileB.get(), localFileC.get(), (*localFileB, *localFileC));
   TEST_EQUAL(MapOptions::Map, localFileC->GetFiles(), ());
@@ -558,10 +558,10 @@ UNIT_TEST(StorageTest_DownloadTwoCountriesAndDelete)
     storage.DeleteCountry(venezuelaIndex, MapOptions::CarRouting);
     runner.Run();
   }
-  shared_ptr<LocalCountryFile> uruguayFile = storage.GetLatestLocalFile(uruguayIndex);
+  TLocalFilePtr uruguayFile = storage.GetLatestLocalFile(uruguayIndex);
   TEST(!uruguayFile.get(), (*uruguayFile));
 
-  shared_ptr<LocalCountryFile> venezuelaFile = storage.GetLatestLocalFile(venezuelaIndex);
+  TLocalFilePtr venezuelaFile = storage.GetLatestLocalFile(venezuelaIndex);
   TEST(venezuelaFile.get(), ());
   TEST_EQUAL(MapOptions::Map, venezuelaFile->GetFiles(), ());
 }
@@ -583,7 +583,7 @@ UNIT_TEST(StorageTest_CancelDownloadingWhenAlmostDone)
     checker.StartDownload();
     runner.Run();
   }
-  shared_ptr<LocalCountryFile> file = storage.GetLatestLocalFile(index);
+  TLocalFilePtr file = storage.GetLatestLocalFile(index);
   TEST(!file, (*file));
 }
 

@@ -443,8 +443,7 @@ void Framework::ShowCountry(TIndex const & index)
 
 void Framework::UpdateLatestCountryFile(LocalCountryFile const & localFile)
 {
-  // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmHandles. Thus,
-  // it won' be needed to reset it after maps update.
+  // Soft reset to signal that mwm file may be out of date in routing caches.
   m_routingSession.Reset();
 
   if (!HasOptions(localFile.GetFiles(), MapOptions::Map))
@@ -455,6 +454,7 @@ void Framework::UpdateLatestCountryFile(LocalCountryFile const & localFile)
   MwmSet::MwmHandle const & handle = result.first;
   if (handle.IsAlive())
     InvalidateRect(handle.GetInfo()->m_limitRect, true /* doForceUpdate */);
+
   GetSearchEngine()->ClearViewportsCache();
 }
 
@@ -481,9 +481,11 @@ void Framework::RegisterAllMaps()
     shared_ptr<LocalCountryFile> localFile = m_storage.GetLatestLocalFile(countryFile);
     if (!localFile)
       continue;
+
     auto p = RegisterMap(*localFile);
     if (p.second != MwmSet::RegResult::Success)
       continue;
+
     MwmSet::MwmHandle const & handle = p.first;
     ASSERT(handle.IsAlive(), ());
     minFormat = min(minFormat, static_cast<int>(handle.GetInfo()->m_version.format));

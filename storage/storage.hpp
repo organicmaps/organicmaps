@@ -14,6 +14,7 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
+
 namespace storage
 {
 /// Can be used to store local maps and/or maps available for download
@@ -21,6 +22,7 @@ class Storage
 {
 public:
   using TUpdate = function<void(platform::LocalCountryFile const &)>;
+  using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
 
 private:
   /// We support only one simultaneous request at the moment
@@ -45,8 +47,8 @@ private:
   typedef set<TIndex> TCountriesSet;
   TCountriesSet m_failedCountries;
 
-  map<TIndex, list<shared_ptr<platform::LocalCountryFile>>> m_localFiles;
-  map<platform::CountryFile, shared_ptr<platform::LocalCountryFile>> m_localFilesForFakeCountries;
+  map<TIndex, list<TLocalFilePtr>> m_localFiles;
+  map<platform::CountryFile, TLocalFilePtr> m_localFilesForFakeCountries;
 
   /// used to correctly calculate total country download progress with more than 1 file
   /// <current, total>
@@ -132,9 +134,8 @@ public:
 
   LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index, MapOptions opt) const;
   platform::CountryFile const & GetCountryFile(TIndex const & index) const;
-  shared_ptr<platform::LocalCountryFile> GetLatestLocalFile(
-      platform::CountryFile const & countryFile) const;
-  shared_ptr<platform::LocalCountryFile> GetLatestLocalFile(TIndex const & index) const;
+  TLocalFilePtr GetLatestLocalFile(platform::CountryFile const & countryFile) const;
+  TLocalFilePtr GetLatestLocalFile(TIndex const & index) const;
 
   /// Fast version, doesn't check if country is out of date
   TStatus CountryStatus(TIndex const & index) const;
@@ -206,12 +207,12 @@ private:
   // Returns local country files of a particular version, or wrapped
   // nullptr if there're no country files corresponding to the
   // version.
-  shared_ptr<platform::LocalCountryFile> GetLocalFile(TIndex const & index, int64_t version) const;
+  TLocalFilePtr GetLocalFile(TIndex const & index, int64_t version) const;
 
   // Tries to register disk files for a real (listed in countries.txt)
   // country. If map files of the same version were already
   // registered, does nothing.
-  void RegisterCountryFiles(shared_ptr<platform::LocalCountryFile> localFile);
+  void RegisterCountryFiles(TLocalFilePtr localFile);
 
   // Registers disk files for a country. This method must be used only
   // for real (listed in counties.txt) countries.

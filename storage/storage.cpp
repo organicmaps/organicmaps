@@ -31,13 +31,14 @@ namespace storage
 {
 namespace
 {
+
 template <typename T>
 void RemoveIf(vector<T> & v, function<bool(T const & t)> const & p)
 {
   v.erase(remove_if(v.begin(), v.end(), p), v.end());
 }
 
-uint64_t GetLocalSize(shared_ptr<LocalCountryFile> file, MapOptions opt)
+uint64_t GetLocalSize(Storage::TLocalFilePtr file, MapOptions opt)
 {
   if (!file)
     return 0;
@@ -207,7 +208,7 @@ string const & Storage::CountryFlag(TIndex const & index) const
 LocalAndRemoteSizeT Storage::CountrySizeInBytes(TIndex const & index, MapOptions opt) const
 {
   QueuedCountry const * queuedCountry = FindCountryInQueue(index);
-  shared_ptr<LocalCountryFile> localFile = GetLatestLocalFile(index);
+  TLocalFilePtr localFile = GetLatestLocalFile(index);
   CountryFile const & countryFile = GetCountryFile(index);
   if (queuedCountry == nullptr)
   {
@@ -228,30 +229,32 @@ CountryFile const & Storage::GetCountryFile(TIndex const & index) const
   return CountryByIndex(index).GetFile();
 }
 
-shared_ptr<LocalCountryFile> Storage::GetLatestLocalFile(CountryFile const & countryFile) const
+Storage::TLocalFilePtr Storage::GetLatestLocalFile(CountryFile const & countryFile) const
 {
   TIndex const index = FindIndexByFile(countryFile.GetNameWithoutExt());
+  if (index.IsValid())
   {
-    shared_ptr<LocalCountryFile> localFile = GetLatestLocalFile(index);
+    TLocalFilePtr localFile = GetLatestLocalFile(index);
     if (localFile)
       return localFile;
   }
-  {
-    auto const it = m_localFilesForFakeCountries.find(countryFile);
-    if (it != m_localFilesForFakeCountries.end())
-      return it->second;
-  }
-  return shared_ptr<LocalCountryFile>();
+
+  auto const it = m_localFilesForFakeCountries.find(countryFile);
+  if (it != m_localFilesForFakeCountries.end())
+    return it->second;
+
+  return TLocalFilePtr();
 }
 
-shared_ptr<LocalCountryFile> Storage::GetLatestLocalFile(TIndex const & index) const
+Storage::TLocalFilePtr Storage::GetLatestLocalFile(TIndex const & index) const
 {
   auto const it = m_localFiles.find(index);
   if (it == m_localFiles.end() || it->second.empty())
-    return shared_ptr<LocalCountryFile>();
-  list<shared_ptr<LocalCountryFile>> const & files = it->second;
-  shared_ptr<LocalCountryFile> latest = files.front();
-  for (shared_ptr<LocalCountryFile> const & file : files)
+    return TLocalFilePtr();
+
+  list<TLocalFilePtr> const & files = it->second;
+  TLocalFilePtr latest = files.front();
+  for (TLocalFilePtr const & file : files)
   {
     if (file->GetVersion() > latest->GetVersion())
       latest = file;
@@ -290,7 +293,7 @@ void Storage::CountryStatusEx(TIndex const & index, TStatus & status, MapOptions
   {
     options = MapOptions::Map;
 
-    shared_ptr<LocalCountryFile> localFile = GetLatestLocalFile(index);
+    TLocalFilePtr localFile = GetLatestLocalFile(index);
     ASSERT(localFile, ("Invariant violation: local file out of sync with disk."));
     if (localFile->OnDisk(MapOptions::CarRouting))
       options = SetOptions(options, MapOptions::CarRouting);
@@ -365,7 +368,7 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
     return;
   }
 
-  auto const equalsToLocalFile = [&localFile](shared_ptr<LocalCountryFile> const & rhs)
+  auto const equalsToLocalFile = [&localFile](TLocalFilePtr const & rhs)
   {
     return localFile == *rhs;
   };
@@ -522,7 +525,7 @@ void Storage::OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & pr
 bool Storage::RegisterDownloadedFiles(TIndex const & index, MapOptions files)
 {
   CountryFile const countryFile = GetCountryFile(index);
-  shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, GetCurrentDataVersion());
+  TLocalFilePtr localFile = GetLocalFile(index, GetCurrentDataVersion());
   if (!localFile)
     localFile = PreparePlaceForCountryFiles(countryFile, GetCurrentDataVersion());
   if (!localFile)
@@ -591,7 +594,7 @@ void Storage::OnMapDownloadFinished(TIndex const & index, bool success, MapOptio
     return;
   }
 
-  shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, GetCurrentDataVersion());
+  TLocalFilePtr localFile = GetLocalFile(index, GetCurrentDataVersion());
   ASSERT(localFile, ());
   DeleteCountryIndexes(*localFile);
   m_update(*localFile);
@@ -667,7 +670,7 @@ void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
   {
     TIndex const & index = p.first;
     string const name = GetCountryFile(index).GetNameWithoutExt();
-    shared_ptr<LocalCountryFile> const & file = GetLatestLocalFile(index);
+    TLocalFilePtr const & file = GetLatestLocalFile(index);
     if (file && file->GetVersion() != GetCurrentDataVersion() &&
         name != WORLD_COASTS_FILE_NAME && name != WORLD_FILE_NAME)
     {
@@ -689,7 +692,7 @@ TStatus Storage::CountryStatusFull(TIndex const & index, TStatus const status) c
   if (status != TStatus::EUnknown)
     return status;
 
-  shared_ptr<LocalCountryFile> localFile = GetLatestLocalFile(index);
+  TLocalFilePtr localFile = GetLatestLocalFile(index);
   if (!localFile || !localFile->OnDisk(MapOptions::Map))
     return TStatus::ENotDownloaded;
 
@@ -708,7 +711,7 @@ MapOptions Storage::NormalizeDownloadFileSet(TIndex const & index, MapOptions op
   if (HasOptions(opt, MapOptions::CarRouting))
     opt = SetOptions(opt, MapOptions::Map);
 
-  shared_ptr<LocalCountryFile> localCountryFile = GetLatestLocalFile(index);
+  TLocalFilePtr localCountryFile = GetLatestLocalFile(index);
   for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
   {
     // Check whether requested files are on disk and up-to-date.
@@ -756,27 +759,27 @@ void Storage::SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && download
   m_downloader = move(downloader);
 }
 
-shared_ptr<LocalCountryFile> Storage::GetLocalFile(TIndex const & index, int64_t version) const
+Storage::TLocalFilePtr Storage::GetLocalFile(TIndex const & index, int64_t version) const
 {
   auto const it = m_localFiles.find(index);
   if (it == m_localFiles.end() || it->second.empty())
-    return shared_ptr<LocalCountryFile>();
-  list<shared_ptr<LocalCountryFile>> const & files = it->second;
-  for (shared_ptr<LocalCountryFile> const & file : files)
+    return TLocalFilePtr();
+  list<TLocalFilePtr> const & files = it->second;
+  for (TLocalFilePtr const & file : files)
   {
     if (file->GetVersion() == version)
       return file;
   }
-  return shared_ptr<LocalCountryFile>();
+  return TLocalFilePtr();
 }
 
-void Storage::RegisterCountryFiles(shared_ptr<LocalCountryFile> localFile)
+void Storage::RegisterCountryFiles(TLocalFilePtr localFile)
 {
   CHECK(localFile, ());
   localFile->SyncWithDisk();
 
   TIndex const index = FindIndexByFile(localFile->GetCountryName());
-  shared_ptr<LocalCountryFile> existingFile = GetLocalFile(index, localFile->GetVersion());
+  TLocalFilePtr existingFile = GetLocalFile(index, localFile->GetVersion());
   if (existingFile)
     ASSERT_EQUAL(localFile.get(), existingFile.get(), ());
   else
@@ -785,7 +788,7 @@ void Storage::RegisterCountryFiles(shared_ptr<LocalCountryFile> localFile)
 
 void Storage::RegisterCountryFiles(TIndex const & index, string const & directory, int64_t version)
 {
-  shared_ptr<LocalCountryFile> localFile = GetLocalFile(index, version);
+  TLocalFilePtr localFile = GetLocalFile(index, version);
   if (localFile)
     return;
 
@@ -796,7 +799,7 @@ void Storage::RegisterCountryFiles(TIndex const & index, string const & director
 
 void Storage::RegisterFakeCountryFiles(platform::LocalCountryFile const & localFile)
 {
-  shared_ptr<LocalCountryFile> fakeCountryLocalFile = make_shared<LocalCountryFile>(localFile);
+  TLocalFilePtr fakeCountryLocalFile = make_shared<LocalCountryFile>(localFile);
   fakeCountryLocalFile->SyncWithDisk();
   m_localFilesForFakeCountries[fakeCountryLocalFile->GetCountryFile()] = fakeCountryLocalFile;
 }
@@ -816,7 +819,7 @@ void Storage::DeleteCountryFiles(TIndex const & index, MapOptions opt)
     if (localFile->GetFiles() == MapOptions::Nothing)
       localFile.reset();
   }
-  auto isNull = [](shared_ptr<LocalCountryFile> const & localFile)
+  auto isNull = [](TLocalFilePtr const & localFile)
   {
     return !localFile;
   };
