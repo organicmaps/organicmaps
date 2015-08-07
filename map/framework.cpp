@@ -2120,6 +2120,8 @@ void Framework::UpdateSavedDataVersion()
 
 void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
+
   shared_ptr<State> const & state = GetLocationState();
   if (!state->IsModeHasPosition())
   {
@@ -2135,6 +2137,8 @@ void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
 
   auto readyCallback = [this](Route const & route, IRouter::ResultCode code)
   {
+    ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute_ReadyCallback"));
+
     vector<storage::TIndex> absentCountries;
     vector<storage::TIndex> absentRoutingIndexes;
     if (code == IRouter::NoError)
@@ -2170,6 +2174,8 @@ void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
 
 void Framework::SetRouter(RouterType type)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ("SetRouter"));
+
   if (m_currentRouterType == type)
     return;
   SetRouterImpl(type);
@@ -2213,6 +2219,8 @@ void Framework::SetRouterImpl(RouterType type)
 
 void Framework::RemoveRoute()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ("RemoveRoute"));
+
   m_bmManager.UserMarksClear(UserMarkContainer::DEBUG_MARK);
 
   m_bmManager.ResetRouteTrack();
@@ -2220,6 +2228,8 @@ void Framework::RemoveRoute()
 
 void Framework::CloseRouting()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ("CloseRouting"));
+
   GetLocationState()->StopRoutingMode();
   m_routingSession.Reset();
   RemoveRoute();
@@ -2228,6 +2238,8 @@ void Framework::CloseRouting()
 
 void Framework::InsertRoute(Route const & route)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ("InsertRoute"));
+
   if (route.GetPoly().GetSize() < 2)
   {
     LOG(LWARNING, ("Invalid track - only", route.GetPoly().GetSize(), "point(s)."));

@@ -48,21 +48,21 @@ DeferredTask::DeferredTask(TTask const & task, milliseconds ms) : m_started(fals
 
 DeferredTask::~DeferredTask()
 {
-  CheckContext();
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
   m_thread.Cancel();
 }
 
 bool DeferredTask::WasStarted() const
 {
-  CheckContext();
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
   return m_started;
 }
 
 void DeferredTask::Cancel()
 {
-  CheckContext();
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
   threads::IRoutine * routine = m_thread.GetRoutine();
   CHECK(routine, ());
@@ -71,14 +71,7 @@ void DeferredTask::Cancel()
 
 void DeferredTask::WaitForCompletion()
 {
-  CheckContext();
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
   m_thread.Join();
-}
-
-void DeferredTask::CheckContext() const
-{
-#ifdef USE_THREAD_CHECKER
-  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
-#endif
 }

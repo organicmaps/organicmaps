@@ -3,22 +3,12 @@
 #include "base/condition.hpp"
 #include "base/macros.hpp"
 #include "base/thread.hpp"
+#include "base/thread_checker.hpp"
 
 #include "std/chrono.hpp"
 #include "std/condition_variable.hpp"
 #include "std/function.hpp"
 #include "std/unique_ptr.hpp"
-
-
-#if defined(DEBUG) && !defined(OMIM_OS_ANDROID)
-// This checker is not valid on Android.
-// UI thread (NV thread) can change it's handle value during app lifecycle.
-#define USE_THREAD_CHECKER
-#endif
-
-#ifdef USE_THREAD_CHECKER
-#include "base/thread_checker.hpp"
-#endif
 
 
 // This class is used to call a function after waiting for a specified
@@ -65,10 +55,7 @@ private:
   atomic<bool> m_started;
   threads::Thread m_thread;
 
-#ifdef USE_THREAD_CHECKER
-  ThreadChecker m_threadChecker;
-#endif
-  void CheckContext() const;
+  DECLARE_THREAD_CHECKER(m_threadChecker);
 
   DISALLOW_COPY_AND_MOVE(DeferredTask);
 };
