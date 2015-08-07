@@ -108,6 +108,11 @@ static CGFloat const alpha100 = 1.;
   return [UIColor colorWithRed:scaled(3.) green:scaled(122.) blue:scaled(255.) alpha:alpha100];
 }
 
++ (UIColor *)buttonHighlightedBlueText
+{
+  return [UIColor colorWithRed:scaled(3.) green:scaled(122.) blue:scaled(255.) alpha:alpha54];
+}
+
 + (UIColor *)alertBackground
 {
   return [UIColor colorWithWhite:1. alpha:.88f];

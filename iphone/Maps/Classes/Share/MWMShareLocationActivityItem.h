@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface MWMShareLocationActivityItem : NSObject <UIActivityItemSource>
 
 - (instancetype)initWithTitle:(NSString *)title location:(CLLocationCoordinate2D)location myPosition:(BOOL)myPosition;

@@ -44,6 +44,8 @@
 		347274791B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274781B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements */; };
 		3472747B1B0F4FF100756B37 /* me.maps.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */; };
 		3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */; };
+		347BAC691B733D540010FF78 /* MWMPedestrianShareAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */; };
+		347BAC6E1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 347BAC6D1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.m */; };
 		348E578E1B0F3752000FA02A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
 		3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */; };
 		349A357A1B53D4C9009677EE /* MWMCircularProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A35761B53D4C9009677EE /* MWMCircularProgress.m */; };
@@ -57,6 +59,7 @@
 		349A358E1B53EABC009677EE /* MWMSearchDownloadMapRequestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A358B1B53EABC009677EE /* MWMSearchDownloadMapRequestView.m */; };
 		34A742FE1AE5461A00CE15EB /* index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FD1AE5461A00CE15EB /* index.cpp */; };
 		34A743001AE5468200CE15EB /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FF1AE5468200CE15EB /* storage.cpp */; };
+		34B16C451B72655D000D3A0D /* MWMPedestrianShareAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */; };
 		34BC72211B0DECAE0012A34B /* MWMLocationButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC720C1B0DECAE0012A34B /* MWMLocationButton.mm */; };
 		34BC72221B0DECAE0012A34B /* MWMLocationButtonView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC720E1B0DECAE0012A34B /* MWMLocationButtonView.mm */; };
 		34BC72231B0DECAE0012A34B /* MWMLocationButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BC720F1B0DECAE0012A34B /* MWMLocationButton.xib */; };
@@ -379,6 +382,9 @@
 		3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.production.entitlements; sourceTree = "<group>"; };
 		3472EC031B4D44BE0085CB79 /* UIFont+MapsMeFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+MapsMeFonts.h"; sourceTree = "<group>"; };
 		3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIFont+MapsMeFonts.mm"; sourceTree = "<group>"; };
+		347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPedestrianShareAlert.xib; sourceTree = "<group>"; };
+		347BAC6C1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSharePedestrianRoutesToastActivityItem.h; sourceTree = "<group>"; };
+		347BAC6D1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMSharePedestrianRoutesToastActivityItem.m; sourceTree = "<group>"; };
 		348320CC1B6A2C52007EC039 /* MWMNavigationViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationViewProtocol.h; sourceTree = "<group>"; };
 		348E57981B0F49D8000FA02A /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		348E57C81B0F49EE000FA02A /* maps.me WatchKit Extension WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "maps.me WatchKit Extension WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -402,6 +408,8 @@
 		349A358B1B53EABC009677EE /* MWMSearchDownloadMapRequestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMSearchDownloadMapRequestView.m; sourceTree = "<group>"; };
 		34A742FD1AE5461A00CE15EB /* index.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = index.cpp; path = ../../../storage/index.cpp; sourceTree = "<group>"; };
 		34A742FF1AE5468200CE15EB /* storage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = storage.cpp; path = ../../../storage/storage.cpp; sourceTree = "<group>"; };
+		34B16C431B72655D000D3A0D /* MWMPedestrianShareAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPedestrianShareAlert.h; sourceTree = "<group>"; };
+		34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPedestrianShareAlert.mm; sourceTree = "<group>"; };
 		34BC720B1B0DECAE0012A34B /* MWMLocationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationButton.h; sourceTree = "<group>"; };
 		34BC720C1B0DECAE0012A34B /* MWMLocationButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLocationButton.mm; sourceTree = "<group>"; };
 		34BC720D1B0DECAE0012A34B /* MWMLocationButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationButtonView.h; sourceTree = "<group>"; };
@@ -973,6 +981,8 @@
 				340837121B7243CE00B5C185 /* MWMActivityViewController.m */,
 				340837141B72451A00B5C185 /* MWMShareLocationActivityItem.h */,
 				340837151B72451A00B5C185 /* MWMShareLocationActivityItem.mm */,
+				347BAC6C1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.h */,
+				347BAC6D1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.m */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -1130,6 +1140,16 @@
 			);
 			name = SearchDownloadMapRequest;
 			path = CustomViews/SearchDownloadMapRequest;
+			sourceTree = "<group>";
+		};
+		34B16C421B72653B000D3A0D /* PedestrianShareAlert */ = {
+			isa = PBXGroup;
+			children = (
+				34B16C431B72655D000D3A0D /* MWMPedestrianShareAlert.h */,
+				34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */,
+				347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */,
+			);
+			path = PedestrianShareAlert;
 			sourceTree = "<group>";
 		};
 		34BC72091B0DECAE0012A34B /* MapViewControls */ = {
@@ -1418,6 +1438,7 @@
 				F6BBF2C31B4FFB56000CF8E2 /* LocationAlert */,
 				F64F19801AB81A00006EAF7E /* AlertController */,
 				F6BC1E4F1ACBF97000EF0360 /* FacebookAlert */,
+				34B16C421B72653B000D3A0D /* PedestrianShareAlert */,
 				F67BBB531AC54A7800D162C7 /* FeedbackAlert */,
 				F64F19841AB81A00006EAF7E /* BaseAlert */,
 				F61579301AC2CE760032D8E9 /* RateAlert */,
@@ -2073,6 +2094,7 @@
 				F6588E331B15D73100EE1E58 /* MWMBookmarkColorViewController.xib in Resources */,
 				F6CB215C1AEE704D00FB8963 /* PlacePageInfoCell.xib in Resources */,
 				45159BF91B0CA2D5009BFA85 /* resources-6plus in Resources */,
+				347BAC691B733D540010FF78 /* MWMPedestrianShareAlert.xib in Resources */,
 				FAF30A95173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2228,6 +2250,8 @@
 				F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
 				F6ED135B1B18AA930095C6DE /* MWMExtendedPlacePageView.m in Sources */,
+				34B16C451B72655D000D3A0D /* MWMPedestrianShareAlert.mm in Sources */,
+				347BAC6E1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.m in Sources */,
 				F6588E2F1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm in Sources */,
 				349A358E1B53EABC009677EE /* MWMSearchDownloadMapRequestView.m in Sources */,
 				A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */,

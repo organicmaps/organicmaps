@@ -27,6 +27,7 @@
 + (UIColor *)whiteHintText;
 + (UIColor *)whiteDividers;
 + (UIColor *)buttonBlueText;
++ (UIColor *)buttonHighlightedBlueText;
 + (UIColor *)alertBackground;
 
 + (UIColor *)colorWithName:(NSString *)colorName;

@@ -8,6 +8,7 @@
 
 #import "MWMActivityViewController.h"
 #import "MWMShareLocationActivityItem.h"
+#import "MWMSharePedestrianRoutesToastActivityItem.h"
 
 @interface MWMActivityViewController ()
 
@@ -36,6 +37,15 @@
   return [[self alloc] initWithActivityItem:item];
 }
 
++ (instancetype)shareControllerForPedestrianRoutesToast
+{
+  MWMSharePedestrianRoutesToastActivityItem * item = [[MWMSharePedestrianRoutesToastActivityItem alloc] init];
+  MWMActivityViewController * vc = [[self alloc] initWithActivityItem:item];
+  if ([vc respondsToSelector:@selector(popoverPresentationController)])
+    vc.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionDown;
+  return vc;
+}
+
 - (void)presentInParentViewController:(UIViewController *)parentVC anchorView:(UIView *)anchorView
 {
   self.ownerViewController = parentVC;
@@ -53,7 +63,7 @@
 {
   [self dismissViewControllerAnimated:YES completion:nil];
   [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {}
-                              completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
+                               completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
   {
     [self presentInParentViewController:self.ownerViewController anchorView:self.anchorView];
   }];

@@ -31,16 +31,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-  MWMAlert * alert = [self.view.subviews firstObject];
-  if (isIOSVersionLessThan(8) && [alert respondsToSelector:@selector(setTransform:)])
-  {
-    [UIView animateWithDuration:duration animations:^
-    {
-      alert.transform = rotation(toInterfaceOrientation);
-    }];
-  }
-  if ([alert respondsToSelector:@selector(willRotateToInterfaceOrientation:)])
-    [alert willRotateToInterfaceOrientation:toInterfaceOrientation];
+  MWMAlert * alert = self.view.subviews.firstObject;
+  [alert rotate:toInterfaceOrientation duration:duration];
 }
 
 #pragma mark - Actions
@@ -98,6 +90,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert noWiFiAlertWithName:name downloadBlock:block]];
 }
 
+- (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch
+{
+  [self displayAlert:[MWMAlert pedestrianToastShareAlert:isFirstLaunch]];
+}
+
 - (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount
 {
   [self displayAlert:[MWMAlert feedbackAlertWithStarsCount:starsCount]];
@@ -137,16 +134,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
     CGFloat const scale = 1.1;
     alert.transform = CGAffineTransformMakeScale(scale, scale);
   }
-  self.view.center = self.ownerViewController.view.center;
-  [self.ownerViewController.view addSubview:self.view];
-  UIWindow * window = [[[UIApplication sharedApplication] delegate] window];
-  [window addSubview:self.view];
-  self.view.frame = window.bounds;
-  if (iOS7)
-    alert.transform = rotation(self.ownerViewController.interfaceOrientation);
-  [self.view addSubview:alert];
-  alert.bounds = self.view.bounds;
-  alert.center = self.view.center;
   [UIView animateWithDuration:.15 animations:^
   {
     self.view.alpha = 1.;
@@ -179,22 +166,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   UIApplication * a = [UIApplication sharedApplication];
   if ([a canOpenURL:url])
     [a openURL:url];
-}
-
-CGAffineTransform rotation(UIInterfaceOrientation orientation)
-{
-  switch (orientation)
-  {
-    case UIInterfaceOrientationLandscapeLeft:
-      return CGAffineTransformMakeRotation(-M_PI_2);
-    case UIInterfaceOrientationLandscapeRight:
-      return CGAffineTransformMakeRotation(M_PI_2);
-    case UIInterfaceOrientationPortraitUpsideDown:
-      return CGAffineTransformMakeRotation(M_PI);
-    case UIInterfaceOrientationUnknown:
-    case UIInterfaceOrientationPortrait:
-      return CGAffineTransformIdentity;
-  }
 }
 
 #pragma mark - UIAlertViewDelegate

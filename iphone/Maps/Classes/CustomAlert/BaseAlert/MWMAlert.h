@@ -31,9 +31,14 @@ typedef void (^RightButtonAction)();
 + (MWMAlert *)noWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block;
 + (MWMAlert *)noConnectionAlert;
 + (MWMAlert *)locationServiceNotSupportedAlert;
++ (MWMAlert *)pedestrianToastShareAlert:(BOOL)isFirstLaunch;
 - (void)close;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
+
+- (void)rotate:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
+
+- (void)addControllerViewToWindow;
 
 @end

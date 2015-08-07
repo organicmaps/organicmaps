@@ -32,6 +32,7 @@ typedef void (^CloseAlertCompletion)();
 - (void)presentLocationServiceNotSupportedAlert;
 - (void)presentNoConnectionAlert;
 - (void)presentnoWiFiAlertWithName:(nonnull NSString *)name downloadBlock:(nullable RightButtonAction)block;
+- (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch;
 - (void)closeAlertWithCompletion:(nullable CloseAlertCompletion)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));

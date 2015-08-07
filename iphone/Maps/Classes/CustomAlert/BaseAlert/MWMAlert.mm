@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "MWMAlert.h"
 #import "MWMAlertViewController.h"
 #import "MWMDefaultAlert.h"
@@ -13,6 +14,7 @@
 #import "MWMFacebookAlert.h"
 #import "MWMFeedbackAlert.h"
 #import "MWMLocationAlert.h"
+#import "MWMPedestrianShareAlert.h"
 #import "MWMRateAlert.h"
 #import "MWMRoutingDisclaimerAlert.h"
 
@@ -97,6 +99,11 @@
   }
 }
 
++ (MWMAlert *)pedestrianToastShareAlert:(BOOL)isFirstLaunch
+{
+  return [MWMPedestrianShareAlert alert:isFirstLaunch];
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
 // Should override this method if you want custom relayout after rotation.
@@ -124,6 +131,56 @@
 {
 // Should close alert when application entered background.
   [self close];
+}
+
+- (void)rotate:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+  if (isIOSVersionLessThan(8) && [self respondsToSelector:@selector(setTransform:)])
+  {
+    [UIView animateWithDuration:duration animations:^
+    {
+      self.transform = rotation(toInterfaceOrientation);
+    }];
+  }
+  if ([self respondsToSelector:@selector(willRotateToInterfaceOrientation:)])
+    [self willRotateToInterfaceOrientation:toInterfaceOrientation];
+}
+
+CGAffineTransform rotation(UIInterfaceOrientation orientation)
+{
+  switch (orientation)
+  {
+    case UIInterfaceOrientationLandscapeLeft:
+      return CGAffineTransformMakeRotation(-M_PI_2);
+    case UIInterfaceOrientationLandscapeRight:
+      return CGAffineTransformMakeRotation(M_PI_2);
+    case UIInterfaceOrientationPortraitUpsideDown:
+      return CGAffineTransformMakeRotation(M_PI);
+    case UIInterfaceOrientationUnknown:
+    case UIInterfaceOrientationPortrait:
+      return CGAffineTransformIdentity;
+  }
+}
+
+- (void)addControllerViewToWindow
+{
+  UIWindow * window = UIApplication.sharedApplication.delegate.window;
+  UIView * view = self.alertController.view;
+  [window addSubview:view];
+  view.frame = window.bounds;
+}
+
+- (void)setAlertController:(MWMAlertViewController *)alertController
+{
+  _alertController = alertController;
+  UIView * view = alertController.view;
+  UIView * ownerView = alertController.ownerViewController.view;
+  view.frame = ownerView.bounds;
+  [alertController.ownerViewController.view addSubview:view];
+  [self addControllerViewToWindow];
+  [self rotate:alertController.ownerViewController.interfaceOrientation duration:0.0];
+  [view addSubview:self];
+  self.frame = view.bounds;
 }
 
 @end
