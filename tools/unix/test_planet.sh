@@ -54,13 +54,23 @@ if [ -n "$(ls "$TARGET" | grep '\.mwm\.routing')" ]; then
   done
 fi
 
+# For generator_tool, we create a temporary directory with symlinks to all maps
+# That way, it can be easily cleaned after routing engine creates a lot of temporary directories in it
+FTARGET="$TARGET/symlinked_copy"
+mkdir -p "$FTARGET"
+TARGET_PATH="$(cd "$TARGET"; pwd)"
+for file in "$TARGET"/*.mwm*; do
+  BASENAME="$(basename "$file")"
+  ln -s "$TARGET_PATH/$BASENAME" "$FTARGET/$BASENAME"
+done
+
 # Step 3: run calc_statistics and check for sections
 echo
 echo '### MISSING MWM SECTIONS'
 FOUND_COASTS=
-for mwm in "$TARGET"/*.mwm; do
+for mwm in "$FTARGET"/*.mwm; do
   BASENAME="$(basename "$mwm" .mwm)"
-  STAT="$("$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$OMIM_PATH/data/" --output="$BASENAME" --calc_statistics 2>/dev/null)"
+  STAT="$("$GENERATOR_TOOL" --data_path="$FTARGET" --user_resource_path="$OMIM_PATH/data/" --output="$BASENAME" --calc_statistics 2>/dev/null)"
   [ -z "$FOUND_COASTS" -a -n "$(echo "$STAT" | grep 'natural|coastline|')" ] && FOUND_COASTS=1
   SECTIONS="$(echo "$STAT" | grep 'version : 8' | wc -l |  tr -d ' ')"
   [ -f "$mwm.routing" -a "$SECTIONS" != "2" ] && echo "$BASENAME: $SECTIONS"
@@ -71,14 +81,7 @@ done
 # Step 4: run intergation tests
 echo
 echo '### INTEGRATION TESTS'
-# First, create a temporary directory with symlinks to all maps
-# That way, it can be easily cleaned after routing engine creates a lot of temporary directories in it
-FTARGET="$TARGET/symlinked_copy"
-mkdir -p "$FTARGET"
-TARGET_PATH="$(cd "$TARGET"; pwd)"
-for file in "$TARGET"/*.mwm*; do
-  BASENAME="$(basename "$file")"
-  ln -s "$TARGET_PATH/$BASENAME" "$FTARGET/$BASENAME"
-done
 "$(dirname "$GENERATOR_TOOL")/integration_tests" "--data_path=$FTARGET/" "--user_resource_path=$OMIM_PATH/data/" "--suppress=online_cross_tests.*" 2>&1
+
+# Clean the temporary directory
 rm -r "$FTARGET"
