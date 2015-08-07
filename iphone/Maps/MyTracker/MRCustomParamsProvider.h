@@ -1,35 +1,27 @@
 //
 // Created by Igor Glotov on 22/08/14.
 // Copyright (c) 2014 Mail.ru Group. All rights reserved.
-// MyTracker, version 1.0.18
+// MyTracker, version 1.1.1
 
 #import <Foundation/Foundation.h>
 #import "MRAbstractDataProvider.h"
 
 @interface MRCustomParamsProvider : MRAbstractDataProvider
 
-- (void)setLanguage:(NSString *)lang;
-
-
-- (void)setAge:(NSNumber *)age;
-
+@property (nonatomic, strong) NSString *language;
+@property (nonatomic, strong) NSNumber *age;
 /**
-* @param gender Пол пользователя, 0 - пол неизвестен, 1 - мужской, 2 - женский
-*/
-- (void)setGender:(NSNumber *)gender;
+ * @param gender Пол пользователя, 0 - пол неизвестен, 1 - мужской, 2 - женский
+ */
+@property (nonatomic, strong) NSNumber *gender;
+@property (nonatomic, strong) NSString *mrgsAppId;
+@property (nonatomic, strong) NSString *mrgsUserId;
+@property (nonatomic, strong) NSString *mrgsDeviceId;
+@property (nonatomic, strong) NSArray *icqIds;
+@property (nonatomic, strong) NSArray *okIds;
+@property (nonatomic, strong) NSArray *vkIds;
+@property (nonatomic, strong) NSArray *emails;
 
-- (void)setMRGSAppId:(NSString *)mrgsAppId;
-
-- (void)setMRGSUserId:(NSString *)mrgsUserId;
-
-- (void)setMRGSDeviceId:(NSString *)mrgsDeviceId;
-
-- (void)setPhone:(NSString *)phone;
-
-- (void)setIcqId:(NSString *)icqId;
-
-- (void)setOkId:(NSString *)okId;
-
-- (void)setEmail:(NSString *)email;
+- (void)putDataToBuilder:(JSONBuilder *)builder;
 
 @end

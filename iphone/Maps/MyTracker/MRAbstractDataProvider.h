@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class JSONBuilder;
 
 @interface MRAbstractDataProvider : NSObject
 
@@ -18,4 +19,6 @@
 - (BOOL)hasData;
 
 - (NSUInteger)dataCount;
+
+- (void)putDataToBuilder:(JSONBuilder *)builder;
 @end

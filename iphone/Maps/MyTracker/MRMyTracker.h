@@ -1,6 +1,6 @@
 // Created by Igor Glotov on 22/07/14.
 // Copyright (c) 2014 Mailru Group. All rights reserved.
-// MyTracker, version 1.0.18
+// MyTracker, version 1.1.1
 
 #import <Foundation/Foundation.h>
 #import "MRTracker.h"
@@ -21,9 +21,6 @@ extern NSString * const MRMyTrackerVersion;
 
 + (MRTrackerParams *)getTrackerParams;
 
-+ (void)trackEvent:(NSString *)name;
-+ (void)trackEvent:(NSString *)name eventParams:(NSDictionary *)eventParams;
-
 + (void)trackLoginEvent;
 + (void)trackLoginEventWithParams:(NSDictionary *)eventParams;
 
@@ -32,4 +29,9 @@ extern NSString * const MRMyTrackerVersion;
 
 + (void)trackRegistrationEvent;
 + (void)trackRegistrationEventWithParams:(NSDictionary *)eventParams;
+
+#
++ (void)trackEvent:(NSString*)name;
++ (void)trackEvent:(NSString*)name eventParams:(NSDictionary*)eventParams;
+
 @end
