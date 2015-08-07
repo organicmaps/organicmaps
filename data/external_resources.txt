@@ -1,5 +1,5 @@
-WorldCoasts.mwm 4788968
-World.mwm 40203475
+WorldCoasts.mwm 4779474
+World.mwm 39889421
 01_dejavusans.ttf 633604
 02_droidsans-fallback.ttf 4033420
 03_jomolhari-id-a3d.ttf 1817160
