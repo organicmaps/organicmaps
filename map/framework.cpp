@@ -659,7 +659,6 @@ bool Framework::AddBookmarksFile(string const & filePath)
 void Framework::PrepareToShutdown()
 {
 #ifndef USE_DRAPE
-  m_bmManager.PrepareToShutdown();
   SetRenderPolicy(0);
 #else
   m_drapeEngine.Destroy();
@@ -1525,6 +1524,9 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
 #ifndef USE_DRAPE
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
+  if (renderPolicy == nullptr)
+    m_bmManager.PrepareToShutdown();
+
   m_bmManager.ResetScreen();
   m_guiController->ResetRenderParams();
   m_renderPolicy.reset();

@@ -269,17 +269,17 @@ void RouteRenderer::ConstructRoute(graphics::Screen * dlScreen)
   // storages
   size_t vbSize = m_routeData.m_geometry.size() * sizeof(graphics::gl::RouteVertex);
   size_t ibSize = m_routeData.m_indices.size() * sizeof(unsigned short);
+  ASSERT_NOT_EQUAL(vbSize, 0, ());
+  ASSERT_NOT_EQUAL(ibSize, 0, ());
 
   m_storage = graphics::gl::Storage(vbSize, ibSize);
   void * vbPtr = m_storage.m_vertices->lock();
   memcpy(vbPtr, m_routeData.m_geometry.data(), vbSize);
-  m_routeData.m_geometry.clear();
   m_storage.m_vertices->unlock();
 
   void * ibPtr = m_storage.m_indices->lock();
   memcpy(ibPtr, m_routeData.m_indices.data(), ibSize);
   m_storage.m_indices->unlock();
-  m_routeData.m_indices.clear();
 
   size_t const arrowBufferSize = m_turns.size() * 500;
   m_arrowsStorage = graphics::gl::Storage(arrowBufferSize * sizeof(graphics::gl::RouteVertex),
@@ -319,6 +319,7 @@ void RouteRenderer::ClearRoute(graphics::Screen * dlScreen)
 void RouteRenderer::PrepareToShutdown()
 {
   DestroyDisplayLists();
+  m_waitForConstruction = true;
 }
 
 void RouteRenderer::DestroyDisplayLists()
