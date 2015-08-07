@@ -38,54 +38,7 @@ struct XMLElement
   XMLElement * parent = nullptr;
   vector<XMLElement> childs;
 
-  string to_string(string const & shift = string()) const
-  {
-    stringstream ss;
-    ss << (shift.empty() ? "\n" : shift);
-    switch (tagKey)
-    {
-      case ET_NODE:
-      {
-        ss << "Node: " << id << " (" << fixed << setw(7) << lat << ", " << lng << ")";
-        break;
-      }
-      case ET_ND:
-      {
-        ss << "Nd ref: " << ref;
-        break;
-      }
-      case ET_WAY:
-      {
-        ss << "Way: " << id << " elements: " << childs.size();
-        break;
-      }
-      case ET_RELATION:
-      {
-        ss << "Relation: " << id << " elements: " << childs.size();
-        break;
-      }
-      case ET_TAG:
-      {
-        ss << "Tag: " << k << " = " << v;
-        break;
-      }
-      case ET_MEMBER:
-      {
-        ss << "Member: " << ref << " type: " << type << " role: " << role;
-        break;
-      }
-
-      default: ss << "Unknown element";
-    }
-    if (!childs.empty())
-    {
-      string shift2 = shift;
-      shift2 += shift2.empty() ? "\n  " : "  ";
-      for ( auto const & e : childs )
-        ss << e.to_string(shift2);
-    }
-    return ss.str();
-  }
+  string to_string(string const & shift = string()) const;
 
   bool operator == (XMLElement const & e) const
   {
