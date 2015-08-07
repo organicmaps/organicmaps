@@ -229,7 +229,7 @@
 - (void)setTopBound:(CGFloat)topBound
 {
   _topBound = topBound;
-  self.navigationManager.topBound = topBound;
+  self.placePageManager.topBound = self.zoomButtons.topBound = self.navigationManager.topBound = topBound;
 }
 
 @end
