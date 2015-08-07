@@ -46,6 +46,7 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include "base/macros.hpp"
 #include "base/strings_bundle.hpp"
 
 #include "std/vector.hpp"
@@ -75,6 +76,8 @@ class CPUDrawer;
 
 class Framework
 {
+  DISALLOW_COPY(Framework);
+
 #ifdef FIXED_LOCATION
   class FixedPosition
   {
