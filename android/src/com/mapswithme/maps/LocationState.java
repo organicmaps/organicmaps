@@ -5,7 +5,7 @@ public enum LocationState
   INSTANCE;
 
   // These values should correspond to values of location::State::Mode defined in map/location_state.hpp
-  public static final int UNKNOWN_POSITION = 0;
+  public static final int UNKNOWN_POSITION = 0x0;
   public static final int PENDING_POSITION = 0x1;
   public static final int NOT_FOLLOW = 0x2;
   public static final int FOLLOW = 0x3;

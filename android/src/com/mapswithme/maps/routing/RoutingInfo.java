@@ -12,23 +12,23 @@ import com.nineoldandroids.view.ViewHelper;
 public class RoutingInfo
 {
   // Target (end point of route).
-  public String mDistToTarget;
-  public String mTargetUnits;
+  public final String distToTarget;
+  public final String targetUnits;
   // Next turn.
-  public String mDistToTurn;
-  public String mTurnUnits;
+  public final String distToTurn;
+  public final String turnUnits;
 
-  public int mTotalTimeInSeconds;
+  public final int totalTimeInSeconds;
   // The next street according to the navigation route.
-  public String mStreetName;
+  public final String streetName;
   // For vehicle routing.
-  public VehicleTurnDirection mVehicleTurnDirection;
+  public final VehicleTurnDirection vehicleTurnDirection;
   public final String[] turnNotifications;
-  public int mExitNum;
-  public SingleLaneInfo[] mLanes;
+  public final int exitNum;
+  public final SingleLaneInfo[] lanes;
   // For pedestrian routing.
-  public PedestrianTurnDirection mPedestrianTurnDirection;
-  public Location mPedestrianNextDirection;
+  public final PedestrianTurnDirection pedestrianTurnDirection;
+  public final Location pedestrianNextDirection;
 
   /**
    * IMPORTANT : Order of enum values MUST BE the same with native TurnDirection enum.
@@ -66,10 +66,7 @@ public class RoutingInfo
     public void setTurnDrawable(ImageView imageView)
     {
       imageView.setImageResource(mTurnRes);
-      if (isLeftTurn(this))
-        ViewHelper.setScaleX(imageView, -1); // right turns are displayed as mirrored left turns.
-      else
-        ViewHelper.setScaleX(imageView, 1);
+      ViewHelper.setScaleX(imageView, isLeftTurn(this) ? -1 : 1); // right turns are displayed as mirrored left turns.
     }
 
     public static boolean isLeftTurn(VehicleTurnDirection turn)
@@ -124,41 +121,32 @@ public class RoutingInfo
                      int vehicleTurnOrdinal, int pedestrianTurnOrdinal, double pedestrianDirectionLat, double pedestrianDirectionLon, int exitNum,
                      int totalTime, SingleLaneInfo[] lanes, String[] turnNotifications)
   {
-    mDistToTarget = distToTarget;
-    mTargetUnits = units;
-    mTurnUnits = turnSuffix;
-    mDistToTurn = distTurn;
-    mStreetName = targetName;
-    mTotalTimeInSeconds = totalTime;
-    mVehicleTurnDirection = VehicleTurnDirection.values()[vehicleTurnOrdinal];
+    this.distToTarget = distToTarget;
+    this.targetUnits = units;
+    this.turnUnits = turnSuffix;
+    this.distToTurn = distTurn;
+    this.streetName = targetName;
+    this.totalTimeInSeconds = totalTime;
+    this.vehicleTurnDirection = VehicleTurnDirection.values()[vehicleTurnOrdinal];
     this.turnNotifications = turnNotifications;
-    mLanes = lanes;
-    mExitNum = exitNum;
-    mPedestrianTurnDirection = PedestrianTurnDirection.values()[pedestrianTurnOrdinal];
-    mPedestrianNextDirection = new Location("");
-    mPedestrianNextDirection.setLatitude(pedestrianDirectionLat);
-    mPedestrianNextDirection.setLongitude(pedestrianDirectionLon);
+    this.lanes = lanes;
+    this.exitNum = exitNum;
+    this.pedestrianTurnDirection = PedestrianTurnDirection.values()[pedestrianTurnOrdinal];
+    this.pedestrianNextDirection = new Location("");
+    this.pedestrianNextDirection.setLatitude(pedestrianDirectionLat);
+    this.pedestrianNextDirection.setLongitude(pedestrianDirectionLon);
   }
 
-  private void DumpLanes(SingleLaneInfo[] lanes)
+  private void dumpLanes(SingleLaneInfo[] lanes)
   {
     for (int j = 0; j < lanes.length; j++)
-    {
-      final int initialCapacity = 32;
-      StringBuilder sb = new StringBuilder(initialCapacity);
-      sb.append("Lane number ").append(j).append(". ").append(lanes[j]);
-      Log.d("JNIARRAY", "    " + sb.toString());
-    }
+      Log.d("JNIARRAY", "    " + "Lane number " + j + ". " + lanes[j]);
   }
 
-  private void DumpNotifications(String[] turnNotifications)
+  private void dumpNotifications(String[] turnNotifications)
   {
     final int initialCapacity = 32;
     for (int j = 0; j < turnNotifications.length; j++)
-    {
-      StringBuilder sb = new StringBuilder(initialCapacity);
-      sb.append("Turn notification ").append(j).append(". ").append(turnNotifications[j]);
-      Log.d("JNIARRAY", "    " + sb.toString());
-    }
+      Log.d("JNIARRAY", "    " + "Turn notification " + j + ". " + turnNotifications[j]);
   }
 }

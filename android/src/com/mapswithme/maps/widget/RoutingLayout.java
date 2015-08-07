@@ -278,14 +278,14 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     if (Framework.getRouter() == Framework.ROUTER_TYPE_VEHICLE)
     {
       mTvTurnDistance.setText(getSpannedDistance(getResources().getDimensionPixelSize(R.dimen.text_size_display_1),
-          getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), info.mDistToTurn, info.mTurnUnits.toLowerCase()));
-      info.mVehicleTurnDirection.setTurnDrawable(mIvTurn);
+          getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), info.distToTurn, info.turnUnits.toLowerCase()));
+      info.vehicleTurnDirection.setTurnDrawable(mIvTurn);
     }
     else
       refreshPedestrianAzimutAndDistance(info);
 
-    mTvTotalTime.setText(formatTime(info.mTotalTimeInSeconds));
-    mTvTotalDistance.setText(new StringBuilder(info.mDistToTarget).append(" ").append(info.mTargetUnits));
+    mTvTotalTime.setText(formatTime(info.totalTimeInSeconds));
+    mTvTotalDistance.setText(info.distToTarget + " " + info.targetUnits);
   }
 
   private void refreshPedestrianAzimutAndDistance(RoutingInfo info)
@@ -298,16 +298,16 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     mTvTurnDistance.setText(getSpannedDistance(getResources().getDimensionPixelSize(R.dimen.text_size_display_1),
         getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), splitDistance[0], splitDistance[1].toLowerCase()));
 
-    if (info.mPedestrianTurnDirection != null)
-      info.mPedestrianTurnDirection.setTurnDrawable(mIvTurn, distanceAndAzimut);
+    if (info.pedestrianTurnDirection != null)
+      info.pedestrianTurnDirection.setTurnDrawable(mIvTurn, distanceAndAzimut);
   }
 
   private void refreshRouteSetup()
   {
     RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
 
-    mTvPrepareDistance.setText(info.mDistToTarget + " " + info.mTargetUnits.toUpperCase());
-    mTvPrepareTime.setText(formatTime(info.mTotalTimeInSeconds));
+    mTvPrepareDistance.setText(info.distToTarget + " " + info.targetUnits.toUpperCase());
+    mTvPrepareTime.setText(formatTime(info.totalTimeInSeconds));
   }
 
   private SpannableStringBuilder getSpannedDistance(int distTextSize, int unitsTextSize, String distToTarget, String units)

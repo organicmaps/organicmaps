@@ -49,8 +49,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/margin_base"
         android:scaleType="center"
-        android:src="@drawable/ic_close_routing"
-        android:visibility="visible"/>
+        android:src="@drawable/ic_close_routing"/>
 
     <TextView
         android:id="@+id/tv__planning_route"
