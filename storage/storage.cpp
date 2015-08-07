@@ -38,7 +38,7 @@ void RemoveIf(vector<T> & v, function<bool(T const & t)> const & p)
   v.erase(remove_if(v.begin(), v.end(), p), v.end());
 }
 
-uint64_t GetLocalSize(Storage::TLocalFilePtr file, MapOptions opt)
+uint64_t GetLocalSize(shared_ptr<LocalCountryFile> file, MapOptions opt)
 {
   if (!file)
     return 0;

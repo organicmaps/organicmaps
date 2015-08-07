@@ -36,7 +36,7 @@ namespace storage
 namespace
 {
 
-using TLocalFilePtr = Storage::TLocalFilePtr;
+using TLocalFilePtr = shared_ptr<LocalCountryFile>;
 
 // This class checks steps Storage::DownloadMap() performs to download a map.
 class CountryDownloaderChecker

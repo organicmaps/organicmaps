@@ -127,6 +127,9 @@ void CleanupMapsDirectory()
       }
     }
   }
+
+  /// @todo Cleanup temporary index files for already absent mwm files.
+  /// https://trello.com/c/PKiiOsB4/28--
 }
 
 void FindAllLocalMapsInDirectory(string const & directory, int64_t version,
@@ -304,20 +307,9 @@ string CountryIndexes::IndexesDir(LocalCountryFile const & localFile)
     // Local file is stored in resources. Need to prepare index folder in the writable directory.
     int64_t const version = localFile.GetVersion();
     ASSERT_GREATER(version, 0, ());
-    Platform & pl = GetPlatform();
 
-    dir = my::JoinFoldersToPath(pl.WritableDir(), strings::to_string(version));
-    switch (pl.MkDir(dir))
-    {
-    case Platform::ERR_OK:
-      /// @todo Cleanup old World directories ...
-      break;
-    case Platform::ERR_FILE_ALREADY_EXISTS:
-      break;
-    default:
-      LOG(LERROR, ("Can't create indecies directory"));
-      return string();
-    }
+    dir = my::JoinFoldersToPath(GetPlatform().WritableDir(), strings::to_string(version));
+    VERIFY(MkDirChecked(dir), ());
   }
 
   return my::JoinFoldersToPath(dir, file.GetNameWithoutExt());

@@ -39,6 +39,6 @@ void ReadVersion(ReaderSrc & src, MwmVersion & version);
 ///         unchanged.
 bool ReadVersion(FilesContainerR const & container, MwmVersion & version);
 
-/// Helper function that is usend in FindAllLocalMaps.
+/// Helper function that is used in FindAllLocalMaps.
 uint32_t ReadVersionTimestamp(ModelReaderPtr const & reader);
 }  // namespace version

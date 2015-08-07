@@ -22,7 +22,6 @@ class Storage
 {
 public:
   using TUpdate = function<void(platform::LocalCountryFile const &)>;
-  using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
 
 private:
   /// We support only one simultaneous request at the moment
@@ -47,6 +46,7 @@ private:
   typedef set<TIndex> TCountriesSet;
   TCountriesSet m_failedCountries;
 
+  using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
   map<TIndex, list<TLocalFilePtr>> m_localFiles;
   map<platform::CountryFile, TLocalFilePtr> m_localFilesForFakeCountries;
 
