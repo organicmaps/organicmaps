@@ -110,6 +110,7 @@ ModelReader * Platform::GetReader(string const & file, string const & searchScop
     {
       // Add source for map files and other dynamic stored data.
       sources[n++] = WRITABLE_PATH;
+      sources[n++] = FULL_PATH;
     }
   }
   else
