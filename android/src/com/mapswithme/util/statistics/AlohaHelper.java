@@ -59,6 +59,10 @@ public class AlohaHelper
   public static final String ROUTING_CLOSE = "routeClose";
   public static final String ROUTING_GO = "routeGo";
   public static final String ROUTING_GO_CLOSE = "routeGoClose";
+  public static final String ROUTING_PROGRESS_CLOSE = "routeProgressClose";
+  public static final String ROUTING_CANCEL = "routeCancel";
+  public static final String ROUTING_PEDESTRIAN_SET = "routerSetPedestrian";
+  public static final String ROUTING_VEHICLE_SET = "routerSetVehicle";
   // search
   public static final String SEARCH_CANCEL = "searchCancel";
   // installation of Parse

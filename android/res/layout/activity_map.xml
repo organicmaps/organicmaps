@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:placePage="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:placePage="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
   <FrameLayout
       android:id="@+id/map_fragment_container"
@@ -15,24 +17,11 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/search_box_height"/>
 
-  <FrameLayout
-      android:id="@+id/fl__routing"
-      style="@style/MwmWidget.Floating.Panel"
+  <com.mapswithme.maps.widget.RoutingLayout
+      android:id="@+id/layout__routing"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/toolbar_search">
-
-    <include
-        android:id="@+id/rl__routing_box"
-        layout="@layout/map_routing_box"/>
-
-    <include
-        android:id="@+id/layout__turn_instructions"
-        layout="@layout/map_turn_instructions"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/routing_pp_height"
-        android:visibility="gone"/>
-  </FrameLayout>
+      android:layout_below="@id/toolbar_search"/>
 
   <include
       android:id="@+id/navigation_buttons"
@@ -58,5 +47,6 @@
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       android:layout_alignParentRight="true"
-      android:padding="@dimen/margin_quarter"/>
+      android:padding="@dimen/margin_quarter" 
+      tools:ignore="RelativeOverlap"/>
 </RelativeLayout>

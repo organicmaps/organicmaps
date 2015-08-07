@@ -20,23 +20,19 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/search_box_height"/>
 
-  <FrameLayout
-      android:id="@+id/fl__routing"
-      style="@style/MwmWidget.Floating.Panel"
+  <com.mapswithme.maps.widget.RoutingLayout
+      android:id="@+id/layout__routing"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/toolbar_search">
-
-    <include layout="@layout/map_routing_full"/>
-
-  </FrameLayout>
+      android:layout_below="@+id/toolbar_search"/>
 
   <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
       style="@style/MwmWidget.Floating.Panel"
       android:layout_width="360dp"
       android:layout_height="match_parent"
-      android:layout_below="@+id/fl__routing"
+      android:layout_below="@+id/layout__routing"
+      android:background="@color/bg_top_panels"
       placePage:animationType="left"/>
 
   <com.mapswithme.maps.widget.FadeView

@@ -9,18 +9,13 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
 
-  <FrameLayout
-      android:id="@+id/fl__routing"
-      style="@style/MwmWidget.Floating.Panel"
+  <com.mapswithme.maps.widget.RoutingLayout
+      android:id="@+id/layout__routing"
       android:layout_width="@dimen/panel_width"
-      android:layout_height="@dimen/routing_pp_height"
+      android:layout_height="wrap_content"
       android:layout_below="@+id/toolbar_search"
-      android:layout_marginTop="@dimen/margin_base"
-      android:layout_marginLeft="@dimen/margin_base">
-
-    <include layout="@layout/map_routing_full"/>
-
-  </FrameLayout>
+      android:layout_marginLeft="@dimen/margin_base"
+      android:layout_marginTop="@dimen/margin_base"/>
 
   <include
       android:id="@+id/navigation_buttons"
@@ -32,7 +27,7 @@
       android:layout_width="@dimen/panel_width"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/margin_base"
-      android:layout_below="@id/fl__routing"
+      android:layout_below="@id/layout__routing"
       android:layout_alignWithParentIfMissing="true"
       placePage:animationType="left"/>
 
@@ -47,8 +42,8 @@
       android:id="@+id/fragment_container"
       android:layout_width="@dimen/floating_panel_width"
       android:layout_height="match_parent"
-      android:padding="@dimen/margin_base"
-      android:clipToPadding="false"/>
+      android:clipToPadding="false"
+      android:padding="@dimen/margin_base"/>
 
   <include
       android:id="@+id/toolbar_search"

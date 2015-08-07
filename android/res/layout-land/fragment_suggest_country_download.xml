@@ -38,7 +38,7 @@
         <TextView
             android:id="@+id/tv__country_name"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_base_block"
+            android:layout_height="@dimen/base_block_size"
             android:layout_marginTop="@dimen/margin_half"
             android:gravity="center"
             android:textAppearance="@style/MwmTextAppearance.Title"/>
@@ -47,7 +47,7 @@
             android:id="@+id/btn__download_map"
             style="@style/MwmWidget.Button.Green"
             android:layout_width="280dp"
-            android:layout_height="@dimen/height_base_block"
+            android:layout_height="@dimen/base_block_size"
             android:layout_marginTop="@dimen/margin_quarter"
             android:text="@string/downloader_download_map"
             android:textAllCaps="true"
@@ -56,7 +56,7 @@
         <CheckBox
             android:id="@+id/chb__routing_too"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/height_base_block"
+            android:layout_height="@dimen/base_block_size"
             android:layout_marginTop="@dimen/margin_quarter"
             android:text="@string/search_vehicle_routes"
             android:textAppearance="@style/MwmTextAppearance.Body2"/>
@@ -64,7 +64,7 @@
         <Button
             android:id="@+id/btn__select_other_map"
             android:layout_width="280dp"
-            android:layout_height="@dimen/height_base_block"
+            android:layout_height="@dimen/base_block_size"
             android:layout_marginTop="@dimen/margin_base_plus"
             android:background="?clickableBackground"
             android:text="@string/search_select_other_map"
@@ -82,7 +82,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_base_block"
+            android:layout_height="@dimen/base_block_size"
             android:layout_marginTop="@dimen/margin_half"
             android:gravity="center"
             android:text="@string/unknown_current_position"
@@ -92,7 +92,7 @@
             android:id="@+id/btn__select_map"
             style="@style/MwmWidget.Button.Green"
             android:layout_width="280dp"
-            android:layout_height="@dimen/height_base_block"
+            android:layout_height="@dimen/base_block_size"
             android:layout_marginTop="@dimen/margin_half"
             android:text="@string/search_select_map"
             android:textAllCaps="true"
@@ -117,7 +117,7 @@
     <TextView
         android:id="@+id/tv__active_country_name"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/height_base_block"
+        android:layout_height="@dimen/base_block_size"
         android:textAppearance="@style/MwmTextAppearance.Title"/>
 
     <com.mapswithme.maps.widget.WheelProgressView

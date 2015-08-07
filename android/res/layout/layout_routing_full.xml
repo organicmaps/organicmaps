@@ -2,12 +2,12 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
   <include
-      android:id="@+id/rl__routing_box"
-      layout="@layout/map_routing_box"/>
+      android:id="@+id/layout__routing_setup"
+      layout="@layout/layout_routing_setup"/>
 
   <include
       android:id="@+id/layout__turn_instructions"
-      layout="@layout/map_turn_instructions"
+      layout="@layout/layout_turn_instructions"
       android:visibility="gone"/>
 
 </merge>

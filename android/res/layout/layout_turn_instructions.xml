@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_routing_turns"
+      android:layout_marginBottom="@dimen/margin_eighth"
+      android:background="@color/bg_top_panels"
+      tools:ignore="UnusedAttribute">
+
+    <TextView
+        android:id="@+id/tv__total_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/margin_base"
+        android:layout_marginRight="@dimen/margin_base"
+        android:layout_marginTop="@dimen/margin_base"
+        android:fontFamily="@string/robotoMedium"
+        android:gravity="center"
+        android:textAppearance="@style/MwmTextAppearance.Toolbar.Title"
+        tools:text="1.4 km"/>
+
+    <TextView
+        android:id="@+id/tv__total_time"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv__total_distance"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/margin_quarter"
+        android:layout_marginRight="@dimen/margin_base"
+        android:fontFamily="@string/robotoMedium"
+        android:gravity="center"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        tools:text="1,5 min"/>
+
+    <ImageView
+        android:id="@+id/iv__turn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/margin_quarter"
+        android:layout_marginLeft="@dimen/margin_base"
+        android:layout_toRightOf="@+id/btn__close"
+        tools:src="@drawable/ic_slight_compact"/>
+
+    <TextView
+        android:id="@+id/tv__turn_distance"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/margin_quarter"
+        android:layout_marginLeft="@dimen/margin_half"
+        android:layout_toRightOf="@id/iv__turn"
+        android:fontFamily="@string/robotoMedium"
+        android:textColor="@color/text_turn_blue"
+        tools:text="300 m"/>
+
+    <ImageView
+        android:id="@+id/btn__close"
+        android:layout_width="@dimen/base_block_size"
+        android:layout_height="@dimen/base_block_size"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/margin_quarter"
+        android:background="?attr/clickableBackground"
+        android:scaleType="center"
+        android:src="@drawable/ic_close_routing"/>
+
+
+  </RelativeLayout>
+
+  <com.mapswithme.maps.widget.FlatProgressView
+      android:id="@+id/fp__route_progress"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      app:headColor="@color/base_blue"
+      app:headRadius="4dp"
+      app:progressColor="@color/base_blue"
+      app:progressThickness="4dp"/>
+
+</FrameLayout>

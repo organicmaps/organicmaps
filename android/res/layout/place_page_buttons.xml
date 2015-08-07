@@ -86,12 +86,6 @@
           android:contentDescription="@string/route"
           android:src="@drawable/ic_route"/>
 
-      <ProgressBar
-          android:id="@+id/pb__routing_progress"
-          android:layout_width="@dimen/routing_progress_size"
-          android:layout_height="@dimen/routing_progress_size"
-          android:visibility="gone"/>
-
       <TextView
           android:id="@+id/tv__route"
           style="@style/PlacePageButtonText"

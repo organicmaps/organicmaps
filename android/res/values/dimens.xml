@@ -27,7 +27,7 @@
 
   <!-- margins -->
 
-  <dimen name="height_base_block">48dp</dimen>
+  <dimen name="base_block_size">48dp</dimen>
 
   <dimen name="dialog_max_height">320dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
@@ -40,8 +40,6 @@
   <dimen name="progress_wheel_width_neg">-48dp</dimen>
 
   <dimen name="routing_pp_height">55dp</dimen>
-  <dimen name="routing_button_height">51dp</dimen>
-  <dimen name="routing_button_width">51dp</dimen>
   <dimen name="routing_progress_size">32dp</dimen>
   <dimen name="panel_width">400dp</dimen>
   <dimen name="floating_panel_width">432dp</dimen>
@@ -63,5 +61,10 @@
   <dimen name="margin_bottom_ruler">10dp</dimen>
   <dimen name="margin_left_compass">40dp</dimen>
   <dimen name="margin_right_ruler">75dp</dimen>
+
+  <!-- routing layout -->
+  <dimen name="height_routing_setup">56dp</dimen>
+  <dimen name="height_routing_turns">78dp</dimen>
+
 
 </resources>

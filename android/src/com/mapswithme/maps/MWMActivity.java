@@ -17,11 +17,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -31,8 +27,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapswithme.country.ActiveCountryTree;
@@ -66,6 +60,7 @@ import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.BottomButtonsLayout;
 import com.mapswithme.maps.widget.FadeView;
+import com.mapswithme.maps.widget.RoutingLayout;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
@@ -80,11 +75,9 @@ import com.mapswithme.util.sharing.ShareAction;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
-import com.nineoldandroids.view.ViewHelper;
 
 import java.io.Serializable;
 import java.util.Stack;
-import java.util.concurrent.TimeUnit;
 
 public class MWMActivity extends BaseMwmFragmentActivity
     implements LocationHelper.LocationListener, OnBalloonListener, View.OnTouchListener, BasePlacePageAnimationController.OnVisibilityChangedListener,
@@ -117,19 +110,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
   // Place page
   private PlacePageView mPlacePage;
   private View mRlStartRouting;
-  private ProgressBar mPbRoutingProgress;
-  private TextView mTvStartRouting;
   private ImageView mIvStartRouting;
   // Routing
-  private View mRoutingFrame;
-  private TextView mTvRoutingDistance;
-  private View mRoutingBox;
-  private View mLayoutRoutingGo;
-  private View mTurnByTurnBox;
-  private TextView mTvTotalDistance;
-  private TextView mTvTotalTime;
-  private ImageView mIvTurn;
-  private TextView mTvTurnDistance;
+  private RoutingLayout mLayoutRouting;
 
   private boolean mNeedCheckUpdate = true;
   private int mLocationStateModeListenerId = LocationState.SLOT_UNDEFINED;
@@ -148,8 +131,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private ImageButton mBtnZoomOut;
   private BottomButtonsLayout mBottomButtons;
 
-  // for routing
-  private static final String IS_ROUTING_DISCLAIMER_APPROVED = "IsDisclaimerApproved";
+  private static final String IS_KML_MOVED = "KmlBeenMoved";
+  private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
 
   private boolean mIsFragmentContainer;
 
@@ -476,21 +459,16 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void restoreRoutingState(@Nullable Bundle savedInstanceState)
   {
+    // TODO move logic to RoutingLayout
     if (Framework.nativeIsRoutingActive())
     {
       if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_ROUTE_FOLLOWED))
       {
-        updateRoutingDistance();
-
-        UiUtils.show(mRoutingFrame, mTurnByTurnBox);
-        UiUtils.hide(mRoutingBox);
+        mLayoutRouting.setState(RoutingLayout.State.TURN_INSTRUCTIONS);
       }
       else if (Framework.nativeIsRouteBuilt())
       {
-        updateRoutingDistance();
-
-        UiUtils.show(mRoutingFrame, mRoutingBox);
-        UiUtils.hide(mTurnByTurnBox);
+        mLayoutRouting.setState(RoutingLayout.State.ROUTE_BUILT);
       }
       else if (savedInstanceState != null)
       {
@@ -500,9 +478,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
           mPlacePage.setState(State.PREVIEW);
           mPlacePage.setMapObject(object);
         }
-
-        UiUtils.show(mPbRoutingProgress);
-        UiUtils.hide(mIvStartRouting, mTvStartRouting);
+        mLayoutRouting.setState(RoutingLayout.State.PREPARING);
       }
     }
   }
@@ -516,6 +492,32 @@ public class MWMActivity extends BaseMwmFragmentActivity
     initNavigationButtons();
     if (findViewById(R.id.fragment_container) != null)
       mIsFragmentContainer = true;
+  }
+
+  private void initRoutingBox()
+  {
+    mLayoutRouting = (RoutingLayout) findViewById(R.id.layout__routing);
+    mLayoutRouting.setListener(new RoutingLayout.ActionListener()
+    {
+      @Override
+      public void onCloseRouting()
+      {
+        refreshZoomButtonsVisibility();
+      }
+
+      @Override
+      public void onStartRouteFollow()
+      {
+
+      }
+
+      @Override
+      public void onRouteTypeChange(int type)
+      {
+
+      }
+    });
+    mLayoutRouting.setState(RoutingLayout.State.HIDDEN);
   }
 
   private void initMap()
@@ -575,28 +577,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mPlacePage.setOnVisibilityChangedListener(this);
     mRlStartRouting = mPlacePage.findViewById(R.id.rl__route);
     mRlStartRouting.setOnClickListener(this);
-    mTvStartRouting = (TextView) mRlStartRouting.findViewById(R.id.tv__route);
     mIvStartRouting = (ImageView) mRlStartRouting.findViewById(R.id.iv__route);
-    mPbRoutingProgress = (ProgressBar) mRlStartRouting.findViewById(R.id.pb__routing_progress);
-  }
-
-  private void initRoutingBox()
-  {
-    mRoutingFrame = findViewById(R.id.fl__routing);
-    mRoutingBox = findViewById(R.id.rl__routing_box);
-    UiUtils.hide(mRoutingFrame, mRoutingBox);
-
-    mRoutingBox.findViewById(R.id.iv__routing_close).setOnClickListener(this);
-    mLayoutRoutingGo = mRoutingBox.findViewById(R.id.rl__routing_go);
-    mLayoutRoutingGo.setOnClickListener(this);
-    mTvRoutingDistance = (TextView) mRoutingBox.findViewById(R.id.tv__routing_distance);
-
-    mTurnByTurnBox = findViewById(R.id.layout__turn_instructions);
-    mTvTotalDistance = (TextView) mTurnByTurnBox.findViewById(R.id.tv__total_distance);
-    mTvTotalTime = (TextView) mTurnByTurnBox.findViewById(R.id.tv__total_time);
-    mIvTurn = (ImageView) mTurnByTurnBox.findViewById(R.id.iv__turn);
-    mTvTurnDistance = (TextView) mTurnByTurnBox.findViewById(R.id.tv__turn_distance);
-    mTurnByTurnBox.findViewById(R.id.btn__close).setOnClickListener(this);
   }
 
   private void initYota()
@@ -619,8 +600,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   protected void onSaveInstanceState(Bundle outState)
   {
-    if (mTurnByTurnBox.getVisibility() == View.VISIBLE)
-      outState.putBoolean(STATE_ROUTE_FOLLOWED, true);
     if (mPlacePage.getState() != State.HIDDEN)
     {
       outState.putBoolean(STATE_PP_OPENED, true);
@@ -762,72 +741,18 @@ public class MWMActivity extends BaseMwmFragmentActivity
     if (mPlacePage.getState() != State.HIDDEN)
       mPlacePage.refreshLocation(l);
 
-    updateRoutingDistance();
-  }
-
-  private void updateRoutingDistance()
-  {
-    final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-    if (info != null)
+    RoutingLayout.State state = mLayoutRouting.getState();
+    if (state != RoutingLayout.State.HIDDEN)
     {
-      SpannableStringBuilder builder = new SpannableStringBuilder(info.mDistToTarget).append(" ").append(info.mUnits.toUpperCase());
-      builder.setSpan(new AbsoluteSizeSpan(34, true), 0, info.mDistToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      builder.setSpan(new AbsoluteSizeSpan(10, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      mTvRoutingDistance.setText(builder);
-      builder.setSpan(new AbsoluteSizeSpan(25, true), 0, info.mDistToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      builder.setSpan(new AbsoluteSizeSpan(14, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      mTvTotalDistance.setText(builder);
-      mIvTurn.setImageResource(getTurnImageResource(info));
-      if (LocationState.RoutingInfo.TurnDirection.isLeftTurn(info.mTurnDirection))
-        ViewHelper.setScaleX(mIvTurn, -1); // right turns are displayed as mirrored left turns.
-      else
-        ViewHelper.setScaleX(mIvTurn, 1);
+      mLayoutRouting.updateRouteInfo();
 
-      // one minute is added to estimated time to destination point
-      // to prevent displaying that zero minutes are left to the finish near destination point
-      final long minutes = TimeUnit.SECONDS.toMinutes(info.mTotalTimeInSeconds) + 1;
-      final long hours = TimeUnit.MINUTES.toHours(minutes);
-      final String time = String.format("%d:%02d", hours, minutes - TimeUnit.HOURS.toMinutes(hours));
-      mTvTotalTime.setText(time);
-
-      builder = new SpannableStringBuilder(info.mDistToTurn).append(" ").append(info.mTurnUnitsSuffix.toUpperCase());
-      builder.setSpan(new AbsoluteSizeSpan(44, true), 0, info.mDistToTurn.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      builder.setSpan(new AbsoluteSizeSpan(11, true), info.mDistToTurn.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      mTvTurnDistance.setText(builder);
-
-      // Turn sound notifications.
-      TtsPlayer.INSTANCE.speakNotifications(info.mTurnNotifications);
+      // TODO think about moving TtsPlayer logic to RoutingLayout to minimyze native calls.
+      if (state == RoutingLayout.State.TURN_INSTRUCTIONS)
+      {
+        LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+        TtsPlayer.INSTANCE.speakNotifications(info.mTurnNotifications);
+      }
     }
-  }
-
-  private int getTurnImageResource(LocationState.RoutingInfo info)
-  {
-    switch (info.mTurnDirection)
-    {
-    case NO_TURN:
-    case GO_STRAIGHT:
-      return R.drawable.ic_straight_compact;
-    case TURN_RIGHT:
-      return R.drawable.ic_simple_compact;
-    case TURN_SHARP_RIGHT:
-      return R.drawable.ic_sharp_compact;
-    case TURN_SLIGHT_RIGHT:
-      return R.drawable.ic_slight_compact;
-    case TURN_LEFT:
-      return R.drawable.ic_simple_compact;
-    case TURN_SHARP_LEFT:
-      return R.drawable.ic_sharp_compact;
-    case TURN_SLIGHT_LEFT:
-      return R.drawable.ic_slight_compact;
-    case U_TURN:
-      return R.drawable.ic_uturn_compact;
-    case ENTER_ROUND_ABOUT:
-    case LEAVE_ROUND_ABOUT:
-    case STAY_ON_ROUND_ABOUT:
-      return R.drawable.ic_round_compact;
-    }
-
-    return 0;
   }
 
   @Override
@@ -927,7 +852,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     final boolean showZoomSetting = MWMApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true) || Framework.nativeIsRoutingActive();
     UiUtils.showIf(showZoomSetting &&
             !UiUtils.areViewsIntersecting(mToolbarSearch, mBtnZoomIn) &&
-            !UiUtils.areViewsIntersecting(mRoutingBox, mBtnZoomIn),
+            !UiUtils.areViewsIntersecting(mLayoutRouting, mBtnZoomIn),
         mBtnZoomIn, mBtnZoomOut);
   }
 
@@ -1183,10 +1108,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
       mPlacePage.setMapObject(object);
       mPlacePage.setState(State.PREVIEW);
-      mRlStartRouting.setVisibility(View.VISIBLE);
-      mTvStartRouting.setVisibility(View.VISIBLE);
-      mIvStartRouting.setVisibility(View.VISIBLE);
-      mPbRoutingProgress.setVisibility(View.GONE);
       popAllFragments();
       if (isMapFaded())
         mFadeView.fadeOut(false);
@@ -1293,19 +1214,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
       break;
     case R.id.rl__route:
       AlohaHelper.logClick(AlohaHelper.PP_ROUTE);
-      buildRoute();
-      break;
-    case R.id.iv__routing_close:
-      AlohaHelper.logClick(AlohaHelper.ROUTING_GO_CLOSE);
-      closeRouting();
-      break;
-    case R.id.btn__close:
-      AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
-      closeRouting();
-      break;
-    case R.id.rl__routing_go:
-      AlohaHelper.logClick(AlohaHelper.ROUTING_GO);
-      followRoute();
+      mLayoutRouting.setEndPoint(mPlacePage.getMapObject());
+      mLayoutRouting.setState(RoutingLayout.State.PREPARING);
+      mPlacePage.setState(PlacePageView.State.HIDDEN);
       break;
     case R.id.map_button_plus:
       AlohaHelper.logClick(AlohaHelper.ZOOM_IN);
@@ -1355,91 +1266,10 @@ public class MWMActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private void followRoute()
-  {
-    Framework.nativeFollowRoute();
-    UiUtils.exchangeViewsAnimatedDown(mRoutingBox, mTurnByTurnBox, null);
-    UiUtils.exchangeViewsAnimatedDown(mRoutingFrame, mRoutingFrame, null);
-  }
-
-  private void buildRoute()
-  {
-    if (!MWMApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))
-    {
-      showRoutingDisclaimer();
-      return;
-    }
-
-    if (Framework.nativeIsRouteBuilding())
-      return;
-
-    closeRouting();
-
-    final MapObject mapObject = mPlacePage.getMapObject();
-    if (mapObject != null)
-    {
-      mIvStartRouting.setVisibility(View.GONE);
-      mTvStartRouting.setVisibility(View.GONE);
-      mPbRoutingProgress.setVisibility(View.VISIBLE);
-      Framework.nativeBuildRoute(mapObject.getLat(), mapObject.getLon());
-    }
-    else
-      Log.d(MWMActivity.class.getName(), "buildRoute(). MapObject is null. MapInfoView visibility : " + mPlacePage.getVisibility());
-  }
-
-  private void showRoutingDisclaimer()
-  {
-    StringBuilder builder = new StringBuilder();
-    for (int resId : new int[]{R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
-        R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_beware})
-      builder.append(getString(resId)).append("\n\n");
-
-    new AlertDialog.Builder(this)
-        .setTitle(R.string.dialog_routing_disclaimer_title)
-        .setMessage(builder.toString())
-        .setCancelable(false)
-        .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            MWMApplication.get().nativeSetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, true);
-            dlg.dismiss();
-            buildRoute();
-          }
-        })
-        .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            dialog.dismiss();
-          }
-        })
-        .create()
-        .show();
-  }
-
   private void closeRouting()
   {
-    mPlacePage.bringToFront();
-    mIvStartRouting.setVisibility(View.VISIBLE);
-    mTvStartRouting.setVisibility(View.VISIBLE);
-    mPbRoutingProgress.setVisibility(View.GONE);
 
-    UiUtils.hide(mPbRoutingProgress);
-    UiUtils.disappearSlidingUp(mRoutingFrame, null);
-    UiUtils.exchangeViewsAnimatedDown(mRoutingBox, mRlStartRouting, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        UiUtils.disappearSlidingUp(mTurnByTurnBox, null);
-      }
-    });
-
-    Framework.nativeCloseRouting();
-    refreshZoomButtonsVisibility();
+    mLayoutRouting.setState(RoutingLayout.State.HIDDEN);
   }
 
   private static void switchNextLocationState()
@@ -1498,17 +1328,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       {
         if (resultCode == RoutingResultCodesProcessor.NO_ERROR)
         {
-          ViewCompat.setAlpha(mLayoutRoutingGo, 1);
-
-          UiUtils.show(mLayoutRoutingGo);
-          UiUtils.hide(mTurnByTurnBox);
-          UiUtils.appearSlidingDown(mRoutingFrame, null);
-          UiUtils.appearSlidingDown(mRoutingBox, null);
-          mRoutingBox.bringToFront();
-
-          hidePlacePage();
-          Framework.deactivatePopup();
-          updateRoutingDistance();
+          mLayoutRouting.setState(RoutingLayout.State.ROUTE_BUILT);
         }
         else
         {
@@ -1522,7 +1342,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
             @Override
             public void onDownload()
             {
-              closeRouting();
+              refreshZoomButtonsVisibility();
               ActiveCountryTree.downloadMapsForIndex(missingCountries, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
               showDownloader(true);
             }
@@ -1530,15 +1350,18 @@ public class MWMActivity extends BaseMwmFragmentActivity
             @Override
             public void onCancel()
             {
-              closeRouting();
+              refreshZoomButtonsVisibility();
             }
 
             @Override
             public void onOk()
             {
-              closeRouting();
               if (RoutingResultCodesProcessor.isDownloadable(resultCode))
+              {
                 showDownloader(false);
+                refreshZoomButtonsVisibility();
+              }
+              // TODO add error messages to routing
             }
           });
           fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getName());
@@ -1562,7 +1385,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   public interface MapTask extends Serializable
   {
-    public boolean run(MWMActivity target);
+    boolean run(MWMActivity target);
   }
 
   public static class OpenUrlTask implements MapTask

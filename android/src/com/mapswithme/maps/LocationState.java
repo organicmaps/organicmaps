@@ -1,5 +1,6 @@
 package com.mapswithme.maps;
 
+import android.support.annotation.DrawableRes;
 import android.util.Log;
 
 public enum LocationState
@@ -80,27 +81,38 @@ public enum LocationState
      */
     public enum TurnDirection
     {
-      NO_TURN,
-      GO_STRAIGHT,
+      NO_TURN(R.drawable.ic_straight_compact),
+      GO_STRAIGHT(R.drawable.ic_straight_compact),
 
-      TURN_RIGHT,
-      TURN_SHARP_RIGHT,
-      TURN_SLIGHT_RIGHT,
+      TURN_RIGHT(R.drawable.ic_simple_compact),
+      TURN_SHARP_RIGHT(R.drawable.ic_sharp_compact),
+      TURN_SLIGHT_RIGHT(R.drawable.ic_slight_compact),
 
-      TURN_LEFT,
-      TURN_SHARP_LEFT,
-      TURN_SLIGHT_LEFT,
+      TURN_LEFT(R.drawable.ic_simple_compact),
+      TURN_SHARP_LEFT(R.drawable.ic_sharp_compact),
+      TURN_SLIGHT_LEFT(R.drawable.ic_slight_compact),
 
-      U_TURN,
+      U_TURN(R.drawable.ic_uturn),
+      TAKE_THE_EXIT(R.drawable.ic_finish_point),
 
-      TAKE_THE_EXIT,
+      ENTER_ROUND_ABOUT(R.drawable.ic_round_compact),
+      LEAVE_ROUND_ABOUT(R.drawable.ic_round_compact),
+      STAY_ON_ROUND_ABOUT(R.drawable.ic_round_compact),
 
-      ENTER_ROUND_ABOUT,
-      LEAVE_ROUND_ABOUT,
-      STAY_ON_ROUND_ABOUT,
+      START_AT_THE_END_OF_STREET(0),
+      REACHED_YOUR_DESTINATION(0);
 
-      START_AT_THE_END_OF_STREET,
-      REACHED_YOUR_DESTINATION;
+      private int mTurnRes;
+
+      TurnDirection(@DrawableRes int resId)
+      {
+        mTurnRes = resId;
+      }
+
+      public @DrawableRes int getDrawableRes()
+      {
+        return mTurnRes;
+      }
 
       public static boolean isLeftTurn(TurnDirection turn)
       {
