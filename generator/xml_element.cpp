@@ -40,7 +40,7 @@ void XMLElement::AddMEMBER(uint64_t ref, string const & type, string const & rol
   e.parent = this;
 }
 
-string XMLElement::to_string(string const & shift) const
+string XMLElement::ToString(string const & shift) const
 {
   stringstream ss;
   ss << (shift.empty() ? "\n" : shift);
@@ -84,7 +84,7 @@ string XMLElement::to_string(string const & shift) const
     string shift2 = shift;
     shift2 += shift2.empty() ? "\n  " : "  ";
     for ( auto const & e : childs )
-      ss << e.to_string(shift2);
+      ss << e.ToString(shift2);
   }
   return ss.str();
 }
@@ -92,7 +92,7 @@ string XMLElement::to_string(string const & shift) const
 
 string DebugPrint(XMLElement const & e)
 {
-  return e.to_string();
+  return e.ToString();
 }
 
 

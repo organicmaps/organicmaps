@@ -38,7 +38,7 @@ struct XMLElement
   XMLElement * parent = nullptr;
   vector<XMLElement> childs;
 
-  string to_string(string const & shift = string()) const;
+  string ToString(string const & shift = string()) const;
 
   bool operator == (XMLElement const & e) const
   {
