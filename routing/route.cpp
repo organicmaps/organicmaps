@@ -291,6 +291,8 @@ double Route::GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const
 
 void Route::Update()
 {
+  if (!m_poly.GetSize())
+    return;
   if (m_routingSettings.m_keepPedestrianInfo)
   {
     vector<m2::PointD> points;
