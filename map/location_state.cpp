@@ -366,14 +366,13 @@ void State::RouteBuilded()
   }
 }
 
-void State::StartRouteFollow()
+void State::StartRouteFollow(int scale)
 {
   ASSERT(IsInRouting(), ());
   ASSERT(IsModeHasPosition(), ());
 
   m2::PointD const size(m_errorRadius, m_errorRadius);
-  m_framework->ShowRectExVisibleScale(m2::RectD(m_position - size, m_position + size),
-                                      scales::GetNavigationScale());
+  m_framework->ShowRectExVisibleScale(m2::RectD(m_position - size, m_position + size), scale);
 
   SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
   SetModeInfo(ChangeMode(m_modeInfo, IsRotationActive() ? RotateAndFollow : Follow));

@@ -69,7 +69,7 @@ namespace location
     void SwitchToNextMode();
 
     void RouteBuilded();
-    void StartRouteFollow();
+    void StartRouteFollow(int scale);
     void StopRoutingMode();
 
     int  AddStateModeListener(TStateModeListener const & l);

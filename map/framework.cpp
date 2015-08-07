@@ -2226,6 +2226,15 @@ void Framework::RemoveRoute()
   m_bmManager.ResetRouteTrack();
 }
 
+void Framework::FollowRoute()
+{
+  int const scale = (m_currentRouterType == RouterType::Pedestrian) ?
+        scales::GetUpperComfortScale() :
+        scales::GetNavigationScale();
+
+  GetLocationState()->StartRouteFollow(scale);
+}
+
 void Framework::CloseRouting()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("CloseRouting"));
