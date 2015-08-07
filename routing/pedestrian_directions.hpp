@@ -14,17 +14,20 @@ public:
   void Generate(IRoadGraph const & graph, vector<Junction> const & path,
                 Route::TTimes & times,
                 Route::TTurns & turnsDir,
-                turns::TTurnsGeom & turnsGeom) override;
+                turns::TTurnsGeom & turnsGeom,
+                my::Cancellable const & cancellable) override;
 
 private:
   bool ReconstructPath(IRoadGraph const & graph, vector<Junction> const & path,
-                       vector<Edge> & routeEdges) const;
+                       vector<Edge> & routeEdges,
+                       my::Cancellable const & cancellable) const;
 
   void CalculateTimes(IRoadGraph const & graph, vector<Junction> const & path,
                       Route::TTimes & times) const;
 
   void CalculateTurns(IRoadGraph const & graph, vector<Edge> const & routeEdges,
-                      Route::TTurns & turnsDir) const;
+                      Route::TTurns & turnsDir,
+                      my::Cancellable const & cancellable) const;
 
   uint32_t const m_typeSteps;
   uint32_t const m_typeLiftGate;

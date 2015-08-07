@@ -145,15 +145,19 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
     ASSERT(!path.empty(), ());
     ASSERT_EQUAL(path.front(), startPos, ());
     ASSERT_EQUAL(path.back(), finalPos, ());
-    ReconstructRoute(move(path), route);
+    ReconstructRoute(move(path), route, delegate);
   }
 
   m_roadGraph->ResetFakes();
 
+  if (delegate.IsCancelled())
+    return IRouter::Cancelled;
+
   return Convert(resultCode);
 }
 
-void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route) const
+void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
+                                       my::Cancellable const & cancellable) const
 {
   CHECK(!path.empty(), ("Can't reconstruct route from an empty list of positions."));
 
@@ -172,7 +176,7 @@ void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route) 
   Route::TTurns turnsDir;
   turns::TTurnsGeom turnsGeom;
   if (m_directionsEngine)
-    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, turnsGeom);
+    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, turnsGeom, cancellable);
 
   route.SetGeometry(geometry.begin(), geometry.end());
   route.SetSectionTimes(times);

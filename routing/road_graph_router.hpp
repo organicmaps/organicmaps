@@ -37,7 +37,8 @@ public:
                             Route & route) override;
 
 private:
-  void ReconstructRoute(vector<Junction> && junctions, Route & route) const;
+  void ReconstructRoute(vector<Junction> && junctions, Route & route,
+                        my::Cancellable const & cancellable) const;
 
   string const m_name;
   unique_ptr<IRoutingAlgorithm> const m_algorithm;

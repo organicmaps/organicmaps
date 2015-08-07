@@ -38,14 +38,15 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine()
 void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction> const & path,
                                           Route::TTimes & times,
                                           Route::TTurns & turnsDir,
-                                          turns::TTurnsGeom & turnsGeom)
+                                          turns::TTurnsGeom & turnsGeom,
+                                          my::Cancellable const & cancellable)
 {
   CHECK_GREATER(path.size(), 1, ());
 
   CalculateTimes(graph, path, times);
 
   vector<Edge> routeEdges;
-  if (!ReconstructPath(graph, path, routeEdges))
+  if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
     LOG(LDEBUG, ("Couldn't reconstruct path"));
     // use only "arrival" direction
@@ -53,7 +54,7 @@ void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junct
     return;
   }
 
-  CalculateTurns(graph, routeEdges, turnsDir);
+  CalculateTurns(graph, routeEdges, turnsDir, cancellable);
 
   // Do not show arrows for pedestrian routing until a good design solution
   // turns::CalculateTurnGeometry(path, turnsDir, turnsGeom);
@@ -61,7 +62,8 @@ void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junct
 }
 
 bool PedestrianDirectionsEngine::ReconstructPath(IRoadGraph const & graph, vector<Junction> const & path,
-                                                 vector<Edge> & routeEdges) const
+                                                 vector<Edge> & routeEdges,
+                                                 my::Cancellable const & cancellable) const
 {
   routeEdges.reserve(path.size() - 1);
 
@@ -69,6 +71,9 @@ bool PedestrianDirectionsEngine::ReconstructPath(IRoadGraph const & graph, vecto
   vector<Edge> currEdges;
   for (size_t i = 1; i < path.size(); ++i)
   {
+    if (cancellable.IsCancelled())
+      return false;
+
     Junction const & next = path[i];
 
     currEdges.clear();
@@ -121,10 +126,14 @@ void PedestrianDirectionsEngine::CalculateTimes(IRoadGraph const & graph, vector
 }
 
 void PedestrianDirectionsEngine::CalculateTurns(IRoadGraph const & graph, vector<Edge> const & routeEdges,
-                                                Route::TTurns & turnsDir) const
+                                                Route::TTurns & turnsDir,
+                                                my::Cancellable const & cancellable) const
 {
   for (size_t i = 0; i < routeEdges.size(); ++i)
   {
+    if (cancellable.IsCancelled())
+      return;
+
     Edge const & edge = routeEdges[i];
 
     feature::TypesHolder types;
