@@ -10,6 +10,8 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "platform/platform_tests_support/scoped_mwm.hpp"
+
 #include "coding/file_writer.hpp"
 
 #include "defines.hpp"
@@ -57,6 +59,7 @@ void TestMapping(InputDataT const & data,
   platform::CountryFile country("TestCountry");
   platform::LocalCountryFile localFile(GetPlatform().WritableDir(), country, 0 /* version */);
   localFile.SyncWithDisk();
+  platform::tests_support::ScopedMwm mapMwm(localFile.GetPath(MapOptions::Map));
   static char const ftSegsPath[] = "test1.tmp";
 
   platform::CountryIndexes::PreparePlaceOnDisk(localFile);
