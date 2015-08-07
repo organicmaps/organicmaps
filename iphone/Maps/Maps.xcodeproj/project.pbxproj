@@ -267,36 +267,6 @@
 		F6FE2C111B03A016009814AA /* PlacePageNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FE2C101B03A015009814AA /* PlacePageNavigationBar.xib */; };
 		F6FE2C151B04A44E009814AA /* MWMPlacePageEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FE2C141B04A44E009814AA /* MWMPlacePageEntity.mm */; };
 		F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
-		F7E7BA221672328F00B4492E /* atm.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA061672328F00B4492E /* atm.png */; };
-		F7E7BA231672328F00B4492E /* atm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA071672328F00B4492E /* atm@2x.png */; };
-		F7E7BA241672328F00B4492E /* bank.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA081672328F00B4492E /* bank.png */; };
-		F7E7BA251672328F00B4492E /* bank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA091672328F00B4492E /* bank@2x.png */; };
-		F7E7BA261672328F00B4492E /* entertainment.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA0A1672328F00B4492E /* entertainment.png */; };
-		F7E7BA271672328F00B4492E /* entertainment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA0B1672328F00B4492E /* entertainment@2x.png */; };
-		F7E7BA281672328F00B4492E /* food.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA0C1672328F00B4492E /* food.png */; };
-		F7E7BA291672328F00B4492E /* food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA0D1672328F00B4492E /* food@2x.png */; };
-		F7E7BA2A1672328F00B4492E /* fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA0E1672328F00B4492E /* fuel.png */; };
-		F7E7BA2B1672328F00B4492E /* fuel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA0F1672328F00B4492E /* fuel@2x.png */; };
-		F7E7BA2C1672328F00B4492E /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA101672328F00B4492E /* hospital.png */; };
-		F7E7BA2D1672328F00B4492E /* hospital@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA111672328F00B4492E /* hospital@2x.png */; };
-		F7E7BA2E1672328F00B4492E /* parking.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA121672328F00B4492E /* parking.png */; };
-		F7E7BA2F1672328F00B4492E /* parking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA131672328F00B4492E /* parking@2x.png */; };
-		F7E7BA301672328F00B4492E /* pharmacy.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA141672328F00B4492E /* pharmacy.png */; };
-		F7E7BA311672328F00B4492E /* pharmacy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA151672328F00B4492E /* pharmacy@2x.png */; };
-		F7E7BA321672328F00B4492E /* police.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA161672328F00B4492E /* police.png */; };
-		F7E7BA331672328F00B4492E /* police@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA171672328F00B4492E /* police@2x.png */; };
-		F7E7BA341672328F00B4492E /* post.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA181672328F00B4492E /* post.png */; };
-		F7E7BA351672328F00B4492E /* post@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA191672328F00B4492E /* post@2x.png */; };
-		F7E7BA361672328F00B4492E /* shop.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA1A1672328F00B4492E /* shop.png */; };
-		F7E7BA371672328F00B4492E /* shop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA1B1672328F00B4492E /* shop@2x.png */; };
-		F7E7BA381672328F00B4492E /* toilet.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA1C1672328F00B4492E /* toilet.png */; };
-		F7E7BA391672328F00B4492E /* toilet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA1D1672328F00B4492E /* toilet@2x.png */; };
-		F7E7BA3A1672328F00B4492E /* tourism.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA1E1672328F00B4492E /* tourism.png */; };
-		F7E7BA3B1672328F00B4492E /* tourism@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA1F1672328F00B4492E /* tourism@2x.png */; };
-		F7E7BA3C1672328F00B4492E /* transport.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA201672328F00B4492E /* transport.png */; };
-		F7E7BA3D1672328F00B4492E /* transport@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA211672328F00B4492E /* transport@2x.png */; };
-		F7E7BA4016723CD200B4492E /* hotel.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA3E16723CD200B4492E /* hotel.png */; };
-		F7E7BA4116723CD200B4492E /* hotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA3F16723CD200B4492E /* hotel@2x.png */; };
 		F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
 		FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
 		FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
@@ -740,36 +710,6 @@
 		F7DD848414FE77F8005695E1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F7DD848514FE7C7F005695E1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F7DD848614FE7FE0005695E1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F7E7BA061672328F00B4492E /* atm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = atm.png; sourceTree = "<group>"; };
-		F7E7BA071672328F00B4492E /* atm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "atm@2x.png"; sourceTree = "<group>"; };
-		F7E7BA081672328F00B4492E /* bank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bank.png; sourceTree = "<group>"; };
-		F7E7BA091672328F00B4492E /* bank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bank@2x.png"; sourceTree = "<group>"; };
-		F7E7BA0A1672328F00B4492E /* entertainment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = entertainment.png; sourceTree = "<group>"; };
-		F7E7BA0B1672328F00B4492E /* entertainment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "entertainment@2x.png"; sourceTree = "<group>"; };
-		F7E7BA0C1672328F00B4492E /* food.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = food.png; sourceTree = "<group>"; };
-		F7E7BA0D1672328F00B4492E /* food@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "food@2x.png"; sourceTree = "<group>"; };
-		F7E7BA0E1672328F00B4492E /* fuel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fuel.png; sourceTree = "<group>"; };
-		F7E7BA0F1672328F00B4492E /* fuel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fuel@2x.png"; sourceTree = "<group>"; };
-		F7E7BA101672328F00B4492E /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
-		F7E7BA111672328F00B4492E /* hospital@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hospital@2x.png"; sourceTree = "<group>"; };
-		F7E7BA121672328F00B4492E /* parking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = parking.png; sourceTree = "<group>"; };
-		F7E7BA131672328F00B4492E /* parking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "parking@2x.png"; sourceTree = "<group>"; };
-		F7E7BA141672328F00B4492E /* pharmacy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pharmacy.png; sourceTree = "<group>"; };
-		F7E7BA151672328F00B4492E /* pharmacy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pharmacy@2x.png"; sourceTree = "<group>"; };
-		F7E7BA161672328F00B4492E /* police.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = police.png; sourceTree = "<group>"; };
-		F7E7BA171672328F00B4492E /* police@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "police@2x.png"; sourceTree = "<group>"; };
-		F7E7BA181672328F00B4492E /* post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post.png; sourceTree = "<group>"; };
-		F7E7BA191672328F00B4492E /* post@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "post@2x.png"; sourceTree = "<group>"; };
-		F7E7BA1A1672328F00B4492E /* shop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop.png; sourceTree = "<group>"; };
-		F7E7BA1B1672328F00B4492E /* shop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop@2x.png"; sourceTree = "<group>"; };
-		F7E7BA1C1672328F00B4492E /* toilet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toilet.png; sourceTree = "<group>"; };
-		F7E7BA1D1672328F00B4492E /* toilet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toilet@2x.png"; sourceTree = "<group>"; };
-		F7E7BA1E1672328F00B4492E /* tourism.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tourism.png; sourceTree = "<group>"; };
-		F7E7BA1F1672328F00B4492E /* tourism@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tourism@2x.png"; sourceTree = "<group>"; };
-		F7E7BA201672328F00B4492E /* transport.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transport.png; sourceTree = "<group>"; };
-		F7E7BA211672328F00B4492E /* transport@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "transport@2x.png"; sourceTree = "<group>"; };
-		F7E7BA3E16723CD200B4492E /* hotel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotel.png; sourceTree = "<group>"; };
-		F7E7BA3F16723CD200B4492E /* hotel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hotel@2x.png"; sourceTree = "<group>"; };
 		F7FDD822147F30CC005900FA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
 		FA054610155C465E001F4E37 /* SelectSetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectSetVC.h; path = Bookmarks/SelectSetVC.h; sourceTree = SOURCE_ROOT; };
 		FA054611155C465E001F4E37 /* SelectSetVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectSetVC.mm; path = Bookmarks/SelectSetVC.mm; sourceTree = SOURCE_ROOT; };
@@ -973,7 +913,6 @@
 			children = (
 				347274711B0F4EB300756B37 /* Entitlements */,
 				97D40C09184D031900A1D572 /* Images.xcassets */,
-				FA8F930C150184280057B215 /* Suggestion Icons */,
 				FA99CB71147089B100689A9A /* Localizable.strings */,
 				978F9246183B6671000D6C7C /* Main_iPhone.storyboard */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
@@ -1913,43 +1852,6 @@
 			name = Platform;
 			sourceTree = "<group>";
 		};
-		FA8F930C150184280057B215 /* Suggestion Icons */ = {
-			isa = PBXGroup;
-			children = (
-				F7E7BA3E16723CD200B4492E /* hotel.png */,
-				F7E7BA3F16723CD200B4492E /* hotel@2x.png */,
-				F7E7BA061672328F00B4492E /* atm.png */,
-				F7E7BA071672328F00B4492E /* atm@2x.png */,
-				F7E7BA081672328F00B4492E /* bank.png */,
-				F7E7BA091672328F00B4492E /* bank@2x.png */,
-				F7E7BA0A1672328F00B4492E /* entertainment.png */,
-				F7E7BA0B1672328F00B4492E /* entertainment@2x.png */,
-				F7E7BA0C1672328F00B4492E /* food.png */,
-				F7E7BA0D1672328F00B4492E /* food@2x.png */,
-				F7E7BA0E1672328F00B4492E /* fuel.png */,
-				F7E7BA0F1672328F00B4492E /* fuel@2x.png */,
-				F7E7BA101672328F00B4492E /* hospital.png */,
-				F7E7BA111672328F00B4492E /* hospital@2x.png */,
-				F7E7BA121672328F00B4492E /* parking.png */,
-				F7E7BA131672328F00B4492E /* parking@2x.png */,
-				F7E7BA141672328F00B4492E /* pharmacy.png */,
-				F7E7BA151672328F00B4492E /* pharmacy@2x.png */,
-				F7E7BA161672328F00B4492E /* police.png */,
-				F7E7BA171672328F00B4492E /* police@2x.png */,
-				F7E7BA181672328F00B4492E /* post.png */,
-				F7E7BA191672328F00B4492E /* post@2x.png */,
-				F7E7BA1A1672328F00B4492E /* shop.png */,
-				F7E7BA1B1672328F00B4492E /* shop@2x.png */,
-				F7E7BA1C1672328F00B4492E /* toilet.png */,
-				F7E7BA1D1672328F00B4492E /* toilet@2x.png */,
-				F7E7BA1E1672328F00B4492E /* tourism.png */,
-				F7E7BA1F1672328F00B4492E /* tourism@2x.png */,
-				F7E7BA201672328F00B4492E /* transport.png */,
-				F7E7BA211672328F00B4492E /* transport@2x.png */,
-			);
-			path = "Suggestion Icons";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2153,54 +2055,24 @@
 				FA140653162A6288002BC1ED /* empty.png in Resources */,
 				FA140655162A6288002BC1ED /* eye.png in Resources */,
 				FA140657162A6288002BC1ED /* eye@2x.png in Resources */,
-				F7E7BA221672328F00B4492E /* atm.png in Resources */,
-				F7E7BA231672328F00B4492E /* atm@2x.png in Resources */,
-				F7E7BA241672328F00B4492E /* bank.png in Resources */,
 				34BC72231B0DECAE0012A34B /* MWMLocationButton.xib in Resources */,
 				349A358D1B53EABC009677EE /* MWMSearchDownloadMapRequest.xib in Resources */,
 				341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */,
-				F7E7BA251672328F00B4492E /* bank@2x.png in Resources */,
 				349A357B1B53D4C9009677EE /* MWMCircularProgress.xib in Resources */,
-				F7E7BA261672328F00B4492E /* entertainment.png in Resources */,
 				F6CB21621AEE902B00FB8963 /* PlacePageLinkCell.xib in Resources */,
 				349A35841B53E967009677EE /* MWMDownloadMapRequest.xib in Resources */,
 				F6BD33801B62403B00F2CE18 /* MWMPortraitRoutePreview.xib in Resources */,
-				F7E7BA271672328F00B4492E /* entertainment@2x.png in Resources */,
-				F7E7BA281672328F00B4492E /* food.png in Resources */,
-				F7E7BA291672328F00B4492E /* food@2x.png in Resources */,
-				F7E7BA2A1672328F00B4492E /* fuel.png in Resources */,
-				F7E7BA2B1672328F00B4492E /* fuel@2x.png in Resources */,
 				4A7D89C61B2EBF3B00AC843E /* resources-mdpi_dark in Resources */,
 				F6BC1E541ACBF9AB00EF0360 /* MWMFacebookAlert.xib in Resources */,
-				F7E7BA2C1672328F00B4492E /* hospital.png in Resources */,
 				F6CB21641AEFC42800FB8963 /* PlacePageActionBar.xib in Resources */,
 				F6CB216A1AF1303900FB8963 /* PlacePageBookmarkCell.xib in Resources */,
 				F6BD337A1B62400E00F2CE18 /* MWMPortraitNavigationDashboard.xib in Resources */,
-				F7E7BA2D1672328F00B4492E /* hospital@2x.png in Resources */,
-				F7E7BA2E1672328F00B4492E /* parking.png in Resources */,
-				F7E7BA2F1672328F00B4492E /* parking@2x.png in Resources */,
 				F64F4B6F1B46A5380081A24A /* MWMDownloaderDialogCell.xib in Resources */,
-				F7E7BA301672328F00B4492E /* pharmacy.png in Resources */,
-				F7E7BA311672328F00B4492E /* pharmacy@2x.png in Resources */,
 				F6ED13931B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib in Resources */,
-				F7E7BA321672328F00B4492E /* police.png in Resources */,
-				F7E7BA331672328F00B4492E /* police@2x.png in Resources */,
 				F64F199A1AB81A00006EAF7E /* MWMAlertViewController.xib in Resources */,
 				F6588E331B15D73100EE1E58 /* MWMBookmarkColorViewController.xib in Resources */,
-				F7E7BA341672328F00B4492E /* post.png in Resources */,
-				F7E7BA351672328F00B4492E /* post@2x.png in Resources */,
-				F7E7BA361672328F00B4492E /* shop.png in Resources */,
-				F7E7BA371672328F00B4492E /* shop@2x.png in Resources */,
-				F7E7BA381672328F00B4492E /* toilet.png in Resources */,
-				F7E7BA391672328F00B4492E /* toilet@2x.png in Resources */,
-				F7E7BA3A1672328F00B4492E /* tourism.png in Resources */,
 				F6CB215C1AEE704D00FB8963 /* PlacePageInfoCell.xib in Resources */,
-				F7E7BA3B1672328F00B4492E /* tourism@2x.png in Resources */,
-				F7E7BA3C1672328F00B4492E /* transport.png in Resources */,
 				45159BF91B0CA2D5009BFA85 /* resources-6plus in Resources */,
-				F7E7BA3D1672328F00B4492E /* transport@2x.png in Resources */,
-				F7E7BA4016723CD200B4492E /* hotel.png in Resources */,
-				F7E7BA4116723CD200B4492E /* hotel@2x.png in Resources */,
 				FAF30A95173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
