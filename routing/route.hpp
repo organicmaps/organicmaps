@@ -110,6 +110,7 @@ public:
   inline void SetRoutingSettings(RoutingSettings const & routingSettings)
   {
     m_routingSettings = routingSettings;
+    Update();
   }
 
 private:

@@ -300,6 +300,11 @@ void Route::Update()
                         MakeBackInsertFunctor(points));
     m_pedestrianFollower = RouteFollower(points.begin(), points.end());
   }
+  else
+  {
+    // Free memory if we need no this geometry.
+    m_pedestrianFollower = RouteFollower();
+  }
   size_t n = m_poly.GetSize();
   ASSERT_GREATER(n, 1, ());
   --n;
