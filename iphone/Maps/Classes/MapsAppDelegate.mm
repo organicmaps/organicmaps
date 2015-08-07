@@ -12,6 +12,7 @@
 #import "RouteState.h"
 #import "Statistics.h"
 #import "UIKitCategories.h"
+#import "MWMCustomFacebookEvents.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
@@ -324,6 +325,8 @@ void InitLocalizedStrings()
 
   [FBSDKAppEvents activateApp];
   [self restoreRouteState];
+  // Special FB events to improve marketing campaigns quality.
+  [MWMCustomFacebookEvents optimizeExpenses];
 }
 
 - (void)dealloc

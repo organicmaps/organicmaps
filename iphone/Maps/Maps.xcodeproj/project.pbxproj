@@ -112,6 +112,7 @@
 		4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */; };
 		5605022F1B6211E100169CAD /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		6B8A738A1B2616E90085EFE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
+		6BA0BCD11B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */; };
 		6C24A3AD1AD7CA1000A47B99 /* MWMNoMapInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C47C8C81AD6C825000C52C1 /* MWMNoMapInterfaceController.mm */; };
 		6C24A3B21AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */; };
 		6C24A3B31AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */; };
@@ -448,6 +449,8 @@
 		4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi_dark"; path = "../../data/resources-xhdpi_dark"; sourceTree = "<group>"; };
 		4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi_dark"; path = "../../data/resources-xxhdpi_dark"; sourceTree = "<group>"; };
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
+		6BA0BCCF1B74DDBA00CC9969 /* MWMCustomFacebookEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCustomFacebookEvents.h; sourceTree = "<group>"; };
+		6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCustomFacebookEvents.mm; sourceTree = "<group>"; };
 		6C24A3B01AD7D65500A47B99 /* MWMWatchEventInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWatchEventInfo.h; sourceTree = "<group>"; };
 		6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWatchEventInfo.mm; sourceTree = "<group>"; };
 		6C47C8C31AD6C78A000C52C1 /* MWMNoLocationInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoLocationInterfaceController.h; sourceTree = "<group>"; };
@@ -1355,6 +1358,8 @@
 		CB252D6816FF82C8001E41E9 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				6BA0BCCF1B74DDBA00CC9969 /* MWMCustomFacebookEvents.h */,
+				6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */,
 				97C98521186AE3CF00AF7E9E /* AppInfo.h */,
 				97C98520186AE3CF00AF7E9E /* AppInfo.mm */,
 				CB252D6B16FF82C8001E41E9 /* Statistics.h */,
@@ -2275,6 +2280,7 @@
 				34BC722A1B0DECAE0012A34B /* MWMZoomButtonsView.m in Sources */,
 				F6F533A31B3C248900C1940B /* UIColor+MapsMeColor.mm in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */,
+				6BA0BCD11B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.m in Sources */,
 				342AD7721B53D32F00E0B997 /* UIView+RuntimeAttributes.m in Sources */,
 				F64F4B6D1B46A51F0081A24A /* MWMDownloaderDialogCell.mm in Sources */,
