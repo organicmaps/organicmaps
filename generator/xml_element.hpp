@@ -38,6 +38,22 @@ struct XMLElement
   XMLElement * parent = nullptr;
   vector<XMLElement> childs;
 
+  void Clear()
+  {
+    tagKey = ET_UNKNOWN;
+    id = 0;
+    lng = 0;
+    lat = 0;
+    ref = 0;
+    k.clear();
+    v.clear();
+    type.clear();
+    role.clear();
+
+    parent = nullptr;
+    childs.clear();
+  }
+
   string ToString(string const & shift = string()) const;
 
   bool operator == (XMLElement const & e) const
@@ -65,7 +81,8 @@ string DebugPrint(XMLElement const & e);
 
 class BaseOSMParser
 {
-  XMLElement m_element;
+  XMLElement m_parent;
+  XMLElement m_child;
 
   size_t m_depth;
 
@@ -81,7 +98,4 @@ public:
   void CharData(string const &) {}
 
   virtual void EmitElement(XMLElement * p) = 0;
-
-protected:
-  bool MatchTag(string const & tagName, XMLElement::ETag & tagKey);
 };
