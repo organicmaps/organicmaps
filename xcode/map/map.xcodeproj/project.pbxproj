@@ -67,8 +67,6 @@
 		675346511A4054E800A0A8C3 /* country_status_display.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675345E21A4054E800A0A8C3 /* country_status_display.hpp */; };
 		675346521A4054E800A0A8C3 /* country_tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345E31A4054E800A0A8C3 /* country_tree.cpp */; };
 		675346531A4054E800A0A8C3 /* country_tree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675345E41A4054E800A0A8C3 /* country_tree.hpp */; };
-		675346561A4054E800A0A8C3 /* dialog_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345E71A4054E800A0A8C3 /* dialog_settings.cpp */; };
-		675346571A4054E800A0A8C3 /* dialog_settings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675345E81A4054E800A0A8C3 /* dialog_settings.hpp */; };
 		675346621A4054E800A0A8C3 /* feature_vec_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345F31A4054E800A0A8C3 /* feature_vec_model.cpp */; };
 		675346631A4054E800A0A8C3 /* feature_vec_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675345F41A4054E800A0A8C3 /* feature_vec_model.hpp */; };
 		675346641A4054E800A0A8C3 /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345F51A4054E800A0A8C3 /* framework.cpp */; };
@@ -189,8 +187,6 @@
 		675345E21A4054E800A0A8C3 /* country_status_display.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_status_display.hpp; sourceTree = "<group>"; };
 		675345E31A4054E800A0A8C3 /* country_tree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_tree.cpp; sourceTree = "<group>"; };
 		675345E41A4054E800A0A8C3 /* country_tree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_tree.hpp; sourceTree = "<group>"; };
-		675345E71A4054E800A0A8C3 /* dialog_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dialog_settings.cpp; sourceTree = "<group>"; };
-		675345E81A4054E800A0A8C3 /* dialog_settings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dialog_settings.hpp; sourceTree = "<group>"; };
 		675345F31A4054E800A0A8C3 /* feature_vec_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_vec_model.cpp; sourceTree = "<group>"; };
 		675345F41A4054E800A0A8C3 /* feature_vec_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_vec_model.hpp; sourceTree = "<group>"; };
 		675345F51A4054E800A0A8C3 /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
@@ -386,8 +382,6 @@
 				675345E21A4054E800A0A8C3 /* country_status_display.hpp */,
 				675345E31A4054E800A0A8C3 /* country_tree.cpp */,
 				675345E41A4054E800A0A8C3 /* country_tree.hpp */,
-				675345E71A4054E800A0A8C3 /* dialog_settings.cpp */,
-				675345E81A4054E800A0A8C3 /* dialog_settings.hpp */,
 				675345F31A4054E800A0A8C3 /* feature_vec_model.cpp */,
 				675345F41A4054E800A0A8C3 /* feature_vec_model.hpp */,
 				675345F51A4054E800A0A8C3 /* framework.cpp */,
@@ -455,7 +449,6 @@
 				6753469E1A4054E800A0A8C3 /* user_mark_container.hpp in Headers */,
 				675346491A4054E800A0A8C3 /* bookmark_manager.hpp in Headers */,
 				6753467A1A4054E800A0A8C3 /* pin_click_manager.hpp in Headers */,
-				675346571A4054E800A0A8C3 /* dialog_settings.hpp in Headers */,
 				675346731A4054E800A0A8C3 /* move_screen_task.hpp in Headers */,
 				675346631A4054E800A0A8C3 /* feature_vec_model.hpp in Headers */,
 				675346511A4054E800A0A8C3 /* country_status_display.hpp in Headers */,
@@ -564,7 +557,6 @@
 				675346831A4054E800A0A8C3 /* rotate_screen_task.cpp in Sources */,
 				675346521A4054E800A0A8C3 /* country_tree.cpp in Sources */,
 				674A29C71B26F83C001A525C /* navigator_utils.cpp in Sources */,
-				675346561A4054E800A0A8C3 /* dialog_settings.cpp in Sources */,
 				6753469B1A4054E800A0A8C3 /* track.cpp in Sources */,
 				675346621A4054E800A0A8C3 /* feature_vec_model.cpp in Sources */,
 				675346871A4054E800A0A8C3 /* ruler.cpp in Sources */,

@@ -12,76 +12,58 @@
 #include "generator/osm_source.hpp"
 #include "generator/xml_element.hpp"
 
-
-char const node_xml_data[] = "<?xml version='1.0' encoding='UTF-8'?> \
- <osm version='0.6' upload='true' generator='JOSM'> \
- <node id='-273105' action='modify' visible='true' lat='62.18269750679' lon='-134.28965517091'> \
- <tag k='name' v='Продуктовый' /> \
- <tag k='opening_hours' v='24/7' /> \
- <tag k='shop' v='convenience' /> \
- </node> \
- </osm> \
-";
-
-// binary data: node.o5m
-uint8_t node_o5m_data1[] = /* 92 */
-{0xFF, 0xE0, 0x04, 0x6F, 0x35, 0x6D, 0x32, 0xFF, 0x10, 0x51, 0xA1, 0xAB, 0x21, 0x00, 0xCD, 0xE6,
-  0xD7, 0x80, 0x0A, 0xBE, 0xCE, 0x82, 0xD1, 0x04, 0x00, 0x6E, 0x61, 0x6D, 0x65, 0x00, 0xD0, 0x9F,
-  0xD1, 0x80, 0xD0, 0xBE, 0xD0, 0xB4, 0xD1, 0x83, 0xD0, 0xBA, 0xD1, 0x82, 0xD0, 0xBE, 0xD0, 0xB2,
-  0xD1, 0x8B, 0xD0, 0xB9, 0x00, 0x00, 0x6F, 0x70, 0x65, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x68, 0x6F,
-  0x75, 0x72, 0x73, 0x00, 0x32, 0x34, 0x2F, 0x37, 0x00, 0x00, 0x73, 0x68, 0x6F, 0x70, 0x00, 0x63,
-  0x6F, 0x6E, 0x76, 0x65, 0x6E, 0x69, 0x65, 0x6E, 0x63, 0x65, 0x00, 0xFE};
-static_assert(sizeof(node_o5m_data1) == 92, "Size check failed");
-
+#include "source_data.hpp"
 
 struct DummyParser : public BaseOSMParser
 {
-  XMLElement & m_e;
-  DummyParser(XMLElement & e) : BaseOSMParser() , m_e(e) {}
+  vector<XMLElement> & m_e;
+  DummyParser(vector<XMLElement> & e) : BaseOSMParser() , m_e(e) {}
   void EmitElement(XMLElement * p) override
   {
-    m_e = *p;
+    m_e.push_back(*p);
   }
 };
 
-UNIT_TEST(Source_To_Element_check_equivalence)
-{
-  istringstream ss1(node_xml_data);
-  SourceReader reader1(ss1);
-
-  XMLElement e1;
-  DummyParser parser1(e1);
-  ParseXMLSequence(reader1, parser1);
-
-  string src(begin(node_o5m_data1), end(node_o5m_data1));
-  istringstream ss2(src);
-  SourceReader reader2(ss2);
-
-  XMLElement e2;
-  DummyParser parser2(e2);
-  BuildFeaturesFromO5M(reader2, parser2);
-
-  TEST_EQUAL(e1, e2, ());
-}
-
-
 UNIT_TEST(Source_To_Element_create_from_xml_test)
 {
-  istringstream ss(node_xml_data);
+  istringstream ss(way_xml_data);
   SourceReader reader(ss);
 
-  XMLElement e;
-  DummyParser parser(e);
+  vector<XMLElement> elements;
+  DummyParser parser(elements);
   ParseXMLSequence(reader, parser);
+
+  TEST_EQUAL(elements.size(), 10, (elements));
 }
 
 UNIT_TEST(Source_To_Element_create_from_o5m_test)
 {
-  string src(begin(node_o5m_data1), end(node_o5m_data1));
+  string src(begin(way_o5m_data), end(way_o5m_data));
   istringstream ss(src);
   SourceReader reader(ss);
 
-  XMLElement e;
-  DummyParser parser(e);
+  vector<XMLElement> elements;
+  DummyParser parser(elements);
   BuildFeaturesFromO5M(reader, parser);
+  TEST_EQUAL(elements.size(), 10, (elements));
+}
+
+UNIT_TEST(Source_To_Element_check_equivalence)
+{
+  istringstream ss1(relation_xml_data);
+  SourceReader readerXML(ss1);
+
+  vector<XMLElement> elementsXML;
+  DummyParser parserForXML(elementsXML);
+  ParseXMLSequence(readerXML, parserForXML);
+
+  string src(begin(relation_o5m_data), end(relation_o5m_data));
+  istringstream ss2(src);
+  SourceReader readerO5M(ss2);
+
+  vector<XMLElement> elementsO5M;
+  DummyParser parserForO5M(elementsO5M);
+  BuildFeaturesFromO5M(readerO5M, parserForO5M);
+
+  TEST_EQUAL(elementsXML, elementsO5M, ());
 }

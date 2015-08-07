@@ -60,7 +60,6 @@ HEADERS += \
     osm_xml_parser.hpp \
     polygonizer.hpp \
     routing_generator.hpp \
-    source_reader.hpp \
     statistics.hpp \
     tesselator.hpp \
     unpack_mwm.hpp \
