@@ -11,26 +11,25 @@ namespace
 extern "C"
 {
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_sound_TTSPlayer_nativeEnableTurnNotifications(JNIEnv * env, jclass thiz, jboolean enable)
+  Java_com_mapswithme_maps_sound_TtsPlayer_nativeEnableTurnNotifications(JNIEnv * env, jclass thiz, jboolean enable)
   {
     return frm()->EnableTurnNotifications(enable == JNI_TRUE ? true : false);
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_sound_TTSPlayer_nativeAreTurnNotificationsEnabled(JNIEnv * env, jclass clazz)
+  Java_com_mapswithme_maps_sound_TtsPlayer_nativeAreTurnNotificationsEnabled(JNIEnv * env, jclass clazz)
   {
     return frm()->AreTurnNotificationsEnabled() ? JNI_TRUE : JNI_FALSE;
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_sound_TTSPlayer_nativeSetTurnNotificationsLocale(JNIEnv * env, jclass thiz, jstring jLocale)
+  Java_com_mapswithme_maps_sound_TtsPlayer_nativeSetTurnNotificationsLocale(JNIEnv * env, jclass thiz, jstring jLocale)
   {
-    if (frm())
-      frm()->SetTurnNotificationsLocale(jni::ToNativeString(env, jLocale));
+    frm()->SetTurnNotificationsLocale(jni::ToNativeString(env, jLocale));
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_sound_TTSPlayer_nativeGetTurnNotificationsLocale(JNIEnv * env, jclass thiz)
+  Java_com_mapswithme_maps_sound_TtsPlayer_nativeGetTurnNotificationsLocale(JNIEnv * env, jclass thiz)
   {
     return jni::ToJavaString(env, frm()->GetTurnNotificationsLocale().c_str());
   }

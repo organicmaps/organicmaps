@@ -10,51 +10,45 @@ import com.mapswithme.maps.MWMApplication;
 import java.util.Locale;
 
 
-public class TTSPlayer
+public enum TtsPlayer
 {
-  private static TTSPlayer ourInstance = null;
+  INSTANCE;
 
-  private Context mContext = null;
-  private TextToSpeech mTts = null;
-  private Locale mTtsLocale = null;
+  private Context mContext;
+  private TextToSpeech mTts;
+  private Locale mTtsLocale;
 
-  private final static String TAG = "TTSPlayer";
+  private final static String TAG = "TtsPlayer";
 
-  private TTSPlayer()
+  TtsPlayer()
   {
     mContext = MWMApplication.get().getApplicationContext();
-    setLocaleIfAvailable(Locale.getDefault());
   }
 
-  @Override
-  protected void finalize() throws Throwable
+  public void init()
   {
-    if(mTts != null)
-      mTts.shutdown();
-    super.finalize();
+    Locale systemLanguage = Locale.getDefault();
+    if (INSTANCE.mTtsLocale == null || !INSTANCE.isLocaleEqual(systemLanguage))
+      INSTANCE.setLocaleIfAvailable(systemLanguage);
   }
 
-  public static TTSPlayer get()
-  {
-    if (ourInstance == null || !ourInstance.isLocaleEquals(Locale.getDefault()))
-      ourInstance = new TTSPlayer();
-
-    return ourInstance;
-  }
-
-  private boolean isLocaleEquals(Locale locale)
+  private boolean isLocaleEqual(Locale locale)
   {
     return locale.getLanguage().equals(mTtsLocale.getLanguage()) &&
-            locale.getCountry().equals(mTtsLocale.getCountry());
+        locale.getCountry().equals(mTtsLocale.getCountry());
   }
 
   private void setLocaleIfAvailable(final Locale locale)
   {
-    if (mTts != null && mTts.getLanguage().equals(locale))
+    if (mTts != null && mTtsLocale.equals(locale))
       return;
 
-    // @TODO Consider move TextToSpeech to a service:
-    // http://stackoverflow.com/questions/24712639/android-texttospeech-initialization-blocks-freezes-ui-thread
+    if (mTts != null)
+    {
+      mTts.stop();
+      mTts.shutdown();
+    }
+
     mTts = new TextToSpeech(mContext, new TextToSpeech.OnInitListener()
     {
       @Override
@@ -82,11 +76,11 @@ public class TTSPlayer
     });
   }
 
-  public void speak(String textToSpeak)
+  private void speak(String textToSpeak)
   {
     if (mTts == null)
     {
-      Log.w(TAG, "TTSPlayer.speak() is called while mTts == null.");
+      Log.w(TAG, "TtsPlayer.speak() is called while mTts == null.");
       return;
     }
     // @TODO(vbykoianko) removes these two toasts below when the test period is finished.
@@ -96,6 +90,15 @@ public class TTSPlayer
       Log.e(TAG, "TextToSpeech returns TextToSpeech.ERROR.");
       Toast.makeText(mContext, "TTS error", Toast.LENGTH_SHORT).show();
     }
+  }
+
+  public void speakNotifications(String[] turnNotifications)
+  {
+    if (turnNotifications == null)
+      return;
+
+    for (String textToSpeak : turnNotifications)
+      speak(textToSpeak);
   }
 
   public void stop()
@@ -114,8 +117,8 @@ public class TTSPlayer
     nativeEnableTurnNotifications(enabled);
   }
 
-  public native static void nativeEnableTurnNotifications(boolean enable);
-  public native static boolean nativeAreTurnNotificationsEnabled();
-  public native static void nativeSetTurnNotificationsLocale(String locale);
-  public native static String nativeGetTurnNotificationsLocale();
+  private native static void nativeEnableTurnNotifications(boolean enable);
+  private native static boolean nativeAreTurnNotificationsEnabled();
+  private native static void nativeSetTurnNotificationsLocale(String locale);
+  private native static String nativeGetTurnNotificationsLocale();
 }

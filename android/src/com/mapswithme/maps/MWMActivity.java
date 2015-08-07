@@ -63,7 +63,7 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.StoragePathManager.MoveFilesListener;
 import com.mapswithme.maps.settings.UnitLocale;
-import com.mapswithme.maps.sound.TTSPlayer;
+import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.BottomButtonsLayout;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
@@ -445,8 +445,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
     setContentView(R.layout.activity_map);
     initViews();
 
-    // Initializing TTS player instance.
-    TTSPlayer.get();
+    // Initializing TTS player.
+    TtsPlayer.INSTANCE.init();
 
     // Do not turn off the screen while benchmarking
     if (MWMApplication.get().nativeIsBenchmarking())
@@ -797,11 +797,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       mTvTurnDistance.setText(builder);
 
       // Turn sound notifications.
-      if (info.mTurnNotifications != null)
-      {
-        for (String textToSpeak : info.mTurnNotifications)
-          TTSPlayer.get().speak(textToSpeak);
-      }
+      TtsPlayer.INSTANCE.speakNotifications(info.mTurnNotifications);
     }
   }
 
@@ -942,7 +938,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     pauseLocation();
     stopWatchingExternalStorage();
     stopWatchingCompassStatusUpdate();
-    TTSPlayer.get().stop();
+    TtsPlayer.INSTANCE.stop();
     super.onPause();
     mLikesManager.cancelLikeDialog();
   }

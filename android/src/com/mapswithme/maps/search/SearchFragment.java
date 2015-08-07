@@ -25,7 +25,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.sound.TTSPlayer;
+import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.StringUtils;
@@ -281,7 +281,7 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
       setSearchQuery(query);
   }
 
-  private void hideSearchPanel()
+  private void hideSearch()
   {
     mEtSearchQuery.setText(null);
     InputUtils.hideKeyboard(mEtSearchQuery);
@@ -299,7 +299,7 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
       return false;
 
     // close Search panel
-    hideSearchPanel();
+    hideSearch();
 
     // change map style for the Map activity
     final int mapStyle = isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_LIGHT;
@@ -316,7 +316,7 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
     if (!pedestrian && !vehicle)
       return false;
 
-    hideSearchPanel();
+    hideSearch();
 
     final int routerType = pedestrian ? Framework.ROUTER_TYPE_PEDESTRIAN : Framework.ROUTER_TYPE_VEHICLE;
     Framework.setRouter(routerType);
@@ -326,14 +326,14 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
 
   private boolean trySwitchOnTurnSound(String query)
   {
-    final boolean sound = query.equals("?sound");
-    final boolean nosound = query.equals("?nosound");
+    final boolean sound = "?sound".equals(query);
+    final boolean nosound = "?nosound".equals(query);
 
     if (!sound && !nosound)
       return false;
 
-    hideSearchPanel();
-    TTSPlayer.get().enable(sound);
+    hideSearch();
+    TtsPlayer.INSTANCE.enable(sound);
 
     return sound;
   }
