@@ -1,4 +1,4 @@
-#include "indexer/mwm_version.hpp"
+#include "mwm_version.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/reader_wrapper.hpp"
@@ -67,4 +67,14 @@ bool ReadVersion(FilesContainerR const & container, MwmVersion & version)
   ReadVersionT(src, version);
   return true;
 }
+
+uint32_t ReadVersionTimestamp(ModelReaderPtr const & reader)
+{
+  MwmVersion version;
+  if (!ReadVersion(FilesContainerR(reader), version))
+    return 0;
+
+  return version.timestamp;
+}
+
 }  // namespace version

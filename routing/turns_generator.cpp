@@ -1,8 +1,7 @@
-#include "routing/routing_mapping.h"
-#include "routing/turns_generator.hpp"
-#include "routing/car_model.hpp"
+#include "turns_generator.hpp"
 
-#include "search/house_detector.hpp"
+#include "routing/car_model.hpp"
+#include "routing/routing_mapping.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
@@ -15,6 +14,7 @@
 
 #include "std/numeric.hpp"
 #include "std/string.hpp"
+
 
 using namespace routing;
 using namespace routing::turns;

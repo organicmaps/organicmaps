@@ -1,7 +1,8 @@
 #pragma once
 
 #include "indexer/coding_params.hpp"
-#include "indexer/mwm_version.hpp"
+
+#include "platform/mwm_version.hpp"
 
 #include "geometry/rect2d.hpp"
 

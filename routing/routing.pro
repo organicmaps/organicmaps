@@ -68,7 +68,7 @@ HEADERS += \
     router.hpp \
     router_delegate.hpp \
     routing_algorithm.hpp \
-    routing_mapping.h \
+    routing_mapping.hpp \
     routing_session.hpp \
     routing_settings.hpp \
     turns.hpp \

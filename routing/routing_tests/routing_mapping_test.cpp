@@ -1,9 +1,9 @@
 #include "testing/testing.hpp"
 #include "indexer/indexer_tests/test_mwm_set.hpp"
 
-#include "routing/routing_mapping.h"
-
 #include "map/feature_vec_model.hpp"
+
+#include "routing/routing_mapping.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"

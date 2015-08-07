@@ -1,9 +1,9 @@
 #include "features_vector.hpp"
 #include "features_offsets_table.hpp"
-#include "mwm_version.hpp"
 #include "data_factory.hpp"
 
 #include "platform/constants.hpp"
+#include "platform/mwm_version.hpp"
 
 
 void FeaturesVector::GetByIndex(uint32_t index, FeatureType & ft) const

@@ -74,6 +74,7 @@ HEADERS += \
     local_country_file_utils.hpp \
     location.hpp \
     measurement_utils.hpp \
+    mwm_version.hpp \
     platform.hpp \
     preferred_languages.hpp \
     servers_list.hpp \
@@ -90,6 +91,7 @@ SOURCES += \
     local_country_file.cpp \
     local_country_file_utils.cpp \
     measurement_utils.cpp \
+    mwm_version.cpp \
     platform.cpp \
     preferred_languages.cpp \
     servers_list.cpp \

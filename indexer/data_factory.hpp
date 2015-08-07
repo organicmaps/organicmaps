@@ -1,6 +1,7 @@
 #pragma once
 #include "indexer/data_header.hpp"
-#include "indexer/mwm_version.hpp"
+
+#include "platform/mwm_version.hpp"
 
 
 class FilesContainerR;

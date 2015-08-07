@@ -10,10 +10,10 @@
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
-#include "indexer/mwm_version.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
+#include "platform/mwm_version.hpp"
 
 #include "geometry/distance.hpp"
 

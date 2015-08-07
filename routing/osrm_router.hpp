@@ -1,23 +1,15 @@
 #pragma once
 
-#include "routing/osrm2feature_map.hpp"
 #include "routing/osrm_data_facade.hpp"
 #include "routing/osrm_engine.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"
-#include "routing/routing_mapping.h"
-
-#include "indexer/index.hpp"
-#include "base/mutex.hpp"
-
-#include "std/atomic.hpp"
-#include "std/function.hpp"
-#include "std/numeric.hpp"
-#include "std/queue.hpp"
+#include "routing/routing_mapping.hpp"
 
 
 namespace feature { class TypesHolder; }
 
+class Index;
 struct RawRouteData;
 struct PhantomNode;
 struct PathData;

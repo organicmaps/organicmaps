@@ -1,23 +1,24 @@
-#include "routing/routing_mapping.h"
+#include "routing_mapping.hpp"
 
 #include "routing/cross_routing_context.hpp"
 #include "routing/osrm2feature_map.hpp"
 #include "routing/osrm_data_facade.hpp"
 
-#include "base/logging.hpp"
+#include "platform/country_file.hpp"
+#include "platform/local_country_file.hpp"
+#include "platform/mwm_version.hpp"
+#include "platform/platform.hpp"
 
 #include "coding/reader_wrapper.hpp"
 
-#include "indexer/mwm_version.hpp"
+#include "base/logging.hpp"
 
-#include "platform/country_file.hpp"
-#include "platform/local_country_file.hpp"
-#include "platform/platform.hpp"
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
 
-namespace {
+namespace
+{
 /*!
  * \brief CheckMwmConsistency checks versions of mwm and routing files.
  * \param localFile reference to country file we need to check.

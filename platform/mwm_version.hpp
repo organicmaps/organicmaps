@@ -5,6 +5,7 @@
 class FilesContainerR;
 class ReaderSrc;
 class Writer;
+class ModelReaderPtr;
 
 namespace version
 {
@@ -37,4 +38,7 @@ void ReadVersion(ReaderSrc & src, MwmVersion & version);
 ///         otherwise returns false. In the latter case version is
 ///         unchanged.
 bool ReadVersion(FilesContainerR const & container, MwmVersion & version);
+
+/// Helper function that is usend in FindAllLocalMaps.
+uint32_t ReadVersionTimestamp(ModelReaderPtr const & reader);
 }  // namespace version

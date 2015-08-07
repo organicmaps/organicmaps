@@ -32,7 +32,6 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/map_style_reader.hpp"
-#include "indexer/mwm_version.hpp"
 #include "indexer/scales.hpp"
 
 /// @todo Probably it's better to join this functionality.
@@ -47,6 +46,7 @@
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
