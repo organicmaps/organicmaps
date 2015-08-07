@@ -23,17 +23,17 @@ HEADERS += \
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-#    check_mwms.cpp \
-#    classificator_tests.cpp \
-#    coasts_test.cpp \
-#    feature_builder_test.cpp \
-#    feature_merger_test.cpp \
-#    metadata_test.cpp \
-#    osm_id_test.cpp \
+    check_mwms.cpp \
+    classificator_tests.cpp \
+    coasts_test.cpp \
+    feature_builder_test.cpp \
+    feature_merger_test.cpp \
+    metadata_test.cpp \
+    osm_id_test.cpp \
     osm_o5m_source_test.cpp \
-#    osm_parser_test.cpp \
-#    osm_type_test.cpp \
-#    tesselator_test.cpp \
-#    triangles_tree_coding_test.cpp \
+    osm_parser_test.cpp \
+    osm_type_test.cpp \
+    tesselator_test.cpp \
+    triangles_tree_coding_test.cpp \
     source_to_element_test.cpp \
     source_data.cpp \
