@@ -121,7 +121,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 
 - (NSString *)itemDefault
 {
-  return [self url:NO];
+  return httpGe0Url([self url:NO]);
 }
 
 #pragma mark - Subject
