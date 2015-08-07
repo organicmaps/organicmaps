@@ -2122,7 +2122,7 @@ void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
 
   SetLastUsedRouter(m_currentRouterType);
 
-  auto fn = [this](Route const & route, IRouter::ResultCode code)
+  auto readyCallback = [this](Route const & route, IRouter::ResultCode code)
   {
     vector<storage::TIndex> absentCountries;
     vector<storage::TIndex> absentRoutingIndexes;
@@ -2150,9 +2150,9 @@ void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
   };
 
   m_routingSession.BuildRoute(state->Position(), destination,
-                              [fn](Route const & route, IRouter::ResultCode code)
+                              [readyCallback](Route const & route, IRouter::ResultCode code)
                               {
-                                GetPlatform().RunOnGuiThread(bind(fn, route, code));
+                                GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
                               },
                               m_progressCallback, timeoutSec);
 }
@@ -2256,11 +2256,13 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   m2::PointD const & position = GetLocationState()->Position();
   if (m_routingSession.OnLocationPositionChanged(position, info) == RoutingSession::RouteNeedRebuild)
   {
-    m_routingSession.RebuildRoute(position, [this] (Route const & route, IRouter::ResultCode code)
+    auto readyCallback = [this](Route const & route, IRouter::ResultCode code)
     {
       if (code == IRouter::NoError)
-        InsertRoute(route);
-    }, m_progressCallback, 0 /* timeoutSec */);
+        GetPlatform().RunOnGuiThread(bind(&Framework::InsertRoute, this, route));
+    };
+
+    m_routingSession.RebuildRoute(position, readyCallback, m_progressCallback, 0 /* timeoutSec */);
   }
 }
 
