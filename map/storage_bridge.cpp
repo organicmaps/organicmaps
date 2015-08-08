@@ -36,7 +36,7 @@ void StorageBridge::CountryStatusChanged(ActiveMapsLayout::TGroup const & group,
 }
 
 void StorageBridge::CountryOptionsChanged(ActiveMapsLayout::TGroup const & group, int position,
-                                          TMapOptions const & oldOpt, TMapOptions const & newOpt)
+                                          MapOptions const & oldOpt, MapOptions const & newOpt)
 {
   UNUSED_VALUE(group);
   UNUSED_VALUE(position);

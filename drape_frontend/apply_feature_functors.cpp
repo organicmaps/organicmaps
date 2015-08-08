@@ -435,9 +435,6 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       params.m_depth = depth;
       params.m_baseGtoPScale = m_currentScaleGtoP;
 
-      if (m_simplify)
-        params.m_cap = dp::ButtCap;
-
       m_insertShape(make_unique_dp<LineShape>(m_spline, params));
     }
   }

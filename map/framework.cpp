@@ -257,18 +257,18 @@ Framework::Framework()
   {
     alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
   };
-#ifdef DEBUG
-  auto const routingVisualizerFn = [this](m2::PointD const & pt)
-  {
-    GetPlatform().RunOnGuiThread([this,pt]()
-    {
-      m_bmManager.UserMarksGetController(UserMarkContainer::DEBUG_MARK).CreateUserMark(pt);
-      Invalidate();
-    });
-  };
-#else
+//#ifdef DEBUG
+//  auto const routingVisualizerFn = [this](m2::PointD const & pt)
+//  {
+//    GetPlatform().RunOnGuiThread([this,pt]()
+//    {
+//      m_bmManager.UserMarksGetController(UserMarkContainer::DEBUG_MARK).CreateUserMark(pt);
+//      Invalidate();
+//    });
+//  };
+//#else
   routing::RouterDelegate::TPointCheckCallback const routingVisualizerFn = nullptr;
-#endif
+//#endif
   m_routingSession.Init(routingStatisticsFn, routingVisualizerFn);
 
   SetRouterImpl(RouterType::Vehicle);
@@ -841,17 +841,17 @@ void Framework::SetDownloadCountryListener(TDownloadCountryListener const & list
 void Framework::OnDownloadMapCallback(storage::TIndex const & countryIndex)
 {
   if (m_downloadCountryListener != nullptr)
-    m_downloadCountryListener(countryIndex, static_cast<int>(TMapOptions::EMap));
+    m_downloadCountryListener(countryIndex, static_cast<int>(MapOptions::Map));
   else
-    m_activeMaps->DownloadMap(countryIndex, TMapOptions::EMap);
+    m_activeMaps->DownloadMap(countryIndex, MapOptions::Map);
 }
 
 void Framework::OnDownloadMapRoutingCallback(storage::TIndex const & countryIndex)
 {
   if (m_downloadCountryListener != nullptr)
-    m_downloadCountryListener(countryIndex, static_cast<int>(TMapOptions::EMapWithCarRouting));
+    m_downloadCountryListener(countryIndex, static_cast<int>(MapOptions::MapWithCarRouting));
   else
-    m_activeMaps->DownloadMap(countryIndex, TMapOptions::EMapWithCarRouting);
+    m_activeMaps->DownloadMap(countryIndex, MapOptions::MapWithCarRouting);
 }
 
 void Framework::OnDownloadRetryCallback(storage::TIndex const & countryIndex)
@@ -1435,7 +1435,7 @@ m2::PointD Framework::GetVisiblePOI(FeatureID id, search::AddressInfo & info, fe
   Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwmId);
 
   FeatureType ft;
-  guard.GetFeature(id.m_offset, ft);
+  guard.GetFeatureByIndex(id.m_index, ft);
 
   ft.ParseMetadata();
   metadata = ft.GetMetadata();
@@ -1738,11 +1738,9 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
   SetLastUsedRouter(m_currentRouterType);
   m_routingSession.SetUserCurrentPosition(myPosition);
 
-  m_routingSession.BuildRoute(myPosition, destination,
-                              [this] (Route const & route, IRouter::ResultCode code)
+  auto readyCallback = [this] (Route const & route, IRouter::ResultCode code)
   {
     ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute_ReadyCallback"));
-    double const routeScale = 1.5;
 
     vector<storage::TIndex> absentCountries;
     vector<storage::TIndex> absentRoutingIndexes;
@@ -1759,18 +1757,25 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
     {
       for (string const & name : route.GetAbsentCountries())
       {
-          storage::TIndex fileIndex = m_storage.FindIndexByFile(name);
-          if (m_storage.GetLatestLocalFile(fileIndex))
-            absentRoutingIndexes.push_back(fileIndex);
-          else
-            absentCountries.push_back(fileIndex);
-        }
+        storage::TIndex fileIndex = m_storage.FindIndexByFile(name);
+        if (m_storage.GetLatestLocalFile(fileIndex))
+          absentRoutingIndexes.push_back(fileIndex);
+        else
+          absentCountries.push_back(fileIndex);
+      }
 
-        if (code != IRouter::NeedMoreMaps)
-          RemoveRoute(true /* deactivateFollowing */);
+      if (code != IRouter::NeedMoreMaps)
+        RemoveRoute(true /* deactivateFollowing */);
     }
     CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
-  });
+  };
+
+  m_routingSession.BuildRoute(myPosition, destination,
+                              [readyCallback](Route const & route, IRouter::ResultCode code)
+                              {
+                                GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
+                              },
+                              m_progressCallback, timeoutSec);
 }
 
 void Framework::FollowRoute()
@@ -1878,30 +1883,6 @@ void Framework::InsertRoute(Route const & route)
       turns.push_back(turnsGeom[i].m_mercatorDistance);
   }
   m_drapeEngine->AddRoute(route.GetPoly(), turns, dp::Color(110, 180, 240, 160));
-
-  // TODO(@kuznetsov): Maybe we need some of this stuff
-  //track.SetName(route.GetName());
-
-  //RouteTrack track(route.GetPoly());
-  //track.SetName(route.GetName());
-  //track.SetTurnsGeometry(route.GetTurnsGeometry());
-
-  /// @todo Consider a style parameter for the route color.
-  //graphics::Color routeColor;
-  //if (m_currentRouterType == RouterType::Pedestrian)
-  //  routeColor = graphics::Color(5, 105, 175, 255);
-  //else
-  //  routeColor = graphics::Color(110, 180, 240, 255);
-
-  //Track::TrackOutline outlines[]
-  //{
-  //  { 10.0f * visScale, routeColor }
-  //};
-
-  //track.AddOutline(outlines, ARRAY_SIZE(outlines));
-  //track.AddClosingSymbol(false, "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
-
-  //m_informationDisplay.ResetRouteMatchingInfo();
 }
 
 void Framework::CheckLocationForRouting(GpsInfo const & info)
@@ -1912,15 +1893,20 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   RoutingSession::State state = m_routingSession.OnLocationPositionChanged(info);
   if (state == RoutingSession::RouteNeedRebuild)
   {
-    m2::PointD const & position = m_routingSession.GetUserCurrentPosition();
-    m_routingSession.RebuildRoute(position, [this] (Route const & route, IRouter::ResultCode code)
+    auto readyCallback = [this] (Route const & route, IRouter::ResultCode code)
     {
       if (code == IRouter::NoError)
       {
         RemoveRoute(false /* deactivateFollowing */);
         InsertRoute(route);
       }
-    });
+    };
+
+    m2::PointD const & position = m_routingSession.GetUserCurrentPosition();
+    m_routingSession.RebuildRoute(position, [readyCallback](Route const & route, IRouter::ResultCode code)
+    {
+      GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
+    }, m_progressCallback, 0 /* timeoutSec */);
   }
   else if (state == RoutingSession::RouteFinished)
   {

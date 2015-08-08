@@ -20,7 +20,6 @@ HEADERS += \
     ge0_parser.hpp \
     geourl_process.hpp \
     mwm_url.hpp \
-    routing_session.hpp \
     storage_bridge.hpp \
     track.hpp \
     user_mark.hpp \
@@ -38,7 +37,6 @@ SOURCES += \
     ge0_parser.cpp \
     geourl_process.cpp \
     mwm_url.cpp \
-    routing_session.cpp \
     storage_bridge.cpp \
     track.cpp \
     user_mark.cpp \

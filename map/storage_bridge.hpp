@@ -20,7 +20,7 @@ public:
   void CountryStatusChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
                             storage::TStatus const & oldStatus, storage::TStatus const & newStatus) override;
   void CountryOptionsChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
-                             TMapOptions const & oldOpt, TMapOptions const & newOpt) override;
+                             MapOptions const & oldOpt, MapOptions const & newOpt) override;
   void DownloadingProgressUpdate(storage::ActiveMapsLayout::TGroup const & group, int position,
                                  storage::LocalAndRemoteSizeT const & progress) override;
 

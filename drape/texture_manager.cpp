@@ -21,7 +21,7 @@ namespace dp
 {
 
 uint32_t const STIPPLE_TEXTURE_SIZE = 1024;
-uint32_t const COLOR_TEXTURE_SIZE = 1024;
+uint32_t const COLOR_TEXTURE_SIZE = 64;
 size_t const INVALID_GLYPH_GROUP = numeric_limits<size_t>::max();
 
 // number of glyphs (since 0) which will be in each texture

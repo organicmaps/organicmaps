@@ -29,12 +29,12 @@ namespace df
 namespace
 {
 
-//const double VSyncInterval = 0.030;
-#ifdef DEBUG
 const double VSyncInterval = 0.030;
-#else
-const double VSyncInterval = 0.014;
-#endif
+//#ifdef DEBUG
+//const double VSyncInterval = 0.030;
+//#else
+//const double VSyncInterval = 0.014;
+//#endif
 
 } // namespace
 

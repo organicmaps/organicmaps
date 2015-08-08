@@ -19,7 +19,6 @@
 
 #include "Framework.h"
 
-#include "anim/controller.hpp"
 #include "../Statistics/Statistics.h"
 
 #include "map/user_mark.hpp"
@@ -101,6 +100,10 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 @end
 
 @implementation MapViewController
+{
+  ActiveMapsObserver * m_mapsObserver;
+  int m_mapsObserverSlotId;
+}
 
 #pragma mark - LocationManager Callbacks
 
@@ -219,7 +222,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   if (mark == nullptr)
     [self dismissPlacePage];
   else
-    [self.placePageManager showPlacePageWithUserMark:std::move(mark)];
+    [self.controlsManager showPlacePageWithUserMark:move(mark)];
 }
 
 - (void)processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
@@ -378,7 +381,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
   [super viewWillAppear:animated];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-  [self invalidate];
 
   self.controlsManager.menuState = self.menuRestoreState;
 
@@ -422,6 +424,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [super viewWillDisappear:animated];
   self.menuRestoreState = self.controlsManager.menuState;
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
+
+  GetFramework().GetActiveMaps()->RemoveListener(m_mapsObserverSlotId);
 }
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent

@@ -6,7 +6,6 @@
 #include "map/country_tree.hpp"
 #include "map/feature_vec_model.hpp"
 #include "map/mwm_url.hpp"
-#include "map/routing_session.hpp"
 #include "map/track.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
@@ -27,6 +26,9 @@
 
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
+
+#include "routing/router.hpp"
+#include "routing/routing_session.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"

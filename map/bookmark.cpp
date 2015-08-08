@@ -3,8 +3,6 @@
 
 #include "map/framework.hpp"
 
-#include "anim/controller.hpp"
-
 #include "base/scope_guard.hpp"
 
 #include "indexer/mercator.hpp"

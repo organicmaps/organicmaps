@@ -489,7 +489,7 @@ bool IsLocationEmulation(QMouseEvent * e)
     if (m_framework->IsRoutingActive())
       m_framework->CloseRouting();
     else
-      m_framework->BuildRoute(m_framework->PtoG(pt));
+      m_framework->BuildRoute(m_framework->PtoG(pt), 0 /* timeoutSec */);
   }
 
   void DrawWidget::ShowInfoPopup(m2::PointD const & pt)
