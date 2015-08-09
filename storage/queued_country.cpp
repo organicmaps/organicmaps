@@ -40,9 +40,6 @@ void QueuedCountry::RemoveOptions(MapOptions opt)
 
 bool QueuedCountry::SwitchToNextFile()
 {
-  // static_casts are needed here because MapOptions values are
-  // actually enum flags (see 3party/enum_flags.hpp) and bitwise
-  // operators are overloaded for them.
   ASSERT(HasOptions(m_left, m_current),
          ("Current file (", m_current, ") is not specified in left files (", m_left, ")."));
   m_left = UnsetOptions(m_left, m_current);
