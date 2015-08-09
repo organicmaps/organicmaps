@@ -98,12 +98,6 @@ void InitLocalizedStrings()
   return (MapsAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
-+ (BOOL)isFirstAppLaunch
-{
-  // TODO: check if possible when user reinstall the app
-  return [[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY];
-}
-
 - (void)initMyTrackerService
 {
   NSString * const kMyTrackerAppId = @"***REMOVED***";
@@ -219,7 +213,7 @@ void InitLocalizedStrings()
     [notificationManager processNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey] onLaunch:YES];
   [notificationManager updateLocalNotifications];
   
-  if (self.class.isFirstAppLaunch)
+  if ([Alohalytics isFirstSession])
   {
     [self firstLaunchSetup];
   }

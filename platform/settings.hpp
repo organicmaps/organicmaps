@@ -53,8 +53,4 @@ namespace Settings
   /// Use this function for running some stuff once according to date.
   /// @param[in]  date  Current date in format yymmdd.
   bool IsFirstLaunchForDate(int date);
-  /// @Returns true when user launched app first time
-  /// Use to track new installs
-  /// @warning Can be used only before IsFirstLaunchForDate(int) call
-  bool IsFirstLaunch();
 }

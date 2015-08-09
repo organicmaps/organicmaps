@@ -347,10 +347,4 @@ namespace Settings
     else
       return false;
   }
-
-  bool IsFirstLaunch()
-  {
-    int unused;
-    return !Get(FIRST_LAUNCH_KEY, unused);
-  }
 }

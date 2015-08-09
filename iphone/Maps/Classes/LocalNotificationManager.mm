@@ -1,4 +1,3 @@
-#import "AppInfo.h"
 #import "Common.h"
 #import "Framework.h"
 #import "LocalNotificationInfoProvider.h"

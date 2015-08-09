@@ -1,8 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-static NSString * const FIRST_LAUNCH_KEY = @"FIRST_LAUNCH_KEY";
-
 static NSString * const MAPSWITHME_PREMIUM_LOCAL_URL = @"mapswithmepro://";
 
 static NSString * const BOOKMARK_CATEGORY_DELETED_NOTIFICATION = @"BookmarkCategoryDeletedNotification";
