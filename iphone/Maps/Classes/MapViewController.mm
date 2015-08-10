@@ -593,8 +593,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   if ((self = [super initWithCoder:coder]))
   {
     Framework & f = GetFramework();
-    if ([Alohalytics isFirstSession])
-      Settings::Set("ZoomButtonsEnabled", true);
 
     typedef void (*UserMarkActivatedFnT)(id, SEL, unique_ptr<UserMarkCopy>);
     typedef void (*PlacePageDismissedFnT)(id, SEL);
