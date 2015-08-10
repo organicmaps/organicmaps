@@ -32,7 +32,7 @@
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
 static NSString * const kShowPedestrianToastKey = @"ShowPedestrianToastKey";
-static NSString * const kShowPedestrianAchieveToastKey = @"ShowPedestrianAchieveToastKey";
+static NSString * const kShownPedestrianAchieveToastKey = @"ShownPedestrianAchieveToastKey";
 static NSString * const kPedestrianRouteCountKey = @"PedestrianRouteCountKey";
 static NSString * const kFirstPedestrianToastDateKey = @"FirstPedestrianToastDateKey";
 
@@ -540,7 +540,8 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   if (![NSUserDefaults.standardUserDefaults boolForKey:kShowPedestrianToastKey])
   {
     [NSUserDefaults.standardUserDefaults setBool:YES forKey:kShowPedestrianToastKey];
-    [self.alertController presentPedestrianToastAlert:YES];
+    if (!Alohalytics.isFirstSession)
+      [self.alertController presentPedestrianToastAlert:YES];
     [[NSUserDefaults standardUserDefaults] setValue:NSDate.date forKey:kFirstPedestrianToastDateKey];
   }
 }
@@ -726,7 +727,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 - (void)countPedestrianRoute
 {
-  if ([NSUserDefaults.standardUserDefaults boolForKey:kShowPedestrianAchieveToastKey])
+  if ([NSUserDefaults.standardUserDefaults boolForKey:kShownPedestrianAchieveToastKey])
     return;
   NSInteger pedestrianRoutesCount = [NSUserDefaults.standardUserDefaults integerForKey:kPedestrianRouteCountKey];
   [NSUserDefaults.standardUserDefaults setInteger:++pedestrianRoutesCount forKey:kPedestrianRouteCountKey];
@@ -739,7 +740,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   NSTimeInterval const timePassed = [NSDate.date timeIntervalSinceDate:firstToastDate];
   if (timePassed < day)
     return;
-  [NSUserDefaults.standardUserDefaults setBool:YES forKey:kShowPedestrianAchieveToastKey];
+  [NSUserDefaults.standardUserDefaults setBool:YES forKey:kShownPedestrianAchieveToastKey];
   [self.alertController presentPedestrianToastAlert:NO];
 }
 
