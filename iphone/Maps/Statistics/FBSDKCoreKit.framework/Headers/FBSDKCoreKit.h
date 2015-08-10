@@ -34,5 +34,5 @@
 #import <FBSDKCoreKit/FBSDKTestUsersManager.h>
 #import <FBSDKCoreKit/FBSDKUtility.h>
 
-#define FBSDK_VERSION_STRING @"4.3.0"
-#define FBSDK_TARGET_PLATFORM_VERSION @"v2.3"
+#define FBSDK_VERSION_STRING @"4.4.0"
+#define FBSDK_TARGET_PLATFORM_VERSION @"v2.4"

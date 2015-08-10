@@ -49,11 +49,6 @@ FBSDK_EXTERN NSString *NSStringFromFBSDKAppGroupPrivacy(FBSDKAppGroupPrivacy pri
 @property (nonatomic, copy) NSString *groupDescription;
 
 /*!
- @abstract The ID for the group.
- */
-@property (nonatomic, copy) NSString *groupID;
-
-/*!
  @abstract The name of the group.
  */
 @property (nonatomic, copy) NSString *name;
