@@ -260,7 +260,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 
   string s;
   MeasurementUtils::FormatDistance(meters, s);
-  return [NSString stringWithUTF8String:s.c_str()];
+  return @(s.c_str());
 }
 
 + (char const *)getSpeedSymbol:(double)metersPerSecond
@@ -309,7 +309,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
         result += "   ";
       result += [LocationManager getSpeedSymbol:l.speed] + MeasurementUtils::FormatSpeed(l.speed);
     }
-    return result.empty() ? nil : [NSString stringWithUTF8String:result.c_str()];
+    return result.empty() ? nil : @(result.c_str());
   }
   return nil;
 }

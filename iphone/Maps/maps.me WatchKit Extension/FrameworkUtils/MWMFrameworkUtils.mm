@@ -59,7 +59,7 @@ extern NSString * const kSearchResultPointKey;
   if (countryIndex == storage::TIndex())
     return @"";
   string countryName = f.GetCountryTree().GetActiveMapLayout().GetFormatedCountryName(countryIndex);
-  return [NSString stringWithUTF8String:countryName.c_str()];
+  return @(countryName.c_str());
 }
 
 + (void)initSoftwareRenderer
@@ -122,8 +122,8 @@ extern NSString * const kSearchResultPointKey;
     {
       search::Result result = results.GetResult(index);
       NSMutableDictionary * d = [NSMutableDictionary dictionary];
-      d[kSearchResultTitleKey] = [NSString stringWithUTF8String:result.GetString()];
-      d[kSearchResultCategoryKey] = [NSString stringWithUTF8String:result.GetFeatureType()];
+      d[kSearchResultTitleKey] = @(result.GetString());
+      d[kSearchResultCategoryKey] = @(result.GetFeatureType());
       m2::PointD const featureCenter = result.GetFeatureCenter();
       d[kSearchResultPointKey] = [NSValue value:&featureCenter withObjCType:@encode(m2::PointD)];
       res[index] = d;

@@ -39,7 +39,7 @@
     uint64_t totalRoutingSize = 0;
     for (auto const & i : indexes)
     {
-      [titles addObject:[NSString stringWithUTF8String:a.GetCountryName(i).c_str()]];
+      [titles addObject:@(a.GetCountryName(i).c_str())];
       totalRoutingSize += a.GetCountrySize(i, isMaps ? MapOptions::MapWithCarRouting : MapOptions::CarRouting).second;
     }
     self.isMapsFiles = isMaps;

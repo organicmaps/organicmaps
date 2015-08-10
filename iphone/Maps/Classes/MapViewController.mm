@@ -652,7 +652,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
         if(HasOptions(options, MapOptions::CarRouting))
           sizeToDownload += sizes.second;
 
-        NSString * name = [NSString stringWithUTF8String:layout.GetCountryName(idx).c_str()];
+        NSString * name = @(layout.GetCountryName(idx).c_str());
         Platform::EConnectionType const connection = Platform::ConnectionStatus();
         if (connection != Platform::EConnectionType::CONNECTION_NONE)
         {
@@ -920,7 +920,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
     return;
   CGFloat const normProgress = (CGFloat)progress.first / (CGFloat)progress.second;
   ActiveMapsLayout & activeMapLayout = GetFramework().GetCountryTree().GetActiveMapLayout();
-  NSString * countryName = [NSString stringWithUTF8String:activeMapLayout.GetFormatedCountryName(activeMapLayout.GetCoreIndex(group, position)).c_str()];
+  NSString * countryName = @(activeMapLayout.GetFormatedCountryName(activeMapLayout.GetCoreIndex(group, position)).c_str());
   [self.searchView downloadProgress:normProgress countryName:countryName];
 }
 

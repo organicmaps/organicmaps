@@ -116,7 +116,7 @@
   BookmarkCategory const * cat = GetFramework().GetBmCategory(indexPath.row);
   if (cat)
   {
-    NSString * title = [NSString stringWithUTF8String:cat->GetName().c_str()];
+    NSString * title = @(cat->GetName().c_str());
     cell.textLabel.text = [self truncateString:title toWidth:(self.tableView.width - 122) withFont:cell.textLabel.font];
     cell.imageView.image = [UIImage imageNamed:(cat->IsVisible() ? @"eye" : @"empty")];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", cat->GetBookmarksCount() + cat->GetTracksCount()];

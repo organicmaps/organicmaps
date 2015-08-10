@@ -46,7 +46,7 @@ NSString * httpGe0Url(NSString * shortUrl)
   auto & f = GetFramework();
   string const s = f.CodeGe0url(self.location.latitude, self.location.longitude, f.GetDrawScale(),
                                 self.title.UTF8String);
-  NSString * url = [NSString stringWithUTF8String:s.c_str()];
+  NSString * url = @(s.c_str());
   if (!isShort)
     return url;
   NSUInteger const kGe0UrlLength = 16;

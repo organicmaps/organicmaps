@@ -86,7 +86,7 @@
   {
     BookmarkCategory * cat = GetFramework().GetBmCategory(indexPath.row);
     if (cat)
-      cell.textLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
+      cell.textLabel.text = @(cat->GetName().c_str());
 
     BookmarkAndCategory const bac = self.manager.entity.bac;
 
@@ -115,7 +115,7 @@
   entity.bac = bac;
 
   BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bac.first);
-  entity.bookmarkCategory = [NSString stringWithUTF8String:category->GetName().c_str()];
+  entity.bookmarkCategory = @(category->GetName().c_str());
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

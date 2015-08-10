@@ -89,12 +89,12 @@ using feature::Metadata;
   f.FindClosestPOIMetadata(point, metadata);
   f.GetAddressInfoForGlobalPoint(point, info);
 
-  self.bookmarkTitle = [NSString stringWithUTF8String:data.GetName().c_str()];
-  self.bookmarkCategory = [NSString stringWithUTF8String:category->GetName().c_str()];
+  self.bookmarkTitle = @(data.GetName().c_str());
+  self.bookmarkCategory = @(category->GetName().c_str());
   string const description = data.GetDescription();
-  self.bookmarkDescription = [NSString stringWithUTF8String:description.c_str()];
+  self.bookmarkDescription = @(description.c_str());
   _isHTMLDescription = strings::IsHTML(description);
-  self.bookmarkColor = [NSString stringWithUTF8String:data.GetType().c_str()];
+  self.bookmarkColor = @(data.GetType().c_str());
 
   [self configureEntityWithMetadata:metadata addressInfo:info];
   [self insertBookmarkInTypes];
@@ -122,7 +122,7 @@ using feature::Metadata;
   NSMutableArray * values = [NSMutableArray array];
   [types addObject:kPatternTypesArray.lastObject];
   BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  NSString * latLonStr = isLatLonAsDMS ? [NSString stringWithUTF8String: MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()]: [NSString stringWithUTF8String: MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str()];
+  NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()): @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
   [values addObject:latLonStr];
 
   self.metadata = @{kTypesKey : types, kValuesKey : values};
@@ -131,23 +131,23 @@ using feature::Metadata;
 - (void)configureForApi:(ApiMarkPoint const *)apiMark
 {
   self.type = MWMPlacePageEntityTypeAPI;
-  self.title = [NSString stringWithUTF8String:apiMark->GetName().c_str()];
+  self.title = @(apiMark->GetName().c_str());
   self.category = @(GetFramework().GetApiDataHolder().GetAppTitle().c_str());
   NSMutableArray const * types = [NSMutableArray array];
   NSMutableArray const * values = [NSMutableArray array];
   [types addObject:kPatternTypesArray.lastObject];
   BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  NSString * latLonStr = isLatLonAsDMS ? [NSString stringWithUTF8String:MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()] : [NSString stringWithUTF8String: MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str()];
-  latLonStr = isLatLonAsDMS ? [NSString stringWithUTF8String:MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()] : [NSString stringWithUTF8String: MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str()];
+  NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @(MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
+  latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @(MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
   [values addObject:latLonStr];
   self.metadata = @{kTypesKey : types, kValuesKey : values};
 }
 
 - (void)configureEntityWithMetadata:(Metadata const &)metadata addressInfo:(search::AddressInfo const &)info
 {
-  NSString * const name = [NSString stringWithUTF8String:info.GetPinName().c_str()];
+  NSString * const name = @(info.GetPinName().c_str());
   self.title = name.length > 0 ? name : L(@"dropped_pin");
-  self.category = [NSString stringWithUTF8String:info.GetPinType().c_str()];
+  self.category = @(info.GetPinType().c_str());
 
   vector<Metadata::EType> const presentTypes = metadata.GetPresentTypes();
 
@@ -160,7 +160,7 @@ using feature::Metadata;
     {
       case Metadata::FMD_CUISINE:
       {
-        NSString * result = [NSString stringWithUTF8String:metadata.Get(type).c_str()];
+        NSString * result = @(metadata.Get(type).c_str());
         NSString * cuisine = [NSString stringWithFormat:@"cuisine_%@", result];
         NSString * localizedResult = L(cuisine);
         NSString * currentCategory = self.category;
@@ -187,7 +187,7 @@ using feature::Metadata;
       }
       case Metadata::FMD_OPERATOR:
       {
-        NSString const * bank = [NSString stringWithUTF8String:metadata.Get(type).c_str()];
+        NSString const * bank = @(metadata.Get(type).c_str());
         if (self.category.length)
           self.category = [NSString stringWithFormat:@"%@, %@", self.category, bank];
         else
@@ -215,7 +215,7 @@ using feature::Metadata;
         else if (type == Metadata::FMD_INTERNET)
           v = L(@"WiFi_available");
         else
-          v = [NSString stringWithUTF8String:metadata.Get(type).c_str()];
+          v = @(metadata.Get(type).c_str());
 
         NSNumber const * t = [self typeFromMetadata:type];
         [types addObject:t];
@@ -241,8 +241,8 @@ using feature::Metadata;
 
   [types addObject:kPatternTypesArray.lastObject];
   BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  NSString * latLonStr = isLatLonAsDMS ? [NSString stringWithUTF8String:MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()] : [NSString stringWithUTF8String: MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str()];
-  latLonStr = isLatLonAsDMS ? [NSString stringWithUTF8String:MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()] : [NSString stringWithUTF8String: MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str()];
+  NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
+  latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
   [values addObject:latLonStr];
   
   self.metadata = @{kTypesKey : types, kValuesKey : values};
@@ -301,7 +301,7 @@ using feature::Metadata;
   {
     Framework & f = GetFramework();
     BookmarkCategory * category = f.GetBmCategory(f.LastEditedBMCategory());
-    _bookmarkCategory = [NSString stringWithUTF8String:category->GetName().c_str()];
+    _bookmarkCategory = @(category->GetName().c_str());
   }
   return _bookmarkCategory;
 }
@@ -319,7 +319,7 @@ using feature::Metadata;
   {
     Framework & f = GetFramework();
     string type = f.LastEditedBMType();
-    _bookmarkColor = [NSString stringWithUTF8String:type.c_str()];
+    _bookmarkColor = @(type.c_str());
   }
   return _bookmarkColor;
 }

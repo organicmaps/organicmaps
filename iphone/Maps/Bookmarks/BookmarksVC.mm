@@ -43,7 +43,7 @@
   {
     m_locationManager = [MapsAppDelegate theApp].m_locationManager;
     m_categoryIndex = index;
-    self.title = [NSString stringWithUTF8String:GetFramework().GetBmCategory(index)->GetName().c_str()];
+    self.title = @(GetFramework().GetBmCategory(index)->GetName().c_str());
     [self calculateSections];
   }
   return self;
@@ -132,7 +132,7 @@
         cell.detailTextLabel.text = nil;
         [cell.contentView addSubview:f];
       }
-      ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text = [NSString stringWithUTF8String:cat->GetName().c_str()];
+      ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text = @(cat->GetName().c_str());
     }
     else
     {
@@ -156,7 +156,7 @@
     if (!cell)
       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"TrackCell"];
     Track const * tr = cat->GetTrack(indexPath.row);
-    cell.textLabel.text = [NSString stringWithUTF8String:tr->GetName().c_str()];
+    cell.textLabel.text = @(tr->GetName().c_str());
     string dist;
     if (MeasurementUtils::FormatDistance(tr->GetLengthMeters(), dist))
       //Change Length before release!!!
@@ -175,8 +175,8 @@
     Bookmark const * bm = cat->GetBookmark(indexPath.row);
     if (bm)
     {
-      bmCell.bmName.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
-      bmCell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[ColorPickerView colorForName:[NSString stringWithUTF8String:bm->GetType().c_str()]]];
+      bmCell.bmName.text = @(bm->GetName().c_str());
+      bmCell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[ColorPickerView colorForName:@(bm->GetType().c_str())]];
 
       // Get current position and compass "north" direction
       double azimut = -1.0;
@@ -190,7 +190,7 @@
         string distance;
         fr.GetDistanceAndAzimut(bm->GetOrg(), lat, lon, north, distance, azimut);
 
-        bmCell.bmDistance.text = [NSString stringWithUTF8String:distance.c_str()];
+        bmCell.bmDistance.text = @(distance.c_str());
       }
       else
         bmCell.bmDistance.text = nil;
@@ -267,7 +267,7 @@
       if (![catName length])
         [catName setString:@"MapsMe"];
 
-      NSString * filePath = [NSString stringWithUTF8String:cat->GetFileName().c_str()];
+      NSString * filePath = @(cat->GetFileName().c_str());
       NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];
       [kmzFile replaceCharactersInRange:NSMakeRange([filePath length] - 1, 1) withString:@"z"];
 

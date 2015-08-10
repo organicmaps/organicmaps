@@ -126,7 +126,7 @@ extern NSString * const MapsStatusChangedNotification;
 
 - (NSString *)selectedMapName
 {
-  return [NSString stringWithUTF8String:self.mapsLayout.GetCountryName(self.selectedGroup, self.selectedPosition).c_str()];
+  return @(self.mapsLayout.GetCountryName(self.selectedGroup, self.selectedPosition).c_str());
 }
 
 - (uint64_t)selectedMapSizeWithOptions:(MapOptions)options
@@ -247,7 +247,7 @@ extern NSString * const MapsStatusChangedNotification;
   BOOL const isLast = (indexPath.row == numberOfRows - 1);
   BOOL const isFirst = (indexPath.row == 0);
 
-  cell.titleLabel.text = [NSString stringWithUTF8String:self.mapsLayout.GetCountryName(group, position).c_str()];
+  cell.titleLabel.text = @(self.mapsLayout.GetCountryName(group, position).c_str());
   cell.parentMode = NO;
   cell.status = status;
   cell.options = options;

@@ -268,7 +268,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   CLLocationCoordinate2D const coord = location.coordinate;
   GetFramework().GetDistanceAndAzimut(m_userMark->GetUserMark()->GetOrg(), coord.latitude, coord.longitude, north,
                                       distance, azimut);
-  return [NSString stringWithUTF8String:distance.c_str()];
+  return @(distance.c_str());
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info

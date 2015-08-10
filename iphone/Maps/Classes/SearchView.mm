@@ -280,7 +280,7 @@ static BOOL keyboardLoaded = NO;
         string distance;
         double azimut = -1.0;
         GetFramework().GetDistanceAndAzimut(result.GetFeatureCenter(), lat, lon, north, distance, azimut);
-        wrapper.distances[@(position)] = [NSString stringWithUTF8String:distance.c_str()];
+        wrapper.distances[@(position)] = @(distance.c_str());
       }
     }
   }
@@ -456,7 +456,7 @@ static BOOL keyboardLoaded = NO;
     if (!f.IsCountryLoaded(viewportCenter))
     {
       secondSentence = [NSString stringWithFormat:L(@"download_viewport_country_to_search"),
-                        [NSString stringWithUTF8String:f.GetCountryName(viewportCenter).c_str()]];
+                        @(f.GetCountryName(viewportCenter).c_str())];
     }
     else
     {
@@ -467,7 +467,7 @@ static BOOL keyboardLoaded = NO;
         m2::PointD const mercatorLocation = MercatorBounds::FromLatLon(lat, lon);
         if (!f.IsCountryLoaded(mercatorLocation)) {
           secondSentence = [NSString stringWithFormat:L(@"download_location_country"),
-                            [NSString stringWithUTF8String:f.GetCountryName(mercatorLocation).c_str()]];
+                            @(f.GetCountryName(mercatorLocation).c_str())];
         }
       }
     }
@@ -536,7 +536,7 @@ static BOOL keyboardLoaded = NO;
     NSRange range = NSMakeRange(pairRange.first, pairRange.second);
     [ranges addObject:[NSValue valueWithRange:range]];
   }
-  NSString * title = [NSString stringWithUTF8String:result.GetString()];
+  NSString * title = @(result.GetString());
   [cell setTitle:title selectedRanges:ranges];
 }
 
@@ -568,10 +568,10 @@ static BOOL keyboardLoaded = NO;
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       search::Result const & result = [self.wrapper resultWithPosition:position];
       [self setCellAttributedTitle:customCell result:result];
-      customCell.subtitleLabel.text = [NSString stringWithUTF8String:result.GetRegionString()];
+      customCell.subtitleLabel.text = @(result.GetRegionString());
       customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinIcon"];
       customCell.distanceLabel.text = self.wrapper.distances[@(position)];
-      customCell.typeLabel.text = [NSString stringWithUTF8String:result.GetFeatureType()];
+      customCell.typeLabel.text = @(result.GetFeatureType());
       cell = customCell;
       break;
     }
@@ -606,13 +606,13 @@ static BOOL keyboardLoaded = NO;
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       SearchResultsWrapper * wrapper = self.wrapper;
       search::Result const & result = [wrapper resultWithPosition:position];
-      NSString * title = [NSString stringWithUTF8String:result.GetString()];
+      NSString * title = @(result.GetString());
       NSString * subtitle;
       NSString * type;
       if (result.GetResultType() == search::Result::RESULT_FEATURE || result.GetResultType() == search::Result::RESULT_LATLON)
       {
-        subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
-        type = [NSString stringWithUTF8String:result.GetFeatureType()];
+        subtitle = @(result.GetRegionString());
+        type = @(result.GetFeatureType());
       }
       return [SearchResultCell cellHeightWithTitle:title type:type subtitle:subtitle distance:wrapper.distances[@(position)] viewWidth:tableView.width];
     }
@@ -666,7 +666,7 @@ static BOOL keyboardLoaded = NO;
     {
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       search::Result const & result = [self.wrapper resultWithPosition:position];
-      NSString * newQuery = [NSString stringWithUTF8String:result.GetSuggestionString()];
+      NSString * newQuery = @(result.GetSuggestionString());
       self.searchBar.textField.text = newQuery;
       [self search:newQuery];
 

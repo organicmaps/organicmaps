@@ -94,7 +94,7 @@ static CLLocationDistance const kDistanceToDestinationThreshold = 5.0;
 
   string distance;
   if (MeasurementUtils::FormatDistance(d, distance))
-    return [NSString stringWithUTF8String:distance.c_str()];
+    return @(distance.c_str());
   return @"";
 }
 

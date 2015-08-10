@@ -38,7 +38,7 @@
 
 - (void)show
 {
-  self.titleLabel.text = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()];
+  self.titleLabel.text = @(GetFramework().GetApiDataHolder().GetAppTitle().c_str());
   [self.delegate.view insertSubview:self.rootView belowSubview:self.delegate.searchView];
   self.rootView.width = self.delegate.view.width;
   self.rootView.maxY = 0.0;
@@ -66,7 +66,7 @@
 
 - (IBAction)backButtonTouchUpInside:(UIButton *)sender
 {
-  NSURL * url = [NSURL URLWithString:[NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetGlobalBackUrl().c_str()]];
+  NSURL * url = [NSURL URLWithString:@(GetFramework().GetApiDataHolder().GetGlobalBackUrl().c_str())];
   [[UIApplication sharedApplication] openURL:url];
   [self hideBarAndClearAnimated:NO];
 }

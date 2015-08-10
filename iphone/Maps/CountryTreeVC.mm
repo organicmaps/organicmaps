@@ -28,7 +28,7 @@ extern NSString * const MapsStatusChangedNotification;
   else
   {
     ASSERT(position < self.tree.GetChildCount(), ());
-    self.title = [NSString stringWithUTF8String:self.tree.GetChildName(position).c_str()];
+    self.title = @(self.tree.GetChildName(position).c_str());
     self.tree.SetChildAsRoot(position);
   }
 
@@ -127,12 +127,12 @@ extern NSString * const MapsStatusChangedNotification;
 
 - (NSString *)parentTitle
 {
-  return self.tree.IsCountryRoot() ? [NSString stringWithUTF8String:self.tree.GetRootName().c_str()] : nil;
+  return self.tree.IsCountryRoot() ? @(self.tree.GetRootName().c_str()) : nil;
 }
 
 - (NSString *)selectedMapName
 {
-  return [NSString stringWithUTF8String:self.tree.GetChildName(self.selectedPosition).c_str()];
+  return @(self.tree.GetChildName(self.selectedPosition).c_str());
 }
 
 - (uint64_t)selectedMapSizeWithOptions:(MapOptions)options
@@ -228,7 +228,7 @@ extern NSString * const MapsStatusChangedNotification;
     BOOL const isLast = (indexPath.row == numberOfRows - 1);
     BOOL const isFirst = (indexPath.row == 0);
 
-    cell.titleLabel.text = [NSString stringWithUTF8String:self.tree.GetChildName(position).c_str()];
+    cell.titleLabel.text = @(self.tree.GetChildName(position).c_str());
     cell.subtitleLabel.text = [self parentTitle];
     cell.delegate = self;
     cell.badgeView.value = 0;

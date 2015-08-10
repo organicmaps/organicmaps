@@ -187,7 +187,7 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 {
   string s; GetPlatform().GetReader("copyright.html")->ReadAsString(s);
   NSString * str = [NSString stringWithFormat:@"Version: %@ \n", [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
-  NSString * text = [NSString stringWithFormat:@"%@%@", str, [NSString stringWithUTF8String:s.c_str()]];
+  NSString * text = [NSString stringWithFormat:@"%@%@", str, @(s.c_str())];
   WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:L(@"copyright")];
   aboutViewController.openInSafari = YES;
   [self.navigationController pushViewController:aboutViewController animated:YES];

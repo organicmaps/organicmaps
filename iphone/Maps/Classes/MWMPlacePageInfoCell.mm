@@ -95,7 +95,7 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
   NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
   BOOL const showLatLonAsDMS = [defaults boolForKey:kUserDefaultsLatLonAsDMSKey];
   m2::PointD const point = self.currentEntity.point;
-  [self.textContainer setText:[NSString stringWithUTF8String:(showLatLonAsDMS ? MeasurementUtils::FormatLatLon(point.x, point.y).c_str() : MeasurementUtils::FormatLatLonAsDMS(point.x, point.y, 2).c_str())]];
+  [self.textContainer setText:@((showLatLonAsDMS ? MeasurementUtils::FormatLatLon(point.x, point.y).c_str() : MeasurementUtils::FormatLatLonAsDMS(point.x, point.y, 2).c_str()))];
   [defaults setBool:!showLatLonAsDMS forKey:kUserDefaultsLatLonAsDMSKey];
   [defaults synchronize];
 }

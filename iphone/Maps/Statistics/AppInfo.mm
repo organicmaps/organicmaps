@@ -90,7 +90,7 @@ static NSString * const kAppInfoFirstLaunchDateKey = @"AppInfoFirstLaunchDate";
       if (carrier.isoCountryCode) // if device can access sim card info
         Settings::Set(kCountryCodeKey, std::string([_countryCode UTF8String])); // then save new code instead
       else
-        _countryCode = [NSString stringWithUTF8String:codeString.c_str()]; // if device can NOT access sim card info then using saved code
+        _countryCode = @(codeString.c_str()); // if device can NOT access sim card info then using saved code
     }
     else
     {
@@ -110,7 +110,7 @@ static NSString * const kAppInfoFirstLaunchDateKey = @"AppInfoFirstLaunchDate";
     string uniqueString;
     if (Settings::Get(kUniqueIdKey, uniqueString)) // if id stored in settings
     {
-      _uniqueId = [NSString stringWithUTF8String:uniqueString.c_str()];
+      _uniqueId = @(uniqueString.c_str());
     }
     else // if id not stored in settings
     {
