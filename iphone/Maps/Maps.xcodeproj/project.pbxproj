@@ -890,7 +890,6 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				5605022E1B6211E100169CAD /* sound-strings */,
 				CB252D6816FF82C8001E41E9 /* Statistics */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				FA34BEC71338D6DB00FFB2A7 /* Common */,
@@ -929,6 +928,7 @@
 				347274711B0F4EB300756B37 /* Entitlements */,
 				97D40C09184D031900A1D572 /* Images.xcassets */,
 				FA99CB71147089B100689A9A /* Localizable.strings */,
+				5605022E1B6211E100169CAD /* sound-strings */,
 				978F9246183B6671000D6C7C /* Main_iPhone.storyboard */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 			);
