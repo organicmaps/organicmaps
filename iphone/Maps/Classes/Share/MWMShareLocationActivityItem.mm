@@ -65,8 +65,6 @@ NSString * httpGe0Url(NSString * shortUrl)
 {
   NSString * event = @"MWMShareLocationActivityItem:activityViewController:itemForActivityType:";
   [Alohalytics logEvent:event withValue:activityType];
-  if ([UIActivityTypePostToFacebook isEqualToString:activityType])
-    return [self itemForSocialAppLong];
   if ([UIActivityTypeMessage isEqualToString:activityType])
   {
     [[Statistics instance] logEvent:@"ge0(zero) MESSAGE Export"];
@@ -87,16 +85,6 @@ NSString * httpGe0Url(NSString * shortUrl)
 }
 
 #pragma mark - Message
-
-- (NSString *)itemForSocialAppLong
-{
-  return [self url:NO];
-}
-
-- (NSString *)itemForSocialAppShort
-{
-  return [self url:YES];
-}
 
 - (NSString *)itemForMessageApp
 {
