@@ -322,12 +322,13 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
           }
         }
 
-        // Find best matching for multiple choices.
-        int ind1 = -1, ind2 = -1, dist = numeric_limits<int>::max();
+        // Find best matching for multiple choices. Get match with minimal sum distance.
+        int ind1 = -1, ind2 = -1;
+        double dist = numeric_limits<double>::max();
         for (auto i1 : indices[0])
           for (auto i2 : indices[1])
           {
-            int const d = abs(i1.first - i2.first);
+            double const d = i1.second + i2.second;
             if (d < dist && i1.first != i2.first)
             {
               ind1 = i1.first;
