@@ -83,5 +83,52 @@
  */
 + (FlurryEventRecordStatus)logWatchEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters;
 
+/*!
+ *  @brief Records a watch exception. Commonly used to catch unhandled exceptions.
+ *  @since 6.4.0
+ *
+ *  This method captures an exception for reporting to Flurry. We recommend adding an uncaught
+ *  exception listener to capture any exceptions that occur during usage that is not
+ *  anticipated by your app.
+ *
+ *  @note This method is only supported within a watch extension.\n
+ *
+ *  @see #logWatchError:message:error: for details on capturing errors.
+ *
+ *  @code
+ *  - (void) uncaughtExceptionHandler(NSException *exception)
+ {
+ [FlurryWatch logWatchError:@"Uncaught" message:@"Crash!" exception:exception];
+ }
+ *  @endcode
+ *
+ *  @param errorID Name of the error.
+ *  @param message The message to associate with the error.
+ *  @param exception The exception object to report.
+ */
++ (void)logWatchError:(NSString *)errorID message:(NSString *)message exception:(NSException *)exception;
+
+/*!
+ *  @brief Records a watch error.
+ *  @since 6.4.0
+ *
+ *  This method captures an error for reporting to Flurry.
+ *
+ *  @note This method is only supported within a watch extension.\n
+ *
+ *  @see #logWatchError:message:exception: for details on capturing exceptions.
+ *
+ *  @code
+ *  - (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+ {
+ [FlurryWatch logWatchError:@"Interface failed to load" message:[error localizedDescription] error:error];
+ }
+ *  @endcode
+ *
+ *  @param errorID Name of the error.
+ *  @param message The message to associate with the error.
+ *  @param error The error object to report.
+ */
++ (void)logWatchError:(NSString *)errorID message:(NSString *)message error:(NSError *)error;
 
 @end

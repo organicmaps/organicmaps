@@ -62,17 +62,17 @@ typedef enum {
 /*!
  *  @brief Provides all available methods for defining and reporting Analytics from use
  *  of your app.
- *
+ * 
  *  Set of methods that allow developers to capture detailed, aggregate information
  *  regarding the use of their app by end users.
- *
+ *  
  *  @note This class provides methods necessary for correct function of Flurry.h.
  *  For information on how to use Flurry's Ads SDK to
- *  attract high-quality users and monetize your user base see <a href="http://support.flurry.com/index.php?title=Publishers">Support Center - Publishers</a>.
- *
+ *  attract high-quality users and monetize your user base see <a href=https://developer.yahoo.com/flurry/docs/howtos">Support Center - Publishers</a>.
+ *  
  *  @author 2009 - 2013 Flurry, Inc. All Rights Reserved.
  *  @version 4.3.0
- *
+ * 
  */
 
 @interface Flurry : NSObject {
@@ -260,14 +260,14 @@ typedef enum {
 
 
 /*!
- *  @brief Start a Flurry session for the project denoted by @c apiKey.
+ *  @brief Returns true if a session currently exists and is active.
  *  @since 6.0.0
  *
  * @code
  *  - (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
  {
  // Optional Flurry startup methods
- [Flurry activeSessionExists:@"YOUR_API_KEY" withOptions:launchOptions];
+ [Flurry activeSessionExists];
  // ....
  }
  * @endcode
@@ -276,7 +276,7 @@ typedef enum {
 + (BOOL)activeSessionExists;
 
 /*!
- *  @brief Start a Flurry session for the project denoted by @c apiKey.
+ *  @brief Returns the session ID of the current active session.
  *  @since 6.3.0
  *
  * @code
@@ -288,7 +288,7 @@ typedef enum {
  }
  * @endcode
  *
-
+ 
  */
 + (NSString*)getSessionID;
 
@@ -331,6 +331,71 @@ typedef enum {
  *
  */
 + (void)pauseBackgroundSession;
+
+/*!
+ *  @brief Adds an session origin and deep link attached to each session specified by @c sessionOriginName and  @c deepLink.
+ *  @since 6.5.0
+ *
+ *  This method allows you to specify session origin and deep link for each session. This is different than addOrigin which is used for third party
+ *  wrappers after every session start.
+ *
+ *
+ *  @code
+ *  - (void)interestingMethod
+ {
+ // ... after calling startSession
+ [Flurry addSessionOrigin:@"facebuk"];
+ // more code ...
+ }
+ *  @endcode
+ *
+ *  @param sessionOriginName    Name of the origin.
+ *  @param deepLink             Url of the deep Link.
+ */
++ (void)addSessionOrigin:(NSString *)sessionOriginName  withDeepLink:(NSString*)deepLink;
+
+/*!
+ *  @brief Adds an session origin attached to each session specified by @c sessionOriginName.
+ *  @since 6.5.0
+ *
+ *  This method allows you to specify session origin for each session. This is different than addOrigin which is used for third party
+ *  wrappers after every session start.
+ *
+ *
+ *  @code
+ *  - (void)interestingMethod
+ {
+ // ... after calling startSession
+ [Flurry addSessionOrigin:@"facebuk"];
+ // more code ...
+ }
+ *  @endcode
+ *
+ *  @param sessionOriginName    Name of the origin.
+ */
++ (void)addSessionOrigin:(NSString *)sessionOriginName;
+
+/*!
+ *  @brief Adds a custom parameterized session parameters @c parameters.
+ *  @since 6.5.0
+ *
+ *  This method allows you to associate parameters with an session. Parameters
+ *  are valuable as they allow you to store characteristics of an session.
+ *
+ *  @note You should not pass private or confidential information about your origin info in a
+ *  custom origin. \n
+ *  A maximum of 20 parameter names may be associated with any origin. Sending
+ *  over 20 parameter names with a single origin will result in no parameters being logged
+ *  for that origin.
+ *
+ *
+ *  @code
+
+ *  @endcode
+ *
+ *  @param parameters An immutable copy of map containing Name-Value pairs of parameters.
+ */
++ (void)sessionProperties:(NSDictionary *)parameters;
 
 /*!
  *  @brief Adds an SDK origin specified by @c originName and @c originVersion.

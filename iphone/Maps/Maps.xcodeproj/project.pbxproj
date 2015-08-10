@@ -19,7 +19,6 @@
 		341522BF1B666A550077AA8F /* MWMAPIBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 341522BE1B666A550077AA8F /* MWMAPIBarView.m */; };
 		341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */; };
-		34287FDC1B3D7C4800F9959C /* libFlurry_6.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */; };
 		3428BC131B55477E00C85B30 /* MWMSideMenuDownloadBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3428BC121B55477E00C85B30 /* MWMSideMenuDownloadBadge.m */; };
 		342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 342AD76E1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m */; };
 		342AD7721B53D32F00E0B997 /* UIView+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 342AD7711B53D32F00E0B997 /* UIView+RuntimeAttributes.m */; };
@@ -264,6 +263,7 @@
 		F6ED135B1B18AA930095C6DE /* MWMExtendedPlacePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F6ED135A1B18AA930095C6DE /* MWMExtendedPlacePageView.m */; };
 		F6ED13911B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6ED13901B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm */; };
 		F6ED13931B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6ED13921B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib */; };
+		F6EE7BC31B78A1EA00FF6500 /* libFlurry_6.7.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6EE7BC21B78A1EA00FF6500 /* libFlurry_6.7.0.a */; };
 		F6F533A31B3C248900C1940B /* UIColor+MapsMeColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F533A21B3C248900C1940B /* UIColor+MapsMeColor.mm */; };
 		F6F722F81AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6F722F71AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.mm */; };
 		F6FE2C0F1B03A006009814AA /* MWMPlacePageNavigationBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FE2C0E1B03A006009814AA /* MWMPlacePageNavigationBar.mm */; };
@@ -347,7 +347,6 @@
 		341522BD1B666A550077AA8F /* MWMAPIBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAPIBarView.h; sourceTree = "<group>"; };
 		341522BE1B666A550077AA8F /* MWMAPIBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMAPIBarView.m; sourceTree = "<group>"; };
 		341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAPIBarView.xib; sourceTree = "<group>"; };
-		34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.4.0.a; path = Statistics/libFlurry_6.4.0.a; sourceTree = "<group>"; };
 		3428BC111B55477E00C85B30 /* MWMSideMenuDownloadBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSideMenuDownloadBadge.h; sourceTree = "<group>"; };
 		3428BC121B55477E00C85B30 /* MWMSideMenuDownloadBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMSideMenuDownloadBadge.m; sourceTree = "<group>"; };
 		342AD76D1B53D30C00E0B997 /* UIButton+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+RuntimeAttributes.h"; sourceTree = "<group>"; };
@@ -703,6 +702,8 @@
 		F6ED138F1B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkDescriptionViewController.h; sourceTree = "<group>"; };
 		F6ED13901B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarkDescriptionViewController.mm; sourceTree = "<group>"; };
 		F6ED13921B1EFA2F0095C6DE /* MWMBookmarkDescriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBookmarkDescriptionViewController.xib; sourceTree = "<group>"; };
+		F6EE7BC11B78A1AB00FF6500 /* FlurryWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
+		F6EE7BC21B78A1EA00FF6500 /* libFlurry_6.7.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.7.0.a; path = Statistics/libFlurry_6.7.0.a; sourceTree = "<group>"; };
 		F6F533A11B3C248900C1940B /* UIColor+MapsMeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MapsMeColor.h"; sourceTree = "<group>"; };
 		F6F533A21B3C248900C1940B /* UIColor+MapsMeColor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIColor+MapsMeColor.mm"; sourceTree = "<group>"; };
 		F6F722F61AE1572400DA3DA1 /* MWMiPhonePortraitPlacePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMiPhonePortraitPlacePage.h; sourceTree = "<group>"; };
@@ -771,7 +772,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34287FDC1B3D7C4800F9959C /* libFlurry_6.4.0.a in Frameworks */,
+				F6EE7BC31B78A1EA00FF6500 /* libFlurry_6.7.0.a in Frameworks */,
 				34570A411B13229300E6D4FD /* FBSDKLoginKit.framework in Frameworks */,
 				B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */,
 				34570A3F1B13225500E6D4FD /* Accounts.framework in Frameworks */,
@@ -931,7 +932,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				34287FDB1B3D7C4800F9959C /* libFlurry_6.4.0.a */,
+				F6EE7BC21B78A1EA00FF6500 /* libFlurry_6.7.0.a */,
 				34570A401B13229300E6D4FD /* FBSDKLoginKit.framework */,
 				34570A3E1B13225500E6D4FD /* Accounts.framework */,
 				34570A3C1B13223000E6D4FD /* libsqlite3.dylib */,
@@ -1359,6 +1360,7 @@
 				CB252D6B16FF82C8001E41E9 /* Statistics.h */,
 				CB252D6C16FF82C8001E41E9 /* Statistics.mm */,
 				97DD585B18A8EB120079837E /* Flurry.h */,
+				F6EE7BC11B78A1AB00FF6500 /* FlurryWatch.h */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -2504,6 +2506,10 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Drape Release";
@@ -2616,6 +2622,10 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Drape Debug";
@@ -3123,6 +3133,10 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = Simulator;
@@ -3230,6 +3244,10 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -3342,6 +3360,10 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = AdHoc;
@@ -3454,6 +3476,10 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Production Full";
@@ -3564,6 +3590,10 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -3674,6 +3704,10 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Simulator Release";
