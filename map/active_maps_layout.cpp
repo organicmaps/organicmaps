@@ -36,14 +36,14 @@ ActiveMapsLayout::~ActiveMapsLayout()
 #endif
 }
 
-void ActiveMapsLayout::Init(vector<platform::CountryFile> const & files)
+void ActiveMapsLayout::Init(vector<TLocalFilePtr> const & files)
 {
   Clear();
 
   Storage & storage = GetStorage();
   for (auto const & file : files)
   {
-    vector<TIndex> arr = storage.FindAllIndexesByFile(file.GetNameWithoutExt());
+    vector<TIndex> arr = storage.FindAllIndexesByFile(file->GetCountryName());
     if (!arr.empty())
     {
       TStatus status;

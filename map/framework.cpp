@@ -473,15 +473,11 @@ void Framework::RegisterAllMaps()
   m_storage.RegisterAllLocalMaps();
 
   int minFormat = numeric_limits<int>::max();
-  vector<CountryFile> maps;
+
+  vector<shared_ptr<LocalCountryFile>> maps;
   m_storage.GetLocalMaps(maps);
-
-  for (CountryFile const & countryFile : maps)
+  for (auto const & localFile : maps)
   {
-    shared_ptr<LocalCountryFile> localFile = m_storage.GetLatestLocalFile(countryFile);
-    if (!localFile)
-      continue;
-
     auto p = RegisterMap(*localFile);
     if (p.second != MwmSet::RegResult::Success)
       continue;

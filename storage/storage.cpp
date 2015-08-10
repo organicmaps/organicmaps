@@ -149,15 +149,15 @@ void Storage::RegisterAllLocalMaps()
   }
 }
 
-void Storage::GetLocalMaps(vector<CountryFile> & maps) const
+void Storage::GetLocalMaps(vector<TLocalFilePtr> & maps) const
 {
   for (auto const & p : m_localFiles)
-  {
-    TIndex const & index = p.first;
-    maps.push_back(GetLatestLocalFile(index)->GetCountryFile());
-  }
+    maps.push_back(GetLatestLocalFile(p.first));
+
   for (auto const & p : m_localFilesForFakeCountries)
-    maps.push_back(p.second->GetCountryFile());
+    maps.push_back(p.second);
+
+  maps.erase(unique(maps.begin(), maps.end()), maps.end());
 }
 
 size_t Storage::GetDownloadedFilesCount() const
@@ -331,7 +331,7 @@ void Storage::DeleteCountry(TIndex const & index, MapOptions opt)
   DeleteCountryFiles(index, opt);
   DeleteCountryFilesFromDownloader(index, opt);
 
-  auto localFile = GetLatestLocalFile(index);
+  TLocalFilePtr localFile = GetLatestLocalFile(index);
   if (localFile)
     m_update(*localFile);
 
@@ -675,7 +675,7 @@ void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
   {
     TIndex const & index = p.first;
     string const name = GetCountryFile(index).GetNameWithoutExt();
-    TLocalFilePtr const & file = GetLatestLocalFile(index);
+    TLocalFilePtr file = GetLatestLocalFile(index);
     if (file && file->GetVersion() != GetCurrentDataVersion() &&
         name != WORLD_COASTS_FILE_NAME && name != WORLD_FILE_NAME)
     {
@@ -769,8 +769,8 @@ Storage::TLocalFilePtr Storage::GetLocalFile(TIndex const & index, int64_t versi
   auto const it = m_localFiles.find(index);
   if (it == m_localFiles.end() || it->second.empty())
     return TLocalFilePtr();
-  list<TLocalFilePtr> const & files = it->second;
-  for (TLocalFilePtr const & file : files)
+
+  for (auto const & file : it->second)
   {
     if (file->GetVersion() == version)
       return file;
@@ -783,12 +783,14 @@ void Storage::RegisterCountryFiles(TLocalFilePtr localFile)
   CHECK(localFile, ());
   localFile->SyncWithDisk();
 
-  TIndex const index = FindIndexByFile(localFile->GetCountryName());
-  TLocalFilePtr existingFile = GetLocalFile(index, localFile->GetVersion());
-  if (existingFile)
-    ASSERT_EQUAL(localFile.get(), existingFile.get(), ());
-  else
-    m_localFiles[index].push_front(localFile);
+  for (auto const & index : FindAllIndexesByFile(localFile->GetCountryName()))
+  {
+    TLocalFilePtr existingFile = GetLocalFile(index, localFile->GetVersion());
+    if (existingFile)
+      ASSERT_EQUAL(localFile.get(), existingFile.get(), ());
+    else
+      m_localFiles[index].push_front(localFile);
+  }
 }
 
 void Storage::RegisterCountryFiles(TIndex const & index, string const & directory, int64_t version)

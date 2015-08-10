@@ -4,14 +4,15 @@
 #include "storage/storage_defines.hpp"
 
 #include "platform/country_defines.hpp"
-#include "platform/country_file.hpp"
+#include "platform/local_country_file.hpp"
 
 #include "base/buffer_vector.hpp"
 
+#include "std/function.hpp"
+#include "std/map.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
-#include "std/map.hpp"
-#include "std/function.hpp"
 
 
 class Framework;
@@ -99,7 +100,8 @@ private:
   Storage const & GetStorage() const;
   Storage & GetStorage();
 
-  void Init(vector<platform::CountryFile> const & files);
+  using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
+  void Init(vector<TLocalFilePtr> const & files);
   void Clear();
 
   void ShowMap(TIndex const & index);

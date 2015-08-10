@@ -116,7 +116,7 @@ public:
   void RegisterAllLocalMaps();
 
   // Returns list of all local maps, including fake countries (World*.mwm).
-  void GetLocalMaps(vector<platform::CountryFile> & maps) const;
+  void GetLocalMaps(vector<TLocalFilePtr> & maps) const;
   // Returns number of downloaded maps (files), excluding fake countries (World*.mwm).
   size_t GetDownloadedFilesCount() const;
 
