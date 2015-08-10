@@ -47,7 +47,7 @@ private:
 
   string const m_name;
   TCountryFileFn const m_countryFileFn;
-  Index * m_index;
+  Index & m_index;
   unique_ptr<IRoutingAlgorithm> const m_algorithm;
   unique_ptr<IRoadGraph> const m_roadGraph;
   unique_ptr<IDirectionsEngine> const m_directionsEngine;

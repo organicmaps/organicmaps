@@ -139,7 +139,7 @@ namespace integration
     PedestrianRouterComponents(vector<LocalCountryFile> const & localFiles)
         : m_featuresFetcher(CreateFeaturesFetcher(localFiles)),
           m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
-          m_router(CreatePedestrianRouter(m_featuresFetcher->GetIndex(), *m_searchEngine.get()))
+          m_router(CreatePedestrianRouter(m_featuresFetcher->GetIndex(), *m_searchEngine))
     {
     }
     IRouter * GetRouter() const override { return m_router.get(); }

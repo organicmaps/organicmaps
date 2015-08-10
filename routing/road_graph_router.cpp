@@ -88,7 +88,7 @@ RoadGraphRouter::RoadGraphRouter(string const & name, Index & index,
                                  unique_ptr<IDirectionsEngine> && directionsEngine)
     : m_name(name)
     , m_countryFileFn(countryFileFn)
-    , m_index(&index)
+    , m_index(index)
     , m_algorithm(move(algorithm))
     , m_roadGraph(make_unique<FeaturesRoadGraph>(index, move(vehicleModelFactory)))
     , m_directionsEngine(move(directionsEngine))
@@ -103,7 +103,7 @@ void RoadGraphRouter::ClearState()
 bool RoadGraphRouter::CheckMapExistence(m2::PointD const & point, Route & route) const
 {
   string fileName = m_countryFileFn(point);
-  LocalCountryFile localCountryFile = m_index->GetMwmHandleByCountryFile(CountryFile(fileName)).GetInfo()->GetLocalFile();
+  LocalCountryFile localCountryFile = m_index.GetMwmHandleByCountryFile(CountryFile(fileName)).GetInfo()->GetLocalFile();
   if (!HasOptions(localCountryFile.GetFiles(), MapOptions::Map))
   {
     route.AddAbsentCountry(fileName);
