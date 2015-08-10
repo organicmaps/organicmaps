@@ -19,7 +19,7 @@ set -u
 
 if [ $# -lt 1 ]; then
   echo
-  echo "Usage: $0 \<file.o5m/bz2\> [\<routing_profile.lua\>]"
+  echo "Usage: $0 \<file.o5m/bz2/pbf\> [\<routing_profile.lua\>]"
   echo
   echo "Useful environment variables:"
   echo
@@ -34,6 +34,15 @@ fi
 fail() {
   [ $# -gt 0 ] && echo "$@" >&2
   exit 1
+}
+
+find_osmconvert() {
+  # just a guess
+  OSMCONVERT="${OSMCONVERT:-$HOME/osmctools/osmconvert}"
+  if [ ! -x "$OSMCONVERT" ]; then
+    OSMCONVERT="$INTDIR/osmconvert"
+    wget -q -O - http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o $OSMCONVERT
+  fi
 }
 
 SOURCE_FILE="$1"
@@ -71,13 +80,21 @@ if [ -f "$COASTS" ]; then
   cp "$COASTS" "$INTDIR/WorldCoasts.geom"
   GENERATE_EVERYTHING="$GENERATE_EVERYTHING --emit_coasts=true --split_by_polygons=true"
 fi
+# Convert everything to o5m
+if [ "$SOURCE_TYPE" == "pbf" -o "$SOURCE_TYPE" == "bz2" ]; then
+  find_osmconvert
+  if [ "$SOURCE_TYPE" == "bz2" ]; then
+    bzcat "$SOURCE_FILE" | $OSMCONVERT - --out-o5m "-o=$INTDIR/$BASE_NAME.o5m" || fail
+  else
+    "$OSMCONVERT" "$SOURCE_FILE" --out-o5m "-o=$INTDIR/$BASE_NAME.o5m"
+  fi
+  SOURCE_FILE="$INTDIR/$BASE_NAME.o5m"
+  SOURCE_TYPE=o5m
+fi
 if [ "$SOURCE_TYPE" == "o5m" ]; then
   INTDIR_FLAG="$INTDIR_FLAG --osm_file_type=o5m --osm_file_name=$SOURCE_FILE"
   $GENERATOR_TOOL $INTDIR_FLAG --preprocess=true || fail "Preprocessing failed"
   $GENERATOR_TOOL $INTDIR_FLAG --data_path="$TARGET" --user_resource_path="$DATA_PATH" $GENERATE_EVERYTHING --output="$BASE_NAME"
-elif [ "$SOURCE_TYPE" == "bz2" ]; then
-  bzcat "$SOURCE_FILE" | $GENERATOR_TOOL $INTDIR_FLAG --preprocess=true || fail "Preprocessing failed"
-  bzcat "$SOURCE_FILE" | $GENERATOR_TOOL $INTDIR_FLAG --data_path="$TARGET" --user_resource_path="$DATA_PATH" $GENERATE_EVERYTHING --output="$BASE_NAME"
 else
   fail "Unsupported source type: $SOURCE_TYPE"
 fi
@@ -110,17 +127,8 @@ if [ $# -gt 1 ]; then
   PBF="$INTDIR/tmp.pbf"
   OSRM="$INTDIR/tmp.osrm"
   export STXXLCFG="$HOME/.stxxl"
-  # just a guess
-  OSMCONVERT="${OSMCONVERT:-$HOME/osmctools/osmconvert}"
-  if [ ! -x "$OSMCONVERT" ]; then
-    OSMCONVERT="$INTDIR/osmconvert"
-    wget -O - http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o $OSMCONVERT
-  fi
-  if [ "$SOURCE_TYPE" == "bz2" ]; then
-    bzcat "$SOURCE_FILE" | $OSMCONVERT - -o=$PBF || fail "Converting to PBF failed"
-  else
-    "$OSMCONVERT" "$SOURCE_FILE" -o=$PBF || fail "Converting to PBF failed"
-  fi
+  find_osmconvert
+  "$OSMCONVERT" "$SOURCE_FILE" -o=$PBF || fail "Converting to PBF failed"
   "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF" || fail
   rm "$PBF"
   "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM" -r "$OSRM.restrictions" || fail
