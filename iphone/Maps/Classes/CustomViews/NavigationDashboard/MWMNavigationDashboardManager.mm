@@ -12,6 +12,7 @@
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRoutePreview.h"
+#import "MwmTextToSpeech.h"
 
 @interface MWMNavigationDashboardManager ()
 
@@ -27,6 +28,7 @@
 @property (weak, nonatomic) id<MWMNavigationDashboardManagerProtocol> delegate;
 
 @property (nonatomic, readwrite) MWMNavigationDashboardEntity * entity;
+@property (nonatomic, readwrite) MWMTextToSpeech * tts;
 @end
 
 @implementation MWMNavigationDashboardManager
@@ -80,9 +82,15 @@
 - (void)setupDashboard:(location::FollowingInfo const &)info
 {
   if (!self.entity)
+  {
     self.entity = [[MWMNavigationDashboardEntity alloc] initWithFollowingInfo:info];
+    self.tts = [[MWMTextToSpeech alloc] init];
+  }
   else
+  {
     [self.entity updateWithFollowingInfo:info];
+    [self.tts speakNotifications:info.m_turnNotifications];
+  }
   [self updateDashboard];
 }
 
