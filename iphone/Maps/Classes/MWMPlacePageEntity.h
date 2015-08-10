@@ -31,6 +31,7 @@ typedef NS_ENUM (NSUInteger, MWMPlacePageEntityType)
   MWMPlacePageEntityTypeBookmark,
   MWMPlacePageEntityTypeEle,
   MWMPlacePageEntityTypeHotel,
+  MWMPlacePageEntityTypeAPI,
   MWMPlacePageEntityTypeMyPosition
 };
 

@@ -15,7 +15,7 @@
 @property (nonatomic) BOOL isBookmark;
 
 + (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage;
-- (void)configureForMyPosition:(BOOL)isMyPosition;
+- (void)configureWithPlacePage:(MWMPlacePage *)placePage;
 
 - (instancetype)init __attribute__((unavailable("call actionBarForPlacePage: instead")));
 - (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("call actionBarForPlacePage: instead")));

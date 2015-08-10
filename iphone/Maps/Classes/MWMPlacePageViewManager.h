@@ -29,6 +29,7 @@
 - (void)share;
 - (void)addBookmark;
 - (void)removeBookmark;
+- (void)apiBack;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 - (void)reloadBookmark;
 - (void)dragPlacePage:(CGPoint)point;

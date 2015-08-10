@@ -36,6 +36,7 @@
 - (void)share;
 - (void)route;
 - (void)reloadBookmark;
+- (void)apiBack;
 - (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight;
 - (void)willFinishEditingBookmarkTitle:(NSString *)title;
 - (void)addPlacePageShadowToView:(UIView *)view offset:(CGSize)offset;

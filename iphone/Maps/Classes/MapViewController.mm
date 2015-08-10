@@ -103,7 +103,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 @property (nonatomic) BOOL haveMap;
 
-@property (nonatomic) MWMAPIBar * apiBar;
+@property (nonatomic, readwrite) MWMAPIBar * apiBar;
 
 @end
 

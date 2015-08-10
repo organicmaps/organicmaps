@@ -25,5 +25,6 @@
 - (nonnull instancetype)initWithDelegate:(nonnull UIViewController<MWMAPIBarProtocol> *)delegate;
 
 - (void)show;
+- (void)hideBarAndClearAnimated:(BOOL)animated;
 
 @end

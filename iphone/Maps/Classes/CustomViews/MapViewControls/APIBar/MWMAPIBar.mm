@@ -68,12 +68,17 @@
 {
   NSURL * url = [NSURL URLWithString:[NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetGlobalBackUrl().c_str()]];
   [[UIApplication sharedApplication] openURL:url];
-  [self hideAnimated:NO];
+  [self hideBarAndClearAnimated:NO];
 }
 
 - (IBAction)clearButtonTouchUpInside:(UIButton *)sender
 {
-  [self hideAnimated:YES];
+  [self hideBarAndClearAnimated:YES];
+}
+
+- (void)hideBarAndClearAnimated:(BOOL)animated
+{
+  [self hideAnimated:animated];
   auto & f = GetFramework();
   auto & bm = f.GetBalloonManager();
   bm.RemovePin();

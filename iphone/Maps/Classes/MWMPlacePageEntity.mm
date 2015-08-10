@@ -130,6 +130,7 @@ using feature::Metadata;
 
 - (void)configureForApi:(ApiMarkPoint const *)apiMark
 {
+  self.type = MWMPlacePageEntityTypeAPI;
   self.title = [NSString stringWithUTF8String:apiMark->GetName().c_str()];
   NSMutableArray const * types = [NSMutableArray array];
   NSMutableArray const * values = [NSMutableArray array];

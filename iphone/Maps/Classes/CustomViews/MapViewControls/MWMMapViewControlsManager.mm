@@ -9,6 +9,7 @@
 #import "Framework.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "MWMAPIBar.h"
 #import "MWMLocationButton.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageViewManager.h"
@@ -73,6 +74,11 @@
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
 {
   [self.placePageManager showPlacePageWithUserMark:std::move(userMark)];
+}
+
+- (void)apiBack
+{
+  [self.ownerController.apiBar hideBarAndClearAnimated:NO];
 }
 
 #pragma mark - MWMSideMenuManagerProtocol

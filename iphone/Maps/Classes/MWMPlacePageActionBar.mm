@@ -24,10 +24,11 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 @interface MWMPlacePageActionBar ()
 
 @property (weak, nonatomic) MWMPlacePage * placePage;
-
+@property (weak, nonatomic) IBOutlet UIButton * apiBackButton;
 @property (weak, nonatomic) IBOutlet UIButton * bookmarkButton;
 @property (weak, nonatomic) IBOutlet UIButton * shareButton;
 @property (weak, nonatomic) IBOutlet UIButton * routeButton;
+@property (weak, nonatomic) IBOutlet UILabel * apiBackLabel;
 @property (weak, nonatomic) IBOutlet UILabel * routeLabel;
 @property (weak, nonatomic) IBOutlet UILabel * bookmarkLabel;
 @property (weak, nonatomic) IBOutlet UILabel * shareLabel;
@@ -39,17 +40,70 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 + (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage
 {
   MWMPlacePageActionBar * bar = [[[NSBundle mainBundle] loadNibNamed:kPlacePageActionBarNibName owner:self options:nil] firstObject];
-  bar.placePage = placePage;
-  BOOL const isMyPosition = placePage.manager.entity.type == MWMPlacePageEntityTypeMyPosition;
-  bar.routeButton.hidden = isMyPosition;
-  bar.autoresizingMask = UIViewAutoresizingNone;
-  [self setupBookmarkButton:bar];
+  [bar configureWithPlacePage:placePage];
   return bar;
 }
 
-+ (void)setupBookmarkButton:(MWMPlacePageActionBar *)bar
+- (void)configureWithPlacePage:(MWMPlacePage *)placePage
 {
-  UIButton * btn = bar.bookmarkButton;
+  self.placePage = placePage;
+  switch (placePage.manager.entity.type)
+  {
+    case MWMPlacePageEntityTypeAPI:
+      [self setupApiBar];
+      break;
+    case MWMPlacePageEntityTypeBookmark:
+      [self setupBookmarkBar];
+      break;
+    case MWMPlacePageEntityTypeMyPosition:
+      [self setupMyPositionBar];
+      break;
+    default:
+      [self setupDefaultBar];
+      break;
+  }
+  self.autoresizingMask = UIViewAutoresizingNone;
+  [self setNeedsLayout];
+}
+
+- (void)setupApiBar
+{
+  // Four buttons: Back, Share, Bookmark and Route
+  self.isBookmark = NO;
+  for (UIView * v in self.subviews)
+    v.hidden = NO;
+}
+
+- (void)setupMyPositionBar
+{
+  // Two buttons: Share and Bookmark
+  self.isBookmark = NO;
+  self.routeButton.hidden = YES;
+  self.routeLabel.hidden = YES;
+  self.apiBackButton.hidden = YES;
+  self.apiBackLabel.hidden = YES;
+}
+
+- (void)setupBookmarkBar
+{
+  // Three buttons: Share, Bookmark and Route
+  self.isBookmark = YES;
+  [self setupDefaultBar];
+}
+
+- (void)setupDefaultBar
+{
+  // Three buttons: Share, Bookmark and Route
+  self.routeButton.hidden = NO;
+  self.routeLabel.hidden = NO;
+  self.apiBackButton.hidden = YES;
+  self.apiBackLabel.hidden = YES;
+  [self setupBookmarkButton];
+}
+
+- (void)setupBookmarkButton
+{
+  UIButton * btn = self.bookmarkButton;
   [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateHighlighted|UIControlStateSelected];
   [btn setImage:[UIImage imageNamed:@"ic_bookmarks_off_pressed"] forState:UIControlStateHighlighted];
 
@@ -81,34 +135,47 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:eventName];
 }
 
-- (void)configureForMyPosition:(BOOL)isMyPosition
-{
-  self.routeLabel.hidden = isMyPosition;
-  self.routeButton.hidden = isMyPosition;
-  [self layoutSubviews];
-}
-
 - (void)layoutSubviews
 {
-  BOOL const isMyPosition = self.placePage.manager.entity.type == MWMPlacePageEntityTypeMyPosition;
-  CGPoint const center = self.center;
-  CGFloat const leftOffset = 18.;
-  if (isMyPosition)
+  CGFloat const buttonWidth = 80.;
+  CGSize const size = UIScreen.mainScreen.bounds.size;
+  CGFloat const maximumWidth = 360.;
+  CGFloat const screenWidth = MIN(size.height, size.width);
+  CGFloat const actualWidth = size.height < size.width ? MIN(screenWidth, maximumWidth) : screenWidth;
+  switch (self.placePage.manager.entity.type)
   {
-    CGSize const size = [[UIScreen mainScreen] bounds].size;
-    CGFloat const maximumWidth = 360.;
-    CGFloat const actualWidth = MIN(MIN(size.height, size.width), maximumWidth);
-    self.bookmarkButton.center = CGPointMake(3. * actualWidth / 4., self.bookmarkButton.center.y);
-    self.shareButton.center = CGPointMake(actualWidth / 4., self.bookmarkButton.center.y);
+    case MWMPlacePageEntityTypeAPI:
+    {
+      CGFloat const boxWidth = 4 * buttonWidth;
+      CGFloat const leftOffset = (actualWidth - boxWidth) / 5.;
+      self.apiBackButton.minX = leftOffset;
+      self.shareButton.minX = self.apiBackButton.maxX + leftOffset;
+      self.bookmarkButton.minX = self.shareButton.maxX + leftOffset;
+      self.routeButton.minX = self.bookmarkButton.maxX;
+      break;
+    }
+    case MWMPlacePageEntityTypeMyPosition:
+    {
+      CGFloat const boxWidth = 2 * buttonWidth;
+      CGFloat const leftOffset = (actualWidth - boxWidth) / 3.;
+      self.shareButton.minX = leftOffset;
+      self.bookmarkButton.minX = actualWidth - leftOffset - buttonWidth;
+      break;
+    }
+    default:
+    {
+      CGFloat const boxWidth = 3 * buttonWidth;
+      CGFloat const leftOffset = (actualWidth - boxWidth) / 4.;
+      self.shareButton.minX = leftOffset;
+      self.bookmarkButton.minX = self.shareButton.maxX + leftOffset;
+      self.routeButton.minX = self.bookmarkButton.maxX + leftOffset;
+      break;
+    }
   }
-  else
-  {
-    self.bookmarkButton.center = CGPointMake(center.x, self.bookmarkButton.center.y);
-    self.shareButton.center = CGPointMake(leftOffset + self.shareButton.width / 2., self.shareButton.center.y);
-  }
-
-  self.shareLabel.center = CGPointMake(self.shareButton.center.x, self.shareLabel.center.y);
-  self.bookmarkLabel.center = CGPointMake(self.bookmarkButton.center.x, self.bookmarkLabel.center.y);
+  self.apiBackLabel.minX = self.apiBackButton.minX;
+  self.shareLabel.minX = self.shareButton.minX;
+  self.bookmarkLabel.minX = self.bookmarkButton.minX;
+  self.routeLabel.minX = self.routeButton.minX;
 }
 
 - (IBAction)shareTap
@@ -119,6 +186,11 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 - (IBAction)routeTap
 {
   [self.placePage route];
+}
+
+- (IBAction)backTap
+{
+  [self.placePage apiBack];
 }
 
 #pragma mark - Properties

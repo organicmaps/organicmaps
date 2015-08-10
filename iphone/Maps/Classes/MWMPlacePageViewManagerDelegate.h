@@ -12,5 +12,6 @@
 - (void)addPlacePageViews:(NSArray *)views;
 - (void)updateStatusBarStyle;
 - (void)buildRoute:(m2::PointD)destination;
+- (void)apiBack;
 
 @end

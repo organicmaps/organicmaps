@@ -45,12 +45,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   MWMPlacePageEntity * entity = self.manager.entity;
   [self.basePlacePageView configureWithEntity:entity];
-
-  MWMPlacePageEntityType type = entity.type;
-  self.actionBar.isBookmark = type == MWMPlacePageEntityTypeBookmark;
-
-  BOOL const isMyPosition = type == MWMPlacePageEntityTypeMyPosition;
-  [self.actionBar configureForMyPosition:isMyPosition];
+  [self.actionBar configureWithPlacePage:self];
 }
 
 - (void)show
@@ -66,6 +61,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 }
 
 #pragma mark - Actions
+- (void)apiBack
+{
+  [self.manager apiBack];
+}
 
 - (void)addBookmark
 {

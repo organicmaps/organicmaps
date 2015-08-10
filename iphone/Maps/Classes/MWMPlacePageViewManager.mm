@@ -10,6 +10,7 @@
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MWMActivityViewController.h"
+#import "MWMAPIBar.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMDirectionView.h"
 #import "MWMiPadPlacePage.h"
@@ -186,6 +187,14 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
                                                                                           location:coord
                                                                                         myPosition:NO];
   [shareVC presentInParentViewController:self.ownerViewController anchorView:self.placePage.actionBar];
+}
+
+- (void)apiBack
+{
+  ApiMarkPoint const * p = static_cast<ApiMarkPoint const *>(m_userMark->GetUserMark());
+  NSURL * url = [NSURL URLWithString:@(GetFramework().GenerateApiBackUrl(*p).c_str())];
+  [[UIApplication sharedApplication] openURL:url];
+  [self.delegate apiBack];
 }
 
 - (void)addBookmark
