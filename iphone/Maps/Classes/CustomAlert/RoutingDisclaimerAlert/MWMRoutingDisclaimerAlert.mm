@@ -12,8 +12,10 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIKitCategories.h"
+#import "Statistics.h"
 
 static CGFloat const kMinimumOffset = 20.;
+static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 
 @interface MWMRoutingDisclaimerAlert ()
 
@@ -26,6 +28,7 @@ static CGFloat const kMinimumOffset = 20.;
 
 + (instancetype)alertWithInitialOrientation:(UIInterfaceOrientation)orientation
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kStatisticsEvent, @"open"]];
   MWMRoutingDisclaimerAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMRoutingDisclaimerAlert className]
                                                                      owner:nil
                                                                    options:nil] firstObject];
@@ -50,6 +53,7 @@ static CGFloat const kMinimumOffset = 20.;
 
 - (IBAction)okTap
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kStatisticsEvent, @"okTap"]];
   [self close];
 }
 

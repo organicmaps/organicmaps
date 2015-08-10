@@ -6,12 +6,15 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMFeedbackAlert.h"
-#import "MWMAlertViewController.h"
-#import <MessageUI/MFMailComposeViewController.h>
-#import "UIKitCategories.h"
 #import "AppInfo.h"
+#import "MWMAlertViewController.h"
+#import "MWMFeedbackAlert.h"
+#import "Statistics.h"
+#import "UIKitCategories.h"
+
+#import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
+
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "platform/platform.hpp"
@@ -32,6 +35,7 @@ extern NSString * const kRateAlertEventName;
 
 + (instancetype)alertWithStarsCount:(NSUInteger)starsCount
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"open"]];
   MWMFeedbackAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kFeedbackAlertNibName owner:self options:nil] firstObject];
   alert.starsCount = starsCount;
   return alert;
@@ -48,6 +52,7 @@ extern NSString * const kRateAlertEventName;
 - (IBAction)writeFeedbackButtonTap:(id)sender
 {
   [Alohalytics logEvent:kRateAlertEventName withValue:@"feedbackWriteTap"];
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"feedbackWriteTap"]];
   self.alpha = 0.;
   self.alertController.view.alpha = 0.;
   if ([MFMailComposeViewController canSendMail])
@@ -82,8 +87,10 @@ extern NSString * const kRateAlertEventName;
 #pragma mark - MFMailComposeViewControllerDelegate
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"mailComposeController"]];
   [self.alertController.ownerViewController dismissViewControllerAnimated:YES completion:^
   {
+    [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"close"]];
     [self close];
   }];
 }

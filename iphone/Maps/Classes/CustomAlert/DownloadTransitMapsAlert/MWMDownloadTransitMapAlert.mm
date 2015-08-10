@@ -12,6 +12,7 @@
 #import "MWMDownloaderDialogCell.h"
 #import "MWMDownloaderDialogHeader.h"
 #import "MWMDownloadTransitMapAlert.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
 #import "UILabel+RuntimeAttributes.h"
@@ -67,6 +68,8 @@ static CGFloat const kHeaderHeight = 43.;
 static CGFloat const kHeaderAndFooterHeight = 44.;
 static CGFloat const kMinimumOffset = 20.;
 
+static NSString * const kStatisticsEvent = @"Map download Alert";
+
 @interface MWMDownloadTransitMapAlert ()
 {
   vector<storage::TIndex> maps;
@@ -95,6 +98,7 @@ static CGFloat const kMinimumOffset = 20.;
                                  routes:(vector<storage::TIndex> const &)routes
                                    code:(routing::IRouter::ResultCode)code
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kStatisticsEvent, @"open"]];
   MWMDownloadTransitMapAlert * alert = [self alertWithMaps:maps routes:routes];
   switch (code)
   {
@@ -161,11 +165,13 @@ static CGFloat const kMinimumOffset = 20.;
 
 - (IBAction)notNowButtonTap:(id)sender
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kStatisticsEvent, @"notNowButtonTap"]];
   [self close];
 }
 
 - (IBAction)downloadButtonTap:(id)sender
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kStatisticsEvent, @"downloadButtonTap"]];
   [self downloadMaps];
 }
 

@@ -11,10 +11,10 @@
 #import "MWMActivityViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMPedestrianShareAlert.h"
-#import "UIColor+MapsMeColor.h"
-#import "UIButton+RuntimeAttributes.h"
-
 #import "Statistics.h"
+#import "UIButton+RuntimeAttributes.h"
+#import "UIColor+MapsMeColor.h"
+
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 static NSString * const kShareEventName = @"pedestrianShareEvent";
@@ -35,6 +35,7 @@ static NSString * const kShareEventName = @"pedestrianShareEvent";
 
 + (MWMPedestrianShareAlert *)alert:(BOOL)isFirstLaunch
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kShareEventName, @"open"]];
   MWMPedestrianShareAlert * view = [NSBundle.mainBundle loadNibNamed:NSStringFromClass(self.class) owner:self
                                                              options:nil].firstObject;
   view.isFirstLaunch = isFirstLaunch;

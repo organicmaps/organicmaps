@@ -152,6 +152,7 @@ void InitLocalizedStrings()
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+  [Statistics.instance logEvent:@"Push received" withParameters:userInfo];
   [PFPush handlePush:userInfo];
   completionHandler(UIBackgroundFetchResultNoData);
 }

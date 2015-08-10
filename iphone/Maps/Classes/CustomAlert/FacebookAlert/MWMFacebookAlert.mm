@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMFacebookAlert.h"
 #import "MWMAlertViewController.h"
+#import "MWMFacebookAlert.h"
+#import "Statistics.h"
 #import <FBSDKShareKit/FBSDKShareKit.h>
 
-#import "Statistics.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 static NSString * const kFacebookAlertNibName = @"MWMFacebookAlert";
@@ -25,6 +25,7 @@ extern NSString * const kUDAlreadySharedKey;
 
 + (MWMFacebookAlert *)alert
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kFacebookInviteEventName, @"open"]];
   MWMFacebookAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kFacebookAlertNibName owner:self options:nil] firstObject];
   return alert;
 }

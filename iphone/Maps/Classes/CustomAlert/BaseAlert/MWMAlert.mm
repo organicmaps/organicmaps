@@ -17,6 +17,7 @@
 #import "MWMPedestrianShareAlert.h"
 #import "MWMRateAlert.h"
 #import "MWMRoutingDisclaimerAlert.h"
+#import "Statistics.h"
 
 @implementation MWMAlert
 

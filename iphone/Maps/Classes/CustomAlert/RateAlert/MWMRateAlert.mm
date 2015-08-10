@@ -6,9 +6,11 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMRateAlert.h"
 #import "MWMAlertViewController.h"
+#import "MWMRateAlert.h"
+#import "Statistics.h"
 #import "UIKitCategories.h"
+
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 extern NSString * const kUDAlreadyRatedKey;
@@ -40,6 +42,7 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 
 + (instancetype)alert
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"open"]];
   MWMRateAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kRateAlertNibName owner:self options:nil] firstObject];
   return alert;
 }
@@ -48,6 +51,7 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 
 - (IBAction)oneStarTap:(UILongPressGestureRecognizer *)sender
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"oneStarTap"]];
   [UIView animateWithDuration:0.15 animations:^
   {
     self.oneStarPushImageView.alpha = 1.;
@@ -68,6 +72,7 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 
 - (IBAction)twoStarTap:(UILongPressGestureRecognizer *)sender
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"twoStarTap"]];
   [UIView animateWithDuration:0.15 animations:^
   {
     self.twoStarPushImageView.alpha = 1.;
@@ -89,6 +94,7 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 
 - (IBAction)threeStarTap:(UILongPressGestureRecognizer *)sender
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"threeStarTap"]];
   [UIView animateWithDuration:0.15 animations:^
   {
     self.threeStarPushImageView.alpha = 1.;
@@ -111,6 +117,7 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 
 - (IBAction)fourStarTap:(UILongPressGestureRecognizer *)sender
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"fourStarTap"]];
   [UIView animateWithDuration:0.15 animations:^
   {
     self.fourStarPushImageView.alpha = 1.;
@@ -134,6 +141,7 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 
 - (IBAction)fiveStarTap:(UILongPressGestureRecognizer *)sender
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"fiveStarTap"]];
   [Alohalytics logEvent:kRateAlertEventName withValue:@"fiveStar"];
   [UIView animateWithDuration:0.15 animations:^
   {
@@ -161,6 +169,7 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 
 - (IBAction)notNowTap
 {
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"notNowTap"]];
   [Alohalytics logEvent:kRateAlertEventName withValue:@"notNowTap"];
   [self close];
 }
