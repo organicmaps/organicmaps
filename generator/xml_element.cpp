@@ -44,7 +44,7 @@ string XMLElement::ToString(string const & shift) const
   switch (tagKey)
   {
     case ET_NODE:
-      ss << "Node: " << id << " (" << fixed << setw(7) << lat << ", " << lng << ")";
+      ss << "Node: " << id << " (" << fixed << setw(7) << lat << ", " << lon << ")";
       break;
     case ET_ND:
       ss << "Nd ref: " << ref;
@@ -89,7 +89,7 @@ void BaseOSMParser::AddAttr(string const & key, string const & value)
   if (key == "id")
     CHECK ( strings::to_uint64(value, m_current->id), ("Unknown element with invalid id : ", value) );
   else if (key == "lon")
-    CHECK ( strings::to_double(value, m_current->lng), ("Bad node lon : ", value) );
+    CHECK ( strings::to_double(value, m_current->lon), ("Bad node lon : ", value) );
   else if (key == "lat")
     CHECK ( strings::to_double(value, m_current->lat), ("Bad node lat : ", value) );
   else if (key == "ref")

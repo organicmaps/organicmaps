@@ -27,7 +27,7 @@ struct XMLElement
 
   ETag tagKey = ET_UNKNOWN;
   uint64_t id = 0;
-  double lng = 0;
+  double lon = 0;
   double lat = 0;
   uint64_t ref = 0;
   string k;
@@ -41,7 +41,7 @@ struct XMLElement
   {
     tagKey = ET_UNKNOWN;
     id = 0;
-    lng = 0;
+    lon = 0;
     lat = 0;
     ref = 0;
     k.clear();
@@ -59,7 +59,7 @@ struct XMLElement
     return (
             tagKey == e.tagKey
             && id == e.id
-            && my::AlmostEqualAbs(lng, e.lng, 1e-7)
+            && my::AlmostEqualAbs(lon, e.lon, 1e-7)
             && my::AlmostEqualAbs(lat, e.lat, 1e-7)
             && ref == e.ref
             && k == e.k

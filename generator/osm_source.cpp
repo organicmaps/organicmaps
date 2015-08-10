@@ -426,7 +426,7 @@ void BuildFeaturesFromO5M(SourceReader & stream, BaseOSMParser & parser)
       {
         p.tagKey = XMLElement::ET_NODE;
         p.lat = DECODE_O5M_COORD(em.lat);
-        p.lng = DECODE_O5M_COORD(em.lon);
+        p.lon = DECODE_O5M_COORD(em.lon);
         break;
       }
       case TType::Way:

@@ -27,9 +27,9 @@ protected:
 
       // convert to mercator
       p->lat = MercatorBounds::LatToY(p->lat);
-      p->lng = MercatorBounds::LonToX(p->lng);
+      p->lon = MercatorBounds::LonToX(p->lon);
 
-      m_holder.AddNode(p->id, p->lat, p->lng);
+      m_holder.AddNode(p->id, p->lat, p->lon);
     }
     else if (p->tagKey == XMLElement::ET_WAY)
     {
