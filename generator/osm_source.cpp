@@ -32,7 +32,7 @@ SourceReader::SourceReader(string const & filename)
 : m_filename(filename)
 , m_file(unique_ptr<istream, Deleter>(new ifstream(filename), Deleter()))
 {
-  CHECK(m_filename.empty() , ("Filename can't be empty"));
+  CHECK(!m_filename.empty() , ("Filename can't be empty"));
   LOG_SHORT(LINFO, ("Reading OSM data from", filename));
 }
 
@@ -213,8 +213,8 @@ class MainFeaturesEmitter
 
 public:
   MainFeaturesEmitter(feature::GenerateInfo const & info)
+  : m_failOnCoasts(info.m_failOnCoasts)
   {
-    m_failOnCoasts = info.m_failOnCoasts;
     Classificator const & c = classif();
 
     char const * arr[][2] = {
