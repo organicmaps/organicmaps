@@ -210,7 +210,7 @@ Framework::Framework()
   // It's better to use strings form strings.txt intead of hardcoding them here.
   m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^\nis added to the downloading queue");
   m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading\n^\n^");
-  m_stringsBundle.SetDefaultString("country_status_download", "Download map\n^ ^");
+  m_stringsBundle.SetDefaultString("country_status_download", "Download map\n(^ ^)");
   m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading\n^\nhas failed");
   m_stringsBundle.SetDefaultString("country_status_download_without_routing", "Download map\nwithout routing (^ ^)");
   m_stringsBundle.SetDefaultString("try_again", "Try Again");
@@ -1242,7 +1242,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadMapCallback, this, countryIndex));
   };
 
-  TDownloadFn downloadMapRoutingFn = [this](storage::TIndex const & countryIndex)
+  TDownloadFn downloadMapWithoutRoutingFn = [this](storage::TIndex const & countryIndex)
   {
     GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadMapRoutingCallback, this, countryIndex));
   };
@@ -1256,7 +1256,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             make_ref(&m_stringsBundle),
                             df::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
                             df::MapDataProvider(idReadFn, featureReadFn, updateCountryIndex, isCountryLoadedFn,
-                                                downloadMapFn, downloadMapRoutingFn, downloadRetryFn),
+                                                downloadMapFn, downloadMapWithoutRoutingFn, downloadRetryFn),
                             params.m_visualScale,
                             move(params.m_widgetsInitInfo));
 
