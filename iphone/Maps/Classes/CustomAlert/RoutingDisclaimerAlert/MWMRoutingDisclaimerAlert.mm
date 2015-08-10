@@ -55,7 +55,8 @@ static CGFloat const kMinimumOffset = 20.;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-  CGFloat const height = UIInterfaceOrientationIsLandscape(orientation) ? MIN(self.superview.width, self.superview.height) : MAX(self.superview.width, self.superview.height);
+  UIView * superview = self.superview ? self.superview : UIApplication.sharedApplication.keyWindow;
+  CGFloat const height = UIInterfaceOrientationIsLandscape(orientation) ? MIN(superview.width, superview.height) : MAX(superview.width, superview.height);
   [self invalidateTextViewHeight:self.textView.contentSize.height withHeight:height];
 }
 

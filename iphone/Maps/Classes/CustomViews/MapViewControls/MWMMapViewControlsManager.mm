@@ -132,8 +132,11 @@
   GetFramework().BuildRoute(self.routeDestination, 0 /* timeoutSec */);
   // This hack is needed to instantly show initial progress.
   // Because user may think that nothing happens when he is building a route.
-  CGFloat const initialRoutingProgress = 5.;
-  [self setRouteBuildingProgress:initialRoutingProgress];
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    CGFloat const initialRoutingProgress = 5.;
+    [self setRouteBuildingProgress:initialRoutingProgress];
+  });
 }
 
 - (void)navigationDashBoardDidUpdate
