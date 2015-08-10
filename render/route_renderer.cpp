@@ -319,7 +319,9 @@ void RouteRenderer::ClearRoute(graphics::Screen * dlScreen)
 void RouteRenderer::PrepareToShutdown()
 {
   DestroyDisplayLists();
-  m_waitForConstruction = true;
+
+  if (!m_routeData.m_geometry.empty())
+    m_waitForConstruction = true;
 }
 
 void RouteRenderer::DestroyDisplayLists()
