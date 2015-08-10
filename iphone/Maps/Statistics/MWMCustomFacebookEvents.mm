@@ -10,11 +10,12 @@
 // Used to filter out old users and to track only new installs.
 static NSString * const kEnableCustomFBEventsForNewUsers = @"FBEnableCustomEventsForNewUsers";
 // Special one-time events to improve marketing targeting.
-static NSString * const kFirstSessionIsLongerThanXMinutesEvent = @"FBLongFirstSession";
+// NOTE: Event names are using some default FB names by Alexander Bobko's request.
+static NSString * const kFirstSessionIsLongerThanXMinutesEvent = FBSDKAppEventNameAchievedLevel;
 static NSInteger const kFirstSessionLengthInSeconds = 5 * 60;
-static NSString * const kNextLaunchAfterHoursInterval = @"FBLaunchedAgainInAFewHoursAfterInstall";
+static NSString * const kNextLaunchAfterHoursInterval = FBSDKAppEventNameCompletedRegistration;
 static NSInteger const kNextLaunchMinHoursInterval = 6;
-static NSString * const kDownloadedSecondMapEvent = @"FBDownloadedSecondMap";
+static NSString * const kDownloadedSecondMapEvent = FBSDKAppEventNameUnlockedAchievement;
 
 static constexpr int kNotSubscribed = -1;
 static int gStorageSubscriptionId = kNotSubscribed;
@@ -32,7 +33,8 @@ static int gStorageSubscriptionId = kNotSubscribed;
   [[NSNotificationCenter defaultCenter] removeObserver:[MWMCustomFacebookEvents class]];
   NSInteger const seconds = [Alohalytics totalSecondsSpentInTheApp];
   if (seconds >= kFirstSessionLengthInSeconds)
-    [FBSDKAppEvents logEvent:kFirstSessionIsLongerThanXMinutesEvent parameters:@{@"Minutes" : [NSNumber numberWithInteger:(seconds / 60)]}];
+    [FBSDKAppEvents logEvent:kFirstSessionIsLongerThanXMinutesEvent
+                  parameters:@{FBSDKAppEventParameterNameLevel : [NSNumber numberWithInteger:(seconds / 60)]}];
   [MWMCustomFacebookEvents markEventAsAlreadyFired:kFirstSessionIsLongerThanXMinutesEvent];
 }
 
