@@ -15,7 +15,6 @@ void XMLElement::AddKV(string const & k, string const & v)
   e.tagKey = ET_TAG;
   e.k = k;
   e.v = v;
-  e.parent = this;
 }
 
 void XMLElement::AddND(uint64_t ref)
@@ -25,7 +24,6 @@ void XMLElement::AddND(uint64_t ref)
 
   e.tagKey = ET_ND;
   e.ref = ref;
-  e.parent = this;
 }
 
 void XMLElement::AddMEMBER(uint64_t ref, string const & type, string const & role)
@@ -37,7 +35,6 @@ void XMLElement::AddMEMBER(uint64_t ref, string const & type, string const & rol
   e.ref = ref;
   e.type = type;
   e.role = role;
-  e.parent = this;
 }
 
 string XMLElement::ToString(string const & shift) const

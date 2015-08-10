@@ -16,7 +16,6 @@ namespace
 {
   void FillXmlElement(char const * arr[][2], size_t count, XMLElement * p)
   {
-    p->parent = 0;
     for (size_t i = 0; i < count; ++i)
       p->AddKV(arr[i][0], arr[i][1]);
   }

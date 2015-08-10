@@ -35,7 +35,6 @@ struct XMLElement
   string type;
   string role;
   
-  XMLElement * parent = nullptr;
   vector<XMLElement> childs;
 
   void Clear()
@@ -50,7 +49,6 @@ struct XMLElement
     type.clear();
     role.clear();
 
-    parent = nullptr;
     childs.clear();
   }
 
