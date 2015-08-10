@@ -257,15 +257,16 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
   bool worldCoastsFound = false;
   for (auto const & file : localFiles)
   {
+    // With the new concepts, World mwm files have valid version.
     if (file.GetCountryName() == WORLD_FILE_NAME)
     {
       worldFound = true;
-      TEST_EQUAL(0, file.GetVersion(), ());
+      TEST_NOT_EQUAL(0, file.GetVersion(), ());
     }
     if (file.GetCountryName() == WORLD_COASTS_FILE_NAME)
     {
       worldCoastsFound = true;
-      TEST_EQUAL(0, file.GetVersion(), ());
+      TEST_NOT_EQUAL(0, file.GetVersion(), ());
     }
   }
   TEST(worldFound, ());
