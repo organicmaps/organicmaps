@@ -198,7 +198,7 @@
 
 - (void)setState:(MWMNavigationDashboardState)state
 {
-  if (_state == state)
+  if (_state == state && state != MWMNavigationDashboardStatePlanning)
     return;
   switch (state)
   {
