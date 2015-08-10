@@ -61,6 +61,8 @@
   _turnImage = image(info.m_turn);
   if (info.m_turn == routing::turns::TurnDirection::EnterRoundAbout)
     _roundExitNumber = info.m_exitNum;
+  else
+    _roundExitNumber = 0;
 }
 
 UIImage * image(routing::turns::TurnDirection t)
