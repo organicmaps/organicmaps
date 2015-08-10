@@ -67,8 +67,6 @@ NSString * httpGe0Url(NSString * shortUrl)
   [Alohalytics logEvent:event withValue:activityType];
   if ([UIActivityTypePostToFacebook isEqualToString:activityType])
     return [self itemForSocialAppLong];
-  if ([UIActivityTypePostToTwitter isEqualToString:activityType])
-    return [self itemForSocialAppShort];
   if ([UIActivityTypeMessage isEqualToString:activityType])
   {
     [[Statistics instance] logEvent:@"ge0(zero) MESSAGE Export"];
