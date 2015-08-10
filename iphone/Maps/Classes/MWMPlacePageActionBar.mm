@@ -25,7 +25,9 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 @property (weak, nonatomic) MWMPlacePage * placePage;
 
+@property (weak, nonatomic) IBOutlet UIButton * bookmarkButton;
 @property (weak, nonatomic) IBOutlet UIButton * shareButton;
+@property (weak, nonatomic) IBOutlet UIButton * routeButton;
 @property (weak, nonatomic) IBOutlet UILabel * routeLabel;
 @property (weak, nonatomic) IBOutlet UILabel * bookmarkLabel;
 @property (weak, nonatomic) IBOutlet UILabel * shareLabel;
@@ -63,19 +65,16 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 - (IBAction)bookmarkTap:(UIButton *)sender
 {
-  sender.selected = !sender.selected;
+  self.isBookmark = !self.isBookmark;
   NSMutableString * eventName = @"ppBookmarkButtonTap".mutableCopy;
-  if (sender.selected)
+  if (self.isBookmark)
   {
     [sender.imageView startAnimating];
-    self.bookmarkLabel.text = L(@"delete");
     [self.placePage addBookmark];
     [eventName appendString:@"Add"];
   }
   else
   {
-
-    self.bookmarkLabel.text = L(@"save");
     [self.placePage removeBookmark];
     [eventName appendString:@"Delete"];
   }
@@ -120,6 +119,15 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 - (IBAction)routeTap
 {
   [self.placePage route];
+}
+
+#pragma mark - Properties
+
+- (void)setIsBookmark:(BOOL)isBookmark
+{
+  _isBookmark = isBookmark;
+  self.bookmarkButton.selected = isBookmark;
+  self.bookmarkLabel.text = L(isBookmark ? @"delete" : @"save");
 }
 
 @end

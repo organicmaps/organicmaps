@@ -47,8 +47,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.basePlacePageView configureWithEntity:entity];
 
   MWMPlacePageEntityType type = entity.type;
-  BOOL const isBookmark = type == MWMPlacePageEntityTypeBookmark;
-  self.actionBar.bookmarkButton.selected = isBookmark;
+  self.actionBar.isBookmark = type == MWMPlacePageEntityTypeBookmark;
 
   BOOL const isMyPosition = type == MWMPlacePageEntityTypeMyPosition;
   [self.actionBar configureForMyPosition:isMyPosition];
