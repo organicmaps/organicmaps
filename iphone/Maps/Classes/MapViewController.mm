@@ -671,12 +671,12 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
     f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
     {
-      if (f.GetRouter() == routing::RouterType::Pedestrian)
-        [self countPedestrianRoute];
       switch (code)
       {
         case routing::IRouter::ResultCode::NoError:
         {
+          if (f.GetRouter() == routing::RouterType::Pedestrian)
+            [self countPedestrianRoute];
           f.GetBalloonManager().RemovePin();
           f.GetBalloonManager().Dismiss();
           self.controlsManager.routeBuildingProgress = 100.;
