@@ -7,7 +7,7 @@ from com.android.monkeyrunner import MonkeyRunner
 apkPath = '../MapsWithMeTest/bin/MapsWithMeTest-release.apk'
 package = 'com.mapswithme.maps.pro'
 activity = 'com.mapswithme.maps.DownloadResourcesActivity'
-mapactivity = 'com.mapswithme.maps.MWMActivity'
+mapactivity = 'com.mapswithme.maps.MwmActivity'
 
 
 def run_tasks(device, tasks):

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 
 public class ConnectionState
 {
@@ -15,7 +15,7 @@ public class ConnectionState
 
   private static boolean isNetworkConnected(int networkType)
   {
-    final ConnectivityManager manager = (ConnectivityManager) MWMApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE);
+    final ConnectivityManager manager = (ConnectivityManager) MwmApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE);
     final NetworkInfo info = manager.getActiveNetworkInfo();
     return info != null && info.getType() == networkType && info.isConnected();
   }

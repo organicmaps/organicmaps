@@ -16,7 +16,7 @@ import android.text.TextUtils;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.log.Logger;
@@ -67,7 +67,7 @@ public enum LocationHelper implements SensorEventListener
   {
     mLogger = SimpleLogger.get(LocationHelper.class.getName());
     initLocationProvider(false);
-    mSensorManager = (SensorManager) MWMApplication.get().getSystemService(Context.SENSOR_SERVICE);
+    mSensorManager = (SensorManager) MwmApplication.get().getSystemService(Context.SENSOR_SERVICE);
     if (mSensorManager != null)
     {
       mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -80,7 +80,7 @@ public enum LocationHelper implements SensorEventListener
   {
     boolean isLocationTurnedOn = false;
 
-    final MWMApplication application = MWMApplication.get();
+    final MwmApplication application = MwmApplication.get();
     // If location is turned off(by user in system settings), google client( = fused provider) api doesn't work at all
     // but external gps receivers still can work. In that case we prefer native provider instead of fused - it works.
     final ContentResolver resolver = application.getContentResolver();

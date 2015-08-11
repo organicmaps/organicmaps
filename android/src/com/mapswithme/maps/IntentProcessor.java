@@ -4,7 +4,7 @@ import android.content.Intent;
 
 public interface IntentProcessor
 {
-  public boolean isIntentSupported(Intent intent);
+  boolean isIntentSupported(Intent intent);
 
-  public boolean processIntent(Intent intent);
+  boolean processIntent(Intent intent);
 }

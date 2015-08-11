@@ -8,7 +8,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 
 public class GoogleFusedLocationProvider extends BaseLocationProvider
     implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener
@@ -22,7 +22,7 @@ public class GoogleFusedLocationProvider extends BaseLocationProvider
 
   public GoogleFusedLocationProvider()
   {
-    mGoogleApiClient = new GoogleApiClient.Builder(MWMApplication.get())
+    mGoogleApiClient = new GoogleApiClient.Builder(MwmApplication.get())
         .addApi(LocationServices.API)
         .addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this)

@@ -6,24 +6,24 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.jayway.android.robotium.solo.Solo;
 import com.mapswithme.maps.DownloadUI;
-import com.mapswithme.maps.MWMActivity;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.squareup.spoon.Spoon;
 
-public class MapActivityTest extends ActivityInstrumentationTestCase2<MWMActivity>
+public class MapActivityTest extends ActivityInstrumentationTestCase2<MwmActivity>
 {
   private static final int TIME_OUT = 5*1000;
 
   public MapActivityTest()
   {
-    super(MWMActivity.class);
+    super(MwmActivity.class);
   }
 
   public void testAllButtons()
   {
-    final MWMActivity activity = getActivity();
+    final MwmActivity activity = getActivity();
     final Solo solo = new Solo(getInstrumentation(), activity);
 
     Spoon.screenshot(activity, "initial_state");

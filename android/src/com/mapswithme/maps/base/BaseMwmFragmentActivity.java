@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.mapswithme.util.ViewServer;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -32,7 +32,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
       getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
     }
 
-    MWMApplication.get().initStats();
+    MwmApplication.get().initStats();
     ViewServer.get(this).addWindow(this);
 
     attachDefaultFragment();

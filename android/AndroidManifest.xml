@@ -51,7 +51,7 @@
       android:xlargeScreens="true"/>
 
   <application
-      android:name="com.mapswithme.maps.MWMApplication"
+      android:name=".MwmApplication"
       android:allowBackup="true"
       android:icon="@drawable/ic_launcher"
       android:label="@string/app_name"
@@ -169,7 +169,7 @@
     </activity>
 
     <activity
-        android:name="com.mapswithme.maps.MWMActivity"
+        android:name="com.mapswithme.maps.MwmActivity"
         android:launchMode="singleTask"
         android:theme="@style/MwmTheme.Map"
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
@@ -179,45 +179,45 @@
         android:name="com.mapswithme.country.DownloadActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/download_maps"
-        android:parentActivityName="com.mapswithme.maps.MWMActivity">
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MWMActivity"/>
+          android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
     <activity
         android:name="com.mapswithme.maps.search.SearchActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/search_map"
-        android:parentActivityName="com.mapswithme.maps.MWMActivity"
+        android:parentActivityName="com.mapswithme.maps.MwmActivity"
         android:windowSoftInputMode="stateVisible|adjustResize">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MWMActivity"/>
+          android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
     <activity
         android:name="com.mapswithme.maps.settings.SettingsActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/settings_and_more"
-        android:parentActivityName="com.mapswithme.maps.MWMActivity">
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MWMActivity"/>
+          android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
     <activity
         android:name="com.mapswithme.maps.settings.StoragePathActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/maps_storage"
-        android:parentActivityName="com.mapswithme.maps.MWMActivity">
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MWMActivity"/>
+          android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
     <activity
@@ -232,11 +232,11 @@
         android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/bookmarks"
-        android:parentActivityName="com.mapswithme.maps.MWMActivity">
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MWMActivity"/>
+          android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
     <activity

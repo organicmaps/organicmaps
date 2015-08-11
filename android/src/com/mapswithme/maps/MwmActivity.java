@@ -79,12 +79,12 @@ import com.mapswithme.util.statistics.Statistics;
 import java.io.Serializable;
 import java.util.Stack;
 
-public class MWMActivity extends BaseMwmFragmentActivity
+public class MwmActivity extends BaseMwmFragmentActivity
     implements LocationHelper.LocationListener, OnBalloonListener, View.OnTouchListener, BasePlacePageAnimationController.OnVisibilityChangedListener,
     OnClickListener, Framework.RoutingListener, MapFragment.MapRenderingListener, CustomNavigateUpListener, Framework.RoutingProgressListener
 {
   public static final String EXTRA_TASK = "map_task";
-  private final static String TAG = "MWMActivity";
+  private final static String TAG = "MwmActivity";
   private final static String EXTRA_CONSUMED = "mwm.extra.intent.processed";
   private final static String EXTRA_SCREENSHOTS_TASK = "screenshots_task";
   private final static String SCREENSHOTS_TASK_LOCATE = "locate_task";
@@ -115,7 +115,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private int mLocationStateModeListenerId = LocationState.SLOT_UNDEFINED;
   // These flags are initialized to the invalid combination to force update on the first check
   // after launching.
-  // These flags are static because the MWMActivity is recreated while screen orientation changing
+  // These flags are static because the MwmActivity is recreated while screen orientation changing
   // but they shall not be reinitialized on screen orientation changing.
   private static boolean mStorageAvailable = false;
   private static boolean mStorageWritable = true;
@@ -128,9 +128,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private ImageButton mBtnZoomOut;
   private BottomButtonsLayout mBottomButtons;
 
-  private static final String IS_KML_MOVED = "KmlBeenMoved";
-  private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
-
   private boolean mIsFragmentContainer;
 
   private LocationPredictor mLocationPredictor;
@@ -141,12 +138,12 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     return new Intent(context, DownloadResourcesActivity.class)
         .putExtra(DownloadResourcesActivity.EXTRA_COUNTRY_INDEX, index)
-        .putExtra(DownloadResourcesActivity.EXTRA_AUTODOWNLOAD_CONTRY, doAutoDownload);
+        .putExtra(DownloadResourcesActivity.EXTRA_AUTODOWNLOAD_COUNTRY, doAutoDownload);
   }
 
   public static void setMapStyle(Context context, int mapStyle)
   {
-    final Intent mapIntent = new Intent(context, MWMActivity.class);
+    final Intent mapIntent = new Intent(context, MwmActivity.class);
     mapIntent.putExtra(EXTRA_SET_MAP_STYLE, mapStyle);
     context.startActivity(mapIntent);
     // Next we need to handle intent
@@ -154,7 +151,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   public static void startSearch(Context context, String query)
   {
-    final MWMActivity activity = (MWMActivity) context;
+    final MwmActivity activity = (MwmActivity) context;
     if (activity.mIsFragmentContainer)
       activity.showSearch();
     else
@@ -163,7 +160,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   public static Intent createUpdateMapsIntent()
   {
-    return new Intent(MWMApplication.get(), DownloadResourcesActivity.class)
+    return new Intent(MwmApplication.get(), DownloadResourcesActivity.class)
         .putExtra(DownloadResourcesActivity.EXTRA_UPDATE_COUNTRIES, true);
   }
 
@@ -269,13 +266,13 @@ public class MWMActivity extends BaseMwmFragmentActivity
             @Override
             public void moveFilesFinished(String newPath)
             {
-              UiUtils.showAlertDialog(MWMActivity.this, R.string.move_lite_maps_to_pro_ok);
+              UiUtils.showAlertDialog(MwmActivity.this, R.string.move_lite_maps_to_pro_ok);
             }
 
             @Override
             public void moveFilesFailed(int errorCode)
             {
-              UiUtils.showAlertDialog(MWMActivity.this, R.string.move_lite_maps_to_pro_failed);
+              UiUtils.showAlertDialog(MwmActivity.this, R.string.move_lite_maps_to_pro_failed);
             }
           }
       );
@@ -380,7 +377,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      new AlertDialog.Builder(MWMActivity.this)
+      new AlertDialog.Builder(MwmActivity.this)
           .setMessage(R.string.unknown_current_position)
           .setCancelable(true)
           .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
@@ -426,7 +423,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
     TtsPlayer.INSTANCE.init();
 
-    if (MWMApplication.get().nativeIsBenchmarking())
+    if (MwmApplication.get().nativeIsBenchmarking())
       Utils.keepScreenOn(true, getWindow());
 
     // TODO consider implementing other model of listeners connection, without activities being bound
@@ -803,7 +800,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void refreshZoomButtonsVisibility()
   {
-    final boolean showZoomSetting = MWMApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true) || Framework.nativeIsRoutingActive();
+    final boolean showZoomSetting = MwmApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true) || Framework.nativeIsRoutingActive();
     UiUtils.showIf(showZoomSetting &&
             !UiUtils.areViewsIntersecting(mToolbarSearch, mBtnZoomIn) &&
             !UiUtils.areViewsIntersecting(mLayoutRouting, mBtnZoomIn),
@@ -984,7 +981,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
         @Override
         public void run()
         {
-          final String poiType = ParsedMwmRequest.getCurrentRequest().getCallerName(MWMApplication.get()).toString();
+          final String poiType = ParsedMwmRequest.getCurrentRequest().getCallerName(MwmApplication.get()).toString();
           activateMapObject(new ApiPoint(name, id, poiType, lat, lon));
         }
       });
@@ -1289,7 +1286,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
           final Bundle args = new Bundle();
           args.putInt(RoutingErrorDialogFragment.EXTRA_RESULT_CODE, resultCode);
           args.putSerializable(RoutingErrorDialogFragment.EXTRA_MISSING_COUNTRIES, missingCountries);
-          final RoutingErrorDialogFragment fragment = (RoutingErrorDialogFragment) Fragment.instantiate(MWMActivity.this, RoutingErrorDialogFragment.class.getName());
+          final RoutingErrorDialogFragment fragment = (RoutingErrorDialogFragment) Fragment.instantiate(MwmActivity.this, RoutingErrorDialogFragment.class.getName());
           fragment.setArguments(args);
           fragment.setListener(new RoutingErrorDialogFragment.RoutingDialogListener()
           {
@@ -1352,7 +1349,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   public interface MapTask extends Serializable
   {
-    boolean run(MWMActivity target);
+    boolean run(MwmActivity target);
   }
 
   public static class OpenUrlTask implements MapTask
@@ -1367,7 +1364,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public boolean run(MWMActivity target)
+    public boolean run(MwmActivity target)
     {
       return target.mMapFragment.showMapForUrl(mUrl);
     }
@@ -1386,7 +1383,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public boolean run(MWMActivity target)
+    public boolean run(MwmActivity target)
     {
       if (mDoAutoDownload)
       {
@@ -1404,7 +1401,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   public static class UpdateCountryTask implements MapTask
   {
     @Override
-    public boolean run(final MWMActivity target)
+    public boolean run(final MwmActivity target)
     {
       target.runOnUiThread(new Runnable()
       {

@@ -6,7 +6,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.CharacterStyle;
 
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 
 import java.util.Locale;
@@ -82,9 +82,9 @@ public class StringUtils
   public static String getFileSizeString(long size)
   {
     if (size > Constants.MB)
-      return (size + Constants.MB / 2) / Constants.MB + " " + MWMApplication.get().getString(R.string.mb);
+      return (size + Constants.MB / 2) / Constants.MB + " " + MwmApplication.get().getString(R.string.mb);
     else
-      return (size + Constants.KB - 1) / Constants.KB + " " + MWMApplication.get().getString(R.string.kb);
+      return (size + Constants.KB - 1) / Constants.KB + " " + MwmApplication.get().getString(R.string.kb);
   }
 
   public static class SimpleTextWatcher implements TextWatcher

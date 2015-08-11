@@ -17,7 +17,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.Constants;
@@ -112,7 +112,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
       long installTime = 0;
       try
       {
-        info = MWMApplication.get().getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
+        info = MwmApplication.get().getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
         installTime = info.firstInstallTime;
       } catch (PackageManager.NameNotFoundException e)
       {

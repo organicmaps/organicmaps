@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.statistics.AlohaHelper;
 
 import java.io.Closeable;
@@ -59,7 +59,7 @@ public class Utils
   {
     final String GooglePlayStorePackageNameOld = "com.google.market";
     final String GooglePlayStorePackageNameNew = "com.android.vending";
-    final PackageManager pm = MWMApplication.get().getPackageManager();
+    final PackageManager pm = MwmApplication.get().getPackageManager();
     final List<PackageInfo> packages = pm.getInstalledPackages(0);
     for (final PackageInfo packageInfo : packages)
     {
@@ -179,7 +179,7 @@ public class Utils
 
   public static boolean isPackageInstalled(String packageUri)
   {
-    PackageManager pm = MWMApplication.get().getPackageManager();
+    PackageManager pm = MwmApplication.get().getPackageManager();
     boolean installed;
     try
     {
@@ -201,7 +201,7 @@ public class Utils
 
   public static boolean isIntentAvailable(Intent intent)
   {
-    PackageManager mgr = MWMApplication.get().getPackageManager();
+    PackageManager mgr = MwmApplication.get().getPackageManager();
     return mgr.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0;
   }
 
@@ -221,7 +221,7 @@ public class Utils
    */
   public static String saveLogToFile()
   {
-    String fullName = MWMApplication.get().getDataStoragePath() + "log.txt";
+    String fullName = MwmApplication.get().getDataStoragePath() + "log.txt";
     File file = new File(fullName);
     InputStreamReader reader = null;
     FileWriter writer = null;
@@ -233,7 +233,7 @@ public class Utils
       writer.write("App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n");
       writer.write("Locale : " + Locale.getDefault());
       writer.write("\nNetworks : ");
-      final ConnectivityManager manager = (ConnectivityManager) MWMApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE);
+      final ConnectivityManager manager = (ConnectivityManager) MwmApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE);
       for (NetworkInfo info : manager.getAllNetworkInfo())
         writer.write(info.toString());
       writer.write("\n\n");
@@ -280,7 +280,7 @@ public class Utils
   {
     try
     {
-      final PackageInfo info = MWMApplication.get().getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
+      final PackageInfo info = MwmApplication.get().getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
       return info.firstInstallTime > timestamp;
     } catch (PackageManager.NameNotFoundException e)
     {

@@ -5,7 +5,7 @@ import android.os.Build;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 
 import java.util.Locale;
 
@@ -24,7 +24,7 @@ public class Language
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
-      final InputMethodManager imm = (InputMethodManager) MWMApplication.get().getSystemService(Context.INPUT_METHOD_SERVICE);
+      final InputMethodManager imm = (InputMethodManager) MwmApplication.get().getSystemService(Context.INPUT_METHOD_SERVICE);
       if (imm != null)
       {
         final InputMethodSubtype ims = imm.getCurrentInputMethodSubtype();

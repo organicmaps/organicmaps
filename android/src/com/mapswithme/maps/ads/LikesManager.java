@@ -5,7 +5,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.ConnectionState;
 
 import java.lang.ref.WeakReference;
@@ -65,7 +65,7 @@ public class LikesManager
 
   private static final long DIALOG_DELAY_MILLIS = 30000;
 
-  private final boolean mIsNewUser = MWMApplication.get().getFirstInstallVersion() == BuildConfig.VERSION_CODE;
+  private final boolean mIsNewUser = MwmApplication.get().getFirstInstallVersion() == BuildConfig.VERSION_CODE;
   private final int mSessionNum;
 
   private Handler mHandler;
@@ -80,7 +80,7 @@ public class LikesManager
     mHandler = new Handler(activity.getMainLooper());
     mActivityRef = new WeakReference<>(activity);
 
-    mSessionNum = MWMApplication.get().getSessionsNumber();
+    mSessionNum = MwmApplication.get().getSessionsNumber();
   }
 
   public void showLikeDialogForCurrentSession()
@@ -134,21 +134,21 @@ public class LikesManager
 
   public static boolean isSessionRated(int sessionNum)
   {
-    return MWMApplication.get().nativeGetInt(LAST_RATED_SESSION, 0) >= sessionNum;
+    return MwmApplication.get().nativeGetInt(LAST_RATED_SESSION, 0) >= sessionNum;
   }
 
   public static void setSessionRated(int sessionNum)
   {
-    MWMApplication.get().nativeSetInt(LAST_RATED_SESSION, sessionNum);
+    MwmApplication.get().nativeSetInt(LAST_RATED_SESSION, sessionNum);
   }
 
   public static boolean isRatingApplied(final Class<? extends DialogFragment> dialogFragmentClass)
   {
-    return MWMApplication.get().nativeGetBoolean(RATED_DIALOG + dialogFragmentClass.getSimpleName(), false);
+    return MwmApplication.get().nativeGetBoolean(RATED_DIALOG + dialogFragmentClass.getSimpleName(), false);
   }
 
   public static void setRatingApplied(final Class<? extends DialogFragment> dialogFragmentClass, boolean applied)
   {
-    MWMApplication.get().nativeSetBoolean(RATED_DIALOG + dialogFragmentClass.getSimpleName(), applied);
+    MwmApplication.get().nativeSetBoolean(RATED_DIALOG + dialogFragmentClass.getSimpleName(), applied);
   }
 }

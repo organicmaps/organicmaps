@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountrySuggestFragment;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MWMActivity;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -299,7 +299,7 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
 
     // change map style for the Map activity
     final int mapStyle = isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_LIGHT;
-    MWMActivity.setMapStyle(getActivity(), mapStyle);
+    MwmActivity.setMapStyle(getActivity(), mapStyle);
 
     return true;
   }

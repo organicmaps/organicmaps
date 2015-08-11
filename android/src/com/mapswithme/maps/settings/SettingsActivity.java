@@ -29,7 +29,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
@@ -58,7 +58,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     // TODO remove after refactoring to fragments
     // this initialisation is necessary hence Activity isn't extended from BaseMwmActivity
     // try to prevent possible crash if this is the only activity in application
-    MWMApplication.get().initStats();
+    MwmApplication.get().initStats();
     addPreferencesFromResource(R.xml.preferences);
     initPreferences();
     yotaSetup();
@@ -87,10 +87,10 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     allowStatsPreference.setOnPreferenceChangeListener(this);
 
     final CheckBoxPreference enableZoomButtons = (CheckBoxPreference) findPreference(getString(R.string.pref_zoom_btns_enabled));
-    enableZoomButtons.setChecked(MWMApplication.get().nativeGetBoolean(ZOOM_BUTTON_ENABLED, true));
+    enableZoomButtons.setChecked(MwmApplication.get().nativeGetBoolean(ZOOM_BUTTON_ENABLED, true));
     enableZoomButtons.setOnPreferenceChangeListener(this);
 
-    if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MWMApplication.get()) != ConnectionResult.SUCCESS)
+    if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MwmApplication.get()) != ConnectionResult.SUCCESS)
     {
       ((PreferenceScreen) findPreference(getString(R.string.pref_settings))).
           removePreference(findPreference(getString(R.string.pref_play_services)));
@@ -430,7 +430,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     else if (key.equals(getString(R.string.pref_allow_stat)))
       Statistics.INSTANCE.setStatEnabled((Boolean) newValue);
     else if (key.equals(getString(R.string.pref_zoom_btns_enabled)))
-      MWMApplication.get().nativeSetBoolean(ZOOM_BUTTON_ENABLED, (Boolean) newValue);
+      MwmApplication.get().nativeSetBoolean(ZOOM_BUTTON_ENABLED, (Boolean) newValue);
 
     return true;
   }

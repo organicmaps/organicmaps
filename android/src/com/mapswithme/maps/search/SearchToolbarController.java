@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MWMActivity;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.util.UiUtils;
@@ -34,7 +34,7 @@ public class SearchToolbarController implements OnClickListener
       @Override
       public void onClick(View v)
       {
-        MWMActivity.startSearch(mActivity, mSearchQuery.getText().toString());
+        MwmActivity.startSearch(mActivity, mSearchQuery.getText().toString());
         cancelSearchApiAndHide();
       }
     });
@@ -73,7 +73,7 @@ public class SearchToolbarController implements OnClickListener
     if (R.id.search_text_query == id)
     {
       final String query = mSearchQuery.getText().toString();
-      MWMActivity.startSearch(mActivity, query);
+      MwmActivity.startSearch(mActivity, query);
       UiUtils.hide(mSearchToolbar);
     }
     else if (R.id.search_image_clear == id)

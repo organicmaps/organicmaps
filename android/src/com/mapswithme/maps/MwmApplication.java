@@ -29,9 +29,9 @@ import java.util.Map;
 import ru.mail.android.mytracker.MRMyTracker;
 import ru.mail.android.mytracker.MRMyTrackerParams;
 
-public class MWMApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
+public class MwmApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
 {
-  private final static String TAG = "MWMApplication";
+  private final static String TAG = "MwmApplication";
   private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
   private static final String LAUNCH_NUMBER_SETTING = "LaunchNumber"; // total number of app launches
   private static final String SESSION_NUMBER_SETTING = "SessionNumber"; // session = number of days, when app was launched
@@ -46,18 +46,18 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private static final String PREF_PARSE_DEVICE_TOKEN = "ParseDeviceToken";
   private static final String PREF_PARSE_INSTALLATION_ID = "ParseInstallationId";
 
-  private static MWMApplication mSelf;
+  private static MwmApplication mSelf;
   private final Gson mGson = new Gson();
 
   private boolean mAreStatsInitialised;
 
-  public MWMApplication()
+  public MwmApplication()
   {
     super();
     mSelf = this;
   }
 
-  public static MWMApplication get()
+  public static MwmApplication get()
   {
     return mSelf;
   }

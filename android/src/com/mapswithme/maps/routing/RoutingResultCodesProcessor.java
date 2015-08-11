@@ -4,7 +4,7 @@ import android.content.res.Resources;
 import android.util.Pair;
 
 import com.mapswithme.maps.LocationState;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 
@@ -33,7 +33,7 @@ public class RoutingResultCodesProcessor
     if (missingCountries != null)
       missingCount = missingCountries.length;
 
-    Resources resources = MWMApplication.get().getResources();
+    Resources resources = MwmApplication.get().getResources();
     int titleRes = 0;
     List<String> messages = new ArrayList<>();
     switch (errorCode)

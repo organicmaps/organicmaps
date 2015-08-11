@@ -4,12 +4,10 @@ import android.app.Activity;
 
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMwmRequest;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.FbUtil;
-import com.mapswithme.util.MathUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.log.StubLogger;
@@ -258,11 +256,11 @@ public enum Statistics
 
   private void configure()
   {
-    final String key = MWMApplication.get().getResources().getString(R.string.flurry_app_key);
+    final String key = MwmApplication.get().getResources().getString(R.string.flurry_app_key);
     mStatisticsEngines = new ArrayList<>();
 
     final StatisticsEngine flurryEngine = new FlurryEngine(BuildConfig.DEBUG, key);
-    flurryEngine.configure(MWMApplication.get(), null);
+    flurryEngine.configure(MwmApplication.get(), null);
     mStatisticsEngines.add(flurryEngine);
 
     mEventBuilder = new EventBuilder();
@@ -281,16 +279,16 @@ public enum Statistics
 
   public boolean isStatisticsEnabled()
   {
-    return MWMApplication.get().nativeGetBoolean(KEY_STAT_ENABLED, true);
+    return MwmApplication.get().nativeGetBoolean(KEY_STAT_ENABLED, true);
   }
 
   public void setStatEnabled(boolean isEnabled)
   {
-    MWMApplication.get().nativeSetBoolean(KEY_STAT_ENABLED, isEnabled);
+    MwmApplication.get().nativeSetBoolean(KEY_STAT_ENABLED, isEnabled);
     // We track if user turned on/off
     // statistics to understand data better.
     post(mEventBuilder
-        .setName(EventName.STATISTICS_STATUS_CHANGED + " " + MWMApplication.get().getFirstInstallFlavor())
+        .setName(EventName.STATISTICS_STATUS_CHANGED + " " + MwmApplication.get().getFirstInstallFlavor())
         .addParam(EventParam.ENABLED, String.valueOf(isEnabled))
         .buildEvent());
   }

@@ -9,8 +9,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.mapswithme.maps.MWMActivity;
-import com.mapswithme.maps.MWMActivity.MapTask;
+import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.MwmActivity.MapTask;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -32,8 +32,8 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
     {
       mapTask = mapTask.extract(intent);
       sLogger.d(mapTask.toString());
-      intent = new Intent(context, MWMActivity.class);
-      intent.putExtra(MWMActivity.EXTRA_TASK, mapTask);
+      intent = new Intent(context, MwmActivity.class);
+      intent.putExtra(MwmActivity.EXTRA_TASK, mapTask);
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       context.startActivity(intent);
     }
@@ -67,7 +67,7 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
     int mScope;
 
     @Override
-    public boolean run(final MWMActivity target)
+    public boolean run(final MwmActivity target)
     {
       sLogger.d("Running me!", this, target);
       target.onMyPositionClicked(null);
@@ -115,7 +115,7 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
     String mName;
 
     @Override
-    public boolean run(final MWMActivity target)
+    public boolean run(final MwmActivity target)
     {
       final int categoriesCount = BookmarkManager.INSTANCE.getCategoriesCount();
 
@@ -138,12 +138,12 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
 
         class ShowBmkRunnable implements Runnable
         {
-          MWMActivity mActivity;
+          MwmActivity mActivity;
           int mBmkId;
           int mCatId;
           int mMaxCount;
 
-          public ShowBmkRunnable(MWMActivity activity, int bmk, int cat, int count)
+          public ShowBmkRunnable(MwmActivity activity, int bmk, int cat, int count)
           {
             mActivity = activity;
             mBmkId = bmk;
@@ -156,7 +156,7 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
           {
             sLogger.d("Step!");
             // bring foreground
-            mActivity.startActivity(new Intent(mActivity, MWMActivity.class));
+            mActivity.startActivity(new Intent(mActivity, MwmActivity.class));
 
             final Bookmark bookmark = BookmarkManager.INSTANCE.getBookmark(mCatId, mBmkId);
             final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(mCatId);

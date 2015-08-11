@@ -4,9 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Debug;
 import android.os.Build;
-import com.mapswithme.maps.MWMApplication;
-import java.text.DateFormat;
-import java.util.Date;
+import com.mapswithme.maps.MwmApplication;
 
 
 public class MemLogging
@@ -17,7 +15,7 @@ public class MemLogging
     Debug.getMemoryInfo(debugMI);
     final ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
     final ActivityManager activityManager =
-            (ActivityManager) MWMApplication.get().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+            (ActivityManager) MwmApplication.get().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
     activityManager.getMemoryInfo(mi);
 
     StringBuilder log = new StringBuilder("Memory info: ");

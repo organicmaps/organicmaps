@@ -30,7 +30,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.nineoldandroids.animation.Animator;
 
@@ -230,7 +230,7 @@ public final class UiUtils
   public static String getDisplayDensityString()
   {
     final DisplayMetrics metrics = new DisplayMetrics();
-    ((WindowManager) MWMApplication.get().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
+    ((WindowManager) MwmApplication.get().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
     switch (metrics.densityDpi)
     {
     case DisplayMetrics.DENSITY_LOW:
@@ -358,12 +358,12 @@ public final class UiUtils
 
   public static boolean isSmallTablet()
   {
-    return MWMApplication.get().getResources().getBoolean(R.bool.isSmallTablet);
+    return MwmApplication.get().getResources().getBoolean(R.bool.isSmallTablet);
   }
 
   public static boolean isBigTablet()
   {
-    return MWMApplication.get().getResources().getBoolean(R.bool.isBigTablet);
+    return MwmApplication.get().getResources().getBoolean(R.bool.isBigTablet);
   }
 
   /**

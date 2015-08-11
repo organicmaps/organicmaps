@@ -84,7 +84,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/sound/tts.cpp \
 	com/mapswithme/maps/VideoTimer.cpp \
 	com/mapswithme/maps/MapFragment.cpp \
-	com/mapswithme/maps/MWMApplication.cpp \
+	com/mapswithme/maps/MwmApplication.cpp \
 	com/mapswithme/maps/Lifecycle.cpp \
 	com/mapswithme/maps/LocationState.cpp \
 	com/mapswithme/maps/MapStorage.cpp \

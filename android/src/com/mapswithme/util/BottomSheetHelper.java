@@ -10,7 +10,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 
 import com.cocosw.bottomsheet.BottomSheet;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.widget.ListShadowController;
 
 import java.lang.ref.WeakReference;
@@ -140,7 +140,7 @@ public final class BottomSheetHelper
 
   public static BottomSheet.Builder sheet(BottomSheet.Builder builder, int id, @DrawableRes int iconRes, CharSequence text)
   {
-    Drawable icon = ContextCompat.getDrawable(MWMApplication.get(), iconRes);
+    Drawable icon = ContextCompat.getDrawable(MwmApplication.get(), iconRes);
     return builder.sheet(id, icon, text);
   }
 }

@@ -12,7 +12,7 @@ import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
 import com.cocosw.bottomsheet.BottomSheet;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.BottomSheetHelper;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.mapswithme.maps.MWMApplication.gson;
+import static com.mapswithme.maps.MwmApplication.gson;
 
 public final class SharingHelper
 {
@@ -39,7 +39,7 @@ public final class SharingHelper
   private static final SharingHelper sInstance = new SharingHelper();
 
 
-  private final SharedPreferences mPrefs = MWMApplication.get().getSharedPreferences(PREFS_STORAGE, Context.MODE_PRIVATE);
+  private final SharedPreferences mPrefs = MwmApplication.get().getSharedPreferences(PREFS_STORAGE, Context.MODE_PRIVATE);
   private final Map<String, SharingTarget> mItems = new HashMap<>();
 
 
@@ -109,7 +109,7 @@ public final class SharingHelper
     Set<String> missed = new HashSet<>(mItems.keySet());
 
     Intent it = data.getTargetIntent();
-    PackageManager pm = MWMApplication.get().getPackageManager();
+    PackageManager pm = MwmApplication.get().getPackageManager();
     List<ResolveInfo> rlist = pm.queryIntentActivities(it, 0);
 
 
@@ -214,7 +214,7 @@ public final class SharingHelper
 
   public static void shareBookmarksCategory(Activity context, int id)
   {
-    String path = MWMApplication.get().getTempPath();
+    String path = MwmApplication.get().getTempPath();
     String name = BookmarkManager.INSTANCE.saveToKmzFile(id, path);
     if (name == null)
       // some error occurred

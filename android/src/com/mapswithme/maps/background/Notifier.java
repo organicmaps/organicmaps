@@ -1,27 +1,18 @@
 package com.mapswithme.maps.background;
 
-import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MWMActivity;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.R;
-import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.util.Calendar;
 
 public class Notifier
 {
@@ -42,21 +33,21 @@ public class Notifier
 
   public static NotificationCompat.Builder getBuilder()
   {
-    return new NotificationCompat.Builder(MWMApplication.get())
+    return new NotificationCompat.Builder(MwmApplication.get())
         .setAutoCancel(true)
         .setSmallIcon(R.drawable.ic_notification);
   }
 
   private static NotificationManager getNotificationManager()
   {
-    return (NotificationManager) MWMApplication.get().getSystemService(Context.NOTIFICATION_SERVICE);
+    return (NotificationManager) MwmApplication.get().getSystemService(Context.NOTIFICATION_SERVICE);
   }
 
   public static void placeUpdateAvailable(String forWhat)
   {
-    final String title = MWMApplication.get().getString(R.string.advise_update_maps);
+    final String title = MwmApplication.get().getString(R.string.advise_update_maps);
 
-    final PendingIntent pi = PendingIntent.getActivity(MWMApplication.get(), 0, MWMActivity.createUpdateMapsIntent(),
+    final PendingIntent pi = PendingIntent.getActivity(MwmApplication.get(), 0, MwmActivity.createUpdateMapsIntent(),
         PendingIntent.FLAG_UPDATE_CURRENT);
 
     final Notification notification = Notifier.getBuilder()
@@ -72,8 +63,8 @@ public class Notifier
 
   public static void placeDownloadCompleted(Index idx, String name)
   {
-    final String title = MWMApplication.get().getString(R.string.app_name);
-    final String content = MWMApplication.get().getString(R.string.download_country_success, name);
+    final String title = MwmApplication.get().getString(R.string.app_name);
+    final String content = MwmApplication.get().getString(R.string.download_country_success, name);
 
     // TODO add complex stacked notification with progress, number of countries and other info.
 //    placeDownloadNotification(title, content, idx);
@@ -81,16 +72,16 @@ public class Notifier
 
   public static void placeDownloadFailed(Index idx, String name)
   {
-    final String title = MWMApplication.get().getString(R.string.app_name);
-    final String content = MWMApplication.get().getString(R.string.download_country_failed, name);
+    final String title = MwmApplication.get().getString(R.string.app_name);
+    final String content = MwmApplication.get().getString(R.string.download_country_failed, name);
 
     placeDownloadNotification(title, content, idx);
   }
 
   private static void placeDownloadNotification(String title, String content, Index idx)
   {
-    final PendingIntent pi = PendingIntent.getActivity(MWMApplication.get(), 0,
-        MWMActivity.createShowMapIntent(MWMApplication.get(), idx, false).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+    final PendingIntent pi = PendingIntent.getActivity(MwmApplication.get(), 0,
+        MwmActivity.createShowMapIntent(MwmApplication.get(), idx, false).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
         PendingIntent.FLAG_UPDATE_CURRENT);
 
     final Notification notification = getBuilder()
@@ -105,8 +96,8 @@ public class Notifier
 
   public static void placeDownloadSuggest(String title, String content, Index countryIndex)
   {
-    final PendingIntent pi = PendingIntent.getActivity(MWMApplication.get(), 0,
-        MWMActivity.createShowMapIntent(MWMApplication.get(), countryIndex, true).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+    final PendingIntent pi = PendingIntent.getActivity(MwmApplication.get(), 0,
+        MwmActivity.createShowMapIntent(MwmApplication.get(), countryIndex, true).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
         PendingIntent.FLAG_UPDATE_CURRENT);
 
     final Notification notification = getBuilder()

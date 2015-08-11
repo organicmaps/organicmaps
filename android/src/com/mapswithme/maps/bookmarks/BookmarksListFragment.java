@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MWMActivity;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
@@ -106,7 +106,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
       break;
     }
 
-    final Intent i = new Intent(getActivity(), MWMActivity.class);
+    final Intent i = new Intent(getActivity(), MwmActivity.class);
     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     startActivity(i);
   }

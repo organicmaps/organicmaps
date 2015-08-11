@@ -17,7 +17,7 @@ import android.util.Log;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -199,8 +199,8 @@ public class StoragePathManager
   @TargetApi(Build.VERSION_CODES.KITKAT)
   private static void parseKitkatStorages(List<String> paths)
   {
-    File primaryStorage = MWMApplication.get().getExternalFilesDir(null);
-    File[] storages = MWMApplication.get().getExternalFilesDirs(null);
+    File primaryStorage = MwmApplication.get().getExternalFilesDir(null);
+    File[] storages = MwmApplication.get().getExternalFilesDirs(null);
     if (storages != null)
     {
       for (File f : storages)
@@ -483,7 +483,7 @@ public class StoragePathManager
 
   private void migrateBookmarks(final Activity activity, final MoveFilesListener listener)
   {
-    if (MWMApplication.get().nativeGetBoolean(IS_KML_PLACED_IN_MAIN_STORAGE, false))
+    if (MwmApplication.get().nativeGetBoolean(IS_KML_PLACED_IN_MAIN_STORAGE, false))
       listener.moveFilesFinished("");
     else
     {
@@ -501,7 +501,7 @@ public class StoragePathManager
             {
               if (res)
               {
-                MWMApplication.get().nativeSetBoolean(IS_KML_PLACED_IN_MAIN_STORAGE, true);
+                MwmApplication.get().nativeSetBoolean(IS_KML_PLACED_IN_MAIN_STORAGE, true);
                 listener.moveFilesFinished("");
               }
               else
@@ -515,7 +515,7 @@ public class StoragePathManager
 
   private void migrateMaps(final Activity activity)
   {
-    if (!MWMApplication.get().nativeGetBoolean(IS_KITKAT_MIGRATION_COMPLETED, false))
+    if (!MwmApplication.get().nativeGetBoolean(IS_KITKAT_MIGRATION_COMPLETED, false))
     {
       checkExternalStoragePathOnKitkat(activity,
           new MoveFilesListener()
@@ -523,7 +523,7 @@ public class StoragePathManager
             @Override
             public void moveFilesFinished(String newPath)
             {
-              MWMApplication.get().nativeSetBoolean(IS_KITKAT_MIGRATION_COMPLETED, true);
+              MwmApplication.get().nativeSetBoolean(IS_KITKAT_MIGRATION_COMPLETED, true);
               UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_ok);
             }
 

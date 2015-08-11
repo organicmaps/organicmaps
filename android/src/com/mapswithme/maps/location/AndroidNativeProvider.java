@@ -7,7 +7,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.LocationUtils;
 
@@ -20,7 +20,7 @@ public class AndroidNativeProvider extends BaseLocationProvider implements andro
 
   public AndroidNativeProvider()
   {
-    mLocationManager = (LocationManager) MWMApplication.get().getSystemService(Context.LOCATION_SERVICE);
+    mLocationManager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
   }
 
   @Override

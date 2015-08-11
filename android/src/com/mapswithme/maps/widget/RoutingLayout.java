@@ -20,7 +20,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -336,7 +336,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
 
   private void buildRoute()
   {
-    if (!MWMApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))
+    if (!MwmApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))
     {
       showRoutingDisclaimer();
       return;
@@ -361,7 +361,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            MWMApplication.get().nativeSetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, true);
+            MwmApplication.get().nativeSetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, true);
             dlg.dismiss();
             buildRoute();
           }

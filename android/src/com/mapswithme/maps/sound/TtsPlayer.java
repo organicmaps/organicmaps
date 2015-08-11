@@ -5,7 +5,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 
 import java.util.Locale;
 
@@ -22,7 +22,7 @@ public enum TtsPlayer
 
   TtsPlayer()
   {
-    mContext = MWMApplication.get().getApplicationContext();
+    mContext = MwmApplication.get().getApplicationContext();
   }
 
   public void init()

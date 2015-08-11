@@ -20,7 +20,7 @@
 extern "C"
 {
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeInit(
+  Java_com_mapswithme_maps_MwmApplication_nativeInit(
       JNIEnv * env, jobject thiz,
       jstring apkPath, jstring storagePath, jstring tmpPath, jstring obbGooglePath,
       jstring flavorName, jstring buildType, jboolean isYota, jboolean isTablet)
@@ -37,13 +37,13 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeIsBenchmarking(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_MwmApplication_nativeIsBenchmarking(JNIEnv * env, jobject thiz)
   {
     return static_cast<jboolean>(g_framework->NativeFramework()->IsBenchmarking());
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeGetBoolean(JNIEnv * env,
+  Java_com_mapswithme_maps_MwmApplication_nativeGetBoolean(JNIEnv * env,
                                                            jobject thiz,
                                                            jstring name,
                                                            jboolean defaultVal)
@@ -54,7 +54,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeSetBoolean(JNIEnv * env,
+  Java_com_mapswithme_maps_MwmApplication_nativeSetBoolean(JNIEnv * env,
                                                            jobject thiz,
                                                            jstring name,
                                                            jboolean val)
@@ -64,20 +64,20 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMApplication_hasFreeSpace(JNIEnv * env, jobject thiz, jlong size)
+  Java_com_mapswithme_maps_MwmApplication_hasFreeSpace(JNIEnv * env, jobject thiz, jlong size)
   {
     return android::Platform::Instance().HasAvailableSpaceForWriting(size);
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeAddLocalization(JNIEnv * env, jobject thiz, jstring name, jstring value)
+  Java_com_mapswithme_maps_MwmApplication_nativeAddLocalization(JNIEnv * env, jobject thiz, jstring name, jstring value)
   {
     g_framework->AddString(jni::ToNativeString(env, name),
                            jni::ToNativeString(env, value));
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeGetInt(JNIEnv * env, jobject thiz, jstring name, jint defaultValue)
+  Java_com_mapswithme_maps_MwmApplication_nativeGetInt(JNIEnv * env, jobject thiz, jstring name, jint defaultValue)
   {
     jint value;
     if (Settings::Get(jni::ToNativeString(env, name), value))
@@ -87,13 +87,13 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeSetInt(JNIEnv * env, jobject thiz, jstring name, jint value)
+  Java_com_mapswithme_maps_MwmApplication_nativeSetInt(JNIEnv * env, jobject thiz, jstring name, jint value)
   {
     (void)Settings::Set(jni::ToNativeString(env, name), value);
   }
 
   JNIEXPORT jlong JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeGetLong(JNIEnv * env, jobject thiz, jstring name, jlong defaultValue)
+  Java_com_mapswithme_maps_MwmApplication_nativeGetLong(JNIEnv * env, jobject thiz, jstring name, jlong defaultValue)
   {
     jlong value;
     if (Settings::Get(jni::ToNativeString(env, name), value))
@@ -103,13 +103,13 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeSetLong(JNIEnv * env, jobject thiz, jstring name, jlong value)
+  Java_com_mapswithme_maps_MwmApplication_nativeSetLong(JNIEnv * env, jobject thiz, jstring name, jlong value)
   {
     (void)Settings::Set(jni::ToNativeString(env, name), value);
   }
 
   JNIEXPORT jdouble JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeGetDouble(JNIEnv * env, jobject thiz, jstring name, jdouble defaultValue)
+  Java_com_mapswithme_maps_MwmApplication_nativeGetDouble(JNIEnv * env, jobject thiz, jstring name, jdouble defaultValue)
   {
     jdouble value;
     if (Settings::Get(jni::ToNativeString(env, name), value))
@@ -119,19 +119,19 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeSetDouble(JNIEnv * env, jobject thiz, jstring name, jdouble value)
+  Java_com_mapswithme_maps_MwmApplication_nativeSetDouble(JNIEnv * env, jobject thiz, jstring name, jdouble value)
   {
     (void)Settings::Set(jni::ToNativeString(env, name), value);
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeSetString(JNIEnv * env, jobject thiz, jstring name, jstring value)
+  Java_com_mapswithme_maps_MwmApplication_nativeSetString(JNIEnv * env, jobject thiz, jstring name, jstring value)
   {
     (void)Settings::Set(jni::ToNativeString(env, name), jni::ToNativeString(env, value));
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeGetString(JNIEnv * env, jobject thiz, jstring name, jstring defaultValue)
+  Java_com_mapswithme_maps_MwmApplication_nativeGetString(JNIEnv * env, jobject thiz, jstring name, jstring defaultValue)
   {
     string value;
     if (Settings::Get(jni::ToNativeString(env, name), value))

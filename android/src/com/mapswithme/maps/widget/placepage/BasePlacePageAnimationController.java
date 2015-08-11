@@ -9,7 +9,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
@@ -19,7 +19,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageView.State;
  */
 public abstract class BasePlacePageAnimationController
 {
-  protected static final int DURATION = MWMApplication.get().getResources().getInteger(R.integer.anim_duration_default);
+  protected static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_duration_default);
   protected static final boolean NO_ANIMATION = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
 
   protected State mState = State.HIDDEN;

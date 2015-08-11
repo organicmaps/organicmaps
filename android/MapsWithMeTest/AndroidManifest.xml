@@ -47,7 +47,7 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name="com.mapswithme.maps.MWMApplication"
+        android:name="com.mapswithme.maps.MwmApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/MwmTheme.Main" >
@@ -140,7 +140,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mapswithme.maps.MWMActivity"
+            android:name="com.mapswithme.maps.MwmActivity"
             android:configChanges="orientation|screenLayout|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"

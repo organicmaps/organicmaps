@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.statistics.AlohaHelper;
 
 import ru.mail.android.mytracker.campaign.CampaignReceiver;
@@ -17,7 +17,7 @@ public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
-    MWMApplication.get().initStats();
+    MwmApplication.get().initStats();
     // parse & send referrer to Aloha
     try
     {
