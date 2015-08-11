@@ -106,7 +106,7 @@ void BaseOSMParser::AddAttr(string const & key, string const & value)
 
 bool BaseOSMParser::Push(string const & tagName)
 {
-  ASSERT_GREATER(tagName.size(), 2, ());
+  ASSERT_GREATER_OR_EQUAL(tagName.size(), 2, ());
   
   // As tagKey we use first two char of tag name.
   XMLElement::ETag tagKey = XMLElement::ETag(*reinterpret_cast<uint16_t const *>(tagName.data()));
