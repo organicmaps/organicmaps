@@ -5,111 +5,79 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.support.v4.app.NotificationCompat;
 
+import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.statistics.Statistics;
 
-public class Notifier
+public final class Notifier
 {
   private final static int ID_UPDATE_AVAIL = 0x1;
-  private final static int ID_DOWNLOAD_STATUS = 0x3;
+  private final static int ID_DOWNLOAD_FAILED = 0x3;
   private final static int ID_DOWNLOAD_NEW_COUNTRY = 0x4;
-  private final static int ID_PRO_IS_FREE = 0x5;
 
-  private static final String FREE_PROMO_SHOWN = "ProIsFreePromo";
-  private static final String EXTRA_CONTENT = "ExtraContent";
-  private static final String EXTRA_TITLE = "ExtraTitle";
-  private static final String EXTRA_INTENT = "ExtraIntent";
-
-  public static final String ACTION_NAME = "com.mapswithme.MYACTION";
-  private static IntentFilter mIntentFilter = new IntentFilter(ACTION_NAME);
+  private static final MwmApplication APP = MwmApplication.get();
 
   private Notifier() { }
 
   public static NotificationCompat.Builder getBuilder()
   {
-    return new NotificationCompat.Builder(MwmApplication.get())
+    return new NotificationCompat.Builder(APP)
         .setAutoCancel(true)
         .setSmallIcon(R.drawable.ic_notification);
   }
 
   private static NotificationManager getNotificationManager()
   {
-    return (NotificationManager) MwmApplication.get().getSystemService(Context.NOTIFICATION_SERVICE);
+    return (NotificationManager) APP.getSystemService(Context.NOTIFICATION_SERVICE);
   }
 
-  public static void placeUpdateAvailable(String forWhat)
+  public static void notifyUpdateAvailable(String countryName)
   {
-    final String title = MwmApplication.get().getString(R.string.advise_update_maps);
+    final String title = APP.getString(R.string.advise_update_maps);
 
-    final PendingIntent pi = PendingIntent.getActivity(MwmApplication.get(), 0, MwmActivity.createUpdateMapsIntent(),
+    final PendingIntent pi = PendingIntent.getActivity(APP, 0, MwmActivity.createUpdateMapsIntent(),
         PendingIntent.FLAG_UPDATE_CURRENT);
 
-    final Notification notification = Notifier.getBuilder()
-        .setContentTitle(title)
-        .setContentText(forWhat)
-        .setTicker(title + forWhat)
-        .setContentIntent(pi)
-        .build();
-
-    getNotificationManager().cancel(ID_UPDATE_AVAIL);
-    getNotificationManager().notify(ID_UPDATE_AVAIL, notification);
+    placeNotification(title, countryName, pi, ID_UPDATE_AVAIL);
   }
 
-  public static void placeDownloadCompleted(Index idx, String name)
+  public static void notifyDownloadFailed(Index idx, String countryName)
   {
-    final String title = MwmApplication.get().getString(R.string.app_name);
-    final String content = MwmApplication.get().getString(R.string.download_country_success, name);
+    final String title = APP.getString(R.string.app_name);
+    final String content = APP.getString(R.string.download_country_failed, countryName);
 
-    // TODO add complex stacked notification with progress, number of countries and other info.
-//    placeDownloadNotification(title, content, idx);
-  }
-
-  public static void placeDownloadFailed(Index idx, String name)
-  {
-    final String title = MwmApplication.get().getString(R.string.app_name);
-    final String content = MwmApplication.get().getString(R.string.download_country_failed, name);
-
-    placeDownloadNotification(title, content, idx);
-  }
-
-  private static void placeDownloadNotification(String title, String content, Index idx)
-  {
-    final PendingIntent pi = PendingIntent.getActivity(MwmApplication.get(), 0,
-        MwmActivity.createShowMapIntent(MwmApplication.get(), idx, false).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+    final PendingIntent pi = PendingIntent.getActivity(APP, 0,
+        MwmActivity.createShowMapIntent(APP, idx, false).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
         PendingIntent.FLAG_UPDATE_CURRENT);
 
-    final Notification notification = getBuilder()
-        .setContentTitle(title)
-        .setContentText(content)
-        .setTicker(title + ": " + content)
-        .setContentIntent(pi)
-        .build();
-
-    getNotificationManager().notify(ID_DOWNLOAD_STATUS, notification);
+    placeNotification(title, content, pi, ID_DOWNLOAD_FAILED);
   }
 
-  public static void placeDownloadSuggest(String title, String content, Index countryIndex)
+  public static void notifyDownloadSuggest(String title, String content, Index countryIndex)
   {
-    final PendingIntent pi = PendingIntent.getActivity(MwmApplication.get(), 0,
-        MwmActivity.createShowMapIntent(MwmApplication.get(), countryIndex, true).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+    final PendingIntent pi = PendingIntent.getActivity(APP, 0,
+        MwmActivity.createShowMapIntent(APP, countryIndex, true).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
         PendingIntent.FLAG_UPDATE_CURRENT);
 
-    final Notification notification = getBuilder()
-        .setContentTitle(title)
-        .setContentText(content)
-        .setTicker(title + ": " + content)
-        .setContentIntent(pi)
-        .build();
-
-    getNotificationManager().notify(ID_DOWNLOAD_NEW_COUNTRY, notification);
+    placeNotification(title, content, pi, ID_DOWNLOAD_NEW_COUNTRY);
 
     Statistics.INSTANCE.trackDownloadCountryNotificationShown();
+  }
+
+  private static void placeNotification(String title, String content, PendingIntent pendingIntent, int notificationId)
+  {
+    final Notification notification = getBuilder()
+        .setContentTitle(title)
+        .setContentText(content)
+        .setTicker(title + ": " + content)
+        .setContentIntent(pendingIntent)
+        .build();
+
+    getNotificationManager().notify(notificationId, notification);
   }
 
   public static void cancelDownloadSuggest()

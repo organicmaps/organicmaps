@@ -14,11 +14,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.statistics.Statistics;
 
-/**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p/>
- */
 public class WorkerService extends IntentService
 {
   public static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
@@ -76,11 +71,12 @@ public class WorkerService extends IntentService
 
   private void handleActionCheckUpdate()
   {
-    if (!Framework.nativeIsDataVersionChanged()) return;
+    if (!Framework.nativeIsDataVersionChanged())
+      return;
 
     final String countriesToUpdate = Framework.nativeGetOutdatedCountriesString();
     if (!TextUtils.isEmpty(countriesToUpdate))
-      Notifier.placeUpdateAvailable(countriesToUpdate);
+      Notifier.notifyUpdateAvailable(countriesToUpdate);
     // We are done with current version
     Framework.nativeUpdateSavedDataVersion();
   }
@@ -124,8 +120,6 @@ public class WorkerService extends IntentService
 
   /**
    * Adds notification with download country suggest.
-   *
-   * @param l
    */
   private void placeDownloadNotification(Location l)
   {
@@ -144,9 +138,9 @@ public class WorkerService extends IntentService
           return;
       }
 
-      Notifier.placeDownloadSuggest(country, String.format(getApplicationContext().getString(R.string.download_location_country), country),
+      Notifier.notifyDownloadSuggest(country, String.format(getApplicationContext().getString(R.string.download_location_country), country),
           Framework.nativeGetCountryIndex(l.getLatitude(), l.getLongitude()));
-      prefs.edit().putString(country, String.valueOf(System.currentTimeMillis())).commit();
+      prefs.edit().putString(country, String.valueOf(System.currentTimeMillis())).apply();
     }
   }
 }

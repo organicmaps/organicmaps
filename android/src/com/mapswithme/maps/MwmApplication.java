@@ -77,7 +77,7 @@ public class MwmApplication extends android.app.Application implements ActiveCou
     if (newStatus == MapStorage.DOWNLOAD_FAILED)
     {
       CountryItem item = ActiveCountryTree.getCountryItem(group, position);
-      Notifier.placeDownloadFailed(ActiveCountryTree.getCoreIndex(group, position), item.getName());
+      Notifier.notifyDownloadFailed(ActiveCountryTree.getCoreIndex(group, position), item.getName());
     }
   }
 
@@ -98,15 +98,7 @@ public class MwmApplication extends android.app.Application implements ActiveCou
   }
 
   @Override
-  public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions)
-  {
-    CountryItem item = ActiveCountryTree.getCountryItem(group, position);
-    if (item.getStatus() != MapStorage.ON_DISK)
-      return;
-
-    if (newOptions == requestOptions)
-      Notifier.placeDownloadCompleted(ActiveCountryTree.getCoreIndex(group, position), item.getName());
-  }
+  public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions) {}
 
   @Override
   public void onCreate()

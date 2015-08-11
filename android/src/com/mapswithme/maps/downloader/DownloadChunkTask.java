@@ -131,6 +131,10 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     //Log.i(TAG, "Start downloading chunk " + getChunkID());
 
     HttpURLConnection urlConnection = null;
+    /**
+     * TODO improve reliability of connections & handle EOF errors.
+     <a href="http://stackoverflow.com/questions/19258518/android-httpurlconnection-eofexception">asd</a>
+     */
 
     try
     {
@@ -214,20 +218,16 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     {
       Log.d(TAG, "Invalid url: " + mUrl);
 
-      // Notify the client about error
       mHttpErrorCode = INVALID_URL;
       return false;
     } catch (final IOException ex)
     {
       Log.d(TAG, "IOException in doInBackground for URL: " + mUrl, ex);
 
-      // Notify the client about error
       mHttpErrorCode = IO_ERROR;
       return false;
     } finally
     {
-      //Log.i(FRAGMENT_TAG, "End downloading chunk " + getChunkID());
-
       if (urlConnection != null)
         urlConnection.disconnect();
       else
@@ -235,41 +235,39 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     }
   }
 
-  /// Because of timeouts in InpetStream.read (for bad connection),
-  /// try to introduce dynamic buffer size to read in one query.
   private boolean downloadFromStream(InputStream stream)
   {
+    // Because of timeouts in InputStream.read (for bad connection),
+    // try to introduce dynamic buffer size to read in one query.
     final int arrSize[] = {64, 32, 1};
     int ret = -1;
 
-    for (int i = 0; i < arrSize.length; ++i)
+    for (int size : arrSize)
     {
       try
       {
-        // download chunk from stream
-        ret = downloadFromStreamImpl(stream, arrSize[i] * Constants.KB);
+        ret = downloadFromStreamImpl(stream, size * Constants.KB);
         break;
       } catch (final IOException ex)
       {
-        Log.d(TAG, "IOException in downloadFromStream for chunk size: " + arrSize[i], ex);
+        Log.d(TAG, "IOException in downloadFromStream for chunk size: " + size, ex);
       }
     }
 
     if (ret < 0)
-    {
-      // notify the client about error
       mHttpErrorCode = IO_ERROR;
-    }
 
     Utils.closeStream(stream);
 
     return (ret == 0);
   }
 
-  /// @return
-  /// 0 - download successful;
-  /// 1 - download canceled;
-  /// -1 - some error occurred;
+  /**
+   * @return 0 - download successful;
+   * 1 - download canceled;
+   * -1 - some error occurred;
+   * @throws IOException
+   */
   private int downloadFromStreamImpl(InputStream stream, int bufferSize) throws IOException
   {
     final byte[] tempBuf = new byte[bufferSize];
