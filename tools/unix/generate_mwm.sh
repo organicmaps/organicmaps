@@ -50,16 +50,16 @@ SOURCE_FILE="$1"
 SOURCE_TYPE="${1##*.}"
 BASE_NAME="$(basename "$SOURCE_FILE")"
 BASE_NAME="${BASE_NAME%%.*}"
+SCRIPT_PATH="$(dirname "$0")"
 TARGET="${TARGET:-$(dirname "$SOURCE_FILE")}"
 [ ! -d "$TARGET" ] && fail "$TARGET should be a writable folder"
 TBORDERS="$TARGET/borders"
-OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
+OMIM_PATH="${OMIM_PATH:-$(cd "$SCRIPT_PATH/../.."; pwd)}"
 DATA_PATH="${DATA_PATH:-$OMIM_PATH/data}"
 [ ! -r "$DATA_PATH/types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
 
-GENERATOR_TOOL="${GENERATOR_TOOL-$(dirname "$0")/bin/generator_tool}"
-FIND_GEN_TOOL="$(dirname "$0")/find_generator_tool.sh"
-[ -x "$FIND_GEN_TOOL" ] && source "$FIND_GEN_TOOL"
+GENERATOR_TOOL="${GENERATOR_TOOL-$SCRIPT_PATH/bin/generator_tool}"
+[ -x "$SCRIPT_PATH/find_generator.tool.sh" ] && source "$SCRIPT_PATH/find_generator_tool.sh"
 [ ! -x "${GENERATOR_TOOL-}" ] && fail "Cannot find generator tool"
 
 if [ "$(uname)" == "Darwin" ]; then
@@ -110,7 +110,7 @@ if [ $# -gt 1 ]; then
   # Create .mwm.routing file
   OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
   OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OSRM_PATH/build}"
-  [ ! -x "$OSRM_BUILD_PATH/osrm-extract" -a -x "$(dirname "$0")/bin/osrm-extract" ] && OSRM_BUILD_PATH="$(dirname "$0")/bin"
+  [ ! -x "$OSRM_BUILD_PATH/osrm-extract" -a -x "$SCRIPT_PATH/bin/osrm-extract" ] && OSRM_BUILD_PATH="$SCRIPT_PATH/bin"
   [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
   [ ! -r "$TARGET/$BASE_NAME.mwm" ] && fail "Please build mwm file beforehand"
 
