@@ -57,18 +57,13 @@ public:
     swap(m_times, v);
   }
 
-  inline void SetTurnInstructionsGeometry(turns::TTurnsGeom & v)
-  {
-    swap(m_turnsGeom, v);
-  }
-
   uint32_t GetTotalTimeSec() const;
   uint32_t GetCurrentTimeToEndSec() const;
 
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly; }
-  turns::TTurnsGeom const & GetTurnsGeometry() const { return m_turnsGeom; }
   TTurns const & GetTurns() const { return m_turns; }
+  void GetTurnsDistances(vector<double> & distances) const;
   string const & GetName() const { return m_name; }
   bool IsValid() const { return (m_poly.GetSize() > 1); }
 
@@ -146,8 +141,6 @@ private:
 
   TTurns m_turns;
   TTimes m_times;
-
-  turns::TTurnsGeom m_turnsGeom;
 
   /// Cached result iterator for last MoveIterator query.
   mutable IterT m_current;

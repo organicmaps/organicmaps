@@ -1,4 +1,5 @@
-#include "routing/route.hpp"
+#include "route.hpp"
+#include "turns_generator.hpp"
 
 #include "indexer/mercator.hpp"
 
@@ -42,7 +43,6 @@ void Route::Swap(Route & rhs)
   swap(m_currentTime, rhs.m_currentTime);
   swap(m_turns, rhs.m_turns);
   swap(m_times, rhs.m_times);
-  m_turnsGeom.swap(rhs.m_turnsGeom);
   m_absentCountries.swap(rhs.m_absentCountries);
 //  m_pedestrianFollower.Swap(rhs.m_pedestrianFollower);
 }
@@ -59,6 +59,27 @@ double Route::GetCurrentDistanceFromBeginMeters() const
 
   return ((m_current.m_ind > 0 ? m_segDistance[m_current.m_ind - 1] : 0.0) +
           MercatorBounds::DistanceOnEarth(m_poly.GetPoint(m_current.m_ind), m_current.m_pt));
+}
+
+void Route::GetTurnsDistances(vector<double> & distances) const
+{
+  double mercatorDistance = 0;
+  distances.clear();
+  for (auto currentTurn = m_turns.begin(); currentTurn != m_turns.end(); ++currentTurn)
+  {
+    uint32_t formerTurnIndex = 0;
+    if (currentTurn != m_turns.begin())
+      formerTurnIndex = (currentTurn - 1)->m_index;
+
+    //TODO (ldragunov) Extract CalculateMercatorDistance higher to avoid including turns generator.
+    double const mercatorDistanceBetweenTurns =
+      turns::CalculateMercatorDistanceAlongPath(formerTurnIndex,  currentTurn->m_index, m_poly.GetPoints());
+    mercatorDistance += mercatorDistanceBetweenTurns;
+
+    if (currentTurn->m_index == 0 || currentTurn->m_index == (m_poly.GetSize() - 1))
+      continue;
+    distances.push_back(mercatorDistance);
+   }
 }
 
 double Route::GetCurrentDistanceToEndMeters() const

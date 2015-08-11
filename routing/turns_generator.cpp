@@ -521,48 +521,6 @@ double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t end
   return mercatorDistanceBetweenTurns;
 }
 
-void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TTurns const & turnsDir,
-                           TTurnsGeom & turnsGeom)
-{
-  size_t const kNumPoints = points.size();
-  // "Pivot point" is a point of bifurcation (a point of a turn).
-  // kNumPointsBeforePivot is number of points before the pivot point.
-  uint32_t const kNumPointsBeforePivot = 10;
-  // kNumPointsAfterPivot is a number of points follows by the pivot point.
-  // kNumPointsAfterPivot is greater because there are half body and the arrow after the pivot point
-  uint32_t constexpr kNumPointsAfterPivot = kNumPointsBeforePivot + 10;
-
-  /// mercatorDistance is a distance in mercator units from the start of the route.
-  double mercatorDistance = 0;
-
-  auto const turnsDirEnd = turnsDir.end();
-  for (auto currentTurn = turnsDir.begin(); currentTurn != turnsDirEnd; ++currentTurn)
-  {
-    ASSERT_LESS(currentTurn->m_index, kNumPoints, ());
-
-    uint32_t formerTurnIndex = 0;
-    if (currentTurn != turnsDir.begin())
-      formerTurnIndex = (currentTurn - 1)->m_index;
-
-    double const mercatorDistanceBetweenTurns =
-        CalculateMercatorDistanceAlongPath(formerTurnIndex,  currentTurn->m_index, points);
-    mercatorDistance += mercatorDistanceBetweenTurns;
-
-    if (currentTurn->m_index == 0 || currentTurn->m_index == (kNumPoints - 1))
-      continue;
-
-    uint32_t const fromIndex = (currentTurn->m_index <= kNumPointsBeforePivot) ?
-          0 : currentTurn->m_index - kNumPointsBeforePivot;
-    uint32_t const nextPossibleIndex = currentTurn->m_index + kNumPointsAfterPivot;
-    uint32_t const toIndex = min(static_cast<uint32_t>(kNumPoints), nextPossibleIndex);
-    uint32_t const turnIndex = min(currentTurn->m_index, kNumPointsBeforePivot);
-
-    turnsGeom.emplace_back(currentTurn->m_index, turnIndex, mercatorDistance, points.begin() + fromIndex,
-                           points.begin() + toIndex);
-  }
-  return;
-}
-
 void FixupTurns(vector<m2::PointD> const & points, Route::TTurns & turnsDir)
 {
   double const kMergeDistMeters = 30.0;

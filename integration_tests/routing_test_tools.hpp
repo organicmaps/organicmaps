@@ -22,8 +22,7 @@
  * 2. Loading maps and calculating routes is a time consumption process.
  *    Do this only if you really need it.
  * 3. If you want to check that a turn is absent you have two options
- *    - use GetTurnByPoint(...).TestNotValid();
- *    - or use TestTurnCount.
+ *    - use TestTurnCount.
  * 4. The easiest way to gather all the information for writing an integration test is
  *    - to put a break point in OsrmRouter::CalculateRouteImpl;
  *    - to make a route with MapWithMe desktop application;
@@ -83,8 +82,6 @@ namespace integration
   class TestTurn
   {
     friend TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
-    friend TestTurn GetTurnByPoint(Route const & route, m2::PointD const & approximateTurnPoint,
-                                   double inaccuracy);
 
     m2::PointD const m_point;
     TurnDirection const m_direction;
@@ -118,6 +115,4 @@ namespace integration
   /// Extracting appropriate TestTurn if any. If not TestTurn::isValid() returns false.
   /// inaccuracy is set in meters.
   TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
-  TestTurn GetTurnByPoint(Route const & route, m2::PointD const & approximateTurnPoint,
-                          double inaccuracyMeters = 3.);
 }

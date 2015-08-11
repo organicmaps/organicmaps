@@ -210,7 +210,7 @@ namespace integration
 
   void TestTurnCount(routing::Route const & route, uint32_t expectedTurnCount)
   {
-    TEST_EQUAL(route.GetTurnsGeometry().size(), expectedTurnCount, ());
+    TEST_EQUAL(route.GetTurns().size(), expectedTurnCount, ());
   }
 
   void TestRouteLength(Route const & route, double expectedRouteMeters,
@@ -283,40 +283,12 @@ namespace integration
 
   TestTurn GetNthTurn(routing::Route const & route, uint32_t turnNumber)
   {
-    turns::TTurnsGeom const & turnsGeom = route.GetTurnsGeometry();
-    if (turnNumber >= turnsGeom.size())
-      return TestTurn();
-
     Route::TTurns const & turns = route.GetTurns();
     if (turnNumber >= turns.size())
       return TestTurn();
 
-    turns::TurnGeom const & turnGeom = turnsGeom[turnNumber];
-    ASSERT_LESS(turnGeom.m_turnIndex, turnGeom.m_points.size(), ());
     TurnItem const & turn = turns[turnNumber];
-    return TestTurn(turnGeom.m_points[turnGeom.m_turnIndex], turn.m_turn, turn.m_exitNum);
-  }
-
-  TestTurn GetTurnByPoint(routing::Route const & route, m2::PointD const & approximateTurnPoint,
-                          double inaccuracyMeters)
-  {
-    turns::TTurnsGeom const & turnsGeom = route.GetTurnsGeometry();
-    Route::TTurns const & turns = route.GetTurns();
-    ASSERT_EQUAL(turnsGeom.size() + 1, turns.size(), ());
-
-    for (int i = 0; i != turnsGeom.size(); ++i)
-    {
-      turns::TurnGeom const & turnGeom = turnsGeom[i];
-      ASSERT_LESS(turnGeom.m_turnIndex, turnGeom.m_points.size(), ());
-      m2::PointD const turnPoint = turnGeom.m_points[turnGeom.m_turnIndex];
-      if (ms::DistanceOnEarth(turnPoint.y, turnPoint.x, approximateTurnPoint.y, approximateTurnPoint.x) <=
-          inaccuracyMeters)
-      {
-        TurnItem const & turn = turns[i];
-        return TestTurn(turnPoint, turn.m_turn, turn.m_exitNum);
-      }
-    }
-    return TestTurn();
+    return TestTurn(route.GetPoly().GetPoint(turn.m_index), turn.m_turn, turn.m_exitNum);
   }
 
   void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,

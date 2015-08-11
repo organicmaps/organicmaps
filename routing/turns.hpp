@@ -14,8 +14,7 @@ namespace routing
 namespace turns
 {
 /// @todo(vbykoianko) It's a good idea to gather all the turns information into one entity.
-/// For the time being several separate entities reflect the turn information. Like Route::TTurns or
-/// turns::TTurnsGeom
+/// For the time being several separate entities reflect the turn information. Like Route::TTurns
 
 /*!
  * \warning The order of values below shall not be changed.
@@ -89,24 +88,6 @@ enum class LaneWay
 
 string DebugPrint(LaneWay const l);
 
-struct TurnGeom
-{
-  TurnGeom(uint32_t indexInRoute, uint32_t turnIndex, double mercatorDistance,
-           vector<m2::PointD>::const_iterator b, vector<m2::PointD>::const_iterator e)
-    : m_indexInRoute(indexInRoute), m_turnIndex(turnIndex),
-      m_mercatorDistance(mercatorDistance), m_points(b, e)
-  {
-  }
-
-  uint32_t m_indexInRoute;
-  uint32_t m_turnIndex;
-  double m_mercatorDistance;
-  vector<m2::PointD> m_points;
-};
-
-string DebugPrint(TurnGeom const & turnGeom);
-
-typedef vector<TurnGeom> TTurnsGeom;
 typedef vector<LaneWay> TSingleLane;
 
 struct SingleLaneInfo

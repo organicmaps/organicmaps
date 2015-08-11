@@ -22,8 +22,6 @@ public:
   virtual void CleanUp() const;
   virtual bool HasDisplayLists() const;
 
-  void SetTurnsGeometry(routing::turns::TTurnsGeom const & turnsGeom) { m_turnsGeom = turnsGeom; }
-  
   void AddClosingSymbol(bool isBeginSymbol, string const & symbolName,
                         graphics::EPosition pos, double depth);
 
@@ -50,7 +48,6 @@ private:
   vector<ClosingSymbol> m_beginSymbols;
   vector<ClosingSymbol> m_endSymbols;
 
-  routing::turns::TTurnsGeom m_turnsGeom;
   mutable location::RouteMatchingInfo m_relevantMatchedInfo;
   mutable graphics::DisplayList * m_closestSegmentDL = nullptr;
 

@@ -64,12 +64,6 @@ double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t end
                                           vector<m2::PointD> const & points);
 
 /*!
- * \brief Returns geometry for all the turns. It means that for every turn CalculateTurnGeometry
- * calculates a sequence of points.
- */
-void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TTurns const & turnsDir,
-                           TTurnsGeom & turnsGeom);
-/*!
  * \brief Selects lanes which are recommended for an end user.
  */
 void SelectRecommendedLanes(Route::TTurns & turnsDir);

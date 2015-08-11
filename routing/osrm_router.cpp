@@ -470,7 +470,6 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
   Route::TTurns TurnsDir;
   Route::TTimes Times;
   vector<m2::PointD> Points;
-  turns::TTurnsGeom TurnsGeom;
   for (RoutePathCross cross : path)
   {
     ASSERT_EQUAL(cross.startNode.mwmName, cross.finalNode.mwmName, ());
@@ -488,9 +487,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     Route::TTurns mwmTurnsDir;
     Route::TTimes mwmTimes;
     vector<m2::PointD> mwmPoints;
-    turns::TTurnsGeom mwmTurnsGeom;
-    MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmTurnsDir, mwmTimes,
-                       mwmTurnsGeom);
+    MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmTurnsDir, mwmTimes);
     // Connect annotated route.
     const uint32_t pSize = Points.size();
     for (auto turn : mwmTurnsDir)
@@ -515,27 +512,13 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     {
       // We're at the end point.
       Points.pop_back();
-      for (auto & turnGeom : mwmTurnsGeom)
-      {
-        if (turnGeom.m_indexInRoute)
-          turnGeom.m_indexInRoute += pSize;
-      }
     }
     Points.insert(Points.end(), mwmPoints.begin(), mwmPoints.end());
-
-    if (!TurnsGeom.empty())
-    {
-      double const mercatorLength = TurnsGeom.back().m_mercatorDistance;
-      for (auto & turnGeom : mwmTurnsGeom)
-        turnGeom.m_mercatorDistance += mercatorLength;
-    }
-    TurnsGeom.insert(TurnsGeom.end(), mwmTurnsGeom.begin(), mwmTurnsGeom.end());
   }
 
   route.SetGeometry(Points.begin(), Points.end());
   route.SetTurnInstructions(TurnsDir);
   route.SetSectionTimes(Times);
-  route.SetTurnInstructionsGeometry(TurnsGeom);
   return OsrmRouter::NoError;
 }
 
@@ -629,14 +612,12 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     Route::TTurns turnsDir;
     Route::TTimes times;
     vector<m2::PointD> points;
-    turns::TTurnsGeom turnsGeom;
 
-    MakeTurnAnnotation(routingResult, startMapping, delegate, points, turnsDir, times, turnsGeom);
+    MakeTurnAnnotation(routingResult, startMapping, delegate, points, turnsDir, times);
 
     route.SetGeometry(points.begin(), points.end());
     route.SetTurnInstructions(turnsDir);
     route.SetSectionTimes(times);
-    route.SetTurnInstructionsGeometry(turnsGeom);
 
     return NoError;
   }
@@ -695,7 +676,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
 OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
     RawRoutingResult const & routingResult, TRoutingMappingPtr const & mapping,
     RouterDelegate const & delegate, vector<m2::PointD> & points, Route::TTurns & turnsDir,
-    Route::TTimes & times, turns::TTurnsGeom & turnsGeom)
+    Route::TTimes & times)
 {
   ASSERT(mapping, ());
 
@@ -843,8 +824,6 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
         turns::TurnItem(points.size() - 1, turns::TurnDirection::ReachedYourDestination));
   }
   turns::FixupTurns(points, turnsDir);
-
-  turns::CalculateTurnGeometry(points, turnsDir, turnsGeom);
 
 #ifdef DEBUG
   for (auto t : turnsDir)

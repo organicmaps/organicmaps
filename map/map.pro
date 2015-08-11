@@ -39,7 +39,6 @@ HEADERS += \
     pin_click_manager.hpp \
     country_tree.hpp \
     active_maps_layout.hpp \
-    route_track.hpp \
     navigator_utils.hpp \
 
 SOURCES += \
@@ -72,7 +71,6 @@ SOURCES += \
     pin_click_manager.cpp \
     country_tree.cpp \
     active_maps_layout.cpp \
-    route_track.cpp \
     navigator_utils.cpp \
 
 !iphone*:!tizen*:!android* {

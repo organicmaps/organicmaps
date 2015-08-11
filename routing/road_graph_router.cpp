@@ -251,14 +251,12 @@ void RoadGraphRouter::ReconstructRoute(vector<Junction> && path, Route & route,
 
   Route::TTimes times;
   Route::TTurns turnsDir;
-  turns::TTurnsGeom turnsGeom;
   if (m_directionsEngine)
-    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, turnsGeom, cancellable);
+    m_directionsEngine->Generate(*m_roadGraph, path, times, turnsDir, cancellable);
 
   route.SetGeometry(geometry.begin(), geometry.end());
   route.SetSectionTimes(times);
   route.SetTurnInstructions(turnsDir);
-  route.SetTurnInstructionsGeometry(turnsGeom);
 }
 
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn)

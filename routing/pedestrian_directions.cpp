@@ -38,7 +38,6 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine()
 void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junction> const & path,
                                           Route::TTimes & times,
                                           Route::TTurns & turnsDir,
-                                          turns::TTurnsGeom & turnsGeom,
                                           my::Cancellable const & cancellable)
 {
   CHECK_GREATER(path.size(), 1, ());
@@ -55,10 +54,6 @@ void PedestrianDirectionsEngine::Generate(IRoadGraph const & graph, vector<Junct
   }
 
   CalculateTurns(graph, routeEdges, turnsDir, cancellable);
-
-  // Do not show arrows for pedestrian routing until a good design solution
-  // turns::CalculateTurnGeometry(path, turnsDir, turnsGeom);
-  UNUSED_VALUE(turnsGeom);
 }
 
 bool PedestrianDirectionsEngine::ReconstructPath(IRoadGraph const & graph, vector<Junction> const & path,

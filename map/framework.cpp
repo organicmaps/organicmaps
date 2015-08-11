@@ -2244,16 +2244,11 @@ void Framework::InsertRoute(Route const & route)
     return;
   }
 
-  vector<double> turns;
+  double mercatorDistance = 0;
+  vector<double> turnsDistances;
   if (m_currentRouterType == RouterType::Vehicle)
   {
-    turns::TTurnsGeom const & turnsGeom = route.GetTurnsGeometry();
-    if (!turnsGeom.empty())
-    {
-      turns.reserve(turnsGeom.size());
-      for (size_t i = 0; i < turnsGeom.size(); i++)
-        turns.push_back(turnsGeom[i].m_mercatorDistance);
-    }
+    route.GetTurnsDistances(turnsDistances);
   }
 
   /// @todo Consider a style parameter for the route color.
@@ -2263,7 +2258,7 @@ void Framework::InsertRoute(Route const & route)
   else
     routeColor = graphics::Color(30, 150, 240, 204);
 
-  m_bmManager.SetRouteTrack(route.GetPoly(), turns, routeColor);
+  m_bmManager.SetRouteTrack(route.GetPoly(), turnsDistances, routeColor);
 
   m_informationDisplay.ResetRouteMatchingInfo();
   Invalidate();

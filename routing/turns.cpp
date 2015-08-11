@@ -213,16 +213,6 @@ bool ParseLanes(string lanesString, vector<SingleLaneInfo> & lanes)
   return true;
 }
 
-string DebugPrint(TurnGeom const & turnGeom)
-{
-  stringstream out;
-  out << "[ TurnGeom: m_indexInRoute = " << turnGeom.m_indexInRoute
-      << ", m_turnIndex = " << turnGeom.m_turnIndex
-      << ", m_mercatorDistance = " << turnGeom.m_mercatorDistance
-      << " ]" << endl;
-  return out.str();
-}
-
 string DebugPrint(LaneWay const l)
 {
   auto const it = find_if(g_laneWayNames.begin(), g_laneWayNames.end(),
