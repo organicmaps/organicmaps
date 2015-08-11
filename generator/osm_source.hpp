@@ -18,13 +18,12 @@ class SourceReader
     }
   };
 
-  string m_filename;
   unique_ptr<istream, Deleter> m_file;
 
 public:
   SourceReader();
   SourceReader(string const & filename);
-  SourceReader(istringstream & stream);
+  explicit SourceReader(istringstream & stream);
 
   uint64_t Read(char * buffer, uint64_t bufferSize);
 };

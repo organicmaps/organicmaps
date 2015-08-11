@@ -29,8 +29,7 @@ SourceReader::SourceReader()
 }
 
 SourceReader::SourceReader(string const & filename)
-: m_filename(filename)
-, m_file(unique_ptr<istream, Deleter>(new ifstream(filename), Deleter()))
+: m_file(unique_ptr<istream, Deleter>(new ifstream(filename), Deleter()))
 {
   CHECK(!m_filename.empty() , ("Filename can't be empty"));
   LOG_SHORT(LINFO, ("Reading OSM data from", filename));
