@@ -634,7 +634,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       if (ParsedMwmRequest.hasRequest())
       {
         final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-        if (request.isPickPointMode())
+        if (ParsedMwmRequest.isPickPointMode())
           request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getName(), "");
         request.sendResponseAndFinish(activity, true);
       }

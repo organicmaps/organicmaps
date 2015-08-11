@@ -705,10 +705,12 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
       mLayoutRouting.updateRouteInfo();
 
-      // TODO think about moving TtsPlayer logic to RoutingLayout to minimyze native calls.
+      // TODO think about moving TtsPlayer logic to RoutingLayout to minimize native calls.
       if (state == RoutingLayout.State.TURN_INSTRUCTIONS)
       {
         RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+        if (info == null)
+          return;
         TtsPlayer.INSTANCE.speakNotifications(info.turnNotifications);
       }
     }

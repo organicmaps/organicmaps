@@ -274,6 +274,8 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
   private void refreshTurnInstructions()
   {
     RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+    if (info == null)
+      return;
 
     if (Framework.getRouter() == Framework.ROUTER_TYPE_VEHICLE)
     {
@@ -305,6 +307,8 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
   private void refreshRouteSetup()
   {
     RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+    if (info == null)
+      return;
 
     mTvPrepareDistance.setText(info.distToTarget + " " + info.targetUnits.toUpperCase());
     mTvPrepareTime.setText(formatTime(info.totalTimeInSeconds));
