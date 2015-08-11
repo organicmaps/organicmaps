@@ -88,21 +88,6 @@ class StyleChooser:
         self.compatible_types = set()
         self.has_evals = False
 
-    def get_interesting_tags(self, ztype, zoom):
-        """
-        Returns a set of tags that were used in here.
-        """
-        ### FIXME
-        a = set()
-        for r in self.ruleChains:
-            a.update(r.get_interesting_tags(ztype, zoom))
-        if a:  # FIXME: semi-illegal optimization, may wreck in future on tagless matches
-            for r in self.styles:
-                for c, b in r.iteritems():
-                    if type(b) == self.eval_type:
-                        a.update(b.extract_tags())
-        return a
-
     def extract_tags(self):
         a = set()
         for r in self.ruleChains:

@@ -58,19 +58,6 @@ class Rule():
     def get_compatible_types(self):
         return type_matches.get(self.subject, (self.subject,))
 
-    def get_interesting_tags(self, obj, zoom):
-        if obj:
-            if (self.subject != '') and not _test_feature_compatibility(obj, self.subject, {}):
-                return set()
-
-        if zoom and not self.test_zoom(zoom):
-            return set()
-
-        a = set()
-        for condition in self.conditions:
-            a.update(condition.get_interesting_tags())
-        return a
-
     def extract_tags(self):
         a = set()
         for condition in self.conditions:

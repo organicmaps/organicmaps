@@ -103,11 +103,6 @@ class Condition:
             self.regex = re.compile(self.params[0], re.I)
         self.compiled_regex = ""
 
-    def get_interesting_tags(self):
-        if self.params[0][:2] == "::":
-            return []
-        return set([self.params[0]])
-
     def extract_tags(self):
         if self.params[0][:2] == "::" or self.type == "regex":
             return set(["*"]) # unknown
