@@ -91,14 +91,14 @@ public:
 
 private:
   m2::PointU m_canvasSize;
-  buffer_vector<uint32_t, 4> m_columns;
-  uint32_t m_currentColumn;
+  uint32_t m_currentRow;
 };
 
 class StipplePenIndex
 {
 public:
   StipplePenIndex(m2::PointU const & canvasSize) : m_packer(canvasSize) {}
+  ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, StipplePenKey const & key, bool & newResource);
   ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key, bool & newResource);
   void UploadResources(ref_ptr<Texture> texture);
   glConst GetMinFilter() const;
@@ -109,6 +109,7 @@ private:
   typedef pair<m2::RectU, StipplePenRasterizator> TPendingNode;
   typedef buffer_vector<TPendingNode, 32> TPendingNodes;
 
+  TResourceMapping m_predefinedResourceMapping;
   TResourceMapping m_resourceMapping;
   TPendingNodes m_pendingNodes;
   StipplePenPacker m_packer;
@@ -131,6 +132,8 @@ public:
   }
 
   ~StipplePenTexture() { TBase::Reset(); }
+
+  void ReservePattern(buffer_vector<uint8_t, 8> const & pattern);
 
 private:
   StipplePenIndex m_index;

@@ -21,18 +21,18 @@
 namespace dp
 {
 
-uint32_t const STIPPLE_TEXTURE_WIDTH = 512;
-uint32_t const MIN_STIPPLE_TEXTURE_HEIGHT = 64;
-uint32_t const MIN_COLOR_TEXTURE_SIZE = 64;
-size_t const INVALID_GLYPH_GROUP = numeric_limits<size_t>::max();
+uint32_t const kStippleTextureWidth = 512;
+uint32_t const kMinStippleTextureHeight = 64;
+uint32_t const kMinColorTextureSize = 64;
+size_t const kInvalidGlyphGroup = numeric_limits<size_t>::max();
 
-size_t const PIXELS_PER_COLOR = 2;
+size_t const kPixelsPerColor = 2;
 
 // number of glyphs (since 0) which will be in each texture
-size_t const DUPLICATED_GLYPHS_COUNT = 128;
+size_t const kDuplicatedGlyphsCount = 128;
 
-size_t const RESERVED_PATTERNS = 10;
-size_t const RESERVED_COLORS = 20;
+size_t const kReservedPatterns = 10;
+size_t const kReservedColors = 20;
 
 namespace
 {
@@ -260,45 +260,45 @@ size_t TextureManager::FindGlyphsGroup(strings::UniChar const & c) const
   });
 
   if (iter == m_glyphGroups.end())
-    return INVALID_GLYPH_GROUP;
+    return kInvalidGlyphGroup;
 
   return distance(m_glyphGroups.begin(), iter);
 }
 
 size_t TextureManager::FindGlyphsGroup(strings::UniString const & text) const
 {
-  size_t groupIndex = INVALID_GLYPH_GROUP;
+  size_t groupIndex = kInvalidGlyphGroup;
   for (strings::UniChar const & c : text)
   {
     // skip glyphs which can be duplicated
-    if (c < DUPLICATED_GLYPHS_COUNT)
+    if (c < kDuplicatedGlyphsCount)
       continue;
 
     size_t currentIndex = FindGlyphsGroup(c);
 
     // an invalid glyph found
-    if (currentIndex == INVALID_GLYPH_GROUP)
+    if (currentIndex == kInvalidGlyphGroup)
     {
 #if defined(TRACK_GLYPH_USAGE)
       GlyphUsageTracker::Instance().AddInvalidGlyph(text, c);
 #endif
-      return INVALID_GLYPH_GROUP;
+      return kInvalidGlyphGroup;
     }
 
     // check if each glyph in text id in one group
-    if (groupIndex == INVALID_GLYPH_GROUP)
+    if (groupIndex == kInvalidGlyphGroup)
       groupIndex = currentIndex;
     else if (groupIndex != currentIndex)
     {
 #if defined(TRACK_GLYPH_USAGE)
       GlyphUsageTracker::Instance().AddUnexpectedGlyph(text, c, currentIndex, groupIndex);
 #endif
-      return INVALID_GLYPH_GROUP;
+      return kInvalidGlyphGroup;
     }
   }
 
   // all glyphs in duplicated range
-  if (groupIndex == INVALID_GLYPH_GROUP)
+  if (groupIndex == kInvalidGlyphGroup)
     groupIndex = FindGlyphsGroup(text[0]);
 
   return groupIndex;
@@ -365,6 +365,8 @@ size_t TextureManager::FindHybridGlyphsGroup(TMultilineText const & text)
 
 void TextureManager::Init(Params const & params)
 {
+  uint32_t const kMaxTextureSize = 2048;
+
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
 
   m_symbolTexture = make_unique_dp<SymbolsTexture>(params.m_resPostfix);
@@ -380,13 +382,14 @@ void TextureManager::Init(Params const & params)
     patterns.push_back(move(p));
   });
 
-  size_t const stippleTextureHeight = max(my::NextPowOf2(patterns.size() + RESERVED_PATTERNS), MIN_STIPPLE_TEXTURE_HEIGHT);
-  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(m2::PointU(STIPPLE_TEXTURE_WIDTH, stippleTextureHeight));
-  LOG(LDEBUG, ("Pattens texture size = ", m_stipplePenTexture->GetWidth(), m_stipplePenTexture->GetHeight()));
+  uint32_t stippleTextureHeight = max(4 * my::NextPowOf2(patterns.size() + kReservedPatterns), kMinStippleTextureHeight);
+  stippleTextureHeight = min(kMaxTextureSize, stippleTextureHeight);
+  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(m2::PointU(kStippleTextureWidth, stippleTextureHeight));
+  LOG(LDEBUG, ("Patterns texture size = ", m_stipplePenTexture->GetWidth(), m_stipplePenTexture->GetHeight()));
 
-  ref_ptr<ColorTexture> stipplePenTextureTex = make_ref(m_stipplePenTexture);
-  //for (auto it = patterns.begin(); it != patterns.end(); ++it)
-  //  stipplePenTextureTex->ReservePattern(*it);
+  ref_ptr<StipplePenTexture> stipplePenTextureTex = make_ref(m_stipplePenTexture);
+  for (auto it = patterns.begin(); it != patterns.end(); ++it)
+    stipplePenTextureTex->ReservePattern(*it);
 
   // initialize colors
   list<dp::Color> colors;
@@ -395,7 +398,8 @@ void TextureManager::Init(Params const & params)
     colors.push_back(color);
   });
 
-  size_t const colorTextureSize = max(my::NextPowOf2(floor(sqrt(colors.size() + RESERVED_COLORS)) * PIXELS_PER_COLOR), MIN_COLOR_TEXTURE_SIZE);
+  uint32_t colorTextureSize = max(my::NextPowOf2(floor(sqrt(colors.size() + kReservedColors)) * kPixelsPerColor), kMinColorTextureSize);
+  colorTextureSize = min(kMaxTextureSize, colorTextureSize);
   m_colorTexture = make_unique_dp<ColorTexture>(m2::PointU(colorTextureSize, colorTextureSize));
   LOG(LDEBUG, ("Colors texture size = ", m_colorTexture->GetWidth(), m_colorTexture->GetHeight()));
 
@@ -403,8 +407,9 @@ void TextureManager::Init(Params const & params)
   for (auto it = colors.begin(); it != colors.end(); ++it)
     colorTex->ReserveColor(*it);
 
+  // initialize glyphs
   m_glyphManager = make_unique_dp<GlyphManager>(params.m_glyphMngParams);
-  m_maxTextureSize = min(2048, GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
+  m_maxTextureSize = min(kMaxTextureSize, (uint32_t)GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
 
   uint32_t const textureSquare = m_maxTextureSize * m_maxTextureSize;
   uint32_t const baseGlyphHeight = params.m_glyphMngParams.m_baseGlyphHeight;
@@ -464,7 +469,7 @@ void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuf
 
 constexpr size_t TextureManager::GetInvalidGlyphGroup()
 {
-  return INVALID_GLYPH_GROUP;
+  return kInvalidGlyphGroup;
 }
 
 } // namespace dp
