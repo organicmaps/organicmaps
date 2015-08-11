@@ -157,7 +157,7 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   CGSize const size = UIScreen.mainScreen.bounds.size;
   CGFloat const maximumWidth = 360.;
   CGFloat const screenWidth = MIN(size.height, size.width);
-  CGFloat const actualWidth = size.height < size.width ? MIN(screenWidth, maximumWidth) : screenWidth;
+  CGFloat const actualWidth = IPAD ? maximumWidth : (size.height < size.width ? MIN(screenWidth, maximumWidth) : screenWidth);
   switch (self.placePage.manager.entity.type)
   {
     case MWMPlacePageEntityTypeAPI:
