@@ -1,6 +1,6 @@
 #pragma once
 
-#include "platform/platform.hpp"
+#include "scoped_file.hpp"
 
 #include "base/macros.hpp"
 
@@ -15,19 +15,9 @@ class ScopedFile;
 class ScopedMwm
 {
 public:
-  ScopedMwm(string const & fullPath);
-
-  inline string const & GetFullPath() const { return m_fullPath; }
-
-  inline void Reset() { m_reset = true; }
-
-  inline bool Exists() const { return GetPlatform().IsFileExistsByFullPath(GetFullPath()); }
-
-  ~ScopedMwm();
-
+  ScopedMwm(string const & relativePath);
 private:
-  string const m_fullPath;
-  bool m_reset;
+  ScopedFile m_file;
 
   DISALLOW_COPY_AND_MOVE(ScopedMwm);
 };
