@@ -182,40 +182,6 @@ class Condition:
             pass
         return self
 
-    def get_sql(self):
-        # params = [re.escape(x) for x in self.params]
-        params = self.params
-        t = self.type
-        if t == 'eq':   # don't compare tags against sublayers
-            if params[0][:2] == "::":
-                return ("", "")
-        try:
-            if t == 'eq':
-                return params[0], '"%s" = \'%s\'' % (params[0], params[1])
-            if t == 'ne':
-                return params[0], '("%s" != \'%s\' or "%s" IS NULL)' % (params[0], params[1], params[0])
-            if t == 'regex':
-                return params[0], '"%s" ~ \'%s\'' % (params[0], params[1].replace("'", "\\'"))
-            if t == 'true':
-                return params[0], '"%s" = \'yes\'' % (params[0])
-            if t == 'untrue':
-                return params[0], '"%s" = \'no\'' % (params[0])
-            if t == 'set':
-                return params[0], '"%s" IS NOT NULL' % (params[0])
-            if t == 'unset':
-                return params[0], '"%s" IS NULL' % (params[0])
-
-            if t == '<':
-                return params[0], """(CASE WHEN "%s"  ~  E'^[-]?[[:digit:]]+([.][[:digit:]]+)?$' THEN CAST ("%s" AS FLOAT) &lt; %s ELSE false END) """ % (params[0], params[0], params[1])
-            if t == '<=':
-                return params[0], """(CASE WHEN "%s"  ~  E'^[-]?[[:digit:]]+([.][[:digit:]]+)?$' THEN CAST ("%s" AS FLOAT) &lt;= %s ELSE false END)""" % (params[0], params[0], params[1])
-            if t == '>':
-                return params[0], """(CASE WHEN "%s"  ~  E'^[-]?[[:digit:]]+([.][[:digit:]]+)?$' THEN CAST ("%s" AS FLOAT) > %s ELSE false END) """ % (params[0], params[0], params[1])
-            if t == '>=':
-                return params[0], """(CASE WHEN "%s"  ~  E'^[-]?[[:digit:]]+([.][[:digit:]]+)?$' THEN CAST ("%s" AS FLOAT) >= %s ELSE false END) """ % (params[0], params[0], params[1])
-        except KeyError:
-            pass
-
     def __repr__(self):
         return "%s %s " % (self.type, repr(self.params))
 

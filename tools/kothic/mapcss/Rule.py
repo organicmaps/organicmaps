@@ -86,23 +86,6 @@ class Rule():
         a.discard(False)
         return a
 
-    def get_sql_hints(self, obj, zoom):
-        if obj:
-            if (self.subject != '') and not _test_feature_compatibility(obj, self.subject, {":area": "yes"}):
-                return set()
-        if not self.test_zoom(zoom):
-            return set()
-        a = set()
-        b = set()
-        for condition in self.conditions:
-            q = condition.get_sql()
-            if q:
-                if q[1]:
-                    a.add(q[0])
-                    b.add(q[1])
-        b = " AND ".join(b)
-        return a, b
-
 
 def _test_feature_compatibility(f1, f2, tags={}):
     """

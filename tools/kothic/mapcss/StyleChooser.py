@@ -131,29 +131,6 @@ class StyleChooser:
             a.add("*")
         return a
 
-    def get_sql_hints(self, type, zoom):
-        """
-        Returns a set of tags that were used in here in form of SQL-hints.
-        """
-        a = set()
-        b = ""
-        needed = set(["width", "casing-width", "fill-color", "fill-image", "icon-image", "text", "extrude", "background-image", "background-color", "pattern-image", "shield-text"])
-
-        if not needed.isdisjoint(set(self.styles[0].keys())):
-            for r in self.ruleChains:
-                p = r.get_sql_hints(type, zoom)
-                if p:
-                    q = "(" + p[1] + ")"  # [t[1] for t in p]
-                    if q == "()":
-                        q = ""
-                    if b and q:
-                        b += " OR " + q
-                    else:
-                        b = q
-                    a.update(p[0])
-        # no need to check for eval's
-        return a, b
-
     def updateStyles(self, sl, ftype, tags, zoom, scale, zscale):
         # Are any of the ruleChains fulfilled?
         if self.selzooms:
