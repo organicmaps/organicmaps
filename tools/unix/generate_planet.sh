@@ -282,9 +282,6 @@ if [ -n "$OPT_ROUTING" -a -z "$NO_REGIONS" ]; then
     log "start_routing(): OSRM files have been already created, no need to repeat"
   else
     putmode "Step R: Starting OSRM files generation"
-    # If *.mwm.osm2ft were moved to INTDIR, let's put them back
-    [ -z "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" -a -n "$(ls "$INTDIR" | grep '\.mwm\.osm2ft')" ] && mv "$INTDIR"/*.mwm.osm2ft "$TARGET"
-
     if [ -n "$ASYNC_PBF" ]; then
       (
         bash "$ROUTING_SCRIPT" pbf >> "$PLANET_LOG" 2>&1
@@ -376,6 +373,8 @@ if [ "$MODE" == "routing" ]; then
   if [ ! -e "$OSRM_FLAG" ]; then
     log "OSRM files are missing, skipping routing step."
   else
+    # If *.mwm.osm2ft were moved to INTDIR, let's put them back
+    [ -z "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" -a -n "$(ls "$INTDIR" | grep '\.mwm\.osm2ft')" ] && mv "$INTDIR"/*.mwm.osm2ft "$TARGET"
     bash "$ROUTING_SCRIPT" mwm >> "$PLANET_LOG" 2>&1
   fi
   MODE=resources
