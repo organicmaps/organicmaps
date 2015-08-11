@@ -16,6 +16,7 @@
 # the source file to be one of the pre-defined countries.
 
 set -u
+set -e
 
 if [ $# -lt 1 ]; then
   echo
@@ -53,10 +54,13 @@ TARGET="${TARGET:-$(dirname "$SOURCE_FILE")}"
 [ ! -d "$TARGET" ] && fail "$TARGET should be a writable folder"
 TBORDERS="$TARGET/borders"
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
-DATA_PATH="$OMIM_PATH/data/"
-[ ! -r "${DATA_PATH}types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
+DATA_PATH="${DATA_PATH:-$OMIM_PATH/data}"
+[ ! -r "$DATA_PATH/types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
 
-source find_generator_tool.sh
+GENERATOR_TOOL="${GENERATOR_TOOL-$(dirname "$0")/bin/generator_tool}"
+FIND_GEN_TOOL="$(dirname "$0")/find_generator_tool.sh"
+[ -x "$FIND_GEN_TOOL" ] && source "$FIND_GEN_TOOL"
+[ ! -x "${GENERATOR_TOOL-}" ] && fail "Cannot find generator tool"
 
 if [ "$(uname)" == "Darwin" ]; then
   INTDIR=$(mktemp -d -t mwmgen)
@@ -106,6 +110,7 @@ if [ $# -gt 1 ]; then
   # Create .mwm.routing file
   OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
   OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OSRM_PATH/build}"
+  [ ! -x "$OSRM_BUILD_PATH/osrm-extract" -a -x "$(dirname "$0")/bin/osrm-extract" ] && OSRM_BUILD_PATH="$(dirname "$0")/bin"
   [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
   [ ! -r "$TARGET/$BASE_NAME.mwm" ] && fail "Please build mwm file beforehand"
 
