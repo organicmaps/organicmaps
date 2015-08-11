@@ -52,9 +52,6 @@ class Rule():
                 subpart = res
         return subpart
 
-    def test_zoom(self, zoom):
-        return (zoom >= self.minZoom) and (zoom <= self.maxZoom)
-
     def get_compatible_types(self):
         return type_matches.get(self.subject, (self.subject,))
 
