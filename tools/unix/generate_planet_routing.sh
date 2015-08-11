@@ -97,7 +97,7 @@ elif [ "$1" == "prepare" ]; then
 
 elif [ "$1" == "mwm" ]; then
   [ ! -f "$OSRM_FLAG" ] && fail "Please build OSRM files first"
-  source find_generator_tool.sh
+  source "$(dirname "$0")/find_generator_tool.sh"
 
   if [ ! -d "$TARGET/borders" -o -z "$(ls "$TARGET/borders" | grep \.poly)" ]; then
     # copy polygons to a temporary directory

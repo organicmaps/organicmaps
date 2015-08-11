@@ -147,6 +147,7 @@ LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
 [ -n "${MAIL-}" ] && trap "grep STATUS \"$PLANET_LOG\" | mailx -s \"Generate_planet: build failed\" \"$MAIL\"; exit 1" SIGINT SIGTERM
+echo -e "\n\n----------------------------------------\n\n" >> "$PLANET_LOG"
 log "STATUS" "Start"
 
 # Run external script to find generator_tool
