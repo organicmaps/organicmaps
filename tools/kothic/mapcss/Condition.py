@@ -216,41 +216,6 @@ class Condition:
         except KeyError:
             pass
 
-    def get_mapnik_filter(self):
-        # params = [re.escape(x) for x in self.params]
-        params = self.params
-        t = self.type
-        if t == 'eq':   # don't compare tags against sublayers
-            if params[0][:2] == "::":
-                return ''
-        try:
-            if t == 'eq':
-                return '[%s] = \'%s\'' % (params[0], params[1])
-            if t == 'ne':
-                return 'not([%s] = \'%s\')' % (params[0], params[1])
-            if t == 'regex':
-                return '[%s].match(\'%s\')' % (params[0], params[1].replace("'", "\\'"))
-            if t == 'true':
-                return '[%s] = \'yes\'' % (params[0])
-            if t == 'untrue':
-                return '[%s] = \'no\'' % (params[0])
-            if t == 'set':
-                return '[%s] != \'\'' % (params[0])
-            if t == 'unset':
-                return 'not([%s] != \'\')' % (params[0])
-
-            if t == '<':
-                return '[%s__num] &lt; %s' % (params[0], float(params[1]))
-            if t == '<=':
-                return '[%s__num] &lt;= %s' % (params[0], float(params[1]))
-            if t == '>':
-                return '[%s__num] &gt; %s' % (params[0], float(params[1]))
-            if t == '>=':
-                return '[%s__num] &gt;= %s' % (params[0], float(params[1]))
-            # return ""
-        except KeyError:
-            pass
-
     def __repr__(self):
         return "%s %s " % (self.type, repr(self.params))
 
