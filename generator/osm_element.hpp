@@ -23,7 +23,7 @@
 /// @param  TEmitter  Feature accumulating policy
 /// @param  THolder   Nodes, ways, relations holder
 template <class TEmitter, class THolder>
-class SecondPassParser : public BaseOSMParser
+class SecondPassParser
 {
   TEmitter & m_emitter;
   THolder & m_holder;
@@ -125,7 +125,7 @@ class SecondPassParser : public BaseOSMParser
     void GetNameKeys(NameKeysT & keys) const
     {
       for (auto const & p : m_current->childs)
-        if (p.tagKey == XMLElement::ET_TAG)
+        if (p.type == XMLElement::EntityType::Tag)
         {
           if (strings::StartsWith(p.k, "name"))
             keys.insert(p.k);
@@ -145,7 +145,7 @@ class SecondPassParser : public BaseOSMParser
         return;
       }
 
-      bool const isWay = (m_current->tagKey == XMLElement::ET_WAY);
+      bool const isWay = (m_current->type == XMLElement::EntityType::Way);
       bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
 
       NameKeysT nameKeys;
@@ -201,7 +201,7 @@ class SecondPassParser : public BaseOSMParser
     // Get tags from parent relations.
     m_relationsProcess.Reset(p->id, p);
 
-    if (p->tagKey == XMLElement::ET_NODE)
+    if (p->type == XMLElement::EntityType::Node)
     {
       // additional process of nodes ONLY if there is no native types
       FeatureParams fp;
@@ -209,7 +209,7 @@ class SecondPassParser : public BaseOSMParser
       if (!ftype::IsValidTypes(fp))
         m_holder.ForEachRelationByNodeCached(p->id, m_relationsProcess);
     }
-    else if (p->tagKey == XMLElement::ET_WAY)
+    else if (p->type == XMLElement::EntityType::Way)
     {
       // always make additional process of ways
       m_holder.ForEachRelationByWayCached(p->id, m_relationsProcess);
@@ -403,13 +403,13 @@ class SecondPassParser : public BaseOSMParser
 
 public:
   /// The main entry point for parsing process.
-  virtual void EmitElement(XMLElement * p)
+  void EmitElement(XMLElement * p)
   {
     FeatureParams params;
     if (!ParseType(p, params))
       return;
 
-    if (p->tagKey == XMLElement::ET_NODE)
+    if (p->type == XMLElement::EntityType::Node)
     {
       m2::PointD pt;
       if (p->childs.empty() || !GetPoint(p->id, pt))
@@ -417,14 +417,14 @@ public:
 
       EmitPoint(pt, params, osm::Id::Node(p->id));
     }
-    else if (p->tagKey == XMLElement::ET_WAY)
+    else if (p->type == XMLElement::EntityType::Way)
     {
       FeatureBuilderT ft;
 
       // Parse geometry.
       for (auto const & e : p->childs)
       {
-        if (e.tagKey == XMLElement::ET_ND)
+        if (e.type == XMLElement::EntityType::Nd)
         {
           m2::PointD pt;
           if (!GetPoint(e.ref, pt))
@@ -450,7 +450,7 @@ public:
 
       EmitLine(ft, params, isCoastLine);
     }
-    else if (p->tagKey == XMLElement::ET_RELATION)
+    else if (p->type == XMLElement::EntityType::Relation)
     {
       {
         // 1. Check, if this is our processable relation. Here we process only polygon relations.
@@ -458,7 +458,7 @@ public:
         size_t const count = p->childs.size();
         for (; i < count; ++i)
         {
-          if (p->childs[i].tagKey == XMLElement::ET_TAG &&
+          if (p->childs[i].type == XMLElement::EntityType::Tag &&
               p->childs[i].k == "type" &&
               p->childs[i].v == "multipolygon")
           {
@@ -475,7 +475,7 @@ public:
       // 3. Iterate ways to get 'outer' and 'inner' geometries
       for (auto const & e : p->childs)
       {
-        if (e.tagKey == XMLElement::ET_MEMBER && e.type == "way")
+        if (e.type == XMLElement::EntityType::Member && e.memberType == XMLElement::EntityType::Way)
         {
           if (e.role == "outer")
             outer.AddWay(e.ref);

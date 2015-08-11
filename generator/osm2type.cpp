@@ -68,7 +68,7 @@ namespace ftype
       TResult res = TResult();
       for (auto & e : p->childs)
       {
-        if (e.tagKey == XMLElement::ET_TAG)
+        if (e.type == XMLElement::EntityType::Tag)
         {
           if (e.k.empty() || is_skip_tag(e.k))
             continue;
@@ -319,7 +319,7 @@ namespace ftype
       void ApplyRules(initializer_list<Rule<FuncT>> const & rules) const
       {
         for (auto & e : m_element->childs)
-          if (e.tagKey == XMLElement::ET_TAG)
+          if (e.type == XMLElement::EntityType::Tag)
             for (auto const & rule: rules)
               if (e.k == rule.key)
               {

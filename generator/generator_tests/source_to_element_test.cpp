@@ -14,24 +14,16 @@
 
 #include "source_data.hpp"
 
-struct DummyParser : public BaseOSMParser
-{
-  vector<XMLElement> & m_e;
-  DummyParser(vector<XMLElement> & e) : BaseOSMParser() , m_e(e) {}
-  void EmitElement(XMLElement * p) override
-  {
-    m_e.push_back(*p);
-  }
-};
-
 UNIT_TEST(Source_To_Element_create_from_xml_test)
 {
   istringstream ss(way_xml_data);
   SourceReader reader(ss);
 
   vector<XMLElement> elements;
-  DummyParser parser(elements);
-  ParseXMLSequence(reader, parser);
+  BuildFeaturesFromXML(reader, [&elements](XMLElement * e)
+  {
+    elements.push_back(*e);
+  });
 
   TEST_EQUAL(elements.size(), 10, (elements));
 }
@@ -43,8 +35,10 @@ UNIT_TEST(Source_To_Element_create_from_o5m_test)
   SourceReader reader(ss);
 
   vector<XMLElement> elements;
-  DummyParser parser(elements);
-  BuildFeaturesFromO5M(reader, parser);
+  BuildFeaturesFromO5M(reader, [&elements](XMLElement * e)
+  {
+    elements.push_back(*e);
+  });
   TEST_EQUAL(elements.size(), 10, (elements));
 }
 
@@ -54,16 +48,25 @@ UNIT_TEST(Source_To_Element_check_equivalence)
   SourceReader readerXML(ss1);
 
   vector<XMLElement> elementsXML;
-  DummyParser parserForXML(elementsXML);
-  ParseXMLSequence(readerXML, parserForXML);
+  BuildFeaturesFromXML(readerXML, [&elementsXML](XMLElement * e)
+  {
+    elementsXML.push_back(*e);
+  });
 
   string src(begin(relation_o5m_data), end(relation_o5m_data));
   istringstream ss2(src);
   SourceReader readerO5M(ss2);
 
   vector<XMLElement> elementsO5M;
-  DummyParser parserForO5M(elementsO5M);
-  BuildFeaturesFromO5M(readerO5M, parserForO5M);
+  BuildFeaturesFromO5M(readerO5M, [&elementsO5M](XMLElement * e)
+  {
+    elementsO5M.push_back(*e);
+  });
 
-  TEST_EQUAL(elementsXML, elementsO5M, ());
+  TEST_EQUAL(elementsXML.size(), elementsO5M.size(), ());
+
+  for (size_t i = 0; i < elementsO5M.size(); ++i)
+  {
+    TEST_EQUAL(elementsXML[i], elementsO5M[i], ());
+  }
 }

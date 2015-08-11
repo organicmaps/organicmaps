@@ -242,11 +242,12 @@ public:
 
   struct Entity
   {
+    using EntityType = O5MSource::EntityType;
     EntityType type = EntityType::Reset;
     int64_t id = 0;
     uint64_t version = 0;
-    int32_t lon = 0;
-    int32_t lat = 0;
+    double lon = 0;
+    double lat = 0;
     int64_t timestamp = 0;
     int64_t changeset = 0;
     uint64_t uid = 0;
@@ -454,10 +455,12 @@ public:
     }
   }
 
+#define DECODE_O5M_COORD(coord) (static_cast<double>(coord) / 1E+7)
+
   void ReadLonLat(Entity * const e)
   {
-    e->lon = (m_lon += ReadVarInt());
-    e->lat = (m_lat += ReadVarInt());
+    e->lon = DECODE_O5M_COORD(m_lon += ReadVarInt());
+    e->lat = DECODE_O5M_COORD(m_lat += ReadVarInt());
   }
 
   O5MSource * ReadEntity(Entity * const entity)

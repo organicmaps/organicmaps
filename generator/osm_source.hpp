@@ -1,9 +1,11 @@
 #pragma once
 
 #include "generator/generate_info.hpp"
+#include "generator/xml_element.hpp"
 
 #include "std/iostream.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/function.hpp"
 
 class SourceReader
 {
@@ -33,7 +35,6 @@ public:
 bool GenerateFeatures(feature::GenerateInfo & info);
 bool GenerateIntermediateData(feature::GenerateInfo & info);
 
-class BaseOSMParser;
-
-void BuildFeaturesFromO5M(SourceReader & stream, BaseOSMParser & parser);
+void BuildFeaturesFromO5M(SourceReader & stream, function<void(XMLElement *)> processor);
+void BuildFeaturesFromXML(SourceReader & stream, function<void(XMLElement *)> processor);
 

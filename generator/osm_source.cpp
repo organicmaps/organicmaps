@@ -1,7 +1,6 @@
 #include "generator/coastlines_generator.hpp"
 #include "generator/data_cache_file.hpp"
 #include "generator/feature_generator.hpp"
-#include "generator/first_pass_parser.hpp"
 #include "generator/osm_decl.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_o5m_source.hpp"
@@ -19,8 +18,6 @@
 #include "std/fstream.hpp"
 
 #include "defines.hpp"
-
-#define DECODE_O5M_COORD(coord) (static_cast<double>(coord) / 1E+7)
 
 SourceReader::SourceReader()
 : m_file(unique_ptr<istream,Deleter>(&cin, Deleter(false)))
@@ -343,8 +340,83 @@ public:
 };
 }  // anonymous namespace
 
-template <typename HolderT>
-void BuildIntermediateDataFromO5M(SourceReader & stream, HolderT & holder)
+
+template <typename TElement, typename TCache>
+void AddElementToCache(TCache & cache, TElement const & em)
+{
+  switch (em.type)
+  {
+    case TElement::EntityType::Node:
+    {
+      // Could do something with em.id, em.lon, em.lat here
+      // lon and lat are ints in 1E+7 * degree units
+      // convert to mercator
+      auto const pt = MercatorBounds::FromLatLon(em.lat, em.lon);
+      cache.AddNode(em.id, pt.y, pt.x);
+      break;
+    }
+    case TElement::EntityType::Way:
+    {
+      // store way
+      WayElement way(em.id);
+      for (uint64_t nd : em.Nodes())
+        way.nodes.push_back(nd);
+
+      if (way.IsValid())
+        cache.AddWay(em.id, way);
+      break;
+    }
+    case TElement::EntityType::Relation:
+    {
+      // store relation
+      RelationElement relation;
+      for (auto const & member : em.Members())
+      {
+        // Could do something with member ref (way or node or rel id depends on type), type and
+        // role
+        if (member.type == TElement::EntityType::Node)
+          relation.nodes.emplace_back(make_pair(member.ref, string(member.role)));
+        else if (member.type == TElement::EntityType::Way)
+          relation.ways.emplace_back(make_pair(member.ref, string(member.role)));
+        // we just ignore type == "relation"
+      }
+
+      for (auto const & tag : em.Tags())
+        relation.tags.emplace(make_pair(string(tag.key), string(tag.value)));
+
+      if (relation.IsValid())
+        cache.AddRelation(em.id, relation);
+
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+template <typename TCache>
+void BuildIntermediateDataFromXML(SourceReader & stream, TCache & cache)
+{
+  BaseOSMParser parser([&](XMLElement * e)
+                       {
+                         AddElementToCache(cache, *e);
+                       });
+
+  ParseXMLSequence(stream, parser);
+}
+
+void BuildFeaturesFromXML(SourceReader & stream, function<void(XMLElement *)> processor)
+{
+  BaseOSMParser parser([&](XMLElement * e)
+                       {
+                         processor(e);
+                       });
+  
+  ParseXMLSequence(stream, parser);
+}
+
+template <typename TCache>
+void BuildIntermediateDataFromO5M(SourceReader & stream, TCache & cache)
 {
   using TType = osm::O5MSource::EntityType;
 
@@ -353,60 +425,11 @@ void BuildIntermediateDataFromO5M(SourceReader & stream, HolderT & holder)
     return stream.Read(reinterpret_cast<char *>(buffer), size);
   });
 
-  for (auto const & em : dataset)
-  {
-    switch (em.type)
-    {
-      case TType::Node:
-      {
-        // Could do something with em.id, em.lon, em.lat here
-        // lon and lat are ints in 1E+7 * degree units
-        // convert to mercator
-        auto const pt = MercatorBounds::FromLatLon(DECODE_O5M_COORD(em.lat), DECODE_O5M_COORD(em.lon));
-        holder.AddNode(em.id, pt.y, pt.x);
-        break;
-      }
-      case TType::Way:
-      {
-        // store way
-        WayElement way(em.id);
-        for (uint64_t nd : em.Nodes())
-          way.nodes.push_back(nd);
-
-        if (way.IsValid())
-          holder.AddWay(em.id, way);
-        break;
-      }
-      case TType::Relation:
-      {
-        // store relation
-        RelationElement relation;
-        for (auto const & member : em.Members())
-        {
-          // Could do something with member ref (way or node or rel id depends on type), type and
-          // role
-          if (member.type == TType::Node)
-            relation.nodes.emplace_back(make_pair(member.ref, string(member.role)));
-          else if (member.type == TType::Way)
-            relation.ways.emplace_back(make_pair(member.ref, string(member.role)));
-          // we just ignore type == "relation"
-        }
-
-        for (auto const & tag : em.Tags())
-          relation.tags.emplace(make_pair(string(tag.key), string(tag.value)));
-
-        if (relation.IsValid())
-          holder.AddRelation(em.id, relation);
-
-        break;
-      }
-      default:
-        break;
-    }
-  }
+  for (auto const & e : dataset)
+    AddElementToCache(cache, e);
 }
 
-void BuildFeaturesFromO5M(SourceReader & stream, BaseOSMParser & parser)
+void BuildFeaturesFromO5M(SourceReader & stream, function<void(XMLElement *)> processor)
 {
   using TType = osm::O5MSource::EntityType;
 
@@ -424,33 +447,33 @@ void BuildFeaturesFromO5M(SourceReader & stream, BaseOSMParser & parser)
     {
       case TType::Node:
       {
-        p.tagKey = XMLElement::ET_NODE;
-        p.lat = DECODE_O5M_COORD(em.lat);
-        p.lon = DECODE_O5M_COORD(em.lon);
+        p.type = XMLElement::EntityType::Node;
+        p.lat = em.lat;
+        p.lon = em.lon;
         break;
       }
       case TType::Way:
       {
-        p.tagKey = XMLElement::ET_WAY;
+        p.type = XMLElement::EntityType::Way;
         for (uint64_t nd : em.Nodes())
           p.AddND(nd);
         break;
       }
       case TType::Relation:
       {
-        p.tagKey = XMLElement::ET_RELATION;
+        p.type = XMLElement::EntityType::Relation;
         for (auto const & member : em.Members())
         {
           switch (member.type)
           {
             case TType::Node:
-              p.AddMEMBER(member.ref, "node", member.role);
+              p.AddMEMBER(member.ref, XMLElement::EntityType::Node, member.role);
               break;
             case TType::Way:
-              p.AddMEMBER(member.ref, "way", member.role);
+              p.AddMEMBER(member.ref, XMLElement::EntityType::Way, member.role);
               break;
             case TType::Relation:
-              p.AddMEMBER(member.ref, "relation", member.role);
+              p.AddMEMBER(member.ref, XMLElement::EntityType::Relation, member.role);
               break;
 
             default: break;
@@ -464,7 +487,7 @@ void BuildFeaturesFromO5M(SourceReader & stream, BaseOSMParser & parser)
     for (auto const & tag : em.Tags())
       p.AddKV(tag.key, tag.value);
 
-    parser.EmitElement(&p);
+    processor(&p);
   }
 }
 
@@ -488,14 +511,16 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
         bucketer, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
         info.GetAddressesFileName());
 
+    auto fn = [&parser](XMLElement * e) { parser.EmitElement(e); };
+
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
     switch (info.m_osmFileType)
     {
       case feature::GenerateInfo::OsmSourceType::XML:
-        ParseXMLSequence(reader, parser);
+        BuildFeaturesFromXML(reader, fn);
         break;
       case feature::GenerateInfo::OsmSourceType::O5M:
-        BuildFeaturesFromO5M(reader, parser);
+        BuildFeaturesFromO5M(reader, fn);
         break;
     }
 
@@ -533,11 +558,8 @@ bool GenerateIntermediateDataImpl(feature::GenerateInfo & info)
     switch (info.m_osmFileType)
     {
       case feature::GenerateInfo::OsmSourceType::XML:
-      {
-        FirstPassParser<TDataCache> parser(cache);
-        ParseXMLSequence(reader, parser);
+        BuildIntermediateDataFromXML(reader, cache);
         break;
-      }
       case feature::GenerateInfo::OsmSourceType::O5M:
         BuildIntermediateDataFromO5M(reader, cache);
         break;

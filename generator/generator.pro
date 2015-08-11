@@ -47,7 +47,6 @@ HEADERS += \
     feature_generator.hpp \
     feature_merger.hpp \
     feature_sorter.hpp \
-    first_pass_parser.hpp \
     gen_mwm_info.hpp \
     generate_info.hpp \
     osm2meta.hpp \

@@ -1,7 +1,6 @@
 #include "generator/xml_element.hpp"
 
 #include "coding/parse_xml.hpp"
-#include "base/string_utils.hpp"
 
 #include "std/cstdio.hpp"
 #include "std/algorithm.hpp"
@@ -12,7 +11,7 @@ void XMLElement::AddKV(string const & k, string const & v)
   childs.push_back(XMLElement());
   XMLElement & e = childs.back();
 
-  e.tagKey = ET_TAG;
+  e.type = EntityType::Tag;
   e.k = k;
   e.v = v;
 }
@@ -22,44 +21,67 @@ void XMLElement::AddND(uint64_t ref)
   childs.push_back(XMLElement());
   XMLElement & e = childs.back();
 
-  e.tagKey = ET_ND;
+  e.type = EntityType::Nd;
   e.ref = ref;
 }
 
-void XMLElement::AddMEMBER(uint64_t ref, string const & type, string const & role)
+void XMLElement::AddMEMBER(uint64_t ref, EntityType type, string const & role)
 {
   childs.push_back(XMLElement());
   XMLElement & e = childs.back();
 
-  e.tagKey = ET_MEMBER;
+  e.type = EntityType::Member;
   e.ref = ref;
-  e.type = type;
+  e.memberType = type;
   e.role = role;
+}
+
+string DebugPrint(XMLElement::EntityType e)
+{
+  switch (e)
+  {
+    case XMLElement::EntityType::Unknown:
+      return "Unknown";
+    case XMLElement::EntityType::Way:
+      return "Way";
+    case XMLElement::EntityType::Tag:
+      return "Tag";
+    case XMLElement::EntityType::Relation:
+      return "Relation";
+    case XMLElement::EntityType::Osm:
+      return "Osm";
+    case XMLElement::EntityType::Node:
+      return "Node";
+    case XMLElement::EntityType::Nd:
+      return "Nd";
+    case XMLElement::EntityType::Member:
+      return "Member";
+  }
 }
 
 string XMLElement::ToString(string const & shift) const
 {
   stringstream ss;
   ss << (shift.empty() ? "\n" : shift);
-  switch (tagKey)
+  switch (type)
   {
-    case ET_NODE:
-      ss << "Node: " << id << " (" << fixed << setw(7) << lat << ", " << lon << ")";
+    case EntityType::Node:
+      ss << "Node: " << id << " (" << fixed << setw(7) << lat << ", " << lon << ")" << " subelements: " << childs.size();
       break;
-    case ET_ND:
+    case EntityType::Nd:
       ss << "Nd ref: " << ref;
       break;
-    case ET_WAY:
-      ss << "Way: " << id << " elements: " << childs.size();
+    case EntityType::Way:
+      ss << "Way: " << id << " subelements: " << childs.size();
       break;
-    case ET_RELATION:
-      ss << "Relation: " << id << " elements: " << childs.size();
+    case EntityType::Relation:
+      ss << "Relation: " << id << " subelements: " << childs.size();
       break;
-    case ET_TAG:
+    case EntityType::Tag:
       ss << "Tag: " << k << " = " << v;
       break;
-    case ET_MEMBER:
-      ss << "Member: " << ref << " type: " << type << " role: " << role;
+    case EntityType::Member:
+      ss << "Member: " << ref << " type: " << DebugPrint(memberType) << " role: " << role;
       break;
     default:
       ss << "Unknown element";
@@ -78,91 +100,4 @@ string XMLElement::ToString(string const & shift) const
 string DebugPrint(XMLElement const & e)
 {
   return e.ToString();
-}
-
-
-void BaseOSMParser::AddAttr(string const & key, string const & value)
-{
-  if (!m_current)
-    return;
-
-  if (key == "id")
-    CHECK ( strings::to_uint64(value, m_current->id), ("Unknown element with invalid id : ", value) );
-  else if (key == "lon")
-    CHECK ( strings::to_double(value, m_current->lon), ("Bad node lon : ", value) );
-  else if (key == "lat")
-    CHECK ( strings::to_double(value, m_current->lat), ("Bad node lat : ", value) );
-  else if (key == "ref")
-    CHECK ( strings::to_uint64(value, m_current->ref), ("Bad node ref in way : ", value) );
-  else if (key == "k")
-    m_current->k = value;
-  else if (key == "v")
-    m_current->v = value;
-  else if (key == "type")
-    m_current->type = value;
-  else if (key == "role")
-    m_current->role = value;
-}
-
-bool BaseOSMParser::Push(string const & tagName)
-{
-  ASSERT_GREATER_OR_EQUAL(tagName.size(), 2, ());
-  
-  // As tagKey we use first two char of tag name.
-  XMLElement::ETag tagKey = XMLElement::ETag(*reinterpret_cast<uint16_t const *>(tagName.data()));
-
-  switch (tagKey)
-  {
-    // This tags will ignored in Push function.
-    case XMLElement::ET_MEMBER:
-    case XMLElement::ET_TAG:
-    case XMLElement::ET_ND:
-      return false;
-    default: break;
-  }
-
-  switch (++m_depth)
-  {
-    case 1:
-      m_current = nullptr;
-      break;
-    case 2:
-      m_current = &m_parent;
-      m_current->tagKey = tagKey;
-      break;
-    default:
-      m_current = &m_child;
-      m_current->tagKey = tagKey;
-  }
-  return true;
-}
-
-void BaseOSMParser::Pop(string const &)
-{
-  switch (--m_depth)
-  {
-    case 0:
-      break;
-
-    case 1:
-      EmitElement(m_current);
-      m_parent.Clear();
-      break;
-
-    default:
-      switch (m_child.tagKey)
-      {
-        case XMLElement::ET_MEMBER:
-          m_parent.AddMEMBER(m_child.ref, m_child.type, m_child.role);
-          break;
-        case XMLElement::ET_TAG:
-          m_parent.AddKV(m_child.k, m_child.v);
-          break;
-        case XMLElement::ET_ND:
-          m_parent.AddND(m_child.ref);
-        default: break;
-      }
-      m_current = &m_parent;
-      m_child.Clear();
-  }
 }
