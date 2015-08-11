@@ -40,6 +40,7 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 + (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage
 {
   MWMPlacePageActionBar * bar = [[[NSBundle mainBundle] loadNibNamed:kPlacePageActionBarNibName owner:self options:nil] firstObject];
+  [bar setupBookmarkButton];
   [bar configureWithPlacePage:placePage];
   return bar;
 }
@@ -70,35 +71,50 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 {
   // Four buttons: Back, Share, Bookmark and Route
   self.isBookmark = NO;
-  for (UIView * v in self.subviews)
-    v.hidden = NO;
+  [self allButtons];
 }
 
 - (void)setupMyPositionBar
 {
   // Two buttons: Share and Bookmark
   self.isBookmark = NO;
-  self.routeButton.hidden = YES;
-  self.routeLabel.hidden = YES;
-  self.apiBackButton.hidden = YES;
-  self.apiBackLabel.hidden = YES;
+  [self twoButtons];
 }
 
 - (void)setupBookmarkBar
 {
   // Three buttons: Share, Bookmark and Route
   self.isBookmark = YES;
-  [self setupDefaultBar];
+  [self threeButtons];
 }
 
 - (void)setupDefaultBar
 {
   // Three buttons: Share, Bookmark and Route
+  self.isBookmark = NO;
+  [self threeButtons];
+}
+
+- (void)threeButtons
+{
   self.routeButton.hidden = NO;
   self.routeLabel.hidden = NO;
   self.apiBackButton.hidden = YES;
   self.apiBackLabel.hidden = YES;
-  [self setupBookmarkButton];
+}
+
+- (void)twoButtons
+{
+  self.routeButton.hidden = YES;
+  self.routeLabel.hidden = YES;
+  self.apiBackButton.hidden = YES;
+  self.apiBackLabel.hidden = YES;
+}
+
+- (void)allButtons
+{
+  for (UIView * v in self.subviews)
+    v.hidden = NO;
 }
 
 - (void)setupBookmarkButton
