@@ -83,16 +83,6 @@
   [self.speechSynthesizer speakUtterance:utterance];
 }
 
-- (bool)isEnabled
-{
-  return GetFramework().AreTurnNotificationsEnabled();
-}
-
-- (void)enable:(bool)enalbed
-{
-  GetFramework().EnableTurnNotifications(enalbed);
-}
-
 - (void)speakNotifications: (vector<string> const &)turnNotifications
 {
   if (turnNotifications.empty())

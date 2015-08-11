@@ -368,7 +368,7 @@ static BOOL keyboardLoaded = NO;
   [self setState:SearchViewStateHidden animated:YES];
 }
 
-// TODO: This code only for demonstration purposes and will be removed soon
+// TODO: This code only for demonstration purposes and will be removed soon.
 - (BOOL)tryChangeMapStyleCmd:(NSString *)cmd
 {
   // Hook for shell command on change map style
@@ -388,12 +388,34 @@ static BOOL keyboardLoaded = NO;
   return YES;
 }
 
+// TODO: This code only for demonstration purposes and will be removed soon.
+- (BOOL)trySwitchOnTurnSound:(NSString *)cmd
+{
+  // Hook for shell command on change map style
+  BOOL const sound = [cmd isEqualToString:@"?sound"];
+  BOOL const nosound = sound ? NO : [cmd isEqualToString:@"?nosound"];
+  
+  if (!sound && !nosound)
+    return NO;
+  
+  // turn notification
+  if (sound)
+    GetFramework().EnableTurnNotifications(true);
+  if (nosound)
+    GetFramework().EnableTurnNotifications(false);
+  return YES;
+}
+
 - (void)textFieldTextChanged:(id)sender
 {
   NSString * currentText = self.searchBar.textField.text;
   
-  // TODO: This code only for demonstration purposes and will be removed soon
+  // TODO: This code only for demonstration purposes and will be removed soon.
   if ([self tryChangeMapStyleCmd:currentText])
+    return;
+  
+  // TODO: This code only for demonstration purposes and will be removed soon.
+  if ([self trySwitchOnTurnSound:currentText])
     return;
 
   if ([currentText length])

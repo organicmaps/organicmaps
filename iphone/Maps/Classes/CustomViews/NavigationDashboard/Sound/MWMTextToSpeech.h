@@ -15,8 +15,6 @@
 @interface  MWMTextToSpeech : NSObject
 
 - (instancetype)init;
-- (bool)isEnabled;
-- (void)enable:(bool)enalbed;
 - (void)speakNotifications: (vector<string> const &)turnNotifications;
 
 @end
