@@ -41,14 +41,14 @@ static NSString * const kShareEventName = @"pedestrianShareEvent";
   view.isFirstLaunch = isFirstLaunch;
   if (isFirstLaunch)
   {
-    view.title.text = L(@"dialog_title_share_walking_routes_first_launch");
-    view.message.text = L(@"dialog_text_share_walking_routes_first_launch");
+    view.title.text = L(@"title_walking_available");
+    view.message.text = L(@"share_walking_routes_first_launch");
     view.image.image = [UIImage imageNamed:@"img_pedestrian"];
   }
   else
   {
-    view.title.text = L(@"dialog_title_share_walking_routes_active_pedestrian");
-    view.message.text = L(@"dialog_text_share_walking_routes_active_pedestrian");
+    view.title.text = L(@"share_walking_routes_congratulations");
+    view.message.text = L(@"share_walking_routes_mastering");
     view.image.image = [UIImage imageNamed:@"img_achive_pedestrian"];
   }
   return view;
