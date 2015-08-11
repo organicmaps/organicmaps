@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e -u -x
 
+export PYTHONDONTWRITEBYTECODE=1
+
 function BuildDrawingRules() {
   styleName=$1
   suffix=$2
