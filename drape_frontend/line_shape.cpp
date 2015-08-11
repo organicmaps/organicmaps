@@ -252,6 +252,7 @@ public:
 
     dp::GLState state(gpu::CAP_JOIN_PROGRAM, dp::GLState::GeometryLayer);
     state.SetColorTexture(m_params.m_color.GetTexture());
+    state.SetDepthFunction(gl_const::GLLess);
     return state;
   }
 

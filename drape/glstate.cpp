@@ -47,9 +47,20 @@ bool Blending::operator == (Blending const & other) const
 GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
   : m_gpuProgramIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
+  , m_depthFunction(gl_const::GLLessOrEqual)
   , m_colorTexture(nullptr)
   , m_maskTexture(nullptr)
 {
+}
+
+glConst GLState::GetDepthFunction() const
+{
+  return m_depthFunction;
+}
+
+void GLState::SetDepthFunction(glConst functionName)
+{
+  m_depthFunction = functionName;
 }
 
 bool GLState::operator<(GLState const & other) const
@@ -118,6 +129,7 @@ void ApplyState(GLState state, ref_ptr<GpuProgram> program)
 {
   ApplyTextures(state, program);
   ApplyBlending(state, program);
+  GLFunctions::glDepthFunc(state.GetDepthFunction());
 }
 
 }

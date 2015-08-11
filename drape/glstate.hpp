@@ -59,6 +59,9 @@ public:
 
   int GetProgramIndex() const { return m_gpuProgramIndex; }
 
+  glConst GetDepthFunction() const;
+  void SetDepthFunction(glConst functionName);
+
   bool operator<(GLState const & other) const;
   bool operator==(GLState const & other) const;
 
@@ -66,6 +69,7 @@ private:
   uint32_t m_gpuProgramIndex;
   DepthLayer m_depthLayer;
   Blending m_blending;
+  glConst m_depthFunction;
 
   ref_ptr<Texture> m_colorTexture;
   ref_ptr<Texture> m_maskTexture;
