@@ -18,8 +18,10 @@ SUBDIRS = 3party \
           base \
           coding \
           geometry \
+          stats \
           indexer \
           platform \
+          routing \
           storage \
           generator \
           generator/generator_tool \

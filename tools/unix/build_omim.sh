@@ -41,11 +41,25 @@ fi
 
 set -x -u -e
 
-BOOST_PATH=/usr/local/boost_1.54.0
+BOOST_PATH="${BOOST_PATH:-/usr/local/boost_1.54.0}"
 DEVTOOLSET_PATH=/opt/rh/devtoolset-2
+if [ -d "$DEVTOOLSET_PATH" ]; then
+  . "$DEVTOOLSET_PATH/enable"
+else
+  DEVTOOLSET_PATH=
+fi
 OMIM_PATH="$(cd "${OMIM_PATH:-$(dirname "$0")/../..}"; pwd)"
+PRO_FILE="$OMIM_PATH/${PROJECT:-omim}.pro"
 export MANPATH=""
-. "$DEVTOOLSET_PATH/enable"
+QMAKE=qmake-qt5
+if ! hash "$QMAKE" 2>/dev/null; then
+  QMAKE=qmake
+fi
+CMAKE=cmake28
+if ! hash "$CMAKE" 2>/dev/null; then
+  CMAKE=cmake
+fi
+PROCESSES=$(($(nproc) / 2))
 
 build_conf()
 {
@@ -61,10 +75,14 @@ build_conf()
   (
     export BOOST_INCLUDEDIR="$BOOST_PATH/include"
     cd "$DIRNAME"
-    qmake-qt5 -r "$OMIM_PATH/omim.pro" -spec linux-clang CONFIG+=$CONF \
-      "QMAKE_CXXFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr" \
-      "QMAKE_LFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr"
-    make -j 20
+    if [ -n "$DEVTOOLSET_PATH" ]; then
+      "$QMAKE" -r "$PRO_FILE" -spec linux-clang CONFIG+=$CONF \
+        "QMAKE_CXXFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr" \
+        "QMAKE_LFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr"
+    else
+      "$QMAKE" -r "$PRO_FILE" -spec linux-clang CONFIG+=$CONF
+    fi
+    make -j $PROCESSES
   )
 }
 
@@ -77,7 +95,7 @@ if [ -n "$OPT_OSRM" ]; then
   mkdir -p "$OSRM_TARGET"
   (
     cd "$OSRM_TARGET"
-    cmake28 -DBOOST_INCLUDEDIR=$BOOST_PATH/include/ -DBOOST_LIBRARYDIR=$BOOST_PATH/lib/ ..
+    "$CMAKE" "-DBOOST_ROOT=$BOOST_PATH" ..
     make clean
     make
   )
