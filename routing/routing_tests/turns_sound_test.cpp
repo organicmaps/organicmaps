@@ -102,18 +102,18 @@ UNIT_TEST(TurnsSoundMetersTest)
   turnSound.SetSpeedMetersPerSecond(30.);
 
   TurnItem turnItem(5 /* idx */, TurnDirection::TurnRight);
-  FollowingInfo followInfo;
+  vector<string> turnNotifications;
 
-  ASSERT(followInfo.m_turnNotifications.empty(), ());
+  ASSERT(turnNotifications.empty(), ());
 
   // Starting nearing the turnItem.
   // 1000 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 1000. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem, 1000. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 700 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 700. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem, 700. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 699 meters till the turn. It's time to pronounce the first voice notification.
   // Why? The current speed is 30 meters per seconds. According to correctSettingsMeters
@@ -121,43 +121,43 @@ UNIT_TEST(TurnsSoundMetersTest)
   // Besides that we need 5 seconds (but 100 meters maximum) for playing the notification.
   // So we start playing the first notification when the distance till the turn is less
   // then 20 seconds * 30 meters per seconds + 100 meters = 700 meters.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 699. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(turnItem, 699. /* distanceToTurnMeters */, turnNotifications);
   vector<string> const expectedNotification1 = {{"In 600 meters. Make a right turn."}};
-  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification1, ());
+  TEST_EQUAL(turnNotifications, expectedNotification1, ());
 
   // 650 meters till the turn. No sound notifications is required.
-  followInfo.m_turnNotifications.clear();
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 650. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnNotifications.clear();
+  turnSound.UpdateRouteFollowingInfo(turnItem, 650. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   turnSound.SetSpeedMetersPerSecond(32.);
 
   // 150 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 150. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem, 150. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 100 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 100. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem, 100. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 99 meters till the turn. It's time to pronounce the second voice notification.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(turnItem, 99. /* distanceToTurnMeters */, turnNotifications);
   vector<string> const expectedNotification2 = {{"Make a right turn."}};
-  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification2, ());
+  TEST_EQUAL(turnNotifications, expectedNotification2, ());
 
   // 99 meters till the turn again. No sound notifications is required.
-  followInfo.m_turnNotifications.clear();
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnNotifications.clear();
+  turnSound.UpdateRouteFollowingInfo(turnItem, 99. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 50 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 50. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem, 50. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 0 meters till the turn. No sound notifications is required.
-  followInfo.m_turnNotifications.clear();
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 0. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnNotifications.clear();
+  turnSound.UpdateRouteFollowingInfo(turnItem, 0. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   TEST(turnSound.IsEnabled(), ());
 }
@@ -184,48 +184,48 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
   turnSound.SetSpeedMetersPerSecond(35.);
 
   TurnItem turnItem1(5 /* idx */, TurnDirection::TurnSharpRight);
-  FollowingInfo followInfo;
+  vector<string> turnNotifications;
 
-  ASSERT(followInfo.m_turnNotifications.empty(), ());
+  ASSERT(turnNotifications.empty(), ());
 
   // Starting nearing the first turn.
   // 800 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 800. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem1, 800. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 700 meters till the turn. It's time to pronounce the first voice notification.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 700. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(turnItem1, 700. /* distanceToTurnMeters */, turnNotifications);
   vector<string> const expectedNotification1 = {{"In 700 meters. Make a sharp right turn."}};
-  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification1, ());
+  TEST_EQUAL(turnNotifications, expectedNotification1, ());
 
   turnSound.SetSpeedMetersPerSecond(32.);
 
   // 150 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 150. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem1, 150. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 99 meters till the turn. It's time to pronounce the second voice notification.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 99. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(turnItem1, 99. /* distanceToTurnMeters */, turnNotifications);
   vector<string> const expectedNotification2 = {{"Make a sharp right turn."}};
-  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification2, ());
+  TEST_EQUAL(turnNotifications, expectedNotification2, ());
 
   turnSound.SetSpeedMetersPerSecond(10.);
 
   // 0 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem1, 0. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem1, 0. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   TurnItem turnItem2(11 /* idx */, TurnDirection::EnterRoundAbout, 2 /* exitNum */);
 
   // Starting nearing the second turn.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem2, 60. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem2, 60. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 40 meters till the second turn. It's time to pronounce the second voice notification
   // without the first one.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem2, 40. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(turnItem2, 40. /* distanceToTurnMeters */, turnNotifications);
   vector<string> const expectedNotification3 = {{"Enter the roundabout."}};
-  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification3, ());
+  TEST_EQUAL(turnNotifications, expectedNotification3, ());
 
   TEST(turnSound.IsEnabled(), ());
 }
@@ -247,18 +247,18 @@ UNIT_TEST(TurnsSoundFeetTest)
   turnSound.SetSpeedMetersPerSecond(30.);
 
   TurnItem turnItem(7 /* idx */, TurnDirection::EnterRoundAbout, 3 /* exitNum */);
-  FollowingInfo followInfo;
+  vector<string> turnNotifications;
 
-  ASSERT(followInfo.m_turnNotifications.empty(), ());
+  ASSERT(turnNotifications.empty(), ());
 
   // Starting nearing the turnItem.
   // 1000 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 1000. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem, 1000. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 700 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 700. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem, 700. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 699 meters till the turn. It's time to pronounce the first voice notification.
   // Why? The current speed is 30 meters per seconds. According to correctSettingsMeters
@@ -266,42 +266,42 @@ UNIT_TEST(TurnsSoundFeetTest)
   // Besides that we need 5 seconds (but 100 meters maximum) for playing the notification.
   // So we start playing the first notification when the distance till the turn is less
   // then 20 seconds * 30 meters per seconds + 100 meters = 700 meters.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 699. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(turnItem, 699. /* distanceToTurnMeters */, turnNotifications);
   vector<string> const expectedNotification1 = {{"In 2000 feet. Enter the roundabout."}};
-  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification1, ());
+  TEST_EQUAL(turnNotifications, expectedNotification1, ());
 
   // 650 meters till the turn. No sound notifications is required.
-  followInfo.m_turnNotifications.clear();
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 650. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnNotifications.clear();
+  turnSound.UpdateRouteFollowingInfo(turnItem, 650. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 150 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 150. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem, 150. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 100 meters till the turn. No sound notifications is required.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 100. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnSound.UpdateRouteFollowingInfo(turnItem, 100. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 99 meters till the turn. It's time to pronounce the second voice notification.
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
+  turnSound.UpdateRouteFollowingInfo(turnItem, 99. /* distanceToTurnMeters */, turnNotifications);
   vector<string> const expectedNotification2 = {{"Enter the roundabout."}};
-  TEST_EQUAL(followInfo.m_turnNotifications, expectedNotification2, ());
+  TEST_EQUAL(turnNotifications, expectedNotification2, ());
 
   // 99 meters till the turn again. No sound notifications is required.
-  followInfo.m_turnNotifications.clear();
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 99. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnNotifications.clear();
+  turnSound.UpdateRouteFollowingInfo(turnItem, 99. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 50 meters till the turn. No sound notifications is required.
-  followInfo.m_turnNotifications.clear();
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 50. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnNotifications.clear();
+  turnSound.UpdateRouteFollowingInfo(turnItem, 50. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   // 0 meters till the turn. No sound notifications is required.
-  followInfo.m_turnNotifications.clear();
-  turnSound.UpdateRouteFollowingInfo(followInfo, turnItem, 0. /* distanceToTurnMeters */);
-  TEST(followInfo.m_turnNotifications.empty(), ());
+  turnNotifications.clear();
+  turnSound.UpdateRouteFollowingInfo(turnItem, 0. /* distanceToTurnMeters */, turnNotifications);
+  TEST(turnNotifications.empty(), ());
 
   TEST(turnSound.IsEnabled(), ());
 }

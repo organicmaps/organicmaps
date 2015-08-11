@@ -16,14 +16,6 @@
 
 @implementation MWMNavigationDashboardEntity
 
-- (instancetype)initWithFollowingInfo:(location::FollowingInfo const &)info
-{
-  self = [super init];
-  if (self)
-    [self configure:info];
-  return self;
-}
-
 - (void)updateWithFollowingInfo:(location::FollowingInfo const &)info
 {
   [self configure:info];

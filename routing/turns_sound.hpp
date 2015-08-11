@@ -72,14 +72,14 @@ public:
   void SetSpeedMetersPerSecond(double speed);
 
    /// \brief UpdateRouteFollowingInfo updates information about the next turn notification.
-   /// It also fills FollowingInfo::m_turnNotifications when it's necessary.
+   /// It also fills turnNotifications when it's necessary.
    /// If this TurnsSound wants to play a sound message once it should push one item to
-   /// the vector FollowingInfo::m_turnNotifications once when UpdateRouteFollowingInfo is called.
-   /// \param info is a parameter to fill info.m_turnNotifications
+   /// the vector turnNotifications once when UpdateRouteFollowingInfo is called.
    /// \param turn contains information about the next turn.
    /// \param distanceToTurnMeters is distance to the next turn in meters.
-  void UpdateRouteFollowingInfo(location::FollowingInfo & info, TurnItem const & turn,
-                                double distanceToTurnMeters);
+   /// \param turnNotifications is a parameter to fill it if it's necessary.
+  void UpdateRouteFollowingInfo(TurnItem const & turn, double distanceToTurnMeters,
+                                vector<string> & turnNotifications);
   /// Reset states which reflects current route position.
   /// The method shall be called after creating a new route or after rerouting.
   void Reset();

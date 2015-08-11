@@ -575,7 +575,7 @@ public:
   void SetRouteProgressListener(TRouteProgressCallback const & progressCallback) { m_progressCallback = progressCallback; }
   void FollowRoute();
   void CloseRouting();
-  void GetRouteFollowingInfo(location::FollowingInfo & info) { m_routingSession.GetRouteFollowingInfo(info); }
+  void GetRouteFollowingInfo(location::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
   m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
   void SetLastUsedRouter(routing::RouterType type);
   /// Returns the most situable router engine type. Bases on distance and the last used router.
@@ -585,6 +585,8 @@ public:
   inline bool AreTurnNotificationsEnabled() const { return m_routingSession.AreTurnNotificationsEnabled(); }
   inline void SetTurnNotificationsLocale(string const & locale) { m_routingSession.SetTurnNotificationsLocale(locale); }
   inline string GetTurnNotificationsLocale() const { return m_routingSession.GetTurnNotificationsLocale(); }
+  inline void GenerateTurnSound(vector<string> & turnNotifications)
+      { return m_routingSession.GenerateTurnSound(turnNotifications); }
 
 private:
   void SetRouterImpl(routing::RouterType type);

@@ -21,10 +21,8 @@
 @property (nonatomic, readonly) NSUInteger timeToTarget;
 @property (nonatomic, readonly) BOOL isPedestrian;
 
-- (instancetype)initWithFollowingInfo:(location::FollowingInfo const &)info;
 - (void)updateWithFollowingInfo:(location::FollowingInfo const &)info;
 
-- (instancetype)init __attribute__((unavailable("init is not available")));
 + (instancetype)new __attribute__((unavailable("init is not available")));
 
 @end

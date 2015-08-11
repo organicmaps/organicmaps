@@ -120,6 +120,11 @@
   [self.navigationManager setupDashboard:info];
 }
 
+- (void)playSound:(vector<string> const &)notifications
+{
+  [self.navigationManager playSound:notifications];
+}
+
 - (void)handleRoutingError
 {
   self.navigationManager.state = MWMNavigationDashboardStateError;

@@ -51,6 +51,8 @@
     [NSBundle.mainBundle loadNibNamed:@"MWMLandscapeNavigationDashboard" owner:self options:nil];
     self.navigationDashboard = isPortrait ? self.navigationDashboardPortrait : self.navigationDashboardLandscape;
     self.navigationDashboardPortrait.delegate = self.navigationDashboardLandscape.delegate = delegate;
+    
+    self.tts = [[MWMTextToSpeech alloc] init];
   }
   return self;
 }
@@ -79,19 +81,22 @@
   self.navigationDashboard = navigationDashboard;
 }
 
+- (MWMNavigationDashboardEntity *)entity
+{
+  if (!_entity)
+    _entity = [[MWMNavigationDashboardEntity alloc] init];
+  return _entity;
+}
+
 - (void)setupDashboard:(location::FollowingInfo const &)info
 {
-  if (!self.entity)
-  {
-    self.entity = [[MWMNavigationDashboardEntity alloc] initWithFollowingInfo:info];
-    self.tts = [[MWMTextToSpeech alloc] init];
-  }
-  else
-  {
-    [self.entity updateWithFollowingInfo:info];
-    [self.tts speakNotifications:info.m_turnNotifications];
-  }
+  [self.entity updateWithFollowingInfo:info];
   [self updateDashboard];
+}
+
+- (void)playSound:(vector<string> const &)notifications
+{
+  [self.tts speakNotifications:notifications];
 }
 
 - (void)handleError

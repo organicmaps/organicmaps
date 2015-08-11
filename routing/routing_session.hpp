@@ -77,7 +77,7 @@ public:
   void Reset();
 
   State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);
-  void GetRouteFollowingInfo(location::FollowingInfo & info);
+  void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
   void MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
@@ -94,6 +94,7 @@ public:
   void SetTurnNotificationsUnits(routing::turns::sound::LengthUnits const & units);
   void SetTurnNotificationsLocale(string const & locale);
   string GetTurnNotificationsLocale() const;
+  void GenerateTurnSound(vector<string> & turnNotifications);
 
 private:
   struct DoReadyCallback

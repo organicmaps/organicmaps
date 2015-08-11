@@ -136,6 +136,7 @@ public class Framework
   public native static void nativeFollowRoute();
 
   public native static RoutingInfo nativeGetRouteFollowingInfo();
+  public native static String[] nativeGenerateTurnSound();
 
   public native static void nativeSetRoutingListener(RoutingListener listener);
 

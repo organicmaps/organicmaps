@@ -1324,6 +1324,33 @@ extern "C"
     android::Platform::RunOnGuiThreadImpl(bind(&::Framework::FollowRoute, frm()));
   }
 
+  JNIEXPORT jobjectArray JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGenerateTurnSound(JNIEnv * env, jclass thiz)
+  {
+    ::Framework * fr = frm();
+    if (!fr->IsRoutingActive())
+      return nullptr;
+
+    vector<string> turnNotifications;
+    fr->GenerateTurnSound(turnNotifications);
+    if (turnNotifications.empty())
+      return nullptr;
+
+    // A new java array of Strings for TTS information is allocated here.
+    // Then it will be passed to client and then removed by java GC.
+    size_t const notificationsSize = turnNotifications.size();
+    jobjectArray jNotificationTexts = env->NewObjectArray(notificationsSize, jni::GetStringClass(env), nullptr);
+
+    for (size_t i = 0; i < notificationsSize; ++i)
+    {
+      jstring const jNotificationText = jni::ToJavaString(env, turnNotifications[i]);
+      env->SetObjectArrayElement(jNotificationTexts, i, jNotificationText);
+      env->DeleteLocalRef(jNotificationText);
+    }
+
+    return jNotificationTexts;
+  }
+
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass thiz)
   {
@@ -1345,24 +1372,8 @@ extern "C"
                           "(Ljava/lang/String;Ljava/lang/String;"
                           "Ljava/lang/String;Ljava/lang/String;"
                           "Ljava/lang/String;IIDDII"
-                          "[Lcom/mapswithme/maps/routing/SingleLaneInfo;[Ljava/lang/String;)V");
+                          "[Lcom/mapswithme/maps/routing/SingleLaneInfo;)V");
     ASSERT(ctorRouteInfoID, (jni::DescribeException()));
-
-    jobjectArray jNotificationTexts = nullptr;
-    if (!info.m_turnNotifications.empty())
-    {
-      // A new java array of Strings for TTS information is allocated here.
-      // Then it will be saved in com.mapswithme.maps.LocationState, and then removed by java GC.
-      size_t const notificationsSize = info.m_turnNotifications.size();
-      jNotificationTexts = env->NewObjectArray(notificationsSize, jni::GetStringClass(env), nullptr);
-
-      for (size_t i = 0; i < notificationsSize; ++i)
-      {
-        jstring const jNotificationText = jni::ToJavaString(env, info.m_turnNotifications[i]);
-        env->SetObjectArrayElement(jNotificationTexts, i, jNotificationText);
-        env->DeleteLocalRef(jNotificationText);
-      }
-    }
 
     vector<location::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
     jobjectArray jLanes = nullptr;
@@ -1403,7 +1414,7 @@ extern "C"
         jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
         jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_targetName),
         info.m_turn, info.m_pedestrianTurn, info.m_pedestrianDirectionPos.lat, info.m_pedestrianDirectionPos.lon,
-        info.m_exitNum, info.m_time, jLanes, jNotificationTexts);
+        info.m_exitNum, info.m_time, jLanes);
     ASSERT(result, (jni::DescribeException()));
     return result;
   }

@@ -165,7 +165,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   return m_state;
 }
 
-void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
+void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 {
   auto formatDistFn = [](double dist, string & value, string & suffix)
   {
@@ -217,16 +217,32 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info)
     info.m_pedestrianDirectionPos = MercatorBounds::ToLatLon(pos);
     info.m_pedestrianTurn =
         (distanceToTurnMeters < kShowPedestrianTurnInMeters) ? turn.m_pedestrianTurn : turns::PedestrianDirection::None;
-
-    // Voice turn notifications.
-    if (m_routingSettings.m_soundDirection)
-      m_turnsSound.UpdateRouteFollowingInfo(info, turn, distanceToTurnMeters);
   }
   else
   {
     // nothing should be displayed on the screen about turns if these lines are executed
     info = FollowingInfo();
   }
+}
+
+void RoutingSession::GenerateTurnSound(vector<string> & turnNotifications)
+{
+  turnNotifications.clear();
+
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+  // Voice turn notifications.
+  if (!m_routingSettings.m_soundDirection)
+    return;
+
+  if (!m_route.IsValid() || !IsNavigable())
+    return;
+
+  double distanceToTurnMeters = 0.;
+  turns::TurnItem turn;
+  m_route.GetCurrentTurn(distanceToTurnMeters, turn);
+
+  m_turnsSound.UpdateRouteFollowingInfo(turn, distanceToTurnMeters, turnNotifications);
 }
 
 void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)

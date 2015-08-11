@@ -708,10 +708,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
       // TODO think about moving TtsPlayer logic to RoutingLayout to minimize native calls.
       if (state == RoutingLayout.State.TURN_INSTRUCTIONS)
       {
-        RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-        if (info == null)
-          return;
-        TtsPlayer.INSTANCE.speakNotifications(info.turnNotifications);
+        final String[] turnNotifications = Framework.nativeGenerateTurnSound();
+        if (turnNotifications != null)
+          TtsPlayer.INSTANCE.speakNotifications(turnNotifications);
       }
     }
   }

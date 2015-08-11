@@ -23,7 +23,6 @@ public class RoutingInfo
   public final String streetName;
   // For vehicle routing.
   public final VehicleTurnDirection vehicleTurnDirection;
-  public final String[] turnNotifications;
   public final int exitNum;
   public final SingleLaneInfo[] lanes;
   // For pedestrian routing.
@@ -119,7 +118,7 @@ public class RoutingInfo
 
   public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String targetName,
                      int vehicleTurnOrdinal, int pedestrianTurnOrdinal, double pedestrianDirectionLat, double pedestrianDirectionLon, int exitNum,
-                     int totalTime, SingleLaneInfo[] lanes, String[] turnNotifications)
+                     int totalTime, SingleLaneInfo[] lanes)
   {
     this.distToTarget = distToTarget;
     this.targetUnits = units;
@@ -128,7 +127,6 @@ public class RoutingInfo
     this.streetName = targetName;
     this.totalTimeInSeconds = totalTime;
     this.vehicleTurnDirection = VehicleTurnDirection.values()[vehicleTurnOrdinal];
-    this.turnNotifications = turnNotifications;
     this.lanes = lanes;
     this.exitNum = exitNum;
     this.pedestrianTurnDirection = PedestrianTurnDirection.values()[pedestrianTurnOrdinal];
@@ -141,12 +139,5 @@ public class RoutingInfo
   {
     for (int j = 0; j < lanes.length; j++)
       Log.d("JNIARRAY", "    " + "Lane number " + j + ". " + lanes[j]);
-  }
-
-  private void dumpNotifications(String[] turnNotifications)
-  {
-    final int initialCapacity = 32;
-    for (int j = 0; j < turnNotifications.length; j++)
-      Log.d("JNIARRAY", "    " + "Turn notification " + j + ". " + turnNotifications[j]);
   }
 }

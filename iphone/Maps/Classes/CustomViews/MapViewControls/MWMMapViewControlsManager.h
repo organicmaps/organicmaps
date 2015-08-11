@@ -47,6 +47,7 @@
 #pragma mark - MWMNavigationDashboardManager
 
 - (void)setupRoutingDashboard:(location::FollowingInfo const &)info;
+- (void)playSound:(vector<string> const &)notifications;
 - (void)routingReady;
 - (void)routingNavigation;
 - (void)handleRoutingError;
