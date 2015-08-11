@@ -66,7 +66,9 @@ public:
   struct Params
   {
     string m_resPostfix;
+    double m_visualScale;
     string m_colors;
+    string m_patterns;
     GlyphManager::Params m_glyphMngParams;
   };
 

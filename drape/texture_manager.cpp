@@ -13,6 +13,7 @@
 
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/vector.hpp"
 #include "std/bind.hpp"
@@ -20,12 +21,18 @@
 namespace dp
 {
 
-uint32_t const STIPPLE_TEXTURE_SIZE = 1024;
-uint32_t const COLOR_TEXTURE_SIZE = 64;
+uint32_t const STIPPLE_TEXTURE_WIDTH = 512;
+uint32_t const MIN_STIPPLE_TEXTURE_HEIGHT = 64;
+uint32_t const MIN_COLOR_TEXTURE_SIZE = 64;
 size_t const INVALID_GLYPH_GROUP = numeric_limits<size_t>::max();
+
+size_t const PIXELS_PER_COLOR = 2;
 
 // number of glyphs (since 0) which will be in each texture
 size_t const DUPLICATED_GLYPHS_COUNT = 128;
+
+size_t const RESERVED_PATTERNS = 10;
+size_t const RESERVED_COLORS = 20;
 
 namespace
 {
@@ -66,6 +73,48 @@ void ParseColorsList(string const & colorsFile, ToDo toDo)
 
     toDo(dp::Extract(color));
   }
+}
+
+template <typename ToDo>
+void ParsePatternsList(string const & patternsFile, ToDo toDo)
+{
+  string patternsList;
+  try
+  {
+    ReaderPtr<Reader>(GetPlatform().GetReader(patternsFile)).ReadAsString(patternsList);
+  }
+  catch(RootException const & e)
+  {
+    LOG(LWARNING, ("Error reading patterns list ", patternsFile, " : ", e.what()));
+    return;
+  }
+
+  strings::Tokenize(patternsList, "\n", [&](string const & patternStr)
+  {
+    if (patternStr.empty())
+      return;
+
+    buffer_vector<double, 8> pattern;
+    strings::Tokenize(patternStr, " ", [&](string const & token)
+    {
+      double d = 0.0;
+      strings::to_double(token, d);
+      pattern.push_back(d);
+    });
+
+    bool isValid = true;
+    for (size_t i = 0; i < pattern.size(); i++)
+    {
+      if (fabs(pattern[i]) < 1e-5)
+      {
+        isValid = false;
+        break;
+      }
+    }
+
+    if (isValid)
+      toDo(pattern);
+  });
 }
 
 } // namespace
@@ -319,13 +368,40 @@ void TextureManager::Init(Params const & params)
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
 
   m_symbolTexture = make_unique_dp<SymbolsTexture>(params.m_resPostfix);
-  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(m2::PointU(STIPPLE_TEXTURE_SIZE, STIPPLE_TEXTURE_SIZE));
-  m_colorTexture = make_unique_dp<ColorTexture>(m2::PointU(COLOR_TEXTURE_SIZE, COLOR_TEXTURE_SIZE));
-  ParseColorsList(params.m_colors, [this](dp::Color const & color)
+
+  // initialize patterns
+  list<buffer_vector<uint8_t, 8>> patterns;
+  double const visualScale = params.m_visualScale;
+  ParsePatternsList(params.m_patterns, [&patterns, visualScale](buffer_vector<double, 8>  const & pattern)
   {
-    ref_ptr<ColorTexture> colorTexture = make_ref(m_colorTexture);
-    colorTexture->ReserveColor(color);
+    buffer_vector<uint8_t, 8> p;
+    for (size_t i = 0; i < pattern.size(); i++)
+      p.push_back(pattern[i] * visualScale);
+    patterns.push_back(move(p));
   });
+
+  size_t const stippleTextureHeight = max(my::NextPowOf2(patterns.size() + RESERVED_PATTERNS), MIN_STIPPLE_TEXTURE_HEIGHT);
+  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(m2::PointU(STIPPLE_TEXTURE_WIDTH, stippleTextureHeight));
+  LOG(LDEBUG, ("Pattens texture size = ", m_stipplePenTexture->GetWidth(), m_stipplePenTexture->GetHeight()));
+
+  ref_ptr<ColorTexture> stipplePenTextureTex = make_ref(m_stipplePenTexture);
+  //for (auto it = patterns.begin(); it != patterns.end(); ++it)
+  //  stipplePenTextureTex->ReservePattern(*it);
+
+  // initialize colors
+  list<dp::Color> colors;
+  ParseColorsList(params.m_colors, [&colors](dp::Color const & color)
+  {
+    colors.push_back(color);
+  });
+
+  size_t const colorTextureSize = max(my::NextPowOf2(floor(sqrt(colors.size() + RESERVED_COLORS)) * PIXELS_PER_COLOR), MIN_COLOR_TEXTURE_SIZE);
+  m_colorTexture = make_unique_dp<ColorTexture>(m2::PointU(colorTextureSize, colorTextureSize));
+  LOG(LDEBUG, ("Colors texture size = ", m_colorTexture->GetWidth(), m_colorTexture->GetHeight()));
+
+  ref_ptr<ColorTexture> colorTex = make_ref(m_colorTexture);
+  for (auto it = colors.begin(); it != colors.end(); ++it)
+    colorTex->ReserveColor(*it);
 
   m_glyphManager = make_unique_dp<GlyphManager>(params.m_glyphMngParams);
   m_maxTextureSize = min(2048, GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
