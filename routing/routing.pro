@@ -14,6 +14,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
 
 SOURCES += \
     async_router.cpp \
+    base/followed_polyline.cpp \
     car_model.cpp \
     cross_mwm_road_graph.cpp \
     cross_mwm_router.cpp \
@@ -30,7 +31,6 @@ SOURCES += \
     road_graph.cpp \
     road_graph_router.cpp \
     route.cpp \
-    route_follower.cpp \
     router.cpp \
     router_delegate.cpp \
     routing_algorithm.cpp \
@@ -46,6 +46,7 @@ SOURCES += \
 HEADERS += \
     async_router.hpp \
     base/astar_algorithm.hpp \
+    base/followed_polyline.hpp \
     car_model.hpp \
     cross_mwm_road_graph.hpp \
     cross_mwm_router.hpp \
@@ -64,7 +65,6 @@ HEADERS += \
     road_graph.hpp \
     road_graph_router.hpp \
     route.hpp \
-    route_follower.hpp \
     router.hpp \
     router_delegate.hpp \
     routing_algorithm.hpp \

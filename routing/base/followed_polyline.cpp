@@ -1,4 +1,4 @@
-#include "route_follower.hpp"
+#include "followed_polyline.hpp"
 
 namespace routing
 {
@@ -7,7 +7,7 @@ namespace
 double constexpr kPedestrianEdgeSwitchMeters = 5.0;
 }  // namespace
 
-double RouteFollower::GetDistanceOnPolyline(Iter const & it1, Iter const & it2) const
+double FollowedPolyline::GetDistanceOnPolyline(Iter const & it1, Iter const & it2) const
 {
   ASSERT(it1.IsValid() && it2.IsValid(), ());
   ASSERT_LESS_OR_EQUAL(it1.m_ind, it2.m_ind, ());
@@ -22,7 +22,7 @@ double RouteFollower::GetDistanceOnPolyline(Iter const & it1, Iter const & it2) 
           MercatorBounds::DistanceOnEarth(m_poly.GetPoint(it2.m_ind), it2.m_pt));
 }
 
-void RouteFollower::Swap(RouteFollower & rhs)
+void FollowedPolyline::Swap(FollowedPolyline & rhs)
 {
   m_poly.Swap(rhs.m_poly);
   m_segDistance.swap(rhs.m_segDistance);
@@ -30,7 +30,7 @@ void RouteFollower::Swap(RouteFollower & rhs)
   swap(m_current, rhs.m_current);
 }
 
-void RouteFollower::Update()
+void FollowedPolyline::Update()
 {
   size_t n = m_poly.GetSize();
   ASSERT_GREATER(n, 1, ());
@@ -55,7 +55,7 @@ void RouteFollower::Update()
 }
 
 template <class DistanceFn>
-RouteFollower::Iter RouteFollower::GetClosestProjection(m2::RectD const & posRect,
+FollowedPolyline::Iter FollowedPolyline::GetClosestProjection(m2::RectD const & posRect,
                                                          DistanceFn const & distFn) const
 {
   Iter res;
@@ -82,45 +82,40 @@ RouteFollower::Iter RouteFollower::GetClosestProjection(m2::RectD const & posRec
   return res;
 }
 
-RouteFollower::Iter RouteFollower::FindProjection(m2::RectD const & posRect,
-                                                   double predictDistance) const
+FollowedPolyline::Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,
+                                                                      double predictDistance) const
 {
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
+  ASSERT_GREATER(predictDistance, 0.0, ());
 
   Iter res;
-  if (predictDistance >= 0.0)
+  res = GetClosestProjection(posRect, [&](Iter const & it)
   {
-    res = GetClosestProjection(posRect, [&](Iter const & it)
-    {
-      return fabs(GetDistanceOnPolyline(m_current, it) - predictDistance);
-    });
-  }
-  else
-  {
-    m2::PointD const currPos = posRect.Center();
-    res = GetClosestProjection(posRect, [&](Iter const & it)
-    {
-      return MercatorBounds::DistanceOnEarth(it.m_pt, currPos);
-    });
-  }
+    return fabs(GetDistanceOnPolyline(m_current, it) - predictDistance);
+  });
 
   if (res.IsValid())
     m_current = res;
   return res;
 }
-void RouteFollower::GetCurrentDirectionPoint(m2::PointD & pt) const
+
+FollowedPolyline::Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect) const
 {
   ASSERT(m_current.IsValid(), ());
-  size_t currentIndex = min(m_current.m_ind + 1, m_poly.GetSize() - 1);
-  m2::PointD point = m_poly.GetPoint(currentIndex);
-  for (; currentIndex < m_poly.GetSize() - 1; point = m_poly.GetPoint(++currentIndex))
-  {
-    if (MercatorBounds::DistanceOnEarth(point, m_current.m_pt) > kPedestrianEdgeSwitchMeters)
-      break;
-  }
+  ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
 
-  pt = point;
+  Iter res;
+  m2::PointD const currPos = posRect.Center();
+  res = GetClosestProjection(posRect, [&](Iter const & it)
+  {
+    return MercatorBounds::DistanceOnEarth(it.m_pt, currPos);
+  });
+
+  if (res.IsValid())
+    m_current = res;
+  return res;
 }
+
 
 }  //  namespace routing

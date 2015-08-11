@@ -44,7 +44,7 @@ void Route::Swap(Route & rhs)
   swap(m_times, rhs.m_times);
   m_turnsGeom.swap(rhs.m_turnsGeom);
   m_absentCountries.swap(rhs.m_absentCountries);
-  m_pedestrianFollower.Swap(rhs.m_pedestrianFollower);
+//  m_pedestrianFollower.Swap(rhs.m_pedestrianFollower);
 }
 
 double Route::GetTotalDistanceMeters() const
@@ -164,9 +164,9 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
 
 void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 {
-  if (m_routingSettings.m_keepPedestrianInfo)
-    m_pedestrianFollower.GetCurrentDirectionPoint(pt);
-  else
+ // if (m_routingSettings.m_keepPedestrianInfo)
+    //m_pedestrianFollower.GetCurrentDirectionPoint(pt);
+//  else
     pt = m_poly.GetPoint(min(m_current.m_ind + 1, m_poly.GetSize() - 1));
 }
 
@@ -185,8 +185,8 @@ bool Route::MoveIterator(location::GpsInfo const & info) const
   m2::RectD const rect = MercatorBounds::MetresToXY(
         info.m_longitude, info.m_latitude,
         max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
-  if (m_routingSettings.m_keepPedestrianInfo)
-    m_pedestrianFollower.FindProjection(rect, predictDistance);
+ // if (m_routingSettings.m_keepPedestrianInfo)
+   // m_pedestrianFollower.FindProjection(rect, predictDistance);
   IterT const res = FindProjection(rect, predictDistance);
   if (res.IsValid())
   {
@@ -300,12 +300,12 @@ void Route::Update()
     // TODO (ldargunov) Rewrite dist f to distance in meters and avoid 0.00000 constants.
     SimplifyNearOptimal(20, m_poly.Begin(), m_poly.End(), 0.00000001, distFn,
                         MakeBackInsertFunctor(points));
-    m_pedestrianFollower = RouteFollower(points.begin(), points.end());
+//    m_pedestrianFollower = RouteFollower(points.begin(), points.end());
   }
   else
   {
     // Free memory if we need no this geometry.
-    m_pedestrianFollower = RouteFollower();
+ //   m_pedestrianFollower = RouteFollower();
   }
   size_t n = m_poly.GetSize();
   ASSERT_GREATER(n, 1, ());

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "route_follower.hpp"
+#include "base/followed_polyline.hpp"
 #include "routing_settings.hpp"
 #include "turns.hpp"
 
@@ -130,7 +130,7 @@ private:
   friend string DebugPrint(Route const & r);
 
   //TODO (ldragunov) Rewrite routing session to use RouteFollower for base road geometry
-  mutable RouteFollower m_pedestrianFollower;
+  //mutable RouteFollower m_pedestrianFollower;
 
   string m_router;
   RoutingSettings m_routingSettings;

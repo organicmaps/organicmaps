@@ -7,18 +7,22 @@
 
 namespace routing
 {
-class RouteFollower
+class FollowedPolyline
 {
 public:
-  RouteFollower() {}
+  FollowedPolyline() {}
   template <class TIter>
-  RouteFollower(TIter begin, TIter end)
+  FollowedPolyline(TIter begin, TIter end)
     : m_poly(begin, end)
   {
     Update();
   }
 
-  void Swap(RouteFollower & rhs);
+  void Swap(FollowedPolyline & rhs);
+
+  bool IsValid() const { return (m_current.IsValid() && m_poly.GetSize() > 0); }
+
+  m2::PolylineD const & GetPolyline() const { return m_poly; }
 
   struct Iter
   {
@@ -33,9 +37,8 @@ public:
 
   Iter GetCurrentIter() { return m_current; }
 
-  Iter FindProjection(m2::RectD const & posRect, double predictDistance = -1.0) const;
-
-  void GetCurrentDirectionPoint(m2::PointD & pt) const;
+  Iter UpdateProjectionByPrediction(m2::RectD const & posRect, double predictDistance) const;
+  Iter UpdateProjection(m2::RectD const & posRect) const;
 
 private:
   template <class DistanceFn>
