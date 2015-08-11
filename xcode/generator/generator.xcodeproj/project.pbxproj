@@ -31,7 +31,6 @@
 		6753406F1A3F2A7400A0A8C3 /* feature_merger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753403C1A3F2A7400A0A8C3 /* feature_merger.hpp */; };
 		675340701A3F2A7400A0A8C3 /* feature_sorter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753403D1A3F2A7400A0A8C3 /* feature_sorter.cpp */; };
 		675340711A3F2A7400A0A8C3 /* feature_sorter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753403E1A3F2A7400A0A8C3 /* feature_sorter.hpp */; };
-		675340721A3F2A7400A0A8C3 /* first_pass_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753403F1A3F2A7400A0A8C3 /* first_pass_parser.hpp */; };
 		675340731A3F2A7400A0A8C3 /* gen_mwm_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340401A3F2A7400A0A8C3 /* gen_mwm_info.hpp */; };
 		675340741A3F2A7400A0A8C3 /* generate_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340411A3F2A7400A0A8C3 /* generate_info.hpp */; };
 		675340771A3F2A7400A0A8C3 /* osm_decl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340441A3F2A7400A0A8C3 /* osm_decl.cpp */; };
@@ -87,7 +86,6 @@
 		6753403C1A3F2A7400A0A8C3 /* feature_merger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_merger.hpp; sourceTree = "<group>"; };
 		6753403D1A3F2A7400A0A8C3 /* feature_sorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_sorter.cpp; sourceTree = "<group>"; };
 		6753403E1A3F2A7400A0A8C3 /* feature_sorter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_sorter.hpp; sourceTree = "<group>"; };
-		6753403F1A3F2A7400A0A8C3 /* first_pass_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = first_pass_parser.hpp; sourceTree = "<group>"; };
 		675340401A3F2A7400A0A8C3 /* gen_mwm_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gen_mwm_info.hpp; sourceTree = "<group>"; };
 		675340411A3F2A7400A0A8C3 /* generate_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = generate_info.hpp; sourceTree = "<group>"; };
 		675340441A3F2A7400A0A8C3 /* osm_decl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_decl.cpp; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				6753403C1A3F2A7400A0A8C3 /* feature_merger.hpp */,
 				6753403D1A3F2A7400A0A8C3 /* feature_sorter.cpp */,
 				6753403E1A3F2A7400A0A8C3 /* feature_sorter.hpp */,
-				6753403F1A3F2A7400A0A8C3 /* first_pass_parser.hpp */,
 				675340401A3F2A7400A0A8C3 /* gen_mwm_info.hpp */,
 				675340411A3F2A7400A0A8C3 /* generate_info.hpp */,
 				675340441A3F2A7400A0A8C3 /* osm_decl.cpp */,
@@ -242,7 +239,6 @@
 				675340611A3F2A7400A0A8C3 /* check_model.hpp in Headers */,
 				6726C1D61A4AFEF4005EEA39 /* osm2meta.hpp in Headers */,
 				6753407B1A3F2A7400A0A8C3 /* osm_id.hpp in Headers */,
-				675340721A3F2A7400A0A8C3 /* first_pass_parser.hpp in Headers */,
 				675340731A3F2A7400A0A8C3 /* gen_mwm_info.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
