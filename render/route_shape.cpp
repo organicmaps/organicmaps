@@ -278,7 +278,6 @@ double GenerateGeometry(vector<m2::PointD> const & points, bool isRoute, double 
     else
     {
       float const arrowTailEndCoord = arrowTailSize;
-      float const arrowBodyEndCoord = arrowTailEndCoord + arrowTailSize;
       float const arrowHeadStartCoord = 1.0 - arrowHeadSize;
       if (i == 0)
       {
@@ -292,8 +291,8 @@ double GenerateGeometry(vector<m2::PointD> const & points, bool isRoute, double 
       }
       else
       {
-        scaledLength = arrowTailEndCoord;
-        scaledEndLength = arrowBodyEndCoord;
+        scaledLength = arrowTailEndCoord + arrowTailSize;
+        scaledEndLength = arrowTailEndCoord + arrowTailSize * 2;
       }
     }
 
