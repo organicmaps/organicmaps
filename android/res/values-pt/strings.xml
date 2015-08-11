@@ -744,4 +744,44 @@
 	<string name="search_select_map">Selecionar o Mapa</string>
 	<string name="search_select_other_map">Selecionar Outro Mapa</string>
 	<string name="search_vehicle_routes">Instruções de direção</string>
+	<!-- «Show» context menu -->
+	<string name="show">Mostrar</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Ocultar</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">Renomear</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Mais…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">Falhou o Planeamento da Rota</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Chegada</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">Começar</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">A planear a viagem</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo da rota.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">O MAPS.ME economiza tempo de caminhada. Mais de 2 milhões de km de percursos, caminhos e trilhas pedestres estão disponíveis para rotas a pé agora.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">O MAPS.ME dá as rotas pedestres mais curtas em todo o mundo! Confira: http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME dá as rotas pedestres mais curtas: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">As rotas pedestres mais curtas estão disponíveis</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">O MAPS.ME acaba de lançar as rotas a pé com base no mapa mais detalhado do mundo! Elas dão o caminho mais curto para qualquer destino. Experimente-as: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">As rotas a pé estão disponíveis no MAPS.ME!</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">As rotas a pé estão disponíveis no MAPS.ME! Elas dão o caminho mais curto para qualquer destino. Ajude seus amigos a poupar tempo caminhando, também!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">Parabéns!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">Você dominou a função rotas a pé. Ajude seus amigos a poupar tempo caminhando, também! Conte a eles sobre o MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">Quer experimentá-las?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">Elas dão o caminho mais curto para qualquer ponto de destino. Experimente-as e ajude seus amigos a poupar tempo de viagem.</string>
 </resources>

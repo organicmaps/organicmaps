@@ -747,4 +747,44 @@
 	<string name="search_select_map">Välj kartan</string>
 	<string name="search_select_other_map">Välj en annan karta</string>
 	<string name="search_vehicle_routes">Vägbeskrivning</string>
+	<!-- «Show» context menu -->
+	<string name="show">Visa</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Göm</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">Byt namn</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Mer…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">Ruttplanering misslyckades</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Ankomst</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">Starta</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">Planerar rutt</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">MAPS.ME sparar gångtid. Över 2 miljoner km gångrutter, stigar och leder finns med vägbeskrivningar till fots.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.ME ger dig den kortaste gångrutten över hela världen! Kolla in på: http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME ger dig de kortaste gångrutterna: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">Nu med de kortaste gångrutterna</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">MAPS.ME släppte precis vägbeskrivningar till fots baserade på världens mest detaljerade karta! De ger dig den kortaste rutten till alla destinationer. Prova på: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">MAPS.ME har nu vägbeskrivningar till fots!</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">Du får den kortaste rutten till alla destinationer. Testa det själv och hjälp även dina vänner att spara restid!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">Grattis!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">Du har bemästrat funktionen med vägbeskrivningar till fots. Hjälp även dina vänner att spara gångtid! Berätta för dem om MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">Vill du testa det?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">Du får den kortaste rutten till alla destinationer. Testa det själv och hjälp dina vänner att spara restid.</string>
 </resources>

@@ -751,4 +751,44 @@
 	<string name="search_select_map">اختيار الخريطة</string>
 	<string name="search_select_other_map">اختيار خريطة أخرى</string>
 	<string name="search_vehicle_routes">اتجاهات القيادة</string>
+	<!-- «Show» context menu -->
+	<string name="show">عرض</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">إخفاء</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">إعادة تسمية</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">المزيد…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">فشل في تخطيط المسار</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">الوصول</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">ابدأ</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">يتم تخطيط المسار</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">توفر لك MAPS.ME في وقت السير. يتوافر الآن أكثر من 2 مليون كيلومتر من طرق المشاة، والمسارات، والدروب المتاحة لاتجاهات السير.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">تقدم MAPS.ME طرق السير الأقصر عالمياً! راجع:http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">تقدم MAPS.ME طرق السير الأقصر: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">طرق السير الأقصر صارت متاحة</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">لقد أصدرتMAPS.ME للتو وظيفة اتجاهات السير والتي تقوم في أساسها على الخريطة الأكثر تفصيلا في العالم! أنها تزودك بأقصر الطرق إلى أي وجهة تنشدها. جربها من: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">!MAPS.ME تريد أن تجربها؟</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">إنها تعطيك الطريق الأقصر إلى أي وجهة تقصدها. ساعد أصدقائك أيضا في توفير وقت السير!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">تهانينا!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">لقد أتقنت وظيفة اتجاهات السير. ساعد أصدقائك أيضا في توفير وقت السير! اخبرهم عن MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">تتوفر اتجاهات السير في</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">إنها تعطيك الطريق الأقصر إلى أي وجهة تقصدها. جربها بنفسك، وساعد أصدقائك في إيجاز وقت السفر.</string>
 </resources>

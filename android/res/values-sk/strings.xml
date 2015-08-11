@@ -750,4 +750,44 @@
 	<string name="search_select_map">Vybrať mapu</string>
 	<string name="search_select_other_map">Vybrať inú mapu</string>
 	<string name="search_vehicle_routes">Smer jazdy</string>
+	<!-- «Show» context menu -->
+	<string name="show">Ukázať</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Skryť</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">Premenovať</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Viac…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">Plánovanie trasy zlyhalo</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Pricestovať</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">Spustiť</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">Plánovanie trasy</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Prosím, pre vytvorenie trasy si stiahnite a aktualizujte všetky mapy pozdĺž trasy.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">MAPS.ME vám ušetrí čas pri chôdzi. Viac ako 2 milióny kilometrov peších trás, tratí a chodníkov je teraz k dispozícii peším smerom.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.ME udáva najkratšie pešie trasy po celom svete! Pozrite sa na: http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME udáva najkratšie pešie trasy: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">K dispozícii sú najkratšie pešie trasy</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">MAPS.ME práve vydala Pešie smery, na základe najpodrobnejšej mapy na svete! Udávajú najkratšiu trasu na akékoľvek miesto. Vyskúšajte si ich: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">Pešie smery sú k dispozícii na MAPS.ME!</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">Udávajú najkratšiu trasu na akékoľvek miesto. Pomôžte aj svojim priateľom ušetriť čas pri chôdzi!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">Blahoželáme!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">Zvládli ste funkciu Pešie smery. Pomôžte aj svojim priateľom ušetriť čas pri chôdzi! Povedzte im o MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">Chcete si ich vyskúšať?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">Udávajú najkratšiu trasu do ľubovoľného cieľového bodu. Vyskúšajte si ich sami a pomôžte svojim priateľom ušetriť čas pri cestovaní.</string>
 </resources>

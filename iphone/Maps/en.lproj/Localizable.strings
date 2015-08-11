@@ -1193,7 +1193,7 @@
 "routing_planning_error" = "Route Planning Failed";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrive";
+"routing_arrive" = "Arrival at";
 
 /* Routing Start button title */
 "routing_start" = "Start";
@@ -1205,28 +1205,34 @@
 "dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
 
 /* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_facebook" = "MAPS.ME saves your walking time. More than 2 million km of pedestrian routes, tracks, and trails are available for Walking Directions now.";
 
 /* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "Wow! Maps.me launched Walking Routes. Install it to discover secret tracks and trails around you.";
+"share_walking_routes_messenger" = "MAPS.ME gives the shortest walking routes worldwide! Check it out: http://maps.me/get?walk_im";
 
 /* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "Wow! Maps.me launched Walking Routes. Install to discover trails near.";
+"share_walking_routes_sms" = "MAPS.ME gives the shortest walking routes: http://maps.me/get?walk";
 
 /* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Maps.me smarter then ever.";
+"share_walking_routes_email_subject" = "The shortest walking routes are available";
 
 /* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_email_body" = "MAPS.ME just released Walking Directions based on the most detailed map in the world! They give the shortest route to any destination. Try them out: http://maps.me/get?walk_em";
 
-/* Title for walking routes dialog */
-"dialog_title_share_walking_routes_first_launch" = "Smarter Then Ever.";
+/* Title for walking routes dialog, notifications etc. */
+"title_walking_available" = "Walking Directions are available in MAPS.ME!";
 
 /* Text for walking routes dialog */
-"dialog_text_share_walking_routes_first_launch" = "Our new high-accurate Pedestrian Navigation based on OpenStreetMap - the most detailed map in the World. It contains 2 360 000 kilometers of Walking Routes.";
+"share_walking_routes_first_launch" = "They give the shortest route to any destination. Help your friends save walking time too!";
 
 /* Title for walking routes dialog after 3 built routes */
-"dialog_title_share_walking_routes_active_pedestrian" = "Congratulations!";
+"share_walking_routes_congratulations" = "Congratulations!";
 
 /* Text for walking routes dialog after 3 built routes */
-"dialog_text_share_walking_routes_active_pedestrian" = "You have tried our new Walking Routes function. Ain’t it cool? (или Was it helpful?) Share the experience with friends.";
+"share_walking_routes_mastering" = "You mastered the Walking Directions function. Help your friends save walking time, too! Tell them about MAPS.ME!";
+
+/* Android notification about walking directions for update users */
+"walking_notification_text" = "Want to try them out?";
+
+/* Android notification with picture (rich) about walking directions for update users */
+"walking_rich_notification_text" = "They give the shortest route to any destination point. Try them yourself and help your friends save travel time.";

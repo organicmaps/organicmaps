@@ -744,4 +744,44 @@
 	<string name="search_select_map">地図を選択</string>
 	<string name="search_select_other_map">別の地図を選択</string>
 	<string name="search_vehicle_routes">道案内</string>
+	<!-- «Show» context menu -->
+	<string name="show">表示する</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">隠す</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">名前を変更する</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">さらに…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">ルート検索に失敗</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">到着予定</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">スタート</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">ルートを計画中</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">MAPS.MEは歩行時間を短縮します。200万キロの歩行ルート、歩道、散歩道が徒歩ルートに利用できるようになりました。</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.MEは世界中の最短徒歩ルートを提供します！要チェック：http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.MEは最短徒歩ルートを提供します：http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">最短の徒歩ルートがあります</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">MAPS.MEが世界で最も詳細な地図に基づいた徒歩ルート機能をリリースしました！どんな目的地にでも最短のルートを表示します。お試しください：http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">MAPS.MEで徒歩ルートが利用できます！</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">どんな目的地にでも最短のルートを表示します。お友達の歩行時間の短縮にも役立ててください！</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">おめでとうございます！</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">徒歩ルート機能をマスターしました。お友達の歩行時間の短縮にも役立ててください！MAPS.MEについて教えてあげてください！</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">試してみますか？</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">どんな目的地にでも最短のルートを表示します。ご自身でお試しいただき、お友達の移動時間の短縮にも役立ててください。</string>
 </resources>

@@ -1178,55 +1178,61 @@
 "search_vehicle_routes" = "Vägbeskrivning";
 
 /* «Show» context menu */
-"show" = "Show";
+"show" = "Visa";
 
 /* «Hide» context menu */
-"hide" = "Hide";
+"hide" = "Göm";
 
 /* «Rename» context menu */
-"rename" = "Rename";
+"rename" = "Byt namn";
 
 /* Bottom sheet: expand button (should be short) */
-"bottom_sheet_more" = "More…";
+"bottom_sheet_more" = "Mer…";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Route Planning Failed";
+"routing_planning_error" = "Ruttplanering misslyckades";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrive";
+"routing_arrive" = "Ankomst";
 
 /* Routing Start button title */
-"routing_start" = "Start";
+"routing_start" = "Starta";
 
 /* Planning route message in navigation view */
-"routing_planning" = "Planning Route";
+"routing_planning" = "Planerar rutt";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
+"dialog_routing_download_and_update_maps" = "För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.";
 
 /* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_facebook" = "MAPS.ME sparar gångtid. Över 2 miljoner km gångrutter, stigar och leder finns med vägbeskrivningar till fots.";
 
 /* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "Wow! Maps.me launched Walking Routes. Install it to discover secret tracks and trails around you.";
+"share_walking_routes_messenger" = "MAPS.ME ger dig den kortaste gångrutten över hela världen! Kolla in på: http://maps.me/get?walk_im";
 
 /* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "Wow! Maps.me launched Walking Routes. Install to discover trails near.";
+"share_walking_routes_sms" = "MAPS.ME ger dig de kortaste gångrutterna: http://maps.me/get?walk";
 
 /* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Maps.me smarter then ever.";
+"share_walking_routes_email_subject" = "Nu med de kortaste gångrutterna";
 
 /* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_email_body" = "MAPS.ME släppte precis vägbeskrivningar till fots baserade på världens mest detaljerade karta! De ger dig den kortaste rutten till alla destinationer. Prova på: http://maps.me/get?walk_em";
 
-/* Title for walking routes dialog */
-"dialog_title_share_walking_routes_first_launch" = "Smarter Then Ever.";
+/* Title for walking routes dialog, notifications etc. */
+"title_walking_available" = "MAPS.ME har nu vägbeskrivningar till fots!";
 
 /* Text for walking routes dialog */
-"dialog_text_share_walking_routes_first_launch" = "Our new high-accurate Pedestrian Navigation based on OpenStreetMap - the most detailed map in the World. It contains 2 360 000 kilometers of Walking Routes.";
+"share_walking_routes_first_launch" = "Du får den kortaste rutten till alla destinationer. Testa det själv och hjälp även dina vänner att spara restid!";
 
 /* Title for walking routes dialog after 3 built routes */
-"dialog_title_share_walking_routes_active_pedestrian" = "Congratulations!";
+"share_walking_routes_congratulations" = "Grattis!";
 
 /* Text for walking routes dialog after 3 built routes */
-"dialog_text_share_walking_routes_active_pedestrian" = "You have tried our new Walking Routes function. Ain’t it cool? (или Was it helpful?) Share the experience with friends.";
+"share_walking_routes_mastering" = "Du har bemästrat funktionen med vägbeskrivningar till fots. Hjälp även dina vänner att spara gångtid! Berätta för dem om MAPS.ME!";
+
+/* Android notification about walking directions for update users */
+"walking_notification_text" = "Vill du testa det?";
+
+/* Android notification with picture (rich) about walking directions for update users */
+"walking_rich_notification_text" = "Du får den kortaste rutten till alla destinationer. Testa det själv och hjälp dina vänner att spara restid.";

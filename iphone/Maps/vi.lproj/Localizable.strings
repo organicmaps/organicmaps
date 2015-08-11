@@ -1178,55 +1178,61 @@
 "search_vehicle_routes" = "Hướng dẫn lái xe";
 
 /* «Show» context menu */
-"show" = "Show";
+"show" = "Hiện";
 
 /* «Hide» context menu */
-"hide" = "Hide";
+"hide" = "Ẩn";
 
 /* «Rename» context menu */
-"rename" = "Rename";
+"rename" = "Đổi tên";
 
 /* Bottom sheet: expand button (should be short) */
-"bottom_sheet_more" = "More…";
+"bottom_sheet_more" = "Thêm…";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Route Planning Failed";
+"routing_planning_error" = "Không thể Lập Lộ trình";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrive";
+"routing_arrive" = "Đến";
 
 /* Routing Start button title */
-"routing_start" = "Start";
+"routing_start" = "Xuất phát";
 
 /* Planning route message in navigation view */
-"routing_planning" = "Planning Route";
+"routing_planning" = "Đang tìm đường";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
+"dialog_routing_download_and_update_maps" = "Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.";
 
 /* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_facebook" = "MAPS.ME tiết kiệm thời gian đi bộ. Hơn 2 triệu km của các tuyến đường dành cho người đi bộ hiện đã có sẵn cho chức năng chỉ đường đi bộ.";
 
 /* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "Wow! Maps.me launched Walking Routes. Install it to discover secret tracks and trails around you.";
+"share_walking_routes_messenger" = "MAPS.ME cung cấp các tuyến đường đi bộ ngắn nhất trên toàn thế giới! Hãy dùng thử: http://maps.me/get?walk_im";
 
 /* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "Wow! Maps.me launched Walking Routes. Install to discover trails near.";
+"share_walking_routes_sms" = "MAPS.ME cung cấp tuyến đường đi bộ ngắn nhất: http://maps.me/get?walk";
 
 /* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Maps.me smarter then ever.";
+"share_walking_routes_email_subject" = "Các tuyến đường đi bộ ngắn nhất hiện đã có sẵn";
 
 /* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_email_body" = "MAPS.ME vừa phát hành chức năng Chỉ đường Đi bộ dựa vào bản đồ chi tiết nhất trên thế giới! Chúng cung cấp tuyến đường ngắn nhất tời bất kỳ điểm đến nào. Hãy dùng thử: http://maps.me/get?walk_em";
 
-/* Title for walking routes dialog */
-"dialog_title_share_walking_routes_first_launch" = "Smarter Then Ever.";
+/* Title for walking routes dialog, notifications etc. */
+"title_walking_available" = "Chỉ đường Đi bộ đã có sẵn trong MAPS.ME!";
 
 /* Text for walking routes dialog */
-"dialog_text_share_walking_routes_first_launch" = "Our new high-accurate Pedestrian Navigation based on OpenStreetMap - the most detailed map in the World. It contains 2 360 000 kilometers of Walking Routes.";
+"share_walking_routes_first_launch" = "Chúng cung cấp tuyến đường ngắn nhất đến bất kỳ điểm đến nào. Hãy giúp bạn bè tiết kiệm thời gian đi bộ!";
 
 /* Title for walking routes dialog after 3 built routes */
-"dialog_title_share_walking_routes_active_pedestrian" = "Congratulations!";
+"share_walking_routes_congratulations" = "Xin chúc mừng!";
 
 /* Text for walking routes dialog after 3 built routes */
-"dialog_text_share_walking_routes_active_pedestrian" = "You have tried our new Walking Routes function. Ain’t it cool? (или Was it helpful?) Share the experience with friends.";
+"share_walking_routes_mastering" = "Bạn đã làm chủ được các chức năng Chỉ đường Đi bộ. Hãy giúp bạn bè tiết kiệm thời gian đi bộ! Hãy cho họ biết về MAPS.ME!";
+
+/* Android notification about walking directions for update users */
+"walking_notification_text" = "Muốn dùng thử?";
+
+/* Android notification with picture (rich) about walking directions for update users */
+"walking_rich_notification_text" = "Chúng cung cấp tuyến đường ngắn nhất đến điểm đến. Hãy dùng thử và giúp bạn bè tiết kiệm thời gian đi lại.";

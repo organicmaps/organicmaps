@@ -746,4 +746,44 @@
 	<string name="search_select_map">Chọn bản đồ</string>
 	<string name="search_select_other_map">Chọn bản đồ khác</string>
 	<string name="search_vehicle_routes">Hướng dẫn lái xe</string>
+	<!-- «Show» context menu -->
+	<string name="show">Hiện</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Ẩn</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">Đổi tên</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Thêm…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">Không thể Lập Lộ trình</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Đến</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">Xuất phát</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">Đang tìm đường</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">MAPS.ME tiết kiệm thời gian đi bộ. Hơn 2 triệu km của các tuyến đường dành cho người đi bộ hiện đã có sẵn cho chức năng chỉ đường đi bộ.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.ME cung cấp các tuyến đường đi bộ ngắn nhất trên toàn thế giới! Hãy dùng thử: http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME cung cấp tuyến đường đi bộ ngắn nhất: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">Các tuyến đường đi bộ ngắn nhất hiện đã có sẵn</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">MAPS.ME vừa phát hành chức năng Chỉ đường Đi bộ dựa vào bản đồ chi tiết nhất trên thế giới! Chúng cung cấp tuyến đường ngắn nhất tời bất kỳ điểm đến nào. Hãy dùng thử: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">Chỉ đường Đi bộ đã có sẵn trong MAPS.ME!</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">Chúng cung cấp tuyến đường ngắn nhất đến bất kỳ điểm đến nào. Hãy giúp bạn bè tiết kiệm thời gian đi bộ!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">Xin chúc mừng!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">Bạn đã làm chủ được các chức năng Chỉ đường Đi bộ. Hãy giúp bạn bè tiết kiệm thời gian đi bộ! Hãy cho họ biết về MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">Muốn dùng thử?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">Chúng cung cấp tuyến đường ngắn nhất đến điểm đến. Hãy dùng thử và giúp bạn bè tiết kiệm thời gian đi lại.</string>
 </resources>

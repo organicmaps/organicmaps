@@ -737,4 +737,44 @@
 	<string name="search_select_map">Selecteer de kaart</string>
 	<string name="search_select_other_map">Selecteer een andere kaart</string>
 	<string name="search_vehicle_routes">Routebeschrijving</string>
+	<!-- «Show» context menu -->
+	<string name="show">Tonen</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Verbergen</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">Naam wijzigen</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Meer…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">Routeberekening mislukt</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Aankomst</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">Starten</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">Route wordt berekend</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Om een route te maken, download en update alle kaarten rondom de route.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">Met MAPS.ME bespaart u op wandeltijd. Meer dan 2 miljoen km wandelroutes, parkoers en wegen zijn nu beschikbaar als wandelroutes.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.ME biedt u de kortste wandelroutes wereldwijd aan! Bekijk ze: http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME biedt de kortste wandelroutes aan: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">De kortste wandelroutes zijn beschikbaar</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">MAPS.ME heeft kort geleden de wandelroutes vrijgegeven die gebaseerd zijn op de meest gedetailleerde kaarten van de hele wereld! Ze bieden de kortste route naar alle bestemmingen. Probeer ze uit: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">Wandelroutes zijn beschikbaar op MAPS.ME!</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">Ze bieden de korste route aan naar alle bestemmingen. Help uw vrienden ook met het besparen van wandeltijd!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">Gefeliciteerd!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">U heeft de functies van wandelroutes onder de knie. Help uw vrienden ook met het besparen van wandeltijd! Vertel ze over MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">Wilt u ze uitproberen?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">Ze bieden de kortste route aan naar alle bestemmingen. Probeer ze zelf uit en help uw vrienden ook met het besparen van reistijd!</string>
 </resources>

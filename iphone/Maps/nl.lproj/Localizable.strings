@@ -1178,55 +1178,61 @@
 "search_vehicle_routes" = "Routebeschrijving";
 
 /* «Show» context menu */
-"show" = "Show";
+"show" = "Tonen";
 
 /* «Hide» context menu */
-"hide" = "Hide";
+"hide" = "Verbergen";
 
 /* «Rename» context menu */
-"rename" = "Rename";
+"rename" = "Naam wijzigen";
 
 /* Bottom sheet: expand button (should be short) */
-"bottom_sheet_more" = "More…";
+"bottom_sheet_more" = "Meer…";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Route Planning Failed";
+"routing_planning_error" = "Routeberekening mislukt";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrive";
+"routing_arrive" = "Aankomst";
 
 /* Routing Start button title */
-"routing_start" = "Start";
+"routing_start" = "Starten";
 
 /* Planning route message in navigation view */
-"routing_planning" = "Planning Route";
+"routing_planning" = "Route wordt berekend";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
+"dialog_routing_download_and_update_maps" = "Om een route te maken, download en update alle kaarten rondom de route.";
 
 /* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_facebook" = "Met MAPS.ME bespaart u op wandeltijd. Meer dan 2 miljoen km wandelroutes, parkoers en wegen zijn nu beschikbaar als wandelroutes.";
 
 /* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "Wow! Maps.me launched Walking Routes. Install it to discover secret tracks and trails around you.";
+"share_walking_routes_messenger" = "MAPS.ME biedt u de kortste wandelroutes wereldwijd aan! Bekijk ze: http://maps.me/get?walk_im";
 
 /* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "Wow! Maps.me launched Walking Routes. Install to discover trails near.";
+"share_walking_routes_sms" = "MAPS.ME biedt de kortste wandelroutes aan: http://maps.me/get?walk";
 
 /* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Maps.me smarter then ever.";
+"share_walking_routes_email_subject" = "De kortste wandelroutes zijn beschikbaar";
 
 /* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_email_body" = "MAPS.ME heeft kort geleden de wandelroutes vrijgegeven die gebaseerd zijn op de meest gedetailleerde kaarten van de hele wereld! Ze bieden de kortste route naar alle bestemmingen. Probeer ze uit: http://maps.me/get?walk_em";
 
-/* Title for walking routes dialog */
-"dialog_title_share_walking_routes_first_launch" = "Smarter Then Ever.";
+/* Title for walking routes dialog, notifications etc. */
+"title_walking_available" = "Wandelroutes zijn beschikbaar op MAPS.ME!";
 
 /* Text for walking routes dialog */
-"dialog_text_share_walking_routes_first_launch" = "Our new high-accurate Pedestrian Navigation based on OpenStreetMap - the most detailed map in the World. It contains 2 360 000 kilometers of Walking Routes.";
+"share_walking_routes_first_launch" = "Ze bieden de korste route aan naar alle bestemmingen. Help uw vrienden ook met het besparen van wandeltijd!";
 
 /* Title for walking routes dialog after 3 built routes */
-"dialog_title_share_walking_routes_active_pedestrian" = "Congratulations!";
+"share_walking_routes_congratulations" = "Gefeliciteerd!";
 
 /* Text for walking routes dialog after 3 built routes */
-"dialog_text_share_walking_routes_active_pedestrian" = "You have tried our new Walking Routes function. Ain’t it cool? (или Was it helpful?) Share the experience with friends.";
+"share_walking_routes_mastering" = "U heeft de functies van wandelroutes onder de knie. Help uw vrienden ook met het besparen van wandeltijd! Vertel ze over MAPS.ME!";
+
+/* Android notification about walking directions for update users */
+"walking_notification_text" = "Wilt u ze uitproberen?";
+
+/* Android notification with picture (rich) about walking directions for update users */
+"walking_rich_notification_text" = "Ze bieden de kortste route aan naar alle bestemmingen. Probeer ze zelf uit en help uw vrienden ook met het besparen van reistijd!";

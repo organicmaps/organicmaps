@@ -758,4 +758,44 @@
 	<string name="search_select_map">Sélectionner la carte</string>
 	<string name="search_select_other_map">Sélectionner une autre carte</string>
 	<string name="search_vehicle_routes">Indications routières</string>
+	<!-- «Show» context menu -->
+	<string name="show">Afficher</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Masquer</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">Renommer</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Plus…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">La planification de l\&#39;itinéraire a échoué</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Arrivée</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">Démarrer</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">Calcul de l\&#39;itinéraire</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Pour créer un trajet, veuillez télécharger et mettre à jour toutes les cartes concernant ce trajet.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">MAPS.ME optimise vos temps de marche. Plus de 2 millions de km de routes piétonnes, de chemins et de pistes sont répertoriées pour les itinéraires piétons.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.ME calcule les itinéraires les plus courts au monde ! Découvrez-les : http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME calcule les itinéraires les plus directs au monde : http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">Les itinéraires piétons les plus courts sont disponibles</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">MAPS.ME vient de dévoiler les Itinéraires piétons utilisant la carte la plus détaillée au monde ! Ils vous indiquent les itinéraires les plus courts vers votre destination. Découvrez-les : http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">Itinéraires piétons disponibles dans MAPS.ME !</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">Ils vous indiquent les chemins les plus directs vers chaque destination. Et n’oubliez pas d’aider vos amis à optimiser leurs trajets !</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">Félicitations !</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">Vous êtes devenu un vrai pro de la fonction Itinéraires piétons. Aidez vos amis à optimiser leurs trajets ! Faites leur découvrir MAPS.ME !</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">Vous voulez les essayer ?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">Ils vous indiquent les chemins les plus directs vers votre destination. Essayez-les par vous-même et aidez vos amis à optimiser leurs temps de trajet.</string>
 </resources>

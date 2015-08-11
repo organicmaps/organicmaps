@@ -1178,55 +1178,61 @@
 "search_vehicle_routes" = "Indicazioni stradali";
 
 /* «Show» context menu */
-"show" = "Show";
+"show" = "Mostra";
 
 /* «Hide» context menu */
-"hide" = "Hide";
+"hide" = "Nascondi";
 
 /* «Rename» context menu */
-"rename" = "Rename";
+"rename" = "Rinomina";
 
 /* Bottom sheet: expand button (should be short) */
-"bottom_sheet_more" = "More…";
+"bottom_sheet_more" = "Altro…";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Route Planning Failed";
+"routing_planning_error" = "Pianificazione del percorso fallito";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrive";
+"routing_arrive" = "Arrivo";
 
 /* Routing Start button title */
-"routing_start" = "Start";
+"routing_start" = "Parti";
 
 /* Planning route message in navigation view */
-"routing_planning" = "Planning Route";
+"routing_planning" = "Calcolo del percorso";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
+"dialog_routing_download_and_update_maps" = "Per creare un percorso, scaricare e aggiornare tutte le mappe interessate dal percorso.";
 
 /* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_facebook" = "MAPS.ME ti fa risparmiare tempo anche a piedi. Disponibili oltre 2 milioni di km di percorsi pedonali, itinerari e sentieri pedonali.";
 
 /* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "Wow! Maps.me launched Walking Routes. Install it to discover secret tracks and trails around you.";
+"share_walking_routes_messenger" = "MAPS.ME ti offre i percorsi pedonali più brevi in tutto il mondo. Scopri su: http://maps.me/get?walk_im";
 
 /* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "Wow! Maps.me launched Walking Routes. Install to discover trails near.";
+"share_walking_routes_sms" = "MAPS.ME offre i percorsi pedonali più brevi:http://maps.me/get?walk";
 
 /* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Maps.me smarter then ever.";
+"share_walking_routes_email_subject" = "Disponibili i percorsi pedonali più brevi";
 
 /* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_email_body" = "MAPS.ME ha appena lanciato i percorsi pedonali per trovare la strada più breve verso qualsiasi destinazione basati sulla mappa più dettagliata al mondo. Provali ora: http://maps.me/get?walk_em";
 
-/* Title for walking routes dialog */
-"dialog_title_share_walking_routes_first_launch" = "Smarter Then Ever.";
+/* Title for walking routes dialog, notifications etc. */
+"title_walking_available" = "Percorsi pedonali ora disponibili su MAPS.ME!";
 
 /* Text for walking routes dialog */
-"dialog_text_share_walking_routes_first_launch" = "Our new high-accurate Pedestrian Navigation based on OpenStreetMap - the most detailed map in the World. It contains 2 360 000 kilometers of Walking Routes.";
+"share_walking_routes_first_launch" = "Indicano il percorso più veloce verso la tua destinazione. Aiuta i tuoi amici a risparmiare tempo!";
 
 /* Title for walking routes dialog after 3 built routes */
-"dialog_title_share_walking_routes_active_pedestrian" = "Congratulations!";
+"share_walking_routes_congratulations" = "Congratulazioni!";
 
 /* Text for walking routes dialog after 3 built routes */
-"dialog_text_share_walking_routes_active_pedestrian" = "You have tried our new Walking Routes function. Ain’t it cool? (или Was it helpful?) Share the experience with friends.";
+"share_walking_routes_mastering" = "Hai usufruito della funzione percorsi pedonali. Aiuta i tuoi amici a risparmiare tempo. Invitali a scoprire MAPS.ME!";
+
+/* Android notification about walking directions for update users */
+"walking_notification_text" = "Vuoi provarli?";
+
+/* Android notification with picture (rich) about walking directions for update users */
+"walking_rich_notification_text" = "Indicano il percorso più veloce verso la tua destinazione. Provali tu stesso e aiuta i tuoi amici a risparmiare tempo.";

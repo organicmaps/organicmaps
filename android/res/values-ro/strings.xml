@@ -743,4 +743,44 @@
 	<string name="search_select_map">Selectați harta</string>
 	<string name="search_select_other_map">Selectați altă hartă</string>
 	<string name="search_vehicle_routes">Indicații rutiere</string>
+	<!-- «Show» context menu -->
+	<string name="show">Afișare</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Ascundere</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">Redenumire</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Mai multe…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">Planificarea rutei a eșuat</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Sosire</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">Incepeți</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">Se determină ruta</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Pentru a crea o rută, vă rugăm să descărcați și să actualizați toate hărțile de pe parcursul rutei.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">MAPS.ME vă reduce timpul de mers pe jos. Peste 2 milioane de kilometri de rute pietonale, trasee și itinerarii sunt disponibile acum la indicațiile pentru deplasarea pietonală.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.ME oferă cele mai scurte rute de deplasare pietonală din întreaga lume! Vizitați http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME oferă cele mai scurte rute de deplasare pietonală: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">Sunt disponibile cele mai scurte rute de mers de jos</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">MAPS.ME tocmai a lansat rute de mers pe jos, bazată pe cea mai detaliată hartă din lume! Ea vă oferă cea mai scurtă rută către orice destinație. Încercați-o: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">Rute de mers pe jos este disponibilă în MAPS.ME!</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">Ea vă oferă cea mai scurtă rută către orice destinație. Ajutați-i și pe prietenii dvs. să-și reducă timpul de deplasare pe jos!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">Felicitări!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">Ați utilizat cu succes rute de mers pe jos. Ajutați-i și pe prietenii dvs. să-și reducă timpul de deplasare pe jos! Spuneți-le despre MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">Doriți să o încercați?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">Ea vă oferă cea mai scurtă rută către orice punct de destinație. Încercați-o și ajutați-vă prietenii să-și reducă timpul de deplasare.</string>
 </resources>

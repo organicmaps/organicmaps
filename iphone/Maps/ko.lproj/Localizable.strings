@@ -1178,55 +1178,61 @@
 "search_vehicle_routes" = "운전 방향";
 
 /* «Show» context menu */
-"show" = "Show";
+"show" = "표시";
 
 /* «Hide» context menu */
-"hide" = "Hide";
+"hide" = "숨기기";
 
 /* «Rename» context menu */
-"rename" = "Rename";
+"rename" = "다른 이름으로 변경";
 
 /* Bottom sheet: expand button (should be short) */
-"bottom_sheet_more" = "More…";
+"bottom_sheet_more" = "기타…";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Route Planning Failed";
+"routing_planning_error" = "경로 계획 실패";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrive";
+"routing_arrive" = "도착";
 
 /* Routing Start button title */
-"routing_start" = "Start";
+"routing_start" = "시작";
 
 /* Planning route message in navigation view */
-"routing_planning" = "Planning Route";
+"routing_planning" = "경로 계획 중";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
+"dialog_routing_download_and_update_maps" = "경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.";
 
 /* Text for facebook sharing news about walking routes */
-"share_walking_routes_facebook" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_facebook" = "MAPS.ME는 도보 시간을 절약해 줍니다. 도보 방향에 대해 2,000,000km 이상의 보행자 경로, 트랙 및 산책로를 사용할 수 있습니다.";
 
 /* Text for messenger sharing news about walking routes */
-"share_walking_routes_messenger" = "Wow! Maps.me launched Walking Routes. Install it to discover secret tracks and trails around you.";
+"share_walking_routes_messenger" = "MAPS.ME는 전 세계적으로 가장 짧은 도보 경로를 제공합니다! 이를 확인하십시오: http://maps.me/get?walk_im";
 
 /* Text for sms sharing news about walking routes */
-"share_walking_routes_sms" = "Wow! Maps.me launched Walking Routes. Install to discover trails near.";
+"share_walking_routes_sms" = "MAPS.ME는 가장 짧은 도보 경로를 제공합니다: http://maps.me/get?walk";
 
 /* Subject for email sharing news about walking routes */
-"share_walking_routes_email_subject" = "Maps.me smarter then ever.";
+"share_walking_routes_email_subject" = "짧은 도보 경로를 사용할 수 있습니다";
 
 /* Text for email sharing news about walking routes */
-"share_walking_routes_email_body" = "Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.";
+"share_walking_routes_email_body" = "MAPS.ME는 세계에서 가장 상세한 지도를 기반으로 도보 방향을 출시했습니다! 이는 모든 목적지까지의 최단 경로를 제공합니다. 이를 시도하십시오: http://maps.me/get?walk_em";
 
-/* Title for walking routes dialog */
-"dialog_title_share_walking_routes_first_launch" = "Smarter Then Ever.";
+/* Title for walking routes dialog, notifications etc. */
+"title_walking_available" = "도보 방향은 MAPS.ME에서 사용할 수 있습니다!";
 
 /* Text for walking routes dialog */
-"dialog_text_share_walking_routes_first_launch" = "Our new high-accurate Pedestrian Navigation based on OpenStreetMap - the most detailed map in the World. It contains 2 360 000 kilometers of Walking Routes.";
+"share_walking_routes_first_launch" = "모든 목적지 포인트로의 최단 경로를 제공합니다. 친구들을 도와 도보 시간도 절약하게 해줍니다!";
 
 /* Title for walking routes dialog after 3 built routes */
-"dialog_title_share_walking_routes_active_pedestrian" = "Congratulations!";
+"share_walking_routes_congratulations" = "축하합니다!";
 
 /* Text for walking routes dialog after 3 built routes */
-"dialog_text_share_walking_routes_active_pedestrian" = "You have tried our new Walking Routes function. Ain’t it cool? (или Was it helpful?) Share the experience with friends.";
+"share_walking_routes_mastering" = "도보 방향 기능을 마스터했습니다. 친구들을 도와 도보 시간을 절약하게 해줍니다! MAPS.ME에 대해 그들에게 말하세요!";
+
+/* Android notification about walking directions for update users */
+"walking_notification_text" = "이를 시도하시겠습니까?";
+
+/* Android notification with picture (rich) about walking directions for update users */
+"walking_rich_notification_text" = "모든 목적지 포인트로의 최단 경로를 제공합니다. 이를 시도하고 친구들을 도와 여행 시간을 절약합니다.";

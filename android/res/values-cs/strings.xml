@@ -754,4 +754,44 @@
 	<string name="search_select_map">Vybrat mapu</string>
 	<string name="search_select_other_map">Vybrat jinou mapu</string>
 	<string name="search_vehicle_routes">Pokyny pro řízení</string>
+	<!-- «Show» context menu -->
+	<string name="show">Ukázat</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Skrýt</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">Přejmenovat</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Více…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">Selhalo plánování trasy</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Příjezd</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">Začít</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">Probíhá plánování trasy</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Abyste vytvořili trasu stáhněte si prosím a aktualizuje všechny mapy na cestě.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">MAPS.ME vám ušetří čas chůze. Nyní jsou dostupné pokyny pro chodce pro více než 2 milióny km tratí pro chodce, stezek a pěšin.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.ME vám po celém světě ukáže nejkratší trasy pro chodce! Vyzkoušejte to: http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME vám ukáže nejkratší trasy pro chodce: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">Jsou dostupné nejkratší trasy pro chodce</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">MAPS.ME právě uvedlo pokyny pro chodce založené na nejpodrobnější mapě světa! Ukážou vám nejkratší trasu do jakékoliv destinace. Vyzkoušejte je: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">V MAPS.ME jsou dostupné pokyny pro chodce!</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">Ukážou vám nejkratší trasu do jakékoliv destinace. Pomozte svým kamarádům také ušetřit čas chůze!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">Blahopřejeme!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">Zvládli jste funkci Pokyny pro chodce. Pomozte svým kamarádům také ušetřit čas chůze! Řekněte jim o MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">Chcete je vyzkoušet?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">Ukážou vám nejkratší trasu do cílového bodu. Vyzkoušejte si to sami a pomozte svým kamarádům ušetřit čas cestování.</string>
 </resources>

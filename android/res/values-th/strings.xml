@@ -749,4 +749,44 @@
 	<string name="search_select_map">เลือกแผนที่</string>
 	<string name="search_select_other_map">เลือกแผนที่อื่น</string>
 	<string name="search_vehicle_routes">เส้นทางการขับรถ</string>
+	<!-- «Show» context menu -->
+	<string name="show">แสดง</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">ซ่อน</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">เปลี่ยนชื่อ</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">เพิ่มเติม…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">การวางแผนเส้นทางล้มเหลว</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">มาถึง</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">เริ่มต้น</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">กำลังวางแผนเส้นทาง</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">MAPS.ME ช่วยคุณประหยัดเวลาเดิน มีเส้นทางเดินเท้า ทางเดินเท้าและทางเดินอยู่มากกว่า 2 ล้านกิโลเมตรสำหรับการแนะนำเส้นทางเดินในตอนนี้</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.ME บอกเส้นทางเดินที่สั้นที่สุดทั่วโลก! ลองดูที่: http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME บอกเส้นทางเดินที่สั้นที่สุด: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">มีเส้นทางเดินที่สั้นที่สุดให้คุณแล้ว</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">MAPS.ME เพิ่งเปิดตัวการแนะนำเส้นทางเดินตามเส้นทางในแผนที่ที่ละเอียดที่สุดในโลก! มันบอกเส้นทางเดินที่สั้นที่สุดไปยังจุดหมายปลายทางต่าง ๆ ทดลองใช้มันที่: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">มีการแนะนำเส้นทางเดินให้ใช้แล้วใน MAPS.ME!</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">มันบอกเส้นทางที่สั้นที่สุดไปยังจุดหมายปลายทาง ทดลองมันด้วยตัวคุณเอง ช่วยเพื่อนของคุณประหยัดเวลาเดินด้วย!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">ขอแสดงความยินดี!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">คุณใช้ฟังก์ชันการแนะนำเส้นทางเดินเป็นแล้ว ช่วยเพื่อนของคุณประหยัดเวลาเดินด้วย! บอกพวกเขาเกี่ยวกับ MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">ต้องการทดลองใช้มันหรือไม่?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">มันบอกเส้นทางที่สั้นที่สุดไปยังจุดหมายปลายทาง ทดลองมันด้วยตัวคุณเองและช่วยเพื่อน ๆ ประหยัดเวลาเดินทาง</string>
 </resources>

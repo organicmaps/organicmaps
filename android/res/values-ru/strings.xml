@@ -769,11 +769,33 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Ошибка построения маршрута</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Прибытие</string>
+	<string name="routing_arrive">Прибытие в</string>
 	<!-- Routing Start button title -->
 	<string name="routing_start">Начать</string>
 	<!-- Planning route message in navigation view -->
 	<string name="routing_planning">Поиск маршрута</string>
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
-	<string name="dialog_routing_download_and_update_maps">Для построения маршрута загрузите и обновите все карты по пути следования</string>
+	<string name="dialog_routing_download_and_update_maps">Для построения маршрута загрузите и обновите все карты по пути следования.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">MAPS.ME экономит время на передвижения пешком. Более двух миллионов км. пешеходных дорог и троп используется для построения маршрутов.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.ME найдет кратчайшие пешеходные маршруты по всему миру! Проверь сам:  http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME ищет кратчайшие пешеходные маршруты: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">Пешеходные маршруты теперь доступны в MAPS.ME</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">В приложении MAPS.ME появилась пешеходная навигация, разработанная на базе самой детальной карты мира! Благодаря ей ты всегда сможешь найти кратчайший путь к любому месту. Проверь сам: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">В MAPS.ME появилась пешеходная навигация!</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">С её помощью ты найдешь кратчайший путь до любого места. Попробуй сам и поделись новостью с друзьями: пусть и они экономят время на дорогу!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">Поздравляем!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">Теперь ты знаешь, как работают пешеходные маршруты. Помоги друзьям также экономить время на дорогу. Расскажи им о MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">Хочешь проверить, как она работает?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">С её помощью ты найдешь кратчайший путь до любого места. Попробуй сам и поделись новостью с друзьями: пусть и они экономят время на дорогу.</string>
 </resources>

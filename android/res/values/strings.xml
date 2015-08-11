@@ -771,7 +771,7 @@
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Route Planning Failed</string>
 	<!-- Arrive routing message in navigation view -->
-	<string name="routing_arrive">Arrive</string>
+	<string name="routing_arrive">Arrival at</string>
 	<!-- Routing Start button title -->
 	<string name="routing_start">Start</string>
 	<!-- Planning route message in navigation view -->
@@ -779,21 +779,25 @@
 	<!-- Text for routing::IRouter::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Download and update all map along the projected path to calculate route.</string>
 	<!-- Text for facebook sharing news about walking routes -->
-	<string name="share_walking_routes_facebook">Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.</string>
+	<string name="share_walking_routes_facebook">MAPS.ME saves your walking time. More than 2 million km of pedestrian routes, tracks, and trails are available for Walking Directions now.</string>
 	<!-- Text for messenger sharing news about walking routes -->
-	<string name="share_walking_routes_messenger">Wow! Maps.me launched Walking Routes. Install it to discover secret tracks and trails around you.</string>
+	<string name="share_walking_routes_messenger">MAPS.ME gives the shortest walking routes worldwide! Check it out: http://maps.me/get?walk_im</string>
 	<!-- Text for sms sharing news about walking routes -->
-	<string name="share_walking_routes_sms">Wow! Maps.me launched Walking Routes. Install to discover trails near.</string>
+	<string name="share_walking_routes_sms">MAPS.ME gives the shortest walking routes: http://maps.me/get?walk</string>
 	<!-- Subject for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_subject">Maps.me smarter then ever.</string>
+	<string name="share_walking_routes_email_subject">The shortest walking routes are available</string>
 	<!-- Text for email sharing news about walking routes -->
-	<string name="share_walking_routes_email_body">Great News! Maps.me launched high-accurate Walking Routes. Install it to discover secret tracks and trails all over the world.</string>
-	<!-- Title for walking routes dialog -->
-	<string name="dialog_title_share_walking_routes_first_launch">Smarter Then Ever.</string>
+	<string name="share_walking_routes_email_body">MAPS.ME just released Walking Directions based on the most detailed map in the world! They give the shortest route to any destination. Try them out: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">Walking Directions are available in MAPS.ME!</string>
 	<!-- Text for walking routes dialog -->
-	<string name="dialog_text_share_walking_routes_first_launch">Our new high-accurate Pedestrian Navigation based on OpenStreetMap - the most detailed map in the World. It contains 2 360 000 kilometers of Walking Routes.</string>
+	<string name="share_walking_routes_first_launch">They give the shortest route to any destination. Help your friends save walking time too!</string>
 	<!-- Title for walking routes dialog after 3 built routes -->
-	<string name="dialog_title_share_walking_routes_active_pedestrian">Congratulations!</string>
+	<string name="share_walking_routes_congratulations">Congratulations!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="dialog_text_share_walking_routes_active_pedestrian">You have tried our new Walking Routes function. Ain’t it cool? (или Was it helpful?) Share the experience with friends.</string>
+	<string name="share_walking_routes_mastering">You mastered the Walking Directions function. Help your friends save walking time, too! Tell them about MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">Want to try them out?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">They give the shortest route to any destination point. Try them yourself and help your friends save travel time.</string>
 </resources>

@@ -735,4 +735,44 @@
 	<string name="search_select_map">지도 선택</string>
 	<string name="search_select_other_map">다른 지도 선택</string>
 	<string name="search_vehicle_routes">운전 방향</string>
+	<!-- «Show» context menu -->
+	<string name="show">표시</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">숨기기</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">다른 이름으로 변경</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">기타…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">경로 계획 실패</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">도착</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">시작</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">경로 계획 중</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">MAPS.ME는 도보 시간을 절약해 줍니다. 도보 방향에 대해 2,000,000km 이상의 보행자 경로, 트랙 및 산책로를 사용할 수 있습니다.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.ME는 전 세계적으로 가장 짧은 도보 경로를 제공합니다! 이를 확인하십시오: http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME는 가장 짧은 도보 경로를 제공합니다: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">짧은 도보 경로를 사용할 수 있습니다</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">MAPS.ME는 세계에서 가장 상세한 지도를 기반으로 도보 방향을 출시했습니다! 이는 모든 목적지까지의 최단 경로를 제공합니다. 이를 시도하십시오: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">도보 방향은 MAPS.ME에서 사용할 수 있습니다!</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">모든 목적지 포인트로의 최단 경로를 제공합니다. 친구들을 도와 도보 시간도 절약하게 해줍니다!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">축하합니다!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">도보 방향 기능을 마스터했습니다. 친구들을 도와 도보 시간을 절약하게 해줍니다! MAPS.ME에 대해 그들에게 말하세요!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">이를 시도하시겠습니까?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">모든 목적지 포인트로의 최단 경로를 제공합니다. 이를 시도하고 친구들을 도와 여행 시간을 절약합니다.</string>
 </resources>

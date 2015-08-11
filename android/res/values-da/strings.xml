@@ -747,4 +747,44 @@
 	<string name="search_select_map">Vælk kortet</string>
 	<string name="search_select_other_map">Vælg et andet kort</string>
 	<string name="search_vehicle_routes">Kørselsvejledning</string>
+	<!-- «Show» context menu -->
+	<string name="show">Vis</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Skjul</string>
+	<!-- «Rename» context menu -->
+	<string name="rename">Omdøb</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Mere…</string>
+	<!-- Failed planning route message in navigation view -->
+	<string name="routing_planning_error">Ruteplanlægning mislykkedes</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Ankomst</string>
+	<!-- Routing Start button title -->
+	<string name="routing_start">Start</string>
+	<!-- Planning route message in navigation view -->
+	<string name="routing_planning">Planlægger rute</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">For at oprette en rute skal du hente og opdatere alle kort langs ruten.</string>
+	<!-- Text for facebook sharing news about walking routes -->
+	<string name="share_walking_routes_facebook">MAPS.ME sparer dig gå-tid. Mere end 2 millioner km. gågader, gangstier og stier er nu tilgængelige for rutevejledninger til fods.</string>
+	<!-- Text for messenger sharing news about walking routes -->
+	<string name="share_walking_routes_messenger">MAPS.ME giver dig den korteste rute til fods over hele verden! Prøv det: http://maps.me/get?walk_im</string>
+	<!-- Text for sms sharing news about walking routes -->
+	<string name="share_walking_routes_sms">MAPS.ME giver dig den korteste rute til fods: http://maps.me/get?walk</string>
+	<!-- Subject for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_subject">De korteste ruter til fods er nu tilgængelige</string>
+	<!-- Text for email sharing news about walking routes -->
+	<string name="share_walking_routes_email_body">MAPS.ME har netop udgivet Rutevejledninger til fods, baseret på de mest detaljerede kort i verden. De giver den korteste rute til enhver destination. Prøv det: http://maps.me/get?walk_em</string>
+	<!-- Title for walking routes dialog, notifications etc. -->
+	<string name="title_walking_available">Rutevejledninger til fods er tilgængelige i MAPS.ME!</string>
+	<!-- Text for walking routes dialog -->
+	<string name="share_walking_routes_first_launch">Den giver den korteste rute til enhver destination, Hjælp dine venner med også at spare gå-tid!</string>
+	<!-- Title for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_congratulations">Tillykke!</string>
+	<!-- Text for walking routes dialog after 3 built routes -->
+	<string name="share_walking_routes_mastering">Du har fundet ud at at bruge rutevejledning til fods funktionen. Hjælp dine venner med også at spare gå-tid! Fortæl dem om MAPS.ME!</string>
+	<!-- Android notification about walking directions for update users -->
+	<string name="walking_notification_text">Vil du prøve det?</string>
+	<!-- Android notification with picture (rich) about walking directions for update users -->
+	<string name="walking_rich_notification_text">Den giver den korteste rute til enhver destination. Prøv det selv, og hjælp dine venner med at spare rejsetid.</string>
 </resources>
