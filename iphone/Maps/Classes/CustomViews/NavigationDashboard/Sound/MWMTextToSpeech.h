@@ -2,7 +2,7 @@
 //  MWMTextToSpeech.h
 //  Maps
 //
-//  Created by Vladimir Byko-Ianko on 10.08.15.
+//  Created by vbykoianko on 10.08.15.
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
@@ -11,10 +11,9 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
-
-@interface  MWMTextToSpeech : NSObject
+@interface MWMTextToSpeech : NSObject
 
 - (instancetype)init;
-- (void)speakNotifications: (vector<string> const &)turnNotifications;
+- (void)speakNotifications:(vector<string> const &)turnNotifications;
 
 @end

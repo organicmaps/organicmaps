@@ -2,18 +2,18 @@
 //  MWMTextToSpeech.cpp
 //  Maps
 //
-//  Created by Vladimir Byko-Ianko on 10.08.15.
+//  Created by vbykoianko on 10.08.15.
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
 #import <AVFoundation/AVFoundation.h>
+#import "Common.h"
+#import "MWMTextToSpeech.h"
 
-#include "MWMTextToSpeech.h"
 #include "Framework.h"
 
-
 @interface MWMTextToSpeech()
-@property (readwrite, nonatomic, strong) AVSpeechSynthesizer *speechSynthesizer;
+@property (nonatomic) AVSpeechSynthesizer * speechSynthesizer;
 @property (nonatomic) AVSpeechSynthesisVoice * speechVoice;
 @property (nonatomic) float speechRate;
 @end
@@ -31,15 +31,12 @@
     // [AVSpeechSynthesisVoice currentLanguageCode] is used now because of we need a language code in BCP-47.
     [self setLocaleIfAvailable:[AVSpeechSynthesisVoice currentLanguageCode]];
     // iOS has an issue with speechRate. AVSpeechUtteranceDefaultSpeechRate does not work correctly. It's a work around.
-    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1)
-      self.speechRate = 0.15;
-    else
-      self.speechRate = 0.3;
+    self.speechRate = isIOSVersionLessThan(@"7.1.1") ? 0.3 : 0.15;
   }
   return self;
 }
 
-+ (NSString *)TwineFromBCP47:(NSString *)bcp47LangName
++ (NSString *)twineFromBCP47:(NSString *)bcp47LangName
 {
   NSAssert(bcp47LangName, @"bcp47LangName is nil");
   
@@ -60,15 +57,14 @@
   NSAssert(locale, @"locale is nil");
   
   NSArray * availTtsLangs = [AVSpeechSynthesisVoice speechVoices];
-  NSAssert(locale, @"availTtsLangs is nil");
+  NSAssert(availTtsLangs, @"availTtsLangs is nil");
   
-  NSString * localeToSet = locale;
-  AVSpeechSynthesisVoice * voiceToSet = [AVSpeechSynthesisVoice voiceWithLanguage:localeToSet];
-  if(!voiceToSet || ![availTtsLangs containsObject:voiceToSet])
-    localeToSet = @"en-GB";
+  AVSpeechSynthesisVoice * voice = [AVSpeechSynthesisVoice voiceWithLanguage:locale];
+  if(!voice || ![availTtsLangs containsObject:voice])
+    locale = @"en-GB";
   
-  self.speechVoice = [AVSpeechSynthesisVoice voiceWithLanguage:localeToSet];
-  GetFramework().SetTurnNotificationsLocale([[MWMTextToSpeech TwineFromBCP47:localeToSet] UTF8String]);
+  self.speechVoice = [AVSpeechSynthesisVoice voiceWithLanguage:locale];
+  GetFramework().SetTurnNotificationsLocale([[MWMTextToSpeech twineFromBCP47:locale] UTF8String]);
 }
 
 - (void)speakText:(NSString *)textToSpeak
@@ -83,15 +79,13 @@
   [self.speechSynthesizer speakUtterance:utterance];
 }
 
-- (void)speakNotifications: (vector<string> const &)turnNotifications
+- (void)speakNotifications:(vector<string> const &)turnNotifications
 {
   if (turnNotifications.empty())
     return;
   
   for (auto const & text : turnNotifications)
-  {
     [self speakText:@(text.c_str())];
-  }
 }
 
 @end

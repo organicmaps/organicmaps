@@ -12,7 +12,7 @@
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRoutePreview.h"
-#import "MwmTextToSpeech.h"
+#import "MWMTextToSpeech.h"
 
 @interface MWMNavigationDashboardManager ()
 
@@ -27,8 +27,8 @@
 @property (weak, nonatomic) UIView * ownerView;
 @property (weak, nonatomic) id<MWMNavigationDashboardManagerProtocol> delegate;
 
-@property (nonatomic, readwrite) MWMNavigationDashboardEntity * entity;
-@property (nonatomic, readwrite) MWMTextToSpeech * tts;
+@property (nonatomic) MWMNavigationDashboardEntity * entity;
+@property (nonatomic) MWMTextToSpeech * tts;
 @end
 
 @implementation MWMNavigationDashboardManager
