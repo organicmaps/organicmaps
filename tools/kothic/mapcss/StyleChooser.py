@@ -88,16 +88,6 @@ class StyleChooser:
         self.compatible_types = set()
         self.has_evals = False
 
-    def get_numerics(self):
-        """
-        Returns a set of number-compared values.
-        """
-        a = set()
-        for r in self.ruleChains:
-            a.update(r.get_numerics())
-        a.discard(False)
-        return a
-
     def get_interesting_tags(self, ztype, zoom):
         """
         Returns a set of tags that were used in here.

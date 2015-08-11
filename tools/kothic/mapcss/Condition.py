@@ -113,12 +113,6 @@ class Condition:
             return set(["*"]) # unknown
         return set([self.params[0]])
 
-    def get_numerics(self):
-        if self.type in ("<", ">", ">=", "<="):
-            return self.params[0]
-        else:
-            return False
-
     def test(self, tags):
         """
         Test a hash against this condition

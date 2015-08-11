@@ -79,13 +79,6 @@ class Rule():
                 break
         return a
 
-    def get_numerics(self):
-        a = set()
-        for condition in self.conditions:
-            a.add(condition.get_numerics())
-        a.discard(False)
-        return a
-
 
 def _test_feature_compatibility(f1, f2, tags={}):
     """
