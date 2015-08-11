@@ -12,6 +12,8 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
+#include "platform/preferred_languages.hpp"
+
 @implementation MWMSharePedestrianRoutesToastActivityItem
 
 #pragma mark - UIActivityItemSource
@@ -26,8 +28,13 @@
 {
   NSString * event = @"MWMSharePedestrianRoutesToastActivityItem:activityViewController:itemForActivityType:";
   [Alohalytics logEvent:event withValue:activityType];
+  [Statistics.instance logEvent:event withParameters:@{@"type" : activityType}];
   if ([UIActivityTypePostToFacebook isEqualToString:activityType])
-    return [NSURL URLWithString:@"http://maps.me/fb_share"];
+  {
+    NSString * url = [NSString stringWithFormat:@"http://maps.me/fb-pedestrian?lang=%@",
+                      @(languages::GetCurrentNorm().c_str())];
+    return [NSURL URLWithString:url];
+  }
   if ([UIActivityTypeMessage isEqualToString:activityType])
     return L(@"share_walking_routes_sms");
   if ([UIActivityTypeMail isEqualToString:activityType])

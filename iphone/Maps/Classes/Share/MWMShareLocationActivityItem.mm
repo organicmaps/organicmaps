@@ -75,6 +75,7 @@ NSString * httpGe0Url(NSString * shortUrl)
     [[Statistics instance] logEvent:@"ge0(zero) MAIL Export"];
     return [self itemForMailApp];
   }
+  [Statistics.instance logEvent:event withParameters:@{@"type" : activityType}];
   return [self itemDefault];
 }
 
