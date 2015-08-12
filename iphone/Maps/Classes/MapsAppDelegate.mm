@@ -153,8 +153,21 @@ void InitLocalizedStrings()
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
   [Statistics.instance logEvent:@"Push received" withParameters:userInfo];
-  [PFPush handlePush:userInfo];
+  if (![self handleURLPush:userInfo])
+    [PFPush handlePush:userInfo];
   completionHandler(UIBackgroundFetchResultNoData);
+}
+
+- (BOOL)handleURLPush:(NSDictionary *)userInfo
+{
+  auto app = UIApplication.sharedApplication;
+  if (app.applicationState != UIApplicationStateInactive)
+    return NO;
+  NSString * openLink = userInfo[@"openURL"];
+  if (!openLink)
+    return NO;
+  [app openURL:[NSURL URLWithString:openLink]];
+  return YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
