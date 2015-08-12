@@ -800,4 +800,9 @@
 	<string name="walking_notification_text">Want to try them out?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">They give the shortest route to any destination point. Try them yourself and help your friends save travel time.</string>
+	<string name="rate_alert_title">We need your feedback!</string>
+	<string name="rate_alert_default_message">Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better</string>
+	<string name="rate_alert_five_star_message">Hooray! We love you too!</string>
+	<string name="rate_alert_four_star_message">Thank you, we will do our best!</string>
+	<string name="rate_alert_less_than_four_star_message">Tell us, please, what can we do to make it better?</string>
 </resources>

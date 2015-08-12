@@ -1236,3 +1236,13 @@
 
 /* Android notification with picture (rich) about walking directions for update users */
 "walking_rich_notification_text" = "Ofrecen la ruta más corta a cualquier lugar de destino. Pruébalas y ayuda a tus amigos a ahorrar tiempo de viaje.";
+
+"rate_alert_title" = "We need your feedback!";
+
+"rate_alert_default_message" = "Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better";
+
+"rate_alert_five_star_message" = "Hooray! We love you too!";
+
+"rate_alert_four_star_message" = "Thank you, we will do our best!";
+
+"rate_alert_less_than_four_star_message" = "Tell us, please, what can we do to make it better?";
