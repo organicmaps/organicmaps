@@ -141,6 +141,8 @@
 		67534C3B1A40965900A0A8C3 /* texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67534C101A40965900A0A8C3 /* texture.hpp */; };
 		67534C3E1A40965900A0A8C3 /* vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67534C131A40965900A0A8C3 /* vertex.cpp */; };
 		67534C3F1A40965900A0A8C3 /* vertex.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67534C141A40965900A0A8C3 /* vertex.hpp */; };
+		67AB92F61B7B3F2200AB5194 /* route_vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB92F41B7B3F2200AB5194 /* route_vertex.cpp */; };
+		67AB92F71B7B3F2200AB5194 /* route_vertex.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AB92F51B7B3F2200AB5194 /* route_vertex.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -281,6 +283,8 @@
 		67534C101A40965900A0A8C3 /* texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = texture.hpp; sourceTree = "<group>"; };
 		67534C131A40965900A0A8C3 /* vertex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertex.cpp; sourceTree = "<group>"; };
 		67534C141A40965900A0A8C3 /* vertex.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vertex.hpp; sourceTree = "<group>"; };
+		67AB92F41B7B3F2200AB5194 /* route_vertex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_vertex.cpp; sourceTree = "<group>"; };
+		67AB92F51B7B3F2200AB5194 /* route_vertex.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route_vertex.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,6 +426,8 @@
 		67534BE81A40963C00A0A8C3 /* opengl */ = {
 			isa = PBXGroup;
 			children = (
+				67AB92F41B7B3F2200AB5194 /* route_vertex.cpp */,
+				67AB92F51B7B3F2200AB5194 /* route_vertex.hpp */,
 				67534BE91A40965900A0A8C3 /* base_texture.cpp */,
 				67534BEA1A40965900A0A8C3 /* base_texture.hpp */,
 				67534BEB1A40965900A0A8C3 /* buffer_object.cpp */,
@@ -519,6 +525,7 @@
 				67534C161A40965900A0A8C3 /* base_texture.hpp in Headers */,
 				675348031A4059DD00A0A8C3 /* glyph_cache.hpp in Headers */,
 				6753480F1A4059DD00A0A8C3 /* overlay_element.hpp in Headers */,
+				67AB92F71B7B3F2200AB5194 /* route_vertex.hpp in Headers */,
 				675347F01A4059DD00A0A8C3 /* data_formats.hpp in Headers */,
 				675348201A4059DD00A0A8C3 /* pipeline_manager.hpp in Headers */,
 				675348271A4059DD00A0A8C3 /* resource_cache.hpp in Headers */,
@@ -644,6 +651,7 @@
 				6753481F1A4059DD00A0A8C3 /* pipeline_manager.cpp in Sources */,
 				675348001A4059DD00A0A8C3 /* glyph_cache_impl.cpp in Sources */,
 				675347E51A4059DD00A0A8C3 /* circle_element.cpp in Sources */,
+				67AB92F61B7B3F2200AB5194 /* route_vertex.cpp in Sources */,
 				675348041A4059DD00A0A8C3 /* glyph_layout.cpp in Sources */,
 				67534C221A40965900A0A8C3 /* gl_render_context.cpp in Sources */,
 				675347F61A4059DD00A0A8C3 /* display_list.cpp in Sources */,

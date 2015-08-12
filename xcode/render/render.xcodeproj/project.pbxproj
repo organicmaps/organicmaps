@@ -66,6 +66,10 @@
 		674A298B1B26EB33001A525C /* window_handle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A29501B26EB33001A525C /* window_handle.hpp */; };
 		674A298C1B26EB33001A525C /* yopme_render_policy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29511B26EB33001A525C /* yopme_render_policy.cpp */; };
 		674A298D1B26EB33001A525C /* yopme_render_policy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A29521B26EB33001A525C /* yopme_render_policy.hpp */; };
+		67AB92F01B7B3ED000AB5194 /* route_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB92EC1B7B3ED000AB5194 /* route_renderer.cpp */; };
+		67AB92F11B7B3ED000AB5194 /* route_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AB92ED1B7B3ED000AB5194 /* route_renderer.hpp */; };
+		67AB92F21B7B3ED000AB5194 /* route_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB92EE1B7B3ED000AB5194 /* route_shape.cpp */; };
+		67AB92F31B7B3ED000AB5194 /* route_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AB92EF1B7B3ED000AB5194 /* route_shape.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,6 +134,10 @@
 		674A29501B26EB33001A525C /* window_handle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = window_handle.hpp; sourceTree = "<group>"; };
 		674A29511B26EB33001A525C /* yopme_render_policy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = yopme_render_policy.cpp; sourceTree = "<group>"; };
 		674A29521B26EB33001A525C /* yopme_render_policy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = yopme_render_policy.hpp; sourceTree = "<group>"; };
+		67AB92EC1B7B3ED000AB5194 /* route_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_renderer.cpp; sourceTree = "<group>"; };
+		67AB92ED1B7B3ED000AB5194 /* route_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route_renderer.hpp; sourceTree = "<group>"; };
+		67AB92EE1B7B3ED000AB5194 /* route_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_shape.cpp; sourceTree = "<group>"; };
+		67AB92EF1B7B3ED000AB5194 /* route_shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route_shape.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +171,10 @@
 		674A290B1B26EAAB001A525C /* render */ = {
 			isa = PBXGroup;
 			children = (
+				67AB92EC1B7B3ED000AB5194 /* route_renderer.cpp */,
+				67AB92ED1B7B3ED000AB5194 /* route_renderer.hpp */,
+				67AB92EE1B7B3ED000AB5194 /* route_shape.cpp */,
+				67AB92EF1B7B3ED000AB5194 /* route_shape.hpp */,
 				674A29181B26EB33001A525C /* agg_curves.cpp */,
 				674A29191B26EB33001A525C /* area_info.hpp */,
 				674A291A1B26EB33001A525C /* basic_tiling_render_policy.cpp */,
@@ -247,6 +259,7 @@
 				674A296A1B26EB33001A525C /* gpu_drawer.hpp in Headers */,
 				674A29711B26EB33001A525C /* rect.h in Headers */,
 				674A29661B26EB33001A525C /* frame_image.hpp in Headers */,
+				67AB92F11B7B3ED000AB5194 /* route_renderer.hpp in Headers */,
 				674A29751B26EB33001A525C /* scales_processor.hpp in Headers */,
 				674A29681B26EB33001A525C /* geometry_processors.hpp in Headers */,
 				674A29561B26EB33001A525C /* basic_tiling_render_policy.hpp in Headers */,
@@ -261,6 +274,7 @@
 				674A297D1B26EB33001A525C /* tile_cache.hpp in Headers */,
 				674A29791B26EB33001A525C /* software_renderer.hpp in Headers */,
 				674A296E1B26EB33001A525C /* proto_to_styles.hpp in Headers */,
+				67AB92F31B7B3ED000AB5194 /* route_shape.hpp in Headers */,
 				674A296C1B26EB33001A525C /* point.h in Headers */,
 				674A29631B26EB33001A525C /* feature_processor.hpp in Headers */,
 				674A29731B26EB33001A525C /* render_policy.hpp in Headers */,
@@ -332,10 +346,12 @@
 				674A29601B26EB33001A525C /* feature_info.cpp in Sources */,
 				674A297E1B26EB33001A525C /* tile_renderer.cpp in Sources */,
 				674A29781B26EB33001A525C /* software_renderer.cpp in Sources */,
+				67AB92F01B7B3ED000AB5194 /* route_renderer.cpp in Sources */,
 				674A295E1B26EB33001A525C /* events.cpp in Sources */,
 				674A29801B26EB33001A525C /* tile_set.cpp in Sources */,
 				674A29721B26EB33001A525C /* render_policy.cpp in Sources */,
 				674A29691B26EB33001A525C /* gpu_drawer.cpp in Sources */,
+				67AB92F21B7B3ED000AB5194 /* route_shape.cpp in Sources */,
 				674A295C1B26EB33001A525C /* drawer.cpp in Sources */,
 				674A29641B26EB33001A525C /* feature_styler.cpp in Sources */,
 				674A29881B26EB33001A525C /* tiling_render_policy_st.cpp in Sources */,
