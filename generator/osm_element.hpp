@@ -423,16 +423,13 @@ public:
       FeatureBuilderT ft;
 
       // Parse geometry.
-      for (auto const & e : p->childs)
+      for (uint64_t ref : p->Nodes())
       {
-        if (e.type == XMLElement::EntityType::Nd)
-        {
-          m2::PointD pt;
-          if (!GetPoint(e.ref, pt))
-            return;
+        m2::PointD pt;
+        if (!GetPoint(ref, pt))
+          return;
 
-          ft.AddPoint(pt);
-        }
+        ft.AddPoint(pt);
       }
 
       if (ft.GetPointsCount() < 2)

@@ -18,11 +18,7 @@ void XMLElement::AddKV(string const & k, string const & v)
 
 void XMLElement::AddND(uint64_t ref)
 {
-  childs.push_back(XMLElement());
-  XMLElement & e = childs.back();
-
-  e.type = EntityType::Nd;
-  e.ref = ref;
+  m_nds.push_back(ref);
 }
 
 void XMLElement::AddMEMBER(uint64_t ref, EntityType type, string const & role)

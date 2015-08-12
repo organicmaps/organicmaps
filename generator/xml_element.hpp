@@ -34,7 +34,8 @@ struct XMLElement
   string v;
   EntityType memberType = EntityType::Unknown;
   string role;
-  
+
+  vector<uint64_t> m_nds;
   vector<XMLElement> childs;
 
   void Clear()
@@ -49,20 +50,15 @@ struct XMLElement
     memberType = EntityType::Unknown;
     role.clear();
 
+    m_nds.clear();
     childs.clear();
   }
 
   string ToString(string const & shift = string()) const;
 
-  vector<uint64_t> Nodes() const
+  vector<uint64_t> const & Nodes() const
   {
-    vector<uint64_t> nds;
-    for (auto const & e : childs)
-    {
-      if (e.type == EntityType::Nd)
-        nds.push_back(e.ref);
-    }
-    return move(nds);
+    return m_nds;
   }
 
   struct Member
