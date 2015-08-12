@@ -49,7 +49,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   NSString * openSettings = L(@"settings");
   if (isIOSVersionLessThan(8))
   {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:cancel otherButtonTitles:openSettings, nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:cancel otherButtonTitles:nil];
     [alertView show];
     return;
   }
