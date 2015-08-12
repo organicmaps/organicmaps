@@ -22,12 +22,14 @@ import com.mapswithme.maps.MwmActivity.OpenUrlTask;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
@@ -60,6 +62,9 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private Index mCountryIndex;
   private MapTask mMapTaskToForward;
 
+  private boolean mIsReadingAttachment;
+  private boolean mAreResourcesDownloaded;
+
   private static final int DOWNLOAD = 0;
   private static final int PAUSE = 1;
   private static final int RESUME = 2;
@@ -77,7 +82,8 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       new MapsWithMeIntentProcessor(),
       new GoogleMapsIntentProcessor(),
       new OpenCountryTaskProcessor(),
-      new UpdateCountryProcessor()
+      new UpdateCountryProcessor(),
+      new KmzKmlProcessor()
   };
 
   public static final String EXTRA_COUNTRY_INDEX = ".extra.index";
@@ -91,11 +97,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
     Utils.keepScreenOn(true, getWindow());
     suggestRemoveLiteOrSamsung();
-
-    final boolean dispatched = dispatchIntent();
-    if (!dispatched)
-      parseIntentForKmzFile();
-
+    dispatchIntent();
     setContentView(R.layout.activity_download_resources);
     initViewsAndListeners();
     mStorageSlotId = MapStorage.INSTANCE.subscribe(this);
@@ -130,7 +132,6 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   {
     super.onDestroy();
 
-    mProgress = null;
     MapStorage.INSTANCE.unsubscribe(mStorageSlotId);
   }
 
@@ -138,7 +139,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("unused")
   public void onDownloadProgress(int currentTotal, int currentProgress, int globalTotal, int globalProgress)
   {
-    if (mProgress != null)
+    if (!isFinishing())
       mProgress.setProgress(globalProgress);
   }
 
@@ -146,6 +147,9 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("unused")
   public void onDownloadFinished(int errorCode)
   {
+    if (isFinishing())
+      return;
+
     if (errorCode == ERR_DOWNLOAD_SUCCESS)
     {
       final int res = startNextFileDownload(this);
@@ -209,28 +213,24 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationError(int errorCode) {}
 
-
   @Override
   public void onCountryStatusChanged(MapStorage.Index idx)
   {
     final int status = MapStorage.INSTANCE.countryStatus(idx);
 
     if (status == MapStorage.ON_DISK)
+    {
+      mAreResourcesDownloaded = true;
       showMap();
+    }
   }
 
   @Override
   public void onCountryProgress(MapStorage.Index idx, long current, long total)
   {
-    // Important check - activity can be destroyed
-    // but notifications from downloading thread are coming.
-    if (mProgress != null)
+    // Important check - activity can be destroyed but notifications from downloading thread are coming.
+    if (!isFinishing())
       mProgress.setProgress((int) current);
-  }
-
-  private Intent getPackageIntent(String s)
-  {
-    return getPackageManager().getLaunchIntentForPackage(s);
   }
 
   private void suggestRemoveLiteOrSamsung()
@@ -259,6 +259,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
     if (bytes == 0)
     {
+      mAreResourcesDownloaded = true;
       showMap();
       return false;
     }
@@ -364,6 +365,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
   private void onProceedToMapClicked(View v)
   {
+    mAreResourcesDownloaded = true;
     showMap();
   }
 
@@ -395,6 +397,9 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
   private void showMap()
   {
+    if (mIsReadingAttachment || !mAreResourcesDownloaded)
+      return;
+
     final Intent intent = new Intent(this, MwmActivity.class);
 
     // Disable animation because MwmActivity should appear exactly over this one
@@ -430,7 +435,10 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
         setAction(PROCEED_TO_MAP);
       }
       else
+      {
+        mAreResourcesDownloaded = true;
         showMap();
+      }
     }
     else
     {
@@ -444,118 +452,34 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private boolean dispatchIntent()
   {
     final Intent intent = getIntent();
-    if (intent != null)
-    {
-      for (final IntentProcessor ip : mIntentProcessors)
+    if (intent == null)
+      return false;
+
+    for (final IntentProcessor ip : mIntentProcessors)
+      if (ip.isSupported(intent))
       {
-        if (ip.isIntentSupported(intent))
-        {
-          ip.processIntent(intent);
-          return true;
-        }
+        ip.process(intent);
+        return true;
       }
-    }
 
     return false;
-  }
-
-  private String getExtensionFromMime(String mime)
-  {
-    final int i = mime.lastIndexOf('.');
-    if (i == -1)
-      return null;
-
-    mime = mime.substring(i + 1);
-    if (mime.equalsIgnoreCase("kmz"))
-      return ".kmz";
-    else if (mime.equalsIgnoreCase("kml+xml"))
-      return ".kml";
-    else
-      return null;
-  }
-
-  private void parseIntentForKmzFile()
-  {
-    final Intent intent = getIntent();
-    if (intent == null)
-      return;
-
-    final Uri data = intent.getData();
-    if (data == null)
-      return;
-
-    String path = null;
-    File tmpFile = null;
-    final String scheme = data.getScheme();
-    if (scheme != null && !scheme.equalsIgnoreCase(Constants.Url.DATA_SCHEME_FILE))
-    {
-      // scheme is "content" or "http" - need to download file first
-      InputStream input = null;
-      OutputStream output = null;
-
-      try
-      {
-        final ContentResolver resolver = getContentResolver();
-        final String ext = getExtensionFromMime(resolver.getType(data));
-        if (ext != null)
-        {
-          final String filePath = MwmApplication.get().getTempPath() + "Attachment" + ext;
-
-          tmpFile = new File(filePath);
-          output = new FileOutputStream(tmpFile);
-          input = resolver.openInputStream(data);
-
-          final byte buffer[] = new byte[Constants.MB / 2];
-          int read;
-          while ((read = input.read(buffer)) != -1)
-            output.write(buffer, 0, read);
-          output.flush();
-
-          path = filePath;
-        }
-      } catch (final Exception ex)
-      {
-        Log.w(TAG, "Attachment not found or io error: " + ex);
-      } finally
-      {
-        Utils.closeStream(input);
-        Utils.closeStream(output);
-      }
-    }
-    else
-      path = data.getPath();
-
-    boolean success = false;
-    if (path != null)
-    {
-      Log.d(TAG, "Loading bookmarks file from: " + path);
-      success = loadKmzFile(path);
-    }
-    else
-      Log.w(TAG, "Can't get bookmarks file from URI: " + data);
-
-    if (tmpFile != null)
-      //noinspection ResultOfMethodCallIgnored
-      tmpFile.delete();
-
-    Utils.toastShortcut(this, success ? R.string.load_kmz_successful : R.string.load_kmz_failed);
   }
 
   private class GeoIntentProcessor implements IntentProcessor
   {
     @Override
-    public boolean isIntentSupported(Intent intent)
+    public boolean isSupported(Intent intent)
     {
       return (intent.getData() != null && "geo".equals(intent.getScheme()));
     }
 
     @Override
-    public boolean processIntent(Intent intent)
+    public boolean process(Intent intent)
     {
       final String url = intent.getData().toString();
       Log.i(TAG, "Query = " + url);
       mMapTaskToForward = new OpenUrlTask(url);
-      org.alohalytics.Statistics.logEvent("GeoIntentProcessor::processIntent", url);
+      org.alohalytics.Statistics.logEvent("GeoIntentProcessor::process", url);
       return true;
     }
   }
@@ -563,18 +487,18 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private class Ge0IntentProcessor implements IntentProcessor
   {
     @Override
-    public boolean isIntentSupported(Intent intent)
+    public boolean isSupported(Intent intent)
     {
       return (intent.getData() != null && "ge0".equals(intent.getScheme()));
     }
 
     @Override
-    public boolean processIntent(Intent intent)
+    public boolean process(Intent intent)
     {
       final String url = intent.getData().toString();
       Log.i(TAG, "URL = " + url);
       mMapTaskToForward = new OpenUrlTask(url);
-      org.alohalytics.Statistics.logEvent("Ge0IntentProcessor::processIntent", url);
+      org.alohalytics.Statistics.logEvent("Ge0IntentProcessor::process", url);
       return true;
     }
   }
@@ -582,7 +506,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private class HttpGe0IntentProcessor implements IntentProcessor
   {
     @Override
-    public boolean isIntentSupported(Intent intent)
+    public boolean isSupported(Intent intent)
     {
       if ("http".equalsIgnoreCase(intent.getScheme()))
       {
@@ -595,14 +519,14 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public boolean processIntent(Intent intent)
+    public boolean process(Intent intent)
     {
       final Uri data = intent.getData();
       Log.i(TAG, "URL = " + data.toString());
 
       final String ge0Url = "ge0:/" + data.getPath();
       mMapTaskToForward = new OpenUrlTask(ge0Url);
-      org.alohalytics.Statistics.logEvent("HttpGe0IntentProcessor::processIntent", ge0Url);
+      org.alohalytics.Statistics.logEvent("HttpGe0IntentProcessor::process", ge0Url);
       return true;
     }
   }
@@ -613,16 +537,16 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private class MapsWithMeIntentProcessor implements IntentProcessor
   {
     @Override
-    public boolean isIntentSupported(Intent intent)
+    public boolean isSupported(Intent intent)
     {
       return Const.ACTION_MWM_REQUEST.equals(intent.getAction());
     }
 
     @Override
-    public boolean processIntent(final Intent intent)
+    public boolean process(final Intent intent)
     {
       final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
-      org.alohalytics.Statistics.logEvent("MapsWithMeIntentProcessor::processIntent", apiUrl == null ? "null" : apiUrl);
+      org.alohalytics.Statistics.logEvent("MapsWithMeIntentProcessor::process", apiUrl == null ? "null" : apiUrl);
       if (apiUrl != null)
       {
         Framework.cleanSearchLayerOnMap();
@@ -643,19 +567,19 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private class GoogleMapsIntentProcessor implements IntentProcessor
   {
     @Override
-    public boolean isIntentSupported(Intent intent)
+    public boolean isSupported(Intent intent)
     {
       final Uri data = intent.getData();
       return (data != null && "maps.google.com".equals(data.getHost()));
     }
 
     @Override
-    public boolean processIntent(Intent intent)
+    public boolean process(Intent intent)
     {
       final String url = intent.getData().toString();
       Log.i(TAG, "URL = " + url);
       mMapTaskToForward = new OpenUrlTask(url);
-      org.alohalytics.Statistics.logEvent("GoogleMapsIntentProcessor::processIntent", url);
+      org.alohalytics.Statistics.logEvent("GoogleMapsIntentProcessor::process", url);
       return true;
     }
   }
@@ -663,20 +587,20 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private class OpenCountryTaskProcessor implements IntentProcessor
   {
     @Override
-    public boolean isIntentSupported(Intent intent)
+    public boolean isSupported(Intent intent)
     {
       return intent.hasExtra(EXTRA_COUNTRY_INDEX);
     }
 
     @Override
-    public boolean processIntent(Intent intent)
+    public boolean process(Intent intent)
     {
       final Index index = (Index) intent.getSerializableExtra(EXTRA_COUNTRY_INDEX);
       final boolean autoDownload = intent.getBooleanExtra(EXTRA_AUTODOWNLOAD_COUNTRY, false);
       if (autoDownload)
         Statistics.INSTANCE.trackDownloadCountryNotificationClicked();
       mMapTaskToForward = new MwmActivity.ShowCountryTask(index, autoDownload);
-      org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::processIntent", new String[]{"autoDownload", String.valueOf(autoDownload)}, LocationHelper.INSTANCE.getLastLocation());
+      org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process", new String[]{"autoDownload", String.valueOf(autoDownload)}, LocationHelper.INSTANCE.getLastLocation());
       return true;
     }
   }
@@ -684,17 +608,128 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private class UpdateCountryProcessor implements IntentProcessor
   {
     @Override
-    public boolean isIntentSupported(Intent intent)
+    public boolean isSupported(Intent intent)
     {
       return intent.getBooleanExtra(EXTRA_UPDATE_COUNTRIES, false);
     }
 
     @Override
-    public boolean processIntent(Intent intent)
+    public boolean process(Intent intent)
     {
-      org.alohalytics.Statistics.logEvent("UpdateCountryProcessor::processIntent");
+      org.alohalytics.Statistics.logEvent("UpdateCountryProcessor::process");
       mMapTaskToForward = new MwmActivity.UpdateCountryTask();
       return true;
+    }
+  }
+
+  private class KmzKmlProcessor implements IntentProcessor
+  {
+    private Uri mData;
+
+    @Override
+    public boolean isSupported(Intent intent)
+    {
+      mData = intent.getData();
+      return mData != null;
+    }
+
+    @Override
+    public boolean process(Intent intent)
+    {
+      mIsReadingAttachment = true;
+      ThreadPool.getStorage().execute(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          final boolean result = readKmzFromIntent();
+          runOnUiThread(new Runnable()
+          {
+            @Override
+            public void run()
+            {
+              Utils.toastShortcut(DownloadResourcesActivity.this, result ? R.string.load_kmz_successful : R.string.load_kmz_failed);
+              mIsReadingAttachment = false;
+              showMap();
+            }
+          });
+        }
+      });
+      return true;
+    }
+
+    private boolean readKmzFromIntent()
+    {
+      String path = null;
+      File tmpFile = null;
+      final String scheme = mData.getScheme();
+      if (scheme != null && !scheme.equalsIgnoreCase(ContentResolver.SCHEME_FILE))
+      {
+        // scheme is "content" or "http" - need to download or read file first
+        InputStream input = null;
+        OutputStream output = null;
+
+        try
+        {
+          final ContentResolver resolver = getContentResolver();
+          final String ext = getExtensionFromMime(resolver.getType(mData));
+          if (ext != null)
+          {
+            final String filePath = MwmApplication.get().getTempPath() + "Attachment" + ext;
+
+            tmpFile = new File(filePath);
+            output = new FileOutputStream(tmpFile);
+            input = resolver.openInputStream(mData);
+
+            final byte buffer[] = new byte[Constants.MB / 2];
+            int read;
+            while ((read = input.read(buffer)) != -1)
+              output.write(buffer, 0, read);
+            output.flush();
+
+            path = filePath;
+          }
+        } catch (final Exception ex)
+        {
+          Log.w(TAG, "Attachment not found or io error: " + ex);
+        } finally
+        {
+          Utils.closeStream(input);
+          Utils.closeStream(output);
+        }
+      }
+      else
+        path = mData.getPath();
+
+      boolean result = false;
+      if (path != null)
+      {
+        Log.d(TAG, "Loading bookmarks file from: " + path);
+        result = BookmarkManager.loadKmzFile(path);
+      }
+      else
+        Log.w(TAG, "Can't get bookmarks file from URI: " + mData);
+
+      if (tmpFile != null)
+        //noinspection ResultOfMethodCallIgnored
+        tmpFile.delete();
+
+      return result;
+    }
+
+    private String getExtensionFromMime(String mime)
+    {
+      final int i = mime.lastIndexOf('.');
+      if (i == -1)
+        return null;
+
+      mime = mime.substring(i + 1);
+      if (mime.equalsIgnoreCase("kmz"))
+        return ".kmz";
+      else if (mime.equalsIgnoreCase("kml+xml"))
+        return ".kml";
+      else
+        return null;
     }
   }
 
@@ -703,6 +738,4 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private native int startNextFileDownload(Object observer);
 
   private native void cancelCurrentFile();
-
-  private native boolean loadKmzFile(String path);
 }

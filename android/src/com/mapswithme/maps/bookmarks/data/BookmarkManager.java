@@ -102,11 +102,13 @@ public enum BookmarkManager
 
   public native void showBookmarkOnMap(int c, int b);
 
-  public native String saveToKmzFile(int catID, String tmpPath);
+  public native String saveToKmzFile(int catId, String tmpPath);
 
   public native int addBookmarkToLastEditedCategory(String name, double lat, double lon);
 
   public native int getLastEditedCategory();
 
   public static native String generateUniqueBookmarkName(String baseName);
+
+  public static native boolean loadKmzFile(String path);
 }

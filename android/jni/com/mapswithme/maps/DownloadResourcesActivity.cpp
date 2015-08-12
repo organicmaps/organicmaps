@@ -254,11 +254,4 @@ extern "C"
 
     return ERR_FILE_IN_PROGRESS;
   }
-
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_loadKmzFile(
-      JNIEnv * env, jobject thiz, jstring path)
-  {
-    return g_framework->NativeFramework()->AddBookmarksFile(jni::ToNativeString(env, path));
-  }
 }

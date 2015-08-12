@@ -32,8 +32,6 @@ public class Constants
     public static final String MAIL_MAPSME_SUBSCRIBE = "subscribe@maps.me";
     public static final String MAIL_MAPSME_RATING = "rating@maps.me";
 
-    public static final String DATA_SCHEME_FILE = "file";
-
     private Url() {}
   }
 

@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -131,7 +132,7 @@ public class StoragePathManager
     filter.addAction(Intent.ACTION_MEDIA_UNMOUNTABLE);
     filter.addAction(Intent.ACTION_MEDIA_CHECKING);
     filter.addAction(Intent.ACTION_MEDIA_NOFS);
-    filter.addDataScheme(Constants.Url.DATA_SCHEME_FILE);
+    filter.addDataScheme(ContentResolver.SCHEME_FILE);
 
     return filter;
   }

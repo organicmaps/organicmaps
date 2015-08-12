@@ -44,7 +44,7 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_deleteCategory(
        JNIEnv * env, jobject thiz, jint index)
   {
-    return frm()->DeleteBmCategory(index);
+    return frm()->DeleteBmCategory(index) ? JNI_TRUE : JNI_FALSE;
   }
 
   JNIEXPORT void JNICALL
@@ -94,7 +94,7 @@ extern "C"
 
     ::Framework * f = frm();
     BookmarkData bmk(jni::ToNativeString(env, name), f->LastEditedBMType());
-    return g_framework->AddBookmark(frm()->LastEditedBMCategory(), glbPoint, bmk).second;
+    return g_framework->AddBookmark(f->LastEditedBMCategory(), glbPoint, bmk).second;
   }
 
   JNIEXPORT jint JNICALL
@@ -110,5 +110,11 @@ extern "C"
     string baseName = jni::ToNativeString(env, jBaseName);
     string bookmarkFileName = BookmarkCategory::GenerateUniqueFileName(GetPlatform().SettingsDir(), baseName);
     return jni::ToJavaString(env, bookmarkFileName);
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_loadKmzFile(JNIEnv * env, jobject thiz, jstring path)
+  {
+    return frm()->AddBookmarksFile(jni::ToNativeString(env, path)) ? JNI_TRUE : JNI_FALSE;
   }
 }
