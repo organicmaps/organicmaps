@@ -95,7 +95,7 @@ void MergeAndClipBorders(vector<ArrowBorders> & borders)
     return;
 
   // mark groups
-  for (size_t i = 0; i < borders.size() - 1; i++)
+  for (size_t i = 0; i + 1 < borders.size(); i++)
   {
     if (borders[i].m_endDistance >= borders[i + 1].m_startDistance)
       borders[i + 1].m_groupIndex = borders[i].m_groupIndex;
@@ -127,7 +127,7 @@ double CalculateLength(vector<m2::PointD> const & points)
 {
   ASSERT_LESS(0, points.size(), ());
   double len = 0;
-  for (size_t i = 0; i < points.size() - 1; i++)
+  for (size_t i = 0; i + 1 < points.size(); i++)
     len += (points[i + 1] - points[i]).Length();
   return len;
 }
@@ -137,7 +137,7 @@ vector<m2::PointD> AddPoints(double offset, vector<m2::PointD> const & points, b
   vector<m2::PointD> result;
   result.reserve(points.size() + 1);
   double len = 0;
-  for (size_t i = 0; i < points.size() - 1; i++)
+  for (size_t i = 0; i + 1 < points.size(); i++)
   {
     double dist = (points[i + 1] - points[i]).Length();
     double l = len + dist;
@@ -178,7 +178,7 @@ vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline, double start,
   vector<m2::PointD> const & path = polyline.GetPoints();
   double len = 0;
   bool started = false;
-  for (size_t i = 0; i < path.size() - 1; i++)
+  for (size_t i = 0; i + 1 < path.size(); i++)
   {
     double dist = (path[i + 1] - path[i]).Length();
     if (fabs(dist) < 1e-5)
@@ -209,8 +209,13 @@ vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline, double start,
     }
     len = l;
   }
+  if (result.empty())
+    return result;
 
   result = AddPoints(tailSize, result, true /* isTail */);
+  if (result.empty())
+    return result;
+
   return AddPoints(CalculateLength(result) - headSize, result, false /* isTail */);
 }
 
