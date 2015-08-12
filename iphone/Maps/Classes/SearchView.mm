@@ -403,6 +403,10 @@ static BOOL keyboardLoaded = NO;
     GetFramework().EnableTurnNotifications(true);
   if (nosound)
     GetFramework().EnableTurnNotifications(false);
+  
+  // close Search panel
+  [self searchBarDidPressCancelButton:nil];
+  
   return YES;
 }
 
