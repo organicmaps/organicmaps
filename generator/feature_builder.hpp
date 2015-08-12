@@ -36,7 +36,7 @@ public:
   void SetLinear(bool reverseGeometry = false);
 
   /// Set that feature is area and get ownership of holes.
-  void SetAreaAddHoles(list<vector<m2::PointD> > const & holes);
+  void SetAreaAddHoles(TGeometry const & holes);
   inline void SetArea() { m_params.SetGeomType(feature::GEOM_AREA); }
 
   inline bool IsLine() const { return (GetGeomType() == feature::GEOM_LINE); }
@@ -244,7 +244,6 @@ public:
   bool PreSerialize(buffers_holder_t const & data);
   void Serialize(buffers_holder_t & data, serial::CodingParams const & params);
   //@}
-
 };
 
 namespace feature

@@ -3,8 +3,9 @@
 #include "generator/feature_merger.hpp"
 #include "generator/generate_info.hpp"
 
-#include "geometry/tree4d.hpp"
+#include "geometry/polygon.hpp"
 #include "geometry/region2d.hpp"
+#include "geometry/tree4d.hpp"
 
 #include "indexer/scales.hpp"
 
@@ -204,16 +205,30 @@ public:
       return;
 
     m_worldBucket.CalcStatistics(fb);
+
     // skip visible water boundary
     if (m_boundaryChecker.IsWaterBoundaries(fb))
       return;
 
-    if (fb.GetGeomType() == feature::GEOM_LINE)
+    switch (fb.GetGeomType())
     {
-      MergedFeatureBuilder1 * p = m_typesCorrector(fb);
-      if (p)
-        m_merger(p);
-      return;
+      case feature::GEOM_LINE:
+      {
+        MergedFeatureBuilder1 * p = m_typesCorrector(fb);
+        if (p)
+          m_merger(p);
+        return;
+      }
+      case feature::GEOM_AREA:
+      {
+        // This constant is set according to size statistics.
+        // Added approx 4Mb of data to the World.mwm
+        auto const & geometry = fb.GetOuterGeometry();
+        if (GetPolygonArea(geometry.begin(), geometry.end()) < 0.01)
+          return;
+      }
+      default:
+        break;
     }
 
     if (feature::PreprocessForWorldMap(fb))
