@@ -66,10 +66,14 @@ public:
                             my::clamp(GetElapsedTime() / m_moveDuration, 0.0, 1.0));
   }
 
+  bool IsMovingActive() const { return m_moveDuration > 0.0; }
+
   double GetCurrentAzimut() const
   {
     return m_angleInterpolator.Interpolate(my::clamp(GetElapsedTime() / m_rotateDuration, 0.0, 1.0));
   }
+
+  bool IsRotatingActive() const { return m_rotateDuration > 0.0; }
 
 private:
   m2::PointD m_startPt;
@@ -499,7 +503,7 @@ m2::PointD MyPositionController::GetCurrentPixelBinding() const
 
 m2::PointD MyPositionController::GetDrawablePosition() const
 {
-  if (m_anim)
+  if (m_anim && m_anim->IsMovingActive())
     return m_anim->GetCurrentPosition();
 
   return Position();
@@ -507,7 +511,7 @@ m2::PointD MyPositionController::GetDrawablePosition() const
 
 double MyPositionController::GetDrawableAzimut() const
 {
-  if (m_anim)
+  if (m_anim && m_anim->IsRotatingActive())
     return m_anim->GetCurrentAzimut();
 
   return m_drawDirection;
