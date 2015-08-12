@@ -259,6 +259,8 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
     for (auto const & seg : data.m_segments)
     {
       m2::PointD const pts[2] = { { seg.lon1, seg.lat1 }, { seg.lon2, seg.lat2 } };
+      m2::PointD const segVector = MercatorBounds::FromLatLon(seg.lat2, seg.lon2) -
+                                   MercatorBounds::FromLatLon(seg.lat1, seg.lon1);
       ++all;
 
       // now need to determine feature id and segments in it
@@ -322,15 +324,19 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
           }
         }
 
-        // Find best matching for multiple choices. Get match with minimal sum distance.
-        int ind1 = -1, ind2 = -1;
-        double dist = numeric_limits<double>::max();
+        // Find best matching for multiple choices.
+        int ind1 = -1, ind2 = -1, dist = numeric_limits<int>::max();
         for (auto i1 : indices[0])
           for (auto i2 : indices[1])
           {
-            double const d = i1.second + i2.second;
+            // We use delta of the indexes to avoid P formed curves cases.
+            int const d = abs(i1.first - i2.first);
             if (d < dist && i1.first != i2.first)
             {
+              // Check if resulting vector has same direction with the edge.
+              m2::PointD candidateVector = ft.GetPoint(i2.first) - ft.GetPoint(i1.first);
+              if (m2::DotProduct(candidateVector, segVector) < 0)
+                continue;
               ind1 = i1.first;
               ind2 = i2.first;
               dist = d;
