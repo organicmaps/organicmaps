@@ -405,12 +405,13 @@ public:
   /// The main entry point for parsing process.
   void EmitElement(XMLElement * p)
   {
-    FeatureParams params;
-    if (!ParseType(p, params))
-      return;
-
     if (p->type == XMLElement::EntityType::Node)
     {
+
+      FeatureParams params;
+      if (!ParseType(p, params))
+        return;
+
       m2::PointD pt;
       if (p->childs.empty() || !GetPoint(p->id, pt))
         return;
@@ -435,6 +436,10 @@ public:
       }
 
       if (ft.GetPointsCount() < 2)
+        return;
+
+      FeatureParams params;
+      if (!ParseType(p, params))
         return;
 
       ft.SetOsmId(osm::Id::Way(p->id));
@@ -468,6 +473,10 @@ public:
         if (i == count)
           return;
       }
+
+      FeatureParams params;
+      if (!ParseType(p, params))
+        return;
 
       holes_accumulator holes(this);
       AreaWayMerger<THolder> outer(m_holder);
