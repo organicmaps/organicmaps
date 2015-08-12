@@ -58,6 +58,7 @@ iphone/*/build/*
 xcode/**/xcuserdata
 xcode/**/xcshareddata
 tools/emacsmode/build
+**/DerivedData/*
 
 # GeneratedFiles
 version/version.hpp

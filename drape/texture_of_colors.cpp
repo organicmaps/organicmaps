@@ -11,7 +11,7 @@ namespace  dp
 
 namespace
 {
-  int const RESOURCE_SIZE = 2;
+  int const RESOURCE_SIZE = 1;
   int const BYTES_PER_PIXEL = 4;
 }
 
@@ -119,7 +119,6 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
       uploadRect = m2::RectU(0, startRect.minY(), m_textureSize.x, endRect.maxY());
     }
 
-    size_t pixelStride = uploadRect.SizeX();
     size_t byteCount = BYTES_PER_PIXEL * uploadRect.SizeX() * uploadRect.SizeY();
     size_t bufferSize = my::NextPowOf2(byteCount);
 
@@ -127,33 +126,17 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
     uint8_t * pointer = SharedBufferManager::GetRawPointer(buffer);
     if (m_isDebug)
       memset(pointer, 0, bufferSize);
-    uint32_t currentY = startRect.minY();
+
     for (size_t j = startRange; j < endRange; ++j)
     {
       ASSERT(pointer < SharedBufferManager::GetRawPointer(buffer) + byteCount, ());
       PendingColor const & c = pendingNodes[j];
-      if (c.m_rect.minY() > currentY)
-      {
-        pointer += BYTES_PER_PIXEL * pixelStride;
-        currentY = c.m_rect.minY();
-      }
+      pointer[0] = c.m_color.GetRed();
+      pointer[1] = c.m_color.GetGreen();
+      pointer[2] = c.m_color.GetBlue();
+      pointer[3] = c.m_color.GetAlfa();
 
-      uint32_t byteStride = pixelStride * BYTES_PER_PIXEL;
-      uint8_t red = c.m_color.GetRed();
-      uint8_t green = c.m_color.GetGreen();
-      uint8_t blue = c.m_color.GetBlue();
-      uint8_t alfa = c.m_color.GetAlfa();
-
-      pointer[0] = pointer[4] = red;
-      pointer[1] = pointer[5] = green;
-      pointer[2] = pointer[6] = blue;
-      pointer[3] = pointer[7] = alfa;
-      pointer[byteStride + 0] = pointer[byteStride + 4] = red;
-      pointer[byteStride + 1] = pointer[byteStride + 5] = green;
-      pointer[byteStride + 2] = pointer[byteStride + 6] = blue;
-      pointer[byteStride + 3] = pointer[byteStride + 7] = alfa;
-
-      pointer += 2 * BYTES_PER_PIXEL;
+      pointer += BYTES_PER_PIXEL;
       ASSERT(pointer <= SharedBufferManager::GetRawPointer(buffer) + byteCount, ());
     }
 
