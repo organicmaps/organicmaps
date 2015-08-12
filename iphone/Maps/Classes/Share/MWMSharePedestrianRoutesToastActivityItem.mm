@@ -29,7 +29,9 @@
   NSString * event = @"MWMSharePedestrianRoutesToastActivityItem:activityViewController:itemForActivityType:";
   [Alohalytics logEvent:event withValue:activityType];
   [Statistics.instance logEvent:event withParameters:@{@"type" : activityType}];
-  if ([UIActivityTypePostToFacebook isEqualToString:activityType])
+  if ([activityType isEqualToString:UIActivityTypePostToFacebook] ||
+      [activityType isEqualToString:@"com.facebook.Facebook.ShareExtension"] ||
+      [activityType.lowercaseString rangeOfString:@"facebook"].length)
   {
     NSString * url = [NSString stringWithFormat:@"http://maps.me/fb-pedestrian?lang=%@",
                       @(languages::GetCurrentNorm().c_str())];
