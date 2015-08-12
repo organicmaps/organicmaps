@@ -1,7 +1,7 @@
 # We can't use clang3.6 for now because it hangs at base/normalize_unicode.cpp compilation.
 # TODO: Replace normalize_unicode.cpp with equal by performance implementation (ask YuraRa about it).
 NDK_TOOLCHAIN_VERSION := clang3.5
-APP_PLATFORM := android-9
+APP_PLATFORM := android-15
 APP_STL := c++_static
 
 # libc++-specific issues: -std=c++11" is turned on by default.

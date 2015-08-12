@@ -54,7 +54,7 @@ ifneq ($(NDK_DEBUG),1)
 endif
 
 
-TARGET_PLATFORM := android-9
+TARGET_PLATFORM := android-15
 
 LOCAL_HEADER_FILES := \
  	com/mapswithme/core/jni_helper.hpp \
