@@ -167,3 +167,18 @@ void MakeSingleStripFromIndex(size_t i, size_t n, F f)
   f(i);
   FindSingleStripForIndex(i, n, detail::StripEmitter<F>(f));
 }
+
+template <class TIter> double GetPolygonArea(TIter beg, TIter end)
+{
+  double area = 0.0;
+
+  TIter curr = beg;
+  while (curr != end)
+  {
+    TIter next = NextIterInCycle(curr, beg, end);
+    area += ((*curr).x * (*next).y - (*curr).y * (*next).x);
+    ++curr;
+  }
+
+  return 0.5 * fabs(area);
+}

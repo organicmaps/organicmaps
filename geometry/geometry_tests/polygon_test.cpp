@@ -1,7 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "geometry/polygon.hpp"
 #include "geometry/point2d.hpp"
+#include "geometry/polygon.hpp"
+#include "geometry/triangle2d.hpp"
 
 #include "base/macros.hpp"
 
@@ -157,6 +158,22 @@ UNIT_TEST(IsPolygonCCW_DataSet)
               P(27.3015403747559, 61.7747497558594) };
 
   TestPolygonOrReverseCCW(arr, arr + ARRAY_SIZE(arr));
+}
+
+UNIT_TEST(PolygonArea_Smoke)
+{
+  {
+    P arr[] = { P (-1, 0), P(0, 1), P(1, -1) };
+    TEST_ALMOST_EQUAL_ULPS(m2::GetTriangleArea(arr[0], arr[1], arr[2]),
+                           GetPolygonArea(arr, arr + ARRAY_SIZE(arr)), ());
+  }
+
+  {
+    P arr[] = { P (-5, -7), P(-3.5, 10), P(7.2, 5), P(14, -6.4) };
+    TEST_ALMOST_EQUAL_ULPS(m2::GetTriangleArea(arr[0], arr[1], arr[2]) +
+                           m2::GetTriangleArea(arr[2], arr[3], arr[0]),
+                           GetPolygonArea(arr, arr + ARRAY_SIZE(arr)), ());
+  }
 }
 
 // This polygon has self-intersections.
