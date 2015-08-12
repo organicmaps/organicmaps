@@ -25,7 +25,6 @@ typedef void (^CloseAlertCompletion)();
                                        code:(routing::IRouter::ResultCode)code;
 - (void)presentRateAlert;
 - (void)presentFacebookAlert;
-- (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount;
 - (void)presentRoutingDisclaimerAlert;
 - (void)presentDisabledLocationAlert;
 - (void)presentLocationAlert;

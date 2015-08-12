@@ -12,7 +12,6 @@
 #import "MWMDefaultAlert.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMFacebookAlert.h"
-#import "MWMFeedbackAlert.h"
 #import "MWMLocationAlert.h"
 #import "MWMPedestrianShareAlert.h"
 #import "MWMRateAlert.h"
@@ -59,11 +58,6 @@
 + (MWMAlert *)locationServiceNotSupportedAlert
 {
   return [MWMDefaultAlert locationServiceNotSupportedAlert];
-}
-
-+ (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount
-{
-  return [MWMFeedbackAlert alertWithStarsCount:starsCount];
 }
 
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries

@@ -6,37 +6,35 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "AppInfo.h"
 #import "MWMAlertViewController.h"
 #import "MWMRateAlert.h"
 #import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
+#import <MessageUI/MFMailComposeViewController.h>
+#import <sys/utsname.h>
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
+#include "platform/platform.hpp"
+
 extern NSString * const kUDAlreadyRatedKey;
+extern NSDictionary * const deviceNames;
+extern NSString * const kLocaleUsedInSupportEmails;
 extern NSString * const kRateAlertEventName = @"rateAlertEvent";
+static NSString * const kRateAlertNibName = @"MWMRateAlert";
+static NSString * const kRateEmail = @"rating@maps.me";
 
-@interface MWMRateAlert ()
+@interface MWMRateAlert () <MFMailComposeViewControllerDelegate>
 
-@property (nonatomic, weak) IBOutlet UIButton *oneStarButton;
-@property (nonatomic, weak) IBOutlet UIButton *twoStarButton;
-@property (nonatomic, weak) IBOutlet UIButton *threeStarButton;
-@property (nonatomic, weak) IBOutlet UIButton *fourStarButton;
-@property (nonatomic, weak) IBOutlet UIButton *fiveStarButton;
-@property (nonatomic, weak) IBOutlet UIImageView *oneStarPushImageView;
-@property (nonatomic, weak) IBOutlet UIImageView *twoStarPushImageView;
-@property (nonatomic, weak) IBOutlet UIImageView *threeStarPushImageView;
-@property (nonatomic, weak) IBOutlet UIImageView *fourStarPushImageView;
-@property (nonatomic, weak) IBOutlet UIImageView *fiveStarPushImageView;
-@property (nonatomic, weak) IBOutlet UILabel *oneStarLabel;
-@property (nonatomic, weak) IBOutlet UILabel *twoStarLabel;
-@property (nonatomic, weak) IBOutlet UILabel *threeStarLabel;
-@property (nonatomic, weak) IBOutlet UILabel *fourStarLabel;
-@property (nonatomic, weak) IBOutlet UILabel *fiveStarLabel;
+@property (nonatomic) IBOutletCollection(UIButton) NSArray * buttons;
+@property (nonatomic, weak) IBOutlet UIButton * rateButton;
+@property (nonatomic, weak) IBOutlet UILabel * title;
+@property (nonatomic, weak) IBOutlet UILabel * message;
+@property (nonatomic) NSUInteger selectedTag;
 
 @end
-
-static NSString * const kRateAlertNibName = @"MWMRateAlert";
 
 @implementation MWMRateAlert
 
@@ -44,146 +42,170 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 {
   [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"open"]];
   MWMRateAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kRateAlertNibName owner:self options:nil] firstObject];
+  [alert configureButtons];
   return alert;
 }
 
 #pragma mark - Actions
 
-- (IBAction)oneStarTap:(UILongPressGestureRecognizer *)sender
+- (void)configureButtons
 {
-  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"oneStarTap"]];
-  [UIView animateWithDuration:0.15 animations:^
-  {
-    self.oneStarPushImageView.alpha = 1.;
-    self.oneStarButton.selected = YES;
-  }
-  completion:^(BOOL finished)
-  {
-    [UIView animateWithDuration:0.15 animations:^
-    {
-      self.oneStarPushImageView.alpha = 0.;
-    }
-    completion:^(BOOL finished)
-    {
-      [self presentAlertWithStarsCount:1];
-    }];
-  }];
+  UIImage * i = [self.buttons.firstObject imageForState:UIControlStateSelected];
+  for (UIButton * b in self.buttons)
+    [b setImage:i forState:(UIControlStateHighlighted | UIControlStateSelected)];
 }
 
-- (IBAction)twoStarTap:(UILongPressGestureRecognizer *)sender
+- (IBAction)starTap:(UIButton *)sender
 {
-  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"twoStarTap"]];
-  [UIView animateWithDuration:0.15 animations:^
+  if (!self.rateButton.enabled)
   {
-    self.twoStarPushImageView.alpha = 1.;
-    self.oneStarButton.selected = YES;
-    self.twoStarButton.selected = YES;
+    self.rateButton.enabled = YES;
+    auto color = UIColor.buttonEnabledBlueText;
+    self.rateButton.layer.borderColor = color.CGColor;
+    [self.rateButton setTitleColor:color forState:UIControlStateNormal];
   }
-  completion:^(BOOL finished)
+
+  NSUInteger const tag = sender.tag;
+  if (tag == 5)
   {
-    [UIView animateWithDuration:0.15 animations:^
-    {
-      self.twoStarPushImageView.alpha = 0.;
-    }
-    completion:^(BOOL finished)
-    {
-      [self presentAlertWithStarsCount:2];
-    }];
-  }];
+    [self.rateButton setTitle:L(@"rate_the_app") forState:UIControlStateNormal];
+    self.message.text = L(@"rate_alert_five_star_message");
+  }
+  else
+  {
+    if (tag == 4)
+      self.message.text = L(@"rate_alert_four_star_message");
+    else
+      self.message.text = L(@"rate_alert_less_than_four_star_message");
+    [self.rateButton setTitle:L(@"leave_a_review") forState:UIControlStateNormal];
+  }
+  [self setNeedsLayout];
+  for (UIButton * b in self.buttons)
+  {
+    if (b.tag > tag)
+      b.selected = NO;
+    else
+      b.selected = YES;
+  }
+  self.selectedTag = tag;
 }
 
-- (IBAction)threeStarTap:(UILongPressGestureRecognizer *)sender
+- (IBAction)starHighlighted:(UIButton *)sender
 {
-  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"threeStarTap"]];
-  [UIView animateWithDuration:0.15 animations:^
-  {
-    self.threeStarPushImageView.alpha = 1.;
-    self.oneStarButton.selected = YES;
-    self.twoStarButton.selected = YES;
-    self.threeStarButton.selected = YES;
-  }
-  completion:^(BOOL finished)
-  {
-    [UIView animateWithDuration:0.15 animations:^
-    {
-      self.threeStarPushImageView.alpha = 0.;
-    }
-    completion:^(BOOL finished)
-    {
-      [self presentAlertWithStarsCount:3];
-    }];
-  }];
+  [self setHighlighted:sender.tag];
 }
 
-- (IBAction)fourStarTap:(UILongPressGestureRecognizer *)sender
+- (IBAction)starTouchCanceled
 {
-  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"fourStarTap"]];
-  [UIView animateWithDuration:0.15 animations:^
-  {
-    self.fourStarPushImageView.alpha = 1.;
-    self.oneStarButton.selected = YES;
-    self.twoStarButton.selected = YES;
-    self.threeStarButton.selected = YES;
-    self.fourStarButton.selected = YES;
-  }
-  completion:^(BOOL finished)
-  {
-    [UIView animateWithDuration:0.15 animations:^
-    {
-      self.fourStarPushImageView.alpha = 0.;
-    }
-    completion:^(BOOL finished)
-    {
-      [self presentAlertWithStarsCount:4];
-    }];
-  }];
+  for (UIButton * b in self.buttons)
+    b.highlighted = NO;
 }
 
-- (IBAction)fiveStarTap:(UILongPressGestureRecognizer *)sender
+- (IBAction)starDragInside:(UIButton *)sender
 {
-  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"fiveStarTap"]];
-  [Alohalytics logEvent:kRateAlertEventName withValue:@"fiveStar"];
-  [UIView animateWithDuration:0.15 animations:^
-  {
-    self.fiveStarPushImageView.alpha = 1.;
-    self.oneStarButton.selected = YES;
-    self.twoStarButton.selected = YES;
-    self.threeStarButton.selected = YES;
-    self.fourStarButton.selected = YES;
-    self.fiveStarButton.selected = YES;
-  }
-  completion:^(BOOL finished)
-  {
-    [UIView animateWithDuration:0.15 animations:^
-    {
-      self.fiveStarPushImageView.alpha = 0.;
-    }
-    completion:^(BOOL finished)
-    {
-      [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
-      [self close];
-      [self setupAlreadyRatedInUserDefaults];
-    }];
-  }];
+  [self setHighlighted:sender.tag];
 }
 
-- (IBAction)notNowTap
+- (void)setHighlighted:(NSUInteger)tag
+{
+  for (UIButton * b in self.buttons)
+  {
+    if (b.tag > tag)
+      b.highlighted = NO;
+    else
+      b.highlighted = !b.selected;
+  }
+}
+
+- (IBAction)doneTap
 {
   [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"notNowTap"]];
   [Alohalytics logEvent:kRateAlertEventName withValue:@"notNowTap"];
   [self close];
 }
 
-- (void)presentAlertWithStarsCount:(NSUInteger)starsCount
+- (IBAction)rateTap
 {
-  [self removeFromSuperview];
-  [self.alertController presentFeedbackAlertWithStarsCount:starsCount];
-  [self setupAlreadyRatedInUserDefaults];
+  NSUInteger const tag = self.selectedTag;
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, [@(tag).stringValue stringByAppendingString:@"_StarTap"]]];
+  if (tag == 5)
+  {
+    [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
+    [Alohalytics logEvent:kRateAlertEventName withValue:@"fiveStar"];
+    [self close];
+    [self setupAlreadyRatedInUserDefaults];
+  }
+  else
+  {
+    [self sendFeedback];
+  }
 }
 
-- (void)setupAlreadyRatedInUserDefaults {
-  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDAlreadyRatedKey];
-  [[NSUserDefaults standardUserDefaults] synchronize];
+- (void)setupAlreadyRatedInUserDefaults
+{
+  auto ud = [NSUserDefaults standardUserDefaults];
+  [ud setBool:YES forKey:kUDAlreadyRatedKey];
+  [ud synchronize];
+}
+
+- (void)sendFeedback
+{
+  [Alohalytics logEvent:kRateAlertEventName withValue:@"sendFeedback"];
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"sendFeedback"]];
+  self.alpha = 0.;
+  self.alertController.view.alpha = 0.;
+  if ([MFMailComposeViewController canSendMail])
+  {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString * machine = @(systemInfo.machine);
+    NSString * device = deviceNames[machine];
+    if (!device)
+      device = machine;
+    NSString * languageCode = [[NSLocale preferredLanguages] firstObject];
+    NSString * language = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
+                                              displayNameForKey:NSLocaleLanguageCode
+                                                          value:languageCode];
+    NSString * locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+    NSString * country = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
+                                            displayNameForKey:NSLocaleCountryCode
+                                                        value:locale];
+    NSString * bundleVersion = AppInfo.sharedInfo.bundleVersion;
+    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@", device,
+                                                              [UIDevice currentDevice].systemVersion,
+                                                              bundleVersion,
+                                                              language,
+                                                              country];
+    MFMailComposeViewController * mailController = [[MFMailComposeViewController alloc] init];
+    mailController.mailComposeDelegate = self;
+    [mailController setSubject:[NSString stringWithFormat:@"%@ : %@", L(@"rating_just_rated"), @(self.selectedTag)]];
+    [mailController setToRecipients:@[kRateEmail]];
+    [mailController setMessageBody:text isHTML:NO];
+    mailController.navigationBar.tintColor = [UIColor blackColor];
+    [self.alertController.ownerViewController presentViewController:mailController animated:YES completion:nil];
+  }
+  else
+  {
+    NSString * text = [NSString stringWithFormat:L(@"email_error_body"), kRateEmail];
+    [[[UIAlertView alloc] initWithTitle:L(@"email_error_title") message:text
+                                                               delegate:nil
+                                                      cancelButtonTitle:L(@"ok")
+                                                      otherButtonTitles:nil] show];
+  }
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError *)error
+{
+  [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"mailComposeController"]];
+  [self.alertController.ownerViewController dismissViewControllerAnimated:YES completion:^
+   {
+     [Statistics.instance logEvent:[NSString stringWithFormat:@"%@ - %@", kRateAlertEventName, @"close"]];
+     [self close];
+   }];
 }
 
 @end

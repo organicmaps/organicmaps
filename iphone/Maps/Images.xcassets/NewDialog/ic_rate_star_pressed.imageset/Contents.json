@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "rate-full.png"
+      "filename" : "ic_rate_star_pressed.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "rate-full@2x.png"
+      "filename" : "ic_rate_star_pressed@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "rate-full@3x.png"
+      "filename" : "ic_rate_star_pressed@3x.png"
     }
   ],
   "info" : {

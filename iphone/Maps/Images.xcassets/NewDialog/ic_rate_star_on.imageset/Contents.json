@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "rate-empty.png"
+      "filename" : "ic_rate_star_on.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "rate-empty@2x.png"
+      "filename" : "ic_rate_star_on@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "rate-empty@3x.png"
+      "filename" : "ic_rate_star_on@3x.png"
     }
   ],
   "info" : {

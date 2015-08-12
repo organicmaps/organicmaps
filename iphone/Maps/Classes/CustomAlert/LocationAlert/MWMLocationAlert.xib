@@ -80,7 +80,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonBlueText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonEnabledBlueText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="settingsTap" destination="mnY-7K-ids" eventType="touchUpInside" id="y48-t3-n6f"/>

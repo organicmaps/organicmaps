@@ -12,192 +12,236 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="rvp-tn-CXj" customClass="MWMRateAlert">
+        <view contentMode="scaleToFill" id="xqS-d4-Cm7" customClass="MWMRateAlert">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBS-ry-31d" userLabel="ContainerView">
-                    <rect key="frame" x="20" y="174" width="280" height="220"/>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecm-mK-5iV" userLabel="ContainerView">
+                    <rect key="frame" x="20" y="141" width="280" height="284"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NX8-QL-ibo" userLabel="Title">
-                            <rect key="frame" x="20" y="20" width="240" height="21.5"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8dQ-Vo-xwe" userLabel="Done">
+                            <rect key="frame" x="240" y="0.0" width="40" height="40"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="kpJ-h4-1Rx"/>
-                                <constraint firstAttribute="width" constant="240" id="ybQ-FP-Uyh"/>
+                                <constraint firstAttribute="width" constant="40" id="7d0-Ox-KVv"/>
+                                <constraint firstAttribute="height" constant="40" id="rAh-AS-UMC"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <state key="normal" image="ic_cancel">
+                                <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="doneTap" destination="xqS-d4-Cm7" eventType="touchUpInside" id="l7v-bf-FLp"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Оцените нашу работу" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFt-mm-wUl">
+                            <rect key="frame" x="40" y="12" width="200" height="21.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="fCS-vI-z7G"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="w6i-mI-DNF"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="rating_do_like_maps"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="rate_alert_title"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53Y-FR-tke" userLabel="Message">
-                            <rect key="frame" x="20" y="53" width="240" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Спасибо что пользуетесь картами MAPS.ME. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aP7-fq-KaH" userLabel="Message">
+                            <rect key="frame" x="20" y="44" width="240" height="82"/>
                             <constraints>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="1Yg-tK-x6N"/>
-                                <constraint firstAttribute="width" constant="240" id="Glz-r1-VJI"/>
+                                <constraint firstAttribute="width" constant="240" id="HJM-e9-0wo"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="v4x-De-gsX"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="rating_tap_star"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="rate_alert_default_message"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1i-if-5aJ">
-                            <rect key="frame" x="0.0" y="91" width="280" height="62"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftg-qc-aFl" userLabel="Star box">
+                            <rect key="frame" x="20" y="137" width="240" height="59"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_rate" translatesAutoresizingMaskIntoConstraints="NO" id="884-Es-BrM">
-                                    <rect key="frame" x="11" y="0.0" width="58" height="58"/>
-                                </imageView>
-                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_rate" translatesAutoresizingMaskIntoConstraints="NO" id="roJ-R8-N46">
-                                    <rect key="frame" x="61" y="0.0" width="58" height="58"/>
-                                </imageView>
-                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_rate" translatesAutoresizingMaskIntoConstraints="NO" id="Shh-Gi-meU">
-                                    <rect key="frame" x="111" y="0.0" width="58" height="58"/>
-                                </imageView>
-                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_rate" translatesAutoresizingMaskIntoConstraints="NO" id="bss-xQ-e01">
-                                    <rect key="frame" x="161" y="0.0" width="58" height="58"/>
-                                </imageView>
-                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_rate" translatesAutoresizingMaskIntoConstraints="NO" id="4I1-Fa-UdO">
-                                    <rect key="frame" x="211" y="0.0" width="58" height="58"/>
-                                </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Yd-zQ-8va">
-                                    <rect key="frame" x="15" y="4" width="50" height="50"/>
-                                    <gestureRecognizers/>
-                                    <state key="normal" image="rate-empty">
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xu8-rO-3BP">
+                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                    <state key="normal" image="ic_rate_star_off">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
-                                    <state key="selected" image="rate-full"/>
+                                    <state key="selected" image="ic_rate_star_on"/>
+                                    <state key="highlighted" image="ic_rate_star_pressed"/>
                                     <connections>
-                                        <action selector="oneStarTap:" destination="rvp-tn-CXj" eventType="touchUpInside" id="rmH-OL-c5T"/>
+                                        <action selector="starDragInside:" destination="xqS-d4-Cm7" eventType="touchDragInside" id="99m-Xy-hho"/>
+                                        <action selector="starHighlighted:" destination="xqS-d4-Cm7" eventType="touchDown" id="L02-GB-uCs"/>
+                                        <action selector="starTap:" destination="xqS-d4-Cm7" eventType="touchUpInside" id="yPA-9h-GTL"/>
+                                        <action selector="starTouchCanceled" destination="xqS-d4-Cm7" eventType="touchDragOutside" id="mBJ-ST-BKG"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vh3-85-SXS">
-                                    <rect key="frame" x="65" y="4" width="50" height="50"/>
-                                    <gestureRecognizers/>
-                                    <state key="normal" image="rate-empty">
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VHf-Kq-sRr">
+                                    <rect key="frame" x="48" y="0.0" width="48" height="48"/>
+                                    <state key="normal" image="ic_rate_star_off">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
-                                    <state key="selected" image="rate-full"/>
+                                    <state key="selected" image="ic_rate_star_on"/>
+                                    <state key="highlighted" image="ic_rate_star_pressed"/>
                                     <connections>
-                                        <action selector="twoStarTap:" destination="rvp-tn-CXj" eventType="touchUpInside" id="mK3-q0-iV4"/>
+                                        <action selector="starDragInside:" destination="xqS-d4-Cm7" eventType="touchDragInside" id="Dbf-SL-VyI"/>
+                                        <action selector="starHighlighted:" destination="xqS-d4-Cm7" eventType="touchDown" id="Ves-R9-ppR"/>
+                                        <action selector="starTap:" destination="xqS-d4-Cm7" eventType="touchUpInside" id="ICT-FI-avs"/>
+                                        <action selector="starTouchCanceled" destination="xqS-d4-Cm7" eventType="touchDragOutside" id="OeS-dr-LsK"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hk-xb-v84">
-                                    <rect key="frame" x="115" y="4" width="50" height="50"/>
-                                    <gestureRecognizers/>
-                                    <state key="normal" image="rate-empty">
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gM3-vi-PTK">
+                                    <rect key="frame" x="96" y="0.0" width="48" height="48"/>
+                                    <state key="normal" image="ic_rate_star_off">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
-                                    <state key="selected" image="rate-full"/>
+                                    <state key="selected" image="ic_rate_star_on"/>
+                                    <state key="highlighted" image="ic_rate_star_pressed"/>
                                     <connections>
-                                        <action selector="threeStarTap:" destination="rvp-tn-CXj" eventType="touchUpInside" id="zOD-32-gej"/>
+                                        <action selector="starDragInside:" destination="xqS-d4-Cm7" eventType="touchDragInside" id="wIn-Ty-2CX"/>
+                                        <action selector="starHighlighted:" destination="xqS-d4-Cm7" eventType="touchDown" id="5Uk-wg-dqb"/>
+                                        <action selector="starTap:" destination="xqS-d4-Cm7" eventType="touchUpInside" id="4yh-ag-YaF"/>
+                                        <action selector="starTouchCanceled" destination="xqS-d4-Cm7" eventType="touchDragOutside" id="a7T-Ir-WZj"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8s0-Kx-ndN">
-                                    <rect key="frame" x="165" y="4" width="50" height="50"/>
-                                    <gestureRecognizers/>
-                                    <state key="normal" image="rate-empty">
+                                <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p68-lV-IVJ">
+                                    <rect key="frame" x="144" y="0.0" width="48" height="48"/>
+                                    <state key="normal" image="ic_rate_star_off">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
-                                    <state key="selected" image="rate-full"/>
+                                    <state key="selected" image="ic_rate_star_on"/>
+                                    <state key="highlighted" image="ic_rate_star_pressed"/>
                                     <connections>
-                                        <action selector="fourStarTap:" destination="rvp-tn-CXj" eventType="touchUpInside" id="KcI-VF-TnQ"/>
+                                        <action selector="starDragInside:" destination="xqS-d4-Cm7" eventType="touchDragInside" id="bPm-GK-Ai5"/>
+                                        <action selector="starHighlighted:" destination="xqS-d4-Cm7" eventType="touchDown" id="Saf-Ix-UD7"/>
+                                        <action selector="starTap:" destination="xqS-d4-Cm7" eventType="touchUpInside" id="XVz-ak-XqB"/>
+                                        <action selector="starTouchCanceled" destination="xqS-d4-Cm7" eventType="touchDragOutside" id="x5k-sK-gij"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMA-yH-vzI">
-                                    <rect key="frame" x="215" y="4" width="50" height="50"/>
-                                    <gestureRecognizers/>
-                                    <state key="normal" image="rate-empty">
+                                <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nh7-Fc-Xxp">
+                                    <rect key="frame" x="192" y="0.0" width="48" height="48"/>
+                                    <state key="normal" image="ic_rate_star_off">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
-                                    <state key="selected" image="rate-full"/>
+                                    <state key="selected" image="ic_rate_star_on"/>
+                                    <state key="highlighted" image="ic_rate_star_pressed"/>
                                     <connections>
-                                        <action selector="fiveStarTap:" destination="rvp-tn-CXj" eventType="touchUpInside" id="ZPU-8a-Bjn"/>
+                                        <action selector="starDragInside:" destination="xqS-d4-Cm7" eventType="touchDragInside" id="9JJ-Em-WZd"/>
+                                        <action selector="starHighlighted:" destination="xqS-d4-Cm7" eventType="touchDown" id="fG3-HM-YxH"/>
+                                        <action selector="starTap:" destination="xqS-d4-Cm7" eventType="touchUpInside" id="vyJ-qW-a9t"/>
+                                        <action selector="starTouchCanceled" destination="xqS-d4-Cm7" eventType="touchDragOutside" id="F0l-TP-SU2"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUW-yV-lH2">
-                                    <rect key="frame" x="33" y="44" width="14" height="21"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                    <color key="textColor" red="0.98823529409999999" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMo-h5-ZhH">
+                                    <rect key="frame" x="0.0" y="48" width="48" height="11"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OY6-XM-b7Q">
-                                    <rect key="frame" x="83" y="44" width="14" height="21"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                    <color key="textColor" red="0.98823529409999999" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6h-xZ-4kL">
+                                    <rect key="frame" x="48" y="48" width="48" height="11"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="to0-HX-tRH">
-                                    <rect key="frame" x="133" y="44" width="14" height="21"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                    <color key="textColor" red="0.98823529409999999" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u3c-7R-fKb">
+                                    <rect key="frame" x="96" y="48" width="48" height="11"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sT1-dc-By0">
-                                    <rect key="frame" x="183" y="44" width="14" height="21"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                    <color key="textColor" red="0.98823529409999999" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Chn-mM-h8X">
+                                    <rect key="frame" x="144" y="48" width="48" height="11"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YnV-Uf-9qR">
-                                    <rect key="frame" x="233" y="44" width="14" height="21"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                    <color key="textColor" red="0.98823529409999999" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2o-QH-kdH">
+                                    <rect key="frame" x="192" y="48" width="48" height="11"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="62" id="XVs-US-kU7"/>
-                                <constraint firstAttribute="width" constant="280" id="mxe-2u-Eek"/>
+                                <constraint firstAttribute="height" constant="59" id="2C4-0p-zGE"/>
+                                <constraint firstAttribute="width" constant="240" id="4Ar-TF-nEe"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t8f-AC-V2j" userLabel="left">
-                            <rect key="frame" x="0.0" y="176" width="280" height="44"/>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfl-QR-Dkk" userLabel="Share">
+                            <rect key="frame" x="20" y="220" width="240" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="44" id="kL9-Iu-9e1"/>
+                                <constraint firstAttribute="height" constant="44" id="O3d-0W-SpN"/>
+                                <constraint firstAttribute="width" constant="240" id="wTo-pg-6DX"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                            <state key="normal" title="left">
-                                <color key="titleColor" red="0.090196078430000007" green="0.61960784310000006" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Leave a Review">
+                                <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                            <state key="disabled" title="Оценить"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="later"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonBlueText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonBlueDisabled"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="whiteColor"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="layer.borderColorName" value="buttonBlueDisabled"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="rate_the_app"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="clearColor"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="buttonEnabledBlueText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="notNowTap" destination="rvp-tn-CXj" eventType="touchUpInside" id="C51-Jm-q13"/>
+                                <action selector="rateTap" destination="xqS-d4-Cm7" eventType="touchUpInside" id="lqd-4T-LF7"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6e-4W-VUG" userLabel="hDivider">
-                            <rect key="frame" x="0.0" y="176" width="280" height="1"/>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="EI0-kh-VrN"/>
-                            </constraints>
-                        </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="0.88" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="centerX" secondItem="w1i-if-5aJ" secondAttribute="centerX" id="0cw-Qe-tNn"/>
-                        <constraint firstAttribute="centerX" secondItem="NX8-QL-ibo" secondAttribute="centerX" id="2re-A3-YeS"/>
-                        <constraint firstAttribute="width" secondItem="i6e-4W-VUG" secondAttribute="width" id="E03-1Z-vdL"/>
-                        <constraint firstAttribute="centerX" secondItem="i6e-4W-VUG" secondAttribute="centerX" id="HVH-Nf-kkC"/>
-                        <constraint firstAttribute="bottom" secondItem="t8f-AC-V2j" secondAttribute="bottom" id="IQC-Jl-mgX"/>
-                        <constraint firstItem="w1i-if-5aJ" firstAttribute="top" secondItem="53Y-FR-tke" secondAttribute="bottom" constant="18" id="NiW-HN-BmD"/>
-                        <constraint firstItem="53Y-FR-tke" firstAttribute="top" secondItem="NX8-QL-ibo" secondAttribute="bottom" constant="11.5" id="VuS-We-PlF"/>
-                        <constraint firstAttribute="centerX" secondItem="t8f-AC-V2j" secondAttribute="centerX" id="VwE-ZJ-zdI"/>
-                        <constraint firstAttribute="centerX" secondItem="53Y-FR-tke" secondAttribute="centerX" id="Y6Q-7d-ARs"/>
-                        <constraint firstItem="NX8-QL-ibo" firstAttribute="top" secondItem="mBS-ry-31d" secondAttribute="top" constant="20" id="aTQ-O1-CKK"/>
-                        <constraint firstItem="t8f-AC-V2j" firstAttribute="top" secondItem="i6e-4W-VUG" secondAttribute="bottom" constant="-1" id="dnL-vw-23k"/>
-                        <constraint firstItem="i6e-4W-VUG" firstAttribute="top" secondItem="w1i-if-5aJ" secondAttribute="bottom" constant="23" id="msl-sh-BRc"/>
-                        <constraint firstAttribute="width" constant="280" id="n2s-aN-5Yi"/>
-                        <constraint firstItem="t8f-AC-V2j" firstAttribute="width" secondItem="mBS-ry-31d" secondAttribute="width" id="wWm-jj-zqO"/>
+                        <constraint firstAttribute="centerX" secondItem="aP7-fq-KaH" secondAttribute="centerX" id="GI2-sL-76K"/>
+                        <constraint firstAttribute="centerX" secondItem="pFt-mm-wUl" secondAttribute="centerX" id="Hq8-IR-S13"/>
+                        <constraint firstItem="ftg-qc-aFl" firstAttribute="top" secondItem="aP7-fq-KaH" secondAttribute="bottom" constant="11" id="J6l-3E-sf0"/>
+                        <constraint firstItem="8dQ-Vo-xwe" firstAttribute="top" secondItem="ecm-mK-5iV" secondAttribute="top" id="OY3-cW-0lX"/>
+                        <constraint firstAttribute="centerX" secondItem="kfl-QR-Dkk" secondAttribute="centerX" id="Y5V-cP-MXg"/>
+                        <constraint firstItem="pFt-mm-wUl" firstAttribute="top" secondItem="ecm-mK-5iV" secondAttribute="top" constant="12" id="Zvg-l6-vuI"/>
+                        <constraint firstItem="aP7-fq-KaH" firstAttribute="top" secondItem="pFt-mm-wUl" secondAttribute="bottom" constant="11" id="cTd-t9-gKm"/>
+                        <constraint firstItem="kfl-QR-Dkk" firstAttribute="top" secondItem="ftg-qc-aFl" secondAttribute="bottom" constant="24" id="ea5-e9-0jF"/>
+                        <constraint firstAttribute="centerX" secondItem="ftg-qc-aFl" secondAttribute="centerX" id="l3c-Tr-Jcp"/>
+                        <constraint firstAttribute="trailing" secondItem="8dQ-Vo-xwe" secondAttribute="trailing" id="nBF-K4-mMl"/>
+                        <constraint firstAttribute="width" constant="280" id="oXG-YH-byd"/>
+                        <constraint firstAttribute="bottom" secondItem="kfl-QR-Dkk" secondAttribute="bottom" constant="20" id="y6i-Ea-kjD"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
@@ -215,34 +259,27 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerY" secondItem="mBS-ry-31d" secondAttribute="centerY" id="KXM-VO-VBc"/>
-                <constraint firstAttribute="centerX" secondItem="mBS-ry-31d" secondAttribute="centerX" id="dce-Ev-FT5"/>
+                <constraint firstAttribute="centerX" secondItem="ecm-mK-5iV" secondAttribute="centerX" id="LYH-qW-kdN"/>
+                <constraint firstAttribute="centerY" secondItem="ecm-mK-5iV" secondAttribute="centerY" constant="0.5" id="un4-ij-LG6"/>
             </constraints>
             <connections>
-                <outlet property="fiveStarButton" destination="DMA-yH-vzI" id="3MI-GS-szf"/>
-                <outlet property="fiveStarLabel" destination="YnV-Uf-9qR" id="0cf-p8-BQG"/>
-                <outlet property="fiveStarPushImageView" destination="4I1-Fa-UdO" id="Crh-1W-b6w"/>
-                <outlet property="fourStarButton" destination="8s0-Kx-ndN" id="1BN-35-XgO"/>
-                <outlet property="fourStarLabel" destination="sT1-dc-By0" id="6CF-iu-7hx"/>
-                <outlet property="fourStarPushImageView" destination="bss-xQ-e01" id="1JJ-BS-4fO"/>
-                <outlet property="oneStarButton" destination="6Yd-zQ-8va" id="3Zv-CZ-6Y2"/>
-                <outlet property="oneStarLabel" destination="KUW-yV-lH2" id="Soj-bh-5xf"/>
-                <outlet property="oneStarPushImageView" destination="884-Es-BrM" id="EE5-v9-xBV"/>
-                <outlet property="threeStarButton" destination="3hk-xb-v84" id="tq0-cb-dpb"/>
-                <outlet property="threeStarLabel" destination="to0-HX-tRH" id="PRx-zq-4za"/>
-                <outlet property="threeStarPushImageView" destination="Shh-Gi-meU" id="5Y5-t4-yeM"/>
-                <outlet property="twoStarButton" destination="Vh3-85-SXS" id="cdp-J6-T1D"/>
-                <outlet property="twoStarLabel" destination="OY6-XM-b7Q" id="H7T-fo-4Wc"/>
-                <outlet property="twoStarPushImageView" destination="roJ-R8-N46" id="BQK-xT-U2w"/>
+                <outlet property="message" destination="aP7-fq-KaH" id="4wq-2c-cAB"/>
+                <outlet property="rateButton" destination="kfl-QR-Dkk" id="SPX-XQ-OlM"/>
+                <outlet property="title" destination="pFt-mm-wUl" id="ahg-gJ-R3w"/>
+                <outletCollection property="buttons" destination="xu8-rO-3BP" id="Ejn-zo-ZMt"/>
+                <outletCollection property="buttons" destination="VHf-Kq-sRr" id="ywN-VZ-K6c"/>
+                <outletCollection property="buttons" destination="gM3-vi-PTK" id="z3S-Fr-8h2"/>
+                <outletCollection property="buttons" destination="p68-lV-IVJ" id="RTF-SR-MR9"/>
+                <outletCollection property="buttons" destination="Nh7-Fc-Xxp" id="Zyf-tB-Lxs"/>
             </connections>
             <point key="canvasLocation" x="523" y="144"/>
         </view>
     </objects>
     <resources>
-        <image name="bg_rate" width="58" height="58"/>
-        <image name="dialog_btn_press" width="280" height="44"/>
-        <image name="rate-empty" width="50" height="50"/>
-        <image name="rate-full" width="50" height="50"/>
+        <image name="ic_cancel" width="40" height="40"/>
+        <image name="ic_rate_star_off" width="29" height="29"/>
+        <image name="ic_rate_star_on" width="29" height="29"/>
+        <image name="ic_rate_star_pressed" width="29" height="29"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

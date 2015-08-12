@@ -23,7 +23,6 @@ typedef void (^RightButtonAction)();
                                           routes:(vector<storage::TIndex> const &)routes
                                             code:(routing::IRouter::ResultCode)code;
 + (MWMAlert *)rateAlert;
-+ (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount;
 + (MWMAlert *)facebookAlert;
 + (MWMAlert *)locationAlert;
 + (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation;

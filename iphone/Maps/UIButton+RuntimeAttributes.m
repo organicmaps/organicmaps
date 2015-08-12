@@ -16,6 +16,7 @@
 
 - (void)setLocalizedText:(NSString *)localizedText {
   [self setTitle:L(localizedText) forState:UIControlStateNormal];
+  [self setTitle:L(localizedText) forState:UIControlStateDisabled];
 }
 
 - (NSString *)localizedText {

@@ -72,7 +72,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonBlueText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonEnabledBlueText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="okTap" destination="Ie9-JJ-hnZ" eventType="touchUpInside" id="vfz-Rd-Kh6"/>
