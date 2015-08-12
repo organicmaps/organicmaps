@@ -61,7 +61,7 @@
   
   AVSpeechSynthesisVoice * voice = [AVSpeechSynthesisVoice voiceWithLanguage:locale];
   if(!voice || ![availTtsLangs containsObject:voice])
-    locale = @"en-GB";
+    locale = @"en-US";
   
   self.speechVoice = [AVSpeechSynthesisVoice voiceWithLanguage:locale];
   GetFramework().SetTurnNotificationsLocale([[MWMTextToSpeech twineFromBCP47:locale] UTF8String]);
