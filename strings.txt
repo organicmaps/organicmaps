@@ -13709,3 +13709,28 @@
     pl = Określają najkrótszą trasę do dowolnego celu. Wypróbuj je sam i pomóż znajomym oszczędzić czas w podróży.
     nl = Ze bieden de kortste route aan naar alle bestemmingen. Probeer ze zelf uit en help uw vrienden ook met het besparen van reistijd!
     pt = Elas dão o caminho mais curto para qualquer ponto de destino. Experimente-as e ajude seus amigos a poupar tempo de viagem.
+
+  [rate_alert_title]
+    tags = ios, android
+    en = We need your feedback!
+    ru = Оцените нашу работу
+
+  [rate_alert_default_message]
+    tags = ios, android
+    en = Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better
+    ru = Спасибо что пользуетесь картами MAPS.ME. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.
+
+  [rate_alert_five_star_message]
+    tags = ios, android
+    en = Hooray! We love you too!
+    ru = Ура! Мы вас тоже любим!
+
+  [rate_alert_four_star_message]
+    tags = ios, android
+    en = Thank you, we will do our best!
+    ru = Спасибо, мы будем стараться!
+
+  [rate_alert_less_than_four_star_message]
+    tags = ios, android
+    en = Tell us, please, what can we do to make it better?
+    ru = Расскажите, что мы могли бы улучшить?
