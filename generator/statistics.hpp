@@ -23,37 +23,24 @@ namespace stats
     }
   };
 
-  template <class TKey>
-  struct GeneralInfoKey
+  template <class T, int Tag>
+  struct IntegralType
   {
-    TKey m_key;
-    GeneralInfo m_info;
-
-    GeneralInfoKey(TKey key) : m_key(key) {}
-
-    bool operator< (GeneralInfoKey const & rhs) const
-    {
-      return m_key < rhs.m_key;
-    }
+    T m_val;
+    explicit IntegralType(T v) : m_val(v) {}
+    bool operator<(IntegralType const & rhs) const { return m_val < rhs.m_val; }
   };
 
-  struct TypeTag
-  {
-    uint32_t m_val;
-
-    TypeTag(uint32_t v) : m_val(v) {}
-
-    bool operator< (TypeTag const & rhs) const
-    {
-      return m_val < rhs.m_val;
-    }
-  };
+  using ClassifType = IntegralType<uint32_t, 0>;
+  using CountType = IntegralType<uint32_t, 1>;
+  using AreaType = IntegralType<size_t, 2>;
 
   struct MapInfo
   {
-    set<GeneralInfoKey<feature::EGeomType> > m_byGeomType;
-    set<GeneralInfoKey<TypeTag> > m_byClassifType;
-    set<GeneralInfoKey<uint32_t> > m_byPointsCount, m_byTrgCount;
+    map<feature::EGeomType, GeneralInfo> m_byGeomType;
+    map<ClassifType, GeneralInfo> m_byClassifType;
+    map<CountType, GeneralInfo> m_byPointsCount, m_byTrgCount;
+    map<AreaType, GeneralInfo> m_byAreaSize;
 
     GeneralInfo m_inner[3];
 
@@ -61,11 +48,7 @@ namespace stats
     void AddToSet(TKey key, uint32_t sz, TSet & theSet)
     {
       if (sz > 0)
-      {
-        // GCC doesn't allow to modify set value ...
-        const_cast<GeneralInfo &>(
-            theSet.insert(GeneralInfoKey<TKey>(key)).first->m_info).Add(sz);
-      }
+        theSet[key].Add(sz);
     }
   };
 

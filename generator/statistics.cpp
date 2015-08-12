@@ -1,17 +1,17 @@
-#include "base/SRC_FIRST.hpp"
+#include "statistics.hpp"
 
-#include "generator/statistics.hpp"
-
-#include "indexer/feature_processor.hpp"
 #include "indexer/classificator.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/data_factory.hpp"
+#include "indexer/feature_impl.hpp"
+#include "indexer/feature_processor.hpp"
 
-#include "base/string_utils.hpp"
+#include "geometry/triangle2d.hpp"
+
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
-#include "std/iostream.hpp"
 #include "std/iomanip.hpp"
+#include "std/iostream.hpp"
 
 
 using namespace feature;
@@ -32,6 +32,16 @@ namespace stats
     {
       LOG(LWARNING, ("Error reading file:", fPath, ex.Msg()));
     }
+  }
+
+  double arrSquares[] = { 0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 360*360 };
+
+  size_t GetSquareIndex(double s)
+  {
+    auto end = arrSquares + ARRAY_SIZE(arrSquares);
+    auto i = lower_bound(arrSquares, end, s);
+    ASSERT(i != end, ());
+    return distance(arrSquares, i);
   }
 
   class AccumulateStatistic
@@ -55,8 +65,8 @@ namespace stats
       FeatureType::geom_stat_t const geom = f.GetGeometrySize(FeatureType::BEST_GEOMETRY);
       FeatureType::geom_stat_t const trg = f.GetTrianglesSize(FeatureType::BEST_GEOMETRY);
 
-      m_info.AddToSet(geom.m_count, geom.m_size, m_info.m_byPointsCount);
-      m_info.AddToSet(trg.m_count / 3, trg.m_size, m_info.m_byTrgCount);
+      m_info.AddToSet(CountType(geom.m_count), geom.m_size, m_info.m_byPointsCount);
+      m_info.AddToSet(CountType(trg.m_count / 3), trg.m_size, m_info.m_byTrgCount);
 
       uint32_t const allSize = innerStats.m_size + geom.m_size + trg.m_size;
 
@@ -64,8 +74,16 @@ namespace stats
 
       f.ForEachType([this, allSize](uint32_t type)
       {
-        m_info.AddToSet(TypeTag(type), allSize, m_info.m_byClassifType);
+        m_info.AddToSet(ClassifType(type), allSize, m_info.m_byClassifType);
       });
+
+      double square = 0.0;
+      f.ForEachTriangle([&square](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+      {
+        square += m2::GetTriangleArea(p1, p2, p3);
+      }, FeatureType::BEST_GEOMETRY);
+
+      m_info.AddToSet(AreaType(GetSquareIndex(square)), trg.m_size, m_info.m_byAreaSize);
     }
   };
 
@@ -75,7 +93,7 @@ namespace stats
     feature::ForEachFromDat(fPath, doProcess);
   }
 
-  void PrintInfo(char const * prefix, GeneralInfo const & info)
+  void PrintInfo(string const & prefix, GeneralInfo const & info)
   {
     cout << prefix << ": size = " << info.m_size << "; count = " << info.m_count << endl;
   }
@@ -90,14 +108,19 @@ namespace stats
     }
   }
 
-  string GetKey(uint32_t i)
+  string GetKey(CountType t)
   {
-    return strings::to_string(i);
+    return strings::to_string(t.m_val);
   }
 
-  string GetKey(TypeTag t)
+  string GetKey(ClassifType t)
   {
     return classif().GetFullObjectName(t.m_val);
+  }
+
+  string GetKey(AreaType t)
+  {
+    return strings::to_string(arrSquares[t.m_val]);
   }
 
   template <class TSortCr, class TSet>
@@ -105,7 +128,7 @@ namespace stats
   {
     cout << prefix << endl;
 
-    vector<typename TSet::value_type> vec(theSet.begin(), theSet.end());
+    vector<pair<typename TSet::key_type, typename TSet::mapped_type>> vec(theSet.begin(), theSet.end());
 
     sort(vec.begin(), vec.end(), TSortCr());
 
@@ -113,7 +136,7 @@ namespace stats
     for (size_t i = 0; i < count; ++i)
     {
       cout << i << ". ";
-      PrintInfo(GetKey(vec[i].m_key).c_str(), vec[i].m_info);
+      PrintInfo(GetKey(vec[i].first), vec[i].second);
     }
   }
 
@@ -122,7 +145,7 @@ namespace stats
     template <class TInfo>
     bool operator() (TInfo const & r1, TInfo const & r2) const
     {
-      return r1.m_info.m_size > r2.m_info.m_size;
+      return r1.second.m_size > r2.second.m_size;
     }
   };
 
@@ -131,7 +154,7 @@ namespace stats
     template <class TInfo>
     bool operator() (TInfo const & r1, TInfo const & r2) const
     {
-      return r1.m_info.m_count > r2.m_info.m_count;
+      return r1.second.m_count > r2.second.m_count;
     }
   };
 
@@ -145,5 +168,6 @@ namespace stats
     PrintTop<greater_size>("Top SIZE by Classificator Type", info.m_byClassifType);
     PrintTop<greater_size>("Top SIZE by Points Count", info.m_byPointsCount);
     PrintTop<greater_size>("Top SIZE by Triangles Count", info.m_byTrgCount);
+    PrintTop<greater_size>("Top SIZE by Square", info.m_byAreaSize);
   }
 }
