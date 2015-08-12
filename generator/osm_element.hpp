@@ -479,15 +479,15 @@ public:
       AreaWayMerger<THolder> outer(m_holder);
 
       // 3. Iterate ways to get 'outer' and 'inner' geometries
-      for (auto const & e : p->childs)
+      for (auto const & e : p->Members())
       {
-        if (e.type == XMLElement::EntityType::Member && e.memberType == XMLElement::EntityType::Way)
-        {
-          if (e.role == "outer")
-            outer.AddWay(e.ref);
-          else if (e.role == "inner")
-            holes(e.ref);
-        }
+        if (e.type != XMLElement::EntityType::Way)
+          continue;
+
+        if (e.role == "outer")
+          outer.AddWay(e.ref);
+        else if (e.role == "inner")
+          holes(e.ref);
       }
 
       multipolygons_emitter emitter(this, params, holes.GetHoles(), p->id);

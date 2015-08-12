@@ -23,13 +23,7 @@ void XMLElement::AddND(uint64_t ref)
 
 void XMLElement::AddMEMBER(uint64_t ref, EntityType type, string const & role)
 {
-  childs.push_back(XMLElement());
-  XMLElement & e = childs.back();
-
-  e.type = EntityType::Member;
-  e.ref = ref;
-  e.memberType = type;
-  e.role = role;
+  m_members.push_back({ref, type, role});
 }
 
 string DebugPrint(XMLElement::EntityType e)

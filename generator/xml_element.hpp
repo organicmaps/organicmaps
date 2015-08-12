@@ -35,7 +35,16 @@ struct XMLElement
   EntityType memberType = EntityType::Unknown;
   string role;
 
+  struct Member
+  {
+    uint64_t ref;
+    EntityType type;
+    string role;
+  };
+
+
   vector<uint64_t> m_nds;
+  vector<Member> m_members;
   vector<XMLElement> childs;
 
   void Clear()
@@ -51,6 +60,7 @@ struct XMLElement
     role.clear();
 
     m_nds.clear();
+    m_members.clear();
     childs.clear();
   }
 
@@ -61,12 +71,6 @@ struct XMLElement
     return m_nds;
   }
 
-  struct Member
-  {
-    uint64_t ref;
-    EntityType type;
-    string role;
-  };
 
   static EntityType StringToEntityType(string const & t)
   {
@@ -80,15 +84,9 @@ struct XMLElement
     return EntityType::Unknown;
   }
 
-  vector<Member> Members() const
+  vector<Member> const & Members() const
   {
-    vector<Member> members;
-    for (auto const & e : childs)
-    {
-      if (e.type == EntityType::Member)
-        members.push_back({e.ref, e.memberType, e.role});
-    }
-    return move(members);
+    return m_members;
   }
 
   struct Tag
