@@ -127,8 +127,8 @@ void LocalityFinder::RecreateCache(Cache & cache, m2::RectD rect) const
   {
     typedef feature::DataHeader HeaderT;
     MwmSet::MwmId mwmId(info);
-    Index::MwmHandle const mwmHandle(const_cast<Index &>(*m_pIndex), mwmId);
-    MwmValue * const pMwm = mwmHandle.GetValue<MwmValue>();
+    Index::MwmHandle const mwmHandle = m_pIndex->GetMwmHandleById(mwmId);
+    MwmValue const * pMwm = mwmHandle.GetValue<MwmValue>();
     if (pMwm && pMwm->GetHeader().GetType() == HeaderT::world)
     {
       HeaderT const & header = pMwm->GetHeader();

@@ -88,7 +88,7 @@ void Index::OnMwmDeregistered(LocalCountryFile const & localFile)
 //////////////////////////////////////////////////////////////////////////////////
 
 Index::FeaturesLoaderGuard::FeaturesLoaderGuard(Index const & parent, MwmId id)
-    : m_handle(const_cast<Index &>(parent), id),
+    : m_handle(parent.GetMwmHandleById(id)),
       /// @note This guard is suitable when mwm is loaded
       m_vector(m_handle.GetValue<MwmValue>()->m_cont,
                m_handle.GetValue<MwmValue>()->GetHeader(),
@@ -100,7 +100,7 @@ string Index::FeaturesLoaderGuard::GetCountryFileName() const
 {
   if (!m_handle.IsAlive())
     return string();
-  return m_handle.GetValue<MwmValue>()->GetCountryFile().GetNameWithoutExt();
+  return m_handle.GetValue<MwmValue>()->GetCountryFileName();
 }
 
 bool Index::FeaturesLoaderGuard::IsWorld() const

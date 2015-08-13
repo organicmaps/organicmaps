@@ -40,8 +40,7 @@ public:
 
   inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
   inline version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
-
-  inline platform::CountryFile const & GetCountryFile() const { return m_file.GetCountryFile(); }
+  inline string const & GetCountryFileName() const { return m_file.GetCountryFile().GetNameWithoutExt(); }
 };
 
 class Index : public MwmSet
@@ -100,7 +99,7 @@ private:
 
     void operator()(MwmHandle const & handle, covering::CoveringGetter & cov, uint32_t scale) const
     {
-      MwmValue * const pValue = handle.GetValue<MwmValue>();
+      MwmValue const * pValue = handle.GetValue<MwmValue>();
       if (pValue)
       {
         feature::DataHeader const & header = pValue->GetHeader();
@@ -150,7 +149,7 @@ private:
 
     void operator()(MwmHandle const & handle, covering::CoveringGetter & cov, uint32_t scale) const
     {
-      MwmValue * const pValue = handle.GetValue<MwmValue>();
+      MwmValue const * pValue = handle.GetValue<MwmValue>();
       if (pValue)
       {
         feature::DataHeader const & header = pValue->GetHeader();
@@ -240,15 +239,12 @@ public:
   template <typename F>
   void ForEachInRectForMWM(F & f, m2::RectD const & rect, uint32_t scale, MwmId const id) const
   {
-    if (id.IsAlive())
+    MwmHandle const handle = GetMwmHandleById(id);
+    if (handle.IsAlive())
     {
-      MwmHandle const handle(const_cast<Index &>(*this), id);
-      if (handle.IsAlive())
-      {
-        covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
-        ReadMWMFunctor<F> fn(f);
-        fn(handle, cov, scale);
-      }
+      covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
+      ReadMWMFunctor<F> fn(f);
+      fn(handle, cov, scale);
     }
   }
 
@@ -261,8 +257,8 @@ private:
     ASSERT_LESS(index, features.size(), ());
     size_t result = index;
     MwmId id = features[index].m_mwmId;
-    MwmHandle const handle(const_cast<Index &>(*this), id);
-    MwmValue * const pValue = handle.GetValue<MwmValue>();
+    MwmHandle const handle = GetMwmHandleById(id);
+    MwmValue const * pValue = handle.GetValue<MwmValue>();
     if (pValue)
     {
       FeaturesVector featureReader(pValue->m_cont, pValue->GetHeader(), pValue->m_table);
@@ -312,7 +308,7 @@ private:
         {
           case MwmInfo::COUNTRY:
           {
-            MwmHandle const handle(const_cast<Index &>(*this), id);
+            MwmHandle const handle = GetMwmHandleById(id);
             f(handle, cov, scale);
           }
           break;
@@ -330,13 +326,13 @@ private:
 
     if (worldID[0].IsAlive())
     {
-      MwmHandle const handle(const_cast<Index &>(*this), worldID[0]);
+      MwmHandle const handle = GetMwmHandleById(worldID[0]);
       f(handle, cov, scale);
     }
 
     if (worldID[1].IsAlive())
     {
-      MwmHandle const handle(const_cast<Index &>(*this), worldID[1]);
+      MwmHandle const handle = GetMwmHandleById(worldID[1]);
       f(handle, cov, scale);
     }
   }

@@ -27,8 +27,8 @@ class ScaleIndex : public ScaleIndexBase
 public:
   typedef ReaderT ReaderType;
 
-  ScaleIndex() {}
-  explicit ScaleIndex(ReaderT const & reader, IndexFactory & factory)
+  ScaleIndex() = default;
+  ScaleIndex(ReaderT const & reader, IndexFactory const & factory)
   {
     Attach(reader, factory);
   }
@@ -43,7 +43,7 @@ public:
     m_IndexForScale.clear();
   }
 
-  void Attach(ReaderT const & reader, IndexFactory & factory)
+  void Attach(ReaderT const & reader, IndexFactory const & factory)
   {
     Clear();
 

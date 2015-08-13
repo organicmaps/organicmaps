@@ -9,7 +9,7 @@ void IndexFactory::Load(FilesContainerR const & cont)
   m_header.Load(cont);
 }
 
-IntervalIndexIFace * IndexFactory::CreateIndex(ModelReaderPtr reader)
+IntervalIndexIFace * IndexFactory::CreateIndex(ModelReaderPtr reader) const
 {
   if (m_version.format == version::v1)
     return new old_101::IntervalIndex<uint32_t, ModelReaderPtr>(reader);

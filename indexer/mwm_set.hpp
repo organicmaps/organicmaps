@@ -120,7 +120,6 @@ public:
   {
   public:
     MwmHandle();
-    MwmHandle(MwmSet & mwmSet, MwmId const & mwmId);
     MwmHandle(MwmHandle && handle);
     ~MwmHandle();
 
@@ -208,6 +207,14 @@ public:
   MwmHandle GetMwmHandleByCountryFile(platform::CountryFile const & countryFile);
 
   MwmHandle GetMwmHandleById(MwmId const & id);
+
+  /// Now this function looks like workaround, but it allows to avoid ugly const_cast everywhere..
+  /// Client code usually holds const reference to Index, but realization is non-const.
+  /// @todo Actually, we need to define, is this behaviour (getting Handle) const or non-const.
+  inline MwmHandle GetMwmHandleById(MwmId const & id) const
+  {
+    return const_cast<MwmSet *>(this)->GetMwmHandleById(id);
+  }
 
 protected:
   /// @return True when file format version was successfully read to MwmInfo.

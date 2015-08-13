@@ -166,7 +166,7 @@ private:
   /// @param[in]  pMwm  MWM file for World
   /// @param[out] res1  Best city-locality
   /// @param[out] res2  Best region-locality
-  void SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region & res2);
+  void SearchLocality(MwmValue const * pMwm, impl::Locality & res1, impl::Region & res2);
 
   void SearchFeatures();
 

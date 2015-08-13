@@ -261,8 +261,8 @@ void Query::UpdateViewportOffsets(TMWMVector const & mwmsInfo, m2::RectD const &
     if (rect.IsIntersect(info->m_limitRect))
     {
       MwmSet::MwmId mwmId(info);
-      Index::MwmHandle const mwmHandle(const_cast<Index &>(*m_pIndex), mwmId);
-      if (MwmValue * const pMwm = mwmHandle.GetValue<MwmValue>())
+      Index::MwmHandle const mwmHandle = m_pIndex->GetMwmHandleById(mwmId);
+      if (MwmValue const * pMwm = mwmHandle.GetValue<MwmValue>())
       {
         TFHeader const & header = pMwm->GetHeader();
         if (header.GetType() == TFHeader::country)
@@ -1452,8 +1452,8 @@ void Query::SearchAddress(Results & res)
   for (shared_ptr<MwmInfo> & info : mwmsInfo)
   {
     MwmSet::MwmId mwmId(info);
-    Index::MwmHandle const mwmHandle(const_cast<Index &>(*m_pIndex), mwmId);
-    MwmValue * const pMwm = mwmHandle.GetValue<MwmValue>();
+    Index::MwmHandle const mwmHandle = m_pIndex->GetMwmHandleById(mwmId);
+    MwmValue const * pMwm = mwmHandle.GetValue<MwmValue>();
     if (pMwm && pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) &&
         pMwm->GetHeader().GetType() == TFHeader::world)
     {
@@ -1507,15 +1507,12 @@ void Query::SearchAddress(Results & res)
         {
           for (shared_ptr<MwmInfo> & info : mwmsInfo)
           {
-            MwmSet::MwmId id(info);
-            Index::MwmHandle const handle(const_cast<Index &>(*m_pIndex), id);
-            if (handle.IsAlive())
+            Index::MwmHandle const handle = m_pIndex->GetMwmHandleById(info);
+            if (handle.IsAlive() &&
+                m_pInfoGetter->IsBelongToRegion(handle.GetValue<MwmValue>()->GetCountryFileName(),
+                                                region.m_ids))
             {
-              platform::CountryFile const & countryFile =
-                  handle.GetValue<MwmValue>()->GetCountryFile();
-              string const countryFileName = countryFile.GetNameWithoutExt();
-              if (m_pInfoGetter->IsBelongToRegion(countryFileName, region.m_ids))
-                SearchInMWM(handle, params);
+              SearchInMWM(handle, params);
             }
           }
         }
@@ -1631,7 +1628,7 @@ namespace impl
     };
 
   public:
-    DoFindLocality(Query & q, MwmValue * pMwm, int8_t lang)
+    DoFindLocality(Query & q, MwmValue const * pMwm, int8_t lang)
       : m_query(q), m_vector(pMwm->m_cont, pMwm->GetHeader(), pMwm->m_table), m_lang(lang)
     {
       m_arrEn[0] = q.GetLanguage(LANG_EN);
@@ -1741,7 +1738,7 @@ namespace impl
   };
 }
 
-void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region & res2)
+void Query::SearchLocality(MwmValue const * pMwm, impl::Locality & res1, impl::Region & res2)
 {
   SearchQueryParams params;
   InitParams(true /* localitySearch */, params);
@@ -1839,10 +1836,7 @@ void Query::SearchFeatures(SearchQueryParams const & params, TMWMVector const & 
   {
     // Search only mwms that intersect with viewport (world always does).
     if (m_viewport[vID].IsIntersect(info->m_limitRect))
-    {
-      Index::MwmHandle const mwmHandle(const_cast<Index &>(*m_pIndex), MwmSet::MwmId(info));
-      SearchInMWM(mwmHandle, params, vID);
-    }
+      SearchInMWM(m_pIndex->GetMwmHandleById(info), params, vID);
   }
 }
 
@@ -1947,9 +1941,9 @@ void Query::SearchAdditional(Results & res, size_t resCount)
 
     for (shared_ptr<MwmInfo> const & info : mwmsInfo)
     {
-      Index::MwmHandle const handle(const_cast<Index &>(*m_pIndex), MwmSet::MwmId(info));
+      Index::MwmHandle const handle = m_pIndex->GetMwmHandleById(info);
       if (handle.IsAlive() &&
-          handle.GetValue<MwmValue>()->GetCountryFile().GetNameWithoutExt() == fileName)
+          handle.GetValue<MwmValue>()->GetCountryFileName() == fileName)
       {
         SearchInMWM(handle, params);
       }

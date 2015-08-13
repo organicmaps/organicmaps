@@ -18,5 +18,5 @@ public:
   inline version::MwmVersion const & GetMwmVersion() const { return m_version; }
   inline feature::DataHeader const & GetHeader() const { return m_header; }
 
-  IntervalIndexIFace * CreateIndex(ModelReaderPtr reader);
+  IntervalIndexIFace * CreateIndex(ModelReaderPtr reader) const;
 };

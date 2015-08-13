@@ -38,11 +38,6 @@ string DebugPrint(MwmSet::MwmId const & id)
 
 MwmSet::MwmHandle::MwmHandle() : m_mwmSet(nullptr), m_mwmId(), m_value(nullptr) {}
 
-MwmSet::MwmHandle::MwmHandle(MwmSet & mwmSet, MwmId const & mwmId)
-    : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(m_mwmSet->LockValue(m_mwmId))
-{
-}
-
 MwmSet::MwmHandle::MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, TMwmValuePtr value)
     : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(value)
 {
