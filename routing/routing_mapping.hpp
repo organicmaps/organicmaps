@@ -23,21 +23,20 @@ struct RoutingMapping
   OsrmFtSegMapping m_segMapping;
   CrossRoutingContextReader m_crossContext;
 
-  ///@param fName: mwm file path
+  /// Default constructor to create invalid instance for existing client code.
+  /// @postcondition IsValid() == false.
+  RoutingMapping() = default;
+  /// @param countryFile Country file name without extension.
   RoutingMapping(string const & countryFile, MwmSet * pIndex);
-
   ~RoutingMapping();
 
   void Map();
-
   void Unmap();
 
   void LoadFacade();
-
   void FreeFacade();
 
   void LoadCrossContext();
-
   void FreeCrossContext();
 
   bool IsValid() const { return m_handle.IsAlive() && m_error == IRouter::ResultCode::NoError; }

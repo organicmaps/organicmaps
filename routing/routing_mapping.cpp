@@ -139,7 +139,11 @@ void RoutingMapping::FreeCrossContext()
 
 TRoutingMappingPtr RoutingIndexManager::GetMappingByPoint(m2::PointD const & point)
 {
-  return GetMappingByName(m_countryFileFn(point));
+  string const name = m_countryFileFn(point);
+  if (name.empty())
+    return TRoutingMappingPtr(new RoutingMapping());
+
+  return GetMappingByName(name);
 }
 
 TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & mapName)
@@ -150,9 +154,8 @@ TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & mapName)
     return mapIter->second;
 
   // Or load and check file.
-  TRoutingMappingPtr newMapping =
-      make_shared<RoutingMapping>(mapName, m_index);
-  m_mapping.insert(make_pair(mapName, newMapping));
+  TRoutingMappingPtr newMapping(new RoutingMapping(mapName, m_index));
+  m_mapping[mapName] = newMapping;
   return newMapping;
 }
 
