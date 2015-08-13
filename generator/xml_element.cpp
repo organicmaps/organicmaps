@@ -62,10 +62,24 @@ string XMLElement::ToString(string const & shift) const
       ss << "Nd ref: " << ref;
       break;
     case EntityType::Way:
-      ss << "Way: " << id << " subelements: " << childs.size();
+      ss << "Way: " << id << " nds: " << m_nds.size() << " subelements: " << childs.size();
+      if (!m_nds.empty())
+      {
+        string shift2 = shift;
+        shift2 += shift2.empty() ? "\n  " : "  ";
+        for ( auto const & e : m_nds )
+          ss << shift2 << e;
+      }
       break;
     case EntityType::Relation:
-      ss << "Relation: " << id << " subelements: " << childs.size();
+      ss << "Relation: " << id << " members: " << m_members.size() << " subelements: " << childs.size();
+      if (!m_members.empty())
+      {
+        string shift2 = shift;
+        shift2 += shift2.empty() ? "\n  " : "  ";
+        for ( auto const & e : m_members )
+          ss << shift2 << e.ref << " " << DebugPrint(e.type) << " " << e.role;
+      }
       break;
     case EntityType::Tag:
       ss << "Tag: " << k << " = " << v;

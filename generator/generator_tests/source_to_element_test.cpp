@@ -30,7 +30,7 @@ UNIT_TEST(Source_To_Element_create_from_xml_test)
 
 UNIT_TEST(Source_To_Element_create_from_o5m_test)
 {
-  string src(begin(way_o5m_data), end(way_o5m_data));
+  string src(begin(relation_o5m_data), end(relation_o5m_data));
   istringstream ss(src);
   SourceReader reader(ss);
 
@@ -39,7 +39,9 @@ UNIT_TEST(Source_To_Element_create_from_o5m_test)
   {
     elements.push_back(*e);
   });
-  TEST_EQUAL(elements.size(), 10, (elements));
+  TEST_EQUAL(elements.size(), 11, (elements));
+
+  cout << DebugPrint(elements);
 }
 
 UNIT_TEST(Source_To_Element_check_equivalence)

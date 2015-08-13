@@ -40,6 +40,11 @@ struct XMLElement
     uint64_t ref;
     EntityType type;
     string role;
+
+    bool operator == (Member const & e) const
+    {
+      return ref == e.ref && type == e.type && role == e.role;
+    }
   };
 
 
@@ -118,6 +123,8 @@ struct XMLElement
             && v == e.v
             && memberType == e.memberType
             && role == e.role
+            && m_nds == e.m_nds
+            && m_members == e.m_members
             && childs == e.childs
     );
   }
