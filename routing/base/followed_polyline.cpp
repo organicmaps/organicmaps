@@ -87,7 +87,9 @@ FollowedPolyline::Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD 
 {
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
-  ASSERT_GREATER(predictDistance, 0.0, ());
+
+  if(predictDistance <= 0.0)
+    return UpdateProjection(posRect);
 
   Iter res;
   res = GetClosestProjection(posRect, [&](Iter const & it)
@@ -117,5 +119,41 @@ FollowedPolyline::Iter FollowedPolyline::UpdateProjection(m2::RectD const & posR
   return res;
 }
 
+double FollowedPolyline::GetTotalDistanceMeters() const
+{
+  ASSERT(!m_segDistance.empty(), ());
+  return m_segDistance.back();
+}
 
+double FollowedPolyline::GetCurrentDistanceFromBeginMeters() const
+{
+  ASSERT(m_current.IsValid(), ());
+
+  return ((m_current.m_ind > 0 ? m_segDistance[m_current.m_ind - 1] : 0.0) +
+          MercatorBounds::DistanceOnEarth(m_poly.GetPoint(m_current.m_ind), m_current.m_pt));
+}
+
+double FollowedPolyline::GetCurrentDistanceToEndMeters() const
+{
+  ASSERT(m_current.IsValid(), ());
+  ASSERT_LESS(m_current.m_ind, m_segDistance.size(), ());
+
+  return (m_segDistance.back() - m_segDistance[m_current.m_ind] +
+          MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
+}
+
+
+double FollowedPolyline::GetMercatorDistanceFromBegin() const
+{
+  double distance = 0.0;
+  if (m_current.IsValid())
+  {
+    for (size_t i = 1; i <= m_current.m_ind; i++)
+      distance += m_poly.GetPoint(i).Length(m_poly.GetPoint(i - 1));
+
+    distance += m_poly.GetPoint(m_current.m_ind).Length(m_current.m_pt);
+  }
+
+  return distance;
+}
 }  //  namespace routing

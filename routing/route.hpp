@@ -43,7 +43,7 @@ public:
 
   template <class TIter> void SetGeometry(TIter beg, TIter end)
   {
-    m2::PolylineD(beg, end).Swap(m_poly);
+    FollowedPolyline(beg, end).Swap(m_poly);
     Update();
   }
 
@@ -61,22 +61,11 @@ public:
   uint32_t GetCurrentTimeToEndSec() const;
 
   string const & GetRouterId() const { return m_router; }
-  m2::PolylineD const & GetPoly() const { return m_poly; }
+  m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
   TTurns const & GetTurns() const { return m_turns; }
   void GetTurnsDistances(vector<double> & distances) const;
   string const & GetName() const { return m_name; }
-  bool IsValid() const { return (m_poly.GetSize() > 1); }
-
-  struct IterT
-  {
-    m2::PointD m_pt;
-    size_t m_ind;
-
-    IterT(m2::PointD pt, size_t ind) : m_pt(pt), m_ind(ind) {}
-    IterT() : m_ind(-1) {}
-
-    bool IsValid() const { return m_ind != -1; }
-  };
+  bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
 
   double GetTotalDistanceMeters() const;
   double GetCurrentDistanceFromBeginMeters() const;
@@ -109,14 +98,6 @@ public:
   }
 
 private:
-  /// @param[in]  predictDistance   Predict distance from previous FindProjection call (meters).
-  IterT FindProjection(m2::RectD const & posRect, double predictDistance = -1.0) const;
-
-  template <class DistanceF>
-  IterT GetClosestProjection(m2::RectD const & posRect, DistanceF const & distFn) const;
-
-  double GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const;
-
   /// Call this fucnction when geometry have changed.
   void Update();
   double GetPolySegAngle(size_t ind) const;
@@ -125,25 +106,20 @@ private:
   friend string DebugPrint(Route const & r);
 
   //TODO (ldragunov) Rewrite routing session to use RouteFollower for base road geometry
-  //mutable RouteFollower m_pedestrianFollower;
+  //mutable RouteFollower m_simplifiedPoly;
 
   string m_router;
   RoutingSettings m_routingSettings;
-  m2::PolylineD m_poly;
   string m_name;
 
-  set<string> m_absentCountries;
+  FollowedPolyline m_poly;
+  FollowedPolyline m_simplifiedPoly;
 
-  /// Accumulated cache of segments length in meters.
-  vector<double> m_segDistance;
-  /// Precalculated info for fast projection finding.
-  vector<m2::ProjectionToSection<m2::PointD>> m_segProj;
+  set<string> m_absentCountries;
 
   TTurns m_turns;
   TTimes m_times;
 
-  /// Cached result iterator for last MoveIterator query.
-  mutable IterT m_current;
   mutable double m_currentTime;
 };
 

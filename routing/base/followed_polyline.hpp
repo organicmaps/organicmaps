@@ -24,6 +24,19 @@ public:
 
   m2::PolylineD const & GetPolyline() const { return m_poly; }
 
+  double GetTotalDistanceMeters() const;
+
+  double GetCurrentDistanceFromBeginMeters() const;
+
+  double GetCurrentDistanceToEndMeters() const;
+
+  double GetMercatorDistanceFromBegin() const;
+
+  void GetCurrentDirectionPoint(m2::PointD & pt) const
+  {
+    pt = m_poly.GetPoint(min(m_current.m_ind + 1, m_poly.GetSize() - 1));
+  }
+
   struct Iter
   {
     m2::PointD m_pt;
@@ -35,10 +48,13 @@ public:
     bool IsValid() const { return m_ind != -1; }
   };
 
-  Iter GetCurrentIter() { return m_current; }
+  const Iter GetCurrentIter() const { return m_current; }
 
   Iter UpdateProjectionByPrediction(m2::RectD const & posRect, double predictDistance) const;
   Iter UpdateProjection(m2::RectD const & posRect) const;
+
+  //TODO (ldragunov) remove this by updating iterator
+  vector<double> const & GetSegDistances() const { return m_segDistance; }
 
 private:
   template <class DistanceFn>
@@ -50,6 +66,7 @@ private:
 
   m2::PolylineD m_poly;
 
+  /// Cached result iterator for last MoveIterator query.
   mutable Iter m_current;
   /// Precalculated info for fast projection finding.
   vector<m2::ProjectionToSection<m2::PointD>> m_segProj;

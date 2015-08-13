@@ -26,7 +26,8 @@ double constexpr kOnEndToleranceM = 10.0;
 }  //  namespace
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
-  : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(points), m_name(name)
+  : m_router(router), m_routingSettings(GetCarRoutingSettings()),
+    m_poly(points.begin(), points.end()), m_name(name)
 {
   Update();
 }
@@ -36,29 +37,25 @@ void Route::Swap(Route & rhs)
   m_router.swap(rhs.m_router);
   swap(m_routingSettings, rhs.m_routingSettings);
   m_poly.Swap(rhs.m_poly);
+  m_simplifiedPoly.Swap(m_simplifiedPoly);
   m_name.swap(rhs.m_name);
-  m_segDistance.swap(rhs.m_segDistance);
-  m_segProj.swap(rhs.m_segProj);
-  swap(m_current, rhs.m_current);
   swap(m_currentTime, rhs.m_currentTime);
   swap(m_turns, rhs.m_turns);
   swap(m_times, rhs.m_times);
   m_absentCountries.swap(rhs.m_absentCountries);
-//  m_pedestrianFollower.Swap(rhs.m_pedestrianFollower);
+//  m_simplifiedPoly.Swap(rhs.m_simplifiedPoly);
 }
 
 double Route::GetTotalDistanceMeters() const
 {
-  ASSERT(!m_segDistance.empty(), ());
-  return m_segDistance.back();
+  ASSERT(m_poly.IsValid(), ());
+  return m_poly.GetTotalDistanceMeters();
 }
 
 double Route::GetCurrentDistanceFromBeginMeters() const
 {
-  ASSERT(m_current.IsValid(), ());
-
-  return ((m_current.m_ind > 0 ? m_segDistance[m_current.m_ind - 1] : 0.0) +
-          MercatorBounds::DistanceOnEarth(m_poly.GetPoint(m_current.m_ind), m_current.m_pt));
+  ASSERT(m_poly.IsValid(), ());
+  return m_poly.GetCurrentDistanceFromBeginMeters();
 }
 
 void Route::GetTurnsDistances(vector<double> & distances) const
@@ -72,11 +69,12 @@ void Route::GetTurnsDistances(vector<double> & distances) const
       formerTurnIndex = (currentTurn - 1)->m_index;
 
     //TODO (ldragunov) Extract CalculateMercatorDistance higher to avoid including turns generator.
+    auto const polyline = m_poly.GetPolyline();
     double const mercatorDistanceBetweenTurns =
-      turns::CalculateMercatorDistanceAlongPath(formerTurnIndex,  currentTurn->m_index, m_poly.GetPoints());
+      turns::CalculateMercatorDistanceAlongPath(formerTurnIndex,  currentTurn->m_index, polyline.GetPoints());
     mercatorDistance += mercatorDistanceBetweenTurns;
 
-    if (currentTurn->m_index == 0 || currentTurn->m_index == (m_poly.GetSize() - 1))
+    if (currentTurn->m_index == 0 || currentTurn->m_index == (polyline.GetSize() - 1))
       continue;
     distances.push_back(mercatorDistance);
    }
@@ -84,25 +82,13 @@ void Route::GetTurnsDistances(vector<double> & distances) const
 
 double Route::GetCurrentDistanceToEndMeters() const
 {
-  ASSERT(m_current.IsValid(), ());
-  ASSERT_LESS(m_current.m_ind, m_segDistance.size(), ());
-
-  return (m_segDistance.back() - m_segDistance[m_current.m_ind] +
-          MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
+  return m_poly.GetCurrentDistanceToEndMeters();
 }
 
 double Route::GetMercatorDistanceFromBegin() const
 {
-  double distance = 0.0;
-  if (m_current.IsValid())
-  {
-    for (size_t i = 1; i <= m_current.m_ind; i++)
-      distance += m_poly.GetPoint(i).Length(m_poly.GetPoint(i - 1));
-
-    distance += m_poly.GetPoint(m_current.m_ind).Length(m_current.m_pt);
-  }
-
-  return distance;
+  //TODO Maybe better to return FollowedRoute and user will call GetMercatorDistance etc. by itself
+  return m_poly.GetMercatorDistanceFromBegin();
 }
 
 uint32_t Route::GetTotalTimeSec() const
@@ -112,15 +98,16 @@ uint32_t Route::GetTotalTimeSec() const
 
 uint32_t Route::GetCurrentTimeToEndSec() const
 {
-  size_t const polySz = m_poly.GetSize();
-  if (m_times.empty() || m_poly.GetSize() == 0)
+  auto const & poly = m_poly.GetPolyline();
+  size_t const polySz = poly.GetSize();
+  if (m_times.empty() || poly.GetSize() == 0)
   {
     ASSERT(!m_times.empty(), ());
     ASSERT(polySz != 0, ());
     return 0;
   }
 
-  TTimes::const_iterator it = upper_bound(m_times.begin(), m_times.end(), m_current.m_ind,
+  TTimes::const_iterator it = upper_bound(m_times.begin(), m_times.end(), m_poly.GetCurrentIter().m_ind,
                                          [](size_t v, Route::TTimeItem const & item) { return v < item.first; });
 
   if (it == m_times.end())
@@ -140,17 +127,17 @@ uint32_t Route::GetCurrentTimeToEndSec() const
     }
     double d = 0.0;
     for (uint32_t i = start + 1; i < end; ++i)
-      d += MercatorBounds::DistanceOnEarth(m_poly.GetPoint(i - 1), m_poly.GetPoint(i));
+      d += MercatorBounds::DistanceOnEarth(poly.GetPoint(i - 1), poly.GetPoint(i));
     return d;
   };
 
-  ASSERT_LESS_OR_EQUAL(m_times[idx].first, m_poly.GetSize(), ());
+  ASSERT_LESS_OR_EQUAL(m_times[idx].first, poly.GetSize(), ());
   double const dist = distFn(idx > 0 ? m_times[idx - 1].first : 0, m_times[idx].first + 1);
 
   if (!my::AlmostEqualULPs(dist, 0.))
   {
-    double const distRemain = distFn(m_current.m_ind, m_times[idx].first + 1) -
-                        MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind));
+    double const distRemain = distFn(m_poly.GetCurrentIter().m_ind, m_times[idx].first + 1) -
+                        MercatorBounds::DistanceOnEarth(m_poly.GetCurrentIter().m_pt, poly.GetPoint(m_poly.GetCurrentIter().m_ind));
     return (uint32_t)((GetTotalTimeSec() - (*it).second) + (double)time * (distRemain / dist));
   }
   else
@@ -159,9 +146,8 @@ uint32_t Route::GetCurrentTimeToEndSec() const
 
 void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
 {
-  if (m_segDistance.empty() || m_turns.empty())
+  if (m_turns.empty())
   {
-    ASSERT(!m_segDistance.empty(), ());
     ASSERT(!m_turns.empty(), ());
     distanceToTurnMeters = 0;
     turn = turns::TurnItem();
@@ -169,7 +155,7 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
   }
 
   turns::TurnItem t;
-  t.m_index = m_current.m_ind;
+  t.m_index = m_poly.GetCurrentIter().m_ind;
   auto it = upper_bound(m_turns.begin(), m_turns.end(), t,
             [](turns::TurnItem const & lhs, turns::TurnItem const & rhs)
             {
@@ -180,15 +166,15 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
 
   size_t const segIdx = (*it).m_index - 1;
   turn = (*it);
-  distanceToTurnMeters = m_segDistance[segIdx] - GetCurrentDistanceFromBeginMeters();
+  distanceToTurnMeters = m_poly.GetSegDistances()[segIdx] - GetCurrentDistanceFromBeginMeters();
 }
 
 void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 {
- // if (m_routingSettings.m_keepPedestrianInfo)
-    //m_pedestrianFollower.GetCurrentDirectionPoint(pt);
-//  else
-    pt = m_poly.GetPoint(min(m_current.m_ind + 1, m_poly.GetSize() - 1));
+  if (m_routingSettings.m_keepPedestrianInfo)
+    m_simplifiedPoly.GetCurrentDirectionPoint(pt);
+  else
+    m_poly.GetCurrentDirectionPoint(pt);
 }
 
 bool Route::MoveIterator(location::GpsInfo const & info) const
@@ -206,28 +192,21 @@ bool Route::MoveIterator(location::GpsInfo const & info) const
   m2::RectD const rect = MercatorBounds::MetresToXY(
         info.m_longitude, info.m_latitude,
         max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
- // if (m_routingSettings.m_keepPedestrianInfo)
-   // m_pedestrianFollower.FindProjection(rect, predictDistance);
-  IterT const res = FindProjection(rect, predictDistance);
-  if (res.IsValid())
-  {
-    m_current = res;
-    m_currentTime = info.m_timestamp;
-    return true;
-  }
-  else
-    return false;
+  FollowedPolyline::Iter const res = m_poly.UpdateProjectionByPrediction(rect, predictDistance);
+  if (m_simplifiedPoly.IsValid())
+    m_simplifiedPoly.UpdateProjectionByPrediction(rect, predictDistance);
+  return res.IsValid();
 }
 
 double Route::GetCurrentSqDistance(m2::PointD const & pt) const
 {
-  ASSERT(m_current.IsValid(), ());
-  return pt.SquareLength(m_current.m_pt);
+  ASSERT(m_poly.IsValid(), ());
+  return pt.SquareLength(m_poly.GetCurrentIter().m_pt);
 }
 
 double Route::GetPolySegAngle(size_t ind) const
 {
-  size_t const polySz = m_poly.GetSize();
+  size_t const polySz = m_poly.GetPolyline().GetSize();
 
   if (ind + 1 >= polySz)
   {
@@ -235,12 +214,12 @@ double Route::GetPolySegAngle(size_t ind) const
     return 0;
   }
 
-  m2::PointD const p1 = m_poly.GetPoint(ind);
+  m2::PointD const p1 = m_poly.GetPolyline().GetPoint(ind);
   m2::PointD p2;
   size_t i = ind + 1;
   do
   {
-    p2 = m_poly.GetPoint(i);
+    p2 = m_poly.GetPolyline().GetPoint(i);
   }
   while (m2::AlmostEqualULPs(p1, p2) && ++i < polySz);
   return (i == polySz) ? 0 : my::RadToDeg(ang::AngleTo(p1, p2));
@@ -248,139 +227,51 @@ double Route::GetPolySegAngle(size_t ind) const
 
 void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const
 {
-  if (m_current.IsValid())
+  if (m_poly.IsValid())
   {
     m2::PointD const locationMerc = MercatorBounds::FromLatLon(location.m_latitude, location.m_longitude);
-    double const distFromRouteM = MercatorBounds::DistanceOnEarth(m_current.m_pt, locationMerc);
+    double const distFromRouteM = MercatorBounds::DistanceOnEarth(m_poly.GetCurrentIter().m_pt, locationMerc);
     if (distFromRouteM < m_routingSettings.m_matchingThresholdM)
     {
-      location.m_latitude = MercatorBounds::YToLat(m_current.m_pt.y);
-      location.m_longitude = MercatorBounds::XToLon(m_current.m_pt.x);
+      location.m_latitude = MercatorBounds::YToLat(m_poly.GetCurrentIter().m_pt.y);
+      location.m_longitude = MercatorBounds::XToLon(m_poly.GetCurrentIter().m_pt.x);
       if (m_routingSettings.m_matchRoute)
-        location.m_bearing = location::AngleToBearing(GetPolySegAngle(m_current.m_ind));
+        location.m_bearing = location::AngleToBearing(GetPolySegAngle(m_poly.GetCurrentIter().m_ind));
 
-      routeMatchingInfo.Set(m_current.m_pt, m_current.m_ind);
+      routeMatchingInfo.Set(m_poly.GetCurrentIter().m_pt, m_poly.GetCurrentIter().m_ind);
     }
   }
 }
 
 bool Route::IsCurrentOnEnd() const
 {
-  return (GetCurrentDistanceToEndMeters() < kOnEndToleranceM);
-}
-
-Route::IterT Route::FindProjection(m2::RectD const & posRect, double predictDistance) const
-{
-  ASSERT(m_current.IsValid(), ());
-  ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
-
-  IterT res;
-  if (predictDistance >= 0.0)
-  {
-    res = GetClosestProjection(posRect, [&] (IterT const & it)
-    {
-      return fabs(GetDistanceOnPolyline(m_current, it) - predictDistance);
-    });
-  }
-  else
-  {
-    m2::PointD const currPos = posRect.Center();
-    res = GetClosestProjection(posRect, [&] (IterT const & it)
-    {
-      return MercatorBounds::DistanceOnEarth(it.m_pt, currPos);
-    });
-  }
-
-  return res;
-}
-
-double Route::GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const
-{
-  ASSERT(it1.IsValid(), ());
-  ASSERT(it2.IsValid(), ());
-  ASSERT_LESS_OR_EQUAL(it1.m_ind, it2.m_ind, ());
-  ASSERT_LESS(it1.m_ind, m_poly.GetSize(), ());
-  ASSERT_LESS(it2.m_ind, m_poly.GetSize(), ());
-
-  if (it1.m_ind == it2.m_ind)
-    return MercatorBounds::DistanceOnEarth(it1.m_pt, it2.m_pt);
-
-  return (MercatorBounds::DistanceOnEarth(it1.m_pt, m_poly.GetPoint(it1.m_ind + 1)) +
-          m_segDistance[it2.m_ind - 1] - m_segDistance[it1.m_ind] +
-          MercatorBounds::DistanceOnEarth(m_poly.GetPoint(it2.m_ind), it2.m_pt));
+  return (m_poly.GetCurrentDistanceToEndMeters() < kOnEndToleranceM);
 }
 
 void Route::Update()
 {
-  if (!m_poly.GetSize())
+  if (!m_poly.IsValid())
     return;
   if (m_routingSettings.m_keepPedestrianInfo)
   {
     vector<m2::PointD> points;
     auto distFn = m2::DistanceToLineSquare<m2::PointD>();
     // TODO (ldargunov) Rewrite dist f to distance in meters and avoid 0.00000 constants.
-    SimplifyNearOptimal(20, m_poly.Begin(), m_poly.End(), 0.00000001, distFn,
+    SimplifyNearOptimal(20, m_poly.GetPolyline().Begin(), m_poly.GetPolyline().End(), 0.00000001, distFn,
                         MakeBackInsertFunctor(points));
-//    m_pedestrianFollower = RouteFollower(points.begin(), points.end());
+    m_simplifiedPoly = FollowedPolyline(points.begin(), points.end());
   }
   else
   {
     // Free memory if we need no this geometry.
- //   m_pedestrianFollower = RouteFollower();
+    m_simplifiedPoly = FollowedPolyline();
   }
-  size_t n = m_poly.GetSize();
-  ASSERT_GREATER(n, 1, ());
-  --n;
-
-  m_segDistance.resize(n);
-  m_segProj.resize(n);
-
-  double dist = 0.0;
-  for (size_t i = 0; i < n; ++i)
-  {
-    m2::PointD const & p1 = m_poly.GetPoint(i);
-    m2::PointD const & p2 = m_poly.GetPoint(i + 1);
-
-    dist += MercatorBounds::DistanceOnEarth(p1, p2);
-
-    m_segDistance[i] = dist;
-    m_segProj[i].SetBounds(p1, p2);
-  }
-
-  m_current = IterT(m_poly.Front(), 0);
   m_currentTime = 0.0;
-}
-
-template <class DistanceF>
-Route::IterT Route::GetClosestProjection(m2::RectD const & posRect, DistanceF const & distFn) const
-{
-  IterT res;
-  double minDist = numeric_limits<double>::max();
-
-  m2::PointD const currPos = posRect.Center();
-  size_t const count = m_poly.GetSize() - 1;
-  for (size_t i = m_current.m_ind; i < count; ++i)
-  {
-    m2::PointD const pt = m_segProj[i](currPos);
-
-    if (!posRect.IsPointInside(pt))
-      continue;
-
-    IterT it(pt, i);
-    double const dp = distFn(it);
-    if (dp < minDist)
-    {
-      res = it;
-      minDist = dp;
-    }
-  }
-
-  return res;
 }
 
 string DebugPrint(Route const & r)
 {
-  return DebugPrint(r.m_poly);
+  return DebugPrint(r.m_poly.GetPolyline());
 }
 
 } // namespace routing
