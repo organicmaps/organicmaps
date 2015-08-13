@@ -136,6 +136,13 @@ public class Framework
   public native static void nativeFollowRoute();
 
   public native static RoutingInfo nativeGetRouteFollowingInfo();
+
+  // When an end user is going to a turn he gets sound turn instructions.
+  // If C++ part wants the client to pronounce an instruction nativeGenerateTurnSound returns
+  // an array of one of more strings. C++ part assumes that all these strings shall be pronounced by the client's TTS.
+  // For example if C++ part wants the client to pronounce "Make a right turn." this method returns
+  // an array with one string "Make a right turn.". The next call of the method returns nothing.
+  // nativeGenerateTurnSound shall be called by the client when a new position is available.
   public native static String[] nativeGenerateTurnSound();
 
   public native static void nativeSetRoutingListener(RoutingListener listener);

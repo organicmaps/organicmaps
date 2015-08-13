@@ -71,15 +71,15 @@ public:
   void SetLocaleWithJson(string const & jsonBuffer) { m_getTtsText.SetLocaleWithJson(jsonBuffer); }
   void SetSpeedMetersPerSecond(double speed);
 
-   /// \brief UpdateRouteFollowingInfo updates information about the next turn notification.
+   /// \brief GenerateTurnSound updates information about the next turn notification.
    /// It also fills turnNotifications when it's necessary.
    /// If this TurnsSound wants to play a sound message once it should push one item to
-   /// the vector turnNotifications once when UpdateRouteFollowingInfo is called.
+   /// the vector turnNotifications once when GenerateTurnSound is called.
    /// \param turn contains information about the next turn.
    /// \param distanceToTurnMeters is distance to the next turn in meters.
    /// \param turnNotifications is a parameter to fill it if it's necessary.
-  void UpdateRouteFollowingInfo(TurnItem const & turn, double distanceToTurnMeters,
-                                vector<string> & turnNotifications);
+  void GenerateTurnSound(TurnItem const & turn, double distanceToTurnMeters,
+                         vector<string> & turnNotifications);
   /// Reset states which reflects current route position.
   /// The method shall be called after creating a new route or after rerouting.
   void Reset();

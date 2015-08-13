@@ -44,8 +44,8 @@ string TurnsSound::GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, boo
   return m_getTtsText(notification);
 }
 
-void TurnsSound::UpdateRouteFollowingInfo(TurnItem const & turn, double distanceToTurnMeters,
-                                          vector<string> & turnNotifications)
+void TurnsSound::GenerateTurnSound(TurnItem const & turn, double distanceToTurnMeters,
+                                   vector<string> & turnNotifications)
 {
   turnNotifications.clear();
 

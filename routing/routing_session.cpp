@@ -242,7 +242,7 @@ void RoutingSession::GenerateTurnSound(vector<string> & turnNotifications)
   turns::TurnItem turn;
   m_route.GetCurrentTurn(distanceToTurnMeters, turn);
 
-  m_turnsSound.UpdateRouteFollowingInfo(turn, distanceToTurnMeters, turnNotifications);
+  m_turnsSound.GenerateTurnSound(turn, distanceToTurnMeters, turnNotifications);
 }
 
 void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)
