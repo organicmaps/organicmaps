@@ -391,8 +391,8 @@ public:
       if (kv)
       {
         size_t const idx = (m_stringCurrentIndex + m_stringTable.size() - key) % m_stringTable.size();
-        *kv = KeyValue(m_stringTable[idx].key,
-                       m_stringTable[idx].value);
+        kv->key = m_stringTable[idx].key;
+        kv->value = m_stringTable[idx].value;
       }
       return this;
     }
