@@ -407,15 +407,14 @@ public:
   {
     if (p->type == XMLElement::EntityType::Node)
     {
+      if (p->childs.empty())
+        return;
 
       FeatureParams params;
       if (!ParseType(p, params))
         return;
 
-      m2::PointD pt;
-      if (p->childs.empty() || !GetPoint(p->id, pt))
-        return;
-
+      m2::PointD const pt = MercatorBounds::FromLatLon(p->lat, p->lon);
       EmitPoint(pt, params, osm::Id::Node(p->id));
     }
     else if (p->type == XMLElement::EntityType::Way)
