@@ -1,6 +1,7 @@
 #pragma once
 
 #include "std/vector.hpp"
+#include "std/cstdint.hpp"
 
 namespace dp
 {

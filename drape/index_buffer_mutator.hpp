@@ -3,6 +3,8 @@
 #include "drape/index_storage.hpp"
 #include "drape/pointers.hpp"
 
+#include "std/cstdint.hpp"
+
 namespace dp
 {
 
