@@ -49,13 +49,13 @@ void Route::Swap(Route & rhs)
 double Route::GetTotalDistanceMeters() const
 {
   ASSERT(m_poly.IsValid(), ());
-  return m_poly.GetTotalDistanceMeters();
+  return m_poly.GetDistanceM(m_poly.Begin(), m_poly.End());
 }
 
 double Route::GetCurrentDistanceFromBeginMeters() const
 {
   ASSERT(m_poly.IsValid(), ());
-  return m_poly.GetCurrentDistanceFromBeginMeters();
+  return m_poly.GetDistanceM(m_poly.Begin(), m_poly.GetCurrentIter());
 }
 
 void Route::GetTurnsDistances(vector<double> & distances) const
@@ -82,7 +82,7 @@ void Route::GetTurnsDistances(vector<double> & distances) const
 
 double Route::GetCurrentDistanceToEndMeters() const
 {
-  return m_poly.GetCurrentDistanceToEndMeters();
+  return m_poly.GetDistanceM(m_poly.GetCurrentIter(), m_poly.End());
 }
 
 double Route::GetMercatorDistanceFromBegin() const
@@ -245,7 +245,7 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
 
 bool Route::IsCurrentOnEnd() const
 {
-  return (m_poly.GetCurrentDistanceToEndMeters() < kOnEndToleranceM);
+  return (m_poly.GetDistanceM(m_poly.GetCurrentIter(), m_poly.End()) < kOnEndToleranceM);
 }
 
 void Route::Update()

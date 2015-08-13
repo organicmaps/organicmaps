@@ -2,13 +2,25 @@
 
 namespace routing
 {
-namespace
-{
-double constexpr kPedestrianEdgeSwitchMeters = 5.0;
-}  // namespace
 
-double FollowedPolyline::GetDistanceOnPolyline(Iter const & it1, Iter const & it2) const
+using Iter = routing::FollowedPolyline::Iter;
+
+Iter FollowedPolyline::Begin() const
 {
+  ASSERT(IsValid(), ());
+  return Iter(m_poly.Front(), 0);
+}
+
+Iter FollowedPolyline::End() const
+{
+  ASSERT(IsValid(), ());
+  return Iter(m_poly.Back(), m_poly.GetSize() - 1);
+}
+
+// TODO (ldragunov) Write tests for this code.
+double FollowedPolyline::GetDistanceM(Iter const & it1, Iter const & it2) const
+{
+  ASSERT(IsValid(), ());
   ASSERT(it1.IsValid() && it2.IsValid(), ());
   ASSERT_LESS_OR_EQUAL(it1.m_ind, it2.m_ind, ());
   ASSERT_LESS(it1.m_ind, m_poly.GetSize(), ());
@@ -55,7 +67,7 @@ void FollowedPolyline::Update()
 }
 
 template <class DistanceFn>
-FollowedPolyline::Iter FollowedPolyline::GetClosestProjection(m2::RectD const & posRect,
+Iter FollowedPolyline::GetClosestProjection(m2::RectD const & posRect,
                                                          DistanceFn const & distFn) const
 {
   Iter res;
@@ -82,7 +94,7 @@ FollowedPolyline::Iter FollowedPolyline::GetClosestProjection(m2::RectD const & 
   return res;
 }
 
-FollowedPolyline::Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,
+Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,
                                                                       double predictDistance) const
 {
   ASSERT(m_current.IsValid(), ());
@@ -94,7 +106,7 @@ FollowedPolyline::Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD 
   Iter res;
   res = GetClosestProjection(posRect, [&](Iter const & it)
   {
-    return fabs(GetDistanceOnPolyline(m_current, it) - predictDistance);
+    return fabs(GetDistanceM(m_current, it) - predictDistance);
   });
 
   if (res.IsValid())
@@ -102,7 +114,7 @@ FollowedPolyline::Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD 
   return res;
 }
 
-FollowedPolyline::Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect) const
+Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect) const
 {
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
@@ -118,30 +130,6 @@ FollowedPolyline::Iter FollowedPolyline::UpdateProjection(m2::RectD const & posR
     m_current = res;
   return res;
 }
-
-double FollowedPolyline::GetTotalDistanceMeters() const
-{
-  ASSERT(!m_segDistance.empty(), ());
-  return m_segDistance.back();
-}
-
-double FollowedPolyline::GetCurrentDistanceFromBeginMeters() const
-{
-  ASSERT(m_current.IsValid(), ());
-
-  return ((m_current.m_ind > 0 ? m_segDistance[m_current.m_ind - 1] : 0.0) +
-          MercatorBounds::DistanceOnEarth(m_poly.GetPoint(m_current.m_ind), m_current.m_pt));
-}
-
-double FollowedPolyline::GetCurrentDistanceToEndMeters() const
-{
-  ASSERT(m_current.IsValid(), ());
-  ASSERT_LESS(m_current.m_ind, m_segDistance.size(), ());
-
-  return (m_segDistance.back() - m_segDistance[m_current.m_ind] +
-          MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
-}
-
 
 double FollowedPolyline::GetMercatorDistanceFromBegin() const
 {

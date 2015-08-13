@@ -24,12 +24,6 @@ public:
 
   m2::PolylineD const & GetPolyline() const { return m_poly; }
 
-  double GetTotalDistanceMeters() const;
-
-  double GetCurrentDistanceFromBeginMeters() const;
-
-  double GetCurrentDistanceToEndMeters() const;
-
   double GetMercatorDistanceFromBegin() const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const
@@ -50,8 +44,13 @@ public:
 
   const Iter GetCurrentIter() const { return m_current; }
 
+  double GetDistanceM(Iter const & it1, Iter const & it2) const;
+
   Iter UpdateProjectionByPrediction(m2::RectD const & posRect, double predictDistance) const;
   Iter UpdateProjection(m2::RectD const & posRect) const;
+
+  Iter Begin() const;
+  Iter End() const;
 
   //TODO (ldragunov) remove this by updating iterator
   vector<double> const & GetSegDistances() const { return m_segDistance; }
@@ -61,8 +60,6 @@ private:
   Iter GetClosestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
 
   void Update();
-
-  double GetDistanceOnPolyline(Iter const & it1, Iter const & it2) const;
 
   m2::PolylineD m_poly;
 
