@@ -87,7 +87,7 @@ private:
 
 private:
   TIndex const & GetCurrentRoot() const;
-  void SetRoot(TIndex const & newIndex);
+  void SetRoot(TIndex index);
   TIndex const & GetChild(int childPosition) const;
   int GetChildPosition(TIndex const & index);
 

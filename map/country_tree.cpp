@@ -258,11 +258,10 @@ TIndex const & CountryTree::GetCurrentRoot() const
   return m_levelItems[RootItemIndex];
 }
 
-void CountryTree::SetRoot(TIndex const & newIndex)
+void CountryTree::SetRoot(TIndex index)
 {
   ResetRoot();
 
-  TIndex index(newIndex);
   size_t const count = GetStorage().CountriesCount(index);
   m_levelItems.reserve(ChildItemsOffset + count);
   m_levelItems.push_back(index);
