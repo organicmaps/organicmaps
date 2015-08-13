@@ -9,6 +9,6 @@ public class UpgradeReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
-    // TODO our package's updated, do smth
+    WorkerService.queuePedestrianNotification();
   }
 }

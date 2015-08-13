@@ -48,7 +48,6 @@ import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.dialog.RoutingErrorDialogFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
-import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.routing.RoutingResultCodesProcessor;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchFragment;
@@ -131,7 +130,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mIsFragmentContainer;
 
   private LocationPredictor mLocationPredictor;
-  private LikesManager mLikesManager;
   private SearchToolbarController mSearchController;
 
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
@@ -444,7 +442,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     mLocationPredictor = new LocationPredictor(new Handler(), this);
-    mLikesManager = new LikesManager(this);
     mSearchController = new SearchToolbarController(this);
 
     SharingHelper.prepare();
@@ -777,7 +774,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     startWatchingExternalStorage();
     mSearchController.refreshToolbar();
     mPlacePage.onResume();
-    mLikesManager.showLikeDialogForCurrentSession();
+    LikesManager.INSTANCE.showDialogs(this);
     refreshZoomButtonsAfterLayout();
   }
 
@@ -814,8 +811,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     stopWatchingExternalStorage();
     stopWatchingCompassStatusUpdate();
     TtsPlayer.INSTANCE.stop();
+    LikesManager.INSTANCE.cancelDialogs();
     super.onPause();
-    mLikesManager.cancelLikeDialog();
   }
 
   private void updateExternalStorageState()
@@ -1278,6 +1275,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         if (resultCode == RoutingResultCodesProcessor.NO_ERROR)
         {
+          if (Framework.getRouter() == Framework.ROUTER_TYPE_PEDESTRIAN)
+            LikesManager.INSTANCE.onPedestrianBuilt();
+
           mLayoutRouting.setState(RoutingLayout.State.ROUTE_BUILT, true);
         }
         else

@@ -56,6 +56,9 @@ public class ParsedMwmRequest
 
   public static void setCurrentRequest(ParsedMwmRequest request) { sCurrentRequest = request; }
 
+  /**
+   * Build request from intent extras.
+   */
   public static ParsedMwmRequest extractFromIntent(Intent data)
   {
     final ParsedMwmRequest request = new ParsedMwmRequest();
@@ -118,7 +121,6 @@ public class ParsedMwmRequest
   {
     if (hasPendingIntent())
     {
-      // set zoom level from framework
       mZoomLevel = Framework.getDrawScale();
       final Intent i = new Intent();
       if (success)
@@ -157,6 +159,5 @@ public class ParsedMwmRequest
   /**
    * Do not use constructor externally. Use {@link ParsedMwmRequest#extractFromIntent(android.content.Intent)} instead.
    */
-  private ParsedMwmRequest()
-  {}
+  private ParsedMwmRequest() {}
 }

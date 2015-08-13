@@ -10,8 +10,6 @@ public class UpgradeReceiverCompat extends BroadcastReceiver
   public void onReceive(Context context, Intent intent)
   {
     if (context.getPackageName().equals(intent.getData().getSchemeSpecificPart()))
-    {
-      // TODO our package's updated, do smth
-    }
+      WorkerService.queuePedestrianNotification();
   }
 }

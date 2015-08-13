@@ -366,6 +366,11 @@ public final class UiUtils
     return MwmApplication.get().getResources().getBoolean(R.bool.isBigTablet);
   }
 
+  public static boolean isTablet()
+  {
+    return isSmallTablet() || isBigTablet();
+  }
+
   /**
    * View's default getHitRect() had a bug and would not apply transforms properly.
    * More details : http://stackoverflow.com/questions/17750116/strange-view-gethitrect-behaviour

@@ -18,6 +18,7 @@ public final class Notifier
   private final static int ID_UPDATE_AVAIL = 0x1;
   private final static int ID_DOWNLOAD_FAILED = 0x3;
   private final static int ID_DOWNLOAD_NEW_COUNTRY = 0x4;
+  private final static int ID_PEDESTRIAN = 0x5;
 
   private static final MwmApplication APP = MwmApplication.get();
 
@@ -55,6 +56,7 @@ public final class Notifier
         PendingIntent.FLAG_UPDATE_CURRENT);
 
     placeNotification(title, content, pi, ID_DOWNLOAD_FAILED);
+    Statistics.INSTANCE.trackDownloadCountryNotificationShown();
   }
 
   public static void notifyDownloadSuggest(String title, String content, Index countryIndex)
@@ -64,8 +66,23 @@ public final class Notifier
         PendingIntent.FLAG_UPDATE_CURRENT);
 
     placeNotification(title, content, pi, ID_DOWNLOAD_NEW_COUNTRY);
-
     Statistics.INSTANCE.trackDownloadCountryNotificationShown();
+  }
+
+  public static void cancelDownloadSuggest()
+  {
+    getNotificationManager().cancel(ID_DOWNLOAD_NEW_COUNTRY);
+  }
+
+  public static void notifyPedestrianRouting()
+  {
+    final String title = APP.getString(R.string.title_walking_available);
+    final String content = APP.getString(R.string.walking_rich_notification_text);
+
+    final PendingIntent pi = PendingIntent.getActivity(APP, 0, new Intent(APP, MwmActivity.class),
+        PendingIntent.FLAG_UPDATE_CURRENT);
+
+    placeBigNotification(title, content, pi, ID_PEDESTRIAN);
   }
 
   private static void placeNotification(String title, String content, PendingIntent pendingIntent, int notificationId)
@@ -80,8 +97,16 @@ public final class Notifier
     getNotificationManager().notify(notificationId, notification);
   }
 
-  public static void cancelDownloadSuggest()
+  private static void placeBigNotification(String title, String content, PendingIntent pendingIntent, int notificationId)
   {
-    getNotificationManager().cancel(ID_DOWNLOAD_NEW_COUNTRY);
+    final Notification notification = getBuilder()
+        .setContentTitle(title)
+        .setContentText(content)
+        .setTicker(title + ": " + content)
+        .setContentIntent(pendingIntent)
+        .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
+        .build();
+
+    getNotificationManager().notify(notificationId, notification);
   }
 }

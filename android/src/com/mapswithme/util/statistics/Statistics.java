@@ -67,6 +67,8 @@ public enum Statistics
     public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
     public static final String FACEBOOK_INVITE_INVITED = "GPlay dialog cancelled.";
     public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
+    public static final String FACEBOOK_PEDESTRIAN_CANCEL = "Facebook pedestrian cancelled.";
+    public static final String FACEBOOK_PEDESTRIAN_SHARE = "Facebook pedestrian shared.";
   }
 
   public static class EventParam

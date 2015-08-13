@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.mapswithme.maps.R;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.ConnectionState;
 
 public class ConnectivityChangedReceiver extends BroadcastReceiver
@@ -22,7 +22,7 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
 
   public void onWiFiConnected(Context context)
   {
-    final SharedPreferences prefs = context.getSharedPreferences(context.getString(R.string.pref_file_name), Context.MODE_PRIVATE);
+    final SharedPreferences prefs = MwmApplication.getMwmSharedPreferences();
     final long lastEventTimestamp = prefs.getLong(DOWNLOAD_UPDATE_TIMESTAMP, 0);
 
     if (System.currentTimeMillis() - lastEventTimestamp > MIN_EVENT_DELTA_MILLIS)

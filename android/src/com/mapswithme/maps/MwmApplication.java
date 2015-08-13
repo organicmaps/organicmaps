@@ -67,6 +67,11 @@ public class MwmApplication extends android.app.Application implements ActiveCou
     return mSelf.mGson;
   }
 
+  public static SharedPreferences getMwmSharedPreferences()
+  {
+    return mSelf.getSharedPreferences(mSelf.getString(R.string.pref_file_name), MODE_PRIVATE);
+  }
+
   @Override
   public void onCountryProgressChanged(int group, int position, long[] sizes) {}
 
@@ -249,7 +254,7 @@ public class MwmApplication extends android.app.Application implements ActiveCou
       @Override
       public void done(ParseException e)
       {
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
+        SharedPreferences prefs = getMwmSharedPreferences();
         String previousId = prefs.getString(PREF_PARSE_INSTALLATION_ID, "");
         String previousToken = prefs.getString(PREF_PARSE_DEVICE_TOKEN, "");
 

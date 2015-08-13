@@ -1,6 +1,8 @@
 package com.mapswithme.maps.background;
 
+import android.app.AlarmManager;
 import android.app.IntentService;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,17 +12,26 @@ import android.os.Handler;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.Calendar;
+
 public class WorkerService extends IntentService
 {
-  public static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
-  public static final String ACTION_DOWNLOAD_COUNTRY = "com.mapswithme.maps.action.download_country";
+  private static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
+  private static final String ACTION_DOWNLOAD_COUNTRY = "com.mapswithme.maps.action.download_country";
+  private static final String ACTION_NOTIFY_PEDESTRIAN = "com.mapswithme.maps.action.notify_pedestrian";
+  private static final String PREF_NOTIFICATION_ALARM = "PedestrianNotificationAlarmSet";
+  private static final String PREF_NOTIFICATION_SHOWN = "PedestrianNotificationShown";
+
+  private static final MwmApplication APP = MwmApplication.get();
+  private static final SharedPreferences PREFS = MwmApplication.getMwmSharedPreferences();
 
   /**
-   * Starts this service to perform check update action with the given parameters. If the
+   * Starts this service to check map updates available with the given parameters. If the
    * service is already performing a task this action will be queued.
    *
    * @see IntentService
@@ -45,6 +56,37 @@ public class WorkerService extends IntentService
     context.startService(intent);
   }
 
+  /**
+   * Sets alarm to display notification about pedestrian routing available.
+   */
+  public static void queuePedestrianNotification()
+  {
+    if (isPedestrianNotificationAlarmSet())
+      return;
+
+    Calendar time = Calendar.getInstance();
+    time.set(Calendar.MINUTE, 0);
+    final int hour = 18;
+    final int currentHour = time.get(Calendar.HOUR_OF_DAY);
+    if (currentHour > hour)
+      time.roll(Calendar.DAY_OF_MONTH, 1);
+    time.set(Calendar.HOUR_OF_DAY, hour);
+
+    final Intent intent = new Intent(APP, WorkerService.class);
+    intent.setAction(WorkerService.ACTION_NOTIFY_PEDESTRIAN);
+
+    final AlarmManager manager = (AlarmManager) APP.getSystemService(Context.ALARM_SERVICE);
+    manager.set(AlarmManager.RTC, time.getTimeInMillis(), PendingIntent.getService(APP, 0, intent, 0));
+
+    onPedestrianAlarmSet();
+  }
+
+  public static void checkLostPedestrianAlarm()
+  {
+    if (isPedestrianNotificationAlarmSet() && !isPedestrianNotificationShown())
+      queuePedestrianNotification();
+  }
+
   public WorkerService()
   {
     super("WorkerService");
@@ -60,11 +102,18 @@ public class WorkerService extends IntentService
       switch (action)
       {
       case ACTION_CHECK_UPDATE:
+        checkLostPedestrianAlarm();
         handleActionCheckUpdate();
         break;
       case ACTION_DOWNLOAD_COUNTRY:
+        checkLostPedestrianAlarm();
         handleActionCheckLocation();
         break;
+      case ACTION_NOTIFY_PEDESTRIAN:
+        if (isPedestrianNotificationShown())
+          return;
+        Notifier.notifyPedestrianRouting();
+        onPedestrianNotificationShown();
       }
     }
   }
@@ -126,9 +175,8 @@ public class WorkerService extends IntentService
     final String country = Framework.nativeGetCountryNameIfAbsent(l.getLatitude(), l.getLongitude());
     if (!TextUtils.isEmpty(country))
     {
-      final SharedPreferences prefs = getApplicationContext().
-          getSharedPreferences(getApplicationContext().getString(R.string.pref_file_name), Context.MODE_PRIVATE);
-      final String lastNotification = prefs.getString(country, null);
+
+      final String lastNotification = PREFS.getString(country, null);
       if (lastNotification != null)
       {
         // Do not place notification if it was displayed less than 180 days ago.
@@ -138,9 +186,29 @@ public class WorkerService extends IntentService
           return;
       }
 
-      Notifier.notifyDownloadSuggest(country, String.format(getApplicationContext().getString(R.string.download_location_country), country),
+      Notifier.notifyDownloadSuggest(country, String.format(APP.getString(R.string.download_location_country), country),
           Framework.nativeGetCountryIndex(l.getLatitude(), l.getLongitude()));
-      prefs.edit().putString(country, String.valueOf(System.currentTimeMillis())).apply();
+      PREFS.edit().putString(country, String.valueOf(System.currentTimeMillis())).apply();
     }
+  }
+
+  private static boolean isPedestrianNotificationAlarmSet()
+  {
+    return PREFS.getBoolean(PREF_NOTIFICATION_ALARM, false);
+  }
+
+  private static void onPedestrianAlarmSet()
+  {
+    PREFS.edit().putBoolean(PREF_NOTIFICATION_ALARM, true).apply();
+  }
+
+  private static boolean isPedestrianNotificationShown()
+  {
+    return PREFS.getBoolean(PREF_NOTIFICATION_SHOWN, false);
+  }
+
+  private static void onPedestrianNotificationShown()
+  {
+    PREFS.edit().putBoolean(PREF_NOTIFICATION_SHOWN, true).apply();
   }
 }

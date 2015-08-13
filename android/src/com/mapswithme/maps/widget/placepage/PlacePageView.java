@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity;
@@ -138,8 +139,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     super(context, attrs);
 
-    mIsLatLonDms = context.getSharedPreferences(context.getString(R.string.pref_file_name), Context.MODE_PRIVATE)
-                          .getBoolean(PREF_USE_DMS, false);
+    mIsLatLonDms = MwmApplication.getMwmSharedPreferences().getBoolean(PREF_USE_DMS, false);
     initViews();
 
     initAnimationController(attrs, defStyleAttr);
@@ -643,8 +643,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       break;
     case R.id.ll__place_latlon:
       mIsLatLonDms = !mIsLatLonDms;
-      getContext().getSharedPreferences(getContext().getString(R.string.pref_file_name),
-          Context.MODE_PRIVATE).edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).commit();
+      MwmApplication.getMwmSharedPreferences().edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).commit();
       refreshLatLon();
       break;
     case R.id.ll__place_phone:
