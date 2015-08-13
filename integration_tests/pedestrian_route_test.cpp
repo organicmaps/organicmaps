@@ -499,3 +499,11 @@ UNIT_TEST(MoscowVodnyStadiumHighwayPlatform)
       MercatorBounds::FromLatLon(55.83955, 37.48692), {0., 0.},
       MercatorBounds::FromLatLon(55.84061, 37.48636), 136.115);
 }
+
+UNIT_TEST(MoscowChistiePrudiSelectPointsInConnectedGraph)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(55.76613, 37.63769), {0., 0.},
+      MercatorBounds::FromLatLon(55.76593, 37.63893), 134.02);
+}

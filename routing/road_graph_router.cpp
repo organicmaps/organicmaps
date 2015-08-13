@@ -17,6 +17,9 @@
 
 #include "geometry/distance.hpp"
 
+#include "std/queue.hpp"
+#include "std/set.hpp"
+
 #include "base/assert.hpp"
 
 using platform::CountryFile;
@@ -27,15 +30,10 @@ namespace routing
 
 namespace
 {
-// TODO (@gorshenin, @pimenov, @ldragunov): kMaxRoadCandidates == 1
-// means that only two closest feature will be examined when searching
-// for features in the vicinity of start and final points.
-// It is an oversimplification that is not as easily
-// solved as tuning up this constant because if you set it too high
-// you risk to find a feature that you cannot in fact reach because of
-// an obstacle.  Using only the closest feature minimizes (but not
-// eliminates) this risk.
-size_t constexpr kMaxRoadCandidates = 1;
+size_t constexpr kMaxRoadCandidates = 6;
+
+size_t constexpr kTestConnectivityVisitJunctionsLimit = 25;
+
 uint64_t constexpr kMinPedestrianMwmVersion = 150713;
 
 IRouter::ResultCode Convert(IRoutingAlgorithm::Result value)
@@ -76,6 +74,63 @@ bool CheckMwmVersion(vector<pair<Edge, m2::PointD>> const & vicinities, vector<s
       mwmNames.push_back(mwmInfo->GetCountryName());
   }
   return !mwmNames.empty();
+}
+
+// Checks is edge connected with world graph.
+// Function does BFS while it finds some number of edges, if graph ends
+// before this number is reached then junction is assumed as not connected to the world graph.
+bool CheckGraphConnectivity(IRoadGraph const & graph, Junction const & junction, size_t limit)
+{
+  queue<Junction> q;
+  q.push(junction);
+
+  set<Junction> visited;
+
+  vector<Edge> edges;
+  while (!q.empty())
+  {
+    Junction const node = q.front();
+    q.pop();
+
+    if (visited.find(node) != visited.end())
+      continue;
+    visited.insert(node);
+
+    if (limit == visited.size())
+      return true;
+
+    edges.clear();
+    graph.GetOutgoingEdges(node, edges);
+    for (Edge const & e : edges)
+      q.push(e.GetEndJunction());
+  }
+
+  return false;
+}
+
+// Find closest candidates in the world graph
+void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
+                      vector<pair<Edge, m2::PointD>> & vicinity)
+{
+  // WARNING: Take only one vicinity
+  // It is an oversimplification that is not as easily
+  // solved as tuning up this constant because if you set it too high
+  // you risk to find a feature that you cannot in fact reach because of
+  // an obstacle.  Using only the closest feature minimizes (but not
+  // eliminates) this risk.
+
+  vector<pair<Edge, m2::PointD>> candidates;
+  graph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
+
+  vicinity.clear();
+  for (auto const & candidate : candidates)
+  {
+    if (CheckGraphConnectivity(graph, candidate.first.GetStartJunction(), kTestConnectivityVisitJunctionsLimit))
+    {
+      vicinity.emplace_back(candidate);
+      break;
+    }
+  }
 }
 }  // namespace
 
@@ -122,12 +177,12 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
     return RouteFileNotExist;
 
   vector<pair<Edge, m2::PointD>> finalVicinity;
-  m_roadGraph->FindClosestEdges(finalPoint, kMaxRoadCandidates, finalVicinity);
+  FindClosestEdges(*m_roadGraph, finalPoint, finalVicinity);
   
   if (finalVicinity.empty())
     return EndPointNotFound;
 
-  //TODO (ldragunov) Remove this check after several releases. (Estimated in november)
+  // TODO (ldragunov) Remove this check after several releases. (Estimated in november)
   vector<string> mwmNames;
   if (CheckMwmVersion(finalVicinity, mwmNames))
   {
@@ -136,12 +191,12 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   }
 
   vector<pair<Edge, m2::PointD>> startVicinity;
-  m_roadGraph->FindClosestEdges(startPoint, kMaxRoadCandidates, startVicinity);
+  FindClosestEdges(*m_roadGraph, startPoint, startVicinity);
 
   if (startVicinity.empty())
     return StartPointNotFound;
 
-  //TODO (ldragunov) Remove this check after several releases. (Estimated in november)
+  // TODO (ldragunov) Remove this check after several releases. (Estimated in november)
   if (CheckMwmVersion(startVicinity, mwmNames))
   {
     for (auto const & name : mwmNames)
