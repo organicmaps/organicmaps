@@ -336,17 +336,17 @@
     th = คุณมาถึงที่หมายแล้ว
 
   [in_50_meters]
-    en = In 50 meters.
-    ru = Через 50 метров.
-    pl = Za 50 metrów.
-    sv = Om 50 meter.
-    tr = 50 metre sonra.
-    fr = Dans 50 mètres.
-    nl = Over 50 meter:
-    de = In 50 Metern.
+    en = In fifty meters.
+    ru = Через пятьсот метров.
+    pl = Za pięćdziesiąt metrów.
+    sv = Om femtio meter.
+    tr = Elli metre sonra.
+    fr = Dans cinquante mètres.
+    nl = Over vijftig meter.
+    de = In fünfzig Metern.
     ar = بعد 50 مترًا
-    el = Σε 50 μέτρα.
-    it = Tra 50 metri.
+    el = Σε πενήντα μέτρα.
+    it = Tra cinquanta metri.
     cs = Za 50 metrů.
     hu = 50 méter után.
     ro = După 50 de metri.
@@ -364,17 +364,17 @@
     th = อีก 50 เมตร
 
   [in_100_meters]
-    en = In 100 meters.
-    ru = Через 100 метров.
-    pl = Za 100 metrów.
-    sv = Om 100 meter.
-    tr = 100 metre sonra.
-    fr = Dans 100 mètres.
-    nl = Over 100 meter:
-    de = In 100 Metern.
+    en = In one hundred meters.
+    ru = Через сто метров.
+    pl = Za sto metrów.
+    sv = Om ett hundra meter.
+    tr = Yüz metre sonra.
+    fr = Dans cents mètres.
+    nl = Over honderd meter.
+    de = In einhundert Metern.
     ar = بعد 100 متر
-    el = Σε 100 μέτρα.
-    it = Tra 100 metri.
+    el = Σε εκατό μέτρα.
+    it = Tra cento metri.
     cs = Za 100 metrů.
     hu = 100 méter után.
     ro = După 100 de metri.
@@ -392,17 +392,17 @@
     th = อีก 100 เมตร
 
   [in_200_meters]
-    en = In 200 meters.
-    ru = Через 200 метров.
-    pl = Za 200 metrów.
-    sv = Om 200 meter.
-    tr = 200 metre sonra.
-    fr = Dans 200 mètres.
-    nl = Over 200 meter:
-    de = In 200 Metern.
+    en = In two hundred meters.
+    ru = Через двести метров.
+    pl = Za dwieście metrów.
+    sv = Om två hundra meter.
+    tr = İki yüz metre sonra.
+    fr = Dans deux cents mètres.
+    nl = Over tweehonderd meter.
+    de = In zweihundert Metern.
     ar = بعد 200 متر
-    el = Σε 200 μέτρα.
-    it = Tra 200 metri.
+    el = Σε διακόσια μέτρα.
+    it = Tra duecento metri.
     cs = Za 200 metrů.
     hu = 200 méter után.
     ro = După 200 de metri.
@@ -420,17 +420,17 @@
     th = อีก 200 เมตร
 
   [in_250_meters]
-    en = In 250 meters.
-    ru = Через 250 метров.
-    pl = Za 250 metrów.
-    sv = Om 250 meter.
-    tr = 250 metre sonra.
-    fr = Dans 250 mètres.
-    nl = Over 250 meter:
-    de = In 250 Metern.
+    en = In two hundred and fifty meters.
+    ru = Через двести пятьдесят метров.
+    pl = Za dwieście pięćdziesiąt metrów.
+    sv = Om två hundra femtio meter.
+    tr = İki yüz elli metre sonra.
+    fr = Dans deux cents cinquante mètres.
+    nl = Over tweehonderdvijftig meter.
+    de = In zweihundertfünfzig Metern.
     ar = بعد 250 متر
-    el = Σε 250 μέτρα.
-    it = Tra 250 metri.
+    el = Σε διακόσια πενήντα μέτρα.
+    it = Tra duecento cinquanta metri.
     cs = Za 250 metrů.
     hu = 250 méter után.
     ro = După 250 de metri.
@@ -448,17 +448,17 @@
     th = อีก 250 เมตร
 
   [in_300_meters]
-    en = In 300 meters.
-    ru = Через 300 метров.
-    pl = Za 300 metrów.
-    sv = Om 300 meter.
-    tr = 300 metre sonra.
-    fr = Dans 300 mètres.
-    nl = Over 300 meter:
-    de = In 300 Metern.
+    en = In three hundred meters.
+    ru = Через триста метров.
+    pl = Za trzysta metrów.
+    sv = Om tre hundra meter.
+    tr = Üç yüz metre sonra.
+    fr = Dans trois cents mètres.
+    nl = Over driehonderd meter.
+    de = In dreihundertfünfzig Metern.
     ar = بعد 300 متر
-    el = Σε 300 μέτρα.
-    it = Tra 300 metri.
+    el = Σε τριακόσια μέτρα.
+    it = Tra trecento metri.
     cs = Za 300 metrů.
     hu = 300 méter után.
     ro = După 300 de metri.
@@ -476,17 +476,17 @@
     th = อีก 300 เมตร
 
   [in_400_meters]
-    en = In 400 meters.
-    ru = Через 400 метров.
-    pl = Za 400 metrów.
-    sv = Om 400 meter.
-    tr = 400 metre sonra.
-    fr = Dans 400 mètres.
-    nl = Over 400 meter:
-    de = In 400 Metern.
+    en = In four hundred meters.
+    ru = Через четыреста метров.
+    pl = Za czterysta metrów.
+    sv = Om fyra hundra meter.
+    tr = Dört yüz metre sonra.
+    fr = Dans quatre cents mètres.
+    nl = Over vierhonderd meter.
+    de = In vierhundert Metern.
     ar = بعد 400 متر
-    el = Σε 400 μέτρα.
-    it = Tra 400 metri.
+    el = Σε τετρακόσια μέτρα.
+    it = Tra quattrocento metri.
     cs = Za 400 metrů.
     hu = 400 méter után.
     ro = După 400 de metri.
@@ -504,17 +504,17 @@
     th = อีก 400 เมตร
 
   [in_500_meters]
-    en = In 500 meters.
-    ru = Через 500 метров.
-    pl = Za 500 metrów.
-    sv = Om 500 meter.
-    tr = 500 metre sonra.
-    fr = Dans 500 mètres.
-    nl = Over 500 meter:
-    de = In 500 Metern.
+    en = In five hundred meters.
+    ru = Через пятьсот метров.
+    pl = Za pięćset metrów.
+    sv = Om fem hundra meter.
+    tr = Beş yüz metre sonra.
+    fr = Dans cinq cents mètres.
+    nl = Over vijfhonderd meter.
+    de = In fünfhundert Metern.
     ar = بعد 500 متر
-    el = Σε 500 μέτρα.
-    it = Tra 500 metri.
+    el = Σε πεντακόσια μέτρα.
+    it = Tra cinquecento metri.
     cs = Za 500 metrů.
     hu = 500 méter után.
     ro = După 500 de metri.
@@ -532,17 +532,17 @@
     th = อีก 500 เมตร
 
   [in_600_meters]
-    en = In 600 meters.
-    ru = Через 600 метров.
-    pl = Za 600 metrów.
-    sv = Om 600 meter.
-    tr = 600 metre sonra.
-    fr = Dans 600 mètres.
-    nl = Over 600 meter:
-    de = In 600 Metern.
+    en = In six hundred meters.
+    ru = Через шестьсот метров.
+    pl = Za sześćset metrów.
+    sv = Om sex hundra meter.
+    tr = Altı yüz metre sonra.
+    fr = Dans six cents mètres.
+    nl = Over zeshonderd meter.
+    de = In sechshundert Metern.
     ar = بعد 600 متر
-    el = Σε 600 μέτρα.
-    it = Tra 600 metri.
+    el = Σε εξακόσια μέτρα.
+    it = Tra seicento metri.
     cs = Za 600 metrů.
     hu = 600 méter után.
     ro = După 600 de metri.
@@ -560,17 +560,17 @@
     th = อีก 600 เมตร
 
   [in_700_meters]
-    en = In 700 meters.
-    ru = Через 700 метров.
-    pl = Za 700 metrów.
-    sv = Om 700 meter.
-    tr = 700 metre sonra.
-    fr = Dans 700 mètres.
-    nl = Over 700 meter:
-    de = In 700 Metern.
+    en = In seven hundred meters.
+    ru = Через семьсот метров.
+    pl = Za siedemset metrów.
+    sv = Om sju hundra meter.
+    tr = Yedi yüz metre sonra.
+    fr = Dans sept cents mètres.
+    nl = Over zevenhonderd meter.
+    de = In siebenhundert Metern.
     ar = بعد 700 متر
-    el = Σε 700 μέτρα.
-    it = Tra 700 metri.
+    el = Σε επτακόσια μέτρα.
+    it = Tra settecento metri.
     cs = Za 700 metrů.
     hu = 700 méter után.
     ro = După 700 de metri.
@@ -588,17 +588,17 @@
     th = อีก 700 เมตร
 
   [in_750_meters]
-    en = In 750 meters.
-    ru = Через 750 метров.
-    pl = Za 750 metrów.
-    sv = Om 750 meter.
-    tr = 750 metre sonra.
-    fr = Dans 750 mètres.
-    nl = Over 750 meter:
-    de = In 750 Metern.
+    en = In seven hundred and fifty meters.
+    ru = Через семьсот пятьдесят метров.
+    pl = Za siedemset pięćdziesiąt metrów.
+    sv = Om sju hundra femtio meter.
+    tr = Yedi yüz elli metre sonra.
+    fr = Dans sept cents cinquante mètres.
+    nl = Over zevenhonderdvijftig meter.
+    de = In siebenhundertfünfzig Metern.
     ar = بعد 750 متر
-    el = Σε 750 μέτρα.
-    it = Tra 750 metri.
+    el = Σε επτακόσια πενήντα μέτρα.
+    it = Tra settecento cinquanta metri.
     cs = Za 750 metrů.
     hu = 750 méter után.
     ro = După 750 de metri.
@@ -616,17 +616,17 @@
     th = อีก 750 เมตร
 
   [in_800_meters]
-    en = In 800 meters.
-    ru = Через 800 метров.
-    pl = Za 800 metrów.
-    sv = Om 800 meter.
-    tr = 800 metre sonra.
-    fr = Dans 800 mètres.
-    nl = Over 800 meter:
-    de = In 800 Metern.
+    en = In eight hundred meters.
+    ru = Через восемьсот метров.
+    pl = Za osiemset metrów.
+    sv = Om åtta hundra meter.
+    tr = Sekiz yüz metre sonra.
+    fr = Dans huit cents mètres.
+    nl = Over achthonderd meter.
+    de = In achthundert Metern.
     ar = بعد 800 متر
-    el = Σε 800 μέτρα.
-    it = Tra 800 metri.
+    el = Σε οκτακόσια μέτρα.
+    it = Tra ottocento metri.
     cs = Za 800 metrů.
     hu = 800 méter után.
     ro = După 800 de metri.
@@ -644,17 +644,17 @@
     th = อีก 800 เมตร
 
   [in_900_meters]
-    en = In 900 meters.
-    ru = Через 900 метров.
-    pl = Za 900 metrów.
-    sv = Om 900 meter.
-    tr = 900 metre sonra.
-    fr = Dans 900 mètres.
-    nl = Over 900 meter:
-    de = In 900 Metern.
+    en = In nine hundred meters.
+    ru = Через девятьсот метров.
+    pl = Za dziewięćset metrów.
+    sv = Om nio hundra meter.
+    tr = Dokuz yüz metre sonra.
+    fr = Dans neuf cents mètres.
+    nl = Over negenhonderd meter.
+    de = In neunhundert Metern.
     ar = بعد 900 متر
-    el = Σε 900 μέτρα.
-    it = Tra 900 metri.
+    el = Σε εννιακόσια μέτρα.
+    it = Tra novecento metri.
     cs = Za 900 metrů.
     hu = 900 méter után.
     ro = După 900 de metri.
@@ -678,7 +678,7 @@
     sv = Om en kilometer.
     tr = Bir kilometre sonra.
     fr = Dans un kilomètre.
-    nl = Over één kilometer:
+    nl = Over één kilometer.
     de = In einem Kilometer.
     ar = بعد كيلو متر واحدٍ
     el = Σε ένα χιλιόμετρο.
@@ -700,13 +700,13 @@
     th = อีก 1 กิโลเมตร
 
   [in_1_5_kilometers]
-    en = In one and a half kilometer.
+    en = In one and a half kilometers.
     ru = Через полтора километра.
     pl = Za półtora kilometra.
     sv = Om en och en halv kilometer.
     tr = Bir buçuk kilometre sonra.
     fr = Dans un virgule cinq kilomètre.
-    nl = Over anderhalve kilometer:
+    nl = Over anderhalve kilometer.
     de = In anderthalb Kilometern.
     ar = بعد كيلو متر ونصف
     el = Σε ενάμιση χιλιόμετρο.
@@ -729,12 +729,12 @@
 
   [in_2_kilometers]
     en = In two kilometers.
-    ru = Через 2 километра.
-    pl = Za 2 kilometry.
+    ru = Через два километра.
+    pl = Za dwa kilometry.
     sv = Om två kilometer.
     tr = İki kilometre sonra.
     fr = Dans deux kilomètres.
-    nl = Over twee kilometer:
+    nl = Over twee kilometer.
     de = In zwei Kilometern.
     ar = بعد 2 كيلو متر
     el = Σε δύο χιλιόμετρα.
@@ -762,7 +762,7 @@
     sv = Om två och en halv kilometer.
     tr = İki buçuk kilometre sonra.
     fr = Dans deux virgule cinq kilomètres.
-    nl = Over tweeëneenhalve kilometer:
+    nl = Over tweeëneenhalve kilometer.
     de = In zweieinhalb Kilometern.
     ar = بعد 2 كيلو متر ونصف
     el = Σε τρισήμιση χιλιόμετρα.
@@ -784,14 +784,14 @@
     th = อีก 2 กิโลเมตรครึ่ง
 
   [in_3_kilometers]
-    en = In 3 kilometers.
-    ru = Через 3 километра.
-    pl = Za 3 kilometry.
-    sv = Om 3 kilometer.
-    tr = 3 kilometre sonra.
+    en = In three kilometers.
+    ru = Через три километра.
+    pl = Za trzy kilometry.
+    sv = Om tre kilometer.
+    tr = Üç kilometre sonra.
     fr = Dans trois kilomètres.
-    nl = Over drie kilometer:
-    de = In 3 Kilometern.
+    nl = Over drie kilometer.
+    de = In dreieinhalb Kilometern.
     ar = بعد 3 كيلو متر
     el = Σε τρία χιλιόμετρα.
     it = Tra tre chilometri.
@@ -818,7 +818,7 @@
     sv = Efter det.
     tr = Sonra.
     fr = Puis.
-    nl = Daarna:
+    nl = Daarna.
     de = Danach.
     ar = ثم
     el = Στη συνέχεια.
@@ -840,7 +840,7 @@
     th = จากนั้น
 
   [take_the_1st_exit]
-    en = Take the first exit. 
+    en = Take the first exit.
     ru = Первый поворот с кольца.
     pl = Zjedź pierwszym zjazdem.
     sv = Ta första avfarten.
@@ -865,7 +865,7 @@
     pt = Saia na primeira saída.
     sk = Opustite kruhový objazd na prvom výjazde.
     sw = Ingia barabara ya kwanza ya kutoka.
-    th = ออกทางออกที่ 1
+    th = ออกทางออกที่หนึ่ง
 
   [take_the_2nd_exit]
     en = Take the second exit.
@@ -893,10 +893,10 @@
     pt = Saia na segunda saída.
     sk = Opustite kruhový objazd na druhom výjazde.
     sw = Ingia barabara ya pili ya kutoka.
-    th = ออกทางออกที่ 2
+    th = ออกทางออกที่สอง
 
   [take_the_3rd_exit]
-    en = Take the third exit. 
+    en = Take the third exit.
     ru = Третий поворот с кольца.
     pl = Zjedź trzecim zjazdem.
     sv = Ta tredje avfarten.
@@ -921,17 +921,17 @@
     pt = Saia na terceira saída.
     sk = Opustite kruhový objazd na treťom výjazde.
     sw = Ingia barabara ya tatu ya kutoka.
-    th = ออกทางออกที่ 3
+    th = ออกทางออกที่สาม
 
   [take_the_4th_exit]
-    en = Take the 4th exit. 
-    ru = 4-й поворот с кольца.
+    en = Take the fourth exit.
+    ru = Четвертый поворот с кольца.
     pl = Zjedź czwartym zjazdem.
-    sv = Ta 4:e avfarten.
-    tr = 4. çıkıştan çıkın.
+    sv = Ta fjärde avfarten.
+    tr = Dördüncü çıkıştan çıkın.
     fr = Prenez la quatrième sortie.
     nl = Neem de vierde afslag.
-    de = Nehmen Sie die 4. Ausfahrt.
+    de = Nehmen Sie die vierte Ausfahrt.
     ar = اسلك المخرج الرابع
     el = Πάρτε την τέταρτη έξοδο.
     it = Prendi la quarta uscita.
@@ -949,17 +949,17 @@
     pt = Saia na 4.ª saída.
     sk = Opustite kruhový objazd na 4. výjazde.
     sw = Ingia barabara ya 4 ya kutoka.
-    th = ออกทางออกที่ 4
+    th = ออกทางออกที่สี่
 
   [take_the_5th_exit]
-    en = Take the 5th exit. 
-    ru = 5-й поворот с кольца.
+    en = Take the fifth exit.
+    ru = Пятый  поворот с кольца.
     pl = Zjedź piątym zjazdem.
-    sv = Ta 5:e avfarten.
-    tr = 5. çıkıştan çıkın.
+    sv = Ta femte avfarten.
+    tr = Beşinci çıkıştan çıkın.
     fr = Prenez la cinquième sortie.
     nl = Neem de vijfde afslag.
-    de = Nehmen Sie die 5. Ausfahrt.
+    de = Nehmen Sie die fünfte Ausfahrt.
     ar = اسلك المخرج الخامس
     el = Πάρτε την πέμπτη έξοδο.
     it = Prendi la quinta uscita.
@@ -977,17 +977,17 @@
     pt = Saia na 5.ª saída.
     sk = Opustite kruhový objazd na 5. výjazde.
     sw = Ingia barabara ya 5 ya kutoka.
-    th = ออกทางออกที่ 5
+    th = ออกทางออกที่ห้า
 
   [take_the_6th_exit]
-    en = Take the 6th exit. 
-    ru = 6-й поворот с кольца.
+    en = Take the sixth exit.
+    ru = Шестой поворот с кольца.
     pl = Zjedź szóstym zjazdem.
-    sv = Ta 6:e avfarten.
-    tr = 6. çıkıştan çıkın.
+    sv = Ta sjätte avfarten.
+    tr = Altıncı çıkıştan çıkın.
     fr = Prenez la sixième sortie.
     nl = Neem de zesde afslag.
-    de = Nehmen Sie die 6. Ausfahrt.
+    de = Nehmen Sie die sechste Ausfahrt.
     ar = اسلك المخرج السادس
     el = Πάρτε την έκτη έξοδο.
     it = Prendi la sesta uscita.
@@ -1005,17 +1005,17 @@
     pt = Saia na 6.ª saída.
     sk = Opustite kruhový objazd na 6. výjazde.
     sw = Ingia barabara ya 6 ya kutoka.
-    th = ออกทางออกที่ 6
+    th = ออกทางออกที่หก
 
   [take_the_7th_exit]
-    en = Take the 7th exit. 
-    ru = 7-й поворот с кольца.
+    en = Take the seventh exit.
+    ru = Седьмой поворот с кольца.
     pl = Zjedź siódmym zjazdem.
-    sv = Ta 7:e avfarten.
-    tr = 7. çıkıştan çıkın.
+    sv = Ta sjunde avfarten.
+    tr = Yedinci çıkıştan çıkın.
     fr = Prenez la septième sortie.
     nl = Neem de zevende afslag.
-    de = Nehmen Sie die 7. Ausfahrt.
+    de = Nehmen Sie die siebte Ausfahrt.
     ar = اسلك المخرج السابع
     el = Πάρτε την έβδομη έξοδο.
     it = Prendi la settima uscita.
@@ -1033,17 +1033,17 @@
     pt = Saia na 7.ª saída.
     sk = Opustite kruhový objazd na 7. výjazde.
     sw = Ingia barabara ya 7 ya kutoka.
-    th = ออกทางออกที่ 7
+    th = ออกทางออกที่เจ็ด
 
   [take_the_8th_exit]
-    en = Take the 8th exit. 
-    ru = 8-й поворот с кольца.
+    en = Take the eighth exit.
+    ru = Восьмой поворот с кольца.
     pl = Zjedź ósmym zjazdem.
-    sv = Ta 8:e avfarten.
-    tr = 8. çıkıştan çıkın.
+    sv = Ta åttonde avfarten.
+    tr = Sekizinci çıkıştan çıkın.
     fr = Prenez la huitième sortie.
     nl = Neem de achtste afslag.
-    de = Nehmen Sie die 8. Ausfahrt.
+    de = Nehmen Sie die achte Ausfahrt.
     ar = اسلك المخرج الثامن
     el = Πάρτε την όγδοη έξοδο.
     it = Prendi l'ottava uscita.
@@ -1061,17 +1061,17 @@
     pt = Saia na 8.ª saída.
     sk = Opustite kruhový objazd na 8. výjazde.
     sw = Ingia barabara ya 8 ya kutoka.
-    th = ออกทางออกที่ 8
+    th = ออกทางออกที่แปด
 
   [take_the_9th_exit]
-    en = Take the 9th exit. 
-    ru = 9-й поворот с кольца.
+    en = Take the ninth exit.
+    ru = Девятый поворот с кольца.
     pl = Zjedź dziewiątym zjazdem.
-    sv = Ta 9:e avfarten.
-    tr = 9. çıkıştan çıkın.
+    sv = Ta nionde avfarten.
+    tr = Dokuzuncu çıkıştan çıkın.
     fr = Prenez la neuvième sortie.
     nl = Neem de negende afslag.
-    de = Nehmen Sie die 9. Ausfahrt.
+    de = Nehmen Sie die neunte Ausfahrt.
     ar = اسلك المخرج التاسع
     el = Πάρτε την έννατη έξοδο.
     it = Prendi la nona uscita.
@@ -1089,17 +1089,17 @@
     pt = Saia na 9.ª saída.
     sk = Opustite kruhový objazd na 9. výjazde.
     sw = Ingia barabara ya 9 ya kutoka.
-    th = ออกทางออกที่ 9
+    th = ออกทางออกที่เก้า
 
   [take_the_10th_exit]
-    en = Take the 10th exit. 
-    ru = 10-й поворот с кольца.
+    en = Take the tenth exit.
+    ru = Десятый поворот с кольца.
     pl = Zjedź dziesiątym zjazdem.
-    sv = Ta 10:e avfarten.
-    tr = 10. çıkıştan çıkın.
+    sv = Ta tionde avfarten.
+    tr = Onuncu çıkıştan çıkın.
     fr = Prenez la dixième sortie.
     nl = Neem de tiende afslag.
-    de = Nehmen Sie die 10. Ausfahrt.
+    de = Nehmen Sie die zehnte Ausfahrt.
     ar = اسلك المخرج العاشر
     el = Πάρτε τη δέκατη έξοδο.
     it = Prendi la decima uscita.
@@ -1117,17 +1117,17 @@
     pt = Saia na 10.ª saída.
     sk = Opustite kruhový objazd na 10. výjazde.
     sw = Ingia barabara ya 10 ya kutoka.
-    th = ออกทางออกที่ 10
+    th = ออกทางออกที่สิบ
 
   [take_the_11th_exit]
-    en = Take the 11th exit. 
-    ru = 11-й поворот с кольца.
+    en = Take the eleventh exit.
+    ru = Одиннадцатый поворот с кольца.
     pl = Zjedź jedenastym zjazdem.
-    sv = Ta 11:e avfarten.
-    tr = 11. çıkıştan çıkın.
+    sv = Ta elfte avfarten.
+    tr = On birinci çıkıştan çıkın.
     fr = Prenez la onzième sortie.
     nl = Neem de elfde afslag.
-    de = Nehmen Sie die 11. Ausfahrt.
+    de = Nehmen Sie die elfte Ausfahrt.
     ar = اسلك المخرج الحادي عشر
     el = Πάρτε την ενδέκατη έξοδο.
     it = Prendi l'undicesima uscita.
@@ -1145,7 +1145,7 @@
     pt = Saia na 11.ª saída.
     sk = Opustite kruhový objazd na 11. výjazde.
     sw = Ingia barabara ya 11 ya kutoka.
-    th = ออกทางออกที่ 11
+    th = ออกทางออกที่สิบเอ็ด
 
   [bear_left]
     en = Bear left.
@@ -1456,17 +1456,17 @@
     th = ทำตามป้ายสัญญาณ
 
   [in_50_feet]
-    en = In 50 feet.
-    ru = Через 50 футов.
-    pl = Za 50 stóp.
-    sv = Om 50 feet.
-    tr = 50 fit sonra.
-    fr = Dans 50 feet.
-    nl = Over 50 feet:
-    de = In 50 Fuß.
+    en = In fifty feet.
+    ru = Через пятьдесят футов.
+    pl = Za pięćdziesiąt stóp.
+    sv = Om femtio fot.
+    tr = Elli fit sonra.
+    fr = Dans cinquante pieds.
+    nl = Over vijftig voet:
+    de = In fünfzig Fuß.
     ar = بعد 50 قدمًا
-    el = Σε 50 πόδια.
-    it = Tra 50 piedi.
+    el = Σε πενήντα πόδια.
+    it = Tra cinquanta piedi.
     cs = Za 50 stop.
     hu = 50 láb után.
     ro = După 50 de picioare.
@@ -1484,17 +1484,17 @@
     th = อีก 50 ฟุต
 
   [in_100_feet]
-    en = In 100 feet.
-    ru = Через 100 футов.
-    pl = Za 100 stóp.
-    sv = Om 100 feet.
-    tr = 100 fit sonra.
-    fr = Dans 100 feet.
-    nl = Over 100 feet:
-    de = In 100 Fuß.
+    en = In one hundred feet.
+    ru = Через сто футов.
+    pl = Za sto stóp.
+    sv = Om ett hundra fot.
+    tr = Yüz fit sonra.
+    fr = Dans cent pieds.
+    nl = Over honderd voet:
+    de = In einhundert Fuß.
     ar = بعد 100 قدم
-    el = Σε 100 πόδια.
-    it = Tra 100 piedi.
+    el = Σε εκατό πόδια.
+    it = Tra cento piedi.
     cs = Za 100 stop.
     hu = 100 láb után.
     ro = După 100 de picioare
@@ -1512,17 +1512,17 @@
     th = อีก 100 ฟุต
 
   [in_200_feet]
-    en = In 200 feet.
-    ru = Через 200 футов.
-    pl = Za 200 stóp.
-    sv = Om 200 feet.
-    tr = 200 fit sonra.
-    fr = Dans 200 feet.
-    nl = Over 200 feet:
-    de = In 200 Fuß.
+    en = In two hundred feet.
+    ru = Через двести футов.
+    pl = Za dwieście stóp.
+    sv = Om två hundra fot.
+    tr = İki yüz fit sonra.
+    fr = Dans deux cents pieds.
+    nl = Over tweehonderd voet:
+    de = In zweihundert Fuß.
     ar = بعد 200 قدم
-    el = Σε 200 πόδια.
-    it = Tra 200 piedi.
+    el = Σε διακόσια πόδια.
+    it = Tra duecento piedi.
     cs = Za 200 stop.
     hu = 200 láb után.
     ro = După 200 de picioare
@@ -1540,17 +1540,17 @@
     th = อีก 200 ฟุต
 
   [in_300_feet]
-    en = In 300 feet.
-    ru = Через 300 футов.
-    pl = Za 300 stóp.
-    sv = Om 300 feet.
-    tr = 300 fit sonra.
-    fr = Dans 300 feet.
-    nl = Over 300 feet:
-    de = In 300 Fuß.
+    en = In three hundred feet.
+    ru = Через триста футов.
+    pl = Za trzysta stóp.
+    sv = Om tre hundra fot.
+    tr = Üç yüz fit sonra.
+    fr = Dans trois cents pieds.
+    nl = Over driehonderd voet:
+    de = In dreihundert Fuß.
     ar = بعد 300 قدم
-    el = Σε 300 πόδια.
-    it = Tra 300 piedi.
+    el = Σε τριακόσια πόδια.
+    it = Tra trecento piedi.
     cs = Za 300 stop.
     hu = 300 láb után.
     ro = După 300 de picioare
@@ -1568,17 +1568,17 @@
     th = อีก 300 ฟุต
 
   [in_400_feet]
-    en = In 400 feet.
-    ru = Через 400 футов.
-    pl = Za 400 stóp.
-    sv = Om 400 feet.
-    tr = 400 fit sonra.
-    fr = Dans 400 feet.
-    nl = Over 400 feet:
-    de = In 400 Fuß.
+    en = In four hundred feet.
+    ru = Через четыреста футов.
+    pl = Za czterysta stóp.
+    sv = Om fyra hundra fot.
+    tr = Dört yüz fit sonra.
+    fr = Dans quatre cents pieds.
+    nl = Over vierhonderd voet:
+    de = In vierhundert Fuß.
     ar = بعد 400 قدم
-    el = Σε 400 πόδια.
-    it = Tra 400 piedi.
+    el = Σε τετρακόσια πόδια.
+    it = Tra quattrocento piedi.
     cs = Za 400 stop.
     hu = 400 láb után.
     ro = După 400 de picioare
@@ -1596,17 +1596,17 @@
     th = อีก 400 ฟุต
 
   [in_500_feet]
-    en = In 500 feet.
-    ru = Через 500 футов.
-    pl = Za 500 stóp.
-    sv = Om 500 feet.
-    tr = 500 fit sonra.
-    fr = Dans 500 feet.
-    nl = Over 500 feet:
-    de = In 500 Fuß.
+    en = In five hundred feet.
+    ru = Через пятьсот футов.
+    pl = Za pięćset stóp.
+    sv = Om fem hundra fot.
+    tr = Beş yüz fit sonra.
+    fr = Dans cinq cents pieds.
+    nl = Over vijfhonderd voet:
+    de = In fünfhundert Fuß.
     ar = بعد 500 قدم
-    el = Σε 500 πόδια.
-    it = Tra 500 piedi.
+    el = Σε πεντακόσια πόδια.
+    it = Tra cinquecento piedi.
     cs = Za 500 stop.
     hu = 500 láb után.
     ro = După 500 de picioare
@@ -1624,17 +1624,17 @@
     th = อีก 500 ฟุต
 
   [in_600_feet]
-    en = In 600 feet.
-    ru = Через 600 футов.
-    pl = Za 600 stóp.
-    sv = Om 600 feet.
-    tr = 600 fit sonra.
-    fr = Dans 600 feet.
-    nl = Over 600 feet:
-    de = In 600 Fuß.
+    en = In six hundred feet.
+    ru = Через шестьсот футов.
+    pl = Za sześćset stóp.
+    sv = Om sex hundra fot.
+    tr = Altı yüz fit sonra.
+    fr = Dans six cents pieds.
+    nl = Over zeshonderd voet:
+    de = In sechshundert Fuß.
     ar = بعد 600 قدم
-    el = Σε 600 πόδια.
-    it = Tra 600 piedi.
+    el = Σε εξακόσια πόδια.
+    it = Tra seicento piedi.
     cs = Za 600 stop.
     hu = 600 láb után.
     ro = După 600 de picioare
@@ -1652,17 +1652,17 @@
     th = อีก 600 ฟุต
 
   [in_700_feet]
-    en = In 700 feet.
-    ru = Через 700 футов.
-    pl = Za 700 stóp.
-    sv = Om 700 feet.
-    tr = 700 fit sonra.
-    fr = Dans 700 feet.
-    nl = Over 700 feet:
-    de = In 700 Fuß.
+    en = In seven hundred feet.
+    ru = Через семьсот футов.
+    pl = Za siedemset stóp.
+    sv = Om sju hundra fot.
+    tr = Yedi yüz fit sonra.
+    fr = Dans sept cents pieds.
+    nl = Over zevenhonderd voet:
+    de = In siebenhundert Fuß.
     ar = بعد 700 قدم
-    el = Σε 700 πόδια.
-    it = Tra 700 piedi.
+    el = Σε επτακόσια πόδια.
+    it = Tra settecento piedi.
     cs = Za 700 stop.
     hu = 700 láb után.
     ro = După 700 de picioare
@@ -1680,17 +1680,17 @@
     th = อีก 700 ฟุต
 
   [in_800_feet]
-    en = In 800 feet.
-    ru = Через 800 футов.
-    pl = Za 800 stóp.
-    sv = Om 800 feet.
-    tr = 800 fit sonra.
-    fr = Dans 800 feet.
-    nl = Over 800 feet:
-    de = In 800 Fuß.
+    en = In eight hundred feet.
+    ru = Через восемьсот футов.
+    pl = Za osiemset stóp.
+    sv = Om åtta hundra fot.
+    tr = Sekiz yüz fit sonra.
+    fr = Dans huit cents pieds.
+    nl = Over achthonderd voet:
+    de = In achthundert Fuß.
     ar = بعد 800 قدم
-    el = Σε 800 πόδια.
-    it = Tra 800 piedi.
+    el = Σε οκτακόσια πόδια.
+    it = Tra ottocento piedi.
     cs = Za 800 stop.
     hu = 800 láb után.
     ro = După 800 de picioare
@@ -1708,17 +1708,17 @@
     th = อีก 800 ฟุต
 
   [in_900_feet]
-    en = In 900 feet.
-    ru = Через 900 футов.
-    pl = Za 900 stóp.
-    sv = Om 900 feet.
-    tr = 900 fit sonra.
-    fr = Dans 900 feet.
-    nl = Over 900 feet:
-    de = In 900 Fuß.
+    en = In nine hundred feet.
+    ru = Через девятьсот футов.
+    pl = Za dziewięćset stóp.
+    sv = Om nio hundra fot.
+    tr = Dokuz yüz fit sonra.
+    fr = Dans neuf cents pieds.
+    nl = Over negenhonderd voet:
+    de = In neunhundert Fuß.
     ar = بعد 900 قدم
-    el = Σε 900 πόδια.
-    it = Tra 900 piedi.
+    el = Σε εννιακόσια πόδια.
+    it = Tra novecento piedi.
     cs = Za 900 stop.
     hu = 900 láb után.
     ro = După 900 de picioare
@@ -1736,17 +1736,17 @@
     th = อีก 900 ฟุต
 
   [in_1000_feet]
-    en = In 1000 feet.
-    ru = Через 1000 футов.
-    pl = Za 1000 stóp.
-    sv = Om 1 000 feet.
-    tr = 1000 fit sonra.
-    fr = Dans 1000 feet.
-    nl = Over 1000 feet:
-    de = In 1.000 Fuß.
+    en = In one thousand feet.
+    ru = Через тысячу футов.
+    pl = Za tysiąc stóp.
+    sv = Om ett tusen fot.
+    tr = Bin fit sonra.
+    fr = Dans mille pieds.
+    nl = Over duizend voet:
+    de = In eintausend Fuß.
     ar = بعد 1000 قدم
-    el = Σε 1000 πόδια.
-    it = Tra 1000 piedi.
+    el = Σε χίλια πόδια.
+    it = Tra mille piedi.
     cs = Za 1000 stop.
     hu = 1000 láb után.
     ro = După 1000 de picioare
@@ -1764,17 +1764,17 @@
     th = อีก 1000 ฟุต
 
   [in_1500_feet]
-    en = In 1500 feet.
-    ru = Через 1500 футов.
-    pl = Za 1500 stóp.
-    sv = Om 1 500 feet.
-    tr = 1500 fit sonra.
-    fr = Dans 1500 feet.
-    nl = Over 1500 feet:
-    de = In 1.500 Fuß.
+    en = In fifteen hundred feet.
+    ru = Через тысячу пятьсот футов.
+    pl = Za tysiąc pięćset stóp.
+    sv = Om ett tusen fem hundra fot.
+    tr = Bin beş yüz fit sonra.
+    fr = Dans mille cinq cents pieds.
+    nl = Over vijftienhonderd voet:
+    de = In eintausendfünfhundert Fuß.
     ar = بعد 1500 قدم
-    el = Σε 1500 πόδια.
-    it = Tra 1500 piedi.
+    el = Σε χίλια πεντακόσια πόδια.
+    it = Tra mille cinquecento piedi.
     cs = Za 1500 stop.
     hu = 1500 láb után.
     ro = După 1500 de picioare
@@ -1792,17 +1792,17 @@
     th = อีก 1500 ฟุต
 
   [in_2000_feet]
-    en = In 2000 feet.
-    ru = Через 2000 футов.
-    pl = Za 2000 stóp.
-    sv = Om 2 000 feet.
-    tr = 2000 fit sonra.
-    fr = Dans 2000 feet.
-    nl = Over 2000 feet:
-    de = In 2.000 Fuß.
+    en = In two thousand feet.
+    ru = Через две тысячи футов.
+    pl = Za dwa tysiące stóp.
+    sv = Om två tusen fot.
+    tr = İki bin fit sonra.
+    fr = Dans deux mille pieds.
+    nl = Over tweeduizend voet:
+    de = In zweitausend Fuß.
     ar = بعد 2000 قدم
-    el = Σε 2000 πόδια.
-    it = Tra 2000 piedi.
+    el = Σε δύο χιλιάδες πόδια.
+    it = Tra duemila piedi.
     cs = Za 2000 stop.
     hu = 2000 láb után.
     ro = După 2000 de picioare
@@ -1820,17 +1820,17 @@
     th = อีก 2000 ฟุต
 
   [in_2500_feet]
-    en = In 2500 feet.
-    ru = Через 2500 футов.
-    pl = Za 2500 stóp.
-    sv = Om 2 500 feet.
-    tr = 2500 fit sonra.
-    fr = Dans 2500 feet.
-    nl = Over 2500 feet:
-    de = In 2.500 Fuß.
+    en = In twenty five hundred feet.
+    ru = Через две тысячи пятьсот футов.
+    pl = Za dwa tysiące pięćset stóp.
+    sv = Om två tusen fem hundra fot.
+    tr = İki bin beş yüz fit sonra.
+    fr = Dans deux mille cinq cents pieds.
+    nl = Over vijfentwintighonderd voet:
+    de = In zweitausendfünfhundert Fuß.
     ar = بعد 2500 قدم
-    el = Σε 2500 πόδια.
-    it = Tra 2500 piedi.
+    el = Σε δύο χιλιάδες πεντακόσια πόδια.
+    it = Tra duemila cinquecento piedi.
     cs = Za 2500 stop.
     hu = 2500 láb után.
     ro = După 2500 de picioare
@@ -1848,17 +1848,17 @@
     th = อีก 2500 ฟุต
 
   [in_3000_feet]
-    en = In 3000 feet.
-    ru = Через 3000 футов.
-    pl = Za 3000 stóp.
-    sv = Om 3 000 feet.
-    tr = 3000 fit sonra.
-    fr = Dans 3000 feet.
-    nl = Over 3000 feet:
-    de = In 3.000 Fuß.
+    en = In three thousand feet.
+    ru = Через три тысячи футов.
+    pl = Za trzy tysiące stóp.
+    sv = Om tre tusen fot.
+    tr = Üç bin fit sonra.
+    fr = Dans trois mille pieds.
+    nl = Over drieduizend voet:
+    de = In dreitausend Fuß.
     ar = بعد 3000 قدم
-    el = Σε 3000 πόδια.
-    it = Tra 3000 piedi.
+    el = Σε τρεις χιλιάδες πόδια.
+    it = Tra tremila piedi.
     cs = Za 3000 stop.
     hu = 3000 láb után.
     ro = După 3000 de picioare
@@ -1876,17 +1876,17 @@
     th = อีก 3000 ฟุต
 
   [in_3500_feet]
-    en = In 3500 feet.
-    ru = Через 3500 футов.
-    pl = Za 3500 stóp.
-    sv = Om 3 500 feet.
-    tr = 3500 fit sonra.
-    fr = Dans 3500 feet.
-    nl = Over 3500 feet:
-    de = In 3.500 Fuß.
+    en = In thirty five hundred feet.
+    ru = Через три тысячи пятьсот футов.
+    pl = Za trzy tysiące pięćset stóp.
+    sv = Om tre tusen fem hundra fot.
+    tr = Üç bin beş yüz fit sonra.
+    fr = Dans trois mille cinq cents pieds.
+    nl = Over vijfendertighonderd voet:
+    de = In dreitausendfünfhundert Fuß.
     ar = بعد 3500 قدم
-    el = Σε 3500 πόδια.
-    it = Tra 3500 piedi.
+    el = Σε τρεις χιλιάδες πεντακόσια πόδια.
+    it = Tra tremila cinquecento piedi.
     cs = Za 3500 stop.
     hu = 3500 láb után.
     ro = După 3500 de picioare
@@ -1904,17 +1904,17 @@
     th = อีก 3500 ฟุต
 
   [in_4000_feet]
-    en = In 4000 feet.
-    ru = Через 4000 футов.
-    pl = Za 4000 stóp.
-    sv = Om 4 000 feet.
-    tr = 4000 fit sonra.
-    fr = Dans 4000 feet.
-    nl = Over 4000 feet:
-    de = In 4.000 Fuß.
+    en = In four thousand feet.
+    ru = Через четыре тысячи футов.
+    pl = Za cztery tysiące stóp.
+    sv = Om fyra tusen fot.
+    tr = Dört bin fit sonra.
+    fr = Dans quatre mille pieds.
+    nl = Over vierduizend voet:
+    de = In viertausend Fuß.
     ar = بعد 4000 قدم
-    el = Σε 4000 πόδια.
-    it = Tra 4000 piedi.
+    el = Σε τέσσερις χιλιάδες πόδια.
+    it = Tra quattromila piedi.
     cs = Za 4000 stop.
     hu = 4000 láb után.
     ro = După 4000 de picioare
@@ -1932,17 +1932,17 @@
     th = อีก 4000 ฟุต
 
   [in_4500_feet]
-    en = In 4500 feet.
-    ru = Через 4500 футов.
-    pl = Za 4500 stóp.
-    sv = Om 4 500 feet.
-    tr = 4500 fit sonra.
-    fr = Dans 4500 feet.
-    nl = Over 4500 feet:
-    de = In 4.500 Fuß.
+    en = In forty five hundred feet.
+    ru = Через четыре тысячи пятьсот футов.
+    pl = Za cztery tysiące pięćset stóp.
+    sv = Om fyra tusen fem hundra fot.
+    tr = Dört bin beş yüz fit sonra.
+    fr = Dans quatre mille cinq cents pieds.
+    nl = Over vijfenveertighonderd voet:
+    de = In viertausendfünfhundert Fuß.
     ar = بعد 4500 قدم
-    el = Σε 4500 πόδια.
-    it = Tra 4500 piedi.
+    el = Σε τέσσερις χιλιάδες πεντακόσια πόδια.
+    it = Tra quattromila cinquecento piedi.
     cs = Za 4500 stop.
     hu = 4500 láb után.
     ro = După 4500 de picioare
@@ -1960,17 +1960,17 @@
     th = อีก 4500 ฟุต
 
   [in_5000_feet]
-    en = In 5000 feet.
-    ru = Через 5000 футов.
-    pl = Za 5000 stóp.
-    sv = Om 5 000 feet.
-    tr = 5000 fit sonra.
-    fr = Dans 5000 feet.
-    nl = Over 5000 feet:
-    de = In 5.000 Fuß.
+    en = In five thousand feet.
+    ru = Через пять тысяч футов.
+    pl = Za pięć tysięcy stóp.
+    sv = Om fem tusen fot.
+    tr = Beş bin fit sonra.
+    fr = Dans cinq mille pieds.
+    nl = Over vijfduizend voet:
+    de = In fünftausend Fuß.
     ar = بعد 5000 قدم
-    el = Σε 5000 πόδια.
-    it = Tra 5000 piedi.
+    el = Σε πέντε χιλιάδες πόδια.
+    it = Tra cinquemila piedi.
     cs = Za 5000 stop.
     hu = 5000 láb után.
     ro = După 5000 de picioare
@@ -2072,17 +2072,17 @@
     th = อีก 2 ไมล์
 
   [in_250_yards]
-    en = In 250 yards.
-    ru = Через 250 ярдов.
-    pl = Za 250 jardów.
-    sv = Om 250 yard.
-    tr = 250 yarda sonra.
-    fr = Dans 250 yards.
-    nl = Over 250 yards:
-    de = In 250 Yards.
+    en = In two hundred and fifty yards.
+    ru = Через двести пятьдесят ярдов.
+    pl = Za dwieście pięćdziesiąt jardów.
+    sv = Om två hundra femtio yard.
+    tr = İki yüz elli yarda sonra.
+    fr = Dans deux cents cinquante yards.
+    nl = Over tweehonderdvijftig yards:
+    de = In zweihundertfünfzig Yards.
     ar = بعد 250 ياردة
-    el = Σε 250 γιάρδες.
-    it = Tra 250 yarde.
+    el = Σε διακόσιες πενήντα γιάρδες.
+    it = Tra duecento cinquanta yarde.
     cs = Za 250 yardů.
     hu = 250 yard után.
     ro = După 250 de yarzi.
@@ -2100,17 +2100,17 @@
     th = อีก 250 หลา
 
   [in_750_yards]
-    en = In 750 yards.
-    ru = Через 750 ярдов.
-    pl = Za 750 jardów.
-    sv = Om 750 yard.
-    tr = 750 yarda sonra.
-    fr = Dans 750 yards.
-    nl = Over 750 yards:
-    de = In 750 Yards.
+    en = In seven hundred and fifty yards.
+    ru = Через семьсот пятьдесят ярдов.
+    pl = Za siedemset pięćdziesiąt jardów.
+    sv = Om sju hundra femtio yard.
+    tr = Yedi yüz elli yarda sonra.
+    fr = Dans sept cents cinquante yards.
+    nl = Over zevenhonderdvijftig yards:
+    de = In siebenhundertfünfzig Yards.
     ar = بعد 750 ياردة
-    el = Σε 750 γιάρδες.
-    it = Tra 750 yarde.
+    el = Σε επτακόσιες πενήντα γιάρδες.
+    it = Tra settecento cinquanta yarde.
     cs = Za 750 yardů.
     hu = 750 yard után.
     ro = După 750 de yarzi.
