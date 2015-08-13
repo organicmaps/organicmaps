@@ -10,8 +10,6 @@
 #import "MWMMapViewControlsCommon.h"
 #import "UIKitCategories.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
-
 @interface MWMLocationButtonView()
 
 @property (nonatomic) CGRect defaultBounds;
@@ -54,21 +52,22 @@
     [self setPendingPositionAnimation];
   else
   {
-    static NSDictionary const * const stateMap = @{@(location::State::UnknownPosition).stringValue : @"btn_white_unknow_position",
-                                                   @(location::State::NotFollow).stringValue : @"btn_white_target_off_1",
-                                                   @(location::State::Follow).stringValue : @"btn_white_target_on",
-                                                   @(location::State::RotateAndFollow).stringValue : @"btn_white_direction"};
+    static NSDictionary * stateMap = @{@(location::State::UnknownPosition).stringValue : @"btn_white_unknow_position",
+                                       @(location::State::NotFollow).stringValue : @"btn_white_target_off_1",
+                                       @(location::State::Follow).stringValue : @"btn_white_target_on",
+                                       @(location::State::RotateAndFollow).stringValue : @"btn_white_direction"};
     [self.imageView stopAnimating];
     NSString * const imageName = stateMap[@(state).stringValue];
     self.highlighted = NO;
     [self setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    [self setImage:[UIImage imageNamed:[imageName stringByAppendingString:@"_pressed"]] forState:UIControlStateHighlighted];
+    [self setImage:[UIImage imageNamed:[imageName stringByAppendingString:@"_pressed"]]
+          forState:UIControlStateHighlighted];
   }
 }
 
 - (void)setAnimation:(NSArray *)animationImages once:(BOOL)once
 {
-  UIImageView const * const animationIV = self.imageView;
+  UIImageView * animationIV = self.imageView;
   animationIV.animationImages = animationImages;
   animationIV.animationDuration = framesDuration(animationImages.count);
   animationIV.animationRepeatCount = once ? 1 : 0;
@@ -77,10 +76,10 @@
 
 - (void)setPendingPositionAnimation
 {
-  NSString const * const imageName = @"btn_white_loading_";
+  NSString * imageName = @"btn_white_loading_";
   [self setImage:[UIImage imageNamed:[imageName stringByAppendingString:@"1"]] forState:UIControlStateNormal];
-  static NSUInteger const animationImagesCount = 18;
-  NSMutableArray * const animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
+  NSUInteger const animationImagesCount = 18;
+  NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   for (NSUInteger i = 0; i < animationImagesCount; ++i)
     animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", imageName, @(i+1)]];
   [self setAnimation:animationImages once:NO];
@@ -88,33 +87,18 @@
 
 - (void)changeButtonFromState:(location::State::Mode)beginState toState:(location::State::Mode)endState
 {
-  NSAssert1(beginState != endState, @"MWMLocationButtonView::(changeButtonFromState:toState:) states must be different! state:%@", @(beginState));
   [self setImageNamed:endState];
-  static NSDictionary const * const stateMap = @{@(location::State::UnknownPosition).stringValue : @"noposition",
-                                                 @(location::State::PendingPosition).stringValue : @"pending",
-                                                 @(location::State::NotFollow).stringValue : @"notfollow",
-                                                 @(location::State::Follow).stringValue : @"follow",
-                                                 @(location::State::RotateAndFollow).stringValue : @"followandrotate"};
-  NSString const * const changeAnimation = [NSString stringWithFormat:@"%@_to_%@_", stateMap[@(beginState).stringValue], stateMap[@(endState).stringValue]];
-  static NSUInteger const animationImagesCount = 6;
-  NSMutableArray * const animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
+  static NSDictionary * stateMap = @{@(location::State::UnknownPosition).stringValue : @"noposition",
+                                     @(location::State::PendingPosition).stringValue : @"pending",
+                                     @(location::State::NotFollow).stringValue : @"notfollow",
+                                     @(location::State::Follow).stringValue : @"follow",
+                                     @(location::State::RotateAndFollow).stringValue : @"followandrotate"};
+  NSString * changeAnimation = [NSString stringWithFormat:@"%@_to_%@_",
+                                stateMap[@(beginState).stringValue], stateMap[@(endState).stringValue]];
+  NSUInteger const animationImagesCount = 6;
+  NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   for (NSUInteger i = 0; i < animationImagesCount; ++i)
-  {
-    NSString * imageName = [NSString stringWithFormat:@"%@%@", changeAnimation, @(i+1)];
-    UIImage * image = [UIImage imageNamed:imageName];
-    NSAssert1(image, @"MWMLocationButtonView::(changeButtonFromState:toState:) image is nil! imageName: %@", imageName);
-    if (image)
-    {
-      animationImages[i] = image;
-    }
-    else
-    {
-      // TODO(grechuhin): Temporary, check Alohalytics logs and clean implementation.
-      [Alohalytics logEvent:@"MWMLocationButtonViewChangeButtonFromStateToStateInvalidImageName" withValue:imageName];
-      [self changeStateFinish];
-      return;
-    }
-  }
+    animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", changeAnimation, @(i+1)]];
   [self setAnimation:animationImages once:YES];
   [self changeStateFinish];
 }
