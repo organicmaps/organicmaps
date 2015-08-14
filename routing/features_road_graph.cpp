@@ -36,14 +36,6 @@ string GetFeatureCountryName(FeatureID const featureId)
   return countryName.substr(0, pos);
 }
 
-MwmSet::MwmHandle GetMwmHandleByMwmId(Index & index, MwmSet::MwmId const & mwmId)
-{
-  /// @todo Rework this function when storage will provide appropriate function
-  ASSERT(mwmId.IsAlive(), ());
-  string const countryName = mwmId.GetInfo()->GetCountryName();
-  return index.GetMwmHandleByCountryFile(platform::CountryFile(countryName));
-}
-
 inline bool PointsAlmostEqualAbs(const m2::PointD & pt1, const m2::PointD & pt2)
 {
   double constexpr kEpsilon = 1e-6;
@@ -315,7 +307,7 @@ void FeaturesRoadGraph::LockFeatureMwm(FeatureID const & featureId) const
   if (itr != m_mwmLocks.end())
     return;
 
-  MwmSet::MwmHandle mwmHandle = GetMwmHandleByMwmId(m_index, mwmId);
+  MwmSet::MwmHandle mwmHandle = m_index.GetMwmHandleById(mwmId);
   ASSERT(mwmHandle.IsAlive(), ());
 
   m_mwmLocks.insert(make_pair(move(mwmId), move(mwmHandle)));
