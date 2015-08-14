@@ -17,7 +17,7 @@ namespace
   void FillXmlElement(char const * arr[][2], size_t count, XMLElement * p)
   {
     for (size_t i = 0; i < count; ++i)
-      p->AddKV(arr[i][0], arr[i][1]);
+      p->AddTag(arr[i][0], arr[i][1]);
   }
 
   template <size_t N> uint32_t GetType(char const * (&arr)[N])

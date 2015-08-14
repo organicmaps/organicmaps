@@ -124,12 +124,9 @@ class SecondPassParser
     typedef unordered_set<string> NameKeysT;
     void GetNameKeys(NameKeysT & keys) const
     {
-      for (auto const & p : m_current->childs)
-        if (p.type == XMLElement::EntityType::Tag)
-        {
-          if (strings::StartsWith(p.k, "name"))
-            keys.insert(p.k);
-        }
+      for (auto const & p : m_current->m_tags)
+        if (strings::StartsWith(p.key, "name"))
+          keys.insert(p.key);
     }
 
     void Process(RelationElement const & e)
@@ -167,7 +164,7 @@ class SecondPassParser
         if (isWay && p.first == "place")
           continue;
 
-        m_current->AddKV(p.first, p.second);
+        m_current->AddTag(p.first, p.second);
       }
     }
 
@@ -407,7 +404,7 @@ public:
   {
     if (p->type == XMLElement::EntityType::Node)
     {
-      if (p->childs.empty())
+      if (p->m_tags.empty())
         return;
 
       FeatureParams params;
@@ -456,15 +453,11 @@ public:
       {
         // 1. Check, if this is our processable relation. Here we process only polygon relations.
         size_t i = 0;
-        size_t const count = p->childs.size();
+        size_t const count = p->m_tags.size();
         for (; i < count; ++i)
         {
-          if (p->childs[i].type == XMLElement::EntityType::Tag &&
-              p->childs[i].k == "type" &&
-              p->childs[i].v == "multipolygon")
-          {
+          if (p->m_tags[i].key == "type" && p->m_tags[i].value == "multipolygon")
             break;
-          }
         }
         if (i == count)
           return;

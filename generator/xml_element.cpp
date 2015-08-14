@@ -6,46 +6,26 @@
 #include "std/algorithm.hpp"
 
 
-void XMLElement::AddKV(string const & k, string const & v)
-{
-  childs.push_back(XMLElement());
-  XMLElement & e = childs.back();
-
-  e.type = EntityType::Tag;
-  e.k = k;
-  e.v = v;
-}
-
-void XMLElement::AddND(uint64_t ref)
-{
-  m_nds.push_back(ref);
-}
-
-void XMLElement::AddMEMBER(uint64_t ref, EntityType type, string const & role)
-{
-  m_members.push_back({ref, type, role});
-}
-
 string DebugPrint(XMLElement::EntityType e)
 {
   switch (e)
   {
     case XMLElement::EntityType::Unknown:
-      return "Unknown";
+      return "unknown";
     case XMLElement::EntityType::Way:
-      return "Way";
+      return "way";
     case XMLElement::EntityType::Tag:
-      return "Tag";
+      return "tag";
     case XMLElement::EntityType::Relation:
-      return "Relation";
+      return "relation";
     case XMLElement::EntityType::Osm:
-      return "Osm";
+      return "osm";
     case XMLElement::EntityType::Node:
-      return "Node";
+      return "node";
     case XMLElement::EntityType::Nd:
-      return "Nd";
+      return "nd";
     case XMLElement::EntityType::Member:
-      return "Member";
+      return "member";
   }
 }
 
@@ -56,13 +36,13 @@ string XMLElement::ToString(string const & shift) const
   switch (type)
   {
     case EntityType::Node:
-      ss << "Node: " << id << " (" << fixed << setw(7) << lat << ", " << lon << ")" << " subelements: " << childs.size();
+      ss << "Node: " << id << " (" << fixed << setw(7) << lat << ", " << lon << ")" << " tags: " << m_tags.size();
       break;
     case EntityType::Nd:
       ss << "Nd ref: " << ref;
       break;
     case EntityType::Way:
-      ss << "Way: " << id << " nds: " << m_nds.size() << " subelements: " << childs.size();
+      ss << "Way: " << id << " nds: " << m_nds.size() << " tags: " << m_tags.size();
       if (!m_nds.empty())
       {
         string shift2 = shift;
@@ -72,7 +52,7 @@ string XMLElement::ToString(string const & shift) const
       }
       break;
     case EntityType::Relation:
-      ss << "Relation: " << id << " members: " << m_members.size() << " subelements: " << childs.size();
+      ss << "Relation: " << id << " members: " << m_members.size() << " tags: " << m_tags.size();
       if (!m_members.empty())
       {
         string shift2 = shift;
@@ -90,12 +70,12 @@ string XMLElement::ToString(string const & shift) const
     default:
       ss << "Unknown element";
   }
-  if (!childs.empty())
+  if (!m_tags.empty())
   {
     string shift2 = shift;
     shift2 += shift2.empty() ? "\n  " : "  ";
-    for ( auto const & e : childs )
-      ss << e.ToString(shift2);
+    for (auto const & e : m_tags)
+      ss << shift2 << e.key << " = " << e.value;
   }
   return ss.str();
 }

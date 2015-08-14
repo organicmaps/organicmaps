@@ -66,21 +66,18 @@ namespace ftype
     TResult for_each_tag(XMLElement * p, ToDo toDo)
     {
       TResult res = TResult();
-      for (auto & e : p->childs)
+      for (auto & e : p->m_tags)
       {
-        if (e.type == XMLElement::EntityType::Tag)
-        {
-          if (e.k.empty() || is_skip_tag(e.k))
-            continue;
+        if (e.key.empty() || is_skip_tag(e.key))
+          continue;
 
-          // this means "no"
-          if (get_mark_value(e.k, e.v) == -1)
-            continue;
+        // this means "no"
+        if (get_mark_value(e.key, e.value) == -1)
+          continue;
 
-          res = toDo(e.k, e.v);
-          if (res)
-            return res;
-        }
+        res = toDo(e.key, e.value);
+        if (res)
+          return res;
       }
       return res;
     }
@@ -318,22 +315,25 @@ namespace ftype
       template <typename FuncT = void()>
       void ApplyRules(initializer_list<Rule<FuncT>> const & rules) const
       {
-        for (auto & e : m_element->childs)
-          if (e.type == XMLElement::EntityType::Tag)
-            for (auto const & rule: rules)
-              if (e.k == rule.key)
-              {
-                bool take = false;
-                if (rule.value[0] == '*')
-                  take = true;
-                else if (rule.value[0] == '!')
-                  take = IsNegative(e.v);
-                else if (rule.value[0] == '~')
-                  take = !IsNegative(e.v);
+        for (auto & e : m_element->m_tags)
+        {
+          for (auto const & rule: rules)
+          {
+            if (e.key == rule.key)
+            {
+              bool take = false;
+              if (rule.value[0] == '*')
+                take = true;
+              else if (rule.value[0] == '!')
+                take = IsNegative(e.value);
+              else if (rule.value[0] == '~')
+                take = !IsNegative(e.value);
 
-                if (take || e.v == rule.value)
-                  call(rule.func, e.k, e.v);
-              }
+              if (take || e.value == rule.value)
+                call(rule.func, e.key, e.value);
+            }
+          }
+        }
       }
 
     protected:
@@ -361,7 +361,7 @@ namespace ftype
     });
 
     if (!hasLayer && layer)
-      p->AddKV("layer", layer);
+      p->AddTag("layer", layer);
   }
 
 //#ifdef DEBUG

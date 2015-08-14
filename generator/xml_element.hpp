@@ -25,6 +25,37 @@ struct XMLElement
     Osm = 0x736F, // "os"
   };
 
+  struct Member
+  {
+    uint64_t ref = 0;
+    EntityType type = EntityType::Unknown;
+    string role;
+
+    Member() = default;
+    Member(uint64_t ref, EntityType type, string const & role)
+    : ref(ref), type(type), role(role)
+    {}
+
+    bool operator == (Member const & e) const
+    {
+      return ref == e.ref && type == e.type && role == e.role;
+    }
+  };
+
+  struct Tag
+  {
+    string key;
+    string value;
+
+    Tag() = default;
+    Tag(string const & k, string const & v) : key(k), value(v) {}
+
+    bool operator == (Tag const & e) const
+    {
+      return key == e.key && value == e.value;
+    }
+  };
+
   EntityType type = EntityType::Unknown;
   uint64_t id = 0;
   double lon = 0;
@@ -35,22 +66,9 @@ struct XMLElement
   EntityType memberType = EntityType::Unknown;
   string role;
 
-  struct Member
-  {
-    uint64_t ref;
-    EntityType type;
-    string role;
-
-    bool operator == (Member const & e) const
-    {
-      return ref == e.ref && type == e.type && role == e.role;
-    }
-  };
-
-
   vector<uint64_t> m_nds;
   vector<Member> m_members;
-  vector<XMLElement> childs;
+  vector<Tag> m_tags;
 
   void Clear()
   {
@@ -66,16 +84,14 @@ struct XMLElement
 
     m_nds.clear();
     m_members.clear();
-    childs.clear();
+    m_tags.clear();
   }
 
   string ToString(string const & shift = string()) const;
 
-  vector<uint64_t> const & Nodes() const
-  {
-    return m_nds;
-  }
-
+  inline vector<uint64_t> const & Nodes() const { return m_nds; }
+  inline vector<Member> const & Members() const { return m_members; }
+  inline vector<Tag> const & Tags() const { return m_tags; }
 
   static EntityType StringToEntityType(string const & t)
   {
@@ -87,28 +103,6 @@ struct XMLElement
       return EntityType::Relation;
     ASSERT(false, ("Unknown type", t));
     return EntityType::Unknown;
-  }
-
-  vector<Member> const & Members() const
-  {
-    return m_members;
-  }
-
-  struct Tag
-  {
-    string key;
-    string value;
-  };
-
-  vector<Tag> Tags() const
-  {
-    vector<Tag> tags;
-    for (auto const & e : childs)
-    {
-      if (e.type == EntityType::Tag)
-        tags.push_back({e.k, e.v});
-    }
-    return move(tags);
   }
 
   bool operator == (XMLElement const & e) const
@@ -125,13 +119,16 @@ struct XMLElement
             && role == e.role
             && m_nds == e.m_nds
             && m_members == e.m_members
-            && childs == e.childs
+            && m_tags == e.m_tags
     );
   }
 
-  void AddKV(string const & k, string const & v);
-  void AddND(uint64_t ref);
-  void AddMEMBER(uint64_t ref, EntityType type, string const & role);
+  void AddTag(string const & k, string const & v) { m_tags.emplace_back(k, v); }
+  void AddNd(uint64_t ref) { m_nds.emplace_back(ref); }
+  void AddMember(uint64_t ref, EntityType type, string const & role)
+  {
+    m_members.emplace_back(ref, type, role);
+  }
 };
 
 string DebugPrint(XMLElement const & e);
@@ -214,13 +211,13 @@ public:
         switch (m_child.type)
         {
           case XMLElement::EntityType::Member:
-            m_parent.AddMEMBER(m_child.ref, m_child.memberType, m_child.role);
+            m_parent.AddMember(m_child.ref, m_child.memberType, m_child.role);
             break;
           case XMLElement::EntityType::Tag:
-            m_parent.AddKV(m_child.k, m_child.v);
+            m_parent.AddTag(m_child.k, m_child.v);
             break;
           case XMLElement::EntityType::Nd:
-            m_parent.AddND(m_child.ref);
+            m_parent.AddNd(m_child.ref);
           default: break;
         }
         m_current = &m_parent;

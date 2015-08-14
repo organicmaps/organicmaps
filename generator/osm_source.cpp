@@ -451,7 +451,7 @@ void BuildFeaturesFromO5M(SourceReader & stream, function<void(XMLElement *)> pr
       {
         p.type = XMLElement::EntityType::Way;
         for (uint64_t nd : em.Nodes())
-          p.AddND(nd);
+          p.AddNd(nd);
         break;
       }
       case TType::Relation:
@@ -462,13 +462,13 @@ void BuildFeaturesFromO5M(SourceReader & stream, function<void(XMLElement *)> pr
           switch (member.type)
           {
             case TType::Node:
-              p.AddMEMBER(member.ref, XMLElement::EntityType::Node, member.role);
+              p.AddMember(member.ref, XMLElement::EntityType::Node, member.role);
               break;
             case TType::Way:
-              p.AddMEMBER(member.ref, XMLElement::EntityType::Way, member.role);
+              p.AddMember(member.ref, XMLElement::EntityType::Way, member.role);
               break;
             case TType::Relation:
-              p.AddMEMBER(member.ref, XMLElement::EntityType::Relation, member.role);
+              p.AddMember(member.ref, XMLElement::EntityType::Relation, member.role);
               break;
 
             default: break;
@@ -480,7 +480,7 @@ void BuildFeaturesFromO5M(SourceReader & stream, function<void(XMLElement *)> pr
     }
 
     for (auto const & tag : em.Tags())
-      p.AddKV(tag.key, tag.value);
+      p.AddTag(tag.key, tag.value);
 
     processor(&p);
   }
