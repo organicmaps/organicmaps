@@ -1,5 +1,7 @@
 #include "storage_bridge.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/assert.hpp"
 #include "base/macros.hpp"
 
@@ -56,5 +58,5 @@ void StorageBridge::ReportChanges(ActiveMapsLayout::TGroup const & group, int po
   storage::TIndex countryIndex = m_activeMaps->GetCoreIndex(group, position);
 
   if (m_handler != nullptr)
-    m_handler(countryIndex);
+    GetPlatform().RunOnGuiThread(bind(m_handler, countryIndex));
 }
