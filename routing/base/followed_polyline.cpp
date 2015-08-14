@@ -17,7 +17,6 @@ Iter FollowedPolyline::End() const
   return Iter(m_poly.Back(), m_poly.GetSize() - 1);
 }
 
-// TODO (ldragunov) Write tests for this code.
 double FollowedPolyline::GetDistanceM(Iter const & it1, Iter const & it2) const
 {
   ASSERT(IsValid(), ());
