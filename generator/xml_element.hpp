@@ -3,14 +3,13 @@
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/exception.hpp"
+#include "std/function.hpp"
+#include "std/iomanip.hpp"
+#include "std/iostream.hpp"
+#include "std/map.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
-#include "std/map.hpp"
-
-#include "std/iostream.hpp"
-#include "std/function.hpp"
-#include "std/exception.hpp"
-#include "std/iomanip.hpp"
 
 struct XMLElement
 {

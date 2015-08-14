@@ -348,9 +348,6 @@ void AddElementToCache(TCache & cache, TElement const & em)
   {
     case TElement::EntityType::Node:
     {
-      // Could do something with em.id, em.lon, em.lat here
-      // lon and lat are ints in 1E+7 * degree units
-      // convert to mercator
       auto const pt = MercatorBounds::FromLatLon(em.lat, em.lon);
       cache.AddNode(em.id, pt.y, pt.x);
       break;
@@ -372,8 +369,6 @@ void AddElementToCache(TCache & cache, TElement const & em)
       RelationElement relation;
       for (auto const & member : em.Members())
       {
-        // Could do something with member ref (way or node or rel id depends on type), type and
-        // role
         if (member.type == TElement::EntityType::Node)
           relation.nodes.emplace_back(make_pair(member.ref, string(member.role)));
         else if (member.type == TElement::EntityType::Way)

@@ -3,9 +3,9 @@
 #include "generator/generate_info.hpp"
 #include "generator/xml_element.hpp"
 
+#include "std/function.hpp"
 #include "std/iostream.hpp"
 #include "std/unique_ptr.hpp"
-#include "std/function.hpp"
 
 class SourceReader
 {
