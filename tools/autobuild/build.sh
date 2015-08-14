@@ -10,7 +10,7 @@ source "$MY_PATH/detect_qmake.sh"
 GetCPUCores() {
   case "$OSTYPE" in
     # it's GitBash under Windows
-    msys)      echo $NUMBER_OF_PROCESSORS
+    cygwin)    echo $NUMBER_OF_PROCESSORS
                ;;
     linux-gnu) grep -c ^processor /proc/cpuinfo 2>/dev/null
                ;;
@@ -20,6 +20,20 @@ GetCPUCores() {
                exit 1
                ;;
   esac
+  return 0
+}
+
+
+# Replaces "/cygwin/c" prefix with "c:" one on Windows platform.
+# Does nothing under other OS.
+# 1st param: path to be modified.
+StripCygwinPrefix() {
+  if [[ $(GetNdkHost) == "windows-x86_64" ]]; then
+    echo "c:`(echo "$1" | cut -c 12-)`"
+    return 0
+  fi
+
+  echo "$1"
   return 0
 }
 
@@ -38,7 +52,7 @@ BuildQt() {
     cd "$SHADOW_DIR"
     if [ ! -f "$SHADOW_DIR/Makefile" ]; then
       echo "Launching qmake..."
-      "$QMAKE" CONFIG-=sdk -r "$QMAKE_PARAMS" -spec "$MKSPEC" "$MY_PATH/../../omim.pro"
+      "$QMAKE" CONFIG-=sdk -r "$QMAKE_PARAMS" -spec "$(StripCygwinPrefix $MKSPEC)" "$(StripCygwinPrefix $MY_PATH)/../../omim.pro"
     fi
 #    make clean > /dev/null || true
     make -j $(GetCPUCores)

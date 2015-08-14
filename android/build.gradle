@@ -273,6 +273,9 @@ Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def NDK_BUILD = properties.getProperty('ndk.dir') + '/ndk-build'
 
+if (System.properties['os.name'].toLowerCase().contains('windows'))
+  NDK_BUILD += ".cmd"
+
 task ndkBuildDebug(type: Exec, dependsOn: 'cppLibsBuildDebug', description: 'Building DEBUG jni sources') {
   def clArgs = ([NDK_BUILD, '-j' + NUM_OF_PARALLEL_MAKE_TASKS] + propDebugNdkFlags.split(' ')).flatten()
   commandLine clArgs
