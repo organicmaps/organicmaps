@@ -6,9 +6,18 @@ using namespace platform;
 
 UNIT_TEST(GetTextByIdEnglishTest)
 {
-  platform::GetTextById getEnglish(TextSource::TtsSound, "en");
+  string const shortJson =
+      "\
+      {\
+      \"make_a_slight_right_turn\":\"Make a slight right turn.\",\
+      \"in_900_meters\":\"In nine hundred meters.\",\
+      \"then\":\"Then.\",\
+      \"in_1_mile\":\"In one mile.\"\
+      }";
+
+  platform::GetTextById getEnglish(shortJson);
   TEST_EQUAL(getEnglish("make_a_slight_right_turn"), "Make a slight right turn.", ());
-  TEST_EQUAL(getEnglish("in_900_meters"), "In 900 meters.", ());
+  TEST_EQUAL(getEnglish("in_900_meters"), "In nine hundred meters.", ());
   TEST_EQUAL(getEnglish("then"), "Then.", ());
   TEST_EQUAL(getEnglish("in_1_mile"), "In one mile.", ());
 
@@ -20,10 +29,19 @@ UNIT_TEST(GetTextByIdEnglishTest)
 
 UNIT_TEST(GetTextByIdRussianTest)
 {
-  platform::GetTextById getRussian(TextSource::TtsSound, "ru");
-  TEST_EQUAL(getRussian("in_800_meters"), "Через 800 метров.", ());
+  string const shortJson =
+      "\
+      {\
+      \"in_800_meters\":\"Через восемьсот метров.\",\
+      \"make_a_slight_right_turn\":\"Плавный поворот направо.\",\
+      \"take_the_6th_exit\":\"Шестой поворот с кольца.\",\
+      \"in_1_mile\":\"Через одну милю.\"\
+      }";
+
+  platform::GetTextById getRussian(shortJson);
+  TEST_EQUAL(getRussian("in_800_meters"), "Через восемьсот метров.", ());
   TEST_EQUAL(getRussian("make_a_slight_right_turn"), "Плавный поворот направо.", ());
-  TEST_EQUAL(getRussian("take_the_6th_exit"), "6-й поворот с кольца.", ());
+  TEST_EQUAL(getRussian("take_the_6th_exit"), "Шестой поворот с кольца.", ());
   TEST_EQUAL(getRussian("in_1_mile"), "Через одну милю.", ());
 
   TEST_EQUAL(getRussian("some_nonexistent_key"), "", ());
@@ -34,7 +52,16 @@ UNIT_TEST(GetTextByIdRussianTest)
 
 UNIT_TEST(GetTextByIdKoreanTest)
 {
-  platform::GetTextById getKorean(TextSource::TtsSound, "ko");
+  string const shortJson =
+      "\
+      {\
+      \"in_700_meters\":\"700 미터 앞\",\
+      \"make_a_right_turn\":\"우회전입니다.\",\
+      \"take_the_5th_exit\":\"다섯 번째 출구입니다.\",\
+      \"in_5000_feet\":\"5000피트 앞\"\
+      }";
+
+  platform::GetTextById getKorean(shortJson);
   TEST_EQUAL(getKorean("in_700_meters"), "700 미터 앞", ());
   TEST_EQUAL(getKorean("make_a_right_turn"), "우회전입니다.", ());
   TEST_EQUAL(getKorean("take_the_5th_exit"), "다섯 번째 출구입니다.", ());
@@ -48,7 +75,16 @@ UNIT_TEST(GetTextByIdKoreanTest)
 
 UNIT_TEST(GetTextByIdArabicTest)
 {
-  platform::GetTextById getArabic(TextSource::TtsSound, "ar");
+  string const shortJson =
+      "\
+      {\
+      \"in_1_kilometer\":\"بعد كيلو متر واحدٍ\",\
+      \"leave_the_roundabout\":\"اخرج من الطريق الدوار\",\
+      \"take_the_3rd_exit\":\"اسلك المخرج الثالث\",\
+      \"in_4000_feet\":\"بعد 4000 قدم\"\
+      }";
+
+  platform::GetTextById getArabic(shortJson);
   TEST_EQUAL(getArabic("in_1_kilometer"), "بعد كيلو متر واحدٍ", ());
   TEST_EQUAL(getArabic("leave_the_roundabout"), "اخرج من الطريق الدوار", ());
   TEST_EQUAL(getArabic("take_the_3rd_exit"), "اسلك المخرج الثالث", ());
@@ -62,11 +98,20 @@ UNIT_TEST(GetTextByIdArabicTest)
 
 UNIT_TEST(GetTextByIdFrenchTest)
 {
-  platform::GetTextById getFrench(TextSource::TtsSound, "fr");
+  string const shortJson =
+      "\
+      {\
+      \"in_1_5_kilometers\":\"Dans un virgule cinq kilomètre.\",\
+      \"enter_the_roundabout\":\"Prenez le rond-point.\",\
+      \"take_the_2nd_exit\":\"Prenez la deuxième sortie.\",\
+      \"in_3500_feet\":\"Dans trois mille cinq cents pieds.\"\
+      }";
+
+  platform::GetTextById getFrench(shortJson);
   TEST_EQUAL(getFrench("in_1_5_kilometers"), "Dans un virgule cinq kilomètre.", ());
   TEST_EQUAL(getFrench("enter_the_roundabout"), "Prenez le rond-point.", ());
   TEST_EQUAL(getFrench("take_the_2nd_exit"), "Prenez la deuxième sortie.", ());
-  TEST_EQUAL(getFrench("in_3500_feet"), "Dans 3500 feet.", ());
+  TEST_EQUAL(getFrench("in_3500_feet"), "Dans trois mille cinq cents pieds.", ());
 
   TEST_EQUAL(getFrench("some_nonexistent_key"), "", ());
   TEST_EQUAL(getFrench("some_nonexistent_key"), "", ());
