@@ -17,6 +17,14 @@ Iter FollowedPolyline::End() const
   return Iter(m_poly.Back(), m_poly.GetSize() - 1);
 }
 
+Iter FollowedPolyline::GetIterToIndex(size_t index) const
+{
+  ASSERT(IsValid(), ());
+  ASSERT_LESS(index, m_poly.GetSize(), ());
+
+  return Iter(m_poly.GetPoint(index), index);
+}
+
 double FollowedPolyline::GetDistanceM(Iter const & it1, Iter const & it2) const
 {
   ASSERT(IsValid(), ());

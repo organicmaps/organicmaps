@@ -166,7 +166,8 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
 
   size_t const segIdx = (*it).m_index - 1;
   turn = (*it);
-  distanceToTurnMeters = m_poly.GetSegDistances()[segIdx] - GetCurrentDistanceFromBeginMeters();
+  distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
+                                             m_poly.GetIterToIndex(segIdx));
 }
 
 void Route::GetCurrentDirectionPoint(m2::PointD & pt) const

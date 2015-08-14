@@ -51,9 +51,7 @@ public:
 
   Iter Begin() const;
   Iter End() const;
-
-  //TODO (ldragunov) remove this by updating iterator
-  vector<double> const & GetSegDistances() const { return m_segDistance; }
+  Iter GetIterToIndex(size_t index) const;
 
 private:
   template <class DistanceFn>
