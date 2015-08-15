@@ -17,8 +17,8 @@
   <View
       android:id="@+id/divider_top"
       android:layout_width="match_parent"
-      android:layout_height="1px"
-      android:background="?android:attr/listDivider"/>
+      android:layout_height="1dp"
+      android:background="?attr/dividerHorizontal"/>
 
   <include
       android:id="@+id/item"
@@ -30,8 +30,8 @@
   <View
       android:id="@+id/divider_bottom"
       android:layout_width="match_parent"
-      android:layout_height="1px"
-      android:background="?android:attr/listDivider"/>
+      android:layout_height="1dp"
+      android:background="?attr/dividerHorizontal"/>
 
 </LinearLayout>
 

@@ -22,7 +22,7 @@
   </style>
 
   <style name="PlacePageButtonImage">
-    <item name="android:layout_width">24dp</item>
+    <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">0dp</item>
     <item name="android:layout_weight">1</item>
     <item name="android:paddingTop">@dimen/margin_base</item>

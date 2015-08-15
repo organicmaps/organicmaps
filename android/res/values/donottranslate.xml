@@ -42,4 +42,7 @@
 
   <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
   <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>
+
+  <!-- Tags -->
+  <string name="tag_menu_collapse">collapse</string>
 </resources>

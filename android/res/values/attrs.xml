@@ -13,6 +13,8 @@
       <enum name="bottom" value="0"/>
       <enum name="left" value="1"/>
     </attr>
+    <attr name="docked" format="boolean"/>
+    <attr name="floating" format="boolean"/>
   </declare-styleable>
 
   <declare-styleable name="FlatProgressView">

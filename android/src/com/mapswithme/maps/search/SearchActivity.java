@@ -2,10 +2,8 @@ package com.mapswithme.maps.search;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
@@ -23,9 +21,9 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
   }
 
   @Override
-  protected String getFragmentClassName()
+  protected Class<? extends Fragment> getFragmentClass()
   {
-    return SearchFragment.class.getName();
+    return SearchFragment.class;
   }
 
   @Override

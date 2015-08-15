@@ -66,6 +66,7 @@ public class RoutingInfo
     public void setTurnDrawable(ImageView imageView)
     {
       imageView.setImageResource(mTurnRes);
+      ViewHelper.setRotation(imageView, 0.0f);
       ViewHelper.setScaleX(imageView, isLeftTurn(this) ? -1 : 1); // right turns are displayed as mirrored left turns.
     }
 

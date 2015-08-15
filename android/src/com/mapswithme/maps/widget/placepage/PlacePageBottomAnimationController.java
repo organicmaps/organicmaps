@@ -25,7 +25,6 @@ import com.nineoldandroids.view.ViewHelper;
 
 class PlacePageBottomAnimationController extends BasePlacePageAnimationController
 {
-  private final View mViewBottomHack;
   private final ViewGroup mLayoutToolbar;
 
   private final AnimationHelper mAnimationHelper = (NO_ANIMATION ? null : new AnimationHelper());
@@ -52,8 +51,10 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
   public PlacePageBottomAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
-    mViewBottomHack = mPlacePage.findViewById(R.id.view_bottom_white);
     mLayoutToolbar = (LinearLayout) mPlacePage.findViewById(R.id.toolbar_layout);
+    if (mLayoutToolbar == null)
+      return;
+
     final Toolbar toolbar = (Toolbar) mLayoutToolbar.findViewById(R.id.toolbar);
     if (toolbar != null)
     {
@@ -107,8 +108,8 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
   {
     mGestureDetector = new GestureDetectorCompat(mPlacePage.getContext(), new GestureDetector.SimpleOnGestureListener()
     {
-      private static final int Y_MIN = 4;
-      private static final int Y_MAX = 100;
+      private final int Y_MIN = UiUtils.dp(50);
+      private final int Y_MAX = UiUtils.dp(150);
       private static final int X_TO_Y_SCROLL_RATIO = 2;
 
       @Override
@@ -180,17 +181,10 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
 
     if (NO_ANIMATION)
     {
-      UiUtils.show(mViewBottomHack);
-
       if (currentState == State.HIDDEN)
-      {
-        UiUtils.show(mViewBottomHack);
         ViewHelper.setTranslationY(mPreview, 0.0f);
-      }
       else
-      {
         UiUtils.invisible(mBookmarkDetails);
-      }
 
       UiUtils.invisible(mFrame);
       notifyVisibilityListener(true, false);
@@ -203,7 +197,6 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
     Interpolator interpolator;
     if (currentState == State.HIDDEN)
     {
-      UiUtils.hide(mViewBottomHack);
       UiUtils.invisible(mFrame);
 
       interpolator = new OvershootInterpolator();
@@ -215,9 +208,6 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
         {
           ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue());
           ViewHelper.setTranslationY(mButtons, (Float) animation.getAnimatedValue());
-
-          if (animation.getAnimatedFraction() > .5f)
-            UiUtils.show(mViewBottomHack);
         }
       });
       animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
@@ -381,7 +371,6 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
   @SuppressLint("NewApi")
   protected void hidePlacePage()
   {
-    UiUtils.hide(mViewBottomHack);
     if (mLayoutToolbar != null)
       UiUtils.hide(mLayoutToolbar);
 

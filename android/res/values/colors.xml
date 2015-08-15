@@ -45,6 +45,9 @@
   <color name="text_place_page_buttons">@color/text_dark_subtitle</color>
   <color name="bg_place_page_buttons">@color/base_bg_secondary</color>
 
+  <color name="menu_background_open">#FFFFFFFF</color>
+  <color name="menu_background_closed">#CCFFFFFF</color>
+
   <!-- TODO change all colors below, remove old ones-->
 
   <color name="text_place_page_blue">#0288D1</color>
@@ -66,6 +69,5 @@
 
   <!-- search -->
   <color name="text_search_suggestion">@color/text_green</color>
-
 
 </resources>

@@ -20,14 +20,7 @@ public class UiThread
       if (currentThreadIsUi())
         runUi();
       else
-        UiThread.run(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            runUi();
-          }
-        });
+        UiThread.run(this);
     }
 
     protected abstract void runUi();

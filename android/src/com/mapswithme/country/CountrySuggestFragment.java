@@ -239,7 +239,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
   private void selectMapForDownload()
   {
     final BaseMwmFragmentActivity parent = (BaseMwmFragmentActivity) getActivity();
-    parent.replaceFragment(DownloadFragment.class.getName(), true, null);
+    parent.replaceFragment(DownloadFragment.class, true, null);
   }
 
   private void cancelCurrentDownload()

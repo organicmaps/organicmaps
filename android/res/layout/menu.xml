@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:clickable="true">
+  <!-- Content frame should be ABOVE buttons line at the moment of layout inflation
+       in order to be properly measured and correctly animated.
+       It will be swapped manually after layouting is completed. -->
+  <FrameLayout android:id="@+id/content_frame"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:visibility="invisible"
+               tools:visibility="visible">
+    <View android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/divider_standard"/>
+
+    <include layout="@layout/menu_content"/>
+  </FrameLayout>
+
+  <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+    <Space android:id="@+id/animation_spacer"
+           android:layout_width="0dp"
+           android:layout_height="0dp"/>
+
+    <FrameLayout android:id="@+id/line_frame"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+      <ImageView android:id="@+id/my_position"
+                 style="@style/MwmTheme.Menu.Line.Button"
+                 android:layout_width="@dimen/menu_line_button_width_edge"
+                 android:layout_height="@dimen/menu_line_height"
+                 android:paddingLeft="@dimen/margin_half"
+                 tools:src="@drawable/ic_my_position_pressed"/>
+
+      <ImageView android:id="@+id/toggle"
+                 style="@style/MwmTheme.Menu.Line.Button"
+                 android:layout_width="@dimen/menu_line_button_width_edge"
+                 android:layout_height="@dimen/menu_line_height"
+                 android:layout_gravity="right"
+                 android:paddingRight="@dimen/margin_half"
+                 android:src="@drawable/ic_menu_open"
+                 tools:layout_marginTop="50dp"/>
+
+      <include android:id="@+id/buttons_frame"
+               layout="@layout/menu_buttons_line"/>
+
+      <include android:id="@+id/navigation_frame"
+               layout="@layout/menu_navigation_line"
+               tools:layout_width="match_parent"
+               tools:layout_height="@dimen/menu_line_height"
+               tools:layout_marginTop="50dp"/>
+    </FrameLayout>
+  </LinearLayout>
+</LinearLayout>

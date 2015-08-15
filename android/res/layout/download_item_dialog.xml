@@ -13,8 +13,8 @@
     <View
         android:id="@+id/divider_top"
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="?android:attr/listDivider"/>
+        android:layout_height="1dp"
+        android:background="?attr/dividerHorizontal"/>
 
     <LinearLayout
         android:id="@+id/ll__item"
@@ -46,9 +46,9 @@
     <View
         android:id="@+id/divider_bottom"
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:layout_below="@id/ll__item"
-        android:background="?android:attr/listDivider"/>
+        android:background="?attr/dividerHorizontal"/>
 
   </RelativeLayout>
 

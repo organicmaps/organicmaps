@@ -78,7 +78,8 @@ public final class BottomSheetHelper
     @Override
     public BottomSheet.Builder setOnDismissListener(final DialogInterface.OnDismissListener listener)
     {
-      return super.setOnDismissListener(new DialogInterface.OnDismissListener() {
+      return super.setOnDismissListener(new DialogInterface.OnDismissListener()
+      {
         @Override
         public void onDismiss(DialogInterface dialog)
         {

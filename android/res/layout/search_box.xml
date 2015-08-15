@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/container_search" xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
@@ -20,7 +21,8 @@
       android:inputType="text"
       android:padding="@dimen/margin_quarter"
       android:singleLine="true"
-      android:textCursorDrawable="@drawable/cursor_drawable" tools:ignore="UnusedAttribute"/>
+      android:textCursorDrawable="@drawable/cursor_drawable"
+      tools:ignore="UnusedAttribute"/>
 
   <ProgressBar
       android:id="@+id/search_progress"

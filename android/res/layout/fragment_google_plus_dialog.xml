@@ -31,8 +31,8 @@
 
   <View
       android:layout_width="match_parent"
-      android:layout_height="1px"
-      android:background="?android:attr/listDivider"/>
+      android:layout_height="1dp"
+      android:background="?attr/dividerHorizontal"/>
 
   <com.google.android.gms.plus.PlusOneButton
       android:id="@+id/btn__gplus"

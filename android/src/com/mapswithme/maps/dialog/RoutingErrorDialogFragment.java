@@ -155,7 +155,7 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
       public void onGlobalLayout()
       {
         final int width = listView.getWidth();
-        final int indicatorWidth = getResources().getDimensionPixelSize(R.dimen.margin_quadruple);
+        final int indicatorWidth = UiUtils.dimen(R.dimen.margin_quadruple);
         listView.setIndicatorBounds(width - indicatorWidth, width);
         if (Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR2)
           listView.setIndicatorBounds(width - indicatorWidth, width);

@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
-
 import com.google.gsonaltered.Gson;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
@@ -21,13 +20,12 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.SaveCallback;
+import ru.mail.android.mytracker.MRMyTracker;
+import ru.mail.android.mytracker.MRMyTrackerParams;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-import ru.mail.android.mytracker.MRMyTracker;
-import ru.mail.android.mytracker.MRMyTrackerParams;
 
 public class MwmApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
 {

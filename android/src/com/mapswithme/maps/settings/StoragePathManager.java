@@ -2,25 +2,15 @@ package com.mapswithme.maps.settings;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.*;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
-
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.MapStorage;
-import com.mapswithme.maps.R;
+import com.mapswithme.maps.*;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
@@ -28,28 +18,16 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FilenameFilter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.channels.FileChannel;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class StoragePathManager
 {
   private static final String[] MOVABLE_EXTS = Framework.nativeGetMovableFilesExts();
-  private static final FilenameFilter MOVABLE_FILES_FILTER = new FilenameFilter() {
+  private static final FilenameFilter MOVABLE_FILES_FILTER = new FilenameFilter()
+  {
     @Override
     public boolean accept(File dir, String filename)
     {
@@ -352,7 +330,7 @@ public class StoragePathManager
     }
 
     new AlertDialog.Builder(mActivity).setCancelable(false).setTitle(R.string.move_maps)
-        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+                                      .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dlg, int which)
@@ -411,7 +389,7 @@ public class StoragePathManager
       if (item.mSize > size)
       {
         setStoragePath(context, listener, item, new StoragePathAdapter.StorageItem(getWritableDirRoot(), 0),
-            R.string.kitkat_optimization_in_progress);
+                       R.string.kitkat_optimization_in_progress);
         return;
       }
     }

@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 
 import com.mapswithme.maps.R;
@@ -27,9 +28,9 @@ public class BookmarkCategoriesActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  protected String getFragmentClassName()
+  protected Class<? extends Fragment> getFragmentClass()
   {
-    return BookmarkCategoriesFragment.class.getName();
+    return BookmarkCategoriesFragment.class;
   }
 
   @Override

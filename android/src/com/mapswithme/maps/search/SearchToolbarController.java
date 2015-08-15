@@ -15,55 +15,56 @@ import com.mapswithme.util.UiUtils;
 
 public class SearchToolbarController implements OnClickListener
 {
-  private Activity mActivity;
+  private final Activity mActivity;
 
-  private TextView mSearchQuery;
-  private View mSearchProgress;
-  private View mVoiceInput;
-  private Toolbar mSearchToolbar;
+  private final TextView mQuery;
+  private final View mProgress;
+  private final View mVoiceInput;
+  private final Toolbar mToolbar;
 
-  private static String mQuery = "";
+  private static String sSavedQuery = "";
+
 
   public SearchToolbarController(Activity activity)
   {
     mActivity = activity;
-    mSearchToolbar = (Toolbar) mActivity.findViewById(R.id.toolbar_search);
-    UiUtils.showHomeUpButton(mSearchToolbar);
-    mSearchToolbar.setNavigationOnClickListener(new OnClickListener()
+    mToolbar = (Toolbar) mActivity.findViewById(R.id.toolbar_search);
+    UiUtils.showHomeUpButton(mToolbar);
+    mToolbar.setNavigationOnClickListener(new OnClickListener()
     {
       @Override
       public void onClick(View v)
       {
-        MwmActivity.startSearch(mActivity, mSearchQuery.getText().toString());
+        MwmActivity.startSearch(mActivity, mQuery.getText().toString());
         cancelSearchApiAndHide();
       }
     });
-    View searchBox = mSearchToolbar.findViewById(R.id.search_box);
-    mSearchQuery = (TextView) searchBox.findViewById(R.id.search_text_query);
-    mSearchProgress = searchBox.findViewById(R.id.search_progress);
+    View searchBox = mToolbar.findViewById(R.id.search_box);
+    mQuery = (TextView) searchBox.findViewById(R.id.search_text_query);
+    mProgress = searchBox.findViewById(R.id.search_progress);
     mVoiceInput = searchBox.findViewById(R.id.search_voice_input);
 
-    mSearchQuery.setOnClickListener(this);
+    mQuery.setOnClickListener(this);
     searchBox.findViewById(R.id.search_image_clear).setOnClickListener(this);
   }
 
   public void refreshToolbar()
   {
-    mSearchQuery.setFocusable(false);
-    UiUtils.hide(mSearchProgress, mVoiceInput);
+    mQuery.setFocusable(false);
+    UiUtils.hide(mProgress, mVoiceInput);
 
     if (ParsedMwmRequest.hasRequest())
     {
-      UiUtils.show(mSearchToolbar);
-      mSearchQuery.setText(ParsedMwmRequest.getCurrentRequest().getTitle());
+      UiUtils.appearSlidingDown(mToolbar, null);
+      mQuery.setText(ParsedMwmRequest.getCurrentRequest().getTitle());
     }
-    else if (!TextUtils.isEmpty(mQuery))
+    else if (!TextUtils.isEmpty(sSavedQuery))
     {
-      UiUtils.show(mSearchToolbar);
-      mSearchQuery.setText(mQuery);
+      UiUtils.appearSlidingDown(mToolbar, null);
+      mQuery.setText(sSavedQuery);
     }
     else
-      UiUtils.hide(mSearchToolbar);
+      hide();
   }
 
   @Override
@@ -72,9 +73,9 @@ public class SearchToolbarController implements OnClickListener
     final int id = v.getId();
     if (R.id.search_text_query == id)
     {
-      final String query = mSearchQuery.getText().toString();
+      final String query = mQuery.getText().toString();
       MwmActivity.startSearch(mActivity, query);
-      UiUtils.hide(mSearchToolbar);
+      hide();
     }
     else if (R.id.search_image_clear == id)
       cancelSearchApiAndHide();
@@ -84,12 +85,12 @@ public class SearchToolbarController implements OnClickListener
 
   public static void setQuery(String query)
   {
-    mQuery = (query == null) ? "" : query;
+    sSavedQuery = (query == null) ? "" : query;
   }
 
   public static String getQuery()
   {
-    return mQuery;
+    return sSavedQuery;
   }
 
   public static void cancelApiCall()
@@ -109,7 +110,20 @@ public class SearchToolbarController implements OnClickListener
   {
     cancelApiCall();
     cancelSearch();
-    mSearchQuery.setText(null);
-    UiUtils.hide(mSearchToolbar);
+    mQuery.setText(null);
+    hide();
+  }
+
+  public boolean hide() {
+    if (mToolbar.getVisibility() != View.VISIBLE)
+      return false;
+
+    UiUtils.disappearSlidingUp(mToolbar, null);
+    return true;
+  }
+
+  public Toolbar getToolbar()
+  {
+    return mToolbar;
   }
 }

@@ -11,9 +11,8 @@
       android:id="@+id/pp__details_frame"
       layout="@layout/place_page_details"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:layout_below="@id/pp__preview"
-      android:layout_marginBottom="@dimen/place_page_buttons_height"
       android:background="@color/bg_top_panels"/>
 
   <include
@@ -21,6 +20,6 @@
       layout="@layout/place_page_buttons"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"/>
+      android:layout_alignBottom="@id/pp__details_frame"/>
 
 </merge>

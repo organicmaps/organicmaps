@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
@@ -12,9 +13,9 @@ public class ChooseBookmarkCategoryActivity extends BaseMwmFragmentActivity
   public static final int REQUEST_CODE_BOOKMARK_SET = 0x1;
 
   @Override
-  protected String getFragmentClassName()
+  protected Class<? extends Fragment> getFragmentClass()
   {
-    return ChooseBookmarkCategoryFragment.class.getName();
+    return ChooseBookmarkCategoryFragment.class;
   }
 
   @Override

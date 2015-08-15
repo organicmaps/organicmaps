@@ -2,15 +2,14 @@ package com.mapswithme.maps;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.mapswithme.maps.downloader.DownloadHelper;
+import com.mapswithme.util.UiUtils;
 import com.nvidia.devtech.NvEventQueueFragment;
 
 public class MapFragment extends NvEventQueueFragment
@@ -34,7 +33,7 @@ public class MapFragment extends NvEventQueueFragment
 
   protected native void nativeLocationUpdated(long time, double lat, double lon, float accuracy, double altitude, float speed, float bearing);
 
-  protected native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
+  protected native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean force);
 
   protected native void nativeScale(double k);
 
@@ -63,17 +62,28 @@ public class MapFragment extends NvEventQueueFragment
   @Override
   protected void applyWidgetPivots()
   {
-    final Resources resources = getResources();
-    Framework.setWidgetPivot(Framework.MAP_WIDGET_RULER, mSurfaceWidth - resources.getDimensionPixelOffset(R.dimen.margin_right_ruler), mSurfaceHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_ruler));
-    Framework.setWidgetPivot(Framework.MAP_WIDGET_COMPASS, resources.getDimensionPixelOffset(R.dimen.margin_left_compass), mSurfaceHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_compass));
-    Framework.setWidgetPivot(Framework.MAP_WIDGET_COPYRIGHT, mSurfaceWidth - resources.getDimensionPixelOffset(R.dimen.margin_right_ruler), mSurfaceHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_ruler));
+    Framework.setWidgetPivot(Framework.MAP_WIDGET_RULER,
+                             mSurfaceWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
+                             mSurfaceHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom));
+    Framework.setWidgetPivot(Framework.MAP_WIDGET_COPYRIGHT,
+                             mSurfaceWidth - UiUtils.dimen(R.dimen.margin_ruler_right),
+                             mSurfaceHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom));
+
+    adjustCompass(0);
+  }
+
+  public void adjustCompass(int offset)
+  {
+    Framework.setWidgetPivot(Framework.MAP_WIDGET_COMPASS,
+                             UiUtils.dimen(R.dimen.margin_compass_left) + offset,
+                             mSurfaceHeight - UiUtils.dimen(R.dimen.margin_compass_bottom));
   }
 
   @Override
   public void OnRenderingInitialized()
   {
     final Activity host = getActivity();
-    if (host != null && host instanceof MapRenderingListener)
+    if (isAdded() && host instanceof MapRenderingListener)
     {
       final MapRenderingListener listener = (MapRenderingListener) host;
       listener.onRenderingInitialized();

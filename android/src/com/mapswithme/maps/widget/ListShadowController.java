@@ -11,7 +11,8 @@ public class ListShadowController extends BaseShadowController<AbsListView, AbsL
   }
 
   @Override
-  protected boolean shouldShowShadow(int id) {
+  protected boolean shouldShowShadow(int id)
+  {
     switch (id)
     {
     case TOP:
@@ -39,7 +40,8 @@ public class ListShadowController extends BaseShadowController<AbsListView, AbsL
   {
     super.attach();
 
-    mList.setOnScrollListener(new AbsListView.OnScrollListener() {
+    mList.setOnScrollListener(new AbsListView.OnScrollListener()
+    {
       @Override
       public void onScrollStateChanged(AbsListView view, int scrollState)
       {

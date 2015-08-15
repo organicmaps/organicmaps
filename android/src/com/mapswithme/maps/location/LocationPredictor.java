@@ -8,13 +8,13 @@ import com.mapswithme.maps.LocationState;
 
 public class LocationPredictor
 {
-  final private long PREDICTION_INTERVAL = 200;
-  final private long MAX_PREDICTION_COUNT = 20;
+  private static final long PREDICTION_INTERVAL = 200;
+  private static final long MAX_PREDICTION_COUNT = 20;
 
-  private Runnable mRunnable;
-  private Handler mHandler;
+  private final Runnable mRunnable;
+  private final Handler mHandler;
 
-  private LocationHelper.LocationListener mListener;
+  private final LocationHelper.LocationListener mListener;
   private Location mLastLocation;
   private boolean mGeneratePredictions;
   private int mPredictionCount;

@@ -1,55 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/ic_menu_location_pending_1"
+        android:duration="@integer/anim_location_pending_item"/>
 
-  <item
-      android:drawable="@drawable/btn_white_loading_1"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_2"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_3"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_4"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_5"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_6"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_7"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_8"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_9"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_10"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_12"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_13"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_14"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_15"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_16"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_17"
-      android:duration="40"/>
-  <item
-      android:drawable="@drawable/btn_white_loading_18"
-      android:duration="40"/>
+  <item android:drawable="@drawable/ic_menu_location_pending_2"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_3"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_4"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_5"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_6"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_7"
+        android:duration="@integer/anim_location_pending_item"/>
+
+  <item android:drawable="@drawable/ic_menu_location_pending_8"
+        android:duration="@integer/anim_location_pending_item"/>
 </animation-list>

@@ -113,23 +113,25 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
 
   protected void attachDefaultFragment()
   {
-    final String fragmentName = getFragmentClassName();
-    if (fragmentName != null)
-      replaceFragment(getFragmentClassName(), false, getIntent().getExtras());
+    Class<? extends Fragment> clazz = getFragmentClass();
+    if (clazz != null)
+      replaceFragment(clazz, false, getIntent().getExtras());
   }
 
   /**
    * Replace attached fragment with the new one.
    */
-  public void replaceFragment(String fragmentClassName, boolean addToBackStack, Bundle args)
+  public void replaceFragment(Class<? extends Fragment> fragmentClass, boolean addToBackStack, Bundle args)
   {
     final int resId = getFragmentContentResId();
-    if (findViewById(resId) == null)
+    if (resId <= 0 || findViewById(resId) == null)
       throw new IllegalStateException("Fragment can't be added, since getFragmentContentResId() isn't implemented or returns wrong resourceId.");
 
     final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    final Fragment fragment = Fragment.instantiate(this, fragmentClassName, args);
-    transaction.replace(resId, fragment, fragmentClassName);
+
+    String name = fragmentClass.getName();
+    final Fragment fragment = Fragment.instantiate(this, name, args);
+    transaction.replace(resId, fragment, name);
     if (addToBackStack)
       transaction.addToBackStack(null);
     transaction.commit();
@@ -138,9 +140,9 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   /**
    * Override to automatically attach fragment in onCreate. Tag applied to fragment in back stack is set to fragment name, too.
    * WARNING : if custom layout for activity is set, getFragmentContentResId() must be implemented, too.
-   * @return class name of the fragment, eg FragmentClass.getName()
+   * @return class of the fragment, eg FragmentClass.getClass()
    */
-  protected String getFragmentClassName()
+  protected Class<? extends Fragment> getFragmentClass()
   {
     return null;
   }

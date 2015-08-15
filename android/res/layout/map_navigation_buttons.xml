@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin_quarter">
-
-  <ImageButton
-      android:id="@+id/btn__myposition"
-      style="@style/MwmWidget.MapButton.White"
-      android:layout_alignParentBottom="true"
-      android:contentDescription="@string/my_position"
-      android:src="@drawable/bg_btn_white"/>
+    android:paddingLeft="@dimen/margin_navigation_buttons"
+    android:paddingRight="0dp"
+    android:paddingTop="@dimen/margin_navigation_buttons"
+    android:paddingBottom="@dimen/margin_navigation_buttons">
 
   <ImageButton
       android:id="@+id/yop_it"
-      style="@style/MwmWidget.MapButton.White"
+      style="@style/MwmWidget.MapButton.Zoom"
       android:layout_alignParentRight="true"
-      android:contentDescription="@null"
-      android:src="@drawable/ic_btn_yota_ptb"/>
+      android:layout_marginRight="@dimen/margin_quarter"
+      android:src="@drawable/ic_btn_yota_ptb"
+      android:visibility="gone"
+      tools:visibility="visible"/>
 
   <android.support.v4.widget.Space
       android:id="@+id/space_bottom"
@@ -28,17 +27,17 @@
   <ImageButton
       android:id="@+id/map_button_minus"
       style="@style/MwmWidget.MapButton.Zoom"
+      android:layout_marginRight="@dimen/margin_quarter"
       android:layout_above="@id/space_bottom"
       android:layout_alignParentRight="true"
-      android:contentDescription="@null"
-      android:src="@drawable/btn_white_zoom_out"/>
+      android:src="@drawable/ic_zoom_out"/>
 
   <ImageButton
       android:id="@+id/map_button_plus"
       style="@style/MwmWidget.MapButton.Zoom"
-      android:layout_above="@id/map_button_minus"
+      android:layout_marginRight="@dimen/margin_quarter"
+      android:layout_above="@+id/map_button_minus"
       android:layout_alignParentRight="true"
-      android:contentDescription="@null"
-      android:src="@drawable/btn_white_zoom_in"/>
+      android:src="@drawable/ic_zoom_in"/>
 
 </RelativeLayout>

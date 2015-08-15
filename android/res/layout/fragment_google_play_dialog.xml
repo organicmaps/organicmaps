@@ -47,8 +47,8 @@
     <View
         android:id="@+id/v__divider"
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="?android:attr/listDivider"
+        android:layout_height="1dp"
+        android:background="?attr/dividerHorizontal"
         android:visibility="gone"/>
 
     <Button

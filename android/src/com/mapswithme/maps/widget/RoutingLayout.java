@@ -3,6 +3,7 @@ package com.mapswithme.maps.widget;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.location.Location;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -92,6 +93,16 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
   {
     super(context, attrs, defStyleAttr);
     LayoutInflater.from(context).inflate(R.layout.layout_routing_full, this);
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+      setElevation(UiUtils.dimen(R.dimen.appbar_elevation));
+
+    setBackgroundColor(getResources().getColor(R.color.bg_top_panels));
+    setClipToPadding(false);
+
+    if (isInEditMode())
+      return;
+
     initViews();
     UiUtils.hide(this, mLayoutSetupRouting, mBtnStart, mLayoutTurnInstructions);
   }
@@ -281,8 +292,8 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
 
     if (Framework.getRouter() == Framework.ROUTER_TYPE_VEHICLE)
     {
-      mTvTurnDistance.setText(getSpannedDistance(getResources().getDimensionPixelSize(R.dimen.text_size_display_1),
-          getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), info.distToTurn, info.turnUnits.toLowerCase()));
+      mTvTurnDistance.setText(getSpannedDistance(UiUtils.dimen(R.dimen.text_size_display_1),
+                                                 UiUtils.dimen(R.dimen.text_size_toolbar), info.distToTurn, info.turnUnits.toLowerCase()));
       info.vehicleTurnDirection.setTurnDrawable(mIvTurn);
     }
     else
@@ -299,8 +310,8 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
         info.pedestrianNextDirection.getLatitude(), info.pedestrianNextDirection.getLongitude(), location.getLatitude(), location.getLongitude(), mNorth);
 
     String[] splitDistance = distanceAndAzimut.getDistance().split(" ");
-    mTvTurnDistance.setText(getSpannedDistance(getResources().getDimensionPixelSize(R.dimen.text_size_display_1),
-        getResources().getDimensionPixelSize(R.dimen.text_size_toolbar), splitDistance[0], splitDistance[1].toLowerCase()));
+    mTvTurnDistance.setText(getSpannedDistance(UiUtils.dimen(R.dimen.text_size_display_1),
+                                               UiUtils.dimen(R.dimen.text_size_toolbar), splitDistance[0], splitDistance[1].toLowerCase()));
 
     if (info.pedestrianTurnDirection != null)
       info.pedestrianTurnDirection.setTurnDrawable(mIvTurn, distanceAndAzimut);
@@ -316,7 +327,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     mTvPrepareTime.setText(formatTime(info.totalTimeInSeconds));
   }
 
-  private SpannableStringBuilder getSpannedDistance(int distTextSize, int unitsTextSize, String distToTarget, String units)
+  private static SpannableStringBuilder getSpannedDistance(int distTextSize, int unitsTextSize, String distToTarget, String units)
   {
     SpannableStringBuilder builder = new SpannableStringBuilder(distToTarget).append(" ").append(units.toUpperCase());
     builder.setSpan(new AbsoluteSizeSpan(distTextSize, false), 0, distToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -325,7 +336,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     return builder;
   }
 
-  private String formatTime(int seconds)
+  private static String formatTime(int seconds)
   {
     long minutes = TimeUnit.SECONDS.toMinutes(seconds);
     long hours = TimeUnit.MINUTES.toHours(minutes);

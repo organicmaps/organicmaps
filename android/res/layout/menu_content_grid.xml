@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              tools:background="#200000F0">
+  <TextView android:id="@+id/search"
+            style="@style/MwmTheme.Menu.Content.GridItem.Text"
+            android:drawableTop="@drawable/ic_menu_search"
+            android:text="@string/search"
+            tools:background="#200000FF"/>
+
+  <TextView android:id="@+id/bookmarks"
+            style="@style/MwmTheme.Menu.Content.GridItem.Text"
+            android:drawableTop="@drawable/ic_menu_bookmarks"
+            android:text="@string/bookmarks"
+            tools:background="#200000FF"/>
+
+  <FrameLayout style="@style/MwmTheme.Menu.Content.GridItem">
+    <TextView android:id="@+id/download_maps"
+              style="@style/MwmTheme.Menu.Content.GridItem.Text"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:drawableTop="@drawable/ic_menu_download"
+              android:text="@string/download_maps"
+              tools:text="Some long long long long long long text"
+              tools:background="#200000FF"/>
+
+    <TextView android:id="@+id/counter"
+              style="@style/MwmTextAppearance.Counter"
+              android:layout_gravity="center_horizontal"
+              android:layout_marginLeft="14dp"
+              android:layout_marginTop="10dp"
+              android:visibility="gone"
+              tools:visibility="visible"
+              tools:text="1000"/>
+  </FrameLayout>
+
+  <TextView android:id="@+id/settings"
+            style="@style/MwmTheme.Menu.Content.GridItem.Text"
+            android:drawableTop="@drawable/ic_menu_settings"
+            android:text="@string/settings"
+            tools:background="#200000FF"/>
+
+  <TextView android:id="@+id/share"
+            style="@style/MwmTheme.Menu.Content.GridItem.Text"
+            android:drawableTop="@drawable/ic_menu_share"
+            android:text="@string/share_my_location"
+            tools:background="#200000FF"/>
+</LinearLayout>

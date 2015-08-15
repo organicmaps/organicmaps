@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:placePage="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+  <FrameLayout
+      android:id="@+id/map_fragment_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+
+  <include
+      android:id="@+id/navigation_buttons"
+      layout="@layout/map_navigation_buttons"/>
+
+  <FrameLayout
+      android:id="@id/fragment_container"
+      android:layout_width="@dimen/panel_width"
+      android:layout_height="match_parent"
+      android:background="@android:color/white"
+      android:elevation="@dimen/navigation_elevation"
+      android:visibility="gone"
+      tools:visibility="visible"/>
+
+  <LinearLayout android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_base"
+                android:clipToPadding="false"
+                android:layout_toRightOf="@id/fragment_container"
+                android:layout_alignWithParentIfMissing="true">
+    <include android:id="@+id/toolbar_search"
+             layout="@layout/toolbar_with_search"
+             android:layout_width="@dimen/panel_width"
+             android:layout_height="?attr/actionBarSize"
+             android:layout_marginBottom="@dimen/margin_base"
+             android:visibility="gone"
+             tools:visibility="visible"/>
+
+    <com.mapswithme.maps.widget.RoutingLayout
+        android:id="@+id/layout__routing"
+        android:layout_width="@dimen/panel_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_base"/>
+
+    <com.mapswithme.maps.widget.placepage.PlacePageView
+        android:id="@+id/info_box"
+        style="@style/MwmWidget.Floating.Panel"
+        android:layout_width="@dimen/place_page_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/menu_line_height"
+        placePage:animationType="left"
+        placePage:floating="true"/>
+  </LinearLayout>
+
+  <com.mapswithme.maps.widget.FadeView
+      android:id="@+id/fade_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@android:color/black"
+      android:visibility="gone"/>
+
+  <include
+      android:id="@+id/menu_frame"
+      layout="@layout/menu"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"/>
+</RelativeLayout>

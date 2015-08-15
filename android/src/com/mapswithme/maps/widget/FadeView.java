@@ -5,51 +5,36 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.FrameLayout;
-
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 
 public class FadeView extends FrameLayout
 {
-  private static final float FADE_ALPHA_VALUE = 0.8f;
+  private static final float FADE_ALPHA_VALUE = 0.4f;
   private static final String PROPERTY_ALPHA = "alpha";
+  private static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_fade_main);
 
-  private ObjectAnimator mFadeInAnimation;
-  private ObjectAnimator mFadeOutAnimation;
-
-  private Animator.AnimatorListener mFadeOutListener = new UiUtils.SimpleNineoldAnimationListener()
+  private final Animator.AnimatorListener mFadeOutListener = new UiUtils.SimpleNineoldAnimationListener()
   {
     @Override
     public void onAnimationEnd(Animator animation)
     {
-      setVisibility(View.GONE);
+      UiUtils.hide(FadeView.this);
       UiUtils.clearAnimationAfterAlpha(FadeView.this);
-      if (mFadeListener != null && mDoNotify)
-        mFadeListener.onFadeOut();
     }
   };
-  private Animator.AnimatorListener mFadeInListener = new UiUtils.SimpleNineoldAnimationListener()
-  {
-    @Override
-    public void onAnimationEnd(Animator animation)
-    {
-      if (mFadeListener != null && mDoNotify)
-        mFadeListener.onFadeIn();
-    }
-  };
-  private boolean mDoNotify;
 
-  public interface FadeListener
-  {
-    void onFadeOut();
 
-    void onFadeIn();
+  public interface Listener
+  {
+    void onTouch();
   }
 
-  private FadeListener mFadeListener;
+  private Listener mListener;
 
   public FadeView(Context context)
   {
@@ -66,58 +51,35 @@ public class FadeView extends FrameLayout
     super(context, attrs, defStyleAttr);
   }
 
-  public void setFadeListener(FadeListener listener)
+  public void setListener(Listener listener)
   {
-    mFadeListener = listener;
+    mListener = listener;
   }
 
-  /**
-   * Fades out view and notifies on animation end, if requested
-   *
-   * @param notify whether we want notification
-   */
-  public void fadeIn(boolean notify)
+  public void fadeIn()
   {
-    mDoNotify = notify;
-    setVisibility(View.VISIBLE);
-    mFadeInAnimation = ObjectAnimator.ofFloat(this, PROPERTY_ALPHA, 0f, FADE_ALPHA_VALUE);
-    mFadeInAnimation.addListener(mFadeInListener);
-    mFadeInAnimation.start();
+    UiUtils.show(this);
+
+    ObjectAnimator animation = ObjectAnimator.ofFloat(this, PROPERTY_ALPHA, 0f, FADE_ALPHA_VALUE);
+    animation.setDuration(DURATION);
+    animation.start();
   }
 
-  /**
-   * Fades out view and notifies on animation end, if requested
-   *
-   * @param notify whether we want notification
-   */
   public void fadeOut(boolean notify)
   {
-    mDoNotify = notify;
-    mFadeOutAnimation = ObjectAnimator.ofFloat(this, PROPERTY_ALPHA, FADE_ALPHA_VALUE, 0f);
-    mFadeOutAnimation.addListener(mFadeOutListener);
-    mFadeOutAnimation.start();
-  }
+    if (mListener != null && notify)
+      mListener.onTouch();
 
-  public boolean isFadingIn()
-  {
-    return mFadeInAnimation != null && mFadeInAnimation.isRunning();
-  }
-
-  public boolean isFadingOut()
-  {
-    return mFadeOutAnimation != null && mFadeOutAnimation.isRunning();
+    ObjectAnimator animation = ObjectAnimator.ofFloat(this, PROPERTY_ALPHA, FADE_ALPHA_VALUE, 0f);
+    animation.addListener(mFadeOutListener);
+    animation.setDuration(DURATION);
+    animation.start();
   }
 
   public void fadeInInstantly()
   {
-    setVisibility(View.VISIBLE);
+    UiUtils.show(this);
     ViewCompat.setAlpha(this, FADE_ALPHA_VALUE);
-  }
-
-  public void fadeOutInstantly()
-  {
-    setVisibility(View.GONE);
-    ViewCompat.setAlpha(this, 0);
   }
 
   @Override

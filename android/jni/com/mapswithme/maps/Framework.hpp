@@ -94,7 +94,7 @@ namespace android
 
     void OnLocationError(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(location::GpsInfo const & info);
-    void OnCompassUpdated(location::CompassInfo const & info);
+    void OnCompassUpdated(location::CompassInfo const & info, bool force);
     void UpdateCompassSensor(int ind, float * arr);
 
     void Invalidate();

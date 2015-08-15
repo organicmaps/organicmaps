@@ -1,6 +1,0 @@
-<resources>
-
-    <dimen name="zoom_plus_top_margin">150dp</dimen>
-    <dimen name="activity_horizontal_margin">128dp</dimen>
-
-</resources>

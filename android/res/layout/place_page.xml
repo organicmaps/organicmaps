@@ -16,14 +16,6 @@
       android:layout_above="@+id/pp__buttons"
       android:layout_marginTop="56dp"/>
 
-  <View
-      android:id="@+id/view_bottom_white"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/place_page_buttons_height"
-      android:layout_alignParentBottom="true"
-      android:background="@color/bg_top_panels"
-      android:visibility="gone"/>
-
   <include
       android:id="@+id/pp__buttons"
       layout="@layout/place_page_buttons"

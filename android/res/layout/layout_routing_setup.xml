@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/layout__routing_setup"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:wheel="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:ignore="UnusedAttribute">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:wheel="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/layout__routing_setup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:clipToPadding="false">
+  <Button android:id="@+id/btn__start_routing"
+          style="@style/MwmWidget.Button.Blue"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/base_block_size"
+          android:layout_below="@+id/content"
+          android:gravity="center"
+          android:text="@string/routing_start"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
 
-  <Button
-      android:id="@+id/btn__start_routing"
-      style="@style/MwmWidget.Button.Blue"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/base_block_size"
-      android:layout_below="@+id/layout__setup_details"
-      android:gravity="center"
-      android:text="@string/routing_start"
-      android:textAllCaps="true"
-      android:textAppearance="@style/MwmTextAppearance.Body3.Light"
-      tools:text="START"/>
-
-  <LinearLayout
-      android:id="@+id/layout__setup_details"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/height_routing_setup"
-      android:background="@color/bg_top_panels"
-      android:gravity="center_vertical"
-      android:orientation="horizontal">
-
+  <LinearLayout android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_routing_setup"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
     <com.mapswithme.maps.widget.WheelProgressView
         android:id="@+id/wp__routing_progress"
         android:layout_width="@dimen/base_block_size"
@@ -100,9 +94,6 @@
           android:layout_width="@dimen/base_block_size"
           android:layout_height="match_parent"
           android:button="@drawable/selector_vehicle"/>
-
     </RadioGroup>
-
   </LinearLayout>
-
 </RelativeLayout>

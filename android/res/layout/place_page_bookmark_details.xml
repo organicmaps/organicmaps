@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl__bookmark_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:clipChildren="false"
     android:paddingBottom="@dimen/margin_base"
     android:visibility="invisible"
     tools:visibility="visible">
 
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="?attr/dividerHorizontal"/>
+  <View android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/dividerHorizontal"/>
 
   <com.mapswithme.maps.widget.CustomTextInputLayout
-      android:id="@+id/layout__bookmark_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/margin_half"
@@ -31,15 +30,12 @@
         android:inputType="textCapWords"
         android:singleLine="true"
         android:textSize="@dimen/place_page_subtitle"/>
-
   </com.mapswithme.maps.widget.CustomTextInputLayout>
 
   <TextView
       android:id="@+id/tv__bookmark_group_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/layout__bookmark_name"
-      android:layout_below="@id/layout__bookmark_name"
       android:layout_marginTop="@dimen/margin_base_plus"
       android:lineSpacingMultiplier="1.67"
       android:text="@string/set"
@@ -47,14 +43,8 @@
       android:textSize="@dimen/place_page_sub_subtitle"/>
 
   <RelativeLayout
-      android:id="@+id/ll__group"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/layout__bookmark_name"
-      android:layout_below="@id/tv__bookmark_group_title"
-      android:clipChildren="false"
-      android:orientation="horizontal">
-
+      android:layout_height="wrap_content">
     <TextView
         android:id="@+id/tv__bookmark_group"
         android:layout_width="match_parent"
@@ -93,39 +83,41 @@
       android:id="@+id/tv__bookmark_notes"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/layout__bookmark_name"
-      android:layout_below="@id/ll__group"
-      android:layout_marginBottom="@dimen/margin_half"
-      android:layout_marginTop="@dimen/margin_base"
-      android:clickable="true"
+      android:paddingTop="@dimen/margin_base"
+      android:paddingBottom="@dimen/margin_half"
       android:lineSpacingMultiplier="1.67"
       android:text="@string/description"
       android:textAppearance="@style/MwmTextAppearance.Caption"/>
 
-  <WebView
-      android:id="@+id/wv__description"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/tv__bookmark_notes"
-      android:layout_below="@id/tv__bookmark_notes"/>
+  <FrameLayout android:layout_width="match_parent"
+               android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+      <WebView
+          android:id="@+id/wv__description"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
 
-  <Button
-      android:id="@+id/btn__edit_html_bookmark"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentRight="true"
-      android:layout_below="@id/wv__description"
-      android:layout_marginRight="@dimen/margin_base"
-      android:background="?attr/selectableItemBackground"
-      android:text="@string/edit"
-      android:textAppearance="@style/MwmTextAppearance.Button"/>
+      <Button
+          android:id="@+id/btn__edit_html_bookmark"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="right|bottom"
+          android:background="?attr/selectableItemBackground"
+          android:text="@string/edit"
+          android:textAppearance="@style/MwmTextAppearance.Button"/>
+    </LinearLayout>
 
-  <TextView
-      android:id="@+id/tv__description"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/tv__bookmark_notes"
-      android:layout_below="@id/tv__bookmark_notes"
-      android:textAppearance="@style/MwmTextAppearance.Body1"/>
+    <TextView
+        android:id="@+id/tv__description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/MwmTextAppearance.Body1"/>
+  </FrameLayout>
 
-</RelativeLayout>
+  <View android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_half"
+        android:background="?attr/dividerHorizontal"/>
+</LinearLayout>

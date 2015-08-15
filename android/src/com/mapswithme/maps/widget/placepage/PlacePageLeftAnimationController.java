@@ -6,6 +6,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateInterpolator;
 
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
@@ -18,6 +19,12 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
   public PlacePageLeftAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
+  }
+
+  @Override
+  protected void initialHide()
+  {
+    UiUtils.hide(mPlacePage);
   }
 
   @Override
@@ -55,8 +62,8 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
   {
     mGestureDetector = new GestureDetectorCompat(mPlacePage.getContext(), new GestureDetector.SimpleOnGestureListener()
     {
-      private static final int X_MIN = 4;
-      private static final int X_MAX = 100;
+      private final int X_MIN = UiUtils.dp(80);
+      private final int X_MAX = UiUtils.dp(200);
       private static final int X_TO_Y_SCROLL_RATIO = 2;
 
       @Override
@@ -108,7 +115,37 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
     }
   }
 
-  protected void showPlacePage(final State currentState, final State newState)
+  private void startTracking(boolean collapsed)
+  {
+    MwmActivity.LeftAnimationTrackListener tracker = mPlacePage.getLeftAnimationTrackListener();
+    if (tracker != null)
+      tracker.onTrackStarted(collapsed);
+  }
+
+  private void finishTracking(boolean collapsed)
+  {
+    MwmActivity.LeftAnimationTrackListener tracker = mPlacePage.getLeftAnimationTrackListener();
+    if (tracker != null)
+      tracker.onTrackFinished(collapsed);
+  }
+
+  private void track(ValueAnimator animation)
+  {
+    float offset = (Float) animation.getAnimatedValue();
+    ViewHelper.setTranslationX(mPlacePage, offset);
+
+    float slope = offset / mPlacePage.getDockedWidth();
+    ViewHelper.setAlpha(mPlacePage, slope + 1.0f);
+
+    if (!mPlacePage.isDocked())
+      ViewHelper.setRotation(mPlacePage, slope * 20.0f);
+
+    MwmActivity.LeftAnimationTrackListener tracker = mPlacePage.getLeftAnimationTrackListener();
+    if (tracker != null)
+      tracker.onTrackLeftAnimation(offset + mPlacePage.getDockedWidth());
+  }
+
+  private void showPlacePage(final State currentState, final State newState)
   {
     UiUtils.show(mPlacePage);
     UiUtils.showIf(newState == State.BOOKMARK, mBookmarkDetails);
@@ -121,13 +158,15 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
       return;
     }
 
-    ValueAnimator animator = ValueAnimator.ofFloat(-mPlacePage.getWidth(), 0f);
+    startTracking(false);
+
+    ValueAnimator animator = ValueAnimator.ofFloat(-mPlacePage.getDockedWidth(), 0.0f);
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
       public void onAnimationUpdate(ValueAnimator animation)
       {
-        ViewHelper.setTranslationX(mPlacePage, (Float) animation.getAnimatedValue());
+        track(animation);
       }
     });
     animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
@@ -136,6 +175,7 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
       public void onAnimationEnd(Animator animation)
       {
         notifyVisibilityListener(true, true);
+        finishTracking(true);
       }
     });
 
@@ -144,7 +184,7 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
     animator.start();
   }
 
-  protected void hidePlacePage()
+  private void hidePlacePage()
   {
     if (NO_ANIMATION)
     {
@@ -153,14 +193,15 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
       return;
     }
 
-    ValueAnimator animator;
-    animator = ValueAnimator.ofFloat(0.0f, -mPlacePage.getWidth());
+    startTracking(true);
+
+    ValueAnimator animator = ValueAnimator.ofFloat(0.0f, -mPlacePage.getDockedWidth());
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
       public void onAnimationUpdate(ValueAnimator animation)
       {
-        ViewHelper.setTranslationX(mPlacePage, (Float) animation.getAnimatedValue());
+        track(animation);
       }
     });
     animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
@@ -168,8 +209,9 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
       @Override
       public void onAnimationEnd(Animator animation)
       {
-        UiUtils.invisible(mPlacePage);
+        UiUtils.hide(mPlacePage);
         notifyVisibilityListener(false, false);
+        finishTracking(false);
       }
     });
 

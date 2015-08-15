@@ -16,9 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapswithme.country.StorageOptions;
-import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.MwmActivity.MapTask;
 import com.mapswithme.maps.MwmActivity.OpenUrlTask;
+import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;

@@ -5,14 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
   <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="@dimen/height_routing_turns"
-      android:layout_marginBottom="@dimen/margin_eighth"
-      android:background="@color/bg_top_panels"
-      tools:ignore="UnusedAttribute">
-
+      android:layout_height="@dimen/height_routing_turns">
     <TextView
         android:id="@+id/tv__total_time"
         android:layout_width="wrap_content"
@@ -70,8 +65,6 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="center"
         android:src="@drawable/ic_close_routing"/>
-
-
   </RelativeLayout>
 
   <com.mapswithme.maps.widget.FlatProgressView
@@ -83,6 +76,7 @@
       app:headColor="@color/base_light_blue"
       app:headRadius="4dp"
       app:progressColor="@color/base_light_blue"
-      app:progressThickness="4dp"/>
-
+      app:progressThickness="4dp"
+      app:progress="40"
+      tools:visibility="visible"/>
 </FrameLayout>

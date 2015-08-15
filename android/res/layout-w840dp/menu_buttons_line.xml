@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/menu_line_height"
+              android:orientation="horizontal">
+  <!-- Gap for MyPosition button -->
+  <View android:layout_width="@dimen/menu_line_button_width_edge"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/margin_base"/>
+
+  <!-- Fake view to make layout symmetrical -->
+  <Space android:id="@+id/symmetrical_gap"
+         android:layout_width="@dimen/menu_line_height"
+         android:layout_height="match_parent"
+         android:layout_marginLeft="@dimen/margin_base"
+         android:layout_marginRight="@dimen/margin_base"/>
+
+  <!-- Anchor ID. Disables menu toggle button if present. -->
+  <Space android:id="@+id/disable_toggle"
+         android:layout_width="0dp"
+         android:layout_height="match_parent"
+         android:layout_weight="1"/>
+
+  <ImageView android:id="@+id/search"
+             style="@style/MwmTheme.Menu.Line.Button"
+             android:src="@drawable/ic_menu_search"
+             android:layout_marginLeft="@dimen/margin_base"
+             android:layout_marginRight="@dimen/margin_base"/>
+
+  <ImageView android:id="@+id/route"
+             style="@style/MwmTheme.Menu.Line.Button"
+             android:src="@drawable/ic_menu_point_to_point"
+             android:visibility="gone"
+             tools:visibility="visible"
+             android:layout_marginLeft="@dimen/margin_base"
+             android:layout_marginRight="@dimen/margin_base"/>
+
+  <ImageView android:id="@+id/bookmarks"
+             style="@style/MwmTheme.Menu.Line.Button"
+             android:src="@drawable/ic_menu_bookmarks"
+             android:layout_marginLeft="@dimen/margin_base"
+             android:layout_marginRight="@dimen/margin_base"/>
+
+  <ImageView android:id="@+id/share"
+             style="@style/MwmTheme.Menu.Line.Button"
+             android:src="@drawable/ic_menu_share"
+             android:layout_marginLeft="@dimen/margin_base"
+             android:layout_marginRight="@dimen/margin_base"/>
+
+  <Space android:layout_width="0dp"
+         android:layout_height="match_parent"
+         android:layout_weight="1"/>
+
+  <FrameLayout android:layout_width="wrap_content"
+               android:layout_height="match_parent">
+    <ImageView android:id="@+id/download_maps"
+               style="@style/MwmTheme.Menu.Line.Button"
+               android:src="@drawable/ic_menu_download"
+               android:layout_marginLeft="@dimen/margin_base"
+               android:layout_marginRight="@dimen/margin_base"/>
+
+    <include layout="@layout/menu_news_marker"/>
+  </FrameLayout>
+
+  <ImageView android:id="@+id/settings"
+             style="@style/MwmTheme.Menu.Line.Button"
+             android:layout_width="@dimen/menu_line_button_width_edge"
+             android:layout_height="@dimen/menu_line_height"
+             android:paddingRight="@dimen/margin_half"
+             android:src="@drawable/ic_menu_settings"
+             android:layout_marginLeft="@dimen/margin_base"/>
+</LinearLayout>

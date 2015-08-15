@@ -17,6 +17,7 @@
     <item name="android:windowBackground">@android:color/white</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
+    <item name="dividerHorizontal">@color/text_dark_hint</item>
   </style>
 
   <style name="MwmTheme.BottomSheet.Dialog" parent="BottomSheet.Dialog">
@@ -105,15 +106,6 @@
     <item name="android:background">@drawable/bg_btn_zoom</item>
   </style>
 
-  <style name="MwmWidget.MapButton.Green">
-    <item name="android:background">@drawable/bg_btn_green_circle</item>
-  </style>
-
-  <style name="MwmWidget.MapButton.Green.Child">
-    <item name="android:duplicateParentState">true</item>
-    <item name="android:clickable">false</item>
-  </style>
-
   <style name="MwmWidget.Button"/>
 
   <style name="MwmWidget.Button.Green">
@@ -142,7 +134,7 @@
 
   <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="android:background">?attr/colorPrimary</item>
-    <item name="android:elevation">4dp</item>
+    <item name="android:elevation">@dimen/appbar_elevation</item>
     <item name="android:displayOptions">homeAsUp|showTitle</item>
     <item name="contentInsetStart">72dp</item>
     <item name="android:titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
@@ -201,8 +193,6 @@
   </style>
 
   <style name="MwmWidget.TextView.OutOfDateMapsMarker">
-    <item name="android:progressDrawable">@drawable/rating_bar</item>
-    <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
     <item name="android:layout_width">26dp</item>
     <item name="android:layout_height">26dp</item>
     <item name="android:background">@drawable/bg_circle_outdated_maps_marker</item>
@@ -309,6 +299,18 @@
 
   <style name="MwmTextAppearance.Toolbar.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
     <item name="android:textSize">@dimen/text_size_toolbar</item>
+  </style>
+
+  <style name="MwmTextAppearance.Counter">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minWidth">20dp</item>
+    <item name="android:minHeight">20dp</item>
+    <item name="android:paddingLeft">2dp</item>
+    <item name="android:paddingRight">2dp</item>
+    <item name="android:gravity">center</item>
+    <item name="android:background">@drawable/counter</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body3.Light</item>
   </style>
 
   <!-- Text appearance -->

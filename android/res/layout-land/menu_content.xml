@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fallback layout for pre-Honeycomb MR2 (API 13) devices.
+     TODO: Remove me later. -->
+<merge>
+  <include layout="@layout/menu_content_grid"/>
+</merge>

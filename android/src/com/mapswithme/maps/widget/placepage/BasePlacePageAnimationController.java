@@ -13,13 +13,14 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
+import com.mapswithme.util.UiUtils;
 
 /**
  * Class is responsible for animations of PP(place page) and PPP(place page preview).
  */
 public abstract class BasePlacePageAnimationController
 {
-  protected static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_duration_default);
+  protected static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_placepage);
   protected static final boolean NO_ANIMATION = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
 
   protected State mState = State.HIDDEN;
@@ -39,10 +40,10 @@ public abstract class BasePlacePageAnimationController
   // Visibility
   protected OnVisibilityChangedListener mVisibilityChangedListener;
 
+
   public interface OnVisibilityChangedListener
   {
     void onPreviewVisibilityChanged(boolean isVisible);
-
     void onPlacePageVisibilityChanged(boolean isVisible);
   }
 
@@ -60,6 +61,17 @@ public abstract class BasePlacePageAnimationController
     initGestureDetector();
 
     mTouchSlop = ViewConfiguration.get(mPlacePage.getContext()).getScaledTouchSlop();
+
+    if (mPlacePage.isFloating() || mPlacePage.isDocked())
+      mFrame.setPadding(mFrame.getPaddingLeft(), mFrame.getPaddingTop(), mFrame.getPaddingRight(),
+                        UiUtils.dimen(R.dimen.place_page_buttons_height));
+
+    if (mPlacePage.isDocked())
+    {
+      ViewGroup.LayoutParams lp = mFrame.getLayoutParams();
+      lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
+      mFrame.setLayoutParams(lp);
+    }
   }
 
   public void setState(State state, MapObject.MapObjectType type)
@@ -73,6 +85,11 @@ public abstract class BasePlacePageAnimationController
       onStateChanged(mState, newState);
       mState = newState;
     }
+  }
+
+  protected void initialHide()
+  {
+    UiUtils.invisible(mPlacePage);
   }
 
   protected abstract void onStateChanged(State currentState, State newState);

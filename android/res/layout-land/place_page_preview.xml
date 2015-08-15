@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    style="@style/PlacePagePreview"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/bg_top_panels">
-
+<LinearLayout style="@style/PlacePagePreview">
   <include layout="@layout/place_page_preview_common"/>
-
 </LinearLayout>
-

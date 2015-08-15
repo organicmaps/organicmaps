@@ -33,7 +33,8 @@ public class ScrollViewShadowController extends BaseShadowController<ObservableS
   public BaseShadowController attach()
   {
     super.attach();
-    mList.setScrollListener(new ObservableScrollView.ScrollListener() {
+    mList.setScrollListener(new ObservableScrollView.ScrollListener()
+    {
       @Override
       public void onScroll(int left, int top)
       {

@@ -64,12 +64,12 @@ extern "C"
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapFragment_nativeCompassUpdated(JNIEnv * env, jobject thiz,
-      jlong time, jdouble magneticNorth, jdouble trueNorth, jdouble accuracy)
+      jdouble magneticNorth, jdouble trueNorth, jboolean force)
   {
     location::CompassInfo info;
     info.m_bearing = (trueNorth >= 0.0) ? trueNorth : magneticNorth;
 
-    g_framework->OnCompassUpdated(info);
+    g_framework->OnCompassUpdated(info, force);
   }
 
 #pragma clang pop_options

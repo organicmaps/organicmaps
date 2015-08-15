@@ -40,7 +40,7 @@ public class MapActivityTest extends ActivityInstrumentationTestCase2<MwmActivit
     solo.waitForActivity(SearchActivity.class, TIME_OUT);
     solo.getActivityMonitor().getLastActivity().finish();
 
-    solo.clickOnView(activity.findViewById(R.id.btn__myposition));
+    solo.clickOnView(activity.findViewById(R.id.my_position));
 
     // check zoom in/out doesn't crash us
     int randomNumderOfClicks = new Random().nextInt(10) + 5;

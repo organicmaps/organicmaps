@@ -1,7 +1,6 @@
 package com.mapswithme.util;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -15,21 +14,18 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.DimenRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.nineoldandroids.animation.Animator;
@@ -38,6 +34,9 @@ import static com.mapswithme.util.Utils.checkNotNull;
 
 public final class UiUtils
 {
+  private static float sScreenDensity;
+
+
   public static void hide(View view)
   {
     view.setVisibility(View.GONE);
@@ -47,6 +46,17 @@ public final class UiUtils
   {
     for (final View v : views)
       v.setVisibility(View.GONE);
+  }
+
+  public static void hide(View frame, @IdRes int viewId)
+  {
+    hide(frame.findViewById(viewId));
+  }
+
+  public static void hide(View frame, @IdRes int... viewIds)
+  {
+    for (final int id : viewIds)
+      hide(frame, id);
   }
 
   public static void show(View view)
@@ -60,6 +70,17 @@ public final class UiUtils
       v.setVisibility(View.VISIBLE);
   }
 
+  public static void show(View frame, @IdRes int viewId)
+  {
+    show(frame.findViewById(viewId));
+  }
+
+  public static void show(View frame, @IdRes int... viewIds)
+  {
+    for (final int id : viewIds)
+      show(frame, id);
+  }
+
   public static void invisible(View view)
   {
     view.setVisibility(View.INVISIBLE);
@@ -69,6 +90,17 @@ public final class UiUtils
   {
     for (final View v : views)
       v.setVisibility(View.INVISIBLE);
+  }
+
+  public static void invisible(View frame, @IdRes int viewId)
+  {
+    invisible(frame.findViewById(viewId));
+  }
+
+  public static void invisible(View frame, @IdRes int... viewIds)
+  {
+    for (final int id : viewIds)
+      invisible(frame, id);
   }
 
   public static void showIf(boolean condition, View view)
@@ -140,49 +172,12 @@ public final class UiUtils
     public void onAnimationRepeat(Animator animation) {}
   }
 
-  public static TextView findViewSetText(View root, int textViewId, CharSequence text)
-  {
-    checkNotNull(root);
-
-    final TextView tv = (TextView) root.findViewById(textViewId);
-    tv.setText(text);
-    return tv;
-  }
-
-  public static ImageView findImageViewSetDrawable(View root, int imageViewId, Drawable drawable)
-  {
-    checkNotNull(root);
-
-    final ImageView iv = (ImageView) root.findViewById(imageViewId);
-    iv.setImageDrawable(drawable);
-    return iv;
-  }
-
-  public static View findViewSetOnClickListener(View root, int viewId, OnClickListener listener)
-  {
-    checkNotNull(root);
-
-    final View v = root.findViewById(viewId);
-    v.setOnClickListener(listener);
-    return v;
-  }
-
   public static TextView setTextAndShow(TextView tv, CharSequence text)
   {
     checkNotNull(tv);
 
     tv.setText(text);
     show(tv);
-
-    return tv;
-  }
-
-  public static TextView clearTextAndHide(TextView tv)
-  {
-    checkNotNull(tv);
-
-    tv.setText(null);
-    hide(tv);
 
     return tv;
   }
@@ -225,29 +220,6 @@ public final class UiUtils
     Intent intent;
     intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_HTTP));
     activity.startActivity(intent);
-  }
-
-  public static String getDisplayDensityString()
-  {
-    final DisplayMetrics metrics = new DisplayMetrics();
-    ((WindowManager) MwmApplication.get().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
-    switch (metrics.densityDpi)
-    {
-    case DisplayMetrics.DENSITY_LOW:
-      return "ldpi";
-    case DisplayMetrics.DENSITY_MEDIUM:
-      return "mdpi";
-    case DisplayMetrics.DENSITY_HIGH:
-      return "hdpi";
-    case DisplayMetrics.DENSITY_XHIGH:
-      return "xhdpi";
-    case DisplayMetrics.DENSITY_XXHIGH:
-      return "xxhdpi";
-    case DisplayMetrics.DENSITY_XXXHIGH:
-      return "xxxhdpi";
-    }
-
-    return "hdpi";
   }
 
   public static void checkConnectionAndShowAlert(final Activity activity, final String message)
@@ -387,7 +359,7 @@ public final class UiUtils
   }
 
   /**
-   * Tests, whether views intercects each other in parent coordinates.
+   * Tests, whether views intersect each other in parent`s coordinates.
    *
    * @param firstView  base view
    * @param secondView covering view
@@ -415,7 +387,7 @@ public final class UiUtils
       return;
     }
 
-    view.setVisibility(View.VISIBLE);
+    show(view);
 
     Animation a = AnimationUtils.loadAnimation(view.getContext(), R.anim.slide_appear_down);
     if (completionListener != null)
@@ -446,7 +418,7 @@ public final class UiUtils
       @Override
       public void onAnimationEnd(Animation animation)
       {
-        view.setVisibility(View.GONE);
+        hide(view);
         view.clearAnimation();
 
         if (completionListener != null)
@@ -467,6 +439,19 @@ public final class UiUtils
         appearSlidingDown(toShow, completionListener);
       }
     });
+  }
+
+  public static int dimen(@DimenRes int id)
+  {
+    return MwmApplication.get().getResources().getDimensionPixelSize(id);
+  }
+
+  public static int dp(int v)
+  {
+    if (sScreenDensity == 0)
+      sScreenDensity = MwmApplication.get().getResources().getDisplayMetrics().density;
+
+    return (int) (v * sScreenDensity + 0.5);
   }
 
   // utility class

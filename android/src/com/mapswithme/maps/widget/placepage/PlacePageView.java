@@ -16,48 +16,21 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
-import android.widget.RatingBar;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
+import android.widget.*;
+import com.mapswithme.maps.*;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
-import com.mapswithme.maps.bookmarks.data.Icon;
-import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.bookmarks.data.*;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
-import com.mapswithme.maps.bookmarks.data.Metadata;
-import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
-import com.mapswithme.util.InputUtils;
-import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.StringUtils;
-import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
+import com.mapswithme.util.*;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -69,6 +42,11 @@ import java.util.List;
 
 public class PlacePageView extends RelativeLayout implements View.OnClickListener, View.OnLongClickListener
 {
+  private static final String PREF_USE_DMS = "use_dms";
+
+  private boolean mIsDocked;
+  private boolean mIsFloating;
+
   // Preview
   private TextView mTvTitle;
   private Toolbar mToolbar;
@@ -110,12 +88,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private View mRoutingButton;
   // Animations
   private BasePlacePageAnimationController mAnimationController;
+  private MwmActivity.LeftAnimationTrackListener mLeftAnimationTrackListener;
   // Data
   private MapObject mMapObject;
 
   private MapObject mBookmarkedMapObject;
   private boolean mIsLatLonDms;
-  private static final String PREF_USE_DMS = "use_dms";
+
 
   public enum State
   {
@@ -140,10 +119,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     super(context, attrs);
 
     mIsLatLonDms = MwmApplication.prefs().getBoolean(PREF_USE_DMS, false);
-    initViews();
 
-    initAnimationController(attrs, defStyleAttr);
-    UiUtils.invisible(this);
+    init(attrs, defStyleAttr);
   }
 
   private void initViews()
@@ -222,14 +199,22 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
                             .attach();
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-      setElevation(getResources().getDimensionPixelSize(R.dimen.appbar_elevation));
+      setElevation(UiUtils.dimen(R.dimen.appbar_elevation));
   }
 
-  private void initAnimationController(AttributeSet attrs, int defStyleAttr)
+  private void init(AttributeSet attrs, int defStyleAttr)
   {
+    initViews();
+
+    if (isInEditMode())
+      return;
+
     final TypedArray attrArray = getContext().obtainStyledAttributes(attrs, R.styleable.PlacePageView, defStyleAttr, 0);
     final int animationType = attrArray.getInt(R.styleable.PlacePageView_animationType, 0);
+    mIsDocked = attrArray.getBoolean(R.styleable.PlacePageView_docked, false);
+    mIsFloating = attrArray.getBoolean(R.styleable.PlacePageView_floating, false);
     attrArray.recycle();
+
     // switch with values from "animationType" from attrs.xml
     switch (animationType)
     {
@@ -241,6 +226,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       mAnimationController = new PlacePageLeftAnimationController(this);
       break;
     }
+
+    mAnimationController.initialHide();
   }
 
   @Override
@@ -253,6 +240,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   public boolean onInterceptTouchEvent(MotionEvent event)
   {
     return mAnimationController.onInterceptTouchEvent(event);
+  }
+
+  public boolean isDocked()
+  {
+    return mIsDocked;
+  }
+
+  public boolean isFloating() {
+    return mIsFloating;
   }
 
   public State getState()
@@ -851,5 +847,21 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     popup.show();
     return true;
+  }
+
+  public int getDockedWidth()
+  {
+    int res = getWidth();
+    return (res == 0 ? getLayoutParams().width : res);
+  }
+
+  public MwmActivity.LeftAnimationTrackListener getLeftAnimationTrackListener()
+  {
+    return mLeftAnimationTrackListener;
+  }
+
+  public void setLeftAnimationTrackListener(MwmActivity.LeftAnimationTrackListener listener)
+  {
+    mLeftAnimationTrackListener = listener;
   }
 }
