@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    FreeType API for controlling the auto-hinter (specification only).   */
 /*                                                                         */
-/*  Copyright 2012, 2013 by                                                */
+/*  Copyright 2012-2015 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -79,7 +79,7 @@ FT_BEGIN_HEADER
    *   sense, see the @FT_AUTOHINTER_SCRIPT_XXX values) is stored as an
    *   array with `num_glyphs' elements, as found in the font's @FT_Face
    *   structure.  The `glyph-to-script-map' property returns a pointer to
-   *   this array which can be modified as needed.  Note that the
+   *   this array, which can be modified as needed.  Note that the
    *   modification should happen before the first glyph gets processed by
    *   the auto-hinter so that the global analysis of the font shapes
    *   actually uses the modified mapping.
@@ -245,12 +245,12 @@ FT_BEGIN_HEADER
    *   The data exchange structure for the @glyph-to-script-map property.
    *
    */
-   typedef struct  FT_Prop_GlyphToScriptMap_
-   {
-     FT_Face   face;
-     FT_Byte*  map;
+  typedef struct  FT_Prop_GlyphToScriptMap_
+  {
+    FT_Face   face;
+    FT_Byte*  map;
 
-   } FT_Prop_GlyphToScriptMap;
+  } FT_Prop_GlyphToScriptMap;
 
 
   /**************************************************************************
@@ -282,12 +282,57 @@ FT_BEGIN_HEADER
    *   This property can be used with @FT_Property_Get also.
    *
    *   It's important to use the right timing for changing this value: The
-   *   creation of the glyph-to-script map which eventually uses the
+   *   creation of the glyph-to-script map that eventually uses the
    *   fallback script value gets triggered either by setting or reading a
    *   face-specific property like @glyph-to-script-map, or by auto-hinting
    *   any glyph from that face.  In particular, if you have already created
    *   an @FT_Face structure but not loaded any glyph (using the
-   *   auto-hinter), a change of the fallback glyph will affect this face.
+   *   auto-hinter), a change of the fallback script will affect this face.
+   *
+   */
+
+
+  /**************************************************************************
+   *
+   * @property:
+   *   default-script
+   *
+   * @description:
+   *   *Experimental* *only*
+   *
+   *   If FreeType gets compiled with FT_CONFIG_OPTION_USE_HARFBUZZ to make
+   *   the HarfBuzz library access OpenType features for getting better
+   *   glyph coverages, this property sets the (auto-fitter) script to be
+   *   used for the default (OpenType) script data of a font's GSUB table.
+   *   Features for the default script are intended for all scripts not
+   *   explicitly handled in GSUB; an example is a `dlig' feature,
+   *   containing the combination of the characters `T', `E', and `L' to
+   *   form a `TEL' ligature.
+   *
+   *   By default, this is @FT_AUTOHINTER_SCRIPT_LATIN.  Using the
+   *   `default-script' property, this default value can be changed.
+   *
+   *   {
+   *     FT_Library  library;
+   *     FT_UInt     default_script = FT_AUTOHINTER_SCRIPT_NONE;
+   *
+   *
+   *     FT_Init_FreeType( &library );
+   *
+   *     FT_Property_Set( library, "autofitter",
+   *                               "default-script", &default_script );
+   *   }
+   *
+   * @note:
+   *   This property can be used with @FT_Property_Get also.
+   *
+   *   It's important to use the right timing for changing this value: The
+   *   creation of the glyph-to-script map that eventually uses the
+   *   default script value gets triggered either by setting or reading a
+   *   face-specific property like @glyph-to-script-map, or by auto-hinting
+   *   any glyph from that face.  In particular, if you have already created
+   *   an @FT_Face structure but not loaded any glyph (using the
+   *   auto-hinter), a change of the default script will affect this face.
    *
    */
 
@@ -339,15 +384,63 @@ FT_BEGIN_HEADER
    *   The data exchange structure for the @increase-x-height property.
    *
    */
-   typedef struct  FT_Prop_IncreaseXHeight_
-   {
-     FT_Face  face;
-     FT_UInt  limit;
+  typedef struct  FT_Prop_IncreaseXHeight_
+  {
+    FT_Face  face;
+    FT_UInt  limit;
 
-   } FT_Prop_IncreaseXHeight;
+  } FT_Prop_IncreaseXHeight;
 
 
- /* */
+  /**************************************************************************
+   *
+   * @property:
+   *   warping
+   *
+   * @description:
+   *   *Experimental* *only*
+   *
+   *   If FreeType gets compiled with option AF_CONFIG_OPTION_USE_WARPER to
+   *   activate the warp hinting code in the auto-hinter, this property
+   *   switches warping on and off.
+   *
+   *   Warping only works in `light' auto-hinting mode.  The idea of the
+   *   code is to slightly scale and shift a glyph along the non-hinted
+   *   dimension (which is usually the horizontal axis) so that as much of
+   *   its segments are aligned (more or less) to the grid.  To find out a
+   *   glyph's optimal scaling and shifting value, various parameter
+   *   combinations are tried and scored.
+   *
+   *   By default, warping is off.  The example below shows how to switch on
+   *   warping (omitting the error handling).
+   *
+   *   {
+   *     FT_Library  library;
+   *     FT_Bool     warping = 1;
+   *
+   *
+   *     FT_Init_FreeType( &library );
+   *
+   *     FT_Property_Set( library, "autofitter",
+   *                               "warping", &warping );
+   *   }
+   *
+   * @note:
+   *   This property can be used with @FT_Property_Get also.
+   *
+   *   The warping code can also change advance widths.  Have a look at the
+   *   `lsb_delta' and `rsb_delta' fields in the @FT_GlyphSlotRec structure
+   *   for details on improving inter-glyph distances while rendering.
+   *
+   *   Since warping is a global property of the auto-hinter it is best to
+   *   change its value before rendering any face.  Otherwise, you should
+   *   reload all faces that get auto-hinted in `light' hinting mode.
+   *
+   */
+
+
+  /* */
+
 
 FT_END_HEADER
 

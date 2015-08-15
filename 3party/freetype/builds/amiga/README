@@ -1,7 +1,7 @@
 
 README for the builds/amiga subdirectory.
 
-Copyright 2005 by
+Copyright 2005-2015 by
 Werner Lemberg and Detlef Würkner.
 
 This file is part of the FreeType project, and may only be used, modified,
@@ -71,8 +71,8 @@ directory.  The results are:
 To use in your own programs:
 
 - Insert the #define and #include statements from top of
-  include/freetype/config/ftmodule.h in your source code and uncomment
-  the #define statements for the FreeType2 modules you need.
+  include/freetype/config/ftmodule.h in your source code and
+  uncomment the #define statements for the FreeType2 modules you need.
 
 - You can use either PARAMETERS=REGISTER or PARAMETERS=STACK for
   calling the FreeType2 functions, because the link library and the
@@ -101,8 +101,8 @@ To adapt to other compilers:
   useful for the src directory).
 
 - An example of how to replace/workaround a problematic include file
-  is include/config/ftconfig.h; it changes a #define that would
-  prevent SAS/C from generating XDEF's where it should do that and
+  is include/freetype/config/ftconfig.h; it changes a #define that
+  would prevent SAS/C from generating XDEF's where it should do that and
   then includes the standard FreeType2 include file.
 
 Local Variables:

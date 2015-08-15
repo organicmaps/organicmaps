@@ -1,3 +1,445 @@
+CHANGES BETWEEN 2.6 and 2.6.1
+
+  I. IMPORTANT BUG FIXES
+
+    - It turned  out that for CFFs  only the advance widths  should be
+      taken  from  the  `htmx',  not the  side  bearings.   This  bug,
+      introduced in  version 2.6.0, makes  it necessary to  upgrade if
+      you are  using CFFs; otherwise  you get cropped glyphs  with GUI
+      interfaces like GTK or Qt.
+
+    - Accessing Type 42 fonts returned  incorrect results if the glyph
+      order of the embedded TrueType font differs from the glyph order
+      of the Type 42 charstrings table.
+
+
+  II. IMPORTANT CHANGES
+
+    - The header  file layout  has been  changed (again),  moving  all
+      header files except `ft2build.h' into a subdirectory tree.
+
+      Doing so  reduces the  possibility of  header file  name clashes
+      (e.g., FTGL's  `FTGlyph.h' with  FreeType's `ftglyph.h'  on case
+      insensitive file systems like Mac OS X or Windows).
+
+      Applications  that  use   (a)  `freetype-config'  or  FreeType's
+      `freetype2.pc' file for pkg-config  to get the include directory
+      for  the  compiler,  and  (b)  the  documented  way  for  header
+      inclusion like
+
+        #include <ft2build.h>
+        #include FT_FREETYPE_H
+        ...
+
+      don't need any change to the source code.
+
+    - Simple access  to named instances  in GX variation fonts  is now
+      available (in addition to the  previous method via FreeType's MM
+      interface).   In  the  FT_Face  structure,  bits  16-30  of  the
+      `face_index' field hold the current named instance index for the
+      given face  index, and bits  16-30 of `style_flags'  contain the
+      number of  instances for  the given face  index.  `FT_Open_Face'
+      and friends also understand the  extended bits of the face index
+      parameter.
+
+      You need to enable  TT_CONFIG_OPTION_GX_VAR_SUPPORT for this new
+      feature.  Otherwise, bits  16-30 of the two fields  are zero (or
+      are ignored).
+
+
+  III. MISCELLANEOUS
+
+    - The auto-hinter's Arabic script support has been enhanced.
+
+    - The TrueType bytecode interpreter now runs slightly faster.
+
+    - Improved support for builds with cmake.
+
+
+======================================================================
+
+CHANGES BETWEEN 2.5.5 and 2.6
+
+  I. IMPORTANT CHANGES
+
+    - Behdad  Esfahbod contributed  code  for improved  thread-safety,
+      which results in the following model.
+
+      * An `FT_Face' object can only be safely used from one thread at
+        a time.
+
+      * An `FT_Library'  object can  now be used  without modification
+        from multiple threads at the same time.
+
+      * `FT_Face' creation and destruction  with the same `FT_Library'
+        object can only be done from one thread at a time.
+
+      One can use a single  `FT_Library' object across threads as long
+      as a mutex lock is used around `FT_New_Face' and `FT_Done_Face'.
+      Any calls to `FT_Load_Glyph' and similar API are safe and do not
+      need the lock  to be held as  long as the same  `FT_Face' is not
+      used from multiple threads at the same time.
+
+    - Thai script support has been added to the auto-hinter.
+
+    - Arabic script support has been added to the auto-hinter.
+
+    - Following OpenType version 1.7,  advance widths and side bearing
+      values in  CFFs (wrapped  in an SFNT  structure) are  now always
+      taken from the `hmtx' table.
+
+    - Following OpenType  version 1.7, the  PostScript font name  of a
+      CFF font (wrapped in an SFNT structure) is now always taken from
+      the `name'  table.  This is  also true for  OpenType Collections
+      (i.e., TTCs using  CFFs subfonts instead of TTFs),  where it may
+      have a significant difference.
+
+    - Fonts natively hinted for  ClearType are now supported, properly
+      handling selector index 3 of the INSTCTRL bytecode instruction.
+
+    - Major improvements to the GX TrueType variation font handling.
+
+
+  II. MISCELLANEOUS
+
+    - A new auto-hinter  property `warping' can switch on  and off the
+      warping code  if this  experimental feature  is compiled  in (by
+      defining  the AF_CONFIG_OPTION_USE_WARPER  configuration option;
+      by default  this option is  now enabled but warping  is switched
+      off).
+
+      The AF_CONFIG_OPTION_USE_WARPER option itself is an old feature,
+      available   since  2006.    Warping   only   works  in   `light'
+      auto-hinting mode.   The idea of  the code is to  slightly scale
+      and  shift a  glyph  along the  non-hinted  dimension (which  is
+      usually the horizontal axis) so that as much of its segments are
+      aligned  (more or  less) to  the grid.   To find  out a  glyph's
+      optimal   scaling   and   shifting  value,   various   parameter
+      combinations are tried and scored.
+
+      See  file  `ftautoh.h' for  more;  the  demo programs  `ftdiff',
+      `ftview', and `ftgrid' can toggle warping with key `w'.
+
+    - Some  fields  in  the  `FTC_ImageTypeRec'  structure  have  been
+      changed from signed to unsigned  type, which better reflects the
+      actual usage.  It is also an additional means to protect against
+      malformed input.
+
+      This  change doesn't  break  the ABI;  however,  it might  cause
+      compiler warnings.
+
+    - Function `FT_Bitmap_New'  has been renamed  to `FT_Bitmap_Init',
+      since  this name  better reflects  its function.   For backwards
+      compatibility, the old function name is still available.
+
+    - Function   `FT_Get_X11_Font_Format'   has    been   renamed   to
+      `FT_Get_Font_Format',  since  this   name  better  reflects  its
+      function.  For backwards compatibility, the old function name is
+      still available.
+
+      Additionally, the header  file macro for this  function has been
+      renamed to  `FT_FONT_FORMATS_H' (the old name  `FT_XFREE86_H' is
+      retained for backwards compatibility).
+
+    - Various improvements to the `ftgrid' demo program.
+
+      . It  can  now  display  GX and  MM  fonts  while  interactively
+        manipulating the axes (with keys F2, F3, and F4).
+
+      . Anti-aliasing rendering  modes can now be  selected (with keys
+        F5 and F6).
+
+      . The display of point numbers can be toggled with key `D'.
+
+    - Various improvements to the `ftdump' demo program.
+
+      . It now displays information on MM and GX variation axes.
+
+      . New  command line option  `-u' makes  it output data  in utf-8
+        encoding.
+
+    - The `ftmulti'  demo program can  now handle up  to six MM  or GX
+      axes.
+
+
+======================================================================
+
+CHANGES BETWEEN 2.5.4 and 2.5.5
+
+  I. IMPORTANT BUG FIXES
+
+    - Handling of  uncompressed PCF files works again (bug  introduced
+      in version 2.5.4).
+
+
+======================================================================
+
+CHANGES BETWEEN 2.5.3 and 2.5.4
+
+  I. IMPORTANT BUG FIXES
+
+    - A   variant  of   vulnerability  CVE-2014-2240   was  identified
+      (cf.  http://savannah.nongnu.org/bugs/?43661) and  fixed in  the
+      new CFF driver.  All users should upgrade.
+
+    - The new auto-hinter code using HarfBuzz crashed for some invalid
+      fonts.
+
+    - Many fixes to better protect against malformed input.
+
+
+  II. IMPORTANT CHANGES
+
+    - Full auto-hinter support of the Devanagari script.
+
+    - Experimental auto-hinter support of the Telugu script.
+
+    - CFF stem darkening behaviour can now be controlled at build time
+      using the eight macros
+
+        CFF_CONFIG_OPTION_DARKENING_PARAMETER_{X,Y}{1,2,3,4}    .
+
+    - Some fields in the `FT_Bitmap'  structure have been changed from
+      signed to unsigned type, which better reflects the actual usage.
+      It  is also  an additional  means to  protect against  malformed
+      input.
+
+      This  change doesn't  break  the ABI;  however,  it might  cause
+      compiler warnings.
+
+
+  III. MISCELLANEOUS
+
+    - Improvements to  the auto-hinter's algorithm to  recognize stems
+      and local extrema.
+
+    - Function `FT_Get_SubGlyph_Info' always returned an error even in
+      case of success.
+
+    - Version  2.5.1 introduced  major bugs  in  the cjk  part of  the
+      auto-hinter, which are now fixed.
+
+    - The  `FT_Sfnt_Tag'  enumeration  values  have  been  changed  to
+      uppercase,  e.g.  `FT_SFNT_HEAD'.   The lowercase  variants  are
+      deprecated.    This  is   for  orthogonality   with  all   other
+      enumeration (and enumeration-like) values in FreeType.
+
+    - `cmake' now supports builds of FreeType as an OS X framework and
+      for iOS.
+
+    - Improved project files for vc2010, introducing a property file.
+
+    - The  documentation generator  for  the API  reference  has  been
+      updated to produce  better HTML code (with proper  CSS).  At the
+      same time, the documentation got a better structure.
+
+    - The FT_LOAD_BITMAP_CROP flag is obsolete;  it is not used by any
+      driver.
+
+    - The  TrueType  DELTAP[123]  bytecode instructions  now  work  in
+      subpixel hinting  mode as described in  the ClearType whitepaper
+      (i.e., for touched points in the non-subpixel direction).
+
+    - Many small improvements to the internal arithmetic routines.
+
+
+======================================================================
+
+CHANGES BETWEEN 2.5.2 and 2.5.3
+
+  I. IMPORTANT BUG FIXES
+
+    - A vulnerability (CVE-2014-2240) was  identified and fixed in the
+      new  CFF  driver  (cf.  http://savannah.nongnu.org/bugs/?41697).
+      All users should upgrade.
+
+    - More  bug  fixes related  to  correct  positioning of  composite
+      glyphs.
+
+    - Many fixes to better protect against malformed input.
+
+
+  II. IMPORTANT CHANGES
+
+    - FreeType can now use the HarfBuzz library to greatly improve the
+      auto-hinting of  fonts that  use OpenType features:  Many glyphs
+      that are part  of such features but don't have  cmap entries are
+      now handled  properly, for  example small caps  or superscripts.
+      Define the configuration  macro FT_CONFIG_OPTION_USE_HARFBUZZ to
+      activate HarfBuzz support.
+
+      You need HarfBuzz version 0.9.19 or newer.
+
+      Note that HarfBuzz depends on  FreeType; this currently causes a
+      chicken-and-egg problem  that can be  solved as follows  in case
+      HarfBuzz is not yet installed on your system.
+
+        1. Compile  and  install  FreeType without  the  configuration
+           macro FT_CONFIG_OPTION_USE_HARFBUZZ.
+
+        2. Compile and install HarfBuzz.
+
+        3. Define  macro  FT_CONFIG_OPTION_USE_HARFBUZZ, then  compile
+           and install FreeType again.
+
+      With FreeType's  `configure' script the procedure  boils down to
+      configure, build, and install Freetype, then configure, compile,
+      and  install  HarfBuzz,  then configure,  compile,  and  install
+      FreeType again (after executing `make distclean').
+
+    - All  libraries FreeType  depends on  are now  checked using  the
+      `pkg-config' configuration files  first, followed by alternative
+      methods.
+
+    - The  new  value  `auto'  for the  various  `--with-XXX'  library
+      options   (for   example   `--with-harfbuzz=auto')   makes   the
+      `configure' script automatically link to the libraries it finds.
+      This is now the default.
+
+    - In case FreeType's `configure' script  can't find a library, you
+      can  pass environment  variables to  circumvent pkg-config,  and
+      those variables  have been  harmonized as  a consequence  of the
+      changes mentioned above:
+
+        LIBZ           -> removed; use LIBZ_CFLAGS and LIBZ_LIBS
+        LIBBZ2         -> removed; use BZIP2_CFLAGS and BZIP2_LIBS
+        LIBPNG_LDFLAGS -> LIBPNG_LIBS
+
+      `./configure --help' shows all available environment variables.
+
+    - The `freetype-config'  script now understands  option `--static'
+      to emit static linking information.
+
+
+======================================================================
+
+CHANGES BETWEEN 2.5.1 and 2.5.2
+
+  I. IMPORTANT BUG FIXES
+
+    - Improving the display of some broken TrueType fonts introduced a
+      bug  that made  FreeType crash  on some  popular (but  not fully
+      conformant) fonts like `ahronbd.ttf'.
+
+    - Another round of improvements to correct positioning and hinting
+      of composite glyphs in TrueType fonts.
+
+
+  II. MISCELLANEOUS
+
+    - Version  2.5.1  introduced a  bug  in  handling embedded  bitmap
+      strikes of  TrueType fonts,  causing garbage display  under some
+      circumstances.
+
+    - The   `ftgrid'   demo   program    couldn't   be   compiled   in
+      non-development builds.
+
+
+======================================================================
+
+CHANGES BETWEEN 2.5 and 2.5.1
+
+  I. IMPORTANT BUG FIXES
+
+    - For  some WinFNT  files,  the last  glyph  wasn't displayed  but
+      incorrectly marked as invalid.
+
+    - The vertical size of glyphs was  incorrectly set after a call to
+      `FT_GlyphSlot_Embolden', resulting in clipped glyphs.
+
+    - Many fields of the `PCLT' table in SFNT based fonts (if accessed
+      with `FT_Get_Sfnt_Table') were computed incorrectly.
+
+    - In TrueType fonts,  hinting of composite glyphs  could sometimes
+      deliver  incorrect positions  of  components or  even  distorted
+      shapes.
+
+
+  II. IMPORTANT CHANGES
+
+    - WOFF font format support has been added.
+
+    - The auto-hinter now supports Hebrew.  Greek and Cyrillic support
+      has been improved.
+
+    - Support for the forthcoming `OS/2'  SFNT table version 5, as can
+      be found e.g. in the `Sitka' font family for Windows 8.1.
+
+    - The header  file layout  has been changed.   After installation,
+      all files are now located in `<prefix>/include/freetype2'.
+
+      Applications  that  use   (a)  `freetype-config'  or  FreeType's
+      `pkg-config' file to get the include directory for the compiler,
+      and (b) the documented way for header inclusion like
+
+        #include <ft2build.h>
+        #include FT_FREETYPE_H
+        ...
+
+      don't need any change to the source code.
+
+
+  III. MISCELLANEOUS
+
+    - The stem  darkening feature  of the  new CFF  engine can  now be
+      fine-tuned with the new `darkening-parameters' property.
+
+    - `ftgrid' has been updated to toggle various engines with the `H'
+      key, similar to `ftview' and `ftdiff'.
+
+    - The functionality of `ttdebug' has been greatly enhanced.
+
+      . It now displays twilight, storage, and control value data; key
+        `T' shows the twilight point  table, key `S' the storage data,
+        and key `C' the control value table.
+
+      . Some  keys  have  been  reassigned  from  lowercase  to  their
+        uppercase equivalents; for example `q'  to quit the program is
+        now `Q'.
+
+      . Key `f' finishes the current function.
+
+      . Key `R' restarts the debugger.
+
+      . Keys `b' and `p' set a breakpoint.
+
+      . Key `B' provides a function call backtrace.
+
+    - Better support of ARMv7 and x86_64 processors.
+
+    - Apple's `sbix' color bitmap format is now supported.
+
+    - Improved   auto-hinter  rendering   for  many   TrueType  fonts,
+      especially in the range 20-40ppem.
+
+    - A  new face  flag  `FT_FACE_FLAG_COLOR' has  been  added (to  be
+      accessed with the macro `FT_HAS_COLOR').
+
+    - `FT_Gzip_Uncompress'   (modeled    after   zlib's   `uncompress'
+      function)  has been  added; this  is a  by-product of  the newly
+      added WOFF support.
+
+    - Support for  a build with  `cmake' has been contributed  by John
+      Cary <cary@txcorp.com>.
+
+    - Support for x64  builds with Visual C++ has  been contributed by
+      Kenneth Miller <kennethadammiller@yahoo.com>
+
+    - Manual pages for most demo programs have been added.
+
+    - The GETINFO bytecode instruction for TrueType fonts was buggy if
+      used to retrieve subpixel hinting information.  It was necessary
+      to set  selector bit 6  to get  results for selector  bits 7-10,
+      which is wrong.
+
+    - Improved computation  of emulated vertical metrics  for TrueType
+      fonts.
+
+    - Fixed horizontal start-up position of vertical phantom points in
+      TrueType bytecode.
+
+
+======================================================================
 
 CHANGES BETWEEN 2.4.12 and 2.5
 
@@ -64,6 +506,9 @@ CHANGES BETWEEN 2.4.12 and 2.5
     - The `ttdebug' program has been further improved.  In particular,
       it accepts a new command line  option `-H' to select the hinting
       engine.
+
+    - `ftdump's verbose option has been renamed to `-V'.  For all demo
+      programs, `-v' now shows version information.
 
     - Another round of TrueType subpixel hinting fixes.
 
@@ -3879,7 +4324,7 @@ Extensions support:
 
 ------------------------------------------------------------------------
 
-Copyright 2000-2013 by
+Copyright 2000-2015 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This  file  is  part  of the  FreeType  project, and may  only be  used,

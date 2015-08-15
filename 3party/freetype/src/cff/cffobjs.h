@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    OpenType objects manager (specification).                            */
 /*                                                                         */
-/*  Copyright 1996-2004, 2006-2008, 2013 by                                */
+/*  Copyright 1996-2015 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -120,6 +120,8 @@ FT_BEGIN_HEADER
 
     FT_UInt  hinting_engine;
     FT_Bool  no_stem_darkening;
+
+    FT_Int  darken_params[8];
 
   } CFF_DriverRec;
 

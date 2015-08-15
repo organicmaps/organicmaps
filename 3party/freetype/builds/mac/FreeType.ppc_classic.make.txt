@@ -38,6 +38,7 @@ SrcFiles        =  \xB6
 				  :src:base:ftbdf.c \xB6
 				  :src:base:ftbitmap.c \xB6
 				  :src:base:ftdebug.c \xB6
+				  :src:base:ftfntfmt.c \xB6
 				  :src:base:ftfstype.c \xB6
 				  :src:base:ftglyph.c \xB6
 				  :src:base:ftgxval.c \xB6
@@ -50,7 +51,6 @@ SrcFiles        =  \xB6
 				  :src:base:ftsystem.c \xB6
 				  :src:base:fttype1.c \xB6
 				  :src:base:ftwinfnt.c \xB6
-				  :src:base:ftxf86.c \xB6
 				  :src:cache:ftcache.c \xB6
 				  :src:bdf:bdf.c \xB6
 				  :src:cff:cff.c \xB6
@@ -83,6 +83,7 @@ ObjFiles-PPC    =  \xB6
 				  "{ObjDir}ftbdf.c.x" \xB6
 				  "{ObjDir}ftbitmap.c.x" \xB6
 				  "{ObjDir}ftdebug.c.x" \xB6
+				  "{ObjDir}ftfntfmt.c.x" \xB6
 				  "{ObjDir}ftfstype.c.x" \xB6
 				  "{ObjDir}ftglyph.c.x" \xB6
 				  "{ObjDir}ftgxval.c.x" \xB6
@@ -95,7 +96,6 @@ ObjFiles-PPC    =  \xB6
 				  "{ObjDir}ftsystem.c.x" \xB6
 				  "{ObjDir}fttype1.c.x" \xB6
 				  "{ObjDir}ftwinfnt.c.x" \xB6
-				  "{ObjDir}ftxf86.c.x" \xB6
 				  "{ObjDir}ftcache.c.x" \xB6
 				  "{ObjDir}bdf.c.x" \xB6
 				  "{ObjDir}cff.c.x" \xB6
@@ -164,6 +164,7 @@ FreeType.ppc_classic.o  \xC4\xC4  {ObjFiles-PPC} {LibFiles-PPC} {\xA5MondoBuild\
 "{ObjDir}ftbdf.c.x" \xC4 :src:base:ftbdf.c
 "{ObjDir}ftbitmap.c.x" \xC4 :src:base:ftbitmap.c
 "{ObjDir}ftdebug.c.x" \xC4 :src:base:ftdebug.c
+"{ObjDir}ftfntfmt.c.x" \xC4 :src:base:ftfntfmt.c
 "{ObjDir}ftfstype.c.x" \xC4 :src:base:ftfstype.c
 "{ObjDir}ftglyph.c.x" \xC4 :src:base:ftglyph.c
 "{ObjDir}ftgxval.c.x" \xC4 :src:base:ftgxval.c
@@ -176,7 +177,6 @@ FreeType.ppc_classic.o  \xC4\xC4  {ObjFiles-PPC} {LibFiles-PPC} {\xA5MondoBuild\
 "{ObjDir}ftsystem.c.x" \xC4 :src:base:ftsystem.c
 "{ObjDir}fttype1.c.x" \xC4 :src:base:fttype1.c
 "{ObjDir}ftwinfnt.c.x" \xC4 :src:base:ftwinfnt.c
-"{ObjDir}ftxf86.c.x" \xC4 :src:base:ftxf86.c
 "{ObjDir}ftcache.c.x" \xC4 :src:cache:ftcache.c
 "{ObjDir}bdf.c.x" \xC4 :src:bdf:bdf.c
 "{ObjDir}cff.c.x" \xC4 :src:cff:cff.c

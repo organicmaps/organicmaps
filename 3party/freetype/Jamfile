@@ -1,6 +1,6 @@
 # FreeType 2 top Jamfile.
 #
-# Copyright 2001-2011 by
+# Copyright 2001-2015 by
 # David Turner, Robert Wilhelm, and Werner Lemberg.
 #
 # This file is part of the FreeType project, and may only be used, modified,
@@ -73,20 +73,20 @@ FT2_BUILD_INCLUDE ?= ;
 FT2_COMPONENTS ?= autofit    # auto-fitter
                   base       # base component (public APIs)
                   bdf        # BDF font driver
+                  bzip2      # support for bzip2-compressed PCF font
                   cache      # cache sub-system
                   cff        # CFF/CEF font driver
                   cid        # PostScript CID-keyed font driver
-                  pcf        # PCF font driver
-                  bzip2      # support for bzip2-compressed PCF font
                   gzip       # support for gzip-compressed PCF font
                   lzw        # support for LZW-compressed PCF font
+                  pcf        # PCF font driver
                   pfr        # PFR/TrueDoc font driver
                   psaux      # common PostScript routines module
                   pshinter   # PostScript hinter module
                   psnames    # PostScript names handling
                   raster     # monochrome rasterizer
-                  smooth     # anti-aliased rasterizer
                   sfnt       # SFNT-based format support routines
+                  smooth     # anti-aliased rasterizer
                   truetype   # TrueType font driver
                   type1      # PostScript Type 1 font driver
                   type42     # PostScript Type 42 (embedded TrueType) driver
@@ -121,17 +121,16 @@ if $(DEBUG_HINTER)
 }
 
 
-# We need `freetype2/include' in the current include path in order to
+# We need `include' in the current include path in order to
 # compile any part of FreeType 2.
-#: updating documentation for upcoming release
-
+#
 HDRS += $(FT2_INCLUDE) ;
 
 
 # We need to #define FT2_BUILD_LIBRARY so that our sources find the
 # internal headers
 #
-DEFINES += FT2_BUILD_LIBRARY ;
+CCFLAGS += -DFT2_BUILD_LIBRARY ;
 
 # Uncomment the following line if you want to build individual source files
 # for each FreeType 2 module.  This is only useful during development, and
@@ -140,12 +139,13 @@ DEFINES += FT2_BUILD_LIBRARY ;
 # FT2_MULTI = true ;
 
 
-# The file <freetype/config/ftheader.h> is used to define macros that are
-# later used in #include statements.  It needs to be parsed in order to
-# record these definitions.
+# The files `ftheader.h', `internal.h', and `ftserv.h' are used to define
+# macros that are later used in #include statements.  They need to be parsed
+# in order to record these definitions.
 #
-HDRMACRO  [ FT2_SubDir  include freetype config ftheader.h ] ;
-HDRMACRO  [ FT2_SubDir  include freetype internal internal.h ] ;
+HDRMACRO  [ FT2_SubDir  $(FT2_INCLUDE_DIR) freetype config ftheader.h ] ;
+HDRMACRO  [ FT2_SubDir  $(FT2_INCLUDE_DIR) freetype internal internal.h ] ;
+HDRMACRO  [ FT2_SubDir  $(FT2_INCLUDE_DIR) freetype internal ftserv.h ] ;
 
 
 # Now include the Jamfile in `freetype2/src', used to drive the compilation
@@ -153,7 +153,7 @@ HDRMACRO  [ FT2_SubDir  include freetype internal internal.h ] ;
 #
 SubInclude  FT2_TOP $(FT2_SRC_DIR) ;
 
-# Handle the generation of the `ftexport.sym' file which contain the list
+# Handle the generation of the `ftexport.sym' file, which contains the list
 # of exported symbols.  This can be used on Unix by libtool.
 #
 SubInclude FT2_TOP $(FT2_SRC_DIR) tools ;
@@ -177,7 +177,7 @@ actions GenExportSymbols1 bind APINAMES
   $(APINAMES) $(2) > $(1)
 }
 
-GenExportSymbols  ftexport.sym : include/freetype include/freetype/cache ;
+GenExportSymbols  ftexport.sym : include include/cache ;
 
 # Test files (hinter debugging).  Only used by FreeType developers.
 #
@@ -195,7 +195,12 @@ rule RefDoc
 
 actions RefDoc
 {
-  python $(FT2_SRC)/tools/docmaker/docmaker.py --prefix=ft2 --title=FreeType-2.5.0 --output=$(DOC_DIR) $(FT2_INCLUDE)/freetype/*.h $(FT2_INCLUDE)/freetype/config/*.h
+  python $(FT2_SRC)/tools/docmaker/docmaker.py
+         --prefix=ft2
+         --title=FreeType-2.6
+         --output=$(DOC_DIR)
+         $(FT2_INCLUDE)/freetype/*.h
+         $(FT2_INCLUDE)/freetype/config/*.h
 }
 
 RefDoc  refdoc ;

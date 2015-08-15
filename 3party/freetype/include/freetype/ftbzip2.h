@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Bzip2-compressed stream support.                                     */
 /*                                                                         */
-/*  Copyright 2010 by                                                      */
+/*  Copyright 2010-2015 by                                                 */
 /*  Joel Klinghed.                                                         */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -91,7 +91,7 @@ FT_BEGIN_HEADER
   FT_Stream_OpenBzip2( FT_Stream  stream,
                        FT_Stream  source );
 
- /* */
+  /* */
 
 
 FT_END_HEADER

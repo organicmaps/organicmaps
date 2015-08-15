@@ -1,10 +1,9 @@
 # FreeType 2 src/bzip2 Jamfile
 #
-# Copyright 2010 by
+# Copyright 2010-2015 by
 # Joel Klinghed
 #
-# Based on src/lzw/Jamfile, Copyright 2004, 2006 by
-# David Turner, Robert Wilhelm, and Werner Lemberg.
+# based on `src/lzw/Jamfile'
 #
 # This file is part of the FreeType project, and may only be used, modified,
 # and distributed under the terms of the FreeType project license,

@@ -1,26 +1,27 @@
 This document contains instructions on how to cross-build the FreeType
 library on Unix systems, for example, building binaries for Linux/MIPS
-on  FreeBSD/i386.   Before   reading  this  document,  please  consult
-INSTALL.UNIX for required tools and the basic self-building procedure.
+on  FreeBSD/i386.  Before  reading this  document, please  consult the
+file  `INSTALL.UNIX' for  required tools  and the  basic self-building
+procedure.
 
 
   1. Required Tools
   -----------------
 
     For self-building the FreeType library  on a Unix system, GNU Make
-    3.80 or  newer is required.   INSTALL.UNIX  contains  hints how to
+    3.80 or newer  is required.  `INSTALL.UNIX' contains  hints how to
     check the installed `make'.
 
     The GNU C  compiler to cross-build the target  system is required.
-    At present, using non-GNU cross compiler is not tested.  The cross
+    Currently, using a non-GNU cross  compiler is untested.  The cross
     compiler is  expected to be  installed with a system  prefix.  For
     example, if  your building system  is FreeBSD/i386 and  the target
-    system is Linux/MIPS, the  cross compiler should be installed with
+    system is Linux/MIPS, the cross  compiler should be installed with
     the name `mips-ip22-linuxelf-gcc'.
 
     A C  compiler for a self-build  is required also, to  build a tool
-    that  is executed  during  the building  procedure.  Non-GNU  self
-    compilers are acceptable, but such a setup is not tested yet.
+    (`apinames') that is executed during the build procedure.  Non-GNU
+    self compilers are acceptable, but such a setup is untested.
 
 
   2. Configuration
@@ -28,10 +29,10 @@ INSTALL.UNIX for required tools and the basic self-building procedure.
 
     2.1. Building and target system
 
-      To configure for  cross-build, the options `--host=<system>' and
-      `--build=<system>' must be passed to configure.  For example, if
-      your building  system is FreeBSD/i386  and the target  system is
-      Linux/MIPS, say
+      To configure  a cross-build,  the options  `--host=<system>' and
+      `--build=<system>'  must be  passed to  the `configure'  script.
+      For example, if your build system is FreeBSD/i386 and the target
+      system is Linux/MIPS, say
 
         ./configure \
           --build=i386-unknown-freebsd \
@@ -58,22 +59,63 @@ INSTALL.UNIX for required tools and the basic self-building procedure.
     2.2. The prefix to install FreeType2
 
       Setting `--prefix=<prefix>'  properly is important.   The prefix
-      to install FreeType2 is  written into the freetype-config script
-      and freetype2.pc configuration file.
+      to  install  FreeType2  is written  into  the  `freetype-config'
+      script and `freetype2.pc' configuration file.
 
       If  the built  FreeType  2 library  is  used as  a  part of  the
       cross-building system,  the prefix  is expected to  be different
-      from the self-building  system.  For example, configuration with
-      `--prefix=/usr/local'  installs binaries  into  the system  wide
-      `/usr/local'  directory  which  then  can't be  executed.   This
-      causes confusion in configuration  of all applications which use
-      FreeType2.   Instead,  use a  prefix to install  the cross-build
-      into     a     separate     system    tree,     for     example,
-      `--prefix=/usr/local/mips-ip22-linux/'.
+      from  the self-building  system.  For  example, a  configuration
+      with   `--prefix=/usr/local'   installs    binaries   into   the
+      system-wide `/usr/local' directory, which then can't be executed
+      due  to the  incorrect architecture.   This causes  confusion in
+      configuration of all applications  that use FreeType2.  Instead,
+      use a prefix  to install the cross-build into  a separate system
+      tree, for example, `--prefix=/usr/local/mips-ip22-linux/'.
 
-      On the other  hand, if the built FreeType2 is used  as a part of
-      the target system, the prefix to install should reflect the file
-      system structure of the target system.
+      On the other hand, if the built  FreeType 2 library is used as a
+      part of the target system,  the prefix to install should reflect
+      the file system structure of the target system.
+
+
+    2.3. Library dependencies
+
+      FreeType normally depends on external libraries like `libpng' or
+      `libharfbuzz'.   The  easiest case  is  to  deactivate all  such
+      dependencies  using the  `--without-XXX' configuration  options.
+      However, if you  want to use those libraries,  you should ensure
+      that  they  are available  both  on  the  target system  and  as
+      (cross-compiled) libraries on the build system.
+
+      FreeType uses  `pkg-config' to find  most of the  libraries; the
+      other libraries it links to  are expected in the standard system
+      directories.   Since the  default pkg-config's  meta-information
+      files (like `harfbuzz.pc') of the build platform don't work, use
+      one of the two possible solutions below.
+
+        o Use pkg-config's meta-information files that are adjusted to
+          cross-compile  and  cross-link  with the  target  platform's
+          libraries.  Make sure those files are found before the build
+          system's default files.  Example:
+
+            ./configure \
+              --build=i386-unknown-freebsd \
+              --host=mips-ip22-linuxelf \
+              PKG_CONFIG_LIBDIR="/usr/local/mips-ip22-linux/lib/pkgconfig" \
+              [other options]
+
+          See the manpage of `pkg-config' for more details.
+
+        o Set variables like LIBPNG_LIBS  as additional options to the
+          `configure' script, overriding the values `pkg-config' would
+          provide.  `configure --help' shows the available environment
+          variables.  Example:
+
+            ./configure \
+              --build=i386-unknown-freebsd \
+              --host=mips-ip22-linuxelf \
+              LIBPNG_CFLAGS="-I/usr/local/mips-ip22-linux/include" \
+              LIBPNG_LIBS="-L/usr/local/mips-ip22-linux/lib -lpng12" \
+              [other options]
 
 
   3. Building command
@@ -121,8 +163,8 @@ INSTALL.UNIX for required tools and the basic self-building procedure.
 
 ----------------------------------------------------------------------
 
-Copyright 2006, 2008, 2012 by suzuki toshiya
-David Turner, Robert Wilhelm, and Werner Lemberg.
+Copyright 2006-2015 by
+suzuki toshiya, David Turner, Robert Wilhelm, and Werner Lemberg.
 
 
 This  file is  part of  the FreeType  project, and  may only  be used,

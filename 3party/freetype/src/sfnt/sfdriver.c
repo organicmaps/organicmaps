@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    High-level SFNT driver interface (body).                             */
 /*                                                                         */
-/*  Copyright 1996-2007, 2009-2013 by                                      */
+/*  Copyright 1996-2015 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -75,36 +75,36 @@
 
     switch ( tag )
     {
-    case ft_sfnt_head:
+    case FT_SFNT_HEAD:
       table = &face->header;
       break;
 
-    case ft_sfnt_hhea:
+    case FT_SFNT_HHEA:
       table = &face->horizontal;
       break;
 
-    case ft_sfnt_vhea:
-      table = face->vertical_info ? &face->vertical : 0;
+    case FT_SFNT_VHEA:
+      table = face->vertical_info ? &face->vertical : NULL;
       break;
 
-    case ft_sfnt_os2:
-      table = face->os2.version == 0xFFFFU ? 0 : &face->os2;
+    case FT_SFNT_OS2:
+      table = face->os2.version == 0xFFFFU ? NULL : &face->os2;
       break;
 
-    case ft_sfnt_post:
+    case FT_SFNT_POST:
       table = &face->postscript;
       break;
 
-    case ft_sfnt_maxp:
+    case FT_SFNT_MAXP:
       table = &face->max_profile;
       break;
 
-    case ft_sfnt_pclt:
-      table = face->pclt.Version ? &face->pclt : 0;
+    case FT_SFNT_PCLT:
+      table = face->pclt.Version ? &face->pclt : NULL;
       break;
 
     default:
-      table = 0;
+      table = NULL;
     }
 
     return table;
@@ -266,7 +266,7 @@
       {
         FT_Stream   stream = face->name_table.stream;
         FT_String*  r      = (FT_String*)result;
-        FT_Byte*    p      = (FT_Byte*)name->string;
+        FT_Char*    p;
 
 
         if ( FT_STREAM_SEEK( name->stringOffset ) ||
@@ -280,11 +280,11 @@
           goto Exit;
         }
 
-        p = (FT_Byte*)stream->cursor;
+        p = (FT_Char*)stream->cursor;
 
         for ( ; len > 0; len--, p += 2 )
         {
-          if ( p[0] == 0 && p[1] >= 32 && p[1] < 128 )
+          if ( p[0] == 0 && p[1] >= 32 )
             *r++ = p[1];
         }
         *r = '\0';
@@ -427,7 +427,7 @@
   sfnt_get_interface( FT_Module    module,
                       const char*  module_interface )
   {
-    /* SFNT_SERVICES_GET derefers `library' in PIC mode */
+    /* SFNT_SERVICES_GET dereferences `library' in PIC mode */
 #ifdef FT_CONFIG_OPTION_PIC
     FT_Library  library;
 
@@ -499,13 +499,15 @@
     tt_face_load_hmtx,
 
     /* see `ttsbit.h' and `sfnt.h' */
-    PUT_EMBEDDED_BITMAPS( tt_face_load_eblc ),
-    PUT_EMBEDDED_BITMAPS( tt_face_free_eblc ),
+    PUT_EMBEDDED_BITMAPS( tt_face_load_sbit ),
+    PUT_EMBEDDED_BITMAPS( tt_face_free_sbit ),
 
     PUT_EMBEDDED_BITMAPS( tt_face_set_sbit_strike     ),
     PUT_EMBEDDED_BITMAPS( tt_face_load_strike_metrics ),
 
-    tt_face_get_metrics
+    tt_face_get_metrics,
+
+    tt_face_get_name
   )
 
 

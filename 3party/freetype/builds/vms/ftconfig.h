@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    VMS-specific configuration file (specification only).                */
 /*                                                                         */
-/*  Copyright 1996-2004, 2006-2008, 2011 by                                */
+/*  Copyright 1996-2015 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -27,24 +27,22 @@
   /* Note however that if some specific modifications are needed, we       */
   /* advise you to place a modified copy in your build directory.          */
   /*                                                                       */
-  /* The build directory is usually `freetype/builds/<system>', and        */
-  /* contains system-specific files that are always included first when    */
-  /* building the library.                                                 */
+  /* The build directory is usually `builds/<system>', and contains        */
+  /* system-specific files that are always included first when building    */
+  /* the library.                                                          */
   /*                                                                       */
   /*************************************************************************/
-
 
 #ifndef __FTCONFIG_H__
 #define __FTCONFIG_H__
 
-
-  /* Include the header file containing all developer build options */
 #include <ft2build.h>
 #include FT_CONFIG_OPTIONS_H
 #include FT_CONFIG_STANDARD_LIBRARY_H
 
 
 FT_BEGIN_HEADER
+
 
   /*************************************************************************/
   /*                                                                       */
@@ -53,7 +51,7 @@ FT_BEGIN_HEADER
   /* These macros can be toggled to suit a specific system.  The current   */
   /* ones are defaults used to compile FreeType in an ANSI C environment   */
   /* (16bit compilers are also supported).  Copy this file to your own     */
-  /* `freetype/builds/<system>' directory, and edit it to port the engine. */
+  /* `builds/<system>' directory, and edit it to port the engine.          */
   /*                                                                       */
   /*************************************************************************/
 
@@ -120,19 +118,95 @@ FT_BEGIN_HEADER
 
   /*************************************************************************/
   /*                                                                       */
-  /* IntN types                                                            */
+  /* <Section>                                                             */
+  /*    basic_types                                                        */
   /*                                                                       */
-  /*   Used to guarantee the size of some specific integers.               */
+  /*************************************************************************/
+
+
+  /*************************************************************************/
   /*                                                                       */
-  typedef signed short    FT_Int16;
+  /* <Type>                                                                */
+  /*    FT_Int16                                                           */
+  /*                                                                       */
+  /* <Description>                                                         */
+  /*    A typedef for a 16bit signed integer type.                         */
+  /*                                                                       */
+  typedef signed short  FT_Int16;
+
+
+  /*************************************************************************/
+  /*                                                                       */
+  /* <Type>                                                                */
+  /*    FT_UInt16                                                          */
+  /*                                                                       */
+  /* <Description>                                                         */
+  /*    A typedef for a 16bit unsigned integer type.                       */
+  /*                                                                       */
   typedef unsigned short  FT_UInt16;
 
-#if FT_SIZEOF_INT == 4
+  /* */
+
+
+  /* this #if 0 ... #endif clause is for documentation purposes */
+#if 0
+
+  /*************************************************************************/
+  /*                                                                       */
+  /* <Type>                                                                */
+  /*    FT_Int32                                                           */
+  /*                                                                       */
+  /* <Description>                                                         */
+  /*    A typedef for a 32bit signed integer type.  The size depends on    */
+  /*    the configuration.                                                 */
+  /*                                                                       */
+  typedef signed XXX  FT_Int32;
+
+
+  /*************************************************************************/
+  /*                                                                       */
+  /* <Type>                                                                */
+  /*    FT_UInt32                                                          */
+  /*                                                                       */
+  /*    A typedef for a 32bit unsigned integer type.  The size depends on  */
+  /*    the configuration.                                                 */
+  /*                                                                       */
+  typedef unsigned XXX  FT_UInt32;
+
+
+  /*************************************************************************/
+  /*                                                                       */
+  /* <Type>                                                                */
+  /*    FT_Int64                                                           */
+  /*                                                                       */
+  /*    A typedef for a 64bit signed integer type.  The size depends on    */
+  /*    the configuration.  Only defined if there is real 64bit support;   */
+  /*    otherwise, it gets emulated with a structure (if necessary).       */
+  /*                                                                       */
+  typedef signed XXX  FT_Int64;
+
+
+  /*************************************************************************/
+  /*                                                                       */
+  /* <Type>                                                                */
+  /*    FT_UInt64                                                          */
+  /*                                                                       */
+  /*    A typedef for a 64bit unsigned integer type.  The size depends on  */
+  /*    the configuration.  Only defined if there is real 64bit support;   */
+  /*    otherwise, it gets emulated with a structure (if necessary).       */
+  /*                                                                       */
+  typedef unsigned XXX  FT_UInt64;
+
+  /* */
+
+#endif
+
+#if FT_SIZEOF_INT == (32 / FT_CHAR_BIT)
 
   typedef signed int      FT_Int32;
   typedef unsigned int    FT_UInt32;
 
-#elif FT_SIZEOF_LONG == 4
+#elif FT_SIZEOF_LONG == (32 / FT_CHAR_BIT)
 
   typedef signed long     FT_Int32;
   typedef unsigned long   FT_UInt32;
@@ -141,13 +215,14 @@ FT_BEGIN_HEADER
 #error "no 32bit type found -- please check your configuration files"
 #endif
 
+
   /* look up an integer type that is at least 32 bits */
-#if FT_SIZEOF_INT >= 4
+#if FT_SIZEOF_INT >= (32 / FT_CHAR_BIT)
 
   typedef int            FT_Fast;
   typedef unsigned int   FT_UFast;
 
-#elif FT_SIZEOF_LONG >= 4
+#elif FT_SIZEOF_LONG >= (32 / FT_CHAR_BIT)
 
   typedef long           FT_Fast;
   typedef unsigned long  FT_UFast;
@@ -157,17 +232,28 @@ FT_BEGIN_HEADER
 
   /* determine whether we have a 64-bit int type for platforms without */
   /* Autoconf                                                          */
-#if FT_SIZEOF_LONG == 8
+#if FT_SIZEOF_LONG == (64 / FT_CHAR_BIT)
 
   /* FT_LONG64 must be defined if a 64-bit type is available */
 #define FT_LONG64
-#define FT_INT64  long
+#define FT_INT64   long
+#define FT_UINT64  unsigned long
 
-#elif defined( _MSC_VER ) && _MSC_VER >= 900  /* Visual C++ (and Intel C++) */
+  /*************************************************************************/
+  /*                                                                       */
+  /* A 64-bit data type may create compilation problems if you compile     */
+  /* in strict ANSI mode.  To avoid them, we disable other 64-bit data     */
+  /* types if __STDC__ is defined.  You can however ignore this rule       */
+  /* by defining the FT_CONFIG_OPTION_FORCE_INT64 configuration macro.     */
+  /*                                                                       */
+#elif !defined( __STDC__ ) || defined( FT_CONFIG_OPTION_FORCE_INT64 )
+
+#if defined( _MSC_VER ) && _MSC_VER >= 900  /* Visual C++ (and Intel C++) */
 
   /* this compiler provides the __int64 type */
 #define FT_LONG64
-#define FT_INT64  __int64
+#define FT_INT64   __int64
+#define FT_UINT64  unsigned __int64
 
 #elif defined( __BORLANDC__ )  /* Borland C++ */
 
@@ -176,7 +262,8 @@ FT_BEGIN_HEADER
 
   /* this compiler provides the __int64 type */
 #define FT_LONG64
-#define FT_INT64  __int64
+#define FT_INT64   __int64
+#define FT_UINT64  unsigned __int64
 
 #elif defined( __WATCOMC__ )   /* Watcom C++ */
 
@@ -185,15 +272,31 @@ FT_BEGIN_HEADER
 #elif defined( __MWERKS__ )    /* Metrowerks CodeWarrior */
 
 #define FT_LONG64
-#define FT_INT64  long long int
+#define FT_INT64   long long int
+#define FT_UINT64  unsigned long long int
 
 #elif defined( __GNUC__ )
 
   /* GCC provides the `long long' type */
 #define FT_LONG64
-#define FT_INT64  long long int
+#define FT_INT64   long long int
+#define FT_UINT64  unsigned long long int
 
-#endif /* FT_SIZEOF_LONG == 8 */
+#endif /* _MSC_VER */
+
+#endif /* FT_SIZEOF_LONG == (64 / FT_CHAR_BIT) */
+
+#ifdef FT_LONG64
+  typedef FT_INT64   FT_Int64;
+  typedef FT_UINT64  FT_UInt64;
+#endif
+
+
+  /*************************************************************************/
+  /*                                                                       */
+  /* miscellaneous                                                         */
+  /*                                                                       */
+  /*************************************************************************/
 
 
 #define FT_BEGIN_STMNT  do {
@@ -201,24 +304,14 @@ FT_BEGIN_HEADER
 #define FT_DUMMY_STMNT  FT_BEGIN_STMNT FT_END_STMNT
 
 
-  /*************************************************************************/
-  /*                                                                       */
-  /* A 64-bit data type will create compilation problems if you compile    */
-  /* in strict ANSI mode.  To avoid them, we disable their use if          */
-  /* __STDC__ is defined.  You can however ignore this rule by             */
-  /* defining the FT_CONFIG_OPTION_FORCE_INT64 configuration macro.        */
-  /*                                                                       */
-#if defined( FT_LONG64 ) && !defined( FT_CONFIG_OPTION_FORCE_INT64 )
-
-#ifdef __STDC__
-
-  /* undefine the 64-bit macros in strict ANSI compilation mode */
-#undef FT_LONG64
-#undef FT_INT64
-
-#endif /* __STDC__ */
-
-#endif /* FT_LONG64 && !FT_CONFIG_OPTION_FORCE_INT64 */
+  /* typeof condition taken from gnulib's `intprops.h' header file */
+#if ( __GNUC__ >= 2                         || \
+      defined( __IBM__TYPEOF__ )            || \
+      ( __SUNPRO_C >= 0x5110 && !__STDC__ ) )
+#define FT_TYPEOF( type )  (__typeof__ (type))
+#else
+#define FT_TYPEOF( type )  /* empty */
+#endif
 
 
 #ifdef FT_MAKE_OPTION_SINGLE_OBJECT
@@ -238,6 +331,9 @@ FT_BEGIN_HEADER
 
 #endif /* FT_MAKE_OPTION_SINGLE_OBJECT */
 
+#define FT_LOCAL_ARRAY( x )      extern const  x
+#define FT_LOCAL_ARRAY_DEF( x )  const  x
+
 
 #ifndef FT_BASE
 
@@ -253,9 +349,9 @@ FT_BEGIN_HEADER
 #ifndef FT_BASE_DEF
 
 #ifdef __cplusplus
-#define FT_BASE_DEF( x )  extern "C"  x
+#define FT_BASE_DEF( x )  x
 #else
-#define FT_BASE_DEF( x )  extern  x
+#define FT_BASE_DEF( x )  x
 #endif
 
 #endif /* !FT_BASE_DEF */

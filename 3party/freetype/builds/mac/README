@@ -1,8 +1,8 @@
 This folder contains
 
-  * Makefile skeltons for Apple MPW (Macintosh's Programmers Workshop)
+  * Makefile skeletons for Apple MPW (Macintosh's Programmer's Workshop)
 
-  * Python script to generate MPW makefile from skelton
+  * Python script to generate MPW makefile from skeleton
 
   * Metrowerks CodeWarrior 9.0 project file in XML format
 
@@ -51,7 +51,7 @@ environment by Metrowerks. GCC for MPW and Symantec
   Also you can find documents how to update by MPW-PR.
 
   Python is required to restore MPW makefiles from the
-  skeltons. Python bundled to Mac OS X is enough. For
+  skeletons. Python bundled to Mac OS X is enough. For
   classic MacOS, MacPython is available:
 
       http://homepages.cwi.nl/~jack/macpython/
@@ -78,10 +78,10 @@ environment by Metrowerks. GCC for MPW and Symantec
   Detailed building procedure by Apple MPW is
   described in following.
 
-    3-1-1. Generate MPW makefiles from the skeltons
+    3-1-1. Generate MPW makefiles from the skeletons
     ------------------------------------------------
 
-    Here are 4 skeltons for following targets are
+    Here are 4 skeletons for following targets are
     included.
 
     - FreeType.m68k_far.make.txt
@@ -109,7 +109,7 @@ environment by Metrowerks. GCC for MPW and Symantec
 
     MPW makefile syntax uses 8bit characters. To keep
     from violating them during version control, here
-    we store skeltons in pure ASCII format. You must
+    we store skeletons in pure ASCII format. You must
     generate MPW makefile by Python script ascii2mpw.py.
 
     In Mac OS X terminal, you can convert as:
@@ -118,10 +118,10 @@ environment by Metrowerks. GCC for MPW and Symantec
 		< builds/mac/FreeType.m68k_far.make.txt \
 		> FreeType.m68k_far.make
 
-    The skeltons are designed to use in the top
+    The skeletons are designed to use in the top
     directory where there are builds, include, src etc.
     You must name the generated MPW makefile by removing
-    ".txt" from source skelton name.
+    ".txt" from source skeleton name.
 
     3-1-2. Add resource forks to related files
     ------------------------------------------
@@ -392,12 +392,10 @@ ATSFontGetFileSpecification()         |    x    |    x    |    x    |    x    | 
     ATS font manager is not published in these versions.
 
 ------------------------------------------------------------
-Last update: 2009-Jul-25.
+Last update: 2013-Nov-03.
 
 Currently maintained by
 	suzuki toshiya, <mpsuzuki@hiroshima-u.ac.jp>
 Originally prepared by
 	Leonard Rosenthol, <leonardr@lazerware.com>
 	Just van Rossum, <just@letterror.com>
-
-This directory is now actively maintained as part of the FreeType Project.

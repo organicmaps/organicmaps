@@ -3,11 +3,10 @@
 #
 
 
-# Copyright 2004, 2005, 2006 by
+# Copyright 2004-2015 by
 # Albert Chin-A-Young.
 #
-# Based on src/lzw/rules.mk, Copyright 2002 by
-# David Turner, Robert Wilhelm, and Werner Lemberg.
+# based on `src/lzw/rules.mk'
 #
 # This file is part of the FreeType project, and may only be used, modified,
 # and distributed under the terms of the FreeType project license,
@@ -23,7 +22,10 @@ LZW_DIR := $(SRC_DIR)/lzw
 
 # compilation flags for the driver
 #
-LZW_COMPILE := $(FT_COMPILE) $I$(subst /,$(COMPILER_SEP),$(LZW_DIR))
+LZW_COMPILE := $(CC) $(ANSIFLAGS)                            \
+                     $I$(subst /,$(COMPILER_SEP),$(LZW_DIR)) \
+                     $(INCLUDE_FLAGS)                        \
+                     $(FT_CFLAGS)
 
 
 # LZW support sources (i.e., C files)

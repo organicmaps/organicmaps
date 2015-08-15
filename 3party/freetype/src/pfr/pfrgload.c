@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    FreeType PFR glyph loader (body).                                    */
 /*                                                                         */
-/*  Copyright 2002, 2003, 2005, 2007, 2010, 2013 by                        */
+/*  Copyright 2002-2015 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -143,7 +143,7 @@
     error = FT_GLYPHLOADER_CHECK_POINTS( loader, 1, 0 );
     if ( !error )
     {
-      FT_UInt  n = outline->n_points;
+      FT_Int  n = outline->n_points;
 
 
       outline->points[n] = *to;
@@ -632,14 +632,14 @@
       if ( format & PFR_SUBGLYPH_XSCALE )
       {
         PFR_CHECK( 2 );
-        subglyph->x_scale = PFR_NEXT_SHORT( p ) << 4;
+        subglyph->x_scale = PFR_NEXT_SHORT( p ) * 16;
       }
 
       subglyph->y_scale = 0x10000L;
       if ( format & PFR_SUBGLYPH_YSCALE )
       {
         PFR_CHECK( 2 );
-        subglyph->y_scale = PFR_NEXT_SHORT( p ) << 4;
+        subglyph->y_scale = PFR_NEXT_SHORT( p ) * 16;
       }
 
       /* read offset */
@@ -693,7 +693,7 @@
       if ( format & PFR_SUBGLYPH_3BYTE_OFFSET )
       {
         PFR_CHECK( 3 );
-        subglyph->gps_offset = PFR_NEXT_LONG( p );
+        subglyph->gps_offset = PFR_NEXT_ULONG( p );
       }
       else
       {
@@ -736,7 +736,7 @@
 
     if ( size > 0 && *p & PFR_GLYPH_IS_COMPOUND )
     {
-      FT_Int          n, old_count, count;
+      FT_UInt         n, old_count, count;
       FT_GlyphLoader  loader = glyph->loader;
       FT_Outline*     base   = &loader->base.outline;
 
@@ -763,7 +763,7 @@
         PFR_SubGlyph  subglyph;
 
 
-        FT_TRACE4(( "subglyph %d:\n", n ));
+        FT_TRACE4(( "  subglyph %d:\n", n ));
 
         subglyph   = glyph->subs + old_count + n;
         old_points = base->n_points;

@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    CID-keyed Type1 Glyph Loader (body).                                 */
 /*                                                                         */
-/*  Copyright 1996-2007, 2009, 2010, 2013 by                               */
+/*  Copyright 1996-2015 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -44,10 +44,10 @@
     CID_Face       face = (CID_Face)decoder->builder.face;
     CID_FaceInfo   cid  = &face->cid;
     FT_Byte*       p;
-    FT_UInt        fd_select;
+    FT_ULong       fd_select;
     FT_Stream      stream       = face->cid_stream;
     FT_Error       error        = FT_Err_Ok;
-    FT_Byte*       charstring   = 0;
+    FT_Byte*       charstring   = NULL;
     FT_Memory      memory       = face->root.memory;
     FT_ULong       glyph_length = 0;
     PSAux_Service  psaux        = (PSAux_Service)face->psaux;
@@ -58,7 +58,7 @@
 #endif
 
 
-    FT_TRACE4(( "cid_load_glyph: glyph index %d\n", glyph_index ));
+    FT_TRACE1(( "cid_load_glyph: glyph index %d\n", glyph_index ));
 
 #ifdef FT_CONFIG_OPTION_INCREMENTAL
 
@@ -75,11 +75,11 @@
         goto Exit;
 
       p         = (FT_Byte*)glyph_data.pointer;
-      fd_select = (FT_UInt)cid_get_offset( &p, (FT_Byte)cid->fd_bytes );
+      fd_select = cid_get_offset( &p, (FT_Byte)cid->fd_bytes );
 
       if ( glyph_data.length != 0 )
       {
-        glyph_length = glyph_data.length - cid->fd_bytes;
+        glyph_length = (FT_ULong)( glyph_data.length - cid->fd_bytes );
         (void)FT_ALLOC( charstring, glyph_length );
         if ( !error )
           ft_memcpy( charstring, glyph_data.pointer + cid->fd_bytes,
@@ -99,7 +99,7 @@
     /* For ordinary fonts read the CID font dictionary index */
     /* and charstring offset from the CIDMap.                */
     {
-      FT_UInt   entry_len = cid->fd_bytes + cid->gd_bytes;
+      FT_UInt   entry_len = (FT_UInt)( cid->fd_bytes + cid->gd_bytes );
       FT_ULong  off1;
 
 
@@ -109,13 +109,13 @@
         goto Exit;
 
       p            = (FT_Byte*)stream->cursor;
-      fd_select    = (FT_UInt) cid_get_offset( &p, (FT_Byte)cid->fd_bytes );
-      off1         = (FT_ULong)cid_get_offset( &p, (FT_Byte)cid->gd_bytes );
+      fd_select    = cid_get_offset( &p, (FT_Byte)cid->fd_bytes );
+      off1         = cid_get_offset( &p, (FT_Byte)cid->gd_bytes );
       p           += cid->fd_bytes;
       glyph_length = cid_get_offset( &p, (FT_Byte)cid->gd_bytes ) - off1;
       FT_FRAME_EXIT();
 
-      if ( fd_select >= (FT_UInt)cid->num_dicts )
+      if ( fd_select >= (FT_ULong)cid->num_dicts )
       {
         error = FT_THROW( Invalid_Offset );
         goto Exit;
@@ -133,7 +133,7 @@
     {
       CID_FaceDict  dict;
       CID_Subrs     cid_subrs = face->subrs + fd_select;
-      FT_Int        cs_offset;
+      FT_UInt       cs_offset;
 
 
       /* Set up subrs */
@@ -151,7 +151,7 @@
       /* Decode the charstring. */
 
       /* Adjustment for seed bytes. */
-      cs_offset = ( decoder->lenIV >= 0 ? decoder->lenIV : 0 );
+      cs_offset = decoder->lenIV >= 0 ? (FT_UInt)decoder->lenIV : 0;
 
       /* Decrypt only if lenIV >= 0. */
       if ( decoder->lenIV >= 0 )
@@ -159,7 +159,7 @@
 
       error = decoder->funcs.parse_charstrings(
                 decoder, charstring + cs_offset,
-                (FT_Int)glyph_length - cs_offset );
+                glyph_length - cs_offset );
     }
 
     FT_FREE( charstring );
@@ -357,7 +357,6 @@
     {
       FT_BBox            cbox;
       FT_Glyph_Metrics*  metrics = &cidglyph->metrics;
-      FT_Vector          advance;
 
 
       /* copy the _unscaled_ advance width */
@@ -377,22 +376,27 @@
       if ( cidsize->metrics.y_ppem < 24 )
         cidglyph->outline.flags |= FT_OUTLINE_HIGH_PRECISION;
 
-      /* apply the font matrix */
-      FT_Outline_Transform( &cidglyph->outline, &font_matrix );
+      /* apply the font matrix, if any */
+      if ( font_matrix.xx != 0x10000L || font_matrix.yy != 0x10000L ||
+           font_matrix.xy != 0        || font_matrix.yx != 0        )
+      {
+        FT_Outline_Transform( &cidglyph->outline, &font_matrix );
 
-      FT_Outline_Translate( &cidglyph->outline,
-                            font_offset.x,
-                            font_offset.y );
+        metrics->horiAdvance = FT_MulFix( metrics->horiAdvance,
+                                          font_matrix.xx );
+        metrics->vertAdvance = FT_MulFix( metrics->vertAdvance,
+                                          font_matrix.yy );
+      }
 
-      advance.x = metrics->horiAdvance;
-      advance.y = 0;
-      FT_Vector_Transform( &advance, &font_matrix );
-      metrics->horiAdvance = advance.x + font_offset.x;
+      if ( font_offset.x || font_offset.y )
+      {
+        FT_Outline_Translate( &cidglyph->outline,
+                              font_offset.x,
+                              font_offset.y );
 
-      advance.x = 0;
-      advance.y = metrics->vertAdvance;
-      FT_Vector_Transform( &advance, &font_matrix );
-      metrics->vertAdvance = advance.y + font_offset.y;
+        metrics->horiAdvance += font_offset.x;
+        metrics->vertAdvance += font_offset.y;
+      }
 
       if ( ( load_flags & FT_LOAD_NO_SCALE ) == 0 )
       {

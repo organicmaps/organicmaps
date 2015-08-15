@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    FreeType Cache subsystem (specification).                            */
 /*                                                                         */
-/*  Copyright 1996-2008, 2010, 2013 by                                     */
+/*  Copyright 1996-2015 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -157,7 +157,7 @@ FT_BEGIN_HEADER
    * @note:
    *   Never use NULL as a valid @FTC_FaceID.
    *
-   *   Face IDs are passed by the client to the cache manager, which calls,
+   *   Face IDs are passed by the client to the cache manager that calls,
    *   when needed, the @FTC_Face_Requester to translate them into new
    *   @FT_Face objects.
    *
@@ -210,10 +210,10 @@ FT_BEGIN_HEADER
   typedef FT_Error
   (*FTC_Face_Requester)( FTC_FaceID  face_id,
                          FT_Library  library,
-                         FT_Pointer  request_data,
+                         FT_Pointer  req_data,
                          FT_Face*    aface );
 
- /* */
+  /* */
 
 
   /*************************************************************************/
@@ -668,8 +668,8 @@ FT_BEGIN_HEADER
   typedef struct  FTC_ImageTypeRec_
   {
     FTC_FaceID  face_id;
-    FT_Int      width;
-    FT_Int      height;
+    FT_UInt     width;
+    FT_UInt     height;
     FT_Int32    flags;
 
   } FTC_ImageTypeRec;
@@ -1071,8 +1071,8 @@ FT_BEGIN_HEADER
                               FTC_SBit      *sbit,
                               FTC_Node      *anode );
 
+  /* */
 
- /* */
 
 FT_END_HEADER
 

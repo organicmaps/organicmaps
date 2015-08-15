@@ -16,8 +16,8 @@ I. Standard procedure
     which are not correctly supported by this compiler while being ISO
     C compliant!
 
-  * You  need  to  add  the directories  `freetype2/include'  to  your
-    include path when compiling the library.
+  * You need to add the directory `include' to your  include path when
+    compiling the library.
 
   * FreeType 2 is made of  several components; each of them is located
     in    a   subdirectory    of   `freetype2/src'.     For   example,
@@ -33,25 +33,25 @@ I. Standard procedure
 
       src/base/ftbase.c
 
-      src/base/ftbbox.c       -- recommended, see <freetype/ftbbox.h>
-      src/base/ftglyph.c      -- recommended, see <freetype/ftglyph.h>
+      src/base/ftbbox.c       -- recommended, see <ftbbox.h>
+      src/base/ftglyph.c      -- recommended, see <ftglyph.h>
 
-      src/base/ftbdf.c        -- optional, see <freetype/ftbdf.h>
-      src/base/ftbitmap.c     -- optional, see <freetype/ftbitmap.h>
-      src/base/ftcid.c        -- optional, see <freetype/ftcid.h>
+      src/base/ftbdf.c        -- optional, see <ftbdf.h>
+      src/base/ftbitmap.c     -- optional, see <ftbitmap.h>
+      src/base/ftcid.c        -- optional, see <ftcid.h>
+      src/base/ftfntfmt.c     -- optional, see <ftfntfmt.h>
       src/base/ftfstype.c     -- optional
-      src/base/ftgasp.c       -- optional, see <freetype/ftgasp.h>
-      src/base/ftgxval.c      -- optional, see <freetype/ftgxval.h>
-      src/base/ftlcdfil.c     -- optional, see <freetype/ftlcdfil.h>
-      src/base/ftmm.c         -- optional, see <freetype/ftmm.h>
-      src/base/ftotval.c      -- optional, see <freetype/ftotval.h>
+      src/base/ftgasp.c       -- optional, see <ftgasp.h>
+      src/base/ftgxval.c      -- optional, see <ftgxval.h>
+      src/base/ftlcdfil.c     -- optional, see <ftlcdfil.h>
+      src/base/ftmm.c         -- optional, see <ftmm.h>
+      src/base/ftotval.c      -- optional, see <ftotval.h>
       src/base/ftpatent.c     -- optional
-      src/base/ftpfr.c        -- optional, see <freetype/ftpfr.h>
-      src/base/ftstroke.c     -- optional, see <freetype/ftstroke.h>
-      src/base/ftsynth.c      -- optional, see <freetype/ftsynth.h>
-      src/base/fttype1.c      -- optional, see <freetype/t1tables.h>
-      src/base/ftwinfnt.c     -- optional, see <freetype/ftwinfnt.h>
-      src/base/ftxf86.c       -- optional, see <freetype/ftxf86.h>
+      src/base/ftpfr.c        -- optional, see <ftpfr.h>
+      src/base/ftstroke.c     -- optional, see <ftstroke.h>
+      src/base/ftsynth.c      -- optional, see <ftsynth.h>
+      src/base/fttype1.c      -- optional, see <t1tables.h>
+      src/base/ftwinfnt.c     -- optional, see <ftwinfnt.h>
 
       src/base/ftmac.c        -- only on the Macintosh
 
@@ -103,9 +103,9 @@ I. Standard procedure
       `type1cid.c' needs `psaux.c', `pshinter.c', and `psnames.c'
       `type42.c'   needs `truetype.c'
 
-      To use `ftbzip2.c', an application must be linked with a library
-      which implements bzip2 support  (and the bzip2 header files must
-      be available also during compilation).
+      Please consult the central  `include/freetype/config/ftoption.h'
+      configuration file for details on additional libraries necessary
+      for some optional features.
 
 
   Read the file `CUSTOMIZE' in case  you want to compile only a subset
@@ -132,10 +132,10 @@ II. Support for flat-directory compilation
 
   2. Compile sources
 
-      cc -c -Ifreetype2/include -DFT2_BUILD_LIBRARY ftsystem.c
-      cc -c -Ifreetype2/include -DFT2_BUILD_LIBRARY ftinit.c
-      cc -c -Ifreetype2/include -DFT2_BUILD_LIBRARY ftdebug.c
-      cc -c -Ifreetype2/include -DFT2_BUILD_LIBRARY ftbase.c
+      cc -c -Iinclude -DFT2_BUILD_LIBRARY ftsystem.c
+      cc -c -Iinclude -DFT2_BUILD_LIBRARY ftinit.c
+      cc -c -Iinclude -DFT2_BUILD_LIBRARY ftdebug.c
+      cc -c -Iinclude -DFT2_BUILD_LIBRARY ftbase.c
       etc.
 
     You don't  need to define  the FT_FLAT_COMPILATION macro  (as this
@@ -143,7 +143,7 @@ II. Support for flat-directory compilation
 
 ----------------------------------------------------------------------
 
-Copyright 2003, 2005, 2006, 2009, 2010 by
+Copyright 2003-2015 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This  file is  part of  the FreeType  project, and  may only  be used,

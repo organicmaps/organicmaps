@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Access of TrueType's `gasp' table (specification).                   */
 /*                                                                         */
-/*  Copyright 2007, 2008, 2011 by                                          */
+/*  Copyright 2007-2015 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -120,7 +120,8 @@
   FT_Get_Gasp( FT_Face  face,
                FT_UInt  ppem );
 
-/* */
+  /* */
+
 
 #endif /* _FT_GASP_H_ */
 

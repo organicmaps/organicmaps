@@ -6260,7 +6260,7 @@
 	Adding a new API `FT_Get_BDF_Property' to retrieve the BDF
 	properties of a given PCF or BDF font.
 
-	* include/freetype/ftbdf.h (FT_PropertyType): New enumeration.
+	* include/freetype/ftbdf.h (BDF_PropertyType): New enumeration.
 	(BDF_Property, BDF_PropertyRec): New structure.
 	FT_Get_BDF_Property): New function.
 	* include/freetype/internal/bdftypes.h: Include FT_BDF_H.
@@ -9423,7 +9423,7 @@
 
 ----------------------------------------------------------------------------
 
-Copyright 2002, 2003, 2004, 2005, 2007, 2008 by
+Copyright 2002-2015 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This file is part of the FreeType project, and may only be used, modified,

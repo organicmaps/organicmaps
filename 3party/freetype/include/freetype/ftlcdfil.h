@@ -5,7 +5,7 @@
 /*    FreeType API for color filtering of subpixel bitmap glyphs           */
 /*    (specification).                                                     */
 /*                                                                         */
-/*  Copyright 2006, 2007, 2008, 2010 by                                    */
+/*  Copyright 2006-2015 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -45,9 +45,9 @@ FT_BEGIN_HEADER
    *
    * @description:
    *   The @FT_Library_SetLcdFilter API can be used to specify a low-pass
-   *   filter which is then applied to LCD-optimized bitmaps generated
+   *   filter, which is then applied to LCD-optimized bitmaps generated
    *   through @FT_Render_Glyph.  This is useful to reduce color fringes
-   *   which would occur with unfiltered rendering.
+   *   that would occur with unfiltered rendering.
    *
    *   Note that no filter is active by default, and that this function is
    *   *not* implemented in default builds of the library.  You need to
@@ -56,7 +56,7 @@ FT_BEGIN_HEADER
    *
    *   FreeType generates alpha coverage maps, which are linear by nature.
    *   For instance, the value 0x80 in bitmap representation means that
-   *   (within numerical precision) 0x80/0xff fraction of that pixel is
+   *   (within numerical precision) 0x80/0xFF fraction of that pixel is
    *   covered by the glyph's outline.  The blending function for placing
    *   text over a background is
    *

@@ -16,6 +16,7 @@ linux-g++* {
 
 SOURCES += \
     src/autofit/afangles.c \
+    src/autofit/afblue.c \
     src/autofit/afcjk.c \
     src/autofit/afdummy.c \
     src/autofit/afglobal.c \
@@ -24,6 +25,9 @@ SOURCES += \
     src/autofit/aflatin.c \
     src/autofit/afloader.c \
     src/autofit/afmodule.c \
+    src/autofit/afranges.c \
+    src/autofit/afwarp.c \
+    src/autofit/hbshim.c \
     src/base/ftadvanc.c \
     src/base/ftbitmap.c \
     src/base/ftcalc.c \
@@ -32,6 +36,7 @@ SOURCES += \
     src/base/ftinit.c \
     src/base/ftobjs.c \
     src/base/ftoutln.c \
+    src/base/ftrfork.c \
     src/base/ftstream.c \
     src/base/ftstroke.c \
     src/base/ftsystem.c \
@@ -47,6 +52,15 @@ SOURCES += \
     src/cache/ftcmanag.c \
     src/cache/ftcmru.c \
     src/cache/ftcsbits.c \
+    src/cff/cf2ft.c \
+    src/cff/cf2font.c \
+    src/cff/cf2blues.c \
+    src/cff/cf2intrp.c \
+    src/cff/cf2stack.c \
+    src/cff/cf2arrst.c \
+    src/cff/cf2hints.c \
+    src/cff/cf2error.c \
+    src/cff/cf2read.c \
     src/cff/cffcmap.c \
     src/cff/cffdrivr.c \
     src/cff/cffgload.c \
@@ -58,6 +72,8 @@ SOURCES += \
     src/cid/cidload.c \
     src/cid/cidobjs.c \
     src/cid/cidparse.c \
+    src/gzip/ftgzip.c \
+    src/lzw/ftlzw.c \
     src/pcf/pcfdrivr.c \
     src/pcf/pcfread.c \
     src/pcf/pcfutil.c \
@@ -82,11 +98,13 @@ SOURCES += \
     src/raster/ftrend1.c \
     src/sfnt/sfdriver.c \
     src/sfnt/sfobjs.c \
+    src/sfnt/ttbdf.c \
     src/sfnt/ttcmap.c \
     src/sfnt/ttkern.c \
     src/sfnt/ttload.c \
     src/sfnt/ttmtx.c \
     src/sfnt/ttpost.c \
+    src/sfnt/ttsbit.c \
     src/smooth/ftgrays.c \
     src/smooth/ftsmooth.c \
     src/truetype/ttdriver.c \
@@ -95,19 +113,6 @@ SOURCES += \
     src/truetype/ttobjs.c \
     src/truetype/ttpload.c \
     src/truetype/truetype.c \
-    src/cache/ftstrokedcache.c
-
-contains(DEFINES, OMIM_FULL_FREETYPE) {
-  SOURCES += \
-    src/cff/cf2ft.c \
-    src/cff/cf2font.c \
-    src/cff/cf2blues.c \
-    src/cff/cf2intrp.c \
-    src/cff/cf2stack.c \
-    src/cff/cf2arrst.c \
-    src/cff/cf2hints.c \
-    src/cff/cf2error.c \
-    src/cff/cf2read.c \
     src/type1/t1afm.c \
     src/type1/t1driver.c \
     src/type1/t1gload.c \
@@ -119,5 +124,4 @@ contains(DEFINES, OMIM_FULL_FREETYPE) {
     src/type42/t42parse.c \
     src/type42/type42.c \
     src/winfonts/winfnt.c \
-
-}
+    src/cache/ftstrokedcache.c \

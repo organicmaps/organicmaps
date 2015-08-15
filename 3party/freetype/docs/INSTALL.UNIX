@@ -81,9 +81,28 @@ or MSys on Win32:
       make
       make install
 
+
+  3.1 Interdependency with HarfBuzz
+  .................................
+
+    Note that there  is a chicken-and-egg problem  currently since the
+    HarfBuzz library  (used by the  auto-hinter to improve  support of
+    OpenType  fonts)  depends on  FreeType,  which  can be  solved  as
+    follows in case HarfBuzz is not yet installed on your system.
+
+    1. Call    FreeType's     `configure'    script     with    option
+       `--without-harfbuzz', then compile and install FreeType.
+
+    2. Compile and install HarfBuzz.
+
+    3. Call    FreeType's    `configure'   script    without    option
+       `--without-harfbuzz' (after  executing `make  distclean'), then
+       compile and install FreeType again.
+
+
 ----------------------------------------------------------------------
 
-Copyright 2003-2007, 2013 by
+Copyright 2003-2015 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This  file is  part of  the FreeType  project, and  may only  be used,

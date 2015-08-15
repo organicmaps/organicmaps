@@ -2,11 +2,10 @@
 # FreeType 2 BZIP2 support configuration rules
 #
 
-# Copyright 2010 by
+# Copyright 2010-2015 by
 # Joel Klinghed.
 #
-# Based on src/lzw/rules.mk, Copyright 2004-2006 by
-# Albert Chin-A-Young.
+# based on `src/lzw/rules.mk'
 #
 # This file is part of the FreeType project, and may only be used, modified,
 # and distributed under the terms of the FreeType project license,
@@ -22,7 +21,9 @@ BZIP2_DIR := $(SRC_DIR)/bzip2
 
 # compilation flags for the driver
 #
-BZIP2_COMPILE := $(FT_COMPILE)
+BZIP2_COMPILE := $(CC) $(ANSIFLAGS)     \
+                       $(INCLUDE_FLAGS) \
+                       $(FT_CFLAGS)
 
 
 # BZIP2 support sources (i.e., C files)

@@ -1,6 +1,6 @@
 $! make Freetype2 under OpenVMS
 $!
-$! Copyright 2003, 2004, 2006, 2007 by
+$! Copyright 2003-2015 by
 $! David Turner, Robert Wilhelm, and Werner Lemberg.
 $!
 $! This file is part of the FreeType project, and may only be used, modified,
@@ -23,7 +23,7 @@ $! * LOPTS - Options to be passed to the link command
 $! * CCOPT - Options to be passed to the C compiler
 $!
 $! In case of problems with the install you might contact me at
-$! zinser@zinser.no-ip.info(preferred) or
+$! zinser@zinser.no-ip.info (preferred) or
 $! zinser@sysdev.deutsche-boerse.com (work)
 $!
 $! Make procedure history for Freetype2
@@ -172,7 +172,7 @@ $ deck
 
 
 all :
-        define freetype [--.include.freetype]
+        define freetype [--.include]
         define psaux [-.psaux]
         define autofit [-.autofit]
         define autohint [-.autohint]
@@ -356,8 +356,8 @@ $ deck
 CFLAGS=$(COMP_FLAGS)$(DEBUG)/include=([--.builds.vms],[--.include],[--.src.base])
 
 OBJS=ftbase.obj,ftinit.obj,ftglyph.obj,ftdebug.obj,ftbdf.obj,ftmm.obj,\
-     fttype1.obj,ftxf86.obj,ftpfr.obj,ftstroke.obj,ftwinfnt.obj,ftbbox.obj,\
-     ftbitmap.obj ftlcdfil.obj ftgasp.obj
+     fttype1.obj,ftfntfmt.obj,ftpfr.obj,ftstroke.obj,ftwinfnt.obj,ftbbox.obj,\
+     ftbitmap.obj,ftlcdfil.obj,ftgasp.obj
 
 all : $(OBJS)
         library [--.lib]freetype.olb $(OBJS)
@@ -1197,7 +1197,7 @@ $! Analyze Object files for OpenVMS AXP to extract Procedure and Data
 $! information to build a symbol vector for a shareable image
 $! All the "brains" of this logic was suggested by Hartmut Becker
 $! (Hartmut.Becker@compaq.com). All the bugs were introduced by me
-$! (zinser@decus.de), so if you do have problem reports please do not
+$! (zinser@zinser.no-ip.info), so if you do have problem reports please do not
 $! bother Hartmut/HP, but get in touch with me
 $!
 $! Version history

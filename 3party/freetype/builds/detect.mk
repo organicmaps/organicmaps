@@ -3,7 +3,7 @@
 #
 
 
-# Copyright 1996-2000, 2001, 2002, 2003, 2006, 2008 by
+# Copyright 1996-2015 by
 # David Turner, Robert Wilhelm, and Werner Lemberg.
 #
 # This file is part of the FreeType project, and may only be used, modified,
@@ -17,8 +17,8 @@
 # the following variables:
 #
 #   BUILD_DIR    The configuration and system-specific directory.  Usually
-#                `freetype/builds/$(PLATFORM)' but can be different for
-#                custom builds of the library.
+#                `builds/$(PLATFORM)' but can be different for custom builds
+#                of the library.
 #
 # The following variables must be defined in system specific `detect.mk'
 # files:
@@ -124,7 +124,7 @@ std_setup:
 	@echo "\`$(CONFIG_MK)' from this directory then read the INSTALL file for help."
 	@echo ""
 	@echo "Otherwise, simply type \`$(MAKE)' again to build the library,"
-	@echo "or \`$(MAKE) refdoc' to build the API reference (the latter needs python)."
+	@echo "or \`$(MAKE) refdoc' to build the API reference (this needs python >= 2.6)."
 	@echo ""
 	@$(COPY) $(CONFIG_RULES) $(CONFIG_MK)
 
@@ -146,7 +146,7 @@ dos_setup:
 	@echo '$(CONFIG_MK)' from this directory then read the INSTALL file for help.
 	@type builds$(SEP)newline
 	@echo Otherwise, simply type 'make' again to build the library.
-	@echo or 'make refdoc' to build the API reference (the latter needs python).
+	@echo or 'make refdoc' to build the API reference (this needs python >= 2.6).
 	@type builds$(SEP)newline
 	@$(COPY) $(subst /,$(SEP),$(CONFIG_RULES) $(CONFIG_MK)) > nul
 

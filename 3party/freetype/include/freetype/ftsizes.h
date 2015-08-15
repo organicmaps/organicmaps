@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    FreeType size objects management (specification).                    */
 /*                                                                         */
-/*  Copyright 1996-2001, 2003, 2004, 2006, 2009 by                         */
+/*  Copyright 1996-2015 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -129,7 +129,7 @@ FT_BEGIN_HEADER
   /* <Description>                                                         */
   /*    Even though it is possible to create several size objects for a    */
   /*    given face (see @FT_New_Size for details), functions like          */
-  /*    @FT_Load_Glyph or @FT_Load_Char only use the one which has been    */
+  /*    @FT_Load_Glyph or @FT_Load_Char only use the one that has been     */
   /*    activated last to determine the `current character pixel size'.    */
   /*                                                                       */
   /*    This function can be used to `activate' a previously created size  */

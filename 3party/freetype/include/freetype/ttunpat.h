@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Definitions for the unpatented TrueType hinting system               */
 /*                                                                         */
-/*  Copyright 2003, 2006 by                                                */
+/*  Copyright 2003-2015 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  Written by Graham Asher <graham.asher@btinternet.com>                  */
@@ -48,7 +48,8 @@ FT_BEGIN_HEADER
   */
 #define FT_PARAM_TAG_UNPATENTED_HINTING  FT_MAKE_TAG( 'u', 'n', 'p', 'a' )
 
- /* */
+  /* */
+
 
 FT_END_HEADER
 

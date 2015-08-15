@@ -8,10 +8,9 @@ How to customize the compilation of the library
 
 I. Configuration macros
 
-  The  file found  in `include/freetype/config/ftoption.h'  contains a
-  list  of  commented configuration  macros  that  can  be toggled  by
-  developers  to  indicate  which  features  should  be  active  while
-  building the library.
+  The  file `include/freetype/config/ftoption.h'  contains a  list  of
+  commented configuration macros that can  be toggled by developers to
+  indicate which features should be active while building the library.
 
   These  options range  from debug  level to  availability  of certain
   features,   like  native   TrueType  hinting   through   a  bytecode
@@ -36,8 +35,8 @@ II. Modules list
   can keep the source files `clean'.
 
   If  you don't  use  GNU make  you  have to  manually  edit the  file
-  `include/freetype/config/ftmodule.h'  (which is  *not* used  with if
-  compiled with GNU make) to  add or remove the drivers and components
+  `include/freetype/config/ftmodule.h' (which  is *not* used  with  if
+  compiled with GNU make) to add  or remove the drivers and components
   you want  to compile into  the library.  See `INSTALL.ANY'  for more
   information.
 
@@ -101,14 +100,12 @@ IV. Overriding default configuration and module headers
     can do something like:
 
       custom/
-        freetype/
-          config/
-            ftoption.h    => custom options header
-            ftmodule.h    => custom modules list
+        config/
+          ftoption.h      => custom options header
+          ftmodule.h      => custom modules list
 
       include/            => normal FreeType 2 include
-        freetype/
-          ...
+        ...
 
     then change the C include path to always give the path to `custom'
     before the FreeType 2 `include'.
@@ -142,7 +139,7 @@ IV. Overriding default configuration and module headers
 
 ----------------------------------------------------------------------
 
-Copyright 2003, 2005, 2006, 2012 by
+Copyright 2003-2015 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This  file is  part of  the FreeType  project, and  may only  be used,
