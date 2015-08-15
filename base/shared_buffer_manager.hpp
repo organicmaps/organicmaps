@@ -21,6 +21,8 @@ private:
 public:
   static SharedBufferManager & instance();
 
+  void clearReserved();
+
   shared_buffer_ptr_t reserveSharedBuffer(size_t s);
   void freeSharedBuffer(size_t s, shared_buffer_ptr_t buf);
 

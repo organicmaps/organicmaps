@@ -21,7 +21,7 @@
 namespace dp
 {
 
-uint32_t const kMaxTextureSize = 2048;
+uint32_t const kMaxTextureSize = 512;
 uint32_t const kStippleTextureWidth = 512;
 uint32_t const kMinStippleTextureHeight = 64;
 uint32_t const kMinColorTextureSize = 32;

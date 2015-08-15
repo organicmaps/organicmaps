@@ -898,6 +898,7 @@ void Framework::MemoryWarning()
 {
   LOG(LINFO, ("MemoryWarning"));
   ClearAllCaches();
+  SharedBufferManager::instance().clearReserved();
 }
 
 void Framework::EnterBackground()

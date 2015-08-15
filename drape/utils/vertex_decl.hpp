@@ -15,6 +15,17 @@ struct BaseVertex
   using TTexCoord = glsl::vec2;
 };
 
+struct AreaVertex : BaseVertex
+{
+  AreaVertex();
+  AreaVertex(TPosition const & position, TTexCoord const & colorTexCoord);
+
+  TPosition m_position;
+  TTexCoord m_colorTexCoord;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
 struct SolidTexturingVertex : BaseVertex
 {
   SolidTexturingVertex();

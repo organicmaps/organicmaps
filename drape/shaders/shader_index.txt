@@ -1,4 +1,5 @@
 TEXT_PROGRAM text_vertex_shader.vsh text_fragment_shader.fsh
+AREA_PROGRAM area_vertex_shader.vsh texturing_fragment_shader.fsh
 TEXTURING_PROGRAM texturing_vertex_shader.vsh texturing_fragment_shader.fsh
 LINE_PROGRAM line_vertex_shader.vsh line_fragment_shader.fsh
 CAP_JOIN_PROGRAM circle_shader.vsh circle_shader.fsh

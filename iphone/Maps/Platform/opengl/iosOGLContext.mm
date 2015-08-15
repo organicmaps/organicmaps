@@ -1,6 +1,8 @@
 #import "iosOGLContext.h"
-#import "../../../../base/assert.hpp"
-#import "../../../../base/logging.cpp"
+#import "base/assert.hpp"
+#import "base/logging.cpp"
+
+#import "drape/glfunctions.hpp"
 
 iosOGLContext::iosOGLContext(CAEAGLLayer * layer, iosOGLContext * contextToShareWith, bool needBuffers)
   : m_layer(layer)
@@ -39,8 +41,13 @@ void iosOGLContext::present()
   ASSERT(m_nativeContext != NULL, ());
   ASSERT(m_renderBufferId, ());
 
+  GLenum const discards[] = { GL_DEPTH_ATTACHMENT, GL_COLOR_ATTACHMENT0 };
+  GLCHECK(glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards));
+
   glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId);
   [m_nativeContext presentRenderbuffer: GL_RENDERBUFFER];
+
+  GLCHECK(glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards + 1));
 }
 
 void iosOGLContext::setDefaultFramebuffer()

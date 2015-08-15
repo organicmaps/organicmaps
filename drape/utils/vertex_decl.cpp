@@ -8,6 +8,7 @@ namespace
 
 enum VertexType
 {
+  Area,
   SolidTexturing,
   TextStatic,
   TextDynamic,
@@ -24,6 +25,18 @@ struct BindingNode
 };
 
 typedef dp::BindingInfo (*TInitFunction)();
+
+dp::BindingInfo AreaBindingInit()
+{
+  static_assert(sizeof(AreaVertex) == (sizeof(AreaVertex::TPosition) +
+                                       sizeof(AreaVertex::TTexCoord)), "");
+
+  dp::BindingFiller<AreaVertex> filler(2);
+  filler.FillDecl<SolidTexturingVertex::TPosition>("a_position");
+  filler.FillDecl<SolidTexturingVertex::TTexCoord>("a_colorTexCoords");
+
+  return filler.m_info;
+}
 
 dp::BindingInfo SolidTexturingBindingInit()
 {
@@ -108,6 +121,7 @@ dp::BindingInfo RouteBindingInit()
 BindingNode g_bindingNodes[TypeCount];
 TInitFunction g_initFunctions[TypeCount] =
 {
+  &AreaBindingInit,
   &SolidTexturingBindingInit,
   &TextStaticBindingInit,
   &TextDynamicBindingInit,
@@ -129,6 +143,23 @@ dp::BindingInfo const & GetBinding(VertexType type)
 }
 
 } // namespace
+
+AreaVertex::AreaVertex()
+  : m_position(0.0, 0.0, 0.0)
+  , m_colorTexCoord(0.0, 0.0)
+{
+}
+
+AreaVertex::AreaVertex(TPosition const & position, TTexCoord const & colorTexCoord)
+  : m_position(position)
+  , m_colorTexCoord(colorTexCoord)
+{
+}
+
+dp::BindingInfo const & AreaVertex::GetBindingInfo()
+{
+  return GetBinding(Area);
+}
 
 SolidTexturingVertex::SolidTexturingVertex()
   : m_position(0.0, 0.0, 0.0)

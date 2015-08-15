@@ -7,6 +7,12 @@ SharedBufferManager & SharedBufferManager::instance()
   return i;
 }
 
+void SharedBufferManager::clearReserved()
+{
+  threads::MutexGuard g(m_mutex);
+  m_sharedBuffers.clear();
+}
+
 SharedBufferManager::shared_buffer_ptr_t SharedBufferManager::reserveSharedBuffer(size_t s)
 {
   threads::MutexGuard g(m_mutex);

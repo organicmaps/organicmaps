@@ -1,6 +1,6 @@
 #pragma once
 
-#import "../../../../drape/oglcontext.hpp"
+#import "drape/oglcontext.hpp"
 
 #import <QuartzCore/CAEAGLLayer.h>
 #import <OpenGLES/ES2/gl.h>
