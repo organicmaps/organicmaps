@@ -533,31 +533,15 @@ private:
 class FlushRouteMessage : public Message
 {
 public:
-  FlushRouteMessage(dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer,
-                    RouteData const & routeData, dp::GLState const & endOfRouteState,
-                    drape_ptr<dp::RenderBucket> && endOfRouteBuffer)
-    : m_state(state)
-    , m_buffer(move(buffer))
-    , m_routeData(routeData)
-    , m_endOfRouteState(endOfRouteState)
-    , m_endOfRouteBuffer(move(endOfRouteBuffer))
+  FlushRouteMessage(drape_ptr<RouteData> && routeData)
+    : m_routeData(move(routeData))
   {}
 
   Type GetType() const override { return Message::FlushRoute; }
-
-  dp::GLState const & GetState() const { return m_state; }
-  drape_ptr<dp::RenderBucket> && AcceptBuffer() { return move(m_buffer); }
-  RouteData const & GetRouteData() const { return m_routeData; }
-
-  dp::GLState const & GetEndOfRouteState() const { return m_endOfRouteState; }
-  drape_ptr<dp::RenderBucket> && AcceptEndOfRouteBuffer() { return move(m_endOfRouteBuffer); }
+  drape_ptr<RouteData> && AcceptRouteData() { return move(m_routeData); }
 
 private:
-  dp::GLState m_state;
-  drape_ptr<dp::RenderBucket> m_buffer;
-  RouteData m_routeData;
-  dp::GLState m_endOfRouteState;
-  drape_ptr<dp::RenderBucket> m_endOfRouteBuffer;
+  drape_ptr<RouteData> m_routeData;
 };
 
 class UpdateMapStyleMessage : public Message

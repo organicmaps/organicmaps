@@ -34,12 +34,10 @@ BackendRenderer::BackendRenderer(Params const & params)
                               MessagePriority::High);
   });
 
-  m_routeBuilder = make_unique_dp<RouteBuilder>([this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket,
-                                                RouteData const & routeData, dp::GLState const & endOfRouteState,
-                                                drape_ptr<dp::RenderBucket> && endOfRouteBucket)
+  m_routeBuilder = make_unique_dp<RouteBuilder>([this](drape_ptr<RouteData> && routeData)
   {
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<FlushRouteMessage>(state, move(bucket), routeData, endOfRouteState, move(endOfRouteBucket)),
+                              make_unique_dp<FlushRouteMessage>(move(routeData)),
                               MessagePriority::Normal);
   });
 

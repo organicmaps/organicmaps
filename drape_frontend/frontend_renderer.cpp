@@ -302,16 +302,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::FlushRoute:
     {
       ref_ptr<FlushRouteMessage> msg = message;
-      dp::GLState const & state = msg->GetState();
-      drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
-      m_routeRenderer->AddRouteRenderBucket(state, move(bucket), msg->GetRouteData(), make_ref(m_gpuProgramManager));
-
-      dp::GLState const & eorState = msg->GetEndOfRouteState();
-      drape_ptr<dp::RenderBucket> eorBucket = msg->AcceptEndOfRouteBuffer();
-      if (eorBucket != nullptr)
-      {
-        m_routeRenderer->AddEndOfRouteRenderBucket(eorState, move(eorBucket), make_ref(m_gpuProgramManager));
-      }
+      drape_ptr<RouteData> routeData = msg->AcceptRouteData();
+      m_routeRenderer->SetRouteData(move(routeData), make_ref(m_gpuProgramManager));
 
       m_myPositionController->ActivateRouting();
       break;

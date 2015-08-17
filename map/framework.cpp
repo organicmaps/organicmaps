@@ -1874,7 +1874,13 @@ void Framework::InsertRoute(Route const & route)
     for (size_t i = 0; i < turnsGeom.size(); i++)
       turns.push_back(turnsGeom[i].m_mercatorDistance);
   }
-  m_drapeEngine->AddRoute(route.GetPoly(), turns, dp::Color(110, 180, 240, 160));
+
+  dp::Color routeColor;
+  if (m_currentRouterType == RouterType::Pedestrian)
+    routeColor = dp::Color(5, 105, 175, 204);
+  else
+    routeColor = dp::Color(30, 150, 240, 204);
+  m_drapeEngine->AddRoute(route.GetPoly(), turns, routeColor);
 }
 
 void Framework::CheckLocationForRouting(GpsInfo const & info)
