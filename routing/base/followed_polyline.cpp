@@ -102,12 +102,12 @@ Iter FollowedPolyline::GetClosestProjection(m2::RectD const & posRect,
 }
 
 Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,
-                                                                      double predictDistance) const
+                                                    double predictDistance) const
 {
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
 
-  if(predictDistance <= 0.0)
+  if (predictDistance <= 0.0)
     return UpdateProjection(posRect);
 
   Iter res;
