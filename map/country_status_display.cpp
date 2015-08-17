@@ -13,6 +13,8 @@
 #include "base/thread.hpp"
 #include "base/string_format.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
+
 #include "std/bind.hpp"
 #include "std/sstream.hpp"
 
@@ -464,6 +466,8 @@ void CountryStatusDisplay::OnButtonClicked(gui::Element const * button)
     opt = -1;
 
   m_downloadCallback(m_countryIdx, opt);
+
+  alohalytics::LogEvent("CountryStatusDisplay::OnButtonClicked", DebugPrint(options));
 }
 
 void CountryStatusDisplay::Repaint() const
