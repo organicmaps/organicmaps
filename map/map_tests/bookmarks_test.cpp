@@ -195,7 +195,7 @@ UNIT_TEST(Bookmarks_ExportKML)
   unique_ptr<BookmarkCategory> cat2(BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME, framework));
   CheckBookmarks(*cat2);
 
-  cat2->SaveToKMLFile();
+  TEST(cat2->SaveToKMLFile(), ());
   // old file should be deleted if we save bookmarks with new category name
   uint64_t dummy;
   TEST(!my::GetFileSize(BOOKMARKS_FILE_NAME, dummy), ());
@@ -266,27 +266,20 @@ UNIT_TEST(Bookmarks_Timestamp)
   char const * arrCat[] = { "cat", "cat1" };
 
   BookmarkData b1("name", "type");
-  fm.AddCategory(arrCat[0]);
-  fm.AddBookmark(0, orgPoint, b1);
+  TEST_EQUAL(fm.AddCategory(arrCat[0]), 0, ());
+  TEST_EQUAL(fm.AddBookmark(0, orgPoint, b1), 0, ());
 
   Bookmark const * pBm = GetBookmark(fm, orgPoint);
-  time_t const timeStamp = pBm->GetTimeStamp();
-  TEST_NOT_EQUAL(timeStamp, my::INVALID_TIME_STAMP, ());
+  TEST_NOT_EQUAL(pBm->GetTimeStamp(), my::INVALID_TIME_STAMP, ());
 
   BookmarkData b3("newName", "newType");
-  b3.SetTimeStamp(12345);
-  TEST_NOT_EQUAL(b3.GetTimeStamp(), timeStamp, ());
-
-  fm.AddBookmark(0, orgPoint, b3);
-
-  pBm = GetBookmark(fm, orgPoint);
-  TEST_EQUAL(pBm->GetTimeStamp(), timeStamp, ());
-
-  b3.SetTimeStamp(12345);
-  TEST_NOT_EQUAL(b3.GetTimeStamp(), timeStamp, ());
+  TEST_EQUAL(fm.AddBookmark(0, orgPoint, b3), 0, ());
 
   fm.AddCategory(arrCat[1]);
-  fm.AddBookmark(1, orgPoint, b3);
+  TEST_EQUAL(fm.AddBookmark(1, orgPoint, b3), 0, ());
+
+  // Check bookmarks order here. First added should be in the bottom of the list.
+  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1), pBm, ());
 
   TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1)->GetName(), "name", ());
   TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1)->GetType(), "type", ());
@@ -299,9 +292,6 @@ UNIT_TEST(Bookmarks_Timestamp)
 
   TEST_EQUAL(fm.GetBmCategory(0)->GetBookmarksCount(), 2, ());
   TEST_EQUAL(fm.GetBmCategory(1)->GetBookmarksCount(), 1, ());
-
-  pBm = GetBookmark(fm, orgPoint);
-  TEST_EQUAL(pBm->GetTimeStamp(), timeStamp, ());
 
   DeleteCategoryFiles(arrCat);
 }
@@ -569,11 +559,11 @@ UNIT_TEST(BookmarkCategory_EmptyName)
 {
   Framework framework;
   unique_ptr<BookmarkCategory> pCat(new BookmarkCategory("", framework));
-  pCat->AddBookmark(m2::PointD(0, 0), BookmarkData("", "placemark-red"));
-  pCat->SaveToKMLFile();
+  TEST(pCat->AddBookmark(m2::PointD(0, 0), BookmarkData("", "placemark-red")), ());
+  TEST(pCat->SaveToKMLFile(), ());
 
   pCat->SetName("xxx");
-  pCat->SaveToKMLFile();
+  TEST(pCat->SaveToKMLFile(), ());
 
   char const * arrFiles[] = { "Bookmarks", "xxx" };
   DeleteCategoryFiles(arrFiles);

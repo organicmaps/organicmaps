@@ -54,7 +54,7 @@ void ActiveMapsLayout::Init(vector<TLocalFilePtr> const & files)
     }
     else
     {
-      LOG(LWARNING, ("Can't find map index for", file));
+      LOG(LWARNING, ("Can't find map index for", file->GetCountryName()));
     }
   }
 
