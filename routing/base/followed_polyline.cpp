@@ -151,4 +151,18 @@ double FollowedPolyline::GetMercatorDistanceFromBegin() const
 
   return distance;
 }
+
+void FollowedPolyline::GetCurrentDirectionPoint(m2::PointD & pt, double toleranceM) const
+{
+  ASSERT(IsValid(), ());
+  size_t currentIndex = min(m_current.m_ind + 1, m_poly.GetSize() - 1);
+  m2::PointD point = m_poly.GetPoint(currentIndex);
+  for (; currentIndex < m_poly.GetSize() - 1; point = m_poly.GetPoint(++currentIndex))
+  {
+    if (MercatorBounds::DistanceOnEarth(point, m_current.m_pt) > toleranceM)
+      break;
+  }
+
+  pt = point;
+}
 }  //  namespace routing

@@ -26,10 +26,11 @@ public:
 
   double GetMercatorDistanceFromBegin() const;
 
-  void GetCurrentDirectionPoint(m2::PointD & pt) const
-  {
-    pt = m_poly.GetPoint(min(m_current.m_ind + 1, m_poly.GetSize() - 1));
-  }
+  /*! \brief Return next navigation point for direction widgets.
+   *  Returns first geomety point from the polyline after your location if it is farther then
+   *  toleranceM.
+   */
+  void GetCurrentDirectionPoint(m2::PointD & pt, double toleranceM) const;
 
   struct Iter
   {

@@ -2244,7 +2244,6 @@ void Framework::InsertRoute(Route const & route)
     return;
   }
 
-  double mercatorDistance = 0;
   vector<double> turnsDistances;
   if (m_currentRouterType == RouterType::Vehicle)
   {

@@ -83,4 +83,19 @@ UNIT_TEST(FollowedPolylineDistanceCalculationTest)
                                                    kTestDirectedPolyline.Back());
   ASSERT_LESS(pow(distance - masterDistance, 2), 0.001, (distance, masterDistance));
 }
+
+UNIT_TEST(FollowdPolylineDirectionTest)
+{
+  m2::PolylineD testPolyline({{0, 0}, {1.00003, 0}, {1.00003, 1}});
+  FollowedPolyline polyline(testPolyline.Begin(), testPolyline.End());
+  TEST_EQUAL(polyline.GetCurrentIter().m_ind, 0, ());
+  m2::PointD directionPoint;
+  polyline.GetCurrentDirectionPoint(directionPoint, 20);
+  TEST_EQUAL(directionPoint, testPolyline.GetPoint(1), ());
+  polyline.UpdateProjection(MercatorBounds::RectByCenterXYAndSizeInMeters({1.0, 0}, 2));
+  polyline.GetCurrentDirectionPoint(directionPoint, 0.0001);
+  TEST_EQUAL(directionPoint, testPolyline.GetPoint(1), ());
+  polyline.GetCurrentDirectionPoint(directionPoint, 20);
+  TEST_EQUAL(directionPoint, testPolyline.GetPoint(2), ());
+}
 }  // namespace routing_test
