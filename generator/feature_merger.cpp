@@ -219,7 +219,8 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
           if (pTest->HasType(type))
           {
             double const pr = pTest->GetPriority();
-            ASSERT_GREATER ( pr, 0.0, () );
+            // It's not necessery assert, because it's possible in source data
+//            ASSERT_GREATER ( pr, 0.0, () );
             if (pr > bestPr)
             {
               pp = pTest;
