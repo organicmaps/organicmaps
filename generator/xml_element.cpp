@@ -36,7 +36,8 @@ string XMLElement::ToString(string const & shift) const
   switch (type)
   {
     case EntityType::Node:
-      ss << "Node: " << id << " (" << fixed << setw(7) << lat << ", " << lon << ")" << " tags: " << m_tags.size();
+      ss << "Node: " << id << " (" << fixed << setw(7) << lat << ", " << lon << ")"
+         << " tags: " << m_tags.size();
       break;
     case EntityType::Nd:
       ss << "Nd ref: " << ref;
@@ -47,7 +48,7 @@ string XMLElement::ToString(string const & shift) const
       {
         string shift2 = shift;
         shift2 += shift2.empty() ? "\n  " : "  ";
-        for ( auto const & e : m_nds )
+        for (auto const & e : m_nds)
           ss << shift2 << e;
       }
       break;
@@ -57,7 +58,7 @@ string XMLElement::ToString(string const & shift) const
       {
         string shift2 = shift;
         shift2 += shift2.empty() ? "\n  " : "  ";
-        for ( auto const & e : m_members )
+        for (auto const & e : m_members)
           ss << shift2 << e.ref << " " << DebugPrint(e.type) << " " << e.role;
       }
       break;
@@ -79,7 +80,6 @@ string XMLElement::ToString(string const & shift) const
   }
   return ss.str();
 }
-
 
 string DebugPrint(XMLElement const & e)
 {
