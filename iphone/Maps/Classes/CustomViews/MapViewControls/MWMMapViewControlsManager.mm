@@ -134,7 +134,7 @@
 {
   [[MapsAppDelegate theApp].m_locationManager start:self.navigationManager];
   self.navigationManager.state = MWMNavigationDashboardStatePlanning;
-  GetFramework().BuildRoute(self.routeDestination, 0 /* timeoutSec */);
+  GetFramework().BuildRoute(ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate), self.routeDestination, 0 /* timeoutSec */);
   // This hack is needed to instantly show initial progress.
   // Because user may think that nothing happens when he is building a route.
   dispatch_async(dispatch_get_main_queue(), ^

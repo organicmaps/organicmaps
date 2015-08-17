@@ -342,7 +342,8 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
       return;
     }
 
-    Framework.nativeBuildRoute(mEndPoint.getLat(), mEndPoint.getLon());
+    Location location = LocationHelper.INSTANCE.getLastLocation();
+    Framework.nativeBuildRoute(location.getLatitude(), location.getLongitude(), mEndPoint.getLat(), mEndPoint.getLon());
   }
 
   private void showRoutingDisclaimer()

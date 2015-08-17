@@ -1313,9 +1313,13 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
+  Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass thiz, jdouble startLat,
+                                                      jdouble startLon,  jdouble finishLat,
+                                                      jdouble finishLon)
   {
-    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::BuildRoute, frm(), MercatorBounds::FromLatLon(lat, lon), 0 /* timeoutSec */ ));
+    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::BuildRoute, frm(),
+          MercatorBounds::FromLatLon(startLat, startLon),
+          MercatorBounds::FromLatLon(finishLat, finishLon), 0 /* timeoutSec */ ));
   }
 
   JNIEXPORT void JNICALL

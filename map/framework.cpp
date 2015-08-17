@@ -2113,17 +2113,9 @@ void Framework::UpdateSavedDataVersion()
   Settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
 }
 
-void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
+void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, uint32_t timeoutSec)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
-
-  shared_ptr<State> const & state = GetLocationState();
-  if (!state->IsModeHasPosition())
-  {
-    CallRouteBuilded(IRouter::NoCurrentPosition, vector<storage::TIndex>(),
-                     vector<storage::TIndex>());
-    return;
-  }
 
   if (IsRoutingActive())
     CloseRouting();
@@ -2159,7 +2151,7 @@ void Framework::BuildRoute(m2::PointD const & destination, uint32_t timeoutSec)
     CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
   };
 
-  m_routingSession.BuildRoute(state->Position(), destination,
+  m_routingSession.BuildRoute(start, finish,
                               [readyCallback](Route const & route, IRouter::ResultCode code)
                               {
                                 GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));

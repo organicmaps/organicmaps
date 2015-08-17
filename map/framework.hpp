@@ -570,7 +570,7 @@ public:
   bool IsRoutingActive() const { return m_routingSession.IsActive(); }
   bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
   bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }
-  void BuildRoute(m2::PointD const & destination, uint32_t timeoutSec);
+  void BuildRoute(m2::PointD const & start, m2::PointD const & finish, uint32_t timeoutSec);
   void SetRouteBuildingListener(TRouteBuildingCallback const & buildingCallback) { m_routingCallback = buildingCallback; }
   void SetRouteProgressListener(TRouteProgressCallback const & progressCallback) { m_progressCallback = progressCallback; }
   void FollowRoute();

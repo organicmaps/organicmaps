@@ -414,7 +414,13 @@ namespace qt
         if (m_framework->IsRoutingActive())
           m_framework->CloseRouting();
         else
-          m_framework->BuildRoute(m_framework->PtoG(pt), 0 /* timeoutSec */);
+        {
+          auto const & state = m_framework->GetLocationState();
+          if (state->IsModeHasPosition())
+            m_framework->BuildRoute(state->Position(), m_framework->PtoG(pt), 0 /* timeoutSec */);
+          else
+            return;
+        }
       }
       if (e->modifiers() & Qt::AltModifier)
       {
