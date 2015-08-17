@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -46,7 +46,7 @@
                         <action selector="navigationGoPressed:" destination="-1" eventType="touchUpInside" id="oB1-g0-g7y"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bfG-c5-fMl">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bfG-c5-fMl" customClass="SolidTouchView">
                     <rect key="frame" x="0.0" y="0.0" width="736" height="44"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T3a-Uc-t4C" userLabel="Progress">
@@ -237,6 +237,20 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                    <integer key="value" value="2"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
+                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.23999999999999999" colorSpace="calibratedRGB"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                    <integer key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                    <size key="value" width="0.0" height="1"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="arrivalsLabel" destination="0NR-QB-wCJ" id="E3B-xd-DiO"/>
                 <outlet property="cancelButton" destination="eGS-Xr-GDV" id="9gQ-5b-oIX"/>

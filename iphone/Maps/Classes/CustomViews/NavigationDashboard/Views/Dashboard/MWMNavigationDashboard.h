@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel * eta;
 @property (weak, nonatomic) IBOutlet UILabel * arrivalsTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel * roundRoadLabel;
+@property (weak, nonatomic) IBOutlet UILabel * streetLabel;
+@property (weak, nonatomic) IBOutlet UISlider * progress;
 
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity;
 

@@ -45,5 +45,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 - (void)playTurnNotifications;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 - (void)setRouteBuildingProgress:(CGFloat)progress;
+- (void)showHelperPanels;
+- (void)hideHelperPanels;
 
 @end

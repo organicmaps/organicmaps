@@ -6,15 +6,23 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "Macros.h"
 #import "MapsAppDelegate.h"
+#import "MWMLanesPanel.h"
 #import "MWMNavigationDashboard.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
+#import "MWMNextTurnPanel.h"
+#import "MWMRouteHelperPanelsDrawer.h"
 #import "MWMRoutePreview.h"
 #import "MWMTextToSpeech.h"
+#import "UIKitCategories.h"
 
 @interface MWMNavigationDashboardManager ()
+{
+  vector<MWMRouteHelperPanel *> helperPanels;
+}
 
 @property (nonatomic) IBOutlet MWMRoutePreview * routePreviewLandscape;
 @property (nonatomic) IBOutlet MWMRoutePreview * routePreviewPortrait;
@@ -29,6 +37,10 @@
 
 @property (nonatomic) MWMNavigationDashboardEntity * entity;
 @property (nonatomic) MWMTextToSpeech * tts;
+//@property (nonatomic) MWMLanesPanel * lanesPanel;
+@property (nonatomic) MWMNextTurnPanel * nextTurnPanel;
+@property (nonatomic) MWMRouteHelperPanelsDrawer * drawer;
+
 @end
 
 @implementation MWMNavigationDashboardManager
@@ -46,12 +58,19 @@
     [NSBundle.mainBundle loadNibNamed:@"MWMLandscapeRoutePreview" owner:self options:nil];
     self.routePreview = isPortrait ? self.routePreviewPortrait : self.routePreviewLandscape;
     self.routePreviewPortrait.delegate = self.routePreviewLandscape.delegate = delegate;
-
-    [NSBundle.mainBundle loadNibNamed:@"MWMPortraitNavigationDashboard" owner:self options:nil];
-    [NSBundle.mainBundle loadNibNamed:@"MWMLandscapeNavigationDashboard" owner:self options:nil];
-    self.navigationDashboard = isPortrait ? self.navigationDashboardPortrait : self.navigationDashboardLandscape;
-    self.navigationDashboardPortrait.delegate = self.navigationDashboardLandscape.delegate = delegate;
-    
+    if (IPAD)
+    {
+      [NSBundle.mainBundle loadNibNamed:@"MWMNiPadNavigationDashboard" owner:self options:nil];
+      self.navigationDashboard = self.navigationDashboardPortrait;
+      self.navigationDashboard.delegate = delegate;
+    }
+    else
+    {
+      [NSBundle.mainBundle loadNibNamed:@"MWMPortraitNavigationDashboard" owner:self options:nil];
+      [NSBundle.mainBundle loadNibNamed:@"MWMLandscapeNavigationDashboard" owner:self options:nil];
+      self.navigationDashboard = isPortrait ? self.navigationDashboardPortrait : self.navigationDashboardLandscape;
+      self.navigationDashboardPortrait.delegate = self.navigationDashboardLandscape.delegate = delegate;
+    }
     self.tts = [[MWMTextToSpeech alloc] init];
   }
   return self;
@@ -61,8 +80,9 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-  BOOL const isPortrait = orientation == UIInterfaceOrientationPortrait ||
-                          orientation == UIInterfaceOrientationPortraitUpsideDown;
+  if (IPAD)
+    return;
+  BOOL const isPortrait = UIInterfaceOrientationIsPortrait(orientation);
   MWMRoutePreview * routePreview = isPortrait ? self.routePreviewPortrait : self.routePreviewLandscape;
   if (self.routePreview.isVisible && ![routePreview isEqual:self.routePreview])
   {
@@ -79,6 +99,19 @@
     [navigationDashboard addToView:self.ownerView];
   }
   self.navigationDashboard = navigationDashboard;
+  [self.drawer invalidateTopBounds:helperPanels forOrientation:orientation];
+}
+
+- (void)hideHelperPanels
+{
+  for (auto p : helperPanels)
+    [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ p.alpha = 0.; }];
+}
+
+- (void)showHelperPanels
+{
+  for (auto p : helperPanels)
+    [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ p.alpha = 1.; }];
 }
 
 - (MWMNavigationDashboardEntity *)entity
@@ -111,6 +144,59 @@
   [self.routePreviewPortrait configureWithEntity:self.entity];
   [self.navigationDashboardLandscape configureWithEntity:self.entity];
   [self.navigationDashboardPortrait configureWithEntity:self.entity];
+  if (self.state != MWMNavigationDashboardStateNavigation)
+    return;
+//  if (self.entity.lanes.size())
+//  {
+//    [self.lanesPanel configureWithLanes:self.entity.lanes];
+//    [self addPanel:self.lanesPanel];
+//  }
+//  else
+//  {
+//    [self removePanel:self.lanesPanel];
+//  }
+  if (self.entity.nextTurnImage)
+  {
+    [self.nextTurnPanel configureWithImage:self.entity.nextTurnImage];
+    [self addPanel:self.nextTurnPanel];
+  }
+  else
+  {
+    [self removePanel:self.nextTurnPanel];
+  }
+  [self.drawer drawPanels:helperPanels];
+}
+
+- (void)addPanel:(MWMRouteHelperPanel *)panel
+{
+  if (helperPanels.empty())
+  {
+    helperPanels.push_back(panel);
+    return;
+  }
+  if (helperPanels.size() == 1)
+  {
+    if (![helperPanels.front() isKindOfClass:panel.class])
+    {
+      helperPanels.push_back(panel);
+      return;
+    }
+  }
+  for (auto p : helperPanels)
+  {
+    if ([p isEqual:panel])
+      continue;
+
+    if ([p isKindOfClass:panel.class])
+      replace(helperPanels.begin(), helperPanels.end(), p, panel);
+  }
+}
+
+- (void)removePanel:(MWMRouteHelperPanel *)panel
+{
+  if (find(helperPanels.begin(), helperPanels.end(), panel) != helperPanels.end())
+    helperPanels.erase(remove(helperPanels.begin(), helperPanels.end(), panel));
+  panel.hidden = YES;
 }
 
 #pragma mark - MWMRoutePreview
@@ -147,6 +233,9 @@
 - (IBAction)navigationCancelPressed:(UIButton *)sender
 {
   self.state = MWMNavigationDashboardStateHidden;
+  [self removePanel:self.nextTurnPanel];
+//  [self removePanel:self.lanesPanel];
+  helperPanels.clear();
   [self.delegate didCancelRouting];
 }
 
@@ -164,6 +253,8 @@
 {
   [self.routePreview remove];
   [self.navigationDashboard remove];
+  [self removePanel:self.nextTurnPanel];
+//  [self removePanel:self.lanesPanel];
 }
 
 - (void)showStatePlanning
@@ -208,6 +299,42 @@
 }
 
 #pragma mark - Properties
+
+- (MWMRouteHelperPanelsDrawer *)drawer
+{
+  if (!_drawer)
+  {
+    if (IPAD)
+      _drawer = [[MWMRouteHelperPanelsDrawer alloc] initWithView:self.navigationDashboard];
+    else
+      _drawer = [[MWMRouteHelperPanelsDrawer alloc] initWithView:self.ownerView];
+  }
+  return _drawer;
+}
+
+//- (MWMLanesPanel *)lanesPanel
+//{
+//  if (!_lanesPanel)
+//  {
+//    if (IPAD)
+//      _lanesPanel = [[MWMLanesPanel alloc] initWithParentView:self.navigationDashboard];
+//    else
+//      _lanesPanel = [[MWMLanesPanel alloc] initWithParentView:self.ownerView];
+//  }
+//  return _lanesPanel;
+//}
+
+- (MWMNextTurnPanel *)nextTurnPanel
+{
+  if (!_nextTurnPanel)
+  {
+    if (IPAD)
+      _nextTurnPanel = [MWMNextTurnPanel turnPanelWithOwnerView:self.navigationDashboard];
+    else
+      _nextTurnPanel = [MWMNextTurnPanel turnPanelWithOwnerView:self.ownerView];
+  }
+  return _nextTurnPanel;
+}
 
 - (void)setState:(MWMNavigationDashboardState)state
 {

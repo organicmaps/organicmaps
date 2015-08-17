@@ -62,6 +62,12 @@
 {
   [self.placePageManager willRotateToInterfaceOrientation:orientation];
   [self.navigationManager willRotateToInterfaceOrientation:orientation];
+  if (!self.placePageManager.entity)
+    return;
+  if (UIInterfaceOrientationIsLandscape(orientation))
+    [self.navigationManager hideHelperPanels];
+  else
+    [self.navigationManager showHelperPanels];
 }
 
 #pragma mark - MWMPlacePageViewManager
@@ -74,6 +80,8 @@
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
 {
   [self.placePageManager showPlacePageWithUserMark:std::move(userMark)];
+  if (UIInterfaceOrientationIsLandscape(self.ownerController.interfaceOrientation))
+    [self.navigationManager hideHelperPanels];
 }
 
 - (void)apiBack
@@ -94,6 +102,12 @@
 {
   CGFloat const bound = MIN(self.menuManager.menuButtonFrameWithSpacing.origin.y, point.y);
   [self.zoomButtons setBottomBound:bound];
+}
+
+- (void)placePageDidClose
+{
+  if (UIInterfaceOrientationIsLandscape(self.ownerController.interfaceOrientation))
+    [self.navigationManager showHelperPanels];
 }
 
 - (void)addPlacePageViews:(NSArray *)views

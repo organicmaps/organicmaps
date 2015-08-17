@@ -7,16 +7,16 @@
 //
 
 #import "MWMNavigationView.h"
+#import "UIKitCategories.h"
 
 static CGFloat const kStatusbarHeight = 20.0;
 
 @interface MWMNavigationView ()
 
 @property (nonatomic) BOOL isVisible;
-@property (nonatomic) CGFloat defaultHeight;
+@property (nonatomic, readwrite) CGFloat defaultHeight;
 
-@property (nonatomic) UIView * statusbarBackground;
-@property (weak, nonatomic) IBOutlet UIView * contentView;
+@property (weak, nonatomic, readwrite) IBOutlet UIView * contentView;
 
 @end
 

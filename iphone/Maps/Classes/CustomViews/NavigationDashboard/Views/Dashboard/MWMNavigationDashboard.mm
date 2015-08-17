@@ -10,6 +10,8 @@
 #import "MWMNavigationDashboard.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "TimeUtils.h"
+#import "UIKitCategories.h"
+#import "UIColor+MapsMeColor.h"
 
 @interface MWMImageView : UIImageView
 
@@ -29,6 +31,19 @@
 
 @implementation MWMNavigationDashboard
 
+- (void)awakeFromNib
+{
+  [super awakeFromNib];
+  if (IPAD)
+    self.statusbarBackground = nil;
+  [self.progress setThumbImage:[UIImage imageNamed:@"progress_circle_light"] forState:UIControlStateNormal];
+  [self.progress setMaximumTrackTintColor:[UIColor colorWithWhite:0. alpha:0.08]];
+  [self.progress setMinimumTrackTintColor:[UIColor blackSecondaryText]];
+  auto l = self.layer;
+  l.shouldRasterize = YES;
+  l.rasterizationScale = UIScreen.mainScreen.scale;
+}
+
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity
 {
   self.direction.image = entity.turnImage;
@@ -42,6 +57,30 @@
                                                  dateByAddingTimeInterval:entity.timeToTarget]
                                                  dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterShortStyle];
   self.roundRoadLabel.text = entity.roundExitNumber ? @(entity.roundExitNumber).stringValue : @"";
+  self.streetLabel.text = entity.streetName;
+  [self.progress setValue:entity.progress animated:YES];
+}
+#pragma mark - Properties
+
+- (CGRect)defaultFrame
+{
+  if (IPAD)
+    return {{12., 28.}, {360., 186.}};
+  return super.defaultFrame;
+}
+
+- (CGFloat)visibleHeight
+{
+  if (!IPAD)
+    return super.visibleHeight;
+  CGFloat height = 0;
+  for (UIView * v in self.subviews)
+  {
+    if (!v.hidden)
+      height += v.height;
+    continue;
+  }
+  return height;
 }
 
 @end

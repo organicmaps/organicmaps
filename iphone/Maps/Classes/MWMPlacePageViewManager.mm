@@ -64,6 +64,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)dismissPlacePage
 {
+  [self.delegate placePageDidClose];
   self.state = MWMPlacePageManagerStateClosed;
   [self.placePage dismiss];
   [[MapsAppDelegate theApp].m_locationManager stop:self];

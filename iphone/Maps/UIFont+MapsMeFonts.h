@@ -23,6 +23,8 @@
 + (UIFont *)medium18;
 + (UIFont *)medium24;
 + (UIFont *)medium36;
++ (UIFont *)medium40;
++ (UIFont *)medium44;
 + (UIFont *)light10;
 + (UIFont *)light12;
 + (UIFont *)light16;

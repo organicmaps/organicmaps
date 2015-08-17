@@ -26,6 +26,7 @@
   _timeToTarget = info.m_time;
   _targetDistance = @(info.m_distToTarget.c_str());
   _targetUnits = @(info.m_targetUnitsSuffix.c_str());
+  _progress = info.m_completionPercent;
   auto & f = GetFramework();
   if (f.GetRouter() == routing::RouterType::Pedestrian)
   {
@@ -43,46 +44,61 @@
     is>>units;
     _distanceToTurn = @(dist.c_str());
     _turnUnits = @(units.c_str());
+    _streetName = @"";
+    _lanes = {};
   }
   else
   {
     _isPedestrian = NO;
     _distanceToTurn = @(info.m_distToTurn.c_str());
     _turnUnits = @(info.m_turnUnitsSuffix.c_str());
+    _streetName = @(info.m_targetName.c_str());
+    _lanes = info.m_lanes;
+    _nextTurnImage = image(info.m_nextTurn, true);
   }
-  _turnImage = image(info.m_turn);
+  _turnImage = image(info.m_turn, false);
   if (info.m_turn == routing::turns::TurnDirection::EnterRoundAbout)
     _roundExitNumber = info.m_exitNum;
   else
     _roundExitNumber = 0;
 }
 
-UIImage * image(routing::turns::TurnDirection t)
+UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
 {
   if (GetFramework().GetRouter() == routing::RouterType::Pedestrian)
     return [UIImage imageNamed:@"ic_direction"];
 
   using namespace routing::turns;
+  NSString * imageName;
   switch (t)
   {
     case TurnDirection::TurnSlightRight:
-      return [UIImage imageNamed:@"slight_right"];
+      imageName = @"slight_right";
+      break;
     case TurnDirection::TurnRight:
-      return [UIImage imageNamed:@"simple_right"];
+      imageName = @"simple_right";
+      break;
     case TurnDirection::TurnSharpRight:
-      return [UIImage imageNamed:@"sharp_right"];
+      imageName = @"sharp_right";
+      break;
     case TurnDirection::TurnSlightLeft:
-      return [UIImage imageNamed:@"slight_left"];
+      imageName = @"slight_left";
+      break;
     case TurnDirection::TurnLeft:
-      return [UIImage imageNamed:@"simple_left"];
+      imageName = @"simple_left";
+      break;
     case TurnDirection::TurnSharpLeft:
-      return [UIImage imageNamed:@"sharp_left"];
+      imageName = @"sharp_left";
+      break;
     case TurnDirection::UTurn:
-      return [UIImage imageNamed:@"uturn"];
+      imageName = @"uturn";
+      break;
     case TurnDirection::ReachedYourDestination:
-      return [UIImage imageNamed:@"finish_point"];
+      imageName = @"finish_point";
+      break;
     case TurnDirection::EnterRoundAbout:
-      return [UIImage imageNamed:@"round"];
+      imageName = @"round";
+      break;
     case TurnDirection::StartAtEndOfStreet:
     case TurnDirection::LeaveRoundAbout:
     case TurnDirection::StayOnRoundAbout:
@@ -90,7 +106,10 @@ UIImage * image(routing::turns::TurnDirection t)
     case TurnDirection::Count:
     case TurnDirection::GoStraight:
     case TurnDirection::NoTurn:
-      return [UIImage imageNamed:@"straight"];
-  }}
+      imageName = @"straight";
+      break;
+  }
+  return [UIImage imageNamed: isNextTurn ? [imageName stringByAppendingString:@"_then"] : imageName];
+}
 
 @end
