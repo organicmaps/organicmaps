@@ -567,28 +567,11 @@ void Storage::OnMapDownloadFinished(TIndex const & index, bool success, MapOptio
   ASSERT_NOT_EQUAL(MapOptions::Nothing, files,
                    ("This method should not be called for empty files set."));
   {
-    string optionsName;
-    switch (files)
-    {
-      case MapOptions::Nothing:
-        optionsName = "Nothing";
-        break;
-      case MapOptions::Map:
-        optionsName = "Map";
-        break;
-      case MapOptions::CarRouting:
-        optionsName = "CarRouting";
-        break;
-      case MapOptions::MapWithCarRouting:
-        optionsName = "MapWithCarRouting";
-        break;
-    }
-    alohalytics::LogEvent(
-        "$OnMapDownloadFinished",
+    alohalytics::LogEvent("$OnMapDownloadFinished",
         alohalytics::TStringMap({{"name", GetCountryFile(index).GetNameWithoutExt()},
                                  {"status", success ? "ok" : "failed"},
                                  {"version", strings::to_string(GetCurrentDataVersion())},
-                                 {"option", optionsName}}));
+                                 {"option", DebugPrint(files)}}));
   }
 
   success = success && RegisterDownloadedFiles(index, files);
