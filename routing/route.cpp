@@ -118,7 +118,7 @@ uint32_t Route::GetCurrentTimeToEndSec() const
   if (idx > 0)
     time -= m_times[idx - 1].second;
 
-  auto distFn = [&](uint32_t start, uint32_t end)
+  auto distFn = [&](size_t start, size_t end)
   {
     if (start > polySz || end > polySz)
     {
@@ -126,7 +126,7 @@ uint32_t Route::GetCurrentTimeToEndSec() const
       return 0.;
     }
     double d = 0.0;
-    for (uint32_t i = start + 1; i < end; ++i)
+    for (size_t i = start + 1; i < end; ++i)
       d += MercatorBounds::DistanceOnEarth(poly.GetPoint(i - 1), poly.GetPoint(i));
     return d;
   };
@@ -155,7 +155,7 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
   }
 
   turns::TurnItem t;
-  t.m_index = m_poly.GetCurrentIter().m_ind;
+  t.m_index = static_cast<uint32_t>(m_poly.GetCurrentIter().m_ind);
   auto it = upper_bound(m_turns.begin(), m_turns.end(), t,
             [](turns::TurnItem const & lhs, turns::TurnItem const & rhs)
             {
