@@ -76,8 +76,6 @@ bool ZipFileReader::IsZip(string const & zipContainer)
 void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileInZip,
                               string const & outFilePath, ProgressFn progressFn)
 {
-  unique_ptr<char[]> buf(new char[ZIP_FILE_BUFFER_SIZE]);
-
   unzFile zip = unzOpen64(zipContainer.c_str());
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
@@ -100,11 +98,12 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
   FileWriter outFile(outFilePath);
 
   uint64_t pos = 0;
+  char buf[ZIP_FILE_BUFFER_SIZE];
   while (true)
   {
-    int const readBytes = unzReadCurrentFile(zip, &buf[0], ZIP_FILE_BUFFER_SIZE);
+    int const readBytes = unzReadCurrentFile(zip, buf, ZIP_FILE_BUFFER_SIZE);
     if (readBytes > 0)
-      outFile.Write(&buf[0], static_cast<size_t>(readBytes));
+      outFile.Write(buf, static_cast<size_t>(readBytes));
     else if (readBytes < 0)
       MYTHROW(InvalidZipException, ("Error", readBytes, "while unzipping", fileInZip, "from", zipContainer));
     else

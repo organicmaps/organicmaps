@@ -13,7 +13,6 @@
 #include "std/vector.hpp"
 #include "std/ctime.hpp"
 #include "std/algorithm.hpp"
-#include "std/unique_ptr.hpp"
 
 #include "3party/minizip/zip.h"
 
@@ -58,8 +57,6 @@ void CreateTMZip(tm_zip & res)
 
 bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, string const & zipFilePath)
 {
-  unique_ptr<char[]> buffer(new char[ZIP_FILE_BUFFER_SIZE]);
-
   // 2. Open zip file for writing.
   MY_SCOPE_GUARD(outFileGuard, bind(&my::DeleteFileX, cref(zipFilePath)));
   ZipHandle zip(zipFilePath);
@@ -87,12 +84,13 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
     uint64_t const fileSize = file.Size();
 
     uint64_t currSize = 0;
+    char buffer[ZIP_FILE_BUFFER_SIZE];
     while (currSize < fileSize)
     {
       unsigned int const toRead = min(ZIP_FILE_BUFFER_SIZE, static_cast<unsigned int>(fileSize - currSize));
-      file.Read(currSize, &buffer[0], toRead);
+      file.Read(currSize, buffer, toRead);
 
-      if (ZIP_OK != zipWriteInFileInZip(zip.Handle(), &buffer[0], toRead))
+      if (ZIP_OK != zipWriteInFileInZip(zip.Handle(), buffer, toRead))
         return false;
 
       currSize += toRead;
