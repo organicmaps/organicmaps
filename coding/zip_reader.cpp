@@ -30,7 +30,7 @@ ZipFileReader::ZipFileReader(string const & container, string const & file,
   uint64_t const offset = unzGetCurrentFileZStreamPos64(zip);
   (void) unzCloseCurrentFile(zip);
 
-  if (offset > Size())
+  if (offset == 0 || offset > Size())
     MYTHROW(LocateZipException, ("Invalid offset inside zip", file));
 
   unz_file_info64 fileInfo;
