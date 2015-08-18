@@ -9,8 +9,6 @@ DEPENDENCIES = coding base minizip tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
-win32-g++: LIBS *= -lpthread
-
 SOURCES += ../../testing/testingmain.cpp \
     arithmetic_codec_test.cpp \
     base64_for_user_id_test.cpp \

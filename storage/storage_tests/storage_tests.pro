@@ -10,9 +10,7 @@ DEPENDENCIES = storage indexer platform_tests_support platform geometry coding b
 
 include($$ROOT_DIR/common.pri)
 
-win32*: LIBS *= -lshell32
-win32-g++: LIBS *= -lpthread
-macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
+macx-*: LIBS *= "-framework IOKit"
 linux*|win32-msvc*: QT *= network
 
 QT *= core

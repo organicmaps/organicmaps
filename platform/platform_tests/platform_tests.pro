@@ -14,13 +14,9 @@ DEFINES *= OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
 
 QT *= core
 
-win32* {
-  LIBS *= -lShell32
-  win32-g++: LIBS *= -lpthread
-}
 macx-* {
   QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
-  LIBS *= "-framework Foundation" "-framework IOKit" "-framework QuartzCore"
+  LIBS *= "-framework IOKit" "-framework QuartzCore"
 }
 win32*|linux* {
   QT *= network

@@ -22,8 +22,7 @@ include($$DRAPE_DIR/drape_common.pri)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/gmock/include $$ROOT_DIR/3party/gmock/gtest/include $$ROOT_DIR/3party/expat/lib
 
-win32* : LIBS *= -lShell32
-macx-* : LIBS *= "-framework CoreLocation" "-framework Foundation"
+macx-* : LIBS *= "-framework CoreLocation"
 
 SOURCES += \
     glfunctions.cpp \

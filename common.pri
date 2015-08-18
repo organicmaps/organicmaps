@@ -67,7 +67,7 @@ QMAKE_LIBDIR *= $$BINARIES_PATH
 QT -= core gui
 
 # Libraries' dependencies hack.
-win32-msvc*|symbian {
+win32-msvc* {
   LIB_EXT = .lib
   LIB_PREFIX =
 }
@@ -82,8 +82,6 @@ for(project, DEPENDENCIES) {
   LIBS += -l$$project
 }
 
-unix : LIBS *= -lz
-
 #INCLUDEPATH += $$ROOT_DIR/3party/protobuf/src/
 
 # Windows-specific options for all projects
@@ -93,6 +91,7 @@ win32 {
   DEFINES += _WIN32_IE=0x0501
   DEFINES += WIN32_LEAN_AND_MEAN=1
   DEFINES += NTDDI_VERSION=0x05010000
+  LIBS *= -lShell32
 }
 
 win32-msvc* {
@@ -130,6 +129,7 @@ win32-msvc201* {
 
 # unix also works for Android
 unix|win32-g++ {
+  LIBS *= -lz
   QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing -Wno-unused-parameter \
       -Werror=return-type
   *-clang {
@@ -182,10 +182,12 @@ win32-g++ {
   QMAKE_CXXFLAGS *= -Wextra
   QMAKE_LFLAGS *= -s
   QMAKE_LFLAGS_RELEASE *= -O
+  LIBS *= -lpthread
 }
 
 macx-* {
   QMAKE_LFLAGS *= -dead_strip
+  LIBS *= "-framework Foundation"
 
 #  macx-clang {
 #    QMAKE_CFLAGS_RELEASE -= -O3

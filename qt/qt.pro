@@ -15,10 +15,9 @@ CONFIG += warn_on
 QT *= core widgets gui opengl
 
 win32* {
-  LIBS += -lopengl32 -lws2_32 -lshell32 -liphlpapi
+  LIBS *= -lopengl32 -lws2_32 -liphlpapi
   RC_FILE = res/windows.rc
-  win32-msvc*: LIBS += -lwlanapi
-  win32-g++: LIBS += -lpthread
+  win32-msvc*: LIBS *= -lwlanapi
 }
 
 win32*|linux* {
@@ -41,7 +40,7 @@ linux* {
 }
 
 macx-* {
-  LIBS *= "-framework CoreLocation" "-framework Foundation" "-framework CoreWLAN" \
+  LIBS *= "-framework CoreLocation" "-framework CoreWLAN" \
           "-framework QuartzCore" "-framework IOKit" "-framework SystemConfiguration"
 
   ICON = res/mac.icns

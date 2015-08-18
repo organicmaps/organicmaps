@@ -8,14 +8,11 @@ TEMPLATE = app
 ROOT_DIR = ../..
 DEPENDENCIES = routing indexer platform_tests_support platform geometry coding base osrm protobuf tomcrypt succinct jansson stats_client map
 
-macx-*: LIBS *= "-framework Foundation" "-framework IOKit" "-framework SystemConfiguration"
+macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 
 include($$ROOT_DIR/common.pri)
 
 QT *= core
-
-win32* : LIBS *= -lShell32
-
 
 INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
                $$ROOT_DIR/3party/osrm/osrm-backend/include \

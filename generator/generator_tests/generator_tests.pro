@@ -10,12 +10,6 @@ include($$ROOT_DIR/common.pri)
 
 QT *= core
 
-win32 {
-  LIBS *= -lShell32
-  win32-g++: LIBS *= -lpthread
-}
-macx-*: LIBS *= "-framework Foundation"
-
 INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 
 HEADERS += \

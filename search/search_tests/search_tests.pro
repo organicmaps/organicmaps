@@ -12,12 +12,7 @@ include($$ROOT_DIR/common.pri)
 
 QT *= core
 
-win32 {
-  LIBS += -lShell32
-  win32-g++: LIBS += -lpthread
-}
-
-macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
+macx-*: LIBS *= "-framework IOKit"
 
 SOURCES += \
     ../../testing/testingmain.cpp \

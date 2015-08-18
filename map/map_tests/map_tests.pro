@@ -25,11 +25,8 @@ linux*|win* {
   QT *= network
 }
 
-win32* {
-  LIBS *= -lShell32 -lOpengl32
-  win32-g++: LIBS *= -lpthread
-}
-macx-*: LIBS *= "-framework Foundation" "-framework IOKit" "-framework SystemConfiguration"
+win32*: LIBS *= -lOpengl32
+macx-*: LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 
 SOURCES += \
   ../../testing/testingmain.cpp \

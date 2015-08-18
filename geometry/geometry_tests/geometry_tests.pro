@@ -10,8 +10,6 @@ DEPENDENCIES = indexer geometry base
 
 include($$ROOT_DIR/common.pri)
 
-win32-g++: LIBS *= -lpthread
-
 HEADERS += \
   equality.hpp \
   large_polygon.hpp \
