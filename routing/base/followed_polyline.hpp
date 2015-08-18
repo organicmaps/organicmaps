@@ -20,7 +20,7 @@ public:
 
   void Swap(FollowedPolyline & rhs);
 
-  bool IsValid() const { return (m_current.IsValid() && m_poly.GetSize() > 0); }
+  bool IsValid() const { return (m_current.IsValid() && m_poly.GetSize() > 1); }
 
   m2::PolylineD const & GetPolyline() const { return m_poly; }
 
@@ -65,7 +65,7 @@ private:
 
   m2::PolylineD m_poly;
 
-  /// Iterator with the current position. Position sets with UpdatePtojection methods.
+  /// Iterator with the current position. Position sets with UpdateProjection methods.
   mutable Iter m_current;
   /// Precalculated info for fast projection finding.
   vector<m2::ProjectionToSection<m2::PointD>> m_segProj;

@@ -62,6 +62,10 @@ void Route::GetTurnsDistances(vector<double> & distances) const
   auto const & polyline = m_poly.GetPolyline();
   for (auto currentTurn = m_turns.begin(); currentTurn != m_turns.end(); ++currentTurn)
   {
+    // Skip turns at side points of the polyline geometry. We can't display them properly.
+    if (currentTurn->m_index == 0 || currentTurn->m_index == (polyline.GetSize() - 1))
+      continue;
+
     uint32_t formerTurnIndex = 0;
     if (currentTurn != m_turns.begin())
       formerTurnIndex = (currentTurn - 1)->m_index;
@@ -71,8 +75,6 @@ void Route::GetTurnsDistances(vector<double> & distances) const
       turns::CalculateMercatorDistanceAlongPath(formerTurnIndex,  currentTurn->m_index, polyline.GetPoints());
     mercatorDistance += mercatorDistanceBetweenTurns;
 
-    if (currentTurn->m_index == 0 || currentTurn->m_index == (polyline.GetSize() - 1))
-      continue;
     distances.push_back(mercatorDistance);
    }
 }

@@ -52,7 +52,7 @@ double FollowedPolyline::GetDistanceFromBeginM() const
   ASSERT(IsValid(), ());
   ASSERT(m_current.IsValid(), ());
 
-  return m_current.m_ind > 0 ? m_segDistance[m_current.m_ind] : 0.0 +
+  return (m_current.m_ind > 0 ? m_segDistance[m_current.m_ind - 1] : 0.0) +
          MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind));
 }
 
