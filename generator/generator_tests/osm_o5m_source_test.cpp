@@ -27,24 +27,24 @@ UNIT_TEST(OSM_O5M_Source_Node_read_test)
   osm::O5MSource::Iterator it = dataset.begin();
   osm::O5MSource::Entity const & em = *it;
 
-  CHECK_EQUAL(em.id, 513709898, ());
-  CHECK_EQUAL(em.user, string("Xmypblu"), ());
-  CHECK_EQUAL(em.uid, 395071, ());
-  CHECK_EQUAL(em.version, 8, ());
-  CHECK_EQUAL(em.changeset, 12059128, ());
-  CHECK(my::AlmostEqualAbs(em.lon, 38.7666704, 1e-7), ());
-  CHECK(my::AlmostEqualAbs(em.lat, 55.0927062, 1e-7), ());
+  TEST_EQUAL(em.id, 513709898, ());
+  TEST_EQUAL(em.user, string("Xmypblu"), ());
+  TEST_EQUAL(em.uid, 395071, ());
+  TEST_EQUAL(em.version, 8, ());
+  TEST_EQUAL(em.changeset, 12059128, ());
+  TEST(my::AlmostEqualAbs(em.lon, 38.7666704, 1e-7), ());
+  TEST(my::AlmostEqualAbs(em.lat, 55.0927062, 1e-7), ());
 
   auto const & tags = em.Tags();
   auto tagIterator = tags.begin();
   auto const & tag = *tagIterator;
-  CHECK_EQUAL(tag.key, string("amenity"), ());
-  CHECK_EQUAL(tag.value, string("cinema"), ());
+  TEST_EQUAL(tag.key, string("amenity"), ());
+  TEST_EQUAL(tag.value, string("cinema"), ());
   ++tagIterator;
-  CHECK_EQUAL(tag.key, string("name"), ());
-  CHECK_EQUAL(tag.value, string("КТ Горизонт"), ());
+  TEST_EQUAL(tag.key, string("name"), ());
+  TEST_EQUAL(tag.value, string("КТ Горизонт"), ());
   ++tagIterator;
-  CHECK(!(tagIterator != tags.end()), ());
+  TEST(!(tagIterator != tags.end()), ());
 }
 
 UNIT_TEST(OSM_O5M_Source_Way_read_test)
@@ -71,7 +71,7 @@ UNIT_TEST(OSM_O5M_Source_Way_read_test)
         nodes.insert(em.id);
         for (auto const & tag : em.Tags())
         {
-          CHECK(false, ("Unexpected tag:", tag.key, tag.value));
+          TEST(false, ("Unexpected tag:", tag.key, tag.value));
         }
         break;
       }
@@ -82,16 +82,16 @@ UNIT_TEST(OSM_O5M_Source_Way_read_test)
         for (auto const & nd : em.Nodes())
         {
           ndCounter++;
-          CHECK(nodes.count(nd), ());
+          TEST(nodes.count(nd), ());
         }
-        CHECK_EQUAL(nodes.size(), ndCounter, ());
+        TEST_EQUAL(nodes.size(), ndCounter, ());
         for (auto const & tag : em.Tags())
         {
-          CHECK_EQUAL(tag.key, validTags[tagCounter].first, ());
-          CHECK_EQUAL(tag.value, validTags[tagCounter].second, ());
+          TEST_EQUAL(tag.key, validTags[tagCounter].first, ());
+          TEST_EQUAL(tag.value, validTags[tagCounter].second, ());
           tagCounter++;
         }
-        CHECK_EQUAL(validTags.size(), tagCounter, ());
+        TEST_EQUAL(validTags.size(), tagCounter, ());
         break;
       }
       default:
@@ -139,8 +139,8 @@ UNIT_TEST(OSM_O5M_Source_Relation_read_test)
         size_t tagCounter = 0;
         for (auto const & tag : em.Tags())
         {
-          CHECK_EQUAL(tag.key, validNodeTags[tagCounter].first, ());
-          CHECK_EQUAL(tag.value, validNodeTags[tagCounter].second, ());
+          TEST_EQUAL(tag.key, validNodeTags[tagCounter].first, ());
+          TEST_EQUAL(tag.value, validNodeTags[tagCounter].second, ());
           tagCounter++;
         }
         break;
@@ -151,12 +151,12 @@ UNIT_TEST(OSM_O5M_Source_Relation_read_test)
         for (auto const & nd : em.Nodes())
         {
           ndCounter++;
-          CHECK(nodes.count(nd), ());
+          TEST(nodes.count(nd), ());
         }
-        CHECK_EQUAL(nodes.size(), ndCounter, ());
+        TEST_EQUAL(nodes.size(), ndCounter, ());
         for (auto const & tag : em.Tags())
         {
-          CHECK(false, ("Unexpected tag:", tag.key, tag.value));
+          TEST(false, ("Unexpected tag:", tag.key, tag.value));
         }
         break;
       }
@@ -166,21 +166,21 @@ UNIT_TEST(OSM_O5M_Source_Relation_read_test)
         size_t tagCounter = 0;
         for (auto const & member : em.Members())
         {
-          CHECK(entities.count(member.ref), ());
-          CHECK_EQUAL(relationMembers[memberCounter].first, member.type,
+          TEST(entities.count(member.ref), ());
+          TEST_EQUAL(relationMembers[memberCounter].first, member.type,
                       ("Current member:", memberCounter));
-          CHECK_EQUAL(relationMembers[memberCounter].second, member.role,
+          TEST_EQUAL(relationMembers[memberCounter].second, member.role,
                       ("Current member:", memberCounter));
           memberCounter++;
         }
-        CHECK_EQUAL(memberCounter, 2, ());
+        TEST_EQUAL(memberCounter, 2, ());
         for (auto const & tag : em.Tags())
         {
-          CHECK_EQUAL(tag.key, validRelationTags[tagCounter].first, ());
-          CHECK_EQUAL(tag.value, validRelationTags[tagCounter].second, ());
+          TEST_EQUAL(tag.key, validRelationTags[tagCounter].first, ());
+          TEST_EQUAL(tag.value, validRelationTags[tagCounter].second, ());
           tagCounter++;
         }
-        CHECK_EQUAL(validRelationTags.size(), tagCounter, ());
+        TEST_EQUAL(validRelationTags.size(), tagCounter, ());
         break;
       }
       default:
