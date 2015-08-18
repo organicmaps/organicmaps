@@ -14,7 +14,6 @@ SOURCES += \
     base64.cpp \
 #    blob_indexer.cpp \
 #    blob_storage.cpp \
-    bzip2_compressor.cpp \
     compressed_bit_vector.cpp \
 #    compressed_varnum_vector.cpp \
     file_container.cpp \
@@ -47,7 +46,6 @@ HEADERS += \
 #    blob_storage.hpp \
     buffer_reader.hpp \
     byte_stream.hpp \
-    bzip2_compressor.hpp \
     coder.hpp \
     coder_util.hpp \
     compressed_bit_vector.hpp \
