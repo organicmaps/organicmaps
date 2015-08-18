@@ -59,7 +59,8 @@ CVPixelBufferRef HWTextureAllocatorApple::CVCreatePixelBuffer(uint32_t width, ui
     cvRetval = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_32BGRA, attrsRef, &result);
     break;
   case dp::ALPHA:
-    cvRetval = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_OneComponent8, attrsRef, &result);
+    cvRetval = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_OneComponent8,
+                                   attrsRef, &result);
     break;
   default:
     ASSERT(false, ());
@@ -77,7 +78,7 @@ void HWTextureAllocatorApple::CVDestroyPixelBuffer(CVPixelBufferRef buffer)
 }
 
 CVOpenGLESTextureRef HWTextureAllocatorApple::CVCreateTexture(CVPixelBufferRef buffer, uint32_t width, uint32_t height,
-                                                          glConst layout, glConst pixelType)
+                                                              glConst layout, glConst pixelType)
 {
   CVOpenGLESTextureRef texture;
   CVReturn cvRetval = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, m_textureCache, buffer,
@@ -170,8 +171,12 @@ void HWTextureApple::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t
   }
   else if (bytesPerPixel == 4)
   {
-    rgba8c_view_t srcView = interleaved_view(width, height, (rgba8c_pixel_t *)data.get(), width * bytesPerPixel);
-    rgba8_view_t dstView = interleaved_view(m_width, m_height, (rgba8_pixel_t *)m_directPointer, m_width * bytesPerPixel);
+    rgba8c_view_t srcView = interleaved_view(width, height,
+                                             (rgba8c_pixel_t *)data.get(),
+                                             width * bytesPerPixel);
+    rgba8_view_t dstView = interleaved_view(m_width, m_height,
+                                            (rgba8_pixel_t *)m_directPointer,
+                                            m_width * bytesPerPixel);
     rgba8_view_t subDstView = subimage_view(dstView, x, y, width, height);
     copy_pixels(srcView, subDstView);
   }

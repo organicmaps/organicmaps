@@ -398,7 +398,8 @@ void TextureManager::Init(Params const & params)
 
   uint32_t colorTextureSize = max(my::NextPowOf2(floor(sqrt(colors.size() + kReservedColors))), kMinColorTextureSize);
   colorTextureSize = min(m_maxTextureSize, colorTextureSize);
-  m_colorTexture = make_unique_dp<ColorTexture>(m2::PointU(colorTextureSize, colorTextureSize), make_ref(m_textureAllocator));
+  m_colorTexture = make_unique_dp<ColorTexture>(m2::PointU(colorTextureSize, colorTextureSize),
+                                                make_ref(m_textureAllocator));
   LOG(LDEBUG, ("Colors texture size = ", m_colorTexture->GetWidth(), m_colorTexture->GetHeight()));
 
   ref_ptr<ColorTexture> colorTex = make_ref(m_colorTexture);
