@@ -10,7 +10,7 @@ namespace routing
 class FollowedPolyline
 {
 public:
-  FollowedPolyline() {}
+  FollowedPolyline() = default;
   template <class TIter>
   FollowedPolyline(TIter begin, TIter end)
     : m_poly(begin, end)
@@ -62,7 +62,7 @@ private:
 
   m2::PolylineD m_poly;
 
-  /// Cached result iterator for last MoveIterator query.
+  /// Iterator with the current position. Position sets with UpdatePtojection methods.
   mutable Iter m_current;
   /// Precalculated info for fast projection finding.
   vector<m2::ProjectionToSection<m2::PointD>> m_segProj;

@@ -105,9 +105,6 @@ private:
 private:
   friend string DebugPrint(Route const & r);
 
-  //TODO (ldragunov) Rewrite routing session to use RouteFollower for base road geometry
-  //mutable RouteFollower m_simplifiedPoly;
-
   string m_router;
   RoutingSettings m_routingSettings;
   string m_name;

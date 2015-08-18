@@ -75,7 +75,7 @@ void FollowedPolyline::Update()
 
 template <class DistanceFn>
 Iter FollowedPolyline::GetClosestProjection(m2::RectD const & posRect,
-                                                         DistanceFn const & distFn) const
+                                            DistanceFn const & distFn) const
 {
   Iter res;
   double minDist = numeric_limits<double>::max();

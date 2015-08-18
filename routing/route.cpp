@@ -27,7 +27,7 @@ double constexpr kOnEndToleranceM = 10.0;
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
   : m_router(router), m_routingSettings(GetCarRoutingSettings()),
-    m_poly(points.begin(), points.end()), m_name(name)
+    m_name(name), m_poly(points.begin(), points.end())
 {
   Update();
 }
@@ -43,7 +43,6 @@ void Route::Swap(Route & rhs)
   swap(m_turns, rhs.m_turns);
   swap(m_times, rhs.m_times);
   m_absentCountries.swap(rhs.m_absentCountries);
-//  m_simplifiedPoly.Swap(rhs.m_simplifiedPoly);
 }
 
 double Route::GetTotalDistanceMeters() const
@@ -230,16 +229,17 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
 {
   if (m_poly.IsValid())
   {
+    auto const & iter = m_poly.GetCurrentIter();
     m2::PointD const locationMerc = MercatorBounds::FromLatLon(location.m_latitude, location.m_longitude);
-    double const distFromRouteM = MercatorBounds::DistanceOnEarth(m_poly.GetCurrentIter().m_pt, locationMerc);
+    double const distFromRouteM = MercatorBounds::DistanceOnEarth(iter.m_pt, locationMerc);
     if (distFromRouteM < m_routingSettings.m_matchingThresholdM)
     {
-      location.m_latitude = MercatorBounds::YToLat(m_poly.GetCurrentIter().m_pt.y);
-      location.m_longitude = MercatorBounds::XToLon(m_poly.GetCurrentIter().m_pt.x);
+      location.m_latitude = MercatorBounds::YToLat(iter.m_pt.y);
+      location.m_longitude = MercatorBounds::XToLon(iter.m_pt.x);
       if (m_routingSettings.m_matchRoute)
-        location.m_bearing = location::AngleToBearing(GetPolySegAngle(m_poly.GetCurrentIter().m_ind));
+        location.m_bearing = location::AngleToBearing(GetPolySegAngle(iter.m_ind));
 
-      routeMatchingInfo.Set(m_poly.GetCurrentIter().m_pt, m_poly.GetCurrentIter().m_ind);
+      routeMatchingInfo.Set(iter.m_pt, iter.m_ind);
     }
   }
 }
@@ -264,8 +264,8 @@ void Route::Update()
   }
   else
   {
-    // Free memory if we need no this geometry.
-    m_simplifiedPoly = FollowedPolyline();
+    // Free memory if we don't need simplified geometry.
+    FollowedPolyline().Swap(m_simplifiedPoly);
   }
   m_currentTime = 0.0;
 }
