@@ -331,3 +331,23 @@ UNIT_TEST(BufferVectorMove)
   v1 = move(v2);
   TestVector(v1, 3);
 }
+
+UNIT_TEST(BufferVector_EraseIf)
+{
+  buffer_vector<int, 2> v;
+  v.push_back(1);
+  v.push_back(2);
+  v.erase_if([] (int x) { return x == 1; });
+  TEST_EQUAL(v.size(), 1, ());
+  TEST_EQUAL(v[0], 2, ());
+
+  v.push_back(3);
+  v.push_back(4);
+  v.erase_if([] (int x) { return x == 3; });
+  TEST_EQUAL(v.size(), 2, ());
+  TEST_EQUAL(v[0], 2, ());
+  TEST_EQUAL(v[1], 4, ());
+
+  v.erase_if([] (int x) { return true; });
+  TEST_EQUAL(v.size(), 0, ());
+}

@@ -373,6 +373,16 @@ public:
     insert(where, &value, &value + 1);
   }
 
+  template <class TFn>
+  void erase_if(TFn fn)
+  {
+    iterator b = begin();
+    iterator e = end();
+    iterator i = remove_if(b, e, fn);
+    if (i != e)
+      resize(distance(b, i));
+  }
+
 private:
   void SwitchToDynamic()
   {

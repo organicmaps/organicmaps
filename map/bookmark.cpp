@@ -825,13 +825,7 @@ string BookmarkCategory::RemoveInvalidSymbols(string const & name)
 {
   // Remove not allowed symbols
   strings::UniString uniName = strings::MakeUniString(name);
-  strings::UniString::iterator iEnd = remove_if(uniName.begin(), uniName.end(), &IsBadCharForPath);
-  if (iEnd != uniName.end())
-  {
-    // buffer_vector doesn't have erase function - call resize here (it's even better in this case).
-    uniName.resize(distance(uniName.begin(), iEnd));
-  }
-
+  uniName.erase_if(&IsBadCharForPath);
   return (uniName.empty() ? "Bookmarks" : strings::ToUtf8(uniName));
 }
 
