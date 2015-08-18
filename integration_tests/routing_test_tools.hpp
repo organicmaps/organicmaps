@@ -21,8 +21,7 @@
  *    only if you want to test something on a special map set.
  * 2. Loading maps and calculating routes is a time consumption process.
  *    Do this only if you really need it.
- * 3. If you want to check that a turn is absent you have two options
- *    - use TestTurnCount.
+ * 3. If you want to check that a turn is absent - use TestTurnCount.
  * 4. The easiest way to gather all the information for writing an integration test is
  *    - to put a break point in OsrmRouter::CalculateRouteImpl;
  *    - to make a route with MapWithMe desktop application;

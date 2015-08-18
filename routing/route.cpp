@@ -47,20 +47,19 @@ void Route::Swap(Route & rhs)
 
 double Route::GetTotalDistanceMeters() const
 {
-  ASSERT(m_poly.IsValid(), ());
-  return m_poly.GetDistanceM(m_poly.Begin(), m_poly.End());
+  return m_poly.GetTotalDistanceM();
 }
 
 double Route::GetCurrentDistanceFromBeginMeters() const
 {
-  ASSERT(m_poly.IsValid(), ());
-  return m_poly.GetDistanceM(m_poly.Begin(), m_poly.GetCurrentIter());
+  return m_poly.GetDistanceFromBeginM();
 }
 
 void Route::GetTurnsDistances(vector<double> & distances) const
 {
   double mercatorDistance = 0;
   distances.clear();
+  auto const & polyline = m_poly.GetPolyline();
   for (auto currentTurn = m_turns.begin(); currentTurn != m_turns.end(); ++currentTurn)
   {
     uint32_t formerTurnIndex = 0;
@@ -68,7 +67,6 @@ void Route::GetTurnsDistances(vector<double> & distances) const
       formerTurnIndex = (currentTurn - 1)->m_index;
 
     //TODO (ldragunov) Extract CalculateMercatorDistance higher to avoid including turns generator.
-    auto const polyline = m_poly.GetPolyline();
     double const mercatorDistanceBetweenTurns =
       turns::CalculateMercatorDistanceAlongPath(formerTurnIndex,  currentTurn->m_index, polyline.GetPoints());
     mercatorDistance += mercatorDistanceBetweenTurns;
@@ -81,7 +79,7 @@ void Route::GetTurnsDistances(vector<double> & distances) const
 
 double Route::GetCurrentDistanceToEndMeters() const
 {
-  return m_poly.GetDistanceM(m_poly.GetCurrentIter(), m_poly.End());
+  return m_poly.GetDistanceToEndM();
 }
 
 double Route::GetMercatorDistanceFromBegin() const
@@ -119,15 +117,7 @@ uint32_t Route::GetCurrentTimeToEndSec() const
 
   auto distFn = [&](size_t start, size_t end)
   {
-    if (start > polySz || end > polySz)
-    {
-      ASSERT(false, ());
-      return 0.;
-    }
-    double d = 0.0;
-    for (size_t i = start + 1; i < end; ++i)
-      d += MercatorBounds::DistanceOnEarth(poly.GetPoint(i - 1), poly.GetPoint(i));
-    return d;
+    return m_poly.GetDistanceM(m_poly.GetIterToIndex(start), m_poly.GetIterToIndex(end));
   };
 
   ASSERT_LESS_OR_EQUAL(m_times[idx].first, poly.GetSize(), ());
@@ -246,7 +236,7 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
 
 bool Route::IsCurrentOnEnd() const
 {
-  return (m_poly.GetDistanceM(m_poly.GetCurrentIter(), m_poly.End()) < kOnEndToleranceM);
+  return (m_poly.GetDistanceToEndM() < kOnEndToleranceM);
 }
 
 void Route::Update()

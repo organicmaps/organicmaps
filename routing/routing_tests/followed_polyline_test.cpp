@@ -84,7 +84,7 @@ UNIT_TEST(FollowedPolylineDistanceCalculationTest)
   ASSERT_LESS(pow(distance - masterDistance, 2), 0.001, (distance, masterDistance));
 }
 
-UNIT_TEST(FollowdPolylineDirectionTest)
+UNIT_TEST(FollowedPolylineDirectionTest)
 {
   m2::PolylineD testPolyline({{0, 0}, {1.00003, 0}, {1.00003, 1}});
   FollowedPolyline polyline(testPolyline.Begin(), testPolyline.End());

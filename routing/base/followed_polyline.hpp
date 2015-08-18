@@ -24,6 +24,9 @@ public:
 
   m2::PolylineD const & GetPolyline() const { return m_poly; }
 
+  double GetTotalDistanceM() const;
+  double GetDistanceFromBeginM() const;
+  double GetDistanceToEndM() const;
   double GetMercatorDistanceFromBegin() const;
 
   /*! \brief Return next navigation point for direction widgets.
