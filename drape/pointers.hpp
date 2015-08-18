@@ -118,6 +118,13 @@ public:
     return ref_ptr<TResult>(static_cast<TResult *>(m_ptr), m_isOwnerUnique);
   }
 
+  template<typename TResult>
+  ref_ptr<TResult> downcast() const
+  {
+    ASSERT(dynamic_cast<TResult *>(m_ptr) != nullptr, ());
+    return ref_ptr<TResult>(static_cast<TResult *>(m_ptr), m_isOwnerUnique);
+  }
+
   operator bool() const { return m_ptr != nullptr; }
 
   bool operator==(ref_ptr const & rhs) const { return m_ptr == rhs.m_ptr; }

@@ -189,8 +189,7 @@ void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
     pendingNodes[i].second.Rasterize(rawBuffer + i * bytesPerNode);
 
   texture->UploadData(0, pendingNodes.front().first.minY(),
-                      MAX_STIPPLE_PEN_LENGTH, pendingNodes.size() * STIPPLE_HEIGHT,
-                      dp::ALPHA, make_ref(rawBuffer));
+                      MAX_STIPPLE_PEN_LENGTH, pendingNodes.size() * STIPPLE_HEIGHT, make_ref(rawBuffer));
 
   mng.freeSharedBuffer(reserveBufferSize, ptr);
 }

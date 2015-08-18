@@ -29,15 +29,15 @@ public:
     virtual ResourceType GetType() const;
   };
 
-  explicit SymbolsTexture(string const & skinPathName);
+  explicit SymbolsTexture(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator);
 
   ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) override;
 
-  void Invalidate(string const & skinPathName);
+  void Invalidate(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator);
 
 private:
   void Fail();
-  void Load(string const & skinPathName);
+  void Load(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator);
 
   typedef map<string, SymbolInfo> TSymDefinition;
   mutable TSymDefinition m_definition;

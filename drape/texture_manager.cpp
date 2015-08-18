@@ -225,13 +225,15 @@ bool TextureManager::UpdateDynamicTextures()
   UpdateGlyphTextures(m_glyphGroups);
   UpdateGlyphTextures(m_hybridGlyphGroups);
 
+  m_textureAllocator->Flush();
+
   return true;
 }
 
 ref_ptr<Texture> TextureManager::AllocateGlyphTexture()
 {
   m2::PointU size(m_maxTextureSize, m_maxTextureSize);
-  m_glyphTextures.push_back(make_unique_dp<FontTexture>(size, make_ref(m_glyphManager)));
+  m_glyphTextures.push_back(make_unique_dp<FontTexture>(size, make_ref(m_glyphManager), make_ref(m_textureAllocator)));
   return make_ref(m_glyphTextures.back());
 }
 
@@ -358,11 +360,13 @@ size_t TextureManager::FindHybridGlyphsGroup(TMultilineText const & text)
 
 void TextureManager::Init(Params const & params)
 {
+  m_textureAllocator = CreateAllocator();
+
   m_maxTextureSize = min(kMaxTextureSize, (uint32_t)GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
 
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
 
-  m_symbolTexture = make_unique_dp<SymbolsTexture>(params.m_resPostfix);
+  m_symbolTexture = make_unique_dp<SymbolsTexture>(params.m_resPostfix, make_ref(m_textureAllocator));
 
   // initialize patterns
   buffer_vector<buffer_vector<uint8_t, 8>, 64> patterns;
@@ -377,7 +381,8 @@ void TextureManager::Init(Params const & params)
 
   uint32_t stippleTextureHeight = max(my::NextPowOf2(patterns.size() + kReservedPatterns), kMinStippleTextureHeight);
   stippleTextureHeight = min(m_maxTextureSize, stippleTextureHeight);
-  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(m2::PointU(kStippleTextureWidth, stippleTextureHeight));
+  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(m2::PointU(kStippleTextureWidth, stippleTextureHeight),
+                                                          make_ref(m_textureAllocator));
   LOG(LDEBUG, ("Patterns texture size = ", m_stipplePenTexture->GetWidth(), m_stipplePenTexture->GetHeight()));
 
   ref_ptr<StipplePenTexture> stipplePenTextureTex = make_ref(m_stipplePenTexture);
@@ -393,7 +398,7 @@ void TextureManager::Init(Params const & params)
 
   uint32_t colorTextureSize = max(my::NextPowOf2(floor(sqrt(colors.size() + kReservedColors))), kMinColorTextureSize);
   colorTextureSize = min(m_maxTextureSize, colorTextureSize);
-  m_colorTexture = make_unique_dp<ColorTexture>(m2::PointU(colorTextureSize, colorTextureSize));
+  m_colorTexture = make_unique_dp<ColorTexture>(m2::PointU(colorTextureSize, colorTextureSize), make_ref(m_textureAllocator));
   LOG(LDEBUG, ("Colors texture size = ", m_colorTexture->GetWidth(), m_colorTexture->GetHeight()));
 
   ref_ptr<ColorTexture> colorTex = make_ref(m_colorTexture);
@@ -431,7 +436,7 @@ void TextureManager::Invalidate(string const & resPostfix)
 {
   ASSERT(m_symbolTexture != nullptr, ());
   ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTexture);
-  symbolsTexture->Invalidate(resPostfix);
+  symbolsTexture->Invalidate(resPostfix, make_ref(m_textureAllocator));
 }
 
 void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region)

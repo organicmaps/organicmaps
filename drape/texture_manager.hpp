@@ -14,6 +14,8 @@
 namespace dp
 {
 
+class HWTextureAllocator;
+
 class TextureManager
 {
 public:
@@ -220,6 +222,7 @@ private:
   list<drape_ptr<Texture>> m_glyphTextures;
 
   drape_ptr<GlyphManager> m_glyphManager;
+  drape_ptr<HWTextureAllocator> m_textureAllocator;
 
   buffer_vector<GlyphGroup, 64> m_glyphGroups;
   buffer_vector<HybridGlyphGroup, 4> m_hybridGlyphGroups;

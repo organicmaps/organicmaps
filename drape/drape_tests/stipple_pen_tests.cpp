@@ -455,8 +455,14 @@ UNIT_TEST(StippleMappingTest)
   EXPECTGL(glTexSubImage2D(0, 0, 256, 6, AnyOf(gl_const::GLAlpha, gl_const::GLAlpha8), gl_const::GL8BitOnChannel, _))
       .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
+  Texture::Params p;
+  p.m_allocator = GetDefaultAllocator();
+  p.m_format = dp::ALPHA;
+  p.m_width = width;
+  p.m_height = height;
+
   DummyTexture texture;
-  texture.Create(width, height, dp::ALPHA);
+  texture.Create(p);
   index.UploadResources(make_ref(&texture));
 
   StipplePenKey secInfo;

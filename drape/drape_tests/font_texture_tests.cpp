@@ -99,8 +99,13 @@ UNIT_TEST(UploadingGlyphs)
   index.MapResource(GlyphKey(0x61));
   while(index.HasAsyncRoutines());
 
+  Texture::Params p;
+  p.m_allocator = GetDefaultAllocator();
+  p.m_format = dp::ALPHA;
+  p.m_width = p.m_height = 64;
+
   DummyTexture tex;
-  tex.Create(64, 64, dp::ALPHA, nullptr);
+  tex.Create(p);
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(make_ref(&tex));
 

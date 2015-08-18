@@ -271,7 +271,7 @@ void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
       glyph.m_image.Destroy();
     }
 
-    texture->UploadData(zeroPoint.x, zeroPoint.y, width, height, dp::ALPHA, make_ref(dstMemory));
+    texture->UploadData(zeroPoint.x, zeroPoint.y, width, height, make_ref(dstMemory));
     SharedBufferManager::instance().freeSharedBuffer(byteCount, buffer);
   }
 }

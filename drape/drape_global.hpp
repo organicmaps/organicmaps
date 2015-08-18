@@ -2,16 +2,36 @@
 
 #include "color.hpp"
 
+#include "base/assert.hpp"
+
 namespace dp
 {
 
 enum TextureFormat
 {
   RGBA8,
-  RGBA4,
   ALPHA,
   UNSPECIFIED
 };
+
+uint8_t GetBytesPerPixel(TextureFormat format)
+{
+  uint8_t result = 0;
+  switch (format)
+  {
+  case RGBA8:
+    result = 4;
+    break;
+  case ALPHA:
+    result = 1;
+    break;
+  default:
+    ASSERT(false, ());
+    break;
+  }
+
+  return result;
+}
 
 enum Anchor
 {

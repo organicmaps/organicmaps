@@ -42,16 +42,24 @@ protected:
     glConst m_magFilter;
   };
 
-  void Init(ref_ptr<TIndexer> indexer, TextureParams const & params)
+  void Init(ref_ptr<HWTextureAllocator> allocator, ref_ptr<TIndexer> indexer, TextureParams const & params)
   {
-    Init(indexer, params, nullptr);
+    Init(allocator, indexer, params, nullptr);
   }
 
-  void Init(ref_ptr<TIndexer> indexer, TextureParams const & params, ref_ptr<void> data)
+  void Init(ref_ptr<HWTextureAllocator> allocator, ref_ptr<TIndexer> indexer, TextureParams const & params,
+            ref_ptr<void> data)
   {
     m_indexer = indexer;
-    Create(params.m_size.x, params.m_size.y, params.m_format, data);
-    SetFilterParams(params.m_minFilter, params.m_magFilter);
+    Texture::Params p;
+    p.m_allocator = allocator;
+    p.m_width = params.m_size.x;
+    p.m_height = params.m_size.y;
+    p.m_format = params.m_format;
+    p.m_magFilter = params.m_magFilter;
+    p.m_minFilter = params.m_minFilter;
+
+    Create(p, data);
   }
 
   void Reset()

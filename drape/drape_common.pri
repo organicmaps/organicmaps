@@ -22,6 +22,7 @@ SOURCES += \
     $$DRAPE_DIR/gpu_buffer.cpp \
     $$DRAPE_DIR/gpu_program.cpp \
     $$DRAPE_DIR/gpu_program_manager.cpp \
+    $$DRAPE_DIR/hw_texture.cpp \
     $$DRAPE_DIR/index_buffer.cpp \
     $$DRAPE_DIR/index_buffer_mutator.cpp \
     $$DRAPE_DIR/index_storage.cpp \
@@ -45,8 +46,6 @@ SOURCES += \
     $$DRAPE_DIR/utils/projection.cpp \
     $$DRAPE_DIR/utils/vertex_decl.cpp \
     $$DRAPE_DIR/vertex_array_buffer.cpp \
-    $$ROOT_DIR/3party/stb_image/sdf_image.cpp \
-    $$ROOT_DIR/3party/stb_image/stb_image.c \
 
 HEADERS += \
     $$DRAPE_DIR/attribute_buffer_mutator.hpp \
@@ -75,6 +74,7 @@ HEADERS += \
     $$DRAPE_DIR/gpu_buffer.hpp \
     $$DRAPE_DIR/gpu_program.hpp \
     $$DRAPE_DIR/gpu_program_manager.hpp \
+    $$DRAPE_DIR/hw_texture.hpp \
     $$DRAPE_DIR/index_buffer.hpp \
     $$DRAPE_DIR/index_buffer_mutator.hpp \
     $$DRAPE_DIR/index_storage.hpp \
@@ -100,3 +100,8 @@ HEADERS += \
     $$DRAPE_DIR/utils/projection.hpp \
     $$DRAPE_DIR/utils/vertex_decl.hpp \
     $$DRAPE_DIR/vertex_array_buffer.hpp \
+
+iphone*{
+    HEADERS += $$DRAPE_DIR/hw_texture_ios.hpp
+    OBJECTIVE_SOURCES += $$DRAPE_DIR/hw_texture_ios.mm
+}

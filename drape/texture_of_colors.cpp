@@ -141,8 +141,8 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
     }
 
     pointer = SharedBufferManager::GetRawPointer(buffer);
-    texture->UploadData(uploadRect.minX(), uploadRect.minY(), uploadRect.SizeX(), uploadRect.SizeY(),
-                        dp::RGBA8, make_ref(pointer));
+    texture->UploadData(uploadRect.minX(), uploadRect.minY(),
+                        uploadRect.SizeX(), uploadRect.SizeY(), make_ref(pointer));
   }
 }
 

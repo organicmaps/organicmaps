@@ -124,11 +124,11 @@ class StipplePenTexture : public DynamicTexture<StipplePenIndex, StipplePenKey, 
 {
   typedef DynamicTexture<StipplePenIndex, StipplePenKey, Texture::StipplePen> TBase;
 public:
-  StipplePenTexture(m2::PointU const & size)
+  StipplePenTexture(m2::PointU const & size, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size)
   {
     TBase::TextureParams params{ size, TextureFormat::ALPHA, gl_const::GLNearest, gl_const::GLNearest };
-    TBase::Init(make_ref(&m_index), params);
+    TBase::Init(allocator, make_ref(&m_index), params);
   }
 
   ~StipplePenTexture() { TBase::Reset(); }

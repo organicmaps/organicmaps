@@ -133,7 +133,7 @@ class FontTexture : public DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph>
 {
   typedef DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph> TBase;
 public:
-  FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng)
+  FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size, glyphMng)
   {
     TBase::TextureParams params;
@@ -143,7 +143,7 @@ public:
     params.m_magFilter = gl_const::GLLinear;
 
     vector<uint8_t> initData(params.m_size.x * params.m_size.y, 0);
-    TBase::Init(make_ref(&m_index), params, make_ref(initData.data()));
+    TBase::Init(allocator, make_ref(&m_index), params, make_ref(initData.data()));
   }
 
   ~FontTexture() { TBase::Reset(); }

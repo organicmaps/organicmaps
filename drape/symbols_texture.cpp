@@ -117,12 +117,12 @@ Texture::ResourceType SymbolsTexture::SymbolInfo::GetType() const
   return Symbol;
 }
 
-SymbolsTexture::SymbolsTexture(string const & skinPathName)
+SymbolsTexture::SymbolsTexture(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator)
 {
-  Load(skinPathName);
+  Load(skinPathName, allocator);
 }
 
-void SymbolsTexture::Load(string const & skinPathName)
+void SymbolsTexture::Load(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator)
 {
   vector<unsigned char> rawData;
   uint32_t width, height;
@@ -163,19 +163,27 @@ void SymbolsTexture::Load(string const & skinPathName)
   unsigned char * data = stbi_png_load_from_memory(&rawData[0], rawData.size(), &w, &h, &bpp, 0);
 
   if (width == w && height == h)
-    Create(width, height, RGBA8, make_ref(data));
+  {
+    Texture::Params p;
+    p.m_allocator = allocator;
+    p.m_format = dp::RGBA8;
+    p.m_width = width;
+    p.m_height = height;
+
+    Create(p, make_ref(data));
+  }
   else
     Fail();
 
   stbi_image_free(data);
 }
 
-void SymbolsTexture::Invalidate(string const & skinPathName)
+void SymbolsTexture::Invalidate(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator)
 {
   Destroy();
   m_definition.clear();
 
-  Load(skinPathName);
+  Load(skinPathName, allocator);
 }
 
 ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key, bool & newResource)
@@ -195,7 +203,13 @@ void SymbolsTexture::Fail()
 {
   m_definition.clear();
   int32_t alfaTexture = 0;
-  Create(1, 1, RGBA8, make_ref(&alfaTexture));
+  Texture::Params p;
+  p.m_allocator = GetDefaultAllocator();
+  p.m_format = dp::RGBA8;
+  p.m_width = 1;
+  p.m_height = 1;
+
+  Create(p, make_ref(&alfaTexture));
 }
 
 } // namespace dp

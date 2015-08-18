@@ -609,6 +609,7 @@
 		A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
 		A367C93B1B17334800E2B6E7 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
 		A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
+		A3F402FB1B81F537008E5F65 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454040681AD2D8D2007A9B12 /* CoreVideo.framework */; };
 		B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };

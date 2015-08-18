@@ -66,7 +66,7 @@ class ColorTexture : public DynamicTexture<ColorPalette, ColorKey, Texture::Colo
 {
   typedef DynamicTexture<ColorPalette, ColorKey, Texture::Color> TBase;
 public:
-  ColorTexture(m2::PointU const & size)
+  ColorTexture(m2::PointU const & size, ref_ptr<HWTextureAllocator> allocator)
     : m_pallete(size)
   {
     TBase::TextureParams params;
@@ -75,7 +75,7 @@ public:
     params.m_minFilter = gl_const::GLNearest;
     params.m_magFilter = gl_const::GLNearest;
 
-    TBase::Init(make_ref(&m_pallete), params);
+    TBase::Init(allocator, make_ref(&m_pallete), params);
   }
 
   void ReserveColor(dp::Color const & color);
