@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = map render gui routing search storage graphics indexer platform anim geometry coding base \
-               freetype fribidi expat protobuf tomcrypt jansson osrm stats_client zlib succinct
+               freetype fribidi expat protobuf tomcrypt jansson osrm stats_client minizip succinct
 
 !linux* {
   DEPENDENCIES *= opening_hours

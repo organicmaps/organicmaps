@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = map gui search storage graphics indexer platform anim geometry coding base \
-               freetype fribidi expat protobuf tomcrypt jansson zlib
+               freetype fribidi expat protobuf tomcrypt jansson
 
 include($$ROOT_DIR/common.pri)
 

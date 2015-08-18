@@ -15,7 +15,7 @@
 #include "std/algorithm.hpp"
 #include "std/unique_ptr.hpp"
 
-#include "3party/zlib/contrib/minizip/zip.h"
+#include "3party/minizip/zip.h"
 
 
 namespace

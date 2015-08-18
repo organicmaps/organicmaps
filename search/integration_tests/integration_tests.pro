@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = generator routing search storage stats_client jansson zlib indexer platform geometry coding sgitess base protobuf tomcrypt
+DEPENDENCIES = generator routing search storage stats_client jansson indexer platform geometry coding sgitess base protobuf tomcrypt
 
 include($$ROOT_DIR/common.pri)
 

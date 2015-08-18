@@ -7,7 +7,7 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH *= $$ROOT_DIR/3party/tomcrypt/src/headers $$ROOT_DIR/3party/zlib $$ROOT_DIR/3party/expat/lib
+INCLUDEPATH *= $$ROOT_DIR/3party/tomcrypt/src/headers $$ROOT_DIR/3party/expat/lib
 
 SOURCES += \
     arithmetic_codec.cpp \
@@ -20,7 +20,6 @@ SOURCES += \
     file_name_utils.cpp \
     file_reader.cpp \
     file_writer.cpp \
-    gzip_compressor.cpp \
     hex.cpp \
     huffman.cpp \
     internal/file_data.cpp \
@@ -62,7 +61,6 @@ HEADERS += \
     file_sort.hpp \
     file_writer.hpp \
     file_writer_stream.hpp \
-    gzip_compressor.hpp \
     hex.hpp \
     huffman.hpp \
     internal/expat_impl.h \

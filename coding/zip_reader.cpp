@@ -8,7 +8,7 @@
 
 #include "std/bind.hpp"
 
-#include "3party/zlib/contrib/minizip/unzip.h"
+#include "3party/minizip/unzip.h"
 
 
 ZipFileReader::ZipFileReader(string const & container, string const & file,

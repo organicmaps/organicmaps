@@ -101,7 +101,7 @@ LOCAL_SRC_FILES := \
 	nv_event/nv_event.cpp \
 	nv_time/nv_time.cpp \
 
-LOCAL_LDLIBS := -llog -lGLESv2 -latomic
+LOCAL_LDLIBS := -llog -lGLESv2 -latomic -lz
 
 LOCAL_LDLIBS += -Wl,--gc-sections
 

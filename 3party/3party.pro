@@ -2,7 +2,7 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS = freetype fribidi zlib jansson tomcrypt protobuf osrm expat \
+SUBDIRS = freetype fribidi minizip jansson tomcrypt protobuf osrm expat \
     succinct \
 
 !linux* {

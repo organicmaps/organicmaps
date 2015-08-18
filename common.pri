@@ -82,6 +82,8 @@ for(project, DEPENDENCIES) {
   LIBS += -l$$project
 }
 
+unix : LIBS *= -lz
+
 #INCLUDEPATH += $$ROOT_DIR/3party/protobuf/src/
 
 # Windows-specific options for all projects

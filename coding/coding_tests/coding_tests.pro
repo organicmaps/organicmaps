@@ -5,7 +5,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = coding base zlib tomcrypt
+DEPENDENCIES = coding base minizip tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
@@ -27,7 +27,6 @@ SOURCES += ../../testing/testingmain.cpp \
     file_data_test.cpp \
     file_sort_test.cpp \
     file_utils_test.cpp \
-    gzip_test.cpp \
     hex_test.cpp \
     huffman_test.cpp \
     mem_file_reader_test.cpp \
