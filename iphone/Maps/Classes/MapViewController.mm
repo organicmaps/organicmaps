@@ -212,8 +212,9 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
   self.forceRoutingStateChange = ForceRoutingStateChangeStartFollowing;
   auto & f = GetFramework();
-  f.SetRouter(f.GetBestRouter(ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate), self.restoreRouteDestination));
-  GetFramework().BuildRoute(ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate), self.restoreRouteDestination, 0 /* timeoutSec */);
+  m2::PointD const location = ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate);
+  f.SetRouter(f.GetBestRouter(location, self.restoreRouteDestination));
+  GetFramework().BuildRoute(location, self.restoreRouteDestination, 0 /* timeoutSec */);
 }
 
 #pragma mark - Map Navigation
