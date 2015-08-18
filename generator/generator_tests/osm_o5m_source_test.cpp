@@ -32,8 +32,8 @@ UNIT_TEST(OSM_O5M_Source_Node_read_test)
   CHECK_EQUAL(em.uid, 395071, ());
   CHECK_EQUAL(em.version, 8, ());
   CHECK_EQUAL(em.changeset, 12059128, ());
-  CHECK_EQUAL(em.lon, 38.7666704, ());
-  CHECK_EQUAL(em.lat, 55.0927062, ());
+  CHECK(my::AlmostEqualAbs(em.lon, 38.7666704, 1e-7), ());
+  CHECK(my::AlmostEqualAbs(em.lat, 55.0927062, 1e-7), ());
 
   auto const & tags = em.Tags();
   auto tagIterator = tags.begin();
