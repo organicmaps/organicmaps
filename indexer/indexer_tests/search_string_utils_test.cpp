@@ -31,7 +31,8 @@ UNIT_TEST(NormalizeAndSimplifyStringWithOurTambourines)
                         "バス", "ハス",
                         "âàáạăốợồôểềệếỉđưựứửýĂÂĐÊÔƠƯ",
                         "aaaaaooooeeeeiduuuuyaadeoou",  // Vietnamese
-                        "ăâț", "aat"                    // Romanian
+                        "ăâț", "aat",                   // Romanian
+                        "Триу́мф-Пала́с", "триумф-палас", // Russian accent
                        };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)

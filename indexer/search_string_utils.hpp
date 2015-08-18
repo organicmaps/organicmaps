@@ -46,6 +46,15 @@ inline strings::UniString NormalizeAndSimplifyString(string const & s)
 
   MakeLowerCaseInplace(uniString);
   NormalizeInplace(uniString);
+
+  // Remove accents that can appear after NFKD normalization.
+  uniString.erase_if([](UniChar const & c)
+  {
+    // ̀  COMBINING GRAVE ACCENT
+    // ́  COMBINING ACUTE ACCENT
+    return (c == 0x0300 || c == 0x0301);
+  });
+
   return uniString;
 
   /// @todo Restore this logic to distinguish и-й in future.
