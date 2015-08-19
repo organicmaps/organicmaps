@@ -575,11 +575,11 @@ bool GenerateFeatures(feature::GenerateInfo & info)
   switch (info.m_nodeStorageType)
   {
     case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateFeaturesImpl<RawFileShortPointStorage<BasePointStorage::MODE_READ>>(info);
+      return GenerateFeaturesImpl<RawFilePointStorage<BasePointStorage::MODE_READ>>(info);
     case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateFeaturesImpl<MapFileShortPointStorage<BasePointStorage::MODE_READ>>(info);
+      return GenerateFeaturesImpl<MapFilePointStorage<BasePointStorage::MODE_READ>>(info);
     case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateFeaturesImpl<RawMemShortPointStorage<BasePointStorage::MODE_READ>>(info);
+      return GenerateFeaturesImpl<RawMemPointStorage<BasePointStorage::MODE_READ>>(info);
   }
   return false;
 }
@@ -589,11 +589,11 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
   switch (info.m_nodeStorageType)
   {
     case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateIntermediateDataImpl<RawFileShortPointStorage<BasePointStorage::MODE_WRITE>>(info);
+      return GenerateIntermediateDataImpl<RawFilePointStorage<BasePointStorage::MODE_WRITE>>(info);
     case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateIntermediateDataImpl<MapFileShortPointStorage<BasePointStorage::MODE_WRITE>>(info);
+      return GenerateIntermediateDataImpl<MapFilePointStorage<BasePointStorage::MODE_WRITE>>(info);
     case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateIntermediateDataImpl<RawMemShortPointStorage<BasePointStorage::MODE_WRITE>>(info);
+      return GenerateIntermediateDataImpl<RawMemPointStorage<BasePointStorage::MODE_WRITE>>(info);
   }
   return false;
 }
