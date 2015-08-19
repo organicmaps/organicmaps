@@ -18,19 +18,6 @@
 #define MAPPED_WAYS "mapped_ways.n2w"
 
 
-class progress_policy
-{
-  size_t m_count;
-  size_t m_factor;
-
-public:
-  size_t GetCount() const { return m_count; }
-
-  void Begin(string const &, size_t factor);
-  void Inc(size_t i = 1);
-  void End();
-};
-
 struct WayElement
 {
   vector<uint64_t> nodes;

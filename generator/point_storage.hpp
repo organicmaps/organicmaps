@@ -49,17 +49,13 @@ protected:
     enum { value = v };
   };
 
-  progress_policy m_progress;
+  size_t m_processedPoint = 0;
 
 public:
   enum EStorageMode {MODE_READ = false, MODE_WRITE = true};
 
-  BasePointStorage(string const & name, size_t factor = 1000)
-  {
-    m_progress.Begin(name, factor);
-  }
-
-  uint64_t GetCount() const { return m_progress.GetCount(); }
+  inline size_t GetProcessedPoint() const { return m_processedPoint; }
+  inline void IncProcessedPoint() { ++m_processedPoint; }
 };
 
 template < BasePointStorage::EStorageMode ModeT >
@@ -74,7 +70,7 @@ class RawFilePointStorage : public BasePointStorage
   typename conditional<ModeT, FileWriter, FileReaderT>::type m_file;
 
 public:
-  RawFilePointStorage(string const & name) : BasePointStorage(name), m_file(name) {}
+  RawFilePointStorage(string const & name) : m_file(name) {}
 
   template <bool T = (ModeT == BasePointStorage::MODE_WRITE)>
   typename enable_if<T, void>::type AddPoint(uint64_t id, double lat, double lng)
@@ -85,7 +81,7 @@ public:
     m_file.Seek(id * sizeof(ll));
     m_file.Write(&ll, sizeof(ll));
 
-    m_progress.Inc();
+    IncProcessedPoint();
   }
 
   template <bool T = (ModeT == BasePointStorage::MODE_READ)>
@@ -124,7 +120,7 @@ class RawFileShortPointStorage : public BasePointStorage
   constexpr static double const kValueOrder = 1E+7;
 
 public:
-  RawFileShortPointStorage(string const & name) : BasePointStorage(name), m_file(name) {}
+  RawFileShortPointStorage(string const & name) : m_file(name) {}
 
   template <bool T = (ModeT == BasePointStorage::MODE_WRITE)>
   typename enable_if<T, void>::type AddPoint(uint64_t id, double lat, double lng)
@@ -141,7 +137,7 @@ public:
     m_file.Seek(id * sizeof(ll));
     m_file.Write(&ll, sizeof(ll));
 
-    m_progress.Inc();
+    IncProcessedPoint();
   }
 
   template <bool T = (ModeT == BasePointStorage::MODE_READ)>
@@ -179,8 +175,7 @@ class RawMemShortPointStorage : public BasePointStorage
 
 public:
   RawMemShortPointStorage(string const & name)
-  : BasePointStorage(name)
-  , m_file(name)
+  : m_file(name)
   , m_data((size_t)0xFFFFFFFF)
   {
     InitStorage(EnableIf<ModeT>());
@@ -217,7 +212,7 @@ public:
     CHECK_EQUAL(static_cast<int64_t>(ll.lat), lat64, ("Latitude is out of 32bit boundary!"));
     CHECK_EQUAL(static_cast<int64_t>(ll.lon), lng64, ("Longtitude is out of 32bit boundary!"));
 
-    m_progress.Inc();
+    IncProcessedPoint();
   }
 
   template <bool T = (ModeT == BasePointStorage::MODE_READ)>
@@ -247,7 +242,7 @@ class MapFilePointStorage : public BasePointStorage
   ContainerT m_map;
 
 public:
-  MapFilePointStorage(string const & name) : BasePointStorage(name, 10000), m_file(name)
+  MapFilePointStorage(string const & name) : m_file(name)
   {
     InitStorage(EnableIf<ModeT>());
   }
@@ -282,7 +277,7 @@ public:
     ll.lon = lng;
     m_file.Write(&ll, sizeof(ll));
     
-    m_progress.Inc();
+    IncProcessedPoint();
   }
 
   bool GetPoint(uint64_t id, double & lat, double & lng) const
@@ -306,7 +301,7 @@ class MapFileShortPointStorage : public BasePointStorage
   constexpr static double const kValueOrder = 1E+7;
 
 public:
-  MapFileShortPointStorage(string const & name) : BasePointStorage(name, 10000), m_file(name+".short")
+  MapFileShortPointStorage(string const & name) : m_file(name+".short")
   {
     InitStorage(EnableIf<ModeT>());
   }
@@ -347,7 +342,7 @@ public:
     CHECK_EQUAL(static_cast<int64_t>(ll.lon), lng64, ("Longtitude is out of 32bit boundary!"));
     m_file.Write(&ll, sizeof(ll));
 
-    m_progress.Inc();
+    IncProcessedPoint();
   }
 
   bool GetPoint(uint64_t id, double & lat, double & lng) const

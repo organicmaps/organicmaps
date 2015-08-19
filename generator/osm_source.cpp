@@ -561,7 +561,7 @@ bool GenerateIntermediateDataImpl(feature::GenerateInfo & info)
     }
 
     cache.SaveIndex();
-    LOG(LINFO, ("Added points count = ", nodes.GetCount()));
+    LOG(LINFO, ("Added points count = ", nodes.GetProcessedPoint()));
   }
   catch (Writer::Exception const & e)
   {
