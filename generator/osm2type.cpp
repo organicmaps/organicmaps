@@ -383,7 +383,8 @@ namespace ftype
     buffer_vector<uint32_t, 16> m_types;
 
   public:
-    enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT };
+    enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT,
+                 RW_STATION_SUBWAY };
 
     CachedTypes()
     {
@@ -399,6 +400,8 @@ namespace ftype
       };
       for (auto const & e : arr)
         m_types.push_back(c.GetTypeByPath(e));
+
+      m_types.push_back(c.GetTypeByPath({ "railway", "station", "subway" }));
     }
 
     uint32_t Get(EType t) const { return m_types[t]; }
@@ -406,6 +409,12 @@ namespace ftype
     {
       ftype::TruncValue(t, 1);
       return t == Get(HIGHWAY);
+    }
+    bool IsRwStation(uint32_t t) const
+    {
+      // check the exact match with possible types
+      ftype::TruncValue(t, 3);
+      return t == Get(RW_STATION_SUBWAY);
     }
   };
 
@@ -483,15 +492,23 @@ namespace ftype
       }
     }
 
-    for (size_t i = 0; i < params.m_Types.size(); ++i)
-      if (types.IsHighway(params.m_Types[i]))
+    bool highwayDone = false;
+    bool subwayDone = false;
+
+    // Get a copy of source types, because we will modify params in the loop;
+    FeatureParams::TTypes const vTypes = params.m_Types;
+    for (size_t i = 0; i < vTypes.size(); ++i)
+    {
+      if (!highwayDone && types.IsHighway(vTypes[i]))
       {
         TagProcessor(p).ApplyRules(
         {
           { "oneway", "yes", [&params]() { params.AddType(types.Get(CachedTypes::ONEWAY)); }},
           { "oneway", "1", [&params]() { params.AddType(types.Get(CachedTypes::ONEWAY)); }},
           { "oneway", "-1", [&params]() { params.AddType(types.Get(CachedTypes::ONEWAY)); params.m_reverseGeometry = true; }},
+
           { "access", "private", [&params]() { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
+
           { "lit", "~", [&params]() { params.AddType(types.Get(CachedTypes::LIT)); }},
 
           { "foot", "!", [&params]() { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
@@ -499,8 +516,35 @@ namespace ftype
           { "foot", "~", [&params]() { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
           { "sidewalk", "~", [&params]() { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
         });
-        break;
+
+        highwayDone = true;
       }
+
+      if (!subwayDone && types.IsRwStation(vTypes[i]))
+      {
+        TagProcessor(p).ApplyRules(
+        {
+          { "network", "London Underground", [&params]() { params.SetRwStationType("london"); }},
+          { "network", "New York City Subway", [&params]() { params.SetRwStationType("newyork"); }},
+          { "network", "Московский метрополитен", [&params]() { params.SetRwStationType("moscow"); }},
+          { "network", "Verkehrsverbund Berlin-Brandenburg", [&params]() { params.SetRwStationType("berlin"); }},
+          { "network", "Минский метрополитен", [&params]() { params.SetRwStationType("minsk"); }},
+
+          { "network", "Київський метрополітен", [&params]() { params.SetRwStationType("kiev"); }},
+          { "operator", "КП «Київський метрополітен»", [&params]() { params.SetRwStationType("kiev"); }},
+
+          { "network", "RATP", [&params]() { params.SetRwStationType("paris"); }},
+          { "network", "Metro de Barcelona", [&params]() { params.SetRwStationType("barcelona"); }},
+
+          { "network", "Metro de Madrid", [&params]() { params.SetRwStationType("madrid"); }},
+          { "operator", "Metro de Madrid", [&params]() { params.SetRwStationType("madrid"); }},
+
+          { "network", "Metropolitana di Roma", [&params]() { params.SetRwStationType("roma"); }},
+        });
+
+        subwayDone = true;
+      }
+    }
 
     params.FinishAddingTypes();
 

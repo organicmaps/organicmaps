@@ -643,3 +643,86 @@ UNIT_TEST(OsmType_Dibrugarh)
   TEST(params.name.GetString(StringUtf8Multilang::DEFAULT_CODE, name), (params));
   TEST_EQUAL(name, "Dibrugarh", (params));
 }
+
+UNIT_TEST(OsmType_Subway)
+{
+  {
+    char const * arr[][2] = {
+      { "network", "Московский метрополитен" },
+      { "operator", "ГУП «Московский метрополитен»" },
+      { "railway", "station" },
+      { "station", "subway" },
+      { "transport", "subway" },
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "moscow"})), (params));
+  }
+
+  {
+    char const * arr[][2] = {
+      { "name", "14th Street-8th Avenue (A,C,E,L)" },
+      { "network", "New York City Subway" },
+      { "railway", "station" },
+      { "wheelchair", "yes" },
+      { "route", "subway" },
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "newyork"})), (params));
+  }
+
+  {
+    char const * arr[][2] = {
+      { "name", "S Landsberger Allee" },
+      { "phone", "030 29743333" },
+      { "public_transport", "stop_position" },
+      { "railway", "station" },
+      { "network", "New York City Subway" },
+      { "station", "light_rail" },
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"railway", "station", "light_rail"})), (params));
+  }
+
+  {
+    char const * arr[][2] = {
+      { "monorail", "yes" },
+      { "name", "Улица Академика Королёва" },
+      { "network", "Московский метрополитен" },
+      { "operator", "ГУП «Московский метрополитен»" },
+      { "public_transport", "stop_position" },
+      { "railway", "station" },
+      { "station", "monorail" },
+      { "transport", "monorail" },
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"railway", "station", "monorail"})), (params));
+  }
+}

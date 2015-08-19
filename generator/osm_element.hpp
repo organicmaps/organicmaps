@@ -104,75 +104,10 @@ class SecondPassParser
 
   /// Generated features should include parent relation tags to make
   /// full types matching and storing any additional info.
-  class RelationTagsProcessor
+  class RelationTagsBase
   {
-    uint64_t m_featureID;
-    XMLElement * m_current;
-
-    my::Cache<uint64_t, RelationElement> m_cache;
-
-    bool IsAcceptBoundary(RelationElement const & e) const
-    {
-      string role;
-      CHECK(e.FindWay(m_featureID, role), (m_featureID));
-
-      // Do not accumulate boundary types (boundary=administrative) for inner polygons.
-      // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
-      return (role != "inner");
-    }
-
-    typedef unordered_set<string> NameKeysT;
-    void GetNameKeys(NameKeysT & keys) const
-    {
-      for (auto const & p : m_current->m_tags)
-        if (strings::StartsWith(p.key, "name"))
-          keys.insert(p.key);
-    }
-
-    void Process(RelationElement const & e)
-    {
-      string const type = e.GetType();
-
-      /// @todo Skip special relation types.
-      if (type == "multipolygon" ||
-          type == "route" ||
-          type == "bridge" ||
-          type == "restriction")
-      {
-        return;
-      }
-
-      bool const isWay = (m_current->type == XMLElement::EntityType::Way);
-      bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
-
-      NameKeysT nameKeys;
-      GetNameKeys(nameKeys);
-
-      for (auto const & p : e.tags)
-      {
-        /// @todo Skip common key tags.
-        if (p.first == "type" || p.first == "route")
-          continue;
-
-        /// Skip already existing "name" tags.
-        if (nameKeys.count(p.first) != 0)
-          continue;
-
-        if (!isBoundary && p.first == "boundary")
-          continue;
-
-        if (isWay && p.first == "place")
-          continue;
-
-        m_current->AddTag(p.first, p.second);
-      }
-    }
-
   public:
-    RelationTagsProcessor()
-      : m_cache(14)
-    {
-    }
+    RelationTagsBase() : m_cache(14) {}
 
     void Reset(uint64_t fID, XMLElement * p)
     {
@@ -191,25 +126,121 @@ class SecondPassParser
       return false;
     }
 
-  } m_relationsProcess;
+  protected:
+    static bool IsSkipRelation(string const & type)
+    {
+      /// @todo Skip special relation types.
+      return (type == "multipolygon" || type == "bridge" || type == "restriction");
+    }
+
+    bool IsKeyTagExists(string const & key) const
+    {
+      for (auto const & p : m_current->m_tags)
+        if (p.key == key)
+          return true;
+      return false;
+    }
+
+    virtual void Process(RelationElement const & e) = 0;
+
+  protected:
+    uint64_t m_featureID;
+    XMLElement * m_current;
+
+  private:
+    my::Cache<uint64_t, RelationElement> m_cache;
+  };
+
+  class RelationTagsNode : public RelationTagsBase
+  {
+    typedef RelationTagsBase TBase;
+
+  protected:
+    void Process(RelationElement const & e) override
+    {
+      if (TBase::IsSkipRelation(e.GetType()))
+        return;
+
+      for (auto const & p : e.tags)
+      {
+        // Store only this tags to use it in railway stations processing for the particular city.
+        if (p.first == "network" || p.first == "operator" || p.first == "route")
+          if (!TBase::IsKeyTagExists(p.first))
+            TBase::m_current->AddTag(p.first, p.second);
+      }
+    }
+  } m_nodeRelations;
+
+  class RelationTagsWay : public RelationTagsBase
+  {
+    typedef RelationTagsBase TBase;
+
+    bool IsAcceptBoundary(RelationElement const & e) const
+    {
+      string role;
+      CHECK(e.FindWay(TBase::m_featureID, role), (TBase::m_featureID));
+
+      // Do not accumulate boundary types (boundary=administrative) for inner polygons.
+      // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
+      return (role != "inner");
+    }
+
+    typedef unordered_set<string> NameKeysT;
+    void GetNameKeys(NameKeysT & keys) const
+    {
+      for (auto const & p : TBase::m_current->m_tags)
+        if (strings::StartsWith(p.key, "name"))
+          keys.insert(p.key);
+    }
+
+  protected:
+    void Process(RelationElement const & e) override
+    {
+      /// @todo Review route relations in future.
+      /// Actually, now they give a lot of dummy tags.
+      string const type = e.GetType();
+      if (TBase::IsSkipRelation(type) || type == "route")
+        return;
+
+      bool const isWay = (TBase::m_current->type == XMLElement::EntityType::Way);
+      bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
+
+      NameKeysT nameKeys;
+      GetNameKeys(nameKeys);
+
+      for (auto const & p : e.tags)
+      {
+        /// @todo Skip common key tags.
+        if (p.first == "type" || p.first == "route")
+          continue;
+
+        // Skip already existing "name" tags.
+        if (nameKeys.count(p.first) != 0)
+          continue;
+
+        if (!isBoundary && p.first == "boundary")
+          continue;
+
+        if (isWay && p.first == "place")
+          continue;
+
+        TBase::m_current->AddTag(p.first, p.second);
+      }
+    }
+  } m_wayRelations;
 
   bool ParseType(XMLElement * p, FeatureParams & params)
   {
     // Get tags from parent relations.
-    m_relationsProcess.Reset(p->id, p);
-
     if (p->type == XMLElement::EntityType::Node)
     {
-      // additional process of nodes ONLY if there is no native types
-      FeatureParams fp;
-      ftype::GetNameAndType(p, fp);
-      if (!ftype::IsValidTypes(fp))
-        m_holder.ForEachRelationByNodeCached(p->id, m_relationsProcess);
+      m_nodeRelations.Reset(p->id, p);
+      m_holder.ForEachRelationByNodeCached(p->id, m_nodeRelations);
     }
     else if (p->type == XMLElement::EntityType::Way)
     {
-      // always make additional process of ways
-      m_holder.ForEachRelationByWayCached(p->id, m_relationsProcess);
+      m_wayRelations.Reset(p->id, p);
+      m_holder.ForEachRelationByWayCached(p->id, m_wayRelations);
     }
 
     // Get params from element tags.

@@ -24,7 +24,7 @@ class SourceReader
 
 public:
   SourceReader();
-  SourceReader(string const & filename);
+  explicit SourceReader(string const & filename);
   explicit SourceReader(istringstream & stream);
 
   uint64_t Read(char * buffer, uint64_t bufferSize);
