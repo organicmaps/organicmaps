@@ -210,7 +210,8 @@ namespace integration
 
   void TestTurnCount(routing::Route const & route, uint32_t expectedTurnCount)
   {
-    TEST_EQUAL(route.GetTurns().size(), expectedTurnCount, ());
+    // We use -1 for ignoring the "ReachedYourDestination" turn record.
+    TEST_EQUAL(route.GetTurns().size() - 1, expectedTurnCount, ());
   }
 
   void TestRouteLength(Route const & route, double expectedRouteMeters,
