@@ -93,6 +93,14 @@ message PathTextRuleProto
   required int32 priority = 3;
 }
 
+message ShieldRuleProto
+{
+  required int32 height = 1;
+  required uint32 color = 2;
+  optional uint32 stroke_color = 3;
+  required int32 priority = 4;
+}
+
 message DrawElementProto
 {
   required int32 scale = 1;
@@ -102,6 +110,7 @@ message DrawElementProto
   optional CaptionRuleProto caption = 5;
   optional CircleRuleProto circle = 6;
   optional PathTextRuleProto path_text = 7;
+  optional ShieldRuleProto shield = 8;
 }
 
 message ClassifElementProto

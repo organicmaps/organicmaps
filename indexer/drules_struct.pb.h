@@ -40,6 +40,7 @@ class CaptionDefProto;
 class CaptionRuleProto;
 class CircleRuleProto;
 class PathTextRuleProto;
+class ShieldRuleProto;
 class DrawElementProto;
 class ClassifElementProto;
 class ContainerProto;
@@ -1299,6 +1300,127 @@ class PathTextRuleProto : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
+class ShieldRuleProto : public ::google::protobuf::MessageLite {
+ public:
+  ShieldRuleProto();
+  virtual ~ShieldRuleProto();
+
+  ShieldRuleProto(const ShieldRuleProto& from);
+
+  inline ShieldRuleProto& operator=(const ShieldRuleProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::std::string& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::std::string* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ShieldRuleProto& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const ShieldRuleProto* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(ShieldRuleProto* other);
+
+  // implements Message ----------------------------------------------
+
+  ShieldRuleProto* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ShieldRuleProto& from);
+  void MergeFrom(const ShieldRuleProto& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  void DiscardUnknownFields();
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required int32 height = 1;
+  inline bool has_height() const;
+  inline void clear_height();
+  static const int kHeightFieldNumber = 1;
+  inline ::google::protobuf::int32 height() const;
+  inline void set_height(::google::protobuf::int32 value);
+
+  // required uint32 color = 2;
+  inline bool has_color() const;
+  inline void clear_color();
+  static const int kColorFieldNumber = 2;
+  inline ::google::protobuf::uint32 color() const;
+  inline void set_color(::google::protobuf::uint32 value);
+
+  // optional uint32 stroke_color = 3;
+  inline bool has_stroke_color() const;
+  inline void clear_stroke_color();
+  static const int kStrokeColorFieldNumber = 3;
+  inline ::google::protobuf::uint32 stroke_color() const;
+  inline void set_stroke_color(::google::protobuf::uint32 value);
+
+  // required int32 priority = 4;
+  inline bool has_priority() const;
+  inline void clear_priority();
+  static const int kPriorityFieldNumber = 4;
+  inline ::google::protobuf::int32 priority() const;
+  inline void set_priority(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:ShieldRuleProto)
+ private:
+  inline void set_has_height();
+  inline void clear_has_height();
+  inline void set_has_color();
+  inline void clear_has_color();
+  inline void set_has_stroke_color();
+  inline void clear_has_stroke_color();
+  inline void set_has_priority();
+  inline void clear_has_priority();
+
+  ::std::string _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::int32 height_;
+  ::google::protobuf::uint32 color_;
+  ::google::protobuf::uint32 stroke_color_;
+  ::google::protobuf::int32 priority_;
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
+  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
+
+  void InitAsDefaultInstance();
+  static ShieldRuleProto* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class DrawElementProto : public ::google::protobuf::MessageLite {
  public:
   DrawElementProto();
@@ -1424,6 +1546,15 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline ::PathTextRuleProto* release_path_text();
   inline void set_allocated_path_text(::PathTextRuleProto* path_text);
 
+  // optional .ShieldRuleProto shield = 8;
+  inline bool has_shield() const;
+  inline void clear_shield();
+  static const int kShieldFieldNumber = 8;
+  inline const ::ShieldRuleProto& shield() const;
+  inline ::ShieldRuleProto* mutable_shield();
+  inline ::ShieldRuleProto* release_shield();
+  inline void set_allocated_shield(::ShieldRuleProto* shield);
+
   // @@protoc_insertion_point(class_scope:DrawElementProto)
  private:
   inline void set_has_scale();
@@ -1438,6 +1569,8 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline void clear_has_circle();
   inline void set_has_path_text();
   inline void clear_has_path_text();
+  inline void set_has_shield();
+  inline void clear_has_shield();
 
   ::std::string _unknown_fields_;
 
@@ -1449,6 +1582,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   ::CaptionRuleProto* caption_;
   ::CircleRuleProto* circle_;
   ::PathTextRuleProto* path_text_;
+  ::ShieldRuleProto* shield_;
   ::google::protobuf::int32 scale_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
@@ -2969,6 +3103,106 @@ inline void PathTextRuleProto::set_priority(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
+// ShieldRuleProto
+
+// required int32 height = 1;
+inline bool ShieldRuleProto::has_height() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ShieldRuleProto::set_has_height() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ShieldRuleProto::clear_has_height() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ShieldRuleProto::clear_height() {
+  height_ = 0;
+  clear_has_height();
+}
+inline ::google::protobuf::int32 ShieldRuleProto::height() const {
+  // @@protoc_insertion_point(field_get:ShieldRuleProto.height)
+  return height_;
+}
+inline void ShieldRuleProto::set_height(::google::protobuf::int32 value) {
+  set_has_height();
+  height_ = value;
+  // @@protoc_insertion_point(field_set:ShieldRuleProto.height)
+}
+
+// required uint32 color = 2;
+inline bool ShieldRuleProto::has_color() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ShieldRuleProto::set_has_color() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ShieldRuleProto::clear_has_color() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ShieldRuleProto::clear_color() {
+  color_ = 0u;
+  clear_has_color();
+}
+inline ::google::protobuf::uint32 ShieldRuleProto::color() const {
+  // @@protoc_insertion_point(field_get:ShieldRuleProto.color)
+  return color_;
+}
+inline void ShieldRuleProto::set_color(::google::protobuf::uint32 value) {
+  set_has_color();
+  color_ = value;
+  // @@protoc_insertion_point(field_set:ShieldRuleProto.color)
+}
+
+// optional uint32 stroke_color = 3;
+inline bool ShieldRuleProto::has_stroke_color() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ShieldRuleProto::set_has_stroke_color() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ShieldRuleProto::clear_has_stroke_color() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ShieldRuleProto::clear_stroke_color() {
+  stroke_color_ = 0u;
+  clear_has_stroke_color();
+}
+inline ::google::protobuf::uint32 ShieldRuleProto::stroke_color() const {
+  // @@protoc_insertion_point(field_get:ShieldRuleProto.stroke_color)
+  return stroke_color_;
+}
+inline void ShieldRuleProto::set_stroke_color(::google::protobuf::uint32 value) {
+  set_has_stroke_color();
+  stroke_color_ = value;
+  // @@protoc_insertion_point(field_set:ShieldRuleProto.stroke_color)
+}
+
+// required int32 priority = 4;
+inline bool ShieldRuleProto::has_priority() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void ShieldRuleProto::set_has_priority() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void ShieldRuleProto::clear_has_priority() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void ShieldRuleProto::clear_priority() {
+  priority_ = 0;
+  clear_has_priority();
+}
+inline ::google::protobuf::int32 ShieldRuleProto::priority() const {
+  // @@protoc_insertion_point(field_get:ShieldRuleProto.priority)
+  return priority_;
+}
+inline void ShieldRuleProto::set_priority(::google::protobuf::int32 value) {
+  set_has_priority();
+  priority_ = value;
+  // @@protoc_insertion_point(field_set:ShieldRuleProto.priority)
+}
+
+// -------------------------------------------------------------------
+
 // DrawElementProto
 
 // required int32 scale = 1;
@@ -3248,6 +3482,51 @@ inline void DrawElementProto::set_allocated_path_text(::PathTextRuleProto* path_
     clear_has_path_text();
   }
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.path_text)
+}
+
+// optional .ShieldRuleProto shield = 8;
+inline bool DrawElementProto::has_shield() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void DrawElementProto::set_has_shield() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void DrawElementProto::clear_has_shield() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void DrawElementProto::clear_shield() {
+  if (shield_ != NULL) shield_->::ShieldRuleProto::Clear();
+  clear_has_shield();
+}
+inline const ::ShieldRuleProto& DrawElementProto::shield() const {
+  // @@protoc_insertion_point(field_get:DrawElementProto.shield)
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return shield_ != NULL ? *shield_ : *default_instance().shield_;
+#else
+  return shield_ != NULL ? *shield_ : *default_instance_->shield_;
+#endif
+}
+inline ::ShieldRuleProto* DrawElementProto::mutable_shield() {
+  set_has_shield();
+  if (shield_ == NULL) shield_ = new ::ShieldRuleProto;
+  // @@protoc_insertion_point(field_mutable:DrawElementProto.shield)
+  return shield_;
+}
+inline ::ShieldRuleProto* DrawElementProto::release_shield() {
+  clear_has_shield();
+  ::ShieldRuleProto* temp = shield_;
+  shield_ = NULL;
+  return temp;
+}
+inline void DrawElementProto::set_allocated_shield(::ShieldRuleProto* shield) {
+  delete shield_;
+  shield_ = shield;
+  if (shield) {
+    set_has_shield();
+  } else {
+    clear_has_shield();
+  }
+  // @@protoc_insertion_point(field_set_allocated:DrawElementProto.shield)
 }
 
 // -------------------------------------------------------------------
