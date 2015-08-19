@@ -535,10 +535,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
             mMapObject.getLat(), mMapObject.getLon(),
             l.getLatitude(), l.getLongitude(), northAzimuth);
 
-        if (da.getAthimuth() >= 0)
+        if (da.getAzimuth() >= 0)
         {
           mAvDirection.setVisibility(View.VISIBLE);
-          mAvDirection.setAzimut(da.getAthimuth());
+          mAvDirection.setAzimuth(da.getAzimuth());
         }
       }
     }

@@ -68,9 +68,9 @@ public class Framework
 
   public native static double[] getScreenRectCenter();
 
-  public native static DistanceAndAzimut nativeGetDistanceAndAzimut(double merX, double merY, double cLat, double cLon, double north);
+  public native static DistanceAndAzimut nativeGetDistanceAndAzimut(double dstMerX, double dstMerY, double srcLat, double srcLon, double north);
 
-  public native static DistanceAndAzimut nativeGetDistanceAndAzimutFromLatLon(double lat, double lon, double cLat, double cLon, double north);
+  public native static DistanceAndAzimut nativeGetDistanceAndAzimutFromLatLon(double dstLat, double dstLon, double srcLat, double srcLon, double north);
 
   public native static String nativeFormatLatLon(double lat, double lon, boolean useDMSFormat);
 

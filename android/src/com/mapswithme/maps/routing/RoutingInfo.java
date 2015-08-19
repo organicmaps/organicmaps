@@ -2,7 +2,6 @@ package com.mapswithme.maps.routing;
 
 import android.location.Location;
 import android.support.annotation.DrawableRes;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
@@ -91,7 +90,7 @@ public class RoutingInfo
     public void setTurnDrawable(ImageView view, DistanceAndAzimut distanceAndAzimut)
     {
       view.setImageResource(R.drawable.ic_direction_pedestrian);
-      ViewHelper.setRotation(view, -(float) Math.toDegrees(distanceAndAzimut.getAthimuth()));
+      ViewHelper.setRotation(view, (float) Math.toDegrees(distanceAndAzimut.getAzimuth()));
     }
   }
 
@@ -133,11 +132,5 @@ public class RoutingInfo
     this.pedestrianNextDirection = new Location("");
     this.pedestrianNextDirection.setLatitude(pedestrianDirectionLat);
     this.pedestrianNextDirection.setLongitude(pedestrianDirectionLon);
-  }
-
-  private void dumpLanes(SingleLaneInfo[] lanes)
-  {
-    for (int j = 0; j < lanes.length; j++)
-      Log.d("JNIARRAY", "    " + "Lane number " + j + ". " + lanes[j]);
   }
 }

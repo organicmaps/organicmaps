@@ -294,7 +294,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
   {
     Location location = LocationHelper.INSTANCE.getLastLocation();
     DistanceAndAzimut distanceAndAzimut = Framework.nativeGetDistanceAndAzimutFromLatLon(
-        mEndPoint.getLat(), mEndPoint.getLon(), location.getLatitude(), location.getLongitude(), mNorth);
+        info.pedestrianNextDirection.getLatitude(), info.pedestrianNextDirection.getLongitude(), location.getLatitude(), location.getLongitude(), mNorth);
 
     String[] splitDistance = distanceAndAzimut.getDistance().split(" ");
     mTvTurnDistance.setText(getSpannedDistance(getResources().getDimensionPixelSize(R.dimen.text_size_display_1),

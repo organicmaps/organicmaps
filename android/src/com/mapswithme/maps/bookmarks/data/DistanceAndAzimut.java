@@ -2,23 +2,22 @@ package com.mapswithme.maps.bookmarks.data;
 
 public class DistanceAndAzimut
 {
-  private String m_distance;
-  private double m_athimuth;
+  private String mDistance;
+  private double mAzimuth;
 
   public String getDistance()
   {
-    return m_distance;
+    return mDistance;
   }
 
-  public double getAthimuth()
+  public double getAzimuth()
   {
-    return m_athimuth;
+    return mAzimuth;
   }
 
-  public DistanceAndAzimut(String m_distance, double m_athimuth)
+  public DistanceAndAzimut(String distance, double azimuth)
   {
-    super();
-    this.m_distance = m_distance;
-    this.m_athimuth = m_athimuth;
+    mDistance = distance;
+    mAzimuth = azimuth;
   }
 }

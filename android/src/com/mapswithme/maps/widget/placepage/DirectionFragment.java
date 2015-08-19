@@ -131,13 +131,10 @@ public class DirectionFragment extends DialogFragment implements LocationHelper.
         mMapObject.getLat(), mMapObject.getLon(),
         last.getLatitude(), last.getLongitude(), north);
 
-    if (da.getAthimuth() >= 0)
-      mAvDirection.setAzimut(da.getAthimuth());
+    if (da.getAzimuth() >= 0)
+      mAvDirection.setAzimuth(da.getAzimuth());
   }
 
   @Override
-  public void onLocationError(int errorCode)
-  {
-
-  }
+  public void onLocationError(int errorCode) {}
 }
