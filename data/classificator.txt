@@ -7,8 +7,9 @@ world  +
         station  -
         {}
     aeroway  +
-        aerodrome  -
-        airport  -
+        aerodrome  +
+            international  -
+            {}
         apron  -
         gate  -
         helipad  -
@@ -611,18 +612,30 @@ world  +
             tunnel  -
             {}
         station  +
+            light_rail  -
+            monorail  -
             subway  +
+                barcelona  -
+                berlin  -
                 blue  -
                 brown  -
                 darkgreen  -
                 gray  -
                 green  -
                 grey  -
+                kiev  -
                 lightblue  -
                 lightgreen  -
+                london  -
+                madrid  -
+                minsk  -
+                moscow  -
+                newyork  -
                 orange  -
+                paris  -
                 purple  -
                 red  -
+                roma  -
                 violet  -
                 yellow  -
                 {}

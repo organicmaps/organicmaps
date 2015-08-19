@@ -630,7 +630,7 @@ mapswithme
 highway|primary_link
 highway|track|grade5|permissive
 natural|water
-aeroway|airport
+aeroway|aerodrome
 highway|tertiary_link|tunnel
 mapswithme
 highway|footway
@@ -1007,3 +1007,16 @@ place|city|capital|11
 hwtag|yesfoot
 public_transport|platform
 highway|platform
+aeroway|aerodrome|international
+railway|station|light_rail
+railway|station|monorail
+railway|station|subway|london
+railway|station|subway|newyork
+railway|station|subway|moscow
+railway|station|subway|berlin
+railway|station|subway|minsk
+railway|station|subway|kiev
+railway|station|subway|barcelona
+railway|station|subway|paris
+railway|station|subway|madrid
+railway|station|subway|roma

@@ -23,8 +23,8 @@ highway|residential|oneway;[highway=residential][oneway?];x;name;int_name;22;hig
 waterway|river;[waterway=river];;name;int_name;23;
 addr:interpolation|even;[addr:interpolation=even];x;name;int_name;24;hwtag|oneway
 addr:interpolation|odd;[addr:interpolation=odd];x;name;int_name;25;hwtag|private
-amenity|parking;[amenity=parking][access?], [amenity=parking][!access];;name;int_name;26;
-highway|primary;[highway=primary]; ;name;int_name;27;
+amenity|parking;[amenity=parking][access?],[amenity=parking][!access];;name;int_name;26;
+highway|primary;[highway=primary];;name;int_name;27;
 railway|rail;[railway=rail];;name;int_name;28;
 highway|service|parking_aisle;[highway=service][service=parking_aisle];;name;int_name;29;
 place|hamlet;[place=hamlet];;name;int_name;30;
@@ -630,7 +630,7 @@ highway|primary_link|area;[highway=primary_link][area?];x;name;int_name;629;
 highway|primary_link|disused;[highway=primary_link][disused?];x;name;int_name;630;highway|primary_link
 highway|track|grade5|permissive;[highway=track][tracktype=grade5][access=permissive];;name;int_name;631;
 landuse|reservoir|cooling;[landuse=reservoir][reservoir=cooling];x;name;int_name;632;natural|water
-aeroway|airport;[aeroway=airport];;name;int_name;633;
+aeroway|airport;[aeroway=airport];x;name;int_name;633;aeroway|aerodrome
 highway|tertiary_link|tunnel;[highway=tertiary_link][tunnel?];;name;int_name;634;
 man_made|piste:halfpipe;[man_made=piste:halfpipe];x;name;int_name;635;
 highway|footpath|permissive;[highway=footpath][access=permissive];x;name;int_name;636;highway|footway
@@ -1007,3 +1007,16 @@ place|city|capital|11;[place=city][capital=11];;name;int_name;1006;
 hwtag|yesfoot;[hwtag=yesfoot];;name;int_name;1007;
 public_transport|platform;[public_transport=platform];;name;int_name;1008;
 highway|platform;[highway=platform];;name;int_name;1009;
+aeroway|aerodrome|international;[aeroway=aerodrome][aerodrome=international];;name;int_name;1010;
+railway|station|light_rail;[railway=station][station=light_rail];;name;int_name;1011;
+railway|station|monorail;[railway=station][station=monorail];;name;int_name;1012;
+railway|station|subway|london;[railway=station][transport=subway][city=london];;name;int_name;1013;
+railway|station|subway|newyork;[railway=station][transport=subway][city=newyork];;name;int_name;1014;
+railway|station|subway|moscow;[railway=station][transport=subway][city=moscow];;name;int_name;1015;
+railway|station|subway|berlin;[railway=station][transport=subway][city=berlin];;name;int_name;1016;
+railway|station|subway|minsk;[railway=station][transport=subway][city=minsk];;name;int_name;1017;
+railway|station|subway|kiev;[railway=station][transport=subway][city=kiev];;name;int_name;1018;
+railway|station|subway|barcelona;[railway=station][transport=subway][city=barcelona];;name;int_name;1019;
+railway|station|subway|paris;[railway=station][transport=subway][city=paris];;name;int_name;1020;
+railway|station|subway|madrid;[railway=station][transport=subway][city=madrid];;name;int_name;1021;
+railway|station|subway|roma;[railway=station][transport=subway][city=roma];;name;int_name;1022;
