@@ -100,6 +100,7 @@ namespace location
         : m_turn(routing::turns::TurnDirection::NoTurn),
           m_exitNum(0),
           m_time(0),
+          m_completionPercent(0),
           m_pedestrianTurn(routing::turns::PedestrianDirection::None),
           m_pedestrianDirectionPos(0., 0.)
     {
@@ -147,6 +148,9 @@ namespace location
     vector<string> m_turnNotifications;
     // The next street name.
     string m_targetName;
+
+    // Percentage of the route completion.
+    double m_completionPercent;
 
     /// @name Pedestrian direction information
     //@{
