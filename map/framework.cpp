@@ -11,6 +11,7 @@
 #ifndef USE_DRAPE
   #include "render/feature_processor.hpp"
   #include "render/drawer.hpp"
+  #include "render/proto_to_styles.hpp"
 #else
   #include "../drape_frontend/visual_params.hpp"
 #endif // USE_DRAPE
@@ -315,7 +316,6 @@ void Framework::DrawSingleFrame(m2::PointD const & center, int zoomModifier,
     ASSERT(rect.IsPointInside(symbols.m_searchResult), ());
   }
 
-
   int baseZoom = m_scales.GetDrawTileScale(rect);
   int resultZoom = baseZoom + zoomModifier;
   int const minZoom = symbols.m_bottomZoom == -1 ? resultZoom : symbols.m_bottomZoom;
@@ -326,7 +326,7 @@ void Framework::DrawSingleFrame(m2::PointD const & center, int zoomModifier,
   CheckMinMaxVisibleScale(rect);
   frameNavigator.SetFromRect(m2::AnyRectD(rect));
 
-  m_cpuDrawer->BeginFrame(pxWidth, pxHeight);
+  m_cpuDrawer->BeginFrame(pxWidth, pxHeight, ConvertColor(drule::rules().GetBgColor(resultZoom)));
 
   ScreenBase const & s = frameNavigator.Screen();
   shared_ptr<PaintEvent> event = make_shared<PaintEvent>(m_cpuDrawer.get());

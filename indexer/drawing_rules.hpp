@@ -77,7 +77,7 @@ namespace drule
 
     BaseRule const * Find(Key const & k) const;
 
-    uint32_t GetBgColor(int scale = 0) const;
+    uint32_t GetBgColor(int scale) const;
 
 #ifdef OMIM_OS_DESKTOP
     void LoadFromTextProto(string const & buffer);

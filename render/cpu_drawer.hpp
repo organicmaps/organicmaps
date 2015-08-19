@@ -25,7 +25,7 @@ public:
 
   CPUDrawer(Params const & params);
 
-  void BeginFrame(uint32_t width, uint32_t height);
+  void BeginFrame(uint32_t width, uint32_t height, graphics::Color const & bgColor);
     void Flush();
     void DrawMyPosition(m2::PointD const & myPxPotision);
     void DrawSearchResult(m2::PointD const & pxPosition);

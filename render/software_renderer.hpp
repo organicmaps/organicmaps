@@ -33,7 +33,7 @@ class SoftwareRenderer
 public:
   SoftwareRenderer(graphics::GlyphCache::Params const & glyphCacheParams, graphics::EDensity density);
 
-  void BeginFrame(uint32_t width, uint32_t height);
+  void BeginFrame(uint32_t width, uint32_t height, graphics::Color const & bgColor);
 
     void DrawSymbol(m2::PointD const & pt, graphics::EPosition anchor,
                     graphics::Icon::Info const & info);

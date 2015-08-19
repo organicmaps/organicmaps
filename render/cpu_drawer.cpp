@@ -172,9 +172,9 @@ CPUDrawer::CPUDrawer(Params const & params)
 {
 }
 
-void CPUDrawer::BeginFrame(uint32_t width, uint32_t height)
+void CPUDrawer::BeginFrame(uint32_t width, uint32_t height, graphics::Color const & bgColor)
 {
-  m_renderer->BeginFrame(width, height);
+  m_renderer->BeginFrame(width, height, bgColor);
 }
 
 void CPUDrawer::Flush()

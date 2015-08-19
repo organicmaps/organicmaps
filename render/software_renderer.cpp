@@ -180,7 +180,7 @@ SoftwareRenderer::SoftwareRenderer(graphics::GlyphCache::Params const & glyphCac
   ASSERT(m_skinWidth != 0 && m_skinHeight != 0, ());
 }
 
-void SoftwareRenderer::BeginFrame(uint32_t width, uint32_t height)
+void SoftwareRenderer::BeginFrame(uint32_t width, uint32_t height, graphics::Color const & bgColor)
 {
   ASSERT(m_frameWidth == 0 && m_frameHeight == 0, ());
   m_frameWidth = width;
@@ -195,8 +195,7 @@ void SoftwareRenderer::BeginFrame(uint32_t width, uint32_t height)
   m_baseRenderer.reset_clipping(true);
   unsigned op = m_pixelFormat.comp_op();
   m_pixelFormat.comp_op(agg::comp_op_src);
-  graphics::Color c = ConvertColor(drule::rules().GetBgColor());
-  m_baseRenderer.clear(agg::rgba8(c.r, c.g, c.b, c.a));
+  m_baseRenderer.clear(agg::rgba8(bgColor.r, bgColor.g, bgColor.b, bgColor.a));
   m_pixelFormat.comp_op(op);
 }
 
