@@ -90,3 +90,34 @@ UNIT_TEST(TwoVectorsAngle)
                                                m2::Point<double>(1, 0)  /* p1 */,
                                                m2::Point<double>(-1, 0)) /* p2 */, math::pi, eps), ());
 }
+
+UNIT_TEST(Azimuth)
+{
+  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(-1, 0),
+                                   m2::Point<double>(0, 1),
+                                   math::pi2), -math::pi4), ());
+  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(-1, 0),
+                                   m2::Point<double>(0, 1),
+                                   0.0), math::pi4), ());
+  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(-1, 1),
+                                   m2::Point<double>(1, -1),
+                                   0.0), 3 * math::pi4), ());
+  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(1, 1),
+                                   m2::Point<double>(0, 1),
+                                   -math::pi2), 0.0), ());
+  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(1, -1),
+                                   m2::Point<double>(-1, -1),
+                                   math::pi), math::pi2), ());
+  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(0, 0),
+                                   m2::Point<double>(-1, -1),
+                                   math::pi4), math::pi), ());
+  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(0.5, -0.5),
+                                   m2::Point<double>(-0.5, 0.5),
+                                   math::pi4), -math::pi2), ());
+  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(0.1, 0.1),
+                                   m2::Point<double>(0.2, 0.2),
+                                   math::pi4), 0.0), ());
+  TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(0.7, 0.7),
+                                   m2::Point<double>(-0.2, -0.2),
+                                   math::pi2), 3 * math::pi4), ());
+}

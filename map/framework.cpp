@@ -1503,7 +1503,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
     // We calculate azimut even when distance is very short (d ~ 0),
     // because return value has 2 states (near me or far from me).
 
-    azimut = ang::AngleTo(MercatorBounds::FromLatLon(lat, lon), point) + north;
+    azimut = ang::Azimuth(MercatorBounds::FromLatLon(lat, lon), point, north);
 
     double const pi2 = 2.0*math::pi;
     if (azimut < 0.0)

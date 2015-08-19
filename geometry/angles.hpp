@@ -95,6 +95,19 @@ namespace ang
 
   double GetMiddleAngle(double a1, double a2);
 
+  /// @return If north is zero - azimuth between geographic north and [p1, p2] vector is returned.
+  /// If north is not zero - it is treated as azimuth of some custom direction(eg magnetic north or some other direction),
+  /// and azimuth between that direction and [p1, p2] is returned.
+  /// Azimuth is in range [0, 2 * pi]
+  template <typename T>
+  inline T Azimuth(m2::Point<T> const & p1, m2::Point<T> const & p2, T north = 0)
+  {
+    T azimuth = math::pi2 - (AngleTo(p1, p2) + north);
+    if (azimuth < 0)
+      azimuth += math::twicePi;
+    return azimuth;
+  }
+
   /// Average angle calcker. Can't find any suitable solution, so decided to do like this:
   /// Avg(i) = Avg(Avg(i-1), Ai);
   class AverageCalc
