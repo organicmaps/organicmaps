@@ -38,7 +38,6 @@ private:
   void ReadFeatureIndex(MapDataProvider const & model);
   void ProcessID(FeatureID const & id);
   void InitStylist(FeatureType const & f, Stylist & s);
-  void RequestFeatures(MemoryFeatureIndex & memIndex, vector<FeatureID> & featuresToRead);
   void CheckCanceled() const;
   bool DoNeedReadIndex() const;
 

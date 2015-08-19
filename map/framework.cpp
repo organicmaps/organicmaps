@@ -168,7 +168,7 @@ void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const
 void Framework::OnUserPositionChanged(m2::PointD const & position)
 {
   MyPositionMarkPoint * myPostition = UserMarkContainer::UserMarkForMyPostion();
-  myPostition->SetPtOrg(position);
+  myPostition->SetUserPosition(position);
 
   if (IsRoutingActive())
     m_routingSession.SetUserCurrentPosition(position);
@@ -1005,8 +1005,11 @@ bool Framework::Search(search::SearchParams const & params)
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
 {
   m2::PointD pos;
-  if (m_drapeEngine == nullptr || !m_drapeEngine->GetMyPosition(pos))
+  MyPositionMarkPoint * myPosMark = UserMarkContainer::UserMarkForMyPostion();
+  if (!myPosMark->HasPosition())
     return false;
+
+  pos = myPosMark->GetPivot();
 
   lat = MercatorBounds::YToLat(pos.y);
   lon = MercatorBounds::XToLon(pos.x);

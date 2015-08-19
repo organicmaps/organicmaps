@@ -142,6 +142,16 @@ public:
   MyPositionMarkPoint(UserMarkContainer * container);
 
   UserMark::Type GetMarkType() const override;
+
+  void SetUserPosition(m2::PointD const & pt)
+  {
+    SetPtOrg(pt);
+    m_hasPosition = true;
+  }
+  bool HasPosition() const { return m_hasPosition; }
+
+private:
+  bool m_hasPosition = false;
 };
 
 class DebugMarkPoint : public UserMark

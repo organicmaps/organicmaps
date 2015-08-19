@@ -46,10 +46,13 @@ void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & 
 
   ReadFeatureIndex(model);
 
-  CheckCanceled();
   vector<FeatureID> featuresToRead;
-  featuresToRead.reserve(AverageFeaturesCount);
-  RequestFeatures(memIndex, featuresToRead);
+  {
+    lock_guard<mutex> g(m_mutex);
+    CheckCanceled();
+    featuresToRead.reserve(AverageFeaturesCount);
+    memIndex.ReadFeaturesRequest(m_featureInfo, featuresToRead);
+  }
 
   if (!featuresToRead.empty())
   {
@@ -82,12 +85,6 @@ void TileInfo::InitStylist(FeatureType const & f, Stylist & s)
 bool TileInfo::DoNeedReadIndex() const
 {
   return m_featureInfo.empty();
-}
-
-void TileInfo::RequestFeatures(MemoryFeatureIndex & memIndex, vector<FeatureID> & featuresToRead)
-{
-  lock_guard<mutex> lock(m_mutex);
-  memIndex.ReadFeaturesRequest(m_featureInfo, featuresToRead);
 }
 
 void TileInfo::CheckCanceled() const
