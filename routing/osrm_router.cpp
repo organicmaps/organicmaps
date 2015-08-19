@@ -483,6 +483,14 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     if (!FindSingleRoute(cross.startNode, cross.finalNode, mwmMapping->m_dataFacade, routingResult))
       return OsrmRouter::RouteNotFound;
 
+    if (!Points.empty())
+    {
+      // Remove road end point and turn instruction.
+      Points.pop_back();
+      TurnsDir.pop_back();
+      Times.pop_back();
+    }
+
     // Get annotated route.
     Route::TTurns mwmTurnsDir;
     Route::TTimes mwmTimes;
@@ -508,11 +516,6 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
       Times.push_back(time);
     }
 
-    if (!Points.empty())
-    {
-      // We're at the end point.
-      Points.pop_back();
-    }
     Points.insert(Points.end(), mwmPoints.begin(), mwmPoints.end());
   }
 
