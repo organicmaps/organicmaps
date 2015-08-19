@@ -10,6 +10,7 @@
 
 #include "std/function.hpp"
 #include "std/shared_ptr.hpp"
+#include "std/vector.hpp"
 
 
 class PaintEvent;
@@ -50,7 +51,7 @@ public:
 
 protected:
 
-  graphics::Color m_bgColor;
+  vector<graphics::Color> m_bgColors;
   shared_ptr<graphics::ResourceManager> m_resourceManager;
   shared_ptr<graphics::Skin> m_skin;
   shared_ptr<graphics::Screen> m_cacheScreen;
@@ -156,8 +157,6 @@ public:
   /// Benchmarking protocol
   virtual int InsertBenchmarkFence();
   virtual void JoinBenchmarkFence(int fenceID);
-
-  graphics::Color const GetBgColor() const;
 
   shared_ptr<graphics::Screen> const & GetCacheScreen() const;
   shared_ptr<graphics::ResourceManager> const & GetResourceManager() const { return m_resourceManager; }

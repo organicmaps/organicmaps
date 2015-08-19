@@ -12,6 +12,7 @@
 
 #include "std/bind.hpp"
 #include "std/iterator_facade.hpp"
+#include "std/unordered_map.hpp"
 
 #include <google/protobuf/text_format.h>
 
@@ -84,7 +85,7 @@ CircleRuleProto const * BaseRule::GetCircle() const
 }
 
 RulesHolder::RulesHolder()
-  : m_bgColor(DEFAULT_BG_COLOR)
+  : m_bgColors(scales::UPPER_STYLE_SCALE+1, DEFAULT_BG_COLOR)
 {}
 
 RulesHolder::~RulesHolder()
@@ -135,9 +136,11 @@ BaseRule const * RulesHolder::Find(Key const & k) const
     return 0;
 }
 
-uint32_t RulesHolder::GetBgColor() const
+uint32_t RulesHolder::GetBgColor(int scale) const
 {
-  return m_bgColor;
+  ASSERT_LESS(scale, m_bgColors.size(), ());
+  ASSERT_GREATER_OR_EQUAL(scale, 0, ());
+  return m_bgColors[scale];
 }
 
 void RulesHolder::ClearCaches()
@@ -355,42 +358,56 @@ namespace
       m_names.pop_back();
     }
   };
+}
 
-  uint32_t GetBackgroundColor(ContainerProto const & cont)
+void RulesHolder::InitBackgroundColors(ContainerProto const & cont)
+{
+  // WARNING!
+  // Background color is not specified in current format.
+  // Therefore, we use color of "natural-land" area element as background color.
+  // If such element is not present or if the element is not area then we use default background color
+
+  // Default background color is any found color, it is used if color is not specified for scale
+  uint32_t bgColorDefault = DEFAULT_BG_COLOR;
+
+  // Background colors specified for scales
+  unordered_map<int, uint32_t> bgColorForScale;
+
+  // Find the "natural-land" classification element
+  for (int i = 0; i < cont.cont_size(); ++i)
   {
-    // WARNING!
-    // Background color is not specified in current format.
-    // Therefore, we use color of "natural-land" area element as background color.
-    // If such element is not present or if the element is not area then we use default background color
-
-    uint32_t backgroundColor = DEFAULT_BG_COLOR;
-
-    // Find the "natural-land" classification element
-    for (int i = 0; i < cont.cont_size(); ++i)
+    ClassifElementProto const & ce = cont.cont(i);
+    if (ce.name() == "natural-land")
     {
-      ClassifElementProto const & ce = cont.cont(i);
-      if (ce.name() == "natural-land")
+      // Take any area draw element
+      for (int j = 0; j < ce.element_size(); ++j)
       {
-        // Take any area draw element
-        for (int j = 0; j < ce.element_size(); ++j)
+        DrawElementProto const & de = ce.element(j);
+        if (de.has_area())
         {
-          DrawElementProto const & de = ce.element(j);
-          if (de.has_area())
+          // Take the color of the draw element
+          AreaRuleProto const & rule = de.area();
+          if (rule.has_color())
           {
-            // Take the color of the draw element
-            AreaRuleProto const & rule = de.area();
-            if (rule.has_color())
-            {
-              backgroundColor = rule.color();
-              break;
-            }
+            bgColorDefault = rule.color();
+
+            if (de.has_scale())
+              bgColorForScale.insert(make_pair(de.scale(), rule.color()));
           }
         }
-        break;
       }
+      break;
     }
+  }
 
-    return backgroundColor;
+  ASSERT_EQUAL(m_bgColors.size(), scales::UPPER_STYLE_SCALE+1, ());
+  for (int scale = 0; scale <= scales::UPPER_STYLE_SCALE; ++scale)
+  {
+    auto const i = bgColorForScale.find(scale);
+    if (bgColorForScale.end() != i)
+      m_bgColors[scale] = i->second;
+    else
+      m_bgColors[scale] = bgColorDefault;
   }
 }
 
@@ -404,7 +421,7 @@ void RulesHolder::LoadFromBinaryProto(string const & s)
 
   classif().GetMutableRoot()->ForEachObject(ref(doSet));
 
-  m_bgColor = GetBackgroundColor(doSet.m_cont);
+  InitBackgroundColors(doSet.m_cont);
 }
 
 void LoadRules()

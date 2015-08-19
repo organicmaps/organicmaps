@@ -1,5 +1,6 @@
 #include "tile_renderer.hpp"
 #include "window_handle.hpp"
+#include "scales_processor.hpp"
 
 #include "graphics/opengl/opengl.hpp"
 #include "graphics/opengl/gl_render_context.hpp"
@@ -50,7 +51,7 @@ TileRenderer::TileSizeT TileRenderer::GetTileSizes() const
 TileRenderer::TileRenderer(
     size_t tileSize,
     unsigned executorsCount,
-    graphics::Color const & bgColor,
+    vector<graphics::Color> const & bgColors,
     RenderPolicy::TRenderFn const & renderFn,
     shared_ptr<graphics::RenderContext> const & primaryRC,
     shared_ptr<graphics::ResourceManager> const & rm,
@@ -59,7 +60,7 @@ TileRenderer::TileRenderer(
   : m_queue(executorsCount)
   , m_tileSize(tileSize)
   , m_renderFn(renderFn)
-  , m_bgColor(bgColor)
+  , m_bgColors(bgColors)
   , m_sequenceID(0)
   , m_isPaused(false)
 {
@@ -168,6 +169,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   ScreenBase frameScreen;
 
   TileSizeT const tileSz = GetTileSizes();
+  ASSERT_EQUAL(tileSz.first, tileSz.second, ());
 
   m2::RectI renderRect(1, 1, tileSz.first - 1, tileSz.second - 1);
 
@@ -186,10 +188,15 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   graphics::Screen * pScreen = drawer->Screen();
 
+  ScalesProcessor scales;
+  scales.SetParams(drawer->VisualScale(), tileSz.first);
+  int const drawingScale = scales.GetDrawTileScale(rectInfo.m_tileScale);
+  ASSERT(0 <= drawingScale && drawingScale < m_bgColors.size(), ());
+
   pScreen->setOverlay(tileOverlay);
   pScreen->beginFrame();
   pScreen->setClipRect(renderRect);
-  pScreen->clear(m_bgColor);
+  pScreen->clear(m_bgColors[drawingScale]);
 
   frameScreen.SetFromRect(m2::AnyRectD(rectInfo.m_rect));
 

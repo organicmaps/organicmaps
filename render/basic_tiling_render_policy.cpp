@@ -82,8 +82,13 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
 
   graphics::Screen * pScreen = GPUDrawer::GetScreen(e->drawer());
 
+  ScalesProcessor scales;
+  scales.SetParams(VisualScale(), m_TileSize);
+  int const drawingScale = scales.GetDrawTileScale(s);
+  ASSERT(0 <= drawingScale && drawingScale < m_bgColors.size(), ());
+
   pScreen->beginFrame();
-  pScreen->clear(m_bgColor);
+  pScreen->clear(m_bgColors[drawingScale]);
 
   FrameLock();
 

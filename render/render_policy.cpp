@@ -31,13 +31,16 @@ RenderPolicy::~RenderPolicy()
 
 RenderPolicy::RenderPolicy(Params const & p,
                            size_t idCacheSize)
-  : m_bgColor(ConvertColor(drule::rules().GetBgColor())),
-    m_primaryRC(p.m_primaryRC),
+  : m_primaryRC(p.m_primaryRC),
     m_doForceUpdate(false),
     m_density(p.m_density),
     m_visualScale(graphics::visualScale(p.m_density)),
     m_skinName(p.m_skinName)
 {
+  m_bgColors.resize(scales::UPPER_STYLE_SCALE+1);
+  for (int scale = 0; scale <= scales::UPPER_STYLE_SCALE; ++scale)
+    m_bgColors[scale] = ConvertColor(drule::rules().GetBgColor(scale));
+
   LOG(LDEBUG, ("each BaseRule will hold up to", idCacheSize, "cached values"));
   drule::rules().ResizeCaches(idCacheSize);
 
@@ -233,11 +236,6 @@ graphics::Overlay * RenderPolicy::FrameOverlay() const
 {
   LOG(LDEBUG/*LWARNING*/, ("unimplemented method called"));
   return NULL;
-}
-
-graphics::Color const RenderPolicy::GetBgColor() const
-{
-  return m_bgColor;
 }
 
 shared_ptr<graphics::Screen> const & RenderPolicy::GetCacheScreen() const

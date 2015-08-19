@@ -61,7 +61,7 @@ protected:
   TileSizeT GetTileSizes() const;
 
   RenderPolicy::TRenderFn m_renderFn;
-  graphics::Color m_bgColor;
+  vector<graphics::Color> m_bgColors;
   int m_sequenceID;
 
   bool m_isPaused;
@@ -83,7 +83,7 @@ public:
   /// constructor.
   TileRenderer(size_t tileSize,
                unsigned tasksCount,
-               graphics::Color const & bgColor,
+               vector<graphics::Color> const & bgColors,
                RenderPolicy::TRenderFn const & renderFn,
                shared_ptr<graphics::RenderContext> const & primaryRC,
                shared_ptr<graphics::ResourceManager> const & rm,

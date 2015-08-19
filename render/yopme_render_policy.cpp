@@ -14,6 +14,7 @@
 
 #include "base/matrix.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/vector.hpp"
 
 
@@ -86,7 +87,7 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   , m_drawMyPosition(false)
 {
   LOG(LDEBUG, ("Yopme render policy created"));
-  m_bgColor = graphics::Color(0xFF, 0xFF, 0xFF, 0xFF);
+  fill(m_bgColors.begin(), m_bgColors.end(), graphics::Color(0xFF, 0xFF, 0xFF, 0xFF));
 
   ResourceManager::Params rmp = p.m_rmParams;
 
@@ -203,7 +204,7 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     pScreen->setOverlay(overlay);
     pScreen->beginFrame();
     pScreen->setClipRect(renderRect);
-    pScreen->clear(m_bgColor);
+    pScreen->clear(m_bgColors[0]);
 
     shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_offscreenDrawer.get()));
     m_renderFn(paintEvent, s, m2::RectD(renderRect), ScalesProcessor().GetTileScaleBase(s));
@@ -217,7 +218,7 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     drawOverlay->merge(overlay);
 
     pScreen->applySharpStates();
-    pScreen->clear(m_bgColor, false);
+    pScreen->clear(m_bgColors[0], false);
 
     math::Matrix<double, 3, 3> const m = math::Identity<double, 3>();
     drawOverlay->forEach([&pScreen, &m](shared_ptr<OverlayElement> const & e)
@@ -240,12 +241,12 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     info.m_depth = minDepth;
 
     pScreen->beginFrame();
-    pScreen->clear(m_bgColor);
+    pScreen->clear(m_bgColors[0]);
 
     pScreen->applyBlitStates();
     pScreen->blit(&info, 1, true);
 
-    pScreen->clear(m_bgColor, false);
+    pScreen->clear(m_bgColors[0], false);
     if (m_drawMyPosition)
       DrawCircle(pScreen, m_myPositionPoint);
 

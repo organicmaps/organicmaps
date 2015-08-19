@@ -67,7 +67,7 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn const & renderFn)
 {
   m_TileRenderer.reset(new TileRenderer(TileSize(),
                                         GetPlatform().CpuCores(),
-                                        m_bgColor,
+                                        m_bgColors,
                                         renderFn,
                                         m_primaryRC,
                                         m_resourceManager,

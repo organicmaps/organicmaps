@@ -17,6 +17,7 @@ class AreaRuleProto;
 class SymbolRuleProto;
 class CaptionDefProto;
 class CircleRuleProto;
+class ContainerProto;
 
 
 namespace drule
@@ -60,7 +61,8 @@ namespace drule
     typedef map<int32_t, array<vector<uint32_t>, count_of_rules> > rules_map_t;
     rules_map_t m_rules;
 
-    uint32_t m_bgColor;
+    /// background color for scales in range [0...scales::UPPER_STYLE_SCALE]
+    vector<uint32_t> m_bgColors;
 
   public:
     RulesHolder();
@@ -75,7 +77,7 @@ namespace drule
 
     BaseRule const * Find(Key const & k) const;
 
-    uint32_t GetBgColor() const;
+    uint32_t GetBgColor(int scale = 0) const;
 
 #ifdef OMIM_OS_DESKTOP
     void LoadFromTextProto(string const & buffer);
@@ -99,6 +101,9 @@ namespace drule
         }
       }
     }
+
+  private:
+    void InitBackgroundColors(ContainerProto const & cp);
   };
 
   RulesHolder & rules();

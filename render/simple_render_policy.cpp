@@ -66,7 +66,7 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   pScreen->setOverlay(storage);
   pScreen->beginFrame();
-  pScreen->clear(m_bgColor);
+  pScreen->clear(m_bgColors[0]);
 
   m_renderFn(e, s, s.PixelRect(), ScalesProcessor().GetTileScaleBase(s));
 
