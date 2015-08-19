@@ -48,19 +48,26 @@ uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
 
 namespace
 {
-template <class TNodesHolder>
-class IntermediateDataReader
-    : public cache::BaseFileHolder<TNodesHolder, cache::DataFileReader, FileReader>
+template <class TNodesHolder, bool TModeWrite>
+class IntermediateData
 {
-  using TReader = cache::DataFileReader;
-  using TBase = cache::BaseFileHolder<TNodesHolder, TReader, FileReader>;
+  using TReader = cache::OSMElementCache<TModeWrite>;
 
-  using typename TBase::TKey;
-  using TBase::m_nodes;
-  using TBase::m_nodeToRelations;
-  using TBase::m_ways;
-  using TBase::m_wayToRelations;
-  using TBase::m_relations;
+  using TFile = typename conditional<TModeWrite, FileWriter, FileReader>::type;
+
+
+  using TKey = uint64_t;
+  static_assert(is_integral<TKey>::value, "TKey is not integral type");
+
+  using TIndex = cache::detail::IndexFile<TFile, TKey>;
+
+  TNodesHolder & m_nodes;
+
+  TReader m_ways;
+  TReader m_relations;
+
+  TIndex m_nodeToRelations;
+  TIndex m_wayToRelations;
 
   template <class TElement, class ToDo>
   struct ElementProcessorBase
@@ -96,12 +103,39 @@ class IntermediateDataReader
     bool operator()(uint64_t id) { return this->m_toDo(id, this->m_reader); }
   };
 
-public:
-  IntermediateDataReader(TNodesHolder & holder, string const & dir) : TBase(holder, dir) {}
+  template <class TIndex, class TContainer>
+  static void AddToIndex(TIndex & index, TKey relationId, TContainer const & values)
+  {
+    for (auto const & v : values)
+      index.Add(v.first, relationId);
+  }
 
+public:
+  IntermediateData(TNodesHolder & nodes, string const & dir)
+  : m_nodes(nodes)
+  , m_ways(my::JoinFoldersToPath(dir, WAYS_FILE))
+  , m_relations(my::JoinFoldersToPath(dir, RELATIONS_FILE))
+  , m_nodeToRelations(my::JoinFoldersToPath(dir, string(NODES_FILE) + ID2REL_EXT))
+  , m_wayToRelations(my::JoinFoldersToPath(dir, string(WAYS_FILE) + ID2REL_EXT))
+  {
+  }
+
+  void AddNode(TKey id, double lat, double lng) { m_nodes.AddPoint(id, lat, lng); }
   bool GetNode(TKey id, double & lat, double & lng) { return m_nodes.GetPoint(id, lat, lng); }
 
+  void AddWay(TKey id, WayElement const & e) { m_ways.Write(id, e); }
   bool GetWay(TKey id, WayElement & e) { return m_ways.Read(id, e); }
+
+  void AddRelation(TKey id, RelationElement const & e)
+  {
+    string const & relationType = e.GetType();
+    if (!(relationType == "multipolygon" || relationType == "route" || relationType == "boundary"))
+      return;
+
+    m_relations.Write(id, e);
+    AddToIndex(m_nodeToRelations, id, e.nodes);
+    AddToIndex(m_wayToRelations, id, e.ways);
+  }
 
   template <class ToDo>
   void ForEachRelationByWay(TKey id, ToDo && toDo)
@@ -124,54 +158,6 @@ public:
     m_wayToRelations.ForEachByKey(id, processor);
   }
 
-  void LoadIndex()
-  {
-    m_ways.LoadOffsets();
-    m_relations.LoadOffsets();
-
-    m_nodeToRelations.ReadAll();
-    m_wayToRelations.ReadAll();
-  }
-};
-
-template <class TNodesHolder>
-class IntermediateDataWriter
-    : public cache::BaseFileHolder<TNodesHolder, cache::DataFileWriter, FileWriter>
-{
-  using TBase = cache::BaseFileHolder<TNodesHolder, cache::DataFileWriter, FileWriter>;
-
-  using typename TBase::TKey;
-  using TBase::m_nodes;
-  using TBase::m_nodeToRelations;
-  using TBase::m_ways;
-  using TBase::m_wayToRelations;
-  using TBase::m_relations;
-
-  template <class TIndex, class TContainer>
-  static void AddToIndex(TIndex & index, TKey relationId, TContainer const & values)
-  {
-    for (auto const & v : values)
-      index.Add(v.first, relationId);
-  }
-
-public:
-  IntermediateDataWriter(TNodesHolder & nodes, string const & dir) : TBase(nodes, dir) {}
-
-  void AddNode(TKey id, double lat, double lng) { m_nodes.AddPoint(id, lat, lng); }
-
-  void AddWay(TKey id, WayElement const & e) { m_ways.Write(id, e); }
-
-  void AddRelation(TKey id, RelationElement const & e)
-  {
-    string const & relationType = e.GetType();
-    if (!(relationType == "multipolygon" || relationType == "route" || relationType == "boundary"))
-      return;
-
-    m_relations.Write(id, e);
-    AddToIndex(m_nodeToRelations, id, e.nodes);
-    AddToIndex(m_wayToRelations, id, e.ways);
-  }
-
   void SaveIndex()
   {
     m_ways.SaveOffsets();
@@ -179,6 +165,15 @@ public:
 
     m_nodeToRelations.WriteAll();
     m_wayToRelations.WriteAll();
+  }
+
+  void LoadIndex()
+  {
+    m_ways.LoadOffsets();
+    m_relations.LoadOffsets();
+
+    m_nodeToRelations.ReadAll();
+    m_wayToRelations.ReadAll();
   }
 };
 
@@ -392,21 +387,13 @@ void AddElementToCache(TCache & cache, TElement const & em)
 template <typename TCache>
 void BuildIntermediateDataFromXML(SourceReader & stream, TCache & cache)
 {
-  BaseOSMParser parser([&](XMLElement * e)
-                       {
-                         AddElementToCache(cache, *e);
-                       });
-
+  BaseOSMParser parser([&](XMLElement * e) { AddElementToCache(cache, *e); });
   ParseXMLSequence(stream, parser);
 }
 
 void BuildFeaturesFromXML(SourceReader & stream, function<void(XMLElement *)> processor)
 {
-  BaseOSMParser parser([&](XMLElement * e)
-                       {
-                         processor(e);
-                       });
-  
+  BaseOSMParser parser([&](XMLElement * e) { processor(e); });
   ParseXMLSequence(stream, parser);
 }
 
@@ -433,6 +420,17 @@ void BuildFeaturesFromO5M(SourceReader & stream, function<void(XMLElement *)> pr
     return stream.Read(reinterpret_cast<char *>(buffer), size);
   });
 
+  auto translate = [](TType t) -> XMLElement::EntityType
+  {
+    switch (t)
+    {
+      case TType::Node: return XMLElement::EntityType::Node;
+      case TType::Way: return XMLElement::EntityType::Way;
+      case TType::Relation: return XMLElement::EntityType::Relation;
+      default: return XMLElement::EntityType::Unknown;
+    }
+  };
+
   for (auto const & em : dataset)
   {
     XMLElement p;
@@ -458,22 +456,7 @@ void BuildFeaturesFromO5M(SourceReader & stream, function<void(XMLElement *)> pr
       {
         p.type = XMLElement::EntityType::Relation;
         for (auto const & member : em.Members())
-        {
-          switch (member.type)
-          {
-            case TType::Node:
-              p.AddMember(member.ref, XMLElement::EntityType::Node, member.role);
-              break;
-            case TType::Way:
-              p.AddMember(member.ref, XMLElement::EntityType::Way, member.role);
-              break;
-            case TType::Relation:
-              p.AddMember(member.ref, XMLElement::EntityType::Relation, member.role);
-              break;
-
-            default: break;
-          }
-        }
+          p.AddMember(member.ref, translate(member.type), member.role);
         break;
       }
       default: break;
@@ -497,7 +480,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
   {
     TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
 
-    using TDataCache = IntermediateDataReader<TNodesHolder>;
+    using TDataCache = IntermediateData<TNodesHolder, /*WriteMode=*/false>;
     TDataCache cache(nodes, info.m_intermediateDir);
     cache.LoadIndex();
 
@@ -543,7 +526,7 @@ bool GenerateIntermediateDataImpl(feature::GenerateInfo & info)
   try
   {
     TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
-    using TDataCache = IntermediateDataWriter<TNodesHolder>;
+    using TDataCache = IntermediateData<TNodesHolder, /*WriteMode=*/true>;
     TDataCache cache(nodes, info.m_intermediateDir);
 
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);

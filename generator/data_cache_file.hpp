@@ -121,43 +121,28 @@ public:
 };
 } // namespace detail
 
-template <class TStream, class TOffsetFile>
-class DataFileBase
+
+template <bool TModeWrite>
+class OSMElementCache
 {
 public:
   using TKey = uint64_t;
+  using TStream = typename conditional<TModeWrite, FileWriterStream, FileReaderStream>::type;
+  using TOffsetFile = typename conditional<TModeWrite, FileWriter, FileReader>::type;
 
 protected:
   TStream m_stream;
   detail::IndexFile<TOffsetFile, uint64_t> m_offsets;
 
 public:
-  DataFileBase(string const & name) : m_stream(name), m_offsets(name + OFFSET_EXT) {}
-};
-
-class DataFileWriter : public DataFileBase<FileWriterStream, FileWriter>
-{
-  using TBase = DataFileBase<FileWriterStream, FileWriter>;
-
-public:
-  DataFileWriter(string const & name) : TBase(name) {}
+  OSMElementCache(string const & name) : m_stream(name), m_offsets(name + OFFSET_EXT) {}
 
   template <class TValue>
   void Write(TKey id, TValue const & value)
   {
     m_offsets.Add(id, m_stream.Pos());
-    m_stream << value;
+    value.Write(m_stream);
   }
-
-  void SaveOffsets() { m_offsets.WriteAll(); }
-};
-
-class DataFileReader : public DataFileBase<FileReaderStream, FileReader>
-{
-  using TBase = DataFileBase<FileReaderStream, FileReader>;
-
-public:
-  DataFileReader(string const & name) : TBase(name) {}
 
   template <class TValue>
   bool Read(TKey id, TValue & value)
@@ -166,7 +151,7 @@ public:
     if (m_offsets.GetValueByKey(id, pos))
     {
       m_stream.Seek(pos);
-      m_stream >> value;
+      value.Read(m_stream);
       return true;
     }
     else
@@ -176,34 +161,7 @@ public:
     }
   }
 
-  void LoadOffsets() { m_offsets.ReadAll(); }
-};
-
-template <class TNodesHolder, class TData, class TFile>
-class BaseFileHolder
-{
-protected:
-  using TKey = typename TData::TKey;
-  static_assert(is_integral<TKey>::value, "TKey is not integral type");
-
-  using TIndex = detail::IndexFile<TFile, TKey>;
-
-  TNodesHolder & m_nodes;
-
-  TData m_ways;
-  TData m_relations;
-
-  TIndex m_nodeToRelations;
-  TIndex m_wayToRelations;
-
-public:
-  BaseFileHolder(TNodesHolder & nodes, string const & dir)
-    : m_nodes(nodes)
-    , m_ways(my::JoinFoldersToPath(dir, WAYS_FILE))
-    , m_relations(my::JoinFoldersToPath(dir, RELATIONS_FILE))
-    , m_nodeToRelations(my::JoinFoldersToPath(dir, string(NODES_FILE) + ID2REL_EXT))
-    , m_wayToRelations(my::JoinFoldersToPath(dir, string(WAYS_FILE) + ID2REL_EXT))
-  {
-  }
+  inline void SaveOffsets() { m_offsets.WriteAll(); }
+  inline void LoadOffsets() { m_offsets.ReadAll(); }
 };
 }

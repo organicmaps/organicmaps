@@ -31,11 +31,9 @@ struct WayElement
   {
     if (id == nodes.front())
       return nodes.back();
-    else
-    {
-      ASSERT ( id == nodes.back(), () );
-      return nodes.front();
-    }
+
+    ASSERT ( id == nodes.back(), () );
+    return nodes.front();
   }
 
   template <class ToDo> void ForEachPoint(ToDo & toDo) const
@@ -50,19 +48,48 @@ struct WayElement
     else
       for_each(nodes.rbegin(), nodes.rend(), ref(toDo));
   }
+
+
+  template <class TArchive>
+  void Write(TArchive & ar) const
+  {
+    ar << nodes;
+  }
+
+  template <class TArchive>
+  void Read(TArchive & ar)
+  {
+    ar >> nodes;
+  }
 };
 
-struct RelationElement
+class RelationElement
 {
-  typedef vector<pair<uint64_t, string> > ref_vec_t;
-  ref_vec_t nodes, ways;
+  using TMembers = vector<pair<uint64_t, string>>;
+
+public:
+  TMembers nodes;
+  TMembers ways;
   map<string, string> tags;
 
+public:
   bool IsValid() const { return !(nodes.empty() && ways.empty()); }
 
-  string GetType() const;
-  bool FindWay(uint64_t id, string & role) const;
-  bool FindNode(uint64_t id, string & role) const;
+  string GetType() const
+  {
+    auto it = tags.find("type");
+    return ((it != tags.end()) ? it->second : string());
+  }
+
+  bool FindWay(uint64_t id, string & role) const
+  {
+    return FindRoleImpl(ways, id, role);
+  }
+
+  bool FindNode(uint64_t id, string & role) const
+  {
+    return FindRoleImpl(nodes, id, role);
+  }
 
   template <class ToDo> void ForEachWay(ToDo & toDo) const
   {
@@ -76,28 +103,28 @@ struct RelationElement
     ways.swap(rhs.ways);
     tags.swap(rhs.tags);
   }
+
+  template <class TArchive>
+  void Write(TArchive & ar) const
+  {
+    ar << nodes << ways << tags;
+  }
+
+  template <class TArchive>
+  void Read(TArchive & ar)
+  {
+    ar >> nodes >> ways >> tags;
+  }
+
+protected:
+  bool FindRoleImpl(TMembers const & cnt, uint64_t id, string & role) const
+  {
+    for (auto const & e : cnt)
+      if (e.first == id)
+      {
+        role = e.second;
+        return true;
+      }
+    return false;
+  }
 };
-
-template <class TArchive> TArchive & operator << (TArchive & ar, WayElement const & e)
-{
-  ar << e.nodes;
-  return ar;
-}
-
-template <class TArchive> TArchive & operator >> (TArchive & ar, WayElement & e)
-{
-  ar >> e.nodes;
-  return ar;
-}
-
-template <class TArchive> TArchive & operator << (TArchive & ar, RelationElement const & e)
-{
-  ar << e.nodes << e.ways << e.tags;
-  return ar;
-}
-
-template <class TArchive> TArchive & operator >> (TArchive & ar, RelationElement & e)
-{
-  ar >> e.nodes >> e.ways >> e.tags;
-  return ar;
-}
