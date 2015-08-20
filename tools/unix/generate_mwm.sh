@@ -42,7 +42,11 @@ find_osmconvert() {
   OSMCONVERT="${OSMCONVERT:-$HOME/osmctools/osmconvert}"
   if [ ! -x "$OSMCONVERT" ]; then
     OSMCONVERT="$INTDIR/osmconvert"
-    wget -q -O - http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o $OSMCONVERT
+    if [ -e "$OMIM_PATH/tools/osmctools/osmconvert.c" ]; then
+      cc -x c -lz -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCONVERT"
+    else
+      curl -s http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o $OSMCONVERT
+    fi
   fi
 }
 
@@ -59,7 +63,7 @@ DATA_PATH="${DATA_PATH:-$OMIM_PATH/data}"
 [ ! -r "$DATA_PATH/types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
 
 GENERATOR_TOOL="${GENERATOR_TOOL-$SCRIPT_PATH/bin/generator_tool}"
-[ -x "$SCRIPT_PATH/find_generator.tool.sh" ] && source "$SCRIPT_PATH/find_generator_tool.sh"
+[ -x "$SCRIPT_PATH/find_generator_tool.sh" ] && source "$SCRIPT_PATH/find_generator_tool.sh"
 [ ! -x "${GENERATOR_TOOL-}" ] && fail "Cannot find generator tool"
 
 if [ "$(uname)" == "Darwin" ]; then

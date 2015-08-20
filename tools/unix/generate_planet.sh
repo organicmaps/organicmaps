@@ -211,15 +211,14 @@ fi
 
 if [ "$MODE" == "coast" ]; then
   putmode
-  # The patch increases number of nodes for osmconvert to avoid overflow crash
-  [ ! -x "$OSMCTOOLS/osmconvert" ] && wget -q -O - http://m.m.i24.cc/osmconvert.c | sed 's/60004/600004/' | cc -x c - -lz -O3 -o "$OSMCTOOLS/osmconvert"
-  [ ! -x "$OSMCTOOLS/osmupdate"  ] && wget -q -O - http://m.m.i24.cc/osmupdate.c  | cc -x c - -o "$OSMCTOOLS/osmupdate"
-  [ ! -x "$OSMCTOOLS/osmfilter"  ] && wget -q -O - http://m.m.i24.cc/osmfilter.c  | cc -x c - -O3 -o "$OSMCTOOLS/osmfilter"
+  [ ! -x "$OSMCTOOLS/osmconvert" ] && cc -x c -lz -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCTOOLS/osmconvert"
+  [ ! -x "$OSMCTOOLS/osmupdate"  ] && cc -x c         "$OMIM_PATH/tools/osmctools/osmupdate.c"  -o "$OSMCTOOLS/osmupdate"
+  [ ! -x "$OSMCTOOLS/osmfilter"  ] && cc -x c     -O3 "$OMIM_PATH/tools/osmctools/osmfilter.c"  -o "$OSMCTOOLS/osmfilter"
   if [ -n "$OPT_DOWNLOAD" ]; then
     # Planet download is requested
     log "STATUS" "Step 0: Downloading and converting the planet"
     PLANET_PBF="$(dirname "$PLANET")/planet-latest.osm.pbf"
-    wget -O "$PLANET_PBF" http://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
+    curl -s -o "$PLANET_PBF" http://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
     "$OSMCTOOLS/osmconvert" "$PLANET_PBF" --drop-author --drop-version --out-o5m "-o=$PLANET"
     rm "$PLANET_PBF"
   fi
@@ -250,7 +249,7 @@ if [ "$MODE" == "coast" ]; then
         -preprocess 2>> "$LOG_PATH/WorldCoasts.log"
       # Generate temporary coastlines file in the coasts intermediate dir
       if ! "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
-        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log" | { grep -i 'not merged' || true; }
+        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log" | { grep -i 'not merged\|coastline polygons' || true; }
       then
         log "STATUS" "Coastline merge failed"
         if [ -n "$OPT_UPDATE" ]; then

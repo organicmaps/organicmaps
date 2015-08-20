@@ -38,8 +38,7 @@ if [ "$1" == "pbf" ]; then
   PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
   OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
   [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
-  # The patch increases number of nodes for osmconvert to avoid overflow crash.
-  [ ! -x "$OSMCTOOLS/osmconvert" ] && wget -q -O - http://m.m.i24.cc/osmconvert.c | sed 's/60004/600004/' | cc -x c - -lz -O3 -o "$OSMCTOOLS/osmconvert"
+  [ ! -x "$OSMCTOOLS/osmconvert" ] && cc -x c -lz -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCTOOLS/osmconvert"
 
   TMPBORDERS="$INTDIR/tmpborders"
   mkdir "$TMPBORDERS"
@@ -127,8 +126,7 @@ elif [ "$1" == "online" ]; then
   PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
   OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
   [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
-  # The patch increases number of nodes for osmconvert to avoid overflow crash.
-  [ ! -x "$OSMCTOOLS/osmconvert" ] && wget -q -O - http://m.m.i24.cc/osmconvert.c | sed 's/60004/600004/' | cc -x c - -lz -O3 -o "$OSMCTOOLS/osmconvert"
+  [ ! -x "$OSMCTOOLS/osmconvert" ] && cc -x c -lz -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCTOOLS/osmconvert"
 
   PBF="$INTDIR/planet.pbf"
   "$OSMCTOOLS/osmconvert" "$PLANET" --hash-memory=2000 --out-pbf -o="$PBF"
