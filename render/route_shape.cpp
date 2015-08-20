@@ -51,7 +51,7 @@ struct LineSegment
 class RouteDataHolder
 {
 public:
-  RouteDataHolder(RouteData & data)
+  explicit RouteDataHolder(RouteData & data)
     : m_data(data), m_currentBuffer(0), m_indexCounter(0)
   {
     m_data.m_joinsBounds.clear();
@@ -105,7 +105,7 @@ private:
 class ArrowDataHolder
 {
 public:
-  ArrowDataHolder(ArrowsBuffer & data) : m_data(data) {}
+  explicit ArrowDataHolder(ArrowsBuffer & data) : m_data(data) {}
 
   void Check(){}
   uint16_t GetIndexCounter() const { return m_data.m_indexCounter; }
