@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 
-public class FacebookPedestrianMasterDialogFragment extends FacebookBasePedestrianDialogFragment
+public class PedestrianMasterDialogFragment extends BasePedestrianDialogFragment
 {
   protected View buildView(LayoutInflater inflater)
   {

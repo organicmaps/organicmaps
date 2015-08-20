@@ -59,7 +59,7 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.sharing.ShareAction;
+import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -627,7 +627,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       break;
     case R.id.ll__share:
       AlohaHelper.logClick(AlohaHelper.PP_SHARE);
-      ShareAction.ANY_SHARE.shareMapObject((Activity) getContext(), mMapObject);
+      ShareOption.ANY.shareMapObject((Activity) getContext(), mMapObject);
       break;
     case R.id.ll__api_back:
       final Activity activity = (Activity) getContext();

@@ -11,9 +11,10 @@ import android.view.View;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.Statistics;
 
-public abstract class FacebookBasePedestrianDialogFragment extends BaseMwmDialogFragment
+public abstract class BasePedestrianDialogFragment extends BaseMwmDialogFragment
 {
   abstract View buildView(LayoutInflater inflater);
 
@@ -40,7 +41,7 @@ public abstract class FacebookBasePedestrianDialogFragment extends BaseMwmDialog
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            // TODO share
+            ShareOption.PEDESTRIAN.share(getActivity());
             Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.FACEBOOK_PEDESTRIAN_SHARE);
           }
         }).create();

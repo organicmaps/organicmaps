@@ -3,6 +3,7 @@ package com.mapswithme.util.sharing;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
@@ -27,14 +28,14 @@ public abstract class BaseShareable
     return mActivity;
   }
 
-  protected void modifyIntent(Intent intent) {}
+  protected void modifyIntent(Intent intent, @Nullable SharingTarget target) {}
 
   protected Intent getBaseIntent()
   {
     return mBaseIntent;
   }
 
-  public Intent getTargetIntent()
+  public Intent getTargetIntent(@Nullable SharingTarget target)
   {
     Intent res = getBaseIntent();
 
@@ -48,14 +49,14 @@ public abstract class BaseShareable
     if (!TextUtils.isEmpty(mime))
       res.setType(mime);
 
-    modifyIntent(res);
+    modifyIntent(res, target);
 
     return res;
   }
 
   public void share(SharingTarget target)
   {
-    Intent intent = getTargetIntent();
+    Intent intent = getTargetIntent(target);
     target.setupComponentName(intent);
 
     try

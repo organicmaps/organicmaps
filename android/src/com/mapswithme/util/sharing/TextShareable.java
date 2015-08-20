@@ -18,6 +18,6 @@ public class TextShareable extends BaseShareable
   @Override
   public String getMimeType()
   {
-    return ShareAction.TYPE_TEXT_PLAIN;
+    return TargetUtils.TYPE_TEXT_PLAIN;
   }
 }

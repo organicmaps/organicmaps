@@ -70,7 +70,7 @@ import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
-import com.mapswithme.util.sharing.ShareAction;
+import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
@@ -371,7 +371,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
       final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
       final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
-      ShareAction.ANY_SHARE.share(this, body);
+      ShareOption.ANY.share(this, body);
     }
     else
     {

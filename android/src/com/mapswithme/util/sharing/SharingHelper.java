@@ -53,7 +53,8 @@ public final class SharingHelper
 
     sInitialized = true;
 
-    ThreadPool.getStorage().execute(new Runnable() {
+    ThreadPool.getStorage().execute(new Runnable()
+    {
       @Override
       public void run()
       {
@@ -62,7 +63,7 @@ public final class SharingHelper
         items = parse(json);
 
         if (items != null)
-          for (SharingTarget item: items)
+          for (SharingTarget item : items)
             sInstance.mItems.put(item.packageName, item);
       }
     });
@@ -108,13 +109,13 @@ public final class SharingHelper
   {
     Set<String> missed = new HashSet<>(mItems.keySet());
 
-    Intent it = data.getTargetIntent();
+    Intent it = data.getTargetIntent(null);
     PackageManager pm = MwmApplication.get().getPackageManager();
     List<ResolveInfo> rlist = pm.queryIntentActivities(it, 0);
 
 
     final List<SharingTarget> res = new ArrayList<>(rlist.size());
-    for (ResolveInfo ri: rlist)
+    for (ResolveInfo ri : rlist)
     {
       ActivityInfo ai = ri.activityInfo;
       if (ai == null)
@@ -143,7 +144,7 @@ public final class SharingHelper
       }
     });
 
-    for (String item: missed)
+    for (String item : missed)
       mItems.remove(item);
 
     if (!missed.isEmpty())
@@ -159,14 +160,17 @@ public final class SharingHelper
 
   public static void shareOutside(final BaseShareable data, @StringRes int titleRes)
   {
+    shareInternal(data, titleRes, sInstance.findItems(data));
+  }
+
+  private static void shareInternal(final BaseShareable data, int titleRes, final List<SharingTarget> items)
+  {
     boolean showing = BottomSheetHelper.isShowing();
     final BottomSheet.Builder builder = BottomSheetHelper.createGrid(data.getActivity(), titleRes)
                                                          .limit(R.integer.sharing_initial_rows);
 
-    final List<SharingTarget> items = sInstance.findItems(data);
-
     int i = 0;
-    for (SharingTarget item: items)
+    for (SharingTarget item : items)
       builder.sheet(i++, item.drawableIcon, item.name);
 
     builder.listener(new DialogInterface.OnClickListener()
@@ -190,7 +194,8 @@ public final class SharingHelper
       return;
     }
 
-    UiThread.runLater(new Runnable() {
+    UiThread.runLater(new Runnable()
+    {
       @Override
       public void run()
       {
@@ -222,8 +227,9 @@ public final class SharingHelper
 
     path += name + ".kmz";
 
+    // FIXME bug with "%s.kmz"
     shareOutside(new LocalFileShareable(context, path, "application/vnd.google-earth.kmz")
-                     .setText(R.string.share_bookmarks_email_body)
-                     .setSubject(R.string.share_bookmarks_email_subject));
+        .setText(R.string.share_bookmarks_email_body)
+        .setSubject(R.string.share_bookmarks_email_subject));
   }
 }

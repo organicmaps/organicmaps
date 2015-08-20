@@ -84,8 +84,8 @@ public final class Notifier
 
   private static void placeBigNotification(String title, String content, PendingIntent pendingIntent, int notificationId)
   {
-    final Notification notification = getBuilder(title, content, pendingIntent).
-        setStyle(new NotificationCompat.BigTextStyle().bigText(content))
+    final Notification notification = getBuilder(title, content, pendingIntent)
+        .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
         .build();
 
     getNotificationManager().notify(notificationId, notification);

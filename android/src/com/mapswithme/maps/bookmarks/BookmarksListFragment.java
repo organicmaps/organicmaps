@@ -26,7 +26,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.util.BottomSheetHelper;
-import com.mapswithme.util.sharing.ShareAction;
+import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 
 public class BookmarksListFragment extends BaseMwmListFragment
@@ -131,10 +131,10 @@ public class BookmarksListFragment extends BaseMwmListFragment
                                         .listener(this)
                                         .build();
 
-      if (!ShareAction.SMS_SHARE.isSupported(getActivity()))
+      if (!ShareOption.SMS.isSupported(getActivity()))
         bs.getMenu().removeItem(R.id.share_message);
 
-      if (!ShareAction.EMAIL_SHARE.isSupported(getActivity()))
+      if (!ShareOption.EMAIL.isSupported(getActivity()))
         bs.getMenu().removeItem(R.id.share_email);
 
       bs.show();
@@ -167,15 +167,15 @@ public class BookmarksListFragment extends BaseMwmListFragment
     switch (menuItem.getItemId())
     {
     case R.id.share_message:
-      ShareAction.SMS_SHARE.shareMapObject(getActivity(), item);
+      ShareOption.SMS.shareMapObject(getActivity(), item);
       break;
 
     case R.id.share_email:
-      ShareAction.EMAIL_SHARE.shareMapObject(getActivity(), item);
+      ShareOption.EMAIL.shareMapObject(getActivity(), item);
       break;
 
     case R.id.share:
-      ShareAction.ANY_SHARE.shareMapObject(getActivity(), item);
+      ShareOption.ANY.shareMapObject(getActivity(), item);
       break;
 
     case R.id.edit:

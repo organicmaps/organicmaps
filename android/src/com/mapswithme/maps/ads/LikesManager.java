@@ -36,8 +36,8 @@ public enum LikesManager
     GPLUS_OLD_USERS(GooglePlusDialogFragment.class, DIALOG_DELAY_DEFAULT),
     FACEBOOK_INVITE_NEW_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT),
     FACEBOOK_INVITES_OLD_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT),
-    FACEBOOK_PEDESTRIAN_FIRST_OLD_USERS(FacebookPedestrianFirstDialogFragment.class, DIALOG_DELAY_SHORT),
-    FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS(FacebookPedestrianMasterDialogFragment.class, DIALOG_DELAY_SHORT);
+    FACEBOOK_PEDESTRIAN_FIRST_OLD_USERS(PedestrianFirstUseDialogFragment.class, DIALOG_DELAY_SHORT),
+    FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS(PedestrianMasterDialogFragment.class, DIALOG_DELAY_SHORT);
 
     public final Class<? extends DialogFragment> clazz;
     public final int delay;
