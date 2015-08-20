@@ -60,6 +60,13 @@ struct WayElement
   {
     ar >> nodes;
   }
+
+  string ToString() const
+  {
+    stringstream ss;
+    ss << nodes.size() << " " << m_wayOsmId;
+    return ss.str();
+  }
 };
 
 class RelationElement
@@ -107,6 +114,13 @@ public:
   void Read(TArchive & ar)
   {
     ar >> nodes >> ways >> tags;
+  }
+
+  string ToString() const
+  {
+    stringstream ss;
+    ss << nodes.size() << " " << ways.size() << " " << tags.size();
+    return ss.str();
   }
 
 protected:

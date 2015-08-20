@@ -14,6 +14,8 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
+#include "std/fstream.hpp"
+
 /// Classes for reading and writing any data in file with map of offsets for
 /// fast searching in memory by some key.
 namespace cache
@@ -136,15 +138,18 @@ public:
 protected:
   TStream m_stream;
   detail::IndexFile<TOffsetFile, uint64_t> m_offsets;
+  string m_name;
 
 public:
-  OSMElementCache(string const & name) : m_stream(name), m_offsets(name + OFFSET_EXT) {}
+  OSMElementCache(string const & name) : m_stream(name), m_offsets(name + OFFSET_EXT), m_name(name) {}
 
   template <class TValue>
   void Write(TKey id, TValue const & value)
   {
     m_offsets.Add(id, m_stream.Pos());
     value.Write(m_stream);
+    std::ofstream ff((m_name+".wlog").c_str(), std::ios::binary | std::ios::app);
+    ff << id << " " << value.ToString() << std::endl;
   }
 
   template <class TValue>
@@ -155,6 +160,8 @@ public:
     {
       m_stream.Seek(pos);
       value.Read(m_stream);
+      std::ofstream ff((m_name+".rlog").c_str(), std::ios::binary | std::ios::app);
+      ff << id << " " << value.ToString() << std::endl;
       return true;
     }
     else
