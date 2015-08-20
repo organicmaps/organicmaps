@@ -8,7 +8,8 @@ namespace ms
 string DebugPrint(LatLon const & t)
 {
   ostringstream out;
-  out << "LatLon [ " << t.lat << ", " << t.lon << " ]";
+  out.precision(20);
+  out << "ms::LatLon(" << t.lat << ", " << t.lon << ")";
   return out.str();
 }
 

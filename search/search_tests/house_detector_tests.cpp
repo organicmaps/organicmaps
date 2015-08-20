@@ -2,20 +2,21 @@
 
 #include "search/house_detector.hpp"
 
-#include "base/logging.hpp"
-
-#include "platform/platform.hpp"
-
-#include "geometry/distance_on_sphere.hpp"
-
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
+#include "platform/platform.hpp"
+
+#include "geometry/distance_on_sphere.hpp"
+
+#include "base/logging.hpp"
+
 #include "std/iostream.hpp"
 #include "std/fstream.hpp"
+
 
 using platform::LocalCountryFile;
 
@@ -285,12 +286,17 @@ UNIT_TEST(HS_FindHouseSmoke)
   {
     vector<string> streetName(1, "проспект Независимости");
     TEST_ALMOST_EQUAL_ULPS(FindHouse(index, streetName, "10", 40),
-                      m2::PointD(27.551358845467561309, 64.234708728154814139), ());
+                      m2::PointD(27.551428582902474318, 64.234707387050306693), ());
   }
   {
     vector<string> streetName(1, "улица Ленина");
-    TEST_ALMOST_EQUAL_ULPS(FindHouse(index, streetName, "9", 50),
-                      m2::PointD(27.560341563525355468, 64.240918042070561), ());
+
+    /// @todo This cases doesn't work, but should in new search algorithms.
+    //m2::PointD pt = FindHouse(index, streetName, "28", 50);
+    //m2::PointD pt = FindHouse(index, streetName, "30", 50);
+
+    m2::PointD pt = FindHouse(index, streetName, "21", 50);
+    TEST_ALMOST_EQUAL_ULPS(pt, m2::PointD(27.56477391395549148, 64.234502198059132638), ());
   }
 }
 

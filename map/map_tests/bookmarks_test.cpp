@@ -407,14 +407,14 @@ UNIT_TEST(Bookmarks_AddressInfo)
   POIInfo poi1[] = {
     { "Планета Pizza", "улица Карла Маркса", "10", "cafe" },
     { "Планета Pizza", "улица Карла Маркса", "10", "кафе" },
-    { "Планета Pizza", "vul. Karla Marksa", "10", "cafe" }
+    { "Планета Pizza", "vulica Karla Marksa", "10", "cafe" }
   };
   CheckPlace(fm, 53.8964918, 27.555559, poi1[index]);
 
   POIInfo poi2[] = {
     { "Нц Шашек И Шахмат", "улица Карла Маркса", "10", "hotel" },
     { "Нц Шашек И Шахмат", "улица Карла Маркса", "10", "гостиница" },
-    { "Нц Шашек И Шахмат", "vul. Karla Marksa", "10", "hotel" }
+    { "Нц Шашек И Шахмат", "vulica Karla Marksa", "10", "hotel" }
   };
   CheckPlace(fm, 53.8964365, 27.5554007, poi2[index]);
 }
