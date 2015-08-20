@@ -1,7 +1,5 @@
 package com.mapswithme.maps.ads;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateUtils;
@@ -10,6 +8,7 @@ import android.util.SparseArray;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.concurrency.UiThread;
 
 import java.lang.ref.WeakReference;
 
@@ -84,7 +83,6 @@ public enum LikesManager
   }
 
   private final boolean mIsNewUser = MwmApplication.get().getFirstInstallVersion() == BuildConfig.VERSION_CODE;
-  private final Handler mHandler = new Handler(Looper.getMainLooper());
   private Runnable mLikeRunnable;
   private WeakReference<FragmentActivity> mActivityRef;
 
@@ -103,7 +101,7 @@ public enum LikesManager
 
   public void cancelDialogs()
   {
-    mHandler.removeCallbacks(mLikeRunnable);
+    UiThread.cancelDelayedTasks(mLikeRunnable);
   }
 
   public void onPedestrianBuilt()
@@ -123,7 +121,7 @@ public enum LikesManager
       return;
     setSessionRated(SESSION_NUM);
 
-    mHandler.removeCallbacks(mLikeRunnable);
+    UiThread.cancelDelayedTasks(mLikeRunnable);
     mLikeRunnable = new Runnable()
     {
       @SuppressWarnings("TryWithIdenticalCatches")
@@ -148,7 +146,7 @@ public enum LikesManager
         }
       }
     };
-    mHandler.postDelayed(mLikeRunnable, delayMillis);
+    UiThread.runLater(mLikeRunnable, delayMillis);
   }
 
   public static boolean isSessionRated(int sessionNum)

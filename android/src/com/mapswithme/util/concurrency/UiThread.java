@@ -117,7 +117,7 @@ public class UiThread
    *
    * @param task the code that must be cancelled.
    */
-  public static void cancelDelayedTask(Runnable task)
+  public static void cancelDelayedTasks(Runnable task)
   {
     sUiHandler.removeCallbacks(task);
   }

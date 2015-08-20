@@ -22,7 +22,7 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
 
   public void onWiFiConnected(Context context)
   {
-    final SharedPreferences prefs = MwmApplication.getMwmSharedPreferences();
+    final SharedPreferences prefs = MwmApplication.prefs();
     final long lastEventTimestamp = prefs.getLong(DOWNLOAD_UPDATE_TIMESTAMP, 0);
 
     if (System.currentTimeMillis() - lastEventTimestamp > MIN_EVENT_DELTA_MILLIS)

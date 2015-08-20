@@ -25,7 +25,7 @@ public abstract class FacebookBasePedestrianDialogFragment extends BaseMwmDialog
     final LayoutInflater inflater = getActivity().getLayoutInflater();
 
     @SuppressLint("InflateParams") final View root = buildView(inflater);
-    builder.
+    return builder.
         setView(root).
         setNegativeButton(R.string.dialog_routing_not_now, new DialogInterface.OnClickListener()
         {
@@ -43,9 +43,7 @@ public abstract class FacebookBasePedestrianDialogFragment extends BaseMwmDialog
             // TODO share
             Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.FACEBOOK_PEDESTRIAN_SHARE);
           }
-        });
-
-    return builder.create();
+        }).create();
   }
 
   @Override

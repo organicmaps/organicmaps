@@ -28,7 +28,7 @@ public class WorkerService extends IntentService
   private static final String PREF_NOTIFICATION_SHOWN = "PedestrianNotificationShown";
 
   private static final MwmApplication APP = MwmApplication.get();
-  private static final SharedPreferences PREFS = MwmApplication.getMwmSharedPreferences();
+  private static final SharedPreferences PREFS = MwmApplication.prefs();
 
   /**
    * Starts this service to check map updates available with the given parameters. If the

@@ -139,7 +139,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     super(context, attrs);
 
-    mIsLatLonDms = MwmApplication.getMwmSharedPreferences().getBoolean(PREF_USE_DMS, false);
+    mIsLatLonDms = MwmApplication.prefs().getBoolean(PREF_USE_DMS, false);
     initViews();
 
     initAnimationController(attrs, defStyleAttr);
@@ -643,7 +643,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       break;
     case R.id.ll__place_latlon:
       mIsLatLonDms = !mIsLatLonDms;
-      MwmApplication.getMwmSharedPreferences().edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).commit();
+      MwmApplication.prefs().edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).commit();
       refreshLatLon();
       break;
     case R.id.ll__place_phone:

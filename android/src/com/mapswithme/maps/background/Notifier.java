@@ -15,10 +15,10 @@ import com.mapswithme.util.statistics.Statistics;
 
 public final class Notifier
 {
-  private final static int ID_UPDATE_AVAIL = 0x1;
-  private final static int ID_DOWNLOAD_FAILED = 0x3;
-  private final static int ID_DOWNLOAD_NEW_COUNTRY = 0x4;
-  private final static int ID_PEDESTRIAN = 0x5;
+  private final static int ID_UPDATE_AVAILABLE = 1;
+  private final static int ID_DOWNLOAD_FAILED = 2;
+  private final static int ID_DOWNLOAD_NEW_COUNTRY = 3;
+  private final static int ID_PEDESTRIAN = 4;
 
   private static final MwmApplication APP = MwmApplication.get();
 
@@ -43,7 +43,7 @@ public final class Notifier
     final PendingIntent pi = PendingIntent.getActivity(APP, 0, MwmActivity.createUpdateMapsIntent(),
         PendingIntent.FLAG_UPDATE_CURRENT);
 
-    placeNotification(title, countryName, pi, ID_UPDATE_AVAIL);
+    placeNotification(title, countryName, pi, ID_UPDATE_AVAILABLE);
   }
 
   public static void notifyDownloadFailed(Index idx, String countryName)
