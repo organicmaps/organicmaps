@@ -37,7 +37,7 @@ void Route::Swap(Route & rhs)
   m_router.swap(rhs.m_router);
   swap(m_routingSettings, rhs.m_routingSettings);
   m_poly.Swap(rhs.m_poly);
-  m_simplifiedPoly.Swap(m_simplifiedPoly);
+  m_simplifiedPoly.Swap(rhs.m_simplifiedPoly);
   m_name.swap(rhs.m_name);
   swap(m_currentTime, rhs.m_currentTime);
   swap(m_turns, rhs.m_turns);
@@ -163,7 +163,7 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
 
 void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 {
-  if (m_routingSettings.m_keepPedestrianInfo)
+  if (m_routingSettings.m_keepPedestrianInfo && m_simplifiedPoly.IsValid())
     m_simplifiedPoly.GetCurrentDirectionPoint(pt, kOnEndToleranceM);
   else
     m_poly.GetCurrentDirectionPoint(pt, kOnEndToleranceM);
@@ -252,7 +252,7 @@ void Route::Update()
     // TODO (ldargunov) Rewrite dist f to distance in meters and avoid 0.00000 constants.
     SimplifyNearOptimal(20, m_poly.GetPolyline().Begin(), m_poly.GetPolyline().End(), 0.00000001, distFn,
                         MakeBackInsertFunctor(points));
-    m_simplifiedPoly = FollowedPolyline(points.begin(), points.end());
+    FollowedPolyline(points.begin(), points.end()).Swap(m_simplifiedPoly);
   }
   else
   {
