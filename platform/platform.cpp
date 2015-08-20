@@ -12,6 +12,19 @@
 
 #include <errno.h>
 
+// These includes are needed only for one-time fonts statistics collection on Android (see GetFontNames).
+// @TODO(AlexZ): Remove in the next release.
+#ifdef OMIM_OS_ANDROID
+#include "std/thread.hpp"
+#include "base/scope_guard.hpp"
+#include "coding/compressed_bit_vector.hpp"
+#include "platform/settings.hpp"
+#include "3party/Alohalytics/src/alohalytics.h"
+#include "3party/freetype/include/ft2build.h"
+#include FT_FREETYPE_H
+#endif
+
+
 // static
 Platform::EError Platform::ErrnoToError()
 {
@@ -105,6 +118,73 @@ void Platform::GetFontNames(FilesList & res) const
   GetSystemFontNames(res);
 
   LOG(LINFO, ("Available font files:", (res)));
+
+#ifdef OMIM_OS_ANDROID
+  // This is one-time fonts statistics collection.
+  // @TODO(AlexZ): Remove it in the next release.
+  constexpr char const * kFontsStatisticsKey = "AndroidFontsInfo";
+  constexpr char const * kLogEventName = "AndroidFontsStats";
+  bool alreadyCollected = false;
+  if (!Settings::Get(kFontsStatisticsKey, alreadyCollected))
+  {
+    Settings::Set(kFontsStatisticsKey, true);
+    // Collect all data on a separate thread.
+    thread([]()
+    {
+      LOG(LDEBUG, ("Started fonts scan"));
+      FilesList files;
+      char const * kSystemFontsFolder = "/system/fonts/";
+      GetFilesByRegExp(kSystemFontsFolder, "\\.[ttf|otf|ttc]", files);
+      if (files.empty())
+      {
+        alohalytics::LogEvent(kLogEventName, {{"error", "No ttf/otc/ttc files in /system/fonts/ folder."}});
+        return;
+      }
+
+      LOG(LDEBUG, ("Fonts scan init FT Library"));
+      FT_Library library;
+      FT_Error error = FT_Init_FreeType(&library);
+      if (error)
+      {
+        alohalytics::LogEvent(kLogEventName, "Error initializing freetype " + std::to_string(error));
+        return;
+      }
+      MY_SCOPE_GUARD(lib_guard, [&library] () { FT_Done_FreeType(library); });
+
+      alohalytics::TStringMap fontsInfo;
+      for (auto const & file : files)
+      {
+        FT_Face face;
+        error = FT_New_Face(library, (kSystemFontsFolder + file).c_str(), 0, &face);
+        if (error)
+        {
+          fontsInfo[file] = "Error " + std::to_string(error);
+          return;
+        }
+        MY_SCOPE_GUARD(face_guard, [&face] () { FT_Done_Face(face); });
+        vector<uint32_t> charcodes;
+        {
+          charcodes.reserve(face->num_glyphs);
+          FT_UInt glyph_index;
+          FT_ULong charcode = FT_Get_First_Char(face, &glyph_index);
+          while (glyph_index != 0)
+          {
+            charcodes.push_back(static_cast<uint32_t>(charcode));
+            charcode = FT_Get_Next_Char(face, charcode, &glyph_index);
+          }
+          sort(charcodes.begin(), charcodes.end());
+          charcodes.erase(unique(charcodes.begin(), charcodes.end()), charcodes.end());
+        }
+        string serialBitVector;
+        MemWriter<string> writer(serialBitVector);
+        BuildCompressedBitVector(writer, charcodes);
+        fontsInfo[file] = serialBitVector;
+      }
+      // Send once all collected data.
+      alohalytics::LogEvent(kLogEventName, fontsInfo);
+    }).detach();
+  }
+#endif
 }
 
 void Platform::GetFilesByExt(string const & directory, string const & ext, FilesList & outFiles)
