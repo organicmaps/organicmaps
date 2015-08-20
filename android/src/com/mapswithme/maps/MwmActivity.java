@@ -562,7 +562,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mPlacePage.getState() == State.HIDDEN)
       return false;
 
-    hidePlacePage();
+    mPlacePage.hide();
     Framework.deactivatePopup();
     return true;
   }
@@ -599,6 +599,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         mLayoutRouting.setEndPoint(mPlacePage.getMapObject());
         mLayoutRouting.setState(RoutingLayout.State.PREPARING, true);
+
+        if (mPlacePage.isDocked() || !mPlacePage.isFloating())
+          closePlacePage();
       }
     });
   }
@@ -1241,12 +1244,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private void hidePlacePage()
-  {
-    mPlacePage.setState(State.HIDDEN);
-    mPlacePage.setMapObject(null);
-  }
-
   @Override
   public void onDismiss()
   {
@@ -1257,7 +1254,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         @Override
         public void run()
         {
-          hidePlacePage();
+          mPlacePage.hide();
           Framework.deactivatePopup();
         }
       });
@@ -1348,15 +1345,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public boolean onTouch(View view, MotionEvent event)
   {
-    boolean result = false;
-    if (mPlacePage.getState() == State.DETAILS || mPlacePage.getState() == State.BOOKMARK)
-    {
-      Framework.deactivatePopup();
-      hidePlacePage();
-      result = true;
-    }
-
-    return result || mMapFragment.onTouch(view, event);
+    return mPlacePage.hideOnTouch() ||
+           mMapFragment.onTouch(view, event);
   }
 
   @Override

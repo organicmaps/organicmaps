@@ -864,4 +864,24 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     mLeftAnimationTrackListener = listener;
   }
+
+  public void hide()
+  {
+    setState(State.HIDDEN);
+  }
+
+  @SuppressWarnings("SimplifiableIfStatement")
+  public boolean hideOnTouch()
+  {
+    if (mIsDocked || mIsFloating)
+      return false;
+
+    if (getState() == State.BOOKMARK || getState() == State.DETAILS)
+    {
+      hide();
+      return true;
+    }
+
+    return false;
+  }
 }
