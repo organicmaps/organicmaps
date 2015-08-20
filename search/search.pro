@@ -21,6 +21,7 @@ HEADERS += \
     latlon_match.hpp \
     locality_finder.hpp \
     params.hpp \
+    query_saver.hpp \
     result.hpp \
     retrieval.hpp \
     search_common.hpp \
@@ -40,6 +41,7 @@ SOURCES += \
     latlon_match.cpp \
     locality_finder.cpp \
     params.cpp \
+    query_saver.cpp \
     result.cpp \
     retrieval.cpp \
     search_engine.cpp \

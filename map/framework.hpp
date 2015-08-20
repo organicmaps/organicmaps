@@ -30,6 +30,7 @@
 #include "indexer/data_header.hpp"
 #include "indexer/map_style.hpp"
 
+#include "search/query_saver.hpp"
 #include "search/search_engine.hpp"
 
 #include "storage/storage.hpp"
@@ -104,6 +105,7 @@ protected:
   StringsBundle m_stringsBundle;
 
   mutable unique_ptr<search::Engine> m_pSearchEngine;
+  search::QuerySaver m_searchQuerySaver;
 
   model::FeaturesFetcher m_model;
   ScalesProcessor m_scales;
@@ -344,6 +346,9 @@ public:
   void StartInteractiveSearch(search::SearchParams const & params) { m_lastSearch = params; }
   bool IsISActive() const { return !m_lastSearch.m_query.empty(); }
   void CancelInteractiveSearch();
+
+  vector<string> const & GetLastSearchQueries() const { return m_searchQuerySaver.GetTopQueries(); }
+  void SaveSearchQuery(string const & query) { m_searchQuerySaver.SaveNewQuery(query); }
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;
