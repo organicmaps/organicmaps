@@ -18,6 +18,8 @@
 // with this program; if not, see http://www.gnu.org/licenses/.
 //
 // Other licenses are available on request; please ask the author.
+//
+// Modified on 20.08.2015 by Ilya Zverev
 
 #define MAXLOGLEVEL 2
 const char* shorthelptext=
@@ -1300,7 +1302,7 @@ static int32_t border__bx1= 2000000000L,border__by1,
 // which refer to all that edges which overlap horizontally with
 // that region between x1 and the next higher x1 (x1 of the next edge
 // in the sorted list);
-#define border__edge_M 60004
+#define border__edge_M 600004
 typedef struct border__edge_t {
   int32_t x1,y1,x2,y2;  // coordinates of the edge; always: x1<x2;
   struct border__chain_t* chain;
