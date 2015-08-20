@@ -3,6 +3,7 @@ package com.mapswithme.util.sharing;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.google.gsonaltered.annotations.SerializedName;
@@ -29,7 +30,7 @@ public class SharingTarget implements Gsonable, Comparable<SharingTarget>
   }
 
   @Override
-  public int compareTo(SharingTarget another)
+  public int compareTo(@NonNull SharingTarget another)
   {
     return (another.usageCount - usageCount);
   }

@@ -76,6 +76,7 @@ public class StringUtils
 
   /**
    * Formats size in bytes to "x MB" or "x KB" format.
+   *
    * @param size Size in bytes
    * @return formatted string
    */
@@ -85,6 +86,12 @@ public class StringUtils
       return (size + Constants.MB / 2) / Constants.MB + " " + MwmApplication.get().getString(R.string.mb);
     else
       return (size + Constants.KB - 1) / Constants.KB + " " + MwmApplication.get().getString(R.string.kb);
+  }
+
+  public static boolean isRtl()
+  {
+    Locale defLocale = Locale.getDefault();
+    return Character.getDirectionality(defLocale.getDisplayName(defLocale).charAt(0)) == Character.DIRECTIONALITY_RIGHT_TO_LEFT;
   }
 
   public static class SimpleTextWatcher implements TextWatcher

@@ -39,4 +39,7 @@
   <string name="pref_subscribe" translatable="false">Subscribe</string>
   <string name="pref_settings" translatable="false">Settings</string>
   <string name="pref_file_name" translatable="false">MapsMePrefs</string>
+
+  <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
+  <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>
 </resources>
