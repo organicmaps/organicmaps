@@ -105,11 +105,7 @@ private:
 class ArrowDataHolder
 {
 public:
-  ArrowDataHolder(ArrowsBuffer & data)
-    : m_data(data)
-  {
-    m_data.Clear();
-  }
+  ArrowDataHolder(ArrowsBuffer & data) : m_data(data) {}
 
   void Check(){}
   uint16_t GetIndexCounter() const { return m_data.m_indexCounter; }
@@ -463,7 +459,7 @@ void RouteShape::PrepareGeometry(m2::PolylineD const & polyline, RouteData & out
   ASSERT_LESS(1, path.size(), ());
 
   RouteDataHolder holder(output);
-  output.m_length = GenerateGeometry(path, true /* isRoute */, 1.0 /* depth */, holder);
+  output.m_length = GenerateGeometry(path, true /* isRoute */, 1.0 /* lengthScalar */, holder);
   ASSERT_EQUAL(output.m_geometry.size(), output.m_boundingBoxes.size(), ());
 }
 

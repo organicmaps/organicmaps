@@ -164,7 +164,6 @@ void BookmarkManager::DrawCategory(BookmarkCategory const * cat, PaintOverlayEve
 
 void BookmarkManager::ClearItems()
 {
-  ResetRouteTrack();
   for_each(m_categories.begin(), m_categories.end(), DeleteFunctor());
   m_categories.clear();
 }
@@ -465,7 +464,6 @@ void BookmarkManager::ResetScreen()
   {
     // Delete display lists for all tracks
     for_each(m_categories.begin(), m_categories.end(), dlDeleteFn);
-    m_routeRenderer->Clear();
     m_bmScreen = 0;
   }
 }

@@ -243,6 +243,9 @@ RouteRenderer::~RouteRenderer()
 
 void RouteRenderer::Setup(m2::PolylineD const & routePolyline, vector<double> const & turns, graphics::Color const & color)
 {
+  if (!m_routeData.m_geometry.empty())
+    m_needClear = true;
+
   RouteShape::PrepareGeometry(routePolyline, m_routeData);
 
   m_turns = turns;
@@ -251,7 +254,6 @@ void RouteRenderer::Setup(m2::PolylineD const & routePolyline, vector<double> co
   m_distanceFromBegin = 0.0;
   m_polyline = routePolyline;
 
-  m_needClear = true;
   m_waitForConstruction = true;
 }
 
@@ -331,11 +333,15 @@ void RouteRenderer::ClearRoute(graphics::Screen * dlScreen)
   m_arrowBorders.clear();
   m_routeSegments.clear();
   m_arrowBuffer.Clear();
+  m_routeData.Clear();
 }
 
 void RouteRenderer::PrepareToShutdown()
 {
   DestroyDisplayLists();
+
+  m_arrowBorders.clear();
+  m_routeSegments.clear();
 
   if (!m_routeData.m_geometry.empty())
     m_waitForConstruction = true;

@@ -34,6 +34,15 @@ struct RouteData
   vector<pair<TGeometryBuffer, TIndexBuffer>> m_geometry;
   vector<m2::RectD> m_boundingBoxes;
   vector<RouteJoinBounds> m_joinsBounds;
+
+  RouteData() : m_length(0) {}
+
+  void Clear()
+  {
+    m_geometry.clear();
+    m_boundingBoxes.clear();
+    m_joinsBounds.clear();
+  }
 };
 
 struct ArrowsBuffer
