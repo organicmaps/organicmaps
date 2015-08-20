@@ -227,8 +227,7 @@ float NormColor(uint8_t value)
 }
 
 RouteRenderer::RouteRenderer()
-  : m_displayList(nullptr)
-  , m_endOfRouteDisplayList(nullptr)
+  : m_endOfRouteDisplayList(nullptr)
   , m_arrowDisplayList(nullptr)
   , m_distanceFromBegin(0.0)
   , m_needClear(false)
@@ -237,16 +236,13 @@ RouteRenderer::RouteRenderer()
 
 RouteRenderer::~RouteRenderer()
 {
-  ASSERT(m_displayList == nullptr, ());
+  ASSERT(m_routeGraphics.empty(), ());
   ASSERT(m_endOfRouteDisplayList == nullptr, ());
   ASSERT(m_arrowDisplayList == nullptr, ());
 }
 
 void RouteRenderer::Setup(m2::PolylineD const & routePolyline, vector<double> const & turns, graphics::Color const & color)
 {
-  m_routeData.m_geometry.clear();
-  m_routeData.m_indices.clear();
-  m_routeData.m_joinsBounds.clear();
   RouteShape::PrepareGeometry(routePolyline, m_routeData);
 
   m_turns = turns;
@@ -261,6 +257,8 @@ void RouteRenderer::Setup(m2::PolylineD const & routePolyline, vector<double> co
 
 void RouteRenderer::ConstructRoute(graphics::Screen * dlScreen)
 {
+  ASSERT(m_routeGraphics.empty(), ());
+
   // texture
   uint32_t resID = dlScreen->findInfo(graphics::Icon::Info("route-arrow"));
   graphics::Resource const * res = dlScreen->fromID(resID);
@@ -272,28 +270,37 @@ void RouteRenderer::ConstructRoute(graphics::Screen * dlScreen)
                                  res->m_texRect.maxX() / w, res->m_texRect.maxY() / h);
 
   // storages
-  size_t vbSize = m_routeData.m_geometry.size() * sizeof(graphics::gl::RouteVertex);
-  size_t ibSize = m_routeData.m_indices.size() * sizeof(unsigned short);
-  ASSERT_NOT_EQUAL(vbSize, 0, ());
-  ASSERT_NOT_EQUAL(ibSize, 0, ());
+  for (auto & geometry : m_routeData.m_geometry)
+  {
+    m_routeGraphics.emplace_back(RouteGraphics());
+    RouteGraphics & graphics = m_routeGraphics.back();
 
-  m_storage = graphics::gl::Storage(vbSize, ibSize);
-  void * vbPtr = m_storage.m_vertices->lock();
-  memcpy(vbPtr, m_routeData.m_geometry.data(), vbSize);
-  m_storage.m_vertices->unlock();
+    size_t vbSize = geometry.first.size() * sizeof(graphics::gl::RouteVertex);
+    size_t ibSize = geometry.second.size() * sizeof(unsigned short);
+    ASSERT_NOT_EQUAL(vbSize, 0, ());
+    ASSERT_NOT_EQUAL(ibSize, 0, ());
 
-  void * ibPtr = m_storage.m_indices->lock();
-  memcpy(ibPtr, m_routeData.m_indices.data(), ibSize);
-  m_storage.m_indices->unlock();
+    graphics.m_storage = graphics::gl::Storage(vbSize, ibSize);
+    void * vbPtr = graphics.m_storage.m_vertices->lock();
+    memcpy(vbPtr, geometry.first.data(), vbSize);
+    graphics.m_storage.m_vertices->unlock();
+
+    void * ibPtr = graphics.m_storage.m_indices->lock();
+    memcpy(ibPtr, geometry.second.data(), ibSize);
+    graphics.m_storage.m_indices->unlock();
+  }
 
   size_t const arrowBufferSize = m_turns.size() * 500;
   m_arrowsStorage = graphics::gl::Storage(arrowBufferSize * sizeof(graphics::gl::RouteVertex),
                                           arrowBufferSize * sizeof(unsigned short));
 
   // display lists
-  m_displayList = dlScreen->createDisplayList();
-  dlScreen->setDisplayList(m_displayList);
-  dlScreen->drawRouteGeometry(texture, m_storage);
+  for (auto & graphics : m_routeGraphics)
+  {
+    graphics.m_displayList = dlScreen->createDisplayList();
+    dlScreen->setDisplayList(graphics.m_displayList);
+    dlScreen->drawRouteGeometry(texture, graphics.m_storage);
+  }
 
   m_arrowDisplayList = dlScreen->createDisplayList();
   dlScreen->setDisplayList(m_arrowDisplayList);
@@ -308,11 +315,16 @@ void RouteRenderer::ConstructRoute(graphics::Screen * dlScreen)
 
 void RouteRenderer::ClearRoute(graphics::Screen * dlScreen)
 {
-  dlScreen->discardStorage(m_storage);
+  for (RouteGraphics & graphics : m_routeGraphics)
+  {
+    dlScreen->discardStorage(graphics.m_storage);
+    graphics.m_storage = graphics::gl::Storage();
+  }
+
   dlScreen->discardStorage(m_arrowsStorage);
-  dlScreen->clearRouteGeometry();
-  m_storage = graphics::gl::Storage();
   m_arrowsStorage = graphics::gl::Storage();
+
+  dlScreen->clearRouteGeometry();
 
   DestroyDisplayLists();
 
@@ -331,11 +343,7 @@ void RouteRenderer::PrepareToShutdown()
 
 void RouteRenderer::DestroyDisplayLists()
 {
-  if (m_displayList != nullptr)
-  {
-    delete m_displayList;
-    m_displayList = nullptr;
-  }
+  m_routeGraphics.clear();
 
   if (m_arrowDisplayList != nullptr)
   {
@@ -388,8 +396,10 @@ void RouteRenderer::Render(graphics::Screen * dlScreen, ScreenBase const & scree
     m_waitForConstruction = false;
   }
 
-  if (m_displayList == nullptr)
+  if (m_routeGraphics.empty())
     return;
+
+  ASSERT_EQUAL(m_routeGraphics.size(), m_routeData.m_geometry.size(), ());
 
   // rendering
   dlScreen->clear(graphics::Color(), false, 1.0f, true);
@@ -408,8 +418,15 @@ void RouteRenderer::Render(graphics::Screen * dlScreen, ScreenBase const & scree
 
   // render routes
   dlScreen->applyRouteStates();
-  size_t const indicesCount = m_storage.m_indices->size() / sizeof(unsigned short);
-  dlScreen->drawDisplayList(m_displayList, screen.GtoPMatrix(), &uniforms, indicesCount);
+  for (size_t i = 0; i < m_routeGraphics.size(); ++i)
+  {
+    RouteGraphics & graphics = m_routeGraphics[i];
+    if (!screen.ClipRect().IsIntersect(m_routeData.m_boundingBoxes[i]))
+      continue;
+
+    size_t const indicesCount = graphics.m_storage.m_indices->size() / sizeof(unsigned short);
+    dlScreen->drawDisplayList(graphics.m_displayList, screen.GtoPMatrix(), &uniforms, indicesCount);
+  }
 
   // render arrows
   if (zoom >= kArrowAppearingZoomLevel)

@@ -84,10 +84,24 @@ private:
   bool RecacheArrows();
   void DestroyDisplayLists();
 
-  graphics::DisplayList * m_displayList;
-  graphics::DisplayList * m_endOfRouteDisplayList;
-  graphics::gl::Storage m_storage;
+  struct RouteGraphics
+  {
+    graphics::DisplayList * m_displayList;
+    graphics::gl::Storage m_storage;
 
+    RouteGraphics() : m_displayList(nullptr) {}
+    ~RouteGraphics()
+    {
+      if (m_displayList != nullptr)
+      {
+        delete m_displayList;
+        m_displayList = nullptr;
+      }
+    }
+  };
+
+  vector<RouteGraphics> m_routeGraphics;
+  graphics::DisplayList * m_endOfRouteDisplayList;
   graphics::DisplayList * m_arrowDisplayList;
   graphics::gl::Storage m_arrowsStorage;
 

@@ -31,8 +31,8 @@ struct RouteJoinBounds
 struct RouteData
 {
   double m_length;
-  TGeometryBuffer m_geometry;
-  TIndexBuffer m_indices;
+  vector<pair<TGeometryBuffer, TIndexBuffer>> m_geometry;
+  vector<m2::RectD> m_boundingBoxes;
   vector<RouteJoinBounds> m_joinsBounds;
 };
 
