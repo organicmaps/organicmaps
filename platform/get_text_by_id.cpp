@@ -38,14 +38,16 @@ GetTextById::GetTextById(TextSource textSouce, string const & localeName)
       {GetTextSourceString(textSouce), localeName + ".json"}, "localize.json");
 
   // @TODO(vbykoianko) Add assert if locale path pathToJson is not valid.
-  LOG(LDEBUG, ("Trying to open json file at path", pathToJson));
-  if (!GetPlatform().IsFileExistsByFullPath(pathToJson))
+  string jsonBuffer;
+  try
   {
-    LOG(LWARNING, ("Sound instructions test file not exists!"));
+    GetPlatform().GetReader(pathToJson)->ReadAsString(jsonBuffer);
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LWARNING, ("Can't open sound instructions file", pathToJson, ex.what()));
     return;
   }
-  string jsonBuffer;
-  ReaderPtr<Reader>(GetPlatform().GetReader(pathToJson)).ReadAsString(jsonBuffer);
   InitFromJson(jsonBuffer);
 }
 
