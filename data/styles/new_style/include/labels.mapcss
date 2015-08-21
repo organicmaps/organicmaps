@@ -1,0 +1,667 @@
+/* LABELS */
+
+*[place]
+{
+  text-position: center;
+  fill-position: background;
+}
+
+/* CONTINENTS */
+
+node|z1[place=continent]
+{
+  text: name;
+  font-size: 12;
+  text-color: @country_label;
+  max-width: 5;
+  z-index: 1100;
+}
+
+node|z2[place=continent]
+{
+  text: name;
+  font-size: 14;
+  text-color: @country_label;
+  max-width: 5;
+  z-index: 1100;
+}
+
+/* COUNTRIES */
+
+node|z3[place=country]
+{
+  text: name;
+  font-size: 10.5;
+  text-color: @country_label;
+  z-index: 1000;
+}
+
+node|z4[place=country]
+{
+  text: name;
+  font-size: 14;
+  text-color: @country_label;
+  z-index: 1000;
+}
+
+node|z5[place=country]
+{
+  text: name;
+  font-size: 16;
+  text-color: @country_label;
+  z-index: 1000;
+}
+
+node|z6-[place=country]
+{
+  text: name;
+  font-size: 18;
+  text-color: @country_label;
+  z-index: 1000;
+}
+
+/* Z-INDEXES */
+
+node|z1-[place=city][capital=2] {
+  z-index: 4000;
+}
+
+node|z1-[place=city][capital=3],
+node|z1-[place=city][capital=4] {
+  z-index: 3900;
+}
+
+node|z1-[place=city] {
+  z-index: 3800;
+}
+
+node|z1-[place=town] {
+  z-index: 3500;
+}
+
+/* STATES */
+
+node|z6[place=state]
+{
+  text: name;
+  font-size: 11;
+  text-color: @state_name;
+}
+
+/* CITIES ZOOM 4*/
+
+node|z4[place=city][capital=2] {
+  icon-image: star-s.svg;
+  text-offset: 2.8;
+  font-size: 10;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 0;
+  text-halo-color: @city_halo_light;
+}
+
+
+/* CITIES ZOOM 5*/
+
+node|z5[place=city][capital=2] {
+  icon-image: star-m.svg;
+  text-offset: 3;
+  font-size: 11;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 0;
+  text-halo-color: @city_halo_light;
+}
+
+node|z5[place=city][capital=3],
+node|z5[place=city][capital=4] {
+  icon-image: dot-s.svg;
+/*  text-offset: 3;
+  font-size: 9;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 0;
+  text-halo-color: @city_halo;*/
+}
+
+/* CITIES ZOOM 6*/
+
+node|z6[place=city][capital=2] {
+  icon-image: star-l.svg;
+  text-offset: 4;
+  font-size: 12;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo_light;
+}
+
+node|z6[place=city][capital=3],
+node|z6[place=city][capital=4] {
+  icon-image: dot-s.svg;
+  text-offset: 3;
+  font-size: 10;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo_light;
+}
+
+
+/* CITIES ZOOM 7*/
+
+node|z7[place=city] {
+  icon-image: dot-s.svg;
+  text-offset: 3;
+  font-size: 10;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo_light;
+  z-index: 1000;
+}
+
+node|z7[place=city][capital=3],
+node|z7[place=city][capital=4] {
+  icon-image: dot-m.svg;
+  text-offset: 3;
+  font-size: 12;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo_light;
+}
+
+node|z7[place=city][capital=2] {
+  icon-image: star-l.svg;
+  text-offset: 5;
+  font-size: 14;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo_light;
+}
+
+node|z7[place=state]
+{
+  text: name;
+  font-size: 12.5;
+  text-color: @state_name;
+  z-index: -10;
+}
+
+/* CITIES ZOOM 8*/
+
+node|z8[place=city] {
+  icon-image: dot-m.svg;
+  text-offset: 3;
+  font-size: 12;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo_light;
+}
+
+node|z8[place=city][capital=2] {
+  icon-image: star-l.svg;
+  text-offset: 5;
+  font-size: 15;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo_light;
+  z-index: 3900;
+}
+node|z8[place=state]
+{
+  text: name;
+  font-size: 13;
+  text-color: @state_name;
+  z-index: -10;
+}
+/* ZOOM 9 */
+
+
+node|z9[place=town] {
+  font-size: 10;
+  text: name;
+  text-color: @city_label_light;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo_light;
+}
+
+node|z9[place=city] {
+  icon-image: dot-s.svg;
+  text-offset: 4;
+  font-size: 13;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 0.5;
+  text-halo-color: @city_halo_light;
+}
+
+node|z9[place=city][capital=2] {
+  icon-image: star-l.svg;
+  text-offset: 3;
+  font-size: 15;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 0.5;
+  text-halo-color: @city_halo_light;
+  z-index: 3900;
+}
+node|z9[place=state]
+{
+  text: name;
+  font-size: 12;
+  text-color: @state_name;
+  z-index: -10;
+}
+/* ZOOM 10 */
+
+node|z10[place=town] {
+  font-size: 10;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+node|z10[place=city] {
+  font-size: 13;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-opacity: 0;
+  text-halo-color: @city_halo;
+}
+
+node|z10[place=city][capital=2] {
+  icon-image: star-l.svg;
+  text-offset: 3;
+  font-size: 15;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius:1;
+  text-halo-color: @city_halo;
+  z-index: 3900;
+}
+
+/* ZOOM 11 */
+
+node|z11-12[place=town] {
+  font-size: 14;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+node|z11-12[place=village] {
+  font-size: 10;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+node|z11-12[place=city] {
+  font-size: 14;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-opacity: 0;
+  text-halo-color: @city_halo;
+}
+
+node|z11-12[place=city][capital=2] {
+  icon-image: star-l.svg;
+  text-offset: 4;
+  font-size: 16;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius:1;
+  text-halo-color: @city_halo;
+  z-index: 3900;
+}
+/* ZOOM 13 */
+
+node|z13-[place=town] {
+  font-size: 14;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+
+node|z13[place=village] {
+  font-size: 10;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+node|z13[place=city] {
+  font-size: 16;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-opacity: 0;
+  text-halo-color: @city_halo;
+}
+
+node|z13[place=city][capital=2] {
+  icon-image: star-l.svg;
+  text-offset: 4;
+  font-size: 18;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius:1;
+  text-halo-color: @city_halo;
+  z-index: 3900;
+}
+
+node|z13[place=hamlet] {
+  font-size: 10;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+/* ROADS */
+
+line[highway]
+{
+  text-position: line;
+}
+
+line|z10-[highway=motorway],
+line|z10-[highway=trunk],
+line|z10-[highway=motorway_link],
+line|z10-[highway=trunk_link] {
+  font-size: 9;
+  text: name;
+  text-color: @primary_road_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+line|z10-[highway=primary],
+line|z10-[highway=primary_link] {
+  font-size: 9;
+  text: name;
+  text-color: @primary_road_label;
+  text-halo-radius: 0.5;
+  text-halo-color: @city_halo;
+}
+
+line|z10-[highway=secondary] {
+  font-size: 8;
+  text: name;
+  text-color: @primary_road_label;
+  text-halo-radius: 0.5;
+  text-halo-color: @city_halo;
+}
+line|z12-[highway=motorway],
+line|z12-[highway=trunk],
+line|z12-[highway=motorway_link],
+line|z12-[highway=trunk_link] {
+  font-size: 12;
+  text: name;
+  text-color: @primary_road_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+line|z12-[highway=primary],
+line|z12-[highway=primary_link] {
+  font-size: 10;
+  text: name;
+  text-color: @primary_road_label;
+  text-halo-radius: 0.5;
+  text-halo-color: @city_halo;
+}
+
+line|z12-[highway=secondary] {
+  font-size: 9;
+  text: name;
+  text-color: @primary_road_label;
+  text-halo-radius: 0;
+  text-halo-color: @city_halo;
+}
+
+line|z12-[highway=residential],
+line|z12-[highway=tertiary],
+line|z12-[highway=unclassified],
+line|z12-[highway=living_street],
+line|z12-[highway=pedestrian] {
+  font-size: 8;
+  text: name;
+  text-color: @primary_road_label;
+  text-halo-radius: 0;
+  text-halo-color: @city_halo;
+}
+line|z16-[highway=motorway],
+line|z16-[highway=trunk],
+line|z16-[highway=motorway_link],
+line|z16-[highway=trunk_link] {
+  font-size: 14;
+  text: name;
+  text-color: @primary_road_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+line|z16-[highway=primary],
+line|z16-[highway=primary_link] {
+  font-size: 12;
+  text: name;
+  text-color: @primary_road_label;
+  text-halo-radius: 0.5;
+  text-halo-color: @city_halo;
+}
+
+line|z16-[highway=secondary] {
+  font-size: 10;
+  text: name;
+  text-color: @primary_road_label;
+  text-halo-radius: 0;
+  text-halo-color: @city_halo;
+}
+
+line|z16-[highway=residential],
+line|z16-[highway=tertiary],
+line|z12-[highway=unclassified],
+line|z12-[highway=living_street],
+line|z12-[highway=pedestrian] {
+  font-size: 10;
+  text: name;
+  text-color: @primary_road_label;
+  text-halo-radius: 0;
+  text-halo-color: @city_halo;
+}
+
+/* DISTRICTS */
+
+node|z11[place=suburb]
+{
+  text: name;
+  font-size: 10;
+  text-color: @district_label;
+}
+
+node|z12[place=suburb]
+{
+  text: name;
+  font-size: 11;
+  text-color: @district_label;
+}
+node|z13-14[place=suburb]
+{
+  text: name;
+  font-size: 14;
+  text-color: @district_label;
+}
+/* SMALL LOCALITIES */
+
+node|z14-[place=locality],
+node|z14-[place=neighbourhood],
+node|z8-9[place=region],
+{
+  text: name;
+  font-size: 12;
+  text-color: @district_label;
+}
+
+/* BUILDINGS LABELS */
+
+/*
+area|z16[building],
+node|z16[building],
+area|z16[addr:housenumber][addr:street],
+node|z16[addr:housenumber][addr:street]
+{
+  text: "addr:housenumber";
+  font-size: 8;
+  text-color: #7F7F7F;
+  text-position: center;
+  z-index: 100;
+}
+*/
+
+area|z17[building],
+node|z17[building],
+area|z17[addr:housenumber][addr:street],
+node|z17[addr:housenumber][addr:street]
+{
+  text: "addr:housenumber";
+  font-size: 9;
+  text-color: @building_label;
+  text-position: center;
+  z-index: 300;
+}
+
+
+area|z18-[building],
+node|z18-[building],
+area|z18-[addr:housenumber][addr:street],
+node|z18-[addr:housenumber][addr:street]
+{
+  text: "addr:housenumber";
+  font-size: 10;
+  text-color: @building_label;
+  text-position: center;
+  z-index: 1000;
+}
+
+/*
+area|z17-[amenity]
+{
+  text: name;
+  font-size: 10;
+  text-color: @building_label;
+  text-position: center;
+  z-index: 6000;
+}
+*/
+
+/* LANDUSE LABELS */
+
+
+area|z15-[highway=pedestrian][area?],
+area|z15-[area:highway=pedestrian],
+area|z15-[highway=footway][area?][!sac_scale],
+area|z15-[area:highway=footway],
+{
+  text: name;
+  font-size: 11;
+  text-color: @city_label;
+  text-position: center;
+}
+
+
+/*
+area|z16[addr:housenumber][addr:street],
+node|z16[addr:housenumber][addr:street]
+{
+  text: "addr:housenumber";
+  font-size: 10;
+  text-color: @addr_z16;
+  text-position: center;
+}
+*/
+
+/* NATURAL LABELS - курсив*/
+
+node|z1-2[place=ocean]{
+  text: name;
+  font-size: 15;
+  text-color: @water_label;
+  z-index: 3000;
+}
+node|z3-4[place=ocean]{
+  text: name;
+  font-size: 18;
+  text-color: @water_label;
+  z-index: 3000;
+}
+node|z5-[place=ocean]{
+  text: name;
+  font-size: 18;
+  text-color: @water_label;
+  z-index: 3000;
+}
+node|z4-[place=sea]{
+  text: name;
+  font-size: 14;
+  text-color: @water_label;
+  z-index: 3000;
+}
+
+node|z12-[place=archipelago],
+node|z12-[place=island],
+area|z12-[place=archipelago],
+area|z12-[place=island]
+{
+  text: name;
+  font-size: 10;
+  text-color: @district_label;
+}
+
+node|z14-15[natural=water],
+node|z14-15[natural=bay]
+{
+  text: name;
+  font-size: 8;
+  text-color: @water_label;
+}
+node|z16-[natural=water],
+node|z16-[natural=bay]
+{
+  text: name;
+  font-size: 12;
+  text-color: @water_label;
+}
+
+area|z14[leisure=park] {
+  text: name;
+  font-size: 10;
+  text-color: @park_label;
+}
+
+area|z15-[leisure=park] {
+  icon-image: park-s.svg;
+  text-offset: 8;
+  text: name;
+  font-size: 12;
+  text-color: @park_label;
+}
+
+area|z16-[leisure=park] {
+  icon-image: park-m.svg;
+  text-offset: 10;
+  text: name;
+  font-size: 14;
+  text-color: @park_label;
+}

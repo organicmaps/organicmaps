@@ -1,0 +1,26 @@
+area|z14[building]
+{
+  fill-color: @building;
+  fill-opacity: 0.4;
+  z-index: 200;
+}
+area|z15[building]
+{
+  fill-color: @building;
+  fill-opacity: 0.6;
+  z-index: 200;
+}
+
+area|z16[building]
+{
+  fill-color: @building;
+  fill-opacity: 0.8;
+  z-index: 200;
+}
+
+area|z17-[building]
+{
+  fill-color: @building;
+  opacity: 0.8;
+  z-index: 200;
+}

@@ -1,0 +1,19 @@
+@import("colors.mapcss");
+@import("../include/defaults.mapcss");
+@import("../include/roads.mapcss");
+@import("../include/transport.mapcss");
+@import("../include/boundaries.mapcss");
+@import("../include/natural.mapcss");
+@import("../include/labels.mapcss");
+@import("../include/buildings.mapcss");
+@import("../include/landuse.mapcss");
+@import("../include/POI.mapcss");
+@import("../include/other.mapcss");
+
+canvas
+{
+  background-color: @background;
+  fill-color: @water;
+  default-lines: false;
+  default-points: false;
+}

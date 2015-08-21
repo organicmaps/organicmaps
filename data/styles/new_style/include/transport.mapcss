@@ -1,0 +1,334 @@
+
+/* RAILWAY LINES */
+
+line|z11-12[railway=rail]
+{
+  color: #BBBBAA;
+  width: 1;
+  z-index: 760;
+}
+
+
+line|z13-[railway=rail]
+{
+  color: @railway;
+  opacity: 0.8;
+  width: 1;
+  z-index: 760;
+}
+
+/* TRAM LINES */
+
+
+line|z15[railway=tram]
+{
+  color: @tram;
+  opacity: 0.6;
+  width: 0.5;
+  z-index: 950;
+}
+
+line|z16[railway=tram]
+{
+  color: @tram;
+  opacity: 0.8;
+  width: 0.5;
+  z-index: 950;
+}
+
+line|z17-[railway=tram]
+{
+  color: @tram;
+  opacity: 1;
+  width: 1;
+  z-index: 950;
+}
+
+
+/* FERRY */
+line|z10-[route=ferry],
+line|z10-[route=ferry_motorcar]
+{
+	color: @ferry;
+	width: 0.8;
+  opacity: 1;
+	dashes: 3,2;
+	z-index: 400;
+}
+
+
+/* TRANSPORT POINTS */
+
+node[highway=bus_stop],
+node[railway=tram_stop],
+node[railway=station],
+node[railway=halt],
+area[highway=bus_stop],
+area[railway=tram_stop],
+area[railway=station],
+area[railway=halt],
+{
+  text-position: center;
+}
+
+
+/* TRAIN STATIONS */
+
+node|z13[railway=station] {
+	icon-image: subway-xs.svg;
+	z-index: 5000;
+}
+
+node|z12[railway=station][building] {
+	icon-image: train-s.svg;
+  text-offset: 6;
+	z-index: 5000;
+  font-size: 10;
+  text: name;
+  text-color: @railway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+
+node|z14[railway=station] {
+	icon-image: train-s.svg;
+  text-offset: 6;
+	z-index: 5000;
+  font-size: 10;
+  text: name;
+  text-color: @railway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+node|z15[railway=station] {
+	icon-image: train-m.svg;
+  text-offset: 8;
+	z-index: 5000;
+  font-size: 10;
+  text: name;
+  text-color: @railway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+node|z16[railway=station]	 {
+	icon-image: train-l.svg;
+  text-offset: 8;
+  font-size: 10;
+  z-index: 5000;
+  text: name;
+  text-color: @railway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+node|z17-[railway=station]	 {
+	icon-image: train-l.svg;
+  text-offset: 8;
+  font-size: 12;
+  z-index: 5000;
+  text: name;
+  text-color: @railway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+/* SUBWAY STATIONS */
+
+node|z13[railway=station][transport=subway] {
+	icon-image: subway-xs.svg;
+	z-index: 5000;
+}
+
+node|z14[railway=station][transport=subway] {
+	icon-image: subway-s.svg;
+  text-offset: 6;
+	z-index: 5000;
+  font-size: 10;
+  text: name;
+  text-color: @subway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+node|z15[railway=station][transport=subway] {
+	icon-image: subway-m.svg;
+  text-offset: 8;
+	z-index: 5000;
+  font-size: 10;
+  text: name;
+  text-color: @subway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+node|z16[railway=station][transport=subway]	 {
+	icon-image: subway-l.svg;
+  text-offset: 8;
+  font-size: 11;
+  z-index: 5000;
+  text: name;
+  text-color: @subway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+node|z17-[railway=station][transport=subway]	 {
+	icon-image: subway-l.svg;
+  text-offset: 8;
+  font-size: 14;
+  z-index: 5000;
+  text: name;
+  text-color: @subway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+node|z17[railway=subway_entrance] {
+  	icon-image: subway-s.svg;
+    z-index: 3000;
+}
+
+
+node|z18-[railway=subway_entrance] {
+  	icon-image: subway-s.svg;
+    z-index: 3000;
+    text-offset: 8;
+    font-size: 10;
+    z-index: 5000;
+    text: name;
+    text-color: @city_label;
+    text-halo-radius: 1;
+    text-halo-color: @city_halo;
+}
+
+/* TRAM STOPS */
+
+node|z15-16[railway=tram_stop],
+area|z15-16[railway=tram_stop]
+{
+  icon-image: tram-s.svg;
+  z-index: 4000;
+}
+
+node|z17[railway=tram_stop],
+area|z17[railway=tram_stop]
+{
+  icon-image: tram-m.svg;
+  z-index: 4000;
+  text-offset: 8;
+  font-size: 10;
+  z-index: 5000;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+node|z18-[railway=tram_stop],
+area|z18-[railway=tram_stop]
+{
+  icon-image: tram-l.svg;
+  z-index: 4000;
+  text-offset: 8;
+  font-size: 10;
+  z-index: 5000;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+/* BUS STOPS */
+
+node|z17[highway=bus_stop],
+area|z17[highway=bus_stop]
+{
+  icon-image: bus-m.svg;
+  z-index: 4000;
+}
+
+node|z18-[highway=bus_stop],
+area|z18-[highway=bus_stop]
+{
+  icon-image: bus-l.svg;
+  z-index: 4000;
+  text-offset: 8;
+  font-size: 10;
+  z-index: 5000;
+  text: name;
+  text-color: @city_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
+}
+
+/* FERRY */
+
+node|z15[amenity=ferry_terminal] {
+  icon-image: ship-s.svg;
+  z-index: 5000;
+}
+
+
+node|z16-[amenity=ferry_terminal] {
+  icon-image: ship-m.svg;
+  z-index: 5000;
+  text-offset: 8;
+  font-size: 10;
+  text: name;
+  text-color: @city_label;
+}
+
+node|z17-[amenity=ferry_terminal] {
+  icon-image: ship-l.svg;
+  z-index: 5000;
+  text-offset: 10;
+  font-size: 12;
+  text: name;
+  text-color: @city_label;
+}
+
+
+/*
+node|z17-[railway=station]	 {
+	icon-image: rail-l.svg;
+    text-offset: 5;
+    font-size: 12;
+    text: name;
+    text-color: @city_label;
+    text-halo-radius: 1;
+    text-halo-color: @city_halo;
+}
+*/
+
+/* AIRPORTS */
+
+area|z11-12[aeroway=airport],
+area|z11-12[aeroway=aerodrome],
+node|z11-12[aeroway=airport],
+node|z11-12[aeroway=aerodrome]
+{
+	icon-image: airport-s.svg;
+    text-offset: 7;
+    font-size: 10;
+    text: name;
+    text-color: @city_label;
+    text-halo-radius: 1;
+    text-halo-color: @city_halo;
+}
+
+area|z13-14[aeroway=airport],
+area|z13-14[aeroway=aerodrome],
+node|z13-14[aeroway=airport],
+node|z13-14[aeroway=aerodrome]
+{
+	icon-image: airport-m.svg;
+    text-offset: 5;
+    font-size: 12;
+    text: name;
+    text-color: @city_label;
+    text-halo-radius: 1;
+    text-halo-color: @city_halo;
+}

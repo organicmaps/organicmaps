@@ -1,0 +1,160 @@
+/* land */
+
+area|z0-9[natural=land]
+{
+	fill-opacity: 1;
+	z-index: -100;
+	fill-color: @background;
+}
+
+area|z10-[natural=land]
+{
+	fill-opacity: 1;
+	z-index: -100;
+	fill-color: @background;
+}
+
+/* glacier */
+area|z0-[natural=glacier]
+{
+  fill-color: @glacier;
+}
+
+/* WATER */
+
+area[natural=coastline]
+{
+  fill-color: @water;
+  z-index: -10;
+}
+
+area|z16-[amenity=fountain],
+area|z12-[landuse=basin],
+area|z12-[landuse=reservoir],
+area|z13-[leisure=swimming_pool],
+area|z0-[natural=lake],
+area|z0-[natural=pond],
+area|z0-[natural=water],
+area|z0-[waterway=dock],
+area|z0-[waterway=riverbank],
+area|z0-[waterway=river],
+area|z10-[natural=bay],
+{
+  fill-color: @water;
+  z-index: 250;
+}
+
+/* rivers */
+
+line|z10-12[waterway=river],
+line|z10-12[waterway=riverbank] {
+	width: 0.5;
+	opacity: 0.7;
+	color: @river;
+	z-index: 50;
+}
+
+line|z13-14[waterway=river] {
+	width: 0.5;
+	color: @river;
+	z-index: 50;
+}
+
+line|z15-[waterway=river] {
+	width: 1.5;
+	color: @river;
+	z-index: 50;
+}
+
+line|z13-14[waterway=riverbank] {
+	width: 1;
+	color: @river;
+	z-index: 50;
+}
+
+line|z15-[waterway=riverbank] {
+	width: 2;
+	color: @river;
+	z-index: 50;
+}
+
+line|z13-14[waterway=stream] {
+	width: 0.5;
+	opacity: 0.5;
+	color: @river;
+	z-index: 50;
+}
+
+line|z15-[waterway=stream] {
+	width: 1;
+	opacity: 1;
+	color: @river;
+	z-index: 50;
+}
+
+
+/* VEGETATION */
+
+area|z10-11[natural=wood],
+area|z10-11[landuse=forest],
+{
+  fill-color: @forest;
+  fill-opacity: 0.3;
+  z-index: 20;
+}
+
+area|z12-13[natural=wood],
+area|z12-13[landuse=forest]
+{
+  fill-color: @forest;
+  fill-opacity: 0.3;
+  z-index: 30;
+}
+
+area|z13-14[natural=wood],
+area|z13-14[landuse=forest]
+{
+  fill-color: @forest;
+  fill-opacity: 0.45;
+  z-index: 20;
+}
+
+area|z15-[natural=wood],
+area|z15-[landuse=forest]
+{
+  fill-color: @forest;
+  fill-opacity: 0.7;
+  z-index: 20;
+}
+
+area|z10[leisure=park] {
+  fill-color: @park;
+  fill-opacity: 0.2;
+  z-index: 25;
+}
+
+area|z11[leisure=park] {
+  fill-color: @park;
+  fill-opacity: 0.6;
+  z-index: 25;
+}
+
+
+area|z12-14[leisure=park] {
+  fill-color: @park;
+  fill-opacity: 0.6;
+  z-index: 25;
+}
+
+area|z15-[leisure=park] {
+  fill-color: @park;
+  fill-opacity: 0.6;
+  z-index: 25;
+}
+
+area|z14-[landuse=grass]
+{
+  fill-color: @forest;
+  fill-opacity: 0.45;
+  z-index: 30;
+}

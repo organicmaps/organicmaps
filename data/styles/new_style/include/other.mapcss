@@ -1,0 +1,25 @@
+line|z16[barrier=wall],
+line|z16[barrier=city_wall],
+line|z16[barrier=retaining_wall],
+line|z16[barrier=fence],
+line|z16[barrier=hedge],
+line|z16[historic=citywalls],
+{
+  color: @fence;
+  width: 1;
+  z-index: 950;
+  dashes: 1,1;
+}
+
+line|z17-[barrier=wall],
+line|z17-[barrier=city_wall],
+line|z17-[barrier=retaining_wall],
+line|z17-[barrier=fence],
+line|z17-[barrier=hedge],
+line|z17-[historic=citywalls],
+{
+  color: @fence;
+  width: 1;
+  dashes: 2,2;
+  z-index: 950;
+}

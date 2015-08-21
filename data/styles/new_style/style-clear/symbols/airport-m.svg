@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>airport-m</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="transport" sketch:type="MSLayerGroup" transform="translate(-36.000000, -2.000000)">
+            <g id="airport-m" transform="translate(36.000000, 2.000000)" sketch:type="MSShapeGroup">
+                <circle id="Oval-1-Copy-47" fill="#FFFFFF" cx="11.5" cy="11.5" r="11.5"></circle>
+                <circle id="Oval-1-Copy-46" fill="#4A4A46" cx="11.5" cy="11.5" r="10.5"></circle>
+                <path d="M18.5,12.3622 L18.5,13.3622 L13,12.3622 L13,15.3622 L15,16.5844 L15,17.3622 L9,17.3622 L9,16.5844 L11,15.3622 L11,12.3622 L5.5,13.3622 L5.5,12.3622 L11,9.3622 L11,6.3622 C11,5.5845 11.22222,4.3622 12,4.3622 C12.77777,4.3622 13,5.5845 13,6.3622 L13,9.3622 L18.5,12.3622 Z" id="path7712-0" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

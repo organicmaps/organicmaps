@@ -1,0 +1,269 @@
+<!DOCTYPE skin>
+<skin>
+ <page width="1024" height="512" file="symbols.png">
+  <symbolStyle name="route_to" id="1">
+   <resourceStyle width="165" x="0" y="0" height="165"/>
+  </symbolStyle>
+  <symbolStyle name="route-arrow" id="2">
+   <resourceStyle width="323" x="165" y="0" height="157"/>
+  </symbolStyle>
+  <symbolStyle name="compass-image" id="3">
+   <resourceStyle width="138" x="488" y="0" height="138"/>
+  </symbolStyle>
+  <symbolStyle name="current-routing-compas" id="4">
+   <resourceStyle width="69" x="626" y="0" height="88"/>
+  </symbolStyle>
+  <symbolStyle name="current-position-compas" id="5">
+   <resourceStyle width="69" x="695" y="0" height="88"/>
+  </symbolStyle>
+  <symbolStyle name="search-result-active" id="6">
+   <resourceStyle width="78" x="764" y="0" height="78"/>
+  </symbolStyle>
+  <symbolStyle name="placemark-pink" id="7">
+   <resourceStyle width="35" x="842" y="0" height="69"/>
+  </symbolStyle>
+  <symbolStyle name="placemark-blue" id="8">
+   <resourceStyle width="35" x="877" y="0" height="69"/>
+  </symbolStyle>
+  <symbolStyle name="placemark-yellow" id="9">
+   <resourceStyle width="35" x="912" y="0" height="69"/>
+  </symbolStyle>
+  <symbolStyle name="placemark-brown" id="10">
+   <resourceStyle width="35" x="947" y="0" height="69"/>
+  </symbolStyle>
+  <symbolStyle name="placemark-green" id="11">
+   <resourceStyle width="35" x="982" y="0" height="69"/>
+  </symbolStyle>
+  <symbolStyle name="placemark-red" id="12">
+   <resourceStyle width="35" x="0" y="165" height="69"/>
+  </symbolStyle>
+  <symbolStyle name="placemark-orange" id="13">
+   <resourceStyle width="35" x="35" y="165" height="69"/>
+  </symbolStyle>
+  <symbolStyle name="placemark-purple" id="14">
+   <resourceStyle width="35" x="70" y="165" height="69"/>
+  </symbolStyle>
+  <symbolStyle name="tram-l" id="15">
+   <resourceStyle width="42" x="105" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="cafe-l" id="16">
+   <resourceStyle width="42" x="147" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="restaurant-l" id="17">
+   <resourceStyle width="42" x="189" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="airport-l" id="18">
+   <resourceStyle width="42" x="231" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="cinema-l" id="19">
+   <resourceStyle width="42" x="273" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="park-l" id="20">
+   <resourceStyle width="42" x="315" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="bus-l" id="21">
+   <resourceStyle width="42" x="357" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="ship-l" id="22">
+   <resourceStyle width="42" x="399" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="bar-l" id="23">
+   <resourceStyle width="42" x="441" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="train-l" id="24">
+   <resourceStyle width="42" x="483" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="fastfood-l" id="25">
+   <resourceStyle width="42" x="525" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="zoo-l" id="26">
+   <resourceStyle width="42" x="567" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="bank-l" id="27">
+   <resourceStyle width="42" x="609" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="gallery-l" id="28">
+   <resourceStyle width="42" x="651" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="museum-l" id="29">
+   <resourceStyle width="42" x="693" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="monument-l" id="30">
+   <resourceStyle width="42" x="735" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="grocery-l" id="31">
+   <resourceStyle width="42" x="777" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="theatre-l" id="32">
+   <resourceStyle width="42" x="819" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="subway-l" id="33">
+   <resourceStyle width="42" x="861" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="hotel-l" id="34">
+   <resourceStyle width="42" x="903" y="165" height="42"/>
+  </symbolStyle>
+  <symbolStyle name="hotel-m" id="35">
+   <resourceStyle width="40" x="945" y="165" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="grocery-m" id="36">
+   <resourceStyle width="40" x="0" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="subway-m" id="37">
+   <resourceStyle width="40" x="40" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="monument-m" id="38">
+   <resourceStyle width="40" x="80" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="zoo-m" id="39">
+   <resourceStyle width="40" x="120" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="gallery-m" id="40">
+   <resourceStyle width="40" x="160" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="museum-m" id="41">
+   <resourceStyle width="40" x="200" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="fastfood-m" id="42">
+   <resourceStyle width="40" x="240" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="cinema-m" id="43">
+   <resourceStyle width="40" x="280" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="park-m" id="44">
+   <resourceStyle width="40" x="320" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="tram-m" id="45">
+   <resourceStyle width="40" x="360" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="cafe-m" id="46">
+   <resourceStyle width="40" x="400" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="restaurant-m" id="47">
+   <resourceStyle width="40" x="440" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="bus-m" id="48">
+   <resourceStyle width="40" x="480" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="bar-m" id="49">
+   <resourceStyle width="40" x="520" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="ship-m" id="50">
+   <resourceStyle width="40" x="560" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="train-m" id="51">
+   <resourceStyle width="40" x="600" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="bank-m" id="52">
+   <resourceStyle width="40" x="640" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="theatre-m" id="53">
+   <resourceStyle width="40" x="680" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="airport-m" id="54">
+   <resourceStyle width="40" x="720" y="234" height="40"/>
+  </symbolStyle>
+  <symbolStyle name="current-position" id="55">
+   <resourceStyle width="38" x="760" y="234" height="38"/>
+  </symbolStyle>
+  <symbolStyle name="route_from" id="56">
+   <resourceStyle width="33" x="798" y="234" height="33"/>
+  </symbolStyle>
+  <symbolStyle name="subway-s" id="57">
+   <resourceStyle width="31" x="831" y="234" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="grocery-s" id="58">
+   <resourceStyle width="31" x="862" y="234" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="airport-s" id="59">
+   <resourceStyle width="31" x="893" y="234" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="bank-s" id="60">
+   <resourceStyle width="31" x="924" y="234" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="theatre-s" id="61">
+   <resourceStyle width="31" x="955" y="234" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="bar-s" id="62">
+   <resourceStyle width="31" x="986" y="234" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="ship-s" id="63">
+   <resourceStyle width="31" x="0" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="train-s" id="64">
+   <resourceStyle width="31" x="31" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="restaurant-s" id="65">
+   <resourceStyle width="31" x="62" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="park-s" id="66">
+   <resourceStyle width="31" x="93" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="tram-s" id="67">
+   <resourceStyle width="31" x="124" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="museum-s" id="68">
+   <resourceStyle width="31" x="155" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="monument-s" id="69">
+   <resourceStyle width="31" x="186" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="zoo-s" id="70">
+   <resourceStyle width="31" x="217" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="cinema-s" id="71">
+   <resourceStyle width="31" x="248" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="hotel-s" id="72">
+   <resourceStyle width="31" x="279" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="bus-s" id="73">
+   <resourceStyle width="31" x="310" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="gallery-s" id="74">
+   <resourceStyle width="31" x="341" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="fastfood-s" id="75">
+   <resourceStyle width="31" x="372" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="cafe-s" id="76">
+   <resourceStyle width="31" x="403" y="274" height="31"/>
+  </symbolStyle>
+  <symbolStyle name="api-result" id="77">
+   <resourceStyle width="29" x="434" y="274" height="29"/>
+  </symbolStyle>
+  <symbolStyle name="search-result" id="78">
+   <resourceStyle width="28" x="463" y="274" height="28"/>
+  </symbolStyle>
+  <symbolStyle name="star-l" id="79">
+   <resourceStyle width="23" x="491" y="274" height="23"/>
+  </symbolStyle>
+  <symbolStyle name="star-m" id="80">
+   <resourceStyle width="21" x="514" y="274" height="21"/>
+  </symbolStyle>
+  <symbolStyle name="subway-xs" id="81">
+   <resourceStyle width="20" x="535" y="274" height="20"/>
+  </symbolStyle>
+  <symbolStyle name="star-s" id="82">
+   <resourceStyle width="18" x="555" y="274" height="18"/>
+  </symbolStyle>
+  <symbolStyle name="arrow-m" id="83">
+   <resourceStyle width="37" x="573" y="274" height="17"/>
+  </symbolStyle>
+  <symbolStyle name="arrow" id="84">
+   <resourceStyle width="31" x="610" y="274" height="14"/>
+  </symbolStyle>
+  <symbolStyle name="arrow-s" id="85">
+   <resourceStyle width="28" x="641" y="274" height="12"/>
+  </symbolStyle>
+  <symbolStyle name="dot-m" id="86">
+   <resourceStyle width="12" x="669" y="274" height="12"/>
+  </symbolStyle>
+  <symbolStyle name="dot-s" id="87">
+   <resourceStyle width="9" x="681" y="274" height="9"/>
+  </symbolStyle>
+  <symbolStyle name="dot-s-light" id="88">
+   <resourceStyle width="9" x="690" y="274" height="9"/>
+  </symbolStyle>
+ </page>
+</skin>

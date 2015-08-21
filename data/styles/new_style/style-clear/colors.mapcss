@@ -1,0 +1,103 @@
+/* BASE */
+@white: #ffffff;
+@background: #DDDDCC; /* #EDEAE1;	/* @background: #f1eee8; */
+@backgroundone: #E1E1D1;
+
+/* BOUNDARIES */
+@border_country: #73736D;
+@border_country_light: #73736D;
+@border_region: #73736D;
+
+
+/* ROADS */
+/* ROADS */
+@trunk: #FF5102;
+@trunk_medium: #F86B39;
+@trunk_light: #F87C4A;
+@motorway: #FF5102;
+@primary:  #FF864E;
+@primary_medium: #FC9757;
+@primary_ligth: #FCA462;
+@secondary: #FFFFFF;
+@residential: #F8F8F8;
+@tertiary: #F8F8F8;
+@unclassified: #F8F8F8;
+@pedestrian: #F8F8F8;
+@footway: #F8F8F8;
+@cycleway: #FF87AD;
+@steps: #FFFFFF;
+@construction: #BBBBAA;
+
+/* bridges */
+@bridge_background: #EEEEDD;
+@bridge_casing: #808080;
+
+/* tunnels */
+@trunk_tunnel: #FF5102;
+@trunk_tunnel_medium: #F86B39;
+@trunk_tunnel_light: #F87C4A;
+@trunk_tunnel_casing: #808080;
+@primary_tunnel: #FF864E;
+@primary_tunnel_medium: #FC9757;
+@primary_tunnel_ligth: #FCA462;
+@primary_tunnel_casing: #808080;
+@secondary_tunnel: #FFFFFF;
+@secondary_tunnel_casing:  #808080;
+@tertiary_tunnel: #FFFFFF;
+@tertiary_tunnel_casing:  #808080;
+@unclassified_tunnel: #FFFFFF;
+@unclassified_tunnel_casing: #808080;
+/*roads_links */
+@trunk_link: #FFFFFF;
+@primary_link: #FFFFFF;
+@secondary_link: #FFFFFF;
+@tertiary_link: #f8f8f8;
+
+
+/* TRANSPORT */
+@railway: #999988;
+@tram: #555555;
+@ferry: #3B9AB8;
+
+/* NATURAL */
+@glacier: #FFFFFF;
+@water: #83C6D2; /* #82a6bd,#91C8E2 7CBAD6 */
+@river: #56B4D7;
+@forest: #A4B265;
+@park: #A4B265;
+
+/* BUILDINGS */
+@building: #CCCCBE;
+
+/* LANDUSE */
+@pedestrian_area: #FFFFFF;
+@unversity: #DDCCAA;
+@hospital: #FFAAAA;
+@industrial: #D1D1D1;
+
+/* BARRIERS */
+@fence: #BBBBAA;
+
+/* PLACE LABELS */
+@city_label: #595959;
+@city_label_light: #7F7F7F;
+@city_halo: #DDDDCC;
+@city_halo_light: #DDDDCC;
+@country_label: #595957;
+@state_name: #8C8C8C;
+@district_label: #7F7F7F;
+@poi_label: #444444;
+@subway_label: #333333;
+@railway_label: #333333;
+
+/* ROADS LABELS */
+@primary_road_label: #2E2E2E;
+@secondary_road_label: #333333;
+
+/* NATURAL LABELS */
+@water_label: #3B9AB8;
+@park_label: #3A7921;
+
+
+/* OTHER LABELS */
+@building_label: #7F7F7F;

@@ -1,0 +1,83 @@
+line|z2[boundary=administrative][admin_level=2]
+{
+  color: @border_country;
+  width: 0.2;
+  opacity: 0.6;
+  z-index: 400;
+}
+line|z3[boundary=administrative][admin_level=2]
+{
+  color: @border_country;
+  width: 0.2;
+  opacity: 0.8;
+  z-index: 400;
+}
+line|z4[boundary=administrative][admin_level=2]
+{
+  color: @border_country;
+  width: 0.4;
+  opacity: 1;
+  z-index: 400;
+}
+
+line|z5[boundary=administrative][admin_level=2]
+{
+  color: @border_country;
+  width: 0.5;
+  opacity: 1;
+}
+
+line|z6[boundary=administrative][admin_level=2]
+{
+  color: @border_country;
+  width: 0.8;
+  opacity: 1;
+}
+line|z7-[boundary=administrative][admin_level=2]
+{
+  color: @border_country;
+  width: 1.1;
+  opacity: 1;
+}
+
+line|z4[boundary=administrative][admin_level=3]
+{
+  color: @border_region;
+  width: 0.4;
+  opacity: 1;
+  z-index: 400;
+  dashes: 1.5,1;
+}
+
+line|z5[boundary=administrative][admin_level=4]
+{
+  color: @border_region;
+  width: 0.4;
+  opacity: 0.8;
+  z-index: 380;
+  dashes: 1.5,1;
+}
+line|z6[boundary=administrative][admin_level=4]
+{
+  color: @border_region;
+  width: 0.6;
+  opacity: 1;
+  z-index: 380;
+  dashes: 1.5,1;
+}
+line|z7[boundary=administrative][admin_level=4]
+{
+  color: @border_region;
+  width: 0.9;
+  opacity: 1;
+  z-index: 380;
+  dashes: 1.5,1;
+}
+line|z8-[boundary=administrative][admin_level=4]
+{
+  color: @border_region;
+  width: 0.9;
+  opacity: 1;
+  z-index: 400;
+  dashes: 1.5,1;
+}
