@@ -59,6 +59,9 @@
 		675346F61A40560D00A0A8C3 /* search_query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675346D81A40560D00A0A8C3 /* search_query.cpp */; };
 		675346F71A40560D00A0A8C3 /* search_query.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346D91A40560D00A0A8C3 /* search_query.hpp */; };
 		675346F81A40560D00A0A8C3 /* search_string_intersection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346DA1A40560D00A0A8C3 /* search_string_intersection.hpp */; };
+		A1347D511B8758C3009050FF /* query_saver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1347D4F1B8758C3009050FF /* query_saver.cpp */; };
+		A1347D521B8758C3009050FF /* query_saver.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1347D501B8758C3009050FF /* query_saver.hpp */; };
+		A1347D551B8758E9009050FF /* query_saver_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1347D541B8758E9009050FF /* query_saver_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -129,6 +132,9 @@
 		675346D81A40560D00A0A8C3 /* search_query.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search_query.cpp; sourceTree = "<group>"; };
 		675346D91A40560D00A0A8C3 /* search_query.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_query.hpp; sourceTree = "<group>"; };
 		675346DA1A40560D00A0A8C3 /* search_string_intersection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_string_intersection.hpp; sourceTree = "<group>"; };
+		A1347D4F1B8758C3009050FF /* query_saver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = query_saver.cpp; sourceTree = "<group>"; };
+		A1347D501B8758C3009050FF /* query_saver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = query_saver.hpp; sourceTree = "<group>"; };
+		A1347D541B8758E9009050FF /* query_saver_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = query_saver_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +186,7 @@
 		671C620D1AE9225100076BD0 /* search_tests */ = {
 			isa = PBXGroup;
 			children = (
+				A1347D541B8758E9009050FF /* query_saver_tests.cpp */,
 				670D04A61B0B94F90013A7AC /* libs */,
 				671C62241AE9229A00076BD0 /* testingmain.cpp */,
 				671C62131AE9227C00076BD0 /* algos_tests.cpp */,
@@ -218,6 +225,8 @@
 		675346B21A4055CF00A0A8C3 /* search */ = {
 			isa = PBXGroup;
 			children = (
+				A1347D4F1B8758C3009050FF /* query_saver.cpp */,
+				A1347D501B8758C3009050FF /* query_saver.hpp */,
 				675346BE1A40560D00A0A8C3 /* algos.hpp */,
 				675346BF1A40560D00A0A8C3 /* approximate_string_match.cpp */,
 				675346C01A40560D00A0A8C3 /* approximate_string_match.hpp */,
@@ -273,6 +282,7 @@
 				675346F31A40560D00A0A8C3 /* search_common.hpp in Headers */,
 				675346EE1A40560D00A0A8C3 /* locality_finder.hpp in Headers */,
 				675346EC1A40560D00A0A8C3 /* latlon_match.hpp in Headers */,
+				A1347D521B8758C3009050FF /* query_saver.hpp in Headers */,
 				675346EA1A40560D00A0A8C3 /* keyword_matcher.hpp in Headers */,
 				670EE5651B600255001E8064 /* search_query_params.hpp in Headers */,
 				675346DF1A40560D00A0A8C3 /* feature_offset_match.hpp in Headers */,
@@ -381,10 +391,12 @@
 				675346E51A40560D00A0A8C3 /* intermediate_result.cpp in Sources */,
 				675346EF1A40560D00A0A8C3 /* params.cpp in Sources */,
 				670EE5641B600255001E8064 /* search_query_params.cpp in Sources */,
+				A1347D511B8758C3009050FF /* query_saver.cpp in Sources */,
 				675346E01A40560D00A0A8C3 /* geometry_utils.cpp in Sources */,
 				675346F11A40560D00A0A8C3 /* result.cpp in Sources */,
 				675346E21A40560D00A0A8C3 /* house_detector.cpp in Sources */,
 				675346F41A40560D00A0A8C3 /* search_engine.cpp in Sources */,
+				A1347D551B8758E9009050FF /* query_saver_tests.cpp in Sources */,
 				675346ED1A40560D00A0A8C3 /* locality_finder.cpp in Sources */,
 				675346F61A40560D00A0A8C3 /* search_query.cpp in Sources */,
 				675346EB1A40560D00A0A8C3 /* latlon_match.cpp in Sources */,
