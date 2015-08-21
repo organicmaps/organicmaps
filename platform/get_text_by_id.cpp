@@ -39,6 +39,11 @@ GetTextById::GetTextById(TextSource textSouce, string const & localeName)
 
   // @TODO(vbykoianko) Add assert if locale path pathToJson is not valid.
   LOG(LDEBUG, ("Trying to open json file at path", pathToJson));
+  if (!GetPlatform().IsFileExistsByFullPath(pathToJson))
+  {
+    LOG(LWARNING, ("Sound instructions test file not exists!"));
+    return;
+  }
   string jsonBuffer;
   ReaderPtr<Reader>(GetPlatform().GetReader(pathToJson)).ReadAsString(jsonBuffer);
   InitFromJson(jsonBuffer);

@@ -36,7 +36,8 @@ void GetTtsText::SetLocale(string const & locale)
 {
   m_locale = locale;
   m_getCurLang.reset(new platform::GetTextById(platform::TextSource::TtsSound, locale));
-  ASSERT(m_getCurLang && m_getCurLang->IsValid(), ());
+  /// @todo Factor out file check from constructor and do not create m_getCurLang object in case of error.
+  ASSERT(m_getCurLang, ());
 }
 
 void GetTtsText::SetLocaleWithJson(string const & jsonBuffer)
@@ -47,6 +48,8 @@ void GetTtsText::SetLocaleWithJson(string const & jsonBuffer)
 
 string GetTtsText::operator()(Notification const & notification) const
 {
+  if (!m_getCurLang->IsValid())
+    return string();
   if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance)
     return GetTextById(GetDirectionTextId(notification));
 
