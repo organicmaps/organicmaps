@@ -16,16 +16,18 @@ namespace search
 UNIT_TEST(QuerySaverFogTest)
 {
   QuerySaver saver;
+  saver.Clear();
   saver.SaveNewQuery(record1);
-  vector<string> const & result = saver.GetTopQueries();
+  list<string> const & result = saver.GetTopQueries();
   TEST_EQUAL(result.size(), 1, ());
-  TEST_EQUAL(result[0], record1, ());
+  TEST_EQUAL(result.front(), record1, ());
   saver.Clear();
 }
 
 UNIT_TEST(QuerySaverClearTest)
 {
   QuerySaver saver;
+  saver.Clear();
   saver.SaveNewQuery(record1);
   TEST_GREATER(saver.GetTopQueries().size(), 0, ());
   saver.Clear();
@@ -35,20 +37,21 @@ UNIT_TEST(QuerySaverClearTest)
 UNIT_TEST(QuerySaverOrderingTest)
 {
   QuerySaver saver;
+  saver.Clear();
   saver.SaveNewQuery(record1);
   saver.SaveNewQuery(record2);
   {
-    vector<string> const & result = saver.GetTopQueries();
+    list<string> const & result = saver.GetTopQueries();
     TEST_EQUAL(result.size(), 2, ());
-    TEST_EQUAL(result[0], record1, ());
-    TEST_EQUAL(result[1], record2, ());
+    TEST_EQUAL(result.back(), record1, ());
+    TEST_EQUAL(result.front(), record2, ());
   }
   saver.SaveNewQuery(record1);
   {
-    vector<string> const & result = saver.GetTopQueries();
+    list<string> const & result = saver.GetTopQueries();
     TEST_EQUAL(result.size(), 2, ());
-    TEST_EQUAL(result[1], record1, ());
-    TEST_EQUAL(result[0], record2, ());
+    TEST_EQUAL(result.front(), record1, ());
+    TEST_EQUAL(result.back(), record2, ());
   }
   saver.Clear();
 }
@@ -56,6 +59,7 @@ UNIT_TEST(QuerySaverOrderingTest)
 UNIT_TEST(QuerySaverSerializerTest)
 {
   QuerySaver saver;
+  saver.Clear();
   saver.SaveNewQuery(record1);
   saver.SaveNewQuery(record2);
   vector<char> data;
@@ -65,25 +69,26 @@ UNIT_TEST(QuerySaverSerializerTest)
   TEST_EQUAL(saver.GetTopQueries().size(), 0, ());
   saver.Deserialize(string(data.begin(), data.end()));
 
-  vector<string> const & result = saver.GetTopQueries();
+  list<string> const & result = saver.GetTopQueries();
   TEST_EQUAL(result.size(), 2, ());
-  TEST_EQUAL(result[0], record1, ());
-  TEST_EQUAL(result[1], record2, ());
+  TEST_EQUAL(result.back(), record1, ());
+  TEST_EQUAL(result.front(), record2, ());
 }
 
 UNIT_TEST(QuerySaverPersistanceStore)
 {
   {
     QuerySaver saver;
+    saver.Clear();
     saver.SaveNewQuery(record1);
     saver.SaveNewQuery(record2);
   }
   {
     QuerySaver saver;
-    vector<string> const & result = saver.GetTopQueries();
+    list<string> const & result = saver.GetTopQueries();
     TEST_EQUAL(result.size(), 2, ());
-    TEST_EQUAL(result[0], record1, ());
-    TEST_EQUAL(result[1], record2, ());
+    TEST_EQUAL(result.back(), record1, ());
+    TEST_EQUAL(result.front(), record2, ());
     saver.Clear();
   }
 }

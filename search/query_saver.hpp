@@ -1,3 +1,4 @@
+#include "std/list.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -9,8 +10,9 @@ class QuerySaver
 public:
   QuerySaver();
   void SaveNewQuery(string const & query);
-  /// Returns last save query from oldest to newest queries.
-  vector<string> const & GetTopQueries() const { return m_topQueries; }
+  /// Returns several last saved queries from newest to oldest query.
+  /// @see kMaxSuggestCount in implementation file.
+  list<string> const & GetTopQueries() const { return m_topQueries; }
   /// Clear last queries storage. All data will be lost.
   void Clear();
 
@@ -22,6 +24,6 @@ private:
   void Save();
   void Load();
 
-  vector<string> m_topQueries;
+  list<string> m_topQueries;
 };
 }  // namespace seatch

@@ -16,7 +16,6 @@ namespace search
 {
 QuerySaver::QuerySaver()
 {
-  m_topQueries.reserve(kMaxSuggestCount);
   Load();
 }
 
@@ -30,10 +29,10 @@ void QuerySaver::SaveNewQuery(string const & query)
   if (it != m_topQueries.end())
     m_topQueries.erase(it);
   else if (m_topQueries.size() >= kMaxSuggestCount)
-    m_topQueries.erase(m_topQueries.begin());
+    m_topQueries.pop_back();
 
   // Add new query and save it to drive.
-  m_topQueries.push_back(query);
+  m_topQueries.push_front(query);
   Save();
 }
 
