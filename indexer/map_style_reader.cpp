@@ -22,6 +22,8 @@ string GetDrawingRulesFile(MapStyle mapStyle)
     return "drules_proto.bin";
   case MapStyleDark:
     return "drules_proto_dark.bin";
+  case MapStyleClear:
+    return "drules_proto_clear.bin";
   default:
     LOG(LWARNING, ("Unknown map style", mapStyle));
     return string();
@@ -36,6 +38,8 @@ string GetStyleSuffix(MapStyle mapStyle)
     return "";
    case MapStyleDark:
     return "_dark";
+  case MapStyleClear:
+   return "_clear";
   default:
     LOG(LWARNING, ("Unknown map style", mapStyle));
     return string();

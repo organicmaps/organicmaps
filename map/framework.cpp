@@ -30,7 +30,6 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator_loader.hpp"
-#include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
@@ -1605,7 +1604,7 @@ void Framework::CreateDrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextF
 void Framework::SetMapStyle(MapStyle mapStyle)
 {
   GetStyleReader().SetCurrentStyle(mapStyle);
-  drule::LoadRules();
+  classificator::Load();
 }
 
 MapStyle Framework::GetMapStyle() const
