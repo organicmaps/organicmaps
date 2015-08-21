@@ -51,10 +51,11 @@
 #include "base/strings_bundle.hpp"
 #include "base/thread_checker.hpp"
 
-#include "std/vector.hpp"
+#include "std/list.hpp"
 #include "std/shared_ptr.hpp"
-#include "std/unique_ptr.hpp"
 #include "std/target_os.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
 
 namespace search
 {
@@ -347,8 +348,8 @@ public:
   bool IsISActive() const { return !m_lastSearch.m_query.empty(); }
   void CancelInteractiveSearch();
 
-  vector<string> const & GetLastSearchQueries() const { return m_searchQuerySaver.GetTopQueries(); }
-  void SaveSearchQuery(string const & query) { m_searchQuerySaver.SaveNewQuery(query); }
+  list<string> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
+  void SaveSearchQuery(string const & query) { m_searchQuerySaver.Add(query); }
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;

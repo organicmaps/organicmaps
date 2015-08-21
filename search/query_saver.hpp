@@ -9,16 +9,16 @@ class QuerySaver
 {
 public:
   QuerySaver();
-  void SaveNewQuery(string const & query);
+  void Add(string const & query);
   /// Returns several last saved queries from newest to oldest query.
   /// @see kMaxSuggestCount in implementation file.
-  list<string> const & GetTopQueries() const { return m_topQueries; }
+  list<string> const & Get() const { return m_topQueries; }
   /// Clear last queries storage. All data will be lost.
   void Clear();
 
 private:
   friend void UnitTest_QuerySaverSerializerTest();
-  void Serialize(vector<char> & data) const;
+  void Serialize(vector<uint8_t> & data) const;
   void Deserialize(string const & data);
 
   void Save();
@@ -26,4 +26,4 @@ private:
 
   list<string> m_topQueries;
 };
-}  // namespace seatch
+}  // namespace search

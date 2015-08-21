@@ -17,8 +17,8 @@ UNIT_TEST(QuerySaverFogTest)
 {
   QuerySaver saver;
   saver.Clear();
-  saver.SaveNewQuery(record1);
-  list<string> const & result = saver.GetTopQueries();
+  saver.Add(record1);
+  list<string> const & result = saver.Get();
   TEST_EQUAL(result.size(), 1, ());
   TEST_EQUAL(result.front(), record1, ());
   saver.Clear();
@@ -28,27 +28,27 @@ UNIT_TEST(QuerySaverClearTest)
 {
   QuerySaver saver;
   saver.Clear();
-  saver.SaveNewQuery(record1);
-  TEST_GREATER(saver.GetTopQueries().size(), 0, ());
+  saver.Add(record1);
+  TEST_GREATER(saver.Get().size(), 0, ());
   saver.Clear();
-  TEST_EQUAL(saver.GetTopQueries().size(), 0, ());
+  TEST_EQUAL(saver.Get().size(), 0, ());
 }
 
 UNIT_TEST(QuerySaverOrderingTest)
 {
   QuerySaver saver;
   saver.Clear();
-  saver.SaveNewQuery(record1);
-  saver.SaveNewQuery(record2);
+  saver.Add(record1);
+  saver.Add(record2);
   {
-    list<string> const & result = saver.GetTopQueries();
+    list<string> const & result = saver.Get();
     TEST_EQUAL(result.size(), 2, ());
     TEST_EQUAL(result.back(), record1, ());
     TEST_EQUAL(result.front(), record2, ());
   }
-  saver.SaveNewQuery(record1);
+  saver.Add(record1);
   {
-    list<string> const & result = saver.GetTopQueries();
+    list<string> const & result = saver.Get();
     TEST_EQUAL(result.size(), 2, ());
     TEST_EQUAL(result.front(), record1, ());
     TEST_EQUAL(result.back(), record2, ());
@@ -60,16 +60,16 @@ UNIT_TEST(QuerySaverSerializerTest)
 {
   QuerySaver saver;
   saver.Clear();
-  saver.SaveNewQuery(record1);
-  saver.SaveNewQuery(record2);
-  vector<char> data;
+  saver.Add(record1);
+  saver.Add(record2);
+  vector<uint8_t> data;
   saver.Serialize(data);
   TEST_GREATER(data.size(), 0, ());
   saver.Clear();
-  TEST_EQUAL(saver.GetTopQueries().size(), 0, ());
+  TEST_EQUAL(saver.Get().size(), 0, ());
   saver.Deserialize(string(data.begin(), data.end()));
 
-  list<string> const & result = saver.GetTopQueries();
+  list<string> const & result = saver.Get();
   TEST_EQUAL(result.size(), 2, ());
   TEST_EQUAL(result.back(), record1, ());
   TEST_EQUAL(result.front(), record2, ());
@@ -80,12 +80,12 @@ UNIT_TEST(QuerySaverPersistanceStore)
   {
     QuerySaver saver;
     saver.Clear();
-    saver.SaveNewQuery(record1);
-    saver.SaveNewQuery(record2);
+    saver.Add(record1);
+    saver.Add(record2);
   }
   {
     QuerySaver saver;
-    list<string> const & result = saver.GetTopQueries();
+    list<string> const & result = saver.Get();
     TEST_EQUAL(result.size(), 2, ());
     TEST_EQUAL(result.back(), record1, ());
     TEST_EQUAL(result.front(), record2, ());

@@ -10,6 +10,8 @@ namespace
 {
 size_t constexpr kMaxSuggestCount = 10;
 char constexpr kSettingsKey[] = "UserQueries";
+using TLength = uint16_t;
+size_t constexpr kLengthTypeSize = sizeof(TLength);
 }  // namespace
 
 namespace search
@@ -19,7 +21,7 @@ QuerySaver::QuerySaver()
   Load();
 }
 
-void QuerySaver::SaveNewQuery(string const & query)
+void QuerySaver::Add(string const & query)
 {
   if (query.empty())
     return;
@@ -42,46 +44,43 @@ void QuerySaver::Clear()
   Settings::Delete(kSettingsKey);
 }
 
-void QuerySaver::Serialize(vector<char> & data) const
+void QuerySaver::Serialize(vector<uint8_t> & data) const
 {
   data.clear();
-  MemWriter<vector<char>> writer(data);
-  uint16_t size = m_topQueries.size();
-  writer.Write(&size, 2);
+  MemWriter<vector<uint8_t>> writer(data);
+  TLength size = m_topQueries.size();
+  writer.Write(&size, kLengthTypeSize);
   for (auto const & query : m_topQueries)
   {
     size = query.size();
-    writer.Write(&size, 2);
+    writer.Write(&size, kLengthTypeSize);
     writer.Write(query.c_str(), size);
   }
 }
 
 void QuerySaver::Deserialize(string const & data)
 {
-  MemReader reader(data.c_str(), data.size());
+  MemReader rawReader(data.c_str(), data.size());
+  ReaderSource<MemReader> reader(rawReader);
 
-  uint16_t queriesCount;
-  reader.Read(0 /* pos */, &queriesCount, 2);
+  TLength queriesCount;
+  reader.Read(&queriesCount, kLengthTypeSize);
 
-  size_t pos = 2;
-  for (int i = 0; i < queriesCount; ++i)
+  for (TLength i = 0; i < queriesCount; ++i)
   {
-    uint16_t stringLength;
-    reader.Read(pos, &stringLength, 2);
-    pos += 2;
+    TLength stringLength;
+    reader.Read(&stringLength, kLengthTypeSize);
     vector<char> str(stringLength);
-    reader.Read(pos, &str[0], stringLength);
-    pos += stringLength;
+    reader.Read(&str[0], stringLength);
     m_topQueries.emplace_back(&str[0], stringLength);
   }
 }
 
 void QuerySaver::Save()
 {
-  vector<char> data;
+  vector<uint8_t> data;
   Serialize(data);
-  string hexData = ToHex(&data[0], data.size());
-  Settings::Set(kSettingsKey, hexData);
+  Settings::Set(kSettingsKey, ToHex(&data[0], data.size()));
 }
 
 void QuerySaver::Load()
@@ -90,7 +89,6 @@ void QuerySaver::Load()
   Settings::Get(kSettingsKey, hexData);
   if (hexData.empty())
     return;
-  string rawData = FromHex(hexData);
-  Deserialize(rawData);
+  Deserialize(FromHex(hexData));
 }
 }  // namesapce search
