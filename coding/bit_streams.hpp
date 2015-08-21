@@ -17,7 +17,7 @@ template <typename TWriter>
 class BitWriter
 {
 public:
-  BitWriter(TWriter & writer) : m_writer(writer), m_buf(0), m_bitsWritten(0) {}
+  explicit BitWriter(TWriter & writer) : m_writer(writer), m_buf(0), m_bitsWritten(0) {}
 
   ~BitWriter()
   {
@@ -87,7 +87,7 @@ template <typename TSource>
 class BitReader
 {
 public:
-  BitReader(TSource & src) : m_src(src), m_bitsRead(0), m_bufferedBits(0), m_buf(0) {}
+  explicit BitReader(TSource & src) : m_src(src), m_bitsRead(0), m_bufferedBits(0), m_buf(0) {}
 
   // Returns the total number of bits read from this BitReader.
   uint64_t BitsRead() const { return m_bitsRead; }
