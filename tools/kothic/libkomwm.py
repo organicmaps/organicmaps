@@ -267,6 +267,12 @@ def komap_mapswithme(options, style, filename):
                             dr_line.priority = int(st.get('z-index', 0)) + 1000
                             dr_element.lines.extend([dr_line])
                             textures[icon[0]] = icon[1]
+                        if st.get('shield-font-size'):
+                            dr_element.shield.height = int(st.get('shield-font-size', 10))
+                            dr_element.shield.color = mwm_encode_color(st, "shield-text")
+                            if st.get('shield-text-halo-radius', 0) != 0:
+                                dr_element.shield.stroke_color = mwm_encode_color(st, "shield-text-halo", "white")
+                            dr_element.shield.priority = min(19100, (16000 + int(st.get('z-index', 0))))
 
                     if has_icons:
                         if st.get('icon-image'):
