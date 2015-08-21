@@ -1,3 +1,5 @@
+#include "3party/opening_hours/osm_time_range.hpp"
+
 #include "intermediate_result.hpp"
 #include "geometry_utils.hpp"
 
@@ -124,6 +126,9 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD c
 
   m_region.SetParams(fileName, fCenter);
   CalcParams(pivot);
+
+  f.ParseMetadata();
+  ProcessMetadata(f.GetMetadata());
 }
 
 PreResult2::PreResult2(double lat, double lon)
@@ -139,6 +144,17 @@ PreResult2::PreResult2(m2::PointD const & pt, string const & str, uint32_t type)
   m_region.SetParams(string(), pt);
 
   m_types.Assign(type);
+}
+
+void PreResult2::ProcessMetadata(feature::Metadata const & meta)
+{
+  m_metadata.cuisine = meta.Get(feature::Metadata::FMD_CUISINE);
+  m_metadata.isClosed =
+      OSMTimeRange(meta.Get(feature::Metadata::FMD_OPEN_HOURS))(time(nullptr)).IsClosed();
+
+  m_metadata.stars = 0;
+  strings::to_int(meta.Get(feature::Metadata::FMD_STARS), m_metadata.stars);
+  m_metadata.stars = my::clamp(m_metadata.stars, 0, 5);
 }
 
 namespace
@@ -193,7 +209,7 @@ Result PreResult2::GenerateFinalResult(
               #ifdef DEBUG
                   + ' ' + strings::to_string(int(m_rank))
               #endif
-                  , type);
+                  , type, m_metadata);
 
   case RESULT_BUILDING:
     return Result(GetCenter(), m_str, info.m_name, ReadableFeatureType(pCat, pTypes, locale));

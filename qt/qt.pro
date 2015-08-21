@@ -1,7 +1,7 @@
 # Main application in qt.
 ROOT_DIR = ..
 DEPENDENCIES = map render gui routing search storage indexer graphics platform anim geometry coding base \
-               freetype expat fribidi tomcrypt jansson protobuf osrm stats_client minizip succinct
+               freetype expat fribidi tomcrypt jansson protobuf osrm stats_client minizip succinct opening_hours
 
 drape {
   DEPENDENCIES *= drape_frontend drape

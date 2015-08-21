@@ -2487,6 +2487,7 @@
 					"-losrm",
 					"-lsuccinct",
 					"-ObjC",
+					"-lopening_hours",
 				);
 				PRODUCT_NAME = "maps.me drape rel";
 				SDKROOT = iphoneos;
@@ -2599,6 +2600,7 @@
 					"-losrm",
 					"-lsuccinct",
 					"-ObjC",
+					"-lopening_hours",
 				);
 				PRODUCT_NAME = "maps.me drape dbg";
 				SDKROOT = iphoneos;
@@ -3105,6 +3107,7 @@
 					"-losrm",
 					"-lsuccinct",
 					"-ObjC",
+					"-lopening_hours",
 				);
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
@@ -3213,6 +3216,7 @@
 					"-losrm",
 					"-lsuccinct",
 					"-ObjC",
+					"-lopening_hours",
 				);
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
@@ -3324,6 +3328,7 @@
 					"-losrm",
 					"-lsuccinct",
 					"-ObjC",
+					"-lopening_hours",
 				);
 				PRODUCT_NAME = "maps.me beta";
 				SDKROOT = iphoneos;
@@ -3436,6 +3441,7 @@
 					"-losrm",
 					"-lsuccinct",
 					"-ObjC",
+					"-lopening_hours",
 				);
 				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
@@ -3547,6 +3553,7 @@
 					"-losrm",
 					"-lsuccinct",
 					"-ObjC",
+					"-lopening_hours",
 				);
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
@@ -3656,6 +3663,7 @@
 					"-losrm",
 					"-lsuccinct",
 					"-ObjC",
+					"-lopening_hours",
 				);
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;

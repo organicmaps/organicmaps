@@ -25,10 +25,16 @@ public:
     RESULT_SUGGEST_FROM_FEATURE
   };
 
+  struct Metadata
+  {
+    string cuisine;
+    bool isClosed;
+    int stars;
+  };
+
   /// For RESULT_FEATURE.
-  Result(FeatureID const & id, m2::PointD const & pt,
-         string const & str, string const & region,
-         string const & type, uint32_t featureType);
+  Result(FeatureID const & id, m2::PointD const & pt, string const & str, string const & region,
+         string const & type, uint32_t featureType, Metadata const & meta);
 
   /// Used for point-like results on the map.
   Result(m2::PointD const & pt, string const & str, string const & type);
@@ -48,7 +54,11 @@ public:
   char const * GetString() const { return m_str.c_str(); }
   char const * GetRegionString() const { return m_region.c_str(); }
   char const * GetFeatureType() const { return m_type.c_str(); }
+  char const * GetCuisine() const { return m_metadata.cuisine.c_str(); }
   //@}
+
+  bool IsClosed() const { return m_metadata.isClosed; }
+  uint8_t GetStarsCount() const { return m_metadata.stars; }
 
   bool IsSuggest() const;
   bool HasPoint() const;
@@ -84,6 +94,8 @@ private:
   uint32_t m_featureType;
   string m_suggestionStr;
   buffer_vector<pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
+
+  Metadata m_metadata;
 };
 
 class Results

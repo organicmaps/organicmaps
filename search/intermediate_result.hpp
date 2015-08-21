@@ -163,6 +163,10 @@ private:
   ResultType m_resultType;
   uint8_t m_rank;
   feature::EGeomType m_geomType;
+
+  Result::Metadata m_metadata;
+
+  void ProcessMetadata(feature::Metadata const & meta);
 };
 
 inline string DebugPrint(PreResult2 const & t)
