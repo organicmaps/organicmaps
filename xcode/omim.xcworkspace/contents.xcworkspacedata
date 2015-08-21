@@ -26,9 +26,6 @@
          location = "container:fribidi/fribidi.xcodeproj">
       </FileRef>
       <FileRef
-         location = "container:zlib/zlib.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "container:osrm/osrm.xcodeproj">
       </FileRef>
       <FileRef
@@ -45,6 +42,9 @@
       </FileRef>
       <FileRef
          location = "container:expat/expat.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:minizip/minizip.xcodeproj">
       </FileRef>
    </Group>
    <FileRef

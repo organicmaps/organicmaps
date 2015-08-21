@@ -17,6 +17,8 @@
 		670D059A1B0CBD5B0013A7AC /* mainwindow.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345761A404CB200A0A8C3 /* mainwindow.hpp */; };
 		670D059B1B0CBD5B0013A7AC /* proxystyle.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753457A1A404CB200A0A8C3 /* proxystyle.hpp */; };
 		670D059C1B0CBD5B0013A7AC /* widgets.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345851A404CB200A0A8C3 /* widgets.hpp */; };
+		671F59021B8755FE0032311E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 671F59011B8755FE0032311E /* libz.dylib */; };
+		671F59301B8759460032311E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671F592F1B8759460032311E /* libminizip.a */; };
 		6729A5C11A693014007D5872 /* categories.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5B91A693013007D5872 /* categories.txt */; };
 		6729A5C21A693014007D5872 /* classificator.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5BA1A693013007D5872 /* classificator.txt */; };
 		6729A5C31A693014007D5872 /* countries.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5BB1A693013007D5872 /* countries.txt */; };
@@ -33,7 +35,6 @@
 		6729A5D71A69319F007D5872 /* fonts_whitelist.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5D51A69319F007D5872 /* fonts_whitelist.txt */; };
 		6729A5DF1A6931CE007D5872 /* 00_roboto_regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5D81A6931CD007D5872 /* 00_roboto_regular.ttf */; };
 		6729A5E01A6931CE007D5872 /* 01_dejavusans.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5D91A6931CD007D5872 /* 01_dejavusans.ttf */; };
-		9D4AD1DD1B7388CD00EBDD27 /* 02_droidsans-fallback.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9DF792621B73884F00AF2D19 /* 02_droidsans-fallback.ttf */; };
 		6729A5E21A6931CE007D5872 /* 03_jomolhari-id-a3d.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5DB1A6931CD007D5872 /* 03_jomolhari-id-a3d.ttf */; };
 		6729A5E31A6931CE007D5872 /* 04_padauk.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5DC1A6931CE007D5872 /* 04_padauk.ttf */; };
 		6729A5E41A6931CE007D5872 /* 05_khmeros.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5DD1A6931CE007D5872 /* 05_khmeros.ttf */; };
@@ -73,7 +74,6 @@
 		674A29C21B26F0AE001A525C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29A71B26F0AE001A525C /* libstorage.a */; };
 		674A29C31B26F0AE001A525C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29A81B26F0AE001A525C /* libsuccinct.a */; };
 		674A29C41B26F0AE001A525C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29A91B26F0AE001A525C /* libtomcrypt.a */; };
-		674A29C51B26F0AE001A525C /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29AA1B26F0AE001A525C /* libzlib.a */; };
 		675345861A404CB200A0A8C3 /* about.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753456C1A404CB200A0A8C3 /* about.cpp */; };
 		675345881A404CB200A0A8C3 /* draw_widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345701A404CB200A0A8C3 /* draw_widget.cpp */; };
 		675345891A404CB200A0A8C3 /* info_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345721A404CB200A0A8C3 /* info_dialog.cpp */; };
@@ -91,6 +91,7 @@
 		675345A81A40535E00A0A8C3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675345A71A40535E00A0A8C3 /* Cocoa.framework */; };
 		67534C421A4097D000A0A8C3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67534C411A4097D000A0A8C3 /* OpenGL.framework */; };
 		67534D271A40AA4300A0A8C3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67534D261A40AA4300A0A8C3 /* CoreLocation.framework */; };
+		9D4AD1DD1B7388CD00EBDD27 /* 02_droidsans-fallback.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9DF792621B73884F00AF2D19 /* 02_droidsans-fallback.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -159,6 +160,8 @@
 
 /* Begin PBXFileReference section */
 		670D05BC1B0E10640013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		671F59011B8755FE0032311E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		671F592F1B8759460032311E /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "/Volumes/AltHD/omim/xcode/minizip/../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<absolute>"; };
 		6729A5B91A693013007D5872 /* categories.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = categories.txt; sourceTree = "<group>"; };
 		6729A5BA1A693013007D5872 /* classificator.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = classificator.txt; sourceTree = "<group>"; };
 		6729A5BB1A693013007D5872 /* countries.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = countries.txt; sourceTree = "<group>"; };
@@ -175,7 +178,6 @@
 		6729A5D51A69319F007D5872 /* fonts_whitelist.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = fonts_whitelist.txt; sourceTree = "<group>"; };
 		6729A5D81A6931CD007D5872 /* 00_roboto_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 00_roboto_regular.ttf; sourceTree = "<group>"; };
 		6729A5D91A6931CD007D5872 /* 01_dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 01_dejavusans.ttf; sourceTree = "<group>"; };
-		9DF792621B73884F00AF2D19 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 		6729A5DB1A6931CD007D5872 /* 03_jomolhari-id-a3d.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "03_jomolhari-id-a3d.ttf"; sourceTree = "<group>"; };
 		6729A5DC1A6931CE007D5872 /* 04_padauk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 04_padauk.ttf; sourceTree = "<group>"; };
 		6729A5DD1A6931CE007D5872 /* 05_khmeros.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 05_khmeros.ttf; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 		675345A71A40535E00A0A8C3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		67534C411A4097D000A0A8C3 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		67534D261A40AA4300A0A8C3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9DF792621B73884F00AF2D19 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +256,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				671F59301B8759460032311E /* libminizip.a in Frameworks */,
+				671F59021B8755FE0032311E /* libz.dylib in Frameworks */,
 				674A29AB1B26F0AE001A525C /* libalohalitics.a in Frameworks */,
 				674A29AC1B26F0AE001A525C /* libanim.a in Frameworks */,
 				674A29AD1B26F0AE001A525C /* libapi.a in Frameworks */,
@@ -279,7 +284,6 @@
 				674A29C21B26F0AE001A525C /* libstorage.a in Frameworks */,
 				674A29C31B26F0AE001A525C /* libsuccinct.a in Frameworks */,
 				674A29C41B26F0AE001A525C /* libtomcrypt.a in Frameworks */,
-				674A29C51B26F0AE001A525C /* libzlib.a in Frameworks */,
 				674A298F1B26EB5D001A525C /* librender.a in Frameworks */,
 				67534D271A40AA4300A0A8C3 /* CoreLocation.framework in Frameworks */,
 				67534C421A4097D000A0A8C3 /* OpenGL.framework in Frameworks */,
@@ -378,6 +382,8 @@
 		675345401A404C6100A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				671F592F1B8759460032311E /* libminizip.a */,
+				671F59011B8755FE0032311E /* libz.dylib */,
 				670D05BC1B0E10640013A7AC /* defaults.xcconfig */,
 				6729A5C91A693045007D5872 /* Resources */,
 				6729A4591A684401007D5872 /* Libs */,
@@ -667,7 +673,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MapsMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "/Volumes/AltHD/omim/xcode/minizip/../../../omim-xcode-build/Debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -686,7 +692,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MapsMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "/Volumes/AltHD/omim/xcode/minizip/../../../omim-xcode-build/Debug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
