@@ -100,8 +100,6 @@
 		6753469F1A4054E800A0A8C3 /* user_mark_dl_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675346301A4054E800A0A8C3 /* user_mark_dl_cache.cpp */; };
 		675346A01A4054E800A0A8C3 /* user_mark_dl_cache.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346311A4054E800A0A8C3 /* user_mark_dl_cache.hpp */; };
 		675346A21A4054E800A0A8C3 /* user_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346331A4054E800A0A8C3 /* user_mark.hpp */; };
-		67D1C8111AE50EEF00A239E3 /* route_track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D1C8061AE50EEE00A239E3 /* route_track.cpp */; };
-		67D1C8121AE50EEF00A239E3 /* route_track.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67D1C8071AE50EEF00A239E3 /* route_track.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -432,7 +430,6 @@
 				6753464D1A4054E800A0A8C3 /* change_viewport_task.hpp in Headers */,
 				6753466B1A4054E800A0A8C3 /* geourl_process.hpp in Headers */,
 				675346471A4054E800A0A8C3 /* benchmark_provider.hpp in Headers */,
-				67D1C8121AE50EEF00A239E3 /* route_track.hpp in Headers */,
 				6753466D1A4054E800A0A8C3 /* information_display.hpp in Headers */,
 				675346671A4054E800A0A8C3 /* ge0_parser.hpp in Headers */,
 				675346A21A4054E800A0A8C3 /* user_mark.hpp in Headers */,
@@ -577,7 +574,6 @@
 				6753467D1A4054E800A0A8C3 /* qgl_render_context.cpp in Sources */,
 				6753463A1A4054E800A0A8C3 /* address_finder.cpp in Sources */,
 				675346381A4054E800A0A8C3 /* active_maps_layout.cpp in Sources */,
-				67D1C8111AE50EEF00A239E3 /* route_track.cpp in Sources */,
 				675346721A4054E800A0A8C3 /* move_screen_task.cpp in Sources */,
 				6753464A1A4054E800A0A8C3 /* bookmark.cpp in Sources */,
 			);
