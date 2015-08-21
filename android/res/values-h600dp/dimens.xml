@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <dimen name="margin_bottom_zoom_buttons">250dp</dimen>
-
   <dimen name="margin_ruler_bottom">72dp</dimen>
   <dimen name="margin_compass_left">32dp</dimen>
   <dimen name="margin_compass_bottom">88dp</dimen>

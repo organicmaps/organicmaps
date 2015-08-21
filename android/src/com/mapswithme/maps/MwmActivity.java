@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Point;
 import android.location.Location;
 import android.os.Build;
@@ -23,8 +22,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.DownloadActivity;
@@ -104,6 +103,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private BroadcastReceiver mExternalStorageReceiver;
   private final StoragePathManager mPathManager = new StoragePathManager();
   private AlertDialog mStorageDisconnectedDialog;
+
+  private View mFrame;
 
   // map
   private MapFragment mMapFragment;
@@ -504,6 +505,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       public void onStartRouteFollow()
       {
         mMainMenu.setNavigationMode(true);
+        adjustZoomButtons(true);
       }
 
       @Override
@@ -513,6 +515,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initMap()
   {
+    mFrame = findViewById(R.id.map_fragment_container);
+
     mFadeView = (FadeView) findViewById(R.id.fade_view);
     mFadeView.setListener(new FadeView.Listener()
     {
@@ -531,7 +535,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           .replace(R.id.map_fragment_container, mMapFragment, MapFragment.FRAGMENT_TAG)
           .commit();
     }
-    findViewById(R.id.map_fragment_container).setOnTouchListener(this);
+    mFrame.setOnTouchListener(this);
   }
 
   @SuppressWarnings("deprecation")
@@ -947,13 +951,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     listenLocationStateModeUpdates();
     invalidateLocationState();
     startWatchingExternalStorage();
+    adjustZoomButtons(Framework.nativeIsRoutingActive());
 
     mSearchController.refreshToolbar();
 
     mPlacePage.onResume();
     LikesManager.INSTANCE.showDialogs(this);
-    refreshZoomButtonsAfterLayout();
-
     mMainMenu.onResume();
   }
 
@@ -966,30 +969,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
       popFragment();
   }
 
-  private void refreshZoomButtonsAfterLayout()
+  private void adjustZoomButtons(boolean routingActive)
   {
-    mFadeView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+    boolean show = (routingActive || MwmApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true));
+    UiUtils.showIf(show, mBtnZoomIn, mBtnZoomOut);
+
+    if (!show)
+      return;
+
+    mFrame.post(new Runnable()
     {
-      @SuppressWarnings("deprecation")
       @Override
-      public void onGlobalLayout()
+      public void run()
       {
-        refreshZoomButtonsVisibility();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
-          mFadeView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-        else
-          mFadeView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        int height = mFrame.getMeasuredHeight();
+        int top = UiUtils.dimen(R.dimen.zoom_buttons_top_required_space);
+        int bottom = UiUtils.dimen(R.dimen.zoom_buttons_bottom_max_space);
+
+        int space = (top + bottom < height ? bottom : height - top);
+
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mBtnZoomOut.getLayoutParams();
+        lp.bottomMargin = space;
+        mBtnZoomOut.setLayoutParams(lp);
       }
     });
-  }
-
-  private void refreshZoomButtonsVisibility()
-  {
-    final boolean showZoomSetting = MwmApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true) || Framework.nativeIsRoutingActive();
-    UiUtils.showIf(showZoomSetting &&
-                   !UiUtils.areViewsIntersecting(mSearchController.getToolbar(), mBtnZoomIn) &&
-                   !UiUtils.areViewsIntersecting(mLayoutRouting, mBtnZoomIn),
-                   mBtnZoomIn, mBtnZoomOut);
   }
 
   @Override
@@ -1264,43 +1267,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
-    if (isVisible)
-    {
-      if (previewIntersectsZoomButtons())
-        UiUtils.hide(mBtnZoomIn, mBtnZoomOut);
-    }
-    else
+    if (!isVisible)
     {
       Framework.deactivatePopup();
       mPlacePage.setMapObject(null);
-      refreshZoomButtonsVisibility();
       mMainMenu.show(true);
     }
-  }
-
-  private static boolean previewIntersectsZoomButtons()
-  {
-    return (!UiUtils.isBigTablet() && !UiUtils.isSmallTablet());
   }
 
   @Override
   public void onPlacePageVisibilityChanged(boolean isVisible)
   {
-    if (isVisible)
-    {
-      AlohaHelper.logClick(AlohaHelper.PP_OPEN);
-      if (placePageIntersectsZoomButtons())
-        UiUtils.hide(mBtnZoomIn, mBtnZoomOut);
-      else
-        refreshZoomButtonsVisibility();
-    }
-    else
-      AlohaHelper.logClick(AlohaHelper.PP_CLOSE);
-  }
-
-  private boolean placePageIntersectsZoomButtons()
-  {
-    return !(UiUtils.isBigTablet() || (UiUtils.isSmallTablet() && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE));
+    AlohaHelper.logClick(isVisible ? AlohaHelper.PP_OPEN
+                                   : AlohaHelper.PP_CLOSE);
   }
 
   @Override
@@ -1338,8 +1317,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void closeRouting()
   {
     mLayoutRouting.setState(RoutingLayout.State.HIDDEN, true);
-    refreshZoomButtonsVisibility();
     mMainMenu.setNavigationMode(false);
+    adjustZoomButtons(false);
   }
 
   @Override
@@ -1390,16 +1369,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
             public void onDownload()
             {
               mLayoutRouting.setState(RoutingLayout.State.HIDDEN, false);
-              refreshZoomButtonsVisibility();
               ActiveCountryTree.downloadMapsForIndex(missingCountries, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
               showDownloader(true);
             }
 
             @Override
             public void onCancel()
-            {
-              refreshZoomButtonsVisibility();
-            }
+            {}
 
             @Override
             public void onOk()
@@ -1407,15 +1383,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
               if (RoutingResultCodesProcessor.isDownloadable(resultCode))
               {
                 mLayoutRouting.setState(RoutingLayout.State.HIDDEN, false);
-                refreshZoomButtonsVisibility();
                 showDownloader(false);
               }
             }
           });
           fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getName());
         }
-
-        refreshZoomButtonsVisibility();
       }
     });
   }

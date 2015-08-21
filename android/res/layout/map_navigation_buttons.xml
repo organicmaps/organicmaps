@@ -1,43 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/margin_navigation_buttons"
-    android:paddingRight="0dp"
-    android:paddingTop="@dimen/margin_navigation_buttons"
-    android:paddingBottom="@dimen/margin_navigation_buttons">
-
-  <ImageButton
-      android:id="@+id/yop_it"
-      style="@style/MwmWidget.MapButton.Zoom"
-      android:layout_alignParentRight="true"
-      android:layout_marginRight="@dimen/margin_quarter"
-      android:src="@drawable/ic_btn_yota_ptb"
-      android:visibility="gone"
-      tools:visibility="visible"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:gravity="right"
+              android:paddingLeft="@dimen/margin_navigation_buttons"
+              android:paddingRight="0dp"
+              android:paddingTop="@dimen/margin_navigation_buttons"
+              android:paddingBottom="@dimen/margin_navigation_buttons">
+  <ImageButton android:id="@+id/yop_it"
+               style="@style/MwmWidget.MapButton"
+               android:layout_marginRight="@dimen/margin_quarter"
+               android:src="@drawable/ic_btn_yota_ptb"
+               android:visibility="gone"
+               tools:visibility="visible"/>
 
   <android.support.v4.widget.Space
       android:id="@+id/space_bottom"
       android:layout_width="0dp"
-      android:layout_height="@dimen/margin_bottom_zoom_buttons"
-      android:layout_alignParentBottom="true"/>
+      android:layout_height="0dp"
+      android:layout_weight="1"/>
 
-  <ImageButton
-      android:id="@+id/map_button_minus"
-      style="@style/MwmWidget.MapButton.Zoom"
-      android:layout_marginRight="@dimen/margin_quarter"
-      android:layout_above="@id/space_bottom"
-      android:layout_alignParentRight="true"
-      android:src="@drawable/ic_zoom_out"/>
+  <ImageButton android:id="@+id/map_button_plus"
+               style="@style/MwmWidget.MapButton"
+               android:layout_marginRight="@dimen/margin_quarter"
+               android:src="@drawable/zoom_in"/>
 
-  <ImageButton
-      android:id="@+id/map_button_plus"
-      style="@style/MwmWidget.MapButton.Zoom"
-      android:layout_marginRight="@dimen/margin_quarter"
-      android:layout_above="@+id/map_button_minus"
-      android:layout_alignParentRight="true"
-      android:src="@drawable/ic_zoom_in"/>
-
-</RelativeLayout>
+  <ImageButton android:id="@+id/map_button_minus"
+               style="@style/MwmWidget.MapButton"
+               android:layout_marginRight="@dimen/margin_quarter"
+               android:src="@drawable/zoom_out"/>
+</LinearLayout>
