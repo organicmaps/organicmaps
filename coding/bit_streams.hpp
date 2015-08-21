@@ -31,14 +31,6 @@ public:
     }
   }
 
-  // Writes up to CHAR_BIT-1 last bits if they have not been written yet
-  // and pads them with zeros.
-  void Flush()
-  {
-    if (m_bitsWritten % CHAR_BIT != 0)
-      m_writer.Write(&m_buf, 1);
-  }
-
   // Returns the number of bits that have been sent to BitWriter,
   // including those that are in m_buf and are possibly
   // not flushed yet.
@@ -77,22 +69,31 @@ public:
   }
 
 private:
+  // Writes up to CHAR_BIT-1 last bits if they have not been written yet
+  // and pads them with zeros.
+  // This method cannot be made public because once a byte has been flushed there is no going back.
+  void Flush()
+  {
+    if (m_bitsWritten % CHAR_BIT != 0)
+      m_writer.Write(&m_buf, 1);
+  }
+
   TWriter & m_writer;
   uint8_t m_buf;
   uint64_t m_bitsWritten;
 };
 
-template <typename TReader>
+template <typename TSource>
 class BitReader
 {
 public:
-  BitReader(TReader & reader) : m_reader(reader), m_bitsRead(0), m_bufferedBits(0), m_buf(0) {}
+  BitReader(TSource & src) : m_src(src), m_bitsRead(0), m_bufferedBits(0), m_buf(0) {}
 
   // Returns the total number of bits read from this BitReader.
   uint64_t BitsRead() const { return m_bitsRead; }
 
   // Reads n bits and returns them as the least significant bits of an 8-bit number.
-  // The underlying m_reader is supposed to be byte-aligned (which is the
+  // The underlying m_src is supposed to be byte-aligned (which is the
   // case when it reads from the place that was written to using BitWriter).
   // Read may use one lookahead byte.
   uint8_t Read(uint32_t n)
@@ -111,7 +112,7 @@ public:
     else
     {
       uint8_t nextByte;
-      m_reader.Read(&nextByte, 1);
+      m_src.Read(&nextByte, 1);
       uint32_t low = n - m_bufferedBits;
       result = ((nextByte & (kByteMask >> (CHAR_BIT - low))) << m_bufferedBits) | m_buf;
       m_buf = nextByte >> low;
@@ -121,7 +122,7 @@ public:
   }
 
 private:
-  TReader & m_reader;
+  TSource & m_src;
   uint64_t m_bitsRead;
   uint32_t m_bufferedBits;
   uint8_t m_buf;
