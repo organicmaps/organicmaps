@@ -157,8 +157,9 @@ bool SearchPanel::TryChangeMapStyleCmd(QString const & str)
   // Hook for shell command on change map style
   bool const isDark = (str == "mapstyle:dark");
   bool const isLight = isDark ? false : (str == "mapstyle:light");
+  bool const isClear = isDark || isLight ? false : (str == "mapstyle:clear");
 
-  if (!isDark && !isLight)
+  if (!isDark && !isLight && !isClear)
     return false;
 
   // close Search panel
@@ -166,7 +167,7 @@ bool SearchPanel::TryChangeMapStyleCmd(QString const & str)
   parentWidget()->hide();
 
   // change color scheme for the Map activity
-  MapStyle const mapStyle = isDark ? MapStyleDark : MapStyleLight;
+  MapStyle const mapStyle = isDark ? MapStyleDark : (isClear ? MapStyleClear : MapStyleLight);
   m_pDrawWidget->SetMapStyle(mapStyle);
 
   return true;

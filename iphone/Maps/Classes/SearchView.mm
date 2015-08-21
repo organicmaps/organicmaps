@@ -374,12 +374,13 @@ static BOOL keyboardLoaded = NO;
   // Hook for shell command on change map style
   BOOL const isDark = [cmd isEqualToString:@"mapstyle:dark"];
   BOOL const isLight = isDark ? NO : [cmd isEqualToString:@"mapstyle:light"];
+  BOOL const isClear = isLight || isDark ? NO : [cmd isEqualToString:@"mapstyle:clear"];
 
-  if (!isDark && !isLight)
+  if (!isDark && !isLight && !isClear)
     return NO;
 
   // change map style
-  MapStyle const mapStyle = isDark ? MapStyleDark : MapStyleLight;
+  MapStyle const mapStyle = isDark ? MapStyleDark : (isClear ? MapStyleClear : MapStyleLight);
   [[MapsAppDelegate theApp] setMapStyle: mapStyle];
 
   // close Search panel

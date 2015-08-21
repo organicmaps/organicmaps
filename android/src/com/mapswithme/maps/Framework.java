@@ -15,6 +15,7 @@ public class Framework
 {
   public static final int MAP_STYLE_LIGHT = 0;
   public static final int MAP_STYLE_DARK = 1;
+  public static final int MAP_STYLE_CLEAR = 2;
 
   public static final int ROUTER_TYPE_VEHICLE = 0;
   public static final int ROUTER_TYPE_PEDESTRIAN = 1;

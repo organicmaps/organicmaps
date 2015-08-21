@@ -290,15 +290,16 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
     // Hook for shell command on change map style
     final boolean isDark = str.equals("mapstyle:dark");
     final boolean isLight = isDark ? false : str.equals("mapstyle:light");
+    final boolean isClear = isDark || isLight ? false : str.equals("mapstyle:clear");
 
-    if (!isDark && !isLight)
+    if (!isDark && !isLight && !isClear)
       return false;
 
     // close Search panel
     hideSearch();
 
     // change map style for the Map activity
-    final int mapStyle = isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_LIGHT;
+    final int mapStyle = isDark ? Framework.MAP_STYLE_DARK : (isClear ? Framework.MAP_STYLE_CLEAR : Framework.MAP_STYLE_LIGHT);
     MwmActivity.setMapStyle(getActivity(), mapStyle);
 
     return true;
