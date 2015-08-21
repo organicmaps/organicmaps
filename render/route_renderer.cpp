@@ -551,7 +551,7 @@ void RouteRenderer::ApplyJoinsBounds(double joinsBoundsScalar, double glbHeadLen
                                                 arrowBorders[i].m_endDistance, m_routeSegments);
     if (headIndex != SegmentStatus::OK)
     {
-      double const restDist = m_routeData.m_length - m_routeSegments[headIndex].m_start;
+      double const restDist = (headIndex >= 0) ? (m_routeData.m_length - m_routeSegments[headIndex].m_start) : 0.0;
       if (headIndex == SegmentStatus::NoSegment || restDist < glbHeadLength)
         arrowBorders[i].m_groupIndex = kInvalidGroup;
       else
