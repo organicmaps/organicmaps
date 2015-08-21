@@ -84,6 +84,11 @@ CircleRuleProto const * BaseRule::GetCircle() const
   return 0;
 }
 
+ShieldRuleProto const * BaseRule::GetShield() const
+{
+  return nullptr;
+}
+
 RulesHolder::RulesHolder()
   : m_bgColors(scales::UPPER_STYLE_SCALE+1, DEFAULT_BG_COLOR)
 {}
@@ -239,6 +244,15 @@ namespace
 
       virtual CircleRuleProto const * GetCircle() const { return &m_circle; }
     };
+
+    class Shield : public BaseRule
+    {
+      ShieldRuleProto m_shield;
+    public:
+      Shield(ShieldRuleProto const & r) : m_shield(r) {}
+
+      virtual ShieldRuleProto const * GetShield() const { return &m_shield; }
+    };
   }
 
   class DoSetIndex
@@ -350,6 +364,9 @@ namespace
 
           if (de.has_path_text())
             AddRule<PathText>(p, de.scale(), pathtext, de.path_text());
+
+          if (de.has_shield())
+            AddRule<Shield>(p, de.scale(), shield, de.shield());
         }
       }
 

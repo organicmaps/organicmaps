@@ -58,14 +58,16 @@ protected:
                             di::DrawRule const & rule) = 0;
 
   virtual void DrawPathNumber(di::PathInfo const & path,
-                              di::FeatureStyler const & fs) = 0;
+                              di::FeatureStyler const & fs,
+                              di::DrawRule const & rule) = 0;
 
   void DrawFeatureStart(FeatureID const & id);
   void DrawFeatureEnd(FeatureID const & id);
   FeatureID const & GetCurrentFeatureID() const;
 
   using TRoadNumberCallbackFn = function<void (m2::PointD const & pt, graphics::FontDesc const & font, string const & text)>;
-  void GenerateRoadNumbers(di::PathInfo const & path, di::FeatureStyler const & fs, TRoadNumberCallbackFn const & fn);
+  void GenerateRoadNumbers(di::PathInfo const & path, graphics::FontDesc const & font, di::FeatureStyler const & fs,
+                           TRoadNumberCallbackFn const & fn);
 
 public:
 

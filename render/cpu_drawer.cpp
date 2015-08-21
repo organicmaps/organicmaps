@@ -411,10 +411,13 @@ void CPUDrawer::DrawPathText(di::PathInfo const & info, di::FeatureStyler const 
   CallTextRendererFn(shape, callback);
 }
 
-void CPUDrawer::DrawPathNumber(di::PathInfo const & path, di::FeatureStyler const & fs)
+void CPUDrawer::DrawPathNumber(di::PathInfo const & path, di::FeatureStyler const & fs, di::DrawRule const & rule)
 {
+  graphics::FontDesc font;
+  ConvertStyle(rule.m_rule->GetShield(), VisualScale(), font);
+
   FeatureID const & id = Insert(fs.m_refText);
-  GenerateRoadNumbers(path, fs, [this, &id](m2::PointD const & pt, graphics::FontDesc const & font, string const & /*text*/)
+  GenerateRoadNumbers(path, font, fs, [this, &id](m2::PointD const & pt, graphics::FontDesc const & font, string const & /*text*/)
   {
     m_roadNumberFont = font;
     m_textShapes.emplace_back(pt, graphics::EPosCenter, id, di::DrawRule(), GetGeneration(), TYPE_ROAD_NUMBER);

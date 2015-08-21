@@ -17,6 +17,7 @@ class AreaRuleProto;
 class SymbolRuleProto;
 class CaptionDefProto;
 class CircleRuleProto;
+class ShieldRuleProto;
 class ContainerProto;
 
 
@@ -49,6 +50,7 @@ namespace drule
     virtual SymbolRuleProto const * GetSymbol() const;
     virtual CaptionDefProto const * GetCaption(int) const;
     virtual CircleRuleProto const * GetCircle() const;
+    virtual ShieldRuleProto const * GetShield() const;
   };
 
   class RulesHolder

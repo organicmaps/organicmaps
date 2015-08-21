@@ -44,7 +44,7 @@ protected:
   void DrawText(m2::PointD const & pt, graphics::EPosition pos,
                 di::FeatureStyler const & fs, di::DrawRule const & rule) override;
   void DrawPathText(di::PathInfo const & info, di::FeatureStyler const & fs, di::DrawRule const & rule) override;
-  void DrawPathNumber(di::PathInfo const & path, di::FeatureStyler const & fs) override;
+  void DrawPathNumber(di::PathInfo const & path, di::FeatureStyler const & fs, di::DrawRule const & rule) override;
 
   int GetGeneration() { return m_generationCounter++; }
 

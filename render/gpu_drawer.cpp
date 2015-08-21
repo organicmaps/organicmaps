@@ -249,9 +249,13 @@ void GPUDrawer::DrawPathText(di::PathInfo const & path,
 }
 
 void GPUDrawer::DrawPathNumber(di::PathInfo const & path,
-                               di::FeatureStyler const & fs)
+                               di::FeatureStyler const & fs,
+                               di::DrawRule const & rule)
 {
-  GenerateRoadNumbers(path, fs, [this](m2::PointD const & pt, graphics::FontDesc const & font, string const & text)
+  graphics::FontDesc font;
+  ConvertStyle(rule.m_rule->GetShield(), VisualScale(), font);
+
+  GenerateRoadNumbers(path, font, fs, [this](m2::PointD const & pt, graphics::FontDesc const & font, string const & text)
   {
     m_pScreen->drawText(font, pt, graphics::EPosCenter, text, 0, true /*log2vis*/);
   });

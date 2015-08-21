@@ -45,24 +45,19 @@ FeatureID const & Drawer::GetCurrentFeatureID() const
   return m_currentFeatureID;
 }
 
-void Drawer::GenerateRoadNumbers(di::PathInfo const & path, di::FeatureStyler const & fs, TRoadNumberCallbackFn const & fn)
+void Drawer::GenerateRoadNumbers(di::PathInfo const & path, graphics::FontDesc const & font, di::FeatureStyler const & fs,
+                                 TRoadNumberCallbackFn const & fn)
 {
-  int const textHeight = static_cast<int>(11 * VisualScale());
-  m2::PointD pt;
   double const length = path.GetFullLength();
-  if (length >= (fs.m_refText.size() + 2) * textHeight)
+  if (length >= (fs.m_refText.size() + 2) * font.m_size)
   {
     size_t const count = size_t(length / 1000.0) + 2;
 
+    m2::PointD pt;
     for (size_t j = 1; j < count; ++j)
     {
       if (path.GetSmPoint(double(j) / double(count), pt))
-      {
-        graphics::FontDesc fontDesc(textHeight, graphics::Color(150, 75, 0, 255),   // brown
-                                    true, graphics::Color::White());
-
-        fn(pt, fontDesc, fs.m_refText);
-      }
+        fn(pt, font, fs.m_refText);
     }
   }
 }
@@ -81,6 +76,8 @@ void Drawer::Draw(di::FeatureInfo const & fi)
   double circleDepth = graphics::minDepth;
   drule::BaseRule const * pSymbolRule = NULL;
   double symbolDepth = graphics::minDepth;
+  drule::BaseRule const * pShieldRule = nullptr;
+  double shieldDepth = graphics::minDepth;
 
   // separating path rules from other
   for (size_t i = 0; i < rules.size(); ++i)
@@ -101,6 +98,12 @@ void Drawer::Draw(di::FeatureInfo const & fi)
     {
       pCircleRule = pRule;
       circleDepth = rules[i].m_depth;
+    }
+
+    if (pShieldRule == nullptr && pRule->GetShield() != nullptr)
+    {
+      pShieldRule = pRule;
+      shieldDepth = rules[i].m_depth;
     }
 
     if (!isCaption && isPath && !isSymbol && (pRule->GetLine() != 0))
@@ -210,9 +213,9 @@ void Drawer::Draw(di::FeatureInfo const & fi)
   }
 
   // draw road numbers
-  if (isPath && !fi.m_styler.m_refText.empty() && m_level >= 12)
+  if (isPath && !fi.m_styler.m_refText.empty() && pShieldRule != nullptr)
     for (auto n : fi.m_pathes)
-      DrawPathNumber(n, fi.m_styler);
+      DrawPathNumber(n, fi.m_styler, di::DrawRule(pShieldRule, shieldDepth));
 
   DrawFeatureEnd(fi.m_id);
 }

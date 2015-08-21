@@ -11,6 +11,7 @@ class AreaRuleProto;
 class SymbolRuleProto;
 class CaptionDefProto;
 class CircleRuleProto;
+class ShieldRuleProto;
 
 graphics::Color ConvertColor(uint32_t c);
 
@@ -19,5 +20,6 @@ void ConvertStyle(AreaRuleProto const * pSrc, graphics::Brush::Info & dest);
 void ConvertStyle(SymbolRuleProto const * pSrc, graphics::Icon::Info & dest);
 void ConvertStyle(CircleRuleProto const * pSrc, double scale, graphics::Circle::Info & dest);
 void ConvertStyle(CaptionDefProto const * pSrc, double scale, graphics::FontDesc & dest, m2::PointD & offset);
+void ConvertStyle(ShieldRuleProto const * pSrc, double scale, graphics::FontDesc & dest);
 
 uint8_t GetFontSize(CaptionDefProto const * pSrc);

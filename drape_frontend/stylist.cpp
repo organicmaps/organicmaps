@@ -23,6 +23,7 @@ enum Type
   Circle    = Caption    << 1,
   PathText  = Circle     << 1,
   Waymarker = PathText   << 1,
+  Shield    = Waymarker  << 1,
   CountOfType = PathText + 1
 };
 
@@ -37,6 +38,7 @@ inline drule::rule_type_t Convert(Type t)
   case Circle   : return drule::circle;
   case PathText : return drule::pathtext;
   case Waymarker: return drule::waymarker;
+  case Shield   : return drule::shield;
   default:
     return drule::count_of_rules;
   }

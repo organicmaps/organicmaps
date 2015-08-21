@@ -81,7 +81,8 @@ protected:
                     di::DrawRule const & rule) override;
 
   void DrawPathNumber(di::PathInfo const & path,
-                      di::FeatureStyler const & fs) override;
+                      di::FeatureStyler const & fs,
+                      di::DrawRule const & rule) override;
 
 private:
   static void ClearResourceCache(size_t threadSlot, uint8_t pipelineID);

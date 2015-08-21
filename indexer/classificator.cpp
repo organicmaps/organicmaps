@@ -246,9 +246,9 @@ namespace
     void add_rule(int ft, iter_t i)
     {
       static const int visible[3][drule::count_of_rules] = {
-        { 0, 0, 1, 1, 1, 0, 0 },   // fpoint
-        { 1, 0, 0, 0, 0, 1, 0 },   // fline
-        { 1, 1, 1, 1, 1, 0, 0 }    // farea
+        { 0, 0, 1, 1, 1, 0, 0, 0 },   // fpoint
+        { 1, 0, 0, 0, 0, 1, 0, 1 },   // fline
+        { 1, 1, 1, 1, 1, 0, 0, 0 }    // farea
       };
 
       if (visible[ft][i->m_type] == 1)

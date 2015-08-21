@@ -25,7 +25,7 @@ namespace drule
   };
 
   /// drawing type of rule - can be one of ...
-  enum rule_type_t { line, area, symbol, caption, circle, pathtext, waymarker, count_of_rules };
+  enum rule_type_t { line, area, symbol, caption, circle, pathtext, waymarker, shield, count_of_rules };
 
   /// geo type of rule - can be one combined of ...
   enum rule_geo_t { node = 1, way = 2 };

@@ -135,6 +135,20 @@ void ConvertStyle(CaptionDefProto const * pSrc, double scale, graphics::FontDesc
   }
 }
 
+void ConvertStyle(ShieldRuleProto const * pSrc, double scale, graphics::FontDesc & dest)
+{
+  // fonts smaller than 8px look "jumpy" on LDPI devices
+  uint8_t const h = max(8, static_cast<int>(pSrc->height() * scale));
+
+  dest = graphics::FontDesc(h, ConvertColor(pSrc->color()));
+
+  if (pSrc->has_stroke_color())
+  {
+    dest.m_isMasked = true;
+    dest.m_maskColor = ConvertColor(pSrc->stroke_color());
+  }
+}
+
 uint8_t GetFontSize(CaptionDefProto const * pSrc)
 {
   return pSrc->height();
