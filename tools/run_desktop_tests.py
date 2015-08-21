@@ -21,6 +21,7 @@ from __future__ import print_function
 from optparse import OptionParser
 from os import listdir, remove
 from os.path import isfile, join
+from random import shuffle
 import socket
 import subprocess
 import sys
@@ -109,6 +110,8 @@ class TestRunner:
             tests_to_run = filter(lambda x: x not in local_skiplist, test_files_in_dir)
         else:
             tests_to_run = filter(on_disk, self.runlist)
+            shuffle(tests_to_run)
+            
             not_found = filter(not_on_disk, self.runlist)
 
         return {TO_RUN:tests_to_run, SKIP:local_skiplist, NOT_FOUND:not_found}        
@@ -180,4 +183,3 @@ class TestRunner:
 
 runner = TestRunner()
 runner.execute()
-
