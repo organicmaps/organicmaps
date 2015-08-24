@@ -18,12 +18,14 @@ public:
 
 private:
   friend void UnitTest_QuerySaverSerializerTest();
-  void Serialize(vector<uint8_t> & data) const;
+  friend void UnitTest_QuerySaverCorruptedStringTest();
+  void Serialize(string & data) const;
   void Deserialize(string const & data);
 
   void Save();
   void Load();
 
+  void EmergencyReset();
   list<string> m_topQueries;
 };
 }  // namespace search

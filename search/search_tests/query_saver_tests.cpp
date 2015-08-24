@@ -62,17 +62,28 @@ UNIT_TEST(QuerySaverSerializerTest)
   saver.Clear();
   saver.Add(record1);
   saver.Add(record2);
-  vector<uint8_t> data;
+  string data;
   saver.Serialize(data);
   TEST_GREATER(data.size(), 0, ());
   saver.Clear();
   TEST_EQUAL(saver.Get().size(), 0, ());
-  saver.Deserialize(string(data.begin(), data.end()));
+  saver.Deserialize(data);
 
   list<string> const & result = saver.Get();
   TEST_EQUAL(result.size(), 2, ());
   TEST_EQUAL(result.back(), record1, ());
   TEST_EQUAL(result.front(), record2, ());
+}
+
+UNIT_TEST(QuerySaverCorruptedStringTest)
+{
+  // We can't catch the ASEERT exception on the DEBUG build.
+  // So we check only valid HEX string case.
+  QuerySaver saver;
+  string corrupted("DEADBEEF");
+  saver.Deserialize(corrupted);
+  list<string> const & result = saver.Get();
+  TEST_EQUAL(result.size(), 0, ());
 }
 
 UNIT_TEST(QuerySaverPersistanceStore)
