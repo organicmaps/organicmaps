@@ -7,7 +7,12 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = generator routing search storage stats_client jansson indexer platform geometry coding base \
-               sgitess protobuf tomcrypt opening_hours
+               sgitess protobuf tomcrypt
+	       
+!linux* {
+  DEPENDENCIES += opening_hours \
+
+}
 
 include($$ROOT_DIR/common.pri)
 
