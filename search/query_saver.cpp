@@ -10,10 +10,18 @@
 
 namespace
 {
-size_t constexpr kMaxSuggestCount = 10;
 char constexpr kSettingsKey[] = "UserQueries";
 using TLength = uint16_t;
+TLength constexpr kMaxSuggestCount = 10;
 size_t constexpr kLengthTypeSize = sizeof(TLength);
+
+bool ReadLength(ReaderSource<MemReader> & reader, TLength & length)
+{
+  if (reader.Size() < kLengthTypeSize)
+    return false;
+  reader.Read(&length, kLengthTypeSize);
+  return true;
+}
 }  // namespace
 
 namespace search
@@ -74,29 +82,23 @@ void QuerySaver::Deserialize(string const & data)
   MemReader rawReader(decodedData.c_str(), decodedData.size());
   ReaderSource<MemReader> reader(rawReader);
 
-  if (reader.Size() < kLengthTypeSize)
-  {
-    EmergencyReset();
-    return;
-  }
   TLength queriesCount;
-  reader.Read(&queriesCount, kLengthTypeSize);
-
-  if (queriesCount > kMaxSuggestCount)
+  if (!ReadLength(reader, queriesCount))
   {
     EmergencyReset();
     return;
   }
+
+  queriesCount = min(queriesCount, kMaxSuggestCount);
 
   for (TLength i = 0; i < queriesCount; ++i)
   {
     TLength stringLength;
-    if (reader.Size() < kLengthTypeSize)
+    if (!ReadLength(reader, stringLength))
     {
       EmergencyReset();
       return;
     }
-    reader.Read(&stringLength, kLengthTypeSize);
     if (reader.Size() < stringLength)
     {
       EmergencyReset();
