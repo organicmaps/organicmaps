@@ -1,14 +1,13 @@
 #pragma once
 
-#include "base/std_serialization.hpp"
 #include "base/assert.hpp"
+#include "base/std_serialization.hpp"
 
-#include "std/utility.hpp"
-#include "std/vector.hpp"
-#include "std/string.hpp"
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
-
+#include "std/string.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 #define NODES_FILE "nodes.dat"
 #define WAYS_FILE "ways.dat"
@@ -16,7 +15,6 @@
 #define OFFSET_EXT ".offs"
 #define ID2REL_EXT ".id2rel"
 #define MAPPED_WAYS "mapped_ways.n2w"
-
 
 struct WayElement
 {
@@ -32,23 +30,24 @@ struct WayElement
     if (id == nodes.front())
       return nodes.back();
 
-    ASSERT ( id == nodes.back(), () );
+    ASSERT(id == nodes.back(), ());
     return nodes.front();
   }
 
-  template <class ToDo> void ForEachPoint(ToDo & toDo) const
+  template <class ToDo>
+  void ForEachPoint(ToDo & toDo) const
   {
     for_each(nodes.begin(), nodes.end(), ref(toDo));
   }
 
-  template <class ToDo> void ForEachPointOrdered(uint64_t start, ToDo & toDo)
+  template <class ToDo>
+  void ForEachPointOrdered(uint64_t start, ToDo & toDo)
   {
     if (start == nodes.front())
       for_each(nodes.begin(), nodes.end(), ref(toDo));
     else
       for_each(nodes.rbegin(), nodes.rend(), ref(toDo));
   }
-
 
   template <class TArchive>
   void Write(TArchive & ar) const
@@ -81,17 +80,11 @@ public:
     return ((it != tags.end()) ? it->second : string());
   }
 
-  bool FindWay(uint64_t id, string & role) const
-  {
-    return FindRoleImpl(ways, id, role);
-  }
+  bool FindWay(uint64_t id, string & role) const { return FindRoleImpl(ways, id, role); }
+  bool FindNode(uint64_t id, string & role) const { return FindRoleImpl(nodes, id, role); }
 
-  bool FindNode(uint64_t id, string & role) const
-  {
-    return FindRoleImpl(nodes, id, role);
-  }
-
-  template <class ToDo> void ForEachWay(ToDo & toDo) const
+  template <class ToDo>
+  void ForEachWay(ToDo & toDo) const
   {
     for (size_t i = 0; i < ways.size(); ++i)
       toDo(ways[i].first, ways[i].second);
@@ -117,14 +110,16 @@ public:
   }
 
 protected:
-  bool FindRoleImpl(TMembers const & cnt, uint64_t id, string & role) const
+  bool FindRoleImpl(TMembers const & container, uint64_t id, string & role) const
   {
-    for (auto const & e : cnt)
+    for (auto const & e : container)
+    {
       if (e.first == id)
       {
         role = e.second;
         return true;
       }
+    }
     return false;
   }
 };

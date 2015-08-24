@@ -2,22 +2,25 @@
 
 #include "generator/osm_decl.hpp"
 
+#include "coding/file_name_utils.hpp"
 #include "coding/file_reader_stream.hpp"
 #include "coding/file_writer_stream.hpp"
-#include "coding/file_name_utils.hpp"
 
 #include "base/logging.hpp"
 
+#include "std/algorithm.hpp"
+#include "std/exception.hpp"
+#include "std/limits.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
-#include "std/algorithm.hpp"
-#include "std/limits.hpp"
-#include "std/exception.hpp"
 
 /// Classes for reading and writing any data in file with map of offsets for
 /// fast searching in memory by some key.
 namespace cache
 {
+
+enum class EMode { Write = true, Read = false };
+
 namespace detail
 {
 template <class TFile, class TValue>
@@ -122,13 +125,13 @@ public:
 } // namespace detail
 
 
-template <bool TModeWrite>
+template <EMode TMode>
 class OSMElementCache
 {
 public:
   using TKey = uint64_t;
-  using TStream = typename conditional<TModeWrite, FileWriterStream, FileReaderStream>::type;
-  using TOffsetFile = typename conditional<TModeWrite, FileWriter, FileReader>::type;
+  using TStream = typename conditional<TMode == EMode::Write, FileWriterStream, FileReaderStream>::type;
+  using TOffsetFile = typename conditional<TMode == EMode::Write, FileWriter, FileReader>::type;
 
 protected:
   TStream m_stream;
@@ -164,4 +167,4 @@ public:
   inline void SaveOffsets() { m_offsets.WriteAll(); }
   inline void LoadOffsets() { m_offsets.ReadAll(); }
 };
-}
+} // namespace cache

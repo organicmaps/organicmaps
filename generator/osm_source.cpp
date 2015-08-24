@@ -48,13 +48,12 @@ uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
 
 namespace
 {
-template <class TNodesHolder, bool TModeWrite>
+template <class TNodesHolder, cache::EMode TMode>
 class IntermediateData
 {
-  using TReader = cache::OSMElementCache<TModeWrite>;
+  using TReader = cache::OSMElementCache<TMode>;
 
-  using TFile = typename conditional<TModeWrite, FileWriter, FileReader>::type;
-
+  using TFile = typename conditional<TMode == cache::EMode::Write, FileWriter, FileReader>::type;
 
   using TKey = uint64_t;
   static_assert(is_integral<TKey>::value, "TKey is not integral type");
@@ -480,7 +479,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
   {
     TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
 
-    using TDataCache = IntermediateData<TNodesHolder, /*WriteMode=*/false>;
+    using TDataCache = IntermediateData<TNodesHolder, cache::EMode::Read>;
     TDataCache cache(nodes, info.m_intermediateDir);
     cache.LoadIndex();
 
@@ -526,7 +525,7 @@ bool GenerateIntermediateDataImpl(feature::GenerateInfo & info)
   try
   {
     TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
-    using TDataCache = IntermediateData<TNodesHolder, /*WriteMode=*/true>;
+    using TDataCache = IntermediateData<TNodesHolder, cache::EMode::Write>;
     TDataCache cache(nodes, info.m_intermediateDir);
 
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
@@ -558,11 +557,11 @@ bool GenerateFeatures(feature::GenerateInfo & info)
   switch (info.m_nodeStorageType)
   {
     case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateFeaturesImpl<RawFilePointStorage<BasePointStorage::MODE_READ>>(info);
+      return GenerateFeaturesImpl<RawFilePointStorage<BasePointStorage::EMode::Read>>(info);
     case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateFeaturesImpl<MapFilePointStorage<BasePointStorage::MODE_READ>>(info);
+      return GenerateFeaturesImpl<MapFilePointStorage<BasePointStorage::EMode::Read>>(info);
     case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateFeaturesImpl<RawMemPointStorage<BasePointStorage::MODE_READ>>(info);
+      return GenerateFeaturesImpl<RawMemPointStorage<BasePointStorage::EMode::Read>>(info);
   }
   return false;
 }
@@ -572,11 +571,11 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
   switch (info.m_nodeStorageType)
   {
     case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateIntermediateDataImpl<RawFilePointStorage<BasePointStorage::MODE_WRITE>>(info);
+      return GenerateIntermediateDataImpl<RawFilePointStorage<BasePointStorage::EMode::Write>>(info);
     case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateIntermediateDataImpl<MapFilePointStorage<BasePointStorage::MODE_WRITE>>(info);
+      return GenerateIntermediateDataImpl<MapFilePointStorage<BasePointStorage::EMode::Write>>(info);
     case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateIntermediateDataImpl<RawMemPointStorage<BasePointStorage::MODE_WRITE>>(info);
+      return GenerateIntermediateDataImpl<RawMemPointStorage<BasePointStorage::EMode::Write>>(info);
   }
   return false;
 }

@@ -23,19 +23,18 @@ struct LatLonPos
 };
 static_assert(sizeof(LatLonPos) == 16, "Invalid structure size");
 
-
 class BasePointStorage
 {
   size_t m_processedPoint = 0;
 
 public:
-  enum EStorageMode {MODE_READ = false, MODE_WRITE = true};
+  enum class EMode { Read = false, Write = true };
 
   inline size_t GetProcessedPoint() const { return m_processedPoint; }
   inline void IncProcessedPoint() { ++m_processedPoint; }
 };
 
-template < BasePointStorage::EStorageMode TMode >
+template <BasePointStorage::EMode TMode>
 class RawFilePointStorage : public BasePointStorage
 {
 #ifdef OMIM_OS_WINDOWS
@@ -44,15 +43,15 @@ class RawFilePointStorage : public BasePointStorage
   using TFileReader = MmapReader;
 #endif
 
-  typename conditional<TMode, FileWriter, TFileReader>::type m_file;
+  typename conditional<TMode == EMode::Write, FileWriter, TFileReader>::type m_file;
 
   constexpr static double const kValueOrder = 1E+7;
 
 public:
   RawFilePointStorage(string const & name) : m_file(name) {}
 
-  template <bool T = TMode>
-  typename enable_if<T == MODE_WRITE, void>::type AddPoint(uint64_t id, double lat, double lng)
+  template <EMode T = TMode>
+  typename enable_if<T == EMode::Write, void>::type AddPoint(uint64_t id, double lat, double lng)
   {
     int64_t const lat64 = lat * kValueOrder;
     int64_t const lng64 = lng * kValueOrder;
@@ -69,8 +68,9 @@ public:
     IncProcessedPoint();
   }
 
-  template <bool T = TMode>
-  typename enable_if<T == MODE_READ, bool>::type GetPoint(uint64_t id, double & lat, double & lng) const
+  template <EMode T = TMode>
+  typename enable_if<T == EMode::Read, bool>::type GetPoint(uint64_t id, double & lat,
+                                                          double & lng) const
   {
     LatLon ll;
     m_file.Read(id * sizeof(ll), &ll, sizeof(ll));
@@ -82,57 +82,48 @@ public:
       lng = static_cast<double>(ll.lon) / kValueOrder;
       return true;
     }
-    else
-    {
-      LOG(LERROR, ("Node with id = ", id, " not found!"));
-      return false;
-    }
+    LOG(LERROR, ("Node with id = ", id, " not found!"));
+    return false;
   }
 };
 
-
-template < BasePointStorage::EStorageMode TMode >
+template <BasePointStorage::EMode TMode>
 class RawMemPointStorage : public BasePointStorage
 {
-  typename conditional<TMode, FileWriter, FileReader>::type m_file;
+  typename conditional<TMode == EMode::Write, FileWriter, FileReader>::type m_file;
 
   constexpr static double const kValueOrder = 1E+7;
 
   vector<LatLon> m_data;
 
 public:
-  RawMemPointStorage(string const & name)
-  : m_file(name)
-  , m_data((size_t)0xFFFFFFFF)
+  RawMemPointStorage(string const & name) : m_file(name), m_data((size_t)0xFFFFFFFF)
   {
     InitStorage<TMode>();
   }
 
-  ~RawMemPointStorage()
-  {
-    DoneStorage<TMode>();
-  }
+  ~RawMemPointStorage() { DoneStorage<TMode>(); }
 
-  template <bool T>
-  typename enable_if<T == MODE_WRITE, void>::type InitStorage() {}
+  template <EMode T>
+  typename enable_if<T == EMode::Write, void>::type InitStorage() {}
 
-  template <bool T>
-  typename enable_if<T == MODE_READ, void>::type InitStorage()
+  template <EMode T>
+  typename enable_if<T == EMode::Read, void>::type InitStorage()
   {
     m_file.Read(0, m_data.data(), m_data.size() * sizeof(LatLon));
   }
 
-  template <bool T>
-  typename enable_if<T == MODE_WRITE, void>::type DoneStorage()
+  template <EMode T>
+  typename enable_if<T == EMode::Write, void>::type DoneStorage()
   {
     m_file.Write(m_data.data(), m_data.size() * sizeof(LatLon));
   }
 
-  template <bool T>
-  typename enable_if<T == MODE_READ, void>::type DoneStorage() {}
+  template <EMode T>
+  typename enable_if<T == EMode::Read, void>::type DoneStorage() {}
 
-  template <bool T = TMode>
-  typename enable_if<T == MODE_WRITE, void>::type AddPoint(uint64_t id, double lat, double lng)
+  template <EMode T = TMode>
+  typename enable_if<T == EMode::Write, void>::type AddPoint(uint64_t id, double lat, double lng)
   {
     int64_t const lat64 = lat * kValueOrder;
     int64_t const lng64 = lng * kValueOrder;
@@ -146,8 +137,9 @@ public:
     IncProcessedPoint();
   }
 
-  template <bool T = TMode>
-  typename enable_if<T == MODE_READ, bool>::type GetPoint(uint64_t id, double & lat, double & lng) const
+  template <EMode T = TMode>
+  typename enable_if<T == EMode::Read, bool>::type GetPoint(uint64_t id, double & lat,
+                                                          double & lng) const
   {
     LatLon const & ll = m_data[id];
     // assume that valid coordinate is not (0, 0)
@@ -157,33 +149,27 @@ public:
       lng = static_cast<double>(ll.lon) / kValueOrder;
       return true;
     }
-    else
-    {
-      LOG(LERROR, ("Node with id = ", id, " not found!"));
-      return false;
-    }
+    LOG(LERROR, ("Node with id = ", id, " not found!"));
+    return false;
   }
 };
 
-template < BasePointStorage::EStorageMode TMode >
+template <BasePointStorage::EMode TMode>
 class MapFilePointStorage : public BasePointStorage
 {
-  typename conditional<TMode, FileWriter, FileReader>::type m_file;
+  typename conditional<TMode == EMode::Write, FileWriter, FileReader>::type m_file;
   unordered_map<uint64_t, pair<int32_t, int32_t>> m_map;
 
   constexpr static double const kValueOrder = 1E+7;
 
 public:
-  MapFilePointStorage(string const & name) : m_file(name+".short")
-  {
-    InitStorage<TMode>();
-  }
+  MapFilePointStorage(string const & name) : m_file(name + ".short") { InitStorage<TMode>(); }
 
-  template <bool T>
-  typename enable_if<T == MODE_WRITE, void>::type InitStorage() {}
+  template <EMode T>
+  typename enable_if<T == EMode::Write, void>::type InitStorage() {}
 
-  template <bool T>
-  typename enable_if<T == MODE_READ, void>::type InitStorage()
+  template <EMode T>
+  typename enable_if<T == EMode::Read, void>::type InitStorage()
   {
     LOG(LINFO, ("Nodes reading is started"));
 
