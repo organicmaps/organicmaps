@@ -20,12 +20,14 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingInfo;
+import com.mapswithme.maps.routing.RoutingResultCodesProcessor;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 
@@ -342,6 +344,12 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
       return;
     }
 
+    if (!LocationState.isTurnedOn())
+    {
+      onMissingLocation();
+      return;
+    }
+
     Location location = LocationHelper.INSTANCE.getLastLocation();
     Framework.nativeBuildRoute(location.getLatitude(), location.getLongitude(), mEndPoint.getLat(), mEndPoint.getLon());
   }
@@ -369,6 +377,13 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
         })
         .setNegativeButton(getContext().getString(R.string.cancel), null)
         .show();
+  }
+
+  private void onMissingLocation()
+  {
+    Context context = getContext();
+    if (context instanceof Framework.RoutingListener)
+      ((Framework.RoutingListener) context).onRoutingEvent(RoutingResultCodesProcessor.NO_POSITION, null);
   }
 
   @Override

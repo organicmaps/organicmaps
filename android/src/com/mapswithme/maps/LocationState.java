@@ -34,4 +34,12 @@ public enum LocationState
   public native void turnOff();
 
   public native void invalidatePosition();
+
+  /**
+   * Checks if location state on the map is active (so its not turned off or pending).
+   */
+  public static boolean isTurnedOn()
+  {
+    return INSTANCE.getLocationStateMode() > PENDING_POSITION;
+  }
 }
