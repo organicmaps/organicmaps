@@ -18,8 +18,10 @@ public class RoutingInfo
   public final String turnUnits;
 
   public final int totalTimeInSeconds;
-  // The next street according to the navigation route.
-  public final String streetName;
+  // Current street name.
+  public final String currentStreet;
+  // The next street name.
+  public final String nextStreet;
   // For vehicle routing.
   public final VehicleTurnDirection vehicleTurnDirection;
   public final int exitNum;
@@ -115,7 +117,7 @@ public class RoutingInfo
     SHARP_RIGHT
   }
 
-  public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String targetName,
+  public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String currentStreet, String nextStreet,
                      int vehicleTurnOrdinal, int pedestrianTurnOrdinal, double pedestrianDirectionLat, double pedestrianDirectionLon, int exitNum,
                      int totalTime, SingleLaneInfo[] lanes)
   {
@@ -123,7 +125,8 @@ public class RoutingInfo
     this.targetUnits = units;
     this.turnUnits = turnSuffix;
     this.distToTurn = distTurn;
-    this.streetName = targetName;
+    this.currentStreet = currentStreet;
+    this.nextStreet = nextStreet;
     this.totalTimeInSeconds = totalTime;
     this.vehicleTurnDirection = VehicleTurnDirection.values()[vehicleTurnOrdinal];
     this.lanes = lanes;

@@ -146,6 +146,8 @@ namespace location
     // If there is something to pronounce the size of m_turnNotifications may be one or even more
     // depends on the number of notifications to prononce.
     vector<string> m_turnNotifications;
+    // Current street name.
+    string m_sourceName;
     // The next street name.
     string m_targetName;
 
