@@ -2,7 +2,7 @@
 
 #include "platform/settings.hpp"
 
-#include "coding/hex.hpp"
+#include "coding/base64.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
@@ -58,7 +58,7 @@ void QuerySaver::Serialize(string & data) const
     writer.Write(&size, kLengthTypeSize);
     writer.Write(query.c_str(), size);
   }
-  data = ToHex(&rawData[0], rawData.size());
+  data = base64::Encode(string(rawData.begin(), rawData.end()));
 }
 
 void QuerySaver::EmergencyReset()
@@ -70,18 +70,15 @@ void QuerySaver::EmergencyReset()
 void QuerySaver::Deserialize(string const & data)
 {
   string decodedData;
-  try
-  {
-   decodedData = FromHex(data);
-  }
-  catch (RootException const & ex)
+  decodedData = base64::Decode(data);
+  MemReader rawReader(decodedData.c_str(), decodedData.size());
+  ReaderSource<MemReader> reader(rawReader);
+
+  if (reader.Size() < kLengthTypeSize)
   {
     EmergencyReset();
     return;
   }
-  MemReader rawReader(decodedData.c_str(), decodedData.size());
-  ReaderSource<MemReader> reader(rawReader);
-
   TLength queriesCount;
   reader.Read(&queriesCount, kLengthTypeSize);
 

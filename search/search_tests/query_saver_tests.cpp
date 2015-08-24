@@ -77,8 +77,6 @@ UNIT_TEST(QuerySaverSerializerTest)
 
 UNIT_TEST(QuerySaverCorruptedStringTest)
 {
-  // We can't catch the ASEERT exception on the DEBUG build.
-  // So we check only valid HEX string case.
   QuerySaver saver;
   string corrupted("DEADBEEF");
   saver.Deserialize(corrupted);
