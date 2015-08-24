@@ -41,6 +41,7 @@ public abstract class BasePedestrianDialogFragment extends BaseMwmDialogFragment
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
+            LikesManager.setRatingApplied(BasePedestrianDialogFragment.this.getClass(), true);
             ShareOption.PEDESTRIAN.share(getActivity());
             Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.FACEBOOK_PEDESTRIAN_SHARE);
           }

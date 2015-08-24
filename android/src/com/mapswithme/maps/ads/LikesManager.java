@@ -2,7 +2,6 @@ package com.mapswithme.maps.ads;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.format.DateUtils;
 import android.util.SparseArray;
 
 import com.mapswithme.maps.BuildConfig;
@@ -19,7 +18,6 @@ public enum LikesManager
   public static final String LAST_RATED_SESSION = "LastRatedSession";
   public static final String RATED_DIALOG = "RatedDialog";
   public static final String PEDESTRIAN_COUNT = "PedestrianCount";
-  public static final String PEDESTRIAN_LAST_STAMP = "LastPedestrianTimestamp";
 
   private static final int DIALOG_DELAY_DEFAULT = 30000;
   private static final int DIALOG_DELAY_SHORT = 5000;
@@ -69,7 +67,10 @@ public enum LikesManager
     sOldUsersMapping.put(50, LikeType.FACEBOOK_INVITES_OLD_USERS);
 
     if (MwmApplication.get().nativeGetInt(PEDESTRIAN_COUNT, 0) >= 3)
+    {
       sOldUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
+      sNewUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
+    }
 
     sNewUsersMapping.put(3, LikeType.GPLAY_NEW_USERS);
     sNewUsersMapping.put(9, LikeType.FACEBOOK_INVITE_NEW_USERS);
@@ -107,11 +108,7 @@ public enum LikesManager
   public void onPedestrianBuilt()
   {
     final MwmApplication APP = MwmApplication.get();
-    final long lastTimeStamp = APP.nativeGetLong(PEDESTRIAN_LAST_STAMP, 0);
-    if (DateUtils.isToday(lastTimeStamp))
-      return;
 
-    APP.nativeSetLong(PEDESTRIAN_LAST_STAMP, System.currentTimeMillis());
     APP.nativeSetInt(PEDESTRIAN_COUNT, APP.nativeGetInt(PEDESTRIAN_COUNT, 0) + 1);
   }
 
