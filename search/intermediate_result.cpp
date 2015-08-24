@@ -1,4 +1,7 @@
+#ifndef OMIM_OS_LINUX
+// Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
 #include "3party/opening_hours/osm_time_range.hpp"
+#endif
 
 #include "intermediate_result.hpp"
 #include "geometry_utils.hpp"
@@ -149,8 +152,12 @@ PreResult2::PreResult2(m2::PointD const & pt, string const & str, uint32_t type)
 void PreResult2::ProcessMetadata(feature::Metadata const & meta)
 {
   m_metadata.m_cuisine = meta.Get(feature::Metadata::FMD_CUISINE);
+
+#ifndef OMIM_OS_LINUX
+  // Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
   m_metadata.m_isClosed =
-      OSMTimeRange(meta.Get(feature::Metadata::FMD_OPEN_HOURS))(time(nullptr)).IsClosed();
+  OSMTimeRange(meta.Get(feature::Metadata::FMD_OPEN_HOURS))(time(nullptr)).IsClosed();
+#endif
 
   m_metadata.m_stars = 0;
   strings::to_int(meta.Get(feature::Metadata::FMD_STARS), m_metadata.m_stars);
