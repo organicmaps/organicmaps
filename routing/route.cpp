@@ -123,11 +123,11 @@ uint32_t Route::GetCurrentTimeToEndSec() const
   };
 
   ASSERT_LESS_OR_EQUAL(m_times[idx].first, poly.GetSize(), ());
-  double const dist = distFn(idx > 0 ? m_times[idx - 1].first : 0, m_times[idx].first + 1);
+  double const dist = distFn(idx > 0 ? m_times[idx - 1].first : 0, m_times[idx].first);
 
   if (!my::AlmostEqualULPs(dist, 0.))
   {
-    double const distRemain = distFn(m_poly.GetCurrentIter().m_ind, m_times[idx].first + 1) -
+    double const distRemain = distFn(m_poly.GetCurrentIter().m_ind, m_times[idx].first) -
                         MercatorBounds::DistanceOnEarth(m_poly.GetCurrentIter().m_pt, poly.GetPoint(m_poly.GetCurrentIter().m_ind));
     return (uint32_t)((GetTotalTimeSec() - (*it).second) + (double)time * (distRemain / dist));
   }
