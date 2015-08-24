@@ -87,7 +87,7 @@ public class Framework
 
   public native static MapObject nativeGetMapObjectForPoint(double lat, double lon);
 
-  public native static void nativeConnectBalloonListeners(OnBalloonListener listener);
+  public native static void nativeSetBalloonListener(OnBalloonListener listener);
 
   public native static void nativeRemoveBalloonListener();
 

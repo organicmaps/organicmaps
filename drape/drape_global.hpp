@@ -14,7 +14,7 @@ enum TextureFormat
   UNSPECIFIED
 };
 
-uint8_t GetBytesPerPixel(TextureFormat format)
+inline uint8_t GetBytesPerPixel(TextureFormat format)
 {
   uint8_t result = 0;
   switch (format)
