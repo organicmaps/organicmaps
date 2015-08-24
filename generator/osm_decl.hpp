@@ -3,8 +3,13 @@
 #include "base/assert.hpp"
 #include "base/std_serialization.hpp"
 
+#include "coding/reader.hpp"
+#include "coding/varint.hpp"
+#include "coding/writer.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
+#include "std/limits.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -49,22 +54,37 @@ struct WayElement
       for_each(nodes.rbegin(), nodes.rend(), ref(toDo));
   }
 
-  template <class TArchive>
-  void Write(TArchive & ar) const
+  template <class TWriter>
+  void Write(TWriter & writer) const
   {
-    ar << nodes;
+    uint64_t count = nodes.size();
+    WriteVarUint(writer, count);
+    for (uint64_t e : nodes)
+      WriteVarUint(writer, e);
   }
 
-  template <class TArchive>
-  void Read(TArchive & ar)
+  template <class TReader>
+  void Read(TReader & reader)
   {
-    ar >> nodes;
+    ReaderSource<MemReader> r(reader);
+    uint64_t count = ReadVarUint<uint64_t>(r);
+    nodes.resize(count);
+    for (uint64_t & e : nodes)
+      e = ReadVarUint<uint64_t>(r);
   }
 
   string ToString() const
   {
     stringstream ss;
     ss << nodes.size() << " " << m_wayOsmId;
+    return ss.str();
+  }
+
+  string Dump() const
+  {
+    stringstream ss;
+    for (auto const & e : nodes)
+      ss << e << ";";
     return ss.str();
   }
 };
@@ -104,22 +124,104 @@ public:
     tags.swap(rhs.tags);
   }
 
-  template <class TArchive>
-  void Write(TArchive & ar) const
+  template <class TWriter>
+  void Write(TWriter & writer) const
   {
-    ar << nodes << ways << tags;
+    auto StringWriter = [&writer, this](string const & str)
+    {
+      CHECK_LESS(str.size(), numeric_limits<uint16_t>::max(),
+                 ("Can't store string greater then 65535 bytes", Dump()));
+      uint16_t sz = static_cast<uint16_t>(str.size());
+      writer.Write(&sz, sizeof(sz));
+      writer.Write(str.data(), sz);
+    };
+
+    auto MembersWriter = [&writer, &StringWriter](TMembers const & members)
+    {
+      uint64_t count = members.size();
+      WriteVarUint(writer, count);
+      for (auto const & e : members)
+      {
+        // write id
+        WriteVarUint(writer, e.first);
+        // write role
+        StringWriter(e.second);
+      }
+    };
+
+    MembersWriter(nodes);
+    MembersWriter(ways);
+
+    uint64_t count = tags.size();
+    WriteVarUint(writer, count);
+    for (auto const & e : tags)
+    {
+      // write key
+      StringWriter(e.first);
+      // write value
+      StringWriter(e.second);
+    }
   }
 
-  template <class TArchive>
-  void Read(TArchive & ar)
+  template <class TReader>
+  void Read(TReader & reader)
   {
-    ar >> nodes >> ways >> tags;
+    ReaderSource<TReader> r(reader);
+
+    auto StringReader = [&r](string & str)
+    {
+      uint16_t sz = 0;
+      r.Read(&sz, sizeof(sz));
+      str.resize(sz);
+      r.Read(&str[0], sz);
+    };
+
+    auto MembersReader = [&r, &StringReader](TMembers & members)
+    {
+      uint64_t count = ReadVarUint<uint64_t>(r);
+      members.resize(count);
+      for (auto & e : members)
+      {
+        // decode id
+        e.first = ReadVarUint<uint64_t>(r);
+        // decode role
+        StringReader(e.second);
+      }
+    };
+
+    MembersReader(nodes);
+    MembersReader(ways);
+
+    // decode tags
+    tags.clear();
+    uint64_t count = ReadVarUint<uint64_t>(r);
+    for (uint64_t i = 0; i < count; ++i)
+    {
+      pair<string, string> kv;
+      // decode key
+      StringReader(kv.first);
+      // decode value
+      StringReader(kv.second);
+      tags.emplace(kv);
+    }
   }
 
   string ToString() const
   {
     stringstream ss;
     ss << nodes.size() << " " << ways.size() << " " << tags.size();
+    return ss.str();
+  }
+
+  string Dump() const
+  {
+    stringstream ss;
+    for (auto const & e : nodes)
+      ss << "n{" << e.first << "," << e.second << "};";
+    for (auto const & e : ways)
+      ss << "w{" << e.first << "," << e.second << "};";
+    for (auto const & e : tags)
+      ss << "t{" << e.first << "," << e.second << "};";
     return ss.str();
   }
 

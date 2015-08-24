@@ -111,8 +111,8 @@ class IntermediateData
 public:
   IntermediateData(TNodesHolder & nodes, string const & dir)
   : m_nodes(nodes)
-  , m_ways(my::JoinFoldersToPath(dir, WAYS_FILE))
-  , m_relations(my::JoinFoldersToPath(dir, RELATIONS_FILE))
+  , m_ways(my::JoinFoldersToPath(dir, WAYS_FILE), true)
+  , m_relations(my::JoinFoldersToPath(dir, RELATIONS_FILE), true)
   , m_nodeToRelations(my::JoinFoldersToPath(dir, string(NODES_FILE) + ID2REL_EXT))
   , m_wayToRelations(my::JoinFoldersToPath(dir, string(WAYS_FILE) + ID2REL_EXT))
   {

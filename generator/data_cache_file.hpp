@@ -9,6 +9,7 @@
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/deque.hpp"
 #include "std/exception.hpp"
 #include "std/limits.hpp"
 #include "std/utility.hpp"
@@ -35,6 +36,7 @@ class IndexFile
 
   TContainer m_elements;
   TFile m_file;
+  uint64_t m_fileSize = 0;
 
   static size_t constexpr kFlushCount = 1024;
 
@@ -71,23 +73,23 @@ public:
   void ReadAll()
   {
     m_elements.clear();
-    uint64_t const fileSize = m_file.Size();
-    if (fileSize == 0)
+    m_fileSize = m_file.Size();
+    if (m_fileSize == 0)
       return;
 
     LOG_SHORT(LINFO, ("Offsets reading is started for file ", GetFileName()));
-    CHECK_EQUAL(0, fileSize % sizeof(TElement), ("Damaged file."));
+    CHECK_EQUAL(0, m_fileSize % sizeof(TElement), ("Damaged file."));
 
     try
     {
-      m_elements.resize(CheckedCast(fileSize / sizeof(TElement)));
+      m_elements.resize(CheckedCast(m_fileSize / sizeof(TElement)));
     }
     catch (exception const &)  // bad_alloc
     {
       LOG(LCRITICAL, ("Insufficient memory for required offset map"));
     }
 
-    m_file.Read(0, &m_elements[0], CheckedCast(fileSize));
+    m_file.Read(0, &m_elements[0], CheckedCast(m_fileSize));
 
     sort(m_elements.begin(), m_elements.end(), ElementComparator());
 
@@ -102,12 +104,12 @@ public:
     m_elements.push_back(make_pair(k, v));
   }
 
-  bool GetValueByKey(TKey k, TValue & v) const
+  bool GetValueByKey(TKey key, TValue & value) const
   {
-    auto it = lower_bound(m_elements.begin(), m_elements.end(), k, ElementComparator());
-    if ((it != m_elements.end()) && ((*it).first == k))
+    auto it = lower_bound(m_elements.begin(), m_elements.end(), key, ElementComparator());
+    if ((it != m_elements.end()) && ((*it).first == key))
     {
-      v = (*it).second;
+      value = (*it).second;
       return true;
     }
     return false;
@@ -132,41 +134,95 @@ class OSMElementCache
 {
 public:
   using TKey = uint64_t;
-  using TStream = typename conditional<TMode == EMode::Write, FileWriterStream, FileReaderStream>::type;
+  using TStorage = typename conditional<TMode == EMode::Write, FileWriter, FileReader>::type;
   using TOffsetFile = typename conditional<TMode == EMode::Write, FileWriter, FileReader>::type;
 
 protected:
-  TStream m_stream;
+  using TBuffer = vector<uint8_t>;
+  TStorage m_storage;
   detail::IndexFile<TOffsetFile, uint64_t> m_offsets;
   string m_name;
+  TBuffer m_data;
+  bool m_preload = false;
 
 public:
-  OSMElementCache(string const & name) : m_stream(name), m_offsets(name + OFFSET_EXT), m_name(name) {}
-
-  template <class TValue>
-  void Write(TKey id, TValue const & value)
+  OSMElementCache(string const & name, bool preload = false)
+  : m_storage(name)
+  , m_offsets(name + OFFSET_EXT)
+  , m_name(name)
+  , m_preload(preload)
   {
-    m_offsets.Add(id, m_stream.Pos());
-    value.Write(m_stream);
-    std::ofstream ff((m_name+".wlog").c_str(), std::ios::binary | std::ios::app);
-    ff << id << " " << value.ToString() << std::endl;
+    InitStorage<TMode>();
   }
 
-  template <class TValue>
-  bool Read(TKey id, TValue & value)
+  template <EMode T>
+  typename enable_if<T == EMode::Write, void>::type InitStorage() {}
+
+  template <EMode T>
+  typename enable_if<T == EMode::Read, void>::type InitStorage()
+  {
+    if (m_preload)
+    {
+      size_t sz = m_storage.Size();
+      m_data.resize(sz);
+      m_storage.Read(0, m_data.data(), sz);
+    }
+  }
+
+  template <class TValue, EMode T = TMode>
+  typename enable_if<T == EMode::Write, void>::type Write(TKey id, TValue const & value)
+  {
+    m_offsets.Add(id, m_storage.Pos());
+    m_data.clear();
+    MemWriter<TBuffer> w(m_data);
+
+    value.Write(w);
+
+    // write buffer
+    ASSERT_LESS(m_data.size(), numeric_limits<uint32_t>::max(), ());
+    uint32_t sz = static_cast<uint32_t>(m_data.size());
+    m_storage.Write(&sz, sizeof(sz));
+    m_storage.Write(m_data.data(), sz * sizeof(TBuffer::value_type));
+
+//    std::ofstream ff((m_name+".wlog").c_str(), std::ios::binary | std::ios::app);
+//    ff << id << " " << value.ToString() << std::endl;
+//    if (id == 1942060)
+//      ff << id << " " << value.Dump() << std::endl;
+  }
+
+  template <class TValue, EMode T = TMode>
+  typename enable_if<T == EMode::Read, bool>::type Read(TKey id, TValue & value)
   {
     uint64_t pos;
     if (m_offsets.GetValueByKey(id, pos))
     {
-      m_stream.Seek(pos);
-      value.Read(m_stream);
-      std::ofstream ff((m_name+".rlog").c_str(), std::ios::binary | std::ios::app);
-      ff << id << " " << value.ToString() << std::endl;
+      uint32_t valueSize = m_preload ? *((uint32_t *)(m_data.data() + pos)) : 0;
+      size_t offset = pos + sizeof(uint32_t);
+
+      if (!m_preload)
+      {
+        // in case not in memory work we read buffer
+        m_storage.Read(pos, &valueSize, sizeof(valueSize));
+        m_data.resize(valueSize);
+        m_storage.Read(pos + sizeof(valueSize), m_data.data(), valueSize);
+        offset = 0;
+      }
+
+      // prepare correct reader
+      MemReader reader(m_data.data() + offset, valueSize);
+
+      value.Read(reader);
+
+
+//      std::ofstream ff((m_name+".rlog").c_str(), std::ios::binary | std::ios::app);
+//      ff << id << " " << value.ToString() << std::endl;
+//      if (id == 1942060)
+//        ff << id << " " << value.Dump() << std::endl;
       return true;
     }
     else
     {
-      LOG_SHORT(LWARNING, ("Can't find offset in file ", m_offsets.GetFileName(), " by id ", id));
+      LOG_SHORT(LWARNING, ("Can't find offset in file", m_offsets.GetFileName(), "by id", id));
       return false;
     }
   }
