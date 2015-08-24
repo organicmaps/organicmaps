@@ -8,6 +8,8 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
+
 using namespace location;
 
 namespace
@@ -30,7 +32,8 @@ RoutingSession::RoutingSession()
     : m_router(nullptr),
       m_route(string()),
       m_state(RoutingNotActive),
-      m_endPoint(m2::PointD::Zero())
+      m_endPoint(m2::PointD::Zero()),
+      m_passedDistanceOnRouteMeters(0.0)
 {
 }
 
@@ -106,6 +109,8 @@ void RoutingSession::Reset()
   RemoveRouteImpl();
   m_router->ClearState();
   m_turnsSound.Reset();
+
+  m_passedDistanceOnRouteMeters = 0.0;
 }
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const & position,
@@ -137,7 +142,14 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
     m_lastDistance = 0.0;
 
     if (m_route.IsCurrentOnEnd())
+    {
+      m_passedDistanceOnRouteMeters += m_route.GetTotalDistanceMeters();
       m_state = RouteFinished;
+
+      alohalytics::TStringMap params = {{"router", m_route.GetRouterId()},
+                                        {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)}};
+      alohalytics::LogEvent("RouteTracking_ReachedDestination", params);
+    }
     else
       m_state = OnRoute;
     m_lastGoodPosition = position;
@@ -159,7 +171,10 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
     }
 
     if (m_moveAwayCounter > kOnRouteMissedCount)
+    {
+      m_passedDistanceOnRouteMeters += m_route.GetCurrentDistanceFromBeginMeters();
       m_state = RouteNeedRebuild;
+    }
   }
 
   return m_state;

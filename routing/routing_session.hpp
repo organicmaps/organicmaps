@@ -135,5 +135,8 @@ private:
   turns::sound::TurnsSound m_turnsSound;
 
   RoutingSettings m_routingSettings;
+
+  // Passed distance on route including reroutes
+  double m_passedDistanceOnRouteMeters;
 };
 }  // namespace routing
