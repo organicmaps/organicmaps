@@ -25,11 +25,14 @@ public:
     RESULT_SUGGEST_FROM_FEATURE
   };
 
+  /// Metadata for search results. Considered valid if m_resultType == RESULT_FEATURE.
   struct Metadata
   {
-    string cuisine;
-    bool isClosed;
-    int stars;
+    Metadata() : m_isClosed(false), m_stars(0) {}
+
+    string m_cuisine;  // Valid only if not empty. Used for restaurants.
+    bool m_isClosed;   // Valid for any result.
+    int m_stars;       // Valid only if not 0. Used for hotels.
   };
 
   /// For RESULT_FEATURE.
@@ -54,11 +57,11 @@ public:
   char const * GetString() const { return m_str.c_str(); }
   char const * GetRegionString() const { return m_region.c_str(); }
   char const * GetFeatureType() const { return m_type.c_str(); }
-  char const * GetCuisine() const { return m_metadata.cuisine.c_str(); }
+  char const * GetCuisine() const { return m_metadata.m_cuisine.c_str(); }
   //@}
 
-  bool IsClosed() const { return m_metadata.isClosed; }
-  uint8_t GetStarsCount() const { return m_metadata.stars; }
+  bool IsClosed() const { return m_metadata.m_isClosed; }
+  int GetStarsCount() const { return m_metadata.m_stars; }
 
   bool IsSuggest() const;
   bool HasPoint() const;

@@ -148,13 +148,13 @@ PreResult2::PreResult2(m2::PointD const & pt, string const & str, uint32_t type)
 
 void PreResult2::ProcessMetadata(feature::Metadata const & meta)
 {
-  m_metadata.cuisine = meta.Get(feature::Metadata::FMD_CUISINE);
-  m_metadata.isClosed =
+  m_metadata.m_cuisine = meta.Get(feature::Metadata::FMD_CUISINE);
+  m_metadata.m_isClosed =
       OSMTimeRange(meta.Get(feature::Metadata::FMD_OPEN_HOURS))(time(nullptr)).IsClosed();
 
-  m_metadata.stars = 0;
-  strings::to_int(meta.Get(feature::Metadata::FMD_STARS), m_metadata.stars);
-  m_metadata.stars = my::clamp(m_metadata.stars, 0, 5);
+  m_metadata.m_stars = 0;
+  strings::to_int(meta.Get(feature::Metadata::FMD_STARS), m_metadata.m_stars);
+  m_metadata.m_stars = my::clamp(m_metadata.m_stars, 0, 5);
 }
 
 namespace
