@@ -108,12 +108,12 @@ class IntermediateData
   }
 
 public:
-  IntermediateData(TNodesHolder & nodes, string const & dir)
+  IntermediateData(TNodesHolder & nodes, feature::GenerateInfo & info)
   : m_nodes(nodes)
-  , m_ways(my::JoinFoldersToPath(dir, WAYS_FILE), true)
-  , m_relations(my::JoinFoldersToPath(dir, RELATIONS_FILE), true)
-  , m_nodeToRelations(my::JoinFoldersToPath(dir, string(NODES_FILE) + ID2REL_EXT))
-  , m_wayToRelations(my::JoinFoldersToPath(dir, string(WAYS_FILE) + ID2REL_EXT))
+  , m_ways(info.GetIntermediateFileName(WAYS_FILE, ""), info.m_preloadCache)
+  , m_relations(info.GetIntermediateFileName(RELATIONS_FILE, ""), info.m_preloadCache)
+  , m_nodeToRelations(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT))
+  , m_wayToRelations(info.GetIntermediateFileName(WAYS_FILE,ID2REL_EXT))
   {
   }
 
@@ -478,7 +478,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
 
     using TDataCache = IntermediateData<TNodesHolder, cache::EMode::Read>;
-    TDataCache cache(nodes, info.m_intermediateDir);
+    TDataCache cache(nodes, info);
     cache.LoadIndex();
 
     MainFeaturesEmitter bucketer(info);
@@ -524,7 +524,7 @@ bool GenerateIntermediateDataImpl(feature::GenerateInfo & info)
   {
     TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
     using TDataCache = IntermediateData<TNodesHolder, cache::EMode::Write>;
-    TDataCache cache(nodes, info.m_intermediateDir);
+    TDataCache cache(nodes, info);
 
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
 

@@ -47,6 +47,7 @@ DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry an
 DEFINE_bool(generate_index, false, "4rd pass - generate index");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index");
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files");
+DEFINE_bool(preload_cache, false, "Preload all ways and relations cache");
 DEFINE_string(node_storage, "map", "Type of storage for intermediate points representation. Available: raw, map, mem");
 DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
 DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
@@ -85,7 +86,6 @@ int main(int argc, char ** argv)
   string const path =
       FLAGS_data_path.empty() ? pl.WritableDir() : my::AddSlashIfNeeded(FLAGS_data_path);
 
-
   feature::GenerateInfo genInfo;
   genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty() ? path
                             : my::AddSlashIfNeeded(FLAGS_intermediate_data_path);
@@ -101,6 +101,7 @@ int main(int argc, char ** argv)
 
   genInfo.m_osmFileName = FLAGS_osm_file_name;
   genInfo.m_failOnCoasts = FLAGS_fail_on_coasts;
+  genInfo.m_preloadCache = FLAGS_preload_cache;
 
   if (!FLAGS_node_storage.empty())
     genInfo.SetNodeStorageType(FLAGS_node_storage);

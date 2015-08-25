@@ -44,19 +44,16 @@ struct GenerateInfo
 
   vector<string> m_bucketNames;
 
-  bool m_createWorld;
-  bool m_splitByPolygons;
-  bool m_makeCoasts;
-  bool m_emitCoasts;
-  bool m_genAddresses;
-  bool m_failOnCoasts;
+  bool m_createWorld = false;
+  bool m_splitByPolygons = false;
+  bool m_makeCoasts = false;
+  bool m_emitCoasts = false;
+  bool m_genAddresses = false;
+  bool m_failOnCoasts = false;
+  bool m_preloadCache = false;
 
 
-  GenerateInfo()
-    : m_createWorld(false), m_splitByPolygons(false),
-      m_makeCoasts(false), m_emitCoasts(false), m_genAddresses(false)
-  {
-  }
+  GenerateInfo() = default;
 
   void SetOsmFileType(string const & type)
   {
