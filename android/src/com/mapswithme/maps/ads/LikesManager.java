@@ -55,7 +55,8 @@ public enum LikesManager
 
   static
   {
-    sOldUsersMapping.put(1, LikeType.FACEBOOK_PEDESTRIAN_FIRST_OLD_USERS);
+    // TODO uncomment pedestrian likers after temp 5.0 release
+//    sOldUsersMapping.put(1, LikeType.FACEBOOK_PEDESTRIAN_FIRST_OLD_USERS);
     sOldUsersMapping.put(4, LikeType.GPLAY_OLD_USERS);
     //    sOldUsersMapping.put(4, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(6, LikeType.FACEBOOK_INVITES_OLD_USERS);
@@ -66,11 +67,11 @@ public enum LikesManager
     //    sOldUsersMapping.put(44, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(50, LikeType.FACEBOOK_INVITES_OLD_USERS);
 
-    if (MwmApplication.get().nativeGetInt(PEDESTRIAN_COUNT, 0) >= 3)
-    {
-      sOldUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
-      sNewUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
-    }
+//    if (MwmApplication.get().nativeGetInt(PEDESTRIAN_COUNT, 0) >= 3)
+//    {
+//      sOldUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
+//      sNewUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
+//    }
 
     sNewUsersMapping.put(3, LikeType.GPLAY_NEW_USERS);
     sNewUsersMapping.put(9, LikeType.FACEBOOK_INVITE_NEW_USERS);
