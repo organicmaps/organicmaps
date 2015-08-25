@@ -153,9 +153,9 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
               return lhs.m_index < rhs.m_index;
             });
 
-  ASSERT_GREATER_OR_EQUAL((*it).m_index - 1, 0, ());
+  ASSERT_GREATER_OR_EQUAL((*it).m_index, 0, ());
 
-  size_t const segIdx = (*it).m_index - 1;
+  size_t const segIdx = (*it).m_index;
   turn = (*it);
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
                                              m_poly.GetIterToIndex(segIdx));
