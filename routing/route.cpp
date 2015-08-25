@@ -97,9 +97,8 @@ uint32_t Route::GetTotalTimeSec() const
 
 uint32_t Route::GetCurrentTimeToEndSec() const
 {
-  auto const & poly = m_poly.GetPolyline();
-  size_t const polySz = poly.GetSize();
-  if (m_times.empty() || poly.GetSize() == 0)
+  size_t const polySz = m_poly.GetPolyline().GetSize();
+  if (m_times.empty() || polySz == 0)
   {
     ASSERT(!m_times.empty(), ());
     ASSERT(polySz != 0, ());
@@ -122,13 +121,14 @@ uint32_t Route::GetCurrentTimeToEndSec() const
     return m_poly.GetDistanceM(m_poly.GetIterToIndex(start), m_poly.GetIterToIndex(end));
   };
 
-  ASSERT_LESS_OR_EQUAL(m_times[idx].first, poly.GetSize(), ());
+  ASSERT_LESS_OR_EQUAL(m_times[idx].first, polySz, ());
   double const dist = distFn(idx > 0 ? m_times[idx - 1].first : 0, m_times[idx].first);
 
   if (!my::AlmostEqualULPs(dist, 0.))
   {
     double const distRemain = distFn(m_poly.GetCurrentIter().m_ind, m_times[idx].first) -
-                        MercatorBounds::DistanceOnEarth(m_poly.GetCurrentIter().m_pt, poly.GetPoint(m_poly.GetCurrentIter().m_ind));
+                                     MercatorBounds::DistanceOnEarth(m_poly.GetCurrentIter().m_pt,
+                                     m_poly.GetPolyline().GetPoint(m_poly.GetCurrentIter().m_ind));
     return (uint32_t)((GetTotalTimeSec() - (*it).second) + (double)time * (distRemain / dist));
   }
   else
