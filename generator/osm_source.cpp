@@ -8,7 +8,7 @@
 #include "generator/osm_source.hpp"
 #include "generator/polygonizer.hpp"
 #include "generator/world_map_generator.hpp"
-#include "generator/xml_element.hpp"
+#include "generator/osm_element.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/mercator.hpp"

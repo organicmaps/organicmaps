@@ -132,4 +132,3 @@ struct XMLElement
 };
 
 string DebugPrint(XMLElement const & e);
-

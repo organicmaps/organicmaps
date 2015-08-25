@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "generator/xml_element.hpp"
+#include "generator/osm_element.hpp"
 
 class XMLSource
 {

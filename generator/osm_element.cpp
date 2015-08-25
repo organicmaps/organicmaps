@@ -1,4 +1,4 @@
-#include "generator/xml_element.hpp"
+#include "generator/osm_element.hpp"
 
 #include "coding/parse_xml.hpp"
 

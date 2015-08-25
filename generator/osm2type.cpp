@@ -1,6 +1,6 @@
 #include "generator/osm2type.hpp"
 #include "generator/osm2meta.hpp"
-#include "generator/xml_element.hpp"
+#include "generator/osm_element.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_visibility.hpp"

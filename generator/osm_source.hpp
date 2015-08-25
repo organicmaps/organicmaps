@@ -1,7 +1,7 @@
 #pragma once
 
 #include "generator/generate_info.hpp"
-#include "generator/xml_element.hpp"
+#include "generator/osm_element.hpp"
 
 #include "std/function.hpp"
 #include "std/iostream.hpp"

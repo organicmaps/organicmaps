@@ -1,7 +1,7 @@
 #pragma once
 
 #include "generator/osm2type.hpp"
-#include "generator/xml_element.hpp"
+#include "generator/osm_element.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/ways_merger.hpp"
 
