@@ -8,7 +8,7 @@
 
 #include "testing/testing.hpp"
 
-#include "generator/osm_decl.hpp"
+#include "generator/intermediate_elements.hpp"
 
 
 UNIT_TEST(Intermediate_Data_empty_way_element_save_load_test)

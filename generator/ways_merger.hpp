@@ -1,5 +1,5 @@
 #pragma once
-#include "generator/osm_decl.hpp"
+#include "generator/intermediate_elements.hpp"
 
 #include "geometry/point2d.hpp"
 

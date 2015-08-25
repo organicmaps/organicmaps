@@ -1,7 +1,7 @@
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/intermediate_data.hpp"
-#include "generator/osm_decl.hpp"
+#include "generator/intermediate_elements.hpp"
 #include "generator/osm_translator.hpp"
 #include "generator/osm_o5m_source.hpp"
 #include "generator/osm_source.hpp"
