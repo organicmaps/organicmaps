@@ -3,8 +3,6 @@
 #include "generator/osm_decl.hpp"
 
 #include "coding/file_name_utils.hpp"
-#include "coding/file_reader_stream.hpp"
-#include "coding/file_writer_stream.hpp"
 
 #include "base/logging.hpp"
 
@@ -161,12 +159,11 @@ public:
   template <EMode T>
   typename enable_if<T == EMode::Read, void>::type InitStorage()
   {
-    if (m_preload)
-    {
-      size_t sz = m_storage.Size();
-      m_data.resize(sz);
-      m_storage.Read(0, m_data.data(), sz);
-    }
+    if (!m_preload)
+      return;
+    size_t sz = m_storage.Size();
+    m_data.resize(sz);
+    m_storage.Read(0, m_data.data(), sz);
   }
 
   template <class TValue, EMode T = TMode>
@@ -183,48 +180,33 @@ public:
     uint32_t sz = static_cast<uint32_t>(m_data.size());
     m_storage.Write(&sz, sizeof(sz));
     m_storage.Write(m_data.data(), sz * sizeof(TBuffer::value_type));
-
-//    std::ofstream ff((m_name+".wlog").c_str(), std::ios::binary | std::ios::app);
-//    ff << id << " " << value.ToString() << std::endl;
-//    if (id == 1942060)
-//      ff << id << " " << value.Dump() << std::endl;
   }
 
   template <class TValue, EMode T = TMode>
   typename enable_if<T == EMode::Read, bool>::type Read(TKey id, TValue & value)
   {
-    uint64_t pos;
-    if (m_offsets.GetValueByKey(id, pos))
-    {
-      uint32_t valueSize = m_preload ? *((uint32_t *)(m_data.data() + pos)) : 0;
-      size_t offset = pos + sizeof(uint32_t);
-
-      if (!m_preload)
-      {
-        // in case not in memory work we read buffer
-        m_storage.Read(pos, &valueSize, sizeof(valueSize));
-        m_data.resize(valueSize);
-        m_storage.Read(pos + sizeof(valueSize), m_data.data(), valueSize);
-        offset = 0;
-      }
-
-      // prepare correct reader
-      MemReader reader(m_data.data() + offset, valueSize);
-
-      value.Read(reader);
-
-
-//      std::ofstream ff((m_name+".rlog").c_str(), std::ios::binary | std::ios::app);
-//      ff << id << " " << value.ToString() << std::endl;
-//      if (id == 1942060)
-//        ff << id << " " << value.Dump() << std::endl;
-      return true;
-    }
-    else
+    uint64_t pos = 0;
+    if (!m_offsets.GetValueByKey(id, pos))
     {
       LOG_SHORT(LWARNING, ("Can't find offset in file", m_offsets.GetFileName(), "by id", id));
       return false;
     }
+
+    uint32_t valueSize = m_preload ? *(reinterpret_cast<uint32_t *>(m_data.data() + pos)) : 0;
+    size_t offset = pos + sizeof(uint32_t);
+
+    if (!m_preload)
+    {
+      // in case not-in-memory work we read buffer
+      m_storage.Read(pos, &valueSize, sizeof(valueSize));
+      m_data.resize(valueSize);
+      m_storage.Read(pos + sizeof(valueSize), m_data.data(), valueSize);
+      offset = 0;
+    }
+
+    MemReader reader(m_data.data() + offset, valueSize);
+    value.Read(reader);
+    return true;
   }
 
   inline void SaveOffsets() { m_offsets.WriteAll(); }
