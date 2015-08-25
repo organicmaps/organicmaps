@@ -73,6 +73,8 @@ public:
   double GetMercatorDistanceFromBegin() const;
 
   void GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
+  /// Returns turn after current.
+  void GetNextTurn(turns::TurnItem & turn) const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
 
@@ -101,6 +103,7 @@ private:
   /// Call this fucnction when geometry have changed.
   void Update();
   double GetPolySegAngle(size_t ind) const;
+  TTurns::const_iterator GetCurrentTurn() const;
 
 private:
   friend string DebugPrint(Route const & r);

@@ -136,6 +136,8 @@ namespace location
     string m_distToTurn;
     string m_turnUnitsSuffix;
     routing::turns::TurnDirection m_turn;
+    /// Turn after m_turn. NoTurn if there-is no turns after.
+    routing::turns::TurnDirection m_nextTurn;
     uint32_t m_exitNum;
     //@}
     int m_time;

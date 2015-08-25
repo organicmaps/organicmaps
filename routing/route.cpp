@@ -135,30 +135,42 @@ uint32_t Route::GetCurrentTimeToEndSec() const
     return (uint32_t)((GetTotalTimeSec() - (*it).second));
 }
 
+Route::TTurns::const_iterator Route::GetCurrentTurn() const
+{
+  ASSERT(!m_turns.empty(), ());
+
+  turns::TurnItem t;
+  t.m_index = static_cast<uint32_t>(m_poly.GetCurrentIter().m_ind);
+  return upper_bound(m_turns.cbegin(), m_turns.cend(), t,
+         [](turns::TurnItem const & lhs, turns::TurnItem const & rhs)
+         {
+           return lhs.m_index < rhs.m_index;
+         });
+}
+
 void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
 {
-  if (m_turns.empty())
+  auto it = GetCurrentTurn();
+  if (it == m_turns.end())
   {
-    ASSERT(!m_turns.empty(), ());
+    ASSERT(it != m_turns.end(), ());
     distanceToTurnMeters = 0;
     turn = turns::TurnItem();
     return;
   }
 
-  turns::TurnItem t;
-  t.m_index = static_cast<uint32_t>(m_poly.GetCurrentIter().m_ind);
-  auto it = upper_bound(m_turns.begin(), m_turns.end(), t,
-            [](turns::TurnItem const & lhs, turns::TurnItem const & rhs)
-            {
-              return lhs.m_index < rhs.m_index;
-            });
-
-  ASSERT_GREATER_OR_EQUAL((*it).m_index, 0, ());
-
   size_t const segIdx = (*it).m_index;
   turn = (*it);
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
                                              m_poly.GetIterToIndex(segIdx));
+}
+
+void Route::GetNextTurn(turns::TurnItem & turn) const
+{
+  auto it = GetCurrentTurn();
+  ASSERT(it != m_turns.end(), ());
+  ++it;
+  turn = it != m_turns.end() ? *it : turns::TurnItem();
 }
 
 void Route::GetCurrentDirectionPoint(m2::PointD & pt) const

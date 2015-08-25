@@ -202,10 +202,13 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
     double distanceToTurnMeters = 0.;
     turns::TurnItem turn;
+    turns::TurnItem nextTurn;
     m_route.GetCurrentTurn(distanceToTurnMeters, turn);
+    m_route.GetNextTurn(nextTurn);
 
     formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
     info.m_turn = turn.m_turn;
+    info.m_nextTurn = nextTurn.m_turn;
     info.m_exitNum = turn.m_exitNum;
     info.m_time = m_route.GetCurrentTimeToEndSec();
     info.m_sourceName = turn.m_sourceName;
