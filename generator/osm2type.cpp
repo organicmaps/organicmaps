@@ -63,7 +63,7 @@ namespace ftype
     }
 
     template <typename TResult, class ToDo>
-    TResult for_each_tag(XMLElement * p, ToDo toDo)
+    TResult for_each_tag(OsmElement * p, ToDo toDo)
     {
       TResult res = TResult();
       for (auto & e : p->m_tags)
@@ -83,7 +83,7 @@ namespace ftype
     }
 
     template <typename TResult, class ToDo>
-    TResult for_each_tag_ex(XMLElement * p, ToDo toDo, set<int> & skipTags)
+    TResult for_each_tag_ex(OsmElement * p, ToDo toDo, set<int> & skipTags)
     {
       int id = 0;
       return for_each_tag<TResult>(p, [&](string const & k, string const & v)
@@ -307,10 +307,10 @@ namespace ftype
         return false;
       }
 
-      XMLElement * m_element;
+      OsmElement * m_element;
 
     public:
-      TagProcessor(XMLElement * elem) : m_element(elem) {}
+      TagProcessor(OsmElement * elem) : m_element(elem) {}
 
       template <typename FuncT = void()>
       void ApplyRules(initializer_list<Rule<FuncT>> const & rules) const
@@ -342,14 +342,14 @@ namespace ftype
     };
   }
 
-  size_t ProcessCommonParams(XMLElement * p, FeatureParams & params)
+  size_t ProcessCommonParams(OsmElement * p, FeatureParams & params)
   {
     size_t count;
     for_each_tag<bool>(p, do_find_name(count, params));
     return count;
   }
 
-  void AddLayers(XMLElement * p)
+  void AddLayers(OsmElement * p)
   {
     bool hasLayer = false;
     char const * layer = nullptr;
@@ -423,7 +423,7 @@ namespace ftype
     }
   };
 
-  void GetNameAndType(XMLElement * p, FeatureParams & params)
+  void GetNameAndType(OsmElement * p, FeatureParams & params)
   {
     /// Process synonym tags to match existing classificator types.
     /// @todo We are planning to rewrite classificator <-> tags matching.

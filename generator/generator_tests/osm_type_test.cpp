@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "generator/xml_element.hpp"
+#include "generator/osm_element.hpp"
 #include "generator/osm2type.hpp"
 
 #include "routing/car_model.hpp"
@@ -14,7 +14,7 @@
 
 namespace
 {
-  void FillXmlElement(char const * arr[][2], size_t count, XMLElement * p)
+  void FillXmlElement(char const * arr[][2], size_t count, OsmElement * p)
   {
     for (size_t i = 0; i < count; ++i)
       p->AddTag(arr[i][0], arr[i][1]);
@@ -39,7 +39,7 @@ UNIT_TEST(OsmType_SkipDummy)
     { "ref", "E51" }
   };
 
-  XMLElement e;
+  OsmElement e;
   FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
   FeatureParams params;
@@ -61,7 +61,7 @@ namespace
 
   void DumpParsedTypes(char const * arr[][2], size_t count)
   {
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, count, &e);
 
     FeatureParams params;
@@ -118,7 +118,7 @@ UNIT_TEST(OsmType_Combined)
     { "name", "Гимназия 15" }
   };
 
-  XMLElement e;
+  OsmElement e;
   FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
   FeatureParams params;
@@ -147,7 +147,7 @@ UNIT_TEST(OsmType_Address)
     { "uir_adr:ADRESA_KOD", "21717036" }
   };
 
-  XMLElement e;
+  OsmElement e;
   FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
   FeatureParams params;
@@ -173,7 +173,7 @@ UNIT_TEST(OsmType_PlaceState)
     { "ref", "CA" }
   };
 
-  XMLElement e;
+  OsmElement e;
   FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
   FeatureParams params;
@@ -221,7 +221,7 @@ UNIT_TEST(OsmType_AlabamaRiver)
     { "type", "route" }
   };
 
-  XMLElement e;
+  OsmElement e;
   FillXmlElement(arr1, ARRAY_SIZE(arr1), &e);
   FillXmlElement(arr2, ARRAY_SIZE(arr2), &e);
   FillXmlElement(arr3, ARRAY_SIZE(arr3), &e);
@@ -245,7 +245,7 @@ UNIT_TEST(OsmType_Synonyms)
       { "hotel", "yes" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -272,7 +272,7 @@ UNIT_TEST(OsmType_Synonyms)
       { "atm", "yes" }
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -290,7 +290,7 @@ UNIT_TEST(OsmType_Synonyms)
       { "atm", "no" }
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -310,7 +310,7 @@ UNIT_TEST(OsmType_Capital)
       { "place", "city" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -327,7 +327,7 @@ UNIT_TEST(OsmType_Capital)
       { "place", "city" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -346,7 +346,7 @@ UNIT_TEST(OsmType_Capital)
       { "place", "city" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -366,7 +366,7 @@ UNIT_TEST(OsmType_Route)
       { "ref", "I 95" }
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -383,7 +383,7 @@ UNIT_TEST(OsmType_Route)
       { "ref", "route" }
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -404,7 +404,7 @@ UNIT_TEST(OsmType_Layer)
       { "layer", "2" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -422,7 +422,7 @@ UNIT_TEST(OsmType_Layer)
       { "layer", "-1" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -439,7 +439,7 @@ UNIT_TEST(OsmType_Layer)
       { "bridge", "yes" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -456,7 +456,7 @@ UNIT_TEST(OsmType_Layer)
       { "tunnel", "yes" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -472,7 +472,7 @@ UNIT_TEST(OsmType_Layer)
       { "highway", "living_street" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -492,7 +492,7 @@ UNIT_TEST(OsmType_Amenity)
       { "fuel", "wood" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -516,7 +516,7 @@ UNIT_TEST(OsmType_Hwtag)
       { "oneway", "true" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -535,7 +535,7 @@ UNIT_TEST(OsmType_Hwtag)
         {"foot", "no"},
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -553,7 +553,7 @@ UNIT_TEST(OsmType_Hwtag)
         {"foot", "yes"}, {"highway", "primary"},
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -576,7 +576,7 @@ UNIT_TEST(OsmType_Ferry)
     { "route", "ferry" },
   };
 
-  XMLElement e;
+  OsmElement e;
   FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
   FeatureParams params;
@@ -606,7 +606,7 @@ UNIT_TEST(OsmType_Boundary)
     { "boundary", "administrative" },
   };
 
-  XMLElement e;
+  OsmElement e;
   FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
   FeatureParams params;
@@ -631,7 +631,7 @@ UNIT_TEST(OsmType_Dibrugarh)
     { "website", "http://www.hotelvishal.in" },
   };
 
-  XMLElement e;
+  OsmElement e;
   FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
   FeatureParams params;

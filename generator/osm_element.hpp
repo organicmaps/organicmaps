@@ -11,7 +11,7 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
-struct XMLElement
+struct OsmElement
 {
   enum class EntityType
   {
@@ -105,7 +105,7 @@ struct XMLElement
     return EntityType::Unknown;
   }
 
-  bool operator == (XMLElement const & e) const
+  bool operator == (OsmElement const & e) const
   {
     return (
             type == e.type
@@ -131,4 +131,5 @@ struct XMLElement
   }
 };
 
-string DebugPrint(XMLElement const & e);
+string DebugPrint(OsmElement const & e);
+

@@ -145,7 +145,7 @@ class OsmToFeatureTranslator
 
   protected:
     uint64_t m_featureID;
-    XMLElement * m_current;
+    OsmElement * m_current;
 
   private:
     my::Cache<uint64_t, RelationElement> m_cache;
@@ -202,7 +202,7 @@ class OsmToFeatureTranslator
       if (TBase::IsSkipRelation(type) || type == "route")
         return;
 
-      bool const isWay = (TBase::m_current->type == XMLElement::EntityType::Way);
+      bool const isWay = (TBase::m_current->type == OsmElement::EntityType::Way);
       bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
 
       NameKeysT nameKeys;
@@ -227,17 +227,16 @@ class OsmToFeatureTranslator
         TBase::m_current->AddTag(p.first, p.second);
       }
     }
-  } m_wayRelations;
 
-  bool ParseType(XMLElement * p, FeatureParams & params)
+  bool ParseType(OsmElement * p, FeatureParams & params)
   {
     // Get tags from parent relations.
-    if (p->type == XMLElement::EntityType::Node)
+    if (p->type == OsmElement::EntityType::Node)
     {
       m_nodeRelations.Reset(p->id, p);
       m_holder.ForEachRelationByNodeCached(p->id, m_nodeRelations);
     }
-    else if (p->type == XMLElement::EntityType::Way)
+    else if (p->type == OsmElement::EntityType::Way)
     {
       m_wayRelations.Reset(p->id, p);
       m_holder.ForEachRelationByWayCached(p->id, m_wayRelations);
@@ -431,9 +430,9 @@ class OsmToFeatureTranslator
 
 public:
   /// The main entry point for parsing process.
-  void EmitElement(XMLElement * p)
+  void EmitElement(OsmElement * p)
   {
-    if (p->type == XMLElement::EntityType::Node)
+    if (p->type == OsmElement::EntityType::Node)
     {
       if (p->m_tags.empty())
         return;
@@ -445,7 +444,7 @@ public:
       m2::PointD const pt = MercatorBounds::FromLatLon(p->lat, p->lon);
       EmitPoint(pt, params, osm::Id::Node(p->id));
     }
-    else if (p->type == XMLElement::EntityType::Way)
+    else if (p->type == OsmElement::EntityType::Way)
     {
       FeatureBuilderT ft;
 
@@ -479,7 +478,7 @@ public:
 
       EmitLine(ft, params, isCoastLine);
     }
-    else if (p->type == XMLElement::EntityType::Relation)
+    else if (p->type == OsmElement::EntityType::Relation)
     {
       {
         // 1. Check, if this is our processable relation. Here we process only polygon relations.
@@ -504,7 +503,7 @@ public:
       // 3. Iterate ways to get 'outer' and 'inner' geometries
       for (auto const & e : p->Members())
       {
-        if (e.type != XMLElement::EntityType::Way)
+        if (e.type != OsmElement::EntityType::Way)
           continue;
 
         if (e.role == "outer")

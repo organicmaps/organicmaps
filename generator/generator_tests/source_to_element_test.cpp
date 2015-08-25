@@ -10,7 +10,7 @@
 
 #include "coding/parse_xml.hpp"
 #include "generator/osm_source.hpp"
-#include "generator/xml_element.hpp"
+#include "generator/osm_element.hpp"
 
 #include "source_data.hpp"
 
@@ -19,8 +19,8 @@ UNIT_TEST(Source_To_Element_create_from_xml_test)
   istringstream ss(way_xml_data);
   SourceReader reader(ss);
 
-  vector<XMLElement> elements;
-  BuildFeaturesFromXML(reader, [&elements](XMLElement * e)
+  vector<OsmElement> elements;
+  BuildFeaturesFromXML(reader, [&elements](OsmElement * e)
   {
     elements.push_back(*e);
   });
@@ -34,8 +34,8 @@ UNIT_TEST(Source_To_Element_create_from_o5m_test)
   istringstream ss(src);
   SourceReader reader(ss);
 
-  vector<XMLElement> elements;
-  BuildFeaturesFromO5M(reader, [&elements](XMLElement * e)
+  vector<OsmElement> elements;
+  BuildFeaturesFromO5M(reader, [&elements](OsmElement * e)
   {
     elements.push_back(*e);
   });
@@ -49,8 +49,8 @@ UNIT_TEST(Source_To_Element_check_equivalence)
   istringstream ss1(relation_xml_data);
   SourceReader readerXML(ss1);
 
-  vector<XMLElement> elementsXML;
-  BuildFeaturesFromXML(readerXML, [&elementsXML](XMLElement * e)
+  vector<OsmElement> elementsXML;
+  BuildFeaturesFromXML(readerXML, [&elementsXML](OsmElement * e)
   {
     elementsXML.push_back(*e);
   });
@@ -59,8 +59,8 @@ UNIT_TEST(Source_To_Element_check_equivalence)
   istringstream ss2(src);
   SourceReader readerO5M(ss2);
 
-  vector<XMLElement> elementsO5M;
-  BuildFeaturesFromO5M(readerO5M, [&elementsO5M](XMLElement * e)
+  vector<OsmElement> elementsO5M;
+  BuildFeaturesFromO5M(readerO5M, [&elementsO5M](OsmElement * e)
   {
     elementsO5M.push_back(*e);
   });

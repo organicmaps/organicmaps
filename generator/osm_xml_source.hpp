@@ -12,13 +12,13 @@
 
 class XMLSource
 {
-  XMLElement m_parent;
-  XMLElement m_child;
+  OsmElement m_parent;
+  OsmElement m_child;
 
   size_t m_depth = 0;
-  XMLElement * m_current = nullptr;
+  OsmElement * m_current = nullptr;
 
-  using TEmmiterFn = function<void(XMLElement *)>;
+  using TEmmiterFn = function<void(OsmElement *)>;
   TEmmiterFn m_EmmiterFn;
 
 public:
@@ -44,7 +44,7 @@ public:
     else if (key == "v")
       m_current->v = value;
     else if (key == "type")
-      m_current->memberType = XMLElement::StringToEntityType(value);
+      m_current->memberType = OsmElement::StringToEntityType(value);
     else if (key == "role")
       m_current->role = value;
   }
@@ -54,7 +54,7 @@ public:
     ASSERT_GREATER_OR_EQUAL(tagName.size(), 2, ());
 
     // As tagKey we use first two char of tag name.
-    XMLElement::EntityType tagKey = XMLElement::EntityType(*reinterpret_cast<uint16_t const *>(tagName.data()));
+    OsmElement::EntityType tagKey = OsmElement::EntityType(*reinterpret_cast<uint16_t const *>(tagName.data()));
 
     switch (++m_depth)
     {
@@ -87,13 +87,13 @@ public:
       default:
         switch (m_child.type)
       {
-        case XMLElement::EntityType::Member:
+        case OsmElement::EntityType::Member:
           m_parent.AddMember(m_child.ref, m_child.memberType, m_child.role);
           break;
-        case XMLElement::EntityType::Tag:
+        case OsmElement::EntityType::Tag:
           m_parent.AddTag(m_child.k, m_child.v);
           break;
-        case XMLElement::EntityType::Nd:
+        case OsmElement::EntityType::Nd:
           m_parent.AddNd(m_child.ref);
         default: break;
       }

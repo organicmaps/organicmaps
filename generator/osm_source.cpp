@@ -385,13 +385,13 @@ void AddElementToCache(TCache & cache, TElement const & em)
 template <typename TCache>
 void BuildIntermediateDataFromXML(SourceReader & stream, TCache & cache)
 {
-  XMLSource parser([&](XMLElement * e) { AddElementToCache(cache, *e); });
+  XMLSource parser([&](OsmElement * e) { AddElementToCache(cache, *e); });
   ParseXMLSequence(stream, parser);
 }
 
-void BuildFeaturesFromXML(SourceReader & stream, function<void(XMLElement *)> processor)
+void BuildFeaturesFromXML(SourceReader & stream, function<void(OsmElement *)> processor)
 {
-  XMLSource parser([&](XMLElement * e) { processor(e); });
+  XMLSource parser([&](OsmElement * e) { processor(e); });
   ParseXMLSequence(stream, parser);
 }
 
@@ -409,7 +409,7 @@ void BuildIntermediateDataFromO5M(SourceReader & stream, TCache & cache)
     AddElementToCache(cache, e);
 }
 
-void BuildFeaturesFromO5M(SourceReader & stream, function<void(XMLElement *)> processor)
+void BuildFeaturesFromO5M(SourceReader & stream, function<void(OsmElement *)> processor)
 {
   using TType = osm::O5MSource::EntityType;
 
@@ -418,41 +418,41 @@ void BuildFeaturesFromO5M(SourceReader & stream, function<void(XMLElement *)> pr
     return stream.Read(reinterpret_cast<char *>(buffer), size);
   });
 
-  auto translate = [](TType t) -> XMLElement::EntityType
+  auto translate = [](TType t) -> OsmElement::EntityType
   {
     switch (t)
     {
-      case TType::Node: return XMLElement::EntityType::Node;
-      case TType::Way: return XMLElement::EntityType::Way;
-      case TType::Relation: return XMLElement::EntityType::Relation;
-      default: return XMLElement::EntityType::Unknown;
+      case TType::Node: return OsmElement::EntityType::Node;
+      case TType::Way: return OsmElement::EntityType::Way;
+      case TType::Relation: return OsmElement::EntityType::Relation;
+      default: return OsmElement::EntityType::Unknown;
     }
   };
 
   for (auto const & em : dataset)
   {
-    XMLElement p;
+    OsmElement p;
     p.id = em.id;
 
     switch (em.type)
     {
       case TType::Node:
       {
-        p.type = XMLElement::EntityType::Node;
+        p.type = OsmElement::EntityType::Node;
         p.lat = em.lat;
         p.lon = em.lon;
         break;
       }
       case TType::Way:
       {
-        p.type = XMLElement::EntityType::Way;
+        p.type = OsmElement::EntityType::Way;
         for (uint64_t nd : em.Nodes())
           p.AddNd(nd);
         break;
       }
       case TType::Relation:
       {
-        p.type = XMLElement::EntityType::Relation;
+        p.type = OsmElement::EntityType::Relation;
         for (auto const & member : em.Members())
           p.AddMember(member.ref, translate(member.type), member.role);
         break;
@@ -487,7 +487,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
         bucketer, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
         info.GetAddressesFileName());
 
-    auto fn = [&parser](XMLElement * e) { parser.EmitElement(e); };
+    auto fn = [&parser](OsmElement * e) { parser.EmitElement(e); };
 
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
     switch (info.m_osmFileType)

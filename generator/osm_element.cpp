@@ -6,30 +6,30 @@
 #include "std/algorithm.hpp"
 
 
-string DebugPrint(XMLElement::EntityType e)
+string DebugPrint(OsmElement::EntityType e)
 {
   switch (e)
   {
-    case XMLElement::EntityType::Unknown:
+    case OsmElement::EntityType::Unknown:
       return "unknown";
-    case XMLElement::EntityType::Way:
+    case OsmElement::EntityType::Way:
       return "way";
-    case XMLElement::EntityType::Tag:
+    case OsmElement::EntityType::Tag:
       return "tag";
-    case XMLElement::EntityType::Relation:
+    case OsmElement::EntityType::Relation:
       return "relation";
-    case XMLElement::EntityType::Osm:
+    case OsmElement::EntityType::Osm:
       return "osm";
-    case XMLElement::EntityType::Node:
+    case OsmElement::EntityType::Node:
       return "node";
-    case XMLElement::EntityType::Nd:
+    case OsmElement::EntityType::Nd:
       return "nd";
-    case XMLElement::EntityType::Member:
+    case OsmElement::EntityType::Member:
       return "member";
   }
 }
 
-string XMLElement::ToString(string const & shift) const
+string OsmElement::ToString(string const & shift) const
 {
   stringstream ss;
   ss << (shift.empty() ? "\n" : shift);
@@ -81,7 +81,7 @@ string XMLElement::ToString(string const & shift) const
   return ss.str();
 }
 
-string DebugPrint(XMLElement const & e)
+string DebugPrint(OsmElement const & e)
 {
   return e.ToString();
 }
