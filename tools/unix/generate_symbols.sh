@@ -26,71 +26,72 @@ then
 fi
 
 # Helper function to build skin
-# Parameter $1 - style name (dark, light, yota, ...)
-# Parameter $2 - resource name (ldpi, mdpi, hdpi, ...)
-# Parameter $3 - symbol size
-# Parameter $4 - does color correction required
+# Parameter $1 - style type (legacy, clear)
+# Parameter $2 - style name (dark, light, yota, clear, ...)
+# Parameter $3 - resource name (ldpi, mdpi, hdpi, ...)
+# Parameter $4 - symbol size
+# Parameter $5 - does color correction required
+# Parameter $6 - style suffix (none, _dark, _clear)
 function BuildSkin() {
-  styleName=$1
-  resourceName=$2
-  symbolSize=$3
-  colorCorrection=$4
-  suffix=$5
+  styleType=$1
+  styleName=$2
+  resourceName=$3
+  symbolSize=$4
+  colorCorrection=$5
+  suffix=${6-}
   echo "Building skin for $styleName/$resourceName"
   # Set environment
-  PNG_PATH="$DATA_PATH/styles/style-$styleName/symbols/png"
+  PNG_PATH="$DATA_PATH/styles/$styleType/style-$styleName/symbols/png"
   rm -r $PNG_PATH || true
-  ln -s "$DATA_PATH/styles/style-$styleName/$resourceName" $PNG_PATH
+  ln -s "$DATA_PATH/styles/$styleType/style-$styleName/$resourceName" $PNG_PATH
   # Run sking generator
   if [ $colorCorrection = "true" ];
   then
     "$BINARY_PATH" --symbolWidth $symbolSize --symbolHeight $symbolSize \
-        --symbolsDir "$DATA_PATH/styles/style-$styleName/symbols" \
+        --symbolsDir "$DATA_PATH/styles/$styleType/style-$styleName/symbols" \
         --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix="" \
         --colorCorrection true
   else
     "$BINARY_PATH" --symbolWidth $symbolSize --symbolHeight $symbolSize \
-        --symbolsDir "$DATA_PATH/styles/style-$styleName/symbols" \
+        --symbolsDir "$DATA_PATH/styles/$styleType/style-$styleName/symbols" \
         --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix=""
   fi
-  res=$?
   # Reset environment
   rm -r $PNG_PATH || true
-  # Check result
-  if [ $res -ne 0 ];
-  then
-    echo "Error"
-    exit 1 # error
-  fi
 }
 
 # Cleanup
-cleanup=(resources-yota resources-6plus resources-ldpi resources-mdpi resources-hdpi resources-xhdpi resources-xxhdpi \
-         resources-6plus_dark resources-ldpi_dark resources-mdpi_dark resources-hdpi_dark resources-xhdpi_dark resources-xxhdpi_dark)
+cleanup=(resources-{yota,{6plus,ldpi,mdpi,hdpi,xhdpi,xxhdpi}{,_dark,_clear}})
 for item in ${cleanup[*]}
 do
   rm -rf ../../data/$item || true
   mkdir ../../data/$item
 done
 
-# Build style yota
-BuildSkin yota yota 19 true ""
+# Build styles
 
-# Build style light
-BuildSkin light ldpi 16 false ""
-BuildSkin light mdpi 16 false ""
-BuildSkin light hdpi 24 false ""
-BuildSkin light xhdpi 36 false ""
-BuildSkin light xxhdpi 48 false ""
-BuildSkin light 6plus 38 false ""
+BuildSkin legacy yota  yota   19 true
 
-# Build style dark
-BuildSkin dark ldpi 16 false "_dark"
-BuildSkin dark mdpi 16 false "_dark"
-BuildSkin dark hdpi 24 false "_dark"
-BuildSkin dark xhdpi 36 false "_dark"
-BuildSkin dark xxhdpi 48 false "_dark"
-BuildSkin dark 6plus 38 false "_dark"
+BuildSkin legacy light ldpi   16 false
+BuildSkin legacy light mdpi   16 false
+BuildSkin legacy light hdpi   24 false
+BuildSkin legacy light xhdpi  36 false
+BuildSkin legacy light xxhdpi 48 false
+BuildSkin legacy light 6plus  38 false
+
+BuildSkin legacy dark  ldpi   16 false _dark
+BuildSkin legacy dark  mdpi   16 false _dark
+BuildSkin legacy dark  hdpi   24 false _dark
+BuildSkin legacy dark  xhdpi  36 false _dark
+BuildSkin legacy dark  xxhdpi 48 false _dark
+BuildSkin legacy dark  6plus  38 false _dark
+
+BuildSkin clear  clear ldpi   16 false _clear
+BuildSkin clear  clear mdpi   16 false _clear
+BuildSkin clear  clear hdpi   24 false _clear
+BuildSkin clear  clear xhdpi  36 false _clear
+BuildSkin clear  clear xxhdpi 48 false _clear
+BuildSkin clear  clear 6plus  38 false _clear
 
 # Success
 echo "Done"
