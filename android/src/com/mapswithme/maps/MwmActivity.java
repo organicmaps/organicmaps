@@ -1097,7 +1097,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     if (mSearchController.hide())
+    {
+      SearchToolbarController.cancelSearch();
       return;
+    }
 
     if (!closePlacePage() && !closeSidePanel() && !closeRouting())
       super.onBackPressed();
