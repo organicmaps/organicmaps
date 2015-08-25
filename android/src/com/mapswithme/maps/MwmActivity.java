@@ -498,7 +498,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void onCloseRouting()
       {
-        closeRouting();
+        mMainMenu.setNavigationMode(false);
+        adjustZoomButtons(false);
       }
 
       @Override
@@ -1101,7 +1102,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mSearchController.hide())
       return;
 
-    if (!closePlacePage() && !closeSidePanel())
+    if (!closePlacePage() && !closeSidePanel() && !closeRouting())
       super.onBackPressed();
   }
 
@@ -1314,11 +1315,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private void closeRouting()
+  private boolean closeRouting()
   {
+    if (mLayoutRouting.getState() == RoutingLayout.State.HIDDEN)
+      return false;
+
     mLayoutRouting.setState(RoutingLayout.State.HIDDEN, true);
     mMainMenu.setNavigationMode(false);
     adjustZoomButtons(false);
+    return true;
   }
 
   @Override

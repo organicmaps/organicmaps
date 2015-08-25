@@ -180,6 +180,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
       AlohaHelper.logClick(AlohaHelper.ROUTING_VEHICLE_SET);
       Framework.setRouter(Framework.ROUTER_TYPE_VEHICLE);
       mListener.onRouteTypeChange(Framework.ROUTER_TYPE_VEHICLE);
+      setState(State.PREPARING, true);
       break;
     }
   }
