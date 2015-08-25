@@ -497,33 +497,34 @@
     fi = Hanki nyt
 
   [share_on_facebook_text]
-    en = Are you enjoying MAPS.ME? Help your friends and family learn about the app, share it with them on Facebook!
+    en = Thank you for using MAPS.ME! Do you like the app? Tell your friends about it! This is the best thanks you could give us.
     comment = Text to show occasionaly with a proposal to Like our program on Facebook
-    cs = Líbí se ti MAPS.ME? Pomoz svým přátelům a rodině dozvědět se o této aplikaci. Sdílej ji s nimi prostřednictvím Facebooku!
-    sk = Páči sa ti MAPS.ME? Pomôž svojim priateľom a rodine dozvedieť sa o tejto aplikácii. Zdieľajte ju s nimi prostredníctvom Facebooku!
-    de = Wenn ihnen unser Programm gefällt, teilen sie es bitte auf Facebook mit ihren Freunden.
-    fr = Vous appréciez MAPS.ME ? Aidez vos amis et votre famille à en apprendre plus sur l'appli, partagez-la avec eux sur Facebook !
-    ja = アプリの使い勝手はいかがでしょうか？ ぜひFacebookで友人にシェアしてください
-    nl = Deel dit programma met uw vrienden op Facebook, als ons programma u bevalt.
-    it = Ti stai divertendo MAPS.ME? Aiuta i tuoi amici e la famiglia a conoscere l'app, condividila con loro su Facebook!
-    ru = Нравится MAPS.ME? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!
-    uk = Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.
-    zh-Hant = 喜歡MAPS.ME嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！
-    pl = Podoba ci się korzystanie z MAPS.ME? Pomóż swoim przyjaciołom i rodzinie w dowiedzeniu się czegoś więcej o aplikacji, udostępnij na Facebooku!
-    pt = Está a gostar do MAPS.ME? Ajude os seus amigos e família a conhecer a app, partilhe-a com eles no Facebook!
-    hu = Tetszik a MAPS.ME? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!
-    th = คุณสนุกกับ MAPS.ME หรือไม่? ช่วยเหลือเพื่อน ๆ และครอบครัวของคุณศึกษาเกี่ยวกับแอป แชร์มันบน Facebook!
-    zh-Hans = 您喜欢用MAPS.ME吗? 把这个应用介绍给您的朋友和家人吧，在Facebook上和他们分享吧！
-    ar = هل تستمتع باستخدام تطبيق MAPS.ME ؟ ساعد أصدقائك و أسرتك في تعلم كيفية استخدامه، قم بمشاركته معهم على فيسبوك!
-    da = Nyder du MAPS.ME? Hjælp dine venner og familie ved at fortælle dem om denne app, del den med dem på Facebook!
-    tr = MAPS.ME hoşunuza gitti mi? Arkadaşlarınızın ve ailenizin uygulama hakkında bilgi sahibi olmalarına yardımcı olun, bunu onlarla Facebook’ta paylaşın!
-    sv = Gillar du MAPS.ME? Hjälp dina vänner och familj att upptäcka appen, dela den med dem på Facebook!
-    he = האם אתה מרוצה מהשימוש ב MAPS.ME? עזור לחבריך ולבני משפחתך להכיר את הישום, שתף אותם בפייסבוק!
-    id =Apakah Anda menikmati menggunakan MAPS.ME? Bantulah teman-teman dan keluarga Anda mempelajari aplikasi ini, bagikan kepada mereka melalui Facebook!
-    vi = Bạn có thích MAPS.ME không? Hãy giúp bạn bè và người thân của bạn biết về ứng dụng này và chia sẻ nó với họ trên Facebook!
-    ro = Vă place MAPS.ME? Ajutați-vă prietenii și familia să afle despre această aplicație: distribuiți-o pe Facebook!
-    nb = Liker du MAPS.ME? Hjelp venner og familie med å bli kjent med appen – del den med dem på Facebook!
-    fi = Tykkäätkö MAPS.ME -sovelluksesta? Kerro siitä ystävillesi ja perheellesi jakamalla sovellus Facebookissa!
+    ru = Спасибо, что пользуетесь MAPS.ME! Нравится приложение? Расскажите о нём своим друзьям. Это будет лучшей благодарностью для нас.
+    fr = Merci d’avoir utilisé MAPS.ME ! Vous aimez cette application ? Parlez-en à vos amis ! Ce serait la meilleure preuve de gratitude à notre égard.
+    da = Tak for at du bruger MAPS.ME! Kan du lide appen? Fortæl dine venner om den! Det vil vi være så glade for.
+    id = Terima kasih karena menggunakan MAPS.ME! Apakah Anda suka aplikasi ini? Beri tahukan kepada teman-teman Anda! Ini akan menjadi ungkapan terima kasih yang terbaik bagi kami.
+    ko = MAPS.ME를 사용해 주셔서 감사합니다! 앱을 좋아하십니까? 이 앱에 대해 친구들에게 널리 알려 주십시오! 그러면 저희는 매우 감사할 것입니다.
+    sv = Tack för att du använder MAPS.ME! Gillar du appen? Berätta för dina vänner om den! Det skulle vara höjden av tacksamhet för oss.
+    tr = MAPS.ME’yi kullandığınız için teşekkür ederiz! Uygulamayı beğendiniz mi? Bundan arkadaşlarınıza bahsedin! Bundan büyük memnuniyet duyarız.
+    uk = Дякуємо за використання MAPS.ME! Чи подобається вам ця програма? Розкажіть своїм друзям про неї! Це буде найкраща подяка для нас.
+    vi = Cám ơn bạn đã sử dụng MAPS.ME! Bạn thích ứng dụng chứ? Kể cho bạn bè về ứng dụng này! Đây sẽ là sự biết ơn tuyệt vời nhất đối với chúng tôi.
+    hu = Köszönjük, hogy a MAPS.ME-t használja! Kedveli az appot? Akkor számoljon be a barátainak róla. Ez lenne a legnagyobb hála, amit adhat nekünk.
+    de = Danke, dass Sie MAPS.ME nutzen! Gefällt Ihnen die App? Erzählen Sie Ihren Freunden davon! Das ist der beste Dank für uns.
+    fi = Kiitos kun käytät MAPS.ME:tä! Pidätkö sovelluksesta? Kerro kavereillesi siitä! Se on meille paras mahdollinen kiitos.
+    cs = Děkujeme, že používáte MAPS.ME! Líbí se Vám tato aplikace? Řekněte o ní svým přátelům! To bude pro nás nejlepší vyjádření vděčnosti.
+    it = Grazie per aver utilizzato MAPS.ME! Ti piace l’app? Dillo ai tuoi amici! Questo è il miglior segno di gratitudine.
+    nb = Tusen takk for at du bruker MAPS.ME! Liker du appen? Fortell vennene dine om den! Det er den beste takken vi kan få.
+    zh-Hant = 感謝您使用 MAPS.ME！您喜歡該應用嗎？告訴您的好友們吧！這會是對我們最好的感謝。
+    zh-Hans = 感谢您使用 MAPS.ME！您喜欢该应用吗？告诉您的好友们吧！这会是对我们最好的感谢。
+    th = ขอบพระคุณสำหรับการใช้ MAPS.ME! คุณชอบแอปหรือไม่? บอกเพื่อนของคุณเกี่ยวกับมัน! นี่จะเป็นการขอบคุณที่ดีที่สุดสำหรับเรา
+    ja = MAPS.MEをご利用いただきありがとうございます! このアプリが好きですか? お友達にも教えてあげてください! アプリを広めていただければ大変嬉しく思います。
+    ro = Vă mulțumim că folosiți MAPS.ME! Vă place aplicația? Spuneți-le prietenilor despre ea! Aceasta va fi cea mai mare mulțumire pentru noi.
+    ar = شكرا لاستخدامك MAPS.ME! هل يعجبك التطبيق؟ أخبر أصدقاءك عن التطبيق! سيكون ذلك هو غاية الامتنان بالنسبة لنا.
+    sk = Ďakujeme, že používate MAPS.ME! Páči sa vám táto aplikácia? Povedzte o nej svojim priateľom! Bude to pre nás najlepšia odmena.
+    es = ¡Gracias por utilizar MAPS.ME! ¿Te gusta la aplicación? ¡Habla de la aplicación a tus amigos! Sería la mejor muestra de gratitud para nosotros.
+    pl = Dziękujemy za korzystanie z MAPS.ME! Czy podoba Ci się nasza aplikacja? Opowiedz o niej swoim znajomym! W taki sposób najlepiej nam podziękujesz.
+    nl = Bedankt om MAPS.ME te gebruiken! Vindt u de app leuk? Vertel uw vrienden erover! Dit is voor ons het beste dankgebaar.
+    pt = Obrigado por usar MAPS.ME! Gosta do aplicativo? Conte para seus amigos! Será a melhor forma de nos agradecer.
 
   [kb]
     en = kB
@@ -13372,8 +13373,8 @@
   [share_walking_routes_facebook]
     tags = ios, android
     comment = Text for facebook sharing news about walking routes
-    ru = MAPS.ME экономит время на передвижения пешком. Более двух миллионов км. пешеходных дорог и троп используется для построения маршрутов.
     en = MAPS.ME saves your walking time. More than 2 million km of pedestrian routes, tracks, and trails are available for Walking Directions now.
+    ru = MAPS.ME экономит время на передвижения пешком. Более двух миллионов км. пешеходных дорог и троп используется для построения маршрутов.
     fr = MAPS.ME optimise vos temps de marche. Plus de 2 millions de km de routes piétonnes, de chemins et de pistes sont répertoriées pour les itinéraires piétons.
     da = MAPS.ME sparer dig gå-tid. Mere end 2 millioner km. gågader, gangstier og stier er nu tilgængelige for rutevejledninger til fods.
     id = Jalur terpendek yang pernah ada. MAPS.ME menghemat waktu berjalan Anda. Lebih dari 2 juta km rute, jalan, dan jalur untuk pejalan kaki tersedia untuk petunjuk berjalan sekarang.
@@ -13403,8 +13404,8 @@
   [share_walking_routes_messenger]
     tags = ios, android
     comment = Text for messenger sharing news about walking routes
-    ru = MAPS.ME найдет кратчайшие пешеходные маршруты по всему миру! Проверь сам:  http://maps.me/get?walk_im
     en = MAPS.ME gives the shortest walking routes worldwide! Check it out: http://maps.me/get?walk_im
+    ru = MAPS.ME найдет кратчайшие пешеходные маршруты по всему миру! Проверь сам:  http://maps.me/get?walk_im
     fr = MAPS.ME calcule les itinéraires les plus courts au monde ! Découvrez-les : http://maps.me/get?walk_im
     da = MAPS.ME giver dig den korteste rute til fods over hele verden! Prøv det: http://maps.me/get?walk_im
     id = MAPS.ME memberikan rute berjalan yang terpendek di seluruh dunia! Ayo lihat: http://maps.me/get?walk_im
@@ -13434,8 +13435,8 @@
   [share_walking_routes_sms]
     tags = ios, android
     comment = Text for sms sharing news about walking routes
-    ru = MAPS.ME ищет кратчайшие пешеходные маршруты: http://maps.me/get?walk
     en = MAPS.ME gives the shortest walking routes: http://maps.me/get?walk
+    ru = MAPS.ME ищет кратчайшие пешеходные маршруты: http://maps.me/get?walk
     fr = MAPS.ME calcule les itinéraires les plus directs au monde : http://maps.me/get?walk
     da = MAPS.ME giver dig den korteste rute til fods: http://maps.me/get?walk
     id = MAPS.ME memberikan rute berjalan yang terpendek: http://maps.me/get?walk
@@ -13465,8 +13466,8 @@
   [share_walking_routes_email_subject]
     tags = ios, android
     comment = Subject for email sharing news about walking routes
-    ru = Пешеходные маршруты теперь доступны в MAPS.ME
     en = The shortest walking routes are available
+    ru = Пешеходные маршруты теперь доступны в MAPS.ME
     fr = Les itinéraires piétons les plus courts sont disponibles
     da = De korteste ruter til fods er nu tilgængelige
     id = Rute berjalan yang terpendek tersedia
@@ -13496,8 +13497,8 @@
   [share_walking_routes_email_body]
     tags = ios, android
     comment = Text for email sharing news about walking routes
-    ru = В приложении MAPS.ME появилась пешеходная навигация, разработанная на базе самой детальной карты мира! Благодаря ей ты всегда сможешь найти кратчайший путь к любому месту. Проверь сам: http://maps.me/get?walk_em
     en = MAPS.ME just released Walking Directions based on the most detailed map in the world! They give the shortest route to any destination. Try them out: http://maps.me/get?walk_em
+    ru = В приложении MAPS.ME появилась пешеходная навигация, разработанная на базе самой детальной карты мира! Благодаря ей ты всегда сможешь найти кратчайший путь к любому месту. Проверь сам: http://maps.me/get?walk_em
     fr = MAPS.ME vient de dévoiler les Itinéraires piétons utilisant la carte la plus détaillée au monde ! Ils vous indiquent les itinéraires les plus courts vers votre destination. Découvrez-les : http://maps.me/get?walk_em
     da = MAPS.ME har netop udgivet Rutevejledninger til fods, baseret på de mest detaljerede kort i verden. De giver den korteste rute til enhver destination. Prøv det: http://maps.me/get?walk_em
     id = MAPS.ME baru saja merilis petunjuk berjalan berdasarkan peta dengan perincian yang terlengkap di dunia! Aplikasi ini memberikan rute terpendek ke destinasi mana saja. Ayo dicoba: http://maps.me/get?walk_em
@@ -13527,8 +13528,8 @@
   [title_walking_available]
     tags = ios, android
     comment = Title for walking routes dialog, notifications etc.
-    ru = В MAPS.ME появилась пешеходная навигация!
     en = Walking Directions are available in MAPS.ME!
+    ru = В MAPS.ME появилась пешеходная навигация!
     fr = Itinéraires piétons disponibles dans MAPS.ME !
     da = Rutevejledninger til fods er tilgængelige i MAPS.ME!
     id = Petunjuk berjalan tersedia di MAPS.ME!
@@ -13558,8 +13559,8 @@
   [share_walking_routes_first_launch]
     tags = ios, android
     comment = Text for walking routes dialog
-    ru = С её помощью ты найдешь кратчайший путь до любого места. Попробуй сам и поделись новостью с друзьями: пусть и они экономят время на дорогу!
     en = They give the shortest route to any destination. Help your friends save walking time too!
+    ru = С её помощью ты найдешь кратчайший путь до любого места. Попробуй сам и поделись новостью с друзьями: пусть и они экономят время на дорогу!
     fr = Ils vous indiquent les chemins les plus directs vers chaque destination. Et n’oubliez pas d’aider vos amis à optimiser leurs trajets !
     da = Den giver den korteste rute til enhver destination, Hjælp dine venner med også at spare gå-tid!
     id = Petunjuk berjalan memberikan rute terpendek ke destinasi mana saja. Bantu teman-teman Anda untuk menghemat waktu berjalan juga!
@@ -13589,8 +13590,8 @@
   [share_walking_routes_congratulations]
     tags = ios, android
     comment = Title for walking routes dialog after 3 built routes
-    ru = Поздравляем!
     en = Congratulations!
+    ru = Поздравляем!
     fr = Félicitations !
     da = Tillykke!
     id = Selamat!
@@ -13620,39 +13621,39 @@
   [share_walking_routes_mastering]
     tags = ios, android
     comment = Text for walking routes dialog after 3 built routes
+    en = You mastered the Walking Directions function. Help your friends save walking time, too. Tell them about MAPS.ME.
     ru = Теперь ты знаешь, как работают пешеходные маршруты. Помоги друзьям также экономить время на дорогу. Расскажи им о MAPS.ME!
-    en = You mastered the Walking Directions function. Help your friends save walking time, too! Tell them about MAPS.ME!
-    fr = Vous êtes devenu un vrai pro de la fonction Itinéraires piétons. Aidez vos amis à optimiser leurs trajets ! Faites leur découvrir MAPS.ME !
-    da = Du har fundet ud at at bruge rutevejledning til fods funktionen. Hjælp dine venner med også at spare gå-tid! Fortæl dem om MAPS.ME!
-    id = Anda telah menguasai fungsi petunjuk berjalan. Bantu teman-teman Anda untuk menghemat waktu berjalan juga! Beri tahu mereka tentang MAPS.ME!
-    ko = 도보 방향 기능을 마스터했습니다. 친구들을 도와 도보 시간을 절약하게 해줍니다! MAPS.ME에 대해 그들에게 말하세요!
-    sv = Du har bemästrat funktionen med vägbeskrivningar till fots. Hjälp även dina vänner att spara gångtid! Berätta för dem om MAPS.ME!
-    tr = Yürüyüş rotalarını fonksiyonlarını hakim oldunuz. Arkadaşlarınızında yürüyüş zamanınından tasarruf etmelerine yardımcı olun! Onlara MAPS.ME'den bahsedin!
-    uk = Ви освоїли функцію пішохідні маршрути. Допоможіть друзям зекономити час при ходьбі також! Розкажіть їм про MAPS.ME!
-    vi = Bạn đã làm chủ được các chức năng Chỉ đường Đi bộ. Hãy giúp bạn bè tiết kiệm thời gian đi bộ! Hãy cho họ biết về MAPS.ME!
-    hu = Elsajátította a séta útvonalak funkciót. Segítsen a barátainak is séta menetidőt spórolni. Számoljon be nekik a MAPS.ME-ről!
-    de = Sie beherrschen die Funktion der Wegbeschreibungen zu Fuß. Helfen Sie Ihren Freunden, auch Gehzeit zu sparen! Erzählen Sie ihnen von MAPS.ME!
-    fi = Hallitset nyt Kävelyohje-toiminnon. Auta ystäviäsikin lyhentämään kävelyaikaansa. Kerro heille MAPS.ME:sta!
-    cs = Zvládli jste funkci Pokyny pro chodce. Pomozte svým kamarádům také ušetřit čas chůze! Řekněte jim o MAPS.ME!
-    it = Hai usufruito della funzione percorsi pedonali. Aiuta i tuoi amici a risparmiare tempo. Invitali a scoprire MAPS.ME!
-    nb = Du mestret Gå-ruter funksjonen. Hjelp vennene dine å spare tid, også! Fortell dem om MAPS.ME!
-    zh-Hant = 您已經掌握了步行路線的功能了。幫助您的朋友也節省步行時間！告訴他們關於MAPS.ME的信息？
-    zh-Hans = 您掌握了步行方向功能。也帮您的好友们节省步行时间吧！告诉他们MAPS.ME！
+    fr = Vous êtes devenu un vrai pro de la fonction Itinéraires piétons. Aidez vos amis à optimiser leurs trajets. Faites leur découvrir MAPS.ME.
+    da = Du har fundet ud at at bruge rutevejledning til fods funktionen. Hjælp dine venner med også at spare gå-tid. Fortæl dem om MAPS.ME.
+    id = Anda telah menguasai fungsi petunjuk berjalan. Bantu teman-teman Anda untuk menghemat waktu berjalan juga. Beri tahu mereka tentang MAPS.ME.
+    ko = 도보 방향 기능을 마스터했습니다. 친구들을 도와 도보 시간을 절약하게 해줍니다. MAPS.ME에 대해 그들에게 말하세요.
+    sv = Du har bemästrat funktionen med vägbeskrivningar till fots. Hjälp även dina vänner att spara gångtid. Berätta för dem om MAPS.ME.
+    tr = Yürüyüş rotalarını fonksiyonlarını hakim oldunuz. Arkadaşlarınızında yürüyüş zamanınından tasarruf etmelerine yardımcı olun. Onlara MAPS.ME'den bahsedin.
+    uk = Ви освоїли функцію пішохідні маршрути. Допоможіть друзям зекономити час при ходьбі також. Розкажіть їм про MAPS.ME.
+    vi = Bạn đã làm chủ được các chức năng Chỉ đường Đi bộ. Hãy giúp bạn bè tiết kiệm thời gian đi bộ. Hãy cho họ biết về MAPS.ME.
+    hu = Elsajátította a séta útvonalak funkciót. Segítsen a barátainak is séta menetidőt spórolni. Számoljon be nekik a MAPS.ME-ről.
+    de = Sie beherrschen die Funktion der Wegbeschreibungen zu Fuß. Helfen Sie Ihren Freunden, auch Gehzeit zu sparen. Erzählen Sie ihnen von MAPS.ME.
+    fi = Hallitset nyt Kävelyohje-toiminnon. Auta ystäviäsikin lyhentämään kävelyaikaansa. Kerro heille MAPS.ME:sta.
+    cs = Zvládli jste funkci Pokyny pro chodce. Pomozte svým kamarádům také ušetřit čas chůze. Řekněte jim o MAPS.ME.
+    it = Hai usufruito della funzione percorsi pedonali. Aiuta i tuoi amici a risparmiare tempo. Invitali a scoprire MAPS.ME.
+    nb = Du mestret Gå-ruter funksjonen. Hjelp vennene dine å spare tid, også. Fortell dem om MAPS.ME.
+    zh-Hant = 您已經掌握了步行路線的功能了。幫助您的朋友也節省步行時間。告訴他們關於MAPS.ME的信息。
+    zh-Hans = 您掌握了步行方向功能。也帮您的好友们节省步行时间吧。告诉他们MAPS.ME。
     th = คุณใช้ฟังก์ชันการแนะนำเส้นทางเดินเป็นแล้ว ช่วยเพื่อนของคุณประหยัดเวลาเดินด้วย! บอกพวกเขาเกี่ยวกับ MAPS.ME!
-    ja = 徒歩ルート機能をマスターしました。お友達の歩行時間の短縮にも役立ててください！MAPS.MEについて教えてあげてください！
-    ro = Ați utilizat cu succes rute de mers pe jos. Ajutați-i și pe prietenii dvs. să-și reducă timpul de deplasare pe jos! Spuneți-le despre MAPS.ME!
-    ar =  لقد أتقنت وظيفة اتجاهات السير. ساعد أصدقائك أيضا في توفير وقت السير! اخبرهم عن MAPS.ME!
-    sk = Zvládli ste funkciu Pešie smery. Pomôžte aj svojim priateľom ušetriť čas pri chôdzi! Povedzte im o MAPS.ME!
-    es = Dominas la función Indicaciones a pie. ¡Ayuda a tus amigos a que ahorren tiempo de camino también! ¡Háblales de MAPS.ME!
-    pl = Opanowałeś funkcję wskazówki dojścia. Możesz pomóc również swoim znajomym oszczędzić czas potrzebny na dojście do celu! Opowiedz im o MAPS.ME!
-    nl = U heeft de functies van wandelroutes onder de knie. Help uw vrienden ook met het besparen van wandeltijd! Vertel ze over MAPS.ME!
-    pt = Você dominou a função rotas a pé. Ajude seus amigos a poupar tempo caminhando, também! Conte a eles sobre o MAPS.ME!
+    ja = 徒歩ルート機能をマスターしました。お友達の歩行時間の短縮にも役立ててください。MAPS.MEについて教えてあげてください。
+    ro = Ați utilizat cu succes rute de mers pe jos. Ajutați-i și pe prietenii dvs. să-și reducă timpul de deplasare pe jos. Spuneți-le despre MAPS.ME.
+    ar = لقد أتقنت وظيفة اتجاهات السير. ساعد أصدقائك أيضا في توفير وقت السير. اخبرهم عن MAPS.ME.
+    sk = Zvládli ste funkciu Pešie smery. Pomôžte aj svojim priateľom ušetriť čas pri chôdzi. Povedzte im o MAPS.ME.
+    es = Dominas la función Indicaciones a pie. ¡Ayuda a tus amigos a que ahorren tiempo de camino también. ¡Háblales de MAPS.ME.
+    pl = Opanowałeś funkcję wskazówki dojścia. Możesz pomóc również swoim znajomym oszczędzić czas potrzebny na dojście do celu. Opowiedz im o MAPS.ME.
+    nl = U heeft de functies van wandelroutes onder de knie. Help uw vrienden ook met het besparen van wandeltijd. Vertel ze over MAPS.ME.
+    pt = Você dominou a função rotas a pé. Ajude seus amigos a poupar tempo caminhando, também. Conte a eles sobre o MAPS.ME.
 
   [walking_notification_text]
     tags = android
     comment = Android notification about walking directions for update users
-    ru =  Хочешь проверить, как она работает?
     en = Want to try them out?
+    ru =  Хочешь проверить, как она работает?
     fr = Vous voulez les essayer ?
     da = Vil du prøve det?
     id = Maukah Anda mencobanya?
@@ -13682,8 +13683,8 @@
   [walking_rich_notification_text]
     tags = android
     comment = Android notification with picture (rich) about walking directions for update users
-    ru = С её помощью ты найдешь кратчайший путь до любого места. Попробуй сам и поделись новостью с друзьями: пусть и они экономят время на дорогу.
     en = They give the shortest route to any destination point. Try them yourself and help your friends save travel time.
+    ru = С её помощью ты найдешь кратчайший путь до любого места. Попробуй сам и поделись новостью с друзьями: пусть и они экономят время на дорогу.
     fr = Ils vous indiquent les chemins les plus directs vers votre destination. Essayez-les par vous-même et aidez vos amis à optimiser leurs temps de trajet.
     da = Den giver den korteste rute til enhver destination. Prøv det selv, og hjælp dine venner med at spare rejsetid.
     id = Petunjuk berjalan memberikan rute terpendek ke titik destinasi mana saja. Ayo coba sendiri dan bantu teman-teman Anda menghemat waktu perjalanan.
@@ -13712,25 +13713,150 @@
 
   [rate_alert_title]
     tags = ios, android
-    en = We need your feedback!
-    ru = Оцените нашу работу
+    en = Like the app? 
+    ru = Нравится приложение?
+    fr = Vous aimez l’application ? 
+    da = Kan du lide appen? 
+    id = Suka aplikasi ini? 
+    ko = 앱을 좋아하나요? 
+    sv = Gillar du appen? 
+    tr = Uygulamayı beğendiniz mi? 
+    uk = Подобається програма?
+    vi = Bạn thích ứng dụng chứ? 
+    hu = Tetszik az app?
+    de = Gefällt Ihnen die App? 
+    fi = Pidätkö sovelluksesta?
+    cs = Líbí se Vám aplikace? 
+    it = Ti piace l’app? 
+    nb = Liker du appen? 
+    zh-Hant = 喜歡這個應用嗎？
+    zh-Hans = 喜欢这个应用吗？
+    th = ชอบแอปหรือไม่? 
+    ja = このアプリが好きですか? 
+    ro = Vă place aplicația?
+    ar = يعجبك التطبيق؟
+    sk = Páči sa vám aplikácia?
+    es = ¿Te gusta la aplicación? 
+    pl = Lubisz tę aplikację? 
+    nl = Vindt u de app leuk? 
+    pt = Gosta do aplicativo?
 
   [rate_alert_default_message]
     tags = ios, android
-    en = Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better
+    en = Thank you for using MAPS.ME. Please rate the app. Your feedback helps us improve our product.
     ru = Спасибо что пользуетесь картами MAPS.ME. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.
+    fr = Merci d’avoir utilisé MAPS.ME. Pourriez-vous, s’il vous plaît, noter cette application ? Vos commentaires nous aideront à nous améliorer.
+    da = Tak for at du bruger MAPS.ME. Venligst bedøm appen. Din feedback hjælper os med at blive bedre.
+    id = Terima kasih karena menggunakan MAPS.ME. Mohon beri peringkat untuk aplikasi ini. Masukan dari Anda membantu kami untuk menjadi lebih baik.
+    ko = MAPS.ME를 사용해 주셔서 감사합니다. 이 앱을 평가해 주십시오. 당신의 피드백은 이 앱을 더 낫게 만드는데 도움을 줍니다.
+    sv = Tack för att du använder MAPS.ME. Betygsätt gärna appen. Din feedback hjälper oss att bli bättre.
+    tr = MAPS.ME’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.
+    uk = Дякуємо за використання MAPS.ME. Будь ласка, дайте їй оцінку. Ваш відгук допоможе нам стати краще.
+    vi = Cám ơn bạn đã sử dụng MAPS.ME. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.
+    hu = Köszönjük, hogy a MAPS.ME-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk. 
+    de = Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihr Feedback hilft uns besser zu werden.
+    fi = Kiitos kun käytät MAPS.ME:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.
+    cs = Děkujeme, že používáte MAPS.ME. Ohodnoťte, prosím, tuto aplikaci. Váš komentář nám pomůže zlepšovat se.
+    it = Grazie per aver utilizzato MAPS.ME. Valuta l’app. Il tuo feedback ci permette di migliorare.
+    nb = Takk for at du bruker MAPS.ME. Vi setter stor pris på om du rangerer appen. Tilbakemeldinger hjelper oss med å bli bedre.
+    zh-Hant = 感謝您使用 MAPS.ME。請，評價該應用。您的反饋幫助我們變得更好。
+    zh-Hans = 感谢您使用 MAPS.ME。请，评价该应用。您的反馈帮助我们变得更好。
+    th = ขอบพระคุณสำหรับการใช้ MAPS.ME โปรดให้คะแนนแอป ข้อเสนอแนะของคุณจะช่วยทำให้เราทำได้ดียิ่งขึ้น
+    ja = MAPS.MEをご使用いただきありがとうございます。アプリの評価をお願いいたします。皆様からのフィードバックはアプリの改善に役立つものです。
+    ro = Vă mulțumim că folosiți MAPS.ME. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.
+    ar = شكرا لاستخدامك MAPS.ME. من فضلك، أَعْطِ تقييمك للتطبيق. ملاحظاتك تساعدنا على أن نصبح أفضل.
+    sk = Ďakujeme, že používate MAPS.ME. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.
+    es = Gracias por usar MAPS.ME. Por favor, puntúa la aplicación. Tus comentarios nos ayudan a mejorar.
+    pl = Dziękujemy za korzystanie z MAPS.ME. Prosimy wystawić aplikacji ocenę. Twoja opinia pozwoli nam udoskonalać nasze produkty.
+    nl = Bedankt om MAPS.ME te gebruiken. Gelieve de app te beoordelen. Uw feedback helpt ons beter te worden.
+    pt = Obrigado por usar MAPS.ME. Por favor, classifique o aplicativo. Seu feedback nos ajuda a melhorar.
 
   [rate_alert_five_star_message]
     tags = ios, android
-    en = Hooray! We love you too!
+    en = Hooray! We love you, too!
     ru = Ура! Мы вас тоже любим!
+    fr = Super ! Nous vous aimons aussi !
+    da = Hurra! Vi elsker også dig!
+    id = Hore! Kami juga sangat menyukai Anda!
+    ko = 야호! 저희는 당신도 사랑합니다!
+    sv = Hurra! Vi älskar dig också!
+    tr = Yaşasın! Biz de sizi seviyoruz!
+    uk = Ура! Ми теж вас любимо!
+    vi = Hoan hô! Chúng tôi cũng yêu bạn!
+    hu = Hurrá! Mi is szeretjük magát!
+    de = Hurra! Wir lieben Sie auch!
+    fi = Hurraa! Mekin rakastamme sinua!
+    cs = Hurá! Také Vás zbožňujeme!
+    it = Hooray! Anche noi amiamo i nostri utenti!
+    nb = Hurra! Vi elsker deg også!
+    zh-Hant = 太棒了！我們也愛您！
+    zh-Hans = 太棒了！我们也爱您！
+    th = ฮูเร่! เราก็รักคุณเช่นกัน!
+    ja = やったー! 相思相愛!
+    ro = Ura! Și noi vă iubim!
+    ar = مرحا! نحن أيضا نحبك!
+    sk = Hurá! Aj my vás taky páči! 
+    es = ¡Genial! ¡Nosotros también te queremos!
+    pl = Hurra! My też Cię uwielbiamy!
+    nl = Hoera! Wij houden ook van u!
+    pt = Viva! Também amamos você!
 
   [rate_alert_four_star_message]
     tags = ios, android
     en = Thank you, we will do our best!
     ru = Спасибо, мы будем стараться!
+    fr = Merci, nous ferons tout notre possible !
+    da = Mange tak, vi vil gøre vores bedste!
+    id = Terima kasih, kami akan melakukan yang terbaik!
+    ko = 감사합니다. 최선을 다할 것입니다!
+    sv = Tack, vi ska göra vårt bästa!
+    tr = Teşekkür ederiz, elimizden geleni yapacağız!
+    uk = Дякуємо, ми зробимо все можливе!
+    vi = Cám ơn, chúng tôi sẽ nỗ lực hết mình!
+    hu = Köszönjük, igyekszünk a legjobbunkat nyújtani!
+    de = Danke, wir geben unser Bestes!
+    fi = Kiitos, teemme parhaamme!
+    cs = Děkujeme, budeme se snažit!
+    it = Grazie, faremo del nostro meglio!
+    nb = Tusen takk, vi skal gjøre vårt beste!
+    zh-Hant = 謝謝您，我們會盡可能做好!
+    zh-Hans = 谢谢您，我们会尽可能做好！
+    th = ขอบพระคุณ เราจะทำให้ดีที่สุด!
+    ja = ありがとうございます。頑張ります!
+    ro = Vă mulțumim, vom face tot ce ne stă în putință!
+    ar = شكرا لك، سوف نبذل قصارى جهدنا!
+    sk = Ďakujeme vám, urobíme, čo bude v našich silách! 
+    es = ¡Gracias, haremos todo lo posible!
+    pl = Dziękujemy, zrobimy co w naszej mocy!
+    nl = Bedankt, we zullen ons best doen!
+    pt = Obrigado, faremos o melhor possível!
 
   [rate_alert_less_than_four_star_message]
     tags = ios, android
-    en = Tell us, please, what can we do to make it better?
+    en = Any idea how we can make it better?
     ru = Расскажите, что мы могли бы улучшить?
+    fr = Avez-vous une idée de ce que nous pourrions améliorer ?
+    da = Har du en idé om, hvordan vi kan gøre den bedre?
+    id = Anda punya ide agar kami bisa membuatnya menjadi lebih baik?
+    ko = 더 낫게 만드는 아이디어가 있습니까?
+    sv = Har du någon idé om hur vi ska bli bättre?
+    tr = Daha iyi hale getirebilmemiz için herhangi bir fikriniz var mı?
+    uk = Є пропозиції щодо того, як ми можемо її вдосконалитии?
+    vi = Có bất kỳ ý tưởng nào về cách chúng tôi có thể giúp ứng dụng tốt hơn?
+    hu = Van valami ötlete, amivel jobbá tehetnénk?
+    de = Haben Sie eine Idee, wie wir besser werden können?
+    fi = Kertoisitko missä voisimme parantaa?
+    cs = Nějaké nápady, jak to můžeme dělat lépe?
+    it = Hai qualche idea su come migliorarla?
+    nb = Noen tanker om hvordan vi kan forbedre den?
+    zh-Hant = 有沒有想法我們能怎麽把它變得更好？
+    zh-Hans = 有没有想法我们能怎么把它变得更好？
+    th = มีไอเดียถึงวิธีที่จะทำให้เราสามารถทำให้มันดีขึ้นหรือไม่?
+    ja = 改善のためのアイデアはございますか?
+    ro = Aveți vreo idee prin care putem să îmbunătățim aplicația?
+    ar = لديك أي فكرة حول كيف يمكننا أن نجعله أفضل؟
+    sk = Nejaký nápad, ako ju môžeme vylepšiť? 
+    es = ¿Alguna idea de cómo podemos mejorarla?
+    pl = Czy masz pomysł, w jaki sposób możemy dokonać ulepszeń?
+    nl = Heeft u suggesties voor verbeteringen?
+    pt = Alguma ideia sobre como podemos melhorar?
