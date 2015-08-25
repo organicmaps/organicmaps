@@ -50,7 +50,6 @@
 		67AB92D11B75156700AB5194 /* feature_builder_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1E61A4C28D5005EEA39 /* feature_builder_test.cpp */; };
 		67AB92D21B75156B00AB5194 /* feature_merger_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1E71A4C28D5005EEA39 /* feature_merger_test.cpp */; };
 		67AB92D31B75156E00AB5194 /* osm_id_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1E81A4C28D5005EEA39 /* osm_id_test.cpp */; };
-		67AB92D41B75157100AB5194 /* osm_parser_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1E91A4C28D5005EEA39 /* osm_parser_test.cpp */; };
 		67AB92D51B75157400AB5194 /* osm_type_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1EA1A4C28D5005EEA39 /* osm_type_test.cpp */; };
 		67AB92D61B75157700AB5194 /* tesselator_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1EB1A4C28D5005EEA39 /* tesselator_test.cpp */; };
 		67AB92D71B75157A00AB5194 /* triangles_tree_coding_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1EC1A4C28D5005EEA39 /* triangles_tree_coding_test.cpp */; };
@@ -142,7 +141,6 @@
 		6726C1E61A4C28D5005EEA39 /* feature_builder_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_builder_test.cpp; sourceTree = "<group>"; };
 		6726C1E71A4C28D5005EEA39 /* feature_merger_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_merger_test.cpp; sourceTree = "<group>"; };
 		6726C1E81A4C28D5005EEA39 /* osm_id_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_id_test.cpp; sourceTree = "<group>"; };
-		6726C1E91A4C28D5005EEA39 /* osm_parser_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_parser_test.cpp; sourceTree = "<group>"; };
 		6726C1EA1A4C28D5005EEA39 /* osm_type_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_type_test.cpp; sourceTree = "<group>"; };
 		6726C1EB1A4C28D5005EEA39 /* tesselator_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tesselator_test.cpp; sourceTree = "<group>"; };
 		6726C1EC1A4C28D5005EEA39 /* triangles_tree_coding_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangles_tree_coding_test.cpp; sourceTree = "<group>"; };
@@ -304,7 +302,6 @@
 				6726C1E61A4C28D5005EEA39 /* feature_builder_test.cpp */,
 				6726C1E71A4C28D5005EEA39 /* feature_merger_test.cpp */,
 				6726C1E81A4C28D5005EEA39 /* osm_id_test.cpp */,
-				6726C1E91A4C28D5005EEA39 /* osm_parser_test.cpp */,
 				6726C1EA1A4C28D5005EEA39 /* osm_type_test.cpp */,
 				6726C1EB1A4C28D5005EEA39 /* tesselator_test.cpp */,
 				6726C1EC1A4C28D5005EEA39 /* triangles_tree_coding_test.cpp */,
@@ -456,7 +453,6 @@
 			files = (
 				671F58B91B8611360032311E /* intermediate_data_test.cpp in Sources */,
 				67AB92D51B75157400AB5194 /* osm_type_test.cpp in Sources */,
-				67AB92D41B75157100AB5194 /* osm_parser_test.cpp in Sources */,
 				67AB92D81B75157D00AB5194 /* metadata_test.cpp in Sources */,
 				67AB92D71B75157A00AB5194 /* triangles_tree_coding_test.cpp in Sources */,
 				67AB92CF1B75156000AB5194 /* classificator_tests.cpp in Sources */,
