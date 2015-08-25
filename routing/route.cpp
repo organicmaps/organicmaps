@@ -121,7 +121,7 @@ uint32_t Route::GetCurrentTimeToEndSec() const
     return m_poly.GetDistanceM(m_poly.GetIterToIndex(start), m_poly.GetIterToIndex(end));
   };
 
-  ASSERT_LESS_OR_EQUAL(m_times[idx].first, polySz, ());
+  ASSERT_LESS(m_times[idx].first, polySz, ());
   double const dist = distFn(idx > 0 ? m_times[idx - 1].first : 0, m_times[idx].first);
 
   if (!my::AlmostEqualULPs(dist, 0.))
@@ -168,8 +168,10 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
 void Route::GetNextTurn(turns::TurnItem & turn) const
 {
   auto it = GetCurrentTurn();
-  ASSERT(it != m_turns.end(), ());
-  ++it;
+  if (it != m_turns.end())
+    ++it;
+  else
+    ASSERT(it != m_turns.end(), ());
   turn = it != m_turns.end() ? *it : turns::TurnItem();
 }
 
