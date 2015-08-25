@@ -2,7 +2,7 @@
 #include "generator/feature_generator.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/osm_decl.hpp"
-#include "generator/osm_element.hpp"
+#include "generator/osm_translator.hpp"
 #include "generator/osm_o5m_source.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/polygonizer.hpp"
@@ -482,7 +482,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
     cache.LoadIndex();
 
     MainFeaturesEmitter bucketer(info);
-    SecondPassParser<MainFeaturesEmitter, TDataCache> parser(
+    OsmToFeatureTranslator<MainFeaturesEmitter, TDataCache> parser(
         bucketer, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
         info.GetAddressesFileName());
 

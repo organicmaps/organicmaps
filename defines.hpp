@@ -8,6 +8,12 @@
 #define ADDR_FILE_EXTENSION ".addr"
 #define RAW_GEOM_FILE_EXTENSION ".rawgeom"
 
+#define NODES_FILE "nodes.dat"
+#define WAYS_FILE "ways.dat"
+#define RELATIONS_FILE "relations.dat"
+#define OFFSET_EXT ".offs"
+#define ID2REL_EXT ".id2rel"
+
 #define DATA_FILE_TAG "dat"
 #define GEOMETRY_FILE_TAG "geom"
 #define TRIANGLE_FILE_TAG "trg"

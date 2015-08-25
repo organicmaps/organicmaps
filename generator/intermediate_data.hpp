@@ -18,6 +18,8 @@
 
 #include "std/fstream.hpp"
 
+#include "defines.hpp"
+
 /// Classes for reading and writing any data in file with map of offsets for
 /// fast searching in memory by some key.
 namespace cache

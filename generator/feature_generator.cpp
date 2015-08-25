@@ -1,9 +1,8 @@
 #include "generator/feature_generator.hpp"
-#include "generator/intermediate_data.hpp"
-#include "generator/osm_element.hpp"
-
 #include "generator/generate_info.hpp"
+#include "generator/intermediate_data.hpp"
 #include "generator/osm_decl.hpp"
+#include "generator/osm_translator.hpp"
 
 #include "indexer/cell_id.hpp"
 #include "indexer/data_header.hpp"

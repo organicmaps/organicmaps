@@ -14,13 +14,6 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
-#define NODES_FILE "nodes.dat"
-#define WAYS_FILE "ways.dat"
-#define RELATIONS_FILE "relations.dat"
-#define OFFSET_EXT ".offs"
-#define ID2REL_EXT ".id2rel"
-#define MAPPED_WAYS "mapped_ways.n2w"
-
 struct WayElement
 {
   vector<uint64_t> nodes;

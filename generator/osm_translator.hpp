@@ -21,12 +21,12 @@
 
 
 /// @param  TEmitter  Feature accumulating policy
-/// @param  THolder   Nodes, ways, relations holder
-template <class TEmitter, class THolder>
-class SecondPassParser
+/// @param  TCache   Nodes, ways, relations holder
+template <class TEmitter, class TCache>
+class OsmToFeatureTranslator
 {
   TEmitter & m_emitter;
-  THolder & m_holder;
+  TCache & m_holder;
 
 
   bool GetPoint(uint64_t id, m2::PointD & pt) const
@@ -39,11 +39,11 @@ class SecondPassParser
 
   class holes_accumulator
   {
-    AreaWayMerger<THolder> m_merger;
+    AreaWayMerger<TCache> m_merger;
     holes_list_t m_holes;
 
   public:
-    holes_accumulator(SecondPassParser * pMain) : m_merger(pMain->m_holder) {}
+    holes_accumulator(OsmToFeatureTranslator * pMain) : m_merger(pMain->m_holder) {}
 
     void operator() (uint64_t id)
     {
@@ -71,7 +71,7 @@ class SecondPassParser
     holes_accumulator m_holes;
 
   public:
-    multipolygon_holes_processor(uint64_t id, SecondPassParser * pMain)
+    multipolygon_holes_processor(uint64_t id, OsmToFeatureTranslator * pMain)
       : m_id(id), m_holes(pMain)
     {
     }
@@ -253,13 +253,13 @@ class SecondPassParser
 
   class multipolygons_emitter
   {
-    SecondPassParser * m_pMain;
+    OsmToFeatureTranslator * m_pMain;
     FeatureParams const & m_params;
     holes_list_t & m_holes;
     uint64_t m_relID;
 
   public:
-    multipolygons_emitter(SecondPassParser * pMain,
+    multipolygons_emitter(OsmToFeatureTranslator * pMain,
                           FeatureParams const & params,
                           holes_list_t & holes,
                           uint64_t relID)
@@ -499,7 +499,7 @@ public:
         return;
 
       holes_accumulator holes(this);
-      AreaWayMerger<THolder> outer(m_holder);
+      AreaWayMerger<TCache> outer(m_holder);
 
       // 3. Iterate ways to get 'outer' and 'inner' geometries
       for (auto const & e : p->Members())
@@ -519,7 +519,7 @@ public:
   }
 
 public:
-  SecondPassParser(TEmitter & emitter, THolder & holder,
+  OsmToFeatureTranslator(TEmitter & emitter, TCache & holder,
                    uint32_t coastType, string const & addrFilePath)
     : m_emitter(emitter), m_holder(holder), m_coastType(coastType)
   {
