@@ -107,6 +107,7 @@
 		6753405A1A3F2A7400A0A8C3 /* xml_element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xml_element.cpp; sourceTree = "<group>"; };
 		6753405B1A3F2A7400A0A8C3 /* xml_element.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = xml_element.hpp; sourceTree = "<group>"; };
 		6764B8921ADD6A3300DD8B15 /* osm_o5m_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = osm_o5m_source.hpp; sourceTree = "<group>"; };
+		67F0F6761B8C9DCE003F52FF /* osm_xml_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = osm_xml_source.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +189,7 @@
 				670B84BA1A8CDB0000CE4492 /* osm_source.cpp */,
 				670B84BB1A8CDB0000CE4492 /* osm_source.hpp */,
 				6764B8921ADD6A3300DD8B15 /* osm_o5m_source.hpp */,
+				67F0F6761B8C9DCE003F52FF /* osm_xml_source.hpp */,
 			);
 			name = generator;
 			path = ../../generator;

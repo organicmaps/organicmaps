@@ -4,6 +4,7 @@
 #include "generator/intermediate_elements.hpp"
 #include "generator/osm_translator.hpp"
 #include "generator/osm_o5m_source.hpp"
+#include "generator/osm_xml_source.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/polygonizer.hpp"
 #include "generator/world_map_generator.hpp"
@@ -384,13 +385,13 @@ void AddElementToCache(TCache & cache, TElement const & em)
 template <typename TCache>
 void BuildIntermediateDataFromXML(SourceReader & stream, TCache & cache)
 {
-  BaseOSMParser parser([&](XMLElement * e) { AddElementToCache(cache, *e); });
+  XMLSource parser([&](XMLElement * e) { AddElementToCache(cache, *e); });
   ParseXMLSequence(stream, parser);
 }
 
 void BuildFeaturesFromXML(SourceReader & stream, function<void(XMLElement *)> processor)
 {
-  BaseOSMParser parser([&](XMLElement * e) { processor(e); });
+  XMLSource parser([&](XMLElement * e) { processor(e); });
   ParseXMLSequence(stream, parser);
 }
 
