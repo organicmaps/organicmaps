@@ -5,6 +5,7 @@
 #include "coding/base64.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
+#include "coding/write_to_sink.hpp"
 
 #include "base/logging.hpp"
 
@@ -19,7 +20,7 @@ bool ReadLength(ReaderSource<MemReader> & reader, TLength & length)
 {
   if (reader.Size() < kLengthTypeSize)
     return false;
-  reader.Read(&length, kLengthTypeSize);
+  length = ReadPrimitiveFromSource<TLength>(reader);
   return true;
 }
 }  // namespace
@@ -59,11 +60,11 @@ void QuerySaver::Serialize(string & data) const
   vector<uint8_t> rawData;
   MemWriter<vector<uint8_t>> writer(rawData);
   TLength size = m_topQueries.size();
-  writer.Write(&size, kLengthTypeSize);
+  WriteToSink(writer, size);
   for (auto const & query : m_topQueries)
   {
     size = query.size();
-    writer.Write(&size, kLengthTypeSize);
+    WriteToSink(writer, size);
     writer.Write(query.c_str(), size);
   }
   data = base64::Encode(string(rawData.begin(), rawData.end()));
