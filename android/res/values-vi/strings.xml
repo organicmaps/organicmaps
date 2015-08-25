@@ -35,7 +35,7 @@
 	<string name="downloading">Đang tải xuống...</string>
 	<string name="get_it_now">Tải xuống ngay</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Bạn có thích MAPS.ME không? Hãy giúp bạn bè và người thân của bạn biết về ứng dụng này và chia sẻ nó với họ trên Facebook!</string>
+	<string name="share_on_facebook_text">Cám ơn bạn đã sử dụng MAPS.ME! Bạn thích ứng dụng chứ? Kể cho bạn bè về ứng dụng này! Đây sẽ là sự biết ơn tuyệt vời nhất đối với chúng tôi.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -781,9 +781,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Xin chúc mừng!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Bạn đã làm chủ được các chức năng Chỉ đường Đi bộ. Hãy giúp bạn bè tiết kiệm thời gian đi bộ! Hãy cho họ biết về MAPS.ME!</string>
+	<string name="share_walking_routes_mastering">Bạn đã làm chủ được các chức năng Chỉ đường Đi bộ. Hãy giúp bạn bè tiết kiệm thời gian đi bộ. Hãy cho họ biết về MAPS.ME.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Muốn dùng thử?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">Chúng cung cấp tuyến đường ngắn nhất đến điểm đến. Hãy dùng thử và giúp bạn bè tiết kiệm thời gian đi lại.</string>
+	<string name="rate_alert_title">Bạn thích ứng dụng chứ?</string>
+	<string name="rate_alert_default_message">Cám ơn bạn đã sử dụng MAPS.ME. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.</string>
+	<string name="rate_alert_five_star_message">Hoan hô! Chúng tôi cũng yêu bạn!</string>
+	<string name="rate_alert_four_star_message">Cám ơn, chúng tôi sẽ nỗ lực hết mình!</string>
+	<string name="rate_alert_less_than_four_star_message">Có bất kỳ ý tưởng nào về cách chúng tôi có thể giúp ứng dụng tốt hơn?</string>
 </resources>

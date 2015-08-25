@@ -35,7 +35,7 @@
 	<string name="downloading">Wird heruntergeladen…</string>
 	<string name="get_it_now">Installieren</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Wenn ihnen unser Programm gefällt, teilen sie es bitte auf Facebook mit ihren Freunden.</string>
+	<string name="share_on_facebook_text">Danke, dass Sie MAPS.ME nutzen! Gefällt Ihnen die App? Erzählen Sie Ihren Freunden davon! Das ist der beste Dank für uns.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometer</string>
 	<!-- Leave Review dialog - Review button -->
@@ -777,9 +777,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Herzlichen Glückwunsch!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Sie beherrschen die Funktion der Wegbeschreibungen zu Fuß. Helfen Sie Ihren Freunden, auch Gehzeit zu sparen! Erzählen Sie ihnen von MAPS.ME!</string>
+	<string name="share_walking_routes_mastering">Sie beherrschen die Funktion der Wegbeschreibungen zu Fuß. Helfen Sie Ihren Freunden, auch Gehzeit zu sparen. Erzählen Sie ihnen von MAPS.ME.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Möchten Sie sie ausprobieren?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">Sie zeigt die kürzeste Strecke zu einem beliebigen Zielort an. Probieren Sie sie selber aus  und helfen Sie Ihren Freunden, Reisezeit zu sparen.</string>
+	<string name="rate_alert_title">Gefällt Ihnen die App?</string>
+	<string name="rate_alert_default_message">Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihr Feedback hilft uns besser zu werden.</string>
+	<string name="rate_alert_five_star_message">Hurra! Wir lieben Sie auch!</string>
+	<string name="rate_alert_four_star_message">Danke, wir geben unser Bestes!</string>
+	<string name="rate_alert_less_than_four_star_message">Haben Sie eine Idee, wie wir besser werden können?</string>
 </resources>

@@ -53,7 +53,7 @@
 "get_it_now" = "Telepítés most";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Tetszik a MAPS.ME? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!";
+"share_on_facebook_text" = "Köszönjük, hogy a MAPS.ME-t használja! Kedveli az appot? Akkor számoljon be a barátainak róla. Ez lenne a legnagyobb hála, amit adhat nekünk.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -1229,7 +1229,7 @@
 "share_walking_routes_congratulations" = "Gratulálunk!";
 
 /* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Elsajátította a séta útvonalak funkciót. Segítsen a barátainak is séta menetidőt spórolni. Számoljon be nekik a MAPS.ME-ről!";
+"share_walking_routes_mastering" = "Elsajátította a séta útvonalak funkciót. Segítsen a barátainak is séta menetidőt spórolni. Számoljon be nekik a MAPS.ME-ről.";
 
 /* Android notification about walking directions for update users */
 "walking_notification_text" = "Ki akarja próbálni őket?";
@@ -1237,12 +1237,12 @@
 /* Android notification with picture (rich) about walking directions for update users */
 "walking_rich_notification_text" = "A legrövidebb útvonalat adják meg bármely megszabott úti célhoz. Próbálja ki saját maga, és segítsen a barátainak időt spórolni.";
 
-"rate_alert_title" = "We need your feedback!";
+"rate_alert_title" = "Tetszik az app?";
 
-"rate_alert_default_message" = "Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better";
+"rate_alert_default_message" = "Köszönjük, hogy a MAPS.ME-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk.";
 
-"rate_alert_five_star_message" = "Hooray! We love you too!";
+"rate_alert_five_star_message" = "Hurrá! Mi is szeretjük magát!";
 
-"rate_alert_four_star_message" = "Thank you, we will do our best!";
+"rate_alert_four_star_message" = "Köszönjük, igyekszünk a legjobbunkat nyújtani!";
 
-"rate_alert_less_than_four_star_message" = "Tell us, please, what can we do to make it better?";
+"rate_alert_less_than_four_star_message" = "Van valami ötlete, amivel jobbá tehetnénk?";

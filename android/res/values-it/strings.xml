@@ -35,7 +35,7 @@
 	<string name="downloading">In fase di download…</string>
 	<string name="get_it_now">Prendila ora</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Ti stai divertendo MAPS.ME? Aiuta i tuoi amici e la famiglia a conoscere l\&#39;app, condividila con loro su Facebook!</string>
+	<string name="share_on_facebook_text">Grazie per aver utilizzato MAPS.ME! Ti piace l’app? Dillo ai tuoi amici! Questo è il miglior segno di gratitudine.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Chilometri</string>
 	<!-- Leave Review dialog - Review button -->
@@ -779,9 +779,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Congratulazioni!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Hai usufruito della funzione percorsi pedonali. Aiuta i tuoi amici a risparmiare tempo. Invitali a scoprire MAPS.ME!</string>
+	<string name="share_walking_routes_mastering">Hai usufruito della funzione percorsi pedonali. Aiuta i tuoi amici a risparmiare tempo. Invitali a scoprire MAPS.ME.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Vuoi provarli?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">Indicano il percorso più veloce verso la tua destinazione. Provali tu stesso e aiuta i tuoi amici a risparmiare tempo.</string>
+	<string name="rate_alert_title">Ti piace l’app?</string>
+	<string name="rate_alert_default_message">Grazie per aver utilizzato MAPS.ME. Valuta l’app. Il tuo feedback ci permette di migliorare.</string>
+	<string name="rate_alert_five_star_message">Hooray! Anche noi amiamo i nostri utenti!</string>
+	<string name="rate_alert_four_star_message">Grazie, faremo del nostro meglio!</string>
+	<string name="rate_alert_less_than_four_star_message">Hai qualche idea su come migliorarla?</string>
 </resources>

@@ -35,7 +35,7 @@
 	<string name="downloading">Se descarcă...</string>
 	<string name="get_it_now">Obțineți acum</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Vă place MAPS.ME? Ajutați-vă prietenii și familia să afle despre această aplicație: distribuiți-o pe Facebook!</string>
+	<string name="share_on_facebook_text">Vă mulțumim că folosiți MAPS.ME! Vă place aplicația? Spuneți-le prietenilor despre ea! Aceasta va fi cea mai mare mulțumire pentru noi.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -778,9 +778,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Felicitări!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Ați utilizat cu succes rute de mers pe jos. Ajutați-i și pe prietenii dvs. să-și reducă timpul de deplasare pe jos! Spuneți-le despre MAPS.ME!</string>
+	<string name="share_walking_routes_mastering">Ați utilizat cu succes rute de mers pe jos. Ajutați-i și pe prietenii dvs. să-și reducă timpul de deplasare pe jos. Spuneți-le despre MAPS.ME.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Doriți să o încercați?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">Ea vă oferă cea mai scurtă rută către orice punct de destinație. Încercați-o și ajutați-vă prietenii să-și reducă timpul de deplasare.</string>
+	<string name="rate_alert_title">Vă place aplicația?</string>
+	<string name="rate_alert_default_message">Vă mulțumim că folosiți MAPS.ME. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.</string>
+	<string name="rate_alert_five_star_message">Ura! Și noi vă iubim!</string>
+	<string name="rate_alert_four_star_message">Vă mulțumim, vom face tot ce ne stă în putință!</string>
+	<string name="rate_alert_less_than_four_star_message">Aveți vreo idee prin care putem să îmbunătățim aplicația?</string>
 </resources>

@@ -35,7 +35,7 @@
 	<string name="downloading">Завантажується…</string>
 	<string name="get_it_now">Встановити</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.</string>
+	<string name="share_on_facebook_text">Дякуємо за використання MAPS.ME! Чи подобається вам ця програма? Розкажіть своїм друзям про неї! Це буде найкраща подяка для нас.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">кБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -785,9 +785,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Вітання!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Ви освоїли функцію пішохідні маршрути. Допоможіть друзям зекономити час при ходьбі також! Розкажіть їм про MAPS.ME!</string>
+	<string name="share_walking_routes_mastering">Ви освоїли функцію пішохідні маршрути. Допоможіть друзям зекономити час при ходьбі також. Розкажіть їм про MAPS.ME.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Хочете спробувати їх?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">Вони пропонують найкоротший шлях до точки призначення. Спробуйте самі і допоможіть друзям зекономити час у подорожі.</string>
+	<string name="rate_alert_title">Подобається програма?</string>
+	<string name="rate_alert_default_message">Дякуємо за використання MAPS.ME. Будь ласка, дайте їй оцінку. Ваш відгук допоможе нам стати краще.</string>
+	<string name="rate_alert_five_star_message">Ура! Ми теж вас любимо!</string>
+	<string name="rate_alert_four_star_message">Дякуємо, ми зробимо все можливе!</string>
+	<string name="rate_alert_less_than_four_star_message">Є пропозиції щодо того, як ми можемо її вдосконалитии?</string>
 </resources>

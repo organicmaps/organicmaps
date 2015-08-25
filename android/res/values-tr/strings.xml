@@ -35,7 +35,7 @@
 	<string name="downloading">İndiriliyor…</string>
 	<string name="get_it_now">Hemen al</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">MAPS.ME hoşunuza gitti mi? Arkadaşlarınızın ve ailenizin uygulama hakkında bilgi sahibi olmalarına yardımcı olun, bunu onlarla Facebook’ta paylaşın!</string>
+	<string name="share_on_facebook_text">MAPS.ME’yi kullandığınız için teşekkür ederiz! Uygulamayı beğendiniz mi? Bundan arkadaşlarınıza bahsedin! Bundan büyük memnuniyet duyarız.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -786,9 +786,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Tebrikler!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Yürüyüş rotalarını fonksiyonlarını hakim oldunuz. Arkadaşlarınızında yürüyüş zamanınından tasarruf etmelerine yardımcı olun! Onlara MAPS.ME\&#39;den bahsedin!</string>
+	<string name="share_walking_routes_mastering">Yürüyüş rotalarını fonksiyonlarını hakim oldunuz. Arkadaşlarınızında yürüyüş zamanınından tasarruf etmelerine yardımcı olun. Onlara MAPS.ME\&#39;den bahsedin.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Onları denemek ister misiniz?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">Onlar herhangi bir hedef noktasına ulaşmanız için en kısa yolu gösterirler. Onları deneyin ve arkadaşlarınızın seyahat zamanınından tasarruf etmelerine yardımcı olun.</string>
+	<string name="rate_alert_title">Uygulamayı beğendiniz mi?</string>
+	<string name="rate_alert_default_message">MAPS.ME’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.</string>
+	<string name="rate_alert_five_star_message">Yaşasın! Biz de sizi seviyoruz!</string>
+	<string name="rate_alert_four_star_message">Teşekkür ederiz, elimizden geleni yapacağız!</string>
+	<string name="rate_alert_less_than_four_star_message">Daha iyi hale getirebilmemiz için herhangi bir fikriniz var mı?</string>
 </resources>

@@ -35,7 +35,7 @@
 	<string name="downloading">Téléchargement…</string>
 	<string name="get_it_now">Obtenez-la maintenant</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Vous appréciez MAPS.ME ? Aidez vos amis et votre famille à en apprendre plus sur l\&#39;appli, partagez-la avec eux sur Facebook !</string>
+	<string name="share_on_facebook_text">Merci d’avoir utilisé MAPS.ME ! Vous aimez cette application ? Parlez-en à vos amis ! Ce serait la meilleure preuve de gratitude à notre égard.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">ko</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -793,9 +793,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Félicitations !</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Vous êtes devenu un vrai pro de la fonction Itinéraires piétons. Aidez vos amis à optimiser leurs trajets ! Faites leur découvrir MAPS.ME !</string>
+	<string name="share_walking_routes_mastering">Vous êtes devenu un vrai pro de la fonction Itinéraires piétons. Aidez vos amis à optimiser leurs trajets. Faites leur découvrir MAPS.ME.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Vous voulez les essayer ?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">Ils vous indiquent les chemins les plus directs vers votre destination. Essayez-les par vous-même et aidez vos amis à optimiser leurs temps de trajet.</string>
+	<string name="rate_alert_title">Vous aimez l’application ?</string>
+	<string name="rate_alert_default_message">Merci d’avoir utilisé MAPS.ME. Pourriez-vous, s’il vous plaît, noter cette application ? Vos commentaires nous aideront à nous améliorer.</string>
+	<string name="rate_alert_five_star_message">Super ! Nous vous aimons aussi !</string>
+	<string name="rate_alert_four_star_message">Merci, nous ferons tout notre possible !</string>
+	<string name="rate_alert_less_than_four_star_message">Avez-vous une idée de ce que nous pourrions améliorer ?</string>
 </resources>

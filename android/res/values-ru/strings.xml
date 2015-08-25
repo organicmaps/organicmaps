@@ -35,7 +35,7 @@
 	<string name="downloading">Загружается…</string>
 	<string name="get_it_now">Установить</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Нравится MAPS.ME? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!</string>
+	<string name="share_on_facebook_text">Спасибо, что пользуетесь MAPS.ME! Нравится приложение? Расскажите о нём своим друзьям. Это будет лучшей благодарностью для нас.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">кБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -798,7 +798,7 @@
 	<string name="walking_notification_text">Хочешь проверить, как она работает?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">С её помощью ты найдешь кратчайший путь до любого места. Попробуй сам и поделись новостью с друзьями: пусть и они экономят время на дорогу.</string>
-	<string name="rate_alert_title">Оцените нашу работу</string>
+	<string name="rate_alert_title">Нравится приложение?</string>
 	<string name="rate_alert_default_message">Спасибо что пользуетесь картами MAPS.ME. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.</string>
 	<string name="rate_alert_five_star_message">Ура! Мы вас тоже любим!</string>
 	<string name="rate_alert_four_star_message">Спасибо, мы будем стараться!</string>

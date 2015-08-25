@@ -35,7 +35,7 @@
 	<string name="downloading">Laster ned …</string>
 	<string name="get_it_now">Hent nå</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Liker du MAPS.ME? Hjelp venner og familie med å bli kjent med appen – del den med dem på Facebook!</string>
+	<string name="share_on_facebook_text">Tusen takk for at du bruker MAPS.ME! Liker du appen? Fortell vennene dine om den! Det er den beste takken vi kan få.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -781,9 +781,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Gratulerer!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Du mestret Gå-ruter funksjonen. Hjelp vennene dine å spare tid, også! Fortell dem om MAPS.ME!</string>
+	<string name="share_walking_routes_mastering">Du mestret Gå-ruter funksjonen. Hjelp vennene dine å spare tid, også. Fortell dem om MAPS.ME.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Vil du prøve dem?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">De gir den korteste ruten til enhver destinasjon. Prøv dem selv og hjelp vennene dine å spare reisetid.</string>
+	<string name="rate_alert_title">Liker du appen?</string>
+	<string name="rate_alert_default_message">Takk for at du bruker MAPS.ME. Vi setter stor pris på om du rangerer appen. Tilbakemeldinger hjelper oss med å bli bedre.</string>
+	<string name="rate_alert_five_star_message">Hurra! Vi elsker deg også!</string>
+	<string name="rate_alert_four_star_message">Tusen takk, vi skal gjøre vårt beste!</string>
+	<string name="rate_alert_less_than_four_star_message">Noen tanker om hvordan vi kan forbedre den?</string>
 </resources>

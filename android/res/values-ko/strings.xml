@@ -34,6 +34,8 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">다운로드 중…</string>
 	<string name="get_it_now">지금 가져오기</string>
+	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
+	<string name="share_on_facebook_text">MAPS.ME를 사용해 주셔서 감사합니다! 앱을 좋아하십니까? 이 앱에 대해 친구들에게 널리 알려 주십시오! 그러면 저희는 매우 감사할 것입니다.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">킬로미터</string>
 	<!-- Leave Review dialog - Review button -->
@@ -770,9 +772,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">축하합니다!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">도보 방향 기능을 마스터했습니다. 친구들을 도와 도보 시간을 절약하게 해줍니다! MAPS.ME에 대해 그들에게 말하세요!</string>
+	<string name="share_walking_routes_mastering">도보 방향 기능을 마스터했습니다. 친구들을 도와 도보 시간을 절약하게 해줍니다. MAPS.ME에 대해 그들에게 말하세요.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">이를 시도하시겠습니까?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">모든 목적지 포인트로의 최단 경로를 제공합니다. 이를 시도하고 친구들을 도와 여행 시간을 절약합니다.</string>
+	<string name="rate_alert_title">앱을 좋아하나요?</string>
+	<string name="rate_alert_default_message">MAPS.ME를 사용해 주셔서 감사합니다. 이 앱을 평가해 주십시오. 당신의 피드백은 이 앱을 더 낫게 만드는데 도움을 줍니다.</string>
+	<string name="rate_alert_five_star_message">야호! 저희는 당신도 사랑합니다!</string>
+	<string name="rate_alert_four_star_message">감사합니다. 최선을 다할 것입니다!</string>
+	<string name="rate_alert_less_than_four_star_message">더 낫게 만드는 아이디어가 있습니까?</string>
 </resources>

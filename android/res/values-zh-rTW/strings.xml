@@ -35,7 +35,7 @@
 	<string name="downloading">下載中…</string>
 	<string name="get_it_now">馬上取得</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">喜歡MAPS.ME嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！</string>
+	<string name="share_on_facebook_text">感謝您使用 MAPS.ME！您喜歡該應用嗎？告訴您的好友們吧！這會是對我們最好的感謝。</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">公里</string>
 	<!-- Leave Review dialog - Review button -->
@@ -768,9 +768,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">祝賀您！</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">您已經掌握了步行路線的功能了。幫助您的朋友也節省步行時間！告訴他們關於MAPS.ME的信息？</string>
+	<string name="share_walking_routes_mastering">您已經掌握了步行路線的功能了。幫助您的朋友也節省步行時間。告訴他們關於MAPS.ME的信息。</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">想要嘗試嗎？</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">它們提供至任何目的地的最短路線。您自己來嘗試一下，並且幫助您的朋友節省旅行時間。</string>
+	<string name="rate_alert_title">喜歡這個應用嗎？</string>
+	<string name="rate_alert_default_message">感謝您使用 MAPS.ME。請，評價該應用。您的反饋幫助我們變得更好。</string>
+	<string name="rate_alert_five_star_message">太棒了！我們也愛您！</string>
+	<string name="rate_alert_four_star_message">謝謝您，我們會盡可能做好!</string>
+	<string name="rate_alert_less_than_four_star_message">有沒有想法我們能怎麽把它變得更好？</string>
 </resources>

@@ -53,7 +53,7 @@
 "get_it_now" = "Installieren";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Wenn ihnen unser Programm gefällt, teilen sie es bitte auf Facebook mit ihren Freunden.";
+"share_on_facebook_text" = "Danke, dass Sie MAPS.ME nutzen! Gefällt Ihnen die App? Erzählen Sie Ihren Freunden davon! Das ist der beste Dank für uns.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -1229,7 +1229,7 @@
 "share_walking_routes_congratulations" = "Herzlichen Glückwunsch!";
 
 /* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Sie beherrschen die Funktion der Wegbeschreibungen zu Fuß. Helfen Sie Ihren Freunden, auch Gehzeit zu sparen! Erzählen Sie ihnen von MAPS.ME!";
+"share_walking_routes_mastering" = "Sie beherrschen die Funktion der Wegbeschreibungen zu Fuß. Helfen Sie Ihren Freunden, auch Gehzeit zu sparen. Erzählen Sie ihnen von MAPS.ME.";
 
 /* Android notification about walking directions for update users */
 "walking_notification_text" = "Möchten Sie sie ausprobieren?";
@@ -1237,12 +1237,12 @@
 /* Android notification with picture (rich) about walking directions for update users */
 "walking_rich_notification_text" = "Sie zeigt die kürzeste Strecke zu einem beliebigen Zielort an. Probieren Sie sie selber aus  und helfen Sie Ihren Freunden, Reisezeit zu sparen.";
 
-"rate_alert_title" = "We need your feedback!";
+"rate_alert_title" = "Gefällt Ihnen die App?";
 
-"rate_alert_default_message" = "Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better";
+"rate_alert_default_message" = "Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihr Feedback hilft uns besser zu werden.";
 
-"rate_alert_five_star_message" = "Hooray! We love you too!";
+"rate_alert_five_star_message" = "Hurra! Wir lieben Sie auch!";
 
-"rate_alert_four_star_message" = "Thank you, we will do our best!";
+"rate_alert_four_star_message" = "Danke, wir geben unser Bestes!";
 
-"rate_alert_less_than_four_star_message" = "Tell us, please, what can we do to make it better?";
+"rate_alert_less_than_four_star_message" = "Haben Sie eine Idee, wie wir besser werden können?";

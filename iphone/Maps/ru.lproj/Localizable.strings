@@ -53,7 +53,7 @@
 "get_it_now" = "Установить";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Нравится MAPS.ME? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!";
+"share_on_facebook_text" = "Спасибо, что пользуетесь MAPS.ME! Нравится приложение? Расскажите о нём своим друзьям. Это будет лучшей благодарностью для нас.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "кБ";
@@ -1237,7 +1237,7 @@
 /* Android notification with picture (rich) about walking directions for update users */
 "walking_rich_notification_text" = "С её помощью ты найдешь кратчайший путь до любого места. Попробуй сам и поделись новостью с друзьями: пусть и они экономят время на дорогу.";
 
-"rate_alert_title" = "Оцените нашу работу";
+"rate_alert_title" = "Нравится приложение?";
 
 "rate_alert_default_message" = "Спасибо что пользуетесь картами MAPS.ME. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.";
 

@@ -35,7 +35,7 @@
 	<string name="downloading">Sťahovanie…</string>
 	<string name="get_it_now">Získať teraz</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Páči sa ti MAPS.ME? Pomôž svojim priateľom a rodine dozvedieť sa o tejto aplikácii. Zdieľajte ju s nimi prostredníctvom Facebooku!</string>
+	<string name="share_on_facebook_text">Ďakujeme, že používate MAPS.ME! Páči sa vám táto aplikácia? Povedzte o nej svojim priateľom! Bude to pre nás najlepšia odmena.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometre</string>
 	<!-- Leave Review dialog - Review button -->
@@ -785,9 +785,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Blahoželáme!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Zvládli ste funkciu Pešie smery. Pomôžte aj svojim priateľom ušetriť čas pri chôdzi! Povedzte im o MAPS.ME!</string>
+	<string name="share_walking_routes_mastering">Zvládli ste funkciu Pešie smery. Pomôžte aj svojim priateľom ušetriť čas pri chôdzi. Povedzte im o MAPS.ME.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Chcete si ich vyskúšať?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">Udávajú najkratšiu trasu do ľubovoľného cieľového bodu. Vyskúšajte si ich sami a pomôžte svojim priateľom ušetriť čas pri cestovaní.</string>
+	<string name="rate_alert_title">Páči sa vám aplikácia?</string>
+	<string name="rate_alert_default_message">Ďakujeme, že používate MAPS.ME. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.</string>
+	<string name="rate_alert_five_star_message">Hurá! Aj my vás taky páči!</string>
+	<string name="rate_alert_four_star_message">Ďakujeme vám, urobíme, čo bude v našich silách!</string>
+	<string name="rate_alert_less_than_four_star_message">Nejaký nápad, ako ju môžeme vylepšiť?</string>
 </resources>

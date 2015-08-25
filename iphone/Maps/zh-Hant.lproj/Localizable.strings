@@ -53,7 +53,7 @@
 "get_it_now" = "馬上取得";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "喜歡MAPS.ME嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！";
+"share_on_facebook_text" = "感謝您使用 MAPS.ME！您喜歡該應用嗎？告訴您的好友們吧！這會是對我們最好的感謝。";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -1229,7 +1229,7 @@
 "share_walking_routes_congratulations" = "祝賀您！";
 
 /* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "您已經掌握了步行路線的功能了。幫助您的朋友也節省步行時間！告訴他們關於MAPS.ME的信息？";
+"share_walking_routes_mastering" = "您已經掌握了步行路線的功能了。幫助您的朋友也節省步行時間。告訴他們關於MAPS.ME的信息。";
 
 /* Android notification about walking directions for update users */
 "walking_notification_text" = "想要嘗試嗎？";
@@ -1237,12 +1237,12 @@
 /* Android notification with picture (rich) about walking directions for update users */
 "walking_rich_notification_text" = "它們提供至任何目的地的最短路線。您自己來嘗試一下，並且幫助您的朋友節省旅行時間。";
 
-"rate_alert_title" = "We need your feedback!";
+"rate_alert_title" = "喜歡這個應用嗎？";
 
-"rate_alert_default_message" = "Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better";
+"rate_alert_default_message" = "感謝您使用 MAPS.ME。請，評價該應用。您的反饋幫助我們變得更好。";
 
-"rate_alert_five_star_message" = "Hooray! We love you too!";
+"rate_alert_five_star_message" = "太棒了！我們也愛您！";
 
-"rate_alert_four_star_message" = "Thank you, we will do our best!";
+"rate_alert_four_star_message" = "謝謝您，我們會盡可能做好!";
 
-"rate_alert_less_than_four_star_message" = "Tell us, please, what can we do to make it better?";
+"rate_alert_less_than_four_star_message" = "有沒有想法我們能怎麽把它變得更好？";

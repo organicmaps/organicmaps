@@ -35,7 +35,7 @@
 	<string name="downloading">ダウンロード中…</string>
 	<string name="get_it_now">今すぐ入手</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">アプリの使い勝手はいかがでしょうか？ ぜひFacebookで友人にシェアしてください</string>
+	<string name="share_on_facebook_text">MAPS.MEをご利用いただきありがとうございます! このアプリが好きですか? お友達にも教えてあげてください! アプリを広めていただければ大変嬉しく思います。</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">キロメートル</string>
 	<!-- Leave Review dialog - Review button -->
@@ -779,9 +779,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">おめでとうございます！</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">徒歩ルート機能をマスターしました。お友達の歩行時間の短縮にも役立ててください！MAPS.MEについて教えてあげてください！</string>
+	<string name="share_walking_routes_mastering">徒歩ルート機能をマスターしました。お友達の歩行時間の短縮にも役立ててください。MAPS.MEについて教えてあげてください。</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">試してみますか？</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">どんな目的地にでも最短のルートを表示します。ご自身でお試しいただき、お友達の移動時間の短縮にも役立ててください。</string>
+	<string name="rate_alert_title">このアプリが好きですか?</string>
+	<string name="rate_alert_default_message">MAPS.MEをご使用いただきありがとうございます。アプリの評価をお願いいたします。皆様からのフィードバックはアプリの改善に役立つものです。</string>
+	<string name="rate_alert_five_star_message">やったー! 相思相愛!</string>
+	<string name="rate_alert_four_star_message">ありがとうございます。頑張ります!</string>
+	<string name="rate_alert_less_than_four_star_message">改善のためのアイデアはございますか?</string>
 </resources>

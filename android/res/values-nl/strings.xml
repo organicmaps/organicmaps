@@ -31,7 +31,7 @@
 	<string name="downloading">Downloaden…</string>
 	<string name="get_it_now">Installeren</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Deel dit programma met uw vrienden op Facebook, als ons programma u bevalt.</string>
+	<string name="share_on_facebook_text">Bedankt om MAPS.ME te gebruiken! Vindt u de app leuk? Vertel uw vrienden erover! Dit is voor ons het beste dankgebaar.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">KB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -772,9 +772,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Gefeliciteerd!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">U heeft de functies van wandelroutes onder de knie. Help uw vrienden ook met het besparen van wandeltijd! Vertel ze over MAPS.ME!</string>
+	<string name="share_walking_routes_mastering">U heeft de functies van wandelroutes onder de knie. Help uw vrienden ook met het besparen van wandeltijd. Vertel ze over MAPS.ME.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Wilt u ze uitproberen?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">Ze bieden de kortste route aan naar alle bestemmingen. Probeer ze zelf uit en help uw vrienden ook met het besparen van reistijd!</string>
+	<string name="rate_alert_title">Vindt u de app leuk?</string>
+	<string name="rate_alert_default_message">Bedankt om MAPS.ME te gebruiken. Gelieve de app te beoordelen. Uw feedback helpt ons beter te worden.</string>
+	<string name="rate_alert_five_star_message">Hoera! Wij houden ook van u!</string>
+	<string name="rate_alert_four_star_message">Bedankt, we zullen ons best doen!</string>
+	<string name="rate_alert_less_than_four_star_message">Heeft u suggesties voor verbeteringen?</string>
 </resources>

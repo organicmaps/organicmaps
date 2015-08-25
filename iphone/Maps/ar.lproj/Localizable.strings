@@ -53,7 +53,7 @@
 "get_it_now" = "احصل عليه الآن";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "هل تستمتع باستخدام تطبيق MAPS.ME ؟ ساعد أصدقائك و أسرتك في تعلم كيفية استخدامه، قم بمشاركته معهم على فيسبوك!";
+"share_on_facebook_text" = "شكرا لاستخدامك MAPS.ME! هل يعجبك التطبيق؟ أخبر أصدقاءك عن التطبيق! سيكون ذلك هو غاية الامتنان بالنسبة لنا.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "ك.ب.";
@@ -1229,7 +1229,7 @@
 "share_walking_routes_congratulations" = "تهانينا!";
 
 /* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "لقد أتقنت وظيفة اتجاهات السير. ساعد أصدقائك أيضا في توفير وقت السير! اخبرهم عن MAPS.ME!";
+"share_walking_routes_mastering" = "لقد أتقنت وظيفة اتجاهات السير. ساعد أصدقائك أيضا في توفير وقت السير. اخبرهم عن MAPS.ME.";
 
 /* Android notification about walking directions for update users */
 "walking_notification_text" = "تتوفر اتجاهات السير في";
@@ -1237,12 +1237,12 @@
 /* Android notification with picture (rich) about walking directions for update users */
 "walking_rich_notification_text" = "إنها تعطيك الطريق الأقصر إلى أي وجهة تقصدها. جربها بنفسك، وساعد أصدقائك في إيجاز وقت السفر.";
 
-"rate_alert_title" = "We need your feedback!";
+"rate_alert_title" = "يعجبك التطبيق؟";
 
-"rate_alert_default_message" = "Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better";
+"rate_alert_default_message" = "شكرا لاستخدامك MAPS.ME. من فضلك، أَعْطِ تقييمك للتطبيق. ملاحظاتك تساعدنا على أن نصبح أفضل.";
 
-"rate_alert_five_star_message" = "Hooray! We love you too!";
+"rate_alert_five_star_message" = "مرحا! نحن أيضا نحبك!";
 
-"rate_alert_four_star_message" = "Thank you, we will do our best!";
+"rate_alert_four_star_message" = "شكرا لك، سوف نبذل قصارى جهدنا!";
 
-"rate_alert_less_than_four_star_message" = "Tell us, please, what can we do to make it better?";
+"rate_alert_less_than_four_star_message" = "لديك أي فكرة حول كيف يمكننا أن نجعله أفضل؟";

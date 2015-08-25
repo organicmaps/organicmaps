@@ -35,7 +35,7 @@
 	<string name="downloading">Ladataan…</string>
 	<string name="get_it_now">Hanki nyt</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Tykkäätkö MAPS.ME -sovelluksesta? Kerro siitä ystävillesi ja perheellesi jakamalla sovellus Facebookissa!</string>
+	<string name="share_on_facebook_text">Kiitos kun käytät MAPS.ME:tä! Pidätkö sovelluksesta? Kerro kavereillesi siitä! Se on meille paras mahdollinen kiitos.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">Kt</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -781,9 +781,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Onnittelut!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Hallitset nyt Kävelyohje-toiminnon. Auta ystäviäsikin lyhentämään kävelyaikaansa. Kerro heille MAPS.ME:sta!</string>
+	<string name="share_walking_routes_mastering">Hallitset nyt Kävelyohje-toiminnon. Auta ystäviäsikin lyhentämään kävelyaikaansa. Kerro heille MAPS.ME:sta.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Haluatko kokeilla niitä?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">Ne antavat lyhyimmän reitin mihin tahansa päämäärään. Kokeile itse, ja auta ystäviäsi lyhentämään matkustusaikaansa.</string>
+	<string name="rate_alert_title">Pidätkö sovelluksesta?</string>
+	<string name="rate_alert_default_message">Kiitos kun käytät MAPS.ME:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.</string>
+	<string name="rate_alert_five_star_message">Hurraa! Mekin rakastamme sinua!</string>
+	<string name="rate_alert_four_star_message">Kiitos, teemme parhaamme!</string>
+	<string name="rate_alert_less_than_four_star_message">Kertoisitko missä voisimme parantaa?</string>
 </resources>

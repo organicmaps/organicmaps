@@ -53,7 +53,7 @@
 "get_it_now" = "Hanki nyt";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Tykkäätkö MAPS.ME -sovelluksesta? Kerro siitä ystävillesi ja perheellesi jakamalla sovellus Facebookissa!";
+"share_on_facebook_text" = "Kiitos kun käytät MAPS.ME:tä! Pidätkö sovelluksesta? Kerro kavereillesi siitä! Se on meille paras mahdollinen kiitos.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "Kt";
@@ -1229,7 +1229,7 @@
 "share_walking_routes_congratulations" = "Onnittelut!";
 
 /* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Hallitset nyt Kävelyohje-toiminnon. Auta ystäviäsikin lyhentämään kävelyaikaansa. Kerro heille MAPS.ME:sta!";
+"share_walking_routes_mastering" = "Hallitset nyt Kävelyohje-toiminnon. Auta ystäviäsikin lyhentämään kävelyaikaansa. Kerro heille MAPS.ME:sta.";
 
 /* Android notification about walking directions for update users */
 "walking_notification_text" = "Haluatko kokeilla niitä?";
@@ -1237,12 +1237,12 @@
 /* Android notification with picture (rich) about walking directions for update users */
 "walking_rich_notification_text" = "Ne antavat lyhyimmän reitin mihin tahansa päämäärään. Kokeile itse, ja auta ystäviäsi lyhentämään matkustusaikaansa.";
 
-"rate_alert_title" = "We need your feedback!";
+"rate_alert_title" = "Pidätkö sovelluksesta?";
 
-"rate_alert_default_message" = "Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better";
+"rate_alert_default_message" = "Kiitos kun käytät MAPS.ME:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.";
 
-"rate_alert_five_star_message" = "Hooray! We love you too!";
+"rate_alert_five_star_message" = "Hurraa! Mekin rakastamme sinua!";
 
-"rate_alert_four_star_message" = "Thank you, we will do our best!";
+"rate_alert_four_star_message" = "Kiitos, teemme parhaamme!";
 
-"rate_alert_less_than_four_star_message" = "Tell us, please, what can we do to make it better?";
+"rate_alert_less_than_four_star_message" = "Kertoisitko missä voisimme parantaa?";

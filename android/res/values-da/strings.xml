@@ -35,7 +35,7 @@
 	<string name="downloading">Downloader…</string>
 	<string name="get_it_now">Få det nu</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Nyder du MAPS.ME? Hjælp dine venner og familie ved at fortælle dem om denne app, del den med dem på Facebook!</string>
+	<string name="share_on_facebook_text">Tak for at du bruger MAPS.ME! Kan du lide appen? Fortæl dine venner om den! Det vil vi være så glade for.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometre</string>
 	<!-- Leave Review dialog - Review button -->
@@ -782,9 +782,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">Tillykke!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">Du har fundet ud at at bruge rutevejledning til fods funktionen. Hjælp dine venner med også at spare gå-tid! Fortæl dem om MAPS.ME!</string>
+	<string name="share_walking_routes_mastering">Du har fundet ud at at bruge rutevejledning til fods funktionen. Hjælp dine venner med også at spare gå-tid. Fortæl dem om MAPS.ME.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">Vil du prøve det?</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">Den giver den korteste rute til enhver destination. Prøv det selv, og hjælp dine venner med at spare rejsetid.</string>
+	<string name="rate_alert_title">Kan du lide appen?</string>
+	<string name="rate_alert_default_message">Tak for at du bruger MAPS.ME. Venligst bedøm appen. Din feedback hjælper os med at blive bedre.</string>
+	<string name="rate_alert_five_star_message">Hurra! Vi elsker også dig!</string>
+	<string name="rate_alert_four_star_message">Mange tak, vi vil gøre vores bedste!</string>
+	<string name="rate_alert_less_than_four_star_message">Har du en idé om, hvordan vi kan gøre den bedre?</string>
 </resources>

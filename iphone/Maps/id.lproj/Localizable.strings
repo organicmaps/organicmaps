@@ -53,7 +53,7 @@
 "get_it_now" = "Dapatkan sekarang";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Apakah Anda menikmati menggunakan MAPS.ME? Bantulah teman-teman dan keluarga Anda mempelajari aplikasi ini, bagikan kepada mereka melalui Facebook!";
+"share_on_facebook_text" = "Terima kasih karena menggunakan MAPS.ME! Apakah Anda suka aplikasi ini? Beri tahukan kepada teman-teman Anda! Ini akan menjadi ungkapan terima kasih yang terbaik bagi kami.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -1229,7 +1229,7 @@
 "share_walking_routes_congratulations" = "Selamat!";
 
 /* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Anda telah menguasai fungsi petunjuk berjalan. Bantu teman-teman Anda untuk menghemat waktu berjalan juga! Beri tahu mereka tentang MAPS.ME!";
+"share_walking_routes_mastering" = "Anda telah menguasai fungsi petunjuk berjalan. Bantu teman-teman Anda untuk menghemat waktu berjalan juga. Beri tahu mereka tentang MAPS.ME.";
 
 /* Android notification about walking directions for update users */
 "walking_notification_text" = "Maukah Anda mencobanya?";
@@ -1237,12 +1237,12 @@
 /* Android notification with picture (rich) about walking directions for update users */
 "walking_rich_notification_text" = "Petunjuk berjalan memberikan rute terpendek ke titik destinasi mana saja. Ayo coba sendiri dan bantu teman-teman Anda menghemat waktu perjalanan.";
 
-"rate_alert_title" = "We need your feedback!";
+"rate_alert_title" = "Suka aplikasi ini?";
 
-"rate_alert_default_message" = "Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better";
+"rate_alert_default_message" = "Terima kasih karena menggunakan MAPS.ME. Mohon beri peringkat untuk aplikasi ini. Masukan dari Anda membantu kami untuk menjadi lebih baik.";
 
-"rate_alert_five_star_message" = "Hooray! We love you too!";
+"rate_alert_five_star_message" = "Hore! Kami juga sangat menyukai Anda!";
 
-"rate_alert_four_star_message" = "Thank you, we will do our best!";
+"rate_alert_four_star_message" = "Terima kasih, kami akan melakukan yang terbaik!";
 
-"rate_alert_less_than_four_star_message" = "Tell us, please, what can we do to make it better?";
+"rate_alert_less_than_four_star_message" = "Anda punya ide agar kami bisa membuatnya menjadi lebih baik?";

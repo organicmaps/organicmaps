@@ -53,7 +53,7 @@
 "get_it_now" = "รับมันตอนนี้";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "คุณสนุกกับ MAPS.ME หรือไม่? ช่วยเหลือเพื่อน ๆ และครอบครัวของคุณศึกษาเกี่ยวกับแอป แชร์มันบน Facebook!";
+"share_on_facebook_text" = "ขอบพระคุณสำหรับการใช้ MAPS.ME! คุณชอบแอปหรือไม่? บอกเพื่อนของคุณเกี่ยวกับมัน! นี่จะเป็นการขอบคุณที่ดีที่สุดสำหรับเรา";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "กิโลไบต์";
@@ -1237,12 +1237,12 @@
 /* Android notification with picture (rich) about walking directions for update users */
 "walking_rich_notification_text" = "มันบอกเส้นทางที่สั้นที่สุดไปยังจุดหมายปลายทาง ทดลองมันด้วยตัวคุณเองและช่วยเพื่อน ๆ ประหยัดเวลาเดินทาง";
 
-"rate_alert_title" = "We need your feedback!";
+"rate_alert_title" = "ชอบแอปหรือไม่?";
 
-"rate_alert_default_message" = "Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better";
+"rate_alert_default_message" = "ขอบพระคุณสำหรับการใช้ MAPS.ME โปรดให้คะแนนแอป ข้อเสนอแนะของคุณจะช่วยทำให้เราทำได้ดียิ่งขึ้น";
 
-"rate_alert_five_star_message" = "Hooray! We love you too!";
+"rate_alert_five_star_message" = "ฮูเร่! เราก็รักคุณเช่นกัน!";
 
-"rate_alert_four_star_message" = "Thank you, we will do our best!";
+"rate_alert_four_star_message" = "ขอบพระคุณ เราจะทำให้ดีที่สุด!";
 
-"rate_alert_less_than_four_star_message" = "Tell us, please, what can we do to make it better?";
+"rate_alert_less_than_four_star_message" = "มีไอเดียถึงวิธีที่จะทำให้เราสามารถทำให้มันดีขึ้นหรือไม่?";

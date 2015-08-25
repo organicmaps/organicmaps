@@ -35,7 +35,7 @@
 	<string name="downloading">جاري التنزيل…</string>
 	<string name="get_it_now">احصل عليه الآن</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">هل تستمتع باستخدام تطبيق MAPS.ME ؟ ساعد أصدقائك و أسرتك في تعلم كيفية استخدامه، قم بمشاركته معهم على فيسبوك!</string>
+	<string name="share_on_facebook_text">شكرا لاستخدامك MAPS.ME! هل يعجبك التطبيق؟ أخبر أصدقاءك عن التطبيق! سيكون ذلك هو غاية الامتنان بالنسبة لنا.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">ك.ب.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -786,9 +786,14 @@
 	<!-- Title for walking routes dialog after 3 built routes -->
 	<string name="share_walking_routes_congratulations">تهانينا!</string>
 	<!-- Text for walking routes dialog after 3 built routes -->
-	<string name="share_walking_routes_mastering">لقد أتقنت وظيفة اتجاهات السير. ساعد أصدقائك أيضا في توفير وقت السير! اخبرهم عن MAPS.ME!</string>
+	<string name="share_walking_routes_mastering">لقد أتقنت وظيفة اتجاهات السير. ساعد أصدقائك أيضا في توفير وقت السير. اخبرهم عن MAPS.ME.</string>
 	<!-- Android notification about walking directions for update users -->
 	<string name="walking_notification_text">تتوفر اتجاهات السير في</string>
 	<!-- Android notification with picture (rich) about walking directions for update users -->
 	<string name="walking_rich_notification_text">إنها تعطيك الطريق الأقصر إلى أي وجهة تقصدها. جربها بنفسك، وساعد أصدقائك في إيجاز وقت السفر.</string>
+	<string name="rate_alert_title">يعجبك التطبيق؟</string>
+	<string name="rate_alert_default_message">شكرا لاستخدامك MAPS.ME. من فضلك، أَعْطِ تقييمك للتطبيق. ملاحظاتك تساعدنا على أن نصبح أفضل.</string>
+	<string name="rate_alert_five_star_message">مرحا! نحن أيضا نحبك!</string>
+	<string name="rate_alert_four_star_message">شكرا لك، سوف نبذل قصارى جهدنا!</string>
+	<string name="rate_alert_less_than_four_star_message">لديك أي فكرة حول كيف يمكننا أن نجعله أفضل؟</string>
 </resources>

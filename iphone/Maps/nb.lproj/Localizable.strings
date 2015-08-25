@@ -53,7 +53,7 @@
 "get_it_now" = "Hent nå";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Liker du MAPS.ME? Hjelp venner og familie med å bli kjent med appen – del den med dem på Facebook!";
+"share_on_facebook_text" = "Tusen takk for at du bruker MAPS.ME! Liker du appen? Fortell vennene dine om den! Det er den beste takken vi kan få.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -1229,7 +1229,7 @@
 "share_walking_routes_congratulations" = "Gratulerer!";
 
 /* Text for walking routes dialog after 3 built routes */
-"share_walking_routes_mastering" = "Du mestret Gå-ruter funksjonen. Hjelp vennene dine å spare tid, også! Fortell dem om MAPS.ME!";
+"share_walking_routes_mastering" = "Du mestret Gå-ruter funksjonen. Hjelp vennene dine å spare tid, også. Fortell dem om MAPS.ME.";
 
 /* Android notification about walking directions for update users */
 "walking_notification_text" = "Vil du prøve dem?";
@@ -1237,12 +1237,12 @@
 /* Android notification with picture (rich) about walking directions for update users */
 "walking_rich_notification_text" = "De gir den korteste ruten til enhver destinasjon. Prøv dem selv og hjelp vennene dine å spare reisetid.";
 
-"rate_alert_title" = "We need your feedback!";
+"rate_alert_title" = "Liker du appen?";
 
-"rate_alert_default_message" = "Thank you for using MAPS.ME. Please, rate the app. Your feedback help us to become better";
+"rate_alert_default_message" = "Takk for at du bruker MAPS.ME. Vi setter stor pris på om du rangerer appen. Tilbakemeldinger hjelper oss med å bli bedre.";
 
-"rate_alert_five_star_message" = "Hooray! We love you too!";
+"rate_alert_five_star_message" = "Hurra! Vi elsker deg også!";
 
-"rate_alert_four_star_message" = "Thank you, we will do our best!";
+"rate_alert_four_star_message" = "Tusen takk, vi skal gjøre vårt beste!";
 
-"rate_alert_less_than_four_star_message" = "Tell us, please, what can we do to make it better?";
+"rate_alert_less_than_four_star_message" = "Noen tanker om hvordan vi kan forbedre den?";
