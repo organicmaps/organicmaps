@@ -286,12 +286,20 @@ public class MwmApplication extends android.app.Application implements ActiveCou
     }
   }
 
+  public void onUpgrade()
+  {
+    nativeSetInt(LAUNCH_NUMBER_SETTING, 0);
+    nativeSetInt(SESSION_NUMBER_SETTING, 0);
+  }
+
   private void updateLaunchNumbers()
   {
     final int currentLaunches = nativeGetInt(LAUNCH_NUMBER_SETTING, 0);
     if (currentLaunches == 0)
     {
-      nativeSetInt(FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
+      final int installedVersion = getFirstInstallVersion();
+      if (installedVersion == 0)
+        nativeSetInt(FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
 
       final String installedFlavor = getFirstInstallFlavor();
       if (TextUtils.isEmpty(installedFlavor))
