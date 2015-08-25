@@ -1545,6 +1545,12 @@ extern "C"
     return static_cast<jint>(g_framework->GetRouter());
   }
 
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass thiz, jdouble srcLat, jdouble srcLon, jdouble dstLat, jdouble dstLon)
+  {
+    return static_cast<jint>(frm()->GetBestRouter(MercatorBounds::FromLatLon(srcLat, srcLon), MercatorBounds::FromLatLon(dstLat, dstLon)));
+  }
+
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_setWidgetPivot(JNIEnv * env, jclass thiz, jint widget, jint pivotX, jint pivotY)
   {

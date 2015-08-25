@@ -172,7 +172,13 @@ public class Framework
   public native static void setMapStyle(int mapStyle);
 
   public native static void setRouter(int routerType);
+
   public native static int getRouter();
+
+  /**
+   * @return {@link Framework#ROUTER_TYPE_VEHICLE} or {@link Framework#ROUTER_TYPE_PEDESTRIAN}
+   */
+  public native static int nativeGetBestRouter(double srcLat, double srcLon, double dstLat, double dstLon);
 
   public native static void setWidgetPivot(int widget, int pivotX, int pivotY);
 }

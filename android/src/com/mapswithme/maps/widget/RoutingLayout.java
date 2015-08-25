@@ -14,10 +14,9 @@ import android.text.style.AbsoluteSizeSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
@@ -37,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Layout for routing setup & turn instruction box.
  */
-public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheckedChangeListener, View.OnClickListener
+public class RoutingLayout extends FrameLayout implements View.OnClickListener
 {
   private static final String IS_ROUTING_DISCLAIMER_APPROVED = "IsDisclaimerApproved";
 
@@ -56,6 +55,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
   private View mBtnStart;
   private FlatProgressView mFpRouteProgress;
   private double mNorth;
+  private RadioGroup mRgRouterType;
 
   public enum State
   {
@@ -125,14 +125,9 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
     mWvProgress = (WheelProgressView) mLayoutSetupRouting.findViewById(R.id.wp__routing_progress);
     mWvProgress.setOnClickListener(this);
     mTvPlanning = (android.widget.TextView) mLayoutSetupRouting.findViewById(R.id.tv__planning_route);
-    RadioButton rbPedestrian = (RadioButton) mLayoutSetupRouting.findViewById(R.id.rb__pedestrian);
-    RadioButton rbVehicle = (RadioButton) mLayoutSetupRouting.findViewById(R.id.rb__vehicle);
-    if (Framework.getRouter() == Framework.ROUTER_TYPE_PEDESTRIAN)
-      rbPedestrian.setChecked(true);
-    else
-      rbVehicle.setChecked(true);
-    rbPedestrian.setOnCheckedChangeListener(this);
-    rbVehicle.setOnCheckedChangeListener(this);
+    mRgRouterType = (RadioGroup) mLayoutSetupRouting.findViewById(R.id.rg__router);
+    mRgRouterType.findViewById(R.id.rb__vehicle).setOnClickListener(this);
+    mRgRouterType.findViewById(R.id.rb__pedestrian).setOnClickListener(this);
     mIvCancelRouteBuild = mLayoutSetupRouting.findViewById(R.id.iv__routing_close);
     mIvCancelRouteBuild.setOnClickListener(this);
     mTvPrepareDistance = (android.widget.TextView) mLayoutSetupRouting.findViewById(R.id.tv__routing_distance);
@@ -175,28 +170,18 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
       Framework.nativeFollowRoute();
       mListener.onStartRouteFollow();
       break;
-    }
-  }
-
-  @Override
-  public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-  {
-    if (!isChecked)
-      return;
-
-    if (buttonView.getId() == R.id.rb__pedestrian)
-    {
+    case R.id.rb__pedestrian:
       AlohaHelper.logClick(AlohaHelper.ROUTING_PEDESTRIAN_SET);
       Framework.setRouter(Framework.ROUTER_TYPE_PEDESTRIAN);
       mListener.onRouteTypeChange(Framework.ROUTER_TYPE_PEDESTRIAN);
-    }
-    else
-    {
+      setState(State.PREPARING, true);
+      break;
+    case R.id.rb__vehicle:
       AlohaHelper.logClick(AlohaHelper.ROUTING_VEHICLE_SET);
       Framework.setRouter(Framework.ROUTER_TYPE_VEHICLE);
       mListener.onRouteTypeChange(Framework.ROUTER_TYPE_VEHICLE);
+      break;
     }
-    setState(State.PREPARING, true);
   }
 
   public void setState(State state, boolean animated)
@@ -266,6 +251,7 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
   public void setEndPoint(MapObject mapObject)
   {
     mEndPoint = mapObject;
+    checkBestRouter();
   }
 
   public MapObject getEndPoint()
@@ -354,7 +340,6 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
       showRoutingDisclaimer();
       return;
     }
-
     if (!LocationState.isTurnedOn())
     {
       onMissingLocation();
@@ -363,6 +348,17 @@ public class RoutingLayout extends FrameLayout implements CompoundButton.OnCheck
 
     Location location = LocationHelper.INSTANCE.getLastLocation();
     Framework.nativeBuildRoute(location.getLatitude(), location.getLongitude(), mEndPoint.getLat(), mEndPoint.getLon());
+  }
+
+  private void checkBestRouter()
+  {
+    final Location location = LocationHelper.INSTANCE.getLastLocation();
+    if (location == null || mEndPoint == null)
+      return;
+
+    final int bestRouter = Framework.nativeGetBestRouter(location.getLatitude(), location.getLongitude(), mEndPoint.getLat(), mEndPoint.getLon());
+    mRgRouterType.check(bestRouter == Framework.ROUTER_TYPE_PEDESTRIAN ? R.id.rb__pedestrian : R.id.rb__vehicle);
+    Framework.setRouter(bestRouter);
   }
 
   private void showRoutingDisclaimer()
