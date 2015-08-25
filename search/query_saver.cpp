@@ -78,8 +78,7 @@ void QuerySaver::EmergencyReset()
 
 void QuerySaver::Deserialize(string const & data)
 {
-  string decodedData;
-  decodedData = base64::Decode(data);
+  string decodedData = base64::Decode(data);
   MemReader rawReader(decodedData.c_str(), decodedData.size());
   ReaderSource<MemReader> reader(rawReader);
 
