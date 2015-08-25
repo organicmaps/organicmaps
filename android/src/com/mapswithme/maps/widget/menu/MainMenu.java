@@ -355,6 +355,7 @@ public class MainMenu
 
     adjustCollapsedItems();
     adjustTransparency();
+    setNavigationMode(false);
   }
 
   public MainMenu(ViewGroup frame, Container container)
