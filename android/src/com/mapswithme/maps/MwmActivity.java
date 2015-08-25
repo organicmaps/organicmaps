@@ -384,10 +384,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mIsFragmentContainer)
     {
       if (getSupportFragmentManager().findFragmentByTag(SearchFragment.class.getName()) == null)
-      {
-        Framework.deactivatePopup();
         popFragment();
-      }
 
       mSearchController.hide();
       replaceFragment(SearchFragment.class, true, getIntent().getExtras());
