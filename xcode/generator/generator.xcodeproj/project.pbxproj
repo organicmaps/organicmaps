@@ -113,7 +113,6 @@
 		6753405A1A3F2A7400A0A8C3 /* xml_element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xml_element.cpp; sourceTree = "<group>"; };
 		6753405B1A3F2A7400A0A8C3 /* xml_element.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = xml_element.hpp; sourceTree = "<group>"; };
 		6764B8921ADD6A3300DD8B15 /* osm_o5m_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = osm_o5m_source.hpp; sourceTree = "<group>"; };
-		67EA644A1A7A4CF500872A69 /* point_storage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = point_storage.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,7 +179,6 @@
 				6753404C1A3F2A7400A0A8C3 /* osm2type.hpp */,
 				6726C1D31A4AFEF4005EEA39 /* osm2meta.cpp */,
 				6726C1D41A4AFEF4005EEA39 /* osm2meta.hpp */,
-				67EA644A1A7A4CF500872A69 /* point_storage.hpp */,
 				6753404D1A3F2A7400A0A8C3 /* polygonizer.hpp */,
 				6753404E1A3F2A7400A0A8C3 /* routing_generator.cpp */,
 				6753404F1A3F2A7400A0A8C3 /* routing_generator.hpp */,

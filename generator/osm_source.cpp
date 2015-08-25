@@ -1,11 +1,10 @@
 #include "generator/coastlines_generator.hpp"
-#include "generator/data_cache_file.hpp"
 #include "generator/feature_generator.hpp"
+#include "generator/intermediate_data.hpp"
 #include "generator/osm_decl.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_o5m_source.hpp"
 #include "generator/osm_source.hpp"
-#include "generator/point_storage.hpp"
 #include "generator/polygonizer.hpp"
 #include "generator/world_map_generator.hpp"
 #include "generator/xml_element.hpp"
@@ -556,11 +555,11 @@ bool GenerateFeatures(feature::GenerateInfo & info)
   switch (info.m_nodeStorageType)
   {
     case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateFeaturesImpl<RawFilePointStorage<BasePointStorage::EMode::Read>>(info);
+      return GenerateFeaturesImpl<cache::RawFilePointStorage<cache::EMode::Read>>(info);
     case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateFeaturesImpl<MapFilePointStorage<BasePointStorage::EMode::Read>>(info);
+      return GenerateFeaturesImpl<cache::MapFilePointStorage<cache::EMode::Read>>(info);
     case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateFeaturesImpl<RawMemPointStorage<BasePointStorage::EMode::Read>>(info);
+      return GenerateFeaturesImpl<cache::RawMemPointStorage<cache::EMode::Read>>(info);
   }
   return false;
 }
@@ -570,11 +569,11 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
   switch (info.m_nodeStorageType)
   {
     case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateIntermediateDataImpl<RawFilePointStorage<BasePointStorage::EMode::Write>>(info);
+      return GenerateIntermediateDataImpl<cache::RawFilePointStorage<cache::EMode::Write>>(info);
     case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateIntermediateDataImpl<MapFilePointStorage<BasePointStorage::EMode::Write>>(info);
+      return GenerateIntermediateDataImpl<cache::MapFilePointStorage<cache::EMode::Write>>(info);
     case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateIntermediateDataImpl<RawMemPointStorage<BasePointStorage::EMode::Write>>(info);
+      return GenerateIntermediateDataImpl<cache::RawMemPointStorage<cache::EMode::Write>>(info);
   }
   return false;
 }

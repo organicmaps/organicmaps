@@ -1,13 +1,13 @@
 #include "generator/feature_generator.hpp"
-#include "generator/data_cache_file.hpp"
+#include "generator/intermediate_data.hpp"
 #include "generator/osm_element.hpp"
 
-#include "generator/osm_decl.hpp"
 #include "generator/generate_info.hpp"
+#include "generator/osm_decl.hpp"
 
+#include "indexer/cell_id.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/mercator.hpp"
-#include "indexer/cell_id.hpp"
 
 #include "coding/varint.hpp"
 
@@ -16,8 +16,8 @@
 #include "base/stl_add.hpp"
 
 #include "std/bind.hpp"
-#include "std/unordered_map.hpp"
 #include "std/target_os.hpp"
+#include "std/unordered_map.hpp"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FeaturesCollector implementation
