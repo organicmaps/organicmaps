@@ -209,13 +209,13 @@
                             </state>
                             <state key="disabled" title="Оценить"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonBlueDisabled"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonDisabledBlueText"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="whiteColor"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="8"/>
                                 </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="string" keyPath="layer.borderColorName" value="buttonBlueDisabled"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="layer.borderColorName" value="buttonDisabledBlueText"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                     <integer key="value" value="1"/>
                                 </userDefinedRuntimeAttribute>
