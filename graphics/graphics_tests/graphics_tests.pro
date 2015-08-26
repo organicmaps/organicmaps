@@ -14,6 +14,5 @@ win32*: LIBS *= -lopengl32
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-    screengl_test.cpp \
     screenglglobal_test.cpp \
     shape_renderer_test.cpp \
