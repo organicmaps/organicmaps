@@ -9,23 +9,22 @@
 
 #include "base/logging.hpp"
 
+#include "std/limits.hpp"
+
 namespace
 {
 char constexpr kSettingsKey[] = "UserQueries";
 using TLength = uint16_t;
-TLength constexpr kMaxSuggestCount = 10;
+TLength constexpr kMaxSuggestionsCount = 10;
 size_t constexpr kLengthTypeSize = sizeof(TLength);
 
 // Reader from memory that throws exceptions.
 class SecureMemReader : public Reader
 {
-  bool CheckPosAndSize(uint64_t pos, uint64_t size) const
+  void CheckPosAndSize(uint64_t pos, uint64_t size) const
   {
-    bool const ret1 = (pos + size <= m_size);
-    bool const ret2 = (size <= static_cast<size_t>(-1));
-    if  (!ret1 || !ret2)
+    if (pos + size > m_size || size > numeric_limits<size_t>::max())
       MYTHROW(SizeException, (pos, size, m_size) );
-    return (ret1 && ret2);
   }
 
 public:
@@ -46,16 +45,16 @@ public:
     memcpy(p, m_pData + pos, size);
   }
 
-  inline MemReader SubReader(uint64_t pos, uint64_t size) const
+  inline SecureMemReader SubReader(uint64_t pos, uint64_t size) const
   {
     CheckPosAndSize(pos, size);
-    return MemReader(m_pData + pos, static_cast<size_t>(size));
+    return SecureMemReader(m_pData + pos, static_cast<size_t>(size));
   }
 
-  inline MemReader * CreateSubReader(uint64_t pos, uint64_t size) const
+  inline SecureMemReader * CreateSubReader(uint64_t pos, uint64_t size) const
   {
     CheckPosAndSize(pos, size);
-    return new MemReader(m_pData + pos, static_cast<size_t>(size));
+    return new SecureMemReader(m_pData + pos, static_cast<size_t>(size));
   }
 
 private:
@@ -81,7 +80,7 @@ void QuerySaver::Add(string const & query)
   auto const it = find(m_topQueries.begin(), m_topQueries.end(), query);
   if (it != m_topQueries.end())
     m_topQueries.erase(it);
-  else if (m_topQueries.size() >= kMaxSuggestCount)
+  else if (m_topQueries.size() >= kMaxSuggestionsCount)
     m_topQueries.pop_back();
 
   // Add new query and save it to drive.
@@ -117,7 +116,7 @@ void QuerySaver::Deserialize(string const & data)
   ReaderSource<SecureMemReader> reader(rawReader);
 
   TLength queriesCount = ReadPrimitiveFromSource<TLength>(reader);
-  queriesCount = min(queriesCount, kMaxSuggestCount);
+  queriesCount = min(queriesCount, kMaxSuggestionsCount);
 
   for (TLength i = 0; i < queriesCount; ++i)
   {
