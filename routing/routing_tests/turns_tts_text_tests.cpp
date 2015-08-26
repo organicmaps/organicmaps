@@ -11,7 +11,7 @@ namespace
 using namespace routing::turns;
 using namespace routing::turns::sound;
 
-bool pairDistEquals(PairDist const & lhs, PairDist const & rhs)
+bool PairDistEquals(PairDist const & lhs, PairDist const & rhs)
 {
   return lhs.first == rhs.first && strcmp(lhs.second, rhs.second) == 0;
 }
@@ -110,11 +110,11 @@ UNIT_TEST(GetAllSoundedDistMetersTest)
 
   TEST_EQUAL(allSoundedDistMeters.size(), 17, ());
   PairDist const expected1 = {50, "in_50_meters"};
-  TEST(pairDistEquals(allSoundedDistMeters[0], expected1), (allSoundedDistMeters[0], expected1));
+  TEST(PairDistEquals(allSoundedDistMeters[0], expected1), (allSoundedDistMeters[0], expected1));
   PairDist const expected2 = {700, "in_700_meters"};
-  TEST(pairDistEquals(allSoundedDistMeters[8], expected2), (allSoundedDistMeters[8], expected2));
+  TEST(PairDistEquals(allSoundedDistMeters[8], expected2), (allSoundedDistMeters[8], expected2));
   PairDist const expected3 = {3000, "in_3_kilometers"};
-  TEST(pairDistEquals(allSoundedDistMeters[16], expected3), (allSoundedDistMeters[16], expected3));
+  TEST(PairDistEquals(allSoundedDistMeters[16], expected3), (allSoundedDistMeters[16], expected3));
 }
 
 UNIT_TEST(GetAllSoundedDistFeet)
@@ -129,11 +129,11 @@ UNIT_TEST(GetAllSoundedDistFeet)
 
   TEST_EQUAL(allSoundedDistFeet.size(), 22, ());
   PairDist const expected1 = {50, "in_50_feet"};
-  TEST(pairDistEquals(allSoundedDistFeet[0], expected1), (allSoundedDistFeet[0], expected1));
+  TEST(PairDistEquals(allSoundedDistFeet[0], expected1), (allSoundedDistFeet[0], expected1));
   PairDist const expected2 = {700, "in_700_feet"};
-  TEST(pairDistEquals(allSoundedDistFeet[7], expected2), (allSoundedDistFeet[7], expected2));
+  TEST(PairDistEquals(allSoundedDistFeet[7], expected2), (allSoundedDistFeet[7], expected2));
   PairDist const expected3 = {10560, "in_2_miles"};
-  TEST(pairDistEquals(allSoundedDistFeet[21], expected3), (allSoundedDistFeet[21], expected3));
+  TEST(PairDistEquals(allSoundedDistFeet[21], expected3), (allSoundedDistFeet[21], expected3));
 }
 
 UNIT_TEST(GetSoundedDistMeters)
