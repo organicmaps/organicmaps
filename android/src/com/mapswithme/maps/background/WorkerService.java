@@ -65,8 +65,8 @@ public class WorkerService extends IntentService
       return;
 
     Calendar time = Calendar.getInstance();
-    time.set(Calendar.MINUTE, 0);
-    final int hour = 18;
+    time.set(Calendar.MINUTE, 30);
+    final int hour = 16;
     final int currentHour = time.get(Calendar.HOUR_OF_DAY);
     if (currentHour > hour)
       time.roll(Calendar.DAY_OF_MONTH, 1);
