@@ -66,12 +66,6 @@ public enum LikesManager
     //    sOldUsersMapping.put(44, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(50, LikeType.FACEBOOK_INVITES_OLD_USERS);
 
-    if (MwmApplication.get().nativeGetInt(PEDESTRIAN_COUNT, 0) >= 3)
-    {
-      sOldUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
-      sNewUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
-    }
-
     sNewUsersMapping.put(3, LikeType.GPLAY_NEW_USERS);
     sNewUsersMapping.put(9, LikeType.FACEBOOK_INVITE_NEW_USERS);
     sNewUsersMapping.put(10, LikeType.GPLAY_NEW_USERS);
@@ -81,6 +75,12 @@ public enum LikesManager
     sNewUsersMapping.put(35, LikeType.FACEBOOK_INVITE_NEW_USERS);
     sNewUsersMapping.put(50, LikeType.GPLUS_NEW_USERS);
     sNewUsersMapping.put(55, LikeType.FACEBOOK_INVITE_NEW_USERS);
+
+    if (MwmApplication.get().nativeGetInt(PEDESTRIAN_COUNT, 0) >= 3 && !isRatingApplied(PedestrianMasterDialogFragment.class))
+    {
+      sOldUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
+      sNewUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
+    }
   }
 
   private final boolean mIsNewUser = MwmApplication.get().getFirstInstallVersion() == BuildConfig.VERSION_CODE;

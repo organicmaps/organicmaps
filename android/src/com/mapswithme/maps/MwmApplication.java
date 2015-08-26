@@ -10,6 +10,7 @@ import android.util.Log;
 import com.google.gsonaltered.Gson;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
+import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.Constants;
@@ -290,6 +291,9 @@ public class MwmApplication extends android.app.Application implements ActiveCou
   {
     nativeSetInt(LAUNCH_NUMBER_SETTING, 0);
     nativeSetInt(SESSION_NUMBER_SETTING, 0);
+    nativeSetLong(LAST_SESSION_TIMESTAMP_SETTING, 0);
+    nativeSetInt(LikesManager.LAST_RATED_SESSION, 0);
+    updateSessionsNumber();
   }
 
   private void updateLaunchNumbers()
