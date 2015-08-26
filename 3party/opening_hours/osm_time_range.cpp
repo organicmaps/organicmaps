@@ -773,9 +773,6 @@ namespace
     using qi::phrase_parse;
     using charset::space;
 
-    std::locale loc2("en_US");
-    std::locale prev = std::locale::global(loc2);
-
     time_domain_parser<Iterator> time_domain;
 
     bool r = phrase_parse(
@@ -785,8 +782,6 @@ namespace
                           space,       /* the skip-parser */
                           context      /* result storage */
                           );
-
-    std::locale::global(prev);
 
     if (first != last) // fail if we did not get a full match
       return false;
