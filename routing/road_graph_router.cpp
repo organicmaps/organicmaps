@@ -157,9 +157,8 @@ void RoadGraphRouter::ClearState()
 
 bool RoadGraphRouter::CheckMapExistence(m2::PointD const & point, Route & route) const
 {
-  string fileName = m_countryFileFn(point);
-  LocalCountryFile localCountryFile = m_index.GetMwmHandleByCountryFile(CountryFile(fileName)).GetInfo()->GetLocalFile();
-  if (!HasOptions(localCountryFile.GetFiles(), MapOptions::Map))
+  string const fileName = m_countryFileFn(point);
+  if (!m_index.GetMwmIdByCountryFile(CountryFile(fileName)).IsAlive())
   {
     route.AddAbsentCountry(fileName);
     return false;

@@ -266,10 +266,7 @@ void MwmSet::ClearCache()
 MwmSet::MwmId MwmSet::GetMwmIdByCountryFile(CountryFile const & countryFile) const
 {
   lock_guard<mutex> lock(m_lock);
-
-  MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
-  ASSERT(id.IsAlive(), ("Can't get an mwm's (", countryFile.GetNameWithoutExt(), ") identifier."));
-  return id;
+  return GetMwmIdByCountryFileImpl(countryFile);
 }
 
 MwmSet::MwmHandle MwmSet::GetMwmHandleByCountryFile(CountryFile const & countryFile)
