@@ -178,8 +178,6 @@ public:
 
   void Read(void * p, size_t size)
   {
-    ASSERT(m_pos + size <= m_reader.Size(), (m_pos, size, m_reader.Size()));
-
     m_reader.Read(m_pos, p, size);
     m_pos += size;
   }

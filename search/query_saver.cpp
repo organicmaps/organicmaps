@@ -16,13 +16,53 @@ using TLength = uint16_t;
 TLength constexpr kMaxSuggestCount = 10;
 size_t constexpr kLengthTypeSize = sizeof(TLength);
 
-bool ReadLength(ReaderSource<MemReader> & reader, TLength & length)
+// Reader from memory that throws exceptions.
+class SecureMemReader : public Reader
 {
-  if (reader.Size() < kLengthTypeSize)
-    return false;
-  length = ReadPrimitiveFromSource<TLength>(reader);
-  return true;
-}
+  bool CheckPosAndSize(uint64_t pos, uint64_t size) const
+  {
+    bool const ret1 = (pos + size <= m_size);
+    bool const ret2 = (size <= static_cast<size_t>(-1));
+    if  (!ret1 || !ret2)
+      MYTHROW(SizeException, (pos, size, m_size) );
+    return (ret1 && ret2);
+  }
+
+public:
+  // Construct from block of memory.
+  SecureMemReader(void const * pData, size_t size)
+    : m_pData(static_cast<char const *>(pData)), m_size(size)
+  {
+  }
+
+  inline uint64_t Size() const
+  {
+    return m_size;
+  }
+
+  inline void Read(uint64_t pos, void * p, size_t size) const
+  {
+    CheckPosAndSize(pos, size);
+    memcpy(p, m_pData + pos, size);
+  }
+
+  inline MemReader SubReader(uint64_t pos, uint64_t size) const
+  {
+    CheckPosAndSize(pos, size);
+    return MemReader(m_pData + pos, static_cast<size_t>(size));
+  }
+
+  inline MemReader * CreateSubReader(uint64_t pos, uint64_t size) const
+  {
+    CheckPosAndSize(pos, size);
+    return new MemReader(m_pData + pos, static_cast<size_t>(size));
+  }
+
+private:
+  char const * m_pData;
+  size_t m_size;
+};
+
 }  // namespace
 
 namespace search
@@ -70,40 +110,18 @@ void QuerySaver::Serialize(string & data) const
   data = base64::Encode(string(rawData.begin(), rawData.end()));
 }
 
-void QuerySaver::EmergencyReset()
-{
-  Clear();
-  LOG(LWARNING, ("Search history data corrupted! Creating new one."));
-}
-
 void QuerySaver::Deserialize(string const & data)
 {
   string decodedData = base64::Decode(data);
-  MemReader rawReader(decodedData.c_str(), decodedData.size());
-  ReaderSource<MemReader> reader(rawReader);
+  SecureMemReader rawReader(decodedData.c_str(), decodedData.size());
+  ReaderSource<SecureMemReader> reader(rawReader);
 
-  TLength queriesCount;
-  if (!ReadLength(reader, queriesCount))
-  {
-    EmergencyReset();
-    return;
-  }
-
+  TLength queriesCount = ReadPrimitiveFromSource<TLength>(reader);
   queriesCount = min(queriesCount, kMaxSuggestCount);
 
   for (TLength i = 0; i < queriesCount; ++i)
   {
-    TLength stringLength;
-    if (!ReadLength(reader, stringLength))
-    {
-      EmergencyReset();
-      return;
-    }
-    if (reader.Size() < stringLength)
-    {
-      EmergencyReset();
-      return;
-    }
+    TLength stringLength = ReadPrimitiveFromSource<TLength>(reader);
     vector<char> str(stringLength);
     reader.Read(&str[0], stringLength);
     m_topQueries.emplace_back(&str[0], stringLength);
@@ -123,6 +141,14 @@ void QuerySaver::Load()
   Settings::Get(kSettingsKey, hexData);
   if (hexData.empty())
     return;
-  Deserialize(hexData);
+  try
+  {
+    Deserialize(hexData);
+  }
+  catch (Reader::SizeException const & /* exception */)
+  {
+    Clear();
+    LOG(LWARNING, ("Search history data corrupted! Creating new one."));
+  }
 }
 }  // namesapce search

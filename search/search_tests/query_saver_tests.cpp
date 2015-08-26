@@ -79,9 +79,18 @@ UNIT_TEST(QuerySaverCorruptedStringTest)
 {
   QuerySaver saver;
   string corrupted("DEADBEEF");
-  saver.Deserialize(corrupted);
+  bool exceptionThrown = false;
+  try
+  {
+    saver.Deserialize(corrupted);
+  }
+  catch (RootException const & /* exception */)
+  {
+    exceptionThrown = true;
+  }
   list<string> const & result = saver.Get();
   TEST_EQUAL(result.size(), 0, ());
+  TEST(exceptionThrown, ());
 }
 
 UNIT_TEST(QuerySaverPersistanceStore)

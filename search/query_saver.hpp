@@ -25,7 +25,6 @@ private:
   void Save();
   void Load();
 
-  void EmergencyReset();
   list<string> m_topQueries;
 };
 }  // namespace search
