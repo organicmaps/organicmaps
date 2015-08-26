@@ -24,6 +24,7 @@
 #include "std/map.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/cstdint.hpp"
 
 namespace android
 {
@@ -98,7 +99,21 @@ namespace android
     routing::RouterType GetLastUsedRouter() const { return m_work.GetLastUsedRouter(); }
 
     void Resize(int w, int h);
-    void Touch(int action, int mask, double x1, double y1, double x2, double y2);
+
+    struct Finger
+    {
+      Finger(int64_t id, float x, float y)
+        : m_id(id)
+        , m_x(x)
+        , m_y(y)
+      {
+      }
+
+      int64_t m_id;
+      float m_x, m_y;
+    };
+
+    void Touch(int action, Finger f1, Finger f2, uint8_t maskedPointer);
 
     /// Show rect from another activity. Ensure that no LoadState will be called,
     /// when main map activity will become active.

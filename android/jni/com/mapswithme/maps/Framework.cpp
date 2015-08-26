@@ -248,21 +248,8 @@ TStatus Framework::GetCountryStatus(TIndex const & idx) const
   return m_work.GetCountryStatus(idx);
 }
 
-/// @param[in] mask Active pointers bits : 0x0 - no, 0x1 - (x1, y1), 0x2 - (x2, y2), 0x3 - (x1, y1)(x2, y2).
-
-namespace
+void Framework::Touch(int action, Finger f1, Finger f2, uint8_t maskedPointer)
 {
-  int const MASK_NO_TOUCHES = 0x0;
-  int const MASK_FIRST_TOUCH = 0x1;
-  int const MASK_SECOND_TOUCH = 0x2;
-  int const MASK_BOTH_TOUCHES = 0x3;
-} // namespace
-
-void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)
-{
-  if (mask == MASK_NO_TOUCHES)
-    return;
-
   MultiTouchAction eventType = static_cast<MultiTouchAction>(action);
   df::TouchEvent event;
 
@@ -284,20 +271,12 @@ void Framework::Touch(int action, int mask, double x1, double y1, double x2, dou
     return;
   }
 
-  if (mask == MASK_SECOND_TOUCH)
-  {
-    x1 = x2;
-    y1 = y2;
-  }
+  event.m_touches[0].m_location = m2::PointD(f1.m_x, f1.m_y);
+  event.m_touches[0].m_id = f1.m_id;
+  event.m_touches[1].m_location = m2::PointD(f2.m_x, f2.m_y);
+  event.m_touches[1].m_id = f2.m_id;
 
-  event.m_touches[0].m_location = m2::PointD(x1, y1);
-  event.m_touches[0].m_id = 0;
-  if (mask == MASK_BOTH_TOUCHES)
-  {
-    event.m_touches[1].m_location = m2::PointD(x2, y2);
-    event.m_touches[1].m_id = 1;
-  }
-
+  event.SetFirstMaskedPointer(maskedPointer);
   m_work.TouchEvent(event);
 }
 

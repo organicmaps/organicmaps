@@ -29,9 +29,12 @@ struct Touch
 
 struct TouchEvent
 {
+  static uint8_t const INVALID_MASKED_POINTER;
+
   TouchEvent()
     : m_type(TOUCH_CANCEL)
     , m_timeStamp(my::Timer::LocalTime())
+    , m_pointersMask(0xFFFF)
   {
   }
 
@@ -44,8 +47,27 @@ struct TouchEvent
   };
 
   ETouchType m_type;
-  array<Touch, 2> m_touches;
+  array<Touch, 2> m_touches; // array of all touches
   double m_timeStamp; // seconds
+
+  void PrepareTouches(array<Touch, 2> const & previousToches);
+
+  /// Methods for work with current touches
+  /// For example : user put down one finger. We will have one touch in m_touches
+  /// and GetFirstMaskedPointer return index of this pointer in m_touces (0 in this case)
+  /// Than user put down second finger. m_touches will have 2 valid elements, but new finger only one.
+  /// In this case GetFirstMaskedPointer returns index of new pointer.
+  /// If user put down both fingers than GetFirst and GetSecond
+  /// will return valid not equal INVALID_MASKED_POINTER
+  void SetFirstMaskedPointer(uint8_t firstMask);
+  uint8_t GetFirstMaskedPointer() const;
+  void SetSecondMaskedPointer(uint8_t secondMask);
+  uint8_t GetSecondMaskedPointer() const;
+  size_t GetMaskedCount();
+
+private:
+  void Swap();
+  uint16_t m_pointersMask;
 };
 
 struct ScaleEvent
@@ -216,9 +238,7 @@ private:
   bool TouchMove(array<Touch, 2> const & touches);
   bool TouchCancel(array<Touch, 2> const & touches);
   bool TouchUp(array<Touch, 2> const & touches);
-  void PrepareTouches(array<Touch, 2> & touches);
-  void UpdateTouches(array<Touch, 2> const & touches, size_t validCount);
-  size_t GetValidTouchesCount(array<Touch, 2> const & touches) const;
+  void UpdateTouches(array<Touch, 2> const & touches);
 
   void BeginDrag(Touch const & t);
   void Drag(Touch const & t);
@@ -258,7 +278,6 @@ private:
   } m_state;
 
   array<Touch, 2> m_touches;
-  size_t m_validTouchesCount;
 
   unique_ptr<BaseModelViewAnimation> m_animation;
   ref_ptr<Listener> m_listener;

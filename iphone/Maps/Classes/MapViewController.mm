@@ -253,9 +253,24 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [self destroyPopover];
 }
 
-- (void)sendTouchType:(df::TouchEvent::ETouchType)type withEvent:(UIEvent *)event
+- (void)checkMaskedPointer:(UITouch *)touch withEvent:(df::TouchEvent &)e
 {
-  NSArray * allTouches = [[[event allTouches] allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
+  int64_t id = reinterpret_cast<int64_t>(touch);
+  int8_t pointerIndex = df::TouchEvent::INVALID_MASKED_POINTER;
+  if (e.m_touches[0].m_id == id)
+    pointerIndex = 0;
+  else if (e.m_touches[1].m_id == id)
+    pointerIndex = 1;
+
+  if (e.GetFirstMaskedPointer() == df::TouchEvent::INVALID_MASKED_POINTER)
+    e.SetFirstMaskedPointer(pointerIndex);
+  else
+    e.SetSecondMaskedPointer(pointerIndex);
+}
+
+- (void)sendTouchType:(df::TouchEvent::ETouchType)type withTouches:(NSSet *)touches andEvent:(UIEvent *)event
+{
+  NSArray * allTouches = [[event allTouches] allObjects];
   if ([allTouches count] < 1)
     return;
 
@@ -265,6 +280,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   df::TouchEvent e;
   UITouch * touch = [allTouches objectAtIndex:0];
   CGPoint const pt = [touch locationInView:v];
+  e.m_type = type;
   e.m_touches[0].m_id = reinterpret_cast<int64_t>(touch);
   e.m_touches[0].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
   if (allTouches.count > 1)
@@ -274,7 +290,13 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     e.m_touches[1].m_id = reinterpret_cast<int64_t>(touch);
     e.m_touches[1].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
   }
-  e.m_type = type;
+
+  NSArray * toggledTouches = [touches allObjects];
+  if (toggledTouches.count > 0)
+    [self checkMaskedPointer:[toggledTouches objectAtIndex:0] withEvent:e];
+
+  if (toggledTouches.count > 1)
+    [self checkMaskedPointer:[toggledTouches objectAtIndex:1] withEvent:e];
 
   Framework & f = GetFramework();
   f.TouchEvent(e);
@@ -289,22 +311,22 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  [self sendTouchType:df::TouchEvent::TOUCH_DOWN withEvent:event];
+  [self sendTouchType:df::TouchEvent::TOUCH_DOWN withTouches:touches andEvent:event];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  [self sendTouchType:df::TouchEvent::TOUCH_MOVE withEvent:event];
+  [self sendTouchType:df::TouchEvent::TOUCH_MOVE withTouches:nil andEvent:event];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  [self sendTouchType:df::TouchEvent::TOUCH_UP withEvent:event];
+  [self sendTouchType:df::TouchEvent::TOUCH_UP withTouches:touches andEvent:event];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  [self sendTouchType:df::TouchEvent::TOUCH_CANCEL withEvent:event];
+  [self sendTouchType:df::TouchEvent::TOUCH_CANCEL withTouches:touches andEvent:event];
 }
 
 #pragma mark - ViewController lifecycle
@@ -807,16 +829,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 }
 
 #pragma mark - Private methods
-
-NSInteger compareAddress(id l, id r, void * context)
-{
-  if (l < r)
-    return NSOrderedAscending;
-  if (l > r)
-    return NSOrderedDescending;
-
-  return NSOrderedSame;
-}
 
 - (void)destroyPopover
 {

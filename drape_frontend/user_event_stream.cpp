@@ -19,6 +19,22 @@ namespace
 uint64_t const DOUBLE_TAP_PAUSE = 250;
 uint64_t const LONG_TOUCH_MS = 1000;
 
+size_t GetValidTouchesCount(array<Touch, 2> const & touches)
+{
+  size_t result = 0;
+  if (touches[0].m_id != -1)
+    ++result;
+  if (touches[1].m_id != -1)
+    ++result;
+
+  return result;
+}
+
+int8_t toInt(bool v)
+{
+  return v == true ? 1 : 0;
+}
+
 } // namespace
 
 #ifdef DEBUG
@@ -37,10 +53,64 @@ char const * UserEventStream::END_FILTER = "EndFilter";
 char const * UserEventStream::CANCEL_FILTER = "CancelFilter";
 #endif
 
+uint8_t const TouchEvent::INVALID_MASKED_POINTER = 0xFF;
+
+void TouchEvent::PrepareTouches(array<Touch, 2> const & previousToches)
+{
+  size_t validCount = GetValidTouchesCount(m_touches);
+  size_t prevValidCount = GetValidTouchesCount(previousToches);
+  if (validCount == 2 && prevValidCount > 0)
+  {
+    if (previousToches[0].m_id == m_touches[1].m_id)
+      Swap();
+  }
+}
+
+void TouchEvent::SetFirstMaskedPointer(uint8_t firstMask)
+{
+  m_pointersMask = (m_pointersMask & 0xFF00) | static_cast<uint16_t>(firstMask);
+}
+
+uint8_t TouchEvent::GetFirstMaskedPointer() const
+{
+  return static_cast<uint8_t>(m_pointersMask & 0xFF);
+}
+
+void TouchEvent::SetSecondMaskedPointer(uint8_t secondMask)
+{
+  ASSERT(secondMask == INVALID_MASKED_POINTER || GetFirstMaskedPointer() != INVALID_MASKED_POINTER, ());
+  m_pointersMask = (static_cast<uint16_t>(secondMask) << 8) | (m_pointersMask & 0xFF);
+}
+
+uint8_t TouchEvent::GetSecondMaskedPointer() const
+{
+  return static_cast<uint8_t>((m_pointersMask & 0xFF00) >> 8);
+}
+
+size_t TouchEvent::GetMaskedCount()
+{
+  return toInt(GetFirstMaskedPointer() != INVALID_MASKED_POINTER) +
+         toInt(GetSecondMaskedPointer() != INVALID_MASKED_POINTER);
+}
+
+void TouchEvent::Swap()
+{
+  auto swapIndex = [](uint8_t index) -> uint8_t
+  {
+    if (index == INVALID_MASKED_POINTER)
+      return index;
+
+    return my::cyclicClamp(index + 1, 0, 1);
+  };
+
+  swap(m_touches[0], m_touches[1]);
+  SetFirstMaskedPointer(swapIndex(GetFirstMaskedPointer()));
+  SetSecondMaskedPointer(swapIndex(GetSecondMaskedPointer()));
+}
+
 UserEventStream::UserEventStream(TIsCountryLoaded const & fn)
   : m_isCountryLoaded(fn)
   , m_state(STATE_EMPTY)
-  , m_validTouchesCount(0)
   , m_startDragOrg(m2::PointD::Zero())
 {
 }
@@ -121,7 +191,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       m_animation.reset();
   }
 
-  if (m_validTouchesCount == 1)
+  if (GetValidTouchesCount(m_touches) == 1)
   {
     if (m_state == STATE_WAIT_DOUBLE_TAP)
       DetectShortTap(m_touches[0]);
@@ -222,34 +292,32 @@ m2::AnyRectD UserEventStream::GetTargetRect() const
 bool UserEventStream::ProcessTouch(TouchEvent const & touch)
 {
   ASSERT(touch.m_touches[0].m_id != -1, ());
-  ASSERT(touch.m_touches[1].m_id == -1 ||
-         (touch.m_touches[0].m_id < touch.m_touches[1].m_id), ());
 
+  TouchEvent touchEvent = touch;
+  touchEvent.PrepareTouches(m_touches);
   bool isMapTouch = false;
-  array<Touch, 2> touches = touch.m_touches;
-  PrepareTouches(touches);
 
-  switch (touch.m_type)
+  switch (touchEvent.m_type)
   {
   case TouchEvent::TOUCH_DOWN:
-    isMapTouch |= TouchDown(touches);
-    if (isMapTouch)
+    isMapTouch |= TouchDown(touchEvent.m_touches);
+    if (isMapTouch && !m_scroller.IsActive())
       m_scroller.InitGrab(m_navigator.Screen(), touch.m_timeStamp);
     break;
   case TouchEvent::TOUCH_MOVE:
-    isMapTouch |= TouchMove(touches);
-    if (isMapTouch)
+    isMapTouch |= TouchMove(touchEvent.m_touches);
+    if (isMapTouch && m_scroller.IsActive())
       m_scroller.GrabViewRect(m_navigator.Screen(), touch.m_timeStamp);
     break;
   case TouchEvent::TOUCH_CANCEL:
-    isMapTouch |= TouchCancel(touches);
+    isMapTouch |= TouchCancel(touchEvent.m_touches);
     if (isMapTouch)
       m_scroller.CancelGrab();
     break;
   case TouchEvent::TOUCH_UP:
     {
-      isMapTouch |= TouchUp(touches);
-      if (isMapTouch)
+      isMapTouch |= TouchUp(touchEvent.m_touches);
+      if (isMapTouch  && touchEvent.GetMaskedCount() == GetValidTouchesCount(touchEvent.m_touches))
       {
         m_scroller.GrabViewRect(m_navigator.Screen(), touch.m_timeStamp);
         m_animation = m_scroller.CreateKineticAnimation(m_navigator.Screen());
@@ -310,7 +378,7 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
     BeginScale(touches[0], touches[1]);
   }
 
-  UpdateTouches(touches, touchCount);
+  UpdateTouches(touches);
   return isMapTouch;
 }
 
@@ -350,7 +418,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
     break;
   }
 
-  UpdateTouches(touches, touchCount);
+  UpdateTouches(touches);
   return isMapTouch;
 }
 
@@ -385,7 +453,7 @@ bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
     ASSERT(false, ());
     break;
   }
-  UpdateTouches(touches, touchCount);
+  UpdateTouches(touches);
   return isMapTouch;
 }
 
@@ -421,37 +489,13 @@ bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
     break;
   }
 
-  UpdateTouches(touches, touchCount);
+  UpdateTouches(touches);
   return isMapTouch;
 }
 
-void UserEventStream::PrepareTouches(array<Touch, 2> & touches)
-{
-  size_t validCount = GetValidTouchesCount(touches);
-  if (validCount == 2 && m_validTouchesCount > 0)
-  {
-    if (m_touches[0].m_id == touches[1].m_id)
-      swap(touches[0], touches[1]);
-  }
-}
-
-void UserEventStream::UpdateTouches(array<Touch, 2> const & touches, size_t validCount)
+void UserEventStream::UpdateTouches(array<Touch, 2> const & touches)
 {
   m_touches = touches;
-  m_validTouchesCount = validCount;
-
-  ASSERT_EQUAL(m_validTouchesCount, GetValidTouchesCount(m_touches), ());
-}
-
-size_t UserEventStream::GetValidTouchesCount(array<Touch, 2> const & touches) const
-{
-  size_t result = 0;
-  if (touches[0].m_id != -1)
-    ++result;
-  if (touches[1].m_id != -1)
-    ++result;
-
-  return result;
 }
 
 void UserEventStream::BeginDrag(Touch const & t)

@@ -42,20 +42,13 @@ Java_com_mapswithme_maps_RenderFragment_attachSurface(JNIEnv * env, jobject thiz
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_RenderFragment_onTouch(JNIEnv * env, jobject thiz, jint action, jboolean hasFirst, jboolean hasSecond,
-                                                 jfloat x1, jfloat y1, jfloat x2, jfloat y2)
+Java_com_mapswithme_maps_RenderFragment_onTouch(JNIEnv * env, jobject thiz, jint action,
+                                                jint id1, jfloat x1, jfloat y1,
+                                                jint id2, jfloat x2, jfloat y2,
+                                                jint maskedPointer)
 {
-  int mask = 0;
-  if (hasFirst == JNI_TRUE)
-    mask |= 0x1;
-  if (hasSecond == JNI_TRUE)
-    mask |= 0x2;
-
-  g_framework->Touch(static_cast<int>(action), mask,
-                     static_cast<double>(x1),
-                     static_cast<double>(y1),
-                     static_cast<double>(x2),
-                     static_cast<double>(y2));
+  g_framework->Touch(static_cast<int>(action), android::Framework::Finger(id1, x1, y1),
+                     android::Framework::Finger(id2, x2, y2), maskedPointer);
 
   return JNI_TRUE;
 }

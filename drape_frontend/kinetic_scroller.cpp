@@ -51,6 +51,11 @@ void KineticScroller::InitGrab(ScreenBase const & modelView, double timeStamp)
   m_lastRect = modelView.GlobalRect();
 }
 
+bool KineticScroller::IsActive()
+{
+  return m_lastTimestamp > 0.0;
+}
+
 void KineticScroller::GrabViewRect(ScreenBase const & modelView, double timeStamp)
 {
   // In KineitcScroller we store m_direction in mixed state

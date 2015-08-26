@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -21,7 +22,6 @@ public abstract class RenderFragment extends BaseMwmFragment
   private static final int NATIVE_ACTION_DOWN = 0x2;
   private static final int NATIVE_ACTION_MOVE = 0x3;
   private static final int NATIVE_ACTION_CANCEL = 0x4;
-  private int mLastPointerId = 0;
   private SurfaceHolder mSurfaceHolder = null;
   private int m_displayDensity = 0;
 
@@ -80,6 +80,10 @@ public abstract class RenderFragment extends BaseMwmFragment
     m_displayDensity = metrics.densityDpi;
   }
 
+  final int INVALID_TOUCH_ID = -1;
+  /// Must be equal df::TouchEvent::INVALID_MASKED_POINTER
+  final int INVALID_POINTER_MASK = 0xFF;
+
   @Override
   public boolean onTouch(View view, MotionEvent event)
   {
@@ -89,18 +93,26 @@ public abstract class RenderFragment extends BaseMwmFragment
       return false;
 
     int action = event.getActionMasked();
+    int maskedPointer = event.getActionIndex();
     switch (action)
     {
     case MotionEvent.ACTION_POINTER_UP:
-    case MotionEvent.ACTION_UP:
       action = NATIVE_ACTION_UP;
       break;
+    case MotionEvent.ACTION_UP:
+      action = NATIVE_ACTION_UP;
+      maskedPointer = 0;
+      break;
     case MotionEvent.ACTION_POINTER_DOWN:
+      action = NATIVE_ACTION_DOWN;
+      break;
     case MotionEvent.ACTION_DOWN:
       action = NATIVE_ACTION_DOWN;
+      maskedPointer = 0;
       break;
     case MotionEvent.ACTION_MOVE:
       action = NATIVE_ACTION_MOVE;
+      maskedPointer = INVALID_POINTER_MASK;
       break;
     case MotionEvent.ACTION_CANCEL:
       action = NATIVE_ACTION_CANCEL;
@@ -111,12 +123,12 @@ public abstract class RenderFragment extends BaseMwmFragment
     {
     case 1:
       {
-        mLastPointerId = event.getPointerId(0);
 
-        final float x0 = event.getX();
-        final float y0 = event.getY();
+        final float x = event.getX();
+        final float y = event.getY();
 
-        return onTouch(action, true, false, x0, y0, 0, 0);
+        return onTouch(action, event.getPointerId(0), x, y,
+                               INVALID_TOUCH_ID, 0, 0, 0);
       }
     default:
       {
@@ -126,10 +138,9 @@ public abstract class RenderFragment extends BaseMwmFragment
         final float x1 = event.getX(1);
         final float y1 = event.getY(1);
 
-        if (event.getPointerId(0) == mLastPointerId)
-          return onTouch(action, true, true, x0, y0, x1, y1);
-        else
-          return onTouch(action, true, true, x1, y1, x0, y0);
+        return onTouch(action, event.getPointerId(0), x0, y0,
+                               event.getPointerId(1), x1, y1,
+                               maskedPointer);
       }
     }
   }
@@ -156,6 +167,8 @@ public abstract class RenderFragment extends BaseMwmFragment
   private native void destroyEngine();
   private native void detachSurface();
   private native void attachSurface(Surface surface);
-  private native boolean onTouch(int actionType, boolean hasFirst, boolean hasSecond, float x1, float y1, float x2, float y2);
+  private native boolean onTouch(int actionType, int id1, float x1, float y1,
+                                                 int id2, float x2, float y2,
+                                                 int maskedPointer);
 }
 
