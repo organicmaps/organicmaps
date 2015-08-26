@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Point;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.country.DownloadFragment;
@@ -36,12 +36,10 @@ import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
-import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.dialog.RoutingErrorDialogFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
@@ -60,7 +58,13 @@ import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
-import com.mapswithme.util.*;
+import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.Constants;
+import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
+import com.mapswithme.util.Yota;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -79,7 +83,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  Framework.RoutingListener,
                                  MapFragment.MapRenderingListener,
                                  CustomNavigateUpListener,
-                                 Framework.RoutingProgressListener
+                                 Framework.RoutingProgressListener,
+                                 ChooseBookmarkCategoryFragment.Listener
 {
   public static final String EXTRA_TASK = "map_task";
   private final static String TAG = "MwmActivity";
@@ -136,11 +141,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private SearchToolbarController mSearchController;
   private LastCompassData mLastCompassData;
 
-
   public interface LeftAnimationTrackListener
   {
     void onTrackStarted(boolean collapsed);
+
     void onTrackFinished(boolean collapsed);
+
     void onTrackLeftAnimation(float offset);
   }
 
@@ -1334,18 +1340,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data)
-  {
-    if (resultCode == RESULT_OK && requestCode == ChooseBookmarkCategoryActivity.REQUEST_CODE_BOOKMARK_SET)
-    {
-      final Point bookmarkAndCategory = ((ParcelablePoint) data.getParcelableExtra(ChooseBookmarkCategoryActivity.BOOKMARK)).getPoint();
-      final Bookmark bookmark = BookmarkManager.INSTANCE.getBookmark(bookmarkAndCategory.x, bookmarkAndCategory.y);
-      mPlacePage.setMapObject(bookmark);
-    }
-    super.onActivityResult(requestCode, resultCode, data);
-  }
-
-  @Override
   public void onRoutingEvent(final int resultCode, final Index[] missingCountries)
   {
     runOnUiThread(new Runnable()
@@ -1498,5 +1492,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mLastCompassData != null)
         mMapFragment.nativeCompassUpdated(mLastCompassData.magneticNorth, mLastCompassData.trueNorth, true);
     }
+  }
+
+  @Override
+  public void onCategoryChanged(int bookmarkId, int newCategoryId)
+  {
+    mPlacePage.setMapObject(BookmarkManager.INSTANCE.getBookmark(newCategoryId, bookmarkId));
   }
 }

@@ -45,7 +45,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
   {
     super.onCreate(savedInstanceState);
 
-    mCategoryIndex = getArguments().getInt(ChooseBookmarkCategoryActivity.BOOKMARK_CATEGORY_INDEX, -1);
+    mCategoryIndex = getArguments().getInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, -1);
     mCategory = BookmarkManager.INSTANCE.getCategoryById(mCategoryIndex);
   }
 
@@ -197,7 +197,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
     args.putInt(EditBookmarkFragment.EXTRA_BOOKMARK_ID, bmk);
     final EditBookmarkFragment fragment = (EditBookmarkFragment) Fragment.instantiate(getActivity(), EditBookmarkFragment.class.getName(), args);
     fragment.setArguments(args);
-    fragment.show(getActivity().getSupportFragmentManager(), null);
+    fragment.show(getChildFragmentManager(), null);
   }
 
   @Override

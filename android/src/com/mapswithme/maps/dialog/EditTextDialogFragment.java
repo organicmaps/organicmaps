@@ -1,10 +1,12 @@
 package com.mapswithme.maps.dialog;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
@@ -31,10 +33,6 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     void onSaveText(String text);
   }
 
-  private OnTextSaveListener mTextSaveListener;
-
-  public EditTextDialogFragment() {}
-
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState)
@@ -51,33 +49,27 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
       negativeButtonText = args.getString(EXTRA_NEGATIVE_BUTTON);
     }
 
-    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).
-        setView(buildView()).
+    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setView(buildView()).
         setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener()
             {
               @Override
               public void onClick(DialogInterface dialog, int which)
               {
-                if (mTextSaveListener != null)
-                  mTextSaveListener.onSaveText(mEtInput.getText().toString());
-              }
-            }
-        ).setNegativeButton(negativeButtonText, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
+                final Fragment parentFragment = getParentFragment();
+                final String result = mEtInput.getText().toString();
+                if (parentFragment instanceof OnTextSaveListener)
+                {
+                  ((OnTextSaveListener) parentFragment).onSaveText(result);
+                  return;
+                }
 
-          }
-        }
-    );
+                final Activity activity = getActivity();
+                if (activity instanceof OnTextSaveListener)
+                  ((OnTextSaveListener) activity).onSaveText(result);
+              }
+            }).setNegativeButton(negativeButtonText, null);
 
     return builder.create();
-  }
-
-  public void setOnTextSaveListener(OnTextSaveListener listener)
-  {
-    mTextSaveListener = listener;
   }
 
   private View buildView()

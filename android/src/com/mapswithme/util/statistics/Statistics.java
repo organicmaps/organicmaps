@@ -39,6 +39,7 @@ public enum Statistics
     public static final String SEARCH_CAT_CLICKED = "Search category clicked";
     public static final String DESCRIPTION_CHANGED = "Description changed";
     public static final String GROUP_CREATED = "Group Created";
+    public static final String GROUP_CHANGED = "Group changed";
     public static final String COLOR_CHANGED = "Color changed";
     public static final String BOOKMARK_CREATED = "Bookmark created";
     public static final String PLACE_SHARED = "Place Shared";

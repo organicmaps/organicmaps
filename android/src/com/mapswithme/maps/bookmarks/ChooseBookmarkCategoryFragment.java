@@ -1,86 +1,122 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.graphics.Point;
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ListView;
+import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmListFragment;
+import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.util.statistics.Statistics;
 
-public class ChooseBookmarkCategoryFragment extends BaseMwmListFragment implements EditTextDialogFragment.OnTextSaveListener
+import static com.mapswithme.maps.dialog.EditTextDialogFragment.EXTRA_POSITIVE_BUTTON;
+import static com.mapswithme.maps.dialog.EditTextDialogFragment.EXTRA_TITLE;
+import static com.mapswithme.maps.dialog.EditTextDialogFragment.OnTextSaveListener;
+
+public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment implements OnTextSaveListener, ChooseBookmarkCategoryAdapter.CategoryListener
 {
-  private ChooseBookmarkCategoryAdapter mAdapter;
+  public static final String CATEGORY_ID = "ExtraCategoryId";
+  public static final String BOOKMARK_ID = "ExtraBookmarkId";
+
   private Bookmark mBookmark;
+  private ChooseBookmarkCategoryAdapter mAdapter;
+  private RecyclerView mRecycler;
+
+
+  public interface Listener
+  {
+    void onCategoryChanged(int bookmarkId, int newCategoryId);
+  }
+  private Listener mListener;
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState)
+  {
+    super.onCreate(savedInstanceState);
+    setStyle(DialogFragment.STYLE_NO_FRAME, R.style.MwmMain_DialogFragment);
+  }
+
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  {
+    mRecycler = (RecyclerView) inflater.inflate(R.layout.recycler_default, container, false);
+    mRecycler.setLayoutManager(new org.solovyev.android.views.llm.LinearLayoutManager(getActivity()));
+
+    return mRecycler;
+  }
 
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
 
-    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), getArguments().getInt(ChooseBookmarkCategoryActivity.BOOKMARK_CATEGORY_INDEX, 0));
-    setListAdapter(mAdapter);
-    mBookmark = getBookmarkFromIntent();
+    final Bundle args = getArguments();
+    final int catId = args.getInt(CATEGORY_ID, 0);
+    mBookmark = BookmarkManager.INSTANCE.getBookmark(catId, args.getInt(BOOKMARK_ID));
+    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), catId);
+    mAdapter.setListener(this);
+    mRecycler.setAdapter(mAdapter);
   }
 
   @Override
-  public void onListItemClick(ListView l, View v, int position, long id)
+  public void onAttach(Activity activity)
   {
-    if (mAdapter.getItemViewType(position) == ChooseBookmarkCategoryAdapter.VIEW_TYPE_ADD_NEW)
-      showCreateCategoryDialog();
-    else
+    if (mListener == null)
     {
-      mAdapter.chooseItem(position);
-
-      mBookmark.setCategoryId(position);
-      getActivity().getIntent().putExtra(ChooseBookmarkCategoryActivity.BOOKMARK,
-          new ParcelablePoint(mBookmark.getCategoryId(), mBookmark.getBookmarkId()));
-
-      getActivity().onBackPressed();
+      final Fragment parent = getParentFragment();
+      if (parent instanceof Listener)
+        mListener = (Listener) parent;
+      else if (activity instanceof Listener)
+        mListener = (Listener) activity;
     }
-  }
 
-  private Bookmark getBookmarkFromIntent()
-  {
-    // Note that Point result from the intent is actually a pair
-    // of (category index, bookmark index in category).
-    final Point cab = ((ParcelablePoint) getArguments().getParcelable(ChooseBookmarkCategoryActivity.BOOKMARK)).getPoint();
-    return BookmarkManager.INSTANCE.getBookmark(cab.x, cab.y);
-  }
-
-  private void showCreateCategoryDialog()
-  {
-    final Bundle args = new Bundle();
-    args.putString(EditTextDialogFragment.EXTRA_TITLE, getString(R.string.new_group));
-    args.putString(EditTextDialogFragment.EXTRA_POSITIVE_BUTTON, getString(R.string.ok));
-    final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(getActivity(), EditTextDialogFragment.class.getName());
-    fragment.setOnTextSaveListener(this);
-    fragment.setArguments(args);
-    fragment.show(getActivity().getSupportFragmentManager(), EditTextDialogFragment.class.getName());
-  }
-
-  private void createCategory(String name)
-  {
-    final int category = BookmarkManager.INSTANCE.createCategory(name);
-    mBookmark.setCategoryId(category);
-
-    getActivity().getIntent().putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_CATEGORY_INDEX, category)
-        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK, new ParcelablePoint(category, 0));
-
-    mAdapter.chooseItem(category);
-
-    Statistics.INSTANCE.trackGroupCreated();
+    super.onAttach(activity);
   }
 
   @Override
   public void onSaveText(String text)
   {
     createCategory(text);
+  }
+
+  private void createCategory(String name)
+  {
+    final int category = BookmarkManager.INSTANCE.createCategory(name);
+    mBookmark.setCategoryId(category);
+    mAdapter.chooseItem(category);
+    Statistics.INSTANCE.trackGroupCreated();
+  }
+
+  @Override
+  public void onCategorySet(int categoryId)
+  {
+    mBookmark.setCategoryId(categoryId);
+    mAdapter.chooseItem(categoryId);
+    if (mListener != null)
+      mListener.onCategoryChanged(mBookmark.getBookmarkId(), categoryId);
+    dismiss();
+    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.GROUP_CHANGED);
+  }
+
+  @Override
+  public void onCategoryCreate()
+  {
+    final Bundle args = new Bundle();
+    Activity activity = getActivity();
+    args.putString(EXTRA_TITLE, activity.getString(R.string.new_group));
+    args.putString(EXTRA_POSITIVE_BUTTON, activity.getString(R.string.ok));
+    final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.
+        instantiate(activity, EditTextDialogFragment.class.getName());
+    fragment.setArguments(args);
+    fragment.show(getChildFragmentManager(), EditTextDialogFragment.class.getName());
   }
 }

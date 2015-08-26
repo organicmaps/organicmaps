@@ -7,22 +7,23 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmListFragment;
+import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
+import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
+import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.sharing.SharingHelper;
 
-public class BookmarkCategoriesFragment extends BaseMwmListFragment
+public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                                      implements EditTextDialogFragment.OnTextSaveListener,
                                                 MenuItem.OnMenuItemClickListener,
-                                                AdapterView.OnItemLongClickListener
+                                                RecyclerClickListener,
+                                                RecyclerLongClickListener
 {
   private int mSelectedPosition;
   private BookmarkCategoriesAdapter mAdapter;
@@ -30,7 +31,7 @@ public class BookmarkCategoriesFragment extends BaseMwmListFragment
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.simple_list, container, false);
+    return inflater.inflate(R.layout.recycler_default, container, false);
   }
 
   @Override
@@ -39,8 +40,9 @@ public class BookmarkCategoriesFragment extends BaseMwmListFragment
     super.onViewCreated(view, savedInstanceState);
 
     mAdapter = new BookmarkCategoriesAdapter(getActivity());
-    setListAdapter(mAdapter);
-    getListView().setOnItemLongClickListener(this);
+    mAdapter.setOnClickListener(this);
+    mAdapter.setOnLongClickListener(this);
+    getRecyclerView().setAdapter(mAdapter);
   }
 
   @Override
@@ -55,34 +57,6 @@ public class BookmarkCategoriesFragment extends BaseMwmListFragment
   {
     super.onPause();
     BottomSheetHelper.free();
-  }
-
-  @Override
-  public void onListItemClick(ListView l, View v, int position, long id)
-  {
-    startActivity(new Intent(getActivity(), BookmarkListActivity.class)
-        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_CATEGORY_INDEX, position));
-  }
-
-  @Override
-  public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-  {
-    mSelectedPosition = position;
-
-    BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(mSelectedPosition);
-    BottomSheet bs = BottomSheetHelper.create(getActivity())
-                                      .title(category.getName())
-                                      .sheet(R.menu.menu_bookmark_categories)
-                                      .listener(this)
-                                      .build();
-
-    MenuItem show = bs.getMenu().getItem(0);
-    show.setIcon(category.isVisible() ? R.drawable.ic_hide
-                                      : R.drawable.ic_show);
-    show.setTitle(category.isVisible() ? R.string.hide
-                                       : R.string.show);
-    bs.show();
-    return true;
   }
 
   @Override
@@ -119,12 +93,38 @@ public class BookmarkCategoriesFragment extends BaseMwmListFragment
       args.putString(EditTextDialogFragment.EXTRA_POSITIVE_BUTTON, getString(R.string.rename));
       args.putString(EditTextDialogFragment.EXTRA_NEGATIVE_BUTTON, getString(R.string.cancel));
       final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(getActivity(), EditTextDialogFragment.class.getName());
-      fragment.setOnTextSaveListener(this);
       fragment.setArguments(args);
       fragment.show(getActivity().getSupportFragmentManager(), EditTextDialogFragment.class.getName());
       break;
     }
 
     return true;
+  }
+
+  @Override
+  public void onLongItemClick(View v, int position)
+  {
+    mSelectedPosition = position;
+
+    BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(mSelectedPosition);
+    BottomSheet bs = BottomSheetHelper.create(getActivity())
+        .title(category.getName())
+        .sheet(R.menu.menu_bookmark_categories)
+        .listener(this)
+        .build();
+
+    MenuItem show = bs.getMenu().getItem(0);
+    show.setIcon(category.isVisible() ? R.drawable.ic_hide
+                                      : R.drawable.ic_show);
+    show.setTitle(category.isVisible() ? R.string.hide
+                                       : R.string.show);
+    bs.show();
+  }
+
+  @Override
+  public void onItemClick(View v, int position)
+  {
+    startActivity(new Intent(getActivity(), BookmarkListActivity.class)
+                      .putExtra(ChooseBookmarkCategoryFragment.CATEGORY_ID, position));
   }
 }

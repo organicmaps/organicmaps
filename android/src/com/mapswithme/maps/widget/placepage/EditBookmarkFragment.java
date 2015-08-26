@@ -1,9 +1,9 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,16 +15,16 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity;
+import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
+import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment.Listener;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Icon;
-import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
-public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.OnClickListener
+public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.OnClickListener, Listener
 {
   public static final String EXTRA_CATEGORY_ID = "CategoryId";
   public static final String EXTRA_BOOKMARK_ID = "BookmarkId";
@@ -117,10 +117,11 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
   private void selectBookmarkSet()
   {
-    final Intent intent = new Intent(getActivity(), ChooseBookmarkCategoryActivity.class)
-        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_CATEGORY_INDEX, mBookmark.getCategoryId())
-        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK, new ParcelablePoint(mBookmark.getCategoryId(), mBookmark.getBookmarkId()));
-    getActivity().startActivityForResult(intent, ChooseBookmarkCategoryActivity.REQUEST_CODE_BOOKMARK_SET);
+    final Bundle args = new Bundle();
+    args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, mBookmark.getCategoryId());
+    args.putInt(ChooseBookmarkCategoryFragment.BOOKMARK_ID, mBookmark.getBookmarkId());
+    final ChooseBookmarkCategoryFragment fragment = (ChooseBookmarkCategoryFragment) Fragment.instantiate(getActivity(), ChooseBookmarkCategoryFragment.class.getName(), args);
+    fragment.show(getChildFragmentManager(), null);
   }
 
   private void selectBookmarkColor()
@@ -164,5 +165,12 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     mEtDescription.setText(mBookmark.getBookmarkDescription());
     mTvBookmarkGroup.setText(mBookmark.getCategoryName(getActivity()));
     refreshColorMarker();
+  }
+
+  @Override
+  public void onCategoryChanged(int bookmarkId, int newCategoryId)
+  {
+    mBookmark = BookmarkManager.INSTANCE.getBookmark(newCategoryId, bookmarkId);
+    refreshBookmark();
   }
 }

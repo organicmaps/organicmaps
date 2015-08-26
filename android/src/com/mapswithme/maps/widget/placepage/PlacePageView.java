@@ -16,21 +16,48 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.*;
-import com.mapswithme.maps.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMwmRequest;
-import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity;
-import com.mapswithme.maps.bookmarks.data.*;
+import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
+import com.mapswithme.maps.bookmarks.data.Icon;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
+import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
-import com.mapswithme.util.*;
+import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.StringUtils;
+import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -744,12 +771,14 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void selectBookmarkSet()
   {
-    final Activity activity = (Activity) getContext();
+    final FragmentActivity activity = (FragmentActivity) getContext();
     final Bookmark bookmark = (Bookmark) mMapObject;
-    final Intent intent = new Intent(activity, ChooseBookmarkCategoryActivity.class)
-        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_CATEGORY_INDEX, bookmark.getCategoryId())
-        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK, new ParcelablePoint(bookmark.getCategoryId(), bookmark.getBookmarkId()));
-    activity.startActivityForResult(intent, ChooseBookmarkCategoryActivity.REQUEST_CODE_BOOKMARK_SET);
+
+    final Bundle args = new Bundle();
+    args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, bookmark.getCategoryId());
+    args.putInt(ChooseBookmarkCategoryFragment.BOOKMARK_ID, bookmark.getBookmarkId());
+    final ChooseBookmarkCategoryFragment fragment = (ChooseBookmarkCategoryFragment) Fragment.instantiate(activity, ChooseBookmarkCategoryFragment.class.getName(), args);
+    fragment.show(activity.getSupportFragmentManager(), null);
   }
 
   private void selectBookmarkColor()

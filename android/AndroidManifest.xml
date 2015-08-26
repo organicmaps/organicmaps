@@ -221,14 +221,6 @@
     </activity>
 
     <activity
-        android:name="com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/bookmark_sets"
-        android:theme="@style/MwmTheme.Light"
-        android:windowSoftInputMode="stateUnspecified|adjustResize">
-    </activity>
-
-    <activity
         android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/bookmarks"

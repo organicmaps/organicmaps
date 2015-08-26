@@ -1,16 +1,16 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
-import android.widget.BaseAdapter;
+import android.support.v7.widget.RecyclerView;
 
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
-public abstract class AbstractBookmarkCategoryAdapter extends BaseAdapter
+public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V>
 {
   private final Context mContext;
 
-  public AbstractBookmarkCategoryAdapter(Context context)
+  public BaseBookmarkCategoryAdapter(Context context)
   {
     mContext = context;
   }
@@ -21,18 +21,11 @@ public abstract class AbstractBookmarkCategoryAdapter extends BaseAdapter
   }
 
   @Override
-  public int getCount()
+  public int getItemCount()
   {
     return BookmarkManager.INSTANCE.getCategoriesCount();
   }
 
-  @Override
-  public long getItemId(int position)
-  {
-    return position;
-  }
-
-  @Override
   public BookmarkCategory getItem(int position)
   {
     return BookmarkManager.INSTANCE.getCategoryById(position);

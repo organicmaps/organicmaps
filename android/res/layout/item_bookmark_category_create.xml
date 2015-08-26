@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/base_block_size"
+    android:background="?clickableBackground"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base"
+    android:text="@string/add_new_set"
+    android:textAppearance="@style/MwmTextAppearance.Button"/>

@@ -3,18 +3,19 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:background="?clickableBackground"
               android:gravity="center_vertical"
               android:minHeight="@dimen/height_item_oneline"
               android:paddingLeft="0dp"
               android:paddingRight="@dimen/margin_base">
 
   <ImageView
-      android:id="@+id/set_visible"
+      android:id="@+id/iv__set_visible"
       android:layout_width="@dimen/height_item_oneline"
       android:layout_height="@dimen/height_item_oneline"
       android:layout_weight="0"
-      android:scaleType="center"
       android:background="?clickableBackground"
+      android:scaleType="center"
       tools:src="@drawable/ic_bookmark_show"/>
 
   <TextView

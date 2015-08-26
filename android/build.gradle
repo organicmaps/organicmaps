@@ -34,6 +34,9 @@ dependencies {
   compile fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
   compile project(":3rd_party:BottomSheet")
+  // LinearLayoutManager allowing wrap_content of RecyclerView-s
+  // TODO remove this library when default LinearLayoutManager will be fixed.
+  compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
 }
 
 def getDate() {
