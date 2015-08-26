@@ -73,7 +73,8 @@ public:
 
 private:
   void ConstructRoute(graphics::Screen * dlScreen);
-  void ClearRoute(graphics::Screen * dlScreen);
+  void ClearRouteGraphics(graphics::Screen * dlScreen);
+  void ClearRouteData();
   void InterpolateByZoom(ScreenBase const & screen, float & halfWidth, float & alpha, double & zoom) const;
   void CalculateArrowBorders(m2::RectD const & clipRect, double arrowLength, double scale,
                              double arrowTextureWidth, double joinsBoundsScalar,
@@ -118,7 +119,8 @@ private:
   vector<ArrowBorders> m_arrowBorders;
   vector<RouteSegment> m_routeSegments;
 
-  bool m_needClear;
+  bool m_needClearGraphics;
+  bool m_needClearData;
   bool m_waitForConstruction;
 };
 

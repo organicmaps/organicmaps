@@ -230,7 +230,8 @@ RouteRenderer::RouteRenderer()
   : m_endOfRouteDisplayList(nullptr)
   , m_arrowDisplayList(nullptr)
   , m_distanceFromBegin(0.0)
-  , m_needClear(false)
+  , m_needClearGraphics(false)
+  , m_needClearData(false)
   , m_waitForConstruction(false)
 {}
 
@@ -244,7 +245,7 @@ RouteRenderer::~RouteRenderer()
 void RouteRenderer::Setup(m2::PolylineD const & routePolyline, vector<double> const & turns, graphics::Color const & color)
 {
   if (!m_routeData.m_geometry.empty())
-    m_needClear = true;
+    m_needClearGraphics = true;
 
   RouteShape::PrepareGeometry(routePolyline, m_routeData);
 
@@ -315,7 +316,7 @@ void RouteRenderer::ConstructRoute(graphics::Screen * dlScreen)
   dlScreen->setDisplayList(nullptr);
 }
 
-void RouteRenderer::ClearRoute(graphics::Screen * dlScreen)
+void RouteRenderer::ClearRouteGraphics(graphics::Screen * dlScreen)
 {
   for (RouteGraphics & graphics : m_routeGraphics)
   {
@@ -333,6 +334,10 @@ void RouteRenderer::ClearRoute(graphics::Screen * dlScreen)
   m_arrowBorders.clear();
   m_routeSegments.clear();
   m_arrowBuffer.Clear();
+}
+
+void RouteRenderer::ClearRouteData()
+{
   m_routeData.Clear();
 }
 
@@ -389,10 +394,16 @@ void RouteRenderer::InterpolateByZoom(ScreenBase const & screen, float & halfWid
 void RouteRenderer::Render(graphics::Screen * dlScreen, ScreenBase const & screen)
 {
   // clearing
-  if (m_needClear)
+  if (m_needClearData)
   {
-    ClearRoute(dlScreen);
-    m_needClear = false;
+    ClearRouteData();
+    m_needClearData = false;
+  }
+
+  if (m_needClearGraphics)
+  {
+    ClearRouteGraphics(dlScreen);
+    m_needClearGraphics = false;
   }
 
   // construction
@@ -512,7 +523,8 @@ bool RouteRenderer::RecacheArrows()
 
 void RouteRenderer::Clear()
 {
-  m_needClear = true;
+  m_needClearGraphics = true;
+  m_needClearData = true;
   m_distanceFromBegin = 0.0;
 }
 
