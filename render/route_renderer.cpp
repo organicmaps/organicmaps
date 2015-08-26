@@ -102,7 +102,7 @@ void MergeAndClipBorders(vector<ArrowBorders> & borders)
   }
 
   // merge groups
-  int lastGroup = 0;
+  int lastGroup = borders[0].m_groupIndex;
   size_t lastGroupIndex = 0;
   for (size_t i = 1; i < borders.size(); i++)
   {
@@ -314,6 +314,8 @@ void RouteRenderer::ConstructRoute(graphics::Screen * dlScreen)
   dlScreen->drawSymbol(m_endOfRoutePoint, "route_to", graphics::EPosCenter, 0);
 
   dlScreen->setDisplayList(nullptr);
+
+  m_waitForConstruction = false;
 }
 
 void RouteRenderer::ClearRouteGraphics(graphics::Screen * dlScreen)
@@ -334,11 +336,14 @@ void RouteRenderer::ClearRouteGraphics(graphics::Screen * dlScreen)
   m_arrowBorders.clear();
   m_routeSegments.clear();
   m_arrowBuffer.Clear();
+
+  m_needClearGraphics = false;
 }
 
 void RouteRenderer::ClearRouteData()
 {
   m_routeData.Clear();
+  m_needClearData = false;
 }
 
 void RouteRenderer::PrepareToShutdown()
@@ -395,23 +400,14 @@ void RouteRenderer::Render(graphics::Screen * dlScreen, ScreenBase const & scree
 {
   // clearing
   if (m_needClearData)
-  {
     ClearRouteData();
-    m_needClearData = false;
-  }
 
   if (m_needClearGraphics)
-  {
     ClearRouteGraphics(dlScreen);
-    m_needClearGraphics = false;
-  }
 
   // construction
   if (m_waitForConstruction)
-  {
     ConstructRoute(dlScreen);
-    m_waitForConstruction = false;
-  }
 
   if (m_routeGraphics.empty())
     return;
