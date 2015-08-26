@@ -8,9 +8,19 @@
 #include "coding/writer.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/bind.hpp"
+
+// Trie format:
+//   -- Serialized Huffman encoding.
+//   -- Topology of the trie built on Huffman-encoded input strings [2 bits per node, level-order representation].
+//   -- List of pairs (node id, offset). One pair per final node (i.e. a node where a string ends).
+//      The lists of node ids and offsets are both non-decreasing and are delta-encoded with varuints.
+//   -- Values of final nodes in level-order. The values for final node |id| start at offset |offset|
+//      if there is a pair (id, offset) in the list above.
 
 namespace trie
 {
@@ -41,7 +51,7 @@ struct Node
 };
 
 template <class TNode, class TReader>
-TNode * AddToTrie(TNode * root, TReader bitEncoding, uint32_t numBits)
+TNode * AddToTrie(TNode * root, TReader & bitEncoding, uint32_t numBits)
 {
   ReaderSource<TReader> src(bitEncoding);
   // String size.
@@ -51,19 +61,10 @@ TNode * AddToTrie(TNode * root, TReader bitEncoding, uint32_t numBits)
   auto cur = root;
   for (uint32_t i = 0; i < numBits; ++i)
   {
-    uint8_t bit = bitReader.Read(1);
-    if (bit == 0)
-    {
-      if (!cur->l)
-        cur->l = new TNode();
-      cur = cur->l;
-    }
-    else
-    {
-      if (!cur->r)
-        cur->r = new TNode();
-      cur = cur->r;
-    }
+    auto nxt = bitReader.Read(1) == 0 ? &cur->l : &cur->r;
+    if (!*nxt)
+      *nxt = new TNode();
+    cur = *nxt;
   }
   return cur;
 }
@@ -79,20 +80,19 @@ void DeleteTrie(TNode * root)
 }
 
 template <typename TNode>
-vector<TNode *> WriteInLevelOrder(TNode * root)
+void WriteInLevelOrder(TNode * root, vector<TNode *> & levelOrder)
 {
-  vector<TNode *> q;
-  q.push_back(root);
-  size_t qt = 0;
-  while (qt < q.size())
+  ASSERT(root, ());
+  levelOrder.push_back(root);
+  size_t i = 0;
+  while (i < levelOrder.size())
   {
-    TNode * cur = q[qt++];
+    TNode * cur = levelOrder[i++];
     if (cur->l)
-      q.push_back(cur->l);
+      levelOrder.push_back(cur->l);
     if (cur->r)
-      q.push_back(cur->r);
+      levelOrder.push_back(cur->r);
   }
-  return q;
 }
 
 template <typename TWriter, typename TIter, typename TEdgeBuilder, typename TValueList>
@@ -105,23 +105,25 @@ void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end,
   using TEntry = typename TIter::value_type;
 
   TNode * root = new TNode();
+  MY_SCOPE_GUARD(cleanup, bind(&DeleteTrie<TNode>, root));
   TTrieString prevKey;
-  TEntry prevE;
+  TEntry prevEntry;
 
   vector<TEntry> entries;
   vector<strings::UniString> entryStrings;
   for (TIter it = beg; it != end; ++it)
   {
-    TEntry e = *it;
-    if (it != beg && e == prevE)
+    TEntry entry = *it;
+    if (it != beg && entry == prevEntry)
       continue;
-    TrieChar const * const keyData = e.GetKeyData();
-    TTrieString key(keyData, keyData + e.GetKeySize());
-    CHECK(!(key < prevKey), (key, prevKey));
-    entries.push_back(e);
-    entryStrings.push_back(strings::UniString(keyData, keyData + e.GetKeySize()));
+    TrieChar const * const keyData = entry.GetKeyData();
+    TTrieString key(keyData, keyData + entry.GetKeySize());
+    using namespace std::rel_ops;  // ">=" for keys.
+    CHECK_GREATER_OR_EQUAL(key, prevKey, (key, prevKey));
+    entries.push_back(entry);
+    entryStrings.push_back(strings::UniString(keyData, keyData + entry.GetKeySize()));
     prevKey.swap(key);
-    prevE.Swap(e);
+    prevEntry.Swap(entry);
   }
 
   coding::HuffmanCoder huffman;
@@ -130,7 +132,7 @@ void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end,
 
   for (size_t i = 0; i < entries.size(); ++i)
   {
-    TEntry const & e = entries[i];
+    TEntry const & entry = entries[i];
     auto const & key = entryStrings[i];
 
     vector<uint8_t> buf;
@@ -141,27 +143,23 @@ void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end,
 
     TNode * cur = AddToTrie(root, bitEncoding, numBits);
     cur->m_isFinal = true;
-    cur->m_valueList.Append(e.GetValue());
-    cur->m_edgeBuilder.AddValue(e.value_data(), e.value_size());
+    cur->m_valueList.Append(entry.GetValue());
+    cur->m_edgeBuilder.AddValue(entry.value_data(), entry.value_size());
   }
 
-  vector<TNode *> levelOrder = WriteInLevelOrder(root);
-
-  vector<bool> trieTopology(2 * levelOrder.size());
-  for (size_t i = 0; i < levelOrder.size(); ++i)
-  {
-    auto const & cur = levelOrder[i];
-    if (cur->l)
-      trieTopology[2 * i] = true;
-    if (cur->r)
-      trieTopology[2 * i + 1] = true;
-  }
+  vector<TNode *> levelOrder;
+  WriteInLevelOrder(root, levelOrder);
 
   {
+    // Trie topology.
     BitWriter<TWriter> bitWriter(writer);
     WriteVarUint(writer, levelOrder.size());
-    for (size_t i = 0; i < 2 * levelOrder.size(); ++i)
-      bitWriter.Write(trieTopology[i] ? 1 : 0, 1 /* numBits */);
+    for (size_t i = 0; i < levelOrder.size(); ++i)
+    {
+      auto const & cur = levelOrder[i];
+      bitWriter.Write(cur->l ? 1 : 0, 1 /* numBits */);
+      bitWriter.Write(cur->r ? 1 : 0, 1 /* numBits */);
+    }
   }
 
   vector<uint32_t> finalNodeIds;
@@ -170,12 +168,12 @@ void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end,
   MemWriter<vector<uint8_t>> valueWriter(valueBuf);
   for (size_t i = 0; i < levelOrder.size(); ++i)
   {
-    TNode const * nd = levelOrder[i];
-    if (!nd->m_isFinal)
+    TNode const * node = levelOrder[i];
+    if (!node->m_isFinal)
       continue;
     finalNodeIds.push_back(static_cast<uint32_t>(i));
     offsetTable.push_back(valueWriter.Pos());
-    nd->m_valueList.Dump(valueWriter);
+    node->m_valueList.Dump(valueWriter);
   }
 
   WriteVarUint(writer, finalNodeIds.size());
@@ -193,8 +191,7 @@ void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end,
     }
   }
 
-  for (uint8_t const b : valueBuf)
-    writer.Write(&b, 1 /* numBytes */);
+  writer.Write(valueBuf.data(), valueBuf.size());
 
   // todo(@pimenov):
   // 1. Investigate the possibility of path compression (short edges + lcp table).
@@ -204,8 +201,6 @@ void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end,
   //    Alternatively (and probably better), we can append a special symbol to all those
   //    strings that have non-empty value lists. We can then get the leaf number
   //    of a final node by doing rank0.
-
-  DeleteTrie(root);
 }
 
 }  // namespace trie

@@ -66,7 +66,6 @@ public:
       }
       m_buf = bits;
     }
-    m_flushed = false;
   }
 
 private:
@@ -82,7 +81,6 @@ private:
   TWriter & m_writer;
   uint8_t m_buf;
   uint64_t m_bitsWritten;
-  bool m_flushed;
 };
 
 template <typename TSource>

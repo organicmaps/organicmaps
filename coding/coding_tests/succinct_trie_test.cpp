@@ -21,12 +21,12 @@ namespace
 struct StringsFileEntryMock
 {
   StringsFileEntryMock() = default;
-  StringsFileEntryMock(string const & key, uint8_t value) : m_value(value)
+  StringsFileEntryMock(string const & key, uint8_t value)
+    : m_key(key.begin(), key.end()), m_value(value)
   {
-    m_key.insert(m_key.end(), key.begin(), key.end());
   }
 
-  trie::TrieChar const * GetKeyData() { return &m_key[0]; }
+  trie::TrieChar const * GetKeyData() { return m_key.data(); }
 
   size_t GetKeySize() const { return m_key.size(); }
 
@@ -34,7 +34,11 @@ struct StringsFileEntryMock
   void * value_data() const { return nullptr; }
   size_t value_size() const { return 0; }
 
-  void Swap(StringsFileEntryMock const & o) {}
+  void Swap(StringsFileEntryMock & o)
+  {
+    swap(m_key, o.m_key);
+    swap(m_value, o.m_value);
+  }
 
   bool operator==(const StringsFileEntryMock & o) const
   {
@@ -56,7 +60,7 @@ template <typename TWriter>
 struct EmptyValueList
 {
   size_t size() const { return 0; }
-  void Dump(TWriter & writer) const {}
+  void Dump(TWriter &) const {}
   void Append(int) {}
 };
 
@@ -96,30 +100,25 @@ struct SimpleValueList
   vector<uint8_t> m_valueList;
 };
 
-vector<uint8_t> ReadAllValues(
-    trie::SuccinctTrieIterator<MemReader, SimpleValueReader, trie::EmptyValueReader> * root)
+void ReadAllValues(unique_ptr<trie::SuccinctTrieIterator<MemReader, SimpleValueReader,
+                                                         trie::EmptyValueReader>> const & root,
+                   vector<uint8_t> & values)
 {
-  vector<uint8_t> values;
   for (size_t i = 0; i < root->NumValues(); ++i)
     values.push_back(root->GetValue(i));
-  return values;
 }
 
-void CollectInSubtree(
-    trie::SuccinctTrieIterator<MemReader, SimpleValueReader, trie::EmptyValueReader> * root,
-    vector<uint8_t> & collectedValues)
+void CollectInSubtree(unique_ptr<trie::SuccinctTrieIterator<MemReader, SimpleValueReader,
+                                                            trie::EmptyValueReader>> const & root,
+                      vector<uint8_t> & collectedValues)
 {
-  auto valuesHere = ReadAllValues(root);
-  collectedValues.insert(collectedValues.end(), valuesHere.begin(), valuesHere.end());
+  ReadAllValues(root, collectedValues);
 
-  auto * l = root->GoToEdge(0);
-  auto * r = root->GoToEdge(1);
-  if (l)
+  if (auto l = root->GoToEdge(0))
     CollectInSubtree(l, collectedValues);
-  if (r)
+  if (auto r = root->GoToEdge(1))
     CollectInSubtree(r, collectedValues);
 }
-
 }  // namespace
 
 namespace trie
@@ -137,8 +136,7 @@ UNIT_TEST(SuccinctTrie_Serialization_Smoke1)
   using TWriter = MemWriter<vector<uint8_t>>;
   TWriter memWriter(buf);
 
-  vector<StringsFileEntryMock> data;
-  data.push_back(StringsFileEntryMock("abacaba", 1));
+  vector<StringsFileEntryMock> data = {StringsFileEntryMock("abacaba", 1)};
 
   trie::BuildSuccinctTrie<TWriter, vector<StringsFileEntryMock>::iterator, trie::EmptyEdgeBuilder,
                           EmptyValueList<TWriter>>(memWriter, data.begin(), data.end(),
@@ -146,11 +144,11 @@ UNIT_TEST(SuccinctTrie_Serialization_Smoke1)
 
   MemReader memReader(buf.data(), buf.size());
 
-  using EmptyValueType = trie::EmptyValueReader::ValueType;
+  using TEmptyValue = trie::EmptyValueReader::ValueType;
 
-  unique_ptr<trie::SuccinctTrieIterator<MemReader, trie::EmptyValueReader, trie::EmptyValueReader>>
-      trieRoot(
-          trie::ReadSuccinctTrie(memReader, trie::EmptyValueReader(), trie::EmptyValueReader()));
+  auto trieRoot =
+      trie::ReadSuccinctTrie(memReader, trie::EmptyValueReader(), trie::EmptyValueReader());
+  TEST(trieRoot, ());
 }
 
 UNIT_TEST(SuccinctTrie_Serialization_Smoke2)
@@ -160,8 +158,7 @@ UNIT_TEST(SuccinctTrie_Serialization_Smoke2)
   using TWriter = MemWriter<vector<uint8_t>>;
   TWriter memWriter(buf);
 
-  vector<StringsFileEntryMock> data;
-  data.push_back(StringsFileEntryMock("abacaba", 1));
+  vector<StringsFileEntryMock> data = {StringsFileEntryMock("abacaba", 1)};
 
   trie::BuildSuccinctTrie<TWriter, vector<StringsFileEntryMock>::iterator, trie::EmptyEdgeBuilder,
                           SimpleValueList<TWriter>>(memWriter, data.begin(), data.end(),
@@ -169,10 +166,10 @@ UNIT_TEST(SuccinctTrie_Serialization_Smoke2)
 
   MemReader memReader(buf.data(), buf.size());
 
-  using EmptyValueType = trie::EmptyValueReader::ValueType;
+  using TEmptyValue = trie::EmptyValueReader::ValueType;
 
-  unique_ptr<trie::SuccinctTrieIterator<MemReader, SimpleValueReader, trie::EmptyValueReader>>
-      trieRoot(trie::ReadSuccinctTrie(memReader, SimpleValueReader(), trie::EmptyValueReader()));
+  auto trieRoot = trie::ReadSuccinctTrie(memReader, SimpleValueReader(), trie::EmptyValueReader());
+  TEST(trieRoot, ());
 }
 
 UNIT_TEST(SuccinctTrie_Iterator)
@@ -182,12 +179,9 @@ UNIT_TEST(SuccinctTrie_Iterator)
   using TWriter = MemWriter<vector<uint8_t>>;
   TWriter memWriter(buf);
 
-  vector<StringsFileEntryMock> data;
-  data.push_back(StringsFileEntryMock("a", 1));
-  data.push_back(StringsFileEntryMock("b", 2));
-  data.push_back(StringsFileEntryMock("ab", 3));
-  data.push_back(StringsFileEntryMock("ba", 4));
-  data.push_back(StringsFileEntryMock("abc", 5));
+  vector<StringsFileEntryMock> data = {StringsFileEntryMock("a", 1), StringsFileEntryMock("b", 2),
+                                       StringsFileEntryMock("ab", 3), StringsFileEntryMock("ba", 4),
+                                       StringsFileEntryMock("abc", 5)};
   sort(data.begin(), data.end());
 
   trie::BuildSuccinctTrie<TWriter, vector<StringsFileEntryMock>::iterator, trie::EmptyEdgeBuilder,
@@ -196,13 +190,12 @@ UNIT_TEST(SuccinctTrie_Iterator)
 
   MemReader memReader(buf.data(), buf.size());
 
-  using EmptyValueType = trie::EmptyValueReader::ValueType;
+  using TEmptyValue = trie::EmptyValueReader::ValueType;
 
-  unique_ptr<trie::SuccinctTrieIterator<MemReader, SimpleValueReader, trie::EmptyValueReader>>
-      trieRoot(trie::ReadSuccinctTrie(memReader, SimpleValueReader(), trie::EmptyValueReader()));
+  auto trieRoot = trie::ReadSuccinctTrie(memReader, SimpleValueReader(), trie::EmptyValueReader());
 
   vector<uint8_t> collectedValues;
-  CollectInSubtree(trieRoot.get(), collectedValues);
+  CollectInSubtree(trieRoot, collectedValues);
   sort(collectedValues.begin(), collectedValues.end());
   TEST_EQUAL(collectedValues.size(), 5, ());
   for (size_t i = 0; i < collectedValues.size(); ++i)
@@ -216,11 +209,9 @@ UNIT_TEST(SuccinctTrie_MoveToString)
   using TWriter = MemWriter<vector<uint8_t>>;
   TWriter memWriter(buf);
 
-  vector<StringsFileEntryMock> data;
-  data.push_back(StringsFileEntryMock("abcde", 1));
-  data.push_back(StringsFileEntryMock("aaaaa", 2));
-  data.push_back(StringsFileEntryMock("aaa", 3));
-  data.push_back(StringsFileEntryMock("aaa", 4));
+  vector<StringsFileEntryMock> data = {
+      StringsFileEntryMock("abcde", 1), StringsFileEntryMock("aaaaa", 2),
+      StringsFileEntryMock("aaa", 3), StringsFileEntryMock("aaa", 4)};
   sort(data.begin(), data.end());
 
   trie::BuildSuccinctTrie<TWriter, vector<StringsFileEntryMock>::iterator, trie::EmptyEdgeBuilder,
@@ -228,46 +219,53 @@ UNIT_TEST(SuccinctTrie_MoveToString)
                                                     trie::EmptyEdgeBuilder());
   MemReader memReader(buf.data(), buf.size());
 
-  using EmptyValueType = trie::EmptyValueReader::ValueType;
+  using TEmptyValue = trie::EmptyValueReader::ValueType;
 
-  unique_ptr<trie::SuccinctTrieIterator<MemReader, SimpleValueReader, trie::EmptyValueReader>>
-      trieRoot(trie::ReadSuccinctTrie(memReader, SimpleValueReader(), trie::EmptyValueReader()));
+  auto trieRoot = trie::ReadSuccinctTrie(memReader, SimpleValueReader(), trie::EmptyValueReader());
 
   {
-    auto * it = trieRoot->GoToString(strings::MakeUniString("a"));
+    auto it = trieRoot->GoToString(strings::MakeUniString("a"));
     TEST(it != nullptr, ());
     vector<uint8_t> expectedValues;
-    TEST_EQUAL(ReadAllValues(it), expectedValues, ());
+    vector<uint8_t> receivedValues;
+    ReadAllValues(it, receivedValues);
+    TEST_EQUAL(expectedValues, receivedValues, ());
   }
 
   {
-    auto * it = trieRoot->GoToString(strings::MakeUniString("abcde"));
+    auto it = trieRoot->GoToString(strings::MakeUniString("abcde"));
     TEST(it != nullptr, ());
     vector<uint8_t> expectedValues{1};
-    TEST_EQUAL(ReadAllValues(it), expectedValues, ());
+    vector<uint8_t> receivedValues;
+    ReadAllValues(it, receivedValues);
+    TEST_EQUAL(expectedValues, receivedValues, ());
   }
 
   {
-    auto * it = trieRoot->GoToString(strings::MakeUniString("aaaaa"));
+    auto it = trieRoot->GoToString(strings::MakeUniString("aaaaa"));
     TEST(it != nullptr, ());
     vector<uint8_t> expectedValues{2};
-    TEST_EQUAL(ReadAllValues(it), expectedValues, ());
+    vector<uint8_t> receivedValues;
+    ReadAllValues(it, receivedValues);
+    TEST_EQUAL(expectedValues, receivedValues, ());
   }
 
   {
-    auto * it = trieRoot->GoToString(strings::MakeUniString("aaa"));
+    auto it = trieRoot->GoToString(strings::MakeUniString("aaa"));
     TEST(it != nullptr, ());
     vector<uint8_t> expectedValues{3, 4};
-    TEST_EQUAL(ReadAllValues(it), expectedValues, ());
+    vector<uint8_t> receivedValues;
+    ReadAllValues(it, receivedValues);
+    TEST_EQUAL(expectedValues, receivedValues, ());
   }
 
   {
-    auto * it = trieRoot->GoToString(strings::MakeUniString("b"));
+    auto it = trieRoot->GoToString(strings::MakeUniString("b"));
     TEST(it == nullptr, ());
   }
 
   {
-    auto * it = trieRoot->GoToString(strings::MakeUniString("bbbbb"));
+    auto it = trieRoot->GoToString(strings::MakeUniString("bbbbb"));
     TEST(it == nullptr, ());
   }
 }

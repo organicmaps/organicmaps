@@ -1,27 +1,32 @@
 #pragma once
-#include "coding/reader.hpp"
-#include "coding/varint.hpp"
-#include "coding/huffman.hpp"
 #include "coding/bit_streams.hpp"
+#include "coding/huffman.hpp"
+#include "coding/reader.hpp"
 #include "coding/trie.hpp"
+#include "coding/varint.hpp"
 
 #include "base/assert.hpp"
 #include "base/bits.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 #include "3party/succinct/rs_bit_vector.hpp"
 
 namespace trie
 {
+// This class is used to read the data that is common to every node
+// of the trie: the trie topology and the offsets into the data buffer.
+// The topology can then be used to navigate the trie and the offsets
+// can be used to extract the values associated with the key strings.
 template <class TReader, class TValueReader, class TEdgeValueReader>
 class TopologyAndOffsets
 {
 public:
-  using ValueType = typename TValueReader::ValueType;
-  using EdgeValueType = typename TEdgeValueReader::ValueType;
+  using TValue = typename TValueReader::ValueType;
+  using TEdgeValue = typename TEdgeValueReader::ValueType;
 
   TopologyAndOffsets(TReader const & reader, TValueReader const & valueReader,
                      TEdgeValueReader const & edgeValueReader)
@@ -30,17 +35,45 @@ public:
     Parse();
   }
 
+  // Returns the topology of the trie in the external node representation.
+  // Arrange the nodes in the level order and write two bits for every
+  // node: the first bit for its left child and the second bit for its right child.
+  // Write '1' if the child is present and '0' if it is not.
+  // Prepend the resulting bit string with '1' (for a super-root) and you will get
+  // the external node representaiton.
   succinct::rs_bit_vector const & GetTopology() const { return m_trieTopology; }
+
+  // Returns the number of trie nodes.
   uint32_t NumNodes() const { return m_numNodes; }
+
+  // Returns the Huffman encoding that was used to encode the strings
+  // before adding them to this trie.
   coding::HuffmanCoder const & GetEncoding() const { return m_huffman; }
+
+  // Returns true if and only if the node is the last node of a string
+  // that was used as a key when building this trie.
   bool NodeIsFinal(uint32_t id) const { return m_finalNodeIndex[id] >= 0; }
-  uint32_t Offset(uint32_t id) const { return m_offsetTable[m_finalNodeIndex[id]]; }
+
+  // Returns the offset relative to the beginning of the start of the
+  // value buffer where the data for node number |id| starts.
+  uint32_t Offset(uint32_t id) const
+  {
+    CHECK(NodeIsFinal(id), ());
+    return m_offsetTable[m_finalNodeIndex[id]];
+  }
+
+  // Returns the number of values associated with a final node |id|.
   uint32_t ValueListSize(uint32_t id)
   {
+    CHECK(NodeIsFinal(id), ());
     int finalId = m_finalNodeIndex[id];
     return m_offsetTable[finalId + 1] - m_offsetTable[finalId];
   }
+
+  // Returns the reader from which the value buffer can be read.
   TValueReader const & GetValueReader() const { return m_valueReader; }
+
+  // Returns the reader from which the trie can be read.
   TReader const & GetReader() const { return m_reader; }
 
 private:
@@ -98,26 +131,24 @@ template <class TReader, class TValueReader, class TEdgeValueReader>
 class SuccinctTrieIterator
 {
 public:
-  using ValueType = typename TValueReader::ValueType;
-  using EdgeValueType = typename TEdgeValueReader::ValueType;
+  using TValue = typename TValueReader::ValueType;
+  using TEdgeValue = typename TEdgeValueReader::ValueType;
   using TCommonData = TopologyAndOffsets<TReader, TValueReader, TEdgeValueReader>;
 
-  SuccinctTrieIterator(TReader const & reader, TCommonData * common, uint32_t nodeBitPosition)
-    : m_reader(reader), m_nodeBitPosition(nodeBitPosition), m_valuesRead(false)
+  SuccinctTrieIterator(TReader const & reader, shared_ptr<TCommonData> common,
+                       uint32_t nodeBitPosition)
+    : m_reader(reader), m_common(common), m_nodeBitPosition(nodeBitPosition), m_valuesRead(false)
   {
-    m_common = shared_ptr<TCommonData>(common);
   }
 
-  SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader> * Clone() const
+  unique_ptr<SuccinctTrieIterator> Clone() const
   {
-    auto * ret = new SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader>(
-        m_reader, m_common.get(), m_nodeBitPosition);
-    return ret;
+    return make_unique<SuccinctTrieIterator>(m_reader, m_common, m_nodeBitPosition);
   }
 
-  SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader> * GoToEdge(size_t i) const
+  unique_ptr<SuccinctTrieIterator> GoToEdge(size_t i) const
   {
-    ASSERT(i < 2, ("Bad edge id of a binary trie."));
+    ASSERT_LESS(i, 2, ("Bad edge id of a binary trie."));
     ASSERT_EQUAL(m_common->GetTopology()[m_nodeBitPosition - 1], 1, (m_nodeBitPosition));
 
     // rank(x) returns the number of ones in [0, x) but we count bit positions from 1
@@ -126,15 +157,14 @@ public:
       ++childBitPosition;
     if (childBitPosition > 2 * m_common->NumNodes() ||
         m_common->GetTopology()[childBitPosition - 1] == 0)
+    {
       return nullptr;
-    auto * ret = new SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader>(
-        m_reader, m_common.get(), childBitPosition);
-    return ret;
+    }
+    return make_unique<SuccinctTrieIterator>(m_reader, m_common, childBitPosition);
   }
 
   template <typename TEncodingReader>
-  SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader> * GoToString(
-      TEncodingReader bitEncoding, uint32_t numBits)
+  unique_ptr<SuccinctTrieIterator> GoToString(TEncodingReader & bitEncoding, uint32_t numBits)
   {
     ReaderSource<TEncodingReader> src(bitEncoding);
 
@@ -144,19 +174,19 @@ public:
 
     BitReader<ReaderSource<TEncodingReader>> bitReader(src);
 
-    auto * ret = Clone();
+    auto ret = Clone();
     for (uint32_t i = 0; i < numBits; ++i)
     {
       uint8_t bit = bitReader.Read(1);
-      ret = ret->GoToEdge(bit);
-      if (!ret)
+      auto nxt = ret->GoToEdge(bit);
+      if (!nxt)
         return nullptr;
+      ret = move(nxt);
     }
     return ret;
   }
 
-  SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader> * GoToString(
-      strings::UniString const & s)
+  unique_ptr<SuccinctTrieIterator> GoToString(strings::UniString const & s)
   {
     vector<uint8_t> buf;
     uint32_t numBits;
@@ -175,11 +205,11 @@ public:
     return m_values.size();
   }
 
-  ValueType GetValue(size_t i)
+  TValue GetValue(size_t i)
   {
     if (!m_valuesRead)
       ReadValues();
-    ASSERT(i < m_values.size(), ());
+    ASSERT_LESS(i, m_values.size(), ());
     return m_values[i];
   }
 
@@ -199,7 +229,7 @@ private:
     ReaderSource<ReaderPtr<TReader>> src(subReaderPtr);
     while (src.Size() > 0)
     {
-      ValueType val;
+      TValue val;
       m_common->GetValueReader()(src, val);
       m_values.push_back(val);
     }
@@ -212,19 +242,20 @@ private:
   // in the external node representation of binary trie.
   uint32_t m_nodeBitPosition;
 
-  vector<ValueType> m_values;
+  vector<TValue> m_values;
   bool m_valuesRead;
 };
 
 template <typename TReader, typename TValueReader, typename TEdgeValueReader>
-SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader> * ReadSuccinctTrie(
+unique_ptr<SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader>> ReadSuccinctTrie(
     TReader const & reader, TValueReader valueReader = TValueReader(),
     TEdgeValueReader edgeValueReader = TEdgeValueReader())
 {
-  auto * common = new TopologyAndOffsets<TReader, TValueReader, TEdgeValueReader>(
-      reader, valueReader, edgeValueReader);
-  return new SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader>(
-      common->GetReader(), common, 1 /* bitPosition */);
+  using TCommonData = TopologyAndOffsets<TReader, TValueReader, TEdgeValueReader>;
+  using TIter = SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader>;
+
+  shared_ptr<TCommonData> common(new TCommonData(reader, valueReader, edgeValueReader));
+  return make_unique<TIter>(common->GetReader(), common, 1 /* bitPosition */);
 }
 
 }  // namespace trie

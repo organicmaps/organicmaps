@@ -19,7 +19,6 @@
 #include "platform/platform.hpp"
 
 #include "coding/reader_writer_ops.hpp"
-#include "coding/succinct_trie_builder.hpp"
 #include "coding/trie_builder.hpp"
 #include "coding/writer.hpp"
 
@@ -410,11 +409,6 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
     trie::Build<Writer, typename StringsFile<SerializedFeatureInfoValue>::IteratorT,
                 trie::EmptyEdgeBuilder, ValueList<SerializedFeatureInfoValue>>(
         writer, names.Begin(), names.End(), trie::EmptyEdgeBuilder());
-    /*
-    trie::BuildSuccinctTrie<Writer, typename StringsFile<SerializedFeatureInfoValue>::IteratorT,
-                            trie::EmptyEdgeBuilder, ValueList<SerializedFeatureInfoValue>>(
-        writer, names.Begin(), names.End(), trie::EmptyEdgeBuilder());
-    */
 
     // at this point all readers of StringsFile should be dead
   }
