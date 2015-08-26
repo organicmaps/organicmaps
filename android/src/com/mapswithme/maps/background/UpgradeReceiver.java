@@ -12,7 +12,6 @@ public class UpgradeReceiver extends BroadcastReceiver
   public void onReceive(Context context, Intent intent)
   {
     MwmApplication.get().onUpgrade();
-    // TODO uncomment after temp 5.0 release
-    //    WorkerService.queuePedestrianNotification();
+    WorkerService.queuePedestrianNotification();
   }
 }

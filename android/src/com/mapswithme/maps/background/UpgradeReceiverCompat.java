@@ -14,8 +14,7 @@ public class UpgradeReceiverCompat extends BroadcastReceiver
     if (context.getPackageName().equals(intent.getData().getSchemeSpecificPart()))
     {
       MwmApplication.get().onUpgrade();
-      // TODO uncomment after temp 5.0 release
-      //    WorkerService.queuePedestrianNotification();
+      WorkerService.queuePedestrianNotification();
     }
   }
 }
