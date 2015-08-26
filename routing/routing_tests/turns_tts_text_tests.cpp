@@ -3,13 +3,18 @@
 #include "routing/turns_sound_settings.hpp"
 #include "routing/turns_tts_text.hpp"
 
+#include "std/cstring.hpp"
 #include "std/string.hpp"
-
 
 namespace
 {
 using namespace routing::turns;
 using namespace routing::turns::sound;
+
+bool pairDistEquals(PairDist const & lhs, PairDist const & rhs)
+{
+  return lhs.first == rhs.first && strcmp(lhs.second, rhs.second) == 0;
+}
 
 UNIT_TEST(GetDistanceTextIdMetersTest)
 {
@@ -105,11 +110,11 @@ UNIT_TEST(GetAllSoundedDistMetersTest)
 
   TEST_EQUAL(allSoundedDistMeters.size(), 17, ());
   PairDist const expected1 = {50, "in_50_meters"};
-  TEST_EQUAL(allSoundedDistMeters[0], expected1, ());
+  TEST(pairDistEquals(allSoundedDistMeters[0], expected1), (allSoundedDistMeters[0], expected1));
   PairDist const expected2 = {700, "in_700_meters"};
-  TEST_EQUAL(allSoundedDistMeters[8], expected2, ());
+  TEST(pairDistEquals(allSoundedDistMeters[8], expected2), (allSoundedDistMeters[8], expected2));
   PairDist const expected3 = {3000, "in_3_kilometers"};
-  TEST_EQUAL(allSoundedDistMeters[16], expected3, ());
+  TEST(pairDistEquals(allSoundedDistMeters[16], expected3), (allSoundedDistMeters[16], expected3));
 }
 
 UNIT_TEST(GetAllSoundedDistFeet)
@@ -124,11 +129,11 @@ UNIT_TEST(GetAllSoundedDistFeet)
 
   TEST_EQUAL(allSoundedDistFeet.size(), 22, ());
   PairDist const expected1 = {50, "in_50_feet"};
-  TEST_EQUAL(allSoundedDistFeet[0], expected1, ());
+  TEST(pairDistEquals(allSoundedDistFeet[0], expected1), (allSoundedDistFeet[0], expected1));
   PairDist const expected2 = {700, "in_700_feet"};
-  TEST_EQUAL(allSoundedDistFeet[7], expected2, ());
+  TEST(pairDistEquals(allSoundedDistFeet[7], expected2), (allSoundedDistFeet[7], expected2));
   PairDist const expected3 = {10560, "in_2_miles"};
-  TEST_EQUAL(allSoundedDistFeet[21], expected3, ());
+  TEST(pairDistEquals(allSoundedDistFeet[21], expected3), (allSoundedDistFeet[21], expected3));
 }
 
 UNIT_TEST(GetSoundedDistMeters)
