@@ -33,6 +33,7 @@
 #include <assert.h>
 #include "mesh.h"
 #include "geom.h"
+#include <math.h>
 
 int tesvertLeq( TESSvertex *u, TESSvertex *v )
 {
@@ -258,4 +259,34 @@ void tesedgeIntersect( TESSvertex *o1, TESSvertex *d1,
 		if( z1+z2 < 0 ) { z1 = -z1; z2 = -z2; }
 		v->t = Interpolate( z1, o2->t, z2, d2->t );
 	}
+}
+
+/*
+	Calculate the angle between v1-v2 and v1-v0
+ */
+TESSreal calcAngle( TESSvertex *v0, TESSvertex *v1, TESSvertex *v2 )
+{
+	TESSreal num;
+	TESSreal den;
+	TESSreal a[2];
+	TESSreal b[2];
+	a[0] = v2->s - v1->s;
+	a[1] = v2->t - v1->t;
+	b[0] = v0->s - v1->s;
+	b[1] = v0->t - v1->t;
+	num = a[0] * b[0] + a[1] * b[1];
+	den = sqrt( a[0] * a[0] + a[1] * a[1] ) * sqrt( b[0] * b[0] + b[1] * b[1] );
+	if ( den > 0.0 ) num /= den;
+	if ( num < -1.0 ) num = -1.0;
+	if ( num >  1.0 ) num =  1.0;
+	return acos( num );
+}
+
+/*
+	Returns 1 is edge is locally delaunay
+ */
+int tesedgeIsLocallyDelaunay( TESShalfEdge *e )
+{
+	return (calcAngle(e->Lnext->Org, e->Lnext->Lnext->Org, e->Org) +
+					calcAngle(e->Sym->Lnext->Org, e->Sym->Lnext->Lnext->Org, e->Sym->Org)) < (M_PI + 0.01);
 }

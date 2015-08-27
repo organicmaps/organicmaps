@@ -143,6 +143,7 @@ struct TESShalfEdge {
 	ActiveRegion *activeRegion;  /* a region with this upper edge (sweep.c) */
 	int winding;    /* change in winding number when crossing
 						  from the right face to the left face */
+	int mark; /* Used by the Edge Flip algorithm */
 };
 
 #define Rface   Sym->Lface
@@ -154,7 +155,6 @@ struct TESShalfEdge {
 #define Rprev   Sym->Onext
 #define Dnext   Rprev->Sym  /* 3 pointers */
 #define Rnext   Oprev->Sym  /* 3 pointers */
-
 
 struct TESSmesh {
 	TESSvertex vHead;      /* dummy header for vertex list */
@@ -257,6 +257,8 @@ TESSmesh *tessMeshUnion( TESSalloc* alloc, TESSmesh *mesh1, TESSmesh *mesh2 );
 int tessMeshMergeConvexFaces( TESSmesh *mesh, int maxVertsPerFace );
 void tessMeshDeleteMesh( TESSalloc* alloc, TESSmesh *mesh );
 void tessMeshZapFace( TESSmesh *mesh, TESSface *fZap );
+
+void tessMeshFlipEdge( TESSmesh *mesh, TESShalfEdge *edge );
 
 #ifdef NDEBUG
 #define tessMeshCheckMesh( mesh )

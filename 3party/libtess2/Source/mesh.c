@@ -80,6 +80,7 @@ static TESShalfEdge *MakeEdge( TESSmesh* mesh, TESShalfEdge *eNext )
 	e->Lface = NULL;
 	e->winding = 0;
 	e->activeRegion = NULL;
+	e->mark = 0;
 
 	eSym->Sym = e;
 	eSym->Onext = eSym;
@@ -88,6 +89,7 @@ static TESShalfEdge *MakeEdge( TESSmesh* mesh, TESShalfEdge *eNext )
 	eSym->Lface = NULL;
 	eSym->winding = 0;
 	eSym->activeRegion = NULL;
+	eSym->mark = 0;
 
 	return e;
 }
@@ -748,6 +750,83 @@ int tessMeshMergeConvexFaces( TESSmesh *mesh, int maxVertsPerFace )
 	return 1;
 }
 
+void tessMeshFlipEdge( TESSmesh *mesh, TESShalfEdge *edge )
+{
+	TESShalfEdge *a0 = edge;
+	TESShalfEdge *a1 = a0->Lnext;
+	TESShalfEdge *a2 = a1->Lnext;
+	TESShalfEdge *b0 = edge->Sym;
+	TESShalfEdge *b1 = b0->Lnext;
+	TESShalfEdge *b2 = b1->Lnext;
+
+	TESSvertex *aOrg = a0->Org;
+	TESSvertex *aOpp = a2->Org;
+	TESSvertex *bOrg = b0->Org;
+	TESSvertex *bOpp = b2->Org;
+
+	TESSface *fa = a0->Lface;
+	TESSface *fb = b0->Lface;
+
+	assert(EdgeIsInternal(edge));
+	assert(a2->Lnext == a0);
+	assert(b2->Lnext == b0);
+
+	a0->Org = bOpp;
+	a0->Onext = b1->Sym;
+	b0->Org = aOpp;
+	b0->Onext = a1->Sym;
+	a2->Onext = b0;
+	b2->Onext = a0;
+	b1->Onext = a2->Sym;
+	a1->Onext = b2->Sym;
+
+	a0->Lnext = a2;
+	a2->Lnext = b1;
+	b1->Lnext = a0;
+
+	b0->Lnext = b2;
+	b2->Lnext = a1;
+	a1->Lnext = b0;
+
+	a1->Lface = fb;
+	b1->Lface = fa;
+
+	fa->anEdge = a0;
+	fb->anEdge = b0;
+
+	if (aOrg->anEdge == a0) aOrg->anEdge = b1;
+	if (bOrg->anEdge == b0) bOrg->anEdge = a1;
+
+	assert( a0->Lnext->Onext->Sym == a0 );
+	assert( a0->Onext->Sym->Lnext == a0 );
+	assert( a0->Org->anEdge->Org == a0->Org );
+
+
+	assert( a1->Lnext->Onext->Sym == a1 );
+	assert( a1->Onext->Sym->Lnext == a1 );
+	assert( a1->Org->anEdge->Org == a1->Org );
+
+	assert( a2->Lnext->Onext->Sym == a2 );
+	assert( a2->Onext->Sym->Lnext == a2 );
+	assert( a2->Org->anEdge->Org == a2->Org );
+
+	assert( b0->Lnext->Onext->Sym == b0 );
+	assert( b0->Onext->Sym->Lnext == b0 );
+	assert( b0->Org->anEdge->Org == b0->Org );
+
+	assert( b1->Lnext->Onext->Sym == b1 );
+	assert( b1->Onext->Sym->Lnext == b1 );
+	assert( b1->Org->anEdge->Org == b1->Org );
+
+	assert( b2->Lnext->Onext->Sym == b2 );
+	assert( b2->Onext->Sym->Lnext == b2 );
+	assert( b2->Org->anEdge->Org == b2->Org );
+
+	assert(aOrg->anEdge->Org == aOrg);
+	assert(bOrg->anEdge->Org == bOrg);
+
+	assert(a0->Oprev->Onext->Org == a0->Org);
+}
 
 #ifdef DELETE_BY_ZAPPING
 
@@ -793,7 +872,6 @@ void tessMeshCheckMesh( TESSmesh *mesh )
 	TESSvertex *v, *vPrev;
 	TESShalfEdge *e, *ePrev;
 
-	fPrev = fHead;
 	for( fPrev = fHead ; (f = fPrev->next) != fHead; fPrev = f) {
 		assert( f->prev == fPrev );
 		e = f->anEdge;
@@ -808,7 +886,6 @@ void tessMeshCheckMesh( TESSmesh *mesh )
 	}
 	assert( f->prev == fPrev && f->anEdge == NULL );
 
-	vPrev = vHead;
 	for( vPrev = vHead ; (v = vPrev->next) != vHead; vPrev = v) {
 		assert( v->prev == vPrev );
 		e = v->anEdge;
@@ -823,7 +900,6 @@ void tessMeshCheckMesh( TESSmesh *mesh )
 	}
 	assert( v->prev == vPrev && v->anEdge == NULL );
 
-	ePrev = eHead;
 	for( ePrev = eHead ; (e = ePrev->next) != eHead; ePrev = e) {
 		assert( e->Sym->next == ePrev->Sym );
 		assert( e->Sym != e );

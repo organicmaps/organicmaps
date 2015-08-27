@@ -107,11 +107,16 @@ enum TessWindingRule
 //         glEnd();
 //     }
 //
+// TESS_CONSTRAINED_DELAUNAY_TRIANGLES
+//   Similar to TESS_POLYGONS, but we output only triangles and we attempt to provide a valid
+//   Constrained Delaunay triangulation.
+
 enum TessElementType
 {
 	TESS_POLYGONS,
 	TESS_CONNECTED_POLYGONS,
 	TESS_BOUNDARY_CONTOURS,
+	TESS_CONSTRAINED_DELAUNAY_TRIANGLES
 };
 
 //typedef float TESSreal;
@@ -191,7 +196,7 @@ void tessAddContour( TESStesselator *tess, int size, const void* pointer, int st
 //   tess - pointer to tesselator object.
 //   windingRule - winding rules used for tesselation, must be one of TessWindingRule.
 //   elementType - defines the tesselation result element type, must be one of TessElementType.
-//   polySize - defines maximum vertices per polygons if output is polygons.
+//   polySize - defines maximum vertices per polygons if output is polygons. If elementType is TESS_CONSTRAINED_DELAUNAY_TRIANGLES, this parameter is ignored.
 //   vertexSize - defines the number of coordinates in tesselation result vertex, must be 2 or 3.
 //   normal - defines the normal of the input contours, of null the normal is calculated automatically.
 // Returns:

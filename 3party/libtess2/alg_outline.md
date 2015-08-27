@@ -223,3 +223,11 @@ triangles into fans and strips.  We do this using a greedy approach.
 The triangulation itself is not optimized to reduce the number of
 primitives; we just try to get a reasonable decomposition of the
 computed triangulation.
+
+Optionally, it's possible to output a Constrained Delaunay Triangulation.
+This is done by doing a delaunay refinement with the normal triangulation as
+a basis. The Edge Flip algorithm is used, which is guaranteed to terminate in O(n^2).
+
+Note: We don't use robust predicates to check if edges are locally
+delaunay, but currently us a naive epsilon of 0.01 radians to ensure
+termination.

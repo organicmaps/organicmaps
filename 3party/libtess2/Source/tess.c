@@ -374,7 +374,6 @@ int tessMeshTessellateMonoRegion( TESSmesh *mesh, TESSface *face )
 	return 1;
 }
 
-
 /* tessMeshTessellateInterior( mesh ) tessellates each region of
 * the mesh which is marked "inside" the polygon.  Each such region
 * must be monotone.
@@ -391,6 +390,115 @@ int tessMeshTessellateInterior( TESSmesh *mesh )
 			if ( !tessMeshTessellateMonoRegion( mesh, f ) ) return 0;
 		}
 	}
+	return 1;
+}
+
+
+typedef struct EdgeStackNode EdgeStackNode;
+typedef struct EdgeStack EdgeStack;
+
+struct EdgeStackNode {
+	TESShalfEdge *edge;
+	EdgeStackNode *next;
+};
+
+struct EdgeStack {
+	EdgeStackNode *top;
+	struct BucketAlloc *nodeBucket;
+};
+
+int stackInit( EdgeStack *stack, TESSalloc *alloc )
+{
+	stack->top = NULL;
+	stack->nodeBucket = createBucketAlloc( alloc, "CDT nodes", sizeof(EdgeStackNode), 512 );
+	return stack->nodeBucket != NULL;
+}
+
+void stackDelete( EdgeStack *stack )
+{
+    deleteBucketAlloc( stack->nodeBucket );
+}
+
+int stackEmpty( EdgeStack *stack )
+{
+	return stack->top == NULL;
+}
+
+void stackPush( EdgeStack *stack, TESShalfEdge *e )
+{
+	EdgeStackNode *node = (EdgeStackNode *)bucketAlloc( stack->nodeBucket );
+	if ( ! node ) return;
+	node->edge = e;
+	node->next = stack->top;
+	stack->top = node;
+}
+
+TESShalfEdge *stackPop( EdgeStack *stack )
+{
+	TESShalfEdge *e = NULL;
+	EdgeStackNode *node = stack->top;
+	if (node) {
+		stack->top = node->next;
+		e = node->edge;
+		bucketFree( stack->nodeBucket, node );
+	}
+	return e;
+}
+
+/*
+	Starting with a valid triangulation, uses the Edge Flip algorithm to
+	refine the triangulation into a Constrained Delaunay Triangulation.
+*/
+int tessMeshRefineDelaunay( TESSmesh *mesh, TESSalloc *alloc )
+{
+	/* At this point, we have a valid, but not optimal, triangulation.
+		 We refine the triangulation using the Edge Flip algorithm */
+
+/*
+	 1) Find all internal edges
+	 2) Mark all dual edges
+	 3) insert all dual edges into a queue
+*/
+	TESSface *f;
+	EdgeStack stack;
+	TESShalfEdge *e;
+	TESShalfEdge *edges[4];
+	stackInit(&stack, alloc);
+	for( f = mesh->fHead.next; f != &mesh->fHead; f = f->next ) {
+		if ( f->inside) {
+			e = f->anEdge;
+			do {
+				e->mark = EdgeIsInternal(e); /* Mark internal edges */
+				if (e->mark && !e->Sym->mark) stackPush(&stack, e); /* Insert into queue */
+				e = e->Lnext;
+			} while (e != f->anEdge);
+		}
+	}
+
+	// Pop stack until we find a reversed edge
+	// Flip the reversed edge, and insert any of the four opposite edges
+	// which are internal and not already in the stack (!marked)
+	while (!stackEmpty(&stack)) {
+		e = stackPop(&stack);
+		e->mark = e->Sym->mark = 0;
+		if (!tesedgeIsLocallyDelaunay(e)) {
+			int i;
+			tessMeshFlipEdge(mesh, e);
+			// for each opposite edge
+			edges[0] = e->Lnext;
+			edges[1] = e->Lprev;
+			edges[2] = e->Sym->Lnext;
+			edges[3] = e->Sym->Lprev;
+			for (i=0;i<3;i++) {
+				if (!edges[i]->mark && EdgeIsInternal(edges[i])) {
+					edges[i]->mark = edges[i]->Sym->mark = 1;
+					stackPush(&stack, edges[i]);
+				}
+			}
+		}
+	}
+
+	stackDelete(&stack);
 
 	return 1;
 }
@@ -935,6 +1043,11 @@ int tessTesselate( TESStesselator *tess, int windingRule, int elementType,
 		rc = tessMeshSetWindingNumber( mesh, 1, TRUE );
 	} else {
 		rc = tessMeshTessellateInterior( mesh );
+		if (elementType == TESS_CONSTRAINED_DELAUNAY_TRIANGLES) {
+			rc = tessMeshRefineDelaunay( mesh, &tess->alloc );
+			elementType = TESS_POLYGONS;
+			polySize = 3;
+		}
 	}
 	if (rc == 0) longjmp(tess->env,1);  /* could've used a label */
 

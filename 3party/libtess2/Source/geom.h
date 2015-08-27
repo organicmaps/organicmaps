@@ -59,6 +59,7 @@
 
 #define EdgeGoesLeft(e) VertLeq( (e)->Dst, (e)->Org )
 #define EdgeGoesRight(e) VertLeq( (e)->Org, (e)->Dst )
+#define EdgeIsInternal(e) e->Rface && e->Rface->inside
 
 #define ABS(x) ((x) < 0 ? -(x) : (x))
 #define VertL1dist(u,v) (ABS(u->s - v->s) + ABS(u->t - v->t))
@@ -72,5 +73,6 @@ TESSreal	testransEval( TESSvertex *u, TESSvertex *v, TESSvertex *w );
 TESSreal	testransSign( TESSvertex *u, TESSvertex *v, TESSvertex *w );
 int tesvertCCW( TESSvertex *u, TESSvertex *v, TESSvertex *w );
 void tesedgeIntersect( TESSvertex *o1, TESSvertex *d1, TESSvertex *o2, TESSvertex *d2, TESSvertex *v );
+int tesedgeIsLocallyDelaunay( TESShalfEdge *e );
 
 #endif
