@@ -112,10 +112,12 @@ namespace graphics
       gil::get_color(c, gil::blue_t()) = m_info.m_key.m_color.b / DATA_TRAITS::channelScaleFactor;
       gil::get_color(c, gil::alpha_t()) = m_info.m_key.m_color.a / DATA_TRAITS::channelScaleFactor;
 
+      const float alpha = static_cast<float>(m_info.m_key.m_color.a) / DATA_TRAITS::maxChannelVal;
+
       for (size_t y = 2; y < rect.SizeY() - 2; ++y)
         for (size_t x = 2; x < rect.SizeX() - 2; ++x)
          {
-           gil::get_color(c, gil::alpha_t()) = srcView(x - 2, y - 2) / DATA_TRAITS::channelScaleFactor;
+           gil::get_color(c, gil::alpha_t()) = static_cast<uint8_t>(alpha * srcView(x - 2, y - 2)) / DATA_TRAITS::channelScaleFactor;
            v(x, y) = c;
          }
     }
