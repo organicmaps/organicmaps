@@ -658,8 +658,10 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
         {
           if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * MB)
           {
-            NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
-            [self.alertController presentnoWiFiAlertWithName:title downloadBlock:^{layout.DownloadMap(idx, static_cast<MapOptions>(opt));}];
+            [self.alertController presentnoWiFiAlertWithName:name downloadBlock:^
+            {
+              layout.DownloadMap(idx, static_cast<MapOptions>(opt));
+            }];
             return;
           }
         }

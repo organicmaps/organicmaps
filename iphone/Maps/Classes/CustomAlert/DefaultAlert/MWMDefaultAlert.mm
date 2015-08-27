@@ -66,8 +66,9 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 + (instancetype)noWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block
 {
-  [Statistics.instance logEvent:@"No WiFi Alert - open"];
-  MWMDefaultAlert * alert = [self defaultAlertWithTitle:name message:nil rightButtonTitle:@"use_cellular_data" leftButtonTitle:@"cancel" rightButtonAction:block];
+  [Statistics.instance logEvent:@"No WiFi Alert - open" withParameters:@{@"map_name" : name}];
+  NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:title message:nil rightButtonTitle:@"use_cellular_data" leftButtonTitle:@"cancel" rightButtonAction:block];
   [alert setNeedsCloseAlertAfterEnterBackground];
   return alert;
 }
@@ -97,7 +98,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 {
   [Statistics.instance logEvent:@"No Current Position Alert - open"];
   NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_error_location_not_found"), L(@"dialog_routing_location_turn_wifi")];
-  return [self defaultAlertWithTitle:@"dialog_routing_check_gps" message:message rightButtonTitle:@"OK" leftButtonTitle:nil rightButtonAction:nil];
+  return [self defaultAlertWithTitle:@"dialog_routing_check_gps" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
 + (instancetype)disabledLocationAlert
@@ -118,7 +119,6 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 + (instancetype)defaultAlertWithTitle:(nonnull NSString *)title message:(nullable NSString *)message rightButtonTitle:(nonnull NSString *)rightButtonTitle leftButtonTitle:(nullable NSString *)leftButtonTitle rightButtonAction:(nullable RightButtonAction)action
 {
-  [Statistics.instance logEvent:[NSString stringWithFormat:@"Default Alert With Title:%@ - %@", title, @"open"]];
   MWMDefaultAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kDefaultAlertNibName owner:self options:nil] firstObject];
   alert.titleLabel.localizedText = title;
   alert.messageLabel.localizedText = message;

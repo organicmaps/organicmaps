@@ -75,7 +75,7 @@
   if (connection != Platform::EConnectionType::CONNECTION_NONE)
   {
     if (connection == Platform::EConnectionType::CONNECTION_WWAN && size > 50 * MB)
-      [alert presentnoWiFiAlertWithName:[NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name] downloadBlock:^{[self download];}];
+      [alert presentnoWiFiAlertWithName:name downloadBlock:^{[self download];}];
     else
       return YES;
   }
