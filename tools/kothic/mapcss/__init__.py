@@ -318,6 +318,8 @@ class MapCSS():
                     else:
                         raise Exception("Unexpected construction: " + css)
 
+                    stck[-1][1] = css # store remained part
+
                 if not wasBroken:
                     stck.pop()
 
@@ -329,7 +331,7 @@ class MapCSS():
             filename = stck[-1][0] # filename
             css_orig = stck[-1][2] # original
             css = stck[-1][1] # remained
-            line = unicode(css_orig[:-len(unicode(css))]).count("\n") + 1
+            line = css_orig[:-len(css)].count("\n") + 1
             msg = str(e) + "\nFile: " + filename + "\nLine: " + str(line)
             raise Exception(msg)
 
