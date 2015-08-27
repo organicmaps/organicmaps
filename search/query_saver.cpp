@@ -16,7 +16,6 @@ namespace
 char constexpr kSettingsKey[] = "UserQueries";
 using TLength = uint16_t;
 TLength constexpr kMaxSuggestionsCount = 10;
-size_t constexpr kLengthTypeSize = sizeof(TLength);
 
 // Reader from memory that throws exceptions.
 class SecureMemReader : public Reader
