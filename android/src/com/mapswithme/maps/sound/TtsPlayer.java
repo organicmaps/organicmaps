@@ -16,7 +16,9 @@ public enum TtsPlayer
 
   private Context mContext;
   private TextToSpeech mTts;
-  private Locale mTtsLocale;
+  private Locale mTtsLocale; // TTS locale. If mTtsLocale == null than mTts cannot be used.
+  private final Locale mDefaultTtsLocale = Locale.US;
+  private boolean mIsLocaleChanging = false;
 
   private final static String TAG = "TtsPlayer";
 
@@ -28,6 +30,9 @@ public enum TtsPlayer
   public void init()
   {
     Locale systemLanguage = Locale.getDefault();
+    if (systemLanguage == null)
+      systemLanguage = mDefaultTtsLocale;
+
     if (INSTANCE.mTtsLocale == null || !INSTANCE.isLocaleEqual(systemLanguage))
       INSTANCE.setLocaleIfAvailable(systemLanguage);
   }
@@ -38,10 +43,19 @@ public enum TtsPlayer
         locale.getCountry().equals(mTtsLocale.getCountry());
   }
 
+  private boolean isLocaleAvailable(Locale locale)
+  {
+    final int avail = mTts.isLanguageAvailable(locale);
+    return avail == TextToSpeech.LANG_AVAILABLE || avail == TextToSpeech.LANG_COUNTRY_AVAILABLE
+        || avail == TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE;
+  }
+
   private void setLocaleIfAvailable(final Locale locale)
   {
-    if (mTts != null && mTtsLocale.equals(locale))
+    if (mTts != null && mTtsLocale != null && mTtsLocale.equals(locale))
       return;
+
+    mIsLocaleChanging = true;
 
     if (mTts != null)
     {
@@ -61,28 +75,44 @@ public enum TtsPlayer
           return;
         }
 
-        final int avail = mTts.isLanguageAvailable(locale);
-        mTtsLocale = locale;
-        if (avail != TextToSpeech.LANG_AVAILABLE && avail != TextToSpeech.LANG_COUNTRY_AVAILABLE
-                && avail != TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE)
+        if (isLocaleAvailable(locale))
         {
-          mTtsLocale = Locale.UK; // No translation for TTS for Locale.getDefault() language.
+          Log.i(TAG, "The locale " + locale.getLanguage() + " " + locale.getCountry() + " will be used for TTS.");
+          mTtsLocale = locale;
+        }
+        else if (isLocaleAvailable(mDefaultTtsLocale))
+        {
+          Log.w(TAG, "TTS is not available for locale " + locale.getLanguage() + " " + locale.getCountry() +
+              ". The default locale " + mDefaultTtsLocale.getLanguage() + " " + mDefaultTtsLocale.getCountry() + " will be used.");
+          mTtsLocale = mDefaultTtsLocale;
+        }
+        else
+        {
+          Log.w(TAG, "TTS is not available for locale " + locale.getLanguage() + " " + locale.getCountry() +
+              " and for the default locale " +  mDefaultTtsLocale.getLanguage() + " " + mDefaultTtsLocale.getCountry() +
+              ". TTS will be switched off.");
+          mTtsLocale = null;
+          mIsLocaleChanging = false;
+          return;
         }
 
         mTts.setLanguage(mTtsLocale);
+        // @TODO(vbykoianko) In case of mTtsLocale.getLanguage() returns zh. But the core is needed zh-Hant or zh-Hans.
+        // It should be fixed.
         nativeSetTurnNotificationsLocale(mTtsLocale.getLanguage());
-        Log.i(TAG, "setLocaleIfAvailable() nativeSetTurnNotificationsLocale(" + mTtsLocale.getLanguage() + ")");
+        Log.i(TAG, "setLocaleIfAvailable() onInit nativeSetTurnNotificationsLocale(" + mTtsLocale.getLanguage() + ")");
+        mIsLocaleChanging = false;
       }
     });
   }
 
+  private boolean readyToPlay()
+  {
+    return !mIsLocaleChanging && mTts != null && mTtsLocale != null;
+  }
+
   private void speak(String textToSpeak)
   {
-    if (mTts == null)
-    {
-      Log.w(TAG, "TtsPlayer.speak() is called while mTts == null.");
-      return;
-    }
     // @TODO(vbykoianko) removes these two toasts below when the test period is finished.
     Toast.makeText(mContext, textToSpeak, Toast.LENGTH_SHORT).show();
     if (mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null) == TextToSpeech.ERROR)
@@ -94,6 +124,9 @@ public enum TtsPlayer
 
   public void speakNotifications(String[] turnNotifications)
   {
+    if (!readyToPlay())
+      return; // speakNotifications() is called while TTS is not ready or could not be initialized.
+
     if (turnNotifications == null)
       return;
 
