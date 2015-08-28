@@ -16,7 +16,6 @@ public enum TtsPlayer
 
   private static final Locale DEFAULT_LOCALE = Locale.US;
 
-  private Context mContext;
   // The both mTtts and mTtsLocale should be initialized before usage.
   private TextToSpeech mTts;
   private Locale mTtsLocale;
@@ -24,10 +23,7 @@ public enum TtsPlayer
 
   private final static String TAG = "TtsPlayer";
 
-  TtsPlayer()
-  {
-    mContext = MwmApplication.get().getApplicationContext();
-  }
+  TtsPlayer() {}
 
   public void init()
   {
@@ -69,7 +65,7 @@ public enum TtsPlayer
       mTts.shutdown();
     }
 
-    mTts = new TextToSpeech(mContext, new TextToSpeech.OnInitListener()
+    mTts = new TextToSpeech(MwmApplication.get(), new TextToSpeech.OnInitListener()
     {
       @Override
       public void onInit(int status)
@@ -121,11 +117,11 @@ public enum TtsPlayer
   private void speak(String textToSpeak)
   {
     // @TODO(vbykoianko) removes these two toasts below when the test period is finished.
-    Toast.makeText(mContext, textToSpeak, Toast.LENGTH_SHORT).show();
+    Toast.makeText(MwmApplication.get(), textToSpeak, Toast.LENGTH_SHORT).show();
     if (mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null) == TextToSpeech.ERROR)
     {
       Log.e(TAG, "TextToSpeech returns TextToSpeech.ERROR.");
-      Toast.makeText(mContext, "TTS error", Toast.LENGTH_SHORT).show();
+      Toast.makeText(MwmApplication.get(), "TTS error", Toast.LENGTH_SHORT).show();
     }
   }
 
