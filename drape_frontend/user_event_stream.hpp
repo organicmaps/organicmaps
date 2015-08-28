@@ -57,7 +57,7 @@ struct TouchEvent
   /// and GetFirstMaskedPointer return index of this pointer in m_touces (0 in this case)
   /// Than user put down second finger. m_touches will have 2 valid elements, but new finger only one.
   /// In this case GetFirstMaskedPointer returns index of new pointer.
-  /// If user put down both fingers than GetFirst and GetSecond
+  /// If user put down both fingers simultaneously, then GetFirst and GetSecond
   /// will return valid not equal INVALID_MASKED_POINTER
   void SetFirstMaskedPointer(uint8_t firstMask);
   uint8_t GetFirstMaskedPointer() const;

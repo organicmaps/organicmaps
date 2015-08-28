@@ -248,7 +248,7 @@ TStatus Framework::GetCountryStatus(TIndex const & idx) const
   return m_work.GetCountryStatus(idx);
 }
 
-void Framework::Touch(int action, Finger f1, Finger f2, uint8_t maskedPointer)
+void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer)
 {
   MultiTouchAction eventType = static_cast<MultiTouchAction>(action);
   df::TouchEvent event;

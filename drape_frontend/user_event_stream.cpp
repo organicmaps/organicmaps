@@ -30,11 +30,6 @@ size_t GetValidTouchesCount(array<Touch, 2> const & touches)
   return result;
 }
 
-int8_t toInt(bool v)
-{
-  return v == true ? 1 : 0;
-}
-
 } // namespace
 
 #ifdef DEBUG
@@ -57,9 +52,7 @@ uint8_t const TouchEvent::INVALID_MASKED_POINTER = 0xFF;
 
 void TouchEvent::PrepareTouches(array<Touch, 2> const & previousToches)
 {
-  size_t validCount = GetValidTouchesCount(m_touches);
-  size_t prevValidCount = GetValidTouchesCount(previousToches);
-  if (validCount == 2 && prevValidCount > 0)
+  if (GetValidTouchesCount(m_touches) == 2 && GetValidTouchesCount(previousToches) > 0)
   {
     if (previousToches[0].m_id == m_touches[1].m_id)
       Swap();
@@ -89,8 +82,8 @@ uint8_t TouchEvent::GetSecondMaskedPointer() const
 
 size_t TouchEvent::GetMaskedCount()
 {
-  return toInt(GetFirstMaskedPointer() != INVALID_MASKED_POINTER) +
-         toInt(GetSecondMaskedPointer() != INVALID_MASKED_POINTER);
+  return static_cast<int>(GetFirstMaskedPointer() != INVALID_MASKED_POINTER) +
+         static_cast<int>(GetSecondMaskedPointer() != INVALID_MASKED_POINTER);
 }
 
 void TouchEvent::Swap()
@@ -100,7 +93,7 @@ void TouchEvent::Swap()
     if (index == INVALID_MASKED_POINTER)
       return index;
 
-    return my::cyclicClamp(index + 1, 0, 1);
+    return index ^ 0x1;
   };
 
   swap(m_touches[0], m_touches[1]);

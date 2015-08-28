@@ -51,7 +51,7 @@ void KineticScroller::InitGrab(ScreenBase const & modelView, double timeStamp)
   m_lastRect = modelView.GlobalRect();
 }
 
-bool KineticScroller::IsActive()
+bool KineticScroller::IsActive() const
 {
   return m_lastTimestamp > 0.0;
 }

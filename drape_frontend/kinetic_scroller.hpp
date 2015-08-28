@@ -13,7 +13,7 @@ public:
   KineticScroller();
 
   void InitGrab(ScreenBase const & modelView, double timeStamp);
-  bool IsActive();
+  bool IsActive() const;
   void GrabViewRect(ScreenBase const & modelView, double timeStamp);
   void CancelGrab();
   unique_ptr<BaseModelViewAnimation> CreateKineticAnimation(ScreenBase const & modelView);

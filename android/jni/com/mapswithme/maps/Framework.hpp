@@ -113,7 +113,7 @@ namespace android
       float m_x, m_y;
     };
 
-    void Touch(int action, Finger f1, Finger f2, uint8_t maskedPointer);
+    void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
 
     /// Show rect from another activity. Ensure that no LoadState will be called,
     /// when main map activity will become active.
