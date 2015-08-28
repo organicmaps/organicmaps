@@ -71,10 +71,10 @@ public enum TtsPlayer
       public void onInit(int status)
       {
         // This method is called asynchronously.
+        mIsLocaleChanging = false;
         if (status == TextToSpeech.ERROR)
         {
           Log.w(TAG, "Can't initialize TextToSpeech for locale " + locale.getLanguage() + " " + locale.getCountry());
-          mIsLocaleChanging = false;
           return;
         }
 
@@ -95,7 +95,6 @@ public enum TtsPlayer
               " and for the default locale " +  DEFAULT_LOCALE.getLanguage() + " " + DEFAULT_LOCALE.getCountry() +
               ". TTS will be switched off.");
           mTtsLocale = null;
-          mIsLocaleChanging = false;
           return;
         }
 
@@ -104,7 +103,6 @@ public enum TtsPlayer
         // It should be fixed.
         nativeSetTurnNotificationsLocale(mTtsLocale.getLanguage());
         Log.i(TAG, "setLocaleIfAvailable() onInit nativeSetTurnNotificationsLocale(" + mTtsLocale.getLanguage() + ")");
-        mIsLocaleChanging = false;
       }
     });
   }
@@ -128,7 +126,7 @@ public enum TtsPlayer
   public void speak(String[] turnNotifications)
   {
     if (!readyToPlay())
-      return; // speakNotifications() is called while TTS is not ready or could not be initialized.
+      return; // speak() is called while TTS is not ready or could not be initialized.
 
     if (turnNotifications == null)
       return;
