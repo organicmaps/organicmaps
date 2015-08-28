@@ -155,9 +155,9 @@ void SearchPanel::OnSearchResult(ResultsT * res)
 bool SearchPanel::TryChangeMapStyleCmd(QString const & str)
 {
   // Hook for shell command on change map style
-  bool const isDark = (str == "mapstyle:dark");
-  bool const isLight = isDark ? false : (str == "mapstyle:light");
-  bool const isClear = isDark || isLight ? false : (str == "mapstyle:clear");
+  bool const isDark = (str == "mapstyle:dark") || (str == "?dark");
+  bool const isLight = isDark ? false : (str == "mapstyle:light") || (str == "?light");
+  bool const isClear = isDark || isLight ? false : (str == "?newstyle");
 
   if (!isDark && !isLight && !isClear)
     return false;

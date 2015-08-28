@@ -288,9 +288,9 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
   private boolean tryChangeMapStyle(String str)
   {
     // Hook for shell command on change map style
-    final boolean isDark = str.equals("mapstyle:dark");
-    final boolean isLight = isDark ? false : str.equals("mapstyle:light");
-    final boolean isClear = isDark || isLight ? false : str.equals("mapstyle:clear");
+    final boolean isDark = str.equals("mapstyle:dark") || str.equals("?dark");
+    final boolean isLight = isDark ? false : str.equals("mapstyle:light") || str.equals("?light");
+    final boolean isClear = isDark || isLight ? false : str.equals("?newstyle");
 
     if (!isDark && !isLight && !isClear)
       return false;

@@ -372,9 +372,9 @@ static BOOL keyboardLoaded = NO;
 - (BOOL)tryChangeMapStyleCmd:(NSString *)cmd
 {
   // Hook for shell command on change map style
-  BOOL const isDark = [cmd isEqualToString:@"mapstyle:dark"];
-  BOOL const isLight = isDark ? NO : [cmd isEqualToString:@"mapstyle:light"];
-  BOOL const isClear = isLight || isDark ? NO : [cmd isEqualToString:@"mapstyle:clear"];
+  BOOL const isDark = [cmd isEqualToString:@"mapstyle:dark"] || [cmd isEqualToString:@"?dark"];
+  BOOL const isLight = isDark ? NO : [cmd isEqualToString:@"mapstyle:light"] || [cmd isEqualToString:@"?light"];
+  BOOL const isClear = isLight || isDark ? NO : [cmd isEqualToString:@"?newstyle"];
 
   if (!isDark && !isLight && !isClear)
     return NO;
