@@ -60,6 +60,8 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
       startGraphNode = start;
       break;
     }
+    if (delegate.IsCancelled())
+      return IRouter::Cancelled;
   }
   if (code != IRouter::NoError)
     return IRouter::StartPointNotFound;
@@ -76,6 +78,8 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
       finalGraphNode = final;
       break;
     }
+    if (delegate.IsCancelled())
+      return IRouter::Cancelled;
   }
   if (code != IRouter::NoError)
     return IRouter::EndPointNotFound;
@@ -86,6 +90,8 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
                         delegate);
   if (code != IRouter::NoError)
     return code;
+  if (delegate.IsCancelled())
+    return IRouter::Cancelled;
 
   // Final path conversion to output type.
   ConvertToSingleRouterTasks(tempRoad, startGraphNode, finalGraphNode, route);

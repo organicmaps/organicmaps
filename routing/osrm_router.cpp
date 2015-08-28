@@ -631,6 +631,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, delegate,
                                             finalPath);
     timer.Reset();
+    INTERRUPT_WHEN_CANCELLED(delegate);
     delegate.OnProgress(kCrossPathFoundProgress);
 
     // 5. Make generate answer
