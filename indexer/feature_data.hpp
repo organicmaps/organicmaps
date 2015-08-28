@@ -243,8 +243,8 @@ public:
   inline void AddType(uint32_t t) { m_Types.push_back(t); }
 
   /// Special function to replace a regular railway station type with
-  /// the special one for the correspondent city.
-  void SetRwStationType(char const * cityName);
+  /// the special subway type for the correspondent city.
+  void SetRwSubwayType(char const * cityName);
 
   /// @param skipType2  Do not accumulate this type if skipType2 != 0.
   /// '2' means 2-level type in classificator tree (also skip child types).

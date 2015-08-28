@@ -384,7 +384,7 @@ namespace ftype
 
   public:
     enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT,
-                 RW_STATION_SUBWAY };
+                 RW_STATION, RW_STATION_SUBWAY };
 
     CachedTypes()
     {
@@ -401,10 +401,12 @@ namespace ftype
       for (auto const & e : arr)
         m_types.push_back(c.GetTypeByPath(e));
 
+      m_types.push_back(c.GetTypeByPath({ "railway", "station" }));
       m_types.push_back(c.GetTypeByPath({ "railway", "station", "subway" }));
     }
 
     uint32_t Get(EType t) const { return m_types[t]; }
+
     bool IsHighway(uint32_t t) const
     {
       ftype::TruncValue(t, 1);
@@ -412,7 +414,10 @@ namespace ftype
     }
     bool IsRwStation(uint32_t t) const
     {
-      // check the exact match with possible types
+      return t == Get(RW_STATION);
+    }
+    bool IsRwSubway(uint32_t t) const
+    {
       ftype::TruncValue(t, 3);
       return t == Get(RW_STATION_SUBWAY);
     }
@@ -494,6 +499,7 @@ namespace ftype
 
     bool highwayDone = false;
     bool subwayDone = false;
+    bool railwayDone = false;
 
     // Get a copy of source types, because we will modify params in the loop;
     FeatureParams::TTypes const vTypes = params.m_Types;
@@ -520,29 +526,40 @@ namespace ftype
         highwayDone = true;
       }
 
-      if (!subwayDone && types.IsRwStation(vTypes[i]))
+      if (!subwayDone && types.IsRwSubway(vTypes[i]))
       {
         TagProcessor(p).ApplyRules(
         {
-          { "network", "London Underground", [&params]() { params.SetRwStationType("london"); }},
-          { "network", "New York City Subway", [&params]() { params.SetRwStationType("newyork"); }},
-          { "network", "Московский метрополитен", [&params]() { params.SetRwStationType("moscow"); }},
-          { "network", "Verkehrsverbund Berlin-Brandenburg", [&params]() { params.SetRwStationType("berlin"); }},
-          { "network", "Минский метрополитен", [&params]() { params.SetRwStationType("minsk"); }},
+          { "network", "London Underground", [&params]() { params.SetRwSubwayType("london"); }},
+          { "network", "New York City Subway", [&params]() { params.SetRwSubwayType("newyork"); }},
+          { "network", "Московский метрополитен", [&params]() { params.SetRwSubwayType("moscow"); }},
+          { "network", "Verkehrsverbund Berlin-Brandenburg", [&params]() { params.SetRwSubwayType("berlin"); }},
+          { "network", "Минский метрополитен", [&params]() { params.SetRwSubwayType("minsk"); }},
 
-          { "network", "Київський метрополітен", [&params]() { params.SetRwStationType("kiev"); }},
-          { "operator", "КП «Київський метрополітен»", [&params]() { params.SetRwStationType("kiev"); }},
+          { "network", "Київський метрополітен", [&params]() { params.SetRwSubwayType("kiev"); }},
+          { "operator", "КП «Київський метрополітен»", [&params]() { params.SetRwSubwayType("kiev"); }},
 
-          { "network", "RATP", [&params]() { params.SetRwStationType("paris"); }},
-          { "network", "Metro de Barcelona", [&params]() { params.SetRwStationType("barcelona"); }},
+          { "network", "RATP", [&params]() { params.SetRwSubwayType("paris"); }},
+          { "network", "Metro de Barcelona", [&params]() { params.SetRwSubwayType("barcelona"); }},
 
-          { "network", "Metro de Madrid", [&params]() { params.SetRwStationType("madrid"); }},
-          { "operator", "Metro de Madrid", [&params]() { params.SetRwStationType("madrid"); }},
+          { "network", "Metro de Madrid", [&params]() { params.SetRwSubwayType("madrid"); }},
+          { "operator", "Metro de Madrid", [&params]() { params.SetRwSubwayType("madrid"); }},
 
-          { "network", "Metropolitana di Roma", [&params]() { params.SetRwStationType("roma"); }},
+          { "network", "Metropolitana di Roma", [&params]() { params.SetRwSubwayType("roma"); }},
+          { "network", "ATAC", [&params]() { params.SetRwSubwayType("roma"); }},
         });
 
         subwayDone = true;
+      }
+
+      if (!subwayDone && !railwayDone && types.IsRwStation(vTypes[i]))
+      {
+        TagProcessor(p).ApplyRules(
+        {
+          { "network", "London Underground", [&params]() { params.SetRwSubwayType("london"); }},
+        });
+
+        railwayDone = true;
       }
     }
 

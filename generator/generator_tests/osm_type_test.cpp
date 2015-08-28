@@ -725,4 +725,23 @@ UNIT_TEST(OsmType_Subway)
     TEST_EQUAL(params.m_Types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "monorail"})), (params));
   }
+
+  {
+    char const * arr[][2] = {
+      { "line",	"Northern, Bakerloo" },
+      { "name",	"Charing Cross" },
+      { "network", "London Underground" },
+      { "operator", "TfL" },
+      { "railway", "station" },
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "london"})), (params));
+  }
 }

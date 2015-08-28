@@ -280,17 +280,17 @@ uint8_t FeatureParams::GetTypeMask() const
   return m_geomType;
 }
 
-void FeatureParams::SetRwStationType(char const * cityName)
+void FeatureParams::SetRwSubwayType(char const * cityName)
 {
   Classificator const & c = classif();
 
-  static uint32_t const src = c.GetTypeByPath({"railway", "station", "subway"});
+  static uint32_t const src = c.GetTypeByPath({"railway", "station"});
   uint32_t const dest = c.GetTypeByPath({"railway", "station", "subway", cityName});
 
   for (size_t i = 0; i < m_Types.size(); ++i)
   {
     uint32_t t = m_Types[i];
-    ftype::TruncValue(t, 3);
+    ftype::TruncValue(t, 2);
     if (t == src)
     {
       m_Types[i] = dest;
