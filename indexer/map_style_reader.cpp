@@ -14,22 +14,6 @@ namespace
 
 char const * const MAP_STYLE_KEY = "MapStyleKey";
 
-string GetDrawingRulesFile(MapStyle mapStyle)
-{
-  switch (mapStyle)
-  {
-  case MapStyleLight:
-    return "drules_proto.bin";
-  case MapStyleDark:
-    return "drules_proto_dark.bin";
-  case MapStyleClear:
-    return "drules_proto_clear.bin";
-  default:
-    LOG(LWARNING, ("Unknown map style", mapStyle));
-    return string();
-  }
-}
-
 string GetStyleSuffix(MapStyle mapStyle)
 {
   switch (mapStyle)
@@ -63,7 +47,7 @@ MapStyle StyleReader::GetCurrentStyle()
 
 ReaderPtr<Reader> StyleReader::GetDrawingRulesReader()
 {
-  string const rulesFile = GetDrawingRulesFile(GetCurrentStyle());
+  string const rulesFile = string("drules_proto") + GetStyleSuffix(GetCurrentStyle()) + ".bin";
   return GetPlatform().GetReader(rulesFile);
 }
 
