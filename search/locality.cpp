@@ -6,10 +6,17 @@
 #include "base/assert.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/limits.hpp"
 
 namespace search
 {
-Locality::Locality() : m_type(ftypes::NONE), m_featureId(-1), m_rank(-1), m_radius(0) {}
+Locality::Locality()
+  : m_type(ftypes::NONE)
+  , m_featureId(numeric_limits<decltype(m_featureId)>::max())
+  , m_rank(numeric_limits<decltype(m_rank)>::max())
+  , m_radius(0)
+{
+}
 
 Locality::Locality(ftypes::Type type, uint32_t featureId, m2::PointD const & center, uint8_t rank)
   : m_type(type), m_featureId(featureId), m_center(center), m_rank(rank), m_radius(0)
@@ -33,29 +40,28 @@ bool Locality::IsSuitable(TTokensArray const & tokens, TToken const & prefix) co
 
   switch (m_type)
   {
-    case STATE:  // we process USA, Canada states only for now
-      // USA states has 2-symbol synonyms
-      return (isMatched || GetSynonymTokenLength(tokens, prefix) == 2);
-
     case COUNTRY:
       // USA has synonyms: "US" or "USA"
       return (isMatched || (m_enName == "usa" && GetSynonymTokenLength(tokens, prefix) <= 3) ||
               (m_enName == "uk" && GetSynonymTokenLength(tokens, prefix) == 2));
 
+    case STATE:  // we process USA, Canada states only for now
+      // USA states has 2-symbol synonyms
+      return (isMatched || GetSynonymTokenLength(tokens, prefix) == 2);
     case CITY:
       // need full name match for cities
       return isMatched;
-
-    default:
-      ASSERT(false, ());
+    case NONE:
+    case TOWN:
+    case VILLAGE:
+    case LOCALITY_COUNT:
+      ASSERT(false, ("Unsupported type:", m_type));
       return false;
   }
 }
 
 void Locality::Swap(Locality & rhs)
 {
-  using std::swap;
-
   m_name.swap(rhs.m_name);
   m_enName.swap(rhs.m_enName);
   m_matchedTokens.swap(rhs.m_matchedTokens);

@@ -32,7 +32,7 @@ class Engine
   typedef function<void (Results const &)> SearchCallbackT;
 
 public:
-  // Doesn't take ownership of @pIndex. Takes ownership of pCategories
+  // Doesn't take ownership of index. Takes ownership of pCategories
   Engine(Index & index, Reader * pCategoriesR, storage::CountryInfoGetter const & infoGetter,
          string const & locale, unique_ptr<SearchQueryFactory> && factory);
   ~Engine();

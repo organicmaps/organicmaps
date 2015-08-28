@@ -21,7 +21,7 @@ namespace tests_support
 class TestSearchEngine : public Index
 {
 public:
-  TestSearchEngine(std::string const & locale);
+  TestSearchEngine(string const & locale);
 
   bool Search(search::SearchParams const & params, m2::RectD const & viewport);
 
