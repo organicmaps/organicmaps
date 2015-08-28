@@ -106,7 +106,7 @@ void MergeAndClipBorders(vector<ArrowBorders> & borders)
   }
 
   // merge groups
-  int lastGroup = 0;
+  int lastGroup = borders.front().m_groupIndex;
   size_t lastGroupIndex = 0;
   for (size_t i = 1; i < borders.size(); i++)
   {

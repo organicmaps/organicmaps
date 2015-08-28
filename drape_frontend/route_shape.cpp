@@ -211,7 +211,7 @@ void RouteShape::PrepareGeometry(bool isRoute, vector<m2::PointD> const & path,
     geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec3(endLength, 0, kCenter)));
 
     // generate joins
-    if (i < segments.size() - 1)
+    if (segments[i].m_generateJoin && i < segments.size() - 1)
     {
       glsl::vec2 n1 = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_leftNormals[EndPoint] :
                                                             segments[i].m_rightNormals[EndPoint];

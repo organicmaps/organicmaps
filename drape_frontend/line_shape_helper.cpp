@@ -17,14 +17,15 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
   float const dotProduct = glsl::dot(segment1->m_leftNormals[EndPoint],
                                      segment2->m_leftNormals[StartPoint]);
   float const absDotProduct = fabs(dotProduct);
-  float const eps = 1e-5;
+  float const kEps = 1e-5;
 
-  if (fabs(absDotProduct - 1.0f) < eps)
+  if (fabs(absDotProduct - 1.0f) < kEps)
   {
     // change nothing
     return;
   }
 
+  float const kMaxScalar = 5;
   float const crossProduct = glsl::cross(glsl::vec3(segment1->m_tangent, 0),
                                          glsl::vec3(segment2->m_tangent, 0)).z;
   if (crossProduct < 0)
@@ -35,13 +36,20 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
     // change right-side normals
     glsl::vec2 averageNormal = glsl::normalize(segment1->m_rightNormals[EndPoint] +
                                                segment2->m_rightNormals[StartPoint]);
-    segment1->m_rightNormals[EndPoint] = averageNormal;
-    segment2->m_rightNormals[StartPoint] = averageNormal;
-
     float const cosAngle = glsl::dot(segment1->m_tangent, averageNormal);
-    segment1->m_rightWidthScalar[EndPoint].x = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
-    segment1->m_rightWidthScalar[EndPoint].y = segment1->m_rightWidthScalar[EndPoint].x * cosAngle;
-    segment2->m_rightWidthScalar[StartPoint] = segment1->m_rightWidthScalar[EndPoint];
+    float const widthScalar = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
+    if (widthScalar < kMaxScalar)
+    {
+      segment1->m_rightNormals[EndPoint] = averageNormal;
+      segment2->m_rightNormals[StartPoint] = averageNormal;
+      segment1->m_rightWidthScalar[EndPoint].x = widthScalar;
+      segment1->m_rightWidthScalar[EndPoint].y = widthScalar * cosAngle;
+      segment2->m_rightWidthScalar[StartPoint] = segment1->m_rightWidthScalar[EndPoint];
+    }
+    else
+    {
+      segment1->m_generateJoin = false;
+    }
   }
   else
   {
@@ -51,13 +59,20 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
     // change left-side normals
     glsl::vec2 averageNormal = glsl::normalize(segment1->m_leftNormals[EndPoint] +
                                                segment2->m_leftNormals[StartPoint]);
-    segment1->m_leftNormals[EndPoint] = averageNormal;
-    segment2->m_leftNormals[StartPoint] = averageNormal;
-
     float const cosAngle = glsl::dot(segment1->m_tangent, averageNormal);
-    segment1->m_leftWidthScalar[EndPoint].x = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
-    segment1->m_leftWidthScalar[EndPoint].y = segment1->m_leftWidthScalar[EndPoint].x * cosAngle;
-    segment2->m_leftWidthScalar[StartPoint] = segment1->m_leftWidthScalar[EndPoint];
+    float const widthScalar = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
+    if (widthScalar < kMaxScalar)
+    {
+      segment1->m_leftNormals[EndPoint] = averageNormal;
+      segment2->m_leftNormals[StartPoint] = averageNormal;
+      segment1->m_leftWidthScalar[EndPoint].x = widthScalar;
+      segment1->m_leftWidthScalar[EndPoint].y = widthScalar * cosAngle;
+      segment2->m_leftWidthScalar[StartPoint] = segment1->m_leftWidthScalar[EndPoint];
+    }
+    else
+    {
+      segment1->m_generateJoin = false;
+    }
   }
 }
 
@@ -214,7 +229,7 @@ glsl::vec2 GetNormal(LineSegment const & segment, bool isLeft, ENormalType norma
 
   int const index = (normalType == StartNormal) ? StartPoint : EndPoint;
   return isLeft ? segment.m_leftWidthScalar[index].x * segment.m_leftNormals[index]:
-                  segment.m_rightWidthScalar[index].x  * segment.m_rightNormals[index];
+                  segment.m_rightWidthScalar[index].x * segment.m_rightNormals[index];
 }
 
 float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startPoint,

@@ -33,12 +33,14 @@ struct LineSegment
   glsl::vec2 m_leftWidthScalar[PointsCount];
   glsl::vec2 m_rightWidthScalar[PointsCount];
   bool m_hasLeftJoin[PointsCount];
+  bool m_generateJoin;
 
   LineSegment()
   {
     m_leftWidthScalar[StartPoint] = m_leftWidthScalar[EndPoint] = glsl::vec2(1.0f, 0.0f);
     m_rightWidthScalar[StartPoint] = m_rightWidthScalar[EndPoint] = glsl::vec2(1.0f, 0.0f);
     m_hasLeftJoin[StartPoint] = m_hasLeftJoin[EndPoint] = true;
+    m_generateJoin = true;
   }
 };
 
