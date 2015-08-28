@@ -14,11 +14,13 @@ public enum TtsPlayer
 {
   INSTANCE;
 
+  private static final Locale DEFAULT_LOCALE = Locale.US;
+
   private Context mContext;
+  // The both mTtts and mTtsLocale should be initialized before usage.
   private TextToSpeech mTts;
-  private Locale mTtsLocale; // TTS locale. If mTtsLocale == null than mTts cannot be used.
-  private final Locale mDefaultTtsLocale = Locale.US;
-  private boolean mIsLocaleChanging = false;
+  private Locale mTtsLocale;
+  private boolean mIsLocaleChanging;
 
   private final static String TAG = "TtsPlayer";
 
@@ -31,10 +33,10 @@ public enum TtsPlayer
   {
     Locale systemLanguage = Locale.getDefault();
     if (systemLanguage == null)
-      systemLanguage = mDefaultTtsLocale;
+      systemLanguage = DEFAULT_LOCALE;
 
-    if (INSTANCE.mTtsLocale == null || !INSTANCE.isLocaleEqual(systemLanguage))
-      INSTANCE.setLocaleIfAvailable(systemLanguage);
+    if (mTtsLocale == null || !isLocaleEqual(systemLanguage))
+      initTts(systemLanguage);
   }
 
   private boolean isLocaleEqual(Locale locale)
@@ -46,15 +48,19 @@ public enum TtsPlayer
   private boolean isLocaleAvailable(Locale locale)
   {
     final int avail = mTts.isLanguageAvailable(locale);
-    return avail == TextToSpeech.LANG_AVAILABLE || avail == TextToSpeech.LANG_COUNTRY_AVAILABLE
-        || avail == TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE;
+    return avail == TextToSpeech.LANG_AVAILABLE || avail == TextToSpeech.LANG_COUNTRY_AVAILABLE ||
+        avail == TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE;
   }
 
-  private void setLocaleIfAvailable(final Locale locale)
+  private void initTts(final Locale locale)
   {
+    if (mIsLocaleChanging)
+      return; // Preventing reiniting while creating TextToSpeech object. There's a small possibility a new locale is skipped.
+
     if (mTts != null && mTtsLocale != null && mTtsLocale.equals(locale))
       return;
 
+    mTtsLocale = null;
     mIsLocaleChanging = true;
 
     if (mTts != null)
@@ -68,10 +74,11 @@ public enum TtsPlayer
       @Override
       public void onInit(int status)
       {
-        // This method is called anisochronously.
+        // This method is called asynchronously.
         if (status == TextToSpeech.ERROR)
         {
           Log.w(TAG, "Can't initialize TextToSpeech for locale " + locale.getLanguage() + " " + locale.getCountry());
+          mIsLocaleChanging = false;
           return;
         }
 
@@ -80,16 +87,16 @@ public enum TtsPlayer
           Log.i(TAG, "The locale " + locale.getLanguage() + " " + locale.getCountry() + " will be used for TTS.");
           mTtsLocale = locale;
         }
-        else if (isLocaleAvailable(mDefaultTtsLocale))
+        else if (isLocaleAvailable(DEFAULT_LOCALE))
         {
           Log.w(TAG, "TTS is not available for locale " + locale.getLanguage() + " " + locale.getCountry() +
-              ". The default locale " + mDefaultTtsLocale.getLanguage() + " " + mDefaultTtsLocale.getCountry() + " will be used.");
-          mTtsLocale = mDefaultTtsLocale;
+              ". The default locale " + DEFAULT_LOCALE.getLanguage() + " " + DEFAULT_LOCALE.getCountry() + " will be used.");
+          mTtsLocale = DEFAULT_LOCALE;
         }
         else
         {
           Log.w(TAG, "TTS is not available for locale " + locale.getLanguage() + " " + locale.getCountry() +
-              " and for the default locale " +  mDefaultTtsLocale.getLanguage() + " " + mDefaultTtsLocale.getCountry() +
+              " and for the default locale " +  DEFAULT_LOCALE.getLanguage() + " " + DEFAULT_LOCALE.getCountry() +
               ". TTS will be switched off.");
           mTtsLocale = null;
           mIsLocaleChanging = false;
@@ -122,7 +129,7 @@ public enum TtsPlayer
     }
   }
 
-  public void speakNotifications(String[] turnNotifications)
+  public void speak(String[] turnNotifications)
   {
     if (!readyToPlay())
       return; // speakNotifications() is called while TTS is not ready or could not be initialized.

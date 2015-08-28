@@ -879,7 +879,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         final String[] turnNotifications = Framework.nativeGenerateTurnSound();
         if (turnNotifications != null)
-          TtsPlayer.INSTANCE.speakNotifications(turnNotifications);
+          TtsPlayer.INSTANCE.speak(turnNotifications);
       }
     }
   }
