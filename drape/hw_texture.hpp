@@ -74,6 +74,7 @@ class OpenGLHWTexture : public HWTexture
   using TBase = HWTexture;
 
 public:
+  ~OpenGLHWTexture();
   void Create(Params const & params, ref_ptr<void> data) override;
   void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data) override;
 };

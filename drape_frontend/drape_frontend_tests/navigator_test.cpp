@@ -63,7 +63,8 @@ namespace
       P const & pxP = arr[i];
       P const gP = nav.PtoG(pxP);
       P const pxP2 = nav.GtoP(gP);
-      TEST(m2::AlmostEqualULPs(pxP, pxP2), (pxP, pxP2));
+      TEST(my::AlmostEqualAbs(pxP.x, pxP2.x, 0.00001), (pxP.x, pxP2.x));
+      TEST(my::AlmostEqualAbs(pxP.y, pxP2.y, 0.00001), (pxP.y, pxP2.y));
     }
   }
 }

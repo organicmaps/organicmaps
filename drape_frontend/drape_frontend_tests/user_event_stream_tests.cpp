@@ -71,6 +71,8 @@ private:
   bool m_filtrate;
 };
 
+int touchTimeStamp = 1;
+
 df::TouchEvent MakeTouchEvent(m2::PointD const & pt1, m2::PointD const & pt2, df::TouchEvent::ETouchType type)
 {
   df::TouchEvent e;
@@ -79,6 +81,9 @@ df::TouchEvent MakeTouchEvent(m2::PointD const & pt1, m2::PointD const & pt2, df
   e.m_touches[1].m_location = pt2;
   e.m_touches[1].m_id = 2;
   e.m_type = type;
+  e.SetFirstMaskedPointer(0);
+  e.SetSecondMaskedPointer(1);
+  e.m_timeStamp = touchTimeStamp++;
 
   return e;
 }
@@ -89,6 +94,8 @@ df::TouchEvent MakeTouchEvent(m2::PointD const & pt, df::TouchEvent::ETouchType 
   e.m_touches[0].m_location = pt;
   e.m_touches[0].m_id = 1;
   e.m_type = type;
+  e.SetFirstMaskedPointer(0);
+  e.m_timeStamp = touchTimeStamp++;
 
   return e;
 }
@@ -140,7 +147,7 @@ UNIT_TEST(SimpleDrag)
   test.AddUserEvent(MakeTouchEvent(pointer, df::TouchEvent::TOUCH_DOWN));
   for (size_t i = 0; i < 5; ++i)
   {
-    pointer += m2::PointD(0.1, 0.0);
+    pointer += m2::PointD(100.0, 0.0);
     test.AddUserEvent(MakeTouchEvent(pointer, df::TouchEvent::TOUCH_MOVE));
   }
   test.AddUserEvent(MakeTouchEvent(pointer, df::TouchEvent::TOUCH_UP));

@@ -111,6 +111,12 @@ int32_t HWTexture::GetID() const
   return m_textureID;
 }
 
+OpenGLHWTexture::~OpenGLHWTexture()
+{
+  if (m_textureID != -1)
+    GLFunctions::glDeleteTexture(m_textureID);
+}
+
 void OpenGLHWTexture::Create(Params const & params, ref_ptr<void> data)
 {
   TBase::Create(params, data);
