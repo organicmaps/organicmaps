@@ -34,14 +34,14 @@ namespace stats
     }
   }
 
-  double arrSquares[] = { 0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 360*360 };
+  double arrAreas[] = { 0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 360*360 };
 
-  size_t GetSquareIndex(double s)
+  size_t GetAreaIndex(double s)
   {
-    auto end = arrSquares + ARRAY_SIZE(arrSquares);
-    auto i = lower_bound(arrSquares, end, s);
+    auto end = arrAreas + ARRAY_SIZE(arrAreas);
+    auto i = lower_bound(arrAreas, end, s);
     ASSERT(i != end, ());
-    return distance(arrSquares, i);
+    return distance(arrAreas, i);
   }
 
   class AccumulateStatistic
@@ -77,13 +77,13 @@ namespace stats
         m_info.AddToSet(ClassifType(type), allSize, m_info.m_byClassifType);
       });
 
-      double square = 0.0;
-      f.ForEachTriangle([&square](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+      double area = 0.0;
+      f.ForEachTriangle([&area](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
       {
-        square += m2::GetTriangleArea(p1, p2, p3);
+        area += m2::GetTriangleArea(p1, p2, p3);
       }, FeatureType::BEST_GEOMETRY);
 
-      m_info.AddToSet(AreaType(GetSquareIndex(square)), trg.m_size, m_info.m_byAreaSize);
+      m_info.AddToSet(AreaType(GetAreaIndex(area)), trg.m_size, m_info.m_byAreaSize);
     }
   };
 
@@ -120,7 +120,7 @@ namespace stats
 
   string GetKey(AreaType t)
   {
-    return strings::to_string(arrSquares[t.m_val]);
+    return strings::to_string(arrAreas[t.m_val]);
   }
 
   template <class TSortCr, class TSet>
@@ -168,6 +168,6 @@ namespace stats
     PrintTop<greater_size>("Top SIZE by Classificator Type", info.m_byClassifType);
     PrintTop<greater_size>("Top SIZE by Points Count", info.m_byPointsCount);
     PrintTop<greater_size>("Top SIZE by Triangles Count", info.m_byTrgCount);
-    PrintTop<greater_size>("Top SIZE by Square", info.m_byAreaSize);
+    PrintTop<greater_size>("Top SIZE by Area", info.m_byAreaSize);
   }
 }
