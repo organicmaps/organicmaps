@@ -8,7 +8,7 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH += $$ROOT_DIR/3party/jansson/src $$ROOT_DIR/3party/freetype/include
+INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
 !iphone*:!android*:!tizen {
   QT *= core
