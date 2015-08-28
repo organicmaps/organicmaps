@@ -530,7 +530,6 @@ void Query::SetQuery(string const & query)
 
 void Query::Search(Results & res, size_t resCount)
 {
-  LOG(LINFO, ("Query::Search"));
   if (IsCancelled())
     return;
 
