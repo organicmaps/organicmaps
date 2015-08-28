@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>college-m</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="POI" sketch:type="MSLayerGroup" transform="translate(-56.000000, -520.000000)">
+            <g id="college-m" transform="translate(56.000000, 520.000000)" sketch:type="MSShapeGroup">
+                <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+                <ellipse id="Oval-1-Copy-40" fill="#777871" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+                <path d="M11.5,6 L5,9.5 L11.5,13 L16,10.6563 L16,14.2188 C16,16 17.5,15.75 17.5,15.75 L17.5,15 C17.5,15 16.71875,15 16.71875,14.2188 L16.71875,10.25 L18,9.5 L11.5,6 Z M8,12.5 L8,13.9375 C8,14.2963 8.51257,14.7562 9,15 L11.5,16 L14,15 C14.48743,14.7562 15,14.2963 15,13.9375 L15,12.5 L11.5,14 L8,12.5 Z" id="path7442-0-copy" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

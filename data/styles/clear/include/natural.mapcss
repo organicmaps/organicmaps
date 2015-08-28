@@ -22,7 +22,21 @@ area|z0-[natural=glacier]
 
 /* WATER */
 
-area[natural=coastline]
+area|z0-10[natural=coastline]
+{
+  fill-color: @water;
+	opacity: 1;
+  z-index: -10;
+}
+
+area|z11-19[natural=coastline]
+{
+  fill-color: @water;
+	opacity: 1;
+  z-index: -10;
+}
+
+area|z10-19[natural=coastline]
 {
   fill-color: @water;
   z-index: -10;
@@ -128,8 +142,8 @@ area|z15-[landuse=forest]
 }
 
 area|z10[leisure=park] {
-  fill-color: @park;
-  fill-opacity: 0.2;
+  fill-color: @forest;
+  fill-opacity: 0.3;
   z-index: 25;
 }
 
@@ -154,7 +168,7 @@ area|z15-[leisure=park] {
 
 area|z14-[landuse=grass]
 {
-  fill-color: @forest;
+  fill-color: @park;
   fill-opacity: 0.45;
   z-index: 30;
 }

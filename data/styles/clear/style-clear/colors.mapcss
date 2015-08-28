@@ -1,7 +1,7 @@
 /* BASE */
 @white: #ffffff;
 @background: #DDDDCC; /* #EDEAE1;	/* @background: #f1eee8; */
-@backgroundone: #E1E1D1;
+@backgroundone: #DEDECD;
 
 /* BOUNDARIES */
 @border_country: #73736D;
@@ -12,9 +12,9 @@
 /* ROADS */
 /* ROADS */
 @trunk: #FF5102;
+@trunk_hard: #F7632C;
 @trunk_medium: #F86B39;
 @trunk_light: #F87C4A;
-@motorway: #FF5102;
 @primary:  #FF864E;
 @primary_medium: #FC9757;
 @primary_ligth: #FCA462;
@@ -61,10 +61,12 @@
 
 /* NATURAL */
 @glacier: #FFFFFF;
-@water: #83C6D2; /* #82a6bd,#91C8E2 7CBAD6 */
-@river: #56B4D7;
+@water: #83C6D2;
+@water1: #83c5d1;
+@water2: #83d8e5;
+@river: #83C6D2;
 @forest: #A4B265;
-@park: #A4B265;
+@park: #A4B265; /* #BCCC74*/
 
 /* BUILDINGS */
 @building: #CCCCBE;
@@ -72,7 +74,7 @@
 /* LANDUSE */
 @pedestrian_area: #FFFFFF;
 @unversity: #DDCCAA;
-@hospital: #FFAAAA;
+@hospital: #FFcccc;
 @industrial: #D1D1D1;
 
 /* BARRIERS */
@@ -95,7 +97,7 @@
 @secondary_road_label: #333333;
 
 /* NATURAL LABELS */
-@water_label: #3B9AB8;
+@water_label: #238daf;
 @park_label: #3A7921;
 
 

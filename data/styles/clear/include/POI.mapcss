@@ -15,6 +15,8 @@ node|z15-[tourism=zoo] {
 node|z15[tourism=museum] { icon-image: museum-s.svg; }
 node|z15[tourism=gallery] {  icon-image: gallery-s.svg; } /* <-- <-- не показывается, непонятно почему, позже разобраться */
 node|z15[tourism=zoo] {  icon-image: zoo-s.svg; }
+node|z15[amenity=university] { icon-image: college-s.svg; }
+node|z15[amenity=hospital] { icon-image: hospital-s.svg; }
 
 /* ZOOM 16 */
 
@@ -23,7 +25,11 @@ node|z16[tourism=museum],
 node|z16[historic=monument],
 node|z16[tourism=gallery],
 node|z16[amenity=theatre],
-node|z16[tourism=zoo] {
+node|z16[tourism=zoo],
+node|z16[amenity=school],
+node|z16[amenity=college],
+node|z16[amenity=university],
+node|z16[amenity=hospital] {
   text-offset: 8;
   font-size: 10;
   text: name;
@@ -37,6 +43,10 @@ node|z16[historic=monument] { icon-image: monument-m.svg; }
 node|z16[tourism=gallery] { icon-image: gallery-m.svg; }
 node|z16[amenity=theatre] { icon-image: theatre-m.svg; }
 node|z16[tourism=zoo] { icon-image: zoo-m.svg; }
+node|z16[amenity=school] { icon-image: school-m.svg; }
+node|z16[amenity=university] { icon-image: college-m.svg; }
+node|z16[amenity=college] { icon-image: college-m.svg; }
+node|z16[amenity=hospital] { icon-image: hospital-m.svg; }
 
 /* ZOOM 17+ */
 
@@ -47,7 +57,17 @@ node|z17-[historic=monument],
 node|z17-[tourism=zoo],
 node|z17-[amenity=cinema],
 node|z17-[amenity=bank],
-node|z17-[shop=supermarket]
+node|z17-[shop=supermarket],
+node|z17-[amenity=school],
+node|z17-[amenity=college],
+node|z17-[amenity=university],
+node|z17-[amenity=library],
+node|z17-[amenity=police],
+node|z17-[amenity=mail],
+node|z17-[amenity=embassy],
+node|z17-[amenity=toilets],
+node|z17-[amenity=hospital],
+node|z17-[amenity=bicycle_rental]
 {
   text-offset: 8;
   font-size: 10;
@@ -65,13 +85,26 @@ node|z17-[tourism=zoo] { icon-image: zoo-m.svg; }
 node|z17-[amenity=cinema] { icon-image: cinema-m.svg; }
 node|z17-[amenity=bank] { icon-image: bank-m.svg; }
 node|z17-[shop=supermarket] { icon-image: grocery-m.svg; }
+node|z17-[amenity=school] { icon-image: school-m.svg; }
+node|z17-[amenity=college] { icon-image: college-m.svg; }
+node|z17-[amenity=university] { icon-image: college-m.svg; }
+node|z17-[amenity=library] { icon-image: library-m.svg; }
+node|z17-[amenity=police] { icon-image: police-m.svg; }
+node|z17-[amenity=mail] { icon-image: mail-m.svg; }
+node|z17-[amenity=toilets] { icon-image: toilets-m.svg; }
+node|z17-[amenity=embassy] { icon-image: embassy-m.svg; }
+node|z17-[amenity=hospital] { icon-image: hospital-m.svg; }
+node|z17-[amenity=bicycle_rental] { icon-image: bicycle-m.svg; }
+
 
 
 /* ZOOM 18+ */
 node|z18-[amenity=cafe],
 node|z18-[amenity=fast_food],
 node|z18-[amenity=restaurant],
-node|z18-[amenity=bar] {
+node|z18-[amenity=bar],
+node|z18-[amenity=pub],
+node|z18-[amenity=pharmacy] {
   text-offset: 8;
   font-size: 10;
   text: name;
@@ -83,3 +116,5 @@ node|z18-[amenity=cafe] { icon-image: cafe-m.svg; }
 node|z18-[amenity=fast_food] { icon-image: fastfood-m.svg; }
 node|z18-[amenity=restaurant] { icon-image: restaurant-m.svg; }
 node|z18-[amenity=bar] { icon-image: bar-m.svg; }
+node|z18-[amenity=pub] { icon-image: beer-m.svg; }
+node|z18-[amenity=pharmacy] { icon-image: pharmacy-m.svg; }

@@ -138,12 +138,19 @@ node|z17-[railway=station]	 {
 /* SUBWAY STATIONS */
 
 node|z13[railway=station][transport=subway] {
-	icon-image: subway-xs.svg;
+	icon-image: subway-entrance.svg;
 	z-index: 5000;
+  text-offset: 6;
+  z-index: 5000;
+  font-size: 9;
+  text: name;
+  text-color: @subway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
 }
 
 node|z14[railway=station][transport=subway] {
-	icon-image: subway-s.svg;
+	icon-image: mtro.svg;
   text-offset: 6;
 	z-index: 5000;
   font-size: 10;
@@ -154,7 +161,7 @@ node|z14[railway=station][transport=subway] {
 }
 
 node|z15[railway=station][transport=subway] {
-	icon-image: subway-m.svg;
+	icon-image: mtro.svg;
   text-offset: 8;
 	z-index: 5000;
   font-size: 10;
@@ -165,7 +172,7 @@ node|z15[railway=station][transport=subway] {
 }
 
 node|z16[railway=station][transport=subway]	 {
-	icon-image: subway-l.svg;
+	icon-image: mtro.svg;
   text-offset: 8;
   font-size: 11;
   z-index: 5000;
@@ -176,8 +183,7 @@ node|z16[railway=station][transport=subway]	 {
 }
 
 node|z17-[railway=station][transport=subway]	 {
-	icon-image: subway-l.svg;
-  text-offset: 8;
+  icon-image: none.svg;
   font-size: 14;
   z-index: 5000;
   text: name;
@@ -186,22 +192,33 @@ node|z17-[railway=station][transport=subway]	 {
   text-halo-color: @city_halo;
 }
 
+/*
+node|z16[railway=subway_entrance] {
+  	icon-image: subway-entrance.svg;
+    z-index: 5000;
+}
+*/
+
 node|z17[railway=subway_entrance] {
-  	icon-image: subway-s.svg;
-    z-index: 3000;
+  icon-image: mtro.svg;
+  text-offset: 8;
+  font-size: 12;
+  z-index: 6000;
+  text: name;
+  text-color: @subway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
 }
 
-
 node|z18-[railway=subway_entrance] {
-  	icon-image: subway-s.svg;
-    z-index: 3000;
-    text-offset: 8;
-    font-size: 10;
-    z-index: 5000;
-    text: name;
-    text-color: @city_label;
-    text-halo-radius: 1;
-    text-halo-color: @city_halo;
+  icon-image: mtro-l.svg;
+  text-offset: 8;
+  font-size: 14;
+  z-index: 6000;
+  text: name;
+  text-color: @subway_label;
+  text-halo-radius: 1;
+  text-halo-color: @city_halo;
 }
 
 /* TRAM STOPS */
@@ -327,6 +344,20 @@ node|z13-14[aeroway=aerodrome]
 	icon-image: airport-m.svg;
     text-offset: 5;
     font-size: 12;
+    text: name;
+    text-color: @city_label;
+    text-halo-radius: 1;
+    text-halo-color: @city_halo;
+}
+
+area|z15-[aeroway=airport],
+area|z15-[aeroway=aerodrome],
+node|z15-[aeroway=airport],
+node|z15-[aeroway=aerodrome]
+{
+	icon-image: airport-l.svg;
+    text-offset: 8;
+    font-size: 14;
     text: name;
     text-color: @city_label;
     text-halo-radius: 1;
