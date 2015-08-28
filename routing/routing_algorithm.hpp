@@ -5,8 +5,6 @@
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
 
-#include "routing/base/astar_progress.hpp"
-
 #include "std/functional.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
@@ -33,17 +31,8 @@ public:
 
 string DebugPrint(IRoutingAlgorithm::Result const & result);
 
-// Base class for AStar-based routing algorithms
-class AStarRoutingAlgorithmBase : public IRoutingAlgorithm
-{
-protected:
-  AStarRoutingAlgorithmBase();
-
-  AStarProgress m_progress;
-};
-
 // AStar routing algorithm implementation
-class AStarRoutingAlgorithm : public AStarRoutingAlgorithmBase
+class AStarRoutingAlgorithm : public IRoutingAlgorithm
 {
 public:
   // IRoutingAlgorithm overrides:
@@ -53,7 +42,7 @@ public:
 };
 
 // AStar-bidirectional routing algorithm implementation
-class AStarBidirectionalRoutingAlgorithm : public AStarRoutingAlgorithmBase
+class AStarBidirectionalRoutingAlgorithm : public IRoutingAlgorithm
 {
 public:
   // IRoutingAlgorithm overrides:
