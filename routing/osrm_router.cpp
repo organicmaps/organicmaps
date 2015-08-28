@@ -539,7 +539,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   if (!startMapping->IsValid())
   {
     route.AddAbsentCountry(startMapping->GetCountryName());
-    return startMapping->GetError();
+    return IRouter::StartPointNotFound;
   }
   if (!targetMapping->IsValid())
   {
@@ -551,9 +551,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
           targetMapping->GetCountryName())
       {
         route.AddAbsentCountry(targetMapping->GetCountryName());
-        return targetMapping->GetError();
+        return IRouter::EndPointNotFound;
       }
-    return targetMapping->GetError();
+    return IRouter::EndPointNotFound;
   }
 
   MappingGuard startMappingGuard(startMapping);
