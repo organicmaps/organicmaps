@@ -10,65 +10,44 @@
 #include "base/logging.hpp"
 
 #include "std/queue.hpp"
+#include "std/unique_ptr.hpp"
 
-#include "3party/sgitess/interface.h"
+#include "3party/libtess2/Include/tesselator.h"
 
 
 namespace tesselator
 {
-  struct AddTessPointF
+  int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
   {
-    tess::Tesselator & m_tess;
-    AddTessPointF(tess::Tesselator & tess) : m_tess(tess)
-    {}
-    void operator()(m2::PointD const & p)
+    int const kCoordinatesPerVertex = 2;
+    int const kVerticesInPolygon = 3;
+
+    auto const deleter = [](TESStesselator * tess){ tessDeleteTess(tess); };
+    unique_ptr<TESStesselator, decltype(deleter)> tess(tessNewTess(nullptr), deleter);
+    for (auto const & contour : polys)
+      tessAddContour(tess.get(), kCoordinatesPerVertex, &contour[0], sizeof(contour[0]), contour.size());
+    if (0 == tessTesselate(tess.get(), TESS_WINDING_ODD, TESS_CONSTRAINED_DELAUNAY_TRIANGLES,
+                           kVerticesInPolygon, kCoordinatesPerVertex, nullptr))
     {
-      m_tess.add(tess::Vertex(p.x, p.y));
-    }
-  };
-
-  void TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
-  {
-    tess::VectorDispatcher disp;
-    tess::Tesselator tess;
-    tess.setDispatcher(&disp);
-    tess.setWindingRule(tess::WindingOdd);
-
-    tess.beginPolygon();
-
-    for (PolygonsT::const_iterator it = polys.begin(); it != polys.end(); ++it)
-    {
-      tess.beginContour();
-      for_each(it->begin(), it->end(), AddTessPointF(tess));
-      tess.endContour();
+      LOG(LERROR, ("Tesselator error for polygon", polys));
+      return 0;
     }
 
-    tess.endPolygon();
-
-    // assign points
-    vector<tess::Vertex> const & vert = disp.vertices();
-    info.AssignPoints(vert.begin(), vert.end());
-
-    for (size_t i = 0; i < disp.indices().size(); ++i)
+    int const elementCount = tessGetElementCount(tess.get());
+    if (elementCount)
     {
-      if (disp.indices()[i].first != tess::TrianglesList)
-      {
-        LOG(LERROR, ("We've got invalid type during teselation:", disp.indices()[i].first));
-        continue;
-      }
+      int const vertexCount = tessGetVertexCount(tess.get());
+      TESSreal const * vertices = tessGetVertices(tess.get());
+      m2::PointD const * points = reinterpret_cast<m2::PointD const *>(vertices);
+      info.AssignPoints(points, points + vertexCount);
 
-      vector<uintptr_t> const & indices = disp.indices()[i].second;
-      size_t const count = indices.size();
-      ASSERT_GREATER(count, 0, ());
-      ASSERT_EQUAL(count % 3, 0, ());
-
-      info.Reserve(count / 3);
-      for (size_t j = 0; j < count; j += 3)
-      {
-        ASSERT_LESS ( j+2, count, () );
-        info.Add(&indices[j]);
-      }
+      // Elements are triplets of vertex indices.
+      TESSindex const * elements = tessGetElements(tess.get());
+      info.Reserve(elementCount);
+      for (int i = 0; i < elementCount; ++i)
+        info.Add(elements[i * 3], elements[i * 3 + 1], elements[i * 3 + 2]);
     }
+    return elementCount;
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,7 +56,7 @@ namespace tesselator
 
   int TrianglesInfo::ListInfo::empty_key = -1;
 
-  void TrianglesInfo::ListInfo::AddNeighbour(int p1, int p2, int trg)
+  void TrianglesInfo::ListInfo::AddNeighbour(int p1, int p2, size_t trg)
   {
     // find or insert element for key
     pair<TNeighbours::iterator, bool> ret = m_neighbors.insert(make_pair(make_pair(p1, p2), trg));
@@ -86,17 +65,14 @@ namespace tesselator
     CHECK ( ret.second, ("Duplicating triangles for indices : ", p1, p2) );
   }
 
-  void TrianglesInfo::ListInfo::Add(uintptr_t const * arr)
+  void TrianglesInfo::ListInfo::Add(int p0, int p1, int p2)
   {
-    ASSERT_EQUAL(arr[0], static_cast<int>(arr[0]), ());
-    ASSERT_EQUAL(arr[1], static_cast<int>(arr[1]), ());
-    ASSERT_EQUAL(arr[2], static_cast<int>(arr[2]), ());
-    int const arr32[] = { static_cast<int>(arr[0]), static_cast<int>(arr[1]), static_cast<int>(arr[2]) };
-    m_triangles.push_back(Triangle(arr32));
+    m_triangles.emplace_back(p0, p1, p2);
 
-    size_t const trg = m_triangles.size()-1;
-    for (int i = 0; i < 3; ++i)
-      AddNeighbour(arr32[i], arr32[(i+1)%3], trg);
+    size_t const trg = m_triangles.size() - 1;
+    AddNeighbour(p0, p1, trg);
+    AddNeighbour(p1, p2, trg);
+    AddNeighbour(p2, p0, trg);
   }
 
   template <class IterT> size_t GetBufferSize(IterT b, IterT e)
@@ -255,29 +231,9 @@ namespace tesselator
     //  MakeTrianglesChainImpl<edge_less_delta>(points, start, chain);
   }
 
-  void TrianglesInfo::Add(uintptr_t const * arr)
+  void TrianglesInfo::Add(int p0, int p1, int p2)
   {
-    // This checks are useless. We don't care about triangle orientation.
-
-    // When adding triangles, check that they all have identical orientation!
-    /*
-    m2::PointD arrP[] = { m_points[arr[0]], m_points[arr[1]], m_points[arr[2]] };
-    double const cp = m2::robust::OrientedS(arrP[0], arrP[1], arrP[2]);
-
-    if (cp != 0.0)
-    {
-      bool const isCCW = (cp > 0.0);
-
-      if (m_isCCW == 0)
-        m_isCCW = (isCCW ? 1 : -1);
-      else
-        CHECK_EQUAL ( m_isCCW == 1, isCCW, () );
-
-      m_triangles.back().Add(arr);
-    }
-    */
-
-    m_triangles.back().Add(arr);
+    m_triangles.back().Add(p0, p1, p2);
   }
 
   void TrianglesInfo::GetPointsInfo(m2::PointU const & baseP,

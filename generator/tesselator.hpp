@@ -72,10 +72,10 @@ namespace tesselator
         }
       };
 
-      typedef unordered_map<pair<int, int>, int, HashPair<int, int>> TNeighbours;
+      typedef unordered_map<pair<int, int>, size_t, HashPair<int, int>> TNeighbours;
       TNeighbours m_neighbors;
 
-      void AddNeighbour(int p1, int p2, int trg);
+      void AddNeighbour(int p1, int p2, size_t trg);
 
       void GetNeighbors(
           Triangle const & trg, Triangle const & from, int * nb) const;
@@ -91,7 +91,7 @@ namespace tesselator
         m_triangles.reserve(count);
       }
 
-      void Add(uintptr_t const * arr);
+      void Add(int p0, int p1, int p2);
 
       void Start() const
       {
@@ -126,20 +126,14 @@ namespace tesselator
     {}
 
     /// @name Making functions.
-    //@{
     template <class IterT> void AssignPoints(IterT b, IterT e)
     {
-      m_points.reserve(distance(b, e));
-      while (b != e)
-      {
-        m_points.push_back(m2::PointD(b->x, b->y));
-        ++b;
-      }
+      m_points.assign(b, e);
     }
 
     void Reserve(size_t count) { m_triangles.push_back(ListInfo(count)); }
 
-    void Add(uintptr_t const * arr);
+    void Add(int p0, int p1, int p2);
     //@}
 
     inline bool IsEmpty() const { return m_triangles.empty(); }
@@ -187,5 +181,6 @@ namespace tesselator
   };
 
   /// Main tesselate function.
-  void TesselateInterior(PolygonsT const & polys, TrianglesInfo & info);
+  /// @returns number of resulting triangles after triangulation.
+  int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info);
 }

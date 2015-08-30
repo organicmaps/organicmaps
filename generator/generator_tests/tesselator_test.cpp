@@ -27,10 +27,11 @@ namespace
   size_t RunTest(list<vector<P> > const & l)
   {
     tesselator::TrianglesInfo info;
-    tesselator::TesselateInterior(l, info);
+    int const trianglesCount = tesselator::TesselateInterior(l, info);
 
     size_t count;
     info.ForEachTriangle(DoDump(count));
+    ASSERT_EQUAL(count, trianglesCount, ());
     return count;
   }
 

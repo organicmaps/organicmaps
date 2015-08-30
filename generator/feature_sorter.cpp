@@ -215,11 +215,9 @@ namespace feature
       {
         // tesselation
         tesselator::TrianglesInfo info;
-        tesselator::TesselateInterior(polys, info);
-
-        if (info.IsEmpty())
+        if (0 == tesselator::TesselateInterior(polys, info))
         {
-          LOG(LINFO, ("NO TRIANGLES"));
+          LOG(LINFO, ("NO TRIANGLES in", polys));
           return;
         }
 

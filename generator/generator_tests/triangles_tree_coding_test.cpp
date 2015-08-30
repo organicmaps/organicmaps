@@ -56,7 +56,7 @@ namespace
     info.Reserve(countT);
 
     for (size_t i = 0; i < countT; ++i)
-      info.Add(arrT[i]);
+      info.Add(arrT[i][0], arrT[i][1], arrT[i][2]);
 
     serial::CodingParams cp;
 
