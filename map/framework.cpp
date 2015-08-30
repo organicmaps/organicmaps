@@ -1723,24 +1723,31 @@ void Framework::UpdateSavedDataVersion()
   Settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
 }
 
-void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, uint32_t timeoutSec)
+void Framework::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
   ASSERT(m_drapeEngine != nullptr, ());
 
-  m2::PointD myPosition;
-  bool const hasPosition = m_drapeEngine->GetMyPosition(myPosition);
-  if (!hasPosition)
+  m2::PointD start;
+  if (!m_drapeEngine->GetMyPosition(start))
   {
     CallRouteBuilded(IRouter::NoCurrentPosition, vector<storage::TIndex>(), vector<storage::TIndex>());
     return;
   }
 
+  BuildRoute(start, finish, timeoutSec);
+}
+
+void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, uint32_t timeoutSec)
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
+  ASSERT(m_drapeEngine != nullptr, ());
+
   if (IsRoutingActive())
     CloseRouting();
 
   SetLastUsedRouter(m_currentRouterType);
-  m_routingSession.SetUserCurrentPosition(myPosition);
+  m_routingSession.SetUserCurrentPosition(start);
 
   auto readyCallback = [this] (Route const & route, IRouter::ResultCode code)
   {
@@ -1774,7 +1781,7 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
     CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
   };
 
-  m_routingSession.BuildRoute(myPosition, destination,
+  m_routingSession.BuildRoute(start, finish,
                               [readyCallback](Route const & route, IRouter::ResultCode code)
                               {
                                 GetPlatform().RunOnGuiThread(bind(readyCallback, route, code));
@@ -1867,13 +1874,8 @@ void Framework::InsertRoute(Route const & route)
   }
 
   vector<double> turns;
-  turns::TTurnsGeom const & turnsGeom = route.GetTurnsGeometry();
-  if (!turnsGeom.empty())
-  {
-    turns.reserve(turnsGeom.size());
-    for (size_t i = 0; i < turnsGeom.size(); i++)
-      turns.push_back(turnsGeom[i].m_mercatorDistance);
-  }
+  if (m_currentRouterType == RouterType::Vehicle)
+    route.GetTurnsDistances(turns);
 
   dp::Color routeColor;
   if (m_currentRouterType == RouterType::Pedestrian)

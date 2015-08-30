@@ -192,7 +192,7 @@ public:
     result.m_image = GlyphManager::GlyphImage
     {
       imageWidth, imageHeight,
-      bitmap.rows, bitmap.pitch,
+      static_cast<int>(bitmap.rows), bitmap.pitch,
       data
     };
 

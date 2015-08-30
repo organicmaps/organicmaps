@@ -278,7 +278,7 @@ UNIT_TEST(Bookmarks_Timestamp)
   TEST_EQUAL(fm.AddBookmark(1, orgPoint, b3), 0, ());
 
   // Check bookmarks order here. First added should be in the bottom of the list.
-  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1), pBm, ());
+  TEST_EQUAL(fm.GetBmCategory(0)->GetUserMark(1), pBm, ());
 
   Bookmark const * bm01 = static_cast<Bookmark const *>(fm.GetBmCategory(0)->GetUserMark(1));
 

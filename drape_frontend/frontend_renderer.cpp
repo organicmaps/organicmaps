@@ -632,7 +632,7 @@ void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
 
 void FrontendRenderer::RefreshBgColor()
 {
-  uint32_t color = drule::rules().GetBgColor();
+  uint32_t color = drule::rules().GetBgColor(df::GetDrawTileScale(m_userEventStream.GetCurrentScreen()));
   dp::Color c = dp::Extract(color, 255 - (color >> 24));
   GLFunctions::glClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
 }
