@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
   <string-array name="measument_units">
     <item>@string/kilometres</item>
     <item>@string/miles</item>
   </string-array>
-  <string-array name="measument_units_values" translatable="false">
+
+  <string-array name="measument_units_values"
+                translatable="false">
     <item>0</item>
     <item>1</item>
   </string-array>
 
+  <string-array name="map_style">
+    <item>@string/pref_map_style_classic_light</item>
+    <item>@string/pref_map_style_classic_dark</item>
+    <item>@string/pref_map_style_modern_light</item>
+  </string-array>
+
+  <string-array name="map_style_values"
+                translatable="false">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
 </resources>

@@ -1,11 +1,3 @@
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:minHeight="@dimen/height_item_oneline"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
-    android:textAppearance="@style/MwmTextAppearance.Body1"
-    tools:text="/storage/mnt/"/>
+<TextView xmlns:tools="http://schemas.android.com/tools"
+          style="@style/MwmWidget.TextView.Item"
+          tools:text="/storage/mnt/"/>

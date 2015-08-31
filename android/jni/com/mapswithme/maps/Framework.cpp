@@ -235,6 +235,11 @@ namespace android
     }
   }
 
+  MapStyle Framework::GetMapStyle() const
+  {
+    return m_work.GetMapStyle();
+  }
+
   Storage & Framework::Storage()
   {
     return m_work.Storage();
@@ -1457,6 +1462,12 @@ extern "C"
   {
     MapStyle const val = static_cast<MapStyle>(mapStyle);
     android::Platform::RunOnGuiThreadImpl(bind(&android::Framework::SetMapStyle, g_framework, val));
+  }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_Framework_getMapStyle(JNIEnv * env, jclass thiz)
+  {
+    return static_cast<jint>(g_framework->GetMapStyle());
   }
 
   JNIEXPORT void JNICALL

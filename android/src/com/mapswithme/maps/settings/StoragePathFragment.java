@@ -1,19 +1,17 @@
 package com.mapswithme.maps.settings;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ListView;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.util.Utils;
 
-public class StoragePathFragment extends BaseMwmListFragment implements StoragePathManager.MoveFilesListener
+import java.util.List;
+
+public class StoragePathFragment extends BaseMwmListFragment
 {
   private StoragePathManager mPathManager = new StoragePathManager();
   private StoragePathAdapter mAdapter;
@@ -33,16 +31,43 @@ public class StoragePathFragment extends BaseMwmListFragment implements StorageP
   public void onResume()
   {
     super.onResume();
-    BroadcastReceiver receiver = new BroadcastReceiver()
+    mPathManager.startExternalStorageWatching(getActivity(), new StoragePathManager.OnStorageListChangedListener()
     {
       @Override
-      public void onReceive(Context context, Intent intent)
+      public void onStorageListChanged(List<StorageItem> storageItems, int currentStorageIndex)
       {
         if (mAdapter != null)
-          mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
+          mAdapter.updateList(storageItems, currentStorageIndex, StorageUtils.getWritableDirSize());
       }
-    };
-    mPathManager.startExternalStorageWatching(getActivity(), receiver, this);
+    }, new StoragePathManager.MoveFilesListener()
+    {
+      @Override
+      public void moveFilesFinished(String newPath)
+      {
+        mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
+      }
+
+      @Override
+      public void moveFilesFailed(int errorCode)
+      {
+        if (!isAdded())
+          return;
+
+        final String message = "Failed to move maps with internal error: " + errorCode;
+        final Activity activity = getActivity();
+        new AlertDialog.Builder(activity)
+            .setTitle(message)
+            .setPositiveButton(R.string.report_a_bug, new DialogInterface.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dialog, int which)
+              {
+                Utils.sendSupportMail(activity, message);
+              }
+            }).show();
+      }
+    });
+
     initAdapter();
     mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
     setListAdapter(mAdapter);
@@ -59,32 +84,5 @@ public class StoragePathFragment extends BaseMwmListFragment implements StorageP
   {
     if (mAdapter == null)
       mAdapter = new StoragePathAdapter(mPathManager, getActivity());
-  }
-
-  @Override
-  public void moveFilesFinished(String newPath)
-  {
-    mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
-  }
-
-  @Override
-  public void moveFilesFailed(int errorCode)
-  {
-    if (!isAdded())
-      return;
-
-    final String message = "Failed to move maps with internal error :" + errorCode;
-    final Activity activity = getActivity();
-    new AlertDialog.Builder(activity)
-        .setTitle(message)
-        .setPositiveButton(R.string.report_a_bug, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            Utils.sendSupportMail(activity, message);
-          }
-        })
-        .show();
   }
 }

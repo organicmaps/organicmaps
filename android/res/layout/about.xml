@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+  <com.mapswithme.maps.widget.ObservableScrollView
+      android:id="@+id/content_frame"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+      <ImageView android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="@dimen/margin_base_plus"
+                 android:layout_marginBottom="@dimen/margin_base"
+                 android:layout_gravity="center_horizontal"
+                 android:src="@drawable/about_logo"/>
+
+      <TextView android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textAppearance="@style/MwmTextAppearance.Body1"
+                tools:text="Version: 5.0.0"/>
+
+      <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_base_plus"
+                android:layout_marginBottom="@dimen/margin_base_plus"
+                android:layout_marginLeft="@dimen/margin_base"
+                android:layout_marginRight="@dimen/margin_base"
+                android:textAppearance="@style/MwmTextAppearance.Body2"
+                android:text="@string/about_description"/>
+
+      <TextView android:id="@+id/web"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/website"
+                android:drawableLeft="@drawable/ic_website"
+                android:drawableStart="@drawable/ic_website"/>
+
+      <TextView android:id="@+id/blog"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/blog"
+                android:drawableLeft="@drawable/ic_blog"
+                android:drawableStart="@drawable/ic_blog"/>
+
+      <TextView android:id="@+id/facebook"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/facebook"
+                android:drawableLeft="@drawable/ic_facebook"
+                android:drawableStart="@drawable/ic_facebook"/>
+
+      <TextView android:id="@+id/twitter"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/twitter"
+                android:drawableLeft="@drawable/ic_twitter"
+                android:drawableStart="@drawable/ic_twitter"/>
+
+      <TextView android:id="@+id/subscribe"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/subscribe_to_news"
+                android:drawableLeft="@drawable/ic_subscribe"
+                android:drawableStart="@drawable/ic_subscribe"/>
+
+      <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_quarter"
+            android:layout_marginBottom="@dimen/margin_quarter"
+            android:background="?dividerHorizontal"/>
+
+      <TextView android:id="@+id/rate"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/rate_gp"
+                android:drawableLeft="@drawable/ic_rate"
+                android:drawableStart="@drawable/ic_rate"/>
+
+      <TextView android:id="@+id/share"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/tell_friends"
+                android:drawableLeft="@drawable/ic_share"
+                android:drawableStart="@drawable/ic_share"/>
+
+      <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_quarter"
+            android:layout_marginBottom="@dimen/margin_quarter"
+            android:background="?dividerHorizontal"/>
+
+      <TextView android:id="@+id/copyright"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/copyright"/>
+    </LinearLayout>
+  </com.mapswithme.maps.widget.ObservableScrollView>
+
+  <include layout="@layout/shadow_top"/>
+</FrameLayout>

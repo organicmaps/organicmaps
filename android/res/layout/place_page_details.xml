@@ -53,8 +53,5 @@
 
   <include layout="@layout/shadow_top"/>
 
-  <include layout="@layout/shadow_bottom"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_gravity="bottom"/>
+  <include layout="@layout/shadow_bottom"/>
 </FrameLayout>

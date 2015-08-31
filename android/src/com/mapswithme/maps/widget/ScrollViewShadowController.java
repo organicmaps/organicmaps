@@ -2,8 +2,7 @@ package com.mapswithme.maps.widget;
 
 import android.view.View;
 
-public class ScrollViewShadowController extends BaseShadowController<ObservableScrollView,
-                                                                     ObservableScrollView.ScrollListener>
+public class ScrollViewShadowController extends BaseShadowController<ObservableScrollView>
 {
   public ScrollViewShadowController(ObservableScrollView list)
   {
@@ -24,30 +23,22 @@ public class ScrollViewShadowController extends BaseShadowController<ObservableS
     case BOTTOM:
       View child = mList.getChildAt(0);
       return (mList.getScrollY() + mList.getHeight() < child.getHeight());
-    }
 
-    return false;
+    default:
+      throw new IllegalArgumentException("Invalid shadow id: " + id);
+    }
   }
 
   @Override
   public BaseShadowController attach()
   {
     super.attach();
-    mList.setScrollListener(new ObservableScrollView.ScrollListener()
+    mList.setScrollListener(new ObservableScrollView.SimpleScrollListener()
     {
       @Override
       public void onScroll(int left, int top)
       {
         updateShadows();
-        if (mScrollListener != null)
-          mScrollListener.onScroll(left, top);
-      }
-
-      @Override
-      public void onScrollEnd()
-      {
-        if (mScrollListener != null)
-          mScrollListener.onScrollEnd();
       }
     });
 
@@ -58,6 +49,6 @@ public class ScrollViewShadowController extends BaseShadowController<ObservableS
   public void detach()
   {
     super.detach();
-    mList.setScrollListener(mScrollListener);
+    mList.setScrollListener(null);
   }
 }

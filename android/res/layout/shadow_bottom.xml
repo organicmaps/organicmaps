@@ -4,6 +4,7 @@
            android:id="@+id/shadow_bottom"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
+           android:layout_gravity="bottom"
            android:src="@drawable/shadow_bottom"
            android:scaleType="fitXY"
            android:visibility="gone"

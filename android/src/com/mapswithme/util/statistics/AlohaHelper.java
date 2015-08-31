@@ -19,17 +19,22 @@ public class AlohaHelper
     org.alohalytics.Statistics.logEvent(ALOHA_EXCEPTION, new String[] {e.getClass().getSimpleName(), e.getMessage()});
   }
 
-  public static final String SETTINGS_CONTACT_US = "contactUs";
-  public static final String SETTINGS_MAIL_SUBSCRIBE = "subscribeToNews";
-  public static final String SETTINGS_REPORT_BUG = "reportABug";
-  public static final String SETTINGS_RATE = "rate";
-  public static final String SETTINGS_FB = "likeOnFb";
-  public static final String SETTINGS_TWITTER = "followOnTwitter";
-  public static final String SETTINGS_HELP = "help";
-  public static final String SETTINGS_ABOUT = "about";
-  public static final String SETTINGS_COPYRIGHT = "copyright";
-  public static final String SETTINGS_COMMUNITY = "community";
-  public static final String SETTINGS_CHANGE_UNITS = "settingsMiles";
+  public static class Settings
+  {
+    public static final String WEB_SITE = "webSite";
+    public static final String WEB_BLOG = "webBlog";
+    public static final String FEEDBACK_GENERAL = "generalFeedback";
+    public static final String MAIL_SUBSCRIBE = "subscribeToNews";
+    public static final String REPORT_BUG = "reportABug";
+    public static final String RATE = "rate";
+    public static final String FACEBOOK = "likeOnFb";
+    public static final String TWITTER = "followOnTwitter";
+    public static final String HELP = "help";
+    public static final String ABOUT = "about";
+    public static final String COPYRIGHT = "copyright";
+    public static final String CHANGE_UNITS = "settingsMiles";
+  }
+
   // for aloha stats
   public static final String ALOHA_CLICK = "$onClick";
   public static final String ALOHA_LONG_CLICK = "$onLongClick";

@@ -170,7 +170,7 @@
     <activity
         android:name="com.mapswithme.maps.MwmActivity"
         android:launchMode="singleTask"
-        android:theme="@style/MwmTheme.Map"
+        android:theme="@style/MwmTheme.MainActivity"
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
     </activity>
 
@@ -200,7 +200,7 @@
     <activity
         android:name="com.mapswithme.maps.settings.SettingsActivity"
         android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/settings_and_more"
+        android:label="@string/settings"
         android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
@@ -222,7 +222,7 @@
     <activity
         android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/bookmarks"
+        android:label="@string/bookmark_sets"
         android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
       <meta-data
@@ -258,8 +258,7 @@
 
     <service
         android:name="com.mapswithme.maps.background.WorkerService"
-        android:exported="false">
-    </service>
+        android:exported="false"/>
 
     <!-- our custom receiver, that will call Aloha & other handlers -->
     <receiver
@@ -314,21 +313,10 @@
       </intent-filter>
     </receiver>
 
-    <!-- Catches app upgraded intent.
-         Different receivers are used due to MY_PACKAGE_REPLACED was added in Honeycomb_MR1-->
-    <receiver android:name=".background.UpgradeReceiver"
-              android:enabled="@bool/isNewerThanHoneycombMr1">
+    <!-- Catches app upgraded intent -->
+    <receiver android:name=".background.UpgradeReceiver">
       <intent-filter>
         <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
-      </intent-filter>
-    </receiver>
-
-    <receiver android:name=".background.UpgradeReceiverCompat"
-              android:enabled="@bool/isOlderThanHoneycombMr1">
-      <intent-filter>
-        <action android:name="android.intent.action.PACKAGE_REPLACED"/>
-
-        <data android:scheme="package"/>
       </intent-filter>
     </receiver>
 
