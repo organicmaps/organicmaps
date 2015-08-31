@@ -2,6 +2,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
 #include "indexer/scales.hpp"
@@ -180,6 +181,13 @@ void CaptionDescription::Init(FeatureType const & f,
   m_roadNumber = f.GetRoadNumber();
   m_houseNumber = f.GetHouseNumber();
   m_populationRank = CalcPopulationRank(f);
+
+  if (ftypes::IsBuildingChecker::Instance()(f))
+  {
+    // Mark houses without names/numbers so user can select them by single tap.
+    if (m_houseNumber.empty() && m_mainText.empty())
+      m_houseNumber = "·";
+  }
 
   SwapCaptions(zoomLevel);
   DiscardLongCaption(zoomLevel);
