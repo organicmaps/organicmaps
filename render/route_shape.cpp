@@ -39,12 +39,14 @@ struct LineSegment
   m2::PointF m_leftWidthScalar[PointsCount];
   m2::PointF m_rightWidthScalar[PointsCount];
   bool m_hasLeftJoin[PointsCount];
+  bool m_generateJoin;
 
   LineSegment()
   {
     m_leftWidthScalar[StartPoint] = m_leftWidthScalar[EndPoint] = m2::PointF(1.0f, 0.0f);
     m_rightWidthScalar[StartPoint] = m_rightWidthScalar[EndPoint] = m2::PointF(1.0f, 0.0f);
     m_hasLeftJoin[StartPoint] = m_hasLeftJoin[EndPoint] = true;
+    m_generateJoin = true;
   }
 };
 
@@ -135,14 +137,15 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
   float const dotProduct = m2::DotProduct(segment1->m_leftNormals[EndPoint],
                                           segment2->m_leftNormals[StartPoint]);
   float const absDotProduct = fabs(dotProduct);
-  float const eps = 1e-5;
+  float const kEps = 1e-5;
 
-  if (fabs(absDotProduct - 1.0f) < eps)
+  if (fabs(absDotProduct - 1.0f) < kEps)
   {
     // change nothing
     return;
   }
 
+  float const kMaxScalar = 5;
   float const crossProduct = m2::CrossProduct(segment1->m_tangent, segment2->m_tangent);
   if (crossProduct < 0)
   {
@@ -151,13 +154,20 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
 
     // change right-side normals
     m2::PointF averageNormal = (segment1->m_rightNormals[EndPoint] + segment2->m_rightNormals[StartPoint]).Normalize();
-    segment1->m_rightNormals[EndPoint] = averageNormal;
-    segment2->m_rightNormals[StartPoint] = averageNormal;
-
     float const cosAngle = m2::DotProduct(segment1->m_tangent, averageNormal);
-    segment1->m_rightWidthScalar[EndPoint].x = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
-    segment1->m_rightWidthScalar[EndPoint].y = segment1->m_rightWidthScalar[EndPoint].x * cosAngle;
-    segment2->m_rightWidthScalar[StartPoint] = segment1->m_rightWidthScalar[EndPoint];
+    float const widthScalar = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
+    if (widthScalar < kMaxScalar)
+    {
+      segment1->m_rightNormals[EndPoint] = averageNormal;
+      segment2->m_rightNormals[StartPoint] = averageNormal;
+      segment1->m_rightWidthScalar[EndPoint].x = widthScalar;
+      segment1->m_rightWidthScalar[EndPoint].y = widthScalar * cosAngle;
+      segment2->m_rightWidthScalar[StartPoint] = segment1->m_rightWidthScalar[EndPoint];
+    }
+    else
+    {
+      segment1->m_generateJoin = false;
+    }
   }
   else
   {
@@ -166,13 +176,20 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
 
     // change left-side normals
     m2::PointF averageNormal = (segment1->m_leftNormals[EndPoint] + segment2->m_leftNormals[StartPoint]).Normalize();
-    segment1->m_leftNormals[EndPoint] = averageNormal;
-    segment2->m_leftNormals[StartPoint] = averageNormal;
-
     float const cosAngle = m2::DotProduct(segment1->m_tangent, averageNormal);
-    segment1->m_leftWidthScalar[EndPoint].x = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
-    segment1->m_leftWidthScalar[EndPoint].y = segment1->m_leftWidthScalar[EndPoint].x * cosAngle;
-    segment2->m_leftWidthScalar[StartPoint] = segment1->m_leftWidthScalar[EndPoint];
+    float const widthScalar = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
+    if (widthScalar < kMaxScalar)
+    {
+      segment1->m_leftNormals[EndPoint] = averageNormal;
+      segment2->m_leftNormals[StartPoint] = averageNormal;
+      segment1->m_leftWidthScalar[EndPoint].x = widthScalar;
+      segment1->m_leftWidthScalar[EndPoint].y = widthScalar * cosAngle;
+      segment2->m_leftWidthScalar[StartPoint] = segment1->m_leftWidthScalar[EndPoint];
+    }
+    else
+    {
+      segment1->m_generateJoin = false;
+    }
   }
 }
 
@@ -396,7 +413,7 @@ double GenerateGeometry(vector<m2::PointD> const & points, bool isRoute, double 
     generateIndices();
 
     // generate joins
-    if (i < segments.size() - 1)
+    if (segments[i].m_generateJoin && i < segments.size() - 1)
     {
       normals.clear();
       m2::PointF n1 = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_leftNormals[EndPoint] :
