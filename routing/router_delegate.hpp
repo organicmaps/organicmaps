@@ -6,6 +6,7 @@
 #include "base/timer.hpp"
 
 #include "std/function.hpp"
+#include "std/mutex.hpp"
 
 namespace routing
 {
@@ -35,13 +36,16 @@ public:
   RouterDelegate();
 
   /// Set routing progress. Waits current progress status from 0 to 100.
-  void OnProgress(float progress) const { if (!IsCancelled()) m_progressCallback(progress); }
-  void OnPointCheck(m2::PointD const & point) const { if (!IsCancelled()) m_pointCallback(point); }
+  void OnProgress(float progress) const;
+  void OnPointCheck(m2::PointD const & point) const;
 
   void SetProgressCallback(TProgressCallback const & progressCallback);
   void SetPointCheckCallback(TPointCheckCallback const & pointCallback);
 
+  void Reset() override {lock_guard<mutex> l(m_guard); TimeoutCancellable::Reset();}
+
 private:
+  mutable mutex m_guard;
   TProgressCallback m_progressCallback;
   TPointCheckCallback m_pointCallback;
 };
