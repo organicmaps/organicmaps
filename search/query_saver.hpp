@@ -1,6 +1,7 @@
 #include "std/list.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
+#include "std/utility.hpp"
 
 namespace search
 {
@@ -8,11 +9,13 @@ namespace search
 class QuerySaver
 {
 public:
+  /// Search request <locale, request>.
+  using TSearchRequest = pair<string, string>;
   QuerySaver();
-  void Add(string const & query);
+  void Add(TSearchRequest const & query);
   /// Returns several last saved queries from newest to oldest query.
   /// @see kMaxSuggestCount in implementation file.
-  list<string> const & Get() const { return m_topQueries; }
+  list<TSearchRequest> const & Get() const { return m_topQueries; }
   /// Clear last queries storage. All data will be lost.
   void Clear();
 
@@ -25,6 +28,6 @@ private:
   void Save();
   void Load();
 
-  list<string> m_topQueries;
+  list<TSearchRequest> m_topQueries;
 };
 }  // namespace search

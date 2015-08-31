@@ -331,6 +331,8 @@ private:
   void FillSearchResultsMarks(search::Results const & results);
 
 public:
+  using TSearchRequest = search::QuerySaver::TSearchRequest;
+
   m2::RectD GetCurrentViewport() const;
 
   void UpdateUserViewportChanged();
@@ -348,8 +350,9 @@ public:
   bool IsISActive() const { return !m_lastSearch.m_query.empty(); }
   void CancelInteractiveSearch();
 
-  list<string> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
-  void SaveSearchQuery(string const & query) { m_searchQuerySaver.Add(query); }
+  list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
+  void SaveSearchQuery(TSearchRequest const & query) { m_searchQuerySaver.Add(query); }
+  void ClearSearchHistory() { m_searchQuerySaver.Clear(); }
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;

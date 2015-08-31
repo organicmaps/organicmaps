@@ -70,11 +70,8 @@ QuerySaver::QuerySaver()
   Load();
 }
 
-void QuerySaver::Add(string const & query)
+void QuerySaver::Add(TSearchRequest const & query)
 {
-  if (query.empty())
-    return;
-
   // Remove items if needed.
   auto const it = find(m_topQueries.begin(), m_topQueries.end(), query);
   if (it != m_topQueries.end())
@@ -101,9 +98,12 @@ void QuerySaver::Serialize(string & data) const
   WriteToSink(writer, size);
   for (auto const & query : m_topQueries)
   {
-    size = query.size();
+    size = query.first.size();
     WriteToSink(writer, size);
-    writer.Write(query.c_str(), size);
+    writer.Write(query.first.c_str(), size);
+    size = query.second.size();
+    WriteToSink(writer, size);
+    writer.Write(query.second.c_str(), size);
   }
   data = base64::Encode(string(rawData.begin(), rawData.end()));
 }
@@ -119,10 +119,14 @@ void QuerySaver::Deserialize(string const & data)
 
   for (TLength i = 0; i < queriesCount; ++i)
   {
+    TLength localeLength = ReadPrimitiveFromSource<TLength>(reader);
+    vector<char> locale(localeLength);
+    reader.Read(&locale[0], localeLength);
     TLength stringLength = ReadPrimitiveFromSource<TLength>(reader);
     vector<char> str(stringLength);
     reader.Read(&str[0], stringLength);
-    m_topQueries.emplace_back(&str[0], stringLength);
+    m_topQueries.emplace_back(make_pair(string(&locale[0], localeLength),
+                                        string(&str[0], stringLength)));
   }
 }
 

@@ -7,8 +7,8 @@
 
 namespace
 {
-string const record1("test record1");
-string const record2("sometext");
+search::QuerySaver::TSearchRequest const record1("RU_ru" ,"test record1");
+search::QuerySaver::TSearchRequest const record2("En_us", "sometext");
 }
 
 namespace search
@@ -18,7 +18,7 @@ UNIT_TEST(QuerySaverFogTest)
   QuerySaver saver;
   saver.Clear();
   saver.Add(record1);
-  list<string> const & result = saver.Get();
+  list<QuerySaver::TSearchRequest> const & result = saver.Get();
   TEST_EQUAL(result.size(), 1, ());
   TEST_EQUAL(result.front(), record1, ());
   saver.Clear();
@@ -41,14 +41,14 @@ UNIT_TEST(QuerySaverOrderingTest)
   saver.Add(record1);
   saver.Add(record2);
   {
-    list<string> const & result = saver.Get();
+    list<QuerySaver::TSearchRequest> const & result = saver.Get();
     TEST_EQUAL(result.size(), 2, ());
     TEST_EQUAL(result.back(), record1, ());
     TEST_EQUAL(result.front(), record2, ());
   }
   saver.Add(record1);
   {
-    list<string> const & result = saver.Get();
+    list<QuerySaver::TSearchRequest> const & result = saver.Get();
     TEST_EQUAL(result.size(), 2, ());
     TEST_EQUAL(result.front(), record1, ());
     TEST_EQUAL(result.back(), record2, ());
@@ -69,7 +69,7 @@ UNIT_TEST(QuerySaverSerializerTest)
   TEST_EQUAL(saver.Get().size(), 0, ());
   saver.Deserialize(data);
 
-  list<string> const & result = saver.Get();
+  list<QuerySaver::TSearchRequest> const & result = saver.Get();
   TEST_EQUAL(result.size(), 2, ());
   TEST_EQUAL(result.back(), record1, ());
   TEST_EQUAL(result.front(), record2, ());
@@ -88,7 +88,7 @@ UNIT_TEST(QuerySaverCorruptedStringTest)
   {
     exceptionThrown = true;
   }
-  list<string> const & result = saver.Get();
+  list<QuerySaver::TSearchRequest> const & result = saver.Get();
   TEST_EQUAL(result.size(), 0, ());
   TEST(exceptionThrown, ());
 }
@@ -103,7 +103,7 @@ UNIT_TEST(QuerySaverPersistanceStore)
   }
   {
     QuerySaver saver;
-    list<string> const & result = saver.Get();
+    list<QuerySaver::TSearchRequest> const & result = saver.Get();
     TEST_EQUAL(result.size(), 2, ());
     TEST_EQUAL(result.back(), record1, ());
     TEST_EQUAL(result.front(), record2, ());
