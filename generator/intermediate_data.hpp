@@ -39,7 +39,6 @@ class IndexFile
 
   TContainer m_elements;
   TFile m_file;
-  uint64_t m_fileSize = 0;
 
   static size_t constexpr kFlushCount = 1024;
 
@@ -60,7 +59,7 @@ class IndexFile
   }
 
 public:
-  IndexFile(string const & name) : m_file(name.c_str()) {}
+  explicit IndexFile(string const & name) : m_file(name.c_str()) {}
 
   string GetFileName() const { return m_file.GetName(); }
 
@@ -76,23 +75,23 @@ public:
   void ReadAll()
   {
     m_elements.clear();
-    m_fileSize = m_file.Size();
-    if (m_fileSize == 0)
+    size_t fileSize = m_file.Size();
+    if (fileSize == 0)
       return;
 
     LOG_SHORT(LINFO, ("Offsets reading is started for file ", GetFileName()));
-    CHECK_EQUAL(0, m_fileSize % sizeof(TElement), ("Damaged file."));
+    CHECK_EQUAL(0, fileSize % sizeof(TElement), ("Damaged file."));
 
     try
     {
-      m_elements.resize(CheckedCast(m_fileSize / sizeof(TElement)));
+      m_elements.resize(CheckedCast(fileSize / sizeof(TElement)));
     }
     catch (exception const &)  // bad_alloc
     {
       LOG(LCRITICAL, ("Insufficient memory for required offset map"));
     }
 
-    m_file.Read(0, &m_elements[0], CheckedCast(m_fileSize));
+    m_file.Read(0, &m_elements[0], CheckedCast(fileSize));
 
     sort(m_elements.begin(), m_elements.end(), ElementComparator());
 
@@ -258,7 +257,7 @@ class RawFilePointStorage : public PointStorage
   constexpr static double const kValueOrder = 1E+7;
 
 public:
-  RawFilePointStorage(string const & name) : m_file(name) {}
+  explicit RawFilePointStorage(string const & name) : m_file(name) {}
 
   template <EMode T = TMode>
   typename enable_if<T == EMode::Write, void>::type AddPoint(uint64_t id, double lat, double lng)
@@ -307,7 +306,7 @@ class RawMemPointStorage : public PointStorage
   vector<LatLon> m_data;
 
 public:
-  RawMemPointStorage(string const & name) : m_file(name), m_data((size_t)0xFFFFFFFF)
+  explicit RawMemPointStorage(string const & name) : m_file(name), m_data((size_t)0xFFFFFFFF)
   {
     InitStorage<TMode>();
   }
@@ -373,7 +372,7 @@ class MapFilePointStorage : public PointStorage
   constexpr static double const kValueOrder = 1E+7;
 
 public:
-  MapFilePointStorage(string const & name) : m_file(name + ".short") { InitStorage<TMode>(); }
+  explicit MapFilePointStorage(string const & name) : m_file(name + ".short") { InitStorage<TMode>(); }
 
   template <EMode T>
   typename enable_if<T == EMode::Write, void>::type InitStorage() {}

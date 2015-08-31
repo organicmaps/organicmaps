@@ -109,7 +109,7 @@ class OsmToFeatureTranslator
   public:
     RelationTagsBase() : m_cache(14) {}
 
-    void Reset(uint64_t fID, XMLElement * p)
+    void Reset(uint64_t fID, OsmElement * p)
     {
       m_featureID = fID;
       m_current = p;
@@ -227,6 +227,7 @@ class OsmToFeatureTranslator
         TBase::m_current->AddTag(p.first, p.second);
       }
     }
+  } m_wayRelations;
 
   bool ParseType(OsmElement * p, FeatureParams & params)
   {

@@ -41,6 +41,7 @@ struct WayElement
   template <class ToDo>
   void ForEachPointOrdered(uint64_t start, ToDo & toDo)
   {
+    ASSERT(!nodes.empty(), ());
     if (start == nodes.front())
       for_each(nodes.begin(), nodes.end(), ref(toDo));
     else

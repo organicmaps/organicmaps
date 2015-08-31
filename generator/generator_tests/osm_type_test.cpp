@@ -655,7 +655,7 @@ UNIT_TEST(OsmType_Subway)
       { "transport", "subway" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -674,7 +674,7 @@ UNIT_TEST(OsmType_Subway)
       { "route", "subway" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -694,7 +694,7 @@ UNIT_TEST(OsmType_Subway)
       { "station", "light_rail" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -716,7 +716,7 @@ UNIT_TEST(OsmType_Subway)
       { "transport", "monorail" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
@@ -735,7 +735,7 @@ UNIT_TEST(OsmType_Subway)
       { "railway", "station" },
     };
 
-    XMLElement e;
+    OsmElement e;
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     FeatureParams params;
