@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6719DD5E1B95AB0F0018166F /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6719DD5D1B95AB0F0018166F /* libtess2.a */; };
+		6719DD5F1B95AB570018166F /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6719DD5D1B95AB0F0018166F /* libtess2.a */; };
 		671F58B91B8611360032311E /* intermediate_data_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671F58B71B86109B0032311E /* intermediate_data_test.cpp */; };
 		6726C2231A4C2BBD005EEA39 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343E01A3F600D00A0A8C3 /* IOKit.framework */; };
 		6726C2261A4C2BBD005EEA39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343E21A3F607600A0A8C3 /* Cocoa.framework */; };
@@ -20,7 +22,6 @@
 		674A28D51B1C8001001A525C /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D31B1C8001001A525C /* libplatform.a */; };
 		674A28D61B1C8001001A525C /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D41B1C8001001A525C /* librouting.a */; };
 		674A28D81B1C800D001A525C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D71B1C800D001A525C /* libbase.a */; };
-		674A28DA1B1C8015001A525C /* libsgitess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D91B1C8015001A525C /* libsgitess.a */; };
 		674A28DC1B1C801D001A525C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28DB1B1C801D001A525C /* libprotobuf.a */; };
 		674A28DE1B1C8027001A525C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28DD1B1C8027001A525C /* libtomcrypt.a */; };
 		674A28DF1B1C80EA001A525C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D71B1C800D001A525C /* libbase.a */; };
@@ -33,7 +34,6 @@
 		674A28E61B1C80EA001A525C /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D31B1C8001001A525C /* libplatform.a */; };
 		674A28E71B1C80EA001A525C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28DB1B1C801D001A525C /* libprotobuf.a */; };
 		674A28E81B1C80EA001A525C /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D41B1C8001001A525C /* librouting.a */; };
-		674A28E91B1C80EA001A525C /* libsgitess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28D91B1C8015001A525C /* libsgitess.a */; };
 		674A28EA1B1C80EA001A525C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28DD1B1C8027001A525C /* libtomcrypt.a */; };
 		674A28EC1B1C80F4001A525C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28EB1B1C80F4001A525C /* libstorage.a */; };
 		674A28EE1B1C80FB001A525C /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A28ED1B1C80FB001A525C /* libjansson.a */; };
@@ -134,6 +134,7 @@
 		670B84FF1A9F73C700CE4492 /* weak_ptr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = weak_ptr.hpp; sourceTree = "<group>"; };
 		670B85001A9F73C700CE4492 /* windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = windows.hpp; sourceTree = "<group>"; };
 		670D05AD1B0E08260013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		6719DD5D1B95AB0F0018166F /* libtess2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtess2.a; path = "../../../omim-xcode-build/Debug/libtess2.a"; sourceTree = "<group>"; };
 		671F58B71B86109B0032311E /* intermediate_data_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = intermediate_data_test.cpp; sourceTree = "<group>"; };
 		6726C1E31A4C28D5005EEA39 /* check_mwms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = check_mwms.cpp; sourceTree = "<group>"; };
 		6726C1E41A4C28D5005EEA39 /* classificator_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classificator_tests.cpp; sourceTree = "<group>"; };
@@ -184,9 +185,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6719DD5E1B95AB0F0018166F /* libtess2.a in Frameworks */,
 				674A28DE1B1C8027001A525C /* libtomcrypt.a in Frameworks */,
 				674A28DC1B1C801D001A525C /* libprotobuf.a in Frameworks */,
-				674A28DA1B1C8015001A525C /* libsgitess.a in Frameworks */,
 				674A28D81B1C800D001A525C /* libbase.a in Frameworks */,
 				674A28D51B1C8001001A525C /* libplatform.a in Frameworks */,
 				674A28D61B1C8001001A525C /* librouting.a in Frameworks */,
@@ -205,6 +206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6719DD5F1B95AB570018166F /* libtess2.a in Frameworks */,
 				674A28F41B1C8125001A525C /* libosrm.a in Frameworks */,
 				674A28F21B1C8119001A525C /* libsuccinct.a in Frameworks */,
 				674A28F01B1C8104001A525C /* libsearch.a in Frameworks */,
@@ -220,7 +222,6 @@
 				674A28E61B1C80EA001A525C /* libplatform.a in Frameworks */,
 				674A28E71B1C80EA001A525C /* libprotobuf.a in Frameworks */,
 				674A28E81B1C80EA001A525C /* librouting.a in Frameworks */,
-				674A28E91B1C80EA001A525C /* libsgitess.a in Frameworks */,
 				674A28EA1B1C80EA001A525C /* libtomcrypt.a in Frameworks */,
 				675344431A3F65E800A0A8C3 /* IOKit.framework in Frameworks */,
 				675343E31A3F607600A0A8C3 /* Cocoa.framework in Frameworks */,
@@ -319,6 +320,7 @@
 		6753414F1A3F54D800A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				6719DD5D1B95AB0F0018166F /* libtess2.a */,
 				67AB92CC1B73D15700AB5194 /* Foundation.framework */,
 				67AB92CA1B73D10B00AB5194 /* libsuccinct.a */,
 				67AB92C81B73D10200AB5194 /* libosrm.a */,
@@ -490,6 +492,7 @@
 					"/Volumes/AltHD/omim/xcode/map/../../../omim-xcode-build/Debug",
 					"/Volumes/AltHD/omim/xcode/osrm/../../../omim-xcode-build/Debug",
 					"/Volumes/AltHD/omim/xcode/succinct/../../../omim-xcode-build/Debug",
+					"/Volumes/AltHD/omim-xcode-build/Debug",
 				);
 				PRODUCT_NAME = generator_tests;
 			};
@@ -507,6 +510,7 @@
 					"/Volumes/AltHD/omim/xcode/map/../../../omim-xcode-build/Debug",
 					"/Volumes/AltHD/omim/xcode/osrm/../../../omim-xcode-build/Debug",
 					"/Volumes/AltHD/omim/xcode/succinct/../../../omim-xcode-build/Debug",
+					"/Volumes/AltHD/omim-xcode-build/Debug",
 				);
 				PRODUCT_NAME = generator_tests;
 			};
@@ -617,7 +621,10 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/AltHD/omim-xcode-build/Debug",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -628,7 +635,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/AltHD/omim-xcode-build/Debug",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
