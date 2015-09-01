@@ -33,14 +33,11 @@ UNIT_TEST(Intermediate_Data_empty_way_element_save_load_test)
 
 UNIT_TEST(Intermediate_Data_way_element_save_load_test)
 {
+  vector<uint64_t> testData = {0, 1, 2, 3, 0xFFFFFFFF, 0xFFFFFFFFFFFFFFFF};
+
   WayElement e1(1 /* fake osm id */);
 
-  e1.nodes.push_back(0);
-  e1.nodes.push_back(1);
-  e1.nodes.push_back(2);
-  e1.nodes.push_back(3);
-  e1.nodes.push_back(0xFFFFFFFF);
-  e1.nodes.push_back(0xFFFFFFFFFFFFFFFF);
+  e1.nodes = testData;
 
   using TBuffer = vector<uint8_t>;
   TBuffer buffer;
@@ -54,28 +51,17 @@ UNIT_TEST(Intermediate_Data_way_element_save_load_test)
 
   e2.Read(r);
 
-  TEST_EQUAL(e2.nodes.size(), 6, ());
-  TEST_EQUAL(e2.nodes[0], 0, ());
-  TEST_EQUAL(e2.nodes[1], 1, ());
-  TEST_EQUAL(e2.nodes[2], 2, ());
-  TEST_EQUAL(e2.nodes[3], 3, ());
-  TEST_EQUAL(e2.nodes[4], 0xFFFFFFFF, ());
-  TEST_EQUAL(e2.nodes[5], 0xFFFFFFFFFFFFFFFF, ());
+  TEST_EQUAL(e2.nodes, testData, ());
 }
 
 UNIT_TEST(Intermediate_Data_relation_element_save_load_test)
 {
+  RelationElement::TMembers testData = {{1, "inner"}, {2, "outer"}, {3, "unknown"}, {4, "inner role"}};
+
   RelationElement e1;
 
-  e1.nodes.emplace_back(1, "inner");
-  e1.nodes.emplace_back(2, "outer");
-  e1.nodes.emplace_back(3, "unknown");
-  e1.nodes.emplace_back(4, "inner role");
-
-  e1.ways.emplace_back(1, "inner");
-  e1.ways.emplace_back(2, "outer");
-  e1.ways.emplace_back(3, "unknown");
-  e1.ways.emplace_back(4, "inner role");
+  e1.nodes = testData;
+  e1.ways = testData;
 
   e1.tags.emplace("key1","value1");
   e1.tags.emplace("key2","value2");
@@ -101,30 +87,10 @@ UNIT_TEST(Intermediate_Data_relation_element_save_load_test)
 
   e2.Read(r);
 
-  TEST_EQUAL(e2.nodes.size(), 4, ());
-  TEST_EQUAL(e2.ways.size(), 4, ());
+  TEST_EQUAL(e2.nodes, testData, ());
+  TEST_EQUAL(e2.ways, testData, ());
+
   TEST_EQUAL(e2.tags.size(), 4, ());
-
-  TEST_EQUAL(e2.nodes[0].first, 1, ());
-  TEST_EQUAL(e2.nodes[1].first, 2, ());
-  TEST_EQUAL(e2.nodes[2].first, 3, ());
-  TEST_EQUAL(e2.nodes[3].first, 4, ());
-
-  TEST_EQUAL(e2.nodes[0].second, "inner", ());
-  TEST_EQUAL(e2.nodes[1].second, "outer", ());
-  TEST_EQUAL(e2.nodes[2].second, "unknown", ());
-  TEST_EQUAL(e2.nodes[3].second, "inner role", ());
-
-  TEST_EQUAL(e2.ways[0].first, 1, ());
-  TEST_EQUAL(e2.ways[1].first, 2, ());
-  TEST_EQUAL(e2.ways[2].first, 3, ());
-  TEST_EQUAL(e2.ways[3].first, 4, ());
-
-  TEST_EQUAL(e2.ways[0].second, "inner", ());
-  TEST_EQUAL(e2.ways[1].second, "outer", ());
-  TEST_EQUAL(e2.ways[2].second, "unknown", ());
-  TEST_EQUAL(e2.ways[3].second, "inner role", ());
-
   TEST_EQUAL(e2.tags["key1"], "value1", ());
   TEST_EQUAL(e2.tags["key2"], "value2", ());
   TEST_EQUAL(e2.tags["key3"], "value3", ());

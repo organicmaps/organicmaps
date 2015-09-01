@@ -85,14 +85,13 @@ struct WayElement
 
 class RelationElement
 {
+public:
   using TMembers = vector<pair<uint64_t, string>>;
 
-public:
   TMembers nodes;
   TMembers ways;
   map<string, string> tags;
 
-public:
   bool IsValid() const { return !(nodes.empty() && ways.empty()); }
 
   string GetType() const
