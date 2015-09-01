@@ -33,6 +33,10 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface Alohalytics : NSObject
+// Call it once to turn off events logging.
++ (void)disable;
+// Call it once to enable events logging again after disabling it.
++ (void)enable;
 + (void)setDebugMode:(BOOL)enable;
 // Should be called in application:didFinishLaunchingWithOptions: or in application:willFinishLaunchingWithOptions:
 // Final serverUrl is modified to $(serverUrl)/[ios|mac]/your.bundle.id/app.version

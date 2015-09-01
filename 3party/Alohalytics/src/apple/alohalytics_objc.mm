@@ -288,7 +288,7 @@ static void OnUploadFinished(alohalytics::ProcessingResult result) {
   }
   EndBackgroundTask();
 }
-
+#endif  // TARGET_OS_IPHONE
 // Quick check if device has any active connection.
 // Does not guarantee actual reachability of any host.
 // Inspired by Apple's Reachability example:
@@ -315,19 +315,22 @@ bool IsConnectionActive() {
       && (flags & kSCNetworkReachabilityFlagsInterventionRequired) == 0) {
     return true;
   }
+#if (TARGET_OS_IPHONE > 0)
   if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN) {
     return true;
   }
+#endif  // TARGET_OS_IPHONE
   return false;
 }
 
-#endif  // TARGET_OS_IPHONE
+//#endif  // TARGET_OS_IPHONE
 } // namespace
 
 // Keys for NSUserDefaults.
 static NSString * const kInstalledVersionKey = @"AlohalyticsInstalledVersion";
 static NSString * const kFirstLaunchDateKey = @"AlohalyticsFirstLaunchDate";
 static NSString * const kTotalSecondsInTheApp = @"AlohalyticsTotalSecondsInTheApp";
+static NSString * const kIsAlohalyticsDisabledKey = @"AlohalyticsDisabledKey";
 
 // Used to calculate session length and total time spent in the app.
 // setup should be called to activate counting.
@@ -371,8 +374,11 @@ static BOOL gIsFirstSession = NO;
           .SetStoragePath(StoragePath());
 
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  if ([ud boolForKey:kIsAlohalyticsDisabledKey]) {
+    instance.Disable();
+  }
+
   // Calculate some basic statistics about installations/updates/launches.
-  NSUserDefaults * userDataBase = [NSUserDefaults standardUserDefaults];
   NSString * installedVersion = [ud objectForKey:kInstalledVersionKey];
   BOOL shouldSendUpdatedSystemInformation = NO;
   // Do not generate $install event for old users who did not have Alohalytics installed but already used the app.
@@ -561,6 +567,27 @@ static BOOL gIsFirstSession = NO;
 
 + (NSDate *)buildDate {
   return [Alohalytics fileCreationDate:[[NSBundle mainBundle] executablePath]];
+}
+
++ (void)disable {
+  Stats & s = Stats::Instance();
+  s.LogEvent("$statisticsDisabled");
+  // Force uploading of all previous events.
+  if (IsConnectionActive())
+    s.Upload();
+  s.Disable();
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setBool:YES forKey:kIsAlohalyticsDisabledKey];
+  [ud synchronize];
+}
+
++ (void)enable {
+  Stats & s = Stats::Instance();
+  s.Enable();
+  s.LogEvent("$statisticsEnabled");
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setBool:NO forKey:kIsAlohalyticsDisabledKey];
+  [ud synchronize];
 }
 
 @end
