@@ -43,9 +43,13 @@
 #include "../cereal/include/types/string.hpp"
 #include "../cereal/include/types/map.hpp"
 
-#define LOG_IF_DEBUG(...)                   \
-  if (debug_mode_) {                        \
-    alohalytics::Logger().Log(__VA_ARGS__); \
+#define LOG_IF_DEBUG(...)                                  \
+  if (debug_mode_) {                                       \
+    if (enabled_) {                                        \
+      alohalytics::Logger().Log(__VA_ARGS__);              \
+    } else {                                               \
+      alohalytics::Logger().Log("Disabled:", __VA_ARGS__); \
+    }                                                      \
   }
 
 namespace alohalytics {
@@ -56,6 +60,16 @@ static constexpr const char * kAlohalyticsHTTPContentType = "application/alohaly
 Stats::Stats()
     : messages_queue_(
           std::bind(&Stats::GzipAndArchiveFileInTheQueue, this, std::placeholders::_1, std::placeholders::_2)) {}
+
+void Stats::Disable() {
+  LOG_IF_DEBUG("Statistics collection disabled.");
+  enabled_ = false;
+}
+// Turn back on events collection and sending after Disable();
+void Stats::Enable() {
+  LOG_IF_DEBUG("Statistics collection enabled.");
+  enabled_ = true;
+}
 
 void Stats::GzipAndArchiveFileInTheQueue(const std::string & in_file, const std::string & out_archive) {
   std::string encoded_unique_client_id;
@@ -149,51 +163,63 @@ static inline void LogEventImpl(AlohalyticsBaseEvent const & event, THundredKilo
 
 void Stats::LogEvent(std::string const & event_name) {
   LOG_IF_DEBUG("LogEvent:", event_name);
-  AlohalyticsKeyEvent event;
-  event.key = event_name;
-  LogEventImpl(event, messages_queue_);
+  if (enabled_) {
+    AlohalyticsKeyEvent event;
+    event.key = event_name;
+    LogEventImpl(event, messages_queue_);
+  }
 }
 
 void Stats::LogEvent(std::string const & event_name, Location const & location) {
   LOG_IF_DEBUG("LogEvent:", event_name, location.ToDebugString());
-  AlohalyticsKeyLocationEvent event;
-  event.key = event_name;
-  event.location = location;
-  LogEventImpl(event, messages_queue_);
+  if (enabled_) {
+    AlohalyticsKeyLocationEvent event;
+    event.key = event_name;
+    event.location = location;
+    LogEventImpl(event, messages_queue_);
+  }
 }
 
 void Stats::LogEvent(std::string const & event_name, std::string const & event_value) {
   LOG_IF_DEBUG("LogEvent:", event_name, "=", event_value);
-  AlohalyticsKeyValueEvent event;
-  event.key = event_name;
-  event.value = event_value;
-  LogEventImpl(event, messages_queue_);
+  if (enabled_) {
+    AlohalyticsKeyValueEvent event;
+    event.key = event_name;
+    event.value = event_value;
+    LogEventImpl(event, messages_queue_);
+  }
 }
 
 void Stats::LogEvent(std::string const & event_name, std::string const & event_value, Location const & location) {
   LOG_IF_DEBUG("LogEvent:", event_name, "=", event_value, location.ToDebugString());
-  AlohalyticsKeyValueLocationEvent event;
-  event.key = event_name;
-  event.value = event_value;
-  event.location = location;
-  LogEventImpl(event, messages_queue_);
+  if (enabled_) {
+    AlohalyticsKeyValueLocationEvent event;
+    event.key = event_name;
+    event.value = event_value;
+    event.location = location;
+    LogEventImpl(event, messages_queue_);
+  }
 }
 
 void Stats::LogEvent(std::string const & event_name, TStringMap const & value_pairs) {
   LOG_IF_DEBUG("LogEvent:", event_name, "=", value_pairs);
-  AlohalyticsKeyPairsEvent event;
-  event.key = event_name;
-  event.pairs = value_pairs;
-  LogEventImpl(event, messages_queue_);
+  if (enabled_) {
+    AlohalyticsKeyPairsEvent event;
+    event.key = event_name;
+    event.pairs = value_pairs;
+    LogEventImpl(event, messages_queue_);
+  }
 }
 
 void Stats::LogEvent(std::string const & event_name, TStringMap const & value_pairs, Location const & location) {
   LOG_IF_DEBUG("LogEvent:", event_name, "=", value_pairs, location.ToDebugString());
-  AlohalyticsKeyPairsLocationEvent event;
-  event.key = event_name;
-  event.pairs = value_pairs;
-  event.location = location;
-  LogEventImpl(event, messages_queue_);
+  if (enabled_) {
+    AlohalyticsKeyPairsLocationEvent event;
+    event.key = event_name;
+    event.pairs = value_pairs;
+    event.location = location;
+    LogEventImpl(event, messages_queue_);
+  }
 }
 
 void Stats::Upload(TFileProcessingFinishedCallback upload_finished_callback) {
@@ -201,9 +227,13 @@ void Stats::Upload(TFileProcessingFinishedCallback upload_finished_callback) {
     LOG_IF_DEBUG("Warning: upload server url has not been set, nothing was uploaded.");
     return;
   }
-  LOG_IF_DEBUG("Trying to upload collected statistics to", upload_url_);
-  messages_queue_.ProcessArchivedFiles(
-      std::bind(&Stats::UploadFileImpl, this, std::placeholders::_1, std::placeholders::_2), upload_finished_callback);
+  if (enabled_) {
+    LOG_IF_DEBUG("Trying to upload collected statistics to", upload_url_);
+    messages_queue_.ProcessArchivedFiles(
+        std::bind(&Stats::UploadFileImpl, this, std::placeholders::_1, std::placeholders::_2), upload_finished_callback);
+  } else {
+    LOG_IF_DEBUG("Statistics is disabled. Nothing was uploaded.");
+  }
 }
 
 bool Stats::UploadFileImpl(bool file_name_in_content, const std::string & content) {

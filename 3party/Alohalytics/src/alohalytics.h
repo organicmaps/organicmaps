@@ -38,6 +38,9 @@ namespace alohalytics {
 typedef std::map<std::string, std::string> TStringMap;
 
 class Stats final {
+  // Is statistics engine enabled or disabled.
+  // Used if users want to opt-out from events collection.
+  bool enabled_ = true;
   std::string upload_url_;
   // Unique client id is inserted as a special event in the beginning of every archived file before gzipping it.
   // In current implementation it is used to distinguish between different users in the events stream on the server.
@@ -65,6 +68,11 @@ class Stats final {
   // Easier integration if enabled.
   Stats & SetDebugMode(bool enable);
   bool DebugMode() const { return debug_mode_; }
+
+  // Turn off events collection and sending.
+  void Disable();
+  // Turn back on events collection and sending after Disable();
+  void Enable();
 
   // If not set, collected data will never be uploaded.
   Stats & SetServerUrl(const std::string & url_to_upload_statistics_to);
