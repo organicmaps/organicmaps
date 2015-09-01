@@ -1,5 +1,5 @@
 amenity-atm
-en:3atm|money
+en:3atm|money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:3банкомат|деньги
 uk:3банкомат|гроші
 de:3Geldautomat|Bankomat|Geld
@@ -28,7 +28,7 @@ nb:2penger|minibank
 fi:2raha|pankkiautomaatti
 
 amenity-bank
-en:3bank|money
+en:3bank|money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:3банк|деньги
 uk:3банк|гроші
 de:3Bank|Geld
@@ -57,7 +57,7 @@ nb:3bank
 fi:3pankki
 
 amenity-bureau_de_change
-en:3currency exchange|3exchange|money
+en:3currency exchange|3exchange|money|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:3обмен валюты|обменник|4валюта|деньги
 uk:3обмін валют|валюта|гроші
 de:3Geldwechselstelle|Geld
@@ -86,7 +86,7 @@ nb:4valutaveksling
 fi:4rahanvaihto
 
 amenity-bar|amenity-pub
-en:2bar|2pub|beer|drink|food
+en:2bar|2pub|beer|drink|food|U+1F37A|U+1F37B
 ru:2бар|2паб|пиво|выпить|еда
 uk:2бар|2паб|пиво|напої|їжа
 de:2Bar|2Pub|Bier|Essen
@@ -115,7 +115,7 @@ nb:2bar|mat
 fi:2baari|ruoka
 
 amenity-cafe
-en:3cafe|3restaurant|3food
+en:3cafe|3restaurant|3food|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377
 ru:3кафе|3ресторан|3еда
 uk:3кафе|3ресторан|2їжа|2їсти
 de:3Cafe|3Restautant|essen
@@ -144,7 +144,7 @@ nb:2kafé|mat
 fi:2kahvila|ruoka
 
 amenity-fast_food
-en:4fast food|3restaurant|3cafe|takeaway|3food
+en:4fast food|3restaurant|3cafe|takeaway|3food|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374
 ru:3фастфуд|3ресторан|3кафе|еда
 uk:3фастфуд|3ресторан|3кафе|2їжа|2їсти
 de:4Fast food|takeaway|Restaurant|Cafe|Pizzeria|essen
@@ -173,7 +173,7 @@ nb:3hurtigmat|mat
 fi:3pikaruokala|ruoka
 
 amenity-restaurant
-en:3restaurant|3cafe|3food
+en:3restaurant|3cafe|3food|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377
 ru:3ресторан|3кафе|еда
 uk:3ресторан|3кафе|2їжа|2їсти
 de:3Restaurant|3Cafe|Gasthaus|3essen
@@ -202,7 +202,7 @@ nb:3restaurant|mat
 fi:3ravintola|ruoka
 
 amenity-fuel
-en:gas station|3fuel|2gas
+en:gas station|3fuel|2gas|U+26FD
 ru:3заправка|бензин|топливо
 uk:3заправка|бензин|газ
 de:3Tankstelle|Tankstation
@@ -231,7 +231,7 @@ nb:3bensinstasjon|drivstoff
 fi:3huoltoasema
 
 shop-bakery
-en:3bakery|shop
+en:3bakery|shop|U+1F35E
 ru:3булочная|магазин
 uk:3пекарня|магазин|крамниця
 de:3Bäckerei|Bäckerladen|Laden
@@ -260,7 +260,7 @@ nb:3bakeri|butikk
 fi:3leipomo|kauppa
 
 shop|shop-convenience|shop-mall|shop-doityourself|shop-florist|shop-butcher|shop-furniture|shop-alcohol|shop-books|shop-shoes|shop-electronics|shop-hardware|shop-jewelry|shop-optician|shop-gift|shop-mobile_phone|shop-beauty|shop-greengrocer|shop-chemist|shop-garden_centre|shop-sports
-en:2shop
+en:2shop|U+1F3EA|U+1F3EC
 ru:2магазин
 uk:2магазин|крамниця
 de:3Einkaufenladen|Geschäft|2Laden
@@ -289,7 +289,7 @@ nb:3butikk
 fi:3kauppa
 
 shop-supermarket|shop-department_store
-en:3supermarket|shop
+en:3supermarket|shop|U+1F3EA|U+1F3EC
 ru:3универсам|3супермаркет|магазин
 uk:3супермаркет|3універсам|2магазин|крамниця
 de:3Supermarkt|Laden
@@ -347,7 +347,7 @@ nb:2torg|butikk
 fi:3kauppatori|kauppa
 
 shop-clothes
-en:clothes shop|4clothes
+en:clothes shop|4clothes|U+1F45A|U+1F457|U+1F456|U+1F455
 ru:магазин одежды|4одежда
 uk:магазин одягу|речі|4одяг|2крамниця
 de:Bekleidungsgeschäft|Laden
@@ -376,7 +376,7 @@ nb:bilverksted|butikk
 fi:vaatekauppa|kauppa
 
 shop-car
-en:car shop
+en:car shop|U+1F697
 ru:автосалон|магазин
 uk:автосалон|магазин
 de:Auto-Shop|Laden
@@ -405,7 +405,7 @@ nb:3bensinstasjon|butikk
 fi:3autokorjaamo|kauppa
 
 shop-bicycle
-en:4bicycle shop|cycle|bike|shop
+en:4bicycle shop|cycle|bike|shop|U+1F6B2|U+1F6B4
 ru:4веломагазин|велосипед|магазин
 uk:4веломагазін|велосипед|магазин
 de:3Fahrradladen|Fahrrad|Velo|Laden
@@ -434,7 +434,7 @@ nb:3sykkel|butikk
 fi:3polkupyörä|kauppa
 
 shop-kiosk
-en:kiosk|shop
+en:kiosk|shop|U+1F4F0
 ru:киоск|магазин
 uk:кіоск|магазин|крамниця
 de:Kiosk|Laden
@@ -463,7 +463,7 @@ nb:butikk
 fi:kauppa
 
 highway-bus_stop
-en:bus stop|2bus|stop|4transport
+en:bus stop|2bus|stop|4transport|U+1F68C|U+1F68F
 ru:4остановка|4автобус|4транспорт
 uk:4зупинка|4автобус|4траспорт
 de:Bushaltestelle|Haltestelle|2Bus|Autobus|Verkehr
@@ -492,7 +492,7 @@ nb:3busstopp|transport
 fi:3bussipysäkki|liikenne
 
 railway-tram_stop
-en:tram stop|3tram|stop|4transport
+en:tram stop|3tram|stop|4transport|U+1F683
 ru:4остановка|4трамвай|4транспорт
 uk:4зупинка|4трамвай|4транспорт
 de:4Haltestelle|Tram|Verkehr
@@ -521,7 +521,7 @@ nb:3trikkestopp|transport
 fi:4raitiovaunupysäkki|liikenne
 
 amenity-bus_station
-en:bus station|2bus|station|4transport
+en:bus station|2bus|station|4transport|U+1F68C|U+1F68F|U+1F68D
 ru:автостанция|4автобус|4остановка|4транспорт
 uk:автовокзал|4автобус|4зупинка|4транспорт
 de:4Bahnhof|Haltestelle|Bus|Autobus|Verkehr
@@ -550,7 +550,7 @@ nb:3busstasjon|transport
 fi:3bussiasema|liikenne
 
 railway-station|railway-halt
-en:3train station|4railway|railroad|3train|4station|4transport
+en:3train station|4railway|railroad|3train|4station|4transport|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A
 ru:ж/д станция|3поезд|3станция|4транспорт
 uk:залізничний вокзал|3поїзд|залізниця|3станція|4транспорт
 de:3Haltestelle|3Station|Zug|Verkehr
@@ -579,7 +579,7 @@ nb:togstasjon|transport
 fi:rautatieasema|liikenne
 
 railway-subway_entrance|railway-station-subway
-en:3subway|3tube|3metro|3underground|transport
+en:3subway|3tube|3metro|3underground|transport|U+1F687
 ru:3метро|транспорт
 uk:3метро|транспорт
 de:2U-Bahn|Metro|Verkehr
@@ -608,7 +608,7 @@ nb:2T-bane|undergrunnsbane|metro|transport
 fi:3metro|liikenne
 
 amenity-ferry_terminal
-en:3ferry|terminal|transport
+en:3ferry|terminal|transport|U+1F6A2|U+1F6A4
 ru:3паром|транспорт
 uk:3пором|транспорт
 de:2Fähre|Verkehr
@@ -637,7 +637,7 @@ nb:3ferje|terminal|transport
 fi:3lautta|terminaali|kuljetus|liikenne
 
 amenity-taxi
-en:3taxi|transport
+en:3taxi|transport|U+1F695|U+1F696
 ru:3такси|транспорт
 uk:3таксі|транспорт
 de:3Taxi|Taxe|Verkehr
@@ -695,7 +695,7 @@ nb:3rådhus|severdigheter
 fi:kaupungintalo|nähtävyydet
 
 tourism-attraction
-en:3attraction|3tourism|3sights
+en:3attraction|3tourism|3sights|U+1F3A0|U+1F3A1|U+1F3A2|U+1F3AA
 ru:4достопримечательность|3туризм|3аттракцион
 uk:3пам’ятка|визначна річ|3туризм|пам’ятні місця
 de:3Attraktion|3Sehenswürdigkeit
@@ -782,7 +782,7 @@ nb:3utsiktspunkt|severdigheter
 fi:3näköalatasanne|nähtävyydet
 
 tourism-information
-en:4tourist information|4information|sights
+en:4tourist information|4information|sights|U+2139|U+1F481
 ru:4туринформация|информация|достопримечательность
 uk:4турінформація|інформація|пам’ятка|пам’ятні місця
 de:4Information|Sehenswürdigkeit
@@ -840,7 +840,7 @@ nb:3rasteplasser|severdigheter
 fi:3piknikpaikat|nähtävyydet
 
 amenity-place_of_worship
-en:place of worship|4temple|sights
+en:place of worship|4temple|sights|U+1F64F|U+26EA
 ru:3храм|церковь|достопримечательность
 uk:3храм|церква|собор|пам’ятка|алтарь|мавзолей|пам’ятні місця
 de:4Tempel|Kirche|Dom|Sehenswürdigkeit
@@ -927,7 +927,7 @@ nb:3foss|severdigheter
 fi:3vesiputous|nähtävyydet
 
 historic-memorial
-en:memorial|monument|attraction|tourism|sights
+en:memorial|monument|attraction|tourism|sights|U+1F5FC|U+1F5FD|U+1F5FF
 ru:мемориал|монумент|достопримечательность|туризм
 uk:меморіал|монумент|пам'ятка|туризм|статуя|пам'ятник|пам’ятні місця
 de:Denkmal|Gedenkstätte|Sehenswürdigkeit
@@ -956,7 +956,7 @@ nb:3minnesmerke|severdigheter
 fi:3muistomerkki|nähtävyydet
 
 historic-monument
-en:monument|attraction|tourism|sights
+en:monument|attraction|tourism|sights|U+1F5FD|U+1F5FF
 ru:памятник|достопримечательность|туризм
 uk:пам'ятник|монумент|статуя|пам'ятка|туризм|пам’ятні місця
 de:Monument|Denkmal|Sehenswürdigkeit
@@ -985,7 +985,7 @@ nb:monument|severdigheter
 fi:monumentti|nähtävyydet
 
 historic-ruins
-en:ruins|attraction|tourism|sights
+en:ruins|attraction|tourism|sights|U+1F5FF
 ru:руины|развалины|достопримечательность|туризм
 uk:руїни|розвалини|древність|історична пам'ятка|туризм|пам’ятні місця
 de:Ruinen|Sehenswürdigkeit
@@ -1014,7 +1014,7 @@ nb:ruiner|severdigheter
 fi:rauniot|nähtävyydet
 
 historic-castle
-en:castle|attraction|tourism|sights
+en:castle|attraction|tourism|sights|U+1F3EF|U+1F3F0|U+1F451
 ru:замок|достопримечательность|туризм
 uk:замок|фортеця|мури|туризм|пам'ятка|пам’ятні місця
 de:Burg|Schloss|Festung|Sehenswürdigkeit
@@ -1129,7 +1129,7 @@ nb:benk
 fi:penkki
 
 amenity-bicycle_rental
-en:4bicycle rental|cycle|bike|3rental
+en:4bicycle rental|cycle|bike|3rental|U+1F6B2|U+1F6B4
 ru:4велопрокат|велосипед|3прокат
 uk:4велопрокат|велосипед|3прокат
 de:3Fahrradverleih|Fahrrad|Velo|3Verleih
@@ -1158,7 +1158,7 @@ nb:bilutleie
 fi:polkupyörä
 
 amenity-car_sharing|amenity-car_rental
-en:3car rental|car|rental|sharing
+en:3car rental|car|rental|sharing|U+1F697
 ru:4прокат авто|3авто|3машина|прокат
 uk:4прокат авто|3авто|3машина|прокат
 de:3Autoverleih|Auto|Farzeug Mieten|Verleih
@@ -1187,7 +1187,7 @@ nb:bilutleie
 fi:autovuokraamo
 
 amenity-cinema
-en:3cinema|entertainment
+en:3cinema|entertainment|U+1F3A6
 ru:кинотеатр|3кино|развлечения
 uk:3кіно|кінотеатр|розваги
 de:3Kino|Cinema|Filmtheater|Unterhaltung
@@ -1216,7 +1216,7 @@ nb:kino|underholdning
 fi:elokuvateatteri|viihde
 
 amenity-theatre
-en:3theatre|theater|entertainment
+en:3theatre|theater|entertainment|U+1F3AD
 ru:3театр|развлечения
 uk:3театр|розваги
 de:3Theater|Unterhaltung
@@ -1245,7 +1245,7 @@ nb:teater|underholdning
 fi:teatteri|viihde
 
 amenity-nightclub
-en:3nightclub|3disco|dance|entertainment
+en:3nightclub|3disco|dance|entertainment|U+1F378|U+1F379|U+1F46F|U+1F483
 ru:3ночной клуб|3дискотека|развлечения
 uk:3нічний клуб|3дискотека|розваги
 de:3Nachtclub|Nachtklub|Unterhaltung
@@ -1274,7 +1274,7 @@ nb:nattklubb|underholdning
 fi:yökerho|viihde
 
 amenity-brothel
-en:brothel|entertainment
+en:brothel|entertainment|U+1F3E9
 ru:бордель|развлечения
 uk:бордель|розваги
 de:Bordell|Unterhaltung
@@ -1303,7 +1303,7 @@ nb:bordell|underholdning
 fi:bordelli|viihde
 
 amenity-casino
-en:casino|entertainment
+en:casino|entertainment|U+1F3B0|U+1F3B2|U+1F3B4
 ru:казино|развлечения
 uk:казино|розваги
 de:Kasino|Unterhaltung
@@ -1332,7 +1332,7 @@ nb:kasino|underholdning
 fi:casino|viihde
 
 amenity-college
-en:college
+en:college|U+1F3EB
 ru:колледж
 uk:коледж
 de:College|Fachschule
@@ -1362,7 +1362,7 @@ fi:college
 
 
 amenity-drinking_water
-en:4drinking water
+en:4drinking water|U+1F6B0
 ru:4питьевой фонтан
 uk:4питна вода
 de:4Trinkwasser|Brunnen
@@ -1391,7 +1391,7 @@ nb:drikkevann
 fi:juomavesi
 
 amenity-fire_station
-en:fire station
+en:fire station|U+1F692
 ru:пожарные
 uk:пожежна частина
 de:Feuerwehr
@@ -1420,7 +1420,7 @@ nb:Brannstasjon
 fi:paloasema
 
 amenity-fountain
-en:fountain
+en:fountain|U+26F2
 ru:фонтан
 uk:фонтан
 de:Brunnen|Fontäne
@@ -1478,7 +1478,7 @@ nb:gravplass
 fi:hautausmaa
 
 amenity-hospital|amenity-doctors
-en:3hospital|clinic|3doctor
+en:3hospital|clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A
 ru:3больница|3госпиталь|врач|доктор
 uk:3лікарня|клініка|лікар|травмпункт
 de:3Spital|Krankenhaus
@@ -1535,7 +1535,7 @@ nb:jaktpost
 fi:metsästyspaikka
 
 amenity-kindergarten
-en:kindergarten
+en:kindergarten|U+1F476|U+1F37C|U+1F6BC
 ru:детсад|ясли
 uk:дитячий садок|ясла
 de:Kindergarten|Kinderkrippe|Krippe
@@ -1564,7 +1564,7 @@ nb:barnehage
 fi:päiväkoti
 
 amenity-library
-en:3library
+en:3library|U+1F4D6
 ru:3библиотека
 uk:3бібліотека|книгарня
 de:3Bibliothek|Bücherei
@@ -1593,7 +1593,7 @@ nb:bibliotek
 fi:kirjasto
 
 amenity-parking
-en:3parking
+en:3parking|U+1F697|U+1F17F
 ru:3парковка
 uk:3парковка|автостоянка|паркінг
 de:3Parkplatz|Parking
@@ -1622,7 +1622,7 @@ nb:3parkering
 fi:3parkkipaikka
 
 amenity-pharmacy
-en:3pharmacy|3drugstore|apothecary|dispensary
+en:3pharmacy|3drugstore|apothecary|dispensary|U+1F489|U+1F48A
 ru:3аптека
 uk:3аптека|3ліки
 de:3Apotheke|3Droguerie
@@ -1651,7 +1651,7 @@ nb:3apotek
 fi:3apteekki
 
 amenity-post_box
-en:3postbox|post
+en:3postbox|post|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+1F4EE|U+1F4EC|U+1F4ED
 ru:3почтовый ящик
 uk:3поштова скринька|пошта
 de:3Briefkasten|3Postfach
@@ -1680,7 +1680,7 @@ nb:postboks
 fi:postilaatikko
 
 amenity-post_office
-en:3post
+en:3post|U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
 ru:3почта
 uk:3пошта
 de:3Post|Postamt
@@ -1709,7 +1709,7 @@ nb:post
 fi:posti
 
 amenity-recycling|amenity-waste_disposal
-en:recycling|trash|bin|garbage
+en:recycling|trash|bin|garbage|U+1F6AE
 ru:мусорка
 uk:сміттєвий бак|сміття|корзина
 de:Abfälle|Recycling|Müll
@@ -1738,7 +1738,7 @@ nb:resirkulering
 fi:kierrätys
 
 amenity-school
-en:3school
+en:3school|U+1F392|U+1F3EB
 ru:3школа
 uk:3школа
 de:3Schule|Schulgebäude
@@ -1796,7 +1796,7 @@ nb:tilfluktsrom
 fi:turvapaikka
 
 amenity-telephone
-en:2phone
+en:2phone|U+260E|U+1F4DE
 ru:2телефон
 uk:2телефон
 de:2Telefon|Fernsprecher
@@ -1825,7 +1825,7 @@ nb:telefon
 fi:puhelin
 
 amenity-toilets
-en:3toilet|wc
+en:3toilet|wc|U+1F6BD|U+1F6BE
 ru:3туалет
 uk:3туалет
 de:WC|3Toilette
@@ -1854,7 +1854,7 @@ nb:toalett
 fi:wc
 
 amenity-university
-en:4university
+en:4university|U+1F393
 ru:4университет|вуз|институт
 uk:4університет|інститут|освіта
 de:4Universität|Uni|Hochschule|Institut
@@ -1883,7 +1883,7 @@ nb:universitet
 fi:yliopisto
 
 place-continent
-en:continent
+en:continent|U+1F30D|U+1F30E
 ru:континент|материк
 uk:континент|материк
 de:Kontinent|Festland
@@ -2260,7 +2260,7 @@ nb:lokalitet
 fi:paikkakunta
 
 place-farm
-en:farm
+en:farm|U+1F411|U+1F414|U+1F417
 ru:ферма
 uk:ферма
 de:Bauernhof|Farm
@@ -2347,7 +2347,7 @@ nb:kanal
 fi:kanaali
 
 highway-raceway
-en:racetrack
+en:racetrack|U+1F3C1
 ru:гоночный трек
 uk:автодром
 de:Rennbahn
@@ -2576,7 +2576,7 @@ nb:innsjø|vann
 fi:järvi|vesi
 
 natural-wood|landuse-forest
-en:forest
+en:forest|U+1F332|U+1F333
 ru:лес
 uk:ліс
 de:Wald
@@ -2605,7 +2605,7 @@ nb:skog
 fi:metsä
 
 leisure-park
-en:park
+en:park|U+1F332|U+1F333
 ru:парк
 uk:парк
 de:Park
@@ -2634,7 +2634,7 @@ nb:park
 fi:puisto
 
 tourism-hostel
-en:3hostel|hotel|motel
+en:3hostel|hotel|motel|U+1F3E8
 ru:3хостел|гостиница|отель|мотель
 uk:3хостел|отель|мотель|вітальниця|готель
 de:3Wohnheim|Gasthaus
@@ -2663,7 +2663,7 @@ nb:vandrerhjem|hotell
 fi:hostelli|hotelli
 
 tourism-hotel
-en:2hotel|motel
+en:2hotel|motel|U+1F3E8
 ru:2гостиница|2отель|мотель
 uk:2готель|мотель
 de:2Hotel|Gasthaus
@@ -2692,7 +2692,7 @@ nb:hotell
 fi:hotelli
 
 tourism-guest_house
-en:guest house|hotel|hostel
+en:guest house|hotel|hostel|U+1F3E8
 ru:гостевой дом|гостиница|отель|хостел
 uk:гостинний дім|готель|хостел|постояльний двір
 de:Gästehaus|Hotel|Gasthaus|Wohnheim
@@ -2721,7 +2721,7 @@ nb:gjestehus|hotell
 fi:majatalo|hotelli
 
 tourism-motel
-en:3motel|hotel|hostel
+en:3motel|hotel|hostel|U+1F3E8
 ru:3мотель|гостиница|отель|хостел
 uk:3мотель|готель|хостел
 de:3Motel|Hotel|Gasthaus|Wohnheim
@@ -2750,7 +2750,7 @@ nb:motell|hotell
 fi:motelli|hotelli
 
 tourism-alpine_hut
-en:mountains lodging|hotel|hostel|alpine hut
+en:mountains lodging|hotel|hostel|alpine hut|U+1F3E8
 ru:горный отель|отель
 uk:гірський готель|гірська хатинка|готель
 de:4Berghütte|Almhütte|Berghotel|hotel
@@ -2779,7 +2779,7 @@ nb:fjellstue|hotell
 fi:vuorimajoitus|hotelli
 
 shop-hairdresser
-en:3hairdresser
+en:3hairdresser|U+2702|U+1F488
 ru:3парикмахерская
 uk:3перукарня
 de:3Friseur|Frisiersalon|Coiffeure
@@ -2808,7 +2808,7 @@ nb:frisør
 fi:kampaamo
 
 aeroway-aerodrome
-en:3airport|3plane
+en:3airport|3plane|U+2708
 ru:3аэропорт|4самолёт
 uk:3аеропорт|літак|аеродром|рейс
 de:3Flughafen|4Flugzeug
@@ -2837,7 +2837,7 @@ nb:flyplass
 fi:lentokenttä
 
 leisure-stadium
-en:stadium|4sport
+en:stadium|4sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F4AA|U+1F3C9
 ru:стадион|4спорт
 uk:стадіон|4спорт
 de:Stadion|4Sport
@@ -2895,7 +2895,7 @@ nb:lekeplass
 fi:leikkikenttä
 
 leisure-sports_centre
-en:sports center|sport
+en:sports center|sport|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9
 ru:спорткомплекс|спорт
 uk:спорткомплекс|спорт|спортцентр
 de:Sportzentrum|Sport
@@ -2924,7 +2924,7 @@ nb:sportssenter
 fi:urheilukeskus
 
 leisure-golf_course
-en:golf course|sport
+en:golf course|sport|U+26F3
 ru:площадка для гольфа|спорт
 uk:майданчик для гольфу|спорт
 de:Golfplatz|Sport
@@ -2953,7 +2953,7 @@ nb:golfbane
 fi:golf-rata
 
 leisure-pitch
-en:pitch|sport
+en:pitch|sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F3C9
 ru:спортплощадка|спорт
 uk:спортмайданчик|спорт
 de:Feld|Sport
@@ -2982,7 +2982,7 @@ nb:sportssenter
 fi:nimikkopaikka
 
 leisure-swimming_pool
-en:4swimming pool|sport
+en:4swimming pool|sport|U+1F3CA
 ru:4бассейн|спорт
 uk:4басейн|спорт
 de:4Schwimmbad|Sport
@@ -3011,7 +3011,7 @@ nb:svømmebasseng
 fi:uima-allas
 
 building|building-address
-en:building
+en:building|U+1F3E0|U+1F3E1|U+1F3E2
 ru:здание
 uk:будівля
 de:Gebäude
@@ -3040,7 +3040,7 @@ nb:bygning
 fi:rakennus
 
 amenity-police
-en:4police
+en:4police|U+1F693|U+1F46E|U+1F694
 ru:4милиция|4полиция
 uk:4міліція|4поліція
 de:4Polizeistation|Polizei
@@ -3156,7 +3156,7 @@ nb:vår
 fi:lähde
 
 shop-car_repair
-en:3car repair shop|4service station|auto
+en:3car repair shop|4service station|auto|U+1F527
 ru:3СТО|3автомастерская|автосервис|авто
 uk:3СТО|3автомайстерня|автосервіс|ремонт авто
 de:3Autowerkstatt|Car|Auto
@@ -3185,7 +3185,7 @@ nb:bilverksted
 fi:autokorjaamo
 
 tourism-camp_site
-en:4camping|campsite|campground
+en:4camping|campsite|campground|U+26FA
 ru:4кемпинг
 uk:4кемпінг|табір|стоянка
 de:4Camping|Campingplatz|Zelten
@@ -3214,7 +3214,7 @@ nb:camping
 fi:retkeily
 
 tourism-caravan_site
-en:4caravan site|RV site
+en:4caravan site|RV site|U+1F69A|U+26FA|U+1F69B
 ru:4автокемпинг|кемпинг|стоянка грузовиков
 uk:4автокемпінг|кемпінг|стоянка грузових авто
 de:4Wohnwagenstellplatz|Campingplatz|Wohnwagenplatz|Wohnmobilpark
@@ -3243,7 +3243,7 @@ nb:camping
 fi:retkeily
 
 office|office-company|office-government
-en:3office|company
+en:3office|company|U+1F454|U+1F4BC|U+1F3E2|
 ru:2офис|компания|контора|фирма
 uk:2офіс
 de:Amt
@@ -3301,7 +3301,7 @@ nb:plass
 fi:aukio
 
 place-sea
-en:sea
+en:sea|U+1F30A
 cs:moře
 sk:more
 de:Meer
@@ -3330,7 +3330,7 @@ nb:sjø
 fi:meri
 
 place-ocean
-en:ocean
+en:ocean|U+1F30A
 cs:oceán
 sk:oceán
 de:Ozean
@@ -3359,7 +3359,7 @@ nb:hav
 fi:valtameri
 
 internet_access|internet_access-wlan
-en:WiFi|3Internet
+en:WiFi|3Internet|U+1F4F6
 cs:WiFi|3Internet
 sk:WiFi|3Internet
 de:WiFi|3Internet
@@ -3388,7 +3388,7 @@ nb:WiFi|3Internet
 fi:WiFi|3Internet
 
 natural-beach
-en:beach
+en:beach|U+1F459
 ru:пляж
 uk:пляж
 de:Strand

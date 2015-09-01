@@ -150,6 +150,20 @@ void CategoriesHolder::LoadFromStream(istream & s)
           else
             name.m_prefixLengthToSuggest = Category::EMPTY_PREFIX_LENGTH;
 
+          // Process emoji symbols.
+          using namespace strings;
+          if (StartsWith(name.m_name, "U+"))
+          {
+            int c;
+            if (!to_int(name.m_name.c_str() + 2, c, 16))
+            {
+              LOG(LWARNING, ("Bad emoji code:", name.m_name));
+              continue;
+            }
+
+            name.m_name = ToUtf8(UniString(1, static_cast<UniChar>(c)));
+          }
+
           cat.m_synonyms.push_back(name);
         }
       }
