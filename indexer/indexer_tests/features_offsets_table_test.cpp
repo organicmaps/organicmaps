@@ -97,6 +97,8 @@ namespace feature
     FilesContainerR baseContainer(pl.GetReader("minsk-pass" DATA_FILE_EXTENSION));
 
     LocalCountryFile localFile = LocalCountryFile::MakeForTesting(testFileName);
+    TEST(CountryIndexes::PreparePlaceOnDisk(localFile), ());
+
     string const indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
     FileWriter::DeleteFileX(indexFile);
 
