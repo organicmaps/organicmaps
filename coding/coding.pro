@@ -30,6 +30,7 @@ SOURCES += \
     reader.cpp \
     reader_streambuf.cpp \
     reader_writer_ops.cpp \
+    simple_dense_coding.cpp \
     sha2.cpp \
     uri.cpp \
 #    varint_vector.cpp \
@@ -80,10 +81,12 @@ HEADERS += \
     reader_streambuf.hpp \
     reader_wrapper.hpp \
     reader_writer_ops.hpp \
+    simple_dense_coding.hpp \
     sha2.hpp \
     streams.hpp \
     streams_common.hpp \
     streams_sink.hpp \
+    succinct_mapper.hpp \
     succinct_trie.hpp \
     succinct_trie_builder.hpp \
     succinct_trie_reader.hpp \

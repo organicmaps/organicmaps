@@ -35,7 +35,9 @@ SOURCES += ../../testing/testingmain.cpp \
     reader_cache_test.cpp \
     reader_test.cpp \
     reader_writer_ops_test.cpp \
+    simple_dense_coding_test.cpp \
     sha2_test.cpp \
+    succinct_mapper_test.cpp \
     succinct_trie_test.cpp \
     trie_test.cpp \
     uri_test.cpp \

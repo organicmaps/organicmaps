@@ -13,6 +13,14 @@
 
 #include "intrinsics.hpp"
 
+namespace coding
+{
+template<typename TWriter>
+class FreezeVisitor;
+class MapVisitor;
+class ReverseMapVisitor;
+}
+
 namespace succinct { namespace mapper {
 
     namespace detail {
@@ -114,6 +122,11 @@ namespace succinct { namespace mapper {
         friend class detail::freeze_visitor;
         friend class detail::map_visitor;
         friend class detail::sizeof_visitor;
+
+        template<typename TWriter>
+        friend class coding::FreezeVisitor;
+        friend class coding::MapVisitor;
+        friend class coding::ReverseMapVisitor;
 
     protected:
         const T* m_data;
