@@ -12,13 +12,17 @@
 
 
 /// Index bucket <--> Draw scale range.
+/// Using default one-to-one mapping.
 class ScaleIndexBase
 {
 public:
-  static uint32_t GetBucketsCount();
-  static uint32_t BucketByScale(uint32_t scale);
+  static uint32_t GetBucketsCount() { return 18; }
+  static uint32_t BucketByScale(uint32_t scale) { return scale; }
   /// @return Range like [x, y).
-  static pair<uint32_t, uint32_t> ScaleRangeForBucket(uint32_t bucket);
+  static pair<uint32_t, uint32_t> ScaleRangeForBucket(uint32_t bucket)
+  {
+    return {bucket, bucket + 1};
+  }
 };
 
 template <class ReaderT>

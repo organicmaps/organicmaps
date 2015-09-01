@@ -40,7 +40,6 @@ SOURCES += \
     mwm_set.cpp \
     old/feature_loader_101.cpp \
     point_to_int64.cpp \
-    scale_index.cpp \
     scales.cpp \
     search_delimiters.cpp \
     search_index_builder.cpp \
