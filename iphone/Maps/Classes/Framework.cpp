@@ -1,7 +1,5 @@
 #include "Framework.h"
 
-#include "../../../map/framework.hpp"
-
 static Framework * g_framework = 0;
 
 Framework & GetFramework()

@@ -1,7 +1,6 @@
 #import "Common.h"
 #import "DownloaderParentVC.h"
 #import "DiskFreeSpace.h"
-#import "Statistics.h"
 #import "MWMAlertViewController.h"
 
 #include "platform/platform.hpp"

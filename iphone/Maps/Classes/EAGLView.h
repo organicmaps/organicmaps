@@ -1,8 +1,8 @@
 #import <UIKit/UIKit.h>
 
 
-#include "../../std/shared_ptr.hpp"
-#include "../../indexer/map_style.hpp"
+#include "std/shared_ptr.hpp"
+#include "indexer/map_style.hpp"
 
 #ifndef USE_DRAPE
 
@@ -25,7 +25,7 @@ namespace graphics
 
 #else
 
-#include "../../drape/pointers.hpp"
+#include "drape/pointers.hpp"
 namespace dp
 {
   class OGLContextFactory;

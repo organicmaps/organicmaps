@@ -24,7 +24,6 @@
 #include "storage/storage_defines.hpp"
 
 #import "platform/http_thread_apple.h"
-
 #include "platform/settings.hpp"
 #include "platform/platform_ios.hpp"
 #include "platform/preferred_languages.hpp"

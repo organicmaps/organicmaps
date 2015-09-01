@@ -4,7 +4,7 @@
 #import "NavigationController.h"
 #import "MapsObservers.h"
 
-#include "../../indexer/map_style.hpp"
+#include "indexer/map_style.hpp"
 
 @class MapViewController;
 @class LocationManager;

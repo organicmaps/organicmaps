@@ -1,9 +1,9 @@
 #import "LocationPredictor.h"
 #import "Framework.h"
 
-#include "../../../base/timer.hpp"
+#include "base/timer.hpp"
 
-#include "../../../map/location_state.hpp"
+#include "map/location_state.hpp"
 
 
 namespace

@@ -13,21 +13,20 @@
 #import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"
 
-#import "../../../3party/Alohalytics/src/alohalytics_objc.h"
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
 #include "RenderContext.hpp"
 
-#include "../../../anim/controller.hpp"
-#include "../../../gui/controller.hpp"
-#include "../Statistics/Statistics.h"
+#include "anim/controller.hpp"
+#include "gui/controller.hpp"
 
-#include "../../../map/country_status_display.hpp"
-#include "../../../map/user_mark.hpp"
+#include "map/country_status_display.hpp"
+#include "map/user_mark.hpp"
 
-#include "../../../platform/file_logging.hpp"
-#include "../../../platform/platform.hpp"
-#include "../../../platform/settings.hpp"
+#include "platform/file_logging.hpp"
+#include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 

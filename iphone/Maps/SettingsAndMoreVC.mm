@@ -3,14 +3,15 @@
 #import "UIKitCategories.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
-#include "../../platform/platform.hpp"
 #import "SettingsViewController.h"
 #import "UIViewController+Navigation.h"
 #import "WebViewController.h"
 #import "CommunityVC.h"
 #import "RichTextVC.h"
-#import "../../3party/Alohalytics/src/alohalytics_objc.h"
 
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
+#include "platform/platform.hpp"
 
 @interface SettingsAndMoreVC () <MFMailComposeViewControllerDelegate>
 

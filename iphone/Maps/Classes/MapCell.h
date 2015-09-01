@@ -3,8 +3,8 @@
 #import "ProgressView.h"
 #import "BadgeView.h"
 
-#include "../../storage/storage_defines.hpp"
-#include "../../platform/country_defines.hpp"
+#include "storage/storage_defines.hpp"
+#include "platform/country_defines.hpp"
 
 using namespace storage;
 

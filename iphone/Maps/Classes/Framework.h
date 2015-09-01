@@ -1,8 +1,7 @@
 // Wraps framework access
 #pragma once
 
-#include "../../../map/framework.hpp"
-
+#include "map/framework.hpp"
 
 /// Creates framework at first access
 Framework & GetFramework();

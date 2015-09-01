@@ -4,8 +4,8 @@
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 
-#include "../../../graphics/opengl/gl_render_context.hpp"
-#include "../../../std/shared_ptr.hpp"
+#include "graphics/opengl/gl_render_context.hpp"
+#include "std/shared_ptr.hpp"
 
 
 namespace iphone

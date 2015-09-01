@@ -3,9 +3,9 @@
 #import <Foundation/NSThread.h>
 #import "Common.h"
 
-#include "../../platform/file_logging.hpp"
-#include "../../platform/platform.hpp"
-#include "../../platform/settings.hpp"
+#include "platform/file_logging.hpp"
+#include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
 int main(int argc, char * argv[])
 {

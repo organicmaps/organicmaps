@@ -10,20 +10,20 @@
 #ifndef USE_DRAPE
   #include "RenderBuffer.hpp"
   #include "RenderContext.hpp"
-  #include "../../graphics/resource_manager.hpp"
-  #include "../../graphics/opengl/opengl.hpp"
-  #include "../../graphics/data_formats.hpp"
-  #include "../../indexer/classificator_loader.hpp"
+  #include "graphics/resource_manager.hpp"
+  #include "graphics/opengl/opengl.hpp"
+  #include "graphics/data_formats.hpp"
+  #include "indexer/classificator_loader.hpp"
 #else
   #import "../Platform/opengl/iosOGLContextFactory.h"
 #endif
 
-#include "../../render/render_policy.hpp"
+#include "render/render_policy.hpp"
 
-#include "../../platform/platform.hpp"
-#include "../../platform/video_timer.hpp"
+#include "platform/platform.hpp"
+#include "platform/video_timer.hpp"
 
-#include "../../std/bind.hpp"
+#include "std/bind.hpp"
 
 
 @implementation EAGLView

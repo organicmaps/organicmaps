@@ -1,9 +1,8 @@
 #import <QuartzCore/CAEAGLLayer.h>
 
 #include "RenderBuffer.hpp"
-
-#include "../../../graphics/opengl/opengl.hpp"
-#include "../../../graphics/coordinates.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/coordinates.hpp"
 
 namespace iphone
 {

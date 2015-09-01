@@ -4,7 +4,8 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <sys/utsname.h>
 #import <AdSupport/ASIdentifierManager.h>
-#include "../../../platform/settings.hpp"
+
+#include "platform/settings.hpp"
 
 extern string const kCountryCodeKey = "CountryCode";
 extern string const kUniqueIdKey = "UniqueId";

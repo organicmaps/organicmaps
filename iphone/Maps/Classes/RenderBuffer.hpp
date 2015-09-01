@@ -1,8 +1,8 @@
 #pragma once
 
 #include "RenderContext.hpp"
-#include "../../../std/shared_ptr.hpp"
-#include "../../../graphics/render_target.hpp"
+#include "std/shared_ptr.hpp"
+#include "graphics/render_target.hpp"
 
 @class CAEAGLLayer;
 

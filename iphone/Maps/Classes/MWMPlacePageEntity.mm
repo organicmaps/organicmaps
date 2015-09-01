@@ -11,7 +11,7 @@
 #import "MWMPlacePageViewManager.h"
 #import "MapViewController.h"
 #import "UIKitCategories.h"
-#include "../../../platform/measurement_utils.hpp"
+#include "platform/measurement_utils.hpp"
 
 extern NSArray * const kBookmarkColorsVariant = @[@"placemark-red", @"placemark-yellow", @"placemark-blue", @"placemark-green", @"placemark-purple", @"placemark-orange", @"placemark-brown", @"placemark-pink"];
 extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";

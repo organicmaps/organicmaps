@@ -1,8 +1,8 @@
-
 #import "Statistics.h"
-#include "../../../platform/settings.hpp"
 #import "Flurry.h"
 #import "AppInfo.h"
+
+#include "platform/settings.hpp"
 
 @implementation Statistics
 

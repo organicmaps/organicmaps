@@ -4,7 +4,7 @@
 #import "../Classes/MapViewController.h"
 #import "Framework.h"
 
-#include "../../platform/settings.hpp"
+#include "platform/settings.hpp"
 
 //********************* Helper delegate to handle async dialog message ******************
 @interface PrefDelegate : NSObject

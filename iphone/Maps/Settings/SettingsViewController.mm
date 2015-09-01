@@ -5,14 +5,15 @@
 #import "LinkCell.h"
 #import "WebViewController.h"
 #import "UIKitCategories.h"
-#include "../../../platform/settings.hpp"
-#include "../../../platform/platform.hpp"
-#include "../../../platform/preferred_languages.hpp"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Framework.h"
 #import "Statistics.h"
 #import "MWMMapViewControlsManager.h"
+
+#include "platform/settings.hpp"
+#include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 
 typedef NS_ENUM(NSUInteger, Section)
 {
