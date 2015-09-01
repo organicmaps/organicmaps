@@ -1,15 +1,29 @@
 #include "kinetic_scroller.hpp"
 #include "visual_params.hpp"
+
+#include "indexer/scales.hpp"
+
 #include "base/logging.hpp"
 
 namespace df
 {
 
 double const kKineticDuration = 0.375;
-double const kKineticFeedback = 0.2;
+double const kKineticFeedbackStart = 0.1;
+double const kKineticFeedbackEnd = 0.5;
 double const kKineticFadeoff = 5.0;
 double const kKineticThreshold = 10.0;
 double const kKineticInertia = 0.8;
+
+double CalculateKineticFeedback(ScreenBase const & modelView)
+{
+  double const kMinZoom = 1.0;
+  double const kMaxZoom = scales::UPPER_STYLE_SCALE + 1.0;
+  double const zoomLevel = my::clamp(fabs(log(modelView.GetScale()) / log(2.0)), kMinZoom, kMaxZoom);
+  double const lerpCoef = 1.0 - ((zoomLevel - kMinZoom) / (kMaxZoom - kMinZoom));
+
+  return kKineticFeedbackStart * lerpCoef + kKineticFeedbackEnd * (1.0 - lerpCoef);
+}
 
 class KineticScrollAnimation : public BaseModelViewAnimation
 {
@@ -101,7 +115,7 @@ unique_ptr<BaseModelViewAnimation> KineticScroller::CreateKineticAnimation(Scree
 
   // Before we start animation we have to convert length(m_direction) from pixel space to mercator space
   m2::PointD center = m_lastRect.GlobalCenter();
-  double glbLength = kKineticFeedback * (modelView.PtoG(modelView.GtoP(center) + m_direction) - center).Length();
+  double glbLength = CalculateKineticFeedback(modelView) * (modelView.PtoG(modelView.GtoP(center) + m_direction) - center).Length();
   return unique_ptr<BaseModelViewAnimation>(new KineticScrollAnimation(m_lastRect,
                                                                        m_direction.Normalize() * glbLength,
                                                                        kKineticDuration));
