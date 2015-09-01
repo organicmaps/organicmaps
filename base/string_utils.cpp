@@ -42,10 +42,10 @@ UniChar LastUniChar(string const & s)
   return *iter;
 }
 
-bool to_int(char const * s, int & i)
+bool to_int(char const * s, int & i, int base /*= 10*/)
 {
   char * stop;
-  long const x = strtol(s, &stop, 10);
+  long const x = strtol(s, &stop, base);
   if (stop && *stop == 0)
   {
     i = static_cast<int>(x);

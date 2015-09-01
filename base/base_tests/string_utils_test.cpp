@@ -180,6 +180,10 @@ UNIT_TEST(to_int)
 
   s = "labuda";
   TEST(!strings::to_int(s, i), ());
+
+  s = "AF";
+  TEST(strings::to_int(s, i, 16), ());
+  TEST_EQUAL(175, i, ());
 }
 
 UNIT_TEST(to_uint64)
