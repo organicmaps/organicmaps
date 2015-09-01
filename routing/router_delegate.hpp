@@ -42,7 +42,7 @@ public:
   void SetProgressCallback(TProgressCallback const & progressCallback);
   void SetPointCheckCallback(TPointCheckCallback const & pointCallback);
 
-  void Reset() override {lock_guard<mutex> l(m_guard); TimeoutCancellable::Reset();}
+  void Reset() override;
 
 private:
   mutable mutex m_guard;
