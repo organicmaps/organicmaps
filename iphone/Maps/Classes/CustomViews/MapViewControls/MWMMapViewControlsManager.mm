@@ -120,9 +120,9 @@
   [self.navigationManager setupDashboard:info];
 }
 
-- (void)playSound:(vector<string> const &)notifications
+- (void)playTurnNotifications
 {
-  [self.navigationManager playSound:notifications];
+  [self.navigationManager playTurnNotifications];
 }
 
 - (void)handleRoutingError

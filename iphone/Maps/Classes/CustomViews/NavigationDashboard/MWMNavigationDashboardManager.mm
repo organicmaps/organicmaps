@@ -94,9 +94,9 @@
   [self updateDashboard];
 }
 
-- (void)playSound:(vector<string> const &)notifications
+- (void)playTurnNotifications
 {
-  [self.tts speakNotifications:notifications];
+  [self.tts playTurnNotifications];
 }
 
 - (void)handleError

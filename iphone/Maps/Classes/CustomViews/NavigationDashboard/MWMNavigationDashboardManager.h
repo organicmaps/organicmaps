@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view delegate:(id<MWMNavigationDashboardManagerProtocol>)delegate;
 - (void)setupDashboard:(location::FollowingInfo const &)info;
-- (void)playSound:(vector<string> const &)notifications;
+- (void)playTurnNotifications;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 - (void)setRouteBuildingProgress:(CGFloat)progress;
 

@@ -33,6 +33,8 @@ string DebugPrint(PronouncedNotification const notificationProgress);
 /// and relevant speed.
 class TurnsSound
 {
+  /// m_enabled == true when tts is switch on.
+  /// Important! Clients (iOS/Android) implies that m_enabled is false by default.
   bool m_enabled;
   /// In m_speedMetersPerSecond is intended for some speed which will be used for
   /// convertion a distance in seconds to distance in meters. It could be a current

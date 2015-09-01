@@ -6,6 +6,7 @@
 #import "MapViewController.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMSearchDownloadMapRequest.h"
+#import "MWMTextToSpeech.h"
 #import "SearchCategoryCell.h"
 #import "SearchResultCell.h"
 #import "SearchShowOnMapCell.h"
@@ -401,10 +402,10 @@ static BOOL keyboardLoaded = NO;
   
   // turn notification
   if (sound)
-    GetFramework().EnableTurnNotifications(true);
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWMTEXTTOSPEECH_ENABLE object:nil];
   if (nosound)
-    GetFramework().EnableTurnNotifications(false);
-  
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWMTEXTTOSPEECH_DISABLE object:nil];
+
   // close Search panel
   [self searchBarDidPressCancelButton:nil];
   

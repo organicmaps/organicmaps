@@ -164,10 +164,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   if (res.IsValid())
     [self.controlsManager setupRoutingDashboard:res];
   
-  vector<string> notifications;
-  frm.GenerateTurnSound(notifications);
-  if (!notifications.empty())
-    [self.controlsManager playSound:notifications];
+  [self.controlsManager playTurnNotifications];
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info

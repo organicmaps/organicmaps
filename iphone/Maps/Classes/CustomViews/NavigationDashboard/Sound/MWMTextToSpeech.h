@@ -11,9 +11,15 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
+FOUNDATION_EXPORT NSString * const MWMTEXTTOSPEECH_ENABLE;
+FOUNDATION_EXPORT NSString * const MWMTEXTTOSPEECH_DISABLE;
+
 @interface MWMTextToSpeech : NSObject
 
 - (instancetype)init;
-- (void)speakNotifications:(vector<string> const &)turnNotifications;
+- (BOOL)isEnable;
+- (void)enable;
+- (void)disable;
+- (void)playTurnNotifications;
 
 @end
