@@ -348,6 +348,12 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
     }
 
     Location location = LocationHelper.INSTANCE.getLastLocation();
+    if (location == null)
+    {
+      // TODO remove that hack after proper route reconstruction logic will be finished
+      setState(State.HIDDEN, false);
+      return;
+    }
     Framework.nativeBuildRoute(location.getLatitude(), location.getLongitude(), mEndPoint.getLat(), mEndPoint.getLon());
   }
 
