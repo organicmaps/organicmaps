@@ -18,6 +18,7 @@ namespace
 
 uint64_t const DOUBLE_TAP_PAUSE = 250;
 uint64_t const LONG_TOUCH_MS = 1000;
+uint64_t const kKineticDelayMs = 500;
 
 size_t GetValidTouchesCount(array<Touch, 2> const & touches)
 {
@@ -310,7 +311,8 @@ bool UserEventStream::ProcessTouch(TouchEvent const & touch)
   case TouchEvent::TOUCH_UP:
     {
       isMapTouch |= TouchUp(touchEvent.m_touches);
-      if (isMapTouch  && touchEvent.GetMaskedCount() == GetValidTouchesCount(touchEvent.m_touches))
+      if (isMapTouch && touchEvent.GetMaskedCount() == GetValidTouchesCount(touchEvent.m_touches) &&
+          m_kineticTimer.ElapsedMillis() >= kKineticDelayMs)
       {
         m_scroller.GrabViewRect(m_navigator.Screen(), touch.m_timeStamp);
         m_animation = m_scroller.CreateKineticAnimation(m_navigator.Screen());
@@ -573,6 +575,8 @@ void UserEventStream::EndScale(const Touch & t1, const Touch & t2)
   }
 
   m_navigator.StopScale(touch1, touch2);
+
+  m_kineticTimer.Reset();
 }
 
 void UserEventStream::BeginTapDetector()

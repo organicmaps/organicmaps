@@ -288,6 +288,7 @@ private:
   m2::PointD m_startDragOrg;
 
   KineticScroller m_scroller;
+  my::HighResTimer m_kineticTimer;
 };
 
 }
