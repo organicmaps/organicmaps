@@ -171,13 +171,23 @@ void InitLocalizedStrings()
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   // Initialize Alohalytics statistics engine.
 #ifndef OMIM_PRODUCTION
   [Alohalytics setDebugMode:YES];
 #endif
   [Alohalytics setup:@"http://localhost:8080" withLaunchOptions:launchOptions];
+  // Need to correctly support existing users who has already opted-out from statistics collection.
+  // TODO(AlexZ): Remove this code in a few releases after September 2nd, 2015.
+  NSString * const kOneTimeStatisticsDisabledCheck = @"AlohalyticsOneTimeStatisticsDisabledCheck";
+  if (![ud boolForKey:kOneTimeStatisticsDisabledCheck])
+  {
+    if (!Statistics.instance.enabled)
+      [Alohalytics disable];
+    [ud setBool:YES forKey:kOneTimeStatisticsDisabledCheck];
+  }
   
-  NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
+  NSURL * url = launchOptions[UIApplicationLaunchOptionsURLKey];
   if (url != nil)
     [self checkLaunchURL:url];
   
@@ -235,7 +245,7 @@ void InitLocalizedStrings()
     [self incrementSessionCount];
     [self showAlertIfRequired];
   }
-  [[NSUserDefaults standardUserDefaults] synchronize];
+  [ud synchronize];
   
   Framework & f = GetFramework();
   application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();

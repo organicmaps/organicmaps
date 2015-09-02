@@ -2,6 +2,8 @@
 #import "Flurry.h"
 #import "AppInfo.h"
 
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
 #include "platform/settings.hpp"
 
 static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
@@ -71,6 +73,10 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
 - (void)setEnabled:(BOOL)enabled
 {
   Settings::Set(kStatisticsEnabledSettingsKey, static_cast<bool>(enabled));
+  if (enabled)
+    [Alohalytics enable];
+  else
+    [Alohalytics disable];
 }
 
 + (instancetype)instance
