@@ -282,20 +282,23 @@ public enum Statistics
 
   public boolean isStatisticsEnabled()
   {
-    boolean isStatisticsEnabledByDefault = true;
-    if (BuildConfig.DEBUG)
-      isStatisticsEnabledByDefault = false;
-    return MwmApplication.get().nativeGetBoolean(KEY_STAT_ENABLED, isStatisticsEnabledByDefault);
+    return MwmApplication.get().nativeGetBoolean(KEY_STAT_ENABLED, !BuildConfig.DEBUG);
   }
 
   public void setStatEnabled(boolean isEnabled)
   {
-    MwmApplication.get().nativeSetBoolean(KEY_STAT_ENABLED, isEnabled);
+    final MwmApplication theApp = MwmApplication.get();
+    theApp.nativeSetBoolean(KEY_STAT_ENABLED, isEnabled);
     // We track if user turned on/off
     // statistics to understand data better.
     post(mEventBuilder
-        .setName(EventName.STATISTICS_STATUS_CHANGED + " " + MwmApplication.get().getFirstInstallFlavor())
+        .setName(EventName.STATISTICS_STATUS_CHANGED + " " + theApp.getFirstInstallFlavor())
         .addParam(EventParam.ENABLED, String.valueOf(isEnabled))
         .buildEvent());
+
+    if (isEnabled)
+      org.alohalytics.Statistics.enable(theApp);
+    else
+      org.alohalytics.Statistics.disable(theApp);
   }
 }

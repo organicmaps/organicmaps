@@ -17,6 +17,7 @@ import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.Statistics;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -284,6 +285,16 @@ public class MwmApplication extends android.app.Application implements ActiveCou
 
       org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);
       org.alohalytics.Statistics.setup(BuildConfig.STATISTICS_URL, this);
+      // One time check for old users who have already disabled statistics in settings.
+      // TODO(AlexZ): Remove it in a few releases after September 2, 2015.
+      final SharedPreferences prefs = getSharedPreferences("ALOHALYTICS", MODE_PRIVATE);
+      final String kAlohalyticsOneTimeStatisticsDisabledCheckKey = "AlohalyticsOneTimeStatisticsDisabledCheck";
+      if (!prefs.getBoolean(kAlohalyticsOneTimeStatisticsDisabledCheckKey, false))
+      {
+        prefs.edit().putBoolean(kAlohalyticsOneTimeStatisticsDisabledCheckKey, true).apply();
+        if (!Statistics.INSTANCE.isStatisticsEnabled())
+          org.alohalytics.Statistics.disable(this);
+      }
     }
   }
 
