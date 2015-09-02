@@ -282,7 +282,10 @@ public enum Statistics
 
   public boolean isStatisticsEnabled()
   {
-    return MwmApplication.get().nativeGetBoolean(KEY_STAT_ENABLED, true);
+    boolean isStatisticsEnabledByDefault = true;
+    if (BuildConfig.DEBUG)
+      isStatisticsEnabledByDefault = false;
+    return MwmApplication.get().nativeGetBoolean(KEY_STAT_ENABLED, isStatisticsEnabledByDefault);
   }
 
   public void setStatEnabled(boolean isEnabled)
