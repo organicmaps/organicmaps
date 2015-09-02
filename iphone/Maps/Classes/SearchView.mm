@@ -6,7 +6,6 @@
 #import "MapViewController.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMSearchDownloadMapRequest.h"
-#import "MWMTextToSpeech.h"
 #import "SearchCategoryCell.h"
 #import "SearchResultCell.h"
 #import "SearchShowOnMapCell.h"
@@ -29,6 +28,9 @@
 
 #include "search/params.hpp"
 #include "search/result.hpp"
+
+extern NSString * const kMwmTextToSpeechEnable;
+extern NSString * const kMwmTextToSpeechDisable;
 
 @interface SearchResultsWrapper : NSObject
 
@@ -402,9 +404,9 @@ static BOOL keyboardLoaded = NO;
   
   // turn notification
   if (sound)
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWMTEXTTOSPEECH_ENABLE object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMwmTextToSpeechEnable object:nil];
   if (nosound)
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWMTEXTTOSPEECH_DISABLE object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMwmTextToSpeechDisable object:nil];
 
   // close Search panel
   [self searchBarDidPressCancelButton:nil];

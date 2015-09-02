@@ -12,8 +12,8 @@
 
 #include "Framework.h"
 
-NSString * const MWMTEXTTOSPEECH_ENABLE = @"MWMTEXTTOSPEECH_ENABLE";
-NSString * const MWMTEXTTOSPEECH_DISABLE = @"MWMTEXTTOSPEECH_DISABLE";
+extern NSString * const kMwmTextToSpeechEnable = @"MWMTEXTTOSPEECH_ENABLE";
+extern NSString * const kMwmTextToSpeechDisable = @"MWMTEXTTOSPEECH_DISABLE";
 
 @interface MWMTextToSpeech()
 @property (nonatomic) AVSpeechSynthesizer * speechSynthesizer;
@@ -33,12 +33,12 @@ NSString * const MWMTEXTTOSPEECH_DISABLE = @"MWMTEXTTOSPEECH_DISABLE";
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(enable)
-                                                 name:MWMTEXTTOSPEECH_ENABLE
+                                                 name:kMwmTextToSpeechEnable
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(disable)
-                                                 name:MWMTEXTTOSPEECH_DISABLE
+                                                 name:kMwmTextToSpeechDisable
                                                object:nil];
   }
   return self;
@@ -65,16 +65,13 @@ NSString * const MWMTEXTTOSPEECH_DISABLE = @"MWMTEXTTOSPEECH_DISABLE";
   return [bcp47LangName substringToIndex:2];
 }
 
-- (bool)isValid
+- (BOOL)isValid
 {
   return _speechSynthesizer != nil && _speechVoice != nil;
 }
 
 - (void)enable
 {
-  if (YES == [self isEnable])
-    return;
-  
   if (![self isValid])
     [self createSynthesizer];
   
@@ -83,9 +80,6 @@ NSString * const MWMTEXTTOSPEECH_DISABLE = @"MWMTEXTTOSPEECH_DISABLE";
 
 - (void)disable
 {
-  if (NO == [self isEnable])
-    return;
-  
   GetFramework().EnableTurnNotifications(false);
 }
 
@@ -109,26 +103,26 @@ NSString * const MWMTEXTTOSPEECH_DISABLE = @"MWMTEXTTOSPEECH_DISABLE";
 
   if (!locale)
   {
+    LOG(LERROR, ("locale is nil. Trying default locale."));
     locale = DEFAULT_LANG;
-    NSAssert(locale, @"locale is nil. Trying default locale.");
   }
   
-  NSArray * availTtsLangs = [AVSpeechSynthesisVoice speechVoices];
+  NSArray * availTTSLangs = [AVSpeechSynthesisVoice speechVoices];
   
-  if (!availTtsLangs)
+  if (!availTTSLangs)
   {
-    NSAssert(availTtsLangs, @"availTtsLangs is nil. MWMTextToSpeech is not valid.");
+    LOG(LERROR, ("No languages for TTS. MWMTextFoSpeech is invalid."));
     return; // self is not valid.
   }
   
   AVSpeechSynthesisVoice * voice = [AVSpeechSynthesisVoice voiceWithLanguage:locale];
-  if (!voice || ![availTtsLangs containsObject:voice])
+  if (!voice || ![availTTSLangs containsObject:voice])
   {
     locale = DEFAULT_LANG;
     AVSpeechSynthesisVoice * voice = [AVSpeechSynthesisVoice voiceWithLanguage:locale];
-    if (!voice || ![availTtsLangs containsObject:voice])
+    if (!voice || ![availTTSLangs containsObject:voice])
     {
-      NSAssert(availTtsLangs, @"Available language for TTS not found. MWMTextToSpeech is not valid.");
+      LOG(LERROR, ("The UI language and English are not available for TTS. MWMTestToSpeech is invalid."));
       return; // self is not valid.
     }
   }
@@ -139,7 +133,7 @@ NSString * const MWMTEXTTOSPEECH_DISABLE = @"MWMTEXTTOSPEECH_DISABLE";
 
 - (void)speakOneString:(NSString *)textToSpeak
 {
-  if (!textToSpeak || [textToSpeak length] == 0)
+  if (!textToSpeak || ![textToSpeak length])
     return;
   
   NSLog(@"Speak text: %@", textToSpeak);
@@ -147,15 +141,6 @@ NSString * const MWMTEXTTOSPEECH_DISABLE = @"MWMTEXTTOSPEECH_DISABLE";
   utterance.voice = self.speechVoice;
   utterance.rate = self.speechRate;
   [self.speechSynthesizer speakUtterance:utterance];
-}
-
-- (void)speak:(vector<string> const &)strings
-{
-  if (strings.empty())
-    return;
-  
-  for (auto const & text : strings)
-    [self speakOneString:@(text.c_str())];
 }
 
 - (void)playTurnNotifications
@@ -169,10 +154,9 @@ NSString * const MWMTEXTTOSPEECH_DISABLE = @"MWMTEXTTOSPEECH_DISABLE";
   
   vector<string> notifications;
   frm.GenerateTurnSound(notifications);
-  if (notifications.empty())
-    return;
   
-  [self speak:notifications];
+  for (auto const & text : notifications)
+    [self speakOneString:@(text.c_str())];
 }
 
 @end
