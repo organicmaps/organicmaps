@@ -147,10 +147,8 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     listView.setAdapter(buildAdapter());
     listView.setChildDivider(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
-    ViewTreeObserver observer = listView.getViewTreeObserver();
-    observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+    UiUtils.waitLayout(listView, new ViewTreeObserver.OnGlobalLayoutListener()
     {
-      @SuppressWarnings("deprecation")
       @Override
       public void onGlobalLayout()
       {
@@ -161,12 +159,6 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
           listView.setIndicatorBounds(width - indicatorWidth, width);
         else
           listView.setIndicatorBoundsRelative(width - indicatorWidth, width);
-
-        final ViewTreeObserver treeObserver = listView.getViewTreeObserver();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
-          treeObserver.removeGlobalOnLayoutListener(this);
-        else
-          treeObserver.removeOnGlobalLayoutListener(this);
       }
     });
 

@@ -16,12 +16,14 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Surface;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -36,6 +38,57 @@ public final class UiUtils
 {
   private static float sScreenDensity;
 
+
+  public static class SimpleAnimationListener implements AnimationListener
+  {
+    @Override
+    public void onAnimationStart(Animation animation)
+    {}
+
+    @Override
+    public void onAnimationEnd(Animation animation)
+    {}
+
+    @Override
+    public void onAnimationRepeat(Animation animation)
+    {}
+  }
+
+
+  public static class SimpleNineoldAnimationListener implements Animator.AnimatorListener
+  {
+    @Override
+    public void onAnimationStart(Animator animation) {}
+
+    @Override
+    public void onAnimationEnd(Animator animation) {}
+
+    @Override
+    public void onAnimationCancel(Animator animation) {}
+
+    @Override
+    public void onAnimationRepeat(Animator animation) {}
+  }
+
+
+  public static void waitLayout(View view, @NonNull final ViewTreeObserver.OnGlobalLayoutListener callback)
+  {
+    final ViewTreeObserver observer = view.getViewTreeObserver();
+    observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+    {
+      @SuppressWarnings("deprecation")
+      @Override
+      public void onGlobalLayout()
+      {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+          observer.removeGlobalOnLayoutListener(this);
+        else
+          observer.removeOnGlobalLayoutListener(this);
+
+        callback.onGlobalLayout();
+      }
+    });
+  }
 
   public static void hide(View view)
   {
@@ -140,36 +193,6 @@ public final class UiUtils
     c.drawCircle(radius, radius, radius, paint);
 
     return new BitmapDrawable(res, bmp);
-  }
-
-  public static class SimpleAnimationListener implements AnimationListener
-  {
-    @Override
-    public void onAnimationStart(Animation animation)
-    {}
-
-    @Override
-    public void onAnimationEnd(Animation animation)
-    {}
-
-    @Override
-    public void onAnimationRepeat(Animation animation)
-    {}
-  }
-
-  public static class SimpleNineoldAnimationListener implements Animator.AnimatorListener
-  {
-    @Override
-    public void onAnimationStart(Animator animation) {}
-
-    @Override
-    public void onAnimationEnd(Animator animation) {}
-
-    @Override
-    public void onAnimationCancel(Animator animation) {}
-
-    @Override
-    public void onAnimationRepeat(Animator animation) {}
   }
 
   public static TextView setTextAndShow(TextView tv, CharSequence text)

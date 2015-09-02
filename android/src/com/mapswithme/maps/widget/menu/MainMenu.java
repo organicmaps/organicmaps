@@ -281,7 +281,8 @@ public class MainMenu
     if (mLayoutCorrected)
       return;
 
-    mContentFrame.post(new Runnable() {
+    mContentFrame.post(new Runnable()
+    {
       @Override
       public void run()
       {
@@ -390,6 +391,12 @@ public class MainMenu
     UiUtils.showIf(navigation, mNavigationFrame,
                                mItemViews.get(Item.SEARCH),
                                mItemViews.get(Item.BOOKMARKS));
+    if (mLayoutCorrected)
+    {
+      mContentFrame.measure(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+      mContentHeight = mContentFrame.getMeasuredHeight();
+    }
   }
 
   public boolean isOpen()
