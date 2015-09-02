@@ -71,19 +71,19 @@ public final class UiUtils
   }
 
 
-  public static void waitLayout(View view, @NonNull final ViewTreeObserver.OnGlobalLayoutListener callback)
+  public static void waitLayout(final View view, @NonNull final ViewTreeObserver.OnGlobalLayoutListener callback)
   {
-    final ViewTreeObserver observer = view.getViewTreeObserver();
-    observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+    view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
     {
       @SuppressWarnings("deprecation")
       @Override
       public void onGlobalLayout()
       {
+        // viewTreeObserver can be dead(isAlive() == false), we should get a new one here.
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
-          observer.removeGlobalOnLayoutListener(this);
+          view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
         else
-          observer.removeOnGlobalLayoutListener(this);
+          view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
         callback.onGlobalLayout();
       }
