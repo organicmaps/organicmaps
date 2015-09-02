@@ -4,6 +4,8 @@
 
 #include "platform/settings.hpp"
 
+static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
+
 @implementation Statistics
 
 - (void)startSessionWithLaunchOptions:(NSDictionary *)launchOptions
@@ -58,16 +60,20 @@
 - (BOOL)enabled
 {
 #ifdef DEBUG
-  return NO;
+  bool statisticsEnabled = false;
 #else
   bool statisticsEnabled = true;
-  Settings::Get("StatisticsEnabled", statisticsEnabled);
-
-  return statisticsEnabled;
 #endif
+  (void)Settings::Get(kStatisticsEnabledSettingsKey, statisticsEnabled);
+  return statisticsEnabled;
 }
 
-+ (Statistics *)instance
+- (void)setEnabled:(BOOL)enabled
+{
+  Settings::Set(kStatisticsEnabledSettingsKey, static_cast<bool>(enabled));
+}
+
++ (instancetype)instance
 {
   static Statistics * instance;
   static dispatch_once_t onceToken;

@@ -126,8 +126,9 @@ typedef NS_ENUM(NSUInteger, Section)
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
   if (indexPath.section == SectionStatistics)
   {
-    [[Statistics instance] logEvent:@"StatisticsStatusChanged" withParameters:@{@"Enabled" : @(value)}];
-    Settings::Set("StatisticsEnabled", (bool)value);
+    Statistics * stat = [Statistics instance];
+    [stat logEvent:@"StatisticsStatusChanged" withParameters:@{@"Enabled" : @(value)}];
+    stat.enabled = value;
   }
   else if (indexPath.section == SectionZoomButtons)
   {

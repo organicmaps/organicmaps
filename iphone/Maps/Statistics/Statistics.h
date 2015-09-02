@@ -11,8 +11,8 @@
 - (void)logApiUsage:(NSString *)programName;
 - (void)logLocation:(CLLocation *)location;
 
-+ (id)instance;
++ (instancetype)instance;
 
-@property (nonatomic, readonly) BOOL enabled;
+@property (nonatomic) BOOL enabled;
 
 @end
