@@ -31,11 +31,6 @@
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
-static NSString * const kShowPedestrianToastKey = @"ShowPedestrianToastKey";
-static NSString * const kShownPedestrianAchieveToastKey = @"ShownPedestrianAchieveToastKey";
-static NSString * const kPedestrianRouteCountKey = @"PedestrianRouteCountKey";
-static NSString * const kFirstPedestrianToastDateKey = @"FirstPedestrianToastDateKey";
-
 typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 {
   ForceRoutingStateChangeNone,
@@ -543,13 +538,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
   [super viewDidAppear:animated];
   self.menuRestoreState = self.controlsManager.menuState;
-  if (![NSUserDefaults.standardUserDefaults boolForKey:kShowPedestrianToastKey])
-  {
-    [NSUserDefaults.standardUserDefaults setBool:YES forKey:kShowPedestrianToastKey];
-    if (!Alohalytics.isFirstSession)
-      [self.alertController presentPedestrianToastAlert:YES];
-    [[NSUserDefaults standardUserDefaults] setValue:NSDate.date forKey:kFirstPedestrianToastDateKey];
-  }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -681,8 +669,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
       {
         case routing::IRouter::ResultCode::NoError:
         {
-          if (f.GetRouter() == routing::RouterType::Pedestrian)
-            [self countPedestrianRoute];
           f.GetBalloonManager().RemovePin();
           f.GetBalloonManager().Dismiss();
           self.controlsManager.routeBuildingProgress = 100.;
@@ -729,25 +715,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
   NSLog(@"MapViewController initWithCoder Ended");
   return self;
-}
-
-- (void)countPedestrianRoute
-{
-  if ([NSUserDefaults.standardUserDefaults boolForKey:kShownPedestrianAchieveToastKey])
-    return;
-  NSInteger pedestrianRoutesCount = [NSUserDefaults.standardUserDefaults integerForKey:kPedestrianRouteCountKey];
-  [NSUserDefaults.standardUserDefaults setInteger:++pedestrianRoutesCount forKey:kPedestrianRouteCountKey];
-  // We show pedestrian promotion dialog if user has built at least 3 routes and more than 1 day has passed since
-  // the first pedestrian navigation promotion.
-  if (pedestrianRoutesCount < 3)
-    return;
-  NSDate * firstToastDate = [NSUserDefaults.standardUserDefaults valueForKey:kFirstPedestrianToastDateKey];
-  NSTimeInterval const day = 24 * 60 * 60;
-  NSTimeInterval const timePassed = [NSDate.date timeIntervalSinceDate:firstToastDate];
-  if (timePassed < day)
-    return;
-  [NSUserDefaults.standardUserDefaults setBool:YES forKey:kShownPedestrianAchieveToastKey];
-  [self.alertController presentPedestrianToastAlert:NO];
 }
 
 #pragma mark - API bar
