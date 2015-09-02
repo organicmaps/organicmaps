@@ -17,10 +17,8 @@ public enum LikesManager
 
   public static final String LAST_RATED_SESSION = "LastRatedSession";
   public static final String RATED_DIALOG = "RatedDialog";
-  public static final String PEDESTRIAN_COUNT = "PedestrianCount";
 
   private static final int DIALOG_DELAY_DEFAULT = 30000;
-  private static final int DIALOG_DELAY_SHORT = 5000;
   private static final int SESSION_NUM = MwmApplication.get().getSessionsNumber();
 
   /*
@@ -33,9 +31,7 @@ public enum LikesManager
     GPLUS_NEW_USERS(GooglePlusDialogFragment.class, DIALOG_DELAY_DEFAULT),
     GPLUS_OLD_USERS(GooglePlusDialogFragment.class, DIALOG_DELAY_DEFAULT),
     FACEBOOK_INVITE_NEW_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT),
-    FACEBOOK_INVITES_OLD_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT),
-    FACEBOOK_PEDESTRIAN_FIRST_OLD_USERS(PedestrianFirstUseDialogFragment.class, DIALOG_DELAY_SHORT),
-    FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS(PedestrianMasterDialogFragment.class, DIALOG_DELAY_SHORT);
+    FACEBOOK_INVITES_OLD_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT);
 
     public final Class<? extends DialogFragment> clazz;
     public final int delay;
@@ -55,15 +51,14 @@ public enum LikesManager
 
   static
   {
-    sOldUsersMapping.put(1, LikeType.FACEBOOK_PEDESTRIAN_FIRST_OLD_USERS);
-    sOldUsersMapping.put(4, LikeType.GPLAY_OLD_USERS);
-    //    sOldUsersMapping.put(4, LikeType.GPLUS_OLD_USERS);
+    sOldUsersMapping.put(1, LikeType.GPLAY_OLD_USERS);
+    sOldUsersMapping.put(4, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(6, LikeType.FACEBOOK_INVITES_OLD_USERS);
     sOldUsersMapping.put(10, LikeType.GPLAY_OLD_USERS);
     sOldUsersMapping.put(21, LikeType.GPLAY_OLD_USERS);
-    //    sOldUsersMapping.put(24, LikeType.GPLUS_OLD_USERS);
+    sOldUsersMapping.put(24, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(30, LikeType.FACEBOOK_INVITES_OLD_USERS);
-    //    sOldUsersMapping.put(44, LikeType.GPLUS_OLD_USERS);
+    sOldUsersMapping.put(44, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(50, LikeType.FACEBOOK_INVITES_OLD_USERS);
 
     sNewUsersMapping.put(3, LikeType.GPLAY_NEW_USERS);
@@ -75,12 +70,6 @@ public enum LikesManager
     sNewUsersMapping.put(35, LikeType.FACEBOOK_INVITE_NEW_USERS);
     sNewUsersMapping.put(50, LikeType.GPLUS_NEW_USERS);
     sNewUsersMapping.put(55, LikeType.FACEBOOK_INVITE_NEW_USERS);
-
-    if (MwmApplication.get().nativeGetInt(PEDESTRIAN_COUNT, 0) >= 3 && !isRatingApplied(PedestrianMasterDialogFragment.class))
-    {
-      sOldUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
-      sNewUsersMapping.put(SESSION_NUM, LikeType.FACEBOOK_PEDESTRIAN_MASTER_OLD_USERS);
-    }
   }
 
   private final boolean mIsNewUser = MwmApplication.get().getFirstInstallVersion() == BuildConfig.VERSION_CODE;
@@ -103,13 +92,6 @@ public enum LikesManager
   public void cancelDialogs()
   {
     UiThread.cancelDelayedTasks(mLikeRunnable);
-  }
-
-  public void onPedestrianBuilt()
-  {
-    final MwmApplication APP = MwmApplication.get();
-
-    APP.nativeSetInt(PEDESTRIAN_COUNT, APP.nativeGetInt(PEDESTRIAN_COUNT, 0) + 1);
   }
 
   private void displayLikeDialog(final Class<? extends DialogFragment> dialogFragmentClass, final int delayMillis)

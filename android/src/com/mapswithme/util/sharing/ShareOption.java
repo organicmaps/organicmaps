@@ -17,7 +17,6 @@ public abstract class ShareOption
   public static final SmsShareOption SMS = new SmsShareOption();
   public static final EmailShareOption EMAIL = new EmailShareOption();
   public static final AnyShareOption ANY = new AnyShareOption();
-  public static final PedestrianShareOption PEDESTRIAN = new PedestrianShareOption();
 
   @StringRes
   protected final int mNameResId;
@@ -88,19 +87,6 @@ public abstract class ShareOption
     public void share(final Activity activity, final String body)
     {
       SharingHelper.shareOutside(new TextShareable(activity, body));
-    }
-  }
-
-  public static class PedestrianShareOption extends ShareOption
-  {
-    protected PedestrianShareOption()
-    {
-      super(R.string.title_walking_available, new Intent(Intent.ACTION_SEND).setType(TargetUtils.TYPE_TEXT_PLAIN));
-    }
-
-    public void share(final Activity activity)
-    {
-      SharingHelper.shareOutside(new PedestrianShareable(activity));
     }
   }
 }

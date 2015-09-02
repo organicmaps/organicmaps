@@ -12,9 +12,6 @@ public class UpgradeReceiverCompat extends BroadcastReceiver
   public void onReceive(Context context, Intent intent)
   {
     if (context.getPackageName().equals(intent.getData().getSchemeSpecificPart()))
-    {
       MwmApplication.get().onUpgrade();
-      WorkerService.queuePedestrianNotification();
-    }
   }
 }

@@ -1348,12 +1348,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       public void run()
       {
         if (resultCode == RoutingResultCodesProcessor.NO_ERROR)
-        {
-          if (Framework.getRouter() == Framework.ROUTER_TYPE_PEDESTRIAN)
-            LikesManager.INSTANCE.onPedestrianBuilt();
-
           mLayoutRouting.setState(RoutingLayout.State.ROUTE_BUILT, true);
-        }
         else
         {
           mLayoutRouting.setState(RoutingLayout.State.ROUTE_BUILD_ERROR, true);

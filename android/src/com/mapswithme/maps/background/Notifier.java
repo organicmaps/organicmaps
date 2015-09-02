@@ -19,7 +19,6 @@ public final class Notifier
   private final static int ID_UPDATE_AVAILABLE = 1;
   private final static int ID_DOWNLOAD_FAILED = 2;
   private final static int ID_DOWNLOAD_NEW_COUNTRY = 3;
-  private final static int ID_PEDESTRIAN = 4;
 
   private static final MwmApplication APP = MwmApplication.get();
 
@@ -61,17 +60,6 @@ public final class Notifier
   public static void cancelDownloadSuggest()
   {
     getNotificationManager().cancel(ID_DOWNLOAD_NEW_COUNTRY);
-  }
-
-  public static void notifyPedestrianRouting()
-  {
-    final String title = APP.getString(R.string.title_walking_available);
-    final String content = APP.getString(R.string.walking_rich_notification_text);
-
-    final PendingIntent pi = PendingIntent.getActivity(APP, 0, new Intent(APP, MwmActivity.class),
-        PendingIntent.FLAG_UPDATE_CURRENT);
-
-    placeBigNotification(title, content, pi, ID_PEDESTRIAN);
   }
 
   private static void placeNotification(String title, String content, PendingIntent pendingIntent, int notificationId)
