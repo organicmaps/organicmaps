@@ -44,6 +44,8 @@ public class Statistics {
   private static int sActivitiesCounter = 0;
   private static long sSessionStartTimeInNanoSeconds;
 
+  private static final String PREF_IS_ALOHALYTICS_DISABLED_KEY = "AlohalyticsDisabledKey";
+
   public static void setDebugMode(boolean enable) {
     sDebugModeEnabled = enable;
     debugCPP(enable);
@@ -51,6 +53,20 @@ public class Statistics {
 
   // Try to upload all collected statistics now.
   public static native void forceUpload();
+  // Call it once to turn off events logging.
+  public static void disable(Context context) {
+    enableCPP(false);
+    context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).edit()
+        .putBoolean(PREF_IS_ALOHALYTICS_DISABLED_KEY, true)
+        .apply();
+  }
+  // Call it once to enable events logging after disabling it.
+  public static void enable(Context context) {
+    enableCPP(true);
+    context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE).edit()
+        .putBoolean(PREF_IS_ALOHALYTICS_DISABLED_KEY, false)
+        .apply();
+  }
 
   public static boolean debugMode() {
     return sDebugModeEnabled;
@@ -123,8 +139,11 @@ public class Statistics {
     // Initialize core C++ module before logging events.
     setupCPP(HttpTransport.class, serverUrl, storagePath, id.first);
 
-    // Calculate some basic statistics about installations/updates/launches.
     final SharedPreferences prefs = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+    if (prefs.getBoolean(PREF_IS_ALOHALYTICS_DISABLED_KEY, false)) {
+      enableCPP(false);
+    }
+    // Calculate some basic statistics about installations/updates/launches.
     Location lastKnownLocation = null;
     if (SystemInfo.hasPermission(android.Manifest.permission.ACCESS_FINE_LOCATION, context)) {
       // Requires ACCESS_FINE_LOCATION permission.
@@ -232,4 +251,6 @@ public class Statistics {
                                       final String installationId);
 
   private native static void debugCPP(boolean enable);
+
+  private native static void enableCPP(boolean enable);
 }

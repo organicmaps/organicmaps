@@ -200,6 +200,18 @@ JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_debugCPP(JNIEnv * env, jc
 
 JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_forceUpload(JNIEnv * env, jclass) { Stats::Instance().Upload(); }
 
+JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_enableCPP(JNIEnv * env, jclass, jboolean enable) {
+  Stats & s = Stats::Instance();
+  if (enable) {
+    s.Enable();
+    s.LogEvent("$statisticsEnabled");
+  } else {
+    s.LogEvent("$statisticsDisabled");
+    s.Upload();
+    s.Disable();
+  }
+}
+
 }  // extern "C"
 
 //***********************************************************************
