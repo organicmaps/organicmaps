@@ -28,11 +28,11 @@ UNIT_TEST(Freeze_Smoke)
   {
     MemWriter<decltype(data)> writer(data);
     uint64_t const data = 0x0123456789abcdef;
-    Freeze(data, writer);
+    Freeze(data, writer, "uint64_t");
   }
   TEST_EQUAL(8, data.size(), ());
 
   uint64_t value = 0x0;
-  TEST_EQUAL(8, Map(value, reinterpret_cast<uint8_t const *>(data.data())), ());
+  TEST_EQUAL(8, Map(value, reinterpret_cast<uint8_t const *>(data.data()), "uint64_t"), ());
   TEST_EQUAL(0x0123456789abcdef, value, ());
 }

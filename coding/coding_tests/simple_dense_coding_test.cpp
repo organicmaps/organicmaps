@@ -38,13 +38,13 @@ UNIT_TEST(SimpleDenseCoding_Smoke)
     SimpleDenseCoding coding(data);
     TestSDC(data, coding);
     FileWriter writer(kTestFile);
-    Freeze(coding, writer);
+    Freeze(coding, writer, "SimpleDenseCoding");
   }
 
   {
     MmapReader reader(kTestFile);
     SimpleDenseCoding coding;
-    Map(coding, reader.Data());
+    Map(coding, reader.Data(), "SimpleDenseCoding");
     TestSDC(data, coding);
   }
 }
