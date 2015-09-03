@@ -4,8 +4,6 @@
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
-#import "MRMyTracker.h"
-#import "MRTrackerParams.h"
 #import "MWMAlertViewController.h"
 #import "MWMWatchEventInfo.h"
 #import "Preferences.h"
@@ -94,19 +92,6 @@ void InitLocalizedStrings()
 + (MapsAppDelegate *)theApp
 {
   return (MapsAppDelegate *)[UIApplication sharedApplication].delegate;
-}
-
-- (void)initMyTrackerService
-{
-  NSString * const kMyTrackerAppId = @"***REMOVED***";
-  [MRMyTracker createTracker:kMyTrackerAppId];
-  
-#ifdef DEBUG
-  [MRMyTracker setDebugMode:YES];
-#endif
-  
-  MRMyTracker.getTrackerParams.trackAppLaunch = YES;
-  [MRMyTracker setupTracker];
 }
 
 #pragma mark - Notifications
@@ -220,8 +205,6 @@ void InitLocalizedStrings()
   [self subscribeToStorage];
 
   [self customizeAppearance];
-
-  [self initMyTrackerService];
   
   self.standbyCounter = 0;
 

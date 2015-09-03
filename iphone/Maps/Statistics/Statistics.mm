@@ -1,9 +1,11 @@
 #import "AppInfo.h"
-#import "Flurry.h"
 #import "MWMCustomFacebookEvents.h"
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
+#import "Flurry.h"
+#import "MRMyTracker.h"
+#import "MRTrackerParams.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #include "platform/settings.hpp"
@@ -21,7 +23,15 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
   if (self.enabled)
   {
     [Flurry startSession:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
+
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+
+    [MRMyTracker createTracker:@"***REMOVED***"];
+#ifdef DEBUG
+    [MRMyTracker setDebugMode:YES];
+#endif
+    MRMyTracker.getTrackerParams.trackAppLaunch = YES;
+    [MRMyTracker setupTracker];
   }
 }
 
