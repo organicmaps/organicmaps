@@ -226,7 +226,6 @@ void InitLocalizedStrings()
     [self incrementSessionCount];
     [self showAlertIfRequired];
   }
-  [ud synchronize];
   
   Framework & f = GetFramework();
   application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
@@ -548,6 +547,7 @@ void InitLocalizedStrings()
   [standartDefaults setObject:currentVersion forKey:kUDFirstVersionKey];
   [standartDefaults setInteger:1 forKey:kUDSessionsCountKey];
   [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
+  [standartDefaults synchronize];
 }
 
 - (void)incrementSessionCount
@@ -565,6 +565,7 @@ void InitLocalizedStrings()
     sessionCount++;
     [standartDefaults setInteger:sessionCount forKey:kUDSessionsCountKey];
     [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
+    [standartDefaults synchronize];
   }
 }
 
