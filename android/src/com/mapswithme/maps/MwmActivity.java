@@ -81,9 +81,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  BasePlacePageAnimationController.OnVisibilityChangedListener,
                                  OnClickListener,
                                  Framework.RoutingListener,
+                                 Framework.RoutingProgressListener,
                                  MapFragment.MapRenderingListener,
                                  CustomNavigateUpListener,
-                                 Framework.RoutingProgressListener,
                                  ChooseBookmarkCategoryFragment.Listener
 {
   public static final String EXTRA_TASK = "map_task";
@@ -1340,7 +1340,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onRoutingEvent(final int resultCode, final Index[] missingCountries)
+  public void onRoutingEvent(final int resultCode, final Index[] missingCountries, final Index[] missingRoutes)
   {
     runOnUiThread(new Runnable()
     {
@@ -1355,6 +1355,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           final Bundle args = new Bundle();
           args.putInt(RoutingErrorDialogFragment.EXTRA_RESULT_CODE, resultCode);
           args.putSerializable(RoutingErrorDialogFragment.EXTRA_MISSING_COUNTRIES, missingCountries);
+          args.putSerializable(RoutingErrorDialogFragment.EXTRA_MISSING_ROUTES, missingRoutes);
           final RoutingErrorDialogFragment fragment = (RoutingErrorDialogFragment) Fragment.instantiate(MwmActivity.this, RoutingErrorDialogFragment.class.getName());
           fragment.setArguments(args);
           fragment.setListener(new RoutingErrorDialogFragment.RoutingDialogListener()
@@ -1363,7 +1364,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
             public void onDownload()
             {
               mLayoutRouting.setState(RoutingLayout.State.HIDDEN, false);
-              ActiveCountryTree.downloadMapsForIndex(missingCountries, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
+              if (missingCountries != null && missingCountries.length != 0)
+                ActiveCountryTree.downloadMapsForIndex(missingCountries, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
+              if (missingRoutes != null && missingRoutes.length != 0)
+                ActiveCountryTree.downloadMapsForIndex(missingRoutes, StorageOptions.MAP_OPTION_CAR_ROUTING);
               showDownloader(true);
             }
 

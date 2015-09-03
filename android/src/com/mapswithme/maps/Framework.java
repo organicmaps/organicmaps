@@ -46,7 +46,7 @@ public class Framework
   @SuppressWarnings("unused")
   public interface RoutingListener
   {
-    void onRoutingEvent(int errorCode, Index[] missingCountries);
+    void onRoutingEvent(int resultCode, Index[] missingCountries, Index[] missingRoutes);
   }
 
   @SuppressWarnings("unused")

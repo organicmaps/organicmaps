@@ -397,7 +397,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
   {
     Context context = getContext();
     if (context instanceof Framework.RoutingListener)
-      ((Framework.RoutingListener) context).onRoutingEvent(RoutingResultCodesProcessor.NO_POSITION, null);
+      ((Framework.RoutingListener) context).onRoutingEvent(RoutingResultCodesProcessor.NO_POSITION, null, null);
   }
 
   @Override

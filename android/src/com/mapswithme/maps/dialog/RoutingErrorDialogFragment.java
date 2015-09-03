@@ -33,12 +33,14 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
 {
   public static final String EXTRA_RESULT_CODE = "ResultCode";
   public static final String EXTRA_MISSING_COUNTRIES = "MissingCountries";
+  public static final String EXTRA_MISSING_ROUTES = "MissingRoutes";
 
   private static final String GROUP_NAME = "GroupName";
   private static final String GROUP_SIZE = "GroupSize";
   private static final String COUNTRY_NAME = "CountryName";
 
   private MapStorage.Index[] mMissingCountries;
+  private MapStorage.Index[] mMissingRoutes;
   private int mResultCode;
 
   public interface RoutingDialogListener
@@ -68,13 +70,15 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
         .setTitle(titleMessage.first)
         .setCancelable(true);
-    if (mMissingCountries != null && mMissingCountries.length != 0)
+    if (hasIndex(mMissingCountries) || hasIndex(mMissingRoutes))
     {
-      if (mMissingCountries.length == 1)
-        builder.setView(buildSingleMapView(titleMessage.second));
+      View view;
+      if (hasSingleIndex(mMissingCountries) && !hasIndex(mMissingRoutes))
+        view = buildSingleMapView(titleMessage.second, mMissingCountries[0], StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
       else
-        builder.setView(buildMultipleMapView(titleMessage.second));
+        view = buildMultipleMapView(titleMessage.second);
 
+      builder.setView(view);
       builder
           .setPositiveButton(R.string.download, new Dialog.OnClickListener()
           {
@@ -125,14 +129,26 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
   {
     final Bundle args = getArguments();
     mMissingCountries = (MapStorage.Index[]) args.getSerializable(EXTRA_MISSING_COUNTRIES);
+    mMissingRoutes = (MapStorage.Index[]) args.getSerializable(EXTRA_MISSING_ROUTES);
     mResultCode = args.getInt(EXTRA_RESULT_CODE);
   }
 
-  private View buildSingleMapView(String message)
+  private boolean hasIndex(MapStorage.Index[] indexes)
   {
-    @SuppressLint("InflateParams") final View countryView = getActivity().getLayoutInflater().inflate(R.layout.dialog_download_single_item, null);
-    ((TextView) countryView.findViewById(R.id.tv__title)).setText(MapStorage.INSTANCE.countryName(mMissingCountries[0]));
-    final String size = StringUtils.getFileSizeString(MapStorage.INSTANCE.countryRemoteSizeInBytes(mMissingCountries[0], StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING));
+    return indexes != null && indexes.length != 0;
+  }
+
+  private boolean hasSingleIndex(MapStorage.Index[] indexes)
+  {
+    return indexes != null && indexes.length == 1;
+  }
+
+  private View buildSingleMapView(String message, MapStorage.Index index, int option)
+  {
+    @SuppressLint("InflateParams") final View countryView = getActivity().getLayoutInflater().
+        inflate(R.layout.dialog_download_single_item, null);
+    ((TextView) countryView.findViewById(R.id.tv__title)).setText(MapStorage.INSTANCE.countryName(index));
+    final String size = StringUtils.getFileSizeString(MapStorage.INSTANCE.countryRemoteSizeInBytes(index, option));
     UiUtils.setTextAndShow(((TextView) countryView.findViewById(R.id.tv__size)), size);
     UiUtils.setTextAndShow(((TextView) countryView.findViewById(R.id.tv__message)), message);
     return countryView;
@@ -140,7 +156,8 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
 
   private View buildMultipleMapView(String message)
   {
-    @SuppressLint("InflateParams") final View countriesView = getActivity().getLayoutInflater().inflate(R.layout.dialog_download_multiple_items, null);
+    @SuppressLint("InflateParams") final View countriesView = getActivity().getLayoutInflater().
+        inflate(R.layout.dialog_download_multiple_items, null);
     UiUtils.setTextAndShow(((TextView) countriesView.findViewById(R.id.tv__message)), message);
 
     final ExpandableListView listView = (ExpandableListView) countriesView.findViewById(R.id.elv__items);
@@ -168,46 +185,68 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
   private ExpandableListAdapter buildAdapter()
   {
     final List<Map<String, String>> groupData = new ArrayList<>();
-
-    final Map<String, String> countriesGroup = new HashMap<>();
-    countriesGroup.put(GROUP_NAME, getString(R.string.maps) + " (" + mMissingCountries.length + ") ");
-    countriesGroup.put(GROUP_SIZE, StringUtils.getFileSizeString(getCountriesSizeInBytes(StorageOptions.MAP_OPTION_MAP_ONLY)));
-    groupData.add(countriesGroup);
-
-    final Map<String, String> routesGroup = new HashMap<>();
-    routesGroup.put(GROUP_NAME, getString(R.string.dialog_routing_routes_size) + " (" + mMissingCountries.length + ") ");
-    routesGroup.put(GROUP_SIZE, StringUtils.getFileSizeString(getCountriesSizeInBytes(StorageOptions.MAP_OPTION_CAR_ROUTING)));
-    groupData.add(routesGroup);
-
     final List<List<Map<String, String>>> childData = new ArrayList<>();
+    List<Map<String, String>> countries = null;
+    if (hasIndex(mMissingCountries))
+    {
+      final Map<String, String> countriesGroup = new HashMap<>();
+      countriesGroup.put(GROUP_NAME, getString(R.string.maps) + " (" + mMissingCountries.length + ") ");
+      countriesGroup.put(GROUP_SIZE, StringUtils.getFileSizeString(getCountrySizesBytes(mMissingCountries, StorageOptions.MAP_OPTION_MAP_ONLY)));
+      groupData.add(countriesGroup);
 
+      countries = getCountryNames(mMissingCountries);
+      childData.add(countries);
+    }
+    if (hasIndex(mMissingRoutes))
+    {
+      final Map<String, String> routesGroup = new HashMap<>();
+      long size = 0;
+      int routesCount = mMissingRoutes.length;
+      final List<Map<String, String>> routes = getCountryNames(mMissingRoutes);
+      if (countries != null)
+      {
+        routes.addAll(countries);
+        size += getCountrySizesBytes(mMissingCountries, StorageOptions.MAP_OPTION_CAR_ROUTING);
+        routesCount += mMissingCountries.length;
+      }
+      size += getCountrySizesBytes(mMissingRoutes, StorageOptions.MAP_OPTION_CAR_ROUTING);
+
+      routesGroup.put(GROUP_NAME, getString(R.string.dialog_routing_routes_size) + " (" + routesCount + ") ");
+      routesGroup.put(GROUP_SIZE, StringUtils.getFileSizeString(size));
+      groupData.add(routesGroup);
+
+      childData.add(routes);
+    }
+
+    return new DisabledChildSimpleExpandableListAdapter(getActivity(),
+                                                        groupData,
+                                                        R.layout.item_country_group_dialog_expanded,
+                                                        R.layout.item_country_group_dialog,
+                                                        new String[]{GROUP_NAME, GROUP_SIZE},
+                                                        new int[]{R.id.tv__title, R.id.tv__size},
+                                                        childData,
+                                                        R.layout.item_country_dialog,
+                                                        new String[]{COUNTRY_NAME},
+                                                        new int[]{R.id.tv__title}
+    );
+  }
+
+  private List<Map<String, String>> getCountryNames(MapStorage.Index[] indexes)
+  {
     final List<Map<String, String>> countries = new ArrayList<>();
-    for (MapStorage.Index index : mMissingCountries)
+    for (MapStorage.Index index : indexes)
     {
       final Map<String, String> countryData = new HashMap<>();
       countryData.put(COUNTRY_NAME, MapStorage.INSTANCE.countryName(index));
       countries.add(countryData);
     }
-    childData.add(countries);
-    childData.add(countries);
-
-    return new DisabledChildSimpleExpandableListAdapter(getActivity(),
-        groupData,
-        R.layout.item_country_group_dialog_expanded,
-        R.layout.item_country_group_dialog,
-        new String[]{GROUP_NAME, GROUP_SIZE},
-        new int[]{R.id.tv__title, R.id.tv__size},
-        childData,
-        R.layout.item_country_dialog,
-        new String[]{COUNTRY_NAME},
-        new int[]{R.id.tv__title}
-    );
+    return countries;
   }
 
-  private long getCountriesSizeInBytes(int option)
+  private long getCountrySizesBytes(MapStorage.Index[] indexes, int option)
   {
     long total = 0;
-    for (MapStorage.Index index : mMissingCountries)
+    for (MapStorage.Index index : indexes)
       total += MapStorage.INSTANCE.countryRemoteSizeInBytes(index, option);
     return total;
   }

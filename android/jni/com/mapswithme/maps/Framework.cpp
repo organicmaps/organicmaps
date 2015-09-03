@@ -1017,8 +1017,8 @@ extern "C"
     JNIEnv * env = jni::GetEnv();
     // cache methodID - it cannot change after class is loaded.
     // http://developer.android.com/training/articles/perf-jni.html#jclass_jmethodID_and_jfieldID more details here
-    // TODO pass & process second vector of absentRoutes
-    static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(), "onRoutingEvent", "(I[Lcom/mapswithme/maps/MapStorage$Index;)V");
+    static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(), "onRoutingEvent",
+                                                           "(I[Lcom/mapswithme/maps/MapStorage$Index;[Lcom/mapswithme/maps/MapStorage$Index;)V");
     ASSERT(methodId, ());
 
     jobjectArray const countriesJava = env->NewObjectArray(absentCountries.size(), g_indexClazz, 0);
@@ -1029,7 +1029,15 @@ extern "C"
       env->DeleteLocalRef(country);
     }
 
-    env->CallVoidMethod(*obj.get(), methodId, errorCode, countriesJava);
+    jobjectArray const routesJava = env->NewObjectArray(absentRoutes.size(), g_indexClazz, 0);
+    for (size_t i = 0; i < absentRoutes.size(); i++)
+    {
+      jobject route = storage::ToJava(absentRoutes[i]);
+      env->SetObjectArrayElement(routesJava, i, route);
+      env->DeleteLocalRef(route);
+    }
+
+    env->CallVoidMethod(*obj.get(), methodId, errorCode, countriesJava, routesJava);
 
     env->DeleteLocalRef(countriesJava);
   }
