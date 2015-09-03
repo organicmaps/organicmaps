@@ -152,7 +152,7 @@ int main(int argc, char * argv[])
     if (g_testingOptions.m_suppressRegExp && regexp::Matches(testNames[iTest], suppressRegExp))
       continue;
 
-    cerr << "Running " << testNames[iTest] << endl;
+    LOG(LINFO, ("Running", testNames[iTest]));
     if (!g_bLastTestOK)
     {
       // Somewhere else global variables have been reset.
@@ -209,7 +209,7 @@ int main(int argc, char * argv[])
     for (size_t i = 0; i < testNames.size(); ++i)
     {
       if (!testResults[i])
-        cerr << testNames[i] << endl;
+        LOG(LINFO, (testNames[i]));
     }
     LOG(LINFO, ("Some tests FAILED."));
     return STATUS_FAILED;
