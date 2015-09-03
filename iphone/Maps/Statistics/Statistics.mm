@@ -15,7 +15,6 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
   if (self.enabled)
   {
     [Flurry startSession:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
-    [Flurry setSessionReportsOnPauseEnabled:NO];
   }
 }
 
@@ -23,7 +22,7 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
 {
   if (self.enabled)
   {
-    static NSDate * lastUpdate;
+    static NSDate * lastUpdate = nil;
     if (!lastUpdate || [[NSDate date] timeIntervalSinceDate:lastUpdate] > (60 * 60 * 3))
     {
       lastUpdate = [NSDate date];
@@ -44,19 +43,15 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
   [self logEvent:eventName withParameters:nil];
 }
 
-- (void)logInAppMessageEvent:(NSString *)eventName imageType:(NSString *)imageType
-{
-  NSString * language = [[NSLocale preferredLanguages] firstObject];
-  AppInfo * info = [AppInfo sharedInfo];
-  [self logEvent:eventName withParameters:@{@"Type": imageType, @"Country" : info.countryCode, @"Language" : language, @"Id" : info.uniqueId}];
-}
-
 - (void)logApiUsage:(NSString *)programName
 {
-  if (programName)
-    [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : programName}];
-  else
-    [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : @"Error passing nil as SourceApp name."}];
+  if (self.enabled)
+  {
+    if (programName)
+      [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : programName}];
+    else
+      [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : @"Error passing nil as SourceApp name."}];
+  }
 }
 
 - (BOOL)enabled
