@@ -24,7 +24,7 @@
            android:layout_height="match_parent"
            android:layout_weight="1"/>
 
-    <ImageView android:id="@+id/route"
+    <!--ImageView android:id="@+id/route"
                style="@style/MwmTheme.Menu.Line.Button"
                android:src="@drawable/ic_menu_point_to_point"
                android:visibility="gone"
@@ -35,7 +35,7 @@
            android:layout_height="match_parent"
            android:layout_weight="1"
            android:visibility="gone"
-           tools:visibility="visible"/>
+           tools:visibility="visible"/ -->
 
     <ImageView android:id="@+id/bookmarks"
                style="@style/MwmTheme.Menu.Line.Button"

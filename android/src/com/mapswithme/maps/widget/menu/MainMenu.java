@@ -74,8 +74,11 @@ public class MainMenu
     @Override
     public void onTrackStarted(boolean collapsed)
     {
-      for (View v: mCollapseViews)
+      for (View v : mCollapseViews)
       {
+        if (collapsed)
+          UiUtils.show(v);
+
         v.setAlpha(collapsed ? 0.0f : 1.0f);
         v.animate()
          .alpha(collapsed ? 1.0f : 0.0f)
@@ -92,6 +95,10 @@ public class MainMenu
     {
       mCollapsed = collapsed;
       updateMarker();
+
+      if (collapsed)
+        for (View v : mCollapseViews)
+          UiUtils.hide(v);
     }
 
     @Override
@@ -260,7 +267,10 @@ public class MainMenu
   private void adjustCollapsedItems()
   {
     for (View v: mCollapseViews)
+    {
+      UiUtils.showIf(!mCollapsed, v);
       v.setAlpha(mCollapsed ? 0.0f : 1.0f);
+    }
 
     if (mAnimationSymmetricalGap == null)
       return;
