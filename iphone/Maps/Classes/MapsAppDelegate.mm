@@ -197,7 +197,6 @@ void InitLocalizedStrings()
 
   [self trackWatchUser];
 
-  [AppInfo sharedInfo]; // we call it to init -firstLaunchDate
   NSUUID const * const advertisingId = [AppInfo sharedInfo].advertisingId;
   if (advertisingId)
     [[Statistics instance] logEvent:@"Device Info" withParameters:@{kIOSIDFA : advertisingId, @"Country" : [AppInfo sharedInfo].countryCode}];

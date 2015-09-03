@@ -1,4 +1,3 @@
-#import "AppInfo.h"
 #import "Common.h"
 #import "CountryTreeVC.h"
 #import "EAGLView.h"

@@ -1,4 +1,3 @@
-
 #import "AppInfo.h"
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
@@ -11,16 +10,11 @@ extern string const kCountryCodeKey = "CountryCode";
 extern string const kUniqueIdKey = "UniqueId";
 extern string const kLanguageKey = "Language";
 
-static string const kLaunchCountKey = "LaunchCount";
-static NSString * const kAppInfoFirstLaunchDateKey = @"AppInfoFirstLaunchDate";
 
 @interface AppInfo()
 
-@property (nonatomic) NSString * snapshot;
 @property (nonatomic) NSString * countryCode;
 @property (nonatomic) NSString * uniqueId;
-@property (nonatomic) NSInteger launchCount;
-@property (nonatomic) NSDate * firstLaunchDate;
 @property (nonatomic) NSString * bundleVersion;
 @property (nonatomic) NSString * deviceInfo;
 @property (nonatomic) NSUUID * advertisingId;
@@ -43,36 +37,10 @@ static NSString * const kAppInfoFirstLaunchDateKey = @"AppInfoFirstLaunchDate";
 - (instancetype)init
 {
   self = [super init];
-  [self setup];
   return self;
 }
 
-- (void)setup
-{
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-
-  if (!self.firstLaunchDate)
-    self.firstLaunchDate = [NSDate date];
-}
-
-- (void)dealloc
-{
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)applicationDidBecomeActive:(NSNotification *)notification
-{
-  self.launchCount++;
-}
-
 #pragma mark - Properties
-
-- (NSString *)snapshot
-{
-  if (!_snapshot)
-    _snapshot = [NSString stringWithFormat:@"maps.me ver. %@, %@ (iOS %@) %@", self.bundleVersion, self.deviceInfo, [UIDevice currentDevice].systemVersion, self.countryCode];
-  return _snapshot;
-}
 
 - (NSString *)countryCode
 {
@@ -123,45 +91,11 @@ static NSString * const kAppInfoFirstLaunchDateKey = @"AppInfoFirstLaunchDate";
   return _uniqueId;
 }
 
-- (void)setLaunchCount:(NSInteger)launchCount
-{
-  Settings::Set(kLaunchCountKey, (int)launchCount);
-}
-
-- (NSInteger)launchCount
-{
-  int count = 0;
-  Settings::Get(kLaunchCountKey, count);
-  return count;
-}
-
-- (void)setFirstLaunchDate:(NSDate *)firstLaunchDate
-{
-  [[NSUserDefaults standardUserDefaults] setObject:firstLaunchDate forKey:kAppInfoFirstLaunchDateKey];
-  [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSDate *)firstLaunchDate
-{
-  return [[NSUserDefaults standardUserDefaults] objectForKey:kAppInfoFirstLaunchDateKey];
-}
-
 - (NSString *)bundleVersion
 {
   if (!_bundleVersion)
     _bundleVersion = [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
   return _bundleVersion;
-}
-
-- (NSString *)deviceInfo
-{
-  if (!_deviceInfo)
-  {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    _deviceInfo = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-  }
-  return _deviceInfo;
 }
 
 - (NSUUID *)advertisingId
