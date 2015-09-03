@@ -8,6 +8,10 @@
 
 static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 
+@interface Statistics ()
+@property (nonatomic) NSDate * lastLocationLogTimestamp;
+@end
+
 @implementation Statistics
 
 - (void)startSessionWithLaunchOptions:(NSDictionary *)launchOptions
@@ -22,10 +26,9 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
 {
   if (self.enabled)
   {
-    static NSDate * lastUpdate = nil;
-    if (!lastUpdate || [[NSDate date] timeIntervalSinceDate:lastUpdate] > (60 * 60 * 3))
+    if (!_lastLocationLogTimestamp || [[NSDate date] timeIntervalSinceDate:_lastLocationLogTimestamp] > (60 * 60 * 3))
     {
-      lastUpdate = [NSDate date];
+      _lastLocationLogTimestamp = [NSDate date];
       CLLocationCoordinate2D const coord = location.coordinate;
       [Flurry setLatitude:coord.latitude longitude:coord.longitude horizontalAccuracy:location.horizontalAccuracy verticalAccuracy:location.verticalAccuracy];
     }
