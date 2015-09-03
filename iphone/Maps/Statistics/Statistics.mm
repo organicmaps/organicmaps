@@ -1,8 +1,10 @@
-#import "Statistics.h"
-#import "Flurry.h"
 #import "AppInfo.h"
+#import "Flurry.h"
+#import "MWMCustomFacebookEvents.h"
+#import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #include "platform/settings.hpp"
 
@@ -14,11 +16,12 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
 
 @implementation Statistics
 
-- (void)startSessionWithLaunchOptions:(NSDictionary *)launchOptions
+- (void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   if (self.enabled)
   {
     [Flurry startSession:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
+    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
   }
 }
 
@@ -54,6 +57,16 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
       [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : programName}];
     else
       [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : @"Error passing nil as SourceApp name."}];
+  }
+}
+
+- (void)applicationDidBecomeActive
+{
+  if (self.enabled)
+  {
+    [FBSDKAppEvents activateApp];
+    // Special FB events to improve marketing campaigns quality.
+    [MWMCustomFacebookEvents optimizeExpenses];
   }
 }
 

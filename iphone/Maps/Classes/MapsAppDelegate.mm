@@ -12,7 +12,6 @@
 #import "RouteState.h"
 #import "Statistics.h"
 #import "UIKitCategories.h"
-#import "MWMCustomFacebookEvents.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
@@ -171,6 +170,9 @@ void InitLocalizedStrings()
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  // Initialize all 3party engines.
+  [[Statistics instance] application:application didFinishLaunchingWithOptions:launchOptions];
+
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   // Initialize Alohalytics statistics engine.
 #ifndef OMIM_PRODUCTION
@@ -192,8 +194,6 @@ void InitLocalizedStrings()
     [self checkLaunchURL:url];
   
   [HttpThread setDownloadIndicatorProtocol:[MapsAppDelegate theApp]];
-
-  [[Statistics instance] startSessionWithLaunchOptions:launchOptions];
 
   [self trackWatchUser];
 
@@ -248,8 +248,8 @@ void InitLocalizedStrings()
   Framework & f = GetFramework();
   application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
   f.GetLocationState()->InvalidatePosition();
-  
-  return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+
+  return YES;
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
@@ -338,10 +338,9 @@ void InitLocalizedStrings()
   m_mwmURL = nil;
   m_fileURL = nil;
 
-  [FBSDKAppEvents activateApp];
   [self restoreRouteState];
-  // Special FB events to improve marketing campaigns quality.
-  [MWMCustomFacebookEvents optimizeExpenses];
+
+  [Statistics.instance applicationDidBecomeActive];
 }
 
 - (void)dealloc
@@ -399,7 +398,6 @@ void InitLocalizedStrings()
   [[LocalNotificationManager sharedManager] processNotification:notification onLaunch:NO];
 }
 
-// We don't support HandleOpenUrl as it's deprecated from iOS 4.2
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
   m_sourceApplication = sourceApplication;

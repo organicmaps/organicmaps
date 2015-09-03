@@ -1,4 +1,3 @@
-#import "Statistics.h"
 #import "MWMCustomFacebookEvents.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -41,9 +40,6 @@ static int gStorageSubscriptionId = kNotSubscribed;
 
 + (void)optimizeExpenses
 {
-  if (!Statistics.instance.enabled)
-    return;
-
   NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
   BOOL const isFirstSession = [Alohalytics isFirstSession];
   if (isFirstSession)
