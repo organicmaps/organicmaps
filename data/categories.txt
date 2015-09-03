@@ -2807,7 +2807,7 @@ ro:coafor
 nb:frisør
 fi:kampaamo
 
-aeroway-airport|aeroway-aerodrome
+aeroway-aerodrome
 en:3airport|3plane
 ru:3аэропорт|4самолёт
 uk:3аеропорт|літак|аеродром|рейс
