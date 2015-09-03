@@ -10,6 +10,9 @@
 
 #include "platform/platform.hpp"
 
+#include "platform/local_country_file.hpp"
+#include "platform/local_country_file_utils.hpp"
+
 #include "geometry/distance_on_sphere.hpp"
 
 #include "base/logging.hpp"
@@ -185,7 +188,11 @@ UNIT_TEST(HS_StreetsMerge)
   classificator::Load();
 
   Index index;
-  auto const p = index.Register(LocalCountryFile::MakeForTesting("minsk-pass"));
+  LocalCountryFile localFile(LocalCountryFile::MakeForTesting("minsk-pass"));
+  // Clean indexes to avoid jenkins errors.
+  platform::CountryIndexes::DeleteFromDisk(localFile);
+
+  auto const p = index.Register(localFile);
   TEST(p.first.IsAlive(), ());
   TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
 

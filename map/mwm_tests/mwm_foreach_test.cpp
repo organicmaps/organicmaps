@@ -253,6 +253,8 @@ void RunTest(string const & countryFileName)
   src1.InitClassificator();
 
   platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeForTesting(countryFileName));
+  // Clean indexes to avoid jenkins errors.
+  platform::CountryIndexes::DeleteFromDisk(localFile);
   UNUSED_VALUE(src1.RegisterMap(localFile));
 
   vector<m2::RectD> rects;
