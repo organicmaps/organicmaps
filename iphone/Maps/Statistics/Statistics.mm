@@ -32,6 +32,12 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
 #endif
     MRMyTracker.getTrackerParams.trackAppLaunch = YES;
     [MRMyTracker setupTracker];
+
+    // Initialize Alohalytics statistics engine.
+#ifndef OMIM_PRODUCTION
+    [Alohalytics setDebugMode:YES];
+#endif
+    [Alohalytics setup:@"http://localhost:8080" withLaunchOptions:launchOptions];
   }
 }
 
