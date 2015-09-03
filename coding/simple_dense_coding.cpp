@@ -4,6 +4,7 @@
 
 #include "std/algorithm.hpp"
 #include "std/limits.hpp"
+#include "std/utility.hpp"
 
 namespace coding
 {
@@ -46,10 +47,7 @@ public:
     }
   }
 
-  inline Code const & GetCode(uint8_t rank) const
-  {
-    return m_table[rank];
-  }
+  inline Code const & GetCode(uint8_t rank) const { return m_table[rank]; }
 
 private:
   Code m_table[kAlphabetSize];
@@ -107,6 +105,8 @@ SimpleDenseCoding::SimpleDenseCoding(vector<uint8_t> const & data)
   succinct::rs_bit_vector(indexBuilder, true /* with_select_hints */).swap(m_index);
   m_symbols.assign(symbols);
 }
+
+SimpleDenseCoding::SimpleDenseCoding(SimpleDenseCoding && rhs) { Swap(move(rhs)); }
 
 uint8_t SimpleDenseCoding::Get(uint64_t i) const
 {

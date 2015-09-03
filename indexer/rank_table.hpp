@@ -1,0 +1,101 @@
+#pragma once
+
+#include "std/cstdint.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
+
+class FilesContainerR;
+class FilesContainerW;
+class FilesMappingContainer;
+class Writer;
+
+namespace platform
+{
+class LocalCountryFile;
+}
+
+namespace search
+{
+// A wrapper class around serialized as an mwm-section rank table.
+//
+// *NOTE* This wrapper is abstract enough so feel free to change it,
+// note that there should always be backward-compatibility. Thus, when
+// adding new versions, never change old data format of old versions.
+
+// All rank tables are serialized in the following format:
+//
+// File offset (bytes)  Field name  Field size (bytes)
+// 0                    version     1
+// 1                    flags       1
+// 2                    data        *
+//
+// Flags bits:
+// 0      - endianess of the stored table, 1 if BigEndian, 0 otherwise.
+// [1, 8) - currently not used.
+
+// Data size and contents depend on the version, but note that data
+// should always be 8-bytes aligned. Therefore, there're 6-bytes empty
+// area between flags and data. Feel free to use it if you need it.
+class RankTable
+{
+public:
+  enum Version
+  {
+    V1 = 0
+  };
+
+  virtual ~RankTable();
+
+  // Returns rank of the i-th feature.
+  virtual uint8_t Get(uint64_t i) const = 0;
+
+  // Returns total number of ranks (or features, as there're 1-1 correspondence).
+  virtual uint64_t Size() const = 0;
+
+  // Returns underlying data format version.
+  virtual Version GetVersion() const = 0;
+
+  // Serializes rank table.
+  virtual void Serialize(Writer & writer) = 0;
+
+  // Copies whole section corresponding to a rank table and
+  // deserializes it. Returns nullptr if there're no ranks section or
+  // rank table's header is damaged.
+  //
+  // *NOTE* Return value can outlive |rcont|. Also note that there're
+  // undefined behaviour if ranks section exists but internally
+  // damaged.
+  static unique_ptr<RankTable> Load(FilesContainerR & rcont);
+
+  // Maps whole section corresponding to a rank table and deserializes
+  // it. Returns nullptr if there're no ranks section, rank table's
+  // header is damaged or serialized rank table has improper
+  // endianness.
+  //
+  // *NOTE* Return value can't outlive |mcont|, i.e. it must be
+  // destructed before |mcont| is closed. Also note that there're
+  // undefined behaviour if ranks section exists but internally
+  // damaged.
+  static unique_ptr<RankTable> Load(FilesMappingContainer & mcont);
+};
+
+// A builder class for rank tables.
+class RankTableBuilder
+{
+public:
+  // Calculates search ranks for all features in an mwm.
+  static void CalcSearchRanks(FilesContainerR & rcont, vector<uint8_t> & ranks);
+
+  // Creates rank table for an mwm.
+  // * When rank table already exists and has proper endianness, does nothing.
+  // * When rank table already exists but has improper endianness, re-creates it by
+  //   reverse mapping.
+  // * When rank table does not exists or exists but damaged, calculates all
+  //   features's ranks and creates rank table.
+  static void Create(platform::LocalCountryFile const & localFile);
+
+  // Force creation of a rank table from array of ranks. Existing rank
+  // table is removed (if any).
+  static void Create(vector<uint8_t> const & ranks, FilesContainerW & wcont);
+};
+}  // namespace search

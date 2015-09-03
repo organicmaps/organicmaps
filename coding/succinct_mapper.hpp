@@ -97,9 +97,10 @@ public:
     vec.clear();
     (*this)(vec.m_size, "size");
 
-    vec.m_data = reinterpret_cast<const T *>(m_cur);
-    for (auto const it = vec.cbegin(); it != vec.cend(); ++it)
-      *it = ReverseByteOrder(*it);
+    T * data = reinterpret_cast<T *>(m_cur);
+    for (uint64_t i = 0; i < vec.m_size; ++i)
+      data[i] = ReverseByteOrder(data[i]);
+    vec.m_data = data;
 
     m_cur = Align8Ptr(m_cur + vec.m_size * sizeof(T));
     return *this;

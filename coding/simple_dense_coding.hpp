@@ -36,6 +36,8 @@ public:
 
   SimpleDenseCoding(vector<uint8_t> const & data);
 
+  SimpleDenseCoding(SimpleDenseCoding && rhs);
+
   uint8_t Get(uint64_t i) const;
 
   inline uint64_t Size() const { return m_index.num_ones(); }
@@ -48,6 +50,14 @@ public:
     visitor(m_bits, "m_bits");
     visitor(m_index, "m_index");
     visitor(m_symbols, "m_symbols");
+  }
+
+  template <typename TSDC>
+  void Swap(TSDC && rhs)
+  {
+    m_bits.swap(rhs.m_bits);
+    m_index.swap(rhs.m_index);
+    m_symbols.swap(rhs.m_symbols);
   }
 
 private:

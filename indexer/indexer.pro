@@ -43,6 +43,7 @@ SOURCES += \
     mwm_set.cpp \
     old/feature_loader_101.cpp \
     point_to_int64.cpp \
+    rank_table.cpp \
     scales.cpp \
     search_delimiters.cpp \
     search_index_builder.cpp \
@@ -74,6 +75,7 @@ HEADERS += \
     feature_loader_base.hpp \
     feature_meta.hpp \
     feature_processor.hpp \
+    feature_rank_table.cpp \
     feature_utils.hpp \
     feature_visibility.hpp \
     features_offsets_table.hpp \
@@ -92,6 +94,7 @@ HEADERS += \
     old/feature_loader_101.hpp \
     old/interval_index_101.hpp \
     point_to_int64.hpp \
+    rank_table.cpp \
     scale_index.hpp \
     scale_index_builder.hpp \
     scales.hpp \
