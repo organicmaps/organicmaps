@@ -143,7 +143,10 @@ void FilesMappingContainer::Close()
     CloseHandle(m_hFile);
 #else
   if (m_fd != -1)
+  {
     close(m_fd);
+    m_fd = -1;
+  }
 #endif
 
   m_name.clear();
