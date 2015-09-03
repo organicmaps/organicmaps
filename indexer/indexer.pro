@@ -48,6 +48,7 @@ SOURCES += \
     search_index_builder.cpp \
     search_string_utils.cpp \
     types_mapping.cpp \
+    types_skipper.cpp \
 
 HEADERS += \
     categories_holder.hpp \
@@ -103,6 +104,7 @@ HEADERS += \
     tesselator_decl.hpp \
     tree_structure.hpp \
     types_mapping.hpp \
+    types_skipper.hpp \
     unique_index.hpp \
 
 OTHER_FILES += drules_struct.proto

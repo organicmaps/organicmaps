@@ -11,6 +11,7 @@
 #include "indexer/search_trie.hpp"
 #include "indexer/string_file.hpp"
 #include "indexer/string_file_values.hpp"
+#include "indexer/types_skipper.hpp"
 
 #include "search/search_common.hpp"    // for MAX_TOKENS constant
 
@@ -202,111 +203,6 @@ class FeatureInserter
 
   ValueBuilder<ValueT> const & m_valueBuilder;
 
-  /// There are 3 different ways of search index skipping:
-  /// - skip features in any case (m_skipFeatures)
-  /// - skip features with empty names (m_enFeature)
-  /// - skip specified types for features with empty names (m_enTypes)
-  class SkipIndexing
-  {
-    using TCont = buffer_vector<uint32_t, 16>;
-
-    // Array index (0, 1) means type level for checking (1, 2).
-    TCont m_skipEn[2], m_skipF[2];
-    TCont m_dontSkipEn;
-    uint32_t m_country, m_state;
-
-    static bool HasType(TCont const & v, uint32_t t)
-    {
-      return (find(v.begin(), v.end(), t) != v.end());
-    }
-
-  public:
-    SkipIndexing()
-    {
-      Classificator const & c = classif();
-
-      // Fill types that always! should be skipped.
-      for (StringIL const & e : (StringIL[]) { { "entrance" } })
-        m_skipF[0].push_back(c.GetTypeByPath(e));
-
-      for (StringIL const & e : (StringIL[]) { { "building", "address" } })
-        m_skipF[1].push_back(c.GetTypeByPath(e));
-
-      // Fill types that never! will be skipped.
-      for (StringIL const & e : (StringIL[]) { { "highway", "bus_stop" }, { "highway", "speed_camera" } })
-        m_dontSkipEn.push_back(c.GetTypeByPath(e));
-
-      // Fill types that will be skipped if feature's name is empty!
-      for (StringIL const & e : (StringIL[]) { { "building" }, { "highway" }, { "natural" }, { "waterway" }, { "landuse" } })
-        m_skipEn[0].push_back(c.GetTypeByPath(e));
-
-      for (StringIL const & e : (StringIL[]) {
-        { "place", "country" },
-        { "place", "state" },
-        { "place", "county" },
-        { "place", "region" },
-        { "place", "city" },
-        { "place", "town" },
-        { "railway", "rail" }})
-      {
-        m_skipEn[1].push_back(c.GetTypeByPath(e));
-      }
-
-      m_country = c.GetTypeByPath({ "place", "country" });
-      m_state = c.GetTypeByPath({ "place", "state" });
-    }
-
-    void SkipTypes(feature::TypesHolder & types) const
-    {
-      types.RemoveIf([this](uint32_t type)
-      {
-        ftype::TruncValue(type, 2);
-
-        if (HasType(m_skipF[1], type))
-          return true;
-
-        ftype::TruncValue(type, 1);
-
-        if (HasType(m_skipF[0], type))
-          return true;
-
-        return false;
-      });
-    }
-
-    void SkipEmptyNameTypes(feature::TypesHolder & types) const
-    {
-      types.RemoveIf([this](uint32_t type)
-      {
-        ftype::TruncValue(type, 2);
-
-        if (HasType(m_dontSkipEn, type))
-          return false;
-
-        if (HasType(m_skipEn[1], type))
-          return true;
-
-        ftype::TruncValue(type, 1);
-
-        if (HasType(m_skipEn[0], type))
-          return true;
-
-        return false;
-      });
-    }
-
-    bool IsCountryOrState(feature::TypesHolder const & types) const
-    {
-      for (uint32_t t : types)
-      {
-        ftype::TruncValue(t, 2);
-        if (t == m_country || t == m_state)
-          return true;
-      }
-      return false;
-    }
-  };
-
 public:
   FeatureInserter(SynonymsHolder * synonyms, TStringsFile & names,
                   CategoriesHolder const & catHolder, pair<int, int> const & scales,
@@ -323,7 +219,7 @@ public:
   {
     feature::TypesHolder types(f);
 
-    static SkipIndexing skipIndex;
+    static search::TypesSkipper skipIndex;
 
     skipIndex.SkipTypes(types);
     if (types.Empty())
