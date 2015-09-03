@@ -2,7 +2,6 @@ package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -87,14 +86,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
       break;
 
     case R.id.set_edit:
-      final Bundle args = new Bundle();
-      args.putString(EditTextDialogFragment.EXTRA_TITLE, getString(R.string.bookmark_set_name));
-      args.putString(EditTextDialogFragment.EXTRA_INITIAL, BookmarkManager.INSTANCE.getCategoryById(mSelectedPosition).getName());
-      args.putString(EditTextDialogFragment.EXTRA_POSITIVE_BUTTON, getString(R.string.rename));
-      args.putString(EditTextDialogFragment.EXTRA_NEGATIVE_BUTTON, getString(R.string.cancel));
-      final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(getActivity(), EditTextDialogFragment.class.getName());
-      fragment.setArguments(args);
-      fragment.show(getActivity().getSupportFragmentManager(), EditTextDialogFragment.class.getName());
+      EditTextDialogFragment.show(getString(R.string.bookmark_set_name),
+                                  BookmarkManager.INSTANCE.getCategoryById(mSelectedPosition).getName(),
+                                  getString(R.string.rename), getString(R.string.cancel), this);
       break;
     }
 

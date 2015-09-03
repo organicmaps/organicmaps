@@ -17,8 +17,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.util.statistics.Statistics;
 
-import static com.mapswithme.maps.dialog.EditTextDialogFragment.EXTRA_POSITIVE_BUTTON;
-import static com.mapswithme.maps.dialog.EditTextDialogFragment.EXTRA_TITLE;
 import static com.mapswithme.maps.dialog.EditTextDialogFragment.OnTextSaveListener;
 
 public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment implements OnTextSaveListener, ChooseBookmarkCategoryAdapter.CategoryListener
@@ -110,13 +108,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment implem
   @Override
   public void onCategoryCreate()
   {
-    final Bundle args = new Bundle();
-    Activity activity = getActivity();
-    args.putString(EXTRA_TITLE, activity.getString(R.string.new_group));
-    args.putString(EXTRA_POSITIVE_BUTTON, activity.getString(R.string.ok));
-    final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.
-        instantiate(activity, EditTextDialogFragment.class.getName());
-    fragment.setArguments(args);
-    fragment.show(getChildFragmentManager(), EditTextDialogFragment.class.getName());
+    EditTextDialogFragment.show(getString(R.string.bookmark_set_name), null,
+                                getString(R.string.ok), null, this);
   }
 }

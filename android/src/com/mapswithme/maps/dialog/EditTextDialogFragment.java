@@ -33,6 +33,18 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     void onSaveText(String text);
   }
 
+  public static void show(String title, String initialText, String positiveBtn, String negativeBtn, Fragment parent)
+  {
+    final Bundle args = new Bundle();
+    args.putString(EXTRA_TITLE, title);
+    args.putString(EXTRA_INITIAL, initialText);
+    args.putString(EXTRA_POSITIVE_BUTTON, positiveBtn);
+    args.putString(EXTRA_NEGATIVE_BUTTON, negativeBtn);
+    final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(parent.getActivity(), EditTextDialogFragment.class.getName());
+    fragment.setArguments(args);
+    fragment.show(parent.getChildFragmentManager(), EditTextDialogFragment.class.getName());
+  }
+
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState)
