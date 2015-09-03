@@ -227,8 +227,8 @@ public:
 
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).
-    FeatureNameInserter<TStringsFile> inserter(skipIndex.IsCountryOrState(types) ? m_synonyms : 0,
-                                               m_names);
+    FeatureNameInserter<TStringsFile> inserter(
+        skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_names);
     m_valueBuilder.MakeValue(f, types, index, inserter.m_val);
 
     // Skip types for features without names.

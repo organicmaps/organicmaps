@@ -9,10 +9,9 @@ class TypesHolder;
 
 namespace search
 {
-/// There are 3 different ways of search index skipping:
-/// - skip features in any case (m_skipFeatures)
-/// - skip features with empty names (m_enFeature)
-/// - skip specified types for features with empty names (m_enTypes)
+// There are 2 different ways of search index skipping:
+// 1. Skip some feature's types.
+// 2. Skip some feature's types when feature name is empty.
 class TypesSkipper
 {
 public:
@@ -30,9 +29,13 @@ private:
   static bool HasType(TCont const & v, uint32_t t);
 
   // Array index (0, 1) means type level for checking (1, 2).
-  TCont m_skipEn[2];
-  TCont m_skipF[2];
-  TCont m_dontSkipEn;
+  // m_skipAlways is used in the case 1 described above.
+  TCont m_skipAlways[2];
+
+  // m_skipIfEmptyName and m_dontSkipIfEmptyName are used in the case 2 described above.
+  TCont m_skipIfEmptyName[2];
+  TCont m_dontSkipIfEmptyName;
+
   uint32_t m_country, m_state;
 };
 }  // namespace search
