@@ -531,28 +531,29 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                                   RouterDelegate const & delegate, Route & route)
 {
   my::HighResTimer timer(true);
+  m_indexManager.Clear();  // TODO (Dragunov) make proper index manager cleaning
+
   TRoutingMappingPtr startMapping = m_indexManager.GetMappingByPoint(startPoint);
   TRoutingMappingPtr targetMapping = m_indexManager.GetMappingByPoint(finalPoint);
 
-  m_indexManager.Clear();  // TODO (Dragunov) make proper index manager cleaning
-
   if (!startMapping->IsValid())
   {
-    route.AddAbsentCountry(startMapping->GetCountryName());
+    ResultCode const code = startMapping->GetError();
+    if (code != NoError)
+    {
+      route.AddAbsentCountry(startMapping->GetCountryName());
+      return code;
+    }
     return IRouter::StartPointNotFound;
   }
   if (!targetMapping->IsValid())
   {
-    // Check if target is a neighbour
-    startMapping->LoadCrossContext();
-    auto out_iterators = startMapping->m_crossContext.GetOutgoingIterators();
-    for (auto i = out_iterators.first; i != out_iterators.second; ++i)
-      if (startMapping->m_crossContext.GetOutgoingMwmName(*i) ==
-          targetMapping->GetCountryName())
-      {
-        route.AddAbsentCountry(targetMapping->GetCountryName());
-        return IRouter::EndPointNotFound;
-      }
+    ResultCode const code = targetMapping->GetError();
+    if (code != NoError)
+    {
+      route.AddAbsentCountry(targetMapping->GetCountryName());
+      return code;
+    }
     return IRouter::EndPointNotFound;
   }
 
