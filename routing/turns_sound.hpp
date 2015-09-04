@@ -80,6 +80,7 @@ public:
    /// \param turn contains information about the next turn.
    /// \param distanceToTurnMeters is distance to the next turn in meters.
    /// \param turnNotifications is a parameter to fill it if it's necessary.
+   /// \note The client implies turnNotifications does not contain empty strings.
   void GenerateTurnSound(TurnItem const & turn, double distanceToTurnMeters,
                          vector<string> & turnNotifications);
   /// Reset states which reflects current route position.

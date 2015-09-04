@@ -31,15 +31,15 @@ public enum TtsPlayer
     if (!isValid())
       return; // TtsPlayer was not inited yet.
 
-    final Locale systemLanguage = getDefaultLocale();
-    if (!isLocaleEqual(systemLanguage))
-      initTts(systemLanguage);
+    final Locale locale = getDefaultLocale();
+    if (!isLocaleEqual(locale))
+      initTts(locale);
   }
 
   private Locale getDefaultLocale()
   {
-    final Locale systemLanguage = Locale.getDefault();
-    return systemLanguage == null ? DEFAULT_LOCALE : systemLanguage;
+    final Locale locale = Locale.getDefault();
+    return locale == null ? DEFAULT_LOCALE : locale;
   }
 
   private boolean isLocaleEqual(Locale locale)
@@ -121,9 +121,6 @@ public enum TtsPlayer
 
   private void speak(String textToSpeak)
   {
-    if (textToSpeak.isEmpty())
-      return;
-
     // @TODO(vbykoianko) removes these two toasts below when the test period is finished.
     Toast.makeText(MwmApplication.get(), textToSpeak, Toast.LENGTH_SHORT).show();
     if (mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null) == TextToSpeech.ERROR)
@@ -138,7 +135,6 @@ public enum TtsPlayer
     if (!isValid())
       return; // speak() is called while TTS is not ready or could not be initialized.
 
-    // TODO think about moving TtsPlayer logic to RoutingLayout to minimize native calls.
     final String[] turnNotifications = Framework.nativeGenerateTurnSound();
     if (turnNotifications != null)
       for (String textToSpeak : turnNotifications)
@@ -158,7 +154,7 @@ public enum TtsPlayer
 
   public void enable(boolean enabled)
   {
-    if (!isValid())
+    if (enabled && !isValid())
       initTts(getDefaultLocale());
     nativeEnableTurnNotifications(enabled);
   }

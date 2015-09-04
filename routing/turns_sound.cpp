@@ -76,8 +76,10 @@ void TurnsSound::GenerateTurnSound(TurnItem const & turn, double distanceToTurnM
         // First turn sound notification.
         uint32_t const distToPronounce =
             m_settings.RoundByPresetSoundedDistancesUnits(turnNotificationDistUnits);
-        turnNotifications.emplace_back(GenerateTurnText(distToPronounce, turn.m_exitNum, false, turn.m_turn,
-                                                        m_settings.GetLengthUnits()));
+        string const text = GenerateTurnText(distToPronounce, turn.m_exitNum, false, turn.m_turn,
+                                      m_settings.GetLengthUnits());
+        if (!text.empty())
+          turnNotifications.emplace_back(text);
         // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
         // If so add an extra item to turnNotifications with "then parameter".
         m_nextTurnNotificationProgress = PronouncedNotification::First;
@@ -95,8 +97,10 @@ void TurnsSound::GenerateTurnSound(TurnItem const & turn, double distanceToTurnM
   if (m_nextTurnNotificationProgress == PronouncedNotification::First &&
       distanceToTurnMeters < distanceToPronounceNotificationMeters)
   {
-    turnNotifications.emplace_back(GenerateTurnText(0, turn.m_exitNum, false, turn.m_turn,
-                                                           m_settings.GetLengthUnits()));
+    string const text = GenerateTurnText(0, turn.m_exitNum, false, turn.m_turn,
+                                         m_settings.GetLengthUnits());
+    if (!text.empty())
+      turnNotifications.emplace_back(text);
 
     // @TODO(vbykoianko) Check if there's a turn immediately after the current turn.
     // If so add an extra item to info.turnNotifications with "then parameter".
