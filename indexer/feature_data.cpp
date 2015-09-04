@@ -322,6 +322,7 @@ bool FeatureParams::FinishAddingTypes()
   static uint32_t const boundary = classif().GetTypeByPath({ "boundary", "administrative" });
 
   vector<uint32_t> newTypes;
+  newTypes.reserve(m_Types.size());
 
   for (size_t i = 0; i < m_Types.size(); ++i)
   {
