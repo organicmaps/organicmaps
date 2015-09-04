@@ -1,16 +1,15 @@
 package com.mapswithme.util.statistics;
 
 import android.app.Activity;
-import android.provider.Settings;
 import android.util.Log;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.flurry.android.FlurryAgent;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMwmRequest;
-import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.log.StubLogger;
@@ -203,7 +202,7 @@ public enum Statistics
     if (isStatisticsEnabled())
     {
       FlurryAgent.onStartSession(activity);
-      FbUtil.activate(activity);
+      AppEventsLogger.activateApp(activity);
     }
   }
 
@@ -221,7 +220,7 @@ public enum Statistics
     if (isStatisticsEnabled())
     {
       FlurryAgent.onEndSession(activity);
-      FbUtil.deactivate(activity);
+      AppEventsLogger.deactivateApp(activity);
     }
   }
 
