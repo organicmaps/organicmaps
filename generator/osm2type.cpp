@@ -21,45 +21,33 @@ namespace ftype
 {
   namespace
   {
-    /// get value of mark (1 == "yes", -1 == "no", 0 == not a "yes\no")
-    static int get_mark_value(string const & k, string const & v)
+    bool IgnoreTag(string const & k, string const & v)
     {
-      static char const * aTrue[] = { "yes", "true", "1", "*" };
-      static char const * aFalse[] = { "no", "false", "-1" };
+      static string const negativeValues[] = { "no", "false", "-1" };
+      static pair<string const, bool const> const processedKeys[] = {
+        {"description", true}
+        ,{"cycleway", true}     // [highway=primary][cycleway=lane] parsed as [highway=cycleway]
+        ,{"proposed", true}     // [highway=proposed][proposed=primary] parsed as [highway=primary]
+        ,{"construction", true} // [highway=primary][construction=primary] parsed as [highway=construction]
+        ,{"layer", false} // process in any case
+        ,{"oneway", false} // process in any case
+      };
 
-      strings::SimpleTokenizer it(v, "|");
-      if (it)
-      {
-        bool allowedKey = (k != "layer" && k != "oneway");
-        while (it)
-        {
-          string const &part = *it;
-          if (allowedKey && strings::IsInArray(aFalse, part))
-            return -1;
+      // ignore empty key
+      if (k.empty())
+        return true;
 
-          if (strings::IsInArray(aTrue, part))
-            return 1;
+      // ignore some keys
+      for (auto const & key : processedKeys)
+        if (k == key.first)
+          return key.second;
 
-          ++it;
-        }
-      }
+      // ignore keys with negative values
+      for (auto const & value : negativeValues)
+        if (v == value)
+          return true;
 
-      // "~" means no this tag, so sometimes it means true,
-      // and all other cases - false. Choose according to a key.
-      if (v == "~")
-        return (k == "access" ? 1 : -1);
-
-      return 0;
-    }
-
-    bool is_skip_tag(string const & k)
-    {
-      return (k == "created_by"
-           || k == "description"
-           || k == "cycleway"     // [highway=primary][cycleway=lane] parsed as [highway=cycleway]
-           || k == "proposed"     // [highway=proposed][proposed=primary] parsed as [highway=primary]
-           || k == "construction" // [highway=primary][construction=primary] parsed as [highway=construction]
-           );
+      return false;
     }
 
     template <typename TResult, class ToDo>
@@ -68,11 +56,7 @@ namespace ftype
       TResult res = TResult();
       for (auto & e : p->m_tags)
       {
-        if (e.key.empty() || is_skip_tag(e.key))
-          continue;
-
-        // this means "no"
-        if (get_mark_value(e.key, e.value) == -1)
+        if (IgnoreTag(e.key, e.value))
           continue;
 
         res = toDo(e.key, e.value);
