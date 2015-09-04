@@ -1,7 +1,10 @@
 package com.mapswithme.util.statistics;
 
 import android.app.Activity;
+import android.provider.Settings;
+import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
@@ -12,17 +15,13 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.log.StubLogger;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public enum Statistics
 {
   INSTANCE;
 
   private final static String KEY_STAT_ENABLED = "StatisticsEnabled";
-
-  private List<StatisticsEngine> mStatisticsEngines;
-  private EventBuilder mEventBuilder;
 
   private final Logger mLogger = BuildConfig.DEBUG ? SimpleLogger.get("MwmStatistics") : StubLogger.get();
 
@@ -90,190 +89,138 @@ public enum Statistics
     mLogger.d("Created Statistics instance.");
   }
 
-  public void trackIfEnabled(Event event)
+  private void post(String name)
   {
     if (isStatisticsEnabled())
-    {
-      post(event);
-      mLogger.d("Posted event:", event);
-    }
-    else
-      mLogger.d("Skipped event:", event);
+      FlurryAgent.logEvent(name);
   }
 
-  private void post(Event event)
+  private void post(String name, String params[])
   {
-    for (StatisticsEngine engine : mStatisticsEngines)
-      engine.postEvent(event);
+    if (params.length % 2 != 0)
+      mLogger.e("Even number of parameters is required: key1, value1, key2, value2, ...");
+    if (isStatisticsEnabled())
+    {
+      final HashMap<String, String> map = new HashMap<>(params.length);
+      for (int i = 0; i < params.length - 1; i += 2)
+        map.put(params[i], params[i + 1]);
+      FlurryAgent.logEvent(name, map);
+    }
   }
 
   public void trackBackscreenCall(String from)
   {
-    final Event event = mEventBuilder
-        .setName(EventName.YOTA_BACK_CALL)
-        .addParam(EventParam.FROM, from)
-        .buildEvent();
-
-    trackIfEnabled(event);
+    post(EventName.YOTA_BACK_CALL, new String[]{EventParam.FROM, from});
   }
 
   public void trackCountryDownload()
   {
-    trackIfEnabled(mEventBuilder.
-        setName(EventName.COUNTRY_DOWNLOAD).
-        addParam(EventParam.COUNT, String.valueOf(ActiveCountryTree.getTotalDownloadedCount())).
-        buildEvent());
+    post(EventName.COUNTRY_DOWNLOAD,
+        new String[]{EventParam.COUNT, String.valueOf(ActiveCountryTree.getTotalDownloadedCount())});
   }
 
   public void trackCountryUpdate()
   {
-    trackIfEnabled(mEventBuilder.setName(EventName.COUNTRY_UPDATE).buildEvent());
+    post(EventName.COUNTRY_UPDATE);
   }
 
   public void trackCountryDeleted()
   {
-    trackIfEnabled(mEventBuilder.setName(EventName.COUNTRY_DELETE).buildEvent());
+    post(EventName.COUNTRY_DELETE);
   }
 
   public void trackSearchCategoryClicked(String category)
   {
-    final Event event = mEventBuilder
-        .setName(EventName.SEARCH_CAT_CLICKED)
-        .addParam(EventParam.CATEGORY, category)
-        .buildEvent();
-
-    trackIfEnabled(event);
+    post(EventName.SEARCH_CAT_CLICKED, new String[]{EventParam.CATEGORY, category});
   }
 
   public void trackDescriptionChanged()
   {
-    trackIfEnabled(mEventBuilder.setName(EventName.DESCRIPTION_CHANGED).buildEvent());
+    post(EventName.DESCRIPTION_CHANGED);
   }
 
   public void trackGroupCreated()
   {
-    trackIfEnabled(mEventBuilder.setName(EventName.GROUP_CREATED).buildEvent());
+    post(EventName.GROUP_CREATED);
   }
 
   public void trackColorChanged(String from, String to)
   {
-    final Event event = mEventBuilder
-        .setName(EventName.COLOR_CHANGED)
-        .addParam(EventParam.FROM, from)
-        .addParam(EventParam.TO, to)
-        .buildEvent();
-
-    trackIfEnabled(event);
+    post(EventName.COLOR_CHANGED, new String[]{EventParam.FROM, from, EventParam.TO, to});
   }
 
   public void trackBookmarkCreated()
   {
-    final Event event = mEventBuilder
-        .setName(EventName.BOOKMARK_CREATED)
-        .addParam(EventParam.COUNT, String.valueOf(++mBookmarksCreated))
-        .buildEvent();
-
-    trackIfEnabled(event);
+    post(EventName.BOOKMARK_CREATED, new String[]{EventParam.COUNT, String.valueOf(++mBookmarksCreated)});
   }
 
   public void trackPlaceShared(String channel)
   {
-    final Event event = mEventBuilder
-        .setName(EventName.PLACE_SHARED)
-        .addParam(EventParam.CHANNEL, channel)
-        .addParam(EventParam.COUNT, String.valueOf(++mSharedTimes))
-        .buildEvent();
-
-    trackIfEnabled(event);
+    post(EventName.PLACE_SHARED,
+        new String[]{EventParam.CHANNEL, channel, EventParam.COUNT, String.valueOf(++mSharedTimes)});
   }
 
   public void trackApiCall(ParsedMwmRequest request)
   {
-    if (request != null && request.getCallerInfo() != null)
-    {
-      //@formatter:off
-      final Event event = mEventBuilder
-          .setName(EventName.API_CALLED)
-          .addParam(EventParam.CALLER_ID, request.getCallerInfo().packageName)
-          .buildEvent();
-      //@formatter:on
-      trackIfEnabled(event);
-    }
+    if (request != null)
+      post(EventName.API_CALLED, new String[]{EventParam.CALLER_ID,
+          request.getCallerInfo() == null ? "null" : request.getCallerInfo().packageName});
   }
 
   public void trackWifiConnected(boolean hasValidLocation)
   {
-    final Event event = mEventBuilder.
-        setName(EventName.WIFI_CONNECTED).
-        addParam(EventParam.HAD_VALID_LOCATION, String.valueOf(hasValidLocation)).
-        buildEvent();
-    trackIfEnabled(event);
+    post(EventName.WIFI_CONNECTED, new String[]{EventParam.HAD_VALID_LOCATION, String.valueOf(hasValidLocation)});
   }
 
   public void trackWifiConnectedAfterDelay(boolean isLocationExpired, long delayMillis)
   {
-    final Event event = mEventBuilder.
-        setName(EventName.WIFI_CONNECTED).
-        addParam(EventParam.HAD_VALID_LOCATION, String.valueOf(isLocationExpired)).
-        addParam(EventParam.DELAY_MILLIS, String.valueOf(delayMillis)).
-        buildEvent();
-    trackIfEnabled(event);
+    post(EventName.WIFI_CONNECTED, new String[]{EventParam.HAD_VALID_LOCATION, String.valueOf(isLocationExpired),
+        EventParam.DELAY_MILLIS, String.valueOf(delayMillis)});
   }
 
   public void trackDownloadCountryNotificationShown()
   {
-    trackIfEnabled(mEventBuilder.setName(EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN).buildEvent());
+    post(EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN);
   }
 
   public void trackDownloadCountryNotificationClicked()
   {
-    trackIfEnabled(mEventBuilder.setName(EventName.DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED).buildEvent());
+    post(EventName.DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED);
   }
 
   public void trackRatingDialog(float rating)
   {
-    final Event event = mEventBuilder.
-        setName(EventName.RATE_DIALOG_RATED).
-        addParam(EventParam.RATING, String.valueOf(rating)).
-        buildEvent();
-    trackIfEnabled(event);
+    post(EventName.RATE_DIALOG_RATED, new String[]{EventParam.RATING, String.valueOf(rating)});
   }
 
   public void trackSimpleNamedEvent(String eventName)
   {
-    trackIfEnabled(mEventBuilder.setName(eventName).buildEvent());
+    post(eventName);
   }
 
   public void startActivity(Activity activity)
   {
     if (isStatisticsEnabled())
     {
-      for (StatisticsEngine engine : mStatisticsEngines)
-        engine.onStartActivity(activity);
-
+      FlurryAgent.onStartSession(activity);
       FbUtil.activate(activity);
     }
   }
 
   private void configure()
   {
-    final String key = MwmApplication.get().getResources().getString(R.string.flurry_app_key);
-    mStatisticsEngines = new ArrayList<>();
-
-    final StatisticsEngine flurryEngine = new FlurryEngine(BuildConfig.DEBUG, key);
-    flurryEngine.configure(MwmApplication.get(), null);
-    mStatisticsEngines.add(flurryEngine);
-
-    mEventBuilder = new EventBuilder();
+    FlurryAgent.setLogLevel(BuildConfig.DEBUG ? Log.DEBUG : Log.ERROR);
+    FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
+    FlurryAgent.setCaptureUncaughtExceptions(false);
+    android.content.Context context = MwmApplication.get();
+    FlurryAgent.init(context, context.getString(R.string.flurry_app_key));
   }
 
   public void stopActivity(Activity activity)
   {
     if (isStatisticsEnabled())
     {
-      for (StatisticsEngine engine : mStatisticsEngines)
-        engine.onEndActivity(activity);
-
+      FlurryAgent.onEndSession(activity);
       FbUtil.deactivate(activity);
     }
   }
@@ -287,12 +234,9 @@ public enum Statistics
   {
     final MwmApplication theApp = MwmApplication.get();
     theApp.nativeSetBoolean(KEY_STAT_ENABLED, isEnabled);
-    // We track if user turned on/off
-    // statistics to understand data better.
-    post(mEventBuilder
-        .setName(EventName.STATISTICS_STATUS_CHANGED + " " + theApp.getFirstInstallFlavor())
-        .addParam(EventParam.ENABLED, String.valueOf(isEnabled))
-        .buildEvent());
+    // We track if user turned on/off statistics to understand data better.
+    post(EventName.STATISTICS_STATUS_CHANGED + " " + theApp.getFirstInstallFlavor(),
+        new String[]{EventParam.ENABLED, String.valueOf(isEnabled)});
 
     if (isEnabled)
       org.alohalytics.Statistics.enable(theApp);
