@@ -17,6 +17,7 @@ import java.util.List;
 public class AndroidNativeProvider extends BaseLocationProvider implements android.location.LocationListener
 {
   private LocationManager mLocationManager;
+  private boolean mIsActive;
 
   public AndroidNativeProvider()
   {
@@ -26,18 +27,21 @@ public class AndroidNativeProvider extends BaseLocationProvider implements andro
   @Override
   protected void startUpdates()
   {
+    if (mIsActive)
+      return;
+
     final List<String> providers = getFilteredProviders();
 
     if (providers.size() == 0)
       LocationHelper.INSTANCE.notifyLocationError(LocationHelper.ERROR_DENIED);
     else
     {
+      mIsActive = true;
       for (final String provider : providers)
         mLocationManager.requestLocationUpdates(provider, LOCATION_UPDATE_INTERVAL, 0, this);
 
       LocationHelper.INSTANCE.registerSensorListeners();
 
-      // Choose best location from available
       final Location newLocation = findBestNotExpiredLocation(providers);
       if (isLocationBetterThanLast(newLocation))
         LocationHelper.INSTANCE.setLastLocation(newLocation);
@@ -55,6 +59,7 @@ public class AndroidNativeProvider extends BaseLocationProvider implements andro
   protected void stopUpdates()
   {
     mLocationManager.removeUpdates(this);
+    mIsActive = false;
   }
 
   private Location findBestNotExpiredLocation(List<String> providers)

@@ -13,12 +13,14 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
 
@@ -36,6 +38,7 @@ public enum LocationHelper implements SensorEventListener
   public static final int ERROR_GPS_OFF = 3;
 
   public static final String LOCATION_PREDICTOR_PROVIDER = "LocationPredictorProvider";
+  private static final long STOP_DELAY = 5000;
 
   public interface LocationListener
   {
@@ -62,6 +65,17 @@ public enum LocationHelper implements SensorEventListener
   private final float[] mR = new float[9];
   private final float[] mI = new float[9];
   private final float[] mOrientation = new float[3];
+
+  private Runnable mStopLocationTask = new Runnable() {
+    @Override
+    public void run()
+    {
+      mLocationProvider.stopUpdates();
+      mMagneticField = null;
+      if (mSensorManager != null)
+        mSensorManager.unregisterListener(LocationHelper.this);
+    }
+  };
 
   LocationHelper()
   {
@@ -153,22 +167,20 @@ public enum LocationHelper implements SensorEventListener
 
   public void addLocationListener(LocationListener listener)
   {
+    UiThread.cancelDelayedTasks(mStopLocationTask);
     if (mListeners.isEmpty())
       mLocationProvider.startUpdates();
     mListeners.add(listener);
+    notifyLocationUpdated();
   }
 
   public void removeLocationListener(LocationListener listener)
   {
     mListeners.remove(listener);
     if (mListeners.isEmpty())
-    {
-      mLocationProvider.stopUpdates();
-      // Reset current parameters to force initialize in the next addLocationListener
-      mMagneticField = null;
-      if (mSensorManager != null)
-        mSensorManager.unregisterListener(LocationHelper.this);
-    }
+      // Make a delay with disconnection from location providers, so that orientation changes and short app sleeps
+      // doesn't take long time to connect again.
+      UiThread.runLater(mStopLocationTask, STOP_DELAY);
   }
 
   void registerSensorListeners()

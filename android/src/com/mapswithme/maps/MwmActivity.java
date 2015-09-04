@@ -196,33 +196,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .putExtra(DownloadResourcesActivity.EXTRA_UPDATE_COUNTRIES, true);
   }
 
-  private void pauseLocation()
-  {
-    LocationHelper.INSTANCE.removeLocationListener(this);
-    // Enable automatic turning screen off while app is idle
-    Utils.keepScreenOn(false, getWindow());
-    mLocationPredictor.pause();
-  }
-
-  private void listenLocationUpdates()
-  {
-    LocationHelper.INSTANCE.addLocationListener(this);
-    // Do not turn off the screen while displaying position
-    Utils.keepScreenOn(true, getWindow());
-    mLocationPredictor.resume();
-  }
-
-  /**
-   * Invalidates location state in core.
-   * Updates location button accordingly.
-   */
-  public void invalidateLocationState()
-  {
-    final int currentLocationMode = LocationState.INSTANCE.getLocationStateMode();
-    refreshLocationState(currentLocationMode);
-    LocationState.INSTANCE.invalidatePosition();
-  }
-
   private void checkUserMarkActivation()
   {
     final Intent intent = getIntent();
@@ -923,19 +896,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
       pauseLocation();
       break;
     case LocationState.PENDING_POSITION:
-      listenLocationUpdates();
+      resumeLocation();
       break;
     default:
       break;
     }
   }
 
-  private void listenLocationStateModeUpdates()
+  private void listenLocationStateUpdates()
   {
     mLocationStateModeListenerId = LocationState.INSTANCE.addLocationStateModeListener(this);
   }
 
-  private void stopWatchingCompassStatusUpdate()
+  private void stopLocationStateUpdates()
   {
     LocationState.INSTANCE.removeLocationStateModeListener(mLocationStateModeListenerId);
   }
@@ -945,7 +918,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
 
-    listenLocationStateModeUpdates();
+    listenLocationStateUpdates();
     invalidateLocationState();
     startWatchingExternalStorage();
     adjustZoomButtons(Framework.nativeIsRoutingActive());
@@ -998,10 +971,37 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     pauseLocation();
     stopWatchingExternalStorage();
-    stopWatchingCompassStatusUpdate();
+    stopLocationStateUpdates();
     TtsPlayer.INSTANCE.stop();
     LikesManager.INSTANCE.cancelDialogs();
     super.onPause();
+  }
+
+  private void resumeLocation()
+  {
+    LocationHelper.INSTANCE.addLocationListener(this);
+    // Do not turn off the screen while displaying position
+    Utils.keepScreenOn(true, getWindow());
+    mLocationPredictor.resume();
+  }
+
+  private void pauseLocation()
+  {
+    LocationHelper.INSTANCE.removeLocationListener(this);
+    // Enable automatic turning screen off while app is idle
+    Utils.keepScreenOn(false, getWindow());
+    mLocationPredictor.pause();
+  }
+
+  /**
+   * Invalidates location state in core.
+   * Updates location button accordingly.
+   */
+  public void invalidateLocationState()
+  {
+    final int currentLocationMode = LocationState.INSTANCE.getLocationStateMode();
+    refreshLocationState(currentLocationMode);
+    LocationState.INSTANCE.invalidatePosition();
   }
 
   private void updateExternalStorageState()
