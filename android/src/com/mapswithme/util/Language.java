@@ -1,7 +1,6 @@
 package com.mapswithme.util;
 
 import android.content.Context;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
@@ -25,15 +24,12 @@ public class Language
   // sometime it always returns the same value as getDefaultLocale()
   public static String getKeyboardLocale()
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+    final InputMethodManager imm = (InputMethodManager) MwmApplication.get().getSystemService(Context.INPUT_METHOD_SERVICE);
+    if (imm != null)
     {
-      final InputMethodManager imm = (InputMethodManager) MwmApplication.get().getSystemService(Context.INPUT_METHOD_SERVICE);
-      if (imm != null)
-      {
-        final InputMethodSubtype ims = imm.getCurrentInputMethodSubtype();
-        if (ims != null)
-          return ims.getLocale();
-      }
+      final InputMethodSubtype ims = imm.getCurrentInputMethodSubtype();
+      if (ims != null)
+        return ims.getLocale();
     }
 
     return getDefaultLocale();

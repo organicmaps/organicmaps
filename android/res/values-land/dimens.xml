@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <dimen name="zoom_plus_top_margin">-10dp</dimen>
-    <dimen name="drawer_top_padding">12dp</dimen>
-
+  <dimen name="zoom_plus_top_margin">-10dp</dimen>
+  <dimen name="drawer_top_padding">12dp</dimen>
+  <dimen name="tabs_height">48dp</dimen>
 </resources>

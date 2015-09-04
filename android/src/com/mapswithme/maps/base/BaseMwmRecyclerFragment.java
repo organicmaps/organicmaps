@@ -2,7 +2,7 @@ package com.mapswithme.maps.base;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.util.UiUtils;
@@ -21,11 +20,15 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
   private Toolbar mToolbar;
   protected RecyclerView mRecycler;
 
-  @Nullable
+  protected @LayoutRes int getLayoutRes()
+  {
+    return R.layout.fragment_recycler;
+  }
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.fragment_recycler, container, false);
+    return inflater.inflate(getLayoutRes(), container, false);
   }
 
   @Override

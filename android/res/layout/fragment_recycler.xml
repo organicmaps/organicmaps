@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@android:color/white"
-              android:orientation="vertical">
-
-  <include layout="@layout/toolbar_default"/>
-
-  <FrameLayout
-      style="@style/MwmWidget.FrameLayout.Elevation"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-
-    <include layout="@layout/recycler_default"/>
-
-  </FrameLayout>
-
-</LinearLayout>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             style="@style/MwmWidget.FrameLayout.Elevation"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@android:color/white">
+  <include layout="@layout/recycler_default"/>
+</FrameLayout>

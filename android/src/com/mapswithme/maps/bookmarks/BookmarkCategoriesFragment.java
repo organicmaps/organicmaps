@@ -2,11 +2,9 @@ package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.annotation.LayoutRes;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
 import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
@@ -28,9 +26,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   private BookmarkCategoriesAdapter mAdapter;
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  protected @LayoutRes int getLayoutRes()
   {
-    return inflater.inflate(R.layout.recycler_default, container, false);
+    return R.layout.recycler_default;
   }
 
   @Override

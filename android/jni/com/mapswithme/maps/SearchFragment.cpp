@@ -38,8 +38,8 @@ class SearchAdapter
 
     if (res.IsEndMarker())
     {
-      jmethodID const methodId = jni::GetJavaMethodID(env, m_fragment, "onResultsEnd", "()V");
-      env->CallVoidMethod(m_fragment, methodId);
+      jmethodID const methodId = jni::GetJavaMethodID(env, m_fragment, "onResultsEnd", "(I)V");
+      env->CallVoidMethod(m_fragment, methodId, queryID);
       return;
     }
 
@@ -204,17 +204,15 @@ Java_com_mapswithme_maps_search_SearchFragment_nativeDisconnectSearchListener(JN
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_search_SearchFragment_nativeRunSearch(
     JNIEnv * env, jobject thiz, jstring s, jstring lang,
-    jdouble lat, jdouble lon, jint flags, jint queryID)
+    jint queryID, jboolean force, jboolean hasPosition, jdouble lat, jdouble lon)
 {
   search::SearchParams params;
 
   params.m_query = jni::ToNativeString(env, s);
   params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
-
-  /// @note These magic numbers should be equal with NOT_FIRST_QUERY and HAS_POSITION
-  /// from SearchFragment.java
-  if ((flags & 1) == 0) params.SetForceSearch(true);
-  if ((flags & 2) != 0) params.SetPosition(lat, lon);
+  params.SetForceSearch(force);
+  if (hasPosition)
+    params.SetPosition(lat, lon);
 
   return SearchAdapter::Instance().RunSearch(env, params, queryID);
 }
@@ -234,7 +232,7 @@ Java_com_mapswithme_maps_search_SearchFragment_nativeShowAllSearchResults(JNIEnv
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_search_SearchFragment_nativeGetResult(
     JNIEnv * env, jobject thiz, jint position, jint queryID,
-    jdouble lat, jdouble lon, jboolean hasPosition, jdouble north)
+    jboolean hasPosition, jdouble lat, jdouble lon, jdouble north)
 {
   search::Result const * res = SearchAdapter::Instance().GetResult(position, queryID);
   if (res == nullptr) return 0;
@@ -250,24 +248,24 @@ Java_com_mapswithme_maps_search_SearchFragment_nativeGetResult(
 
   env->ReleaseIntArrayElements(ranges, narr, 0);
 
-  static shared_ptr<jobject> klassGlobalRef = jni::make_global_ref(env->FindClass("com/mapswithme/maps/search/SearchResult"));
-  jclass klass = static_cast<jclass>(*klassGlobalRef.get());
-  ASSERT(klass, ());
+  static shared_ptr<jobject> resultClassGlobalRef = jni::make_global_ref(env->FindClass("com/mapswithme/maps/search/SearchResult"));
+  jclass resultClass = static_cast<jclass>(*resultClassGlobalRef.get());
+  ASSERT(resultClass, ());
 
   if (res->IsSuggest())
   {
-    static jmethodID methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;Ljava/lang/String;[I)V");
-    ASSERT ( methodID, () );
+    static jmethodID suggestCtor = env->GetMethodID(resultClass, "<init>", "(;Ljava/lang/String;;Ljava/lang/String;[I)V");
+    ASSERT(suggestCtor, ());
 
-    return env->NewObject(klass, methodID,
+    return env->NewObject(resultClass, suggestCtor,
                           jni::ToJavaString(env, res->GetString()),
                           jni::ToJavaString(env, res->GetSuggestionString()),
                           static_cast<jintArray>(ranges));
   }
 
-  static jmethodID methodID = env->GetMethodID(klass, "<init>",
-            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[I)V");
-  ASSERT ( methodID, () );
+  static jmethodID resultCtor = env->GetMethodID(klass, "<init>",
+            "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;[I)V");
+  ASSERT ( resultCtor, () );
 
   string distance;
   if (hasPosition)
@@ -276,11 +274,24 @@ Java_com_mapswithme_maps_search_SearchFragment_nativeGetResult(
     (void) g_framework->NativeFramework()->GetDistanceAndAzimut(res->GetFeatureCenter(), lat, lon, north, distance, dummy);
   }
 
-  return env->NewObject(klass, methodID,
+  static shared_ptr<jobject> descClassGlobalRef = jni::make_global_ref(env->FindClass("com/mapswithme/maps/search/SearchResult$Description"));
+  jclass descClass = static_cast<jclass>(*descClassGlobalRef.get());
+  ASSERT(descClass, ());
+
+  static jmethodID descCtor = env->GetMethodID(descClass, "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZ)V");
+  ASSERT(descCtor, ());
+
+  jobject desc = env->NewObject(descClass, descCtor,
+                                jni::ToJavaString(env, res->GetFeatureType()),
+                                jni::ToJavaString(env, res->GetRegionString()),
+                                jni::ToJavaString(env, distance.c_str()),
+                                jni::ToJavaString(env, res->GetCuisine()),
+                                res->GetStarsCount(),
+                                res->IsClosed());
+
+  return env->NewObject(resultClass, resultCtor,
                         jni::ToJavaString(env, res->GetString()),
-                        jni::ToJavaString(env, res->GetRegionString()),
-                        jni::ToJavaString(env, res->GetFeatureType()),
-                        jni::ToJavaString(env, distance.c_str()),
+                        desc,
                         static_cast<jintArray>(ranges));
 }
 

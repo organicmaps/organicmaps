@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/search_item_height"
-              android:background="?selectableItemBackground"
-              android:gravity="center_vertical"
-              android:orientation="horizontal"
-              android:paddingLeft="@dimen/margin_base"
-              android:paddingRight="@dimen/margin_base">
-
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/search_item_height"
+    android:background="?selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base">
   <ImageView
       android:id="@+id/iv__search_category"
       android:layout_width="wrap_content"
@@ -23,5 +23,4 @@
       android:layout_marginLeft="@dimen/margin_base"
       android:layout_weight="1"
       android:textAppearance="@style/MwmTextAppearance.Body1"/>
-
 </LinearLayout>

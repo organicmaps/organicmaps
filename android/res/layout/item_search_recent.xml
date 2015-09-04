@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          style="@style/MwmWidget.TextView.Search"
+          android:drawableLeft="@drawable/ic_show"
+          tools:text="Some recent query"/>

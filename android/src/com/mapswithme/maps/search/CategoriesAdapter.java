@@ -2,6 +2,7 @@ package com.mapswithme.maps.search;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +21,15 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
   private final LayoutInflater mInflater;
   private final Resources mResources;
-  private final SearchFragment mFragment;
 
-  public CategoriesAdapter(SearchFragment fragment)
+  public interface OnCategorySelectedListener
+  {
+    void onCategorySelected(String category);
+  }
+
+  private OnCategorySelectedListener mListener;
+
+  public CategoriesAdapter(Fragment fragment)
   {
     TypedArray categories = fragment.getActivity().getResources().obtainTypedArray(R.array.search_category_name_ids);
     TypedArray icons = fragment.getActivity().getResources().obtainTypedArray(R.array.search_category_icon_ids);
@@ -40,9 +47,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     categories.recycle();
     icons.recycle();
 
-    mFragment = fragment;
-    mResources = mFragment.getResources();
-    mInflater = LayoutInflater.from(mFragment.getActivity());
+    if (fragment instanceof OnCategorySelectedListener)
+      mListener = (OnCategorySelectedListener) fragment;
+    mResources = fragment.getResources();
+    mInflater = LayoutInflater.from(fragment.getActivity());
   }
 
   @Override
@@ -88,7 +96,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     {
       final int position = getAdapterPosition();
       Statistics.INSTANCE.trackSearchCategoryClicked(mResources.getResourceEntryName(mCategoryResIds[position]));
-      mFragment.setSearchQuery(getSuggestionFromCategory(mCategoryResIds[position]));
+      if (mListener != null)
+        mListener.onCategorySelected(getSuggestionFromCategory(mCategoryResIds[position]));
     }
   }
 }

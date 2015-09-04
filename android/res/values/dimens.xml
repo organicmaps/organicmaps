@@ -80,4 +80,6 @@
 
   <dimen name="navigation_elevation">4dp</dimen>
   <dimen name="appbar_elevation">4dp</dimen>
+
+  <dimen name="tabs_height">64dp</dimen>
 </resources>

@@ -1542,4 +1542,46 @@ extern "C"
   {
     frm()->DeregisterAllMaps();
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetRecentSearchQueries(JNIEnv * env, jclass thiz, jobject result)
+  {
+    using TSearchRequest = search::QuerySaver::TSearchRequest;
+    const list<TSearchRequest> &items = frm()->GetLastSearchQueries();
+    if (items.empty())
+      return;
+
+    jclass listClass = env->GetObjectClass(result);
+    static const jmethodID listAddMethod = env->GetMethodID(listClass, "add", "(Ljava/lang/Object;)Z");
+
+    jclass pairClass = env->FindClass("android/util/Pair");
+    static const jmethodID pairCtor = env->GetMethodID(pairClass, "<init>", "(Ljava/lang/Object;Ljava/lang/Object;)V");
+
+    for (const TSearchRequest &item : items)
+    {
+      jstring locale = jni::ToJavaString(env, item.first.c_str());
+      jstring query = jni::ToJavaString(env, item.second.c_str());
+      jobject pair = env->NewObject(pairClass, pairCtor, locale, query);
+      ASSERT(pair, (jni::DescribeException()));
+
+      env->CallBooleanMethod(result, listAddMethod, pair);
+
+      env->DeleteLocalRef(locale);
+      env->DeleteLocalRef(query);
+      env->DeleteLocalRef(pair);
+    }
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeAddRecentSearchQuery(JNIEnv * env, jclass thiz, jstring locale, jstring query)
+  {
+    search::QuerySaver::TSearchRequest sr(jni::ToNativeString(env, locale), jni::ToNativeString(env, query));
+    frm()->SaveSearchQuery(sr);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeClearRecentSearchQueries(JNIEnv * env, jclass thiz)
+  {
+    frm()->ClearSearchHistory();
+  }
 } // extern "C"

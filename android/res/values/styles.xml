@@ -157,6 +157,18 @@
     <item name="android:background">@android:color/transparent</item>
   </style>
 
+  <style name="MwmWidget.TextView.Search">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/search_item_height</item>
+    <item name="android:paddingLeft">@dimen/margin_base_plus</item>
+    <item name="android:paddingRight">@dimen/margin_base_plus</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body2</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:background">?clickableBackground</item>
+    <item name="android:drawablePadding">@dimen/margin_base_plus</item>
+  </style>
+
   <style name="MwmWidget.TextView.Direction">
     <item name="android:maxLines">3</item>
     <item name="android:textColor">@android:color/white</item>
@@ -272,7 +284,15 @@
   </style>
 
   <style name="MwmTextAppearance.Body3.Light">
-    <item name="android:textSize">@dimen/text_size_body_3</item>
+    <item name="android:textColor">@color/text_light</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body4">
+    <item name="android:textSize">@dimen/text_size_body_4</item>
+    <item name="android:textColor">@color/text_dark_subtitle</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body4.Light">
     <item name="android:textColor">@color/text_light</item>
   </style>
 

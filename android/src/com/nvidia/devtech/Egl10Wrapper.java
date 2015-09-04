@@ -3,7 +3,6 @@ package com.nvidia.devtech;
 import android.os.Build;
 import android.view.SurfaceHolder;
 
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 
 import java.util.Arrays;
@@ -83,7 +82,7 @@ public class Egl10Wrapper extends BaseEglWrapper
       return false;
     }
 
-    if (version[0] != 1 && version[1] >= 4 && Utils.apiLowerThan(Build.VERSION_CODES.JELLY_BEAN_MR1))
+    if (version[0] != 1 && version[1] >= 4 && Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
     {
       LogIt("Incorrect EGL wrapper choosed");
       return false;

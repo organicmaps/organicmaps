@@ -5,13 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -28,13 +22,9 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-
-import static com.mapswithme.util.Utils.checkNotNull;
 
 public final class UiUtils
 {
@@ -170,46 +160,14 @@ public final class UiUtils
       hide(views);
   }
 
-  /*
-    Views after alpha animations with 'setFillAfter' on 2.3 can't become GONE, until clearAnimationAfterAlpha is called.
-   */
-  public static void clearAnimationAfterAlpha(View... views)
+  public static void setTextAndShow(TextView tv, CharSequence text)
   {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-      for (final View view : views)
-        view.clearAnimation();
-  }
-
-  public static Drawable drawCircle(int color, int sizeResId, Resources res)
-  {
-    final int size = res.getDimensionPixelSize(sizeResId);
-    final Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-
-    final Paint paint = new Paint();
-    paint.setColor(color);
-    paint.setAntiAlias(true);
-
-    final Canvas c = new Canvas(bmp);
-    final float radius = size / 2.0f;
-    c.drawCircle(radius, radius, radius, paint);
-
-    return new BitmapDrawable(res, bmp);
-  }
-
-  public static TextView setTextAndShow(TextView tv, CharSequence text)
-  {
-    checkNotNull(tv);
-
     tv.setText(text);
     show(tv);
-
-    return tv;
   }
 
   public static void setTextAndHideIfEmpty(TextView tv, CharSequence text)
   {
-    checkNotNull(tv);
-
     tv.setText(text);
     showIf(!TextUtils.isEmpty(text), tv);
   }

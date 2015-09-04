@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.country.DownloadFragment;
@@ -42,7 +41,7 @@ import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.routing.RoutingResultCodesProcessor;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchFragment;
-import com.mapswithme.maps.search.SearchToolbarController;
+import com.mapswithme.maps.search.FloatingSearchToolbarController;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
@@ -53,12 +52,7 @@ import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
-import com.mapswithme.util.BottomSheetHelper;
-import com.mapswithme.util.InputUtils;
-import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
-import com.mapswithme.util.Yota;
+import com.mapswithme.util.*;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -81,9 +75,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  ChooseBookmarkCategoryFragment.Listener
 {
   public static final String EXTRA_TASK = "map_task";
-  private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  private final static String TAG = "MwmActivity";
+  private final static String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  private final static String EXTRA_SCREENSHOTS_TASK = "screenshots_task";
+  private final static String SCREENSHOTS_TASK_LOCATE = "locate_task";
+  private final static String SCREENSHOTS_TASK_PPP = "show_place_page";
+  private final static String EXTRA_LAT = "lat";
+  private final static String EXTRA_LON = "lon";
+
   private static final String EXTRA_SET_MAP_STYLE = "set_map_style";
   private static final String EXTRA_UPDATE_COUNTRIES = ".extra.update.countries";
+
   private static final String[] DOCKED_FRAGMENTS = {SearchFragment.class.getName(), DownloadFragment.class.getName()};
 
   // Instance state
@@ -116,7 +118,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mIsFragmentContainer;
 
   private LocationPredictor mLocationPredictor;
-  private SearchToolbarController mSearchController;
+  private FloatingSearchToolbarController mSearchController;
   private LastCompassData mLastCompassData;
 
   public interface LeftAnimationTrackListener
@@ -147,13 +149,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return new Intent(context, DownloadResourcesActivity.class)
         .putExtra(DownloadResourcesActivity.EXTRA_COUNTRY_INDEX, index)
         .putExtra(DownloadResourcesActivity.EXTRA_AUTODOWNLOAD_COUNTRY, doAutoDownload);
-  }
-
-  public static void setMapStyle(Context context, int mapStyle)
-  {
-    final Intent mapIntent = new Intent(context, MwmActivity.class);
-    mapIntent.putExtra(EXTRA_SET_MAP_STYLE, mapStyle);
-    context.startActivity(mapIntent);
   }
 
   public static void startSearch(Context context, String query)
@@ -281,7 +276,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return;
 
       popFragment();
-      SearchToolbarController.cancelSearch();
+      FloatingSearchToolbarController.cancelSearch();
       mSearchController.refreshToolbar();
       replaceFragment(DownloadFragment.class, true, args);
     }
@@ -311,7 +306,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     processIntent(getIntent());
 
     mLocationPredictor = new LocationPredictor(new Handler(), this);
-    mSearchController = new SearchToolbarController(this);
+
+    if (mIsFragmentContainer)
+      mSearchController = new FloatingSearchToolbarController(this);
 
     SharingHelper.prepare();
   }
@@ -777,7 +774,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     listenLocationStateUpdates();
     invalidateLocationState();
     adjustZoomButtons(Framework.nativeIsRoutingActive());
-    mSearchController.refreshToolbar();
+
+    if (mIsFragmentContainer)
+      mSearchController.refreshToolbar();
+
     mPlacePage.onResume();
     LikesManager.INSTANCE.showDialogs(this);
     mMainMenu.onResume();
@@ -865,9 +865,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (mSearchController.hide())
+    if (mIsFragmentContainer && mSearchController.hide())
     {
-      SearchToolbarController.cancelSearch();
+      FloatingSearchToolbarController.cancelSearch();
       return;
     }
 
@@ -1173,7 +1173,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (popFragment())
     {
       InputUtils.hideKeyboard(mMainMenu.getFrame());
-      mSearchController.refreshToolbar();
+
+      if (mIsFragmentContainer)
+        mSearchController.refreshToolbar();
     }
   }
 

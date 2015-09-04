@@ -1,65 +1,238 @@
 package com.mapswithme.maps.search;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountrySuggestFragment;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
+import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.sound.TtsPlayer;
+import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
-import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnClickListener, LocationHelper.LocationListener, OnBackPressListener, NativeSearchListener
+
+public class SearchFragment extends BaseMwmFragment
+                         implements LocationHelper.LocationListener,
+                                    OnBackPressListener,
+                                    NativeSearchListener,
+                                    SearchToolbarController.Container,
+                                    CategoriesAdapter.OnCategorySelectedListener
 {
-  // These constants should be equal with Java_com_mapswithme_maps_SearchFragment_nativeRunSearch routine.
-  private static final int NOT_FIRST_QUERY = 1;
-  private static final int HAS_POSITION = 2;
   // Make 5-step increment to leave space for middle queries.
   // This constant should be equal with native SearchAdapter::QUERY_STEP;
   private static final int QUERY_STEP = 5;
-  private static final int STATUS_SEARCH_LAUNCHED = 0;
-  private static final int STATUS_QUERY_EMPTY = 1;
-  private static final int STATUS_SEARCH_SKIPPED = 2;
+
   private static final int RC_VOICE_RECOGNITION = 0xCA11;
   private static final double DUMMY_NORTH = -1;
-  // Search views
-  private EditText mEtSearchQuery;
-  private ProgressBar mPbSearch;
-  private View mBtnClearQuery;
-  private View mBtnVoice;
-  // Current position.
-  private double mLat;
-  private double mLon;
 
-  private int mSearchFlags;
-  private int mQueryId;
+  private static class LastPosition
+  {
+    double lat;
+    double lon;
+    boolean valid;
+
+    public void set(double lat, double lon)
+    {
+      this.lat = lat;
+      this.lon = lon;
+      valid = true;
+    }
+  }
+
+  private class ToolbarController extends SearchToolbarController
+  {
+    public ToolbarController(View root)
+    {
+      super(root, getActivity());
+      mToolbar.setNavigationOnClickListener(
+          new View.OnClickListener()
+          {
+            @Override
+            public void onClick(View v)
+            {
+              if (getQuery().isEmpty())
+              {
+                Utils.navigateToParent(getActivity());
+                return;
+              }
+
+              setQuery("");
+              FloatingSearchToolbarController.cancelSearch();
+              updateFrames();
+            }
+          });
+    }
+
+    @Override
+    protected void onTextChanged(String query)
+    {
+      if (!isAdded())
+        return;
+
+      if (TextUtils.isEmpty(query))
+      {
+        mSearchAdapter.clear();
+        nativeClearLastQuery();
+
+        stopSearch();
+        return;
+      }
+
+      // TODO: This code only for demonstration purposes and will be removed soon
+      if (tryChangeMapStyle(query) || trySwitchOnTurnSound(query))
+        return;
+
+      runSearch(true);
+    }
+
+    @Override
+    protected boolean onStartSearchClick()
+    {
+      if (!mSearchAdapter.showPopulateButton())
+        return false;
+
+      showAllResultsOnMap();
+      return true;
+    }
+
+    @Override
+    protected void onClearClick()
+    {
+      super.onClearClick();
+      FloatingSearchToolbarController.cancelApiCall();
+      FloatingSearchToolbarController.cancelSearch();
+    }
+
+    @Override
+    protected void onVoiceInputClick()
+    {
+      try
+      {
+        startActivityForResult(InputUtils.createIntentForVoiceRecognition(getString(R.string.search_map)), RC_VOICE_RECOGNITION);
+      } catch (ActivityNotFoundException e)
+      {
+        AlohaHelper.logException(e);
+      }
+    }
+
+    @Override
+    protected void onUpClick()
+    {
+      if (TextUtils.isEmpty(getSearchQuery()))
+      {
+        super.onUpClick();
+        return;
+      }
+
+      mToolbarController.clear();
+    }
+  }
+
+  private View mResultsFrame;
+  private RecyclerView mResults;
+  private View mResultsPlaceholder;
+
+  private View mTabsFrame;
+
+  private SearchToolbarController mToolbarController;
+  private ViewPager mPager;
+
   private SearchAdapter mSearchAdapter;
-  private CategoriesAdapter mCategoriesAdapter;
+
+  private final List<RecyclerView> mAttachedRecyclers = new ArrayList<>();
+  private final RecyclerView.OnScrollListener mRecyclerListener = new RecyclerView.OnScrollListener()
+  {
+    @Override
+    public void onScrollStateChanged(RecyclerView recyclerView, int newState)
+    {
+      if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
+        mToolbarController.setActive(false);
+    }
+  };
+
+  private final CachedResults mCachedResults = new CachedResults(this);
+  private final LastPosition mLastPosition = new LastPosition();
+
+  private int mQueryId;
+  private volatile boolean mSearchRunning;
+
+
+  private boolean doShowDownloadSuggest()
+  {
+    return ActiveCountryTree.getTotalDownloadedCount() == 0;
+  }
+
+  private void showDownloadSuggest()
+  {
+    FragmentManager fm = getChildFragmentManager();
+    String fragmentName = CountrySuggestFragment.class.getName();
+    Fragment fragment = fm.findFragmentByTag(fragmentName);
+
+    if (fragment == null || fragment.isDetached() || fragment.isRemoving())
+    {
+      fragment = Fragment.instantiate(getActivity(), fragmentName, null);
+      fm.beginTransaction()
+        .add(R.id.inner_fragment_container, fragment, fragmentName)
+        .commit();
+    }
+  }
+
+  private void hideDownloadSuggest()
+  {
+    final FragmentManager manager = getChildFragmentManager();
+    final Fragment fragment = manager.findFragmentByTag(CountrySuggestFragment.class.getName());
+    if (fragment != null && !fragment.isDetached() && !fragment.isRemoving())
+      manager.beginTransaction()
+             .remove(fragment)
+             .commit();
+  }
+
+  protected void updateFrames()
+  {
+    boolean active = searchActive();
+    UiUtils.showIf(active, mResultsFrame);
+
+    if (active)
+      hideDownloadSuggest();
+    else if (doShowDownloadSuggest())
+      showDownloadSuggest();
+    else
+      hideDownloadSuggest();
+  }
+
+  private void updateResultsPlaceholder()
+  {
+    boolean show = (!mSearchRunning &&
+                    mSearchAdapter.getItemCount() == 0 &&
+                    searchActive());
+
+    UiUtils.showIf(show, mResultsPlaceholder);
+  }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -72,29 +245,39 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
   {
     super.onViewCreated(view, savedInstanceState);
 
-    final ViewGroup root = (ViewGroup) view;
-    initView(root);
-    initAdapters();
-    refreshContent();
-    nativeConnectSearchListener();
-    readArguments(getArguments());
-    if (getToolbar() != null)
-      getToolbar().setNavigationOnClickListener(new View.OnClickListener()
+    ViewGroup root = (ViewGroup) view;
+
+    mTabsFrame = root.findViewById(R.id.tab_frame);
+    mPager = (ViewPager) mTabsFrame.findViewById(R.id.pages);
+    mToolbarController = new ToolbarController(view);
+    new TabAdapter(getChildFragmentManager(), mPager, (TabLayout)root.findViewById(R.id.tabs));
+
+    mResultsFrame = root.findViewById(R.id.results_frame);
+    mResults = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
+    setRecyclerScrollListener(mResults);
+    mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
+
+    if (mSearchAdapter == null)
+    {
+      mSearchAdapter = new SearchAdapter(this);
+      mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
       {
         @Override
-        public void onClick(View v)
+        public void onChanged()
         {
-          if (getSearchQuery().isEmpty())
-          {
-            navigateUpToParent();
-            return;
-          }
-
-          setSearchQuery("");
-          SearchToolbarController.cancelSearch();
-          refreshContent();
+          updateResultsPlaceholder();
         }
       });
+    }
+
+    mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
+    mResults.setAdapter(mSearchAdapter);
+
+    updateFrames();
+    updateResultsPlaceholder();
+
+    nativeConnectSearchListener();
+    readArguments();
   }
 
   @Override
@@ -102,8 +285,7 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
   {
     super.onResume();
     LocationHelper.INSTANCE.addLocationListener(this);
-    setSearchQuery(nativeGetLastQuery());
-    mEtSearchQuery.requestFocus();
+    mToolbarController.setActive(true);
   }
 
   @Override
@@ -116,159 +298,31 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
   @Override
   public void onDestroy()
   {
+    for (RecyclerView v : mAttachedRecyclers)
+      v.removeOnScrollListener(mRecyclerListener);
+
     nativeDisconnectSearchListener();
     super.onDestroy();
   }
 
   protected String getSearchQuery()
   {
-    return mEtSearchQuery.getText().toString();
+    return mToolbarController.getQuery();
   }
 
-  protected void setSearchQuery(String query)
+  protected void setSearchQuery(String text)
   {
-    Utils.setTextAndCursorToEnd(mEtSearchQuery, query);
+    mToolbarController.setQuery(text);
   }
 
-  private void initView(View root)
+  protected boolean searchActive()
   {
-    mBtnVoice = root.findViewById(R.id.search_voice_input);
-    mBtnVoice.setOnClickListener(this);
-    mPbSearch = (ProgressBar) root.findViewById(R.id.search_progress);
-    mBtnClearQuery = root.findViewById(R.id.search_image_clear);
-    mBtnClearQuery.setOnClickListener(this);
-
-    mEtSearchQuery = (EditText) root.findViewById(R.id.search_text_query);
-    mEtSearchQuery.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        if (!isAdded())
-          return;
-
-        // TODO: This code only for demonstration purposes and will be removed soon
-        if (tryChangeMapStyle(s.toString()))
-          return;
-
-        if (runSearch() == STATUS_QUERY_EMPTY)
-          showCategories();
-
-        // TODO: This code only for demonstration purposes and will be removed soon
-        if (trySwitchOnTurnSound(s.toString()))
-          return;
-
-        if (s.length() == 0)
-        {
-          UiUtils.hide(mBtnClearQuery);
-          UiUtils.showIf(InputUtils.isVoiceInputSupported(getActivity()), mBtnVoice);
-        }
-        else
-        {
-          UiUtils.show(mBtnClearQuery);
-          UiUtils.hide(mBtnVoice);
-        }
-      }
-    });
-
-    mEtSearchQuery.setOnEditorActionListener(new TextView.OnEditorActionListener()
-    {
-      @Override
-      public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
-      {
-        final boolean isSearchDown = (event != null) &&
-            (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_SEARCH);
-        final boolean isActionSearch = (actionId == EditorInfo.IME_ACTION_SEARCH);
-
-        if ((isSearchDown || isActionSearch) && mSearchAdapter.getItemCount() > 0)
-        {
-          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
-          if (!doShowCategories())
-            showAllResultsOnMap();
-          return true;
-        }
-        return false;
-      }
-    });
-
-    getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener()
-    {
-      @Override
-      public void onScrollStateChanged(RecyclerView recyclerView, int newState)
-      {
-        if (newState != RecyclerView.SCROLL_STATE_DRAGGING)
-          return;
-        InputUtils.hideKeyboard(mEtSearchQuery);
-        InputUtils.removeFocusEditTextHack(mEtSearchQuery);
-      }
-    });
+    return !getSearchQuery().isEmpty();
   }
 
-  /**
-   * If search string is empty - show search categories.
-   */
-  protected boolean doShowCategories()
+  private void readArguments()
   {
-    return getSearchQuery().isEmpty();
-  }
-
-  private void initAdapters()
-  {
-    mSearchAdapter = new SearchAdapter(this);
-    mCategoriesAdapter = new CategoriesAdapter(this);
-  }
-
-  private void refreshContent()
-  {
-    final RecyclerView recyclerView = getRecyclerView();
-
-    if (!getSearchQuery().isEmpty())
-    {
-      hideDownloadSuggest();
-      recyclerView.setAdapter(mSearchAdapter);
-    }
-    else if (doShowDownloadSuggest())
-      showDownloadSuggest();
-    else
-    {
-      hideDownloadSuggest();
-      recyclerView.setAdapter(mCategoriesAdapter);
-    }
-  }
-
-  private boolean doShowDownloadSuggest()
-  {
-    return ActiveCountryTree.getTotalDownloadedCount() == 0;
-  }
-
-  private void showDownloadSuggest()
-  {
-    getRecyclerView().setVisibility(View.GONE);
-    final FragmentManager manager = getChildFragmentManager();
-    final String fragmentName = CountrySuggestFragment.class.getName();
-    Fragment fragment = manager.findFragmentByTag(fragmentName);
-    if (fragment == null || fragment.isDetached() || fragment.isRemoving())
-    {
-      final FragmentTransaction transaction = manager.beginTransaction();
-      fragment = Fragment.instantiate(getActivity(), fragmentName, null);
-      transaction.add(R.id.inner_fragment_container, fragment, fragmentName).commit();
-    }
-  }
-
-  private void hideDownloadSuggest()
-  {
-    getRecyclerView().setVisibility(View.VISIBLE);
-    final FragmentManager manager = getChildFragmentManager();
-    final Fragment fragment = manager.findFragmentByTag(CountrySuggestFragment.class.getName());
-    if (fragment != null && !fragment.isRemoving() && !fragment.isDetached())
-    {
-      final FragmentTransaction transaction = manager.beginTransaction();
-      transaction.remove(fragment).commit();
-    }
-  }
-
-  private void readArguments(Bundle arguments)
-  {
+    Bundle arguments = getArguments();
     if (arguments == null)
       return;
 
@@ -279,9 +333,9 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
 
   private void hideSearch()
   {
-    mEtSearchQuery.setText(null);
-    InputUtils.hideKeyboard(mEtSearchQuery);
-    navigateUpToParent();
+    mToolbarController.clear();
+    mToolbarController.setActive(false);
+    Utils.navigateToParent(getActivity());
   }
 
   // FIXME: This code only for demonstration purposes and will be removed soon
@@ -300,7 +354,7 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
 
     // change map style for the Map activity
     final int mapStyle = isOld ? Framework.MAP_STYLE_LIGHT : (isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_CLEAR);
-    MwmActivity.setMapStyle(getActivity(), mapStyle);
+    Framework.setMapStyle(mapStyle);
 
     return true;
   }
@@ -322,38 +376,33 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
 
   protected void showSingleResultOnMap(int resultIndex)
   {
-    SearchToolbarController.cancelApiCall();
-    SearchToolbarController.setQuery("");
+    final String query = getSearchQuery();
+    SearchRecentsTemp.INSTANCE.add(query);
+
+    FloatingSearchToolbarController.cancelApiCall();
+    FloatingSearchToolbarController.saveQuery("");
     nativeShowItem(resultIndex);
-    InputUtils.hideKeyboard(mEtSearchQuery);
-    navigateUpToParent();
+    Utils.navigateToParent(getActivity());
   }
 
   protected void showAllResultsOnMap()
   {
+    final String query = getSearchQuery();
     nativeShowAllSearchResults();
-    runInteractiveSearch(getSearchQuery(), Language.getKeyboardLocale());
-    SearchToolbarController.setQuery(getSearchQuery());
-    navigateUpToParent();
-  }
+    runInteractiveSearch(query, Language.getKeyboardLocale());
+    FloatingSearchToolbarController.saveQuery(query);
+    Utils.navigateToParent(getActivity());
 
-  private void showCategories()
-  {
-    nativeClearLastQuery();
-    displaySearchProgress(false);
-    refreshContent();
+    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
   }
 
   @Override
   public void onLocationUpdated(final Location l)
   {
-    mSearchFlags |= HAS_POSITION;
+    mLastPosition.set(l.getLatitude(), l.getLongitude());
 
-    mLat = l.getLatitude();
-    mLon = l.getLongitude();
-
-    if (runSearch() == STATUS_SEARCH_SKIPPED)
-      mSearchAdapter.notifyDataSetChanged();
+    if (!TextUtils.isEmpty(getSearchQuery()))
+      runSearch(false);
   }
 
   @Override
@@ -362,34 +411,54 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
   @Override
   public void onLocationError(int errorCode) {}
 
-  private int runSearch()
+  private void stopSearch()
   {
-    final String query = getSearchQuery();
-    if (query.isEmpty())
-    {
-      // do force search next time from empty list
-      mSearchFlags &= (~NOT_FIRST_QUERY);
-      return STATUS_QUERY_EMPTY;
-    }
+    mSearchRunning = false;
+    mToolbarController.showProgress(false);
+    updateFrames();
+    updateResultsPlaceholder();
+  }
 
-    final int id = mQueryId + QUERY_STEP;
-    if (nativeRunSearch(query, Language.getKeyboardLocale(), mLat, mLon, mSearchFlags, id))
-    {
-      mQueryId = id;
-      // mark that it's not the first query already - don't do force search
-      mSearchFlags |= NOT_FIRST_QUERY;
-      displaySearchProgress(true);
-      mSearchAdapter.notifyDataSetChanged();
-      return STATUS_SEARCH_LAUNCHED;
-    }
-    else
-      return STATUS_SEARCH_SKIPPED;
+  private void runSearch(boolean force)
+  {
+    int id = mQueryId + QUERY_STEP;
+    if (!nativeRunSearch(getSearchQuery(), Language.getKeyboardLocale(), id, force, mLastPosition.valid, mLastPosition.lat, mLastPosition.lon))
+      return;
+
+    mSearchRunning = true;
+    mQueryId = id;
+    mToolbarController.showProgress(true);
+
+    updateFrames();
   }
 
   @Override
-  public void onResultsUpdate(final int count, final int resultId)
+  public void onResultsUpdate(final int count, final int queryId)
   {
-    getActivity().runOnUiThread(new Runnable()
+    if (!mSearchRunning)
+      return;
+
+    UiThread.run(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        if (!isAdded() || !searchActive())
+          return;
+
+        updateFrames();
+        mSearchAdapter.refreshData(count, queryId);
+      }
+    });
+  }
+
+  @Override
+  public void onResultsEnd(int queryId)
+  {
+    if (!mSearchRunning || queryId != mQueryId)
+      return;
+
+    UiThread.run(new Runnable()
     {
       @Override
       public void run()
@@ -397,55 +466,15 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
         if (!isAdded())
           return;
 
-        if (doShowCategories())
-          return;
-
-        refreshContent();
-        mSearchAdapter.refreshData(count, resultId);
-        getRecyclerView().scrollToPosition(0);
+        stopSearch();
       }
     });
   }
 
   @Override
-  public void onResultsEnd()
+  public void onCategorySelected(String category)
   {
-    getActivity().runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        if (!isAdded())
-          return;
-
-        displaySearchProgress(false);
-      }
-    });
-  }
-
-  private void displaySearchProgress(boolean inProgress)
-  {
-    if (inProgress)
-      UiUtils.show(mPbSearch);
-    else
-      UiUtils.invisible(mPbSearch);
-  }
-
-  @Override
-  public void onClick(View v)
-  {
-    switch (v.getId())
-    {
-    case R.id.search_image_clear:
-      mEtSearchQuery.setText(null);
-      SearchToolbarController.cancelApiCall();
-      SearchToolbarController.cancelSearch();
-      break;
-    case R.id.search_voice_input:
-      final Intent vrIntent = InputUtils.createIntentForVoiceRecognition(getResources().getString(R.string.search_map));
-      startActivityForResult(vrIntent, RC_VOICE_RECOGNITION);
-      break;
-    }
+    mToolbarController.setQuery(category);
   }
 
   @Override
@@ -453,11 +482,11 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
   {
     super.onActivityResult(requestCode, resultCode, data);
 
-    if ((requestCode == RC_VOICE_RECOGNITION) && (resultCode == Activity.RESULT_OK))
+    if (requestCode == RC_VOICE_RECOGNITION && resultCode == Activity.RESULT_OK)
     {
-      final String result = InputUtils.getMostConfidentResult(data);
-      if (result != null)
-        mEtSearchQuery.setText(result);
+      String result = InputUtils.getBestRecognitionResult(data);
+      if (!TextUtils.isEmpty(result))
+        setSearchQuery(result);
     }
   }
 
@@ -467,23 +496,44 @@ public class SearchFragment extends BaseMwmRecyclerFragment implements View.OnCl
     return false;
   }
 
+  SearchResult getUncachedResult(int position, int queryId)
+  {
+    return nativeGetResult(position, queryId, mLastPosition.valid, mLastPosition.lat, mLastPosition.lon, DUMMY_NORTH);
+  }
+
   public SearchResult getResult(int position, int queryId)
   {
-    return nativeGetResult(position, queryId, mLat, mLon, (mSearchFlags & HAS_POSITION) != 0, DUMMY_NORTH);
+    return mCachedResults.get(position, queryId);
+  }
+
+  public void setRecyclerScrollListener(RecyclerView recycler)
+  {
+    recycler.addOnScrollListener(mRecyclerListener);
+    mAttachedRecyclers.add(recycler);
+  }
+
+  @Override
+  public SearchToolbarController getController()
+  {
+    return mToolbarController;
+  }
+
+  boolean isSearchRunning()
+  {
+    return mSearchRunning;
   }
 
   public static native void nativeShowItem(int position);
 
   public static native void nativeShowAllSearchResults();
 
-  private static native SearchResult nativeGetResult(int position, int queryId,
-                                                     double lat, double lon, boolean mode, double north);
+  private static native SearchResult nativeGetResult(int position, int queryId, boolean hasPosition, double lat, double lon, double north);
 
   private native void nativeConnectSearchListener();
 
   private native void nativeDisconnectSearchListener();
 
-  private native boolean nativeRunSearch(String s, String lang, double lat, double lon, int flags, int queryId);
+  private native boolean nativeRunSearch(String s, String lang, int queryId, boolean force, boolean hasPosition, double lat, double lon);
 
   private native String nativeGetLastQuery();
 

@@ -38,5 +38,6 @@
   <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>
 
   <!-- Tags -->
-  <string name="tag_menu_collapse">collapse</string>
+  <string name="tag_menu_collapse" translatable="false">collapse</string>
+  <string name="tag_height_limited" translatable="false">height limited</string>
 </resources>

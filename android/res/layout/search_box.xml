@@ -7,10 +7,11 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:background="#FF004F00">
 
   <EditText
-      android:id="@+id/search_text_query"
+      android:id="@+id/query"
       style="@style/MwmTextAppearance.Toolbar"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -25,7 +26,7 @@
       tools:ignore="UnusedAttribute"/>
 
   <ProgressBar
-      android:id="@+id/search_progress"
+      android:id="@+id/progress"
       style="@style/Widget.AppCompat.ProgressBar"
       android:layout_width="@dimen/routing_progress_size"
       android:layout_height="@dimen/routing_progress_size"
@@ -36,7 +37,7 @@
       android:minWidth="@dimen/routing_progress_size"/>
 
   <ImageView
-      android:id="@+id/search_image_clear"
+      android:id="@+id/clear"
       android:layout_width="?actionBarSize"
       android:layout_height="?actionBarSize"
       android:layout_gravity="center_vertical"
@@ -47,7 +48,7 @@
       android:src="@drawable/ic_close_w"/>
 
   <ImageView
-      android:id="@+id/search_voice_input"
+      android:id="@+id/voice_input"
       android:layout_width="?actionBarSize"
       android:layout_height="?actionBarSize"
       android:layout_gravity="center_vertical"
@@ -56,6 +57,7 @@
       android:contentDescription="@null"
       android:scaleType="center"
       android:src="@drawable/ic_mic_white"
-      android:visibility="gone"/>
+      android:visibility="gone"
+      tools:visibility="visible"/>
 
 </LinearLayout>

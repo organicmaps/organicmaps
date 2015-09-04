@@ -9,14 +9,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Graphics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -204,7 +203,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
     void setIcon(Track trk)
     {
-      final Drawable circle = UiUtils.drawCircle(trk.getColor(), R.dimen.track_circle_size, mActivity.getResources());
+      final Drawable circle = Graphics.drawCircle(trk.getColor(), R.dimen.track_circle_size, mActivity.getResources());
       icon.setImageDrawable(circle);
     }
 

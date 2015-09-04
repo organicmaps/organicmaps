@@ -3,7 +3,6 @@ package com.mapswithme.util.statistics;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-
 import com.facebook.appevents.AppEventsLogger;
 import com.flurry.android.FlurryAgent;
 import com.mapswithme.country.ActiveCountryTree;
@@ -14,12 +13,11 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.log.StubLogger;
+import ru.mail.android.mytracker.MRMyTracker;
+import ru.mail.android.mytracker.MRMyTrackerParams;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import ru.mail.android.mytracker.MRMyTracker;
-import ru.mail.android.mytracker.MRMyTrackerParams;
 
 public enum Statistics
 {

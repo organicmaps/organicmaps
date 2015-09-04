@@ -8,6 +8,7 @@ cp ../data/copyright.html assets/
 cp ../data/countries.txt assets/
 cp ../data/drules_proto.bin assets/
 cp ../data/drules_proto_dark.bin assets/
+cp ../data/drules_proto_clear.bin assets/
 cp ../data/external_resources.txt assets/
 cp ../data/faq.html assets/
 cp ../data/fonts_blacklist.txt assets/
@@ -19,14 +20,19 @@ cp ../data/unicode_blocks.txt assets/
 
 cp -r ../data/resources-hdpi/ assets/
 cp -r ../data/resources-hdpi_dark/ assets/
+cp -r ../data/resources-hdpi_clear/ assets/
 cp -r ../data/resources-ldpi/ assets/
 cp -r ../data/resources-ldpi_dark/ assets/
+cp -r ../data/resources-ldpi_clear/ assets/
 cp -r ../data/resources-mdpi/ assets/
 cp -r ../data/resources-mdpi_dark/ assets/
+cp -r ../data/resources-mdpi_clear/ assets/
 cp -r ../data/resources-xhdpi/ assets/
 cp -r ../data/resources-xhdpi_dark/ assets/
+cp -r ../data/resources-xhdpi_clear/ assets/
 cp -r ../data/resources-xxhdpi/ assets/
 cp -r ../data/resources-xxhdpi_dark/ assets/
+cp -r ../data/resources-xxhdpi_clear/ assets/
 
 cp -r ../data/sound-strings/ assets/
 

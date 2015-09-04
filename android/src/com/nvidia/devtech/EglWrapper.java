@@ -2,6 +2,7 @@ package com.nvidia.devtech;
 
 import android.opengl.EGL14;
 import android.opengl.EGLDisplay;
+import android.os.Build;
 import android.view.SurfaceHolder;
 
 import com.mapswithme.util.Utils;
@@ -54,7 +55,7 @@ abstract public class EglWrapper
 
   static private EglVersion QueryEglVersion()
   {
-    if (Utils.apiLowerThan(android.os.Build.VERSION_CODES.JELLY_BEAN_MR1))
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
       return EglVersion.Egl;
 
     EglVersion result = EglVersion.NonEgl;

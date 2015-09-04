@@ -10,7 +10,7 @@
       android:layout_height="match_parent"/>
 
   <include
-      android:id="@+id/toolbar_search"
+      android:id="@+id/toolbar"
       layout="@layout/toolbar_with_search"
       android:layout_width="match_parent"
       android:layout_height="@dimen/search_box_height"
@@ -21,7 +21,7 @@
       android:id="@+id/layout__routing"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/toolbar_search"/>
+      android:layout_below="@id/toolbar"/>
 
   <include
       android:id="@+id/navigation_buttons"

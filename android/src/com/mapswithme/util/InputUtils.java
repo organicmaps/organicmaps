@@ -35,10 +35,9 @@ public class InputUtils
   }
 
   /**
-   * @param vrIntentResult
-   * @return most confident result or null if nothing is available
+   * Get most confident recognition result or null if nothing is available
    */
-  public static String getMostConfidentResult(Intent vrIntentResult)
+  public static String getBestRecognitionResult(Intent vrIntentResult)
   {
     final ArrayList<String> recognizedStrings
         = vrIntentResult.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);

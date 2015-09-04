@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          style="@style/MwmWidget.TextView.Search"
+          android:textColor="@color/base_light_blue"
+          android:drawableLeft="@drawable/ic_menu_search"
+          tools:text="Some suggest title"/>

@@ -25,7 +25,6 @@ public class FadeView extends FrameLayout
     public void onAnimationEnd(Animator animation)
     {
       UiUtils.hide(FadeView.this);
-      UiUtils.clearAnimationAfterAlpha(FadeView.this);
     }
   };
 

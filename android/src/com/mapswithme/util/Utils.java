@@ -11,21 +11,18 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.app.NavUtils;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.util.statistics.AlohaHelper;
 
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -71,11 +68,8 @@ public class Utils
   }
 
   /**
-   * Enable to keep screen on
-   * Disable to let system turn it off automatically
-   *
-   * @param enable
-   * @param w
+   * Enable to keep screen on.
+   * Disable to let system turn it off automatically.
    */
   public static void keepScreenOn(boolean enable, Window w)
   {
@@ -83,22 +77,6 @@ public class Utils
       w.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     else
       w.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-  }
-
-  public static float getAttributeDimension(Activity activity, int attr)
-  {
-    final android.util.TypedValue value = new android.util.TypedValue();
-    final boolean b = activity.getTheme().resolveAttribute(attr, value, true);
-    assert (b);
-    final android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
-    activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-    return value.getDimension(metrics);
-  }
-
-  public static void setTextAndCursorToEnd(EditText edit, String s)
-  {
-    edit.setText(s);
-    edit.setSelection(s.length());
   }
 
   public static void toastShortcut(Context context, String message)
@@ -117,38 +95,17 @@ public class Utils
     return context.getPackageManager().resolveActivity(intent, 0) != null;
   }
 
-  public static boolean apiEqualOrGreaterThan(int api)
-  {
-    return Build.VERSION.SDK_INT >= api;
-  }
-
-  public static boolean apiLowerThan(int api)
-  {
-    return Build.VERSION.SDK_INT < api;
-  }
-
   public static void checkNotNull(Object object)
   {
     if (null == object) throw new NullPointerException("Argument here must not be NULL");
   }
 
-  @SuppressWarnings("deprecation")
   public static void copyTextToClipboard(Context context, String text)
   {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-    {
-      final android.text.ClipboardManager clipboard =
-          (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-      clipboard.setText(text);
-    }
-    else
-    {
-      // This is different classes in different packages
-      final android.content.ClipboardManager clipboard =
-          (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-      final ClipData clip = ClipData.newPlainText("maps.me: " + text, text);
-      clipboard.setPrimaryClip(clip);
-    }
+    final android.content.ClipboardManager clipboard =
+        (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+    final ClipData clip = ClipData.newPlainText("maps.me: " + text, text);
+    clipboard.setPrimaryClip(clip);
   }
 
   public static <K, V> String mapPrettyPrint(Map<K, V> map)
@@ -301,8 +258,7 @@ public class Utils
     try
     {
       activity.startActivity(marketIntent);
-    }
-    catch (ActivityNotFoundException e)
+    } catch (ActivityNotFoundException e)
     {
       AlohaHelper.logException(e);
     }
@@ -320,10 +276,17 @@ public class Utils
     try
     {
       activity.startActivity(intent);
-    }
-    catch (ActivityNotFoundException e)
+    } catch (ActivityNotFoundException e)
     {
       AlohaHelper.logException(e);
     }
+  }
+
+  public static void navigateToParent(Activity activity)
+  {
+    if (activity instanceof CustomNavigateUpListener)
+      ((CustomNavigateUpListener) activity).customOnNavigateUp();
+    else
+      NavUtils.navigateUpFromSameTask(activity);
   }
 }

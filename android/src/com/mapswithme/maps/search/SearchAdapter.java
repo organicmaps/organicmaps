@@ -1,82 +1,273 @@
 package com.mapswithme.maps.search;
 
-import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>
+class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 {
-  private static final int RESULT_TYPE = 0;
-  private static final int MESSAGE_TYPE = 1;
-  private final SearchFragment mSearchFragment;
-  private final LayoutInflater mInflater;
-  private final Resources mResources;
+  private static final int TYPE_POPULATE_BUTTON = 0;
+  private static final int TYPE_SUGGEST = 1;
+  private static final int TYPE_RESULT = 2;
 
-  private static final int COUNT_NO_RESULTS = -1;
-  private int mResultsCount = COUNT_NO_RESULTS;
-  private int mResultsId;
+  private static final int NO_RESULTS = -1;
+
+  protected static abstract class BaseViewHolder extends RecyclerView.ViewHolder
+  {
+    SearchResult mResult;
+    // Position within search results
+    int mOrder;
+
+    BaseViewHolder(View view)
+    {
+      super(view);
+    }
+
+    void bind(@NonNull SearchResult result, int order)
+    {
+      mResult = result;
+      mOrder = order;
+    }
+  }
+
+  private class PopulateResultsViewHolder extends BaseViewHolder
+  {
+    PopulateResultsViewHolder(View view)
+    {
+      super(view);
+      view.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          mSearchFragment.showAllResultsOnMap();
+        }
+      });
+    }
+  }
+
+  private static abstract class BaseResultViewHolder extends BaseViewHolder
+  {
+    BaseResultViewHolder(View view)
+    {
+      super(view);
+      view.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          processClick(mResult, mOrder);
+        }
+      });
+    }
+
+    @Override
+    void bind(@NonNull SearchResult result, int order)
+    {
+      super.bind(result, order);
+
+      SpannableStringBuilder builder = new SpannableStringBuilder(result.name);
+      if (result.highlightRanges != null)
+      {
+        final int size = result.highlightRanges.length / 2;
+        int index = 0;
+
+        for (int i = 0; i < size; i++)
+        {
+          final int start = result.highlightRanges[index++];
+          final int len = result.highlightRanges[index++];
+
+          builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+      }
+
+      getTitleView().setText(builder);
+    }
+
+    abstract TextView getTitleView();
+    abstract void processClick(SearchResult result, int order);
+  }
+
+  private class SuggestViewHolder extends BaseResultViewHolder
+  {
+    SuggestViewHolder(View view)
+    {
+      super(view);
+    }
+
+    @Override
+    TextView getTitleView()
+    {
+      return (TextView)itemView;
+    }
+
+    @Override
+    void processClick(SearchResult result, int order)
+    {
+      mSearchFragment.setSearchQuery(result.suggestion);
+    }
+  }
+
+  private class ResultViewHolder extends BaseResultViewHolder
+  {
+    final TextView mName;
+    final View mClosedMarker;
+    final TextView mDescription;
+    final TextView mRegion;
+    final TextView mDistance;
+
+
+    // FIXME: Better format based on result type
+    private CharSequence formatDescription(SearchResult result)
+    {
+      final SpannableStringBuilder res = new SpannableStringBuilder(result.description.featureType);
+      final SpannableStringBuilder tail = new SpannableStringBuilder();
+
+      final int stars = Math.min(result.description.stars, 5);
+      if (stars > 0)
+      {
+        // Colorize last dimmed stars: "★ ★ ★ ★ ★"
+        final SpannableStringBuilder sb = new SpannableStringBuilder("\u2605 \u2605 \u2605 \u2605 \u2605");
+        if (stars < 5)
+        {
+          final int start = sb.length() - ((5 - stars) * 2 - 1);
+          sb.setSpan(new ForegroundColorSpan(itemView.getResources().getColor(R.color.search_star_dimmed)),
+                     start, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        }
+
+        tail.append(sb);
+      }
+      else if (!TextUtils.isEmpty(result.description.cuisine))
+        tail.append(result.description.cuisine);
+
+      if (!TextUtils.isEmpty(tail))
+        res.append(" \u2022 ")
+           .append(tail);
+
+      return res;
+    }
+
+    ResultViewHolder(View view)
+    {
+      super(view);
+
+      mName = (TextView) view.findViewById(R.id.title);
+      mClosedMarker = view.findViewById(R.id.closed);
+      mDescription = (TextView) view.findViewById(R.id.description);
+      mRegion = (TextView) view.findViewById(R.id.region);
+      mDistance = (TextView) view.findViewById(R.id.distance);
+    }
+
+    @Override
+    TextView getTitleView()
+    {
+      return mName;
+    }
+
+    @Override
+    void bind(@NonNull SearchResult result, int order)
+    {
+      super.bind(result, order);
+
+      UiUtils.showIf(result.description.closedNow, mClosedMarker);
+      UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(result));
+      UiUtils.setTextAndHideIfEmpty(mRegion, result.description.region);
+      UiUtils.setTextAndHideIfEmpty(mDistance, result.description.distance);
+    }
+
+    @Override
+    void processClick(SearchResult result, int order)
+    {
+      mSearchFragment.showSingleResultOnMap(order);
+      notifyDataSetChanged();
+    }
+  }
+
+  private final SearchFragment mSearchFragment;
+  private int mResultsCount = NO_RESULTS;
+  private int mQueryId;
 
   public SearchAdapter(SearchFragment fragment)
   {
     mSearchFragment = fragment;
-    mInflater = mSearchFragment.getActivity().getLayoutInflater();
-    mResources = mSearchFragment.getResources();
   }
 
   @Override
-  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    if (viewType == RESULT_TYPE)
-      return new ViewHolder(mInflater.inflate(R.layout.item_search, parent, false), viewType);
+    final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-    return new ViewHolder(mInflater.inflate(R.layout.item_search_message, parent, false), viewType);
+    switch (viewType)
+    {
+      case TYPE_POPULATE_BUTTON:
+        return new PopulateResultsViewHolder(inflater.inflate(R.layout.item_search_populate, parent, false));
+
+      case TYPE_SUGGEST:
+        return new SuggestViewHolder(inflater.inflate(R.layout.item_search_suggest, parent, false));
+
+      case TYPE_RESULT:
+        return new ResultViewHolder(inflater.inflate(R.layout.item_search_result, parent, false));
+
+      default:
+        throw new IllegalArgumentException("Unhandled view type given");
+    }
   }
 
   @Override
-  public void onBindViewHolder(ViewHolder holder, int position)
+  public void onBindViewHolder(BaseViewHolder holder, int position)
   {
-    if (holder.getItemViewType() == RESULT_TYPE)
-      bindResultView(holder);
-    else
-      bindMessageView(holder);
+    if (showPopulateButton())
+    {
+      if (position == 0)
+        return;
+
+      position--;
+    }
+
+    final SearchResult result = mSearchFragment.getResult(position, mQueryId);
+    if (result != null)
+      holder.bind(result, position);
   }
 
   @Override
   public int getItemViewType(int position)
   {
-    if (position == 0 && doShowSearchOnMapButton())
-      return MESSAGE_TYPE;
+    if (showPopulateButton())
+    {
+      if (position == 0)
+        return TYPE_POPULATE_BUTTON;
 
-    return RESULT_TYPE;
+      position--;
+    }
+
+    final SearchResult result = mSearchFragment.getResult(position, mQueryId);
+    switch (result.type)
+    {
+      case SearchResult.TYPE_SUGGEST:
+        return TYPE_SUGGEST;
+
+      case SearchResult.TYPE_RESULT:
+        return TYPE_RESULT;
+
+      default:
+        throw new IllegalArgumentException("Unhandled SearchResult type");
+    }
   }
 
-  private boolean doShowSearchOnMapButton()
+  boolean showPopulateButton()
   {
-    if (mResultsCount == 0)
-      return true;
-
-    final SearchResult result = mSearchFragment.getResult(0, mResultsId);
-    return result != null && result.mType != SearchResult.TYPE_SUGGESTION;
-  }
-
-  public int getPositionInResults(int position)
-  {
-    if (doShowSearchOnMapButton())
-      return position - 1;
-
-    return position;
+    return (mResultsCount > 0 && !mSearchFragment.isSearchRunning());
   }
 
   @Override
@@ -88,114 +279,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
   @Override
   public int getItemCount()
   {
-    if (mResultsCount == COUNT_NO_RESULTS)
+    if (mResultsCount == NO_RESULTS)
       return 0;
-    else if (doShowSearchOnMapButton())
+
+    if (showPopulateButton())
       return mResultsCount + 1;
 
     return mResultsCount;
   }
 
-  private void bindResultView(ViewHolder holder)
+  public void clear()
   {
-    final int position = getPositionInResults(holder.getAdapterPosition());
-    final SearchResult result = mSearchFragment.getResult(position, mResultsId);
-    if (result != null)
-    {
-      SpannableStringBuilder builder = new SpannableStringBuilder(result.mName);
-      if (result.mHighlightRanges != null && result.mHighlightRanges.length > 0)
-      {
-        int j = 0, n = result.mHighlightRanges.length / 2;
-
-        for (int i = 0; i < n; ++i)
-        {
-          int start = result.mHighlightRanges[j++];
-          int len = result.mHighlightRanges[j++];
-
-          builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-      }
-
-      if (result.mType == SearchResult.TYPE_SUGGESTION)
-      {
-        builder.setSpan(new ForegroundColorSpan(mResources.getColor(R.color.text_search_suggestion)), 0, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        UiUtils.hide(holder.mCountry, holder.mDistance);
-      }
-      else
-      {
-        UiUtils.setTextAndHideIfEmpty(holder.mCountry, result.mCountry);
-        UiUtils.setTextAndHideIfEmpty(holder.mDistance, result.mDistance);
-      }
-
-      UiUtils.setTextAndShow(holder.mName, builder);
-      UiUtils.setTextAndHideIfEmpty(holder.mType, result.mAmenity);
-    }
+    refreshData(0, 0);
   }
 
-  private void bindMessageView(ViewHolder holder)
-  {
-    UiUtils.setTextAndShow(holder.mName, mResources.getString(R.string.search_on_map));
-  }
-
-  /**
-   * Update list data.
-   *
-   * @param count    total count of result
-   * @param resultId id to query results
-   */
-  public void refreshData(int count, int resultId)
+  public void refreshData(int count, int queryId)
   {
     mResultsCount = count;
-    mResultsId = resultId;
+    mQueryId = queryId;
 
     notifyDataSetChanged();
-  }
-
-  public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
-  {
-    public View mView;
-    public TextView mName;
-    public TextView mCountry;
-    public TextView mDistance;
-    public TextView mType;
-
-    public ViewHolder(View v, int type)
-    {
-      super(v);
-
-      mView = v;
-      mView.setOnClickListener(this);
-      if (type == MESSAGE_TYPE)
-        mName = (TextView) mView;
-      else
-      {
-        mName = (TextView) v.findViewById(R.id.tv__search_title);
-        mCountry = (TextView) v.findViewById(R.id.tv__search_subtitle);
-        mDistance = (TextView) v.findViewById(R.id.tv__search_distance);
-        mType = (TextView) v.findViewById(R.id.tv__search_type);
-      }
-    }
-
-    @Override
-    public void onClick(View v)
-    {
-      if (getItemViewType() == MESSAGE_TYPE)
-      {
-        Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
-        mSearchFragment.showAllResultsOnMap();
-      }
-      else
-      {
-        final int resIndex = getPositionInResults(getAdapterPosition());
-        final SearchResult result = mSearchFragment.getResult(resIndex, mResultsId);
-        if (result != null)
-        {
-          if (result.mType == SearchResult.TYPE_FEATURE)
-            mSearchFragment.showSingleResultOnMap(resIndex);
-          else
-            mSearchFragment.setSearchQuery(result.mSuggestion);
-        }
-      }
-    }
   }
 }
