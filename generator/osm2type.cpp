@@ -103,25 +103,6 @@ namespace ftype
       });
     }
 
-    bool is_name_tag(string const & k)
-    {
-      return (string::npos != k.find("name"));
-    }
-
-    class do_print
-    {
-      ostream & m_s;
-    public:
-      typedef bool result_type;
-
-      do_print(ostream & s) : m_s(s) {}
-      bool operator() (string const & k, string const & v) const
-      {
-        m_s << k << " <---> " << v << endl;
-        return false;
-      }
-    };
-
     class ExtractNames
     {
       set<string> m_savedNames;
@@ -179,7 +160,7 @@ namespace ftype
 
       bool is_good_tag(string const & k, string const & v) const
       {
-        if (is_name_tag(k))
+        if (string::npos != k.find("name"))
           return false;
 
         if (!m_isKey)
