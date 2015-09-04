@@ -312,7 +312,7 @@ bool UserEventStream::ProcessTouch(TouchEvent const & touch)
     {
       isMapTouch |= TouchUp(touchEvent.m_touches);
       if (isMapTouch && touchEvent.GetMaskedCount() == GetValidTouchesCount(touchEvent.m_touches) &&
-          m_kineticTimer.ElapsedMillis() >= kKineticDelayMs)
+          m_kineticTimer.TimeElapsedAs<milliseconds>().count() >= kKineticDelayMs)
       {
         m_scroller.GrabViewRect(m_navigator.Screen(), touch.m_timeStamp);
         m_animation = m_scroller.CreateKineticAnimation(m_navigator.Screen());
