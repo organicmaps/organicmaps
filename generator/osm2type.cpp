@@ -122,19 +122,13 @@ namespace ftype
       }
     };
 
-    class do_find_name
+    class ExtractNames
     {
       set<string> m_savedNames;
-
-      size_t & m_count;
       FeatureParams & m_params;
 
     public:
-      do_find_name(size_t & count, FeatureParams & params)
-        : m_count(count), m_params(params)
-      {
-        m_count = 0;
-      }
+      ExtractNames(FeatureParams & params) : m_params(params) {}
 
       bool GetLangByKey(string const & k, string & lang)
       {
@@ -144,80 +138,36 @@ namespace ftype
 
         // this is an international (latin) name
         if (*token == "int_name")
-          lang = "int_name";
-        else
-        {
-          if (*token == "name")
-          {
-            ++token;
-            lang = (token ? *token : "default");
+          return m_savedNames.insert(lang = "int_name").second;
 
-            // replace dummy arabian tag with correct tag
-            if (lang == "ar1")
-              lang = "ar";
-          }
-        }
-
-        if (lang.empty())
+        if (*token != "name")
           return false;
+
+        ++token;
+        lang = (token ? *token : "default");
+
+        // replace dummy arabian tag with correct tag
+        if (lang == "ar1")
+          lang = "ar";
 
         // avoid duplicating names
         return m_savedNames.insert(lang).second;
       }
 
-      bool operator() (string const & k, string const & v)
+      bool operator() (string & k, string & v)
       {
-        ++m_count;
-
-        if (v.empty())
+        string lang;
+        if (v.empty() || !GetLangByKey(k, lang))
           return false;
 
-        // get name with language suffix
-        string lang;
-        if (GetLangByKey(k, lang))
-        {
-          // Unicode Compatibility Decomposition,
-          // followed by Canonical Composition (NFKC).
-          // Needed for better search matching
-          QByteArray const normBytes = QString::fromUtf8(
-                v.c_str()).normalized(QString::NormalizationForm_KC).toUtf8();
-          m_params.AddName(lang, normBytes.constData());
-        }
-
-        // get layer
-        if (k == "layer" && m_params.layer == 0)
-        {
-          m_params.layer = atoi(v.c_str());
-          int8_t const bound = 10;
-          m_params.layer = my::clamp(m_params.layer, -bound, bound);
-        }
-
-        // get reference (we process road numbers only)
-        if (k == "ref" && v != "route")
-          m_params.ref = v;
-
-        // get house number
-        if (k == "addr:housenumber")
-        {
-          // Treat "numbers" like names if it's not an actual number.
-          if (!m_params.AddHouseNumber(v))
-            m_params.AddHouseName(v);
-        }
-        if (k == "addr:housename")
-          m_params.AddHouseName(v);
-        if (k == "addr:street")
-          m_params.AddStreetAddress(v);
-        if (k == "addr:flats")
-          m_params.flats = v;
-
-        // get population rank
-        if (k == "population")
-        {
-          uint64_t n;
-          if (strings::to_uint64(v, n))
-            m_params.rank = static_cast<uint8_t>(log(double(n)) / log(1.1));
-        }
-
+        // Unicode Compatibility Decomposition,
+        // followed by Canonical Composition (NFKC).
+        // Needed for better search matching
+        QByteArray const normBytes = QString::fromUtf8(
+              v.c_str()).normalized(QString::NormalizationForm_KC).toUtf8();
+        m_params.AddName(lang, normBytes.constData());
+        k.clear();
+        v.clear();
         return false;
       }
     };
@@ -342,42 +292,6 @@ namespace ftype
     };
   }
 
-  size_t ProcessCommonParams(OsmElement * p, FeatureParams & params)
-  {
-    size_t count;
-    for_each_tag<bool>(p, do_find_name(count, params));
-    return count;
-  }
-
-  void AddLayers(OsmElement * p)
-  {
-    bool hasLayer = false;
-    char const * layer = nullptr;
-
-    TagProcessor(p).ApplyRules({
-      { "bridge", "yes", [&layer]() { layer = "1"; }},
-      { "tunnel", "yes", [&layer]() { layer = "-1"; }},
-      { "layer", "*", [&hasLayer]() { hasLayer = true; }},
-    });
-
-    if (!hasLayer && layer)
-      p->AddTag("layer", layer);
-  }
-
-//#ifdef DEBUG
-//  class debug_find_string
-//  {
-//    string m_comp;
-//  public:
-//    debug_find_string(string const & comp) : m_comp(comp) {}
-//    typedef bool result_type;
-//    bool operator() (string const & k, string const & v) const
-//    {
-//      return (k == m_comp || v == m_comp);
-//    }
-//  };
-//#endif
-
   class CachedTypes
   {
     buffer_vector<uint32_t, 16> m_types;
@@ -425,20 +339,66 @@ namespace ftype
 
   void GetNameAndType(OsmElement * p, FeatureParams & params)
   {
-    /// Process synonym tags to match existing classificator types.
-    /// @todo We are planning to rewrite classificator <-> tags matching.
-    TagProcessor(p).ApplyRules<void(string &, string &)>(
-    {
+//    std::cout << "--[" << p->Tags().size() << "]" << "--------------------------------------\n";
+//    std::cout << DebugPrint(*p) << std::endl;
+//    std::cout << "--\n";
+
+    bool hasLayer = false;
+    char const * layer = nullptr;
+
+    TagProcessor(p).ApplyRules
+    ({
+      { "bridge", "yes", [&layer]() { layer = "1"; }},
+      { "tunnel", "yes", [&layer]() { layer = "-1"; }},
+      { "layer", "*", [&hasLayer]() { hasLayer = true; }},
+    });
+
+    if (!hasLayer && layer)
+      p->AddTag("layer", layer);
+
+    for_each_tag<bool>(p, ExtractNames(params));
+
+    // Base rules for tags processing
+    TagProcessor(p).ApplyRules<void(string &, string &)>
+    ({
       { "atm", "yes", [](string &k, string &v) { k.swap(v); k = "amenity"; }},
       { "restaurant", "yes", [](string &k, string &v) { k.swap(v); k = "amenity"; }},
       { "hotel", "yes", [](string &k, string &v) { k.swap(v); k = "tourism"; }},
+      { "addr:housename", "*", [&params](string &k, string &v) { params.AddHouseName(v); k.clear(); v.clear();}},
+      { "addr:street", "*", [&params](string &k, string &v) { params.AddStreetAddress(v); k.clear(); v.clear();}},
+      { "addr:flats", "*", [&params](string &k, string &v) { params.flats = v; k.clear(); v.clear();}},
+      { "addr:housenumber", "*", [&params](string &k, string &v)
+        {
+          // Treat "numbers" like names if it's not an actual number.
+          if (!params.AddHouseNumber(v))
+            params.AddHouseName(v);
+          k.clear(); v.clear();
+        }},
+      { "population", "*", [&params](string &k, string &v)
+        {
+          // get population rank
+          uint64_t n;
+          if (strings::to_uint64(v, n))
+            params.rank = static_cast<uint8_t>(log(double(n)) / log(1.1));
+          k.clear(); v.clear();
+        }},
+      { "ref", "*", [&params](string &k, string &v)
+        {
+          // get reference (we process road numbers only)
+          params.ref = v;
+          k.clear(); v.clear();
+        }},
+      { "layer", "*", [&params](string &k, string &v)
+        {
+          // get layer
+          if (params.layer == 0)
+          {
+            params.layer = atoi(v.c_str());
+            int8_t const bound = 10;
+            params.layer = my::clamp(params.layer, -bound, bound);
+          }
+        }},
     });
-
-    AddLayers(p);
-
-    // maybe an empty feature
-    if (ProcessCommonParams(p, params) == 0)
-      return;
 
     set<int> skipRows;
     ClassifObject const * root = classif().GetRoot();
