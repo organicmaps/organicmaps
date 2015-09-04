@@ -49,17 +49,26 @@ else
   DEVTOOLSET_PATH=
 fi
 OMIM_PATH="$(cd "${OMIM_PATH:-$(dirname "$0")/../..}"; pwd)"
-PRO_FILE="$OMIM_PATH/${PROJECT:-omim}.pro"
 export MANPATH=""
-QMAKE=qmake-qt5
-if ! hash "$QMAKE" 2>/dev/null; then
-  QMAKE=qmake
+if [ ! -x "${QMAKE-}" ]; then
+  QMAKE=qmake-qt5
+  if ! hash "$QMAKE" 2>/dev/null; then
+    QMAKE=qmake
+  fi
 fi
-CMAKE=cmake28
-if ! hash "$CMAKE" 2>/dev/null; then
-  CMAKE=cmake
+if [ ! -x "${CMAKE-}" ]; then
+  CMAKE=cmake28
+  if ! hash "$CMAKE" 2>/dev/null; then
+    CMAKE=cmake
+  fi
 fi
-PROCESSES=$(($(nproc) / 2))
+if [ "$(uname -s)" == "Darwin" ]; then
+  SPEC=macx-clang
+  PROCESSES=4
+else
+  SPEC=linux-clang
+  PROCESSES=$(($(nproc) / 2))
+fi
 
 build_conf()
 {
@@ -76,11 +85,11 @@ build_conf()
     export BOOST_INCLUDEDIR="$BOOST_PATH/include"
     cd "$DIRNAME"
     if [ -n "$DEVTOOLSET_PATH" ]; then
-      "$QMAKE" -r "$PRO_FILE" -spec linux-clang CONFIG+=$CONF \
+      "$QMAKE" "$OMIM_PATH/omim.pro" -spec $SPEC CONFIG+=$CONF ${CONFIG+"CONFIG*=$CONFIG"} \
         "QMAKE_CXXFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr" \
         "QMAKE_LFLAGS *=--gcc-toolchain=$DEVTOOLSET_PATH/root/usr"
     else
-      "$QMAKE" -r "$PRO_FILE" -spec linux-clang CONFIG+=$CONF
+      "$QMAKE" "$OMIM_PATH/omim.pro" -spec $SPEC CONFIG+=$CONF ${CONFIG+"CONFIG*=$CONFIG"}
     fi
     make -j $PROCESSES
   )
@@ -90,12 +99,13 @@ build_conf()
 [ -n "$OPT_RELEASE" ] && build_conf release
 
 if [ -n "$OPT_OSRM" ]; then
-  OSRM_TARGET="${OSRM_TARGET:-$OMIM_PATH/3party/osrm/osrm-backend/build}"
+  BACKEND="$OMIM_PATH/3party/osrm/osrm-backend"
+  OSRM_TARGET="${OSRM_TARGET:-$BACKEND/build}"
   [ -d "$OSRM_TARGET" -a -n "$OPT_CLEAN" ] && rm -r "$OSRM_TARGET"
   mkdir -p "$OSRM_TARGET"
   (
     cd "$OSRM_TARGET"
-    "$CMAKE" "-DBOOST_ROOT=$BOOST_PATH" ..
+    "$CMAKE" "-DBOOST_ROOT=$BOOST_PATH" "$BACKEND"
     make clean
     make
   )
