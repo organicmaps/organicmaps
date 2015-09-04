@@ -10,17 +10,70 @@
 
 #include "platform/settings.hpp"
 
-static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
+char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 
 @interface Statistics ()
+{
+  bool _enabled;
+}
 @property (nonatomic) NSDate * lastLocationLogTimestamp;
 @end
 
 @implementation Statistics
 
++ (bool)isStatisticsEnabledByDefault
+{
+#ifdef OMIM_PRODUCTION
+  return true;
+#else
+  // Make developer's life a little bit easier.
+  [Alohalytics setDebugMode:YES];
+  return false;
+#endif
+}
+
+- (instancetype)init
+{
+  if ((self = [super init]))
+  {
+    _enabled = [Statistics isStatisticsEnabledByDefault];
+    // Note by AlexZ:
+    // _enabled should be persistent across app's process lifecycle. That's why we change
+    // _enabled property only once - when the app is launched. In this case we don't need additional
+    // checks and specific initializations for different 3party engines, code is much cleaner and safer
+    // (actually, we don't have a choice - 3party SDKs do not guarantee correctness if not initialized
+    // in application:didFinishLaunchingWithOptions:).
+    // The (only) drawback of this approach is that to actually disable or enable 3party engines,
+    // the app should be restarted.
+    (void)Settings::Get(kStatisticsEnabledSettingsKey, _enabled);
+
+    if (_enabled)
+      [Alohalytics enable];
+    else
+      [Alohalytics disable];
+  }
+  return self;
+}
+
+- (void)enableOnNextAppLaunch
+{
+  // This setting will be checked and applied on the next launch.
+  Settings::Set(kStatisticsEnabledSettingsKey, true);
+  // It does not make sense to log statisticsEnabled with Alohalytics here,
+  // as it will not be stored and logged anyway.
+}
+
+- (void)disableOnNextAppLaunch
+{
+  // This setting will be checked and applied on the next launch.
+  Settings::Set(kStatisticsEnabledSettingsKey, false);
+  [Alohalytics logEvent:@"statisticsDisabled"];
+}
+
 - (void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  if (self.enabled)
+  // _enabled should be already correctly set up in init method.
+  if (_enabled)
   {
     [Flurry startSession:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
 
@@ -30,20 +83,16 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
 #ifdef DEBUG
     [MRMyTracker setDebugMode:YES];
 #endif
-    MRMyTracker.getTrackerParams.trackAppLaunch = YES;
+    [MRMyTracker getTrackerParams].trackAppLaunch = YES;
     [MRMyTracker setupTracker];
 
-    // Initialize Alohalytics statistics engine.
-#ifndef OMIM_PRODUCTION
-    [Alohalytics setDebugMode:YES];
-#endif
     [Alohalytics setup:@"http://localhost:8080" withLaunchOptions:launchOptions];
   }
 }
 
 - (void)logLocation:(CLLocation *)location
 {
-  if (self.enabled)
+  if (_enabled)
   {
     if (!_lastLocationLogTimestamp || [[NSDate date] timeIntervalSinceDate:_lastLocationLogTimestamp] > (60 * 60 * 3))
     {
@@ -56,7 +105,7 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
 
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
 {
-  if (self.enabled)
+  if (_enabled)
     [Flurry logEvent:eventName withParameters:parameters];
 }
 
@@ -67,7 +116,7 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
 
 - (void)logApiUsage:(NSString *)programName
 {
-  if (self.enabled)
+  if (_enabled)
   {
     if (programName)
       [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : programName}];
@@ -78,32 +127,12 @@ static constexpr char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled
 
 - (void)applicationDidBecomeActive
 {
-  if (self.enabled)
+  if (_enabled)
   {
     [FBSDKAppEvents activateApp];
     // Special FB events to improve marketing campaigns quality.
     [MWMCustomFacebookEvents optimizeExpenses];
   }
-}
-
-- (BOOL)enabled
-{
-#ifdef DEBUG
-  bool statisticsEnabled = false;
-#else
-  bool statisticsEnabled = true;
-#endif
-  (void)Settings::Get(kStatisticsEnabledSettingsKey, statisticsEnabled);
-  return statisticsEnabled;
-}
-
-- (void)setEnabled:(BOOL)enabled
-{
-  Settings::Set(kStatisticsEnabledSettingsKey, static_cast<bool>(enabled));
-  if (enabled)
-    [Alohalytics enable];
-  else
-    [Alohalytics disable];
 }
 
 + (instancetype)instance

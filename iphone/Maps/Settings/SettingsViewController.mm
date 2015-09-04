@@ -15,6 +15,8 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
+extern char const * kStatisticsEnabledSettingsKey;
+
 typedef NS_ENUM(NSUInteger, Section)
 {
   SectionMetrics,
@@ -82,8 +84,8 @@ typedef NS_ENUM(NSUInteger, Section)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
-    bool on = true;
-    (void)Settings::Get("StatisticsEnabled", on);
+    bool on = [Statistics isStatisticsEnabledByDefault];
+    (void)Settings::Get(kStatisticsEnabledSettingsKey, on);
     customCell.switchButton.on = on;
     customCell.titleLabel.text = L(@"allow_statistics");
     customCell.delegate = self;
@@ -128,7 +130,10 @@ typedef NS_ENUM(NSUInteger, Section)
   {
     Statistics * stat = [Statistics instance];
     [stat logEvent:@"StatisticsStatusChanged" withParameters:@{@"Enabled" : @(value)}];
-    stat.enabled = value;
+    if (value)
+      [stat enableOnNextAppLaunch];
+    else
+      [stat disableOnNextAppLaunch];
   }
   else if (indexPath.section == SectionZoomButtons)
   {

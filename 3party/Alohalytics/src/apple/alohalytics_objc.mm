@@ -571,7 +571,6 @@ static BOOL gIsFirstSession = NO;
 
 + (void)disable {
   Stats & s = Stats::Instance();
-  s.LogEvent("$statisticsDisabled");
   // Force uploading of all previous events.
   if (IsConnectionActive())
     s.Upload();
@@ -582,9 +581,7 @@ static BOOL gIsFirstSession = NO;
 }
 
 + (void)enable {
-  Stats & s = Stats::Instance();
-  s.Enable();
-  s.LogEvent("$statisticsEnabled");
+  Stats::Instance().Enable();
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setBool:NO forKey:kIsAlohalyticsDisabledKey];
   [ud synchronize];

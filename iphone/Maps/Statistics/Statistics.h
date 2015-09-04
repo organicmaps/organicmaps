@@ -1,8 +1,9 @@
 #import <Foundation/Foundation.h>
 
 @interface Statistics : NSObject
-{
-}
++ (bool)isStatisticsEnabledByDefault;
+- (void)enableOnNextAppLaunch;
+- (void)disableOnNextAppLaunch;
 
 // Should be called from the same method in AppDelegate.
 - (void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
@@ -14,7 +15,4 @@
 - (void)logLocation:(CLLocation *)location;
 
 + (instancetype)instance;
-
-@property (nonatomic) BOOL enabled;
-
 @end
