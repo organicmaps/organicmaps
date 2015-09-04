@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "MWMPlacePageNavigationBar.h"
 #import "MWMiPhonePortraitPlacePage.h"
 #import "MWMPlacePageViewManager.h"
@@ -77,7 +78,7 @@ static inline CGPoint const dismissCenter(CGFloat xPosition)
 
 - (void)dismiss
 {
-  [UIView animateWithDuration:.1 animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.center = dismissCenter(self.center.x);
   }];
@@ -85,7 +86,7 @@ static inline CGPoint const dismissCenter(CGFloat xPosition)
 
 - (void)show
 {
-  [UIView animateWithDuration:.1 animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.center = openCenter(self.center.x);
   }];

@@ -39,7 +39,7 @@
   [self layoutIfNeeded];
   self.state = state;
   [self update];
-  [UIView animateWithDuration:0.3 animations:^{ [self layoutIfNeeded]; }];
+  [UIView animateWithDuration:0.2f animations:^{ [self layoutIfNeeded]; }];
 }
 
 - (void)layoutSubviews

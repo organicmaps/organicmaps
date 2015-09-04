@@ -49,7 +49,7 @@ static CGFloat const kStatusbarHeight = 20.0;
 
 - (void)layoutSubviews
 {
-  [UIView animateWithDuration:0.2 animations:^
+  [UIView animateWithDuration:0.2f animations:^
   {
     if (!CGRectEqualToRect(self.frame, self.defaultFrame))
       self.frame = self.defaultFrame;

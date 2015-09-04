@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "MWMiPhoneLandscapePlacePage.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMPlacePageActionBar.h"
@@ -133,7 +134,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   CGFloat const headerViewHeight = baseViewHeight - tableHeight;
   CGFloat const titleOriginY = tableHeight - kBookmarkCellHeight - tableView.contentOffset.y;
 
-  [UIView animateWithDuration:0.3f animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.basePlacePageView.transform = CGAffineTransformMakeTranslation(0., statusBarHeight - headerViewHeight - titleOriginY);
   }];
@@ -142,7 +143,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
   [super willFinishEditingBookmarkTitle:title];
-  [UIView animateWithDuration:0.3f animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.basePlacePageView.transform = CGAffineTransformMakeTranslation(0., 0.);
   }];

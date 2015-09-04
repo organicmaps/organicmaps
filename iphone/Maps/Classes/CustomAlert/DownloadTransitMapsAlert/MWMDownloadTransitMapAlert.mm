@@ -218,7 +218,7 @@ static NSString * const kStatisticsEvent = @"Map download Alert";
       }];
       [self.dialogsTableView beginUpdates];
       [self.dialogsTableView endUpdates];
-      [UIView animateWithDuration:0.05 animations:^
+      [UIView animateWithDuration:.05 animations:^
       {
         [self layoutSubviews];
       }];
@@ -239,7 +239,7 @@ static NSString * const kStatisticsEvent = @"Map download Alert";
       }
       completion:^(BOOL finished)
       {
-        [UIView animateWithDuration:.3 animations:^{
+        [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
           [self.dialogsTableView beginUpdates];
           [self.dialogsTableView.visibleCells enumerateObjectsUsingBlock:^(MWMDownloaderDialogCell * obj, NSUInteger idx, BOOL *stop)
             {

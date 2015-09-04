@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "MWMDownloaderDialogHeader.h"
 #import "MWMDownloadTransitMapAlert.h"
 
@@ -38,7 +39,7 @@ static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHe
   BOOL const currentState = sender.selected;
   sender.selected = !currentState;
   self.dividerView.hidden = currentState;
-  [UIView animateWithDuration:.15 animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.expandImage.transform = sender.selected ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformIdentity;
   }];

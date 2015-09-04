@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "MWMAPIBar.h"
 #import "MWMAPIBarView.h"
 #import "SearchView.h"
@@ -42,7 +43,7 @@
   [self.delegate.view insertSubview:self.rootView belowSubview:self.delegate.searchView];
   self.rootView.width = self.delegate.view.width;
   self.rootView.maxY = 0.0;
-  [UIView animateWithDuration:0.2 animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.rootView.targetY = 0.0;
     self.isVisible = YES;
@@ -51,7 +52,7 @@
 
 - (void)hideAnimated:(BOOL)animated
 {
-  [UIView animateWithDuration:animated ? 0.2 : 0.0 animations:^
+  [UIView animateWithDuration:animated ? kDefaultAnimationDuration : 0.0 animations:^
   {
     self.rootView.targetY = -self.rootView.height;
     self.isVisible = NO;

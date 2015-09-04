@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "MWMCircularProgress.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMRoutePreview.h"
@@ -77,7 +78,7 @@
 {
   [self layoutIfNeeded];
   self.showGoButton = show;
-  [UIView animateWithDuration:0.2 animations:^{ [self layoutIfNeeded]; }];
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ [self layoutIfNeeded]; }];
 }
 
 #pragma mark - Properties

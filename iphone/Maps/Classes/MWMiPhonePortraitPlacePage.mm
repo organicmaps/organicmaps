@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "MWMiPhonePortraitPlacePage.h"
 #import "MWMSpringAnimation.h"
 #import "UIKitCategories.h"
@@ -75,7 +76,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   self.actionBar.width = width;
   self.actionBar.center = CGPointMake(width / 2., height + self.actionBar.height / 2.);
   [self.manager addSubviews:@[ppv, self.actionBar] withNavigationController:nil];
-  [UIView animateWithDuration:0.3f delay:0. options:UIViewAnimationOptionCurveEaseOut animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration delay:0. options:UIViewAnimationOptionCurveEaseOut animations:^
   {
     self.actionBar.center = CGPointMake(width / 2., height - self.actionBar.height / 2.);
   }

@@ -129,7 +129,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
     CGFloat const scale = 1.1;
     alert.transform = CGAffineTransformMakeScale(scale, scale);
   }
-  [UIView animateWithDuration:.15 animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.view.alpha = 1.;
     alert.alpha = 1.;
@@ -141,7 +141,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (void)closeAlertWithCompletion:(nullable CloseAlertCompletion)completion
 {
   MWMAlert * alert = self.view.subviews.firstObject;
-  [UIView animateWithDuration:.15 animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     alert.alpha = 0.;
     self.view.alpha = 0.;

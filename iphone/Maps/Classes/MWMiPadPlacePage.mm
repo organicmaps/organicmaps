@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "MWMiPadPlacePage.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageActionBar.h"
@@ -77,7 +78,7 @@ static CGFloat const kBottomOffset = 12.;
   NSUInteger const count = self.viewControllers.count;
   CGFloat const height = count > 1 ? ((UIViewController *)self.viewControllers[count - 2]).view.height : 0.0;
 
-  [UIView animateWithDuration:0.1 animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.view.height = height;
   }
@@ -119,7 +120,7 @@ static CGFloat const kBottomOffset = 12.;
 - (void)show
 {
   UIView * view = self.navigationController.view;
-  [UIView animateWithDuration:0.2f animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     view.minX = kLeftOffset;
     view.alpha = 1.0;
@@ -130,7 +131,7 @@ static CGFloat const kBottomOffset = 12.;
 {
   UIView * view = self.navigationController.view;
   UIViewController * controller = self.navigationController;
-  [UIView animateWithDuration:0.2f animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     view.maxX = 0.0;
     view.alpha = 0.0;
@@ -158,7 +159,7 @@ static CGFloat const kBottomOffset = 12.;
 - (void)addBookmark
 {
   [super addBookmark];
-  [UIView animateWithDuration:0.1 animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     [self updatePlacePageLayout];
   }];
@@ -167,7 +168,7 @@ static CGFloat const kBottomOffset = 12.;
 - (void)removeBookmark
 {
   [super removeBookmark];
-  [UIView animateWithDuration:0.1 animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     [self updatePlacePageLayout];
   }];
@@ -278,7 +279,7 @@ static CGFloat const kBottomOffset = 12.;
 - (void)setTopBound:(CGFloat)topBound
 {
   super.topBound = topBound;
-  [UIView animateWithDuration:0.2f animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.navigationController.view.minY = topBound + kTopOffset;
   }];

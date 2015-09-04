@@ -180,7 +180,7 @@ static BOOL keyboardLoaded = NO;
     [self showDownloadMapRequestIfRequired];
     if (keyboardLoaded && !self.downloadRequest)
       [self.searchBar.textField becomeFirstResponder];
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:kDefaultAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
       self.tableView.alpha = 1;
     } completion:nil];
     [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{

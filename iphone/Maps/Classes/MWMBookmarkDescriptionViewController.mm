@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
+#import "Common.h"
 #import "MWMBookmarkDescriptionViewController.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePage.h"
@@ -106,7 +107,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 {
   self.textView.hidden = NO;
   self.textView.text = text;
-  [UIView animateWithDuration:0.2f animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.webView.alpha = 0.;
     self.textView.alpha = 1.;
@@ -122,7 +123,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 {
   self.webView.hidden = NO;
   [self.webView loadHTMLString:text baseURL:nil];
-  [UIView animateWithDuration:0.2f animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.webView.alpha = 1.;
     self.textView.alpha = 0.;
@@ -193,7 +194,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     return;
   }
   [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
-  [UIView animateWithDuration:0.1 animations:^
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.iPadOwnerNavigationController.view.height = self.realPlacePageHeight;
   }
