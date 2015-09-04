@@ -889,7 +889,8 @@ void FrontendRenderer::ChangeModelView(m2::RectD const & rect)
   AddUserEvent(SetRectEvent(rect, true, scales::GetUpperComfortScale(), true));
 }
 
-void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero)
+void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,
+                                       m2::PointD const & pxZero, bool animate)
 {
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   m2::RectD const & pixelRect = screen.PixelRect();
@@ -906,7 +907,7 @@ void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimut
   viewVector.Normalize();
 
   AddUserEvent(SetAnyRectEvent(m2::AnyRectD(userPos + (viewVector * formingVector.Length()), -azimuth,
-                                            targetRect.GetLocalRect()), true /* animate */));
+                                            targetRect.GetLocalRect()), animate));
 }
 
 ScreenBase const & FrontendRenderer::UpdateScene(bool & modelViewChanged)

@@ -71,6 +71,9 @@ double ModelViewAnimation::GetMoveDuration(m2::PointD const & startPt, m2::Point
 {
   m2::RectD const & dispPxRect = convertor.PixelRect();
   double pixelLength = convertor.GtoP(endPt).Length(convertor.GtoP(startPt));
+  if (pixelLength < 1e-5)
+    return 0.0;
+
   if (pixelLength < 0.2 * min(dispPxRect.SizeX(), dispPxRect.SizeY()))
     return 0.2;
 

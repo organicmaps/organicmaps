@@ -467,10 +467,10 @@ void MyPositionController::ChangeModelView(m2::RectD const & rect)
 }
 
 void MyPositionController::ChangeModelView(m2::PointD const & userPos, double azimuth,
-                                           m2::PointD const & pxZero)
+                                           m2::PointD const & pxZero, bool animate)
 {
   if (m_listener)
-    m_listener->ChangeModelView(userPos, azimuth, pxZero);
+    m_listener->ChangeModelView(userPos, azimuth, pxZero, animate);
 }
 
 void MyPositionController::Follow()
@@ -479,7 +479,12 @@ void MyPositionController::Follow()
   if (currentMode == location::MODE_FOLLOW)
     ChangeModelView(m_position);
   else if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
-    ChangeModelView(m_position, m_drawDirection, GetRaFPixelBinding());
+  {
+    bool animate = true;
+    if (!IsInRouting() && m_anim != nullptr)
+      animate = !m_anim->IsRotatingActive();
+    ChangeModelView(m_position, m_drawDirection, GetRaFPixelBinding(), animate);
+  }
 }
 
 m2::PointD MyPositionController::GetRaFPixelBinding() const

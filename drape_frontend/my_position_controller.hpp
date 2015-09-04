@@ -29,7 +29,7 @@ public:
     /// Somehow show map that "rect" will see
     virtual void ChangeModelView(m2::RectD const & rect) = 0;
     /// Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos"
-    virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero) = 0;
+    virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, bool animate) = 0;
   };
 
   // Render bits
@@ -101,7 +101,8 @@ private:
   void ChangeModelView(m2::PointD const & center);
   void ChangeModelView(double azimuth);
   void ChangeModelView(m2::RectD const & rect);
-  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero);
+  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
+                       bool animate);
 
   void Follow();
   m2::PointD GetRaFPixelBinding() const;
