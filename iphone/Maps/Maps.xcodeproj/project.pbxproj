@@ -178,7 +178,6 @@
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
 		B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
-		B08AA8CE1A24C7BC00810B1C /* LocalNotificationInfoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */; };
 		B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864F186C5EDE00AF7E9E /* PassKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864D186C5ED300AF7E9E /* Social.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		B08AA8DA1A26299A00810B1C /* TimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.m */; };
@@ -566,8 +565,6 @@
 		A3CC2CD31A1C723900B832E1 /* LocationPredictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPredictor.h; sourceTree = "<group>"; };
 		B00511031A1101F600A61AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B00511051A1101FC00A61AA4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		B08AA8CC1A24C7BC00810B1C /* LocalNotificationInfoProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalNotificationInfoProvider.h; sourceTree = "<group>"; };
-		B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalNotificationInfoProvider.m; sourceTree = "<group>"; };
 		B08AA8D81A26299A00810B1C /* TimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeUtils.h; path = Categories/TimeUtils.h; sourceTree = "<group>"; };
 		B08AA8D91A26299A00810B1C /* TimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeUtils.m; path = Categories/TimeUtils.m; sourceTree = "<group>"; };
 		B0DFE6301A1B78A200B6C35E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/LocalNotifications.plist; sourceTree = "<group>"; };
@@ -855,8 +852,6 @@
 				FA4135DF120A25B90062D5B4 /* Settings */,
 				974D041C1977DE430081D0A7 /* LocalNotificationManager.h */,
 				974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */,
-				B08AA8CC1A24C7BC00810B1C /* LocalNotificationInfoProvider.h */,
-				B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */,
 				B0DFE62F1A1B78A200B6C35E /* LocalNotifications.plist */,
 				B0FBFA251A515AFD0086819E /* ViewController.h */,
 				B0FBFA261A515AFD0086819E /* ViewController.m */,
@@ -2213,7 +2208,6 @@
 				976D86F119C877E600C920EF /* MapCell.mm in Sources */,
 				F6C934401AE64E4200DDC624 /* MWMSpringAnimation.mm in Sources */,
 				977E26C219E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */,
-				B08AA8CE1A24C7BC00810B1C /* LocalNotificationInfoProvider.m in Sources */,
 				1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */,
 				341522BF1B666A550077AA8F /* MWMAPIBarView.m in Sources */,
 				349A35831B53E967009677EE /* MWMDownloadMapRequest.mm in Sources */,

@@ -234,7 +234,6 @@ void InitLocalizedStrings()
   LocalNotificationManager * notificationManager = [LocalNotificationManager sharedManager];
   if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey])
     [notificationManager processNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey] onLaunch:YES];
-  [notificationManager updateLocalNotifications];
   
   if ([Alohalytics isFirstSession])
   {

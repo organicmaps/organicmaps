@@ -1,6 +1,5 @@
 #import "Common.h"
 #import "Framework.h"
-#import "LocalNotificationInfoProvider.h"
 #import "LocalNotificationManager.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
@@ -18,9 +17,6 @@ static NSString * kDownloadMapActionName = @"DownloadMapAction";
 
 static NSString * kFlagsKey = @"DownloadMapNotificationFlags";
 static constexpr const double kRepeatedNotificationIntervalInSeconds = 3 * 30 * 24 * 60 * 60; // three months
-
-NSString * const LocalNotificationManagerSpecialNotificationInfoKey = @"LocalNotificationManagerSpecialNotificationInfoKey";
-NSString * const LocalNotificationManagerNumberOfViewsPrefix = @"LocalNotificationManagerNumberOfViewsPrefix";
 
 using namespace storage;
 
@@ -47,11 +43,6 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   return manager;
 }
 
-- (void)updateLocalNotifications
-{
-  [self scheduleSpecialLocalNotifications];
-}
-
 - (void)processNotification:(UILocalNotification *)notification onLaunch:(BOOL)onLaunch
 {
   NSDictionary * userInfo = [notification userInfo];
@@ -63,175 +54,6 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
     TIndex const index = TIndex([userInfo[@"Group"] intValue], [userInfo[@"Country"] intValue], [userInfo[@"Region"] intValue]);
     [self downloadCountryWithIndex:index];
   }
-  else if (userInfo[LocalNotificationManagerSpecialNotificationInfoKey])
-  {
-    NSDictionary * notificationInfo = userInfo[LocalNotificationManagerSpecialNotificationInfoKey];
-    if (onLaunch)
-      [self runNotificationAction:notificationInfo];
-    else
-    {
-      NSString * dismissiveAction = L(@"later");
-      NSString * positiveAction = [self actionTitleWithAction:notificationInfo[@"NotificationAction"]];
-      NSString * notificationTitle = L(notificationInfo[@"NotificationLocalizedAlertBodyKey"]);
-      if (![notificationTitle length])
-        notificationTitle = L(notificationInfo[@"NotificationLocalizedBodyKey"]);
-      UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:notificationTitle message:nil delegate:nil cancelButtonTitle:dismissiveAction otherButtonTitles:positiveAction, nil];
-      alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
-        NSString * notificationID = notificationInfo[@"NotificationID"];
-        BOOL shared = (buttonIndex != alertView.cancelButtonIndex);
-        [[Statistics instance] logEvent:[NSString stringWithFormat:@"'%@' Notification Show", notificationID] withParameters:@{@"Shared" : @(shared)}];
-        if (shared)
-          [self runNotificationAction:notificationInfo];
-      };
-      [alertView show];
-    }
-  }
-}
-
-- (NSString *)actionTitleWithAction:(NSString *)action
-{
-  if ([action isEqualToString:@"Share"])
-    return L(@"share");
-  else if ([action isEqualToString:@"AppStoreProVersion"])
-    return L(@"download");
-  else
-    return nil;
-}
-
-- (void)runNotificationAction:(NSDictionary *)notificationInfo
-{
-  NSString * action = notificationInfo[@"NotificationAction"];
-  
-  if ([action isEqualToString:@"Share"])
-  {
-    UIImage * shareImage = [UIImage imageNamed:notificationInfo[@"NotifiicationShareImage"]];
-    LocalNotificationInfoProvider * infoProvider = [[LocalNotificationInfoProvider alloc] initWithDictionary:notificationInfo];
-
-    NSMutableArray * itemsToShare = [NSMutableArray arrayWithObject:infoProvider];
-    if (shareImage)
-      [itemsToShare addObject:shareImage];
-
-    UIActivityViewController * activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
-    NSMutableArray * excludedActivityTypes = [@[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll] mutableCopy];
-    [excludedActivityTypes addObject:UIActivityTypeAirDrop];
-    activityVC.excludedActivityTypes = excludedActivityTypes;
-    UIWindow * window = [[UIApplication sharedApplication].windows firstObject];
-    NavigationController * vc = (NavigationController *)window.rootViewController;
-    [vc presentViewController:activityVC animated:YES completion:nil];
-  }
-}
-
-#pragma mark - Special Notifications
-
-- (BOOL)isSpecialLocalNotification:(UILocalNotification *)notification
-{
-  if (notification.userInfo && notification.userInfo[LocalNotificationManagerSpecialNotificationInfoKey])
-    return YES;
-  else
-    return NO;
-}
-
-- (NSArray *)scheduledSpecialLocalNotifications
-{
-  NSArray * allNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
-  NSMutableArray * specialNotifications = [[NSMutableArray alloc] init];
-  for (UILocalNotification * notification in allNotifications)
-  {
-    if ([self isSpecialLocalNotification:notification])
-      [specialNotifications addObject:notification];
-  }
-  
-  return specialNotifications;
-}
-
-- (BOOL)isSpecialNotificationScheduled:(NSString *)specialNotificationID
-{
-  NSArray * notifications = [self scheduledSpecialLocalNotifications];
-  
-  for (UILocalNotification * scheduledNotification in notifications)
-  {
-    NSDictionary * notificationInfo = scheduledNotification.userInfo[LocalNotificationManagerSpecialNotificationInfoKey];
-    NSString * scheduledSpecialNotificationID = notificationInfo[@"NotificationID"];
-    if ([scheduledSpecialNotificationID isEqualToString:specialNotificationID])
-      return YES;
-  }
-  
-  return NO;
-}
-
-- (void)increaseViewsNumberOfNotification:(NSString *)specialNotificationID
-{
-  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-  NSString * key = [NSString stringWithFormat:@"%@%@", LocalNotificationManagerNumberOfViewsPrefix, specialNotificationID];
-  NSNumber * viewsNumber = [userDefaults objectForKey:key];
-  viewsNumber = viewsNumber ? @([viewsNumber integerValue] + 1) : @(1);
-  [userDefaults setObject:viewsNumber forKey:key];
-  [userDefaults synchronize];
-}
-
-- (NSNumber *)viewNumberOfNotification:(NSString *)specialNotificationID
-{
-  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-  NSString * key = [NSString stringWithFormat:@"%@%@", LocalNotificationManagerNumberOfViewsPrefix, specialNotificationID];
-  NSNumber * viewsNumber = [userDefaults objectForKey:key];
-  if (!viewsNumber)
-    viewsNumber = @(0);
-  return viewsNumber;
-}
-
-- (void)scheduleSpecialLocalNotifications
-{
-  NSArray * localNotificationsInfo = [self localNotificationsInfo];
-  NSMutableArray * actualSpecialLocalNotifications = [NSMutableArray array];
-  for (NSDictionary * notificationInfo in localNotificationsInfo)
-  {
-    NSString * notificationID = notificationInfo[@"NotificationID"];
-    if ([self isSpecialNotificationScheduled:notificationID])
-      continue;
-    
-    NSNumber * viewsLimit = notificationInfo[@"NotificationViewsLimit"];
-    NSNumber * viewsNumber = [self viewNumberOfNotification:notificationID];
-    if ([viewsNumber integerValue] >= [viewsLimit integerValue])
-      continue;
-    
-    NSDate * fireDate = [NSDateFormatter dateWithString:notificationInfo[@"NotificationDate"]];
-    NSDate * expirationDate = [NSDateFormatter dateWithString:notificationInfo[@"NotificationExpirationDate"]];
-    NSDate * currentDate = [NSDate date];
-    if (expirationDate && [currentDate timeIntervalSinceDate:expirationDate] >= 0)
-      continue;
-    
-    if ([currentDate timeIntervalSinceDate:fireDate] >= 0)
-      fireDate = [NSDate dateWithTimeIntervalSinceNow:10.0 * 60];
-    
-    [self increaseViewsNumberOfNotification:notificationID];
-    
-    UILocalNotification * notification = [[UILocalNotification alloc] init];
-    notification.alertBody = L(notificationInfo[@"NotificationLocalizedBodyKey"]);
-    notification.fireDate = fireDate;
-    notification.soundName = UILocalNotificationDefaultSoundName;
-    notification.alertAction = L(notificationInfo[@"NotificationActionTitleKey"]);
-    notification.userInfo = @{LocalNotificationManagerSpecialNotificationInfoKey : notificationInfo};
-    
-    UIApplication * application = [UIApplication sharedApplication];
-    [application scheduleLocalNotification:notification];
-    [actualSpecialLocalNotifications addObject:notification];
-    
-    [[Statistics instance] logEvent:[NSString stringWithFormat:@"'%@' Notification Scheduled", notificationID]];
-  }
-  
-  // We'd like to remove not actual special notifications.
-  NSMutableArray * notActualSpecialLocalNotifications = [[self scheduledSpecialLocalNotifications] mutableCopy];
-  [notActualSpecialLocalNotifications removeObjectsInArray:actualSpecialLocalNotifications];
-  for (UILocalNotification * notification in notActualSpecialLocalNotifications)
-    [[UIApplication sharedApplication] cancelLocalNotification:notification];
-}
-
-- (NSArray *)localNotificationsInfo
-{
-  NSString * localNotificationsInfoFileName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"LocalNotificationsFileName"];
-  NSString * localNotificationsInfoFilePath = [[NSBundle mainBundle] pathForResource:localNotificationsInfoFileName ofType:@"plist"];
-  NSArray * localNotificationsInfo = [NSArray arrayWithContentsOfFile:localNotificationsInfoFilePath];
-  return localNotificationsInfo;
 }
 
 #pragma mark - Location Notifications
