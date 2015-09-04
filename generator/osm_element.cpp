@@ -29,6 +29,42 @@ string DebugPrint(OsmElement::EntityType e)
   }
 }
 
+#define SKIP_KEY(key) if (strncmp(k.data(), key, sizeof(key)-1) == 0) return;
+
+void OsmElement::AddTag(string const & k, string const & v)
+{
+  // OSM technical info tags
+  SKIP_KEY("created_by");
+  SKIP_KEY("source");
+  SKIP_KEY("odbl");
+  SKIP_KEY("note");
+  SKIP_KEY("fixme");
+  SKIP_KEY("iemv");
+
+  // Skip tags for speedup, now we don't use it
+  SKIP_KEY("not:");
+  SKIP_KEY("seamark"); // http://wiki.openstreetmap.org/wiki/OpenSeaMap/Seamark_Tag_Values
+  SKIP_KEY("artist_name");
+  SKIP_KEY("historic"); // http://wiki.openstreetmap.org/wiki/Historic
+  SKIP_KEY("whitewater"); // http://wiki.openstreetmap.org/wiki/Whitewater_sports
+
+
+  // In future we can use this tags for improve our search
+  SKIP_KEY("old_name");
+  SKIP_KEY("alt_name");
+  SKIP_KEY("nat_name");
+  SKIP_KEY("reg_name");
+  SKIP_KEY("loc_name");
+  SKIP_KEY("lock_name");
+  SKIP_KEY("local_name");
+  SKIP_KEY("short_name");
+  SKIP_KEY("official_name");
+
+
+  m_tags.emplace_back(k, v);
+}
+
+
 string OsmElement::ToString(string const & shift) const
 {
   stringstream ss;

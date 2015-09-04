@@ -123,12 +123,12 @@ struct OsmElement
     );
   }
 
-  void AddTag(string const & k, string const & v) { m_tags.emplace_back(k, v); }
   void AddNd(uint64_t ref) { m_nds.emplace_back(ref); }
   void AddMember(uint64_t ref, EntityType type, string const & role)
   {
     m_members.emplace_back(ref, type, role);
   }
+  void AddTag(string const & k, string const & v);
 };
 
 string DebugPrint(OsmElement const & e);
