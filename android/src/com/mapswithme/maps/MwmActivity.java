@@ -451,8 +451,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setContentView(R.layout.activity_map);
     initViews();
 
-    TtsPlayer.INSTANCE.init();
-
     if (MwmApplication.get().nativeIsBenchmarking())
       Utils.keepScreenOn(true, getWindow());
 
@@ -880,13 +878,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mLayoutRouting.updateRouteInfo();
       mMainMenu.updateRoutingInfo();
 
-      // TODO think about moving TtsPlayer logic to RoutingLayout to minimize native calls.
       if (state == RoutingLayout.State.TURN_INSTRUCTIONS)
-      {
-        final String[] turnNotifications = Framework.nativeGenerateTurnSound();
-        if (turnNotifications != null)
-          TtsPlayer.INSTANCE.speak(turnNotifications);
-      }
+        TtsPlayer.INSTANCE.playTurnNotifications();
     }
   }
 
@@ -969,6 +962,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onStart();
 
+    TtsPlayer.INSTANCE.reinitIfLocaleChanged();
     if (!mIsFragmentContainer)
       popFragment();
   }

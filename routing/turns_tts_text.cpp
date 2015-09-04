@@ -48,13 +48,14 @@ void GetTtsText::SetLocaleWithJson(string const & jsonBuffer)
 
 string GetTtsText::operator()(Notification const & notification) const
 {
-  if (!m_getCurLang->IsValid())
-    return string();
   if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance)
     return GetTextById(GetDirectionTextId(notification));
 
-  return GetTextById(GetDistanceTextId(notification)) + " " +
-         GetTextById(GetDirectionTextId(notification));
+  string const distStr = GetTextById(GetDistanceTextId(notification));
+  string const dirStr = GetTextById(GetDirectionTextId(notification));
+  if (distStr.empty() && dirStr.empty())
+    return "";
+  return distStr + " " + dirStr;
 }
 
 string GetTtsText::GetTextById(string const & textId) const

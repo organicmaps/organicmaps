@@ -5,6 +5,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 
 import java.util.Locale;
@@ -25,14 +26,20 @@ public enum TtsPlayer
 
   TtsPlayer() {}
 
-  public void init()
+  public void reinitIfLocaleChanged()
   {
-    Locale systemLanguage = Locale.getDefault();
-    if (systemLanguage == null)
-      systemLanguage = DEFAULT_LOCALE;
+    if (!isValid())
+      return; // TtsPlayer was not inited yet.
 
-    if (mTtsLocale == null || !isLocaleEqual(systemLanguage))
+    final Locale systemLanguage = getDefaultLocale();
+    if (!isLocaleEqual(systemLanguage))
       initTts(systemLanguage);
+  }
+
+  private Locale getDefaultLocale()
+  {
+    final Locale systemLanguage = Locale.getDefault();
+    return systemLanguage == null ? DEFAULT_LOCALE : systemLanguage;
   }
 
   private boolean isLocaleEqual(Locale locale)
@@ -107,13 +114,16 @@ public enum TtsPlayer
     });
   }
 
-  private boolean readyToPlay()
+  private boolean isValid()
   {
     return !mIsLocaleChanging && mTts != null && mTtsLocale != null;
   }
 
   private void speak(String textToSpeak)
   {
+    if (textToSpeak.isEmpty())
+      return;
+
     // @TODO(vbykoianko) removes these two toasts below when the test period is finished.
     Toast.makeText(MwmApplication.get(), textToSpeak, Toast.LENGTH_SHORT).show();
     if (mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null) == TextToSpeech.ERROR)
@@ -123,16 +133,16 @@ public enum TtsPlayer
     }
   }
 
-  public void speak(String[] turnNotifications)
+  public void playTurnNotifications()
   {
-    if (!readyToPlay())
+    if (!isValid())
       return; // speak() is called while TTS is not ready or could not be initialized.
 
-    if (turnNotifications == null)
-      return;
-
-    for (String textToSpeak : turnNotifications)
-      speak(textToSpeak);
+    // TODO think about moving TtsPlayer logic to RoutingLayout to minimize native calls.
+    final String[] turnNotifications = Framework.nativeGenerateTurnSound();
+    if (turnNotifications != null)
+      for (String textToSpeak : turnNotifications)
+        speak(textToSpeak);
   }
 
   public void stop()
@@ -148,6 +158,8 @@ public enum TtsPlayer
 
   public void enable(boolean enabled)
   {
+    if (!isValid())
+      initTts(getDefaultLocale());
     nativeEnableTurnNotifications(enabled);
   }
 

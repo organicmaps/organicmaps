@@ -22,6 +22,7 @@ class GetTtsText
 {
 public:
   string operator()(Notification const & notification) const;
+  /// TODO(vbykoianko) Check if locale is available. If not use default (en) locale.
   void SetLocale(string const & locale);
   inline string GetLocale() const { return m_locale; }
   /// SetLocaleWithJson is used for writing unit tests only.
