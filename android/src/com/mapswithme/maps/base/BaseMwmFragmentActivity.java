@@ -13,8 +13,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
-import ru.mail.android.mytracker.MRMyTracker;
-
 public class BaseMwmFragmentActivity extends AppCompatActivity
 {
   @Override
@@ -50,18 +48,13 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   {
     super.onStart();
     Statistics.INSTANCE.startActivity(this);
-    MRMyTracker.onStartActivity(this);
-    org.alohalytics.Statistics.onStart(this);
   }
 
   @Override
   protected void onStop()
   {
-    org.alohalytics.Statistics.onStop(this);
-    Statistics.INSTANCE.stopActivity(this);
     super.onStop();
-
-    MRMyTracker.onStopActivity(this);
+    Statistics.INSTANCE.stopActivity(this);
   }
 
   @Override

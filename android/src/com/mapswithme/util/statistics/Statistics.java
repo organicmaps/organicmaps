@@ -16,6 +16,8 @@ import com.mapswithme.util.log.StubLogger;
 
 import java.util.HashMap;
 
+import ru.mail.android.mytracker.MRMyTracker;
+
 public enum Statistics
 {
   INSTANCE;
@@ -203,6 +205,8 @@ public enum Statistics
     {
       FlurryAgent.onStartSession(activity);
       AppEventsLogger.activateApp(activity);
+      MRMyTracker.onStartActivity(activity);
+      org.alohalytics.Statistics.onStart(activity);
     }
   }
 
@@ -221,6 +225,8 @@ public enum Statistics
     {
       FlurryAgent.onEndSession(activity);
       AppEventsLogger.deactivateApp(activity);
+      MRMyTracker.onStopActivity(activity);
+      org.alohalytics.Statistics.onStop(activity);
     }
   }
 

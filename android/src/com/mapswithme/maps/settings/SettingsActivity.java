@@ -38,8 +38,6 @@ import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-import ru.mail.android.mytracker.MRMyTracker;
-
 public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener, Preference.OnPreferenceChangeListener
 {
   public final static String ZOOM_BUTTON_ENABLED = "ZoomButtonsEnabled";
@@ -144,18 +142,14 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
   protected void onStart()
   {
     super.onStart();
-
     Statistics.INSTANCE.startActivity(this);
-    MRMyTracker.onStartActivity(this);
   }
 
   @Override
   protected void onStop()
   {
     super.onStop();
-
     Statistics.INSTANCE.stopActivity(this);
-    MRMyTracker.onStopActivity(this);
   }
 
   @Override
