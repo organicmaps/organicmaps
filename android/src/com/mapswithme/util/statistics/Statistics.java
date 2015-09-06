@@ -1,6 +1,7 @@
 package com.mapswithme.util.statistics;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.facebook.appevents.AppEventsLogger;
@@ -15,8 +16,10 @@ import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.log.StubLogger;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import ru.mail.android.mytracker.MRMyTracker;
+import ru.mail.android.mytracker.MRMyTrackerParams;
 
 public enum Statistics
 {
@@ -84,15 +87,39 @@ public enum Statistics
     public static final String RATING = "Rating";
   }
 
+  private static class MyTrackerParams
+  {
+    private static final String MY_MAP_DOWNLOAD = "DownloadMap";
+    private static final String MY_MAP_UPDATE = "UpdateMap";
+    private static final String MY_TOTAL_COUNT = "Count";
+  }
+
+  // Initialized once in constructor and does not change until the process restarts.
+  // In this way we can correctly finish all statistics sessions and completely
+  // avoid their initialization if user has disabled statistics collection.
+  private final boolean mEnabled;
+
   Statistics()
   {
-    configure();
-    mLogger.d("Created Statistics instance.");
+    mEnabled = isStatisticsEnabled();
+    final Context context = MwmApplication.get();
+    // At the moment we need special handling for Alohalytics to enable/disable logging of events in core C++ code.
+    if (mEnabled)
+    {
+      org.alohalytics.Statistics.enable(context);
+      mLogger.d("Created Statistics instance.");
+    }
+    else
+    {
+      org.alohalytics.Statistics.disable(context);
+      mLogger.d("Statistics was disabled by user.");
+    }
+    configure(context);
   }
 
   private void post(String name)
   {
-    if (isStatisticsEnabled())
+    if (mEnabled)
       FlurryAgent.logEvent(name);
   }
 
@@ -100,7 +127,8 @@ public enum Statistics
   {
     if (params.length % 2 != 0)
       mLogger.e("Even number of parameters is required: key1, value1, key2, value2, ...");
-    if (isStatisticsEnabled())
+
+    if (mEnabled)
     {
       final HashMap<String, String> map = new HashMap<>(params.length);
       for (int i = 0; i < params.length - 1; i += 2)
@@ -199,9 +227,29 @@ public enum Statistics
     post(eventName);
   }
 
+  public void myTrackerTrackMapDownload()
+  {
+    myTrackerTrackMapChange(MyTrackerParams.MY_MAP_DOWNLOAD);
+  }
+
+  public void myTrackerTrackMapUpdate()
+  {
+    myTrackerTrackMapChange(MyTrackerParams.MY_MAP_UPDATE);
+  }
+
+  private void myTrackerTrackMapChange(String eventType)
+  {
+    if (mEnabled)
+    {
+      final Map<String, String> params = new HashMap<>();
+      params.put(MyTrackerParams.MY_TOTAL_COUNT, String.valueOf(ActiveCountryTree.getTotalDownloadedCount()));
+      MRMyTracker.trackEvent(eventType, params);
+    }
+  }
+
   public void startActivity(Activity activity)
   {
-    if (isStatisticsEnabled())
+    if (mEnabled)
     {
       FlurryAgent.onStartSession(activity);
       AppEventsLogger.activateApp(activity);
@@ -210,18 +258,31 @@ public enum Statistics
     }
   }
 
-  private void configure()
+  // This method is not called at all if statistics was disabled.
+  private void configure(Context context)
   {
-    FlurryAgent.setLogLevel(BuildConfig.DEBUG ? Log.DEBUG : Log.ERROR);
-    FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
-    FlurryAgent.setCaptureUncaughtExceptions(false);
-    android.content.Context context = MwmApplication.get();
-    FlurryAgent.init(context, context.getString(R.string.flurry_app_key));
+    if (mEnabled)
+    {
+      FlurryAgent.setLogLevel(BuildConfig.DEBUG ? Log.DEBUG : Log.ERROR);
+      FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
+      FlurryAgent.setCaptureUncaughtExceptions(false);
+      FlurryAgent.init(context, context.getString(R.string.flurry_app_key));
+
+      MRMyTracker.setDebugMode(BuildConfig.DEBUG);
+      MRMyTracker.createTracker(context.getString(R.string.my_tracker_app_id), context);
+      final MRMyTrackerParams myParams = MRMyTracker.getTrackerParams();
+      myParams.setTrackingPreinstallsEnabled(true);
+      myParams.setTrackingLaunchEnabled(true);
+      MRMyTracker.initTracker();
+
+      org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);
+      org.alohalytics.Statistics.setup(BuildConfig.STATISTICS_URL, context);
+    }
   }
 
   public void stopActivity(Activity activity)
   {
-    if (isStatisticsEnabled())
+    if (mEnabled)
     {
       FlurryAgent.onEndSession(activity);
       AppEventsLogger.deactivateApp(activity);
@@ -230,6 +291,8 @@ public enum Statistics
     }
   }
 
+  // This method is used to display user setting's preference and initialize
+  // actual state of statistics (see mEnabled in constructor).
   public boolean isStatisticsEnabled()
   {
     return MwmApplication.get().nativeGetBoolean(KEY_STAT_ENABLED, !BuildConfig.DEBUG);
@@ -238,14 +301,9 @@ public enum Statistics
   public void setStatEnabled(boolean isEnabled)
   {
     final MwmApplication theApp = MwmApplication.get();
-    theApp.nativeSetBoolean(KEY_STAT_ENABLED, isEnabled);
     // We track if user turned on/off statistics to understand data better.
     post(EventName.STATISTICS_STATUS_CHANGED + " " + theApp.getFirstInstallFlavor(),
         new String[]{EventParam.ENABLED, String.valueOf(isEnabled)});
-
-    if (isEnabled)
-      org.alohalytics.Statistics.enable(theApp);
-    else
-      org.alohalytics.Statistics.disable(theApp);
+    theApp.nativeSetBoolean(KEY_STAT_ENABLED, isEnabled);
   }
 }

@@ -22,12 +22,8 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.SaveCallback;
-import ru.mail.android.mytracker.MRMyTracker;
-import ru.mail.android.mytracker.MRMyTrackerParams;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MwmApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
 {
@@ -38,10 +34,6 @@ public class MwmApplication extends android.app.Application implements ActiveCou
   private static final String LAST_SESSION_TIMESTAMP_SETTING = "LastSessionTimestamp"; // timestamp of last session
   private static final String FIRST_INSTALL_VERSION = "FirstInstallVersion";
   private static final String FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
-  // for myTracker
-  private static final String MY_MAP_DOWNLOAD = "DownloadMap";
-  private static final String MY_MAP_UPDATE = "UpdateMap";
-  private static final String MY_TOTAL_COUNT = "Count";
   // Parse
   private static final String PREF_PARSE_DEVICE_TOKEN = "ParseDeviceToken";
   private static final String PREF_PARSE_INSTALLATION_ID = "ParseInstallationId";
@@ -50,7 +42,7 @@ public class MwmApplication extends android.app.Application implements ActiveCou
   private final Gson mGson = new Gson();
   private static SharedPreferences mPrefs;
 
-  private boolean mAreStatsInitialised;
+  private boolean mAreCountersInitialised;
 
   public MwmApplication()
   {
@@ -91,16 +83,9 @@ public class MwmApplication extends android.app.Application implements ActiveCou
   public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition)
   {
     if (oldGroup == ActiveCountryTree.GROUP_NEW && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE)
-      myTrackerTrackMapChange(MY_MAP_DOWNLOAD);
+      Statistics.INSTANCE.myTrackerTrackMapDownload();
     else if (oldGroup == ActiveCountryTree.GROUP_OUT_OF_DATE && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE)
-      myTrackerTrackMapChange(MY_MAP_UPDATE);
-  }
-
-  private void myTrackerTrackMapChange(String eventType)
-  {
-    final Map<String, String> params = new HashMap<>();
-    params.put(MY_TOTAL_COUNT, String.valueOf(ActiveCountryTree.getTotalDownloadedCount()));
-    MRMyTracker.trackEvent(eventType, params);
+      Statistics.INSTANCE.myTrackerTrackMapUpdate();
   }
 
   @Override
@@ -150,19 +135,6 @@ public class MwmApplication extends android.app.Application implements ActiveCou
     BookmarkManager.getIcons();
     initParse();
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
-  }
-
-  private void initMyTracker()
-  {
-    MRMyTracker.setDebugMode(BuildConfig.DEBUG);
-
-    MRMyTracker.createTracker(getString(R.string.my_tracker_app_id), this);
-
-    final MRMyTrackerParams myParams = MRMyTracker.getTrackerParams();
-    myParams.setTrackingPreinstallsEnabled(true);
-    myParams.setTrackingLaunchEnabled(true);
-
-    MRMyTracker.initTracker();
   }
 
   public String getApkPath()
@@ -273,28 +245,14 @@ public class MwmApplication extends android.app.Application implements ActiveCou
     });
   }
 
-  public void initStats()
+  public void initCounters()
   {
-    if (!mAreStatsInitialised)
+    if (!mAreCountersInitialised)
     {
-      mAreStatsInitialised = true;
+      mAreCountersInitialised = true;
       updateLaunchNumbers();
       updateSessionsNumber();
-      initMyTracker();
       PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
-      org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);
-      org.alohalytics.Statistics.setup(BuildConfig.STATISTICS_URL, this);
-      // One time check for old users who have already disabled statistics in settings.
-      // TODO(AlexZ): Remove it in a few releases after September 2, 2015.
-      final SharedPreferences prefs = getSharedPreferences("ALOHALYTICS", MODE_PRIVATE);
-      final String kAlohalyticsOneTimeStatisticsDisabledCheckKey = "AlohalyticsOneTimeStatisticsDisabledCheck";
-      if (!prefs.getBoolean(kAlohalyticsOneTimeStatisticsDisabledCheckKey, false))
-      {
-        prefs.edit().putBoolean(kAlohalyticsOneTimeStatisticsDisabledCheckKey, true).apply();
-        if (!Statistics.INSTANCE.isStatisticsEnabled())
-          org.alohalytics.Statistics.disable(this);
-      }
     }
   }
 
