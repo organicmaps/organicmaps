@@ -20,6 +20,8 @@
   <declare-styleable name="FlatProgressView">
     <attr name="progressColor" format="color"/>
     <attr name="progressThickness" format="dimension"/>
+    <attr name="secondaryProgressColor" format="color"/>
+    <attr name="secondaryProgressThickness" format="dimension"/>
     <attr name="headColor" format="color"/>
     <attr name="headRadius" format="dimension"/>
     <attr name="progress" format="integer"/>

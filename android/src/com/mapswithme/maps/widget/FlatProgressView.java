@@ -14,10 +14,12 @@ import com.mapswithme.maps.R;
 public class FlatProgressView extends View
 {
   private int mThickness;
+  private int mSecondaryThickness;
   private int mHeadRadius;
   private int mProgress;
 
   private final Paint mProgressPaint = new Paint();
+  private final Paint mSecondaryProgressPaint = new Paint();
   private final Paint mHeadPaint = new Paint();
   private final RectF mHeadRect = new RectF();
 
@@ -46,11 +48,14 @@ public class FlatProgressView extends View
   {
     TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.FlatProgressView, defStyleAttr, 0);
     setThickness(ta.getDimensionPixelSize(R.styleable.FlatProgressView_progressThickness, 1));
+    setSecondaryThickness(ta.getDimensionPixelSize(R.styleable.FlatProgressView_secondaryProgressThickness, 1));
     setHeadRadius(ta.getDimensionPixelSize(R.styleable.FlatProgressView_headRadius, 4));
     setProgress(ta.getInteger(R.styleable.FlatProgressView_progress, 0));
 
     int color = ta.getColor(R.styleable.FlatProgressView_progressColor, Color.BLUE);
     mProgressPaint.setColor(color);
+    color = ta.getColor(R.styleable.FlatProgressView_secondaryProgressColor, Color.GRAY);
+    mSecondaryProgressPaint.setColor(color);
     color = ta.getColor(R.styleable.FlatProgressView_headColor, Color.BLUE);
     mHeadPaint.setColor(color);
 
@@ -62,7 +67,7 @@ public class FlatProgressView extends View
   {
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     setMeasuredDimension(getMeasuredWidth(),
-                         Math.max(mThickness, mHeadRadius * 2) + getPaddingTop() + getPaddingBottom());
+                         Math.max(mSecondaryThickness, Math.max(mThickness, mHeadRadius * 2)) + getPaddingTop() + getPaddingBottom());
   }
 
   @Override
@@ -72,6 +77,7 @@ public class FlatProgressView extends View
     canvas.save();
 
     int intWidth = getWidth() - getPaddingLeft() - getPaddingRight();
+    int intHeight = getHeight() - getPaddingTop() - getPaddingBottom();
     canvas.translate(getPaddingLeft(), getPaddingTop());
 
     int progressWidth = (intWidth * mProgress / 100);
@@ -79,6 +85,12 @@ public class FlatProgressView extends View
     {
       int top = ((mHeadRadius * 2) > mThickness ? (mHeadRadius - mThickness / 2) : 0);
       canvas.drawRect(0, top, progressWidth, top + mThickness, mProgressPaint);
+    }
+
+    if (mProgress < 100)
+    {
+      int top = (intHeight - mSecondaryThickness) / 2;
+      canvas.drawRect(progressWidth, top, intWidth, top + mSecondaryThickness, mSecondaryProgressPaint);
     }
 
     if (mHeadRadius > 0)
@@ -158,5 +170,30 @@ public class FlatProgressView extends View
     mHeadPaint.setColor(color);
     if (mReady)
       invalidate();
+  }
+
+  public void setSecondaryProgressColor(int color)
+  {
+    if (color == mSecondaryProgressPaint.getColor())
+      return;
+
+    mSecondaryProgressPaint.setColor(color);
+    if (mReady)
+      invalidate();
+  }
+
+  public void setSecondaryThickness(int secondaryThickness)
+  {
+    if (secondaryThickness == mSecondaryThickness)
+      return;
+
+    mSecondaryThickness = secondaryThickness;
+    if (mReady)
+      invalidate();
+  }
+
+  public int getSecondaryThickness()
+  {
+    return mSecondaryThickness;
   }
 }

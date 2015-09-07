@@ -20,6 +20,7 @@
         android:layout_height="@dimen/base_block_size"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/margin_base"
+        android:layout_weight="0"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="center"
         android:src="@drawable/ic_close_routing"/>
@@ -27,8 +28,9 @@
     <TextView
         android:id="@+id/tv__total_distance"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_base"
+        android:layout_weight="1"
         android:gravity="center_vertical"
         android:textAppearance="@style/MwmTextAppearance.Body2"
         tools:text="1.4 km"/>
@@ -38,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_base"
+        android:layout_weight="1"
         android:gravity="center_vertical"
         android:textAppearance="@style/MwmTextAppearance.Body2"
         tools:text="1,5 min"/>
@@ -46,7 +49,8 @@
         android:id="@+id/tv__left_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_base"
+        android:layout_marginRight="@dimen/margin_base_plus"
+        android:layout_weight="1"
         android:gravity="center_vertical"
         android:textAppearance="@style/MwmTextAppearance.Body2"
         tools:text="1:00"/>
@@ -97,15 +101,9 @@
       android:layout_below="@id/time_distance"
       android:visibility="gone"
       app:headRadius="0dp"
-      app:progress="40"
       app:progressColor="#757575"
       app:progressThickness="4dp"
+      app:secondaryProgressColor="@color/base_black_divider"
+      app:secondaryProgressThickness="2dp"
       tools:visibility="visible"/>
-
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="2dp"
-      android:layout_gravity="bottom"
-      android:layout_marginBottom="1dp"
-      android:background="@color/base_black_divider"/>
 </RelativeLayout>

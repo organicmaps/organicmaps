@@ -312,12 +312,12 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
 
   private void refreshRouteSetup()
   {
-    RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-    if (info == null)
+    mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
+    if (mCachedRoutingInfo == null)
       return;
 
-    mTvPrepareDistance.setText(info.distToTarget + " " + info.targetUnits.toUpperCase());
-    mTvPrepareTime.setText(formatTime(info.totalTimeInSeconds));
+    mTvPrepareDistance.setText(mCachedRoutingInfo.distToTarget + " " + mCachedRoutingInfo.targetUnits.toUpperCase());
+    mTvPrepareTime.setText(formatTime(mCachedRoutingInfo.totalTimeInSeconds));
   }
 
   private static SpannableStringBuilder getSpannedDistance(int distTextSize, int unitsTextSize, String distToTarget, String units)
