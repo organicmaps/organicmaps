@@ -58,6 +58,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
   private TextView mTvNextStreen;
 
   private double mNorth;
+  private RoutingInfo mCachedRoutingInfo;
 
   public enum State
   {
@@ -265,6 +266,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
 
   public void updateRouteInfo()
   {
+    mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
     if (mState == State.TURN_INSTRUCTIONS)
       refreshTurnInstructions();
   }
@@ -276,23 +278,22 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
 
   private void refreshTurnInstructions()
   {
-    RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-    if (info == null)
+    if (mCachedRoutingInfo == null)
       return;
 
     if (Framework.getRouter() == Framework.ROUTER_TYPE_VEHICLE)
     {
       mTvTurnDistance.setText(getSpannedDistance(UiUtils.dimen(R.dimen.text_size_display_1),
-                                                 UiUtils.dimen(R.dimen.text_size_toolbar), info.distToTurn, info.turnUnits.toLowerCase()));
-      info.vehicleTurnDirection.setTurnDrawable(mIvTurn);
+                                                 UiUtils.dimen(R.dimen.text_size_toolbar), mCachedRoutingInfo.distToTurn, mCachedRoutingInfo.turnUnits.toLowerCase()));
+      mCachedRoutingInfo.vehicleTurnDirection.setTurnDrawable(mIvTurn);
     }
     else
-      refreshPedestrianAzimutAndDistance(info);
+      refreshPedestrianAzimutAndDistance(mCachedRoutingInfo);
 
-    mTvTotalTime.setText(formatTime(info.totalTimeInSeconds));
-    mTvTotalDistance.setText(info.distToTarget + " " + info.targetUnits);
-    UiUtils.setTextAndHideIfEmpty(mTvNextStreen, info.nextStreet);
-    mFpRouteProgress.setProgress((int) info.completionPercent);
+    mTvTotalTime.setText(formatTime(mCachedRoutingInfo.totalTimeInSeconds));
+    mTvTotalDistance.setText(mCachedRoutingInfo.distToTarget + " " + mCachedRoutingInfo.targetUnits);
+    UiUtils.setTextAndHideIfEmpty(mTvNextStreen, mCachedRoutingInfo.nextStreet);
+    mFpRouteProgress.setProgress((int) mCachedRoutingInfo.completionPercent);
   }
 
   private void refreshPedestrianAzimutAndDistance(RoutingInfo info)
