@@ -8,7 +8,7 @@ import os.path
 
 ID_COLUMN = 1
 MIN_PROCESSED_COLUMN = 2
-MAX_PROCESSED_COLUMN = 29
+MAX_PROCESSED_COLUMN = 31
 
 
 def parse_args():
