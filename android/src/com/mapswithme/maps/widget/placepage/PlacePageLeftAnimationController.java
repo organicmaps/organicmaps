@@ -1,5 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
@@ -10,9 +12,6 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.ValueAnimator;
-import com.nineoldandroids.view.ViewHelper;
 
 class PlacePageLeftAnimationController extends BasePlacePageAnimationController
 {
@@ -132,13 +131,13 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
   private void track(ValueAnimator animation)
   {
     float offset = (Float) animation.getAnimatedValue();
-    ViewHelper.setTranslationX(mPlacePage, offset);
+    mPlacePage.setTranslationX(offset);
 
     float slope = offset / mPlacePage.getDockedWidth();
-    ViewHelper.setAlpha(mPlacePage, slope + 1.0f);
+    mPlacePage.setAlpha(slope + 1.0f);
 
     if (!mPlacePage.isDocked())
-      ViewHelper.setRotation(mPlacePage, slope * 20.0f);
+      mPlacePage.setRotation(slope * 20.0f);
 
     MwmActivity.LeftAnimationTrackListener tracker = mPlacePage.getLeftAnimationTrackListener();
     if (tracker != null)
@@ -152,12 +151,6 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
     if (currentState != State.HIDDEN)
       return;
 
-    if (NO_ANIMATION)
-    {
-      notifyVisibilityListener(true, true);
-      return;
-    }
-
     startTracking(false);
 
     ValueAnimator animator = ValueAnimator.ofFloat(-mPlacePage.getDockedWidth(), 0.0f);
@@ -169,7 +162,7 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
         track(animation);
       }
     });
-    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    animator.addListener(new UiUtils.SimpleAnimatorListener()
     {
       @Override
       public void onAnimationEnd(Animator animation)
@@ -186,13 +179,6 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
 
   private void hidePlacePage()
   {
-    if (NO_ANIMATION)
-    {
-      UiUtils.hide(mPlacePage);
-      notifyVisibilityListener(false, false);
-      return;
-    }
-
     startTracking(true);
 
     ValueAnimator animator = ValueAnimator.ofFloat(0.0f, -mPlacePage.getDockedWidth());
@@ -204,7 +190,7 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
         track(animation);
       }
     });
-    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    animator.addListener(new UiUtils.SimpleAnimatorListener()
     {
       @Override
       public void onAnimationEnd(Animator animation)

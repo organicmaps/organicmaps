@@ -6,7 +6,6 @@ import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
-import com.nineoldandroids.view.ViewHelper;
 
 public class RoutingInfo
 {
@@ -67,8 +66,8 @@ public class RoutingInfo
     public void setTurnDrawable(ImageView imageView)
     {
       imageView.setImageResource(mTurnRes);
-      ViewHelper.setRotation(imageView, 0.0f);
-      ViewHelper.setScaleX(imageView, isLeftTurn(this) ? -1 : 1); // right turns are displayed as mirrored left turns.
+      imageView.setRotation(0.0f);
+      imageView.setScaleX(isLeftTurn(this) ? -1 : 1); // right turns are displayed as mirrored left turns.
     }
 
     public static boolean isLeftTurn(VehicleTurnDirection turn)
@@ -94,7 +93,7 @@ public class RoutingInfo
     public void setTurnDrawable(ImageView view, DistanceAndAzimut distanceAndAzimut)
     {
       view.setImageResource(R.drawable.ic_direction_pedestrian);
-      ViewHelper.setRotation(view, (float) Math.toDegrees(distanceAndAzimut.getAzimuth()));
+      view.setRotation((float) Math.toDegrees(distanceAndAzimut.getAzimuth()));
     }
   }
 

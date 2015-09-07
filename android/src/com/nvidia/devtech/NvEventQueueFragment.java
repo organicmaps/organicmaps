@@ -82,7 +82,7 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
     mDisplayDensity = metrics.densityDpi;
     mIsNativeLaunched = true;
     onCreateNative();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && getActivity().isChangingConfigurations())
+    if (getActivity().isChangingConfigurations())
       mIsRenderingInitialized = true;
   }
 
@@ -163,12 +163,11 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
     onFocusChangedNative(getActivity().hasWindowFocus());
   }
 
-  @SuppressLint("NewApi")
   @Override
   public void onStop()
   {
     super.onStop();
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB || !getActivity().isChangingConfigurations())
+    if (!getActivity().isChangingConfigurations())
     {
       // if configuration is changed - EGL shouldn't be reinitialized
       mIsRenderingInitialized = false;

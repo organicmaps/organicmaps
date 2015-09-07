@@ -1,5 +1,7 @@
 package com.mapswithme.maps;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,9 +10,6 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
 import com.mapswithme.util.UiUtils;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.ValueAnimator;
-import com.nineoldandroids.view.ViewHelper;
 
 class PanelAnimator
 {
@@ -32,8 +31,8 @@ class PanelAnimator
   private void track(ValueAnimator animation)
   {
     float offset = (Float) animation.getAnimatedValue();
-    ViewHelper.setTranslationX(mPanel, offset);
-    ViewHelper.setAlpha(mPanel, offset / WIDTH + 1.0f);
+    mPanel.setTranslationX(offset);
+    mPanel.setAlpha(offset / WIDTH + 1.0f);
     mAnimationTrackListener.onTrackLeftAnimation(offset + WIDTH);
   }
 
@@ -70,7 +69,7 @@ class PanelAnimator
         track(animation);
       }
     });
-    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    animator.addListener(new UiUtils.SimpleAnimatorListener()
     {
       @Override
       public void onAnimationEnd(Animator animation)
@@ -105,7 +104,7 @@ class PanelAnimator
         track(animation);
       }
     });
-    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    animator.addListener(new UiUtils.SimpleAnimatorListener()
     {
       @Override
       public void onAnimationEnd(Animator animation)

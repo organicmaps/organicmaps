@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,10 +28,11 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.nineoldandroids.animation.Animator;
 
 import static com.mapswithme.util.Utils.checkNotNull;
 
@@ -54,8 +56,7 @@ public final class UiUtils
     {}
   }
 
-
-  public static class SimpleNineoldAnimationListener implements Animator.AnimatorListener
+  public static class SimpleAnimatorListener implements Animator.AnimatorListener
   {
     @Override
     public void onAnimationStart(Animator animation) {}
@@ -70,7 +71,7 @@ public final class UiUtils
     public void onAnimationRepeat(Animator animation) {}
   }
 
-
+  
   public static void waitLayout(final View view, @NonNull final ViewTreeObserver.OnGlobalLayoutListener callback)
   {
     view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
@@ -375,8 +376,8 @@ public final class UiUtils
    */
   public static void getHitRect(View v, Rect rect)
   {
-    rect.left = (int) com.nineoldandroids.view.ViewHelper.getX(v);
-    rect.top = (int) com.nineoldandroids.view.ViewHelper.getY(v);
+    rect.left = (int) v.getX();
+    rect.top = (int) v.getY();
     rect.right = rect.left + v.getWidth();
     rect.bottom = rect.top + v.getHeight();
   }

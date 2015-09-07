@@ -1,6 +1,5 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.MotionEvent;
@@ -21,7 +20,6 @@ import com.mapswithme.util.UiUtils;
 public abstract class BasePlacePageAnimationController
 {
   protected static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_placepage);
-  protected static final boolean NO_ANIMATION = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
 
   protected State mState = State.HIDDEN;
 

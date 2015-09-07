@@ -189,16 +189,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mLlOperator = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_operator);
     mLlOperator.setOnClickListener(this);
     mTvOperator = (TextView) mPpDetails.findViewById(R.id.tv__place_operator);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-    {
-      mLlLatlon.setOnLongClickListener(this);
-      mLlAddress.setOnLongClickListener(this);
-      mLlPhone.setOnLongClickListener(this);
-      mLlWebsite.setOnLongClickListener(this);
-      mLlSchedule.setOnLongClickListener(this);
-      mLlEmail.setOnLongClickListener(this);
-      mLlOperator.setOnLongClickListener(this);
-    }
+    mLlLatlon.setOnLongClickListener(this);
+    mLlAddress.setOnLongClickListener(this);
+    mLlPhone.setOnLongClickListener(this);
+    mLlWebsite.setOnLongClickListener(this);
+    mLlSchedule.setOnLongClickListener(this);
+    mLlEmail.setOnLongClickListener(this);
+    mLlOperator.setOnLongClickListener(this);
 
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
     mTvNotes = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_notes);
@@ -818,12 +815,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   }
 
   @Override
-  @SuppressLint("NewApi")
   public boolean onLongClick(View v)
   {
-    // This callback is invoked only for API level >= 11.
-    // See initViews function for more details.
-
     final Object tag = v.getTag();
     final String tagStr = tag == null ? "" : tag.toString();
     AlohaHelper.logLongClick(tagStr);

@@ -100,10 +100,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
 
   void start()
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-      executeOnExecutor(sExecutors, (Void[]) null);
-    else
-      execute((Void[]) null);
+    executeOnExecutor(sExecutors, (Void[]) null);
   }
 
   static long parseContentRange(String contentRangeValue)

@@ -1,24 +1,25 @@
 package com.mapswithme.maps.widget;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 public class FadeView extends FrameLayout
 {
   private static final float FADE_ALPHA_VALUE = 0.4f;
   private static final String PROPERTY_ALPHA = "alpha";
   private static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_fade_main);
-
-  private final Animator.AnimatorListener mFadeOutListener = new UiUtils.SimpleNineoldAnimationListener()
+  
+  private final Animator.AnimatorListener mFadeOutListener = new UiUtils.SimpleAnimatorListener()
   {
     @Override
     public void onAnimationEnd(Animator animation)
@@ -79,7 +80,7 @@ public class FadeView extends FrameLayout
   public void fadeInInstantly()
   {
     UiUtils.show(this);
-    ViewCompat.setAlpha(this, FADE_ALPHA_VALUE);
+    setAlpha(FADE_ALPHA_VALUE);
   }
 
   @Override

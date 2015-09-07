@@ -4,11 +4,9 @@ package com.mapswithme.maps.location;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.LocationUtils;
 
 import java.util.ArrayList;
@@ -49,7 +47,7 @@ public class AndroidNativeProvider extends BaseLocationProvider implements andro
       {
         final Location lastLocation = LocationHelper.INSTANCE.getLastLocation();
         if (lastLocation != null && !LocationUtils.isExpired(lastLocation, LocationHelper.INSTANCE.getLastLocationTime(),
-            LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
+                                                             LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
           LocationHelper.INSTANCE.setLastLocation(lastLocation);
       }
     }
@@ -93,11 +91,6 @@ public class AndroidNativeProvider extends BaseLocationProvider implements andro
           LocationHelper.INSTANCE.notifyLocationError(LocationHelper.ERROR_GPS_OFF);
         continue;
       }
-
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB &&
-          LocationManager.NETWORK_PROVIDER.equals(prov) &&
-          !ConnectionState.isConnected())
-        continue;
 
       acceptedProviders.add(prov);
     }

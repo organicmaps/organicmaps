@@ -822,19 +822,12 @@ public class StoragePathManager
     }
   }
 
-  @SuppressWarnings("deprecation")
   private static long getFreeBytesAtPath(String path)
   {
     long size = 0;
     try
     {
-      if (Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.GINGERBREAD)
-      {
-        final StatFs stat = new StatFs(path);
-        size = stat.getAvailableBlocks() * (long) stat.getBlockSize();
-      }
-      else
-        size = new File(path).getFreeSpace();
+      size = new File(path).getFreeSpace();
     } catch (RuntimeException e)
     {
       e.printStackTrace();

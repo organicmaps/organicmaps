@@ -1,5 +1,7 @@
 package com.mapswithme.maps.ads;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,8 +27,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 public class RateStoreDialogFragment extends BaseMwmDialogFragment implements View.OnClickListener
 {
@@ -69,7 +69,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
         else
         {
           ObjectAnimator animator = ObjectAnimator.ofFloat(rateBar, "alpha", 1.0f, 0.0f);
-          animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+          animator.addListener(new UiUtils.SimpleAnimatorListener()
           {
             @Override
             public void onAnimationEnd(Animator animation)
