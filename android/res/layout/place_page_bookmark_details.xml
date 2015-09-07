@@ -29,7 +29,7 @@
         android:hint="@string/name"
         android:inputType="textCapWords"
         android:singleLine="true"
-        android:textSize="@dimen/place_page_subtitle"/>
+        android:textSize="@dimen/text_size_body_1"/>
   </com.mapswithme.maps.widget.CustomTextInputLayout>
 
   <TextView
@@ -39,8 +39,7 @@
       android:layout_marginTop="@dimen/margin_base_plus"
       android:lineSpacingMultiplier="1.67"
       android:text="@string/set"
-      android:textColor="@color/text_place_page_subtitle"
-      android:textSize="@dimen/place_page_sub_subtitle"/>
+      android:textAppearance="@style/MwmTextAppearance.Caption"/>
 
   <RelativeLayout
       android:layout_width="match_parent"
@@ -58,7 +57,7 @@
         android:paddingRight="@dimen/margin_half"
         android:paddingTop="@dimen/margin_half"
         android:textColor="@color/text_place_page"
-        android:textSize="@dimen/place_page_subtitle"/>
+        android:textSize="@dimen/text_size_body_1"/>
 
     <View
         android:layout_width="match_parent"

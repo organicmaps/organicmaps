@@ -203,7 +203,7 @@
 
   <style name="MwmTextAppearance">
     <item name="android:textStyle">normal</item>
-    <item name="android:fontFamily">@string/robotoRegular</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
   </style>
 
   <style name="MwmTextAppearance.Display3">
@@ -220,6 +220,10 @@
   <style name="MwmTextAppearance.Display1">
     <item name="android:textSize">@dimen/text_size_display_1</item>
     <item name="android:textColor">@color/text_dark</item>
+  </style>
+
+  <style name="MwmTextAppearance.Display1.Plus">
+    <item name="android:textSize">@dimen/text_size_display_1_plus</item>
   </style>
 
   <style name="MwmTextAppearance.Headline">

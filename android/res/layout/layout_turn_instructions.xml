@@ -1,82 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-  <RelativeLayout
+
+  <LinearLayout
+      android:id="@+id/time_distance"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/height_routing_turns">
-    <TextView
-        android:id="@+id/tv__total_time"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/margin_base"
-        android:layout_marginTop="@dimen/margin_half_plus"
-        android:fontFamily="@string/robotoMedium"
-        android:gravity="center_vertical"
-        android:textAppearance="@style/MwmTextAppearance.Toolbar.Title"
-        tools:text="1,5 min"/>
-
-    <TextView
-        android:id="@+id/tv__total_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tv__total_time"
-        android:layout_marginLeft="@dimen/margin_base"
-        android:layout_marginRight="@dimen/margin_base"
-        android:fontFamily="@string/robotoMedium"
-        android:gravity="center_vertical"
-        android:textAppearance="@style/MwmTextAppearance.Body3"
-        tools:text="1.4 km"/>
-
-    <com.mapswithme.maps.widget.ArrowView
-        android:id="@+id/iv__turn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/margin_quarter"
-        android:layout_marginLeft="@dimen/margin_base"
-        android:layout_toRightOf="@+id/btn__close"
-        tools:src="@drawable/ic_slight_compact"/>
-
-    <TextView
-        android:id="@+id/tv__turn_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/margin_quarter"
-        android:layout_marginLeft="@dimen/margin_half"
-        android:layout_toRightOf="@id/iv__turn"
-        android:fontFamily="@string/robotoMedium"
-        android:textAppearance="@style/MwmTextAppearance.Title"
-        android:textColor="@color/text_turn_blue"
-        tools:text="300 m"/>
+      android:layout_height="@dimen/height_item_oneline"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:padding="@dimen/margin_quarter">
 
     <ImageView
         android:id="@+id/btn__close"
         android:layout_width="@dimen/base_block_size"
         android:layout_height="@dimen/base_block_size"
         android:layout_centerVertical="true"
-        android:layout_margin="@dimen/margin_quarter"
+        android:layout_marginRight="@dimen/margin_base"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="center"
         android:src="@drawable/ic_close_routing"/>
+
+    <TextView
+        android:id="@+id/tv__total_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginRight="@dimen/margin_base"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/MwmTextAppearance.Body2"
+        tools:text="1.4 km"/>
+
+    <TextView
+        android:id="@+id/tv__total_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_base"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/MwmTextAppearance.Body2"
+        tools:text="1,5 min"/>
+
+    <TextView
+        android:id="@+id/tv__left_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_base"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/MwmTextAppearance.Body2"
+        tools:text="1:00"/>
+
+  </LinearLayout>
+
+  <RelativeLayout
+      android:id="@+id/turns"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/time_distance"
+      android:padding="@dimen/margin_base">
+
+    <com.mapswithme.maps.widget.ArrowView
+        android:id="@+id/iv__turn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_base_plus"
+        tools:src="@drawable/ic_slight_compact"/>
+
+    <TextView
+        android:id="@+id/tv__turn_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_base"
+        android:layout_toRightOf="@id/iv__turn"
+        android:textAppearance="@style/MwmTextAppearance.Display1.Plus"
+        android:textColor="@color/text_turn_blue"
+        tools:text="300 m"/>
+
+    <TextView
+        android:id="@+id/tv__next_street"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv__turn_distance"
+        android:layout_below="@id/tv__turn_distance"
+        android:textAppearance="@style/MwmTextAppearance.Body2"
+        android:textSize="@dimen/text_size_title"
+        android:visibility="gone"
+        tools:text="Oxford str."
+        tools:visibility="visible"/>
   </RelativeLayout>
 
   <com.mapswithme.maps.widget.FlatProgressView
       android:id="@+id/fp__route_progress"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="bottom"
+      android:layout_below="@id/time_distance"
       android:visibility="gone"
-      app:headColor="@color/base_light_blue"
-      app:headRadius="4dp"
-      app:progressColor="@color/base_light_blue"
-      app:progressThickness="4dp"
+      app:headRadius="0dp"
       app:progress="40"
+      app:progressColor="#757575"
+      app:progressThickness="4dp"
       tools:visibility="visible"/>
-</FrameLayout>
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:layout_gravity="bottom"
+      android:layout_marginBottom="1dp"
+      android:background="@color/base_black_divider"/>
+</RelativeLayout>

@@ -22,7 +22,7 @@
         android:layout_below="@id/tv__title"
         android:layout_marginRight="@dimen/margin_base"
         android:textColor="@color/text_place_page_subtitle"
-        android:textSize="@dimen/place_page_subtitle"/>
+        android:textSize="@dimen/text_size_body_1"/>
 
     <TextView
         android:id="@+id/tv__opened_till"
@@ -31,7 +31,7 @@
         android:layout_below="@id/tv__subtitle"
         android:gravity="center_vertical"
         android:textColor="@color/text_place_page_subtitle"
-        android:textSize="@dimen/place_page_subtitle"
+        android:textSize="@dimen/text_size_body_1"
         android:visibility="gone"/>
 
     <RatingBar
@@ -55,7 +55,7 @@
         android:layout_toRightOf="@id/tv__subtitle"
         android:drawableLeft="@drawable/ic_high_mountain"
         android:textColor="@color/text_place_page_subtitle"
-        android:textSize="@dimen/place_page_subtitle"
+        android:textSize="@dimen/text_size_body_1"
         android:visibility="gone"/>
 
   </RelativeLayout>
@@ -66,7 +66,7 @@
       android:layout_height="wrap_content"
       android:gravity="right"
       android:textColor="@color/text_place_page"
-      android:textSize="@dimen/place_page_subtitle"/>
+      android:textSize="@dimen/text_size_body_1"/>
 
   <com.mapswithme.maps.widget.ArrowView
       android:id="@+id/av__direction"

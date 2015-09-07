@@ -6,6 +6,7 @@
   <!-- we use slightly greater font sizes, then in default material styles -->
   <dimen name="text_size_display_3">64sp</dimen>
   <dimen name="text_size_display_2">48sp</dimen>
+  <dimen name="text_size_display_1_plus">40sp</dimen>
   <dimen name="text_size_display_1">36sp</dimen>
   <dimen name="text_size_headline">28sp</dimen>
   <dimen name="text_size_title">24sp</dimen>
@@ -30,14 +31,5 @@
   <!-- direction fragment -->
 
   <!-- -->
-
-  <!-- TODO remove all that dimens -->
-  <dimen name="sp_x_1">5sp</dimen>
-  <dimen name="sp_x_2">10sp</dimen>
-  <dimen name="sp_x_3">15sp</dimen>
-  <dimen name="sp_x_4">20sp</dimen>
-  <dimen name="sp_x_5">25sp</dimen>
-  <dimen name="place_page_subtitle">16sp</dimen>
-  <dimen name="place_page_sub_subtitle">12sp</dimen>
 
 </resources>
