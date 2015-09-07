@@ -46,7 +46,7 @@
         tools:text="1,5 min"/>
 
     <TextView
-        android:id="@+id/tv__left_time"
+        android:id="@+id/tv__arrival_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_base_plus"
@@ -89,7 +89,6 @@
         android:layout_below="@id/tv__turn_distance"
         android:textAppearance="@style/MwmTextAppearance.Body2"
         android:textSize="@dimen/text_size_title"
-        android:visibility="gone"
         tools:text="Oxford str."
         tools:visibility="visible"/>
   </RelativeLayout>
@@ -99,11 +98,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/time_distance"
-      android:visibility="gone"
       app:headRadius="0dp"
       app:progressColor="#757575"
       app:progressThickness="4dp"
       app:secondaryProgressColor="@color/base_black_divider"
-      app:secondaryProgressThickness="2dp"
-      tools:visibility="visible"/>
+      app:secondaryProgressThickness="2dp"/>
 </RelativeLayout>

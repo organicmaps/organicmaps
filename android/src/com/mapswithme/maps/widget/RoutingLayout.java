@@ -31,6 +31,7 @@ import com.mapswithme.maps.routing.RoutingResultCodesProcessor;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -55,7 +56,8 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
   private View mBtnStart;
   private FlatProgressView mFpRouteProgress;
   private RadioGroup mRgRouterType;
-  private TextView mTvNextStreen;
+  private TextView mTvNextStreet;
+  private TextView mTvArrivalTime;
 
   private double mNorth;
   private RoutingInfo mCachedRoutingInfo;
@@ -127,25 +129,26 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
     mLayoutSetupRouting = findViewById(R.id.layout__routing_setup);
     mWvProgress = (WheelProgressView) mLayoutSetupRouting.findViewById(R.id.wp__routing_progress);
     mWvProgress.setOnClickListener(this);
-    mTvPlanning = (android.widget.TextView) mLayoutSetupRouting.findViewById(R.id.tv__planning_route);
+    mTvPlanning = (TextView) mLayoutSetupRouting.findViewById(R.id.tv__planning_route);
     mRgRouterType = (RadioGroup) mLayoutSetupRouting.findViewById(R.id.rg__router);
     mRgRouterType.findViewById(R.id.rb__vehicle).setOnClickListener(this);
     mRgRouterType.findViewById(R.id.rb__pedestrian).setOnClickListener(this);
     mIvCancelRouteBuild = mLayoutSetupRouting.findViewById(R.id.iv__routing_close);
     mIvCancelRouteBuild.setOnClickListener(this);
-    mTvPrepareDistance = (android.widget.TextView) mLayoutSetupRouting.findViewById(R.id.tv__routing_distance);
-    mTvPrepareTime = (android.widget.TextView) mLayoutSetupRouting.findViewById(R.id.tv__routing_time);
+    mTvPrepareDistance = (TextView) mLayoutSetupRouting.findViewById(R.id.tv__routing_distance);
+    mTvPrepareTime = (TextView) mLayoutSetupRouting.findViewById(R.id.tv__routing_time);
     mBtnStart = mLayoutSetupRouting.findViewById(R.id.btn__start_routing);
     mBtnStart.setOnClickListener(this);
 
     mLayoutTurnInstructions = findViewById(R.id.layout__turn_instructions);
-    mTvTotalDistance = (android.widget.TextView) mLayoutTurnInstructions.findViewById(R.id.tv__total_distance);
-    mTvTotalTime = (android.widget.TextView) mLayoutTurnInstructions.findViewById(R.id.tv__total_time);
+    mTvTotalDistance = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__total_distance);
+    mTvTotalTime = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__total_time);
+    mTvArrivalTime = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__arrival_time);
     mIvTurn = (ImageView) mLayoutTurnInstructions.findViewById(R.id.iv__turn);
-    mTvTurnDistance = (android.widget.TextView) mLayoutTurnInstructions.findViewById(R.id.tv__turn_distance);
+    mTvTurnDistance = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__turn_distance);
     mLayoutTurnInstructions.findViewById(R.id.btn__close).setOnClickListener(this);
     mFpRouteProgress = (FlatProgressView) mLayoutTurnInstructions.findViewById(R.id.fp__route_progress);
-    mTvNextStreen = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__next_street);
+    mTvNextStreet = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__next_street);
   }
 
   @Override
@@ -290,9 +293,10 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
     else
       refreshPedestrianAzimutAndDistance(mCachedRoutingInfo);
 
-    mTvTotalTime.setText(formatTime(mCachedRoutingInfo.totalTimeInSeconds));
+    mTvTotalTime.setText(formatRoutingTime(mCachedRoutingInfo.totalTimeInSeconds));
     mTvTotalDistance.setText(mCachedRoutingInfo.distToTarget + " " + mCachedRoutingInfo.targetUnits);
-    UiUtils.setTextAndHideIfEmpty(mTvNextStreen, mCachedRoutingInfo.nextStreet);
+    mTvArrivalTime.setText(formatArrivalTime(mCachedRoutingInfo.totalTimeInSeconds));
+    UiUtils.setTextAndHideIfEmpty(mTvNextStreet, mCachedRoutingInfo.nextStreet);
     mFpRouteProgress.setProgress((int) mCachedRoutingInfo.completionPercent);
   }
 
@@ -317,7 +321,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
       return;
 
     mTvPrepareDistance.setText(mCachedRoutingInfo.distToTarget + " " + mCachedRoutingInfo.targetUnits.toUpperCase());
-    mTvPrepareTime.setText(formatTime(mCachedRoutingInfo.totalTimeInSeconds));
+    mTvPrepareTime.setText(formatRoutingTime(mCachedRoutingInfo.totalTimeInSeconds));
   }
 
   private static SpannableStringBuilder getSpannedDistance(int distTextSize, int unitsTextSize, String distToTarget, String units)
@@ -329,7 +333,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
     return builder;
   }
 
-  private static String formatTime(int seconds)
+  private static String formatRoutingTime(int seconds)
   {
     long minutes = TimeUnit.SECONDS.toMinutes(seconds);
     long hours = TimeUnit.MINUTES.toHours(minutes);
@@ -338,6 +342,13 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
       minutes++;
 
     return String.format("%d:%02d", hours, minutes - TimeUnit.HOURS.toMinutes(hours));
+  }
+
+  private static String formatArrivalTime(int seconds)
+  {
+    Calendar current = Calendar.getInstance();
+    current.add(Calendar.SECOND, seconds);
+    return String.format("%d:%02d", current.get(Calendar.HOUR_OF_DAY), current.get(Calendar.MINUTE));
   }
 
   private void buildRoute()
