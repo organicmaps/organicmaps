@@ -9,6 +9,7 @@
 
 #include "coding/reader_wrapper.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
@@ -358,15 +359,16 @@ bool Retrieval::RetrieveForScale(double scale, Callback & callback)
 
       bucket.m_intersectsWithViewport = true;
       if (bucket.m_addressFeatures.empty())
-        bucket.m_finished = true;
+        FinishBucket(bucket, callback);
     }
 
     ASSERT_LESS_OR_EQUAL(bucket.m_featuresReported, bucket.m_addressFeatures.size(), ());
     if (bucket.m_featuresReported == bucket.m_addressFeatures.size())
     {
+      // All features were reported for the bucket, mark it as
+      // finished and move to the next bucket.
       ASSERT(bucket.m_intersectsWithViewport, ());
-      // All features were reported for the bucket.
-      bucket.m_finished = true;
+      FinishBucket(bucket, callback);
       continue;
     }
 
@@ -376,9 +378,30 @@ bool Retrieval::RetrieveForScale(double scale, Callback & callback)
     };
     if (!bucket.m_strategy->Retrieve(scale, *this /* cancellable */, wrapper))
       return false;
+
+    if (viewport.IsRectInside(bucket.m_bounds))
+    {
+      ASSERT(bucket.m_intersectsWithViewport, ());
+      // Viewport completely covers the bucket, mark it as finished
+      // and move to the next bucket. Note that "viewport covers the
+      // bucket" is not the same as "all features from the bucket were
+      // reported", because of scale parameter. Search index reports
+      // all matching features, but geometry index can skip features
+      // from more detailed scales.
+      FinishBucket(bucket, callback);
+      continue;
+    }
   }
 
   return true;
+}
+
+void Retrieval::FinishBucket(Bucket & bucket, Callback & callback)
+{
+  if (bucket.m_finished)
+    return;
+  bucket.m_finished = true;
+  callback.OnMwmProcessed(bucket.m_handle.GetId());
 }
 
 bool Retrieval::Finished() const

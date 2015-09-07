@@ -218,7 +218,6 @@ public:
   }
 
 protected:
-  /// @return True when file format version was successfully read to MwmInfo.
   virtual unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const = 0;
   virtual unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const = 0;
 

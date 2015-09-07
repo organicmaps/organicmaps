@@ -157,17 +157,46 @@ void RemoveDuplicatingLinear(vector<IndexedValue> & indV)
 }
 }  // namespace
 
-Query::RetrievalCallback::RetrievalCallback(Query & query, ViewportID viewportId)
-  : m_query(query), m_viewportId(viewportId)
+Query::RetrievalCallback::RetrievalCallback(Index & index, Query & query, ViewportID viewportId)
+  : m_index(index), m_query(query), m_viewportId(viewportId)
 {
 }
 
 void Query::RetrievalCallback::OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
                                                    vector<uint32_t> const & featureIds)
 {
+  auto const * table = LoadTable(id);
+
+  if (!table)
+  {
+    LOG(LWARNING, ("Can't get rank table for:", id));
+    for (auto const & featureId : featureIds)
+      m_query.AddPreResult1(id, featureId, 0 /* rank */, scale, m_viewportId);
+    return;
+  }
+
   for (auto const & featureId : featureIds)
-    m_query.AddPreResult1(id, featureId, 0 /* rank */, scale, m_viewportId);
+    m_query.AddPreResult1(id, featureId, table->Get(featureId), scale, m_viewportId);
 }
+
+void Query::RetrievalCallback::OnMwmProcessed(MwmSet::MwmId const & id) { UnloadTable(id); }
+
+RankTable const * Query::RetrievalCallback::LoadTable(MwmSet::MwmId const & id)
+{
+  auto const it = m_rankTables.find(id);
+  if (it != m_rankTables.end())
+    return it->second.get();
+
+  MwmSet::MwmHandle handle = m_index.GetMwmHandleById(id);
+  ASSERT(handle.IsAlive(), ("Handle should already be held by a retrieval algorithm."));
+
+  auto newTable = RankTable::Load(handle.GetValue<MwmValue>()->m_cont);
+  auto const * table = newTable.get();
+  m_rankTables[id] = move(newTable);
+  return table;
+}
+
+void Query::RetrievalCallback::UnloadTable(MwmSet::MwmId const & id) { m_rankTables.erase(id); }
 
 Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
              storage::CountryInfoGetter const & infoGetter)
@@ -1314,6 +1343,7 @@ class DoFindLocality
   vector<Locality> m_localities[3];
 
   FeaturesVector m_vector;
+  unique_ptr<RankTable> m_table;
   size_t m_index;  ///< index of processing token
 
   int8_t m_lang;
@@ -1404,7 +1434,10 @@ class DoFindLocality
 
 public:
   DoFindLocality(Query & q, MwmValue const * pMwm, int8_t lang)
-    : m_query(q), m_vector(pMwm->m_cont, pMwm->GetHeader(), pMwm->m_table), m_lang(lang)
+    : m_query(q)
+    , m_vector(pMwm->m_cont, pMwm->GetHeader(), pMwm->m_table)
+    , m_table(RankTable::Load(pMwm->m_cont))
+    , m_lang(lang)
   {
     m_arrEn[0] = q.GetLanguage(LANG_EN);
     m_arrEn[1] = q.GetLanguage(LANG_INTERNATIONAL);
@@ -1445,7 +1478,17 @@ public:
     ASSERT_LESS(type, ARRAY_SIZE(m_localities), ());
 
     m2::PointD const center = feature::GetCenter(f, FeatureType::WORST_GEOMETRY);
-    m_localities[type].emplace_back(type, v.m_featureId, center, v.m_rank);
+    uint8_t rank = 0;
+    if (m_table.get())
+    {
+      ASSERT_LESS(v.m_featureId, m_table->Size(), ());
+      rank = m_table->Get(v.m_featureId);
+    }
+    else
+    {
+      LOG(LWARNING, ("Can't get ranks table for locality search."));
+    }
+    m_localities[type].emplace_back(type, v.m_featureId, center, rank);
     Locality & loc = m_localities[type].back();
 
     loc.m_radius = GetRadiusByPopulation(GetPopulation(f));
@@ -1620,11 +1663,8 @@ void Query::SearchInMwms(TMWMVector const & mwmsInfo, SearchQueryParams const & 
     viewport = &m_viewport[CURRENT_V];
   }
 
-  SearchQueryParams p = params;
-  p.m_scale = GetQueryIndexScale(*viewport);
-  m_retrieval.Init(m_index, mwmsInfo, *viewport, p, limits);
-
-  RetrievalCallback callback(*this, viewportId);
+  m_retrieval.Init(m_index, mwmsInfo, *viewport, params, limits);
+  RetrievalCallback callback(m_index, *this, viewportId);
   m_retrieval.Go(callback);
 }
 

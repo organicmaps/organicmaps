@@ -5,8 +5,9 @@
 #include "suggest.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/index.hpp"
+#include "indexer/rank_table.hpp"
 #include "indexer/search_trie.hpp"
-#include "indexer/index.hpp"  // for Index::MwmHandle
 
 #include "geometry/rect2d.hpp"
 
@@ -122,15 +123,23 @@ private:
   class RetrievalCallback : public Retrieval::Callback
   {
   public:
-    RetrievalCallback(Query & query, ViewportID id);
+    RetrievalCallback(Index & index, Query & query, ViewportID id);
 
     // Retrieval::Callback overrides:
     void OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
                              vector<uint32_t> const & featureIds) override;
 
+    void OnMwmProcessed(MwmSet::MwmId const & id) override;
+
   private:
+    RankTable const * LoadTable(MwmSet::MwmId const & id);
+
+    void UnloadTable(MwmSet::MwmId const & id);
+
+    Index & m_index;
     Query & m_query;
     ViewportID m_viewportId;
+    map<MwmSet::MwmId, unique_ptr<RankTable>> m_rankTables;
   };
 
   friend class impl::FeatureLoader;

@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 
-DEPENDENCIES = map indexer platform geometry coding base gflags protobuf tomcrypt
+DEPENDENCIES = map indexer platform geometry coding base gflags protobuf tomcrypt succinct
 
 include($$ROOT_DIR/common.pri)
 

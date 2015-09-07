@@ -47,6 +47,8 @@ public:
     m_offsets.insert(m_offsets.end(), offsets.begin(), offsets.end());
   }
 
+  void OnMwmProcessed(MwmSet::MwmId const & /* id */) override {}
+
   bool WasTriggered() const { return m_triggered; }
 
   vector<uint32_t> & Offsets() { return m_offsets; }
@@ -73,6 +75,8 @@ public:
     m_retrieved.insert(id);
     m_numFeatures += offsets.size();
   }
+
+  void OnMwmProcessed(MwmSet::MwmId const & /* id */) override {}
 
   uint64_t GetNumMwms() const { return m_retrieved.size(); }
 

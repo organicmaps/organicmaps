@@ -30,6 +30,12 @@ public:
     // reporting disjoint sets of features.
     virtual void OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
                                      vector<uint32_t> const & featureIds) = 0;
+
+    // Called when all matching features for an mwm were retrieved and
+    // reported.  Cliens may assume that this method is called no more
+    // than once for |id| and after that call there won't be any calls
+    // of OnFeaturesRetrieved() for |id|.
+    virtual void OnMwmProcessed(MwmSet::MwmId const & id) {}
   };
 
   // This class wraps a set of retrieval's limits like number of
@@ -130,6 +136,9 @@ private:
   // *NOTE* |scale| of successive calls of this method should be
   // non-decreasing.
   WARN_UNUSED_RESULT bool RetrieveForScale(double scale, Callback & callback);
+
+  // Marks bucket as finished and invokes callback.
+  void FinishBucket(Bucket & bucket, Callback & callback);
 
   // Returns true when all buckets are marked as finished.
   bool Finished() const;

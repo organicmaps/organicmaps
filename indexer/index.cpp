@@ -2,6 +2,8 @@
 
 #include "platform/local_country_file_utils.hpp"
 
+#include "indexer/rank_table.hpp"
+
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
 
@@ -63,7 +65,18 @@ unique_ptr<MwmInfo> Index::CreateInfo(platform::LocalCountryFile const & localFi
 
 unique_ptr<MwmSet::MwmValueBase> Index::CreateValue(MwmInfo & info) const
 {
-  unique_ptr<MwmValue> p(new MwmValue(info.GetLocalFile()));
+  // Create a section with rank table if it does not exist.
+  platform::LocalCountryFile const & localFile = info.GetLocalFile();
+  try
+  {
+    search::RankTableBuilder::CreateIfNotExists(localFile);
+  }
+  catch (Reader::OpenException const & e)
+  {
+    LOG(LWARNING, ("Can't create rank table for:", localFile, ":", e.Msg()));
+  }
+
+  unique_ptr<MwmValue> p(new MwmValue(localFile));
   p->SetTable(dynamic_cast<MwmInfoEx &>(info));
   ASSERT(p->GetHeader().IsMWMSuitable(), ());
   return unique_ptr<MwmSet::MwmValueBase>(move(p));
