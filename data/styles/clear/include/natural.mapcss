@@ -94,7 +94,7 @@ line|z15-[waterway=riverbank] {
 
 line|z13-14[waterway=stream] {
 	width: 0.5;
-	opacity: 0.5;
+	opacity: 1;
 	color: @river;
 	z-index: 50;
 }
@@ -170,5 +170,5 @@ area|z14-[landuse=grass]
 {
   fill-color: @park;
   fill-opacity: 0.45;
-  z-index: 30;
+  z-index: 15;
 }

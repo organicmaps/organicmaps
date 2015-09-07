@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="23px" viewBox="0 0 24 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>mosmetro-border-m</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Subways" sketch:type="MSLayerGroup" transform="translate(-113.000000, -3.000000)">
+            <circle id="Oval-184-Copy" stroke="#000000" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="125.002392" cy="14.5" r="11.5"></circle>
+            <circle id="Oval-184-Copy-4" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="125.002392" cy="14.5" r="10.5"></circle>
+            <path d="M127.162396,15.0878868 L128.502392,18.1011996 L127.502392,18.1011996 L127.502392,20.1011996 L133.504785,20.1011996 L133.504785,18.1011992 L132.502392,18.1011992 L127.995615,8 L125.003589,14.0954298 L122.011562,8 L117.504785,18.1011992 L116.502393,18.1011992 L116.502392,20.1011996 L122.504785,20.1011996 L122.504785,18.1011996 L121.504785,18.1011996 L122.844781,15.0878868 L125.000342,20.0888528 L127.162396,15.0878868 Z" id="Rectangle-60-Copy-5" fill="#F03838" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

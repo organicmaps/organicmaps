@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>u-bahn-s</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Subways" sketch:type="MSLayerGroup" transform="translate(-147.000000, -170.000000)">
+            <g id="u-bahn-s" transform="translate(147.000000, 170.000000)" sketch:type="MSShapeGroup">
+                <rect id="rect2438-copy-4" fill="#FFFFFF" x="0" y="0" width="15" height="15"></rect>
+                <rect id="rect2438-copy-3" fill="#0664AB" x="1" y="1" width="13" height="13"></rect>
+                <path d="M9.70650908,11.394899 C9.95875865,11.23456 10.3145277,10.9025579 10.4691965,10.6831624 C10.6952335,10.3625323 10.8593852,9.97730039 10.9472027,9.56137588 C10.9812188,9.40026812 10.9853747,9.1172051 10.9923345,6.48735671 L11,4 L9,4 L9,6.24288413 L9,9.15429015 C9,9.15429015 8.78179413,9.61253866 8.69907519,9.75840306 C8.59527806,9.94143611 8.40377262,10.1156011 8.20396601,10.2086814 C7.65425547,10.4647651 6.84988456,10.3725609 6.46861357,10.00976 C6.27443722,9.82499048 6.06467908,9.52746557 6,9.15429015 C5.99501288,9.06307786 6.06297094,7.99015841 6,6.29947107 L6,4 L4,4 L4,6.33379239 C4,9.08578069 4.00554407,9.31809285 4.07951633,9.66575688 C4.26220873,10.5243971 4.82515683,11.2077942 5.68699613,11.6171746 C6.31868613,11.9172326 7.1364518,12.0521628 7.89584559,11.9816317 C8.57244582,11.9187902 9.20455266,11.7139604 9.70650908,11.394899 Z" id="path2440-copy" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

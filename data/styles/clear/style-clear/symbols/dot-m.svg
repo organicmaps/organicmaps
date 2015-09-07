@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="6px" height="6px" viewBox="0 0 6 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>dot-m</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="transport" sketch:type="MSLayerGroup" transform="translate(-67.000000, -42.000000)"></g>
+        <g id="City-points" sketch:type="MSLayerGroup" transform="translate(-15.497608, -14.101200)">
+            <g id="dot-m" transform="translate(16.000000, 15.000000)" sketch:type="MSShapeGroup">
+                <g id="Page-1">
+                    <g id="dot-m">
+                        <g id="Page-1">
+                            <g id="cities">
+                                <circle id="Oval-1-Copy-3" fill="#EEEEDD" cx="2.5" cy="2.5" r="2.5"></circle>
+                                <circle id="Oval-1-Copy-2" fill="#555555" cx="2.5" cy="2.5" r="1.66666667"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

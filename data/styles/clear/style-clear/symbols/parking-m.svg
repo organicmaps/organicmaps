@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>parking-m</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="transport" sketch:type="MSLayerGroup" transform="translate(-47.000000, -87.000000)"></g>
+        <g id="parking-m" sketch:type="MSLayerGroup">
+            <rect id="Rectangle-346-Copy-4" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="0" width="17" height="17" rx="2"></rect>
+            <rect id="Rectangle-346-Copy" fill="#2E77C0" sketch:type="MSShapeGroup" x="1" y="1" width="15" height="15" rx="2"></rect>
+            <path d="M5.046875,4 L5.046875,14 L7.171875,14 L7.171875,10.4375 L8.078125,10.4375 C9.317705,10.4375 10.283195,10.1635 10.953125,9.5938 C11.627595,9.0241 11.953115,8.2006 11.953125,7.125 C11.953115,6.0905 11.649085,5.3008 11.015625,4.7813 C10.386715,4.2572 9.446615,4.0001 8.234375,4 L5.046875,4 Z M7.171875,5.75 L8.140625,5.75 C8.719395,5.75 9.121745,5.8569 9.390625,6.0938 C9.664055,6.3308 9.796865,6.6908 9.796875,7.1875 C9.796865,7.6797 9.651685,8.0527 9.328125,8.3125 C9.004545,8.5677 8.511055,8.7188 7.859375,8.7188 L7.171875,8.7188 L7.171875,5.75 Z" id="path8599-0-copy-2" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

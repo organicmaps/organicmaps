@@ -1,21 +1,64 @@
 
 /* RAILWAY LINES */
 
+
 line|z11-12[railway=rail]
 {
-  color: #BBBBAA;
-  width: 1;
+  color: @railway_light;
+  width: 0.5;
   z-index: 760;
 }
 
+line|z13-14[railway=rail]
+{
+  color: @railway_light;
+  opacity: 0.8;
+  width: 0.5;
+  z-index: 760;
+}
 
-line|z13-[railway=rail]
+line|z15-16[railway=rail]
+{
+  color: @railway;
+  opacity: 0.6;
+  width: 0.8;
+  z-index: 760;
+}
+
+line|z17[railway=rail]
 {
   color: @railway;
   opacity: 0.8;
-  width: 1;
+  width: 2;
   z-index: 760;
 }
+
+line|z17[railway=rail]::dash
+{
+  color: white;
+  opacity: 1;
+  width: 1;
+  z-index: 770;
+  dashes: 5,5;
+}
+
+line|z18-[railway=rail]
+{
+  color: @railway;
+  opacity: 0.8;
+  width: 3;
+  z-index: 760;
+}
+
+line|z18-[railway=rail]::dash
+{
+  color: white;
+  opacity: 1;
+  width: 1.5;
+  z-index: 770;
+  dashes: 7,7;
+}
+
 
 /* TRAM LINES */
 
@@ -85,9 +128,10 @@ node|z12[railway=station][building] {
 	z-index: 5000;
   font-size: 10;
   text: name;
-  text-color: @railway_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 
@@ -97,9 +141,10 @@ node|z14[railway=station] {
 	z-index: 5000;
   font-size: 10;
   text: name;
-  text-color: @railway_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 node|z15[railway=station] {
@@ -108,9 +153,10 @@ node|z15[railway=station] {
 	z-index: 5000;
   font-size: 10;
   text: name;
-  text-color: @railway_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 node|z16[railway=station]	 {
@@ -119,9 +165,10 @@ node|z16[railway=station]	 {
   font-size: 10;
   z-index: 5000;
   text: name;
-  text-color: @railway_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 node|z17-[railway=station]	 {
@@ -130,56 +177,53 @@ node|z17-[railway=station]	 {
   font-size: 12;
   z-index: 5000;
   text: name;
-  text-color: @railway_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 /* SUBWAY STATIONS */
 
 node|z13[railway=station][transport=subway] {
-	icon-image: subway-entrance.svg;
+	icon-image: subway-s.svg;
 	z-index: 5000;
-  text-offset: 6;
-  z-index: 5000;
-  font-size: 9;
-  text: name;
-  text-color: @subway_label;
-  text-halo-radius: 1;
-  text-halo-color: @city_halo;
 }
 
 node|z14[railway=station][transport=subway] {
-	icon-image: mtro.svg;
+	icon-image: subway-s.svg;
   text-offset: 6;
 	z-index: 5000;
   font-size: 10;
   text: name;
-  text-color: @subway_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 node|z15[railway=station][transport=subway] {
-	icon-image: mtro.svg;
+	icon-image: subway-m.svg;
   text-offset: 8;
 	z-index: 5000;
   font-size: 10;
   text: name;
-  text-color: @subway_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 node|z16[railway=station][transport=subway]	 {
-	icon-image: mtro.svg;
+	icon-image: none.svg;
   text-offset: 8;
-  font-size: 11;
+  font-size: 12;
   z-index: 5000;
   text: name;
-  text-color: @subway_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 node|z17-[railway=station][transport=subway]	 {
@@ -187,38 +231,46 @@ node|z17-[railway=station][transport=subway]	 {
   font-size: 14;
   z-index: 5000;
   text: name;
-  text-color: @subway_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
-/*
 node|z16[railway=subway_entrance] {
-  	icon-image: subway-entrance.svg;
-    z-index: 5000;
-}
-*/
-
-node|z17[railway=subway_entrance] {
-  icon-image: mtro.svg;
+  icon-image: subway-m.svg;
   text-offset: 8;
   font-size: 12;
   z-index: 6000;
   text: name;
-  text-color: @subway_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
+}
+
+node|z17[railway=subway_entrance] {
+  icon-image: subway-l.svg;
+  text-offset: 8;
+  font-size: 12;
+  z-index: 6000;
+  text: name;
+  text-color: @label_dark;
+  text-halo-radius: 1;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 node|z18-[railway=subway_entrance] {
-  icon-image: mtro-l.svg;
+  icon-image: subway-l.svg;
   text-offset: 8;
   font-size: 14;
   z-index: 6000;
   text: name;
-  text-color: @subway_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 /* TRAM STOPS */
@@ -239,9 +291,10 @@ area|z17[railway=tram_stop]
   font-size: 10;
   z-index: 5000;
   text: name;
-  text-color: @city_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 node|z18-[railway=tram_stop],
@@ -253,9 +306,10 @@ area|z18-[railway=tram_stop]
   font-size: 10;
   z-index: 5000;
   text: name;
-  text-color: @city_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 /* BUS STOPS */
@@ -276,9 +330,10 @@ area|z18-[highway=bus_stop]
   font-size: 10;
   z-index: 5000;
   text: name;
-  text-color: @city_label;
+  text-color: @label_dark;
   text-halo-radius: 1;
-  text-halo-color: @city_halo;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 /* FERRY */
@@ -295,7 +350,10 @@ node|z16-[amenity=ferry_terminal] {
   text-offset: 8;
   font-size: 10;
   text: name;
-  text-color: @city_label;
+  text-color: @label_dark;
+  text-halo-radius: 1;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 node|z17-[amenity=ferry_terminal] {
@@ -304,7 +362,10 @@ node|z17-[amenity=ferry_terminal] {
   text-offset: 10;
   font-size: 12;
   text: name;
-  text-color: @city_label;
+  text-color: @label_dark;
+  text-halo-radius: 1;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
 }
 
 
@@ -331,9 +392,10 @@ node|z11-12[aeroway=aerodrome]
     text-offset: 7;
     font-size: 10;
     text: name;
-    text-color: @city_label;
+    text-color: @label_dark;
     text-halo-radius: 1;
-    text-halo-color: @city_halo;
+    text-halo-opacity: 0.5;
+    text-halo-color: @label_halo_light;
 }
 
 area|z13-14[aeroway=airport],
@@ -345,9 +407,10 @@ node|z13-14[aeroway=aerodrome]
     text-offset: 5;
     font-size: 12;
     text: name;
-    text-color: @city_label;
+    text-color: @label_dark;
     text-halo-radius: 1;
-    text-halo-color: @city_halo;
+    text-halo-opacity: 0.5;
+    text-halo-color: @label_halo_light;
 }
 
 area|z15-[aeroway=airport],
@@ -359,7 +422,8 @@ node|z15-[aeroway=aerodrome]
     text-offset: 8;
     font-size: 14;
     text: name;
-    text-color: @city_label;
+    text-color: @label_dark;
     text-halo-radius: 1;
-    text-halo-color: @city_halo;
+    text-halo-opacity: 0.5;
+    text-halo-color: @label_halo_light;
 }

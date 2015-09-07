@@ -1,9 +1,9 @@
-/*area|z14[building]
+area|z14[building]
 {
   fill-color: @building;
   fill-opacity: 0.4;
   z-index: 200;
-}*/
+}
 area|z15[building]
 {
   fill-color: @building;
@@ -18,9 +18,16 @@ area|z16[building]
   z-index: 200;
 }
 
-area|z17-[building]
+area|z17[building]
 {
   fill-color: @building;
-  opacity: 0.8;
+  opacity: 1;
+  z-index: 200;
+}
+
+area|z18-[building]
+{
+  fill-color: @building_dark;
+  opacity: 1;
   z-index: 200;
 }

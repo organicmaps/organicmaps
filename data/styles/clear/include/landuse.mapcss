@@ -36,7 +36,7 @@ area|z16-[area:highway=footway],
 area|z15-[landuse=industrial] {
   fill-color: @industrial;
   fill-opacity: 1;
-  z-index: 150;
+  z-index: 10;
 }
 
 
@@ -51,12 +51,14 @@ area|z12-[landuse=cemetery] {
 /* UNIVERSITY */
 area|z14-[amenity=university] {
   fill-color: @unversity;
-  fill-opacity: 0.5;
-  z-index: 150;
+  fill-opacity: 1;
+  z-index: -100;
 }
 
+/*
 area|z14-[amenity=hospital] {
   fill-color: @hospital;
   fill-opacity: 1;
-  z-index: 150;
+  z-index: 10;
 }
+*/

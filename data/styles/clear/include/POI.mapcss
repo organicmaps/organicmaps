@@ -29,7 +29,9 @@ node|z16[tourism=zoo],
 node|z16[amenity=school],
 node|z16[amenity=college],
 node|z16[amenity=university],
-node|z16[amenity=hospital] {
+node|z16[amenity=hospital],
+node|z16[leisure=stadium]
+ {
   text-offset: 8;
   font-size: 10;
   text: name;
@@ -47,6 +49,13 @@ node|z16[amenity=school] { icon-image: school-m.svg; }
 node|z16[amenity=university] { icon-image: college-m.svg; }
 node|z16[amenity=college] { icon-image: college-m.svg; }
 node|z16[amenity=hospital] { icon-image: hospital-m.svg; }
+node|z16[leisure=stadium] { icon-image: pitch-m.svg; }
+
+node|z16[highway=speed_camera] {
+  icon-image: speedcam-m.svg;
+  z-index: 8000;
+ }
+
 
 /* ZOOM 17+ */
 
@@ -67,7 +76,11 @@ node|z17-[amenity=mail],
 node|z17-[amenity=embassy],
 node|z17-[amenity=toilets],
 node|z17-[amenity=hospital],
-node|z17-[amenity=bicycle_rental]
+node|z17-[amenity=bicycle_rental],
+node|z17-[tourism=attraction],
+node|z17-[leisure=stadium],
+node|z17-[amenity=fuel],
+node|z17-[tourism=hotel]
 {
   text-offset: 8;
   font-size: 10;
@@ -95,7 +108,14 @@ node|z17-[amenity=toilets] { icon-image: toilets-m.svg; }
 node|z17-[amenity=embassy] { icon-image: embassy-m.svg; }
 node|z17-[amenity=hospital] { icon-image: hospital-m.svg; }
 node|z17-[amenity=bicycle_rental] { icon-image: bicycle-m.svg; }
+node|z17-[tourism=attraction] { icon-image: tourism-m.svg; }
+node|z17-[leisure=stadium] { icon-image: pitch-m.svg; }
+node|z17-[amenity=fuel] { icon-image: fuel-m.svg; }
+node|z17-[tourism=hotel] { icon-image: hotel-m.svg; }
 
+node|z17-[highway=speed_camera] {
+  icon-image: speedcam-l.svg;
+  z-index: 8000; }
 
 
 /* ZOOM 18+ */
@@ -104,7 +124,8 @@ node|z18-[amenity=fast_food],
 node|z18-[amenity=restaurant],
 node|z18-[amenity=bar],
 node|z18-[amenity=pub],
-node|z18-[amenity=pharmacy] {
+node|z18-[amenity=pharmacy],
+node|z18-[amenity=atm] {
   text-offset: 8;
   font-size: 10;
   text: name;
@@ -118,3 +139,6 @@ node|z18-[amenity=restaurant] { icon-image: restaurant-m.svg; }
 node|z18-[amenity=bar] { icon-image: bar-m.svg; }
 node|z18-[amenity=pub] { icon-image: beer-m.svg; }
 node|z18-[amenity=pharmacy] { icon-image: pharmacy-m.svg; }
+node|z18-[amenity=atm] { icon-image: atm-m.svg; }
+node|z18-[amenity=parking] { icon-image: parking-m.svg; }
+node|z18-[leisure=pitch] { icon-image: pitch-m.svg; }

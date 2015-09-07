@@ -5,8 +5,8 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="transport" sketch:type="MSLayerGroup">
-            <g id="airport-l" sketch:type="MSShapeGroup">
+        <g id="transport" sketch:type="MSLayerGroup" transform="translate(-146.000000, 0.000000)">
+            <g id="airport-l" transform="translate(146.000000, 0.000000)" sketch:type="MSShapeGroup">
                 <circle id="Oval-1-Copy-45" fill="#FFFFFF" cx="13.5" cy="13.5" r="13.5"></circle>
                 <circle id="Oval-1-Copy-44" fill="#3C3E38" cx="13.5" cy="13.5" r="12.5"></circle>
                 <g id="g6678" transform="translate(5.000000, 4.000000)" fill="#FFFFFF">
