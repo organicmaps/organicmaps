@@ -26,6 +26,8 @@
     sk = Odbočte mierne doprava.
     sw = Geuka kulia kidogo.
     th = เบี่ยงขวาเล็กน้อย
+    zh-Hant = 稍作右轉。
+    zh-Hans = 稍作右转。
 
   [make_a_right_turn]
     en = Make a right turn.
@@ -54,6 +56,8 @@
     sk = Odbočte doprava.
     sw = Geuka kulia.
     th = เลี้ยวขวา
+    zh-Hant = 右轉。
+    zh-Hans = 右转。
 
   [make_a_sharp_right_turn]
     en = Make a sharp right turn.
@@ -82,6 +86,8 @@
     sk = Odbočte prudko doprava.
     sw = Geuka kulia kabisa.
     th = เลี้ยวขวาหักศอก
+    zh-Hant = 緊急右轉。
+    zh-Hans = 紧急右转。
 
   [enter_the_roundabout]
     en = Enter the roundabout.
@@ -110,6 +116,8 @@
     sk = Vojdite na kruhový objazd.
     sw = Ingia kwenye mzunguko.
     th = เข้าสู่วงเวียน
+    zh-Hant = 進入環島。
+    zh-Hans = 进入环岛。
 
   [leave_the_roundabout]
     en = Leave the roundabout.
@@ -138,6 +146,8 @@
     sk = Opustite kruhový objazd.
     sw = Ondoka kwenye mzunguko.
     th = ออกจากวงเวียน
+    zh-Hant = 離開環島。
+    zh-Hans = 离开环岛。
 
   [make_a_slight_left_turn]
     en = Make a slight left turn.
@@ -166,6 +176,8 @@
     sk = Odbočte mierne doľava.
     sw = Geuka kushoto kidogo.
     th = เบี่ยงซ้ายเล็กน้อย
+    zh-Hant = 稍作左轉。
+    zh-Hans = 稍作左转。
 
   [make_a_left_turn]
     en = Make a left turn.
@@ -194,6 +206,8 @@
     sk = Odbočte doľava.
     sw = Geuka kushoto.
     th = เลี้ยวซ้าย
+    zh-Hant = 左轉。
+    zh-Hans = 左转。
 
   [make_a_sharp_left_turn]
     en = Make a sharp left turn.
@@ -222,6 +236,8 @@
     sk = Odbočte prudko doľava.
     sw = Geuka kushoto kabisa.
     th = เลี้ยวซ้ายหักศอก
+    zh-Hant = 緊急左轉。
+    zh-Hans = 紧急左转。
 
   [make_a_u_turn]
     en = Make a u-turn.
@@ -250,6 +266,8 @@
     sk = Otočte sa o 180 stupňov.
     sw = Geuka urudi ulikotoka.
     th = กลับรถ
+    zh-Hant = 掉頭。
+    zh-Hans = 掉头。
 
   [go_straight]
     en = Go straight.
@@ -278,6 +296,8 @@
     sk = Choďte rovno.
     sw = Pita kabisa.
     th = ตรงไป
+    zh-Hant = 直行。
+    zh-Hans = 直行。
 
   [destination]
     en = Destination
@@ -306,6 +326,8 @@
     sk = Cieľ.
     sw = Mwisho wa safari.
     th = ที่หมาย
+    zh-Hant = 目的地
+    zh-Hans = 目的地
 
   [you_have_reached_the_destination]
     en = You have reached the destination.
@@ -334,6 +356,8 @@
     sk = Dorazili ste do cieľa.
     sw = Umefika mwisho wa safari.
     th = คุณมาถึงที่หมายแล้ว
+    zh-Hant = 您已到達目的地。
+    zh-Hans = 您已到达目的地。
 
   [in_50_meters]
     en = In fifty meters.
@@ -362,6 +386,8 @@
     sk = Po 50 metroch.
     sw = Kabla ya mita 50.
     th = อีก 50 เมตร
+    zh-Hant = 前方50米。
+    zh-Hans = 前方50米。
 
   [in_100_meters]
     en = In one hundred meters.
@@ -390,6 +416,8 @@
     sk = Po 100 metroch.
     sw = Kabla ya mita 100.
     th = อีก 100 เมตร
+    zh-Hant = 前方100米。
+    zh-Hans = 前方100米。
 
   [in_200_meters]
     en = In two hundred meters.
@@ -418,6 +446,8 @@
     sk = Po 200 metroch.
     sw = Kabla ya mita 200.
     th = อีก 200 เมตร
+    zh-Hant = 前方200米。
+    zh-Hans = 前方200米。
 
   [in_250_meters]
     en = In two hundred and fifty meters.
@@ -446,6 +476,8 @@
     sk = Po 250 metroch.
     sw = Kabla ya mita 250.
     th = อีก 250 เมตร
+    zh-Hant = 前方250米。
+    zh-Hans = 前方250米。
 
   [in_300_meters]
     en = In three hundred meters.
@@ -474,6 +506,8 @@
     sk = Po 300 metroch.
     sw = Kabla ya mita 300.
     th = อีก 300 เมตร
+    zh-Hant = 前方300米。
+    zh-Hans = 前方300米。
 
   [in_400_meters]
     en = In four hundred meters.
@@ -502,6 +536,8 @@
     sk = Po 400 metroch.
     sw = Kabla ya mita 400.
     th = อีก 400 เมตร
+    zh-Hant = 前方400米。
+    zh-Hans = 前方400米。
 
   [in_500_meters]
     en = In five hundred meters.
@@ -530,6 +566,8 @@
     sk = Po 500 metroch.
     sw = Kabla ya mita 500.
     th = อีก 500 เมตร
+    zh-Hant = 前方500米。
+    zh-Hans = 前方500米。
 
   [in_600_meters]
     en = In six hundred meters.
@@ -558,6 +596,8 @@
     sk = Po 600 metroch.
     sw = Kabla ya mita 600.
     th = อีก 600 เมตร
+    zh-Hant = 前方600米。
+    zh-Hans = 前方600米。
 
   [in_700_meters]
     en = In seven hundred meters.
@@ -586,6 +626,8 @@
     sk = Po 700 metroch.
     sw = Kabla ya mita 700.
     th = อีก 700 เมตร
+    zh-Hant = 前方700米。
+    zh-Hans = 前方700米。
 
   [in_750_meters]
     en = In seven hundred and fifty meters.
@@ -614,6 +656,8 @@
     sk = Po 750 metroch.
     sw = Kabla ya mita 750.
     th = อีก 750 เมตร
+    zh-Hant = 前方750米。
+    zh-Hans = 前方750米。
 
   [in_800_meters]
     en = In eight hundred meters.
@@ -642,6 +686,8 @@
     sk = Po 800 metroch.
     sw = Kabla ya mita 800.
     th = อีก 800 เมตร
+    zh-Hant = 前方800米。
+    zh-Hans = 前方800米。
 
   [in_900_meters]
     en = In nine hundred meters.
@@ -670,6 +716,8 @@
     sk = Po 900 metroch.
     sw = Kabla ya mita 900.
     th = อีก 900 เมตร
+    zh-Hant = 前方900米。
+    zh-Hans = 前方900米。
 
   [in_1_kilometer]
     en = In one kilometer.
@@ -698,6 +746,8 @@
     sk = Po jednom kilometri.
     sw = Kabla ya kilomita moja
     th = อีก 1 กิโลเมตร
+    zh-Hant = 前方1千米。
+    zh-Hans = 前方1千米。
 
   [in_1_5_kilometers]
     en = In one and a half kilometers.
@@ -726,6 +776,8 @@
     sk = Po jeden a pol kilometri.
     sw = Kabla ya kilomita moja na nusu.
     th = อีก 1 กิโลเมตรครึ่ง
+    zh-Hant = 前方1.5千米。
+    zh-Hans = 前方1.5千米。
 
   [in_2_kilometers]
     en = In two kilometers.
@@ -754,6 +806,8 @@
     sk = Po dvoch kilometroch.
     sw = Kabla ya kilomita mbili.
     th = อีก 2 กิโลเมตร
+    zh-Hant = 前方2千米。
+    zh-Hans = 前方2千米。
 
   [in_2_5_kilometers]
     en = In two and half kilometers.
@@ -782,6 +836,8 @@
     sk = Po dva a pol kilometri.
     sw = Kabla ya kilomita mbili na nusu.
     th = อีก 2 กิโลเมตรครึ่ง
+    zh-Hant = 前方2.5千米。
+    zh-Hans = 前方2.5千米。
 
   [in_3_kilometers]
     en = In three kilometers.
@@ -810,6 +866,8 @@
     sk = Po 3 kilometroch.
     sw = Kabla ya kilomita 3.
     th = อีก 3 กิโลเมตร
+    zh-Hant = 前方3千米。
+    zh-Hans = 前方3千米。
 
   [then]
     en = Then.
@@ -838,6 +896,8 @@
     sk = Potom.
     sw = Kisha.
     th = จากนั้น
+    zh-Hant = 然後。
+    zh-Hans = 然后。
 
   [take_the_1st_exit]
     en = Take the first exit.
@@ -866,6 +926,8 @@
     sk = Opustite kruhový objazd na prvom výjazde.
     sw = Ingia barabara ya kwanza ya kutoka.
     th = ออกทางออกที่หนึ่ง
+    zh-Hant = 取道第一個出口。
+    zh-Hans = 取道第一个出口。
 
   [take_the_2nd_exit]
     en = Take the second exit.
@@ -894,6 +956,8 @@
     sk = Opustite kruhový objazd na druhom výjazde.
     sw = Ingia barabara ya pili ya kutoka.
     th = ออกทางออกที่สอง
+    zh-Hant = 取道第二個出口。
+    zh-Hans = 取道第二个出口。
 
   [take_the_3rd_exit]
     en = Take the third exit.
@@ -922,6 +986,8 @@
     sk = Opustite kruhový objazd na treťom výjazde.
     sw = Ingia barabara ya tatu ya kutoka.
     th = ออกทางออกที่สาม
+    zh-Hant = 取道第三個出口。
+    zh-Hans = 取道第三个出口。
 
   [take_the_4th_exit]
     en = Take the fourth exit.
@@ -950,6 +1016,8 @@
     sk = Opustite kruhový objazd na 4. výjazde.
     sw = Ingia barabara ya 4 ya kutoka.
     th = ออกทางออกที่สี่
+    zh-Hant = 取道第四個出口。
+    zh-Hans = 取道第四个出口。
 
   [take_the_5th_exit]
     en = Take the fifth exit.
@@ -978,6 +1046,8 @@
     sk = Opustite kruhový objazd na 5. výjazde.
     sw = Ingia barabara ya 5 ya kutoka.
     th = ออกทางออกที่ห้า
+    zh-Hant = 取道第五個出口。
+    zh-Hans = 取道第五个出口。
 
   [take_the_6th_exit]
     en = Take the sixth exit.
@@ -1006,6 +1076,8 @@
     sk = Opustite kruhový objazd na 6. výjazde.
     sw = Ingia barabara ya 6 ya kutoka.
     th = ออกทางออกที่หก
+    zh-Hant = 取道第六個出口。。
+    zh-Hans = 取道第六个出口。。
 
   [take_the_7th_exit]
     en = Take the seventh exit.
@@ -1034,6 +1106,8 @@
     sk = Opustite kruhový objazd na 7. výjazde.
     sw = Ingia barabara ya 7 ya kutoka.
     th = ออกทางออกที่เจ็ด
+    zh-Hant = 取道第七個出口。
+    zh-Hans = 取道第七个出口。
 
   [take_the_8th_exit]
     en = Take the eighth exit.
@@ -1062,6 +1136,8 @@
     sk = Opustite kruhový objazd na 8. výjazde.
     sw = Ingia barabara ya 8 ya kutoka.
     th = ออกทางออกที่แปด
+    zh-Hant = 取道第八個出口。
+    zh-Hans = 取道第八个出口。
 
   [take_the_9th_exit]
     en = Take the ninth exit.
@@ -1090,6 +1166,8 @@
     sk = Opustite kruhový objazd na 9. výjazde.
     sw = Ingia barabara ya 9 ya kutoka.
     th = ออกทางออกที่เก้า
+    zh-Hant = 取道第九個出口。
+    zh-Hans = 取道第九个出口。
 
   [take_the_10th_exit]
     en = Take the tenth exit.
@@ -1118,6 +1196,8 @@
     sk = Opustite kruhový objazd na 10. výjazde.
     sw = Ingia barabara ya 10 ya kutoka.
     th = ออกทางออกที่สิบ
+    zh-Hant = 取道第十個出口。
+    zh-Hans = 取道第十个出口。
 
   [take_the_11th_exit]
     en = Take the eleventh exit.
@@ -1146,6 +1226,8 @@
     sk = Opustite kruhový objazd na 11. výjazde.
     sw = Ingia barabara ya 11 ya kutoka.
     th = ออกทางออกที่สิบเอ็ด
+    zh-Hant = 取道第十一個出口。
+    zh-Hans = 取道第十一个出口。
 
   [bear_left]
     en = Bear left.
@@ -1174,6 +1256,8 @@
     sk = Držte sa vľavo.
     sw = Elekea kushoto.
     th = ชิดซ้าย
+    zh-Hant = 左轉。
+    zh-Hans = 左转。
 
   [bear_right]
     en = Bear right.
@@ -1202,6 +1286,8 @@
     sk = Držte sa vpravo.
     sw = Elekea kulia.
     th = ชิดขวา
+    zh-Hant = 右轉。
+    zh-Hans = 右转。
 
   [you_have_reached_the_intermediate_point]
     en = You have reached the intermediate point.
@@ -1230,6 +1316,8 @@
     sk = Dorazili ste do prechodného bodu.
     sw = Umefika katikati ya safari yako.
     th = คุณมาถึงจุดแวะพักแล้ว
+    zh-Hant = 您已到達中間經停點。
+    zh-Hans = 您已到达中间经停点。
 
   [intermediate_point]
     en = Intermediate point.
@@ -1258,6 +1346,8 @@
     sk = Prechodný bod.
     sw = Katikati ya safari
     th = จุดแวะพัก
+    zh-Hant = 中間經停點。
+    zh-Hans = 中间经停点。
 
   [enter_the_highway]
     en = Enter the highway.
@@ -1286,6 +1376,8 @@
     sk = Vojdite na diaľnicu.
     sw = Ingia kwenye barabara kuu.
     th = เข้าสู่ทางหลวง
+    zh-Hant = 進入高速公路。
+    zh-Hans = 进入高速公路。
 
   [leave_the_highway]
     en = Leave the highway.
@@ -1314,6 +1406,8 @@
     sk = Opustite diaľnicu.
     sw = Ondoka kwenye barabara kuu.
     th = ออกจากทางหลวง
+    zh-Hant = 離開高速公路。
+    zh-Hans = 离开高速公路。
 
   [follow_the_roundabout]
     en = Follow the roundabout.
@@ -1342,6 +1436,8 @@
     sk = Zostaňte na kruhovom objazde.
     sw = Fuata mzunguko.
     th = ขับไปตามวงเวียน
+    zh-Hant = 沿環島前行。
+    zh-Hans = 沿环岛前行。
 
   [you_have_left_the_route]
     en = You have left the route.
@@ -1370,6 +1466,8 @@
     sk = Zišli ste z plánovanej trasy.
     sw = Umeacha njia.
     th = คุณออกนอกเส้นทางแล้ว
+    zh-Hant = 您已偏離路線。
+    zh-Hans = 您已偏离路线。
 
   [you_have_returned_to_the_route]
     en = You have returned to the route.
@@ -1398,6 +1496,8 @@
     sk = Vrátili ste sa na plánovanú trasu.
     sw = Umerudi kwenye njia.
     th = คุณกลับสู่เส้นทางแล้ว
+    zh-Hant = 您已返回路線。
+    zh-Hans = 您已返回路线。
 
   [the_route_has_been_recalculated]
     en = The route has been recalculated.
@@ -1426,6 +1526,8 @@
     sk = Trasa bola prepočítaná.
     sw = Njia imekokotolewa upya.
     th = คำนวณเส้นทางใหม่แล้ว
+    zh-Hant = 路線已重新計算。
+    zh-Hans = 路线已重新计算。
 
   [follow_the_sign]
     en = Follow the sign.
@@ -1454,6 +1556,8 @@
     sk = Sledujte dopravné značenie.
     sw = Fuata alama.
     th = ทำตามป้ายสัญญาณ
+    zh-Hant = 按指示牌前行。
+    zh-Hans = 按指示牌前行。
 
   [in_50_feet]
     en = In fifty feet.
@@ -1482,6 +1586,8 @@
     sk = Po 50 stopách.
     sw = Kabla ya futi 50.
     th = อีก 50 ฟุต
+    zh-Hant = 前方50英尺。
+    zh-Hans = 前方50英尺。
 
   [in_100_feet]
     en = In one hundred feet.
@@ -1510,6 +1616,8 @@
     sk = Po 100 stopách.
     sw = Kabla ya futi 100.
     th = อีก 100 ฟุต
+    zh-Hant = 前方100英尺。
+    zh-Hans = 前方100英尺。
 
   [in_200_feet]
     en = In two hundred feet.
@@ -1538,6 +1646,8 @@
     sk = Po 200 stopách.
     sw = Kabla ya futi 200.
     th = อีก 200 ฟุต
+    zh-Hant = 前方200英尺。
+    zh-Hans = 前方200英尺。
 
   [in_300_feet]
     en = In three hundred feet.
@@ -1566,6 +1676,8 @@
     sk = Po 300 stopách.
     sw = Kabla ya futi 300.
     th = อีก 300 ฟุต
+    zh-Hant = 前方300英尺。
+    zh-Hans = 前方300英尺。
 
   [in_400_feet]
     en = In four hundred feet.
@@ -1594,6 +1706,8 @@
     sk = Po 400 stopách.
     sw = Kabla ya futi 400.
     th = อีก 400 ฟุต
+    zh-Hant = 前方400英尺。
+    zh-Hans = 前方400英尺。
 
   [in_500_feet]
     en = In five hundred feet.
@@ -1622,6 +1736,8 @@
     sk = Po 500 stopách.
     sw = Kabla ya futi 500
     th = อีก 500 ฟุต
+    zh-Hant = 前方500英尺。
+    zh-Hans = 前方500英尺。
 
   [in_600_feet]
     en = In six hundred feet.
@@ -1650,6 +1766,8 @@
     sk = Po 600 stopách.
     sw = Kabla ya futi 600.
     th = อีก 600 ฟุต
+    zh-Hant = 前方600英尺。
+    zh-Hans = 前方600英尺。
 
   [in_700_feet]
     en = In seven hundred feet.
@@ -1678,6 +1796,8 @@
     sk = Po 700 stopách.
     sw = Kabla ya futi 700.
     th = อีก 700 ฟุต
+    zh-Hant = 前方700英尺。
+    zh-Hans = 前方700英尺。
 
   [in_800_feet]
     en = In eight hundred feet.
@@ -1706,6 +1826,8 @@
     sk = Po 800 stopách.
     sw = Kabla ya futi 800.
     th = อีก 800 ฟุต
+    zh-Hant = 前方800英尺。
+    zh-Hans = 前方800英尺。
 
   [in_900_feet]
     en = In nine hundred feet.
@@ -1734,6 +1856,8 @@
     sk = Po 900 stopách.
     sw = Kabla ya futi 900.
     th = อีก 900 ฟุต
+    zh-Hant = 前方900英尺。。
+    zh-Hans = 前方900英尺。。
 
   [in_1000_feet]
     en = In one thousand feet.
@@ -1762,6 +1886,8 @@
     sk = Po 1000 stopách.
     sw = Kabla ya futi 1000.
     th = อีก 1000 ฟุต
+    zh-Hant = 前方1000英尺。
+    zh-Hans = 前方1000英尺。
 
   [in_1500_feet]
     en = In fifteen hundred feet.
@@ -1790,6 +1916,8 @@
     sk = Po 1500 stopách.
     sw = Kabla ya futi 1500.
     th = อีก 1500 ฟุต
+    zh-Hant = 前方1500英尺。
+    zh-Hans = 前方1500英尺。
 
   [in_2000_feet]
     en = In two thousand feet.
@@ -1818,6 +1946,8 @@
     sk = Po 2000 stopách.
     sw = Kabla ya futi 2000.
     th = อีก 2000 ฟุต
+    zh-Hant = 前方2000英尺。
+    zh-Hans = 前方2000英尺。
 
   [in_2500_feet]
     en = In twenty five hundred feet.
@@ -1846,6 +1976,8 @@
     sk = Po 2500 stopách.
     sw = Kabla ya futi 2500.
     th = อีก 2500 ฟุต
+    zh-Hant = 前方2500英尺。
+    zh-Hans = 前方2500英尺。
 
   [in_3000_feet]
     en = In three thousand feet.
@@ -1874,6 +2006,8 @@
     sk = Po 3000 stopách.
     sw = Kabla ya futi 3000.
     th = อีก 3000 ฟุต
+    zh-Hant = 前方3000英尺。
+    zh-Hans = 前方3000英尺。
 
   [in_3500_feet]
     en = In thirty five hundred feet.
@@ -1902,6 +2036,8 @@
     sk = Po 3500 stopách.
     sw = Kabla ya futi 3500.
     th = อีก 3500 ฟุต
+    zh-Hant = 前方3500英尺。。
+    zh-Hans = 前方3500英尺。。
 
   [in_4000_feet]
     en = In four thousand feet.
@@ -1930,6 +2066,8 @@
     sk = Po 4000 stopách.
     sw = Kabla ya futi 4000.
     th = อีก 4000 ฟุต
+    zh-Hant = 前方4000英尺。
+    zh-Hans = 前方4000英尺。
 
   [in_4500_feet]
     en = In forty five hundred feet.
@@ -1958,6 +2096,8 @@
     sk = Po 4500 stopách.
     sw = Kabla ya futi 4500.
     th = อีก 4500 ฟุต
+    zh-Hant = 前方4500英尺。
+    zh-Hans = 前方4500英尺。
 
   [in_5000_feet]
     en = In five thousand feet.
@@ -1986,6 +2126,8 @@
     sk = Po 5000 stopách.
     sw = Kabla ya futi 5000.
     th = อีก 5000 ฟุต
+    zh-Hant = 前方5000英尺。
+    zh-Hans = 前方5000英尺。
 
   [in_1_mile]
     en = In one mile.
@@ -2014,6 +2156,8 @@
     sk = Po jednej míli.
     sw = Kabla ya maili moja.
     th = อีก 1 ไมล์
+    zh-Hant = 前方1英里。
+    zh-Hans = 前方1英里。
 
   [in_1_5_miles]
     en = In one and half miles.
@@ -2042,6 +2186,8 @@
     sk = Po jeden a pol míli.
     sw = Kabla ya maili moja na nusu.
     th = อีก 1 ไมล์ครึ่ง
+    zh-Hant = 前方1.5英里。
+    zh-Hans = 前方1.5英里。
 
   [in_2_miles]
     en = In two miles.
@@ -2070,6 +2216,8 @@
     sk = Po dvoch míľach.
     sw = Kabla ya maili mbili.
     th = อีก 2 ไมล์
+    zh-Hant = 前方2英里。
+    zh-Hans = 前方2英里。
 
   [in_250_yards]
     en = In two hundred and fifty yards.
@@ -2098,6 +2246,8 @@
     sk = Po 250 yardoch.
     sw = Kabla ya yadi 250.
     th = อีก 250 หลา
+    zh-Hant = 前方250碼。
+    zh-Hans = 前方250码。
 
   [in_750_yards]
     en = In seven hundred and fifty yards.
@@ -2126,4 +2276,6 @@
     sk = Po 750 yardoch.
     sw = Kabla ya yadi 750.
     th = อีก 750 หลา
+    zh-Hant = 前方750碼。
+    zh-Hans = 前方750码。
 
