@@ -1,12 +1,13 @@
 package com.mapswithme.maps.sound;
 
-import android.content.Context;
 import android.speech.tts.TextToSpeech;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.Language;
 
 import java.util.Locale;
 
@@ -105,11 +106,18 @@ public enum TtsPlayer
           return;
         }
 
+        String localeTwine = Language.localeToTwineLanguage(mTtsLocale);
+        if (TextUtils.isEmpty(localeTwine))
+        {
+          Log.w(TAG, "Cann't get a twine language name for the locale " + locale.getLanguage() + " " + locale.getCountry() +
+              ". TTS will be switched off.");
+          mTtsLocale = null;
+          return;
+        }
+
+        nativeSetTurnNotificationsLocale(localeTwine);
         mTts.setLanguage(mTtsLocale);
-        // @TODO(vbykoianko) In case of mTtsLocale.getLanguage() returns zh. But the core is needed zh-Hant or zh-Hans.
-        // It should be fixed.
-        nativeSetTurnNotificationsLocale(mTtsLocale.getLanguage());
-        Log.i(TAG, "setLocaleIfAvailable() onInit nativeSetTurnNotificationsLocale(" + mTtsLocale.getLanguage() + ")");
+        Log.i(TAG, "setLocaleIfAvailable() onInit nativeSetTurnNotificationsLocale(" + localeTwine + ")");
       }
     });
   }
@@ -152,6 +160,9 @@ public enum TtsPlayer
     return nativeAreTurnNotificationsEnabled();
   }
 
+  // Note. After a call of enable(true) the flag enabled in cpp core will be set.
+  // But later in onInit callback the initialization could fail.
+  // In that case isValid() returns false and every call of playTurnNotifications returns in the beginning.
   public void enable(boolean enabled)
   {
     if (enabled && !isValid())
