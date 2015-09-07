@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_eighth">
+
+  <com.mapswithme.maps.widget.FlatProgressView
+      android:id="@+id/fp__route_progress"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:headRadius="2dp"
+      app:progressColor="#757575"
+      app:progressThickness="4dp"
+      app:secondaryProgressColor="@color/base_black_divider"
+      app:secondaryProgressThickness="2dp"/>
+
+  <ImageView
+      android:id="@+id/btn__close"
+      android:layout_width="@dimen/base_block_size"
+      android:layout_height="@dimen/base_block_size"
+      android:layout_centerVertical="true"
+      android:layout_marginBottom="@dimen/margin_base_plus"
+      android:layout_marginLeft="@dimen/margin_quarter"
+      android:layout_marginRight="@dimen/margin_base"
+      android:layout_marginTop="@dimen/margin_base_plus"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:scaleType="center"
+      android:src="@drawable/ic_close_routing"/>
+
+  <com.mapswithme.maps.widget.ArrowView
+      android:id="@+id/iv__turn"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:layout_marginLeft="@dimen/margin_double_plus"
+      android:layout_marginTop="@dimen/margin_base"
+      android:layout_toRightOf="@id/btn__close"
+      tools:src="@drawable/ic_slight_compact"/>
+
+  <TextView
+      android:id="@+id/tv__turn_distance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/margin_base"
+      android:layout_toRightOf="@id/iv__turn"
+      android:textAppearance="@style/MwmTextAppearance.Display1.Plus"
+      android:textColor="@color/text_turn_blue"
+      tools:text="300 m"/>
+
+  <TextView
+      android:id="@+id/tv__next_street"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/tv__turn_distance"
+      android:layout_alignParentRight="true"
+      android:layout_below="@id/tv__turn_distance"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      android:textSize="@dimen/text_size_title"
+      tools:text="Oxford str."
+      tools:visibility="visible"/>
+
+  <TextView
+      android:id="@+id/tv__arrival_time"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@id/tv__turn_distance"
+      android:layout_alignParentRight="true"
+      android:layout_marginRight="@dimen/margin_double"
+      android:gravity="center_vertical"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      tools:text="1:00"/>
+
+  <TextView
+      android:id="@+id/tv__total_distance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@id/tv__arrival_time"
+      android:layout_marginRight="@dimen/margin_base"
+      android:layout_toLeftOf="@id/tv__arrival_time"
+      android:gravity="center_vertical"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      tools:text="1.4 km"/>
+
+  <TextView
+      android:id="@+id/tv__total_time"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@id/tv__arrival_time"
+      android:layout_alignParentRight="true"
+      android:layout_marginRight="@dimen/margin_double"
+      android:gravity="center_vertical"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      tools:text="1,5 min"/>
+</RelativeLayout>

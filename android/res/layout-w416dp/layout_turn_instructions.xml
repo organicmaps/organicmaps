@@ -59,16 +59,16 @@
 
   <RelativeLayout
       android:id="@+id/turns"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@id/time_distance"
+      android:layout_centerHorizontal="true"
       android:padding="@dimen/margin_base">
 
     <com.mapswithme.maps.widget.ArrowView
         android:id="@+id/iv__turn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_base_plus"
         tools:src="@drawable/ic_slight_compact"/>
 
     <TextView
