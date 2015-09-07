@@ -18,6 +18,7 @@
 
 #include "std/unordered_set.hpp"
 #include "std/list.hpp"
+#include "std/type_traits.hpp"
 
 
 /// @param  TEmitter  Feature accumulating policy
@@ -433,89 +434,142 @@ public:
   /// The main entry point for parsing process.
   void EmitElement(OsmElement * p)
   {
-    if (p->type == OsmElement::EntityType::Node)
+    enum class FeatureState {Unknown, Ok, EmptyTags, HasNoTypes, BrokenRef, ShortGeom, InvalidType};
+
+    FeatureParams params;
+    FeatureState state = FeatureState::Unknown;
+
+    switch(p->type)
     {
-      if (p->m_tags.empty())
-        return;
-
-      FeatureParams params;
-      if (!ParseType(p, params))
-        return;
-
-      m2::PointD const pt = MercatorBounds::FromLatLon(p->lat, p->lon);
-      EmitPoint(pt, params, osm::Id::Node(p->id));
-    }
-    else if (p->type == OsmElement::EntityType::Way)
-    {
-      FeatureBuilderT ft;
-
-      // Parse geometry.
-      for (uint64_t ref : p->Nodes())
+      case OsmElement::EntityType::Node:
       {
-        m2::PointD pt;
-        if (!GetPoint(ref, pt))
-          return;
-
-        ft.AddPoint(pt);
-      }
-
-      if (ft.GetPointsCount() < 2)
-        return;
-
-      FeatureParams params;
-      if (!ParseType(p, params))
-        return;
-
-      ft.SetOsmId(osm::Id::Way(p->id));
-      bool isCoastLine = (m_coastType != 0 && params.IsTypeExist(m_coastType));
-
-      EmitArea(ft, params, [&] (FeatureBuilderT & ft)
-      {
-        isCoastLine = false;  // emit coastline feature only once
-        multipolygon_holes_processor processor(p->id, this);
-        m_holder.ForEachRelationByWay(p->id, processor);
-        ft.SetAreaAddHoles(processor.GetHoles());
-      });
-
-      EmitLine(ft, params, isCoastLine);
-    }
-    else if (p->type == OsmElement::EntityType::Relation)
-    {
-      {
-        // 1. Check, if this is our processable relation. Here we process only polygon relations.
-        size_t i = 0;
-        size_t const count = p->m_tags.size();
-        for (; i < count; ++i)
+        if (p->m_tags.empty())
         {
-          if (p->m_tags[i].key == "type" && p->m_tags[i].value == "multipolygon")
-            break;
+          state = FeatureState::EmptyTags;
+          break;
         }
-        if (i == count)
-          return;
+
+        if (!ParseType(p, params))
+        {
+          state = FeatureState::HasNoTypes;
+          break;
+        }
+
+        m2::PointD const pt = MercatorBounds::FromLatLon(p->lat, p->lon);
+        EmitPoint(pt, params, osm::Id::Node(p->id));
+        state = FeatureState::Ok;
+        break;
       }
 
-      FeatureParams params;
-      if (!ParseType(p, params))
-        return;
-
-      holes_accumulator holes(this);
-      AreaWayMerger<TCache> outer(m_holder);
-
-      // 3. Iterate ways to get 'outer' and 'inner' geometries
-      for (auto const & e : p->Members())
+      case OsmElement::EntityType::Way:
       {
-        if (e.type != OsmElement::EntityType::Way)
-          continue;
+        FeatureBuilderT ft;
 
-        if (e.role == "outer")
-          outer.AddWay(e.ref);
-        else if (e.role == "inner")
-          holes(e.ref);
+        // Parse geometry.
+        for (uint64_t ref : p->Nodes())
+        {
+          m2::PointD pt;
+          if (!GetPoint(ref, pt))
+          {
+            state = FeatureState::BrokenRef;
+            break;
+          }
+          ft.AddPoint(pt);
+        }
+
+        if (state == FeatureState::BrokenRef)
+          break;
+
+        if (ft.GetPointsCount() < 2)
+        {
+          state = FeatureState::ShortGeom;
+          break;
+        }
+
+        if (!ParseType(p, params))
+        {
+          state = FeatureState::HasNoTypes;
+          break;
+        }
+
+        ft.SetOsmId(osm::Id::Way(p->id));
+        bool isCoastLine = (m_coastType != 0 && params.IsTypeExist(m_coastType));
+
+        EmitArea(ft, params, [&] (FeatureBuilderT & ft)
+        {
+          isCoastLine = false;  // emit coastline feature only once
+          multipolygon_holes_processor processor(p->id, this);
+          m_holder.ForEachRelationByWay(p->id, processor);
+          ft.SetAreaAddHoles(processor.GetHoles());
+        });
+
+        EmitLine(ft, params, isCoastLine);
+        state = FeatureState::Ok;
+        break;
       }
 
-      multipolygons_emitter emitter(this, params, holes.GetHoles(), p->id);
-      outer.ForEachArea(emitter, true);
+      case OsmElement::EntityType::Relation:
+      {
+        {
+          // 1. Check, if this is our processable relation. Here we process only polygon relations.
+          size_t i = 0;
+          size_t const count = p->m_tags.size();
+          for (; i < count; ++i)
+          {
+            if (p->m_tags[i].key == "type" && p->m_tags[i].value == "multipolygon")
+              break;
+          }
+          if (i == count)
+          {
+            state = FeatureState::InvalidType;
+            break;
+          }
+        }
+
+        if (!ParseType(p, params))
+        {
+          state = FeatureState::HasNoTypes;
+          break;
+        }
+
+        holes_accumulator holes(this);
+        AreaWayMerger<TCache> outer(m_holder);
+
+        // 3. Iterate ways to get 'outer' and 'inner' geometries
+        for (auto const & e : p->Members())
+        {
+          if (e.type != OsmElement::EntityType::Way)
+            continue;
+
+          if (e.role == "outer")
+            outer.AddWay(e.ref);
+          else if (e.role == "inner")
+            holes(e.ref);
+        }
+
+        multipolygons_emitter emitter(this, params, holes.GetHoles(), p->id);
+        outer.ForEachArea(emitter, true);
+        state = FeatureState::Ok;
+        break;
+      }
+
+      default:
+        state = FeatureState::Unknown;
+        break;
     }
+
+//    if (state == FeatureState::Ok)
+//    {
+//      Classificator const & c = classif();
+//      static char const * const stateText[] = {"U", "Ok", "ET", "HNT", "BR", "SG", "IT"};
+//      stringstream ss;
+//      ss << p->id << " [" << stateText[static_cast<typename underlying_type<FeatureState>::type>(state)] << "]";
+//      for (auto const & p : params.m_Types)
+//        ss << " " << c.GetReadableObjectName(p);
+//      ss << endl;
+//      std::ofstream file("feature_types_new.txt", ios::app);
+//      file.write(ss.str().data(), ss.str().size());
+//    }
   }
 
 public:

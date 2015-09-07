@@ -45,7 +45,6 @@ void OsmElement::AddTag(string const & k, string const & v)
   SKIP_KEY("not:");
   SKIP_KEY("seamark"); // http://wiki.openstreetmap.org/wiki/OpenSeaMap/Seamark_Tag_Values
   SKIP_KEY("artist_name");
-  SKIP_KEY("historic"); // http://wiki.openstreetmap.org/wiki/Historic
   SKIP_KEY("whitewater"); // http://wiki.openstreetmap.org/wiki/Whitewater_sports
 
 
