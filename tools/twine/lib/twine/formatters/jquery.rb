@@ -16,9 +16,9 @@ module Twine
       def determine_language_given_path(path)
         path_arr = path.split(File::SEPARATOR)
         path_arr.each do |segment|
-          match = /^((.+)-)?([^-]+)\.json$/.match(segment)
+          match = /^(.+)\.json$/.match(segment)
           if match
-            return match[3]
+            return match[1]
           end
         end
 
