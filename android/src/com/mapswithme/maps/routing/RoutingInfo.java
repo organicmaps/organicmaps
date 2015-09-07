@@ -22,6 +22,7 @@ public class RoutingInfo
   public final String currentStreet;
   // The next street name.
   public final String nextStreet;
+  public final double completionPercent;
   // For vehicle routing.
   public final VehicleTurnDirection vehicleTurnDirection;
   public final int exitNum;
@@ -118,7 +119,7 @@ public class RoutingInfo
     SHARP_RIGHT
   }
 
-  public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String currentStreet, String nextStreet,
+  public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String currentStreet, String nextStreet, double completionPercent,
                      int vehicleTurnOrdinal, int pedestrianTurnOrdinal, double pedestrianDirectionLat, double pedestrianDirectionLon, int exitNum,
                      int totalTime, SingleLaneInfo[] lanes)
   {
@@ -129,6 +130,7 @@ public class RoutingInfo
     this.currentStreet = currentStreet;
     this.nextStreet = nextStreet;
     this.totalTimeInSeconds = totalTime;
+    this.completionPercent = completionPercent;
     this.vehicleTurnDirection = VehicleTurnDirection.values()[vehicleTurnOrdinal];
     this.lanes = lanes;
     this.exitNum = exitNum;

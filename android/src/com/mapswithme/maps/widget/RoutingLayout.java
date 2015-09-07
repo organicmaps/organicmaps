@@ -54,8 +54,10 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
   private View mLayoutTurnInstructions;
   private View mBtnStart;
   private FlatProgressView mFpRouteProgress;
-  private double mNorth;
   private RadioGroup mRgRouterType;
+  private TextView mTvNextStreen;
+
+  private double mNorth;
 
   public enum State
   {
@@ -142,6 +144,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
     mTvTurnDistance = (android.widget.TextView) mLayoutTurnInstructions.findViewById(R.id.tv__turn_distance);
     mLayoutTurnInstructions.findViewById(R.id.btn__close).setOnClickListener(this);
     mFpRouteProgress = (FlatProgressView) mLayoutTurnInstructions.findViewById(R.id.fp__route_progress);
+    mTvNextStreen = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__next_street);
   }
 
   @Override
@@ -288,6 +291,8 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
 
     mTvTotalTime.setText(formatTime(info.totalTimeInSeconds));
     mTvTotalDistance.setText(info.distToTarget + " " + info.targetUnits);
+    UiUtils.setTextAndHideIfEmpty(mTvNextStreen, info.nextStreet);
+    mFpRouteProgress.setProgress((int) info.completionPercent);
   }
 
   private void refreshPedestrianAzimutAndDistance(RoutingInfo info)

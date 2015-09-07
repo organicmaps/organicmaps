@@ -1383,7 +1383,7 @@ extern "C"
         env->GetMethodID(klass, "<init>",
                           "(Ljava/lang/String;Ljava/lang/String;"
                           "Ljava/lang/String;Ljava/lang/String;"
-                          "Ljava/lang/String;Ljava/lang/String;IIDDII"
+                          "Ljava/lang/String;Ljava/lang/String;DIIDDII"
                           "[Lcom/mapswithme/maps/routing/SingleLaneInfo;)V");
     ASSERT(ctorRouteInfoID, (jni::DescribeException()));
 
@@ -1425,7 +1425,7 @@ extern "C"
         klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),
         jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
         jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_sourceName),
-        jni::ToJavaString(env, info.m_targetName), info.m_turn, info.m_pedestrianTurn,
+        jni::ToJavaString(env, info.m_targetName), info.m_completionPercent ,info.m_turn, info.m_pedestrianTurn,
         info.m_pedestrianDirectionPos.lat, info.m_pedestrianDirectionPos.lon, info.m_exitNum, info.m_time, jLanes);
     ASSERT(result, (jni::DescribeException()));
     return result;
