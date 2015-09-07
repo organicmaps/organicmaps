@@ -969,9 +969,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onPause()
   {
+    stopLocationStateUpdates();
     pauseLocation();
     stopWatchingExternalStorage();
-    stopLocationStateUpdates();
     TtsPlayer.INSTANCE.stop();
     LikesManager.INSTANCE.cancelDialogs();
     super.onPause();
