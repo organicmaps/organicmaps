@@ -52,14 +52,6 @@ public:
     visitor(m_symbols, "m_symbols");
   }
 
-  template <typename TSDC>
-  void Swap(TSDC && rhs)
-  {
-    m_bits.swap(rhs.m_bits);
-    m_index.swap(rhs.m_index);
-    m_symbols.swap(rhs.m_symbols);
-  }
-
 private:
   succinct::bit_vector m_bits;
   succinct::rs_bit_vector m_index;

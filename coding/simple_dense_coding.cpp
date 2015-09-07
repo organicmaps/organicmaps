@@ -106,7 +106,12 @@ SimpleDenseCoding::SimpleDenseCoding(vector<uint8_t> const & data)
   m_symbols.assign(symbols);
 }
 
-SimpleDenseCoding::SimpleDenseCoding(SimpleDenseCoding && rhs) { Swap(move(rhs)); }
+SimpleDenseCoding::SimpleDenseCoding(SimpleDenseCoding && rhs)
+{
+  m_bits.swap(rhs.m_bits);
+  m_index.swap(rhs.m_index);
+  m_symbols.swap(rhs.m_symbols);
+}
 
 uint8_t SimpleDenseCoding::Get(uint64_t i) const
 {

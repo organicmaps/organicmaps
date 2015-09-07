@@ -75,7 +75,6 @@ HEADERS += \
     feature_loader_base.hpp \
     feature_meta.hpp \
     feature_processor.hpp \
-    feature_rank_table.cpp \
     feature_utils.hpp \
     feature_visibility.hpp \
     features_offsets_table.hpp \

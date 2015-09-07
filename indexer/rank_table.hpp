@@ -27,29 +27,29 @@ namespace search
 // File offset (bytes)  Field name  Field size (bytes)
 // 0                    version     1
 // 1                    flags       1
-// 2                    data        *
+// 8                    data        *
 //
 // Flags bits:
 // 0      - endianess of the stored table, 1 if BigEndian, 0 otherwise.
 // [1, 8) - currently not used.
 
 // Data size and contents depend on the version, but note that data
-// should always be 8-bytes aligned. Therefore, there're 6-bytes empty
+// should always be 8-bytes aligned. Therefore, there is 6-bytes empty
 // area between flags and data. Feel free to use it if you need it.
 class RankTable
 {
 public:
   enum Version
   {
-    V1 = 0
+    V0 = 0
   };
 
-  virtual ~RankTable();
+  virtual ~RankTable() = default;
 
   // Returns rank of the i-th feature.
   virtual uint8_t Get(uint64_t i) const = 0;
 
-  // Returns total number of ranks (or features, as there're 1-1 correspondence).
+  // Returns total number of ranks (or features, as there is a 1-1 correspondence).
   virtual uint64_t Size() const = 0;
 
   // Returns underlying data format version.
@@ -62,7 +62,7 @@ public:
   // deserializes it. Returns nullptr if there're no ranks section or
   // rank table's header is damaged.
   //
-  // *NOTE* Return value can outlive |rcont|. Also note that there're
+  // *NOTE* Return value can outlive |rcont|. Also note that there is
   // undefined behaviour if ranks section exists but internally
   // damaged.
   static unique_ptr<RankTable> Load(FilesContainerR & rcont);
@@ -90,12 +90,13 @@ public:
   // * When rank table already exists and has proper endianness, does nothing.
   // * When rank table already exists but has improper endianness, re-creates it by
   //   reverse mapping.
-  // * When rank table does not exists or exists but damaged, calculates all
-  //   features's ranks and creates rank table.
+  // * When rank table does not exist or exists but is damaged, calculates all
+  //   features' ranks and creates rank table.
   static void Create(platform::LocalCountryFile const & localFile);
 
   // Force creation of a rank table from array of ranks. Existing rank
-  // table is removed (if any).
+  // table is removed (if any). Note that |wcont| must be instantiated
+  // as FileWriter::OP_WRITE_EXISTING.
   static void Create(vector<uint8_t> const & ranks, FilesContainerW & wcont);
 };
 }  // namespace search
