@@ -2,27 +2,23 @@
 
 #include "base/thread.hpp"
 #include "search/result.hpp"
+#include "std/atomic.hpp"
 
 #include "../core/jni_helper.hpp"
 #include "../platform/Language.hpp"
 #include "../platform/Platform.hpp"
 
-namespace
-{
-  ::Framework * frm() { return g_framework->NativeFramework(); }
-}
-
-class SearchEngine
+class SearchResultsCache
 {
   /// @name Search results are stored in the holder and returned to Java with request.
   //@{
   search::Results m_results;
   //@}
   // Timestamp of last search query. Results with older stamps are ignored.
-  std::atomic_llong m_queryTimestamp;
+  atomic<long long> m_queryTimestamp;
   threads::Mutex m_updateMutex;
   // Implements 'NativeSearchListener' java interface.
-  shared_ptr<jobject> m_listenerPtr;
+  jclass m_javaListener;
 
   void OnResults(search::Results const & results, long long timestamp)
   {
@@ -32,19 +28,18 @@ class SearchEngine
 
     JNIEnv * env = jni::GetEnv();
 
-    jobject listener = *m_listenerPtr.get();
     if (results.IsEndMarker())
     {
-      static jmethodID const resultId = jni::GetJavaMethodID(env, listener, "onResultsEnd", "(J)V");
-      env->CallVoidMethod(listener, resultId, static_cast<jlong>(timestamp));
+      static jmethodID const resultId = jni::GetJavaMethodID(env, m_javaListener, "onResultsEnd", "(J)V");
+      env->CallVoidMethod(m_javaListener, resultId, static_cast<jlong>(timestamp));
       return;
     }
 
     SaveResults(results);
     ShowResults();
 
-    static jmethodID const updateId = jni::GetJavaMethodID(env, listener, "onResultsUpdate", "(IJ)V");
-    env->CallVoidMethod(listener, updateId,
+    static jmethodID const updateId = jni::GetJavaMethodID(env, m_javaListener, "onResultsUpdate", "(IJ)V");
+    env->CallVoidMethod(m_javaListener, updateId,
                         static_cast<jint>(m_results.GetCount()),
                         static_cast<jlong>(timestamp));
   }
@@ -57,54 +52,52 @@ class SearchEngine
 
   void ShowResults()
   {
-    android::Platform::RunOnGuiThreadImpl(bind(&SearchEngine::ShowResultsImpl, this));
+    android::Platform::RunOnGuiThreadImpl(bind(&SearchResultsCache::ShowResultsImpl, this));
   }
 
   void ShowResultsImpl()
   {
-    frm()->UpdateSearchResults(m_results);
+    g_framework->NativeFramework()->UpdateSearchResults(m_results);
   }
 
-  SearchEngine() : m_queryTimestamp(0)
-  {
-  }
+  SearchResultsCache() : m_queryTimestamp(0)
+  {}
 
 public:
-  static SearchEngine & Instance()
+  static SearchResultsCache & Instance()
   {
-    static SearchEngine instance;
+    static SearchResultsCache instance;
     return instance;
   }
 
-  void ConnectListener(JNIEnv *env, jobject listener)
+  void ConnectListener(JNIEnv * env, jobject listener)
   {
-    m_listenerPtr = jni::make_global_ref(listener);
+    m_javaListener = static_cast<jclass>(env->NewGlobalRef(listener));
   }
 
-  bool RunSearch(JNIEnv * env, search::SearchParams & params, long long timestamp)
+  bool RunSearch(search::SearchParams & params, long long timestamp)
   {
-    params.m_callback = bind(&SearchEngine::OnResults, this, _1, timestamp);
-    bool const searchStarted = frm()->Search(params);
+    params.m_callback = bind(&SearchResultsCache::OnResults, this, _1, timestamp);
+    bool const searchStarted = g_framework->NativeFramework()->Search(params);
     if (searchStarted)
       m_queryTimestamp = timestamp;
-
     return searchStarted;
   }
 
-  void RunInteractiveSearch(JNIEnv * env, search::SearchParams & params, long long timestamp)
+  void RunInteractiveSearch(search::SearchParams & params, long long timestamp)
   {
-    params.m_callback = bind(&SearchEngine::OnResults, this, _1, timestamp);
-    frm()->StartInteractiveSearch(params);
-    frm()->UpdateUserViewportChanged();
+    params.m_callback = bind(&SearchResultsCache::OnResults, this, _1, timestamp);
+    g_framework->NativeFramework()->StartInteractiveSearch(params);
+    g_framework->NativeFramework()->UpdateUserViewportChanged();
     m_queryTimestamp = timestamp;
   }
 
-  void ShowResult(int position) const
+  void ShowResult(int index) const
   {
-    if (IsIndexValid(position))
-      g_framework->ShowSearchResult(m_results.GetResult(position));
+    if (IsIndexValid(index))
+      g_framework->ShowSearchResult(m_results.GetResult(index));
     else
-      LOG(LERROR, ("Invalid position", position));
+      LOG(LERROR, ("Invalid index ", index));
   }
 
   void ShowAllResults() const
@@ -131,7 +124,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeInit(JNIEnv * env, jobject thiz)
   {
-    SearchEngine::Instance().ConnectListener(env, thiz);
+    SearchResultsCache::Instance().ConnectListener(env, thiz);
   }
 
   JNIEXPORT jboolean JNICALL
@@ -140,26 +133,24 @@ extern "C"
       jlong timestamp, jboolean force, jboolean hasPosition, jdouble lat, jdouble lon)
   {
     search::SearchParams params;
-
     params.m_query = jni::ToNativeString(env, s);
     params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
     params.SetForceSearch(force);
     if (hasPosition)
       params.SetPosition(lat, lon);
-
-    return SearchEngine::Instance().RunSearch(env, params, timestamp);
+    return SearchResultsCache::Instance().RunSearch(params, timestamp);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeShowResult(JNIEnv * env, jobject thiz, jint index)
   {
-    SearchEngine::Instance().ShowResult(index);
+    SearchResultsCache::Instance().ShowResult(index);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeShowAllResults(JNIEnv * env, jclass clazz)
   {
-    SearchEngine::Instance().ShowAllResults();
+    SearchResultsCache::Instance().ShowAllResults();
   }
 
   JNIEXPORT jobject JNICALL
@@ -167,14 +158,14 @@ extern "C"
       JNIEnv * env, jobject thiz, jint index, jlong timestamp,
       jboolean hasPosition, jdouble lat, jdouble lon)
   {
-    if (!SearchEngine::Instance().IsIndexValid(index))
+    if (!SearchResultsCache::Instance().IsIndexValid(index))
       return nullptr;
 
-    search::Result & res = SearchEngine::Instance().GetResult(index);
+    search::Result & res = SearchResultsCache::Instance().GetResult(index);
 
-    bool isSuggest = res.IsSuggest();
+    bool const isSuggest = res.IsSuggest();
     if (!isSuggest)
-      frm()->LoadSearchResultMetadata(res);
+      g_framework->NativeFramework()->LoadSearchResultMetadata(res);
 
     jintArray ranges = env->NewIntArray(res.GetHighlightRangesCount() * 2);
     jint * narr = env->GetIntArrayElements(ranges, NULL);
@@ -187,8 +178,7 @@ extern "C"
 
     env->ReleaseIntArrayElements(ranges, narr, 0);
 
-    static shared_ptr<jobject> resultClassGlobalRef = jni::make_global_ref(env->FindClass("com/mapswithme/maps/search/SearchResult"));
-    jclass resultClass = static_cast<jclass>(*resultClassGlobalRef.get());
+    static jclass resultClass = static_cast<jclass>(env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult")));
     ASSERT(resultClass, ());
 
     if (isSuggest)
@@ -196,10 +186,13 @@ extern "C"
       static jmethodID suggestCtor = env->GetMethodID(resultClass, "<init>", "(Ljava/lang/String;Ljava/lang/String;[I)V");
       ASSERT(suggestCtor, ());
 
-      return env->NewObject(resultClass, suggestCtor,
-                            jni::ToJavaString(env, res.GetString()),
-                            jni::ToJavaString(env, res.GetSuggestionString()),
-                            ranges);
+      jobject ret = env->NewObject(resultClass, suggestCtor,
+                                   jni::ToJavaString(env, res.GetString()),
+                                   jni::ToJavaString(env, res.GetSuggestionString()),
+                                   ranges);
+      ASSERT(ret, ());
+
+      return ret;
     }
 
     static jmethodID resultCtor = env->GetMethodID(resultClass, "<init>",
@@ -210,11 +203,10 @@ extern "C"
     if (hasPosition)
     {
       double dummy;
-      (void) frm()->GetDistanceAndAzimut(res.GetFeatureCenter(), lat, lon, 0, distance, dummy);
+      (void) g_framework->NativeFramework()->GetDistanceAndAzimut(res.GetFeatureCenter(), lat, lon, 0, distance, dummy);
     }
 
-    static shared_ptr<jobject> descClassGlobalRef = jni::make_global_ref(env->FindClass("com/mapswithme/maps/search/SearchResult$Description"));
-    jclass descClass = static_cast<jclass>(*descClassGlobalRef.get());
+    static jclass descClass = static_cast<jclass>(env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult$Description")));
     ASSERT(descClass, ());
 
     static jmethodID descCtor = env->GetMethodID(descClass, "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZ)V");
@@ -227,11 +219,15 @@ extern "C"
                                   jni::ToJavaString(env, res.GetCuisine()),
                                   res.GetStarsCount(),
                                   res.IsClosed());
+    ASSERT(desc, ());
 
-    return env->NewObject(resultClass, resultCtor,
-                          jni::ToJavaString(env, res.GetString()),
-                          desc,
-                          ranges);
+    jobject ret = env->NewObject(resultClass, resultCtor,
+                                 jni::ToJavaString(env, res.GetString()),
+                                 desc,
+                                 ranges);
+    ASSERT(ret, ());
+
+    return ret;
   }
 
   JNIEXPORT void JNICALL
@@ -240,6 +236,6 @@ extern "C"
     search::SearchParams params;
     params.m_query = jni::ToNativeString(env, query);
     params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
-    SearchEngine::Instance().RunInteractiveSearch(env, params, timestamp);
+    SearchResultsCache::Instance().RunInteractiveSearch(params, timestamp);
   }
 } // extern "C"

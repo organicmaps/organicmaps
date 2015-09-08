@@ -36,7 +36,7 @@ public class HeightLimitedFrameLayout extends FrameLayout
 
     if (v instanceof ViewGroup)
     {
-      ViewGroup vg = (ViewGroup) v;
+      final ViewGroup vg = (ViewGroup) v;
       for (int i = 0; i < vg.getChildCount(); i++)
         collectViews(vg.getChildAt(i));
     }

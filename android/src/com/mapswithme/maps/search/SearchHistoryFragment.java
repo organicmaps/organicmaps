@@ -13,8 +13,8 @@ import com.mapswithme.util.UiUtils;
 
 public class SearchHistoryFragment extends BaseMwmRecyclerFragment
 {
-  private View mPlaceHolder;
   private SearchHistoryAdapter mAdapter;
+  private View mPlaceHolder;
 
   private void updatePlaceholder()
   {

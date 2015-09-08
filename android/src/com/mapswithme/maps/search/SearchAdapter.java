@@ -137,8 +137,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
       final int stars = Math.min(result.description.stars, 5);
       if (stars > 0)
       {
-        // Colorize last dimmed stars: "★ ★ ★ ★ ★"
-        final SpannableStringBuilder sb = new SpannableStringBuilder("\u2605 \u2605 \u2605 \u2605 \u2605");
+        // Colorize last dimmed stars
+        final SpannableStringBuilder sb = new SpannableStringBuilder("★ ★ ★ ★ ★");
         if (stars < 5)
         {
           final int start = sb.length() - ((5 - stars) * 2 - 1);
@@ -152,7 +152,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
         tail.append(result.description.cuisine);
 
       if (!TextUtils.isEmpty(tail))
-        res.append(" \u2022 ")
+        res.append(" • ")
            .append(tail);
 
       return res;
@@ -295,7 +295,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
   public void refreshData(int count)
   {
     mResultsCount = count;
-
     notifyDataSetChanged();
   }
 }

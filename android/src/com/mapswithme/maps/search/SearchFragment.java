@@ -164,7 +164,6 @@ public class SearchFragment extends BaseMwmFragment
 
   private boolean mSearchRunning;
 
-
   private boolean doShowDownloadSuggest()
   {
     return ActiveCountryTree.getTotalDownloadedCount() == 0;
@@ -172,8 +171,8 @@ public class SearchFragment extends BaseMwmFragment
 
   private void showDownloadSuggest()
   {
-    FragmentManager fm = getChildFragmentManager();
-    String fragmentName = CountrySuggestFragment.class.getName();
+    final FragmentManager fm = getChildFragmentManager();
+    final String fragmentName = CountrySuggestFragment.class.getName();
     Fragment fragment = fm.findFragmentByTag(fragmentName);
 
     if (fragment == null || fragment.isDetached() || fragment.isRemoving())
@@ -197,7 +196,7 @@ public class SearchFragment extends BaseMwmFragment
 
   protected void updateFrames()
   {
-    boolean active = searchActive();
+    final boolean active = searchActive();
     UiUtils.showIf(active, mResultsFrame);
 
     if (active)
@@ -210,9 +209,9 @@ public class SearchFragment extends BaseMwmFragment
 
   private void updateResultsPlaceholder()
   {
-    boolean show = (!mSearchRunning &&
-                    mSearchAdapter.getItemCount() == 0 &&
-                    searchActive());
+    final boolean show = (!mSearchRunning &&
+                          mSearchAdapter.getItemCount() == 0 &&
+                          searchActive());
 
     UiUtils.showIf(show, mResultsPlaceholder);
   }
@@ -361,17 +360,17 @@ public class SearchFragment extends BaseMwmFragment
   protected void showSingleResultOnMap(int resultIndex)
   {
     final String query = getSearchQuery();
-    SearchEngine.INSTANCE.addRecent(query);
-
+    SearchRecents.add(query);
     FloatingSearchToolbarController.cancelApiCall();
     FloatingSearchToolbarController.saveQuery("");
     SearchEngine.nativeShowResult(resultIndex);
     Utils.navigateToParent(getActivity());
+
+    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
   }
 
   protected void showAllResultsOnMap()
   {
-    // TODO: Save query to recents
     final String query = getSearchQuery();
     mLastQueryTimestamp = System.nanoTime();
     SearchEngine.nativeRunInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp);
@@ -379,7 +378,7 @@ public class SearchFragment extends BaseMwmFragment
     FloatingSearchToolbarController.saveQuery(query);
     Utils.navigateToParent(getActivity());
 
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
+    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
   }
 
   @Override
@@ -408,7 +407,7 @@ public class SearchFragment extends BaseMwmFragment
   private void runSearch()
   {
     mLastQueryTimestamp = System.nanoTime();
-    // TODO implement more elegant solution
+    // TODO @yunitsky Implement more elegant solution.
     if (getActivity() instanceof MwmActivity)
       SearchEngine.nativeRunInteractiveSearch(getSearchQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp);
     else
@@ -442,10 +441,8 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public void onResultsEnd(long timestamp)
   {
-    if (!mSearchRunning || !isAdded())
-      return;
-
-    stopSearch();
+    if (mSearchRunning && isAdded())
+      stopSearch();
   }
 
   @Override

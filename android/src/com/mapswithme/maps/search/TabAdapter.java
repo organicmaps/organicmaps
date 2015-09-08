@@ -63,7 +63,6 @@ class TabAdapter extends FragmentPagerAdapter
       }
     };
 
-
     public abstract int getIconRes();
     public abstract int getTitleRes();
     public abstract Class<? extends Fragment> getFragmentClass();
@@ -76,7 +75,6 @@ class TabAdapter extends FragmentPagerAdapter
     private final TabLayout mTabs;
     private int mScrollState;
     private int mPreviousScrollState;
-
 
     public CustomTabLayoutOnPageChangeListener(TabLayout tabs)
     {
@@ -93,9 +91,9 @@ class TabAdapter extends FragmentPagerAdapter
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
     {
-      boolean update = (mScrollState == ViewPager.SCROLL_STATE_DRAGGING ||
-                        (mScrollState == ViewPager.SCROLL_STATE_SETTLING &&
-                         mPreviousScrollState == ViewPager.SCROLL_STATE_DRAGGING));
+      final boolean update = (mScrollState == ViewPager.SCROLL_STATE_DRAGGING ||
+                              (mScrollState == ViewPager.SCROLL_STATE_SETTLING &&
+                               mPreviousScrollState == ViewPager.SCROLL_STATE_DRAGGING));
       mTabs.setScrollPosition(position, positionOffset, update);
     }
 
@@ -106,13 +104,11 @@ class TabAdapter extends FragmentPagerAdapter
     }
   }
 
-
   public static final Tab[] TABS = Tab.values();
 
   private final ViewPager mPager;
   private final List<Class<? extends Fragment>> mClasses = new ArrayList<>();
   private final SparseArray<Fragment> mFragments = new SparseArray<>();
-
 
   public TabAdapter(FragmentManager fragmentManager, ViewPager pager, TabLayout tabs)
   {
@@ -121,7 +117,7 @@ class TabAdapter extends FragmentPagerAdapter
     for (Tab tab : TABS)
       mClasses.add(tab.getFragmentClass());
 
-    List<Fragment> fragments = fragmentManager.getFragments();
+    final List<Fragment> fragments = fragmentManager.getFragments();
     if (fragments != null)
     {
       // Recollect already attached fragments
@@ -130,7 +126,7 @@ class TabAdapter extends FragmentPagerAdapter
         if (f == null)
           continue;
 
-        int idx = mClasses.indexOf(f.getClass());
+        final int idx = mClasses.indexOf(f.getClass());
         if (idx > -1)
           mFragments.put(idx, f);
       }
@@ -144,13 +140,13 @@ class TabAdapter extends FragmentPagerAdapter
 
   private void attachTo(TabLayout tabs)
   {
-    Context context = tabs.getContext();
-    LayoutInflater inflater = LayoutInflater.from(context);
+    final Context context = tabs.getContext();
+    final LayoutInflater inflater = LayoutInflater.from(context);
     boolean landscape = (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
 
     for (Tab tab : TABS)
     {
-      TextView tabView = (TextView) inflater.inflate(R.layout.tab, tabs, false);
+      final TextView tabView = (TextView) inflater.inflate(R.layout.tab, tabs, false);
       tabView.setText(tab.getTitleRes());
       tabView.setCompoundDrawablesWithIntrinsicBounds(landscape ? tab.getIconRes() : 0, landscape ? 0 : tab.getIconRes(), 0, 0);
       Graphics.tintTextView(tabView, context.getResources().getColorStateList(R.color.text_highlight));

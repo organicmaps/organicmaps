@@ -3,6 +3,7 @@ package com.mapswithme.maps.search;
 import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.api.ParsedMwmRequest;
@@ -12,7 +13,6 @@ import com.mapswithme.util.UiUtils;
 public class FloatingSearchToolbarController extends SearchToolbarController
 {
   private static String sSavedQuery = "";
-
 
   public FloatingSearchToolbarController(Activity activity)
   {
@@ -89,7 +89,8 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     hide();
   }
 
-  public boolean hide() {
+  public boolean hide()
+  {
     if (mToolbar.getVisibility() != View.VISIBLE)
       return false;
 

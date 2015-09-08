@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
@@ -74,8 +75,8 @@ public class SearchToolbarController extends ToolbarController
 
   private void updateButtons(boolean queryEmpty)
   {
-    UiUtils.showIf(queryEmpty, mVoiceInput);
-    UiUtils.showIf(!queryEmpty && mVoiceInputSuported, mClear);
+    UiUtils.showIf(queryEmpty && mVoiceInputSuported, mVoiceInput);
+    UiUtils.showIf(!queryEmpty, mClear);
   }
 
   protected void onQueryClick(String query)

@@ -9,7 +9,6 @@ class CachedResults
 {
   private final SearchFragment mFragment;
   private final SparseArray<SearchResult> mCache = new SparseArray<>();
-  private int mCurrentQueryId = -1;
 
   public CachedResults(SearchFragment fragment)
   {
@@ -19,7 +18,6 @@ class CachedResults
   public SearchResult get(int position)
   {
     SearchResult res = mCache.get(position);
-
     if (res == null)
     {
       res = mFragment.getUncachedResult(position);

@@ -1,14 +1,11 @@
 package com.mapswithme.maps;
 
-import android.util.Pair;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.util.Constants;
-
-import java.util.List;
 
 /**
  * This class wraps android::Framework.cpp class
@@ -191,10 +188,4 @@ public class Framework
   public native static void nativeRegisterMaps();
 
   public native static void nativeDeregisterMaps();
-
-  public native static void nativeGetRecentSearchQueries(List<Pair<String, String>> result);
-
-  public native static void nativeAddRecentSearchQuery(String locale, String query);
-
-  public native static void nativeClearRecentSearchQueries();
 }
