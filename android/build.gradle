@@ -15,6 +15,7 @@ allprojects {
 }
 
 apply plugin: 'com.android.application'
+apply from: 'secure.properties'
 
 dependencies {
   // android support libs
@@ -56,7 +57,6 @@ android {
     minSdkVersion propMinSdkVersion.toInteger()
     targetSdkVersion propTargetSdkVersion.toInteger()
     applicationId 'com.mapswithme.maps.pro'
-    buildConfigField 'String', 'STATISTICS_URL', propStatisticsUrl
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
     buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
@@ -192,10 +192,10 @@ android {
 
   signingConfigs {
     mapswithme {
-      storeFile file('../tools/android/mapswithme.keystore')
-      storePassword '***REMOVED***'
-      keyAlias 'mapswithme'
-      keyPassword '***REMOVED***'
+      storeFile file(spropStoreFile)
+      storePassword spropStorePassword
+      keyAlias spropKeyAlias
+      keyPassword spropKeyPassword
     }
 
     mapswithmeDebug {

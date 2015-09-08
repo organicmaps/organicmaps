@@ -9,7 +9,7 @@ import com.flurry.android.FlurryAgent;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
+import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
@@ -268,17 +268,17 @@ public enum Statistics
       FlurryAgent.setLogLevel(BuildConfig.DEBUG ? Log.DEBUG : Log.ERROR);
       FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
       FlurryAgent.setCaptureUncaughtExceptions(false);
-      FlurryAgent.init(context, context.getString(R.string.flurry_app_key));
+      FlurryAgent.init(context, PrivateVariables.flurryKey());
 
       MRMyTracker.setDebugMode(BuildConfig.DEBUG);
-      MRMyTracker.createTracker(context.getString(R.string.my_tracker_app_id), context);
+      MRMyTracker.createTracker(PrivateVariables.myTrackerKey(), context);
       final MRMyTrackerParams myParams = MRMyTracker.getTrackerParams();
       myParams.setTrackingPreinstallsEnabled(true);
       myParams.setTrackingLaunchEnabled(true);
       MRMyTracker.initTracker();
 
       org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);
-      org.alohalytics.Statistics.setup(BuildConfig.STATISTICS_URL, context);
+      org.alohalytics.Statistics.setup(PrivateVariables.alohalyticsUrl(), context);
     }
   }
 

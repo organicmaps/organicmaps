@@ -227,7 +227,7 @@ public class MwmApplication extends android.app.Application implements ActiveCou
    */
   private void initParse()
   {
-    Parse.initialize(this, "***REMOVED***", "***REMOVED***");
+    Parse.initialize(this, PrivateVariables.parseApplicationId(), PrivateVariables.parseClientKey());
     ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback()
     {
       @Override

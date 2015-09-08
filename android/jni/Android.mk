@@ -57,7 +57,8 @@ endif
 TARGET_PLATFORM := android-15
 
 LOCAL_HEADER_FILES := \
- 	com/mapswithme/core/jni_helper.hpp \
+	../../private.h \
+	com/mapswithme/core/jni_helper.hpp \
 	com/mapswithme/core/logging.hpp \
 	com/mapswithme/core/render_context.hpp \
 	com/mapswithme/maps/Framework.hpp \
@@ -89,6 +90,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/LocationState.cpp \
 	com/mapswithme/maps/MapStorage.cpp \
 	com/mapswithme/maps/DownloadResourcesActivity.cpp \
+	com/mapswithme/maps/PrivateVariables.cpp \
 	com/mapswithme/maps/SearchFragment.cpp \
 	com/mapswithme/maps/settings/UnitLocale.cpp \
 	com/mapswithme/platform/Platform.cpp \
