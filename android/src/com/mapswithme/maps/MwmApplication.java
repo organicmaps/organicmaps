@@ -233,7 +233,7 @@ public class MwmApplication extends android.app.Application implements ActiveCou
 
         String newId = ParseInstallation.getCurrentInstallation().getInstallationId();
         String newToken = ParseInstallation.getCurrentInstallation().getString("deviceToken");
-        if (previousId.equals(newId) || previousToken.equals(newToken))
+        if (!previousId.equals(newId) || !previousToken.equals(newToken))
         {
           org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_INSTALLATION_ID, newId);
           org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_DEVICE_TOKEN, newToken);
