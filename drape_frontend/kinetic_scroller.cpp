@@ -39,16 +39,16 @@ public:
   {
   }
 
-  m2::AnyRectD GetCurrentRect() const override
+  m2::AnyRectD GetCurrentRect(ScreenBase const & screen) const override
   {
     // current position = target position - amplutide * e ^ (elapsed / duration)
     // we calculate current position not based on start position, but based on target position
     return m2::AnyRectD(m_targetCenter - m_direction * exp(-kKineticFadeoff * GetT()), m_angle, m_localRect);
   }
 
-  m2::AnyRectD GetTargetRect() const override
+  m2::AnyRectD GetTargetRect(ScreenBase const & screen) const override
   {
-    return GetCurrentRect();
+    return GetCurrentRect(screen);
   }
 
 private:

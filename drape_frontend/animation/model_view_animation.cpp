@@ -17,14 +17,45 @@ ModelViewAnimation::ModelViewAnimation(m2::AnyRectD const & startRect, m2::AnyRe
 {
 }
 
-m2::AnyRectD ModelViewAnimation::GetCurrentRect() const
+m2::AnyRectD ModelViewAnimation::GetCurrentRect(ScreenBase const & screen) const
 {
   return GetRect(GetElapsedTime());
 }
 
-m2::AnyRectD ModelViewAnimation::GetTargetRect() const
+m2::AnyRectD ModelViewAnimation::GetTargetRect(ScreenBase const & screen) const
 {
   return GetRect(GetDuration());
+}
+
+FixedPointAnimation::FixedPointAnimation(m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
+                                         double aDuration, double mDuration, double sDuration,
+                                         m2::PointD const & pixelPoint, m2::PointD const & globalPoint)
+  : ModelViewAnimation(startRect, endRect, aDuration, mDuration, sDuration)
+  , m_pixelPoint(pixelPoint)
+  , m_globalPoint(globalPoint)
+{
+}
+
+void FixedPointAnimation::ApplyFixedPoint(ScreenBase const & screen, m2::AnyRectD & rect) const
+{
+  ScreenBase s = screen;
+  s.SetFromRect(rect);
+  m2::PointD const p = s.PtoG(m_pixelPoint);
+  rect.Offset(m_globalPoint - p);
+}
+
+m2::AnyRectD FixedPointAnimation::GetCurrentRect(ScreenBase const & screen) const
+{
+  m2::AnyRectD r = GetRect(GetElapsedTime());
+  ApplyFixedPoint(screen, r);
+  return r;
+}
+
+m2::AnyRectD FixedPointAnimation::GetTargetRect(ScreenBase const & screen) const
+{
+  m2::AnyRectD r = GetRect(GetDuration());
+  ApplyFixedPoint(screen, r);
+  return r;
 }
 
 namespace

@@ -14,8 +14,8 @@ class BaseModelViewAnimation : public BaseInterpolator
 public:
   BaseModelViewAnimation(double duration, double delay = 0) : BaseInterpolator(duration, delay) {}
 
-  virtual m2::AnyRectD GetCurrentRect() const = 0;
-  virtual m2::AnyRectD GetTargetRect() const = 0;
+  virtual m2::AnyRectD GetCurrentRect(ScreenBase const & screen) const = 0;
+  virtual m2::AnyRectD GetTargetRect(ScreenBase const & screen) const = 0;
 };
 
 class ModelViewAnimation : public BaseModelViewAnimation
@@ -30,10 +30,10 @@ public:
   /// sDuration - scaleDuration
   ModelViewAnimation(m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
                      double aDuration, double mDuration, double sDuration);
-  m2::AnyRectD GetCurrentRect() const override;
-  m2::AnyRectD GetTargetRect() const override;
+  m2::AnyRectD GetCurrentRect(ScreenBase const & screen) const override;
+  m2::AnyRectD GetTargetRect(ScreenBase const & screen) const override;
 
-private:
+protected:
   m2::AnyRectD GetRect(double elapsedTime) const;
 
 private:
@@ -44,6 +44,21 @@ private:
   double m_angleDuration;
   double m_moveDuration;
   double m_scaleDuration;
+};
+
+class FixedPointAnimation : public ModelViewAnimation
+{
+public:
+  FixedPointAnimation(m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
+                      double aDuration, double mDuration, double sDuration,
+                      m2::PointD const & pixelPoint, m2::PointD const & globalPoint);
+  m2::AnyRectD GetCurrentRect(ScreenBase const & screen) const override;
+  m2::AnyRectD GetTargetRect(ScreenBase const & screen) const override;
+
+private:
+  void ApplyFixedPoint(ScreenBase const & screen, m2::AnyRectD & rect) const;
+  m2::PointD m_pixelPoint;
+  m2::PointD m_globalPoint;
 };
 
 } // namespace df

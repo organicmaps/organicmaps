@@ -225,24 +225,26 @@ public:
 #endif
 
 private:
+  using TAnimationCreator = function<void(m2::AnyRectD const &, m2::AnyRectD const &, double, double, double)>;
   bool SetScale(m2::PointD const & pxScaleCenter, double factor, bool isAnim);
   bool SetCenter(m2::PointD const & center, int zoom, bool isAnim);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim);
+  bool SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator const & animCreator);
 
   m2::AnyRectD GetCurrentRect() const;
 
   bool ProcessTouch(TouchEvent const & touch);
 
-  bool TouchDown(array<Touch, 2> const & touches);
-  bool TouchMove(array<Touch, 2> const & touches);
-  bool TouchCancel(array<Touch, 2> const & touches);
-  bool TouchUp(array<Touch, 2> const & touches);
+  bool TouchDown(array<Touch, 2> const & touches, double timestamp);
+  bool TouchMove(array<Touch, 2> const & touches, double timestamp);
+  bool TouchCancel(array<Touch, 2> const & touches, double timestamp);
+  bool TouchUp(array<Touch, 2> const & touches, double timestamp);
   void UpdateTouches(array<Touch, 2> const & touches);
 
-  void BeginDrag(Touch const & t);
-  void Drag(Touch const & t);
-  void EndDrag(Touch const & t);
+  void BeginDrag(Touch const & t, double timestamp);
+  void Drag(Touch const & t, double timestamp);
+  bool EndDrag(Touch const & t, double timestamp, bool cancelled);
 
   void BeginScale(Touch const & t1, Touch const & t2);
   void Scale(Touch const & t1, Touch const & t2);
