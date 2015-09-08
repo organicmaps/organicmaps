@@ -33,7 +33,7 @@ namespace location
 namespace
 {
 
-static const int POSITION_Y_OFFSET = 120;
+static const int POSITION_Y_OFFSET = 75;
 static const double POSITION_TOLERANCE = 1.0E-6;  // much less than coordinates coding error
 static const double ANGLE_TOLERANCE = my::DegToRad(3.0);
 static const double GPS_BEARING_LIFETIME_S = 5.0;
