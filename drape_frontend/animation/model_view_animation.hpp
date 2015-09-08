@@ -49,6 +49,8 @@ private:
 class FixedPointAnimation : public ModelViewAnimation
 {
 public:
+  /// This animation extends ModelViewAnimation by adding point which must be in certain
+  /// pixel position on the screen.
   FixedPointAnimation(m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
                       double aDuration, double mDuration, double sDuration,
                       m2::PointD const & pixelPoint, m2::PointD const & globalPoint);

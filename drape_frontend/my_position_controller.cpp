@@ -477,7 +477,9 @@ void MyPositionController::Follow()
 {
   location::EMyPositionMode currentMode = GetMode();
   if (currentMode == location::MODE_FOLLOW)
+  {
     ChangeModelView(m_position);
+  }
   else if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
   {
     bool animate = true;

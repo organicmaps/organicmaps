@@ -244,6 +244,7 @@ private:
 
   void BeginDrag(Touch const & t, double timestamp);
   void Drag(Touch const & t, double timestamp);
+  // EndDrag returns false in case of kinetic moving after dragging has begun.
   bool EndDrag(Touch const & t, double timestamp, bool cancelled);
 
   void BeginScale(Touch const & t1, Touch const & t2);
