@@ -156,12 +156,15 @@ void InitLocalizedStrings()
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // Initialize all 3party engines.
-  [[Statistics instance] application:application didFinishLaunchingWithOptions:launchOptions];
+  BOOL returnValue = [[Statistics instance] application:application
+                          didFinishLaunchingWithOptions:launchOptions];
 
-  NSURL * url = launchOptions[UIApplicationLaunchOptionsURLKey];
-  if (url != nil)
-    [self checkLaunchURL:url];
-  
+  NSURL * urlUsedToLaunchMaps = launchOptions[UIApplicationLaunchOptionsURLKey];
+  if (urlUsedToLaunchMaps != nil)
+    returnValue |= [self checkLaunchURL:urlUsedToLaunchMaps];
+  else
+    returnValue = YES;
+
   [HttpThread setDownloadIndicatorProtocol:[MapsAppDelegate theApp]];
 
   [self trackWatchUser];
@@ -215,7 +218,7 @@ void InitLocalizedStrings()
   application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
   f.GetLocationState()->InvalidatePosition();
 
-  return YES;
+  return returnValue;
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler

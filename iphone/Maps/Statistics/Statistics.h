@@ -6,7 +6,7 @@
 - (void)disableOnNextAppLaunch;
 
 // Should be called from the same method in AppDelegate.
-- (void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 // Should be called from the same method in AppDelegate.
 - (void)applicationDidBecomeActive;
 - (void)logEvent:(NSString *)eventName;

@@ -70,14 +70,12 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
   [Alohalytics logEvent:@"statisticsDisabled"];
 }
 
-- (void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // _enabled should be already correctly set up in init method.
   if (_enabled)
   {
     [Flurry startSession:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
-
-    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 
     [MRMyTracker createTracker:@"***REMOVED***"];
 #ifdef DEBUG
@@ -88,6 +86,8 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 
     [Alohalytics setup:@"http://localhost:8080" withLaunchOptions:launchOptions];
   }
+  // Always call Facebook method, looks like it is required to handle some url schemes and sign on scenarios.
+  return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (void)logLocation:(CLLocation *)location
