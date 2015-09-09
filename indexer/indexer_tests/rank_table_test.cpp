@@ -49,7 +49,7 @@ void TestTable(vector<uint8_t> const & ranks, string const & path)
 }
 }  // namespace
 
-UNIT_TEST(FeatureRankTableBuilder_Smoke)
+UNIT_TEST(RankTableBuilder_Smoke)
 {
   char const kTestCont[] = "test.tmp";
   size_t const kNumRanks = 256;
@@ -69,7 +69,7 @@ UNIT_TEST(FeatureRankTableBuilder_Smoke)
   TestTable(ranks, kTestCont);
 }
 
-UNIT_TEST(FeatureRankTableBuilder_EndToEnd)
+UNIT_TEST(RankTableBuilder_EndToEnd)
 {
   classificator::Load();
 
@@ -89,7 +89,10 @@ UNIT_TEST(FeatureRankTableBuilder_EndToEnd)
     search::RankTableBuilder::CalcSearchRanks(rcont, ranks);
   }
 
-  search::RankTableBuilder::Create(localFile);
+  {
+    FilesContainerW wcont(mapPath, FileWriter::OP_WRITE_EXISTING);
+    search::RankTableBuilder::Create(ranks, wcont);
+  }
 
   Index index;
   auto regResult = index.RegisterMap(localFile);

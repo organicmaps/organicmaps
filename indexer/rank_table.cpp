@@ -94,7 +94,7 @@ private:
   DISALLOW_COPY(CopiedMemoryRegion);
 };
 
-unique_ptr<CopiedMemoryRegion> GetMemoryRegionForTag(FilesContainerR & rcont,
+unique_ptr<CopiedMemoryRegion> GetMemoryRegionForTag(FilesContainerR const & rcont,
                                                      FilesContainerBase::Tag const & tag)
 {
   if (!rcont.IsExist(tag))
@@ -105,7 +105,7 @@ unique_ptr<CopiedMemoryRegion> GetMemoryRegionForTag(FilesContainerR & rcont,
   return make_unique<CopiedMemoryRegion>(move(buffer));
 }
 
-unique_ptr<MappedMemoryRegion> GetMemoryRegionForTag(FilesMappingContainer & mcont,
+unique_ptr<MappedMemoryRegion> GetMemoryRegionForTag(FilesMappingContainer const & mcont,
                                                      FilesContainerBase::Tag const & tag)
 {
   if (!mcont.IsExist(tag))
@@ -242,13 +242,13 @@ uint8_t CalcSearchRank(FeatureType const & ft)
 }  // namespace
 
 // static
-unique_ptr<RankTable> RankTable::Load(FilesContainerR & rcont)
+unique_ptr<RankTable> RankTable::Load(FilesContainerR const & rcont)
 {
   return LoadRankTable(GetMemoryRegionForTag(rcont, RANKS_FILE_TAG));
 }
 
 // static
-unique_ptr<RankTable> RankTable::Load(FilesMappingContainer & mcont)
+unique_ptr<RankTable> RankTable::Load(FilesMappingContainer const & mcont)
 {
   return LoadRankTable(GetMemoryRegionForTag(mcont, RANKS_FILE_TAG));
 }
@@ -266,7 +266,7 @@ void RankTableBuilder::CalcSearchRanks(FilesContainerR & rcont, vector<uint8_t> 
 }
 
 // static
-void RankTableBuilder::Create(platform::LocalCountryFile const & localFile)
+void RankTableBuilder::CreateIfNotExists(platform::LocalCountryFile const & localFile)
 {
   string const mapPath = localFile.GetPath(MapOptions::Map);
 

@@ -65,7 +65,7 @@ public:
   // *NOTE* Return value can outlive |rcont|. Also note that there is
   // undefined behaviour if ranks section exists but internally
   // damaged.
-  static unique_ptr<RankTable> Load(FilesContainerR & rcont);
+  static unique_ptr<RankTable> Load(FilesContainerR const & rcont);
 
   // Maps whole section corresponding to a rank table and deserializes
   // it. Returns nullptr if there're no ranks section, rank table's
@@ -76,7 +76,7 @@ public:
   // destructed before |mcont| is closed. Also note that there're
   // undefined behaviour if ranks section exists but internally
   // damaged.
-  static unique_ptr<RankTable> Load(FilesMappingContainer & mcont);
+  static unique_ptr<RankTable> Load(FilesMappingContainer const & mcont);
 };
 
 // A builder class for rank tables.
@@ -92,7 +92,7 @@ public:
   //   reverse mapping.
   // * When rank table does not exist or exists but is damaged, calculates all
   //   features' ranks and creates rank table.
-  static void Create(platform::LocalCountryFile const & localFile);
+  static void CreateIfNotExists(platform::LocalCountryFile const & localFile);
 
   // Force creation of a rank table from array of ranks. Existing rank
   // table is removed (if any). Note that |wcont| must be instantiated

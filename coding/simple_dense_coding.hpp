@@ -2,16 +2,14 @@
 
 #include "std/vector.hpp"
 
-#include "3party/succinct/bit_vector.hpp"
-#include "3party/succinct/mappable_vector.hpp"
-#include "3party/succinct/rs_bit_vector.hpp"
+#include "3party/succinct/elias_fano_compressed_list.hpp"
 
 namespace coding
 {
-// This class represents so-called simple dense coding for byte
-// strings.  It can be used when it's necessary to compress strings
-// with skewed entropy and nevertheless efficient access to the
-// string's elements is needed.
+// This class represents a variant of a so-called simple dense coding
+// scheme for byte strings.  It can be used when it's necessary to
+// compress strings with skewed entropy and nevertheless efficient
+// access to the string's elements is needed.
 //
 // The main idea is to assign codewords from the set { 0, 1, 00, 01,
 // 10, 11, 000, ... } to string's symbols in accordance with their
@@ -40,21 +38,19 @@ public:
 
   uint8_t Get(uint64_t i) const;
 
-  inline uint64_t Size() const { return m_index.num_ones(); }
+  inline uint64_t Size() const { return m_ranks.size(); }
 
   // map is used here (instead of Map) for compatibility with succinct
   // structures.
   template <typename TVisitor>
   void map(TVisitor & visitor)
   {
-    visitor(m_bits, "m_bits");
-    visitor(m_index, "m_index");
+    visitor(m_ranks, "m_ranks");
     visitor(m_symbols, "m_symbols");
   }
 
 private:
-  succinct::bit_vector m_bits;
-  succinct::rs_bit_vector m_index;
+  succinct::elias_fano_compressed_list m_ranks;
   succinct::mapper::mappable_vector<uint8_t> m_symbols;
 };
 }  // namespace coding
