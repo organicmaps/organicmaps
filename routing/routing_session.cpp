@@ -376,6 +376,7 @@ void RoutingSession::SetTurnNotificationsUnits(routing::turns::sound::LengthUnit
 
 void RoutingSession::SetTurnNotificationsLocale(string const & locale)
 {
+  LOG(LINFO, ("The language for turn notifications is", locale));
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
   m_turnsSound.SetLocale(locale);
