@@ -10,10 +10,10 @@
 
 @interface MWMRouteHelperPanelsDrawer : NSObject
 
-@property (nonatomic, weak, readonly) UIView * parentView;
+@property (weak, nonatomic, readonly) UIView * parentView;
 
 - (instancetype)initWithView:(UIView *)view;
-- (void)drawPanels:(vector<MWMRouteHelperPanel *> const &)panels;
-- (void)invalidateTopBounds:(vector<MWMRouteHelperPanel *> const &)panels forOrientation:(UIInterfaceOrientation)orientation;
+- (void)drawPanels:(NSArray *)panels;
+- (void)invalidateTopBounds:(NSArray *)panels forOrientation:(UIInterfaceOrientation)orientation;
 
 @end

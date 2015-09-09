@@ -45,7 +45,7 @@
     _distanceToTurn = @(dist.c_str());
     _turnUnits = @(units.c_str());
     _streetName = @"";
-    _lanes = {};
+//    _lanes = {};
   }
   else
   {
@@ -53,7 +53,7 @@
     _distanceToTurn = @(info.m_distToTurn.c_str());
     _turnUnits = @(info.m_turnUnitsSuffix.c_str());
     _streetName = @(info.m_targetName.c_str());
-    _lanes = info.m_lanes;
+//    _lanes = info.m_lanes;
     _nextTurnImage = image(info.m_nextTurn, true);
   }
   _turnImage = image(info.m_turn, false);

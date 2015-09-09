@@ -39,7 +39,7 @@
   [self.progress setThumbImage:[UIImage imageNamed:@"progress_circle_light"] forState:UIControlStateNormal];
   [self.progress setMaximumTrackTintColor:[UIColor colorWithWhite:0. alpha:0.08]];
   [self.progress setMinimumTrackTintColor:[UIColor blackSecondaryText]];
-  auto l = self.layer;
+  CALayer * l = self.layer;
   l.shouldRasterize = YES;
   l.rasterizationScale = UIScreen.mainScreen.scale;
 }

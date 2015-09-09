@@ -13,6 +13,6 @@
 @interface MWMLanesPanel : MWMRouteHelperPanel
 
 - (instancetype)initWithParentView:(UIView *)parentView;
-- (void)configureWithLanes:(std::vector<location::FollowingInfo::SingleLaneInfoClient> const &)lanes;
+- (void)configureWithLanes:(vector<location::FollowingInfo::SingleLaneInfoClient> const &)lanes;
 
 @end

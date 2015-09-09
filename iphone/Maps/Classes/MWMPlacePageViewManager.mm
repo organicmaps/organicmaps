@@ -77,7 +77,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
 {
   NSAssert(userMark, @"userMark cannot be nil");
-  m_userMark = std::move(userMark);
+  m_userMark = move(userMark);
   [[MapsAppDelegate theApp].m_locationManager start:self];
   self.entity = [[MWMPlacePageEntity alloc] initWithUserMark:m_userMark->GetUserMark()];
   self.state = MWMPlacePageManagerStateOpen;

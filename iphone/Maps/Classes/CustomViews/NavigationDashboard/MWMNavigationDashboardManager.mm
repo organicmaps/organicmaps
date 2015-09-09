@@ -20,9 +20,6 @@
 #import "UIKitCategories.h"
 
 @interface MWMNavigationDashboardManager ()
-{
-  vector<MWMRouteHelperPanel *> helperPanels;
-}
 
 @property (nonatomic) IBOutlet MWMRoutePreview * routePreviewLandscape;
 @property (nonatomic) IBOutlet MWMRoutePreview * routePreviewPortrait;
@@ -40,6 +37,7 @@
 //@property (nonatomic) MWMLanesPanel * lanesPanel;
 @property (nonatomic) MWMNextTurnPanel * nextTurnPanel;
 @property (nonatomic) MWMRouteHelperPanelsDrawer * drawer;
+@property (nonatomic) NSMutableArray * helperPanels;
 
 @end
 
@@ -72,6 +70,7 @@
       self.navigationDashboardPortrait.delegate = self.navigationDashboardLandscape.delegate = delegate;
     }
     self.tts = [[MWMTextToSpeech alloc] init];
+    self.helperPanels = [NSMutableArray array];
   }
   return self;
 }
@@ -80,8 +79,6 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-  if (IPAD)
-    return;
   BOOL const isPortrait = UIInterfaceOrientationIsPortrait(orientation);
   MWMRoutePreview * routePreview = isPortrait ? self.routePreviewPortrait : self.routePreviewLandscape;
   if (self.routePreview.isVisible && ![routePreview isEqual:self.routePreview])
@@ -90,6 +87,8 @@
     [routePreview addToView:self.ownerView];
   }
   self.routePreview = routePreview;
+  if (IPAD)
+    return;
 
   MWMNavigationDashboard * navigationDashboard = isPortrait ? self.navigationDashboardPortrait :
                                                               self.navigationDashboardLandscape;
@@ -99,18 +98,18 @@
     [navigationDashboard addToView:self.ownerView];
   }
   self.navigationDashboard = navigationDashboard;
-  [self.drawer invalidateTopBounds:helperPanels forOrientation:orientation];
+  [self.drawer invalidateTopBounds:self.helperPanels.copy forOrientation:orientation];
 }
 
 - (void)hideHelperPanels
 {
-  for (auto p : helperPanels)
+  for (MWMRouteHelperPanel * p in self.helperPanels)
     [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ p.alpha = 0.; }];
 }
 
 - (void)showHelperPanels
 {
-  for (auto p : helperPanels)
+  for (MWMRouteHelperPanel * p in self.helperPanels)
     [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ p.alpha = 1.; }];
 }
 
@@ -164,38 +163,46 @@
   {
     [self removePanel:self.nextTurnPanel];
   }
-  [self.drawer drawPanels:helperPanels];
+  [self.drawer drawPanels:self.helperPanels.copy];
 }
 
 - (void)addPanel:(MWMRouteHelperPanel *)panel
 {
-  if (helperPanels.empty())
+  switch (self.helperPanels.count)
   {
-    helperPanels.push_back(panel);
-    return;
-  }
-  if (helperPanels.size() == 1)
-  {
-    if (![helperPanels.front() isKindOfClass:panel.class])
-    {
-      helperPanels.push_back(panel);
+    case 0:
+      [self.helperPanels addObject:panel];
       return;
-    }
-  }
-  for (auto p : helperPanels)
-  {
-    if ([p isEqual:panel])
-      continue;
+    case 1:
+      if (![self.helperPanels.firstObject isKindOfClass:panel.class])
+      {
+        [self.helperPanels addObject:panel];
+        return;
+      }
+      return;
+    case 2:
+      for (MWMRouteHelperPanel * p in self.helperPanels)
+      {
+        if ([p isEqual:panel])
+          continue;
 
-    if ([p isKindOfClass:panel.class])
-      replace(helperPanels.begin(), helperPanels.end(), p, panel);
+        if ([p isKindOfClass:panel.class])
+        {
+          NSUInteger const index = [self.helperPanels indexOfObject:p];
+          self.helperPanels[index] = panel;
+        }
+      }
+      return;
+    default:
+      NSAssert(false, @"Incorrect array size!");
+      break;
   }
 }
 
 - (void)removePanel:(MWMRouteHelperPanel *)panel
 {
-  if (find(helperPanels.begin(), helperPanels.end(), panel) != helperPanels.end())
-    helperPanels.erase(remove(helperPanels.begin(), helperPanels.end(), panel));
+  if ([self.helperPanels containsObject:panel])
+    [self.helperPanels removeObject:panel];
   panel.hidden = YES;
 }
 
@@ -235,7 +242,7 @@
   self.state = MWMNavigationDashboardStateHidden;
   [self removePanel:self.nextTurnPanel];
 //  [self removePanel:self.lanesPanel];
-  helperPanels.clear();
+  self.helperPanels = [NSMutableArray array];
   [self.delegate didCancelRouting];
 }
 
@@ -263,6 +270,8 @@
   [self.routePreview addToView:self.ownerView];
   [self.routePreviewLandscape statePlaning];
   [self.routePreviewPortrait statePlaning];
+  [self removePanel:self.nextTurnPanel];
+//  [self removePanel:self.lanesPanel];
   auto const state = GetFramework().GetRouter();
   switch (state)
   {
@@ -303,36 +312,21 @@
 - (MWMRouteHelperPanelsDrawer *)drawer
 {
   if (!_drawer)
-  {
-    if (IPAD)
-      _drawer = [[MWMRouteHelperPanelsDrawer alloc] initWithView:self.navigationDashboard];
-    else
-      _drawer = [[MWMRouteHelperPanelsDrawer alloc] initWithView:self.ownerView];
-  }
+    _drawer = [[MWMRouteHelperPanelsDrawer alloc] initWithView:IPAD ? self.navigationDashboard : self.ownerView];
   return _drawer;
 }
 
 //- (MWMLanesPanel *)lanesPanel
 //{
 //  if (!_lanesPanel)
-//  {
-//    if (IPAD)
-//      _lanesPanel = [[MWMLanesPanel alloc] initWithParentView:self.navigationDashboard];
-//    else
-//      _lanesPanel = [[MWMLanesPanel alloc] initWithParentView:self.ownerView];
-//  }
+//    _lanesPanel = [[MWMLanesPanel alloc] initWithParentView:IPAD ? self.navigationDashboard : self.ownerView];
 //  return _lanesPanel;
 //}
 
 - (MWMNextTurnPanel *)nextTurnPanel
 {
   if (!_nextTurnPanel)
-  {
-    if (IPAD)
-      _nextTurnPanel = [MWMNextTurnPanel turnPanelWithOwnerView:self.navigationDashboard];
-    else
-      _nextTurnPanel = [MWMNextTurnPanel turnPanelWithOwnerView:self.ownerView];
-  }
+    _nextTurnPanel = [MWMNextTurnPanel turnPanelWithOwnerView:IPAD ? self.navigationDashboard : self.ownerView];
   return _nextTurnPanel;
 }
 

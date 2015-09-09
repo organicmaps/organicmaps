@@ -79,7 +79,7 @@
 
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
 {
-  [self.placePageManager showPlacePageWithUserMark:std::move(userMark)];
+  [self.placePageManager showPlacePageWithUserMark:move(userMark)];
   if (UIInterfaceOrientationIsLandscape(self.ownerController.interfaceOrientation))
     [self.navigationManager hideHelperPanels];
 }

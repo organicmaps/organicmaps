@@ -18,20 +18,36 @@ static CGFloat const kHeight = 40.;
 {
   if (IPAD)
   {
-    [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ self.alpha = hidden ? 0. : 1.; }];
+    if (!hidden)
+      [super setHidden:hidden];
+    [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+    {
+      self.alpha = hidden ? 0. : 1.;
+    }
+    completion:^(BOOL finished)
+    {
+      if (hidden)
+        [super setHidden:hidden];
+    }];
     return;
   }
-  [super setHidden:hidden];
   if (hidden)
   {
-    [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ self.alpha = 0.; }];
+    [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+    {
+      self.alpha = 0.;
+    }
+    completion:^(BOOL finished)
+    {
+      [super setHidden:hidden];
+    }];
   }
   else
   {
+    [super setHidden:hidden];
     CGFloat const offsetFactor = 40.;
     CGFloat const scaleFactor = 0.4;
-    auto const scale = CGAffineTransformMakeScale(scaleFactor, scaleFactor);
-    self.transform = scale;
+    self.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor);
     self.minY += offsetFactor;
     [UIView animateWithDuration:kDefaultAnimationDuration animations:^
     {
@@ -59,6 +75,12 @@ static CGFloat const kHeight = 40.;
   else
     self.center = {self.parentView.center.x, self.center.y};
   [super layoutSubviews];
+}
+
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
+  [super willMoveToSuperview:newSuperview];
+  self.alpha = 0.;
 }
 
 - (CGFloat)defaultHeight

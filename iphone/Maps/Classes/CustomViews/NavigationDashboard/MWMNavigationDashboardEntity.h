@@ -20,7 +20,7 @@
 @property (nonatomic, readonly) NSUInteger roundExitNumber;
 @property (nonatomic, readonly) NSUInteger timeToTarget;
 @property (nonatomic, readonly) CGFloat progress;
-@property (nonatomic, readonly) std::vector<location::FollowingInfo::SingleLaneInfoClient> lanes;
+//@property (nonatomic, readonly) vector<location::FollowingInfo::SingleLaneInfoClient> lanes;
 @property (nonatomic, readonly) BOOL isPedestrian;
 
 - (void)updateWithFollowingInfo:(location::FollowingInfo const &)info;

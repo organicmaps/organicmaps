@@ -33,86 +33,85 @@ static CGFloat const kBottomOffsetValueLandscape = 164.;
   return self;
 }
 
-- (void)invalidateTopBounds:(vector<MWMRouteHelperPanel *> const &)panels forOrientation:(UIInterfaceOrientation)orientation
+- (void)invalidateTopBounds:(NSArray *)panels forOrientation:(UIInterfaceOrientation)orientation
 {
-  if (IPAD || panels.empty())
+  if (IPAD || !panels.count)
     return;
-  if (UIInterfaceOrientationIsPortrait(orientation))
-    panels.front().topBound = kTopOffsetValuePortrait;
-  else
-    panels.front().topBound = kTopOffsetValueLandscape;
+  [(MWMRouteHelperPanel *)panels.firstObject setTopBound:UIInterfaceOrientationIsPortrait(orientation) ? kTopOffsetValuePortrait : kTopOffsetValueLandscape];
 }
 
-- (void)drawPanels:(vector<MWMRouteHelperPanel *> const &)panels
+- (void)drawPanels:(NSArray *)panels
 {
-  if (panels.empty())
-    return;
   if (IPAD)
     [self drawForiPad:panels];
   else
     [self drawForiPhone:panels];
 }
 
-- (void)drawForiPad:(vector<MWMRouteHelperPanel *> const &)panels
+- (void)drawForiPad:(NSArray *)panels
 {
-  if (panels.empty())
+  switch (panels.count)
   {
-    [self removeDivider];
-    return;
-  }
-  if (panels.size() == 1)
-  {
-    panels.front().topBound = self.parentView.height;
-    [self removeDivider];
-    return;
-  }
-  if (panels.size() == 2)
-  {
-    MWMRouteHelperPanel * first;
-    MWMRouteHelperPanel * second;
-    for (auto p : panels)
+    case 0:
+      [self removeDivider];
+      return;
+    case 1:
+      [(MWMRouteHelperPanel *)panels.firstObject setTopBound:self.parentView.height];
+      [self removeDivider];
+      return;
+    case 2:
     {
-      if ([p isKindOfClass:[MWMLanesPanel class]])
-        first = p;
-      else
-        second = p;
+      MWMRouteHelperPanel * first;
+      MWMRouteHelperPanel * second;
+      for (MWMRouteHelperPanel * p in panels)
+      {
+        if ([p isKindOfClass:[MWMLanesPanel class]])
+          first = p;
+        else
+          second = p;
+      }
+      first.topBound = self.parentView.height;
+      second.topBound = first.maxY;
+      [self drawDivider:first];
+      return;
     }
-    first.topBound = self.parentView.height;
-    second.topBound = first.maxY;
-    [self drawDivider:first];
-    return;
+    default:
+      NSAssert(false, @"Incorrect vector size");
+      return;
   }
-  NSAssert(false, @"Incorrect vector size");
 }
 
-- (void)drawForiPhone:(vector<MWMRouteHelperPanel *> const &)panels
+- (void)drawForiPhone:(NSArray *)panels
 {
-  if (panels.empty())
-    return;
-
   CGSize const s = self.parentView.size;
   BOOL const isPortrait = s.height > s.width;
-  if (panels.size() == 1)
+
+  switch (panels.count)
   {
-    panels.front().topBound = isPortrait ? kTopOffsetValuePortrait : kTopOffsetValueLandscape;
-    return;
-  }
-  if (panels.size() == 2)
-  {
-    MWMRouteHelperPanel * first;
-    MWMRouteHelperPanel * second;
-    for (auto p : panels)
+    case 0:
+      return;
+    case 1:
+      [(MWMRouteHelperPanel *)panels.firstObject setTopBound:isPortrait ? kTopOffsetValuePortrait : kTopOffsetValueLandscape ];
+      return;
+    case 2:
     {
-      if ([p isKindOfClass:[MWMLanesPanel class]])
-        first = p;
-      else
-        second = p;
+      MWMRouteHelperPanel * first;
+      MWMRouteHelperPanel * second;
+      for (MWMRouteHelperPanel * p in panels)
+      {
+        if ([p isKindOfClass:[MWMLanesPanel class]])
+          first = p;
+        else
+          second = p;
+      }
+      first.topBound = isPortrait ? kTopOffsetValuePortrait : kTopOffsetValuePortrait;
+      second.topBound = isPortrait ? kBottomOffsetValuePortrait : kBottomOffsetValueLandscape;
+      return;
     }
-    first.topBound = isPortrait ? kTopOffsetValuePortrait : kTopOffsetValuePortrait;
-    second.topBound = isPortrait ? kBottomOffsetValuePortrait : kBottomOffsetValueLandscape;
-    return;
+    default:
+      NSAssert(false, @"Incorrect vector size");
+      return;
   }
-  NSAssert(false, @"Incorrect vector size");
 }
 
 - (void)drawDivider:(UIView *)src
