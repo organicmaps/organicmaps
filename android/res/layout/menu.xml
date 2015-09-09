@@ -36,17 +36,20 @@
                  android:layout_width="@dimen/menu_line_button_width_edge"
                  android:layout_height="@dimen/menu_line_height"
                  android:paddingLeft="@dimen/margin_half"
-                 tools:src="@drawable/ic_my_position_pressed"/>
+                 android:paddingRight="@dimen/margin_half_plus"
+                 tools:src="@drawable/ic_my_position_pressed"
+                 tools:layout_marginTop="60dp"/>
 
       <ImageView android:id="@+id/toggle"
                  style="@style/MwmTheme.Menu.Line.Button"
                  android:layout_width="@dimen/menu_line_button_width_edge"
                  android:layout_height="@dimen/menu_line_height"
                  android:layout_gravity="right"
+                 android:paddingLeft="@dimen/margin_half_plus"
                  android:paddingRight="@dimen/margin_half"
                  android:src="@drawable/ic_menu_open"
                  android:background="@drawable/menu_button_right"
-                 tools:layout_marginTop="50dp"/>
+                 tools:layout_marginTop="60dp"/>
 
       <include android:id="@+id/buttons_frame"
                layout="@layout/menu_buttons_line"/>
@@ -55,7 +58,7 @@
                layout="@layout/menu_navigation_line"
                tools:layout_width="match_parent"
                tools:layout_height="@dimen/menu_line_height"
-               tools:layout_marginTop="50dp"/>
+               tools:layout_marginTop="60dp"/>
     </FrameLayout>
   </LinearLayout>
 </LinearLayout>

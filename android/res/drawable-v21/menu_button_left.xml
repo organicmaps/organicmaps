@@ -2,10 +2,9 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
         android:color="?android:attr/colorControlHighlight">
   <item android:id="@android:id/mask">
-    <shape android:shape="rectangle">
-      <corners android:topRightRadius="50dp"
-               android:bottomRightRadius="50dp"/>
-      <solid android:color="@android:color/white"/>
-    </shape>
+    <inset android:drawable="@drawable/menu_button_circle"
+           android:insetTop="@dimen/menu_line_button_inset_top"
+           android:insetBottom="@dimen/menu_line_button_inset_top"
+           android:insetLeft="@dimen/menu_line_button_inset_edge"/>
   </item>
 </ripple>
