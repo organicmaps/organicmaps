@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <dimen name="menu_line_button_width">72dp</dimen>
+  <dimen name="menu_line_button_width">80dp</dimen>
 </resources>

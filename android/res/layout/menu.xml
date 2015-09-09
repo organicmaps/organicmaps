@@ -32,6 +32,7 @@
                  android:layout_height="wrap_content">
       <ImageView android:id="@+id/my_position"
                  style="@style/MwmTheme.Menu.Line.Button"
+                 android:background="@drawable/menu_button_left"
                  android:layout_width="@dimen/menu_line_button_width_edge"
                  android:layout_height="@dimen/menu_line_height"
                  android:paddingLeft="@dimen/margin_half"
@@ -44,6 +45,7 @@
                  android:layout_gravity="right"
                  android:paddingRight="@dimen/margin_half"
                  android:src="@drawable/ic_menu_open"
+                 android:background="@drawable/menu_button_right"
                  tools:layout_marginTop="50dp"/>
 
       <include android:id="@+id/buttons_frame"

@@ -8,7 +8,7 @@
     <item name="android:layout_width">@dimen/menu_line_button_width</item>
     <item name="android:layout_height">@dimen/menu_line_height</item>
     <item name="android:scaleType">centerInside</item>
-    <item name="android:background">?clickableBackground</item>
+    <item name="android:background">@drawable/menu_button</item>
   </style>
 
   <style name="MwmTheme.Menu.Line.CurrentLocationText">

@@ -72,7 +72,7 @@
 
   <!-- Bottom menu -->
   <dimen name="menu_line_height">48dp</dimen>
-  <dimen name="menu_line_button_width">64dp</dimen>
+  <dimen name="menu_line_button_width">72dp</dimen>
   <dimen name="menu_line_button_width_edge">56dp</dimen>
   <dimen name="menu_list_item_height">48dp</dimen>
 

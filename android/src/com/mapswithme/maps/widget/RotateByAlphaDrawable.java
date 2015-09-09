@@ -73,7 +73,7 @@ public class RotateByAlphaDrawable extends Drawable
   public void draw(Canvas canvas)
   {
     canvas.save();
-    canvas.rotate(mAngle, getBounds().width() / 2, getBounds().height() / 2);
+    canvas.rotate(mAngle, mBaseDrawable.getBounds().width() / 2, mBaseDrawable.getBounds().height() / 2);
     mBaseDrawable.draw(canvas);
     canvas.restore();
   }
