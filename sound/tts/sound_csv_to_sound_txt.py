@@ -6,7 +6,11 @@ from optparse import OptionParser
 import csv
 import os.path
 
+# The number of a column in the google table which contains ids of sound strings.
 ID_COLUMN = 1
+# MIN_PROCESSED_COLUMN and MAX_PROCESSED_COLUMN define the range of column in google table
+# which will be processed by the script. See the following link for the google table:
+# https://docs.google.com/spreadsheets/d/1gJsSzFpp2B3xnSx-RjjQ3Do66lQDhCxtfEnQo7Vrkw0/edit#gid=150382014
 MIN_PROCESSED_COLUMN = 2
 MAX_PROCESSED_COLUMN = 31
 
