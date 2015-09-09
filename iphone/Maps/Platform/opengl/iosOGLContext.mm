@@ -56,10 +56,17 @@ void iosOGLContext::setDefaultFramebuffer()
   glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
 }
 
-void iosOGLContext::resize(int /*w*/, int /*h*/)
+void iosOGLContext::resize(int w, int h)
 {
   if (m_needBuffers && m_hasBuffers)
   {
+    GLint width = 0;
+    GLint height = 0;
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &width);
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &height);
+    if (width == w && height == h)
+      return;
+
     destroyBuffers();
     initBuffers();
   }

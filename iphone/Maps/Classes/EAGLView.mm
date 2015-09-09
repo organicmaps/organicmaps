@@ -89,6 +89,8 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
 
   if ((self = [super initWithCoder:coder]))
   {
+    lastViewSize = CGRectZero;
+
     // Setup Layer Properties
     CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
 
@@ -107,14 +109,13 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
   return self;
 }
 
-- (void)initRenderPolicy
+- (void)createDrapeEngineWithWidth:(int)width height:(int)height
 {
-  NSLog(@"EAGLView initRenderPolicy Started");
+  NSLog(@"EAGLView createDrapeEngine Started");
 
-  CGRect frameRect = [UIScreen mainScreen].applicationFrame;
   Framework::DrapeCreationParams p;
-  p.m_surfaceWidth = frameRect.size.width;
-  p.m_surfaceHeight = frameRect.size.height;
+  p.m_surfaceWidth = width;
+  p.m_surfaceHeight = height;
   p.m_visualScale = self.contentScaleFactor;
 
   /// @TODO (iOS developers) remove this stuff and create real logic for init and layout core widgets
@@ -129,7 +130,7 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
 
   GetFramework().CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_factory), move(p));
 
-  NSLog(@"EAGLView initRenderPolicy Ended");
+  NSLog(@"EAGLView createDrapeEngine Ended");
 }
 
 - (void)addSubview:(UIView *)view
@@ -149,6 +150,14 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
 {
   int w = width * self.contentScaleFactor;
   int h = height * self.contentScaleFactor;
+
+  if (GetFramework().GetDrapeEngine() == nullptr)
+  {
+    [self createDrapeEngineWithWidth:w height:h];
+    GetFramework().LoadState();
+    return;
+  }
+
   GetFramework().OnSize(w, h);
 
   /// @TODO (iOS developers) remove this stuff and create real logic for layout core widgets

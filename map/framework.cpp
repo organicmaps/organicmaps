@@ -155,14 +155,12 @@ void Framework::SwitchMyPositionNextMode()
 
 void Framework::InvalidateMyPosition()
 {
-  ASSERT(m_drapeEngine != nullptr, ());
   CallDrapeFunction(bind(&df::DrapeEngine::InvalidateMyPosition, _1));
 }
 
 void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)
 {
-  ASSERT(m_drapeEngine != nullptr, ());
-  CallDrapeFunction(bind(&df::DrapeEngine::SetMyPositionModeListener, _1, fn));
+  m_myPositionListener = fn;
 }
 
 void Framework::OnUserPositionChanged(m2::PointD const & position)
@@ -915,7 +913,6 @@ void Framework::EnterBackground()
   ClearAllCaches();
 #endif
 
-  ASSERT(m_drapeEngine != nullptr, ("Drape engine has not been initialized yet"));
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetRenderingEnabled(false);
 }
@@ -924,7 +921,7 @@ void Framework::EnterForeground()
 {
   m_startForegroundTime = my::Timer::LocalTime();
 
-  ASSERT(m_drapeEngine != nullptr, ("Drape engine has not been initialized yet"));
+  // Drape can be not initialized here in case of the first launch
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetRenderingEnabled(true);
 }
@@ -1272,6 +1269,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   m_drapeEngine->SetTapEventInfoListener(bind(&Framework::OnTapEvent, this, _1, _2, _3, _4));
   m_drapeEngine->SetUserPositionListener(bind(&Framework::OnUserPositionChanged, this, _1));
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
+
+  m_drapeEngine->SetMyPositionModeListener(m_myPositionListener);
+  InvalidateMyPosition();
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()

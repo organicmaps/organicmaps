@@ -21,7 +21,6 @@ namespace dp
   CGRect lastViewSize;
 }
 
-- (void)initRenderPolicy;
 - (void)deallocateNative;
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt;
 - (CGPoint)globalPoint2ViewPoint:(CGPoint)pt;
