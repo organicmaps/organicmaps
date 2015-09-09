@@ -4,9 +4,9 @@
     <title>mail-s</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="POI" sketch:type="MSLayerGroup" transform="translate(-71.000000, -600.000000)">
-            <g id="mail-s" transform="translate(71.000000, 600.000000)" sketch:type="MSShapeGroup">
+    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g sketch:type="MSLayerGroup" transform="translate(-357.000000, -605.000000)" id="mail-s">
+            <g transform="translate(357.000000, 605.000000)" sketch:type="MSShapeGroup">
                 <circle id="Oval-1-Copy-43" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
                 <circle id="Oval-1-Copy-42" fill="#777871" cx="8.5" cy="8.5" r="7.5"></circle>
                 <path d="M4,6 L8.5,9 L13,6 L4,6 Z M4,7 L4,11.5 C4,11.75 4.3,12 4.5,12 L12.5,12 C12.7,12 13.05423,11.744 13,11.5 L13.00003,7 L8.5,10.5 L4,7 Z" id="path7085-2-copy" fill="#FFFFFF"></path>

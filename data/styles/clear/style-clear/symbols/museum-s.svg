@@ -4,9 +4,9 @@
     <title>museum-s</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="POI" sketch:type="MSLayerGroup" transform="translate(-71.000000, -42.000000)">
-            <g id="museum-s" transform="translate(71.000000, 42.000000)" sketch:type="MSShapeGroup">
+    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g sketch:type="MSLayerGroup" transform="translate(-357.000000, -47.000000)" id="museum-s">
+            <g transform="translate(357.000000, 47.000000)" sketch:type="MSShapeGroup">
                 <circle id="Oval-1-Copy-43" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
                 <circle id="Oval-1-Copy-42" fill="#777871" cx="8.5" cy="8.5" r="7.5"></circle>
                 <g id="museum-12-copy" transform="translate(2.000000, 2.000000)">

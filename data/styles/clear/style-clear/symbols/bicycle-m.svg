@@ -4,9 +4,9 @@
     <title>bicycle-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="POI" sketch:type="MSLayerGroup" transform="translate(-37.000000, -893.000000)">
-            <g id="bicycle-m" transform="translate(37.000000, 893.000000)" sketch:type="MSShapeGroup">
+    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g sketch:type="MSLayerGroup" transform="translate(-323.000000, -898.000000)" id="bicycle-m">
+            <g transform="translate(323.000000, 898.000000)" sketch:type="MSShapeGroup">
                 <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
                 <ellipse id="Oval-1-Copy-40" fill="#777871" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
                 <g id="bicycle-18-copy" transform="translate(2.000000, 2.000000)">

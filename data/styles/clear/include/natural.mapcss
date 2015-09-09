@@ -58,6 +58,11 @@ area|z10-[natural=bay],
   z-index: 250;
 }
 
+area|z12-[natural=wetland] {
+	z-index: 15;
+	fill-opacity: 0.2;
+	fill-color: @water;
+}
 /* rivers */
 
 line|z10-12[waterway=river],

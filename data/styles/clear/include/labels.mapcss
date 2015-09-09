@@ -796,7 +796,7 @@ node|z14-15[natural=bay]
   text-color: @water_label;
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
-  text-halo-radius: 0.5;
+  text-halo-radius: 0;
 
 }
 node|z16-[natural=water],
@@ -807,7 +807,7 @@ node|z16-[natural=bay]
   text-color: @water_label;
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
-  text-halo-radius: 0.5;
+  text-halo-radius: 0;
 }
 
 /* RIVERS LABELS */
@@ -822,7 +822,7 @@ line|z11-[waterway=river] {
   text-color: @water_label;
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
-  text-halo-radius: 0.5;
+  text-halo-radius: 0;
 }
 
 line|z11-[waterway=riverbank] {
@@ -831,7 +831,7 @@ line|z11-[waterway=riverbank] {
   text-color: @water_label;
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
-  text-halo-radius: 0.5;
+  text-halo-radius: 0;
 }
 
 line|z13-[waterway=stream] {
@@ -840,7 +840,7 @@ line|z13-[waterway=stream] {
   text-color: @water_label;
   text-halo-opacity: 0.1;
   text-halo-color: @halo_water_lable;
-  text-halo-radius: 0.5;
+  text-halo-radius: 0;
 }
 
 /* PARKS LABELS */
@@ -851,15 +851,23 @@ area|z14[leisure=park] {
   text-color: @park_label;
 }
 
-area|z15[leisure=park] {
-  icon-image: park-s.svg;
-  text-offset: 8;
+area|z15[leisure=park], area|z17-[leisure=garden] {
   text: name;
   font-size: 11;
   text-color: @park_label;
 }
 
-area|z16-[leisure=park] {
+area|z16[leisure=park], area|z17-[leisure=garden] {
+  text: name;
+  font-size: 13;
+  text-color: @park_label;
+  text-halo-opacity: 0.3;
+  text-halo-color: @label_halo_light;
+  text-halo-radius: 0;
+}
+
+
+area|z17-[leisure=park] {
   icon-image: park-m.svg;
   text-offset: 10;
   text: name;
@@ -867,5 +875,16 @@ area|z16-[leisure=park] {
   text-color: @park_label;
   text-halo-opacity: 0.3;
   text-halo-color: @label_halo_light;
-  text-halo-radius: 1;
+  text-halo-radius: 0;
+}
+
+area|z17-[leisure=garden] {
+  icon-image: garden-m.svg;
+  text-offset: 10;
+  text: name;
+  font-size: 14;
+  text-color: @park_label;
+  text-halo-opacity: 0.3;
+  text-halo-color: @label_halo_light;
+  text-halo-radius: 0;
 }

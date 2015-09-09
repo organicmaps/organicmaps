@@ -24,6 +24,7 @@ line|z11-[highway=tertiary] {
 }
 
 line|z7-[highway=unclassified],
+line|z7-[highway=road],
 line|z7-[highway=living_street] {
 	z-index: 700;
 }
@@ -227,6 +228,7 @@ line|z12[highway=secondary]
 line|z12[highway=residential],
 line|z12[highway=tertiary],
 line|z12[highway=unclassified],
+line|z12[highway=road],
 line|z12[highway=living_street]
 {
   color: @residential;
@@ -302,6 +304,7 @@ line|z13[highway=tertiary],
 }
 
 line|z13[highway=unclassified],
+line|z13[highway=road],
 line|z13[highway=living_street]
 {
   color: @unclassified;
@@ -421,7 +424,8 @@ line|z14[highway=tertiary],
 }
 
 line|z14[highway=unclassified],
-line|z14[highway=living_street]
+line|z14[highway=living_street],
+line|z14[highway=road]
 {
   color: @unclassified;
   width: 1.4;
@@ -574,7 +578,8 @@ line|z15[highway=tertiary_link] {
 }
 
 line|z15[highway=unclassified],
-line|z15[highway=living_street]
+line|z15[highway=living_street],
+line|z15[highway=road]
 {
   color: @unclassified;
   width: 3;
@@ -751,7 +756,8 @@ line|z16[highway=residential][tunnel?] {
 }
 
 line|z16[highway=unclassified],
-line|z16[highway=living_street]
+line|z16[highway=living_street],
+line|z16[highway=road]
 {
   color: @unclassified;
   width: 4.5;
@@ -940,7 +946,8 @@ line|z17[highway=residential][tunnel?] {
 }
 
 line|z17[highway=unclassified],
-line|z17[highway=living_street]
+line|z17[highway=living_street],
+line|z17[highway=road]
 {
   color: @unclassified;
   width: 7.2;
@@ -1146,7 +1153,8 @@ line|z18[highway=residential][tunnel?] {
 }
 
 line|z18[highway=unclassified],
-line|z18[highway=living_street]
+line|z18[highway=living_street],
+line|z18[highway=road]
 {
   color: @unclassified;
   width: 9;
@@ -1350,7 +1358,8 @@ line|z19-[highway=residential][tunnel?] {
 }
 
 line|z19-[highway=unclassified],
-line|z19-[highway=living_street]
+line|z19-[highway=living_street],
+line|z19-[highway=road]
 {
   color: @unclassified;
   width: 9;

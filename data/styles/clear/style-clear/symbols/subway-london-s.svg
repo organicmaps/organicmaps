@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="17px" height="13px" viewBox="0 0 17 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>subway-london-s</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Subways" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="subway-london-s" sketch:type="MSLayerGroup">
+            <rect id="Rectangle-330-Copy" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="4" width="17" height="5"></rect>
+            <circle id="Oval-203-Copy-2" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="6.5" r="6.5"></circle>
+            <path d="M8.5,12 C11.5375661,12 14,9.53756612 14,6.5 C14,3.46243388 11.5375661,1 8.5,1 C5.46243388,1 3,3.46243388 3,6.5 C3,9.53756612 5.46243388,12 8.5,12 Z M8.5,10 C10.4329966,10 12,8.43299662 12,6.5 C12,4.56700338 10.4329966,3 8.5,3 C6.56700338,3 5,4.56700338 5,6.5 C5,8.43299662 6.56700338,10 8.5,10 Z" id="Oval-203" fill="#E12524" sketch:type="MSShapeGroup"></path>
+            <rect id="Rectangle-330" fill="#043A86" sketch:type="MSShapeGroup" x="1" y="5" width="15" height="3"></rect>
+        </g>
+    </g>
+</svg>

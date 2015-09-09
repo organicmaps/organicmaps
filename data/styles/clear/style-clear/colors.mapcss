@@ -88,7 +88,7 @@
 @water: #83C6D2;
 @river: #65A4C3;
 @forest: #A4B275;
-@park: #A4B275; /* #BCCC74*/
+@park: #A4B275; /* #A4B275 #BCCC74*/
 
 /* BUILDINGS */
 @housename: #7F7F7F;

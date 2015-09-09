@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>fountain-s</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g sketch:type="MSLayerGroup" transform="translate(-243.000000, -1531.000000)" id="fountain-s">
+            <g transform="translate(243.000000, 1531.000000)" sketch:type="MSShapeGroup">
+                <circle id="Oval-1-Copy-42" opacity="0.496443563" fill="#FFFFFF" cx="7.5" cy="7.5" r="7.5"></circle>
+                <path d="M7.5,11 C6.34687857,11 5,10.3 5,8.55 C5,7.325 6.96428571,4.7 7.5,4 C8.03571429,4.7 10,7.325 10,8.55 C10,10.3 8.65312143,11 7.5,11 L7.5,11 Z" id="path4133-5-copy" fill="#4794C7"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -4,9 +4,9 @@
     <title>embassy-s</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="POI" sketch:type="MSLayerGroup" transform="translate(-71.000000, -674.000000)">
-            <g id="embassy-s" transform="translate(71.000000, 674.000000)" sketch:type="MSShapeGroup">
+    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g sketch:type="MSLayerGroup" transform="translate(-357.000000, -679.000000)" id="embassy-s">
+            <g transform="translate(357.000000, 679.000000)" sketch:type="MSShapeGroup">
                 <circle id="Oval-1-Copy-43" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
                 <circle id="Oval-1-Copy-42" fill="#777871" cx="8.5" cy="8.5" r="7.5"></circle>
                 <path d="M8.5,4 L6,5 L6,13 L7,13 L7,8 L8.5,7.5 L11,9 L13,8 L13,4.5 L11,5.5 L8.5,4 Z" id="rect9498-4-99-4-copy" fill="#FFFFFF"></path>

@@ -31,3 +31,7 @@ area|z18-[building]
   opacity: 1;
   z-index: 200;
 }
+
+node|z18-[entrance] {
+  icon-image: entrance-s.svg;
+}

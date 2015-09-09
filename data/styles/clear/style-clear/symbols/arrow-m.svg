@@ -4,11 +4,9 @@
     <title>arrow-m</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="misc" sketch:type="MSLayerGroup" transform="translate(10.500000, -0.500000) scale(-1, 1) translate(-10.500000, 0.500000) translate(0.000000, -9.000000)" fill-opacity="0.65" fill="#333333">
-            <g id="arrow-m" transform="translate(0.000000, 9.000000)" sketch:type="MSShapeGroup">
-                <path d="M8.41079083,3 L21,3 L21,5 L8.38880655,5 L9,8 L0,4 L9,0 L8.41079083,3 Z" id="Rectangle-315"></path>
-            </g>
+    <g id="Other" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="arrow-m" sketch:type="MSLayerGroup" fill-opacity="0.65" fill="#333333">
+            <path d="M8.41079083,3 L21,3 L21,5 L8.38880655,5 L9,8 L0,4 L9,0 L8.41079083,3 Z" id="Rectangle-315" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>
