@@ -41,22 +41,6 @@ extern NSString * const kMwmTextToSpeechDisable = @"MWMTEXTTOSPEECH_DISABLE";
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-+ (NSString *)twineFromBCP47:(NSString *)bcp47LangName
-{
-  NSAssert(bcp47LangName, @"bcp47LangName is nil");
-  
-  if ([bcp47LangName isEqualToString:@"zh-CN"] || [bcp47LangName isEqualToString:@"zh-CHS"]
-      || [bcp47LangName isEqualToString:@"zh-SG"])
-  {
-    return @"zh-Hans"; // Chinese simplified
-  }
-  
-  if ([bcp47LangName hasPrefix:@"zh"])
-    return @"zh-Hant"; // Chinese traditional
-  // Taking two first symbols of a language name. For example ru-RU -> ru
-  return [bcp47LangName substringToIndex:2];
-}
-
 - (BOOL)isValid
 {
   return _speechSynthesizer != nil && _speechVoice != nil;
@@ -120,7 +104,13 @@ extern NSString * const kMwmTextToSpeechDisable = @"MWMTEXTTOSPEECH_DISABLE";
   }
   
   self.speechVoice = [AVSpeechSynthesisVoice voiceWithLanguage:locale];
-  GetFramework().SetTurnNotificationsLocale([[MWMTextToSpeech twineFromBCP47:locale] UTF8String]);
+  NSString const * twineLang = bcp47ToTwineLanguage(locale);
+  if (twineLang == nil)
+  {
+    LOG(LERROR, ("Cannot convert UI locale or default locale to twine language. MWMTestToSpeech is invalid."));
+    return; // self is not valid.
+  }
+  GetFramework().SetTurnNotificationsLocale([twineLang UTF8String]);
 }
 
 - (void)speakOneString:(NSString *)textToSpeak
