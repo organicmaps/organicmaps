@@ -34,7 +34,7 @@ public class MainMenu
   private static final String STATE_OPEN = "MenuOpen";
   private static final String STATE_LAST_INFO = "MenuLastInfo";
 
-  private final int mButtonsHeight = UiUtils.dimen(R.dimen.menu_line_height);
+  private final int mButtonsWidth = UiUtils.dimen(R.dimen.menu_line_button_width);
   private final int mPanelWidth = UiUtils.dimen(R.dimen.panel_width);
 
 
@@ -87,7 +87,7 @@ public class MainMenu
 
       mToggle.animateCollapse(!collapsed);
 
-      mSymmetricalGapScale = (float) mButtonsHeight / mPanelWidth;
+      mSymmetricalGapScale = (float) mButtonsWidth / mPanelWidth;
     }
 
     @Override
@@ -112,7 +112,7 @@ public class MainMenu
         return;
 
       lp = (LinearLayout.LayoutParams) mAnimationSymmetricalGap.getLayoutParams();
-      lp.width = mButtonsHeight - (int) (mSymmetricalGapScale * offset);
+      lp.width = mButtonsWidth - (int) (mSymmetricalGapScale * offset);
       mAnimationSymmetricalGap.setLayoutParams(lp);
     }
   };
@@ -122,7 +122,7 @@ public class MainMenu
   {
     TOGGLE(R.id.toggle),
     SEARCH(R.id.search),
-    ROUTE(R.id.route),
+    //ROUTE(R.id.route),
     BOOKMARKS(R.id.bookmarks),
     SHARE(R.id.share),
     DOWNLOADER(R.id.download_maps),
@@ -183,8 +183,8 @@ public class MainMenu
       mAlwaysShow = (mFrame.findViewById(R.id.disable_toggle) == null);
       mapItem(Item.TOGGLE, frame);
 
-      @SuppressWarnings("SuspiciousNameCombination")
-      Rect bounds = new Rect(0, 0, mButtonsHeight, mButtonsHeight);
+      int sz = UiUtils.dimen(R.dimen.menu_line_height);
+      Rect bounds = new Rect(0, 0, sz, sz);
 
       mOpenImage = new TrackedTransitionDrawable(new Drawable[] { new RotateByAlphaDrawable(R.drawable.ic_menu_open, false)
                                                                       .setInnerBounds(bounds),
@@ -276,7 +276,7 @@ public class MainMenu
       return;
 
     LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mAnimationSymmetricalGap.getLayoutParams();
-    lp.width = (mCollapsed ? 0 : mButtonsHeight);
+    lp.width = (mCollapsed ? 0 : mButtonsWidth);
     mAnimationSymmetricalGap.setLayoutParams(lp);
   }
 
@@ -358,7 +358,7 @@ public class MainMenu
   private void init()
   {
     mapItem(Item.SEARCH);
-    mapItem(Item.ROUTE);
+    //mapItem(Item.ROUTE);
     mapItem(Item.BOOKMARKS);
     mapItem(Item.SHARE);
     mapItem(Item.DOWNLOADER);

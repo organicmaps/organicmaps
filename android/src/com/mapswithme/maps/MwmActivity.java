@@ -635,9 +635,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
           });
           break;
 
-        case ROUTE:
+        /*case ROUTE:
           buildRoute();
-          break;
+          break;*/
 
         case BOOKMARKS:
           closeMenuAndRun(AlohaHelper.TOOLBAR_BOOKMARKS, new Runnable()
