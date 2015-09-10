@@ -24,7 +24,7 @@ public:
 
   /// Asynchronously receives a list of all servers that can be asked
   /// for a map file and invokes callback on the original thread.
-  virtual void GetServersList(string const & mapFileName,
+  virtual void GetServersList(int64_t const mapVersion, string const & mapFileName,
                               TServersListCallback const & callback) = 0;
 
   /// Asynchronously downloads a map file, periodically invokes

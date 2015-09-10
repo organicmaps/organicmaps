@@ -20,7 +20,7 @@ FakeMapFilesDownloader::FakeMapFilesDownloader(TaskRunner & taskRunner)
 
 FakeMapFilesDownloader::~FakeMapFilesDownloader() { CHECK(m_checker.CalledOnOriginalThread(), ()); }
 
-void FakeMapFilesDownloader::GetServersList(string const & mapFileName,
+void FakeMapFilesDownloader::GetServersList(int64_t const mapVersion, string const & mapFileName,
                                             TServersListCallback const & callback)
 {
   CHECK(m_checker.CalledOnOriginalThread(), ());

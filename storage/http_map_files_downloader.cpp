@@ -6,6 +6,7 @@
 #include "base/assert.hpp"
 
 #include "std/bind.hpp"
+#include "base/string_utils.hpp"
 
 namespace storage
 {
@@ -14,12 +15,12 @@ HttpMapFilesDownloader::~HttpMapFilesDownloader()
   ASSERT(m_checker.CalledOnOriginalThread(), ());
 }
 
-void HttpMapFilesDownloader::GetServersList(string const & mapFileName,
+void HttpMapFilesDownloader::GetServersList(int64_t const mapVersion, string const & mapFileName,
                                             TServersListCallback const & callback)
 {
   ASSERT(m_checker.CalledOnOriginalThread(), ());
   m_request.reset(downloader::HttpRequest::PostJson(
-      GetPlatform().MetaServerUrl(), mapFileName,
+      GetPlatform().MetaServerUrl(), strings::to_string(mapVersion) + '/' + mapFileName,
       bind(&HttpMapFilesDownloader::OnServersListDownloaded, this, callback, _1)));
 }
 

@@ -403,7 +403,7 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
   CountryFile const & countryFile = GetCountryFile(country.GetIndex());
 
   // send Country name for statistics
-  m_downloader->GetServersList(strings::to_string(GetCurrentDataVersion()) + "/" + countryFile.GetNameWithoutExt(),
+  m_downloader->GetServersList(GetCurrentDataVersion(), countryFile.GetNameWithoutExt(),
                                bind(&Storage::OnServerListDownloaded, this, _1));
 }
 
