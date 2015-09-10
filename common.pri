@@ -9,6 +9,11 @@ drape {
   DEFINES *= USE_DRAPE
 }
 
+CONFIG(map_designer) {
+  DEFINES *= STANDALONE_APP
+  DEFINES *= BUILD_DESIGNER
+}
+
 # our own version variables
 VERSION_MAJOR = 2
 VERSION_MINOR = 4

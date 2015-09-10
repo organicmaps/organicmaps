@@ -2,7 +2,7 @@
 #
 # Possible options:
 #   gtool: build only generator_tool
-#   skin-gen: build skin-generator tool
+#   map_designer: enable designer-related flags
 #   no-tests: do not build tests for desktop
 #   drape: include drape libraries
 #   iphone / tizen / android: build an app (implies no-tests)
@@ -26,11 +26,6 @@ win32:CONFIG(drape) {
   CONFIG *= desktop
 }
 
-CONFIG(designer) {
-  DEFINES *= BUILD_DESIGNER
-  CONFIG *= skin-gen
-}
-
 SUBDIRS = 3party base geometry coding
 
 SUBDIRS += platform
@@ -39,23 +34,30 @@ SUBDIRS += indexer
 SUBDIRS += routing
 SUBDIRS += storage
 
+# Integration tests dependencies for gtool
+CONFIG(gtool):!CONFIG(no-tests) {
+  SUBDIRS += search
+  SUBDIRS += map
+  SUBDIRS += integration_tests
+}
+
 CONFIG(desktop) {
   SUBDIRS += generator generator/generator_tool
 }
 
 !CONFIG(gtool) {
-  SUBDIRS += anim
-  SUBDIRS += graphics
-  SUBDIRS += gui
-  SUBDIRS += render
-  SUBDIRS += search
-  SUBDIRS += map
+  SUBDIRS *= anim
+  SUBDIRS *= graphics
+  SUBDIRS *= gui
+  SUBDIRS *= render
+  SUBDIRS *= search
+  SUBDIRS *= map
 
   CONFIG(desktop) {
     SUBDIRS += qt
   }
 
-  CONFIG(skin-gen) {
+  CONFIG(map_designer) {
     SUBDIRS += skin_generator
   }
 
@@ -83,7 +85,7 @@ CONFIG(desktop) {
     SUBDIRS += indexer/indexer_tests
     SUBDIRS += graphics/graphics_tests
     SUBDIRS += gui/gui_tests
-    SUBDIRS += integration_tests
+    SUBDIRS *= integration_tests
     SUBDIRS += pedestrian_routing_benchmarks
     SUBDIRS += search/integration_tests
 
