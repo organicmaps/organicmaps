@@ -74,6 +74,7 @@ public:
   bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute); }
   bool IsBuilt() const { return (IsNavigable() || m_state == RouteNeedRebuild || m_state == RouteFinished); }
   bool IsBuilding() const { return (m_state == RouteBuilding); }
+  bool IsOnRoute() const { return (m_state == OnRoute); }
   void Reset();
 
   State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);

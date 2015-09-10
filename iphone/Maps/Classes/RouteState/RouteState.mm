@@ -47,7 +47,7 @@ static NSString * const kETAKey = @"eta";
 + (void)save
 {
   Framework & f = GetFramework();
-  if (!f.IsRoutingActive())
+  if (!f.IsOnRoute())
     return;
   location::FollowingInfo routeInfo;
   f.GetRouteFollowingInfo(routeInfo);
