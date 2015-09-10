@@ -198,6 +198,13 @@ android {
       keyPassword '***REMOVED***'
     }
 
+    mapswithmeDebug {
+      storeFile file('../tools/android/debug.keystore')
+      storePassword '12345678'
+      keyAlias 'debug'
+      keyPassword '12345678'
+    }
+
     yopme {
       storeFile file('YopMe/key/android.keystore')
       storePassword '***REMOVED***'
@@ -212,6 +219,7 @@ android {
       versionNameSuffix '-debug'
       jniDebuggable true           // Enable jni debug build
       zipAlignEnabled true
+      signingConfig signingConfigs.mapswithmeDebug
       android.sourceSets.debug.setRoot('flavors/debug')
     }
 
