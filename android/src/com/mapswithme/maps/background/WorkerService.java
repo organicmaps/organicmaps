@@ -55,6 +55,13 @@ public class WorkerService extends IntentService
   }
 
   @Override
+  public void onCreate()
+  {
+    super.onCreate();
+    MwmApplication.get().initNativeCore();
+  }
+
+  @Override
   protected void onHandleIntent(Intent intent)
   {
     if (intent != null)

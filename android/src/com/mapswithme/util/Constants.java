@@ -1,6 +1,6 @@
 package com.mapswithme.util;
 
-public class Constants
+public final class Constants
 {
   public static final String STORAGE_PATH = "/Android/data/%s/%s/";
   public static final String PACKAGE_STORAGES_PATH = "/Android/data/";

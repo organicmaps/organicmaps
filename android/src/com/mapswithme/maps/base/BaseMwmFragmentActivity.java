@@ -31,6 +31,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     }
 
     MwmApplication.get().initCounters();
+    MwmApplication.get().initNativeCore();
     ViewServer.get(this).addWindow(this);
 
     attachDefaultFragment();

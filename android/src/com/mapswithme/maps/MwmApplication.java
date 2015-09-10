@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
+
 import com.google.gsonaltered.Gson;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
@@ -28,7 +29,6 @@ import java.io.File;
 public class MwmApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
 {
   private final static String TAG = "MwmApplication";
-  private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
   private static final String LAUNCH_NUMBER_SETTING = "LaunchNumber"; // total number of app launches
   private static final String SESSION_NUMBER_SETTING = "SessionNumber"; // session = number of days, when app was launched
   private static final String LAST_SESSION_TIMESTAMP_SETTING = "LastSessionTimestamp"; // timestamp of last session
@@ -43,6 +43,7 @@ public class MwmApplication extends android.app.Application implements ActiveCou
   private static SharedPreferences mPrefs;
 
   private boolean mAreCountersInitialised;
+  private boolean mIsFrameworkInitialized;
 
   public MwmApplication()
   {
@@ -96,21 +97,37 @@ public class MwmApplication extends android.app.Application implements ActiveCou
   {
     super.onCreate();
 
+    initParse();
+    mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
+  }
+
+  public synchronized void initNativeCore()
+  {
+    if (mIsFrameworkInitialized)
+      return;
+
+    initPaths();
+    nativeInit(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
+               BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE,
+               Yota.isFirstYota(), UiUtils.isSmallTablet() || UiUtils.isBigTablet());
+    ActiveCountryTree.addListener(this);
+    initNativeStrings();
+    BookmarkManager.getIcons(); // init BookmarkManager (automatically loads bookmarks)
+    mIsFrameworkInitialized = true;
+  }
+
+  @SuppressWarnings("ResultOfMethodCallIgnored")
+  private void initPaths()
+  {
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getTempPath();
 
-    // Create folders if they don't exist
     new File(extStoragePath).mkdirs();
     new File(extTmpPath).mkdirs();
+  }
 
-    // init native framework
-    nativeInit(getApkPath(), extStoragePath, extTmpPath, getOBBGooglePath(),
-        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE,
-        Yota.isFirstYota(), UiUtils.isSmallTablet() || UiUtils.isBigTablet());
-
-    ActiveCountryTree.addListener(this);
-
-    // init cross-platform strings bundle
+  private void initNativeStrings()
+  {
     nativeAddLocalization("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
     nativeAddLocalization("country_status_downloading", getString(R.string.country_status_downloading));
     nativeAddLocalization("country_status_download", getString(R.string.country_status_download));
@@ -130,11 +147,6 @@ public class MwmApplication extends android.app.Application implements ActiveCou
     nativeAddLocalization("routing_failed_cross_mwm_building", getString(R.string.routing_failed_cross_mwm_building));
     nativeAddLocalization("routing_failed_route_not_found", getString(R.string.routing_failed_route_not_found));
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
-
-    // init BookmarkManager (automatically loads bookmarks)
-    BookmarkManager.getIcons();
-    initParse();
-    mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
   }
 
   public String getApkPath()
@@ -156,29 +168,18 @@ public class MwmApplication extends android.app.Application implements ActiveCou
 
   public String getTempPath()
   {
-    // TODO refactor
-    // Can't use getExternalCacheDir() here because of API level = 7.
-    return getExtAppDirectoryPath(Constants.CACHE_DIR);
+    final File cacheDir = getExternalCacheDir();
+    if (cacheDir != null)
+      return cacheDir.getAbsolutePath();
+
+    return Environment.getExternalStorageDirectory().getAbsolutePath() +
+        String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
   }
 
-  public String getExtAppDirectoryPath(String folder)
-  {
-    final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, folder));
-  }
-
-  private String getOBBGooglePath()
+  private String getObbGooglePath()
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
     return storagePath.concat(String.format(Constants.OBB_PATH, BuildConfig.APPLICATION_ID));
-  }
-
-  // Check if we have free space on storage (writable path).
-  public native boolean hasFreeSpace(long size);
-
-  public double getForegroundTime()
-  {
-    return nativeGetDouble(FOREGROUND_TIME_SETTING, 0);
   }
 
   static
@@ -216,6 +217,11 @@ public class MwmApplication extends android.app.Application implements ActiveCou
 
   public native void nativeSetString(String name, String value);
 
+  /**
+   * Check if device have at least {@code size} bytes free.
+   */
+  public native boolean hasFreeSpace(long size);
+
   /*
    * init Parse SDK
    */
@@ -238,8 +244,8 @@ public class MwmApplication extends android.app.Application implements ActiveCou
           org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_INSTALLATION_ID, newId);
           org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_DEVICE_TOKEN, newToken);
           prefs.edit()
-              .putString(PREF_PARSE_INSTALLATION_ID, newId)
-              .putString(PREF_PARSE_DEVICE_TOKEN, newToken).apply();
+               .putString(PREF_PARSE_INSTALLATION_ID, newId)
+               .putString(PREF_PARSE_DEVICE_TOKEN, newToken).apply();
         }
       }
     });

@@ -24,7 +24,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.mapswithme.util.ViewServer;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.country.ActiveCountryTree;
@@ -34,6 +33,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.ViewServer;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
@@ -57,6 +57,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     // this initialisation is necessary hence Activity isn't extended from BaseMwmActivity
     // try to prevent possible crash if this is the only activity in application
     MwmApplication.get().initCounters();
+    MwmApplication.get().initNativeCore();
     addPreferencesFromResource(R.xml.preferences);
     initPreferences();
     yotaSetup();
@@ -335,14 +336,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     {
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_REPORT_BUG);
       AlohaHelper.logClick(AlohaHelper.SETTINGS_REPORT_BUG);
-      final Intent intent = new Intent(Intent.ACTION_SEND);
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      intent.putExtra(Intent.EXTRA_EMAIL, new String[]{BuildConfig.SUPPORT_MAIL});
-      intent.putExtra(Intent.EXTRA_SUBJECT, "[android] Bugreport from user");
-      intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + Utils.saveLogToFile()));
-      intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
-      intent.setType("message/rfc822");
-      startActivity(intent);
+      Utils.sendSupportMail(this, "Bugreport from user");
     }
     else if (key.equals(getString(R.string.pref_like_fb)))
     {
