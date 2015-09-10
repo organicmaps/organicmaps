@@ -181,4 +181,11 @@ public class Framework
   public native static int nativeGetBestRouter(double srcLat, double srcLon, double dstLat, double dstLon);
 
   public native static void setWidgetPivot(int widget, int pivotX, int pivotY);
+
+  /**
+   * Registers all maps(.mwms). Adds them to the models, generates indexes and does all necessary stuff.
+   */
+  public native static void nativeRegisterMaps();
+
+  public native static void nativeDeregisterMaps();
 }

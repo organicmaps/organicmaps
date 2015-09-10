@@ -179,11 +179,6 @@ namespace android_tests
       m_androidDefResScope = "rfw";
     }
 
-    void OnExternalStorageStatusChanged(bool isAvailable) 
-    {
-      LOG(LWARNING, ("OnExternalStorageStatusChanged() is not implemented."));
-    }
-
     /// get storage path without ending "/MapsWithMe/"
     string GetStoragePathPrefix() const
     {

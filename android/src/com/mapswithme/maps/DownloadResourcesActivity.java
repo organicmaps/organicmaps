@@ -421,6 +421,10 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   {
     if (result == ERR_NO_MORE_FILES)
     {
+      // World and WorldCoasts has been downloaded, we should register maps again to correctly add them to the model and generate indexes etc.
+      // TODO fix the hack when separate download of World-s will be removed or refactored
+      Framework.nativeDeregisterMaps();
+      Framework.nativeRegisterMaps();
       if (mCountryIndex != null && mChbDownloadCountry.isChecked())
       {
         UiUtils.hide(mChbDownloadCountry, mTvLocation);

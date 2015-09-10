@@ -1,7 +1,7 @@
 #include "MapStorage.hpp"
 #include "Framework.hpp"
-
-#include "../country/country_helper.hpp"
+#include "com/mapswithme/country/country_helper.hpp"
+#include "com/mapswithme/platform/Platform.hpp"
 
 #include "coding/internal/file_data.hpp"
 

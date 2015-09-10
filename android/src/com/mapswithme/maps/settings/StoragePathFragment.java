@@ -1,13 +1,17 @@
 package com.mapswithme.maps.settings;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ListView;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
-import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 
 public class StoragePathFragment extends BaseMwmListFragment implements StoragePathManager.MoveFilesListener
 {
@@ -35,12 +39,12 @@ public class StoragePathFragment extends BaseMwmListFragment implements StorageP
       public void onReceive(Context context, Intent intent)
       {
         if (mAdapter != null)
-          mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StoragePathManager.getMwmDirSize());
+          mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
       }
     };
     mPathManager.startExternalStorageWatching(getActivity(), receiver, this);
     initAdapter();
-    mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StoragePathManager.getMwmDirSize());
+    mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
     setListAdapter(mAdapter);
   }
 
@@ -60,12 +64,27 @@ public class StoragePathFragment extends BaseMwmListFragment implements StorageP
   @Override
   public void moveFilesFinished(String newPath)
   {
-    mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StoragePathManager.getMwmDirSize());
+    mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StorageUtils.getWritableDirSize());
   }
 
   @Override
   public void moveFilesFailed(int errorCode)
   {
-    UiUtils.showAlertDialog(getActivity(), "Failed to move maps with internal error :" + errorCode + ". Please contact us at bugs@maps.me and send this error code.");
+    if (!isAdded())
+      return;
+
+    final String message = "Failed to move maps with internal error :" + errorCode;
+    final Activity activity = getActivity();
+    new AlertDialog.Builder(activity)
+        .setTitle(message)
+        .setPositiveButton(R.string.report_a_bug, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            Utils.sendSupportMail(activity, message);
+          }
+        })
+        .show();
   }
 }

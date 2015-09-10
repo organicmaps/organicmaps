@@ -150,10 +150,6 @@ namespace android
     (void) ConnectionStatus();
   }
 
-  void Platform::OnExternalStorageStatusChanged(bool isAvailable)
-  {
-  }
-
   string Platform::GetStoragePathPrefix() const
   {
     size_t const count = m_writableDir.size();

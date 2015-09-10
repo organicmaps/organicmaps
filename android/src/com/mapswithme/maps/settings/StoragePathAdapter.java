@@ -94,7 +94,7 @@ class StoragePathAdapter extends BaseAdapter
         convertView = mInflater.inflate(R.layout.item_storage, parent, false);
 
       CheckedTextView checkedView = (CheckedTextView) convertView;
-      checkedView.setText(item.mPath + ": " + getSizeString(item.mSize));
+      checkedView.setText(item.mPath + ": " + getSizeString(item.mFreeSize));
       checkedView.setChecked(storageIndex == mCurrentStorageIndex);
       checkedView.setEnabled(storageIndex == mCurrentStorageIndex || isStorageBigEnough(storageIndex));
       break;
@@ -114,7 +114,7 @@ class StoragePathAdapter extends BaseAdapter
   {
     final int index = getStorageIndex(position);
     if (isStorageBigEnough(index) && index != mCurrentStorageIndex)
-      mStoragePathManager.onStorageItemClick(index);
+      mStoragePathManager.changeStorage(index);
   }
 
   public void updateList(ArrayList<StorageItem> items, int currentItemIndex, long dirSize)
@@ -147,7 +147,7 @@ class StoragePathAdapter extends BaseAdapter
 
   private boolean isStorageBigEnough(int index)
   {
-    return mItems.get(index).mSize >= mSizeNeeded;
+    return mItems.get(index).mFreeSize >= mSizeNeeded;
   }
 
   private int getStorageIndex(int position)
@@ -155,32 +155,4 @@ class StoragePathAdapter extends BaseAdapter
     return position - HEADERS_COUNT;
   }
 
-  public static class StorageItem
-  {
-    public final String mPath;
-    public final long mSize;
-
-    StorageItem(String path, long size)
-    {
-      mPath = path;
-      mSize = size;
-    }
-
-    @Override
-    public boolean equals(Object o)
-    {
-      if (o == this)
-        return true;
-      if (o == null || !(o instanceof StorageItem))
-        return false;
-      StorageItem other = (StorageItem) o;
-      return mSize == other.mSize && mPath.equals(other.mPath);
-    }
-
-    @Override
-    public int hashCode()
-    {
-      return Long.valueOf(mSize).hashCode();
-    }
-  }
 }

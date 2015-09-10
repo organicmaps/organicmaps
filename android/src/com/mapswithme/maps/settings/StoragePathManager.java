@@ -1,32 +1,44 @@
 package com.mapswithme.maps.settings;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.*;
-import android.os.AsyncTask;
+import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Environment;
-import android.os.StatFs;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import com.mapswithme.maps.*;
+
+import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MapStorage;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 
-import java.io.*;
-import java.nio.channels.FileChannel;
-import java.util.*;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
 public class StoragePathManager
 {
-  private static final String[] MOVABLE_EXTS = Framework.nativeGetMovableFilesExts();
-  private static final FilenameFilter MOVABLE_FILES_FILTER = new FilenameFilter()
+  static final String[] MOVABLE_EXTS = Framework.nativeGetMovableFilesExts();
+  static final FilenameFilter MOVABLE_FILES_FILTER = new FilenameFilter()
   {
     @Override
     public boolean accept(File dir, String filename)
@@ -53,31 +65,25 @@ public class StoragePathManager
   public static final int NOT_A_DIR_ERROR = 5;
   public static final int UNKNOWN_KITKAT_ERROR = 6;
 
-  private static String TAG = StoragePathManager.class.getName();
+  static final String TAG = StoragePathManager.class.getName();
 
   private static final String LITE_SDCARD_PREFIX = "Android/data/com.mapswithme.maps/files";
   private static final String SAMSUNG_LITE_SDCARD_PREFIX = "Android/data/com.mapswithme.maps.samsung/files";
   private static final String PRO_SDCARD_PREFIX = "Android/data/com.mapswithme.maps.pro/files";
-  private static final int VOLD_MODE = 1;
-  private static final int MOUNTS_MODE = 2;
   private static final String IS_KML_PLACED_IN_MAIN_STORAGE = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
 
   private BroadcastReceiver mExternalReceiver;
   private BroadcastReceiver mInternalReceiver;
   private Activity mActivity;
-  private ArrayList<StoragePathAdapter.StorageItem> mItems;
+  private ArrayList<StorageItem> mItems;
   private int mCurrentStorageIndex = -1;
   private MoveFilesListener mStorageListener;
 
   /**
    * Observes status of connected media and retrieves list of available external storages.
-   *
-   * @param activity context
-   * @param receiver receiver to get broadcasts of media events. can be null
-   * @param listener listener to get notifications about maps transfers. can be null
    */
-  public void startExternalStorageWatching(Activity activity, BroadcastReceiver receiver, MoveFilesListener listener)
+  public void startExternalStorageWatching(Activity activity, @Nullable BroadcastReceiver receiver, @Nullable MoveFilesListener listener)
   {
     mActivity = activity;
     mStorageListener = listener;
@@ -130,7 +136,7 @@ public class StoragePathManager
     return mItems.size() > 1;
   }
 
-  public ArrayList<StoragePathAdapter.StorageItem> getStorageItems()
+  public ArrayList<StorageItem> getStorageItems()
   {
     return mItems;
   }
@@ -142,115 +148,65 @@ public class StoragePathManager
 
   public void updateExternalStorages()
   {
-    ArrayList<String> paths = new ArrayList<>();
+    List<String> pathsFromConfig = new ArrayList<>();
 
     if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
-      parseKitkatStorages(paths);
+      StorageUtils.parseKitkatStorages(pathsFromConfig);
     else
-      parseStorages(paths);
-
-    Map<Long, String> pathsSizesMap = new HashMap<>();
-
-    // Add current path first!
-    final String currentStorageDir = getWritableDirRoot();
-    addStoragePathWithSize(currentStorageDir, pathsSizesMap);
-    for (String path : paths)
-      addStoragePathWithSize(path, pathsSizesMap);
-    addStoragePathWithSize(Environment.getExternalStorageDirectory().getAbsolutePath(), pathsSizesMap);
+      StorageUtils.parseStorages(pathsFromConfig);
 
     mItems = new ArrayList<>();
-    mCurrentStorageIndex = -1;
-    for (Map.Entry<Long, String> entry : pathsSizesMap.entrySet())
-    {
-      StoragePathAdapter.StorageItem item = new StoragePathAdapter.StorageItem(entry.getValue(), entry.getKey());
-      mItems.add(item);
-      if (item.mPath.equals(currentStorageDir))
-        mCurrentStorageIndex = mItems.size() - 1;
-    }
+
+    final StorageItem currentStorage = buildStorageItem(StorageUtils.getWritableDirRoot());
+    addStorageItem(currentStorage);
+    addStorageItem(buildStorageItem(Environment.getExternalStorageDirectory().getAbsolutePath()));
+    for (String path : pathsFromConfig)
+      addStorageItem(buildStorageItem(path));
+
+    mCurrentStorageIndex = mItems.indexOf(currentStorage);
 
     if (mCurrentStorageIndex == -1)
     {
-      Log.w(TAG, "Unrecognized current path: " + currentStorageDir);
-      Log.w(TAG, "Parsed paths: " + Utils.mapPrettyPrint(pathsSizesMap));
+      Log.w(TAG, "Unrecognized current path : " + currentStorage);
+      Log.w(TAG, "Parsed paths : ");
+      for (StorageItem item : mItems)
+        Log.w(TAG, item.toString());
     }
   }
 
-  @TargetApi(Build.VERSION_CODES.KITKAT)
-  private static void parseKitkatStorages(List<String> paths)
+  private void addStorageItem(StorageItem item)
   {
-    File primaryStorage = MwmApplication.get().getExternalFilesDir(null);
-    File[] storages = MwmApplication.get().getExternalFilesDirs(null);
-    if (storages != null)
+    if (item != null && !mItems.contains(item))
+      mItems.add(item);
+  }
+
+  private StorageItem buildStorageItem(String path)
+  {
+    try
     {
-      for (File f : storages)
+      final File f = new File(path + "/");
+      if (f.exists() && f.isDirectory() && f.canWrite() && StorageUtils.isDirWritable(path))
       {
-        // add only secondary dirs
-        if (f != null && !f.equals(primaryStorage))
+        final long freeSize = StorageUtils.getFreeBytesAtPath(path);
+        if (freeSize > 0)
         {
-          Log.i(TAG, "Additional storage path: " + f.getPath());
-          paths.add(f.getPath());
+          Log.i(TAG, "Storage found : " + path + ", size : " + freeSize);
+          return new StorageItem(path, freeSize);
         }
       }
-    }
-
-    ArrayList<String> testStorages = new ArrayList<>();
-    parseStorages(testStorages);
-    final String suffix = String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.FILES_DIR);
-    for (String testStorage : testStorages)
+    } catch (final IllegalArgumentException ex)
     {
-      Log.i(TAG, "Test storage from config files : " + testStorage);
-      if (isDirWritable(testStorage))
-      {
-        Log.i(TAG, "Found writable storage : " + testStorage);
-        paths.add(testStorage);
-      }
-      else
-      {
-        testStorage += suffix;
-        File file = new File(testStorage);
-        if (!file.exists()) // create directory for our package if it isn't created by any reason
-        {
-          Log.i(TAG, "Try to create MWM path");
-          file.mkdirs();
-          file = new File(testStorage);
-          if (file.exists())
-            Log.i(TAG, "Created!");
-        }
-        if (isDirWritable(testStorage))
-        {
-          Log.i(TAG, "Found writable storage : " + testStorage);
-          paths.add(testStorage);
-        }
-      }
-    }
-  }
-
-  private static void parseStorages(ArrayList<String> paths)
-  {
-    parseMountFile("/etc/vold.conf", VOLD_MODE, paths);
-    parseMountFile("/etc/vold.fstab", VOLD_MODE, paths);
-    parseMountFile("/system/etc/vold.fstab", VOLD_MODE, paths);
-    parseMountFile("/proc/mounts", MOUNTS_MODE, paths);
-  }
-
-  public static long getMwmDirSize()
-  {
-    final File writableDir = new File(Framework.nativeGetWritableDir());
-    if (BuildConfig.DEBUG)
-    {
-      if (!writableDir.exists())
-        throw new IllegalStateException("Writable directory doesn't exits, can't get size.");
-      if (!writableDir.isDirectory())
-        throw new IllegalStateException("Writable directory isn't a directory, can't get size.");
+      Log.i(TAG, "Can't build storage for path : " + path);
     }
 
-    return getDirSizeRecursively(writableDir, MOVABLE_FILES_FILTER);
+    return null;
   }
 
+  @SuppressWarnings("ResultOfMethodCallIgnored")
   public boolean moveBookmarksToPrimaryStorage()
   {
     ArrayList<String> paths = new ArrayList<>();
-    parseStorages(paths);
+    StorageUtils.parseStorages(paths);
 
     List<String> approvedPaths = new ArrayList<>();
     for (String path : paths)
@@ -279,7 +235,7 @@ public class StoragePathManager
     for (File f : bookmarks)
       bookmarksSize += f.length();
 
-    if (getFreeBytesAtPath(bookmarkDir) < bookmarksSize)
+    if (StorageUtils.getFreeBytesAtPath(bookmarkDir) < bookmarksSize)
       return false;
 
     for (File oldBookmark : bookmarks)
@@ -287,7 +243,7 @@ public class StoragePathManager
       String newBookmarkPath = BookmarkManager.generateUniqueBookmarkName(oldBookmark.getName().replace(bookmarkFileExt, ""));
       try
       {
-        copyFile(oldBookmark, new File(newBookmarkPath));
+        StorageUtils.copyFile(oldBookmark, new File(newBookmarkPath));
         oldBookmark.delete();
       } catch (IOException e)
       {
@@ -316,11 +272,11 @@ public class StoragePathManager
     result.addAll(Arrays.asList(bookmarks));
   }
 
-  protected void onStorageItemClick(int index)
+  protected void changeStorage(int newIndex)
   {
-    final StoragePathAdapter.StorageItem oldItem = (mCurrentStorageIndex != -1) ? mItems.get(mCurrentStorageIndex) : null;
-    final StoragePathAdapter.StorageItem item = mItems.get(index);
-    final String path = getItemFullPath(item);
+    final StorageItem oldItem = (mCurrentStorageIndex != -1) ? mItems.get(mCurrentStorageIndex) : null;
+    final StorageItem item = mItems.get(newIndex);
+    final String path = item.getFullPath();
 
     final File f = new File(path);
     if (!f.exists() && !f.mkdirs())
@@ -329,8 +285,10 @@ public class StoragePathManager
       return;
     }
 
-    new AlertDialog.Builder(mActivity).setCancelable(false).setTitle(R.string.move_maps)
-                                      .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+    new AlertDialog.Builder(mActivity)
+        .setCancelable(false)
+        .setTitle(R.string.move_maps)
+        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dlg, int which)
@@ -356,14 +314,15 @@ public class StoragePathManager
 
             dlg.dismiss();
           }
-        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
-      {
-        dlg.dismiss();
-      }
-    }).create().show();
+        })
+        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+          }
+        }).create().show();
   }
 
   /**
@@ -379,16 +338,16 @@ public class StoragePathManager
     final String settingsDir = Framework.nativeGetSettingsDir();
     final String writableDir = Framework.nativeGetWritableDir();
 
-    if (settingsDir.equals(writableDir) || isDirWritable(writableDir))
+    if (settingsDir.equals(writableDir) || StorageUtils.isDirWritable(writableDir))
       return;
 
-    final long size = getMwmDirSize();
+    final long size = StorageUtils.getWritableDirSize();
     updateExternalStorages();
-    for (StoragePathAdapter.StorageItem item : mItems)
+    for (StorageItem item : mItems)
     {
-      if (item.mSize > size)
+      if (item.mFreeSize > size)
       {
-        setStoragePath(context, listener, item, new StoragePathAdapter.StorageItem(getWritableDirRoot(), 0),
+        setStoragePath(context, listener, item, new StorageItem(StorageUtils.getWritableDirRoot(), 0),
                        R.string.kitkat_optimization_in_progress);
         return;
       }
@@ -399,11 +358,11 @@ public class StoragePathManager
 
   public void moveMapsLiteToPro(Context context, MoveFilesListener listener)
   {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT || !containsLiteMapsOnSdcard())
       return;
 
-    final long size = getMwmDirSize();
-    StoragePathAdapter.StorageItem currentStorage = new StoragePathAdapter.StorageItem(getWritableDirRoot(), 0);
+    final long size = StorageUtils.getWritableDirSize();
+    final StorageItem currentStorage = new StorageItem(StorageUtils.getWritableDirRoot(), 0);
 
     // there is no need to copy maps from primary external storage(on internal device flash memory) -
     // maps are stored there in root folder and pro version can simply use them
@@ -411,13 +370,11 @@ public class StoragePathManager
       return;
 
     updateExternalStorages();
-    for (StoragePathAdapter.StorageItem item : mItems)
+    for (StorageItem item : mItems)
     {
-      if (item.mSize > size && item.mPath.contains(PRO_SDCARD_PREFIX)
-          && !item.mPath.equals(currentStorage.mPath))
+      if (item.mFreeSize > size && item.mPath.contains(PRO_SDCARD_PREFIX) && !item.mPath.equals(currentStorage.mPath))
       {
-        setStoragePath(context, listener, item, currentStorage,
-            R.string.move_lite_maps_to_pro);
+        setStoragePath(context, listener, item, currentStorage, R.string.move_lite_maps_to_pro);
         return;
       }
     }
@@ -425,9 +382,9 @@ public class StoragePathManager
     listener.moveFilesFailed(UNKNOWN_LITE_PRO_ERROR);
   }
 
-  public boolean containsLiteMapsOnSdcard()
+  private boolean containsLiteMapsOnSdcard()
   {
-    final String storagePath = getWritableDirRoot();
+    final String storagePath = StorageUtils.getWritableDirRoot();
     return storagePath.contains(LITE_SDCARD_PREFIX) || storagePath.contains(SAMSUNG_LITE_SDCARD_PREFIX);
   }
 
@@ -437,7 +394,7 @@ public class StoragePathManager
    * Bookmarks should be placed in main MapsWithMe directory on primary storage (eg. SettingsDir, where settings.ini file is placed). If they were copied
    * to external storage (can happen on 2.6 and earlier mapswithme application versions) - we should move them back.
    * <p/>
-   * Data should be placed in private app directory on Kitkat+ devices, hence root of sdcard isn't writable anymore on them.
+   * Data should be placed in private app directory on Kitkat+ devices, hence root of sdcard isn't writable anymore there.
    */
   public void checkKitkatMigration(final Activity activity)
   {
@@ -494,95 +451,78 @@ public class StoragePathManager
 
   private void migrateMaps(final Activity activity)
   {
-    if (!MwmApplication.get().nativeGetBoolean(IS_KITKAT_MIGRATION_COMPLETED, false))
+    if (MwmApplication.get().nativeGetBoolean(IS_KITKAT_MIGRATION_COMPLETED, false))
+      return;
+
+    checkExternalStoragePathOnKitkat(activity,
+                                     new MoveFilesListener()
+                                     {
+                                       @Override
+                                       public void moveFilesFinished(String newPath)
+                                       {
+                                         MwmApplication.get().nativeSetBoolean(IS_KITKAT_MIGRATION_COMPLETED, true);
+                                         UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_ok);
+                                       }
+
+                                       @Override
+                                       public void moveFilesFailed(int errorCode)
+                                       {
+                                         UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_failed);
+                                       }
+                                     }
+    );
+  }
+
+  private void setStoragePath(final Context context, final MoveFilesListener listener, final StorageItem newStorage,
+                              final StorageItem oldStorage, final int messageId)
+  {
+    final ProgressDialog dialog = new ProgressDialog(context);
+    dialog.setMessage(context.getString(messageId));
+    dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    dialog.setIndeterminate(true);
+    dialog.setCancelable(false);
+    dialog.show();
+
+    ThreadPool.getStorage().execute(new Runnable()
     {
-      checkExternalStoragePathOnKitkat(activity,
-          new MoveFilesListener()
+      @Override
+      public void run()
+      {
+        final int result = changeStorage(newStorage, oldStorage);
+
+        UiThread.run(new Runnable()
+        {
+          @Override
+          public void run()
           {
-            @Override
-            public void moveFilesFinished(String newPath)
-            {
-              MwmApplication.get().nativeSetBoolean(IS_KITKAT_MIGRATION_COMPLETED, true);
-              UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_ok);
-            }
+            if (dialog.isShowing())
+              dialog.dismiss();
 
-            @Override
-            public void moveFilesFailed(int errorCode)
-            {
-              UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_failed);
-            }
+            if (result == NO_ERROR)
+              listener.moveFilesFinished(newStorage.mPath);
+            else
+              listener.moveFilesFailed(result);
+
+            updateExternalStorages();
           }
-      );
-    }
-  }
-
-  private void setStoragePath(Context context, MoveFilesListener listener, StoragePathAdapter.StorageItem newStorage,
-                              StoragePathAdapter.StorageItem oldStorage, int messageId)
-  {
-    new MoveFilesTask(context, listener, newStorage, oldStorage, messageId).execute("");
-  }
-
-  /**
-   * Recursively lists all movable files in the directory.
-   */
-  private static void listFilesRecursively(File dir, String prefix, FilenameFilter filter, ArrayList<String> relPaths)
-  {
-    for (File file : dir.listFiles())
-    {
-      if (file.isDirectory())
-      {
-        listFilesRecursively(file, prefix + file.getName() + File.separator, filter, relPaths);
-        continue;
+        });
       }
-      String name = file.getName();
-      if (filter.accept(dir, name))
-        relPaths.add(prefix + name);
-    }
+    });
   }
 
-  private static void removeEmptyDirectories(File dir)
+  @SuppressWarnings("ResultOfMethodCallIgnored")
+  private int changeStorage(StorageItem newStorage, StorageItem oldStorage)
   {
-    for (File file : dir.listFiles())
-    {
-      if (!file.isDirectory())
-        continue;
-      removeEmptyDirectories(file);
-      file.delete();
-    }
-  }
+    final String fullNewPath = newStorage.getFullPath();
 
-  private static boolean removeFilesInDirectory(File dir, File[] files)
-  {
-    try
-    {
-      for (File file : files)
-      {
-        if (file != null)
-          file.delete();
-      }
-      removeEmptyDirectories(dir);
-      return true;
-    } catch (Exception e)
-    {
-      e.printStackTrace();
-      return false;
-    }
-  }
-
-  private static int changeStorage(StoragePathAdapter.StorageItem newStorage, StoragePathAdapter.StorageItem oldStorage)
-  {
-    final String fullNewPath = getItemFullPath(newStorage);
-
-    // According to onStorageItemClick code above, oldStorage can be null.
+    // According to changeStorage code above, oldStorage can be null.
     if (oldStorage == null)
     {
       Log.w(TAG, "Old storage path is null. New path is: " + fullNewPath);
       return NULL_ERROR;
     }
 
-    final String fullOldPath = getItemFullPath(oldStorage);
-
-    final File oldDir = new File(fullOldPath);
+    final File oldDir = new File(oldStorage.getFullPath());
     final File newDir = new File(fullNewPath);
     if (!newDir.exists())
       newDir.mkdir();
@@ -593,12 +533,12 @@ public class StoragePathManager
         throw new IllegalStateException("Cannot move maps. New path is not a directory. New path : " + newDir);
       if (!oldDir.isDirectory())
         throw new IllegalStateException("Cannot move maps. Old path is not a directory. Old path : " + oldDir);
-      if (!isDirWritable(fullNewPath))
+      if (!StorageUtils.isDirWritable(fullNewPath))
         throw new IllegalStateException("Cannot move maps. New path is not writable. New path : " + fullNewPath);
     }
 
     ArrayList<String> relPaths = new ArrayList<>();
-    listFilesRecursively(oldDir, "", MOVABLE_FILES_FILTER, relPaths);
+    StorageUtils.listFilesRecursively(oldDir, "", MOVABLE_FILES_FILTER, relPaths);
 
     File[] oldFiles = new File[relPaths.size()];
     File[] newFiles = new File[relPaths.size()];
@@ -617,7 +557,7 @@ public class StoragePathManager
           File parent = newFiles[i].getParentFile();
           if (parent != null)
             parent.mkdirs();
-          copyFile(oldFiles[i], newFiles[i]);
+          StorageUtils.copyFile(oldFiles[i], newFiles[i]);
         }
         else
         {
@@ -630,7 +570,7 @@ public class StoragePathManager
       e.printStackTrace();
       // In the case of failure delete all new files.  Old files will
       // be lost if new files were just moved from old locations.
-      removeFilesInDirectory(newDir, newFiles);
+      StorageUtils.removeFilesInDirectory(newDir, newFiles);
       return IOEXCEPTION_ERROR;
     }
 
@@ -644,231 +584,7 @@ public class StoragePathManager
     });
 
     // Delete old files because new files were successfully created.
-    removeFilesInDirectory(oldDir, oldFiles);
+    StorageUtils.removeFilesInDirectory(oldDir, oldFiles);
     return NO_ERROR;
-  }
-
-  private static void copyFile(File source, File dest) throws IOException
-  {
-    int maxChunkSize = 10 * Constants.MB; // move file by smaller chunks to avoid OOM.
-    FileChannel inputChannel = null, outputChannel = null;
-    try
-    {
-      inputChannel = new FileInputStream(source).getChannel();
-      outputChannel = new FileOutputStream(dest).getChannel();
-      long totalSize = inputChannel.size();
-
-      for (long currentPosition = 0; currentPosition < totalSize; currentPosition += maxChunkSize)
-      {
-        outputChannel.position(currentPosition);
-        outputChannel.transferFrom(inputChannel, currentPosition, maxChunkSize);
-      }
-    } finally
-    {
-      if (inputChannel != null)
-        inputChannel.close();
-      if (outputChannel != null)
-        outputChannel.close();
-    }
-  }
-
-  private static long getDirSizeRecursively(File file, FilenameFilter fileFilter)
-  {
-    if (file.isDirectory())
-    {
-      long dirSize = 0;
-      for (File child : file.listFiles())
-        dirSize += getDirSizeRecursively(child, fileFilter);
-
-      return dirSize;
-    }
-
-    if (fileFilter.accept(file.getParentFile(), file.getName()))
-      return file.length();
-
-    return 0;
-  }
-
-
-  private class MoveFilesTask extends AsyncTask<String, Void, Integer>
-  {
-    private final ProgressDialog mDlg;
-    private final StoragePathAdapter.StorageItem mNewStorage;
-    private final StoragePathAdapter.StorageItem mOldStorage;
-    private final MoveFilesListener mListener;
-
-    public MoveFilesTask(Context context, MoveFilesListener listener, StoragePathAdapter.StorageItem newStorage,
-                         StoragePathAdapter.StorageItem oldStorage, int messageID)
-    {
-      mNewStorage = newStorage;
-      mOldStorage = oldStorage;
-      mListener = listener;
-
-      mDlg = new ProgressDialog(context);
-      mDlg.setMessage(context.getString(messageID));
-      mDlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-      mDlg.setIndeterminate(true);
-      mDlg.setCancelable(false);
-    }
-
-    @Override
-    protected void onPreExecute()
-    {
-      mDlg.show();
-    }
-
-    @Override
-    protected Integer doInBackground(String... params)
-    {
-      return changeStorage(mNewStorage, mOldStorage);
-    }
-
-    @Override
-    protected void onPostExecute(Integer result)
-    {
-      // Using dummy try-catch because of the following:
-      // http://stackoverflow.com/questions/2745061/java-lang-illegalargumentexception-view-not-attached-to-window-manager
-      try
-      {
-        mDlg.dismiss();
-      } catch (final Exception e)
-      {
-        e.printStackTrace();
-      }
-
-      if (result == NO_ERROR)
-        mListener.moveFilesFinished(mNewStorage.mPath);
-      else
-        mListener.moveFilesFailed(result);
-
-      updateExternalStorages();
-    }
-  }
-
-  private static void addStoragePathWithSize(String path, Map<Long, String> sizesPaths)
-  {
-    Log.i(TAG, "Trying to add path " + path);
-    try
-    {
-      final File f = new File(path + "/");
-      if (f.exists() && f.isDirectory() && f.canWrite() && isDirWritable(path))
-      {
-        final long size = getFreeBytesAtPath(path);
-
-        if (size > 0 && !sizesPaths.containsKey(size))
-        {
-          Log.i(TAG, "Path added: " + path + ", size = " + size);
-          sizesPaths.put(size, path);
-        }
-      }
-    } catch (final IllegalArgumentException ex)
-    {
-      // Suppress exceptions for unavailable storages.
-      Log.i(TAG, "StatFs error for path: " + path);
-    }
-  }
-
-  // http://stackoverflow.com/questions/8151779/find-sd-card-volume-label-on-android
-  // http://stackoverflow.com/questions/5694933/find-an-external-sd-card-location
-  // http://stackoverflow.com/questions/14212969/file-canwrite-returns-false-on-some-devices-although-write-external-storage-pe
-  private static void parseMountFile(String file, int mode, ArrayList<String> paths)
-  {
-    Log.i(TAG, "Parsing " + file);
-
-    BufferedReader reader = null;
-    try
-    {
-      reader = new BufferedReader(new FileReader(file));
-
-      while (true)
-      {
-        final String line = reader.readLine();
-        if (line == null)
-          break;
-
-        // standard regexp for all possible whitespaces (space, tab, etc)
-        final String[] arr = line.split("\\s+");
-
-        // split may return empty first strings
-        int start = 0;
-        while (start < arr.length && arr[start].length() == 0)
-          ++start;
-
-        if (arr.length - start > 3)
-        {
-          if (arr[start].charAt(0) == '#')
-            continue;
-
-          if (mode == VOLD_MODE)
-          {
-            if (arr[start].startsWith("dev_mount"))
-              paths.add(arr[start + 2]);
-          }
-          else
-          {
-            final String prefixes[] = {"tmpfs", "/dev/block/vold", "/dev/fuse", "/mnt/media_rw"};
-            for (final String s : prefixes)
-              if (arr[start].startsWith(s))
-                paths.add(arr[start + 1]);
-          }
-        }
-      }
-    } catch (final IOException e)
-    {
-      Log.w(TAG, "Can't read file: " + file);
-    } finally
-    {
-      Utils.closeStream(reader);
-    }
-  }
-
-  private static long getFreeBytesAtPath(String path)
-  {
-    long size = 0;
-    try
-    {
-      size = new File(path).getFreeSpace();
-    } catch (RuntimeException e)
-    {
-      e.printStackTrace();
-    }
-
-    return size;
-  }
-
-  /**
-   * Check if directory is writable. On some devices with KitKat (eg, Samsung S4) simple File.canWrite() returns
-   * true for some actually read only directories on sdcard.
-   * see https://code.google.com/p/android/issues/detail?id=66369 for details
-   *
-   * @param path path to ckeck
-   * @return result
-   */
-  private static boolean isDirWritable(String path)
-  {
-    final File f = new File(path + "/testDir");
-    f.mkdir();
-    if (f.exists())
-    {
-      f.delete();
-      return true;
-    }
-
-    return false;
-  }
-
-  private static String getItemFullPath(StoragePathAdapter.StorageItem item)
-  {
-    return item.mPath + Constants.MWM_DIR_POSTFIX;
-  }
-
-  private static String getWritableDirRoot()
-  {
-    String writableDir = Framework.nativeGetWritableDir();
-    int index = writableDir.lastIndexOf(Constants.MWM_DIR_POSTFIX);
-    if (index != -1)
-      writableDir = writableDir.substring(0, index);
-
-    return writableDir;
   }
 }

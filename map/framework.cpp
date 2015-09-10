@@ -250,9 +250,7 @@ Framework::Framework()
   (void)GetSearchEngine();
   LOG(LDEBUG, ("Search engine initialized"));
 
-#ifndef OMIM_OS_ANDROID
   RegisterAllMaps();
-#endif
   LOG(LDEBUG, ("Maps initialized"));
 
   // Init storage with needed callback.

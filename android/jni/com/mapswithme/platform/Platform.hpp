@@ -16,8 +16,6 @@ namespace android
                     jstring flavorName, jstring buildType,
                     bool isYota, bool isTablet);
 
-    void OnExternalStorageStatusChanged(bool isAvailable);
-
     /// get storage path without ending "/MapsWithMe/"
     string GetStoragePathPrefix() const;
     /// assign storage path (should contain ending "/MapsWithMe/")

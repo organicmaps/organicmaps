@@ -2,14 +2,11 @@ package com.mapswithme.maps;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -59,7 +56,6 @@ import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.BottomSheetHelper;
-import com.mapswithme.util.Constants;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.UiUtils;
@@ -95,7 +91,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private final static String EXTRA_LAT = "lat";
   private final static String EXTRA_LON = "lon";
 
-  private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(), DownloadFragment.class.getName() };
+  private static final String[] DOCKED_FRAGMENTS = {SearchFragment.class.getName(), DownloadFragment.class.getName()};
 
   // Need it for change map style
   private static final String EXTRA_SET_MAP_STYLE = "set_map_style";
@@ -105,9 +101,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
-  private BroadcastReceiver mExternalStorageReceiver;
   private final StoragePathManager mPathManager = new StoragePathManager();
-  private AlertDialog mStorageDisconnectedDialog;
 
   private View mFrame;
 
@@ -123,12 +117,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean mNeedCheckUpdate = true;
   private int mLocationStateModeListenerId = LocationState.SLOT_UNDEFINED;
-  // These flags are initialized to the invalid combination to force update on the first check
-  // after launching.
-  // These flags are static because the MwmActivity is recreated while screen orientation changing
-  // but they shall not be reinitialized on screen orientation changing.
-  private static boolean sStorageAvailable = false;
-  private static boolean sStorageWritable = true;
 
   private FadeView mFadeView;
 
@@ -259,29 +247,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void checkLiteMapsInPro()
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-        (Utils.isPackageInstalled(Constants.Package.MWM_LITE_PACKAGE) || Utils.isPackageInstalled(Constants.Package.MWM_SAMSUNG_PACKAGE)))
-    {
-      if (!mPathManager.containsLiteMapsOnSdcard())
-        return;
+    mPathManager.moveMapsLiteToPro(this,
+                                   new MoveFilesListener()
+                                   {
+                                     @Override
+                                     public void moveFilesFinished(String newPath)
+                                     {
+                                       UiUtils.showAlertDialog(MwmActivity.this, R.string.move_lite_maps_to_pro_ok);
+                                     }
 
-      mPathManager.moveMapsLiteToPro(this,
-          new MoveFilesListener()
-          {
-            @Override
-            public void moveFilesFinished(String newPath)
-            {
-              UiUtils.showAlertDialog(MwmActivity.this, R.string.move_lite_maps_to_pro_ok);
-            }
-
-            @Override
-            public void moveFilesFailed(int errorCode)
-            {
-              UiUtils.showAlertDialog(MwmActivity.this, R.string.move_lite_maps_to_pro_failed);
-            }
-          }
-      );
-    }
+                                     @Override
+                                     public void moveFilesFailed(int errorCode)
+                                     {
+                                       UiUtils.showAlertDialog(MwmActivity.this, R.string.move_lite_maps_to_pro_failed);
+                                     }
+                                   }
+    );
   }
 
   private void checkUpdateMapsWithoutSearchIndex()
@@ -783,43 +764,36 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       // Do not show this dialog on Kindle Fire - it doesn't have location services
       // and even wifi settings can't be opened programmatically
-      if (!Utils.isAmazonDevice())
-      {
-        new AlertDialog.Builder(this).setTitle(R.string.location_is_disabled_long_text)
-            .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
+      if (Utils.isAmazonDevice())
+        return;
+
+      new AlertDialog.Builder(this)
+          .setTitle(R.string.location_is_disabled_long_text)
+          .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
+          {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
             {
-              @Override
-              public void onClick(DialogInterface dialog, int which)
+              try
               {
+                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+              } catch (final Exception e1)
+              {
+                // On older Android devices location settings are merged with security
                 try
                 {
-                  startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                } catch (final Exception e1)
+                  startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
+                } catch (final Exception e2)
                 {
-                  // On older Android devices location settings are merged with security
-                  try
-                  {
-                    startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
-                  } catch (final Exception e2)
-                  {
-                    Log.w(TAG, "Can't run activity" + e2);
-                  }
+                  Log.w(TAG, "Can't run activity" + e2);
                 }
+              }
 
-                dialog.dismiss();
-              }
-            })
-            .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
-            {
-              @Override
-              public void onClick(DialogInterface dialog, int which)
-              {
-                dialog.dismiss();
-              }
-            })
-            .create()
-            .show();
-      }
+              dialog.dismiss();
+            }
+          })
+          .setNegativeButton(R.string.close, null)
+          .show();
     }
     else if (errorCode == LocationHelper.ERROR_GPS_OFF)
     {
@@ -920,11 +894,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     listenLocationStateUpdates();
     invalidateLocationState();
-    startWatchingExternalStorage();
     adjustZoomButtons(Framework.nativeIsRoutingActive());
-
     mSearchController.refreshToolbar();
-
     mPlacePage.onResume();
     LikesManager.INSTANCE.showDialogs(this);
     mMainMenu.onResume();
@@ -971,7 +942,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     stopLocationStateUpdates();
     pauseLocation();
-    stopWatchingExternalStorage();
     TtsPlayer.INSTANCE.stop();
     LikesManager.INSTANCE.cancelDialogs();
     super.onPause();
@@ -1002,89 +972,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final int currentLocationMode = LocationState.INSTANCE.getLocationStateMode();
     refreshLocationState(currentLocationMode);
     LocationState.INSTANCE.invalidatePosition();
-  }
-
-  private void updateExternalStorageState()
-  {
-    boolean available = false, writable = false;
-    final String state = Environment.getExternalStorageState();
-    if (Environment.MEDIA_MOUNTED.equals(state))
-      available = writable = true;
-    else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
-      available = true;
-
-    if (sStorageAvailable != available || sStorageWritable != writable)
-    {
-      sStorageAvailable = available;
-      sStorageWritable = writable;
-      handleExternalStorageState(available, writable);
-    }
-  }
-
-  private void handleExternalStorageState(boolean available, boolean writeable)
-  {
-    if (available && writeable)
-    {
-      // Add local maps to the model
-      mMapFragment.nativeStorageConnected();
-
-      // @TODO enable downloader button and dismiss blocking popup
-
-      if (mStorageDisconnectedDialog != null)
-        mStorageDisconnectedDialog.dismiss();
-    }
-    else if (available)
-    {
-      // Add local maps to the model
-      mMapFragment.nativeStorageConnected();
-
-      // @TODO disable downloader button and dismiss blocking popup
-
-      if (mStorageDisconnectedDialog != null)
-        mStorageDisconnectedDialog.dismiss();
-    }
-    else
-    {
-      // Remove local maps from the model
-      mMapFragment.nativeStorageDisconnected();
-
-      // @TODO enable downloader button and show blocking popup
-
-      if (mStorageDisconnectedDialog == null)
-      {
-        mStorageDisconnectedDialog = new AlertDialog.Builder(this)
-            .setTitle(R.string.external_storage_is_not_available)
-            .setMessage(getString(R.string.disconnect_usb_cable))
-            .setCancelable(false)
-            .create();
-      }
-      mStorageDisconnectedDialog.show();
-    }
-  }
-
-  private void startWatchingExternalStorage()
-  {
-    mExternalStorageReceiver = new BroadcastReceiver()
-    {
-      @Override
-      public void onReceive(Context context, Intent intent)
-      {
-        updateExternalStorageState();
-      }
-    };
-
-    registerReceiver(mExternalStorageReceiver, StoragePathManager.getMediaChangesIntentFilter());
-    updateExternalStorageState();
-  }
-
-  private void stopWatchingExternalStorage()
-  {
-    mPathManager.stopExternalStorageWatching();
-    if (mExternalStorageReceiver != null)
-    {
-      unregisterReceiver(mExternalStorageReceiver);
-      mExternalStorageReceiver = null;
-    }
   }
 
   @Override
@@ -1330,7 +1217,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public boolean onTouch(View view, MotionEvent event)
   {
     return mPlacePage.hideOnTouch() ||
-           mMapFragment.onTouch(view, event);
+        mMapFragment.onTouch(view, event);
   }
 
   @Override

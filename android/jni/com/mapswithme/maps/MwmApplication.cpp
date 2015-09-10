@@ -1,10 +1,3 @@
-/*
- * MWMService.cpp
- *
- *  Created on: May 11, 2012
- *      Author: siarheirachytski
- */
-
 #include "Framework.hpp"
 
 #include "../core/jni_helper.hpp"

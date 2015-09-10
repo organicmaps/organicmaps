@@ -21,10 +21,6 @@ public class MapFragment extends NvEventQueueFragment
 
   public static final String FRAGMENT_TAG = MapFragment.class.getSimpleName();
 
-  protected native void nativeStorageConnected();
-
-  protected native void nativeStorageDisconnected();
-
   protected native void nativeConnectDownloadButton();
 
   protected native void nativeDownloadCountry(MapStorage.Index index, int options);

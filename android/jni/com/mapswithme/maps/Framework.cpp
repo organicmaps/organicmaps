@@ -1567,4 +1567,16 @@ extern "C"
     m2::PointD const pivot = m2::PointD(pivotX, pivotY);
     android::Platform::RunOnGuiThreadImpl(bind(&Framework::SetWidgetPivot, frm(), widgetType, pivot));
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeRegisterMaps(JNIEnv * env, jclass thiz)
+  {
+    frm()->RegisterAllMaps();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeDeregisterMaps(JNIEnv * env, jclass thiz)
+  {
+    frm()->DeregisterAllMaps();
+  }
 } // extern "C"
