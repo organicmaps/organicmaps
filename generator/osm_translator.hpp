@@ -246,8 +246,7 @@ class OsmToFeatureTranslator
 
     // Get params from element tags.
     ftype::GetNameAndType(p, params);
-    params.FinishAddingTypes();
-    return ftype::IsValidTypes(params);
+    return params.IsValid();
   }
 
   typedef FeatureBuilder1 FeatureBuilderT;
@@ -567,7 +566,7 @@ public:
 //      for (auto const & p : params.m_Types)
 //        ss << " " << c.GetReadableObjectName(p);
 //      ss << endl;
-//      std::ofstream file("feature_types_new.txt", ios::app);
+//      std::ofstream file("feature_types_new2.txt", ios::app);
 //      file.write(ss.str().data(), ss.str().size());
 //    }
   }
