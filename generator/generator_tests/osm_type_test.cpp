@@ -376,23 +376,6 @@ UNIT_TEST(OsmType_Route)
     TEST(params.IsTypeExist(GetType(arr[0])), ());
     TEST_EQUAL(params.ref, arr[1][1], ());
   }
-
-  {
-    char const * arr[][2] = {
-      { "highway", "path" },
-      { "ref", "route" }
-    };
-
-    OsmElement e;
-    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
-
-    FeatureParams params;
-    ftype::GetNameAndType(&e, params);
-
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
-    TEST(params.IsTypeExist(GetType(arr[0])), ());
-    TEST(params.ref.empty(), ());
-  }
 }
 
 UNIT_TEST(OsmType_Layer)
