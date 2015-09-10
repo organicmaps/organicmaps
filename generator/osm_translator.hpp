@@ -20,6 +20,194 @@
 #include "std/list.hpp"
 #include "std/type_traits.hpp"
 
+namespace
+{
+class Place
+{
+  FeatureBuilder1 m_ft;
+  m2::PointD m_pt;
+  uint32_t m_type;
+
+  static constexpr double EQUAL_PLACE_SEARCH_RADIUS_M = 20000.0;
+
+  bool IsPoint() const { return (m_ft.GetGeomType() == feature::GEOM_POINT); }
+  static bool IsEqualTypes(uint32_t t1, uint32_t t2)
+  {
+    // Use 2-arity places comparison for filtering.
+    // ("place-city-capital-2" is equal to "place-city")
+    ftype::TruncValue(t1, 2);
+    ftype::TruncValue(t2, 2);
+    return (t1 == t2);
+  }
+
+public:
+  Place(FeatureBuilder1 const & ft, uint32_t type) : m_ft(ft), m_pt(ft.GetKeyPoint()), m_type(type) {}
+
+  FeatureBuilder1 const & GetFeature() const { return m_ft; }
+
+  m2::RectD GetLimitRect() const
+  {
+    return MercatorBounds::RectByCenterXYAndSizeInMeters(m_pt, EQUAL_PLACE_SEARCH_RADIUS_M);
+  }
+
+  bool IsEqual(Place const & r) const
+  {
+    return (IsEqualTypes(m_type, r.m_type) &&
+            m_ft.GetName() == r.m_ft.GetName() &&
+            (IsPoint() || r.IsPoint()) &&
+            MercatorBounds::DistanceOnEarth(m_pt, r.m_pt) < EQUAL_PLACE_SEARCH_RADIUS_M);
+  }
+
+  /// Check whether we need to replace place @r with place @this.
+  bool IsBetterThan(Place const & r) const
+  {
+    // Area places has priority before point places.
+    if (!r.IsPoint())
+      return false;
+    if (!IsPoint())
+      return true;
+
+    // Check types length.
+    // ("place-city-capital-2" is better than "place-city").
+    uint8_t const l1 = ftype::GetLevel(m_type);
+    uint8_t const l2 = ftype::GetLevel(r.m_type);
+    if (l1 != l2)
+      return (l2 < l1);
+
+    // Check ranks.
+    return (r.m_ft.GetRank() < m_ft.GetRank());
+  }
+};
+
+/// Generated features should include parent relation tags to make
+/// full types matching and storing any additional info.
+class RelationTagsBase
+{
+public:
+  RelationTagsBase() : m_cache(14) {}
+
+  void Reset(uint64_t fID, OsmElement * p)
+  {
+    m_featureID = fID;
+    m_current = p;
+  }
+
+  template <class ReaderT>
+  bool operator() (uint64_t id, ReaderT & reader)
+  {
+    bool exists = false;
+    RelationElement & e = m_cache.Find(id, exists);
+    if (!exists)
+      CHECK(reader.Read(id, e), (id));
+
+    Process(e);
+    return false;
+  }
+
+protected:
+  static bool IsSkipRelation(string const & type)
+  {
+    /// @todo Skip special relation types.
+    return (type == "multipolygon" || type == "bridge" || type == "restriction");
+  }
+
+  bool IsKeyTagExists(string const & key) const
+  {
+    for (auto const & p : m_current->m_tags)
+      if (p.key == key)
+        return true;
+    return false;
+  }
+
+  virtual void Process(RelationElement const & e) = 0;
+
+protected:
+  uint64_t m_featureID;
+  OsmElement * m_current;
+
+private:
+  my::Cache<uint64_t, RelationElement> m_cache;
+};
+
+class RelationTagsNode : public RelationTagsBase
+{
+  using TBase = RelationTagsBase;
+
+protected:
+  void Process(RelationElement const & e) override
+  {
+    if (TBase::IsSkipRelation(e.GetType()))
+      return;
+
+    for (auto const & p : e.tags)
+    {
+      // Store only this tags to use it in railway stations processing for the particular city.
+      if (p.first == "network" || p.first == "operator" || p.first == "route")
+        if (!TBase::IsKeyTagExists(p.first))
+          TBase::m_current->AddTag(p.first, p.second);
+    }
+  }
+};
+
+class RelationTagsWay : public RelationTagsBase
+{
+  using TBase = RelationTagsBase;
+  using TNameKeys = unordered_set<string>;
+
+  bool IsAcceptBoundary(RelationElement const & e) const
+  {
+    string role;
+    CHECK(e.FindWay(TBase::m_featureID, role), (TBase::m_featureID));
+
+    // Do not accumulate boundary types (boundary=administrative) for inner polygons.
+    // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
+    return (role != "inner");
+  }
+
+  void GetNameKeys(TNameKeys & keys) const
+  {
+    for (auto const & p : TBase::m_current->m_tags)
+      if (strings::StartsWith(p.key, "name"))
+        keys.insert(p.key);
+  }
+
+protected:
+  void Process(RelationElement const & e) override
+  {
+    /// @todo Review route relations in future.
+    /// Actually, now they give a lot of dummy tags.
+    string const type = e.GetType();
+    if (TBase::IsSkipRelation(type) || type == "route")
+      return;
+
+    bool const isWay = (TBase::m_current->type == OsmElement::EntityType::Way);
+    bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
+
+    TNameKeys nameKeys;
+    GetNameKeys(nameKeys);
+
+    for (auto const & p : e.tags)
+    {
+      /// @todo Skip common key tags.
+      if (p.first == "type" || p.first == "route")
+        continue;
+
+      // Skip already existing "name" tags.
+      if (nameKeys.count(p.first) != 0)
+        continue;
+
+      if (!isBoundary && p.first == "boundary")
+        continue;
+
+      if (isWay && p.first == "place")
+        continue;
+
+      TBase::m_current->AddTag(p.first, p.second);
+    }
+  }
+};
+
+}  // anonymous namespace
 
 /// @param  TEmitter  Feature accumulating policy
 /// @param  TCache   Nodes, ways, relations holder
@@ -28,67 +216,54 @@ class OsmToFeatureTranslator
 {
   TEmitter & m_emitter;
   TCache & m_holder;
+  uint32_t m_coastType;
+  unique_ptr<FileWriter> m_addrWriter;
+  m4::Tree<Place> m_places;
+  RelationTagsNode m_nodeRelations;
+  RelationTagsWay m_wayRelations;
 
-
-  bool GetPoint(uint64_t id, m2::PointD & pt) const
-  {
-    return m_holder.GetNode(id, pt.y, pt.x);
-  }
-
-  typedef vector<m2::PointD> pts_vec_t;
-  typedef list<pts_vec_t> holes_list_t;
-
-  class holes_accumulator
+  class HolesAccumulator
   {
     AreaWayMerger<TCache> m_merger;
-    holes_list_t m_holes;
+    FeatureBuilder1::TGeometry m_holes;
 
   public:
-    holes_accumulator(OsmToFeatureTranslator * pMain) : m_merger(pMain->m_holder) {}
+    HolesAccumulator(OsmToFeatureTranslator * pMain) : m_merger(pMain->m_holder) {}
 
-    void operator() (uint64_t id)
-    {
-      m_merger.AddWay(id);
-    }
+    void operator() (uint64_t id) { m_merger.AddWay(id); }
 
-    void operator() (pts_vec_t & v, vector<uint64_t> const &)
-    {
-      m_holes.push_back(pts_vec_t());
-      m_holes.back().swap(v);
-    }
-
-    holes_list_t & GetHoles()
+    FeatureBuilder1::TGeometry & GetHoles()
     {
       ASSERT ( m_holes.empty(), ("Can call only once") );
-      m_merger.ForEachArea(*this, false);
+      m_merger.ForEachArea(false, [this] (FeatureBuilder1::TPointSeq & v, vector<uint64_t> const &)
+      {
+        m_holes.push_back(FeatureBuilder1::TPointSeq());
+        m_holes.back().swap(v);
+      });
       return m_holes;
     }
   };
 
   /// Find holes for way with 'id' in first relation.
-  class multipolygon_holes_processor
+  class HolesProcessor
   {
     uint64_t m_id;      ///< id of way to find it's holes
-    holes_accumulator m_holes;
+    HolesAccumulator m_holes;
 
   public:
-    multipolygon_holes_processor(uint64_t id, OsmToFeatureTranslator * pMain)
-      : m_id(id), m_holes(pMain)
-    {
-    }
+    HolesProcessor(uint64_t id, OsmToFeatureTranslator * pMain) : m_id(id), m_holes(pMain) {}
 
     /// 1. relations process function
     bool operator() (uint64_t /*id*/, RelationElement const & e)
     {
-      if (e.GetType() == "multipolygon")
+      if (e.GetType() != "multipolygon")
+        return false;
+      string role;
+      if (e.FindWay(m_id, role) && (role == "outer"))
       {
-        string role;
-        if (e.FindWay(m_id, role) && (role == "outer"))
-        {
-          e.ForEachWay(*this);
-          // stop processing (??? assume that "outer way" exists in one relation only ???)
-          return true;
-        }
+        e.ForEachWay(*this);
+        // stop processing (??? assume that "outer way" exists in one relation only ???)
+        return true;
       }
       return false;
     }
@@ -100,135 +275,8 @@ class OsmToFeatureTranslator
         m_holes(id);
     }
 
-    holes_list_t & GetHoles() { return m_holes.GetHoles(); }
+    FeatureBuilder1::TGeometry & GetHoles() { return m_holes.GetHoles(); }
   };
-
-  /// Generated features should include parent relation tags to make
-  /// full types matching and storing any additional info.
-  class RelationTagsBase
-  {
-  public:
-    RelationTagsBase() : m_cache(14) {}
-
-    void Reset(uint64_t fID, OsmElement * p)
-    {
-      m_featureID = fID;
-      m_current = p;
-    }
-
-    template <class ReaderT> bool operator() (uint64_t id, ReaderT & reader)
-    {
-      bool exists = false;
-      RelationElement & e = m_cache.Find(id, exists);
-      if (!exists)
-        CHECK(reader.Read(id, e), (id));
-
-      Process(e);
-      return false;
-    }
-
-  protected:
-    static bool IsSkipRelation(string const & type)
-    {
-      /// @todo Skip special relation types.
-      return (type == "multipolygon" || type == "bridge" || type == "restriction");
-    }
-
-    bool IsKeyTagExists(string const & key) const
-    {
-      for (auto const & p : m_current->m_tags)
-        if (p.key == key)
-          return true;
-      return false;
-    }
-
-    virtual void Process(RelationElement const & e) = 0;
-
-  protected:
-    uint64_t m_featureID;
-    OsmElement * m_current;
-
-  private:
-    my::Cache<uint64_t, RelationElement> m_cache;
-  };
-
-  class RelationTagsNode : public RelationTagsBase
-  {
-    typedef RelationTagsBase TBase;
-
-  protected:
-    void Process(RelationElement const & e) override
-    {
-      if (TBase::IsSkipRelation(e.GetType()))
-        return;
-
-      for (auto const & p : e.tags)
-      {
-        // Store only this tags to use it in railway stations processing for the particular city.
-        if (p.first == "network" || p.first == "operator" || p.first == "route")
-          if (!TBase::IsKeyTagExists(p.first))
-            TBase::m_current->AddTag(p.first, p.second);
-      }
-    }
-  } m_nodeRelations;
-
-  class RelationTagsWay : public RelationTagsBase
-  {
-    typedef RelationTagsBase TBase;
-
-    bool IsAcceptBoundary(RelationElement const & e) const
-    {
-      string role;
-      CHECK(e.FindWay(TBase::m_featureID, role), (TBase::m_featureID));
-
-      // Do not accumulate boundary types (boundary=administrative) for inner polygons.
-      // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
-      return (role != "inner");
-    }
-
-    typedef unordered_set<string> NameKeysT;
-    void GetNameKeys(NameKeysT & keys) const
-    {
-      for (auto const & p : TBase::m_current->m_tags)
-        if (strings::StartsWith(p.key, "name"))
-          keys.insert(p.key);
-    }
-
-  protected:
-    void Process(RelationElement const & e) override
-    {
-      /// @todo Review route relations in future.
-      /// Actually, now they give a lot of dummy tags.
-      string const type = e.GetType();
-      if (TBase::IsSkipRelation(type) || type == "route")
-        return;
-
-      bool const isWay = (TBase::m_current->type == OsmElement::EntityType::Way);
-      bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
-
-      NameKeysT nameKeys;
-      GetNameKeys(nameKeys);
-
-      for (auto const & p : e.tags)
-      {
-        /// @todo Skip common key tags.
-        if (p.first == "type" || p.first == "route")
-          continue;
-
-        // Skip already existing "name" tags.
-        if (nameKeys.count(p.first) != 0)
-          continue;
-
-        if (!isBoundary && p.first == "boundary")
-          continue;
-
-        if (isWay && p.first == "place")
-          continue;
-
-        TBase::m_current->AddTag(p.first, p.second);
-      }
-    }
-  } m_wayRelations;
 
   bool ParseType(OsmElement * p, FeatureParams & params)
   {
@@ -249,119 +297,13 @@ class OsmToFeatureTranslator
     return params.IsValid();
   }
 
-  typedef FeatureBuilder1 FeatureBuilderT;
-
-  class multipolygons_emitter
-  {
-    OsmToFeatureTranslator * m_pMain;
-    FeatureParams const & m_params;
-    holes_list_t & m_holes;
-    uint64_t m_relID;
-
-  public:
-    multipolygons_emitter(OsmToFeatureTranslator * pMain,
-                          FeatureParams const & params,
-                          holes_list_t & holes,
-                          uint64_t relID)
-      : m_pMain(pMain), m_params(params), m_holes(holes), m_relID(relID)
-    {
-    }
-
-    void operator() (pts_vec_t const & pts, vector<uint64_t> const & ids)
-    {
-      FeatureBuilderT ft;
-
-      for (size_t i = 0; i < ids.size(); ++i)
-        ft.AddOsmId(osm::Id::Way(ids[i]));
-
-      for (size_t i = 0; i < pts.size(); ++i)
-        ft.AddPoint(pts[i]);
-
-      ft.AddOsmId(osm::Id::Relation(m_relID));
-      m_pMain->EmitArea(ft, m_params, [this] (FeatureBuilderT & ft)
-      {
-        ft.SetAreaAddHoles(m_holes);
-      });
-    }
-  };
-
-  uint32_t m_coastType;
-
-  unique_ptr<FileWriter> m_addrWriter;
-  bool NeedWriteAddress(FeatureParams const & params) const
-  {
-    return m_addrWriter && ftypes::IsBuildingChecker::Instance()(params.m_Types);
-  }
-
-  class Place
-  {
-    FeatureBuilderT m_ft;
-    m2::PointD m_pt;
-    uint32_t m_type;
-
-    static constexpr double EQUAL_PLACE_SEARCH_RADIUS_M = 20000.0;
-
-    bool IsPoint() const { return (m_ft.GetGeomType() == feature::GEOM_POINT); }
-    static bool IsEqualTypes(uint32_t t1, uint32_t t2)
-    {
-      // Use 2-arity places comparison for filtering.
-      // ("place-city-capital-2" is equal to "place-city")
-      ftype::TruncValue(t1, 2);
-      ftype::TruncValue(t2, 2);
-      return (t1 == t2);
-    }
-
-  public:
-    Place(FeatureBuilderT const & ft, uint32_t type)
-      : m_ft(ft), m_pt(ft.GetKeyPoint()), m_type(type)
-    {
-    }
-
-    FeatureBuilderT const & GetFeature() const { return m_ft; }
-
-    m2::RectD GetLimitRect() const
-    {
-      return MercatorBounds::RectByCenterXYAndSizeInMeters(m_pt, EQUAL_PLACE_SEARCH_RADIUS_M);
-    }
-
-    bool IsEqual(Place const & r) const
-    {
-      return (IsEqualTypes(m_type, r.m_type) &&
-              m_ft.GetName() == r.m_ft.GetName() &&
-              (IsPoint() || r.IsPoint()) &&
-              MercatorBounds::DistanceOnEarth(m_pt, r.m_pt) < EQUAL_PLACE_SEARCH_RADIUS_M);
-    }
-
-    /// Check whether we need to replace place @r with place @this.
-    bool IsBetterThan(Place const & r) const
-    {
-      // Area places has priority before point places.
-      if (!r.IsPoint())
-        return false;
-      if (!IsPoint())
-        return true;
-
-      // Check types length.
-      // ("place-city-capital-2" is better than "place-city").
-      uint8_t const l1 = ftype::GetLevel(m_type);
-      uint8_t const l2 = ftype::GetLevel(r.m_type);
-      if (l1 != l2)
-        return (l2 < l1);
-
-      // Check ranks.
-      return (r.m_ft.GetRank() < m_ft.GetRank());
-    }
-  };
-
-  m4::Tree<Place> m_places;
-
-  void EmitFeatureBase(FeatureBuilderT & ft, FeatureParams const & params)
+  void EmitFeatureBase(FeatureBuilder1 & ft, FeatureParams const & params)
   {
     ft.SetParams(params);
     if (ft.PreSerialize())
     {
       string addr;
-      if (NeedWriteAddress(params) && ft.FormatFullAddress(addr))
+      if (m_addrWriter && ftypes::IsBuildingChecker::Instance()(params.m_Types) && ft.FormatFullAddress(addr))
         m_addrWriter->Write(addr.c_str(), addr.size());
 
       static uint32_t const placeType = classif().GetTypeByPath({"place"});
@@ -384,14 +326,14 @@ class OsmToFeatureTranslator
   {
     if (feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_POINT))
     {
-      FeatureBuilderT ft;
+      FeatureBuilder1 ft;
       ft.SetCenter(pt);
       ft.SetOsmId(id);
       EmitFeatureBase(ft, params);
     }
   }
 
-  void EmitLine(FeatureBuilderT & ft, FeatureParams params, bool isCoastLine)
+  void EmitLine(FeatureBuilder1 & ft, FeatureParams params, bool isCoastLine)
   {
     if (isCoastLine || feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_LINE))
     {
@@ -401,30 +343,30 @@ class OsmToFeatureTranslator
   }
 
   template <class MakeFnT>
-  void EmitArea(FeatureBuilderT & ft, FeatureParams params, MakeFnT makeFn)
+  void EmitArea(FeatureBuilder1 & ft, FeatureParams params, MakeFnT makeFn)
   {
     using namespace feature;
 
     // Ensure that we have closed area geometry.
-    if (ft.IsGeometryClosed())
+    if (!ft.IsGeometryClosed())
+      return;
+
+    // Key point here is that IsDrawableLike and RemoveNoDrawableTypes
+    // work a bit different for GEOM_AREA.
+
+    if (IsDrawableLike(params.m_Types, GEOM_AREA))
     {
-      // Key point here is that IsDrawableLike and RemoveNoDrawableTypes
-      // work a bit different for GEOM_AREA.
+      // Make the area feature if it has unique area styles.
+      VERIFY(RemoveNoDrawableTypes(params.m_Types, GEOM_AREA), (params));
 
-      if (IsDrawableLike(params.m_Types, GEOM_AREA))
-      {
-        // Make the area feature if it has unique area styles.
-        VERIFY(RemoveNoDrawableTypes(params.m_Types, GEOM_AREA), (params));
+      makeFn(ft);
 
-        makeFn(ft);
-
-        EmitFeatureBase(ft, params);
-      }
-      else
-      {
-        // Try to make the point feature if it has point styles.
-        EmitPoint(ft.GetGeometryCenter(), params, ft.GetLastOsmId());
-      }
+      EmitFeatureBase(ft, params);
+    }
+    else
+    {
+      // Try to make the point feature if it has point styles.
+      EmitPoint(ft.GetGeometryCenter(), params, ft.GetLastOsmId());
     }
   }
   //@}
@@ -462,13 +404,13 @@ public:
 
       case OsmElement::EntityType::Way:
       {
-        FeatureBuilderT ft;
+        FeatureBuilder1 ft;
 
         // Parse geometry.
         for (uint64_t ref : p->Nodes())
         {
           m2::PointD pt;
-          if (!GetPoint(ref, pt))
+          if (!m_holder.GetNode(ref, pt.y, pt.x))
           {
             state = FeatureState::BrokenRef;
             break;
@@ -494,10 +436,10 @@ public:
         ft.SetOsmId(osm::Id::Way(p->id));
         bool isCoastLine = (m_coastType != 0 && params.IsTypeExist(m_coastType));
 
-        EmitArea(ft, params, [&] (FeatureBuilderT & ft)
+        EmitArea(ft, params, [&] (FeatureBuilder1 & ft)
         {
           isCoastLine = false;  // emit coastline feature only once
-          multipolygon_holes_processor processor(p->id, this);
+          HolesProcessor processor(p->id, this);
           m_holder.ForEachRelationByWay(p->id, processor);
           ft.SetAreaAddHoles(processor.GetHoles());
         });
@@ -531,7 +473,7 @@ public:
           break;
         }
 
-        holes_accumulator holes(this);
+        HolesAccumulator holes(this);
         AreaWayMerger<TCache> outer(m_holder);
 
         // 3. Iterate ways to get 'outer' and 'inner' geometries
@@ -546,8 +488,20 @@ public:
             holes(e.ref);
         }
 
-        multipolygons_emitter emitter(this, params, holes.GetHoles(), p->id);
-        outer.ForEachArea(emitter, true);
+        outer.ForEachArea(true, [&] (FeatureBuilder1::TPointSeq const & pts, vector<uint64_t> const & ids)
+        {
+          FeatureBuilder1 ft;
+
+          for (uint64_t id : ids)
+            ft.AddOsmId(osm::Id::Way(id));
+
+          for (auto const & pt : pts)
+            ft.AddPoint(pt);
+
+          ft.AddOsmId(osm::Id::Relation(p->id));
+          EmitArea(ft, params, [&holes] (FeatureBuilder1 & ft) {ft.SetAreaAddHoles(holes.GetHoles());});
+        });
+
         state = FeatureState::Ok;
         break;
       }

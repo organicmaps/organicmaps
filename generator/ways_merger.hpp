@@ -58,7 +58,7 @@ public:
   }
 
   template <class ToDo>
-  void ForEachArea(ToDo & toDo, bool collectID)
+  void ForEachArea(bool collectID, ToDo toDo)
   {
     while (!m_map.empty())
     {
