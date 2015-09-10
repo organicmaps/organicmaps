@@ -6,6 +6,8 @@ import urllib2
 import socket
 from subprocess import Popen, PIPE
 
+import logging
+
 class SiblingKiller:
     
     def __init__(self, port, ping_timeout):
@@ -145,7 +147,7 @@ class SiblingKiller:
             return id
         
         except:
-            print("Couldn't get id of a serving process (the PID of the server that responded to pinging)")
+            logging.info("Couldn't get id of a serving process (the PID of the server that responded to pinging)")
             return None
 
 

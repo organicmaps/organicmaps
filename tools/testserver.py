@@ -42,12 +42,42 @@ import socket
 import threading
 import traceback
 
+
+import logging
+import logging.config
+
 try:
     from tornado_handler import MainHandler
     USE_TORNADO = True
 except: 
     USE_TORNADO = False
 
+
+dict = {
+            'version': 1,
+            "handlers": {
+                "console": {
+                    "class" : "logging.StreamHandler",
+                    "formatter": "default",
+                    "level"   : "DEBUG",
+#                     "stream"  : "ext://sys.stdout"
+                }
+            },
+    
+            "formatters": {
+                "default":{
+                    "format": '%(asctime)s %(levelname)-8s %(name)-15s %(message)s',
+                    "datefmt": '%Y-%m-%d %H:%M:%S'
+                }
+            }
+        }
+
+
+# logging.config.dictConfig(dict)
+
+
+logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
+logging.warning('is when this event was logged.')
 
 PORT = 34568
 LIFESPAN = 180.0  # timeout for the self destruction timer - how much time 
@@ -60,6 +90,7 @@ class InternalServer(HTTPServer):
 
     def kill_me(self):
         self.shutdown()
+        logging.info("The server's life has come to an end")
 
 
     def reset_selfdestruct_timer(self):
@@ -98,7 +129,7 @@ class TestServer:
         self.may_serve = False
         
         pid = os.getpid()
-        print("Init server. Pid: {}".format(pid))
+        logging.info("Init server. Pid: {}".format(pid))
         
         self.server = None
         
@@ -107,17 +138,17 @@ class TestServer:
         if killer.allow_serving():
             try:
                 self.init_server()
-                print("Started server with pid: {}".format(pid))
+                logging.info("Started server with pid: {}".format(pid))
                 self.may_serve = True
 
             except socket.error:
-                print("Failed to start the server: Port is in use")
+                logging.info("Failed to start the server: Port is in use")
             except Exception as e:
-                print(e)
-                print("Failed to start serving for unknown reason")
+                logging.debug(e)
+                logging.info("Failed to start serving for unknown reason")
                 traceback.print_exc()
         else:
-            print("Not allowed to start serving for process: {}".format(pid))
+            logging.info("Not allowed to start serving for process: {}".format(pid))
 
     def init_server(self):
         

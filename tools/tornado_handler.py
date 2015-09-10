@@ -8,6 +8,8 @@ import threading
 import tornado.ioloop
 import tornado.web
 
+import logging
+
 
 class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
     
@@ -21,10 +23,9 @@ class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
     def kill(self):
         MainHandler.ping_count -= 1
         if MainHandler.ping_count <= 0: #so that if we decrease the value from several threads we still kill it.
-            tornado.ioloop.IOLoop.current().stop()
+            MainHandler.suicide()
             if MainHandler.self_destruct_timer:
                 MainHandler.self_destruct_timer.cancel()
-        
 
     def dispatch_response(self, payload):
         self.set_status(payload.response_code())
@@ -61,10 +62,16 @@ class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
 
 
     @staticmethod
+    def suicide():
+        tornado.ioloop.IOLoop.current().stop()
+        logging.info("The server's life has come to an end")
+
+
+    @staticmethod
     def reset_self_destruct_timer():
         if MainHandler.self_destruct_timer:
             MainHandler.self_destruct_timer.cancel()
-        MainHandler.self_destruct_timer = Timer(MainHandler.lifespan, tornado.ioloop.IOLoop.current().stop)
+        MainHandler.self_destruct_timer = Timer(MainHandler.lifespan, MainHandler.suicide())
         MainHandler.self_destruct_timer.start()
     
     

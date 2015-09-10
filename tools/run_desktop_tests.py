@@ -28,6 +28,7 @@ import sys
 import testserver
 import urllib2
 
+import logging
 
 TO_RUN = "to_run"
 SKIP = "skip"
@@ -44,10 +45,10 @@ class TestRunner:
         if not tests:
             return
         
-        print("\n{result}".format(result=result.upper()))
+        logging.info("\n{result}".format(result=result.upper()))
 
         for test in tests:
-            print("- {test}".format(test=test))
+            logging.info("- {test}".format(test=test))
 
 
     def set_global_vars(self):
@@ -73,7 +74,7 @@ class TestRunner:
             self.runlist.extend(tests.split(","))
             
         if self.runlist:
-            print("WARNING: -i option found, the -e option will be ignored")
+            logging.warn("-i option found, the -e option will be ignored")
         
         self.workspace_path = options.folder
         self.logfile = options.output
@@ -90,7 +91,7 @@ class TestRunner:
         try:
             urllib2.urlopen('http://localhost:{port}/kill'.format(port=PORT), timeout=5)
         except (urllib2.URLError, socket.timeout):
-            print("Failed to stop the server...")
+            logging.info("Failed to stop the server...")
 
 
     def categorize_tests(self):
@@ -130,7 +131,7 @@ class TestRunner:
         
             test_file_with_keys = "{test_file}{data}{resources}".format(test_file=test_file, data=self.data_path, resources=self.user_resource_path)
         
-            print(test_file_with_keys)
+            logging.info(test_file_with_keys)
             process = subprocess.Popen("{tests_path}/{test_file} 2>> {logfile}".
                                    format(tests_path=self.workspace_path, test_file=test_file_with_keys, logfile=self.logfile),
                                    shell=True,
