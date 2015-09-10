@@ -13,7 +13,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -494,10 +493,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mFrame.setOnTouchListener(this);
   }
 
-  @SuppressWarnings("deprecation")
   private void initNavigationButtons()
   {
-    ViewGroup navigationButtons = (ViewGroup) findViewById(R.id.navigation_buttons);
+    View navigationButtons = findViewById(R.id.navigation_buttons);
     mBtnZoomIn = (ImageButton) navigationButtons.findViewById(R.id.map_button_plus);
     mBtnZoomIn.setOnClickListener(this);
     mBtnZoomOut = (ImageButton) navigationButtons.findViewById(R.id.map_button_minus);
@@ -757,39 +755,28 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     mMapFragment.nativeOnLocationError(errorCode);
 
-    // Notify user about turned off location services
     if (errorCode == LocationHelper.ERROR_DENIED)
     {
       LocationState.INSTANCE.turnOff();
 
-      // Do not show this dialog on Kindle Fire - it doesn't have location services
-      // and even wifi settings can't be opened programmatically
-      if (Utils.isAmazonDevice())
-        return;
+      Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+      if (intent.resolveActivity(getPackageManager()) == null)
+      {
+        intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
+        if (intent.resolveActivity(getPackageManager()) == null)
+          return;
+      }
 
+      final Intent finIntent = intent;
       new AlertDialog.Builder(this)
-          .setTitle(R.string.location_is_disabled_long_text)
+          .setTitle(R.string.enable_location_service)
+          .setMessage(R.string.location_is_disabled_long_text)
           .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
           {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-              try
-              {
-                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-              } catch (final Exception e1)
-              {
-                // On older Android devices location settings are merged with security
-                try
-                {
-                  startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
-                } catch (final Exception e2)
-                {
-                  Log.w(TAG, "Can't run activity" + e2);
-                }
-              }
-
-              dialog.dismiss();
+              startActivity(finIntent);
             }
           })
           .setNegativeButton(R.string.close, null)
