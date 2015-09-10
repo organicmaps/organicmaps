@@ -28,6 +28,7 @@ SOURCES += \
     cell_id_test.cpp \
     checker_test.cpp \
     city_rank_table_test.cpp \
+    drules_selector_parser_test.cpp \
     features_offsets_table_test.cpp \
     geometry_coding_test.cpp \
     geometry_serialization_test.cpp \

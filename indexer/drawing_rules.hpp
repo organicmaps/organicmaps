@@ -2,6 +2,7 @@
 
 #include "indexer/drawing_rule_def.hpp"
 #include "indexer/drules_city_rank_table.hpp"
+#include "indexer/drules_selector.hpp"
 
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
@@ -21,6 +22,7 @@ class CaptionDefProto;
 class CircleRuleProto;
 class ShieldRuleProto;
 class ContainerProto;
+class FeatureType;
 
 
 namespace drule
@@ -29,6 +31,8 @@ namespace drule
   {
     mutable buffer_vector<uint32_t, 4> m_id1;
     char m_type;      // obsolete for new styles, can be removed
+
+    unique_ptr<ISelector> m_selector;
 
   public:
     static uint32_t const empty_id = 0xFFFFFFFF;
@@ -53,6 +57,13 @@ namespace drule
     virtual CaptionDefProto const * GetCaption(int) const;
     virtual CircleRuleProto const * GetCircle() const;
     virtual ShieldRuleProto const * GetShield() const;
+
+    // Test feature by runtime feature style selector
+    // Returns true if rule is applicable for feature, otherwise it returns false
+    bool TestFeature(FeatureType const & ft, int zoom) const;
+
+    // Set runtime feature style selector
+    void SetSelector(unique_ptr<ISelector> && selector);
   };
 
   class RulesHolder

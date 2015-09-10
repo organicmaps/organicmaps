@@ -1,8 +1,8 @@
 #include "indexer/drawing_rules.hpp"
-#include "indexer/scales.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/drules_include.hpp"
 #include "indexer/map_style_reader.hpp"
+#include "indexer/scales.hpp"
 
 #include "defines.hpp"
 
@@ -87,6 +87,18 @@ CircleRuleProto const * BaseRule::GetCircle() const
 ShieldRuleProto const * BaseRule::GetShield() const
 {
   return nullptr;
+}
+
+bool BaseRule::TestFeature(FeatureType const & ft, int /* zoom */) const
+{
+  if (nullptr == m_selector)
+    return true;
+  return m_selector->Test(ft);
+}
+
+void BaseRule::SetSelector(unique_ptr<ISelector> && selector)
+{
+  m_selector = move(selector);
 }
 
 RulesHolder::RulesHolder()
@@ -330,12 +342,34 @@ namespace
     RulesHolder & m_holder;
 
     template <class TRule, class TProtoRule>
-    void AddRule(ClassifObject * p, int scale, rule_type_t type, TProtoRule const & rule)
+    void AddRule(ClassifObject * p, int scale, rule_type_t type, TProtoRule const & rule,
+                 vector<string> const & apply_if)
     {
-      Key k = m_holder.AddRule(scale, type, new TRule(rule));
+      unique_ptr<ISelector> selector;
+      if (!apply_if.empty())
+      {
+        selector = ParseSelector(apply_if);
+        if (selector == nullptr)
+        {
+          LOG(LERROR, ("Runtime selector has not been created:", apply_if));
+          return;
+        }
+      }
+
+      BaseRule * obj = new TRule(rule);
+      obj->SetSelector(move(selector));
+      Key k = m_holder.AddRule(scale, type, obj);
       p->SetVisibilityOnScale(true, scale);
       k.SetPriority(rule.priority());
       p->AddDrawRule(k);
+    }
+
+    static void DrawElementGetApplyIf(DrawElementProto const & de, vector<string> & apply_if)
+    {
+      apply_if.clear();
+      apply_if.reserve(de.apply_if_size());
+      for (int i = 0; i < de.apply_if_size(); ++i)
+        apply_if.emplace_back(de.apply_if(i));
     }
 
   public:
@@ -349,6 +383,8 @@ namespace
       int const i = FindIndex();
       if (i != -1)
       {
+        vector<string> apply_if;
+
         ClassifElementProto const & ce = m_cont.cont(i);
         for (int j = 0; j < ce.element_size(); ++j)
         {
@@ -356,26 +392,28 @@ namespace
 
           using namespace proto_rules;
 
+          DrawElementGetApplyIf(de, apply_if);
+
           for (int k = 0; k < de.lines_size(); ++k)
-            AddRule<Line>(p, de.scale(), line, de.lines(k));
+            AddRule<Line>(p, de.scale(), line, de.lines(k), apply_if);
 
           if (de.has_area())
-            AddRule<Area>(p, de.scale(), area, de.area());
+            AddRule<Area>(p, de.scale(), area, de.area(), apply_if);
 
           if (de.has_symbol())
-            AddRule<Symbol>(p, de.scale(), symbol, de.symbol());
+            AddRule<Symbol>(p, de.scale(), symbol, de.symbol(), apply_if);
 
           if (de.has_caption())
-            AddRule<Caption>(p, de.scale(), caption, de.caption());
+            AddRule<Caption>(p, de.scale(), caption, de.caption(), apply_if);
 
           if (de.has_circle())
-            AddRule<Circle>(p, de.scale(), circle, de.circle());
+            AddRule<Circle>(p, de.scale(), circle, de.circle(), apply_if);
 
           if (de.has_path_text())
-            AddRule<PathText>(p, de.scale(), pathtext, de.path_text());
+            AddRule<PathText>(p, de.scale(), pathtext, de.path_text(), apply_if);
 
           if (de.has_shield())
-            AddRule<Shield>(p, de.scale(), shield, de.shield());
+            AddRule<Shield>(p, de.scale(), shield, de.shield(), apply_if);
         }
       }
 
