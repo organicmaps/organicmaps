@@ -86,24 +86,24 @@ UNIT_TEST(NextTurnTest)
   vector<turns::TurnItem> turns(kTestTurns);
   route.SetTurnInstructions(turns);
 
-  double distance;
+  double distance, nextDistance;
   turns::TurnItem turn;
   turns::TurnItem nextTurn;
 
   route.GetCurrentTurn(distance, turn);
-  route.GetNextTurn(nextTurn);
+  route.GetNextTurn(nextDistance, nextTurn);
   TEST_EQUAL(turn, kTestTurns[0], ());
   TEST_EQUAL(nextTurn, kTestTurns[1], ());
 
   route.MoveIterator(GetGps(0.5, 1));
   route.GetCurrentTurn(distance, turn);
-  route.GetNextTurn(nextTurn);
+  route.GetNextTurn(nextDistance, nextTurn);
   TEST_EQUAL(turn, kTestTurns[1], ());
   TEST_EQUAL(nextTurn, kTestTurns[2], ());
 
   route.MoveIterator(GetGps(1, 1.5));
   route.GetCurrentTurn(distance, turn);
-  route.GetNextTurn(nextTurn);
+  route.GetNextTurn(nextDistance, nextTurn);
   TEST_EQUAL(turn, kTestTurns[2], ());
   TEST_EQUAL(nextTurn, turns::TurnItem(), ());
 }
