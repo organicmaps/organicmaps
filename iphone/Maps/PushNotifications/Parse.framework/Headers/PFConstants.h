@@ -1,13 +1,15 @@
-// PFConstants.h
-// Copyright 2011 Parse, Inc. All rights reserved.
+/**
+ * Copyright (c) 2015-present, Parse, LLC.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
 
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IPHONE
 #import <Parse/PFNullability.h>
-#else
-#import <ParseOSX/PFNullability.h>
-#endif
 
 @class PFObject;
 @class PFUser;
@@ -16,7 +18,7 @@
 /// @name Version
 ///--------------------------------------
 
-#define PARSE_VERSION @"1.7.5"
+#define PARSE_VERSION @"1.8.2"
 
 extern NSInteger const PARSE_API_VERSION;
 
@@ -33,9 +35,6 @@ extern NSString *const PF_NONNULL_S kPFDeviceType;
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>
-@compatibility_alias UIImage NSImage;
-@compatibility_alias UIColor NSColor;
-@compatibility_alias UIView NSView;
 #endif
 
 ///--------------------------------------

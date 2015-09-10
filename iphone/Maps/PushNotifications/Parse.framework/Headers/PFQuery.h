@@ -1,26 +1,22 @@
-//
-//  PFQuery.h
-//
-//  Copyright 2011-present Parse Inc. All rights reserved.
-//
+/**
+ * Copyright (c) 2015-present, Parse, LLC.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
 
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IPHONE
+#import <Bolts/BFTask.h>
+
 #import <Parse/PFConstants.h>
 #import <Parse/PFGeoPoint.h>
 #import <Parse/PFObject.h>
 #import <Parse/PFUser.h>
-#else
-#import <ParseOSX/PFConstants.h>
-#import <ParseOSX/PFGeoPoint.h>
-#import <ParseOSX/PFObject.h>
-#import <ParseOSX/PFUser.h>
-#endif
 
 PF_ASSUME_NONNULL_BEGIN
-
-@class BFTask;
 
 /*!
  The `PFQuery` class defines a query that is used to query for <PFObject>s.
@@ -800,7 +796,7 @@ PF_ASSUME_NONNULL_BEGIN
  */
 @property (assign, readwrite) PFCachePolicy cachePolicy;
 
-/* !
+/*!
  @abstract The age after which a cached value will be ignored
  */
 @property (assign, readwrite) NSTimeInterval maxCacheAge;

@@ -1,16 +1,15 @@
-//
-//  PFSubclassing.h
-//
-//  Copyright 2011-present Parse Inc. All rights reserved.
-//
+/**
+ * Copyright (c) 2015-present, Parse, LLC.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
 
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IPHONE
 #import <Parse/PFNullability.h>
-#else
-#import <ParseOSX/PFNullability.h>
-#endif
 
 @class PFQuery;
 
@@ -19,7 +18,7 @@ PF_ASSUME_NONNULL_BEGIN
 /*!
  If a subclass of <PFObject> conforms to `PFSubclassing` and calls <registerSubclass>,
  Parse framework will be able to use that class as the native class for a Parse cloud object.
- 
+
  Classes conforming to this protocol should subclass <PFObject> and
  include `PFObject+Subclass.h` in their implementation file.
  This ensures the methods in the Subclass category of <PFObject> are exposed in its subclasses only.
@@ -50,7 +49,7 @@ PF_ASSUME_NONNULL_BEGIN
  @returns A new <PFObject> without data.
  */
 + (instancetype)objectWithoutDataWithObjectId:(PF_NULLABLE NSString *)objectId;
-  
+
 /*!
  @abstract The name of the class as seen in the REST API.
  */
