@@ -129,7 +129,7 @@
 		6C93FAED1AD8063900A2C4AE /* MWMWatchNotification.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */; };
 		6CFBB8771AD84E1C009845A3 /* MWMFinishInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFBB8761AD84E1C009845A3 /* MWMFinishInterfaceController.m */; };
 		974386DD19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
-		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
+		9747264318323080006B7CB7 /* UIKitCategories.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.mm */; };
 		9747278418338F0C006B7CB7 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */; };
 		974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */; };
 		97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97508422199522D300A7457D /* SettingsAndMoreVC.mm */; };
@@ -479,7 +479,7 @@
 		972CDCC51887F1B7006641CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		974386DB19373EA400FD5659 /* ToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastView.h; sourceTree = "<group>"; };
 		974386DC19373EA400FD5659 /* ToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToastView.m; sourceTree = "<group>"; };
-		9747264118323080006B7CB7 /* UIKitCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIKitCategories.m; path = Categories/UIKitCategories.m; sourceTree = "<group>"; };
+		9747264118323080006B7CB7 /* UIKitCategories.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = UIKitCategories.mm; path = Categories/UIKitCategories.mm; sourceTree = "<group>"; };
 		9747264218323080006B7CB7 /* UIKitCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIKitCategories.h; path = Categories/UIKitCategories.h; sourceTree = "<group>"; };
 		9747278218338F0C006B7CB7 /* UIViewController+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+Navigation.h"; path = "Classes/UIViewController+Navigation.h"; sourceTree = "<group>"; };
 		9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "UIViewController+Navigation.mm"; path = "Classes/UIViewController+Navigation.mm"; sourceTree = "<group>"; };
@@ -1280,7 +1280,7 @@
 				342AD76D1B53D30C00E0B997 /* UIButton+RuntimeAttributes.h */,
 				342AD76E1B53D30C00E0B997 /* UIButton+RuntimeAttributes.m */,
 				9747264218323080006B7CB7 /* UIKitCategories.h */,
-				9747264118323080006B7CB7 /* UIKitCategories.m */,
+				9747264118323080006B7CB7 /* UIKitCategories.mm */,
 				B08AA8D81A26299A00810B1C /* TimeUtils.h */,
 				B08AA8D91A26299A00810B1C /* TimeUtils.m */,
 				9747278218338F0C006B7CB7 /* UIViewController+Navigation.h */,
@@ -2240,7 +2240,7 @@
 				F6FE2C0F1B03A006009814AA /* MWMPlacePageNavigationBar.mm in Sources */,
 				34BC72221B0DECAE0012A34B /* MWMLocationButtonView.mm in Sources */,
 				340F24631B14910500F874CD /* RouteState.mm in Sources */,
-				9747264318323080006B7CB7 /* UIKitCategories.m in Sources */,
+				9747264318323080006B7CB7 /* UIKitCategories.mm in Sources */,
 				F6BD33811B62403B00F2CE18 /* MWMRoutePreview.mm in Sources */,
 				977E26BE19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */,
 				97A8001418B2140A000C07A2 /* SearchResultCell.m in Sources */,
