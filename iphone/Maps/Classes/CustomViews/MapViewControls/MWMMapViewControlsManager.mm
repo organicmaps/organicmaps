@@ -167,6 +167,7 @@
 
 - (void)didStartFollowing
 {
+  self.hidden = NO;
   self.zoomHidden = NO;
   GetFramework().FollowRoute();
   self.disableStandbyOnRouteFollowing = YES;

@@ -226,7 +226,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
   Framework & f = GetFramework();
   UserMark const * userMark = f.GetUserMark(pxClicked, isLongClick);
-  if (f.HasActiveUserMark() == false && self.searchView.state == SearchViewStateHidden)
+  if (f.HasActiveUserMark() == false && self.searchView.state == SearchViewStateHidden && !f.IsRouteNavigable())
   {
     if (userMark == nullptr)
       self.controlsManager.hidden = !self.controlsManager.hidden;
