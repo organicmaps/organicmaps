@@ -39,8 +39,9 @@ public:
   Result(FeatureID const & id, m2::PointD const & pt, string const & str, string const & region,
          string const & type, uint32_t featureType, Metadata const & meta);
 
-  /// Used for point-like results on the map.
-  Result(m2::PointD const & pt, string const & str, string const & type);
+  /// Used for generation viewport results.
+  Result(FeatureID const & id, m2::PointD const & pt, string const & str,
+         string const & region, string const & type);
 
   /// @param[in] type Empty string - RESULT_LATLON, building address otherwise.
   Result(m2::PointD const & pt, string const & str,
@@ -91,6 +92,8 @@ public:
   void AppendCity(string const & name);
 
 private:
+  void PatchNameIfNeeded();
+
   FeatureID m_id;
   m2::PointD m_center;
   string m_str, m_region, m_type;

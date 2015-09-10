@@ -825,8 +825,8 @@ void Query::SearchViewportPoints(Results & res)
     if (IsCancelled())
       break;
 
-    res.AddResultNoChecks(
-        (*(indV[i])).GeneratePointResult(m_pCategories, &m_prefferedTypes, m_currentLocaleCode));
+    res.AddResultNoChecks((*(indV[i])).GeneratePointResult(m_pInfoGetter, m_pCategories,
+                                                           &m_prefferedTypes, m_currentLocaleCode));
   }
 }
 
@@ -942,6 +942,10 @@ void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
 void Query::AddResultFromTrie(TTrieValue const & val, MwmSet::MwmId const & mwmID,
                               ViewportID vID /*= DEFAULT_V*/)
 {
+  // If we are in viewport search mode, check actual "point-in-viewport" criteria.
+  if (m_queuesCount == 1 && !m_viewport[CURRENT_V].IsPointInside(val.m_pt))
+    return;
+
   impl::PreResult1 res(FeatureID(mwmID, val.m_featureId), val.m_rank,
                        val.m_pt, GetPosition(vID), vID);
 

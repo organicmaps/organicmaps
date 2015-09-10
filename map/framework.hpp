@@ -252,8 +252,6 @@ public:
   void ShowBookmark(BookmarkAndCategory const & bnc);
   void ShowTrack(Track const & track);
 
-  void ClearBookmarks();
-
   bool AddBookmarksFile(string const & filePath);
 
   inline m2::PointD PtoG(m2::PointD const & p) const { return m_navigator.PtoG(p); }

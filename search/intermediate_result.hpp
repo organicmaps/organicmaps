@@ -85,12 +85,11 @@ public:
   /// @param[in]  lang    Current system language.
   Result GenerateFinalResult(storage::CountryInfoGetter const * pInfo,
                              CategoriesHolder const * pCat,
-                             set<uint32_t> const * pTypes,
-                             int8_t lang) const;
+                             set<uint32_t> const * pTypes, int8_t locale) const;
 
-  Result GeneratePointResult(CategoriesHolder const * pCat,
-                             set<uint32_t> const * pTypes,
-                             int8_t locale) const;
+  Result GeneratePointResult(storage::CountryInfoGetter const * pInfo,
+                             CategoriesHolder const * pCat,
+                             set<uint32_t> const * pTypes, int8_t locale) const;
 
   static bool LessRank(PreResult2 const & r1, PreResult2 const & r2);
   static bool LessDistance(PreResult2 const & r1, PreResult2 const & r2);
@@ -132,8 +131,7 @@ private:
   bool IsEqualCommon(PreResult2 const & r) const;
 
   string ReadableFeatureType(CategoriesHolder const * pCat,
-                        set<uint32_t> const * pTypes,
-                        int8_t locale) const;
+                             uint32_t type, int8_t locale) const;
 
   FeatureID m_id;
   feature::TypesHolder m_types;
@@ -156,6 +154,8 @@ private:
     void GetRegion(storage::CountryInfoGetter const * pInfo,
                    storage::CountryInfo & info) const;
   } m_region;
+
+  string GetRegionName(storage::CountryInfoGetter const * pInfo, uint32_t fType) const;
 
   m2::PointD GetCenter() const { return m_region.m_point; }
 

@@ -104,9 +104,7 @@ namespace storage
       {
         vector<m2::PointD> points;
         serial::LoadOuterPath(src, serial::CodingParams(), points);
-
-        rgnV.push_back(m2::RegionD());
-        rgnV.back().Assign(points.begin(), points.end());
+        rgnV.emplace_back(points.begin(), points.end());
       }
     }
 
@@ -135,7 +133,7 @@ namespace storage
 
   void CountryInfoGetter::GetRegionInfo(string const & id, CountryInfo & info) const
   {
-    map<string, CountryInfo>::const_iterator i = m_id2info.find(id);
+    auto i = m_id2info.find(id);
 
     // Take into account 'minsk-pass'.
     if (i == m_id2info.end()) return;
@@ -151,12 +149,10 @@ namespace storage
 
   template <class ToDo> void CountryInfoGetter::ForEachCountry(string const & prefix, ToDo toDo) const
   {
-    typedef vector<CountryDef>::const_iterator IterT;
-
-    for (IterT i = m_countries.begin(); i != m_countries.end(); ++i)
+    for (auto const & c : m_countries)
     {
-      if (i->m_name.find(prefix) == 0)
-        toDo(*i);
+      if (c.m_name.find(prefix) == 0)
+        toDo(c);
     }
 
     /// @todo Store sorted list of polygons in PACKED_POLYGONS_FILE.

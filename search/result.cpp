@@ -15,14 +15,25 @@ Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
   , m_featureType(featureType)
   , m_metadata(meta)
 {
-  // Features with empty names can be found after suggestion.
-  if (m_str.empty())
-    m_str = type;
+  PatchNameIfNeeded();
 }
 
-Result::Result(m2::PointD const & pt, string const & str, string const & type)
-  : m_center(pt), m_str(str), m_type(type)
+Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
+               string const & region, string const & type)
+  : m_id(id)
+  , m_center(pt)
+  , m_str(str)
+  , m_region(region)
+  , m_type(type)
 {
+  PatchNameIfNeeded();
+}
+
+void Result::PatchNameIfNeeded()
+{
+  // Features with empty names can be found after suggestion.
+  if (m_str.empty())
+    m_str = m_type;
 }
 
 Result::Result(m2::PointD const & pt, string const & str,

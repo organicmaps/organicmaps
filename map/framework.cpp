@@ -567,11 +567,6 @@ void Framework::ShowTrack(Track const & track)
   ShowRectEx(track.GetLimitRect());
 }
 
-void Framework::ClearBookmarks()
-{
-  m_bmManager.ClearItems();
-}
-
 namespace
 {
 
