@@ -8,6 +8,9 @@
         <mutableArray key="HelveticaNeue.ttc">
             <string>HelveticaNeue-Medium</string>
             <string>HelveticaNeue-Medium</string>
+            <string>HelveticaNeue-Medium</string>
+            <string>HelveticaNeue-Medium</string>
+            <string>HelveticaNeue-Medium</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -45,7 +48,7 @@
                             </constraints>
                         </slider>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kth-rd-TPo" userLabel="Azimut Box">
-                            <rect key="frame" x="52" y="0.0" width="541" height="90"/>
+                            <rect key="frame" x="52" y="0.0" width="539" height="90"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKb-P8-fcu" userLabel="exit">
                                     <rect key="frame" x="0.0" y="21.5" width="64" height="21"/>
@@ -86,7 +89,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Овчинниковская наб." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9V-Kt-LIt">
-                                    <rect key="frame" x="80" y="60" width="461" height="20"/>
+                                    <rect key="frame" x="80" y="60" width="459" height="20"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -112,47 +115,47 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPF-5v-zhS" userLabel="Distance Box">
-                            <rect key="frame" x="598" y="0.0" width="130" height="90"/>
+                            <rect key="frame" x="596" y="0.0" width="132" height="90"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdK-Ad-rnt">
-                                    <rect key="frame" x="83" y="10" width="47" height="20"/>
+                                    <rect key="frame" x="84" y="10" width="48" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="47" id="gVc-eW-TLR"/>
                                         <constraint firstAttribute="height" constant="20" id="uu2-wU-UQO"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F95-AG-2uX">
-                                    <rect key="frame" x="0.0" y="60" width="130" height="20"/>
+                                    <rect key="frame" x="0.0" y="60" width="132" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="dhj-lT-vwd"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1o-3M-J3b">
-                                    <rect key="frame" x="0.0" y="10" width="51.5" height="20"/>
+                                    <rect key="frame" x="0.0" y="10" width="52.5" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="6QY-Oq-Yhp"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="52" id="XHJ-J8-7YZ"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
