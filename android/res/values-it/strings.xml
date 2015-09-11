@@ -128,8 +128,6 @@
 	<string name="continue_download">Continua</string>
 	<string name="downloaded_touch_to_update">Scaricato (%s), tocca per aggiornare o cancellare</string>
 	<string name="update_mb_or_kb">Aggiorna %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Hai bisogno di mappe aggiornate per la funzione di ricerca:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Aggiornamento disponibile per queste mappe:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -338,10 +336,6 @@
 	<string name="pro_version_is_free_today">Versione completa di MAPS.ME è oggi gratis! Scaricala ora e dillo ai tuoi amici!</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Stiamo trasferendo le tue mappe scaricate da MAPS.ME Lite a MAPS.ME. Potrebbe richiedere alcuni minuti.</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Le mappe che hai scaricato sono state trasferite con successo a MAPS.ME.</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Non è stato possibile trasferire le tue mappe. Cancella MAPS.ME Lite e scarica le mappe di nuovo.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Impostazioni e Altro</string>
 	<!-- Text in menu -->

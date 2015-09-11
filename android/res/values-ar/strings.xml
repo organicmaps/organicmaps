@@ -133,8 +133,6 @@
 	<string name="continue_download">استمرار</string>
 	<string name="downloaded_touch_to_update">تم تنزيل (%s) ، انقر للتحديث أو الحذف</string>
 	<string name="update_mb_or_kb">تحديث %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">أنت بحاجة الى تحديث الخرائط من أجل وظيفة البحث:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">هناك تحديثات متوافرة للخرائط التالية:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -345,10 +343,6 @@
 	<string name="pro_version_is_free_today">تطبيق MAPS.ME مجاني اليوم! قم بتنزيله الآن وأخبر أصدقائك.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">نحن ننقل خرائط التنزيلات الخاصة بك من MAPS.ME Lite إلى MAPS.ME. يمكن أن يستغرق بضع دقائق</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">تم بنجاح نقل خرائطك التي تم تنزيلها إلى MAPS.ME.</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">فشل نقل خرائطك يُرجى حذف MAPS.ME Lite وتنزيل الخرائط مرة أخرى.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">الإعدادات والمزيد</string>
 	<!-- Text in menu -->

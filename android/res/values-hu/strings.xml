@@ -130,8 +130,6 @@
 	<string name="continue_download">Folytatás</string>
 	<string name="downloaded_touch_to_update">Letöltve (%s), érintse meg frissítéshez vagy törléshez</string>
 	<string name="update_mb_or_kb">%s frissítése</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Frissített térképekre lesz szüksége a kereséshez:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Az aktuális térképhez elérhető frissítések:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -342,10 +340,6 @@
 	<string name="pro_version_is_free_today">A teljes verzió MAPS.ME ma ingyenes! Töltsd le most és meséld el barátaidnak.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Letöltött térképeidet áthelyezzük a MAPS.ME Lite-ból a MAPS.ME-be. Ez eltarthat pár percig.</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Letöltött térképeidet sikeresen áthelyeztük a MAPS.ME-be.</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Térképeid áthelyezése nem sikerült. Kérjük, töröld a MAPS.ME Lite-t és töltsd le a térképet megint.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Beállítások és egyéb</string>
 	<!-- Text in menu -->

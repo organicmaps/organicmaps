@@ -216,9 +216,6 @@
 
 "update_mb_or_kb" = "تحديث %@";
 
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "أنت بحاجة الى تحديث الخرائط من أجل وظيفة البحث:";
-
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "هناك تحديثات متوافرة للخرائط التالية:";
 
@@ -547,12 +544,6 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "نحن ننقل خرائط التنزيلات الخاصة بك من MAPS.ME Lite إلى MAPS.ME. يمكن أن يستغرق بضع دقائق";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "تم بنجاح نقل خرائطك التي تم تنزيلها إلى MAPS.ME.";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "فشل نقل خرائطك يُرجى حذف MAPS.ME Lite وتنزيل الخرائط مرة أخرى.";
 
 /* Text in menu */
 "settings_and_more" = "الإعدادات والمزيد";

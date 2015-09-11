@@ -136,8 +136,6 @@
 	<string name="continue_download">Continue</string>
 	<string name="downloaded_touch_to_update">Downloaded (%s), touch to update or delete</string>
 	<string name="update_mb_or_kb">Update %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">You need updated maps for search function:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Update available for these maps:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -354,10 +352,6 @@
 	<string name="pro_version_is_free_today">Full version of MAPS.ME is free today! Download now and tell your friends.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">We are transferring your downloaded maps from MAPS.ME Lite to MAPS.ME. It may take a few minutes.</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Your downloaded maps are successfully transferred to MAPS.ME.</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Your maps failed to transfer. Please delete MAPS.ME Lite and download the maps again.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Settings &amp; More</string>
 	<!-- Text in menu -->

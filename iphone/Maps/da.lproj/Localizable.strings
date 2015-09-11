@@ -216,9 +216,6 @@
 
 "update_mb_or_kb" = "Opdater %@";
 
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Du har brug for opdaterede kort for at benytte søgefunktionen:";
-
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Der er opdateringer klar til følgende kort:";
 
@@ -547,12 +544,6 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Vi overfører dine downloadede kort fra MAPS.ME Lite til MAPS.ME. Det kan tage et par minutter.";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Dine downloadede kort er blevet succesfuldt overført til MAPS.ME.";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.";
 
 /* Text in menu */
 "settings_and_more" = "Indstillinger & Mere";

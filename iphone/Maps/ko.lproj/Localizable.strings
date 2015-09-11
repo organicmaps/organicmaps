@@ -216,9 +216,6 @@
 
 "update_mb_or_kb" = "%@업데이트";
 
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "당신은 검색 기능에 대한 업데이트된지도 필요";
-
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "이지도에 사용할 수있는 업데이트:";
 
@@ -547,12 +544,6 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "우리는 MAPS.ME. Lite에서 MAPS.ME로 다운로드된 지도를 전송하고 있습니다. 이는 몇 분 정도 걸릴 수 있습니다.";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "다운로드된 지도가 성공적으로 MAPS.ME에 전송됨";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "지도를 전송하지 못했습니다. MAPS.ME Lite를 삭제하고 다시지도를 다운로드하십시오.";
 
 /* Text in menu */
 "settings_and_more" = "설정 및 기타";

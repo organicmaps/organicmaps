@@ -216,9 +216,6 @@
 
 "update_mb_or_kb" = "%@ frissítése";
 
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Frissített térképekre lesz szüksége a kereséshez:";
-
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Az aktuális térképhez elérhető frissítések:";
 
@@ -547,12 +544,6 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Letöltött térképeidet áthelyezzük a MAPS.ME Lite-ból a MAPS.ME-be. Ez eltarthat pár percig.";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Letöltött térképeidet sikeresen áthelyeztük a MAPS.ME-be.";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Térképeid áthelyezése nem sikerült. Kérjük, töröld a MAPS.ME Lite-t és töltsd le a térképet megint.";
 
 /* Text in menu */
 "settings_and_more" = "Beállítások és egyéb";

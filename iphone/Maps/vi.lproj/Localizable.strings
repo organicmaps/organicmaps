@@ -216,9 +216,6 @@
 
 "update_mb_or_kb" = "Cập nhật %@";
 
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:";
-
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:";
 
@@ -547,12 +544,6 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Chúng tôi đang chuyển bản đồ đã tải xuống của bạn từ MAPS.ME Lite sang MAPS.ME. Việc này có thể mất vài phút.";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Bản đồ đã tải xuống của bạn đã được chuyển thành công sang MAPS.ME.";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Bản đồ của bạn không chuyển được. Vui lòng xóa MAPS.ME Lite và tải xuống lại bản đồ.";
 
 /* Text in menu */
 "settings_and_more" = "Thiết lập &amp; Khác";

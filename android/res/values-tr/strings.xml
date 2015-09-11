@@ -133,8 +133,6 @@
 	<string name="continue_download">Devam</string>
 	<string name="downloaded_touch_to_update">(%s) indirildi, güncellemek veya silmek için dokunun</string>
 	<string name="update_mb_or_kb">%s güncelle</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Arama işlevi için güncellenmiş haritalara ihtiyacınız var:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Bu haritalar için güncelleme kullanılabilir:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -345,10 +343,6 @@
 	<string name="pro_version_is_free_today">MAPS.ME tam sürümü bugün ücretsiz! İndir ve arkadaşlarına haber ver.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">MAPS.ME Lite\&#39;den indirmiş olduğunuz haritaları MAPS.ME\&#39;ye aktarıyoruz. Bu bir kaç dakika sürebilir.</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">İndirmiş olduğunuz haritalar başarılı bir şekilde MAPS.ME\&#39;ye aktarıldı.</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Haritanızın aktarımı başarısız oldu. Lütfen MAPS.ME Lite\&#39;yi silin ve haritaları tekrar indirin.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Ayarlar &amp; Fazlası</string>
 	<!-- Text in menu -->

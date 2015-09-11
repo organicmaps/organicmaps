@@ -123,8 +123,6 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Doorgaan</string>
 	<string name="downloaded_touch_to_update">(%s) gedownload, klik om te updaten of te verwijderen</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Update beschikbaar voor deze kaarten:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -333,10 +331,6 @@
 	<string name="pro_version_is_free_today">Volledige versie van MAPS.ME is nu gratis! Download nu en vertel het je vrienden.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">We verplaatsen uw gedownloade kaarten van MAPS.ME Lite naar MAPS.ME. Dit kan enkele minuten duren.</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Uw gedownloade kaarten werden met succes verplaatst naar MAPS.ME.</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Verplaatsing van uw kaarten mislukt. Gelieve MAPS.ME Lite te verwijderen en de kaarten opnieuw te downloaden.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Instellingen &amp; meer</string>
 	<!-- Text in menu -->

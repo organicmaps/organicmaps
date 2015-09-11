@@ -216,9 +216,6 @@
 
 "update_mb_or_kb" = "Päivitä %@";
 
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Hakutoimintoa varten tarvitset päivitetyt kartat:";
-
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Päivitys saatavissa seuraaville kartoille:";
 
@@ -547,12 +544,6 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Me siirrämme lataamasi kartat MAPS.ME Lite:stä MAPS.ME:hen. Siirtäminen voi viedä muutaman minuutin.";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Lataamasi kartat on siirretty onnistuneesti MAPS.ME:hen.";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Karttoja ei voitu siirtää. Ole hyvä ja poista MAPS.ME Lite ja lataa kartat uudelleen.";
 
 /* Text in menu */
 "settings_and_more" = "Asetukset &amp; Lisää";

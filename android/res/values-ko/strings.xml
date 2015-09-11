@@ -127,8 +127,6 @@
 	<string name="continue_download">계속</string>
 	<string name="downloaded_touch_to_update">다운로드 (%s), 터치를 업데이 트하거나 삭제하는 방법</string>
 	<string name="update_mb_or_kb">%s업데이트</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">당신은 검색 기능에 대한 업데이트된지도 필요</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">이지도에 사용할 수있는 업데이트:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -331,10 +329,6 @@
 	<string name="pro_version_is_free_today">MAPS.ME의 전체 버전 오늘 무료! 지금 다운로드하고 친구들에게 알리세요.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">우리는 MAPS.ME. Lite에서 MAPS.ME로 다운로드된 지도를 전송하고 있습니다. 이는 몇 분 정도 걸릴 수 있습니다.</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">다운로드된 지도가 성공적으로 MAPS.ME에 전송됨</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">지도를 전송하지 못했습니다. MAPS.ME Lite를 삭제하고 다시지도를 다운로드하십시오.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">설정 및 기타</string>
 	<!-- Text in menu -->

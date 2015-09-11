@@ -131,8 +131,6 @@
 	<string name="continue_download">繼續</string>
 	<string name="downloaded_touch_to_update">下載 (%s), 輕觸以更新或刪除</string>
 	<string name="update_mb_or_kb">更新 %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">您需要更新地圖以使用搜尋功能：</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">以下為可用的更新地圖：</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -331,10 +329,6 @@
 	<string name="pro_version_is_free_today">完整版MAPS.ME是免費的今天！馬上下載并告訴您的朋友。</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">我們正在將您從MAPS.ME Lite下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">您下載的地圖已成功傳輸至MAPS.ME。</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">您的地圖傳輸失敗。請刪除MAPS.ME Lite，然後再次下載地圖。</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">設定及更多</string>
 	<!-- Text in menu -->

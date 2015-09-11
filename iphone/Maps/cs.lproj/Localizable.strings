@@ -216,9 +216,6 @@
 
 "update_mb_or_kb" = "Aktualizace %@";
 
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Pro funkci vyhledávání musíš aktualizovat mapy:";
-
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Je k dispozici aktualizace pro tyto mapy:";
 
@@ -547,12 +544,6 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Právě přenášíme tvé stažené mapy z MAPS.ME Lite do MAPS.ME. Může to několik minut trvat.";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Tvé stažené mapy jsou úspěšně přeneseny do MAPS.ME.";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Tvé mapy se nepodařilo přenést. Prosím, odstraň MAPS.ME Lite a stáhni si mapy znovu.";
 
 /* Text in menu */
 "settings_and_more" = "Nastavení a další";

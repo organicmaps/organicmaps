@@ -216,9 +216,6 @@
 
 "update_mb_or_kb" = "Oновити %@";
 
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Для функції пошуку необхідно оновити застарілі карти:";
-
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Доступні оновлення для наступних карт:";
 
@@ -547,12 +544,6 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Ми переносимо завантажені карти з MAPS.ME Lite в MAPS.ME. Це може зайняти декілька хвилин.";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Ваші карти успішно перенесено в MAPS.ME.";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "При переносі карт виникла помилка. Будь ласка, видаліть MAPS.ME Lite і завантажте карти знову.";
 
 /* Text in menu */
 "settings_and_more" = "Налаштування";

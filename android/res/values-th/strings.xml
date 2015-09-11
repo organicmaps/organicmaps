@@ -133,8 +133,6 @@
 	<string name="continue_download">ดำเนินการต่อ</string>
 	<string name="downloaded_touch_to_update">ดาวน์โหลด (%s) แล้ว, แตะเพื่ออัปเดตหรือลบ</string>
 	<string name="update_mb_or_kb">ัปเดต %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">คุณจำเป็นต้องใช้แผนที่ที่มีการอัปเดตเพื่อค้นหาฟังก์ชัน:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">สามารถใช้การอัปเดตสำหรับแผนที่เหล่านี้:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -343,10 +341,6 @@
 	<string name="pro_version_is_free_today">เวอร์ชันเต็มของ MAPS.ME วันนี้ฟรี! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">เรากำลังโอนแผนที่ที่ดาวน์โหลดของคุณจาก MAPS.ME Lite ไปยัง MAPS.ME อาจใช้เวลาสองสามวินาที</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">แผนที่ที่ดาวน์โหลดของคุณโอนไปยัง MAPS.ME สำเร็จ</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">ล้มเหลวในการโอนแผนที่ของคุณ โปรดลบ MAPS.ME Lite และดาวน์โหลดแผนที่อีกครั้ง</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">การตั้งค่า &amp; อื่น ๆ</string>
 	<!-- Text in menu -->

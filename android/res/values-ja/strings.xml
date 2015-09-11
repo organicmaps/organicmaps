@@ -128,8 +128,6 @@
 	<string name="continue_download">続行</string>
 	<string name="downloaded_touch_to_update">(%s)をダウンロードしました。タップして更新、削除できます</string>
 	<string name="update_mb_or_kb">%sを更新</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">検索機能を利用するにはマップを更新する必要があります</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">以下のマップが更新されています:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -338,10 +336,6 @@
 	<string name="pro_version_is_free_today">MAPS.MEのフルバージョンが本日無料！今すぐダウンロードして友達に教えてあげましょう。</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">ダウンロード済みの地図をMAPS.ME LiteからMAPS.MEに転送します。完了までに数分かかるかもしれません。</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">ダウンロード済みの地図は無事MAPS.MEに転送されました</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">地図の転送に失敗しました。MAPS.ME Liteを削除してから地図を再度ダウンロードしてください。</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">設定&amp;その他</string>
 	<!-- Text in menu -->

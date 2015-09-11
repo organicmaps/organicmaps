@@ -216,9 +216,6 @@
 
 "update_mb_or_kb" = "更新 %@";
 
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "您需要更新地圖以使用搜尋功能：";
-
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "以下為可用的更新地圖：";
 
@@ -547,12 +544,6 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "我們正在將您從MAPS.ME Lite下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "您下載的地圖已成功傳輸至MAPS.ME。";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "您的地圖傳輸失敗。請刪除MAPS.ME Lite，然後再次下載地圖。";
 
 /* Text in menu */
 "settings_and_more" = "設定及更多";

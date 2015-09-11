@@ -135,8 +135,6 @@
 	<string name="continue_download">Lanjutkan</string>
 	<string name="downloaded_touch_to_update">(%s) telah diunduh, sentuh untuk memperbarui atau menghapus</string>
 	<string name="update_mb_or_kb">Perbarui %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Anda memerlukan peta terbaru untuk fungsi pencarian:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Tersedia pembaruan untuk peta ini:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -340,10 +338,6 @@
 	<string name="download_map_notification">Unduh peta tempat di mana Anda berada sekarang</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Kami sedang mentransfer peta unduhan Anda dari MAPS.ME Lite ke MAPS.ME. Proses ini mungkin membutuhkan waktu beberapa menit.</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Peta unduhan Anda berhasil ditransfer ke MAPS.ME.</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Peta Anda gagal ditransfer. Silakan hapus MAPS.ME Lite dan unduh peta lagi.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Setelan &amp;amp; Lebih Banyak</string>
 	<!-- Text in menu -->
