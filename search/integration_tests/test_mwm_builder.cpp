@@ -35,7 +35,7 @@ void TestMwmBuilder::AddPOI(m2::PointD const & p, string const & name, string co
   CHECK(m_collector, ("It's not possible to add features after call to Finish()."));
   FeatureBuilder1 fb;
   fb.SetCenter(p);
-  fb.SetType(m_classificator.GetTypeByPath({"shop", "alcohol"}));
+  fb.SetType(m_classificator.GetTypeByPath({"railway", "station"}));
   CHECK(fb.AddName(lang, name), ("Can't set feature name:", name, "(", lang, ")"));
   (*m_collector)(fb);
 }
