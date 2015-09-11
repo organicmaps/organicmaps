@@ -15,7 +15,7 @@ Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
   , m_featureType(featureType)
   , m_metadata(meta)
 {
-  Init(true);
+  Init(true /* metadataInitialized */);
 }
 
 Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
@@ -26,7 +26,7 @@ Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
   , m_region(region)
   , m_type(type)
 {
-  Init(false);
+  Init(false /* metadataInitialized */);
 }
 
 void Result::Init(bool metadataInitialized)

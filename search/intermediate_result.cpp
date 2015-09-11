@@ -192,8 +192,10 @@ namespace
     bool IsSkip(uint32_t type) const
     {
       for (uint8_t t : m_types)
+      {
         if (t == type)
           return true;
+      }
       return false;
     }
   };
@@ -207,7 +209,7 @@ string PreResult2::GetRegionName(storage::CountryInfoGetter const * pInfo, uint3
 
   storage::CountryInfo info;
   m_region.GetRegion(pInfo, info);
-  return move(info.m_name);
+  return info.m_name;
 }
 
 Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const * pInfo,

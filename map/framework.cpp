@@ -24,10 +24,10 @@
 #include "routing/route.hpp"
 #include "routing/routing_algorithm.hpp"
 
+#include "search/intermediate_result.hpp"
+#include "search/result.hpp"
 #include "search/search_engine.hpp"
 #include "search/search_query_factory.hpp"
-#include "search/result.hpp"
-#include "search/intermediate_result.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator_loader.hpp"

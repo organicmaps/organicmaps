@@ -32,7 +32,7 @@ public:
     int m_stars = 0;          // Valid only if not 0. Used for hotels.
     bool m_isClosed = false;  // Valid for any result.
 
-    /// true If the struct is already assigned or need to be calculated othrwise.
+    /// True if the struct is already assigned or need to be calculated otherwise.
     bool m_isInitialized = false;
   };
 
