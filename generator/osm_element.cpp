@@ -29,10 +29,10 @@ string DebugPrint(OsmElement::EntityType e)
   }
 }
 
-#define SKIP_KEY(key) if (strncmp(k.data(), key, sizeof(key)-1) == 0) return;
 
 void OsmElement::AddTag(string const & k, string const & v)
 {
+#define SKIP_KEY(key) if (strncmp(k.data(), key, sizeof(key)-1) == 0) return;
   // OSM technical info tags
   SKIP_KEY("created_by");
   SKIP_KEY("source");
@@ -58,7 +58,7 @@ void OsmElement::AddTag(string const & k, string const & v)
   SKIP_KEY("local_name");
   SKIP_KEY("short_name");
   SKIP_KEY("official_name");
-
+#undef SKIP_KEY
 
   m_tags.emplace_back(k, v);
 }

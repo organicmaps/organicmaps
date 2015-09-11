@@ -92,8 +92,8 @@ public:
     m_current = p;
   }
 
-  template <class ReaderT>
-  bool operator() (uint64_t id, ReaderT & reader)
+  template <class TReader>
+  bool operator() (uint64_t id, TReader & reader)
   {
     bool exists = false;
     RelationElement & e = m_cache.Find(id, exists);
@@ -207,7 +207,7 @@ protected:
   }
 };
 
-}  // anonymous namespace
+}  // namespace
 
 /// @param  TEmitter  Feature accumulating policy
 /// @param  TCache   Nodes, ways, relations holder

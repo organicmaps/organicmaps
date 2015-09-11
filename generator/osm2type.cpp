@@ -28,41 +28,45 @@ namespace ftype
       // NOTE! If you add a new type into classificator, which has a number in it
       // (like admin_level=1 or capital=2), please don't forget to insert it here too.
       // Otherwise generated data will not contain your newly added features.
-      bool isNumber = strings::is_number(v);
-      return (!isNumber || (isNumber && (k == "admin_level" || k == "capital")));
+      return !strings::is_number(v) || k == "admin_level" || k == "capital";
     }
 
     bool IgnoreTag(string const & k, string const & v)
     {
       static string const negativeValues[] = { "no", "false", "-1" };
+      // If second component of these pairs is true we need to process this key else ignore it
       static pair<string const, bool const> const processedKeys[] = {
         {"description", true}
         ,{"cycleway", true}     // [highway=primary][cycleway=lane] parsed as [highway=cycleway]
         ,{"proposed", true}     // [highway=proposed][proposed=primary] parsed as [highway=primary]
         ,{"construction", true} // [highway=primary][construction=primary] parsed as [highway=construction]
-        ,{"layer", false} // process in any case
-        ,{"oneway", false} // process in any case
+        ,{"layer", false}       // process in any case
+        ,{"oneway", false}      // process in any case
       };
 
-      // ignore empty key
+      // Ignore empty key.
       if (k.empty())
         return true;
 
-      // ignore some keys
+      // Process special keys.
       for (auto const & key : processedKeys)
+      {
         if (k == key.first)
           return key.second;
+      }
 
-      // ignore keys with negative values
+      // Ignore keys with negative values.
       for (auto const & value : negativeValues)
+      {
         if (v == value)
           return true;
+      }
 
       return false;
     }
 
     template <typename TResult, class ToDo>
-    TResult ForEachTag(OsmElement * p, ToDo toDo)
+    TResult ForEachTag(OsmElement * p, ToDo && toDo)
     {
       TResult res = TResult();
       for (auto & e : p->m_tags)
@@ -78,33 +82,33 @@ namespace ftype
     }
 
     template <typename TResult, class ToDo>
-    TResult ForEachTagEx(OsmElement * p, set<int> & skipTags, ToDo toDo)
+    TResult ForEachTagEx(OsmElement * p, set<int> & skipTags, ToDo && toDo)
     {
       int id = 0;
       return ForEachTag<TResult>(p, [&](string const & k, string const & v)
       {
-        int current_id = id++;
-        if (skipTags.count(current_id) != 0)
+        int currentId = id++;
+        if (skipTags.count(currentId) != 0)
           return TResult();
         if (string::npos != k.find("name"))
         {
-          skipTags.insert(current_id);
+          skipTags.insert(currentId);
           return TResult();
         }
         TResult res = toDo(k, v);
         if (res)
-          skipTags.insert(current_id);
+          skipTags.insert(currentId);
         return res;
       });
     }
 
-    class ExtractNames
+    class NamesExtractor
     {
       set<string> m_savedNames;
       FeatureParams & m_params;
 
     public:
-      ExtractNames(FeatureParams & params) : m_params(params) {}
+      NamesExtractor(FeatureParams & params) : m_params(params) {}
 
       bool GetLangByKey(string const & k, string & lang)
       {
@@ -112,9 +116,12 @@ namespace ftype
         if (!token)
           return false;
 
-        // this is an international (latin) name
+        // Is this an international (latin) name.
         if (*token == "int_name")
-          return m_savedNames.insert(lang = "int_name").second;
+        {
+          lang = *token;
+          return m_savedNames.insert(lang).second;
+        }
 
         if (*token != "name")
           return false;
@@ -122,11 +129,11 @@ namespace ftype
         ++token;
         lang = (token ? *token : "default");
 
-        // replace dummy arabian tag with correct tag
+        // Replace dummy arabian tag with correct tag.
         if (lang == "ar1")
           lang = "ar";
 
-        // avoid duplicating names
+        // Avoid duplicating names.
         return m_savedNames.insert(lang).second;
       }
 
@@ -256,16 +263,20 @@ namespace ftype
 
     auto matchTagToClassificator = [&path, &current](string const & k, string const & v) -> bool
     {
-      // first try to match key
+      // First try to match key.
       ClassifObjectPtr elem = current->BinaryFind(k);
       if (!elem)
         return false;
 
       path.push_back(elem);
 
-      // now try to match correspondent value
-      if (NeedMatchValue(k, v) && (elem = elem->BinaryFind(v)))
-        path.push_back(elem);
+      // Now try to match correspondent value.
+      if (!NeedMatchValue(k, v))
+        return true;
+
+      if (ClassifObjectPtr velem = elem->BinaryFind(v))
+        path.push_back(velem);
+
       return true;
     };
 
@@ -274,17 +285,17 @@ namespace ftype
       current = classif().GetRoot();
       path.clear();
 
-      // find first root object by key
+      // Find first root object by key.
       if (!ForEachTagEx<bool>(p, skipRows, matchTagToClassificator))
         break;
       CHECK(!path.empty(), ());
 
       do
       {
-        // continue find path from last element
+        // Continue find path from last element.
         current = path.back().get();
 
-        // next objects trying to find by value first
+        // Next objects trying to find by value first.
         ClassifObjectPtr pObj =
             ForEachTagEx<ClassifObjectPtr>(p, skipRows, [&](string const & k, string const & v)
             {
@@ -299,18 +310,18 @@ namespace ftype
         }
         else
         {
-          // if no - try find object by key (in case of k = "area", v = "yes")
+          // If no - try find object by key (in case of k = "area", v = "yes").
           if (!ForEachTagEx<bool>(p, skipRows, matchTagToClassificator))
             break;
         }
       } while (true);
 
-      // assign type
+      // Assign type.
       uint32_t t = ftype::GetEmptyValue();
       for (auto const & e : path)
         ftype::PushValue(t, e.GetIndex());
 
-      // use features only with drawing rules
+      // Use features only with drawing rules.
       if (feature::IsDrawableAny(t))
         params.AddType(t);
 
@@ -319,7 +330,7 @@ namespace ftype
 
   void GetNameAndType(OsmElement * p, FeatureParams & params)
   {
-    // Preprocess tags
+    // Stage1: Preprocess tags.
     bool hasLayer = false;
     char const * layer = nullptr;
 
@@ -333,42 +344,42 @@ namespace ftype
     if (!hasLayer && layer)
       p->AddTag("layer", layer);
 
-    // Process feature name on all languages
-    ForEachTag<bool>(p, ExtractNames(params));
+    // Stage2: Process feature name on all languages.
+    ForEachTag<bool>(p, NamesExtractor(params));
 
-    // Base rules for tags processing
+    // Stage3: Process base feature tags.
     TagProcessor(p).ApplyRules<void(string &, string &)>
     ({
-      { "atm", "yes", [](string &k, string &v) { k.swap(v); k = "amenity"; }},
-      { "restaurant", "yes", [](string &k, string &v) { k.swap(v); k = "amenity"; }},
-      { "hotel", "yes", [](string &k, string &v) { k.swap(v); k = "tourism"; }},
-      { "addr:housename", "*", [&params](string &k, string &v) { params.AddHouseName(v); k.clear(); v.clear();}},
-      { "addr:street", "*", [&params](string &k, string &v) { params.AddStreetAddress(v); k.clear(); v.clear();}},
-      { "addr:flats", "*", [&params](string &k, string &v) { params.flats = v; k.clear(); v.clear();}},
-      { "addr:housenumber", "*", [&params](string &k, string &v)
+      { "atm", "yes", [](string & k, string & v) { k.swap(v); k = "amenity"; }},
+      { "restaurant", "yes", [](string & k, string & v) { k.swap(v); k = "amenity"; }},
+      { "hotel", "yes", [](string & k, string & v) { k.swap(v); k = "tourism"; }},
+      { "addr:housename", "*", [&params](string & k, string & v) { params.AddHouseName(v); k.clear(); v.clear();}},
+      { "addr:street", "*", [&params](string & k, string & v) { params.AddStreetAddress(v); k.clear(); v.clear();}},
+      { "addr:flats", "*", [&params](string & k, string & v) { params.flats = v; k.clear(); v.clear();}},
+      { "addr:housenumber", "*", [&params](string & k, string & v)
         {
           // Treat "numbers" like names if it's not an actual number.
           if (!params.AddHouseNumber(v))
             params.AddHouseName(v);
           k.clear(); v.clear();
         }},
-      { "population", "*", [&params](string &k, string &v)
+      { "population", "*", [&params](string & k, string & v)
         {
-          // get population rank
+          // Get population rank.
           uint64_t n;
           if (strings::to_uint64(v, n))
             params.rank = static_cast<uint8_t>(log(double(n)) / log(1.1));
           k.clear(); v.clear();
         }},
-      { "ref", "*", [&params](string &k, string &v)
+      { "ref", "*", [&params](string & k, string & v)
         {
-          // get reference (we process road numbers only)
+          // Get reference (we process road numbers only).
           params.ref = v;
           k.clear(); v.clear();
         }},
-      { "layer", "*", [&params](string &k, string &v)
+      { "layer", "*", [&params](string & k, string & v)
         {
-          // get layer
+          // Get layer.
           if (params.layer == 0)
           {
             params.layer = atoi(v.c_str());
@@ -378,9 +389,10 @@ namespace ftype
         }},
     });
 
-    // Match tags to classificator for find feature types
+    // Stage4: Match tags to classificator for find feature types.
     MatchTypes(p, params);
 
+    // Stage5: Postrocess feature types.
     static CachedTypes const types;
 
     if (!params.house.IsEmpty())
@@ -465,7 +477,7 @@ namespace ftype
 
     params.FinishAddingTypes();
 
-    // Collect addidtional information about feature such as
+    // Stage6: Collect addidtional information about feature such as
     // hotel stars, opening hours, cuisine, ...
     ForEachTag<bool>(p, MetadataTagProcessor(params));
   }
