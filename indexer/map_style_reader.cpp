@@ -12,22 +12,25 @@
 namespace
 {
 
-char const * const MAP_STYLE_KEY = "MapStyleKey";
+char const * const MAP_STYLE_KEY = "MapStyleKeyV1";
+
+const char * const SUFFIX_LEGACY_LIGHT = "";
+const char * const SUFFIX_LEGACY_DARK = "_dark";
+const char * const SUFFIX_MODERN_CLEAR = "_clear";
 
 string GetStyleSuffix(MapStyle mapStyle)
 {
   switch (mapStyle)
   {
   case MapStyleLight:
-    return "";
+    return SUFFIX_LEGACY_LIGHT;
    case MapStyleDark:
-    return "_dark";
+    return SUFFIX_LEGACY_DARK;
   case MapStyleClear:
-   return "_clear";
-  default:
-    LOG(LWARNING, ("Unknown map style", mapStyle));
-    return string();
+    return SUFFIX_MODERN_CLEAR;
   }
+  LOG(LWARNING, ("Unknown map style", mapStyle));
+  return SUFFIX_MODERN_CLEAR;
 }
 
 }  // namespace
@@ -41,7 +44,7 @@ MapStyle StyleReader::GetCurrentStyle()
 {
   int mapStyle;
   if (!Settings::Get(MAP_STYLE_KEY, mapStyle))
-    mapStyle = MapStyleLight;
+    mapStyle = MapStyleClear;
   return static_cast<MapStyle>(mapStyle);
 }
 
