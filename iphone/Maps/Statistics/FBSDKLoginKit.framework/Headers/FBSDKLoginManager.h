@@ -18,6 +18,7 @@
 
 #import <Accounts/Accounts.h>
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class FBSDKLoginManagerLoginResult;
 
@@ -85,8 +86,10 @@ typedef NS_ENUM(NSUInteger, FBSDKLoginBehavior)
    */
   FBSDKLoginBehaviorBrowser,
   /*!
-   @abstract Attempts log in through the Facebook account currently signed in through Settings.
-   If no Facebook account is signed in, falls back to \c FBSDKLoginBehaviorNative.
+   @abstract Attempts log in through the Facebook account currently signed in through
+   the device Settings.
+   @note If the account is not available to the app (either not configured by user or
+   as determined by the SDK) this behavior falls back to \c FBSDKLoginBehaviorNative.
    */
   FBSDKLoginBehaviorSystemAccount,
   /*!
@@ -125,9 +128,23 @@ typedef NS_ENUM(NSUInteger, FBSDKLoginBehavior)
 @property (assign, nonatomic) FBSDKLoginBehavior loginBehavior;
 
 /*!
+ @deprecated use logInWithReadPermissions:fromViewController:handler: instead
+ */
+- (void)logInWithReadPermissions:(NSArray *)permissions handler:(FBSDKLoginManagerRequestTokenHandler)handler
+__attribute__ ((deprecated("use logInWithReadPermissions:fromViewController:handler: instead")));
+
+/*!
+ @deprecated use logInWithPublishPermissions:fromViewController:handler: instead
+ */
+- (void)logInWithPublishPermissions:(NSArray *)permissions handler:(FBSDKLoginManagerRequestTokenHandler)handler
+__attribute__ ((deprecated("use logInWithPublishPermissions:fromViewController:handler: instead")));
+
+/*!
  @abstract Logs the user in or authorizes additional permissions.
  @param permissions the optional array of permissions. Note this is converted to NSSet and is only
   an NSArray for the convenience of literal syntax.
+ @param fromViewController the view controller to present from. If nil, the topmost view controller will be
+  automatically determined as best as possible.
  @param handler the callback.
  @discussion Use this method when asking for read permissions. You should only ask for permissions when they
   are needed and explain the value to the user. You can inspect the result.declinedPermissions to also
@@ -140,12 +157,16 @@ typedef NS_ENUM(NSUInteger, FBSDKLoginBehavior)
  already contains the permissions you need before asking to reduce unnecessary app switching. For example,
  you could make that check at viewDidLoad.
  */
-- (void)logInWithReadPermissions:(NSArray *)permissions handler:(FBSDKLoginManagerRequestTokenHandler)handler;
+- (void)logInWithReadPermissions:(NSArray *)permissions
+              fromViewController:(UIViewController *)fromViewController
+                         handler:(FBSDKLoginManagerRequestTokenHandler)handler;
 
 /*!
  @abstract Logs the user in or authorizes additional permissions.
  @param permissions the optional array of permissions. Note this is converted to NSSet and is only
  an NSArray for the convenience of literal syntax.
+ @param fromViewController the view controller to present from. If nil, the topmost view controller will be
+ automatically determined as best as possible.
  @param handler the callback.
  @discussion Use this method when asking for publish permissions. You should only ask for permissions when they
  are needed and explain the value to the user. You can inspect the result.declinedPermissions to also
@@ -158,7 +179,9 @@ typedef NS_ENUM(NSUInteger, FBSDKLoginBehavior)
  already contains the permissions you need before asking to reduce unnecessary app switching. For example,
  you could make that check at viewDidLoad.
  */
-- (void)logInWithPublishPermissions:(NSArray *)permissions handler:(FBSDKLoginManagerRequestTokenHandler)handler;
+- (void)logInWithPublishPermissions:(NSArray *)permissions
+                 fromViewController:(UIViewController *)fromViewController
+                            handler:(FBSDKLoginManagerRequestTokenHandler)handler;
 
 /*!
  @abstract Logs the user out

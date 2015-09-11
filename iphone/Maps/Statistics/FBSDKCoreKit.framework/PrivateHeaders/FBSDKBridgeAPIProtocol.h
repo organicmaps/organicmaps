@@ -30,8 +30,6 @@ FBSDK_EXTERN NSString *const FBSDKBridgeAPIVersionKey;
 
 @protocol FBSDKBridgeAPIProtocol <NSObject>
 
-@property (nonatomic, assign, readonly, getter=isEnabled) BOOL enabled;
-
 - (NSURL *)requestURLWithActionID:(NSString *)actionID
                            scheme:(NSString *)scheme
                        methodName:(NSString *)methodName

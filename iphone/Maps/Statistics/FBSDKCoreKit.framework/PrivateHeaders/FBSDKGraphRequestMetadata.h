@@ -20,8 +20,8 @@
 
 #import <FBSDKCoreKit/FBSDKGraphRequestConnection.h>
 
-// Internal only class to facilitate FBRequest processing, specifically
-// associating FBRequest and FBRequestHandler instances and necessary
+// Internal only class to facilitate FBSDKGraphRequest processing, specifically
+// associating FBSDKGraphRequest and FBSDKGraphRequestHandler instances and necessary
 // data for retry processing.
 @interface FBSDKGraphRequestMetadata : NSObject
 
