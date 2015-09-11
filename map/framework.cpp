@@ -2217,7 +2217,7 @@ void Framework::RemoveRoute()
 void Framework::FollowRoute()
 {
   int const scale = (m_currentRouterType == RouterType::Pedestrian) ?
-        scales::GetUpperComfortScale() :
+        scales::GetPedestrianNavigationScale() :
         scales::GetNavigationScale();
 
   GetLocationState()->StartRouteFollow(scale);
