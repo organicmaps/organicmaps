@@ -12,38 +12,38 @@
 namespace
 {
 
-char const * const MAP_STYLE_KEY = "MapStyleKeyV1";
+char const * const kMapStyleKey = "MapStyleKeyV1";
 
-const char * const SUFFIX_LEGACY_LIGHT = "";
-const char * const SUFFIX_LEGACY_DARK = "_dark";
-const char * const SUFFIX_MODERN_CLEAR = "_clear";
+const char * const kSuffixLegacyLight = "";
+const char * const kSuffixLegacyDark = "_dark";
+const char * const kSuffixModernClear = "_clear";
 
 string GetStyleSuffix(MapStyle mapStyle)
 {
   switch (mapStyle)
   {
   case MapStyleLight:
-    return SUFFIX_LEGACY_LIGHT;
+    return kSuffixLegacyLight;
    case MapStyleDark:
-    return SUFFIX_LEGACY_DARK;
+    return kSuffixLegacyDark;
   case MapStyleClear:
-    return SUFFIX_MODERN_CLEAR;
+    return kSuffixModernClear;
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
-  return SUFFIX_MODERN_CLEAR;
+  return kSuffixModernClear;
 }
 
 }  // namespace
 
 void StyleReader::SetCurrentStyle(MapStyle mapStyle)
 {
-  Settings::Set(MAP_STYLE_KEY, static_cast<int>(mapStyle));
+  Settings::Set(kMapStyleKey, static_cast<int>(mapStyle));
 }
 
 MapStyle StyleReader::GetCurrentStyle()
 {
   int mapStyle;
-  if (!Settings::Get(MAP_STYLE_KEY, mapStyle))
+  if (!Settings::Get(kMapStyleKey, mapStyle))
     mapStyle = MapStyleClear;
   return static_cast<MapStyle>(mapStyle);
 }
