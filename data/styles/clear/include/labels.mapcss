@@ -88,6 +88,7 @@ node|z6[place=state]
   text-color: @state_name;
 }
 
+
 /* CITIES ZOOM 4*/
 
 node|z4[place=city][capital=2] {
@@ -879,7 +880,16 @@ area|z17-[leisure=park] {
   text-halo-radius: 0;
 }
 
-area|z17-[leisure=garden] {
+area|z17[leisure=garden] {
+  text: name;
+  font-size: 12;
+  text-color: @park_label;
+  text-halo-opacity: 0.3;
+  text-halo-color: @label_halo_light;
+  text-halo-radius: 0;
+}
+
+area|z18-[leisure=garden] {
   icon-image: garden-m.svg;
   text-offset: 10;
   text: name;

@@ -5,11 +5,9 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g sketch:type="MSLayerGroup" transform="translate(-172.000000, -1526.000000)" id="fountain-l">
-            <g transform="translate(172.000000, 1526.000000)" sketch:type="MSShapeGroup">
-                <circle id="Oval-1-Copy-38" opacity="0.504605877" fill="#FFFFFF" cx="12.5" cy="12.5" r="12.5"></circle>
-                <path d="M12.5,4 C11,6 6,12 6,15.5 C6,19 9.27126,22 12.5,22 C15.72874,22 19,19 19,15.5 C19,12 14,6 12.5,4 Z" id="path7962-4-3-5-3-9-copy-2" fill="#4793C7"></path>
-            </g>
+        <g id="fountain-l" sketch:type="MSLayerGroup">
+            <circle id="Oval-1-Copy-38" opacity="0.504605877" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="12.5" cy="12.5" r="12.5"></circle>
+            <path d="M12.5,4 C11,6 6,12 6,15.5 C6,19 9.27126,22 12.5,22 C15.72874,22 19,19 19,15.5 C19,12 14,6 12.5,4 Z" id="path7962-4-3-5-3-9-copy-2" fill="#4793C7" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>

@@ -5,12 +5,10 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g sketch:type="MSLayerGroup" transform="translate(-323.000000, -1379.000000)" id="alcohol-m">
-            <g transform="translate(323.000000, 1379.000000)" sketch:type="MSShapeGroup">
-                <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-                <ellipse id="Oval-1-Copy-40" fill="#777871" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-                <path d="M8.5,4 L8,4.5 L8,7.5 L6,10 L6,18 L12,18 L12,10 L10,7.5 L10,4.5 L9.5,4 L8.5,4 L8.5,4 Z M13,10 L13,13 C13,13 13,14 14,14 L15,14 L15,17 L13.5,17.5 L13,18 L18,18 L17.5,17.5 L16,17 L16,14 L17,14 C18,14 18,13 18,13 L18,10 L13,10 L13,10 Z" id="path5792-copy" fill="#FFFFFF"></path>
-            </g>
+        <g id="alcohol-m" sketch:type="MSLayerGroup">
+            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#7A7A6E" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+            <path d="M8.5,4 L8,4.5 L8,7.5 L6,10 L6,18 L12,18 L12,10 L10,7.5 L10,4.5 L9.5,4 L8.5,4 L8.5,4 Z M13,10 L13,13 C13,13 13,14 14,14 L15,14 L15,17 L13.5,17.5 L13,18 L18,18 L17.5,17.5 L16,17 L16,14 L17,14 C18,14 18,13 18,13 L18,10 L13,10 L13,10 Z" id="path5792-copy" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>

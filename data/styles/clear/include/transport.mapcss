@@ -221,6 +221,7 @@ line|z10-[route=ferry_motorcar]
 /* TRANSPORT POINTS */
 
 node[highway=bus_stop],
+node[amenity=bus_station],
 node[railway=tram_stop],
 node[railway=station],
 node[railway=halt],
@@ -230,6 +231,7 @@ area[railway=station],
 area[railway=halt],
 {
   text-position: center;
+  z-index: 10000;
 }
 
 
@@ -357,6 +359,7 @@ node|z17-[railway=station][transport=subway]	 {
   text-halo-color: @label_halo_light;
 }
 
+/*
 node|z17[railway=subway_entrance] {
   icon-image: subway-s.svg;
   text-offset: 8;
@@ -380,6 +383,32 @@ node|z18-[railway=subway_entrance] {
   text-halo-opacity: 0.5;
   text-halo-color: @label_halo_light;
 }
+*/
+
+node|z17[railway=subway_entrance] {
+  icon-image: subway-entrance-s.svg;
+  text-offset: 8;
+  font-size: 12;
+  z-index: 13000;
+  text: name;
+  text-color: @label_dark;
+  text-halo-radius: 1;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
+}
+
+node|z18-[railway=subway_entrance] {
+  icon-image: subway-entrance-m.svg;
+  text-offset: 8;
+  font-size: 14;
+  z-index: 13000;
+  text: name;
+  text-color: @label_dark;
+  text-halo-radius: 1;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
+}
+
 
 
 
@@ -450,9 +479,10 @@ node|z15[railway=station][transport=subway][city=kiev] { icon-image: subway-kiev
 node|z16-[railway=station][transport=subway][city=kiev] { icon-image: subway-kiev-l.svg; }
 
 /* NEW YORK ICONS */
-node|z14[railway=station][transport=subway][city=newyork] { icon-image: subway-s.svg; }
-node|z15[railway=station][transport=subway][city=newyork] { icon-image: subway-m.svg; }
-node|z16-[railway=station][transport=subway][city=newyork] { icon-image: subway-l.svg; }
+node|z13[railway=station][transport=subway][city=newyork] { icon-image: subway-newyork-xs.svg; }
+node|z14[railway=station][transport=subway][city=newyork] { icon-image: subway-newyork-s.svg; }
+node|z15[railway=station][transport=subway][city=newyork] { icon-image: subway-newyork-m.svg; }
+node|z16-[railway=station][transport=subway][city=newyork] { icon-image: subway-newyork-l.svg; }
 
 /* TRAM STOPS */
 
@@ -519,17 +549,48 @@ area|z16-[public_transport=station]
   text-halo-color: @label_halo_light;
 }
 
+node|z15[amenity=bus_station], area|z16-[amenity=bus_station] {
+  icon-image: bus-m.svg;
+}
+node|z16-17[amenity=bus_station], area|z16-[amenity=bus_station] {
+  icon-image: bus-m.svg;
+  z-index: 4000;
+  text-offset: 8;
+  font-size: 10;
+  z-index: 5000;
+  text: name;
+  text-color: @label_dark;
+  text-halo-radius: 1;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
+}
+
+node|z18-[amenity=bus_station], area|z18-[amenity=bus_station] {
+  icon-image: bus-m.svg;
+  z-index: 4000;
+  text-offset: 8;
+  font-size: 10;
+  z-index: 5000;
+  text: name;
+  text-color: @label_dark;
+  text-halo-radius: 1;
+  text-halo-opacity: 0.5;
+  text-halo-color: @label_halo_light;
+}
+
+
+
 /* FERRY */
 
-node|z15[amenity=ferry_terminal] {
+node|z14-15[amenity=ferry_terminal] {
   icon-image: ship-s.svg;
-  z-index: 5000;
+  z-index: 10000;
 }
 
 
 node|z16-[amenity=ferry_terminal] {
   icon-image: ship-m.svg;
-  z-index: 5000;
+  z-index: 10000;
   text-offset: 8;
   font-size: 10;
   text: name;
@@ -616,6 +677,18 @@ node|z15-[aeroway=aerodrome]
     text-halo-color: @label_halo_light;
     z-index: 10000;
 }
+
+/* TERMINAL
+node|z10-[aeroway=terminal] {
+  icon-image: airport-l.svg;
+}
+
+area|z10-[aeroway=terminal] {
+  fill-color: @building;
+}
+*/
+
+
 
 /*
 node|z17[aeroway=helipad], area|z17[aeroway=helipad] { icon-image: helipad-s.svg; z-index: 10000; }

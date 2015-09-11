@@ -127,6 +127,13 @@ line|z17-[waterway=ditch] {
 	dashes: 1,1;
 }
 
+line|z15-[waterway=dam] {
+	width: 1;
+	opacity: 0.8;
+	color: @dark;
+	z-index: 283;
+}
+
 
 /* VEGETATION */
 

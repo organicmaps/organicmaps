@@ -10,7 +10,7 @@ node|z15[amenity=university] { icon-image: college-s.svg; text-offset: 8; font-s
 node|z15[amenity=hospital] { icon-image: hospital-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 
 /* NAMED TOURISM POINTS BY DEFAULT — TEMPORARY */
-node|z18-[tourism], area|z18-[tourism] { /* icon-image: no-icon-tourism.svg; text-offset: 8; */ font-size: 10; text: tourism; text-color: purple; }
+/* node|z18-[tourism], area|z18-[tourism] { /* icon-image: no-icon-tourism.svg; text-offset: 8; font-size: 10; text: tourism; text-color: purple; } */
 
 /* TOURISM, HISTORIC  */
 node|z16-[tourism=museum],area|z16-[tourism=museum] { icon-image: museum-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
@@ -24,7 +24,8 @@ node|z18-[tourism=artwork] { icon-image: tourism-m.svg; text-offset: 8; font-siz
 node|z18-[tourism=attraction]  { icon-image: tourism-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[tourism=viewpoint]  { icon-image: tourism-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z17-[tourism=information] { icon-image: information-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
-node|z17-[tourism=camp_site], area|z17-[tourism=camp_site] { icon-image: campsite-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z15[tourism=camp_site], area|z15[tourism=camp_site] { icon-image: campsite-s.svg; }
+node|z16-[tourism=camp_site], area|z16-[tourism=camp_site] { icon-image: campsite-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 
 
 /* AMENITY */
@@ -55,6 +56,8 @@ node|z18-[amenity=restaurant], area|z18-[amenity=restaurant] { icon-image: resta
 node|z18-[amenity=fast_food], area|z18-[amenity=fast_food] { icon-image: fastfood-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=bar], area|z18-[amenity=bar] { icon-image: bar-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=pub], area|z18-[amenity=pub] { icon-image: pub-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z18-[amenity=bureau_de_change] { icon-image: banknote-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+
 node|z17-[amenity=post_office] { icon-image: mail-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=fountain] { icon-image: fontain-m.svg; }
 node|z18-[amenity=library] { icon-image: library-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
@@ -98,14 +101,12 @@ node|z18-[sport=gymnastics] { icon-image: pitch-m.svg; text-offset: 8; font-size
 
 /* node|z16[amenity=university] { icon-image: college-m.svg; } */
 
-node|z15-[highway=speed_camera] { icon-image: speedcam-m.svg; z-index: 7000; }
-
+node|z16-[highway=speed_camera] { icon-image: speedcam-m.svg; z-index: 7000; }
 node|z16-[building=hospital], area|z16-[building=hospital] { icon-image: hospital-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 
 /* PARKINGS */
-node|z16-17[amenity=parking] { icon-image: parking-s.svg; }
-
-node|z16-17[amenity=parking][access=permissive],
-node|z16-17[amenity=parking][access=private] { icon-image: zero-icon.svg; }
+node|z17[amenity=parking] { icon-image: parking-s.svg; }
+node|z17[amenity=parking][access=permissive],
+node|z17[amenity=parking][access=private] { icon-image: zero-icon.svg; }
 
 node|z18-[amenity=parking], area|z18-[amenity=parking] { icon-image: parking-m.svg;  text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
