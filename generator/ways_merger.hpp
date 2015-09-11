@@ -7,42 +7,15 @@
 #include "std/vector.hpp"
 #include "std/shared_ptr.hpp"
 
-
 template <class THolder>
 class AreaWayMerger
 {
+  using TPointSeq = vector<m2::PointD>;
+  using TWayMap = multimap<uint64_t, shared_ptr<WayElement>>;
+  using TWayMapIterator = TWayMap::iterator;
+
   THolder & m_holder;
-
-  typedef vector<m2::PointD> pts_vec_t;
-
-  static bool IsValidAreaPath(pts_vec_t const & pts)
-  {
-    return (pts.size() > 2 && pts.front() == pts.back());
-  }
-
-  bool GetPoint(uint64_t id, m2::PointD & pt) const
-  {
-    return m_holder.GetNode(id, pt.y, pt.x);
-  }
-
-  class process_points
-  {
-    AreaWayMerger * m_pMain;
-
-  public:
-    pts_vec_t m_vec;
-
-    process_points(AreaWayMerger * pMain) : m_pMain(pMain) {}
-    void operator()(uint64_t id)
-    {
-      m2::PointD pt;
-      if (m_pMain->GetPoint(id, pt))
-        m_vec.push_back(pt);
-    }
-  };
-
-  typedef multimap<uint64_t, shared_ptr<WayElement> > way_map_t;
-  way_map_t m_map;
+  TWayMap m_map;
 
 public:
   AreaWayMerger(THolder & holder) : m_holder(holder) {}
@@ -62,14 +35,12 @@ public:
   {
     while (!m_map.empty())
     {
-      typedef way_map_t::iterator iter_t;
-
       // start
-      iter_t i = m_map.begin();
+      TWayMapIterator i = m_map.begin();
       uint64_t id = i->first;
 
-      process_points process(this);
       vector<uint64_t> ids;
+      TPointSeq points;
 
       do
       {
@@ -77,13 +48,19 @@ public:
         shared_ptr<WayElement> e = i->second;
         if (collectID)
           ids.push_back(e->m_wayOsmId);
-        e->ForEachPointOrdered(id, process);
+
+        e->ForEachPointOrdered(id, [this, &points](uint64_t id)
+                               {
+          m2::PointD pt;
+          if (m_holder.GetNode(id, pt.y, pt.x))
+            points.push_back(pt);
+        });
 
         m_map.erase(i);
 
         // next 'id' to process
         id = e->GetOtherEndPoint(id);
-        pair<iter_t, iter_t> r = m_map.equal_range(id);
+        pair<TWayMapIterator, TWayMapIterator> r = m_map.equal_range(id);
 
         // finally erase element 'e' and find next way in chain
         i = r.second;
@@ -92,17 +69,15 @@ public:
           if (r.first->second == e)
             m_map.erase(r.first++);
           else
-          {
-            i = r.first;
-            ++r.first;
-          }
+            i = r.first++;
         }
 
-        if (i == r.second) break;
+        if (i == r.second)
+          break;
       } while (true);
 
-      if (IsValidAreaPath(process.m_vec))
-        toDo(process.m_vec, ids);
+      if ((points.size() > 2 && points.front() == points.back()))
+        toDo(points, ids);
     }
   }
 };

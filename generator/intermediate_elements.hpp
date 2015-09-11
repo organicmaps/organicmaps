@@ -39,7 +39,7 @@ struct WayElement
   }
 
   template <class ToDo>
-  void ForEachPointOrdered(uint64_t start, ToDo & toDo)
+  void ForEachPointOrdered(uint64_t start, ToDo && toDo)
   {
     ASSERT(!nodes.empty(), ());
     if (start == nodes.front())
