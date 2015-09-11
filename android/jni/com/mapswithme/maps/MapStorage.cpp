@@ -146,22 +146,6 @@ extern "C"
     GetStorage().Unsubscribe(slotID);
   }
 
-  JNIEXPORT jobjectArray JNICALL
-  Java_com_mapswithme_maps_MapStorage_nativeGetMapsWithoutSearch(JNIEnv * env, jobject thiz)
-  {
-    vector<string> v;
-    g_framework->GetMapsWithoutSearch(v);
-
-    jclass klass = env->FindClass("java/lang/String");
-    ASSERT ( klass, () );
-
-    int const count = static_cast<int>(v.size());
-    jobjectArray ret = env->NewObjectArray(count, klass, 0);
-    for (int i = 0; i < count; ++i)
-      env->SetObjectArrayElement(ret, i, env->NewStringUTF(v[i].c_str()));
-    return ret;
-  }
-
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_MapStorage_nativeMoveFile(JNIEnv * env, jobject thiz, jstring oldFile, jstring newFile)
   {

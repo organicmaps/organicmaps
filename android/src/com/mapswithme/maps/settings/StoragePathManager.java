@@ -67,9 +67,6 @@ public class StoragePathManager
 
   static final String TAG = StoragePathManager.class.getName();
 
-  private static final String LITE_SDCARD_PREFIX = "Android/data/com.mapswithme.maps/files";
-  private static final String SAMSUNG_LITE_SDCARD_PREFIX = "Android/data/com.mapswithme.maps.samsung/files";
-  private static final String PRO_SDCARD_PREFIX = "Android/data/com.mapswithme.maps.pro/files";
   private static final String IS_KML_PLACED_IN_MAIN_STORAGE = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
 
@@ -354,38 +351,6 @@ public class StoragePathManager
     }
 
     listener.moveFilesFailed(UNKNOWN_KITKAT_ERROR);
-  }
-
-  public void moveMapsLiteToPro(Context context, MoveFilesListener listener)
-  {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT || !containsLiteMapsOnSdcard())
-      return;
-
-    final long size = StorageUtils.getWritableDirSize();
-    final StorageItem currentStorage = new StorageItem(StorageUtils.getWritableDirRoot(), 0);
-
-    // there is no need to copy maps from primary external storage(on internal device flash memory) -
-    // maps are stored there in root folder and pro version can simply use them
-    if (Environment.getExternalStorageDirectory().getAbsolutePath().equals(currentStorage.mPath))
-      return;
-
-    updateExternalStorages();
-    for (StorageItem item : mItems)
-    {
-      if (item.mFreeSize > size && item.mPath.contains(PRO_SDCARD_PREFIX) && !item.mPath.equals(currentStorage.mPath))
-      {
-        setStoragePath(context, listener, item, currentStorage, R.string.move_lite_maps_to_pro);
-        return;
-      }
-    }
-
-    listener.moveFilesFailed(UNKNOWN_LITE_PRO_ERROR);
-  }
-
-  private boolean containsLiteMapsOnSdcard()
-  {
-    final String storagePath = StorageUtils.getWritableDirRoot();
-    return storagePath.contains(LITE_SDCARD_PREFIX) || storagePath.contains(SAMSUNG_LITE_SDCARD_PREFIX);
   }
 
   /**

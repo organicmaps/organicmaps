@@ -67,18 +67,6 @@ extern "C"
     try
     {
       ModelReaderPtr reader(pl.GetReader(name));
-
-      if (name == WORLD_FILE_NAME DATA_FILE_EXTENSION)
-      {
-        FilesContainerR cont(reader);
-        if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
-        {
-          // World.mwm file doesn't have search index - need to download new one.
-          return true;
-        }
-      }
-
-      // file exists - no need to download
       return false;
     }
     catch (RootException const &)

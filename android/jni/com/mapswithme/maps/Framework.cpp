@@ -555,43 +555,6 @@ namespace android
     m_work.DeregisterAllMaps();
   }
 
-  void Framework::GetMapsWithoutSearch(vector<string> & out) const
-  {
-    // Actually, this routing is obsolete and comes from ancient times
-    // when mwm was without search index.
-    if (!Settings::IsFirstLaunchForDate(150101))
-      return;
-
-    ASSERT(out.empty(), ());
-
-    ::Platform const & pl = GetPlatform();
-
-    vector<LocalCountryFile> localFiles;
-    platform::FindAllLocalMaps(localFiles);
-
-    for (LocalCountryFile const & localFile : localFiles)
-    {
-      CountryFile const countryFile = localFile.GetCountryFile();
-      // skip World and WorldCoast
-      if (countryFile.GetNameWithoutExt() == WORLD_FILE_NAME ||
-          countryFile.GetNameWithoutExt() == WORLD_COASTS_FILE_NAME)
-      {
-        continue;
-      }
-      try
-      {
-        FilesContainerR cont(platform::GetCountryReader(localFile, MapOptions::Map));
-        if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
-          out.push_back(countryFile.GetNameWithoutExt());
-      }
-      catch (RootException const & ex)
-      {
-        // sdcard can contain dummy _*.mwm files. Suppress these errors.
-        LOG(LWARNING, ("Bad mwm file:", countryFile.GetNameWithoutExt(), "Error:", ex.Msg()));
-      }
-    }
-  }
-
   TIndex Framework::GetCountryIndex(double lat, double lon) const
   {
     return m_work.GetCountryIndex(MercatorBounds::FromLatLon(lat, lon));

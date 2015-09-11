@@ -45,7 +45,6 @@ import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.search.SearchToolbarController;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
-import com.mapswithme.maps.settings.StoragePathManager.MoveFilesListener;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.FadeView;
@@ -114,7 +113,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private MainMenu mMainMenu;
   private PanelAnimator mPanelAnimator;
 
-  private boolean mNeedCheckUpdate = true;
   private int mLocationStateModeListenerId = LocationState.SLOT_UNDEFINED;
 
   private FadeView mFadeView;
@@ -213,11 +211,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
-        // Run all checks in main thread after rendering is initialized.
         checkMeasurementSystem();
-        checkUpdateMapsWithoutSearchIndex();
         checkKitkatMigrationMove();
-        checkLiteMapsInPro();
         checkUserMarkActivation();
       }
     });
@@ -244,55 +239,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPathManager.checkKitkatMigration(this);
   }
 
-  private void checkLiteMapsInPro()
-  {
-    mPathManager.moveMapsLiteToPro(this,
-                                   new MoveFilesListener()
-                                   {
-                                     @Override
-                                     public void moveFilesFinished(String newPath)
-                                     {
-                                       UiUtils.showAlertDialog(MwmActivity.this, R.string.move_lite_maps_to_pro_ok);
-                                     }
-
-                                     @Override
-                                     public void moveFilesFailed(int errorCode)
-                                     {
-                                       UiUtils.showAlertDialog(MwmActivity.this, R.string.move_lite_maps_to_pro_failed);
-                                     }
-                                   }
-    );
-  }
-
-  private void checkUpdateMapsWithoutSearchIndex()
-  {
-    // do it only once
-    if (mNeedCheckUpdate)
-    {
-      mNeedCheckUpdate = false;
-
-      MapStorage.INSTANCE.updateMapsWithoutSearchIndex(R.string.advise_update_maps, this, new MapStorage.UpdateFunctor()
-      {
-        @Override
-        public void doUpdate()
-        {
-          runOnUiThread(new Runnable()
-          {
-            @Override
-            public void run()
-            {
-              showDownloader(false);
-            }
-          });
-        }
-
-        @Override
-        public void doCancel()
-        {}
-      });
-    }
-  }
-
   @Override
   protected int getFragmentContentResId()
   {
@@ -317,25 +263,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void showBookmarks()
   {
     startActivity(new Intent(this, BookmarkCategoriesActivity.class));
-  }
-
-  private void showSearchIfContainsSearchIndex()
-  {
-    if (!MapStorage.INSTANCE.updateMapsWithoutSearchIndex(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
-    {
-      @Override
-      public void doUpdate()
-      {
-        showDownloader(false);
-      }
-
-      @Override
-      public void doCancel()
-      {
-        showSearch();
-      }
-    }))
-      showSearch();
   }
 
   private void showSearch()
@@ -609,7 +536,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             @Override
             public void run()
             {
-              showSearchIfContainsSearchIndex();
+              showSearch();
             }
           });
           break;

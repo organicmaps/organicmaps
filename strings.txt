@@ -2314,38 +2314,6 @@
     nb = Oppdater %@
     fi = Päivitä %@
 
-  [search_update_maps]
-    en = You need updated maps for search function:
-    tags = android
-    comment = Show popup notification when we have downloaded countries without search (from Lite version)
-    cs = Pro funkci vyhledávání musíš aktualizovat mapy:
-    sk = Pre funkciu vyhladávania musíte aktualizovať mapy:
-    de = Sie benötigen aktualisierte Karten für die Suchfunktion
-    es = Necesita los mapas actualizados para la función de búsqueda
-    fr = Il vous faut des cartes mises à jour pour la fonction de recherche :
-    it = Hai bisogno di mappe aggiornate per la funzione di ricerca:
-    ja = 検索機能を利用するにはマップを更新する必要があります
-    ko = 당신은 검색 기능에 대한 업데이트된지도 필요
-    nl = Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten
-    ru = Для функции поиска необходимо обновить устаревшие карты:
-    uk = Для функції пошуку необхідно оновити застарілі карти:
-    zh-Hant = 您需要更新地圖以使用搜尋功能：
-    pl = Musisz posiadać zaktualizowane mapy, aby korzystać z funkcji szukania
-    pt = Precisa de mapas atualizados para a função de procura:
-    hu = Frissített térképekre lesz szüksége a kereséshez:
-    th = คุณจำเป็นต้องใช้แผนที่ที่มีการอัปเดตเพื่อค้นหาฟังก์ชัน:
-    zh-Hans = 您需要为搜索功能获取已更新的地图。
-    ar = أنت بحاجة الى تحديث الخرائط من أجل وظيفة البحث:
-    da = Du har brug for opdaterede kort for at benytte søgefunktionen:
-    tr = Arama işlevi için güncellenmiş haritalara ihtiyacınız var:
-    sv = Du behöver uppdaterade kartor för sökfunktionen:
-    he = דרושות מפות מעודכנות כדי לבצע חיפוש:
-    id = Anda memerlukan peta terbaru untuk fungsi pencarian:
-    vi = Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:
-    ro = Aveți nevoie de hărți actualizate pentru funcția de căutare:
-    nb = Du trenger oppdaterte kart for søkefunksjonen:
-    fi = Hakutoimintoa varten tarvitset päivitetyt kartat:
-
   [advise_update_maps]
     en = Update available for these maps:
     tags = android
@@ -5896,69 +5864,6 @@
     ro = Transferăm hărțile dvs. descărcate din MAPS.ME Lite în MAPS.ME. Acest lucru poate dura câteva minute.
     nb = Vi overfører dine nedlastede kart fra MAPS.ME Lite til MAPS.ME. Det kan ta noen minutter.
     fi = Me siirrämme lataamasi kartat MAPS.ME Lite:stä MAPS.ME:hen. Siirtäminen voi viedä muutaman minuutin.
-
-  [move_lite_maps_to_pro_ok]
-    tags = android
-    comment = Message to display when maps moved.
-    en = Your downloaded maps are successfully transferred to MAPS.ME.
-    cs = Tvé stažené mapy jsou úspěšně přeneseny do MAPS.ME.
-    sk = Vaše stiahnuté mapy sú úspešne prenesené na MAPS.ME.
-    de = Ihre heruntergeladenen Karten wurden erfolgreich zu MAPS.ME übertragen.
-    es = Tus mapas descargados se han transferido correctamente a MAPS.ME.
-    fr = Vos cartes téléchargées ont été transférées avec succès vers MAPS.ME.
-    it = Le mappe che hai scaricato sono state trasferite con successo a MAPS.ME.
-    ja = ダウンロード済みの地図は無事MAPS.MEに転送されました
-    ko = 다운로드된 지도가 성공적으로 MAPS.ME에 전송됨
-    nl = Uw gedownloade kaarten werden met succes verplaatst naar MAPS.ME.
-    ru = Ваши карты успешно перенесены в MAPS.ME.
-    uk = Ваші карти успішно перенесено в MAPS.ME.
-    zh-Hant = 您下載的地圖已成功傳輸至MAPS.ME。
-    pl = Pomyślnie przeniesiono twoje pobrane mapy do MAPS.ME.
-    pt = Os seus mapas descarregados estão transferidos com sucesso para a MAPS.ME.
-    hu = Letöltött térképeidet sikeresen áthelyeztük a MAPS.ME-be.
-    th = แผนที่ที่ดาวน์โหลดของคุณโอนไปยัง MAPS.ME สำเร็จ
-    zh-Hans = 您下载的地图已成功传输至MAPS.ME。
-    ar = تم بنجاح نقل خرائطك التي تم تنزيلها إلى MAPS.ME.
-    da = Dine downloadede kort er blevet succesfuldt overført til MAPS.ME.
-    tr = İndirmiş olduğunuz haritalar başarılı bir şekilde MAPS.ME'ye aktarıldı.
-    sv = Dina nedladdade kartor flyttades till MAPS.ME.
-    he = המפות שהורדתם הועברו בהצלחה ל-MAPS.ME.
-    id = Peta unduhan Anda berhasil ditransfer ke MAPS.ME.
-    vi = Bản đồ đã tải xuống của bạn đã được chuyển thành công sang MAPS.ME.
-    ro = Hărțile dvs. descărcate sunt transferate cu succes către MAPS.ME.
-    nb = Nedlastede kart er overført til MAPS.ME.
-    fi = Lataamasi kartat on siirretty onnistuneesti MAPS.ME:hen.
-
-  [move_lite_maps_to_pro_failed]
-    tags = android
-    comment = Message to display when maps move failed.
-    en = Your maps failed to transfer. Please delete MAPS.ME Lite and download the maps again.
-    cs = Tvé mapy se nepodařilo přenést. Prosím, odstraň MAPS.ME Lite a stáhni si mapy znovu.
-    sk = Vaše mapy sa nepodarilo preniesť. Vymažte prosím MAPS.ME Lite a stiahnite si mapy znova.
-    de = Ihre Karten konnten nicht übertragen werden. Bitte löschen Sie MAPS.ME Lite und laden Sie die Karten erneut herunter.
-    es = No se han podido transferir tus mapas. Por favor, elimina MAPS.ME Lite y descarga los mapas de nuevo.
-    fr = Le transfert de vos cartes a échoué. Veuillez supprimer MAPS.ME Lite et télécharger les cartes de nouveau.
-    it = Non è stato possibile trasferire le tue mappe. Cancella MAPS.ME Lite e scarica le mappe di nuovo.
-    ja = 地図の転送に失敗しました。MAPS.ME Liteを削除してから地図を再度ダウンロードしてください。
-    ko = 지도를 전송하지 못했습니다. MAPS.ME Lite를 삭제하고 다시지도를 다운로드하십시오.
-    nl = Verplaatsing van uw kaarten mislukt. Gelieve MAPS.ME Lite te verwijderen en de kaarten opnieuw te downloaden.
-    ru = При переносе карт возникла ошибка. Пожалуйста, удалите MAPS.ME Lite и загрузите карты заново.
-    uk = При переносі карт виникла помилка. Будь ласка, видаліть MAPS.ME Lite і завантажте карти знову.
-    zh-Hant = 您的地圖傳輸失敗。請刪除MAPS.ME Lite，然後再次下載地圖。
-    pl = Nie udało się przenieść twoich map. Proszę skasować MAPS.ME Lite i pobrać mapy ponownie.
-    pt = Falhou a transferência dos seus mapas. Por favor, elimine a MAPS.ME Lite e descarregue os mapas novamente.
-    hu = Térképeid áthelyezése nem sikerült. Kérjük, töröld a MAPS.ME Lite-t és töltsd le a térképet megint.
-    th = ล้มเหลวในการโอนแผนที่ของคุณ โปรดลบ MAPS.ME Lite และดาวน์โหลดแผนที่อีกครั้ง
-    zh-Hans = 您的地图传输失败。请删除MAPS.ME Lite，然后再次下载地图。
-    ar = فشل نقل خرائطك يُرجى حذف MAPS.ME Lite وتنزيل الخرائط مرة أخرى.
-    da = Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.
-    tr = Haritanızın aktarımı başarısız oldu. Lütfen MAPS.ME Lite'yi silin ve haritaları tekrar indirin.
-    sv = Flytten av dina kartor misslyckades. Vänligen ta bort MAPS.ME Lite och ladda ner kartorna igen.
-    he = העברת המפות שלכם נכשלה. אנא מחקו את MAPS.ME Lite והורידו שוב את המפות.
-    id = Peta Anda gagal ditransfer. Silakan hapus MAPS.ME Lite dan unduh peta lagi.
-    vi = Bản đồ của bạn không chuyển được. Vui lòng xóa MAPS.ME Lite và tải xuống lại bản đồ.
-    nb = Kartene dine ble ikke overført. Slett MAPS.ME Lite og last ned kartene på nytt.
-    fi = Karttoja ei voitu siirtää. Ole hyvä ja poista MAPS.ME Lite ja lataa kartat uudelleen.
 
   [settings_and_more]
     tags = ios, android
