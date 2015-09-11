@@ -31,6 +31,27 @@ typedef enum {
 
 
 /*!
+ *  @brief Enum for logging events that occur within a syndicated app
+ *  @since 6.7.0
+ *
+ */
+
+typedef enum {
+    FlurrySyndicationReblog      = 0,
+    FlurrySyndicationFastReblog  = 1,
+    FlurrySyndicationSourceClick = 2,
+    FlurrySyndicationLike        = 3,
+    FlurrySyndicationShareClick  = 4,
+    FlurrySyndicationPostSend    = 5
+    
+}FlurrySyndicationEvent;
+
+extern NSString* const kSyndicationiOSDeepLink;
+extern NSString* const kSyndicationAndroidDeepLink;
+extern NSString* const kSyndicationWebDeepLink;
+
+
+/*!
  *  @brief Provides all available delegates for receiving callbacks related to Flurry analytics.
  *
  *  Set of methods that allow developers to manage and take actions within
@@ -971,6 +992,32 @@ typedef enum {
  *
  */
 + (void)setPulseEnabled:(BOOL)value;
+
+
+/*!
+ *  @brief Records a syndicated event specified by @c syndicationEvent.
+ *  @since 6.7.0
+ *
+ *  This method is excusively for use by the Tumblr App, calls from others app will be ignored.
+ *
+ *  @code
+ - (void) reblogButtonHandler
+ {
+ [Flurry logEvent:Reblog syndicationID:@"123", parameters:nil];
+ // Perform
+ }
+ *  @endcode
+ *
+ *  @param syndicationEvent syndication event.
+ *  @param syndicationID syndication ID that is associated with the event
+ *  @param parameters use this to pass in syndication parameters such as
+ *         kSyndicationiOSDeepLink, kSyndicationAndroidDeepLink, kSyndicationWebLinkDeepLink
+ *
+ *  @return enum FlurryEventRecordStatus for the recording status of the logged event.
+ */
++ (FlurryEventRecordStatus) logEvent:(FlurrySyndicationEvent) syndicationEvent syndicationID:(NSString*) syndicationID parameters:(NSDictionary*) parameters;
+
+
 
 //@}
 
