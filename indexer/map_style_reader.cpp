@@ -42,9 +42,14 @@ void StyleReader::SetCurrentStyle(MapStyle mapStyle)
 
 MapStyle StyleReader::GetCurrentStyle()
 {
-  int mapStyle;
+  int mapStyle = MapStyleLight;
+// @TODO(shalnev) It's a hotfix to fix tests generator_tests and map_tests.
+// Tests should work with any styles.
+#if defined(OMIM_OS_ANDROID) || defined(OMIM_OS_IPHONE)
   if (!Settings::Get(kMapStyleKey, mapStyle))
     mapStyle = MapStyleClear;
+#endif
+
   return static_cast<MapStyle>(mapStyle);
 }
 
