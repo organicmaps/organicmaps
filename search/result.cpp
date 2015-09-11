@@ -15,7 +15,7 @@ Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
   , m_featureType(featureType)
   , m_metadata(meta)
 {
-  PatchNameIfNeeded();
+  Init(true);
 }
 
 Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
@@ -26,14 +26,16 @@ Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
   , m_region(region)
   , m_type(type)
 {
-  PatchNameIfNeeded();
+  Init(false);
 }
 
-void Result::PatchNameIfNeeded()
+void Result::Init(bool metadataInitialized)
 {
   // Features with empty names can be found after suggestion.
   if (m_str.empty())
     m_str = m_type;
+
+  m_metadata.m_isInitialized = metadataInitialized;
 }
 
 Result::Result(m2::PointD const & pt, string const & str,

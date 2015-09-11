@@ -27,6 +27,7 @@
 #include "search/search_engine.hpp"
 #include "search/search_query_factory.hpp"
 #include "search/result.hpp"
+#include "search/intermediate_result.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -1314,6 +1315,24 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
   }
   else
     return false;
+}
+
+void Framework::LoadSearchResultMetadata(search::Result & res) const
+{
+  if (res.m_metadata.m_isInitialized)
+    return;
+
+  FeatureID const id = res.GetFeatureID();
+  if (id.IsValid())
+  {
+    Index::FeaturesLoaderGuard loader(m_model.GetIndex(), id.m_mwmId);
+
+    FeatureType ft;
+    loader.GetFeatureByIndex(id.m_index, ft);
+
+    search::ProcessMetadata(ft, res.m_metadata);
+  }
+  res.m_metadata.m_isInitialized = true;
 }
 
 void Framework::ShowSearchResult(search::Result const & res)

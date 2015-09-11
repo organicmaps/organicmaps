@@ -165,8 +165,6 @@ private:
   feature::EGeomType m_geomType;
 
   Result::Metadata m_metadata;
-
-  void ProcessMetadata(feature::Metadata const & meta);
 };
 
 inline string DebugPrint(PreResult2 const & t)
@@ -175,4 +173,7 @@ inline string DebugPrint(PreResult2 const & t)
 }
 
 }  // namespace search::impl
+
+void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta);
+
 }  // namespace search

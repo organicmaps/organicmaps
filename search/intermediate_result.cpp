@@ -1,8 +1,3 @@
-#ifndef OMIM_OS_LINUX
-// Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
-#include "3party/opening_hours/osm_time_range.hpp"
-#endif
-
 #include "intermediate_result.hpp"
 #include "geometry_utils.hpp"
 
@@ -21,6 +16,11 @@
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
 
+#ifndef OMIM_OS_LINUX
+// Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
+#include "3party/opening_hours/osm_time_range.hpp"
+#endif
+
 
 namespace search
 {
@@ -28,6 +28,26 @@ namespace search
 /// All constants in meters.
 double const DIST_EQUAL_RESULTS = 100.0;
 double const DIST_SAME_STREET = 5000.0;
+
+
+void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
+{
+  ft.ParseMetadata();
+  feature::Metadata const & src = ft.GetMetadata();
+
+  meta.m_cuisine = src.Get(feature::Metadata::FMD_CUISINE);
+
+#ifndef OMIM_OS_LINUX
+  // Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
+  string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
+  if (!openHours.empty())
+    meta.m_isClosed = OSMTimeRange(openHours)(time(nullptr)).IsClosed();
+#endif
+
+  meta.m_stars = 0;
+  (void) strings::to_int(src.Get(feature::Metadata::FMD_STARS), meta.m_stars);
+  meta.m_stars = my::clamp(meta.m_stars, 0, 5);
+}
 
 namespace impl
 {
@@ -130,8 +150,7 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD c
   m_region.SetParams(fileName, fCenter);
   CalcParams(pivot);
 
-  f.ParseMetadata();
-  ProcessMetadata(f.GetMetadata());
+  ProcessMetadata(f, m_metadata);
 }
 
 PreResult2::PreResult2(double lat, double lon)
@@ -147,22 +166,6 @@ PreResult2::PreResult2(m2::PointD const & pt, string const & str, uint32_t type)
   m_region.SetParams(string(), pt);
 
   m_types.Assign(type);
-}
-
-void PreResult2::ProcessMetadata(feature::Metadata const & meta)
-{
-  m_metadata.m_cuisine = meta.Get(feature::Metadata::FMD_CUISINE);
-
-#ifndef OMIM_OS_LINUX
-  // Lib opening_hours is not built for Linux since stdlib doesn't have required functions.
-  string const openHours = meta.Get(feature::Metadata::FMD_OPEN_HOURS);
-  if (!openHours.empty())
-    m_metadata.m_isClosed = OSMTimeRange(openHours)(time(nullptr)).IsClosed();
-#endif
-
-  m_metadata.m_stars = 0;
-  strings::to_int(meta.Get(feature::Metadata::FMD_STARS), m_metadata.m_stars);
-  m_metadata.m_stars = my::clamp(m_metadata.m_stars, 0, 5);
 }
 
 namespace

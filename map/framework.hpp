@@ -341,7 +341,9 @@ public:
   bool Search(search::SearchParams const & params);
   bool GetCurrentPosition(double & lat, double & lon) const;
 
+  void LoadSearchResultMetadata(search::Result & res) const;
   void ShowSearchResult(search::Result const & res);
+
   size_t ShowAllSearchResults();
 
   void StartInteractiveSearch(search::SearchParams const & params) { m_lastSearch = params; }

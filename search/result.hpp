@@ -28,11 +28,12 @@ public:
   /// Metadata for search results. Considered valid if m_resultType == RESULT_FEATURE.
   struct Metadata
   {
-    Metadata() : m_isClosed(false), m_stars(0) {}
+    string m_cuisine;         // Valid only if not empty. Used for restaurants.
+    int m_stars = 0;          // Valid only if not 0. Used for hotels.
+    bool m_isClosed = false;  // Valid for any result.
 
-    string m_cuisine;  // Valid only if not empty. Used for restaurants.
-    bool m_isClosed;   // Valid for any result.
-    int m_stars;       // Valid only if not 0. Used for hotels.
+    /// true If the struct is already assigned or need to be calculated othrwise.
+    bool m_isInitialized = false;
   };
 
   /// For RESULT_FEATURE.
@@ -92,7 +93,7 @@ public:
   void AppendCity(string const & name);
 
 private:
-  void PatchNameIfNeeded();
+  void Init(bool metadataInitialized);
 
   FeatureID m_id;
   m2::PointD m_center;
@@ -101,6 +102,7 @@ private:
   string m_suggestionStr;
   buffer_vector<pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
 
+public:
   Metadata m_metadata;
 };
 
@@ -108,7 +110,8 @@ class Results
 {
   vector<Result> m_vec;
 
-  enum StatusT {
+  enum StatusT
+  {
     NONE,             // default status
     ENDED_CANCELLED,  // search ended with canceling
     ENDED             // search ended itself
