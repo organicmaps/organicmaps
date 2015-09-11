@@ -576,6 +576,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   if (m_selectionShape != nullptr && m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK)
     m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
+  GLFunctions::glDisable(gl_const::GLDepthTest);
+
   for (drape_ptr<UserMarkRenderGroup> const & group : m_userMarkRenderGroups)
   {
     ASSERT(group.get() != nullptr, ());
@@ -583,8 +585,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
       RenderSingleGroup(modelView, make_ref(group));
   }
-
-  GLFunctions::glDisable(gl_const::GLDepthTest);
 
   m_routeRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
   m_myPositionController->Render(MyPositionController::RenderMyPosition,
