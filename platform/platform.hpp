@@ -173,7 +173,7 @@ public:
   void RunAsync(TFunctor const & fn, Priority p = EPriorityDefault);
   //@}
 
-  int CpuCores() const;
+  unsigned CpuCores() const;
 
   void GetFontNames(FilesList & res) const;
 

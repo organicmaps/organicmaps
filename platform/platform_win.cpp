@@ -117,16 +117,6 @@ Platform::EError Platform::GetFileType(string const & path, EFileType & type)
   return ERR_OK;
 }
 
-int Platform::CpuCores() const
-{
-  SYSTEM_INFO sysinfo;
-  GetSystemInfo(&sysinfo);
-  DWORD numCPU = sysinfo.dwNumberOfProcessors;
-  if (numCPU >= 1)
-    return static_cast<int>(numCPU);
-  return 1;
-}
-
 string Platform::UniqueClientId() const
 {
   return "@TODO";

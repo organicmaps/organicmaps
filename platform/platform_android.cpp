@@ -217,21 +217,6 @@ void Platform::GetFilesByRegExp(string const & directory, string const & regexp,
     pl::EnumerateFilesByRegExp(directory, regexp, res);
 }
 
-int Platform::CpuCores() const
-{
-  static long const numCPU = sysconf(_SC_NPROCESSORS_CONF);
-
-  // for debugging only. _SC_NPROCESSORS_ONLN could change, so
-  // we should test whether _SC_NPROCESSORS_CONF could change too
-
-  long const newNumCPU = sysconf(_SC_NPROCESSORS_CONF);
-
-  if (newNumCPU != numCPU)
-    LOG(LWARNING, ("initially retrived", numCPU, "and now got", newNumCPU, "processors"));
-
-  return (numCPU > 1 ? static_cast<int>(numCPU) : 1);
-}
-
 int Platform::VideoMemoryLimit() const
 {
   return 10 * 1024 * 1024;

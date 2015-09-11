@@ -82,24 +82,6 @@ Platform::Platform()
   [pool release];
 }
 
-int Platform::CpuCores() const
-{
-  int mib[2], numCPU = 0;
-  size_t len = sizeof(numCPU);
-  mib[0] = CTL_HW;
-  mib[1] = HW_AVAILCPU;
-  sysctl(mib, 2, &numCPU, &len, NULL, 0);
-  if (numCPU >= 1)
-    return numCPU;
-  // second try
-  mib[1] = HW_NCPU;
-  len = sizeof(numCPU);
-  sysctl(mib, 2, &numCPU, &len, NULL, 0);
-  if (numCPU >= 1)
-    return numCPU;
-  return 1;
-}
-
 string Platform::UniqueClientId() const
 {
   io_registry_entry_t ioRegistryRoot = IORegistryEntryFromPath(kIOMasterPortDefault, "IOService:/");

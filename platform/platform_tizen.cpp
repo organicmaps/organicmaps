@@ -48,15 +48,6 @@ void Platform::MkDir(string const & dirName) const
   Tizen::Io::Directory::Create(dirName.c_str(), true);
 }
 
-int Platform::CpuCores() const
-{
-  /// @todo
-  //  const long numCPU = sysconf(_SC_NPROCESSORS_ONLN);
-  //  if (numCPU >= 1)
-  //    return static_cast<int>(numCPU);
-  return 1;
-}
-
 string Platform::UniqueClientId() const
 {
   Tizen::App::App * pApp = Tizen::App::App::GetInstance();

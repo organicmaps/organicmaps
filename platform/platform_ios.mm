@@ -68,14 +68,6 @@ ModelReader * Platform::GetReader(string const & file, string const & searchScop
                         READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
 }
 
-int Platform::CpuCores() const
-{
-  NSInteger const numCPU = [[NSProcessInfo processInfo] activeProcessorCount];
-  if (numCPU >= 1)
-    return numCPU;
-  return 1;
-}
-
 int Platform::VideoMemoryLimit() const
 {
   return 8 * 1024 * 1024;

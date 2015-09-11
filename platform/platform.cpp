@@ -9,6 +9,7 @@
 #include "base/logging.hpp"
 
 #include "std/target_os.hpp"
+#include "std/thread.hpp"
 
 #include <errno.h>
 
@@ -144,4 +145,10 @@ void Platform::SetWritableDirForTests(string const & path)
 void Platform::SetResourceDir(string const & path)
 {
   m_resourcesDir = my::AddSlashIfNeeded(path);
+}
+
+unsigned Platform::CpuCores() const
+{
+  unsigned const cores = thread::hardware_concurrency();
+  return cores > 0 ? cores : 1;
 }

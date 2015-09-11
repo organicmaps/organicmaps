@@ -90,14 +90,6 @@ Platform::Platform()
   LOG(LDEBUG, ("Client ID:", UniqueClientId()));
 }
 
-int Platform::CpuCores() const
-{
-  const long numCPU = sysconf(_SC_NPROCESSORS_ONLN);
-  if (numCPU >= 1)
-    return static_cast<int>(numCPU);
-  return 1;
-}
-
 string Platform::UniqueClientId() const
 {  
   string machineFile = "/var/lib/dbus/machine-id";
