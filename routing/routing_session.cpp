@@ -22,11 +22,11 @@ double constexpr kShowLanesDistInMeters = 500.;
 // @TODO(vbykoianko) The distance should depend on the current speed.
 // The distance before the next turn in meters when notification
 // about the turn after the next one will be shown if available.
-double constexpr kShowTheTurnAfterTheNexetM = 500.;
+double constexpr kShowTheTurnAfterTheNextM = 500.;
 // If the distance between two sequential turns is more than kMaxTurnDistM
 // the information about the second turn will be shown when the user is
-// nearing to the first one.
-double constexpr kMaxTurnDistM = 50.;
+// approaching to the first one.
+double constexpr kMaxTurnDistM = 150.;
 
 // @todo(kshalnev) The distance may depend on the current speed.
 double constexpr kShowPedestrianTurnInMeters = 5.;
@@ -218,7 +218,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
     formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
     info.m_turn = turn.m_turn;
-    if (distanceToTurnMeters < kShowTheTurnAfterTheNexetM && distBetweenTurnsM < kMaxTurnDistM)
+    if (distanceToTurnMeters < kShowTheTurnAfterTheNextM && distBetweenTurnsM < kMaxTurnDistM)
       info.m_nextTurn = nextTurn.m_turn;
     else
       info.m_nextTurn = routing::turns::TurnDirection::NoTurn;
