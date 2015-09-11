@@ -159,12 +159,12 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   });
 
   p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABLE] = gui::Position(dp::LeftBottom);
-  m_work.CreateDrapeEngine(make_ref(m_contextFactory), move(p));
-  m_work.EnterForeground();
-  LoadState();
 
   m_work.LoadBookmarks();
   m_work.SetMyPositionModeListener(bind(&Framework::MyPositionModeChanged, this, _1));
+
+  m_work.CreateDrapeEngine(make_ref(m_contextFactory), move(p));
+  m_work.EnterForeground();
 
   return true;
 }
