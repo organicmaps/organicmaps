@@ -15,6 +15,7 @@ area|z15[highway=pedestrian][area?],
 area|z15[area:highway=pedestrian],
 area|z15[highway=footway][area?][!sac_scale],
 area|z15[area:highway=footway],
+area|z15[area:highway=living_street],
 {
   fill-color: @pedestrian_area;
   fill-opacity: 0.3;
@@ -25,6 +26,7 @@ area|z16-[highway=pedestrian][area?],
 area|z16-[area:highway=pedestrian],
 area|z16-[highway=footway][area?][!sac_scale],
 area|z16-[area:highway=footway],
+area|z16-[area:highway=living_street],
 {
   fill-color: @pedestrian_area;
   fill-opacity: 0.3;
@@ -62,11 +64,11 @@ area|z15-[amenity=university] {
   z-index: 10;
 }
 
-
-/*
-area|z14-[amenity=hospital] {
-  fill-color: @hospital;
+area|z16-[leisure=pitch],
+area|z16-[sport=soccer],
+area|z15-[leisure=stadium],
+area|z17-[leisure=playground]  {
+  fill-color: @sport;
   fill-opacity: 1;
-  z-index: 10;
+  z-index: 150;
 }
-*/

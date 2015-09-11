@@ -32,6 +32,12 @@ area|z18-[building]
   z-index: 200;
 }
 
+/*
+node|z17[entrance] {
+  icon-image: entrance-xs.svg;
+}
+*/
+
 node|z18-[entrance] {
   icon-image: entrance-s.svg;
 }

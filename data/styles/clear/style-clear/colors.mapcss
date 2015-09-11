@@ -8,7 +8,7 @@
 @border_country_light: #73736D;
 @border_region: #73736D;
 
-/* ROADS */
+
 /* ROADS */
 @trunk: #FF8800;
 @trunk_hard: #F7632C;
@@ -32,8 +32,7 @@
 @primary_orange_medium: #FC9757;
 @primary_orange_light: #FCA462;
 @primary_orange_case: #DDDDCC;
-
-
+@trunk_tunnel_orange: #FF8800;
 
 @primary_medium: #FCE757;
 @primary_light: #FCD757;
@@ -56,14 +55,13 @@
 @bridge_casing: #808080;
 
 /* tunnels */
-@trunk_tunnel: #FF8800;
-@trunk_tunnel_medium: #FF8800;
-@trunk_tunnel_light: #FF8800;
-@trunk_tunnel_casing: #808080;
-@primary_tunnel: #FCD767;
-@primary_tunnel_medium: #FCD767;
-@primary_tunnel_ligth: #FCD767;
+
+@primary_tunnel_orange: #FCA462;
+@primary_tunnel_yellow: #FCD767;
+@trunk_tunnel_orange: #FCA462;
+@trunk_tunnel_yellow: #FF8800;
 @primary_tunnel_casing: #808080;
+@trunk_tunnel_casing: #808080;
 @secondary_tunnel: #FFFFFF;
 @secondary_tunnel_casing:  #808080;
 @tertiary_tunnel: #FFFFFF;
@@ -80,6 +78,8 @@
 /* TRANSPORT */
 @railway_light: #BBBBAA;
 @railway: #999988;
+@railway_tunnel: #555555;
+@aerialway: #777777;
 @tram: #555555;
 @ferry: #3B9AB8;
 
@@ -100,6 +100,7 @@
 @unversity: #DDCCAA;
 @hospital: #FFAAAA;
 @industrial: #D1D1D1;
+@sport: #CCCCAA;
 
 /* BARRIERS */
 @fence: #BBBBAA;
@@ -136,6 +137,9 @@
 @road_label_halo: #FFFFFF;
 @shield: #fff;
 @shield_halo: #2E89B0;
+/* @shield_halo: #2E89B0; */
+
+
 
 @label_dark: #333333;
 @label_light: #444444;

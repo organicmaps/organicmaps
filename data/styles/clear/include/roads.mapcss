@@ -195,7 +195,6 @@ line|z12[highway=motorway]::case
 
 line|z12[highway=motorway][tunnel?],
 line|z12[highway=trunk][tunnel?] {
-	color: @trunk_tunnel;
     casing-width: 0.5;
     casing-linecap: butt;
     casing-color: @trunk_tunnel_casing;
@@ -257,8 +256,9 @@ line|z13[highway=motorway]::case
 
 
 line|z13[highway=motorway][tunnel?],
-line|z13[highway=trunk][tunnel?] {
-	color: @trunk_tunnel_medium;
+line|z13[highway=trunk][tunnel?],
+line|z13[highway=motorway_link][tunnel?],
+line|z13[highway=trunk_link][tunnel?] {
   casing-width: 1;
   casing-linecap: butt;
   casing-color: @trunk_tunnel_casing;
@@ -365,8 +365,9 @@ line|z14[highway=trunk_link]
 }
 
 line|z14[highway=motorway][tunnel?],
-line|z14[highway=trunk][tunnel?] {
-	color: @trunk_tunnel_light;
+line|z14[highway=trunk][tunnel?],
+line|z14[highway=motorway_link][tunnel?],
+line|z14[highway=trunk_link][tunnel?] {
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @trunk_tunnel_casing;
@@ -394,8 +395,8 @@ line|z14[highway=primary_link]
   width: 1.4;
 }
 
-line|z14[highway=primary][tunnel?] {
-	color: @primary_tunnel_ligth;
+line|z14[highway=primary][tunnel?],
+line|z14[highway=primary_link][tunnel?] {
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @primary_tunnel_casing;
@@ -435,7 +436,7 @@ line|z14[highway=road]
 line|z14[highway=service]
 {
   color: @unclassified;
-  width: 0.2;
+  width: 0;
   opacity: 0.4;
   z-index: 600;
 }
@@ -509,8 +510,9 @@ line|z15[highway=trunk_link]
 }
 
 line|z15[highway=motorway][tunnel?],
-line|z15[highway=trunk][tunnel?] {
-	 color: @trunk_tunnel_light;
+line|z15[highway=trunk][tunnel?],
+line|z15[highway=motorway_link][tunnel?],
+line|z15[highway=trunk_link][tunnel?] {
    casing-width: 1;
    casing-linecap: butt;
    casing-color: @trunk_tunnel_casing;
@@ -540,8 +542,8 @@ line|z15[highway=primary_link]
   z-index: 500;
 }
 
+line|z15[highway=primary][tunnel?],
 line|z15[highway=primary][tunnel?] {
-	color: @primary_tunnel_ligth;
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @primary_tunnel_casing;
@@ -594,6 +596,12 @@ line|z15[highway=service]
   opacity: 0.9;
   z-index: 600;
 }
+
+line|z15[highway=service][service=driveway]
+{
+  width: 0;
+}
+
 
 line|z15[highway=track]
 {
@@ -675,8 +683,9 @@ line|z16[highway=trunk_link]
 }
 
 line|z16[highway=motorway][tunnel?],
-line|z16[highway=trunk][tunnel?] {
-	color: @trunk_tunnel_light;
+line|z16[highway=trunk][tunnel?],
+line|z16[highway=motorway_link][tunnel?],
+line|z16[highway=trunk_link][tunnel?] {
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @trunk_tunnel_casing;
@@ -705,8 +714,8 @@ line|z16[highway=primary_link]
   width: 3;
 }
 
-line|z16[highway=primary][tunnel?] {
-	color: @primary_tunnel_ligth;
+line|z16[highway=primary][tunnel?],
+line|z16[highway=primary_link][tunnel?] {
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @primary_tunnel_casing;
@@ -725,8 +734,8 @@ line|z16[highway=secondary_link]
   width: 2.7;
 }
 
-line|z16[highway=secondary][tunnel?] {
-	color: @secondary_tunnel;
+line|z16[highway=secondary][tunnel?],
+line|z16[highway=secondary_link][tunnel?] {
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @secondary_tunnel_casing;
@@ -746,6 +755,8 @@ line|z16[highway=tertiary_link]
   width: 2.2;
 }
 
+line|z16[highway=tertiary_link][tunnel?],
+line|z16[highway=residential_link][tunnel?],
 line|z16[highway=tertiary][tunnel?],
 line|z16[highway=residential][tunnel?] {
 	color: @unclassified_tunnel;
@@ -769,6 +780,12 @@ line|z16[highway=service]
   width: 1.4;
   opacity: 0.8;
 }
+
+line|z16[highway=service][service=driveway]
+{
+ width: 0;
+}
+
 
 line|z16[highway=track]
 {
@@ -863,8 +880,9 @@ line|z17[highway=motorway_link]
 }
 
 line|z17[highway=trunk][tunnel?],
-line|z17[highway=motorway][tunnel?] {
-	color: @trunk_tunnel_light;
+line|z17[highway=motorway][tunnel?],
+line|z17[highway=trunk_link][tunnel?],
+line|z17[highway=motorway_link][tunnel?] {
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @trunk_tunnel_casing;
@@ -893,8 +911,8 @@ line|z17[highway=primary_link]
   opacity: 1;
 }
 
-line|z17[highway=primary][tunnel?] {
-	color: @primary_tunnel_ligth;
+line|z17[highway=primary][tunnel?],
+line|z17[highway=primary_link][tunnel?] {
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @primary_tunnel_casing;
@@ -914,8 +932,8 @@ line|z17[highway=secondary_link]
   width: 4.5;
 }
 
+line|z17[highway=secondary_link][tunnel?],
 line|z17[highway=secondary][tunnel?] {
-	color: @secondary_tunnel;
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @secondary_tunnel_casing;
@@ -936,9 +954,10 @@ line|z17[highway=tertiary_link],
   width: 3.6;
 }
 
+line|z17[highway=tertiary_link][tunnel?],
+line|z17[highway=residential_link][tunnel?],
 line|z17[highway=tertiary][tunnel?],
 line|z17[highway=residential][tunnel?] {
-	color: @tertiary_tunnel;
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @tertiary_tunnel_casing;
@@ -1069,8 +1088,9 @@ line|z18[highway=motorway_link]
 }
 
 line|z18[highway=trunk][tunnel?],
-line|z18[highway=motorway][tunnel?] {
-	color: @trunk_tunnel_light;
+line|z18[highway=motorway][tunnel?],
+line|z18[highway=trunk_link][tunnel?],
+line|z18[highway=motorway_link][tunnel?] {
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @trunk_tunnel_casing;
@@ -1100,8 +1120,8 @@ line|z18[highway=primary_link]
   opacity: 1;
 }
 
-line|z18[highway=primary][tunnel?] {
-	color: @primary_tunnel_ligth;
+line|z18[highway=primary][tunnel?],
+line|z18[highway=primary_link][tunnel?] {
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @primary_tunnel_casing;
@@ -1121,7 +1141,8 @@ line|z18[highway=secondary_link]
   width: 6;
 }
 
-line|z18[highway=secondary][tunnel?] {
+line|z18[highway=secondary][tunnel?],
+line|z18[highway=secondary_link][tunnel?] {
 	color: @secondary_tunnel;
     casing-width: 1;
     casing-linecap: butt;
@@ -1144,6 +1165,7 @@ line|z18[highway=tertiary_link],
 }
 
 line|z18[highway=tertiary][tunnel?],
+line|z18[highway=tertiary_link][tunnel?],
 line|z18[highway=residential][tunnel?] {
 	color: @tertiary_tunnel;
     casing-width: 1;
@@ -1274,12 +1296,13 @@ line|z19-[highway=motorway_link]
 
 
 line|z19-[highway=trunk][tunnel?],
-line|z19-[highway=motorway][tunnel?] {
-	color: @trunk_tunnel_light;
-    casing-width: 1;
-    casing-linecap: butt;
-    casing-color: @trunk_tunnel_casing;
-    casing-dashes: 5,5;
+line|z19-[highway=motorway][tunnel?],
+line|z19-[highway=trunk_link][tunnel?],
+line|z19-[highway=motorway_link][tunnel?] {
+  casing-width: 1;
+  casing-linecap: butt;
+  casing-color: @trunk_tunnel_casing;
+  casing-dashes: 5,5;
 }
 
 line|z19-[highway=primary]
@@ -1305,8 +1328,8 @@ line|z19-[highway=primary_link]
   opacity: 1;
 }
 
-line|z19-[highway=primary][tunnel?] {
-	color: @primary_tunnel_ligth;
+line|z19-[highway=primary][tunnel?],
+line|z19-[highway=primary_link][tunnel?] {
     casing-width: 1;
     casing-linecap: butt;
     casing-color: @primary_tunnel_casing;
@@ -1326,7 +1349,8 @@ line|z19-[highway=secondary_link]
   width: 6;
 }
 
-line|z19-[highway=secondary][tunnel?] {
+line|z19-[highway=secondary][tunnel?],
+line|z19-[highway=secondary_link][tunnel?] {
 	color: @secondary_tunnel;
     casing-width: 1;
     casing-linecap: butt;
@@ -1349,6 +1373,7 @@ line|z19-[highway=tertiary_link],
 }
 
 line|z19-[highway=tertiary][tunnel?],
+line|z19-[highway=tertiary_link][tunnel?],
 line|z19-[highway=residential][tunnel?] {
 	color: @tertiary_tunnel;
     casing-width: 1;
@@ -1489,7 +1514,10 @@ line|z16-[highway=tertiary][bridge?]::bridgewhite,
 line|z16-[highway=residential][bridge?]::bridgewhite,
 line|z16-[highway=unclassified][bridge?]::bridgewhite,
 line|z16-[highway=pedestrian][bridge?]::bridgewhite,
-line|z16-[highway=footway][bridge?]::bridgewhite {
+line|z16-[highway=footway][bridge?]::bridgewhite,
+line|z17-[highway=steps][bridge?]::bridgewhite,
+line|z17-[highway=road][bridge?]::bridgewhite,
+line|z17-[highway=service][bridge?]::bridgewhite {
   z-index: 30;
   casing-width: eval(prop("width")+0.5);
   casing-linecap: butt;
@@ -1504,7 +1532,10 @@ line|z16-[highway=tertiary][bridge?]::bridgeblack,
 line|z16-[highway=residential][bridge?]::bridgeblack,
 line|z16-[highway=unclassified][bridge?]::bridgeblack,
 line|z16-[highway=pedestrian][bridge?]::bridgeblack,
-line|z16-[highway=footway][bridge?]::bridgeblack
+line|z16-[highway=footway][bridge?]::bridgeblack,
+line|z17-[highway=steps][bridge?]::bridgeblack,
+line|z17-[highway=road][bridge?]::bridgeblack,
+line|z17-[highway=service][bridge?]::bridgeblack
 {
   z-index: 25;
   casing-width: eval(prop("width")+1.5);

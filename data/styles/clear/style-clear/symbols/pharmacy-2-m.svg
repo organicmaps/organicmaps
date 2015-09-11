@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>pharmacy-2-m</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="bank-m-copy-2" sketch:type="MSLayerGroup">
+            <ellipse id="Oval-1-Copy-41" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
+            <ellipse id="Oval-1-Copy-40" fill="#7A7A6E" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
+        </g>
+        <g id="Shape-+-Rectangle-10" sketch:type="MSLayerGroup" transform="translate(12.511733, 11.704650) rotate(-45.000000) translate(-12.511733, -11.704650) translate(4.511733, 8.204650)" fill="#FFFFFF">
+            <path d="M1.32352941,3 L1.32352941,3 C1.32352941,3.82646646 1.91738774,4.5 2.6471702,4.5 L12.3528298,4.5 C13.0885747,4.5 13.6764706,3.83232553 13.6764706,3 C13.6764706,2.17353354 13.0826123,1.5 12.3528298,1.5 L2.6471702,1.5 C1.91142527,1.5 1.32352941,2.16767447 1.32352941,3 L1.32352941,3 Z M5.1159077e-13,3 C5.1159077e-13,1.34314575 1.17702484,4.54747351e-13 2.6471702,4.54747351e-13 L12.3528298,4.54747351e-13 C13.8148215,4.54747351e-13 15,1.34651712 15,3 C15,4.65685425 13.8229752,6 12.3528298,6 L2.6471702,6 C1.18517847,6 5.1159077e-13,4.65348288 5.1159077e-13,3 L5.1159077e-13,3 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+            <path d="M9.66338121e-13,3 C9.66338121e-13,1.34314575 1.34821122,1.82205833e-12 3.00214103,1.82200963e-12 L7.54117646,1.82187598e-12 L7.54117646,6 L3.00214103,6 C1.34410432,6 9.66338121e-13,4.65348288 9.66338121e-13,3 L9.66338121e-13,3 Z" id="Rectangle-10" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

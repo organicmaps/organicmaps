@@ -661,6 +661,7 @@ node|z13-14[place=suburb]
 
 node|z14-[place=locality],
 node|z14-[place=neighbourhood],
+node|z14-[place=farm],
 node|z8-9[place=region],
 {
   text: name;

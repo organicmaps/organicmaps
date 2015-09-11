@@ -104,11 +104,27 @@ line|z13-14[waterway=stream] {
 	z-index: 50;
 }
 
+line|z13-14[waterway=stream][intermittent=yes] {
+	dashes: 3,3;
+}
+
 line|z15-[waterway=stream] {
 	width: 1;
 	opacity: 1;
 	color: @river;
 	z-index: 50;
+}
+
+line|z15-[waterway=stream][intermittent=yes] {
+	dashes: 5,5;
+}
+
+line|z17-[waterway=ditch] {
+	width: 1;
+	opacity: 1;
+	color: @river;
+	z-index: 50;
+	dashes: 1,1;
 }
 
 
@@ -159,19 +175,26 @@ area|z11[leisure=park] {
 }
 
 
-area|z12-14[leisure=park] {
+area|z12-14[leisure=park], area|z12-14[leisure=garden] {
   fill-color: @park;
   fill-opacity: 0.6;
   z-index: 25;
 }
 
-area|z15-[leisure=park] {
+area|z15-[leisure=park], area|z15-[leisure=garden]  {
   fill-color: @park;
   fill-opacity: 0.6;
   z-index: 25;
 }
 
 area|z14-[landuse=grass]
+{
+  fill-color: @park;
+  fill-opacity: 0.45;
+  z-index: 15;
+}
+
+area|z14-[natural=scrub]
 {
   fill-color: @park;
   fill-opacity: 0.45;
