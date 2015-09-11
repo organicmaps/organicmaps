@@ -93,7 +93,7 @@ HEADERS += \
     old/feature_loader_101.hpp \
     old/interval_index_101.hpp \
     point_to_int64.hpp \
-    rank_table.cpp \
+    rank_table.hpp \
     scale_index.hpp \
     scale_index_builder.hpp \
     scales.hpp \
