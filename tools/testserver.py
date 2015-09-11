@@ -90,7 +90,7 @@ class InternalServer(HTTPServer):
 
     def kill_me(self):
         self.shutdown()
-        logging.info("The server's life has come to an end")
+        logging.info("The server's life has come to an end, pid: {}".format(os.getpid()))
 
 
     def reset_selfdestruct_timer(self):

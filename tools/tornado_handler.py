@@ -64,7 +64,7 @@ class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
     @staticmethod
     def suicide():
         tornado.ioloop.IOLoop.current().stop()
-        logging.info("The server's life has come to an end")
+        logging.info("The server's life has come to an end, pid: {}".format(os.getpid()))
 
 
     @staticmethod
