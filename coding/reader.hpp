@@ -8,7 +8,7 @@
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/cstring.hpp"
-
+#include "std/vector.hpp"
 
 // Base class for random-access Reader. Not thread-safe.
 class Reader
@@ -110,13 +110,14 @@ private:
 // Reader wrapper to hold the pointer to a polymorfic reader.
 // Common use: ReaderSource<ReaderPtr<Reader> >.
 // Note! It takes the ownership of Reader.
-template <class ReaderT> class ReaderPtr
+template <class TReader>
+class ReaderPtr
 {
 protected:
-  shared_ptr<ReaderT> m_p;
+  shared_ptr<TReader> m_p;
 
 public:
-  ReaderPtr(ReaderT * p = 0) : m_p(p) {}
+  ReaderPtr(TReader * p = 0) : m_p(p) {}
 
   uint64_t Size() const
   {
@@ -133,7 +134,7 @@ public:
     m_p->ReadAsString(s);
   }
 
-  ReaderT * GetPtr() const { return m_p.get(); }
+  TReader * GetPtr() const { return m_p.get(); }
 };
 
 // Model reader store file id as string.
@@ -167,14 +168,13 @@ public:
 
 
 // Source that reads from a reader.
-template <typename ReaderT> class ReaderSource
+template <typename TReader>
+class ReaderSource
 {
 public:
-  typedef ReaderT ReaderType;
+  typedef TReader ReaderType;
 
-  ReaderSource(ReaderT const & reader) : m_reader(reader), m_pos(0)
-  {
-  }
+  ReaderSource(TReader const & reader) : m_reader(reader), m_pos(0) {}
 
   void Read(void * p, size_t size)
   {
@@ -199,17 +199,14 @@ public:
     return (m_reader.Size() - m_pos);
   }
 
-  ReaderT SubReader(uint64_t size)
+  TReader SubReader(uint64_t size)
   {
     uint64_t const pos = m_pos;
     Skip(size);
     return m_reader.SubReader(pos, size);
   }
 
-  ReaderT SubReader()
-  {
-    return SubReader(Size());
-  }
+  TReader SubReader() { return SubReader(Size()); }
 
 private:
   bool AssertPosition() const
@@ -219,28 +216,39 @@ private:
     return ret;
   }
 
-  ReaderT m_reader;
+  TReader m_reader;
   uint64_t m_pos;
 };
 
-template <class ReaderT> inline
-void ReadFromPos(ReaderT const & reader, uint64_t pos, void * p, size_t size)
+template <class TReader>
+inline void ReadFromPos(TReader const & reader, uint64_t pos, void * p, size_t size)
 {
   reader.Read(pos, p, size);
 }
 
-template <typename PrimitiveT, class ReaderT> inline
-PrimitiveT ReadPrimitiveFromPos(ReaderT const & reader, uint64_t pos)
+template <typename TPrimitive, class TReader>
+inline TPrimitive ReadPrimitiveFromPos(TReader const & reader, uint64_t pos)
 {
-  PrimitiveT primitive;
+  TPrimitive primitive;
   ReadFromPos(reader, pos, &primitive, sizeof(primitive));
   return SwapIfBigEndian(primitive);
 }
 
-template <typename PrimitiveT, class TSource> inline
-PrimitiveT ReadPrimitiveFromSource(TSource & source)
+template <typename TPrimitive, class TSource>
+inline typename enable_if<is_trivially_copyable<TPrimitive>::value, TPrimitive>::type
+ReadPrimitiveFromSource(TSource & source)
 {
-  PrimitiveT primitive;
+  TPrimitive primitive;
   source.Read(&primitive, sizeof(primitive));
   return SwapIfBigEndian(primitive);
+}
+
+template <typename TPrimitive, typename TSource>
+void ReadPrimitiveVectorFromSource(TSource && source, vector<TPrimitive> & result)
+{
+  // Do not overspecify the size type: uint32_t is enough.
+  size_t size = static_cast<size_t>(ReadPrimitiveFromSource<uint32_t>(source));
+  result.resize(size);
+  for (size_t i = 0; i < size; ++i)
+    result[i] = ReadPrimitiveFromSource<TPrimitive>(source);
 }
