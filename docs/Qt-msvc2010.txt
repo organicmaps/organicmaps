@@ -1,7 +1,0 @@
-1. Download and build openssl as static libs
-2. Create directory <QtSDK>/Desktop/X.X.X/msvc2010
-3. Run cmd.exe in this directory and execute all commands below from this directory
-4. set PATH=<QtSDK>/Desktop/X.X.X/msvc2010/bin;%PATH%
-5. Run vcvars32.bat from your Visual Studio installation
-6. Run <QtSDK>/QtSources/X.X.X/configure.exe -I <PATH_TO_OPENSSL>\inc32 -L <PATH_TO_OPENSSL>\out32 -debug-and-release -opensource -shared -ltcg -fast -no-accessibility -no-sql-sqlite -no-qt3support -platform win32-msvc2010 -no-dsp -no-vcproj -no-incredibuild-xge -no-dbus -openssl-linked OPENSSL_LIBS="-lssleay32 -llibeay32 -lcrypt32 -ladvapi32 -lgdi32 -luser32" -no-phonon -no-phonon-backend -no-multimedia -no-audio-backend -webkit -no-script -no-scripttools -no-declarative -no-declarative-debug -mp -saveconfig vs2010
-7. Run nmake

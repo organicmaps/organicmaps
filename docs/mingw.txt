@@ -1,1 +1,0 @@
-!NOTE! Before running app that builded with mingw toolchain, put tools/redist/pthreadGC32.dll near with executable.
