@@ -2581,10 +2581,6 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Statistics",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Drape Release";
@@ -2698,10 +2694,6 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Statistics",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Drape Debug";
@@ -3210,10 +3202,6 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Statistics",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = Simulator;
@@ -3322,10 +3310,6 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Statistics",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -3439,10 +3423,6 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Statistics",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = AdHoc;
@@ -3556,10 +3536,6 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Statistics",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Production Full";
@@ -3671,10 +3647,6 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Statistics",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -3786,10 +3758,6 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Statistics",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Simulator Release";
