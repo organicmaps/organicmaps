@@ -897,24 +897,33 @@ void FrontendRenderer::ChangeModelView(m2::RectD const & rect)
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,
-                                       m2::PointD const & pxZero, bool animate)
+                                       m2::PointD const & pxZero)
 {
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   m2::RectD const & pixelRect = screen.PixelRect();
-
-  m2::PointD formingVector = pixelRect.Center() - pxZero;
-  formingVector.x /= pixelRect.SizeX();
-  formingVector.y /= pixelRect.SizeY();
-
   m2::AnyRectD targetRect = m_userEventStream.GetTargetRect();
-  formingVector.x *= targetRect.GetLocalRect().SizeX();
-  formingVector.y *= targetRect.GetLocalRect().SizeY();
+
+  auto calculateOffset = [&pixelRect, &targetRect](m2::PointD const & pixelPos)
+  {
+    m2::PointD formingVector = pixelPos;
+    formingVector.x /= pixelRect.SizeX();
+    formingVector.y /= pixelRect.SizeY();
+    formingVector.x *= targetRect.GetLocalRect().SizeX();
+    formingVector.y *= targetRect.GetLocalRect().SizeY();
+
+    return formingVector.Length();
+  };
+
+  double const newCenterOffset = calculateOffset(pixelRect.Center() - pxZero);
+  double const oldCenterOffset = calculateOffset(pixelRect.Center() - screen.GtoP(userPos));
 
   m2::PointD viewVector = userPos.Move(1.0, -azimuth + math::pi2) - userPos;
   viewVector.Normalize();
 
-  AddUserEvent(SetAnyRectEvent(m2::AnyRectD(userPos + (viewVector * formingVector.Length()), -azimuth,
-                                            targetRect.GetLocalRect()), animate));
+  m2::AnyRectD const rect = m2::AnyRectD(viewVector * newCenterOffset + userPos,
+                                         -azimuth, targetRect.GetLocalRect());
+
+  AddUserEvent(FollowAndRotateEvent(rect, userPos, newCenterOffset, oldCenterOffset, -azimuth, true));
 }
 
 ScreenBase const & FrontendRenderer::UpdateScene(bool & modelViewChanged)

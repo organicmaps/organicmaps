@@ -16,9 +16,11 @@ namespace df
 namespace
 {
 
-uint64_t const DOUBLE_TAP_PAUSE = 250;
-uint64_t const LONG_TOUCH_MS = 1000;
+uint64_t const kDoubleTapPauseMs = 250;
+uint64_t const kLongTouchMs = 1000;
 uint64_t const kKineticDelayMs = 500;
+
+double const kMaxAnimationTime = 1.5; // in seconds
 
 size_t GetValidTouchesCount(array<Touch, 2> const & touches)
 {
@@ -167,6 +169,12 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
         breakAnim = SetRect(dstRect, true);
       }
       break;
+    case UserEvent::EVENT_FOLLOW_AND_ROTATE:
+      breakAnim = SetFollowAndRotate(e.m_followAndRotate.m_targetRect, e.m_followAndRotate.m_userPos,
+                                     e.m_followAndRotate.m_newCenterOffset,e.m_followAndRotate.m_oldCenterOffset,
+                                     e.m_followAndRotate.m_azimuth, e.m_followAndRotate.m_isAnim);
+      TouchCancel(m_touches, 0.0);
+      break;
     default:
       ASSERT(false, ());
       break;
@@ -271,13 +279,35 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimation
     double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), rect.GlobalZero(), screen);
     double const scaleDuration = ModelViewAnimation::GetScaleDuration(startRect.GetLocalRect().SizeX(),
                                                                       rect.GetLocalRect().SizeX());
-
-    double const MAX_ANIMATION_TIME = 1.5; // in seconds
-
-    if (max(max(angleDuration, moveDuration), scaleDuration) < MAX_ANIMATION_TIME)
+    if (max(max(angleDuration, moveDuration), scaleDuration) < kMaxAnimationTime)
     {
       ASSERT(animCreator != nullptr, ());
       animCreator(startRect, rect, angleDuration, moveDuration, scaleDuration);
+      return false;
+    }
+    else
+    {
+      m_animation.reset();
+    }
+  }
+
+  m_navigator.SetFromRect(rect);
+  return true;
+}
+
+bool UserEventStream::SetFollowAndRotate(m2::AnyRectD const & rect, m2::PointD const & userPos,
+                                         double newCenterOffset, double oldCenterOffset, double azimuth, bool isAnim)
+{
+  if (isAnim)
+  {
+    ScreenBase const & screen = m_navigator.Screen();
+    m2::AnyRectD const startRect = GetCurrentRect();
+    double const angleDuration = ModelViewAnimation::GetRotateDuration(startRect.Angle().val(), azimuth);
+    double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), rect.GlobalZero(), screen);
+    double const duration = max(angleDuration, moveDuration);
+    if (duration > 0.0 && duration < kMaxAnimationTime)
+    {
+      m_animation.reset(new FollowAndRotateAnimation(startRect, userPos, newCenterOffset, oldCenterOffset, azimuth, duration));
       return false;
     }
     else
@@ -615,7 +645,7 @@ void UserEventStream::BeginTapDetector()
 
 void UserEventStream::DetectShortTap(Touch const & touch)
 {
-  if (m_touchTimer.ElapsedMillis() > DOUBLE_TAP_PAUSE)
+  if (m_touchTimer.ElapsedMillis() > kDoubleTapPauseMs)
   {
     m_state = STATE_EMPTY;
     if (m_listener)
@@ -626,7 +656,7 @@ void UserEventStream::DetectShortTap(Touch const & touch)
 void UserEventStream::DetectLongTap(Touch const & touch)
 {
   ASSERT_EQUAL(m_state, STATE_TAP_DETECTION, ());
-  if (m_touchTimer.ElapsedMillis() > LONG_TOUCH_MS)
+  if (m_touchTimer.ElapsedMillis() > kLongTouchMs)
   {
     TEST_CALL(LONG_TAP_DETECTED);
     m_state = STATE_EMPTY;
@@ -637,7 +667,7 @@ void UserEventStream::DetectLongTap(Touch const & touch)
 
 bool UserEventStream::DetectDoubleTap(Touch const & touch)
 {
-  if (m_state != STATE_WAIT_DOUBLE_TAP || m_touchTimer.ElapsedMillis() > DOUBLE_TAP_PAUSE)
+  if (m_state != STATE_WAIT_DOUBLE_TAP || m_touchTimer.ElapsedMillis() > kDoubleTapPauseMs)
     return false;
 
   m_state = STATE_EMPTY;

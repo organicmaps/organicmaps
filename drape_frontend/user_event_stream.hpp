@@ -125,6 +125,26 @@ struct SetAnyRectEvent
   bool m_isAnim;
 };
 
+struct FollowAndRotateEvent
+{
+  FollowAndRotateEvent(m2::AnyRectD const & targetRect, m2::PointD const & userPos,
+                       double newCenterOffset, double oldCenterOffset, double azimuth, bool isAnim)
+    : m_targetRect(targetRect)
+    , m_userPos(userPos)
+    , m_newCenterOffset(newCenterOffset)
+    , m_oldCenterOffset(oldCenterOffset)
+    , m_azimuth(azimuth)
+    , m_isAnim(isAnim)
+  {}
+
+  m2::AnyRectD m_targetRect;
+  m2::PointD m_userPos;
+  double m_newCenterOffset;
+  double m_oldCenterOffset;
+  double m_azimuth;
+  bool m_isAnim;
+};
+
 struct RotateEvent
 {
   RotateEvent(double targetAzimut) : m_targetAzimut(targetAzimut) {}
@@ -150,7 +170,8 @@ struct UserEvent
     EVENT_SET_RECT,
     EVENT_SET_ANY_RECT,
     EVENT_RESIZE,
-    EVENT_ROTATE
+    EVENT_ROTATE,
+    EVENT_FOLLOW_AND_ROTATE
   };
 
   UserEvent(TouchEvent const & e) : m_type(EVENT_TOUCH) { m_touchEvent = e; }
@@ -160,6 +181,7 @@ struct UserEvent
   UserEvent(SetAnyRectEvent const & e) : m_type(EVENT_SET_ANY_RECT) { m_anyRect = e; }
   UserEvent(ResizeEvent const & e) : m_type(EVENT_RESIZE) { m_resize = e; }
   UserEvent(RotateEvent const & e) : m_type(EVENT_ROTATE) { m_rotate = e; }
+  UserEvent(FollowAndRotateEvent const & e) : m_type(EVENT_FOLLOW_AND_ROTATE) { m_followAndRotate = e; }
 
   EEventType m_type;
   union
@@ -171,6 +193,7 @@ struct UserEvent
     SetAnyRectEvent m_anyRect;
     ResizeEvent m_resize;
     RotateEvent m_rotate;
+    FollowAndRotateEvent m_followAndRotate;
   };
 };
 
@@ -231,6 +254,8 @@ private:
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimationCreator const & animCreator);
+  bool SetFollowAndRotate(m2::AnyRectD const & rect, m2::PointD const & userPos,
+                          double newCenterOffset, double oldCenterOffset, double azimuth, bool isAnim);
 
   m2::AnyRectD GetCurrentRect() const;
 

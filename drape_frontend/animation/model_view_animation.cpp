@@ -27,37 +27,6 @@ m2::AnyRectD ModelViewAnimation::GetTargetRect(ScreenBase const & screen) const
   return GetRect(GetDuration());
 }
 
-FixedPointAnimation::FixedPointAnimation(m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
-                                         double aDuration, double mDuration, double sDuration,
-                                         m2::PointD const & pixelPoint, m2::PointD const & globalPoint)
-  : ModelViewAnimation(startRect, endRect, aDuration, mDuration, sDuration)
-  , m_pixelPoint(pixelPoint)
-  , m_globalPoint(globalPoint)
-{
-}
-
-void FixedPointAnimation::ApplyFixedPoint(ScreenBase const & screen, m2::AnyRectD & rect) const
-{
-  ScreenBase s = screen;
-  s.SetFromRect(rect);
-  m2::PointD const p = s.PtoG(m_pixelPoint);
-  rect.Offset(m_globalPoint - p);
-}
-
-m2::AnyRectD FixedPointAnimation::GetCurrentRect(ScreenBase const & screen) const
-{
-  m2::AnyRectD r = GetRect(GetElapsedTime());
-  ApplyFixedPoint(screen, r);
-  return r;
-}
-
-m2::AnyRectD FixedPointAnimation::GetTargetRect(ScreenBase const & screen) const
-{
-  m2::AnyRectD r = GetRect(GetDuration());
-  ApplyFixedPoint(screen, r);
-  return r;
-}
-
 namespace
 {
 
@@ -120,6 +89,70 @@ double ModelViewAnimation::GetScaleDuration(double startSize, double endSize)
   // Resize 2.0 times should be done for 0.5 seconds.
   static double const pixelSpeed = 2.0 / 0.5;
   return CalcAnimSpeedDuration(endSize / startSize, pixelSpeed);
+}
+
+FixedPointAnimation::FixedPointAnimation(m2::AnyRectD const & startRect, m2::AnyRectD const & endRect,
+                                         double aDuration, double mDuration, double sDuration,
+                                         m2::PointD const & pixelPoint, m2::PointD const & globalPoint)
+  : ModelViewAnimation(startRect, endRect, aDuration, mDuration, sDuration)
+  , m_pixelPoint(pixelPoint)
+  , m_globalPoint(globalPoint)
+{
+}
+
+void FixedPointAnimation::ApplyFixedPoint(ScreenBase const & screen, m2::AnyRectD & rect) const
+{
+  ScreenBase s = screen;
+  s.SetFromRect(rect);
+  m2::PointD const p = s.PtoG(m_pixelPoint);
+  rect.Offset(m_globalPoint - p);
+}
+
+m2::AnyRectD FixedPointAnimation::GetCurrentRect(ScreenBase const & screen) const
+{
+  m2::AnyRectD r = GetRect(GetElapsedTime());
+  ApplyFixedPoint(screen, r);
+  return r;
+}
+
+m2::AnyRectD FixedPointAnimation::GetTargetRect(ScreenBase const & screen) const
+{
+  m2::AnyRectD r = GetRect(GetDuration());
+  ApplyFixedPoint(screen, r);
+  return r;
+}
+
+FollowAndRotateAnimation::FollowAndRotateAnimation(m2::AnyRectD const & startRect, m2::PointD const & userPos,
+                                                   double newCenterOffset, double oldCenterOffset,
+                                                   double azimuth, double duration)
+  : BaseModelViewAnimation(duration)
+  , m_angleInterpolator(startRect.Angle().val(), azimuth)
+  , m_rect(startRect.GetLocalRect())
+  , m_userPos(userPos)
+  , m_newCenterOffset(newCenterOffset)
+  , m_oldCenterOffset(oldCenterOffset)
+{}
+
+m2::AnyRectD FollowAndRotateAnimation::GetCurrentRect(ScreenBase const & screen) const
+{
+  return GetRect(GetElapsedTime());
+}
+
+m2::AnyRectD FollowAndRotateAnimation::GetTargetRect(ScreenBase const & screen) const
+{
+  return GetRect(GetDuration());
+}
+
+m2::AnyRectD FollowAndRotateAnimation::GetRect(double elapsedTime) const
+{
+  double const t = GetSafeT(elapsedTime, GetDuration());
+  double const azimuth = m_angleInterpolator.Interpolate(t);
+  double const centerOffset = InterpolateDouble(m_oldCenterOffset, m_newCenterOffset, t);
+
+  m2::PointD viewVector = m_userPos.Move(1.0, azimuth + math::pi2) - m_userPos;
+  viewVector.Normalize();
+  m2::PointD centerPos = m_userPos + (viewVector * centerOffset);
+  return m2::AnyRectD(centerPos, azimuth, m_rect);
 }
 
 } // namespace df

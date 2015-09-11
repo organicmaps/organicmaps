@@ -63,4 +63,24 @@ private:
   m2::PointD m_globalPoint;
 };
 
+class FollowAndRotateAnimation : public BaseModelViewAnimation
+{
+public:
+  FollowAndRotateAnimation(m2::AnyRectD const & startRect, m2::PointD const & userPos,
+                           double newCenterOffset, double oldCenterOffset,
+                           double azimuth, double duration);
+
+  m2::AnyRectD GetCurrentRect(ScreenBase const & screen) const override;
+  m2::AnyRectD GetTargetRect(ScreenBase const & screen) const override;
+
+private:
+  m2::AnyRectD GetRect(double elapsedTime) const;
+
+  InerpolateAngle m_angleInterpolator;
+  m2::RectD m_rect;
+  m2::PointD m_userPos;
+  double m_newCenterOffset;
+  double m_oldCenterOffset;
+};
+
 } // namespace df
