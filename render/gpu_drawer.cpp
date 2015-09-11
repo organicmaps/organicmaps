@@ -196,6 +196,9 @@ void GPUDrawer::DrawText(m2::PointD const & pt,
                          di::FeatureStyler const & fs,
                          di::DrawRule const & rule)
 {
+  if (fs.m_popRank < 0.0)
+    return; // do not draw
+
   graphics::FontDesc primaryFont;
   m2::PointD primaryOffset;
   ConvertStyle(rule.m_rule->GetCaption(0), VisualScale(), primaryFont, primaryOffset);

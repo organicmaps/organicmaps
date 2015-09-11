@@ -18,6 +18,7 @@ SOURCES += \
     data_header.cpp \
     drawing_rule_def.cpp \
     drawing_rules.cpp \
+    drules_city_rank_table.cpp \
     feature.cpp \
     feature_algo.cpp \
     feature_covering.cpp \
@@ -57,6 +58,7 @@ HEADERS += \
     data_header.hpp \
     drawing_rule_def.hpp \
     drawing_rules.hpp \
+    drules_city_rank_table.hpp \
     drules_include.hpp \
     feature.hpp \
     feature_algo.hpp \

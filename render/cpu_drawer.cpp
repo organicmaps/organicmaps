@@ -615,6 +615,9 @@ void CPUDrawer::CallTextRendererFn(TextShape const * shape, TTextRendererCall co
   ASSERT(shape->m_drawRule.m_rule->GetCaption(0) != nullptr, ());
   di::FeatureStyler const & fs = GetInfo(shape->m_geomID, m_stylers);
 
+  if (fs.m_popRank < 0.0)
+    return; // do not draw
+
   CaptionDefProto const * primCaption = shape->m_drawRule.m_rule->GetCaption(0);
   CaptionDefProto const * secCaption = shape->m_drawRule.m_rule->GetCaption(1);
 

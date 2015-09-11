@@ -2,6 +2,7 @@
 #include "geometry_processors.hpp"
 #include "proto_to_styles.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_visibility.hpp"
@@ -101,14 +102,15 @@ namespace di
 
     m_refText = f.GetRoadNumber();
 
-    double const population = static_cast<double>(f.GetPopulation());
-    if (population == 1)
-      m_popRank =  0.0;
+    uint32_t const population = ftypes::GetPopulation(f);
+
+    // [STYLE_HARDCODE] Calculate population rank for cities and towns only.
+    // It affects font size. If population rank is less than zero, feature is not drawn.
+    ftypes::Type const localityType = ftypes::IsLocalityChecker::Instance().GetType(f);
+    if (localityType == ftypes::CITY || localityType == ftypes::TOWN)
+      m_popRank = drule::rules().GetCityRank(zoom, population);
     else
-    {
-      double const upperBound = 3.0E6;
-      m_popRank = min(upperBound, population) / upperBound / 4;
-    }
+      m_popRank = 0.0;
 
     double area = 0.0;
     if (m_geometryType != feature::GEOM_POINT)
