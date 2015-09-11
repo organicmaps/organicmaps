@@ -81,6 +81,7 @@ static CGFloat const kHeight = 40.;
 {
   [super willMoveToSuperview:newSuperview];
   self.alpha = 0.;
+  self.hidden = YES;
 }
 
 - (CGFloat)defaultHeight

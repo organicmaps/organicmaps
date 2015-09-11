@@ -24,7 +24,7 @@
                                                             owner:nil
                                                           options:nil] firstObject];
   panel.parentView = ownerView;
-  [ownerView addSubview:panel];
+  [ownerView insertSubview:panel atIndex:0];
   [panel configure];
   return panel;
 }
