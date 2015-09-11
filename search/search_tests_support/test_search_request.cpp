@@ -1,7 +1,7 @@
 #include "search/search_tests_support/test_search_request.hpp"
 
-#include "search/search_tests_support/test_search_engine.hpp"
 #include "search/params.hpp"
+#include "search/search_tests_support/test_search_engine.hpp"
 
 #include "base/logging.hpp"
 
@@ -10,8 +10,9 @@ namespace search
 namespace tests_support
 {
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
-                                     string const & locale, m2::RectD const & viewport)
-    : m_done(false)
+                                     string const & locale, search::SearchParams::SearchModeT mode,
+                                     m2::RectD const & viewport)
+  : m_done(false)
 {
   search::SearchParams params;
   params.m_query = query;
@@ -20,7 +21,7 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   {
     Done(results);
   };
-  params.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY);
+  params.SetSearchMode(mode);
   CHECK(engine.Search(params, viewport), ("Can't run search."));
 }
 

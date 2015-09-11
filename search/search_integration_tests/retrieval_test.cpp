@@ -1,7 +1,5 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests_support/test_mwm_builder.hpp"
-
 #include "indexer/classificator_loader.hpp"
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
@@ -11,12 +9,18 @@
 
 #include "search/retrieval.hpp"
 #include "search/search_query_params.hpp"
+#include "search/search_tests_support/test_mwm_builder.hpp"
+#include "search/search_tests_support/test_search_engine.hpp"
+#include "search/search_tests_support/test_search_request.hpp"
 
 #include "platform/local_country_file.hpp"
+#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
+
+using namespace search::tests_support;
 
 namespace
 {
@@ -31,6 +35,18 @@ void InitParams(string const & query, search::SearchQueryParams & params)
   SplitUniString(search::NormalizeAndSimplifyString(query), insertTokens, delims);
 
   params.m_langs.insert(StringUtf8Multilang::GetLangIndex("en"));
+}
+
+void Cleanup(platform::LocalCountryFile const & map)
+{
+  platform::CountryIndexes::DeleteFromDisk(map);
+  map.DeleteFromDisk(MapOptions::Map);
+}
+
+void Cleanup(initializer_list<platform::LocalCountryFile> const & maps)
+{
+  for (auto const & map : maps)
+    Cleanup(map);
 }
 
 class TestCallback : public search::Retrieval::Callback
@@ -95,14 +111,15 @@ UNIT_TEST(Retrieval_Smoke)
   Platform & platform = GetPlatform();
 
   platform::LocalCountryFile file(platform.WritableDir(), platform::CountryFile("WhiskeyTown"), 0);
+  Cleanup(file);
   MY_SCOPE_GUARD(deleteFile, [&]()
   {
-    file.DeleteFromDisk(MapOptions::Map);
+    Cleanup(file);
   });
 
   // Create a test mwm with 100 whiskey bars.
   {
-    TestMwmBuilder builder(file);
+    TestMwmBuilder builder(file, feature::DataHeader::country);
     for (int x = 0; x < 10; ++x)
     {
       for (int y = 0; y < 10; ++y)
@@ -175,23 +192,22 @@ UNIT_TEST(Retrieval_3Mwms)
   platform::LocalCountryFile msk(platform.WritableDir(), platform::CountryFile("msk"), 0);
   platform::LocalCountryFile mtv(platform.WritableDir(), platform::CountryFile("mtv"), 0);
   platform::LocalCountryFile zrh(platform.WritableDir(), platform::CountryFile("zrh"), 0);
-  MY_SCOPE_GUARD(deleteFiles, [&]()
+  Cleanup({msk, mtv, zrh});
+  MY_SCOPE_GUARD(cleanup, [&]()
   {
-    msk.DeleteFromDisk(MapOptions::Map);
-    mtv.DeleteFromDisk(MapOptions::Map);
-    zrh.DeleteFromDisk(MapOptions::Map);
+    Cleanup({msk, mtv, zrh});
   });
 
   {
-    TestMwmBuilder builder(msk);
+    TestMwmBuilder builder(msk, feature::DataHeader::country);
     builder.AddPOI(m2::PointD(0, 0), "Cafe MTV", "en");
   }
   {
-    TestMwmBuilder builder(mtv);
+    TestMwmBuilder builder(mtv, feature::DataHeader::country);
     builder.AddPOI(m2::PointD(10, 0), "MTV", "en");
   }
   {
-    TestMwmBuilder builder(zrh);
+    TestMwmBuilder builder(zrh, feature::DataHeader::country);
     builder.AddPOI(m2::PointD(0, 10), "Bar MTV", "en");
   }
 
@@ -250,5 +266,85 @@ UNIT_TEST(Retrieval_3Mwms)
     retrieval.Go(callback);
     TEST_EQUAL(3, callback.GetNumMwms(), ());
     TEST_EQUAL(3, callback.GetNumFeatures(), ());
+  }
+}
+
+// This test creates a couple of maps:
+// * model map of Moscow, with "Cafe MTV" at the center
+// * model map of MTV, with "Cafe Moscow" at the center
+// * TestWorld map, with Moscow and MTV
+// TestWorld map is needed because locality search works only on world maps.
+//
+// Then, it tests search engine on following requests:
+//
+// 1. "Moscow", viewport covers only Moscow - should return two
+// results (Moscow city and Cafe Moscow at MTV).
+// 2. "MTV", viewport covers only MTV"- should return two results (MTV
+// city and Cafe MTV at Moscow).
+// 3. "Moscow MTV", viewport covers only MTV - should return MTV cafe
+// at Moscow.
+// 4. "MTV Moscow", viewport covers only Moscow - should return Moscow
+// cafe at MTV.
+UNIT_TEST(Retrieval_CafeMTV)
+{
+  classificator::Load();
+  Platform & platform = GetPlatform();
+
+  platform::LocalCountryFile msk(platform.WritableDir(), platform::CountryFile("msk"), 0);
+  platform::LocalCountryFile mtv(platform.WritableDir(), platform::CountryFile("mtv"), 0);
+  platform::LocalCountryFile testWorld(platform.WritableDir(), platform::CountryFile("testWorld"), 0);
+  Cleanup({msk, mtv, testWorld});
+  MY_SCOPE_GUARD(cleanup, [&]()
+  {
+    Cleanup({msk, mtv, testWorld});
+  });
+
+  {
+    TestMwmBuilder builder(msk, feature::DataHeader::country);
+    builder.AddCity(m2::PointD(1, 0), "Moscow", "en");
+    builder.AddPOI(m2::PointD(1, 0), "Cafe MTV", "en");
+  }
+  {
+    TestMwmBuilder builder(mtv, feature::DataHeader::country);
+    builder.AddCity(m2::PointD(-1, 0), "MTV", "en");
+    builder.AddPOI(m2::PointD(-1, 0), "Cafe Moscow", "en");
+  }
+  {
+    TestMwmBuilder builder(testWorld, feature::DataHeader::world);
+    builder.AddCity(m2::PointD(1, 0), "Moscow", "en");
+    builder.AddCity(m2::PointD(-1, 0), "MTV", "en");
+  }
+
+  TestSearchEngine engine("en");
+  TEST_EQUAL(MwmSet::RegResult::Success, engine.RegisterMap(msk).second, ());
+  TEST_EQUAL(MwmSet::RegResult::Success, engine.RegisterMap(mtv).second, ());
+  TEST_EQUAL(MwmSet::RegResult::Success, engine.RegisterMap(testWorld).second, ());
+
+  m2::RectD const moscowViewport(m2::PointD(0.99, -0.1), m2::PointD(1.01, 0.1));
+  m2::RectD const mtvViewport(m2::PointD(-1.1, -0.1), m2::PointD(-0.99, 0.1));
+
+  {
+    TestSearchRequest request(engine, "Moscow ", "en", search::SearchParams::ALL, moscowViewport);
+    request.Wait();
+    TEST_EQUAL(2, request.Results().size(), ());
+  }
+
+  {
+    TestSearchRequest request(engine, "MTV ", "en", search::SearchParams::ALL, mtvViewport);
+    request.Wait();
+    TEST_EQUAL(2, request.Results().size(), ());
+  }
+
+  {
+    TestSearchRequest request(engine, "Moscow MTV ", "en", search::SearchParams::ALL, mtvViewport);
+    request.Wait();
+    TEST_EQUAL(1, request.Results().size(), ());
+  }
+
+  {
+    TestSearchRequest request(engine, "MTV Moscow ", "en", search::SearchParams::ALL,
+                              moscowViewport);
+    request.Wait();
+    TEST_EQUAL(1, request.Results().size(), ());
   }
 }

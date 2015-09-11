@@ -31,6 +31,8 @@ public:
   /// Set center (origin) point of feature and set that feature is point.
   void SetCenter(m2::PointD const & p);
 
+  void SetRank(uint8_t rank);
+
   /// Add point to geometry.
   void AddPoint(m2::PointD const & p);
 

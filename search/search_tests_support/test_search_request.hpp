@@ -2,6 +2,7 @@
 
 #include "geometry/rect2d.hpp"
 
+#include "search/params.hpp"
 #include "search/result.hpp"
 
 #include "std/condition_variable.hpp"
@@ -22,7 +23,7 @@ class TestSearchRequest
 {
 public:
   TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
-                    m2::RectD const & viewport);
+                    search::SearchParams::SearchModeT mode, m2::RectD const & viewport);
 
   void Wait();
 

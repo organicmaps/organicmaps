@@ -70,6 +70,11 @@ void FeatureBuilder1::SetCenter(m2::PointD const & p)
   m_limitRect.Add(p);
 }
 
+void FeatureBuilder1::SetRank(uint8_t rank)
+{
+  m_params.rank = rank;
+}
+
 void FeatureBuilder1::AddPoint(m2::PointD const & p)
 {
   m_polygons.front().push_back(p);
