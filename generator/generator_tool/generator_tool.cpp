@@ -47,6 +47,7 @@ DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry an
 DEFINE_bool(generate_index, false, "4rd pass - generate index");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index");
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files");
+DEFINE_bool(type_statistics, false, "Calculate statistics by type for specified mwm bucket files");
 DEFINE_bool(preload_cache, false, "Preload all ways and relations cache");
 DEFINE_string(node_storage, "map", "Type of storage for intermediate points representation. Available: raw, map, mem");
 DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
@@ -121,7 +122,7 @@ int main(int argc, char ** argv)
   // load classificator only if necessary
   if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
       FLAGS_generate_index || FLAGS_generate_search_index ||
-      FLAGS_calc_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
+      FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_check_mwm)
   {
     classificator::Load();
@@ -216,6 +217,15 @@ int main(int argc, char ** argv)
     stats::MapInfo info;
     stats::CalcStatistic(datFile, info);
     stats::PrintStatistic(info);
+  }
+
+  if (FLAGS_type_statistics)
+  {
+    LOG(LINFO, ("Calculating type statistics for ", datFile));
+
+    stats::MapInfo info;
+    stats::CalcStatistic(datFile, info);
+    stats::PrintTypeStatistic(info);
   }
 
   if (FLAGS_dump_types)

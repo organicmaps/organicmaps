@@ -10,15 +10,18 @@ namespace stats
   struct GeneralInfo
   {
     uint64_t m_count, m_size;
+    double m_length, m_area;
 
-    GeneralInfo() : m_count(0), m_size(0) {}
+    GeneralInfo() : m_count(0), m_size(0), m_length(0), m_area(0) {}
 
-    void Add(uint64_t sz)
+    void Add(uint64_t szBytes, double len = 0, double area = 0)
     {
-      if (sz > 0)
+      if (szBytes > 0)
       {
         ++m_count;
-        m_size += sz;
+        m_size += szBytes;
+        m_length += len;
+        m_area += area;
       }
     }
   };
@@ -43,17 +46,11 @@ namespace stats
     map<AreaType, GeneralInfo> m_byAreaSize;
 
     GeneralInfo m_inner[3];
-
-    template <class TKey, class TSet>
-    void AddToSet(TKey key, uint32_t sz, TSet & theSet)
-    {
-      if (sz > 0)
-        theSet[key].Add(sz);
-    }
   };
 
   void FileContainerStatistic(string const & fPath);
 
   void CalcStatistic(string const & fPath, MapInfo & info);
   void PrintStatistic(MapInfo & info);
+  void PrintTypeStatistic(MapInfo & info);
 }

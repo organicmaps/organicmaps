@@ -43,5 +43,10 @@ m2::PointD MercatorBounds::GetSmPoint(m2::PointD const & pt, double lonMetresR, 
 
 double MercatorBounds::DistanceOnEarth(m2::PointD const & p1, m2::PointD const & p2)
 {
-  return ms::DistanceOnEarth(YToLat(p1.y), XToLon(p1.x), YToLat(p2.y), XToLon(p2.x));
+  return ms::DistanceOnEarth(ToLatLon(p1), ToLatLon(p2));
+}
+
+double MercatorBounds::AreaOnEarth(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+{
+  return ms::AreaOnEarth(ToLatLon(p1), ToLatLon(p2), ToLatLon(p3));
 }

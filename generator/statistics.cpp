@@ -34,13 +34,14 @@ namespace stats
     }
   }
 
-  double arrAreas[] = { 0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 360*360 };
+  // 0.001 deg² ≈ 12.392 km² * cos(lat)
+  double arrAreas[] = { 10, 20, 50, 100, 200, 500, 1000, 360*360*12400 };
 
   size_t GetAreaIndex(double s)
   {
-    auto end = arrAreas + ARRAY_SIZE(arrAreas);
-    auto i = lower_bound(arrAreas, end, s);
-    ASSERT(i != end, ());
+    double const sInKm2 = s / 1000000;
+    auto i = lower_bound(begin(arrAreas), end(arrAreas), sInKm2);
+    ASSERT(i != end(arrAreas), ());
     return distance(arrAreas, i);
   }
 
@@ -65,25 +66,43 @@ namespace stats
       FeatureType::geom_stat_t const geom = f.GetGeometrySize(FeatureType::BEST_GEOMETRY);
       FeatureType::geom_stat_t const trg = f.GetTrianglesSize(FeatureType::BEST_GEOMETRY);
 
-      m_info.AddToSet(CountType(geom.m_count), geom.m_size, m_info.m_byPointsCount);
-      m_info.AddToSet(CountType(trg.m_count / 3), trg.m_size, m_info.m_byTrgCount);
+      m_info.m_byPointsCount[CountType(geom.m_count)].Add(geom.m_size);
+      m_info.m_byTrgCount[CountType(trg.m_count / 3)].Add(trg.m_size);
 
       uint32_t const allSize = innerStats.m_size + geom.m_size + trg.m_size;
 
-      m_info.AddToSet(f.GetFeatureType(), allSize, m_info.m_byGeomType);
+      double len = 0.0;
+      double area = 0.0;
 
-      f.ForEachType([this, allSize](uint32_t type)
+      if (f.GetFeatureType() == feature::GEOM_LINE)
       {
-        m_info.AddToSet(ClassifType(type), allSize, m_info.m_byClassifType);
+        m2::PointD lastPoint;
+        bool firstPoint = true;
+        f.ForEachPoint([&len, &firstPoint, &lastPoint](const m2::PointD & pt)
+        {
+          if (firstPoint)
+            firstPoint = false;
+          else
+            len += MercatorBounds::DistanceOnEarth(lastPoint, pt);
+          lastPoint = pt;
+        }, FeatureType::BEST_GEOMETRY);
+      }
+      else if (f.GetFeatureType() == feature::GEOM_AREA)
+      {
+        f.ForEachTriangle([&area](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+        {
+          area += MercatorBounds::AreaOnEarth(p1, p2, p3);
+        }, FeatureType::BEST_GEOMETRY);
+      }
+
+      m_info.m_byGeomType[f.GetFeatureType()].Add(allSize, len, area);
+
+      f.ForEachType([this, allSize, len, area](uint32_t type)
+      {
+        m_info.m_byClassifType[ClassifType(type)].Add(allSize, len, area);
       });
 
-      double area = 0.0;
-      f.ForEachTriangle([&area](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-      {
-        area += m2::GetTriangleArea(p1, p2, p3);
-      }, FeatureType::BEST_GEOMETRY);
-
-      m_info.AddToSet(AreaType(GetAreaIndex(area)), trg.m_size, m_info.m_byAreaSize);
+      m_info.m_byAreaSize[AreaType(GetAreaIndex(area))].Add(trg.m_size, len, area);
     }
   };
 
@@ -93,9 +112,14 @@ namespace stats
     feature::ForEachFromDat(fPath, doProcess);
   }
 
-  void PrintInfo(string const & prefix, GeneralInfo const & info)
+  void PrintInfo(string const & prefix, GeneralInfo const & info, bool measurements)
   {
-    cout << prefix << ": size = " << info.m_size << "; count = " << info.m_count << endl;
+    cout << prefix << ": size = " << info.m_size << "; count = " << info.m_count;
+    if (measurements)
+    {
+      cout << "; length = " << uint64_t(info.m_length) << " m; area = " << uint64_t(info.m_area) << " m²";
+    }
+    cout << endl;
   }
 
   string GetKey(EGeomType type)
@@ -136,7 +160,7 @@ namespace stats
     for (size_t i = 0; i < count; ++i)
     {
       cout << i << ". ";
-      PrintInfo(GetKey(vec[i].first), vec[i].second);
+      PrintInfo(GetKey(vec[i].first), vec[i].second, false);
     }
   }
 
@@ -160,14 +184,22 @@ namespace stats
 
   void PrintStatistic(MapInfo & info)
   {
-    PrintInfo("DAT header", info.m_inner[2]);
-    PrintInfo("Points header", info.m_inner[0]);
-    PrintInfo("Strips header", info.m_inner[1]);
+    PrintInfo("DAT header", info.m_inner[2], false);
+    PrintInfo("Points header", info.m_inner[0], false);
+    PrintInfo("Strips header", info.m_inner[1], false);
 
     PrintTop<greater_size>("Top SIZE by Geometry Type", info.m_byGeomType);
     PrintTop<greater_size>("Top SIZE by Classificator Type", info.m_byClassifType);
     PrintTop<greater_size>("Top SIZE by Points Count", info.m_byPointsCount);
     PrintTop<greater_size>("Top SIZE by Triangles Count", info.m_byTrgCount);
     PrintTop<greater_size>("Top SIZE by Area", info.m_byAreaSize);
+  }
+
+  void PrintTypeStatistic(MapInfo & info)
+  {
+    for (auto it = info.m_byClassifType.begin(); it != info.m_byClassifType.end(); ++it)
+    {
+      PrintInfo(GetKey(it->first).c_str(), it->second, true);
+    }
   }
 }

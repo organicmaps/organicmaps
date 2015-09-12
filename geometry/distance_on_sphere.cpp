@@ -11,3 +11,10 @@ double ms::DistanceOnSphere(double lat1Deg, double lon1Deg, double lat2Deg, doub
   double const y = dlat * dlat + dlon * dlon * cos(lat1) * cos(lat2);
   return 2.0 * atan2(sqrt(y), sqrt(max(0.0, 1.0 - y)));
 }
+
+double ms::AreaOnSphere(ms::LatLon const & ll1, ms::LatLon const & ll2, ms::LatLon const & ll3)
+{
+  // Todo: proper area on sphere (not needed for now)
+  double const avgLat = my::DegToRad((ll1.lat + ll2.lat + ll3.lat) / 3);
+  return cos(avgLat) * 0.5 * fabs((ll2.lon - ll1.lon)*(ll3.lat - ll1.lat) - (ll3.lon - ll1.lon)*(ll2.lat - ll1.lat));
+}
