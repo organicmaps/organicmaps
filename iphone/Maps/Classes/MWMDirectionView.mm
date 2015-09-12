@@ -1,11 +1,3 @@
-//
-//  MWMDirectionView.m
-//  Maps
-//
-//  Created by v.mikhaylenko on 27.05.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "MWMDirectionView.h"
 #import "MWMPlacePageViewManager.h"
 #import "UIFont+MapsMeFonts.h"

@@ -1,14 +1,4 @@
-/*
- *  rect.h
- *  IALib
- *
- *  Created by Sergey Yershov on 04.09.05.
- *  Copyright 2005 __MyCompanyName__. All rights reserved.
- *
- */
-
-#ifndef __IA__RECT__
-#define __IA__RECT__
+#pragma once
 
 #include "point.h"
 #include <iostream>
@@ -173,5 +163,3 @@ typedef rect_base<double> rect_d;
 typedef rect_base<int> rect_i;
 
 }  // namespace ml
-
-#endif

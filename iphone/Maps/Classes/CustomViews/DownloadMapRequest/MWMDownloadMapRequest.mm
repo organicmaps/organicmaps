@@ -1,11 +1,3 @@
-//
-//  MWMDownloadMapRequest.m
-//  Maps
-//
-//  Created by Ilya Grechuhin on 10.07.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "Common.h"
 #import "Framework.h"
 #import "LocationManager.h"

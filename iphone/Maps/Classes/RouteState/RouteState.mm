@@ -1,11 +1,3 @@
-//
-//  RouteState.m
-//  Maps
-//
-//  Created by Ilya Grechuhin on 26.05.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "RouteState.h"
 #import "Framework.h"
 

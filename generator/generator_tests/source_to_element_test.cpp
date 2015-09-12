@@ -1,11 +1,3 @@
-//
-//  source_to_element_test.cpp
-//  generator_tool
-//
-//  Created by Sergey Yershov on 05.08.15.
-//  Copyright (c) 2015 maps.me. All rights reserved.
-//
-
 #include "testing/testing.hpp"
 
 #include "coding/parse_xml.hpp"

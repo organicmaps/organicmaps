@@ -1,11 +1,3 @@
-//
-//  MWMFacebookAlert.m
-//  Maps
-//
-//  Created by v.mikhaylenko on 01.04.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "MWMAlertViewController.h"
 #import "MWMFacebookAlert.h"
 #import "Statistics.h"

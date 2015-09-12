@@ -1,11 +1,3 @@
-//
-//  MWMPlacePage+MapsMeColor.m
-//  Maps
-//
-//  Created by v.mikhaylenko on 25.06.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "UIColor+MapsMeColor.h"
 
 static CGFloat const alpha12 = 0.12;

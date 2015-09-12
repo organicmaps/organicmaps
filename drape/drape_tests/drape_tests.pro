@@ -1,9 +1,3 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2013-09-18T09:14:21
-#
-#-------------------------------------------------
-
 TARGET = drape_tests
 CONFIG += console warn_on
 CONFIG -= app_bundle

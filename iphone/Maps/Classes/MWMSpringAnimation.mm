@@ -1,11 +1,3 @@
-//
-//  MWMSpringAnimation.m
-//  Maps
-//
-//  Created by v.mikhaylenko on 21.04.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "MWMSpringAnimation.h"
 #import "UIKitCategories.h"
 

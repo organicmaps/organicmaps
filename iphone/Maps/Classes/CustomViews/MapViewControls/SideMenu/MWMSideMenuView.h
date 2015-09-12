@@ -1,11 +1,3 @@
-//
-//  MWMSideMenuView.h
-//  Maps
-//
-//  Created by Ilya Grechuhin on 23.04.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "MWMSideMenuDelegate.h"
 #import "MWMSideMenuDownloadBadge.h"
 #import "UIKitCategories.h"

@@ -1,11 +1,3 @@
-//
-//  text_engine.cpp
-//  FreetypeLabels
-//
-//  Created by Sergey Yershov on 09.03.11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
-
 #include "text_engine.h"
 
 #include <sstream>
@@ -464,4 +456,4 @@ text_engine::text_engine()
   load_face("default", default_font_data, sizeof(default_font_data));
   //        face("default",16);
 }
-}
+} // namespace ml

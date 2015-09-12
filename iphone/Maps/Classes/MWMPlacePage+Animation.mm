@@ -1,11 +1,3 @@
-//
-//  MWMPlacePage+Animation.m
-//  Maps
-//
-//  Created by v.mikhaylenko on 19.05.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "MWMPlacePage+Animation.h"
 #import "MWMPlacePageViewManager.h"
 #import <objc/runtime.h>

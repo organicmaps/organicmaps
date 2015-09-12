@@ -1,11 +1,3 @@
-//
-//  MWMSideMenuCommon.h
-//  Maps
-//
-//  Created by Ilya Grechuhin on 24.04.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 static NSTimeInterval const kMenuViewHideFramesCount = 7.0;
 static NSTimeInterval const kMenuViewMoveFramesCount = 7.0;
 

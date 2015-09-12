@@ -1,11 +1,3 @@
-//
-//  osm_xml_source.hpp
-//  generator
-//
-//  Created by Sergey Yershov on 25.08.15.
-//  Copyright (c) 2015 maps.me. All rights reserved.
-//
-
 #pragma once
 
 #include "generator/osm_element.hpp"

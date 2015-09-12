@@ -1,11 +1,3 @@
-//
-//  MWMTextToSpeech.cpp
-//  Maps
-//
-//  Created by vbykoianko on 10.08.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import <AVFoundation/AVFoundation.h>
 #import "Common.h"
 #import "MWMTextToSpeech.h"

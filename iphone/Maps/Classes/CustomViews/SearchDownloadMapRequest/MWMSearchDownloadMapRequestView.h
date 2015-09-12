@@ -1,11 +1,3 @@
-//
-//  MWMSearchDownloadMapRequestView.h
-//  Maps
-//
-//  Created by Ilya Grechuhin on 09.07.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "UIKitCategories.h"
 
 NS_ENUM(NSUInteger, MWMSearchDownloadMapRequestViewState)

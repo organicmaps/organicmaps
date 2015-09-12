@@ -1,11 +1,3 @@
-//
-//  MWMSharePedestrianRoutesToastActivityItem.m
-//  Maps
-//
-//  Created by Ilya Grechuhin on 06.08.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "Macros.h"
 #import "MWMSharePedestrianRoutesToastActivityItem.h"
 #import "Statistics.h"

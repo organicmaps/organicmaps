@@ -1,11 +1,3 @@
-//
-//  osm_o5m_source.hpp
-//  generator
-//
-//  Created by Sergey Yershov on 14.04.15.
-//
-//  O5M Format definition: http://wiki.openstreetmap.org/wiki/O5m
-
 #pragma once
 
 #include "std/algorithm.hpp"

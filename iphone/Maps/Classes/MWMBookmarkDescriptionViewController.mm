@@ -1,11 +1,3 @@
-//
-//  MWMBookmarkDescriptionViewController.m
-//  Maps
-//
-//  Created by v.mikhaylenko on 03.06.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "Common.h"
 #import "MWMBookmarkDescriptionViewController.h"
 #import "MWMPlacePageViewManager.h"

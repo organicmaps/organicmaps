@@ -1,11 +1,3 @@
-//
-//  MWMAPIBar.m
-//  Maps
-//
-//  Created by Ilya Grechuhin on 27.07.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "Common.h"
 #import "MWMAPIBar.h"
 #import "MWMAPIBarView.h"

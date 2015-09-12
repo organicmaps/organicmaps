@@ -1,9 +1,3 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2013-09-17T15:41:48
-#
-#-------------------------------------------------
-
 TARGET = drape
 TEMPLATE = lib
 CONFIG += staticlib warn_on

@@ -1,14 +1,4 @@
-//
-//  text_engine.h
-//  FreetypeLabels
-//
-//  Created by Sergey Yershov on 09.03.11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
-
 #pragma once
-#ifndef __ML__TEXT_ENGINE_H__
-#define __ML__TEXT_ENGINE_H__
 
 #include <string>
 #include <stdexcept>
@@ -228,5 +218,3 @@ public:
 };
 
 }  // namespace ml
-
-#endif  // __ML__TEXT_ENGINE_H__

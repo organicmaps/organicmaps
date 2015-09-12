@@ -1,14 +1,4 @@
-/*
- *  point.h
- *  IALib
- *
- *  Created by Sergey Yershov on 04.09.05.
- *  Copyright 2005 __MyCompanyName__. All rights reserved.
- *
- */
-
-#ifndef __IA__POINT__
-#define __IA__POINT__
+#pragma once
 
 #include <cmath>
 #include <iomanip>
@@ -267,6 +257,5 @@ inline std::ostream & operator<<(std::ostream & s, point_base<T> const & p)
 
 typedef point_base<double> point_d;
 typedef point_base<int> point_i;
-}
 
-#endif
+} // namespace ml

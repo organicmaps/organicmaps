@@ -1,10 +1,3 @@
-/*
- * render_context.cpp
- *
- *  Created on: Oct 14, 2011
- *      Author: siarheirachytski
- */
-
 #include "render_context.hpp"
 
 namespace android

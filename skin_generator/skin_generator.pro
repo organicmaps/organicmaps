@@ -1,7 +1,3 @@
-# -----------------------------------------------------
-# Project created by Alex Zolotarev 2010-01-22T14:39:29
-# -----------------------------------------------------
-
 TARGET = skin_generator
 TEMPLATE = app
 CONFIG   += console

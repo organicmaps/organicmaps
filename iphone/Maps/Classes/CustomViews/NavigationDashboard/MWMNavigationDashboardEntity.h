@@ -1,11 +1,3 @@
-//
-//  MWMNavigationDashboardEntity.h
-//  Maps
-//
-//  Created by v.mikhaylenko on 22.07.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #include "platform/location.hpp"
 
 @interface MWMNavigationDashboardEntity : NSObject

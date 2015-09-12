@@ -1,10 +1,3 @@
-/*
- * Lifecycle.cpp
- *
- *  Created on: Nov 17, 2011
- *      Author: siarheirachytski
- */
-
 #include <jni.h>
 #include <android/log.h>
 #include "../../../nv_event/nv_event.hpp"

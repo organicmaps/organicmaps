@@ -1,11 +1,3 @@
-//
-//  MWMLanesPanel.m
-//  Maps
-//
-//  Created by v.mikhaylenko on 20.08.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "MWMLanesPanel.h"
 #import "UIKitCategories.h"
 #import "UIColor+MapsMeColor.h"

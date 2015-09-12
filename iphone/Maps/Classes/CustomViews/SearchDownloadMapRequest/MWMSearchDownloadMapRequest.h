@@ -1,11 +1,3 @@
-//
-//  MWMSearchDownloadMapRequest.h
-//  Maps
-//
-//  Created by Ilya Grechuhin on 10.07.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 @protocol MWMSearchDownloadMapRequest <NSObject>
 
 - (void)selectMapsAction;

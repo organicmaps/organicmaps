@@ -1,11 +1,3 @@
-//
-//  MWMNavigationView.m
-//  Maps
-//
-//  Created by Ilya Grechuhin on 22.07.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "MWMNavigationView.h"
 #import "UIKitCategories.h"
 

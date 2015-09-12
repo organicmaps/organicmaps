@@ -1,11 +1,3 @@
-//
-//  MWMMapViewControlsManager.m
-//  Maps
-//
-//  Created by Ilya Grechuhin on 14.05.15.
-//  Copyright (c) 2015 MapsWithMe. All rights reserved.
-//
-
 #import "Framework.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"

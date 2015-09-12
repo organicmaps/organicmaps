@@ -1,11 +1,3 @@
-//
-//  source_data.hpp
-//  generator_tool
-//
-//  Created by Sergey Yershov on 06.08.15.
-//  Copyright (c) 2015 maps.me. All rights reserved.
-//
-
 #pragma once
 
 extern char const node_xml_data[];

@@ -1,10 +1,3 @@
-/*
- * render_context.hpp
- *
- *  Created on: Oct 14, 2011
- *      Author: siarheirachytski
- */
-
 #pragma once
 
 #include "graphics/opengl/gl_render_context.hpp"

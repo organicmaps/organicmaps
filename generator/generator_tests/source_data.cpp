@@ -1,11 +1,3 @@
-//
-//  source_data.cpp
-//  generator_tool
-//
-//  Created by Sergey Yershov on 06.08.15.
-//  Copyright (c) 2015 maps.me. All rights reserved.
-//
-
 #include "source_data.hpp"
 
 char const node_xml_data[] = "<?xml version='1.0' encoding='UTF-8'?>\

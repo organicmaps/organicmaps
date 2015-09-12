@@ -1,10 +1,3 @@
-//
-//  osm_o5m_source_test.cpp
-//  generator_tool
-//
-//  Created by Sergey Yershov on 14.04.15.
-//
-
 #include "testing/testing.hpp"
 
 #include "generator/osm_o5m_source.hpp"
