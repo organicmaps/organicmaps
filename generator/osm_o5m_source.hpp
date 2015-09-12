@@ -1,3 +1,4 @@
+// See O5M Format definition at http://wiki.openstreetmap.org/wiki/O5m
 #pragma once
 
 #include "std/algorithm.hpp"
