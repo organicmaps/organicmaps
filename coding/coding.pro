@@ -31,7 +31,6 @@ SOURCES += \
     reader_streambuf.cpp \
     reader_writer_ops.cpp \
     sha2.cpp \
-    timsort/timsort.cpp \
     uri.cpp \
 #    varint_vector.cpp \
     zip_creator.cpp \
@@ -88,7 +87,6 @@ HEADERS += \
     succinct_trie.hpp \
     succinct_trie_builder.hpp \
     succinct_trie_reader.hpp \
-    timsort/timsort.hpp \
     trie.hpp \
     trie_builder.hpp \
     trie_reader.hpp \

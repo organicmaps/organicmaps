@@ -37,7 +37,6 @@ SOURCES += ../../testing/testingmain.cpp \
     reader_writer_ops_test.cpp \
     sha2_test.cpp \
     succinct_trie_test.cpp \
-    timsort_test.cpp \
     trie_test.cpp \
     uri_test.cpp \
     url_encode_test.cpp \
