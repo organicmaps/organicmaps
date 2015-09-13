@@ -1020,3 +1020,4 @@ railway|station|subway|barcelona
 railway|station|subway|paris
 railway|station|subway|madrid
 railway|station|subway|roma
+railway|station|subway|spb

@@ -57060,6 +57060,185 @@ cont {
   }
 }
 cont {
+  name: "railway-station-subway-spb"
+  element {
+    scale: 12
+    symbol {
+      name: "subway-station-s"
+      priority: 19100
+    }
+    caption {
+      primary {
+        height: 10
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      secondary {
+        height: 9
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      priority: 19000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "subway-station-s"
+      priority: 19100
+    }
+    caption {
+      primary {
+        height: 11
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      secondary {
+        height: 10
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      priority: 19000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "subway-station-s"
+      priority: 19100
+    }
+    caption {
+      primary {
+        height: 11
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      secondary {
+        height: 10
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      priority: 19000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "subway-station-m"
+      priority: 19100
+    }
+    caption {
+      primary {
+        height: 12
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      secondary {
+        height: 11
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      priority: 19000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "subway-station-l"
+      priority: 19100
+    }
+    caption {
+      primary {
+        height: 12
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      secondary {
+        height: 11
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      priority: 19000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-station-l"
+      priority: 19100
+    }
+    caption {
+      primary {
+        height: 12
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      secondary {
+        height: 11
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      priority: 19000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-station-l"
+      priority: 19100
+    }
+    caption {
+      primary {
+        height: 12
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      secondary {
+        height: 11
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      priority: 19000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-station-l"
+      priority: 19100
+    }
+    caption {
+      primary {
+        height: 12
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      secondary {
+        height: 11
+        color: 11184810
+        stroke_color: 0
+        offset_y: 10
+      }
+      priority: 19000
+    }
+  }
+}
+cont {
   name: "railway-station-subway-violet"
   element {
     scale: 12
