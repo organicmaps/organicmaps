@@ -9,6 +9,7 @@ buildscript {
 }
 
 apply plugin: 'android'
+apply from: 'secure.properties'
 
 dependencies {
   compile project(':yota_sdk')
@@ -55,10 +56,10 @@ android {
 
   signingConfigs {
     yopme {
-      storeFile file("key/android.key")
-      storePassword "***REMOVED***"
-      keyAlias "yopme"
-      keyPassword "***REMOVED***"
+      storeFile file(spropYotaStoreFile)
+      storePassword spropYotaStorePassword
+      keyAlias spropYotaKeyAlias
+      keyPassword spropYotaKeyPassword
     }
   }
 
