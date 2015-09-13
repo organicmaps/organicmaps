@@ -533,6 +533,7 @@ namespace ftype
           { "network", "London Underground", [&params]() { params.SetRwSubwayType("london"); }},
           { "network", "New York City Subway", [&params]() { params.SetRwSubwayType("newyork"); }},
           { "network", "Московский метрополитен", [&params]() { params.SetRwSubwayType("moscow"); }},
+          { "network", "Петербургский метрополитен", [&params]() { params.SetRwSubwayType("spb"); }},
           { "network", "Verkehrsverbund Berlin-Brandenburg", [&params]() { params.SetRwSubwayType("berlin"); }},
           { "network", "Минский метрополитен", [&params]() { params.SetRwSubwayType("minsk"); }},
 
