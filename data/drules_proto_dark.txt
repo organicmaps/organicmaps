@@ -59423,6 +59423,347 @@ cont {
   }
 }
 cont {
+  name: "railway-subway_entrance-barcelona"
+  element {
+    scale: 16
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-berlin"
+  element {
+    scale: 16
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-kiev"
+  element {
+    scale: 16
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-london"
+  element {
+    scale: 16
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-madrid"
+  element {
+    scale: 16
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-minsk"
+  element {
+    scale: 16
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-moscow"
+  element {
+    scale: 16
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-newyork"
+  element {
+    scale: 16
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-paris"
+  element {
+    scale: 16
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-roma"
+  element {
+    scale: 16
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-spb"
+  element {
+    scale: 16
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "railway-tram"
   element {
     scale: 14

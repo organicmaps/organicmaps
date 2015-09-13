@@ -31029,6 +31029,634 @@ cont {
   }
 }
 cont {
+  name: "railway-subway_entrance-barcelona"
+  element {
+    scale: 17
+    symbol {
+      name: "subway-barcelona-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-barcelona-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-barcelona-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-berlin"
+  element {
+    scale: 17
+    symbol {
+      name: "subway-berlin-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-berlin-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-berlin-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-kiev"
+  element {
+    scale: 17
+    symbol {
+      name: "subway-kiev-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-kiev-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-kiev-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-london"
+  element {
+    scale: 17
+    symbol {
+      name: "subway-london-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-london-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-london-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-madrid"
+  element {
+    scale: 17
+    symbol {
+      name: "subway-madrid-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-madrid-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-madrid-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-minsk"
+  element {
+    scale: 17
+    symbol {
+      name: "subway-minsk-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-minsk-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-minsk-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-moscow"
+  element {
+    scale: 16
+    symbol {
+      name: "subway-moscow-s"
+      apply_for_type: 1
+      priority: 16943
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15943
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-moscow-s"
+      apply_for_type: 1
+      priority: 16943
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15943
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-msocow-m"
+      apply_for_type: 1
+      priority: 16943
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15943
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-msocow-m"
+      apply_for_type: 1
+      priority: 16943
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15943
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-newyork"
+  element {
+    scale: 17
+    symbol {
+      name: "subway-newyork-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-newyork-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-newyork-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-paris"
+  element {
+    scale: 17
+    symbol {
+      name: "subway-paris-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-paris-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-paris-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-roma"
+  element {
+    scale: 17
+    symbol {
+      name: "subway-rome-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-rome-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-rome-s"
+      apply_for_type: 1
+      priority: 16924
+    }
+    caption {
+      primary {
+        height: 14
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15924
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-spb"
+  element {
+    scale: 16
+    symbol {
+      name: "subway-spb-s"
+      apply_for_type: 1
+      priority: 16943
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15943
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-spb-s"
+      apply_for_type: 1
+      priority: 16943
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15943
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-spb-s"
+      apply_for_type: 1
+      priority: 16943
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15943
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-spb-s"
+      apply_for_type: 1
+      priority: 16943
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 2164260863
+        offset_y: 8
+      }
+      priority: 15943
+    }
+  }
+}
+cont {
   name: "railway-tram"
   element {
     scale: 15

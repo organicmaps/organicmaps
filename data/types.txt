@@ -1021,3 +1021,14 @@ railway|station|subway|paris
 railway|station|subway|madrid
 railway|station|subway|roma
 railway|station|subway|spb
+railway|subway_entrance|london
+railway|subway_entrance|newyork
+railway|subway_entrance|moscow
+railway|subway_entrance|berlin
+railway|subway_entrance|minsk
+railway|subway_entrance|kiev
+railway|subway_entrance|barcelona
+railway|subway_entrance|paris
+railway|subway_entrance|madrid
+railway|subway_entrance|roma
+railway|subway_entrance|spb

@@ -1021,3 +1021,14 @@ railway|station|subway|paris;[railway=station][transport=subway][city=paris];;na
 railway|station|subway|madrid;[railway=station][transport=subway][city=madrid];;name;int_name;1021;
 railway|station|subway|roma;[railway=station][transport=subway][city=roma];;name;int_name;1022;
 railway|station|subway|spb;[railway=station][transport=subway][city=spb];;name;int_name;1023;
+railway|subway_entrance|london;[railway=subway_entrance][city=london];;name;int_name;1024;
+railway|subway_entrance|newyork;[railway=subway_entrance][city=newyork];;name;int_name;1025;
+railway|subway_entrance|moscow;[railway=subway_entrance][city=moscow];;name;int_name;1026;
+railway|subway_entrance|berlin;[railway=subway_entrance][city=berlin];;name;int_name;1027;
+railway|subway_entrance|minsk;[railway=subway_entrance][city=minsk];;name;int_name;1028;
+railway|subway_entrance|kiev;[railway=subway_entrance][city=kiev];;name;int_name;1029;
+railway|subway_entrance|barcelona;[railway=subway_entrance][city=barcelona];;name;int_name;1030;
+railway|subway_entrance|paris;[railway=subway_entrance][city=paris];;name;int_name;1031;
+railway|subway_entrance|madrid;[railway=subway_entrance][city=madrid];;name;int_name;1032;
+railway|subway_entrance|roma;[railway=subway_entrance][city=roma];;name;int_name;1033;
+railway|subway_entrance|spb;[railway=subway_entrance][city=spb];;name;int_name;1034;

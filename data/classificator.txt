@@ -658,7 +658,19 @@ world  +
             violet  -
             yellow  -
             {}
-        subway_entrance  -
+        subway_entrance  +
+            barcelona  -
+            berlin  -
+            kiev  -
+            london  -
+            madrid  -
+            minsk  -
+            moscow  -
+            newyork  -
+            paris  -
+            roma  -
+            spb  -
+            {}
         tram  +
             bridge  -
             tunnel  -
