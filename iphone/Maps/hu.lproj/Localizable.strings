@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "%@ frissítése";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Frissített térképekre lesz szüksége a kereséshez:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Az aktuális térképhez elérhető frissítések:";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Letöltött térképeidet áthelyezzük a MAPS.ME Lite-ból a MAPS.ME-be. Ez eltarthat pár percig.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Letöltött térképeidet sikeresen áthelyeztük a MAPS.ME-be.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Térképeid áthelyezése nem sikerült. Kérjük, töröld a MAPS.ME Lite-t és töltsd le a térképet megint.";
 
 /* Text in menu */
 "settings_and_more" = "Beállítások és egyéb";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "Köszönjük, igyekszünk a legjobbunkat nyújtani!";
 
 "rate_alert_less_than_four_star_message" = "Van valami ötlete, amivel jobbá tehetnénk?";
+
+"categories" = "Kategóriák";
+
+"history" = "Előzmények";
+
+"next_turn_then" = "Aztán";
+
+"closed" = "Zárva";
+
+"back_to" = "Vissza ide %@";
+
+"search_not_found" = "Sajnos, semmit nem találtam.";
+
+"search_not_found_query" = "Próbáljon másik lekérdezést.";
+
+"search_not_found_map" = "Töltse le azt a térképet, amelyen keres.";
+
+"search_not_found_location" = "Töltse le a jelenlegi tartózkodási helye térképét.";
+
+"search_history_title" = "Előző keresések";
+
+"search_history_text" = "Aktuális keresés gyors elérése.";

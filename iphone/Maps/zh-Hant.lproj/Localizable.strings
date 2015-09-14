@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "更新 %@";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "您需要更新地圖以使用搜尋功能：";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "以下為可用的更新地圖：";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "我們正在將您從MAPS.ME Lite下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "您下載的地圖已成功傳輸至MAPS.ME。";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "您的地圖傳輸失敗。請刪除MAPS.ME Lite，然後再次下載地圖。";
 
 /* Text in menu */
 "settings_and_more" = "設定及更多";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "謝謝您，我們會盡可能做好!";
 
 "rate_alert_less_than_four_star_message" = "有沒有想法我們能怎麽把它變得更好？";
+
+"categories" = "類別";
+
+"history" = "記錄";
+
+"next_turn_then" = "然後";
+
+"closed" = "關閉";
+
+"back_to" = "返回 %@";
+
+"search_not_found" = "很抱歉，我找不到任何東西。";
+
+"search_not_found_query" = "請試另一條問題。";
+
+"search_not_found_map" = "請下載你搜尋的地圖。";
+
+"search_not_found_location" = "下載你當前位置的地圖。";
+
+"search_history_title" = "搜尋歷史紀錄";
+
+"search_history_text" = "快速存取最近搜尋的問題。";

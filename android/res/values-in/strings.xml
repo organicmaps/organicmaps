@@ -135,6 +135,8 @@
 	<string name="continue_download">Lanjutkan</string>
 	<string name="downloaded_touch_to_update">(%s) telah diunduh, sentuh untuk memperbarui atau menghapus</string>
 	<string name="update_mb_or_kb">Perbarui %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Anda memerlukan peta terbaru untuk fungsi pencarian:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Tersedia pembaruan untuk peta ini:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -338,6 +340,10 @@
 	<string name="download_map_notification">Unduh peta tempat di mana Anda berada sekarang</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Kami sedang mentransfer peta unduhan Anda dari MAPS.ME Lite ke MAPS.ME. Proses ini mungkin membutuhkan waktu beberapa menit.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Peta unduhan Anda berhasil ditransfer ke MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Peta Anda gagal ditransfer. Silakan hapus MAPS.ME Lite dan unduh peta lagi.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Setelan &amp;amp; Lebih Banyak</string>
 	<!-- Text in menu -->
@@ -784,4 +790,15 @@
 	<string name="rate_alert_five_star_message">Hore! Kami juga sangat menyukai Anda!</string>
 	<string name="rate_alert_four_star_message">Terima kasih, kami akan melakukan yang terbaik!</string>
 	<string name="rate_alert_less_than_four_star_message">Anda punya ide agar kami bisa membuatnya menjadi lebih baik?</string>
+	<string name="categories">Kategori</string>
+	<string name="history">Riwayat</string>
+	<string name="next_turn_then">Lalu</string>
+	<string name="closed">Tutup</string>
+	<string name="back_to">Kembali ke %s</string>
+	<string name="search_not_found">Maaf, saya tidak menemukan apa pun.</string>
+	<string name="search_not_found_query">Silakan coba kueri lainnya.</string>
+	<string name="search_not_found_map">Silakan unduh peta yang Anda gunakan dalam pencarian Anda.</string>
+	<string name="search_not_found_location">Unduh peta dari lokasi Anda saat ini.</string>
+	<string name="search_history_title">Riwayat Pencarian</string>
+	<string name="search_history_text">Akses kueri pencarian terbaru dengan cepat.</string>
 </resources>

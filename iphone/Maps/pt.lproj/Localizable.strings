@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "Atualizar %@";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Precisa de mapas atualizados para a função de procura:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Atualização disponível para estes mapas:";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Estamos a transferir os seus mapas descarregados da MAPS.ME Lite para a MAPS.ME. Isto pode demorar alguns minutos.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Os seus mapas descarregados estão transferidos com sucesso para a MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Falhou a transferência dos seus mapas. Por favor, elimine a MAPS.ME Lite e descarregue os mapas novamente.";
 
 /* Text in menu */
 "settings_and_more" = "Definições e Mais";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "Obrigado, faremos o melhor possível!";
 
 "rate_alert_less_than_four_star_message" = "Alguma ideia sobre como podemos melhorar?";
+
+"categories" = "Categorias";
+
+"history" = "Histórico";
+
+"next_turn_then" = "Em seguida";
+
+"closed" = "Fechado";
+
+"back_to" = "Voltar para %@";
+
+"search_not_found" = "Lamento, mas não encontrei nada.";
+
+"search_not_found_query" = "Por favor, tente outro termo de busca.";
+
+"search_not_found_map" = "Por favor, baixe o mapa em que está pesquisando.";
+
+"search_not_found_location" = "Baixe o mapa da sua localização atual.";
+
+"search_history_title" = "Histórico de Busca";
+
+"search_history_text" = "Acesse os termos de busca recentes rapidamente.";

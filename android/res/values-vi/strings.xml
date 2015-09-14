@@ -135,6 +135,8 @@
 	<string name="continue_download">Tiếp tục</string>
 	<string name="downloaded_touch_to_update">Đã tải xuống (%s), chạm để cập nhật hoặc xóa</string>
 	<string name="update_mb_or_kb">Cập nhật %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -338,6 +340,10 @@
 	<string name="download_map_notification">Tải xuống bản đồ của vị trí của bạn</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Chúng tôi đang chuyển bản đồ đã tải xuống của bạn từ MAPS.ME Lite sang MAPS.ME. Việc này có thể mất vài phút.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Bản đồ đã tải xuống của bạn đã được chuyển thành công sang MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Bản đồ của bạn không chuyển được. Vui lòng xóa MAPS.ME Lite và tải xuống lại bản đồ.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Thiết lập &amp;amp; Khác</string>
 	<!-- Text in menu -->
@@ -785,4 +791,15 @@
 	<string name="rate_alert_five_star_message">Hoan hô! Chúng tôi cũng yêu bạn!</string>
 	<string name="rate_alert_four_star_message">Cám ơn, chúng tôi sẽ nỗ lực hết mình!</string>
 	<string name="rate_alert_less_than_four_star_message">Có bất kỳ ý tưởng nào về cách chúng tôi có thể giúp ứng dụng tốt hơn?</string>
+	<string name="categories">Thể loại</string>
+	<string name="history">Lịch sử</string>
+	<string name="next_turn_then">Sau đó</string>
+	<string name="closed">Đã đóng</string>
+	<string name="back_to">Quay lại %s</string>
+	<string name="search_not_found">Xin lỗi, tôi không tìm thấy kết quả nào.</string>
+	<string name="search_not_found_query">Vui lòng thử câu hỏi khác.</string>
+	<string name="search_not_found_map">Vui lòng tải về bản đồ mà bạn đang tìm kiếm trong đó.</string>
+	<string name="search_not_found_location">Tải về bản đồ vị trí hiện tại của bạn.</string>
+	<string name="search_history_title">Lịch sử tìm kiếm</string>
+	<string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
 </resources>

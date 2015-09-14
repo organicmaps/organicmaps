@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "%@ güncelle";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Arama işlevi için güncellenmiş haritalara ihtiyacınız var:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Bu haritalar için güncelleme kullanılabilir:";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "MAPS.ME Lite'den indirmiş olduğunuz haritaları MAPS.ME'ye aktarıyoruz. Bu bir kaç dakika sürebilir.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "İndirmiş olduğunuz haritalar başarılı bir şekilde MAPS.ME'ye aktarıldı.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Haritanızın aktarımı başarısız oldu. Lütfen MAPS.ME Lite'yi silin ve haritaları tekrar indirin.";
 
 /* Text in menu */
 "settings_and_more" = "Ayarlar & Fazlası";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "Teşekkür ederiz, elimizden geleni yapacağız!";
 
 "rate_alert_less_than_four_star_message" = "Daha iyi hale getirebilmemiz için herhangi bir fikriniz var mı?";
+
+"categories" = "Kategoriler";
+
+"history" = "Geçmiş";
+
+"next_turn_then" = "Sonra";
+
+"closed" = "Kapatıldı";
+
+"back_to" = "Geri Dön %@";
+
+"search_not_found" = "Üzgünüz, hiç bir şey bulamadık.";
+
+"search_not_found_query" = "Lütfen başka bir sorgu girin.";
+
+"search_not_found_map" = "Lütfen arama yaptığınız haritayı indirin.";
+
+"search_not_found_location" = "Mevcut konumunuzun haritasını indirin.";
+
+"search_history_title" = "Arama Geçmişi";
+
+"search_history_text" = "En son yapılan arama sorgularına hızlı erişim.";

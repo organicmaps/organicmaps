@@ -130,6 +130,8 @@
 	<string name="continue_download">Kontynuuj</string>
 	<string name="downloaded_touch_to_update">Pobrano (%s). Naciśnij, aby zaktualizować lub usunąć.</string>
 	<string name="update_mb_or_kb">Aktualizacja %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Musisz posiadać zaktualizowane mapy, aby korzystać z funkcji szukania</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Aktualizacja dostępna dla tych map:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -340,6 +342,10 @@
 	<string name="pro_version_is_free_today">Pełna wersja MAPS.ME jest dziś za darmo! Pobierz teraz i powiedz znajomym.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Przenosimy twoje pobrane mapy z MAPS.ME Lite do MAPS.ME. Może to zająć kilka minut.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Pomyślnie przeniesiono twoje pobrane mapy do MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Nie udało się przenieść twoich map. Proszę skasować MAPS.ME Lite i pobrać mapy ponownie.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Ustawienia i inne</string>
 	<!-- Text in menu -->
@@ -787,4 +793,15 @@
 	<string name="rate_alert_five_star_message">Hurra! My też Cię uwielbiamy!</string>
 	<string name="rate_alert_four_star_message">Dziękujemy, zrobimy co w naszej mocy!</string>
 	<string name="rate_alert_less_than_four_star_message">Czy masz pomysł, w jaki sposób możemy dokonać ulepszeń?</string>
+	<string name="categories">Kategorie</string>
+	<string name="history">Historia</string>
+	<string name="next_turn_then">Potem</string>
+	<string name="closed">Zamknięte</string>
+	<string name="back_to">Powróć do %s</string>
+	<string name="search_not_found">Przepraszamy, nic nie znaleziono.</string>
+	<string name="search_not_found_query">Wpisz inne zapytanie.</string>
+	<string name="search_not_found_map">Pobierz mapę interesującego cię obszaru.</string>
+	<string name="search_not_found_location">Pobierz mapę swojej bieżącej lokalizacji.</string>
+	<string name="search_history_title">Historia wyszukiwania</string>
+	<string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
 </resources>

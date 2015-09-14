@@ -130,6 +130,8 @@
 	<string name="continue_download">Pokračovat</string>
 	<string name="downloaded_touch_to_update">Staženo (%s), klepni pro smazání/aktualizaci</string>
 	<string name="update_mb_or_kb">Aktualizace %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Pro funkci vyhledávání musíš aktualizovat mapy:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Je k dispozici aktualizace pro tyto mapy:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -346,6 +348,10 @@
 	<string name="pro_version_is_free_today">Plná verze MAPS.ME dnes zdarma! Stáhni si ji nyní a dej vědět kamarádům.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Právě přenášíme tvé stažené mapy z MAPS.ME Lite do MAPS.ME. Může to několik minut trvat.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Tvé stažené mapy jsou úspěšně přeneseny do MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Tvé mapy se nepodařilo přenést. Prosím, odstraň MAPS.ME Lite a stáhni si mapy znovu.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Nastavení a další</string>
 	<!-- Text in menu -->
@@ -793,4 +799,15 @@
 	<string name="rate_alert_five_star_message">Hurá! Také Vás zbožňujeme!</string>
 	<string name="rate_alert_four_star_message">Děkujeme, budeme se snažit!</string>
 	<string name="rate_alert_less_than_four_star_message">Nějaké nápady, jak to můžeme dělat lépe?</string>
+	<string name="categories">Kategorie</string>
+	<string name="history">Historie</string>
+	<string name="next_turn_then">Poté</string>
+	<string name="closed">Zavřeno</string>
+	<string name="back_to">Zpět na %s</string>
+	<string name="search_not_found">Omlouvám se, nic jsem nenalezl.</string>
+	<string name="search_not_found_query">Zkuste, prosím, jiný dotaz.</string>
+	<string name="search_not_found_map">Stáhněte si, prosím, mapu, ve které hledáte.</string>
+	<string name="search_not_found_location">Stáhněte si mapu své aktuální pozice.</string>
+	<string name="search_history_title">Prohledat historii</string>
+	<string name="search_history_text">Získejte přístup k hledanému dotazu rychle.</string>
 </resources>

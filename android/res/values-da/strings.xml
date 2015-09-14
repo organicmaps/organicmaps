@@ -131,6 +131,8 @@
 	<string name="continue_download">Fortsæt</string>
 	<string name="downloaded_touch_to_update">Downloadet (%s), tryk for at opdatere eller slet</string>
 	<string name="update_mb_or_kb">Opdater %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Du har brug for opdaterede kort for at benytte søgefunktionen:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Der er opdateringer klar til følgende kort:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -341,6 +343,10 @@
 	<string name="pro_version_is_free_today">Fuld version af MAPS.ME er gratis i dag! Download nu og fortæl dine venner om det.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Vi overfører dine downloadede kort fra MAPS.ME Lite til MAPS.ME. Det kan tage et par minutter.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Dine downloadede kort er blevet succesfuldt overført til MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Indstillinger &amp; Mere</string>
 	<!-- Text in menu -->
@@ -786,4 +792,15 @@
 	<string name="rate_alert_five_star_message">Hurra! Vi elsker også dig!</string>
 	<string name="rate_alert_four_star_message">Mange tak, vi vil gøre vores bedste!</string>
 	<string name="rate_alert_less_than_four_star_message">Har du en idé om, hvordan vi kan gøre den bedre?</string>
+	<string name="categories">Kategorier</string>
+	<string name="history">Historik</string>
+	<string name="next_turn_then">Så</string>
+	<string name="closed">Lukket</string>
+	<string name="back_to">Tilbage til %s</string>
+	<string name="search_not_found">Desværre, jeg fandt ikke noget.</string>
+	<string name="search_not_found_query">Prøv en anden forespørgsel.</string>
+	<string name="search_not_found_map">Download kortet, som du søger i.</string>
+	<string name="search_not_found_location">Download kortet for din nuværende placering.</string>
+	<string name="search_history_title">Søgehistorik</string>
+	<string name="search_history_text">Gå hurtigt ind på seneste forespørgsel.</string>
 </resources>

@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "%@업데이트";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "당신은 검색 기능에 대한 업데이트된지도 필요";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "이지도에 사용할 수있는 업데이트:";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "우리는 MAPS.ME. Lite에서 MAPS.ME로 다운로드된 지도를 전송하고 있습니다. 이는 몇 분 정도 걸릴 수 있습니다.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "다운로드된 지도가 성공적으로 MAPS.ME에 전송됨";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "지도를 전송하지 못했습니다. MAPS.ME Lite를 삭제하고 다시지도를 다운로드하십시오.";
 
 /* Text in menu */
 "settings_and_more" = "설정 및 기타";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "감사합니다. 최선을 다할 것입니다!";
 
 "rate_alert_less_than_four_star_message" = "더 낫게 만드는 아이디어가 있습니까?";
+
+"categories" = "범주";
+
+"history" = "내역";
+
+"next_turn_then" = "그런 다음";
+
+"closed" = "닫음";
+
+"back_to" = "%@(으)로 복귀";
+
+"search_not_found" = "죄송합니다. 아무것도 찾지 못했습니다.";
+
+"search_not_found_query" = "다른 쿼리를 시도하십시오.";
+
+"search_not_found_map" = "검색할 지도를 다운로드하십시오.";
+
+"search_not_found_location" = "현재 위치의 지도를 다운로드하십시오.";
+
+"search_history_title" = "검색 기록";
+
+"search_history_text" = "최근 검색 쿼리에 신속하게 액세스할 수 있습니다.";

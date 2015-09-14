@@ -128,6 +128,8 @@
 	<string name="continue_download">続行</string>
 	<string name="downloaded_touch_to_update">(%s)をダウンロードしました。タップして更新、削除できます</string>
 	<string name="update_mb_or_kb">%sを更新</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">検索機能を利用するにはマップを更新する必要があります</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">以下のマップが更新されています:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -336,6 +338,10 @@
 	<string name="pro_version_is_free_today">MAPS.MEのフルバージョンが本日無料！今すぐダウンロードして友達に教えてあげましょう。</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">ダウンロード済みの地図をMAPS.ME LiteからMAPS.MEに転送します。完了までに数分かかるかもしれません。</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">ダウンロード済みの地図は無事MAPS.MEに転送されました</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">地図の転送に失敗しました。MAPS.ME Liteを削除してから地図を再度ダウンロードしてください。</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">設定&amp;その他</string>
 	<!-- Text in menu -->
@@ -783,4 +789,15 @@
 	<string name="rate_alert_five_star_message">やったー! 相思相愛!</string>
 	<string name="rate_alert_four_star_message">ありがとうございます。頑張ります!</string>
 	<string name="rate_alert_less_than_four_star_message">改善のためのアイデアはございますか?</string>
+	<string name="categories">カテゴリー</string>
+	<string name="history">履歴</string>
+	<string name="next_turn_then">その後</string>
+	<string name="closed">閉鎖</string>
+	<string name="back_to">%sに戻る</string>
+	<string name="search_not_found">申し訳ありませんが該当するものは見つかりませんでした。</string>
+	<string name="search_not_found_query">別のクエリをお試しください。</string>
+	<string name="search_not_found_map">検索する地図をダウンロードしてください。</string>
+	<string name="search_not_found_location">現在地の地図をダウンロードしてください。</string>
+	<string name="search_history_title">検索履歴</string>
+	<string name="search_history_text">最近の検索クエリに素早くアクセス。</string>
 </resources>

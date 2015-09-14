@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "Aktualizácia %@";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Pre funkciu vyhladávania musíte aktualizovať mapy:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "K dispozícii je aktualizácia pre tieto mapy:";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Práve prenášame Vaše stiahnuté mapy z MAPS.ME lite na MAPS.ME. Môže to trvať niekoľko minút.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Vaše stiahnuté mapy sú úspešne prenesené na MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Vaše mapy sa nepodarilo preniesť. Vymažte prosím MAPS.ME Lite a stiahnite si mapy znova.";
 
 /* Text in menu */
 "settings_and_more" = "Nastavenia a viac";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "Ďakujeme vám, urobíme, čo bude v našich silách!";
 
 "rate_alert_less_than_four_star_message" = "Nejaký nápad, ako ju môžeme vylepšiť?";
+
+"categories" = "Kategórie";
+
+"history" = "Archív";
+
+"next_turn_then" = "Potom";
+
+"closed" = "Zatvorené";
+
+"back_to" = "Späť do %@";
+
+"search_not_found" = "Ľutujeme, ale nič sme nenašli.";
+
+"search_not_found_query" = "Vyskúšajte, prosím, iný hľadaný výraz.";
+
+"search_not_found_map" = "Prosím, stiahnite si mapu, na ktorej vyhľadávate.";
+
+"search_not_found_location" = "Stiahnite si mapu svojej súčasnej polohy.";
+
+"search_history_title" = "História vyhľadávania";
+
+"search_history_text" = "Rýchlo pristupujte k nedávnym hľadaným výrazom.";

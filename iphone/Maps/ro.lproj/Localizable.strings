@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "Actualizați %@";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Aveți nevoie de hărți actualizate pentru funcția de căutare:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Actualizări disponibile pentru aceste hărți:";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Transferăm hărțile dvs. descărcate din MAPS.ME Lite în MAPS.ME. Acest lucru poate dura câteva minute.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Hărțile dvs. descărcate sunt transferate cu succes către MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Your maps failed to transfer. Please delete MAPS.ME Lite and download the maps again.";
 
 /* Text in menu */
 "settings_and_more" = "Setări și altele";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "Vă mulțumim, vom face tot ce ne stă în putință!";
 
 "rate_alert_less_than_four_star_message" = "Aveți vreo idee prin care putem să îmbunătățim aplicația?";
+
+"categories" = "Categorii";
+
+"history" = "Istoric";
+
+"next_turn_then" = "Apoi";
+
+"closed" = "Închis";
+
+"back_to" = "Înapoi la %@";
+
+"search_not_found" = "Ne pare rău, nu s-au găsit rezultate.";
+
+"search_not_found_query" = "Vă rugăm să încercați altă căutare.";
+
+"search_not_found_map" = "Vă rugăm să descărcați harta pe care doriți să căutați.";
+
+"search_not_found_location" = "Descărcați harta locului în care vă aflați acum.";
+
+"search_history_title" = "Istoricul căutărilor";
+
+"search_history_text" = "Accesare rapidă a căutărilor recente.";

@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "Oppdater %@";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Du trenger oppdaterte kart for søkefunksjonen:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Oppdatering tilgjengelig for disse kartene:";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Vi overfører dine nedlastede kart fra MAPS.ME Lite til MAPS.ME. Det kan ta noen minutter.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Nedlastede kart er overført til MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Kartene dine ble ikke overført. Slett MAPS.ME Lite og last ned kartene på nytt.";
 
 /* Text in menu */
 "settings_and_more" = "Innstillinger med mer";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "Tusen takk, vi skal gjøre vårt beste!";
 
 "rate_alert_less_than_four_star_message" = "Noen tanker om hvordan vi kan forbedre den?";
+
+"categories" = "Kategorier";
+
+"history" = "Historikk";
+
+"next_turn_then" = "Deretter";
+
+"closed" = "Stengt";
+
+"back_to" = "Tilbake til %@";
+
+"search_not_found" = "Beklager, jeg fant ingenting.";
+
+"search_not_found_query" = "Vennligst prøv et annet søk.";
+
+"search_not_found_map" = "Vennligst last ned kartet du søker i.";
+
+"search_not_found_location" = "Last ned kartet til din nåværende beliggenhet.";
+
+"search_history_title" = "Søkehistorikk";
+
+"search_history_text" = "Vis de siste søkene raskt.";

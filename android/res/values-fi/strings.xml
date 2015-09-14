@@ -135,6 +135,8 @@
 	<string name="continue_download">Jatka</string>
 	<string name="downloaded_touch_to_update">Ladattu (%s), päivitä tai poista koskettamalla</string>
 	<string name="update_mb_or_kb">Päivitä %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Hakutoimintoa varten tarvitset päivitetyt kartat:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Päivitys saatavissa seuraaville kartoille:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -338,6 +340,10 @@
 	<string name="download_map_notification">Lataa sijaintisi kartta</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Me siirrämme lataamasi kartat MAPS.ME Lite:stä MAPS.ME:hen. Siirtäminen voi viedä muutaman minuutin.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Lataamasi kartat on siirretty onnistuneesti MAPS.ME:hen.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Karttoja ei voitu siirtää. Ole hyvä ja poista MAPS.ME Lite ja lataa kartat uudelleen.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Asetukset &amp;amp; Lisää</string>
 	<!-- Text in menu -->
@@ -785,4 +791,15 @@
 	<string name="rate_alert_five_star_message">Hurraa! Mekin rakastamme sinua!</string>
 	<string name="rate_alert_four_star_message">Kiitos, teemme parhaamme!</string>
 	<string name="rate_alert_less_than_four_star_message">Kertoisitko missä voisimme parantaa?</string>
+	<string name="categories">Luokat</string>
+	<string name="history">Historia</string>
+	<string name="next_turn_then">Sitten</string>
+	<string name="closed">Suljettu</string>
+	<string name="back_to">Takaisin sovellukseen %s</string>
+	<string name="search_not_found">Pahoittelut, hakutuloksia ei ole.</string>
+	<string name="search_not_found_query">Yritä jotain toista hakusanaa.</string>
+	<string name="search_not_found_map">Lataa kartat sille alueelle jolta haet.</string>
+	<string name="search_not_found_location">Lataa nykyisen sijaintisi kartta.</string>
+	<string name="search_history_title">Hakuhistoria</string>
+	<string name="search_history_text">Siirry nopeasti aikaisempaan hakuun.</string>
 </resources>

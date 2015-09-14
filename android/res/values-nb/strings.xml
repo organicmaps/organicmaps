@@ -135,6 +135,8 @@
 	<string name="continue_download">Fortsett</string>
 	<string name="downloaded_touch_to_update">Lastet ned (%s) – trykk for å oppdatere eller slette</string>
 	<string name="update_mb_or_kb">Oppdater %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Du trenger oppdaterte kart for søkefunksjonen:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Oppdatering tilgjengelig for disse kartene:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -338,6 +340,10 @@
 	<string name="download_map_notification">Last ned kart over stedet der du befinner deg</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Vi overfører dine nedlastede kart fra MAPS.ME Lite til MAPS.ME. Det kan ta noen minutter.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Nedlastede kart er overført til MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Kartene dine ble ikke overført. Slett MAPS.ME Lite og last ned kartene på nytt.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Innstillinger med mer</string>
 	<!-- Text in menu -->
@@ -785,4 +791,15 @@
 	<string name="rate_alert_five_star_message">Hurra! Vi elsker deg også!</string>
 	<string name="rate_alert_four_star_message">Tusen takk, vi skal gjøre vårt beste!</string>
 	<string name="rate_alert_less_than_four_star_message">Noen tanker om hvordan vi kan forbedre den?</string>
+	<string name="categories">Kategorier</string>
+	<string name="history">Historikk</string>
+	<string name="next_turn_then">Deretter</string>
+	<string name="closed">Stengt</string>
+	<string name="back_to">Tilbake til %s</string>
+	<string name="search_not_found">Beklager, jeg fant ingenting.</string>
+	<string name="search_not_found_query">Vennligst prøv et annet søk.</string>
+	<string name="search_not_found_map">Vennligst last ned kartet du søker i.</string>
+	<string name="search_not_found_location">Last ned kartet til din nåværende beliggenhet.</string>
+	<string name="search_history_title">Søkehistorikk</string>
+	<string name="search_history_text">Vis de siste søkene raskt.</string>
 </resources>

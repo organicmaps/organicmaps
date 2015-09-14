@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "%@を更新";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "検索機能を利用するにはマップを更新する必要があります";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "以下のマップが更新されています:";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "ダウンロード済みの地図をMAPS.ME LiteからMAPS.MEに転送します。完了までに数分かかるかもしれません。";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "ダウンロード済みの地図は無事MAPS.MEに転送されました";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "地図の転送に失敗しました。MAPS.ME Liteを削除してから地図を再度ダウンロードしてください。";
 
 /* Text in menu */
 "settings_and_more" = "設定&その他";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "ありがとうございます。頑張ります!";
 
 "rate_alert_less_than_four_star_message" = "改善のためのアイデアはございますか?";
+
+"categories" = "カテゴリー";
+
+"history" = "履歴";
+
+"next_turn_then" = "その後";
+
+"closed" = "閉鎖";
+
+"back_to" = "%@に戻る";
+
+"search_not_found" = "申し訳ありませんが該当するものは見つかりませんでした。";
+
+"search_not_found_query" = "別のクエリをお試しください。";
+
+"search_not_found_map" = "検索する地図をダウンロードしてください。";
+
+"search_not_found_location" = "現在地の地図をダウンロードしてください。";
+
+"search_history_title" = "検索履歴";
+
+"search_history_text" = "最近の検索クエリに素早くアクセス。";

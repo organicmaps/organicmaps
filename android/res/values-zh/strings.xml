@@ -129,6 +129,8 @@
 	<string name="continue_download">继续</string>
 	<string name="downloaded_touch_to_update">下载 (%s),轻触更新或删除</string>
 	<string name="update_mb_or_kb">下载%s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">您需要为搜索功能获取已更新的地图。</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">这些地图有更新版本:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -345,6 +347,10 @@
 	<string name="pro_version_is_free_today">完整版MAPS.ME是免费的今天! 立刻下载并告诉您的好友。</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">我们正在将您从MAPS.ME Lite 下载的地图传输至 MAPS.ME。这可能需要几分钟的时间。</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">您下载的地图已成功传输至MAPS.ME。</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">您的地图传输失败。请删除MAPS.ME Lite，然后再次下载地图。</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">设置及更多</string>
 	<!-- Text in menu -->
@@ -790,4 +796,15 @@
 	<string name="rate_alert_five_star_message">太棒了！我们也爱您！</string>
 	<string name="rate_alert_four_star_message">谢谢您，我们会尽可能做好！</string>
 	<string name="rate_alert_less_than_four_star_message">有没有想法我们能怎么把它变得更好？</string>
+	<string name="categories">类别</string>
+	<string name="history">历史</string>
+	<string name="next_turn_then">然后</string>
+	<string name="closed">已关闭</string>
+	<string name="back_to">回到 %s</string>
+	<string name="search_not_found">抱歉，没有找到任何东西。</string>
+	<string name="search_not_found_query">请尝试其它查询。</string>
+	<string name="search_not_found_map">请下载您搜索的地图。</string>
+	<string name="search_not_found_location">下载您当前位置的地图。</string>
+	<string name="search_history_title">搜索历史。</string>
+	<string name="search_history_text">快速访问最近的搜索查询。</string>
 </resources>

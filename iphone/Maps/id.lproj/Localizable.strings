@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "Perbarui %@";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Anda memerlukan peta terbaru untuk fungsi pencarian:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Tersedia pembaruan untuk peta ini:";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Kami sedang mentransfer peta unduhan Anda dari MAPS.ME Lite ke MAPS.ME. Proses ini mungkin membutuhkan waktu beberapa menit.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Peta unduhan Anda berhasil ditransfer ke MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Peta Anda gagal ditransfer. Silakan hapus MAPS.ME Lite dan unduh peta lagi.";
 
 /* Text in menu */
 "settings_and_more" = "Setelan &amp; Lebih Banyak";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "Terima kasih, kami akan melakukan yang terbaik!";
 
 "rate_alert_less_than_four_star_message" = "Anda punya ide agar kami bisa membuatnya menjadi lebih baik?";
+
+"categories" = "Kategori";
+
+"history" = "Riwayat";
+
+"next_turn_then" = "Lalu";
+
+"closed" = "Tutup";
+
+"back_to" = "Kembali ke %@";
+
+"search_not_found" = "Maaf, saya tidak menemukan apa pun.";
+
+"search_not_found_query" = "Silakan coba kueri lainnya.";
+
+"search_not_found_map" = "Silakan unduh peta yang Anda gunakan dalam pencarian Anda.";
+
+"search_not_found_location" = "Unduh peta dari lokasi Anda saat ini.";
+
+"search_history_title" = "Riwayat Pencarian";
+
+"search_history_text" = "Akses kueri pencarian terbaru dengan cepat.";

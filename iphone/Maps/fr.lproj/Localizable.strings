@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "Mettre à jour %@";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Il vous faut des cartes mises à jour pour la fonction de recherche :";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Des mises à jour sont disponibles pour ces cartes :";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Nous transférons vos cartes téléchargées de MAPS.ME Lite vers MAPS.ME. Cela peut prendre quelques minutes.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Vos cartes téléchargées ont été transférées avec succès vers MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Le transfert de vos cartes a échoué. Veuillez supprimer MAPS.ME Lite et télécharger les cartes de nouveau.";
 
 /* Text in menu */
 "settings_and_more" = "Paramètres & plus";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "Merci, nous ferons tout notre possible !";
 
 "rate_alert_less_than_four_star_message" = "Avez-vous une idée de ce que nous pourrions améliorer ?";
+
+"categories" = "Catégories";
+
+"history" = "Historique";
+
+"next_turn_then" = "Luego";
+
+"closed" = "Cerrado";
+
+"back_to" = "Revenir à %@";
+
+"search_not_found" = "Désolé, je n'ai rien trouvé.";
+
+"search_not_found_query" = "Veuillez essayer un autre mot-clé.";
+
+"search_not_found_map" = "Veuillez télécharger la carte dans laquelle vous recherchez.";
+
+"search_not_found_location" = "Téléchargez la carte de votre emplacement actuel.";
+
+"search_history_title" = "Historique de recherche";
+
+"search_history_text" = "Accédez rapidement aux dernières recherches.";

@@ -135,6 +135,8 @@
 	<string name="continue_download">Continuare</string>
 	<string name="downloaded_touch_to_update">Descărcat (%s). Atingeți pentru a actualiza sau a șterge.</string>
 	<string name="update_mb_or_kb">Actualizați %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Aveți nevoie de hărți actualizate pentru funcția de căutare:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Actualizări disponibile pentru aceste hărți:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -338,6 +340,8 @@
 	<string name="download_map_notification">Descărcați harta locului în care vă aflați</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Transferăm hărțile dvs. descărcate din MAPS.ME Lite în MAPS.ME. Acest lucru poate dura câteva minute.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Hărțile dvs. descărcate sunt transferate cu succes către MAPS.ME.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Setări și altele</string>
 	<!-- Text in menu -->
@@ -784,4 +788,15 @@
 	<string name="rate_alert_five_star_message">Ura! Și noi vă iubim!</string>
 	<string name="rate_alert_four_star_message">Vă mulțumim, vom face tot ce ne stă în putință!</string>
 	<string name="rate_alert_less_than_four_star_message">Aveți vreo idee prin care putem să îmbunătățim aplicația?</string>
+	<string name="categories">Categorii</string>
+	<string name="history">Istoric</string>
+	<string name="next_turn_then">Apoi</string>
+	<string name="closed">Închis</string>
+	<string name="back_to">Înapoi la %s</string>
+	<string name="search_not_found">Ne pare rău, nu s-au găsit rezultate.</string>
+	<string name="search_not_found_query">Vă rugăm să încercați altă căutare.</string>
+	<string name="search_not_found_map">Vă rugăm să descărcați harta pe care doriți să căutați.</string>
+	<string name="search_not_found_location">Descărcați harta locului în care vă aflați acum.</string>
+	<string name="search_history_title">Istoricul căutărilor</string>
+	<string name="search_history_text">Accesare rapidă a căutărilor recente.</string>
 </resources>

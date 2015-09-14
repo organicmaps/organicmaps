@@ -216,6 +216,9 @@
 
 "update_mb_or_kb" = "Update %@";
 
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Update beschikbaar voor deze kaarten:";
 
@@ -544,6 +547,12 @@
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "We verplaatsen uw gedownloade kaarten van MAPS.ME Lite naar MAPS.ME. Dit kan enkele minuten duren.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Uw gedownloade kaarten werden met succes verplaatst naar MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Verplaatsing van uw kaarten mislukt. Gelieve MAPS.ME Lite te verwijderen en de kaarten opnieuw te downloaden.";
 
 /* Text in menu */
 "settings_and_more" = "Instellingen & meer";
@@ -1237,3 +1246,25 @@
 "rate_alert_four_star_message" = "Bedankt, we zullen ons best doen!";
 
 "rate_alert_less_than_four_star_message" = "Heeft u suggesties voor verbeteringen?";
+
+"categories" = "Categorieën";
+
+"history" = "Geschiedenis";
+
+"next_turn_then" = "Dan";
+
+"closed" = "Gesloten";
+
+"back_to" = "Terug naar %@";
+
+"search_not_found" = "Sorry, ik heb niets gevonden.";
+
+"search_not_found_query" = "Probeer een andere zoekopdracht.";
+
+"search_not_found_map" = "Download de kaart waarin u zoekt, alstublieft.";
+
+"search_not_found_location" = "Download de kaart van uw huidige locatie.";
+
+"search_history_title" = "Zoekgeschiedenis";
+
+"search_history_text" = "Snel toegang tot recente zoekopdrachten.";

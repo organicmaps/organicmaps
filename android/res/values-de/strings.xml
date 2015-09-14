@@ -128,6 +128,8 @@
 	<string name="continue_download">Fortfahren</string>
 	<string name="downloaded_touch_to_update">Heruntergeladen (%s), berühren zum aktualisieren oder löschen</string>
 	<string name="update_mb_or_kb">Aktualisiere %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Sie benötigen aktualisierte Karten für die Suchfunktion</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Aktualisierung für diese Karten erhältlich:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -334,6 +336,10 @@
 	<string name="pro_version_is_free_today">MAPS.ME heute gratis! Jetzt runterladen &amp; Freunde informieren</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Wir übertragen Ihre heruntergeladenen Karten von MAPS.ME Lite zu MAPS.ME. Der Vorgang kann einige Minuten in Anspruch nehmen.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Ihre heruntergeladenen Karten wurden erfolgreich zu MAPS.ME übertragen.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Ihre Karten konnten nicht übertragen werden. Bitte löschen Sie MAPS.ME Lite und laden Sie die Karten erneut herunter.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Einstellungen &amp; mehr</string>
 	<!-- Text in menu -->
@@ -781,4 +787,15 @@
 	<string name="rate_alert_five_star_message">Hurra! Wir lieben Sie auch!</string>
 	<string name="rate_alert_four_star_message">Danke, wir geben unser Bestes!</string>
 	<string name="rate_alert_less_than_four_star_message">Haben Sie eine Idee, wie wir besser werden können?</string>
+	<string name="categories">Kategorien</string>
+	<string name="history">Historie</string>
+	<string name="next_turn_then">Dann</string>
+	<string name="closed">Geschlossen</string>
+	<string name="back_to">Zurück zu %s</string>
+	<string name="search_not_found">Bedaure, ich habe nichts gefunden.</string>
+	<string name="search_not_found_query">Versuchen Sie bitte eine andere Suchanfrage.</string>
+	<string name="search_not_found_map">Laden Sie die Karte, in der Sie suchen, bitte herunter.</string>
+	<string name="search_not_found_location">Laden Sie die Karte Ihres aktuellen Standorts herunter.</string>
+	<string name="search_history_title">Suchverlauf</string>
+	<string name="search_history_text">Schnell auf die letzten Suchanfragen zugreifen.</string>
 </resources>

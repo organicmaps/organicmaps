@@ -129,6 +129,8 @@
 	<string name="continue_download">Fortsätt</string>
 	<string name="downloaded_touch_to_update">Nedladdad (%s), tryck för att uppdatera eller ta bort</string>
 	<string name="update_mb_or_kb">Uppdatera %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Du behöver uppdaterade kartor för sökfunktionen:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Uppdatering tillgänglig för dessa kartor:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
@@ -343,6 +345,10 @@
 	<string name="pro_version_is_free_today">Fullständig version av MAPS.ME är gratis idag! Ladda ner den nu och berätta för dina vänner.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Vi flyttar dina nedladdade kartor från MAPS.ME Lite till MAPS.ME. Det kan ta några minuter.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Dina nedladdade kartor flyttades till MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Flytten av dina kartor misslyckades. Vänligen ta bort MAPS.ME Lite och ladda ner kartorna igen.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Inställningar &amp; Mer</string>
 	<!-- Text in menu -->
@@ -786,4 +792,15 @@
 	<string name="rate_alert_five_star_message">Hurra! Vi älskar dig också!</string>
 	<string name="rate_alert_four_star_message">Tack, vi ska göra vårt bästa!</string>
 	<string name="rate_alert_less_than_four_star_message">Har du någon idé om hur vi ska bli bättre?</string>
+	<string name="categories">Kategorier</string>
+	<string name="history">Historik</string>
+	<string name="next_turn_then">Sedan</string>
+	<string name="closed">Stängt</string>
+	<string name="back_to">Tillbaka till %s</string>
+	<string name="search_not_found">Ledsen, jag hittade ingenting.</string>
+	<string name="search_not_found_query">Försök med en annan sökförfrågan.</string>
+	<string name="search_not_found_map">Ladda ner kartan du söker på.</string>
+	<string name="search_not_found_location">Ladda ner kartan över din nuvarande position.</string>
+	<string name="search_history_title">Sökhistorik</string>
+	<string name="search_history_text">Få snabbare åtkomst till senaste sökförfrågan.</string>
 </resources>
