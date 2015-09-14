@@ -98,8 +98,6 @@
 	<string>185237551520383</string>
 	<key>FacebookDisplayName</key>
 	<string>MapsWithMe, offline maps</string>
-	<key>FlurryKey</key>
-	<string>***REMOVED***</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LocalNotificationsFileName</key>

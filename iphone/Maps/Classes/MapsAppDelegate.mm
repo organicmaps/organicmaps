@@ -24,6 +24,9 @@
 #include "platform/platform_ios.hpp"
 #include "platform/preferred_languages.hpp"
 
+// If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
+#import "../../../private.h"
+
 extern NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 // Alert keys.
 static NSString * const kUDLastLaunchDateKey = @"LastLaunchDate";
@@ -98,7 +101,7 @@ void InitLocalizedStrings()
 - (void)registerNotifications:(UIApplication *)application launchOptions:(NSDictionary *)launchOptions
 {
   [Parse enableLocalDatastore];
-  [Parse setApplicationId:@"***REMOVED***" clientKey:@"***REMOVED***"];
+  [Parse setApplicationId:@(PARSE_APPLICATION_ID) clientKey:@(PARSE_CLIENT_KEY)];
   [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
   UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
   if ([application respondsToSelector: @selector(registerUserNotificationSettings:)])

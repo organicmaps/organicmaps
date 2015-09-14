@@ -10,6 +10,9 @@
 
 #include "platform/settings.hpp"
 
+// If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
+#import "../../../private.h"
+
 char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 
 @interface Statistics ()
@@ -75,16 +78,16 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
   // _enabled should be already correctly set up in init method.
   if (_enabled)
   {
-    [Flurry startSession:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
+    [Flurry startSession:@(FLURRY_KEY)];
 
-    [MRMyTracker createTracker:@"***REMOVED***"];
+    [MRMyTracker createTracker:@(MY_TRACKER_KEY)];
 #ifdef DEBUG
     [MRMyTracker setDebugMode:YES];
 #endif
     [MRMyTracker getTrackerParams].trackAppLaunch = YES;
     [MRMyTracker setupTracker];
 
-    [Alohalytics setup:@"http://localhost:8080" withLaunchOptions:launchOptions];
+    [Alohalytics setup:@(ALOHALYTICS_URL) withLaunchOptions:launchOptions];
   }
   // Always call Facebook method, looks like it is required to handle some url schemes and sign on scenarios.
   return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
