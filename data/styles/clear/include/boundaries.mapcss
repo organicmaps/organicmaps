@@ -81,10 +81,3 @@ line|z8-[boundary=administrative][admin_level=4]
   z-index: 400;
   dashes: 1.5,1;
 }
-
-
-/* DEBUG */
-/* line|z2-[boundary=administrative][admin_level=2] {
-  color: red;
-  width: 1;
-} */

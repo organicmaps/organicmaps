@@ -3,19 +3,16 @@
 /* z=15 label rules */
 
 /* z=15 icons — small icons */
-
 node|z15[tourism=museum], area|z15[tourism=museum] { icon-image: museum-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z15[tourism=gallery] {  icon-image: gallery-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; } /* <-- <-- не показывается, непонятно почему, позже разобраться */
 node|z15[tourism=zoo], area|z15[tourism=zoo] {  icon-image: zoo-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z15[amenity=university] { icon-image: college-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z15[amenity=hospital] { icon-image: hospital-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 
-/* TOURISM, HISTORIC  */
-
 /* NAMED TOURISM POINTS BY DEFAULT — TEMPORARY */
-node|z19-[tourism], area|z19-[tourism] { font-size: 10; text: name; text-color: @poi_label; }
+/* node|z18-[tourism], area|z18-[tourism] { /* icon-image: no-icon-tourism.svg; text-offset: 8; font-size: 10; text: tourism; text-color: purple; } */
 
-
+/* TOURISM, HISTORIC  */
 node|z16-[tourism=museum],area|z16-[tourism=museum] { icon-image: museum-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z16-[historic=museum],area|z16-[historic=museum] { icon-image: museum-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z16-[historic=monument],area|z16-[historic=monument]  { icon-image: monument-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
@@ -34,8 +31,9 @@ node|z16-[tourism=camp_site], area|z16-[tourism=camp_site] { icon-image: campsit
 /* AMENITY */
 
 /* NAMED AMENITIES BY DEFAULT  — TEMPORARY */
-node|z19-[amenity], area|z19-[amenity] { font-size: 10; text: name; text-color: @poi_label; }
-
+/*
+node|z18-[amenity], area|z18-[amenity] { icon-image: no-icon-amenity.svg; text-offset: 8; font-size: 10; text: tourism; text-color: red; }
+*/
 
 /* AMENITY */
 node|z17-[amenity=place_of_worship], area|z17-[amenity=place_of_worship] { icon-image: place-of-worship-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
@@ -97,6 +95,9 @@ node|z18-[sport=american_football] { icon-image: america-football-m.svg; }
 node|z18-[sport=athletics] { icon-image: pitch-m.svg; }
 node|z18-[sport=golf] { icon-image: golf-m.svg; }
 node|z18-[sport=gymnastics] { icon-image: pitch-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+
+
+
 
 /* node|z16[amenity=university] { icon-image: college-m.svg; } */
 
