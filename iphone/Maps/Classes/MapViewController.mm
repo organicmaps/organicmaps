@@ -1,8 +1,6 @@
 #import "Common.h"
-#import "CountryTreeVC.h"
 #import "EAGLView.h"
 #import "MapsAppDelegate.h"
-#import "MapsObservers.h"
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAPIBar.h"
@@ -43,12 +41,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   UserTouchesActionScale
 };
 
-typedef NS_OPTIONS(NSUInteger, MapInfoView)
-{
-  MapInfoViewSearch = 1 << 0,
-  MapInfoViewAPIBar = 1 << 1
-};
-
 @interface NSValueWrapper : NSObject
 
 -(NSValue *)getInnerValue;
@@ -80,7 +72,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 @end
 
-@interface MapViewController () <SearchViewDelegate, ActiveMapsObserverProtocol, MWMAPIBarProtocol>
+@interface MapViewController ()
 
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) MWMSideMenuState menuRestoreState;
@@ -92,19 +84,9 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
 @property (nonatomic) UserTouchesAction userTouchesAction;
 
-@property (nonatomic) MapInfoView mapInfoView;
-
-@property (nonatomic) BOOL haveMap;
-
-@property (nonatomic, readwrite) MWMAPIBar * apiBar;
-
 @end
 
 @implementation MapViewController
-{
-  ActiveMapsObserver * m_mapsObserver;
-  int m_mapsObserverSlotId;
-}
 
 #pragma mark - LocationManager Callbacks
 
@@ -226,7 +208,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 
   Framework & f = GetFramework();
   UserMark const * userMark = f.GetUserMark(pxClicked, isLongClick);
-  if (f.HasActiveUserMark() == false && self.searchView.state == SearchViewStateHidden && !f.IsRouteNavigable())
+  if (f.HasActiveUserMark() == false && self.controlsManager.searchHidden && !f.IsRouteNavigable())
   {
     if (userMark == nullptr)
       self.controlsManager.hidden = !self.controlsManager.hidden;
@@ -457,11 +439,20 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   return YES; // We support all orientations
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration
 {
   if (isIOSVersionLessThan(8))
-    [(UIViewController *)self.childViewControllers.firstObject willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-  [self.controlsManager willRotateToInterfaceOrientation:toInterfaceOrientation];
+    [(UIViewController *)self.childViewControllers.firstObject
+        willRotateToInterfaceOrientation:toInterfaceOrientation
+                                duration:duration];
+  [self.controlsManager willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+  [self.controlsManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -512,10 +503,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
   [self invalidate];
 
-  m_mapsObserverSlotId = GetFramework().GetCountryTree().GetActiveMapLayout().AddListener(m_mapsObserver);
-  if (self.searchView.state == SearchViewStateFullscreen)
-    [self.searchView setState:SearchViewStateFullscreen animated:NO];
-
   self.controlsManager.menuState = self.menuRestoreState;
 }
 
@@ -524,9 +511,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   [super viewDidLoad];
   self.view.clipsToBounds = YES;
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
-  [self.view addSubview:self.searchView];
-  __weak MapViewController * weakSelf = self;
-  m_mapsObserver = new ActiveMapsObserver(weakSelf);
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -539,11 +523,8 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 {
   [super viewWillDisappear:animated];
 
-  Framework & f = GetFramework();
-  f.SetUpdatesEnabled(false);
+  GetFramework().SetUpdatesEnabled(false);
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
-
-  f.GetCountryTree().GetActiveMapLayout().RemoveListener(m_mapsObserverSlotId);
 }
 
 - (void)orientationChanged:(NSNotification *)notification
@@ -551,23 +532,21 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   [self willRotateToInterfaceOrientation:self.interfaceOrientation duration:0.];
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+  return self.apiBar.isVisible;
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  if (self.apiBar.isVisible)
-  {
+  BOOL const isLight = !self.controlsManager.searchHidden ||
+                       self.controlsManager.menuState == MWMSideMenuStateActive ||
+                       self.controlsManager.isDirectionViewShown ||
+                       (GetFramework().GetMapStyle() == MapStyleDark &&
+                        self.controlsManager.navigationState == MWMNavigationDashboardStateHidden);
+  if (isLight)
     return UIStatusBarStyleLightContent;
-  }
-  else
-  {
-    BOOL const isLight = self.searchView.state != SearchViewStateHidden ||
-                   self.controlsManager.menuState == MWMSideMenuStateActive ||
-                   self.controlsManager.isDirectionViewShown ||
-                   (GetFramework().GetMapStyle() == MapStyleDark &&
-                   self.controlsManager.navigationState == MWMNavigationDashboardStateHidden);
-    if (isLight)
-      return UIStatusBarStyleLightContent;
-    return UIStatusBarStyleDefault;
-  }
+  return UIStatusBarStyleDefault;
 }
 
 - (void)updateStatusBarStyle
@@ -667,7 +646,7 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
           f.GetBalloonManager().RemovePin();
           f.GetBalloonManager().Dismiss();
           self.controlsManager.routeBuildingProgress = 100.;
-          [self.searchView setState:SearchViewStateHidden animated:YES];
+          self.controlsManager.searchHidden = YES;
           if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
             [self.controlsManager routingNavigation];
           else
@@ -717,31 +696,13 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
 - (MWMAPIBar *)apiBar
 {
   if (!_apiBar)
-    _apiBar = [[MWMAPIBar alloc] initWithDelegate:self];
+    _apiBar = [[MWMAPIBar alloc] initWithController:self];
   return _apiBar;
 }
 
 - (void)showAPIBar
 {
-  [self.apiBar show];
-}
-
-- (void)apiBarBecameVisible:(BOOL)visible
-{
-  if (visible)
-  {
-    [self setMapInfoViewFlag:MapInfoViewAPIBar];
-    CGRect const apiRect = self.apiBar.frame;
-    self.searchView.topBound = apiRect.origin.y + apiRect.size.height;
-  }
-  else
-  {
-    [self clearMapInfoViewFlag:MapInfoViewAPIBar];
-    self.searchView.topBound = 0.0;
-  }
-  [self dismissPopover];
-  [self.searchView setState:SearchViewStateHidden animated:YES];
-  [self updateStatusBarStyle];
+  self.apiBar.isVisible = YES;
 }
 
 #pragma mark - ShowDialog callback
@@ -778,112 +739,6 @@ typedef NS_OPTIONS(NSUInteger, MapInfoView)
   if (!_alertController)
     _alertController = [[MWMAlertViewController alloc] initWithViewController:self];
   return _alertController;
-}
-- (SearchView *)searchView
-{
-  if (!_searchView)
-  {
-    _searchView = [[SearchView alloc] initWithFrame:self.view.bounds];
-    _searchView.delegate = self;
-    _searchView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  }
-  return _searchView;
-}
-
-#pragma mark - Map state
-
-- (void)checkCurrentLocationMap
-{
-  Framework & f = GetFramework();
-  ActiveMapsLayout & activeMapLayout = f.GetCountryTree().GetActiveMapLayout();
-  int const mapsCount = activeMapLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate) + activeMapLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EUpToDate);
-  self.haveMap = mapsCount > 0;
-}
-
-#pragma mark - SearchViewDelegate
-
-- (void)searchViewWillEnterState:(SearchViewState)state
-{
-  [self checkCurrentLocationMap];
-  switch (state)
-  {
-    case SearchViewStateHidden:
-      self.controlsManager.hidden = NO;
-      break;
-    case SearchViewStateResults:
-      self.controlsManager.hidden = NO;
-      break;
-    case SearchViewStateAlpha:
-      self.controlsManager.hidden = NO;
-      break;
-    case SearchViewStateFullscreen:
-      self.controlsManager.hidden = YES;
-      GetFramework().ActivateUserMark(NULL);
-      break;
-  }
-}
-
-- (void)searchViewDidEnterState:(SearchViewState)state
-{
-  switch (state)
-  {
-    case SearchViewStateResults:
-      [self setMapInfoViewFlag:MapInfoViewSearch];
-      break;
-    case SearchViewStateHidden:
-    case SearchViewStateAlpha:
-    case SearchViewStateFullscreen:
-      [self clearMapInfoViewFlag:MapInfoViewSearch];
-      break;
-  }
-  [self updateStatusBarStyle];
-}
-
-#pragma mark - MWMNavigationDelegate
-
-- (void)pushDownloadMaps
-{
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
-  CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
-  [self.navigationController pushViewController:vc animated:YES];
-}
-
-#pragma mark - MWMPlacePageViewManagerDelegate
-
-- (void)addPlacePageViews:(NSArray *)views
-{
-  [views enumerateObjectsUsingBlock:^(UIView * view, NSUInteger idx, BOOL *stop)
-  {
-    if ([self.view.subviews containsObject:view])
-      return;
-    [self.view insertSubview:view belowSubview:self.searchView];
-  }];
-}
-
-#pragma mark - ActiveMapsObserverProtocol
-
-- (void)countryStatusChangedAtPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group
-{
-  auto const status = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountryStatus(group, position);
-  if (status == TStatus::EDownloadFailed)
-  {
-    [self.searchView downloadFailed];
-  }
-  else if (status == TStatus::EOnDisk)
-  {
-    [self checkCurrentLocationMap];
-    [self.searchView downloadComplete];
-  }
-}
-
-- (void)countryDownloadingProgressChanged:(LocalAndRemoteSizeT const &)progress atPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group
-{
-  if (self.searchView.state != SearchViewStateFullscreen)
-    return;
-  CGFloat const normProgress = (CGFloat)progress.first / (CGFloat)progress.second;
-  ActiveMapsLayout & activeMapLayout = GetFramework().GetCountryTree().GetActiveMapLayout();
-  NSString * countryName = @(activeMapLayout.GetFormatedCountryName(activeMapLayout.GetCoreIndex(group, position)).c_str());
-  [self.searchView downloadProgress:normProgress countryName:countryName];
 }
 
 #pragma mark - Public methods
@@ -930,47 +785,6 @@ NSInteger compareAddress(id l, id r, void * context)
   [self.popoverVC dismissPopoverAnimated:YES];
   [self destroyPopover];
   [self invalidate];
-}
-
-- (void)updateInfoViews
-{
-  CGFloat topBound = 0.0;
-  if ([self testMapInfoViewFlag:MapInfoViewAPIBar])
-  {
-    CGRect const apiRect = self.apiBar.frame;
-    topBound = MAX(topBound, apiRect.origin.y + apiRect.size.height);
-  }
-  if ([self testMapInfoViewFlag:MapInfoViewSearch])
-  {
-    CGRect const searchRect = self.searchView.infoRect;
-    topBound = MAX(topBound, searchRect.origin.y + searchRect.size.height);
-  }
-  [self.controlsManager setTopBound:topBound];
-}
-
-#pragma mark - Properties
-
-- (BOOL)testMapInfoViewFlag:(MapInfoView)flag
-{
-  return (self.mapInfoView & flag) == flag;
-}
-
-- (void)setMapInfoViewFlag:(MapInfoView)flag
-{
-  if (![self testMapInfoViewFlag:flag])
-    self.mapInfoView |= flag;
-}
-
-- (void)clearMapInfoViewFlag:(MapInfoView)flag
-{
-  if ([self testMapInfoViewFlag:flag])
-    self.mapInfoView &= ~flag;
-}
-
-- (void)setMapInfoView:(MapInfoView)mapInfoView
-{
-  _mapInfoView = mapInfoView;
-  [self updateInfoViews];
 }
 
 - (void)setRestoreRouteDestination:(m2::PointD)restoreRouteDestination

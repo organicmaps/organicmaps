@@ -5,6 +5,7 @@
 #import "Common.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "MWMMapViewControlsManager.h"
 #import "Statistics.h"
 #import "UIKitCategories.h"
 #import <MessageUI/MFMailComposeViewController.h>
@@ -24,6 +25,7 @@
 
 #define EMPTY_SECTION -666
 
+extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotification";
 
 @interface BookmarksVC() <MFMailComposeViewControllerDelegate>
 {
@@ -253,6 +255,8 @@
       if (bm)
       {
         // Same as "Close".
+        MapViewController * mapVC = self.navigationController.viewControllers.firstObject;
+        mapVC.controlsManager.searchHidden = YES;
         f.ShowBookmark(BookmarkAndCategory(m_categoryIndex, indexPath.row));
         [self.navigationController popToRootViewControllerAnimated:YES];
       }
@@ -313,6 +317,9 @@
           NSValue * value = [NSValue valueWithBytes:&bookmarkAndCategory objCType:@encode(BookmarkAndCategory)];
           [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_DELETED_NOTIFICATION object:value];
           cat->DeleteBookmark(indexPath.row);
+          [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
+                                                            object:nil
+                                                          userInfo:nil];
         }
       }
       cat->SaveToKMLFile();

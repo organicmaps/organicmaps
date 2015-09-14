@@ -1,11 +1,12 @@
 #import "Common.h"
-#import "Framework.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
+#import "MWMCircularProgress.h"
 #import "MWMDownloadMapRequest.h"
 #import "MWMDownloadMapRequestView.h"
-#import "MWMCircularProgress.h"
+#import "UIKitCategories.h"
 
+#include "Framework.h"
 #include "storage/index.hpp"
 
 @interface MWMDownloadMapRequest () <MWMCircularProgressDelegate>
@@ -35,7 +36,7 @@
   self = [super init];
   if (self)
   {
-    [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class) owner:self options:nil];
+    [[NSBundle mainBundle] loadNibNamed:self.class.className owner:self options:nil];
     [parentView addSubview:self.rootView];
     self.progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressViewWrapper delegate:self];
     self.delegate = delegate;
@@ -57,7 +58,6 @@
   {
     self.currentCountryIndex = activeMapLayout.GetCurrentDownloadingCountryIndex();
     self.progressView.failed = NO;
-    self.progressView.progress = 0.0;
     [self updateState:MWMDownloadMapRequestStateDownload];
   }
   else
@@ -90,8 +90,8 @@
 
 - (void)downloadProgress:(CGFloat)progress countryName:(nonnull NSString *)countryName
 {
-  self.progressView.failed = NO;
   self.progressView.progress = progress;
+  [self showRequest];
   self.mapTitleLabel.text = countryName;
 }
 
@@ -118,6 +118,7 @@
 {
   auto const mapType = self.downloadRoutesButton.selected ? MapOptions::MapWithCarRouting : MapOptions::Map;
   GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(self.currentCountryIndex, mapType);
+  self.progressView.progress = 0.0;
   [self showRequest];
 }
 
@@ -137,7 +138,7 @@
 
 - (void)updateState:(enum MWMDownloadMapRequestState)state
 {
-  [self.rootView stateUpdated:state];
+  self.rootView.state = state;
   [self.delegate stateUpdated:state];
 }
 

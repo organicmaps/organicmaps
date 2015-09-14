@@ -1,4 +1,4 @@
-NS_ENUM(NSUInteger, MWMDownloadMapRequestState)
+typedef NS_ENUM(NSUInteger, MWMDownloadMapRequestState)
 {
   MWMDownloadMapRequestStateDownload,
   MWMDownloadMapRequestStateRequestLocation,

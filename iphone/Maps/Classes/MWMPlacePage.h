@@ -11,6 +11,7 @@
 @property (weak, nonatomic, readonly) MWMPlacePageViewManager * manager;
 @property (nonatomic) MWMPlacePageActionBar * actionBar;
 @property (nonatomic) CGFloat topBound;
+@property (nonatomic) CGFloat leftBound;
 @property (nonatomic) CGFloat parentViewHeight;
 @property (nonatomic) CGFloat keyboardHeight;
 

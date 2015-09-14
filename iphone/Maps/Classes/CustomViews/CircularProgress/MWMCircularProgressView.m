@@ -35,18 +35,18 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)refreshBackground
 {
-  self.backgroundLayer.fillColor = [UIColor clearColor].CGColor;
+  self.backgroundLayer.fillColor = UIColor.clearColor.CGColor;
   self.backgroundLayer.lineWidth = kLineWidth;
-  self.backgroundLayer.strokeColor = [UIColor pressBackground].CGColor;
+  self.backgroundLayer.strokeColor = UIColor.pressBackground.CGColor;
   CGRect rect = CGRectInset(self.bounds, kLineWidth, kLineWidth);
   self.backgroundLayer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
 }
 
 - (void)refreshProgress
 {
-  self.progressLayer.fillColor = [UIColor clearColor].CGColor;
+  self.progressLayer.fillColor = UIColor.clearColor.CGColor;
   self.progressLayer.lineWidth = kLineWidth;
-  self.progressLayer.strokeColor = self.owner.failed ? [UIColor red].CGColor : [UIColor primary].CGColor;
+  self.progressLayer.strokeColor = self.owner.failed ? UIColor.red.CGColor : UIColor.linkBlue.CGColor;
 }
 
 - (void)updatePath:(CGFloat)progress

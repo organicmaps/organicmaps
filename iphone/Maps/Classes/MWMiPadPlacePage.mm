@@ -114,7 +114,8 @@ static CGFloat const kBottomOffset = 12.;
   UIView * view = self.navigationController.view;
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
-    view.minX = kLeftOffset;
+    view.minY = self.topBound + kTopOffset;
+    view.minX = self.leftBound + kLeftOffset;
     view.alpha = 1.0;
   }];
 }
@@ -193,11 +194,12 @@ static CGFloat const kBottomOffset = 12.;
   UIView * view = self.navigationController.view;
   UIView * superview = view.superview;
 
+  CGFloat const leftOffset = self.leftBound + kLeftOffset;
   view.minX += [sender translationInView:superview].x;
-  view.minX = MIN(view.minX, kLeftOffset);
+  view.minX = MIN(view.minX, leftOffset);
   [sender setTranslation:CGPointZero inView:superview];
 
-  CGFloat const alpha = MAX(0.0, view.maxX) / (view.width + kLeftOffset);
+  CGFloat const alpha = MAX(0.0, view.maxX) / (view.width + leftOffset);
   view.alpha = alpha;
   UIGestureRecognizerState const state = sender.state;
   if (state == UIGestureRecognizerStateEnded || state == UIGestureRecognizerStateCancelled)
@@ -220,8 +222,7 @@ static CGFloat const kBottomOffset = 12.;
 - (void)updatePlacePagePosition
 {
   UIView * view = self.navigationController.view;
-  view.maxY = [self getAvailableHeight] + kTopOffset;
-  view.minY = MIN(view.minY, self.topBound + kTopOffset);
+  view.minY = MIN([self getAvailableHeight] + kTopOffset - view.height, self.topBound + kTopOffset);
   [self configureContentInset];
 }
 
@@ -277,4 +278,12 @@ static CGFloat const kBottomOffset = 12.;
   }];
 }
 
+- (void)setLeftBound:(CGFloat)leftBound
+{
+  super.leftBound = leftBound;
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+  {
+    self.navigationController.view.minX = leftBound + kLeftOffset;
+  }];
+}
 @end

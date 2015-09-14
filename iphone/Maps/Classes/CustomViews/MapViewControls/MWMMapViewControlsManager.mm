@@ -1,4 +1,4 @@
-#import "Framework.h"
+#import "CountryTreeVC.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "MWMAPIBar.h"
@@ -6,24 +6,37 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
+#import "MWMSearchManager.h"
+#import "MWMSearchView.h"
 #import "MWMSideMenuManager.h"
 #import "MWMSideMenuManagerDelegate.h"
 #import "MWMZoomButtons.h"
 #import "RouteState.h"
 
-@interface MWMMapViewControlsManager () <MWMPlacePageViewManagerProtocol, MWMNavigationDashboardManagerProtocol,
-                                         MWMSideMenuManagerProtocol>
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
+#include "Framework.h"
+
+extern NSString * const kAlohalyticsTapEventKey;
+
+@interface MWMMapViewControlsManager ()<
+    MWMPlacePageViewManagerProtocol, MWMNavigationDashboardManagerProtocol,
+    MWMSideMenuManagerProtocol, MWMSearchManagerProtocol, MWMSearchViewProtocol>
 
 @property (nonatomic) MWMZoomButtons * zoomButtons;
 @property (nonatomic) MWMLocationButton * locationButton;
 @property (nonatomic) MWMSideMenuManager * menuManager;
 @property (nonatomic) MWMPlacePageViewManager * placePageManager;
 @property (nonatomic) MWMNavigationDashboardManager * navigationManager;
+@property (nonatomic) MWMSearchManager * searchManager;
 
 @property (weak, nonatomic) MapViewController * ownerController;
 
 @property (nonatomic) BOOL disableStandbyOnRouteFollowing;
 @property (nonatomic) m2::PointD routeDestination;
+
+@property (nonatomic) CGFloat topBound;
+@property (nonatomic) CGFloat leftBound;
 
 @end
 
@@ -42,6 +55,7 @@
   self.menuManager = [[MWMSideMenuManager alloc] initWithParentController:controller delegate:self];
   self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:controller delegate:self];
   self.navigationManager = [[MWMNavigationDashboardManager alloc] initWithParentView:controller.view delegate:self];
+  self.searchManager = [[MWMSearchManager alloc] initWithParentView:controller.view delegate:self];
   self.hidden = NO;
   self.zoomHidden = NO;
   self.menuState = MWMSideMenuStateInactive;
@@ -50,13 +64,29 @@
 
 #pragma mark - Layout
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration
 {
-  [self.placePageManager willRotateToInterfaceOrientation:orientation];
-  [self.navigationManager willRotateToInterfaceOrientation:orientation];
+  [self.placePageManager willRotateToInterfaceOrientation:toInterfaceOrientation];
+  [self.navigationManager willRotateToInterfaceOrientation:toInterfaceOrientation];
+  [self.searchManager willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+  [self refreshHelperPanels:UIInterfaceOrientationIsLandscape(toInterfaceOrientation)];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+  [self.placePageManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+  [self.navigationManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+  [self.searchManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+  [self refreshHelperPanels:size.height < size.width];
+}
+
+- (void)refreshHelperPanels:(BOOL)isLandscape
+{
   if (!self.placePageManager.entity)
     return;
-  if (UIInterfaceOrientationIsLandscape(orientation))
+  if (isLandscape)
     [self.navigationManager hideHelperPanels];
   else
     [self.navigationManager showHelperPanels];
@@ -72,13 +102,37 @@
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
 {
   [self.placePageManager showPlacePageWithUserMark:move(userMark)];
-  if (UIInterfaceOrientationIsLandscape(self.ownerController.interfaceOrientation))
-    [self.navigationManager hideHelperPanels];
+  [self refreshHelperPanels:UIInterfaceOrientationIsLandscape(self.ownerController.interfaceOrientation)];
 }
 
 - (void)apiBack
 {
-  [self.ownerController.apiBar hideBarAndClearAnimated:NO];
+  [self.ownerController.apiBar back];
+}
+
+#pragma mark - MWMSearchManagerProtocol
+
+- (void)searchViewWillEnterState:(MWMSearchManagerState)state
+{
+}
+
+- (void)searchViewDidEnterState:(MWMSearchManagerState)state
+{
+  if (state == MWMSearchManagerStateHidden)
+  {
+    self.hidden = NO;
+    self.leftBound = self.topBound = 0.0;
+  }
+  [self.ownerController setNeedsStatusBarAppearanceUpdate];
+}
+
+#pragma mark - MWMSearchViewProtocol
+
+- (void)searchFrameUpdated:(CGRect)frame
+{
+  UIView * searchView = self.searchManager.view;
+  self.leftBound = searchView.width;
+  self.topBound = searchView.height;
 }
 
 #pragma mark - MWMSideMenuManagerProtocol
@@ -86,6 +140,15 @@
 - (void)sideMenuDidUpdateLayout
 {
   [self.zoomButtons setBottomBound:self.menuManager.menuButtonFrameWithSpacing.origin.y];
+}
+
+#pragma mark - MWMSearchManagerProtocol & MWMSideMenuManagerProtocol
+
+- (void)actionDownloadMaps
+{
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
+  CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
+  [self.ownerController.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - MWMPlacePageViewManagerDelegate
@@ -104,7 +167,13 @@
 
 - (void)addPlacePageViews:(NSArray *)views
 {
-  [self.ownerController addPlacePageViews:views];
+  UIView * ownerView = self.ownerController.view;
+  UIView * searchView = self.searchManager.view;
+  for (UIView * view in views)
+  {
+    if (![ownerView.subviews containsObject:view])
+      [ownerView insertSubview:view belowSubview:searchView];
+  }
 }
 
 - (void)updateStatusBarStyle
@@ -153,7 +222,8 @@
 - (void)navigationDashBoardDidUpdate
 {
   CGFloat const topBound = self.topBound + self.navigationManager.height;
-  [self.zoomButtons setTopBound:topBound];
+  if (!IPAD)
+    [self.zoomButtons setTopBound:topBound];
   [self.placePageManager setTopBound:topBound];
 }
 
@@ -253,8 +323,26 @@
 
 - (void)setTopBound:(CGFloat)topBound
 {
-  _topBound = topBound;
-  self.placePageManager.topBound = self.zoomButtons.topBound = self.navigationManager.topBound = topBound;
+  if (IPAD)
+    return;
+  _topBound = self.placePageManager.topBound = self.zoomButtons.topBound = self.navigationManager.topBound = topBound;
+}
+
+- (void)setLeftBound:(CGFloat)leftBound
+{
+  if (!IPAD)
+    return;
+  _leftBound = self.placePageManager.leftBound = self.navigationManager.leftBound = leftBound;
+}
+
+- (BOOL)searchHidden
+{
+  return self.searchManager.state == MWMSearchManagerStateHidden;
+}
+
+- (void)setSearchHidden:(BOOL)searchHidden
+{
+  self.searchManager.state = searchHidden ? MWMSearchManagerStateHidden : MWMSearchManagerStateDefault;
 }
 
 @end

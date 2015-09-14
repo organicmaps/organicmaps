@@ -3,5 +3,6 @@
 @protocol MWMSideMenuManagerProtocol <NSObject>
 
 - (void)sideMenuDidUpdateLayout;
+- (void)actionDownloadMaps;
 
 @end

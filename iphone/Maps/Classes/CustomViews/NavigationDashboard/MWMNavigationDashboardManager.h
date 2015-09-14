@@ -29,6 +29,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 @property (nonatomic, readonly) MWMNavigationDashboardEntity * entity;
 @property (nonatomic) MWMNavigationDashboardState state;
 @property (nonatomic) CGFloat topBound;
+@property (nonatomic) CGFloat leftBound;
 @property (nonatomic, readonly) CGFloat height;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
@@ -36,6 +37,8 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 - (void)setupDashboard:(location::FollowingInfo const &)info;
 - (void)playTurnNotifications;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
 - (void)setRouteBuildingProgress:(CGFloat)progress;
 - (void)showHelperPanels;
 - (void)hideHelperPanels;

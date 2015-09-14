@@ -1,0 +1,61 @@
+#import "MWMSearchCell.h"
+
+#include "Framework.h"
+
+@interface MWMSearchCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel * titleLabel;
+
+@end
+
+@implementation MWMSearchCell
+
+- (void)awakeFromNib
+{
+  CALayer * sl = self.layer;
+  sl.shouldRasterize = YES;
+  sl.rasterizationScale = UIScreen.mainScreen.scale;
+}
+
+- (void)config:(search::Result &)result
+{
+  GetFramework().LoadSearchResultMetadata(result);
+  NSString * title = @(result.GetString());
+  if (!title)
+  {
+    self.titleLabel.text = @"";
+    return;
+  }
+  NSDictionary * selectedTitleAttributes = [self selectedTitleAttributes];
+  NSDictionary * unselectedTitleAttributes = [self unselectedTitleAttributes];
+  if (!selectedTitleAttributes || !unselectedTitleAttributes)
+  {
+    self.titleLabel.text = title;
+    return;
+  }
+  NSMutableAttributedString * attributedTitle =
+      [[NSMutableAttributedString alloc] initWithString:title];
+  [attributedTitle addAttributes:unselectedTitleAttributes range:NSMakeRange(0, title.length)];
+  size_t const rangesCount = result.GetHighlightRangesCount();
+  for (size_t i = 0; i < rangesCount; ++i)
+  {
+    pair<uint16_t, uint16_t> const range = result.GetHighlightRange(i);
+    [attributedTitle addAttributes:selectedTitleAttributes
+                             range:NSMakeRange(range.first, range.second)];
+  }
+  self.titleLabel.attributedText = attributedTitle;
+  self.titleLabel.preferredMaxLayoutWidth = self.preferredMaxLayoutWidth;
+  [self.titleLabel sizeToFit];
+}
+
+- (NSDictionary *)selectedTitleAttributes
+{
+  return nil;
+}
+
+- (NSDictionary *)unselectedTitleAttributes
+{
+  return nil;
+}
+
+@end

@@ -25,11 +25,11 @@ static CGFloat const kBottomOffsetValueLandscape = 164.;
   return self;
 }
 
-- (void)invalidateTopBounds:(NSArray *)panels forOrientation:(UIInterfaceOrientation)orientation
+- (void)invalidateTopBounds:(NSArray *)panels isPortrait:(BOOL)isPortrait
 {
   if (IPAD || !panels.count)
     return;
-  [(MWMRouteHelperPanel *)panels.firstObject setTopBound:UIInterfaceOrientationIsPortrait(orientation) ? kTopOffsetValuePortrait : kTopOffsetValueLandscape];
+  [(MWMRouteHelperPanel *)panels.firstObject setTopBound:isPortrait ? kTopOffsetValuePortrait : kTopOffsetValueLandscape];
 }
 
 - (void)drawPanels:(NSArray *)panels
@@ -96,7 +96,7 @@ static CGFloat const kBottomOffsetValueLandscape = 164.;
         else
           second = p;
       }
-      first.topBound = isPortrait ? kTopOffsetValuePortrait : kTopOffsetValuePortrait;
+      first.topBound = kTopOffsetValuePortrait;
       second.topBound = isPortrait ? kBottomOffsetValuePortrait : kBottomOffsetValueLandscape;
       return;
     }

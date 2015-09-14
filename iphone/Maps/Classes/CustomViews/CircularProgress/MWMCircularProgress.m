@@ -1,5 +1,6 @@
 #import "MWMCircularProgress.h"
 #import "MWMCircularProgressView.h"
+#import "UIKitCategories.h"
 
 @interface MWMCircularProgress ()
 
@@ -19,7 +20,7 @@
   self = [super init];
   if (self)
   {
-    [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class) owner:self options:nil];
+    [[NSBundle mainBundle] loadNibNamed:self.class.className owner:self options:nil];
     [parentView addSubview:self.rootView];
     self.delegate = delegate;
     [self reset];

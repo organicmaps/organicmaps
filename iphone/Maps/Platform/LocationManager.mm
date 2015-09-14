@@ -1,6 +1,7 @@
 #import "LocationManager.h"
-#import "MapViewController.h"
 #import "MapsAppDelegate.h"
+#import "MapViewController.h"
+#import "MWMMapViewControlsManager.h"
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -213,7 +214,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   if (!on)
     return NO;
 
-  if ([MapsAppDelegate theApp].m_mapViewController.searchView.state == SearchViewStateResults)
+  if (!MapsAppDelegate.theApp.m_mapViewController.controlsManager.searchHidden)
     return NO;
   if (!manager.heading)
     return YES;

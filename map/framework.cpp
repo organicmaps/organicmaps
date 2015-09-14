@@ -986,7 +986,6 @@ void Framework::UpdateUserViewportChanged()
   if (IsISActive())
   {
     (void)GetCurrentPosition(m_lastSearch.m_lat, m_lastSearch.m_lon);
-    m_lastSearch.m_callback = bind(&Framework::OnSearchResultsCallback, this, _1);
     m_lastSearch.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY);
     m_lastSearch.SetForceSearch(false);
 
@@ -994,24 +993,10 @@ void Framework::UpdateUserViewportChanged()
   }
 }
 
-void Framework::OnSearchResultsCallback(search::Results const & results)
+void Framework::UpdateSearchResults(search::Results const & results)
 {
-  if (!results.IsEndMarker() && results.GetCount() > 0)
-  {
-    // Got here from search thread. Need to switch into GUI thread to modify search mark container.
-    // Do copy the results structure to pass into GUI thread.
-    GetPlatform().RunOnGuiThread(bind(&Framework::OnSearchResultsCallbackUI, this, results));
-  }
-}
-
-void Framework::OnSearchResultsCallbackUI(search::Results const & results)
-{
-  if (IsISActive())
-  {
-    FillSearchResultsMarks(results);
-
-    Invalidate();
-  }
+  FillSearchResultsMarks(results);
+  Invalidate();
 }
 
 void Framework::ClearAllCaches()

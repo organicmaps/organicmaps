@@ -1,5 +1,4 @@
 #import "BookmarksRootVC.h"
-#import "Framework.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
@@ -17,6 +16,7 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
+#include "Framework.h"
 #include "map/information_display.hpp"
 
 static NSString * const kMWMSideMenuViewsNibName = @"MWMSideMenuViews";
@@ -75,7 +75,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (IBAction)menuActionDownloadMaps
 {
-  [self.controller pushDownloadMaps];
+  [self.delegate actionDownloadMaps];
 }
 
 - (IBAction)menuActionOpenSettings
@@ -103,9 +103,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (IBAction)menuActionOpenSearch
 {
-  self.controller.controlsManager.hidden = YES;
+  self.state = MWMSideMenuStateInactive;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
-  [self.controller.searchView setState:SearchViewStateFullscreen animated:YES];
+  self.controller.controlsManager.searchHidden = NO;
 }
 
 - (void)toggleMenu

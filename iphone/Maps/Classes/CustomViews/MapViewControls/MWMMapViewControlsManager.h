@@ -6,12 +6,6 @@
 
 @class MapViewController;
 
-@protocol MWMMapViewControlsManagerDelegate <NSObject>
-
-- (void)addPlacePageViews:(NSArray *)views;
-
-@end
-
 @interface MWMMapViewControlsManager : NSObject
 
 @property (nonatomic) BOOL hidden;
@@ -19,15 +13,17 @@
 @property (nonatomic) BOOL locationHidden;
 @property (nonatomic) MWMSideMenuState menuState;
 @property (nonatomic, readonly) MWMNavigationDashboardState navigationState;
+@property (nonatomic) BOOL searchHidden;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
 
 #pragma mark - Layout
 
-@property (nonatomic) CGFloat topBound;
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration;
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
 
 #pragma mark - MWMPlacePageViewManager
 

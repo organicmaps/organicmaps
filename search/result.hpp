@@ -150,6 +150,12 @@ public:
   inline size_t GetCount() const { return m_vec.size(); }
   size_t GetSuggestsCount() const;
 
+  inline Result & GetResult(size_t i)
+  {
+    ASSERT_LESS(i, m_vec.size(), ());
+    return m_vec[i];
+  }
+
   inline Result const & GetResult(size_t i) const
   {
     ASSERT_LESS(i, m_vec.size(), ());

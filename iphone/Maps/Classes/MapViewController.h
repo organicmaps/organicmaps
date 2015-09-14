@@ -1,10 +1,7 @@
 
 #import "LocationManager.h"
 #import "LocationPredictor.h"
-#import "MWMNavigationDelegate.h"
-#import "SearchView.h"
 #import "ViewController.h"
-#import <UIKit/UIKit.h>
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -16,7 +13,7 @@ namespace search { struct AddressInfo; }
 @class ShareActionSheet;
 @class MWMAPIBar;
 
-@interface MapViewController : ViewController <LocationObserver, UIPopoverControllerDelegate, MWMNavigationDelegate>
+@interface MapViewController : ViewController <LocationObserver, UIPopoverControllerDelegate>
 {
 	bool m_isSticking;
 	size_t m_StickyThreshold;
@@ -43,15 +40,12 @@ namespace search { struct AddressInfo; }
 
 - (void)updateStatusBarStyle;
 
-- (void)addPlacePageViews:(NSArray *)views;
-
 - (void)showAPIBar;
 
 @property (nonatomic) UIPopoverController * popoverVC;
-@property (nonatomic) SearchView * searchView;
 @property (nonatomic) ShareActionSheet * shareActionSheet;
 @property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) m2::PointD restoreRouteDestination;
-@property (nonatomic, readonly) MWMAPIBar * apiBar;
+@property (nonatomic) MWMAPIBar * apiBar;
 
 @end

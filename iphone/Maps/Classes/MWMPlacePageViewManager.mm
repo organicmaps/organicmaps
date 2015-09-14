@@ -18,6 +18,8 @@
 
 #include "Framework.h"
 
+extern NSString * const kBookmarksChangedNotification;
+
 typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   MWMPlacePageManagerStateClosed,
@@ -80,7 +82,20 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [self configPlacePage];
 }
 
+#pragma mark - Layout
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
+{
+  [self rotateToOrientation:orientation];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+  [self rotateToOrientation:size.height > size.width ? UIInterfaceOrientationPortrait : UIInterfaceOrientationLandscapeLeft];
+}
+
+- (void)rotateToOrientation:(UIInterfaceOrientation)orientation
 {
   if (!self.placePage)
     return;
@@ -106,6 +121,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     self.entity.category = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed];
   }
   self.placePage.topBound = self.topBound;
+  self.placePage.leftBound = self.leftBound;
   self.placePage.parentViewHeight = self.ownerViewController.view.height;
   [self.placePage configure];
   [self refreshPlacePage];
@@ -195,8 +211,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   Framework & f = GetFramework();
   BookmarkData data = BookmarkData(self.entity.title.UTF8String, f.LastEditedBMType());
   size_t const categoryIndex = f.LastEditedBMCategory();
-  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, m_userMark->GetUserMark()->GetOrg(),
-                                                                  data);
+  size_t const bookmarkIndex =
+      f.GetBookmarkManager().AddBookmark(categoryIndex, m_userMark->GetUserMark()->GetOrg(), data);
   self.entity.bac = make_pair(categoryIndex, bookmarkIndex);
   self.entity.type = MWMPlacePageEntityTypeBookmark;
   BookmarkCategory const * category = f.GetBmCategory(categoryIndex);
@@ -204,6 +220,9 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   m_userMark.reset(new UserMarkCopy(bookmark, false));
   f.ActivateUserMark(bookmark);
   f.Invalidate();
+  [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
+                                                    object:nil
+                                                  userInfo:nil];
 }
 
 - (void)removeBookmark
@@ -222,6 +241,9 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     bookmarkCategory->SaveToKMLFile();
   }
   f.Invalidate();
+  [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
+                                                    object:nil
+                                                  userInfo:nil];
 }
 
 - (void)reloadBookmark
@@ -309,10 +331,14 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   return self.directionView.superview != nil;
 }
 
-- (void)setTopBound:(CGFloat)bound
+- (void)setTopBound:(CGFloat)topBound
 {
-  _topBound = bound;
-  self.placePage.topBound = bound;
+  _topBound = self.placePage.topBound = topBound;
+}
+
+- (void)setLeftBound:(CGFloat)leftBound
+{
+  _leftBound = self.placePage.leftBound = leftBound;
 }
 
 @end

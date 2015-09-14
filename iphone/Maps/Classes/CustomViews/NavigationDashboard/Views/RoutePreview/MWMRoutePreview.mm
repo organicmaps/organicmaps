@@ -75,6 +75,14 @@
 
 #pragma mark - Properties
 
+- (CGRect)defaultFrame
+{
+  CGRect frame = super.defaultFrame;
+  if (IPAD)
+    frame.size.width -= frame.origin.x;
+  return frame;
+}
+
 - (void)setShowGoButton:(BOOL)showGoButton
 {
   _showGoButton = showGoButton;

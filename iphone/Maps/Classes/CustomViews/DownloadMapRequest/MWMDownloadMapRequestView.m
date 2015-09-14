@@ -31,6 +31,7 @@
 - (void)layoutSubviews
 {
   UIView * superview = self.superview;
+  self.frame = superview.bounds;
   BOOL const isLandscape = superview.height > superview.width;
   if (IPAD || isLandscape)
   {
@@ -55,15 +56,14 @@
       self.mapTitleLabel.numberOfLines = 0;
     }
   }
-  self.width = superview.width;
-  self.minX = 0.0;
   [super layoutSubviews];
 }
 
 #pragma mark - Properties
 
-- (void)stateUpdated:(enum MWMDownloadMapRequestState)state
+- (void)setState:(enum MWMDownloadMapRequestState)state
 {
+  _state = state;
   switch (state)
   {
     case MWMDownloadMapRequestStateDownload:
@@ -82,10 +82,10 @@
       self.undefinedLocationLabel.hidden = YES;
       self.selectAnotherMapButton.hidden = NO;
       [self.selectAnotherMapButton setTitle:L(@"search_select_other_map") forState:UIControlStateNormal];
-      [self.selectAnotherMapButton setTitleColor:[UIColor primary] forState:UIControlStateNormal];
+      [self.selectAnotherMapButton setTitleColor:[UIColor linkBlue] forState:UIControlStateNormal];
       [self.selectAnotherMapButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
       [self.selectAnotherMapButton setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
-      [self.selectAnotherMapButton setBackgroundColor:[UIColor primary] forState:UIControlStateHighlighted];
+      [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateHighlighted];
       break;
     case MWMDownloadMapRequestStateRequestUnknownLocation:
       self.progressViewWrapper.hidden = YES;
@@ -97,8 +97,8 @@
       [self.selectAnotherMapButton setTitle:L(@"search_select_map") forState:UIControlStateNormal];
 
       [self.selectAnotherMapButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-      [self.selectAnotherMapButton setBackgroundColor:[UIColor primary] forState:UIControlStateNormal];
-      [self.selectAnotherMapButton setBackgroundColor:[UIColor primaryDark] forState:UIControlStateHighlighted];
+      [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
+      [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlueDark] forState:UIControlStateHighlighted];
       break;
   }
 }

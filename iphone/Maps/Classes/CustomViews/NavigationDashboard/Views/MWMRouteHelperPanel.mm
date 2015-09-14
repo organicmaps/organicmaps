@@ -65,7 +65,7 @@ static CGFloat const kHeight = 40.;
   if (IPAD)
     self.minX = 0.;
   else
-    self.center = {self.parentView.center.x, self.center.y};
+    self.midX = self.parentView.center.x;
   [super layoutSubviews];
 }
 
@@ -74,6 +74,7 @@ static CGFloat const kHeight = 40.;
   [super willMoveToSuperview:newSuperview];
   self.alpha = 0.;
   self.hidden = YES;
+  [newSuperview setNeedsLayout];
 }
 
 - (CGFloat)defaultHeight

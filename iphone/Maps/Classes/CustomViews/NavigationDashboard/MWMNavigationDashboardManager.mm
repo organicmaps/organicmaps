@@ -71,7 +71,17 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-  BOOL const isPortrait = UIInterfaceOrientationIsPortrait(orientation);
+  [self updateInterface:UIInterfaceOrientationIsPortrait(orientation)];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+  [self updateInterface:size.height > size.width];
+}
+
+- (void)updateInterface:(BOOL)isPortrait
+{
   MWMRoutePreview * routePreview = isPortrait ? self.routePreviewPortrait : self.routePreviewLandscape;
   if (self.routePreview.isVisible && ![routePreview isEqual:self.routePreview])
   {
@@ -83,14 +93,14 @@
     return;
 
   MWMNavigationDashboard * navigationDashboard = isPortrait ? self.navigationDashboardPortrait :
-                                                              self.navigationDashboardLandscape;
+  self.navigationDashboardLandscape;
   if (self.navigationDashboard.isVisible && ![navigationDashboard isEqual:self.navigationDashboard])
   {
     [self.navigationDashboard remove];
     [navigationDashboard addToView:self.ownerView];
   }
   self.navigationDashboard = navigationDashboard;
-  [self.drawer invalidateTopBounds:self.helperPanels.copy forOrientation:orientation];
+  [self.drawer invalidateTopBounds:self.helperPanels.copy isPortrait:isPortrait];
 }
 
 - (void)hideHelperPanels
@@ -156,6 +166,7 @@
     [self removePanel:self.nextTurnPanel];
   }
   [self.drawer drawPanels:self.helperPanels.copy];
+  [self.navigationDashboard setNeedsLayout];
 }
 
 - (void)addPanel:(MWMRouteHelperPanel *)panel
@@ -354,6 +365,12 @@
 {
   _topBound = self.routePreviewLandscape.topBound = self.routePreviewPortrait.topBound =
   self.navigationDashboardLandscape.topBound = self.navigationDashboardPortrait.topBound = topBound;
+}
+
+- (void)setLeftBound:(CGFloat)leftBound
+{
+  _leftBound = self.routePreviewLandscape.leftBound = self.routePreviewPortrait.leftBound =
+  self.navigationDashboardLandscape.leftBound = self.navigationDashboardPortrait.leftBound = leftBound;
 }
 
 - (CGFloat)height

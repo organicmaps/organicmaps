@@ -1,96 +1,110 @@
 #import "Common.h"
 #import "MWMAPIBar.h"
 #import "MWMAPIBarView.h"
-#import "SearchView.h"
 #import "UIKitCategories.h"
 
 #include "Framework.h"
 
+static NSString * const kKeyPath = @"subviews";
+
 @interface MWMAPIBar ()
 
 @property (nonatomic) IBOutlet MWMAPIBarView * rootView;
-@property (nonatomic) IBOutlet UILabel * titleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView * backArrow;
+@property (weak, nonatomic) IBOutlet UILabel * backLabel;
+@property (weak, nonatomic) IBOutlet UILabel * timeLabel;
 
-@property (weak, nonatomic) UIViewController<MWMAPIBarProtocol> * delegate;
-@property (nonatomic, setter = setVisible:) BOOL isVisible;
+@property (nonatomic) NSDateFormatter * timeFormatter;
+@property (nonatomic) NSTimer * timer;
+
+@property (weak, nonatomic) UIViewController * controller;
 
 @end
 
 @implementation MWMAPIBar
 
-- (instancetype)initWithDelegate:(nonnull UIViewController<MWMAPIBarProtocol> *)delegate
+- (nullable instancetype)initWithController:(nonnull UIViewController *)controller
 {
   self = [super init];
   if (self)
   {
+    self.controller = controller;
     [[NSBundle mainBundle] loadNibNamed:@"MWMAPIBarView" owner:self options:nil];
-    self.delegate = delegate;
+
+    self.timeFormatter = [[NSDateFormatter alloc] init];
+    self.timeFormatter.dateStyle = NSDateFormatterNoStyle;
+    self.timeFormatter.timeStyle = NSDateFormatterShortStyle;
   }
   return self;
 }
 
-- (void)show
+- (void)dealloc
 {
-  self.titleLabel.text = @(GetFramework().GetApiDataHolder().GetAppTitle().c_str());
-  [self.delegate.view insertSubview:self.rootView belowSubview:self.delegate.searchView];
-  self.rootView.width = self.delegate.view.width;
-  self.rootView.maxY = 0.0;
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    self.rootView.targetY = 0.0;
-    self.isVisible = YES;
-  }];
+  self.isVisible = NO;
 }
 
-- (void)hideAnimated:(BOOL)animated
+- (void)timerUpdate
 {
-  [UIView animateWithDuration:animated ? kDefaultAnimationDuration : 0.0 animations:^
-  {
-    self.rootView.targetY = -self.rootView.height;
-    self.isVisible = NO;
-  }
-  completion:^(BOOL finished)
-  {
-    [self.rootView removeFromSuperview];
-  }];
+  self.timeLabel.text = [self.timeFormatter stringFromDate:[NSDate date]];
 }
 
 #pragma mark - Actions
 
-- (IBAction)backButtonTouchUpInside:(UIButton *)sender
+- (IBAction)back
 {
-  NSURL * url = [NSURL URLWithString:@(GetFramework().GetApiDataHolder().GetGlobalBackUrl().c_str())];
-  [[UIApplication sharedApplication] openURL:url];
-  [self hideBarAndClearAnimated:NO];
-}
-
-- (IBAction)clearButtonTouchUpInside:(UIButton *)sender
-{
-  [self hideBarAndClearAnimated:YES];
-}
-
-- (void)hideBarAndClearAnimated:(BOOL)animated
-{
-  [self hideAnimated:animated];
   auto & f = GetFramework();
   auto & bm = f.GetBalloonManager();
   bm.RemovePin();
   bm.Dismiss();
   f.GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
   f.Invalidate();
+  self.isVisible = NO;
+  NSURL * url = [NSURL URLWithString:@(f.GetApiDataHolder().GetGlobalBackUrl().c_str())];
+  [[UIApplication sharedApplication] openURL:url];
 }
 
 #pragma mark - Properties
 
-- (void)setVisible:(BOOL)visible
+@synthesize isVisible = _isVisible;
+
+- (BOOL)isVisible
 {
-  _isVisible = visible;
-  [self.delegate apiBarBecameVisible:visible];
+  if (isIOSVersionLessThan(9))
+    return _isVisible;
+  return NO;
 }
 
-- (CGRect)frame
+- (void)setIsVisible:(BOOL)isVisible
 {
-  return self.rootView.frame;
+  if (!isIOSVersionLessThan(9))
+    return;
+  if (_isVisible == isVisible)
+    return;
+  _isVisible = isVisible;
+  if (isVisible)
+  {
+    self.backLabel.text =
+        [NSString stringWithFormat:@"%@ %@", L(@"back_to"),
+                                   @(GetFramework().GetApiDataHolder().GetAppTitle().c_str())];
+    [self.controller.view addSubview:self.rootView];
+    [self.controller.view addObserver:self
+                           forKeyPath:kKeyPath
+                              options:NSKeyValueObservingOptionNew
+                              context:nullptr];
+    [self timerUpdate];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                  target:self
+                                                selector:@selector(timerUpdate)
+                                                userInfo:nil
+                                                 repeats:YES];
+  }
+  else
+  {
+    [self.rootView.superview removeObserver:self forKeyPath:kKeyPath];
+    [self.rootView removeFromSuperview];
+    [self.timer invalidate];
+  }
+  [self.controller setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

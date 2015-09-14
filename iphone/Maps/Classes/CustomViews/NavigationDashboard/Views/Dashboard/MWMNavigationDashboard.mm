@@ -57,7 +57,7 @@
 - (CGRect)defaultFrame
 {
   if (IPAD)
-    return {{12., 28.}, {360., 186.}};
+    return {{self.leftBound + 12, self.topBound + 8}, {360., 186.}};
   return super.defaultFrame;
 }
 

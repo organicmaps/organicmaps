@@ -112,7 +112,7 @@ extern NSString * const kSearchResultPointKey;
     NSMutableArray * res = [NSMutableArray arrayWithCapacity:maxResultsForWatch];
     for (size_t index = 0; index < maxResultsForWatch; ++index)
     {
-      search::Result result = results.GetResult(index);
+      search::Result const & result = results.GetResult(index);
       NSMutableDictionary * d = [NSMutableDictionary dictionary];
       d[kSearchResultTitleKey] = @(result.GetString());
       d[kSearchResultCategoryKey] = @(result.GetFeatureType());

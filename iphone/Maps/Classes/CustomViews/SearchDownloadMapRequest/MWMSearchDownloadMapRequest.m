@@ -1,6 +1,7 @@
 #import "MWMDownloadMapRequest.h"
 #import "MWMSearchDownloadMapRequest.h"
 #import "MWMSearchDownloadMapRequestView.h"
+#import "UIKitCategories.h"
 
 @interface MWMSearchDownloadMapRequest () <MWMDownloadMapRequestDelegate>
 
@@ -21,7 +22,7 @@
   self = [super init];
   if (self)
   {
-    [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class) owner:self options:nil];
+    [[NSBundle mainBundle] loadNibNamed:self.class.className owner:self options:nil];
     self.delegate = delegate;
     [parentView addSubview:self.rootView];
     self.downloadRequest = [[MWMDownloadMapRequest alloc] initWithParentView:self.downloadRequestHolder delegate:self];

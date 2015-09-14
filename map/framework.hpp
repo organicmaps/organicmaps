@@ -324,8 +324,6 @@ private:
   search::SearchParams m_lastSearch;
   uint8_t m_fixedSearchResults;
 
-  void OnSearchResultsCallback(search::Results const & results);
-  void OnSearchResultsCallbackUI(search::Results const & results);
   void FillSearchResultsMarks(search::Results const & results);
 
 public:
@@ -345,6 +343,7 @@ public:
   void ShowSearchResult(search::Result const & res);
 
   size_t ShowAllSearchResults();
+  void UpdateSearchResults(search::Results const & results);
 
   void StartInteractiveSearch(search::SearchParams const & params) { m_lastSearch = params; }
   bool IsISActive() const { return !m_lastSearch.m_query.empty(); }

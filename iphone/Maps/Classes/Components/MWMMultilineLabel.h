@@ -1,0 +1,3 @@
+@interface MWMMultilineLabel : UILabel
+
+@end
