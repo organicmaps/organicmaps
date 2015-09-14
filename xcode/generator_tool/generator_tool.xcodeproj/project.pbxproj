@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		670F291B1BA6CE4F00F2ABF4 /* check_mwms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1E31A4C28D5005EEA39 /* check_mwms.cpp */; };
+		670F291C1BA6CEE400F2ABF4 /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67AB92C61B73D03500AB5194 /* libmap.a */; };
 		6719DD5E1B95AB0F0018166F /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6719DD5D1B95AB0F0018166F /* libtess2.a */; };
 		6719DD5F1B95AB570018166F /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6719DD5D1B95AB0F0018166F /* libtess2.a */; };
 		671F58B91B8611360032311E /* intermediate_data_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671F58B71B86109B0032311E /* intermediate_data_test.cpp */; };
@@ -185,6 +187,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				670F291C1BA6CEE400F2ABF4 /* libmap.a in Frameworks */,
 				6719DD5E1B95AB0F0018166F /* libtess2.a in Frameworks */,
 				674A28DE1B1C8027001A525C /* libtomcrypt.a in Frameworks */,
 				674A28DC1B1C801D001A525C /* libprotobuf.a in Frameworks */,
@@ -459,6 +462,7 @@
 				67AB92D71B75157A00AB5194 /* triangles_tree_coding_test.cpp in Sources */,
 				67AB92CF1B75156000AB5194 /* classificator_tests.cpp in Sources */,
 				67AB92D01B75156400AB5194 /* coasts_test.cpp in Sources */,
+				670F291B1BA6CE4F00F2ABF4 /* check_mwms.cpp in Sources */,
 				67AB92D91B75158300AB5194 /* osm_o5m_source_test.cpp in Sources */,
 				67AB92D61B75157700AB5194 /* tesselator_test.cpp in Sources */,
 				6726C2411A4C2D9F005EEA39 /* testingmain.cpp in Sources */,
