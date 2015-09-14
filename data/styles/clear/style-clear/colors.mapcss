@@ -123,7 +123,7 @@
 @city_label_light: #7F7F7F;
 @city_halo: #DDDDCC;
 @city_halo_light: #DDDDCC;
-@country_label: #595957;
+@country_label: #8C8C8C;
 @state_name: #8C8C8C;
 @district_label: #7F7F7F;
 
@@ -136,10 +136,8 @@
 @secondary_road_label: #333333;
 @road_label_halo: #FFFFFF;
 @shield: #fff;
-@shield_halo: #2E89B0;
-/* @shield_halo: #2E89B0; */
-
-
+@shield_halo: #498F46;
+/* blue - #2E89B0; #498F46; #598DBE; */
 
 @label_dark: #333333;
 @label_light: #444444;
