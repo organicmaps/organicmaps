@@ -11,7 +11,7 @@
 
 #include "std/function.hpp"
 #include "std/unique_ptr.hpp"
-#include "std/atomic.hpp"
+#include "std/mutex.hpp"
 
 class ScreenBase;
 
@@ -36,7 +36,7 @@ public:
   void SetLocalizator(TLocalizeStringFn const & fn);
   void Destroy();
   void SetSurfaceSize(m2::PointF const & size);
-  m2::PointF GetSurfaceSize() const { return m_surfaceSize; }
+  m2::PointF GetSurfaceSize() const;
 
   string GetLocalizedString(string const & stringID) const;
 
@@ -69,7 +69,8 @@ private:
 
   Shape::TTapHandler m_onCompassTappedHandler;
   CountryStatus::TButtonHandlers m_buttonHandlers;
-  atomic<m2::PointF> m_surfaceSize;
+  m2::PointF m_surfaceSize;
+  mutable mutex m_surfaceSizeMutex;
   bool m_inUserAction = false;
 };
 

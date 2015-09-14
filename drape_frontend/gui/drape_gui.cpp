@@ -56,7 +56,14 @@ void DrapeGui::Destroy()
 
 void DrapeGui::SetSurfaceSize(m2::PointF const & size)
 {
+  lock_guard<mutex> lock(m_surfaceSizeMutex);
   m_surfaceSize = size;
+}
+
+m2::PointF DrapeGui::GetSurfaceSize() const
+{
+  lock_guard<mutex> lock(m_surfaceSizeMutex);
+  return m_surfaceSize;
 }
 
 void DrapeGui::SetLocalizator(const DrapeGui::TLocalizeStringFn & fn)
