@@ -29,7 +29,7 @@ struct MwmVersion
 };
 
 /// Writes latest format and current timestamp to the writer.
-void WriteVersion(Writer & w);
+void WriteVersion(Writer & w, uint32_t versionDate);
 
 /// Reads mwm version from src.
 void ReadVersion(ReaderSrc & src, MwmVersion & version);

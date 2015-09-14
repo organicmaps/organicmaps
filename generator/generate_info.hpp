@@ -42,6 +42,8 @@ struct GenerateInfo
   OsmSourceType m_osmFileType;
   string m_osmFileName;
 
+  uint32_t m_versionDate = 0;
+
   vector<string> m_bucketNames;
 
   bool m_createWorld = false;

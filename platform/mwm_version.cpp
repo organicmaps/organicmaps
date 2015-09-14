@@ -43,16 +43,13 @@ void ReadVersionT(TSource & src, MwmVersion & version)
 
 MwmVersion::MwmVersion() : format(unknownFormat), timestamp(0) {}
 
-void WriteVersion(Writer & w)
+void WriteVersion(Writer & w, uint32_t versionDate)
 {
   w.Write(MWM_PROLOG, ARRAY_SIZE(MWM_PROLOG));
 
   // write inner data version
   WriteVarUint(w, static_cast<uint32_t>(lastFormat));
-
-  // static is used for equal time stamp for all "mwm" files in one generation process
-  static uint32_t generatorStartTime = my::TodayAsYYMMDD();
-  WriteVarUint(w, generatorStartTime);
+  WriteVarUint(w, versionDate);
 }
 
 void ReadVersion(ReaderSrc & src, MwmVersion & version) { ReadVersionT(src, version); }

@@ -95,12 +95,13 @@ namespace feature
     vector<MetadataIndexValueT> m_MetadataIndex;
 
     DataHeader m_header;
+    uint32_t m_versionDate;
 
     gen::OsmID2FeatureID m_osm2ft;
 
   public:
-    FeaturesCollector2(string const & fName, DataHeader const & header)
-      : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_header(header)
+    FeaturesCollector2(string const & fName, DataHeader const & header, uint32_t versionDate)
+      : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_header(header), m_versionDate(versionDate)
     {
       m_MetadataWriter.reset(new FileWriter(fName + METADATA_FILE_TAG));
 
@@ -117,7 +118,7 @@ namespace feature
       // write version information
       {
         FileWriter w = m_writer.GetWriter(VERSION_FILE_TAG);
-        version::WriteVersion(w);
+        version::WriteVersion(w, m_versionDate);
       }
 
       // write own mwm header
@@ -589,7 +590,7 @@ namespace feature
       // Transform features from raw format to optimized format.
       try
       {
-        FeaturesCollector2 collector(datFilePath, header);
+        FeaturesCollector2 collector(datFilePath, header, info.m_versionDate);
 
         for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
         {
