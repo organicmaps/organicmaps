@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSearchTableViewController">
+            <connections>
+                <outlet property="tableView" destination="oZD-Er-6fn" id="Ayl-9n-mV7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="MWMSearchTableView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="oZD-Er-6fn">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="T9n-AG-sHf"/>
+                        <outlet property="delegate" destination="-1" id="Syl-wX-U5b"/>
+                    </connections>
+                </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="25T-i3-eR5">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_no_found_light" translatesAutoresizingMaskIntoConstraints="NO" id="Xva-2d-ze3" userLabel="image">
+                            <rect key="frame" x="80" y="30" width="160" height="100"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="100" id="Ax8-Si-59Z"/>
+                                <constraint firstAttribute="width" constant="160" id="wCn-CD-Osv"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="VlC-Yr-hSX" userLabel="text">
+                            <rect key="frame" x="16" y="160" width="288" height="17"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_not_found"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="VlC-Yr-hSX" firstAttribute="top" secondItem="25T-i3-eR5" secondAttribute="top" constant="160" id="8i1-SL-tjs"/>
+                        <constraint firstItem="VlC-Yr-hSX" firstAttribute="leading" secondItem="25T-i3-eR5" secondAttribute="leading" constant="16" id="gVn-UQ-GWx"/>
+                        <constraint firstAttribute="centerX" secondItem="Xva-2d-ze3" secondAttribute="centerX" id="kIp-OL-QdQ"/>
+                        <constraint firstAttribute="trailing" secondItem="VlC-Yr-hSX" secondAttribute="trailing" constant="16" id="lhj-9H-dPK"/>
+                        <constraint firstItem="Xva-2d-ze3" firstAttribute="top" secondItem="25T-i3-eR5" secondAttribute="top" constant="30" id="sK3-Ld-4Os"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="oZD-Er-6fn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9cU-AY-lQv"/>
+                <constraint firstAttribute="trailing" secondItem="oZD-Er-6fn" secondAttribute="trailing" id="DoP-hv-QXb"/>
+                <constraint firstAttribute="trailing" secondItem="25T-i3-eR5" secondAttribute="trailing" id="fRl-2H-zOe"/>
+                <constraint firstItem="25T-i3-eR5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="hGV-2Z-ZbQ"/>
+                <constraint firstItem="oZD-Er-6fn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="iKy-dd-6Jt"/>
+                <constraint firstItem="25T-i3-eR5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="k08-wO-hIF"/>
+                <constraint firstAttribute="bottom" secondItem="25T-i3-eR5" secondAttribute="bottom" id="k7w-1s-tbD"/>
+                <constraint firstAttribute="bottom" secondItem="oZD-Er-6fn" secondAttribute="bottom" id="rgu-oY-7XC"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="noResultsImage" destination="Xva-2d-ze3" id="aNN-Mo-0W1"/>
+                <outlet property="noResultsText" destination="VlC-Yr-hSX" id="Str-IK-gv7"/>
+                <outlet property="noResultsView" destination="25T-i3-eR5" id="q1E-Rv-Plz"/>
+                <outlet property="tableView" destination="oZD-Er-6fn" id="MfW-RH-aRM"/>
+                <outlet property="textTopOffset" destination="8i1-SL-tjs" id="4Mq-d1-ugQ"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="img_no_found_light" width="160" height="100"/>
+    </resources>
+</document>
