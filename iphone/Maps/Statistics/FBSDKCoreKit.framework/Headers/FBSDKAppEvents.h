@@ -171,7 +171,7 @@ FBSDK_EXTERN NSString *const FBSDKAppEventParameterValueNo;
  + Events will be accumulated when the app is in a disconnected state, and sent when the connection is
  restored and one of the above 'flush' conditions are met.
 
- + The `FBSDKAppEvents` class is thread-safe in that events may be logged from any of the app's threads.
+ + The `FBSDKAppEvents` class in thread-safe in that events may be logged from any of the app's threads.
 
  + The developer can set the `flushBehavior` on `FBSDKAppEvents` to force the flushing of events to only
  occur on an explicit call to the `flush` method.
@@ -409,7 +409,7 @@ FBSDK_EXTERN NSString *const FBSDKAppEventParameterValueNo;
  In some cases, apps want to use one Facebook App ID for login and social presence and another
  for App Event logging.  (An example is if multiple apps from the same company share an app ID for login, but
  want distinct logging.)  By default, this value is `nil`, and defers to the `FBSDKAppEventsOverrideAppIDBundleKey`
- plist value.  If that's not set, it defaults to `[FBSDKSettings appID]`.
+ plist value.  If that's not set, it defaults to `[FBSDKSettigns appID]`.
 
  This should be set before any other calls are made to `FBSDKAppEvents`.  Thus, you should set it in your application
  delegate's `application:didFinishLaunchingWithOptions:` delegate.
