@@ -378,7 +378,7 @@ node|z17-[railway=station][transport=subway][city=moscow] { icon-image: subway-m
 /* MOSCOW SUBWAY ENTRANCES */
 node|z16-[railway=subway_entrance][city=moscow] { icon-image: subway-moscow-s.svg; text-offset: 8; z-index: 15000; font-size: 10; text: name; text-color: @label_dark; text-halo-radius: 1; text-halo-opacity: 0.5; text-halo-color: @label_halo_light; }
 node|z17[railway=subway_entrance][city=moscow] { icon-image: subway-moscow-s.svg; }
-node|z18-[railway=subway_entrance][city=moscow] { icon-image: subway-msocow-m.svg; }
+node|z18-[railway=subway_entrance][city=moscow] { icon-image: subway-moscow-m.svg; }
 
 /* SAINT PETERSBURG SUBWAY */
 node|z12[railway=station][transport=subway][city=spb] { icon-image: subway-spb-s.svg; z-index: 15000; }

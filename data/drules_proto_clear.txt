@@ -1598,7 +1598,7 @@ cont {
       priority: 1265
     }
     symbol {
-      name: "fontain-m"
+      name: "fountain-m"
       apply_for_type: 1
       priority: 16264
     }
@@ -1610,7 +1610,7 @@ cont {
       priority: 1265
     }
     symbol {
-      name: "fontain-m"
+      name: "fountain-m"
       apply_for_type: 1
       priority: 16264
     }
@@ -31391,7 +31391,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-msocow-m"
+      name: "subway-moscow-m"
       apply_for_type: 1
       priority: 16943
     }
@@ -31408,7 +31408,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-msocow-m"
+      name: "subway-moscow-m"
       apply_for_type: 1
       priority: 16943
     }

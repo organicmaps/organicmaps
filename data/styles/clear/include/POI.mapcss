@@ -61,7 +61,7 @@ node|z18-[amenity=pub], area|z18-[amenity=pub] { icon-image: pub-m.svg; text-off
 node|z18-[amenity=bureau_de_change] { icon-image: banknote-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 
 node|z17-[amenity=post_office] { icon-image: mail-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
-node|z18-[amenity=fountain] { icon-image: fontain-m.svg; }
+node|z18-[amenity=fountain] { icon-image: fountain-m.svg; }
 node|z18-[amenity=library] { icon-image: library-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z19-[amenity=telephone] { icon-image: phone-m.svg; z-index: 1100; }
 node|z19-[amenity=drinking_water] { icon-image: drinking-water-m.svg; }
