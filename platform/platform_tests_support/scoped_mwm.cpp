@@ -10,6 +10,8 @@
 #include "coding/file_container.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include "base/timer.hpp"
+
 using feature::DataHeader;
 namespace platform
 {
@@ -24,7 +26,7 @@ ScopedMwm::ScopedMwm(string const & relativePath) : m_file(relativePath, "")
     // Each writer must be in it's own scope to avoid conflicts on the final write.
     {
       FileWriter versionWriter = container.GetWriter(VERSION_FILE_TAG);
-      version::WriteVersion(versionWriter);
+      version::WriteVersion(versionWriter, my::TodayAsYYMMDD());
     }
 
     FileWriter w = container.GetWriter(HEADER_FILE_TAG);

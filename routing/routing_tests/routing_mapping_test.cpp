@@ -54,8 +54,8 @@ private:
 
     FileWriter w1 = routingCont.GetWriter(VERSION_FILE_TAG);
     FileWriter w2 = mwmCont.GetWriter(VERSION_FILE_TAG);
-    version::WriteVersion(w1);
-    version::WriteVersion(w2);
+    version::WriteVersion(w1, my::TodayAsYYMMDD());
+    version::WriteVersion(w2, my::TodayAsYYMMDD());
   }
 
   CountryFile m_countryFile;
