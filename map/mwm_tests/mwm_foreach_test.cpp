@@ -253,7 +253,7 @@ void RunTest(string const & countryFileName)
   src1.InitClassificator();
 
   platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeForTesting(countryFileName));
-  // Clean indexes to avoid jenkins errors.
+  // Clean indexes to prevent mwm and indexes versions mismatch error.
   platform::CountryIndexes::DeleteFromDisk(localFile);
   UNUSED_VALUE(src1.RegisterMap(localFile));
 
