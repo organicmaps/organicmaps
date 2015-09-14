@@ -14,6 +14,7 @@
 
 #include "std/algorithm.hpp"
 #include "std/cmath.hpp"
+#include "std/exception.hpp"
 #include "std/limits.hpp"
 
 namespace search
@@ -22,7 +23,10 @@ namespace
 {
 // This exception can be thrown by callbacks from deeps of search and
 // geometry retrieval for fast cancellation of time-consuming tasks.
-struct CancelException
+//
+// TODO (@gorshenin): after merge to master, move this class to
+// base/cancellable.hpp.
+struct CancelException : public exception
 {
 };
 
