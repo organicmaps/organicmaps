@@ -10,8 +10,10 @@
 + (UIColor *)red;
 + (UIColor *)orange;
 + (UIColor *)linkBlue;
++ (UIColor *)linkBlueDark;
 + (UIColor *)blackPrimaryText;
 + (UIColor *)blackSecondaryText;
++ (UIColor *)blackStatusBarBackground;
 + (UIColor *)blackHintText;
 + (UIColor *)blackDividers;
 + (UIColor *)whitePrimaryText;

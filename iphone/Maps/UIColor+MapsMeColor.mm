@@ -2,6 +2,7 @@
 
 static CGFloat const alpha12 = 0.12;
 static CGFloat const alpha26 = 0.26;
+static CGFloat const alpha40 = 0.40;
 static CGFloat const alpha54 = 0.54;
 static CGFloat const alpha80 = 0.80;
 static CGFloat const alpha87 = 0.87;
@@ -55,6 +56,11 @@ static CGFloat const alpha100 = 1.;
   return [UIColor colorWithRed:scaled(30.) green:scaled(150.) blue:scaled(240.) alpha:alpha100];
 }
 
++ (UIColor *)linkBlueDark
+{
+  return [UIColor colorWithRed:scaled(25.) green:scaled(135.) blue:scaled(215.) alpha:alpha100];
+}
+
 + (UIColor *)blackPrimaryText
 {
   return [[UIColor blackColor] colorWithAlphaComponent:alpha87];
@@ -63,6 +69,11 @@ static CGFloat const alpha100 = 1.;
 + (UIColor *)blackSecondaryText
 {
   return [[UIColor blackColor] colorWithAlphaComponent:alpha54];
+}
+
++ (UIColor *)blackStatusBarBackground
+{
+  return [[UIColor blackColor] colorWithAlphaComponent:alpha40];
 }
 
 + (UIColor *)blackHintText
