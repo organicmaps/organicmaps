@@ -218,10 +218,15 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
     formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
     info.m_turn = turn.m_turn;
-    if (distanceToTurnMeters < kShowTheTurnAfterTheNextM && distBetweenTurnsM < kMaxTurnDistM)
+    if (m_routingSettings.m_showTurnAfterNext &&
+        distanceToTurnMeters < kShowTheTurnAfterTheNextM && distBetweenTurnsM < kMaxTurnDistM)
+    {
       info.m_nextTurn = nextTurn.m_turn;
+    }
     else
+    {
       info.m_nextTurn = routing::turns::TurnDirection::NoTurn;
+    }
     info.m_exitNum = turn.m_exitNum;
     info.m_time = m_route.GetCurrentTimeToEndSec();
     info.m_sourceName = turn.m_sourceName;

@@ -28,17 +28,23 @@ struct RoutingSettings
   /// \brief m_keepPedestrianInfo flag for keeping in memory additional information for pedestrian
   /// routing.
   bool m_keepPedestrianInfo;
+
+  /// \brief if m_showTurnAfterNextInfo is equal to true end users see a notification
+  /// about the turn after the next in some cases.
+  bool m_showTurnAfterNext;
 };
 
 inline RoutingSettings GetPedestrianRoutingSettings()
 {
   return RoutingSettings({ false /* m_matchRoute */, false /* m_soundDirection */,
-                           20. /* m_matchingThresholdM */, true /* m_keepPedestrianInfo */ });
+                           20. /* m_matchingThresholdM */, true /* m_keepPedestrianInfo */,
+                           false /* m_showTurnAfterNext */});
 }
 
 inline RoutingSettings GetCarRoutingSettings()
 {
   return RoutingSettings({ true /* m_matchRoute */, true /* m_soundDirection */,
-                           50. /* m_matchingThresholdM */, false /* m_keepPedestrianInfo */ });
+                           50. /* m_matchingThresholdM */, false /* m_keepPedestrianInfo */,
+                           true /* m_showTurnAfterNext */});
 }
 }  // namespace routing
