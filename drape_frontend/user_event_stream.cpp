@@ -20,7 +20,7 @@ uint64_t const kDoubleTapPauseMs = 250;
 uint64_t const kLongTouchMs = 1000;
 uint64_t const kKineticDelayMs = 500;
 
-double const kMaxAnimationTime = 1.5; // in seconds
+double const kMaxAnimationTimeSec = 1.5; // in seconds
 
 size_t GetValidTouchesCount(array<Touch, 2> const & touches)
 {
@@ -279,18 +279,15 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimation
     double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), rect.GlobalZero(), screen);
     double const scaleDuration = ModelViewAnimation::GetScaleDuration(startRect.GetLocalRect().SizeX(),
                                                                       rect.GetLocalRect().SizeX());
-    if (max(max(angleDuration, moveDuration), scaleDuration) < kMaxAnimationTime)
+    if (max(max(angleDuration, moveDuration), scaleDuration) < kMaxAnimationTimeSec)
     {
       ASSERT(animCreator != nullptr, ());
       animCreator(startRect, rect, angleDuration, moveDuration, scaleDuration);
       return false;
     }
-    else
-    {
-      m_animation.reset();
-    }
   }
 
+  m_animation.reset();
   m_navigator.SetFromRect(rect);
   return true;
 }
@@ -305,17 +302,14 @@ bool UserEventStream::SetFollowAndRotate(m2::AnyRectD const & rect, m2::PointD c
     double const angleDuration = ModelViewAnimation::GetRotateDuration(startRect.Angle().val(), azimuth);
     double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), rect.GlobalZero(), screen);
     double const duration = max(angleDuration, moveDuration);
-    if (duration > 0.0 && duration < kMaxAnimationTime)
+    if (duration > 0.0 && duration < kMaxAnimationTimeSec)
     {
       m_animation.reset(new FollowAndRotateAnimation(startRect, userPos, newCenterOffset, oldCenterOffset, azimuth, duration));
       return false;
     }
-    else
-    {
-      m_animation.reset();
-    }
   }
 
+  m_animation.reset();
   m_navigator.SetFromRect(rect);
   return true;
 }
