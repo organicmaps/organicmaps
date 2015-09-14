@@ -20,6 +20,12 @@ namespace search
 {
 namespace
 {
+// This exception can be thrown by callbacks from deeps of search and
+// geometry retrieval for fast cancellation of time-consuming tasks.
+struct CancelException
+{
+};
+
 // Upper bound on a number of features when fast path is used.
 // Otherwise, slow path is used.
 uint64_t constexpr kFastPathThreshold = 100;
@@ -31,8 +37,9 @@ struct EmptyFilter
 
 // Retrieves from the search index corresponding to |handle| all
 // features matching to |params|.
+template <typename ToDo>
 void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams const & params,
-                             vector<uint32_t> & featureIds)
+                             ToDo && toDo)
 {
   auto * value = handle.GetValue<MwmValue>();
   ASSERT(value, ());
@@ -42,11 +49,7 @@ void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams
       trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
                      trie::ValueReader(codingParams), trie::TEdgeValueReader()));
 
-  auto collector = [&](trie::ValueReader::ValueType const & value)
-  {
-    featureIds.push_back(value.m_featureId);
-  };
-  MatchFeaturesInTrie(params, *trieRoot, EmptyFilter(), collector);
+  MatchFeaturesInTrie(params, *trieRoot, EmptyFilter(), forward<ToDo>(toDo));
 }
 
 // Retrieves from the geomery index corresponding to handle all
@@ -151,48 +154,51 @@ public:
   bool RetrieveImpl(double scale, my::Cancellable const & cancellable,
                     TCallback const & callback) override
   {
-#define LONG_OP(op)                \
-  {                                \
-    if (cancellable.IsCancelled()) \
-      return false;                \
-    op;                            \
-  }
-
     m2::RectD currViewport = m_viewport;
     currViewport.Scale(scale);
 
     vector<uint32_t> geometryFeatures;
-    auto collector = [&](uint32_t feature)
+
+    try
     {
-      if (feature < m_nonReported.size() && m_nonReported[feature])
+      auto collector = [&](uint32_t feature)
       {
-        geometryFeatures.push_back(feature);
-        m_nonReported[feature] = false;
+        if (cancellable.IsCancelled())
+          throw CancelException();
+
+        if (feature < m_nonReported.size() && m_nonReported[feature])
+        {
+          geometryFeatures.push_back(feature);
+          m_nonReported[feature] = false;
+        }
+      };
+
+      if (m_prevScale < 0)
+      {
+        RetrieveGeometryFeatures(m_handle, currViewport, m_params, collector);
       }
-    };
+      else
+      {
+        m2::RectD prevViewport = m_viewport;
+        prevViewport.Scale(m_prevScale);
 
-    if (m_prevScale < 0)
-    {
-      LONG_OP(RetrieveGeometryFeatures(m_handle, currViewport, m_params, collector));
+        m2::RectD a(currViewport.LeftTop(), prevViewport.RightTop());
+        m2::RectD c(currViewport.RightBottom(), prevViewport.LeftBottom());
+        m2::RectD b(a.RightTop(), c.RightTop());
+        m2::RectD d(a.LeftBottom(), c.LeftBottom());
+
+        RetrieveGeometryFeatures(m_handle, a, m_params, collector);
+        RetrieveGeometryFeatures(m_handle, b, m_params, collector);
+        RetrieveGeometryFeatures(m_handle, c, m_params, collector);
+        RetrieveGeometryFeatures(m_handle, d, m_params, collector);
+      }
     }
-    else
+    catch (CancelException &)
     {
-      m2::RectD prevViewport = m_viewport;
-      prevViewport.Scale(m_prevScale);
-
-      m2::RectD a(currViewport.LeftTop(), prevViewport.RightTop());
-      m2::RectD c(currViewport.RightBottom(), prevViewport.LeftBottom());
-      m2::RectD b(a.RightTop(), c.RightTop());
-      m2::RectD d(a.LeftBottom(), c.LeftBottom());
-
-      LONG_OP(RetrieveGeometryFeatures(m_handle, a, m_params, collector));
-      LONG_OP(RetrieveGeometryFeatures(m_handle, b, m_params, collector));
-      LONG_OP(RetrieveGeometryFeatures(m_handle, c, m_params, collector));
-      LONG_OP(RetrieveGeometryFeatures(m_handle, d, m_params, collector));
+      return false;
     }
 
     callback(geometryFeatures);
-#undef LONG_OP
     return true;
   }
 
@@ -340,50 +346,35 @@ bool Retrieval::RetrieveForScale(double scale, Callback & callback)
 
     if (!bucket.m_intersectsWithViewport)
     {
-      // This is the first time viewport intersects with mwm. Retrieve
-      // all matching features from the search index.
-      ASSERT(!bucket.m_strategy, ());
-      RetrieveAddressFeatures(bucket.m_handle, m_params, bucket.m_addressFeatures);
-      if (IsCancelled())
+      // This is the first time viewport intersects with
+      // mwm. Initialize bucket's retrieval strategy.
+      if (!InitBucketStrategy(bucket))
         return false;
-      if (bucket.m_addressFeatures.size() < kFastPathThreshold)
-      {
-        bucket.m_strategy.reset(
-            new FastPathStrategy(*m_index, bucket.m_handle, m_viewport, bucket.m_addressFeatures));
-      }
-      else
-      {
-        bucket.m_strategy.reset(
-            new SlowPathStrategy(bucket.m_handle, m_viewport, m_params, bucket.m_addressFeatures));
-      }
-
       bucket.m_intersectsWithViewport = true;
-      if (bucket.m_addressFeatures.empty())
-        FinishBucket(bucket, callback);
     }
 
+    ASSERT(bucket.m_intersectsWithViewport, ());
     ASSERT_LESS_OR_EQUAL(bucket.m_featuresReported, bucket.m_addressFeatures.size(), ());
     if (bucket.m_featuresReported == bucket.m_addressFeatures.size())
     {
       // All features were reported for the bucket, mark it as
       // finished and move to the next bucket.
-      ASSERT(bucket.m_intersectsWithViewport, ());
       FinishBucket(bucket, callback);
       continue;
     }
 
-    Strategy::TCallback wrapper = [&](vector<uint32_t> & features)
+    auto wrapper = [&](vector<uint32_t> & features)
     {
       ReportFeatures(bucket, features, scale, callback);
     };
+
     if (!bucket.m_strategy->Retrieve(scale, *this /* cancellable */, wrapper))
       return false;
 
     if (viewport.IsRectInside(bucket.m_bounds))
     {
-      ASSERT(bucket.m_intersectsWithViewport, ());
-      // Viewport completely covers the bucket, mark it as finished
-      // and move to the next bucket. Note that "viewport covers the
+      // Viewport completely covers the bucket, so mark it as finished
+      // and switch to the next bucket. Note that "viewport covers the
       // bucket" is not the same as "all features from the bucket were
       // reported", because of scale parameter. Search index reports
       // all matching features, but geometry index can skip features
@@ -391,6 +382,40 @@ bool Retrieval::RetrieveForScale(double scale, Callback & callback)
       FinishBucket(bucket, callback);
       continue;
     }
+  }
+
+  return true;
+}
+
+bool Retrieval::InitBucketStrategy(Bucket & bucket)
+{
+  ASSERT(!bucket.m_strategy, ());
+  ASSERT(bucket.m_addressFeatures.empty(), ());
+
+  try
+  {
+    auto collector = [&](trie::ValueReader::ValueType const & value)
+    {
+      if (IsCancelled())
+        throw CancelException();
+      bucket.m_addressFeatures.push_back(value.m_featureId);
+    };
+    RetrieveAddressFeatures(bucket.m_handle, m_params, collector);
+  }
+  catch (CancelException &)
+  {
+    return false;
+  }
+
+  if (bucket.m_addressFeatures.size() < kFastPathThreshold)
+  {
+    bucket.m_strategy.reset(
+        new FastPathStrategy(*m_index, bucket.m_handle, m_viewport, bucket.m_addressFeatures));
+  }
+  else
+  {
+    bucket.m_strategy.reset(
+        new SlowPathStrategy(bucket.m_handle, m_viewport, m_params, bucket.m_addressFeatures));
   }
 
   return true;
