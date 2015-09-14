@@ -165,7 +165,7 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
                                              m_poly.GetIterToIndex(segIdx));
 }
 
-void Route::GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
+bool Route::GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
 {
   auto it = GetCurrentTurn();
   auto const turnsEnd = m_turns.end();
@@ -175,13 +175,14 @@ void Route::GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) c
   {
     turn = turns::TurnItem();
     distanceToTurnMeters = 0;
-    return;
+    return false;
   }
 
   it += 1;
   turn = *it;
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
                                              m_poly.GetIterToIndex(it->m_index));
+  return true;
 }
 
 void Route::GetCurrentDirectionPoint(m2::PointD & pt) const

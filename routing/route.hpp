@@ -76,7 +76,7 @@ public:
   /// Returns turn after current.
   /// Fills the field distanceToTurnMeters with distance for current possition to
   /// the turn after the next turn.
-  void GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
+  bool GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
 

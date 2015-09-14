@@ -212,16 +212,24 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     turns::TurnItem turn;
     turns::TurnItem nextTurn;
     m_route.GetCurrentTurn(distanceToTurnMeters, turn);
-    m_route.GetNextTurn(distanceToNextTurnMeters, nextTurn);
-    double const distBetweenTurnsM = distanceToNextTurnMeters - distanceToTurnMeters;
-    ASSERT_LESS_OR_EQUAL(0, distBetweenTurnsM, ());
-
     formatDistFn(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
     info.m_turn = turn.m_turn;
-    if (m_routingSettings.m_showTurnAfterNext &&
-        distanceToTurnMeters < kShowTheTurnAfterTheNextM && distBetweenTurnsM < kMaxTurnDistM)
+
+    // The turn after the next one.
+    if (m_route.GetNextTurn(distanceToNextTurnMeters, nextTurn))
     {
-      info.m_nextTurn = nextTurn.m_turn;
+      double const distBetweenTurnsM = distanceToNextTurnMeters - distanceToTurnMeters;
+      ASSERT_LESS_OR_EQUAL(0, distBetweenTurnsM, ());
+
+      if (m_routingSettings.m_showTurnAfterNext &&
+          distanceToTurnMeters < kShowTheTurnAfterTheNextM && distBetweenTurnsM < kMaxTurnDistM)
+      {
+        info.m_nextTurn = nextTurn.m_turn;
+      }
+      else
+      {
+        info.m_nextTurn = routing::turns::TurnDirection::NoTurn;
+      }
     }
     else
     {
