@@ -111,6 +111,7 @@
 		4A23D15D1B8B4DD700D4EB6F /* resources-mdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1581B8B4DD700D4EB6F /* resources-mdpi_clear */; };
 		4A23D15E1B8B4DD700D4EB6F /* resources-xhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1591B8B4DD700D4EB6F /* resources-xhdpi_clear */; };
 		4A23D15F1B8B4DD700D4EB6F /* resources-xxhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D15A1B8B4DD700D4EB6F /* resources-xxhdpi_clear */; };
+		4A4765B31BA6FF5F00540CC4 /* city_rank.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4A4765B21BA6FF5F00540CC4 /* city_rank.txt */; };
 		4A7D89C51B2EBF3B00AC843E /* resources-6plus_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C11B2EBF3B00AC843E /* resources-6plus_dark */; };
 		4A7D89C61B2EBF3B00AC843E /* resources-mdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C21B2EBF3B00AC843E /* resources-mdpi_dark */; };
 		4A7D89C71B2EBF3B00AC843E /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */; };
@@ -459,6 +460,7 @@
 		4A23D1581B8B4DD700D4EB6F /* resources-mdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi_clear"; path = "../../data/resources-mdpi_clear"; sourceTree = "<group>"; };
 		4A23D1591B8B4DD700D4EB6F /* resources-xhdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi_clear"; path = "../../data/resources-xhdpi_clear"; sourceTree = "<group>"; };
 		4A23D15A1B8B4DD700D4EB6F /* resources-xxhdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi_clear"; path = "../../data/resources-xxhdpi_clear"; sourceTree = "<group>"; };
+		4A4765B21BA6FF5F00540CC4 /* city_rank.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = city_rank.txt; path = ../../data/city_rank.txt; sourceTree = "<group>"; };
 		4A7D89C11B2EBF3B00AC843E /* resources-6plus_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus_dark"; path = "../../data/resources-6plus_dark"; sourceTree = "<group>"; };
 		4A7D89C21B2EBF3B00AC843E /* resources-mdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi_dark"; path = "../../data/resources-mdpi_dark"; sourceTree = "<group>"; };
 		4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi_dark"; path = "../../data/resources-xhdpi_dark"; sourceTree = "<group>"; };
@@ -1818,6 +1820,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4A4765B21BA6FF5F00540CC4 /* city_rank.txt */,
 				4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */,
 				4A23D1571B8B4DD700D4EB6F /* resources-6plus_clear */,
 				4A23D1581B8B4DD700D4EB6F /* resources-mdpi_clear */,
@@ -2126,6 +2129,7 @@
 				97719D4B1843B86700BDD815 /* Main_iPad.storyboard in Resources */,
 				F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */,
 				F6BBF2C81B4FFB8C000CF8E2 /* MWMLocationAlert.xib in Resources */,
+				4A4765B31BA6FF5F00540CC4 /* city_rank.txt in Resources */,
 				97A5967F19B9CD47007A963F /* copyright.html in Resources */,
 				978F9247183B6671000D6C7C /* Main_iPhone.storyboard in Resources */,
 				4A7D89C51B2EBF3B00AC843E /* resources-6plus_dark in Resources */,
