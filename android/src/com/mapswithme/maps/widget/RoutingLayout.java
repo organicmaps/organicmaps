@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -286,15 +287,16 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
 
     if (Framework.getRouter() == Framework.ROUTER_TYPE_VEHICLE)
     {
-      mTvTurnDistance.setText(getSpannedDistance(UiUtils.dimen(R.dimen.text_size_display_1),
-                                                 UiUtils.dimen(R.dimen.text_size_toolbar), mCachedRoutingInfo.distToTurn, mCachedRoutingInfo.turnUnits.toLowerCase()));
+      mTvTurnDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_display_1), UiUtils.dimen(R.dimen.text_size_toolbar),
+                                               mCachedRoutingInfo.distToTurn, mCachedRoutingInfo.turnUnits));
       mCachedRoutingInfo.vehicleTurnDirection.setTurnDrawable(mIvTurn);
     }
     else
       refreshPedestrianAzimutAndDistance(mCachedRoutingInfo);
 
     mTvTotalTime.setText(formatRoutingTime(mCachedRoutingInfo.totalTimeInSeconds));
-    mTvTotalDistance.setText(mCachedRoutingInfo.distToTarget + " " + mCachedRoutingInfo.targetUnits);
+    mTvTotalDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_body_plus), UiUtils.dimen(R.dimen.text_size_subtitle),
+                                              mCachedRoutingInfo.distToTarget, mCachedRoutingInfo.targetUnits));
     mTvArrivalTime.setText(formatArrivalTime(mCachedRoutingInfo.totalTimeInSeconds));
     UiUtils.setTextAndHideIfEmpty(mTvNextStreet, mCachedRoutingInfo.nextStreet);
     mFpRouteProgress.setProgress((int) mCachedRoutingInfo.completionPercent);
@@ -307,8 +309,8 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
         info.pedestrianNextDirection.getLatitude(), info.pedestrianNextDirection.getLongitude(), location.getLatitude(), location.getLongitude(), mNorth);
 
     String[] splitDistance = distanceAndAzimut.getDistance().split(" ");
-    mTvTurnDistance.setText(getSpannedDistance(UiUtils.dimen(R.dimen.text_size_display_1),
-                                               UiUtils.dimen(R.dimen.text_size_toolbar), splitDistance[0], splitDistance[1].toLowerCase()));
+    mTvTurnDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_display_1), UiUtils.dimen(R.dimen.text_size_toolbar),
+                                             splitDistance[0], splitDistance[1]));
 
     if (info.pedestrianTurnDirection != null)
       info.pedestrianTurnDirection.setTurnDrawable(mIvTurn, distanceAndAzimut);
@@ -320,28 +322,34 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
     if (mCachedRoutingInfo == null)
       return;
 
-    mTvPrepareDistance.setText(mCachedRoutingInfo.distToTarget + " " + mCachedRoutingInfo.targetUnits.toUpperCase());
+    mTvPrepareDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_body_plus), UiUtils.dimen(R.dimen.text_size_subtitle),
+                                                mCachedRoutingInfo.distToTarget, mCachedRoutingInfo.targetUnits));
     mTvPrepareTime.setText(formatRoutingTime(mCachedRoutingInfo.totalTimeInSeconds));
   }
 
-  private static SpannableStringBuilder getSpannedDistance(int distTextSize, int unitsTextSize, String distToTarget, String units)
+  private static SpannableStringBuilder buildSpannedText(int mainTextSize, int unitsTextSize, String main, String units)
   {
-    SpannableStringBuilder builder = new SpannableStringBuilder(distToTarget).append(" ").append(units.toUpperCase());
-    builder.setSpan(new AbsoluteSizeSpan(distTextSize, false), 0, distToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new AbsoluteSizeSpan(unitsTextSize, false), distToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    SpannableStringBuilder builder = new SpannableStringBuilder(main).append(" ").append(units);
+    builder.setSpan(new AbsoluteSizeSpan(mainTextSize, false), 0, main.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new AbsoluteSizeSpan(unitsTextSize, false), main.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
     return builder;
   }
 
-  private static String formatRoutingTime(int seconds)
+  private static CharSequence formatRoutingTime(int seconds)
   {
-    long minutes = TimeUnit.SECONDS.toMinutes(seconds);
-    long hours = TimeUnit.MINUTES.toHours(minutes);
+    long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
+    long hours = TimeUnit.SECONDS.toHours(seconds);
     if (hours == 0 && minutes == 0)
-      // one minute is added to estimated time to destination point to prevent displaying that zero minutes are left to the finish near destination point
+      // one minute is added to estimated time to destination point to prevent displaying zero minutes left
       minutes++;
 
-    return String.format("%d:%02d", hours, minutes - TimeUnit.HOURS.toMinutes(hours));
+    return hours == 0 ?
+           buildSpannedText(UiUtils.dimen(R.dimen.text_size_body_plus), UiUtils.dimen(R.dimen.text_size_subtitle), String.valueOf(minutes), "min ") :
+           TextUtils.concat(buildSpannedText(UiUtils.dimen(R.dimen.text_size_body_plus), UiUtils.dimen(R.dimen.text_size_subtitle),
+                                             String.valueOf(hours), "h "),
+                            buildSpannedText(UiUtils.dimen(R.dimen.text_size_body_plus), UiUtils.dimen(R.dimen.text_size_subtitle),
+                                             String.valueOf(minutes), "min "));
   }
 
   private static String formatArrivalTime(int seconds)

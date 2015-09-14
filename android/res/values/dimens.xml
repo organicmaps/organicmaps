@@ -67,8 +67,8 @@
   <dimen name="margin_ruler_bottom">56dp</dimen>
 
   <!-- routing layout -->
-  <dimen name="height_routing_setup">56dp</dimen>
-  <dimen name="height_routing_turns">72dp</dimen>
+  <dimen name="height_routing_info">48dp</dimen>
+  <dimen name="padding_routing_turns">8dp</dimen>
 
   <!-- Bottom menu -->
   <dimen name="menu_line_height">48dp</dimen>

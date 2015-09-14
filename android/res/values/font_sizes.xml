@@ -11,10 +11,12 @@
   <dimen name="text_size_headline">28sp</dimen>
   <dimen name="text_size_title">24sp</dimen>
   <dimen name="text_size_toolbar">20sp</dimen>
+  <dimen name="text_size_body_plus">18sp</dimen>
   <dimen name="text_size_body_1">16sp</dimen>
   <dimen name="text_size_body_2">16sp</dimen>
   <dimen name="text_size_body_3">14sp</dimen>
   <dimen name="text_size_caption">14sp</dimen>
+  <dimen name="text_size_subtitle">12sp</dimen>
   <dimen name="text_size_icon_title">10sp</dimen>
   <dimen name="text_size_button">16sp</dimen>
 

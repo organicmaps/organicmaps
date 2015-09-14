@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                xmlns:wheel="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/layout__routing_setup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:clipToPadding="false">
-  <Button android:id="@+id/btn__start_routing"
-          style="@style/MwmWidget.Button.Blue"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/base_block_size"
-          android:layout_below="@+id/content"
-          android:gravity="center"
-          android:text="@string/routing_start"
-          android:textAllCaps="true"
-          android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
+<RelativeLayout
+    android:id="@+id/layout__routing_setup"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:orientation="vertical">
 
-  <LinearLayout android:id="@+id/content"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_routing_setup"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+  <LinearLayout
+      android:id="@+id/content"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_routing_info"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+
     <com.mapswithme.maps.widget.WheelProgressView
         android:id="@+id/wp__routing_progress"
         android:layout_width="@dimen/base_block_size"
@@ -30,8 +24,9 @@
         android:layout_weight="0"
         android:padding="@dimen/margin_quarter"
         android:visibility="gone"
+        android:background="?selectableItemBackgroundBorderless"
         wheel:centerDrawable="@drawable/ic_close"
-        wheel:wheelProgressColor="@color/base_green"
+        wheel:wheelProgressColor="@color/routing_blue"
         wheel:wheelSecondaryColor="@color/base_black_divider"
         wheel:wheelThickness="@dimen/margin_eighth"/>
 
@@ -53,29 +48,32 @@
         android:lines="1"
         android:text="@string/routing_planning"
         android:textAppearance="@style/MwmTextAppearance.Body3"
+        tools:visibility="gone"
         tools:text="Planning route..."/>
-
-    <TextView
-        android:id="@+id/tv__routing_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_base"
-        android:layout_weight="0"
-        android:fontFamily="@string/robotoMedium"
-        android:textAppearance="@style/MwmTextAppearance.Body1"
-        android:visibility="gone"
-        tools:text="16 min"/>
 
     <TextView
         android:id="@+id/tv__routing_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_base"
-        android:layout_weight="1"
-        android:fontFamily="@string/robotoMedium"
-        android:textAppearance="@style/MwmTextAppearance.Body1"
+        android:layout_marginLeft="@dimen/margin_base"
+        android:layout_marginRight="@dimen/margin_base"
+        android:layout_weight="0"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
         android:visibility="gone"
+        tools:visibility="visible"
         tools:text="38 km"/>
+
+    <TextView
+        android:id="@+id/tv__routing_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_base"
+        android:layout_marginRight="@dimen/margin_base"
+        android:layout_weight="1"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="16 min"/>
 
     <RadioGroup
         android:id="@+id/rg__router"
@@ -96,5 +94,18 @@
           android:layout_height="match_parent"
           android:button="@drawable/selector_vehicle"/>
     </RadioGroup>
+
   </LinearLayout>
+
+  <Button
+      android:id="@+id/btn__start_routing"
+      style="@style/MwmWidget.Button.Blue"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/base_block_size"
+      android:layout_below="@id/content"
+      android:gravity="center"
+      android:text="@string/routing_start"
+      android:textAllCaps="true"
+      android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
+
 </RelativeLayout>

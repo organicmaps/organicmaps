@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/turns"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/panel_width"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:padding="@dimen/padding_routing_turns">
+
+  <com.mapswithme.maps.widget.ArrowView
+      android:id="@+id/iv__turn"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:src="@drawable/ic_slight_left_light"/>
+
+  <TextView
+      android:id="@+id/tv__turn_distance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/margin_base"
+      android:layout_toRightOf="@+id/iv__turn"
+      android:textAppearance="@style/MwmTextAppearance.Display1.Plus"
+      android:textColor="@color/routing_blue"
+      tools:text="300 m"/>
+
+  <TextView
+      android:id="@+id/tv__next_street"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/tv__turn_distance"
+      android:layout_below="@id/tv__turn_distance"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      android:textSize="@dimen/text_size_title"
+      android:maxLines="2"
+      tools:text="Oxford str."
+      tools:visibility="visible"/>
+</RelativeLayout>

@@ -38,7 +38,7 @@
       android:layout_marginLeft="@dimen/margin_double_plus"
       android:layout_marginTop="@dimen/margin_base"
       android:layout_toRightOf="@id/btn__close"
-      tools:src="@drawable/ic_slight_compact"/>
+      tools:src="@drawable/ic_slight_left_light"/>
 
   <TextView
       android:id="@+id/tv__turn_distance"
@@ -47,7 +47,7 @@
       android:layout_marginLeft="@dimen/margin_base"
       android:layout_toRightOf="@id/iv__turn"
       android:textAppearance="@style/MwmTextAppearance.Display1.Plus"
-      android:textColor="@color/text_turn_blue"
+      android:textColor="@color/routing_blue"
       tools:text="300 m"/>
 
   <TextView
@@ -57,6 +57,7 @@
       android:layout_alignLeft="@id/tv__turn_distance"
       android:layout_alignParentRight="true"
       android:layout_below="@id/tv__turn_distance"
+      android:maxLines="2"
       android:textAppearance="@style/MwmTextAppearance.Body2"
       android:textSize="@dimen/text_size_title"
       tools:text="Oxford str."

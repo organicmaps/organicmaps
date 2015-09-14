@@ -46,6 +46,9 @@ public class FlatProgressView extends View
 
   private void init(AttributeSet attrs, int defStyleAttr)
   {
+    if (isInEditMode())
+      return;
+
     TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.FlatProgressView, defStyleAttr, 0);
     setThickness(ta.getDimensionPixelSize(R.styleable.FlatProgressView_progressThickness, 1));
     setSecondaryThickness(ta.getDimensionPixelSize(R.styleable.FlatProgressView_secondaryProgressThickness, 1));

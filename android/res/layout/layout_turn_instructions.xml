@@ -9,7 +9,7 @@
   <LinearLayout
       android:id="@+id/time_distance"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/height_item_oneline"
+      android:layout_height="@dimen/height_routing_info"
       android:gravity="center_vertical"
       android:orientation="horizontal"
       android:padding="@dimen/margin_quarter">
@@ -57,42 +57,6 @@
 
   </LinearLayout>
 
-  <RelativeLayout
-      android:id="@+id/turns"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/time_distance"
-      android:padding="@dimen/margin_base">
-
-    <com.mapswithme.maps.widget.ArrowView
-        android:id="@+id/iv__turn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_base_plus"
-        tools:src="@drawable/ic_slight_compact"/>
-
-    <TextView
-        android:id="@+id/tv__turn_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_base"
-        android:layout_toRightOf="@id/iv__turn"
-        android:textAppearance="@style/MwmTextAppearance.Display1.Plus"
-        android:textColor="@color/text_turn_blue"
-        tools:text="300 m"/>
-
-    <TextView
-        android:id="@+id/tv__next_street"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/tv__turn_distance"
-        android:layout_below="@id/tv__turn_distance"
-        android:textAppearance="@style/MwmTextAppearance.Body2"
-        android:textSize="@dimen/text_size_title"
-        tools:text="Oxford str."
-        tools:visibility="visible"/>
-  </RelativeLayout>
-
   <com.mapswithme.maps.widget.FlatProgressView
       android:id="@+id/fp__route_progress"
       android:layout_width="match_parent"
@@ -103,4 +67,12 @@
       app:progressThickness="4dp"
       app:secondaryProgressColor="@color/base_black_divider"
       app:secondaryProgressThickness="2dp"/>
+
+  <include
+      android:id="@+id/turns"
+      layout="@layout/layout_turn_and_street"
+      android:layout_width="@dimen/panel_width"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/fp__route_progress"
+      android:layout_centerHorizontal="true"/>
 </RelativeLayout>

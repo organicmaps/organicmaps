@@ -35,26 +35,26 @@ public class RoutingInfo
    */
   public enum VehicleTurnDirection
   {
-    NO_TURN(R.drawable.ic_straight_compact),
-    GO_STRAIGHT(R.drawable.ic_straight_compact),
+    NO_TURN(R.drawable.ic_straight_light),
+    GO_STRAIGHT(R.drawable.ic_straight_light),
 
-    TURN_RIGHT(R.drawable.ic_simple_compact),
-    TURN_SHARP_RIGHT(R.drawable.ic_sharp_compact),
-    TURN_SLIGHT_RIGHT(R.drawable.ic_slight_compact),
+    TURN_RIGHT(R.drawable.ic_simple_right_light),
+    TURN_SHARP_RIGHT(R.drawable.ic_sharp_right_light),
+    TURN_SLIGHT_RIGHT(R.drawable.ic_slight_right_light),
 
-    TURN_LEFT(R.drawable.ic_simple_compact),
-    TURN_SHARP_LEFT(R.drawable.ic_sharp_compact),
-    TURN_SLIGHT_LEFT(R.drawable.ic_slight_compact),
+    TURN_LEFT(R.drawable.ic_simple_right_light),
+    TURN_SHARP_LEFT(R.drawable.ic_sharp_right_light),
+    TURN_SLIGHT_LEFT(R.drawable.ic_slight_right_light),
 
-    U_TURN(R.drawable.ic_uturn),
-    TAKE_THE_EXIT(R.drawable.ic_finish_point),
+    U_TURN(R.drawable.ic_uturn_light),
+    TAKE_THE_EXIT(R.drawable.ic_finish_point_light),
 
-    ENTER_ROUND_ABOUT(R.drawable.ic_round_compact),
-    LEAVE_ROUND_ABOUT(R.drawable.ic_round_compact),
-    STAY_ON_ROUND_ABOUT(R.drawable.ic_round_compact),
+    ENTER_ROUND_ABOUT(R.drawable.ic_round_light),
+    LEAVE_ROUND_ABOUT(R.drawable.ic_round_light),
+    STAY_ON_ROUND_ABOUT(R.drawable.ic_round_light),
 
     START_AT_THE_END_OF_STREET(0),
-    REACHED_YOUR_DESTINATION(0);
+    REACHED_YOUR_DESTINATION(R.drawable.ic_finish_point_light);
 
     private int mTurnRes;
 
@@ -92,7 +92,7 @@ public class RoutingInfo
 
     public void setTurnDrawable(ImageView view, DistanceAndAzimut distanceAndAzimut)
     {
-      view.setImageResource(R.drawable.ic_direction_pedestrian);
+      view.setImageResource(R.drawable.ic_direction_light);
       view.setRotation((float) Math.toDegrees(distanceAndAzimut.getAzimuth()));
     }
   }
