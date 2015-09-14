@@ -73,9 +73,10 @@ public:
   double GetMercatorDistanceFromBegin() const;
 
   void GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
-  /// Returns turn after current.
-  /// Fills the field distanceToTurnMeters with distance for current possition to
-  /// the turn after the next turn.
+  /// @return true if GetNextTurn() returns a valid result in parameters, false otherwise.
+  /// \param distanceToTurnMeters is a distance from current possition to the second turn.
+  /// \param turn is information about the second turn.
+  /// \note All parameters are filled while a GetNextTurn function call.
   bool GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const;

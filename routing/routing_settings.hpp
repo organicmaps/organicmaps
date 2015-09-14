@@ -29,7 +29,7 @@ struct RoutingSettings
   /// routing.
   bool m_keepPedestrianInfo;
 
-  /// \brief if m_showTurnAfterNextInfo is equal to true end users see a notification
+  /// \brief if m_showTurnAfterNext is equal to true end users see a notification
   /// about the turn after the next in some cases.
   bool m_showTurnAfterNext;
 };
