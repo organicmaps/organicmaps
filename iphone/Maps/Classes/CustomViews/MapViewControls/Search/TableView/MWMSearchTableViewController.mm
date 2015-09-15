@@ -246,10 +246,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     view.noResultsView.hidden = NO;
     view.noResultsText.text = L(@"search_not_found_query");
     if (self.searchOnMap)
-    {
-      ToastView * toastView = [[ToastView alloc] initWithMessage:view.noResultsText.text];
-      [toastView show];
-    }
+      [[[ToastView alloc] initWithMessage:view.noResultsText.text] show];
   }
   else
   {
@@ -286,10 +283,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  double lat, lon;
-  if (![MapsAppDelegate.theApp.m_locationManager getLat:lat Lon:lon])
-    return;
-  searchParams.SetPosition(lat, lon);
+  searchParams.SetPosition(info.m_latitude, info.m_longitude);
   [self updateSearchResultsInTable];
 }
 

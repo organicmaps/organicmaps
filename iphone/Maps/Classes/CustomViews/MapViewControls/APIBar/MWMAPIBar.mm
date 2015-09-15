@@ -76,6 +76,8 @@ static NSString * const kKeyPath = @"subviews";
 
 - (void)setIsVisible:(BOOL)isVisible
 {
+  // Status bar in iOS 9 already provides back button if the app has been launched from another app.
+  // For iOS version less than 9 we just try to mimic the default iOS 9 status bar.
   if (!isIOSVersionLessThan(9))
     return;
   if (_isVisible == isVisible)
@@ -84,7 +86,7 @@ static NSString * const kKeyPath = @"subviews";
   if (isVisible)
   {
     self.backLabel.text =
-        [NSString stringWithFormat:@"%@ %@", L(@"back_to"),
+        [NSString stringWithFormat:@"%@%@", L(@"back_to"),
                                    @(GetFramework().GetApiDataHolder().GetAppTitle().c_str())];
     [self.controller.view addSubview:self.rootView];
     [self.controller.view addObserver:self

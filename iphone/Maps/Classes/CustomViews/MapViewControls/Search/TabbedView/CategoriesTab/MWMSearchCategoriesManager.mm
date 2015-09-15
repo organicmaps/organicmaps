@@ -10,7 +10,7 @@ static NSString * const kCellIdentifier = @"MWMSearchCategoryCell";
 static char const * categoriesNames[] = {
     "food", "hotel", "tourism",       "wifi",     "transport", "fuel",   "parking", "shop",
     "atm",  "bank",  "entertainment", "hospital", "pharmacy",  "police", "toilet",  "post"};
-static size_t const kCategoriesCount = ARRAY_SIZE(categoriesNames);
+static size_t constexpr kCategoriesCount = ARRAY_SIZE(categoriesNames);
 
 @implementation MWMSearchCategoriesManager
 

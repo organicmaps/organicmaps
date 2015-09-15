@@ -1,4 +1,3 @@
-//#import "MWMSearchBookmarksManager.h"
 #import "MWMSearchCategoriesManager.h"
 #import "MWMSearchHistoryManager.h"
 #import "MWMSearchTabbedCollectionViewCell.h"
@@ -13,7 +12,6 @@ typedef NS_ENUM(NSInteger, MWMSearchTabbedViewCell)
 {
   MWMSearchTabbedViewCellHistory,
   MWMSearchTabbedViewCellCategories,
-//  MWMSearchTabbedViewCellBookmarks,
   MWMSearchTabbedViewCellCount
 };
 
@@ -33,7 +31,6 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 @property (nonatomic) MWMSearchHistoryManager * historyManager;
 @property (nonatomic) MWMSearchCategoriesManager * categoriesManager;
-//@property (nonatomic) MWMSearchBookmarksManager * bookmarksManager;
 
 @property (nonatomic) BOOL isRotating;
 
@@ -108,7 +105,6 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 {
   self.categoriesManager = [[MWMSearchCategoriesManager alloc] init];
   self.historyManager = [[MWMSearchHistoryManager alloc] init];
-//  self.bookmarksManager = [[MWMSearchBookmarksManager alloc] init];
 }
 
 - (void)tabButtonPressed:(MWMSearchTabButtonsView *)sender
@@ -167,9 +163,6 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
     case MWMSearchTabbedViewCellCategories:
       [self.categoriesManager attachCell:cell];
       break;
-//    case MWMSearchTabbedViewCellBookmarks:
-//      [self.bookmarksManager attachCell:cell];
-//      break;
     default:
       break;
   }
@@ -203,7 +196,6 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 - (void)setDelegate:(id<MWMSearchTabbedViewProtocol>)delegate
 {
   _delegate = self.categoriesManager.delegate = self.historyManager.delegate = delegate;
-//      self.bookmarksManager.delegate = delegate;
 }
 
 - (void)setSelectedButtonTag:(NSInteger)selectedButtonTag

@@ -44,7 +44,6 @@ extern NSString * const kMwmTextToSpeechDisable;
   if (!sound && !nosound)
     return NO;
 
-  // turn notification
   if (sound)
     [[NSNotificationCenter defaultCenter] postNotificationName:kMwmTextToSpeechEnable object:nil];
   if (nosound)
