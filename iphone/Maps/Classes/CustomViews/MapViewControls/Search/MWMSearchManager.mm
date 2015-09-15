@@ -15,7 +15,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @interface MWMSearchManager ()<MWMSearchTableViewProtocol, MWMSearchDownloadProtocol,
                                MWMSearchTabbedViewProtocol, ActiveMapsObserverProtocol,
-                               MWMSearchTabButtonsViewProtocol>
+                               MWMSearchTabButtonsViewProtocol, UITextFieldDelegate>
 
 @property (weak, nonatomic) UIView * parentView;
 @property (nonatomic) IBOutlet MWMSearchView * rootView;
@@ -125,6 +125,14 @@ extern NSString * const kAlohalyticsTapEventKey;
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
   [self.navigationController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(nonnull UITextField *)textField
+{
+  [textField resignFirstResponder];
+  return YES;
 }
 
 #pragma mark - MWMSearchTabbedViewProtocol
