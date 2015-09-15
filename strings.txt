@@ -14191,3 +14191,16 @@
     pl = Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.
     nl = Snel toegang tot recente zoekopdrachten.
     pt = Acesse os termos de busca recentes rapidamente.
+
+  [update_maps_alert_title]
+    tags = ios, android
+    ru = Ориентироваться стало проще
+
+  [update_maps_alert_message]
+    tags = ios, android
+    ru = Мы улучшили стили карт: теперь все объекты выглядят дружелюбнее и понятнее. Обновите карты, что бы использовать все преимущества нового дизайна.
+
+  [update_maps_alert_button_title]
+    tags = ios, android
+    en = Update All Maps
+ 
