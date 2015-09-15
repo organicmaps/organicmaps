@@ -79,12 +79,12 @@ BuildSkin legacy light xhdpi  36 false
 BuildSkin legacy light xxhdpi 48 false
 BuildSkin legacy light 6plus  38 false
 
-BuildSkin legacy dark  ldpi   16 false _dark
-BuildSkin legacy dark  mdpi   16 false _dark
-BuildSkin legacy dark  hdpi   24 false _dark
-BuildSkin legacy dark  xhdpi  36 false _dark
-BuildSkin legacy dark  xxhdpi 48 false _dark
-BuildSkin legacy dark  6plus  38 false _dark
+BuildSkin clear  night ldpi   16 false _dark
+BuildSkin clear  night mdpi   16 false _dark
+BuildSkin clear  night hdpi   24 false _dark
+BuildSkin clear  night xhdpi  36 false _dark
+BuildSkin clear  night xxhdpi 48 false _dark
+BuildSkin clear  night 6plus  38 false _dark
 
 BuildSkin clear  clear ldpi   16 false _clear
 BuildSkin clear  clear mdpi   16 false _clear

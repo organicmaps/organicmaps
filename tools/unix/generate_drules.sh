@@ -26,9 +26,9 @@ do
 done
 
 # Building drawing rules
-BuildDrawingRules legacy light
-BuildDrawingRules legacy dark  _dark
 BuildDrawingRules clear  clear _clear
+BuildDrawingRules clear  night _dark
+BuildDrawingRules legacy light
 
 echo "Done"
 exit 0 # ok
