@@ -208,7 +208,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   [self endSearch];
   GetFramework().GetCountryTree().GetActiveMapLayout().RemoveListener(m_mapsObserverSlotId);
-  self.tabbedController.selectedButtonTag = 0;
+  [self.tabbedController resetSelectedTab];
   self.tableViewController = nil;
   self.downloadController = nil;
   self.rootView.isVisible = NO;

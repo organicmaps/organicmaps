@@ -6,6 +6,8 @@
 #import "MWMSearchTabbedViewProtocol.h"
 #import "UIKitCategories.h"
 
+#include "Framework.h"
+
 static NSString * const kCollectionCell = @"MWMSearchTabbedCollectionViewCell";
 
 typedef NS_ENUM(NSInteger, MWMSearchTabbedViewCell)
@@ -33,6 +35,7 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 @property (nonatomic) MWMSearchCategoriesManager * categoriesManager;
 
 @property (nonatomic) BOOL isRotating;
+@property (nonatomic) NSInteger selectedButtonTag;
 
 @end
 
@@ -50,7 +53,12 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 {
   [super viewDidLoad];
   [self setupCollectionView];
-  self.selectedButtonTag = 0;
+  [self resetSelectedTab];
+}
+
+- (void)resetSelectedTab
+{
+  self.selectedButtonTag = GetFramework().GetLastSearchQueries().empty() ? 1 : 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
