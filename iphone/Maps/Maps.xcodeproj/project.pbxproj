@@ -254,6 +254,9 @@
 		F6BD33841B6240F200F2CE18 /* MWMNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BD33831B6240F200F2CE18 /* MWMNavigationView.m */; };
 		F6BD33871B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD33861B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm */; };
 		F6C6FE201AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C6FE1F1AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm */; };
+		F6C7B7121BA840A4004233F4 /* resources-xhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1591B8B4DD700D4EB6F /* resources-xhdpi_clear */; };
+		F6C7B7131BA840A4004233F4 /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */; };
+		F6C7B7141BA8443C004233F4 /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */; };
 		F6C9343C1AE4F94A00DDC624 /* MWMAnimator.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C9343B1AE4F94A00DDC624 /* MWMAnimator.mm */; };
 		F6C934401AE64E4200DDC624 /* MWMSpringAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C9343F1AE64E4200DDC624 /* MWMSpringAnimation.mm */; };
 		F6CB215C1AEE704D00FB8963 /* PlacePageInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6CB215B1AEE704D00FB8963 /* PlacePageInfoCell.xib */; };
@@ -2179,6 +2182,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6C7B7141BA8443C004233F4 /* drules_proto_clear.bin in Resources */,
+				F6C7B7121BA840A4004233F4 /* resources-xhdpi_clear in Resources */,
+				F6C7B7131BA840A4004233F4 /* resources-xhdpi_dark in Resources */,
 				343F26311AEFDF3E00388A6D /* resources-xhdpi in Resources */,
 				6C47C8BF1AD6C47E000C52C1 /* Localizable.strings in Resources */,
 				4579C8A01AD2FAB1001D6B90 /* 00_roboto_regular.ttf in Resources */,
