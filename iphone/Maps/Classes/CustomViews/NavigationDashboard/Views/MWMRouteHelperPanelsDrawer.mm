@@ -95,7 +95,7 @@ static CGFloat const kOffsetBetweenPanels = 8.;
 
 - (CGFloat)firstPanelTopOffset
 {
-  return self.topView.maxY + (IPAD ? 0. : kOffsetBetweenPanels);
+  return IPAD ? self.topView.height : self.topView.maxY + kOffsetBetweenPanels;
 }
 
 @end
