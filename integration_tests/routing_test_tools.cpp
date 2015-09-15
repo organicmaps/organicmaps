@@ -27,6 +27,8 @@
 #include "search/search_engine.hpp"
 #include "search/search_query_factory.hpp"
 
+#include "private.h"
+
 #include <sys/resource.h>
 
 

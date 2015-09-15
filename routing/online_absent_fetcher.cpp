@@ -1,6 +1,4 @@
 #include "online_absent_fetcher.hpp"
-
-#include "defines.hpp"
 #include "online_cross_fetcher.hpp"
 
 #include "platform/platform.hpp"
@@ -8,6 +6,8 @@
 #include "platform/local_country_file.hpp"
 
 #include "std/vector.hpp"
+
+#include "private.h"
 
 using platform::CountryFile;
 using platform::LocalCountryFile;

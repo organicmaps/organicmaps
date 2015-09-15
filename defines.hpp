@@ -34,13 +34,6 @@
 #define ROUTING_FTSEG_FILE_TAG  "ftseg"
 #define ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG  "node2ftseg"
 
-// Switch to a development osrm server for online checking of the absent contries.
-#ifdef DEV_OSRM_SERVER
-#define OSRM_ONLINE_SERVER_URL "http://osrm.online.dev.server"
-#else
-#define OSRM_ONLINE_SERVER_URL "http://osrm.online.server"
-#endif
-
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume3"
 #define DOWNLOADING_FILE_EXTENSION ".downloading3"

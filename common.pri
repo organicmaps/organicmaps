@@ -220,6 +220,10 @@ win32* {
     QMAKE_MOC = $$[QT_INSTALL_BINS]/moc -DBOOST_TT_HAS_OPERATOR_HPP_INCLUDED
 }
 
+# Include with private variables.
+HEADERS += \
+  $$ROOT_DIR/private.h
+
 # Standard includes wrappers.
 HEADERS += \
   $$ROOT_DIR/std/algorithm.hpp \

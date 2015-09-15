@@ -11,6 +11,8 @@
 #include "std/target_os.hpp"
 #include "std/thread.hpp"
 
+#include "private.h"
+
 #include <errno.h>
 
 // static
@@ -71,17 +73,17 @@ string Platform::HashUniqueID(string const & s)
 
 string Platform::ResourcesMetaServerUrl() const
 {
-  return "http://active.resources.servers.url";
+  return RESOURCES_METASERVER_URL;
 }
 
 string Platform::MetaServerUrl() const
 {
-  return "http://active.servers.url";
+  return METASERVER_URL;
 }
 
 string Platform::DefaultUrlsJSON() const
 {
-  return "[\"http://v2s-1.mapswithme.com/\",\"http://v2s-2.mapswithme.com/\",\"http://v2s-3.mapswithme.com/\"]";
+  return DEFAULT_URLS_JSON;
 }
 
 void Platform::GetFontNames(FilesList & res) const

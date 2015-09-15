@@ -9,7 +9,7 @@
 
 #include "3party/jansson/myjansson.hpp"
 
-#define MWM_GEOLOCATION_SERVER "http://geolocation.server/"
+#include "private.h"
 
 
 namespace location
