@@ -16,14 +16,14 @@ public class Language
   private final static String TAG = "Language";
   // Locale.getLanguage() returns even 3-letter codes, not that we need in the C++ core,
   // so we use locale itself, like zh_CN
-  static public String getDefaultLocale()
+  public static String getDefaultLocale()
   {
     return Locale.getDefault().toString();
   }
 
   // After some testing on Galaxy S4, looks like this method doesn't work on all devices:
   // sometime it always returns the same value as getDefaultLocale()
-  static public String getKeyboardLocale()
+  public static String getKeyboardLocale()
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
@@ -42,7 +42,7 @@ public class Language
   // Converts Locale to twine language name.
   // If locale can be converted returns a twine language name. For example zh-Hans, ru, en and so on.
   // If not returns an empty string.
-  static public String localeToTwineLanguage(Locale locale)
+  public static String localeToTwineLanguage(Locale locale)
   {
     if (locale == null)
     {
@@ -52,12 +52,21 @@ public class Language
 
     final String chinese = Locale.CHINESE.getLanguage();
     final String language = locale.getLanguage();
+    final String country = locale.getCountry();
+
+    if (chinese == null || language == null || country == null)
+    {
+      Log.e(TAG, "Methods Locale.getLanguage or Locale.getCountry return null.");
+      return "";
+    }
 
     if (chinese.equals(language))
     {
-      if (Locale.SIMPLIFIED_CHINESE.equals(locale))
-        return "zh-Hans"; // Chinese simplified
-      return "zh-Hant"; // Chinese traditional
+      if (country.equals("TW") || country.equals("MO") || country.equals("HK"))
+      {
+        return "zh-Hant"; // Chinese traditional
+      }
+      return "zh-Hans"; // Chinese simplified
     }
     if (TextUtils.isEmpty(language))
     {
