@@ -51,13 +51,19 @@ void Navigator::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxR
 
 void Navigator::SetFromRect(m2::AnyRectD const & r)
 {
+  VisualParams const & p = VisualParams::Instance();
+  SetFromRect(r, p.GetTileSize(), p.GetVisualScale());
+}
+
+void Navigator::SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double visualScale)
+{
   m2::RectD const & worldR = df::GetWorldRect();
 
   ScreenBase tmp = m_Screen;
 
   tmp.SetFromRect(r);
   tmp = ScaleInto(tmp, worldR);
-  if (CheckMaxScale(tmp))
+  if (CheckMaxScale(tmp, tileSize, visualScale))
     m_Screen = tmp;
 
   if (!m_InAction)
@@ -382,7 +388,13 @@ bool Navigator::CheckMinScale(ScreenBase const & screen) const
 
 bool Navigator::CheckMaxScale(ScreenBase const & screen) const
 {
-  return (df::GetDrawTileScale(screen) <= scales::GetUpperStyleScale());
+  VisualParams const & p = VisualParams::Instance();
+  return CheckMaxScale(screen, p.GetTileSize(), p.GetVisualScale());
+}
+
+bool Navigator::CheckMaxScale(ScreenBase const & screen, uint32_t tileSize, double visualScale) const
+{
+  return (df::GetDrawTileScale(screen, tileSize, visualScale) <= scales::GetUpperStyleScale());
 }
 
 bool Navigator::CheckBorders(ScreenBase const & screen) const
@@ -506,33 +518,46 @@ m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)
                       m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
 }
 
-void CheckMinGlobalRect(m2::RectD & rect)
+void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale)
 {
-  m2::RectD const minRect = df::GetRectForDrawScale(scales::GetUpperStyleScale(), rect.Center());
+  m2::RectD const minRect = df::GetRectForDrawScale(scales::GetUpperStyleScale(), rect.Center(), tileSize, visualScale);
   if (minRect.IsRectInside(rect))
     rect = minRect;
 }
 
-void CheckMinMaxVisibleScale(TIsCountryLoaded const & fn, m2::RectD & rect, int maxScale)
+void CheckMinGlobalRect(m2::RectD & rect)
 {
-  CheckMinGlobalRect(rect);
+  VisualParams const & p = VisualParams::Instance();
+  CheckMinGlobalRect(rect, p.GetTileSize(), p.GetVisualScale());
+}
+
+void CheckMinMaxVisibleScale(TIsCountryLoaded const & fn, m2::RectD & rect, int maxScale,
+                             uint32_t tileSize, double visualScale)
+{
+  CheckMinGlobalRect(rect, tileSize, visualScale);
 
   m2::PointD const c = rect.Center();
   int const worldS = scales::GetUpperWorldScale();
 
-  int scale = df::GetDrawTileScale(rect);
+  int scale = df::GetDrawTileScale(rect, tileSize, visualScale);
   if (scale > worldS && !fn(c))
   {
     // country is not loaded - limit on world scale
-    rect = df::GetRectForDrawScale(worldS, c);
+    rect = df::GetRectForDrawScale(worldS, c, tileSize, visualScale);
     scale = worldS;
   }
 
   if (maxScale != -1 && scale > maxScale)
   {
     // limit on passed maximal scale
-    rect = df::GetRectForDrawScale(maxScale, c);
+    rect = df::GetRectForDrawScale(maxScale, c, tileSize, visualScale);
   }
+}
+
+void CheckMinMaxVisibleScale(TIsCountryLoaded const & fn, m2::RectD & rect, int maxScale)
+{
+  VisualParams const & p = VisualParams::Instance();
+  CheckMinMaxVisibleScale(fn, rect, maxScale, p.GetTileSize(), p.GetVisualScale());
 }
 
 } // namespace df

@@ -11,6 +11,7 @@
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/user_event_stream.hpp"
+#include "drape_frontend/watch/frame_image.hpp"
 
 #include "drape/oglcontextfactory.hpp"
 
@@ -19,8 +20,6 @@
 
 #include "search/query_saver.hpp"
 #include "search/search_engine.hpp"
-
-#include "render/frame_image.hpp"
 
 #include "storage/storage.hpp"
 
@@ -58,6 +57,14 @@ class CountryInfoGetter;
 namespace routing { namespace turns{ class Settings; } }
 
 class StorageBridge;
+
+namespace df
+{
+  namespace watch
+  {
+    class CPUDrawer;
+  }
+}
 
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
@@ -105,6 +112,7 @@ protected:
 
   drape_ptr<StorageBridge> m_storageBridge;
   drape_ptr<df::DrapeEngine> m_drapeEngine;
+  drape_ptr<df::watch::CPUDrawer> m_cpuDrawer;
 
   double m_startForegroundTime;
 
@@ -135,16 +143,9 @@ public:
   Framework();
   virtual ~Framework();
 
-  struct SingleFrameSymbols
-  {
-    m2::PointD m_searchResult;
-    bool m_showSearchResult = false;
-    int m_bottomZoom = -1;
-  };
+  void InitWatchFrameRenderer(float visualScale);
 
-  /// @param density - for Retina Display you must use EDensityXHDPI
-  void InitSingleFrameRenderer(float visualScale);
-  /// @param center - map center in ercator
+  /// @param center - map center in Mercator
   /// @param zoomModifier - result zoom calculate like "base zoom" + zoomModifier
   ///                       if we are have search result "base zoom" calculate that my position and search result
   ///                       will be see with some bottom clamp.
@@ -153,12 +154,14 @@ public:
   ///                  It must be equal render buffer width. For retina it's equal 2.0 * displayWidth
   /// @param pxHeight - result image height.
   ///                   It must be equal render buffer height. For retina it's equal 2.0 * displayHeight
+  /// @param symbols - configuration for symbols on the frame
   /// @param image [out] - result image
-  void DrawSingleFrame(m2::PointD const & center, int zoomModifier,
-                       uint32_t pxWidth, uint32_t pxHeight, FrameImage & image,
-                       SingleFrameSymbols const & symbols);
-  void ReleaseSingleFrameRenderer();
-  bool IsSingleFrameRendererInited() const;
+  void DrawWatchFrame(m2::PointD const & center, int zoomModifier,
+                      uint32_t pxWidth, uint32_t pxHeight,
+                      df::watch::FrameSymbols const & symbols,
+                      df::watch::FrameImage & image);
+  void ReleaseWatchFrameRenderer();
+  bool IsWatchFrameRendererInited() const;
 
   /// Registers all local map files in internal indexes.
   void RegisterAllMaps();

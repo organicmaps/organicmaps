@@ -7,6 +7,7 @@ include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
 INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
+INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
 #DEFINES += DRAW_INFO
 
 SOURCES += \
@@ -74,6 +75,17 @@ SOURCES += \
     viewport.cpp \
     visual_params.cpp \
     kinetic_scroller.cpp \
+    watch/cpu_drawer.cpp \
+    watch/software_renderer.cpp \
+    watch/proto_to_styles.cpp \
+    watch/text_engine.cpp \
+    watch/feature_styler.cpp \
+    watch/glyph_cache.cpp \
+    watch/glyph_cache_impl.cpp \
+    watch/geometry_processors.cpp \
+    watch/feature_processor.cpp \
+    watch/agg_curves.cpp \
+    watch/default_font.cpp \
 
 HEADERS += \
     animation/base_interpolator.hpp \
@@ -146,3 +158,22 @@ HEADERS += \
     viewport.hpp \
     visual_params.hpp \
     kinetic_scroller.hpp \
+    watch/cpu_drawer.hpp \
+    watch/software_renderer.hpp \
+    watch/proto_to_styles.hpp \
+    watch/text_engine.h \
+    watch/point.h \
+    watch/rect.h \
+    watch/path_info.hpp \
+    watch/area_info.hpp \
+    watch/frame_image.hpp \
+    watch/feature_styler.hpp \
+    watch/glyph_cache.hpp \
+    watch/glyph_cache_impl.hpp \
+    watch/freetype.hpp \
+    watch/circle_info.hpp \
+    watch/pen_info.hpp \
+    watch/icon_info.hpp \
+    watch/brush_info.hpp \
+    watch/geometry_processors.hpp \
+    watch/feature_processor.hpp \

@@ -63,7 +63,7 @@ VisualParams & VisualParams::Instance()
   return g_VizParams;
 }
 
-string const & VisualParams::GetResourcePostfix() const
+string const & VisualParams::GetResourcePostfix(double visualScale, bool isYotaDevice)
 {
   static visual_scale_t postfixes[] =
   {
@@ -80,12 +80,17 @@ string const & VisualParams::GetResourcePostfix() const
     "yota"
   };
 
-  if (m_isYotaDevice)
+  if (isYotaDevice)
     return specifixPostfixes[0];
 
-  visual_scale_t * finded = find_if(postfixes, postfixes + ARRAY_SIZE(postfixes), VisualScaleFinder(m_visualScale));
+  visual_scale_t * finded = find_if(postfixes, postfixes + ARRAY_SIZE(postfixes), VisualScaleFinder(visualScale));
   ASSERT(finded < postfixes + ARRAY_SIZE(postfixes), ());
   return finded->first;
+}
+
+string const & VisualParams::GetResourcePostfix() const
+{
+  return VisualParams::GetResourcePostfix(m_visualScale, m_isYotaDevice);
 }
 
 double VisualParams::GetVisualScale() const
@@ -120,13 +125,13 @@ m2::RectD const & GetWorldRect()
   return worldRect;
 }
 
-int GetTileScaleBase(ScreenBase const & s)
+int GetTileScaleBase(ScreenBase const & s, uint32_t tileSize)
 {
   ScreenBase tmpS = s;
   tmpS.Rotate(-tmpS.GetAngle());
 
   // slightly smaller than original to produce "antialiasing" effect using bilinear filtration.
-  int const halfSize = static_cast<int>(VisualParams::Instance().GetTileSize() / 1.05 / 2.0);
+  int const halfSize = static_cast<int>(tileSize / 1.05 / 2.0);
 
   m2::RectD glbRect;
   m2::PointD const pxCenter = tmpS.PixelRect().Center();
@@ -137,22 +142,32 @@ int GetTileScaleBase(ScreenBase const & s)
   return GetTileScaleBase(glbRect);
 }
 
+int GetTileScaleBase(ScreenBase const & s)
+{
+  return GetTileScaleBase(s, VisualParams::Instance().GetTileSize());
+}
+
 int GetTileScaleBase(m2::RectD const & r)
 {
   double const sz = max(r.SizeX(), r.SizeY());
   return max(1, my::rounds(log((MercatorBounds::maxX - MercatorBounds::minX) / sz) / log(2.0)));
 }
 
+int GetTileScaleIncrement(uint32_t tileSize, double visualScale)
+{
+  return log(tileSize / 256.0 / visualScale) / log(2.0);
+}
+
 int GetTileScaleIncrement()
 {
   VisualParams const & p = VisualParams::Instance();
-  return log(p.GetTileSize() / 256.0 / p.GetVisualScale()) / log(2.0);
+  return GetTileScaleIncrement(p.GetTileSize(), p.GetVisualScale());
 }
 
-m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center)
+m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center, uint32_t tileSize, double visualScale)
 {
   // +1 - we will calculate half length for each side
-  double const factor = 1 << (max(1, drawScale - GetTileScaleIncrement()) + 1);
+  double const factor = 1 << (max(1, drawScale - GetTileScaleIncrement(tileSize, visualScale)) + 1);
 
   double const len = (MercatorBounds::maxX - MercatorBounds::minX) / factor;
 
@@ -160,6 +175,17 @@ m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center)
                    MercatorBounds::ClampY(center.y - len),
                    MercatorBounds::ClampX(center.x + len),
                    MercatorBounds::ClampY(center.y + len));
+}
+
+m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center)
+{
+  VisualParams const & p = VisualParams::Instance();
+  return GetRectForDrawScale(drawScale, center, p.GetTileSize(), p.GetVisualScale());
+}
+
+m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center, uint32_t tileSize, double visualScale)
+{
+  return GetRectForDrawScale(my::rounds(drawScale), center, tileSize, visualScale);
 }
 
 m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center)
@@ -196,19 +222,37 @@ int CalculateTileSize(int screenWidth, int screenHeight)
 #endif
 }
 
+int GetDrawTileScale(int baseScale, uint32_t tileSize, double visualScale)
+{
+  return max(1, baseScale + GetTileScaleIncrement(tileSize, visualScale));
+}
+
+int GetDrawTileScale(ScreenBase const & s, uint32_t tileSize, double visualScale)
+{
+  return GetDrawTileScale(GetTileScaleBase(s, tileSize), tileSize, visualScale);
+}
+
+int GetDrawTileScale(m2::RectD const & r, uint32_t tileSize, double visualScale)
+{
+  return GetDrawTileScale(GetTileScaleBase(r), tileSize, visualScale);
+}
+
 int GetDrawTileScale(int baseScale)
 {
-  return max(1, baseScale + GetTileScaleIncrement());
+  VisualParams const & p = VisualParams::Instance();
+  return GetDrawTileScale(baseScale, p.GetTileSize(), p.GetVisualScale());
 }
 
 int GetDrawTileScale(ScreenBase const & s)
 {
-  return GetDrawTileScale(GetTileScaleBase(s));
+  VisualParams const & p = VisualParams::Instance();
+  return GetDrawTileScale(s, p.GetTileSize(), p.GetVisualScale());
 }
 
 int GetDrawTileScale(m2::RectD const & r)
 {
-  return GetDrawTileScale(GetTileScaleBase(r));
+  VisualParams const & p = VisualParams::Instance();
+  return GetDrawTileScale(r, p.GetTileSize(), p.GetVisualScale());
 }
 
 } // namespace df

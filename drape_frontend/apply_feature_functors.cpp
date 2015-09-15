@@ -255,7 +255,7 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params));
   }
 
-  SymbolRuleProto const * symRule =  pRule->GetSymbol();
+  SymbolRuleProto const * symRule = pRule->GetSymbol();
   if (symRule)
   {
     m_symbolDepth = depth;

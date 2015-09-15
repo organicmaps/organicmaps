@@ -35,14 +35,15 @@ public:
 
   void Invalidate(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator);
 
+  static bool DecodeToMemory(string const & skinPathName, vector<uint8_t> & symbolsSkin,
+                             map<string, m2::RectU> & symbolsIndex,
+                             uint32_t & skinWidth, uint32_t & skinHeight);
 private:
   void Fail();
   void Load(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator);
 
   typedef map<string, SymbolInfo> TSymDefinition;
   mutable TSymDefinition m_definition;
-
-  class DefinitionLoader;
 };
 
 } // namespace dp

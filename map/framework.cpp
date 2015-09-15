@@ -18,8 +18,9 @@
 #include "search/search_query_factory.hpp"
 
 #include "drape_frontend/gui/country_status_helper.hpp"
-
 #include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/watch/cpu_drawer.hpp"
+#include "drape_frontend/watch/feature_processor.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -286,84 +287,68 @@ Framework::~Framework()
   m_model.SetOnMapDeregisteredCallback(nullptr);
 }
 
-void Framework::DrawSingleFrame(m2::PointD const & center, int zoomModifier,
-                                uint32_t pxWidth, uint32_t pxHeight, FrameImage & image,
-                                SingleFrameSymbols const & symbols)
+void Framework::DrawWatchFrame(m2::PointD const & center, int zoomModifier,
+                               uint32_t pxWidth, uint32_t pxHeight,
+                               df::watch::FrameSymbols const & symbols,
+                               df::watch::FrameImage & image)
 {
-//  ASSERT(IsSingleFrameRendererInited(), ());
-//  Navigator frameNavigator = m_navigator;
-//  frameNavigator.OnSize(0, 0, pxWidth, pxHeight);
-//  frameNavigator.SetAngle(0);
+  ASSERT(IsWatchFrameRendererInited(), ());
 
-//  m2::RectD rect = m_scales.GetRectForDrawScale(scales::GetUpperComfortScale() - 1, center);
-//  if (symbols.m_showSearchResult && !rect.IsPointInside(symbols.m_searchResult))
-//  {
-//    double const kScaleFactor = 1.3;
-//    m2::PointD oldCenter = rect.Center();
-//    rect.Add(symbols.m_searchResult);
-//    double const centersDiff = 2 * (rect.Center() - oldCenter).Length();
+  int resultZoom = -1;
+  ScreenBase screen = m_cpuDrawer->CalculateScreen(center, zoomModifier, pxWidth, pxHeight, symbols, resultZoom);
+  ASSERT_GREATER(resultZoom, 0, ());
 
-//    m2::RectD resultRect;
-//    resultRect.SetSizes(rect.SizeX() + centersDiff, rect.SizeY() + centersDiff);
-//    resultRect.SetCenter(center);
-//    resultRect.Scale(kScaleFactor);
-//    rect = resultRect;
-//    ASSERT(rect.IsPointInside(symbols.m_searchResult), ());
-//  }
+  m_cpuDrawer->BeginFrame(pxWidth, pxHeight, dp::Extract(drule::rules().GetBgColor(resultZoom)));
 
-//  int baseZoom = m_scales.GetDrawTileScale(rect);
-//  int resultZoom = baseZoom + zoomModifier;
-//  int const minZoom = symbols.m_bottomZoom == -1 ? resultZoom : symbols.m_bottomZoom;
-//  resultZoom = my::clamp(resultZoom, minZoom, scales::GetUpperScale());
-//  rect = m_scales.GetRectForDrawScale(resultZoom, rect.Center());
+  m2::RectD renderRect = m2::RectD(0, 0, pxWidth, pxHeight);
+  m2::RectD selectRect;
+  m2::RectD clipRect;
+  double const inflationSize = 24 * m_cpuDrawer->GetVisualScale();
+  screen.PtoG(m2::Inflate(renderRect, inflationSize, inflationSize), clipRect);
+  screen.PtoG(renderRect, selectRect);
 
-//  CheckMinGlobalRect(rect);
-//  CheckMinMaxVisibleScale(rect);
-//  frameNavigator.SetFromRect(m2::AnyRectD(rect));
+  uint32_t const tileSize = static_cast<uint32_t>(df::CalculateTileSize(pxWidth, pxHeight));
+  int const drawScale = df::GetDrawTileScale(screen, tileSize, m_cpuDrawer->GetVisualScale());
+  df::watch::FeatureProcessor doDraw(make_ref(m_cpuDrawer), clipRect, screen, drawScale);
 
-//  m_cpuDrawer->BeginFrame(pxWidth, pxHeight, ConvertColor(drule::rules().GetBgColor(resultZoom)));
+  int const upperScale = scales::GetUpperScale();
+  m_model.ForEachFeature(selectRect, doDraw, min(upperScale, drawScale));
 
-//  ScreenBase const & s = frameNavigator.Screen();
-//  shared_ptr<PaintEvent> event = make_shared<PaintEvent>(m_cpuDrawer.get());
-//  DrawModel(event, s, m2::RectD(0, 0, pxWidth, pxHeight), m_scales.GetTileScaleBase(s), false);
+  m_cpuDrawer->Flush();
+  m_cpuDrawer->DrawMyPosition(screen.GtoP(center));
 
-//  m_cpuDrawer->Flush();
-//  m_cpuDrawer->DrawMyPosition(frameNavigator.GtoP(center));
+  if (symbols.m_showSearchResult)
+  {
+    if (!screen.PixelRect().IsPointInside(screen.GtoP(symbols.m_searchResult)))
+      m_cpuDrawer->DrawSearchArrow(ang::AngleTo(center, symbols.m_searchResult));
+    else
+      m_cpuDrawer->DrawSearchResult(screen.GtoP(symbols.m_searchResult));
+  }
 
-//  if (symbols.m_showSearchResult)
-//  {
-//    if (!frameNavigator.Screen().PixelRect().IsPointInside(frameNavigator.GtoP(symbols.m_searchResult)))
-//      m_cpuDrawer->DrawSearchArrow(ang::AngleTo(rect.Center(), symbols.m_searchResult));
-//    else
-//      m_cpuDrawer->DrawSearchResult(frameNavigator.GtoP(symbols.m_searchResult));
-//  }
-
-//  m_cpuDrawer->EndFrame(image);
+  m_cpuDrawer->EndFrame(image);
 }
 
-void Framework::InitSingleFrameRenderer(float visualScale)
+void Framework::InitWatchFrameRenderer(float visualScale)
 {
-//  ASSERT(!IsSingleFrameRendererInited(), ());
-//  if (m_cpuDrawer == nullptr)
-//  {
-//    CPUDrawer::Params params(GetGlyphCacheParams(density));
-//    params.m_visualScale = graphics::visualScale(density);
-//    params.m_density = density;
+  using namespace df::watch;
 
-//    m_cpuDrawer.reset(new CPUDrawer(params));
-//  }
+  ASSERT(!IsWatchFrameRendererInited(), ());
+  if (m_cpuDrawer == nullptr)
+  {
+    string resPostfix = df::VisualParams::GetResourcePostfix(visualScale);
+    m_cpuDrawer = make_unique_dp<CPUDrawer>(CPUDrawer::Params(resPostfix, visualScale));
+  }
 }
 
-void Framework::ReleaseSingleFrameRenderer()
+void Framework::ReleaseWatchFrameRenderer()
 {
-//  if (IsSingleFrameRendererInited())
-//    m_cpuDrawer.reset();
+  if (IsWatchFrameRendererInited())
+    m_cpuDrawer.reset();
 }
 
-bool Framework::IsSingleFrameRendererInited() const
+bool Framework::IsWatchFrameRendererInited() const
 {
-  //return m_cpuDrawer != nullptr;
-  return true;
+  return m_cpuDrawer != nullptr;
 }
 
 void Framework::DeleteCountry(storage::TIndex const & index, MapOptions opt)

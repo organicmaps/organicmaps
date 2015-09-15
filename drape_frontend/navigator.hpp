@@ -19,6 +19,7 @@ public:
   void SetFromRect(m2::AnyRectD const & r);
   void CenterViewport(m2::PointD const & p);
   void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);
+  void SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double visualScale);
 
   void SaveState();
   /// @return false if can't load previously saved values
@@ -48,6 +49,7 @@ public:
 private:
   bool CheckMinScale(ScreenBase const & screen) const;
   bool CheckMaxScale(ScreenBase const & screen) const;
+  bool CheckMaxScale(ScreenBase const & screen, uint32_t tileSize, double visualScale) const;
   bool CheckBorders(ScreenBase const & screen) const;
 
   static bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
@@ -84,9 +86,12 @@ private:
 };
 
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect);
+void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale);
 void CheckMinGlobalRect(m2::RectD & rect);
 
 using TIsCountryLoaded = function<bool (m2::PointD const &)>;
+void CheckMinMaxVisibleScale(TIsCountryLoaded const & fn, m2::RectD & rect, int maxScale/* = -1*/,
+                             uint32_t tileSize, double visualScale);
 void CheckMinMaxVisibleScale(TIsCountryLoaded const & fn, m2::RectD & rect, int maxScale/* = -1*/);
 
 }

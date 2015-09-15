@@ -13,13 +13,21 @@
 namespace dp
 {
 
+namespace
+{
+
 string const SymbolsTextureName = "symbols";
 
-class SymbolsTexture::DefinitionLoader
+using TDefinitionInserter = function<void(string const &, m2::RectF const &)>;
+using TSymbolsLoadingCompletion = function<void(unsigned char *, uint32_t, uint32_t)>;
+using TSymbolsLoadingFailure = function<void(string const &)>;
+
+class DefinitionLoader
 {
 public:
-  DefinitionLoader(SymbolsTexture::TSymDefinition & definition)
-    : m_def(definition)
+  DefinitionLoader(TDefinitionInserter const & definitionInserter, bool convertToUV)
+    : m_definitionInserter(definitionInserter)
+    , m_convertToUV(convertToUV)
     , m_width(0)
     , m_height(0)
   {
@@ -33,7 +41,8 @@ public:
     {
       ASSERT(!m_name.empty(), ());
       ASSERT(m_rect.IsValid(), ());
-      m_def.insert(make_pair(m_name, SymbolsTexture::SymbolInfo(m_rect)));
+      ASSERT(m_definitionInserter != nullptr, ());
+      m_definitionInserter(m_name, m_rect);
 
       m_name = "";
       m_rect.MakeEmpty();
@@ -53,27 +62,35 @@ public:
       if (attribute == "minX")
       {
         ASSERT(m_width != 0, ());
-        m_rect.setMinX(v / (float)m_width);
+        float const scalar = m_convertToUV ? static_cast<float>(m_width) : 1.0f;
+        m_rect.setMinX(v / scalar);
       }
       else if (attribute == "minY")
       {
         ASSERT(m_height != 0, ());
-        m_rect.setMinY(v / (float)m_height);
+        float const scalar = m_convertToUV ? static_cast<float>(m_height) : 1.0f;
+        m_rect.setMinY(v / scalar);
       }
       else if (attribute == "maxX")
       {
         ASSERT(m_width != 0, ());
-        m_rect.setMaxX(v / (float)m_width);
+        float const scalar = m_convertToUV ? static_cast<float>(m_width) : 1.0f;
+        m_rect.setMaxX(v / scalar);
       }
       else if (attribute == "maxY")
       {
         ASSERT(m_height != 0, ());
-        m_rect.setMaxY(v / (float)m_height);
+        float const scalar = m_convertToUV ? static_cast<float>(m_height) : 1.0f;
+        m_rect.setMaxY(v / scalar);
       }
       else if (attribute == "height")
+      {
         m_height = v;
+      }
       else if (attribute == "width")
+      {
         m_width = v;
+      }
     }
   }
 
@@ -83,14 +100,75 @@ public:
   uint32_t GetHeight() const { return m_height; }
 
 private:
-  SymbolsTexture::TSymDefinition & m_def;
+  TDefinitionInserter m_definitionInserter;
+  bool m_convertToUV;
+
   uint32_t m_width;
   uint32_t m_height;
 
   string m_name;
   m2::RectF m_rect;
-
 };
+
+void LoadSymbols(string const & skinPathName, bool convertToUV,
+                 TDefinitionInserter const & definitionInserter,
+                 TSymbolsLoadingCompletion const & completionHandler,
+                 TSymbolsLoadingFailure const & failureHandler)
+{
+  ASSERT(definitionInserter != nullptr, ());
+  ASSERT(completionHandler != nullptr, ());
+  ASSERT(failureHandler != nullptr, ());
+
+  vector<unsigned char> rawData;
+  uint32_t width, height;
+
+  try
+  {
+    DefinitionLoader loader(definitionInserter, convertToUV);
+
+    {
+      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(SymbolsTextureName + ".sdf", skinPathName);
+      ReaderSource<ReaderPtr<Reader> > source(reader);
+      if (!ParseXML(source, loader))
+      {
+        failureHandler("Error parsing skin");
+        return;
+      }
+
+      width = loader.GetWidth();
+      height = loader.GetHeight();
+    }
+
+    {
+      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(SymbolsTextureName + ".png", skinPathName);
+      size_t const size = reader.Size();
+      rawData.resize(size);
+      reader.Read(0, &rawData[0], size);
+    }
+  }
+  catch (RootException & e)
+  {
+    failureHandler(e.what());
+    return;
+  }
+
+  int w, h, bpp;
+  unsigned char * data = stbi_png_load_from_memory(&rawData[0], rawData.size(), &w, &h, &bpp, 0);
+  ASSERT_EQUAL(bpp, 4, ("Incorrect symbols texture format"));
+
+  if (width == w && height == h)
+  {
+    completionHandler(data, width, height);
+  }
+  else
+  {
+    failureHandler("Error symbols texture creation");
+  }
+
+  stbi_image_free(data);
+}
+
+}
 
 SymbolsTexture::SymbolKey::SymbolKey(string const & symbolName)
   : m_symbolName(symbolName)
@@ -124,45 +202,12 @@ SymbolsTexture::SymbolsTexture(string const & skinPathName, ref_ptr<HWTextureAll
 
 void SymbolsTexture::Load(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator)
 {
-  vector<unsigned char> rawData;
-  uint32_t width, height;
-
-  try
+  auto definitionInserter = [this](string const & name, m2::RectF const & rect)
   {
-    DefinitionLoader loader(m_definition);
+    m_definition.insert(make_pair(name, SymbolsTexture::SymbolInfo(rect)));
+  };
 
-    {
-      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(SymbolsTextureName + ".sdf", skinPathName);
-      ReaderSource<ReaderPtr<Reader> > source(reader);
-      if (!ParseXML(source, loader))
-      {
-        LOG(LERROR, ("Error parsing skin"));
-        Fail();
-        return;
-      }
-
-      width = loader.GetWidth();
-      height = loader.GetHeight();
-    }
-
-    {
-      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(SymbolsTextureName + ".png", skinPathName);
-      size_t const size = reader.Size();
-      rawData.resize(size);
-      reader.Read(0, &rawData[0], size);
-    }
-  }
-  catch (RootException & e)
-  {
-    LOG(LERROR, (e.what()));
-    Fail();
-    return;
-  }
-
-  int w, h, bpp;
-  unsigned char * data = stbi_png_load_from_memory(&rawData[0], rawData.size(), &w, &h, &bpp, 0);
-
-  if (width == w && height == h)
+  auto completionHandler = [this, &allocator](unsigned char * data, uint32_t width, uint32_t height)
   {
     Texture::Params p;
     p.m_allocator = allocator;
@@ -171,11 +216,15 @@ void SymbolsTexture::Load(string const & skinPathName, ref_ptr<HWTextureAllocato
     p.m_height = height;
 
     Create(p, make_ref(data));
-  }
-  else
-    Fail();
+  };
 
-  stbi_image_free(data);
+  auto failureHandler = [this](string const & reason)
+  {
+    LOG(LERROR, (reason));
+    Fail();
+  };
+
+  LoadSymbols(skinPathName, true /* convertToUV */, definitionInserter, completionHandler, failureHandler);
 }
 
 void SymbolsTexture::Invalidate(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator)
@@ -210,6 +259,37 @@ void SymbolsTexture::Fail()
   p.m_height = 1;
 
   Create(p, make_ref(&alfaTexture));
+}
+
+bool SymbolsTexture::DecodeToMemory(string const & skinPathName, vector<uint8_t> & symbolsSkin,
+                                    map<string, m2::RectU> & symbolsIndex,
+                                    uint32_t & skinWidth, uint32_t & skinHeight)
+{
+  auto definitionInserter = [&symbolsIndex](string const & name, m2::RectF const & rect)
+  {
+    symbolsIndex.insert(make_pair(name, m2::RectU(rect)));
+  };
+
+  bool result = true;
+  auto completionHandler = [&result, &symbolsSkin, &skinWidth, &skinHeight](unsigned char * data,
+      uint32_t width, uint32_t height)
+  {
+    size_t size = 4 * width * height;
+    symbolsSkin.resize(size);
+    memcpy(symbolsSkin.data(), data, size);
+    skinWidth = width;
+    skinHeight = height;
+    result = true;
+  };
+
+  auto failureHandler = [&result](string const & reason)
+  {
+    LOG(LERROR, (reason));
+    result = false;
+  };
+
+  LoadSymbols(skinPathName, false /* convertToUV */, definitionInserter, completionHandler, failureHandler);
+  return result;
 }
 
 } // namespace dp
