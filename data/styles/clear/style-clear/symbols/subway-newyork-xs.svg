@@ -7,7 +7,7 @@
     <g id="Subways" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="subway-newyork-xs" sketch:type="MSLayerGroup">
             <circle id="Oval-139-Copy" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="5" cy="5" r="5"></circle>
-            <circle id="Oval-139" fill="#37627D" sketch:type="MSShapeGroup" cx="5" cy="5" r="4"></circle>
+            <circle id="Oval-139" fill="#3C3E38" sketch:type="MSShapeGroup" cx="5" cy="5" r="4"></circle>
             <rect id="Rectangle-307" fill="#FFFFFF" sketch:type="MSShapeGroup" x="3" y="3" width="4" height="4" rx="1"></rect>
         </g>
     </g>
