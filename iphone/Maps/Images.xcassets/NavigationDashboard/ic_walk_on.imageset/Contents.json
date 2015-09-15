@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "ic_walk_on.png"
+      "filename" : "ic_type_walk_on.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "ic_walk_on@2x.png"
+      "filename" : "ic_type_walk_on@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "ic_walk_on@3x.png"
+      "filename" : "ic_type_walk_on@3x.png"
     }
   ],
   "info" : {
