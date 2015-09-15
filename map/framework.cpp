@@ -1617,6 +1617,9 @@ void Framework::SetMapStyle(MapStyle mapStyle)
 {
   GetStyleReader().SetCurrentStyle(mapStyle);
   classificator::Load();
+
+  alohalytics::TStringMap details {{"mapStyle", strings::to_string(static_cast<int>(mapStyle))}};
+  alohalytics::Stats::Instance().LogEvent("MapStyle_Changed", details);
 }
 
 MapStyle Framework::GetMapStyle() const
