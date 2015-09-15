@@ -4,6 +4,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/mercator.hpp"
 
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
@@ -332,21 +333,182 @@ namespace ftype
     } while (true);
   }
 
-  void GetNameAndType(OsmElement * p, FeatureParams & params)
+  string MatchCity(OsmElement * p)
   {
-    // Stage1: Preprocess tags.
+    static map<string, m2::RectD> cities = {
+      { "beijing", { 115.894775391, 39.588757277, 117.026367187, 40.2795256688 }},
+      { "dnepro", { 34.7937011719, 48.339820521, 35.2798461914, 48.6056737841 }},
+      { "mexico", { -99.3630981445, 19.2541083164, -98.879699707, 19.5960192403 }},
+      { "madrid", { -4.00451660156, 40.1536868578, -3.32885742188, 40.6222917831 }},
+      { "osaka", { 134.813232422, 34.1981730963, 136.076660156, 35.119908571 }},
+      { "washington", { -77.4920654297, 38.5954071994, -76.6735839844, 39.2216149801 }},
+      { "milan", { 9.02252197266, 45.341528405, 9.35760498047, 45.5813674681 }},
+      { "munchen", { 11.3433837891, 47.9981928195, 11.7965698242, 48.2530267576 }},
+      { "london", { -0.4833984375, 51.3031452592, 0.2197265625, 51.6929902115 }},
+      { "novosibirsk", { 82.4578857422, 54.8513152597, 83.2983398438, 55.2540770671 }},
+      { "lisboa", { -9.42626953125, 38.548165423, -8.876953125, 38.9166815364 }},
+      { "amsterdam", { 4.65682983398, 52.232846171, 5.10040283203, 52.4886341706 }},
+      { "spb", { 29.70703125, 59.5231755354, 31.3110351562, 60.2725145948 }},
+      { "oslo", { 10.3875732422, 59.7812868211, 10.9286499023, 60.0401604652 }},
+      { "kiev", { 30.1354980469, 50.2050332649, 31.025390625, 50.6599083609 }},
+      { "helsinki", { 24.3237304688, 59.9989861206, 25.48828125, 60.44638186 }},
+      { "paris", { 2.09014892578, 48.6637569323, 2.70538330078, 49.0414689141 }},
+      { "wien", { 16.0894775391, 48.0633965378, 16.6387939453, 48.3525987075 }},
+      { "shanghai", { 119.849853516, 30.5291450367, 122.102050781, 32.1523618947 }},
+      { "sydney", { 150.42755127, -34.3615762875, 151.424560547, -33.4543597895 }},
+      { "nnov", { 43.6431884766, 56.1608472541, 44.208984375, 56.4245355509 }},
+      { "seoul", { 126.540527344, 37.3352243593, 127.23815918, 37.6838203267 }},
+      { "newyork", { -74.4104003906, 40.4134960497, -73.4600830078, 41.1869224229 }},
+      { "moscow", { 36.9964599609, 55.3962717136, 38.1884765625, 56.1118730004 }},
+      { "delhi", { 76.8026733398, 28.3914003758, 77.5511169434, 28.9240352884 }},
+      { "baires", { -58.9910888672, -35.1221551064, -57.8045654297, -34.2685661867 }},
+      { "berlin", { 13.0352783203, 52.3051199211, 13.7933349609, 52.6963610783 }},
+      { "hamburg", { 9.75860595703, 53.39151869, 10.2584838867, 53.6820686709 }},
+      { "chicago", { -88.3163452148, 41.3541338721, -87.1270751953, 42.2691794924 }},
+      { "budapest", { 18.7509155273, 47.3034470439, 19.423828125, 47.7023684666 }},
+      { "kazan", { 48.8067626953, 55.6372985742, 49.39453125, 55.9153515154 }},
+      { "tokyo", { 139.240722656, 35.2186974963, 140.498657227, 36.2575628263 }},
+      { "sanfran", { -122.72277832, 37.1690715771, -121.651611328, 38.0307856938 }},
+      { "brussel", { 4.2448425293, 50.761653413, 4.52499389648, 50.9497757762 }},
+      { "ekb", { 60.3588867188, 56.6622647682, 61.0180664062, 57.0287738515 }},
+      { "barcelona", { 1.94458007812, 41.2489025224, 2.29614257812, 41.5414776668 }},
+      { "minsk", { 27.2845458984, 53.777934972, 27.8393554688, 54.0271334441 }},
+      { "stockholm", { 17.5726318359, 59.1336814082, 18.3966064453, 59.5565918857 }},
+      { "roma", { 12.3348999023, 41.7672146942, 12.6397705078, 42.0105298189 }},
+      { "warszawa", { 20.7202148438, 52.0322181041, 21.3024902344, 52.4091212523 }},
+      { "frankfurt", { 8.36334228516, 49.937079757, 8.92364501953, 50.2296379179 }},
+    };
+
+    m2::PointD pt(MercatorBounds::XToLon(p->lon), MercatorBounds::YToLat(p->lat));
+
+    for (auto const & city : cities)
+    {
+      if(city.second.IsPointInside(pt))
+        return city.first;
+    }
+    return string();
+  }
+
+
+  void PreprocessElement(OsmElement * p, FeatureParams & params)
+  {
     bool hasLayer = false;
     char const * layer = nullptr;
+
+    bool isSubwayEntrance = false;
+    bool isSubwayStation = false;
 
     TagProcessor(p).ApplyRules
     ({
       { "bridge", "yes", [&layer] { layer = "1"; }},
       { "tunnel", "yes", [&layer] { layer = "-1"; }},
       { "layer", "*", [&hasLayer] { hasLayer = true; }},
+
+      { "railway", "subway_entrance", [&isSubwayEntrance] { isSubwayEntrance = true; }},
+      { "station", "subway", [&isSubwayStation] { isSubwayStation = true; }},
     });
 
     if (!hasLayer && layer)
       p->AddTag("layer", layer);
+
+    if (isSubwayEntrance || isSubwayStation)
+    {
+      string const & city = MatchCity(p);
+      if (!city.empty())
+        p->AddTag("city", city);
+    }
+  }
+
+  void PostprocessElement(OsmElement * p, FeatureParams & params)
+  {
+    static CachedTypes const types;
+
+    if (!params.house.IsEmpty())
+    {
+      // Delete "entrance" type for house number (use it only with refs).
+      // Add "address" type if we have house number but no valid types.
+      if (params.PopExactType(types.Get(CachedTypes::ENTRANCE)))
+      {
+        params.name.Clear();
+        // If we have address (house name or number), we should assign valid type.
+        // There are a lot of features like this in Czech Republic.
+        params.AddType(types.Get(CachedTypes::ADDRESS));
+      }
+    }
+
+    bool highwayDone = false;
+    bool subwayDone = false;
+    bool railwayDone = false;
+
+    // Get a copy of source types, because we will modify params in the loop;
+    FeatureParams::TTypes const vTypes = params.m_Types;
+    for (size_t i = 0; i < vTypes.size(); ++i)
+    {
+      if (!highwayDone && types.IsHighway(vTypes[i]))
+      {
+        TagProcessor(p).ApplyRules
+        ({
+          { "oneway", "yes", [&params] { params.AddType(types.Get(CachedTypes::ONEWAY)); }},
+          { "oneway", "1", [&params] { params.AddType(types.Get(CachedTypes::ONEWAY)); }},
+          { "oneway", "-1", [&params] { params.AddType(types.Get(CachedTypes::ONEWAY)); params.m_reverseGeometry = true; }},
+
+          { "access", "private", [&params] { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
+
+          { "lit", "~", [&params] { params.AddType(types.Get(CachedTypes::LIT)); }},
+
+          { "foot", "!", [&params] { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
+
+          { "foot", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
+          { "sidewalk", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
+        });
+
+        highwayDone = true;
+      }
+
+      if (!subwayDone && types.IsRwSubway(vTypes[i]))
+      {
+        TagProcessor(p).ApplyRules
+        ({
+          { "network", "London Underground", [&params] { params.SetRwSubwayType("london"); }},
+          { "network", "New York City Subway", [&params] { params.SetRwSubwayType("newyork"); }},
+          { "network", "Московский метрополитен", [&params] { params.SetRwSubwayType("moscow"); }},
+          { "network", "Петербургский метрополитен", [&params] { params.SetRwSubwayType("spb"); }},
+          { "network", "Verkehrsverbund Berlin-Brandenburg", [&params] { params.SetRwSubwayType("berlin"); }},
+          { "network", "Минский метрополитен", [&params] { params.SetRwSubwayType("minsk"); }},
+
+          { "network", "Київський метрополітен", [&params] { params.SetRwSubwayType("kiev"); }},
+          { "operator", "КП «Київський метрополітен»", [&params] { params.SetRwSubwayType("kiev"); }},
+
+          { "network", "RATP", [&params] { params.SetRwSubwayType("paris"); }},
+          { "network", "Metro de Barcelona", [&params] { params.SetRwSubwayType("barcelona"); }},
+
+          { "network", "Metro de Madrid", [&params] { params.SetRwSubwayType("madrid"); }},
+          { "operator", "Metro de Madrid", [&params] { params.SetRwSubwayType("madrid"); }},
+
+          { "network", "Metropolitana di Roma", [&params] { params.SetRwSubwayType("roma"); }},
+          { "network", "ATAC", [&params] { params.SetRwSubwayType("roma"); }},
+        });
+
+        subwayDone = true;
+      }
+
+      if (!subwayDone && !railwayDone && types.IsRwStation(vTypes[i]))
+      {
+        TagProcessor(p).ApplyRules
+        ({
+          { "network", "London Underground", [&params] { params.SetRwSubwayType("london"); }},
+        });
+
+        railwayDone = true;
+      }
+    }
+  }
+
+
+  void GetNameAndType(OsmElement * p, FeatureParams & params)
+  {
+    // Stage1: Preprocess tags.
+    PreprocessElement(p, params);
 
     // Stage2: Process feature name on all languages.
     ForEachTag<bool>(p, NamesExtractor(params));
@@ -397,87 +559,7 @@ namespace ftype
     MatchTypes(p, params);
 
     // Stage5: Postrocess feature types.
-    static CachedTypes const types;
-
-    if (!params.house.IsEmpty())
-    {
-      // Delete "entrance" type for house number (use it only with refs).
-      // Add "address" type if we have house number but no valid types.
-      if (params.PopExactType(types.Get(CachedTypes::ENTRANCE)))
-      {
-        params.name.Clear();
-        // If we have address (house name or number), we should assign valid type.
-        // There are a lot of features like this in Czech Republic.
-        params.AddType(types.Get(CachedTypes::ADDRESS));
-      }
-    }
-
-    bool highwayDone = false;
-    bool subwayDone = false;
-    bool railwayDone = false;
-
-    // Get a copy of source types, because we will modify params in the loop;
-    FeatureParams::TTypes const vTypes = params.m_Types;
-    for (size_t i = 0; i < vTypes.size(); ++i)
-    {
-      if (!highwayDone && types.IsHighway(vTypes[i]))
-      {
-        TagProcessor(p).ApplyRules(
-        {
-          { "oneway", "yes", [&params] { params.AddType(types.Get(CachedTypes::ONEWAY)); }},
-          { "oneway", "1", [&params] { params.AddType(types.Get(CachedTypes::ONEWAY)); }},
-          { "oneway", "-1", [&params] { params.AddType(types.Get(CachedTypes::ONEWAY)); params.m_reverseGeometry = true; }},
-
-          { "access", "private", [&params] { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
-
-          { "lit", "~", [&params] { params.AddType(types.Get(CachedTypes::LIT)); }},
-
-          { "foot", "!", [&params] { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
-
-          { "foot", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
-          { "sidewalk", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
-        });
-
-        highwayDone = true;
-      }
-
-      if (!subwayDone && types.IsRwSubway(vTypes[i]))
-      {
-        TagProcessor(p).ApplyRules(
-        {
-          { "network", "London Underground", [&params] { params.SetRwSubwayType("london"); }},
-          { "network", "New York City Subway", [&params] { params.SetRwSubwayType("newyork"); }},
-          { "network", "Московский метрополитен", [&params] { params.SetRwSubwayType("moscow"); }},
-          { "network", "Петербургский метрополитен", [&params] { params.SetRwSubwayType("spb"); }},
-          { "network", "Verkehrsverbund Berlin-Brandenburg", [&params] { params.SetRwSubwayType("berlin"); }},
-          { "network", "Минский метрополитен", [&params] { params.SetRwSubwayType("minsk"); }},
-
-          { "network", "Київський метрополітен", [&params] { params.SetRwSubwayType("kiev"); }},
-          { "operator", "КП «Київський метрополітен»", [&params] { params.SetRwSubwayType("kiev"); }},
-
-          { "network", "RATP", [&params] { params.SetRwSubwayType("paris"); }},
-          { "network", "Metro de Barcelona", [&params] { params.SetRwSubwayType("barcelona"); }},
-
-          { "network", "Metro de Madrid", [&params] { params.SetRwSubwayType("madrid"); }},
-          { "operator", "Metro de Madrid", [&params] { params.SetRwSubwayType("madrid"); }},
-
-          { "network", "Metropolitana di Roma", [&params] { params.SetRwSubwayType("roma"); }},
-          { "network", "ATAC", [&params] { params.SetRwSubwayType("roma"); }},
-        });
-
-        subwayDone = true;
-      }
-
-      if (!subwayDone && !railwayDone && types.IsRwStation(vTypes[i]))
-      {
-        TagProcessor(p).ApplyRules(
-        {
-          { "network", "London Underground", [&params] { params.SetRwSubwayType("london"); }},
-        });
-
-        railwayDone = true;
-      }
-    }
+    PostprocessElement(p, params);
 
     params.FinishAddingTypes();
 
