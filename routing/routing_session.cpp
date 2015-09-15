@@ -241,7 +241,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_targetName = turn.m_targetName;
     info.m_completionPercent = 100.0 *
       (m_passedDistanceOnRouteMeters + m_route.GetCurrentDistanceFromBeginMeters()) /
-      m_route.GetTotalDistanceMeters();
+      (m_passedDistanceOnRouteMeters + m_route.GetTotalDistanceMeters());
 
     // Lane information.
     if (distanceToTurnMeters < kShowLanesDistInMeters)
