@@ -32,7 +32,7 @@
 - (void)config:(search::Result &)result
 {
   [super config:result];
-  self.typeLabel.text = @(result.GetFeatureType());
+  self.typeLabel.text = @(result.GetFeatureType()).capitalizedString;
 
   NSUInteger starsCount = result.GetStarsCount();
   NSString * cuisine = @(result.GetCuisine());
