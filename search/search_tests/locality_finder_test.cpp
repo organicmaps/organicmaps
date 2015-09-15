@@ -8,7 +8,10 @@
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
+#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
+
+#include "base/scope_guard.hpp"
 
 namespace
 {
@@ -43,9 +46,17 @@ UNIT_TEST(LocalityFinder)
   Index index;
   m2::RectD rect;
 
+  auto world = platform::LocalCountryFile::MakeForTesting("World");
+  auto cleanup = [&world]()
+  {
+    platform::CountryIndexes::DeleteFromDisk(world);
+  };
+  MY_SCOPE_GUARD(cleanupOnExit, cleanup);
+  cleanup();
+
   try
   {
-    auto const p = index.Register(platform::LocalCountryFile::MakeForTesting("World"));
+    auto const p = index.Register(world);
     TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
 
     MwmSet::MwmHandle const & handle = p.first;
