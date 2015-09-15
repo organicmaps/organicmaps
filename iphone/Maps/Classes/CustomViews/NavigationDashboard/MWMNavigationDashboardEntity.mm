@@ -98,7 +98,7 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
     case TurnDirection::Count:
     case TurnDirection::GoStraight:
     case TurnDirection::NoTurn:
-      imageName = @"straight";
+      imageName = isNextTurn ? nil : @"straight";
       break;
   }
   return [UIImage imageNamed: isNextTurn ? [imageName stringByAppendingString:@"_then"] : imageName];
