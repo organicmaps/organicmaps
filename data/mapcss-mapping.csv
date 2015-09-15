@@ -1032,3 +1032,4 @@ railway|subway_entrance|paris;[railway=subway_entrance][city=paris];;name;int_na
 railway|subway_entrance|madrid;[railway=subway_entrance][city=madrid];;name;int_name;1032;
 railway|subway_entrance|roma;[railway=subway_entrance][city=roma];;name;int_name;1033;
 railway|subway_entrance|spb;[railway=subway_entrance][city=spb];;name;int_name;1034;
+aerialway|drag_lift;[aerialway=drag_lift];;name;int_name;1035;

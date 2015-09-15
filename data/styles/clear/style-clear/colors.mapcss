@@ -78,10 +78,11 @@
 /* TRANSPORT */
 @railway_light: #BBBBAA;
 @railway: #999988;
+@railway_dash: #EEEEEE;
 @railway_tunnel: #555555;
 @aerialway: #777777;
 @tram: #555555;
-@ferry: #3B9AB8;
+@ferry: #4499Bb;
 
 /* NATURAL */
 @glacier: #FFFFFF;
@@ -144,7 +145,7 @@
 @dark:  #333333;
 
 /* NATURAL LABELS */
-@water_label: #3B9AB8;
+@water_label: #4499Bb;
 @park_label: #3A7921;
 @halo_park_lable: #fff;
 @halo_water_lable: #fff;
@@ -154,3 +155,11 @@
 
 /* OTHER LABELS */
 @building_label: #7F7F7F;
+
+/* PISTE */
+@piste: grey;
+@piste_novice: #40A90B;
+@piste_easy: #40A90B;
+@piste_intermadiate: #DF4741;
+@piste_expert: #333333;
+@piste_advanced: #333333;

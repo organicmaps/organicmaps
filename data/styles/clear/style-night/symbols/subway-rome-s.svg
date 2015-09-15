@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>subway-rome-s</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Subways" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="subway-rome-s" sketch:type="MSLayerGroup">
+            <rect id="rect2438-copy-4" opacity="0" fill="#000000" sketch:type="MSShapeGroup" x="0" y="0" width="13" height="13"></rect>
+            <rect id="rect2438-copy-3" fill="#81110D" sketch:type="MSShapeGroup" x="1" y="1" width="11" height="11"></rect>
+            <path d="M4.05440806,4 L5.5884131,4 L6.49588581,7.66502659 L7.40335852,4 L8.94324097,4 L10,9.40909091 L8.94794291,9.40909091 L8.14861461,5.31053976 L7.03190596,9.40909091 L5.96809404,9.40909091 L4.85138539,5.31053976 L4.05205709,9.40909091 L3,9.40909091" id="Shape-Copy-3" opacity="0.4" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

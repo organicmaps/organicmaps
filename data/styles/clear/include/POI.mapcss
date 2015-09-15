@@ -34,7 +34,7 @@ node|z16-[tourism=camp_site], area|z16-[tourism=camp_site] { icon-image: campsit
 /* AMENITY */
 
 /* NAMED AMENITIES BY DEFAULT  — TEMPORARY */
-node|z19-[amenity], area|z19-[amenity] { font-size: 10; text: name; text-color: @poi_label; }
+node|z19-[amenity], area|z19-[amenity] { icon-image: none-m.svg;  text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 
 
 /* AMENITY */
@@ -45,23 +45,24 @@ node|z16-[amenity=college], area|z16-[amenity=college] { icon-image: college-m.s
 node|z16-[amenity=hospital], area|z16-[amenity=hospital] { icon-image: hospital-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z16-[amenity=university], area|z16-[amenity=university] { icon-image: college-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z17-[amenity=cinema], area|z17-[amenity=cinema] { icon-image: cinema-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
-node|z17-[amenity=bank], area|z17-[amenity=bank] { z-index: 4500; icon-image: bank-2-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z17-[amenity=bank], area|z17-[amenity=bank] { z-index: 4500; icon-image: bank-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z17-[amenity=fuel], area|z17-[amenity=fuel] { icon-image: fuel-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z17-[amenity=police], area|z17-[amenity=police] { icon-image: police-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z17-[amenity=embassy], area|z17-[amenity=embassy] { icon-image: embassy-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z17-[amenity=bicycle_rental], area|z17-[amenity=bicycle_rental] { icon-image: bicycle-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=toilets], area|z18-[amenity=toilets] { icon-image: toilets-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=atm], area|z18-[amenity=atm] { z-index: 4200; icon-image: atm-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
-node|z18-[amenity=pharmacy], area|z18-[amenity=pharmacy] { icon-image: pharmacy-2-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z18-[amenity=pharmacy], area|z18-[amenity=pharmacy] { icon-image: pharmacy-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=cafe], area|z18-[amenity=cafe] { icon-image: cafe-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=restaurant], area|z18-[amenity=restaurant] { icon-image: restaurant-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=fast_food], area|z18-[amenity=fast_food] { icon-image: fastfood-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=bar], area|z18-[amenity=bar] { icon-image: bar-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=pub], area|z18-[amenity=pub] { icon-image: pub-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[amenity=bureau_de_change] { icon-image: banknote-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z18-[amenity=bench] { icon-image: bench.svg; }
 
 node|z17-[amenity=post_office] { icon-image: mail-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
-node|z18-[amenity=fountain] { icon-image: fountain-m.svg; }
+node|z18-[amenity=fountain] { icon-image: fountain-m.svg; z-index: 1000; text-offset: 8; font-size: 10;  text: name; text-color: @poi_label; }
 node|z18-[amenity=library] { icon-image: library-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z19-[amenity=telephone] { icon-image: phone-m.svg; z-index: 1100; }
 node|z19-[amenity=drinking_water] { icon-image: drinking-water-m.svg; }
@@ -75,7 +76,7 @@ node|z16-[leisure=stadium] { icon-image: pitch-m.svg; text-offset: 8; font-size:
 node|z18-[leisure=pitch] { icon-image: pitch-m.svg; }
 node|z18-[leisure=sports_centre] { icon-image: pitch-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[leisure=playground] { icon-image: pitch-m.svg; }
-node|z17-[leisure=garden] { icon-image: garden-m.svg; }
+node|z18-[leisure=garden] { icon-image: garden-m.svg; }
 node|z18-[leisure=swimming_pool],area|z18-[leisure=swimming_pool] { icon-image: swimming-m.svg; }
 node|z18-[leisure=golf_course], area|z18-[leisure=golf_course] { icon-image: golf-m.svg; }
 
@@ -87,15 +88,15 @@ node|z18-[shop=alcohol] { icon-image: alcohol-m.svg; text-offset: 8; font-size: 
 node|z17-[shop=supermarket] { icon-image: grocery-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 
 /* SPORT */
-node|z17-[sport=soccer], area|z17-[sport=soccer] { icon-image: soccer-m.svg; }
-node|z17-[sport=tennis]  { icon-image: tennis-m.svg; }
-node|z17-[leisure=pitch][sport=tennis] { icon-image: tennis-m.svg; }
-node|z18-[sport=swimming] { icon-image: swimming-m.svg; }
-node|z18-[sport=baseball] { icon-image: baseball-m.svg; }
-node|z18-[sport=basketball] { icon-image: basketball-m.svg; }
-node|z18-[sport=american_football] { icon-image: america-football-m.svg; }
-node|z18-[sport=athletics] { icon-image: pitch-m.svg; }
-node|z18-[sport=golf] { icon-image: golf-m.svg; }
+node|z17-[sport=soccer], area|z17-[sport=soccer] { icon-image: soccer-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z17-[sport=tennis]  { icon-image: tennis-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z17-[leisure=pitch][sport=tennis] { icon-image: tennis-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z18-[sport=swimming] { icon-image: swimming-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z18-[sport=baseball] { icon-image: baseball-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z18-[sport=basketball] { icon-image: basketball-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z18-[sport=american_football] { icon-image: america-football-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z18-[sport=athletics] { icon-image: pitch-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+node|z18-[sport=golf] { icon-image: golf-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[sport=gymnastics] { icon-image: pitch-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 
 /* node|z16[amenity=university] { icon-image: college-m.svg; } */

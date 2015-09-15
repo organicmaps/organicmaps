@@ -137,12 +137,13 @@ line|z15-[waterway=dam] {
 
 /* VEGETATION */
 
+
 area|z10-11[natural=wood],
 area|z10-11[landuse=forest],
 {
   fill-color: @forest;
   fill-opacity: 0.3;
-  z-index: 20;
+  z-index: 30;
 }
 
 area|z12-13[natural=wood],
@@ -158,7 +159,7 @@ area|z13-14[landuse=forest]
 {
   fill-color: @forest;
   fill-opacity: 0.45;
-  z-index: 20;
+  z-index: 30;
 }
 
 area|z15-[natural=wood],
@@ -166,13 +167,13 @@ area|z15-[landuse=forest]
 {
   fill-color: @forest;
   fill-opacity: 0.7;
-  z-index: 20;
+  z-index: 30;
 }
 
 area|z10[leisure=park] {
   fill-color: @forest;
   fill-opacity: 0.3;
-  z-index: 25;
+  z-index: 20;
 }
 
 area|z11[leisure=park] {
@@ -190,7 +191,7 @@ area|z12-14[leisure=park], area|z12-14[leisure=garden] {
 
 area|z15-[leisure=park], area|z15-[leisure=garden]  {
   fill-color: @park;
-  fill-opacity: 0.6;
+  fill-opacity: 0.8;
   z-index: 25;
 }
 

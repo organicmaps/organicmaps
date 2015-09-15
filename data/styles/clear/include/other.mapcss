@@ -23,3 +23,73 @@ line|z17-[historic=citywalls],
   dashes: 2,2;
   z-index: 950;
 }
+
+/* PISTE */
+/* node|z13[aerialway=station] { symbol-shape: circle; symbol-fill-color: grey; symbol-size: 2; } */
+
+line|z13-14[piste:lift=j-bar],
+line|z13-14[piste:lift=magic_carpet],
+line|z13-14[piste:lift=platter],
+line|z13-14[piste:lift=rope_tow],
+line|z13-14[piste:lift=t-bar] {
+  color: red;
+  width: 0.5;
+  opacity: 0.6;
+  z-index: 6888;
+}
+
+line|z15-[piste:lift],
+line|z15-[piste:lift=j-bar],
+line|z15-[piste:lift=magic_carpet],
+line|z15-[piste:lift=platter],
+line|z15-[piste:lift=rope_tow],
+line|z15-[piste:lift=t-bar] {
+  color: @aerialway;
+  width: 0.8;
+  opacity: 1;
+  z-index: 6888;
+}
+
+line|z14[piste:type=downhill], line|z14[piste:type=nordic], line|z14[piste:type=sled] {
+  color: @piste;
+  width: 0.5;
+  opacity: 0.6;
+  z-index: 199;
+}
+
+line|z15[piste:type=downhill], line|z15[piste:type=nordic], line|z15[piste:type=sled] {
+  color: @piste;
+  width: 1;
+  opacity: 0.6;
+  z-index: 199;
+}
+
+
+line|z16-[piste:type=downhill],
+line|z16-[piste:type=nordic],
+line|z16-[piste:type=sled] {
+  color: @piste;
+  width: 1.5;
+  opacity: 0.9;
+  z-index: 199;
+}
+
+
+line|z14-[piste:type=downhill][piste:difficulty=novice] { color: @piste_novice; }
+line|z14-[piste:type=downhill][piste:difficulty=easy] { color:  @piste_easy; }
+line|z14-[piste:type=downhill][piste:difficulty=intermediate] { color: @piste_intermadiate; }
+line|z14-[piste:type=downhill][piste:difficulty=advanced] { color: @piste_advanced; }
+line|z14-[piste:type=downhill][piste:difficulty=expert] { color: @piste_expert; }
+
+
+/*
+[piste:type=downhill]
+[piste:type=downhill][piste:difficulty=advanced]
+[piste:type=downhill][piste:difficulty=easy]
+[piste:type=downhill][piste:difficulty=expert]
+[piste:type=downhill][piste:difficulty=freeride]
+[piste:type=downhill][piste:difficulty=intermediate]
+[piste:type=downhill][piste:difficulty=novice]
+[piste:type=nordic]
+[piste:type=sled]
+*/
