@@ -70,6 +70,8 @@
 		A1616E2B1B6B60AB003F078E /* router_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1616E291B6B60AB003F078E /* router_delegate.cpp */; };
 		A1616E2C1B6B60AB003F078E /* router_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1616E2A1B6B60AB003F078E /* router_delegate.hpp */; };
 		A1616E2E1B6B60B3003F078E /* astar_progress.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1616E2D1B6B60B3003F078E /* astar_progress.hpp */; };
+		A1876BC61BB19C4300C9C743 /* speed_camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1876BC41BB19C4300C9C743 /* speed_camera.cpp */; settings = {ASSET_TAGS = (); }; };
+		A1876BC71BB19C4300C9C743 /* speed_camera.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1876BC51BB19C4300C9C743 /* speed_camera.hpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +140,8 @@
 		A1616E291B6B60AB003F078E /* router_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = router_delegate.cpp; sourceTree = "<group>"; };
 		A1616E2A1B6B60AB003F078E /* router_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = router_delegate.hpp; sourceTree = "<group>"; };
 		A1616E2D1B6B60B3003F078E /* astar_progress.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = astar_progress.hpp; sourceTree = "<group>"; };
+		A1876BC41BB19C4300C9C743 /* speed_camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera.cpp; sourceTree = "<group>"; };
+		A1876BC51BB19C4300C9C743 /* speed_camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +186,8 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				A1876BC41BB19C4300C9C743 /* speed_camera.cpp */,
+				A1876BC51BB19C4300C9C743 /* speed_camera.hpp */,
 				671F58BA1B874EA20032311E /* base */,
 				67AB92E01B7B3E6E00AB5194 /* routing_mapping.hpp */,
 				67AB92E11B7B3E6E00AB5194 /* turns_tts_text.cpp */,
@@ -281,6 +287,7 @@
 				6753441D1A3F644F00A0A8C3 /* router.hpp in Headers */,
 				A1616E2E1B6B60B3003F078E /* astar_progress.hpp in Headers */,
 				670EE5721B664796001E8064 /* directions_engine.hpp in Headers */,
+				A1876BC71BB19C4300C9C743 /* speed_camera.hpp in Headers */,
 				67C7D42A1B4EB48F00FE41AA /* car_model.hpp in Headers */,
 				670D049F1B0B4A970013A7AC /* nearest_edge_finder.hpp in Headers */,
 				A120B34F1B4A7C0A002F3808 /* online_absent_fetcher.hpp in Headers */,
@@ -359,6 +366,7 @@
 				674F9BD61B0A580E00704FFA /* turns_generator.cpp in Sources */,
 				675344171A3F644F00A0A8C3 /* osrm_router.cpp in Sources */,
 				674F9BD21B0A580E00704FFA /* road_graph_router.cpp in Sources */,
+				A1876BC61BB19C4300C9C743 /* speed_camera.cpp in Sources */,
 				671F58BD1B874EC80032311E /* followed_polyline.cpp in Sources */,
 				670EE55D1B6001E7001E8064 /* routing_session.cpp in Sources */,
 				A120B3451B4A7BE5002F3808 /* cross_mwm_road_graph.cpp in Sources */,

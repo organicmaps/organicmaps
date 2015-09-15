@@ -36,6 +36,7 @@ SOURCES += \
     routing_algorithm.cpp \
     routing_mapping.cpp \
     routing_session.cpp \
+    speed_camera.cpp \
     turns.cpp \
     turns_generator.cpp \
     turns_sound.cpp \
@@ -71,6 +72,7 @@ HEADERS += \
     routing_mapping.hpp \
     routing_session.hpp \
     routing_settings.hpp \
+    speed_camera.hpp \
     turns.hpp \
     turns_generator.hpp \
     turns_sound.hpp \

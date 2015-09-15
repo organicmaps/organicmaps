@@ -17,8 +17,19 @@ namespace location
   class RouteMatchingInfo;
 }
 
+class Index;
+
 namespace routing
 {
+
+/// Speed cameras structure. First is reference to point, second is a speed limit.
+struct SpeedCameraRestriction
+{
+  uint32_t m_index;
+  uint8_t m_maxSpeed;
+
+  SpeedCameraRestriction(uint32_t index, uint8_t maxSpeed) : m_index(index), m_maxSpeed(maxSpeed) {}
+};
 
 class Route
 {
@@ -27,12 +38,15 @@ public:
   typedef pair<uint32_t, double> TTimeItem;
   typedef vector<TTimeItem> TTimes;
 
+  static double constexpr kInvalidSpeedCameraDistance = -1;
+
   explicit Route(string const & router)
     : m_router(router), m_routingSettings(GetCarRoutingSettings()) {}
 
   template <class TIter>
   Route(string const & router, TIter beg, TIter end)
-    : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(beg, end)
+    : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(beg, end),
+      m_lastCheckedCamera(0)
   {
     Update();
   }
@@ -85,6 +99,8 @@ public:
   /// \brief Extract information about zero, one or two nearest turns depending on current position.
   /// @return true if its parameter is filled with correct result. (At least with one element.)
   bool GetNextTurns(vector<turns::TurnItemDist> & turns) const;
+  /// Returns nearest speed camera and distance to it.
+  double GetCurrentCam(SpeedCameraRestriction & camera, Index const & index) const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
 
@@ -131,6 +147,7 @@ private:
   TTimes m_times;
 
   mutable double m_currentTime;
+  mutable size_t m_lastCheckedCamera;
 };
 
 } // namespace routing

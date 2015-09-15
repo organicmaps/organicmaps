@@ -39,6 +39,12 @@ public:
       if (!value.empty())
         md.Add(Metadata::FMD_PHONE_NUMBER, value);
     }
+    else if (k == "maxspeed")
+    {
+      string const & value = ValidateAndFormat_maxspeed(v);
+      if (!value.empty())
+        md.Add(Metadata::FMD_MAXSPEED, value);
+    }
     else if (k == "stars")
     {
       string const & value = ValidateAndFormat_stars(v);
@@ -116,6 +122,15 @@ public:
 
 protected:
   /// Validation and formatting functions
+
+  string ValidateAndFormat_maxspeed(string const & v) const
+  {
+    static ftypes::IsSpeedCamChecker const IsSpeedCam;
+    if (!IsSpeedCam(m_params.m_Types))
+      return string();
+
+    return v;
+  }
 
   string ValidateAndFormat_stars(string const & v) const
   {

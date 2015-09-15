@@ -78,7 +78,7 @@ public:
   void Reset();
 
   State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);
-  void GetRouteFollowingInfo(location::FollowingInfo & info) const;
+  void GetRouteFollowingInfo(location::FollowingInfo & info, Index const & index) const;
 
   void MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
@@ -124,6 +124,8 @@ private:
   Route m_route;
   State m_state;
   m2::PointD m_endPoint;
+  double m_speedMpS;
+  mutable size_t m_lastWarnedSpeedCamera;
 
   mutable threads::Mutex m_routeSessionMutex;
 

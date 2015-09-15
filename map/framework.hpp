@@ -595,7 +595,7 @@ public:
   void SetRouteProgressListener(TRouteProgressCallback const & progressCallback) { m_progressCallback = progressCallback; }
   void FollowRoute();
   void CloseRouting();
-  void GetRouteFollowingInfo(location::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
+  void GetRouteFollowingInfo(location::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info, m_model.GetIndex()); }
   m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
   void SetLastUsedRouter(routing::RouterType type);
   /// Returns the most situable router engine type. Bases on distance and the last used router.
