@@ -24,13 +24,12 @@ extern NSString * const kMwmTextToSpeechDisable;
   // Hook for shell command on change map style
   BOOL const isDark = [cmd isEqualToString:@"mapstyle:dark"] || [cmd isEqualToString:@"?dark"];
   BOOL const isLight = isDark ? NO : [cmd isEqualToString:@"mapstyle:light"] || [cmd isEqualToString:@"?light"];
-  BOOL const isClear = isLight || isDark ? NO : [cmd isEqualToString:@"?newstyle"];
+  BOOL const isOld = isLight || isDark ? NO : [cmd isEqualToString:@"?oldstyle"];
 
-  if (!isDark && !isLight && !isClear)
+  if (!isDark && !isLight && !isOld)
     return NO;
 
-  // change map style
-  MapStyle const mapStyle = isDark ? MapStyleDark : (isClear ? MapStyleClear : MapStyleLight);
+  MapStyle const mapStyle = isDark ? MapStyleDark : (isOld ? MapStyleLight : MapStyleClear);
   [[MapsAppDelegate theApp] setMapStyle: mapStyle];
 
   return YES;
