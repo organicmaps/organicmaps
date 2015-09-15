@@ -1032,3 +1032,4 @@ railway|subway_entrance|paris
 railway|subway_entrance|madrid
 railway|subway_entrance|roma
 railway|subway_entrance|spb
+aerialway|drag_lift

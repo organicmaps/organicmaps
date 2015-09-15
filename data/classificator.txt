@@ -2,6 +2,7 @@ world  +
     aerialway  +
         cable_car  -
         chair_lift  -
+        drag_lift  -
         gondola  -
         mixed_lift  -
         station  -
