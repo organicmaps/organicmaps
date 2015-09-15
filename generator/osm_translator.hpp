@@ -234,8 +234,8 @@ class OsmToFeatureTranslator
 
     FeatureBuilder1::TGeometry & GetHoles()
     {
-      ASSERT ( m_holes.empty(), ("Can call only once") );
-      m_merger.ForEachArea(false, [this] (FeatureBuilder1::TPointSeq & v, vector<uint64_t> const &)
+      ASSERT(m_holes.empty(), ("Can call only once"));
+      m_merger.ForEachArea(false, [this](FeatureBuilder1::TPointSeq & v, vector<uint64_t> const &)
       {
         m_holes.push_back(FeatureBuilder1::TPointSeq());
         m_holes.back().swap(v);

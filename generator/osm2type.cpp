@@ -36,13 +36,17 @@ namespace ftype
       static string const negativeValues[] = { "no", "false", "-1" };
       // If second component of these pairs is true we need to process this key else ignore it
       static pair<string const, bool const> const processedKeys[] = {
-        {"description", true}
-        ,{"cycleway", true}     // [highway=primary][cycleway=lane] parsed as [highway=cycleway]
-        ,{"proposed", true}     // [highway=proposed][proposed=primary] parsed as [highway=primary]
-        ,{"construction", true} // [highway=primary][construction=primary] parsed as [highway=construction]
-        ,{"layer", false}       // process in any case
-        ,{"oneway", false}      // process in any case
-      };
+          {"description", true},
+          // [highway=primary][cycleway=lane] parsed as [highway=cycleway]
+          {"cycleway", true},
+          // [highway=proposed][proposed=primary] parsed as [highway=primary]
+          {"proposed", true},
+          // [highway=primary][construction=primary] parsed as [highway=construction]
+          {"construction", true},
+          // process in any case
+          {"layer", false},
+          // process in any case
+          {"oneway", false}};
 
       // Ignore empty key.
       if (k.empty())
