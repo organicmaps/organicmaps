@@ -91,10 +91,10 @@ LocationObserver>
       return;
     dispatch_async(dispatch_get_main_queue(), [=]()
     {
-      if (results.IsEndMarker())
-        [self completeSearch];
-      else
+      if (!results.IsEndMarker())
         searchResults = results;
+      else if (results.IsEndedNormal())
+        [self completeSearch];
       [self updateSearchResults];
     });
   };
@@ -130,13 +130,19 @@ LocationObserver>
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration
 {
-  [self updateSearchResultsInTable];
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    [self updateSearchResultsInTable];
+  });
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-  [self updateSearchResultsInTable];
+  [coordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context)
+  {
+    [self updateSearchResultsInTable];
+  }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -266,11 +272,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if (!IPAD && self.searchOnMap)
     return;
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
-    self.commonSizingCell = nil;
-    [self.tableView reloadData];
-  });
+  self.commonSizingCell = nil;
+  [self.tableView reloadData];
 }
 
 - (void)updateSearchResults
@@ -297,6 +300,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     searchParams.SetInputLocale(locale.UTF8String);
   searchParams.m_query = text.precomposedStringWithCompatibilityMapping.UTF8String;
   searchParams.SetForceSearch(true);
+  searchResults.Clear();
   [self updateSearch];
 }
 
@@ -305,12 +309,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   Framework & f = GetFramework();
   if (!searchParams.m_query.empty())
   {
-    searchResults.Clear();
     self.watchLocationUpdates = YES;
     if (self.searchOnMap)
+    {
       f.StartInteractiveSearch(searchParams);
+      if (searchResults.GetCount())
+        f.ShowAllSearchResults();
+      f.UpdateUserViewportChanged();
+    }
     else
+    {
       f.Search(searchParams);
+    }
   }
   else
   {

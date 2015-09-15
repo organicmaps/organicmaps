@@ -37,7 +37,7 @@ static CGFloat const kWidthForiPad = 320.0;
 {
   BOOL const equal = CGRectEqualToRect(super.frame, frame);
   super.frame = frame;
-  if (!equal && self.superview && self.isVisible)
+  if (!equal && self.superview && self.isVisible && (IPAD || self.compact))
     [self.delegate searchFrameUpdated:frame];
 }
 

@@ -19,7 +19,9 @@
 
 - (void)config:(search::Result &)result
 {
-  GetFramework().LoadSearchResultMetadata(result);
+  if (result.GetResultType() == search::Result::RESULT_FEATURE)
+    GetFramework().LoadSearchResultMetadata(result);
+
   NSString * title = @(result.GetString());
   if (!title)
   {

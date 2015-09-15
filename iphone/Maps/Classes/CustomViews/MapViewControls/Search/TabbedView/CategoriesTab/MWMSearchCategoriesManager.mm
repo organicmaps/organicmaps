@@ -18,6 +18,7 @@ static size_t constexpr kCategoriesCount = ARRAY_SIZE(categoriesNames);
 {
   cell.noResultsView.hidden = YES;
   UITableView * tableView = cell.tableView;
+  tableView.alpha = 1.0;
   tableView.hidden = NO;
   tableView.delegate = self;
   tableView.dataSource = self;

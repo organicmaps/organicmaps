@@ -42,8 +42,8 @@ static NSString * const kClearCellIdentifier = @"MWMSearchHistoryClearCell";
     [tableView reloadData];
   }
   cell.noResultsImage.image = [UIImage imageNamed:@"img_no_history_light"];
-  cell.noResultsTitle.text = L(@"search_history_no_results_title");
-  cell.noResultsText.text = L(@"search_history_no_results_text");
+  cell.noResultsTitle.text = L(@"search_history_title");
+  cell.noResultsText.text = L(@"search_history_text");
 }
 
 - (search::QuerySaver::TSearchRequest const &)queryAtIndex:(NSInteger)index

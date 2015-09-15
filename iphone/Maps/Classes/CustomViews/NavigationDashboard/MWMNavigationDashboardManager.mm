@@ -100,7 +100,7 @@
     [navigationDashboard addToView:self.ownerView];
   }
   self.navigationDashboard = navigationDashboard;
-  [self.drawer invalidateTopBounds:self.helperPanels.copy isPortrait:isPortrait];
+  [self.drawer invalidateTopBounds:self.helperPanels topView:self.navigationDashboard];
 }
 
 - (void)hideHelperPanels
@@ -165,7 +165,7 @@
   {
     [self removePanel:self.nextTurnPanel];
   }
-  [self.drawer drawPanels:self.helperPanels.copy];
+  [self.drawer drawPanels:self.helperPanels];
   [self.navigationDashboard setNeedsLayout];
 }
 
@@ -315,7 +315,7 @@
 - (MWMRouteHelperPanelsDrawer *)drawer
 {
   if (!_drawer)
-    _drawer = [[MWMRouteHelperPanelsDrawer alloc] initWithView:IPAD ? self.navigationDashboard : self.ownerView];
+    _drawer = [[MWMRouteHelperPanelsDrawer alloc] initWithTopView:self.navigationDashboard];
   return _drawer;
 }
 
@@ -365,6 +365,7 @@
 {
   _topBound = self.routePreviewLandscape.topBound = self.routePreviewPortrait.topBound =
   self.navigationDashboardLandscape.topBound = self.navigationDashboardPortrait.topBound = topBound;
+  [self.drawer invalidateTopBounds:self.helperPanels topView:self.navigationDashboard];
 }
 
 - (void)setLeftBound:(CGFloat)leftBound

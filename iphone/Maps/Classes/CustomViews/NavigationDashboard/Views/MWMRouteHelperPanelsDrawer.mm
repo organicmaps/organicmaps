@@ -4,51 +4,46 @@
 #import "UIKitCategories.h"
 #import "UIColor+MapsMeColor.h"
 
-static CGFloat const kTopOffsetValuePortrait = 160.;
-static CGFloat const kTopOffsetValueLandscape = 116.;
-static CGFloat const kBottomOffsetValuePortrait = 208.;
-static CGFloat const kBottomOffsetValueLandscape = 164.;
+static CGFloat const kOffsetBetweenPanels = 8.;
 
 @interface MWMRouteHelperPanelsDrawer ()
 
 @property (nonatomic) UIView * divider;
+@property (weak, nonatomic, readwrite) UIView * topView;
 
 @end
 
 @implementation MWMRouteHelperPanelsDrawer
 
-- (instancetype)initWithView:(UIView *)view
+- (instancetype)initWithTopView:(UIView *)view
 {
   self = [super init];
   if (self)
-    _parentView = view;
+    self.topView = view;
   return self;
 }
 
-- (void)invalidateTopBounds:(NSArray *)panels isPortrait:(BOOL)isPortrait
+- (void)invalidateTopBounds:(NSArray *)panels topView:(UIView *)view
 {
   if (IPAD || !panels.count)
     return;
-  [(MWMRouteHelperPanel *)panels.firstObject setTopBound:isPortrait ? kTopOffsetValuePortrait : kTopOffsetValueLandscape];
+  self.topView = view;
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    [self.topView layoutIfNeeded];
+    [(MWMRouteHelperPanel *)panels.firstObject setTopBound:self.topView.maxY + kOffsetBetweenPanels];
+  });
 }
 
 - (void)drawPanels:(NSArray *)panels
 {
-  if (IPAD)
-    [self drawForiPad:panels];
-  else
-    [self drawForiPhone:panels];
-}
-
-- (void)drawForiPad:(NSArray *)panels
-{
   switch (panels.count)
   {
     case 0:
       [self removeDivider];
       return;
     case 1:
-      [(MWMRouteHelperPanel *)panels.firstObject setTopBound:self.parentView.height];
+      [(MWMRouteHelperPanel *)panels.firstObject setTopBound:self.firstPanelTopOffset];
       [self removeDivider];
       return;
     case 2:
@@ -62,42 +57,10 @@ static CGFloat const kBottomOffsetValueLandscape = 164.;
         else
           second = p;
       }
-      first.topBound = self.parentView.height;
-      second.topBound = first.maxY;
-      [self drawDivider:first];
-      return;
-    }
-    default:
-      NSAssert(false, @"Incorrect vector size");
-      return;
-  }
-}
-
-- (void)drawForiPhone:(NSArray *)panels
-{
-  CGSize const s = self.parentView.size;
-  BOOL const isPortrait = s.height > s.width;
-
-  switch (panels.count)
-  {
-    case 0:
-      return;
-    case 1:
-      [(MWMRouteHelperPanel *)panels.firstObject setTopBound:isPortrait ? kTopOffsetValuePortrait : kTopOffsetValueLandscape ];
-      return;
-    case 2:
-    {
-      MWMRouteHelperPanel * first;
-      MWMRouteHelperPanel * second;
-      for (MWMRouteHelperPanel * p in panels)
-      {
-        if ([p isKindOfClass:[MWMLanesPanel class]])
-          first = p;
-        else
-          second = p;
-      }
-      first.topBound = kTopOffsetValuePortrait;
-      second.topBound = isPortrait ? kBottomOffsetValuePortrait : kBottomOffsetValueLandscape;
+      first.topBound = self.firstPanelTopOffset;
+      second.topBound = first.maxY + (IPAD ? 0. : kOffsetBetweenPanels);
+      if (IPAD)
+        [self drawDivider:first];
       return;
     }
     default:
@@ -128,6 +91,11 @@ static CGFloat const kBottomOffsetValueLandscape = 164.;
     _divider.backgroundColor = UIColor.whiteSecondaryText;
   }
   return _divider;
+}
+
+- (CGFloat)firstPanelTopOffset
+{
+  return self.topView.maxY + (IPAD ? 0. : kOffsetBetweenPanels);
 }
 
 @end

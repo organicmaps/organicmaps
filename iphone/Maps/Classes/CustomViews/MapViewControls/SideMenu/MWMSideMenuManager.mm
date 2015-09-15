@@ -167,7 +167,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
   completion:^(BOOL finished)
   {
-    [self.menuButton setHidden:YES animated:NO];
+    if (self.state == MWMSideMenuStateActive)
+      [self.menuButton setHidden:YES animated:NO];
   }];
 }
 

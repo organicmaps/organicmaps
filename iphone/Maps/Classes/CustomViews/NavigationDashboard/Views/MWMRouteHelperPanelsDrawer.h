@@ -2,10 +2,10 @@
 
 @interface MWMRouteHelperPanelsDrawer : NSObject
 
-@property (weak, nonatomic, readonly) UIView * parentView;
+@property (weak, nonatomic, readonly) UIView * topView;
 
-- (instancetype)initWithView:(UIView *)view;
+- (instancetype)initWithTopView:(UIView *)view;
 - (void)drawPanels:(NSArray *)panels;
-- (void)invalidateTopBounds:(NSArray *)panels isPortrait:(BOOL)isPortrait;
+- (void)invalidateTopBounds:(NSArray *)panels topView:(UIView *)view;
 
 @end
