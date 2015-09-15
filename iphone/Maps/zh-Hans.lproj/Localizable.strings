@@ -1268,3 +1268,7 @@
 "search_history_title" = "搜索历史。";
 
 "search_history_text" = "快速访问最近的搜索查询。";
+
+
+
+"update_maps_alert_button_title" = "Update All Maps";

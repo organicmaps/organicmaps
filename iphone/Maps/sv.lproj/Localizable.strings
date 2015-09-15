@@ -1268,3 +1268,7 @@
 "search_history_title" = "Sökhistorik";
 
 "search_history_text" = "Få snabbare åtkomst till senaste sökförfrågan.";
+
+
+
+"update_maps_alert_button_title" = "Update All Maps";

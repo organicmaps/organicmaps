@@ -1268,3 +1268,7 @@
 "search_history_title" = "Hakuhistoria";
 
 "search_history_text" = "Siirry nopeasti aikaisempaan hakuun.";
+
+
+
+"update_maps_alert_button_title" = "Update All Maps";

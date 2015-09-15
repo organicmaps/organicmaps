@@ -1268,3 +1268,7 @@
 "search_history_title" = "Előző keresések";
 
 "search_history_text" = "Aktuális keresés gyors elérése.";
+
+
+
+"update_maps_alert_button_title" = "Update All Maps";

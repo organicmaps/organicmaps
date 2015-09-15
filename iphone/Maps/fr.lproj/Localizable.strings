@@ -1268,3 +1268,7 @@
 "search_history_title" = "Historique de recherche";
 
 "search_history_text" = "Accédez rapidement aux dernières recherches.";
+
+
+
+"update_maps_alert_button_title" = "Update All Maps";

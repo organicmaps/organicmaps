@@ -816,4 +816,5 @@
 	<string name="search_not_found_location">Download the map of your current location.</string>
 	<string name="search_history_title">Search History</string>
 	<string name="search_history_text">View recent searches.</string>
+	<string name="update_maps_alert_button_title">Update All Maps</string>
 </resources>

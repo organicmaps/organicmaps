@@ -1268,3 +1268,7 @@
 "search_history_title" = "検索履歴";
 
 "search_history_text" = "最近の検索クエリに素早くアクセス。";
+
+
+
+"update_maps_alert_button_title" = "Update All Maps";
