@@ -38,13 +38,14 @@ string DebugPrint(MwmSet::MwmId const & id)
 
 MwmSet::MwmHandle::MwmHandle() : m_mwmSet(nullptr), m_mwmId(), m_value(nullptr) {}
 
-MwmSet::MwmHandle::MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, TMwmValuePtr value)
-    : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(value)
+MwmSet::MwmHandle::MwmHandle(MwmSet & mwmSet, MwmId const & mwmId,
+                             unique_ptr<MwmSet::MwmValueBase> && value)
+  : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(move(value))
 {
 }
 
 MwmSet::MwmHandle::MwmHandle(MwmHandle && handle)
-    : m_mwmSet(handle.m_mwmSet), m_mwmId(handle.m_mwmId), m_value(handle.m_value)
+  : m_mwmSet(handle.m_mwmSet), m_mwmId(handle.m_mwmId), m_value(move(handle.m_value))
 {
   handle.m_mwmSet = nullptr;
   handle.m_mwmId.Reset();
@@ -54,7 +55,7 @@ MwmSet::MwmHandle::MwmHandle(MwmHandle && handle)
 MwmSet::MwmHandle::~MwmHandle()
 {
   if (m_mwmSet && m_value)
-    m_mwmSet->UnlockValue(m_mwmId, m_value);
+    m_mwmSet->UnlockValue(m_mwmId, move(m_value));
 }
 
 shared_ptr<MwmInfo> const & MwmSet::MwmHandle::GetInfo() const
@@ -184,13 +185,13 @@ void MwmSet::GetMwmsInfo(vector<shared_ptr<MwmInfo>> & info) const
   }
 }
 
-MwmSet::TMwmValuePtr MwmSet::LockValue(MwmId const & id)
+unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValue(MwmId const & id)
 {
   lock_guard<mutex> lock(m_lock);
   return LockValueImpl(id);
 }
 
-MwmSet::TMwmValuePtr MwmSet::LockValueImpl(MwmId const & id)
+unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId const & id)
 {
   CHECK(id.IsAlive(), (id));
   shared_ptr<MwmInfo> info = id.GetInfo();
@@ -207,22 +208,22 @@ MwmSet::TMwmValuePtr MwmSet::LockValueImpl(MwmId const & id)
   {
     if (it->first == id)
     {
-      TMwmValuePtr result = it->second;
+      unique_ptr<MwmValueBase> result = move(it->second);
       m_cache.erase(it);
       return result;
     }
   }
 
-  return TMwmValuePtr(CreateValue(*info));
+  return CreateValue(*info);
 }
 
-void MwmSet::UnlockValue(MwmId const & id, TMwmValuePtr p)
+void MwmSet::UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> && p)
 {
   lock_guard<mutex> lock(m_lock);
-  UnlockValueImpl(id, p);
+  UnlockValueImpl(id, move(p));
 }
 
-void MwmSet::UnlockValueImpl(MwmId const & id, TMwmValuePtr p)
+void MwmSet::UnlockValueImpl(MwmId const & id, unique_ptr<MwmValueBase> && p)
 {
   ASSERT(id.IsAlive() && p, (id));
   if (!id.IsAlive() || !p)
@@ -239,13 +240,11 @@ void MwmSet::UnlockValueImpl(MwmId const & id, TMwmValuePtr p)
     /// @todo Probably, it's better to store only "unique by id" free caches here.
     /// But it's no obvious if we have many threads working with the single mwm.
 
-    m_cache.push_back(make_pair(id, p));
+    m_cache.push_back(make_pair(id, move(p)));
     if (m_cache.size() > m_cacheSize)
     {
       ASSERT_EQUAL(m_cache.size(), m_cacheSize + 1, ());
-      auto p = m_cache.front();
       m_cache.pop_front();
-      delete p.second;
     }
   }
 }
@@ -283,27 +282,24 @@ MwmSet::MwmHandle MwmSet::GetMwmHandleById(MwmId const & id)
 
 MwmSet::MwmHandle MwmSet::GetMwmHandleByIdImpl(MwmId const & id)
 {
-  TMwmValuePtr value(nullptr);
+  unique_ptr<MwmValueBase> value;
   if (id.IsAlive())
     value = LockValueImpl(id);
-  return MwmHandle(*this, id, value);
+  return MwmHandle(*this, id, move(value));
 }
 
 void MwmSet::ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end)
 {
-  for (auto i = beg; i != end; ++i)
-    delete i->second;
   m_cache.erase(beg, end);
 }
 
 void MwmSet::ClearCache(MwmId const & id)
 {
-  ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(),
-  [&id] (pair<MwmSet::MwmId, MwmSet::TMwmValuePtr> const & p)
+  auto sameId = [&id](pair<MwmSet::MwmId, unique_ptr<MwmSet::MwmValueBase>> const & p)
   {
     return (p.first == id);
-  }),
-  m_cache.end());
+  };
+  ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(), sameId), m_cache.end());
 }
 
 string DebugPrint(MwmSet::RegResult result)

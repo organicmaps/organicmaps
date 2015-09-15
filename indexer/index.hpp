@@ -48,9 +48,9 @@ class Index : public MwmSet
 protected:
   /// @name MwmSet overrides.
   //@{
-  MwmInfoEx * CreateInfo(platform::LocalCountryFile const & localFile) const override;
+  unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const override;
 
-  MwmValue * CreateValue(MwmInfo & info) const override;
+  unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const override;
 
   void OnMwmDeregistered(platform::LocalCountryFile const & localFile) override;
   //@}

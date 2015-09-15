@@ -13,6 +13,7 @@
 #include "std/mutex.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -112,8 +113,6 @@ public:
     virtual ~MwmValueBase() = default;
   };
 
-  using TMwmValuePtr = MwmValueBase *;
-
   // Mwm handle, which is used to refer to mwm and prevent it from
   // deletion when its FileContainer is used.
   class MwmHandle final
@@ -127,10 +126,10 @@ public:
     template <typename T>
     inline T * GetValue() const
     {
-      return static_cast<T *>(m_value);
+      return static_cast<T *>(m_value.get());
     }
 
-    inline bool IsAlive() const { return m_value; }
+    inline bool IsAlive() const { return m_value.get() != nullptr; }
     inline MwmId const & GetId() const { return m_mwmId; }
     shared_ptr<MwmInfo> const & GetInfo() const;
 
@@ -139,11 +138,11 @@ public:
   private:
     friend class MwmSet;
 
-    MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, TMwmValuePtr value);
+    MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, unique_ptr<MwmValueBase> && value);
 
     MwmSet * m_mwmSet;
     MwmId m_mwmId;
-    TMwmValuePtr m_value;
+    unique_ptr<MwmValueBase> m_value;
 
     DISALLOW_COPY(MwmHandle);
   };
@@ -218,19 +217,19 @@ public:
 
 protected:
   /// @return True when file format version was successfully read to MwmInfo.
-  virtual MwmInfo * CreateInfo(platform::LocalCountryFile const & localFile) const = 0;
-  virtual MwmValueBase * CreateValue(MwmInfo & info) const = 0;
+  virtual unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const = 0;
+  virtual unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const = 0;
 
 private:
-  typedef deque<pair<MwmId, TMwmValuePtr>> CacheType;
+  typedef deque<pair<MwmId, unique_ptr<MwmValueBase>>> CacheType;
 
   /// @precondition This function is always called under mutex m_lock.
   MwmHandle GetMwmHandleByIdImpl(MwmId const & id);
 
-  TMwmValuePtr LockValue(MwmId const & id);
-  TMwmValuePtr LockValueImpl(MwmId const & id);
-  void UnlockValue(MwmId const & id, TMwmValuePtr p);
-  void UnlockValueImpl(MwmId const & id, TMwmValuePtr p);
+  unique_ptr<MwmValueBase> LockValue(MwmId const & id);
+  unique_ptr<MwmValueBase> LockValueImpl(MwmId const & id);
+  void UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> && p);
+  void UnlockValueImpl(MwmId const & id, unique_ptr<MwmValueBase> && p);
 
   /// Do the cleaning for [beg, end) without acquiring the mutex.
   /// @precondition This function is always called under mutex m_lock.

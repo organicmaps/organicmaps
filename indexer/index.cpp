@@ -36,7 +36,7 @@ void MwmValue::SetTable(MwmInfoEx & info)
 // Index implementation
 //////////////////////////////////////////////////////////////////////////////////
 
-MwmInfoEx * Index::CreateInfo(platform::LocalCountryFile const & localFile) const
+unique_ptr<MwmInfo> Index::CreateInfo(platform::LocalCountryFile const & localFile) const
 {
   MwmValue value(localFile);
 
@@ -44,7 +44,7 @@ MwmInfoEx * Index::CreateInfo(platform::LocalCountryFile const & localFile) cons
   if (!h.IsMWMSuitable())
     return nullptr;
 
-  MwmInfoEx * info = new MwmInfoEx();
+  unique_ptr<MwmInfoEx> info(new MwmInfoEx());
   info->m_limitRect = h.GetBounds();
 
   pair<int, int> const scaleR = h.GetScaleRange();
@@ -52,16 +52,15 @@ MwmInfoEx * Index::CreateInfo(platform::LocalCountryFile const & localFile) cons
   info->m_maxScale = static_cast<uint8_t>(scaleR.second);
   info->m_version = value.GetMwmVersion();
 
-  return info;
+  return unique_ptr<MwmInfo>(move(info));
 }
 
-MwmValue * Index::CreateValue(MwmInfo & info) const
+unique_ptr<MwmSet::MwmValueBase> Index::CreateValue(MwmInfo & info) const
 {
   unique_ptr<MwmValue> p(new MwmValue(info.GetLocalFile()));
   p->SetTable(dynamic_cast<MwmInfoEx &>(info));
   ASSERT(p->GetHeader().IsMWMSuitable(), ());
-
-  return p.release();
+  return unique_ptr<MwmSet::MwmValueBase>(move(p));
 }
 
 pair<MwmSet::MwmHandle, MwmSet::RegResult> Index::RegisterMap(LocalCountryFile const & localFile)

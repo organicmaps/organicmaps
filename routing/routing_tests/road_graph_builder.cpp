@@ -38,17 +38,17 @@ public:
 private:
   /// @name MwmSet overrides
   //@{
-  MwmInfo * CreateInfo(platform::LocalCountryFile const &) const override
+  unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const &) const override
   {
-    MwmInfo * info = new MwmInfo();
+    unique_ptr<MwmInfo> info(new MwmInfo());
     info->m_maxScale = 1;
     info->m_limitRect = m2::RectD(0, 0, 1, 1);
     info->m_version.format = version::lastFormat;
     return info;
   }
-  MwmValueBase * CreateValue(MwmInfo &) const override
+  unique_ptr<MwmValueBase> CreateValue(MwmInfo &) const override
   {
-    return new MwmValueBase();
+    return make_unique<MwmValueBase>();
   }
   //@}
 
