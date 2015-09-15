@@ -143,6 +143,7 @@ OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
 SCRIPTS_PATH="$(dirname "$0")"
 ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
 TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
+UPDATE_DATE="$(date +%y%m%d)"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
@@ -231,7 +232,6 @@ if [ "$MODE" == "coast" ]; then
     TRY_AGAIN=
     if [ -n "$OPT_UPDATE" ]; then
       log "STATUS" "Step 1: Updating the planet file $PLANET"
-      UPDATE_DATE="$(date +%y%m%d)"
       PLANET_ABS="$(cd "$(dirname "$PLANET")"; pwd)/$(basename "$PLANET")"
       (
         cd "$OSMCTOOLS" # osmupdate requires osmconvert in a current directory
@@ -341,10 +341,10 @@ if [ "$MODE" == "mwm" ]; then
   PARAMS="--data_path=$TARGET --intermediate_data_path=$INTDIR/ --user_resource_path=$DATA_PATH/ --node_storage=$NODE_STORAGE -generate_geometry -generate_index"
   if [ -n "$OPT_WORLD" ]; then
     (
-      "$GENERATOR_TOOL" $PARAMS --output=World 2>> "$LOG_PATH/World.log"
-      "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" $PARAMS --planet_version="$UPDATE_DATE" --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$UPDATE_DATE" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
     ) &
-    "$GENERATOR_TOOL" $PARAMS --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
+    "$GENERATOR_TOOL" $PARAMS --planet_version="$UPDATE_DATE" --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
   fi
 
   if [ -z "$NO_REGIONS" ]; then
@@ -352,7 +352,7 @@ if [ "$MODE" == "mwm" ]; then
     for file in "$INTDIR"/tmp/*.mwm.tmp; do
       if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
         BASENAME="$(basename "$file" .mwm.tmp)"
-        "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
+        "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --planet_version="$UPDATE_DATE" --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
         forky
       fi
     done
@@ -384,7 +384,7 @@ if [ "$MODE" == "resources" ]; then
   putmode "Step 7: Updating resource lists"
   # Update countries list
   [ ! -e "$TARGET/countries.txt" ] && cp "$DATA_PATH/countries.txt" "$TARGET/countries.txt"
-  "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$PLANET_LOG"
+  "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$UPDATE_DATE" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$PLANET_LOG"
   # We have no means of finding the resulting file, so let's assume it was magically placed in DATA_PATH
   [ -e "$TARGET/countries.txt.updated" ] && mv "$TARGET/countries.txt.updated" "$TARGET/countries.txt"
   # If we know the planet's version, update it in countries.txt
