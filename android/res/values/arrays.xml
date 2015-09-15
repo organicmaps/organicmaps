@@ -3,22 +3,22 @@
 
   <!-- IMPORTANT : order of items in 'search_category_icon_ids' and 'search_category_name_ids' should be identical. -->
   <array name="search_category_icon_ids">
-    <item>@drawable/ic_food</item>
-    <item>@drawable/ic_hotel</item>
-    <item>@drawable/ic_tourism</item>
-    <item>@drawable/ic_wifi</item>
-    <item>@drawable/ic_transport</item>
-    <item>@drawable/ic_gas</item>
-    <item>@drawable/ic_parking</item>
-    <item>@drawable/ic_shop</item>
-    <item>@drawable/ic_atm</item>
-    <item>@drawable/ic_bank</item>
-    <item>@drawable/ic_entertainment</item>
-    <item>@drawable/ic_hospital</item>
-    <item>@drawable/ic_pharmacy</item>
-    <item>@drawable/ic_police</item>
-    <item>@drawable/ic_toilet</item>
-    <item>@drawable/ic_post</item>
+    <item>@drawable/ic_food_light</item>
+    <item>@drawable/ic_hotel_light</item>
+    <item>@drawable/ic_tourism_light</item>
+    <item>@drawable/ic_wifi_light</item>
+    <item>@drawable/ic_transport_light</item>
+    <item>@drawable/ic_gas_light</item>
+    <item>@drawable/ic_parking_light</item>
+    <item>@drawable/ic_shop_light</item>
+    <item>@drawable/ic_atm_light</item>
+    <item>@drawable/ic_bank_light</item>
+    <item>@drawable/ic_entertainment_light</item>
+    <item>@drawable/ic_hospital_light</item>
+    <item>@drawable/ic_pharmacy_light</item>
+    <item>@drawable/ic_police_light</item>
+    <item>@drawable/ic_toilets_light</item>
+    <item>@drawable/ic_post_light</item>
   </array>
 
   <array name="search_category_name_ids">
