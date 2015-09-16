@@ -39,7 +39,10 @@
 - (void)animationDidStop:(CABasicAnimation *)anim finished:(BOOL)flag
 {
   if (self.nextProgressToAnimate)
+  {
     self.progress = self.nextProgressToAnimate.doubleValue;
+    self.nextProgressToAnimate = nil;
+  }
 }
 
 #pragma mark - Actions
