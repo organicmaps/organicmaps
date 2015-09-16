@@ -36,6 +36,7 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="clear_search"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
