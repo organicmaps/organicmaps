@@ -85,9 +85,8 @@ static NSString * const kKeyPath = @"subviews";
   _isVisible = isVisible;
   if (isVisible)
   {
-    self.backLabel.text =
-        [NSString stringWithFormat:@"%@%@", L(@"back_to"),
-                                   @(GetFramework().GetApiDataHolder().GetAppTitle().c_str())];
+    self.backLabel.text = [NSString
+        stringWithFormat:L(@"back_to"), @(GetFramework().GetApiDataHolder().GetAppTitle().c_str())];
     [self.controller.view addSubview:self.rootView];
     [self.controller.view addObserver:self
                            forKeyPath:kKeyPath
