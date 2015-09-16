@@ -38,12 +38,13 @@ static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;
 
 - (void)layoutSubviews
 {
-  self.frame = self.superview.bounds;
+  UIView * superview = self.superview;
+  self.frame = superview.bounds;
   CGSize const size = self.superview.size;
   self.size = size;
   CGFloat const minimumBorderOffset = 40.;
   BOOL const isLandscape = size.width > size.height;
-
+  [superview bringSubviewToFront:self];
   if (isLandscape)
   {
     CGFloat const defaultWidth = size.width - 3. * minimumBorderOffset - kDirectionArrowSide;
