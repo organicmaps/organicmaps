@@ -76,7 +76,7 @@ public:
           break;
       } while (true);
 
-      if ((points.size() > 2 && points.front() == points.back()))
+      if (points.size() > 2 && points.front() == points.back())
         toDo(points, ids);
     }
   }

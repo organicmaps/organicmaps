@@ -17,14 +17,14 @@ namespace m2
   {
     struct DefEqualFloat
     {
-      template <class PointT>
-      bool EqualPoints(PointT const & p1, PointT const & p2) const
+      template <class TPoint>
+      bool EqualPoints(TPoint const & p1, TPoint const & p2) const
       {
-        return my::AlmostEqualAbs(p1.x, p2.x, static_cast<typename PointT::value_type>(1e-7)) &&
-               my::AlmostEqualAbs(p1.y, p2.y, static_cast<typename PointT::value_type>(1e-7));
+        return my::AlmostEqualAbs(p1.x, p2.x, static_cast<typename TPoint::value_type>(1e-7)) &&
+               my::AlmostEqualAbs(p1.y, p2.y, static_cast<typename TPoint::value_type>(1e-7));
       }
-      template <class CoordT>
-      bool EqualZero(CoordT val, CoordT exp) const
+      template <class TCoord>
+      bool EqualZero(TCoord val, TCoord exp) const
       {
         return my::AlmostEqualAbs(val, 0.0, exp);
       }
@@ -32,13 +32,13 @@ namespace m2
 
     struct DefEqualInt
     {
-      template <class PointT>
-      bool EqualPoints(PointT const & p1, PointT const & p2) const
+      template <class TPoint>
+      bool EqualPoints(TPoint const & p1, TPoint const & p2) const
       {
         return p1 == p2;
       }
-      template <class CoordT>
-      bool EqualZero(CoordT val, CoordT) const
+      template <class TCoord>
+      bool EqualZero(TCoord val, TCoord) const
       {
         return val == 0;
       }
