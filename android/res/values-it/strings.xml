@@ -800,4 +800,8 @@
 	<string name="search_not_found_location">Scarica la mappa del luogo in cui ti trovi.</string>
 	<string name="search_history_title">Cerca nella cronologia</string>
 	<string name="search_history_text">Accedi velocemente alle stringhe di ricerca recenti.</string>
+	<string name="update_maps_alert_title">Esplorare le mappe è ora più semplice</string>
+	<string name="update_maps_alert_message">Abbiamo migliorato gli stili delle mappe: ora tutti gli oggetti sono più chiari. Aggiorna le mappe per ricevere il meglio del nuovo design.</string>
+	<string name="update_maps_alert_button_title">Aggiorna mappe</string>
+	<string name="clear_search">Cancella сronologia ricerche</string>
 </resources>

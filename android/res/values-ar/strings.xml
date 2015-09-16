@@ -807,4 +807,8 @@
 	<string name="search_not_found_location">قم بتنزيل الخريطة الخاصة بموقعك الجغرافي.</string>
 	<string name="search_history_title">سجل البحث</string>
 	<string name="search_history_text">الوصول إلى استعلامات البحث الحديثة بسرعة.</string>
+	<string name="update_maps_alert_title">تصفح الخريطة أصبح أسهل الآن</string>
+	<string name="update_maps_alert_message">قمنا بتحسين تصاميم الخريطة: الآن أصبحت كل الأشياء واضحة وسهلة الاستخدام. قم بتحديث الخرائط لتحصل على المزيد من التصميم الجديد.</string>
+	<string name="update_maps_alert_button_title">تحديث الخرائط</string>
+	<string name="clear_search">مسح تاريخ البحث</string>
 </resources>

@@ -1269,6 +1269,10 @@
 
 "search_history_text" = "Schnell auf die letzten Suchanfragen zugreifen.";
 
+"update_maps_alert_title" = "Das Erkunden der Karte ist nun einfacher";
 
+"update_maps_alert_message" = "Wir haben die Stile der Karte verbessert: Nun sehen alle Objekte freundlicher und sauberer aus. Aktualisieren Sie die Karten, um das Maximum aus dem neuen Design herauszuholen.";
 
-"update_maps_alert_button_title" = "Update All Maps";
+"update_maps_alert_button_title" = "Karten aktualisieren";
+
+"clear_search" = "Suchhistorie löschen";

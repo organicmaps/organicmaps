@@ -1269,6 +1269,10 @@
 
 "search_history_text" = "الوصول إلى استعلامات البحث الحديثة بسرعة.";
 
+"update_maps_alert_title" = "تصفح الخريطة أصبح أسهل الآن";
 
+"update_maps_alert_message" = "قمنا بتحسين تصاميم الخريطة: الآن أصبحت كل الأشياء واضحة وسهلة الاستخدام. قم بتحديث الخرائط لتحصل على المزيد من التصميم الجديد.";
 
-"update_maps_alert_button_title" = "Update All Maps";
+"update_maps_alert_button_title" = "تحديث الخرائط";
+
+"clear_search" = "مسح تاريخ البحث";

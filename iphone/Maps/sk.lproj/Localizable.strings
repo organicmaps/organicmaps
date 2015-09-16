@@ -1269,6 +1269,10 @@
 
 "search_history_text" = "Rýchlo pristupujte k nedávnym hľadaným výrazom.";
 
+"update_maps_alert_title" = "Prehliadanie máp je teraz jednoduchšie";
 
+"update_maps_alert_message" = "Zlepšili sme štýl máp: Teraz všetky objekty vyzerajú priateľskejšie a jasnejšie. Aktualizujte si mapy, aby ste z nového dizajnu získali čo najviac.";
 
-"update_maps_alert_button_title" = "Update All Maps";
+"update_maps_alert_button_title" = "Aktualizácia máp";
+
+"clear_search" = "Vymazať históriu vyhľadávania";

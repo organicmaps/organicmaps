@@ -816,5 +816,8 @@
 	<string name="search_not_found_location">Download the map of your current location.</string>
 	<string name="search_history_title">Search History</string>
 	<string name="search_history_text">View recent searches.</string>
-	<string name="update_maps_alert_button_title">Update All Maps</string>
+	<string name="update_maps_alert_title">Navigating the map is easier now</string>
+	<string name="update_maps_alert_message">We have improved the map style: now all the objects look more user-friendly and clear. Update the maps to get the most from the new design.</string>
+	<string name="update_maps_alert_button_title">Update Maps</string>
+	<string name="clear_search">Clear Search History</string>
 </resources>

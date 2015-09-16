@@ -804,4 +804,8 @@
 	<string name="search_not_found_location">Töltse le a jelenlegi tartózkodási helye térképét.</string>
 	<string name="search_history_title">Előző keresések</string>
 	<string name="search_history_text">Aktuális keresés gyors elérése.</string>
+	<string name="update_maps_alert_title">Egyszerűbbé vált a navigálás</string>
+	<string name="update_maps_alert_message">Javítottunk a térképek stílusán: mostantól minden objektum barátságosabban és érthetőbben néz ki. Frissítse fel a térképeket az új design összes előnyének kihasználása érdekében.</string>
+	<string name="update_maps_alert_button_title">Térképek frissítése</string>
+	<string name="clear_search">A keresési előzmények törlése</string>
 </resources>

@@ -803,4 +803,8 @@
 	<string name="search_not_found_location">Download kortet for din nuværende placering.</string>
 	<string name="search_history_title">Søgehistorik</string>
 	<string name="search_history_text">Gå hurtigt ind på seneste forespørgsel.</string>
+	<string name="update_maps_alert_title">Det er lettere nu at udforske kortet</string>
+	<string name="update_maps_alert_message">Vi har forbedret stilarterne på kortet: Nu ser alle objekter venligere og klarere ud. Opdatér kortet for at få det meste ud af det nye design.</string>
+	<string name="update_maps_alert_button_title">Opdatér kort</string>
+	<string name="clear_search">Ryd historiksøgning</string>
 </resources>

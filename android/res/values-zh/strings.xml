@@ -807,4 +807,8 @@
 	<string name="search_not_found_location">下载您当前位置的地图。</string>
 	<string name="search_history_title">搜索历史。</string>
 	<string name="search_history_text">快速访问最近的搜索查询。</string>
+	<string name="update_maps_alert_title">探索地图现在更容易了</string>
+	<string name="update_maps_alert_message">我们改进了地图风格：现在所有东西看上去更友好和清楚了。更新地图，尽可能地利用新设计。</string>
+	<string name="update_maps_alert_button_title">更新地图</string>
+	<string name="clear_search">清除历史搜索</string>
 </resources>

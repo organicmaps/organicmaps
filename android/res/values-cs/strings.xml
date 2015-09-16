@@ -810,4 +810,8 @@
 	<string name="search_not_found_location">Stáhněte si mapu své aktuální pozice.</string>
 	<string name="search_history_title">Prohledat historii</string>
 	<string name="search_history_text">Získejte přístup k hledanému dotazu rychle.</string>
+	<string name="update_maps_alert_title">Průzkum map je nyní snazší</string>
+	<string name="update_maps_alert_message">Vylepšili jsme styly map. Nyní vypadají všechny předměty více přátelsky a čistěji. Aktualizujte mapy a získejte z nového designu maximum.</string>
+	<string name="update_maps_alert_button_title">Aktualizovat mapy</string>
+	<string name="clear_search">Vymazat historii vyhledávání</string>
 </resources>

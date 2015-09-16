@@ -798,4 +798,8 @@
 	<string name="search_not_found_location">Laden Sie die Karte Ihres aktuellen Standorts herunter.</string>
 	<string name="search_history_title">Suchverlauf</string>
 	<string name="search_history_text">Schnell auf die letzten Suchanfragen zugreifen.</string>
+	<string name="update_maps_alert_title">Das Erkunden der Karte ist nun einfacher</string>
+	<string name="update_maps_alert_message">Wir haben die Stile der Karte verbessert: Nun sehen alle Objekte freundlicher und sauberer aus. Aktualisieren Sie die Karten, um das Maximum aus dem neuen Design herauszuholen.</string>
+	<string name="update_maps_alert_button_title">Karten aktualisieren</string>
+	<string name="clear_search">Suchhistorie löschen</string>
 </resources>

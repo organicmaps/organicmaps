@@ -805,4 +805,8 @@
 	<string name="search_not_found_location">ดาวน์โหลดแผนที่ของตำแหน่งปัจจุบันของคุณ</string>
 	<string name="search_history_title">ประวัติการค้นหา</string>
 	<string name="search_history_text">เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว</string>
+	<string name="update_maps_alert_title">การสำรวจแผนที่ง่ายขึ้นในตอนนี้</string>
+	<string name="update_maps_alert_message">เราได้ปรับปรุงรูปแบบของแผนที่: ตอนนี้วัตถุทั้งหมดดูเป็นมิตรและชัดเจนยิ่งขึ้น อัปเดตแผนที่เพื่อรับประโยชน์สูงสุดจากการออกแบบใหม่</string>
+	<string name="update_maps_alert_button_title">อัปเดตแผนที่</string>
+	<string name="clear_search">ล้างการค้นหาประวัติ</string>
 </resources>

@@ -1269,6 +1269,10 @@
 
 "search_history_text" = "Získejte přístup k hledanému dotazu rychle.";
 
+"update_maps_alert_title" = "Průzkum map je nyní snazší";
 
+"update_maps_alert_message" = "Vylepšili jsme styly map. Nyní vypadají všechny předměty více přátelsky a čistěji. Aktualizujte mapy a získejte z nového designu maximum.";
 
-"update_maps_alert_button_title" = "Update All Maps";
+"update_maps_alert_button_title" = "Aktualizovat mapy";
+
+"clear_search" = "Vymazat historii vyhledávání";

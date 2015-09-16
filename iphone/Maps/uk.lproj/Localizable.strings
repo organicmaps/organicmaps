@@ -1269,6 +1269,10 @@
 
 "search_history_text" = "Швидкий доступ до недавніх результатів пошуку.";
 
+"update_maps_alert_title" = "Орієнтуватись стало легше";
 
+"update_maps_alert_message" = "Ми покращили стилі карт: тепер усі об'єкти виглядають більш дружніми та зрозумілими. Оновіть карти, щоб використати усі переваги нового дизайну.";
 
-"update_maps_alert_button_title" = "Update All Maps";
+"update_maps_alert_button_title" = "Оновити карти";
+
+"clear_search" = "Очистити історію пошуку";

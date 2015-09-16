@@ -1269,6 +1269,10 @@
 
 "search_history_text" = "Få snabbare åtkomst till senaste sökförfrågan.";
 
+"update_maps_alert_title" = "Nu är det enklare att utforska kartan";
 
+"update_maps_alert_message" = "Kartornas stil har blivit bättre: objekt har ett mer positivt utseende och syns bättre. Uppdatera kartorna och utnyttja den nya designen maximalt.";
 
-"update_maps_alert_button_title" = "Update All Maps";
+"update_maps_alert_button_title" = "Uppdatera kartor";
+
+"clear_search" = "Rensa sökhistorik";

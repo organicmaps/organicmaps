@@ -1269,6 +1269,10 @@
 
 "search_history_text" = "Accédez rapidement aux dernières recherches.";
 
+"update_maps_alert_title" = "Explorer la carte est désormais plus facile";
 
+"update_maps_alert_message" = "Nous avons amélioré les styles de carte : tous les objets apparaissent maintenant plus conviviaux et clairs. Mettez à jour les cartes pour profiter pleinement du nouveau design.";
 
-"update_maps_alert_button_title" = "Update All Maps";
+"update_maps_alert_button_title" = "Mettre à jour les cartes";
+
+"clear_search" = "Effacer l'historique de recherche";

@@ -801,4 +801,8 @@
 	<string name="search_not_found_location">Unduh peta dari lokasi Anda saat ini.</string>
 	<string name="search_history_title">Riwayat Pencarian</string>
 	<string name="search_history_text">Akses kueri pencarian terbaru dengan cepat.</string>
+	<string name="update_maps_alert_title">Menelusuri peta kini lebih mudah</string>
+	<string name="update_maps_alert_message">Kami telah mengadakan peningkatan pada gaya peta: sekarang semua objek tampak lebih jelas dan mudah dipahami. Perbarui peta untuk menikmati seluruh manfaat dari desain baru ini.</string>
+	<string name="update_maps_alert_button_title">Perbarui peta</string>
+	<string name="clear_search">Bersihkan riwayat pencarian</string>
 </resources>

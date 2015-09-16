@@ -814,4 +814,8 @@
 	<string name="search_not_found_location">Téléchargez la carte de votre emplacement actuel.</string>
 	<string name="search_history_title">Historique de recherche</string>
 	<string name="search_history_text">Accédez rapidement aux dernières recherches.</string>
+	<string name="update_maps_alert_title">Explorer la carte est désormais plus facile</string>
+	<string name="update_maps_alert_message">Nous avons amélioré les styles de carte : tous les objets apparaissent maintenant plus conviviaux et clairs. Mettez à jour les cartes pour profiter pleinement du nouveau design.</string>
+	<string name="update_maps_alert_button_title">Mettre à jour les cartes</string>
+	<string name="clear_search">Effacer l\&#39;historique de recherche</string>
 </resources>

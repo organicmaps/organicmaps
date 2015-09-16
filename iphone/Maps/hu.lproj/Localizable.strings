@@ -1269,6 +1269,10 @@
 
 "search_history_text" = "Aktuális keresés gyors elérése.";
 
+"update_maps_alert_title" = "Egyszerűbbé vált a navigálás";
 
+"update_maps_alert_message" = "Javítottunk a térképek stílusán: mostantól minden objektum barátságosabban és érthetőbben néz ki. Frissítse fel a térképeket az új design összes előnyének kihasználása érdekében.";
 
-"update_maps_alert_button_title" = "Update All Maps";
+"update_maps_alert_button_title" = "Térképek frissítése";
+
+"clear_search" = "A keresési előzmények törlése";

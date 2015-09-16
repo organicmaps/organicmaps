@@ -1269,6 +1269,10 @@
 
 "search_history_text" = "Accesare rapidă a căutărilor recente.";
 
+"update_maps_alert_title" = "Explorarea hărții a devenit mai simplă acum";
 
+"update_maps_alert_message" = "Stilurile hărții au fost îmbunătățite: acum toate obiectivele sunt prezentate într-un mod mai clar și atractiv. Actualizează hărțile pentru a beneficia din plin de noul design.";
 
-"update_maps_alert_button_title" = "Update All Maps";
+"update_maps_alert_button_title" = "Actualizare hărți";
+
+"clear_search" = "Ștergere istoric de căutare";

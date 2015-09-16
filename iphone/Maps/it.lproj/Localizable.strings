@@ -1269,6 +1269,10 @@
 
 "search_history_text" = "Accedi velocemente alle stringhe di ricerca recenti.";
 
+"update_maps_alert_title" = "Esplorare le mappe è ora più semplice";
 
+"update_maps_alert_message" = "Abbiamo migliorato gli stili delle mappe: ora tutti gli oggetti sono più chiari. Aggiorna le mappe per ricevere il meglio del nuovo design.";
 
-"update_maps_alert_button_title" = "Update All Maps";
+"update_maps_alert_button_title" = "Aggiorna mappe";
+
+"clear_search" = "Cancella сronologia ricerche";

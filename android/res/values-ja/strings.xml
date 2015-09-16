@@ -800,4 +800,8 @@
 	<string name="search_not_found_location">現在地の地図をダウンロードしてください。</string>
 	<string name="search_history_title">検索履歴</string>
 	<string name="search_history_text">最近の検索クエリに素早くアクセス。</string>
+	<string name="update_maps_alert_title">地図の閲覧がより簡単に</string>
+	<string name="update_maps_alert_message">地図のスタイルを改善しました：全てのオブジェクトがわかりやすくはっきりとなりました。新しいデザインを最大限に活用するには、地図をアップデートしてください。</string>
+	<string name="update_maps_alert_button_title">地図をアップデート</string>
+	<string name="clear_search">検索履歴を消去</string>
 </resources>
