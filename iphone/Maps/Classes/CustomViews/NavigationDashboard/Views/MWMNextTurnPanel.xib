@@ -31,6 +31,7 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="next_turn_then"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="simple_left_then" translatesAutoresizingMaskIntoConstraints="NO" id="JBT-i1-jF5">
