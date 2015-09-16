@@ -305,9 +305,9 @@ bool ClassifObject::IsDrawableLike(feature::EGeomType ft) const
     return false;
 
   static const int visible[3][drule::count_of_rules] = {
-    {0, 0, 1, 1, 1, 0, 0},   // fpoint
-    {1, 0, 0, 0, 0, 1, 0},   // fline
-    {0, 1, 0, 0, 0, 0, 0}    // farea (!!! key difference with GetSuitable !!!)
+    {0, 0, 1, 1, 1, 0, 0, 0},   // fpoint
+    {1, 0, 0, 0, 0, 1, 0, 1},   // fline
+    {0, 1, 0, 0, 0, 0, 0, 0}    // farea (!!! key difference with GetSuitable !!!)
   };
 
   for (size_t i = 0; i < m_drawRule.size(); ++i)
