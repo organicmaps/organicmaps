@@ -379,7 +379,7 @@ namespace ftype
       { "frankfurt", { 8.36334228516, 49.937079757, 8.92364501953, 50.2296379179 }},
     };
 
-    m2::PointD pt(MercatorBounds::XToLon(p->lon), MercatorBounds::YToLat(p->lat));
+    m2::PointD pt(p->lon, p->lat);
 
     for (auto const & city : cities)
     {
