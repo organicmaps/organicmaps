@@ -241,7 +241,7 @@ Result PreResult2::GeneratePointResult(storage::CountryInfoGetter const * pInfo,
                                      CategoriesHolder const * pCat,
                                      set<uint32_t> const * pTypes, int8_t locale) const
 {
-  uint8_t const type = GetBestType(pTypes);
+  uint32_t const type = GetBestType(pTypes);
   return Result(m_id, GetCenter(), m_str, GetRegionName(pInfo, type),
                 ReadableFeatureType(pCat, type, locale));
 }
