@@ -512,6 +512,7 @@ class ProxyFunctor1
     explicit IndexedValue(ValueT * v) : m_val(v) {}
 
     ValueT const & operator*() const { return *m_val; }
+    ValueT const * operator->() const { return m_val.get(); }
 
     string DebugPrint() const
     {
@@ -825,8 +826,10 @@ void Query::SearchViewportPoints(Results & res)
     if (IsCancelled())
       break;
 
-    res.AddResultNoChecks((*(indV[i])).GeneratePointResult(m_pInfoGetter, m_pCategories,
-                                                           &m_prefferedTypes, m_currentLocaleCode));
+    Result r = indV[i]->GeneratePointResult(m_pInfoGetter, m_pCategories,
+                                            &m_prefferedTypes, m_currentLocaleCode);
+    MakeResultHighlight(r);
+    res.AddResultNoChecks(move(r));
   }
 }
 
