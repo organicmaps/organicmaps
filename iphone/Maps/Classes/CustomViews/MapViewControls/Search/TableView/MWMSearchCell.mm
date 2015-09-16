@@ -46,7 +46,6 @@
                              range:NSMakeRange(range.first, range.second)];
   }
   self.titleLabel.attributedText = attributedTitle;
-  self.titleLabel.preferredMaxLayoutWidth = self.preferredMaxLayoutWidth;
   [self.titleLabel sizeToFit];
 }
 

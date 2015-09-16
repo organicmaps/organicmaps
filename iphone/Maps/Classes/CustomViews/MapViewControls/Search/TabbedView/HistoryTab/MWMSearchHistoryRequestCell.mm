@@ -1,7 +1,6 @@
+#import "Common.h"
 #import "MWMSearchHistoryRequestCell.h"
 #import "UIFont+MapsMeFonts.h"
-
-static CGFloat kPreferredMaxLayoutWidth = 244.0;
 
 @interface MWMSearchHistoryRequestCell ()
 
@@ -21,10 +20,9 @@ static CGFloat kPreferredMaxLayoutWidth = 244.0;
 - (void)config:(NSString *)title
 {
   self.title.text = title;
-  self.title.preferredMaxLayoutWidth = kPreferredMaxLayoutWidth;
   [self.title sizeToFit];
-  [self setNeedsLayout];
-  [self layoutIfNeeded];
+  if (isIOSVersionLessThan(8))
+    [self layoutIfNeeded];
 }
 
 + (CGFloat)defaultCellHeight

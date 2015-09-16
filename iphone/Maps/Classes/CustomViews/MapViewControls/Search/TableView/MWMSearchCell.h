@@ -4,6 +4,4 @@
 
 - (void)config:(search::Result &)result;
 
-@property (nonatomic) CGFloat preferredMaxLayoutWidth;
-
 @end

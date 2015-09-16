@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MWMSearchCommonCell.h"
@@ -23,46 +24,41 @@
 
 @implementation MWMSearchCommonCell
 
-- (void)awakeFromNib
-{
-  [super awakeFromNib];
-  self.preferredMaxLayoutWidth = 220.0;
-}
-
-- (void)config:(search::Result &)result
+- (void)config:(search::Result &)result forHeight:(BOOL)forHeight
 {
   [super config:result];
   self.typeLabel.text = @(result.GetFeatureType()).capitalizedString;
-
-  NSUInteger starsCount = result.GetStarsCount();
-  NSString * cuisine = @(result.GetCuisine());
-  if (starsCount > 0)
-    [self setInfoRating:starsCount];
-  else if (cuisine.length > 0)
-    [self setInfoText:cuisine.capitalizedString];
-  else
-    [self clearInfo];
-
   self.locationLabel.text = @(result.GetRegionString());
-  self.locationLabel.preferredMaxLayoutWidth = self.preferredMaxLayoutWidth;
   [self.locationLabel sizeToFit];
 
-  self.closedView.hidden = !result.IsClosed();
-  if (result.HasPoint())
+  if (!forHeight)
   {
-    string distanceStr;
-    double lat, lon;
-    LocationManager * locationManager = MapsAppDelegate.theApp.m_locationManager;
-    if ([locationManager getLat:lat Lon:lon])
+    NSUInteger const starsCount = result.GetStarsCount();
+    NSString * cuisine = @(result.GetCuisine());
+    if (starsCount > 0)
+      [self setInfoRating:starsCount];
+    else if (cuisine.length > 0)
+      [self setInfoText:cuisine.capitalizedString];
+    else
+      [self clearInfo];
+
+    self.closedView.hidden = !result.IsClosed();
+    if (result.HasPoint())
     {
-      m2::PointD const mercLoc = MercatorBounds::FromLatLon(lat, lon);
-      double const dist = MercatorBounds::DistanceOnEarth(mercLoc, result.GetFeatureCenter());
-      MeasurementUtils::FormatDistance(dist, distanceStr);
+      string distanceStr;
+      double lat, lon;
+      LocationManager * locationManager = MapsAppDelegate.theApp.m_locationManager;
+      if ([locationManager getLat:lat Lon:lon])
+      {
+        m2::PointD const mercLoc = MercatorBounds::FromLatLon(lat, lon);
+        double const dist = MercatorBounds::DistanceOnEarth(mercLoc, result.GetFeatureCenter());
+        MeasurementUtils::FormatDistance(dist, distanceStr);
+      }
+      self.distanceLabel.text = @(distanceStr.c_str());
     }
-    self.distanceLabel.text = @(distanceStr.c_str());
   }
-  [self setNeedsLayout];
-  [self layoutIfNeeded];
+  if (isIOSVersionLessThan(8))
+    [self layoutIfNeeded];
 }
 
 - (void)setInfoText:(NSString *)infoText

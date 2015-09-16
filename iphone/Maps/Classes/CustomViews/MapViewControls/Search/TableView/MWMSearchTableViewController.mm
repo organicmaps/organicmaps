@@ -139,10 +139,11 @@ LocationObserver>
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-  [coordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context)
+  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
   {
     [self updateSearchResultsInTable];
-  }];
+  }
+  completion:nil];
 }
 
 #pragma mark - UITableViewDataSource
@@ -195,7 +196,7 @@ LocationObserver>
     case MWMSearchTableCellTypeSuggestion:
       return MWMSearchSuggestionCell.cellHeight;
     case MWMSearchTableCellTypeCommon:
-      [self.commonSizingCell config:[self searchResultForIndexPath:indexPath]];
+      [self.commonSizingCell config:[self searchResultForIndexPath:indexPath] forHeight:YES];
       return self.commonSizingCell.cellHeight;
   }
 }
@@ -213,7 +214,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                       isLastCell:indexPath.row == searchResults.GetSuggestsCount() - 1];
       break;
     case MWMSearchTableCellTypeCommon:
-      [(MWMSearchCommonCell *)cell config:[self searchResultForIndexPath:indexPath]];
+      [(MWMSearchCommonCell *)cell config:[self searchResultForIndexPath:indexPath] forHeight:NO];
       break;
   }
 }
