@@ -443,10 +443,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Volumes/AltHD/omim-xcode-build/Debug",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -456,10 +453,7 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Volumes/AltHD/omim-xcode-build/Debug",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
