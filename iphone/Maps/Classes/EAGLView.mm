@@ -195,6 +195,7 @@
   screen->beginFrame();
   screen->clear(graphics::Screen::s_bgColor);
   screen->endFrame();
+  GetFramework().SetNeedRedraw(true);
 #endif
 }
 
