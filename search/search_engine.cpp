@@ -102,7 +102,8 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
 
 Engine::Engine(Index & index, Reader * categoriesR, storage::CountryInfoGetter const & infoGetter,
                string const & locale, unique_ptr<SearchQueryFactory> && factory)
-  : m_factory(move(factory)), m_data(new EngineData(pCategoriesR))
+  : m_factory(move(factory))
+  , m_data(make_unique<EngineData>(categoriesR))
 {
   m_isReadyThread.clear();
 
@@ -242,7 +243,7 @@ void Engine::SearchAsync()
 
   Results res;
 
-  // Call m_pQuery->IsCancelled() everywhere it needed without storing
+  // Call m_query->IsCancelled() everywhere it needed without storing
   // return value.  This flag can be changed from another thread.
 
   m_query->SearchCoordinates(params.m_query, res);

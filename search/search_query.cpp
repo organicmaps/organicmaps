@@ -1031,8 +1031,8 @@ public:
 
 Result Query::MakeResult(impl::PreResult2 const & r) const
 {
-  Result res = r.GenerateFinalResult(m_infoGetter, &m_categories,
-                                     &m_prefferedTypes, m_currentLocaleCode);
+  Result res =
+      r.GenerateFinalResult(m_infoGetter, &m_categories, &m_prefferedTypes, m_currentLocaleCode);
   MakeResultHighlight(res);
 
 #ifdef FIND_LOCALITY_TEST

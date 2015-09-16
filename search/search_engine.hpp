@@ -33,7 +33,7 @@ class Engine
 
 public:
   // Doesn't take ownership of index. Takes ownership of pCategories
-  Engine(Index & index, Reader * pCategoriesR, storage::CountryInfoGetter const & infoGetter,
+  Engine(Index & index, Reader * categoriesR, storage::CountryInfoGetter const & infoGetter,
          string const & locale, unique_ptr<SearchQueryFactory> && factory);
   ~Engine();
 
