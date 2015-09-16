@@ -191,7 +191,7 @@ namespace
 
     bool IsSkip(uint32_t type) const
     {
-      for (uint8_t t : m_types)
+      for (uint32_t t : m_types)
       {
         if (t == type)
           return true;
