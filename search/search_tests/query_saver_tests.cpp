@@ -110,4 +110,21 @@ UNIT_TEST(QuerySaverPersistanceStore)
     saver.Clear();
   }
 }
+
+UNIT_TEST(QuerySaverTrimRequestTest)
+{
+  QuerySaver saver;
+  saver.Clear();
+
+  search::QuerySaver::TSearchRequest const rec1("RU_ru" ,"test record1");
+  search::QuerySaver::TSearchRequest const rec2("RU_ru" ,"test record1 ");
+
+  saver.Add(rec1);
+  saver.Add(rec2);
+
+  list<QuerySaver::TSearchRequest> const & result = saver.Get();
+  TEST_EQUAL(result.size(), 1, ());
+  TEST_EQUAL(result.front(), rec2, ());
+  saver.Clear();
+}
 }  // namespace search

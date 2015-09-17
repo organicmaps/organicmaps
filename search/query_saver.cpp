@@ -8,6 +8,7 @@
 #include "coding/write_to_sink.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/limits.hpp"
 
@@ -72,8 +73,17 @@ QuerySaver::QuerySaver()
 
 void QuerySaver::Add(TSearchRequest const & query)
 {
+  TSearchRequest trimmedQuery(query);
+  strings::Trim(trimmedQuery.first);
+  strings::Trim(trimmedQuery.second);
+  auto trimmedComparator = [&trimmedQuery](TSearchRequest request)
+    {
+      strings::Trim(request.first);
+      strings::Trim(request.second);
+      return trimmedQuery == request;
+    };
   // Remove items if needed.
-  auto const it = find(m_topQueries.begin(), m_topQueries.end(), query);
+  auto const it = find_if(m_topQueries.begin(), m_topQueries.end(), trimmedComparator);
   if (it != m_topQueries.end())
     m_topQueries.erase(it);
   else if (m_topQueries.size() >= kMaxSuggestionsCount)
