@@ -100,7 +100,7 @@ DenseCBV::DenseCBV(vector<uint64_t> const & setBits)
   uint64_t maxBit = setBits[0];
   for (size_t i = 1; i < setBits.size(); ++i)
     maxBit = max(maxBit, setBits[i]);
-  size_t sz = 1 + maxBit / kBlockSize;
+  size_t const sz = 1 + maxBit / kBlockSize;
   m_bitGroups.resize(sz);
   m_popCount = static_cast<uint32_t>(setBits.size());
   for (uint64_t pos : setBits)
@@ -220,9 +220,13 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(
 
   vector<uint64_t> setBits;
   for (size_t i = 0; i < bitGroups.size(); ++i)
+  {
     for (size_t j = 0; j < kBlockSize; ++j)
+    {
       if (((bitGroups[i] >> j) & 1) > 0)
         setBits.push_back(kBlockSize * i + j);
+    }
+  }
   return make_unique<SparseCBV>(setBits);
 }
 

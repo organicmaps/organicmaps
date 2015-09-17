@@ -229,15 +229,20 @@ inline void ReadFromPos(TReader const & reader, uint64_t pos, void * p, size_t s
 template <typename TPrimitive, class TReader>
 inline TPrimitive ReadPrimitiveFromPos(TReader const & reader, uint64_t pos)
 {
+#ifndef OMIM_OS_LINUX
+  static_assert(is_trivially_copyable<TPrimitive>::value, "");
+#endif
   TPrimitive primitive;
   ReadFromPos(reader, pos, &primitive, sizeof(primitive));
   return SwapIfBigEndian(primitive);
 }
 
 template <typename TPrimitive, class TSource>
-inline typename enable_if<is_trivially_copyable<TPrimitive>::value, TPrimitive>::type
-ReadPrimitiveFromSource(TSource & source)
+TPrimitive ReadPrimitiveFromSource(TSource & source)
 {
+#ifndef OMIM_OS_LINUX
+  static_assert(is_trivially_copyable<TPrimitive>::value, "");
+#endif
   TPrimitive primitive;
   source.Read(&primitive, sizeof(primitive));
   return SwapIfBigEndian(primitive);
