@@ -3,7 +3,7 @@
 
 #include "base/macros.hpp"
 
-#include <tomcrypt.h>
+#include "3party/tomcrypt/src/headers/tomcrypt.h"
 
 namespace sha2
 {

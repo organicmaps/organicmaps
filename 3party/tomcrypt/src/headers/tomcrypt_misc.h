@@ -1,3 +1,5 @@
+#pragma once
+
 /* ---- LTC_BASE64 Routines ---- */
 #ifdef LTC_BASE64
 int base64_encode(const unsigned char *in,  unsigned long len,

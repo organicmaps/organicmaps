@@ -13,6 +13,7 @@ SOURCES += \
     src/hashes/sha2/sha256.c \
     src/misc/base64/base64_decode.c \
     src/misc/base64/base64_encode.c \
+    src/misc/crypt/crypt_argchk.c \
 
 HEADERS += \
     src/headers/tomcrypt.h \
