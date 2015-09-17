@@ -11,7 +11,7 @@
 @property (nonatomic) MWMDownloadMapRequest * downloadRequest;
 @property (strong, nonatomic) IBOutlet UIButton * dimButton;
 
-@property (nonnull, weak, nonatomic) id <MWMSearchDownloadMapRequest> delegate;
+@property (weak, nonatomic) id <MWMSearchDownloadMapRequest> delegate;
 
 @end
 

@@ -4,7 +4,7 @@
 
 @protocol MWMSearchTableViewProtocol <MWMSearchTabbedViewProtocol>
 
-@property (nonnull, weak, nonatomic) MWMSearchTextField * searchTextField;
+@property (weak, nonatomic) MWMSearchTextField * searchTextField;
 
 @property (nonatomic) MWMSearchManagerState state;
 

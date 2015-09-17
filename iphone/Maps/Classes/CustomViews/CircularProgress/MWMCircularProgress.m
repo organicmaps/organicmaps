@@ -9,7 +9,7 @@
 
 @property (nonatomic) NSNumber * nextProgressToAnimate;
 
-@property (nonnull, weak, nonatomic) id <MWMCircularProgressDelegate> delegate;
+@property (weak, nonatomic) id <MWMCircularProgressDelegate> delegate;
 
 @end
 

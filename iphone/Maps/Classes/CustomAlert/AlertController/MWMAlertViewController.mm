@@ -7,7 +7,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 @interface MWMAlertViewController () <UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
-@property (nonnull ,weak, nonatomic, readwrite) UIViewController * ownerViewController;
+@property (weak, nonatomic, readwrite) UIViewController * ownerViewController;
 
 @end
 

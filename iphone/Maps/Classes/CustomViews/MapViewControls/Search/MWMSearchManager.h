@@ -19,8 +19,8 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerState)
 
 @interface MWMSearchManager : NSObject
 
-@property (nonnull, weak, nonatomic) id <MWMSearchManagerProtocol> delegate;
-@property (nonnull, weak, nonatomic) IBOutlet MWMSearchTextField * searchTextField;
+@property (weak, nonatomic) id <MWMSearchManagerProtocol> delegate;
+@property (weak, nonatomic) IBOutlet MWMSearchTextField * searchTextField;
 
 @property (nonatomic) MWMSearchManagerState state;
 

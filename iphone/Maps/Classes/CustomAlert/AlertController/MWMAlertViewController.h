@@ -8,7 +8,7 @@ typedef void (^CloseAlertCompletion)();
 
 @interface MWMAlertViewController : UIViewController
 
-@property (nonnull, weak, nonatomic, readonly) UIViewController * ownerViewController;
+@property (weak, nonatomic, readonly) UIViewController * ownerViewController;
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
 - (void)presentAlert:(routing::IRouter::ResultCode)type;

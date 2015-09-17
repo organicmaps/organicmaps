@@ -22,7 +22,7 @@
 @property (copy, nonatomic) NSString * mapSize;
 @property (copy, nonatomic) NSString * mapAndRouteSize;
 
-@property (nonnull, weak, nonatomic) id <MWMDownloadMapRequestDelegate> delegate;
+@property (weak, nonatomic) id <MWMDownloadMapRequestDelegate> delegate;
 
 @property (nonatomic) storage::TIndex currentCountryIndex;
 
