@@ -35,11 +35,6 @@ INCLUDEPATH *= $$ROOT_DIR/3party/glm
 
 CONFIG *= c++11
 
-!win32* {
-  QMAKE_CFLAGS   *= -Wno-deprecated-register
-  QMAKE_CXXFLAGS *= -Wno-deprecated-register
-}
-
 # Automatically enable release config for production
 CONFIG(production) {
   CONFIG *= release
@@ -136,7 +131,10 @@ win32-msvc201* {
 unix|win32-g++ {
   LIBS *= -lz
   QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing -Wno-unused-parameter \
-      -Werror=return-type
+                            -Werror=return-type -Wno-deprecated-register
+  !android* {
+    QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-local-typedef
+  }
   *-clang {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-conversion
   }
