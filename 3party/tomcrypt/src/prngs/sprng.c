@@ -14,7 +14,7 @@
    @file sprng.c
    Secure PRNG, Tom St Denis
 */
-   
+
 /* A secure PRNG using the RNG functions.  Basically this is a
  * wrapper that allows you to use a secure RNG as a PRNG
  * in the various other functions.
@@ -39,10 +39,11 @@ const struct ltc_prng_descriptor sprng_desc =
   Start the PRNG
   @param prng     [out] The PRNG state to initialize
   @return CRYPT_OK if successful
-*/  
+*/
 int sprng_start(prng_state *prng)
 {
-   return CRYPT_OK;  
+   LTC_UNUSED_PARAM(prng);
+   return CRYPT_OK;
 }
 
 /**
@@ -51,9 +52,12 @@ int sprng_start(prng_state *prng)
   @param inlen    Length of the data to add
   @param prng     PRNG state to update
   @return CRYPT_OK if successful
-*/  
+*/
 int sprng_add_entropy(const unsigned char *in, unsigned long inlen, prng_state *prng)
 {
+   LTC_UNUSED_PARAM(in);
+   LTC_UNUSED_PARAM(inlen);
+   LTC_UNUSED_PARAM(prng);
    return CRYPT_OK;
 }
 
@@ -61,9 +65,10 @@ int sprng_add_entropy(const unsigned char *in, unsigned long inlen, prng_state *
   Make the PRNG ready to read from
   @param prng   The PRNG to make active
   @return CRYPT_OK if successful
-*/  
+*/
 int sprng_ready(prng_state *prng)
 {
+   LTC_UNUSED_PARAM(prng);
    return CRYPT_OK;
 }
 
@@ -73,10 +78,11 @@ int sprng_ready(prng_state *prng)
   @param outlen   Length of output
   @param prng     The active PRNG to read from
   @return Number of octets read
-*/  
+*/
 unsigned long sprng_read(unsigned char *out, unsigned long outlen, prng_state *prng)
 {
    LTC_ARGCHK(out != NULL);
+   LTC_UNUSED_PARAM(prng);
    return rng_get_bytes(out, outlen, NULL);
 }
 
@@ -84,9 +90,10 @@ unsigned long sprng_read(unsigned char *out, unsigned long outlen, prng_state *p
   Terminate the PRNG
   @param prng   The PRNG to terminate
   @return CRYPT_OK if successful
-*/  
+*/
 int sprng_done(prng_state *prng)
 {
+   LTC_UNUSED_PARAM(prng);
    return CRYPT_OK;
 }
 
@@ -96,31 +103,36 @@ int sprng_done(prng_state *prng)
   @param outlen    [in/out] Max size and resulting size of the state
   @param prng      The PRNG to export
   @return CRYPT_OK if successful
-*/  
+*/
 int sprng_export(unsigned char *out, unsigned long *outlen, prng_state *prng)
 {
    LTC_ARGCHK(outlen != NULL);
+   LTC_UNUSED_PARAM(out);
+   LTC_UNUSED_PARAM(prng);
 
    *outlen = 0;
    return CRYPT_OK;
 }
- 
+
 /**
   Import a PRNG state
   @param in       The PRNG state
   @param inlen    Size of the state
   @param prng     The PRNG to import
   @return CRYPT_OK if successful
-*/  
+*/
 int sprng_import(const unsigned char *in, unsigned long inlen, prng_state *prng)
 {
+  LTC_UNUSED_PARAM(in);
+  LTC_UNUSED_PARAM(inlen);
+  LTC_UNUSED_PARAM(prng);
    return CRYPT_OK;
 }
 
 /**
   PRNG self-test
   @return CRYPT_OK if successful, CRYPT_NOP if self-testing has been disabled
-*/  
+*/
 int sprng_test(void)
 {
    return CRYPT_OK;
@@ -129,8 +141,8 @@ int sprng_test(void)
 #endif
 
 
- 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/prngs/sprng.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

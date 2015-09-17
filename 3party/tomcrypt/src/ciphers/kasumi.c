@@ -33,7 +33,7 @@ const struct ltc_cipher_descriptor kasumi_desc = {
    &kasumi_test,
    &kasumi_done,
    &kasumi_keysize,
-   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 };
 
 static u16 FI( u16 in, u16 subkey )
@@ -150,7 +150,7 @@ int kasumi_ecb_encrypt(const unsigned char *pt, unsigned char *ct, symmetric_key
     LOAD32H(left, pt);
     LOAD32H(right, pt+4);
 
-    for (n = 0; n <= 7; ) {     
+    for (n = 0; n <= 7; ) {
         temp = FL(left,  n,   skey);
         temp = FO(temp,  n++, skey);
         right ^= temp;
@@ -236,6 +236,7 @@ int kasumi_setup(const unsigned char *key, int keylen, int num_rounds, symmetric
 
 void kasumi_done(symmetric_key *skey)
 {
+  LTC_UNUSED_PARAM(skey);
 }
 
 int kasumi_keysize(int *keysize)
@@ -313,6 +314,6 @@ int kasumi_test(void)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/ciphers/kasumi.c,v $ */
-/* $Revision: 1.8 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

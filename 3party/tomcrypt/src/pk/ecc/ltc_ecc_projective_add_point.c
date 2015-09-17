@@ -19,9 +19,9 @@
 /**
   @file ltc_ecc_projective_add_point.c
   ECC Crypto, Tom St Denis
-*/  
+*/
 
-#if defined(LTC_MECC) && (!defined(LTC_MECC_ACCEL) || defined(LTM_LTC_DESC))
+#if defined(LTC_MECC) && (!defined(LTC_MECC_ACCEL) || defined(LTM_DESC))
 
 /**
    Add two ECC points
@@ -46,11 +46,11 @@ int ltc_ecc_projective_add_point(ecc_point *P, ecc_point *Q, ecc_point *R, void 
    if ((err = mp_init_multi(&t1, &t2, &x, &y, &z, NULL)) != CRYPT_OK) {
       return err;
    }
-   
+
    /* should we dbl instead? */
    if ((err = mp_sub(modulus, Q->y, t1)) != CRYPT_OK)                          { goto done; }
 
-   if ( (mp_cmp(P->x, Q->x) == LTC_MP_EQ) && 
+   if ( (mp_cmp(P->x, Q->x) == LTC_MP_EQ) &&
         (Q->z != NULL && mp_cmp(P->z, Q->z) == LTC_MP_EQ) &&
         (mp_cmp(P->y, Q->y) == LTC_MP_EQ || mp_cmp(P->y, t1) == LTC_MP_EQ)) {
         mp_clear_multi(t1, t2, x, y, z, NULL);
@@ -144,7 +144,7 @@ int ltc_ecc_projective_add_point(ecc_point *P, ecc_point *Q, ecc_point *R, void 
    /* T1 = T1 * X  */
    if ((err = mp_mul(t1, x, t1)) != CRYPT_OK)                                  { goto done; }
    if ((err = mp_montgomery_reduce(t1, modulus, mp)) != CRYPT_OK)              { goto done; }
- 
+
    /* X = Y*Y */
    if ((err = mp_sqr(y, x)) != CRYPT_OK)                                       { goto done; }
    if ((err = mp_montgomery_reduce(x, modulus, mp)) != CRYPT_OK)               { goto done; }
@@ -158,7 +158,7 @@ int ltc_ecc_projective_add_point(ecc_point *P, ecc_point *Q, ecc_point *R, void 
    if ((err = mp_sub(t2, x, t2)) != CRYPT_OK)                                  { goto done; }
    if (mp_cmp_d(t2, 0) == LTC_MP_LT) {
       if ((err = mp_add(t2, modulus, t2)) != CRYPT_OK)                         { goto done; }
-   } 
+   }
    /* T2 = T2 - X */
    if ((err = mp_sub(t2, x, t2)) != CRYPT_OK)                                  { goto done; }
    if (mp_cmp_d(t2, 0) == LTC_MP_LT) {
@@ -190,7 +190,7 @@ done:
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/ecc/ltc_ecc_projective_add_point.c,v $ */
-/* $Revision: 1.16 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

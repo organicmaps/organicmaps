@@ -41,6 +41,6 @@ int ofb_getiv(unsigned char *IV, unsigned long *len, symmetric_OFB *ofb)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/ofb/ofb_getiv.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

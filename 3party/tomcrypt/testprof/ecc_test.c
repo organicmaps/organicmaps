@@ -2,29 +2,29 @@
 
 #ifdef LTC_MECC
 
-static int sizes[] = {
-#ifdef ECC112
+static unsigned int sizes[] = {
+#ifdef LTC_ECC112
 14,
 #endif
-#ifdef ECC128
+#ifdef LTC_ECC128
 16,
 #endif
-#ifdef ECC160
+#ifdef LTC_ECC160
 20,
 #endif
-#ifdef ECC192
+#ifdef LTC_ECC192
 24,
 #endif
-#ifdef ECC224
+#ifdef LTC_ECC224
 28,
 #endif
-#ifdef ECC256
+#ifdef LTC_ECC256
 32,
 #endif
-#ifdef ECC384
+#ifdef LTC_ECC384
 48,
 #endif
-#ifdef ECC521
+#ifdef LTC_ECC521
 65
 #endif
 };
@@ -47,7 +47,7 @@ int ecc_test_shamir(void)
    for (x = 0; x < (int)(sizeof(sizes)/sizeof(sizes[0])); x++) {
        /* get the base point */
        for (z = 0; ltc_ecc_sets[z].name; z++) {
-           if (sizes[z] < ltc_ecc_sets[z].size) break;
+           if (sizes[z] < (unsigned int)ltc_ecc_sets[z].size) break;
        }
        LTC_ARGCHK(ltc_ecc_sets[z].name != NULL);
 
@@ -68,7 +68,7 @@ int ecc_test_shamir(void)
 
           /* compute rA * G = A */
           DO(ltc_mp.ecc_ptmul(rA, G, A, modulus, 1));
-       
+
           /* compute rB * G = B */
           DO(ltc_mp.ecc_ptmul(rB, G, B, modulus, 1));
 
@@ -111,7 +111,7 @@ int ecc_tests (void)
   unsigned long x, y, z, s;
   int           stat, stat2;
   ecc_key usera, userb, pubKey, privKey;
-	
+
   DO(ecc_test ());
   DO(ecc_test ());
   DO(ecc_test ());
@@ -222,11 +222,11 @@ int ecc_tests (void)
      DO(ecc_verify_hash (buf[1], x, buf[0], 16, &stat, &pubKey));
      buf[0][0] ^= 1;
      DO(ecc_verify_hash (buf[1], x, buf[0], 16, &stat2, &privKey));
-     if (!(stat == 1 && stat2 == 0)) { 
+     if (!(stat == 1 && stat2 == 0)) {
         fprintf(stderr, "ecc_verify_hash failed %d, %d, ", stat, stat2);
         return 1;
      }
-     ecc_free (&usera); 
+     ecc_free (&usera);
      ecc_free (&pubKey);
      ecc_free (&privKey);
   }
@@ -247,6 +247,6 @@ int ecc_tests(void)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/testprof/ecc_test.c,v $ */
-/* $Revision: 1.22 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

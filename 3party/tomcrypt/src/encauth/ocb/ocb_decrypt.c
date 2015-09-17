@@ -74,6 +74,6 @@ int ocb_decrypt(ocb_state *ocb, const unsigned char *ct, unsigned char *pt)
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/ocb/ocb_decrypt.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

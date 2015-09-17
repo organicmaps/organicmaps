@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# output version
+bash printinfo.sh
+
 bash build.sh " $1" "$2 -O2" "$3 IGNORE_SPEED=1" "$4" "$5"
 if [ -a testok.txt ] && [ -f testok.txt ]; then
    echo
@@ -30,6 +34,6 @@ fi
 
 exit 0
 
-# $Source: /cvs/libtom/libtomcrypt/run.sh,v $   
-# $Revision: 1.15 $   
-# $Date: 2005/07/23 14:18:31 $ 
+# $Source$
+# $Revision$
+# $Date$

@@ -23,10 +23,10 @@ struct fortuna_prng {
 
     unsigned char K[32],      /* the current key */
                   IV[16];     /* IV for CTR mode */
-    
+
     unsigned long pool_idx,   /* current pool we will add to */
                   pool0_len,  /* length of 0'th pool */
-                  wd;            
+                  wd;
 
     ulong64       reset_cnt;  /* number of times we have reset */
     LTC_MUTEX_TYPE(prng_lock)
@@ -36,14 +36,14 @@ struct fortuna_prng {
 #ifdef LTC_SOBER128
 struct sober128_prng {
     ulong32      R[17],          /* Working storage for the shift register */
-                 initR[17],      /* saved register contents */ 
+                 initR[17],      /* saved register contents */
                  konst,          /* key dependent constant */
                  sbuf;           /* partial word encryption buffer */
 
     int          nbuf,           /* number of part-word stream bits buffered */
                  flag,           /* first add_entropy call or not? */
                  set;            /* did we call add_entropy to set key? */
-    
+
 };
 #endif
 
@@ -98,7 +98,7 @@ extern struct ltc_prng_descriptor {
         @return CRYPT_OK if successful
     */
     int (*done)(prng_state *prng);
-    /** Export a PRNG state  
+    /** Export a PRNG state
         @param out     [out] The destination for the state
         @param outlen  [in/out] The max size and resulting size of the PRNG state
         @param prng    The PRNG to export
@@ -187,13 +187,13 @@ LTC_MUTEX_PROTO(ltc_prng_mutex)
 /* Slow RNG you **might** be able to use to seed a PRNG with.  Be careful as this
  * might not work on all platforms as planned
  */
-unsigned long rng_get_bytes(unsigned char *out, 
-                            unsigned long outlen, 
+unsigned long rng_get_bytes(unsigned char *out,
+                            unsigned long outlen,
                             void (*callback)(void));
 
 int rng_make_prng(int bits, int wprng, prng_state *prng, void (*callback)(void));
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/headers/tomcrypt_prng.h,v $ */
-/* $Revision: 1.9 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

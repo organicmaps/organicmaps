@@ -20,11 +20,12 @@
 const struct ltc_hash_descriptor rmd320_desc =
 {
     "rmd320",
-    9,
+    14,
     40,
     64,
 
-    /* OID */
+    /* OID ... does not exist
+     * http://oid-info.com/get/1.3.36.3.2 */
    { 0 },
    0,
 

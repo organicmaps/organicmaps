@@ -23,7 +23,7 @@
 /**
   @file rc2.c
   Implementation of LTC_RC2
-*/  
+*/
 
 #ifdef LTC_RC2
 
@@ -36,7 +36,7 @@ const struct ltc_cipher_descriptor rc2_desc = {
    &rc2_test,
    &rc2_done,
    &rc2_keysize,
-   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 };
 
 /* 256-entry permutation table, probably derived somehow from pi */
@@ -95,7 +95,7 @@ int rc2_setup(const unsigned char *key, int keylen, int num_rounds, symmetric_ke
             tmp[i] = permute[(tmp[i - 1] + tmp[i - keylen]) & 255];
         }
     }
-    
+
     /* Phase 2 - reduce effective key size to "bits" */
     bits = keylen<<3;
     T8   = (unsigned)(bits+7)>>3;
@@ -108,12 +108,12 @@ int rc2_setup(const unsigned char *key, int keylen, int num_rounds, symmetric_ke
     /* Phase 3 - copy to xkey in little-endian order */
     for (i = 0; i < 64; i++) {
         xkey[i] =  (unsigned)tmp[2*i] + ((unsigned)tmp[2*i+1] << 8);
-    }        
+    }
 
 #ifdef LTC_CLEAN_STACK
     zeromem(tmp, sizeof(tmp));
 #endif
-    
+
     return CRYPT_OK;
 }
 
@@ -180,7 +180,7 @@ int rc2_ecb_encrypt( const unsigned char *pt,
     ct[5] = (unsigned char)(x54 >> 8);
     ct[6] = (unsigned char)x76;
     ct[7] = (unsigned char)(x76 >> 8);
- 
+
     return CRYPT_OK;
 }
 
@@ -202,7 +202,7 @@ int rc2_ecb_encrypt( const unsigned char *pt,
   Decrypts a block of text with LTC_RC2
   @param ct The input ciphertext (8 bytes)
   @param pt The output plaintext (8 bytes)
-  @param skey The key as scheduled 
+  @param skey The key as scheduled
   @return CRYPT_OK if successful
 */
 #ifdef LTC_CLEAN_STACK
@@ -282,7 +282,7 @@ int rc2_test(void)
 {
  #ifndef LTC_TEST
     return CRYPT_NOP;
- #else    
+ #else
    static const struct {
         int keylen;
         unsigned char key[16], pt[8], ct[8];
@@ -311,10 +311,10 @@ int rc2_test(void)
         if ((err = rc2_setup(tests[x].key, tests[x].keylen, 0, &skey)) != CRYPT_OK) {
            return err;
         }
-        
+
         rc2_ecb_encrypt(tests[x].pt, tmp[0], &skey);
         rc2_ecb_decrypt(tmp[0], tmp[1], &skey);
-        
+
         if (XMEMCMP(tmp[0], tests[x].ct, 8) != 0 || XMEMCMP(tmp[1], tests[x].pt, 8) != 0) {
            return CRYPT_FAIL_TESTVECTOR;
         }
@@ -329,11 +329,12 @@ int rc2_test(void)
    #endif
 }
 
-/** Terminate the context 
+/** Terminate the context
    @param skey    The scheduled key
 */
 void rc2_done(symmetric_key *skey)
 {
+  LTC_UNUSED_PARAM(skey);
 }
 
 /**
@@ -357,6 +358,6 @@ int rc2_keysize(int *keysize)
 
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/ciphers/rc2.c,v $ */
-/* $Revision: 1.14 $ */
-/* $Date: 2007/05/12 14:13:00 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

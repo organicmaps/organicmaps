@@ -825,6 +825,11 @@ SOURCE=.\src\misc\error_to_string.c
 SOURCE=.\src\misc\zeromem.c
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\src\misc\hkdf\hkdf.c
+# End Source File
+# End Group
 # Begin Group "modes"
 
 # PROP Default_Filter ""

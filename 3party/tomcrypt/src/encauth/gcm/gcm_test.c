@@ -408,6 +408,6 @@ int gcm_test(void)
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/gcm/gcm_test.c,v $ */
-/* $Revision: 1.22 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

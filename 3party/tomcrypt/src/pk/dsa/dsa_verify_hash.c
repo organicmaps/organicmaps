@@ -121,6 +121,6 @@ LBL_ERR:
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/dsa/dsa_verify_hash.c,v $ */
-/* $Revision: 1.15 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

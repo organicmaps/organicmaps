@@ -18,9 +18,10 @@
 
 #ifdef LTC_SOBER128
 
+#define __LTC_SOBER128TAB_C__
 #include "sober128tab.c"
 
-const struct ltc_prng_descriptor sober128_desc = 
+const struct ltc_prng_descriptor sober128_desc =
 {
    "sober128", 64,
     &sober128_start,
@@ -105,7 +106,7 @@ static ulong32 nltap(struct sober128_prng *c)
   Start the PRNG
   @param prng     [out] The PRNG state to initialize
   @return CRYPT_OK if successful
-*/  
+*/
 int sober128_start(prng_state *prng)
 {
     int                   i;
@@ -114,7 +115,7 @@ int sober128_start(prng_state *prng)
     LTC_ARGCHK(prng != NULL);
 
     c = &(prng->sober128);
-    
+
     /* Register initialised to Fibonacci numbers */
     c->R[0] = 1;
     c->R[1] = 1;
@@ -173,7 +174,7 @@ static void s128_genkonst(struct sober128_prng *c)
    c->R[FOLDP] ^= (nl);
 
 /* nonlinear diffusion of register for key */
-#define DROUND(z) STEP(c->R,z); NLFUNC(c,(z+1)); c->R[OFF((z+1),FOLDP)] ^= t; 
+#define DROUND(z) STEP(c->R,z); NLFUNC(c,(z+1)); c->R[OFF((z+1),FOLDP)] ^= t;
 static void s128_diffuse(struct sober128_prng *c)
 {
     ulong32 t;
@@ -203,7 +204,7 @@ static void s128_diffuse(struct sober128_prng *c)
   @param inlen    Length of the data to add
   @param prng     PRNG state to update
   @return CRYPT_OK if successful
-*/  
+*/
 int sober128_add_entropy(const unsigned char *in, unsigned long inlen, prng_state *prng)
 {
     struct sober128_prng *c;
@@ -219,7 +220,7 @@ int sober128_add_entropy(const unsigned char *in, unsigned long inlen, prng_stat
        if ((inlen & 3) != 0) {
           return CRYPT_INVALID_KEYSIZE;
        }
-    
+
        for (i = 0; i < inlen; i += 4) {
            k = BYTE2WORD((unsigned char *)&in[i]);
           ADDKEY(k);
@@ -236,7 +237,7 @@ int sober128_add_entropy(const unsigned char *in, unsigned long inlen, prng_stat
        s128_genkonst(c);
        s128_savestate(c);
        c->nbuf = 0;
-       c->flag = 0;       
+       c->flag = 0;
        c->set  = 1;
     } else {
        /* ok we are adding an IV then... */
@@ -246,7 +247,7 @@ int sober128_add_entropy(const unsigned char *in, unsigned long inlen, prng_stat
        if ((inlen & 3) != 0) {
           return CRYPT_INVALID_KEYSIZE;
        }
-    
+
        for (i = 0; i < inlen; i += 4) {
            k = BYTE2WORD((unsigned char *)&in[i]);
           ADDKEY(k);
@@ -269,7 +270,7 @@ int sober128_add_entropy(const unsigned char *in, unsigned long inlen, prng_stat
   Make the PRNG ready to read from
   @param prng   The PRNG to make active
   @return CRYPT_OK if successful
-*/  
+*/
 int sober128_ready(prng_state *prng)
 {
    return prng->sober128.set == 1 ? CRYPT_OK : CRYPT_ERROR;
@@ -285,7 +286,7 @@ int sober128_ready(prng_state *prng)
   @param outlen   Length of output
   @param prng     The active PRNG to read from
   @return Number of octets read
-*/  
+*/
 unsigned long sober128_read(unsigned char *out, unsigned long outlen, prng_state *prng)
 {
    struct sober128_prng *c;
@@ -301,7 +302,7 @@ unsigned long sober128_read(unsigned char *out, unsigned long outlen, prng_state
    c = &(prng->sober128);
    t = 0;
    tlen = outlen;
-   
+
    /* handle any previously buffered bytes */
    while (c->nbuf != 0 && outlen != 0) {
       *out++ ^= c->sbuf & 0xFF;
@@ -364,7 +365,7 @@ unsigned long sober128_read(unsigned char *out, unsigned long outlen, prng_state
   Terminate the PRNG
   @param prng   The PRNG to terminate
   @return CRYPT_OK if successful
-*/  
+*/
 int sober128_done(prng_state *prng)
 {
    LTC_ARGCHK(prng != NULL);
@@ -377,7 +378,7 @@ int sober128_done(prng_state *prng)
   @param outlen    [in/out] Max size and resulting size of the state
   @param prng      The PRNG to export
   @return CRYPT_OK if successful
-*/  
+*/
 int sober128_export(unsigned char *out, unsigned long *outlen, prng_state *prng)
 {
    LTC_ARGCHK(outlen != NULL);
@@ -396,14 +397,14 @@ int sober128_export(unsigned char *out, unsigned long *outlen, prng_state *prng)
 
    return CRYPT_OK;
 }
- 
+
 /**
   Import a PRNG state
   @param in       The PRNG state
   @param inlen    Size of the state
   @param prng     The PRNG to import
   @return CRYPT_OK if successful
-*/  
+*/
 int sober128_import(const unsigned char *in, unsigned long inlen, prng_state *prng)
 {
    int err;
@@ -413,7 +414,7 @@ int sober128_import(const unsigned char *in, unsigned long inlen, prng_state *pr
    if (inlen != 64) {
       return CRYPT_INVALID_ARG;
    }
-   
+
    if ((err = sober128_start(prng)) != CRYPT_OK) {
       return err;
    }
@@ -426,13 +427,13 @@ int sober128_import(const unsigned char *in, unsigned long inlen, prng_state *pr
 /**
   PRNG self-test
   @return CRYPT_OK if successful, CRYPT_NOP if self-testing has been disabled
-*/  
+*/
 int sober128_test(void)
 {
 #ifndef LTC_TEST
    return CRYPT_NOP;
 #else
-   static const struct { 
+   static const struct {
      int keylen, ivlen, len;
      unsigned char key[16], iv[4], out[20];
    } tests[] = {
@@ -441,7 +442,7 @@ int sober128_test(void)
    16, 4, 20,
 
    /* key */
-   { 0x74, 0x65, 0x73, 0x74, 0x20, 0x6b, 0x65, 0x79, 
+   { 0x74, 0x65, 0x73, 0x74, 0x20, 0x6b, 0x65, 0x79,
      0x20, 0x31, 0x32, 0x38, 0x62, 0x69, 0x74, 0x73 },
 
    /* IV */
@@ -449,7 +450,7 @@ int sober128_test(void)
 
    /* expected output */
    { 0x43, 0x50, 0x0c, 0xcf, 0x89, 0x91, 0x9f, 0x1d,
-     0xaa, 0x37, 0x74, 0x95, 0xf4, 0xb4, 0x58, 0xc2, 
+     0xaa, 0x37, 0x74, 0x95, 0xf4, 0xb4, 0x58, 0xc2,
      0x40, 0x37, 0x8b, 0xbb }
 }
 
@@ -481,7 +482,7 @@ int sober128_test(void)
        sober128_done(&prng);
        if (XMEMCMP(dst, tests[x].out, tests[x].len)) {
 #if 0
-          printf("\n\nLTC_SOBER128 failed, I got:\n"); 
+          printf("\n\nLTC_SOBER128 failed, I got:\n");
           for (y = 0; y < tests[x].len; y++) printf("%02x ", dst[y]);
           printf("\n");
 #endif
@@ -495,6 +496,6 @@ int sober128_test(void)
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/prngs/sober128.c,v $ */
-/* $Revision: 1.10 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

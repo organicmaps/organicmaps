@@ -27,7 +27,7 @@
 int lrw_setiv(const unsigned char *IV, unsigned long len, symmetric_LRW *lrw)
 {
    int           err;
-#ifdef LRW_TABLES
+#ifdef LTC_LRW_TABLES
    unsigned char T[16];
    int           x, y;
 #endif
@@ -51,7 +51,7 @@ int lrw_setiv(const unsigned char *IV, unsigned long len, symmetric_LRW *lrw)
        return CRYPT_OK;
    }
 
-#ifdef LRW_TABLES
+#ifdef LTC_LRW_TABLES
    XMEMCPY(T, &lrw->PC[0][IV[0]][0], 16);
    for (x = 1; x < 16; x++) {
 #ifdef LTC_FAST
@@ -65,8 +65,8 @@ int lrw_setiv(const unsigned char *IV, unsigned long len, symmetric_LRW *lrw)
 #endif
    }
    XMEMCPY(lrw->pad, T, 16);
-#else     
-   gcm_gf_mult(lrw->tweak, IV, lrw->pad); 
+#else
+   gcm_gf_mult(lrw->tweak, IV, lrw->pad);
 #endif
 
    return CRYPT_OK;
@@ -74,6 +74,6 @@ int lrw_setiv(const unsigned char *IV, unsigned long len, symmetric_LRW *lrw)
 
 
 #endif
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/lrw/lrw_setiv.c,v $ */
-/* $Revision: 1.13 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

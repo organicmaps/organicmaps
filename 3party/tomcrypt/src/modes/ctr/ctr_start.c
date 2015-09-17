@@ -96,6 +96,6 @@ int ctr_start(               int   cipher,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/ctr/ctr_start.c,v $ */
-/* $Revision: 1.15 $ */
-/* $Date: 2007/02/23 14:18:37 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

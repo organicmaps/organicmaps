@@ -38,6 +38,6 @@ int f8_decrypt(const unsigned char *ct, unsigned char *pt, unsigned long len, sy
 
  
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/f8/f8_decrypt.c,v $ */
-/* $Revision: 1.3 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

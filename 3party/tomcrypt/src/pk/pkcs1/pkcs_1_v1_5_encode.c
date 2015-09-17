@@ -12,31 +12,31 @@
 
 /*! \file pkcs_1_v1_5_encode.c
  *
- *  LTC_PKCS #1 v1.5 Padding (Andreas Lange)
+ *  PKCS #1 v1.5 Padding (Andreas Lange)
  */
 
 #ifdef LTC_PKCS_1
 
-/*! \brief LTC_PKCS #1 v1.5 encode.
+/*! \brief PKCS #1 v1.5 encode.
  *
  *  \param msg              The data to encode
  *  \param msglen           The length of the data to encode (octets)
  *  \param block_type       Block type to use in padding (\sa ltc_pkcs_1_v1_5_blocks)
  *  \param modulus_bitlen   The bit length of the RSA modulus
- *  \param prng             An active PRNG state (only for LTC_LTC_PKCS_1_EME)
- *  \param prng_idx         The index of the PRNG desired (only for LTC_LTC_PKCS_1_EME)
+ *  \param prng             An active PRNG state (only for LTC_PKCS_1_EME)
+ *  \param prng_idx         The index of the PRNG desired (only for LTC_PKCS_1_EME)
  *  \param out              [out] The destination for the encoded data
  *  \param outlen           [in/out] The max size and resulting size of the encoded data
  *
  *  \return CRYPT_OK if successful
  */
-int pkcs_1_v1_5_encode(const unsigned char *msg, 
+int pkcs_1_v1_5_encode(const unsigned char *msg,
                              unsigned long  msglen,
                                        int  block_type,
                              unsigned long  modulus_bitlen,
-                                prng_state *prng, 
+                                prng_state *prng,
                                        int  prng_idx,
-                             unsigned char *out, 
+                             unsigned char *out,
                              unsigned long *outlen)
 {
   unsigned long modulus_len, ps_len, i;
@@ -44,12 +44,12 @@ int pkcs_1_v1_5_encode(const unsigned char *msg,
   int result;
 
   /* valid block_type? */
-  if ((block_type != LTC_LTC_PKCS_1_EMSA) &&
-      (block_type != LTC_LTC_PKCS_1_EME)) {
+  if ((block_type != LTC_PKCS_1_EMSA) &&
+      (block_type != LTC_PKCS_1_EME)) {
      return CRYPT_PK_INVALID_PADDING;
   }
 
-  if (block_type == LTC_LTC_PKCS_1_EME) {    /* encryption padding, we need a valid PRNG */
+  if (block_type == LTC_PKCS_1_EME) {    /* encryption padding, we need a valid PRNG */
     if ((result = prng_is_valid(prng_idx)) != CRYPT_OK) {
        return result;
     }
@@ -72,7 +72,7 @@ int pkcs_1_v1_5_encode(const unsigned char *msg,
   ps = &out[2];
   ps_len = modulus_len - msglen - 3;
 
-  if (block_type == LTC_LTC_PKCS_1_EME) {
+  if (block_type == LTC_PKCS_1_EME) {
     /* now choose a random ps */
     if (prng_descriptor[prng_idx].read(ps, ps_len, prng) != ps_len) {
       result = CRYPT_ERROR_READPRNG;
@@ -106,6 +106,6 @@ bail:
 
 #endif /* #ifdef LTC_PKCS_1 */
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/pkcs1/pkcs_1_v1_5_encode.c,v $ */
-/* $Revision: 1.4 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

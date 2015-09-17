@@ -226,7 +226,6 @@ int fortuna_ready(prng_state *prng)
 unsigned long fortuna_read(unsigned char *out, unsigned long outlen, prng_state *prng)
 {
    unsigned char tmp[16];
-   int           err;
    unsigned long tlen;
 
    LTC_ARGCHK(out  != NULL);
@@ -236,7 +235,7 @@ unsigned long fortuna_read(unsigned char *out, unsigned long outlen, prng_state 
 
    /* do we have to reseed? */
    if (++prng->fortuna.wd == LTC_FORTUNA_WD || prng->fortuna.pool0_len >= 64) {
-      if ((err = fortuna_reseed(prng)) != CRYPT_OK) {
+      if (fortuna_reseed(prng) != CRYPT_OK) {
          LTC_MUTEX_UNLOCK(&prng->fortuna.prng_lock);
          return 0;
       }
@@ -262,9 +261,13 @@ unsigned long fortuna_read(unsigned char *out, unsigned long outlen, prng_state 
    }
        
    /* generate new key */
-   rijndael_ecb_encrypt(prng->fortuna.IV, prng->fortuna.K   , &prng->fortuna.skey); fortuna_update_iv(prng);
-   rijndael_ecb_encrypt(prng->fortuna.IV, prng->fortuna.K+16, &prng->fortuna.skey); fortuna_update_iv(prng);
-   if ((err = rijndael_setup(prng->fortuna.K, 32, 0, &prng->fortuna.skey)) != CRYPT_OK) {
+   rijndael_ecb_encrypt(prng->fortuna.IV, prng->fortuna.K   , &prng->fortuna.skey); 
+   fortuna_update_iv(prng);
+   
+   rijndael_ecb_encrypt(prng->fortuna.IV, prng->fortuna.K+16, &prng->fortuna.skey); 
+   fortuna_update_iv(prng);
+   
+   if (rijndael_setup(prng->fortuna.K, 32, 0, &prng->fortuna.skey) != CRYPT_OK) {
       LTC_MUTEX_UNLOCK(&prng->fortuna.prng_lock);
       return 0;
    }
@@ -422,6 +425,6 @@ int fortuna_test(void)
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/prngs/fortuna.c,v $ */
-/* $Revision: 1.16 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

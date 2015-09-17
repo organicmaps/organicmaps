@@ -84,6 +84,6 @@ int der_length_object_identifier(unsigned long *words, unsigned long nwords, uns
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/asn1/der/object_identifier/der_length_object_identifier.c,v $ */
-/* $Revision: 1.5 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

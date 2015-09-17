@@ -60,6 +60,6 @@ int cfb_start(int cipher, const unsigned char *IV, const unsigned char *key,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/cfb/cfb_start.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

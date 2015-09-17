@@ -77,9 +77,9 @@ int ctr_test(void)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/ctr/ctr_test.c,v $ */
-/* $Revision: 1.4 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 
 
 

@@ -78,6 +78,6 @@ int f9_file(int cipher,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/f9/f9_file.c,v $ */
-/* $Revision: 1.5 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

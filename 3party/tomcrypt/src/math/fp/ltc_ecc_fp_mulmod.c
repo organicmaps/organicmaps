@@ -1581,7 +1581,7 @@ ERR_OUT:
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/math/fp/ltc_ecc_fp_mulmod.c,v $ */
-/* $Revision: 1.33 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

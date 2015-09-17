@@ -51,6 +51,16 @@ int der_decode_choice(const unsigned char *in,   unsigned long *inlen,
        data = list[x].data;
 
        switch (list[x].type) {
+           case LTC_ASN1_BOOLEAN:
+               if (der_decode_boolean(in, *inlen, data) == CRYPT_OK) {
+                  if (der_length_boolean(&z) == CRYPT_OK) {
+                      list[x].used = 1;
+                      *inlen       = z;
+                      return CRYPT_OK;
+                  }
+               }
+               break;
+
            case LTC_ASN1_INTEGER:
                if (der_decode_integer(in, *inlen, data) == CRYPT_OK) {
                   if (der_length_integer(data, &z) == CRYPT_OK) {
@@ -82,6 +92,17 @@ int der_decode_choice(const unsigned char *in,   unsigned long *inlen,
                }
                break;
 
+           case LTC_ASN1_RAW_BIT_STRING:
+               if (der_decode_raw_bit_string(in, *inlen, data, &size) == CRYPT_OK) {
+                  if (der_length_bit_string(size, &z) == CRYPT_OK) {
+                     list[x].used = 1;
+                     list[x].size = size;
+                     *inlen       = z;
+                     return CRYPT_OK;
+                  }
+               }
+               break;
+
            case LTC_ASN1_OCTET_STRING:
                if (der_decode_octet_string(in, *inlen, data, &size) == CRYPT_OK) {
                   if (der_length_octet_string(size, &z) == CRYPT_OK) {
@@ -100,10 +121,21 @@ int der_decode_choice(const unsigned char *in,   unsigned long *inlen,
                   return CRYPT_OK;
                }
                break;
-                  
+
            case LTC_ASN1_OBJECT_IDENTIFIER:
                if (der_decode_object_identifier(in, *inlen, data, &size) == CRYPT_OK) {
                   if (der_length_object_identifier(data, size, &z) == CRYPT_OK) {
+                     list[x].used = 1;
+                     list[x].size = size;
+                     *inlen       = z;
+                     return CRYPT_OK;
+                  }
+               }
+               break;
+
+           case LTC_ASN1_TELETEX_STRING:
+               if (der_decode_teletex_string(in, *inlen, data, &size) == CRYPT_OK) {
+                  if (der_length_teletex_string(data, size, &z) == CRYPT_OK) {
                      list[x].used = 1;
                      list[x].size = size;
                      *inlen       = z;
@@ -122,7 +154,6 @@ int der_decode_choice(const unsigned char *in,   unsigned long *inlen,
                   }
                }
                break;
-
 
            case LTC_ASN1_PRINTABLE_STRING:
                if (der_decode_printable_string(in, *inlen, data, &size) == CRYPT_OK) {
@@ -167,7 +198,10 @@ int der_decode_choice(const unsigned char *in,   unsigned long *inlen,
                }
                break;
 
-           default:
+           case LTC_ASN1_CHOICE:
+           case LTC_ASN1_CONSTRUCTED:
+           case LTC_ASN1_CONTEXT_SPECIFIC:
+           case LTC_ASN1_EOL:
                return CRYPT_INVALID_ARG;
        }
    }
@@ -177,6 +211,6 @@ int der_decode_choice(const unsigned char *in,   unsigned long *inlen,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/asn1/der/choice/der_decode_choice.c,v $ */
-/* $Revision: 1.9 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

@@ -24,6 +24,9 @@ int mac_test(void)
 #ifdef LTC_OCB_MODE
    DO(ocb_test());  
 #endif
+#ifdef LTC_OCB3_MODE
+   DO(ocb3_test());  
+#endif
 #ifdef LTC_CCM_MODE
    DO(ccm_test());
 #endif
@@ -36,6 +39,6 @@ int mac_test(void)
    return 0;
 }
 
-/* $Source: /cvs/libtom/libtomcrypt/testprof/mac_test.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

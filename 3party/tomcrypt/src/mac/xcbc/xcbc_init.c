@@ -102,7 +102,7 @@ done:
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/xcbc/xcbc_init.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2007/02/20 13:07:58 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

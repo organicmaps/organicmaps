@@ -22,6 +22,6 @@ struct ltc_hash_descriptor hash_descriptor[TAB_SIZE] = {
 LTC_MUTEX_GLOBAL(ltc_hash_mutex)
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/misc/crypt/crypt_hash_descriptor.c,v $ */
-/* $Revision: 1.10 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

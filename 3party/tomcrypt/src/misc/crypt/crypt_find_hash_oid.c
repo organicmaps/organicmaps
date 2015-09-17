@@ -30,6 +30,6 @@ int find_hash_oid(const unsigned long *ID, unsigned long IDlen)
    return -1;
 }
 
-/* $Source: /cvs/libtom/libtomcrypt/src/misc/crypt/crypt_find_hash_oid.c,v $ */
-/* $Revision: 1.5 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

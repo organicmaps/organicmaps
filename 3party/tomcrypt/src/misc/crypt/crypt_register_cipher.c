@@ -49,6 +49,6 @@ int register_cipher(const struct ltc_cipher_descriptor *cipher)
    return -1;
 }
 
-/* $Source: /cvs/libtom/libtomcrypt/src/misc/crypt/crypt_register_cipher.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

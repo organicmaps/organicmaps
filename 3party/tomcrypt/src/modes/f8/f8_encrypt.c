@@ -35,13 +35,13 @@ int f8_encrypt(const unsigned char *pt, unsigned char *ct, unsigned long len, sy
    if ((err = cipher_is_valid(f8->cipher)) != CRYPT_OK) {
        return err;
    }
-   
+
    /* is blocklen/padlen valid? */
    if (f8->blocklen < 0 || f8->blocklen > (int)sizeof(f8->IV) ||
        f8->padlen   < 0 || f8->padlen   > (int)sizeof(f8->IV)) {
       return CRYPT_INVALID_ARG;
    }
-   
+
    zeromem(buf, sizeof(buf));
 
    /* make sure the pad is empty */
@@ -75,7 +75,7 @@ int f8_encrypt(const unsigned char *pt, unsigned char *ct, unsigned long len, sy
          ct  += x;
       }
    }
-#endif             
+#endif
 
    while (len > 0) {
        if (f8->padlen == f8->blocklen) {
@@ -98,6 +98,6 @@ int f8_encrypt(const unsigned char *pt, unsigned char *ct, unsigned long len, sy
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/f8/f8_encrypt.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

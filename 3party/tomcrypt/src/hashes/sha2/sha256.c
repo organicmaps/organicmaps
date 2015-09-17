@@ -327,14 +327,10 @@ int  sha256_test(void)
  #endif
 }
 
-#ifdef LTC_SHA224
-#include "sha224.c"
-#endif
-
 #endif
 
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/hashes/sha2/sha256.c,v $ */
-/* $Revision: 1.11 $ */
-/* $Date: 2007/05/12 14:25:28 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

@@ -9,13 +9,16 @@
  * Tom St Denis, tomstdenis@gmail.com, http://libtom.org
  */
 
-/** 
+/**
    @file saferp.c
-   LTC_SAFER+ Implementation by Tom St Denis 
+   LTC_SAFER+ Implementation by Tom St Denis
 */
 #include "tomcrypt.h"
 
 #ifdef LTC_SAFERP
+
+#define __LTC_SAFER_TAB_C__
+#include "safer_tab.c"
 
 const struct ltc_cipher_descriptor saferp_desc =
 {
@@ -28,23 +31,21 @@ const struct ltc_cipher_descriptor saferp_desc =
     &saferp_test,
     &saferp_done,
     &saferp_keysize,
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 };
 
-/* ROUND(b,i) 
+/* ROUND(b,i)
  *
- * This is one forward key application.  Note the basic form is 
- * key addition, substitution, key addition.  The safer_ebox and safer_lbox 
- * are the exponentiation box and logarithm boxes respectively.  
- * The value of 'i' is the current round number which allows this 
- * function to be unrolled massively.  Most of LTC_SAFER+'s speed 
- * comes from not having to compute indirect accesses into the 
+ * This is one forward key application.  Note the basic form is
+ * key addition, substitution, key addition.  The safer_ebox and safer_lbox
+ * are the exponentiation box and logarithm boxes respectively.
+ * The value of 'i' is the current round number which allows this
+ * function to be unrolled massively.  Most of LTC_SAFER+'s speed
+ * comes from not having to compute indirect accesses into the
  * array of 16 bytes b[0..15] which is the block of data
 */
 
-extern const unsigned char safer_ebox[], safer_lbox[];
-
-#define ROUND(b, i)                                                                        \
+#define ROUND(b, i) do {                                                                         \
     b[0]  = (safer_ebox[(b[0] ^ skey->saferp.K[i][0]) & 255] + skey->saferp.K[i+1][0]) & 255;    \
     b[1]  = safer_lbox[(b[1] + skey->saferp.K[i][1]) & 255] ^ skey->saferp.K[i+1][1];            \
     b[2]  = safer_lbox[(b[2] + skey->saferp.K[i][2]) & 255] ^ skey->saferp.K[i+1][2];            \
@@ -60,10 +61,11 @@ extern const unsigned char safer_ebox[], safer_lbox[];
     b[12] = (safer_ebox[(b[12] ^ skey->saferp.K[i][12]) & 255] + skey->saferp.K[i+1][12]) & 255; \
     b[13] = safer_lbox[(b[13] + skey->saferp.K[i][13]) & 255] ^ skey->saferp.K[i+1][13];         \
     b[14] = safer_lbox[(b[14] + skey->saferp.K[i][14]) & 255] ^ skey->saferp.K[i+1][14];         \
-    b[15] = (safer_ebox[(b[15] ^ skey->saferp.K[i][15]) & 255] + skey->saferp.K[i+1][15]) & 255;        
+    b[15] = (safer_ebox[(b[15] ^ skey->saferp.K[i][15]) & 255] + skey->saferp.K[i+1][15]) & 255; \
+} while (0)
 
 /* This is one inverse key application */
-#define iROUND(b, i)                                                                       \
+#define iROUND(b, i) do {                                                                        \
     b[0]  = safer_lbox[(b[0] - skey->saferp.K[i+1][0]) & 255] ^ skey->saferp.K[i][0];            \
     b[1]  = (safer_ebox[(b[1] ^ skey->saferp.K[i+1][1]) & 255] - skey->saferp.K[i][1]) & 255;    \
     b[2]  = (safer_ebox[(b[2] ^ skey->saferp.K[i+1][2]) & 255] - skey->saferp.K[i][2]) & 255;    \
@@ -79,10 +81,11 @@ extern const unsigned char safer_ebox[], safer_lbox[];
     b[12] = safer_lbox[(b[12] - skey->saferp.K[i+1][12]) & 255] ^ skey->saferp.K[i][12];         \
     b[13] = (safer_ebox[(b[13] ^ skey->saferp.K[i+1][13]) & 255] - skey->saferp.K[i][13]) & 255; \
     b[14] = (safer_ebox[(b[14] ^ skey->saferp.K[i+1][14]) & 255] - skey->saferp.K[i][14]) & 255; \
-    b[15] = safer_lbox[(b[15] - skey->saferp.K[i+1][15]) & 255] ^ skey->saferp.K[i][15];
+    b[15] = safer_lbox[(b[15] - skey->saferp.K[i+1][15]) & 255] ^ skey->saferp.K[i][15];         \
+} while (0)
 
 /* This is a forward single layer PHT transform.  */
-#define PHT(b)                                               \
+#define PHT(b) do {                                          \
     b[0]  = (b[0] + (b[1] = (b[0] + b[1]) & 255)) & 255;     \
     b[2]  = (b[2] + (b[3] = (b[3] + b[2]) & 255)) & 255;     \
     b[4]  = (b[4] + (b[5] = (b[5] + b[4]) & 255)) & 255;     \
@@ -90,10 +93,11 @@ extern const unsigned char safer_ebox[], safer_lbox[];
     b[8]  = (b[8] + (b[9] = (b[9] + b[8]) & 255)) & 255;     \
     b[10] = (b[10] + (b[11] = (b[11] + b[10]) & 255)) & 255; \
     b[12] = (b[12] + (b[13] = (b[13] + b[12]) & 255)) & 255; \
-    b[14] = (b[14] + (b[15] = (b[15] + b[14]) & 255)) & 255;    
+    b[14] = (b[14] + (b[15] = (b[15] + b[14]) & 255)) & 255; \
+} while (0)
 
 /* This is an inverse single layer PHT transform */
-#define iPHT(b)                                               \
+#define iPHT(b) do {                                          \
     b[15] = (b[15] - (b[14] = (b[14] - b[15]) & 255)) & 255;  \
     b[13] = (b[13] - (b[12] = (b[12] - b[13]) & 255)) & 255;  \
     b[11] = (b[11] - (b[10] = (b[10] - b[11]) & 255)) & 255;  \
@@ -102,41 +106,46 @@ extern const unsigned char safer_ebox[], safer_lbox[];
     b[5]  = (b[5] - (b[4] = (b[4] - b[5]) & 255)) & 255;      \
     b[3]  = (b[3] - (b[2] = (b[2] - b[3]) & 255)) & 255;      \
     b[1]  = (b[1] - (b[0] = (b[0] - b[1]) & 255)) & 255;      \
+ } while (0)
 
 /* This is the "Armenian" Shuffle.  It takes the input from b and stores it in b2 */
-#define SHUF(b, b2)                                              \
+#define SHUF(b, b2) do {                                         \
     b2[0] = b[8]; b2[1] = b[11]; b2[2] = b[12]; b2[3] = b[15];   \
     b2[4] = b[2]; b2[5] = b[1]; b2[6] = b[6]; b2[7] = b[5];      \
     b2[8] = b[10]; b2[9] = b[9]; b2[10] = b[14]; b2[11] = b[13]; \
-    b2[12] = b[0]; b2[13] = b[7]; b2[14] = b[4]; b2[15] = b[3];
+    b2[12] = b[0]; b2[13] = b[7]; b2[14] = b[4]; b2[15] = b[3];  \
+} while (0)
 
 /* This is the inverse shuffle.  It takes from b and gives to b2 */
-#define iSHUF(b, b2)                                               \
+#define iSHUF(b, b2) do {                                          \
     b2[0] = b[12]; b2[1] = b[5]; b2[2] = b[4]; b2[3] = b[15];      \
     b2[4] = b[14]; b2[5] = b[7]; b2[6] = b[6]; b2[7] = b[13];      \
     b2[8] = b[0]; b2[9] = b[9]; b2[10] = b[8]; b2[11] = b[1];      \
-    b2[12] = b[2]; b2[13] = b[11]; b2[14] = b[10]; b2[15] = b[3];
+    b2[12] = b[2]; b2[13] = b[11]; b2[14] = b[10]; b2[15] = b[3];  \
+} while (0)
 
-/* The complete forward Linear Transform layer.  
- * Note that alternating usage of b and b2.  
- * Each round of LT starts in 'b' and ends in 'b2'.  
+/* The complete forward Linear Transform layer.
+ * Note that alternating usage of b and b2.
+ * Each round of LT starts in 'b' and ends in 'b2'.
  */
-#define LT(b, b2)             \
+#define LT(b, b2) do {        \
     PHT(b);  SHUF(b, b2);     \
     PHT(b2); SHUF(b2, b);     \
     PHT(b);  SHUF(b, b2);     \
-    PHT(b2); 
+    PHT(b2);                  \
+} while (0)
 
 /* This is the inverse linear transform layer.  */
-#define iLT(b, b2)            \
+#define iLT(b, b2) do {       \
     iPHT(b);                  \
     iSHUF(b, b2); iPHT(b2);   \
     iSHUF(b2, b); iPHT(b);    \
-    iSHUF(b, b2); iPHT(b2);
-    
-#ifdef LTC_SMALL_CODE    
+    iSHUF(b, b2); iPHT(b2);   \
+} while (0)
 
-static void _round(unsigned char *b, int i, symmetric_key *skey) 
+#ifdef LTC_SMALL_CODE
+
+static void _round(unsigned char *b, int i, symmetric_key *skey)
 {
    ROUND(b, i);
 }
@@ -154,7 +163,7 @@ static void _lt(unsigned char *b, unsigned char *b2)
 static void _ilt(unsigned char *b, unsigned char *b2)
 {
    iLT(b, b2);
-}   
+}
 
 #undef ROUND
 #define ROUND(b, i) _round(b, i, skey)
@@ -228,7 +237,7 @@ int saferp_setup(const unsigned char *key, int keylen, int num_rounds, symmetric
    }
 
    /* Is the number of rounds valid?  Either use zero for default or
-    * 8,12,16 rounds for 16,24,32 byte keys 
+    * 8,12,16 rounds for 16,24,32 byte keys
     */
    if (num_rounds != 0 && num_rounds != rounds[(keylen/8)-2]) {
       return CRYPT_INVALID_ROUNDS;
@@ -237,9 +246,9 @@ int saferp_setup(const unsigned char *key, int keylen, int num_rounds, symmetric
    /* 128 bit key version */
    if (keylen == 16) {
        /* copy key into t */
-       for (x = y = 0; x < 16; x++) { 
-           t[x] = key[x]; 
-           y ^= key[x]; 
+       for (x = y = 0; x < 16; x++) {
+           t[x] = key[x];
+           y ^= key[x];
        }
        t[16] = y;
 
@@ -265,9 +274,9 @@ int saferp_setup(const unsigned char *key, int keylen, int num_rounds, symmetric
        skey->saferp.rounds = 8;
    } else if (keylen == 24) {
        /* copy key into t */
-       for (x = y = 0; x < 24; x++) { 
-           t[x] = key[x]; 
-           y ^= key[x]; 
+       for (x = y = 0; x < 24; x++) {
+           t[x] = key[x];
+           y ^= key[x];
        }
        t[24] = y;
 
@@ -284,7 +293,7 @@ int saferp_setup(const unsigned char *key, int keylen, int num_rounds, symmetric
 
            /* select and add */
            z = x;
-           for (y = 0; y < 16; y++) { 
+           for (y = 0; y < 16; y++) {
                skey->saferp.K[x][y] = (t[z] + safer_bias[x-1][y]) & 255;
                if (++z == 25) { z = 0; }
            }
@@ -292,14 +301,14 @@ int saferp_setup(const unsigned char *key, int keylen, int num_rounds, symmetric
        skey->saferp.rounds = 12;
    } else {
        /* copy key into t */
-       for (x = y = 0; x < 32; x++) { 
-           t[x] = key[x]; 
-           y ^= key[x]; 
+       for (x = y = 0; x < 32; x++) {
+           t[x] = key[x];
+           y ^= key[x];
        }
        t[32] = y;
 
        /* make round keys */
-       for (x = 0; x < 16; x++) { 
+       for (x = 0; x < 16; x++) {
            skey->saferp.K[0][x] = t[x];
        }
 
@@ -308,7 +317,7 @@ int saferp_setup(const unsigned char *key, int keylen, int num_rounds, symmetric
            for (y = 0; y < 33; y++) {
                t[y] = ((t[y]<<3)|(t[y]>>5)) & 255;
            }
-           
+
            /* select and add */
            z = x;
            for (y = 0; y < 16; y++) {
@@ -392,7 +401,7 @@ int saferp_ecb_encrypt(const unsigned char *pt, unsigned char *ct, symmetric_key
   Decrypts a block of text with LTC_SAFER+
   @param ct The input ciphertext (16 bytes)
   @param pt The output plaintext (16 bytes)
-  @param skey The key as scheduled 
+  @param skey The key as scheduled
   @return CRYPT_OK if successful
 */
 int saferp_ecb_decrypt(const unsigned char *ct, unsigned char *pt, symmetric_key *skey)
@@ -460,40 +469,40 @@ int saferp_test(void)
 {
  #ifndef LTC_TEST
     return CRYPT_NOP;
- #else    
+ #else
    static const struct {
        int keylen;
        unsigned char key[32], pt[16], ct[16];
    } tests[] = {
        {
            16,
-           { 41, 35, 190, 132, 225, 108, 214, 174, 
+           { 41, 35, 190, 132, 225, 108, 214, 174,
              82, 144, 73, 241, 241, 187, 233, 235 },
-           { 179, 166, 219, 60, 135, 12, 62, 153, 
+           { 179, 166, 219, 60, 135, 12, 62, 153,
              36, 94, 13, 28, 6, 183, 71, 222 },
-           { 224, 31, 182, 10, 12, 255, 84, 70, 
+           { 224, 31, 182, 10, 12, 255, 84, 70,
              127, 13, 89, 249, 9, 57, 165, 220 }
        }, {
            24,
-           { 72, 211, 143, 117, 230, 217, 29, 42, 
-             229, 192, 247, 43, 120, 129, 135, 68, 
+           { 72, 211, 143, 117, 230, 217, 29, 42,
+             229, 192, 247, 43, 120, 129, 135, 68,
              14, 95, 80, 0, 212, 97, 141, 190 },
-           { 123, 5, 21, 7, 59, 51, 130, 31, 
+           { 123, 5, 21, 7, 59, 51, 130, 31,
              24, 112, 146, 218, 100, 84, 206, 177 },
-           { 92, 136, 4, 63, 57, 95, 100, 0, 
+           { 92, 136, 4, 63, 57, 95, 100, 0,
              150, 130, 130, 16, 193, 111, 219, 133 }
        }, {
            32,
-           { 243, 168, 141, 254, 190, 242, 235, 113, 
+           { 243, 168, 141, 254, 190, 242, 235, 113,
              255, 160, 208, 59, 117, 6, 140, 126,
-             135, 120, 115, 77, 208, 190, 130, 190, 
+             135, 120, 115, 77, 208, 190, 130, 190,
              219, 194, 70, 65, 43, 140, 250, 48 },
-           { 127, 112, 240, 167, 84, 134, 50, 149, 
+           { 127, 112, 240, 167, 84, 134, 50, 149,
              170, 91, 104, 19, 11, 230, 252, 245 },
-           { 88, 11, 25, 36, 172, 229, 202, 213, 
+           { 88, 11, 25, 36, 172, 229, 202, 213,
              170, 65, 105, 153, 220, 104, 153, 138 }
        }
-    };       
+    };
 
    unsigned char tmp[2][16];
    symmetric_key skey;
@@ -507,7 +516,7 @@ int saferp_test(void)
       saferp_ecb_decrypt(tmp[0], tmp[1], &skey);
 
       /* compare */
-      if (XMEMCMP(tmp[0], tests[i].ct, 16) || XMEMCMP(tmp[1], tests[i].pt, 16)) { 
+      if (XMEMCMP(tmp[0], tests[i].ct, 16) || XMEMCMP(tmp[1], tests[i].pt, 16)) {
          return CRYPT_FAIL_TESTVECTOR;
       }
 
@@ -522,11 +531,12 @@ int saferp_test(void)
  #endif
 }
 
-/** Terminate the context 
+/** Terminate the context
    @param skey    The scheduled key
 */
 void saferp_done(symmetric_key *skey)
 {
+  LTC_UNUSED_PARAM(skey);
 }
 
 /**
@@ -537,7 +547,7 @@ void saferp_done(symmetric_key *skey)
 int saferp_keysize(int *keysize)
 {
    LTC_ARGCHK(keysize != NULL);
-   
+
    if (*keysize < 16)
       return CRYPT_INVALID_KEYSIZE;
    if (*keysize < 24) {
@@ -554,6 +564,6 @@ int saferp_keysize(int *keysize)
 
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/ciphers/safer/saferp.c,v $ */
-/* $Revision: 1.14 $ */
-/* $Date: 2007/05/12 14:20:27 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

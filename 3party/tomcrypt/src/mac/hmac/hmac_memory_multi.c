@@ -13,24 +13,24 @@
 
 /**
   @file hmac_memory_multi.c
-  LTC_HMAC support, process multiple blocks of memory, Tom St Denis/Dobes Vandermeer
+  HMAC support, process multiple blocks of memory, Tom St Denis/Dobes Vandermeer
 */
 
 #ifdef LTC_HMAC
 
 /**
-   LTC_HMAC multiple blocks of memory to produce the authentication tag
-   @param hash      The index of the hash to use 
-   @param key       The secret key 
+   HMAC multiple blocks of memory to produce the authentication tag
+   @param hash      The index of the hash to use
+   @param key       The secret key
    @param keylen    The length of the secret key (octets)
    @param out       [out] Destination of the authentication tag
    @param outlen    [in/out] Max size and resulting size of authentication tag
-   @param in        The data to LTC_HMAC
-   @param inlen     The length of the data to LTC_HMAC (octets)
-   @param ...       tuples of (data,len) pairs to LTC_HMAC, terminated with a (NULL,x) (x=don't care)
+   @param in        The data to HMAC
+   @param inlen     The length of the data to HMAC (octets)
+   @param ...       tuples of (data,len) pairs to HMAC, terminated with a (NULL,x) (x=don't care)
    @return CRYPT_OK if successful
 */
-int hmac_memory_multi(int hash, 
+int hmac_memory_multi(int hash,
                 const unsigned char *key,  unsigned long keylen,
                       unsigned char *out,  unsigned long *outlen,
                 const unsigned char *in,   unsigned long inlen, ...)
@@ -44,7 +44,7 @@ int hmac_memory_multi(int hash,
 
     LTC_ARGCHK(key    != NULL);
     LTC_ARGCHK(in     != NULL);
-    LTC_ARGCHK(out    != NULL); 
+    LTC_ARGCHK(out    != NULL);
     LTC_ARGCHK(outlen != NULL);
 
     /* allocate ram for hmac state */
@@ -58,7 +58,7 @@ int hmac_memory_multi(int hash,
     }
 
     va_start(args, inlen);
-    curptr = in; 
+    curptr = in;
     curlen = inlen;
     for (;;) {
        /* process buf */
@@ -81,12 +81,12 @@ LBL_ERR:
 #endif
    XFREE(hmac);
    va_end(args);
-   return err;   
+   return err;
 }
 
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/hmac/hmac_memory_multi.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2007/05/12 14:37:41 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

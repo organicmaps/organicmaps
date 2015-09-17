@@ -24,6 +24,8 @@
 void der_sequence_free(ltc_asn1_list *in)
 {
    ltc_asn1_list *l;
+
+   if (!in) return;
    
    /* walk to the start of the chain */
    while (in->prev != NULL || in->parent != NULL) {
@@ -53,13 +55,13 @@ void der_sequence_free(ltc_asn1_list *in)
       
       /* move to next and free current */
       l = in->next;
-      free(in);
+      XFREE(in);
       in = l;
    }     
 }
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/asn1/der/sequence/der_sequence_free.c,v $ */
-/* $Revision: 1.4 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

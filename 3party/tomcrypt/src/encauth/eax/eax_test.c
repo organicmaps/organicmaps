@@ -277,6 +277,6 @@ int eax_test(void)
 
 #endif /* LTC_EAX_MODE */
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/eax/eax_test.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

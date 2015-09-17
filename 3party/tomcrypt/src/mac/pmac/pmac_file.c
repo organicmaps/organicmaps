@@ -79,6 +79,6 @@ int pmac_file(int cipher,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/pmac/pmac_file.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

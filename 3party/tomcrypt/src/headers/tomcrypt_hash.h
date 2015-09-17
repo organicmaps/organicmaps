@@ -166,7 +166,7 @@ extern  struct ltc_hash_descriptor {
       @return CRYPT_OK if successful
     */
     int (*init)(hash_state *hash);
-    /** Process a block of data 
+    /** Process a block of data
       @param hash   The hash state
       @param in     The data to hash
       @param inlen  The length of the data (octets)
@@ -186,7 +186,7 @@ extern  struct ltc_hash_descriptor {
 
     /* accelerated hmac callback: if you need to-do multiple packets just use the generic hmac_memory and provide a hash callback */
     int  (*hmac_block)(const unsigned char *key, unsigned long  keylen,
-                       const unsigned char *in,  unsigned long  inlen, 
+                       const unsigned char *in,  unsigned long  inlen,
                              unsigned char *out, unsigned long *outlen);
 
 } hash_descriptor[];
@@ -225,6 +225,28 @@ int sha384_init(hash_state * md);
 int sha384_done(hash_state * md, unsigned char *hash);
 int sha384_test(void);
 extern const struct ltc_hash_descriptor sha384_desc;
+#endif
+
+#ifdef LTC_SHA512_256
+#ifndef LTC_SHA512
+   #error LTC_SHA512 is required for LTC_SHA512_256
+#endif
+int sha512_256_init(hash_state * md);
+#define sha512_256_process sha512_process
+int sha512_256_done(hash_state * md, unsigned char *hash);
+int sha512_256_test(void);
+extern const struct ltc_hash_descriptor sha512_256_desc;
+#endif
+
+#ifdef LTC_SHA512_224
+#ifndef LTC_SHA512
+   #error LTC_SHA512 is required for LTC_SHA512_224
+#endif
+int sha512_224_init(hash_state * md);
+#define sha512_224_process sha512_process
+int sha512_224_done(hash_state * md, unsigned char *hash);
+int sha512_224_test(void);
+extern const struct ltc_hash_descriptor sha512_224_desc;
 #endif
 
 #ifdef LTC_SHA256
@@ -329,13 +351,16 @@ int hash_is_valid(int idx);
 
 LTC_MUTEX_PROTO(ltc_hash_mutex)
 
-int hash_memory(int hash, 
-                const unsigned char *in,  unsigned long inlen, 
+int hash_memory(int hash,
+                const unsigned char *in,  unsigned long inlen,
                       unsigned char *out, unsigned long *outlen);
 int hash_memory_multi(int hash, unsigned char *out, unsigned long *outlen,
                       const unsigned char *in, unsigned long inlen, ...);
+
+#ifndef LTC_NO_FILE
 int hash_filehandle(int hash, FILE *in, unsigned char *out, unsigned long *outlen);
 int hash_file(int hash, const char *fname, unsigned char *out, unsigned long *outlen);
+#endif
 
 /* a simple macro for making hash "process" functions */
 #define HASH_PROCESS(func_name, compress_name, state_var, block_size)                       \
@@ -348,6 +373,9 @@ int func_name (hash_state * md, const unsigned char *in, unsigned long inlen)   
     if (md-> state_var .curlen > sizeof(md-> state_var .buf)) {                             \
        return CRYPT_INVALID_ARG;                                                            \
     }                                                                                       \
+    if ((md-> state_var .length + inlen) < md-> state_var .length) {	                    \
+      return CRYPT_HASH_OVERFLOW;                                                           \
+    }                                                                                       \
     while (inlen > 0) {                                                                     \
         if (md-> state_var .curlen == 0 && inlen >= block_size) {                           \
            if ((err = compress_name (md, (unsigned char *)in)) != CRYPT_OK) {               \
@@ -358,7 +386,7 @@ int func_name (hash_state * md, const unsigned char *in, unsigned long inlen)   
            inlen          -= block_size;                                                    \
         } else {                                                                            \
            n = MIN(inlen, (block_size - md-> state_var .curlen));                           \
-           memcpy(md-> state_var .buf + md-> state_var.curlen, in, (size_t)n);              \
+           XMEMCPY(md-> state_var .buf + md-> state_var.curlen, in, (size_t)n);              \
            md-> state_var .curlen += n;                                                     \
            in             += n;                                                             \
            inlen          -= n;                                                             \
@@ -374,6 +402,6 @@ int func_name (hash_state * md, const unsigned char *in, unsigned long inlen)   
     return CRYPT_OK;                                                                        \
 }
 
-/* $Source: /cvs/libtom/libtomcrypt/src/headers/tomcrypt_hash.h,v $ */
-/* $Revision: 1.22 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

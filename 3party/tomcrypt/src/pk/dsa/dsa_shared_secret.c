@@ -66,7 +66,7 @@ done:
 }
 
 #endif
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/dsa/dsa_shared_secret.c,v $ */
-/* $Revision: 1.9 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

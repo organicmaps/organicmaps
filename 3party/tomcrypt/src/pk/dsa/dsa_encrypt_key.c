@@ -37,7 +37,7 @@ int dsa_encrypt_key(const unsigned char *in,   unsigned long inlen,
     unsigned char *expt, *skey;
     void          *g_pub, *g_priv;
     unsigned long  x, y;
-    int            err;
+    int            err, qbits;
 
     LTC_ARGCHK(in      != NULL);
     LTC_ARGCHK(out     != NULL);
@@ -75,18 +75,15 @@ int dsa_encrypt_key(const unsigned char *in,   unsigned long inlen,
        return CRYPT_MEM;
     }
     
-    /* make a random x, g^x pair */
-    x = mp_unsigned_bin_size(key->q);
-    if (prng_descriptor[wprng].read(expt, x, prng) != x) {
-       err = CRYPT_ERROR_READPRNG;
-       goto LBL_ERR;
-    }
-    
-    /* load x */
-    if ((err = mp_read_unsigned_bin(g_priv, expt, x)) != CRYPT_OK) {
-       goto LBL_ERR;
-    }
-    
+    /* make a random g_priv, g_pub = g^x pair */
+    qbits = mp_count_bits(key->q);
+    do {
+      if ((err = rand_bn_bits(g_priv, qbits, prng, wprng)) != CRYPT_OK) {
+        goto LBL_ERR;
+      }
+      /* private key x should be from range: 1 <= x <= q-1 (see FIPS 186-4 B.1.2) */
+    } while (mp_cmp_d(g_priv, 0) != LTC_MP_GT || mp_cmp(g_priv, key->q) != LTC_MP_LT);
+
     /* compute y */
     if ((err = mp_exptmod(key->g, g_priv, key->p, g_pub)) != CRYPT_OK) {
        goto LBL_ERR;
@@ -129,7 +126,7 @@ LBL_ERR:
 }
 
 #endif
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/dsa/dsa_encrypt_key.c,v $ */
-/* $Revision: 1.9 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

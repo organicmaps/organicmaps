@@ -48,6 +48,6 @@ int der_length_octet_string(unsigned long noctets, unsigned long *outlen)
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/asn1/der/octet/der_length_octet_string.c,v $ */
-/* $Revision: 1.3 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

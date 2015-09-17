@@ -20,7 +20,7 @@
 const struct ltc_hash_descriptor rmd256_desc =
 {
     "rmd256",
-    8,
+    13,
     32,
     64,
 

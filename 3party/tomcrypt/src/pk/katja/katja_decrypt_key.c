@@ -12,13 +12,13 @@
 
 /**
   @file katja_decrypt_key.c
-  Katja LTC_PKCS #1 OAEP Decryption, Tom St Denis
-*/  
+  Katja PKCS #1 OAEP Decryption, Tom St Denis
+*/
 
-#ifdef MKAT
+#ifdef LTC_MKAT
 
 /**
-   (LTC_PKCS #1 v2.0) decrypt then OAEP depad  
+   (PKCS #1 v2.0) decrypt then OAEP depad
    @param in          The ciphertext
    @param inlen       The length of the ciphertext (octets)
    @param out         [out] The plaintext
@@ -31,7 +31,7 @@
    @return CRYPT_OK if succcessul (even if invalid)
 */
 int katja_decrypt_key(const unsigned char *in,       unsigned long  inlen,
-                          unsigned char *out,      unsigned long *outlen, 
+                          unsigned char *out,      unsigned long *outlen,
                     const unsigned char *lparam,   unsigned long  lparamlen,
                           int            hash_idx, int           *stat,
                           katja_key       *key)
@@ -39,7 +39,7 @@ int katja_decrypt_key(const unsigned char *in,       unsigned long  inlen,
   unsigned long modulus_bitlen, modulus_bytelen, x;
   int           err;
   unsigned char *tmp;
-  
+
   LTC_ARGCHK(out    != NULL);
   LTC_ARGCHK(outlen != NULL);
   LTC_ARGCHK(key    != NULL);
@@ -52,7 +52,7 @@ int katja_decrypt_key(const unsigned char *in,       unsigned long  inlen,
   if ((err = hash_is_valid(hash_idx)) != CRYPT_OK) {
      return err;
   }
-  
+
   /* get modulus len in bits */
   modulus_bitlen = mp_count_bits( (key->N));
 
@@ -100,6 +100,6 @@ int katja_decrypt_key(const unsigned char *in,       unsigned long  inlen,
 
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/katja/katja_decrypt_key.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

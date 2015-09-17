@@ -93,6 +93,6 @@ int f8_start(                int  cipher, const unsigned char *IV,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/f8/f8_start.c,v $ */
-/* $Revision: 1.8 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

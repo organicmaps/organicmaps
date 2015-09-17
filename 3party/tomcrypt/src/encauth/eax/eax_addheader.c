@@ -33,6 +33,6 @@ int eax_addheader(eax_state *eax, const unsigned char *header,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/eax/eax_addheader.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

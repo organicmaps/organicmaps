@@ -55,6 +55,6 @@ int ofb_start(int cipher, const unsigned char *IV, const unsigned char *key,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/ofb/ofb_start.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

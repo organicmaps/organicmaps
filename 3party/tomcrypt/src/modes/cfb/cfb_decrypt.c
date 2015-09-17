@@ -62,6 +62,6 @@ int cfb_decrypt(const unsigned char *ct, unsigned char *pt, unsigned long len, s
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/cfb/cfb_decrypt.c,v $ */
-/* $Revision: 1.8 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

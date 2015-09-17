@@ -76,7 +76,7 @@ int ecc_export(unsigned char *out, unsigned long *outlen, int type, ecc_key *key
 }
 
 #endif
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/ecc/ecc_export.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

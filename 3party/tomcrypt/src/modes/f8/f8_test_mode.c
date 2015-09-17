@@ -71,6 +71,6 @@ int f8_test_mode(void)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/f8/f8_test_mode.c,v $ */
-/* $Revision: 1.4 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

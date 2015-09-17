@@ -12,13 +12,13 @@
 
 /**
   @file katja_import.c
-  Import a LTC_PKCS-style Katja key, Tom St Denis
-*/  
+  Import a PKCS-style Katja key, Tom St Denis
+*/
 
-#ifdef MKAT
+#ifdef LTC_MKAT
 
 /**
-  Import an KatjaPublicKey or KatjaPrivateKey [two-prime only, only support >= 1024-bit keys, defined in LTC_PKCS #1 v2.1]
+  Import an KatjaPublicKey or KatjaPrivateKey [two-prime only, only support >= 1024-bit keys, defined in PKCS #1 v2.1]
   @param in      The packet to import from
   @param inlen   It's length (octets)
   @param key     [out] Destination for newly imported key
@@ -34,29 +34,29 @@ int katja_import(const unsigned char *in, unsigned long inlen, katja_key *key)
    LTC_ARGCHK(ltc_mp.name != NULL);
 
    /* init key */
-   if ((err = mp_init_multi(&zero, &key->d, &key->N, &key->dQ, 
+   if ((err = mp_init_multi(&zero, &key->d, &key->N, &key->dQ,
                             &key->dP, &key->qP, &key->p, &key->q, &key->pq, NULL)) != CRYPT_OK) {
       return err;
    }
 
-   if ((err = der_decode_sequence_multi(in, inlen, 
-                                  LTC_ASN1_INTEGER, 1UL, key->N, 
+   if ((err = der_decode_sequence_multi(in, inlen,
+                                  LTC_ASN1_INTEGER, 1UL, key->N,
                                   LTC_ASN1_EOL,     0UL, NULL)) != CRYPT_OK) {
       goto LBL_ERR;
    }
 
    if (mp_cmp_d(key->N, 0) == LTC_MP_EQ) {
       /* it's a private key */
-      if ((err = der_decode_sequence_multi(in, inlen, 
-                          LTC_ASN1_INTEGER, 1UL, zero, 
-                          LTC_ASN1_INTEGER, 1UL, key->N, 
-                          LTC_ASN1_INTEGER, 1UL, key->d, 
-                          LTC_ASN1_INTEGER, 1UL, key->p, 
-                          LTC_ASN1_INTEGER, 1UL, key->q, 
+      if ((err = der_decode_sequence_multi(in, inlen,
+                          LTC_ASN1_INTEGER, 1UL, zero,
+                          LTC_ASN1_INTEGER, 1UL, key->N,
+                          LTC_ASN1_INTEGER, 1UL, key->d,
+                          LTC_ASN1_INTEGER, 1UL, key->p,
+                          LTC_ASN1_INTEGER, 1UL, key->q,
                           LTC_ASN1_INTEGER, 1UL, key->dP,
-                          LTC_ASN1_INTEGER, 1UL, key->dQ, 
-                          LTC_ASN1_INTEGER, 1UL, key->qP, 
-                          LTC_ASN1_INTEGER, 1UL, key->pq, 
+                          LTC_ASN1_INTEGER, 1UL, key->dQ,
+                          LTC_ASN1_INTEGER, 1UL, key->qP,
+                          LTC_ASN1_INTEGER, 1UL, key->pq,
                           LTC_ASN1_EOL,     0UL, NULL)) != CRYPT_OK) {
          goto LBL_ERR;
       }
@@ -76,6 +76,6 @@ LBL_ERR:
 #endif /* LTC_MRSA */
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/katja/katja_import.c,v $ */
-/* $Revision: 1.5 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

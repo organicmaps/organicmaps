@@ -25,7 +25,7 @@ static const struct {
 };
 
 /**
-   Convert a tfm error to a LTC error (Possibly the most powerful function ever!  Oh wait... no) 
+   Convert a tfm error to a LTC error (Possibly the most powerful function ever!  Oh wait... no)
    @param err    The error to convert
    @return The equivalent LTC error code or CRYPT_ERROR if none found
 */
@@ -34,7 +34,7 @@ static int tfm_to_ltc_error(int err)
    int x;
 
    for (x = 0; x < (int)(sizeof(tfm_to_ltc_codes)/sizeof(tfm_to_ltc_codes[0])); x++) {
-       if (err == tfm_to_ltc_codes[x].tfm_code) { 
+       if (err == tfm_to_ltc_codes[x].tfm_code) {
           return tfm_to_ltc_codes[x].ltc_code;
        }
    }
@@ -99,7 +99,7 @@ static unsigned long get_int(void *a)
    return A->used > 0 ? A->dp[0] : 0;
 }
 
-static unsigned long get_digit(void *a, int n)
+static ltc_mp_digit get_digit(void *a, int n)
 {
    fp_int *A;
    LTC_ARGCHK(a != NULL);
@@ -114,7 +114,7 @@ static int get_digit_count(void *a)
    A = a;
    return A->used;
 }
-   
+
 static int compare(void *a, void *b)
 {
    int ret;
@@ -213,7 +213,7 @@ static int add(void *a, void *b, void *c)
    fp_add(a, b, c);
    return CRYPT_OK;
 }
-  
+
 static int addi(void *a, unsigned long b, void *c)
 {
    LTC_ARGCHK(a != NULL);
@@ -246,7 +246,7 @@ static int mul(void *a, void *b, void *c)
    LTC_ARGCHK(a != NULL);
    LTC_ARGCHK(b != NULL);
    LTC_ARGCHK(c != NULL);
-   fp_mul(a, b, c); 
+   fp_mul(a, b, c);
    return CRYPT_OK;
 }
 
@@ -297,7 +297,7 @@ static int modi(void *a, unsigned long b, unsigned long *c)
    }
    *c = tmp;
    return CRYPT_OK;
-}  
+}
 
 /* gcd */
 static int gcd(void *a, void *b, void *c)
@@ -317,6 +317,24 @@ static int lcm(void *a, void *b, void *c)
    LTC_ARGCHK(c != NULL);
    fp_lcm(a, b, c);
    return CRYPT_OK;
+}
+
+static int addmod(void *a, void *b, void *c, void *d)
+{
+   LTC_ARGCHK(a != NULL);
+   LTC_ARGCHK(b != NULL);
+   LTC_ARGCHK(c != NULL);
+   LTC_ARGCHK(d != NULL);
+   return tfm_to_ltc_error(fp_addmod(a,b,c,d));
+}
+
+static int submod(void *a, void *b, void *c, void *d)
+{
+   LTC_ARGCHK(a != NULL);
+   LTC_ARGCHK(b != NULL);
+   LTC_ARGCHK(c != NULL);
+   LTC_ARGCHK(d != NULL);
+   return tfm_to_ltc_error(fp_submod(a,b,c,d));
 }
 
 static int mulmod(void *a, void *b, void *c, void *d)
@@ -393,13 +411,14 @@ static int exptmod(void *a, void *b, void *c, void *d)
    LTC_ARGCHK(c != NULL);
    LTC_ARGCHK(d != NULL);
    return tfm_to_ltc_error(fp_exptmod(a,b,c,d));
-}   
+}
 
-static int isprime(void *a, int *b)
+static int isprime(void *a, int b, int *c)
 {
    LTC_ARGCHK(a != NULL);
-   LTC_ARGCHK(b != NULL);
-   *b = (fp_isprime(a) == FP_YES) ? LTC_MP_YES : LTC_MP_NO;
+   LTC_ARGCHK(c != NULL);
+   (void)b;
+   *c = (fp_isprime(a) == FP_YES) ? LTC_MP_YES : LTC_MP_NO;
    return CRYPT_OK;
 }
 
@@ -437,7 +456,7 @@ static int tfm_ecc_projective_dbl_point(ecc_point *P, ecc_point *R, void *modulu
    if (fp_cmp(R->z, modulus) != FP_LT) {
       fp_sub(R->z, modulus, R->z);
    }
-   
+
    /* &t2 = X - T1 */
    fp_sub(R->x, &t1, &t2);
    if (fp_cmp_d(&t2, 0) == FP_LT) {
@@ -496,7 +515,7 @@ static int tfm_ecc_projective_dbl_point(ecc_point *P, ecc_point *R, void *modulu
       fp_add(R->x, modulus, R->x);
    }
 
-   /* Y = Y - X */     
+   /* Y = Y - X */
    fp_sub(R->y, R->x, R->y);
    if (fp_cmp_d(R->y, 0) == FP_LT) {
       fp_add(R->y, modulus, R->y);
@@ -509,7 +528,7 @@ static int tfm_ecc_projective_dbl_point(ecc_point *P, ecc_point *R, void *modulu
    if (fp_cmp_d(R->y, 0) == FP_LT) {
       fp_add(R->y, modulus, R->y);
    }
- 
+
    return CRYPT_OK;
 }
 
@@ -525,8 +544,8 @@ static int tfm_ecc_projective_dbl_point(ecc_point *P, ecc_point *R, void *modulu
 static int tfm_ecc_projective_add_point(ecc_point *P, ecc_point *Q, ecc_point *R, void *modulus, void *Mp)
 {
    fp_int  t1, t2, x, y, z;
-   fp_digit mp;  
-   
+   fp_digit mp;
+
    LTC_ARGCHK(P       != NULL);
    LTC_ARGCHK(Q       != NULL);
    LTC_ARGCHK(R       != NULL);
@@ -543,7 +562,7 @@ static int tfm_ecc_projective_add_point(ecc_point *P, ecc_point *Q, ecc_point *R
 
    /* should we dbl instead? */
    fp_sub(modulus, Q->y, &t1);
-   if ( (fp_cmp(P->x, Q->x) == FP_EQ) && 
+   if ( (fp_cmp(P->x, Q->x) == FP_EQ) &&
         (Q->z != NULL && fp_cmp(P->z, Q->z) == FP_EQ) &&
         (fp_cmp(P->y, Q->y) == FP_EQ || fp_cmp(P->y, &t1) == FP_EQ)) {
         return tfm_ecc_projective_dbl_point(P, R, modulus, Mp);
@@ -636,7 +655,7 @@ static int tfm_ecc_projective_add_point(ecc_point *P, ecc_point *Q, ecc_point *R
    /* T1 = T1 * X  */
    fp_mul(&t1, &x, &t1);
    fp_montgomery_reduce(&t1, modulus, mp);
- 
+
    /* X = Y*Y */
    fp_sqr(&y, &x);
    fp_montgomery_reduce(&x, modulus, mp);
@@ -650,7 +669,7 @@ static int tfm_ecc_projective_add_point(ecc_point *P, ecc_point *Q, ecc_point *R
    fp_sub(&t2, &x, &t2);
    if (fp_cmp_d(&t2, 0) == FP_LT) {
       fp_add(&t2, modulus, &t2);
-   } 
+   }
    /* T2 = T2 - X */
    fp_sub(&t2, &x, &t2);
    if (fp_cmp_d(&t2, 0) == FP_LT) {
@@ -673,7 +692,7 @@ static int tfm_ecc_projective_add_point(ecc_point *P, ecc_point *Q, ecc_point *R
    fp_copy(&x, R->x);
    fp_copy(&y, R->y);
    fp_copy(&z, R->z);
-   
+
    return CRYPT_OK;
 }
 
@@ -764,14 +783,18 @@ const ltc_math_descriptor tfm_desc = {
    &rsa_make_key,
    &rsa_exptmod,
 #else
-   NULL, NULL
+   NULL, NULL,
 #endif
-   
+   &addmod,
+   &submod,
+
+   NULL,
+
 };
 
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/math/tfm_desc.c,v $ */
-/* $Revision: 1.28 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

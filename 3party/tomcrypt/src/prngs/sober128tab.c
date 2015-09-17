@@ -1,8 +1,11 @@
-/** 
+/**
    @file sober128tab.c
    SOBER-128 Tables
-*/   
-/* $Id: sober128tab.c,v 1.2 2005/05/05 14:35:59 tom Exp $ */
+*/
+
+#ifdef __LTC_SOBER128TAB_C__
+
+/* $ID$ */
 /* @(#)TuringMultab.h   1.3 (QUALCOMM) 02/09/03 */
 /* Multiplication table for Turing using 0xD02B4367 */
 static const ulong32 Multab[256] = {
@@ -72,7 +75,7 @@ static const ulong32 Multab[256] = {
     0xEF72A3F1, 0x3F59E096, 0x0224253F, 0xD20F6658,
 };
 
-/* $Id: sober128tab.c,v 1.2 2005/05/05 14:35:59 tom Exp $ */
+/* $ID$ */
 /* Sbox for SOBER-128 */
 /*
  * This is really the combination of two SBoxes; the least significant
@@ -82,7 +85,7 @@ static const ulong32 Multab[256] = {
  * "On the Design of 8*32 S-boxes". Unpublished report, by the
  * Information Systems Research Centre,
  * Queensland University of Technology, 1999.
- * 
+ *
  * The most significant 8 bits are the Skipjack "F table", which can be
  * found at http://csrc.nist.gov/CryptoToolkit/skipjack/skipjack.pdf .
  * In this optimised table, though, the intent is to XOR the word from
@@ -157,6 +160,8 @@ static const ulong32 Sbox[256] = {
     0xf9e6053f, 0xa4b0d300, 0xd499cbcc, 0xb95e3d40,
 };
 
-/* $Source: /cvs/libtom/libtomcrypt/src/prngs/sober128tab.c,v $ */
-/* $Revision: 1.2 $ */
-/* $Date: 2005/05/05 14:35:59 $ */
+#endif /* __LTC_SOBER128TAB_C__ */
+
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

@@ -232,6 +232,6 @@ int ocb_test(void)
    -- The setup is somewhat complicated...
 */
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/ocb/ocb_test.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

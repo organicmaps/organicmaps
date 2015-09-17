@@ -17,9 +17,9 @@
 
 #ifdef LTC_GCM_MODE
 
-/** 
+/**
   Process plaintext/ciphertext through GCM
-  @param gcm       The GCM state 
+  @param gcm       The GCM state
   @param pt        The plaintext
   @param ptlen     The plaintext length (ciphertext length is the same)
   @param ct        The ciphertext
@@ -44,7 +44,7 @@ int gcm_process(gcm_state *gcm,
    if (gcm->buflen > 16 || gcm->buflen < 0) {
       return CRYPT_INVALID_ARG;
    }
- 
+
    if ((err = cipher_is_valid(gcm->cipher)) != CRYPT_OK) {
       return err;
    }
@@ -77,7 +77,7 @@ int gcm_process(gcm_state *gcm,
    x = 0;
 #ifdef LTC_FAST
    if (gcm->buflen == 0) {
-      if (direction == GCM_ENCRYPT) { 
+      if (direction == GCM_ENCRYPT) {
          for (x = 0; x < (ptlen & ~15); x += 16) {
              /* ctr encrypt */
              for (y = 0; y < 16; y += sizeof(LTC_FAST_TYPE)) {
@@ -115,14 +115,14 @@ int gcm_process(gcm_state *gcm,
          }
      }
    }
-#endif        
+#endif
 
    /* process text */
    for (; x < ptlen; x++) {
        if (gcm->buflen == 16) {
           gcm->pttotlen += 128;
           gcm_mult_h(gcm, gcm->X);
-          
+
           /* increment counter */
           for (y = 15; y >= 12; y--) {
               if (++gcm->Y[y] & 255) { break; }
@@ -134,12 +134,12 @@ int gcm_process(gcm_state *gcm,
        }
 
        if (direction == GCM_ENCRYPT) {
-          b = ct[x] = pt[x] ^ gcm->buf[gcm->buflen]; 
+          b = ct[x] = pt[x] ^ gcm->buf[gcm->buflen];
        } else {
           b = ct[x];
           pt[x] = ct[x] ^ gcm->buf[gcm->buflen];
        }
-       gcm->X[gcm->buflen++] ^= b;          
+       gcm->X[gcm->buflen++] ^= b;
    }
 
    return CRYPT_OK;
@@ -147,6 +147,6 @@ int gcm_process(gcm_state *gcm,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/gcm/gcm_process.c,v $ */
-/* $Revision: 1.16 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

@@ -11,7 +11,7 @@
 
 /**
    @file rc6.c
-   LTC_RC6 code by Tom St Denis 
+   LTC_RC6 code by Tom St Denis
 */
 #include "tomcrypt.h"
 
@@ -28,7 +28,7 @@ const struct ltc_cipher_descriptor rc6_desc =
     &rc6_test,
     &rc6_done,
     &rc6_keysize,
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 };
 
 static const ulong32 stab[44] = {
@@ -59,7 +59,7 @@ int rc6_setup(const unsigned char *key, int keylen, int num_rounds, symmetric_ke
     LTC_ARGCHK(skey != NULL);
 
     /* test parameters */
-    if (num_rounds != 0 && num_rounds != 20) { 
+    if (num_rounds != 0 && num_rounds != 20) {
        return CRYPT_INVALID_ROUNDS;
     }
 
@@ -69,7 +69,7 @@ int rc6_setup(const unsigned char *key, int keylen, int num_rounds, symmetric_ke
     }
 
     /* copy the key into the L array */
-    for (A = i = j = 0; i < (ulong32)keylen; ) { 
+    for (A = i = j = 0; i < (ulong32)keylen; ) {
         A = (A << 8) | ((ulong32)(key[i++] & 255));
         if (!(i & 3)) {
            L[j++] = BSWAP(A);
@@ -78,9 +78,9 @@ int rc6_setup(const unsigned char *key, int keylen, int num_rounds, symmetric_ke
     }
 
     /* handle odd sized keys */
-    if (keylen & 3) { 
-       A <<= (8 * (4 - (keylen&3))); 
-       L[j++] = BSWAP(A); 
+    if (keylen & 3) {
+       A <<= (8 * (4 - (keylen&3)));
+       L[j++] = BSWAP(A);
     }
 
     /* setup the S array */
@@ -89,15 +89,15 @@ int rc6_setup(const unsigned char *key, int keylen, int num_rounds, symmetric_ke
     /* mix buffer */
     s = 3 * MAX(44, j);
     l = j;
-    for (A = B = i = j = v = 0; v < s; v++) { 
+    for (A = B = i = j = v = 0; v < s; v++) {
         A = S[i] = ROLc(S[i] + A + B, 3);
         B = L[j] = ROL(L[j] + A + B, (A+B));
         if (++i == 44) { i = 0; }
         if (++j == l)  { j = 0; }
     }
-    
+
     /* copy to key */
-    for (i = 0; i < 44; i++) { 
+    for (i = 0; i < 44; i++) {
         skey->rc6.K[i] = S[i];
     }
     return CRYPT_OK;
@@ -127,7 +127,7 @@ int rc6_ecb_encrypt(const unsigned char *pt, unsigned char *ct, symmetric_key *s
 {
    ulong32 a,b,c,d,t,u, *K;
    int r;
-   
+
    LTC_ARGCHK(skey != NULL);
    LTC_ARGCHK(pt   != NULL);
    LTC_ARGCHK(ct   != NULL);
@@ -140,8 +140,8 @@ int rc6_ecb_encrypt(const unsigned char *pt, unsigned char *ct, symmetric_key *s
        t = (b * (b + b + 1)); t = ROLc(t, 5); \
        u = (d * (d + d + 1)); u = ROLc(u, 5); \
        a = ROL(a^t,u) + K[0];                \
-       c = ROL(c^u,t) + K[1]; K += 2;   
-    
+       c = ROL(c^u,t) + K[1]; K += 2;
+
    K = skey->rc6.K + 2;
    for (r = 0; r < 20; r += 4) {
        RND(a,b,c,d);
@@ -149,7 +149,7 @@ int rc6_ecb_encrypt(const unsigned char *pt, unsigned char *ct, symmetric_key *s
        RND(c,d,a,b);
        RND(d,a,b,c);
    }
-   
+
 #undef RND
 
    a += skey->rc6.K[42];
@@ -171,7 +171,7 @@ int rc6_ecb_encrypt(const unsigned char *pt, unsigned char *ct, symmetric_key *s
   Decrypts a block of text with LTC_RC6
   @param ct The input ciphertext (16 bytes)
   @param pt The output plaintext (16 bytes)
-  @param skey The key as scheduled 
+  @param skey The key as scheduled
 */
 #ifdef LTC_CLEAN_STACK
 static int _rc6_ecb_decrypt(const unsigned char *ct, unsigned char *pt, symmetric_key *skey)
@@ -185,26 +185,26 @@ int rc6_ecb_decrypt(const unsigned char *ct, unsigned char *pt, symmetric_key *s
    LTC_ARGCHK(skey != NULL);
    LTC_ARGCHK(pt   != NULL);
    LTC_ARGCHK(ct   != NULL);
-   
+
    LOAD32L(a,&ct[0]);LOAD32L(b,&ct[4]);LOAD32L(c,&ct[8]);LOAD32L(d,&ct[12]);
    a -= skey->rc6.K[42];
    c -= skey->rc6.K[43];
-   
+
 #define RND(a,b,c,d) \
        t = (b * (b + b + 1)); t = ROLc(t, 5); \
        u = (d * (d + d + 1)); u = ROLc(u, 5); \
        c = ROR(c - K[1], t) ^ u; \
        a = ROR(a - K[0], u) ^ t; K -= 2;
-   
+
    K = skey->rc6.K + 40;
-   
+
    for (r = 0; r < 20; r += 4) {
        RND(d,a,b,c);
        RND(c,d,a,b);
        RND(b,c,d,a);
        RND(a,b,c,d);
    }
-   
+
 #undef RND
 
    b -= skey->rc6.K[0];
@@ -231,7 +231,7 @@ int rc6_test(void)
 {
  #ifndef LTC_TEST
     return CRYPT_NOP;
- #else    
+ #else
    static const struct {
        int keylen;
        unsigned char key[32], pt[16], ct[16];
@@ -316,11 +316,12 @@ int rc6_test(void)
   #endif
 }
 
-/** Terminate the context 
+/** Terminate the context
    @param skey    The scheduled key
 */
 void rc6_done(symmetric_key *skey)
 {
+  LTC_UNUSED_PARAM(skey);
 }
 
 /**
@@ -343,6 +344,6 @@ int rc6_keysize(int *keysize)
 
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/ciphers/rc6.c,v $ */
-/* $Revision: 1.14 $ */
-/* $Date: 2007/05/12 14:13:00 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

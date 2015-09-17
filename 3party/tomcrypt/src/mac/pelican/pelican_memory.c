@@ -54,6 +54,6 @@ int pelican_memory(const unsigned char *key, unsigned long keylen,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/pelican/pelican_memory.c,v $ */
-/* $Revision: 1.8 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

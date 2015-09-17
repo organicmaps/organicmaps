@@ -12,8 +12,57 @@
 
 #ifdef LTC_XTS_MODE
 
-/** 
+static int _xts_test_accel_xts_encrypt(const unsigned char *pt, unsigned char *ct, unsigned long blocks,
+                                       unsigned char *tweak, symmetric_key *skey1, symmetric_key *skey2)
+{
+   int ret;
+   symmetric_xts xts;
+
+   /* AES can be under rijndael or aes... try to find it */
+   if ((xts.cipher = find_cipher("aes")) == -1) {
+      if ((xts.cipher = find_cipher("rijndael")) == -1) {
+         return CRYPT_NOP;
+      }
+   }
+   void *orig = cipher_descriptor[xts.cipher].accel_xts_encrypt;
+   cipher_descriptor[xts.cipher].accel_xts_encrypt = NULL;
+
+   XMEMCPY(&xts.key1, skey1, sizeof(symmetric_key));
+   XMEMCPY(&xts.key2, skey2, sizeof(symmetric_key));
+
+   ret = xts_encrypt(pt, blocks << 4, ct, tweak, &xts);
+   cipher_descriptor[xts.cipher].accel_xts_encrypt = orig;
+
+   return ret;
+}
+
+static int _xts_test_accel_xts_decrypt(const unsigned char *ct, unsigned char *pt, unsigned long blocks,
+                                       unsigned char *tweak, symmetric_key *skey1, symmetric_key *skey2)
+{
+   int ret;
+   symmetric_xts xts;
+
+   /* AES can be under rijndael or aes... try to find it */
+   if ((xts.cipher = find_cipher("aes")) == -1) {
+      if ((xts.cipher = find_cipher("rijndael")) == -1) {
+         return CRYPT_NOP;
+      }
+   }
+   void *orig = cipher_descriptor[xts.cipher].accel_xts_decrypt;
+   cipher_descriptor[xts.cipher].accel_xts_decrypt = NULL;
+
+   XMEMCPY(&xts.key1, skey1, sizeof(symmetric_key));
+   XMEMCPY(&xts.key2, skey2, sizeof(symmetric_key));
+
+   ret = xts_decrypt(ct, blocks << 4, pt, tweak, &xts);
+   cipher_descriptor[xts.cipher].accel_xts_decrypt = orig;
+
+   return ret;
+}
+
+/**
   Source donated by Elliptic Semiconductor Inc (www.ellipticsemi.com) to the LibTom Projects
+
   Returns CRYPT_OK upon success.
 */
 int xts_test(void)
@@ -21,7 +70,8 @@ int xts_test(void)
 #ifdef LTC_NO_TEST
    return CRYPT_NOP;
 #else
-   static const struct {
+   static const struct
+   {
       int keylen;
       unsigned char key1[32];
       unsigned char key2[32];
@@ -142,50 +192,115 @@ int xts_test(void)
 },
 
 };
-   unsigned char OUT[512], T[16];
-   ulong64       seq;
+   unsigned char OUT[512], Torg[16], T[16];
+   ulong64 seq;
    symmetric_xts xts;
-   int           i, err, idx;
+   int i, j, k, err, idx;
+   unsigned long len;
 
-   /* AES can be under rijndael or aes... try to find it */ 
+   /* AES can be under rijndael or aes... try to find it */
    if ((idx = find_cipher("aes")) == -1) {
       if ((idx = find_cipher("rijndael")) == -1) {
          return CRYPT_NOP;
       }
    }
+   for (k = 0; k < 4; ++k) {
+      cipher_descriptor[idx].accel_xts_encrypt = NULL;
+      cipher_descriptor[idx].accel_xts_decrypt = NULL;
+      if (k & 0x1) {
+         cipher_descriptor[idx].accel_xts_encrypt = _xts_test_accel_xts_encrypt;
+      }
+      if (k & 0x2) {
+         cipher_descriptor[idx].accel_xts_decrypt = _xts_test_accel_xts_decrypt;
+      }
+      for (j = 0; j < 2; j++) {
+         for (i = 0; i < (int)(sizeof(tests) / sizeof(tests[0])); i++) {
+            /* skip the cases where
+             * the length is smaller than 2*blocklen
+             * or the length is not a multiple of 32
+             */
+            if ((j == 1) && ((tests[i].PTLEN < 32) || (tests[i].PTLEN % 32))) {
+               continue;
+            }
+            if ((k > 0) && (j == 1)) {
+               continue;
+            }
+            len = tests[i].PTLEN / 2;
 
-   for (i = 0; i < (int)(sizeof(tests)/sizeof(tests[0])); i++) {
-       err = xts_start(idx, tests[i].key1, tests[i].key2, tests[i].keylen/2, 0, &xts);
-       if (err != CRYPT_OK) {
-          return err;
-       }
- 
-       seq = tests[i].seqnum;
-       STORE64L(seq,T);
-       XMEMSET(T+8, 0, 8);
+            err = xts_start(idx, tests[i].key1, tests[i].key2, tests[i].keylen / 2, 0, &xts);
+            if (err != CRYPT_OK) {
+               return err;
+            }
 
-       err = xts_encrypt(tests[i].PTX, tests[i].PTLEN, OUT, T, &xts);
-       if (err != CRYPT_OK) {
-          xts_done(&xts);
-          return err;
-       }
+            seq = tests[i].seqnum;
+            STORE64L(seq, Torg);
+            XMEMSET(Torg + 8, 0, 8);
 
-       if (XMEMCMP(OUT, tests[i].CTX, tests[i].PTLEN)) {
-          xts_done(&xts);
-          return CRYPT_FAIL_TESTVECTOR;
-       }
+            XMEMCPY(T, Torg, sizeof(T));
+            if (j == 0) {
+               err = xts_encrypt(tests[i].PTX, tests[i].PTLEN, OUT, T, &xts);
+               if (err != CRYPT_OK) {
+                  xts_done(&xts);
+                  return err;
+               }
+            } else {
+               err = xts_encrypt(tests[i].PTX, len, OUT, T, &xts);
+               if (err != CRYPT_OK) {
+                  xts_done(&xts);
+                  return err;
+               }
+               err = xts_encrypt(&tests[i].PTX[len], len, &OUT[len], T, &xts);
+               if (err != CRYPT_OK) {
+                  xts_done(&xts);
+                  return err;
+               }
+            }
 
-       err = xts_decrypt(tests[i].CTX, tests[i].PTLEN, OUT, T, &xts);
-       if (err != CRYPT_OK) {
-          xts_done(&xts);
-          return err;
-       }
+            if (XMEMCMP(OUT, tests[i].CTX, tests[i].PTLEN)) {
+#ifdef LTC_TEST_DBG
+               printf("\nTestcase #%d with original length %lu and half of it "
+                      "%lu\n",
+                      i, tests[i].PTLEN, len);
+               printf("\nencrypt\n");
+               print_hex("should", tests[i].CTX, tests[i].PTLEN);
+               print_hex("is", OUT, tests[i].PTLEN);
+#endif
+               xts_done(&xts);
+               return CRYPT_FAIL_TESTVECTOR;
+            }
 
-       if (XMEMCMP(OUT, tests[i].PTX, tests[i].PTLEN)) {
-          xts_done(&xts);
-          return CRYPT_FAIL_TESTVECTOR;
-       }
-       xts_done(&xts);
+            XMEMCPY(T, Torg, sizeof(T));
+            if (j == 0) {
+               err = xts_decrypt(tests[i].CTX, tests[i].PTLEN, OUT, T, &xts);
+               if (err != CRYPT_OK) {
+                  xts_done(&xts);
+                  return err;
+               }
+            } else {
+               err = xts_decrypt(tests[i].CTX, len, OUT, T, &xts);
+               if (err != CRYPT_OK) {
+                  xts_done(&xts);
+                  return err;
+               }
+               err = xts_decrypt(&tests[i].CTX[len], len, &OUT[len], T, &xts);
+               if (err != CRYPT_OK) {
+                  xts_done(&xts);
+                  return err;
+               }
+            }
+
+            if (XMEMCMP(OUT, tests[i].PTX, tests[i].PTLEN)) {
+#ifdef LTC_TEST_DBG
+               printf("\ndecrypt\n");
+               print_hex("should", tests[i].PTX, tests[i].PTLEN);
+               print_hex("is", OUT, tests[i].PTLEN);
+#endif
+               xts_done(&xts);
+               return CRYPT_FAIL_TESTVECTOR;
+            }
+            xts_done(&xts);
+         }
+      }
    }
    return CRYPT_OK;
 #endif
@@ -193,7 +308,6 @@ int xts_test(void)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/xts/xts_test.c,v $ */
-/* $Revision: 1.4 $ */
-/* $Date: 2007/03/10 23:59:09 $ */
-
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

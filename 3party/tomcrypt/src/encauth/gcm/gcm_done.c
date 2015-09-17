@@ -78,6 +78,6 @@ int gcm_done(gcm_state *gcm,
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/gcm/gcm_done.c,v $ */
-/* $Revision: 1.11 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

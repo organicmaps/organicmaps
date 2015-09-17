@@ -189,6 +189,6 @@ int der_length_ia5_string(const unsigned char *octets, unsigned long noctets, un
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/asn1/der/ia5/der_length_ia5_string.c,v $ */
-/* $Revision: 1.3 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

@@ -10,25 +10,25 @@
  */
 #include "tomcrypt.h"
 
-/** 
+/**
   @file omac_memory.c
-  LTC_OMAC1 support, process a block of memory, Tom St Denis
+  OMAC1 support, process a block of memory, Tom St Denis
 */
 
 #ifdef LTC_OMAC
 
 /**
-   LTC_OMAC a block of memory 
+   OMAC a block of memory
    @param cipher    The index of the desired cipher
    @param key       The secret key
    @param keylen    The length of the secret key (octets)
-   @param in        The data to send through LTC_OMAC
-   @param inlen     The length of the data to send through LTC_OMAC (octets)
+   @param in        The data to send through OMAC
+   @param inlen     The length of the data to send through OMAC (octets)
    @param out       [out] The destination of the authentication tag
    @param outlen    [in/out]  The max size and resulting size of the authentication tag (octets)
    @return CRYPT_OK if successful
 */
-int omac_memory(int cipher, 
+int omac_memory(int cipher,
                 const unsigned char *key, unsigned long keylen,
                 const unsigned char *in,  unsigned long inlen,
                       unsigned char *out, unsigned long *outlen)
@@ -75,11 +75,11 @@ LBL_ERR:
 #endif
 
    XFREE(omac);
-   return err;   
+   return err;
 }
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/omac/omac_memory.c,v $ */
-/* $Revision: 1.8 $ */
-/* $Date: 2007/05/12 14:37:41 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

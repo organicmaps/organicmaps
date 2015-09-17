@@ -617,7 +617,7 @@ As of this release the current cipher\_descriptors elements are the following:
                 & aes\_enc\_desc & 16 & 16, 24, 32 & 10, 12, 14 \\
      \hline Twofish & twofish\_desc & 16 & 16, 24, 32 & 16 \\
      \hline DES & des\_desc & 8 & 8 & 16 \\
-     \hline 3DES (EDE mode) & des3\_desc & 8 & 24 & 16 \\
+     \hline 3DES (EDE mode) & des3\_desc & 8 & 16, 24 & 16 \\
      \hline CAST5 (CAST-128) & cast5\_desc & 8 & 5 $\ldots$ 16 & 12, 16 \\
      \hline Noekeon & noekeon\_desc & 16 & 16 & 16 \\
      \hline Skipjack & skipjack\_desc & 8 & 10 & 32 \\
@@ -1579,8 +1579,8 @@ int main(void)
                   NULL,       /* not prescheduled */
                   nonce, 12,  /* 96-bit nonce */
                   NULL, 0,    /* no header */
-                  pt, 32,     /* 32-byte plaintext */
-                  ct,         /* ciphertext */
+                  pt, 32,     /* [in]  32-byte plaintext */
+                  ct,         /* [out] ciphertext */
                   tag, &taglen,
                   CCM_ENCRYPT)) != CRYPT_OK) {
        printf("ccm_memory error %s\n", error_to_string(err));
@@ -1596,8 +1596,8 @@ int main(void)
                   NULL,       /* not prescheduled */
                   nonce, 12,  /* 96-bit nonce */
                   NULL, 0,    /* no header */
-                  ct, 32,     /* 32-byte ciphertext */
-                  pt,         /* plaintext */
+                  pt, 32,     /* [out] 32-byte plaintext */
+                  ct,         /* [in]  ciphertext */
                   tagcp, &taglen,
                   CCM_DECRYPT)) != CRYPT_OK) {
        printf("ccm_memory error %s\n", error_to_string(err));
@@ -3675,6 +3675,230 @@ As of v1.06 this function can also import OpenSSL DER formatted public RSA keys.
 import the key, strip off the additional data (it's the preferred hash) and fill in the rsa\_key structure as if it were a native RSAPublicKey.  Note that
 there is no function provided to export in this format.  
 
+
+\chapter{Diffie-Hellman Key Exchange}
+
+\section{Background}
+
+Diffie-Hellman was the original public key system proposed.  The system is based upon the group structure
+of finite fields.  For Diffie-Hellman a prime $p$ is chosen and a ``base'' $b$ such that $b^x\mbox{ }(\mbox{mod }p)$ 
+generates a large sub-group of prime order (for unique values of $x$).
+
+A secret key is an exponent $x$ and a public key is the value of $y \equiv g^x\mbox{ }(\mbox{mod }p)$.  The term
+``discrete logarithm'' denotes the action of finding $x$ given only $y$, $g$ and $p$.  The key exchange part of
+Diffie-Hellman arises from the fact that two users A and B with keys $(A_x, A_y)$ and $(B_x, B_y)$ can exchange 
+a shared key $K \equiv B_y^{A_x} \equiv A_y^{B_x} \equiv g^{A_xB_x}\mbox{ }(\mbox{mod }p)$.
+
+From this public encryption and signatures can be developed.  The trivial way to encrypt (for example) using a public key 
+$y$ is to perform the key exchange offline.  The sender invents a key $k$ and its public copy 
+$k' \equiv g^k\mbox{ }(\mbox{mod }p)$ and uses $K \equiv k'^{A_x}\mbox{ }(\mbox{mod }p)$ as a key to encrypt
+the message with.  Typically $K$ would be sent to a one-way hash and the message digested used as a key in a 
+symmetric cipher.
+
+It is important that the order of the sub-group that $g$ generates not only be large but also prime.  There are
+discrete logarithm algorithms that take $\sqrt r$ time given the order $r$.  The discrete logarithm can be computed
+modulo each prime factor of $r$ and the results combined using the Chinese Remainder Theorem.  In the cases where 
+$r$ is ``B-Smooth'' (e.g. all small factors or powers of small prime factors) the solution is trivial to find.
+
+To thwart such attacks the primes and bases in the library have been designed and fixed.  Given a prime $p$ the order of
+ the sub-group generated is a large prime namely ${p - 1} \over 2$.  Such primes are known as ``strong primes'' and the 
+smaller prime (e.g. the order of the base) are known as Sophie-Germaine primes.
+
+\section{Core Functions}
+
+This library also provides core Diffie-Hellman functions so you can negotiate keys over insecure mediums.  The routines 
+provided are relatively easy to use and only take two function calls to negotiate a shared key.  There is a structure
+called ``dh\_key'' which stores the Diffie-Hellman key in a format these routines can use.  The first routine is to
+make a Diffie-Hellman private key pair:
+\index{dh\_make\_key()}
+\begin{verbatim}
+int dh_make_key(prng_state *prng, int wprng, 
+                int keysize, dh_key *key);
+\end{verbatim}
+The ``keysize'' is the size of the modulus you want in bytes.  Currently support sizes are 96 to 512 bytes which correspond 
+to key sizes of 768 to 4096 bits. The smaller the key the faster it is to use however it will be less secure.  When 
+specifying a size not explicitly supported by the library it will round {\em up} to the next key size.  If the size is 
+above 512 it will return an error.  So if you pass ``keysize == 32'' it will use a 768 bit key but if you pass 
+``keysize == 20000'' it will return an error.  The primes and generators used are built-into the library and were designed 
+to meet very specific goals.  The primes are strong primes which means that if $p$ is the prime then
+$p-1$ is equal to $2r$ where $r$ is a large prime.  The bases are chosen to generate a group of order $r$ to prevent
+leaking a bit of the key.  This means the bases generate a very large prime order group which is good to make cryptanalysis
+hard.
+
+The next two routines are for exporting/importing Diffie-Hellman keys in a binary format.  This is useful for transport
+over communication mediums.  
+
+\index{dh\_export()} \index{dh\_import()}
+\begin{verbatim}
+int dh_export(unsigned char *out, unsigned long *outlen, 
+              int type, dh_key *key);
+
+int dh_import(const unsigned char *in, unsigned long inlen, dh_key *key);
+\end{verbatim}
+
+These two functions work just like the ``rsa\_export()'' and ``rsa\_import()'' functions except these work with 
+Diffie-Hellman keys. Its important to note you do not have to free the ram for a ``dh\_key'' if an import fails.  You can free a 
+``dh\_key'' using:
+\begin{verbatim}
+void dh_free(dh_key *key);
+\end{verbatim}
+After you have exported a copy of your public key (using {\bf PK\_PUBLIC} as ``type'') you can now create a shared secret 
+with the other user using:
+\index{dh\_shared\_secret()}
+\begin{verbatim}
+int dh_shared_secret(dh_key *private_key, 
+                     dh_key *public_key, 
+                     unsigned char *out, unsigned long *outlen);
+\end{verbatim}
+
+Where ``private\_key'' is the key you made and ``public\_key'' is the copy of the public key the other user sent you.  The result goes
+into ``out'' and the length into ``outlen''.  If all went correctly the data in ``out'' should be identical for both parties.  It is important to
+note that the two keys have to be the same size in order for this to work.  There is a function to get the size of a
+key:
+\index{dh\_get\_size()}
+\begin{verbatim}
+int dh_get_size(dh_key *key);
+\end{verbatim}
+This returns the size in bytes of the modulus chosen for that key.
+
+\subsection{Remarks on Usage}
+Its important that you hash the shared key before trying to use it as a key for a symmetric cipher or something.  An 
+example program that communicates over sockets, using MD5 and 1024-bit DH keys is\footnote{This function is a small example.  It is suggested that proper packaging be used.  For example, if the public key sent is truncated these routines will not detect that.}:
+\newpage
+\begin{small}
+\begin{verbatim}
+int establish_secure_socket(int sock, int mode, unsigned char *key, 
+                            prng_state *prng, int wprng)
+{
+   unsigned char buf[4096], buf2[4096];
+   unsigned long x, len;
+   int res, err, inlen;
+   dh_key mykey, theirkey;
+
+   /* make up our private key */
+   if ((err = dh_make_key(prng, wprng, 128, &mykey)) != CRYPT_OK)  {
+      return err;
+   }
+
+   /* export our key as public */ 
+   x = sizeof(buf);
+   if ((err = dh_export(buf, &x, PK_PUBLIC, &mykey)) != CRYPT_OK) {
+      res = err;
+      goto done2;
+   }
+
+   if (mode == 0) {
+      /* mode 0 so we send first */
+      if (send(sock, buf, x, 0) != x) {
+         res = CRYPT_ERROR;
+         goto done2;
+      }          
+
+      /* get their key */
+      if ((inlen = recv(sock, buf2, sizeof(buf2), 0)) <= 0) {
+         res = CRYPT_ERROR;
+         goto done2;
+      }
+   } else {
+      /* mode >0 so we send second */
+      if ((inlen = recv(sock, buf2, sizeof(buf2), 0)) <= 0) {
+         res = CRYPT_ERROR;
+         goto done2;
+      }
+
+      if (send(sock, buf, x, 0) != x) {
+         res = CRYPT_ERROR;
+         goto done2;
+      }
+   }
+
+   if ((err = dh_import(buf2, inlen, &theirkey)) != CRYPT_OK) { 
+      res = err;
+      goto done2;
+   }
+
+   /* make shared secret */
+   x = sizeof(buf);
+   if ((err = dh_shared_secret(&mykey, &theirkey, buf, &x)) != CRYPT_OK) {
+      res = err;
+      goto done;
+   }
+ 
+   /* hash it */
+   len = 16;        /* default is MD5 so "key" must be at least 16 bytes long */
+   if ((err = hash_memory(find_hash("md5"), buf, x, key, &len)) != CRYPT_OK) {
+      res = err;
+      goto done;
+   }
+
+   /* clean up and return */
+   res = CRYPT_OK;
+done:
+   dh_free(&theirkey);
+done2:
+   dh_free(&mykey);
+   zeromem(buf,  sizeof(buf));
+   zeromem(buf2, sizeof(buf2));
+   return res;
+}
+\end{verbatim}
+\end{small}
+\newpage
+\subsection{Remarks on The Snippet}
+When the above code snippet is done (assuming all went well) their will be a shared 128-bit key in the ``key'' array
+passed to ``establish\_secure\_socket()''.
+
+\section{Other Diffie-Hellman Functions}
+In order to test the Diffie-Hellman function internal workings (e.g. the primes and bases) their is a test function made
+available:
+\index{dh\_test()}
+\begin{verbatim}
+int dh_test(void);
+\end{verbatim}
+
+This function returns {\bf CRYPT\_OK} if the bases and primes in the library are correct.  There is one last helper 
+function:
+\index{dh\_sizes()}
+\begin{verbatim}
+void dh_sizes(int *low, int *high);
+\end{verbatim}
+Which stores the smallest and largest key sizes support into the two variables.
+
+\section{DH Packet}
+Similar to the RSA related functions there are functions to encrypt or decrypt symmetric keys using the DH public key
+algorithms.  
+\index{dh\_encrypt\_key()} \index{dh\_decrypt\_key()}
+\begin{verbatim}
+int dh_encrypt_key(const unsigned char *in,   unsigned long  inlen,
+                         unsigned char *out,  unsigned long *len, 
+                         prng_state *prng, int wprng, int hash, 
+                         dh_key *key);
+
+int dh_decrypt_key(const unsigned char *in,  unsigned long  inlen,
+                         unsigned char *out, unsigned long *outlen, 
+                         dh_key *key);
+\end{verbatim}
+Where ``in'' is an input symmetric key of no more than 32 bytes.  Essentially these routines created a random public key
+and find the hash of the shared secret.  The message digest is than XOR'ed against the symmetric key.  All of the 
+required data is placed in ``out'' by ``dh\_encrypt\_key()''.   The hash must produce a message digest at least as large
+as the symmetric key you are trying to share.
+
+Similar to the RSA system you can sign and verify a hash of a message.
+\index{dh\_sign\_hash()} \index{dh\_verify\_hash()}
+\begin{verbatim}
+int dh_sign_hash(const unsigned char *in,  unsigned long inlen,
+                       unsigned char *out, unsigned long *outlen,
+                       prng_state *prng, int wprng, dh_key *key);
+
+int dh_verify_hash(const unsigned char *sig, unsigned long siglen,
+                         const unsigned char *hash, unsigned long hashlen, 
+                         int *stat, dh_key *key);
+\end{verbatim}
+
+The ``dh\_sign\_hash'' function signs the message hash in ``in'' of length ``inlen'' and forms a DH packet in ``out''.  
+The ``dh\_verify\_hash'' function verifies the DH signature in ``sig'' against the hash in ``hash''.  It sets ``stat''
+to non-zero if the signature passes or zero if it fails.
+
 \chapter{Elliptic Curve Cryptography}
 
 \mysection{Background}
@@ -4764,7 +4988,7 @@ normally.  The decoded list \textit{out} will point to the very first element of
 
 An invalid decoding will terminate the process, and free the allocated memory automatically.  
 
-\textbf{Note:} the list decoded by this function is \textbf{NOT} in the correct form for der\_encode\_sequence() to use directly.  You will have to first 
+\textbf{Note:} the list decoded by this function is \textbf{NOT} in the correct form for der\_encode\_sequence() to use directly.  You will first
 have to convert the list by first storing all of the siblings in an array then storing all the children as sub-lists of a sequence using the \textit{.data} 
 pointer.  Currently no function in LibTomCrypt provides this ability.
 
@@ -4923,6 +5147,82 @@ int main(void)
     /* use material (recall to store the salt in the output) */
 }
 \end{verbatim}
+
+\mysection{Key Derviation Functions}
+\subsection{HKDF}
+\index{HKDF}
+A key derivation function (KDF) is a basic and essential component of cryptographic systems.  Its goal is to take some source of initial
+keying material and derive from it one or more cryptographically strong secret keys.
+
+HKDF follows the "extract-then-expand" paradigm, where the KDF logically consists of two modules.  The first stage takes the input
+keying material and "extracts" from it a fixed-length pseudorandom key K.  The second stage "expands" the key K into several additional
+pseudorandom keys (the output of the KDF).
+
+In many applications, the input keying material is not necessarily distributed uniformly, and the attacker may have some partial
+knowledge about it (for example, a Diffie-Hellman value computed by a key exchange protocol) or even partial control of it (as in some
+entropy-gathering applications).  Thus, the goal of the "extract" stage is to "concentrate" the possibly dispersed entropy of the input
+keying material into a short, but cryptographically strong, pseudorandom key.  In some applications, the input may already be a
+good pseudorandom key; in these cases, the "extract" stage is not necessary, and the "expand" part can be used alone.
+
+The second stage "expands" the pseudorandom key to the desired length; the number and lengths of the output keys depend on the
+specific cryptographic algorithms for which the keys are needed.
+
+\subsection{HKDF Extract}
+To perform the extraction phase, use the following function:
+
+\index{hkdf\_extract()}
+\begin{alltt}
+int hkdf_extract(   int  hash_idx,
+    const unsigned char *salt,
+          unsigned long  saltlen,
+    const unsigned char *in,
+          unsigned long  inlen,
+          unsigned char *out,
+          unsigned long *outlen);
+\end{alltt}
+The \textit{hash\_idx} parameter is the index into the descriptor table of the hash you want to use.
+The \textit{salt} parameter is a pointer to the array of octets of length \textit{saltlen} containing the salt or a NULL pointer if a salt is not being used (in that case set saltlen to 0).
+\textit{in} is a pointer to an array of octets of length \textit{inlen} containing the source entropy.  The extracted output is stored in the location pointed to by \textit{out}.
+You must set \textit{outlen} to the size of the destination buffer before calling this function. It is updated to the length of the extracted output. If \textit{outlen} is too small the extracted output will be truncated.
+
+While the salt is optional, using one improves HKDF's security. If used, the salt should be randomly chosen, but does not need to be secret and may be re-used. Please see RFC5869 section 3.1 for more details.
+
+\subsection{HKDF Expand}
+To perform the expansion phase, use the following function:
+
+\index{hkdf\_expand()}
+\begin{alltt}
+int hkdf_expand(    int  hash_idx,
+    const unsigned char *info,
+          unsigned long  infolen,
+    const unsigned char *in,
+          unsigned long  inlen,
+          unsigned char *out,
+          unsigned long  outlen);
+\end{alltt}
+
+The \textit{hash\_idx} parameter is the index into the descriptor table of the hash you want to use.
+The \textit{info} parameter, an array of octets of length \textit{infolen}, is an optional parameter (set \textit{info} to NULL and \textit{infolen} to 0 if not using it) which
+may be used to bind the derived keys to some application and context specific information. This prevents the same keying material from being generated in different contexts. Please see RFC5869 section 3.2 for more information.
+The extracted keying material is passed as octet array \textit{in} of length \textit{inlen}.  Expanded output of length \textit{outlen} is generated and stored in octet arrat \textit{out}.
+
+\subsection{HKDF Extract-and-Expand}
+To perform both phases together, use the following function:
+
+\index{hkdf()}
+\begin{alltt}
+int hkdf(           int  hash_idx,
+    const unsigned char *salt,
+          unsigned long  saltlen,
+    const unsigned char *info,
+          unsigned long  infolen,
+    const unsigned char *in,
+          unsigned long  inlen,
+          unsigned char *out,
+          unsigned long  outlen);
+\end{alltt}
+
+Parameters are as in \textit{hkdf\_extract()} and \textit{hkdf\_expand()}.
 
 \chapter{Miscellaneous}
 \mysection{Base64 Encoding and Decoding}
@@ -5280,7 +5580,7 @@ stderr then return execution to the caller.  This could lead to a segmentation f
 if you handle signals on your own.  When set to 3, it will resolve to a empty macro and no error checking will be performed.  Finally, when set
 to 4, it will return CRYPT\_INVALID\_ARG to the caller.  
 
-\subsubsection{Endianess}
+\subsubsection{Endianness}
 There are five macros related to endianess issues.  For little endian platforms define, \textbf{ENDIAN\_LITTLE}.  For big endian
 platforms define \textbf{ENDIAN\_BIG}.  Similarly when the default word size of an \textit{unsigned long} is 32-bits define \textbf{ENDIAN\_32BITWORD}
 or define \textbf{ENDIAN\_64BITWORD} when its 64-bits.  If you do not define any of them the library will automatically use \textbf{ENDIAN\_NEUTRAL}
@@ -6563,6 +6863,6 @@ Since the function is given the entire RSA key (for private keys only) CRT is po
 
 \end{document}
 
-% $Source: /cvs/libtom/libtomcrypt/crypt.tex,v $   
-% $Revision: 1.128 $   
-% $Date: 2007/03/10 23:59:54 $ 
+% $Source$
+% $Revision$
+% $Date$

@@ -13,6 +13,10 @@
    LTC_SHA-224 new NIST standard based off of LTC_SHA-256 truncated to 224 bits (Tom St Denis)
 */
 
+#include "tomcrypt.h"
+
+#if defined(LTC_SHA224) && defined(LTC_SHA256)
+
 const struct ltc_hash_descriptor sha224_desc =
 {
     "sha224",
@@ -72,19 +76,19 @@ int sha224_done(hash_state * md, unsigned char *out)
     XMEMCPY(out, buf, 28);
 #ifdef LTC_CLEAN_STACK
     zeromem(buf, sizeof(buf));
-#endif 
+#endif
     return err;
 }
 
 /**
   Self-test the hash
   @return CRYPT_OK if successful, CRYPT_NOP if self-tests have been disabled
-*/  
+*/
 int  sha224_test(void)
 {
  #ifndef LTC_TEST
     return CRYPT_NOP;
- #else    
+ #else
   static const struct {
       char *msg;
       unsigned char hash[28];
@@ -119,7 +123,9 @@ int  sha224_test(void)
  #endif
 }
 
+#endif /* defined(LTC_SHA224) && defined(LTC_SHA256) */
 
-/* $Source: /cvs/libtom/libtomcrypt/src/hashes/sha2/sha224.c,v $ */
-/* $Revision: 1.10 $ */
-/* $Date: 2007/05/12 14:25:28 $ */
+
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

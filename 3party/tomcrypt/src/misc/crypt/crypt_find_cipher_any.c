@@ -45,6 +45,6 @@ int find_cipher_any(const char *name, int blocklen, int keylen)
    return -1;
 }
 
-/* $Source: /cvs/libtom/libtomcrypt/src/misc/crypt/crypt_find_cipher_any.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

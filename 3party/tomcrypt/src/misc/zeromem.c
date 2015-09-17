@@ -20,15 +20,15 @@
    @param out    The destination of the area to zero
    @param outlen The length of the area to zero (octets)
 */
-void zeromem(void *out, size_t outlen)
+void zeromem(volatile void *out, size_t outlen)
 {
-   unsigned char *mem = out;
+   volatile char *mem = out;
    LTC_ARGCHKVD(out != NULL);
    while (outlen-- > 0) {
-      *mem++ = 0;
+      *mem++ = '\0';
    }
 }
 
-/* $Source: /cvs/libtom/libtomcrypt/src/misc/zeromem.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

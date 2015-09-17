@@ -67,6 +67,6 @@ int ocb_encrypt(ocb_state *ocb, const unsigned char *pt, unsigned char *ct)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/ocb/ocb_encrypt.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

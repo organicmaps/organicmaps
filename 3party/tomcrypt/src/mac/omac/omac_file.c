@@ -10,26 +10,26 @@
  */
 #include "tomcrypt.h"
 
-/** 
+/**
   @file omac_file.c
-  LTC_OMAC1 support, process a file, Tom St Denis
+  OMAC1 support, process a file, Tom St Denis
 */
 
 #ifdef LTC_OMAC
 
 /**
-   LTC_OMAC a file
+   OMAC a file
    @param cipher   The index of the cipher desired
    @param key      The secret key
    @param keylen   The length of the secret key (octets)
-   @param filename The name of the file you wish to LTC_OMAC
+   @param filename The name of the file you wish to OMAC
    @param out      [out] Where the authentication tag is to be stored
    @param outlen   [in/out] The max size and resulting size of the authentication tag
    @return CRYPT_OK if successful, CRYPT_NOP if file support has been disabled
 */
-int omac_file(int cipher, 
+int omac_file(int cipher,
               const unsigned char *key, unsigned long keylen,
-              const char *filename, 
+              const char *filename,
                     unsigned char *out, unsigned long *outlen)
 {
 #ifdef LTC_NO_FILE
@@ -78,6 +78,6 @@ int omac_file(int cipher,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/omac/omac_file.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2007/05/12 14:37:41 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

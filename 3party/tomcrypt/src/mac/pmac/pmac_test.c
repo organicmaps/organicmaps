@@ -160,6 +160,6 @@ int pmac_test(void)
 
  
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/pmac/pmac_test.c,v $ */
-/* $Revision: 1.8 $ */
-/* $Date: 2007/05/12 14:37:41 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# output version
+bash printinfo.sh
+
 echo "$1 (Build Only, $2, $3)..."
 make clean 1>/dev/null 2>/dev/null
 echo -n "building..."

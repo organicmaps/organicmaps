@@ -809,6 +809,6 @@ Hash of "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-ABCDEFG
 
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/hashes/tiger.c,v $ */
-/* $Revision: 1.10 $ */
-/* $Date: 2007/05/12 14:25:28 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

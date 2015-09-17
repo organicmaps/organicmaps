@@ -1,6 +1,6 @@
 #include <tomcrypt_test.h>
 
-#ifdef MKAT
+#ifdef LTC_MKAT
 
 int katja_test(void)
 {

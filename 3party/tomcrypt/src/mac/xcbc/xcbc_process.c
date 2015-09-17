@@ -64,12 +64,12 @@ int xcbc_process(xcbc_state *xcbc, const unsigned char *in, unsigned long inlen)
      xcbc->IV[xcbc->buflen++] ^= *in++;
      --inlen;
   }
-  return CRYPT_OK;       
+  return CRYPT_OK;
 }
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/xcbc/xcbc_process.c,v $ */
-/* $Revision: 1.10 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

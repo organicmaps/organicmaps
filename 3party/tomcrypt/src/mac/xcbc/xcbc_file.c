@@ -78,6 +78,6 @@ int xcbc_file(int cipher,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/xcbc/xcbc_file.c,v $ */
-/* $Revision: 1.2 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

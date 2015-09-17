@@ -363,6 +363,6 @@ int  md5_test(void)
 
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/hashes/md5.c,v $ */
-/* $Revision: 1.10 $ */
-/* $Date: 2007/05/12 14:25:28 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

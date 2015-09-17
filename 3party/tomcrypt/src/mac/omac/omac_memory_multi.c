@@ -11,26 +11,26 @@
 #include "tomcrypt.h"
 #include <stdarg.h>
 
-/** 
+/**
   @file omac_memory_multi.c
-  LTC_OMAC1 support, process multiple blocks of memory, Tom St Denis
+  OMAC1 support, process multiple blocks of memory, Tom St Denis
 */
 
 #ifdef LTC_OMAC
 
 /**
-   LTC_OMAC multiple blocks of memory 
+   OMAC multiple blocks of memory
    @param cipher    The index of the desired cipher
    @param key       The secret key
    @param keylen    The length of the secret key (octets)
    @param out       [out] The destination of the authentication tag
    @param outlen    [in/out]  The max size and resulting size of the authentication tag (octets)
-   @param in        The data to send through LTC_OMAC
-   @param inlen     The length of the data to send through LTC_OMAC (octets)
-   @param ...       tuples of (data,len) pairs to LTC_OMAC, terminated with a (NULL,x) (x=don't care)
+   @param in        The data to send through OMAC
+   @param inlen     The length of the data to send through OMAC (octets)
+   @param ...       tuples of (data,len) pairs to OMAC, terminated with a (NULL,x) (x=don't care)
    @return CRYPT_OK if successful
 */
-int omac_memory_multi(int cipher, 
+int omac_memory_multi(int cipher,
                 const unsigned char *key, unsigned long keylen,
                       unsigned char *out, unsigned long *outlen,
                 const unsigned char *in,  unsigned long inlen, ...)
@@ -57,7 +57,7 @@ int omac_memory_multi(int cipher,
       goto LBL_ERR;
    }
    va_start(args, inlen);
-   curptr = in; 
+   curptr = in;
    curlen = inlen;
    for (;;) {
       /* process buf */
@@ -80,11 +80,11 @@ LBL_ERR:
 #endif
    XFREE(omac);
    va_end(args);
-   return err;   
+   return err;
 }
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/omac/omac_memory_multi.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2007/05/12 14:37:41 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

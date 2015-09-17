@@ -29,7 +29,7 @@ const struct ltc_cipher_descriptor kseed_desc = {
    &kseed_test,
    &kseed_done,
    &kseed_keysize,
-   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 };
 
 static const ulong32 SS0[256] = {
@@ -207,7 +207,7 @@ int kseed_setup(const unsigned char *key, int keylen, int num_rounds, symmetric_
     if (keylen != 16) {
        return CRYPT_INVALID_KEYSIZE;
     }
-   
+
     if (num_rounds != 16 && num_rounds != 0) {
        return CRYPT_INVALID_ROUNDS;
     }
@@ -275,7 +275,7 @@ int kseed_ecb_encrypt(const unsigned char *pt, unsigned char *ct, symmetric_key 
   Decrypts a block of text with SEED
   @param ct The input ciphertext (16 bytes)
   @param pt The output plaintext (16 bytes)
-  @param skey The key as scheduled 
+  @param skey The key as scheduled
   @return CRYPT_OK if successful
 */
 int kseed_ecb_decrypt(const unsigned char *ct, unsigned char *pt, symmetric_key *skey)
@@ -293,11 +293,12 @@ int kseed_ecb_decrypt(const unsigned char *ct, unsigned char *pt, symmetric_key 
    return CRYPT_OK;
 }
 
-/** Terminate the context 
+/** Terminate the context
    @param skey    The scheduled key
 */
 void kseed_done(symmetric_key *skey)
 {
+  LTC_UNUSED_PARAM(skey);
 }
 
 /**
@@ -346,6 +347,21 @@ int kseed_test(void)
        kseed_ecb_encrypt(tests[x].pt, buf[0], &skey);
        kseed_ecb_decrypt(buf[0], buf[1], &skey);
        if (XMEMCMP(buf[0], tests[x].ct, 16) || XMEMCMP(buf[1], tests[x].pt, 16)) {
+#if 0
+          int i, j;
+          printf ("\n\nLTC_KSEED failed for x=%d, I got:\n", x);
+          for (i = 0; i < 2; i++) {
+             const unsigned char *expected, *actual;
+             expected = (i ? tests[x].pt : tests[x].ct);
+             actual = buf[i];
+             printf ("expected    actual   (%s)\n", (i ? "plaintext" : "ciphertext"));
+             for (j = 0; j < 16; j++) {
+                const char *eq = (expected[j] == actual[j] ? "==" : "!=");
+                printf ("     %02x  %s  %02x\n", expected[j], eq, actual[j]);
+             }
+             printf ("\n");
+          }
+#endif
           return CRYPT_FAIL_TESTVECTOR;
        }
    }
@@ -371,6 +387,6 @@ int kseed_keysize(int *keysize)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/ciphers/kseed.c,v $ */
-/* $Revision: 1.10 $ */
-/* $Date: 2007/05/12 14:21:44 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

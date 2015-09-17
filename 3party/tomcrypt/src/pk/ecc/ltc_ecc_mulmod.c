@@ -19,7 +19,7 @@
 /**
   @file ltc_ecc_mulmod.c
   ECC Crypto, Tom St Denis
-*/  
+*/
 
 #ifdef LTC_MECC
 #ifndef LTC_ECC_TIMING_RESISTANT
@@ -28,7 +28,7 @@
 #define WINSIZE 4
 
 /**
-   Perform a point multiplication 
+   Perform a point multiplication
    @param k    The scalar to multiply by
    @param G    The base point
    @param R    [out] Destination for kG
@@ -41,7 +41,7 @@ int ltc_ecc_mulmod(void *k, ecc_point *G, ecc_point *R, void *modulus, int map)
    ecc_point *tG, *M[8];
    int        i, j, err;
    void       *mu, *mp;
-   unsigned long buf;
+   ltc_mp_digit buf;
    int        first, bitbuf, bitcpy, bitcnt, mode, digidx;
 
    LTC_ARGCHK(k       != NULL);
@@ -62,7 +62,7 @@ int ltc_ecc_mulmod(void *k, ecc_point *G, ecc_point *R, void *modulus, int map)
       mp_clear(mu);
       return err;
    }
-  
+
   /* alloc ram for window temps */
   for (i = 0; i < 8; i++) {
       M[i] = ltc_ecc_new_point();
@@ -85,14 +85,14 @@ int ltc_ecc_mulmod(void *k, ecc_point *G, ecc_point *R, void *modulus, int map)
       if ((err = mp_copy(G->x, tG->x)) != CRYPT_OK)                                  { goto done; }
       if ((err = mp_copy(G->y, tG->y)) != CRYPT_OK)                                  { goto done; }
       if ((err = mp_copy(G->z, tG->z)) != CRYPT_OK)                                  { goto done; }
-   } else {      
+   } else {
       if ((err = mp_mulmod(G->x, mu, modulus, tG->x)) != CRYPT_OK)                   { goto done; }
       if ((err = mp_mulmod(G->y, mu, modulus, tG->y)) != CRYPT_OK)                   { goto done; }
       if ((err = mp_mulmod(G->z, mu, modulus, tG->z)) != CRYPT_OK)                   { goto done; }
    }
    mp_clear(mu);
    mu = NULL;
-   
+
    /* calc the M tab, which holds kG for k==8..15 */
    /* M[0] == 8G */
    if ((err = ltc_mp.ecc_ptdbl(tG, M[0], modulus, mp)) != CRYPT_OK)                 { goto done; }
@@ -217,6 +217,6 @@ done:
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/ecc/ltc_ecc_mulmod.c,v $ */
-/* $Revision: 1.26 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

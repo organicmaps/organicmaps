@@ -66,7 +66,7 @@ int gcm_add_aad(gcm_state *gcm,
          }
          gcm_mult_h(gcm, gcm->X);
 
-         /* copy counter out */ 
+         /* copy counter out */
          XMEMCPY(gcm->Y, gcm->X, 16);
          zeromem(gcm->X, 16);
       } else {
@@ -117,8 +117,8 @@ int gcm_add_aad(gcm_state *gcm,
    return CRYPT_OK;
 }
 #endif
-   
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/gcm/gcm_add_aad.c,v $ */
-/* $Revision: 1.18 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

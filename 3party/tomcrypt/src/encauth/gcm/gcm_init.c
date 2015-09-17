@@ -102,6 +102,6 @@ int gcm_init(gcm_state *gcm, int cipher,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/gcm/gcm_init.c,v $ */
-/* $Revision: 1.20 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

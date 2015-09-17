@@ -12,10 +12,10 @@
 
 /**
   @file katja_export.c
-  Export Katja LTC_PKCS-style keys, Tom St Denis
-*/  
+  Export Katja PKCS-style keys, Tom St Denis
+*/
 
-#ifdef MKAT
+#ifdef LTC_MKAT
 
 /**
     This will export either an KatjaPublicKey or KatjaPrivateKey
@@ -24,7 +24,7 @@
     @param type      The type of exported key (PK_PRIVATE or PK_PUBLIC)
     @param key       The Katja key to export
     @return CRYPT_OK if successful
-*/    
+*/
 int katja_export(unsigned char *out, unsigned long *outlen, int type, katja_key *key)
 {
    int           err;
@@ -41,35 +41,35 @@ int katja_export(unsigned char *out, unsigned long *outlen, int type, katja_key 
 
    if (type == PK_PRIVATE) {
       /* private key */
-      /* output is 
+      /* output is
             Version, n, d, p, q, d mod (p-1), d mod (q - 1), 1/q mod p, pq
        */
-      if ((err = der_encode_sequence_multi(out, outlen, 
-                          LTC_ASN1_SHORT_INTEGER, 1UL, &zero, 
-                          LTC_ASN1_INTEGER, 1UL,  key->N, 
-                          LTC_ASN1_INTEGER, 1UL,  key->d, 
-                          LTC_ASN1_INTEGER, 1UL,  key->p, 
-                          LTC_ASN1_INTEGER, 1UL,  key->q, 
+      if ((err = der_encode_sequence_multi(out, outlen,
+                          LTC_ASN1_SHORT_INTEGER, 1UL, &zero,
+                          LTC_ASN1_INTEGER, 1UL,  key->N,
+                          LTC_ASN1_INTEGER, 1UL,  key->d,
+                          LTC_ASN1_INTEGER, 1UL,  key->p,
+                          LTC_ASN1_INTEGER, 1UL,  key->q,
                           LTC_ASN1_INTEGER, 1UL,  key->dP,
-                          LTC_ASN1_INTEGER, 1UL,  key->dQ, 
-                          LTC_ASN1_INTEGER, 1UL,  key->qP, 
-                          LTC_ASN1_INTEGER, 1UL,  key->pq, 
+                          LTC_ASN1_INTEGER, 1UL,  key->dQ,
+                          LTC_ASN1_INTEGER, 1UL,  key->qP,
+                          LTC_ASN1_INTEGER, 1UL,  key->pq,
                           LTC_ASN1_EOL,     0UL, NULL)) != CRYPT_OK) {
          return err;
       }
- 
+
       /* clear zero and return */
       return CRYPT_OK;
    } else {
       /* public key */
-      return der_encode_sequence_multi(out, outlen, 
-                                 LTC_ASN1_INTEGER, 1UL, key->N, 
+      return der_encode_sequence_multi(out, outlen,
+                                 LTC_ASN1_INTEGER, 1UL, key->N,
                                  LTC_ASN1_EOL,     0UL, NULL);
    }
 }
 
 #endif /* LTC_MRSA */
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/katja/katja_export.c,v $ */
-/* $Revision: 1.4 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

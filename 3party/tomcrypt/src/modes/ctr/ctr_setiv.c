@@ -51,6 +51,6 @@ int ctr_setiv(const unsigned char *IV, unsigned long len, symmetric_CTR *ctr)
 #endif 
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/ctr/ctr_setiv.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

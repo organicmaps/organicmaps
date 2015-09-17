@@ -47,6 +47,6 @@ as a hash) CAST5 is perhaps a "runner-up" choice.  CAST5 has been around longer 
 fairly fast as well.
 
 You can easily accomplish this via the "config.pl" script. Simply answer "n" to all of the ciphers except the one you want
-and then rebuild the library.  [or you can hand edit mycrypt_custom.h]
+and then rebuild the library.  [or you can hand edit tomcrypt_custom.h]
 
 

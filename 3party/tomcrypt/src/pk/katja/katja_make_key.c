@@ -15,7 +15,7 @@
   Katja key generation, Tom St Denis
 */  
 
-#ifdef MKAT
+#ifdef LTC_MKAT
 
 /** 
    Create a Katja key
@@ -96,6 +96,6 @@ done:
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/katja/katja_make_key.c,v $ */
-/* $Revision: 1.11 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

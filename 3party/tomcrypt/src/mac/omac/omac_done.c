@@ -10,16 +10,16 @@
  */
 #include "tomcrypt.h"
 
-/** 
+/**
   @file omac_done.c
-  LTC_OMAC1 support, terminate a stream, Tom St Denis
+  OMAC1 support, terminate a stream, Tom St Denis
 */
 
 #ifdef LTC_OMAC
 
 /**
-  Terminate an LTC_OMAC stream
-  @param omac   The LTC_OMAC state
+  Terminate an OMAC stream
+  @param omac   The OMAC state
   @param out    [out] Destination for the authentication tag
   @param outlen [in/out]  The max size and resulting size of the authentication tag
   @return CRYPT_OK if successful
@@ -65,7 +65,7 @@ int omac_done(omac_state *omac, unsigned char *out, unsigned long *outlen)
       return err;
    }
    cipher_descriptor[omac->cipher_idx].done(&omac->key);
- 
+
    /* output it */
    for (x = 0; x < (unsigned)omac->blklen && x < *outlen; x++) {
        out[x] = omac->block[x];
@@ -81,6 +81,6 @@ int omac_done(omac_state *omac, unsigned char *out, unsigned long *outlen)
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/omac/omac_done.c,v $ */
-/* $Revision: 1.9 $ */
-/* $Date: 2007/05/12 14:37:41 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

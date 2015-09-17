@@ -27,7 +27,7 @@ const struct ltc_cipher_descriptor blowfish_desc =
     &blowfish_test,
     &blowfish_done,
     &blowfish_keysize,
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 };
 
 static const ulong32 ORIG_P[16 + 2] = {
@@ -322,15 +322,15 @@ int blowfish_setup(const unsigned char *key, int keylen, int num_rounds,
    /* check rounds */
    if (num_rounds != 0 && num_rounds != 16) {
       return CRYPT_INVALID_ROUNDS;
-   }   
+   }
 
    /* load in key bytes (Supplied by David Hopwood) */
    for (x = y = 0; x < 18; x++) {
        A = 0;
        for (z = 0; z < 4; z++) {
            A = (A << 8) | ((ulong32)key[y++] & 255);
-           if (y == (ulong32)keylen) { 
-              y = 0; 
+           if (y == (ulong32)keylen) {
+              y = 0;
            }
        }
        skey->blowfish.K[x] = ORIG_P[x] ^ A;
@@ -347,7 +347,7 @@ int blowfish_setup(const unsigned char *key, int keylen, int num_rounds,
    for (x = 0; x < 8; x++) {
        B[x] = 0;
    }
-   
+
    for (x = 0; x < 18; x += 2) {
        /* encrypt it */
        blowfish_ecb_encrypt(B, B, skey);
@@ -446,7 +446,7 @@ int blowfish_ecb_encrypt(const unsigned char *pt, unsigned char *ct, symmetric_k
   Decrypts a block of text with Blowfish
   @param ct The input ciphertext (8 bytes)
   @param pt The output plaintext (8 bytes)
-  @param skey The key as scheduled 
+  @param skey The key as scheduled
   @return CRYPT_OK if successful
 */
 #ifdef LTC_CLEAN_STACK
@@ -464,7 +464,7 @@ int blowfish_ecb_decrypt(const unsigned char *ct, unsigned char *pt, symmetric_k
     LTC_ARGCHK(pt   != NULL);
     LTC_ARGCHK(ct   != NULL);
     LTC_ARGCHK(skey != NULL);
-    
+
 #ifndef __GNUC__
     S1 = skey->blowfish.S[0];
     S2 = skey->blowfish.S[1];
@@ -512,7 +512,7 @@ int blowfish_test(void)
 {
  #ifndef LTC_TEST
     return CRYPT_NOP;
- #else    
+ #else
    int err;
    symmetric_key key;
    static const struct {
@@ -562,11 +562,12 @@ int blowfish_test(void)
  #endif
 }
 
-/** Terminate the context 
+/** Terminate the context
    @param skey    The scheduled key
 */
 void blowfish_done(symmetric_key *skey)
 {
+  LTC_UNUSED_PARAM(skey);
 }
 
 /**
@@ -589,6 +590,6 @@ int blowfish_keysize(int *keysize)
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/ciphers/blowfish.c,v $ */
-/* $Revision: 1.14 $ */
-/* $Date: 2007/05/12 14:20:27 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

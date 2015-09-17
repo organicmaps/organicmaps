@@ -106,6 +106,6 @@ int der_decode_utf8_string(const unsigned char *in,  unsigned long inlen,
  
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/asn1/der/utf8/der_decode_utf8_string.c,v $ */
-/* $Revision: 1.8 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

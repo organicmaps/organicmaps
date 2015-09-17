@@ -122,7 +122,7 @@ int xcbc_test(void)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/xcbc/xcbc_test.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

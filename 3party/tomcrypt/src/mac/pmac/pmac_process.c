@@ -10,9 +10,9 @@
  */
 #include "tomcrypt.h"
 
-/** 
+/**
    @file pmac_process.c
-   PMAC implementation, process data, by Tom St Denis 
+   PMAC implementation, process data, by Tom St Denis
 */
 
 
@@ -62,7 +62,7 @@ int pmac_process(pmac_state *pmac, const unsigned char *in, unsigned long inlen)
    }
 #endif
 
-   while (inlen != 0) { 
+   while (inlen != 0) {
        /* ok if the block is full we xor in prev, encrypt and replace prev */
        if (pmac->buflen == pmac->block_len) {
           pmac_shift_xor(pmac);
@@ -95,6 +95,6 @@ int pmac_process(pmac_state *pmac, const unsigned char *in, unsigned long inlen)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/pmac/pmac_process.c,v $ */
-/* $Revision: 1.9 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

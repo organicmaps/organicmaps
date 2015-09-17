@@ -72,7 +72,7 @@ int f9_test(void)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/f9/f9_test.c,v $ */
-/* $Revision: 1.9 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

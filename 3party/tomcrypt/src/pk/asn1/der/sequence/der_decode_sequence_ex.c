@@ -31,13 +31,14 @@
 int der_decode_sequence_ex(const unsigned char *in, unsigned long  inlen,
                            ltc_asn1_list *list,     unsigned long  outlen, int ordered)
 {
-   int           err, type;
-   unsigned long size, x, y, z, i, blksize;
+   int           err, i;
+   ltc_asn1_type type;
+   unsigned long size, x, y, z, blksize;
    void          *data;
 
    LTC_ARGCHK(in   != NULL);
    LTC_ARGCHK(list != NULL);
-   
+
    /* get blk size */
    if (inlen < 2) {
       return CRYPT_INVALID_PACKET;
@@ -50,9 +51,12 @@ int der_decode_sequence_ex(const unsigned char *in, unsigned long  inlen,
    }
    ++x;
 
+   /* check if the msb is set, which signals that the
+    * 7 lsb bits represent the number of bytes of the length
+    */
    if (in[x] < 128) {
       blksize = in[x++];
-   } else if (in[x] & 0x80) {
+   } else {
       if (in[x] < 0x81 || in[x] > 0x83) {
          return CRYPT_INVALID_PACKET;
       }
@@ -76,20 +80,20 @@ int der_decode_sequence_ex(const unsigned char *in, unsigned long  inlen,
   }
 
    /* mark all as unused */
-   for (i = 0; i < outlen; i++) {
+   for (i = 0; i < (int)outlen; i++) {
        list[i].used = 0;
-   }     
+   }
 
   /* ok read data */
    inlen = blksize;
-   for (i = 0; i < outlen; i++) {
+   for (i = 0; i < (int)outlen; i++) {
        z    = 0;
        type = list[i].type;
        size = list[i].size;
        data = list[i].data;
        if (!ordered && list[i].used == 1) { continue; }
 
-       if (type == LTC_ASN1_EOL) { 
+       if (type == LTC_ASN1_EOL) {
           break;
        }
 
@@ -103,7 +107,7 @@ int der_decode_sequence_ex(const unsigned char *in, unsigned long  inlen,
                    goto LBL_ERR;
                 }
                 break;
-          
+
            case LTC_ASN1_INTEGER:
                z = inlen;
                if ((err = der_decode_integer(in + x, z, data)) != CRYPT_OK) {
@@ -124,12 +128,24 @@ int der_decode_sequence_ex(const unsigned char *in, unsigned long  inlen,
                if ((err = der_length_short_integer(((unsigned long*)data)[0], &z)) != CRYPT_OK) {
                   goto LBL_ERR;
                }
-               
+
                break;
 
            case LTC_ASN1_BIT_STRING:
                z = inlen;
                if ((err = der_decode_bit_string(in + x, z, data, &size)) != CRYPT_OK) {
+                  if (!ordered) { continue; }
+                  goto LBL_ERR;
+               }
+               list[i].size = size;
+               if ((err = der_length_bit_string(size, &z)) != CRYPT_OK) {
+                  goto LBL_ERR;
+               }
+               break;
+
+           case LTC_ASN1_RAW_BIT_STRING:
+               z = inlen;
+               if ((err = der_decode_raw_bit_string(in + x, z, data, &size)) != CRYPT_OK) {
                   if (!ordered) { continue; }
                   goto LBL_ERR;
                }
@@ -159,7 +175,7 @@ int der_decode_sequence_ex(const unsigned char *in, unsigned long  inlen,
                }
                z = 2;
                break;
-                  
+
            case LTC_ASN1_OBJECT_IDENTIFIER:
                z = inlen;
                if ((err = der_decode_object_identifier(in + x, z, data, &size)) != CRYPT_OK) {
@@ -168,6 +184,18 @@ int der_decode_sequence_ex(const unsigned char *in, unsigned long  inlen,
                }
                list[i].size = size;
                if ((err = der_length_object_identifier(data, size, &z)) != CRYPT_OK) {
+                  goto LBL_ERR;
+               }
+               break;
+
+           case LTC_ASN1_TELETEX_STRING:
+               z = inlen;
+               if ((err = der_decode_teletex_string(in + x, z, data, &size)) != CRYPT_OK) {
+                  if (!ordered) { continue; }
+                  goto LBL_ERR;
+               }
+               list[i].size = size;
+               if ((err = der_length_teletex_string(data, size, &z)) != CRYPT_OK) {
                   goto LBL_ERR;
                }
                break;
@@ -227,7 +255,7 @@ int der_decode_sequence_ex(const unsigned char *in, unsigned long  inlen,
                   goto LBL_ERR;
                }
                break;
-           
+
            case LTC_ASN1_SETOF:
            case LTC_ASN1_SEQUENCE:
                /* detect if we have the right type */
@@ -255,33 +283,35 @@ int der_decode_sequence_ex(const unsigned char *in, unsigned long  inlen,
                }
                break;
 
-           default:
+           case LTC_ASN1_CONSTRUCTED:
+           case LTC_ASN1_CONTEXT_SPECIFIC:
+           case LTC_ASN1_EOL:
                err = CRYPT_INVALID_ARG;
                goto LBL_ERR;
        }
        x           += z;
        inlen       -= z;
        list[i].used = 1;
-       if (!ordered) { 
+       if (!ordered) {
           /* restart the decoder */
           i = -1;
-       }          
+       }
    }
-     
-   for (i = 0; i < outlen; i++) {
+
+   for (i = 0; i < (int)outlen; i++) {
       if (list[i].used == 0) {
           err = CRYPT_INVALID_PACKET;
           goto LBL_ERR;
       }
-   }                
-   err = CRYPT_OK;   
+   }
+   err = CRYPT_OK;
 
 LBL_ERR:
    return err;
-}  
- 
+}
+
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/asn1/der/sequence/der_decode_sequence_ex.c,v $ */
-/* $Revision: 1.16 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

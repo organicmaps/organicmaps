@@ -45,6 +45,6 @@ int eax_decrypt(eax_state *eax, const unsigned char *ct, unsigned char *pt,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/eax/eax_decrypt.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

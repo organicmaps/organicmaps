@@ -47,6 +47,6 @@ int f8_setiv(const unsigned char *IV, unsigned long len, symmetric_F8 *f8)
 #endif 
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/f8/f8_setiv.c,v $ */
-/* $Revision: 1.3 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

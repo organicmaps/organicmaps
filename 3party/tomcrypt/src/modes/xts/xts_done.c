@@ -10,13 +10,13 @@
  */
 #include "tomcrypt.h"
 
-/** 
+/**
   Source donated by Elliptic Semiconductor Inc (www.ellipticsemi.com) to the LibTom Projects
 */
 
 #ifdef LTC_XTS_MODE
 
-/** Terminate XTS state 
+/** Terminate XTS state
    @param XTS    The state to terminate
 */
 void xts_done(symmetric_xts *xts)
@@ -28,7 +28,6 @@ void xts_done(symmetric_xts *xts)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/xts/xts_done.c,v $ */
-/* $Revision: 1.4 $ */
-/* $Date: 2007/03/10 23:59:09 $ */
-
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

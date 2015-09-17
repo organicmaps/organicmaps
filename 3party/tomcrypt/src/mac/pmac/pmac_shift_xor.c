@@ -39,6 +39,6 @@ void pmac_shift_xor(pmac_state *pmac)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/pmac/pmac_shift_xor.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

@@ -13,7 +13,7 @@
 /**
   @file yarrow.c
   Yarrow PRNG, Tom St Denis
-*/  
+*/
 
 #ifdef LTC_YARROW
 
@@ -34,11 +34,11 @@ const struct ltc_prng_descriptor yarrow_desc =
   Start the PRNG
   @param prng     [out] The PRNG state to initialize
   @return CRYPT_OK if successful
-*/  
+*/
 int yarrow_start(prng_state *prng)
 {
    int err;
-   
+
    LTC_ARGCHK(prng != NULL);
 
    /* these are the default hash/cipher combo used */
@@ -64,13 +64,13 @@ int yarrow_start(prng_state *prng)
    prng->yarrow.cipher = register_cipher(&saferp_desc);
 #elif defined(LTC_RC2)
    prng->yarrow.cipher = register_cipher(&rc2_desc);
-#elif defined(LTC_NOEKEON)   
+#elif defined(LTC_NOEKEON)
    prng->yarrow.cipher = register_cipher(&noekeon_desc);
-#elif defined(LTC_ANUBIS)   
+#elif defined(LTC_ANUBIS)
    prng->yarrow.cipher = register_cipher(&anubis_desc);
-#elif defined(LTC_KSEED)   
+#elif defined(LTC_KSEED)
    prng->yarrow.cipher = register_cipher(&kseed_desc);
-#elif defined(LTC_KHAZAD)   
+#elif defined(LTC_KHAZAD)
    prng->yarrow.cipher = register_cipher(&khazad_desc);
 #elif defined(LTC_CAST5)
    prng->yarrow.cipher = register_cipher(&cast5_desc);
@@ -131,7 +131,7 @@ int yarrow_start(prng_state *prng)
   @param inlen    Length of the data to add
   @param prng     PRNG state to update
   @return CRYPT_OK if successful
-*/  
+*/
 int yarrow_add_entropy(const unsigned char *in, unsigned long inlen, prng_state *prng)
 {
    hash_state md;
@@ -139,9 +139,9 @@ int yarrow_add_entropy(const unsigned char *in, unsigned long inlen, prng_state 
 
    LTC_ARGCHK(in  != NULL);
    LTC_ARGCHK(prng != NULL);
-   
+
    LTC_MUTEX_LOCK(&prng->yarrow.prng_lock);
-   
+
    if ((err = hash_is_valid(prng->yarrow.hash)) != CRYPT_OK) {
       LTC_MUTEX_UNLOCK(&prng->yarrow.prng_lock);
       return err;
@@ -150,11 +150,11 @@ int yarrow_add_entropy(const unsigned char *in, unsigned long inlen, prng_state 
    /* start the hash */
    if ((err = hash_descriptor[prng->yarrow.hash].init(&md)) != CRYPT_OK) {
       LTC_MUTEX_UNLOCK(&prng->yarrow.prng_lock);
-      return err; 
+      return err;
    }
 
    /* hash the current pool */
-   if ((err = hash_descriptor[prng->yarrow.hash].process(&md, prng->yarrow.pool, 
+   if ((err = hash_descriptor[prng->yarrow.hash].process(&md, prng->yarrow.pool,
                                                         hash_descriptor[prng->yarrow.hash].hashsize)) != CRYPT_OK) {
       LTC_MUTEX_UNLOCK(&prng->yarrow.prng_lock);
       return err;
@@ -180,7 +180,7 @@ int yarrow_add_entropy(const unsigned char *in, unsigned long inlen, prng_state 
   Make the PRNG ready to read from
   @param prng   The PRNG to make active
   @return CRYPT_OK if successful
-*/  
+*/
 int yarrow_ready(prng_state *prng)
 {
    int ks, err;
@@ -192,7 +192,7 @@ int yarrow_ready(prng_state *prng)
       LTC_MUTEX_UNLOCK(&prng->yarrow.prng_lock);
       return err;
    }
-   
+
    if ((err = cipher_is_valid(prng->yarrow.cipher)) != CRYPT_OK) {
       LTC_MUTEX_UNLOCK(&prng->yarrow.prng_lock);
       return err;
@@ -224,7 +224,7 @@ int yarrow_ready(prng_state *prng)
   @param outlen   Length of output
   @param prng     The active PRNG to read from
   @return Number of octets read
-*/  
+*/
 unsigned long yarrow_read(unsigned char *out, unsigned long outlen, prng_state *prng)
 {
    LTC_ARGCHK(out  != NULL);
@@ -234,7 +234,7 @@ unsigned long yarrow_read(unsigned char *out, unsigned long outlen, prng_state *
 
    /* put out in predictable state first */
    zeromem(out, outlen);
-   
+
    /* now randomize it */
    if (ctr_encrypt(out, out, outlen, &prng->yarrow.ctr) != CRYPT_OK) {
       LTC_MUTEX_UNLOCK(&prng->yarrow.prng_lock);
@@ -248,7 +248,7 @@ unsigned long yarrow_read(unsigned char *out, unsigned long outlen, prng_state *
   Terminate the PRNG
   @param prng   The PRNG to terminate
   @return CRYPT_OK if successful
-*/  
+*/
 int yarrow_done(prng_state *prng)
 {
    int err;
@@ -260,7 +260,7 @@ int yarrow_done(prng_state *prng)
 
    /* we invented one */
    err = ctr_done(&prng->yarrow.ctr);
-   
+
    LTC_MUTEX_UNLOCK(&prng->yarrow.prng_lock);
    return err;
 }
@@ -271,7 +271,7 @@ int yarrow_done(prng_state *prng)
   @param outlen    [in/out] Max size and resulting size of the state
   @param prng      The PRNG to export
   @return CRYPT_OK if successful
-*/  
+*/
 int yarrow_export(unsigned char *out, unsigned long *outlen, prng_state *prng)
 {
    LTC_ARGCHK(out    != NULL);
@@ -295,21 +295,21 @@ int yarrow_export(unsigned char *out, unsigned long *outlen, prng_state *prng)
 
    return CRYPT_OK;
 }
- 
+
 /**
   Import a PRNG state
   @param in       The PRNG state
   @param inlen    Size of the state
   @param prng     The PRNG to import
   @return CRYPT_OK if successful
-*/  
+*/
 int yarrow_import(const unsigned char *in, unsigned long inlen, prng_state *prng)
 {
    int err;
 
    LTC_ARGCHK(in   != NULL);
    LTC_ARGCHK(prng != NULL);
-   
+
    LTC_MUTEX_LOCK(&prng->yarrow.prng_lock);
 
    if (inlen != 64) {
@@ -329,7 +329,7 @@ int yarrow_import(const unsigned char *in, unsigned long inlen, prng_state *prng
 /**
   PRNG self-test
   @return CRYPT_OK if successful, CRYPT_NOP if self-testing has been disabled
-*/  
+*/
 int yarrow_test(void)
 {
 #ifndef LTC_TEST
@@ -341,13 +341,15 @@ int yarrow_test(void)
    if ((err = yarrow_start(&prng)) != CRYPT_OK) {
       return err;
    }
-   
+
    /* now let's test the hash/cipher that was chosen */
-   if ((err = cipher_descriptor[prng.yarrow.cipher].test()) != CRYPT_OK) {
-      return err; 
+   if (cipher_descriptor[prng.yarrow.cipher].test &&
+       ((err = cipher_descriptor[prng.yarrow.cipher].test()) != CRYPT_OK)) {
+      return err;
    }
-   if ((err = hash_descriptor[prng.yarrow.hash].test()) != CRYPT_OK) {
-      return err; 
+   if (hash_descriptor[prng.yarrow.hash].test &&
+       ((err = hash_descriptor[prng.yarrow.hash].test()) != CRYPT_OK)) {
+      return err;
    }
 
    return CRYPT_OK;
@@ -357,6 +359,6 @@ int yarrow_test(void)
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/prngs/yarrow.c,v $ */
-/* $Revision: 1.16 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

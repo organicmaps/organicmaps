@@ -9,9 +9,9 @@
  * Tom St Denis, tomstdenis@gmail.com, http://libtom.org
  */
 
- /** 
+ /**
    @file twofish.c
-   Implementation of Twofish by Tom St Denis 
+   Implementation of Twofish by Tom St Denis
  */
 #include "tomcrypt.h"
 
@@ -35,20 +35,12 @@ const struct ltc_cipher_descriptor twofish_desc =
     &twofish_test,
     &twofish_done,
     &twofish_keysize,
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 };
 
 /* the two polynomials */
 #define MDS_POLY          0x169
 #define RS_POLY           0x14D
-
-/* The 4x4 MDS Linear Transform */
-static const unsigned char MDS[4][4] = {
-    { 0x01, 0xEF, 0x5B, 0x5B },
-    { 0x5B, 0xEF, 0xEF, 0x01 },
-    { 0xEF, 0x5B, 0x01, 0xEF },
-    { 0xEF, 0x01, 0xEF, 0x5B }
-};
 
 /* The 4x8 RS Linear Transform */
 static const unsigned char RS[4][8] = {
@@ -58,6 +50,7 @@ static const unsigned char RS[4][8] = {
     { 0XA4, 0X55, 0X87, 0X5A, 0X58, 0XDB, 0X9E, 0X03 }
 };
 
+#ifdef LTC_TWOFISH_SMALL
 /* sbox usage orderings */
 static const unsigned char qord[4][5] = {
    { 1, 1, 0, 0, 1 },
@@ -65,9 +58,11 @@ static const unsigned char qord[4][5] = {
    { 0, 0, 0, 1, 1 },
    { 1, 0, 1, 1, 0 }
 };
+#endif /* LTC_TWOFISH_SMALL */
 
 #ifdef LTC_TWOFISH_TABLES
 
+#define __LTC_TWOFISH_TAB_C__
 #include "twofish_tab.c"
 
 #define sbox(i, x) ((ulong32)SBOX[i][(x)&255])
@@ -152,14 +147,14 @@ static ulong32 gf_mult(ulong32 a, ulong32 b, ulong32 p)
    result = P[0] = B[0] = 0;
 
    /* unrolled branchless GF multiplier */
-   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1); 
-   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1); 
-   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1); 
-   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1); 
-   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1); 
-   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1); 
-   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1); 
-   result ^= B[a&1]; 
+   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1);
+   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1);
+   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1);
+   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1);
+   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1);
+   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1);
+   result ^= B[a&1]; a >>= 1;  B[1] = P[B[1]>>7] ^ (B[1] << 1);
+   result ^= B[a&1];
 
    return result;
 }
@@ -443,7 +438,7 @@ int twofish_setup(const unsigned char *key, int keylen, int num_rounds, symmetri
    /* small ram variant */
    switch (k) {
          case 4 : skey->twofish.start = 0; break;
-         case 3 : skey->twofish.start = 1; break; 
+         case 3 : skey->twofish.start = 1; break;
          default: skey->twofish.start = 2; break;
    }
 #endif
@@ -477,18 +472,18 @@ int twofish_ecb_encrypt(const unsigned char *pt, unsigned char *ct, symmetric_ke
     int r;
 #if !defined(LTC_TWOFISH_SMALL) && !defined(__GNUC__)
     ulong32 *S1, *S2, *S3, *S4;
-#endif    
+#endif
 
     LTC_ARGCHK(pt   != NULL);
     LTC_ARGCHK(ct   != NULL);
     LTC_ARGCHK(skey != NULL);
-    
+
 #if !defined(LTC_TWOFISH_SMALL) && !defined(__GNUC__)
     S1 = skey->twofish.S[0];
     S2 = skey->twofish.S[1];
     S3 = skey->twofish.S[2];
     S4 = skey->twofish.S[3];
-#endif    
+#endif
 
     LOAD32L(a,&pt[0]); LOAD32L(b,&pt[4]);
     LOAD32L(c,&pt[8]); LOAD32L(d,&pt[12]);
@@ -496,14 +491,14 @@ int twofish_ecb_encrypt(const unsigned char *pt, unsigned char *ct, symmetric_ke
     b ^= skey->twofish.K[1];
     c ^= skey->twofish.K[2];
     d ^= skey->twofish.K[3];
-    
+
     k  = skey->twofish.K + 8;
     for (r = 8; r != 0; --r) {
         t2 = g1_func(b, skey);
         t1 = g_func(a, skey) + t2;
         c  = RORc(c ^ (t1 + k[0]), 1);
         d  = ROLc(d, 1) ^ (t2 + t1 + k[1]);
-        
+
         t2 = g1_func(d, skey);
         t1 = g_func(c, skey) + t2;
         a  = RORc(a ^ (t1 + k[2]), 1);
@@ -537,7 +532,7 @@ int twofish_ecb_encrypt(const unsigned char *pt, unsigned char *ct, symmetric_ke
   Decrypts a block of text with Twofish
   @param ct The input ciphertext (16 bytes)
   @param pt The output plaintext (16 bytes)
-  @param skey The key as scheduled 
+  @param skey The key as scheduled
   @return CRYPT_OK if successful
 */
 #ifdef LTC_CLEAN_STACK
@@ -550,18 +545,18 @@ int twofish_ecb_decrypt(const unsigned char *ct, unsigned char *pt, symmetric_ke
     int r;
 #if !defined(LTC_TWOFISH_SMALL) && !defined(__GNUC__)
     ulong32 *S1, *S2, *S3, *S4;
-#endif    
+#endif
 
     LTC_ARGCHK(pt   != NULL);
     LTC_ARGCHK(ct   != NULL);
     LTC_ARGCHK(skey != NULL);
-    
+
 #if !defined(LTC_TWOFISH_SMALL) && !defined(__GNUC__)
     S1 = skey->twofish.S[0];
     S2 = skey->twofish.S[1];
     S3 = skey->twofish.S[2];
     S4 = skey->twofish.S[3];
-#endif    
+#endif
 
     /* load input */
     LOAD32L(ta,&ct[0]); LOAD32L(tb,&ct[4]);
@@ -592,7 +587,7 @@ int twofish_ecb_decrypt(const unsigned char *ct, unsigned char *pt, symmetric_ke
     b ^= skey->twofish.K[1];
     c ^= skey->twofish.K[2];
     d ^= skey->twofish.K[3];
-    
+
     /* store */
     STORE32L(a, &pt[0]); STORE32L(b, &pt[4]);
     STORE32L(c, &pt[8]); STORE32L(d, &pt[12]);
@@ -616,8 +611,8 @@ int twofish_test(void)
 {
  #ifndef LTC_TEST
     return CRYPT_NOP;
- #else    
- static const struct { 
+ #else
+ static const struct {
      int keylen;
      unsigned char key[32], pt[16], ct[16];
  } tests[] = {
@@ -637,7 +632,7 @@ int twofish_test(void)
        0x85, 0xB6, 0xDC, 0x07, 0x3C, 0xA3, 0x41, 0xB2 },
      { 0x18, 0x2B, 0x02, 0xD8, 0x14, 0x97, 0xEA, 0x45,
        0xF9, 0xDA, 0xAC, 0xDC, 0x29, 0x19, 0x3A, 0x65 }
-   }, { 
+   }, {
      32,
      { 0xD4, 0x3B, 0xB7, 0x55, 0x6E, 0xA3, 0x2E, 0x46,
        0xF2, 0xA2, 0x82, 0xB7, 0xD4, 0x5B, 0x4E, 0x0D,
@@ -654,7 +649,7 @@ int twofish_test(void)
  symmetric_key key;
  unsigned char tmp[2][16];
  int err, i, y;
- 
+
  for (i = 0; i < (int)(sizeof(tests)/sizeof(tests[0])); i++) {
     if ((err = twofish_setup(tests[i].key, tests[i].keylen, 0, &key)) != CRYPT_OK) {
        return err;
@@ -672,16 +667,17 @@ int twofish_test(void)
       for (y = 0; y < 1000; y++) twofish_ecb_encrypt(tmp[0], tmp[0], &key);
       for (y = 0; y < 1000; y++) twofish_ecb_decrypt(tmp[0], tmp[0], &key);
       for (y = 0; y < 16; y++) if (tmp[0][y] != 0) return CRYPT_FAIL_TESTVECTOR;
- }    
+ }
  return CRYPT_OK;
-#endif 
+#endif
 }
 
-/** Terminate the context 
+/** Terminate the context
    @param skey    The scheduled key
 */
 void twofish_done(symmetric_key *skey)
 {
+  LTC_UNUSED_PARAM(skey);
 }
 
 /**
@@ -711,6 +707,6 @@ int twofish_keysize(int *keysize)
 
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/ciphers/twofish/twofish.c,v $ */
-/* $Revision: 1.16 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

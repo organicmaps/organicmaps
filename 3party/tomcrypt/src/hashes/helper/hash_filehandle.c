@@ -10,6 +10,7 @@
  */
 #include "tomcrypt.h"
 
+#ifndef LTC_NO_FILE
 /**
    @file hash_filehandle.c
    Hash open files, Tom St Denis
@@ -25,9 +26,6 @@
 */
 int hash_filehandle(int hash, FILE *in, unsigned char *out, unsigned long *outlen)
 {
-#ifdef LTC_NO_FILE
-    return CRYPT_NOP;
-#else
     hash_state md;
     unsigned char buf[512];
     size_t x;
@@ -62,10 +60,10 @@ int hash_filehandle(int hash, FILE *in, unsigned char *out, unsigned long *outle
     zeromem(buf, sizeof(buf));
 #endif
     return err;
-#endif
 }
+#endif /* #ifndef LTC_NO_FILE */
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/hashes/helper/hash_filehandle.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

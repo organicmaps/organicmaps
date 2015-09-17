@@ -34,25 +34,26 @@
  */
 
 /**
-   Verify an ECC signature
-   @param sig         The signature to verify
-   @param siglen      The length of the signature (octets)
-   @param hash        The hash (message digest) that was signed
-   @param hashlen     The length of the hash (octets)
-   @param stat        Result of signature, 1==valid, 0==invalid
-   @param key         The corresponding public ECC key
-   @return CRYPT_OK if successful (even if the signature is not valid)
+  Verify a ECC signature
+  @param r        ECC "r" parameter
+  @param s        ECC "s" parameter
+  @param hash     The hash that was signed
+  @param hashlen  The length of the hash that was signed
+  @param stat     [out] The result of the signature verification, 1==valid, 0==invalid
+  @param key      The corresponding public DH key
+  @return CRYPT_OK if successful (even if the signature is invalid)
 */
-int ecc_verify_hash(const unsigned char *sig,  unsigned long siglen,
-                    const unsigned char *hash, unsigned long hashlen, 
-                    int *stat, ecc_key *key)
+int ecc_verify_hash_raw(      void   *r, void   *s,
+                        const unsigned char *hash, unsigned long hashlen,
+                        int *stat, ecc_key *key)
 {
    ecc_point    *mG, *mQ;
-   void          *r, *s, *v, *w, *u1, *u2, *e, *p, *m;
-   void          *mp;
+   void          *v, *w, *u1, *u2, *e, *p, *m;
+   void          *mp = NULL;
    int           err;
 
-   LTC_ARGCHK(sig  != NULL);
+   LTC_ARGCHK(r    != NULL);
+   LTC_ARGCHK(s    != NULL);
    LTC_ARGCHK(hash != NULL);
    LTC_ARGCHK(stat != NULL);
    LTC_ARGCHK(key  != NULL);
@@ -67,7 +68,7 @@ int ecc_verify_hash(const unsigned char *sig,  unsigned long siglen,
    }
 
    /* allocate ints */
-   if ((err = mp_init_multi(&r, &s, &v, &w, &u1, &u2, &p, &e, &m, NULL)) != CRYPT_OK) {
+   if ((err = mp_init_multi(&v, &w, &u1, &u2, &p, &e, &m, NULL)) != CRYPT_OK) {
       return CRYPT_MEM;
    }
 
@@ -76,14 +77,6 @@ int ecc_verify_hash(const unsigned char *sig,  unsigned long siglen,
    mQ = ltc_ecc_new_point();
    if (mQ  == NULL || mG == NULL) {
       err = CRYPT_MEM;
-      goto error;
-   }
-
-   /* parse header */
-   if ((err = der_decode_sequence_multi(sig, siglen,
-                                  LTC_ASN1_INTEGER, 1UL, r,
-                                  LTC_ASN1_INTEGER, 1UL, s,
-                                  LTC_ASN1_EOL, 0UL, NULL)) != CRYPT_OK) {
       goto error;
    }
 
@@ -151,15 +144,59 @@ int ecc_verify_hash(const unsigned char *sig,  unsigned long siglen,
 error:
    ltc_ecc_del_point(mG);
    ltc_ecc_del_point(mQ);
-   mp_clear_multi(r, s, v, w, u1, u2, p, e, m, NULL);
+   mp_clear_multi(v, w, u1, u2, p, e, m, NULL);
    if (mp != NULL) { 
       mp_montgomery_free(mp);
    }
    return err;
 }
 
+/**
+   Verify an ECC signature
+   @param sig         The signature to verify
+   @param siglen      The length of the signature (octets)
+   @param hash        The hash (message digest) that was signed
+   @param hashlen     The length of the hash (octets)
+   @param stat        Result of signature, 1==valid, 0==invalid
+   @param key         The corresponding public ECC key
+   @return CRYPT_OK if successful (even if the signature is not valid)
+*/
+
+int ecc_verify_hash(const unsigned char *sig,  unsigned long siglen,
+                    const unsigned char *hash, unsigned long hashlen,
+                    int *stat, ecc_key *key)
+{
+   void          *r, *s;
+   int           err;
+
+   LTC_ARGCHK(sig  != NULL);
+   LTC_ARGCHK(hash != NULL);
+   LTC_ARGCHK(stat != NULL);
+   LTC_ARGCHK(key  != NULL);
+
+   /* allocate ints */
+   if ((err = mp_init_multi(&r, &s, NULL)) != CRYPT_OK) {
+      return CRYPT_MEM;
+   }
+
+   /* parse header */
+   if ((err = der_decode_sequence_multi(sig, siglen,
+                                  LTC_ASN1_INTEGER, 1UL, r,
+                                  LTC_ASN1_INTEGER, 1UL, s,
+                                  LTC_ASN1_EOL, 0UL, NULL)) != CRYPT_OK) {
+      goto error;
+   }
+
+   /* do the op */
+   err = ecc_verify_hash_raw(r, s, hash, hashlen, stat, key);
+
+error:
+   mp_clear_multi(r, s, NULL);
+   return err;
+}
+
 #endif
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/ecc/ecc_verify_hash.c,v $ */
-/* $Revision: 1.14 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

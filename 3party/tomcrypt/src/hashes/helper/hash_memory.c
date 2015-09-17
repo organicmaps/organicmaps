@@ -10,6 +10,7 @@
  */
 #include "tomcrypt.h"
 
+#ifdef LTC_HASH_HELPERS
 /**
   @file hash_memory.c
   Hash memory helper, Tom St Denis
@@ -63,7 +64,8 @@ LBL_ERR:
 
     return err;
 }
+#endif /* #ifdef LTC_HASH_HELPERS */
 
-/* $Source: /cvs/libtom/libtomcrypt/src/hashes/helper/hash_memory.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

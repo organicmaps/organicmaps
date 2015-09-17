@@ -405,6 +405,6 @@ int rmd128_test(void)
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/hashes/rmd128.c,v $ */
-/* $Revision: 1.11 $ */
-/* $Date: 2007/05/12 14:25:28 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

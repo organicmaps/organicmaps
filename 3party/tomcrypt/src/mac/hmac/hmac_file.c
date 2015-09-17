@@ -12,23 +12,23 @@
 
 /**
   @file hmac_file.c
-  LTC_HMAC support, process a file, Tom St Denis/Dobes Vandermeer
+  HMAC support, process a file, Tom St Denis/Dobes Vandermeer
 */
 
 #ifdef LTC_HMAC
 
 /**
-  LTC_HMAC a file
+  HMAC a file
   @param hash     The index of the hash you wish to use
-  @param fname    The name of the file you wish to LTC_HMAC
+  @param fname    The name of the file you wish to HMAC
   @param key      The secret key
   @param keylen   The length of the secret key
-  @param out      [out] The LTC_HMAC authentication tag
+  @param out      [out] The HMAC authentication tag
   @param outlen   [in/out]  The max size and resulting size of the authentication tag
   @return CRYPT_OK if successful, CRYPT_NOP if file support has been disabled
 */
-int hmac_file(int hash, const char *fname, 
-              const unsigned char *key, unsigned long keylen, 
+int hmac_file(int hash, const char *fname,
+              const unsigned char *key, unsigned long keylen,
                     unsigned char *out, unsigned long *outlen)
 {
 #ifdef LTC_NO_FILE
@@ -44,7 +44,7 @@ int hmac_file(int hash, const char *fname,
    LTC_ARGCHK(key    != NULL);
    LTC_ARGCHK(out    != NULL);
    LTC_ARGCHK(outlen != NULL);
-   
+
    if((err = hash_is_valid(hash)) != CRYPT_OK) {
        return err;
    }
@@ -80,7 +80,7 @@ int hmac_file(int hash, const char *fname,
 #ifdef LTC_CLEAN_STACK
    /* clear memory */
    zeromem(buf, sizeof(buf));
-#endif   
+#endif
    return CRYPT_OK;
 #endif
 }
@@ -88,6 +88,6 @@ int hmac_file(int hash, const char *fname,
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/hmac/hmac_file.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2007/05/12 14:37:41 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

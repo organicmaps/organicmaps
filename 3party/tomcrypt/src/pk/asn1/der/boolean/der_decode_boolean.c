@@ -31,7 +31,7 @@ int der_decode_boolean(const unsigned char *in, unsigned long inlen,
    LTC_ARGCHK(in  != NULL);
    LTC_ARGCHK(out != NULL);
    
-   if (inlen != 3 || in[0] != 0x01 || in[1] != 0x01 || (in[2] != 0x00 && in[2] != 0xFF)) {
+   if (inlen < 3 || in[0] != 0x01 || in[1] != 0x01 || (in[2] != 0x00 && in[2] != 0xFF)) {
       return CRYPT_INVALID_ARG;
    }
    
@@ -42,6 +42,6 @@ int der_decode_boolean(const unsigned char *in, unsigned long inlen,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/asn1/der/boolean/der_decode_boolean.c,v $ */
-/* $Revision: 1.2 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

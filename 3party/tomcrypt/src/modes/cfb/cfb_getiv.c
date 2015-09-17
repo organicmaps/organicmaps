@@ -41,6 +41,6 @@ int cfb_getiv(unsigned char *IV, unsigned long *len, symmetric_CFB *cfb)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/cfb/cfb_getiv.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

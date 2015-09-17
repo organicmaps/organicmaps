@@ -1,18 +1,14 @@
 #!/bin/bash
 
+if [ $# -lt 3 ]
+then
+  echo "usage is: ${0##*/} <which makefile and other make options> <additional defines> <path to math provider>"
+  echo "e.g. \"${0##*/} \"makefile -j3\" \"-DUSE_LTM -DLTM_DESC -I/path/to/libtommath\" /path/to/libtommath/libtommath.a\""
+  exit -1
+fi
+
 # date
 echo "date="`date`
-
-# output version
-echo "Testing verion" `grep "^VERSION=" makefile | sed "s/.*=//"`
-#grep "VERSION=" makefile | perl -e "@a = split('=', <>); print @a[1];"`
-
-# get uname 
-echo "uname="`uname -a`
-
-# get gcc name
-echo "gcc="`gcc -dumpversion`
-echo
 
 # stock build
 bash run.sh "STOCK" " " "$1" "$2" "$3" || exit 1
@@ -47,12 +43,18 @@ bash run.sh "NO_FAST+NOTABLES" "-DLTC_NO_FAST -DLTC_NO_TABLES" "$1" "$2" "$3" ||
 # NO_ASM
 bash run.sh "NO_ASM" "-DLTC_NO_ASM" "$1" "$2" "$3" || exit 1
 
+# NO_TIMING_RESISTANCE
+bash run.sh "NO_TIMING_RESISTANCE" "-DLTC_NO_ECC_TIMING_RESISTANT -DLTC_NO_RSA_BLINDING" "$1" "$2" "$3" || exit 1
+
+# CLEANSTACK+NOTABLES+SMALL+NO_ASM+NO_TIMING_RESISTANCE
+bash run.sh "CLEANSTACK+NOTABLES+SMALL+NO_ASM+NO_TIMING_RESISTANCE" "-DLTC_CLEAN_STACK -DLTC_NO_TABLES -DLTC_SMALL_CODE -DLTC_NO_ECC_TIMING_RESISTANT -DLTC_NO_RSA_BLINDING" "$1" "$2" "$3" || exit 1
+
 # test build with no testing
 bash testbuild.sh "NOTEST" "-DLTC_NO_TEST" "$1" "$2" "$3" || exit 1
 
 # test build with no file routines
 bash testbuild.sh "NOFILE" "-DLTC_NO_FILE" "$1" "$2" "$3" || exit 1
 
-# $Source: /cvs/libtom/libtomcrypt/testme.sh,v $   
-# $Revision: 1.20 $   
-# $Date: 2006/01/26 14:49:43 $ 
+# $Source$   
+# $Revision$   
+# $Date$ 

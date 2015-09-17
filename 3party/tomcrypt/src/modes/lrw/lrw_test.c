@@ -131,6 +131,6 @@ int lrw_test(void)
 
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/modes/lrw/lrw_test.c,v $ */
-/* $Revision: 1.12 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

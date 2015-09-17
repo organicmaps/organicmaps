@@ -10,15 +10,15 @@
  */
 #include "tomcrypt.h"
 
-/** 
+/**
   @file pkcs_1_oaep_decode.c
-  OAEP Padding for LTC_PKCS #1, Tom St Denis 
+  OAEP Padding for PKCS #1, Tom St Denis
 */
 
 #ifdef LTC_PKCS_1
 
 /**
-   LTC_PKCS #1 v2.00 OAEP decode
+   PKCS #1 v2.00 OAEP decode
    @param msg              The encoded data to decode
    @param msglen           The length of the encoded data (octets)
    @param lparam           The session or system data (can be NULL)
@@ -28,7 +28,7 @@
    @param out              [out] Destination of decoding
    @param outlen           [in/out] The max size and resulting size of the decoding
    @param res              [out] Result of decoding, 1==valid, 0==invalid
-   @return CRYPT_OK if successful (even if invalid)
+   @return CRYPT_OK if successful
 */
 int pkcs_1_oaep_decode(const unsigned char *msg,    unsigned long msglen,
                        const unsigned char *lparam, unsigned long lparamlen,
@@ -38,7 +38,7 @@ int pkcs_1_oaep_decode(const unsigned char *msg,    unsigned long msglen,
 {
    unsigned char *DB, *seed, *mask;
    unsigned long hLen, x, y, modulus_len;
-   int           err;
+   int           err, ret;
 
    LTC_ARGCHK(msg    != NULL);
    LTC_ARGCHK(out    != NULL);
@@ -47,9 +47,9 @@ int pkcs_1_oaep_decode(const unsigned char *msg,    unsigned long msglen,
 
    /* default to invalid packet */
    *res = 0;
-   
+
    /* test valid hash */
-   if ((err = hash_is_valid(hash_idx)) != CRYPT_OK) { 
+   if ((err = hash_is_valid(hash_idx)) != CRYPT_OK) {
       return err;
    }
    hLen        = hash_descriptor[hash_idx].hashsize;
@@ -78,17 +78,19 @@ int pkcs_1_oaep_decode(const unsigned char *msg,    unsigned long msglen,
    }
 
    /* ok so it's now in the form
-  
-      0x00  || maskedseed || maskedDB 
-  
+
+      0x00  || maskedseed || maskedDB
+
        1    ||   hLen     ||  modulus_len - hLen - 1
-   
+
     */
+
+   err = CRYPT_OK;
+   ret = CRYPT_OK;
 
    /* must have leading 0x00 byte */
    if (msg[0] != 0x00) {
-      err = CRYPT_OK;
-      goto LBL_ERR;
+      ret = CRYPT_INVALID_PACKET;
    }
 
    /* now read the masked seed */
@@ -100,7 +102,7 @@ int pkcs_1_oaep_decode(const unsigned char *msg,    unsigned long msglen,
    XMEMCPY(DB, msg + x, modulus_len - hLen - 1);
    x += modulus_len - hLen - 1;
 
-   /* compute MGF1 of maskedDB (hLen) */ 
+   /* compute MGF1 of maskedDB (hLen) */
    if ((err = pkcs_1_mgf1(hash_idx, DB, modulus_len - hLen - 1, mask, hLen)) != CRYPT_OK) {
       goto LBL_ERR;
    }
@@ -117,7 +119,7 @@ int pkcs_1_oaep_decode(const unsigned char *msg,    unsigned long msglen,
 
    /* xor against DB */
    for (y = 0; y < (modulus_len - hLen - 1); y++) {
-       DB[y] ^= mask[y]; 
+       DB[y] ^= mask[y];
    }
 
    /* now DB == lhash || PS || 0x01 || M, PS == k - mlen - 2hlen - 2 zeroes */
@@ -136,9 +138,8 @@ int pkcs_1_oaep_decode(const unsigned char *msg,    unsigned long msglen,
    }
 
    /* compare the lhash'es */
-   if (XMEMCMP(seed, DB, hLen) != 0) {
-      err = CRYPT_OK;
-      goto LBL_ERR;
+   if (XMEM_NEQ(seed, DB, hLen) != 0) {
+      ret = CRYPT_INVALID_PACKET;
    }
 
    /* now zeroes before a 0x01 */
@@ -146,28 +147,27 @@ int pkcs_1_oaep_decode(const unsigned char *msg,    unsigned long msglen,
       /* step... */
    }
 
-   /* error out if wasn't 0x01 */
+   /* error if wasn't 0x01 */
    if (x == (modulus_len - hLen - 1) || DB[x] != 0x01) {
-      err = CRYPT_INVALID_PACKET;
-      goto LBL_ERR;
+      ret = CRYPT_INVALID_PACKET;
    }
 
    /* rest is the message (and skip 0x01) */
    if ((modulus_len - hLen - 1 - ++x) > *outlen) {
-      *outlen = modulus_len - hLen - 1 - x;
-      err = CRYPT_BUFFER_OVERFLOW;
-      goto LBL_ERR;
+      ret = CRYPT_INVALID_PACKET;
    }
 
-   /* copy message */
-   *outlen = modulus_len - hLen - 1 - x;
-   XMEMCPY(out, DB + x, modulus_len - hLen - 1 - x);
-   x += modulus_len - hLen - 1;
+   if (ret == CRYPT_OK) {
+      /* copy message */
+      *outlen = modulus_len - hLen - 1 - x;
+      XMEMCPY(out, DB + x, modulus_len - hLen - 1 - x);
+      x += modulus_len - hLen - 1;
 
-   /* valid packet */
-   *res = 1;
+      /* valid packet */
+      *res = 1;
+   }
+   err = ret;
 
-   err = CRYPT_OK;
 LBL_ERR:
 #ifdef LTC_CLEAN_STACK
    zeromem(DB,   modulus_len);
@@ -184,6 +184,6 @@ LBL_ERR:
 
 #endif /* LTC_PKCS_1 */
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/pkcs1/pkcs_1_oaep_decode.c,v $ */
-/* $Revision: 1.13 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

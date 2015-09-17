@@ -12,13 +12,13 @@
 
 /**
   @file pkcs_1_oaep_encode.c
-  OAEP Padding for LTC_PKCS #1, Tom St Denis 
+  OAEP Padding for PKCS #1, Tom St Denis
 */
 
 #ifdef LTC_PKCS_1
 
 /**
-  LTC_PKCS #1 v2.00 OAEP encode
+  PKCS #1 v2.00 OAEP encode
   @param msg             The data to encode
   @param msglen          The length of the data to encode (octets)
   @param lparam          A session or system parameter (can be NULL)
@@ -46,7 +46,7 @@ int pkcs_1_oaep_encode(const unsigned char *msg,    unsigned long msglen,
    LTC_ARGCHK(outlen != NULL);
 
    /* test valid hash */
-   if ((err = hash_is_valid(hash_idx)) != CRYPT_OK) { 
+   if ((err = hash_is_valid(hash_idx)) != CRYPT_OK) {
       return err;
    }
 
@@ -120,10 +120,10 @@ int pkcs_1_oaep_encode(const unsigned char *msg,    unsigned long msglen,
 
    /* xor against DB */
    for (y = 0; y < (modulus_len - hLen - 1); y++) {
-       DB[y] ^= mask[y]; 
+       DB[y] ^= mask[y];
    }
 
-   /* compute MGF1 of maskedDB (hLen) */ 
+   /* compute MGF1 of maskedDB (hLen) */
    if ((err = pkcs_1_mgf1(hash_idx, DB, modulus_len - hLen - 1, mask, hLen)) != CRYPT_OK) {
       goto LBL_ERR;
    }
@@ -149,7 +149,7 @@ int pkcs_1_oaep_encode(const unsigned char *msg,    unsigned long msglen,
    x += modulus_len - hLen - 1;
 
    *outlen = x;
-    
+
    err = CRYPT_OK;
 LBL_ERR:
 #ifdef LTC_CLEAN_STACK
@@ -168,6 +168,6 @@ LBL_ERR:
 #endif /* LTC_PKCS_1 */
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/pkcs1/pkcs_1_oaep_encode.c,v $ */
-/* $Revision: 1.9 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

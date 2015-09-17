@@ -15,7 +15,7 @@
   Free an Katja key, Tom St Denis
 */  
 
-#ifdef MKAT
+#ifdef LTC_MKAT
 
 /**
   Free an Katja key from memory
@@ -30,6 +30,6 @@ void katja_free(katja_key *key)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/katja/katja_free.c,v $ */
-/* $Revision: 1.3 $ */
-/* $Date: 2006/12/28 01:27:24 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

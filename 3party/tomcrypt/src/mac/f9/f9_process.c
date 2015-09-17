@@ -67,12 +67,12 @@ int f9_process(f9_state *f9, const unsigned char *in, unsigned long inlen)
      f9->IV[f9->buflen++] ^= *in++;
      --inlen;
   }
-  return CRYPT_OK;       
+  return CRYPT_OK;
 }
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/mac/f9/f9_process.c,v $ */
-/* $Revision: 1.4 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

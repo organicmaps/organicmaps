@@ -60,10 +60,14 @@ int ocb_init(ocb_state *ocb, int cipher,
 
    /* determine which polys to use */
    ocb->block_len = cipher_descriptor[cipher].block_length;
-   for (poly = 0; poly < (int)(sizeof(polys)/sizeof(polys[0])); poly++) {
+   x = (int)(sizeof(polys)/sizeof(polys[0]));
+   for (poly = 0; poly < x; poly++) {
        if (polys[poly].len == ocb->block_len) { 
           break;
        }
+   }
+   if (poly == x) {
+      return CRYPT_INVALID_ARG; /* block_len not found in polys */
    }
    if (polys[poly].len != ocb->block_len) {
       return CRYPT_INVALID_ARG;
@@ -132,6 +136,6 @@ int ocb_init(ocb_state *ocb, int cipher,
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/encauth/ocb/ocb_init.c,v $ */
-/* $Revision: 1.7 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

@@ -10,7 +10,7 @@
  */
 #include "tomcrypt.h"
 
-#ifdef MPI
+#ifdef LTC_MPI
 #include <stdarg.h>
 
 int ltc_init_multi(void **a, ...)
@@ -32,13 +32,14 @@ int ltc_init_multi(void **a, ...)
               cur = va_arg(clean_list, void**);
           }
           va_end(clean_list);
+          va_end(args);
           return CRYPT_MEM;
        }
        ++np;
        cur = va_arg(args, void**);
    }
    va_end(args);
-   return CRYPT_OK;   
+   return CRYPT_OK;
 }
 
 void ltc_deinit_multi(void *a, ...)
@@ -56,6 +57,6 @@ void ltc_deinit_multi(void *a, ...)
 
 #endif
 
-/* $Source: /cvs/libtom/libtomcrypt/src/math/multi.c,v $ */
-/* $Revision: 1.6 $ */
-/* $Date: 2006/12/28 01:27:23 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */

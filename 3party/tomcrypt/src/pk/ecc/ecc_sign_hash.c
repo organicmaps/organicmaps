@@ -24,28 +24,28 @@
 #ifdef LTC_MECC
 
 /**
-  Sign a message digest
-  @param in        The message digest to sign
-  @param inlen     The length of the digest
-  @param out       [out] The destination for the signature
-  @param outlen    [in/out] The max size and resulting size of the signature
-  @param prng      An active PRNG state
-  @param wprng     The index of the PRNG you wish to use
-  @param key       A private ECC key
+  Sign a hash with ECC
+  @param in       The hash to sign
+  @param inlen    The length of the hash to sign
+  @param r        The "r" integer of the signature (caller must initialize with mp_init() first)
+  @param s        The "s" integer of the signature (caller must initialize with mp_init() first)
+  @param prng     An active PRNG state
+  @param wprng    The index of the PRNG desired
+  @param key      A private ECC key
   @return CRYPT_OK if successful
 */
-int ecc_sign_hash(const unsigned char *in,  unsigned long inlen, 
-                        unsigned char *out, unsigned long *outlen, 
-                        prng_state *prng, int wprng, ecc_key *key)
+int ecc_sign_hash_raw(const unsigned char *in,  unsigned long inlen,
+                            void *r, void *s,
+                            prng_state *prng, int wprng, ecc_key *key)
 {
    ecc_key       pubkey;
-   void          *r, *s, *e, *p;
+   void          *e, *p;
    int           err;
 
-   LTC_ARGCHK(in     != NULL);
-   LTC_ARGCHK(out    != NULL);
-   LTC_ARGCHK(outlen != NULL);
-   LTC_ARGCHK(key    != NULL);
+   LTC_ARGCHK(in  != NULL);
+   LTC_ARGCHK(r   != NULL);
+   LTC_ARGCHK(s   != NULL);
+   LTC_ARGCHK(key != NULL);
 
    /* is this a private key? */
    if (key->type != PK_PRIVATE) {
@@ -63,7 +63,7 @@ int ecc_sign_hash(const unsigned char *in,  unsigned long inlen,
 
    /* get the hash and load it as a bignum into 'e' */
    /* init the bignums */
-   if ((err = mp_init_multi(&r, &s, &p, &e, NULL)) != CRYPT_OK) { 
+   if ((err = mp_init_multi(&p, &e, NULL)) != CRYPT_OK) {
       return err;
    }
    if ((err = mp_read_radix(p, (char *)key->dp->order, 16)) != CRYPT_OK)                      { goto errnokey; }
@@ -94,21 +94,60 @@ int ecc_sign_hash(const unsigned char *in,  unsigned long inlen,
       }
    }
 
+   err = CRYPT_OK;
+   goto errnokey;
+
+error:
+   ecc_free(&pubkey);
+errnokey:
+   mp_clear_multi(p, e, NULL);
+   return err;
+}
+
+/**
+  Sign a message digest
+  @param in        The message digest to sign
+  @param inlen     The length of the digest
+  @param out       [out] The destination for the signature
+  @param outlen    [in/out] The max size and resulting size of the signature
+  @param prng      An active PRNG state
+  @param wprng     The index of the PRNG you wish to use
+  @param key       A private ECC key
+  @return CRYPT_OK if successful
+*/
+int ecc_sign_hash(const unsigned char *in,  unsigned long inlen,
+                        unsigned char *out, unsigned long *outlen,
+                        prng_state *prng, int wprng, ecc_key *key)
+{
+   void          *r, *s;
+   int           err;
+
+   LTC_ARGCHK(in     != NULL);
+   LTC_ARGCHK(out    != NULL);
+   LTC_ARGCHK(outlen != NULL);
+   LTC_ARGCHK(key    != NULL);
+
+   if (mp_init_multi(&r, &s, NULL) != CRYPT_OK) {
+      return CRYPT_MEM;
+   }
+
+   if ((err = ecc_sign_hash_raw(in, inlen, r, s, prng, wprng, key)) != CRYPT_OK) {
+      goto error;
+   }
+
    /* store as SEQUENCE { r, s -- integer } */
    err = der_encode_sequence_multi(out, outlen,
                              LTC_ASN1_INTEGER, 1UL, r,
                              LTC_ASN1_INTEGER, 1UL, s,
                              LTC_ASN1_EOL, 0UL, NULL);
-   goto errnokey;
+
 error:
-   ecc_free(&pubkey);
-errnokey:
-   mp_clear_multi(r, s, p, e, NULL);
+   mp_clear_multi(r, s, NULL);
    return err;   
 }
 
 #endif
-/* $Source: /cvs/libtom/libtomcrypt/src/pk/ecc/ecc_sign_hash.c,v $ */
-/* $Revision: 1.11 $ */
-/* $Date: 2007/05/12 14:32:35 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
 

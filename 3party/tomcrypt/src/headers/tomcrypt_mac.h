@@ -10,23 +10,23 @@ int hmac_init(hmac_state *hmac, int hash, const unsigned char *key, unsigned lon
 int hmac_process(hmac_state *hmac, const unsigned char *in, unsigned long inlen);
 int hmac_done(hmac_state *hmac, unsigned char *out, unsigned long *outlen);
 int hmac_test(void);
-int hmac_memory(int hash, 
+int hmac_memory(int hash,
                 const unsigned char *key, unsigned long keylen,
-                const unsigned char *in,  unsigned long inlen, 
+                const unsigned char *in,  unsigned long inlen,
                       unsigned char *out, unsigned long *outlen);
-int hmac_memory_multi(int hash, 
+int hmac_memory_multi(int hash,
                 const unsigned char *key,  unsigned long keylen,
                       unsigned char *out,  unsigned long *outlen,
                 const unsigned char *in,   unsigned long inlen, ...);
 int hmac_file(int hash, const char *fname, const unsigned char *key,
-              unsigned long keylen, 
+              unsigned long keylen,
               unsigned char *dst, unsigned long *dstlen);
 #endif
 
 #ifdef LTC_OMAC
 
 typedef struct {
-   int             cipher_idx, 
+   int             cipher_idx,
                    buflen,
                    blklen;
    unsigned char   block[MAXBLOCKSIZE],
@@ -38,17 +38,17 @@ typedef struct {
 int omac_init(omac_state *omac, int cipher, const unsigned char *key, unsigned long keylen);
 int omac_process(omac_state *omac, const unsigned char *in, unsigned long inlen);
 int omac_done(omac_state *omac, unsigned char *out, unsigned long *outlen);
-int omac_memory(int cipher, 
+int omac_memory(int cipher,
                const unsigned char *key, unsigned long keylen,
                const unsigned char *in,  unsigned long inlen,
                      unsigned char *out, unsigned long *outlen);
-int omac_memory_multi(int cipher, 
+int omac_memory_multi(int cipher,
                 const unsigned char *key, unsigned long keylen,
                       unsigned char *out, unsigned long *outlen,
                 const unsigned char *in,  unsigned long inlen, ...);
-int omac_file(int cipher, 
+int omac_file(int cipher,
               const unsigned char *key, unsigned long keylen,
-              const          char *filename, 
+              const          char *filename,
                     unsigned char *out, unsigned long *outlen);
 int omac_test(void);
 #endif /* LTC_OMAC */
@@ -73,19 +73,19 @@ int pmac_init(pmac_state *pmac, int cipher, const unsigned char *key, unsigned l
 int pmac_process(pmac_state *pmac, const unsigned char *in, unsigned long inlen);
 int pmac_done(pmac_state *pmac, unsigned char *out, unsigned long *outlen);
 
-int pmac_memory(int cipher, 
+int pmac_memory(int cipher,
                const unsigned char *key, unsigned long keylen,
                const unsigned char *msg, unsigned long msglen,
                      unsigned char *out, unsigned long *outlen);
 
-int pmac_memory_multi(int cipher, 
+int pmac_memory_multi(int cipher,
                 const unsigned char *key, unsigned long keylen,
                       unsigned char *out, unsigned long *outlen,
                 const unsigned char *in, unsigned long inlen, ...);
 
-int pmac_file(int cipher, 
+int pmac_file(int cipher,
              const unsigned char *key, unsigned long keylen,
-             const          char *filename, 
+             const          char *filename,
                    unsigned char *out, unsigned long *outlen);
 
 int pmac_test(void);
@@ -152,32 +152,32 @@ typedef struct {
                      block_len;               /* length of block */
 } ocb_state;
 
-int ocb_init(ocb_state *ocb, int cipher, 
+int ocb_init(ocb_state *ocb, int cipher,
              const unsigned char *key, unsigned long keylen, const unsigned char *nonce);
 
 int ocb_encrypt(ocb_state *ocb, const unsigned char *pt, unsigned char *ct);
 int ocb_decrypt(ocb_state *ocb, const unsigned char *ct, unsigned char *pt);
 
-int ocb_done_encrypt(ocb_state *ocb, 
+int ocb_done_encrypt(ocb_state *ocb,
                      const unsigned char *pt,  unsigned long ptlen,
-                           unsigned char *ct, 
+                           unsigned char *ct,
                            unsigned char *tag, unsigned long *taglen);
 
-int ocb_done_decrypt(ocb_state *ocb, 
+int ocb_done_decrypt(ocb_state *ocb,
                      const unsigned char *ct,  unsigned long ctlen,
-                           unsigned char *pt, 
+                           unsigned char *pt,
                      const unsigned char *tag, unsigned long taglen, int *stat);
 
 int ocb_encrypt_authenticate_memory(int cipher,
     const unsigned char *key,    unsigned long keylen,
-    const unsigned char *nonce,  
+    const unsigned char *nonce,
     const unsigned char *pt,     unsigned long ptlen,
           unsigned char *ct,
           unsigned char *tag,    unsigned long *taglen);
 
 int ocb_decrypt_verify_memory(int cipher,
     const unsigned char *key,    unsigned long keylen,
-    const unsigned char *nonce,  
+    const unsigned char *nonce,
     const unsigned char *ct,     unsigned long ctlen,
           unsigned char *pt,
     const unsigned char *tag,    unsigned long taglen,
@@ -193,10 +193,109 @@ int s_ocb_done(ocb_state *ocb, const unsigned char *pt, unsigned long ptlen,
 
 #endif /* LTC_OCB_MODE */
 
+#ifdef LTC_OCB3_MODE
+typedef struct {
+   unsigned char     Offset_0[MAXBLOCKSIZE],       /* Offset_0 value */
+                     Offset_current[MAXBLOCKSIZE], /* Offset_{current_block_index} value */
+                     L_dollar[MAXBLOCKSIZE],       /* L_$ value */
+                     L_star[MAXBLOCKSIZE],         /* L_* value */
+                     L_[32][MAXBLOCKSIZE],         /* L_{i} values */
+                     tag_part[MAXBLOCKSIZE],       /* intermediate result of tag calculation */
+                     checksum[MAXBLOCKSIZE];       /* current checksum */
+
+   /* AAD related members */
+   unsigned char     aSum_current[MAXBLOCKSIZE],    /* AAD related helper variable */
+                     aOffset_current[MAXBLOCKSIZE], /* AAD related helper variable */
+                     adata_buffer[MAXBLOCKSIZE];    /* AAD buffer */
+   int               adata_buffer_bytes;            /* bytes in AAD buffer */
+   unsigned long     ablock_index;                  /* index # for current adata (AAD) block */
+
+   symmetric_key     key;                     /* scheduled key for cipher */
+   unsigned long     block_index;             /* index # for current data block */
+   int               cipher,                  /* cipher idx */
+                     block_len;               /* length of block */
+} ocb3_state;
+
+int ocb3_init(ocb3_state *ocb, int cipher,
+             const unsigned char *key, unsigned long keylen,
+             const unsigned char *nonce, unsigned long noncelen);
+
+int ocb3_encrypt(ocb3_state *ocb, const unsigned char *pt, unsigned long ptlen, unsigned char *ct);
+int ocb3_decrypt(ocb3_state *ocb, const unsigned char *ct, unsigned long ctlen, unsigned char *pt);
+int ocb3_encrypt_last(ocb3_state *ocb, const unsigned char *pt, unsigned long ptlen, unsigned char *ct);
+int ocb3_decrypt_last(ocb3_state *ocb, const unsigned char *ct, unsigned long ctlen, unsigned char *pt);
+int ocb3_add_aad(ocb3_state *ocb, const unsigned char *aad, unsigned long aadlen);
+int ocb3_done(ocb3_state *ocb, unsigned char *tag, unsigned long *taglen);
+
+int ocb3_encrypt_authenticate_memory(int cipher,
+    const unsigned char *key,    unsigned long keylen,
+    const unsigned char *nonce,  unsigned long noncelen,
+    const unsigned char *adata,  unsigned long adatalen,
+    const unsigned char *pt,     unsigned long ptlen,
+          unsigned char *ct,
+          unsigned char *tag,    unsigned long *taglen);
+
+int ocb3_decrypt_verify_memory(int cipher,
+    const unsigned char *key,    unsigned long keylen,
+    const unsigned char *nonce,  unsigned long noncelen,
+    const unsigned char *adata,  unsigned long adatalen,
+    const unsigned char *ct,     unsigned long ctlen,
+          unsigned char *pt,
+    const unsigned char *tag,    unsigned long taglen,
+          int           *stat);
+
+int ocb3_test(void);
+
+/* internal helper functions */
+int ocb3_int_aad_add_block(ocb3_state *ocb, const unsigned char *aad_block);
+void ocb3_int_calc_offset_zero(ocb3_state *ocb, const unsigned char *nonce, unsigned long noncelen);
+int ocb3_int_ntz(unsigned long x);
+void ocb3_int_xor_blocks(unsigned char *out, const unsigned char *block_a, const unsigned char *block_b, unsigned long block_len);
+
+#endif /* LTC_OCB3_MODE */
+
 #ifdef LTC_CCM_MODE
 
 #define CCM_ENCRYPT 0
 #define CCM_DECRYPT 1
+
+typedef struct {
+   symmetric_key       K;
+   int                 cipher,               /* which cipher */
+                       taglen,               /* length of the tag */
+                       x;                    /* index in PAD */
+
+   unsigned long       L,                    /* L value */
+                       ptlen,                /* length that will be enc / dec */
+                       current_ptlen,        /* current processed length */
+                       aadlen,               /* length of the aad */
+                       current_aadlen,       /* length of the currently provided add */
+                       noncelen;             /* length of the nonce */
+
+   unsigned char       PAD[16],
+                       ctr[16],
+                       CTRPAD[16],
+                       CTRlen;
+} ccm_state;
+
+int ccm_init(ccm_state *ccm, int cipher,
+             const unsigned char *key, int keylen, int ptlen, int taglen, int aad_len);
+
+int ccm_reset(ccm_state *ccm);
+
+int ccm_add_nonce(ccm_state *ccm,
+                  const unsigned char *nonce,     unsigned long noncelen);
+
+int ccm_add_aad(ccm_state *ccm,
+                const unsigned char *adata,  unsigned long adatalen);
+
+int ccm_process(ccm_state *ccm,
+                unsigned char *pt,     unsigned long ptlen,
+                unsigned char *ct,
+                int direction);
+
+int ccm_done(ccm_state *ccm,
+             unsigned char *tag,    unsigned long *taglen);
 
 int ccm_memory(int cipher,
     const unsigned char *key,    unsigned long keylen,
@@ -208,6 +307,19 @@ int ccm_memory(int cipher,
           unsigned char *tag,    unsigned long *taglen,
                     int  direction);
 
+int ccm_memory_ex(int cipher,
+    const unsigned char *key,    unsigned long keylen,
+    symmetric_key       *uskey,
+    const unsigned char *nonce,  unsigned long noncelen,
+    const unsigned char *header, unsigned long headerlen,
+          unsigned char *pt,     unsigned long ptlen,
+          unsigned char *ct,
+          unsigned char *tag,    unsigned long *taglen,
+                    int  direction,
+    const unsigned char *B_0,
+    const unsigned char *CTR,
+                    int  ctrwidth);
+
 int ccm_test(void);
 
 #endif /* LTC_CCM_MODE */
@@ -218,7 +330,7 @@ void gcm_gf_mult(const unsigned char *a, const unsigned char *b, unsigned char *
 
 
 /* table shared between GCM and LRW */
-#if defined(LTC_GCM_TABLES) || defined(LRW_TABLES) || ((defined(LTC_GCM_MODE) || defined(LTC_GCM_MODE)) && defined(LTC_FAST))
+#if defined(LTC_GCM_TABLES) || defined(LTC_LRW_TABLES) || ((defined(LTC_GCM_MODE) || defined(LTC_GCM_MODE)) && defined(LTC_FAST))
 extern const unsigned char gcm_shift_table[];
 #endif
 
@@ -231,7 +343,7 @@ extern const unsigned char gcm_shift_table[];
 #define LTC_GCM_MODE_AAD   1
 #define LTC_GCM_MODE_TEXT  2
 
-typedef struct { 
+typedef struct {
    symmetric_key       K;
    unsigned char       H[16],        /* multiplier */
                        X[16],        /* accumulator */
@@ -253,7 +365,7 @@ typedef struct {
 __attribute__ ((aligned (16)))
 #endif
 ;
-#endif  
+#endif
 } gcm_state;
 
 void gcm_mult_h(gcm_state *gcm, unsigned char *I);
@@ -263,7 +375,7 @@ int gcm_init(gcm_state *gcm, int cipher,
 
 int gcm_reset(gcm_state *gcm);
 
-int gcm_add_iv(gcm_state *gcm, 
+int gcm_add_iv(gcm_state *gcm,
                const unsigned char *IV,     unsigned long IVlen);
 
 int gcm_add_aad(gcm_state *gcm,
@@ -274,7 +386,7 @@ int gcm_process(gcm_state *gcm,
                      unsigned char *ct,
                      int direction);
 
-int gcm_done(gcm_state *gcm, 
+int gcm_done(gcm_state *gcm,
                      unsigned char *tag,    unsigned long *taglen);
 
 int gcm_memory(      int           cipher,
@@ -282,7 +394,7 @@ int gcm_memory(      int           cipher,
                const unsigned char *IV,     unsigned long IVlen,
                const unsigned char *adata,  unsigned long adatalen,
                      unsigned char *pt,     unsigned long ptlen,
-                     unsigned char *ct, 
+                     unsigned char *ct,
                      unsigned char *tag,    unsigned long *taglen,
                                int direction);
 int gcm_test(void);
@@ -328,17 +440,17 @@ typedef struct {
 int xcbc_init(xcbc_state *xcbc, int cipher, const unsigned char *key, unsigned long keylen);
 int xcbc_process(xcbc_state *xcbc, const unsigned char *in, unsigned long inlen);
 int xcbc_done(xcbc_state *xcbc, unsigned char *out, unsigned long *outlen);
-int xcbc_memory(int cipher, 
+int xcbc_memory(int cipher,
                const unsigned char *key, unsigned long keylen,
                const unsigned char *in,  unsigned long inlen,
                      unsigned char *out, unsigned long *outlen);
-int xcbc_memory_multi(int cipher, 
+int xcbc_memory_multi(int cipher,
                 const unsigned char *key, unsigned long keylen,
                       unsigned char *out, unsigned long *outlen,
                 const unsigned char *in,  unsigned long inlen, ...);
-int xcbc_file(int cipher, 
+int xcbc_file(int cipher,
               const unsigned char *key, unsigned long keylen,
-              const          char *filename, 
+              const          char *filename,
                     unsigned char *out, unsigned long *outlen);
 int xcbc_test(void);
 
@@ -362,23 +474,23 @@ typedef struct {
 int f9_init(f9_state *f9, int cipher, const unsigned char *key, unsigned long keylen);
 int f9_process(f9_state *f9, const unsigned char *in, unsigned long inlen);
 int f9_done(f9_state *f9, unsigned char *out, unsigned long *outlen);
-int f9_memory(int cipher, 
+int f9_memory(int cipher,
                const unsigned char *key, unsigned long keylen,
                const unsigned char *in,  unsigned long inlen,
                      unsigned char *out, unsigned long *outlen);
-int f9_memory_multi(int cipher, 
+int f9_memory_multi(int cipher,
                 const unsigned char *key, unsigned long keylen,
                       unsigned char *out, unsigned long *outlen,
                 const unsigned char *in,  unsigned long inlen, ...);
-int f9_file(int cipher, 
+int f9_file(int cipher,
               const unsigned char *key, unsigned long keylen,
-              const          char *filename, 
+              const          char *filename,
                     unsigned char *out, unsigned long *outlen);
 int f9_test(void);
 
 #endif
 
 
-/* $Source: /cvs/libtom/libtomcrypt/src/headers/tomcrypt_mac.h,v $ */
-/* $Revision: 1.23 $ */
-/* $Date: 2007/05/12 14:37:41 $ */
+/* $Source$ */
+/* $Revision$ */
+/* $Date$ */
