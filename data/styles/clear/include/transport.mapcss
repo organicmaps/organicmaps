@@ -622,6 +622,9 @@ node|z10[aeroway=aerodrome][aerodrome=international]
   text-halo-opacity: 0.5;
   text-halo-color: @label_halo_light;
   z-index: 10000;
+  fill-opacity: 1;
+  z-index: 100;
+  fill-color: @aerodrome;
 }
 
 area|z11-14[aeroway=airport][aerodrome=international],
@@ -655,6 +658,43 @@ node|z15-[aeroway=aerodrome]
     text-halo-color: @label_halo_light;
     z-index: 10000;
 }
+
+area|z10-11[aeroway=airport][aerodrome=international],
+area|z10-11[aeroway=aerodrome][aerodrome=international] {
+  fill-opacity: 0.7;
+  z-index: 100;
+  fill-color: @aerodrome;
+}
+
+area|z12[aeroway=airport][aerodrome=international],
+area|z12[aeroway=aerodrome][aerodrome=international] {
+  fill-opacity: 0.6;
+  z-index: 100;
+  fill-color: @aerodrome;
+}
+
+area|z13[aeroway=airport][aerodrome=international],
+area|z13[aeroway=aerodrome][aerodrome=international] {
+  fill-opacity: 0.5;
+  z-index: 100;
+  fill-color: @aerodrome;
+}
+
+
+area|z14-[aeroway=airport][aerodrome=international],
+area|z14-[aeroway=aerodrome][aerodrome=international],
+area|z14-[aeroway=airport],
+area|z14-[aeroway=aerodrome] { fill-opacity: 0.3; z-index: 100; fill-color: @aerodrome; }
+
+line|z12[aeroway=runway] { width: 1; opacity: 0.5; color: @unclassified; }
+line|z13[aeroway=runway] { width: 1.5; opacity: 0.8; color: @unclassified; }
+line|z14-16[aeroway=runway] { opacity: 1; width: 5; color: @unclassified; }
+line|z17-[aeroway=runway] { width: 8; color: @unclassified; }
+
+line|z14[aeroway=taxiway] { width: 0.5; opacity: 0.6; color: @unclassified; }
+line|z15-[aeroway=taxiway] { width: 1; opacity: 0.6; color: @unclassified; }
+
+
 
 /* TERMINAL
 node|z10-[aeroway=terminal] {

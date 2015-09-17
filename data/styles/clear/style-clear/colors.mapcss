@@ -83,6 +83,7 @@
 @aerialway: #777777;
 @tram: #555555;
 @ferry: #4499Bb;
+@aerodrome: #C1B1E1;
 
 /* NATURAL */
 @glacier: #FFFFFF;
