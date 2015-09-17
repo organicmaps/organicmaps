@@ -56,14 +56,14 @@ void TestContainsRectangular(PointT const * arr)
   TEST(region.Contains(arr[3] + dx - dy), ());
 }
 
-template <class RegionT>
-void TestContaints()
+template <class TRegion>
+void TestContains()
 {
-  RegionT region;
-  ContainsChecker<RegionT> checker(region);
+  TRegion region;
+  ContainsChecker<TRegion> checker(region);
 
   // point type
-  typedef typename RegionT::ValueT P;
+  using P = typename TRegion::ValueT;
 
   // rectangular polygon
   {
@@ -138,11 +138,11 @@ UNIT_TEST(Region)
 
 UNIT_TEST(Region_Contains_int32)
 {
-  TestContaints<m2::RegionI>();
+  TestContains<m2::RegionI>();
 
   // negative triangle
   {
-    typedef m2::PointI P;
+    using P = m2::PointI;
     m2::Region<P> region;
     P const data[] = { P(1, -1), P(-2, -2), P(-3, 1) };
     region.Assign(data, data + ARRAY_SIZE(data));
@@ -155,7 +155,7 @@ UNIT_TEST(Region_Contains_int32)
   }
 
   {
-    typedef m2::PointI P;
+    using P = m2::PointI;
     m2::Region<P> region;
     P const data[] = { P(1, -1), P(3, 0), P(3, 3), P(0, 3), P(0, 2), P(0, 1), P(2, 2) };
     region.Assign(data, data + ARRAY_SIZE(data));
@@ -171,22 +171,23 @@ UNIT_TEST(Region_Contains_int32)
 
 UNIT_TEST(Region_Contains_uint32)
 {
-  TestContaints<m2::RegionU>();
+  TestContains<m2::RegionU>();
 }
 
 UNIT_TEST(Region_Contains_double)
 {
-  TestContaints<m2::RegionD>();
+  using TRegion = m2::RegionD;
+  using TPoint = TRegion::ValueT;
+
+  TestContains<TRegion>();
 
   {
-    typedef m2::PointD P;
-    m2::Region<P> region;
-    P const data[] = { P(0, 7), P(4, 4), P(3, 6), P(8, 6), P(8, 5), P(6, 3), P(2, 2) };
+    TRegion region;
+    TPoint const data[] = {{0, 7}, {4, 4}, {3, 6}, {8, 6}, {8, 5}, {6, 3}, {2, 2}};
     region.Assign(data, data + ARRAY_SIZE(data));
 
-    TEST_EQUAL(region.GetRect(), m2::Rect<P::value_type>(0, 2, 8, 7), ());
-
-    TEST(!region.Contains(P(3, 5)), ());
+    TEST_EQUAL(region.GetRect(), m2::Rect<TPoint::value_type>(0, 2, 8, 7), ());
+    TEST(!region.Contains({3, 5}), ());
   }
 }
 

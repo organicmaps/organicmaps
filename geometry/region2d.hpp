@@ -17,17 +17,22 @@ namespace m2
   {
     struct DefEqualFloat
     {
-      // 10e-9 is two orders of magnitude more accurate than our OSM source data.
-      static double constexpr kPrecision = 10e-9;
+      // 1e-9 is two orders of magnitude more accurate than our OSM source data.
+      static double constexpr kPrecision = 1e-9;
+
       template <class TPoint>
       bool EqualPoints(TPoint const & p1, TPoint const & p2) const
       {
+        static_assert(std::is_floating_point<typename TPoint::value_type>::value, "");
+
         return my::AlmostEqualAbs(p1.x, p2.x, static_cast<typename TPoint::value_type>(kPrecision)) &&
                my::AlmostEqualAbs(p1.y, p2.y, static_cast<typename TPoint::value_type>(kPrecision));
       }
       template <class TCoord>
       bool EqualZero(TCoord val, TCoord) const
       {
+        static_assert(std::is_floating_point<TCoord>::value, "");
+
         return my::AlmostEqualAbs(val, 0.0, static_cast<TCoord>(kPrecision));
       }
     };
