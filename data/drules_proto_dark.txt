@@ -613,7 +613,18 @@ cont {
 cont {
   name: "aeroway-aerodrome"
   element {
+    scale: 14
+    area {
+      color: 3005354308
+      priority: -15815
+    }
+  }
+  element {
     scale: 15
+    area {
+      color: 3005354308
+      priority: -15093
+    }
     symbol {
       name: "airport-l"
       priority: 16907
@@ -630,6 +641,10 @@ cont {
   }
   element {
     scale: 16
+    area {
+      color: 3005354308
+      priority: -15093
+    }
     symbol {
       name: "airport-l"
       priority: 16907
@@ -646,6 +661,10 @@ cont {
   }
   element {
     scale: 17
+    area {
+      color: 3005354308
+      priority: -15093
+    }
     symbol {
       name: "airport-l"
       priority: 16907
@@ -662,6 +681,10 @@ cont {
   }
   element {
     scale: 18
+    area {
+      color: 3005354308
+      priority: -15093
+    }
     symbol {
       name: "airport-l"
       priority: 16907
@@ -678,6 +701,10 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 3005354308
+      priority: -15093
+    }
     symbol {
       name: "airport-l"
       priority: 16907
@@ -697,9 +724,13 @@ cont {
   name: "aeroway-aerodrome-international"
   element {
     scale: 10
+    area {
+      color: 2232644
+      priority: -15815
+    }
     symbol {
       name: "airport-s"
-      priority: 16907
+      priority: 16185
     }
     caption {
       primary {
@@ -708,11 +739,15 @@ cont {
         stroke_color: 2148602112
         offset_y: 7
       }
-      priority: 15907
+      priority: 15185
     }
   }
   element {
     scale: 11
+    area {
+      color: 1294078276
+      priority: -15093
+    }
     symbol {
       name: "airport-m"
       priority: 16907
@@ -729,6 +764,10 @@ cont {
   }
   element {
     scale: 12
+    area {
+      color: 1713508676
+      priority: -15093
+    }
     symbol {
       name: "airport-m"
       priority: 16907
@@ -745,6 +784,10 @@ cont {
   }
   element {
     scale: 13
+    area {
+      color: 2149716292
+      priority: -15093
+    }
     symbol {
       name: "airport-m"
       priority: 16907
@@ -761,6 +804,10 @@ cont {
   }
   element {
     scale: 14
+    area {
+      color: 3005354308
+      priority: -15093
+    }
     symbol {
       name: "airport-m"
       priority: 16907
@@ -777,6 +824,10 @@ cont {
   }
   element {
     scale: 15
+    area {
+      color: 3005354308
+      priority: -15093
+    }
     symbol {
       name: "airport-l"
       priority: 16907
@@ -793,6 +844,10 @@ cont {
   }
   element {
     scale: 16
+    area {
+      color: 3005354308
+      priority: -15093
+    }
     symbol {
       name: "airport-l"
       priority: 16907
@@ -809,6 +864,10 @@ cont {
   }
   element {
     scale: 17
+    area {
+      color: 3005354308
+      priority: -15093
+    }
     symbol {
       name: "airport-l"
       priority: 16907
@@ -825,6 +884,10 @@ cont {
   }
   element {
     scale: 18
+    area {
+      color: 3005354308
+      priority: -15093
+    }
     symbol {
       name: "airport-l"
       priority: 16907
@@ -841,6 +904,10 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 3005354308
+      priority: -15093
+    }
     symbol {
       name: "airport-l"
       priority: 16907
@@ -853,6 +920,232 @@ cont {
         offset_y: 8
       }
       priority: 15907
+    }
+  }
+}
+cont {
+  name: "aeroway-runway"
+  element {
+    scale: 12
+    lines {
+      width: 1.0
+      color: 2149720610
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.5
+      color: 857874978
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 5.0
+      color: 2236962
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 5.0
+      color: 2236962
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 5.0
+      color: 2236962
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 8.0
+      color: 2236962
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 8.0
+      color: 2236962
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 8.0
+      color: 2236962
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+}
+cont {
+  name: "aeroway-taxiway"
+  element {
+    scale: 14
+    lines {
+      width: 0.5
+      color: 1713512994
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 1713512994
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 1713512994
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.0
+      color: 1713512994
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.0
+      color: 1713512994
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.0
+      color: 1713512994
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+}
+cont {
+  name: "aeroway-terminal"
+  element {
+    scale: 14
+    area {
+      color: 857874978
+      priority: -15686
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 857874978
+      priority: -15686
+    }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15314
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2236962
+      priority: -15686
+    }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15314
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 3355443
+      priority: -15686
+    }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15314
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 3355443
+      priority: -15686
+    }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15314
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 3355443
+      priority: -15686
+    }
+    caption {
+      primary {
+        height: 9
+        color: 5592405
+      }
+      priority: 15314
     }
   }
 }
