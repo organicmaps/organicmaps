@@ -6,6 +6,12 @@
 
 #include "std/algorithm.hpp"
 
+namespace coding
+{
+// static
+uint32_t const DenseCBV::kBlockSize;
+}  // namespace coding
+
 namespace
 {
 uint64_t const kBlockSize = coding::DenseCBV::kBlockSize;
@@ -89,14 +95,12 @@ DenseCBV::DenseCBV(vector<uint64_t> const & setBits)
 {
   if (setBits.empty())
   {
-    m_bitGroups.resize(0);
-    m_popCount = 0;
     return;
   }
   uint64_t maxBit = setBits[0];
   for (size_t i = 1; i < setBits.size(); ++i)
     maxBit = max(maxBit, setBits[i]);
-  size_t sz = (maxBit + kBlockSize - 1) / kBlockSize;
+  size_t sz = 1 + maxBit / kBlockSize;
   m_bitGroups.resize(sz);
   m_popCount = static_cast<uint32_t>(setBits.size());
   for (uint64_t pos : setBits)
@@ -114,6 +118,33 @@ unique_ptr<DenseCBV> DenseCBV::BuildFromBitGroups(vector<uint64_t> && bitGroups)
   return cbv;
 }
 
+uint64_t DenseCBV::GetBitGroup(size_t i) const
+{
+  return i < m_bitGroups.size() ? m_bitGroups[i] : 0;
+}
+
+uint32_t DenseCBV::PopCount() const { return m_popCount; }
+
+bool DenseCBV::GetBit(uint32_t pos) const
+{
+  uint64_t bitGroup = GetBitGroup(pos / kBlockSize);
+  return ((bitGroup >> (pos % kBlockSize)) & 1) > 0;
+}
+
+CompressedBitVector::StorageStrategy DenseCBV::GetStorageStrategy() const
+{
+  return CompressedBitVector::StorageStrategy::Dense;
+}
+
+void DenseCBV::Serialize(Writer & writer) const
+{
+  uint8_t header = static_cast<uint8_t>(GetStorageStrategy());
+  WriteToSink(writer, header);
+  WriteToSink(writer, static_cast<uint32_t>(NumBitGroups()));
+  for (size_t i = 0; i < NumBitGroups(); ++i)
+    WriteToSink(writer, GetBitGroup(i));
+}
+
 SparseCBV::SparseCBV(vector<uint64_t> const & setBits) : m_positions(setBits)
 {
   ASSERT(is_sorted(m_positions.begin(), m_positions.end()), ());
@@ -124,15 +155,13 @@ SparseCBV::SparseCBV(vector<uint64_t> && setBits) : m_positions(move(setBits))
   ASSERT(is_sorted(m_positions.begin(), m_positions.end()), ());
 }
 
-uint32_t DenseCBV::PopCount() const { return m_popCount; }
+uint64_t SparseCBV::Select(size_t i) const
+{
+  ASSERT_LESS(i, m_positions.size(), ());
+  return m_positions[i];
+}
 
 uint32_t SparseCBV::PopCount() const { return m_positions.size(); }
-
-bool DenseCBV::GetBit(uint32_t pos) const
-{
-  uint64_t bitGroup = GetBitGroup(pos / kBlockSize);
-  return ((bitGroup >> (pos % kBlockSize)) & 1) > 0;
-}
 
 bool SparseCBV::GetBit(uint32_t pos) const
 {
@@ -140,45 +169,9 @@ bool SparseCBV::GetBit(uint32_t pos) const
   return it != m_positions.end() && *it == pos;
 }
 
-uint64_t DenseCBV::GetBitGroup(size_t i) const
-{
-  return i < m_bitGroups.size() ? m_bitGroups[i] : 0;
-}
-
-uint64_t SparseCBV::Select(size_t i) const
-{
-  ASSERT_LESS(i, m_positions.size(), ());
-  return m_positions[i];
-}
-
-CompressedBitVector::StorageStrategy DenseCBV::GetStorageStrategy() const
-{
-  return CompressedBitVector::StorageStrategy::Dense;
-}
-
 CompressedBitVector::StorageStrategy SparseCBV::GetStorageStrategy() const
 {
   return CompressedBitVector::StorageStrategy::Sparse;
-}
-
-string DebugPrint(CompressedBitVector::StorageStrategy strat)
-{
-  switch (strat)
-  {
-    case CompressedBitVector::StorageStrategy::Dense:
-      return "Dense";
-    case CompressedBitVector::StorageStrategy::Sparse:
-      return "Sparse";
-  }
-}
-
-void DenseCBV::Serialize(Writer & writer) const
-{
-  uint8_t header = static_cast<uint8_t>(GetStorageStrategy());
-  WriteToSink(writer, header);
-  WriteToSink(writer, static_cast<uint32_t>(NumBitGroups()));
-  for (size_t i = 0; i < NumBitGroups(); ++i)
-    WriteToSink(writer, GetBitGroup(i));
 }
 
 void SparseCBV::Serialize(Writer & writer) const
@@ -217,7 +210,7 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(
   if (bitGroups.empty())
     return make_unique<SparseCBV>(bitGroups);
 
-  uint64_t maxBit = kBlockSize * bitGroups.size() - 1;
+  uint64_t const maxBit = kBlockSize * bitGroups.size() - 1;
   uint64_t popCount = 0;
   for (size_t i = 0; i < bitGroups.size(); ++i)
     popCount += bits::PopCount(bitGroups[i]);
@@ -231,6 +224,17 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(
       if (((bitGroups[i] >> j) & 1) > 0)
         setBits.push_back(kBlockSize * i + j);
   return make_unique<SparseCBV>(setBits);
+}
+
+string DebugPrint(CompressedBitVector::StorageStrategy strat)
+{
+  switch (strat)
+  {
+    case CompressedBitVector::StorageStrategy::Dense:
+      return "Dense";
+    case CompressedBitVector::StorageStrategy::Sparse:
+      return "Sparse";
+  }
 }
 
 // static

@@ -8,7 +8,7 @@
 namespace bits
 {
   // Count the number of 1 bits. Implementation: see Hacker's delight book.
-  inline uint32_t PopCount(uint32_t x)
+  inline uint32_t PopCount(uint32_t x) noexcept
   {
     x -= ((x >> 1) & 0x55555555);
     x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
@@ -18,7 +18,7 @@ namespace bits
     return x & 0x3F;
   }
 
-  inline uint32_t PopCount(uint8_t x)
+  inline uint32_t PopCount(uint8_t x) noexcept
   {
     return PopCount(static_cast<uint32_t>(x));
   }
@@ -61,7 +61,7 @@ namespace bits
     return static_cast<unsigned int>(SELECT1_ERROR);
   }
 
-  inline uint32_t PopCount(uint64_t x)
+  inline uint32_t PopCount(uint64_t x) noexcept
   {
     x = (x & 0x5555555555555555) + ((x & 0xAAAAAAAAAAAAAAAA) >> 1);
     x = (x & 0x3333333333333333) + ((x & 0xCCCCCCCCCCCCCCCC) >> 2);
@@ -69,7 +69,7 @@ namespace bits
     x = (x & 0x00FF00FF00FF00FF) + ((x & 0xFF00FF00FF00FF00) >> 8);
     x = (x & 0x0000FFFF0000FFFF) + ((x & 0xFFFF0000FFFF0000) >> 16);
     x = x + (x >> 32);
-    return static_cast<uint8_t>(x);
+    return static_cast<uint32_t>(x);
   }
 
   // Will be implemented when needed.

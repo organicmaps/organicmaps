@@ -191,3 +191,14 @@ UNIT_TEST(CompressedBitVector_ForEach)
                                                    TEST_EQUAL(pos % 15, 0, ());
                                                  });
 }
+
+UNIT_TEST(CompressedBitVector_DenseOneBit)
+{
+  vector<uint64_t> setBits = {0};
+  unique_ptr<coding::DenseCBV> cbv(new coding::DenseCBV(setBits));
+  TEST_EQUAL(cbv->PopCount(), 1, ());
+  coding::CompressedBitVectorEnumerator::ForEach(*cbv, [&](uint64_t pos)
+                                                 {
+                                                   TEST_EQUAL(pos, 0, ());
+                                                 });
+}

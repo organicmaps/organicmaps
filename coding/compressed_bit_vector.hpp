@@ -65,6 +65,8 @@ string DebugPrint(CompressedBitVector::StorageStrategy strat);
 class DenseCBV : public CompressedBitVector
 {
 public:
+  static uint32_t const kBlockSize = 64;
+
   DenseCBV() = default;
 
   // Builds a dense CBV from a list of positions of set bits.
@@ -76,15 +78,17 @@ public:
 
   size_t NumBitGroups() const { return m_bitGroups.size(); }
 
-  static uint32_t const kBlockSize = 64;
-
-  template <typename F>
-  void ForEach(F && f) const
+  template <typename TFn>
+  void ForEach(TFn && f) const
   {
     for (size_t i = 0; i < m_bitGroups.size(); ++i)
+    {
       for (size_t j = 0; j < kBlockSize; ++j)
+      {
         if (((m_bitGroups[i] >> j) & 1) > 0)
           f(kBlockSize * i + j);
+      }
+    }
   }
 
   // Returns 0 if the group number is too large to be contained in m_bits.
@@ -111,8 +115,8 @@ public:
   // Returns the position of the i'th set bit.
   uint64_t Select(size_t i) const;
 
-  template <typename F>
-  void ForEach(F && f) const
+  template <typename TFn>
+  void ForEach(TFn && f) const
   {
     for (auto const & position : m_positions)
       f(position);
@@ -174,8 +178,8 @@ class CompressedBitVectorEnumerator
 public:
   // Executes f for each bit that is set to one using
   // the bit's 0-based position as argument.
-  template <typename F>
-  static void ForEach(CompressedBitVector const & cbv, F && f)
+  template <typename TFn>
+  static void ForEach(CompressedBitVector const & cbv, TFn && f)
   {
     CompressedBitVector::StorageStrategy strat = cbv.GetStorageStrategy();
     switch (strat)
