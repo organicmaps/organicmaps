@@ -726,7 +726,8 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
         for (size_t k = lastIdx + 1; k < points.size(); ++k)
           distMeters += MercatorBounds::DistanceOnEarth(points[k - 1], points[k]);
         LOG(LDEBUG, ("Speed:", 3.6 * distMeters / nodeTimeSeconds, "kmph; Dist:", distMeters, "Time:",
-                     nodeTimeSeconds, "s", lastIdx, "e", points.size()));
+                     nodeTimeSeconds, "s", lastIdx, "e", points.size(), "source:", t.m_sourceName,
+                     "target:", t.m_targetName));
         lastIdx = points.size();
 #endif
         estimatedTime += nodeTimeSeconds;
