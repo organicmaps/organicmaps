@@ -159,7 +159,6 @@
 		674A28D31B1C8001001A525C /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
 		674A28D41B1C8001001A525C /* librouting.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting.a; path = "../../../omim-xcode-build/Debug/librouting.a"; sourceTree = "<group>"; };
 		674A28D71B1C800D001A525C /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
-		674A28D91B1C8015001A525C /* libsgitess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsgitess.a; path = "../../../omim-xcode-build/Debug/libsgitess.a"; sourceTree = "<group>"; };
 		674A28DB1B1C801D001A525C /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug/libprotobuf.a"; sourceTree = "<group>"; };
 		674A28DD1B1C8027001A525C /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		674A28EB1B1C80F4001A525C /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = "<group>"; };
@@ -323,11 +322,6 @@
 		6753414F1A3F54D800A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				6719DD5D1B95AB0F0018166F /* libtess2.a */,
-				67AB92CC1B73D15700AB5194 /* Foundation.framework */,
-				67AB92CA1B73D10B00AB5194 /* libsuccinct.a */,
-				67AB92C81B73D10200AB5194 /* libosrm.a */,
-				67AB92C61B73D03500AB5194 /* libmap.a */,
 				670D05AD1B0E08260013A7AC /* defaults.xcconfig */,
 				670B84C41A9F73AB00CE4492 /* std */,
 				6726C1D71A4C27A5005EEA39 /* Tests */,
@@ -358,6 +352,10 @@
 		6753453F1A3F6FA600A0A8C3 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				6719DD5D1B95AB0F0018166F /* libtess2.a */,
+				67AB92CA1B73D10B00AB5194 /* libsuccinct.a */,
+				67AB92C81B73D10200AB5194 /* libosrm.a */,
+				67AB92C61B73D03500AB5194 /* libmap.a */,
 				674A28F31B1C8125001A525C /* libosrm.a */,
 				674A28F11B1C8119001A525C /* libsuccinct.a */,
 				674A28EF1B1C8104001A525C /* libsearch.a */,
@@ -365,7 +363,6 @@
 				674A28EB1B1C80F4001A525C /* libstorage.a */,
 				674A28DD1B1C8027001A525C /* libtomcrypt.a */,
 				674A28DB1B1C801D001A525C /* libprotobuf.a */,
-				674A28D91B1C8015001A525C /* libsgitess.a */,
 				674A28D71B1C800D001A525C /* libbase.a */,
 				674A28D31B1C8001001A525C /* libplatform.a */,
 				674A28D41B1C8001001A525C /* librouting.a */,
@@ -375,6 +372,7 @@
 				674A28CC1B1C7FED001A525C /* libgflags.a */,
 				674A28CD1B1C7FED001A525C /* libindexer.a */,
 				674A28C71B1C7FC9001A525C /* libexpat.a */,
+				67AB92CC1B73D15700AB5194 /* Foundation.framework */,
 				675343E21A3F607600A0A8C3 /* Cocoa.framework */,
 				675343E01A3F600D00A0A8C3 /* IOKit.framework */,
 				675343DE1A3F5FE500A0A8C3 /* CoreFoundation.framework */,
