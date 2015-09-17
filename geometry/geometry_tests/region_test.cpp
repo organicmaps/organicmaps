@@ -136,10 +136,8 @@ UNIT_TEST(Region)
 
 }
 
-UNIT_TEST(Region_Contains)
+UNIT_TEST(Region_Contains_int32)
 {
-  TestContaints<m2::RegionU>();
-  TestContaints<m2::RegionD>();
   TestContaints<m2::RegionI>();
 
   // negative triangle
@@ -168,6 +166,27 @@ UNIT_TEST(Region_Contains)
     TEST(region.Contains(P(1, 3)), ());
     TEST(region.Contains(P(3, 1)), ());
     TEST(!region.Contains(P(1, 1)), ());
+  }
+}
+
+UNIT_TEST(Region_Contains_uint32)
+{
+  TestContaints<m2::RegionU>();
+}
+
+UNIT_TEST(Region_Contains_double)
+{
+  TestContaints<m2::RegionD>();
+
+  {
+    typedef m2::PointD P;
+    m2::Region<P> region;
+    P const data[] = { P(0, 7), P(4, 4), P(3, 6), P(8, 6), P(8, 5), P(6, 3), P(2, 2) };
+    region.Assign(data, data + ARRAY_SIZE(data));
+
+    TEST_EQUAL(region.GetRect(), m2::Rect<P::value_type>(0, 2, 8, 7), ());
+
+    TEST(!region.Contains(P(3, 5)), ());
   }
 }
 
