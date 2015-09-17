@@ -126,5 +126,12 @@ UNIT_TEST(QuerySaverTrimRequestTest)
   TEST_EQUAL(result.size(), 1, ());
   TEST_EQUAL(result.front(), rec2, ());
   saver.Clear();
+
+  saver.Add(rec2);
+  saver.Add(rec1);
+
+  TEST_EQUAL(result.size(), 1, ());
+  TEST_EQUAL(result.front(), rec1, ());
+  saver.Clear();
 }
 }  // namespace search

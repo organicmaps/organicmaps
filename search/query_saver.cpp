@@ -73,6 +73,8 @@ QuerySaver::QuerySaver()
 
 void QuerySaver::Add(TSearchRequest const & query)
 {
+  // This change was made just before release, so we don't use untested search normalization methods.
+  //TODO (ldragunov) Rewrite to normalized requests.
   TSearchRequest trimmedQuery(query);
   strings::Trim(trimmedQuery.first);
   strings::Trim(trimmedQuery.second);
