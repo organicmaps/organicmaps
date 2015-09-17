@@ -32,7 +32,7 @@ public:
     void DrawSearchArrow(double azimut);
   void EndFrame(FrameImage & image);
 
-  graphics::GlyphCache * GetGlyphCache() { return m_renderer->GetGlyphCache(); }
+  graphics::GlyphCache * GetGlyphCache() override { return m_renderer->GetGlyphCache(); }
 
 protected:
   void DrawSymbol(m2::PointD const & pt, graphics::EPosition pos, di::DrawRule const & rule) override;

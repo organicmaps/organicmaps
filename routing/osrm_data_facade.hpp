@@ -206,21 +206,28 @@ public:
     return false;
   }*/
 
-  bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
-                                               std::vector<PhantomNode> &resulting_phantom_node_vector,
-                                               const unsigned number_of_results) {return false;}
+  bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate & input_coordinate,
+                                               std::vector<PhantomNode> & resulting_phantom_node_vector,
+                                               const unsigned number_of_results) override
+  {
+    return false;
+  }
 
-  bool
-       IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
-                                               PhantomNode &resulting_phantom_node) { return false;}
+  bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate & input_coordinate,
+                                               PhantomNode & resulting_phantom_node) override
+  {
+    return false;
+  }
 
   bool IncrementalFindPhantomNodeForCoordinateWithMaxDistance(
-           const FixedPointCoordinate &input_coordinate,
-           std::vector<std::pair<PhantomNode, double>> &resulting_phantom_node_vector,
+           const FixedPointCoordinate & input_coordinate,
+           std::vector<std::pair<PhantomNode, double>> & resulting_phantom_node_vector,
            const double max_distance,
            const unsigned min_number_of_phantom_nodes,
-           const unsigned max_number_of_phantom_nodes) {return false;}
-
+           const unsigned max_number_of_phantom_nodes) override
+  {
+    return false;
+  }
 
   unsigned GetCheckSum() const override
   {

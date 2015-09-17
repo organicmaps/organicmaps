@@ -29,13 +29,13 @@ public:
 
   OsrmRouter(Index * index, TCountryFileFn const & countryFileFn);
 
-  virtual string GetName() const;
+  virtual string GetName() const override;
 
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
                             m2::PointD const & finalPoint, RouterDelegate const & delegate,
                             Route & route) override;
 
-  virtual void ClearState();
+  virtual void ClearState() override;
 
   /*! Find single shortest path in a single MWM between 2 sets of edges
      * \param source: vector of source edges to make path

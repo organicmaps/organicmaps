@@ -70,8 +70,8 @@ namespace graphics
         void resetAdditionalUniforms() override;
         bool isNeedIndicesCount() const override;
         void setIndicesCount(size_t indicesCount) override;
-        void perform();
-        void dump();
+        void perform() override;
+        void dump() override;
 
       private:
         void ResetUniforms();
