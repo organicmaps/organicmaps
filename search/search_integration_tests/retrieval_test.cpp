@@ -105,7 +105,7 @@ public:
     for (auto it = m_rules.cbegin(); it != m_rules.cend(); ++it)
     {
       os << (*it)->ToString();
-      if (it + 1 != m_rules.end())
+      if (it + 1 != m_rules.cend())
         os << " | ";
     }
     os << " ]";
@@ -143,7 +143,7 @@ void MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
     return;
 
   ostringstream os;
-  os << "Non-satisfied rules:" << endl;
+  os << "Unsatisfied rules:" << endl;
   for (auto const & e : rules)
     os << "  " << DebugPrint(*e) << endl;
   os << "Unexpected retrieved features:" << endl;
@@ -416,25 +416,25 @@ UNIT_TEST(Retrieval_CafeMTV)
     Cleanup({msk, mtv, testWorld});
   });
 
-  auto const moscowCity = make_shared<TestCity>(m2::PointD(1, 0), "Moscow", "en", 100 /* rank */);
+  auto const mskCity = make_shared<TestCity>(m2::PointD(1, 0), "Moscow", "en", 100 /* rank */);
   auto const mtvCafe = make_shared<TestPOI>(m2::PointD(1, 0), "Cafe MTV", "en");
 
   auto const mtvCity = make_shared<TestCity>(m2::PointD(-1, 0), "MTV", "en", 100 /* rank */);
-  auto const moscowCafe = make_shared<TestPOI>(m2::PointD(-1, 0), "Cafe Moscow", "en");
+  auto const mskCafe = make_shared<TestPOI>(m2::PointD(-1, 0), "Cafe Moscow", "en");
 
   {
     TestMwmBuilder builder(msk, feature::DataHeader::country);
-    builder.Add(*moscowCity);
+    builder.Add(*mskCity);
     builder.Add(*mtvCafe);
   }
   {
     TestMwmBuilder builder(mtv, feature::DataHeader::country);
     builder.Add(*mtvCity);
-    builder.Add(*moscowCafe);
+    builder.Add(*mskCafe);
   }
   {
     TestMwmBuilder builder(testWorld, feature::DataHeader::world);
-    builder.Add(*moscowCity);
+    builder.Add(*mskCity);
     builder.Add(*mtvCity);
   }
 
@@ -454,8 +454,8 @@ UNIT_TEST(Retrieval_CafeMTV)
     TestSearchRequest request(engine, "Moscow ", "en", search::SearchParams::ALL, moscowViewport);
     request.Wait();
 
-    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(testWorldId, moscowCity),
-                                              make_shared<ExactMatch>(mtvId, moscowCafe)};
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(testWorldId, mskCity),
+                                              make_shared<ExactMatch>(mtvId, mskCafe)};
     MatchResults(engine, rules, request.Results());
   }
 
@@ -472,12 +472,12 @@ UNIT_TEST(Retrieval_CafeMTV)
     request.Wait();
 
     initializer_list<shared_ptr<MatchingRule>> alternatives = {
-        make_shared<ExactMatch>(mskId, mtvCafe), make_shared<ExactMatch>(mtvId, moscowCafe)};
+        make_shared<ExactMatch>(mskId, mtvCafe), make_shared<ExactMatch>(mtvId, mskCafe)};
     vector<shared_ptr<MatchingRule>> rules = {make_shared<AlternativesMatch>(alternatives)};
 
-    // TODO (@gorshenin): current search algorithms can't retrieve
-    // both Cafe Moscow @ MTV and Cafe MTV @ Moscow, it'll just return
-    // one of them. Fix this test when locality search will be fixed.
+    // TODO (@gorshenin): current search algorithm can't retrieve both
+    // Cafe Moscow @ MTV and Cafe MTV @ Moscow, it'll just return one
+    // of them. Fix this test when locality search will be fixed.
     MatchResults(engine, rules, request.Results());
   }
 }
