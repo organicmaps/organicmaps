@@ -9,6 +9,16 @@
 #include "indexer/mercator.hpp"
 #include "platform/measurement_utils.hpp"
 
+static NSDictionary * const selectedAttributes = @{
+  NSForegroundColorAttributeName : UIColor.blackPrimaryText,
+  NSFontAttributeName : UIFont.bold17
+};
+
+static NSDictionary * const unselectedAttributes = @{
+  NSForegroundColorAttributeName : UIColor.blackPrimaryText,
+  NSFontAttributeName : UIFont.regular17
+};
+
 @interface MWMSearchCommonCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel * typeLabel;
@@ -87,19 +97,11 @@
 
 - (NSDictionary *)selectedTitleAttributes
 {
-  static NSDictionary * selectedAttributes;
-  if (!selectedAttributes)
-    selectedAttributes = @{NSForegroundColorAttributeName : UIColor.blackPrimaryText,
-                           NSFontAttributeName : UIFont.bold17};
   return selectedAttributes;
 }
 
 - (NSDictionary *)unselectedTitleAttributes
 {
-  static NSDictionary * unselectedAttributes;
-  if (!unselectedAttributes)
-    unselectedAttributes = @{NSForegroundColorAttributeName : UIColor.blackPrimaryText,
-                             NSFontAttributeName : UIFont.regular17};
   return unselectedAttributes;
 }
 

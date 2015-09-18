@@ -2,6 +2,12 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
+static NSDictionary * const selectedAttributes =
+    @{NSForegroundColorAttributeName : UIColor.linkBlue, NSFontAttributeName : UIFont.bold16};
+
+static NSDictionary * const unselectedAttributes =
+    @{NSForegroundColorAttributeName : UIColor.linkBlue, NSFontAttributeName : UIFont.regular16};
+
 @interface MWMSearchSuggestionCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView * icon;
@@ -13,19 +19,11 @@
 
 - (NSDictionary *)selectedTitleAttributes
 {
-  static NSDictionary * selectedAttributes;
-  if (!selectedAttributes)
-    selectedAttributes = @{NSForegroundColorAttributeName : UIColor.linkBlue,
-                           NSFontAttributeName : UIFont.bold16};
   return selectedAttributes;
 }
 
 - (NSDictionary *)unselectedTitleAttributes
 {
-  static NSDictionary * unselectedAttributes;
-  if (!unselectedAttributes)
-    unselectedAttributes = @{NSForegroundColorAttributeName : UIColor.linkBlue,
-                             NSFontAttributeName : UIFont.regular16};
   return unselectedAttributes;
 }
 
