@@ -113,14 +113,12 @@ class StyleChooser:
                 return sl
 
         #if ftype not in self.compatible_types:
-#            return sl
+            #return sl
 
         object_id = self.testChain(self.ruleChains, ftype, tags, zoom)
 
         if not object_id:
             return sl
-
-        w = 0
 
         for r in self.styles:
             if self.has_evals:
@@ -136,7 +134,6 @@ class StyleChooser:
                                 combined_style[p] = cairo_to_hex(q)
                         b = b.compute(tags, combined_style, scale, zscale)
                     ra[a] = b
-                #r = ra
                 ra = make_nice_style(ra)
             else:
                 ra = r.copy()

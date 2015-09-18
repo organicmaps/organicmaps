@@ -101,7 +101,6 @@ class Condition:
         self.params = params       # e.g. ('highway','primary')
         if typez == "regex":
             self.regex = re.compile(self.params[0], re.I)
-        self.compiled_regex = ""
 
     def extract_tags(self):
         if self.params[0][:2] == "::" or self.type == "regex":
@@ -136,7 +135,6 @@ class Condition:
                 if params[0] in tags:
                     return tags[params[0]] == ''
                 return True
-
             if t == '<':
                 return (Number(tags[params[0]]) < Number(params[1]))
             if t == '<=':

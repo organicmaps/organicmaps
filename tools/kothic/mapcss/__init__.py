@@ -18,18 +18,12 @@
 import re
 import os
 import logging
-from hashlib import md5
-
-from copy import copy, deepcopy
-
-
 from StyleChooser import StyleChooser
 from Condition import Condition
 
 
 NEEDED_KEYS = set(["width", "casing-width", "fill-color", "fill-image", "icon-image", "text", "extrude",
                    "background-image", "background-color", "pattern-image", "shield-text", "symbol-shape"])
-
 
 WHITESPACE = re.compile(r'^ \s+ ', re.S | re.X)
 
@@ -139,14 +133,10 @@ class MapCSS():
                     tmp.append(ec)
             self.choosers_by_type_and_tag[type][tag] = tmp
 
-    def get_style(self, clname, type, tags={}, zoom=0, scale=1, zscale=.5, cache=True):
+    def get_style(self, clname, type, tags={}, zoom=0, scale=1, zscale=.5):
         """
         Kothic styling API
         """
-        if cache:
-            shash = md5(repr(type) + repr(tags) + repr(zoom)).digest()
-            if shash in self.cache["style"]:
-                return deepcopy(self.cache["style"][shash])
         style = []
         if type in self.choosers_by_type_and_tag:
             choosers = self.choosers_by_type_and_tag[type][clname]
@@ -163,13 +153,10 @@ class MapCSS():
             if not NEEDED_KEYS.isdisjoint(x):
                 st.append(x)
         style = st
-
-        if cache:
-            self.cache["style"][shash] = deepcopy(style)
         return style
 
-    def get_style_dict(self, clname, type, tags={}, zoom=0, scale=1, zscale=.5, olddict={}, cache=True):
-        r = self.get_style(clname, type, tags, zoom, scale, zscale, cache)
+    def get_style_dict(self, clname, type, tags={}, zoom=0, scale=1, zscale=.5, olddict={}):
+        r = self.get_style(clname, type, tags, zoom, scale, zscale)
         d = olddict
         for x in r:
             if x.get('object-id', '') not in d:

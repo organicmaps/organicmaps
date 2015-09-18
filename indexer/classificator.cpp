@@ -52,7 +52,6 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
       return;
 
   auto i = lower_bound(m_drawRule.begin(), m_drawRule.end(), k.m_scale, less_scales());
-  while (i != m_drawRule.end() && i->m_scale == k.m_scale) ++i;
   m_drawRule.insert(i, k);
 }
 

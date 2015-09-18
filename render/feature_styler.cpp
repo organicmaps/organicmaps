@@ -33,19 +33,12 @@ namespace
 
   void FilterRulesByRuntimeSelector(FeatureType const & ft, int zoom, drule::KeysT & keys)
   {
-    if (keys.empty())
-      return;
-    size_t const n = keys.size();
-    size_t w = 0;
-    for (size_t r = 0; r < n; ++r)
+    keys.erase_if([&ft, zoom](drule::Key const & key)->bool
     {
-      drule::BaseRule const * const rule = drule::rules().Find(keys[r]);
+      drule::BaseRule const * const rule = drule::rules().Find(key);
       ASSERT(rule != nullptr, ());
-      if (rule->TestFeature(ft, zoom))
-        keys[w++] = keys[r];
-    }
-    if (n != w)
-      keys.resize(w);
+      return !rule->TestFeature(ft, zoom);
+    });
   }
 }
 

@@ -48,7 +48,7 @@ bool ParseSelector(string const & str, SelectorExpression & e)
 
     e.m_operator = SelectorOperatorIsNotSet;
     e.m_tag = move(tag);
-    e.m_value = move(string());
+    e.m_value.clear();
     return true;
   }
 
@@ -57,7 +57,7 @@ bool ParseSelector(string const & str, SelectorExpression & e)
   {
     e.m_operator = SelectorOperatorIsSet;
     e.m_tag = str;
-    e.m_value = move(string());
+    e.m_value.clear();
     return true;
   }
 
@@ -76,7 +76,7 @@ bool ParseSelector(string const & str, SelectorExpression & e)
   }
 
   // If there is no entrance or no space for tag or value then it is invalid format
-  if (pos == 0 || len == 0 || pos == str.length()-1)
+  if (pos == 0 || len == 0 || pos == str.size()-1)
     return false; // invalid format
 
   // Dedicate the operator type, real operator position and length
