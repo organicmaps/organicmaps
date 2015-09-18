@@ -1,5 +1,5 @@
 
-NS_ENUM(NSUInteger, MWMSearchDownloadMapRequestViewState)
+typedef NS_ENUM(NSUInteger, MWMSearchDownloadMapRequestViewState)
 {
   MWMSearchDownloadMapRequestViewStateProgress,
   MWMSearchDownloadMapRequestViewStateRequest
