@@ -12,5 +12,5 @@ Framework & GetFramework()
 void DeleteFramework()
 {
   delete g_framework;
-  g_framework = 0;
+  g_framework = nullptr;
 }
