@@ -132,7 +132,7 @@ unix|win32-g++ {
   LIBS *= -lz
   QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing -Wno-unused-parameter \
                             -Werror=return-type -Wno-deprecated-register
-  !android* {
+  iphone*-clang|macx-clang {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-local-typedef
   }
   *-clang {
