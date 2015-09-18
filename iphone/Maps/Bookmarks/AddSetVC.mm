@@ -75,7 +75,7 @@
   {
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"EditSetNameCell"];
     cell.textLabel.text = @"Temporary Name";
-    [cell layoutSubviews];
+    [cell layoutIfNeeded];
     CGRect rect = cell.textLabel.frame;
     rect.size.width = cell.contentView.bounds.size.width - cell.textLabel.frame.origin.x;
     rect.origin.x = cell.textLabel.frame.origin.x;

@@ -113,7 +113,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
         // Temporary, to init font and color
         cell.detailTextLabel.text = @"temp string";
         // Called to initialize frames and fonts
-        [cell layoutSubviews];
+        [cell layoutIfNeeded];
         CGRect const leftR = cell.textLabel.frame;
         CGFloat const padding = leftR.origin.x;
         CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,

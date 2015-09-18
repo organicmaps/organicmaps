@@ -117,7 +117,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   if (!message)
   {
     alert.dividerTop.constant = kDividerTopConstant;
-    [alert layoutSubviews];
+    [alert layoutIfNeeded];
   }
   alert.rightButton.localizedText = rightButtonTitle;
   alert.rightButtonAction = action;

@@ -143,7 +143,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)willFinishEditingBookmarkTitle:(NSString *)title
 {
   self.basePlacePageView.titleLabel.text = title;
-  [self.basePlacePageView layoutSubviews];
+  [self.basePlacePageView layoutIfNeeded];
   self.keyboardHeight = 0.;
 }
 
