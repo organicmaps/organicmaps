@@ -105,12 +105,16 @@
 
 - (void)hideHelperPanels
 {
+  if (IPAD)
+    return;
   for (MWMRouteHelperPanel * p in self.helperPanels)
     [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ p.alpha = 0.; }];
 }
 
 - (void)showHelperPanels
 {
+  if (IPAD)
+    return;
   for (MWMRouteHelperPanel * p in self.helperPanels)
     [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ p.alpha = 1.; }];
 }
