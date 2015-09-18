@@ -9,6 +9,7 @@
 
 #include "search/retrieval.hpp"
 #include "search/search_query_params.hpp"
+#include "search/search_tests_support/test_feature.hpp"
 #include "search/search_tests_support/test_mwm_builder.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
@@ -19,6 +20,11 @@
 
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
+
+#include "std/algorithm.hpp"
+#include "std/initializer_list.hpp"
+#include "std/sstream.hpp"
+#include "std/shared_ptr.hpp"
 
 using namespace search::tests_support;
 
@@ -35,6 +41,116 @@ void InitParams(string const & query, search::SearchQueryParams & params)
   SplitUniString(search::NormalizeAndSimplifyString(query), insertTokens, delims);
 
   params.m_langs.insert(StringUtf8Multilang::GetLangIndex("en"));
+}
+
+class MatchingRule
+{
+public:
+  virtual ~MatchingRule() = default;
+
+  virtual bool Matches(FeatureType const & feature) const = 0;
+  virtual string ToString() const = 0;
+};
+
+string DebugPrint(MatchingRule const & rule) { return rule.ToString(); }
+
+class ExactMatch : public MatchingRule
+{
+public:
+  ExactMatch(MwmSet::MwmId const & mwmId, shared_ptr<TestFeature> feature)
+    : m_mwmId(mwmId), m_feature(feature)
+  {
+  }
+
+  // MatchingRule overrides:
+  bool Matches(FeatureType const & feature) const override
+  {
+    if (m_mwmId != feature.GetID().m_mwmId)
+      return false;
+    return m_feature->Matches(feature);
+  }
+
+  string ToString() const override
+  {
+    ostringstream os;
+    os << "ExactMatch [ " << DebugPrint(m_mwmId) << ", " << DebugPrint(*m_feature) << " ]";
+    return os.str();
+  }
+
+private:
+  MwmSet::MwmId m_mwmId;
+  shared_ptr<TestFeature> m_feature;
+};
+
+class AlternativesMatch : public MatchingRule
+{
+public:
+  AlternativesMatch(initializer_list<shared_ptr<MatchingRule>> rules) : m_rules(move(rules)) {}
+
+  // MatchingRule overrides:
+  bool Matches(FeatureType const & feature) const override
+  {
+    for (auto const & rule : m_rules)
+    {
+      if (rule->Matches(feature))
+        return true;
+    }
+    return false;
+  }
+
+  string ToString() const override
+  {
+    ostringstream os;
+    os << "OrRule [ ";
+    for (auto it = m_rules.cbegin(); it != m_rules.cend(); ++it)
+    {
+      os << (*it)->ToString();
+      if (it + 1 != m_rules.end())
+        os << " | ";
+    }
+    os << " ]";
+    return os.str();
+  }
+
+private:
+  vector<shared_ptr<MatchingRule>> m_rules;
+};
+
+void MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
+                  vector<search::Result> const & actual)
+{
+  vector<FeatureID> resultIds;
+  for (auto const & a : actual)
+    resultIds.push_back(a.GetFeatureID());
+  sort(resultIds.begin(), resultIds.end());
+
+  vector<string> unexpected;
+  auto removeMatched = [&rules, &unexpected](FeatureType const & feature)
+  {
+    for (auto it = rules.begin(); it != rules.end(); ++it)
+    {
+      if ((*it)->Matches(feature))
+      {
+        rules.erase(it);
+        return;
+      }
+    }
+    unexpected.push_back(DebugPrint(feature) + " from " + DebugPrint(feature.GetID().m_mwmId));
+  };
+  index.ReadFeatures(removeMatched, resultIds);
+
+  if (rules.empty() && unexpected.empty())
+    return;
+
+  ostringstream os;
+  os << "Non-satisfied rules:" << endl;
+  for (auto const & e : rules)
+    os << "  " << DebugPrint(*e) << endl;
+  os << "Unexpected retrieved features:" << endl;
+  for (auto const & u : unexpected)
+    os << "  " << u << endl;
+
+  TEST(false, (os.str()));
 }
 
 void Cleanup(platform::LocalCountryFile const & map)
@@ -123,7 +239,7 @@ UNIT_TEST(Retrieval_Smoke)
     for (int x = 0; x < 10; ++x)
     {
       for (int y = 0; y < 10; ++y)
-        builder.AddPOI(m2::PointD(x, y), "Whiskey bar", "en");
+        builder.Add(TestPOI(m2::PointD(x, y), "Whiskey bar", "en"));
     }
   }
   TEST_EQUAL(MapOptions::Map, file.GetFiles(), ());
@@ -200,15 +316,15 @@ UNIT_TEST(Retrieval_3Mwms)
 
   {
     TestMwmBuilder builder(msk, feature::DataHeader::country);
-    builder.AddPOI(m2::PointD(0, 0), "Cafe MTV", "en");
+    builder.Add(TestPOI(m2::PointD(0, 0), "Cafe MTV", "en"));
   }
   {
     TestMwmBuilder builder(mtv, feature::DataHeader::country);
-    builder.AddPOI(m2::PointD(10, 0), "MTV", "en");
+    builder.Add(TestPOI(m2::PointD(10, 0), "MTV", "en"));
   }
   {
     TestMwmBuilder builder(zrh, feature::DataHeader::country);
-    builder.AddPOI(m2::PointD(0, 10), "Bar MTV", "en");
+    builder.Add(TestPOI(m2::PointD(0, 10), "Bar MTV", "en"));
   }
 
   Index index;
@@ -292,27 +408,34 @@ UNIT_TEST(Retrieval_CafeMTV)
 
   platform::LocalCountryFile msk(platform.WritableDir(), platform::CountryFile("msk"), 0);
   platform::LocalCountryFile mtv(platform.WritableDir(), platform::CountryFile("mtv"), 0);
-  platform::LocalCountryFile testWorld(platform.WritableDir(), platform::CountryFile("testWorld"), 0);
+  platform::LocalCountryFile testWorld(platform.WritableDir(), platform::CountryFile("testWorld"),
+                                       0);
   Cleanup({msk, mtv, testWorld});
   MY_SCOPE_GUARD(cleanup, [&]()
   {
     Cleanup({msk, mtv, testWorld});
   });
 
+  auto const moscowCity = make_shared<TestCity>(m2::PointD(1, 0), "Moscow", "en", 100 /* rank */);
+  auto const mtvCafe = make_shared<TestPOI>(m2::PointD(1, 0), "Cafe MTV", "en");
+
+  auto const mtvCity = make_shared<TestCity>(m2::PointD(-1, 0), "MTV", "en", 100 /* rank */);
+  auto const moscowCafe = make_shared<TestPOI>(m2::PointD(-1, 0), "Cafe Moscow", "en");
+
   {
     TestMwmBuilder builder(msk, feature::DataHeader::country);
-    builder.AddCity(m2::PointD(1, 0), "Moscow", "en");
-    builder.AddPOI(m2::PointD(1, 0), "Cafe MTV", "en");
+    builder.Add(*moscowCity);
+    builder.Add(*mtvCafe);
   }
   {
     TestMwmBuilder builder(mtv, feature::DataHeader::country);
-    builder.AddCity(m2::PointD(-1, 0), "MTV", "en");
-    builder.AddPOI(m2::PointD(-1, 0), "Cafe Moscow", "en");
+    builder.Add(*mtvCity);
+    builder.Add(*moscowCafe);
   }
   {
     TestMwmBuilder builder(testWorld, feature::DataHeader::world);
-    builder.AddCity(m2::PointD(1, 0), "Moscow", "en");
-    builder.AddCity(m2::PointD(-1, 0), "MTV", "en");
+    builder.Add(*moscowCity);
+    builder.Add(*mtvCity);
   }
 
   TestSearchEngine engine("en");
@@ -320,31 +443,41 @@ UNIT_TEST(Retrieval_CafeMTV)
   TEST_EQUAL(MwmSet::RegResult::Success, engine.RegisterMap(mtv).second, ());
   TEST_EQUAL(MwmSet::RegResult::Success, engine.RegisterMap(testWorld).second, ());
 
+  auto const mskId = engine.GetMwmIdByCountryFile(msk.GetCountryFile());
+  auto const mtvId = engine.GetMwmIdByCountryFile(mtv.GetCountryFile());
+  auto const testWorldId = engine.GetMwmIdByCountryFile(testWorld.GetCountryFile());
+
   m2::RectD const moscowViewport(m2::PointD(0.99, -0.1), m2::PointD(1.01, 0.1));
   m2::RectD const mtvViewport(m2::PointD(-1.1, -0.1), m2::PointD(-0.99, 0.1));
 
   {
     TestSearchRequest request(engine, "Moscow ", "en", search::SearchParams::ALL, moscowViewport);
     request.Wait();
-    TEST_EQUAL(2, request.Results().size(), ());
+
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(testWorldId, moscowCity),
+                                              make_shared<ExactMatch>(mtvId, moscowCafe)};
+    MatchResults(engine, rules, request.Results());
   }
 
   {
     TestSearchRequest request(engine, "MTV ", "en", search::SearchParams::ALL, mtvViewport);
     request.Wait();
-    TEST_EQUAL(2, request.Results().size(), ());
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(testWorldId, mtvCity),
+                                              make_shared<ExactMatch>(mskId, mtvCafe)};
+    MatchResults(engine, rules, request.Results());
   }
 
   {
     TestSearchRequest request(engine, "Moscow MTV ", "en", search::SearchParams::ALL, mtvViewport);
     request.Wait();
-    TEST_EQUAL(1, request.Results().size(), ());
-  }
 
-  {
-    TestSearchRequest request(engine, "MTV Moscow ", "en", search::SearchParams::ALL,
-                              moscowViewport);
-    request.Wait();
-    TEST_EQUAL(1, request.Results().size(), ());
+    initializer_list<shared_ptr<MatchingRule>> alternatives = {
+        make_shared<ExactMatch>(mskId, mtvCafe), make_shared<ExactMatch>(mtvId, moscowCafe)};
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<AlternativesMatch>(alternatives)};
+
+    // TODO (@gorshenin): current search algorithms can't retrieve
+    // both Cafe Moscow @ MTV and Cafe MTV @ Moscow, it'll just return
+    // one of them. Fix this test when locality search will be fixed.
+    MatchResults(engine, rules, request.Results());
   }
 }

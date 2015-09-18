@@ -86,6 +86,7 @@ public:
 
     MwmId() = default;
     MwmId(shared_ptr<MwmInfo> const & info) : m_info(info) {}
+    MwmId(MwmId const & mwmId): m_info(mwmId.m_info) {}
 
     void Reset() { m_info.reset(); }
     bool IsAlive() const
@@ -97,6 +98,11 @@ public:
     inline bool operator==(MwmId const & rhs) const { return GetInfo() == rhs.GetInfo(); }
     inline bool operator!=(MwmId const & rhs) const { return !(*this == rhs); }
     inline bool operator<(MwmId const & rhs) const { return GetInfo() < rhs.GetInfo(); }
+    inline MwmId & operator=(MwmId const & rhs)
+    {
+      m_info = rhs.m_info;
+      return *this;
+    }
 
     friend string DebugPrint(MwmId const & id);
 

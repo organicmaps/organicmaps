@@ -23,5 +23,3 @@ SOURCES += \
     ../../testing/testingmain.cpp \
     retrieval_test.cpp \
     smoke_test.cpp \
-
-HEADERS += \

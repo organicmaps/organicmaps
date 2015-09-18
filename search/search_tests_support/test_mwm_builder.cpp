@@ -1,6 +1,7 @@
 #include "search/search_tests_support/test_mwm_builder.hpp"
 
-#include "indexer/classificator.hpp"
+#include "search/search_tests_support/test_feature.hpp"
+
 #include "indexer/data_header.hpp"
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/index_builder.hpp"
@@ -24,8 +25,7 @@ TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, feature::DataH
     : m_file(file),
       m_type(type),
       m_collector(
-          make_unique<feature::FeaturesCollector>(file.GetPath(MapOptions::Map) + EXTENSION_TMP)),
-      m_classificator(classif())
+          make_unique<feature::FeaturesCollector>(file.GetPath(MapOptions::Map) + EXTENSION_TMP))
 {
 }
 
@@ -36,24 +36,11 @@ TestMwmBuilder::~TestMwmBuilder()
   CHECK(!m_collector, ("Features weren't dumped on disk."));
 }
 
-void TestMwmBuilder::AddPOI(m2::PointD const & p, string const & name, string const & lang)
+void TestMwmBuilder::Add(TestFeature const & feature)
 {
   CHECK(m_collector, ("It's not possible to add features after call to Finish()."));
   FeatureBuilder1 fb;
-  fb.SetCenter(p);
-  fb.SetType(m_classificator.GetTypeByPath({"railway", "station"}));
-  CHECK(fb.AddName(lang, name), ("Can't set feature name:", name, "(", lang, ")"));
-  (*m_collector)(fb);
-}
-
-void TestMwmBuilder::AddCity(m2::PointD const & p, string const & name, string const & lang)
-{
-  CHECK(m_collector, ("It's not possible to add features after call to Finish()."));
-  FeatureBuilder1 fb;
-  fb.SetCenter(p);
-  fb.SetType(m_classificator.GetTypeByPath({"place", "city"}));
-  fb.SetRank(100);
-  CHECK(fb.AddName(lang, name), ("Can't set feature name:", name, "(", lang, ")"));
+  feature.Serialize(fb);
   (*m_collector)(fb);
 }
 

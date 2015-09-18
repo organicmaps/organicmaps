@@ -1,8 +1,12 @@
 #include "testing/testing.hpp"
 
+#include "search/search_tests_support/test_feature.hpp"
 #include "search/search_tests_support/test_mwm_builder.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
+
+#include "indexer/classificator_loader.hpp"
+#include "indexer/scales.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/scales.hpp"
@@ -61,10 +65,10 @@ UNIT_TEST(GenerateTestMwm_Smoke)
 
   {
     TestMwmBuilder builder(file, feature::DataHeader::country);
-    builder.AddPOI(m2::PointD(0, 0), "Wine shop", "en");
-    builder.AddPOI(m2::PointD(1, 0), "Tequila shop", "en");
-    builder.AddPOI(m2::PointD(0, 1), "Brandy shop", "en");
-    builder.AddPOI(m2::PointD(1, 1), "Russian vodka shop", "en");
+    builder.Add(TestPOI(m2::PointD(0, 0), "Wine shop", "en"));
+    builder.Add(TestPOI(m2::PointD(1, 0), "Tequila shop", "en"));
+    builder.Add(TestPOI(m2::PointD(0, 1), "Brandy shop", "en"));
+    builder.Add(TestPOI(m2::PointD(1, 1), "Russian vodka shop", "en"));
   }
   TEST_EQUAL(MapOptions::Map, file.GetFiles(), ());
 
@@ -99,12 +103,12 @@ UNIT_TEST(GenerateTestMwm_NotPrefixFreeNames)
 
   {
     TestMwmBuilder builder(file, feature::DataHeader::country);
-    builder.AddPOI(m2::PointD(0, 0), "a", "en");
-    builder.AddPOI(m2::PointD(0, 1), "aa", "en");
-    builder.AddPOI(m2::PointD(1, 1), "aa", "en");
-    builder.AddPOI(m2::PointD(1, 0), "aaa", "en");
-    builder.AddPOI(m2::PointD(2, 0), "aaa", "en");
-    builder.AddPOI(m2::PointD(2, 1), "aaa", "en");
+    builder.Add(TestPOI(m2::PointD(0, 0), "a", "en"));
+    builder.Add(TestPOI(m2::PointD(0, 1), "aa", "en"));
+    builder.Add(TestPOI(m2::PointD(1, 1), "aa", "en"));
+    builder.Add(TestPOI(m2::PointD(1, 0), "aaa", "en"));
+    builder.Add(TestPOI(m2::PointD(2, 0), "aaa", "en"));
+    builder.Add(TestPOI(m2::PointD(2, 1), "aaa", "en"));
   }
   TEST_EQUAL(MapOptions::Map, file.GetFiles(), ());
 
