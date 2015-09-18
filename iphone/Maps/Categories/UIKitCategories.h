@@ -2,22 +2,22 @@
 #import <Foundation/Foundation.h>
 #import "Macros.h"
 
-static inline CGPoint CGPointSubtract(CGPoint p1, CGPoint p2)
+static inline CGPoint SubtractCGPoint(CGPoint p1, CGPoint p2)
 {
   return CGPointMake(p1.x - p2.x, p1.y - p2.y);
 }
 
-static inline CGPoint CGPointAdd(CGPoint p1, CGPoint p2)
+static inline CGPoint AddCGPoint(CGPoint p1, CGPoint p2)
 {
   return CGPointMake(p1.x + p2.x, p1.y + p2.y);
 }
 
-static inline CGPoint CGPointMultiply(CGPoint point, CGFloat multiplier)
+static inline CGPoint MultiplyCGPoint(CGPoint point, CGFloat multiplier)
 {
   return CGPointMake(point.x * multiplier, point.y * multiplier);
 }
 
-static inline CGFloat CGPointLength(CGPoint point)
+static inline CGFloat LengthCGPoint(CGPoint point)
 {
   return (CGFloat)sqrt(point.x * point.x + point.y * point.y);
 }
@@ -82,18 +82,18 @@ static inline CGFloat CGPointLength(CGPoint point)
 @end
 
 
-typedef void (^UIAlertViewBlock) (UIAlertView * alertView);
-typedef void (^UIAlertViewCompletionBlock) (UIAlertView * alertView, NSInteger buttonIndex);
+typedef void (^MWMAlertViewBlock) (UIAlertView * alertView);
+typedef void (^MWMAlertViewCompletionBlock) (UIAlertView * alertView, NSInteger buttonIndex);
 
 @interface UIAlertView (Blocks)
 
-@property (copy, nonatomic) UIAlertViewCompletionBlock tapBlock;
-@property (copy, nonatomic) UIAlertViewCompletionBlock willDismissBlock;
-@property (copy, nonatomic) UIAlertViewCompletionBlock didDismissBlock;
+@property (copy, nonatomic) MWMAlertViewCompletionBlock tapBlock;
+@property (copy, nonatomic) MWMAlertViewCompletionBlock willDismissBlock;
+@property (copy, nonatomic) MWMAlertViewCompletionBlock didDismissBlock;
 
-@property (copy, nonatomic) UIAlertViewBlock willPresentBlock;
-@property (copy, nonatomic) UIAlertViewBlock didPresentBlock;
-@property (copy, nonatomic) UIAlertViewBlock cancelBlock;
+@property (copy, nonatomic) MWMAlertViewBlock willPresentBlock;
+@property (copy, nonatomic) MWMAlertViewBlock didPresentBlock;
+@property (copy, nonatomic) MWMAlertViewBlock cancelBlock;
 
 @property (copy, nonatomic) BOOL(^shouldEnableFirstOtherButtonBlock)(UIAlertView * alertView);
 

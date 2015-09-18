@@ -238,67 +238,67 @@ static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlert
   }
 }
 
-- (UIAlertViewCompletionBlock)tapBlock
+- (MWMAlertViewCompletionBlock)tapBlock
 {
   return objc_getAssociatedObject(self, UIAlertViewTapBlockKey);
 }
 
-- (void)setTapBlock:(UIAlertViewCompletionBlock)tapBlock
+- (void)setTapBlock:(MWMAlertViewCompletionBlock)tapBlock
 {
   [self _checkAlertViewDelegate];
   objc_setAssociatedObject(self, UIAlertViewTapBlockKey, tapBlock, OBJC_ASSOCIATION_COPY);
 }
 
-- (UIAlertViewCompletionBlock)willDismissBlock
+- (MWMAlertViewCompletionBlock)willDismissBlock
 {
   return objc_getAssociatedObject(self, UIAlertViewWillDismissBlockKey);
 }
 
-- (void)setWillDismissBlock:(UIAlertViewCompletionBlock)willDismissBlock
+- (void)setWillDismissBlock:(MWMAlertViewCompletionBlock)willDismissBlock
 {
   [self _checkAlertViewDelegate];
   objc_setAssociatedObject(self, UIAlertViewWillDismissBlockKey, willDismissBlock, OBJC_ASSOCIATION_COPY);
 }
 
-- (UIAlertViewCompletionBlock)didDismissBlock
+- (MWMAlertViewCompletionBlock)didDismissBlock
 {
   return objc_getAssociatedObject(self, UIAlertViewDidDismissBlockKey);
 }
 
-- (void)setDidDismissBlock:(UIAlertViewCompletionBlock)didDismissBlock
+- (void)setDidDismissBlock:(MWMAlertViewCompletionBlock)didDismissBlock
 {
   [self _checkAlertViewDelegate];
   objc_setAssociatedObject(self, UIAlertViewDidDismissBlockKey, didDismissBlock, OBJC_ASSOCIATION_COPY);
 }
 
-- (UIAlertViewBlock)willPresentBlock
+- (MWMAlertViewBlock)willPresentBlock
 {
   return objc_getAssociatedObject(self, UIAlertViewWillPresentBlockKey);
 }
 
-- (void)setWillPresentBlock:(UIAlertViewBlock)willPresentBlock
+- (void)setWillPresentBlock:(MWMAlertViewBlock)willPresentBlock
 {
   [self _checkAlertViewDelegate];
   objc_setAssociatedObject(self, UIAlertViewWillPresentBlockKey, willPresentBlock, OBJC_ASSOCIATION_COPY);
 }
 
-- (UIAlertViewBlock)didPresentBlock
+- (MWMAlertViewBlock)didPresentBlock
 {
   return objc_getAssociatedObject(self, UIAlertViewDidPresentBlockKey);
 }
 
-- (void)setDidPresentBlock:(UIAlertViewBlock)didPresentBlock
+- (void)setDidPresentBlock:(MWMAlertViewBlock)didPresentBlock
 {
   [self _checkAlertViewDelegate];
   objc_setAssociatedObject(self, UIAlertViewDidPresentBlockKey, didPresentBlock, OBJC_ASSOCIATION_COPY);
 }
 
-- (UIAlertViewBlock)cancelBlock
+- (MWMAlertViewBlock)cancelBlock
 {
   return objc_getAssociatedObject(self, UIAlertViewCancelBlockKey);
 }
 
-- (void)setCancelBlock:(UIAlertViewBlock)cancelBlock
+- (void)setCancelBlock:(MWMAlertViewBlock)cancelBlock
 {
   [self _checkAlertViewDelegate];
   objc_setAssociatedObject(self, UIAlertViewCancelBlockKey, cancelBlock, OBJC_ASSOCIATION_COPY);
@@ -319,7 +319,7 @@ static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlert
 
 - (void)willPresentAlertView:(UIAlertView *)alertView
 {
-  UIAlertViewBlock block = alertView.willPresentBlock;
+  MWMAlertViewBlock block = alertView.willPresentBlock;
   
   if (block)
     block(alertView);
@@ -331,7 +331,7 @@ static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlert
 
 - (void)didPresentAlertView:(UIAlertView *)alertView
 {
-  UIAlertViewBlock block = alertView.didPresentBlock;
+  MWMAlertViewBlock block = alertView.didPresentBlock;
   
   if (block)
     block(alertView);
@@ -343,7 +343,7 @@ static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlert
 
 
 - (void)alertViewCancel:(UIAlertView *)alertView {
-  UIAlertViewBlock block = alertView.cancelBlock;
+  MWMAlertViewBlock block = alertView.cancelBlock;
   
   if (block)
     block(alertView);
@@ -354,7 +354,7 @@ static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlert
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-  UIAlertViewCompletionBlock completion = alertView.tapBlock;
+  MWMAlertViewCompletionBlock completion = alertView.tapBlock;
   
   if (completion)
     completion(alertView, buttonIndex);
@@ -365,7 +365,7 @@ static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlert
 }
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
-  UIAlertViewCompletionBlock completion = alertView.willDismissBlock;
+  MWMAlertViewCompletionBlock completion = alertView.willDismissBlock;
   
   if (completion)
     completion(alertView, buttonIndex);
@@ -377,7 +377,7 @@ static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlert
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-  UIAlertViewCompletionBlock completion = alertView.didDismissBlock;
+  MWMAlertViewCompletionBlock completion = alertView.didDismissBlock;
   
   if (completion)
     completion(alertView, buttonIndex);
