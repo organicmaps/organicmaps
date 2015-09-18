@@ -754,7 +754,7 @@
 	<string name="dialog_routing_cross_route_always">Всегда пересекать эту границу</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
-	<string name="search_without_internet_advertisement">Для поиска мест, построения маршрута скачайте карту и интернет вам больше не понадобится.</string>
+	<string name="search_without_internet_advertisement">Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.</string>
 	<string name="search_select_map">Выбрать карту </string>
 	<string name="search_select_other_map">Выбрать другую карту</string>
 	<string name="search_vehicle_routes">Автомобильные маршруты</string>

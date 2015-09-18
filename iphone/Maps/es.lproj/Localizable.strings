@@ -83,7 +83,7 @@
 "no_internet_connection_detected" = "No hay conexión al Internet";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "No hay conexión WiFi. ¿Quieres descargar con el %@ operador (GPRS, EDGE or 3G)?";
+"no_wifi_ask_cellular_download" = "No hay conexión Wifi. ¿Quieres descargar el mapa con tu plan de datos móviles?";
 
 "ok" = "OK";
 

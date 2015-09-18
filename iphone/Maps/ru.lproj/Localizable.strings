@@ -1169,7 +1169,7 @@
 
 /********** Strings for downloading map from search **********/
 
-"search_without_internet_advertisement" = "Для поиска мест, построения маршрута скачайте карту и интернет вам больше не понадобится.";
+"search_without_internet_advertisement" = "Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.";
 
 "search_select_map" = "Выбрать карту ";
 

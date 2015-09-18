@@ -20,7 +20,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">No hay conexión al Internet</text>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">No hay conexión WiFi. ¿Quieres descargar con el %s operador (GPRS, EDGE or 3G)?</text>
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">No hay conexión Wifi. ¿Quieres descargar el mapa con tu plan de datos móviles?</text>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Recomendamos usar WiFi para descarga de los países grandes</text>
 	<text id="IDS_DOWNLOAD">Descargar</text>
