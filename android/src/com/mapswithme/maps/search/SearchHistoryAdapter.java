@@ -28,7 +28,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
 
   private void refresh()
   {
-    SearchRecentsTemp.INSTANCE.refresh();
+    SearchEngine.INSTANCE.refreshRecents();
     notifyDataSetChanged();
   }
 
@@ -64,7 +64,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
           @Override
           public void onClick(View v)
           {
-            SearchRecentsTemp.INSTANCE.clear();
+            SearchEngine.INSTANCE.clearRecents();
             notifyDataSetChanged();
           }
         });
@@ -81,19 +81,19 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
   public void onBindViewHolder(ViewHolder viewHolder, int position)
   {
     if (getItemViewType(position) == TYPE_ITEM)
-      viewHolder.mText.setText(SearchRecentsTemp.INSTANCE.get(position));
+      viewHolder.mText.setText(SearchEngine.INSTANCE.getRecent(position));
   }
 
   @Override
   public int getItemCount()
   {
-    int res = SearchRecentsTemp.INSTANCE.getSize();
+    int res = SearchEngine.INSTANCE.getRecentsSize();
     return (res == 0 ? 0 : res + 1);
   }
 
   @Override
   public int getItemViewType(int position)
   {
-    return (position < SearchRecentsTemp.INSTANCE.getSize() ? TYPE_ITEM : TYPE_CLEAR);
+    return (position < SearchEngine.INSTANCE.getRecentsSize() ? TYPE_ITEM : TYPE_CLEAR);
   }
 }

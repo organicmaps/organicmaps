@@ -505,25 +505,6 @@ namespace android
     Platform::RunOnGuiThreadImpl(bind(&ShowAllSearchResultsImpl));
   }
 
-  /*
-  void Framework::CleanSearchLayerOnMap()
-  {
-    ::Framework * f = NativeFramework();
-
-    // Call ClearXXX first, then RemovePin (Framework::Invalidate is called inside).
-    f->GetBookmarkManager().UserMarksClear(UserMarkContainer::SEARCH_MARK);
-    f->GetBalloonManager().RemovePin();
-    f->GetBalloonManager().Dismiss();
-    f->Invalidate();
-  }
-  */
-
-  bool Framework::Search(search::SearchParams const & params)
-  {
-    m_searchQuery = params.m_query;
-    return m_work.Search(params);
-  }
-
   void Framework::LoadState()
   {
     if (!m_work.LoadState())

@@ -120,11 +120,6 @@ namespace android
     void ShowSearchResult(search::Result const & r);
     void ShowAllSearchResults();
 
-    bool Search(search::SearchParams const & params);
-    string GetLastSearchQuery() { return m_searchQuery; }
-    void ClearLastSearchQuery() { m_searchQuery.clear(); }
-    //void CleanSearchLayerOnMap();
-
     void LoadState();
     void SaveState();
 

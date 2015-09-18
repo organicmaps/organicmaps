@@ -15,9 +15,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountrySuggestFragment;
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -28,7 +31,6 @@ import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -43,12 +45,9 @@ public class SearchFragment extends BaseMwmFragment
                                     SearchToolbarController.Container,
                                     CategoriesAdapter.OnCategorySelectedListener
 {
-  // Make 5-step increment to leave space for middle queries.
-  // This constant should be equal with native SearchAdapter::QUERY_STEP;
-  private static final int QUERY_STEP = 5;
-
   private static final int RC_VOICE_RECOGNITION = 0xCA11;
-  private static final double DUMMY_NORTH = -1;
+  private static final String PREF_SAVED_QUERY = "SearchQuery";
+  private long mLastQueryTimestamp;
 
   private static class LastPosition
   {
@@ -69,23 +68,6 @@ public class SearchFragment extends BaseMwmFragment
     public ToolbarController(View root)
     {
       super(root, getActivity());
-      mToolbar.setNavigationOnClickListener(
-          new View.OnClickListener()
-          {
-            @Override
-            public void onClick(View v)
-            {
-              if (getQuery().isEmpty())
-              {
-                Utils.navigateToParent(getActivity());
-                return;
-              }
-
-              setQuery("");
-              FloatingSearchToolbarController.cancelSearch();
-              updateFrames();
-            }
-          });
     }
 
     @Override
@@ -97,17 +79,17 @@ public class SearchFragment extends BaseMwmFragment
       if (TextUtils.isEmpty(query))
       {
         mSearchAdapter.clear();
-        nativeClearLastQuery();
-
+        MwmApplication.prefs().edit().putString(PREF_SAVED_QUERY, query).apply();
         stopSearch();
         return;
       }
 
       // TODO: This code only for demonstration purposes and will be removed soon
-      if (tryChangeMapStyle(query) || trySwitchOnTurnSound(query))
+      if (trySwitchOnTurnSound(query) || tryChangeMapStyle(query))
         return;
 
-      runSearch(true);
+      MwmApplication.prefs().edit().putString(PREF_SAVED_QUERY, query).apply();
+      runSearch();
     }
 
     @Override
@@ -149,7 +131,9 @@ public class SearchFragment extends BaseMwmFragment
         return;
       }
 
-      mToolbarController.clear();
+      clear();
+      FloatingSearchToolbarController.cancelSearch();
+      updateFrames();
     }
   }
 
@@ -178,8 +162,7 @@ public class SearchFragment extends BaseMwmFragment
   private final CachedResults mCachedResults = new CachedResults(this);
   private final LastPosition mLastPosition = new LastPosition();
 
-  private int mQueryId;
-  private volatile boolean mSearchRunning;
+  private boolean mSearchRunning;
 
 
   private boolean doShowDownloadSuggest()
@@ -250,7 +233,7 @@ public class SearchFragment extends BaseMwmFragment
     mTabsFrame = root.findViewById(R.id.tab_frame);
     mPager = (ViewPager) mTabsFrame.findViewById(R.id.pages);
     mToolbarController = new ToolbarController(view);
-    new TabAdapter(getChildFragmentManager(), mPager, (TabLayout)root.findViewById(R.id.tabs));
+    new TabAdapter(getChildFragmentManager(), mPager, (TabLayout) root.findViewById(R.id.tabs));
 
     mResultsFrame = root.findViewById(R.id.results_frame);
     mResults = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
@@ -276,8 +259,8 @@ public class SearchFragment extends BaseMwmFragment
     updateFrames();
     updateResultsPlaceholder();
 
-    nativeConnectSearchListener();
     readArguments();
+    SearchEngine.INSTANCE.addListener(this);
   }
 
   @Override
@@ -285,6 +268,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     super.onResume();
     LocationHelper.INSTANCE.addLocationListener(this);
+    setSearchQuery(MwmApplication.prefs().getString(PREF_SAVED_QUERY, ""));
     mToolbarController.setActive(true);
   }
 
@@ -301,7 +285,7 @@ public class SearchFragment extends BaseMwmFragment
     for (RecyclerView v : mAttachedRecyclers)
       v.removeOnScrollListener(mRecyclerListener);
 
-    nativeDisconnectSearchListener();
+    SearchEngine.INSTANCE.removeListener(this);
     super.onDestroy();
   }
 
@@ -377,19 +361,21 @@ public class SearchFragment extends BaseMwmFragment
   protected void showSingleResultOnMap(int resultIndex)
   {
     final String query = getSearchQuery();
-    SearchRecentsTemp.INSTANCE.add(query);
+    SearchEngine.INSTANCE.addRecent(query);
 
     FloatingSearchToolbarController.cancelApiCall();
     FloatingSearchToolbarController.saveQuery("");
-    nativeShowItem(resultIndex);
+    SearchEngine.nativeShowResult(resultIndex);
     Utils.navigateToParent(getActivity());
   }
 
   protected void showAllResultsOnMap()
   {
+    // TODO: Save query to recents
     final String query = getSearchQuery();
-    nativeShowAllSearchResults();
-    runInteractiveSearch(query, Language.getKeyboardLocale());
+    mLastQueryTimestamp = System.nanoTime();
+    SearchEngine.nativeRunInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp);
+    SearchEngine.nativeShowAllResults();
     FloatingSearchToolbarController.saveQuery(query);
     Utils.navigateToParent(getActivity());
 
@@ -402,7 +388,7 @@ public class SearchFragment extends BaseMwmFragment
     mLastPosition.set(l.getLatitude(), l.getLongitude());
 
     if (!TextUtils.isEmpty(getSearchQuery()))
-      runSearch(false);
+      mSearchAdapter.notifyDataSetChanged();
   }
 
   @Override
@@ -419,56 +405,47 @@ public class SearchFragment extends BaseMwmFragment
     updateResultsPlaceholder();
   }
 
-  private void runSearch(boolean force)
+  private void runSearch()
   {
-    int id = mQueryId + QUERY_STEP;
-    if (!nativeRunSearch(getSearchQuery(), Language.getKeyboardLocale(), id, force, mLastPosition.valid, mLastPosition.lat, mLastPosition.lon))
-      return;
+    mLastQueryTimestamp = System.nanoTime();
+    // TODO implement more elegant solution
+    if (getActivity() instanceof MwmActivity)
+      SearchEngine.nativeRunInteractiveSearch(getSearchQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp);
+    else
+    {
+      final boolean searchStarted = SearchEngine.nativeRunSearch(getSearchQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp, true,
+                                                                 mLastPosition.valid, mLastPosition.lat, mLastPosition.lon);
+      if (!searchStarted)
+        return;
+    }
 
     mSearchRunning = true;
-    mQueryId = id;
     mToolbarController.showProgress(true);
 
     updateFrames();
   }
 
   @Override
-  public void onResultsUpdate(final int count, final int queryId)
+  public void onResultsUpdate(int count, long timestamp)
   {
-    if (!mSearchRunning)
+    if (!isAdded() || !searchActive())
       return;
 
-    UiThread.run(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        if (!isAdded() || !searchActive())
-          return;
-
-        updateFrames();
-        mSearchAdapter.refreshData(count, queryId);
-      }
-    });
+    // Search is running hence results updated.
+    mSearchRunning = true;
+    updateFrames();
+    mSearchAdapter.refreshData(count);
+    mToolbarController.showProgress(true);
+    mCachedResults.clear();
   }
 
   @Override
-  public void onResultsEnd(int queryId)
+  public void onResultsEnd(long timestamp)
   {
-    if (!mSearchRunning || queryId != mQueryId)
+    if (!mSearchRunning || !isAdded())
       return;
 
-    UiThread.run(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        if (!isAdded())
-          return;
-
-        stopSearch();
-      }
-    });
+    stopSearch();
   }
 
   @Override
@@ -496,14 +473,14 @@ public class SearchFragment extends BaseMwmFragment
     return false;
   }
 
-  SearchResult getUncachedResult(int position, int queryId)
+  protected SearchResult getUncachedResult(int position)
   {
-    return nativeGetResult(position, queryId, mLastPosition.valid, mLastPosition.lat, mLastPosition.lon, DUMMY_NORTH);
+    return SearchEngine.nativeGetResult(position, mLastQueryTimestamp, mLastPosition.valid, mLastPosition.lat, mLastPosition.lon);
   }
 
-  public SearchResult getResult(int position, int queryId)
+  protected SearchResult getResult(int position)
   {
-    return mCachedResults.get(position, queryId);
+    return mCachedResults.get(position);
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)
@@ -522,22 +499,4 @@ public class SearchFragment extends BaseMwmFragment
   {
     return mSearchRunning;
   }
-
-  public static native void nativeShowItem(int position);
-
-  public static native void nativeShowAllSearchResults();
-
-  private static native SearchResult nativeGetResult(int position, int queryId, boolean hasPosition, double lat, double lon, double north);
-
-  private native void nativeConnectSearchListener();
-
-  private native void nativeDisconnectSearchListener();
-
-  private native boolean nativeRunSearch(String s, String lang, int queryId, boolean force, boolean hasPosition, double lat, double lon);
-
-  private native String nativeGetLastQuery();
-
-  private native void nativeClearLastQuery();
-
-  private native void runInteractiveSearch(String query, String lang);
 }

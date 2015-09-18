@@ -196,7 +196,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 
   private final SearchFragment mSearchFragment;
   private int mResultsCount = NO_RESULTS;
-  private int mQueryId;
 
   public SearchAdapter(SearchFragment fragment)
   {
@@ -235,7 +234,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
       position--;
     }
 
-    final SearchResult result = mSearchFragment.getResult(position, mQueryId);
+    final SearchResult result = mSearchFragment.getResult(position);
     if (result != null)
       holder.bind(result, position);
   }
@@ -251,7 +250,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
       position--;
     }
 
-    final SearchResult result = mSearchFragment.getResult(position, mQueryId);
+    final SearchResult result = mSearchFragment.getResult(position);
     switch (result.type)
     {
       case SearchResult.TYPE_SUGGEST:
@@ -290,13 +289,12 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 
   public void clear()
   {
-    refreshData(0, 0);
+    refreshData(0);
   }
 
-  public void refreshData(int count, int queryId)
+  public void refreshData(int count)
   {
     mResultsCount = count;
-    mQueryId = queryId;
 
     notifyDataSetChanged();
   }

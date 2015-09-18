@@ -74,7 +74,7 @@
           <ImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:src="@drawable/ic_img_no_found_light"
+              android:src="@drawable/img_search_nothing_found_light"
               android:layout_marginBottom="@dimen/margin_base_plus"
               android:tag="@string/tag_height_limited"/>
 

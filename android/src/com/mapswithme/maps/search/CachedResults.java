@@ -3,7 +3,7 @@ package com.mapswithme.maps.search;
 import android.util.SparseArray;
 
 /**
- * Helper to avoid unneccessary invocations of native functions to obtain search result objects.
+ * Helper to avoid unnecessary invocations of native functions to obtain search result objects.
  */
 class CachedResults
 {
@@ -16,22 +16,20 @@ class CachedResults
     mFragment = fragment;
   }
 
-  public SearchResult get(int position, int queryId)
+  public SearchResult get(int position)
   {
-    SearchResult res = null;
-    if (queryId == mCurrentQueryId)
-      res = mCache.get(position);
-    else
-    {
-      mCache.clear();
-      mCurrentQueryId = queryId;
-    }
+    SearchResult res = mCache.get(position);
 
     if (res == null)
     {
-      res = mFragment.getUncachedResult(position, queryId);
+      res = mFragment.getUncachedResult(position);
       mCache.put(position, res);
     }
     return res;
+  }
+
+  public void clear()
+  {
+    mCache.clear();
   }
 }

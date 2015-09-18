@@ -6,7 +6,14 @@ package com.mapswithme.maps.search;
 @SuppressWarnings("unused")
 public interface NativeSearchListener
 {
-  void onResultsUpdate(int count, int queryId);
+  /**
+   * @param count Count of results found.
+   * @param timestamp Timestamp of search request.
+   */
+  void onResultsUpdate(int count, long timestamp);
 
-  void onResultsEnd(int queryId);
+  /**
+   * @param timestamp Timestamp of search request.
+   */
+  void onResultsEnd(long timestamp);
 }
