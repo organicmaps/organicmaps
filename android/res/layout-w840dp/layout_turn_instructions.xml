@@ -32,7 +32,7 @@
         android:layout_marginRight="@dimen/margin_base"
         android:layout_weight="1"
         android:gravity="center"
-        android:textAppearance="@style/MwmTextAppearance.Body2"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
         tools:text="1.4 km"/>
 
     <TextView
@@ -42,17 +42,16 @@
         android:layout_marginRight="@dimen/margin_base"
         android:layout_weight="1"
         android:gravity="center"
-        android:textAppearance="@style/MwmTextAppearance.Body2"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
         tools:text="1,5 min"/>
 
     <TextView
         android:id="@+id/tv__arrival_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_base_plus"
         android:layout_weight="1"
         android:gravity="center"
-        android:textAppearance="@style/MwmTextAppearance.Body2"
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
         tools:text="1:00"/>
 
   </LinearLayout>

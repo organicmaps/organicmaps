@@ -18,8 +18,6 @@
         android:id="@+id/btn__close"
         android:layout_width="@dimen/base_block_size"
         android:layout_height="@dimen/base_block_size"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/margin_base"
         android:layout_weight="0"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="center"
@@ -27,33 +25,31 @@
 
     <TextView
         android:id="@+id/tv__total_distance"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_base"
         android:layout_weight="1"
         android:gravity="center"
-        android:textAppearance="@style/MwmTextAppearance.Body2"
-        tools:text="1.4 km"/>
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+        tools:text="100.4 km"/>
 
     <TextView
         android:id="@+id/tv__total_time"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_base"
         android:layout_weight="1"
         android:gravity="center"
-        android:textAppearance="@style/MwmTextAppearance.Body2"
-        tools:text="1,5 min"/>
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+        tools:text="10h 40min"/>
 
     <TextView
         android:id="@+id/tv__arrival_time"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_base_plus"
         android:layout_weight="1"
         android:gravity="center"
-        android:textAppearance="@style/MwmTextAppearance.Body2"
-        tools:text="1:00"/>
+        android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+        android:textSize="@dimen/text_size_routing_number"
+        tools:text="23:59"/>
 
   </LinearLayout>
 

@@ -287,6 +287,11 @@
     <item name="android:textAllCaps">true</item>
   </style>
 
+  <style name="MwmTextAppearance.RoutingNumber">
+    <item name="android:textSize">@dimen/text_size_routing_number</item>
+    <item name="android:textColor">@color/text_dark_subtitle</item>
+  </style>
+
   <style name="MwmTextAppearance.Toolbar.Button" parent="MwmTextAppearance.Body3.Light">
     <item name="android:textAllCaps">true</item>
   </style>

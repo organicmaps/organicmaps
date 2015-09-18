@@ -64,35 +64,36 @@
       tools:visibility="visible"/>
 
   <TextView
+      android:id="@+id/tv__total_time"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@id/tv__turn_distance"
+      android:layout_alignParentRight="true"
+      android:layout_marginRight="@dimen/margin_base"
+      android:gravity="center_vertical"
+      android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
+      tools:text="1,5 min"/>
+
+  <TextView
       android:id="@+id/tv__arrival_time"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignBottom="@id/tv__turn_distance"
+      android:layout_below="@id/tv__total_time"
       android:layout_alignParentRight="true"
-      android:layout_marginRight="@dimen/margin_double"
+      android:layout_marginRight="@dimen/margin_base"
+      android:layout_marginTop="@dimen/margin_eighth"
       android:gravity="center_vertical"
-      android:textAppearance="@style/MwmTextAppearance.Body2"
+      android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
       tools:text="1:00"/>
 
   <TextView
       android:id="@+id/tv__total_distance"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignBottom="@id/tv__arrival_time"
       android:layout_marginRight="@dimen/margin_base"
+      android:layout_alignTop="@id/tv__arrival_time"
       android:layout_toLeftOf="@id/tv__arrival_time"
       android:gravity="center_vertical"
-      android:textAppearance="@style/MwmTextAppearance.Body2"
+      android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
       tools:text="1.4 km"/>
-
-  <TextView
-      android:id="@+id/tv__total_time"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_above="@id/tv__arrival_time"
-      android:layout_alignParentRight="true"
-      android:layout_marginRight="@dimen/margin_double"
-      android:gravity="center_vertical"
-      android:textAppearance="@style/MwmTextAppearance.Body2"
-      tools:text="1,5 min"/>
 </RelativeLayout>

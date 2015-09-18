@@ -295,7 +295,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
       refreshPedestrianAzimutAndDistance(mCachedRoutingInfo);
 
     mTvTotalTime.setText(formatRoutingTime(mCachedRoutingInfo.totalTimeInSeconds));
-    mTvTotalDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_body_plus), UiUtils.dimen(R.dimen.text_size_subtitle),
+    mTvTotalDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_routing_number), UiUtils.dimen(R.dimen.text_size_routing_dimension),
                                               mCachedRoutingInfo.distToTarget, mCachedRoutingInfo.targetUnits));
     mTvArrivalTime.setText(formatArrivalTime(mCachedRoutingInfo.totalTimeInSeconds));
     UiUtils.setTextAndHideIfEmpty(mTvNextStreet, mCachedRoutingInfo.nextStreet);
@@ -322,7 +322,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
     if (mCachedRoutingInfo == null)
       return;
 
-    mTvPrepareDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_body_plus), UiUtils.dimen(R.dimen.text_size_subtitle),
+    mTvPrepareDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_routing_number), UiUtils.dimen(R.dimen.text_size_routing_dimension),
                                                 mCachedRoutingInfo.distToTarget, mCachedRoutingInfo.targetUnits));
     mTvPrepareTime.setText(formatRoutingTime(mCachedRoutingInfo.totalTimeInSeconds));
   }
@@ -345,11 +345,11 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
       minutes++;
 
     return hours == 0 ?
-           buildSpannedText(UiUtils.dimen(R.dimen.text_size_body_plus), UiUtils.dimen(R.dimen.text_size_subtitle), String.valueOf(minutes), "min ") :
-           TextUtils.concat(buildSpannedText(UiUtils.dimen(R.dimen.text_size_body_plus), UiUtils.dimen(R.dimen.text_size_subtitle),
+           buildSpannedText(UiUtils.dimen(R.dimen.text_size_routing_number), UiUtils.dimen(R.dimen.text_size_routing_dimension), String.valueOf(minutes), "min") :
+           TextUtils.concat(buildSpannedText(UiUtils.dimen(R.dimen.text_size_routing_number), UiUtils.dimen(R.dimen.text_size_routing_dimension),
                                              String.valueOf(hours), "h "),
-                            buildSpannedText(UiUtils.dimen(R.dimen.text_size_body_plus), UiUtils.dimen(R.dimen.text_size_subtitle),
-                                             String.valueOf(minutes), "min "));
+                            buildSpannedText(UiUtils.dimen(R.dimen.text_size_routing_number), UiUtils.dimen(R.dimen.text_size_routing_dimension),
+                                             String.valueOf(minutes), "min"));
   }
 
   private static String formatArrivalTime(int seconds)
