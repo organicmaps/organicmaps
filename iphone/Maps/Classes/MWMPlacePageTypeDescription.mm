@@ -1,5 +1,4 @@
 #import "MWMPlacePageTypeDescription.h"
-#import "UIKitCategories.h"
 
 static NSString * const kPlacePageDescriptionViewNibName = @"MWMPlacePageDescriptionView";
 

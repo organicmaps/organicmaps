@@ -2,7 +2,6 @@
 #import "SelectSetVC.h"
 #import "Framework.h"
 #import "AddSetVC.h"
-#import "UIKitCategories.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageEntity.h"
 #import "UIViewController+Navigation.h"

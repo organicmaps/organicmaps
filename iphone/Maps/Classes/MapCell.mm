@@ -1,6 +1,5 @@
 #import "Common.h"
 #import "MapCell.h"
-#import "UIKitCategories.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 

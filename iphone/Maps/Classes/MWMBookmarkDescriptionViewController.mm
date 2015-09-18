@@ -3,7 +3,6 @@
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageEntity.h"
-#import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"
 
 static NSString * const kBookmarkDescriptionViewControllerNibName = @"MWMBookmarkDescriptionViewController";

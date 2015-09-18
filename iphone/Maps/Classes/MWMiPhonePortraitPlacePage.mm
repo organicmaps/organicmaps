@@ -1,7 +1,6 @@
 #import "Common.h"
 #import "MWMiPhonePortraitPlacePage.h"
 #import "MWMSpringAnimation.h"
-#import "UIKitCategories.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageNavigationBar.h"
 #import "MWMPlacePageViewManager.h"

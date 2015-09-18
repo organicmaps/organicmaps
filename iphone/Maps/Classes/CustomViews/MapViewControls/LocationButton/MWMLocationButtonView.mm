@@ -1,6 +1,5 @@
 #import "MWMLocationButtonView.h"
 #import "MWMMapViewControlsCommon.h"
-#import "UIKitCategories.h"
 
 @interface MWMLocationButtonView()
 

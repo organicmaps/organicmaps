@@ -1,5 +1,3 @@
-
-#import <Foundation/Foundation.h>
 #import "Macros.h"
 
 static inline CGPoint SubtractCGPoint(CGPoint p1, CGPoint p2)

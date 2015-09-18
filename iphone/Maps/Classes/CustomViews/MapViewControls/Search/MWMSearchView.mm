@@ -1,7 +1,6 @@
 #import "Common.h"
 #import "MWMSearchTabButtonsView.h"
 #import "MWMSearchView.h"
-#import "UIKitCategories.h"
 
 static CGFloat const kWidthForiPad = 320.0;
 

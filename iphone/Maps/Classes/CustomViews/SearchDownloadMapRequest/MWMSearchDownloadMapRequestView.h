@@ -1,4 +1,3 @@
-#import "UIKitCategories.h"
 
 NS_ENUM(NSUInteger, MWMSearchDownloadMapRequestViewState)
 {

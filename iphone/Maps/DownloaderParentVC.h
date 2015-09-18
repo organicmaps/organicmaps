@@ -2,7 +2,6 @@
 #import <UIKit/UIKit.h>
 #import "MapsObservers.h"
 #import "MapCell.h"
-#import "UIKitCategories.h"
 #import "ViewController.h"
 
 #include "storage/storage_defines.hpp"

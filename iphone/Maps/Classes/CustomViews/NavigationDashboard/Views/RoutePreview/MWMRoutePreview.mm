@@ -4,7 +4,6 @@
 #import "MWMRoutePreview.h"
 #import "TimeUtils.h"
 #import "UIColor+MapsMeColor.h"
-#import "UIKitCategories.h"
 
 @interface MWMRoutePreview () <MWMCircularProgressDelegate>
 

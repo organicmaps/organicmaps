@@ -1,7 +1,6 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageInfoCell.h"
 #import "UIFont+MapsMeFonts.h"
-#import "UIKitCategories.h"
 
 #include "platform/settings.hpp"
 #include "platform/measurement_utils.hpp"

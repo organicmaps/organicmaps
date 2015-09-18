@@ -1,7 +1,6 @@
 #import "MWMMapViewControlsCommon.h"
 #import "MWMSideMenuDownloadBadge.h"
 #import "MWMSideMenuView.h"
-#import "UIKitCategories.h"
 
 @interface MWMSideMenuView()
 

@@ -9,7 +9,6 @@
 #import "Preferences.h"
 #import "RouteState.h"
 #import "Statistics.h"
-#import "UIKitCategories.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>

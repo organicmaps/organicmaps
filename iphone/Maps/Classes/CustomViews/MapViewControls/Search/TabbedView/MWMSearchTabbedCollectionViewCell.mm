@@ -1,5 +1,4 @@
 #import "MWMSearchTabbedCollectionViewCell.h"
-#import "UIKitCategories.h"
 
 @interface MWMSearchTabbedCollectionViewCell ()
 

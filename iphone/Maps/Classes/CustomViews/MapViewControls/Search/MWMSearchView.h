@@ -1,4 +1,3 @@
-#import "UIKitCategories.h"
 
 @class MWMSearchTabButtonsView;
 

@@ -4,7 +4,6 @@
 #import "MWMSearchCommonCell.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
-#import "UIKitCategories.h"
 
 #include "indexer/mercator.hpp"
 #include "platform/measurement_utils.hpp"

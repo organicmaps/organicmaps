@@ -3,8 +3,6 @@
 #import "Common.h"
 #import "EAGLView.h"
 
-#import "../Categories/UIKitCategories.h"
-
 #include "Framework.h"
 
 #ifndef USE_DRAPE

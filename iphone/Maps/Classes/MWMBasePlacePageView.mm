@@ -1,5 +1,4 @@
 #import "MWMBasePlacePageView.h"
-#import "UIKitCategories.h"
 #import "MWMPlacePageInfoCell.h"
 #import "MWMPlacePageBookmarkCell.h"
 #import "MWMPlacePageEntity.h"

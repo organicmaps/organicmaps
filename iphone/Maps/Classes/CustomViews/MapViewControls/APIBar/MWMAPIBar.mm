@@ -1,7 +1,6 @@
 #import "Common.h"
 #import "MWMAPIBar.h"
 #import "MWMAPIBarView.h"
-#import "UIKitCategories.h"
 
 #include "Framework.h"
 

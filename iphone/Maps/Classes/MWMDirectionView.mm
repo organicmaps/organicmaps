@@ -1,7 +1,6 @@
 #import "MWMDirectionView.h"
 #import "MWMPlacePageViewManager.h"
 #import "UIFont+MapsMeFonts.h"
-#import "UIKitCategories.h"
 
 static NSString * const kDirectionViewNibName = @"MWMDirectionView";
 static CGFloat const kDirectionArrowSide = IPAD ? 260. : 160.;

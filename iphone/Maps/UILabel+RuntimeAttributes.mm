@@ -1,5 +1,4 @@
 #import "UILabel+RuntimeAttributes.h"
-#import "UIKitCategories.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIColor+MapsMeColor.h"
 

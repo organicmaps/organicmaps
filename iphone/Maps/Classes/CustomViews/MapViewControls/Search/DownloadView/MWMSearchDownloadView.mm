@@ -1,6 +1,5 @@
 #import "Common.h"
 #import "MWMSearchDownloadView.h"
-#import "UIKitCategories.h"
 
 @interface MWMSearchDownloadView ()
 

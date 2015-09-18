@@ -6,7 +6,6 @@
 #import "MWMDownloadTransitMapAlert.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
-#import "UIKitCategories.h"
 #import "UILabel+RuntimeAttributes.h"
 
 @interface MWMDownloaderEntity : NSObject 

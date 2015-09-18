@@ -1,6 +1,5 @@
 #import "MWMCircularProgress.h"
 #import "MWMCircularProgressView.h"
-#import "UIKitCategories.h"
 
 @interface MWMCircularProgress ()
 

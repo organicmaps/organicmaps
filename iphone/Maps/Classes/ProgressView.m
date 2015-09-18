@@ -1,6 +1,5 @@
 
 #import "ProgressView.h"
-#import "UIKitCategories.h"
 
 @interface ProgressView ()
 

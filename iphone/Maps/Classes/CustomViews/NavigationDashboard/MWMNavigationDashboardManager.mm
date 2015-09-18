@@ -9,7 +9,6 @@
 #import "MWMRouteHelperPanelsDrawer.h"
 #import "MWMRoutePreview.h"
 #import "MWMTextToSpeech.h"
-#import "UIKitCategories.h"
 
 @interface MWMNavigationDashboardManager ()
 

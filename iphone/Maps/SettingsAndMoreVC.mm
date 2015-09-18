@@ -1,6 +1,5 @@
 
 #import "SettingsAndMoreVC.h"
-#import "UIKitCategories.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
 #import "SettingsViewController.h"

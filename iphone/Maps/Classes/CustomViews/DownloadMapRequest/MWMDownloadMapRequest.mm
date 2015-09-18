@@ -4,7 +4,6 @@
 #import "MWMCircularProgress.h"
 #import "MWMDownloadMapRequest.h"
 #import "MWMDownloadMapRequestView.h"
-#import "UIKitCategories.h"
 
 #include "Framework.h"
 #include "storage/index.hpp"

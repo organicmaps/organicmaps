@@ -1,6 +1,5 @@
 
 #import "ToastView.h"
-#import "UIKitCategories.h"
 
 @interface ToastView ()
 

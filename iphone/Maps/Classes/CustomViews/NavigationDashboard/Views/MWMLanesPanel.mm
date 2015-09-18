@@ -1,5 +1,4 @@
 #import "MWMLanesPanel.h"
-#import "UIKitCategories.h"
 #import "UIColor+MapsMeColor.h"
 
 static CGFloat const kOffset = 16.;

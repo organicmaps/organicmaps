@@ -4,7 +4,6 @@
 #import "MWMSearchTabbedViewController.h"
 #import "MWMSearchTabbedViewLayout.h"
 #import "MWMSearchTabbedViewProtocol.h"
-#import "UIKitCategories.h"
 
 #include "Framework.h"
 

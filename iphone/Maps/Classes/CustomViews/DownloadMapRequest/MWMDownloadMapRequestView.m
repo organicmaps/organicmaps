@@ -1,7 +1,6 @@
 #import "MWMDownloadMapRequestView.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
-#import "UIKitCategories.h"
 
 @interface MWMDownloadMapRequestView ()
 

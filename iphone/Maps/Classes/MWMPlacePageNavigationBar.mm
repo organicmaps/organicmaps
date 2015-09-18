@@ -3,7 +3,6 @@
 #import "MWMiPhonePortraitPlacePage.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMBasePlacePageView.h"
-#import "UIKitCategories.h"
 #import "MWMPlacePageEntity.h"
 #import <objc/runtime.h>
 

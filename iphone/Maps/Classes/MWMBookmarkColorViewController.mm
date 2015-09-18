@@ -1,5 +1,4 @@
 #import "MWMBookmarkColorViewController.h"
-#import "UIKitCategories.h"
 #import "MWMBookmarkColorCell.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"

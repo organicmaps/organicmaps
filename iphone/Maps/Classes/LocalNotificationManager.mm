@@ -6,7 +6,6 @@
 #import "MapViewController.h"
 #import "Statistics.h"
 #import "TimeUtils.h"
-#import "UIKitCategories.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 

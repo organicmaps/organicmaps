@@ -4,7 +4,6 @@
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
-#import "UIKitCategories.h"
 
 #include "Framework.h"
 

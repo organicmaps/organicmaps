@@ -1,5 +1,4 @@
 #import "MWMSearchTableView.h"
-#import "UIKitCategories.h"
 
 @interface MWMSearchTableView ()
 

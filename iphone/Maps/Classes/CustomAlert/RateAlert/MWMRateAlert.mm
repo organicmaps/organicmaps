@@ -3,7 +3,6 @@
 #import "MWMRateAlert.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
-#import "UIKitCategories.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
 

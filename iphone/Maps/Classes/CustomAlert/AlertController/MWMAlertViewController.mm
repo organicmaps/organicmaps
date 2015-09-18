@@ -1,7 +1,6 @@
 #import "Common.h"
 #import "MWMAlertViewController.h"
 #import "MWMDownloadTransitMapAlert.h"
-#import "UIKitCategories.h"
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 

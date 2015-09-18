@@ -1,7 +1,6 @@
 
 #import "CommunityVC.h"
 #import "UIViewController+Navigation.h"
-#import "UIKitCategories.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import "../../3party/Alohalytics/src/alohalytics_objc.h"
 

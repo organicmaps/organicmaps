@@ -1,5 +1,4 @@
 #import "MWMSpringAnimation.h"
-#import "UIKitCategories.h"
 
 @interface MWMSpringAnimation ()
 

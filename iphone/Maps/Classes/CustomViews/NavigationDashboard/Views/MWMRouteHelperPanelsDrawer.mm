@@ -1,7 +1,6 @@
 #import "MWMLanesPanel.h"
 #import "MWMNextTurnPanel.h"
 #import "MWMRouteHelperPanelsDrawer.h"
-#import "UIKitCategories.h"
 #import "UIColor+MapsMeColor.h"
 
 static CGFloat const kOffsetBetweenPanels = 8.;

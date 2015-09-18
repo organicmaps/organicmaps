@@ -2,7 +2,6 @@
 #import "MWMiPadPlacePage.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageActionBar.h"
-#import "UIKitCategories.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMBookmarkColorViewController.h"
 #import "SelectSetVC.h"

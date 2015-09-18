@@ -1,5 +1,4 @@
 #import "MWMNextTurnPanel.h"
-#import "UIKitCategories.h"
 
 @interface MWMNextTurnPanel ()
 

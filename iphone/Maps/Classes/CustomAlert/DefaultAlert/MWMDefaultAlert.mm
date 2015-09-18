@@ -6,7 +6,6 @@
 #import "MWMPlacePageViewManager.h"
 #import "Statistics.h"
 #import "UIButton+RuntimeAttributes.h"
-#import "UIKitCategories.h"
 #import "UILabel+RuntimeAttributes.h"
 
 #include "Framework.h"

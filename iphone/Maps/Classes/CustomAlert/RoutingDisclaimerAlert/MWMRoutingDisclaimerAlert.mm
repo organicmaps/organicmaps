@@ -3,7 +3,6 @@
 #import "MWMRoutingDisclaimerAlert.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
-#import "UIKitCategories.h"
 #import "Statistics.h"
 
 static CGFloat const kMinimumOffset = 20.;

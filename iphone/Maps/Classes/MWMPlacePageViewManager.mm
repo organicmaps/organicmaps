@@ -14,7 +14,6 @@
 #import "MWMPlacePageNavigationBar.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
-#import "UIKitCategories.h"
 
 #include "Framework.h"
 

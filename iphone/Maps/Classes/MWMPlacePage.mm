@@ -6,7 +6,6 @@
 #import "MWMDirectionView.h"
 #import "MWMBookmarkColorViewController.h"
 #import "SelectSetVC.h"
-#import "UIKitCategories.h"
 #import "MWMBookmarkDescriptionViewController.h"
 
 #import "../../3party/Alohalytics/src/alohalytics_objc.h"

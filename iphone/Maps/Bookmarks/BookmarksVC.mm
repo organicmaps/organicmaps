@@ -7,7 +7,6 @@
 #import "MapViewController.h"
 #import "MWMMapViewControlsManager.h"
 #import "Statistics.h"
-#import "UIKitCategories.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
 #include "Framework.h"

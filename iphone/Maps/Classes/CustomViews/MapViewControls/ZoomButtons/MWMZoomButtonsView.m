@@ -1,6 +1,5 @@
 #import "MWMZoomButtonsView.h"
 #import "MWMMapViewControlsCommon.h"
-#import "UIKitCategories.h"
 
 static CGFloat const kZoomViewOffsetToTopBound = 12.0;
 static CGFloat const kZoomViewOffsetToBottomBound = 40.0;

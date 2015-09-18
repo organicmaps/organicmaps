@@ -1,6 +1,5 @@
 #import "Common.h"
 #import "MWMNavigationView.h"
-#import "UIKitCategories.h"
 
 static CGFloat const kStatusbarHeight = 20.0;
 

@@ -3,7 +3,6 @@
 #import "MWMBasePlacePageView.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageViewManager.h"
-#import "UIKitCategories.h"
 #import "MWMSpringAnimation.h"
 #import "MWMPlacePage+Animation.h"
 

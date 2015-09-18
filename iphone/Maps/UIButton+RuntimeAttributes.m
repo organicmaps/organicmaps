@@ -2,7 +2,6 @@
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
-#import "UIKitCategories.h"
 
 @implementation UIButton (RuntimeAttributes)
 

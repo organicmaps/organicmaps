@@ -1,6 +1,5 @@
 #import "MWMMapViewControlsCommon.h"
 #import "MWMSideMenuButton.h"
-#import "UIKitCategories.h"
 
 @interface MWMSideMenuButton()
 

@@ -1,7 +1,6 @@
 #import "MWMCircularProgress.h"
 #import "MWMCircularProgressView.h"
 #import "UIColor+MapsMeColor.h"
-#import "UIKitCategories.h"
 
 static CGFloat const kLineWidth = 2.0;
 static NSString * const kAnimationKey = @"CircleAnimation";

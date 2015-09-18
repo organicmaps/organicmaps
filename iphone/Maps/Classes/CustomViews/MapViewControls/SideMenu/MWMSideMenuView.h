@@ -1,7 +1,5 @@
 #import "MWMSideMenuDelegate.h"
 #import "MWMSideMenuDownloadBadge.h"
-#import "UIKitCategories.h"
-#import <UIKit/UIKit.h>
 
 @interface MWMSideMenuView : SolidTouchView <MWMSideMenuDownloadBadgeOwner>
 

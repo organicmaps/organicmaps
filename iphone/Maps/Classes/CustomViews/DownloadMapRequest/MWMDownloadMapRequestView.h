@@ -1,5 +1,4 @@
 #import "MWMDownloadMapRequest.h"
-#import "UIKitCategories.h"
 
 @interface MWMDownloadMapRequestView : SolidTouchView
 

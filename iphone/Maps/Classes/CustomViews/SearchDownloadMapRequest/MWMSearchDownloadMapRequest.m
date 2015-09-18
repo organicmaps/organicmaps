@@ -1,7 +1,6 @@
 #import "MWMDownloadMapRequest.h"
 #import "MWMSearchDownloadMapRequest.h"
 #import "MWMSearchDownloadMapRequestView.h"
-#import "UIKitCategories.h"
 
 @interface MWMSearchDownloadMapRequest () <MWMDownloadMapRequestDelegate>
 

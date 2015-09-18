@@ -7,7 +7,6 @@
 #import "MWMSearchTableView.h"
 #import "MWMSearchTableViewController.h"
 #import "ToastView.h"
-#import "UIKitCategories.h"
 
 #include "std/vector.hpp"
 

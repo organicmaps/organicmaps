@@ -7,7 +7,6 @@
 #import "MWMMapViewControlsManager.h"
 #import "RouteState.h"
 #import "UIFont+MapsMeFonts.h"
-#import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"

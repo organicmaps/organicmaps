@@ -1,6 +1,5 @@
 
 #import "BadgeView.h"
-#import "UIKitCategories.h"
 #import "UIFont+MapsMeFonts.h"
 
 @implementation BadgeView

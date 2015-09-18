@@ -1,5 +1,4 @@
 #import "MWMBookmarkColorCell.h"
-#import "UIKitCategories.h"
 
 extern NSArray * const kBookmarkColorsVariant;
 

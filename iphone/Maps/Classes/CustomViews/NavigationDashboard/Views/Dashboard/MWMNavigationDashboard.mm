@@ -2,7 +2,6 @@
 #import "MWMNavigationDashboard.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "TimeUtils.h"
-#import "UIKitCategories.h"
 #import "UIColor+MapsMeColor.h"
 
 @interface MWMImageView : UIImageView

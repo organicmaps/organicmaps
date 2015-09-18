@@ -1,6 +1,5 @@
 #import "Common.h"
 #import "MWMRouteHelperPanel.h"
-#import "UIKitCategories.h"
 
 static CGFloat const kHeight = 40.;
 
