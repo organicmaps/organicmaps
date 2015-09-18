@@ -1,7 +1,8 @@
 
 #import "AddSetVC.h"
-#import "Framework.h"
 #import "UIViewController+Navigation.h"
+
+#include "Framework.h"
 
 #define TEXT_FIELD_TAG 666
 

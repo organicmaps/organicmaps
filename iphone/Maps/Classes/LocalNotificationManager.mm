@@ -1,5 +1,4 @@
 #import "Common.h"
-#import "Framework.h"
 #import "LocalNotificationManager.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
@@ -8,6 +7,8 @@
 #import "TimeUtils.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
+
+#include "Framework.h"
 
 #include "platform/platform.hpp"
 #include "storage/storage_defines.hpp"

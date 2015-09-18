@@ -1,10 +1,11 @@
 
 #import "SelectSetVC.h"
-#import "Framework.h"
 #import "AddSetVC.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageEntity.h"
 #import "UIViewController+Navigation.h"
+
+#include "Framework.h"
 
 @interface SelectSetVC () <AddSetVCDelegate>
 

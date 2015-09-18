@@ -1,5 +1,6 @@
 #import "RouteState.h"
-#import "Framework.h"
+
+#include "Framework.h"
 
 static NSString * const kEndPointKey = @"endPoint";
 static NSString * const kETAKey = @"eta";

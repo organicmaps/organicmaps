@@ -1,8 +1,7 @@
 #import "Preferences.h"
-#import <Foundation/Foundation.h>
-#import <UIKit/UIAlertView.h>
 #import "../Classes/MapViewController.h"
-#import "Framework.h"
+
+#include "Framework.h"
 
 #include "platform/settings.hpp"
 
