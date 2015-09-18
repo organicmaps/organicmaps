@@ -48,6 +48,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 
 - (void)dealloc
 {
+  m_locationManager.delegate = nil;
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

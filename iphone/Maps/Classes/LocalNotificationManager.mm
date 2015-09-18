@@ -43,6 +43,11 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   return manager;
 }
 
+- (void)dealloc
+{
+  _locationManager.delegate = nil;
+}
+
 - (void)processNotification:(UILocalNotification *)notification onLaunch:(BOOL)onLaunch
 {
   NSDictionary * userInfo = [notification userInfo];
