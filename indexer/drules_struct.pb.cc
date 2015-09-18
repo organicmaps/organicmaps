@@ -3569,6 +3569,7 @@ const int DrawElementProto::kCaptionFieldNumber;
 const int DrawElementProto::kCircleFieldNumber;
 const int DrawElementProto::kPathTextFieldNumber;
 const int DrawElementProto::kShieldFieldNumber;
+const int DrawElementProto::kApplyIfFieldNumber;
 #endif  // !_MSC_VER
 
 DrawElementProto::DrawElementProto()
@@ -3624,6 +3625,7 @@ DrawElementProto::DrawElementProto(const DrawElementProto& from)
 }
 
 void DrawElementProto::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   scale_ = 0;
   area_ = NULL;
@@ -3698,6 +3700,7 @@ void DrawElementProto::Clear() {
     }
   }
   lines_.Clear();
+  apply_if_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->clear();
 }
@@ -3818,6 +3821,20 @@ bool DrawElementProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(74)) goto parse_apply_if;
+        break;
+      }
+
+      // repeated string apply_if = 9;
+      case 9: {
+        if (tag == 74) {
+         parse_apply_if:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_apply_if()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(74)) goto parse_apply_if;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -3894,6 +3911,12 @@ void DrawElementProto::SerializeWithCachedSizes(
       8, this->shield(), output);
   }
 
+  // repeated string apply_if = 9;
+  for (int i = 0; i < this->apply_if_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      9, this->apply_if(i), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:DrawElementProto)
@@ -3961,6 +3984,13 @@ int DrawElementProto::ByteSize() const {
         this->lines(i));
   }
 
+  // repeated string apply_if = 9;
+  total_size += 1 * this->apply_if_size();
+  for (int i = 0; i < this->apply_if_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->apply_if(i));
+  }
+
   total_size += unknown_fields().size();
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -3977,6 +4007,7 @@ void DrawElementProto::CheckTypeAndMergeFrom(
 void DrawElementProto::MergeFrom(const DrawElementProto& from) {
   GOOGLE_CHECK_NE(&from, this);
   lines_.MergeFrom(from.lines_);
+  apply_if_.MergeFrom(from.apply_if_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_scale()) {
       set_scale(from.scale());
@@ -4044,6 +4075,7 @@ void DrawElementProto::Swap(DrawElementProto* other) {
     std::swap(circle_, other->circle_);
     std::swap(path_text_, other->path_text_);
     std::swap(shield_, other->shield_);
+    apply_if_.Swap(&other->apply_if_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

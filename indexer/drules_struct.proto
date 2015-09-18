@@ -111,6 +111,7 @@ message DrawElementProto
   optional CircleRuleProto circle = 6;
   optional PathTextRuleProto path_text = 7;
   optional ShieldRuleProto shield = 8;
+  repeated string apply_if = 9;
 }
 
 message ClassifElementProto

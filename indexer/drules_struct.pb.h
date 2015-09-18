@@ -1555,6 +1555,22 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline ::ShieldRuleProto* release_shield();
   inline void set_allocated_shield(::ShieldRuleProto* shield);
 
+  // repeated string apply_if = 9;
+  inline int apply_if_size() const;
+  inline void clear_apply_if();
+  static const int kApplyIfFieldNumber = 9;
+  inline const ::std::string& apply_if(int index) const;
+  inline ::std::string* mutable_apply_if(int index);
+  inline void set_apply_if(int index, const ::std::string& value);
+  inline void set_apply_if(int index, const char* value);
+  inline void set_apply_if(int index, const char* value, size_t size);
+  inline ::std::string* add_apply_if();
+  inline void add_apply_if(const ::std::string& value);
+  inline void add_apply_if(const char* value);
+  inline void add_apply_if(const char* value, size_t size);
+  inline const ::google::protobuf::RepeatedPtrField< ::std::string>& apply_if() const;
+  inline ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_apply_if();
+
   // @@protoc_insertion_point(class_scope:DrawElementProto)
  private:
   inline void set_has_scale();
@@ -1583,6 +1599,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   ::CircleRuleProto* circle_;
   ::PathTextRuleProto* path_text_;
   ::ShieldRuleProto* shield_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> apply_if_;
   ::google::protobuf::int32 scale_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
@@ -3527,6 +3544,60 @@ inline void DrawElementProto::set_allocated_shield(::ShieldRuleProto* shield) {
     clear_has_shield();
   }
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.shield)
+}
+
+// repeated string apply_if = 9;
+inline int DrawElementProto::apply_if_size() const {
+  return apply_if_.size();
+}
+inline void DrawElementProto::clear_apply_if() {
+  apply_if_.Clear();
+}
+inline const ::std::string& DrawElementProto::apply_if(int index) const {
+  // @@protoc_insertion_point(field_get:DrawElementProto.apply_if)
+  return apply_if_.Get(index);
+}
+inline ::std::string* DrawElementProto::mutable_apply_if(int index) {
+  // @@protoc_insertion_point(field_mutable:DrawElementProto.apply_if)
+  return apply_if_.Mutable(index);
+}
+inline void DrawElementProto::set_apply_if(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:DrawElementProto.apply_if)
+  apply_if_.Mutable(index)->assign(value);
+}
+inline void DrawElementProto::set_apply_if(int index, const char* value) {
+  apply_if_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:DrawElementProto.apply_if)
+}
+inline void DrawElementProto::set_apply_if(int index, const char* value, size_t size) {
+  apply_if_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:DrawElementProto.apply_if)
+}
+inline ::std::string* DrawElementProto::add_apply_if() {
+  return apply_if_.Add();
+}
+inline void DrawElementProto::add_apply_if(const ::std::string& value) {
+  apply_if_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:DrawElementProto.apply_if)
+}
+inline void DrawElementProto::add_apply_if(const char* value) {
+  apply_if_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:DrawElementProto.apply_if)
+}
+inline void DrawElementProto::add_apply_if(const char* value, size_t size) {
+  apply_if_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:DrawElementProto.apply_if)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+DrawElementProto::apply_if() const {
+  // @@protoc_insertion_point(field_list:DrawElementProto.apply_if)
+  return apply_if_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+DrawElementProto::mutable_apply_if() {
+  // @@protoc_insertion_point(field_mutable_list:DrawElementProto.apply_if)
+  return &apply_if_;
 }
 
 // -------------------------------------------------------------------
