@@ -26,7 +26,7 @@ double constexpr kShowTheTurnAfterTheNextM = 500.;
 // If the distance between two sequential turns is more than kMaxTurnDistM
 // the information about the second turn will be shown when the user is
 // approaching to the first one.
-double constexpr kMaxTurnDistM = 150.;
+double constexpr kMaxTurnDistM = 400.;
 
 // @todo(kshalnev) The distance may depend on the current speed.
 double constexpr kShowPedestrianTurnInMeters = 5.;
