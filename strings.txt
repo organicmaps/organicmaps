@@ -787,7 +787,7 @@
     cs = Připojení k WiFi nenalezeno. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %@?
     sk = Nenájdené pripojenie k WiFi. Chcete použiť mobilnú sieť (GPRS, EDGE alebo 3G) k stiahnutiu %@?
     de = Keine WLAN-Verbindung. Möchten Sie %@ über das Mobilnetz (GPRS, EDGE oder 3G) herunterladen?
-    es = No hay conexión WiFi. ¿Quieres descargar con el %@ operador (GPRS, EDGE or 3G)?
+    es = No hay conexión Wifi. ¿Quieres descargar el mapa con tu plan de datos móviles?
     fr = Aucun connexion Wi-Fi détectée. Désirez-vous utiliser les données mobiles (GPRS, EDGE ou 3G) pour télécharger %@ ?
     it = Non è stata rilevata alcuna connessione WiFi. Vuoi utilizzare i dati cellulare (GPRS, EDGE o 3G) per scaricare %@?
     ja = WiFi接続が見つかりません。GPRS、EDGE、3G等の携帯電話回線で%@をダウンロードしますか？
@@ -11881,8 +11881,8 @@
 
   [dialog_routing_disclaimer_title]
     tags = ios,android
-    ru = При движении по маршруту помните:
     en = When following the route, please keep in mind:
+    ru = При движении по маршруту помните:
     fr = Lorsque vous suivez l'itinéraire, gardez à l'esprit les points suivants :
     da = Når du følger en rute, skal du være opmærksom på følgende:
     id = Saat mengikuti rute, harap diingat:
@@ -11912,8 +11912,8 @@
 
   [dialog_routing_disclaimer_priority]
     tags = ios,android
-    ru = — Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;
     en = — Road conditions, traffic laws and road signs always take priority over the navigational advice;
+    ru = — Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;
     fr = — Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l'appareil de navigation;
     da = — Vejforhold, færdselsregler og skiltning skal prioriteres højere end anvisningerne fra navigationsappen;
     id = — Kondisi jalan, peraturan lalu lintas, dan marka jalan harus selalu didahulukan daripada saran navigasi;
@@ -11943,8 +11943,8 @@
 
   [dialog_routing_disclaimer_precision]
     tags = ios,android
-    ru = — Карта может быть неточной, а предложенный маршрут не всегда оптимален;
     en = — The map might be inaccurate and the suggested route might not always be the most optimal way to reach the destination;
+    ru = — Карта может быть неточной, а предложенный маршрут не всегда оптимален;
     fr = — La carte peut être imprécise et l'itinéraire proposé n'est pas forcément le plus direct pour arriver à destination;
     da = — Kortet kan være unøjagtigt, og den foreslåede rute er ikke nødvendigvis altid den bedste måde at nå destinationen på;
     id = — Peta mungkin tidak akurat dan rute yang disarankan tidak mutlak merupakan cara paling optimal untuk mencapai tujuan;
@@ -11974,8 +11974,8 @@
 
   [dialog_routing_disclaimer_recommendations]
     tags = ios,android
-    ru = — Предлагаемые маршруты — лишь рекомендации;
     en = — Suggested routes are to be taken only as recommendations;
+    ru = — Предлагаемые маршруты — лишь рекомендации;
     fr = — L'itinéraire proposé doit être considéré comme une simple recommandation;
     da = — De foreslåede ruter skal kun betragtes som anbefalinger;
     id = — Rute yang disarankan hanya untuk digunakan sebagai rekomendasi;
@@ -12005,8 +12005,8 @@
 
   [dialog_routing_disclaimer_beware]
     tags = ios,android
-    ru = Будьте внимательны на дорогах и берегите себя!
     en = Please stay alert and safe on the roads!
+    ru = Будьте внимательны на дорогах и берегите себя!
     fr = Restez vigilant et soyez prudent sur la route !
     da = Vær altid særligt opmærksom og årvågen, når du sidder bag rattet!
     id = Jaga selalu kewaspadaan dan keselamatan di jalan!
@@ -12036,8 +12036,8 @@
 
   [dialog_routing_check_gps]
     tags = ios,android
-    ru = Проверьте сигнал GPS
     en = Check GPS signal
+    ru = Проверьте сигнал GPS
     fr = Vérifiez le signal GPS
     da = Tjek GPS-signalet
     id = Periksa sinyal GPS
@@ -12067,8 +12067,8 @@
 
   [dialog_routing_error_location_not_found]
     tags = ios,android
-    ru = Маршрут не построен. Текущая геопозиция не определена.
     en = Unable to create route. Current GPS coordinates could not be identified.
+    ru = Маршрут не построен. Текущая геопозиция не определена.
     fr = Impossible de créer l'itinéraire. Les coordonnées GPS actuelles n'ont pas pu être identifiées.
     da = Det lykkedes ikke at planlægge en rute. GPS-koordinaterne kunne ikke identificeres korrekt.
     id = Tidak dapat membuat rute. Koordinat GPS saat ini tidak dapat dikenali.
@@ -12098,8 +12098,8 @@
 
   [dialog_routing_location_turn_wifi]
     tags = ios,android
-    ru = Пожалуйста, проверьте сигнал GPS. Для улучшения точности геопозиции включите Wi-Fi.
     en = Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.
+    ru = Пожалуйста, проверьте сигнал GPS. Для улучшения точности геопозиции включите Wi-Fi.
     fr = Vérifiez le signal GPS. Activez le Wi-Fi pour améliorer la précision de votre localisation.
     da = Tjek venligst dit GPS-signal. Din placering registreres mere præcist, hvis wi-fi er slået til.
     id = Mohon periksa sinyal GPS Anda. Mengaktifkan Wi-Fi akan meningkatkan akurasi lokasi Anda.
@@ -12129,8 +12129,8 @@
 
   [dialog_routing_location_turn_on]
     tags = ios,android
-    ru = Включите режим определения геопозиции
     en = Enable location services
+    ru = Включите режим определения геопозиции
     fr = Activez les services de localisation
     da = Slå lokaliseringstjenester til
     id = Aktifkan layanan lokasi
@@ -12160,8 +12160,8 @@
 
   [dialog_routing_location_unknown_turn_on]
     tags = ios,android
-    ru = Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.
     en = Unable to locate current GPS coordinates. Enable location services to calculate route.
+    ru = Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.
     fr = Impossible d'identifier les coordonnées GPS actuelles. Activez les services de localisation pour calculer l'itinéraire.
     da = Det lykkedes ikke at finde de aktuelle GPS-koordinater. Slå lokaliseringstjenester til for at beregne en rute.
     id = TIdak dapat menemukan koordinat GPS saat ini. Aktifkan layanan lokasi untuk mengalkulasi rute.
@@ -12191,8 +12191,8 @@
 
   [dialog_routing_location_unknown]
     tags = ios,android
-    ru = Текущая геопозиция не определена.
     en = Unable to locate current GPS coordinates.
+    ru = Текущая геопозиция не определена.
     fr = Impossible d'identifier les coordonnées GPS actuelles.
     da = Det lykkedes ikke at finde de aktuelle GPS-koordinater.
     id = TIdak dapat menemukan koordinat GPS saat ini.
@@ -12222,8 +12222,8 @@
 
   [dialog_routing_download_files]
     tags = ios,android
-    ru = Загрузите необходимые файлы
     en = Download required files
+    ru = Загрузите необходимые файлы
     fr = Téléchargez les fichiers requis
     da = Download de nødvendige filer
     id = Unduh file yang diperlukan
@@ -12253,8 +12253,8 @@
 
   [dialog_routing_download_and_update_all]
     tags = ios,android
-    ru = Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.
     en = Download and update all map and routing information along the projected path to calculate route.
+    ru = Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.
     fr = Téléchargez et mettez à jour les informations de carte et d'itinéraire de votre trajet pour calculer l'itinéraire.
     da = Download og opdatér alle kort og ruteoplysninger for at beregne en rute.
     id = Unduh dan perbarui semua informasi peta dan perutean di sepanjang proyeksi jalan untuk mengalkulasi rute.
@@ -12284,8 +12284,8 @@
 
   [dialog_routing_routes_size]
     tags = ios,android
-    ru = Файлы маршрутов
     en = Routing information files
+    ru = Файлы маршрутов
     fr = Fichiers d'itinéraire
     da = Filer med ruteoplysninger
     id = File informasi rute
@@ -12315,8 +12315,8 @@
 
   [dialog_routing_unable_locate_route]
     tags = ios,android
-    ru = Маршрут не найден
     en = Unable to locate route
+    ru = Маршрут не найден
     fr = Impossible de localiser l'itinéraire
     da = Der blev ikke fundet en rute
     id = Tidak dapat menemukan rute
@@ -12346,8 +12346,8 @@
 
   [dialog_routing_cant_build_route]
     tags = ios,android
-    ru = Не получилось построить маршрут.
     en = Unable to create route.
+    ru = Не получилось построить маршрут.
     fr = Impossible de créer l'itinéraire.
     da = Der blev ikke planlagt en rute.
     id = Tidak dapat membuat rute.
@@ -12377,8 +12377,8 @@
 
   [dialog_routing_change_start_or_end]
     tags = ios,android
-    ru = Пожалуйста, измените начальную или конечную точку маршрута.
     en = Please adjust your starting point or your destination.
+    ru = Пожалуйста, измените начальную или конечную точку маршрута.
     fr = Modifiez votre point de départ ou votre destination.
     da = Prøv at angive et andet startpunkt eller en anden destination.
     id = Sesuaikan titik mula atau tujuan Anda.
@@ -12408,8 +12408,8 @@
 
   [dialog_routing_change_start]
     tags = ios,android
-    ru = Измените начальную точку маршрута
     en = Adjust starting point
+    ru = Измените начальную точку маршрута
     fr = Modifiez votre point de départ
     da = Vælg et andet startpunkt
     id = Sesuaikan titik mula
@@ -12439,8 +12439,8 @@
 
   [dialog_routing_start_not_determined]
     tags = ios,android
-    ru = Маршрут не построен. Не определена начальная точка маршрута.
     en = Route was not created. Unable to locate starting point.
+    ru = Маршрут не построен. Не определена начальная точка маршрута.
     fr = Impossible de localiser le point de départ. L'itinéraire n'a pas pu être créé.
     da = Det lykkedes ikke at planlægge en rute. Startpunktet blev ikke fundet.
     id = Rute tidak dibuat. Tidak dapat menemukan titik mula.
@@ -12470,8 +12470,8 @@
 
   [dialog_routing_select_closer_start]
     tags = ios,android
-    ru = Пожалуйста, выберите начальную точку маршрута ближе к дороге.
     en = Please select a starting point closer to a road.
+    ru = Пожалуйста, выберите начальную точку маршрута ближе к дороге.
     fr = Choisissez un point de départ à proximité d'une route.
     da = Angiv et startpunkt, der ligger tættere på en vej.
     id = Pilih titik mula yang lebih dekat dengan jalan.
@@ -12501,8 +12501,8 @@
 
   [dialog_routing_change_end]
     tags = ios,android
-    ru = Измените конечную точку маршрута
     en = Adjust destination
+    ru = Измените конечную точку маршрута
     fr = Modifiez la destination
     da = Vælg en anden destination
     id = Sesuaikan tujuan
@@ -12532,8 +12532,8 @@
 
   [dialog_routing_end_not_determined]
     tags = ios,android
-    ru = Маршрут не построен. Не определена конечная точка маршрута.
     en = Route was not created. Unable to locate the destination.
+    ru = Маршрут не построен. Не определена конечная точка маршрута.
     fr = Impossible de localiser la destination. L'itinéraire n'a pas pu être créé.
     da = Det lykkedes ikke at planlægge en rute. Destinationen blev ikke fundet.
     id = Rute tidak dibuat. Tidak dapat menemukan tujuan.
@@ -12563,8 +12563,8 @@
 
   [dialog_routing_select_closer_end]
     tags = ios,android
-    ru = Пожалуйста, выберите конечную точку маршрута ближе к дороге.
     en = Please select a destination point located closer to a road.
+    ru = Пожалуйста, выберите конечную точку маршрута ближе к дороге.
     fr = Choisissez une destination à proximité d'une route.
     da = Angiv en destination, der ligger tættere på en vej.
     id = Pilih titik tujuan yang lebih dekat dengan jalan.
@@ -12594,8 +12594,8 @@
 
   [dialog_routing_system_error]
     tags = ios,android
-    ru = Системная ошибка
     en = System error
+    ru = Системная ошибка
     fr = Erreur système
     da = Systemfejl
     id = Kesalahan sistem
@@ -12625,8 +12625,8 @@
 
   [dialog_routing_application_error]
     tags = ios,android
-    ru = Не удалось проложить маршрут из-за ошибки приложения.
     en = Unable to create route due to an application error.
+    ru = Не удалось проложить маршрут из-за ошибки приложения.
     fr = Impossible de créer l'itinéraire à cause d'une erreur dans l'application.
     da = Det lykkedes ikke at planlægge en rute. Der opstod en fejl i systemet.
     id = Tidak dapat membuat rute karena kesalahan aplikasi.
@@ -12656,8 +12656,8 @@
 
   [dialog_routing_try_again]
     tags = ios,android
-    ru = Попробуйте снова
     en = Please try again
+    ru = Попробуйте снова
     fr = Réessayer
     da = Prøv igen
     id = Mohon coba lagi
@@ -12687,8 +12687,8 @@
 
   [dialog_routing_send_error]
     tags = ios,android
-    ru = Сообщить об ошибке
     en = Report the Problem
+    ru = Сообщить об ошибке
     fr = Signaler le problème
     da = Anmeld problemet
     id = Laporkan Masalah
@@ -12718,8 +12718,8 @@
 
   [dialog_routing_if_get_cross_route]
     tags = ios,android
-    ru = Построить более оптимальный маршрут с пересечением границы карты?
     en = Would you like to create a more direct route that spans more than one map?
+    ru = Построить более оптимальный маршрут с пересечением границы карты?
     fr = Voulez-vous créer un itinéraire plus direct s'étendant sur plus d'une carte ?
     da = Ønsker du at planlægge en mere direkte rute, der strækker sig over mere end ét kort?
     id = Apakah Anda ingin membuat rute yang lebih langsung yang meliputi lebih dari satu peta?
@@ -12749,8 +12749,8 @@
 
   [dialog_routing_cross_route_is_optimal]
     tags = ios,android
-    ru = Маршрут с пересечением границы карты более оптимальный.
     en = A more optimal route that crosses the edge of this map is available.
+    ru = Маршрут с пересечением границы карты более оптимальный.
     fr = Un itinéraire plus direct sortant du cadre de cette carte est disponible.
     da = Der findes en mere optimal rute, som strækker sig ud over dette korts grænser.
     id = Ada rute yang lebih optimal yang melewati ujung peta ini.
@@ -12780,8 +12780,8 @@
 
   [dialog_routing_always_cross_that_border]
     tags = ios,android
-    ru = Всегда пересекать эту границу
     en = Always cross this boundary
+    ru = Всегда пересекать эту границу
     fr = Toujours dépasser ce cadre
     da = Kryds altid denne grænse
     id = Selalu lewati batas ini
@@ -12811,8 +12811,8 @@
 
   [dialog_routing_not_now]
     tags = ios,android
-    ru = Не сейчас
     en = Not Now
+    ru = Не сейчас
     fr = Pas maintenant
     da = Ikke nu
     id = Jangan Sekarang
@@ -12842,8 +12842,8 @@
 
   [dialog_routing_build_route]
     tags = ios,android
-    ru = Построить
     en = Create
+    ru = Построить
     fr = Créer
     da = Opret
     id = Buat
@@ -12873,8 +12873,8 @@
 
   [dialog_routing_download_and_build_cross_route]
     tags = ios,android
-    ru = Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?
     en = Would you like to download the map and create a more optimal route spanning more than one map?
+    ru = Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?
     fr = Voulez-vous télécharger la carte et créer un itinéraire plus direct s'étendant sur plus d'une carte?
     da = Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?
     id = Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?
@@ -12904,8 +12904,8 @@
 
   [dialog_routing_download_cross_route]
     tags = ios,android
-    ru = Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.
     en = Download the map to create a more optimal route that crosses the edge of this map.
+    ru = Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.
     fr = Téléchargez la carte pour créer un itinéraire plus direct sortant du cadre de cette carte.
     da = Download kortet for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.
     id = Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.
@@ -12935,8 +12935,8 @@
 
   [dialog_routing_cross_route_always]
     tags = ios,android
-    ru = Всегда пересекать эту границу
     en = Always cross this boundary
+    ru = Всегда пересекать эту границу
     fr = Toujours dépasser ce cadre
     da = Kryds altid denne grænse
     id = Selalu lewati batas ini
@@ -12969,8 +12969,8 @@
 
   [search_without_internet_advertisement]
     tags = ios,android
-    ru = Для поиска мест, построения маршрута скачайте карту и интернет вам больше не понадобится.
     en = To start searching and creating routes, please download the map, and you will not need Internet connection anymore.
+    ru = Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.
     fr = Pour commencer à rechercher et à créer des itinéraires, veuillez télécharger la carte, et vous n'aurez plus besoin de connexion Internet.
     da = For at begynde at søge efter og oprette ruter bedes du downloade kortet, så du ikke længere har behov for en internetforbindelse.
     id = Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.
@@ -13000,8 +13000,8 @@
 
   [search_select_map]
     tags = ios,android
-    ru = Выбрать карту 
     en = Select Map
+    ru = Выбрать карту 
     fr = Sélectionner la carte
     da = Vælk kortet
     id = Pilih Peta
@@ -13031,8 +13031,8 @@
 
   [search_select_other_map]
     tags = ios,android
-    ru = Выбрать другую карту
     en = Select Another Map
+    ru = Выбрать другую карту
     fr = Sélectionner une autre carte
     da = Vælg et andet kort
     id = Pilih Peta Lain
@@ -13062,8 +13062,8 @@
 
   [search_vehicle_routes]
     tags = ios,android
-    ru = Автомобильные маршруты
     en = Driving directions
+    ru = Автомобильные маршруты
     fr = Indications routières
     da = Kørselsvejledning
     id = Petunjuk arah mengemudi
@@ -13923,8 +13923,8 @@
 
   [next_turn_then]
     tags = ios, android
-    ru = След.
     en = Then
+    ru = След.
     fr = Luego
     da = Så
     id = Lalu
@@ -14248,7 +14248,7 @@
     ar = قمنا بتحسين تصاميم الخريطة: الآن أصبحت كل الأشياء واضحة وسهلة الاستخدام. قم بتحديث الخرائط لتحصل على المزيد من التصميم الجديد.
     sk = Zlepšili sme štýl máp: Teraz všetky objekty vyzerajú priateľskejšie a jasnejšie. Aktualizujte si mapy, aby ste z nového dizajnu získali čo najviac.
     es = Hemos mejorado los estilos de los mapas: ahora todos los objetos resultan más fáciles y claros. Actualiza los mapas para sacar el máximo partido al nuevo diseño.
-    pl = Ulepszyliśmy style map: teraz wszystkie obiekty wyglądają przyjaźnie i bardziej zrozumiale.Proszę zaktualizować mapy, aby wykorzystać zalety nowego design’u.
+    pl = Ulepszyliśmy style map: teraz wszystkie obiekty wyglądają przyjaźnie i bardziej zrozumiale. Proszę zaktualizować mapy, aby wykorzystać zalety nowego design’u.
     nl = We hebben de kaartstijlen verbeterd: nu zien alle objecten er vriendelijker en duidelijker uit. Werk de kaarten bij om het beste uit het nieuwe ontwerp te halen.
     pt = Melhoramos os estilos de mapa: agora todos os objetos estão mais agradáveis e mais claros. Atualize os mapas para aproveitar o novo design ao máximo.
 
