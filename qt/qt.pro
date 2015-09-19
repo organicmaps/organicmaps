@@ -1,6 +1,6 @@
 # Main application in qt.
 ROOT_DIR = ..
-DEPENDENCIES = map render gui routing search storage indexer graphics platform anim geometry coding base \
+DEPENDENCIES = map render gui routing search storage indexer graphics platform anim geometry coding normalize base \
                freetype expat fribidi tomcrypt jansson protobuf osrm stats_client minizip succinct
 
 
