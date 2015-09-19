@@ -19,6 +19,7 @@ public enum LikesManager
   public static final String RATED_DIALOG = "RatedDialog";
 
   private static final int DIALOG_DELAY_DEFAULT = 30000;
+  private static final int DIALOG_DELAY_SHORT = 5000;
   private static final int SESSION_NUM = MwmApplication.get().getSessionsNumber();
 
   /*
@@ -31,7 +32,8 @@ public enum LikesManager
     GPLUS_NEW_USERS(GooglePlusDialogFragment.class, DIALOG_DELAY_DEFAULT),
     GPLUS_OLD_USERS(GooglePlusDialogFragment.class, DIALOG_DELAY_DEFAULT),
     FACEBOOK_INVITE_NEW_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT),
-    FACEBOOK_INVITES_OLD_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT);
+    FACEBOOK_INVITES_OLD_USERS(FacebookInvitesDialogFragment.class, DIALOG_DELAY_DEFAULT),
+    NEW_STYLE_OLD_USERS(UpdateMapsDialogFragment.class, DIALOG_DELAY_SHORT);
 
     public final Class<? extends DialogFragment> clazz;
     public final int delay;
@@ -51,8 +53,9 @@ public enum LikesManager
 
   static
   {
-    sOldUsersMapping.put(1, LikeType.GPLAY_OLD_USERS);
-    sOldUsersMapping.put(4, LikeType.GPLUS_OLD_USERS);
+    sOldUsersMapping.put(1, LikeType.NEW_STYLE_OLD_USERS);
+    sOldUsersMapping.put(4, LikeType.GPLAY_OLD_USERS);
+//    sOldUsersMapping.put(4, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(6, LikeType.FACEBOOK_INVITES_OLD_USERS);
     sOldUsersMapping.put(10, LikeType.GPLAY_OLD_USERS);
     sOldUsersMapping.put(21, LikeType.GPLAY_OLD_USERS);
@@ -75,7 +78,6 @@ public enum LikesManager
   private final boolean mIsNewUser = MwmApplication.get().getFirstInstallVersion() == BuildConfig.VERSION_CODE;
   private Runnable mLikeRunnable;
   private WeakReference<FragmentActivity> mActivityRef;
-
 
   public void showDialogs(FragmentActivity activity)
   {
