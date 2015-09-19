@@ -82,13 +82,11 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       new MapsWithMeIntentProcessor(),
       new GoogleMapsIntentProcessor(),
       new OpenCountryTaskProcessor(),
-      new UpdateCountryProcessor(),
       new KmzKmlProcessor()
   };
 
   public static final String EXTRA_COUNTRY_INDEX = ".extra.index";
   public static final String EXTRA_AUTODOWNLOAD_COUNTRY = ".extra.autodownload";
-  public static final String EXTRA_UPDATE_COUNTRIES = ".extra.update.countries";
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -605,23 +603,6 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
         Statistics.INSTANCE.trackDownloadCountryNotificationClicked();
       mMapTaskToForward = new MwmActivity.ShowCountryTask(index, autoDownload);
       org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process", new String[]{"autoDownload", String.valueOf(autoDownload)}, LocationHelper.INSTANCE.getLastLocation());
-      return true;
-    }
-  }
-
-  private class UpdateCountryProcessor implements IntentProcessor
-  {
-    @Override
-    public boolean isSupported(Intent intent)
-    {
-      return intent.getBooleanExtra(EXTRA_UPDATE_COUNTRIES, false);
-    }
-
-    @Override
-    public boolean process(Intent intent)
-    {
-      org.alohalytics.Statistics.logEvent("UpdateCountryProcessor::process");
-      mMapTaskToForward = new MwmActivity.UpdateCountryTask();
       return true;
     }
   }

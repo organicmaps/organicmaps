@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.mapswithme.country.ActiveCountryTree;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.statistics.Statistics;
@@ -34,7 +35,7 @@ public class UpdateMapsDialogFragment extends BaseMwmDialogFragment
           public void onClick(DialogInterface dialog, int which)
           {
             ActiveCountryTree.updateAll();
-            LikesManager.setRatingApplied(UpdateMapsDialogFragment.class, true);
+            activity.startActivity(MwmActivity.createUpdateMapsIntent());
             Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.NEW_STYLE_DIALOG_RATED);
           }
         }).create();

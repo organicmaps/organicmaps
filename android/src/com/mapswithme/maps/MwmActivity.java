@@ -81,18 +81,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  ChooseBookmarkCategoryFragment.Listener
 {
   public static final String EXTRA_TASK = "map_task";
-  private final static String TAG = "MwmActivity";
-  private final static String EXTRA_CONSUMED = "mwm.extra.intent.processed";
-  private final static String EXTRA_SCREENSHOTS_TASK = "screenshots_task";
-  private final static String SCREENSHOTS_TASK_LOCATE = "locate_task";
-  private final static String SCREENSHOTS_TASK_PPP = "show_place_page";
-  private final static String EXTRA_LAT = "lat";
-  private final static String EXTRA_LON = "lon";
-
+  private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  private static final String EXTRA_SET_MAP_STYLE = "set_map_style";
+  private static final String EXTRA_UPDATE_COUNTRIES = ".extra.update.countries";
   private static final String[] DOCKED_FRAGMENTS = {SearchFragment.class.getName(), DownloadFragment.class.getName()};
 
-  // Need it for change map style
-  private static final String EXTRA_SET_MAP_STYLE = "set_map_style";
   // Instance state
   private static final String STATE_PP_OPENED = "PpOpened";
   private static final String STATE_MAP_OBJECT = "MapObject";
@@ -135,7 +128,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     void onTrackLeftAnimation(float offset);
   }
 
-
   private static class LastCompassData
   {
     double magneticNorth;
@@ -150,7 +142,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
     return new Intent(context, DownloadResourcesActivity.class)
@@ -163,7 +154,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final Intent mapIntent = new Intent(context, MwmActivity.class);
     mapIntent.putExtra(EXTRA_SET_MAP_STYLE, mapStyle);
     context.startActivity(mapIntent);
-    // Next we need to handle intent
   }
 
   public static void startSearch(Context context, String query)
@@ -177,30 +167,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public static Intent createUpdateMapsIntent()
   {
-    return new Intent(MwmApplication.get(), DownloadResourcesActivity.class)
-        .putExtra(DownloadResourcesActivity.EXTRA_UPDATE_COUNTRIES, true);
-  }
-
-  private void checkUserMarkActivation()
-  {
-    final Intent intent = getIntent();
-    if (intent != null && intent.hasExtra(EXTRA_SCREENSHOTS_TASK))
-    {
-      final String value = intent.getStringExtra(EXTRA_SCREENSHOTS_TASK);
-      if (value.equals(SCREENSHOTS_TASK_PPP))
-      {
-        final double lat = Double.parseDouble(intent.getStringExtra(EXTRA_LAT));
-        final double lon = Double.parseDouble(intent.getStringExtra(EXTRA_LON));
-        mFadeView.getHandler().postDelayed(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            Framework.nativeActivateUserMark(lat, lon);
-          }
-        }, 1000);
-      }
-    }
+    return new Intent(MwmApplication.get(), MwmActivity.class)
+        .putExtra(EXTRA_UPDATE_COUNTRIES, true);
   }
 
   @Override
@@ -213,7 +181,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         checkMeasurementSystem();
         checkKitkatMigrationMove();
-        checkUserMarkActivation();
       }
     });
 
@@ -306,6 +273,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showDownloader(boolean openDownloadedList)
   {
+    final Bundle args = new Bundle();
+    args.putBoolean(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, openDownloadedList);
     if (mIsFragmentContainer)
     {
       if (getSupportFragmentManager().findFragmentByTag(DownloadFragment.class.getName()) != null) // downloader is already shown
@@ -314,11 +283,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       popFragment();
       SearchToolbarController.cancelSearch();
       mSearchController.refreshToolbar();
-      replaceFragment(DownloadFragment.class, true, null);
+      replaceFragment(DownloadFragment.class, true, args);
     }
     else
     {
-      final Intent intent = new Intent(this, DownloadActivity.class).putExtra(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, openDownloadedList);
+      final Intent intent = new Intent(this, DownloadActivity.class).putExtras(args);
       startActivity(intent);
     }
   }
@@ -339,17 +308,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativeSetRouteProgressListener(this);
     Framework.nativeSetBalloonListener(this);
 
-    final Intent intent = getIntent();
-    // We need check for tasks both in onCreate and onNewIntent
-    // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
-    addTask(intent);
-
-    if (intent != null && intent.hasExtra(EXTRA_SCREENSHOTS_TASK))
-    {
-      String value = intent.getStringExtra(EXTRA_SCREENSHOTS_TASK);
-      if (value.equals(SCREENSHOTS_TASK_LOCATE))
-        mMainMenu.getMyPositionButton().click();
-    }
+    processIntent(getIntent());
 
     mLocationPredictor = new LocationPredictor(new Handler(), this);
     mSearchController = new SearchToolbarController(this);
@@ -645,25 +604,34 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onNewIntent(Intent intent)
   {
     super.onNewIntent(intent);
+    processIntent(intent);
+  }
 
-    if (intent != null)
+  private void processIntent(Intent intent)
+  {
+    if (intent == null)
+      return;
+
+    if (intent.hasExtra(EXTRA_TASK))
+      addTask(intent);
+    else if (intent.hasExtra(EXTRA_SET_MAP_STYLE))
     {
-      if (intent.hasExtra(EXTRA_TASK))
-        addTask(intent);
-      else if (intent.hasExtra(EXTRA_SET_MAP_STYLE))
-      {
-        final int mapStyle = intent.getIntExtra(EXTRA_SET_MAP_STYLE, Framework.MAP_STYLE_LIGHT);
-        Framework.setMapStyle(mapStyle);
-      }
+      final int mapStyle = intent.getIntExtra(EXTRA_SET_MAP_STYLE, Framework.MAP_STYLE_LIGHT);
+      Framework.setMapStyle(mapStyle);
+    }
+    else if (intent.hasExtra(EXTRA_UPDATE_COUNTRIES))
+    {
+      ActiveCountryTree.updateAll();
+      showDownloader(true);
     }
   }
 
   private void addTask(Intent intent)
   {
-    if (intent != null
-        && !intent.getBooleanExtra(EXTRA_CONSUMED, false)
-        && intent.hasExtra(EXTRA_TASK)
-        && ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
+    if (intent != null &&
+        !intent.getBooleanExtra(EXTRA_CONSUMED, false) &&
+        intent.hasExtra(EXTRA_TASK) &&
+        ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
     {
       final MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
       mTasks.add(mapTask);
@@ -1256,23 +1224,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       else
         Framework.nativeShowCountry(mIndex, false);
 
-      return true;
-    }
-  }
-
-  public static class UpdateCountryTask implements MapTask
-  {
-    @Override
-    public boolean run(final MwmActivity target)
-    {
-      target.runOnUiThread(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          target.showDownloader(true);
-        }
-      });
       return true;
     }
   }
