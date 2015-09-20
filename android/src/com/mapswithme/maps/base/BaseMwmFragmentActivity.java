@@ -30,8 +30,8 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
       getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
     }
 
-    MwmApplication.get().initCounters();
     MwmApplication.get().initNativeCore();
+    MwmApplication.get().initCounters();
     ViewServer.get(this).addWindow(this);
 
     attachDefaultFragment();

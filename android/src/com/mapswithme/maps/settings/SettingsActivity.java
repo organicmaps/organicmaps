@@ -56,8 +56,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     // TODO remove after refactoring to fragments
     // this initialisation is necessary hence Activity isn't extended from BaseMwmActivity
     // try to prevent possible crash if this is the only activity in application
-    MwmApplication.get().initCounters();
     MwmApplication.get().initNativeCore();
+    MwmApplication.get().initCounters();
     addPreferencesFromResource(R.xml.preferences);
     initPreferences();
     yotaSetup();
