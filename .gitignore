@@ -131,3 +131,10 @@ tizen/*/.*
 
 tizen/*/crash-info/*
 .idea/*
+
+# Private repository files.
+.private_repository_url
+private.h
+tools/android/mapswithme.keystore
+tools/android/yota.keystore
+android/secure.properties
