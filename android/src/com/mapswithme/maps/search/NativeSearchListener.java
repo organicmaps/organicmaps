@@ -7,10 +7,10 @@ package com.mapswithme.maps.search;
 public interface NativeSearchListener
 {
   /**
-   * @param count Count of results found.
+   * @param results Search results.
    * @param timestamp Timestamp of search request.
    */
-  void onResultsUpdate(int count, long timestamp);
+  void onResultsUpdate(SearchResult[] results, long timestamp);
 
   /**
    * @param timestamp Timestamp of search request.

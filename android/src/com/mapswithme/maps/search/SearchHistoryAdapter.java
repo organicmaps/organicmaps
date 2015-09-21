@@ -57,7 +57,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
           @Override
           public void onClick(View v)
           {
-            SearchRecents.clearRecents();
+            SearchRecents.clear();
             notifyDataSetChanged();
           }
         });

@@ -4,10 +4,7 @@
 
 #include "../core/jni_helper.hpp"
 
-namespace
-{
-  using TSearchRequest = search::QuerySaver::TSearchRequest;
-}
+using TSearchRequest = search::QuerySaver::TSearchRequest;
 
 extern "C"
 {

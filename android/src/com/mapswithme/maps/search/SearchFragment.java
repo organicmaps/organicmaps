@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountrySuggestFragment;
 import com.mapswithme.maps.Framework;
@@ -154,7 +155,6 @@ public class SearchFragment extends BaseMwmFragment
     }
   };
 
-  private final CachedResults mCachedResults = new CachedResults(this);
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
 
@@ -429,7 +429,7 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onResultsUpdate(int count, long timestamp)
+  public void onResultsUpdate(SearchResult[] results, long timestamp)
   {
     if (!isAdded() || !searchActive())
       return;
@@ -437,9 +437,8 @@ public class SearchFragment extends BaseMwmFragment
     // Search is running hence results updated.
     mSearchRunning = true;
     updateFrames();
-    mSearchAdapter.refreshData(count);
+    mSearchAdapter.refreshData(results);
     mToolbarController.showProgress(true);
-    mCachedResults.clear();
   }
 
   @Override
@@ -472,16 +471,6 @@ public class SearchFragment extends BaseMwmFragment
   public boolean onBackPressed()
   {
     return false;
-  }
-
-  protected SearchResult getUncachedResult(int position)
-  {
-    return SearchEngine.nativeGetResult(position, mLastQueryTimestamp, mLastPosition.valid, mLastPosition.lat, mLastPosition.lon);
-  }
-
-  protected SearchResult getResult(int position)
-  {
-    return mCachedResults.get(position);
   }
 
   public void setRecyclerScrollListener(RecyclerView recycler)

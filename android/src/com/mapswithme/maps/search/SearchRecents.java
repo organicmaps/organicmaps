@@ -17,9 +17,7 @@ public final class SearchRecents
     refresh();
   }
 
-  private SearchRecents()
-  {
-  }
+  private SearchRecents() {}
 
   public static void refresh()
   {
@@ -52,7 +50,7 @@ public final class SearchRecents
     return true;
   }
 
-  public static void clearRecents()
+  public static void clear()
   {
     nativeClear();
     sRecents.clear();

@@ -29,7 +29,6 @@ public class SearchResult
     }
   }
 
-
   public final String name;
   public final String suggestion;
 

@@ -10,7 +10,7 @@ public enum SearchEngine implements NativeSearchListener
   INSTANCE;
 
   @Override
-  public void onResultsUpdate(final int count, final long timestamp)
+  public void onResultsUpdate(final SearchResult[] results, final long timestamp)
   {
     UiThread.run(new Runnable()
     {
@@ -18,7 +18,7 @@ public enum SearchEngine implements NativeSearchListener
       public void run()
       {
         for (NativeSearchListener listener : mListeners)
-          listener.onResultsUpdate(count, timestamp);
+          listener.onResultsUpdate(results, timestamp);
       }
     });
   }
@@ -55,14 +55,17 @@ public enum SearchEngine implements NativeSearchListener
   }
 
   private native void nativeInit();
+
   /**
    * @param timestamp Search results are filtered according to it after multiple requests.
    * @param force     Should be false for repeating requests with the same query.
    * @return whether search was actually started.
    */
   public static native boolean nativeRunSearch(String query, String language, long timestamp, boolean force, boolean hasLocation, double lat, double lon);
+
   public static native void nativeRunInteractiveSearch(String query, String language, long timestamp);
-  public static native void nativeShowResult(int position);
+
+  public static native void nativeShowResult(int index);
+
   public static native void nativeShowAllResults();
-  public static native SearchResult nativeGetResult(int position, long timestamp, boolean hasLocation, double lat, double lon);
 }

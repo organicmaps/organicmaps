@@ -61,11 +61,6 @@ namespace
 
 namespace android
 {
-  void ShowAllSearchResultsImpl()
-  {
-    frm()->ShowAllSearchResults();
-  }
-
   void Framework::CallRepaint() {}
 
   Framework::Framework()
@@ -491,18 +486,6 @@ namespace android
     m_x2 = x2;
     m_y2 = y2;
     m_mask = mask;
-  }
-
-  void Framework::ShowSearchResult(search::Result const & r)
-  {
-    m_doLoadState = false;
-    m_work.ShowSearchResult(r);
-  }
-
-  void Framework::ShowAllSearchResults()
-  {
-    m_doLoadState = false;
-    Platform::RunOnGuiThreadImpl(bind(&ShowAllSearchResultsImpl));
   }
 
   void Framework::LoadState()

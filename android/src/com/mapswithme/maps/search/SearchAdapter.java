@@ -21,7 +21,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
   private static final int TYPE_SUGGEST = 1;
   private static final int TYPE_RESULT = 2;
 
-  private static final int NO_RESULTS = -1;
+  private SearchResult[] mResults;
+  private final SearchFragment mSearchFragment;
 
   protected static abstract class BaseViewHolder extends RecyclerView.ViewHolder
   {
@@ -96,6 +97,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     }
 
     abstract TextView getTitleView();
+
     abstract void processClick(SearchResult result, int order);
   }
 
@@ -109,7 +111,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     @Override
     TextView getTitleView()
     {
-      return (TextView)itemView;
+      return (TextView) itemView;
     }
 
     @Override
@@ -194,9 +196,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     }
   }
 
-  private final SearchFragment mSearchFragment;
-  private int mResultsCount = NO_RESULTS;
-
   public SearchAdapter(SearchFragment fragment)
   {
     mSearchFragment = fragment;
@@ -209,17 +208,17 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 
     switch (viewType)
     {
-      case TYPE_POPULATE_BUTTON:
-        return new PopulateResultsViewHolder(inflater.inflate(R.layout.item_search_populate, parent, false));
+    case TYPE_POPULATE_BUTTON:
+      return new PopulateResultsViewHolder(inflater.inflate(R.layout.item_search_populate, parent, false));
 
-      case TYPE_SUGGEST:
-        return new SuggestViewHolder(inflater.inflate(R.layout.item_search_suggest, parent, false));
+    case TYPE_SUGGEST:
+      return new SuggestViewHolder(inflater.inflate(R.layout.item_search_suggest, parent, false));
 
-      case TYPE_RESULT:
-        return new ResultViewHolder(inflater.inflate(R.layout.item_search_result, parent, false));
+    case TYPE_RESULT:
+      return new ResultViewHolder(inflater.inflate(R.layout.item_search_result, parent, false));
 
-      default:
-        throw new IllegalArgumentException("Unhandled view type given");
+    default:
+      throw new IllegalArgumentException("Unhandled view type given");
     }
   }
 
@@ -234,9 +233,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
       position--;
     }
 
-    final SearchResult result = mSearchFragment.getResult(position);
-    if (result != null)
-      holder.bind(result, position);
+    holder.bind(mResults[position], position);
   }
 
   @Override
@@ -250,23 +247,22 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
       position--;
     }
 
-    final SearchResult result = mSearchFragment.getResult(position);
-    switch (result.type)
+    switch (mResults[position].type)
     {
-      case SearchResult.TYPE_SUGGEST:
-        return TYPE_SUGGEST;
+    case SearchResult.TYPE_SUGGEST:
+      return TYPE_SUGGEST;
 
-      case SearchResult.TYPE_RESULT:
-        return TYPE_RESULT;
+    case SearchResult.TYPE_RESULT:
+      return TYPE_RESULT;
 
-      default:
-        throw new IllegalArgumentException("Unhandled SearchResult type");
+    default:
+      throw new IllegalArgumentException("Unhandled SearchResult type");
     }
   }
 
   boolean showPopulateButton()
   {
-    return (mResultsCount > 0);
+    return (mResults != null && mResults.length > 0);
   }
 
   @Override
@@ -278,23 +274,23 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
   @Override
   public int getItemCount()
   {
-    if (mResultsCount == NO_RESULTS)
+    if (mResults == null)
       return 0;
 
     if (showPopulateButton())
-      return mResultsCount + 1;
+      return mResults.length + 1;
 
-    return mResultsCount;
+    return mResults.length;
   }
 
   public void clear()
   {
-    refreshData(0);
+    refreshData(null);
   }
 
-  public void refreshData(int count)
+  public void refreshData(SearchResult[] results)
   {
-    mResultsCount = count;
+    mResults = results;
     notifyDataSetChanged();
   }
 }
