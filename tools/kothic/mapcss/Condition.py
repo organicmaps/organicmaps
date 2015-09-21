@@ -17,95 +17,19 @@
 
 import re
 
-# Fast conditions
-
-class EqConditionDD:
-    def __init__(self, params):
-        self.value = params[1]
-    def extract_tags(self):
-        return set(["*"])
-    def test(self, tags):
-        return self.value
-
-class EqCondition:
-    def __init__(self, params):
-        self.tag = params[0]
-        self.value = params[1]
-    def extract_tags(self):
-        return set([self.tag])
-    def test(self, tags):
-        if self.tag in tags:
-            return tags[self.tag] == self.value
-        else:
-            return False
-
-class NotEqCondition:
-    def __init__(self, params):
-        self.tag = params[0]
-        self.value = params[1]
-    def extract_tags(self):
-        return set([self.tag])
-    def test(self, tags):
-        if self.tag in tags:
-            return tags[self.tag] != self.value
-        else:
-            return False
-
-class SetCondition:
-    def __init__(self, params):
-        self.tag = params[0]
-    def extract_tags(self):
-        return set([self.tag])
-    def test(self, tags):
-        if self.tag in tags:
-            return tags[self.tag] != ''
-        return False
-
-class UnsetCondition:
-    def __init__(self, params):
-        self.tag = params[0]
-    def extract_tags(self):
-        return set([self.tag])
-    def test(self, tags):
-        if self.tag in tags:
-            return tags[self.tag] == ''
-        return True
-
-class TrueCondition:
-    def __init__(self, params):
-        self.tag = params[0]
-    def extract_tags(self):
-        return set([self.tag])
-    def test(self, tags):
-        if self.tag in tags:
-            return tags[self.tag] == 'yes'
-        return False
-
-class UntrueCondition:
-    def __init__(self, params):
-        self.tag = params[0]
-    def extract_tags(self):
-        return set([self.tag])
-    def test(self, tags):
-        if self.tag in tags:
-            return tags[self.tag] == 'no'
-        return False
-
-# Slow condition
-
 class Condition:
     def __init__(self, typez, params):
         self.type = typez         # eq, regex, lt, gt etc.
         if type(params) == type(str()):
             params = (params,)
-        self.params = params       # e.g. ('highway','primary')
+        self.params = params      # e.g. ('highway','primary')
         if typez == "regex":
             self.regex = re.compile(self.params[0], re.I)
 
-    def extract_tags(self):
+    def extract_tag(self):
         if self.params[0][:2] == "::" or self.type == "regex":
-            return set(["*"]) # unknown
-        return set([self.params[0]])
+            return "*" # unknown
+        return self.params[0]
 
     def test(self, tags):
         """
@@ -148,6 +72,32 @@ class Condition:
         return False
 
     def __repr__(self):
+        t = self.type
+        params = self.params
+        if t == 'eq' and params[0][:2] == "::":
+            return "::%s" % (params[1])
+        if t == 'eq':
+            return "%s=%s" % (params[0], params[1])
+        if t == 'ne':
+            return "%s=%s" % (params[0], params[1])
+        if t == 'regex':
+            return "%s=~/%s/" % (params[0], params[1]);
+        if t == 'true':
+            return "%s?" % (params[0])
+        if t == 'untrue':
+            return "!%s?" % (params[0])
+        if t == 'set':
+            return "%s" % (params[0])
+        if t == 'unset':
+            return "!%s" % (params[0])
+        if t == '<':
+            return "%s<%s" % (params[0], params[1])
+        if t == '<=':
+            return "%s<=%s" % (params[0], params[1])
+        if t == '>':
+            return "%s>%s" % (params[0], params[1])
+        if t == '>=':
+            return "%s>=%s" % (params[0], params[1])
         return "%s %s " % (self.type, repr(self.params))
 
     def __eq__(self, a):
@@ -162,23 +112,3 @@ def Number(tt):
     except ValueError:
         return 0
 
-# Some conditions we can optimize by using "python polymorthism"
-
-def OptimizeCondition(condition):
-    if (condition.type == "eq"):
-        if (condition.params[0][:2] == "::"):
-            return EqConditionDD(condition.params)
-        else:
-            return EqCondition(condition.params)
-    elif (condition.type == "ne"):
-        return NotEqCondition(condition.params)
-    elif (condition.type == "set"):
-        return SetCondition(condition.params)
-    elif (condition.type == "unset"):
-        return UnsetCondition(condition.params)
-    elif (condition.type == "true"):
-        return TrueCondition(condition.params)
-    elif (condition.type == "untrue"):
-        return UntrueCondition(condition.params)
-    else:
-        return condition

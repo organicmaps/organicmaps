@@ -106,7 +106,24 @@ class StyleChooser:
             a.add("*")
         return a
 
-    def updateStyles(self, sl, ftype, tags, zoom, scale, zscale):
+    def get_runtime_conditions(self, ftype, tags, zoom):
+        if self.selzooms:
+            if zoom < self.selzooms[0] or zoom > self.selzooms[1]:
+                return None
+
+        rule_and_object_id = self.testChain(self.ruleChains, ftype, tags, zoom)
+
+        if not rule_and_object_id:
+            return None
+
+        rule = rule_and_object_id[0]
+
+        if (len(rule.runtime_conditions) == 0):
+            return None
+
+        return rule.runtime_conditions
+
+    def updateStyles(self, sl, ftype, tags, zoom, xscale, zscale, filter_by_runtime_conditions):
         # Are any of the ruleChains fulfilled?
         if self.selzooms:
             if zoom < self.selzooms[0] or zoom > self.selzooms[1]:
@@ -115,9 +132,15 @@ class StyleChooser:
         #if ftype not in self.compatible_types:
             #return sl
 
-        object_id = self.testChain(self.ruleChains, ftype, tags, zoom)
+        rule_and_object_id = self.testChain(self.ruleChains, ftype, tags, zoom)
 
-        if not object_id:
+        if not rule_and_object_id:
+            return sl
+
+        rule = rule_and_object_id[0]
+        object_id = rule_and_object_id[1]
+
+        if filter_by_runtime_conditions and (filter_by_runtime_conditions != rule.runtime_conditions):
             return sl
 
         for r in self.styles:
@@ -132,7 +155,7 @@ class StyleChooser:
                         for p, q in combined_style.iteritems():
                             if "color" in p:
                                 combined_style[p] = cairo_to_hex(q)
-                        b = b.compute(tags, combined_style, scale, zscale)
+                        b = b.compute(tags, combined_style, xscale, zscale)
                     ra[a] = b
                 ra = make_nice_style(ra)
             else:
@@ -168,7 +191,7 @@ class StyleChooser:
         for r in chain:
             tt = r.test(obj, tags, zoom)
             if tt:
-                return tt
+                return r, tt
         return False
 
     def newGroup(self):
@@ -200,8 +223,15 @@ class StyleChooser:
         """
         adds into the current ruleChain (existing Rule)
         """
-        c = OptimizeCondition(c)
         self.ruleChains[-1].conditions.append(c)
+
+    def addRuntimeCondition(self, c):
+        # print "addRuntimeCondition ", c
+        """
+        adds into the current ruleChain (existing Rule)
+        """
+        self.ruleChains[-1].runtime_conditions.append(c)
+        self.ruleChains[-1].runtime_conditions.sort()
 
     def addStyles(self, a):
         # print "addStyle ", a

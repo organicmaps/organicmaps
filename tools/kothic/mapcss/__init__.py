@@ -33,6 +33,7 @@ CLASS = re.compile(r'^ ([\.:]:?[*\w]+) \s* ', re.S | re.X)
 ZOOM = re.compile(r'^ \| \s* z([\d\-]+) \s* ', re.I | re.S | re.X)
 GROUP = re.compile(r'^ , \s* ', re.I | re.S | re.X)
 CONDITION = re.compile(r'^ \[(.+?)\] \s* ', re.S | re.X)
+RUNTIME_CONDITION = re.compile(r'^ \((.+?)\) \s* ', re.S | re.X)
 OBJECT = re.compile(r'^ (\*|[\w]+) \s* ', re.S | re.X)
 DECLARATION = re.compile(r'^ \{(.+?)\} \s* ', re.S | re.X)
 IMPORT = re.compile(r'^@import\("(.+?)"\); \s* ', re.S | re.X)
@@ -133,15 +134,23 @@ class MapCSS():
                     tmp.append(ec)
             self.choosers_by_type_and_tag[type][tag] = tmp
 
-    def get_style(self, clname, type, tags={}, zoom=0, scale=1, zscale=.5):
+    def get_runtime_rules(self, clname, type, tags, zoom):
         """
-        Kothic styling API
+        Returns array of runtime_conditions which are used for clname/type/tags/zoom
         """
+        runtime_rules = []
+        if type in self.choosers_by_type_and_tag:
+            for chooser in self.choosers_by_type_and_tag[type][clname]:
+                runtime_conditions = chooser.get_runtime_conditions(type, tags, zoom)
+                if runtime_conditions:
+                    runtime_rules.append(runtime_conditions)
+        return runtime_rules
+
+    def get_style(self, clname, type, tags, zoom, xscale, zscale, filter_by_runtime_conditions):
         style = []
         if type in self.choosers_by_type_and_tag:
-            choosers = self.choosers_by_type_and_tag[type][clname]
-            for chooser in choosers:
-                style = chooser.updateStyles(style, type, tags, zoom, scale, zscale)
+            for chooser in self.choosers_by_type_and_tag[type][clname]:
+                style = chooser.updateStyles(style, type, tags, zoom, xscale, zscale, filter_by_runtime_conditions)
         style = [x for x in style if x["object-id"] != "::*"]
         for x in style:
             for k, v in [('width', 0), ('casing-width', 0)]:
@@ -155,8 +164,11 @@ class MapCSS():
         style = st
         return style
 
-    def get_style_dict(self, clname, type, tags={}, zoom=0, scale=1, zscale=.5, olddict={}):
-        r = self.get_style(clname, type, tags, zoom, scale, zscale)
+    def get_style_dict(self, clname, type, tags={}, zoom=0, xscale=1, zscale=.5, olddict={}, filter_by_runtime_conditions=None):
+        """
+        Kothic styling API
+        """
+        r = self.get_style(clname, type, tags, zoom, xscale, zscale, filter_by_runtime_conditions)
         d = olddict
         for x in r:
             if x.get('object-id', '') not in d:
@@ -165,7 +177,7 @@ class MapCSS():
         return d
 
     def subst_variables(self, t):
-        """Expects an array from parseDeclaration."""
+        """ Expects an array from parseDeclaration. """
         for k in t[0]:
             t[0][k] = VARIABLE.sub(self.get_variable, t[0][k])
         return t
@@ -176,7 +188,7 @@ class MapCSS():
             raise Exception("Variable not found: " + str(format(name)))
         return self.variables[name] if name in self.variables else m.group()
 
-    def parse(self, css=None, clamp=True, stretch=1000, filename=None):
+    def parse(self, css=None, clamp=True, stretch=1000, filename=None, mapcss_tags=None):
         """
         Parses MapCSS given as string
         """
@@ -238,6 +250,19 @@ class MapCSS():
                         sc.newGroup()
                         previous = oGROUP
 
+                    # RuntimeCondition - (population>=10000)
+                    elif RUNTIME_CONDITION.match(css):
+                        if (previous == oDECLARATION):
+                            self.choosers.append(sc)
+                            sc = StyleChooser(self.scalepair)
+                        if (previous != oOBJECT) and (previous != oZOOM) and (previous != oCONDITION):
+                            sc.newObject()
+                        cond = RUNTIME_CONDITION.match(css).groups()[0]
+                        log.debug("runtime condition found: %s" % (cond))
+                        css = RUNTIME_CONDITION.sub("", css)
+                        sc.addRuntimeCondition(parseCondition(cond))
+                        previous = oCONDITION
+
                     # Condition - [highway=primary]
                     elif CONDITION.match(css):
                         if (previous == oDECLARATION):
@@ -247,8 +272,12 @@ class MapCSS():
                             sc.newObject()
                         cond = CONDITION.match(css).groups()[0]
                         log.debug("condition found: %s" % (cond))
+                        c = parseCondition(cond)
+                        tag = c.extract_tag()
+                        if (tag != "*") and (mapcss_tags != None) and (tag not in mapcss_tags):
+                            raise Exception("Unknown tag '" + tag + "' in condition " + cond)
                         css = CONDITION.sub("", css)
-                        sc.addCondition(parseCondition(cond))
+                        sc.addCondition(c)
                         previous = oCONDITION
 
                     # Object - way, node, relation
