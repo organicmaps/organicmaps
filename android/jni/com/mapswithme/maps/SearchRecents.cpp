@@ -50,6 +50,3 @@ extern "C"
     g_framework->NativeFramework()->ClearSearchHistory();
   }
 }
-
-
-

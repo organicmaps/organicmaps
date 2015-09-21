@@ -52,8 +52,6 @@ public final class SearchRecents
   }
 
   private static native void nativeGetList(List<Pair<String, String>> result);
-
   private static native void nativeAdd(String locale, String query);
-
   private static native void nativeClear();
 }

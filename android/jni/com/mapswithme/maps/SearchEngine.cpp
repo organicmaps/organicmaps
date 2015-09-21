@@ -18,7 +18,7 @@ class SearchResultsCache
   atomic<long long> m_queryTimestamp;
   threads::Mutex m_updateMutex;
   // Implements 'NativeSearchListener' java interface.
-  jclass m_javaListener;
+  jclass m_javaListener = nullptr;
 
   void OnResults(search::Results const & results, long long timestamp)
   {
