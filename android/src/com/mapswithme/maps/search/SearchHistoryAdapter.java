@@ -26,16 +26,9 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
     }
   }
 
-  private void refresh()
-  {
-    SearchRecents.refresh();
-    notifyDataSetChanged();
-  }
-
   public SearchHistoryAdapter(SearchToolbarController searchToolbarController)
   {
     mSearchToolbarController = searchToolbarController;
-    refresh();
   }
 
   @Override

@@ -34,20 +34,11 @@
           app:tabMode="fixed"
           app:tabGravity="fill"/>
 
-      <FrameLayout
+      <android.support.v4.view.ViewPager
+          android:id="@+id/pages"
           style="@style/MwmWidget.FrameLayout.Elevation"
           android:layout_width="match_parent"
-          android:layout_height="match_parent">
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pages"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <FrameLayout
-            android:id="@+id/inner_fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-      </FrameLayout>
+          android:layout_height="match_parent"/>
     </LinearLayout>
 
     <!-- Results -->
@@ -95,5 +86,11 @@
         </LinearLayout>
       </com.mapswithme.maps.widget.HeightLimitedFrameLayout>
     </FrameLayout>
+
+    <!-- Country download suggest fragment -->
+    <FrameLayout
+        android:id="@+id/download_suggest_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
   </FrameLayout>
 </LinearLayout>

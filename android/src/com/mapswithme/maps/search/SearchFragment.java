@@ -150,7 +150,7 @@ public class SearchFragment extends BaseMwmFragment
     public void onScrollStateChanged(RecyclerView recyclerView, int newState)
     {
       if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
-        mToolbarController.setActive(false);
+        mToolbarController.deactivate();
     }
   };
 
@@ -173,7 +173,7 @@ public class SearchFragment extends BaseMwmFragment
     {
       fragment = Fragment.instantiate(getActivity(), fragmentName, null);
       fm.beginTransaction()
-        .add(R.id.inner_fragment_container, fragment, fragmentName)
+        .add(R.id.download_suggest_frame, fragment, fragmentName)
         .commit();
     }
   }
@@ -222,19 +222,10 @@ public class SearchFragment extends BaseMwmFragment
     super.onViewCreated(view, savedInstanceState);
 
     ViewGroup root = (ViewGroup) view;
-
     mTabsFrame = root.findViewById(R.id.tab_frame);
     mPager = (ViewPager) mTabsFrame.findViewById(R.id.pages);
     mToolbarController = new ToolbarController(view);
-    new TabAdapter(getChildFragmentManager(), mPager, (TabLayout) root.findViewById(R.id.tabs))
-      .setTabSelectedListener(new TabAdapter.OnTabSelectedListener()
-      {
-        @Override
-        public void onTabSelected(TabAdapter.Tab tab)
-        {
-          mToolbarController.setActive(false);
-        }
-      });
+    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), mPager, (TabLayout) root.findViewById(R.id.tabs));
 
     mResultsFrame = root.findViewById(R.id.results_frame);
     mResults = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
@@ -262,6 +253,18 @@ public class SearchFragment extends BaseMwmFragment
 
     readArguments();
     SearchEngine.INSTANCE.addListener(this);
+
+    if (SearchRecents.getSize() == 0)
+      mPager.setCurrentItem(TabAdapter.Tab.CATEGORIES.ordinal());
+
+    tabAdapter.setTabSelectedListener(new TabAdapter.OnTabSelectedListener()
+    {
+      @Override
+      public void onTabSelected(TabAdapter.Tab tab)
+      {
+        mToolbarController.deactivate();
+      }
+    });
   }
 
   @Override
@@ -318,7 +321,7 @@ public class SearchFragment extends BaseMwmFragment
   private void hideSearch()
   {
     mToolbarController.clear();
-    mToolbarController.setActive(false);
+    mToolbarController.deactivate();
     Utils.navigateToParent(getActivity());
   }
 

@@ -116,18 +116,10 @@ public class SearchToolbarController extends ToolbarController
     setQuery("");
   }
 
-  public void setActive(boolean active)
+  public void deactivate()
   {
-    if (active)
-    {
-      mQuery.requestFocus();
-      InputUtils.showKeyboard(mQuery);
-    }
-    else
-    {
-      InputUtils.hideKeyboard(mQuery);
-      InputUtils.removeFocusEditTextHack(mQuery);
-    }
+    InputUtils.hideKeyboard(mQuery);
+    InputUtils.removeFocusEditTextHack(mQuery);
   }
 
   public void showProgress(boolean show)
