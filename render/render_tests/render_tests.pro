@@ -5,7 +5,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 
-DEPENDENCIES = render indexer platform geometry coding base \
+DEPENDENCIES = render indexer platform geometry coding base normalize
 
 
 include($$ROOT_DIR/common.pri)

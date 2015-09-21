@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map gui search storage graphics indexer platform anim geometry coding base \
+DEPENDENCIES = map gui search storage graphics indexer platform anim geometry coding base normalize \
                freetype fribidi expat protobuf tomcrypt jansson
 
 include($$ROOT_DIR/common.pri)
