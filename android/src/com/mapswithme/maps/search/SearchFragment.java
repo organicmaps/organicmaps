@@ -15,12 +15,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountrySuggestFragment;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -46,7 +44,6 @@ public class SearchFragment extends BaseMwmFragment
                                     CategoriesAdapter.OnCategorySelectedListener
 {
   private static final int RC_VOICE_RECOGNITION = 0xCA11;
-  private static final String PREF_SAVED_QUERY = "SearchQuery";
   private long mLastQueryTimestamp;
 
   private static class LastPosition
@@ -79,7 +76,6 @@ public class SearchFragment extends BaseMwmFragment
       if (TextUtils.isEmpty(query))
       {
         mSearchAdapter.clear();
-        MwmApplication.prefs().edit().putString(PREF_SAVED_QUERY, query).apply();
         stopSearch();
         return;
       }
@@ -88,7 +84,6 @@ public class SearchFragment extends BaseMwmFragment
       if (trySwitchOnTurnSound(query) || tryChangeMapStyle(query))
         return;
 
-      MwmApplication.prefs().edit().putString(PREF_SAVED_QUERY, query).apply();
       runSearch();
     }
 
@@ -161,7 +156,6 @@ public class SearchFragment extends BaseMwmFragment
 
   private final CachedResults mCachedResults = new CachedResults(this);
   private final LastPosition mLastPosition = new LastPosition();
-
   private boolean mSearchRunning;
 
   private boolean doShowDownloadSuggest()
@@ -232,7 +226,15 @@ public class SearchFragment extends BaseMwmFragment
     mTabsFrame = root.findViewById(R.id.tab_frame);
     mPager = (ViewPager) mTabsFrame.findViewById(R.id.pages);
     mToolbarController = new ToolbarController(view);
-    new TabAdapter(getChildFragmentManager(), mPager, (TabLayout) root.findViewById(R.id.tabs));
+    new TabAdapter(getChildFragmentManager(), mPager, (TabLayout) root.findViewById(R.id.tabs))
+      .setTabSelectedListener(new TabAdapter.OnTabSelectedListener()
+      {
+        @Override
+        public void onTabSelected(TabAdapter.Tab tab)
+        {
+          mToolbarController.setActive(false);
+        }
+      });
 
     mResultsFrame = root.findViewById(R.id.results_frame);
     mResults = (RecyclerView) mResultsFrame.findViewById(R.id.recycler);
@@ -267,8 +269,6 @@ public class SearchFragment extends BaseMwmFragment
   {
     super.onResume();
     LocationHelper.INSTANCE.addLocationListener(this);
-    setSearchQuery(MwmApplication.prefs().getString(PREF_SAVED_QUERY, ""));
-    mToolbarController.setActive(true);
   }
 
   @Override
@@ -284,28 +284,29 @@ public class SearchFragment extends BaseMwmFragment
     for (RecyclerView v : mAttachedRecyclers)
       v.removeOnScrollListener(mRecyclerListener);
 
+    mAttachedRecyclers.clear();
     SearchEngine.INSTANCE.removeListener(this);
     super.onDestroy();
   }
 
-  protected String getSearchQuery()
+  private String getSearchQuery()
   {
     return mToolbarController.getQuery();
   }
 
-  protected void setSearchQuery(String text)
+  void setSearchQuery(String text)
   {
     mToolbarController.setQuery(text);
   }
 
-  protected boolean searchActive()
+  private boolean searchActive()
   {
     return !getSearchQuery().isEmpty();
   }
 
   private void readArguments()
   {
-    Bundle arguments = getArguments();
+    final Bundle arguments = getArguments();
     if (arguments == null)
       return;
 
@@ -490,10 +491,5 @@ public class SearchFragment extends BaseMwmFragment
   public SearchToolbarController getController()
   {
     return mToolbarController;
-  }
-
-  boolean isSearchRunning()
-  {
-    return mSearchRunning;
   }
 }

@@ -266,7 +266,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 
   boolean showPopulateButton()
   {
-    return (mResultsCount > 0 && !mSearchFragment.isSearchRunning());
+    return (mResultsCount > 0);
   }
 
   @Override

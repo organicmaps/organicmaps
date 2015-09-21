@@ -62,10 +62,7 @@ public enum SearchEngine implements NativeSearchListener
    */
   public static native boolean nativeRunSearch(String query, String language, long timestamp, boolean force, boolean hasLocation, double lat, double lon);
   public static native void nativeRunInteractiveSearch(String query, String language, long timestamp);
-
   public static native void nativeShowResult(int position);
-
   public static native void nativeShowAllResults();
-
   public static native SearchResult nativeGetResult(int position, long timestamp, boolean hasLocation, double lat, double lon);
 }

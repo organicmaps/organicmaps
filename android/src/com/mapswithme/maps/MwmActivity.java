@@ -75,15 +75,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  ChooseBookmarkCategoryFragment.Listener
 {
   public static final String EXTRA_TASK = "map_task";
-  private final static String TAG = "MwmActivity";
   private final static String EXTRA_CONSUMED = "mwm.extra.intent.processed";
-  private final static String EXTRA_SCREENSHOTS_TASK = "screenshots_task";
-  private final static String SCREENSHOTS_TASK_LOCATE = "locate_task";
-  private final static String SCREENSHOTS_TASK_PPP = "show_place_page";
-  private final static String EXTRA_LAT = "lat";
-  private final static String EXTRA_LON = "lon";
-
-  private static final String EXTRA_SET_MAP_STYLE = "set_map_style";
   private static final String EXTRA_UPDATE_COUNTRIES = ".extra.update.countries";
 
   private static final String[] DOCKED_FRAGMENTS = {SearchFragment.class.getName(), DownloadFragment.class.getName()};
@@ -611,11 +603,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (intent.hasExtra(EXTRA_TASK))
       addTask(intent);
-    else if (intent.hasExtra(EXTRA_SET_MAP_STYLE))
-    {
-      final int mapStyle = intent.getIntExtra(EXTRA_SET_MAP_STYLE, Framework.MAP_STYLE_LIGHT);
-      Framework.setMapStyle(mapStyle);
-    }
     else if (intent.hasExtra(EXTRA_UPDATE_COUNTRIES))
     {
       ActiveCountryTree.updateAll();

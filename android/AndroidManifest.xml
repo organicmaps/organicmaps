@@ -188,6 +188,7 @@
 
     <activity
         android:name="com.mapswithme.maps.search.SearchActivity"
+        android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/search_map"
         android:parentActivityName="com.mapswithme.maps.MwmActivity"
         android:windowSoftInputMode="stateVisible">

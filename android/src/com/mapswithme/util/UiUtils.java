@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -271,24 +270,6 @@ public final class UiUtils
   }
 
 
-  public static AlertDialog buildAlertDialog(Activity activity, String title)
-  {
-    return new AlertDialog.Builder(activity)
-        .setCancelable(false)
-        .setMessage(title)
-        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
-        })
-        .create();
-  }
-
-  public static void showAlertDialog(Activity activity, String title)
-  {
-    buildAlertDialog(activity, title).show();
-  }
-
   public static String deviceOrientationAsString(Activity activity)
   {
     String rotation = activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? "|" : "-";
@@ -323,41 +304,6 @@ public final class UiUtils
   public static boolean isTablet()
   {
     return isSmallTablet() || isBigTablet();
-  }
-
-  /**
-   * View's default getHitRect() had a bug and would not apply transforms properly.
-   * More details : http://stackoverflow.com/questions/17750116/strange-view-gethitrect-behaviour
-   *
-   * @param v    view
-   * @param rect rect
-   */
-  public static void getHitRect(View v, Rect rect)
-  {
-    rect.left = (int) v.getX();
-    rect.top = (int) v.getY();
-    rect.right = rect.left + v.getWidth();
-    rect.bottom = rect.top + v.getHeight();
-  }
-
-  /**
-   * Tests, whether views intersect each other in parent`s coordinates.
-   *
-   * @param firstView  base view
-   * @param secondView covering view
-   * @return intersects or not
-   */
-  public static boolean areViewsIntersecting(View firstView, View secondView)
-  {
-    if (firstView.getVisibility() == View.GONE)
-      return false;
-
-    final Rect baseRect = new Rect();
-    final Rect testRect = new Rect();
-    UiUtils.getHitRect(firstView, baseRect);
-    UiUtils.getHitRect(secondView, testRect);
-
-    return baseRect.intersect(testRect);
   }
 
   public static void appearSlidingDown(final View view, @Nullable final Runnable completionListener)

@@ -68,9 +68,14 @@ class TabAdapter extends FragmentPagerAdapter
     public abstract Class<? extends Fragment> getFragmentClass();
   }
 
+  interface OnTabSelectedListener
+  {
+    void onTabSelected(Tab tab);
+  }
+
   // Workaround for https://code.google.com/p/android/issues/detail?id=180454
   // TODO: Remove this class and replace with TabLayout.TabLayoutOnPageChangeListener after library fix
-  private static class CustomTabLayoutOnPageChangeListener implements ViewPager.OnPageChangeListener
+  private class CustomTabLayoutOnPageChangeListener implements ViewPager.OnPageChangeListener
   {
     private final TabLayout mTabs;
     private int mScrollState;
@@ -101,6 +106,8 @@ class TabAdapter extends FragmentPagerAdapter
     public void onPageSelected(int position)
     {
       mTabs.getTabAt(position).select();
+      if (mTabSelectedListener != null)
+        mTabSelectedListener.onTabSelected(TABS[position]);
     }
   }
 
@@ -109,6 +116,7 @@ class TabAdapter extends FragmentPagerAdapter
   private final ViewPager mPager;
   private final List<Class<? extends Fragment>> mClasses = new ArrayList<>();
   private final SparseArray<Fragment> mFragments = new SparseArray<>();
+  private OnTabSelectedListener mTabSelectedListener;
 
   public TabAdapter(FragmentManager fragmentManager, ViewPager pager, TabLayout tabs)
   {
@@ -160,6 +168,11 @@ class TabAdapter extends FragmentPagerAdapter
     listener.onPageSelected(0);
   }
 
+  public void setTabSelectedListener(OnTabSelectedListener listener)
+  {
+    mTabSelectedListener = listener;
+  }
+
   @Override
   public Fragment getItem(int position)
   {
@@ -184,10 +197,5 @@ class TabAdapter extends FragmentPagerAdapter
   public int getCount()
   {
     return mClasses.size();
-  }
-
-  public Tab getCurrentTab()
-  {
-    return TABS[mPager.getCurrentItem()];
   }
 }
