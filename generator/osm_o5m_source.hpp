@@ -227,7 +227,7 @@ public:
 
     SubElements(O5MSource * reader, TSubElementGetter const & func) : m_reader(reader), m_func(func) {}
 
-    void Skip() { while (m_reader ? m_func(nullptr) : nullptr); }
+    void Skip() { while (m_reader && m_func(nullptr)); }
 
     Iterator const begin() const { return Iterator(m_reader, m_func); }
     Iterator const end() const { return Iterator(); }
@@ -279,14 +279,17 @@ public:
 
     void SkipRemainder() const
     {
+      if (!m_reader)
+        return;
+
       if (!(type == EntityType::Node || type == EntityType::Way || type == EntityType::Relation))
         return;
       if (type == EntityType::Way)
-        while (m_reader ? m_reader->ReadNd(nullptr) : nullptr);
+        while (m_reader->ReadNd(nullptr));
       if (type == EntityType::Relation)
-        while (m_reader ? m_reader->ReadMember(nullptr) : nullptr);
+        while (m_reader->ReadMember(nullptr));
 
-      while (m_reader ? m_reader->ReadStringPair(nullptr) : nullptr);
+      while (m_reader->ReadStringPair(nullptr));
     }
 
     Entity() : m_reader(nullptr) {}
