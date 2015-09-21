@@ -1,7 +1,7 @@
 # Generator binary
 
 ROOT_DIR = ../..
-DEPENDENCIES = generator routing storage indexer platform geometry coding normalize base \
+DEPENDENCIES = generator routing storage indexer platform geometry coding base normalize \
                osrm gflags expat tess2 jansson protobuf tomcrypt \
                succinct stats_client
 
