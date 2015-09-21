@@ -2,10 +2,10 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
-static NSDictionary * const selectedAttributes =
+static NSDictionary * const kSelectedAttributes =
     @{NSForegroundColorAttributeName : UIColor.linkBlue, NSFontAttributeName : UIFont.bold16};
 
-static NSDictionary * const unselectedAttributes =
+static NSDictionary * const kUnelectedAttributes =
     @{NSForegroundColorAttributeName : UIColor.linkBlue, NSFontAttributeName : UIFont.regular16};
 
 @interface MWMSearchSuggestionCell ()
@@ -19,12 +19,12 @@ static NSDictionary * const unselectedAttributes =
 
 - (NSDictionary *)selectedTitleAttributes
 {
-  return selectedAttributes;
+  return kSelectedAttributes;
 }
 
 - (NSDictionary *)unselectedTitleAttributes
 {
-  return unselectedAttributes;
+  return kUnelectedAttributes;
 }
 
 + (CGFloat)cellHeight

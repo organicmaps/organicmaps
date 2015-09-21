@@ -8,12 +8,12 @@
 #include "indexer/mercator.hpp"
 #include "platform/measurement_utils.hpp"
 
-static NSDictionary * const selectedAttributes = @{
+static NSDictionary * const kSelectedAttributes = @{
   NSForegroundColorAttributeName : UIColor.blackPrimaryText,
   NSFontAttributeName : UIFont.bold17
 };
 
-static NSDictionary * const unselectedAttributes = @{
+static NSDictionary * const kUnselectedAttributes = @{
   NSForegroundColorAttributeName : UIColor.blackPrimaryText,
   NSFontAttributeName : UIFont.regular17
 };
@@ -96,12 +96,12 @@ static NSDictionary * const unselectedAttributes = @{
 
 - (NSDictionary *)selectedTitleAttributes
 {
-  return selectedAttributes;
+  return kSelectedAttributes;
 }
 
 - (NSDictionary *)unselectedTitleAttributes
 {
-  return unselectedAttributes;
+  return kUnselectedAttributes;
 }
 
 + (CGFloat)defaultCellHeight
