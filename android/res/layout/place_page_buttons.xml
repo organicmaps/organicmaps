@@ -9,6 +9,7 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/margin_half_plus"
     android:paddingRight="@dimen/margin_half_plus"
+    android:clickable="true"
     tools:ignore="UseCompoundDrawables">
 
   <LinearLayout

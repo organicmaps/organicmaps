@@ -1,6 +1,5 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
