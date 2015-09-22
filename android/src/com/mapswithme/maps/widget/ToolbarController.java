@@ -13,7 +13,6 @@ public class ToolbarController
   protected final Toolbar mToolbar;
   protected final Activity mActivity;
 
-
   public ToolbarController(View root, Activity activity)
   {
     mActivity = activity;

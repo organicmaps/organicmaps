@@ -298,9 +298,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     processIntent(getIntent());
 
     mLocationPredictor = new LocationPredictor(new Handler(), this);
-
-    if (mIsFragmentContainer)
-      mSearchController = new FloatingSearchToolbarController(this);
+    mSearchController = new FloatingSearchToolbarController(this);
 
     SharingHelper.prepare();
   }
@@ -762,9 +760,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     invalidateLocationState();
     adjustZoomButtons(Framework.nativeIsRoutingActive());
 
-    if (mIsFragmentContainer)
-      mSearchController.refreshToolbar();
-
+    mSearchController.refreshToolbar();
     mPlacePage.onResume();
     LikesManager.INSTANCE.showDialogs(this);
     mMainMenu.onResume();
@@ -852,7 +848,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (mIsFragmentContainer && mSearchController.hide())
+    if (mSearchController.hide())
     {
       FloatingSearchToolbarController.cancelSearch();
       return;
@@ -1160,9 +1156,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (popFragment())
     {
       InputUtils.hideKeyboard(mMainMenu.getFrame());
-
-      if (mIsFragmentContainer)
-        mSearchController.refreshToolbar();
+      mSearchController.refreshToolbar();
     }
   }
 

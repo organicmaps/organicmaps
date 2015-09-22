@@ -336,7 +336,6 @@ public class SearchFragment extends BaseMwmFragment
     if (!isDark && !isLight && !isOld)
       return false;
 
-    // close Search panel
     hideSearch();
 
     // change map style for the Map activity

@@ -27,7 +27,7 @@ public class SearchToolbarController extends ToolbarController
   private final View mClear;
   private final View mVoiceInput;
 
-  private final boolean mVoiceInputSuported = InputUtils.isVoiceInputSupported(mActivity);
+  private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(mActivity);
 
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher()
   {
@@ -75,15 +75,13 @@ public class SearchToolbarController extends ToolbarController
 
   private void updateButtons(boolean queryEmpty)
   {
-    UiUtils.showIf(queryEmpty && mVoiceInputSuported, mVoiceInput);
+    UiUtils.showIf(queryEmpty && mVoiceInputSupported, mVoiceInput);
     UiUtils.showIf(!queryEmpty, mClear);
   }
 
-  protected void onQueryClick(String query)
-  {}
+  protected void onQueryClick(String query) {}
 
-  protected void onTextChanged(String query)
-  {}
+  protected void onTextChanged(String query) {}
 
   protected boolean onStartSearchClick()
   {
@@ -95,8 +93,7 @@ public class SearchToolbarController extends ToolbarController
     clear();
   }
 
-  protected void onVoiceInputClick()
-  {}
+  protected void onVoiceInputClick() {}
 
   public String getQuery()
   {
