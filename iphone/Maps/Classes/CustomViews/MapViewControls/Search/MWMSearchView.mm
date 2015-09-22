@@ -118,6 +118,8 @@ static CGFloat const kWidthForiPad = 320.0;
 
 - (void)setCompact:(BOOL)compact
 {
+  if (IPAD)
+    return;
   _compact = compact;
   if (!compact)
     self.infoWrapper.hidden = NO;
