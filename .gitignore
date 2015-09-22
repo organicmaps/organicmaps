@@ -138,3 +138,4 @@ private.h
 tools/android/mapswithme.keystore
 tools/android/yota.keystore
 android/secure.properties
+server
