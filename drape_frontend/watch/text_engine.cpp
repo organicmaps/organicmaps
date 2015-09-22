@@ -1,11 +1,3 @@
-//
-//  text_engine.cpp
-//  FreetypeLabels
-//
-//  Created by Sergey Yershov on 09.03.11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
-
 #include "text_engine.h"
 
 #include <sstream>

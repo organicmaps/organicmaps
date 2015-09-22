@@ -1055,7 +1055,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         public void run()
         {
           mPlacePage.hide();
-          Framework.deactivatePopup();
         }
       });
     }

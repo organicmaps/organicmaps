@@ -1,12 +1,3 @@
-/*
- *  point.h
- *  IALib
- *
- *  Created by Sergey Yershov on 04.09.05.
- *  Copyright 2005 __MyCompanyName__. All rights reserved.
- *
- */
-
 #ifndef __IA__POINT__
 #define __IA__POINT__
 
