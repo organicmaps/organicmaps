@@ -449,8 +449,8 @@ func main() {
 		NewFetchSource(manager, "3.7", "third.server", 350*1024, 0*1024, 1.0),*/
 		NewFetchSource(manager, "3", "third.server", 350*1024, 0*1024, 1.0, false, 10000 * 1024),
 		NewFetchSource(manager, "4", "fourth.server", 160*1024, 0*1024, 1.0, false, 10000 * 1024),
-		NewFetchSource(manager, "22", "first.server", 50*1024, 0*1024, 1.0, false, 10000 * 1024),
-		NewFetchSource(manager, "33", "fifth.server", 1500*1024, 0*1024, 1.0, false, 10000 * 1024),
+		NewFetchSource(manager, "1", "first.server", 50*1024, 0*1024, 1.0, false, 10000 * 1024),
+		NewFetchSource(manager, "5", "fifth.server", 1500*1024, 0*1024, 1.0, false, 10000 * 1024),
 		NewFetchSource(manager, "us3-cdn", "mappy.local", 150*1024, 0*1024, 0.1, true, 10 * 1024),
 		
 	}
