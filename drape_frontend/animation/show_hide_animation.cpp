@@ -60,7 +60,7 @@ void ShowHideAnimation::Show()
 
 void ShowHideAnimation::ShowAnimated()
 {
-  RefreshInterpolator({ STATE_VISIBLE, STATE_SHOW_DIRECTION }, 1.0);
+  RefreshInterpolator({{ STATE_VISIBLE, STATE_SHOW_DIRECTION }}, 1.0);
 }
 
 void ShowHideAnimation::Hide()
@@ -75,7 +75,7 @@ void ShowHideAnimation::Hide()
 
 void ShowHideAnimation::HideAnimated()
 {
-  RefreshInterpolator({ STATE_INVISIBLE, STATE_HIDE_DIRECTION }, 0.0);
+  RefreshInterpolator({{ STATE_INVISIBLE, STATE_HIDE_DIRECTION }}, 0.0);
 }
 
 ShowHideAnimation::EState ShowHideAnimation::GetState() const
