@@ -74,7 +74,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField
 {
-  if (self.searchTextField.text.length == 0)
+  if (textField.text.length == 0)
     [self endSearch];
 }
 
@@ -91,7 +91,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     {
       [self beginSearch];
       [self.tableViewController searchText:text
-                            forInputLocale:self.searchTextField.textInputMode.primaryLanguage];
+                            forInputLocale:textField.textInputMode.primaryLanguage];
     }
   }
   else
@@ -132,6 +132,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (BOOL)textFieldShouldReturn:(nonnull UITextField *)textField
 {
   [textField resignFirstResponder];
+  if (textField.text.length != 0)
+    self.state = MWMSearchManagerStateMapSearch;
   return YES;
 }
 
