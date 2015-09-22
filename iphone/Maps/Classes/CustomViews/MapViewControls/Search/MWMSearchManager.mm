@@ -242,7 +242,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.searchTextField resignFirstResponder];
   self.rootView.compact = YES;
   self.tableViewController.searchOnMap = YES;
-  [self.searchTextField becomeFirstResponder];
 }
 
 #pragma mark - Properties
