@@ -75,7 +75,7 @@ namespace qt
     void resizeGL(int width, int height) override;
     void paintGL() override;
 
-    void exposeEvent(QExposeEvent * event);
+    void exposeEvent(QExposeEvent * event) override;
     void mousePressEvent(QMouseEvent * e) override;
     void mouseDoubleClickEvent(QMouseEvent * e) override;
     void mouseMoveEvent(QMouseEvent * e) override;
@@ -83,7 +83,7 @@ namespace qt
     void wheelEvent(QWheelEvent * e) override;
     void keyPressEvent(QKeyEvent * e) override;
     void keyReleaseEvent(QKeyEvent * e) override;
-    //@}
+    //@}a
 
   private:
     enum RenderingState

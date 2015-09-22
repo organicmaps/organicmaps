@@ -34,5 +34,7 @@
 	</dict>
 	<key>RemoteInterfacePrincipalClass</key>
 	<string>InterfaceController</string>
+	<key>WKWatchKitApp</key>
+	<true/>
 </dict>
 </plist>

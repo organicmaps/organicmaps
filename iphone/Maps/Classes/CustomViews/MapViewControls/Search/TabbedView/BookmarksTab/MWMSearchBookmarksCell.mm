@@ -27,10 +27,15 @@
 
 - (void)configForIndex:(NSInteger)index
 {
-  BookmarkCategory const * cat = GetFramework().GetBmCategory(index);
+  BookmarkCategory * cat = GetFramework().GetBmCategory(index);
   self.index = index;
   self.isVisible = cat->IsVisible();
-  self.count = cat->GetBookmarksCount() + cat->GetTracksCount();
+  size_t userMarksCount = 0;
+  {
+    BookmarkCategory::Guard guard(*cat);
+    userMarksCount = guard.m_controller.GetUserMarkCount();
+  }
+  self.count = userMarksCount + cat->GetTracksCount();
   self.titleLabel.text = @(cat->GetName().c_str());
 }
 
@@ -38,7 +43,8 @@
 {
   self.isVisible = !self.isVisible;
   BookmarkCategory * cat = GetFramework().GetBmCategory(self.index);
-  cat->SetVisible(self.isVisible);
+  BookmarkCategory::Guard guard(*cat);
+  guard.m_controller.SetIsVisible(self.isVisible);
   cat->SaveToKMLFile();
 }
 

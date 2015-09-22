@@ -15,8 +15,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -117,15 +115,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private PanelAnimator mPanelAnimator;
   private MytargetHelper mMytargetHelper;
 
-  private boolean mNeedCheckUpdate = true;
-
-  // These flags are initialized to the invalid combination to force update on the first check
-  // after launching.
-  // These flags are static because the MwmActivity is recreated while screen orientation changing
-  // but they shall not be reinitialized on screen orientation changing.
-  private static boolean sStorageAvailable = false;
-  private static boolean sStorageWritable = true;
-
   private FadeView mFadeView;
 
   private ImageButton mBtnZoomIn;
@@ -173,42 +162,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .putExtra(EXTRA_UPDATE_COUNTRIES, true);
   }
 
-  private void pauseLocation()
-  {
-    LocationHelper.INSTANCE.removeLocationListener(this);
-    // Enable automatic turning screen off while app is idle
-    Utils.keepScreenOn(false, getWindow());
-    mLocationPredictor.pause();
-  }
-
-  private void listenLocationUpdates()
-  {
-    LocationHelper.INSTANCE.addLocationListener(this);
-    // Do not turn off the screen while displaying position
-    Utils.keepScreenOn(true, getWindow());
-    mLocationPredictor.resume();
-  }
-
-  /**
-   * Invalidates location state in core.
-   * Updates location button accordingly.
-   */
-  public void invalidateLocationState()
-  {
-    onMyPositionModeChangedCallback(LocationState.INSTANCE.getLocationStateMode());
-    LocationState.INSTANCE.invalidatePosition();
-  }
-
   @Override
   public void onRenderingInitialized()
   {
-	mRenderingInitialized = true;
-
-    runOnUiThread(new Runnable()
-    {
+    runOnUiThread(new Runnable() {
       @Override
-      public void run()
-      {
+      public void run() {
         checkMeasurementSystem();
         checkKitkatMigrationMove();
       }
@@ -704,7 +663,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Toast.makeText(this, R.string.gps_is_disabled_long_text, Toast.LENGTH_LONG).show();
     }
   }
-  }
 
   @Override
   public void onLocationUpdated(final Location location)
@@ -872,6 +830,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // Enable automatic turning screen off while app is idle
     Utils.keepScreenOn(false, getWindow());
     mLocationPredictor.pause();
+  }
+
+  private void refreshLocationState(int newMode)
+  {
+    mMainMenu.getMyPositionButton().update(newMode);
+
+    switch (newMode)
+    {
+      case LocationState.UNKNOWN_POSITION:
+        pauseLocation();
+        break;
+      case LocationState.PENDING_POSITION:
+        resumeLocation();
+        break;
+      default:
+        break;
+    }
   }
 
   /**

@@ -121,7 +121,7 @@ using feature::Metadata;
 {
   self.type = MWMPlacePageEntityTypeAPI;
   self.title = @(apiMark->GetName().c_str());
-  self.category = @(GetFramework().GetApiDataHolder().GetAppTitle().c_str());
+  self.category = @(GetFramework().GetApiDataHolder().m_appTitle.c_str());
   NSMutableArray const * types = [NSMutableArray array];
   NSMutableArray const * values = [NSMutableArray array];
   [types addObject:kPatternTypesArray.lastObject];

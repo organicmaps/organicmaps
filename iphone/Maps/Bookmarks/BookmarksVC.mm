@@ -324,7 +324,8 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
           BookmarkAndCategory bookmarkAndCategory = BookmarkAndCategory(m_categoryIndex, indexPath.row);
           NSValue * value = [NSValue valueWithBytes:&bookmarkAndCategory objCType:@encode(BookmarkAndCategory)];
           [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_DELETED_NOTIFICATION object:value];
-          cat->DeleteBookmark(indexPath.row);
+          BookmarkCategory::Guard guard(*cat);
+          guard.m_controller.DeleteUserMark(indexPath.row);
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                             object:nil
                                                           userInfo:nil];

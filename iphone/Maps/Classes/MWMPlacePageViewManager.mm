@@ -299,7 +299,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   PoiMarkPoint const * poi = f.GetAddressMark(bookmark->GetPivot());
   m_userMark.reset(new UserMarkCopy(poi, false));
   f.ActivateUserMark(poi, false);
-  if (category)
+  if (bookmarkCategory)
   {
     BookmarkCategory::Guard guard(*bookmarkCategory);
     guard.m_controller.DeleteUserMark(bookmarkAndCategory.second);

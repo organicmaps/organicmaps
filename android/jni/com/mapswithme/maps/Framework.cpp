@@ -420,7 +420,7 @@ bool Framework::ShowMapForURL(string const & url)
 
 void Framework::DeactivatePopup()
 {
-  m_work.DiactivateUserMark();
+  m_work.DeactivateUserMark();
 }
 
 string Framework::GetOutdatedCountriesString()

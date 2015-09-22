@@ -60,7 +60,7 @@ private:
   //           MessageAcceptor           //
   /////////////////////////////////////////
 private:
-  void AcceptMessage(ref_ptr<Message> message);
+  void AcceptMessage(ref_ptr<Message> message) override;
 
   /////////////////////////////////////////
   //             ThreadPart              //

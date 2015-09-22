@@ -188,7 +188,7 @@ public:
   //@}
 
 protected:
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
+  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
 };
 
 /// <category index, bookmark index>

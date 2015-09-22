@@ -23,6 +23,7 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
@@ -1292,7 +1293,7 @@ void Framework::SetMapStyle(MapStyle mapStyle)
 
   classificator::Load();
   drule::LoadRules();
-  CallDrapeFunction(bind(&df::DrapeEngine::UpdateMapStyle, _1, GetStyleReader().GetCurrentStyleSuffix()));
+  CallDrapeFunction(bind(&df::DrapeEngine::UpdateMapStyle, _1));
 
   alohalytics::TStringMap details {{"mapStyle", strings::to_string(static_cast<int>(mapStyle))}};
   alohalytics::Stats::Instance().LogEvent("MapStyle_Changed", details);
@@ -1341,7 +1342,7 @@ bool Framework::ShowMapForURL(string const & url)
   ResultT result = FAILED;
 
   // always hide current balloon here
-  DiactivateUserMark();
+  DeactivateUserMark();
 
   using namespace url_scheme;
   using namespace strings;
@@ -1414,7 +1415,7 @@ bool Framework::ShowMapForURL(string const & url)
       }
     }
     else
-      DiactivateUserMark();
+      DeactivateUserMark();
 
     return true;
   }
@@ -1573,7 +1574,7 @@ void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
   }
 }
 
-void Framework::DiactivateUserMark()
+void Framework::DeactivateUserMark()
 {
   ActivateUserMark(nullptr, true);
 }

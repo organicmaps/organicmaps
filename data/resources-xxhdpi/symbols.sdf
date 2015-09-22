@@ -1,6 +1,6 @@
 <!DOCTYPE skin>
 <root>
- <file height="1024" width="1024">
+ <file width="1024" height="1024">
   <symbol minY="0" maxY="205" name="route_to" minX="0" maxX="205"/>
   <symbol minY="0" maxY="196" name="route-arrow" minX="205" maxX="609"/>
   <symbol minY="0" maxY="172" name="compass-image" minX="609" maxX="781"/>

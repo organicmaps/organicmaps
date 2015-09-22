@@ -141,7 +141,7 @@ void ReadManager::Stop()
 
 size_t ReadManager::ReadCount()
 {
-  return max(GetPlatform().CpuCores() - 2, 1);
+  return max(static_cast<int>(GetPlatform().CpuCores()) - 2, 1);
 }
 
 bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const

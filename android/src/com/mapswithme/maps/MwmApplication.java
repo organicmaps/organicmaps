@@ -176,7 +176,7 @@ public class MwmApplication extends Application
       return cacheDir.getAbsolutePath();
 
     return Environment.getExternalStorageDirectory().getAbsolutePath() +
-        String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
+            String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
   }
 
   private String getObbGooglePath()
@@ -190,36 +190,20 @@ public class MwmApplication extends Application
     System.loadLibrary("mapswithme");
   }
 
-  public void runNativeFunctorOnUiThread(final long functorPointer)
-  {
-    //TODO(android developer) implement categories of messages
-    Message m = Message.obtain(mMainLoopHandler, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        runNativeFunctor(functorPointer);
-      }
-    });
-    m.obj = mMainQueueToken;
-    mMainLoopHandler.sendMessage(m);
-  }
-
-  public void clearFunctorsOnUiThread()
-  {
-    mMainLoopHandler.removeCallbacksAndMessages(mMainQueueToken);
-  }
-
   /**
    * Initializes native Platform with paths. Should be called before usage of any other native components.
    */
   private native void nativeInitPlatform(String apkPath, String storagePath, String tmpPath, String obbGooglePath,
                                          String flavorName, String buildType, boolean isYota, boolean isTablet);
 
-  private native void nativeInitFramework();
+  private native void nativeAddLocalization(String name, String value);
+
+  /**
+   * Check if device have at least {@code size} bytes free.
+   */
+  public native boolean hasFreeSpace(long size);
 
   private native void runNativeFunctor(final long functorPointer);
-  private native void nativeAddLocalization(String name, String value);
 
   /*
    * init Parse SDK
@@ -243,8 +227,8 @@ public class MwmApplication extends Application
           org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_INSTALLATION_ID, newId);
           org.alohalytics.Statistics.logEvent(AlohaHelper.PARSE_DEVICE_TOKEN, newToken);
           prefs.edit()
-               .putString(PREF_PARSE_INSTALLATION_ID, newId)
-               .putString(PREF_PARSE_DEVICE_TOKEN, newToken).apply();
+                  .putString(PREF_PARSE_INSTALLATION_ID, newId)
+                  .putString(PREF_PARSE_DEVICE_TOKEN, newToken).apply();
         }
       }
     });
@@ -263,5 +247,25 @@ public class MwmApplication extends Application
   public void onUpgrade()
   {
     Config.resetAppSessionCounters();
+  }
+
+  public void runNativeFunctorOnUiThread(final long functorPointer)
+  {
+    //TODO(android developer) implement categories of messages
+    Message m = Message.obtain(mMainLoopHandler, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        runNativeFunctor(functorPointer);
+      }
+    });
+    m.obj = mMainQueueToken;
+    mMainLoopHandler.sendMessage(m);
+  }
+
+  public void clearFunctorsOnUiThread()
+  {
+    mMainLoopHandler.removeCallbacksAndMessages(mMainQueueToken);
   }
 }

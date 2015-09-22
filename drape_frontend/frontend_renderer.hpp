@@ -122,7 +122,7 @@ public:
   void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero) override;
 
 protected:
-  virtual void AcceptMessage(ref_ptr<Message> message);
+  void AcceptMessage(ref_ptr<Message> message) override;
   unique_ptr<threads::IRoutine> CreateRoutine() override;
 
 private:

@@ -64,11 +64,11 @@ public:
 
   ////////////////////////////////////////////////////////////
   /// Render info
-  virtual size_t GetUserPointCount() const;
-  virtual df::UserPointMark const * GetUserPointMark(size_t index) const;
+  size_t GetUserPointCount() const override;
+  df::UserPointMark const * GetUserPointMark(size_t index) const override;
 
-  virtual size_t GetUserLineCount() const;
-  virtual df::UserLineMark const * GetUserLineMark(size_t index) const;
+  size_t GetUserLineCount() const override;
+  df::UserLineMark const * GetUserLineMark(size_t index) const override;
   ////////////////////////////////////////////////////////////
 
   float GetPointDepth() const;
@@ -81,12 +81,12 @@ public:
 
 protected:
   /// UserMarksController implementation
-  virtual UserMark * CreateUserMark(m2::PointD const & ptOrg);
-  virtual UserMark * GetUserMarkForEdit(size_t index);
-  virtual void DeleteUserMark(size_t index);
-  virtual void Clear(size_t skipCount = 0);
-  virtual void SetIsDrawable(bool isDrawable);
-  virtual void SetIsVisible(bool isVisible);
+  UserMark * CreateUserMark(m2::PointD const & ptOrg) override;
+  UserMark * GetUserMarkForEdit(size_t index) override;
+  void DeleteUserMark(size_t index) override;
+  void Clear(size_t skipCount = 0) override;
+  void SetIsDrawable(bool isDrawable) override;
+  void SetIsVisible(bool isVisible) override;
 
 protected:
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) = 0;
@@ -120,7 +120,7 @@ public:
   ApiUserMarkContainer(double layerDepth, Framework & framework);
 
 protected:
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
+  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
 };
 
 class DebugUserMarkContainer : public UserMarkContainer

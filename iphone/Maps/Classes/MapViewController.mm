@@ -100,10 +100,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 @end
 
 @implementation MapViewController
-{
-  ActiveMapsObserver * m_mapsObserver;
-  int m_mapsObserverSlotId;
-}
 
 #pragma mark - LocationManager Callbacks
 
@@ -223,24 +219,18 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     [self dismissPlacePage];
   else
     [self.controlsManager showPlacePageWithUserMark:move(mark)];
-}
 
-- (void)processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
-{
-  CGFloat const scaleFactor = self.view.contentScaleFactor;
-  m2::PointD const pxClicked(point.x * scaleFactor, point.y * scaleFactor);
-
-  Framework & f = GetFramework();
-  UserMark const * userMark = f.GetUserMark(pxClicked, isLongClick);
-  if (!f.HasActiveUserMark() && self.controlsManager.searchHidden && !f.IsRouteNavigable()
-      && MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
-  {
-    if (userMark == nullptr)
-      self.controlsManager.hidden = !self.controlsManager.hidden;
-    else
-      self.controlsManager.hidden = NO;
-  }
-  f.GetBalloonManager().OnShowMark(userMark);
+  //TODO(@kuznetsov)
+  /*
+   UserMark const * userMark = f.GetUserMark(pxClicked, isLongClick);
+   if (f.HasActiveUserMark() == false && self.controlsManager.searchHidden && !f.IsRouteNavigable())
+   {
+   if (userMark == nullptr)
+   self.controlsManager.hidden = !self.controlsManager.hidden;
+   else
+   self.controlsManager.hidden = NO;
+   }
+   */
 }
 
 - (void)onMyPositionClicked:(id)sender
@@ -444,8 +434,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [super viewWillDisappear:animated];
   self.menuRestoreState = self.controlsManager.menuState;
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
-
-  GetFramework().GetActiveMaps()->RemoveListener(m_mapsObserverSlotId);
 }
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent
@@ -832,7 +820,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
   Framework & f = GetFramework();
   if (self.popoverVC)
-    f.DiactivateUserMark();
+    f.DeactivateUserMark();
 
   double const sf = self.view.contentScaleFactor;
 
