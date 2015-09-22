@@ -1,33 +1,36 @@
-<LinearLayout
+<com.mapswithme.maps.widget.HeightLimitedFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/margin_base_plus">
-
-  <TextView
-      android:id="@+id/tv__title"
+    android:layout_height="match_parent">
+  <LinearLayout
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/update_maps_alert_title"
-      android:textAppearance="@style/MwmTextAppearance.Title"
-      android:textStyle="bold"/>
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_base_plus">
+    <TextView
+        android:id="@+id/tv__title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/update_maps_alert_title"
+        android:textAppearance="@style/MwmTextAppearance.Title"
+        android:textStyle="bold"/>
 
-  <ImageView
-      android:id="@+id/iv__image"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="@dimen/margin_half_plus"
-      android:contentDescription="@null"
-      android:src="@drawable/ic_img_new_style_map"/>
+    <ImageView
+        android:id="@+id/iv__image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_half_plus"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_img_new_style_map"
+        android:tag="@string/tag_height_limited"/>
 
-  <TextView
-      android:id="@+id/tv__text"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_half_plus"
-      android:text="@string/update_maps_alert_message"
-      android:textAppearance="@style/MwmTextAppearance.Body2"/>
-
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv__text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half_plus"
+        android:text="@string/update_maps_alert_message"
+        android:textAppearance="@style/MwmTextAppearance.Body2"/>
+  </LinearLayout>
+</com.mapswithme.maps.widget.HeightLimitedFrameLayout>
