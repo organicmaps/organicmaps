@@ -117,7 +117,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     @Override
     void processClick(SearchResult result, int order)
     {
-      mSearchFragment.setSearchQuery(result.suggestion);
+      mSearchFragment.setQuery(result.suggestion);
     }
   }
 

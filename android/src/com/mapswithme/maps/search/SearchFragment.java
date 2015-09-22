@@ -121,7 +121,7 @@ public class SearchFragment extends BaseMwmFragment
     @Override
     protected void onUpClick()
     {
-      if (TextUtils.isEmpty(getSearchQuery()))
+      if (TextUtils.isEmpty(getQuery()))
       {
         super.onUpClick();
         return;
@@ -292,19 +292,19 @@ public class SearchFragment extends BaseMwmFragment
     super.onDestroy();
   }
 
-  private String getSearchQuery()
+  private String getQuery()
   {
     return mToolbarController.getQuery();
   }
 
-  void setSearchQuery(String text)
+  void setQuery(String text)
   {
     mToolbarController.setQuery(text);
   }
 
   private boolean searchActive()
   {
-    return !getSearchQuery().isEmpty();
+    return !getQuery().isEmpty();
   }
 
   private void readArguments()
@@ -315,7 +315,9 @@ public class SearchFragment extends BaseMwmFragment
 
     final String query = arguments.getString(SearchActivity.EXTRA_QUERY);
     if (query != null)
-      setSearchQuery(query);
+      setQuery(query);
+
+    mToolbarController.activate();
   }
 
   private void hideSearch()
@@ -362,7 +364,7 @@ public class SearchFragment extends BaseMwmFragment
 
   protected void showSingleResultOnMap(int resultIndex)
   {
-    final String query = getSearchQuery();
+    final String query = getQuery();
     SearchRecents.add(query);
     FloatingSearchToolbarController.cancelApiCall();
     FloatingSearchToolbarController.saveQuery("");
@@ -374,7 +376,7 @@ public class SearchFragment extends BaseMwmFragment
 
   protected void showAllResultsOnMap()
   {
-    final String query = getSearchQuery();
+    final String query = getQuery();
     mLastQueryTimestamp = System.nanoTime();
     SearchEngine.nativeRunInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp);
     SearchEngine.nativeShowAllResults();
@@ -389,7 +391,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     mLastPosition.set(l.getLatitude(), l.getLongitude());
 
-    if (!TextUtils.isEmpty(getSearchQuery()))
+    if (!TextUtils.isEmpty(getQuery()))
       mSearchAdapter.notifyDataSetChanged();
   }
 
@@ -412,10 +414,10 @@ public class SearchFragment extends BaseMwmFragment
     mLastQueryTimestamp = System.nanoTime();
     // TODO @yunitsky Implement more elegant solution.
     if (getActivity() instanceof MwmActivity)
-      SearchEngine.nativeRunInteractiveSearch(getSearchQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp);
+      SearchEngine.nativeRunInteractiveSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp);
     else
     {
-      final boolean searchStarted = SearchEngine.nativeRunSearch(getSearchQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp, true,
+      final boolean searchStarted = SearchEngine.nativeRunSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp, true,
                                                                  mLastPosition.valid, mLastPosition.lat, mLastPosition.lon);
       if (!searchStarted)
         return;
@@ -462,7 +464,7 @@ public class SearchFragment extends BaseMwmFragment
     {
       String result = InputUtils.getBestRecognitionResult(data);
       if (!TextUtils.isEmpty(result))
-        setSearchQuery(result);
+        setQuery(result);
     }
   }
 
