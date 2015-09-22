@@ -59,7 +59,7 @@ if [ $? == 0 ]; then
   echo "Saved private repository url to $SAVED_PRIVATE_REPO_FILE"
   echo "$PRIVATE_REPO" > "$SAVED_PRIVATE_REPO_FILE"
   rm -rf "$TMP_REPO_DIR/.git" "$TMP_REPO_DIR/README.md"
-  cp -Rv "$TMP_REPO_DIR/" .
+  cp -Rv "$TMP_REPO_DIR"/* .
   rm -rf "$TMP_REPO_DIR"
   echo "Private files have been updated."
 fi
