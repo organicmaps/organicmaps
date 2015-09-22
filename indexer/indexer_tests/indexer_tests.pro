@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = indexer platform geometry coding base normalize protobuf tomcrypt
+DEPENDENCIES = indexer platform geometry coding base protobuf tomcrypt
 !linux {
 DEPENDENCIES += opening_hours
 }

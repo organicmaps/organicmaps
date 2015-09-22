@@ -26,7 +26,7 @@ win32:CONFIG(drape) {
   CONFIG *= desktop
 }
 
-SUBDIRS = 3party base base/normalize geometry coding
+SUBDIRS = 3party base geometry coding
 
 SUBDIRS += platform
 SUBDIRS += stats

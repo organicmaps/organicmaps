@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = indexer geometry base normalize
+DEPENDENCIES = indexer geometry base
 
 include($$ROOT_DIR/common.pri)
 
