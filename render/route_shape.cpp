@@ -41,8 +41,10 @@ struct LineSegment
   bool m_hasLeftJoin[PointsCount];
   bool m_generateJoin;
 
-  LineSegment()
+  LineSegment(m2::PointF const & p1, m2::PointF const & p2)
   {
+    m_points[StartPoint] = p1;
+    m_points[EndPoint] = p2;
     m_leftWidthScalar[StartPoint] = m_leftWidthScalar[EndPoint] = m2::PointF(1.0f, 0.0f);
     m_rightWidthScalar[StartPoint] = m_rightWidthScalar[EndPoint] = m2::PointF(1.0f, 0.0f);
     m_hasLeftJoin[StartPoint] = m_hasLeftJoin[EndPoint] = true;
@@ -206,28 +208,27 @@ void ConstructLineSegments(vector<m2::PointD> const & path, vector<LineSegment> 
 {
   ASSERT_LESS(1, path.size(), ());
 
-  float const eps = 1e-5;
-
   m2::PointD prevPoint = path[0];
   for (size_t i = 1; i < path.size(); ++i)
   {
-    // filter the same points
-    if (prevPoint.EqualDxDy(path[i], eps))
+    m2::PointF const p1 = m2::PointF(prevPoint.x, prevPoint.y);
+    m2::PointF const p2 = m2::PointF(path[i].x, path[i].y);
+    if (p1.EqualDxDy(p2, 1.0E-5))
       continue;
 
-    LineSegment segment;
+    // Important! Do emplace_back first and fill parameters later.
+    // Fill parameters first and push_back later will cause ugly bug in clang 3.6 -O3 optimization.
+    segments.emplace_back(p1, p2);
+    LineSegment & segment = segments.back();
 
-    segment.m_points[StartPoint] = m2::PointF(prevPoint.x, prevPoint.y);
-    segment.m_points[EndPoint] = m2::PointF(path[i].x, path[i].y);
-    CalculateTangentAndNormals(segment.m_points[StartPoint], segment.m_points[EndPoint], segment.m_tangent,
-                               segment.m_leftBaseNormal, segment.m_rightBaseNormal);
+    CalculateTangentAndNormals(p1, p2, segment.m_tangent,
+                               segment.m_leftBaseNormal,
+                               segment.m_rightBaseNormal);
 
     segment.m_leftNormals[StartPoint] = segment.m_leftNormals[EndPoint] = segment.m_leftBaseNormal;
     segment.m_rightNormals[StartPoint] = segment.m_rightNormals[EndPoint] = segment.m_rightBaseNormal;
 
     prevPoint = path[i];
-
-    segments.push_back(segment);
   }
 }
 
