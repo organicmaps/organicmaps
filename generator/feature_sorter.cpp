@@ -428,7 +428,7 @@ namespace feature
       bool const isLine = fb.IsLine();
       bool const isArea = fb.IsArea();
 
-      int const scalesStart = m_header.GetScalesCount() - 1;
+      int const scalesStart = static_cast<int>(m_header.GetScalesCount()) - 1;
       for (int i = scalesStart; i >= 0; --i)
       {
         int const level = m_header.GetScale(i);

@@ -6,7 +6,7 @@
 namespace il
 {
 
-void EncodePngToMemory(size_t width, size_t height,
+void EncodePngToMemory(uint32_t width, uint32_t height,
                        vector<uint8_t> const & rgba,
                        vector<uint8_t> & out);
 

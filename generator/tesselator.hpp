@@ -114,7 +114,7 @@ namespace tesselator
       void MakeTrianglesChain(PointsInfo const & points, iter_t start, vector<Edge> & chain, bool goodOrder) const;
 
       size_t GetCount() const { return m_triangles.size(); }
-      Triangle GetTriangle(int i) const { return m_triangles[i]; }
+      Triangle GetTriangle(size_t i) const { return m_triangles[i]; }
     };
 
     list<ListInfo> m_triangles;
