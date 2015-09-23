@@ -51,7 +51,7 @@ area|z0-[natural=pond],
 area|z0-[natural=water],
 area|z0-[waterway=dock],
 area|z0-[waterway=riverbank],
-area|z0-[waterway=river],
+area|z10-[waterway=river],
 area|z10-[natural=bay],
 {
   fill-color: @water;
