@@ -152,7 +152,7 @@ namespace feature
       {
         m_Names.push_back(country->m_name);
         m_Buckets.push_back(new FeatureOutT(m_info.GetTmpFileName(country->m_name)));
-        country->m_index = m_Buckets.size()-1;
+        country->m_index = static_cast<int>(m_Buckets.size())-1;
       }
 
       (*(m_Buckets[country->m_index]))(fb);

@@ -103,7 +103,7 @@ namespace feature
     FileWriter::DeleteFileX(indexFile);
 
     FeaturesOffsetsTable::Builder builder;
-    FeaturesVector::ForEachOffset(baseContainer.GetReader(DATA_FILE_TAG), [&builder](uint64_t offset)
+    FeaturesVector::ForEachOffset(baseContainer.GetReader(DATA_FILE_TAG), [&builder](uint32_t offset)
     {
       builder.PushOffset(offset);
     });

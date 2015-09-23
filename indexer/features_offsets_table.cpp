@@ -125,7 +125,7 @@ namespace feature
   uint32_t FeaturesOffsetsTable::GetFeatureOffset(size_t index) const
   {
     ASSERT_LESS(index, size(), ("Index out of bounds", index, size()));
-    return m_table.select(index);
+    return static_cast<uint32_t>(m_table.select(index));
   }
 
   size_t FeaturesOffsetsTable::GetFeatureIndexbyOffset(uint32_t offset) const
