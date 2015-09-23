@@ -258,7 +258,6 @@ public enum Statistics
     }
   }
 
-  // This method is not called at all if statistics was disabled.
   private void configure(Context context)
   {
     if (mEnabled)
