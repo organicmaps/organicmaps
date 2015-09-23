@@ -31,7 +31,7 @@ namespace
 
     size_t count;
     info.ForEachTriangle(DoDump(count));
-    ASSERT_EQUAL(count, trianglesCount, ());
+    TEST_EQUAL(count, trianglesCount, ());
     return count;
   }
 
