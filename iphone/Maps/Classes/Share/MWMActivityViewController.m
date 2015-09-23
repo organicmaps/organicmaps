@@ -50,17 +50,6 @@
   [parentVC presentViewController:self animated:YES completion:nil];
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size
-       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-  [self dismissViewControllerAnimated:YES completion:nil];
-  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {}
-                               completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
-  {
-    [self presentInParentViewController:self.ownerViewController anchorView:self.anchorView];
-  }];
-}
-
 - (BOOL)shouldAutorotate
 {
   return YES;
