@@ -25,6 +25,7 @@ type_matches = {
 
 class Rule():
     def __init__(self, s=''):
+        self.runtime_conditions = []
         self.conditions = []
         # self.isAnd = True
         self.minZoom = 0
@@ -34,7 +35,7 @@ class Rule():
         self.subject = s    # "", "way", "node" or "relation"
 
     def __repr__(self):
-        return "%s|z%s-%s %s" % (self.subject, self.minZoom, self.maxZoom, self.conditions)
+        return "%s|z%s-%s %s %s" % (self.subject, self.minZoom, self.maxZoom, self.conditions, self.runtime_conditions)
 
     def test(self, obj, tags, zoom):
         if (zoom < self.minZoom) or (zoom > self.maxZoom):
@@ -58,8 +59,9 @@ class Rule():
     def extract_tags(self):
         a = set()
         for condition in self.conditions:
-            a.update(condition.extract_tags())
+            a.add(condition.extract_tag())
             if "*" in a:
+                a = set(["*"])
                 break
         return a
 

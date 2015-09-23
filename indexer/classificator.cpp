@@ -8,6 +8,15 @@
 #include "std/algorithm.hpp"
 #include "std/iterator.hpp"
 
+namespace
+{
+  struct less_scales
+  {
+    bool operator() (drule::Key const & l, int r) const { return l.m_scale < r; }
+    bool operator() (int l, drule::Key const & r) const { return l < r.m_scale; }
+    bool operator() (drule::Key const & l, drule::Key const & r) const { return l.m_scale < r.m_scale; }
+  };
+}  // namespace
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // ClassifObject implementation
@@ -38,10 +47,11 @@ ClassifObject * ClassifObject::Find(string const & s)
 
 void ClassifObject::AddDrawRule(drule::Key const & k)
 {
-  for (size_t i = 0; i < m_drawRule.size(); ++i)
-    if (k == m_drawRule[i]) return;
-
-  m_drawRule.push_back(k);
+  auto i = lower_bound(m_drawRule.begin(), m_drawRule.end(), k.m_scale, less_scales());
+  for (; i != m_drawRule.end() && i->m_scale == k.m_scale; ++i)
+    if (k == *i)
+      return; // already exists
+  m_drawRule.insert(i, k);
 }
 
 ClassifObjectPtr ClassifObject::BinaryFind(string const & s) const
@@ -59,16 +69,6 @@ void ClassifObject::LoadPolicy::Start(size_t i)
   p->m_objs.push_back(ClassifObject());
 
   base_type::Start(i);
-}
-
-namespace
-{
-  struct less_scales
-  {
-    bool operator() (drule::Key const & l, int r) const { return l.m_scale < r; }
-    bool operator() (int l, drule::Key const & r) const { return l < r.m_scale; }
-    bool operator() (drule::Key const & l, drule::Key const & r) const { return l.m_scale < r.m_scale; }
-  };
 }
 
 void ClassifObject::LoadPolicy::EndChilds()

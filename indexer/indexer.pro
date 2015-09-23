@@ -19,6 +19,8 @@ SOURCES += \
     drawing_rule_def.cpp \
     drawing_rules.cpp \
     drules_city_rank_table.cpp \
+    drules_selector.cpp \
+    drules_selector_parser.cpp \
     feature.cpp \
     feature_algo.cpp \
     feature_covering.cpp \
@@ -60,6 +62,8 @@ HEADERS += \
     drawing_rules.hpp \
     drules_city_rank_table.hpp \
     drules_include.hpp \
+    drules_selector.cpp \
+    drules_selector_parser.cpp \
     feature.hpp \
     feature_algo.hpp \
     feature_covering.hpp \

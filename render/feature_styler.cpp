@@ -30,6 +30,16 @@ namespace
       return (r1.m_depth < r2.m_depth);
     }
   };
+
+  void FilterRulesByRuntimeSelector(FeatureType const & ft, int zoom, drule::KeysT & keys)
+  {
+    keys.erase_if([&ft, zoom](drule::Key const & key)->bool
+    {
+      drule::BaseRule const * const rule = drule::rules().Find(key);
+      ASSERT(rule != nullptr, ());
+      return !rule->TestFeature(ft, zoom);
+    });
+  }
 }
 
 namespace di
@@ -63,6 +73,8 @@ namespace di
   {
     drule::KeysT keys;
     pair<int, bool> type = feature::GetDrawRule(f, zoom, keys);
+
+    FilterRulesByRuntimeSelector(f, zoom, keys);
 
     // don't try to do anything to invisible feature
     if (keys.empty())
