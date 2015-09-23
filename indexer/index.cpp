@@ -65,15 +65,21 @@ unique_ptr<MwmInfo> Index::CreateInfo(platform::LocalCountryFile const & localFi
 
 unique_ptr<MwmSet::MwmValueBase> Index::CreateValue(MwmInfo & info) const
 {
+  MwmInfoEx & infoEx = dynamic_cast<MwmInfoEx &>(info);
+
   // Create a section with rank table if it does not exist.
   platform::LocalCountryFile const & localFile = info.GetLocalFile();
-  try
+  if (!infoEx.m_rankTableCtorCalled)
   {
-    search::RankTableBuilder::CreateIfNotExists(localFile);
-  }
-  catch (RootException const & e)
-  {
-    LOG(LWARNING, ("Can't create rank table for:", localFile, ":", e.Msg()));
+    infoEx.m_rankTableCtorCalled = true;
+    try
+    {
+      search::RankTableBuilder::CreateIfNotExists(localFile);
+    }
+    catch (RootException const & e)
+    {
+      LOG(LWARNING, ("Can't create rank table for:", localFile, ":", e.Msg()));
+    }
   }
 
   unique_ptr<MwmValue> p(new MwmValue(localFile));

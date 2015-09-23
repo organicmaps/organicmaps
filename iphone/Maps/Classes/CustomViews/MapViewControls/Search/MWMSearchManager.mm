@@ -272,7 +272,6 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 - (void)changeToDefaultState
 {
   self.view.alpha = 1.;
-  GetFramework().PrepareSearch();
   [self updateTopController];
   [self.navigationController popToRootViewControllerAnimated:NO];
   [self.parentView addSubview:self.rootView];

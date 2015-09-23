@@ -2,7 +2,8 @@
 
 ROOT_DIR = ..
 DEPENDENCIES = map drape_frontend routing search storage indexer drape platform geometry coding base \
-               freetype expat fribidi tomcrypt gflags jansson protobuf osrm stats_client minizip succinct
+               freetype expat fribidi tomcrypt gflags jansson protobuf osrm stats_client minizip succinct \
+               opening_hours
 
 include($$ROOT_DIR/common.pri)
 

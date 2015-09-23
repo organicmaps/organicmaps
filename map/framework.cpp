@@ -13,6 +13,7 @@
 #include "routing/route.hpp"
 #include "routing/routing_algorithm.hpp"
 
+#include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/result.hpp"
 #include "search/search_engine.hpp"
@@ -92,40 +93,48 @@ Framework::FixedPosition::FixedPosition()
 
 namespace
 {
-  static const int BM_TOUCH_PIXEL_INCREASE = 20;
-  static const int kKeepPedestrianDistanceMeters = 10000;
+static const int BM_TOUCH_PIXEL_INCREASE = 20;
+static const int kKeepPedestrianDistanceMeters = 10000;
+char const kRouterTypeKey[] = "router";
+char const kMapStyleKey[] = "MapStyleKeyV1";
+char const kAllow3dKey[] = "Allow3d";
+char const kAllow3dBuildingsKey[] = "Buildings3d";
 
-  char const kRouterTypeKey[] = "router";
-  char const kMapStyleKey[] = "MapStyleKeyV1";
+double const kDistEqualQuery = 100.0;
 
-  char const kAllow3dKey[] = "Allow3d";
-  char const kAllow3dBuildingsKey[] = "Buildings3d";
+double const kRotationAngle = math::pi4;
+double const kAngleFOV = math::pi / 3.0;
 
-  double const kRotationAngle = math::pi4;
-  double const kAngleFOV = math::pi / 3.0;
-
-  // TODO!
-  // To adjust GpsTrackFilter was added secret command "?gpstrackaccuracy:xxx;"
-  // where xxx is a new value for horizontal accuracy.
-  // This is temporary solution while we don't have a good filter.
-  void ParseSetGpsTrackMinAccuracyCommand(string const & query)
+// TODO!
+// To adjust GpsTrackFilter was added secret command "?gpstrackaccuracy:xxx;"
+// where xxx is a new value for horizontal accuracy.
+// This is temporary solution while we don't have a good filter.
+void ParseSetGpsTrackMinAccuracyCommand(string const & query)
+{
+  const char kGpsAccuracy[] = "?gpstrackaccuracy:";
+  if (strings::StartsWith(query, kGpsAccuracy))
   {
-    const char kGpsAccuracy[] = "?gpstrackaccuracy:";
-    if (strings::StartsWith(query, kGpsAccuracy))
+    size_t const end = query.find(';', sizeof(kGpsAccuracy) - 1);
+    if (end != string::npos)
     {
-      size_t const end = query.find(';', sizeof(kGpsAccuracy) - 1);
-      if (end != string::npos)
+      string s(query.begin() + sizeof(kGpsAccuracy) - 1, query.begin() + end);
+      double value;
+      if (strings::to_double(s, value))
       {
-        string s(query.begin() + sizeof(kGpsAccuracy) - 1, query.begin() + end);
-        double value;
-        if (strings::to_double(s, value))
-        {
-          GpsTrackFilter::StoreMinHorizontalAccuracy(value);
-        }
+        GpsTrackFilter::StoreMinHorizontalAccuracy(value);
       }
     }
   }
+}
 
+// Cancels search query by |handle|.
+void CancelQuery(weak_ptr<search::QueryHandle> & handle)
+{
+  auto queryHandle = handle.lock();
+  if (queryHandle)
+    queryHandle->Cancel();
+  handle.reset();
+}
 }  // namespace
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
@@ -465,7 +474,7 @@ void Framework::UpdateLatestCountryFile(LocalCountryFile const & localFile)
   if (id.IsAlive())
     InvalidateRect(id.GetInfo()->m_limitRect);
 
-  m_searchEngine->ClearViewportsCache();
+  m_searchEngine->ClearCaches();
 }
 
 void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
@@ -498,7 +507,7 @@ void Framework::RegisterAllMaps()
 
   m_activeMaps->Init(maps);
 
-  m_searchEngine->SupportOldFormat(minFormat < version::v3);
+  m_searchEngine->SetSupportOldFormat(minFormat < version::v3);
 }
 
 void Framework::DeregisterAllMaps()
@@ -821,10 +830,10 @@ void Framework::StartInteractiveSearch(search::SearchParams const & params)
 {
   using namespace search;
 
-  m_lastSearch = params;
-  m_lastSearch.SetForceSearch(false);
-  m_lastSearch.SetSearchMode(SearchParams::IN_VIEWPORT_ONLY | SearchParams::SEARCH_WORLD);
-  m_lastSearch.m_callback = [this](Results const & results)
+  m_lastISParams = params;
+  m_lastISParams.SetForceSearch(false);
+  m_lastISParams.SetSearchMode(SearchParams::IN_VIEWPORT_ONLY | SearchParams::SEARCH_WORLD);
+  m_lastISParams.m_callback = [this](Results const & results)
   {
     if (!results.IsEndMarker())
     {
@@ -841,9 +850,15 @@ void Framework::UpdateUserViewportChanged()
 {
   if (IsISActive())
   {
-    (void)GetCurrentPosition(m_lastSearch.m_lat, m_lastSearch.m_lon);
+    (void)GetCurrentPosition(m_lastISParams.m_lat, m_lastISParams.m_lon);
 
-    m_searchEngine->Search(m_lastSearch, GetCurrentViewport());
+    m_searchEngine->Search(m_lastISParams, GetCurrentViewport());
+
+    (void)GetCurrentPosition(m_lastISParams.m_lat, m_lastISParams.m_lon);
+    m_lastISParams.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY);
+    m_lastISParams.SetForceSearch(false);
+
+    Search(m_lastISParams);
   }
 }
 
@@ -851,7 +866,7 @@ void Framework::ClearAllCaches()
 {
   m_model.ClearCaches();
   m_infoGetter->ClearCaches();
-  m_searchEngine->ClearAllCaches();
+  m_searchEngine->ClearCaches();
 }
 
 void Framework::SetDownloadCountryListener(TDownloadCountryListener const & listener)
@@ -926,6 +941,33 @@ void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isC
   m_drapeEngine->SetCountryInfo(countryInfo, isCurrentCountry);
 }
 
+bool Framework::Search(search::SearchParams const & params)
+{
+#ifdef FIXED_LOCATION
+  search::SearchParams rParams(params);
+  if (params.IsValidPosition())
+  {
+    m_fixedPos.GetLat(rParams.m_lat);
+    m_fixedPos.GetLon(rParams.m_lon);
+  }
+#else
+  search::SearchParams const & rParams = params;
+#endif
+
+  m2::RectD const viewport = GetCurrentViewport();
+
+  if (QueryCouldBeSkipped(rParams, viewport))
+    return false;
+
+  m_lastQueryParams = rParams;
+  m_lastQueryViewport = viewport;
+
+  // Cancels previous search request (if any) and initiates new search request.
+  CancelQuery(m_lastQueryHandle);
+  m_lastQueryHandle = m_searchEngine->Search(m_lastQueryParams, m_lastQueryViewport);
+  return true;
+}
+
 void Framework::MemoryWarning()
 {
   LOG(LINFO, ("MemoryWarning"));
@@ -958,6 +1000,20 @@ void Framework::EnterForeground()
   // Drape can be not initialized here in case of the first launch
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetRenderingEnabled(true);
+}
+
+bool Framework::GetCurrentPosition(double & lat, double & lon) const
+{
+  m2::PointD pos;
+  MyPositionMarkPoint * myPosMark = UserMarkContainer::UserMarkForMyPostion();
+  if (!myPosMark->HasPosition())
+    return false;
+
+  pos = myPosMark->GetPivot();
+
+  lat = MercatorBounds::YToLat(pos.y);
+  lon = MercatorBounds::XToLon(pos.x);
+  return true;
 }
 
 void Framework::InitCountryInfoGetter()
@@ -1012,40 +1068,24 @@ string Framework::GetCountryName(string const & id) const
   return info.m_name;
 }
 
-void Framework::PrepareSearch()
+bool Framework::QueryCouldBeSkipped(search::SearchParams const & params,
+                                    m2::RectD const & viewport) const
 {
-  m_searchEngine->PrepareSearch(GetCurrentViewport());
-}
-
-bool Framework::Search(search::SearchParams const & params)
-{
-#ifdef FIXED_LOCATION
-  search::SearchParams rParams(params);
-  if (params.IsValidPosition())
-  {
-    m_fixedPos.GetLat(rParams.m_lat);
-    m_fixedPos.GetLon(rParams.m_lon);
-  }
-#else
-  search::SearchParams const & rParams = params;
-#endif
-
-  ParseSetGpsTrackMinAccuracyCommand(params.m_query);
-
-  return m_searchEngine->Search(rParams, GetCurrentViewport());
-}
-
-bool Framework::GetCurrentPosition(double & lat, double & lon) const
-{
-  m2::PointD pos;
-  MyPositionMarkPoint * myPosMark = UserMarkContainer::UserMarkForMyPostion();
-  if (!myPosMark->HasPosition())
+  if (params.IsForceSearch())
     return false;
-
-  pos = myPosMark->GetPivot();
-
-  lat = MercatorBounds::YToLat(pos.y);
-  lon = MercatorBounds::XToLon(pos.x);
+  if (!m_lastQueryParams.IsEqualCommon(params))
+    return false;
+  if (!m_lastQueryViewport.IsValid() ||
+      !search::IsEqualMercator(m_lastQueryViewport, viewport, kDistEqualQuery))
+  {
+    return false;
+  }
+  if (!m_lastQueryParams.IsSearchAroundPosition() ||
+      ms::DistanceOnEarth(m_lastQueryParams.m_lat, m_lastQueryParams.m_lon, params.m_lat,
+                          params.m_lon) <= kDistEqualQuery)
+  {
+    return false;
+  }
   return true;
 }
 
@@ -1221,8 +1261,13 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
 
 void Framework::CancelInteractiveSearch()
 {
-  m_lastSearch.Clear();
   UserMarkControllerGuard(m_bmManager, UserMarkType::SEARCH_MARK).m_controller.Clear();
+  if (IsISActive())
+  {
+    m_lastISParams.Clear();
+    CancelQuery(m_lastQueryHandle);
+  }
+
   m_fixedSearchResults = 0;
 }
 

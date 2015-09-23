@@ -1,8 +1,8 @@
 #pragma once
-#include "intermediate_result.hpp"
-#include "keyword_lang_matcher.hpp"
-#include "retrieval.hpp"
-#include "suggest.hpp"
+#include "search/intermediate_result.hpp"
+#include "search/keyword_lang_matcher.hpp"
+#include "search/retrieval.hpp"
+#include "search/suggest.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
@@ -60,9 +60,6 @@ public:
   Query(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
         storage::CountryInfoGetter const & infoGetter);
 
-  // TODO (@gorshenin): current cancellation logic is completely wrong
-  // and broken by design. Fix it ASAP.
-  //
   // my::Cancellable overrides:
   void Reset() override;
   void Cancel() override;

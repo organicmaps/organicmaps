@@ -3,17 +3,26 @@
 #include "params.hpp"
 #include "result.hpp"
 #include "search_query_factory.hpp"
+#include "suggest.hpp"
 
 #include "geometry/rect2d.hpp"
 
+#include "indexer/categories_holder.hpp"
+
 #include "coding/reader.hpp"
 
+#include "base/macros.hpp"
 #include "base/mutex.hpp"
+#include "base/thread.hpp"
 
 #include "std/atomic.hpp"
+#include "std/condition_variable.hpp"
 #include "std/function.hpp"
+#include "std/mutex.hpp"
+#include "std/queue.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/weak_ptr.hpp"
 
 class Index;
 
@@ -27,48 +36,92 @@ namespace search
 class EngineData;
 class Query;
 
+// This class is used as a reference to a search query in the
+// SearchEngine's queue.  It's only possible to cancel a search
+// request via this reference.
+//
+// NOTE: this class is thread-safe.
+class QueryHandle
+{
+public:
+  QueryHandle();
+
+  // Cancels query this handle points to.
+  void Cancel();
+
+private:
+  friend class Engine;
+
+  // Attaches the handle to a |query|. If there was or will be a
+  // cancel signal, this signal will be propagated to |query|.  This
+  // method is called only once, when search engine starts to process
+  // query this handle corresponds to.
+  void Attach(Query & query);
+
+  // Detaches handle from a query. This method is called only once,
+  // when search engine completes process of a query this handle
+  // corresponds to.
+  void Detach();
+
+  Query * m_query;
+  bool m_cancelled;
+  mutex m_mu;
+
+  DISALLOW_COPY_AND_MOVE(QueryHandle);
+};
+
+// This class is a wrapper around thread processing search queries one
+// by one.
+//
+// NOTE: this class is thread safe.
 class Engine
 {
-  typedef function<void (Results const &)> SearchCallbackT;
-
 public:
   // Doesn't take ownership of index. Takes ownership of pCategories
   Engine(Index & index, Reader * categoriesR, storage::CountryInfoGetter const & infoGetter,
          string const & locale, unique_ptr<SearchQueryFactory> && factory);
   ~Engine();
 
-  void SupportOldFormat(bool b);
+  // Posts search request to the queue and returns it's handle.
+  weak_ptr<QueryHandle> Search(SearchParams const & params, m2::RectD const & viewport);
 
-  void PrepareSearch(m2::RectD const & viewport);
-  bool Search(SearchParams const & params, m2::RectD const & viewport);
+  // Posts request to support old format to the queue.
+  void SetSupportOldFormat(bool support);
 
-  int8_t GetCurrentLanguage() const;
+  // Posts request to clear caches to the queue.
+  void ClearCaches();
 
   bool GetNameByType(uint32_t type, int8_t lang, string & name) const;
 
-  void ClearViewportsCache();
-  void ClearAllCaches();
-
 private:
-  static const int RESULTS_COUNT = 30;
+  // *ALL* following methods are executed on a m_loop thread.
 
-  void SetRankPivot(SearchParams const & params,
-                    m2::RectD const & viewport, bool viewportSearch);
-  void SetViewportAsync(m2::RectD const & viewport);
-  void SearchAsync();
+  void SetRankPivot(SearchParams const & params, m2::RectD const & viewport, bool viewportSearch);
 
   void EmitResults(SearchParams const & params, Results const & res);
 
-  threads::Mutex m_searchMutex;
-  threads::Mutex m_updateMutex;
-  atomic_flag m_isReadyThread;
+  // This method executes tasks from |m_tasks| in a FIFO manner.
+  void MainLoop();
 
-  SearchParams m_params;
-  m2::RectD m_viewport;
+  void PostTask(function<void()> && task);
+
+  void SearchTask(SearchParams const & params, m2::RectD const & viewport,
+                  shared_ptr<QueryHandle> handle);
+
+  void SupportOldFormatTask(bool support);
+
+  void ClearCachesTask();
+
+  CategoriesHolder m_categories;
+  vector<Suggest> m_suggests;
 
   unique_ptr<Query> m_query;
   unique_ptr<SearchQueryFactory> m_factory;
-  unique_ptr<EngineData> const m_data;
-};
 
+  bool m_shutdown;
+  mutex m_mu;
+  condition_variable m_cv;
+  queue<function<void()>> m_tasks;
+  threads::SimpleThread m_loop;
+};
 }  // namespace search

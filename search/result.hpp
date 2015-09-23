@@ -41,7 +41,8 @@ public:
          string const & type, uint32_t featureType, Metadata const & meta);
 
   /// Used for generation viewport results.
-  Result(FeatureID const & id, m2::PointD const & pt, string const & str, string const & type);
+  Result(FeatureID const & id, m2::PointD const & pt, string const & str,
+         string const & region, string const & type);
 
   /// @param[in] type Empty string - RESULT_LATLON, building address otherwise.
   Result(m2::PointD const & pt, string const & str,

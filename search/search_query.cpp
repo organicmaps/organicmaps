@@ -563,8 +563,9 @@ void Query::SearchViewportPoints(Results & res)
   {
     if (IsCancelled())
       break;
-    res.AddResultNoChecks(
-        (*(indV[i])).GeneratePointResult(&m_categories, &m_prefferedTypes, m_currentLocaleCode));
+    res.AddResultNoChecks((*(indV[i]))
+                              .GeneratePointResult(m_infoGetter, &m_categories, &m_prefferedTypes,
+                                                   m_currentLocaleCode));
   }
 }
 
@@ -1557,7 +1558,6 @@ public:
 
 void Query::SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2)
 {
-  LOG(LDEBUG, ("Query::SearchLocality"));
   SearchQueryParams params;
   InitParams(true /* localitySearch */, params);
 

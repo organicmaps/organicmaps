@@ -24,7 +24,10 @@
 class MwmInfoEx : public MwmInfo
 {
 public:
+  MwmInfoEx() : m_rankTableCtorCalled(false) {}
+
   unique_ptr<feature::FeaturesOffsetsTable> m_table;
+  bool m_rankTableCtorCalled;
 };
 
 class MwmValue : public MwmSet::MwmValueBase

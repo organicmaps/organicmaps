@@ -22,7 +22,7 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
     Done(results);
   };
   params.SetSearchMode(mode);
-  CHECK(engine.Search(params, viewport), ("Can't run search."));
+  engine.Search(params, viewport);
 }
 
 void TestSearchRequest::Wait()

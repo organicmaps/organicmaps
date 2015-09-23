@@ -13,26 +13,30 @@ Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
   , m_region(region)
   , m_type(type)
   , m_featureType(featureType)
-  , m_positionInResults(-1)
   , m_metadata(meta)
 {
   Init(true /* metadataInitialized */);
 }
 
-Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str, string const & type)
-  : m_id(id), m_center(pt), m_str(str), m_type(type), m_positionInResults(-1)
+Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
+               string const & region, string const & type)
+  : m_id(id)
+  , m_center(pt)
+  , m_str(str)
+  , m_region(region)
+  , m_type(type)
 {
   Init(false /* metadataInitialized */);
 }
 
 Result::Result(m2::PointD const & pt, string const & str, string const & region,
                string const & type)
-  : m_center(pt), m_str(str), m_region(region), m_type(type), m_positionInResults(-1)
+  : m_center(pt), m_str(str), m_region(region), m_type(type)
 {
 }
 
 Result::Result(string const & str, string const & suggest)
-  : m_str(str), m_suggestionStr(suggest), m_positionInResults(-1)
+  : m_str(str), m_suggestionStr(suggest)
 {
 }
 
@@ -45,7 +49,6 @@ Result::Result(Result const & res, string const & suggest)
   , m_featureType(res.m_featureType)
   , m_suggestionStr(suggest)
   , m_hightlightRanges(res.m_hightlightRanges)
-  , m_positionInResults(-1)
 {
 }
 

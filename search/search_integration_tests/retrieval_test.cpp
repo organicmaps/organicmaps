@@ -454,7 +454,9 @@ UNIT_TEST(Retrieval_CafeMTV)
     TestSearchRequest request(engine, "Moscow ", "en", search::SearchParams::ALL, moscowViewport);
     request.Wait();
 
-    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(testWorldId, mskCity),
+    initializer_list<shared_ptr<MatchingRule>> mskCityAlts = {
+        make_shared<ExactMatch>(testWorldId, mskCity), make_shared<ExactMatch>(mskId, mskCity)};
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<AlternativesMatch>(mskCityAlts),
                                               make_shared<ExactMatch>(mtvId, mskCafe)};
     MatchResults(engine, rules, request.Results());
   }
@@ -462,7 +464,10 @@ UNIT_TEST(Retrieval_CafeMTV)
   {
     TestSearchRequest request(engine, "MTV ", "en", search::SearchParams::ALL, mtvViewport);
     request.Wait();
-    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(testWorldId, mtvCity),
+
+    initializer_list<shared_ptr<MatchingRule>> mtvCityAlts = {
+        make_shared<ExactMatch>(testWorldId, mtvCity), make_shared<ExactMatch>(mtvId, mtvCity)};
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<AlternativesMatch>(mtvCityAlts),
                                               make_shared<ExactMatch>(mskId, mtvCafe)};
     MatchResults(engine, rules, request.Results());
   }

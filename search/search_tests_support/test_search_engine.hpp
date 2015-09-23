@@ -9,6 +9,7 @@
 #include "storage/country_info_getter.hpp"
 
 #include "std/string.hpp"
+#include "std/weak_ptr.hpp"
 
 class Platform;
 
@@ -23,7 +24,8 @@ class TestSearchEngine : public Index
 public:
   TestSearchEngine(string const & locale);
 
-  bool Search(search::SearchParams const & params, m2::RectD const & viewport);
+  weak_ptr<search::QueryHandle> Search(search::SearchParams const & params,
+                                       m2::RectD const & viewport);
 
 private:
   Platform & m_platform;

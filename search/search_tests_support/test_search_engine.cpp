@@ -55,7 +55,8 @@ TestSearchEngine::TestSearchEngine(string const & locale)
 {
 }
 
-bool TestSearchEngine::Search(search::SearchParams const & params, m2::RectD const & viewport)
+weak_ptr<search::QueryHandle> TestSearchEngine::Search(search::SearchParams const & params,
+                                                       m2::RectD const & viewport)
 {
   return m_engine.Search(params, viewport);
 }
