@@ -170,6 +170,7 @@ void AsyncRouter::ClearState()
   unique_lock<mutex> ul(m_guard);
 
   m_clearState = true;
+  m_threadCondVar.notify_one();
 
   ResetDelegate();
 }
@@ -233,10 +234,19 @@ void AsyncRouter::ThreadFunc()
   {
     {
       unique_lock<mutex> ul(m_guard);
-      m_threadCondVar.wait(ul, [this](){ return m_threadExit || m_hasRequest; });
+      m_threadCondVar.wait(ul, [this](){ return m_threadExit || m_hasRequest || m_clearState; });
+
+      if (m_clearState && m_router)
+      {
+        m_router->ClearState();
+        m_clearState = false;
+      }
 
       if (m_threadExit)
         break;
+
+      if (!m_hasRequest)
+        continue;
     }
 
     CalculateRoute();
@@ -245,7 +255,6 @@ void AsyncRouter::ThreadFunc()
 
 void AsyncRouter::CalculateRoute()
 {
-  bool clearState = true;
   shared_ptr<RouterDelegateProxy> delegate;
   m2::PointD startPoint, finalPoint, startDirection;
   shared_ptr<IOnlineFetcher> absentFetcher;
@@ -266,12 +275,9 @@ void AsyncRouter::CalculateRoute()
     startPoint = m_startPoint;
     finalPoint = m_finalPoint;
     startDirection = m_startDirection;
-    clearState = m_clearState;
     delegate = m_delegate;
     router = m_router;
     absentFetcher = m_absentFetcher;
-
-    m_clearState = false;
   }
 
   Route route(router->GetName());
@@ -286,9 +292,6 @@ void AsyncRouter::CalculateRoute()
 
     if (absentFetcher)
       absentFetcher->GenerateRequest(startPoint, finalPoint);
-
-    if (clearState)
-      router->ClearState();
 
     // Run basic request.
     code = router->CalculateRoute(startPoint, startDirection, finalPoint, delegate->GetDelegate(), route);
