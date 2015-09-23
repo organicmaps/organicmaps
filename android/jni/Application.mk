@@ -1,6 +1,4 @@
-# We can't use clang3.6 for now because it hangs at base/normalize_unicode.cpp compilation.
-# TODO: Replace normalize_unicode.cpp with equal by performance implementation (ask YuraRa about it).
-NDK_TOOLCHAIN_VERSION := clang3.5
+NDK_TOOLCHAIN_VERSION := clang3.6
 APP_PLATFORM := android-15
 APP_STL := c++_static
 
