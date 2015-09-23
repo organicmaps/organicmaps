@@ -21,8 +21,9 @@
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
 
-#include "base/string_utils.hpp"
+#include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 namespace
 {
@@ -91,8 +92,12 @@ namespace feature
 
     unique_ptr<FileWriter> m_MetadataWriter;
 
-    struct MetadataIndexValueT { uint32_t key, value; };
-    vector<MetadataIndexValueT> m_MetadataIndex;
+    struct TMetadataIndexEntry
+    {
+      uint32_t key;
+      uint32_t value;
+    };
+    vector<TMetadataIndexEntry> m_MetadataIndex;
 
     DataHeader m_header;
     uint32_t m_versionDate;
@@ -504,6 +509,7 @@ namespace feature
         if (!fb.GetMetadata().Empty())
         {
           uint64_t offset = m_MetadataWriter->Pos();
+          ASSERT_LESS_OR_EQUAL(offset, numeric_limits<uint32_t>::max(), ());
           m_MetadataIndex.push_back({ ftID, static_cast<uint32_t>(offset) });
           fb.GetMetadata().SerializeToMWM(*m_MetadataWriter);
         }
