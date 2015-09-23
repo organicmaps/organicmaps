@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = normalize base
+DEPENDENCIES = base
 
 include($$ROOT_DIR/common.pri)
 

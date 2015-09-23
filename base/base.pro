@@ -17,6 +17,7 @@ SOURCES += \
     internal/message.cpp \
     logging.cpp \
     lower_case.cpp \
+    normalize_unicode.cpp \
     object_tracker.cpp \
     resource_pool.cpp \
     runner.cpp \
