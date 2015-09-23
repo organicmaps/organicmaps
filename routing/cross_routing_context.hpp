@@ -23,7 +23,7 @@ struct IngoingCrossNode
 
   void Save(Writer & w) const;
 
-  size_t Load(Reader const & r, size_t pos);
+  uint32_t Load(Reader const & r, size_t pos);
 };
 
 struct OutgoingCrossNode
@@ -39,7 +39,7 @@ struct OutgoingCrossNode
 
   void Save(Writer & w) const;
 
-  size_t Load(Reader const & r, size_t pos);
+  uint32_t Load(Reader const & r, size_t pos);
 };
 
 using IngoingEdgeIteratorT = vector<IngoingCrossNode>::const_iterator;
@@ -53,7 +53,7 @@ class CrossRoutingContextReader
   vector<string> m_neighborMwmList;
   unique_ptr<Reader> mp_reader = nullptr;
 
-  size_t GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const;
+  uint32_t GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const;
 
 public:  
   void Load(Reader const & r);
@@ -81,9 +81,9 @@ class CrossRoutingContextWriter
 public:
   void Save(Writer & w) const;
 
-  void AddIngoingNode(size_t const nodeId, m2::PointD const & point);
+  void AddIngoingNode(uint32_t const nodeId, m2::PointD const & point);
 
-  void AddOutgoingNode(size_t const nodeId, string const & targetMwm, m2::PointD const & point);
+  void AddOutgoingNode(uint32_t const nodeId, string const & targetMwm, m2::PointD const & point);
 
   void ReserveAdjacencyMatrix();
 

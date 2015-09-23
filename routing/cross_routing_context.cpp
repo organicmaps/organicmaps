@@ -18,14 +18,14 @@ void OutgoingCrossNode::Save(Writer &w) const
 
 }
 
-size_t OutgoingCrossNode::Load(const Reader &r, size_t pos)
+uint32_t OutgoingCrossNode::Load(const Reader &r, size_t pos)
 {
   char buff[sizeof(m_nodeId) + sizeof(uint64_t) + sizeof(m_outgoingIndex)];
   r.Read(pos, buff, sizeof(buff));
   m_nodeId = *reinterpret_cast<decltype(m_nodeId) *>(&buff[0]);
   m_point = Int64ToPoint(*reinterpret_cast<uint64_t *>(&(buff[sizeof(m_nodeId)])), g_coordBits);
   m_outgoingIndex = *reinterpret_cast<decltype(m_outgoingIndex) *>(&(buff[sizeof(m_nodeId) + sizeof(uint64_t)]));
-  return pos + sizeof(buff);
+  return static_cast<uint32_t>(pos + sizeof(buff));
 }
 
 void IngoingCrossNode::Save(Writer &w) const
@@ -37,22 +37,22 @@ void IngoingCrossNode::Save(Writer &w) const
   w.Write(buff, sizeof(buff));
 }
 
-size_t IngoingCrossNode::Load(const Reader &r, size_t pos)
+uint32_t IngoingCrossNode::Load(const Reader &r, size_t pos)
 {
   char buff[sizeof(m_nodeId) + sizeof(uint64_t)];
   r.Read(pos, buff, sizeof(buff));
   m_nodeId = *reinterpret_cast<decltype(m_nodeId) *>(&buff[0]);
   m_point = Int64ToPoint(*reinterpret_cast<uint64_t *>(&(buff[sizeof(m_nodeId)])), g_coordBits);
-  return pos + sizeof(buff);
+  return static_cast<uint32_t>(pos + sizeof(buff));
 }
 
-size_t CrossRoutingContextReader::GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const
+uint32_t CrossRoutingContextReader::GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const
 {
   size_t ingoing_index = distance(m_ingoingNodes.cbegin(), ingoing);
   size_t outgoing_index = distance(m_outgoingNodes.cbegin(), outgoing);
   ASSERT_LESS(ingoing_index, m_ingoingNodes.size(), ("ingoing index out of range"));
   ASSERT_LESS(outgoing_index, m_outgoingNodes.size(), ("outgoing index out of range"));
-  return m_outgoingNodes.size() * ingoing_index + outgoing_index;
+  return static_cast<uint32_t>(m_outgoingNodes.size() * ingoing_index + outgoing_index);
 }
 
 void CrossRoutingContextReader::Load(Reader const & r)
@@ -155,12 +155,12 @@ void CrossRoutingContextWriter::Save(Writer & w) const
   }
 }
 
-void CrossRoutingContextWriter::AddIngoingNode(size_t const nodeId, m2::PointD const & point)
+void CrossRoutingContextWriter::AddIngoingNode(uint32_t const nodeId, m2::PointD const & point)
 {
   m_ingoingNodes.push_back(IngoingCrossNode(nodeId, point));
 }
 
-void CrossRoutingContextWriter::AddOutgoingNode(size_t const nodeId, string const & targetMwm,
+void CrossRoutingContextWriter::AddOutgoingNode(uint32_t const nodeId, string const & targetMwm,
                                                 m2::PointD const & point)
 {
   auto it = find(m_neighborMwmList.begin(), m_neighborMwmList.end(), targetMwm);
