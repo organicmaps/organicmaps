@@ -47,11 +47,10 @@ ClassifObject * ClassifObject::Find(string const & s)
 
 void ClassifObject::AddDrawRule(drule::Key const & k)
 {
-  for (size_t i = 0; i < m_drawRule.size(); ++i)
-    if (k == m_drawRule[i])
-      return;
-
   auto i = lower_bound(m_drawRule.begin(), m_drawRule.end(), k.m_scale, less_scales());
+  for (; i != m_drawRule.end() && i->m_scale == k.m_scale; ++i)
+    if (k == *i)
+      return; // already exists
   m_drawRule.insert(i, k);
 }
 

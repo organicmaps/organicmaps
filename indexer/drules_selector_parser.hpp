@@ -8,14 +8,30 @@ namespace drule
 enum SelectorOperatorType
 {
   SelectorOperatorUnknown = 0,
-  SelectorOperatorNotEqual, // [tag!=value]
-  SelectorOperatorLessOrEqual, // [tag<=value]
-  SelectorOperatorGreaterOrEqual, // [tag>=value]
-  SelectorOperatorEqual, // [tag=value]
-  SelectorOperatorLess, // [tag<value]
-  SelectorOperatorGreater, // [tag>value]
-  SelectorOperatorIsNotSet, // [!tag]
-  SelectorOperatorIsSet, // [tag]
+
+  // [tag!=value]
+  SelectorOperatorNotEqual,
+
+  // [tag<=value]
+  SelectorOperatorLessOrEqual,
+
+  // [tag>=value]
+  SelectorOperatorGreaterOrEqual,
+
+  // [tag=value]
+  SelectorOperatorEqual,
+
+  // [tag<value]
+  SelectorOperatorLess,
+
+  // [tag>value]
+  SelectorOperatorGreater,
+
+  // [!tag]
+  SelectorOperatorIsNotSet,
+
+  // [tag]
+  SelectorOperatorIsSet,
 };
 
 struct SelectorExpression
