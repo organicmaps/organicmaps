@@ -159,11 +159,11 @@ public:
     auto const range = m_mapping.GetSegmentsRange(nodeId);
     OsrmMappingTypes::FtSeg s, cSeg;
 
-    uint32_t si = forward ? range.second - 1 : range.first;
-    uint32_t ei = forward ? range.first - 1 : range.second;
+    size_t si = forward ? range.second - 1 : range.first;
+    size_t ei = forward ? range.first - 1 : range.second;
     int di = forward ? -1 : 1;
 
-    for (int i = si; i != ei; i += di)
+    for (size_t i = si; i != ei; i += di)
     {
       m_mapping.GetSegmentByIndex(i, s);
       if (!s.IsValid())

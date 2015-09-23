@@ -242,7 +242,7 @@ void OsrmFtSegMapping::GetSegmentByIndex(size_t idx, OsrmMappingTypes::FtSeg & s
   OsrmMappingTypes::FtSeg(m_segments[idx]).Swap(seg);
 }
 
-pair<uint32_t, uint32_t> OsrmFtSegMapping::GetSegmentsRange(TOsrmNodeId nodeId) const
+pair<size_t, size_t> OsrmFtSegMapping::GetSegmentsRange(TOsrmNodeId nodeId) const
 {
   SegOffsetsT::const_iterator it = lower_bound(m_offsets.begin(), m_offsets.end(), OsrmMappingTypes::SegOffset(nodeId, 0),
                                                [] (OsrmMappingTypes::SegOffset const & o, OsrmMappingTypes::SegOffset const & val)

@@ -136,7 +136,7 @@ public:
 
   template <class ToDo> void ForEachFtSeg(TOsrmNodeId nodeId, ToDo toDo) const
   {
-    pair<uint32_t, uint32_t> r = GetSegmentsRange(nodeId);
+    pair<size_t, size_t> r = GetSegmentsRange(nodeId);
     while (r.first != r.second)
     {
       OsrmMappingTypes::FtSeg s(m_segments[r.first]);
@@ -164,7 +164,7 @@ public:
   /// @name For unit test purpose only.
   //@{
   /// @return STL-like range [s, e) of segments indexies for passed node.
-  pair<uint32_t, uint32_t> GetSegmentsRange(uint32_t nodeId) const;
+  pair<size_t, size_t> GetSegmentsRange(TOsrmNodeId nodeId) const;
   /// @return Node id for segment's index.
   TOsrmNodeId GetNodeId(uint32_t segInd) const;
 
