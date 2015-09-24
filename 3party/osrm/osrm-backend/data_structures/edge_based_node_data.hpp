@@ -84,11 +84,11 @@ inline bool SaveNodeDataToFile(std::string const & filename, NodeDataVectorT con
   if (!stream.is_open())
     return false;
 
-  uint32_t count = data.size();
+  uint32_t count = static_cast<uint32_t>(data.size());
   stream.write((char*)&count, sizeof(count));
   for (auto d : data)
   {
-    uint32_t pc = d.m_segments.size();
+    uint32_t pc = static_cast<uint32_t>(d.m_segments.size());
     stream.write((char*)&pc, sizeof(pc));
     stream.write((char*)d.m_segments.data(), sizeof(NodeData::SegmentInfo) * pc);
   }

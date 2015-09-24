@@ -95,7 +95,7 @@ public:
       {
         res.m_dist = d;
         res.m_fid = featureId;
-        res.m_segIdx = i - 1;
+        res.m_segIdx = static_cast<uint32_t>(i - 1);
         res.m_point = pt;
       }
     }
@@ -159,11 +159,11 @@ public:
     auto const range = m_mapping.GetSegmentsRange(nodeId);
     OsrmMappingTypes::FtSeg s, cSeg;
 
-    int si = forward ? range.second - 1 : range.first;
-    int ei = forward ? range.first - 1 : range.second;
+    size_t si = forward ? range.second - 1 : range.first;
+    size_t ei = forward ? range.first - 1 : range.second;
     int di = forward ? -1 : 1;
 
-    for (int i = si; i != ei; i += di)
+    for (size_t i = si; i != ei; i += di)
     {
       m_mapping.GetSegmentByIndex(i, s);
       if (!s.IsValid())
@@ -372,7 +372,7 @@ bool OsrmRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source,
   return false;
 }
 
-void FindGraphNodeOffsets(size_t const nodeId, m2::PointD const & point,
+void FindGraphNodeOffsets(uint32_t const nodeId, m2::PointD const & point,
                           Index const * pIndex, TRoutingMappingPtr & mapping,
                           FeatureGraphNode & graphNode)
 {
@@ -419,7 +419,7 @@ void CalculatePhantomNodeForCross(TRoutingMappingPtr & mapping, FeatureGraphNode
   if (graphNode.segment.IsValid())
     return;
 
-  size_t nodeId;
+  uint32_t nodeId;
   if (forward)
     nodeId = graphNode.node.forward_node_id;
   else
@@ -497,7 +497,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     vector<m2::PointD> mwmPoints;
     MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmTurnsDir, mwmTimes);
     // Connect annotated route.
-    const uint32_t pSize = Points.size();
+    const uint32_t pSize = static_cast<uint32_t>(Points.size());
     for (auto turn : mwmTurnsDir)
     {
       if (turn.m_index == 0)
@@ -712,7 +712,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
       if (j > 0 && !points.empty())
       {
         turns::TurnItem t;
-        t.m_index = points.size() - 1;
+        t.m_index = static_cast<uint32_t>(points.size() - 1);
 
         turns::TurnInfo turnInfo(*mapping, segment[j - 1].node, segment[j].node);
         turns::GetTurnDirection(*m_pIndex, turnInfo, t);
@@ -827,7 +827,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
   if (routingResult.targetEdge.segment.IsValid())
   {
     turnsDir.push_back(
-        turns::TurnItem(points.size() - 1, turns::TurnDirection::ReachedYourDestination));
+        turns::TurnItem(static_cast<uint32_t>(points.size() - 1), turns::TurnDirection::ReachedYourDestination));
   }
   turns::FixupTurns(points, turnsDir);
 

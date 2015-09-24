@@ -93,10 +93,10 @@ public:
     EdgeDataT res;
 
     res.shortcut = m_shortcuts[e];
-    res.id = res.shortcut ? (node - bits::ZigZagDecode(m_edgeId[m_shortcuts.rank(e)])) : 0;
+    res.id = res.shortcut ? (node - static_cast<NodeID>(bits::ZigZagDecode(m_edgeId[m_shortcuts.rank(e)]))) : 0;
     res.backward = (m_matrix.select(e) % 2 == 1);
     res.forward = !res.backward;
-    res.distance = m_edgeData[e];
+    res.distance = static_cast<int>(m_edgeData[e]);
 
     return res;
   }
@@ -117,13 +117,13 @@ public:
   EdgeID BeginEdges(const NodeID n) const override
   {
     uint64_t idx = 2 * n * (uint64_t)GetNumberOfNodes();
-    return n == 0 ? 0 : m_matrix.rank(min(idx, m_matrix.size()));
+    return n == 0 ? 0 : static_cast<EdgeID>(m_matrix.rank(min(idx, m_matrix.size())));
   }
 
   EdgeID EndEdges(const NodeID n) const override
   {
     uint64_t const idx = 2 * (n + 1) * (uint64_t)GetNumberOfNodes();
-    return m_matrix.rank(min(idx, m_matrix.size()));
+    return static_cast<EdgeID>(m_matrix.rank(min(idx, m_matrix.size())));
   }
 
   EdgeRange GetAdjacentEdgeRange(const NodeID node) const override

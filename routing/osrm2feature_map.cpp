@@ -205,7 +205,7 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) cons
     for (uint32_t nodeId : nodeIds)
     {
       auto const & range = GetSegmentsRange(nodeId);
-      for (int i = range.first; i != range.second; ++i)
+      for (size_t i = range.first; i != range.second; ++i)
       {
         OsrmMappingTypes::FtSeg const s(m_segments[i]);
         if (s.m_fid != seg.m_fid)
@@ -259,7 +259,7 @@ pair<size_t, size_t> OsrmFtSegMapping::GetSegmentsRange(TOsrmNodeId nodeId) cons
     return make_pair(start, start + 1);
 }
 
-TOsrmNodeId OsrmFtSegMapping::GetNodeId(size_t segInd) const
+TOsrmNodeId OsrmFtSegMapping::GetNodeId(uint32_t segInd) const
 {
   SegOffsetsT::const_iterator it = lower_bound(m_offsets.begin(), m_offsets.end(), OsrmMappingTypes::SegOffset(segInd, 0),
                                                [] (OsrmMappingTypes::SegOffset const & o, OsrmMappingTypes::SegOffset const & val)
@@ -422,7 +422,7 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, uint32_t maxN
   size_t removedNodes = 0;
   for (size_t i = 0; i < m_table->size(); ++i)
   {
-    uint32_t const fid = m_oldFormat ? m_table->GetFeatureOffset(i) : i;
+    uint32_t const fid = m_oldFormat ? m_table->GetFeatureOffset(i) : static_cast<uint32_t>(i);
     auto it = temporaryBackwardIndex.find(fid);
     if (it != temporaryBackwardIndex.end())
     {

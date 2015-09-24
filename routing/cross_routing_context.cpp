@@ -57,7 +57,7 @@ size_t CrossRoutingContextReader::GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoi
 
 void CrossRoutingContextReader::Load(Reader const & r)
 {
-  uint32_t size, pos = 0;
+  size_t size, pos = 0;
   r.Read(pos, &size, sizeof(size));
   pos += sizeof(size);
   m_ingoingNodes.resize(size);
@@ -155,12 +155,12 @@ void CrossRoutingContextWriter::Save(Writer & w) const
   }
 }
 
-void CrossRoutingContextWriter::AddIngoingNode(size_t const nodeId, m2::PointD const & point)
+void CrossRoutingContextWriter::AddIngoingNode(WritedNodeID const nodeId, m2::PointD const & point)
 {
   m_ingoingNodes.push_back(IngoingCrossNode(nodeId, point));
 }
 
-void CrossRoutingContextWriter::AddOutgoingNode(size_t const nodeId, string const & targetMwm,
+void CrossRoutingContextWriter::AddOutgoingNode(WritedNodeID const nodeId, string const & targetMwm,
                                                 m2::PointD const & point)
 {
   auto it = find(m_neighborMwmList.begin(), m_neighborMwmList.end(), targetMwm);

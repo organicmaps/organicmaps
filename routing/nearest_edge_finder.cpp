@@ -43,7 +43,7 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadG
     {
       res.m_dist = d;
       res.m_fid = featureId;
-      res.m_segId = i - 1;
+      res.m_segId = static_cast<uint32_t>(i - 1);
       res.m_segStart = roadInfo.m_points[i - 1];
       res.m_segEnd = roadInfo.m_points[i];
       res.m_point = pt;

@@ -9,6 +9,7 @@
 
 namespace routing
 {
+using WritedNodeID = uint32_t;
 using WritedEdgeWeightT = uint32_t;
 static WritedEdgeWeightT const INVALID_CONTEXT_EDGE_WEIGHT = std::numeric_limits<WritedEdgeWeightT>::max();
 static WritedEdgeWeightT const INVALID_CONTEXT_EDGE_NODE_ID = std::numeric_limits<uint32_t>::max();
@@ -16,10 +17,10 @@ static WritedEdgeWeightT const INVALID_CONTEXT_EDGE_NODE_ID = std::numeric_limit
 struct IngoingCrossNode
 {
   m2::PointD m_point;
-  uint32_t m_nodeId;
+  WritedNodeID m_nodeId;
 
   IngoingCrossNode() : m_point(m2::PointD::Zero()), m_nodeId(INVALID_CONTEXT_EDGE_NODE_ID) {}
-  IngoingCrossNode(uint32_t nodeId, m2::PointD const & point) :m_point(point), m_nodeId(nodeId) {}
+  IngoingCrossNode(WritedNodeID nodeId, m2::PointD const & point) :m_point(point), m_nodeId(nodeId) {}
 
   void Save(Writer & w) const;
 
@@ -29,13 +30,13 @@ struct IngoingCrossNode
 struct OutgoingCrossNode
 {
   m2::PointD m_point;
-  uint32_t m_nodeId;
+  WritedNodeID m_nodeId;
   unsigned char m_outgoingIndex;
 
   OutgoingCrossNode() : m_point(m2::PointD::Zero()), m_nodeId(INVALID_CONTEXT_EDGE_NODE_ID), m_outgoingIndex(0) {}
-  OutgoingCrossNode(uint32_t nodeId, size_t const index, m2::PointD const & point) : m_point(point),
-                                                                                     m_nodeId(nodeId),
-                                                                                     m_outgoingIndex(static_cast<unsigned char>(index)){}
+  OutgoingCrossNode(WritedNodeID nodeId, size_t const index, m2::PointD const & point) : m_point(point),
+                                                                                         m_nodeId(nodeId),
+                                                                                         m_outgoingIndex(static_cast<unsigned char>(index)){}
 
   void Save(Writer & w) const;
 
@@ -81,9 +82,9 @@ class CrossRoutingContextWriter
 public:
   void Save(Writer & w) const;
 
-  void AddIngoingNode(size_t const nodeId, m2::PointD const & point);
+  void AddIngoingNode(WritedNodeID const nodeId, m2::PointD const & point);
 
-  void AddOutgoingNode(size_t const nodeId, string const & targetMwm, m2::PointD const & point);
+  void AddOutgoingNode(WritedNodeID const nodeId, string const & targetMwm, m2::PointD const & point);
 
   void ReserveAdjacencyMatrix();
 

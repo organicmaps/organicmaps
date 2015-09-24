@@ -164,9 +164,9 @@ public:
   /// @name For unit test purpose only.
   //@{
   /// @return STL-like range [s, e) of segments indexies for passed node.
-  pair<size_t, size_t> GetSegmentsRange(uint32_t nodeId) const;
+  pair<size_t, size_t> GetSegmentsRange(TOsrmNodeId nodeId) const;
   /// @return Node id for segment's index.
-  TOsrmNodeId GetNodeId(size_t segInd) const;
+  TOsrmNodeId GetNodeId(uint32_t segInd) const;
 
   size_t GetSegmentsCount() const { return static_cast<size_t>(m_segments.size()); }
   //@}
