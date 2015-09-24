@@ -48,6 +48,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     self.delegate = delegate;
     self.rootView.delegate = delegate;
     self.parentView = view;
+    self.searchTextField.placeholder = L(@"search");
     self.state = MWMSearchManagerStateHidden;
   }
   return self;
