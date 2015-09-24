@@ -5149,6 +5149,16 @@ cont {
 cont {
   name: "highway-cycleway"
   element {
+    scale: 13
+    lines {
+      width: 0.1
+      color: 862340147
+      priority: 1611
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 0.6
@@ -5201,6 +5211,16 @@ cont {
 }
 cont {
   name: "highway-cycleway-bridge"
+  element {
+    scale: 13
+    lines {
+      width: 0.1
+      color: 862340147
+      priority: 1611
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -5255,6 +5275,16 @@ cont {
 cont {
   name: "highway-cycleway-permissive"
   element {
+    scale: 13
+    lines {
+      width: 0.1
+      color: 862340147
+      priority: 1611
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 0.6
@@ -5307,6 +5337,16 @@ cont {
 }
 cont {
   name: "highway-cycleway-tunnel"
+  element {
+    scale: 13
+    lines {
+      width: 0.1
+      color: 862340147
+      priority: 1611
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 15
     lines {
@@ -33579,6 +33619,24 @@ cont {
   }
 }
 cont {
+  name: "shop"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "shop-alcohol"
   element {
     scale: 18
@@ -33600,7 +33658,456 @@ cont {
     scale: 19
     symbol {
       name: "alcohol-m"
-      apply_for_type: 1
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-bakery"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-beauty"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-beverages"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-bicycle"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-books"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-butcher"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-car"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-car_repair"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-chemist"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-clothes"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-computer"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-confectionery"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-convenience"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-department_store"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-doityourself"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-electronics"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-florist"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-furniture"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-garden_centre"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-gift"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-greengrocer"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-hairdresser"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-hardware"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-jewelry"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-kiosk"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
       priority: 16000
     }
     caption {
@@ -33667,7 +34174,78 @@ cont {
     scale: 19
     symbol {
       name: "shop-m"
-      apply_for_type: 1
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-mobile_phone"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-optician"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-shoes"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-sports"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
       priority: 16000
     }
     caption {
@@ -33718,7 +34296,24 @@ cont {
     scale: 19
     symbol {
       name: "grocery-m"
-      apply_for_type: 1
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 8
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "shop-toys"
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
       priority: 16000
     }
     caption {

@@ -6306,6 +6306,48 @@ cont {
 cont {
   name: "boundary-administrative-4-state"
   element {
+    scale: 4
+    lines {
+      width: 0.75
+      color: 13421772
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 1345
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 5
+    lines {
+      width: 0.75
+      color: 13421772
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 1345
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 6
+    lines {
+      width: 0.75
+      color: 12303291
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 1345
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 10
     lines {
       width: 1.5
