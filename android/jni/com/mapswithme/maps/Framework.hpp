@@ -166,6 +166,7 @@ namespace android
 
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
     location::EMyPositionMode GetMyPositionMode() const;
+    void SetMyPositionMode(location::EMyPositionMode mode);
 
     // Fills mapobject's metadata from UserMark
     void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, UserMark const * userMark);

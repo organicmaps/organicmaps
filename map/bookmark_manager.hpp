@@ -36,6 +36,8 @@ public:
   void LoadBookmarks();
   void LoadBookmark(string const & filePath);
 
+  void InitBookmarks();
+
   /// Client should know where it adds bookmark
   size_t AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkData & bm);
   /// Client should know where it moves bookmark

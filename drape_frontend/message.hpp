@@ -32,6 +32,7 @@ public:
     GpsInfo,
     FindVisiblePOI,
     SelectObject,
+    GetSelectedObject,
     GetMyPosition,
     AddRoute,
     RemoveRoute,

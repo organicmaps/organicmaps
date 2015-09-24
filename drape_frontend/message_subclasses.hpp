@@ -419,8 +419,7 @@ public:
     : BaseBlockingMessage(blocker)
     , m_pt(glbPt)
     , m_featureID(featureID)
-  {
-  }
+  {}
 
   Type GetType() const override { return FindVisiblePOI; }
 
@@ -441,13 +440,11 @@ public:
   struct DismissTag {};
   SelectObjectMessage(DismissTag)
     : SelectObjectMessage(SelectionShape::OBJECT_EMPTY, m2::PointD::Zero(), false, true)
-  {
-  }
+  {}
 
   SelectObjectMessage(SelectionShape::ESelectedObject selectedObject, m2::PointD const & glbPoint, bool isAnim)
     : SelectObjectMessage(selectedObject, glbPoint, isAnim, false)
-  {
-  }
+  {}
 
   Type GetType() const override { return SelectObject; }
   m2::PointD const & GetPosition() const { return m_glbPoint; }
@@ -461,15 +458,32 @@ private:
     , m_glbPoint(pt)
     , m_isAnim(isAnim)
     , m_isDismiss(isDismiss)
-  {
-
-  }
+  {}
 
 private:
   SelectionShape::ESelectedObject m_selected;
   m2::PointD m_glbPoint;
   bool m_isAnim;
   bool m_isDismiss;
+};
+
+class GetSelectedObjectMessage : public BaseBlockingMessage
+{
+public:
+  GetSelectedObjectMessage(Blocker & blocker, SelectionShape::ESelectedObject & object)
+    : BaseBlockingMessage(blocker)
+    , m_object(object)
+  {}
+
+  Type GetType() const override { return GetSelectedObject; }
+
+  void SetSelectedObject(SelectionShape::ESelectedObject const & object)
+  {
+    m_object = object;
+  }
+
+private:
+  SelectionShape::ESelectedObject & m_object;
 };
 
 class GetMyPositionMessage : public BaseBlockingMessage

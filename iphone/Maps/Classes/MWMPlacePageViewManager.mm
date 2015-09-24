@@ -67,11 +67,14 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)dismissPlacePage
 {
+  if (!m_userMark)
+    return;
   [self.delegate placePageDidClose];
   self.state = MWMPlacePageManagerStateClosed;
   [self.placePage dismiss];
   [[MapsAppDelegate theApp].m_locationManager stop:self];
   m_userMark = nullptr;
+  GetFramework().DeactivateUserMark();
   self.entity = nil;
   self.placePage = nil;
 }

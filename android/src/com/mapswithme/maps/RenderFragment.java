@@ -49,8 +49,8 @@ public abstract class RenderFragment extends BaseMwmFragment
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ||
         getActivity() == null || !getActivity().isChangingConfigurations())
     {
-      MwmApplication.get().clearFunctorsOnUiThread();
       destroyEngine();
+      MwmApplication.get().clearFunctorsOnUiThread();
     }
     else
     {

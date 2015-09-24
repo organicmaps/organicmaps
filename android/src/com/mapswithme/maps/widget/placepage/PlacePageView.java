@@ -818,7 +818,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         }
       });
     }
-    Framework.invalidate();
   }
 
   private void selectBookmarkSet()

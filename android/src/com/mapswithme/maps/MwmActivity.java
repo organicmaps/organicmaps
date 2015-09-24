@@ -165,13 +165,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRenderingInitialized()
   {
-    runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        checkMeasurementSystem();
-        checkKitkatMigrationMove();
-      }
-    });
+    checkMeasurementSystem();
+    checkKitkatMigrationMove();
 
     runTasks();
   }

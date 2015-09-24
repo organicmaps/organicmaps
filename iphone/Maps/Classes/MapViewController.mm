@@ -216,21 +216,18 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)onUserMarkClicked:(unique_ptr<UserMarkCopy>)mark
 {
   if (mark == nullptr)
+  {
     [self dismissPlacePage];
+    
+    auto & f = GetFramework();
+    if (!f.HasActiveUserMark() && self.controlsManager.searchHidden && !f.IsRouteNavigable())
+      self.controlsManager.hidden = !self.controlsManager.hidden;
+  }
   else
+  {
+    self.controlsManager.hidden = NO;
     [self.controlsManager showPlacePageWithUserMark:move(mark)];
-
-  //TODO(@kuznetsov)
-  /*
-   UserMark const * userMark = f.GetUserMark(pxClicked, isLongClick);
-   if (f.HasActiveUserMark() == false && self.controlsManager.searchHidden && !f.IsRouteNavigable())
-   {
-   if (userMark == nullptr)
-   self.controlsManager.hidden = !self.controlsManager.hidden;
-   else
-   self.controlsManager.hidden = NO;
-   }
-   */
+  }
 }
 
 - (void)onMyPositionClicked:(id)sender

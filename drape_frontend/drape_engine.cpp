@@ -316,6 +316,18 @@ void DrapeEngine::DeselectObject()
                                   MessagePriority::High);
 }
 
+SelectionShape::ESelectedObject DrapeEngine::GetSelectedObject()
+{
+  SelectionShape::ESelectedObject object;
+  BaseBlockingMessage::Blocker blocker;
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<GetSelectedObjectMessage>(blocker, object),
+                                  MessagePriority::High);
+
+  blocker.Wait();
+  return object;
+}
+
 bool DrapeEngine::GetMyPosition(m2::PointD & myPosition)
 {
   bool hasPosition = false;

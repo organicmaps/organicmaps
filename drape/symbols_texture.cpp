@@ -244,7 +244,7 @@ ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const &
   string const & symbolName = static_cast<SymbolKey const &>(key).GetSymbolName();
 
   TSymDefinition::iterator it = m_definition.find(symbolName);
-  ASSERT(it != m_definition.end(), ());
+  ASSERT(it != m_definition.end(), (symbolName));
   return make_ref(&it->second);
 }
 

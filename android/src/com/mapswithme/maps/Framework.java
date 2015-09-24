@@ -101,8 +101,6 @@ public class Framework
 
   public native static void injectData(SearchResult searchResult, long index);
 
-  public native static void invalidate();
-
   public native static void deactivatePopup();
 
   public native static String[] nativeGetMovableFilesExts();
@@ -179,8 +177,6 @@ public class Framework
   public native static void nativeSetRouteStartPoint(double lat, double lon, boolean valid);
 
   public native static void nativeSetRouteEndPoint(double lat, double lon, boolean valid);
-
-  public native static void setWidgetPivot(int widget, int pivotX, int pivotY);
 
   /**
    * Registers all maps(.mwms). Adds them to the models, generates indexes and does all necessary stuff.

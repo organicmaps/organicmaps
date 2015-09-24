@@ -19,10 +19,9 @@ BookmarkManager::BookmarkManager(Framework & f)
   : m_framework(f)
 {
   m_userMarkLayers.reserve(3);
-  ///@TODO UVR
-  m_userMarkLayers.push_back(new SearchUserMarkContainer(0.0/*graphics::activePinDepth*/, m_framework));
-  m_userMarkLayers.push_back(new ApiUserMarkContainer(0.0/*graphics::activePinDepth*/, m_framework));
-  //m_userMarkLayers.push_back(new DebugUserMarkContainer(graphics::debugDepth, m_framework));
+  m_userMarkLayers.push_back(new SearchUserMarkContainer(0.0 /* activePinDepth */, m_framework));
+  m_userMarkLayers.push_back(new ApiUserMarkContainer(0.0 /* activePinDepth */, m_framework));
+  m_userMarkLayers.push_back(new DebugUserMarkContainer(0.0 /* debugDepth */, m_framework));
   UserMarkContainer::InitStaticMarks(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
 }
 
@@ -79,6 +78,15 @@ void BookmarkManager::LoadBookmark(string const & filePath)
     m_categories.push_back(cat);
 }
 
+void BookmarkManager::InitBookmarks()
+{
+  for (auto it = m_categories.begin(); it != m_categories.end(); ++it)
+  {
+    BookmarkCategory * cat = *it;
+    BookmarkCategory::Guard guard(*cat);
+  }
+}
+
 size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkData & bm)
 {
   bm.SetTimeStamp(time(0));
@@ -100,14 +108,20 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptO
 
 size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t newCatIndex)
 {
-  BookmarkCategory * cat = m_framework.GetBmCategory(curCatIndex);
-  BookmarkCategory::Guard guard(*cat);
-  Bookmark const * bm = static_cast<Bookmark const *>(guard.m_controller.GetUserMark(bmIndex));
-  BookmarkData data = bm->GetData();
-  m2::PointD ptOrg = bm->GetPivot();
+  BookmarkData data;
+  m2::PointD ptOrg;
+  
+  // guard must be released before AddBookmark to prevent deadlock
+  {
+    BookmarkCategory * cat = m_framework.GetBmCategory(curCatIndex);
+    BookmarkCategory::Guard guard(*cat);
+    Bookmark const * bm = static_cast<Bookmark const *>(guard.m_controller.GetUserMark(bmIndex));
+    data = bm->GetData();
+    ptOrg = bm->GetPivot();
 
-  guard.m_controller.DeleteUserMark(bmIndex);
-  cat->SaveToKMLFile();
+    guard.m_controller.DeleteUserMark(bmIndex);
+    cat->SaveToKMLFile();
+  }
 
   return AddBookmark(newCatIndex, ptOrg, data);
 }

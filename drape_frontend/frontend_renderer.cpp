@@ -299,6 +299,16 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::GetSelectedObject:
+    {
+      ref_ptr<GetSelectedObjectMessage> msg = message;
+      if (m_selectionShape != nullptr)
+        msg->SetSelectedObject(m_selectionShape->GetSelectedObject());
+      else
+        msg->SetSelectedObject(SelectionShape::OBJECT_EMPTY);
+      break;
+    }
+
   case Message::GetMyPosition:
     {
       ref_ptr<GetMyPositionMessage> msg = message;

@@ -98,6 +98,7 @@ public:
   void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt, bool isAnim);
   void DeselectObject();
   bool GetMyPosition(m2::PointD & myPosition);
+  SelectionShape::ESelectedObject GetSelectedObject();
 
   void AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns, dp::Color const & color);
   void RemoveRoute(bool deactivateFollowing);

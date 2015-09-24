@@ -189,11 +189,6 @@ namespace android_tests
 
     bool HasAvailableSpaceForWriting(uint64_t size) const{ return true; }
 
-    static void RunOnGuiThreadImpl(TFunctor const & fn, bool blocking = false)
-    {
-      ASSERT(false, ());
-    }
-
     static Platform & Instance()
     {
       static Platform platform;

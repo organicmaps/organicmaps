@@ -89,30 +89,28 @@ void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
 
 void ConstructLineSegments(vector<m2::PointD> const & path, vector<LineSegment> & segments)
 {
-  ASSERT(path.size() > 1, ());
-
-  float const eps = 1e-5;
+  ASSERT_LESS(1, path.size(), ());
 
   m2::PointD prevPoint = path[0];
   for (size_t i = 1; i < path.size(); ++i)
   {
-    // filter the same points
-    if (prevPoint.EqualDxDy(path[i], eps))
+    m2::PointF const p1 = m2::PointF(prevPoint.x, prevPoint.y);
+    m2::PointF const p2 = m2::PointF(path[i].x, path[i].y);
+    if (p1.EqualDxDy(p2, 1.0E-5))
       continue;
 
-    LineSegment segment;
+    // Important! Do emplace_back first and fill parameters later.
+    // Fill parameters first and push_back later will cause ugly bug in clang 3.6 -O3 optimization.
+    segments.emplace_back(glsl::ToVec2(p1), glsl::ToVec2(p2));
+    LineSegment & segment = segments.back();
 
-    segment.m_points[StartPoint] = glsl::ToVec2(prevPoint);
-    segment.m_points[EndPoint] = glsl::ToVec2(path[i]);
-    CalculateTangentAndNormals(segment.m_points[StartPoint], segment.m_points[EndPoint], segment.m_tangent,
+    CalculateTangentAndNormals(glsl::ToVec2(p1), glsl::ToVec2(p2), segment.m_tangent,
                                segment.m_leftBaseNormal, segment.m_rightBaseNormal);
 
     segment.m_leftNormals[StartPoint] = segment.m_leftNormals[EndPoint] = segment.m_leftBaseNormal;
     segment.m_rightNormals[StartPoint] = segment.m_rightNormals[EndPoint] = segment.m_rightBaseNormal;
 
     prevPoint = path[i];
-
-    segments.push_back(segment);
   }
 }
 

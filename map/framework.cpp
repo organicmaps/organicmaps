@@ -229,10 +229,6 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("routing_failed_route_not_found", "There is no route found between the selected origin and destination.Please select a different start or end point.");
   m_stringsBundle.SetDefaultString("routing_failed_internal_error", "Internal error occurred. Please try to delete and download the map again. If problem persist please contact us at support@maps.me.");
 
-#ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.enableDebugPoints(true);
-#endif
-
   m_model.InitClassificator();
   m_model.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
   LOG(LDEBUG, ("Classificator initialized"));
@@ -1094,9 +1090,6 @@ size_t Framework::ShowAllSearchResults(search::Results const & results)
   FillSearchResultsMarks(results);
   m_fixedSearchResults = count;
 
-  ///@TODO UVR
-  //shared_ptr<State> state = GetLocationState();
-  //state->SetFixedZoom();
   // Setup viewport according to results.
   m2::AnyRectD viewport = m_currentMovelView.GlobalRect();
   m2::PointD const center = viewport.Center();
@@ -1258,6 +1251,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   m_drapeEngine->SetMyPositionModeListener(m_myPositionListener);
   InvalidateMyPosition();
+
+  m_bmManager.InitBookmarks();
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
@@ -1326,9 +1321,6 @@ bool Framework::ShowMapForURL(string const & url)
   enum ResultT { FAILED, NEED_CLICK, NO_NEED_CLICK };
   ResultT result = FAILED;
 
-  // always hide current balloon here
-  DeactivateUserMark();
-
   using namespace url_scheme;
   using namespace strings;
 
@@ -1379,6 +1371,9 @@ bool Framework::ShowMapForURL(string const & url)
 
   if (result != FAILED)
   {
+    // always hide current balloon here
+    DeactivateUserMark();
+
     // set viewport and stop follow mode if any
     StopLocationFollow();
     ShowRect(rect);
@@ -1399,13 +1394,11 @@ bool Framework::ShowMapForURL(string const & url)
         ActivateUserMark(mark, false);
       }
     }
-    else
-      DeactivateUserMark();
 
     return true;
   }
-  else
-    return false;
+  
+  return false;
 }
 
 bool Framework::GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo & info, feature::Metadata & metadata) const
@@ -1562,6 +1555,14 @@ void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
 void Framework::DeactivateUserMark()
 {
   ActivateUserMark(nullptr, true);
+}
+
+bool Framework::HasActiveUserMark()
+{
+  if (m_drapeEngine == nullptr)
+    return false;
+
+  return m_drapeEngine->GetSelectedObject() != df::SelectionShape::OBJECT_EMPTY;
 }
 
 void Framework::OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature)
@@ -1837,8 +1838,8 @@ void Framework::SetRouterImpl(RouterType type)
 void Framework::RemoveRoute(bool deactivateFollowing)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("RemoveRoute"));
-  ASSERT(m_drapeEngine != nullptr, ());
-  m_drapeEngine->RemoveRoute(deactivateFollowing);
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->RemoveRoute(deactivateFollowing);
 }
 
 void Framework::CloseRouting()
@@ -1851,7 +1852,8 @@ void Framework::CloseRouting()
 void Framework::InsertRoute(Route const & route)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("InsertRoute"));
-  ASSERT(m_drapeEngine != nullptr, ());
+  if (m_drapeEngine == nullptr)
+    return;
 
   if (route.GetPoly().GetSize() < 2)
   {
