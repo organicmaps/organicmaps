@@ -258,7 +258,6 @@ public enum Statistics
     }
   }
 
-  // This method is not called at all if statistics was disabled.
   private void configure(Context context)
   {
     if (mEnabled)
@@ -274,10 +273,12 @@ public enum Statistics
       myParams.setTrackingPreinstallsEnabled(true);
       myParams.setTrackingLaunchEnabled(true);
       MRMyTracker.initTracker();
-
-      org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);
-      org.alohalytics.Statistics.setup(PrivateVariables.alohalyticsUrl(), context);
     }
+    // At the moment, need to always initialize engine for correct JNI http part reusing.
+    // Statistics is still enabled/disabled separately and never sent anywhere if turned off.
+    // TODO(AlexZ): Remove this initialization dependency from JNI part.
+    org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);
+    org.alohalytics.Statistics.setup(PrivateVariables.alohalyticsUrl(), context);
   }
 
   public void stopActivity(Activity activity)
