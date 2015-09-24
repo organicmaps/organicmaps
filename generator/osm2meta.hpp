@@ -105,6 +105,12 @@ public:
       if (!value.empty())
         md.Add(Metadata::FMD_EMAIL, value);
     }
+    else if (k == "wikipedia")
+    {
+      string const & value = ValidateAndFormat_wikipedia(v);
+      if (!value.empty())
+        md.Add(Metadata::FMD_WIKIPEDIA, value);
+    }
     return false;
   }
 
@@ -182,6 +188,60 @@ protected:
   string ValidateAndFormat_postcode(string const & v) const
   {
     return v;
+  }
+
+  string url_encode(string const & value) const
+  {
+    ostringstream escaped;
+    escaped.fill('0');
+    escaped << hex;
+
+    for (string::const_iterator i = value.begin(), n = value.end(); i != n; ++i)
+    {
+      string::value_type c = (*i);
+
+      // Keep alphanumeric and other accepted characters intact
+      // Convert spaces to '_' as wikipedia does
+      // Turn other characters to '%00' sequences
+      if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~')
+        escaped << c;
+      else if (c == ' ')
+        escaped << '_';
+      else
+        escaped << '%' << std::uppercase << setw(2) << int((unsigned char) c);
+    }
+
+    return escaped.str();
+  }
+
+  string ValidateAndFormat_wikipedia(string const & v) const
+  {
+    // Shortest string: "lg:aa"
+    if (v.length() < 5)
+      return v;
+
+    // Find prefix before ':'
+    int i = 0;
+    while (i + 2 < v.length() && i < 10 && v[i] != ':')
+      i++;
+    if (v[i] != ':')
+      return string();
+
+    // URL encode lang:title, so URL can be reconstructed faster
+    if (i <= 3 || v.substr(0, i) == "be-x-old")
+      return v.substr(0, i + 1) + url_encode(v.substr(i + 1));
+
+    if (v[i+1] == '/' && i + 27 < v.length())
+    {
+      // Convert URL to "lang:title"
+      i += 3;
+      int j = i;
+      while (j < v.length() && v[j] != '.')
+        j++;
+      if (v.substr(j, 20) == ".wikipedia.org/wiki/")
+        return v.substr(i, j - i) + ":" + v.substr(j + 20);
+    }
+    return string();
   }
 
 };
