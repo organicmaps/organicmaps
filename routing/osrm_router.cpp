@@ -497,7 +497,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     vector<m2::PointD> mwmPoints;
     MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmTurnsDir, mwmTimes);
     // Connect annotated route.
-    const uint32_t pSize = static_cast<uint32_t>(Points.size());
+    auto const pSize = static_cast<uint32_t>(Points.size());
     for (auto turn : mwmTurnsDir)
     {
       if (turn.m_index == 0)
@@ -705,17 +705,17 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 
     // Get all the coordinates for the computed route
     size_t const n = segment.size();
-    for (size_t j = 0; j < n; ++j)
+    for (size_t j = 0; j < n; ++j)  // todo(mgsergio) rename!
     {
       RawPathData const & path_data = segment[j];
 
       if (j > 0 && !points.empty())
       {
-        turns::TurnItem t;
-        t.m_index = static_cast<uint32_t>(points.size() - 1);
+        turns::TurnItem turnItem;
+        turnItem.m_index = static_cast<uint32_t>(points.size() - 1);
 
         turns::TurnInfo turnInfo(*mapping, segment[j - 1].node, segment[j].node);
-        turns::GetTurnDirection(*m_pIndex, turnInfo, t);
+        turns::GetTurnDirection(*m_pIndex, turnInfo, turnItem);
 
         // ETA information.
         // Osrm multiples seconds to 10, so we need to divide it back.
@@ -726,19 +726,19 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
         for (size_t k = lastIdx + 1; k < points.size(); ++k)
           distMeters += MercatorBounds::DistanceOnEarth(points[k - 1], points[k]);
         LOG(LDEBUG, ("Speed:", 3.6 * distMeters / nodeTimeSeconds, "kmph; Dist:", distMeters, "Time:",
-                     nodeTimeSeconds, "s", lastIdx, "e", points.size(), "source:", t.m_sourceName,
-                     "target:", t.m_targetName));
+                     nodeTimeSeconds, "s", lastIdx, "e", points.size(), "source:", turnItem.m_sourceName,
+                     "target:", turnItem.m_targetName));
         lastIdx = points.size();
 #endif
         estimatedTime += nodeTimeSeconds;
         times.push_back(Route::TTimeItem(points.size(), estimatedTime));
 
         //  Lane information.
-        if (t.m_turn != turns::TurnDirection::NoTurn)
+        if (turnItem.m_turn != turns::TurnDirection::NoTurn)
         {
-          t.m_lanes = turns::GetLanesInfo(segment[j - 1].node,
+          turnItem.m_lanes = turns::GetLanesInfo(segment[j - 1].node,
                                           *mapping, turns::GetLastSegmentPointIndex, *m_pIndex);
-          turnsDir.push_back(move(t));
+          turnsDir.push_back(move(turnItem));
         }
       }
 
@@ -769,7 +769,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
       }
       if (j == n - 1)
       {
-        if  (!segEnd.IsValid())
+        if (!segEnd.IsValid())
           continue;
         endK = FindIntersectingSeg(segEnd) + 1;
       }
@@ -827,7 +827,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
   if (routingResult.targetEdge.segment.IsValid())
   {
     turnsDir.push_back(
-        turns::TurnItem(static_cast<uint32_t>(points.size() - 1), turns::TurnDirection::ReachedYourDestination));
+        turns::TurnItem(static_cast<uint32_t>(points.size()) - 1, turns::TurnDirection::ReachedYourDestination));
   }
   turns::FixupTurns(points, turnsDir);
 
