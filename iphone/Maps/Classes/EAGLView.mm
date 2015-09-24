@@ -214,6 +214,10 @@
   Framework & f = GetFramework();
   if (f.NeedRedraw())
   {
+    // Workaround. iOS Voice recognition creates own OGL-context, so here we must set ours
+    // (http://discuss.cocos2d-x.org/t/engine-crash-on-ios7/9129/6)
+    [EAGLContext setCurrentContext:renderContext->getEAGLContext()];
+
     f.SetNeedRedraw(false);
     f.BeginPaint(pe);
     f.DoPaint(pe);
