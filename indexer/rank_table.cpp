@@ -7,6 +7,7 @@
 #include "indexer/types_skipper.hpp"
 
 #include "platform/local_country_file.hpp"
+#include "platform/local_country_file_utils.hpp"
 
 #include "coding/endianness.hpp"
 #include "coding/file_container.hpp"
@@ -268,11 +269,17 @@ void RankTableBuilder::CalcSearchRanks(FilesContainerR & rcont, vector<uint8_t> 
 // static
 void RankTableBuilder::CreateIfNotExists(platform::LocalCountryFile const & localFile)
 {
-  string const mapPath = localFile.GetPath(MapOptions::Map);
+  string mapPath;
 
   unique_ptr<RankTable> table;
   {
-    FilesContainerR rcont(mapPath);
+    ModelReaderPtr reader = platform::GetCountryReader(localFile, MapOptions::Map);
+    if (!reader.GetPtr())
+      return;
+
+    mapPath = reader.GetName();
+
+    FilesContainerR rcont(reader);
     if (rcont.IsExist(RANKS_FILE_TAG))
     {
       switch (CheckEndianness(rcont.GetReader(RANKS_FILE_TAG)))

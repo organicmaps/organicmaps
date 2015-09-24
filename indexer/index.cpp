@@ -71,7 +71,7 @@ unique_ptr<MwmSet::MwmValueBase> Index::CreateValue(MwmInfo & info) const
   {
     search::RankTableBuilder::CreateIfNotExists(localFile);
   }
-  catch (Reader::OpenException const & e)
+  catch (RootException const & e)
   {
     LOG(LWARNING, ("Can't create rank table for:", localFile, ":", e.Msg()));
   }
