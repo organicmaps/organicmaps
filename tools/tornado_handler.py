@@ -1,7 +1,5 @@
 from __future__ import print_function
 
-
-
 from ResponseProvider import Payload
 from ResponseProvider import ResponseProvider
 from ResponseProvider import ResponseProviderMixin
