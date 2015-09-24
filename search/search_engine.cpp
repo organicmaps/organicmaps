@@ -141,12 +141,6 @@ bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
   return true;
 }
 
-void Engine::GetResults(Results & res)
-{
-  threads::MutexGuard guard(m_searchMutex);
-  res = m_searchResults;
-}
-
 void Engine::SetViewportAsync(m2::RectD const & viewport)
 {
   // First of all - cancel previous query.
@@ -162,8 +156,6 @@ void Engine::SetViewportAsync(m2::RectD const & viewport)
 
 void Engine::EmitResults(SearchParams const & params, Results & res)
 {
-  m_searchResults = res;
-
   // Basic test of our statistics engine.
   alohalytics::LogEvent("searchEmitResults",
                         alohalytics::TStringMap({{params.m_query, strings::to_string(res.GetCount())}}));

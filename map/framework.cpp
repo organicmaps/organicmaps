@@ -1373,12 +1373,9 @@ void Framework::ShowSearchResult(search::Result const & res)
   m_balloonManager.OnShowMark(mark);
 }
 
-size_t Framework::ShowAllSearchResults()
+size_t Framework::ShowAllSearchResults(search::Results const & results)
 {
   using namespace search;
-
-  Results results;
-  GetSearchEngine()->GetResults(results);
 
   size_t count = results.GetCount();
   switch (count)
