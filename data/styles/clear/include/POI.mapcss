@@ -84,7 +84,7 @@ node|z18-[leisure=golf_course], area|z18-[leisure=golf_course] { icon-image: gol
 
 
 /* SHOPS */
-/* node|z19-[shop] { icon-image: shop-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; } */
+node|z19-[shop], area|z19-[shop] { icon-image: shop-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; } 
 node|z16-[shop=mall] { icon-image: shop-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z18-[shop=alcohol] { icon-image: alcohol-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
 node|z17-[shop=supermarket] { icon-image: grocery-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
