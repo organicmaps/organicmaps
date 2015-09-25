@@ -34,6 +34,7 @@
     string units;
     is>>dist;
     is>>units;
+    _nextTurnImage = nil;
     _distanceToTurn = @(dist.c_str());
     _turnUnits = @(units.c_str());
     _streetName = @"";
