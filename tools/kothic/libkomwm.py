@@ -68,15 +68,18 @@ def komap_mapswithme(options):
     class_order.sort()
     types_file.close()
 
-    # Get all mapcss tags which are used in mapcss-mapping.csv
-    mapcss_mapping_tags = set()
+    # Get all mapcss static tags which are used in mapcss-mapping.csv
+    mapcss_static_tags = set()
     for v in classificator.values():
         for t in v.keys():
-            mapcss_mapping_tags.add(t)
+            mapcss_static_tags.add(t)
+
+    # Get all mapcss dynamic tags from mapcss-dynamic.txt
+    mapcss_dynamic_tags = set([line.rstrip() for line in open(os.path.join(ddir, 'mapcss-dynamic.txt'))])
 
     # Parse style mapcss
     style = MapCSS(options.minzoom, options.maxzoom + 1)
-    style.parse(filename = options.filename, mapcss_tags = mapcss_mapping_tags)
+    style.parse(filename = options.filename, static_tags = mapcss_static_tags, dynamic_tags = mapcss_dynamic_tags)
 
     # Build optimization tree - class/type -> StyleChoosers
     for cl in class_order:
