@@ -190,7 +190,10 @@ protected:
     return v;
   }
 
-  string url_encode(string const & value) const
+  // Special URL encoding for wikipedia:
+  // Replaces special characters with %HH codes
+  // And spaces with underscores.
+  string WikiUrlEncode(string const & value) const
   {
     ostringstream escaped;
     escaped.fill('0');
@@ -198,9 +201,6 @@ protected:
 
     for (auto const & c : value)
     {
-      // Keep alphanumeric and other accepted characters intact
-      // Convert spaces to '_' as wikipedia does
-      // Turn other characters to '%00' sequences
       if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~')
         escaped << c;
       else if (c == ' ')
@@ -221,7 +221,7 @@ protected:
 
     // URL encode lang:title, so URL can be reconstructed faster
     if (i <= 3 || v.substr(0, i) == "be-x-old")
-      return v.substr(0, i + 1) + url_encode(v.substr(i + 1));
+      return v.substr(0, i + 1) + WikiUrlEncode(v.substr(i + 1));
 
     static string::size_type const minUrlPartLength = string("//be.wikipedia.org/wiki/AB").length();
     if (v[i+1] == '/' && i + minUrlPartLength < v.length())
