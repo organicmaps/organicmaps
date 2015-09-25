@@ -4,6 +4,7 @@
 #include "defines.hpp"
 
 #include "base/assert.hpp"
+#include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 
@@ -214,7 +215,18 @@ unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId const & id)
     }
   }
 
-  return CreateValue(*info);
+  try
+  {
+    return CreateValue(*info);
+  }
+  catch (exception const & ex)
+  {
+    LOG(LERROR, ("Can't create MWMValue for", info->GetCountryName(), "Reason", ex.what()));
+
+    --info->m_numRefs;
+    DeregisterImpl(id);
+    return nullptr;
+  }
 }
 
 void MwmSet::UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> && p)

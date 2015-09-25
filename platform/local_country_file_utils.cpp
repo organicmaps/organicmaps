@@ -239,9 +239,11 @@ ModelReader * GetCountryReader(platform::LocalCountryFile const & file, MapOptio
 }
 
 // static
-bool CountryIndexes::PreparePlaceOnDisk(LocalCountryFile const & localFile)
+void CountryIndexes::PreparePlaceOnDisk(LocalCountryFile const & localFile)
 {
-  return MkDirChecked(IndexesDir(localFile));
+  string const dir = IndexesDir(localFile);
+  if (!MkDirChecked(dir))
+    MYTHROW(FileSystemException, ("Can't create directory", dir));
 }
 
 // static
@@ -302,6 +304,8 @@ string CountryIndexes::IndexesDir(LocalCountryFile const & localFile)
   string dir = localFile.GetDirectory();
   CountryFile const & file = localFile.GetCountryFile();
 
+  /// @todo It's a temporary code until we will put fIndex->fOffset into mwm container.
+  /// IndexesDir should not throw any exceptions.
   if (dir.empty())
   {
     // Local file is stored in resources. Need to prepare index folder in the writable directory.
@@ -309,7 +313,8 @@ string CountryIndexes::IndexesDir(LocalCountryFile const & localFile)
     ASSERT_GREATER(version, 0, ());
 
     dir = my::JoinFoldersToPath(GetPlatform().WritableDir(), strings::to_string(version));
-    VERIFY(MkDirChecked(dir), ());
+    if (!MkDirChecked(dir))
+      MYTHROW(FileSystemException, ("Can't create directory", dir));
   }
 
   return my::JoinFoldersToPath(dir, file.GetNameWithoutExt());

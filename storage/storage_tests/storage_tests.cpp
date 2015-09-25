@@ -598,7 +598,7 @@ UNIT_TEST(StorageTest_DeleteCountry)
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland");
   TEST_EQUAL(MapOptions::MapWithCarRouting, file.GetFiles(), ());
 
-  TEST(CountryIndexes::PreparePlaceOnDisk(file), ());
+  CountryIndexes::PreparePlaceOnDisk(file);
   string const bitsPath = CountryIndexes::GetPath(file, CountryIndexes::Index::Bits);
   {
     FileWriter writer(bitsPath);
