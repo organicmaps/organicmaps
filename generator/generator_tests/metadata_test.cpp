@@ -129,6 +129,37 @@ UNIT_TEST(Metadata_ValidateAndFormat_ele)
   params.GetMetadata().Drop(feature::Metadata::FMD_ELE);
 }
 
+UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
+{
+  FeatureParams params;
+  MetadataTagProcessor p(params);
+  string const lanaWoodUrlEncoded = "%D0%9B%D0%B0%D0%BD%D0%B0_%D0%92%D1%83%D0%B4";
+
+  p("wikipedia", "ru:Лана Вуд");
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "ru:" + lanaWoodUrlEncoded, ("ru:"));
+  params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
+
+  p("wikipedia", "https://ru.wikipedia.org/wiki/" + lanaWoodUrlEncoded);
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "ru:" + lanaWoodUrlEncoded, ("https:"));
+  params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
+
+  p("wikipedia", "Test");
+  TEST(params.GetMetadata().Empty(), ("Test"));
+
+  p("wikipedia", "https://en.wikipedia.org/wiki/");
+  TEST(params.GetMetadata().Empty(), ("Null wiki"));
+
+  p("wikipedia", "http://.wikipedia.org/wiki/Whatever");
+  TEST(params.GetMetadata().Empty(), ("Null lang", params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA)));
+
+  // We ignore incorrect prefixes
+  p("wikipedia", "ht.tps://en.wikipedia.org/wiki/Whuh");
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "en:Whuh", ("ht.tp:"));
+  params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
+
+  p("wikipedia", "http://ru.google.com/wiki/wutlol");
+  TEST(params.GetMetadata().Empty(), ("Google"));
+}
 
 UNIT_TEST(Metadata_ReadWrite_Intermediate)
 {
