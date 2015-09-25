@@ -33,7 +33,6 @@ CLASS = re.compile(r'^ ([\.:]:?[*\w]+) \s* ', re.S | re.X)
 ZOOM = re.compile(r'^ \| \s* z([\d\-]+) \s* ', re.I | re.S | re.X)
 GROUP = re.compile(r'^ , \s* ', re.I | re.S | re.X)
 CONDITION = re.compile(r'^ \[(.+?)\] \s* ', re.S | re.X)
-RUNTIME_CONDITION = re.compile(r'^ \((.+?)\) \s* ', re.S | re.X)
 OBJECT = re.compile(r'^ (\*|[\w]+) \s* ', re.S | re.X)
 DECLARATION = re.compile(r'^ \{(.+?)\} \s* ', re.S | re.X)
 IMPORT = re.compile(r'^@import\("(.+?)"\); \s* ', re.S | re.X)
@@ -188,7 +187,7 @@ class MapCSS():
             raise Exception("Variable not found: " + str(format(name)))
         return self.variables[name] if name in self.variables else m.group()
 
-    def parse(self, css=None, clamp=True, stretch=1000, filename=None, mapcss_tags=None):
+    def parse(self, css=None, clamp=True, stretch=1000, filename=None, static_tags=set(), dynamic_tags=set()):
         """
         Parses MapCSS given as string
         """
@@ -250,20 +249,7 @@ class MapCSS():
                         sc.newGroup()
                         previous = oGROUP
 
-                    # RuntimeCondition - (population>=10000)
-                    elif RUNTIME_CONDITION.match(css):
-                        if (previous == oDECLARATION):
-                            self.choosers.append(sc)
-                            sc = StyleChooser(self.scalepair)
-                        if (previous != oOBJECT) and (previous != oZOOM) and (previous != oCONDITION):
-                            sc.newObject()
-                        cond = RUNTIME_CONDITION.match(css).groups()[0]
-                        log.debug("runtime condition found: %s" % (cond))
-                        css = RUNTIME_CONDITION.sub("", css)
-                        sc.addRuntimeCondition(parseCondition(cond))
-                        previous = oCONDITION
-
-                    # Condition - [highway=primary]
+                    # Condition - [highway=primary] or [population>1000]
                     elif CONDITION.match(css):
                         if (previous == oDECLARATION):
                             self.choosers.append(sc)
@@ -274,10 +260,13 @@ class MapCSS():
                         log.debug("condition found: %s" % (cond))
                         c = parseCondition(cond)
                         tag = c.extract_tag()
-                        if (tag != "*") and (mapcss_tags != None) and (tag not in mapcss_tags):
+                        if tag == "*" or tag in static_tags:
+                            sc.addCondition(c)
+                        elif tag in dynamic_tags:
+                            sc.addRuntimeCondition(c)
+                        else:
                             raise Exception("Unknown tag '" + tag + "' in condition " + cond)
                         css = CONDITION.sub("", css)
-                        sc.addCondition(c)
                         previous = oCONDITION
 
                     # Object - way, node, relation
