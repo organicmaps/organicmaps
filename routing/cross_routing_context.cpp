@@ -57,7 +57,9 @@ size_t CrossRoutingContextReader::GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoi
 
 void CrossRoutingContextReader::Load(Reader const & r)
 {
-  size_t size, pos = 0;
+  size_t pos = 0;
+
+  uint32_t size;
   r.Read(pos, &size, sizeof(size));
   pos += sizeof(size);
   m_ingoingNodes.resize(size);
@@ -81,7 +83,6 @@ void CrossRoutingContextReader::Load(Reader const & r)
   pos += sizeof(strsize);
   for (uint32_t i = 0; i < strsize; ++i)
   {
-    vector<char> tmpString;
     r.Read(pos, &size, sizeof(size));
     pos += sizeof(size);
     vector<char> buffer(size);
