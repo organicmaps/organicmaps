@@ -46,33 +46,33 @@
                             <rect key="frame" x="44" y="0.0" width="232" height="44"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2P-mo-JWt">
-                                    <rect key="frame" x="16" y="13" width="45" height="19.5"/>
+                                    <rect key="frame" x="16" y="12" width="45" height="19.5"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLt-4z-zaW">
-                                    <rect key="frame" x="91.5" y="13" width="49.5" height="19.5"/>
+                                    <rect key="frame" x="91" y="12" width="49.5" height="19.5"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yG6-pM-WjM" userLabel="12:24">
-                                    <rect key="frame" x="172" y="13" width="40.5" height="19.5"/>
+                                    <rect key="frame" x="172" y="12" width="40.5" height="19.5"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
@@ -101,7 +101,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7a-mi-GxC">
-                                    <rect key="frame" x="80" y="0.0" width="22.5" height="48"/>
+                                    <rect key="frame" x="80" y="0.0" width="23" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="ESA-SR-dUT"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="ttG-eK-Cdv"/>
@@ -115,7 +115,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQs-gj-DUL">
-                                    <rect key="frame" x="108" y="21" width="26" height="21.5"/>
+                                    <rect key="frame" x="108" y="22" width="26" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="26" id="JFu-EH-q55"/>
                                     </constraints>
@@ -128,7 +128,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Овчинниковская наб." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKF-bV-YL5">
-                                    <rect key="frame" x="80" y="45" width="228" height="20"/>
+                                    <rect key="frame" x="80" y="46" width="228" height="19"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
