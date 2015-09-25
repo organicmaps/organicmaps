@@ -60,7 +60,6 @@ namespace my
   void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg)
   {
     lock_guard<mutex> lock(g_logMutex);
-    UNUSED_VALUE(lock);
 
     static LogHelper logger;
 
@@ -70,19 +69,18 @@ namespace my
     out << DebugPrint(srcPoint) << msg << endl;
     std::cerr << out.str();
 
-    CHECK(level < g_LogAbortLevel, ("Abort. Log level is too serious", level));
+    CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
   }
 
   void LogMessageTests(LogLevel level, SrcPoint const &, string const & msg)
   {
     lock_guard<mutex> lock(g_logMutex);
-    UNUSED_VALUE(lock);
 
     ostringstream out;
     out << msg << endl;
     std::cerr << out.str();
 
-    CHECK(level < g_LogAbortLevel, ("Abort. Log level is too serious", level));
+    CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
   }
 
   LogMessageFn LogMessage = &LogMessageDefault;

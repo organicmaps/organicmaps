@@ -38,7 +38,7 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, string const & s)
 void AndroidLogMessage(LogLevel level, SrcPoint const & src, string const & s)
 {
   AndroidMessage(level, src, s);
-  CHECK(level < g_LogAbortLevel, ("Abort. Log level is too serious", level));
+  CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
 }
 
 void AndroidAssertMessage(SrcPoint const & src, string const & s)
