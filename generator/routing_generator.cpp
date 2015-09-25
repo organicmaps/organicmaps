@@ -272,7 +272,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
       }
 
       FeatureType ft;
-      Index::FeaturesLoaderGuard loader(index, p.first.GetId());
+      Index::FeaturesLoaderGuard loader(index, p.first);
       loader.GetFeatureByIndex(fID, ft);
 
       ft.ParseGeometry(FeatureType::BEST_GEOMETRY);

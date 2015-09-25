@@ -42,10 +42,11 @@ bool RunTest(string const & countryFileName, int lowS, int highS)
   auto p = src.RegisterMap(platform::LocalCountryFile::MakeForTesting(countryFileName));
   if (p.second != MwmSet::RegResult::Success)
     return false;
-  MwmSet::MwmHandle const & handle = p.first;
-  ASSERT(handle.IsAlive(), ());
 
-  version::Format const version = handle.GetInfo()->m_version.format;
+  MwmSet::MwmId const & id = p.first;
+  ASSERT(id.IsAlive(), ());
+
+  version::Format const version = id.GetInfo()->m_version.format;
   if (version == version::unknownFormat)
     return false;
 

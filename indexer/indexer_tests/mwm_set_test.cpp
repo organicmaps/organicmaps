@@ -133,7 +133,7 @@ UNIT_TEST(MwmSetLockAndIdTest)
 
   {
     auto p = mwmSet.Register(LocalCountryFile::MakeForTesting("4"));
-    MwmSet::MwmHandle const & handle = p.first;
+    MwmSet::MwmHandle handle = mwmSet.GetMwmHandleById(p.first);
     TEST(handle.IsAlive(), ());
     TEST_EQUAL(MwmSet::RegResult::Success, p.second, ("Can't register test mwm 4"));
     TEST_EQUAL(MwmInfo::STATUS_REGISTERED, handle.GetInfo()->GetStatus(), ());

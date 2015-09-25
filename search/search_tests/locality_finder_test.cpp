@@ -59,10 +59,10 @@ UNIT_TEST(LocalityFinder)
     auto const p = index.Register(world);
     TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
 
-    MwmSet::MwmHandle const & handle = p.first;
-    TEST(handle.IsAlive(), ());
+    MwmSet::MwmId const & id = p.first;
+    TEST(id.IsAlive(), ());
 
-    rect = handle.GetId().GetInfo()->m_limitRect;
+    rect = id.GetInfo()->m_limitRect;
   }
   catch (RootException const & ex)
   {

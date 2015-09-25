@@ -203,7 +203,7 @@ public:
   void DeregisterAllMaps();
 
   /// Registers a local map file in internal indexes.
-  pair<MwmSet::MwmHandle, MwmSet::RegResult> RegisterMap(
+  pair<MwmSet::MwmId, MwmSet::RegResult> RegisterMap(
       platform::LocalCountryFile const & localFile);
   //@}
 

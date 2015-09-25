@@ -44,7 +44,7 @@ void FeaturesFetcher::InitClassificator()
   }
 }
 
-pair<MwmSet::MwmHandle, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
+pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
     LocalCountryFile const & localFile)
 {
   try
@@ -54,17 +54,20 @@ pair<MwmSet::MwmHandle, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
     {
       LOG(LWARNING, ("Can't add map", localFile.GetCountryName(),
                      "Probably it's already added or has newer data version."));
-      return result;
     }
-    MwmSet::MwmHandle & handle = result.first;
-    ASSERT(handle.IsAlive(), ("Mwm lock invariant violation."));
-    m_rect.Add(handle.GetInfo()->m_limitRect);
+    else
+    {
+      MwmSet::MwmId const & id = result.first;
+      ASSERT(id.IsAlive(), ());
+      m_rect.Add(id.GetInfo()->m_limitRect);
+    }
+
     return result;
   }
   catch (RootException const & ex)
   {
-    LOG(LERROR, ("IO error while adding ", localFile.GetCountryName(), " map. ", ex.Msg()));
-    return make_pair(MwmSet::MwmHandle(), MwmSet::RegResult::BadFile);
+    LOG(LERROR, ("IO error while adding", localFile.GetCountryName(), "map.", ex.Msg()));
+    return make_pair(MwmSet::MwmId(), MwmSet::RegResult::BadFile);
   }
 }
 

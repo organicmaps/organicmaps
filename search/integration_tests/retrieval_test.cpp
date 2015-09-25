@@ -108,8 +108,8 @@ UNIT_TEST(Retrieval_Smoke)
 
   Index index;
   auto p = index.RegisterMap(file);
-  auto & handle = p.first;
-  TEST(handle.IsAlive(), ());
+  auto & id = p.first;
+  TEST(id.IsAlive(), ());
   TEST_EQUAL(p.second, MwmSet::RegResult::Success, ());
 
   search::SearchQueryParams params;
@@ -122,7 +122,7 @@ UNIT_TEST(Retrieval_Smoke)
 
   // Retrieve all (100) whiskey bars from the mwm.
   {
-    TestCallback callback(handle.GetId());
+    TestCallback callback(id);
 
     retrieval.Init(index, infos, m2::RectD(m2::PointD(0, 0), m2::PointD(1, 1)), params,
                    search::Retrieval::Limits());
@@ -130,14 +130,14 @@ UNIT_TEST(Retrieval_Smoke)
     TEST(callback.WasTriggered(), ());
     TEST_EQUAL(100, callback.Offsets().size(), ());
 
-    TestCallback dummyCallback(handle.GetId());
+    TestCallback dummyCallback(id);
     retrieval.Go(dummyCallback);
     TEST(!dummyCallback.WasTriggered(), ());
   }
 
   // Retrieve all whiskey bars from the left-bottom 5 x 5 square.
   {
-    TestCallback callback(handle.GetId());
+    TestCallback callback(id);
     search::Retrieval::Limits limits;
     limits.SetMaxViewportScale(9.0);
 
@@ -150,7 +150,7 @@ UNIT_TEST(Retrieval_Smoke)
 
   // Retrieve exactly 8 whiskey bars from the center.
   {
-    TestCallback callback(handle.GetId());
+    TestCallback callback(id);
     search::Retrieval::Limits limits;
     limits.SetMaxNumFeatures(8);
 
@@ -192,17 +192,17 @@ UNIT_TEST(Retrieval_3Mwms)
 
   Index index;
   auto mskP = index.RegisterMap(msk);
-  auto & mskHandle = mskP.first;
+  auto & mskId = mskP.first;
 
   auto mtvP = index.RegisterMap(mtv);
-  auto & mtvHandle = mtvP.first;
+  auto & mtvId = mtvP.first;
 
   auto zrhP = index.RegisterMap(zrh);
-  auto & zrhHandle = zrhP.first;
+  auto & zrhId = zrhP.first;
 
-  TEST(mskHandle.IsAlive(), ());
-  TEST(mtvHandle.IsAlive(), ());
-  TEST(zrhHandle.IsAlive(), ());
+  TEST(mskId.IsAlive(), ());
+  TEST(mtvId.IsAlive(), ());
+  TEST(zrhId.IsAlive(), ());
 
   search::SearchQueryParams params;
   InitParams("mtv", params);
@@ -213,7 +213,7 @@ UNIT_TEST(Retrieval_3Mwms)
   search::Retrieval retrieval;
 
   {
-    TestCallback callback(mskHandle.GetId());
+    TestCallback callback(mskId);
     search::Retrieval::Limits limits;
     limits.SetMaxNumFeatures(1);
 
@@ -225,7 +225,7 @@ UNIT_TEST(Retrieval_3Mwms)
   }
 
   {
-    MultiMwmCallback callback({mskHandle.GetId(), mtvHandle.GetId(), zrhHandle.GetId()});
+    MultiMwmCallback callback({mskId, mtvId, zrhId});
     search::Retrieval::Limits limits;
     limits.SetMaxNumFeatures(10 /* more than total number of features in all these mwms */);
 
@@ -237,7 +237,7 @@ UNIT_TEST(Retrieval_3Mwms)
   }
 
   {
-    MultiMwmCallback callback({mskHandle.GetId(), mtvHandle.GetId(), zrhHandle.GetId()});
+    MultiMwmCallback callback({mskId, mtvId, zrhId});
     search::Retrieval::Limits limits;
 
     retrieval.Init(index, infos, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)), params,

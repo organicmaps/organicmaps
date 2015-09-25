@@ -164,11 +164,11 @@ public:
   /// are older than the localFile (in this case mwm handle will point
   /// to just-registered file).
 protected:
-  WARN_UNUSED_RESULT pair<MwmHandle, RegResult> RegisterImpl(
+  WARN_UNUSED_RESULT pair<MwmId, RegResult> RegisterImpl(
       platform::LocalCountryFile const & localFile);
 
 public:
-  WARN_UNUSED_RESULT pair<MwmHandle, RegResult> Register(
+  WARN_UNUSED_RESULT pair<MwmId, RegResult> Register(
       platform::LocalCountryFile const & localFile);
   //@}
 

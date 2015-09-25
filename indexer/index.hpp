@@ -75,7 +75,7 @@ public:
 
 
   /// Registers a new map.
-  WARN_UNUSED_RESULT pair<MwmHandle, RegResult> RegisterMap(
+  WARN_UNUSED_RESULT pair<MwmId, RegResult> RegisterMap(
       platform::LocalCountryFile const & localFile);
 
   /// Deregisters a map from internal records.
