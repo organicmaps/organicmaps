@@ -40,6 +40,17 @@ namespace anim
 
 class WindowHandle;
 
+// Base class for temporary CpuCount initialization work-around.
+// m_cpuCoresCount should be initialized before RenderPolicy() constructor is called.
+// New graphics library (Drape) does not have this issue.
+class RenderPolicyCpuCountHolder
+{
+protected:
+  RenderPolicyCpuCountHolder();
+  // Cache this value as it can change dynamically at runtime.
+  unsigned const m_cpuCoresCount;
+};
+
 class RenderPolicy
 {
 public:

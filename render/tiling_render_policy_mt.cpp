@@ -13,8 +13,6 @@ using namespace graphics;
 TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   : BasicTilingRenderPolicy(p, false)
 {
-  int cpuCores = GetPlatform().CpuCores();
-
   graphics::ResourceManager::Params rmp = p.m_rmParams;
 
   rmp.checkDeviceCaps();
@@ -32,8 +30,8 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
 
   rmp.m_glyphCacheParams = GetResourceGlyphCacheParams(Density());
 
-  rmp.m_threadSlotsCount = cpuCores + 2;
-  rmp.m_renderThreadsCount = cpuCores;
+  rmp.m_threadSlotsCount = m_cpuCoresCount + 2;
+  rmp.m_renderThreadsCount = m_cpuCoresCount;
 
   rmp.m_useSingleThreadedOGL = false;
 
@@ -66,7 +64,7 @@ TilingRenderPolicyMT::~TilingRenderPolicyMT()
 void TilingRenderPolicyMT::SetRenderFn(TRenderFn const & renderFn)
 {
   m_TileRenderer.reset(new TileRenderer(TileSize(),
-                                        GetPlatform().CpuCores(),
+                                        m_cpuCoresCount,
                                         m_bgColors,
                                         renderFn,
                                         m_primaryRC,

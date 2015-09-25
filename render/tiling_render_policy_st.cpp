@@ -16,8 +16,6 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
   : BasicTilingRenderPolicy(p,
                             true)
 {
-  int cpuCores = GetPlatform().CpuCores();
-
   ResourceManager::Params rmp = p.m_rmParams;
 
   rmp.checkDeviceCaps();
@@ -35,8 +33,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
 
   rmp.m_glyphCacheParams = GetResourceGlyphCacheParams(Density());
 
-  rmp.m_threadSlotsCount = cpuCores + 2;
-  rmp.m_renderThreadsCount = cpuCores;
+  rmp.m_threadSlotsCount = m_cpuCoresCount + 2;
+  rmp.m_renderThreadsCount = m_cpuCoresCount;
 
   rmp.m_useSingleThreadedOGL = true;
 
@@ -59,24 +57,22 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
   LOG(LDEBUG, ("cancelling ResourceManager"));
   m_resourceManager->cancel();
 
-  int cpuCores = GetPlatform().CpuCores();
-
   LOG(LDEBUG, ("deleting TilingRenderPolicyST"));
 
-  m_QueuedRenderer->PrepareQueueCancellation(cpuCores);
+  m_QueuedRenderer->PrepareQueueCancellation(m_cpuCoresCount);
   /// now we should process all commands to collect them into queues
   m_CoverageGenerator->Shutdown();
-  m_QueuedRenderer->CancelQueuedCommands(cpuCores);
+  m_QueuedRenderer->CancelQueuedCommands(m_cpuCoresCount);
 
   /// firstly stop all rendering commands in progress and collect all commands into queues
 
-  for (unsigned i = 0; i < cpuCores; ++i)
+  for (unsigned i = 0; i < m_cpuCoresCount; ++i)
     m_QueuedRenderer->PrepareQueueCancellation(i);
 
   m_TileRenderer->Shutdown();
   /// now we should cancel all collected commands
 
-  for (unsigned i = 0; i < cpuCores; ++i)
+  for (unsigned i = 0; i < m_cpuCoresCount; ++i)
     m_QueuedRenderer->CancelQueuedCommands(i);
 
   LOG(LDEBUG, ("reseting coverageGenerator"));
@@ -88,15 +84,13 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
 
 void TilingRenderPolicyST::SetRenderFn(TRenderFn const & renderFn)
 {
-  int const cpuCores = GetPlatform().CpuCores();
+  graphics::PacketsQueue ** queues = new graphics::PacketsQueue*[m_cpuCoresCount];
 
-  graphics::PacketsQueue ** queues = new graphics::PacketsQueue*[cpuCores];
-
-  for (unsigned i = 0; i < cpuCores; ++i)
+  for (unsigned i = 0; i < m_cpuCoresCount; ++i)
     queues[i] = m_QueuedRenderer->GetPacketsQueue(i);
 
   m_TileRenderer.reset(new TileRenderer(TileSize(),
-                                        cpuCores,
+                                        m_cpuCoresCount,
                                         m_bgColors,
                                         renderFn,
                                         m_primaryRC,
@@ -108,10 +102,10 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn const & renderFn)
 
   /// CoverageGenerator rendering queue could execute commands partially
   /// as there are no render-to-texture calls.
-//  m_QueuedRenderer->SetPartialExecution(cpuCores, true);
+//  m_QueuedRenderer->SetPartialExecution(m_cpuCoresCount, true);
   m_CoverageGenerator.reset(new CoverageGenerator(m_TileRenderer.get(),
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,
-                                                  m_QueuedRenderer->GetPacketsQueue(cpuCores)));
+                                                  m_QueuedRenderer->GetPacketsQueue(m_cpuCoresCount)));
 }
