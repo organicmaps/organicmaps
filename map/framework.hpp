@@ -342,7 +342,7 @@ public:
   void LoadSearchResultMetadata(search::Result & res) const;
   void ShowSearchResult(search::Result const & res);
 
-  size_t ShowAllSearchResults();
+  size_t ShowAllSearchResults(search::Results const & results);
   void UpdateSearchResults(search::Results const & results);
 
   void StartInteractiveSearch(search::SearchParams const & params) { m_lastSearch = params; }

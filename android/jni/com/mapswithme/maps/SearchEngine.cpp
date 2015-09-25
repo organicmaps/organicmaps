@@ -197,8 +197,9 @@ extern "C"
   {
     lock_guard<mutex> guard(g_resultsMutex);
     g_framework->DontLoadState();
+
     Result const & result = g_results.GetResult(index);
-    android::Platform::RunOnGuiThreadImpl([&result]()
+    android::Platform::RunOnGuiThreadImpl([result]()
     {
       g_framework->NativeFramework()->ShowSearchResult(result);
     });
@@ -207,10 +208,12 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeShowAllResults(JNIEnv * env, jclass clazz)
   {
+    lock_guard<mutex> guard(g_resultsMutex);
     g_framework->DontLoadState();
-    android::Platform::RunOnGuiThreadImpl([]()
+
+    android::Platform::RunOnGuiThreadImpl([results=g_results]()
     {
-      g_framework->NativeFramework()->ShowAllSearchResults();
+      g_framework->NativeFramework()->ShowAllSearchResults(results);
     });
   }
 } // extern "C"
