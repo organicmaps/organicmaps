@@ -53,31 +53,7 @@ except:
     USE_TORNADO = False
 
 
-dict = {
-            'version': 1,
-            "handlers": {
-                "console": {
-                    "class" : "logging.StreamHandler",
-                    "formatter": "default",
-                    "level"   : "DEBUG",
-#                     "stream"  : "ext://sys.stdout"
-                }
-            },
-    
-            "formatters": {
-                "default":{
-                    "format": '%(asctime)s %(levelname)-8s %(name)-15s %(message)s',
-                    "datefmt": '%Y-%m-%d %H:%M:%S'
-                }
-            }
-        }
-
-
-# logging.config.dictConfig(dict)
-
-
-logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
-logging.warning('is when this event was logged.')
+logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
 
 PORT = 34568
 LIFESPAN = 180.0  # timeout for the self destruction timer - how much time 
@@ -228,6 +204,7 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
 
 
     def kill(self):
+        logging.debug("Kill called in testserver")
         self.server.suicide()
 
 

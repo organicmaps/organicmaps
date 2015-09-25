@@ -1,5 +1,7 @@
 from __future__ import print_function
 
+import logging
+
 
 BIG_FILE_SIZE = 47684
 
@@ -193,5 +195,6 @@ class ResponseProvider:
 
     
     def kill(self):
+        logging.debug("Kill called in ResponseProvider")
         self.delegate.kill()
         return Payload("Bye...")

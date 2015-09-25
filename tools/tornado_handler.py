@@ -71,8 +71,10 @@ class MainHandler(tornado.web.RequestHandler, ResponseProviderMixin):
     @staticmethod
     def reset_self_destruct_timer():
         if MainHandler.self_destruct_timer:
+            logging.debug("Canceling the kill timer")
             MainHandler.self_destruct_timer.cancel()
-        MainHandler.self_destruct_timer = Timer(MainHandler.lifespan, MainHandler.suicide())
+        MainHandler.self_destruct_timer = Timer(MainHandler.lifespan, MainHandler.suicide)
+        logging.debug("Starting the kill timer")
         MainHandler.self_destruct_timer.start()
     
     
