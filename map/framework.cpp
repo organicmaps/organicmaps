@@ -396,9 +396,6 @@ void Framework::DeleteCountry(storage::TIndex const & index, MapOptions opt)
       {
         InvalidateRect(GetCountryBounds(countryFile.GetNameWithoutExt()), true /* doForceUpdate */);
       }
-      // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmHandles. Thus,
-      // it won' be needed to reset it after maps update.
-      m_routingSession.Reset();
       return;
     }
     case MapOptions::CarRouting:
