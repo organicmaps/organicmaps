@@ -28,7 +28,7 @@ double constexpr kOnEndToleranceM = 10.0;
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
   : m_router(router), m_routingSettings(GetCarRoutingSettings()),
-    m_name(name), m_poly(points.begin(), points.end()),m_lastCheckedCamera(0)
+    m_name(name), m_poly(points.begin(), points.end()), m_lastCheckedCamera(0)
 {
   Update();
 }
@@ -44,7 +44,7 @@ void Route::Swap(Route & rhs)
   swap(m_turns, rhs.m_turns);
   swap(m_times, rhs.m_times);
   m_absentCountries.swap(rhs.m_absentCountries);
-  m_lastCheckedCamera = rhs.m_lastCheckedCamera;
+  swap(m_lastCheckedCamera, rhs.m_lastCheckedCamera);
 }
 
 double Route::GetTotalDistanceMeters() const

@@ -22,8 +22,8 @@ uint8_t ReadCamRestriction(FeatureType & ft)
 {
   using feature::Metadata;
   ft.ParseMetadata();
-  feature::Metadata const & mt = ft.GetMetadata();
-  string const & speed = mt.Get(Metadata::FMD_MAXSPEED);
+  feature::Metadata const & md = ft.GetMetadata();
+  string const & speed = md.Get(Metadata::FMD_MAXSPEED);
   if (!speed.length())
     return 0;
   int result;

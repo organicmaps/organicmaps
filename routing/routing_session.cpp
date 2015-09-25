@@ -32,7 +32,7 @@ double constexpr kSpeedCameraMinimalWarningMeters = 200.;
 // Seconds to warning user before speed camera for driving with current speed.
 double constexpr kSpeedCameraWarningSeconds = 30;
 
-double constexpr kMpsToKmh = 1000. / 3600.;
+double constexpr kMpsToKmh = 3600. / 1000.;
 }  // namespace
 
 namespace routing
@@ -219,7 +219,8 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info, Index const & i
 
   formatDistFn(m_route.GetCurrentDistanceToEndMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
 
-  double distanceToTurnMeters = 0., distanceToNextTurnMeters = 0.;
+  double distanceToTurnMeters = 0.;
+  double distanceToNextTurnMeters = 0.;
   turns::TurnItem turn;
   turns::TurnItem nextTurn;
   m_route.GetCurrentTurn(distanceToTurnMeters, turn);

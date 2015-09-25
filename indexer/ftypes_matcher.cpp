@@ -73,13 +73,14 @@ IsATMChecker const & IsATMChecker::Instance()
 IsSpeedCamChecker::IsSpeedCamChecker()
 {
   Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({ "highway", "speed_camera"}));
+  m_types.push_back(c.GetTypeByPath({"highway", "speed_camera"}));
 }
 
+// static
 IsSpeedCamChecker const & IsSpeedCamChecker::Instance()
 {
-  static const IsSpeedCamChecker inst;
-  return inst;
+  static const IsSpeedCamChecker instance;
+  return instance;
 }
 
 IsFuelStationChecker::IsFuelStationChecker()

@@ -22,11 +22,10 @@ class Index;
 namespace routing
 {
 
-/// Speed cameras structure. First is reference to point, second is a speed limit.
 struct SpeedCameraRestriction
 {
-  uint32_t m_index;
-  uint8_t m_maxSpeed;
+  uint32_t m_index;  // Index of a polyline point where camera is located.
+  uint8_t m_maxSpeed;  // Maximum speed allowed by the camera.
 
   SpeedCameraRestriction(uint32_t index, uint8_t maxSpeed) : m_index(index), m_maxSpeed(maxSpeed) {}
 };
@@ -90,6 +89,11 @@ public:
   /// \param distanceToTurnMeters is a distance from current position to the nearest turn.
   /// \param turn is information about the nearest turn.
   bool GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
+
+  /// Returns a nearest speed camera record on your way and distance to it.
+  /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.
+  double GetCurrentCam(SpeedCameraRestriction & camera, Index const & index) const;
+
   /// @return true if GetNextTurn() returns a valid result in parameters, false otherwise.
   /// \param distanceToTurnMeters is a distance from current position to the second turn.
   /// \param turn is information about the second turn.
