@@ -100,19 +100,18 @@ struct SimpleValueList
   vector<uint8_t> m_valueList;
 };
 
-void ReadAllValues(
-    unique_ptr<trie::SuccinctTrieIterator<MemReader, SimpleValueReader>> const & root,
+void ReadAllValues(trie::SuccinctTrieIterator<MemReader, SimpleValueReader> & root,
     vector<uint8_t> & values)
 {
-  for (size_t i = 0; i < root->NumValues(); ++i)
-    values.push_back(root->GetValue(i));
+  for (size_t i = 0; i < root.NumValues(); ++i)
+    values.push_back(root.GetValue(i));
 }
 
 void CollectInSubtree(
     unique_ptr<trie::SuccinctTrieIterator<MemReader, SimpleValueReader>> const & root,
     vector<uint8_t> & collectedValues)
 {
-  ReadAllValues(root, collectedValues);
+  ReadAllValues(*root.get(), collectedValues);
 
   if (auto l = root->GoToEdge(0))
     CollectInSubtree(l, collectedValues);
@@ -223,7 +222,7 @@ UNIT_TEST(SuccinctTrie_MoveToString)
     TEST(it != nullptr, ());
     vector<uint8_t> expectedValues;
     vector<uint8_t> receivedValues;
-    ReadAllValues(it, receivedValues);
+    ReadAllValues(*it.get(), receivedValues);
     TEST_EQUAL(expectedValues, receivedValues, ());
   }
 
@@ -232,7 +231,7 @@ UNIT_TEST(SuccinctTrie_MoveToString)
     TEST(it != nullptr, ());
     vector<uint8_t> expectedValues{1};
     vector<uint8_t> receivedValues;
-    ReadAllValues(it, receivedValues);
+    ReadAllValues(*it.get(), receivedValues);
     TEST_EQUAL(expectedValues, receivedValues, ());
   }
 
@@ -241,7 +240,7 @@ UNIT_TEST(SuccinctTrie_MoveToString)
     TEST(it != nullptr, ());
     vector<uint8_t> expectedValues{2};
     vector<uint8_t> receivedValues;
-    ReadAllValues(it, receivedValues);
+    ReadAllValues(*it.get(), receivedValues);
     TEST_EQUAL(expectedValues, receivedValues, ());
   }
 
@@ -250,7 +249,7 @@ UNIT_TEST(SuccinctTrie_MoveToString)
     TEST(it != nullptr, ());
     vector<uint8_t> expectedValues{3, 4};
     vector<uint8_t> receivedValues;
-    ReadAllValues(it, receivedValues);
+    ReadAllValues(*it.get(), receivedValues);
     TEST_EQUAL(expectedValues, receivedValues, ());
   }
 

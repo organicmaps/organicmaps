@@ -17,7 +17,7 @@ typedef uint32_t TrieChar;
 // However 0 is used because the first byte is actually language id.
 static uint32_t const DEFAULT_CHAR = 0;
 
-template <typename ValueT>
+template <typename TValue>
 class Iterator
 {
   //dbg::ObjectTracker m_tracker;
@@ -30,12 +30,12 @@ public:
   };
 
   buffer_vector<Edge, 8> m_edge;
-  buffer_vector<ValueT, 2> m_value;
+  buffer_vector<TValue, 2> m_value;
 
   virtual ~Iterator() {}
 
-  virtual Iterator<ValueT> * Clone() const = 0;
-  virtual Iterator<ValueT> * GoToEdge(size_t i) const = 0;
+  virtual Iterator<TValue> * Clone() const = 0;
+  virtual Iterator<TValue> * GoToEdge(size_t i) const = 0;
 };
 
 struct EmptyValueReader
@@ -66,16 +66,16 @@ struct FixedSizeValueReader
   }
 };
 
-template <typename ValueT, typename F, typename StringT>
-void ForEachRef(Iterator<ValueT> const & iter, F & f, StringT const & s)
+template <typename TValue, typename F, typename TString>
+void ForEachRef(Iterator<TValue> const & iter, F & f, TString const & s)
 {
   for (size_t i = 0; i < iter.m_value.size(); ++i)
     f(s, iter.m_value[i]);
   for (size_t i = 0; i < iter.m_edge.size(); ++i)
   {
-    StringT s1(s);
+    TString s1(s);
     s1.insert(s1.end(), iter.m_edge[i].m_str.begin(), iter.m_edge[i].m_str.end());
-    unique_ptr<Iterator<ValueT>> const pIter1(iter.GoToEdge(i));
+    unique_ptr<Iterator<TValue>> const pIter1(iter.GoToEdge(i));
     ForEachRef(*pIter1, f, s1);
   }
 }

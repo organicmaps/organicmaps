@@ -9,17 +9,17 @@
 
 namespace trie
 {
-template <class ValueReaderT>
-class LeafIterator0 : public Iterator<typename ValueReaderT::ValueType>
+template <class TValueReader>
+class LeafIterator0 : public Iterator<typename TValueReader::ValueType>
 {
 public:
-  typedef typename ValueReaderT::ValueType ValueType;
+  typedef typename TValueReader::ValueType ValueType;
 
-  template <class ReaderT>
-  LeafIterator0(ReaderT const & reader, ValueReaderT const & valueReader)
+  template <class TReader>
+  LeafIterator0(TReader const & reader, TValueReader const & valueReader)
   {
     uint32_t const size = static_cast<uint32_t>(reader.Size());
-    ReaderSource<ReaderT> src(reader);
+    ReaderSource<TReader> src(reader);
     while (src.Pos() < size)
     {
       this->m_value.push_back(ValueType());
@@ -32,9 +32,10 @@ public:
     ASSERT_EQUAL(size, src.Pos(), ());
   }
 
-  Iterator<ValueType> * Clone() const { return new LeafIterator0<ValueReaderT>(*this); }
+  // trie::Iterator overrides:
+  Iterator<ValueType> * Clone() const override { return new LeafIterator0<TValueReader>(*this); }
 
-  Iterator<ValueType> * GoToEdge(size_t i) const
+  Iterator<ValueType> * GoToEdge(size_t i) const override
   {
     ASSERT(false, (i));
     UNUSED_VALUE(i);
@@ -42,36 +43,37 @@ public:
   }
 };
 
-template <class ReaderT, class ValueReaderT>
-class IteratorImplBase : public Iterator<typename ValueReaderT::ValueType>
+template <class TReader, class TValueReader>
+class IteratorImplBase : public Iterator<typename TValueReader::ValueType>
 {
 protected:
   enum { IS_READER_IN_MEMORY = 0 };
 };
 
-template <class ValueReaderT>
-class IteratorImplBase<SharedMemReader, ValueReaderT>
-    : public Iterator<typename ValueReaderT::ValueType>
+template <class TValueReader>
+class IteratorImplBase<SharedMemReader, TValueReader>
+    : public Iterator<typename TValueReader::ValueType>
 {
 protected:
   enum { IS_READER_IN_MEMORY = 1 };
 };
 
-template <class ReaderT, class ValueReaderT>
-class Iterator0 : public IteratorImplBase<ReaderT, ValueReaderT>
+template <class TReader, class TValueReader>
+class Iterator0 : public IteratorImplBase<TReader, TValueReader>
 {
 public:
-  typedef typename ValueReaderT::ValueType ValueType;
+  typedef typename TValueReader::ValueType ValueType;
 
-  Iterator0(ReaderT const & reader, ValueReaderT const & valueReader, TrieChar baseChar)
+  Iterator0(TReader const & reader, TValueReader const & valueReader, TrieChar baseChar)
     : m_reader(reader), m_valueReader(valueReader)
   {
     ParseNode(baseChar);
   }
 
-  Iterator<ValueType> * Clone() const { return new Iterator0<ReaderT, ValueReaderT>(*this); }
+  // trie::Iterator overrides:
+  Iterator<ValueType> * Clone() const override { return new Iterator0<TReader, TValueReader>(*this); }
 
-  Iterator<ValueType> * GoToEdge(size_t i) const
+  Iterator<ValueType> * GoToEdge(size_t i) const override
   {
     ASSERT_LESS(i, this->m_edge.size(), ());
     uint32_t const offset = m_edgeInfo[i].m_offset;
@@ -79,16 +81,16 @@ public:
 
     // TODO: Profile to check that MemReader optimization helps?
     /*
-    if (!IteratorImplBase<ReaderT, ValueReaderT>::IS_READER_IN_MEMORY &&
+    if (!IteratorImplBase<TReader, TValueReader>::IS_READER_IN_MEMORY &&
         size < 1024)
     {
       SharedMemReader memReader(size);
       m_reader.Read(offset, memReader.Data(), size);
       if (m_edgeInfo[i].m_isLeaf)
-        return new LeafIterator0<SharedMemReader, ValueReaderT>(
+        return new LeafIterator0<SharedMemReader, TValueReader>(
               memReader, m_valueReader);
       else
-        return new Iterator0<SharedMemReader, ValueReaderT>(
+        return new Iterator0<SharedMemReader, TValueReader>(
               memReader, m_valueReader,
               this->m_edge[i].m_str.back());
     }
@@ -96,9 +98,9 @@ public:
     */
     {
       if (m_edgeInfo[i].m_isLeaf)
-        return new LeafIterator0<ValueReaderT>(m_reader.SubReader(offset, size), m_valueReader);
+        return new LeafIterator0<TValueReader>(m_reader.SubReader(offset, size), m_valueReader);
       else
-        return new Iterator0<ReaderT, ValueReaderT>(m_reader.SubReader(offset, size), m_valueReader,
+        return new Iterator0<TReader, TValueReader>(m_reader.SubReader(offset, size), m_valueReader,
                                                     this->m_edge[i].m_str.back());
     }
   }
@@ -106,7 +108,7 @@ public:
 private:
   void ParseNode(TrieChar baseChar)
   {
-    ReaderSource<ReaderT> src(m_reader);
+    ReaderSource<TReader> src(m_reader);
 
     // [1: header]: [2: min(valueCount, 3)] [6: min(childCount, 63)]
     uint8_t const header = ReadPrimitiveFromSource<uint8_t>(src);
@@ -175,16 +177,16 @@ private:
 
   buffer_vector<EdgeInfo, 9> m_edgeInfo;
 
-  ReaderT m_reader;
-  ValueReaderT m_valueReader;
+  TReader m_reader;
+  TValueReader m_valueReader;
 };
 
 // Returns iterator to the root of the trie.
-template <class ReaderT, class ValueReaderT>
-Iterator<typename ValueReaderT::ValueType> * ReadTrie(ReaderT const & reader,
-                                                      ValueReaderT valueReader = ValueReaderT())
+template <class TReader, class TValueReader>
+Iterator<typename TValueReader::ValueType> * ReadTrie(TReader const & reader,
+                                                      TValueReader valueReader = TValueReader())
 {
-  return new Iterator0<ReaderT, ValueReaderT>(reader, valueReader, DEFAULT_CHAR);
+  return new Iterator0<TReader, TValueReader>(reader, valueReader, DEFAULT_CHAR);
 }
 
 }  // namespace trie
