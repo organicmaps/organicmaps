@@ -149,6 +149,14 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
   p("wikipedia", "https://en.wikipedia.org/wiki/");
   TEST(params.GetMetadata().Empty(), ("Null wiki"));
 
+  p("wikipedia", "http://.wikipedia.org/wiki/Whatever");
+  TEST(params.GetMetadata().Empty(), ("Null lang", params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA)));
+
+  // We ignore incorrect prefixes
+  p("wikipedia", "ht.tps://en.wikipedia.org/wiki/Whuh");
+  TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA), "en:Whuh", ("ht.tp:"));
+  params.GetMetadata().Drop(feature::Metadata::FMD_WIKIPEDIA);
+
   p("wikipedia", "http://ru.google.com/wiki/wutlol");
   TEST(params.GetMetadata().Empty(), ("Google"));
 }

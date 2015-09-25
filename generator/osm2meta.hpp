@@ -196,10 +196,8 @@ protected:
     escaped.fill('0');
     escaped << hex;
 
-    for (string::const_iterator i = value.cbegin(), n = value.cend(); i != n; ++i)
+    for (auto const & c : value)
     {
-      string::value_type c = (*i);
-
       // Keep alphanumeric and other accepted characters intact
       // Convert spaces to '_' as wikipedia does
       // Turn other characters to '%00' sequences
@@ -230,7 +228,7 @@ protected:
     {
       // Convert URL to "lang:title"
       i += 3;
-      string::size_type const j = v.find('.');
+      string::size_type const j = v.find('.', i + 1);
       string const wikiUrlPart = ".wikipedia.org/wiki/";
       if (j != string::npos && v.substr(j, wikiUrlPart.length()) == wikiUrlPart)
         return v.substr(i, j - i) + ":" + v.substr(j + wikiUrlPart.length());
