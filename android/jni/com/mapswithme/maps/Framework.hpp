@@ -16,12 +16,12 @@
 
 #include "geometry/avg_vector.hpp"
 
-#include "base/deferred_task.hpp"
 #include "base/timer.hpp"
 
 #include "indexer/map_style.hpp"
 
 #include "std/map.hpp"
+#include "std/mutex.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/cstdint.hpp"
@@ -38,24 +38,15 @@ namespace android
     unique_ptr<gui::Skin> m_skin;
 
     typedef shared_ptr<jobject> TJobject;
-
     TJobject m_javaCountryListener;
     typedef map<int, TJobject> TListenerMap;
     TListenerMap m_javaActiveMapListeners;
     int m_currentSlotID;
 
     int m_activeMapsConnectionID;
-    bool m_doLoadState;
 
     math::LowPassVector<float, 3> m_sensors[2];
     double m_lastCompass;
-
-    unique_ptr<DeferredTask> m_deferredTask;
-    bool m_wasLongClick;
-
-    int m_densityDpi;
-    int m_screenWidth;
-    int m_screenHeight;
 
     string m_searchQuery;
 
@@ -71,8 +62,6 @@ namespace android
     ~Framework();
 
     storage::Storage & Storage();
-
-    void DontLoadState() { m_doLoadState = false; }
 
     void ShowCountry(storage::TIndex const & idx, bool zoomToDownloadButton);
     storage::TStatus GetCountryStatus(storage::TIndex const & idx) const;
@@ -171,6 +160,10 @@ namespace android
     // Fills mapobject's metadata from UserMark
     void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, UserMark const * userMark);
 
+    using TDrapeTask = function<void()>;
+    // Posts a task which must be executed when Drape Engine is alive
+    void PostDrapeTask(TDrapeTask const & task);
+
   public:
     virtual void ItemStatusChanged(int childPosition);
     virtual void ItemProgressChanged(int childPosition, storage::LocalAndRemoteSizeT const & sizes);
@@ -184,6 +177,12 @@ namespace android
                                        MapOptions const & newOpt);
     virtual void DownloadingProgressUpdate(storage::ActiveMapsLayout::TGroup const & group, int position,
                                            storage::LocalAndRemoteSizeT const & progress);
+
+  private:
+    vector<TDrapeTask> m_drapeTasksQueue;
+    mutex m_drapeQueueMutex;
+
+    void ExecuteDrapeTasks();
   };
 }
 

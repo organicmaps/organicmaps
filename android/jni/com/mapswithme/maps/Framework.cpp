@@ -60,8 +60,7 @@ enum MultiTouchAction
 };
 
 Framework::Framework()
- : m_doLoadState(true)
- , m_lastCompass(0.0)
+ : m_lastCompass(0.0)
  , m_currentMode(location::MODE_UNKNOWN_POSITION)
 {
   ASSERT_EQUAL ( g_framework, 0, () );
@@ -166,6 +165,15 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   m_work.CreateDrapeEngine(make_ref(m_contextFactory), move(p));
   m_work.EnterForeground();
 
+  // load initial state of the map or execute drape tasks which set up custom state
+  {
+    lock_guard<mutex> lock(m_drapeQueueMutex);
+    if (m_drapeTasksQueue.empty())
+      LoadState();
+    else
+      ExecuteDrapeTasks();
+  }
+
   return true;
 }
 
@@ -230,8 +238,6 @@ Storage & Framework::Storage()
 
 void Framework::ShowCountry(TIndex const & idx, bool zoomToDownloadButton)
 {
-  m_doLoadState = false;
-
   if (zoomToDownloadButton)
   {
       m2::RectD const rect = m_work.GetCountryBounds(idx);
@@ -282,13 +288,11 @@ void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t 
 
 void Framework::ShowSearchResult(search::Result const & r)
 {
-  m_doLoadState = false;
   m_work.ShowSearchResult(r);
 }
 
 void Framework::ShowAllSearchResults()
 {
-  m_doLoadState = false;
   m_work.ShowAllSearchResults();
 }
 
@@ -412,9 +416,6 @@ size_t Framework::ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t
 
 bool Framework::ShowMapForURL(string const & url)
 {
-  /// @todo this is weird hack, we should reconsider Android lifecycle handling design
-  m_doLoadState = false;
-
   return m_work.ShowMapForURL(url);
 }
 
@@ -441,7 +442,6 @@ string Framework::GetOutdatedCountriesString()
 void Framework::ShowTrack(int category, int track)
 {
   Track const * nTrack = NativeFramework()->GetBmCategory(category)->GetTrack(track);
-  m_doLoadState = false;
   NativeFramework()->ShowTrack(*nTrack);
 }
 
@@ -590,6 +590,24 @@ void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const m
     // TODO use unique_ptrs for autoallocation of local refs
     env->DeleteLocalRef(metaString);
   }
+}
+
+void Framework::PostDrapeTask(TDrapeTask const & task)
+{
+  ASSERT(task != nullptr, ());
+  lock_guard<mutex> lock(m_drapeQueueMutex);
+  if (IsDrapeEngineCreated())
+    task();
+  else
+    m_drapeTasksQueue.push_back(task);
+}
+
+void Framework::ExecuteDrapeTasks()
+{
+  for (size_t i = 0; i < m_drapeTasksQueue.size(); ++i)
+    m_drapeTasksQueue[i]();
+
+  m_drapeTasksQueue.clear();
 }
 
 } // namespace android

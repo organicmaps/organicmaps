@@ -103,8 +103,10 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_country_ActiveCountryTree_showOnMap(JNIEnv * env, jclass clazz, jint group, jint position)
   {
-    GetMapLayout().ShowMap(ToGroup(group), position);
-    g_framework->DontLoadState();
+    g_framework->PostDrapeTask([group, position]()
+    {
+      GetMapLayout().ShowMap(ToGroup(group), position);
+    });
   }
 
   JNIEXPORT void JNICALL

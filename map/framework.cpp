@@ -632,11 +632,8 @@ void Framework::SaveState()
 void Framework::LoadState()
 {
   m2::AnyRectD rect;
-  if (Settings::Get("ScreenClipRect", rect) &&
-      df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
-  {
+  if (Settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
     CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, rect, false));
-  }
   else
     ShowAll();
 }
