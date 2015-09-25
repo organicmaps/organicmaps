@@ -53,7 +53,6 @@
 		674A29AD1B26F0AE001A525C /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29921B26F0AE001A525C /* libapi.a */; };
 		674A29AE1B26F0AE001A525C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29931B26F0AE001A525C /* libbase.a */; };
 		674A29AF1B26F0AE001A525C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29941B26F0AE001A525C /* libcoding.a */; };
-		674A29B01B26F0AE001A525C /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29951B26F0AE001A525C /* libdrape.a */; };
 		674A29B11B26F0AE001A525C /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29961B26F0AE001A525C /* libexpat.a */; };
 		674A29B21B26F0AE001A525C /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29971B26F0AE001A525C /* libfreetype.a */; };
 		674A29B31B26F0AE001A525C /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29981B26F0AE001A525C /* libfribidi.a */; };
@@ -81,8 +80,6 @@
 		6753458B1A404CB200A0A8C3 /* mainwindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345751A404CB200A0A8C3 /* mainwindow.cpp */; };
 		6753458C1A404CB200A0A8C3 /* preferences_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345771A404CB200A0A8C3 /* preferences_dialog.cpp */; };
 		6753458D1A404CB200A0A8C3 /* proxystyle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345791A404CB200A0A8C3 /* proxystyle.cpp */; };
-		6753458E1A404CB200A0A8C3 /* qtoglcontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753457B1A404CB200A0A8C3 /* qtoglcontext.cpp */; };
-		6753458F1A404CB200A0A8C3 /* qtoglcontextfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753457D1A404CB200A0A8C3 /* qtoglcontextfactory.cpp */; };
 		675345901A404CB200A0A8C3 /* search_panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753457F1A404CB200A0A8C3 /* search_panel.cpp */; };
 		675345911A404CB200A0A8C3 /* slider_ctrl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345811A404CB200A0A8C3 /* slider_ctrl.cpp */; };
 		675345921A404CB200A0A8C3 /* update_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345831A404CB200A0A8C3 /* update_dialog.cpp */; };
@@ -195,7 +192,6 @@
 		674A29921B26F0AE001A525C /* libapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libapi.a; path = "../../../omim-xcode-build/Debug/libapi.a"; sourceTree = "<group>"; };
 		674A29931B26F0AE001A525C /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		674A29941B26F0AE001A525C /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
-		674A29951B26F0AE001A525C /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		674A29961B26F0AE001A525C /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../../omim-xcode-build/Debug/libexpat.a"; sourceTree = "<group>"; };
 		674A29971B26F0AE001A525C /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = "<group>"; };
 		674A29981B26F0AE001A525C /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfribidi.a; path = "../../../omim-xcode-build/Debug/libfribidi.a"; sourceTree = "<group>"; };
@@ -263,7 +259,6 @@
 				674A29AD1B26F0AE001A525C /* libapi.a in Frameworks */,
 				674A29AE1B26F0AE001A525C /* libbase.a in Frameworks */,
 				674A29AF1B26F0AE001A525C /* libcoding.a in Frameworks */,
-				674A29B01B26F0AE001A525C /* libdrape.a in Frameworks */,
 				674A29B11B26F0AE001A525C /* libexpat.a in Frameworks */,
 				674A29B21B26F0AE001A525C /* libfreetype.a in Frameworks */,
 				674A29B31B26F0AE001A525C /* libfribidi.a in Frameworks */,
@@ -307,12 +302,13 @@
 		6729A4591A684401007D5872 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				671F592F1B8759460032311E /* libminizip.a */,
+				671F59011B8755FE0032311E /* libz.dylib */,
 				674A29901B26F0AE001A525C /* libalohalitics.a */,
 				674A29911B26F0AE001A525C /* libanim.a */,
 				674A29921B26F0AE001A525C /* libapi.a */,
 				674A29931B26F0AE001A525C /* libbase.a */,
 				674A29941B26F0AE001A525C /* libcoding.a */,
-				674A29951B26F0AE001A525C /* libdrape.a */,
 				674A29961B26F0AE001A525C /* libexpat.a */,
 				674A29971B26F0AE001A525C /* libfreetype.a */,
 				674A29981B26F0AE001A525C /* libfribidi.a */,
@@ -382,8 +378,6 @@
 		675345401A404C6100A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				671F592F1B8759460032311E /* libminizip.a */,
-				671F59011B8755FE0032311E /* libz.dylib */,
 				670D05BC1B0E10640013A7AC /* defaults.xcconfig */,
 				6729A5C91A693045007D5872 /* Resources */,
 				6729A4591A684401007D5872 /* Libs */,
@@ -535,8 +529,6 @@
 				6753458C1A404CB200A0A8C3 /* preferences_dialog.cpp in Sources */,
 				6753458A1A404CB200A0A8C3 /* main.cpp in Sources */,
 				675345891A404CB200A0A8C3 /* info_dialog.cpp in Sources */,
-				6753458F1A404CB200A0A8C3 /* qtoglcontextfactory.cpp in Sources */,
-				6753458E1A404CB200A0A8C3 /* qtoglcontext.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,7 +668,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MapsMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "/Volumes/AltHD/omim/xcode/minizip/../../../omim-xcode-build/Debug";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -696,7 +688,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MapsMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "/Volumes/AltHD/omim/xcode/minizip/../../../omim-xcode-build/Debug";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
