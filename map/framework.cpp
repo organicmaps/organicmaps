@@ -102,7 +102,7 @@ namespace
   char const kRouterTypeKey[] = "router";
 }
 
-pair<MwmSet::MwmHandle, MwmSet::RegResult> Framework::RegisterMap(
+pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
     LocalCountryFile const & localFile)
 {
   LOG(LINFO, ("Loading map:", localFile.GetCountryName()));
@@ -447,10 +447,10 @@ void Framework::UpdateLatestCountryFile(LocalCountryFile const & localFile)
     return;
 
   // Add downloaded map.
-  auto result = m_model.RegisterMap(localFile);
-  MwmSet::MwmHandle const & handle = result.first;
-  if (handle.IsAlive())
-    InvalidateRect(handle.GetInfo()->m_limitRect, true /* doForceUpdate */);
+  auto p = m_model.RegisterMap(localFile);
+  MwmSet::MwmId const & id = p.first;
+  if (id.IsAlive())
+    InvalidateRect(id.GetInfo()->m_limitRect, true /* doForceUpdate */);
 
   GetSearchEngine()->ClearViewportsCache();
 }
@@ -479,9 +479,9 @@ void Framework::RegisterAllMaps()
     if (p.second != MwmSet::RegResult::Success)
       continue;
 
-    MwmSet::MwmHandle const & handle = p.first;
-    ASSERT(handle.IsAlive(), ());
-    minFormat = min(minFormat, static_cast<int>(handle.GetInfo()->m_version.format));
+    MwmSet::MwmId const & id = p.first;
+    ASSERT(id.IsAlive(), ());
+    minFormat = min(minFormat, static_cast<int>(id.GetInfo()->m_version.format));
   }
 
   m_countryTree.Init(maps);

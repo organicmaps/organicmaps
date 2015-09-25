@@ -182,7 +182,7 @@ ModelReader * Platform::GetReader(string const & file, string const & searchScop
     }
   }
 
-  LOG(LERROR, ("Can't get reader for:", file));
+  LOG(LWARNING, ("Can't get reader for:", file));
   MYTHROW(FileAbsentException, ("File not found", file));
   return 0;
 }

@@ -62,10 +62,10 @@ public:
     Offsets
   };
 
-  // Prepares (if necessary) directory for country indexes. Local file
-  // should point to existing local country files. Returns true on
-  // success, false otherwise.
-  static bool PreparePlaceOnDisk(LocalCountryFile const & localFile);
+  /// Prepares (if necessary) directory for country indexes. Local file
+  /// should point to existing local country files.
+  /// @throw FileSystemException if any file system error occured.
+  static void PreparePlaceOnDisk(LocalCountryFile const & localFile);
 
   // Removes country indexes from disk including containing directory.
   static bool DeleteFromDisk(LocalCountryFile const & localFile);

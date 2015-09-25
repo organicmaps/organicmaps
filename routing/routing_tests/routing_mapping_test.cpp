@@ -63,7 +63,7 @@ private:
   ScopedFile m_testRoutingFile;
   LocalCountryFile m_localFile;
   TestMwmSet m_testSet;
-  pair<MwmSet::MwmHandle, MwmSet::RegResult> m_result;
+  pair<MwmSet::MwmId, MwmSet::RegResult> m_result;
 };
 
 UNIT_TEST(RoutingMappingCountryFileLockTest)
@@ -72,10 +72,10 @@ UNIT_TEST(RoutingMappingCountryFileLockTest)
   {
     RoutingMapping testMapping(generator.GetCountryName(), (&generator.GetMwmSet()));
     TEST(testMapping.IsValid(), ());
-    TEST_EQUAL(generator.GetNumRefs(), 2, ());
+    TEST_EQUAL(generator.GetNumRefs(), 1, ());
   }
   // Routing mapping must unlock the file after destruction.
-  TEST_EQUAL(generator.GetNumRefs(), 1, ());
+  TEST_EQUAL(generator.GetNumRefs(), 0, ());
 }
 
 UNIT_TEST(IndexManagerLockManagementTest)
@@ -87,13 +87,13 @@ UNIT_TEST(IndexManagerLockManagementTest)
   {
     auto testMapping = manager.GetMappingByName(fileName);
     TEST(testMapping->IsValid(), ());
-    TEST_EQUAL(generator.GetNumRefs(), 2, ());
+    TEST_EQUAL(generator.GetNumRefs(), 1, ());
   }
   // We freed mapping, but it still persists inside the manager cache.
-  TEST_EQUAL(generator.GetNumRefs(), 2, ());
+  TEST_EQUAL(generator.GetNumRefs(), 1, ());
 
   // Test cache clearing.
   manager.Clear();
-  TEST_EQUAL(generator.GetNumRefs(), 1, ());
+  TEST_EQUAL(generator.GetNumRefs(), 0, ());
 }
 }  // namespace

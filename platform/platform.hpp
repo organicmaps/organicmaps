@@ -15,7 +15,7 @@
 #include "defines.hpp"
 
 DECLARE_EXCEPTION(FileAbsentException, RootException);
-DECLARE_EXCEPTION(NotImplementedException, RootException);
+DECLARE_EXCEPTION(FileSystemException, RootException);
 
 namespace platform
 {

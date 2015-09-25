@@ -388,6 +388,7 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, uint32_t maxN
   if (m_oldFormat)
     LOG(LINFO, ("Using old format index for", localFile.GetCountryName()));
 
+  CountryIndexes::PreparePlaceOnDisk(localFile);
   string const bitsFileName = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Bits);
   string const nodesFileName = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Nodes);
 

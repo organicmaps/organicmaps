@@ -63,7 +63,7 @@ unique_ptr<MwmSet::MwmValueBase> Index::CreateValue(MwmInfo & info) const
   return unique_ptr<MwmSet::MwmValueBase>(move(p));
 }
 
-pair<MwmSet::MwmHandle, MwmSet::RegResult> Index::RegisterMap(LocalCountryFile const & localFile)
+pair<MwmSet::MwmId, MwmSet::RegResult> Index::RegisterMap(LocalCountryFile const & localFile)
 {
   auto result = Register(localFile);
   if (result.first.IsAlive() && result.second == MwmSet::RegResult::Success)

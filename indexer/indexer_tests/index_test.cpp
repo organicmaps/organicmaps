@@ -113,7 +113,7 @@ UNIT_TEST(Index_MwmStatusNotifications)
     TEST(p.first.IsAlive(), ());
     TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
     observer.CheckExpectations();
-    localFileV1Id = p.first.GetId();
+    localFileV1Id = p.first;
   }
 
   // Checks that map can't registered twice.
@@ -122,7 +122,7 @@ UNIT_TEST(Index_MwmStatusNotifications)
     TEST(p.first.IsAlive(), ());
     TEST_EQUAL(MwmSet::RegResult::VersionAlreadyExists, p.second, ());
     observer.CheckExpectations();
-    TEST_EQUAL(localFileV1Id, p.first.GetId(), ());
+    TEST_EQUAL(localFileV1Id, p.first, ());
   }
 
   // Checks that observers are notified when map is updated.
@@ -134,7 +134,7 @@ UNIT_TEST(Index_MwmStatusNotifications)
     TEST(p.first.IsAlive(), ());
     TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
     observer.CheckExpectations();
-    localFileV2Id = p.first.GetId();
+    localFileV2Id = p.first;
     TEST_NOT_EQUAL(localFileV1Id, localFileV2Id, ());
   }
 

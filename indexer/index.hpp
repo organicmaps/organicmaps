@@ -73,10 +73,8 @@ public:
     virtual void OnMapDeregistered(platform::LocalCountryFile const & localFile) {}
   };
 
-
   /// Registers a new map.
-  WARN_UNUSED_RESULT pair<MwmHandle, RegResult> RegisterMap(
-      platform::LocalCountryFile const & localFile);
+  pair<MwmId, RegResult> RegisterMap(platform::LocalCountryFile const & localFile);
 
   /// Deregisters a map from internal records.
   ///

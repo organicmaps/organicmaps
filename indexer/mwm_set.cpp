@@ -4,6 +4,7 @@
 #include "defines.hpp"
 
 #include "base/assert.hpp"
+#include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 
@@ -83,7 +84,7 @@ MwmSet::MwmId MwmSet::GetMwmIdByCountryFileImpl(CountryFile const & countryFile)
   return MwmId(it->second.back());
 }
 
-pair<MwmSet::MwmHandle, MwmSet::RegResult> MwmSet::Register(LocalCountryFile const & localFile)
+pair<MwmSet::MwmId, MwmSet::RegResult> MwmSet::Register(LocalCountryFile const & localFile)
 {
   lock_guard<mutex> lock(m_lock);
 
@@ -108,26 +109,26 @@ pair<MwmSet::MwmHandle, MwmSet::RegResult> MwmSet::Register(LocalCountryFile con
     LOG(LINFO, ("Updating already registered mwm:", name));
     info->SetStatus(MwmInfo::STATUS_REGISTERED);
     info->m_file = localFile;
-    return make_pair(GetLock(id), RegResult::VersionAlreadyExists);
+    return make_pair(id, RegResult::VersionAlreadyExists);
   }
 
   LOG(LWARNING, ("Trying to add too old (", localFile.GetVersion(), ") mwm (", name,
                  "), current version:", info->GetVersion()));
-  return make_pair(MwmHandle(), RegResult::VersionTooOld);
+  return make_pair(MwmId(), RegResult::VersionTooOld);
 }
 
-pair<MwmSet::MwmHandle, MwmSet::RegResult> MwmSet::RegisterImpl(LocalCountryFile const & localFile)
+pair<MwmSet::MwmId, MwmSet::RegResult> MwmSet::RegisterImpl(LocalCountryFile const & localFile)
 {
   // This function can throw an exception for a bad mwm file.
   shared_ptr<MwmInfo> info(CreateInfo(localFile));
   if (!info)
-    return make_pair(MwmHandle(), RegResult::UnsupportedFileFormat);
+    return make_pair(MwmId(), RegResult::UnsupportedFileFormat);
 
   info->m_file = localFile;
   info->SetStatus(MwmInfo::STATUS_REGISTERED);
   m_info[localFile.GetCountryName()].push_back(info);
 
-  return make_pair(GetLock(MwmId(info)), RegResult::Success);
+  return make_pair(MwmId(info), RegResult::Success);
 }
 
 bool MwmSet::DeregisterImpl(MwmId const & id)
@@ -214,7 +215,18 @@ unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId const & id)
     }
   }
 
-  return CreateValue(*info);
+  try
+  {
+    return CreateValue(*info);
+  }
+  catch (exception const & ex)
+  {
+    LOG(LERROR, ("Can't create MWMValue for", info->GetCountryName(), "Reason", ex.what()));
+
+    --info->m_numRefs;
+    DeregisterImpl(id);
+    return nullptr;
+  }
 }
 
 void MwmSet::UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> && p)

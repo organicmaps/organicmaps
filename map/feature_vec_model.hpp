@@ -46,7 +46,7 @@ class FeaturesFetcher : public Index::Observer
     }
 
     /// Registers a new map.
-    WARN_UNUSED_RESULT pair<MwmSet::MwmHandle, MwmSet::RegResult> RegisterMap(
+    pair<MwmSet::MwmId, MwmSet::RegResult> RegisterMap(
         platform::LocalCountryFile const & localFile);
 
     /// Deregisters a map denoted by file from internal records.

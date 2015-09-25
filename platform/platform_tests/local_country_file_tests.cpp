@@ -313,8 +313,7 @@ UNIT_TEST(LocalCountryFile_CountryIndexes)
   TEST_EQUAL(
       my::JoinFoldersToPath(germanyLocalFile.GetDirectory(), germanyFile.GetNameWithoutExt()),
       CountryIndexes::IndexesDir(germanyLocalFile), ());
-  TEST(CountryIndexes::PreparePlaceOnDisk(germanyLocalFile),
-       ("Can't prepare place for:", germanyLocalFile));
+  CountryIndexes::PreparePlaceOnDisk(germanyLocalFile);
 
   string const bitsPath = CountryIndexes::GetPath(germanyLocalFile, CountryIndexes::Index::Bits);
   TEST(!Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
@@ -344,9 +343,8 @@ UNIT_TEST(LocalCountryFile_DoNotDeleteUserFiles)
 
   CountryFile germanyFile("Germany");
   LocalCountryFile germanyLocalFile(testDir.GetFullPath(), germanyFile, 101010 /* version */);
+  CountryIndexes::PreparePlaceOnDisk(germanyLocalFile);
 
-  TEST(CountryIndexes::PreparePlaceOnDisk(germanyLocalFile),
-       ("Can't prepare place for:", germanyLocalFile));
   string const userFilePath =
       my::JoinFoldersToPath(CountryIndexes::IndexesDir(germanyLocalFile), "user-data.txt");
   {
