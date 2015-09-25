@@ -120,7 +120,7 @@ Engine::Engine(Index & index, Reader * categoriesR, storage::CountryInfoGetter c
   m_query = m_factory->BuildSearchQuery(index, m_categories, m_suggests, infoGetter);
   m_query->SetPreferredLocale(locale);
 
-  m_loop = threads::SimpleThread(&Engine::MainLoop, this);
+  m_thread = threads::SimpleThread(&Engine::MainLoop, this);
 }
 
 Engine::~Engine()
@@ -130,22 +130,22 @@ Engine::~Engine()
     m_shutdown = true;
     m_cv.notify_one();
   }
-  m_loop.join();
+  m_thread.join();
 }
 
 weak_ptr<QueryHandle> Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
   shared_ptr<QueryHandle> handle(new QueryHandle());
-  PostTask(bind(&Engine::SearchTask, this, params, viewport, handle));
+  PostTask(bind(&Engine::DoSearch, this, params, viewport, handle));
   return handle;
 }
 
 void Engine::SetSupportOldFormat(bool support)
 {
-  PostTask(bind(&Engine::SupportOldFormatTask, this, support));
+  PostTask(bind(&Engine::DoSupportOldFormat, this, support));
 }
 
-void Engine::ClearCaches() { PostTask(bind(&Engine::ClearCachesTask, this)); }
+void Engine::ClearCaches() { PostTask(bind(&Engine::DoClearCaches, this)); }
 
 bool Engine::GetNameByType(uint32_t type, int8_t locale, string & name) const
 {
@@ -211,12 +211,12 @@ void Engine::MainLoop()
 void Engine::PostTask(function<void()> && task)
 {
   lock_guard<mutex> lock(m_mu);
-  m_tasks.push(std::move(task));
+  m_tasks.push(move(task));
   m_cv.notify_one();
 }
 
-void Engine::SearchTask(SearchParams const & params, m2::RectD const & viewport,
-                        shared_ptr<QueryHandle> handle)
+void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
+                      shared_ptr<QueryHandle> handle)
 {
   bool const viewportSearch = params.HasSearchMode(SearchParams::IN_VIEWPORT_ONLY);
 
@@ -270,7 +270,7 @@ void Engine::SearchTask(SearchParams const & params, m2::RectD const & viewport,
   params.m_callback(Results::GetEndMarker(m_query->IsCancelled()));
 }
 
-void Engine::SupportOldFormatTask(bool support) { m_query->SupportOldFormat(support); }
+void Engine::DoSupportOldFormat(bool support) { m_query->SupportOldFormat(support); }
 
-void Engine::ClearCachesTask() { m_query->ClearCaches(); }
+void Engine::DoClearCaches() { m_query->ClearCaches(); }
 }  // namespace search

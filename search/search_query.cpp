@@ -1669,17 +1669,16 @@ void Query::SearchInMwms(TMWMVector const & mwmsInfo, SearchQueryParams const & 
 
 void Query::SuggestStrings(Results & res)
 {
-  if (!m_prefix.empty())
-  {
-    int8_t arrLocales[3];
-    int const localesCount = GetCategoryLocales(arrLocales);
+  if (m_prefix.empty())
+    return;
+  int8_t arrLocales[3];
+  int const localesCount = GetCategoryLocales(arrLocales);
 
-    string prolog;
-    RemoveStringPrefix(*m_query, prolog);
+  string prolog;
+  RemoveStringPrefix(*m_query, prolog);
 
-    for (int i = 0; i < localesCount; ++i)
-      MatchForSuggestionsImpl(m_prefix, arrLocales[i], prolog, res);
-  }
+  for (int i = 0; i < localesCount; ++i)
+    MatchForSuggestionsImpl(m_prefix, arrLocales[i], prolog, res);
 }
 
 void Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale,

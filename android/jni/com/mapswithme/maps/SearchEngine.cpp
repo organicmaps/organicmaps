@@ -215,7 +215,7 @@ extern "C"
     auto const & results = g_results;
     g_framework->PostDrapeTask([results]()
     {
-      g_framework->NativeFramework()->ShowAllSearchResults(results);
+      g_framework->NativeFramework()->ShowSearchResults(results);
     });
   }
 

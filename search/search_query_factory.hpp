@@ -1,7 +1,7 @@
 #pragma once
 
-#include "search_query.hpp"
-#include "suggest.hpp"
+#include "search/search_query.hpp"
+#include "search/suggest.hpp"
 
 #include "std/unique_ptr.hpp"
 

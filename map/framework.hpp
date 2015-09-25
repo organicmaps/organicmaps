@@ -338,7 +338,7 @@ private:
   void InitSearchEngine();
 
   // Last search query params for the interactive search.
-  search::SearchParams m_lastISParams;
+  search::SearchParams m_lastInteractiveSearchParams;
   uint8_t m_fixedSearchResults;
 
   bool m_connectToGpsTrack; // need to connect to tracker when Drape is being constructed
@@ -365,7 +365,7 @@ private:
 
   // Returns true when |params| and |viewport| are almost the same as
   // the latest search query's params and viewport.
-  bool QueryCouldBeSkipped(search::SearchParams const & params, m2::RectD const & viewport) const;
+  bool QueryMayBeSkipped(search::SearchParams const & params, m2::RectD const & viewport) const;
 
   void OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
                                       pair<size_t, size_t> const & toRemove);
@@ -381,11 +381,15 @@ public:
   bool GetCurrentPosition(double & lat, double & lon) const;
 
   void LoadSearchResultMetadata(search::Result & res) const;
+
   void ShowSearchResult(search::Result const & res);
-  size_t ShowAllSearchResults(search::Results const & results);
 
   void StartInteractiveSearch(search::SearchParams const & params);
-  bool IsISActive() const { return !m_lastISParams.m_query.empty(); }
+
+  size_t ShowSearchResults(search::Results const & results);
+
+  bool IsInteractiveSearchActive() const { return !m_lastInteractiveSearchParams.m_query.empty(); }
+
   void CancelInteractiveSearch();
 
   list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }

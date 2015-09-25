@@ -70,8 +70,8 @@ private:
   DISALLOW_COPY_AND_MOVE(QueryHandle);
 };
 
-// This class is a wrapper around thread processing search queries one
-// by one.
+// This class is a wrapper around thread which processes search
+// queries one by one.
 //
 // NOTE: this class is thread safe.
 class Engine
@@ -82,7 +82,7 @@ public:
          string const & locale, unique_ptr<SearchQueryFactory> && factory);
   ~Engine();
 
-  // Posts search request to the queue and returns it's handle.
+  // Posts search request to the queue and returns its handle.
   weak_ptr<QueryHandle> Search(SearchParams const & params, m2::RectD const & viewport);
 
   // Posts request to support old format to the queue.
@@ -94,7 +94,7 @@ public:
   bool GetNameByType(uint32_t type, int8_t lang, string & name) const;
 
 private:
-  // *ALL* following methods are executed on a m_loop thread.
+  // *ALL* following methods are executed on the m_loop thread.
 
   void SetRankPivot(SearchParams const & params, m2::RectD const & viewport, bool viewportSearch);
 
@@ -105,12 +105,12 @@ private:
 
   void PostTask(function<void()> && task);
 
-  void SearchTask(SearchParams const & params, m2::RectD const & viewport,
-                  shared_ptr<QueryHandle> handle);
+  void DoSearch(SearchParams const & params, m2::RectD const & viewport,
+                shared_ptr<QueryHandle> handle);
 
-  void SupportOldFormatTask(bool support);
+  void DoSupportOldFormat(bool support);
 
-  void ClearCachesTask();
+  void DoClearCaches();
 
   CategoriesHolder m_categories;
   vector<Suggest> m_suggests;
@@ -122,6 +122,6 @@ private:
   mutex m_mu;
   condition_variable m_cv;
   queue<function<void()>> m_tasks;
-  threads::SimpleThread m_loop;
+  threads::SimpleThread m_thread;
 };
 }  // namespace search
