@@ -196,7 +196,7 @@ protected:
     escaped.fill('0');
     escaped << hex;
 
-    for (string::const_iterator i = value.begin(), n = value.end(); i != n; ++i)
+    for (string::const_iterator i = value.cbegin(), n = value.cend(); i != n; ++i)
     {
       string::value_type c = (*i);
 
@@ -216,30 +216,24 @@ protected:
 
   string ValidateAndFormat_wikipedia(string const & v) const
   {
-    // Shortest string: "lg:aa"
-    if (v.length() < 5)
-      return v;
-
-    // Find prefix before ':'
-    int i = 0;
-    while (i + 2 < v.length() && i < 10 && v[i] != ':')
-      i++;
-    if (v[i] != ':')
+    // Find prefix before ':', shortest case: "lg:aa"
+    string::size_type i = v.find(':');
+    if (i == string::npos || i < 2 || i + 2 > v.length())
       return string();
 
     // URL encode lang:title, so URL can be reconstructed faster
     if (i <= 3 || v.substr(0, i) == "be-x-old")
       return v.substr(0, i + 1) + url_encode(v.substr(i + 1));
 
-    if (v[i+1] == '/' && i + 27 < v.length())
+    string::size_type const minUrlPartLength = string("//be.wikipedia.org/wiki/AB").length();
+    if (v[i+1] == '/' && i + minUrlPartLength < v.length())
     {
       // Convert URL to "lang:title"
       i += 3;
-      int j = i;
-      while (j < v.length() && v[j] != '.')
-        j++;
-      if (v.substr(j, 20) == ".wikipedia.org/wiki/")
-        return v.substr(i, j - i) + ":" + v.substr(j + 20);
+      string::size_type const j = v.find('.');
+      string const wikiUrlPart = ".wikipedia.org/wiki/";
+      if (j != string::npos && v.substr(j, wikiUrlPart.length()) == wikiUrlPart)
+        return v.substr(i, j - i) + ":" + v.substr(j + wikiUrlPart.length());
     }
     return string();
   }
