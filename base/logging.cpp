@@ -1,12 +1,12 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
-#include "base/timer.hpp"
-#include "base/thread.hpp"
 #include "base/mutex.hpp"
+#include "base/thread.hpp"
+#include "base/timer.hpp"
 
-#include "std/iostream.hpp"
 #include "std/iomanip.hpp"
+#include "std/iostream.hpp"
 #include "std/mutex.hpp"
 #include "std/sstream.hpp"
 #include "std/target_os.hpp"
@@ -15,41 +15,6 @@
 
 namespace my
 {
-  void LogCheckIfErrorLevel(LogLevel level)
-  {
-#ifdef DEBUG
-    if (level >= LERROR)
-#else
-    if (level >= LCRITICAL)
-#endif
-    {
-      CHECK(false, ("Error level is too serious", level));
-    }
-  }
-
-#ifdef OMIM_OS_TIZEN
-#include <FBaseLog.h>
-  void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg)
-  {
-    ostringstream out;
-    out << DebugPrint(srcPoint) << msg << endl;
-    switch (level)
-    {
-    case LDEBUG:
-      AppLogDebug(out.str().c_str());
-      break;
-    case LINFO:
-    case LWARNING:
-      AppLog(out.str().c_str());
-      break;
-    case LERROR:
-    case LCRITICAL:
-      AppLogException(out.str().c_str());
-    }
-
-  }
-#else
-
   class LogHelper
   {
     int m_threadsCount;
@@ -69,8 +34,6 @@ namespace my
     size_t m_lens[5];
 
   public:
-    threads::Mutex m_mutex;
-
     LogHelper() : m_threadsCount(0)
     {
       m_names[0] = "DEBUG"; m_lens[0] = 5;
@@ -92,38 +55,35 @@ namespace my
     }
   };
 
+  mutex g_logMutex;
+
   void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg)
   {
-    static LogHelper logger;
+    lock_guard<mutex> lock(g_logMutex);
+    UNUSED_VALUE(lock);
 
-    threads::MutexGuard guard(logger.m_mutex);
-    UNUSED_VALUE(guard);
+    static LogHelper logger;
 
     ostringstream out;
     logger.WriteProlog(out, level);
 
     out << DebugPrint(srcPoint) << msg << endl;
-
     std::cerr << out.str();
 
-
+    CHECK(level < g_LogAbortLevel, ("Abort. Log level is too serious", level));
   }
-  void LogMessageTests(LogLevel level, SrcPoint const & srcPoint, string const & msg)
+
+  void LogMessageTests(LogLevel level, SrcPoint const &, string const & msg)
   {
-    static mutex mtx;
-    lock_guard<mutex> lock(mtx);
+    lock_guard<mutex> lock(g_logMutex);
+    UNUSED_VALUE(lock);
 
     ostringstream out;
     out << msg << endl;
     std::cerr << out.str();
 
-#ifdef OMIM_OS_WINDOWS
-    OutputDebugStringA(out.str().c_str());
-#endif
-    LogCheckIfErrorLevel(level);
+    CHECK(level < g_LogAbortLevel, ("Abort. Log level is too serious", level));
   }
-
-#endif
 
   LogMessageFn LogMessage = &LogMessageDefault;
 
@@ -135,7 +95,9 @@ namespace my
 
 #ifdef DEBUG
   LogLevel g_LogLevel = LDEBUG;
+  LogLevel g_LogAbortLevel = LERROR;
 #else
   LogLevel g_LogLevel = LINFO;
+  LogLevel g_LogAbortLevel = LCRITICAL;
 #endif
 }

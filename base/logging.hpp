@@ -18,9 +18,12 @@ namespace my
 
   extern LogMessageFn LogMessage;
   extern LogLevel g_LogLevel;
+  extern LogLevel g_LogAbortLevel;
 
   /// @return Pointer to previous message function.
   LogMessageFn SetLogMessageFn(LogMessageFn fn);
+
+  void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg);
   void LogMessageTests(LogLevel level, SrcPoint const & srcPoint, string const & msg);
 }
 
