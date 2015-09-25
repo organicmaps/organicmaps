@@ -49,7 +49,7 @@ struct TurnCandidate
 
   TurnCandidate(double a, NodeID n) : angle(a), node(n) {}
 };
-typedef vector<TurnCandidate> TTurnCandidates;
+using TTurnCandidates = vector<TurnCandidate>;
 
 /*!
  * \brief The Point2Geometry class is responsable for looking for all adjacent to junctionPoint
@@ -251,8 +251,10 @@ bool KeepTurnByIngoingEdges(m2::PointD const & junctionPoint,
                             m2::PointD const & outgoingPoint, bool hasMultiTurns,
                             RoutingMapping const & routingMapping, Index const & index)
 {
-  bool const isGoStraightOrSlightTurn = IsGoStraightOrSlightTurn(IntermediateDirection(
-      my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPointOneSegment, outgoingPoint))));
+  double const turnAngle =
+    my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPointOneSegment, outgoingPoint));
+  bool const isGoStraightOrSlightTurn = IsGoStraightOrSlightTurn(IntermediateDirection(turnAngle));
+
   // The code below is resposible for cases when there is only one way to leave the junction.
   // Such junction has to be kept as a turn when it's not a slight turn and it has ingoing edges
   // (one or more);
@@ -738,8 +740,8 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
       {
         return end > start ? start + i : start - i;
       });
-  double const a = my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
-  TurnDirection const intermediateDirection = IntermediateDirection(a);
+  double const turnAngle = my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+  TurnDirection const intermediateDirection = IntermediateDirection(turnAngle);
 
   // Getting all the information about ingoing and outgoing edges.
   turnInfo.m_isIngoingEdgeRoundabout = ftypes::IsRoundAboutChecker::Instance()(ingoingFeature);
@@ -768,7 +770,7 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
                    turnInfo.m_routeMapping, nodes);
 
   size_t const nodesSize = nodes.size();
-  bool const hasMultiTurns = (nodesSize >= 2);
+  bool const hasMultiTurns = nodesSize > 1;
 
   if (nodesSize == 0)
     return;
@@ -780,9 +782,9 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
   else
   {
     if (nodes.front().node == turnInfo.m_outgoingNodeID)
-      turn.m_turn = LeftmostDirection(a);
+      turn.m_turn = LeftmostDirection(turnAngle);
     else if (nodes.back().node == turnInfo.m_outgoingNodeID)
-      turn.m_turn = RightmostDirection(a);
+      turn.m_turn = RightmostDirection(turnAngle);
     else
       turn.m_turn = intermediateDirection;
   }

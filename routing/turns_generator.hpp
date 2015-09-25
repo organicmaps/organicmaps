@@ -26,7 +26,7 @@ namespace turns
 /*!
  * \brief Returns a segment index by STL-like range [s, e) of segments indices for the passed node.
  */
-typedef function<size_t(pair<size_t, size_t>)> TGetIndexFunction;
+using TGetIndexFunction = function<size_t(pair<size_t, size_t>)>;
 
 /*!
  * \brief The TurnInfo struct is an accumulator for all junction information.
@@ -116,6 +116,9 @@ bool CheckRoundaboutExit(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRounda
  */
 TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
                                      bool isMultiTurnJunction, bool keepTurnByHighwayClass);
+
+
+
 /*!
  * \brief GetTurnDirection makes a primary decision about turns on the route.
  * \param turnInfo is used for cashing some information while turn calculation.

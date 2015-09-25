@@ -29,7 +29,7 @@ class FeatureBase
 
 public:
 
-  typedef char const * BufferT;
+  using BufferT = char const *;
 
   void Deserialize(feature::LoaderBase * pLoader, BufferT buffer);
 
