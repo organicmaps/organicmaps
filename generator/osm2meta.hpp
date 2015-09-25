@@ -214,19 +214,19 @@ protected:
 
   string ValidateAndFormat_wikipedia(string const & v) const
   {
-    // Find prefix before ':', shortest case: "lg:aa"
+    // Find prefix before ':', shortest case: "lg:aa".
     string::size_type i = v.find(':');
     if (i == string::npos || i < 2 || i + 2 > v.length())
       return string();
 
-    // URL encode lang:title (lang is at most 3 chars), so URL can be reconstructed faster
+    // URL encode lang:title (lang is at most 3 chars), so URL can be reconstructed faster.
     if (i <= 3 || v.substr(0, i) == "be-x-old")
       return v.substr(0, i + 1) + WikiUrlEncode(v.substr(i + 1));
 
     static string::size_type const minUrlPartLength = string("//be.wikipedia.org/wiki/AB").length();
     if (v[i+1] == '/' && i + minUrlPartLength < v.length())
     {
-      // Convert URL to "lang:title"
+      // Convert URL to "lang:title".
       i += 3; // skip "://"
       string::size_type const j = v.find('.', i + 1);
       static string const wikiUrlPart = ".wikipedia.org/wiki/";
