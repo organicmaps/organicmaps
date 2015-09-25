@@ -238,7 +238,7 @@ UNIT_TEST(TrieBuilder_Build)
 
     MemReader memReader = MemReader(&serial[0], serial.size());
     using IteratorType = trie::Iterator<trie::FixedSizeValueReader<4>::ValueType>;
-    unique_ptr<IteratorType> const root(trie::ReadTrie(memReader, trie::FixedSizeValueReader<4>()));
+    auto const root = trie::ReadTrie(memReader, trie::FixedSizeValueReader<4>());
     vector<KeyValuePair> res;
     KeyValuePairBackInserter f;
     trie::ForEachRef(*root, f, vector<trie::TrieChar>());

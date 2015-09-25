@@ -13,7 +13,7 @@ template <class TValueReader>
 class LeafIterator0 : public Iterator<typename TValueReader::ValueType>
 {
 public:
-  typedef typename TValueReader::ValueType ValueType;
+  using ValueType = typename TValueReader::ValueType;
 
   template <class TReader>
   LeafIterator0(TReader const & reader, TValueReader const & valueReader)
@@ -33,9 +33,12 @@ public:
   }
 
   // trie::Iterator overrides:
-  Iterator<ValueType> * Clone() const override { return new LeafIterator0<TValueReader>(*this); }
+  shared_ptr<Iterator<ValueType>> Clone() const override
+  {
+    return make_shared<LeafIterator0<TValueReader>>(*this);
+  }
 
-  Iterator<ValueType> * GoToEdge(size_t i) const override
+  shared_ptr<Iterator<ValueType>> GoToEdge(size_t i) const override
   {
     ASSERT(false, (i));
     UNUSED_VALUE(i);
@@ -71,9 +74,12 @@ public:
   }
 
   // trie::Iterator overrides:
-  Iterator<ValueType> * Clone() const override { return new Iterator0<TReader, TValueReader>(*this); }
+  shared_ptr<Iterator<ValueType>> Clone() const override
+  {
+    return make_shared<Iterator0<TReader, TValueReader>>(*this);
+  }
 
-  Iterator<ValueType> * GoToEdge(size_t i) const override
+  shared_ptr<Iterator<ValueType>> GoToEdge(size_t i) const override
   {
     ASSERT_LESS(i, this->m_edge.size(), ());
     uint32_t const offset = m_edgeInfo[i].m_offset;
@@ -87,10 +93,10 @@ public:
       SharedMemReader memReader(size);
       m_reader.Read(offset, memReader.Data(), size);
       if (m_edgeInfo[i].m_isLeaf)
-        return new LeafIterator0<SharedMemReader, TValueReader>(
+        return make_shared<LeafIterator0<SharedMemReader, TValueReader>>(
               memReader, m_valueReader);
       else
-        return new Iterator0<SharedMemReader, TValueReader>(
+        return make_shared<Iterator0<SharedMemReader, TValueReader>>(
               memReader, m_valueReader,
               this->m_edge[i].m_str.back());
     }
@@ -98,10 +104,11 @@ public:
     */
     {
       if (m_edgeInfo[i].m_isLeaf)
-        return new LeafIterator0<TValueReader>(m_reader.SubReader(offset, size), m_valueReader);
+        return make_shared<LeafIterator0<TValueReader>>(m_reader.SubReader(offset, size),
+                                                        m_valueReader);
       else
-        return new Iterator0<TReader, TValueReader>(m_reader.SubReader(offset, size), m_valueReader,
-                                                    this->m_edge[i].m_str.back());
+        return make_shared<Iterator0<TReader, TValueReader>>(
+            m_reader.SubReader(offset, size), m_valueReader, this->m_edge[i].m_str.back());
     }
   }
 
@@ -183,10 +190,10 @@ private:
 
 // Returns iterator to the root of the trie.
 template <class TReader, class TValueReader>
-Iterator<typename TValueReader::ValueType> * ReadTrie(TReader const & reader,
-                                                      TValueReader valueReader = TValueReader())
+shared_ptr<Iterator<typename TValueReader::ValueType>> ReadTrie(
+    TReader const & reader, TValueReader valueReader = TValueReader())
 {
-  return new Iterator0<TReader, TValueReader>(reader, valueReader, DEFAULT_CHAR);
+  return make_shared<Iterator0<TReader, TValueReader>>(reader, valueReader, DEFAULT_CHAR);
 }
 
 }  // namespace trie

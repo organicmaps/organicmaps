@@ -10,6 +10,7 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 

@@ -200,8 +200,8 @@ namespace feature
     feature::DataHeader header(container);
     serial::CodingParams cp(trie::GetCodingParams(header.GetDefCodingParams()));
 
-    unique_ptr<trie::DefaultIterator> const pTrieRoot(
-        trie::ReadTrie(container.GetReader(SEARCH_INDEX_FILE_TAG), trie::ValueReader(cp)));
+    auto const pTrieRoot =
+        trie::ReadTrie(container.GetReader(SEARCH_INDEX_FILE_TAG), trie::ValueReader(cp));
 
     SearchTokensCollector f;
     trie::ForEachRef(*pTrieRoot, f, strings::UniString());

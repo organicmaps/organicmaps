@@ -30,15 +30,14 @@ size_t CalcEqualLength(TSrcIter b, TSrcIter e, TCompIter bC, TCompIter eC)
   return count;
 }
 
-inline trie::DefaultIterator * MoveTrieIteratorToString(trie::DefaultIterator const & trieRoot,
-                                                        strings::UniString const & queryS,
-                                                        size_t & symbolsMatched,
-                                                        bool & bFullEdgeMatched)
+inline shared_ptr<trie::DefaultIterator> MoveTrieIteratorToString(
+    trie::DefaultIterator const & trieRoot, strings::UniString const & queryS,
+    size_t & symbolsMatched, bool & bFullEdgeMatched)
 {
   symbolsMatched = 0;
   bFullEdgeMatched = false;
 
-  unique_ptr<trie::DefaultIterator> pIter(trieRoot.Clone());
+  auto it = trieRoot.Clone();
 
   size_t const szQuery = queryS.size();
 
@@ -46,22 +45,19 @@ inline trie::DefaultIterator * MoveTrieIteratorToString(trie::DefaultIterator co
   {
     bool bMatched = false;
 
-    ASSERT_LESS(pIter->m_edge.size(), std::numeric_limits<uint32_t>::max(), ());
-    uint32_t const edgeCount = static_cast<uint32_t>(pIter->m_edge.size());
+    ASSERT_LESS(it->m_edge.size(), std::numeric_limits<uint32_t>::max(), ());
+    uint32_t const edgeCount = static_cast<uint32_t>(it->m_edge.size());
 
     for (uint32_t i = 0; i < edgeCount; ++i)
     {
-      size_t const szEdge = pIter->m_edge[i].m_str.size();
+      size_t const szEdge = it->m_edge[i].m_str.size();
 
-      size_t const count = CalcEqualLength(
-                                        pIter->m_edge[i].m_str.begin(),
-                                        pIter->m_edge[i].m_str.end(),
-                                        queryS.begin() + symbolsMatched,
-                                        queryS.end());
+      size_t const count = CalcEqualLength(it->m_edge[i].m_str.begin(), it->m_edge[i].m_str.end(),
+                                           queryS.begin() + symbolsMatched, queryS.end());
 
       if ((count > 0) && (count == szEdge || szQuery == count + symbolsMatched))
       {
-        pIter.reset(pIter->GoToEdge(i));
+        it = it->GoToEdge(i);
 
         bFullEdgeMatched = (count == szEdge);
         symbolsMatched += count;
@@ -73,7 +69,7 @@ inline trie::DefaultIterator * MoveTrieIteratorToString(trie::DefaultIterator co
     if (!bMatched)
       return NULL;
   }
-  return pIter->Clone();
+  return it->Clone();
 }
 
 namespace
@@ -104,10 +100,9 @@ void FullMatchInTrie(trie::DefaultIterator const & trieRoot, strings::UniChar co
 
   size_t symbolsMatched = 0;
   bool bFullEdgeMatched;
-  unique_ptr<trie::DefaultIterator> const pIter(
-      MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched));
+  auto const it = MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched);
 
-  if (!pIter || (!s.empty() && !bFullEdgeMatched) || symbolsMatched != s.size())
+  if (!it || (!s.empty() && !bFullEdgeMatched) || symbolsMatched != s.size())
     return;
 
 #if defined(OMIM_OS_IPHONE) && !defined(__clang__)
@@ -117,8 +112,8 @@ void FullMatchInTrie(trie::DefaultIterator const & trieRoot, strings::UniChar co
 #endif
 
   ASSERT_EQUAL ( symbolsMatched, s.size(), () );
-  for (size_t i = 0; i < pIter->m_value.size(); ++i)
-    f(pIter->m_value[i]);
+  for (size_t i = 0; i < it->m_value.size(); ++i)
+    f(it->m_value[i]);
 }
 
 template <typename F>
@@ -128,38 +123,34 @@ void PrefixMatchInTrie(trie::DefaultIterator const & trieRoot, strings::UniChar 
   if (!CheckMatchString(rootPrefix, rootPrefixSize, s))
       return;
 
-  using TQueue = vector<trie::DefaultIterator *>;
+  using TQueue = vector<shared_ptr<trie::DefaultIterator>>;
   TQueue trieQueue;
   {
     size_t symbolsMatched = 0;
     bool bFullEdgeMatched;
-    trie::DefaultIterator * pRootIter =
-        MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched);
+    auto const it = MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched);
 
     UNUSED_VALUE(symbolsMatched);
     UNUSED_VALUE(bFullEdgeMatched);
 
-    if (!pRootIter)
+    if (!it)
       return;
 
-    trieQueue.push_back(pRootIter);
+    trieQueue.push_back(it);
   }
-
-  // 'f' can throw an exception. So be prepared to delete unprocessed elements.
-  MY_SCOPE_GUARD(doDelete, GetRangeDeletor(trieQueue, DeleteFunctor()));
 
   while (!trieQueue.empty())
   {
     // Next 2 lines don't throw any exceptions while moving
     // ownership from container to smart pointer.
-    unique_ptr<trie::DefaultIterator> const pIter(trieQueue.back());
+    auto const it = trieQueue.back();
     trieQueue.pop_back();
 
-    for (size_t i = 0; i < pIter->m_value.size(); ++i)
-      f(pIter->m_value[i]);
+    for (size_t i = 0; i < it->m_value.size(); ++i)
+      f(it->m_value[i]);
 
-    for (size_t i = 0; i < pIter->m_edge.size(); ++i)
-      trieQueue.push_back(pIter->GoToEdge(i));
+    for (size_t i = 0; i < it->m_edge.size(); ++i)
+      trieQueue.push_back(it->GoToEdge(i));
   }
 }
 
@@ -350,7 +341,7 @@ bool MatchCategoriesInTrie(SearchQueryParams const & params, trie::DefaultIterat
     ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
     if (edge[0] == search::kCategoriesLang)
     {
-      unique_ptr<trie::DefaultIterator> const catRoot(trieRoot.GoToEdge(langIx));
+      auto const catRoot = trieRoot.GoToEdge(langIx);
       MatchTokensInTrie(params.m_tokens, TrieRootPrefix(*catRoot, edge), holder);
 
       // Last token's prefix is used as a complete token here, to
@@ -380,7 +371,7 @@ void ForEachLangPrefix(SearchQueryParams const & params, trie::DefaultIterator c
     int8_t const lang = static_cast<int8_t>(edge[0]);
     if (edge[0] < search::kCategoriesLang && params.IsLangExist(lang))
     {
-      unique_ptr<trie::DefaultIterator> const langRoot(trieRoot.GoToEdge(langIx));
+      auto const langRoot = trieRoot.GoToEdge(langIx);
       TrieRootPrefix langPrefix(*langRoot, edge);
       toDo(langPrefix, lang);
     }

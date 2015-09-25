@@ -4,8 +4,7 @@
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
 
-#include "std/unique_ptr.hpp"
-
+#include "std/shared_ptr.hpp"
 
 namespace trie
 {
@@ -34,8 +33,8 @@ public:
 
   virtual ~Iterator() {}
 
-  virtual Iterator<TValue> * Clone() const = 0;
-  virtual Iterator<TValue> * GoToEdge(size_t i) const = 0;
+  virtual shared_ptr<Iterator<TValue>> Clone() const = 0;
+  virtual shared_ptr<Iterator<TValue>> GoToEdge(size_t i) const = 0;
 };
 
 struct EmptyValueReader
@@ -75,8 +74,8 @@ void ForEachRef(Iterator<TValue> const & iter, F & f, TString const & s)
   {
     TString s1(s);
     s1.insert(s1.end(), iter.m_edge[i].m_str.begin(), iter.m_edge[i].m_str.end());
-    unique_ptr<Iterator<TValue>> const pIter1(iter.GoToEdge(i));
-    ForEachRef(*pIter1, f, s1);
+    auto it = iter.GoToEdge(i);
+    ForEachRef(*it, f, s1);
   }
 }
 

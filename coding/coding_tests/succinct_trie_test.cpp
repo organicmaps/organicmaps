@@ -107,16 +107,15 @@ void ReadAllValues(trie::SuccinctTrieIterator<MemReader, SimpleValueReader> & ro
     values.push_back(root.GetValue(i));
 }
 
-void CollectInSubtree(
-    unique_ptr<trie::SuccinctTrieIterator<MemReader, SimpleValueReader>> const & root,
-    vector<uint8_t> & collectedValues)
+void CollectInSubtree(trie::SuccinctTrieIterator<MemReader, SimpleValueReader> & root,
+                      vector<uint8_t> & collectedValues)
 {
-  ReadAllValues(*root.get(), collectedValues);
+  ReadAllValues(root, collectedValues);
 
-  if (auto l = root->GoToEdge(0))
-    CollectInSubtree(l, collectedValues);
-  if (auto r = root->GoToEdge(1))
-    CollectInSubtree(r, collectedValues);
+  if (auto l = root.GoToEdge(0))
+    CollectInSubtree(*l, collectedValues);
+  if (auto r = root.GoToEdge(1))
+    CollectInSubtree(*r, collectedValues);
 }
 }  // namespace
 
@@ -188,9 +187,10 @@ UNIT_TEST(SuccinctTrie_Iterator)
   using TEmptyValue = trie::EmptyValueReader::ValueType;
 
   auto trieRoot = trie::ReadSuccinctTrie(memReader, SimpleValueReader());
+  TEST(trieRoot, ());
 
   vector<uint8_t> collectedValues;
-  CollectInSubtree(trieRoot, collectedValues);
+  CollectInSubtree(*trieRoot, collectedValues);
   sort(collectedValues.begin(), collectedValues.end());
   TEST_EQUAL(collectedValues.size(), 5, ());
   for (size_t i = 0; i < collectedValues.size(); ++i)
