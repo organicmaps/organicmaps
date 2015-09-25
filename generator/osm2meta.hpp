@@ -206,7 +206,7 @@ protected:
       else if (c == ' ')
         escaped << '_';
       else
-        escaped << '%' << std::uppercase << setw(2) << int((unsigned char) c);
+        escaped << '%' << std::uppercase << setw(2) << static_cast<int>(static_cast<unsigned char>(c));
     }
 
     return escaped.str();
@@ -223,13 +223,13 @@ protected:
     if (i <= 3 || v.substr(0, i) == "be-x-old")
       return v.substr(0, i + 1) + url_encode(v.substr(i + 1));
 
-    string::size_type const minUrlPartLength = string("//be.wikipedia.org/wiki/AB").length();
+    static string::size_type const minUrlPartLength = string("//be.wikipedia.org/wiki/AB").length();
     if (v[i+1] == '/' && i + minUrlPartLength < v.length())
     {
       // Convert URL to "lang:title"
       i += 3;
       string::size_type const j = v.find('.', i + 1);
-      string const wikiUrlPart = ".wikipedia.org/wiki/";
+      static string const wikiUrlPart = ".wikipedia.org/wiki/";
       if (j != string::npos && v.substr(j, wikiUrlPart.length()) == wikiUrlPart)
         return v.substr(i, j - i) + ":" + v.substr(j + wikiUrlPart.length());
     }
