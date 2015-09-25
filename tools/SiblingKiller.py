@@ -1,10 +1,13 @@
 from __future__ import print_function
 
-import re
+import logging
+
 import os
+import re
 import urllib2
 import socket
 from subprocess import Popen, PIPE
+from time import sleep
 
 import logging
 
@@ -22,7 +25,10 @@ class SiblingKiller:
     def allow_serving(self):
         return self.__allow_serving    
 
+    def give_process_time_to_kill_port_user(self):
+        sleep(5)
 
+    
     def kill_siblings(self):
         """
         The idea is to get the list of all processes by the current user, check which one of them is using the port.
@@ -33,15 +39,13 @@ class SiblingKiller:
         
         If we are the process with the same name as ours and with the lowest process id, let's start serving and kill everyone else. 
         """
-        self.kill_process_on_port() # changes __allow_serving to True if the process was alive and serving
-        
         sibs = self.siblings()
         
-        if self.__allow_serving:
-            self.kill(pids=sibs)
-            return
-        
         for sibling in sibs:
+            logging.debug("Checking whether we should kill sibling id: {}".format(sibling))
+            
+            self.give_process_time_to_kill_port_user()
+            
             if self.wait_for_server():
                 serving_pid = self.serving_process_id()
                 if serving_pid:
@@ -50,6 +54,9 @@ class SiblingKiller:
                     return
             else:
                 self.kill(pid=sibling)
+                
+        self.kill_process_on_port() # changes __allow_serving to True if the process was alive and serving
+        
 
 
     def kill(self, pid=0, pids=list()):
