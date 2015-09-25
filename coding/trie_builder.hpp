@@ -35,7 +35,6 @@
 // [vi edgeChar1 - edgeChar0]
 // ...
 // [vi edgeCharN - edgeCharN-1]
-// [edge value]
 // [child size]: if the child is not the last one when reading
 
 namespace trie
@@ -93,7 +92,6 @@ void WriteNode(TSink & sink, TrieChar baseChar, TValueList const & valueList,
       }
     }
     baseChar = edge[0];
-    sink.Write(it->GetEdgeValue(), it->GetEdgeValueSize());
 
     uint32_t const childSize = it->Size();
     if (++it != endChild)
@@ -106,8 +104,6 @@ struct ChildInfo
   bool m_isLeaf;
   uint32_t m_size;
   buffer_vector<TrieChar, 8> m_edge;
-  using TEdgeValueStorage = buffer_vector<uint8_t, 8>;
-  TEdgeValueStorage m_edgeValue;
 
   ChildInfo(bool isLeaf, uint32_t size, TrieChar c) : m_isLeaf(isLeaf), m_size(size), m_edge(1, c)
   {
@@ -117,29 +113,23 @@ struct ChildInfo
   bool IsLeaf() const { return m_isLeaf; }
   TrieChar const * GetEdge() const { return m_edge.data(); }
   uint32_t GetEdgeSize() const { return m_edge.size(); }
-  void const * GetEdgeValue() const { return m_edgeValue.data(); }
-  uint32_t GetEdgeValueSize() const { return m_edgeValue.size(); }
 };
 
-template <class TEdgeBuilder, class TValueList>
+template <typename TValueList>
 struct NodeInfo
 {
   uint64_t m_begPos;
   TrieChar m_char;
   vector<ChildInfo> m_children;
   TValueList m_valueList;
-  TEdgeBuilder m_edgeBuilder;
 
   NodeInfo() : m_begPos(0), m_char(0) {}
-  NodeInfo(uint64_t pos, TrieChar trieChar, TEdgeBuilder const & edgeBuilder)
-    : m_begPos(pos), m_char(trieChar), m_edgeBuilder(edgeBuilder)
-  {
-  }
+  NodeInfo(uint64_t pos, TrieChar trieChar) : m_begPos(pos), m_char(trieChar) {}
 };
 
-template <typename TSink, typename TEdgeBuilder, typename TValueList>
-void WriteNodeReverse(TSink & sink, TrieChar baseChar,
-                      NodeInfo<TEdgeBuilder, TValueList> const & node, bool isRoot = false)
+template <typename TSink, typename TValueList>
+void WriteNodeReverse(TSink & sink, TrieChar baseChar, NodeInfo<TValueList> const & node,
+                      bool isRoot = false)
 {
   using TOutStorage = buffer_vector<uint8_t, 64>;
   TOutStorage out;
@@ -175,72 +165,18 @@ void PopNodes(TSink & sink, TNodes & nodes, int nodesToPop)
                                               node.m_char));
     }
 
-    prevNode.m_edgeBuilder.AddEdge(node.m_edgeBuilder);
-    PushBackByteSink<ChildInfo::TEdgeValueStorage> sink(prevNode.m_children.back().m_edgeValue);
-    node.m_edgeBuilder.StoreValue(sink);
-
     nodes.pop_back();
   }
 }
 
-struct EmptyEdgeBuilder
-{
-  using ValueType = unsigned char;
-
-  void AddValue(void const *, uint32_t) {}
-  void AddEdge(EmptyEdgeBuilder &) {}
-  template <typename TSink>
-  void StoreValue(TSink &) const
-  {
-  }
-};
-
-template <typename TMaxValueCalc>
-struct MaxValueEdgeBuilder
-{
-  using ValueType = typename TMaxValueCalc::ValueType;
-
-  TMaxValueCalc m_maxCalc;
-  ValueType m_value;
-
-  explicit MaxValueEdgeBuilder(TMaxValueCalc const & maxCalc = TMaxValueCalc())
-    : m_maxCalc(maxCalc), m_value()
-  {
-  }
-
-  MaxValueEdgeBuilder(MaxValueEdgeBuilder<TMaxValueCalc> const & edgeBuilder)
-    : m_maxCalc(edgeBuilder.m_maxCalc), m_value(edgeBuilder.m_value)
-  {
-  }
-
-  void AddValue(void const * p, uint32_t size)
-  {
-    ValueType value = m_maxCalc(p, size);
-    if (m_value < value)
-      m_value = value;
-  }
-
-  void AddEdge(MaxValueEdgeBuilder & edgeBuilder)
-  {
-    if (m_value < edgeBuilder.m_value)
-      m_value = edgeBuilder.m_value;
-  }
-
-  template <typename TSink>
-  void StoreValue(TSink & sink) const
-  {
-    sink.Write(&m_value, sizeof(m_value));
-  }
-};
-
-template <typename TSink, typename TIter, typename TEdgeBuilder, typename TValueList>
-void Build(TSink & sink, TIter const beg, TIter const end, TEdgeBuilder const & edgeBuilder)
+template <typename TSink, typename TIter, typename TValueList>
+void Build(TSink & sink, TIter const beg, TIter const end)
 {
   using TTrieString = buffer_vector<TrieChar, 32>;
-  using TNodeInfo = NodeInfo<TEdgeBuilder, TValueList>;
+  using TNodeInfo = NodeInfo<TValueList>;
 
   buffer_vector<TNodeInfo, 32> nodes;
-  nodes.push_back(TNodeInfo(sink.Pos(), DEFAULT_CHAR, edgeBuilder));
+  nodes.push_back(TNodeInfo(sink.Pos(), DEFAULT_CHAR));
 
   TTrieString prevKey;
 
@@ -264,10 +200,8 @@ void Build(TSink & sink, TIter const beg, TIter const end, TEdgeBuilder const & 
 
     uint64_t const pos = sink.Pos();
     for (size_t i = nCommon; i < key.size(); ++i)
-      nodes.push_back(TNodeInfo(pos, key[i], edgeBuilder));
+      nodes.push_back(TNodeInfo(pos, key[i]));
     nodes.back().m_valueList.Append(e.GetValue());
-
-    nodes.back().m_edgeBuilder.AddValue(e.value_data(), e.value_size());
 
     prevKey.swap(key);
     prevE.Swap(e);

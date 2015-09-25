@@ -301,10 +301,9 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
 
     names.EndAdding();
     names.OpenForRead();
-    
+
     trie::Build<Writer, typename StringsFile<SerializedFeatureInfoValue>::IteratorT,
-                trie::EmptyEdgeBuilder, ValueList<SerializedFeatureInfoValue>>(
-        writer, names.Begin(), names.End(), trie::EmptyEdgeBuilder());
+                ValueList<SerializedFeatureInfoValue>>(writer, names.Begin(), names.End());
 
     // at this point all readers of StringsFile should be dead
   }
@@ -420,9 +419,8 @@ void BuildCompressedSearchIndex(FilesContainerR & container, Writer & indexWrite
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
 
   stringsFile.OpenForRead();
-  trie::Build<Writer, typename StringsFile<FeatureIndexValue>::IteratorT, trie::EmptyEdgeBuilder,
-              ValueList<FeatureIndexValue>>(indexWriter, stringsFile.Begin(), stringsFile.End(),
-                                            trie::EmptyEdgeBuilder());
+  trie::Build<Writer, typename StringsFile<FeatureIndexValue>::IteratorT,
+              ValueList<FeatureIndexValue>>(indexWriter, stringsFile.Begin(), stringsFile.End());
 
   LOG(LINFO, ("End building compressed search index, elapsed seconds:", timer.ElapsedSeconds()));
 }

@@ -23,9 +23,8 @@ struct ChildNodeInfo
   bool m_isLeaf;
   uint32_t m_size;
   vector<uint32_t> m_edge;
-  string m_edgeValue;
-  ChildNodeInfo(bool isLeaf, uint32_t size, char const * edge, char const * edgeValue)
-    : m_isLeaf(isLeaf), m_size(size), m_edgeValue(edgeValue)
+
+  ChildNodeInfo(bool isLeaf, uint32_t size, char const * edge) : m_isLeaf(isLeaf), m_size(size)
   {
     while (*edge)
       m_edge.push_back(*edge++);
@@ -35,8 +34,6 @@ struct ChildNodeInfo
   bool IsLeaf() const { return m_isLeaf; }
   uint32_t const * GetEdge() const { return &m_edge[0]; }
   uint32_t GetEdgeSize() const { return m_edge.size(); }
-  void const * GetEdgeValue() const { return m_edgeValue.data(); }
-  uint32_t GetEdgeValueSize() const { return m_edgeValue.size(); }
 };
 
 struct KeyValuePair
@@ -163,15 +160,11 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
 {
   vector<uint8_t> serial;
   PushBackByteSink<vector<uint8_t> > sink(serial);
-  ChildNodeInfo children[] =
-  {
-    ChildNodeInfo(true, 1, "1A", "i1"),
-    ChildNodeInfo(false, 2, "B", "ii2"),
-    ChildNodeInfo(false, 3, "zz", ""),
-    ChildNodeInfo(true, 4,
-                  "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij", "i4"),
-    ChildNodeInfo(true, 5, "a", "5z")
-  };
+  ChildNodeInfo children[] = {
+      ChildNodeInfo(true, 1, "1A"), ChildNodeInfo(false, 2, "B"), ChildNodeInfo(false, 3, "zz"),
+      ChildNodeInfo(true, 4,
+                    "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"),
+      ChildNodeInfo(true, 5, "a")};
 
   CharValueList valueList("123");
   trie::WriteNode(sink, 0, valueList, &children[0], &children[0] + ARRAY_SIZE(children));
@@ -182,10 +175,8 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
     '1', '2', '3',                                                          // Values
     BOOST_BINARY(10000001),                                                 // Child 1: header: [+leaf] [-supershort]  [2 symbols]
     MKUC(ZENC(MKSC('1'))), MKUC(ZENC(MKSC('A') - MKSC('1'))),               // Child 1: edge
-    'i', '1',                                                               // Child 1: intermediate data
     1,                                                                      // Child 1: size
     MKUC(64 | ZENC(MKSC('B') - MKSC('1'))),                                 // Child 2: header: [-leaf] [+supershort]
-    'i', 'i', '2',                                                          // Child 2: intermediate data
     2,                                                                      // Child 2: size
     BOOST_BINARY(00000001),                                                 // Child 3: header: [-leaf] [-supershort]  [2 symbols]
     MKUC(ZENC(MKSC('z') - MKSC('B'))), 0,                                   // Child 3: edge
@@ -199,10 +190,8 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
     MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
     MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
     MKUC(ZENC(MKSC('a') - MKSC('j'))), 2,2,2,2,2,2,2,2,2,                   // Child 4: edge
-    'i', '4',                                                               // Child 4: intermediate data
     4,                                                                      // Child 4: size
     MKUC(BOOST_BINARY(11000000) | ZENC(0)),                                 // Child 5: header: [+leaf] [+supershort]
-    '5', 'z'                                                                // Child 5: intermediate data
   };
 
   TEST_EQUAL(serial, vector<uint8_t>(&expected[0], &expected[0] + ARRAY_SIZE(expected)), ());
@@ -244,29 +233,16 @@ UNIT_TEST(TrieBuilder_Build)
     vector<uint8_t> serial;
     PushBackByteSink<vector<uint8_t> > sink(serial);
     trie::Build<PushBackByteSink<vector<uint8_t>>, typename vector<KeyValuePair>::iterator,
-                trie::MaxValueEdgeBuilder<MaxValueCalc>, Uint32ValueList>(
-        sink, v.begin(), v.end(), trie::MaxValueEdgeBuilder<MaxValueCalc>());
+                Uint32ValueList>(sink, v.begin(), v.end());
     reverse(serial.begin(), serial.end());
-    // LOG(LINFO, (serial.size(), vs));
 
     MemReader memReader = MemReader(&serial[0], serial.size());
-    using IteratorType = trie::Iterator<trie::FixedSizeValueReader<4>::ValueType,
-                                        trie::FixedSizeValueReader<1>::ValueType>;
-    unique_ptr<IteratorType> const root(trie::ReadTrie(memReader, trie::FixedSizeValueReader<4>(),
-                                                       trie::FixedSizeValueReader<1>()));
+    using IteratorType = trie::Iterator<trie::FixedSizeValueReader<4>::ValueType>;
+    unique_ptr<IteratorType> const root(trie::ReadTrie(memReader, trie::FixedSizeValueReader<4>()));
     vector<KeyValuePair> res;
     KeyValuePairBackInserter f;
     trie::ForEachRef(*root, f, vector<trie::TrieChar>());
     sort(f.m_v.begin(), f.m_v.end());
     TEST_EQUAL(v, f.m_v, ());
-
-    uint32_t expectedMaxEdgeValue = 0;
-    for (size_t i = 0; i < v.size(); ++i)
-      if (!v[i].m_key.empty())
-        expectedMaxEdgeValue = max(expectedMaxEdgeValue, v[i].m_value);
-    uint32_t maxEdgeValue = 0;
-    for (uint32_t i = 0; i < root->m_edge.size(); ++i)
-      maxEdgeValue = max(maxEdgeValue, static_cast<uint32_t>(root->m_edge[i].m_value.m_data[0]));
-    TEST_EQUAL(maxEdgeValue, expectedMaxEdgeValue, (v, f.m_v));
   }
 }

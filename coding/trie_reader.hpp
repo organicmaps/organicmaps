@@ -2,18 +2,18 @@
 #include "coding/trie.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
+
 #include "base/assert.hpp"
 #include "base/bits.hpp"
 #include "base/macros.hpp"
 
 namespace trie
 {
-template <class ValueReaderT, typename EdgeValueT>
-class LeafIterator0 : public Iterator<typename ValueReaderT::ValueType, EdgeValueT>
+template <class ValueReaderT>
+class LeafIterator0 : public Iterator<typename ValueReaderT::ValueType>
 {
 public:
   typedef typename ValueReaderT::ValueType ValueType;
-  typedef EdgeValueT EdgeValueType;
 
   template <class ReaderT>
   LeafIterator0(ReaderT const & reader, ValueReaderT const & valueReader)
@@ -32,12 +32,9 @@ public:
     ASSERT_EQUAL(size, src.Pos(), ());
   }
 
-  Iterator<ValueType, EdgeValueType> * Clone() const
-  {
-    return new LeafIterator0<ValueReaderT, EdgeValueT>(*this);
-  }
+  Iterator<ValueType> * Clone() const { return new LeafIterator0<ValueReaderT>(*this); }
 
-  Iterator<ValueType, EdgeValueType> * GoToEdge(size_t i) const
+  Iterator<ValueType> * GoToEdge(size_t i) const
   {
     ASSERT(false, (i));
     UNUSED_VALUE(i);
@@ -45,45 +42,36 @@ public:
   }
 };
 
-template <class ReaderT, class ValueReaderT, class EdgeValueReaderT>
-class IteratorImplBase :
-    public Iterator<typename ValueReaderT::ValueType, typename EdgeValueReaderT::ValueType>
+template <class ReaderT, class ValueReaderT>
+class IteratorImplBase : public Iterator<typename ValueReaderT::ValueType>
 {
 protected:
   enum { IS_READER_IN_MEMORY = 0 };
 };
 
-template <class ValueReaderT, class EdgeValueReaderT>
-class IteratorImplBase<SharedMemReader, ValueReaderT, EdgeValueReaderT> :
-    public Iterator<typename ValueReaderT::ValueType, typename EdgeValueReaderT::ValueType>
+template <class ValueReaderT>
+class IteratorImplBase<SharedMemReader, ValueReaderT>
+    : public Iterator<typename ValueReaderT::ValueType>
 {
 protected:
   enum { IS_READER_IN_MEMORY = 1 };
 };
 
-
-template <class ReaderT, class ValueReaderT, class EdgeValueReaderT>
-class Iterator0 : public IteratorImplBase<ReaderT, ValueReaderT, EdgeValueReaderT>
+template <class ReaderT, class ValueReaderT>
+class Iterator0 : public IteratorImplBase<ReaderT, ValueReaderT>
 {
 public:
   typedef typename ValueReaderT::ValueType ValueType;
-  typedef typename EdgeValueReaderT::ValueType EdgeValueType;
 
-  Iterator0(ReaderT const & reader,
-            ValueReaderT const & valueReader,
-            EdgeValueReaderT const &  edgeValueReader,
-            TrieChar baseChar)
-    : m_reader(reader), m_valueReader(valueReader), m_edgeValueReader(edgeValueReader)
+  Iterator0(ReaderT const & reader, ValueReaderT const & valueReader, TrieChar baseChar)
+    : m_reader(reader), m_valueReader(valueReader)
   {
     ParseNode(baseChar);
   }
 
-  Iterator<ValueType, EdgeValueType> * Clone() const
-  {
-    return new Iterator0<ReaderT, ValueReaderT, EdgeValueReaderT>(*this);
-  }
+  Iterator<ValueType> * Clone() const { return new Iterator0<ReaderT, ValueReaderT>(*this); }
 
-  Iterator<ValueType, EdgeValueType> * GoToEdge(size_t i) const
+  Iterator<ValueType> * GoToEdge(size_t i) const
   {
     ASSERT_LESS(i, this->m_edge.size(), ());
     uint32_t const offset = m_edgeInfo[i].m_offset;
@@ -91,29 +79,27 @@ public:
 
     // TODO: Profile to check that MemReader optimization helps?
     /*
-    if (!IteratorImplBase<ReaderT, ValueReaderT, EdgeValueReaderT>::IS_READER_IN_MEMORY &&
+    if (!IteratorImplBase<ReaderT, ValueReaderT>::IS_READER_IN_MEMORY &&
         size < 1024)
     {
       SharedMemReader memReader(size);
       m_reader.Read(offset, memReader.Data(), size);
       if (m_edgeInfo[i].m_isLeaf)
-        return new LeafIterator0<SharedMemReader, ValueReaderT, EdgeValueType>(
+        return new LeafIterator0<SharedMemReader, ValueReaderT>(
               memReader, m_valueReader);
       else
-        return new Iterator0<SharedMemReader, ValueReaderT, EdgeValueReaderT>(
-              memReader, m_valueReader, m_edgeValueReader,
+        return new Iterator0<SharedMemReader, ValueReaderT>(
+              memReader, m_valueReader,
               this->m_edge[i].m_str.back());
     }
     else
     */
     {
       if (m_edgeInfo[i].m_isLeaf)
-        return new LeafIterator0<ValueReaderT, EdgeValueType>(
-              m_reader.SubReader(offset, size), m_valueReader);
+        return new LeafIterator0<ValueReaderT>(m_reader.SubReader(offset, size), m_valueReader);
       else
-        return new Iterator0<ReaderT, ValueReaderT, EdgeValueReaderT>(
-              m_reader.SubReader(offset, size), m_valueReader, m_edgeValueReader,
-              this->m_edge[i].m_str.back());
+        return new Iterator0<ReaderT, ValueReaderT>(m_reader.SubReader(offset, size), m_valueReader,
+                                                    this->m_edge[i].m_str.back());
     }
   }
 
@@ -146,7 +132,7 @@ private:
     m_edgeInfo[0].m_offset = 0;
     for (uint32_t i = 0; i < childCount; ++i)
     {
-      typename Iterator<ValueType, EdgeValueType>::Edge & e = this->m_edge[i];
+      typename Iterator<ValueType>::Edge & e = this->m_edge[i];
 
       // [1: header]: [1: isLeaf] [1: isShortEdge] [6: (edgeChar0 - baseChar) or min(edgeLen-1, 63)]
       uint8_t const header = ReadPrimitiveFromSource<uint8_t>(src);
@@ -166,9 +152,6 @@ private:
         for (uint32_t i = 0; i < edgeLen; ++i)
           e.m_str.push_back(baseChar += ReadVarInt<int32_t>(src));
       }
-
-      // [edge value]
-      m_edgeValueReader(src, e.m_value);
 
       // [child size]: if the child is not the last one
       m_edgeInfo[i + 1].m_offset = m_edgeInfo[i].m_offset;
@@ -194,18 +177,14 @@ private:
 
   ReaderT m_reader;
   ValueReaderT m_valueReader;
-  EdgeValueReaderT m_edgeValueReader;
 };
 
 // Returns iterator to the root of the trie.
-template <class ReaderT, class ValueReaderT, class EdgeValueReaderT>
-Iterator<typename ValueReaderT::ValueType, typename EdgeValueReaderT::ValueType> *
-ReadTrie(ReaderT const & reader,
-         ValueReaderT valueReader = ValueReaderT(),
-         EdgeValueReaderT edgeValueReader = EdgeValueReaderT())
+template <class ReaderT, class ValueReaderT>
+Iterator<typename ValueReaderT::ValueType> * ReadTrie(ReaderT const & reader,
+                                                      ValueReaderT valueReader = ValueReaderT())
 {
-  return new Iterator0<ReaderT, ValueReaderT, EdgeValueReaderT>(
-        reader, valueReader, edgeValueReader, DEFAULT_CHAR);
+  return new Iterator0<ReaderT, ValueReaderT>(reader, valueReader, DEFAULT_CHAR);
 }
 
 }  // namespace trie

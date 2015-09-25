@@ -27,7 +27,7 @@ namespace trie
 // Node is a temporary struct that is used to store the trie in memory
 // before it is converted to a succinct representation and put to disk.
 // It is rather verbose but hopefully is small enough to fit in memory.
-template <class TEdgeBuilder, class TValueList>
+template <class TValueList>
 struct Node
 {
   // The left child is reached by 0, the right by 1.
@@ -41,11 +41,6 @@ struct Node
   // m_valueLists stores all the additional information that is related
   // to the key string which leads to this node.
   TValueList m_valueList;
-
-  // m_edgeBuilder is obsolete and is here only for backward-compatibility
-  // with an older implementation of the trie.
-  // todo(@pimenov): Remove it.
-  TEdgeBuilder m_edgeBuilder;
 
   Node() : l(nullptr), r(nullptr), m_isFinal(false) {}
 };
@@ -95,13 +90,12 @@ void WriteInLevelOrder(TNode * root, vector<TNode *> & levelOrder)
   }
 }
 
-template <typename TWriter, typename TIter, typename TEdgeBuilder, typename TValueList>
-void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end,
-                       TEdgeBuilder const & edgeBuilder)
+template <typename TWriter, typename TIter, typename TValueList>
+void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end)
 {
   using TrieChar = uint32_t;
   using TTrieString = buffer_vector<TrieChar, 32>;
-  using TNode = Node<TEdgeBuilder, TValueList>;
+  using TNode = Node<TValueList>;
   using TEntry = typename TIter::value_type;
 
   TNode * root = new TNode();
@@ -144,7 +138,6 @@ void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end,
     TNode * cur = AddToTrie(root, bitEncoding, numBits);
     cur->m_isFinal = true;
     cur->m_valueList.Append(entry.GetValue());
-    cur->m_edgeBuilder.AddValue(entry.value_data(), entry.value_size());
   }
 
   vector<TNode *> levelOrder;

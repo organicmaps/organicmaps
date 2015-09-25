@@ -48,9 +48,7 @@ public:
   }
 };
 
-using TEdgeValueReader = EmptyValueReader;
-using DefaultIterator =
-    trie::Iterator<trie::ValueReader::ValueType, trie::TEdgeValueReader::ValueType>;
+using DefaultIterator = trie::Iterator<trie::ValueReader::ValueType>;
 
 inline serial::CodingParams GetCodingParams(serial::CodingParams const & orig)
 {

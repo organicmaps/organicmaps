@@ -21,16 +21,14 @@ namespace trie
 // of the trie: the trie topology and the offsets into the data buffer.
 // The topology can then be used to navigate the trie and the offsets
 // can be used to extract the values associated with the key strings.
-template <class TReader, class TValueReader, class TEdgeValueReader>
+template <class TReader, class TValueReader>
 class TopologyAndOffsets
 {
 public:
   using TValue = typename TValueReader::ValueType;
-  using TEdgeValue = typename TEdgeValueReader::ValueType;
 
-  TopologyAndOffsets(TReader const & reader, TValueReader const & valueReader,
-                     TEdgeValueReader const & edgeValueReader)
-    : m_reader(reader), m_valueReader(valueReader), m_edgeValueReader(edgeValueReader)
+  TopologyAndOffsets(TReader const & reader, TValueReader const & valueReader)
+    : m_reader(reader), m_valueReader(valueReader)
   {
     Parse();
   }
@@ -114,7 +112,6 @@ private:
 
   // todo(@pimenov) Why do we even need an instance? Type name is enough.
   TValueReader const & m_valueReader;
-  TEdgeValueReader const & m_edgeValueReader;
   uint32_t m_numNodes;
 
   coding::HuffmanCoder m_huffman;
@@ -127,13 +124,12 @@ private:
   vector<uint32_t> m_offsetTable;
 };
 
-template <class TReader, class TValueReader, class TEdgeValueReader>
+template <class TReader, class TValueReader>
 class SuccinctTrieIterator
 {
 public:
   using TValue = typename TValueReader::ValueType;
-  using TEdgeValue = typename TEdgeValueReader::ValueType;
-  using TCommonData = TopologyAndOffsets<TReader, TValueReader, TEdgeValueReader>;
+  using TCommonData = TopologyAndOffsets<TReader, TValueReader>;
 
   SuccinctTrieIterator(TReader const & reader, shared_ptr<TCommonData> common,
                        uint32_t nodeBitPosition)
@@ -246,15 +242,14 @@ private:
   bool m_valuesRead;
 };
 
-template <typename TReader, typename TValueReader, typename TEdgeValueReader>
-unique_ptr<SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader>> ReadSuccinctTrie(
-    TReader const & reader, TValueReader valueReader = TValueReader(),
-    TEdgeValueReader edgeValueReader = TEdgeValueReader())
+template <typename TReader, typename TValueReader>
+unique_ptr<SuccinctTrieIterator<TReader, TValueReader>> ReadSuccinctTrie(
+    TReader const & reader, TValueReader valueReader = TValueReader())
 {
-  using TCommonData = TopologyAndOffsets<TReader, TValueReader, TEdgeValueReader>;
-  using TIter = SuccinctTrieIterator<TReader, TValueReader, TEdgeValueReader>;
+  using TCommonData = TopologyAndOffsets<TReader, TValueReader>;
+  using TIter = SuccinctTrieIterator<TReader, TValueReader>;
 
-  shared_ptr<TCommonData> common(new TCommonData(reader, valueReader, edgeValueReader));
+  shared_ptr<TCommonData> common(new TCommonData(reader, valueReader));
   return make_unique<TIter>(common->GetReader(), common, 1 /* bitPosition */);
 }
 

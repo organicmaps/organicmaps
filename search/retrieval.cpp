@@ -49,9 +49,8 @@ void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams
   ASSERT(value, ());
   serial::CodingParams codingParams(trie::GetCodingParams(value->GetHeader().GetDefCodingParams()));
   ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-  unique_ptr<trie::DefaultIterator> const trieRoot(
-      trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
-                     trie::ValueReader(codingParams), trie::TEdgeValueReader()));
+  unique_ptr<trie::DefaultIterator> const trieRoot(trie::ReadTrie(
+      SubReaderWrapper<Reader>(searchReader.GetPtr()), trie::ValueReader(codingParams)));
 
   MatchFeaturesInTrie(params, *trieRoot, EmptyFilter(), forward<ToDo>(toDo));
 }
