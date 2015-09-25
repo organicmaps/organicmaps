@@ -237,7 +237,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)changeToMapSearchState
 {
-  PinClickManager & bm = GetFramework().GetBalloonManager();
+  Framework & f = GetFramework();
+  UITextField * textField = self.searchTextField;
+  f.SaveSearchQuery(make_pair(textField.textInputMode.primaryLanguage.UTF8String,
+                              textField.text.precomposedStringWithCompatibilityMapping.UTF8String));
+  PinClickManager & bm = f.GetBalloonManager();
   bm.RemovePin();
   bm.Dismiss();
   [self.searchTextField resignFirstResponder];
