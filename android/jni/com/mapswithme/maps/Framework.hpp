@@ -161,8 +161,8 @@ namespace android
     void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, UserMark const * userMark);
 
     using TDrapeTask = function<void()>;
-    // Posts a task which must be executed when Drape Engine is alive
-    void PostDrapeTask(TDrapeTask const & task);
+    // Posts a task which must be executed when Drape Engine is alive.
+    void PostDrapeTask(TDrapeTask && task);
 
   public:
     virtual void ItemStatusChanged(int childPosition);
@@ -182,6 +182,7 @@ namespace android
     vector<TDrapeTask> m_drapeTasksQueue;
     mutex m_drapeQueueMutex;
 
+    // This method must be executed under mutex m_drapeQueueMutex.
     void ExecuteDrapeTasks();
   };
 }

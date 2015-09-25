@@ -165,7 +165,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   m_work.CreateDrapeEngine(make_ref(m_contextFactory), move(p));
   m_work.EnterForeground();
 
-  // load initial state of the map or execute drape tasks which set up custom state
+  // Load initial state of the map or execute drape tasks which set up custom state.
   {
     lock_guard<mutex> lock(m_drapeQueueMutex);
     if (m_drapeTasksQueue.empty())
@@ -592,21 +592,20 @@ void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const m
   }
 }
 
-void Framework::PostDrapeTask(TDrapeTask const & task)
+void Framework::PostDrapeTask(TDrapeTask && task)
 {
   ASSERT(task != nullptr, ());
   lock_guard<mutex> lock(m_drapeQueueMutex);
   if (IsDrapeEngineCreated())
     task();
   else
-    m_drapeTasksQueue.push_back(task);
+    m_drapeTasksQueue.push_back(move(task));
 }
 
 void Framework::ExecuteDrapeTasks()
 {
-  for (size_t i = 0; i < m_drapeTasksQueue.size(); ++i)
-    m_drapeTasksQueue[i]();
-
+  for (auto & task : m_drapeTasksQueue)
+    task();
   m_drapeTasksQueue.clear();
 }
 
