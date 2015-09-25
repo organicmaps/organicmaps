@@ -152,9 +152,8 @@ Route::TTurns::const_iterator Route::GetCurrentTurn() const
 
 double Route::GetCurrentCam(SpeedCameraRestriction & camera, Index const & index) const
 {
-  size_t current_index = max(m_poly.GetCurrentIter().m_ind, m_lastCheckedCamera);
-  SpeedCameraRestriction cam(static_cast<uint32_t>(current_index), 0 /* maxspeed */);
-  for (size_t i = current_index; i < m_poly.GetPolyline().GetSize(); ++i)
+  size_t const currentIndex = max(m_poly.GetCurrentIter().m_ind, m_lastCheckedCamera);
+  for (size_t i = currentIndex; i < m_poly.GetPolyline().GetSize(); ++i)
   {
     uint8_t speed = CheckCameraInPoint(m_poly.GetPolyline().GetPoint(i), index);
     if (speed != kNoSpeedCamera)

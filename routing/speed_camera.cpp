@@ -33,30 +33,20 @@ uint8_t ReadCamRestriction(FeatureType & ft)
 
 uint8_t CheckCameraInPoint(m2::PointD const & point, Index const & index)
 {
-  Classificator & c = classif();
-  uint32_t const req = c.GetTypeByPath({"highway", "speed_camera"});
-
   uint32_t speedLimit = kNoSpeedCamera;
 
-  auto const f = [&req, &c, &point, &speedLimit](FeatureType & ft)
+  auto const f = [&point, &speedLimit](FeatureType & ft)
   {
     if (ft.GetFeatureType() != feature::GEOM_POINT)
       return;
 
     feature::TypesHolder hl = ft;
-    for (uint32_t t : hl)
-    {
-      uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
-      if (type == req)
-      {
-        ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-        if (ft.GetCenter() == point)
-        {
-          speedLimit = ReadCamRestriction(ft);
-          return;
-        }
-      }
-    }
+    if (!ftypes::IsSpeedCamChecker::Instance()(hl))
+      return;
+
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+    if (ft.GetCenter() == point)
+      speedLimit = ReadCamRestriction(ft);
   };
 
   index.ForEachInRect(f,
