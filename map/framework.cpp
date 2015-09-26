@@ -2290,7 +2290,7 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
     return;
 
   m2::PointD const & position = GetLocationState()->Position();
-  if (m_routingSession.OnLocationPositionChanged(position, info) == RoutingSession::RouteNeedRebuild)
+  if (m_routingSession.OnLocationPositionChanged(position, info, m_model.GetIndex()) == RoutingSession::RouteNeedRebuild)
   {
     auto readyCallback = [this](Route const & route, IRouter::ResultCode code)
     {

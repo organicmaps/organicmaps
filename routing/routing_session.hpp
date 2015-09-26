@@ -77,8 +77,9 @@ public:
   bool IsOnRoute() const { return (m_state == OnRoute); }
   void Reset();
 
-  State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);
-  void GetRouteFollowingInfo(location::FollowingInfo & info, Index const & index) const;
+  State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info,
+                                  Index const & index);
+  void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
   void MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
@@ -124,8 +125,11 @@ private:
   Route m_route;
   State m_state;
   m2::PointD m_endPoint;
-  double m_speedMpS;
-  mutable size_t m_lastWarnedSpeedCamera;
+  size_t m_lastWarnedSpeedCamera;
+  // TODO (ldragunov) Rewrite UI interop to message queue and avoid mutable.
+  /// It is mutable, because a speed warning ring must be only one time per camera. So we need
+  /// to modify it in a getter.
+  mutable bool m_speedWarningSignal;
 
   mutable threads::Mutex m_routeSessionMutex;
 
