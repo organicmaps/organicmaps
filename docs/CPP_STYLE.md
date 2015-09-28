@@ -1,7 +1,5 @@
 # C++ Style Guide
 
-**We write code without warnings!**
-
 In general, [Google's coding standard](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml) is used, and we strongly encourage to read it.
 
 Below are our specific (but not all!) exceptions to the Google's coding standard:
@@ -24,8 +22,17 @@ Naming and formatting
 - Use right-to-left order for variables/params: `string const & s` (reference to the const string)
 - In one line `if`, `for`, `while` we do not use brackets. If one line `for` or `while` is combined with one line `if`, do use brackets for cycle.
 - Space after the keyword in conditions and loops. Space after `;` in `for` loop
-- Space between binary operators, but can skip according to operators priority: `x = y*y + z*z`
+- Space between binary operators: `x = y * y + z * z`
 - Space after double dash
+
+**We write code without warnings!**
+
+## ClangFormat
+
+Most of our coding style is specified in a configuration file for [ClangFormat](http://clang.llvm.org/docs/ClangFormat.html).
+To automatically format a file, install `clang-format` and run:
+
+    clang-format -i file.cpp file.hpp other_file.cpp
 
 ## Formatting Example/Guide/Reference
 
@@ -37,14 +44,8 @@ typedef double TMyTypeStartsWithCapitalTLetter;
 class ComplexClass
 {
 public:
-  Complex(double rePart, double imPart)
-    : m_re(rePart), m_im(imPart)
-  {}
-
-  double Modulus() const
-  {
-    return sqrt(m_re * m_re + m_im * m_im);
-  }
+  Complex(double rePart, double imPart) : m_re(rePart), m_im(imPart) {}
+  double Modulus() const { return sqrt(m_re * m_re + m_im * m_im); }
 
 private:
   // We use m_ prefix for member variables
@@ -67,7 +68,8 @@ namespace lower_case
 {
 
 template <class TTemplateTypeStartsWithCapitalTLetter>
-void SomeFoo(int a, int b, TTemplateTypeStartsWithCapitalTLetter /* we avoid compilation warnings */)
+void SomeFoo(int a, int b,
+             TTemplateTypeStartsWithCapitalTLetter /* we avoid compilation warnings */)
 {
   for (int i = 0; i < a; ++i)
   {
@@ -80,7 +82,7 @@ void SomeFoo(int a, int b, TTemplateTypeStartsWithCapitalTLetter /* we avoid com
       Bar(i);
       Bar(b);
       // Commented out call
-      //Bar(c);
+      // Bar(c);
     }
   }
 }
@@ -97,10 +99,10 @@ int Foo(int a)
     break;
 
   case 2:
-    {
-      Bar(2);
-      break;
-    }
+  {
+    Bar(2);
+    break;
+  }
 
   case 3:
   default:
@@ -111,8 +113,7 @@ int Foo(int a)
   return 0;
 }
 
-
-//if, for, while formatting
+// if, for, while formatting
 
 if (condition)
   foo();
@@ -130,7 +131,6 @@ if (condition)
 for (size_t i = 0; i < size; ++i)
   foo(i);
 
-
 while (true)
 {
   if (condition)
@@ -140,16 +140,20 @@ while (true)
 // Space after the keyword
 
 if (condition)
-{}
+{
+}
 
 for (size_t i = 0; i < 5; ++i)
-{}
+{
+}
 
 while (condition)
-{}
+{
+}
 
 switch (i)
-{}
+{
+}
 
 // Space between operators, and don't use space between unary operator and expression
 x = 0;
@@ -158,9 +162,9 @@ x = -5;
 x--;
 x *= 5;
 if (x && !y)
-{}
+{
+}
 v = w * x + y / z;
-v = w*x + y/z;
 v = w * (x + z);
 
 // space after double dash

@@ -56,9 +56,24 @@ Then:
 We haven't compiled MAPS.ME on Windows in a long time, though it is possible. It is likely
 some make files should be updated. If you succeed, please submit a tutorial.
 
+See also [Android compilation instructions](android_toolchain_windows.txt) (also possibly outdated).
+
 ### Download maps
 
-http://direct.mapswithme.com/direct/
+To browse maps in an application, you need first to download some. We maintain an archive
+of all released versions of data at [direct.mapswithme.com](http://direct.mapswithme.com/direct/).
+Place `.mwm` and `.mwm.routing` files to `~/Library/Application Support/MapsWithMe` for
+a desktop version. Alternatively, you can put these into `omim/data`, but there
+should be a soft link in a build directory: `build_omim.sh` creates it.
+
+For an Android application, place maps into `/MapsWithMe` directory on a device. For
+iOS devices, use iTunes.
+
+`World.mwm` and `WorldCoasts.mwm` are low-zoom overview maps and should be placed
+into a resource directory, e.g. `/Applications/MAPS.ME/Content/Resources` on Mac OS X.
+Placing these into a maps directory should also work.
+
+For instructions on making your own maps, see [MWM.md](MWM.md).
 
 ## Maps Generator
 
