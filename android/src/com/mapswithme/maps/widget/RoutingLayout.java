@@ -101,7 +101,7 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
     super(context, attrs, defStyleAttr);
     inflate(getContext(), R.layout.layout_routing_full, this);
     setClipToPadding(false);
-    setPadding(0, 0, 0, UiUtils.dimen(R.dimen.margin_quarter));
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
       setElevation(UiUtils.dimen(R.dimen.appbar_elevation));
 

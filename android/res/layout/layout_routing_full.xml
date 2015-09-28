@@ -5,13 +5,13 @@
 
   <include
       android:id="@+id/layout__routing_setup"
-      layout="@layout/layout_routing_setup"
-      tools:visibility="gone"/>
+      layout="@layout/layout_routing_setup"/>
 
   <include
       android:id="@+id/layout__turn_instructions"
       layout="@layout/layout_turn_instructions"
-      android:visibility="gone"/>
+      android:visibility="gone"
+      tools:visibility="visible"/>
 
   <LinearLayout
       android:id="@+id/next_turn"
@@ -27,7 +27,8 @@
       android:paddingLeft="@dimen/margin_base"
       android:paddingRight="@dimen/margin_base"
       android:paddingTop="@dimen/margin_quarter"
-      android:visibility="gone">
+      android:visibility="gone"
+      tools:visibility="visible">
 
     <TextView
         android:id="@+id/tv__next_turn"
