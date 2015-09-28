@@ -215,7 +215,9 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
 
       Framework.nativeCloseRouting();
       UiUtils.show(mLayoutSetupRouting, mWvProgress, mTvPlanning);
-      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild, mNextTurn);
+      // TODO (marchuk): Uncomment after the second turn notification is fixed.
+//      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild, mNextTurn);
+      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
       mTvPlanning.setText(R.string.routing_planning);
       mWvProgress.setProgress(0);
       if (animated)
@@ -232,7 +234,9 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
       break;
     case ROUTE_BUILT:
       UiUtils.show(this, mLayoutSetupRouting, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
-      UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning, mNextTurn);
+      // TODO (marchuk): Uncomment after the second turn notification is fixed.
+//      UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning, mNextTurn);
+      UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning);
       if (animated)
         UiUtils.appearSlidingDown(mBtnStart, null);
       else
@@ -242,7 +246,10 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
       break;
     case ROUTE_BUILD_ERROR:
       UiUtils.show(mLayoutSetupRouting, mIvCancelRouteBuild, mTvPlanning);
-      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress, mNextTurn);
+      // TODO (marchuk): Uncomment after the second turn notification is fixed.
+//      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress, mNextTurn);
+      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress);
+
       mTvPlanning.setText(R.string.routing_planning_error);
       break;
     case TURN_INSTRUCTIONS:
@@ -304,12 +311,14 @@ public class RoutingLayout extends RelativeLayout implements View.OnClickListene
     mTvTurnDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_display_1), UiUtils.dimen(R.dimen.text_size_toolbar),
                                              routingInfo.distToTurn, routingInfo.turnUnits));
     routingInfo.vehicleTurnDirection.setTurnDrawable(mIvTurn);
-    if (routingInfo.vehicleNextTurnDirection.containsNextTurn())
-    {
-      UiUtils.appearSlidingDown(mNextTurn, null);
-      routingInfo.vehicleNextTurnDirection.setNextTurnDrawable(mIvNextTurn);
-    } else
-      UiUtils.disappearSlidingUp(mNextTurn, null);
+    // TODO (marchuk): Uncomment after the second turn notification is fixed.
+//    if (routingInfo.vehicleNextTurnDirection.containsNextTurn())
+//    {
+//      UiUtils.appearSlidingDown(mNextTurn, null);
+//      routingInfo.vehicleNextTurnDirection.setNextTurnDrawable(mIvNextTurn);
+//    }
+//    else
+//      UiUtils.disappearSlidingUp(mNextTurn, null);
   }
 
   private void refreshPedestrianAzimutAndDistance(RoutingInfo info)
