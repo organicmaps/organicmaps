@@ -21,7 +21,7 @@ class QueuedRenderer;
 /// There are threads that are responsible for composing new ScreenCoverage from already drawn tiles,
 /// and drawing tiles if needed.
 /// Once the more recent ScreenCoverage are composed it became a currentCoverage.
-class BasicTilingRenderPolicy : public RenderPolicy
+class BasicTilingRenderPolicy : public RenderPolicyCpuCountHolder, public RenderPolicy
 {
 private:
 

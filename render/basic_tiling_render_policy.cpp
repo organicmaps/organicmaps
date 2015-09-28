@@ -11,7 +11,7 @@
 
 BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
                                                  bool doUseQueuedRenderer)
-  : RenderPolicy(p, GetPlatform().CpuCores() + 2),
+  : RenderPolicy(p, m_cpuCoresCount + 2),
     m_IsEmptyModel(false),
     m_IsNavigating(false),
     m_WasAnimatingLastFrame(false),
@@ -22,7 +22,7 @@ BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
   LOG(LDEBUG, ("ScreenSize=", p.m_screenWidth, "x", p.m_screenHeight, ", TileSize=", m_TileSize));
 
   if (doUseQueuedRenderer)
-    m_QueuedRenderer.reset(new QueuedRenderer(GetPlatform().CpuCores() + 1, p.m_primaryRC));
+    m_QueuedRenderer.reset(new QueuedRenderer(m_cpuCoresCount + 1, p.m_primaryRC));
 }
 
 void BasicTilingRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
@@ -121,7 +121,7 @@ void BasicTilingRenderPolicy::PauseBackgroundRendering()
   m_TileRenderer->CancelCommands();
   m_CoverageGenerator->Pause();
   if (m_QueuedRenderer)
-    m_QueuedRenderer->SetPartialExecution(GetPlatform().CpuCores(), true);
+    m_QueuedRenderer->SetPartialExecution(m_cpuCoresCount, true);
 }
 
 void BasicTilingRenderPolicy::ResumeBackgroundRendering()
@@ -130,7 +130,7 @@ void BasicTilingRenderPolicy::ResumeBackgroundRendering()
   m_CoverageGenerator->Resume();
   m_DoRecreateCoverage = true;
   if (m_QueuedRenderer)
-    m_QueuedRenderer->SetPartialExecution(GetPlatform().CpuCores(), false);
+    m_QueuedRenderer->SetPartialExecution(m_cpuCoresCount, false);
 }
 
 void BasicTilingRenderPolicy::StartNavigation()

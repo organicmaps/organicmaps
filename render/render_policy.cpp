@@ -21,6 +21,11 @@
 #define WHITE_LIST_FILE "fonts_whitelist.txt"
 #define BLACK_LIST_FILE "fonts_blacklist.txt"
 
+RenderPolicyCpuCountHolder::RenderPolicyCpuCountHolder()
+  : m_cpuCoresCount(GetPlatform().CpuCores())
+{
+}
+
 RenderPolicy::~RenderPolicy()
 {
   LOG(LDEBUG, ("clearing cached drawing rules"));
