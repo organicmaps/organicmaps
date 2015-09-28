@@ -13,11 +13,10 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
@@ -38,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Layout for routing setup & turn instruction box.
  */
-public class RoutingLayout extends FrameLayout implements View.OnClickListener
+public class RoutingLayout extends RelativeLayout implements View.OnClickListener
 {
   private static final String IS_ROUTING_DISCLAIMER_APPROVED = "IsDisclaimerApproved";
 
@@ -49,6 +48,8 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
   private TextView mTvTotalDistance;
   private TextView mTvTotalTime;
   private ImageView mIvTurn;
+  private View mNextTurn;
+  private ImageView mIvNextTurn;
   private TextView mTvTurnDistance;
   private TextView mTvPrepareDistance;
   private MapObject mEndPoint;
@@ -98,13 +99,11 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
   public RoutingLayout(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs, defStyleAttr);
-    LayoutInflater.from(context).inflate(R.layout.layout_routing_full, this);
-
+    inflate(getContext(), R.layout.layout_routing_full, this);
+    setClipToPadding(false);
+    setPadding(0, 0, 0, UiUtils.dimen(R.dimen.margin_quarter));
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
       setElevation(UiUtils.dimen(R.dimen.appbar_elevation));
-
-    setBackgroundColor(getResources().getColor(R.color.bg_top_panels));
-    setClipToPadding(false);
 
     if (isInEditMode())
       return;
@@ -146,6 +145,8 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
     mTvTotalTime = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__total_time);
     mTvArrivalTime = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__arrival_time);
     mIvTurn = (ImageView) mLayoutTurnInstructions.findViewById(R.id.iv__turn);
+    mNextTurn = findViewById(R.id.next_turn);
+    mIvNextTurn = (ImageView) mNextTurn.findViewById(R.id.iv__next_turn);
     mTvTurnDistance = (TextView) mLayoutTurnInstructions.findViewById(R.id.tv__turn_distance);
     mLayoutTurnInstructions.findViewById(R.id.btn__close).setOnClickListener(this);
     mFpRouteProgress = (FlatProgressView) mLayoutTurnInstructions.findViewById(R.id.fp__route_progress);
@@ -214,7 +215,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
 
       Framework.nativeCloseRouting();
       UiUtils.show(mLayoutSetupRouting, mWvProgress, mTvPlanning);
-      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
+      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild, mNextTurn);
       mTvPlanning.setText(R.string.routing_planning);
       mWvProgress.setProgress(0);
       if (animated)
@@ -231,7 +232,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
       break;
     case ROUTE_BUILT:
       UiUtils.show(this, mLayoutSetupRouting, mTvPrepareDistance, mTvPrepareTime, mIvCancelRouteBuild);
-      UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning);
+      UiUtils.hide(mLayoutTurnInstructions, mWvProgress, mTvPlanning, mNextTurn);
       if (animated)
         UiUtils.appearSlidingDown(mBtnStart, null);
       else
@@ -241,7 +242,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
       break;
     case ROUTE_BUILD_ERROR:
       UiUtils.show(mLayoutSetupRouting, mIvCancelRouteBuild, mTvPlanning);
-      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress);
+      UiUtils.hide(mLayoutTurnInstructions, mTvPrepareDistance, mTvPrepareTime, mWvProgress, mNextTurn);
       mTvPlanning.setText(R.string.routing_planning_error);
       break;
     case TURN_INSTRUCTIONS:
@@ -286,11 +287,7 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
       return;
 
     if (Framework.getRouter() == Framework.ROUTER_TYPE_VEHICLE)
-    {
-      mTvTurnDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_display_1), UiUtils.dimen(R.dimen.text_size_toolbar),
-                                               mCachedRoutingInfo.distToTurn, mCachedRoutingInfo.turnUnits));
-      mCachedRoutingInfo.vehicleTurnDirection.setTurnDrawable(mIvTurn);
-    }
+      refreshVehicleInfo(mCachedRoutingInfo);
     else
       refreshPedestrianAzimutAndDistance(mCachedRoutingInfo);
 
@@ -300,6 +297,19 @@ public class RoutingLayout extends FrameLayout implements View.OnClickListener
     mTvArrivalTime.setText(formatArrivalTime(mCachedRoutingInfo.totalTimeInSeconds));
     UiUtils.setTextAndHideIfEmpty(mTvNextStreet, mCachedRoutingInfo.nextStreet);
     mFpRouteProgress.setProgress((int) mCachedRoutingInfo.completionPercent);
+  }
+
+  private void refreshVehicleInfo(RoutingInfo routingInfo)
+  {
+    mTvTurnDistance.setText(buildSpannedText(UiUtils.dimen(R.dimen.text_size_display_1), UiUtils.dimen(R.dimen.text_size_toolbar),
+                                             routingInfo.distToTurn, routingInfo.turnUnits));
+    routingInfo.vehicleTurnDirection.setTurnDrawable(mIvTurn);
+    if (routingInfo.vehicleNextTurnDirection.containsNextTurn())
+    {
+      UiUtils.appearSlidingDown(mNextTurn, null);
+      routingInfo.vehicleNextTurnDirection.setNextTurnDrawable(mIvNextTurn);
+    } else
+      UiUtils.disappearSlidingUp(mNextTurn, null);
   }
 
   private void refreshPedestrianAzimutAndDistance(RoutingInfo info)
