@@ -26,7 +26,8 @@
       android:paddingBottom="@dimen/margin_quarter"
       android:paddingLeft="@dimen/margin_base"
       android:paddingRight="@dimen/margin_base"
-      android:paddingTop="@dimen/margin_quarter">
+      android:paddingTop="@dimen/margin_quarter"
+      android:visibility="gone">
 
     <TextView
         android:id="@+id/tv__next_turn"
