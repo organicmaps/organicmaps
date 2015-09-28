@@ -1,0 +1,3 @@
+[submodule "tools/osmctools"]
+	path = tools/osmctools
+	url = git://github.com/mapsme/osmctools.git
