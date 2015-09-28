@@ -53,7 +53,7 @@ except:
     USE_TORNADO = False
 
 
-logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
 
 PORT = 34568
 LIFESPAN = 180.0  # timeout for the self destruction timer - how much time 
