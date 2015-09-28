@@ -1,7 +1,5 @@
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-#import <Foundation/NSThread.h>
 #import "Common.h"
+#import "MapsAppDelegate.h"
 
 #include "platform/file_logging.hpp"
 #include "platform/platform.hpp"
@@ -17,7 +15,7 @@ int main(int argc, char * argv[])
   int retVal;
   @autoreleasepool
   {
-    retVal = UIApplicationMain(argc, argv, nil, nil);
+    retVal = UIApplicationMain(argc, argv, nil, NSStringFromClass([MapsAppDelegate class]));
   }
   return retVal;
 }

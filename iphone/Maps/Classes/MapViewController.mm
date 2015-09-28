@@ -508,6 +508,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  EAGLView * v = (EAGLView *)self.view;
+  [v initRenderPolicy];
   self.view.clipsToBounds = YES;
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
 }
@@ -583,9 +585,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     m_predictor = [[LocationPredictor alloc] initWithObserver:self];
 
     m_StickyThreshold = 10;
-
-    EAGLView * v = (EAGLView *)self.view;
-    [v initRenderPolicy];
 
     self.forceRoutingStateChange = ForceRoutingStateChangeNone;
     self.userTouchesAction = UserTouchesActionNone;
