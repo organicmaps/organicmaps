@@ -20,6 +20,7 @@ class SiblingKiller:
         self.__my_pid = self.my_process_id()
         self.port = port
         self.ping_timeout = ping_timeout
+        logging.debug("Sibling killer: my process id = {}".format(self.__my_pid))
         
         
     def allow_serving(self):
@@ -39,6 +40,15 @@ class SiblingKiller:
         
         If we are the process with the same name as ours and with the lowest process id, let's start serving and kill everyone else. 
         """
+
+        if self.wait_for_server():
+            self.__allow_serving = False
+            logging.debug("There is a server that is currently serving on our port... Disallowing to start a new one")
+            return
+        
+        logging.debug("There are no servers that are currently serving. Will try to kill our siblings.")
+        
+        
         sibs = self.siblings()
         
         for sibling in sibs:
@@ -49,6 +59,7 @@ class SiblingKiller:
             if self.wait_for_server():
                 serving_pid = self.serving_process_id()
                 if serving_pid:
+                    logging.debug("There is a serving sibling with process id: {}".format(serving_pid))
                     self.kill(pids=map(lambda x: x != serving_pid, sibs))
                     self.__allow_serving = False
                     return
@@ -61,6 +72,7 @@ class SiblingKiller:
 
     def kill(self, pid=0, pids=list()):
         if not pid and not pids:
+            logging.debug("There are no siblings to kill")
             return
         if pid and pids:
             raise Exception("Use either one pid or multiple pids")
@@ -142,6 +154,8 @@ class SiblingKiller:
         except (urllib2.URLError, socket.timeout):
             pass
 
+        logging.debug("Pinging returned html: {}".format(html))
+
         return html == "pong"
 
 
@@ -166,6 +180,7 @@ class SiblingKiller:
     
    
     def exec_command(self, command):
+        logging.debug(">> {}".format(command))
         p = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate()
         p.wait()
