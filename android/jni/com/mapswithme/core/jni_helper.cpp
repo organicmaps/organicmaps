@@ -87,25 +87,12 @@ namespace jni
     return mid;
   }
 
-  // @TODO uncomment, test & use?
-  /*
-  jobject CreateJavaObject(JNIEnv * env, char const * klassName, char const * sig, ...)
+  jclass GetGlobalClassRef(JNIEnv * env, char const * sig)
   {
-    jclass klass = env->FindClass(klassName);
-    ASSERT(klass, ("Can't find java class", klassName));
-
-    jmethodID methodId = env->GetMethodID(klass, "<init>", sig);
-    ASSERT(methodId, ("Can't find java constructor", sig));
-
-    va_list args;
-    va_start(args, sig);
-    jobject res = env->NewObject(klass, methodId, args);
-    ASSERT(res, ());
-    va_end(args);
-
-    return res;
+    jclass klass = env->FindClass(sig);
+    ASSERT(klass, ("Can't get class : ", DescribeException()));
+    return static_cast<jclass>(env->NewGlobalRef(klass));
   }
-  */
 
   string ToNativeString(JNIEnv * env, jstring str)
   {

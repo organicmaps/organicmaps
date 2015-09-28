@@ -12,17 +12,13 @@ extern jclass g_indexClazz;
 
 namespace jni
 {
-//  jclass FindClass(char const * name);
+// TODO yunitsky uncomment and use to load classes from native threads.
+// jclass FindClass(char const * name);
 
-  /// @name Some examples of signature:
-  /// "()V" - void function returning void;
-  /// "(Ljava/lang/String;)V" - String function returning void;
-  /// "com/mapswithme/maps/MapStorage$Index" - class MapStorage.Index
-  //@{
   jmethodID GetJavaMethodID(JNIEnv * env, jobject obj, char const * fn, char const * sig);
 
-  //jobject CreateJavaObject(JNIEnv * env, char const * klass, char const * sig, ...);
-  //@}
+  // Result value should be DeleteGlobalRef`ed by caller
+  jclass GetGlobalClassRef(JNIEnv * env, char const * s);
 
   JNIEnv * GetEnv();
   JavaVM * GetJVM();
