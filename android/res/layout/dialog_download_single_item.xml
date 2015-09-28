@@ -15,20 +15,17 @@
       android:textAppearance="@style/MwmTextAppearance.Body2"/>
 
   <View
-      android:id="@+id/divider_top"
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:background="?attr/dividerHorizontal"/>
 
   <include
-      android:id="@+id/item"
       layout="@layout/item_country_dialog"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@color/base_bg_secondary"/>
 
   <View
-      android:id="@+id/divider_bottom"
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:background="?attr/dividerHorizontal"/>
