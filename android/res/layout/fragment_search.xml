@@ -30,7 +30,7 @@
           android:layout_height="@dimen/tabs_height"
           android:background="@android:color/white"
           android:elevation="@dimen/appbar_elevation"
-          app:tabIndicatorColor="@color/base_light_blue"
+          app:tabIndicatorColor="@color/base_blue_light"
           app:tabMode="fixed"
           app:tabGravity="fill"/>
 

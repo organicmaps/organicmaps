@@ -262,7 +262,9 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 
   private boolean showPopulateButton()
   {
-    return (mResults != null && mResults.length > 0);
+    return (mResults != null &&
+            mResults.length > 0 &&
+            mResults[0].type != SearchResult.TYPE_SUGGEST);
   }
 
   @Override
