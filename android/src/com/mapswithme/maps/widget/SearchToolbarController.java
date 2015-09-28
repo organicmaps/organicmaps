@@ -104,7 +104,7 @@ public class SearchToolbarController extends ToolbarController
   {
     mQuery.setText(query);
     if (!TextUtils.isEmpty(query))
-      mQuery.selectAll();
+      mQuery.setSelection(query.length());
   }
 
   public void clear()
