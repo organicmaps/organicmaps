@@ -1,6 +1,6 @@
 #include "route.hpp"
-#include "turns_generator.hpp"
 #include "speed_camera.hpp"
+#include "turns_generator.hpp"
 
 #include "indexer/mercator.hpp"
 

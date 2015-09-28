@@ -32,7 +32,7 @@ double constexpr kSpeedCameraMinimalWarningMeters = 200.;
 // Seconds to warning user before speed camera for driving with current speed.
 double constexpr kSpeedCameraWarningSeconds = 30;
 
-double constexpr kMpsToKmh = 3600. / 1000.;
+double constexpr kKmhToMps = 1000. / 3600.;
 }  // namespace
 
 namespace routing
@@ -179,7 +179,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
         double const camDistance = m_route.GetCurrentCam(cam, index);
         if (Route::kInvalidSpeedCameraDistance != camDistance && camDistance < warningDistanceM)
         {
-          if (cam.m_index > m_lastWarnedSpeedCamera && info.m_speed > cam.m_maxSpeed * kMpsToKmh)
+          if (cam.m_index > m_lastWarnedSpeedCamera && info.m_speed > cam.m_maxSpeed * kKmhToMps)
           {
             m_speedWarningSignal = true;
             m_lastWarnedSpeedCamera = cam.m_index;

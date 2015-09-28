@@ -127,8 +127,8 @@ private:
   m2::PointD m_endPoint;
   size_t m_lastWarnedSpeedCamera;
   // TODO (ldragunov) Rewrite UI interop to message queue and avoid mutable.
-  /// It is mutable, because a speed warning ring must be only one time per camera. So we need
-  /// to modify it in a getter.
+  /// This field is mutable because it's modified in a constant getter. Note that the notification
+  /// about camera will be sent at most once.
   mutable bool m_speedWarningSignal;
 
   mutable threads::Mutex m_routeSessionMutex;

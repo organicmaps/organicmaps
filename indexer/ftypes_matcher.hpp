@@ -48,9 +48,9 @@ public:
 
 class IsSpeedCamChecker : public BaseChecker
 {
-public:
   IsSpeedCamChecker();
 
+public:
   static IsSpeedCamChecker const & Instance();
 };
 

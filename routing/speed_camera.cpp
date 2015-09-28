@@ -5,20 +5,22 @@
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
+#include "coding/read_write_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
-#include "coding/read_write_utils.hpp"
 
 #include "base/string_utils.hpp"
 
 namespace
 {
-double constexpr kMwmReadingRadiusMeters = 2.0;
+double constexpr kCameraCheckRadiusMeters = 2.0;
 }  // namespace
 
 namespace routing
 {
-uint8_t ReadCamRestriction(FeatureType & ft)
+uint8_t const kNoSpeedCamera = numeric_limits<uint8_t>::max();
+
+uint8_t ReadCameraRestriction(FeatureType & ft)
 {
   using feature::Metadata;
   ft.ParseMetadata();
@@ -46,11 +48,12 @@ uint8_t CheckCameraInPoint(m2::PointD const & point, Index const & index)
 
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     if (ft.GetCenter() == point)
-      speedLimit = ReadCamRestriction(ft);
+      speedLimit = ReadCameraRestriction(ft);
   };
 
   index.ForEachInRect(f,
-                      MercatorBounds::RectByCenterXYAndSizeInMeters(point, kMwmReadingRadiusMeters),
+                      MercatorBounds::RectByCenterXYAndSizeInMeters(point,
+                                                                    kCameraCheckRadiusMeters),
                       scales::GetUpperScale());
   return speedLimit;
 }

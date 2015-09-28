@@ -125,7 +125,7 @@ protected:
 
   string ValidateAndFormat_maxspeed(string const & v) const
   {
-    static ftypes::IsSpeedCamChecker const IsSpeedCam;
+    static ftypes::IsSpeedCamChecker const & IsSpeedCam = ftypes::IsSpeedCamChecker::Instance();
     if (!IsSpeedCam(m_params.m_Types))
       return string();
 
