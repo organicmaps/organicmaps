@@ -4,16 +4,14 @@
       android:id="@+id/pp__preview"
       layout="@layout/place_page_preview"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@drawable/bg_place_page_back"/>
+      android:layout_height="wrap_content"/>
 
   <include
       android:id="@+id/pp__details_frame"
       layout="@layout/place_page_details"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/pp__preview"
-      android:background="@color/bg_top_panels"/>
+      android:layout_below="@id/pp__preview"/>
 
   <include
       android:id="@+id/pp__buttons"

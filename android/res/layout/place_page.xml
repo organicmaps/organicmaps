@@ -14,7 +14,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_above="@+id/pp__buttons"
-      android:layout_marginTop="56dp"/>
+      android:layout_marginTop="56dp"
+      android:background="@color/bg_top_panels"/>
 
   <include
       android:id="@+id/pp__buttons"
