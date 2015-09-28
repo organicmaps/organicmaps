@@ -104,6 +104,20 @@ FeatureGraphNode::FeatureGraphNode(NodeID const nodeId, bool const isStartNode,
   segment.m_fid = kInvalidFid;
 }
 
+FeatureGraphNode::FeatureGraphNode(NodeID const nodeId, NodeID const reverseNodeId,
+                                   bool const isStartNode, string const & mwmName)
+    : segmentPoint(m2::PointD::Zero()), mwmName(mwmName)
+{
+  node.forward_node_id = isStartNode ? nodeId : reverseNodeId;
+  node.reverse_node_id = isStartNode ? reverseNodeId : nodeId;
+  node.forward_weight = 0;
+  node.reverse_weight = 0;
+  node.forward_offset = 0;
+  node.reverse_offset = 0;
+  node.name_id = 1;
+  segment.m_fid = kInvalidFid;
+}
+
 FeatureGraphNode::FeatureGraphNode()
 {
   node.forward_node_id = INVALID_NODE_ID;

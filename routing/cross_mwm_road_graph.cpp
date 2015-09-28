@@ -33,7 +33,8 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   targets.reserve(outSize);
   for (auto j = mwmOutsIter.first; j < mwmOutsIter.second; ++j)
     targets.emplace_back(j->m_nodeId, false /* isStartNode */, startNode.mwmName);
-  sources[0] = FeatureGraphNode(startNode.node, true /* isStartNode */, startNode.mwmName);
+  sources[0] = FeatureGraphNode(startNode.node, startNode.reverseNode, true /* isStartNode */,
+                                startNode.mwmName);
 
   vector<EdgeWeight> weights;
   FindWeightsMatrix(sources, targets, startMapping->m_dataFacade, weights);
@@ -95,7 +96,8 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   }
   vector<EdgeWeight> weights;
 
-  targets[0] = FeatureGraphNode(finalNode.node, false /* isStartNode */, finalNode.mwmName);
+  targets[0] = FeatureGraphNode(finalNode.node, finalNode.reverseNode, false /* isStartNode */,
+                                finalNode.mwmName);
   FindWeightsMatrix(sources, targets, finalMapping->m_dataFacade, weights);
   if (find_if(weights.begin(), weights.end(), &IsValidEdgeWeight) == weights.end())
     return IRouter::EndPointNotFound;

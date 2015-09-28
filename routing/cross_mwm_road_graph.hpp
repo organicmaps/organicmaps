@@ -18,16 +18,22 @@ namespace routing
 struct CrossNode
 {
   NodeID node;
+  NodeID reverseNode;
   string mwmName;
   m2::PointD point;
   bool isVirtual;
 
-  CrossNode(NodeID node, string const & mwmName, m2::PointD const & point)
-      : node(node), mwmName(mwmName), point(point), isVirtual(false)
+  CrossNode(NodeID node, NodeID reverse, string const & mwmName, m2::PointD const & point)
+      : node(node), reverseNode(reverse), mwmName(mwmName), point(point), isVirtual(false)
   {
   }
 
-  CrossNode() : node(INVALID_NODE_ID), point(m2::PointD::Zero()) {}
+  CrossNode(NodeID node, string const & mwmName, m2::PointD const & point)
+      : node(node), reverseNode(INVALID_NODE_ID), mwmName(mwmName), point(point), isVirtual(false)
+  {
+  }
+
+  CrossNode() : node(INVALID_NODE_ID), reverseNode(INVALID_NODE_ID), point(m2::PointD::Zero()) {}
 
   inline bool IsValid() const { return node != INVALID_NODE_ID; }
 
