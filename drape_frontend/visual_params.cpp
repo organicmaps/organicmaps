@@ -21,21 +21,6 @@ static VisualParams g_VizParams;
 
 typedef pair<string, double> visual_scale_t;
 
-struct VisualScaleFinder
-{
-  VisualScaleFinder(double vs)
-    : m_vs(vs)
-  {
-  }
-
-  bool operator()(visual_scale_t const & node)
-  {
-    return my::AlmostEqualULPs(node.second, m_vs);
-  }
-
-  double m_vs;
-};
-
 } // namespace
 
 #ifdef DEBUG
@@ -83,9 +68,21 @@ string const & VisualParams::GetResourcePostfix(double visualScale, bool isYotaD
   if (isYotaDevice)
     return specifixPostfixes[0];
 
-  visual_scale_t * finded = find_if(postfixes, postfixes + ARRAY_SIZE(postfixes), VisualScaleFinder(visualScale));
-  ASSERT(finded < postfixes + ARRAY_SIZE(postfixes), ());
-  return finded->first;
+  // Looking for the nearest available scale.
+  int postfixIndex = -1;
+  double minValue = numeric_limits<float>::max();
+  for (int i = 0; i < ARRAY_SIZE(postfixes); i++)
+  {
+    double val = fabs(postfixes[i].second - visualScale);
+    if (val < minValue)
+    {
+      minValue = val;
+      postfixIndex = i;
+    }
+  }
+
+  ASSERT_GREATER_OR_EQUAL(postfixIndex, 0, ());
+  return postfixes[postfixIndex].first;
 }
 
 string const & VisualParams::GetResourcePostfix() const
