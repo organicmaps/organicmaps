@@ -5,12 +5,16 @@ http://maps.me
 This is an application for [Android](https://play.google.com/store/apps/details?id=com.mapswithme.maps.pro)
 and [iOS](https://itunes.apple.com/app/id510623322) devices for offline maps built from OpenStreetMap data.
 
+## Submodules
+
+This repository contains submodules. Clone it with `git clone --recursive`. If you forgot,
+run `git submodule update --init --recursive`.
+
 ## Compilation
 
-You will need Qt 5.3 or later to build the project. On Mac OS X systems we recommend installing
-XCode and [Homebrew](http://brew.sh/). See `build_omim.sh` script in `tools/unix` directory:
-it builds debug and release versions of the desktop application and map generator tool, as well
-as routing backend.
+To compile the project, you would need to initialize private key files. Run
+`configure.sh` and press Enter to create empty files, good enough to build desktop
+and Android debug packages.
 
 For detailed installation instructions and Android/iOS building process,
 see [INSTALL.md](https://github.com/mapsme/omim/tree/master/docs/INSTALL.md).
@@ -42,8 +46,7 @@ format description, instructions on building a style and some links.
 ## Development
 
 You would need Qt 5 for development, most other libraries are included into the
-repository, see `3party` directory. After cloning, the repository must be
-initialized with `configure.sh`. The team uses mostly XCode and Qt Creator,
+repository, see `3party` directory. The team uses mostly XCode and Qt Creator,
 though these are not mandatory. We have an established
 [coding style](https://github.com/mapsme/omim/blob/master/docs/cpp_coding_standard.txt).
 Our pull request review process may be intimidating, but it ensures a consistent
