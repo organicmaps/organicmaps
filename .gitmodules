@@ -1,3 +1,6 @@
 [submodule "tools/osmctools"]
 	path = tools/osmctools
 	url = git://github.com/mapsme/osmctools.git
+[submodule "tools/kothic"]
+	path = tools/kothic
+	url = git://github.com/mapsme/kothic.git

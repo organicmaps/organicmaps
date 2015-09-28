@@ -1,9 +1,11 @@
 #!/bin/bash
 set -e -u -x
 
+# Prevent python from generating compiled *.pyc files
 export PYTHONDONTWRITEBYTECODE=1
 
-DATA_PATH="$(dirname "$0")/../../data"
+OMIM_PATH="${OMIM_PATH:-$(dirname "$0")/../..}"
+DATA_PATH="$OMIM_PATH/data"
 
 function BuildDrawingRules() {
   styleType=$1
@@ -14,8 +16,9 @@ function BuildDrawingRules() {
   rm $DATA_PATH/drules_proto$suffix.bin || true
   rm $DATA_PATH/drules_proto$suffix.txt || true
   # Run script to build style
-  python ../kothic/libkomwm.py -s $DATA_PATH/styles/$styleType/style-$styleName/style.mapcss \
-                               -o $DATA_PATH/drules_proto$suffix
+  python "$OMIM_PATH/tools/kothic/src/libkomwm.py" \
+    -s "$DATA_PATH/styles/$styleType/style-$styleName/style.mapcss" \
+    -o "$DATA_PATH/drules_proto$suffix"
 }
 
 # Cleanup
@@ -29,6 +32,3 @@ done
 BuildDrawingRules clear  clear _clear
 BuildDrawingRules clear  night _dark
 BuildDrawingRules legacy light
-
-echo "Done"
-exit 0 # ok
