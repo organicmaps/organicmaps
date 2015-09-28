@@ -86,6 +86,7 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
   jstring name = jni::ToJavaString(env, result.GetString());
   jobject ret = env->NewObject(g_resultClass, g_resultConstructor, name, desc, ranges);
   ASSERT(ret, ());
+  env->DeleteLocalRef(name);
   env->DeleteLocalRef(desc);
   env->DeleteLocalRef(ranges);
 
