@@ -180,15 +180,6 @@ void InitLocalizedStrings()
   [Preferences setup:self.m_mapViewController];
   _m_locationManager = [[LocationManager alloc] init];
 
-  m_navController = [[NavigationController alloc] initWithRootViewController:self.m_mapViewController];
-  m_navController.navigationBarHidden = YES;
-  m_window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  m_window.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  m_window.clearsContextBeforeDrawing = NO;
-  m_window.multipleTouchEnabled = YES;
-  [m_window setRootViewController:m_navController];
-  [m_window makeKeyAndVisible];
-
   [self subscribeToStorage];
 
   [self customizeAppearance];
@@ -425,7 +416,7 @@ void InitLocalizedStrings()
 
 - (void)showMap
 {
-  [m_navController popToRootViewControllerAnimated:YES];
+  [(UINavigationController *)self.window.rootViewController popToRootViewControllerAnimated:YES];
   [self.m_mapViewController dismissPopover];
 }
 
@@ -448,11 +439,6 @@ void InitLocalizedStrings()
 - (void)outOfDateCountriesCountChanged:(NSNotification *)notification
 {
   [UIApplication sharedApplication].applicationIconBadgeNumber = [[notification userInfo][@"OutOfDate"] integerValue];
-}
-
-- (UIWindow *)window
-{
-  return m_window;
 }
 
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply
@@ -559,22 +545,30 @@ void InitLocalizedStrings()
 - (void)showAlertIfRequired
 {
   if ([self shouldShowRateAlert])
-    [self performSelector:@selector(showRateAlert) withObject:self afterDelay:30.0];
+    [self performSelector:@selector(showRateAlert) withObject:nil afterDelay:30.0];
   else if ([self shouldShowFacebookAlert])
-    [self performSelector:@selector(showFacebookAlert) withObject:self afterDelay:30.0];
+    [self performSelector:@selector(showFacebookAlert) withObject:nil afterDelay:30.0];
+}
+
+- (void)showAlert:(BOOL)isRate
+{
+  if (!Platform::IsConnected())
+    return;
+  
+  UIViewController * topViewController = [(UINavigationController*)self.window.rootViewController visibleViewController];
+  MWMAlertViewController * alert = [[MWMAlertViewController alloc] initWithViewController:topViewController];
+  if (isRate)
+    [alert presentRateAlert];
+  else
+  [alert presentFacebookAlert];
+  [[NSUserDefaults standardUserDefaults] setObject:NSDate.date forKey:isRate ? kUDLastRateRequestDate : kUDLastShareRequstDate];
 }
 
 #pragma mark - Facebook
 
 - (void)showFacebookAlert
 {
-  if (!Platform::IsConnected())
-    return;
-  
-  UIViewController *topViewController = [(UINavigationController*)m_window.rootViewController visibleViewController];
-  MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:topViewController];
-  [alert presentFacebookAlert];
-  [[NSUserDefaults standardUserDefaults] setObject:NSDate.date forKey:kUDLastShareRequstDate];
+  [self showAlert:NO];
 }
 
 - (BOOL)shouldShowFacebookAlert
@@ -613,13 +607,7 @@ void InitLocalizedStrings()
 
 - (void)showRateAlert
 {
-  if (!Platform::IsConnected())
-    return;
-  
-  UIViewController *topViewController = [(UINavigationController*)m_window.rootViewController visibleViewController];
-  MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:topViewController];
-  [alert presentRateAlert];
-  [[NSUserDefaults standardUserDefaults] setObject:NSDate.date forKey:kUDLastRateRequestDate];
+  [self showAlert:YES];
 }
 
 - (BOOL)shouldShowRateAlert

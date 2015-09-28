@@ -104,10 +104,8 @@
 	<string>LocalNotifications</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
-	<key>NSMainNibFile</key>
-	<string>MainWindow</string>
-	<key>NSMainNibFile~ipad</key>
-	<string>MainWindow-iPad</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Mapsme</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
