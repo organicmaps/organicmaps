@@ -1,5 +1,8 @@
 package com.mapswithme.maps.search;
 
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +43,15 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
     {
       case TYPE_ITEM:
         res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_recent, viewGroup, false));
+
+        // FIXME: Temp solution until correct icons are used
+        final Drawable[] dlist = res.mText.getCompoundDrawables();
+        final Rect bounds = dlist[0].getBounds();
+        DrawableCompat.setTint(DrawableCompat.wrap(dlist[0]).mutate(), 0x42000000);
+        dlist[0].setBounds(bounds);
+        res.mText.setCompoundDrawablesWithIntrinsicBounds(dlist[0], dlist[1], dlist[2], dlist[3]);
+        // END
+
         res.mText.setOnClickListener(new View.OnClickListener()
         {
           @Override
