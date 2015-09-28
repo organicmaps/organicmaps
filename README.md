@@ -48,7 +48,7 @@ format description, instructions on building a style and some links.
 You would need Qt 5 for development, most other libraries are included into the
 repository, see `3party` directory. The team uses mostly XCode and Qt Creator,
 though these are not mandatory. We have an established
-[coding style](https://github.com/mapsme/omim/blob/master/docs/cpp_coding_standard.txt).
+[coding style](https://github.com/mapsme/omim/blob/master/docs/CPP_STYLE.md).
 Our pull request review process may be intimidating, but it ensures a consistent
 code quality.
 

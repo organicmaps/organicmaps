@@ -41,6 +41,8 @@ preferences with XCode's lldb as a debugger and a clang compiler.
 
 ## Coding Style
 
+See [CPP_STYLE.md](CPP_STYLE.md).
+
 ## Directories
 
 ### Sources

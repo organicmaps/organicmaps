@@ -1,13 +1,15 @@
-We write code without warnings!
+# C++ Style Guide
 
-In general, Google's coding standard http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml is used and we strongly encourage to read it.
+**We write code without warnings!**
+
+In general, [Google's coding standard](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml) is used, and we strongly encourage to read it.
 
 Below are our specific (but not all!) exceptions to the Google's coding standard:
 
-- We use .cpp and .hpp files, not .cc and .h (.c and .h are used for C code), in UTF-8 encoding
-- File names are lowercase with underscores, like file_reader.cpp
-- We use #pragma once instead of the #define Guard in header files.
-- We don't include system, std and boost headers directly, use #include "../std/<wrapper.hpp>"
+- We use `.cpp` and `.hpp` files, not `.cc` and `.h` (`.c` and `.h` are used for C code), in UTF-8 encoding
+- File names are lowercase with underscores, like `file_reader.cpp`
+- We use `#pragma once` instead of the `#define` Guard in header files.
+- We don't include system, std and boost headers directly, use `#include "../std/<wrapper.hpp>"`
 - We ARE using C++ exceptions
 - We are using all features of C++11 (the only known exception is thread_local which is not fully supported on all platforms)
 - We don't use boost libraries which require linking (and prefer C++11 types over their boost counterparts)
@@ -17,15 +19,17 @@ Naming and formatting
 - We ALWAYS use two spaces indent and don't use tabs
 - We don't have hardcoded line width, but keep it reasonable to fit on the screen
 - Doxygen-style comments can be used
-- Underscores are allowed only in prefixes for member variables and namespace names, like int m_countriesCount; namespace utf_parser
-- Don't specify std:: and boost:: prefixes (headers in std/ folder already have 'using std::string')
-- Use right-to-left order for variables/params: string const & s (reference to the const string)
-- In one line 'if', 'for', 'while' we do not use brackets. If one line 'for' or 'while' is combined with one line 'if' do use brackets for cycle.
-- Space after the keyword in conditions and loops. Space after ';' in for loop
-- Space between binary operators, but can skip according to operators priority: x = y*y + z*z;
+- Underscores are allowed only in prefixes for member variables and namespace names, like `int m_countriesCount; namespace utf_parser`
+- Don't specify `std::` and `boost::` prefixes (headers in std/ folder already have `using std::string`)
+- Use right-to-left order for variables/params: `string const & s` (reference to the const string)
+- In one line `if`, `for`, `while` we do not use brackets. If one line `for` or `while` is combined with one line `if`, do use brackets for cycle.
+- Space after the keyword in conditions and loops. Space after `;` in `for` loop
+- Space between binary operators, but can skip according to operators priority: `x = y*y + z*z`
 - Space after double dash
 
-// *********** Formatting Example/Guide/Reference ***********
+## Formatting Example/Guide/Reference
+
+```cpp
 #include "../std/math.hpp"
 
 typedef double TMyTypeStartsWithCapitalTLetter;
@@ -160,9 +164,9 @@ v = w*x + y/z;
 v = w * (x + z);
 
 // space after double dash
+```
 
-
-Tips and Hints
+## Tips and Hints
 
 - If you see outdated code which can be improved - DO IT NOW (but in the separate pull request)! Make this awesome world even more better! 
 - Your code should work at least on [mac|win|linux|android][x86|x86_64], [ios|android][armv7|arm64] architectures
@@ -173,20 +177,22 @@ Tips and Hints
 - Ask your team if you have any questions
 - Use dev@maps.me mailing list to ask all developers and bugs@maps.me mailing list to post bugs
 - Release builds contain debugging information (for profiling), production builds are not
-- If you don't have enough time to make it right, leave a '// TODO(DeveloperName): need to fix it' comment
-- Some useful macroses:
--- #ifdef DEBUG | RELEASE | OMIM_PRODUCTION
--- #ifdef OMIM_OS_ANDROID | OMIM_OS_IPHONE | OMIM_OS_MAC (and some other useful OS-related macroses, see std/target_os.hpp)
--- Use ASSERT(expression, (out message)) and ASSERT_XXXXXX macroses often to check code validity in DEBUG builds
--- Use CHECK(expression, (out message)) and CHECK_XXXXXX macroses to check code validity in all builds
--- Use LOG(level, (message)) for logging, below is more detailed description for level:
-   LINFO - always prints log message
-   LDEBUG - logs only in DEBUG
-   LWARNING - the same as LINFO but catches your attention
-   LERROR - the same as LWARNING, but crashes in DEBUG and works in RELEASE
-   LCRITICAL - the same as LERROR and ALWAYS crashes
--- Need scope guard? Check MY_SCOPE_GUARD(name, func)
--- Use std::array::size() to calculate plain C-array's size
--- Declare your own exceptions with DECLARE_EXCEPTION(name, baseException), where baseException is usually RootException
--- Throw exceptions with MYTHROW(exceptionName, (message))
--- A lot of useful string conversion utils are in base/string_utils.hpp
+- If you don't have enough time to make it right, leave a `// TODO(DeveloperName): need to fix it` comment
+
+### Some useful macros:
+
+- `#ifdef DEBUG | RELEASE | OMIM_PRODUCTION`
+- `#ifdef OMIM_OS_ANDROID | OMIM_OS_IPHONE | OMIM_OS_MAC` (and some other useful OS-related macros, see `std/target_os.hpp`)
+- Use `ASSERT(expression, (out message))` and `ASSERT_XXXXXX` macros often to check code validity in DEBUG builds
+- Use `CHECK(expression, (out message))` and `CHECK_XXXXXX` macros to check code validity in all builds
+- Use `LOG(level, (message))` for logging, below is more detailed description for level:
+    * `LINFO` - always prints log message
+    * `LDEBUG` - logs only in DEBUG
+    * `LWARNING` - the same as `LINFO` but catches your attention
+    * `LERROR` - the same as `LWARNING`, but crashes in DEBUG and works in RELEASE
+    * `LCRITICAL` - the same as `LERROR` and ALWAYS crashes
+- Need scope guard? Check `MY_SCOPE_GUARD(name, func)`
+- Use `std::array::size()` to calculate plain C-array's size
+- Declare your own exceptions with `DECLARE_EXCEPTION(name, baseException)`, where `baseException` is usually `RootException`
+- Throw exceptions with `MYTHROW(exceptionName, (message))`
+- A lot of useful string conversion utils are in `base/string_utils.hpp`
