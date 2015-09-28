@@ -91,9 +91,6 @@ public class SearchFragment extends BaseMwmFragment
     @Override
     protected boolean onStartSearchClick()
     {
-      if (!mSearchAdapter.showPopulateButton())
-        return false;
-
       showAllResultsOnMap();
       return true;
     }

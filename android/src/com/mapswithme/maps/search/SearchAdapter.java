@@ -260,7 +260,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     }
   }
 
-  boolean showPopulateButton()
+  private boolean showPopulateButton()
   {
     return (mResults != null && mResults.length > 0);
   }
