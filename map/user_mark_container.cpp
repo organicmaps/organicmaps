@@ -50,9 +50,14 @@ namespace
   {
     switch (cont->GetType())
     {
-    case UserMarkType::API_MARK: return df::GetApiTileKey();
-    case UserMarkType::SEARCH_MARK: return df::GetSearchTileKey();
-    case UserMarkType::BOOKMARK_MARK: return df::GetBookmarkTileKey(reinterpret_cast<size_t>(cont));
+    case UserMarkType::API_MARK:
+      return df::GetApiTileKey();
+    case UserMarkType::SEARCH_MARK:
+      return df::GetSearchTileKey();
+    case UserMarkType::BOOKMARK_MARK:
+      return df::GetBookmarkTileKey(reinterpret_cast<size_t>(cont));
+    case UserMarkType::DEBUG_MARK:
+      return df::GetDebugTileKey();
     default:
       ASSERT(false, ());
       break;

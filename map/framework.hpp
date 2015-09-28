@@ -261,6 +261,15 @@ public:
   void SetUserMarkActivationListener(TActivateCallbackFn const & fn) { m_activateUserMarkFn = fn; }
 
 private:
+  struct TapEventData
+  {
+    m2::PointD m_pxPoint;
+    bool m_isLong;
+    bool m_isMyPosition;
+    FeatureID m_feature;
+  };
+  unique_ptr<TapEventData> m_lastTapEvent;
+
   void OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature);
   UserMark const * OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature);
   //@}

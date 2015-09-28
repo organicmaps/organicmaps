@@ -14,6 +14,7 @@ namespace df
 {
   TileKey GetSearchTileKey();
   TileKey GetApiTileKey();
+  TileKey GetDebugTileKey();
   TileKey GetBookmarkTileKey(size_t categoryIndex);
   bool IsUserMarkLayer(TileKey const & tileKey);
 

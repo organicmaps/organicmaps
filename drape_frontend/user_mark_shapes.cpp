@@ -17,6 +17,7 @@ namespace
   int const YSearchMarksLayer = 1;
   int const YApiMarksLayer = 2;
   int const YBookmarksLayer = 3;
+  int const YDebugLayer = 4;
 }
 
 TileKey GetSearchTileKey()
@@ -27,6 +28,11 @@ TileKey GetSearchTileKey()
 TileKey GetApiTileKey()
 {
   return TileKey(0, YApiMarksLayer, ZUserMarksLayer);
+}
+
+TileKey GetDebugTileKey()
+{
+  return TileKey(0, YDebugLayer, ZUserMarksLayer);
 }
 
 TileKey GetBookmarkTileKey(size_t categoryIndex)

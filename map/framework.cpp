@@ -167,8 +167,8 @@ void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const
 
 void Framework::OnUserPositionChanged(m2::PointD const & position)
 {
-  MyPositionMarkPoint * myPostition = UserMarkContainer::UserMarkForMyPostion();
-  myPostition->SetUserPosition(position);
+  MyPositionMarkPoint * myPosition = UserMarkContainer::UserMarkForMyPostion();
+  myPosition->SetUserPosition(position);
 
   if (IsRoutingActive())
     m_routingSession.SetUserCurrentPosition(position);
@@ -1250,6 +1250,14 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   InvalidateMyPosition();
 
   m_bmManager.InitBookmarks();
+
+  // In case of the engine reinitialization simulate the last tap to show selection mark.
+  if (m_lastTapEvent != nullptr)
+  {
+    UserMark const * mark = OnTapEventImpl(m_lastTapEvent->m_pxPoint, m_lastTapEvent->m_isLong,
+                                           m_lastTapEvent->m_isMyPosition, m_lastTapEvent->m_feature);
+    ActivateUserMark(mark, true);
+  }
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
@@ -1564,6 +1572,14 @@ bool Framework::HasActiveUserMark()
 
 void Framework::OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature)
 {
+  // Back up last tap event to recover selection in case of Drape reinitialization.
+  if (!m_lastTapEvent)
+    m_lastTapEvent = make_unique<TapEventData>();
+  m_lastTapEvent->m_pxPoint = pxPoint;
+  m_lastTapEvent->m_isLong = isLong;
+  m_lastTapEvent->m_isMyPosition = isMyPosition;
+  m_lastTapEvent->m_feature = feature;
+
   UserMark const * mark = OnTapEventImpl(pxPoint, isLong, isMyPosition, feature);
 
   {
