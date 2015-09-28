@@ -58,11 +58,9 @@ namespace
       return df::GetBookmarkTileKey(reinterpret_cast<size_t>(cont));
     case UserMarkType::DEBUG_MARK:
       return df::GetDebugTileKey();
-    default:
-      ASSERT(false, ());
-      break;
     }
 
+    ASSERT(false, ());
     return df::TileKey();
   }
 
