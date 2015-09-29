@@ -59,14 +59,14 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)addBookmark
 {
-  [self.manager addBookmark];
   [self.basePlacePageView addBookmark];
+  [self.manager addBookmark];
 }
 
 - (void)removeBookmark
 {
-  [self.manager removeBookmark];
   [self.basePlacePageView removeBookmark];
+  [self.manager removeBookmark];
   self.keyboardHeight = 0.;
 }
 
