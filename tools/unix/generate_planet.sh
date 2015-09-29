@@ -226,7 +226,7 @@ if [ "$MODE" == "coast" ]; then
   [ ! -r "$PLANET" ] && fail "Planet file $PLANET is not found"
   INTCOASTSDIR="$INTDIR/coasts"
   mkdir -p "$INTCOASTSDIR"
-  COASTS="$INTCOASTSDIR/coastlines-latest.o5m"
+  COASTS_O5M="$INTCOASTSDIR/coastlines-latest.o5m"
   TRY_AGAIN=1
   while [ -n "$TRY_AGAIN" ]; do
     TRY_AGAIN=
@@ -241,14 +241,14 @@ if [ "$MODE" == "coast" ]; then
     fi
 
     if [ -n "$OPT_COAST" ]; then
-      log "STATUS" "Step 2: Creating and processing new coastline in $COASTS"
+      log "STATUS" "Step 2: Creating and processing new coastline in $COASTS_O5M"
       # Strip coastlines from the planet to speed up the process
-      "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" "-o=$COASTS"
+      "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" "-o=$COASTS_O5M"
       # Preprocess coastlines to separate intermediate directory
-      "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
+      "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS_O5M" \
         -preprocess 2>> "$LOG_PATH/WorldCoasts.log"
       # Generate temporary coastlines file in the coasts intermediate dir
-      if ! "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
+      if ! "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS_O5M" \
         --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log" | { grep -i 'not merged\|coastline polygons' || true; }
       then
         log "STATUS" "Coastline merge failed"
