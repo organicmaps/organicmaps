@@ -14,6 +14,7 @@ double const kKineticFeedbackEnd = 0.5;
 double const kKineticFadeoff = 5.0;
 double const kKineticThreshold = 10.0;
 double const kKineticInertia = 0.8;
+double const kKineticMaxSpeed = 2000.0; // pixels per second
 
 double CalculateKineticFeedback(ScreenBase const & modelView)
 {
@@ -94,6 +95,9 @@ void KineticScroller::GrabViewRect(ScreenBase const & modelView, double timeStam
 
   // velocity on pixels
   double v = pxDeltaLength / elapsed;
+  if (v > kKineticMaxSpeed)
+    v = kKineticMaxSpeed;
+
   // at this point length(m_direction) already in pixel space, and delta normalized
   m_direction = delta * kKineticInertia * v + m_direction * (1.0 - kKineticInertia);
 
@@ -116,9 +120,12 @@ unique_ptr<BaseModelViewAnimation> KineticScroller::CreateKineticAnimation(Scree
   // Before we start animation we have to convert length(m_direction) from pixel space to mercator space
   m2::PointD center = m_lastRect.GlobalCenter();
   double glbLength = CalculateKineticFeedback(modelView) * (modelView.PtoG(modelView.GtoP(center) + m_direction) - center).Length();
-  return unique_ptr<BaseModelViewAnimation>(new KineticScrollAnimation(m_lastRect,
-                                                                       m_direction.Normalize() * glbLength,
-                                                                       kKineticDuration));
+  m2::PointD glbDirection = m_direction.Normalize() * glbLength;
+  m2::PointD targetCenter = center + glbDirection;
+  if (!df::GetWorldRect().IsPointInside(targetCenter))
+    return unique_ptr<BaseModelViewAnimation>();
+
+  return unique_ptr<BaseModelViewAnimation>(new KineticScrollAnimation(m_lastRect, glbDirection, kKineticDuration));
 }
 
 } // namespace df
