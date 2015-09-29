@@ -117,7 +117,7 @@ namespace
 
 // @TODO This test is failed to create a route for the time being with data from 12.09.2015.
 // Now it's impossible to create a vehicle route from Paris to London.
-// The assumed reason is some tags of the tunnel is changed and we stop working with
+// The assumed reason is some tags of the tunnel were changed and we stop working with
 // the situation correctly.
 // At the same time OSRM manages to create routes through the tunnel.
   UNIT_TEST(FranceParisCenternglandLondonCenterRouteTest)
