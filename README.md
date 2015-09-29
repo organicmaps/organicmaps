@@ -66,4 +66,4 @@ or by mail to bugs@maps.me.
 
 This source code is Copyright (C) 2011-2015 My.com B.V., published under Apache Public License 2.0,
 except third-party libraries. See [NOTICE](https://github.com/mapsme/omim/blob/master/NOTICE)
-and [copyright.html](data/coyright.html) files for more information.
+and [copyright.html](https://github.com/mapsme/omim/blob/master/data/copyright.html) files for more information.
