@@ -16,9 +16,7 @@ BreakConstructorInitializersBeforeComma: true
 ColumnLimit: 100
 ConstructorInitializerIndentWidth: 2
 DerivePointerAlignment: false
+IndentCaseLabels: false
 NamespaceIndentation: None
 PointerAlignment: Middle
 Standard: Cpp11
-SpacesBeforeTrailingComments: 1
-IndentCaseLabels: false
-KeepEmptyLinesAtTheStartOfBlocks: true
