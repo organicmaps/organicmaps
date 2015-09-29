@@ -1,4 +1,4 @@
-# Configuration file for clang-format, based on docs/cpp_coding_standard.txt.
+# Configuration file for clang-format, based on docs/CPP_STYLE.md.
 
 ---
 BasedOnStyle: Google
@@ -19,3 +19,6 @@ DerivePointerAlignment: false
 NamespaceIndentation: None
 PointerAlignment: Middle
 Standard: Cpp11
+SpacesBeforeTrailingComments: 1
+IndentCaseLabels: false
+KeepEmptyLinesAtTheStartOfBlocks: true
