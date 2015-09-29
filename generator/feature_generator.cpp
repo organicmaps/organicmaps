@@ -105,7 +105,7 @@ uint32_t FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, Feature
 
 void FeaturesCollector::operator()(FeatureBuilder1 const & fb)
 {
-  FeatureBuilder1::buffer_t bytes;
+  FeatureBuilder1::TBuffer bytes;
   fb.Serialize(bytes);
   (void)WriteFeatureBase(bytes, fb);
 }

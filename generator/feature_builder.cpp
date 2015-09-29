@@ -326,9 +326,9 @@ bool FeatureBuilder1::CheckValid() const
   return true;
 }
 
-void FeatureBuilder1::SerializeBase(buffer_t & data, serial::CodingParams const & params, bool needSerializeAdditionalInfo) const
+void FeatureBuilder1::SerializeBase(TBuffer & data, serial::CodingParams const & params, bool needSerializeAdditionalInfo) const
 {
-  PushBackByteSink<buffer_t> sink(data);
+  PushBackByteSink<TBuffer> sink(data);
 
   m_params.Write(sink, needSerializeAdditionalInfo);
 
@@ -336,7 +336,7 @@ void FeatureBuilder1::SerializeBase(buffer_t & data, serial::CodingParams const 
     serial::SavePoint(sink, m_center, params);
 }
 
-void FeatureBuilder1::Serialize(buffer_t & data) const
+void FeatureBuilder1::Serialize(TBuffer & data) const
 {
   CHECK ( CheckValid(), (*this) );
 
@@ -346,7 +346,7 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
   SerializeBase(data, cp);
 
-  PushBackByteSink<buffer_t> sink(data);
+  PushBackByteSink<TBuffer> sink(data);
 
   if (m_params.GetGeomType() != GEOM_POINT)
   {
@@ -363,14 +363,14 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
   // check for correct serialization
 #ifdef DEBUG
-  buffer_t tmp(data);
+  TBuffer tmp(data);
   FeatureBuilder1 fb;
   fb.Deserialize(tmp);
   ASSERT ( fb == *this, ("Source feature: ", *this, "Deserialized feature: ", fb) );
 #endif
 }
 
-void FeatureBuilder1::Deserialize(buffer_t & data)
+void FeatureBuilder1::Deserialize(TBuffer & data)
 {
   serial::CodingParams cp;
 
@@ -507,7 +507,7 @@ uint64_t FeatureBuilder1::GetWayIDForRouting() const
 }
 
 
-bool FeatureBuilder2::PreSerialize(buffers_holder_t const & data)
+bool FeatureBuilder2::PreSerialize(SupportingData const & data)
 {
   // make flags actual before header serialization
   EGeomType const geoType = m_params.GetGeomType();
@@ -523,7 +523,7 @@ bool FeatureBuilder2::PreSerialize(buffers_holder_t const & data)
   }
 
   // we don't need empty features without geometry
-  return base_type::PreSerialize();
+  return TBase::PreSerialize();
 }
 
 namespace
@@ -561,14 +561,14 @@ namespace
   };
 }
 
-void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams const & params)
+void FeatureBuilder2::Serialize(SupportingData & data, serial::CodingParams const & params)
 {
   data.m_buffer.clear();
 
   // header data serialization
   SerializeBase(data.m_buffer, params, false /* don't store additional info from FeatureParams*/);
 
-  PushBackByteSink<buffer_t> sink(data.m_buffer);
+  PushBackByteSink<TBuffer> sink(data.m_buffer);
 
   uint8_t const ptsCount = static_cast<uint8_t>(data.m_innerPts.size());
   uint8_t trgCount = static_cast<uint8_t>(data.m_innerTrg.size());
@@ -578,7 +578,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
     trgCount -= 2;
   }
 
-  BitSink< PushBackByteSink<buffer_t> > bitSink(sink);
+  BitSink< PushBackByteSink<TBuffer> > bitSink(sink);
 
   EGeomType const type = m_params.GetGeomType();
 

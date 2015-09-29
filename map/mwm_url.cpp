@@ -97,7 +97,8 @@ void ParsedMapApi::AddKeyValue(string key, string const & value, vector<ApiPoint
       return;
     }
 
-    double lat, lon;
+    double lat = 0.0;
+    double lon = 0.0;
     if (!strings::to_double(value.substr(0, firstComma), lat) ||
         !strings::to_double(value.substr(firstComma + 1), lon))
     {
