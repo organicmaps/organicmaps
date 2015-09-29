@@ -13,7 +13,7 @@ uint64_t ParseXMLSequence(SequenceT & source, XMLDispatcherT & dispatcher, bool 
   if (!parser.Create())
     return 0;
 
-  int const BUFFER_SIZE = 16 * 1024;
+  uint32_t const BUFFER_SIZE = 16 * 1024;
 
   uint64_t res = 0;
   uint64_t readed;
@@ -26,7 +26,7 @@ uint64_t ParseXMLSequence(SequenceT & source, XMLDispatcherT & dispatcher, bool 
     if (readed == 0)
       return res;
 
-    if (!parser.ParseBuffer(readed, false))
+    if (!parser.ParseBuffer(static_cast<uint32_t>(readed), false))
     {
       parser.PrintError();
       return res;

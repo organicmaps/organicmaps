@@ -392,7 +392,7 @@ public:
 
   // @cmember Get the current line number
 
-  int GetCurrentLineNumber ()
+  unsigned long GetCurrentLineNumber ()
   {
     assert (m_p != NULL);
     return XML_GetCurrentLineNumber (m_p);

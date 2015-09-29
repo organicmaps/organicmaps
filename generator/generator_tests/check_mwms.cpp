@@ -51,7 +51,7 @@ UNIT_TEST(CheckMWM_GeomIndex)
   // Make interval index objects for each scale bucket.
   vector<unique_ptr<IntervalIndex<ReaderT>>> scale2Index;
   for (size_t i = 0; i < treesReader.Size(); ++i)
-    scale2Index.emplace_back(new IntervalIndex<ReaderT>(treesReader.SubReader(i)));
+    scale2Index.emplace_back(new IntervalIndex<ReaderT>(treesReader.SubReader(static_cast<uint32_t>(i))));
 
   // Pass full coverage as input for test.
   uint64_t beg = 0;

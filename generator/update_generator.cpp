@@ -78,8 +78,14 @@ namespace update
 
         ++m_processedFiles;
 
-        cnt.SetRemoteSizes(GetFileSize(cnt, MapOptions::Map),
-                           GetFileSize(cnt, MapOptions::CarRouting));
+        uint64_t szMap = GetFileSize(cnt, MapOptions::Map);
+        uint64_t szRouting = GetFileSize(cnt, MapOptions::CarRouting);
+
+        ASSERT_EQUAL(static_cast<uint32_t>(szMap), szMap, ());
+        ASSERT_EQUAL(static_cast<uint32_t>(szRouting), szRouting, ());
+
+        cnt.SetRemoteSizes(static_cast<uint32_t>(szMap),
+                           static_cast<uint32_t>(szRouting));
 
         string const fName = cnt.GetNameWithExt(MapOptions::Map);
         auto found = find(m_files.begin(), m_files.end(), fName);

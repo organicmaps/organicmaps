@@ -37,7 +37,7 @@ namespace
   }
 
   void CompareTriangles(serial::OutPointsT const & test,
-                        P arrP[], uintptr_t arrT[][3], size_t count)
+                        P arrP[], int arrT[][3], size_t count)
   {
     TEST_EQUAL(test.size(), 3*count, (test));
 
@@ -48,7 +48,7 @@ namespace
     }
   }
 
-  void TestTrianglesCoding(P arrP[], size_t countP, uintptr_t arrT[][3], size_t countT)
+  void TestTrianglesCoding(P arrP[], size_t countP, int arrT[][3], size_t countT)
   {
     tesselator::TrianglesInfo info;
     info.AssignPoints(arrP, arrP + countP);
@@ -88,7 +88,7 @@ UNIT_TEST(TrianglesCoding_Smoke)
 {
   {
     P arrP[] =  { P(0, 0), P(0, 1), P(1, 0), P(1, 1), P(0, -1), P(-1, 0) };
-    uintptr_t arrT[][3] = { {0, 1, 2}, {1, 3, 2}, {4, 0, 2}, {1, 0, 5}, {4, 5, 0} };
+    int arrT[][3] = { {0, 1, 2}, {1, 3, 2}, {4, 0, 2}, {1, 0, 5}, {4, 5, 0} };
 
     TestTrianglesCoding(arrP, ARRAY_SIZE(arrP), arrT, ARRAY_SIZE(arrT));
   }
@@ -103,7 +103,7 @@ UNIT_TEST(TrianglesCoding_Rect)
                   P(-11.249999842839316, -44.999999874271452)
                 };
 
-    uintptr_t arrT[][3] = { {2, 0, 1}, {0, 2, 3} };
+    int arrT[][3] = { {2, 0, 1}, {0, 2, 3} };
 
     TestTrianglesCoding(arrP, ARRAY_SIZE(arrP), arrT, ARRAY_SIZE(arrT));
   }
