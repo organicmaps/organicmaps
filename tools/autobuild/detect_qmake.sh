@@ -14,6 +14,7 @@ KNOWN_QMAKE_PATHS=( \
   ~/Qt5.3.0/5.3/clang_64/bin/qmake \
   ~/Developer/Qt/5.4/clang_64/bin/qmake \
   ~/Developer/Qt/5.5/clang_64/bin/qmake \
+  /usr/local/opt/qt5/bin/qmake \
   /cygdrive/c/Qt/5.5/msvc2013_64/bin/qmake.exe \
 )
 
