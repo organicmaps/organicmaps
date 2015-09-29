@@ -267,11 +267,27 @@ task cppLibsBuildDebug(type: Exec, description: 'Building DEBUG version of stati
   commandLine 'bash', '../tools/autobuild/android.sh', 'debug'
 }
 
+task cppLibsBuildDebugArm(type: Exec, description: 'Building DEBUG version of static C++ libraries (ARM only)') {
+  commandLine 'bash', '../tools/autobuild/android.sh', 'debug', 'armeabi-v7a-hard'
+}
+
+task cppLibsBuildDebugIntel(type: Exec, description: 'Building DEBUG version of static C++ libraries (x86 only)') {
+  commandLine 'bash', '../tools/autobuild/android.sh', 'debug', 'x86'
+}
+
 task cppLibsBuildRelease(type: Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries') {
   commandLine 'bash', '../tools/autobuild/android.sh', 'production'
 }
 
-def NUM_OF_PARALLEL_MAKE_TASKS = Runtime.runtime.availableProcessors() + 1
+task cppLibsBuildReleaseArm(type: Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries (ARM only)') {
+  commandLine 'bash', '../tools/autobuild/android.sh', 'production', 'armeabi-v7a-hard'
+}
+
+task cppLibsBuildReleaseIntel(type: Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries (x86 only)') {
+  commandLine 'bash', '../tools/autobuild/android.sh', 'production', 'x86'
+}
+
+def PARAM_PARALLEL_TASK_COUNT = '-j' + (Runtime.runtime.availableProcessors() + 1)
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def NDK_BUILD = properties.getProperty('ndk.dir') + '/ndk-build'
@@ -280,12 +296,32 @@ if (System.properties['os.name'].toLowerCase().contains('windows'))
   NDK_BUILD += ".cmd"
 
 task ndkBuildDebug(type: Exec, dependsOn: 'cppLibsBuildDebug', description: 'Building DEBUG jni sources') {
-  def clArgs = ([NDK_BUILD, '-j' + NUM_OF_PARALLEL_MAKE_TASKS] + propDebugNdkFlags.split(' ')).flatten()
+  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT] + propDebugNdkFlags.split(' ')).flatten()
+  commandLine clArgs
+}
+
+task ndkBuildDebugArm(type: Exec, dependsOn: 'cppLibsBuildDebugArm', description: 'Building DEBUG jni sources (ARM only)') {
+  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=armeabi-v7a-hard'] + propDebugNdkFlags.split(' ')).flatten()
+  commandLine clArgs
+}
+
+task ndkBuildDebugIntel(type: Exec, dependsOn: 'cppLibsBuildDebugIntel', description: 'Building DEBUG jni sources (x86 only)') {
+  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=x86'] + propDebugNdkFlags.split(' ')).flatten()
   commandLine clArgs
 }
 
 task ndkBuildRelease(type: Exec, dependsOn: 'cppLibsBuildRelease', description: 'Building RELEASE/PRODUCTION jni sources') {
-  def clArgs = ([NDK_BUILD, '-j' + NUM_OF_PARALLEL_MAKE_TASKS] + propReleaseNdkFlags.split(' ')).flatten()
+  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT] + propReleaseNdkFlags.split(' ')).flatten()
+  commandLine clArgs
+}
+
+task ndkBuildReleaseArm(type: Exec, dependsOn: 'cppLibsBuildReleaseArm', description: 'Building RELEASE/PRODUCTION jni sources (ARM only)') {
+  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=armeabi-v7a-hard'] + propReleaseNdkFlags.split(' ')).flatten()
+  commandLine clArgs
+}
+
+task ndkBuildReleaseIntel(type: Exec, dependsOn: 'cppLibsBuildReleaseIntel', description: 'Building RELEASE/PRODUCTION jni sources (x86 only)') {
+  def clArgs = ([NDK_BUILD, PARAM_PARALLEL_TASK_COUNT, 'NDK_ABI_TO_BUILD=x86'] + propReleaseNdkFlags.split(' ')).flatten()
   commandLine clArgs
 }
 
