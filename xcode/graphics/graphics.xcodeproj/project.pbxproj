@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		670E8C3A1BB30CCE00094197 /* opengl_es2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C391BB30CCE00094197 /* opengl_es2.cpp */; settings = {ASSET_TAGS = (); }; };
 		675347DE1A4059DD00A0A8C3 /* agg_traits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753477A1A4059DD00A0A8C3 /* agg_traits.hpp */; };
 		675347DF1A4059DD00A0A8C3 /* area_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753477B1A4059DD00A0A8C3 /* area_renderer.cpp */; };
 		675347E01A4059DD00A0A8C3 /* area_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753477C1A4059DD00A0A8C3 /* area_renderer.hpp */; };
@@ -147,6 +148,7 @@
 
 /* Begin PBXFileReference section */
 		670D05A01B0DF2060013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		670E8C391BB30CCE00094197 /* opengl_es2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opengl_es2.cpp; sourceTree = "<group>"; };
 		6753476C1A4059B400A0A8C3 /* libgraphics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgraphics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6753477A1A4059DD00A0A8C3 /* agg_traits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = agg_traits.hpp; sourceTree = "<group>"; };
 		6753477B1A4059DD00A0A8C3 /* area_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = area_renderer.cpp; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 		67534BE81A40963C00A0A8C3 /* opengl */ = {
 			isa = PBXGroup;
 			children = (
+				670E8C391BB30CCE00094197 /* opengl_es2.cpp */,
 				67AB92F41B7B3F2200AB5194 /* route_vertex.cpp */,
 				67AB92F51B7B3F2200AB5194 /* route_vertex.hpp */,
 				67534BE91A40965900A0A8C3 /* base_texture.cpp */,
@@ -663,6 +666,7 @@
 				6753482D1A4059DD00A0A8C3 /* shape_renderer.cpp in Sources */,
 				675348161A4059DD00A0A8C3 /* path_renderer.cpp in Sources */,
 				675347FC1A4059DD00A0A8C3 /* geometry_batcher.cpp in Sources */,
+				670E8C3A1BB30CCE00094197 /* opengl_es2.cpp in Sources */,
 				675348261A4059DD00A0A8C3 /* resource_cache.cpp in Sources */,
 				6753480E1A4059DD00A0A8C3 /* overlay_element.cpp in Sources */,
 				67534C331A40965900A0A8C3 /* renderbuffer.cpp in Sources */,
@@ -696,6 +700,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = opengl_ext.cpp;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = opengl_ext.cpp;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = opengl_es2.cpp;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -715,11 +723,13 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/agg",
 					"$(OMIM_ROOT)/3party/freetype/include",
+					"$(OMIM_ROOT)/3party/expat/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
@@ -745,6 +755,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = opengl_ext.cpp;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = opengl_ext.cpp;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = opengl_es2.cpp;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -757,10 +771,12 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/agg",
 					"$(OMIM_ROOT)/3party/freetype/include",
+					"$(OMIM_ROOT)/3party/expat/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Release;
 		};

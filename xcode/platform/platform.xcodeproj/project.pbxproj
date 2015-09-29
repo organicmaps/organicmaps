@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		670E8C751BB318AB00094197 /* platform_ios.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E8C731BB318AB00094197 /* platform_ios.hpp */; settings = {ASSET_TAGS = (); }; };
+		670E8C761BB318AB00094197 /* platform_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C741BB318AB00094197 /* platform_ios.mm */; settings = {ASSET_TAGS = (); }; };
+		670E8C911BB31A2F00094197 /* ios_video_timer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C901BB31A2F00094197 /* ios_video_timer.mm */; settings = {ASSET_TAGS = (); }; };
 		671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C62041AE9014C00076BD0 /* measurement_utils.cpp */; };
 		671C62071AE9014C00076BD0 /* measurement_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671C62051AE9014C00076BD0 /* measurement_utils.hpp */; };
 		674125081B4C00CC00A3E828 /* country_defines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674125001B4C00CC00A3E828 /* country_defines.cpp */; };
@@ -18,7 +21,6 @@
 		6741250E1B4C00CC00A3E828 /* local_country_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674125061B4C00CC00A3E828 /* local_country_file.cpp */; };
 		6741250F1B4C00CC00A3E828 /* local_country_file.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674125071B4C00CC00A3E828 /* local_country_file.hpp */; };
 		675343B11A3F5D5A00A0A8C3 /* apple_location_service.mm in Sources */ = {isa = PBXBuildFile; fileRef = 675343861A3F5D5900A0A8C3 /* apple_location_service.mm */; };
-		675343B21A3F5D5A00A0A8C3 /* apple_video_timer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 675343871A3F5D5900A0A8C3 /* apple_video_timer.mm */; };
 		675343B31A3F5D5A00A0A8C3 /* chunks_download_strategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343881A3F5D5900A0A8C3 /* chunks_download_strategy.cpp */; };
 		675343B41A3F5D5A00A0A8C3 /* chunks_download_strategy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343891A3F5D5900A0A8C3 /* chunks_download_strategy.hpp */; };
 		675343B51A3F5D5A00A0A8C3 /* constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753438A1A3F5D5900A0A8C3 /* constants.hpp */; };
@@ -30,10 +32,6 @@
 		675343C01A3F5D5A00A0A8C3 /* location_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343951A3F5D5A00A0A8C3 /* location_service.cpp */; };
 		675343C11A3F5D5A00A0A8C3 /* location_service.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343961A3F5D5A00A0A8C3 /* location_service.hpp */; };
 		675343C21A3F5D5A00A0A8C3 /* location.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343971A3F5D5A00A0A8C3 /* location.hpp */; };
-		675343C31A3F5D5A00A0A8C3 /* platform_android.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343981A3F5D5A00A0A8C3 /* platform_android.cpp */; };
-		675343C51A3F5D5A00A0A8C3 /* platform_linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753439A1A3F5D5A00A0A8C3 /* platform_linux.cpp */; };
-		675343C61A3F5D5A00A0A8C3 /* platform_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6753439B1A3F5D5A00A0A8C3 /* platform_mac.mm */; };
-		675343C71A3F5D5A00A0A8C3 /* platform_qt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753439C1A3F5D5A00A0A8C3 /* platform_qt.cpp */; };
 		675343C91A3F5D5A00A0A8C3 /* platform_unix_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753439E1A3F5D5A00A0A8C3 /* platform_unix_impl.cpp */; };
 		675343CA1A3F5D5A00A0A8C3 /* platform_unix_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753439F1A3F5D5A00A0A8C3 /* platform_unix_impl.hpp */; };
 		675343CC1A3F5D5A00A0A8C3 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343A11A3F5D5A00A0A8C3 /* platform.cpp */; };
@@ -50,6 +48,8 @@
 		675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */; };
 		675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */; };
 		675343DB1A3F5D5A00A0A8C3 /* wifi_location_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */; };
+		67A2526A1BB40E100063F8A8 /* platform_qt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753439C1A3F5D5A00A0A8C3 /* platform_qt.cpp */; settings = {ASSET_TAGS = (); }; };
+		67A2526B1BB40E520063F8A8 /* platform_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6753439B1A3F5D5A00A0A8C3 /* platform_mac.mm */; settings = {ASSET_TAGS = (); }; };
 		67AB92DC1B7B3D7300AB5194 /* mwm_version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB92DA1B7B3D7300AB5194 /* mwm_version.cpp */; };
 		67AB92DD1B7B3D7300AB5194 /* mwm_version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AB92DB1B7B3D7300AB5194 /* mwm_version.hpp */; };
 		67AB92EA1B7B3E9100AB5194 /* get_text_by_id.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB92E81B7B3E9100AB5194 /* get_text_by_id.cpp */; };
@@ -58,6 +58,9 @@
 
 /* Begin PBXFileReference section */
 		670D05A71B0E03BF0013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		670E8C731BB318AB00094197 /* platform_ios.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = platform_ios.hpp; sourceTree = "<group>"; };
+		670E8C741BB318AB00094197 /* platform_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = platform_ios.mm; sourceTree = "<group>"; };
+		670E8C901BB31A2F00094197 /* ios_video_timer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ios_video_timer.mm; sourceTree = "<group>"; };
 		671C62041AE9014C00076BD0 /* measurement_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = measurement_utils.cpp; sourceTree = "<group>"; };
 		671C62051AE9014C00076BD0 /* measurement_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = measurement_utils.hpp; sourceTree = "<group>"; };
 		674125001B4C00CC00A3E828 /* country_defines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_defines.cpp; sourceTree = "<group>"; };
@@ -139,6 +142,7 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				670E8C901BB31A2F00094197 /* ios_video_timer.mm */,
 				67AB92E81B7B3E9100AB5194 /* get_text_by_id.cpp */,
 				67AB92E91B7B3E9100AB5194 /* get_text_by_id.hpp */,
 				67AB92DA1B7B3D7300AB5194 /* mwm_version.cpp */,
@@ -168,6 +172,8 @@
 				675343971A3F5D5A00A0A8C3 /* location.hpp */,
 				675343981A3F5D5A00A0A8C3 /* platform_android.cpp */,
 				6753439A1A3F5D5A00A0A8C3 /* platform_linux.cpp */,
+				670E8C731BB318AB00094197 /* platform_ios.hpp */,
+				670E8C741BB318AB00094197 /* platform_ios.mm */,
 				6753439B1A3F5D5A00A0A8C3 /* platform_mac.mm */,
 				6753439C1A3F5D5A00A0A8C3 /* platform_qt.cpp */,
 				6753439E1A3F5D5A00A0A8C3 /* platform_unix_impl.cpp */,
@@ -219,6 +225,7 @@
 				6741250D1B4C00CC00A3E828 /* local_country_file_utils.hpp in Headers */,
 				675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */,
 				671C62071AE9014C00076BD0 /* measurement_utils.hpp in Headers */,
+				670E8C751BB318AB00094197 /* platform_ios.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,28 +288,27 @@
 				675343D11A3F5D5A00A0A8C3 /* servers_list.cpp in Sources */,
 				675343C91A3F5D5A00A0A8C3 /* platform_unix_impl.cpp in Sources */,
 				67AB92DC1B7B3D7300AB5194 /* mwm_version.cpp in Sources */,
+				67A2526B1BB40E520063F8A8 /* platform_mac.mm in Sources */,
 				6741250A1B4C00CC00A3E828 /* country_file.cpp in Sources */,
 				674125081B4C00CC00A3E828 /* country_defines.cpp in Sources */,
 				6741250E1B4C00CC00A3E828 /* local_country_file.cpp in Sources */,
+				670E8C761BB318AB00094197 /* platform_ios.mm in Sources */,
+				67A2526A1BB40E100063F8A8 /* platform_qt.cpp in Sources */,
 				675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */,
 				6741250C1B4C00CC00A3E828 /* local_country_file_utils.cpp in Sources */,
-				675343B21A3F5D5A00A0A8C3 /* apple_video_timer.mm in Sources */,
 				67AB92EA1B7B3E9100AB5194 /* get_text_by_id.cpp in Sources */,
 				671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */,
 				675343B61A3F5D5A00A0A8C3 /* http_request.cpp in Sources */,
 				675343CC1A3F5D5A00A0A8C3 /* platform.cpp in Sources */,
-				675343C61A3F5D5A00A0A8C3 /* platform_mac.mm in Sources */,
 				675343DB1A3F5D5A00A0A8C3 /* wifi_location_service.cpp in Sources */,
-				675343C31A3F5D5A00A0A8C3 /* platform_android.cpp in Sources */,
 				675343D01A3F5D5A00A0A8C3 /* pthread_video_timer.cpp in Sources */,
 				675343B11A3F5D5A00A0A8C3 /* apple_location_service.mm in Sources */,
 				675343B31A3F5D5A00A0A8C3 /* chunks_download_strategy.cpp in Sources */,
-				675343C51A3F5D5A00A0A8C3 /* platform_linux.cpp in Sources */,
+				670E8C911BB31A2F00094197 /* ios_video_timer.mm in Sources */,
 				675343D71A3F5D5A00A0A8C3 /* video_timer.cpp in Sources */,
 				675343C01A3F5D5A00A0A8C3 /* location_service.cpp in Sources */,
 				675343D31A3F5D5A00A0A8C3 /* settings.cpp in Sources */,
 				675343CE1A3F5D5A00A0A8C3 /* preferred_languages.cpp in Sources */,
-				675343C71A3F5D5A00A0A8C3 /* platform_qt.cpp in Sources */,
 				675343B91A3F5D5A00A0A8C3 /* http_thread_apple.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,6 +336,13 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = platform_mac.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = platform_mac.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
+					"ios_*",
+					platform_ios.mm,
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -353,6 +366,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
@@ -378,6 +392,13 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = platform_mac.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = platform_mac.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
+					"ios_*",
+					platform_ios.mm,
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -393,6 +414,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Release;
 		};
