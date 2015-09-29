@@ -6,9 +6,9 @@
     <defs></defs>
     <g id="Subways" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="metro-barcelona-s" sketch:type="MSLayerGroup" transform="translate(0.000000, 1.000000)">
-            <path d="M0,7.5 L10.5,3.73034936e-14 L21,7.5 L10.5,15 L0,7.5 L0,7.5 Z" id="Rectangle-339-Copy-4" opacity="0" fill="#000000" sketch:type="MSShapeGroup"></path>
+            <path d="M0,7.5 L10.5,3.73034936e-14 L21,7.5 L10.5,15 L0,7.5 L0,7.5 Z" id="Rectangle-339-Copy-4" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <path d="M1,7.5 L10.5,1 L20,7.5 L10.5,14 L1,7.5 L1,7.5 Z" id="Rectangle-339" fill="#81110D" sketch:type="MSShapeGroup"></path>
-            <path d="M13,10 L13,8.57142857 L9.88198758,7.4992236 L13,6.42857143 L13,5 L8,5 L8,6.11102484 L10.867669,6.0892857 L8,7.14285714 L8,7.85714286 L10.867669,8.88897521 L9.69409938,8.88897516 L8,8.88897516 L8,10 L13,10 Z" id="path4854" opacity="0.4" fill="#FFFFFF" sketch:type="MSShapeGroup" transform="translate(10.500000, 7.500000) rotate(-90.000000) translate(-10.500000, -7.500000) "></path>
+            <path d="M13,10 L13,8.57142857 L9.88198758,7.4992236 L13,6.42857143 L13,5 L8,5 L8,6.11102484 L10.867669,6.0892857 L8,7.14285714 L8,7.85714286 L10.867669,8.88897521 L9.69409938,8.88897516 L8,8.88897516 L8,10 L13,10 Z" id="path4854" opacity="0.41" fill="#FFFFFF" sketch:type="MSShapeGroup" transform="translate(10.500000, 7.500000) rotate(-90.000000) translate(-10.500000, -7.500000) "></path>
         </g>
     </g>
 </svg>

@@ -5,15 +5,10 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="monument-s-copy" sketch:type="MSLayerGroup">
+        <g id="lighthouse-s" sketch:type="MSLayerGroup">
             <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#7A7A6E" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
-            <path d="M8.5,4 C8.5,4 7,5.5 7,6 L7,10 L6.5,10 C6.22299,10 6.03629,10.2254 6,10.5 L6,12 L5.5,12 C5.223,12 5,12.223 5,12.5 L5,13 L12,13 L12,12.5 C12,12.223 11.77699,12 11.5,12 L11,12 L11,10.5 C11,10.223 10.777,10 10.5,10 L10,10 L10,6 C10,5.5 8.5,4 8.5,4 L8.5,4 Z" id="path11719-7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-        </g>
-        <g id="monument-s-copy-3" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#7A7A6E" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
-            <path d="M7,7 L6,14 C5.44599,14 11.55401,14 11,14 L10,7 L7,7 Z M3,5 L3,7 L7,6 L3,5 Z M14,5 L14,7 L10,6 L14,5 Z M8.50000001,3 L11,5 L6,5 L8.50000001,3 Z" id="path11719-copy-2" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <circle id="Oval-1-Copy-42" fill="#7F7D54" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <path d="M8,4 L7,5 L7,7 L6,7 L6,8 L7,9 L7,10 L6,14 L11,14 L10,10 L10,9 L11,8 L11,7 L10,7 L10,5 L9,4 L8,4 Z M8,5 L9,5 L9,7 L8,7 L8,5 Z" id="path5217" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>

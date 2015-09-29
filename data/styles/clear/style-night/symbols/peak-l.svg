@@ -5,10 +5,10 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="peak-l" sketch:type="MSLayerGroup">
-            <circle id="Oval-1-Copy-39" opacity="0" fill="#000000" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
+        <g id="peak-l-copy-2" sketch:type="MSLayerGroup">
+            <circle id="Oval-1-Copy-39" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="13.5"></circle>
             <circle id="Oval-1-Copy-38" fill="#3D3D37" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" r="12.5"></circle>
-            <path d="M13.5,6.99999995 C13.1578947,6.9999312 13.0031988,7.16458745 12.9013158,7.34374995 L7.08552632,16.96875 C7.02524737,17.0748312 7,17.1938375 7,17.3125 C7,17.828125 7.34210526,18.0001375 7.68421053,18 L19.3157895,18 C19.6578947,18.0001375 20,17.828125 20,17.3125 C20,17.1938375 19.9747868,17.0748312 19.9144737,16.96875 L14.0986842,7.34374995 C13.9968012,7.16458745 13.8421053,6.9999312 13.5,6.99999995 L13.5,6.99999995 Z" id="path11349" opacity="0.4" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M13.5,6.99999995 C13.1578947,6.9999312 13.0031988,7.16458745 12.9013158,7.34374995 L7.08552632,16.96875 C7.02524737,17.0748312 7,17.1938375 7,17.3125 C7,17.828125 7.34210526,18.0001375 7.68421053,18 L19.3157895,18 C19.6578947,18.0001375 20,17.828125 20,17.3125 C20,17.1938375 19.9747868,17.0748312 19.9144737,16.96875 L14.0986842,7.34374995 C13.9968012,7.16458745 13.8421053,6.9999312 13.5,6.99999995 L13.5,6.99999995 Z" id="path11349" opacity="0.41" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>
