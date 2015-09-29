@@ -1,4 +1,4 @@
-#include "search/integration_tests/test_search_engine.hpp"
+#include "search/search_integration_tests/test_search_engine.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/scales.hpp"

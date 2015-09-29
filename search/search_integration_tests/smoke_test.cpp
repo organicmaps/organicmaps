@@ -3,9 +3,9 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/scales.hpp"
 
-#include "search/integration_tests/test_mwm_builder.hpp"
-#include "search/integration_tests/test_search_engine.hpp"
-#include "search/integration_tests/test_search_request.hpp"
+#include "search/search_integration_tests/test_mwm_builder.hpp"
+#include "search/search_integration_tests/test_search_engine.hpp"
+#include "search/search_integration_tests/test_search_request.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/country_file.hpp"
