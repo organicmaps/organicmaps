@@ -1,6 +1,7 @@
 #import "CountryTreeVC.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "MWMAlertViewController.h"
 #import "MWMAPIBar.h"
 #import "MWMLocationButton.h"
 #import "MWMMapViewControlsManager.h"
@@ -207,9 +208,19 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)buildRouteWithType:(enum routing::RouterType)type
 {
-  [[MapsAppDelegate theApp].m_locationManager start:self.navigationManager];
+  LocationManager * locMgr = [MapsAppDelegate theApp].m_locationManager;
+  if (![locMgr lastLocationIsValid])
+  {
+    MWMAlertViewController * alert =
+        [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
+    [alert presentLocationAlert];
+    return;
+  }
+  [locMgr start:self.navigationManager];
   self.navigationManager.state = MWMNavigationDashboardStatePlanning;
-  GetFramework().BuildRoute(ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate), self.routeDestination, 0 /* timeoutSec */);
+  GetFramework().BuildRoute(
+      ToMercator([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate),
+      self.routeDestination, 0 /* timeoutSec */);
   // This hack is needed to instantly show initial progress.
   // Because user may think that nothing happens when he is building a route.
   dispatch_async(dispatch_get_main_queue(), ^
