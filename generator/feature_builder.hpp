@@ -22,7 +22,7 @@ public:
   using TPointSeq = vector<m2::PointD>;
   using TGeometry = list<TPointSeq>;
 
-  typedef vector<char> TBuffer;
+  using TBuffer = vector<char>;
 
   FeatureBuilder1();
 
