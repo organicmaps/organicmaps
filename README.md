@@ -45,19 +45,17 @@ format description, instructions on building a style and some links.
 
 ## Development
 
-You would need Qt 5 for development, most other libraries are included into the
-repository, see `3party` directory. The team uses mostly XCode and Qt Creator,
+You would need Boost and Qt 5 for development, most other libraries are included into the
+repository: see `3party` directory. The team uses mostly XCode and Qt Creator,
 though these are not mandatory. We have an established
 [coding style](https://github.com/mapsme/omim/blob/master/docs/CPP_STYLE.md).
-Our pull request review process may be intimidating, but it ensures a consistent
-code quality.
-
-All contributors must sign a [Contributor Agreement](https://github.com/mapsme/omim/blob/master/docs/CLA.md),
-so both ours and theirs rights are protected.
 
 See [CONTRIBUTING.md](https://github.com/mapsme/omim/blob/master/docs/CONTRIBUTING.md)
 for the repository initialization process, the description of all the directories
 of this repository and other development-related information.
+
+All contributors must sign a [Contributor Agreement](https://github.com/mapsme/omim/blob/master/docs/CLA.md),
+so both our and their rights are protected.
 
 ## Feedback
 
@@ -66,6 +64,6 @@ or by mail to bugs@maps.me.
 
 ## Authors and License
 
-This source code is Copyright (C) 2011-2015 MAPS.ME, published under Apache Public License 2.0,
+This source code is Copyright (C) 2011-2015 My.com B.V., published under Apache Public License 2.0,
 except third-party libraries. See [NOTICE](https://github.com/mapsme/omim/blob/master/NOTICE)
 and [copyright.html](data/coyright.html) files for more information.

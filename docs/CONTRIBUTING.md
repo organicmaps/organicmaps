@@ -4,9 +4,9 @@
 
 The simplest way to contribute is to [submit an issue](https://github.com/mapsme/omim/issues).
 Please give developers as much information as possible: OS and application versions,
-list of actions leading to a bug, a log file that the app produces.
+list of actions leading to a bug, a log file produced by the app.
 
-When using an app on a device, use the built-in "Report a bug" option:
+When using the MAPS.ME app on a device, use the built-in "Report a bug" option:
 it creates a new e-mail with a log file attached. Your issue will be processed much
 faster if you send it to bugs@maps.me.
 
@@ -58,8 +58,7 @@ See [CPP_STYLE.md](CPP_STYLE.md). Use `clang-format` when in doubt.
 All contributions to MAPS.ME source code should be submitted via github pull requests.
 Each pull request is reviewed by MAPS.ME employees, to ensure consistent code style
 and quality. Sometimes the review process even for smallest commits can be
-very thorough. Please be patient: you may learn something about C++ or our
-project in the process.
+very thorough.
 
 To contribute you must sign the [license agreement](CLA.md): the same one you
 sign for Google or Facebook open-source projects.
@@ -112,4 +111,4 @@ Some of these contain their own README files.
 ## Questions?
 
 For any questions about developing MAPS.ME and relevant services - virtually about anything related,
-please write us at bugs@maps.me, we'll be happy to help.
+please write to us at bugs@maps.me, we'll be happy to help.

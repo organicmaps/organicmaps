@@ -7,7 +7,7 @@ Below are our specific (but not all!) exceptions to the Google's coding standard
 - We use `.cpp` and `.hpp` files, not `.cc` and `.h` (`.c` and `.h` are used for C code), in UTF-8 encoding.
 - File names are lowercase with underscores, like `file_reader.cpp`.
 - We use `#pragma once` instead of the `#define` Guard in header files.
-- We don't include system, std and boost headers directly, use `#include "../std/<wrapper.hpp>"`.
+- We don't include system, std and boost headers directly, use `#include "std/<wrapper.hpp>"`.
 - We ARE using C++ exceptions.
 - We are using all features of C++11 (the only known exception is thread_local which is not fully supported on all platforms).
 - We don't use boost libraries which require linking (and prefer C++11 types over their boost counterparts).
@@ -26,10 +26,10 @@ Naming and formatting
 - Space after double dash.
 - Compile-time constants must be named in camelCase, starting with a lower-case `k`, e.g. `kCompileTimeConstant`.
 - Values of enum classes must be named in CamelCase, e.g. `enum class Color { Red, Green, LightBlue };`.
-- Macroses and C-style enums must be named in UPPER_CASE, and enum values must be prefixed with a capitalized enum name.
+- Macros and C-style enums must be named in UPPER_CASE, and enum values must be prefixed with a capitalized enum name.
 
-    Note that macroses complicate debugging, and old-style enums have dangerous implicit conversions to integers, and tend to clutter
-    containing namespaces. Avoid them when possible - use `const` or `constexpr` instead of macroses, and enum classes instead of enums.
+    Note that macros complicate debugging, and old-style enums have dangerous implicit conversions to integers, and tend to clutter
+    containing namespaces. Avoid them when possible - use `const` or `constexpr` instead of macros, and enum classes instead of enums.
 
 **We write code without warnings!**
 
@@ -45,9 +45,9 @@ To automatically format a file, install `clang-format` and run:
 ```cpp
 #pragma once
 
-#include "../std/math.hpp"
+#include "std/math.hpp"
 
-const uint16_t kBufferSize = 255;
+uint16_t const kBufferSize = 255;
 
 // C-style enum. Do not use these.
 enum Type

@@ -1,7 +1,7 @@
 # Contributor License Agreement
 
-To participate in MAPS.ME development, you need to sign an agreement, which
-enforces your and our rights to the code. Please read
+To participate in MAPS.ME development you need to sign an agreement.
+It protects your and our rights to the code. Please read
 [this nice article](http://infrequently.org/2008/06/why-do-i-need-to-sign-this/)
 for an elaboration on reasons to sign such agreements.
 
