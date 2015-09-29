@@ -8,12 +8,12 @@
 using namespace routing;
 using namespace routing::turns;
 
-UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest) // FAILED!
+UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.796936768447288557, 37.537544383032567907), {0., 0.},
-      MercatorBounds::FromLatLon(55.802121583039429709, 37.538908531885972764));
+      MercatorBounds::FromLatLon(55.79693, 37.53754), {0., 0.},
+      MercatorBounds::FromLatLon(55.80212, 37.5389));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -36,8 +36,8 @@ UNIT_TEST(RussiaMoscowSalameiNerisUturnTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.851822802555439296, 37.39533227665661741), {0., 0.},
-      MercatorBounds::FromLatLon(55.843866280669693936, 37.392503720352721075));
+      MercatorBounds::FromLatLon(55.85182, 37.39533), {0., 0.},
+      MercatorBounds::FromLatLon(55.84386, 37.39250));
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
 
@@ -45,30 +45,30 @@ UNIT_TEST(RussiaMoscowSalameiNerisUturnTurnTest)
   integration::TestTurnCount(route, 4);
   integration::GetNthTurn(route, 0)
       .TestValid()
-      .TestPoint({37.388482521388539, 67.633382734905041}, 20.)
+      .TestPoint({37.38848, 67.63338}, 20.)
       .TestDirection(TurnDirection::TurnSlightRight);
   integration::GetNthTurn(route, 1)
       .TestValid()
-      .TestPoint({37.387117276989784, 67.633369323859881}, 20.)
+      .TestPoint({37.38711, 67.63336}, 20.)
       .TestDirection(TurnDirection::TurnLeft);
   integration::GetNthTurn(route, 2)
       .TestValid()
-      .TestPoint({37.387380133475205, 67.632781920081243}, 20.)
+      .TestPoint({37.38738, 67.63278}, 20.)
       .TestDirection(TurnDirection::TurnLeft);
   integration::GetNthTurn(route, 3)
       .TestValid()
-      .TestPoint({37.390526364673121, 67.633106467374461}, 20.)
+      .TestPoint({37.39052, 67.63310}, 20.)
       .TestDirection(TurnDirection::TurnRight);
 
   integration::TestRouteLength(route, 1637.);
 }
 
-UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest) //Failed
+UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
     integration::GetOsrmComponents(),
-    MercatorBounds::FromLatLon(55.831185109716038539, 37.405153751040685961), {0., 0.},
-    MercatorBounds::FromLatLon(55.833843764465711956, 37.405210716570380214));
+    MercatorBounds::FromLatLon(55.83118, 37.40515), {0., 0.},
+    MercatorBounds::FromLatLon(55.83384, 37.40521));
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
 
@@ -88,8 +88,8 @@ UNIT_TEST(RussiaMoscowPlanetnaiTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.802161062035722239, 37.546683164991776493), {0., 0.},
-      MercatorBounds::FromLatLon(55.801690565608659256, 37.549153861529006804));
+      MercatorBounds::FromLatLon(55.80216, 37.54668), {0., 0.},
+      MercatorBounds::FromLatLon(55.80169, 37.54915));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -105,8 +105,8 @@ UNIT_TEST(RussiaMoscowNoTurnsOnMKADTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.846564134248033895, 37.391635636579785285), {0., 0.},
-      MercatorBounds::FromLatLon(55.566611639650901111, 37.692547253527685314));
+      MercatorBounds::FromLatLon(55.84656, 37.39163), {0., 0.},
+      MercatorBounds::FromLatLon(55.56661, 37.69254));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -115,18 +115,18 @@ UNIT_TEST(RussiaMoscowNoTurnsOnMKADTurnTest)
   integration::TestTurnCount(route, 1);
   integration::GetNthTurn(route, 0)
       .TestValid()
-      .TestPoint({37.682761085650043, 67.140620702062705})
+      .TestPoint({37.68276, 67.14062})
       .TestOneOfDirections({TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
 
   integration::TestRouteLength(route, 43233.7);
 }
 
-UNIT_TEST(RussiaMoscowTTKKashirskoeShosseOutTurnTest) // Failed
+UNIT_TEST(RussiaMoscowTTKKashirskoeShosseOutTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.70160163595921432, 37.606320023648997619), {0., 0.},
-      MercatorBounds::FromLatLon(55.693494620969019593, 37.621220025471167503));
+      MercatorBounds::FromLatLon(55.70160, 37.60632), {0., 0.},
+      MercatorBounds::FromLatLon(55.69349, 37.62122));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -142,8 +142,8 @@ UNIT_TEST(RussiaMoscowPankratevskiPerBolshaySuharedskazPloschadTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.771770051239521138, 37.635563528539393019), {0., 0.},
-      MercatorBounds::FromLatLon(55.772033898671161012, 37.637054339197831609));
+      MercatorBounds::FromLatLon(55.77177, 37.63556), {0., 0.},
+      MercatorBounds::FromLatLon(55.77203, 37.63705));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -157,8 +157,8 @@ UNIT_TEST(RussiaMoscowMKADPutilkovskeShosseTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.853059336007213176, 37.394141645624102921), {0., 0.},
-      MercatorBounds::FromLatLon(55.850996974780500182, 37.391050708989460816));
+      MercatorBounds::FromLatLon(55.85305, 37.39414), {0., 0.},
+      MercatorBounds::FromLatLon(55.85099, 37.39105));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -173,8 +173,8 @@ UNIT_TEST(RussiaMoscowPetushkovaShodniaReverTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.841047134659639539, 37.405917692164507571), {0., 0.},
-      MercatorBounds::FromLatLon(55.839290964451890886, 37.408550782937481927));
+      MercatorBounds::FromLatLon(55.84104, 37.40591), {0., 0.},
+      MercatorBounds::FromLatLon(55.83929, 37.40855));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -187,8 +187,8 @@ UNIT_TEST(RussiaHugeRoundaboutTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.801410375094782523, 37.325810690728495445), {0., 0.},
-      MercatorBounds::FromLatLon(55.800757342904596214, 37.325360456262153264));
+      MercatorBounds::FromLatLon(55.80141, 37.32581), {0., 0.},
+      MercatorBounds::FromLatLon(55.80075, 37.32536));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -209,8 +209,8 @@ UNIT_TEST(BelarusMiskProspNezavisimostiMKADTurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(53.936425941857663702, 27.658572046123946819), {0., 0.},
-      MercatorBounds::FromLatLon(53.939337747485986085, 27.670461944729382253));
+      MercatorBounds::FromLatLon(53.93642, 27.65857), {0., 0.},
+      MercatorBounds::FromLatLon(53.93933, 27.67046));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -227,8 +227,8 @@ UNIT_TEST(RussiaMoscowPetushkovaPetushkovaTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.836368736509733424, 37.405549999999998079), {0., 0.},
-      MercatorBounds::FromLatLon(55.837076293494696699, 37.404890000000001749));
+      MercatorBounds::FromLatLon(55.83636, 37.40555), {0., 0.},
+      MercatorBounds::FromLatLon(55.83707, 37.40489));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -257,8 +257,8 @@ UNIT_TEST(BelarusMKADShosseinai)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(55.315418609956843454, 29.431229999999999336), {0., 0.},
-      MercatorBounds::FromLatLon(55.316562400560414403, 29.426259999999999195));
+      MercatorBounds::FromLatLon(55.31541, 29.43123), {0., 0.},
+      MercatorBounds::FromLatLon(55.31656, 29.42626));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
@@ -275,8 +275,8 @@ UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetOsrmComponents(),
-      MercatorBounds::FromLatLon(7.9179763567919980716, 98.369370000000003529), {0., 0.},
-      MercatorBounds::FromLatLon(7.9072494672603861332, 98.367850000000004229));
+      MercatorBounds::FromLatLon(7.91797, 98.36937), {0., 0.},
+      MercatorBounds::FromLatLon(7.90724, 98.36785));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;

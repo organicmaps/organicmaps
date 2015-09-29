@@ -699,27 +699,27 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
   size_t lastIdx = 0;
 #endif
 
-  for (auto const & segment : routingResult.unpackedPathSegments)
+  for (auto const & pathSegments : routingResult.unpackedPathSegments)
   {
     INTERRUPT_WHEN_CANCELLED(delegate);
 
-    // Get all the coordinates for the computed route
-    size_t const n = segment.size();
-    for (size_t j = 0; j < n; ++j)  // todo(mgsergio) rename!
+    // Get all computed route coordinates.
+    size_t const numSegments = pathSegments.size();
+    for (size_t segmentIndex = 0; segmentIndex < numSegments; ++segmentIndex)
     {
-      RawPathData const & path_data = segment[j];
+      RawPathData const & pathData = pathSegments[segmentIndex];
 
-      if (j > 0 && !points.empty())
+      if (segmentIndex > 0 && !points.empty())
       {
         turns::TurnItem turnItem;
         turnItem.m_index = static_cast<uint32_t>(points.size() - 1);
 
-        turns::TurnInfo turnInfo(*mapping, segment[j - 1].node, segment[j].node);
+        turns::TurnInfo turnInfo(*mapping, pathSegments[segmentIndex - 1].node, pathSegments[segmentIndex].node);
         turns::GetTurnDirection(*m_pIndex, turnInfo, turnItem);
 
         // ETA information.
         // Osrm multiples seconds to 10, so we need to divide it back.
-        double const nodeTimeSeconds = path_data.segmentWeight / 10.0;
+        double const nodeTimeSeconds = pathData.segmentWeight / 10.0;
 
 #ifdef DEBUG
         double distMeters = 0.0;
@@ -736,14 +736,14 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
         //  Lane information.
         if (turnItem.m_turn != turns::TurnDirection::NoTurn)
         {
-          turnItem.m_lanes = turns::GetLanesInfo(segment[j - 1].node,
+          turnItem.m_lanes = turns::GetLanesInfo(pathSegments[segmentIndex - 1].node,
                                           *mapping, turns::GetLastSegmentPointIndex, *m_pIndex);
           turnsDir.push_back(move(turnItem));
         }
       }
 
       buffer_vector<TSeg, 8> buffer;
-      mapping->m_segMapping.ForEachFtSeg(path_data.node, MakeBackInsertFunctor(buffer));
+      mapping->m_segMapping.ForEachFtSeg(pathData.node, MakeBackInsertFunctor(buffer));
 
       auto FindIntersectingSeg = [&buffer] (TSeg const & seg) -> size_t
       {
@@ -761,13 +761,13 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 
       //Do not put out node geometry (we do not have it)!
       size_t startK = 0, endK = buffer.size();
-      if (j == 0)
+      if (segmentIndex == 0)
       {
         if (!segBegin.IsValid())
           continue;
         startK = FindIntersectingSeg(segBegin);
       }
-      if (j == n - 1)
+      if (segmentIndex + 1 == numSegments)
       {
         if (!segEnd.IsValid())
           continue;
@@ -785,11 +785,11 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 
         auto startIdx = seg.m_pointStart;
         auto endIdx = seg.m_pointEnd;
-        bool const needTime = (j == 0) || (j == n - 1);
+        bool const needTime = (segmentIndex == 0) || (segmentIndex == numSegments - 1);
 
-        if (j == 0 && k == startK && segBegin.IsValid())
+        if (segmentIndex == 0 && k == startK && segBegin.IsValid())
           startIdx = (seg.m_pointEnd > seg.m_pointStart) ? segBegin.m_pointStart : segBegin.m_pointEnd;
-        if (j == n - 1 && k == endK - 1 && segEnd.IsValid())
+        if (segmentIndex == numSegments - 1 && k == endK - 1 && segEnd.IsValid())
           endIdx = (seg.m_pointEnd > seg.m_pointStart) ? segEnd.m_pointEnd : segEnd.m_pointStart;
 
         if (seg.m_pointEnd > seg.m_pointStart)
@@ -826,7 +826,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
   times.push_back(Route::TTimeItem(points.size() - 1, estimatedTime));
   if (routingResult.targetEdge.segment.IsValid())
   {
-    turnsDir.push_back(
+    turnsDir.emplace_back(
         turns::TurnItem(static_cast<uint32_t>(points.size()) - 1, turns::TurnDirection::ReachedYourDestination));
   }
   turns::FixupTurns(points, turnsDir);

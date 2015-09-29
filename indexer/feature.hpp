@@ -29,9 +29,9 @@ class FeatureBase
 
 public:
 
-  using BufferT = char const *;
+  using TBuffer = char const *;
 
-  void Deserialize(feature::LoaderBase * pLoader, BufferT buffer);
+  void Deserialize(feature::LoaderBase * pLoader, TBuffer buffer);
 
   /// @name Parse functions. Do simple dispatching to m_pLoader.
   //@{
@@ -151,7 +151,7 @@ class FeatureType : public FeatureBase
   FeatureID m_id;
 
 public:
-  void Deserialize(feature::LoaderBase * pLoader, BufferT buffer);
+  void Deserialize(feature::LoaderBase * pLoader, TBuffer buffer);
 
   inline void SetID(FeatureID const & id) { m_id = id; }
   inline FeatureID GetID() const { return m_id; }

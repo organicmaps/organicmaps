@@ -135,20 +135,20 @@ namespace serial
     };
   }
 
-  void TrianglesChainSaver::operator() (PointT arr[3], vector<EdgeT> edges)
+  void TrianglesChainSaver::operator() (TPoint arr[3], vector<TEdge> edges)
   {
-    m_buffers.push_back(BufferT());
-    MemWriter<BufferT> writer(m_buffers.back());
+    m_buffers.push_back(TBuffer());
+    MemWriter<TBuffer> writer(m_buffers.back());
 
     WriteVarUint(writer, EncodeDelta(arr[0], m_base));
     WriteVarUint(writer, EncodeDelta(arr[1], arr[0]));
 
-    EdgeT curr = edges.front();
+    TEdge curr = edges.front();
     curr.m_delta = EncodeDelta(arr[2], arr[1]);
 
     sort(edges.begin(), edges.end(), edge_less_p0());
 
-    stack<EdgeT> st;
+    stack<TEdge> st;
     while (true)
     {
       CHECK_EQUAL ( curr.m_delta >> 62, 0, () );
@@ -156,7 +156,7 @@ namespace serial
 
       // find next edges
       int const nextNode = curr.m_p[1];
-      vector<EdgeT>::iterator i = lower_bound(edges.begin(), edges.end(), nextNode, edge_less_p0());
+      auto i = lower_bound(edges.begin(), edges.end(), nextNode, edge_less_p0());
       bool const found = (i != edges.end() && i->m_p[0] == nextNode);
       if (found)
       {
@@ -168,7 +168,7 @@ namespace serial
         // first child
         delta |= (one << i->m_side);
 
-        vector<EdgeT>::iterator j = i+1;
+        vector<TEdge>::iterator j = i+1;
         if (j != edges.end() && j->m_p[0] == nextNode)
         {
           // second child

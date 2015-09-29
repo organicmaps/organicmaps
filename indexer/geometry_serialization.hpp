@@ -159,27 +159,28 @@ namespace serial
 
   class TrianglesChainSaver
   {
-    typedef m2::PointU PointT;
-    typedef tesselator::Edge EdgeT;
-    typedef vector<char> BufferT;
+    using TPoint = m2::PointU;
+    using TEdge = tesselator::Edge;
+    using TBuffer = vector<char>;
 
-    PointT m_base, m_max;
+    TPoint m_base;
+    TPoint m_max;
 
-    list<BufferT> m_buffers;
+    list<TBuffer> m_buffers;
 
   public:
     explicit TrianglesChainSaver(CodingParams const & params);
 
-    PointT GetBasePoint() const { return m_base; }
-    PointT GetMaxPoint() const { return m_max; }
+    TPoint GetBasePoint() const { return m_base; }
+    TPoint GetMaxPoint() const { return m_max; }
 
-    void operator() (PointT arr[3], vector<EdgeT> edges);
+    void operator() (TPoint arr[3], vector<TEdge> edges);
 
     size_t GetBufferSize() const
     {
       size_t sz = 0;
-      for (list<BufferT>::const_iterator i = m_buffers.begin(); i != m_buffers.end(); ++i)
-        sz += i->size();
+      for (auto const & i : m_buffers)
+        sz += i.size();
       return sz;
     }
 
