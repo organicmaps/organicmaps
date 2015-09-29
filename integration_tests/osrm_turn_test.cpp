@@ -303,8 +303,8 @@ UNIT_TEST(RussiaMoscowVarshavskoeShosseMKAD)
       {TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
 }
 
-// Test case: a rote goes in Moscow from Tverskaya street (towards city center)
-// to Mokhovaya street. A turn instraction (turn left) shell be generated.
+// Test case: a route goes in Moscow from Tverskaya street (towards city center)
+// to Mokhovaya street. A turn instruction (turn left) shell be generated.
 UNIT_TEST(RussiaMoscowTverskajaOkhotnyRyadTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
@@ -316,5 +316,35 @@ UNIT_TEST(RussiaMoscowTverskajaOkhotnyRyadTest)
 
   TEST_EQUAL(result, IRouter::NoError, ());
   integration::TestTurnCount(route, 1);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
+}
+
+UNIT_TEST(RussiaMoscowBolshoyKislovskiyPerBolshayaNikitinskayaUlTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetOsrmComponents(), MercatorBounds::FromLatLon(55.75574, 37.60702), {0., 0.},
+      MercatorBounds::FromLatLon(55.75586, 37.60819));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnRight);
+}
+
+// Test case: a route goes in Moscow along Leningradskiy Prpt (towards city center)
+// and makes u-turn. A only one turn instruction (turn left) shell be generated.
+UNIT_TEST(RussiaMoscowLeningradskiyPrptToTheCenterUTurnTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetOsrmComponents(), MercatorBounds::FromLatLon(55.79231, 37.54951), {0., 0.},
+      MercatorBounds::FromLatLon(55.79280, 37.55028));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 2);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
 }
