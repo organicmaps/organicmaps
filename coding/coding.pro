@@ -10,6 +10,7 @@ include($$ROOT_DIR/common.pri)
 INCLUDEPATH *= $$ROOT_DIR/3party/tomcrypt/src/headers $$ROOT_DIR/3party/expat/lib
 
 SOURCES += \
+    $$ROOT_DIR/3party/lodepng/lodepng.cpp \
     arithmetic_codec.cpp \
     base64.cpp \
 #    blob_indexer.cpp \
@@ -23,7 +24,6 @@ SOURCES += \
     hex.cpp \
     huffman.cpp \
     internal/file_data.cpp \
-    lodepng.cpp \
     mmap_reader.cpp \
     multilang_utf8_string.cpp \
     png_memory_encoder.cpp \
@@ -37,6 +37,10 @@ SOURCES += \
     zip_reader.cpp \
 
 HEADERS += \
+    $$ROOT_DIR/3party/expat/expat_impl.h \
+    $$ROOT_DIR/3party/lodepng/lodepng.hpp \
+    $$ROOT_DIR/3party/lodepng/lodepng_io.hpp \
+    $$ROOT_DIR/3party/lodepng/lodepng_io_private.hpp \
     arithmetic_codec.hpp \
     base64.hpp \
     bit_streams.hpp \
@@ -62,12 +66,8 @@ HEADERS += \
     file_writer_stream.hpp \
     hex.hpp \
     huffman.hpp \
-    internal/expat_impl.h \
     internal/file64_api.hpp \
     internal/file_data.hpp \
-    lodepng.hpp \
-    lodepng_io.hpp \
-    lodepng_io_private.hpp \
     matrix_traversal.hpp \
     mmap_reader.hpp \
     multilang_utf8_string.hpp \

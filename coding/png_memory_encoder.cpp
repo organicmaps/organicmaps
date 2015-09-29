@@ -1,5 +1,5 @@
 #include "png_memory_encoder.hpp"
-#include "lodepng.hpp"
+#include "3party/lodepng/lodepng.hpp"
 
 #include "base/assert.hpp"
 

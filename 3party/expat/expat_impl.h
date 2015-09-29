@@ -2,7 +2,7 @@
 #ifndef DSSI_EXPATIMPL_H
 #define DSSI_EXPATIMPL_H
 
-#include "../../std/cstring.hpp"
+#include <cstring>
 
 
 //-----------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 #include "base/SRC_FIRST.hpp"
 #include "testing/testing.hpp"
-#include "coding/lodepng_io.hpp"
+#include "3party/lodepng/lodepng_io.hpp"
 #include "platform/platform.hpp"
 
 #include <boost/gil/gil_all.hpp>

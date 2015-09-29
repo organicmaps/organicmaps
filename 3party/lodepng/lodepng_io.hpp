@@ -34,7 +34,7 @@
 #include <boost/gil/gil_config.hpp>
 #include <boost/gil/utilities.hpp>
 #include <boost/gil/extension/io/io_error.hpp>
-#include "coding/lodepng_io_private.hpp"
+#include "lodepng_io_private.hpp"
 
 namespace boost { namespace gil {
 

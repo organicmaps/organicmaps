@@ -5,6 +5,8 @@ INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
 INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 
 SOURCES += \
+    $$ROOT_DIR/3party/stb_image/sdf_image.cpp \
+    $$ROOT_DIR/3party/stb_image/stb_image.c \
     $$DRAPE_DIR/data_buffer.cpp \
     $$DRAPE_DIR/binding_info.cpp \
     $$DRAPE_DIR/batcher.cpp \
@@ -35,15 +37,15 @@ SOURCES += \
     $$DRAPE_DIR/batcher_helpers.cpp \
     $$DRAPE_DIR/overlay_tree.cpp \
     $$DRAPE_DIR/font_texture.cpp \
-    $$DRAPE_DIR/utils/stb_image.c \
     $$DRAPE_DIR/attribute_buffer_mutator.cpp \
     $$DRAPE_DIR/stipple_pen_resource.cpp \
     $$DRAPE_DIR/texture_of_colors.cpp \
     $$DRAPE_DIR/glyph_manager.cpp \
-    $$DRAPE_DIR/sdf_image.cpp \
     $$DRAPE_DIR/utils/vertex_decl.cpp
 
 HEADERS += \
+    $$ROOT_DIR/sdf_image/sdf_image.h \
+    $$ROOT_DIR/stb_image/stb_image.h \
     $$DRAPE_DIR/data_buffer.hpp \
     $$DRAPE_DIR/binding_info.hpp \
     $$DRAPE_DIR/batcher.hpp \
@@ -77,7 +79,6 @@ HEADERS += \
     $$DRAPE_DIR/batcher_helpers.hpp \
     $$DRAPE_DIR/overlay_tree.hpp \
     $$DRAPE_DIR/font_texture.hpp \
-    $$DRAPE_DIR/utils/stb_image.h \
     $$DRAPE_DIR/attribute_buffer_mutator.hpp \
     $$DRAPE_DIR/drape_global.hpp \
     $$DRAPE_DIR/object_pool.hpp \
@@ -87,5 +88,4 @@ HEADERS += \
     $$DRAPE_DIR/glsl_types.hpp \
     $$DRAPE_DIR/glsl_func.hpp \
     $$DRAPE_DIR/glyph_manager.hpp \
-    $$DRAPE_DIR/sdf_image.h \
     $$DRAPE_DIR/utils/vertex_decl.hpp

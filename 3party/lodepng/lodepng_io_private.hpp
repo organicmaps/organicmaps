@@ -1,6 +1,6 @@
 /*
     Copyright 2005-2007 Adobe Systems Incorporated
-   
+
     Use, modification and distribution are subject to the Boost Software License,
     Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
     http://www.boost.org/LICENSE_1_0.txt).
@@ -23,7 +23,7 @@
 #include <boost/static_assert.hpp>
 #include <boost/gil/gil_all.hpp>
 #include <boost/gil/extension/io/io_error.hpp>
-#include "coding/lodepng.hpp"
+#include "lodepng.hpp"
 
 namespace boost { namespace gil {
 
@@ -205,7 +205,7 @@ public:
     {
         io_error_if((view.width() != m_decoder.getWidth() || view.height() != m_decoder.getHeight()),
                     "lodepng_read_view: input view size does not match PNG file size");
-        
+
         int bitDepth = lodepng_read_support_private<typename channel_type<View>::type,
                                                     typename color_space_type<View>::type>::bit_depth;
         if (bitDepth != m_decoder.getBpp() / m_decoder.getChannels())
