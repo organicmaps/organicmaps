@@ -138,7 +138,7 @@ typedef NS_ENUM(NSUInteger, Section)
   else if (indexPath.section == SectionZoomButtons)
   {
     Settings::Set("ZoomButtonsEnabled", (bool)value);
-    [MapsAppDelegate theApp].m_mapViewController.controlsManager.zoomHidden = !value;
+    [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
   }
   else if (indexPath.section == SectionCalibration)
   {
@@ -158,7 +158,7 @@ Settings::Units unitsForIndex(NSInteger index)
     Settings::Units units = unitsForIndex(indexPath.row);
     Settings::Set("Units", units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
-    [[MapsAppDelegate theApp].m_mapViewController setupMeasurementSystem];
+    [[MapsAppDelegate theApp].mapViewController setupMeasurementSystem];
   }
 }
 

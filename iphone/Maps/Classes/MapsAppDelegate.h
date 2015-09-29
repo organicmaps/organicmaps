@@ -17,7 +17,7 @@
 
 @property (nonatomic) UIWindow * window;
 
-@property (nonatomic, weak) IBOutlet MapViewController * m_mapViewController;
+@property (nonatomic, readonly) MapViewController * mapViewController;
 @property (nonatomic, readonly) LocationManager * m_locationManager;
 
 + (MapsAppDelegate *)theApp;

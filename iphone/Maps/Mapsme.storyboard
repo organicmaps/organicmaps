@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Mmap View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="Wq1-a3-f7n">
             <objects>
                 <viewController id="xTf-lf-yxN" customClass="MapViewController" sceneMemberID="viewController">
@@ -22,11 +22,6 @@
                     <navigationItem key="navigationItem" id="8E8-0f-UV9"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKg-Q7-bFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="Lhh-vc-djn" customClass="MapsAppDelegate">
-                    <connections>
-                        <outlet property="m_mapViewController" destination="xTf-lf-yxN" id="1hz-hc-JUi"/>
-                    </connections>
-                </customObject>
             </objects>
             <point key="canvasLocation" x="1134" y="444"/>
         </scene>
