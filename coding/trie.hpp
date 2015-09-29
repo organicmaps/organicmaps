@@ -4,7 +4,7 @@
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
 
-#include "std/shared_ptr.hpp"
+#include "std/unique_ptr.hpp"
 
 namespace trie
 {
@@ -33,8 +33,8 @@ public:
 
   virtual ~Iterator() {}
 
-  virtual shared_ptr<Iterator<TValue>> Clone() const = 0;
-  virtual shared_ptr<Iterator<TValue>> GoToEdge(size_t i) const = 0;
+  virtual unique_ptr<Iterator<TValue>> Clone() const = 0;
+  virtual unique_ptr<Iterator<TValue>> GoToEdge(size_t i) const = 0;
 };
 
 struct EmptyValueReader

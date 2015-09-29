@@ -33,16 +33,16 @@ public:
   }
 
   // trie::Iterator overrides:
-  shared_ptr<Iterator<ValueType>> Clone() const override
+  unique_ptr<Iterator<ValueType>> Clone() const override
   {
-    return make_shared<LeafIterator0<TValueReader>>(*this);
+    return make_unique<LeafIterator0<TValueReader>>(*this);
   }
 
-  shared_ptr<Iterator<ValueType>> GoToEdge(size_t i) const override
+  unique_ptr<Iterator<ValueType>> GoToEdge(size_t i) const override
   {
     ASSERT(false, (i));
     UNUSED_VALUE(i);
-    return NULL;
+    return nullptr;
   }
 };
 
@@ -74,12 +74,12 @@ public:
   }
 
   // trie::Iterator overrides:
-  shared_ptr<Iterator<ValueType>> Clone() const override
+  unique_ptr<Iterator<ValueType>> Clone() const override
   {
-    return make_shared<Iterator0<TReader, TValueReader>>(*this);
+    return make_unique<Iterator0<TReader, TValueReader>>(*this);
   }
 
-  shared_ptr<Iterator<ValueType>> GoToEdge(size_t i) const override
+  unique_ptr<Iterator<ValueType>> GoToEdge(size_t i) const override
   {
     ASSERT_LESS(i, this->m_edge.size(), ());
     uint32_t const offset = m_edgeInfo[i].m_offset;
@@ -93,10 +93,10 @@ public:
       SharedMemReader memReader(size);
       m_reader.Read(offset, memReader.Data(), size);
       if (m_edgeInfo[i].m_isLeaf)
-        return make_shared<LeafIterator0<SharedMemReader, TValueReader>>(
+        return make_unique<LeafIterator0<SharedMemReader, TValueReader>>(
               memReader, m_valueReader);
       else
-        return make_shared<Iterator0<SharedMemReader, TValueReader>>(
+        return make_unique<Iterator0<SharedMemReader, TValueReader>>(
               memReader, m_valueReader,
               this->m_edge[i].m_str.back());
     }
@@ -104,10 +104,10 @@ public:
     */
     {
       if (m_edgeInfo[i].m_isLeaf)
-        return make_shared<LeafIterator0<TValueReader>>(m_reader.SubReader(offset, size),
+        return make_unique<LeafIterator0<TValueReader>>(m_reader.SubReader(offset, size),
                                                         m_valueReader);
       else
-        return make_shared<Iterator0<TReader, TValueReader>>(
+        return make_unique<Iterator0<TReader, TValueReader>>(
             m_reader.SubReader(offset, size), m_valueReader, this->m_edge[i].m_str.back());
     }
   }
@@ -190,10 +190,10 @@ private:
 
 // Returns iterator to the root of the trie.
 template <class TReader, class TValueReader>
-shared_ptr<Iterator<typename TValueReader::ValueType>> ReadTrie(
+unique_ptr<Iterator<typename TValueReader::ValueType>> ReadTrie(
     TReader const & reader, TValueReader valueReader = TValueReader())
 {
-  return make_shared<Iterator0<TReader, TValueReader>>(reader, valueReader, DEFAULT_CHAR);
+  return make_unique<Iterator0<TReader, TValueReader>>(reader, valueReader, DEFAULT_CHAR);
 }
 
 }  // namespace trie
