@@ -69,6 +69,7 @@ message CaptionDefProto
   optional uint32 stroke_color = 3;
   optional int32 offset_x = 4;
   optional int32 offset_y = 5;
+  optional string text = 6;
 }
 
 message CaptionRuleProto

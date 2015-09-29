@@ -55,6 +55,7 @@ namespace drule
     virtual AreaRuleProto const * GetArea() const;
     virtual SymbolRuleProto const * GetSymbol() const;
     virtual CaptionDefProto const * GetCaption(int) const;
+    virtual text_type_t GetCaptionTextType(int) const;
     virtual CircleRuleProto const * GetCircle() const;
     virtual ShieldRuleProto const * GetShield() const;
 
