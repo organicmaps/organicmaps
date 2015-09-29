@@ -19,8 +19,10 @@ class FeatureBuilder1
   friend string DebugPrint(FeatureBuilder1 const & f);
 
 public:
-  typedef vector<m2::PointD> TPointSeq;
-  typedef list<TPointSeq> TGeometry;
+  using TPointSeq = vector<m2::PointD>;
+  using TGeometry = list<TPointSeq>;
+
+  typedef vector<char> TBuffer;
 
   FeatureBuilder1();
 
@@ -73,14 +75,12 @@ public:
     return m_params.m_Types.empty();
   }
 
-  typedef vector<char> buffer_t;
-
   /// @name Serialization.
   //@{
-  void Serialize(buffer_t & data) const;
-  void SerializeBase(buffer_t & data, serial::CodingParams const & params, bool needSearializeAdditionalInfo = true) const;
+  void Serialize(TBuffer & data) const;
+  void SerializeBase(TBuffer & data, serial::CodingParams const & params, bool needSearializeAdditionalInfo = true) const;
 
-  void Deserialize(buffer_t & data);
+  void Deserialize(TBuffer & data);
   //@}
 
   /// @name Selectors.
@@ -213,36 +213,38 @@ protected:
 /// Used for serialization of features during final pass.
 class FeatureBuilder2 : public FeatureBuilder1
 {
-  typedef FeatureBuilder1 base_type;
+  using TBase = FeatureBuilder1;
+  using TOffsets = vector<uint32_t>;
 
-  typedef vector<uint32_t> offsets_t;
-
-  static void SerializeOffsets(uint32_t mask, offsets_t const & offsets, buffer_t & buffer);
+  static void SerializeOffsets(uint32_t mask, TOffsets const & offsets, TBuffer & buffer);
 
 public:
 
-  struct buffers_holder_t
+  struct SupportingData
   {
     /// @name input
     //@{
-    offsets_t m_ptsOffset, m_trgOffset;
-    uint8_t m_ptsMask, m_trgMask;
+    TOffsets m_ptsOffset;
+    TOffsets m_trgOffset;
+    uint8_t m_ptsMask;
+    uint8_t m_trgMask;
 
     uint32_t m_ptsSimpMask;
 
-    TPointSeq m_innerPts, m_innerTrg;
+    TPointSeq m_innerPts;
+    TPointSeq m_innerTrg;
     //@}
 
     /// @name output
-    base_type::buffer_t m_buffer;
+    TBase::TBuffer m_buffer;
 
-    buffers_holder_t() : m_ptsMask(0), m_trgMask(0), m_ptsSimpMask(0) {}
+    SupportingData() : m_ptsMask(0), m_trgMask(0), m_ptsSimpMask(0) {}
   };
 
   /// @name Overwrite from base_type.
   //@{
-  bool PreSerialize(buffers_holder_t const & data);
-  void Serialize(buffers_holder_t & data, serial::CodingParams const & params);
+  bool PreSerialize(SupportingData const & data);
+  void Serialize(SupportingData & data, serial::CodingParams const & params);
   //@}
 };
 
@@ -253,7 +255,7 @@ namespace feature
   void ReadFromSourceRowFormat(TSource & src, FeatureBuilder1 & fb)
   {
     uint32_t const sz = ReadVarUint<uint32_t>(src);
-    typename FeatureBuilder1::buffer_t buffer(sz);
+    typename FeatureBuilder1::TBuffer buffer(sz);
     src.Read(&buffer[0], sz);
     fb.Deserialize(buffer);
   }

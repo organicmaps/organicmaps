@@ -185,7 +185,7 @@ namespace feature
     class GeometryHolder
     {
     public:
-      FeatureBuilder2::buffers_holder_t m_buffer;
+      FeatureBuilder2::SupportingData m_buffer;
 
     private:
       FeaturesCollector2 & m_rMain;
