@@ -233,7 +233,7 @@ UNIT_TEST(RussiaRostovOnDonPrKosmonavtovToDneprovsky120b)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(47.2811, 39.7178), {0., 0.},
-      MercatorBounds::FromLatLon(47.2875, 39.759), 4600.);
+      MercatorBounds::FromLatLon(47.2875, 39.759), 4300.);
 }
 
 UNIT_TEST(TurkeyKemerPalmetResortToYachtClub)

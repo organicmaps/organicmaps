@@ -107,11 +107,25 @@ namespace
         {11.327927635052676, 48.166256203616726}, 2870710.);
   }
 
-  UNIT_TEST(RussiaMoscowLenigradskiy39EnglandLondonCenterRouteTest)
+  UNIT_TEST(RussiaMoscowFranceParisCenterRouteTest)
   {
     integration::CalculateRouteAndTestRouteLength(
-        integration::GetOsrmComponents(), {37.537572384446207, 67.536189683408367}, {0., 0.},
-        {-0.084976483156808751, 60.298304898120428}, 2863000.);
+        integration::GetOsrmComponents(),
+        MercatorBounds::FromLatLon(55.75271, 37.62618), {0., 0.},
+        MercatorBounds::FromLatLon(48.86123, 2.34129), 2840940.);
+  }
+
+// @TODO This test is failed to create a route for the time being with data from 12.09.2015.
+// Now it's impossible to create a vehicle route from Paris to London.
+// The assumed reason is some tags of the tunnel is changed and we stop working with
+// the situation correctly.
+// At the same time OSRM manages to create routes through the tunnel.
+  UNIT_TEST(FranceParisCenternglandLondonCenterRouteTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetOsrmComponents(),
+        MercatorBounds::FromLatLon(48.86123, 2.34129), {0., 0.},
+        MercatorBounds::FromLatLon(51.49884, -0.10438), 0./* Some unknown value*/);
   }
 
   // Strange map edits in Africa borders. Routing not linked now.
@@ -178,11 +192,11 @@ namespace
     // Forward
     integration::CalculateRouteAndTestRouteLength(
         integration::GetOsrmComponents(), MercatorBounds::FromLatLon(45.38053, 36.73226), {0., 0.},
-        MercatorBounds::FromLatLon(45.36078, 36.60866), 15600.);
+        MercatorBounds::FromLatLon(45.36078, 36.60866), 13150.);
     // And backward case
     integration::CalculateRouteAndTestRouteLength(
         integration::GetOsrmComponents(), MercatorBounds::FromLatLon(45.36078, 36.60866), {0., 0.},
-        MercatorBounds::FromLatLon(45.38053, 36.73226), 15600.);
+        MercatorBounds::FromLatLon(45.38053, 36.73226), 13110.);
   }
 
   UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
