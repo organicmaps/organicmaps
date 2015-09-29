@@ -1,5 +1,15 @@
 # MAPS.ME Development
 
+## Issues
+
+The simplest way to contribute is to [submit an issue](https://github.com/mapsme/omim/issues).
+Please give developers as much information as possible: OS and application versions,
+list of actions leading to a bug, a log file that the app produces.
+
+When using an app on a device, use the built-in "Report a bug" option:
+it creates a new e-mail with a log file attached. Your issue will be processed much
+faster if you send it to bugs@maps.me.
+
 ## Initializing the Repository
 
 The repository needs a lot of header and configuration files with private keys and such.
@@ -41,23 +51,65 @@ preferences with XCode's lldb as a debugger and a clang compiler.
 
 ## Coding Style
 
-See [CPP_STYLE.md](CPP_STYLE.md).
+See [CPP_STYLE.md](CPP_STYLE.md). Use `clang-format` when in doubt.
+
+## Pull Requests
+
+All contributions to MAPS.ME source code should be submitted via github pull requests.
+Each pull request is reviewed by MAPS.ME employees, to ensure consistent code style
+and quality. Sometimes the review process even for smallest commits can be
+very thorough. Please be patient: you may learn something about C++ or our
+project in the process.
+
+To contribute you must sign the [license agreement](CLA.md): the same one you
+sign for Google or Facebook open-source projects.
 
 ## Directories
 
-### Sources
+### Core
 
-* **anim** - core animation controller.
-* **api** - external API of the application.
-* **base** - 
-
-*todo*
+* `anim` - core animation controller.
+* `api` - external API of the application.
+* `base` - some base things, like macros, logging, caches etc.
+* `coding` - I/O classes and data processing.
+* `drape` - the new graphics library core.
+* `drape_frontend` - scene and resource manager for the Drape library.
+* `drape_head` - an application that uses the Drape library.
+* `generator` - map building tool.
+* `geometry` - geometry primitives we use.
+* `graphics` - the current graphics library's core
+* `gui` - right, the GUI.
+* `indexer` - processor for map files, classificator, styles.
+* `map` - app business logic, including a scene manager.
+* `platform` - platform abstraction classes: file paths, http requests, location services.
+* `routing` - in-app routing engine.
+* `search` - ranking and searching classes.
+* `sound` - text-to-speech functions.
+* `std` - standard headers wrappers, for Boost, STL, C-rt.
+* `storage` - map reading function.
 
 ### Other
 
-* **3party** - external libraries, sometimes modified.
-* **android** - Android UI
+Some of these contain their own README files.
 
-*todo*
+* `3party` - external libraries, sometimes modified.
+* `android` - Android UI.
+* `data` - data files for the application: maps, styles, country borders.
+* `debian` - package sources for Debian.
+* `installer` - long-abandoned installer for Windows.
+* `integration_tests` - routing tests for map files.
+* `iphone` - iOS UI.
+* `pedestrian_routing_benchmarks` - said benchmarks.
+* `qt` - desktop application.
+* `qt_tstfrm` - widgets for visual testing.
+* `skin_generator` - a console app for building skin files with icons and symbols.
+* `stats` - Alohalytics statistics.
+* `testing` - common interfaces for tests.
+* `tizen` - Tizen application.
+* `tools` - tools for building packages and maps, for testing etc.
+* `xcode` - XCode workspace.
 
-## Pull Requests
+## Questions?
+
+For any questions about developing MAPS.ME and relevant services - virtually about anything related,
+please write us at bugs@maps.me, we'll be happy to help.

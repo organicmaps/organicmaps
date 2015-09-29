@@ -5,7 +5,7 @@ First, do not forget to initialize a cloned repository, see
 
 ## Desktop
 
-You would need Boost and Qt 5. With that, just run `omim/tools/unix/build_omim.sh`.
+You would need Clang, Boost and Qt 5. With that, just run `omim/tools/unix/build_omim.sh`.
 It will build both debug and release versions to `omim/../omim-build-<target>`, as
 well as OSRM backend for generating maps. Command-line switches are:
 
@@ -14,8 +14,9 @@ well as OSRM backend for generating maps. Command-line switches are:
 * `-o` to build OSRM backend
 * `-c` to delete target directories before building
 
-To build a generator tool only, set `CONFIG=gtool` flag. To skip building tests,
-use `CONFIG=no-tests`.
+To build a generator tool only, set `CONFIG=gtool` variable. To skip building tests,
+use `CONFIG=no-tests`. If you have Qt installed in an unusual directory, use
+`QMAKE` variable.
 
 When using a lot of maps, increase open files limit, which is only 256 on Mac OS X.
 Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
@@ -24,14 +25,31 @@ and run
 
     echo 'ulimit -n 2048' | sudo tee -a /etc/profile
 
+### Building Manually
+
+The `build_omim.sh` script basically runs these commands:
+
+    qmake omim.pro -spec linux-clang CONFIG+=debug
+    make -j <number_of_processes>
+
+It will compile binaries to the `out` subdirectory of the current directory.
+You might need to export `BOOST_INCLUDEDIR` variable with a path to Boost's
+`include` directory.
+
+To build the OSRM backend, create `omim/3party/osrm/osrm-backend/build`
+directory, and from within it, run:
+
+    cmake -DBOOST_ROOT=<where_is_your_Boost> ..
+    make
+
 ### Ubuntu 14.04
 
-Install Qt 5.4:
+Install Qt 5.5:
 
-    sudo add-apt-repository ppa:beineri/opt-qt542-trusty
+    sudo add-apt-repository ppa:beineri/opt-qt55-trusty
     sudo apt-get update
-    sudo apt-get install qt54base
-    source /opt/qt54/bin/qt54-env.sh
+    sudo apt-get install qt55base
+    source /opt/qt55/bin/qt55-env.sh
 
 To run OSRM binaries, you'll need:
 
@@ -41,7 +59,7 @@ Do a git clone:
 
     git clone git@github.com:mapsme/omim.git
     cd omim
-    ./configure.sh
+    echo | ./configure.sh
 
 Then:
 
@@ -77,7 +95,24 @@ For instructions on making your own maps, see [MWM.md](MWM.md).
 
 ## Maps Generator
 
-### OSRM Backend
+The generator tool is build together with the desktop app, but you can choose to skip
+other modules. Use this line:
+
+    CONFIG=gtool omim/tools/unix/build_omim.sh -ro
+
+It is the preferable way to build a generator tool, for it can also build an OSRM
+backend (`-o` option).
+
+Dependencies for generator tool and OSRM backend:
+
+* boost-iostreams
+* glu1-mesa
+* tbb
+* luabind
+* stxxl
+* osmpbf
+* protobuf
+* lua
 
 ## Designer Tool
 
@@ -135,3 +170,5 @@ to SDK and NDK. Or specify these in command line:
     receive a log file.
 
 ## iOS
+
+*todo*
