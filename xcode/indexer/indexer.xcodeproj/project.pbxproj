@@ -321,6 +321,10 @@
 			isa = PBXGroup;
 			children = (
 				670C61571AB068C100C38A8C /* Libs */,
+				678FB4181BB43D8900C49B9C /* drules_selector_parser.cpp */,
+				678FB4191BB43D8900C49B9C /* drules_selector_parser.hpp */,
+				678FB41A1BB43D8900C49B9C /* drules_selector.cpp */,
+				678FB41B1BB43D8900C49B9C /* drules_selector.hpp */,
 				670C611F1AB065E100C38A8C /* testingmain.cpp */,
 				670C60F91AB065B100C38A8C /* categories_test.cpp */,
 				670C60FA1AB065B100C38A8C /* cell_coverer_test.cpp */,
@@ -793,6 +797,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
@@ -833,6 +838,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Release;
 		};

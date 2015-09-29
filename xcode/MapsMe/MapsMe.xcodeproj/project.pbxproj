@@ -228,10 +228,6 @@
 		675345781A404CB200A0A8C3 /* preferences_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = preferences_dialog.hpp; sourceTree = "<group>"; };
 		675345791A404CB200A0A8C3 /* proxystyle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = proxystyle.cpp; sourceTree = "<group>"; };
 		6753457A1A404CB200A0A8C3 /* proxystyle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = proxystyle.hpp; sourceTree = "<group>"; };
-		6753457B1A404CB200A0A8C3 /* qtoglcontext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qtoglcontext.cpp; sourceTree = "<group>"; };
-		6753457C1A404CB200A0A8C3 /* qtoglcontext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = qtoglcontext.hpp; sourceTree = "<group>"; };
-		6753457D1A404CB200A0A8C3 /* qtoglcontextfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qtoglcontextfactory.cpp; sourceTree = "<group>"; };
-		6753457E1A404CB200A0A8C3 /* qtoglcontextfactory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = qtoglcontextfactory.hpp; sourceTree = "<group>"; };
 		6753457F1A404CB200A0A8C3 /* search_panel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search_panel.cpp; sourceTree = "<group>"; };
 		675345801A404CB200A0A8C3 /* search_panel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_panel.hpp; sourceTree = "<group>"; };
 		675345811A404CB200A0A8C3 /* slider_ctrl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = slider_ctrl.cpp; sourceTree = "<group>"; };
@@ -411,10 +407,6 @@
 				675345781A404CB200A0A8C3 /* preferences_dialog.hpp */,
 				675345791A404CB200A0A8C3 /* proxystyle.cpp */,
 				6753457A1A404CB200A0A8C3 /* proxystyle.hpp */,
-				6753457B1A404CB200A0A8C3 /* qtoglcontext.cpp */,
-				6753457C1A404CB200A0A8C3 /* qtoglcontext.hpp */,
-				6753457D1A404CB200A0A8C3 /* qtoglcontextfactory.cpp */,
-				6753457E1A404CB200A0A8C3 /* qtoglcontextfactory.hpp */,
 				6753457F1A404CB200A0A8C3 /* search_panel.cpp */,
 				675345801A404CB200A0A8C3 /* search_panel.hpp */,
 				675345811A404CB200A0A8C3 /* slider_ctrl.cpp */,

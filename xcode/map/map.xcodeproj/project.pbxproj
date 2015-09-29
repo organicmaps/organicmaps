@@ -87,7 +87,6 @@
 		675346771A4054E800A0A8C3 /* navigator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346081A4054E800A0A8C3 /* navigator.hpp */; };
 		675346791A4054E800A0A8C3 /* pin_click_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753460A1A4054E800A0A8C3 /* pin_click_manager.cpp */; };
 		6753467A1A4054E800A0A8C3 /* pin_click_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753460B1A4054E800A0A8C3 /* pin_click_manager.hpp */; };
-		6753467D1A4054E800A0A8C3 /* qgl_render_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753460E1A4054E800A0A8C3 /* qgl_render_context.cpp */; };
 		6753467E1A4054E800A0A8C3 /* qgl_render_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753460F1A4054E800A0A8C3 /* qgl_render_context.hpp */; };
 		675346831A4054E800A0A8C3 /* rotate_screen_task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675346141A4054E800A0A8C3 /* rotate_screen_task.cpp */; };
 		675346841A4054E800A0A8C3 /* rotate_screen_task.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346151A4054E800A0A8C3 /* rotate_screen_task.hpp */; };
@@ -100,6 +99,7 @@
 		6753469F1A4054E800A0A8C3 /* user_mark_dl_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675346301A4054E800A0A8C3 /* user_mark_dl_cache.cpp */; };
 		675346A01A4054E800A0A8C3 /* user_mark_dl_cache.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346311A4054E800A0A8C3 /* user_mark_dl_cache.hpp */; };
 		675346A21A4054E800A0A8C3 /* user_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675346331A4054E800A0A8C3 /* user_mark.hpp */; };
+		67A2526C1BB42E4B0063F8A8 /* qgl_render_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753460E1A4054E800A0A8C3 /* qgl_render_context.cpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -503,7 +503,7 @@
 		675345B31A4054AD00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					674A29DE1B26FD1C001A525C = {
@@ -571,8 +571,8 @@
 				6753466A1A4054E800A0A8C3 /* geourl_process.cpp in Sources */,
 				675346461A4054E800A0A8C3 /* benchmark_provider.cpp in Sources */,
 				675346661A4054E800A0A8C3 /* ge0_parser.cpp in Sources */,
-				6753467D1A4054E800A0A8C3 /* qgl_render_context.cpp in Sources */,
 				6753463A1A4054E800A0A8C3 /* address_finder.cpp in Sources */,
+				67A2526C1BB42E4B0063F8A8 /* qgl_render_context.cpp in Sources */,
 				675346381A4054E800A0A8C3 /* active_maps_layout.cpp in Sources */,
 				675346721A4054E800A0A8C3 /* move_screen_task.cpp in Sources */,
 				6753464A1A4054E800A0A8C3 /* bookmark.cpp in Sources */,
@@ -660,6 +660,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = "qgl_render_context.*";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "qgl_render_context.*";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -678,11 +682,13 @@
 					"$(inherited)",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/freetype/include",
+					"$(OMIM_ROOT)/3party/expat/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
@@ -708,6 +714,9 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = "qgl_render_context.*";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "qgl_render_context.*";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -719,10 +728,12 @@
 					"$(inherited)",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/freetype/include",
+					"$(OMIM_ROOT)/3party/expat/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 			};
 			name = Release;
 		};

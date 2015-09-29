@@ -72,7 +72,6 @@
 		67534A5C1A408E8000A0A8C3 /* ftgxval.c in Sources */ = {isa = PBXBuildFile; fileRef = 675348911A408E8000A0A8C3 /* ftgxval.c */; };
 		67534A5D1A408E8000A0A8C3 /* ftinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 675348921A408E8000A0A8C3 /* ftinit.c */; };
 		67534A5E1A408E8000A0A8C3 /* ftlcdfil.c in Sources */ = {isa = PBXBuildFile; fileRef = 675348931A408E8000A0A8C3 /* ftlcdfil.c */; };
-		67534A5F1A408E8000A0A8C3 /* ftmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 675348941A408E8000A0A8C3 /* ftmac.c */; };
 		67534A601A408E8000A0A8C3 /* ftmm.c in Sources */ = {isa = PBXBuildFile; fileRef = 675348951A408E8000A0A8C3 /* ftmm.c */; };
 		67534A611A408E8000A0A8C3 /* ftobjs.c in Sources */ = {isa = PBXBuildFile; fileRef = 675348961A408E8000A0A8C3 /* ftobjs.c */; };
 		67534A621A408E8000A0A8C3 /* ftotval.c in Sources */ = {isa = PBXBuildFile; fileRef = 675348971A408E8000A0A8C3 /* ftotval.c */; };
@@ -434,7 +433,6 @@
 		675348911A408E8000A0A8C3 /* ftgxval.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftgxval.c; sourceTree = "<group>"; };
 		675348921A408E8000A0A8C3 /* ftinit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftinit.c; sourceTree = "<group>"; };
 		675348931A408E8000A0A8C3 /* ftlcdfil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftlcdfil.c; sourceTree = "<group>"; };
-		675348941A408E8000A0A8C3 /* ftmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftmac.c; sourceTree = "<group>"; };
 		675348951A408E8000A0A8C3 /* ftmm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftmm.c; sourceTree = "<group>"; };
 		675348961A408E8000A0A8C3 /* ftobjs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftobjs.c; sourceTree = "<group>"; };
 		675348971A408E8000A0A8C3 /* ftotval.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftotval.c; sourceTree = "<group>"; };
@@ -944,7 +942,6 @@
 				675348911A408E8000A0A8C3 /* ftgxval.c */,
 				675348921A408E8000A0A8C3 /* ftinit.c */,
 				675348931A408E8000A0A8C3 /* ftlcdfil.c */,
-				675348941A408E8000A0A8C3 /* ftmac.c */,
 				675348951A408E8000A0A8C3 /* ftmm.c */,
 				675348961A408E8000A0A8C3 /* ftobjs.c */,
 				675348971A408E8000A0A8C3 /* ftotval.c */,
@@ -1769,7 +1766,6 @@
 				67534AE11A408E8000A0A8C3 /* gxvmorx4.c in Sources */,
 				67534A951A408E8000A0A8C3 /* cf2error.c in Sources */,
 				67534A691A408E8000A0A8C3 /* ftstream.c in Sources */,
-				67534A5F1A408E8000A0A8C3 /* ftmac.c in Sources */,
 				67534AE41A408E8000A0A8C3 /* gxvprop.c in Sources */,
 				67534A511A408E8000A0A8C3 /* ftbbox.c in Sources */,
 				67534A751A408E8000A0A8C3 /* bdf.c in Sources */,
@@ -1970,6 +1966,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				WARNING_CFLAGS = (
 					"-Wno-implicit-function-declaration",
 					"-Wno-absolute-value",
@@ -2015,6 +2012,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = "";
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				WARNING_CFLAGS = (
 					"-Wno-implicit-function-declaration",
 					"-Wno-absolute-value",
