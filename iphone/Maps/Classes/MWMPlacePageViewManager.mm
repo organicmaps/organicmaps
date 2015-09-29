@@ -222,6 +222,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
                                                   userInfo:nil];
+  [self updateDistance];
 }
 
 - (void)removeBookmark
@@ -243,6 +244,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
                                                   userInfo:nil];
+  [self updateDistance];
 }
 
 - (void)reloadBookmark
