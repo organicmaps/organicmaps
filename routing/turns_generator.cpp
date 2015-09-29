@@ -332,20 +332,21 @@ TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & l
  * - start is an index of the start point of a feature segment. For example, FtSeg::m_pointStart.
  * - end is an index of the end point of a feature segment. For example, FtSeg::m_pointEnd.
  * - shift is a number of points which shall be added to end or start index. After that
- * the sum reflects an index of a point of a feature segment which will be used for turn calculation.
+ * the sum reflects an index of a feature segment point which will be used for a turn calculation.
  * The sum shall belongs to a range [min(start, end), max(start, end)].
  * shift belongs to a  range [0, abs(end - start)].
- * \return an ingoing or outgoing point for turn calculation.
+ * \return an ingoing or outgoing point for a turn calculation.
  */
 m2::PointD GetPointForTurn(OsrmMappingTypes::FtSeg const & segment, FeatureType const & ft,
                            m2::PointD const & junctionPoint,
-                           size_t (*GetPointIndex)(const size_t start, const size_t end, const size_t shift))
+                           size_t (*GetPointIndex)(const size_t start, const size_t end, const size_t shift),
+                           size_t const maxPointsCount = 7, // An ingoing and outgoing point could be farther
+                                                             // then kMaxPointsCount points from the junctionPoint
+                           double const minDistMeters = 300. // If ft feature is long enough and consists of short segments
+                                                              // the point for turn generation is taken as the next point
+                                                              // along the route after kMinDistMeters.
+                           )
 {
-  // An ingoing and outgoing point could be farther then kMaxPointsCount points from the junctionPoint
-  size_t const kMaxPointsCount = 7;
-  // If ft feature is long enough and consist of short segments
-  // the point for turn generation is taken as the next point the route after kMinDistMeters.
-  double const kMinDistMeters = 300.;
   double curDistanceMeters = 0.;
   m2::PointD point = junctionPoint;
   m2::PointD nextPoint;
@@ -353,16 +354,17 @@ m2::PointD GetPointForTurn(OsrmMappingTypes::FtSeg const & segment, FeatureType 
   size_t const numSegPoints = abs(segment.m_pointEnd - segment.m_pointStart);
   ASSERT_GREATER(numSegPoints, 0, ());
   ASSERT_LESS(numSegPoints, ft.GetPointsCount(), ());
-  size_t const usedFtPntNum = min(kMaxPointsCount, numSegPoints);
+  size_t const usedFtPntNum = min(maxPointsCount, numSegPoints);
 
   for (size_t i = 1; i <= usedFtPntNum; ++i)
   {
     nextPoint = ft.GetPoint(GetPointIndex(segment.m_pointStart, segment.m_pointEnd, i));
     curDistanceMeters += MercatorBounds::DistanceOnEarth(point, nextPoint);
-    if (curDistanceMeters > kMinDistMeters)
+    if (curDistanceMeters > minDistMeters)
       return nextPoint;
     point = nextPoint;
   }
+
   return nextPoint;
 }
 
@@ -727,19 +729,21 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
                   outgoingFeature.GetPoint(turnInfo.m_outgoingSegment.m_pointStart)),
               kFeaturesNearTurnMeters, ());
 
+  auto const getIngoingPointIndex = [](const size_t start, const size_t end, const size_t i)
+  {
+    return end > start ? end - i : end + i;
+  };
+  auto const getOutgoingPointIndex = [](const size_t start, const size_t end, const size_t i)
+  {
+    return end > start ? start + i : start - i;
+  };
+
   m2::PointD const junctionPoint = ingoingFeature.GetPoint(turnInfo.m_ingoingSegment.m_pointEnd);
-  m2::PointD const ingoingPoint =
-      GetPointForTurn(turnInfo.m_ingoingSegment, ingoingFeature, junctionPoint,
-                      [](const size_t start, const size_t end, const size_t i)
-      {
-        return end > start ? end - i : end + i;
-      });
-  m2::PointD const outgoingPoint =
-      GetPointForTurn(turnInfo.m_outgoingSegment, outgoingFeature, junctionPoint,
-                      [](const size_t start, const size_t end, const size_t i)
-      {
-        return end > start ? start + i : start - i;
-      });
+  m2::PointD const ingoingPoint = GetPointForTurn(turnInfo.m_ingoingSegment, ingoingFeature,
+                                                  junctionPoint, getIngoingPointIndex);
+  m2::PointD const outgoingPoint = GetPointForTurn(turnInfo.m_outgoingSegment, outgoingFeature,
+                                                   junctionPoint, getOutgoingPointIndex);
+
   double const turnAngle = my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
   TurnDirection const intermediateDirection = IntermediateDirection(turnAngle);
 
@@ -804,7 +808,13 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
     return;
   }
 
-  if (!KeepTurnByIngoingEdges(junctionPoint, ingoingPointOneSegment, outgoingPoint, hasMultiTurns,
+
+  size_t constexpr kMaxPointsCount = 3;
+  double constexpr kMinDistMeters = 30.;
+  auto const notSoCloseToTheTurnPoint = GetPointForTurn(turnInfo.m_ingoingSegment, ingoingFeature,
+                                                        junctionPoint, getIngoingPointIndex,
+                                                        kMaxPointsCount, kMinDistMeters);
+  if (!KeepTurnByIngoingEdges(junctionPoint, notSoCloseToTheTurnPoint, outgoingPoint, hasMultiTurns,
                               turnInfo.m_routeMapping, index))
   {
     turn.m_turn = TurnDirection::NoTurn;
