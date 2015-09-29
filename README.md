@@ -1,9 +1,9 @@
 # MAPS.ME
 
-http://maps.me
-
-This is an application for [Android](https://play.google.com/store/apps/details?id=com.mapswithme.maps.pro)
-and [iOS](https://itunes.apple.com/app/id510623322) devices for offline maps built from OpenStreetMap data.
+[MAPS.ME](http://maps.me) is an open source cross-platform offline maps application,
+built on top of crowd-sourced OpenStreetMap data. It was publicly released
+for [iOS](https://itunes.apple.com/app/id510623322) and
+[Android](https://play.google.com/store/apps/details?id=com.mapswithme.maps.pro).
 
 ## Submodules
 
@@ -45,7 +45,7 @@ format description, instructions on building a style and some links.
 
 ## Development
 
-You would need Boost and Qt 5 for development, most other libraries are included into the
+You would need Qt 5 for development, most other libraries are included into the
 repository: see `3party` directory. The team uses mostly XCode and Qt Creator,
 though these are not mandatory. We have an established
 [coding style](https://github.com/mapsme/omim/blob/master/docs/CPP_STYLE.md).
