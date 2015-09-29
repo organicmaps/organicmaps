@@ -2035,6 +2035,7 @@ const int CaptionDefProto::kColorFieldNumber;
 const int CaptionDefProto::kStrokeColorFieldNumber;
 const int CaptionDefProto::kOffsetXFieldNumber;
 const int CaptionDefProto::kOffsetYFieldNumber;
+const int CaptionDefProto::kTextFieldNumber;
 #endif  // !_MSC_VER
 
 CaptionDefProto::CaptionDefProto()
@@ -2054,12 +2055,14 @@ CaptionDefProto::CaptionDefProto(const CaptionDefProto& from)
 }
 
 void CaptionDefProto::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   height_ = 0;
   color_ = 0u;
   stroke_color_ = 0u;
   offset_x_ = 0;
   offset_y_ = 0;
+  text_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -2069,6 +2072,9 @@ CaptionDefProto::~CaptionDefProto() {
 }
 
 void CaptionDefProto::SharedDtor() {
+  if (text_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete text_;
+  }
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   if (this != &default_instance()) {
   #else
@@ -2108,8 +2114,14 @@ void CaptionDefProto::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 31) {
-    ZR_(height_, offset_y_);
+  if (_has_bits_[0 / 32] & 63) {
+    ZR_(height_, offset_x_);
+    offset_y_ = 0;
+    if (has_text()) {
+      if (text_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        text_->clear();
+      }
+    }
   }
 
 #undef OFFSET_OF_FIELD_
@@ -2203,6 +2215,19 @@ bool CaptionDefProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(50)) goto parse_text;
+        break;
+      }
+
+      // optional string text = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_text:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_text()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -2257,6 +2282,12 @@ void CaptionDefProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->offset_y(), output);
   }
 
+  // optional string text = 6;
+  if (has_text()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      6, this->text(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:CaptionDefProto)
@@ -2301,6 +2332,13 @@ int CaptionDefProto::ByteSize() const {
           this->offset_y());
     }
 
+    // optional string text = 6;
+    if (has_text()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->text());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -2333,6 +2371,9 @@ void CaptionDefProto::MergeFrom(const CaptionDefProto& from) {
     if (from.has_offset_y()) {
       set_offset_y(from.offset_y());
     }
+    if (from.has_text()) {
+      set_text(from.text());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -2356,6 +2397,7 @@ void CaptionDefProto::Swap(CaptionDefProto* other) {
     std::swap(stroke_color_, other->stroke_color_);
     std::swap(offset_x_, other->offset_x_);
     std::swap(offset_y_, other->offset_y_);
+    std::swap(text_, other->text_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

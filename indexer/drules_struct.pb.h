@@ -912,6 +912,18 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::int32 offset_y() const;
   inline void set_offset_y(::google::protobuf::int32 value);
 
+  // optional string text = 6;
+  inline bool has_text() const;
+  inline void clear_text();
+  static const int kTextFieldNumber = 6;
+  inline const ::std::string& text() const;
+  inline void set_text(const ::std::string& value);
+  inline void set_text(const char* value);
+  inline void set_text(const char* value, size_t size);
+  inline ::std::string* mutable_text();
+  inline ::std::string* release_text();
+  inline void set_allocated_text(::std::string* text);
+
   // @@protoc_insertion_point(class_scope:CaptionDefProto)
  private:
   inline void set_has_height();
@@ -924,6 +936,8 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
   inline void clear_has_offset_x();
   inline void set_has_offset_y();
   inline void clear_has_offset_y();
+  inline void set_has_text();
+  inline void clear_has_text();
 
   ::std::string _unknown_fields_;
 
@@ -933,6 +947,7 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
   ::google::protobuf::uint32 color_;
   ::google::protobuf::uint32 stroke_color_;
   ::google::protobuf::int32 offset_x_;
+  ::std::string* text_;
   ::google::protobuf::int32 offset_y_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto_impl();
@@ -2759,6 +2774,82 @@ inline void CaptionDefProto::set_offset_y(::google::protobuf::int32 value) {
   set_has_offset_y();
   offset_y_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.offset_y)
+}
+
+// optional string text = 6;
+inline bool CaptionDefProto::has_text() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void CaptionDefProto::set_has_text() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void CaptionDefProto::clear_has_text() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void CaptionDefProto::clear_text() {
+  if (text_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    text_->clear();
+  }
+  clear_has_text();
+}
+inline const ::std::string& CaptionDefProto::text() const {
+  // @@protoc_insertion_point(field_get:CaptionDefProto.text)
+  return *text_;
+}
+inline void CaptionDefProto::set_text(const ::std::string& value) {
+  set_has_text();
+  if (text_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    text_ = new ::std::string;
+  }
+  text_->assign(value);
+  // @@protoc_insertion_point(field_set:CaptionDefProto.text)
+}
+inline void CaptionDefProto::set_text(const char* value) {
+  set_has_text();
+  if (text_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    text_ = new ::std::string;
+  }
+  text_->assign(value);
+  // @@protoc_insertion_point(field_set_char:CaptionDefProto.text)
+}
+inline void CaptionDefProto::set_text(const char* value, size_t size) {
+  set_has_text();
+  if (text_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    text_ = new ::std::string;
+  }
+  text_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:CaptionDefProto.text)
+}
+inline ::std::string* CaptionDefProto::mutable_text() {
+  set_has_text();
+  if (text_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    text_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:CaptionDefProto.text)
+  return text_;
+}
+inline ::std::string* CaptionDefProto::release_text() {
+  clear_has_text();
+  if (text_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = text_;
+    text_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void CaptionDefProto::set_allocated_text(::std::string* text) {
+  if (text_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete text_;
+  }
+  if (text) {
+    set_has_text();
+    text_ = text;
+  } else {
+    clear_has_text();
+    text_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:CaptionDefProto.text)
 }
 
 // -------------------------------------------------------------------

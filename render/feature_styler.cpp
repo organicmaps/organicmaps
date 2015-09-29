@@ -102,15 +102,9 @@ namespace di
     //    m_primaryText.clear();
     //}
 
-    string houseNumber;
-    if (ftypes::IsBuildingChecker::Instance()(f))
-    {
-      houseNumber = f.GetHouseNumber();
-      // Mark houses without names/numbers so user can select them by single tap.
-      if (houseNumber.empty() && m_primaryText.empty())
-        houseNumber = "·";
-    }
-    bool const hasName = !m_primaryText.empty() || !houseNumber.empty();
+    bool const isBuilding = ftypes::IsBuildingChecker::Instance()(f);
+
+    bool const hasName = !m_primaryText.empty() || isBuilding;
 
     m_refText = f.GetRoadNumber();
 
@@ -158,6 +152,8 @@ namespace di
     m_rules.resize(count);
 
     bool hasSecondaryText = false;
+
+    drule::text_type_t textType = drule::text_type_name;
 
     for (size_t i = 0; i < count; ++i)
     {
@@ -211,6 +207,8 @@ namespace di
       CaptionDefProto const * pCap0 = m_rules[i].m_rule->GetCaption(0);
       if (pCap0)
       {
+        textType = m_rules[i].m_rule->GetCaptionTextType(0);
+
         if (!m_hasPathText && hasName && (m_geometryType == feature::GEOM_LINE))
         {
           m_hasPathText = true;
@@ -232,13 +230,28 @@ namespace di
         m_secondaryText.clear();
     }
 
-    // Get or concat house number if feature has one.
-    if (!houseNumber.empty())
+    if (isBuilding)
     {
-      if (m_primaryText.empty() || houseNumber.find(m_primaryText) != string::npos)
-        houseNumber.swap(m_primaryText);
-      else
-        m_primaryText = m_primaryText + " (" + houseNumber + ")";
+      string houseNumber = f.GetHouseNumber();
+      // Mark houses without names/numbers so user can select them by single tap.
+      if (houseNumber.empty() && m_primaryText.empty())
+        houseNumber = "·";
+
+      if (textType == drule::text_type_housenumber)
+      {
+        m_primaryText = move(houseNumber);
+      }
+      else if (textType == drule::text_type_name)
+      {
+        // Get or concat house number if feature has one.
+        if (!houseNumber.empty())
+        {
+          if (m_primaryText.empty() || houseNumber.find(m_primaryText) != string::npos)
+            m_primaryText = move(houseNumber);
+          else
+            m_primaryText = m_primaryText + " (" + houseNumber + ")";
+        }
+      }
     }
 
     // placing a text on the path

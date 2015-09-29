@@ -19,6 +19,16 @@
 namespace
 {
   uint32_t const DEFAULT_BG_COLOR = 0xEEEEDD;
+
+  drule::text_type_t GetTextType(string const & text)
+  {
+    if (text == "addr:housename")
+      return drule::text_type_housename;
+    else if (text == "addr:housenumber")
+      return drule::text_type_housenumber;
+
+    return drule::text_type_name;
+  }
 }
 
 namespace drule {
@@ -77,6 +87,11 @@ SymbolRuleProto const * BaseRule::GetSymbol() const
 CaptionDefProto const * BaseRule::GetCaption(int) const
 {
   return 0;
+}
+
+text_type_t BaseRule::GetCaptionTextType(int) const
+{
+  return text_type_name;
 }
 
 CircleRuleProto const * BaseRule::GetCircle() const
@@ -236,8 +251,20 @@ namespace
     {
       T m_caption;
 
+      text_type_t m_textTypePrimary;
+      text_type_t m_textTypeSecondary;
+
     public:
-      CaptionT(T const & r) : m_caption(r) {}
+      CaptionT(T const & r) : m_caption(r)
+        , m_textTypePrimary(text_type_name)
+        , m_textTypeSecondary(text_type_name)
+      {
+        if (m_caption.primary().has_text())
+          m_textTypePrimary = GetTextType(m_caption.primary().text());
+
+        if (m_caption.has_secondary() && m_caption.secondary().has_text())
+          m_textTypeSecondary = GetTextType(m_caption.secondary().text());
+      }
 
       virtual CaptionDefProto const * GetCaption(int i) const
       {
@@ -250,6 +277,17 @@ namespace
             return &m_caption.secondary();
           else
             return 0;
+        }
+      }
+
+      virtual text_type_t GetCaptionTextType(int i) const
+      {
+        if (i == 0)
+          return m_textTypePrimary;
+        else
+        {
+          ASSERT_EQUAL ( i, 1, () );
+          return m_textTypeSecondary;
         }
       }
     };
