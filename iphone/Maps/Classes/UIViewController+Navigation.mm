@@ -22,8 +22,7 @@
 
 - (UIStoryboard *)mainStoryboard
 {
-  NSString * name = IPAD ? @"Main_iPad" : @"Main_iPhone";
-  return [UIStoryboard storyboardWithName:name bundle:nil];
+  return [UIStoryboard storyboardWithName:@"Mapsme" bundle:nil];
 }
 
 @end

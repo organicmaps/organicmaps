@@ -54,7 +54,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   if ([userInfo[@"Action"] isEqualToString:kDownloadMapActionName])
   {
     [[Statistics instance] logEvent:@"'Download Map' Notification Clicked"];
-    [[MapsAppDelegate theApp].m_mapViewController.navigationController popToRootViewControllerAnimated:NO];
+    [[MapsAppDelegate theApp].mapViewController.navigationController popToRootViewControllerAnimated:NO];
 
     TIndex const index = TIndex([userInfo[@"Group"] intValue], [userInfo[@"Country"] intValue], [userInfo[@"Region"] intValue]);
     [self downloadCountryWithIndex:index];

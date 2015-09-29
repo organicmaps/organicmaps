@@ -10,8 +10,8 @@
 
 @interface SwitchCell : UITableViewCell
 
-@property (retain, nonatomic) IBOutlet UILabel * titleLabel;
-@property (retain, nonatomic) IBOutlet UISwitch * switchButton;
+@property (weak, nonatomic) IBOutlet UILabel * titleLabel;
+@property (weak, nonatomic) IBOutlet UISwitch * switchButton;
 
 @property (weak) id <SwitchCellDelegate> delegate;
 

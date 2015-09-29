@@ -175,9 +175,9 @@ void InitLocalizedStrings()
 
   InitLocalizedStrings();
   
-  [self.m_mapViewController onEnterForeground];
+  [self.mapViewController onEnterForeground];
 
-  [Preferences setup:self.m_mapViewController];
+  [Preferences setup:self.mapViewController];
   _m_locationManager = [[LocationManager alloc] init];
 
   [self subscribeToStorage];
@@ -223,12 +223,12 @@ void InitLocalizedStrings()
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-  [self.m_mapViewController onTerminate];
+  [self.mapViewController onTerminate];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-  [self.m_mapViewController onEnterBackground];
+  [self.mapViewController onEnterBackground];
   if (m_activeDownloadsCounter)
   {
     m_backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
@@ -246,7 +246,7 @@ void InitLocalizedStrings()
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
   [self.m_locationManager orientationChanged];
-  [self.m_mapViewController onEnterForeground];
+  [self.mapViewController onEnterForeground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -270,7 +270,7 @@ void InitLocalizedStrings()
     {
       [[Statistics instance] logApiUsage:m_sourceApplication];
       [self showMap];
-      [self.m_mapViewController showAPIBar];
+      [self.mapViewController showAPIBar];
     }
   }
   else if (m_fileURL)
@@ -334,7 +334,7 @@ void InitLocalizedStrings()
 
 - (void)setMapStyle:(MapStyle)mapStyle
 {
-  [self.m_mapViewController setMapStyle: mapStyle];
+  [self.mapViewController setMapStyle: mapStyle];
 }
 
 - (void)customizeAppearance
@@ -417,7 +417,7 @@ void InitLocalizedStrings()
 - (void)showMap
 {
   [(UINavigationController *)self.window.rootViewController popToRootViewControllerAnimated:YES];
-  [self.m_mapViewController dismissPopover];
+  [self.mapViewController dismissPopover];
 }
 
 - (void)subscribeToStorage
@@ -480,6 +480,13 @@ void InitLocalizedStrings()
   }
 }
 
+#pragma mark - Properties
+
+- (MapViewController *)mapViewController
+{
+  return [(UINavigationController *)self.window.rootViewController viewControllers].firstObject;
+}
+
 #pragma mark - Route state
 
 - (void)restoreRouteState
@@ -488,7 +495,7 @@ void InitLocalizedStrings()
     return;
   RouteState const * const state = [RouteState savedState];
   if (state.hasActualRoute)
-    self.m_mapViewController.restoreRouteDestination = state.endPoint;
+    self.mapViewController.restoreRouteDestination = state.endPoint;
   else
     [RouteState remove];
 }

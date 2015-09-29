@@ -215,7 +215,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   if (!on)
     return NO;
 
-  if (!MapsAppDelegate.theApp.m_mapViewController.controlsManager.searchHidden)
+  if (!MapsAppDelegate.theApp.mapViewController.controlsManager.searchHidden)
     return NO;
   if (!manager.heading)
     return YES;
