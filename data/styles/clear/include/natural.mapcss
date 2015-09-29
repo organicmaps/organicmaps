@@ -138,19 +138,25 @@ line|z15-[waterway=dam] {
 /* VEGETATION */
 
 
-area|z10-11[natural=wood],
-area|z10-11[landuse=forest],
+area|z10[natural=wood],
+area|z10[landuse=forest],
 {
   fill-color: @forest;
-  fill-opacity: 0.3;
+  fill-opacity: 0.5;
   z-index: 30;
 }
-
-area|z12-13[natural=wood],
-area|z12-13[landuse=forest]
+area|z11[natural=wood],
+area|z11[landuse=forest],
 {
   fill-color: @forest;
-  fill-opacity: 0.3;
+  fill-opacity: 0.65;
+  z-index: 30;
+}
+area|z12[natural=wood],
+area|z12[landuse=forest]
+{
+  fill-color: @forest;
+  fill-opacity: 0.75;
   z-index: 30;
 }
 
@@ -158,7 +164,7 @@ area|z13-14[natural=wood],
 area|z13-14[landuse=forest]
 {
   fill-color: @forest;
-  fill-opacity: 0.45;
+  fill-opacity: 0.85;
   z-index: 30;
 }
 
@@ -166,50 +172,73 @@ area|z15-[natural=wood],
 area|z15-[landuse=forest]
 {
   fill-color: @forest;
-  fill-opacity: 0.7;
+  fill-opacity: 1;
   z-index: 30;
 }
 
 area|z10[leisure=park] {
-  fill-color: @forest;
-  fill-opacity: 0.3;
-  z-index: 20;
+  fill-color: @park;
+  fill-opacity: 0.4;
+  z-index: 40;
 }
 
 area|z11[leisure=park] {
   fill-color: @park;
-  fill-opacity: 0.6;
-  z-index: 25;
+  fill-opacity: 0.5;
+  z-index: 40;
 }
 
 
-area|z12-14[leisure=park], area|z12-14[leisure=garden] {
+area|z12[leisure=park], area|z12[leisure=garden] {
   fill-color: @park;
-  fill-opacity: 0.6;
-  z-index: 25;
+  fill-opacity: 0.7;
+  z-index: 40;
 }
 
-area|z15-[leisure=park], area|z15-[leisure=garden]  {
+area|z13[leisure=park], area|z13[leisure=garden] {
   fill-color: @park;
   fill-opacity: 0.8;
-  z-index: 25;
+  z-index: 40;
+}
+area|z14[leisure=park], area|z14[leisure=garden] {
+  fill-color: @park;
+  fill-opacity: 0.85;
+  z-index: 40;
+}
+area|z15-[leisure=park], area|z15-[leisure=garden]  {
+  fill-color: @park;
+  fill-opacity: 1;
+  z-index: 40;
 }
 
-area|z14-[landuse=grass]
+area|z15-[landuse=grass]
 {
-  fill-color: @park;
-  fill-opacity: 0.45;
+  fill-color: @forest;
+  fill-opacity: 1;
   z-index: 15;
 }
 
-area|z14-[natural=scrub]
+area|z15-[natural=scrub]
 {
-  fill-color: @park;
-  fill-opacity: 0.45;
+  fill-color: @forest;
+  fill-opacity: 1;
   z-index: 15;
 }
 
-/* PEAKS AND MOUNTINGS */
+/*  BEACH */
 
-node|z15-16[natural=peak] { icon-image: peak-s.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
-node|z17-[natural=peak] { icon-image: peak-m.svg; text-offset: 8; font-size: 10; text: name; text-color: @poi_label; }
+
+area|z10-14[leisure=beach_resort],
+area|z10-14[natural=beach],
+{
+  fill-color: @beach;
+  fill-opacity: 0.7;
+  z-index: 30;
+}
+area|z15-[leisure=beach_resort],
+area|z15-[natural=beach],
+{
+  fill-color: @beach;
+  fill-opacity: 0.7;
+  z-index: 40;
+}

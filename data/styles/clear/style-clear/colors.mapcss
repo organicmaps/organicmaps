@@ -45,8 +45,8 @@
 @cycleway: #FF87AD;
 @steps: #FFFFFF;
 @construction: #BBBBAA;
-@track: #FFFFFF;
-@bridleway: #FFFFFF;
+@track: #887744;/*888844*/
+@bridleway: #887744;
 
 
 
@@ -89,8 +89,9 @@
 @glacier: #FFFFFF;
 @water: #83C6D2;
 @river: #65A4C3;
-@forest: #A4B275;
-@park: #A4B275; /* #A4B275 #BCCC74*/
+@forest: #AABB66;
+@park: #AABB66; /*  #A4B275 #BCCC74*/
+@beach: #FAEE99;
 
 /* BUILDINGS */
 @housename: #7F7F7F;

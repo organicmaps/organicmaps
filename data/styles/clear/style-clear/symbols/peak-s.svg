@@ -7,7 +7,7 @@
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="peak-s" sketch:type="MSLayerGroup">
             <circle id="Oval-1-Copy-43" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#7A7A6E" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
+            <circle id="Oval-1-Copy-42" fill="#7F7D54" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="7.5"></circle>
             <path d="M8.5,5.00000001 C8.31578947,4.99996251 8.23249168,5.08977501 8.17763158,5.18750001 L5.04605263,10.4375 C5.01359474,10.4953625 5,10.560275 5,10.625 C5,10.90625 5.18421053,11.000075 5.36842105,11 L11.6315789,11 C11.8157895,11.000075 12,10.90625 12,10.625 C12,10.560275 11.9864237,10.4953625 11.9539474,10.4375 L8.82236842,5.18750001 C8.76750832,5.08977501 8.68421053,4.99996251 8.5,5.00000001 L8.5,5.00000001 Z" id="path11349-copy" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>

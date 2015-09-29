@@ -5,9 +5,9 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="fountain-m" sketch:type="MSLayerGroup">
-            <ellipse id="Oval-1-Copy-40" opacity="0.14" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="10.5" cy="10.5" rx="10.5" ry="10.5"></ellipse>
-            <path d="M10.5,17 C8.16814,17 6,15 6,12.5 C6,9.9722 9.41667,5.4444 10.5,4 C11.58334,5.4444 15,9.9722 15,12.5 C15,15 12.83187,17 10.5,17 L10.5,17 Z" id="path12622-2-4-copy" fill="#1E6277" sketch:type="MSShapeGroup"></path>
+        <g id="fountain-m-copy" sketch:type="MSLayerGroup">
+            <ellipse id="Oval-1-Copy-40" opacity="0.2" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="10.5" cy="10.5" rx="10.5" ry="10.5"></ellipse>
+            <path d="M10.5,17 C8.16814,17 6,15 6,12.5 C6,9.9722 9.41667,5.4444 10.5,4 C11.58334,5.4444 15,9.9722 15,12.5 C15,15 12.83187,17 10.5,17 L10.5,17 Z" id="path12622-2-4-copy" fill="#295675" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>

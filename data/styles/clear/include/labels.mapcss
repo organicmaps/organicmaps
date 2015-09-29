@@ -819,16 +819,23 @@ node|z18-[addr:housenumber][addr:street]
   z-index: 1000;
 }
 
-/*
-area|z17-[amenity]
+node|z18-[entrance]
 {
-  text: name;
   font-size: 10;
+  text: ref;
+  text-offset-x: 6;
+  z-index: 10;
   text-color: @building_label;
-  text-position: center;
-  z-index: 6000;
 }
-*/
+
+node|z19-[entrance]::flats
+{
+  text: "addr:flats";
+  font-size: 9;
+  text-offset-y: 10;
+  text-color: @building_label;
+}
+
 
 /* LANDUSE LABELS */
 

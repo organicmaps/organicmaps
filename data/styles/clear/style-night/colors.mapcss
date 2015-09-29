@@ -91,7 +91,8 @@
 @water: #002222;
 @river: #062026;
 @forest: #1B2500;
-@park: #1B2500; /* #A4B275 #BCCC74*/
+@park: #1B2500; 
+@beach: #28281A;
 
 /* BUILDINGS */
 @housename: #555555;

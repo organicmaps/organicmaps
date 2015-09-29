@@ -57,7 +57,6 @@ area|z14[amenity=university] {
   z-index: 10;
 }
 
-
 area|z15-[amenity=university] {
   fill-color: @unversity;
   fill-opacity: 0.5;

@@ -6,9 +6,9 @@
     <defs></defs>
     <g id="Subways" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
         <g id="subway-rome-m" sketch:type="MSLayerGroup">
-            <rect id="rect2438-copy" opacity="0" fill="#000000" sketch:type="MSShapeGroup" x="0" y="0" width="19" height="19"></rect>
+            <rect id="rect2438-copy" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="0" width="19" height="19"></rect>
             <rect id="rect2438-copy-5" fill="#81110D" sketch:type="MSShapeGroup" x="1" y="1" width="17" height="17"></rect>
-            <path d="M5.65692695,6 L8.0675063,6 L9.49353484,11.7593275 L10.9195634,6 L13.3393787,6 L15,14.5 L13.3467674,14.5 L12.0906801,8.05941962 L10.3358522,14.5 L8.66414777,14.5 L6.9093199,8.05941962 L5.65323258,14.5 L4,14.5" id="Shape-Copy-2" opacity="0.4" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M5.65692695,6 L8.0675063,6 L9.49353484,11.7593275 L10.9195634,6 L13.3393787,6 L15,14.5 L13.3467674,14.5 L12.0906801,8.05941962 L10.3358522,14.5 L8.66414777,14.5 L6.9093199,8.05941962 L5.65323258,14.5 L4,14.5" id="Shape-Copy-2" opacity="0.41" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
         </g>
     </g>
 </svg>

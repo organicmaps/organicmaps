@@ -11,7 +11,7 @@
                 <circle id="Oval-1-Copy-42" fill="#21405C" cx="8.5" cy="8.5" r="7.5"></circle>
             </g>
         </g>
-        <rect id="Rectangle-69" opacity="0.4" fill="#FFFFFF" sketch:type="MSShapeGroup" x="7" y="5" width="3" height="4"></rect>
-        <path d="M5,9 L12,9 L8.5,13.1007991 L5,9 Z" id="Rectangle-69" opacity="0.4" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+        <rect id="Rectangle-69" opacity="0.41" fill="#FFFFFF" sketch:type="MSShapeGroup" x="7" y="5" width="3" height="4"></rect>
+        <path d="M5,9 L12,9 L8.5,13.1007991 L5,9 Z" id="Rectangle-69" opacity="0.41" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
     </g>
 </svg>
