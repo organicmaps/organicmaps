@@ -1,4 +1,4 @@
-#include "search/integration_tests/test_mwm_builder.hpp"
+#include "search/search_integration_tests/test_mwm_builder.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/data_header.hpp"

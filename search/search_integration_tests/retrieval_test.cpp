@@ -7,7 +7,7 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "search/integration_tests/test_mwm_builder.hpp"
+#include "search/search_integration_tests/test_mwm_builder.hpp"
 #include "search/retrieval.hpp"
 #include "search/search_query_params.hpp"
 
