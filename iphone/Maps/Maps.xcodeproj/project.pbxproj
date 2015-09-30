@@ -71,6 +71,7 @@
 		34A742FE1AE5461A00CE15EB /* index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FD1AE5461A00CE15EB /* index.cpp */; };
 		34A743001AE5468200CE15EB /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FF1AE5468200CE15EB /* storage.cpp */; };
 		34B16C451B72655D000D3A0D /* MWMPedestrianShareAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */; };
+		34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		34B82AB21B8344E300180497 /* MWMSearchTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AB11B8344E300180497 /* MWMSearchTextField.mm */; };
 		34B82ABA1B837FFD00180497 /* MWMSearchHistoryRequestCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AB81B837FFD00180497 /* MWMSearchHistoryRequestCell.mm */; };
 		34B82ABB1B837FFD00180497 /* MWMSearchHistoryRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B82AB91B837FFD00180497 /* MWMSearchHistoryRequestCell.xib */; };
@@ -474,6 +475,7 @@
 		34A742FF1AE5468200CE15EB /* storage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = storage.cpp; path = ../../../storage/storage.cpp; sourceTree = "<group>"; };
 		34B16C431B72655D000D3A0D /* MWMPedestrianShareAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPedestrianShareAlert.h; sourceTree = "<group>"; };
 		34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPedestrianShareAlert.mm; sourceTree = "<group>"; };
+		34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		34B82AB01B8344E300180497 /* MWMSearchTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTextField.h; sourceTree = "<group>"; };
 		34B82AB11B8344E300180497 /* MWMSearchTextField.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchTextField.mm; sourceTree = "<group>"; };
 		34B82AB71B837FFD00180497 /* MWMSearchHistoryRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchHistoryRequestCell.h; sourceTree = "<group>"; };
@@ -1028,6 +1030,7 @@
 				FA99CB71147089B100689A9A /* Localizable.strings */,
 				5605022E1B6211E100169CAD /* sound-strings */,
 				347FDDA01BB59B4E00871410 /* Mapsme.storyboard */,
+				34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2315,6 +2318,7 @@
 				344825941B8DBADF00757B1B /* MWMSearchDownloadViewController.xib in Resources */,
 				B0DFE6311A1B78A200B6C35E /* LocalNotifications.plist in Resources */,
 				34B82ABB1B837FFD00180497 /* MWMSearchHistoryRequestCell.xib in Resources */,
+				34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */,
 				978D4A31199A11E600D72CA7 /* faq.html in Resources */,
 				F66A8FB21B0A0954001B9C97 /* PlacePageView.xib in Resources */,
 				97FC99E019C1A2CD00C1CF98 /* resources-xxhdpi in Resources */,
