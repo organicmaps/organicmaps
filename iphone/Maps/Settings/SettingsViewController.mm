@@ -223,7 +223,7 @@ Settings::Units unitsForIndex(NSInteger index)
         withParameters:@{kStatValue : (units == Settings::Units::Metric ? kStatKilometers : kStatMiles)}];
     Settings::Set("Units", units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
-    [[MapsAppDelegate theApp].mapViewController setupMeasurementSystem];
+    GetPlatform().SetupMeasurementSystem();
   }
   else if (section == SectionRouting && indexPath.row == 1)
   {

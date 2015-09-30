@@ -486,8 +486,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     f.SetUserMarkActivationListener(bind(userMarkFn, self, userMarkSelector, _1));
     m_predictor = [[LocationPredictor alloc] initWithObserver:self];
 
-    m_StickyThreshold = 10;
-
     self.forceRoutingStateChange = ForceRoutingStateChangeNone;
     self.userTouchesAction = UserTouchesActionNone;
     self.menuRestoreState = MWMBottomMenuStateInactive;

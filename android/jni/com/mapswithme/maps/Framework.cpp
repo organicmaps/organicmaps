@@ -291,9 +291,9 @@ void Framework::ShowSearchResult(search::Result const & r)
   m_work.ShowSearchResult(r);
 }
 
-void Framework::ShowAllSearchResults()
+void Framework::ShowAllSearchResults(search::Results const & results)
 {
-  m_work.ShowAllSearchResults();
+  m_work.ShowAllSearchResults(results);
 }
 
 TIndex Framework::GetCountryIndex(double lat, double lon) const

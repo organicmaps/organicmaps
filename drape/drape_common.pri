@@ -4,6 +4,8 @@ CMDRES = $$system(python ../tools/autobuild/shader_preprocessor.py $$SHADER_COMP
 INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
 
 SOURCES += \
+    $$ROOT_DIR/3party/sdf_image/sdf_image.cpp \
+    $$ROOT_DIR/3party/stb_image/stb_image.c \
     $$DRAPE_DIR/attribute_buffer_mutator.cpp \
     $$DRAPE_DIR/attribute_provider.cpp \
     $$DRAPE_DIR/batcher.cpp \
@@ -31,7 +33,6 @@ SOURCES += \
     $$DRAPE_DIR/overlay_tree.cpp \
     $$DRAPE_DIR/pointers.cpp \
     $$DRAPE_DIR/render_bucket.cpp \
-    $$DRAPE_DIR/sdf_image.cpp \
     $$DRAPE_DIR/shader.cpp \
     $$DRAPE_DIR/shader_def.cpp \
     $$DRAPE_DIR/stipple_pen_resource.cpp \
@@ -48,6 +49,8 @@ SOURCES += \
     $$DRAPE_DIR/vertex_array_buffer.cpp \
 
 HEADERS += \
+    $$ROOT_DIR/3party/sdf_image/sdf_image.h \
+    $$ROOT_DIR/3party/stb_image/stb_image.h \
     $$DRAPE_DIR/attribute_buffer_mutator.hpp \
     $$DRAPE_DIR/attribute_provider.hpp \
     $$DRAPE_DIR/batcher.hpp \
@@ -85,7 +88,6 @@ HEADERS += \
     $$DRAPE_DIR/overlay_tree.hpp \
     $$DRAPE_DIR/pointers.hpp \
     $$DRAPE_DIR/render_bucket.hpp \
-    $$DRAPE_DIR/sdf_image.hpp \
     $$DRAPE_DIR/shader.hpp \
     $$DRAPE_DIR/shader_def.hpp \
     $$DRAPE_DIR/stipple_pen_resource.hpp \

@@ -107,7 +107,7 @@ namespace android
     /// Show rect from another activity. Ensure that no LoadState will be called,
     /// when main map activity will become active.
     void ShowSearchResult(search::Result const & r);
-    void ShowAllSearchResults();
+    void ShowAllSearchResults(search::Results const & results);
 
     bool Search(search::SearchParams const & params);
     string GetLastSearchQuery() { return m_searchQuery; }

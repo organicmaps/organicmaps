@@ -179,7 +179,7 @@ public:
     int imageHeight = bitmap.rows;
     if (bitmap.buffer != nullptr)
     {
-      SdfImage img(bitmap.rows, bitmap.pitch, bitmap.buffer, SDF_BORDER);
+      sdf_image::SdfImage img(bitmap.rows, bitmap.pitch, bitmap.buffer, SDF_BORDER);
       imageWidth = img.GetWidth() * scale;
       imageHeight = img.GetHeight() * scale;
 
@@ -218,8 +218,8 @@ public:
       resultGlyph.m_metrics = glyph.m_metrics;
       resultGlyph.m_fontIndex = glyph.m_fontIndex;
 
-      SdfImage img(glyph.m_image.m_bitmapRows, glyph.m_image.m_bitmapPitch,
-                   glyph.m_image.m_data->data(), SDF_BORDER);
+      sdf_image::SdfImage img(glyph.m_image.m_bitmapRows, glyph.m_image.m_bitmapPitch,
+                              glyph.m_image.m_data->data(), SDF_BORDER);
 
       img.GenerateSDF(1.0f / (float)SDF_SCALE_FACTOR);
 

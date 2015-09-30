@@ -5,7 +5,6 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/lodepng_io.hpp"
 #include "coding/png_memory_encoder.hpp"
 #include "coding/parse_xml.hpp"
 
@@ -13,6 +12,8 @@
 #include "indexer/map_style_reader.hpp"
 
 #include "base/logging.hpp"
+
+#include "3party/lodepng/lodepng_io.hpp"
 
 #include "3party/agg/agg_rasterizer_scanline_aa.h"
 #include "3party/agg/agg_scanline_p.h"

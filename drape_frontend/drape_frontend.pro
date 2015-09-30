@@ -11,6 +11,7 @@ INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
 #DEFINES += DRAW_INFO
 
 SOURCES += \
+    $$ROOT_DIR/3party/agg/agg_curves.cpp \
     animation/base_interpolator.cpp \
     animation/interpolation_holder.cpp \
     animation/interpolations.cpp \
@@ -84,7 +85,6 @@ SOURCES += \
     watch/glyph_cache_impl.cpp \
     watch/geometry_processors.cpp \
     watch/feature_processor.cpp \
-    watch/agg_curves.cpp \
     watch/default_font.cpp \
 
 HEADERS += \

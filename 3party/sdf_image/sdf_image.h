@@ -28,12 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/function.hpp"
+#include "std/vector.hpp"
+#include "std/function.hpp"
 
-namespace dp
+namespace sdf_image
 {
 
 class SdfImage
@@ -77,4 +77,4 @@ private:
   buffer_vector<float, 512> m_data;
 };
 
-} // namespace dp
+} // namespace sdf_image
