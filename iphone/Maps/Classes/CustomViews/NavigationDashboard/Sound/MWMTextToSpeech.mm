@@ -20,8 +20,9 @@ extern NSString * const kMwmTextToSpeechDisable = @"MWMTEXTTOSPEECH_DISABLE";
   self = [super init];
   if (self)
   {
-    // iOS has an issue with speechRate. AVSpeechUtteranceDefaultSpeechRate does not work correctly. It's a work around.
-    self.speechRate = isIOSVersionLessThan(@"7.1.1") ? 0.3 : 0.15;
+    // Before 9.0 version iOS has an issue with speechRate. AVSpeechUtteranceDefaultSpeechRate does not work correctly.
+    // It's a work around for iOS 7.x and 8.x.
+    self.speechRate = isIOSVersionLessThan(@"7.1.1") ? 0.3 : (isIOSVersionLessThan(@"9.0.0") ? 0.15 : AVSpeechUtteranceDefaultSpeechRate);
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(enable)

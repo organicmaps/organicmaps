@@ -124,13 +124,13 @@ void TurnsSound::SetLengthUnits(LengthUnits units)
     ASSERT(false, ());
     return;
   case LengthUnits::Meters:
-    m_settings = Settings(20 /* notificationTimeSeconds */, 200 /* minNotificationDistanceUnits */,
+    m_settings = Settings(30 /* notificationTimeSeconds */, 200 /* minNotificationDistanceUnits */,
                           2000 /* maxNotificationDistanceUnits */,
                           GetSoundedDistMeters() /* soundedDistancesUnits */,
                           LengthUnits::Meters /* lengthUnits */);
     return;
   case LengthUnits::Feet:
-    m_settings = Settings(20 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
+    m_settings = Settings(30 /* notificationTimeSeconds */, 500 /* minNotificationDistanceUnits */,
                           5000 /* maxNotificationDistanceUnits */,
                           GetSoundedDistFeet() /* soundedDistancesUnits */,
                           LengthUnits::Feet /* lengthUnits */);
