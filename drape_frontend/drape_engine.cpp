@@ -233,6 +233,13 @@ void DrapeEngine::SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCo
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::SetInvalidCountryInfo()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<CountryInfoUpdateMessage>(),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::SetCompassInfo(location::CompassInfo const & info)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,

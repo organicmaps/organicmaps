@@ -81,6 +81,7 @@ public:
   void UpdateMapStyle();
 
   void SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded);
+  void SetInvalidCountryInfo();
   void SetCompassInfo(location::CompassInfo const & info);
   void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo);
   void MyPositionNextMode();

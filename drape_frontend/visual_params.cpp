@@ -70,7 +70,7 @@ string const & VisualParams::GetResourcePostfix(double visualScale, bool isYotaD
 
   // Looking for the nearest available scale.
   int postfixIndex = -1;
-  double minValue = numeric_limits<float>::max();
+  double minValue = numeric_limits<double>::max();
   for (int i = 0; i < ARRAY_SIZE(postfixes); i++)
   {
     double val = fabs(postfixes[i].second - visualScale);

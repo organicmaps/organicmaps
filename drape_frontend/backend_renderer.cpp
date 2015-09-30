@@ -167,10 +167,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<CountryInfoUpdateMessage> msg = message;
       gui::CountryStatusHelper & helper = gui::DrapeGui::Instance().GetCountryStatusHelper();
-      if (msg->IsCountryLoaded())
+      if (!msg->IsValid() || msg->IsCountryLoaded())
       {
-        // country has already loaded, so we do not show country status gui
-        // even is the case then this country is updating
+        // Country has already loaded, so we do not show country status gui
+        // even is the case then this country is updating.
         helper.Clear();
       }
       else
