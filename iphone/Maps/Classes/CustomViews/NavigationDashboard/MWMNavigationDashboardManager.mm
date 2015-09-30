@@ -168,7 +168,7 @@
   {
     [self removePanel:self.nextTurnPanel];
   }
-  [self.drawer drawPanels:self.helperPanels];
+  [self.drawer invalidateTopBounds:self.helperPanels topView:self.navigationDashboard];
   [self.navigationDashboard setNeedsLayout];
 }
 

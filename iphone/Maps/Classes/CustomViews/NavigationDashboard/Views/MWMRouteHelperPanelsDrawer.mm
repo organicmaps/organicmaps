@@ -31,6 +31,7 @@ static CGFloat const kOffsetBetweenPanels = 8.;
   {
     [self.topView layoutIfNeeded];
     [(MWMRouteHelperPanel *)panels.firstObject setTopBound:self.topView.maxY + kOffsetBetweenPanels];
+    [self drawPanels:panels];
   });
 }
 
