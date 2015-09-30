@@ -17,38 +17,43 @@
 
 namespace tesselator
 {
-  int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
+int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
+{
+  int const kCoordinatesPerVertex = 2;
+  int const kVerticesInPolygon = 3;
+
+  auto const deleter = [](TESStesselator * tess) {tessDeleteTess(tess);};
+  unique_ptr<TESStesselator, decltype(deleter)> tess(tessNewTess(nullptr), deleter);
+
+  for (auto const & contour : polys)
   {
-    int const kCoordinatesPerVertex = 2;
-    int const kVerticesInPolygon = 3;
-
-    auto const deleter = [](TESStesselator * tess){ tessDeleteTess(tess); };
-    unique_ptr<TESStesselator, decltype(deleter)> tess(tessNewTess(nullptr), deleter);
-    for (auto const & contour : polys)
-      tessAddContour(tess.get(), kCoordinatesPerVertex, &contour[0], sizeof(contour[0]), contour.size());
-    if (0 == tessTesselate(tess.get(), TESS_WINDING_ODD, TESS_CONSTRAINED_DELAUNAY_TRIANGLES,
-                           kVerticesInPolygon, kCoordinatesPerVertex, nullptr))
-    {
-      LOG(LERROR, ("Tesselator error for polygon", polys));
-      return 0;
-    }
-
-    int const elementCount = tessGetElementCount(tess.get());
-    if (elementCount)
-    {
-      int const vertexCount = tessGetVertexCount(tess.get());
-      TESSreal const * vertices = tessGetVertices(tess.get());
-      m2::PointD const * points = reinterpret_cast<m2::PointD const *>(vertices);
-      info.AssignPoints(points, points + vertexCount);
-
-      // Elements are triplets of vertex indices.
-      TESSindex const * elements = tessGetElements(tess.get());
-      info.Reserve(elementCount);
-      for (int i = 0; i < elementCount; ++i)
-        info.Add(elements[i * 3], elements[i * 3 + 1], elements[i * 3 + 2]);
-    }
-    return elementCount;
+    tessAddContour(tess.get(), kCoordinatesPerVertex, &contour[0], sizeof(contour[0]),
+                   static_cast<int>(contour.size()));
   }
+
+  if (0 == tessTesselate(tess.get(), TESS_WINDING_ODD, TESS_CONSTRAINED_DELAUNAY_TRIANGLES,
+                         kVerticesInPolygon, kCoordinatesPerVertex, nullptr))
+  {
+    LOG(LERROR, ("Tesselator error for polygon", polys));
+    return 0;
+  }
+
+  int const elementCount = tessGetElementCount(tess.get());
+  if (elementCount)
+  {
+    int const vertexCount = tessGetVertexCount(tess.get());
+    TESSreal const * vertices = tessGetVertices(tess.get());
+    m2::PointD const * points = reinterpret_cast<m2::PointD const *>(vertices);
+    info.AssignPoints(points, points + vertexCount);
+
+    // Elements are triplets of vertex indices.
+    TESSindex const * elements = tessGetElements(tess.get());
+    info.Reserve(elementCount);
+    for (int i = 0; i < elementCount; ++i)
+      info.Add(elements[i * 3], elements[i * 3 + 1], elements[i * 3 + 2]);
+  }
+  return elementCount;
+}
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   // TrianglesInfo::ListInfo implementation
@@ -56,7 +61,7 @@ namespace tesselator
 
   int TrianglesInfo::ListInfo::empty_key = -1;
 
-  void TrianglesInfo::ListInfo::AddNeighbour(int p1, int p2, size_t trg)
+  void TrianglesInfo::ListInfo::AddNeighbour(int p1, int p2, int trg)
   {
     // find or insert element for key
     pair<TNeighbours::iterator, bool> ret = m_neighbors.insert(make_pair(make_pair(p1, p2), trg));
@@ -69,7 +74,7 @@ namespace tesselator
   {
     m_triangles.emplace_back(p0, p1, p2);
 
-    size_t const trg = m_triangles.size() - 1;
+    int const trg = static_cast<int>(m_triangles.size()) - 1;
     AddNeighbour(p0, p1, trg);
     AddNeighbour(p1, p2, trg);
     AddNeighbour(p2, p0, trg);

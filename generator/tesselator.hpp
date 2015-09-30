@@ -72,10 +72,10 @@ namespace tesselator
         }
       };
 
-      typedef unordered_map<pair<int, int>, size_t, HashPair<int, int>> TNeighbours;
+      typedef unordered_map<pair<int, int>, int, HashPair<int, int>> TNeighbours;
       TNeighbours m_neighbors;
 
-      void AddNeighbour(int p1, int p2, size_t trg);
+      void AddNeighbour(int p1, int p2, int trg);
 
       void GetNeighbors(
           Triangle const & trg, Triangle const & from, int * nb) const;
