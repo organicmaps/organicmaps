@@ -17,7 +17,7 @@ using TCountryFileFn = function<string(m2::PointD const &)>;
 class Route;
 
 /// Routing engine type.
-enum RouterType
+enum class RouterType
 {
   Vehicle = 0, /// For OSRM vehicle routing
   Pedestrian   /// For A star pedestrian routing
@@ -31,7 +31,7 @@ public:
   /// Routing possible statuses enumeration.
   /// \warning  this enum has JNI mirror!
   /// \see android/src/com/mapswithme/maps/data/RoutingResultCodesProcessor.java
-  enum ResultCode
+  enum ResultCode // TODO(mgsergio) enum class
   {
     NoError = 0,
     Cancelled = 1,

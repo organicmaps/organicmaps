@@ -71,7 +71,7 @@ LoaderBase::LoaderBase(SharedLoadInfo const & info)
 {
 }
 
-void LoaderBase::Init(BufferT data)
+void LoaderBase::Init(TBuffer data)
 {
   m_Data = data;
   m_pF = 0;

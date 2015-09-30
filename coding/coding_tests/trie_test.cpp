@@ -132,7 +132,7 @@ private:
 class Uint32ValueList
 {
 public:
-  using BufferT = vector<uint32_t>;
+  using TBuffer = vector<uint32_t>;
 
   void Append(uint32_t value)
   {
@@ -146,11 +146,11 @@ public:
   template <typename TSink>
   void Dump(TSink & sink) const
   {
-    sink.Write(m_values.data(), m_values.size() * sizeof(BufferT::value_type));
+    sink.Write(m_values.data(), m_values.size() * sizeof(TBuffer::value_type));
   }
 
 private:
-  BufferT m_values;
+  TBuffer m_values;
 };
 
 }  // unnamed namespace

@@ -17,7 +17,7 @@ using namespace feature;
 // FeatureBase implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-void FeatureBase::Deserialize(feature::LoaderBase * pLoader, BufferT buffer)
+void FeatureBase::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
 {
   m_pLoader = pLoader;
   m_pLoader->Init(buffer);
@@ -76,7 +76,7 @@ string FeatureBase::DebugString() const
 // FeatureType implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-void FeatureType::Deserialize(feature::LoaderBase * pLoader, BufferT buffer)
+void FeatureType::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
 {
   base_type::Deserialize(pLoader, buffer);
 

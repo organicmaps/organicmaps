@@ -58,11 +58,11 @@ namespace feature
     virtual ~LoaderBase() {}
 
     // It seems like no need to store a copy of buffer (see FeaturesVector).
-    typedef char const * BufferT;
+    typedef char const * TBuffer;
 
     /// @name Initialize functions.
     //@{
-    void Init(BufferT data);
+    void Init(TBuffer data);
     inline void InitFeature(FeatureType * p) { m_pF = p; }
 
     void ResetGeometry();
@@ -99,7 +99,7 @@ namespace feature
     SharedLoadInfo const & m_Info;
     FeatureType * m_pF;
 
-    BufferT m_Data;
+    TBuffer m_Data;
 
     static uint32_t const m_TypesOffset = 1;
     uint32_t m_CommonOffset, m_Header2Offset;
