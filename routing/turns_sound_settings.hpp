@@ -72,6 +72,8 @@ public:
   inline void SetLengthUnits(LengthUnits units) { m_lengthUnits = units; }
   double ConvertMetersPerSecondToUnitsPerSecond(double speedInMetersPerSecond) const;
   double ConvertUnitsToMeters(double distanceInUnits) const;
+  /// SetNotificationTimeSecond is used for writing unit tests only.
+  void SetNotificationTimeSecond(uint32_t time) { m_timeSeconds = time; }
 };
 
 /// \brief The Notification struct contains all the information about the next sound

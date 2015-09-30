@@ -97,6 +97,7 @@ UNIT_TEST(TurnsSoundMetersTest)
       \"make_a_right_turn\":\"Make a right turn.\"\
       }";
   turnSound.SetLocaleWithJson(engShortJson);
+  turnSound.SetNotificationTimeSecond(20);
 
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(30.);
@@ -179,6 +180,7 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
       \"enter_the_roundabout\":\"Enter the roundabout.\"\
       }";
   turnSound.SetLocaleWithJson(engShortJson);
+  turnSound.SetNotificationTimeSecond(20);
 
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(35.);
@@ -242,6 +244,7 @@ UNIT_TEST(TurnsSoundFeetTest)
       \"enter_the_roundabout\":\"Enter the roundabout.\"\
       }";
   turnSound.SetLocaleWithJson(engShortJson);
+  turnSound.SetNotificationTimeSecond(20);
 
   turnSound.Reset();
   turnSound.SetSpeedMetersPerSecond(30.);
