@@ -199,6 +199,18 @@ namespace
         MercatorBounds::FromLatLon(45.38053, 36.73226), 13110.);
   }
 
+  UNIT_TEST(ParisCrossDestinationInForwardHeapCase)
+  {
+    // Forward
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(49.85015, 2.24296), {0., 0.},
+        MercatorBounds::FromLatLon(48.85860, 2.34784), 126000.);
+    // And backward case
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(48.85860, 2.34784), {0., 0.},
+        MercatorBounds::FromLatLon(49.85015, 2.24296), 126000.);
+  }
+
   UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
   {
     TRouteResult const routeResult = integration::CalculateRoute(

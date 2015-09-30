@@ -27,6 +27,9 @@ struct FeatureGraphNode
   */
   FeatureGraphNode(NodeID const nodeId, bool const isStartNode, string const & mwmName);
 
+  FeatureGraphNode(NodeID const nodeId, NodeID const reverseNodeId, bool const isStartNode,
+                   string const & mwmName);
+
   /// \brief Invalid graph node constructor
   FeatureGraphNode();
 };
