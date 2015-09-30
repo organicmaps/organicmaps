@@ -1028,10 +1028,9 @@ extern "C"
     double azimut = -1.0;
     frm()->GetDistanceAndAzimut(m2::PointD(merX, merY), cLat, cLon, north, distance, azimut);
 
-    jclass daClazz = env->FindClass("com/mapswithme/maps/bookmarks/data/DistanceAndAzimut");
-    ASSERT ( daClazz, () );
-
-    jmethodID methodID = env->GetMethodID(daClazz, "<init>", "(Ljava/lang/String;D)V");
+    static jclass const daClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/DistanceAndAzimut");
+    // Java signature : DistanceAndAzimut(String distance, double azimuth)
+    static jmethodID const methodID = env->GetMethodID(daClazz, "<init>", "(Ljava/lang/String;D)V");
     ASSERT ( methodID, () );
 
     return env->NewObject(daClazz, methodID,
@@ -1066,7 +1065,7 @@ extern "C"
     else
       MeasurementUtils::FormatLatLon(lat, lon, slat, slon, 6);
 
-    jclass klass = env->FindClass("java/lang/String");
+    static jclass const klass = jni::GetGlobalClassRef(env, "java/lang/String");
     jobjectArray arr = env->NewObjectArray(2, klass, 0);
 
     env->SetObjectArrayElement(arr, 0, jni::ToJavaString(env, slat));
@@ -1302,32 +1301,27 @@ extern "C"
     if (!info.IsValid())
       return nullptr;
 
-    static shared_ptr<jobject> klassPtr = jni::make_global_ref(env->FindClass("com/mapswithme/maps/routing/RoutingInfo"));
-    ASSERT(klassPtr, (jni::DescribeException()));
-    jclass const klass = static_cast<jclass>(*klassPtr.get());
-
+    static jclass const klass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/RoutingInfo");
+    // Java signature : RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String currentStreet, String nextStreet,
+    //                              double completionPercent, int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal,
+    //                              double pedestrianDirectionLat, double pedestrianDirectionLon, int exitNum, int totalTime, SingleLaneInfo[] lanes)
     static jmethodID const ctorRouteInfoID =
         env->GetMethodID(klass, "<init>",
-                          "(Ljava/lang/String;Ljava/lang/String;"
-                          "Ljava/lang/String;Ljava/lang/String;"
-                          "Ljava/lang/String;Ljava/lang/String;DIIDDII"
-                          "[Lcom/mapswithme/maps/routing/SingleLaneInfo;)V");
+                         "(Ljava/lang/String;Ljava/lang/String;"
+                         "Ljava/lang/String;Ljava/lang/String;"
+                         "Ljava/lang/String;Ljava/lang/String;DIIIDDII"
+                         "[Lcom/mapswithme/maps/routing/SingleLaneInfo;)V");
     ASSERT(ctorRouteInfoID, (jni::DescribeException()));
 
     vector<location::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
     jobjectArray jLanes = nullptr;
     if (!lanes.empty())
     {
-      // A new java array of SingleLaneInfo classes for lane information is allocated here.
-      // Then it will be saved in com.mapswithme.maps.LocationState, and then removed by java GC.
-      jclass const singleLaneInfoClass =
-          env->FindClass("com/mapswithme/maps/routing/SingleLaneInfo");
-      ASSERT(singleLaneInfoClass, (jni::DescribeException()));
+      static jclass const laneClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/SingleLaneInfo");
       size_t const lanesSize = lanes.size();
-      jLanes = env->NewObjectArray(lanesSize, singleLaneInfoClass, nullptr);
+      jLanes = env->NewObjectArray(lanesSize, laneClass, nullptr);
       ASSERT(jLanes, (jni::DescribeException()));
-      static jmethodID const ctorSingleLaneInfoID =
-          env->GetMethodID(singleLaneInfoClass, "<init>", "([BZ)V");
+      static jmethodID const ctorSingleLaneInfoID = env->GetMethodID(laneClass, "<init>", "([BZ)V");
       ASSERT(ctorSingleLaneInfoID, (jni::DescribeException()));
 
       jbyteArray singleLane = nullptr;
@@ -1339,8 +1333,7 @@ extern "C"
         singleLane = env->NewByteArray(laneSize);
         ASSERT(singleLane, (jni::DescribeException()));
         env->SetByteArrayRegion(singleLane, 0, laneSize, lanes[j].m_lane.data());
-        singleLaneInfo = env->NewObject(singleLaneInfoClass, ctorSingleLaneInfoID, singleLane,
-                                        lanes[j].m_isRecommended);
+        singleLaneInfo = env->NewObject(laneClass, ctorSingleLaneInfoID, singleLane, lanes[j].m_isRecommended);
         ASSERT(singleLaneInfo, (jni::DescribeException()));
         env->SetObjectArrayElement(jLanes, j, singleLaneInfo);
         env->DeleteLocalRef(singleLaneInfo);
@@ -1352,7 +1345,7 @@ extern "C"
         klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),
         jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
         jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_sourceName),
-        jni::ToJavaString(env, info.m_targetName), info.m_completionPercent ,info.m_turn, info.m_pedestrianTurn,
+        jni::ToJavaString(env, info.m_targetName), info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn,
         info.m_pedestrianDirectionPos.lat, info.m_pedestrianDirectionPos.lon, info.m_exitNum, info.m_time, jLanes);
     ASSERT(result, (jni::DescribeException()));
     return result;
@@ -1363,13 +1356,12 @@ extern "C"
   {
     PoiMarkPoint const * poiMark = frm()->GetAddressMark(MercatorBounds::FromLatLon(lat, lon));
 
-    jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/MapObject$Poi");
+    static jclass const klass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/MapObject$Poi");
+    // Java signature : Poi(String name, double lat, double lon, String typeName)
     static jmethodID const methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;DDLjava/lang/String;)V");
 
-    jobject const mapObject = env->NewObject(klass, methodID,
-                                                        jni::ToJavaString(env, poiMark->GetInfo().GetPinName()),
-                                                        lat, lon,
-                                                        jni::ToJavaString(env, poiMark->GetInfo().GetPinType()));
+    jobject const mapObject = env->NewObject(klass, methodID, jni::ToJavaString(env, poiMark->GetInfo().GetPinName()),
+                                             lat, lon, jni::ToJavaString(env, poiMark->GetInfo().GetPinType()));
     ASSERT(mapObject, ());
 
 

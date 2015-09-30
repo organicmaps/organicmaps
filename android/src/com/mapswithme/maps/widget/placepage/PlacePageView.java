@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.location.Location;
 import android.net.Uri;
@@ -223,6 +224,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
       setElevation(UiUtils.dimen(R.dimen.appbar_elevation));
+
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+      mPpDetails.setBackgroundResource(0);
   }
 
   private void init(AttributeSet attrs, int defStyleAttr)

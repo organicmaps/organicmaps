@@ -24,6 +24,7 @@ public class RoutingInfo
   public final double completionPercent;
   // For vehicle routing.
   public final VehicleTurnDirection vehicleTurnDirection;
+  public final VehicleTurnDirection vehicleNextTurnDirection;
   public final int exitNum;
   public final SingleLaneInfo[] lanes;
   // For pedestrian routing.
@@ -35,32 +36,34 @@ public class RoutingInfo
    */
   public enum VehicleTurnDirection
   {
-    NO_TURN(R.drawable.ic_straight_light),
-    GO_STRAIGHT(R.drawable.ic_straight_light),
+    NO_TURN(R.drawable.ic_straight_light, 0),
+    GO_STRAIGHT(R.drawable.ic_straight_light, 0),
 
-    TURN_RIGHT(R.drawable.ic_simple_right_light),
-    TURN_SHARP_RIGHT(R.drawable.ic_sharp_right_light),
-    TURN_SLIGHT_RIGHT(R.drawable.ic_slight_right_light),
+    TURN_RIGHT(R.drawable.ic_simple_right_light, R.drawable.ic_simple_right_then),
+    TURN_SHARP_RIGHT(R.drawable.ic_sharp_right_light, R.drawable.ic_sharp_right_then),
+    TURN_SLIGHT_RIGHT(R.drawable.ic_slight_right_light, R.drawable.ic_slight_right_then),
 
-    TURN_LEFT(R.drawable.ic_simple_right_light),
-    TURN_SHARP_LEFT(R.drawable.ic_sharp_right_light),
-    TURN_SLIGHT_LEFT(R.drawable.ic_slight_right_light),
+    TURN_LEFT(R.drawable.ic_simple_right_light, R.drawable.ic_simple_right_then),
+    TURN_SHARP_LEFT(R.drawable.ic_sharp_right_light, R.drawable.ic_sharp_right_then),
+    TURN_SLIGHT_LEFT(R.drawable.ic_slight_right_light, R.drawable.ic_slight_right_then),
 
-    U_TURN(R.drawable.ic_uturn_light),
-    TAKE_THE_EXIT(R.drawable.ic_finish_point_light),
+    U_TURN(R.drawable.ic_uturn_light, R.drawable.ic_uturn_then),
+    TAKE_THE_EXIT(R.drawable.ic_finish_point_light, 0),
 
-    ENTER_ROUND_ABOUT(R.drawable.ic_round_light),
-    LEAVE_ROUND_ABOUT(R.drawable.ic_round_light),
-    STAY_ON_ROUND_ABOUT(R.drawable.ic_round_light),
+    ENTER_ROUND_ABOUT(R.drawable.ic_round_light, R.drawable.ic_round_then),
+    LEAVE_ROUND_ABOUT(R.drawable.ic_round_light, R.drawable.ic_round_then),
+    STAY_ON_ROUND_ABOUT(R.drawable.ic_round_light, R.drawable.ic_round_then),
 
-    START_AT_THE_END_OF_STREET(0),
-    REACHED_YOUR_DESTINATION(R.drawable.ic_finish_point_light);
+    START_AT_THE_END_OF_STREET(0, 0),
+    REACHED_YOUR_DESTINATION(R.drawable.ic_finish_point_light, 0);
 
-    private int mTurnRes;
+    private final int mTurnRes;
+    private final int mNextTurnRes;
 
-    VehicleTurnDirection(@DrawableRes int resId)
+    VehicleTurnDirection(@DrawableRes int mainResId, @DrawableRes int nextResId)
     {
-      mTurnRes = resId;
+      mTurnRes = mainResId;
+      mNextTurnRes = nextResId;
     }
 
     public void setTurnDrawable(ImageView imageView)
@@ -68,6 +71,22 @@ public class RoutingInfo
       imageView.setImageResource(mTurnRes);
       imageView.setRotation(0.0f);
       imageView.setScaleX(isLeftTurn(this) ? -1 : 1); // right turns are displayed as mirrored left turns.
+    }
+
+    public void setNextTurnDrawable(ImageView imageView)
+    {
+      imageView.setImageResource(mNextTurnRes);
+      imageView.setScaleX(isLeftTurn(this) ? -1 : 1); // right turns are displayed as mirrored left turns.
+    }
+
+    public boolean containsTurn()
+    {
+      return mTurnRes != 0;
+    }
+
+    public boolean containsNextTurn()
+    {
+      return mNextTurnRes != 0;
     }
 
     public static boolean isLeftTurn(VehicleTurnDirection turn)
@@ -119,7 +138,7 @@ public class RoutingInfo
   }
 
   public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String currentStreet, String nextStreet, double completionPercent,
-                     int vehicleTurnOrdinal, int pedestrianTurnOrdinal, double pedestrianDirectionLat, double pedestrianDirectionLon, int exitNum,
+                     int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, double pedestrianDirectionLat, double pedestrianDirectionLon, int exitNum,
                      int totalTime, SingleLaneInfo[] lanes)
   {
     this.distToTarget = distToTarget;
@@ -131,6 +150,7 @@ public class RoutingInfo
     this.totalTimeInSeconds = totalTime;
     this.completionPercent = completionPercent;
     this.vehicleTurnDirection = VehicleTurnDirection.values()[vehicleTurnOrdinal];
+    this.vehicleNextTurnDirection = VehicleTurnDirection.values()[vehicleNextTurnOrdinal];
     this.lanes = lanes;
     this.exitNum = exitNum;
     this.pedestrianTurnDirection = PedestrianTurnDirection.values()[pedestrianTurnOrdinal];

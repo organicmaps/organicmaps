@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -17,20 +17,24 @@
       android:id="@+id/divider_top"
       android:layout_width="match_parent"
       android:layout_height="1px"
+      android:layout_below="@id/tv__message"
       android:background="?android:attr/listDivider"/>
 
   <ExpandableListView
       android:id="@+id/elv__items"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_below="@id/divider_top"
       android:background="@color/base_bg_secondary"
-      android:listSelector="?attr/clickableBackground"/>
+      android:listSelector="?attr/clickableBackground"
+      android:drawSelectorOnTop="true"/>
 
   <View
       android:id="@+id/divider_bottom"
       android:layout_width="match_parent"
       android:layout_height="1px"
+      android:layout_below="@id/elv__items"
       android:background="?android:attr/listDivider"/>
 
-</LinearLayout>
+</RelativeLayout>
 

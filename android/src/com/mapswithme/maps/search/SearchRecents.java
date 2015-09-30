@@ -41,7 +41,6 @@ public final class SearchRecents
 
   public static boolean add(@NonNull String query)
   {
-    query = query.trim();
     if (TextUtils.isEmpty(query) || sRecents.contains(query))
       return false;
 

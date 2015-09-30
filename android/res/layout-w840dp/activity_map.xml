@@ -14,26 +14,28 @@
       android:id="@+id/navigation_buttons"
       layout="@layout/map_navigation_buttons"/>
 
-  <LinearLayout android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/margin_base"
-                android:clipToPadding="false"
-                android:layout_toRightOf="@+id/fragment_container"
-                android:layout_alignWithParentIfMissing="true">
-    <include android:id="@+id/toolbar"
-             layout="@layout/toolbar_with_search"
-             android:layout_width="@dimen/panel_width"
-             android:layout_height="?attr/actionBarSize"
-             android:layout_marginBottom="@dimen/margin_base"
-             android:visibility="gone"
-             tools:visibility="visible"/>
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignWithParentIfMissing="true"
+      android:layout_toRightOf="@+id/fragment_container"
+      android:clipToPadding="false"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_base">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_with_search"
+        android:layout_width="@dimen/panel_width"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <com.mapswithme.maps.widget.RoutingLayout
         android:id="@+id/layout__routing"
         android:layout_width="@dimen/panel_width"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_base"/>
+        android:paddingBottom="@dimen/margin_base"/>
 
     <com.mapswithme.maps.widget.placepage.PlacePageView
         android:id="@+id/info_box"

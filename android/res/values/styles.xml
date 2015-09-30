@@ -112,8 +112,7 @@
 
   <style name="MwmWidget.Floating"/>
 
-  <style name="MwmWidget.Floating.Panel"
-         parent="MwmWidget.Floating">
+  <style name="MwmWidget.Floating.Panel">
     <item name="android:background">@color/bg_top_panels</item>
   </style>
 

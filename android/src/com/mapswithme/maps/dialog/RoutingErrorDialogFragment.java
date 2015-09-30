@@ -10,11 +10,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Pair;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-
 import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
@@ -148,9 +148,14 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     @SuppressLint("InflateParams") final View countryView = getActivity().getLayoutInflater().
         inflate(R.layout.dialog_download_single_item, null);
     ((TextView) countryView.findViewById(R.id.tv__title)).setText(MapStorage.INSTANCE.countryName(index));
-    final String size = StringUtils.getFileSizeString(MapStorage.INSTANCE.countryRemoteSizeInBytes(index, option));
-    UiUtils.setTextAndShow(((TextView) countryView.findViewById(R.id.tv__size)), size);
-    UiUtils.setTextAndShow(((TextView) countryView.findViewById(R.id.tv__message)), message);
+    ((TextView) countryView.findViewById(R.id.tv__message)).setText(message);
+
+    final TextView szView = (TextView) countryView.findViewById(R.id.tv__size);
+    szView.setText(StringUtils.getFileSizeString(MapStorage.INSTANCE.countryRemoteSizeInBytes(index, option)));
+    ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) szView.getLayoutParams();
+    lp.rightMargin = 0;
+    szView.setLayoutParams(lp);
+
     return countryView;
   }
 
@@ -221,7 +226,7 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     return new DisabledChildSimpleExpandableListAdapter(getActivity(),
                                                         groupData,
                                                         R.layout.item_country_group_dialog_expanded,
-                                                        R.layout.item_country_group_dialog,
+                                                        R.layout.item_country_dialog,
                                                         new String[]{GROUP_NAME, GROUP_SIZE},
                                                         new int[]{R.id.tv__title, R.id.tv__size},
                                                         childData,

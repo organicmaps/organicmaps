@@ -3,5 +3,5 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="?colorControlHighlight">
 
-  <item android:drawable="@color/base_light_blue"/>
+  <item android:drawable="@color/base_blue_light"/>
 </ripple>

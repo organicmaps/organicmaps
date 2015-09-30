@@ -295,11 +295,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativeSetRouteProgressListener(this);
     Framework.nativeSetBalloonListener(this);
 
-    processIntent(getIntent());
-
-    mLocationPredictor = new LocationPredictor(new Handler(), this);
     mSearchController = new FloatingSearchToolbarController(this);
-
+    mLocationPredictor = new LocationPredictor(new Handler(), this);
+    processIntent(getIntent());
     SharingHelper.prepare();
   }
 

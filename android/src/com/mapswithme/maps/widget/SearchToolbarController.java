@@ -97,15 +97,14 @@ public class SearchToolbarController extends ToolbarController
 
   public String getQuery()
   {
-    return mQuery.getText().toString().trim();
+    return mQuery.getText().toString();
   }
 
   public void setQuery(CharSequence query)
   {
-    final String text = query.toString().trim();
-    mQuery.setText(text);
-    if (!TextUtils.isEmpty(text))
-      mQuery.selectAll();
+    mQuery.setText(query);
+    if (!TextUtils.isEmpty(query))
+      mQuery.setSelection(query.length());
   }
 
   public void clear()

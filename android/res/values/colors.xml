@@ -25,7 +25,7 @@
   <color name="base_black_hint">#8A000000</color>
   <color name="base_black_divider">#1E000000</color>
   <!-- other colors -->
-  <color name="base_light_blue">#1E96F0</color>
+  <color name="base_blue_light">#1E96F0</color>
   <color name="base_blue">#0569AF</color>
   <color name="base_red">#F54137</color>
   <color name="base_yellow">#FFCD00</color>

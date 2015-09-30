@@ -6,13 +6,13 @@
       android:id="@+id/pp__details"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:background="@color/bg_top_panels"
       android:overScrollMode="never">
     <LinearLayout
         android:id="@+id/rl__place_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/bg_top_panels"
         android:paddingLeft="@dimen/margin_base_plus"
         android:paddingRight="@dimen/margin_base_plus"
         android:paddingTop="@dimen/margin_base">

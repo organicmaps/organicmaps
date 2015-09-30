@@ -30,7 +30,7 @@
       android:layout_below="@id/closed"
       android:gravity="bottom"
       android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:textColor="@color/base_light_blue"
+      android:textColor="@color/base_blue_light"
       tools:text="500 km \u2022 \u2605\u2606\u2606\u2606\u2606"/>
 
   <TextView

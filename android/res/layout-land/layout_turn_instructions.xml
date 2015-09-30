@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/bg_top_panels"
+    android:elevation="@dimen/appbar_elevation"
     android:paddingTop="@dimen/margin_eighth">
 
   <com.mapswithme.maps.widget.FlatProgressView
@@ -67,8 +69,8 @@
       android:id="@+id/tv__total_time"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignTop="@id/tv__turn_distance"
       android:layout_alignParentRight="true"
+      android:layout_alignTop="@id/tv__turn_distance"
       android:layout_marginRight="@dimen/margin_base"
       android:gravity="center_vertical"
       android:textAppearance="@style/MwmTextAppearance.RoutingNumber"
@@ -78,8 +80,8 @@
       android:id="@+id/tv__arrival_time"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@id/tv__total_time"
       android:layout_alignParentRight="true"
+      android:layout_below="@id/tv__total_time"
       android:layout_marginRight="@dimen/margin_base"
       android:layout_marginTop="@dimen/margin_eighth"
       android:gravity="center_vertical"
@@ -90,8 +92,8 @@
       android:id="@+id/tv__total_distance"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_base"
       android:layout_alignTop="@id/tv__arrival_time"
+      android:layout_marginRight="@dimen/margin_base"
       android:layout_toLeftOf="@id/tv__arrival_time"
       android:gravity="center_vertical"
       android:textAppearance="@style/MwmTextAppearance.RoutingNumber"

@@ -21,7 +21,8 @@
       android:id="@+id/layout__routing"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/toolbar"/>
+      android:layout_below="@id/toolbar"
+      android:paddingBottom="@dimen/margin_base"/>
 
   <include
       android:id="@+id/navigation_buttons"
@@ -34,11 +35,12 @@
       android:background="@android:color/black"
       android:visibility="gone"/>
 
-  <include android:id="@+id/menu_frame"
-           layout="@layout/menu"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_alignParentBottom="true"/>
+  <include
+      android:id="@+id/menu_frame"
+      layout="@layout/menu"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"/>
 
   <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
