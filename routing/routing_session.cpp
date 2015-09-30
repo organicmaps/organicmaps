@@ -1,4 +1,6 @@
-#include "routing/routing_session.hpp"
+#include "routing_session.hpp"
+
+#include "speed_camera.hpp"
 
 #include "indexer/mercator.hpp"
 
@@ -33,10 +35,19 @@ double constexpr kSpeedCameraMinimalWarningMeters = 200.;
 double constexpr kSpeedCameraWarningSeconds = 30;
 
 double constexpr kKmhToMps = 1000. / 3600.;
+
+static double constexpr kInvalidSpeedCameraDistance = -1;
 }  // namespace
 
 namespace routing
 {
+struct SpeedCameraRestriction
+{
+  uint32_t m_index;  // Index of a polyline point where camera is located.
+  uint8_t m_maxSpeed;  // Maximum speed allowed by the camera.
+
+  SpeedCameraRestriction(uint32_t index, uint8_t maxSpeed) : m_index(index), m_maxSpeed(maxSpeed) {}
+};
 
 RoutingSession::RoutingSession()
     : m_router(nullptr),
@@ -44,6 +55,7 @@ RoutingSession::RoutingSession()
       m_state(RoutingNotActive),
       m_endPoint(m2::PointD::Zero()),
       m_lastWarnedSpeedCamera(0),
+      m_lastCheckedCamera(0),
       m_speedWarningSignal(false),
       m_passedDistanceOnRouteMeters(0.0)
 {
@@ -132,6 +144,7 @@ void RoutingSession::Reset()
 
   m_passedDistanceOnRouteMeters = 0.0;
   m_lastWarnedSpeedCamera = 0;
+  m_lastCheckedCamera = 0;
   m_speedWarningSignal = false;
 }
 
@@ -176,8 +189,8 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
         double const warningDistanceM = max(kSpeedCameraMinimalWarningMeters,
                                             info.m_speed * kSpeedCameraWarningSeconds);
         SpeedCameraRestriction cam(0, 0);
-        double const camDistance = m_route.GetCurrentCam(cam, index);
-        if (Route::kInvalidSpeedCameraDistance != camDistance && camDistance < warningDistanceM)
+        double const camDistance = GetCurrentCam(cam, index);
+        if (kInvalidSpeedCameraDistance != camDistance && camDistance < warningDistanceM)
         {
           if (cam.m_index > m_lastWarnedSpeedCamera && info.m_speed > cam.m_maxSpeed * kKmhToMps)
           {
@@ -340,6 +353,7 @@ void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)
   route.SetRoutingSettings(m_routingSettings);
   m_route.Swap(route);
   m_lastWarnedSpeedCamera = 0;
+  m_lastCheckedCamera = 0;
 }
 
 void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
@@ -417,5 +431,23 @@ string RoutingSession::GetTurnNotificationsLocale() const
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
   return m_turnsSound.GetLocale();
+}
+
+double RoutingSession::GetCurrentCam(SpeedCameraRestriction & camera, Index const & index)
+{
+  auto const & m_poly = m_route.GetFollowedPolyline();
+  size_t const currentIndex = max(m_poly.GetCurrentIter().m_ind, m_lastCheckedCamera);
+  for (size_t i = currentIndex; i < m_poly.GetPolyline().GetSize(); ++i)
+  {
+    uint8_t speed = CheckCameraInPoint(m_poly.GetPolyline().GetPoint(i), index);
+    if (speed != kNoSpeedCamera)
+    {
+      camera = SpeedCameraRestriction(static_cast<uint32_t>(i), speed);
+      m_lastCheckedCamera = i;
+      return m_poly.GetDistanceM(m_poly.GetCurrentIter(), m_poly.GetIterToIndex(i));
+    }
+  }
+  m_lastCheckedCamera = m_poly.GetPolyline().GetSize();
+  return kInvalidSpeedCameraDistance;
 }
 }  // namespace routing

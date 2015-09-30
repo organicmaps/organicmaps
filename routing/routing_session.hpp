@@ -23,6 +23,8 @@ class RouteMatchingInfo;
 
 namespace routing
 {
+struct SpeedCameraRestriction;
+
 class RoutingSession
 {
 public:
@@ -116,6 +118,10 @@ private:
 
   void AssignRoute(Route & route, IRouter::ResultCode e);
 
+  /// Returns a nearest speed camera record on your way and distance to it.
+  /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.
+  double GetCurrentCam(SpeedCameraRestriction & camera, Index const & index);
+
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RemoveRouteImpl();
@@ -126,6 +132,7 @@ private:
   State m_state;
   m2::PointD m_endPoint;
   size_t m_lastWarnedSpeedCamera;
+  size_t m_lastCheckedCamera;
   // TODO (ldragunov) Rewrite UI interop to message queue and avoid mutable.
   /// This field is mutable because it's modified in a constant getter. Note that the notification
   /// about camera will be sent at most once.

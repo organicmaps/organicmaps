@@ -17,18 +17,8 @@ namespace location
   class RouteMatchingInfo;
 }
 
-class Index;
-
 namespace routing
 {
-
-struct SpeedCameraRestriction
-{
-  uint32_t m_index;  // Index of a polyline point where camera is located.
-  uint8_t m_maxSpeed;  // Maximum speed allowed by the camera.
-
-  SpeedCameraRestriction(uint32_t index, uint8_t maxSpeed) : m_index(index), m_maxSpeed(maxSpeed) {}
-};
 
 class Route
 {
@@ -37,15 +27,12 @@ public:
   typedef pair<uint32_t, double> TTimeItem;
   typedef vector<TTimeItem> TTimes;
 
-  static double constexpr kInvalidSpeedCameraDistance = -1;
-
   explicit Route(string const & router)
     : m_router(router), m_routingSettings(GetCarRoutingSettings()) {}
 
   template <class TIter>
   Route(string const & router, TIter beg, TIter end)
-    : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(beg, end),
-      m_lastCheckedCamera(0)
+    : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(beg, end)
   {
     Update();
   }
@@ -73,6 +60,8 @@ public:
   uint32_t GetTotalTimeSec() const;
   uint32_t GetCurrentTimeToEndSec() const;
 
+  FollowedPolyline const & GetFollowedPolyline() const {return m_poly;}
+
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
   TTurns const & GetTurns() const { return m_turns; }
@@ -89,10 +78,6 @@ public:
   /// \param distanceToTurnMeters is a distance from current position to the nearest turn.
   /// \param turn is information about the nearest turn.
   bool GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
-
-  /// Returns a nearest speed camera record on your way and distance to it.
-  /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.
-  double GetCurrentCam(SpeedCameraRestriction & camera, Index const & index) const;
 
   /// @return true if GetNextTurn() returns a valid result in parameters, false otherwise.
   /// \param distanceToTurnMeters is a distance from current position to the second turn.
@@ -151,7 +136,6 @@ private:
   TTimes m_times;
 
   mutable double m_currentTime;
-  mutable size_t m_lastCheckedCamera;
 };
 
 } // namespace routing

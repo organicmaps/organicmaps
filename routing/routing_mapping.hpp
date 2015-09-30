@@ -3,7 +3,6 @@
 #include "osrm2feature_map.hpp"
 #include "osrm_data_facade.hpp"
 #include "router.hpp"
-#include "speed_camera.hpp"
 
 #include "indexer/index.hpp"
 
