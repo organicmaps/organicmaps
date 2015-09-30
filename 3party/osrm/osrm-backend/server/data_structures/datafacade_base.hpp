@@ -64,7 +64,7 @@ template <class EdgeDataT> class BaseDataFacade
 
     virtual const EdgeDataT &GetEdgeData(const EdgeID e) const = 0;
 
-    virtual EdgeDataT GetEdgeData(const EdgeID e, const NodeID n) = 0;
+    virtual EdgeDataT GetEdgeData(const EdgeID e, const NodeID n) const = 0;
 
     virtual EdgeID BeginEdges(const NodeID n) const = 0;
 

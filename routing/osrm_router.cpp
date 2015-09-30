@@ -62,8 +62,8 @@ class Point2PhantomNode
 
 public:
   Point2PhantomNode(OsrmFtSegMapping const & mapping, Index const * pIndex,
-                    m2::PointD const & direction)
-      : m_direction(direction), m_mapping(mapping), m_pIndex(pIndex)
+                    m2::PointD const & direction, TDataFacade const & facade)
+      : m_direction(direction), m_mapping(mapping), m_pIndex(pIndex), m_dataFacade(facade)
   {
   }
 
@@ -152,8 +152,11 @@ public:
 
   void CalculateOffset(OsrmMappingTypes::FtSeg const & seg, m2::PointD const & segPt, NodeID & nodeId, int & offset, bool forward) const
   {
-    if (nodeId == INVALID_NODE_ID)
+    if (nodeId == INVALID_NODE_ID || m_dataFacade.GetOutDegree(nodeId) == 0)
+    {
+      offset = 0;
       return;
+    }
 
     double distance = 0;
     auto const range = m_mapping.GetSegmentsRange(nodeId);
@@ -221,7 +224,25 @@ public:
     // node.m_seg always forward ordered (m_pointStart < m_pointEnd)
     distance -= MercatorBounds::DistanceOnEarth(ft.GetPoint(forward ? seg.m_pointEnd : seg.m_pointStart), segPt);
 
-    offset = max(static_cast<int>(distance), 1);
+    // Offset measures in decades of seconds. We don't konw about speed restrictions on the road.
+    // So we find it through a whole edge weight.
+    double fullDist = 0.0;
+    for (size_t i = si; i != ei; i += di)
+    {
+      m_mapping.GetSegmentByIndex(i, s);
+      if (!s.IsValid())
+        continue;
+      fullDist += CalculateDistance(s);
+    }
+
+    double const ratio = (fullDist == 0) ? 0 : distance / fullDist;
+
+    auto const beginEdge = m_dataFacade.BeginEdges(nodeId);
+    EdgeWeight minWeight = m_dataFacade.GetEdgeData(beginEdge, nodeId).distance;
+    for (EdgeID i = beginEdge + 1; i != m_dataFacade.EndEdges(nodeId); ++i)
+      minWeight = min(m_dataFacade.GetEdgeData(i, nodeId).distance, minWeight);
+
+    offset = max(static_cast<int>(minWeight * ratio), 1);
   }
 
   void CalculateOffsets(FeatureGraphNode & node) const
@@ -329,6 +350,7 @@ private:
   buffer_vector<Candidate, 128> m_candidates;
   MwmSet::MwmId m_mwmId;
   Index const * m_pIndex;
+  TDataFacade const & m_dataFacade;
 
   DISALLOW_COPY(Point2PhantomNode);
 };
@@ -658,7 +680,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
                                                  TRoutingMappingPtr const & mapping)
 {
   ASSERT(mapping, ());
-  Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction);
+  Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction, mapping->m_dataFacade);
   getter.SetPoint(point);
 
   m_pIndex->ForEachInRectForMWM(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(
