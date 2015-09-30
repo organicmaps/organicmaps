@@ -4,7 +4,7 @@
 
 #include "indexer/map_style_reader.hpp"
 
-#include "coding/lodepng_io.hpp"
+#include "3party/lodepng/lodepng_io.hpp"
 
 namespace gil = boost::gil;
 

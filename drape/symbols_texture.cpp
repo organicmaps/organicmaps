@@ -1,5 +1,5 @@
 #include "drape/symbols_texture.hpp"
-#include "drape/utils/stb_image.h"
+#include "3party/stb_image/stb_image.h"
 
 #include "platform/platform.hpp"
 

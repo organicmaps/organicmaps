@@ -1,4 +1,4 @@
-Copyright 2011-2015 My.com B.V.
+Copyright 2015 My.com B.V. (Mail.Ru Group)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -12,10 +12,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-Most libraries in `3party` directory and in some others are made
-by other people and organizations and licensed in different ways:
-refer to their LICENCE, COPYING or NOTICE files for terms of use.
-See also data/copyright.html file for a full list.
+Most libraries in the following directories made by other people and
+organizations and licensed in different ways:
+* `3party`
+* `android/3rd_party`
+* `iphone/Maps/PushNotifications`
+* `iphone/Maps/Statistics`
+* `tools`
+Please refer to their LICENCE, COPYING or NOTICE files for terms of use.
+See also `data/copyright.html` file for a full list.
 
-All images and media content are Copyright (C) 2011-2015 My.com B.V.,
-published under CC-BY 4.0 license.
+All images and media content are Copyright (C) 2015 My.com B.V. (Mail.Ru Group)

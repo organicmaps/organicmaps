@@ -9,10 +9,10 @@ include($$ROOT_DIR/common.pri)
 INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src $$ROOT_DIR/3party/expat/lib $$ROOT_DIR/3party/freetype/include
 
 SOURCES += \
+    $$ROOT_DIR/3party/agg/agg_curves.cpp \
     software_renderer.cpp \
     gpu_drawer.cpp \
     cpu_drawer.cpp \
-    agg_curves.cpp \
     drawer.cpp \
     feature_info.cpp \
     feature_styler.cpp \

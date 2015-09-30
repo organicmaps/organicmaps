@@ -3535,4 +3535,3 @@ int stbi_write_tga(char const *filename, int x, int y, int comp, void *data)
 #endif // STBI_NO_WRITE
 
 #endif // STBI_HEADER_FILE_ONLY
-

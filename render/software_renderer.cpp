@@ -6,7 +6,7 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/lodepng_io.hpp"
+#include "3party/lodepng/lodepng_io.hpp"
 #include "coding/png_memory_encoder.hpp"
 #include "coding/parse_xml.hpp"
 

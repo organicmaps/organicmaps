@@ -49,7 +49,7 @@ To automatically format a file, install `clang-format` and run:
 
 uint16_t const kBufferSize = 255;
 
-// C-style enum. Do not use these.
+// C-style enums are ALL_CAPS. But remember that C++11 enum classes are preferred.
 enum Type
 {
   TYPE_INTEGER,
@@ -63,31 +63,33 @@ class ComplexClass
 {
 public:
   Complex(double rePart, double imPart) : m_re(rePart), m_im(imPart) {}
-  double Modulus() const { return sqrt(m_re * m_re + m_im * m_im); }
-
+  double Modulus() const
+  {
+    double const rere = m_re * m_re;
+    double const imim = m_im * m_im;
+    return sqrt(rere + imim);
+  }
+  double OneLineMethod() const { return m_re; }
 private:
-  // We use m_ prefix for member variables
+  // We use m_ prefix for member variables.
   double m_re;
   double m_im;
 };
 
 namespace
 {
-
 void CamelCaseFunctionName(int lowerCamelCaseVar)
 {
   static int counter = 0;
   counter += lowerCamelCaseVar;
 }
-
-} // namespace
+}  // namespace
 
 namespace lower_case
 {
-
 template <class TTemplateTypeStartsWithCapitalTLetter>
 void SomeFoo(int a, int b,
-             TTemplateTypeStartsWithCapitalTLetter /* we avoid compilation warnings */)
+             TTemplateTypeStartsWithCapitalTLetter /* We avoid compilation warnings. */)
 {
   for (int i = 0; i < a; ++i)
   {
@@ -99,15 +101,14 @@ void SomeFoo(int a, int b,
     {
       Bar(i);
       Bar(b);
-      // Commented out call
+      // Commented out the call.
       // Bar(c);
     }
   }
 }
+}  // namespace lower_case
 
-} // namespace lower_case
-
-// Switch formatting
+// Switch formatting.
 int Foo(int a)
 {
   switch (a)
@@ -115,23 +116,20 @@ int Foo(int a)
   case 1:
     Bar(1);
     break;
-
   case 2:
   {
     Bar(2);
     break;
   }
-
   case 3:
   default:
     Bar(3);
     break;
   }
-
   return 0;
 }
 
-// if, for, while formatting
+// Loops formatting.
 
 if (condition)
   foo();
@@ -155,8 +153,7 @@ while (true)
     break;
 }
 
-// Space after the keyword
-
+// Space after the keyword.
 if (condition)
 {
 }
@@ -173,7 +170,7 @@ switch (i)
 {
 }
 
-// Space between operators, and don't use space between unary operator and expression
+// Space between operators, and don't use space between unary operator and expression.
 x = 0;
 x = -5;
 ++x;
@@ -185,7 +182,7 @@ if (x && !y)
 v = w * x + y / z;
 v = w * (x + z);
 
-// space after double dash
+// Space after double dash. And full sentences in comments.
 ```
 
 ## Tips and Hints
