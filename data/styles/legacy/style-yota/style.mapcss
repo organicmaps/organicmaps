@@ -1481,7 +1481,7 @@ node|z16[building],
 area|z16[addr:housenumber][addr:street],
 node|z16[addr:housenumber][addr:street]
 {
-  text: "addr:housenumber";
+  text: name;
   font-size: 10;
   text-color: black;
   text-position: center;
@@ -3008,7 +3008,7 @@ node|z17-[building],
 area|z17-[addr:housenumber][addr:street],
 node|z17-[addr:housenumber][addr:street]
 {
-  text: "addr:housenumber";
+  text: name;
   font-size: 11;
   text-color: black;
   text-position: center;
