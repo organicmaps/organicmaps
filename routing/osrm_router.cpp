@@ -160,60 +160,60 @@ public:
 
     double distance = 0;
     auto const range = m_mapping.GetSegmentsRange(nodeId);
-    OsrmMappingTypes::FtSeg s, cSeg;
+    OsrmMappingTypes::FtSeg segment, currentSegment;
 
-    size_t si = forward ? range.second - 1 : range.first;
-    size_t ei = forward ? range.first - 1 : range.second;
-    int di = forward ? -1 : 1;
+    size_t startIndex = forward ? range.second - 1 : range.first;
+    size_t endIndex = forward ? range.first - 1 : range.second;
+    int indexIncrement = forward ? -1 : 1;
 
-    for (size_t i = si; i != ei; i += di)
+    for (size_t i = startIndex; i != endIndex; i += indexIncrement)
     {
-      m_mapping.GetSegmentByIndex(i, s);
-      if (!s.IsValid())
+      m_mapping.GetSegmentByIndex(i, segment);
+      if (!segment.IsValid())
         continue;
 
-      auto s1 = min(s.m_pointStart, s.m_pointEnd);
-      auto e1 = max(s.m_pointEnd, s.m_pointStart);
+      auto segmentLeft = min(segment.m_pointStart, segment.m_pointEnd);
+      auto segmentRight = max(segment.m_pointEnd, segment.m_pointStart);
 
       // seg.m_pointEnd - seg.m_pointStart == 1, so check
       // just a case, when seg is inside s
-      if ((seg.m_pointStart != s1 || seg.m_pointEnd != e1) &&
-          (s1 <= seg.m_pointStart && e1 >= seg.m_pointEnd))
+      if ((seg.m_pointStart != segmentLeft || seg.m_pointEnd != segmentRight) &&
+          (segmentLeft <= seg.m_pointStart && segmentRight >= seg.m_pointEnd))
       {
-        cSeg.m_fid = s.m_fid;
+        currentSegment.m_fid = segment.m_fid;
 
-        if (s.m_pointStart < s.m_pointEnd)
+        if (segment.m_pointStart < segment.m_pointEnd)
         {
           if (forward)
           {
-            cSeg.m_pointEnd = seg.m_pointEnd;
-            cSeg.m_pointStart = s.m_pointStart;
+            currentSegment.m_pointEnd = seg.m_pointEnd;
+            currentSegment.m_pointStart = segment.m_pointStart;
           }
           else
           {
-            cSeg.m_pointStart = seg.m_pointStart;
-            cSeg.m_pointEnd = s.m_pointEnd;
+            currentSegment.m_pointStart = seg.m_pointStart;
+            currentSegment.m_pointEnd = segment.m_pointEnd;
           }
         }
         else
         {
           if (forward)
           {
-            cSeg.m_pointStart = s.m_pointEnd;
-            cSeg.m_pointEnd = seg.m_pointEnd;
+            currentSegment.m_pointStart = segment.m_pointEnd;
+            currentSegment.m_pointEnd = seg.m_pointEnd;
           }
           else
           {
-            cSeg.m_pointEnd = seg.m_pointStart;
-            cSeg.m_pointStart = s.m_pointStart;
+            currentSegment.m_pointEnd = seg.m_pointStart;
+            currentSegment.m_pointStart = segment.m_pointStart;
           }
         }
 
-        distance += CalculateDistance(cSeg);
+        distance += CalculateDistance(currentSegment);
         break;
       }
       else
-        distance += CalculateDistance(s);
+        distance += CalculateDistance(segment);
     }
 
     Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmId);
@@ -227,12 +227,12 @@ public:
     // Offset measures in decades of seconds. We don't konw about speed restrictions on the road.
     // So we find it through a whole edge weight.
     double fullDist = 0.0;
-    for (size_t i = si; i != ei; i += di)
+    for (size_t i = startIndex; i != endIndex; i += indexIncrement)
     {
-      m_mapping.GetSegmentByIndex(i, s);
-      if (!s.IsValid())
+      m_mapping.GetSegmentByIndex(i, segment);
+      if (!segment.IsValid())
         continue;
-      fullDist += CalculateDistance(s);
+      fullDist += CalculateDistance(segment);
     }
 
     double const ratio = (fullDist == 0) ? 0 : distance / fullDist;
@@ -242,7 +242,7 @@ public:
     for (EdgeID i = beginEdge + 1; i != m_dataFacade.EndEdges(nodeId); ++i)
       minWeight = min(m_dataFacade.GetEdgeData(i, nodeId).distance, minWeight);
 
-    offset = max(static_cast<int>(minWeight * ratio), 1);
+    offset = max(static_cast<int>(minWeight * ratio), 0);
   }
 
   void CalculateOffsets(FeatureGraphNode & node) const
