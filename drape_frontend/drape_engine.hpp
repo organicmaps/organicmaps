@@ -80,7 +80,7 @@ public:
   void InvalidateRect(m2::RectD const & rect);
   void UpdateMapStyle();
 
-  void SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded);
+  void SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry);
   void SetInvalidCountryInfo();
   void SetCompassInfo(location::CompassInfo const & info);
   void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo);

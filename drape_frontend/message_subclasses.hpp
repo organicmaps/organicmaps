@@ -305,28 +305,24 @@ class CountryInfoUpdateMessage : public Message
 {
 public:
   CountryInfoUpdateMessage()
-    : m_isValid(false)
+    : m_needShow(false)
   {}
 
-  CountryInfoUpdateMessage(gui::CountryInfo const & info, bool isCurrentCountry,
-                           bool isCountryLoaded)
+  CountryInfoUpdateMessage(gui::CountryInfo const & info, bool isCurrentCountry)
     : m_countryInfo(info)
     , m_isCurrentCountry(isCurrentCountry)
-    , m_isCountryLoaded(isCountryLoaded)
-    , m_isValid(true)
+    , m_needShow(true)
   {}
 
   Type GetType() const override { return Message::CountryInfoUpdate;}
   gui::CountryInfo const & GetCountryInfo() const { return m_countryInfo; }
   bool IsCurrentCountry() const { return m_isCurrentCountry; }
-  bool IsCountryLoaded() const { return m_isCountryLoaded; }
-  bool IsValid() const { return m_isValid; }
+  bool NeedShow() const { return m_needShow; }
 
 private:
   gui::CountryInfo m_countryInfo;
   bool m_isCurrentCountry;
-  bool m_isCountryLoaded;
-  bool m_isValid;
+  bool m_needShow;
 };
 
 class CountryStatusRecacheMessage : public Message

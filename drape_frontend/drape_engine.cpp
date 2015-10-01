@@ -226,10 +226,10 @@ void DrapeEngine::ResizeImpl(int w, int h)
   AddUserEvent(ResizeEvent(w, h));
 }
 
-void DrapeEngine::SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded)
+void DrapeEngine::SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<CountryInfoUpdateMessage>(info, isCurrentCountry, isCountryLoaded),
+                                  make_unique_dp<CountryInfoUpdateMessage>(info, isCurrentCountry),
                                   MessagePriority::Normal);
 }
 
