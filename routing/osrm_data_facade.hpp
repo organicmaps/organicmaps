@@ -88,7 +88,7 @@ public:
     return (m_matrix.select(e) / 2) % GetNumberOfNodes();
   }
 
-  EdgeDataT GetEdgeData(const EdgeID e, NodeID node) override
+  EdgeDataT GetEdgeData(const EdgeID e, NodeID node) const override
   {
     EdgeDataT res;
 

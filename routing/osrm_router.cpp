@@ -62,8 +62,8 @@ class Point2PhantomNode
 
 public:
   Point2PhantomNode(OsrmFtSegMapping const & mapping, Index const * pIndex,
-                    m2::PointD const & direction)
-      : m_direction(direction), m_mapping(mapping), m_pIndex(pIndex)
+                    m2::PointD const & direction, TDataFacade const & facade)
+      : m_direction(direction), m_mapping(mapping), m_pIndex(pIndex), m_dataFacade(facade)
   {
   }
 
@@ -150,67 +150,75 @@ public:
     return distMeters;
   }
 
-  void CalculateOffset(OsrmMappingTypes::FtSeg const & seg, m2::PointD const & segPt, NodeID & nodeId, int & offset, bool forward) const
+  /// Calculates part of a node weight in the OSRM format. Projection point @segPt divides node on
+  /// two parts. So we find weight of a part, set by the @offsetToRight parameter.
+  void CalculateWeight(OsrmMappingTypes::FtSeg const & seg, m2::PointD const & segPt, NodeID & nodeId, int & weight, bool offsetToRight) const
   {
-    if (nodeId == INVALID_NODE_ID)
+    // nodeId can be INVALID_NODE_ID when reverse node is absent. This node has no weight.
+    if (nodeId == INVALID_NODE_ID || m_dataFacade.GetOutDegree(nodeId) == 0)
+    {
+      weight = 0;
       return;
+    }
 
+    // Distance from the node border to the projection point in meters.
     double distance = 0;
     auto const range = m_mapping.GetSegmentsRange(nodeId);
-    OsrmMappingTypes::FtSeg s, cSeg;
+    OsrmMappingTypes::FtSeg segment;
+    OsrmMappingTypes::FtSeg currentSegment;
 
-    size_t si = forward ? range.second - 1 : range.first;
-    size_t ei = forward ? range.first - 1 : range.second;
-    int di = forward ? -1 : 1;
+    size_t startIndex = offsetToRight ? range.second - 1 : range.first;
+    size_t endIndex = offsetToRight ? range.first - 1 : range.second;
+    int indexIncrement = offsetToRight ? -1 : 1;
 
-    for (size_t i = si; i != ei; i += di)
+    for (size_t segmentIndex = startIndex; segmentIndex != endIndex; segmentIndex += indexIncrement)
     {
-      m_mapping.GetSegmentByIndex(i, s);
-      if (!s.IsValid())
+      m_mapping.GetSegmentByIndex(segmentIndex, segment);
+      if (!segment.IsValid())
         continue;
 
-      auto s1 = min(s.m_pointStart, s.m_pointEnd);
-      auto e1 = max(s.m_pointEnd, s.m_pointStart);
+      auto segmentLeft = min(segment.m_pointStart, segment.m_pointEnd);
+      auto segmentRight = max(segment.m_pointEnd, segment.m_pointStart);
 
       // seg.m_pointEnd - seg.m_pointStart == 1, so check
       // just a case, when seg is inside s
-      if ((seg.m_pointStart != s1 || seg.m_pointEnd != e1) &&
-          (s1 <= seg.m_pointStart && e1 >= seg.m_pointEnd))
+      if ((seg.m_pointStart != segmentLeft || seg.m_pointEnd != segmentRight) &&
+          (segmentLeft <= seg.m_pointStart && segmentRight >= seg.m_pointEnd))
       {
-        cSeg.m_fid = s.m_fid;
+        currentSegment.m_fid = segment.m_fid;
 
-        if (s.m_pointStart < s.m_pointEnd)
+        if (segment.m_pointStart < segment.m_pointEnd)
         {
-          if (forward)
+          if (offsetToRight)
           {
-            cSeg.m_pointEnd = seg.m_pointEnd;
-            cSeg.m_pointStart = s.m_pointStart;
+            currentSegment.m_pointEnd = seg.m_pointEnd;
+            currentSegment.m_pointStart = segment.m_pointStart;
           }
           else
           {
-            cSeg.m_pointStart = seg.m_pointStart;
-            cSeg.m_pointEnd = s.m_pointEnd;
+            currentSegment.m_pointStart = seg.m_pointStart;
+            currentSegment.m_pointEnd = segment.m_pointEnd;
           }
         }
         else
         {
-          if (forward)
+          if (offsetToRight)
           {
-            cSeg.m_pointStart = s.m_pointEnd;
-            cSeg.m_pointEnd = seg.m_pointEnd;
+            currentSegment.m_pointStart = segment.m_pointEnd;
+            currentSegment.m_pointEnd = seg.m_pointEnd;
           }
           else
           {
-            cSeg.m_pointEnd = seg.m_pointStart;
-            cSeg.m_pointStart = s.m_pointStart;
+            currentSegment.m_pointEnd = seg.m_pointStart;
+            currentSegment.m_pointStart = segment.m_pointStart;
           }
         }
 
-        distance += CalculateDistance(cSeg);
+        distance += CalculateDistance(currentSegment);
         break;
       }
       else
-        distance += CalculateDistance(s);
+        distance += CalculateDistance(segment);
     }
 
     Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmId);
@@ -219,20 +227,43 @@ public:
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     // node.m_seg always forward ordered (m_pointStart < m_pointEnd)
-    distance -= MercatorBounds::DistanceOnEarth(ft.GetPoint(forward ? seg.m_pointEnd : seg.m_pointStart), segPt);
+    distance -= MercatorBounds::DistanceOnEarth(ft.GetPoint(offsetToRight ? seg.m_pointEnd : seg.m_pointStart), segPt);
 
-    offset = max(static_cast<int>(distance), 1);
+    // Offset is measured in decades of seconds. We don't know about speed restrictions on the road.
+    // So we find it by a whole edge weight.
+
+    // Whole node distance in meters.
+    double fullDistanceM = 0.0;
+    for (size_t segmentIndex = startIndex; segmentIndex != endIndex; segmentIndex += indexIncrement)
+    {
+      m_mapping.GetSegmentByIndex(segmentIndex, segment);
+      if (!segment.IsValid())
+        continue;
+      fullDistanceM += CalculateDistance(segment);
+    }
+
+    ASSERT_GREATER(fullDistanceM, 0, ("No valid segments on the edge."));
+    double const ratio = (fullDistanceM == 0) ? 0 : distance / fullDistanceM;
+
+    auto const beginEdge = m_dataFacade.BeginEdges(nodeId);
+    auto const endEdge = m_dataFacade.EndEdges(nodeId);
+    // Minimal OSRM edge weight in decades of seconds.
+    EdgeWeight minWeight = m_dataFacade.GetEdgeData(beginEdge, nodeId).distance;
+    for (EdgeID i = beginEdge + 1; i != endEdge; ++i)
+      minWeight = min(m_dataFacade.GetEdgeData(i, nodeId).distance, minWeight);
+
+    weight = max(static_cast<int>(minWeight * ratio), 0);
   }
 
   void CalculateOffsets(FeatureGraphNode & node) const
   {
-    CalculateOffset(node.segment, node.segmentPoint, node.node.forward_node_id, node.node.forward_offset, true);
-    CalculateOffset(node.segment, node.segmentPoint, node.node.reverse_node_id, node.node.reverse_offset, false);
+    CalculateWeight(node.segment, node.segmentPoint, node.node.forward_node_id, node.node.forward_weight, true /* offsetToRight */);
+    CalculateWeight(node.segment, node.segmentPoint, node.node.reverse_node_id, node.node.reverse_weight, false /* offsetToRight */);
 
     // need to initialize weights for correct work of PhantomNode::GetForwardWeightPlusOffset
     // and PhantomNode::GetReverseWeightPlusOffset
-    node.node.forward_weight = 0;
-    node.node.reverse_weight = 0;
+    node.node.forward_offset = 0;
+    node.node.reverse_offset = 0;
   }
 
   void MakeResult(TFeatureGraphNodeVec & res, size_t maxCount, string const & mwmName)
@@ -329,6 +360,7 @@ private:
   buffer_vector<Candidate, 128> m_candidates;
   MwmSet::MwmId m_mwmId;
   Index const * m_pIndex;
+  TDataFacade const & m_dataFacade;
 
   DISALLOW_COPY(Point2PhantomNode);
 };
@@ -658,7 +690,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
                                                  TRoutingMappingPtr const & mapping)
 {
   ASSERT(mapping, ());
-  Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction);
+  Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction, mapping->m_dataFacade);
   getter.SetPoint(point);
 
   m_pIndex->ForEachInRectForMWM(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(
