@@ -80,12 +80,12 @@ CONFIG(desktop) {
     SUBDIRS += storage/storage_tests
     SUBDIRS += search/search_tests
     SUBDIRS += map/map_tests map/benchmark_tool map/mwm_tests
+    SUBDIRS += routing/routing_integration_tests
     SUBDIRS += routing/routing_tests
     SUBDIRS += generator/generator_tests
     SUBDIRS += indexer/indexer_tests
     SUBDIRS += graphics/graphics_tests
     SUBDIRS += gui/gui_tests
-    SUBDIRS *= integration_tests
     SUBDIRS += pedestrian_routing_benchmarks
     SUBDIRS += search/search_integration_tests
 
