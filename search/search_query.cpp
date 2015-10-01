@@ -368,13 +368,31 @@ void Query::ForEachCategoryTypes(ToDo toDo) const
     {
       for (int j = 0; j < localesCount; ++j)
         m_pCategories->ForEachTypeByName(arrLocales[j], m_tokens[i], bind<void>(ref(toDo), i, _1));
+
+      ProcessEmojiIfNeeded(m_tokens[i], i, toDo);
     }
 
     if (!m_prefix.empty())
     {
       for (int j = 0; j < localesCount; ++j)
         m_pCategories->ForEachTypeByName(arrLocales[j], m_prefix, bind<void>(ref(toDo), tokensCount, _1));
+
+      ProcessEmojiIfNeeded(m_prefix, tokensCount, toDo);
     }
+  }
+}
+
+template <class ToDo>
+void Query::ProcessEmojiIfNeeded(strings::UniString const & token, size_t ind, ToDo & toDo) const
+{
+  // Special process of 2 codepoints emoji (e.g. black guy on a bike).
+  // Only emoji synonyms can have one codepoint.
+  if (token.size() > 1)
+  {
+    static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
+
+    m_pCategories->ForEachTypeByName(enLocaleCode, strings::UniString(1, token[0]),
+                                     bind<void>(ref(toDo), ind, _1));
   }
 }
 

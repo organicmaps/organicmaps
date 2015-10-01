@@ -129,6 +129,8 @@ private:
 
   int GetCategoryLocales(int8_t (&arr) [3]) const;
   template <class ToDo> void ForEachCategoryTypes(ToDo toDo) const;
+  template <class ToDo> void ProcessEmojiIfNeeded(
+      strings::UniString const & token, size_t ind, ToDo & toDo) const;
 
   using TMWMVector = vector<shared_ptr<MwmInfo>>;
   using TOffsetsVector = map<MwmSet::MwmId, vector<uint32_t>>;
